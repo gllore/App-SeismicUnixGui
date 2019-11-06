@@ -1,0 +1,45 @@
+Differences between the following packages:
+
+whereami: temporarily establish the widget you are in
+  and determine which condition you are using in a namespace 
+  outside that of the main program
+ 
+private_conditions: temporarily establish the widget in a private hash 
+  within the namespace of the main program and hence accessible to all 
+  local methods
+  disable or enable certain widgets
+  keep track of flow index
+
+decisions:
+  Judge conditions for making choices automatically
+  the namespace.
+  
+  Superflows/tools read configuration files and write configuration files
+   using internal libraries, i.e. not Config-Simple
+   configuration parameters are found in arrays and not in hashes as for
+   the outside libraries of Config-Simple
+ 
+ Main: select_superflow
+ 
+       superflow_configs:
+ 
+                 config_superflows: reads variables using readfiles.pm
+ 
+ 		param_widgets sets the variables for tduplicated in a separate namespace too
+ 
+ 
+ How to add variables to the gui for superflows
+ 
+ add new variables in file ~/big_streams/config/Project.config
+ 					and file ./Project.config
+ modify:  package    ~/big_streams/config/Project.pm
+ 				add to hash: 
+ 					_geomaps_is_selected			=> '',
+ 					
+ 			sub     local_change_basic_dirs
+ 				add:
+ 			    	my ($geomaps);
+ 			    	  	$geomaps		= $CFG[17];
+ 			    	  	
+ 			    	  		$Project->{_geomaps_is_selected} = $geomaps;
+ 		

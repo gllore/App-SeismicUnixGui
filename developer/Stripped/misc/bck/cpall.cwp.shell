@@ -1,0 +1,26 @@
+ CPALL , RCPALL - for local and remote directory tree/file transfer
+
+ Usage in cpall.pm and L_SU      
+
+ sourcedir= destinationdir=
+
+ Usage from command line: cpall sourcedir destinationdir 
+ Caveat: destinationdir must exist and be writeable by the user
+
+ Usage in cpall.pm and L_SU
+ sourcedir=  remotemachine=  destinationdir= 
+ 
+ Usage from command line: rcpall sourcedir remotemachine  destinationdir 
+
+ If user name is different on the remote machine, then second"
+ entry is "remotemachine -l remoteusername"
+ 
+ In cpall.pm and through L_SU: If user name is different on the remote machine, then 
+ the values must exist for variables  remotemachine=  remoteusername=
+ 
+ Caveats: rsh, copy, and write permissions required
+         You must be on the source machine,
+	 destinationdir must exist and be writeable by the user.
+
+ Notes: Both of these shell scripts use tar to do the transfer.
+

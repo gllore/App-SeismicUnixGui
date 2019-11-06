@@ -1,0 +1,23 @@
+=head2 Instructions
+
+=cut 
+
+
+=head3  In order to create an su module, from this directory,
+
+ you will need access to the self-instructions of the
+ seismic unix module, which I find in:
+  /usr/local/cwp_su_all_48/src/doc/Stripped
+
+ 1. modify the following:
+
+  sudoc2pm.pl
+
+  by adding a line, such as the following:
+ 	$file_in[0] 				= 'xgraph.Xtcwp.main';
+
+ 2. run the following:
+
+  perl sudoc2pm.pl ( under ~L_SU)
+
+=cut

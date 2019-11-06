@@ -1,0 +1,45 @@
+#! /usr/bin/perl -w
+#
+#
+# GENERAL DIRECTORIES
+$DATA_seismics=        '.';
+####  STDIN INPUTS
+   $file   = <@ARGV[0]>;
+
+#VARIABLE DEFINITIONS
+   $data_in   = $DATA_seismics.'/'.$file;
+   $data_out =  $DATA_seismics.'/datammod';
+#############################################################################
+
+# RUN SYSTEM PROGRAMS BEYOND THIS POINT
+
+################### FOR ESP OCT 5 test
+@words = (" echo 'This program read a SU file, and creates the file: datammod
+which is a binary fortran file containing the SU file with no headers, and that
+can be read by program mmodpg.  It also create the ascii file: parmmod  containing
+basic parameters of the SU file (ntr,ns,dt) also used by mmodpg.
+
+To use it simply use:
+
+premmod SUfile
+
+'");
+    system @words;
+
+######################## ALWAYS OUTPUT PARAMETER AND DATA FILES
+
+system("sustrip < $data_in  ftn=1 > $data_out  head=header &");
+
+$size = `wc -c  $data_in | awk '{print \$1}'`;
+$ns   = `sugethw key=ns output=geom < $data_in | sed 1q`;
+$dt   = `sugethw key=dt output=geom < $data_in | sed 1q`;
+$ntr  = $size/($ns*4+240);
+
+print ("size=$size number of samples=$ns SI=$dt Traces=$ntr \n\n");
+
+open(OUTFILE, '>parmmod');
+printf OUTFILE "%d %d %d\n",$ntr,$ns,$dt;
+close(OUTFILE);
+
+#####       END           #############################
+

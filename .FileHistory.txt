@@ -1,0 +1,11 @@
+/home/gom/Servilleta/seismics/pl/loma_blanca//053018/H/1/gom/a
+/home/gom/Servilleta/seismics/data/loma_blanca//053018/H/1/su/gom/1000_clean.su
+/home/gom/Servilleta/seismics/data/loma_blanca//053018/H/1/su/gom/1000.su
+/home/gom/Servilleta/seismics/data/loma_blanca//053018/H/1/su/gom/1.su
+/home/gom/Servilleta/seismics/data/loma_blanca//053018/H/1/su/gom/1001_clean.su
+/home/gom/Servilleta/seismics/data/loma_blanca//053018/H/1/su/gom/1000_10.su
+/home/gom/Servilleta/seismics/data/loma_blanca//053018/H/1/su/gom/1001.su
+/home/gom/Servilleta/seismics/data/loma_blanca//053018/H/1/su/gom/10.su
+/home/gom/Servilleta/seismics/data/loma_blanca//053018/H/1/su/gom/All_cmp
+/home/gom/Servilleta/seismics/data/loma_blanca//053018/H/1/su/gom/All_cmp.su
+/home/gom/Servilleta/seismics/pl/loma_blanca//053018/H/1/gom/b
