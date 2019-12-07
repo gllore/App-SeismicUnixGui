@@ -831,7 +831,7 @@ sub get_hash_ref {
 		$conditions_gui->{_is_superflow}                          = $is_superflow;                            # for deprecation TODO
 		$conditions_gui->{_is_moveNdrop_in_flow}                  = $is_moveNdrop_in_flow;
 		$conditions_gui->{_is_wipe_plots_button}                  = $is_wipe_plots_button;
-		$conditions_gui->{_last_flow_color}                       = $last_flow_color;
+#		$conditions_gui->{_last_flow_color}                       = $last_flow_color;
 		$conditions_gui->{_last_flow_index_touched_grey}          = $last_flow_index_touched_grey;
 		$conditions_gui->{_last_flow_index_touched_pink}          = $last_flow_index_touched_pink;
 		$conditions_gui->{_last_flow_index_touched_green}         = $last_flow_index_touched_green;
@@ -1322,7 +1322,7 @@ sub set_hash_ref {
 		$is_superflow                          = $hash_ref->{_is_superflow};                            # for deprecation TODO
 		$is_moveNdrop_in_flow                  = $hash_ref->{_is_moveNdrop_in_flow};
 		$is_wipe_plots_button                  = $hash_ref->{_is_wipe_plots_button};
-		$last_flow_color                       = $hash_ref->{_last_flow_color};
+#		$last_flow_color                       = $hash_ref->{_last_flow_color};
 		$last_flow_index_touched_grey          = $hash_ref->{_last_flow_index_touched_grey};
 		$last_flow_index_touched_pink          = $hash_ref->{_last_flow_index_touched_pink};
 		$last_flow_index_touched_green         = $hash_ref->{_last_flow_index_touched_green};

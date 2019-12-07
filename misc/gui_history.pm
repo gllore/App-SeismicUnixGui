@@ -108,6 +108,17 @@ has 'button' => (
 	trigger   => \&_update_button,
 );
 
+has 'flow_color' => (
+	default   => $no_color,
+	is        => 'ro',
+	isa       => 'Str',
+	reader    => 'get_flow_color',
+	writer    => 'set_flow_color',
+	predicate => 'has_flow_ccolor',
+	trigger   => \&_update_flow_color,
+
+);
+
 has 'flow_select_color' => (
 	default   => $no_color,
 	is        => 'ro',
@@ -118,6 +129,8 @@ has 'flow_select_color' => (
 	trigger   => \&_update_flow_select_color,
 
 );
+
+
 
 has 'add2flow_color' => (
 	default   => $no_color,
@@ -314,6 +327,16 @@ my $delete_from_flow_button_click_seq_href = {
 	_prior       => $prior_index_start,
 };
 
+my $flow_color_href = {
+	_item        => $empty_string,
+	_index       => $no_color,
+	_name        => 'flow_color',
+	_most_recent => $no_color,
+	_earliest    => $no_color,
+	_next        => $no_color,
+	_prior       => $no_color,
+};
+
 my $flow_listbox_color_w_href = {
 	_item        => $empty_string,
 	_index       => $empty_string,
@@ -405,9 +428,8 @@ my $parameter_color_on_exit_href = {
 };
 
 my $parameter_index_on_entry_href = {
-	_item  => $empty_string,
-	_index => $index_start,
-	,
+	_item  		=> $empty_string,
+	_index 		=> $index_start,
 	_name        => 'parameter_index_on_entry',
 	_most_recent => $current_index_start,
 	_earliest    => $earliest_index_start,
@@ -845,6 +867,37 @@ sub _initialize {
 	# }
 
 	$gui_history->set_defaults($result);
+	
+# set other 28 defaults	
+( $gui_history->get_defaults() )->{_FileDialog_type_href} = $FileDialog_type_href;
+( $gui_history->get_defaults() )->{_FileDialog_button_click_seq_href} = $FileDialog_button_click_seq_href;
+( $gui_history->get_defaults() )->{_add2flow_button_click_seq_href} = $add2flow_button_click_seq_href;
+( $gui_history->get_defaults() )->{_add2flow_button_color_href} = $add2flow_button_color_href;
+( $gui_history->get_defaults() )->{_button_href} = $button_href;
+( $gui_history->get_defaults() )->{_delete_from_flow_button_click_seq_href} = $delete_from_flow_button_click_seq_href;
+( $gui_history->get_defaults() )->{_flow_listbox_color_w_href} = $flow_listbox_color_w_href;
+( $gui_history->get_defaults() )->{_flow_listbox_color_w_href} = $flow_listbox_color_w_href;
+( $gui_history->get_defaults() )->{_flow_item_down_arrow_button_click_seq_href} = $flow_item_down_arrow_button_click_seq_href;
+( $gui_history->get_defaults() )->{_flow_item_up_arrow_button_click_seq_href} = $flow_item_up_arrow_button_click_seq_href;
+( $gui_history->get_defaults() )->{_flow_select_color_href} = $flow_select_color_href;
+( $gui_history->get_defaults() )->{_flow_select_index_href} = $flow_select_index_href;
+( $gui_history->get_defaults() )->{_flow_select_click_seq_href} = $flow_select_click_seq_href;
+( $gui_history->get_defaults() )->{_flow_type_href} = $flow_type_href;
+( $gui_history->get_defaults() )->{_parameter_color_on_entry_href} = $parameter_color_on_entry_href;
+( $gui_history->get_defaults() )->{_parameter_color_on_exit_href} = $parameter_color_on_exit_href;
+( $gui_history->get_defaults() )->{_parameter_index_on_entry_href} = $parameter_index_on_entry_href;
+( $gui_history->get_defaults() )->{_parameter_index_on_entry_click_seq_href} = $parameter_index_on_entry_click_seq_href;
+( $gui_history->get_defaults() )->{_parameter_index_on_exit_href} = $parameter_index_on_exit_href;
+( $gui_history->get_defaults() )->{_parameter_index_on_exit_click_seq_href} = $parameter_index_on_exit_click_seq_href;
+( $gui_history->get_defaults() )->{_run_button_click_seq_href} = $run_button_click_seq_href;
+( $gui_history->get_defaults() )->{_save_button_click_seq_href} = $save_button_click_seq_href;
+( $gui_history->get_defaults() )->{_save_as_button_click_seq_href} = $save_as_button_click_seq_href;
+( $gui_history->get_defaults() )->{_sunix_prog_group_href} = $sunix_prog_group_href;
+( $gui_history->get_defaults() )->{_sunix_prog_group_click_seq_href} = $sunix_prog_group_click_seq_href;
+( $gui_history->get_defaults() )->{_superflow_select_button_click_seq_href} = $superflow_select_button_click_seq_href;
+( $gui_history->get_defaults() )->{_superflow_tool_href} = $superflow_tool_href;
+( $gui_history->get_defaults() )->{_wipe_plots_button_click_seq_href} = $wipe_plots_button_click_seq_href;
+
 	return ();
 
 }
@@ -906,7 +959,7 @@ sub _set_click_sequence {
 		$property_href->{_prior}    = $property_href->{_most_recent};
 
 		$gui_history->_increment_count();
-		$property_href->{_most_recent} = $gui_history->get_count();
+		$property_href->{_most_recent} = ( $gui_history->get_defaults() )->{_count};
 
 		# print("2 _set_click_sequence;gui_history->{_count} = $gui_history->{_count}\n");
 		# print("22 _set_click_sequence; property_href {_name}= $property_href->{_name}\n");
@@ -989,7 +1042,7 @@ sub _update_FileDialog_type {
 	}
 
 	# update the history of the name usage if the current FileDialog_type
-	my $current_count = $gui_history->get_count();
+	my $current_count = ( $gui_history->get_defaults() )->{_count};
 	if ( $FileDialog_button_click_seq_href->{_most_recent} == $current_count ) {
 
 	}
@@ -1105,25 +1158,25 @@ sub _update_button {
 		}
 		elsif ( $new_most_recent_button eq 'flow_select' ) {
 
-			# my $ans = $gui_history->get_count();
+			# my $ans = ($gui_history->get_defaults())->{_count};
 			# print("1. gui_history, _update_button, for flow_select count=$ans\n");
 
 			my $_flow_listbox_color_w = _get_flow_listbox_color_w($gui_history);
 			my $most_recent_index     = $flow_widgets->get_flow_selection($_flow_listbox_color_w);
 
 			# print("1. gui_history, _update_button, for flow_select most_recent_index=$most_recent_index \n");
-			# print("1. gui_history, _update_button, for _flow_listbox_color_w=$_flow_listbox_color_w \n");
 			
 			# CASE 1: flow listbox is cleared with no highlights
 			if ( not defined $most_recent_index ) {		
 				# no change to indices
 				# increment record sequence as total number of mouse clicks
 				_set_click_sequence( $gui_history, $flow_select_click_seq_href );
+				# print("2. gui_history, _update_button, for _flow_listbox_color_w=$_flow_listbox_color_w \n");
 
 				( $gui_history->get_defaults() )->{_flow_select_click_seq_href} = $flow_select_click_seq_href;
 			}
 			
-			# CASE 2 flow listbox must have been selected
+			# CASE 2 flow listbox must have been selected and highlighted an element
 			elsif ( $most_recent_index ne $empty_string ) {  
 
 				# update the history of flow_select usage according to the index chosen
@@ -1139,7 +1192,7 @@ sub _update_button {
 				( $gui_history->get_defaults() )->{_flow_select_click_seq_href} = $flow_select_click_seq_href;
 
 				# print("gui_history, _update_button, flow_select_click_seq_href= ($gui_history->get_defaults )->{_flow_select_click_seq_href}\n");
-				# print("1. gui_history, _update_button, button matched = $new_most_recent_button\n");
+				# print("3. gui_history, _update_button, button matched = $new_most_recent_button\n");
 
 =pod
 
@@ -1249,7 +1302,7 @@ for the first time, i.e., when no listboxes have been occupied previously
 				#TODO	_set_flow_item_index ($gui_history, $flow_select_item_index_href );
 
 			} else{
-				print(" gui_hiustory, set_buttonfor flow_select, unexpected result \n");			
+				print(" gui_hiustory, set_button for flow_select, unexpected result \n");			
 			}
 
 			return ();
@@ -1370,7 +1423,7 @@ sub _update_add2flow_color {
 	{
 		( $gui_history->get_defaults() )->{_flow_color} = $new_most_recent_color;
 
-		my $current_count = $gui_history->get_count();
+		my $current_count = ( $gui_history->get_defaults() )->{_count};
 
 		if ( defined $add2flow_button_color_href ) {
 
@@ -1381,12 +1434,55 @@ sub _update_add2flow_color {
 
 			( $gui_history->get_defaults )->{_add2flow_button_color_href} = $add2flow_button_color_href;
 
-			# print("1.gui_history,_update_add2flow_color:$new_most_recent_color, new_prior_color=$new_prior_color\n");
+			# print("1.gui_history,_update_add2flow_color, new_most_recent_color:$new_most_recent_color, new_prior_color=$new_prior_color\n");
 		}
 
 	}
 	else {
 		# print("2.gui_history,_update_add2flow_color wrong color \n");
+	}
+
+	# print("gui_history,updated color:$updated_color, old_color=$old_color\n");
+}
+
+=head2 sub _update_flow_color
+Assign new color to private key: _flow_color
+
+flow color can be grey,pink,green or blue
+or 'no_color'
+
+$gui_history = current package
+When there is a color change
+
+=cut
+
+sub _update_flow_color {
+	my ( $gui_history, $new_most_recent_color, $new_prior_color ) = @_;
+
+	( $gui_history->get_defaults() )->{_flow_color} = $new_most_recent_color;
+
+	if ( defined $flow_color_href ) {
+
+		# when color is set as: gui_history->set_flow_color('this color')
+		# update the color history
+		# ony if the current button is flow_select
+		# also update the flow_widget object reference
+			
+			# update the history of flow_select usage according to the color used
+			$flow_color_href->{_earliest}    = $flow_color_href->{_prior};
+			$flow_color_href->{_prior}       = $flow_color_href->{_most_recent};
+			$flow_color_href->{_most_recent} = $new_most_recent_color;
+			# print("1.gui_history,updated flow_color:new prior_color,$flow_color_href->{_prior} \n");
+			# print("2.gui_history,updated flow_color:new_most_recent_color, $new_most_recent_color\n\n");
+			
+			( $gui_history->get_defaults() )->{_flow_color_href} = $flow_color_href;
+			
+			# for backwards compatibility for now// future deprecation?
+			( $gui_history->get_defaults() )->{_flow_color} = $new_most_recent_color;
+
+	}
+	else {
+		print("2.gui_history,_update_flow_color unexpected value \n");
 	}
 
 	# print("gui_history,updated color:$updated_color, old_color=$old_color\n");
@@ -1402,7 +1498,6 @@ $gui_history = current package
 
 When there is a color change
 
-
 =cut
 
 sub _update_flow_select_color {
@@ -1416,7 +1511,7 @@ sub _update_flow_select_color {
 	#	{
 	( $gui_history->get_defaults() )->{_flow_color} = $new_most_recent_color;
 
-	my $current_count = $gui_history->get_count();
+	my $current_count = ( $gui_history->get_defaults() )->{_count};
 
 	if ( defined $flow_select_click_seq_href ) {
 
@@ -1425,17 +1520,19 @@ sub _update_flow_select_color {
 		# ony if the current button is flow_select
 		# also update the flow_widget object reference
 
-		if ( $flow_select_click_seq_href->{_most_recent} == $current_count ) {    # safety
+		# if ( $flow_select_click_seq_href->{_most_recent} == $current_count ) {    # safety
 
 			( $gui_history->get_defaults() )->{_last_color} = $new_most_recent_color;
 
-			# print("2.gui_history,updated color for flow_select:$new_most_recent_color, new_prior_color=$new_prior_color\n");
+			
 
 			# update the history of flow_select usage according to the color used
 			$flow_select_color_href->{_earliest}    = $flow_select_color_href->{_prior};
 			$flow_select_color_href->{_prior}       = $flow_select_color_href->{_most_recent};
 			$flow_select_color_href->{_most_recent} = $new_most_recent_color;
-
+			# print("1.gui_history,updated color for flow_select:new prior_color,$flow_select_color_href->{_prior} \n");
+			# print("2.gui_history,updated color for flow_select:new_most_recent_color, $new_most_recent_color\n\n");
+			
 			( $gui_history->get_defaults() )->{_flow_select_color_href} = $flow_select_color_href;
 
 			# _click_($new_most_recent_color);
@@ -1451,19 +1548,18 @@ sub _update_flow_select_color {
 			$gui_history->{$value2} = $true;
 			$gui_history->{_is_flow_listbox_color_w} = $true;
 
-		}
+		#} else {
+	#		print("flow_select_click_seq_href->{_most_recent}=$flow_select_click_seq_href->{_most_recent} does not equal current_count=$current_count\n"); 
+#		}
 	}
-
-	#	}
-	#	else {
-	#		print("2.gui_history,_update_flow_select_color wrong color \n");
-	#	}
+	else {
+		print("2.gui_history,_update_flow_select_color unexpected value \n");
+	}
 
 	# print("gui_history,updated color:$updated_color, old_color=$old_color\n");
 }
 
 =head2 sub _update_flow_listbox_color_w
-'
 
 $gui_history = current package
 
@@ -1513,7 +1609,7 @@ sub _update_flow_type {
 
 	( $gui_history->get_defaults() )->{_flow_type} = $new_most_recent_flow_type;
 
-	# print("gui_history,updated flow type :$new_most_recent_flow_type\n");
+	# print("1. gui_history,updated flow type :$new_most_recent_flow_type\n");
 
 	if ( defined $flow_type_href ) {
 
@@ -1522,8 +1618,9 @@ sub _update_flow_type {
 		$flow_type_href->{_prior}       = $flow_type_href->{_most_recent};
 		$flow_type_href->{_most_recent} = $new_most_recent_flow_type;
 
-		( $gui_history->get_defaults )->{_flow_type_href} = $flow_type_href;
-
+		( $gui_history->get_defaults() )->{_flow_type_href} = $flow_type_href;
+		my $ans = (( $gui_history->get_defaults() )->{_flow_type_href})->{_most_recent};
+		# print("2. gui_history,updated flow type, new_most_recent_flow_type: $ans \n");
 	}
 	else {
 		print("gui_history, missing flow hash NADA\n");
@@ -1537,12 +1634,11 @@ sub _update_flow_type {
 		( $gui_history->get_defaults() )->{_is_superflow}           = $true;
 	}
 	else {
-		# print("gui_history,updated flow type :unexpected flow type NADA\n");
+		print("3 gui_history,updated flow type :unexpected flow type NADA\n");
 	}
 
+	# print("4 gui_history,updated flow_type:$new_most_recent_flow_type, new_prior_flow_type=$new_prior_flow_type\n\n");
 	return ();
-
-	# print("gui_history,updated flow_type:$new_most_recent_flow_type, new_prior_flow_type=$new_prior_flow_type\n");
 }
 
 =head2 sub _update_parameter_color_on_entry
@@ -2407,8 +2503,9 @@ sub view {
 			if ( ( $gui_history->get_defaults() )->{_flow_type_href} ) {
 
 				# print additional subset: _flow_type_href
-				$key_hash_ref = ( $gui_history->{defaults} )->{_flow_type_href};
-
+				$key_hash_ref = ( $gui_history->get_defaults() )->{_flow_type_href};
+				# my $ans =  (( $gui_history->get_defaults() )->{_flow_type_href})->{_most_recent};
+				# print("gui_history, msot recent flow type = $ans\n");
 				# print("gui_history, view, key_hash_ref = $key_hash_ref \n");
 				foreach my $sub2_key ( sort keys %{$key_hash_ref} ) {
 
@@ -2417,6 +2514,7 @@ sub view {
 
 						# print(" key_hash_ref->{$sub2_key}: $sub2_key= $ans\n");
 						print $fh (" ( (gui_history->{defaults})->{_flow_type_href})->{$sub2_key}: $sub2_key= $ans\n");
+						# print  (" ( (gui_history->{defaults})->{_flow_type_href})->{$sub2_key}: $sub2_key= $ans\n");						
 					}
 					else {
 						print $fh (" ( (gui_history->{defaults})->{_flow_type_href})->{$sub2_key}: $sub2_key= nada\n");
@@ -2729,7 +2827,7 @@ sub view {
 			#			print $fh (" 1.gui_history->{$key} = $gui_history->{$key}\n");
 			#
 			#			# print (" 1.gui_history->{$key} = $gui_history->{$key}\n");
-			#			my $ans = $gui_history->get_count();
+			#			my $ans = ( $gui_history->get_defaults() )->{_count};
 			#			print $fh (" 2.gui_history->get_count() = $ans\n");
 			#			print $fh (" 3.gui_history->get_count() = $gui_history->{_count}\n");
 			#

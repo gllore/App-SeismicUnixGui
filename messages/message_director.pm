@@ -1,15 +1,15 @@
 package message_director;
 
 use Moose;
-use messages::FileDialog_button_messages;
-use messages::FileDialog_close_messages;
-use messages::save_button_messages;
-use messages::flows_messages;
-use messages::iPick_messages;
-use messages::run_button_messages;
-use messages::null_messages;
-use messages::project_selector_messages;
-use messages::superflow_messages;
+use FileDialog_button_messages;
+use FileDialog_close_messages;
+use save_button_messages;
+use flows_messages;
+use iPick_messages;
+use run_button_messages;
+use null_messages;
+use project_selector_messages;
+use superflow_messages;
 
 my $flows             = new flows_messages;
 my $FileDialog_button = new FileDialog_button_messages;

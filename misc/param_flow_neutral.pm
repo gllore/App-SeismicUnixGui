@@ -1418,20 +1418,20 @@ sub view_data {
 	#    $num_progs[4] = scalar  ( @{$param_flow_neutral->{_checkbuttons_aref2}});
 	#    $num_progs[5] = scalar  ( @{$param_flow_neutral->{_prog_names_aref}});
 
-	print( "\n param_flow_neutral,_prog_names @{$param_flow_neutral->{_prog_names_aref}}\n" );
+#	print( "\n param_flow_neutral,_prog_names @{$param_flow_neutral->{_prog_names_aref}}\n" );
 
 	# print("\nparam_flow_neutral,view_data:number of items in list in 4-5 different ways  @num_progs \n");
-	print("param_flow_neutral,view_data:max index = $indices  \n\n");
+#	print("param_flow_neutral,view_data:max index = $indices  \n\n");
 
 	# print("param_flow_neutral,view_data, param_flow_neutral_ has hash=$param_flow_neutral\n ");
 
-	print( "param_flow_neutral,view_data:  prog_names:   @{$param_flow_neutral->{_prog_names_aref}}\n" );
-	for ( my $i = 0; $i <= $indices; $i++ ) {
-		print( "param_flow_neutral,view_data: names:        @{@{$param_flow_neutral->{_names_aref2}}[$i]}\n" );
-		print( "param_flow_neutral,view_data: values:       @{@{$param_flow_neutral->{_values_aref2}}[$i]}\n" );
-
-		#     print("param_flow_neutral,view_data: checkbuttons: @{@{$param_flow_neutral->{_checkbuttons_aref2}}[$i]}\n\n");
-	}
+#	print( "param_flow_neutral,view_data:  prog_names:   @{$param_flow_neutral->{_prog_names_aref}}\n" );
+#	for ( my $i = 0; $i <= $indices; $i++ ) {
+#		print( "param_flow_neutral,view_data: names:        @{@{$param_flow_neutral->{_names_aref2}}[$i]}\n" );
+#		print( "param_flow_neutral,view_data: values:       @{@{$param_flow_neutral->{_values_aref2}}[$i]}\n" );
+#
+#		#     print("param_flow_neutral,view_data: checkbuttons: @{@{$param_flow_neutral->{_checkbuttons_aref2}}[$i]}\n\n");
+#	}
 }
 
 1;

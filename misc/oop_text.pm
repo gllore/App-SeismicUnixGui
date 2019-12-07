@@ -762,12 +762,12 @@ sub set_prog_param_labels_aref {
 
 		N.B. @{$oop_text->{_prog_names_aref}}[$j] contains other programs
 		N.B. ref-array contains: 
-e.g., 	use misc::message;
-		use misc::flow;
+e.g., 	use message;
+		use flow;
 	
 output in the text file should look something like 
-	    use misc::message;
-		use misc::flow;
+	    use message;
+		use flow;
 		use sunix::data::data_in	
 		use sunix::plot::suxwigb
 		
@@ -806,27 +806,31 @@ sub use_pkg {
 		my $prog_name = $unique_progs[$j];
 #		if ( $prog_name ne 'data_in' && $prog_name ne 'data_out' ) {
 
-			use developer;
+# commented out Nov 6 2019 JML
+#			use developer;
+#
+#			my $developer 	= developer->new();
+#			$developer		->set_program_name($prog_name); 
+#
+#			my $perl_category_directory =
+#				$developer->get_program_category($prog_name);
+#				
+#
+#				print $filehandle "\t"
+#				. 'use sunix::' . $perl_category_directory.'::'
+#				. $prog_name . ';' . "\n";
+# replaced by
 
-			my $developer 	= developer->new();
-			$developer		->set_program_name($prog_name); 
+		print $filehandle "\t" . 'use ' . $prog_name . ';' . "\n";
 
-			my $perl_category_directory =
-				$developer->get_program_category($prog_name);
-
-				print $filehandle "\t"
-				. 'use sunix::' . $perl_category_directory.'::'
-				. $prog_name . ';' . "\n";
-
-				# print "\t".'use sunix::'.$perl_category_directory.'::'.$prog_name.';'."\n";
 
 #		}
 #		elsif ( $prog_name ne 'data_in' or $prog_name ne 'data_out' )
 #		{    # added  in V 0.0.2
 #
-#			print $filehandle "\t" . 'use misc::' . $prog_name . ';' . "\n";
+#			print $filehandle "\t" . 'use ' . $prog_name . ';' . "\n";
 #
-#			# print "\t".'use misc::'.$prog_name.';'."\n";
+#			# print "\t".'use '.$prog_name.';'."\n";
 #		}
 #		else {
 #			print("oop_text,use_pkg, missing prog name \n");

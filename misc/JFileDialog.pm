@@ -15,7 +15,7 @@
 
 =head1 NAME
 
-misc::JFileDialog - A highly configurable File Dialog widget for Perl/Tk.  
+JFileDialog - A highly configurable File Dialog widget for Perl/Tk.  
 
 =head1 DESCRIPTION
 
@@ -50,7 +50,7 @@ required.
  #!/usr/local/bin/perl -w
 
  use Tk;
- use misc::JFileDialog;
+ use JFileDialog;
  use strict;
 
  my($main) = MainWindow->new;

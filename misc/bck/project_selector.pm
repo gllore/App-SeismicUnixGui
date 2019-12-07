@@ -126,7 +126,7 @@ package project_selector;
  	my ($self) = @_;
  	
  	use Moose;
- 	use messages::message_director;
+ 	use message_director;
  	use config_superflows;	
  	my $config_superflows 	= config_superflows ->new();
  	my $name 	 			= 'Project';
@@ -269,7 +269,7 @@ For the case that a new project is created:
 	my $user_constants   		= L_SU_local_user_constants->new();
  	
  	# expect messaging
- 	use messages::message_director;
+ 	use message_director;
 	my $message_director 	    = message_director->new();		 			 	
 	my $message_box_w			= _get_message_box_w();
 

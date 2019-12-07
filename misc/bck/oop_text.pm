@@ -58,7 +58,7 @@ use run_flows;
 use use_pkg;
 use L_SU_global_constants;
 
-# 	use misc::pod_tail;
+# 	use pod_tail;
 
 my $get              = new L_SU_global_constants();
 my $declare_data_in  = declare_data_in->new();
@@ -775,13 +775,13 @@ sub set_prog_param_labels_aref {
 
 		N.B. @{$oop_text->{_prog_names_aref}}[$j] contains other programs
 		N.B. ref-array contains: 
-e.g., 	use misc::message;
-		use misc::flow;
+e.g., 	use message;
+		use flow;
 	
 output in the text file should look something like 
-	    use misc::message;
-		use misc::flow;
-		use misc::data_in	
+	    use message;
+		use flow;
+		use data_in	
 		use sunix::suxwigb
 		
 		4-4-19: prevent repetition of programs being output
@@ -836,9 +836,9 @@ sub use_pkg {
 		elsif ( $prog_name ne 'data_in' or $prog_name ne 'data_out' )
 		{    # added  in V 0.0.2
 
-			print $filehandle "\t" . 'use misc::' . $prog_name . ';' . "\n";
+			print $filehandle "\t" . 'use ' . $prog_name . ';' . "\n";
 
-			print "\t".'use misc::'.$prog_name.';'."\n";
+			print "\t".'use '.$prog_name.';'."\n";
 		}
 		else {
 			print("oop_text,use_pkg, missing prog name \n");

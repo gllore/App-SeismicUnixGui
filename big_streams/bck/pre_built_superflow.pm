@@ -36,7 +36,7 @@ my $superflow_sub_ref
 
 # potentially in all packages
 use L_SU_global_constants;
-use messages::message_director;
+use message_director;
 use conditions_gui;
 use whereami;
 use param_widgets;

@@ -35,7 +35,7 @@ our $VERSION = '0.0.3';
 use L_SU_global_constants;
 use Project_config;
 my $Project = new Project_config();
-use misc::oop_text;
+use oop_text;
 
 use SeismicUnix qw ($su $suffix_su);
 
@@ -1120,6 +1120,7 @@ sub _write {
 
     for ( my $i = 0, my $j = 0 ; $i < $length ; $i++, $j = $j + 2 ) {
         printf $fh "    %-35s%1s%-20s\n", $CFG[$j], "= ", $CFG[ ( $j + 1 ) ];
+        # printf "    %-35s%1s%-20s\n", $CFG[$j], "= ", $CFG[ ( $j + 1 ) ];
     }
     close($fh);
 }

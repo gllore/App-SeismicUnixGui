@@ -9,7 +9,7 @@ use Moose;
 my @use;
 
 $use[0] = ' use message;
- use misc::flow;
+ use flow;
  ';
 
 sub section {

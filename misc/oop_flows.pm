@@ -1,6 +1,6 @@
 package oop_flows;
 use Moose;
-use messages::message_director;
+use message_director;
 
 my $L_SU_messages = message_director->new();
 

@@ -304,7 +304,7 @@ sub _add2flow {
 	 	# print("2. color_flow, add2flow_button, _values_w_aref $values_w_aref\n");
 		# print("3. color_flowadd2flow_button: _last_parameter_index_touched $color_flow->{_last_parameter_index_touched_color}\n");
 	       
- 	use messages::message_director;
+ 	use message_director;
  	
 	my $color_flow_messages 	= message_director->new();
   	my $message          		= $color_flow_messages->null_button(0);
@@ -1076,7 +1076,7 @@ sub _perl_flow {
    	
    	# import modules
    	use perl_flow;
-   	use messages::message_director; 
+   	use message_director; 
    	use param_sunix;
    	use control;
    	
@@ -1567,7 +1567,7 @@ sub _stack_versions {
 #			print("color_flow,FileDialog_button,_is_flow_listbox_green_w:	$color_flow->{_is_flow_listbox_green_w} \n");
 			_check4parameter_changes();
 			
-			use messages::message_director;
+			use message_director;
 			my $color_flow_messages 				= message_director->new();
 			
 			$color_flow->{_flow_name_out} 			= file_dialog->get_perl_flow_name_out();
@@ -1772,7 +1772,7 @@ sub add2flow_button {
 	 	# print("2. color_flow, add2flow_button, _values_w_aref $color_flow->{_values_w_aref}\n");
 		# print("3. color_flow add2flow_button: _last_parameter_index_touched_color $color_flow->{_last_parameter_index_touched_color}\n");
 	       
- 	use messages::message_director;
+ 	use message_director;
  	use param_sunix;
  	
  	my $param_sunix        		= param_sunix->new();
@@ -1961,7 +1961,7 @@ sub delete_from_flow_button {
 		
  					# print("2. color_flow,delete_from_flow_button, flow_color: $color_flow->{_flow_color} \n");
  					
-		use messages::message_director;
+		use message_director;
 		use decisions 1.00;
 	
 		my $color_flow_messages = message_director->new();
@@ -2311,7 +2311,7 @@ sub drop {
 		
  		# $conditions_gui->set4start_of_flow_item_down_arrow_button($color_flow);
  		
-		use messages::message_director;
+		use message_director;
 		use decisions 1.00;
 	
 		my $color_flow_messages 	    = message_director->new();
@@ -2426,7 +2426,7 @@ sub flow_item_up_arrow_button {
 		
  		# $conditions_gui->set4start_of_flow_item_up_arrow_button($color_flow);
  		
-		use messages::message_director;
+		use message_director;
 		use decisions 1.00;
 	
 		my $color_flow_messages 	    = message_director->new();
@@ -2579,7 +2579,7 @@ sub flow_item_up_arrow_button {
 	my ($self) = @_;
 	
 	# print("2. color_flow, flow_select,flow color: $color_flow->{_flow_color} = flow_color $flow_color \n");
-	use messages::message_director;
+	use message_director;
 	use decisions;
 
  	# print("4. color_flow,flow_select,_prog_name_sref: ${$color_flow->{_prog_name_sref}} \n");	

@@ -18,7 +18,7 @@ $use[4] =
 $use[5] = "\t"
 	. 'my $DATA_SEISMIC_BIN' . "\t"
 	. '= $Project->DATA_SEISMIC_BIN;' . "\n\n";
-$use[6] = "\t" . 'use misc::message;' . "\n" . "\t" . 'use misc::flow;' . "\n";
+$use[6] = "\t" . 'use message;' . "\n" . "\t" . 'use flow;' . "\n";
 
 sub section {
 	return ( \@use );

@@ -255,7 +255,7 @@ sub GEOPSY_REPORTS {
   
  
  
- Question: How do I add individual parameters to the GUI for a single specific superflow, 
+ Question: How do I add individual parameters to the GUI for a single specific pre-built stream, 
 Example 2: parameter "purpose" in "iPick".  One parameter value can be "geopsy"
 
  (1) add new variable in
@@ -853,21 +853,21 @@ Q. How does LSU_project_selector create new Proejct directories?
 	
 	In 6 different situations:	
 	
-	1. param_widgets_grey-> redisplay_values-> issues changes which in turn call
-							local_update_check_button_setting : for the index of the parameter that was just left
-	                         param_widgets_grey-> local_update_check_button_setting : for the index of the new parameter line that has just been clicked
+	1. param_widgets_grey.pm 
+		redisplay_values: issue changes which in turn call
+		local_update_check_button_setting : for the index of the parameter that was just left
+	    local_update_check_button_setting : for the index of the new parameter line that has just been clicked
 	
 	2. When grey_flow->File Dialog calls  _check4parameter_changes
 	
 	3. via flow_select ( after parsing a perl file via grey_flow->perl_parse->_flow_select)
 	
-	i.e., Only after flow_select_button click changes to Entry widget parameter values will be noticed
+	i.e., Only after flow_select_button click makes changes to Entry widget will new parameter values be noticed
            
 	4. When the user switches from one program to the next in a flow (flow_select)
 			i.e. whenever a user selects a program from a list of items in a colored flow ListBox
 			
 	5. When a user goes to Save the current flow ( just in case the check button has not yet been set to new changes)  TODO
-	
 	
 	6. When a user goes to save the current flow under a name and employs 'SaveAs' ( just in case the check button has not yet been set to new changes)  TODO
 	
@@ -1774,7 +1774,7 @@ $itemp_num_points $itemp_picks_sorted_ $itemp_picks_sorted_par_ $ipicks_par_ $ip
    gui_history will try to incorporate user gui responses
    
    Where are flow selection indices highlighted?
-   In add2flow_button and_add2flow, highlighting occurs
+   In add2flow_button and _add2flow, highlighting occurs
     inside gui_history, conditions_gui: 
    
            gui_history->set4end_of_add2flow
@@ -1788,10 +1788,11 @@ $itemp_num_points $itemp_picks_sorted_ $itemp_picks_sorted_par_ $ipicks_par_ $ip
    		
  In color_flows, how are stored flows updated?
  
- The following uses _update_pior_param_flow :		
-  flow_select
+Q Who uses _update_prior_param_flow :
+ 		
+  	flow_select updates the prior param flow
  
- The following use _update_most_recent_param_flow2:
+Q. Who uses the following:_update_most_recent_param_flow2:
  
 		_add2flow (used only when reading a perl file)
 		_perl_flow (used only when reading a perl file)
@@ -1799,21 +1800,113 @@ $itemp_num_points $itemp_picks_sorted_ $itemp_picks_sorted_par_ $ipicks_par_ $ip
 		add2flow_button
  		flow_item_down_arrow_button
 		flow_item_up_arrow_button
+		flow_select2update_most_recent_flow
+		flow_select
 
 		
- The following use _update_most_recent_param_flow:
- 
+Q Who uses the following: _update_most_recent_param_flow:
+ 	(updates the most recent param flow)
+ 	
  	FileDialog_button
  	_FileDialog_button
+ 	save_button 
  	
- The following use both  _update_most_recent_param_flow and 
- _update_pior_param_flow:
+ 	
+ 1. Where and how many times is set_flow_select_color?
  
- 	save_button
-
+ Once:
+ for 
+ 	add2flow_button, delete_from_flow_button, 
+  	flow_item_down_arrow_button
+	flow_item_up_arrow_button
+	
+in Main: $gui_history.pm->set_flow_select_color($color);
  
-
-   		
-
+  	What happens when flow_select is picked:
+ 1 times:
+  for the simple:  flow_select
  
+ Main.pm:
+ 1--$gui_history.pm->set_flow_select_color($color);
+ 
+		L_SU
+			user_built_flow,
+			$color_flow->flow_select_director
+					_flow_select2update_most_recent_flow();
+			
+			color_flow
+					_flow_select2update_most_recent_flow
+  		
+ In all the following subs set_flow_select($color) is run: 		
+ 		pkg color_flow
+ 			sub _flow_select_director 
+ 			sub flow_select2update_most_recent_flow
+ 			sub _flow_select2update_most_recent_flow 
+ 			sub delete_from_flow_button
+ 			sub flow_select
+ 			sub save_button
+ 		
+ 	
+Q. Who uses _flow_select2update_most_recent_flow via
+_flow_select_director:			
+			add2flow_button
+			_add2flow
+			_perl_flow
+
+
+Q. Who uses _flow_select2update_most_recent_flow via
+	L_SU->flow_select_director:	
+	
+		color_flow
+			add2flow_button
+			flow_item_down_arrow_button
+			flow_item_up_arrow_button
+			flow_select
+			
+			
+flow_select uses
+			L_SU
+				user_built_flows
+				
+					color_flow
+						flow_select
+							_update_prior_param_flow
+			L_SU														
+					color_flow
+						flow_select_director
+						_flow_select2update_most_recent_flow
+						_update_most_recent_param_flow2
+						
+save_button uses
+			color_flow
+				_update_most_recent_param_flow	
+				
+			
+add2flow_button uses	
+ 			L_SU
+				user_built_flows
+					color_flow
+						add2flow_button			
+					color_flow 
+						flow_select_director
+						_flow_select2update_most_recent_flow2
+						_update_most_recent_param_flow2		
+						
+delete_from_flow_button
+flow_item_down_arrow_button
+flow_item_up_arrow_button
+ 			L_SU
+				user_built_flows
+					color_flow		
+						flow_select_director
+						_flow_select2update_most_recent_flow	
+						_update_most_recent_param_flow2
+			
+
+How does Entry widget work?						
+Entry widgets first validate the text entrries BEFORE updating the text
+value.  That is that text validation occurs without updating the new entry.
+After the text is validated (returns 1) then the text is updated in the widget.
+Text validation occurs in param_widgets_color. pm in the method _changes
+					
    		 	

@@ -740,7 +740,7 @@ sub _stack_versions {
 			$neutral_flow->{_last_parameter_index_touched_color} = $file_dialog->get_last_parameter_index_touched_color();
 			_check4parameter_changes();
 			
-			use messages::message_director;
+			use message_director;
 			my $neutral_flow_messages 				= message_director->new();
 			
 			$neutral_flow->{_flow_name_out} 		= file_dialog->get_perl_flow_name_out();
@@ -1033,7 +1033,7 @@ sub sunix_select {
    	$neutral_flow->{_flow_type} = $flow_type->{_user_built}; # should be at start of neutral_flow
    	 		 # print("neutral_flow, sunix_select,parameter_values_frame: $parameter_values_frame\n"); 	
    	  	
-   	use messages::message_director; 
+   	use message_director; 
    	use param_sunix;
    	  	
 	my $neutral_flow_messages 	    = message_director->new();

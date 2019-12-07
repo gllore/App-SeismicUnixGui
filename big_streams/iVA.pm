@@ -390,7 +390,7 @@ sub start {
     cdp_num( $iVA->{_cdp_first} );
     cdp_num_suffix( $iVA->{_cdp_first} );
 
-    #print("cdp_num_suffix is $iVA->{_cdp_num_suffix}\n\n");
+    print("cdp_num_suffix is $iVA->{_cdp_num_suffix}\n\n");
     message('first_velan');
     $iVA->{_number_of_tries} = 0;
     semblance();

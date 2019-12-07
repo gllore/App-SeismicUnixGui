@@ -58,7 +58,7 @@ package run_button;
 	# potentially used in all packages
 	use L_SU_global_constants;
 	use name;
-	use messages::message_director;
+	use message_director;
 	# use control;
 	use whereami;
 	
@@ -715,7 +715,7 @@ Run can be of 2 types
 #
 # 	use save;
 #	use files_LSU;
-#	use messages::message_director;
+#	use message_director;
 #	
 #		# for 2.built_in_flow.pm ONLY run_button superflow_select check_code_button
 #	use config_superflows;	
@@ -785,7 +785,7 @@ Run can be of 2 types
 ## 	
 ## 	use save;
 ##	use files_LSU;
-##	use messages::message_director;
+##	use message_director;
 ##	
 ##	# use whereami;
 ##	

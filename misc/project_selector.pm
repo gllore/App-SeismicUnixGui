@@ -123,7 +123,7 @@ sub _create_new {
 	my ($self) = @_;
 
 	use Moose;
-	use messages::message_director;
+	use message_director;
 	use config_superflows;
 	my $config_superflows = config_superflows->new();
 	my $name              = 'Project';
@@ -271,7 +271,7 @@ sub _ok {
 	my $get				= L_SU_global_constants->new();
 	
 	# expect messaging
-	use messages::message_director;
+	use message_director;
 	my $message_director = message_director->new();
 	my $message_box_w    = _get_message_box_w();
 	my $global_libs      = $get->global_libs();	

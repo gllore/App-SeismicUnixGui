@@ -30,24 +30,23 @@ package param_widgets_pink;
 
 =cut
 
+use Moose;
+our $VERSION = '1.0.1';
+use Tk;
+use L_SU_global_constants;
+use check_buttons;
+my $check_buttons = new check_buttons();
 
- 	use Moose;
- 	our $VERSION = '1.0.1';
- 	use Tk;
- 	use L_SU_global_constants;
-  	use check_buttons;
-  	my $check_buttons = new check_buttons();
+my $get                 = new L_SU_global_constants();
+my $default_param_specs = $get->param();
+my $var                 = $get->var();
+my $on                  = $var->{_on};
+my $off                 = $var->{_off};
+my $nu                  = $var->{_nu};
+my $no                  = $var->{_no};
+my $empty_string        = $var->{_empty_string};
 
- 	my $get  	          		= new L_SU_global_constants();
- 	my $default_param_specs  	= $get->param();
- 	my $var						= $get->var();
- 	my $on         				= $var->{_on};
- 	my $off        				= $var->{_off};
- 	my $nu         				= $var->{_nu};
- 	my $no						= $var->{_no};
- 	my $empty_string    		= $var->{_empty_string};
- 	
-					# print("param_widgets_pink, default_param_specs,first entry num=$default_param_specs->{_first_entry_num}\n");
+# print("param_widgets_pink, default_param_specs,first entry num=$default_param_specs->{_first_entry_num}\n");
 
 =head2 private hash references
 
@@ -55,46 +54,47 @@ package param_widgets_pink;
 
 =cut
 
-  my $param_widgets_pink = {
+my $param_widgets_pink = {
 
-    _changed_entry				 => 0,
+    _changed_entry               => 0,
     _check_buttons_settings_aref => '',
-    _check_buttons_frame_href 	 => '',
-    _check_buttons_w_aref 	 	 => '',
+    _check_buttons_frame_href    => '',
+    _check_buttons_w_aref        => '',
     _current_program_name        => '',
-    _entry_button_chosen_index 	=> '',
-    _entry_button_chosen_widget => '',
-    _location_in_gui 			=> '',
-    _first_idx 			 		=> $default_param_specs->{_first_entry_idx},
-    _index  			 		=> '', # for current program in a listbox
-	_is_delete_from_flow_button => '',
-	_is_flow_listbox_grey_w     => '',
-	_is_flow_listbox_pink_w     => '',
-	_is_flow_listbox_green_w    => '',
-	_is_flow_listbox_blue_w     => '',
-	_is_flow_listbox_color_w    => '',
+    _entry_button_chosen_index   => '',
+    _entry_button_chosen_widget  => '',
+    _location_in_gui             => '',
+    _first_idx                   => $default_param_specs->{_first_entry_idx},
+    _index                      => '',    # for current program in a listbox
+    _is_delete_from_flow_button => '',
+    _is_flow_listbox_grey_w     => '',
+    _is_flow_listbox_pink_w     => '',
+    _is_flow_listbox_green_w    => '',
+    _is_flow_listbox_blue_w     => '',
+    _is_flow_listbox_color_w    => '',
     _is_moveNdrop_in_flow       => '',
-	_is_new_listbox_selection 	=> '',
-	_is_sunix_listbox 			=> '',
-	_is_superflow_select_button => '',
-    _labels_aref     		 	=> '',  
-    _labels_frame_href 		 	=> '',
-    _labels_w_aref     		 	=> '',  
-	#_last_changed_program_index => '',
-	_last_changed_entry_index 	=> '',
-	_last                       => '',
-    _length  			 		=> $default_param_specs->{_length},
-    _prog_name					=> '',
-    _prog_name_sref				=> '',
-    _values_aref     		 	=> '',  
-    _values_frame_href 		 	=> '',
-    _values_w_aref     		 	=> '',  
+    _is_new_listbox_selection   => '',
+    _is_sunix_listbox           => '',
+    _is_superflow_select_button => '',
+    _labels_aref                => '',
+    _labels_frame_href          => '',
+    _labels_w_aref              => '',
 
- };
+    #_last_changed_program_index => '',
+    _last_changed_entry_index => '',
+    _last                     => '',
+    _length                   => $default_param_specs->{_length},
+    _prog_name                => '',
+    _prog_name_sref           => '',
+    _values_aref              => '',
+    _values_frame_href        => '',
+    _values_w_aref            => '',
 
- my $true  = 1;
- my $false = 0;
- 
+};
+
+my $true  = 1;
+my $false = 0;
+
 =head2 sub _reset
 
 	private reset of "condition" variables
@@ -103,25 +103,25 @@ package param_widgets_pink;
 =cut
 
 sub _reset {
-	my ($self) = @_;
-	
-		$param_widgets_pink->{_is_flow_listbox_grey_w} 		= $false;
-		$param_widgets_pink->{_is_flow_listbox_pink_w} 		= $false;
-		$param_widgets_pink->{_is_flow_listbox_green_w} 	= $false;
-		$param_widgets_pink->{_is_flow_listbox_blue_w} 		= $false;
-		$param_widgets_pink->{_is_flow_listbox_color_w} 	= $false;
-		$param_widgets_pink->{_is_add2flow} 				= $false; # needed? double confirmation?		
-		$param_widgets_pink->{_is_add2flow_button} 			= $false; # needed? double confirmation?
-		$param_widgets_pink->{_is_delete_from_flow_button} 	= $false;
-		$param_widgets_pink->{_is_new_listbox_selection} 	= $false;
-		$param_widgets_pink->{_is_superflow_select_button}	= $false;
-		$param_widgets_pink->{_is_delete_from_flow_button} 	= $false;
-		$param_widgets_pink->{_is_moveNdrop_in_flow      }	= $false;
-		$param_widgets_pink->{_is_sunix_listbox} 			= $false;
-	
-	return();
-}
+    my ($self) = @_;
 
+    $param_widgets_pink->{_is_flow_listbox_grey_w}  = $false;
+    $param_widgets_pink->{_is_flow_listbox_pink_w}  = $false;
+    $param_widgets_pink->{_is_flow_listbox_green_w} = $false;
+    $param_widgets_pink->{_is_flow_listbox_blue_w}  = $false;
+    $param_widgets_pink->{_is_flow_listbox_color_w} = $false;
+    $param_widgets_pink->{_is_add2flow} = $false; # needed? double confirmation?
+    $param_widgets_pink->{_is_add2flow_button} =
+      $false;                                     # needed? double confirmation?
+    $param_widgets_pink->{_is_delete_from_flow_button} = $false;
+    $param_widgets_pink->{_is_new_listbox_selection}   = $false;
+    $param_widgets_pink->{_is_superflow_select_button} = $false;
+    $param_widgets_pink->{_is_delete_from_flow_button} = $false;
+    $param_widgets_pink->{_is_moveNdrop_in_flow}       = $false;
+    $param_widgets_pink->{_is_sunix_listbox}           = $false;
+
+    return ();
+}
 
 =head2 _changes
 
@@ -146,43 +146,45 @@ sub _reset {
 =cut
 
 sub _changes {
-   	my ($index) 	= @_;
-	my $idx 		= $index; # individual parameter line
-	use control;
-	my $control 	= new control;
-	
-	# two cases possible
-	# in general L_SU
-	if ($param_widgets_pink->{_current_program_name} ) {
-		my $prog_name 	= $param_widgets_pink->{_current_program_name};
-		
-		# print(" param_widgets_pink, changes, prog_name: $prog_name \n");
-		# print(" param_widgets_pink, changes, index: $idx \n");
-			
-		my $max_idx 	=  $control->get_max_index($prog_name);
-		
-		# print(" param_widgets_pink,max_index, $max_idx \n");
-		if ($idx >= 0 &&   $idx <= $control->get_max_index($prog_name) ) {  # cautious, index must be reasonable
-		
-			local_set_entry_change_status($true);
-    		my $changed_entry = $param_widgets_pink->{_changed_entry}; #always
-    		
-			# print("param_widgets_pink,changes,changed 1-yes 0 -no? $changed_entry\n");
-			local_update_check_button_setting($idx);
-       				# local_set_last_changed_entry_index($idx);
-		}
-		
-		return($true); 			# for Entry widget to say there is no error 
-		
-	# second case is when we are using project_selector 
-	# project_selector does not yet have a max_index defined in a separate module
-	} else {  		
-			return($true); 			# for Entry widget to say there is no error 
-	}
+    my ($index) = @_;
+    my $idx = $index;    # individual parameter line
+    use control;
+    my $control = new control;
 
-} 
+    # two cases possible
+    # in general L_SU
+    if ( $param_widgets_pink->{_current_program_name} ) {
+        my $prog_name = $param_widgets_pink->{_current_program_name};
 
- 
+        # print(" param_widgets_pink, changes, prog_name: $prog_name \n");
+        # print(" param_widgets_pink, changes, index: $idx \n");
+
+        my $max_idx = $control->get_max_index($prog_name);
+
+        # print(" param_widgets_pink,max_index, $max_idx \n");
+        if ( $idx >= 0 && $idx <= $control->get_max_index($prog_name) )
+        {    # cautious, index must be reasonable
+
+            local_set_entry_change_status($true);
+            my $changed_entry = $param_widgets_pink->{_changed_entry};   #always
+
+    # print("param_widgets_pink,changes,changed 1-yes 0 -no? $changed_entry\n");
+            local_update_check_button_setting($idx);
+
+            # local_set_last_changed_entry_index($idx);
+        }
+
+        return ($true);    # for Entry widget to say there is no error
+
+   # second case is when we are using project_selector
+   # project_selector does not yet have a max_index defined in a separate module
+    }
+    else {
+        return ($true);    # for Entry widget to say there is no error
+    }
+
+}
+
 =head2 sub error_check
 
  When entry values are in error 
@@ -190,126 +192,128 @@ sub _changes {
 =cut
 
 sub error_check {
- my ($self) = @_;
- print("param_widgets_pink,error_check return is $true\n");
- return($true);
+    my ($self) = @_;
+    print("param_widgets_pink,error_check return is $true\n");
+    return ($true);
 }
 
- 
 =head2 sub get_check_buttons_w_aref
 
 
 =cut
 
 sub get_check_buttons_w_aref {
-	my ($self) = @_;
-	
-	if ( $param_widgets_pink->{_check_buttons_w_aref} ) {
-		
-		my $check_buttons_w_aref = $param_widgets_pink->{_check_buttons_w_aref};
-		return($check_buttons_w_aref );
-		
-	} else {	
-		print("param_widgets_pink, get_check_buttons_w_aref, missing check_buttons_w_aref \n");
-		return();
-	}
+    my ($self) = @_;
+
+    if ( $param_widgets_pink->{_check_buttons_w_aref} ) {
+
+        my $check_buttons_w_aref = $param_widgets_pink->{_check_buttons_w_aref};
+        return ($check_buttons_w_aref);
+
+    }
+    else {
+        print(
+"param_widgets_pink, get_check_buttons_w_aref, missing check_buttons_w_aref \n"
+        );
+        return ();
+    }
 }
-
-
 
 =head2 sub 
 
 =cut
 
- sub get_current_program {
+sub get_current_program {
 
- 	my ($self,$widget_ref) 	= @_;
- 	my @selection_index   	= $$widget_ref->curselection();
- 	my $prog_name  			= $$widget_ref->get($selection_index[0]);
-     	# print("param_widgets_pink get_current_program: $prog_name,index:$selection_index[0] \n");
- 	return(\$prog_name);
- }
+    my ( $self, $widget_ref ) = @_;
+    my @selection_index = $$widget_ref->curselection();
+    my $prog_name       = $$widget_ref->get( $selection_index[0] );
+
+# print("param_widgets_pink get_current_program: $prog_name,index:$selection_index[0] \n");
+    return ( \$prog_name );
+}
 
 =head2 sub get_entry_change_status
 
 =cut
 
-sub get_entry_change_status{
-	my @self = @_;
+sub get_entry_change_status {
+    my @self   = @_;
     my $status = $param_widgets_pink->{_changed_entry};
-      # print("param_widgets_pink, get_entry_change_status,changed_entry: $param_widgets_pink->{_changed_entry}\n");
-    return($status);
- }
 
+# print("param_widgets_pink, get_entry_change_status,changed_entry: $param_widgets_pink->{_changed_entry}\n");
+    return ($status);
+}
 
 =head2 sub get_labels_w_aref
 
 =cut
 
 sub get_labels_w_aref {
-	my ($self) = @_;
-	
-	if ($param_widgets_pink->{_labels_w_aref} ) {
-		
-		my $labels_w_aref = $param_widgets_pink->{_labels_w_aref};
-		return($labels_w_aref );
-		
-	} else {	
-		print("param_widgets_pink,get_labels_w_aref, missing labels_w_aref \n");
-		return();
-	}
-}
+    my ($self) = @_;
 
+    if ( $param_widgets_pink->{_labels_w_aref} ) {
+
+        my $labels_w_aref = $param_widgets_pink->{_labels_w_aref};
+        return ($labels_w_aref);
+
+    }
+    else {
+        print("param_widgets_pink,get_labels_w_aref, missing labels_w_aref \n");
+        return ();
+    }
+}
 
 =head2 sub get_length_check_buttons_on
 
 =cut
 
- sub get_length_check_buttons_on {
- 	my ($self) = @_;
- 	my ($length,$count);
- 	my $check_buttons_aref 	= _get_check_buttons_aref();
- 	     # print("param_widgets_pink,get_length_check_buttons_on, @$check_buttons_aref)\n");
- 	my @button_settings		= @$check_buttons_aref;
- 	$length 				= scalar @button_settings;
- 	
- 	for (my $i=0, $count=0; $i < $length; $i++) {
- 		if ( $button_settings[$i]) { 
- 			if ($button_settings[$i] eq 'on') {
- 				 			$count++;
- 			}
- 		}
- 	}
- 	
- 	$length = $count;
- 	return($length);
- }
+sub get_length_check_buttons_on {
+    my ($self) = @_;
+    my ( $length, $count );
+    my $check_buttons_aref = _get_check_buttons_aref();
+
+# print("param_widgets_pink,get_length_check_buttons_on, @$check_buttons_aref)\n");
+    my @button_settings = @$check_buttons_aref;
+    $length = scalar @button_settings;
+
+    for ( my $i = 0, $count = 0 ; $i < $length ; $i++ ) {
+        if ( $button_settings[$i] ) {
+            if ( $button_settings[$i] eq 'on' ) {
+                $count++;
+            }
+        }
+    }
+
+    $length = $count;
+    return ($length);
+}
 
 =head2 sub get_index_check_buttons_on
 
 =cut
 
- sub get_index_check_buttons_on {
- 	my ($self) = @_;
- 	my ($length,$count);
- 	my $check_buttons_aref 	= _get_check_buttons_aref();
- 	     # print("param_widgets_pink,get_length_check_buttons_on, @$check_buttons_aref)\n");
- 	my @button_settings		= @$check_buttons_aref;
- 	$length 				= scalar @button_settings;
- 	my @saved_index_on;
- 	my $j=0;
- 	for (my $i=0, $count=0; $i < $length; $i++) {
- 		if ( $button_settings[$i]) { 
- 			if ($button_settings[$i] eq 'on') {
- 				$saved_index_on[$j]		= $i;
- 				$j++;
- 			}
- 		}
- 	}
- 	
- 	return(\@saved_index_on);
- }
+sub get_index_check_buttons_on {
+    my ($self) = @_;
+    my ( $length, $count );
+    my $check_buttons_aref = _get_check_buttons_aref();
 
+# print("param_widgets_pink,get_length_check_buttons_on, @$check_buttons_aref)\n");
+    my @button_settings = @$check_buttons_aref;
+    $length = scalar @button_settings;
+    my @saved_index_on;
+    my $j = 0;
+    for ( my $i = 0, $count = 0 ; $i < $length ; $i++ ) {
+        if ( $button_settings[$i] ) {
+            if ( $button_settings[$i] eq 'on' ) {
+                $saved_index_on[$j] = $i;
+                $j++;
+            }
+        }
+    }
+
+    return ( \@saved_index_on );
+}
 
 =head2 get_values_w_aref
 
@@ -318,34 +322,35 @@ sub get_labels_w_aref {
 =cut
 
 sub get_values_w_aref {
-	my ($self) = @_;
-	
-	if ($param_widgets_pink->{_values_w_aref} ) {
-		
-		my $values_w_aref = $param_widgets_pink->{_values_w_aref};
-		return($values_w_aref );
-		
-	} else {	
-		print("param_widgets_pink,get_values_w_aref, missing values_w_aref \n");
-		return();
-	}
+    my ($self) = @_;
+
+    if ( $param_widgets_pink->{_values_w_aref} ) {
+
+        my $values_w_aref = $param_widgets_pink->{_values_w_aref};
+        return ($values_w_aref);
+
+    }
+    else {
+        print("param_widgets_pink,get_values_w_aref, missing values_w_aref \n");
+        return ();
+    }
 }
 
+sub gui_clean {
+    my ($self) = @_;
 
-sub gui_clean{
-	my ($self) = @_;
+    use wipe;
+    my $wipe = new wipe();
 
-	use wipe;
- 	my $wipe = new wipe();
- 			# print("param_widgets_pink, gui_clean, _values_w_aref, $param_widgets_pink->{_values_w_aref} \n");
- 			# print("param_widgets_pink, gui_clean, _labels_w_aref, $param_widgets_pink->{_labels_w_aref} \n");
-	$wipe->range($param_widgets_pink);
-	$wipe->values();
-	$wipe->labels();
-	$wipe->check_buttons();
+# print("param_widgets_pink, gui_clean, _values_w_aref, $param_widgets_pink->{_values_w_aref} \n");
+# print("param_widgets_pink, gui_clean, _labels_w_aref, $param_widgets_pink->{_labels_w_aref} \n");
+    $wipe->range($param_widgets_pink);
+    $wipe->values();
+    $wipe->labels();
+    $wipe->check_buttons();
 
- 	return();
-};
+    return ();
+}
 
 =head2 sub gui_full_clear
 
@@ -353,36 +358,37 @@ clear the gui completely of 61 parameter values
 
 =cut
 
-sub gui_full_clear{
-	my ($self) = @_;
+sub gui_full_clear {
+    my ($self) = @_;
 
-	use wipe;
-	
- 	my $wipe = new wipe();
- 	
- 	$param_widgets_pink->{_length} = $default_param_specs->{_length};
- 	
- 			# print("param_widgets_pink, gui_full_clear, length $param_widgets_pink->{_length} \n");
- 			# print("param_widgets_pink, gui_clean, _values_w_aref, $param_widgets_pink->{_values_w_aref} \n");
- 			# print("param_widgets_pink, gui_clean, _labels_w_aref, $param_widgets_pink->{_labels_w_aref} \n");
-	$wipe->range($param_widgets_pink);
-	$wipe->values();
-	$wipe->labels();
-	$wipe->check_buttons();
+    use wipe;
 
- 	return();
-};
+    my $wipe = new wipe();
+
+    $param_widgets_pink->{_length} = $default_param_specs->{_length};
+
+# print("param_widgets_pink, gui_full_clear, length $param_widgets_pink->{_length} \n");
+# print("param_widgets_pink, gui_clean, _values_w_aref, $param_widgets_pink->{_values_w_aref} \n");
+# print("param_widgets_pink, gui_clean, _labels_w_aref, $param_widgets_pink->{_labels_w_aref} \n");
+    $wipe->range($param_widgets_pink);
+    $wipe->values();
+    $wipe->labels();
+    $wipe->check_buttons();
+
+    return ();
+}
 
 =head2 sub  local_set_entry_change_status
 
 =cut
 
-sub local_set_entry_change_status{
-	my ($ans) = @_;
+sub local_set_entry_change_status {
+    my ($ans) = @_;
     $param_widgets_pink->{_changed_entry} = $ans;
-	 # print("param_widgets_pink,local_set_entry_change_status,changed_entry,is: success \n");
-	
-    return();
+
+# print("param_widgets_pink,local_set_entry_change_status,changed_entry,is: success \n");
+
+    return ();
 }
 
 =head2 sub local_update_check_button_setting
@@ -394,110 +400,141 @@ sub local_set_entry_change_status{
 
 =cut
 
- sub local_update_check_button_setting {
-	my ($index) 	= @_;  
-	my $idx			= $index;
-   	my @values 		= @{$param_widgets_pink->{_values_aref}};
-	my (@on_off);
+sub local_update_check_button_setting {
+    my ($index) = @_;
+    my $idx     = $index;
+    my @values  = @{ $param_widgets_pink->{_values_aref} };
+    my (@on_off);
 
-	# apparently empty cases	   		   
-	# equal to 0 or 0.0 or empty or undefined		   
-	if ( !($values[$idx]) ) {
-		
-		# if value is defined and initialized
-		if (defined ($values[$idx]) )	 {
-			
-			if ($values[$idx] eq '0' ) {
-		
-		    	$on_off[$idx]     = $on;
-		    	# print("1.20 param_widgets_pink,,local_update_check_button_setting index: $idx , value:$values[$idx] or '0' \n");
-		    
-			} elsif ($values[$idx] eq '0.0' ) {
-		
-		    	$on_off[$idx]     = $on;
-    			# print("1.21 param_widgets_pink,local_update_check_button_setting, ndex: $idx , value:$values[$idx] or 0.0 \n");				
-			 
-			} elsif ($values[$idx] eq '0' ) {
-		
-		    	$on_off[$idx]     = $on;
-		    	# print("1.22 param_widgets_pink,,local_update_check_button_setting index: $idx , value:$values[$idx] or '0' \n");
-		    
-			} elsif ($values[$idx] eq '0.0' ) {
-		
-		    	$on_off[$idx]     = $on;
-    			# print("1.23 param_widgets_pink,local_update_check_button_setting, ndex: $idx , value:$values[$idx] or 0.0 \n");
-    					    
-  			} else {
-  			
-  				# print("1.24 param_widgets_pink,local_update_check_button_setting; empty value,  :index $idx value: $values[$idx]\n");
-				$on_off[$idx]     = $off;			
-  			}		    
-  					    
-  		} else {
-  			
-  			# print("param_widgets_pink,local_update_check_button_setting; unexpected cases\n");
-			$on_off[$idx]     = $off; 			
-  		}
-  	
-  	# apparently non-empty cases
-	} elsif ( $values[$idx] ) {
-		
-		if ( $values[$idx] eq "0" ) {
-    	    	
-			$on_off[$idx]     = $on;
-    		# print("1.11.23 1 param_widgets_pink,local_update_check_button_setting, index: $idx value: $values[$idx]\n");
-    		
-		} elsif ($values[$idx] eq '0.0' ) {
-		
-		    $on_off[$idx]     = $on;
-    		# print("1.12 param_widgets_pink,local_update_check_button_setting, ndex: $idx , value:$values[$idx] or 0.0 \n");		
-		    		       		
-    	} elsif ($values[$idx] eq "") {
-    			
-      		$on_off[$idx]     = $off;
-      		# print("1.13 param_widgets_pink,local_update_check_button_setting, \"\" \n"); 
-      		 	  	     		  		
-    	} elsif  ($values[$idx] eq ''){
-  			
-  			# print("1.14 param_widgets_pink,local_update_check_button_setting, \'\' \n");
-    	    $on_off[$idx]     = $off;
-    	    
-    	} elsif( $values[$idx] eq "'nu'" ) {
-			
-    		$on_off[$idx]     = $off;
-     		# print("1. param_widgets_pink,local_update_check_button_setting, \"\'nu\'\"  \n"); 
-     				  	   
-    	} elsif ($values[$idx] eq $nu ) {
-    		$on_off[$idx]     = $off;
-     		# print("1.15 param_widgets_pink,local_update_check_button_setting, \$nu \n"); 
-      		
-		} elsif ($values[$idx] eq $no ) {
-      		$on_off[$idx]     = $off;
-      		print("2. param_widgets_pink,local_update_check_button_setting, \$no \n");
-      		 
-		} elsif ($values[$idx] eq "'0'" ) {
-      		$on_off[$idx]     = $on;
-      		# print("2.1 param_widgets_pink,local_update_check_button_setting, \"\'0\'\" \n");
-      		 	    		    				    		 	    		    				
-    	} else {   		
-      		# print("3.1 param_widgets_pink,local_update_check_button_setting, all else\n");
-    		$on_off[$idx]     = $on;
-		}
-		 	          
-    } else {   		
-    	print("param-widgets,local_update_check_button_setting, apparently unconsidered case\n"); # weird TODO
+    # apparently empty cases
+    # equal to 0 or 0.0 or empty or undefined
+    if ( !( $values[$idx] ) ) {
+
+        # if value is defined and initialized
+        if ( defined( $values[$idx] ) ) {
+
+            if ( $values[$idx] eq '0' ) {
+
+                $on_off[$idx] = $on;
+
+# print("1.20 param_widgets_pink,,local_update_check_button_setting index: $idx , value:$values[$idx] or '0' \n");
+
+            }
+            elsif ( $values[$idx] eq '0.0' ) {
+
+                $on_off[$idx] = $on;
+
+# print("1.21 param_widgets_pink,local_update_check_button_setting, ndex: $idx , value:$values[$idx] or 0.0 \n");
+
+            }
+            elsif ( $values[$idx] eq '0' ) {
+
+                $on_off[$idx] = $on;
+
+# print("1.22 param_widgets_pink,,local_update_check_button_setting index: $idx , value:$values[$idx] or '0' \n");
+
+            }
+            elsif ( $values[$idx] eq '0.0' ) {
+
+                $on_off[$idx] = $on;
+
+# print("1.23 param_widgets_pink,local_update_check_button_setting, ndex: $idx , value:$values[$idx] or 0.0 \n");
+
+            }
+            else {
+
+# print("1.24 param_widgets_pink,local_update_check_button_setting; empty value,  :index $idx value: $values[$idx]\n");
+                $on_off[$idx] = $off;
+            }
+
+        }
+        else {
+
+# print("param_widgets_pink,local_update_check_button_setting; unexpected cases\n");
+            $on_off[$idx] = $off;
+        }
+
+        # apparently non-empty cases
+    }
+    elsif ( $values[$idx] ) {
+
+        if ( $values[$idx] eq "0" ) {
+
+            $on_off[$idx] = $on;
+
+# print("1.11.23 1 param_widgets_pink,local_update_check_button_setting, index: $idx value: $values[$idx]\n");
+
+        }
+        elsif ( $values[$idx] eq '0.0' ) {
+
+            $on_off[$idx] = $on;
+
+# print("1.12 param_widgets_pink,local_update_check_button_setting, ndex: $idx , value:$values[$idx] or 0.0 \n");
+
+        }
+        elsif ( $values[$idx] eq "" ) {
+
+            $on_off[$idx] = $off;
+
+  # print("1.13 param_widgets_pink,local_update_check_button_setting, \"\" \n");
+
+        }
+        elsif ( $values[$idx] eq '' ) {
+
+  # print("1.14 param_widgets_pink,local_update_check_button_setting, \'\' \n");
+            $on_off[$idx] = $off;
+
+        }
+        elsif ( $values[$idx] eq "'nu'" ) {
+
+            $on_off[$idx] = $off;
+
+# print("1. param_widgets_pink,local_update_check_button_setting, \"\'nu\'\"  \n");
+
+        }
+        elsif ( $values[$idx] eq $nu ) {
+            $on_off[$idx] = $off;
+
+  # print("1.15 param_widgets_pink,local_update_check_button_setting, \$nu \n");
+
+        }
+        elsif ( $values[$idx] eq $no ) {
+            $on_off[$idx] = $off;
+            print(
+"2. param_widgets_pink,local_update_check_button_setting, \$no \n"
+            );
+
+        }
+        elsif ( $values[$idx] eq "'0'" ) {
+            $on_off[$idx] = $on;
+
+# print("2.1 param_widgets_pink,local_update_check_button_setting, \"\'0\'\" \n");
+
+        }
+        else {
+# print("3.1 param_widgets_pink,local_update_check_button_setting, all else\n");
+            $on_off[$idx] = $on;
+        }
+
+    }
+    else {
+        print(
+"param-widgets,local_update_check_button_setting, apparently unconsidered case\n"
+        );    # weird TODO
     }
 
-   	$check_buttons	->set_index($idx);
-    $check_buttons	->set_switch(\@on_off);
+    $check_buttons->set_index($idx);
+    $check_buttons->set_switch( \@on_off );
 
-	# update a single change in private hash
-    @{$param_widgets_pink->{_check_buttons_settings_aref}}[$idx] = $on_off[$idx];
-    # print("param_widgets_pink: local_update_check_button_setting :index $idx setting is: $on_off[$idx]\n");
-    # print("param_widgets_pink: update_check_buttons_settings_aref @{$param_widgets_pink->{_check_buttons_settings_aref}}\n");
+    # update a single change in private hash
+    @{ $param_widgets_pink->{_check_buttons_settings_aref} }[$idx] =
+      $on_off[$idx];
 
-    return();
-  }
+# print("param_widgets_pink: local_update_check_button_setting :index $idx setting is: $on_off[$idx]\n");
+# print("param_widgets_pink: update_check_buttons_settings_aref @{$param_widgets_pink->{_check_buttons_settings_aref}}\n");
+
+    return ();
+}
 
 #=head2 sub get_last_changed_program_index
 #
@@ -513,29 +550,29 @@ sub local_set_entry_change_status{
 
 =cut
 
-sub local_set_last_changed_entry_index{
-	my ($self) = @_;
+sub local_set_last_changed_entry_index {
+    my ($self) = @_;
     $param_widgets_pink->{_last_changed_entry_index} = $self;
-    			  # print("param_widgets_pink,local_set_last_changed_entry_index:  $param_widgets_pink->{_last_changed_entry_index} \n");
-    return();
+
+# print("param_widgets_pink,local_set_last_changed_entry_index:  $param_widgets_pink->{_last_changed_entry_index} \n");
+    return ();
 }
-
-
 
 =head2 sub set_check_buttons
  a widget reference
 
 =cut
 
-sub  set_check_buttons {
- my ($self,$check_buttons_settings_aref) = @_;
- if ($check_buttons_settings_aref) {
-   $param_widgets_pink->{_check_buttons_settings_aref} = $check_buttons_settings_aref;
-			# print("param_widgets_pink,set_check_buttons, settings are @{$param_widgets_pink->{_check_buttons_settings_aref}}\n"); 
- }
- return();
-}
+sub set_check_buttons {
+    my ( $self, $check_buttons_settings_aref ) = @_;
+    if ($check_buttons_settings_aref) {
+        $param_widgets_pink->{_check_buttons_settings_aref} =
+          $check_buttons_settings_aref;
 
+# print("param_widgets_pink,set_check_buttons, settings are @{$param_widgets_pink->{_check_buttons_settings_aref}}\n");
+    }
+    return ();
+}
 
 =head2 sub get_current_widget_name
 
@@ -557,33 +594,33 @@ sub  set_check_buttons {
               $var->{_tool}
 =cut
 
-
- sub  get_current_widget_name{
-    my ($self,$widget_ref) = @_;
-    my @fields         = split (/\./,$widget_ref->PathName());    
-    my $widget_name    = $fields[-1];
-    return($widget_name);
- }
-
-
+sub get_current_widget_name {
+    my ( $self, $widget_ref ) = @_;
+    my @fields = split( /\./, $widget_ref->PathName() );
+    my $widget_name = $fields[-1];
+    return ($widget_name);
+}
 
 =head2 sub get_check_buttons_aref
 
 =cut
 
- sub get_check_buttons_aref {
-	my ($self) = @_;
-    my $check_buttons_settings_aref = \@{$param_widgets_pink->{_check_buttons_settings_aref}};
-    my $check_buttons_aref          = $check_buttons_settings_aref;
-  	 			  		# print("param_widgets_pink,get_check_buttons_aref: @{$param_widgets_pink->{_check_buttons_settings_aref}}\n");
-  	return($check_buttons_aref);
- }
+sub get_check_buttons_aref {
+    my ($self) = @_;
+    my $check_buttons_settings_aref =
+      \@{ $param_widgets_pink->{_check_buttons_settings_aref} };
+    my $check_buttons_aref = $check_buttons_settings_aref;
+
+# print("param_widgets_pink,get_check_buttons_aref: @{$param_widgets_pink->{_check_buttons_settings_aref}}\n");
+    return ($check_buttons_aref);
+}
 
 sub set_entry_button_chosen_index {
 
-    my ($self,$index) = @_;
+    my ( $self, $index ) = @_;
     $param_widgets_pink->{_entry_button_chosen_index} = $index;
-         # print (" param_widgets_pink,set_entry_button_chosen_index, #$index \n");
+
+    # print (" param_widgets_pink,set_entry_button_chosen_index, #$index \n");
 
 }
 
@@ -591,20 +628,22 @@ sub set_entry_button_chosen_index {
 
 =cut
 
- sub _get_check_buttons_aref {
-	my ($self) = @_;
-    my $check_buttons_settings_aref = \@{$param_widgets_pink->{_check_buttons_settings_aref}};
-    my $check_buttons_aref          = $check_buttons_settings_aref;
-  	 			  		#print("param_widgets_pink,get_check_buttons_aref: @{$param_widgets_pink->{_check_buttons_settings_aref}}\n");
-  	return($check_buttons_aref);
- }
- 
+sub _get_check_buttons_aref {
+    my ($self) = @_;
+    my $check_buttons_settings_aref =
+      \@{ $param_widgets_pink->{_check_buttons_settings_aref} };
+    my $check_buttons_aref = $check_buttons_settings_aref;
+
+#print("param_widgets_pink,get_check_buttons_aref: @{$param_widgets_pink->{_check_buttons_settings_aref}}\n");
+    return ($check_buttons_aref);
+}
 
 sub set_entry_button_chosen_widget {
 
-    my ($self,$widget_h) = @_;
+    my ( $self, $widget_h ) = @_;
     $param_widgets_pink->{_entry_button_chosen_widget} = $widget_h;
-         # print (" param_widgets_pink,set_entry_button_chosen_widget, #$widget_h \n");
+
+  # print (" param_widgets_pink,set_entry_button_chosen_widget, #$widget_h \n");
 
 }
 
@@ -617,29 +656,30 @@ sub get_entry_button_chosen_index {
 
     my ($self) = @_;
     my $index;
-					# first and last indices
-    my $first 			= $param_widgets_pink->{_first_idx};
-	my $length          = $param_widgets_pink->{_length};
 
+    # first and last indices
+    my $first  = $param_widgets_pink->{_first_idx};
+    my $length = $param_widgets_pink->{_length};
 
-	 				  # print("param_widget,get_entry_button_chosen_index,first_index=$param_widgets_pink->{_first_idx}\n");
-	 				  # print("param_widget,get_entry_button_chosen_index,length_=$param_widgets_pink->{_length} \n");
+# print("param_widget,get_entry_button_chosen_index,first_index=$param_widgets_pink->{_first_idx}\n");
+# print("param_widget,get_entry_button_chosen_index,length_=$param_widgets_pink->{_length} \n");
 
     my $widget = $param_widgets_pink->{_entry_button_chosen_widget};
-					 # print("param_widget,get_entry_button_chosen_index,widget,=$widget\n");
 
-    for (my $choice = $first;  $choice < $length; $choice++) {  
-        if ($widget eq @{$param_widgets_pink->{_values_w_aref}}[$choice]) {
+    # print("param_widget,get_entry_button_chosen_index,widget,=$widget\n");
 
-   			$param_widgets_pink->{_entry_button_chosen_index} = $choice;
-          			 # print (" param_widgets_pink,get_entry_button_chosen_index, #$choice \n");
-			$index = $choice;
-     	} 
-	}
+    for ( my $choice = $first ; $choice < $length ; $choice++ ) {
+        if ( $widget eq @{ $param_widgets_pink->{_values_w_aref} }[$choice] ) {
 
-	return($index);
+            $param_widgets_pink->{_entry_button_chosen_index} = $choice;
+
+     # print (" param_widgets_pink,get_entry_button_chosen_index, #$choice \n");
+            $index = $choice;
+        }
+    }
+
+    return ($index);
 }
-
 
 =head2 sub get_label4entry_button_chosen
 
@@ -652,33 +692,36 @@ sub get_entry_button_chosen_index {
 =cut
 
 sub get_label4entry_button_chosen {
-    my ($self) 			= @_;
+    my ($self) = @_;
     my $label;
 
-					# first and last indices
-    my $first 			= $param_widgets_pink->{_first_idx};
-	my $length          = $param_widgets_pink->{_length};
+    # first and last indices
+    my $first  = $param_widgets_pink->{_first_idx};
+    my $length = $param_widgets_pink->{_length};
 
-	 				 # print("param_widget,get_entry_button_chosen,first_index=$param_widgets_pink->{_first_idx}\n");
-	 				 # print("param_widget,get_entry_button_chosen,length_=$param_widgets_pink->{_length} \n");
+# print("param_widget,get_entry_button_chosen,first_index=$param_widgets_pink->{_first_idx}\n");
+# print("param_widget,get_entry_button_chosen,length_=$param_widgets_pink->{_length} \n");
 
     my $widget = $param_widgets_pink->{_entry_button_chosen_widget};
-					# print("param_widget,get_entry_button_chosen,widget,=$widget\n");
 
-    for (my $choice = $first;  $choice < $length; $choice++) {  
-        if ($widget eq @{$param_widgets_pink->{_values_w_aref}}[$choice]) {
-       		my $parameter_value_index 	= $choice;
-       		my $parameter_name_index 	= $choice;
-       		$label = @{$param_widgets_pink->{_labels_w_aref}}[$choice]->cget('-text');
-       		my $value = @{$param_widgets_pink->{_values_w_aref}}[$choice]->get;
-					 # print("param_widget,get_entry_button_chosen,label,=$label\n");
-					 # print("param_widget,get_entry_button_chosen,value,=$value\n");
-					 # print("param_widget,get_entry_button_chosen,index,=$choice\n");
-     	} 
-	}
-	return($label);
+    # print("param_widget,get_entry_button_chosen,widget,=$widget\n");
+
+    for ( my $choice = $first ; $choice < $length ; $choice++ ) {
+        if ( $widget eq @{ $param_widgets_pink->{_values_w_aref} }[$choice] ) {
+            my $parameter_value_index = $choice;
+            my $parameter_name_index  = $choice;
+            $label = @{ $param_widgets_pink->{_labels_w_aref} }[$choice]
+              ->cget('-text');
+            my $value =
+              @{ $param_widgets_pink->{_values_w_aref} }[$choice]->get;
+
+            # print("param_widget,get_entry_button_chosen,label,=$label\n");
+            # print("param_widget,get_entry_button_chosen,value,=$value\n");
+            # print("param_widget,get_entry_button_chosen,index,=$choice\n");
+        }
+    }
+    return ($label);
 }
-
 
 =head2 sub get_value4entry_button_chosen
 
@@ -691,32 +734,36 @@ sub get_label4entry_button_chosen {
 =cut
 
 sub get_value4entry_button_chosen {
-    my ($self) 			= @_;
+    my ($self) = @_;
     my $value;
-					# first and last indices
-    my $first 			= $param_widgets_pink->{_first_idx};
-	my $length          = $param_widgets_pink->{_length};
 
-	 				 # print("param_widgets_pink,get_entry_button_chosen,first_index=$param_widgets->{_first_idx}\n");
-	 				 # print("param_widgets_pink,get_entry_button_chosen,length_=$param_widgets->{_length} \n");
+    # first and last indices
+    my $first  = $param_widgets_pink->{_first_idx};
+    my $length = $param_widgets_pink->{_length};
+
+# print("param_widgets_pink,get_entry_button_chosen,first_index=$param_widgets->{_first_idx}\n");
+# print("param_widgets_pink,get_entry_button_chosen,length_=$param_widgets->{_length} \n");
 
     my $widget = $param_widgets_pink->{_entry_button_chosen_widget};
-					# print("param_widgets_pink,get_entry_button_chosen,widget,=$widget\n");
 
-    for (my $choice = $first;  $choice < $length; $choice++) {  
-        if ($widget eq @{$param_widgets_pink->{_values_w_aref}}[$choice]) {
-       		my $parameter_value_index 	= $choice;
-       		my $parameter_name_index 	= $choice;
-       		#$label = @{$param_widgets->{_labels_w_aref}}[$choice]->cget('-text');
-       		$value = @{$param_widgets_pink->{_values_w_aref}}[$choice]->get();
-					 #print("param_widgets_pink,get_entry_button_chosen,label,=$label\n");
-					 print("param_widgets_pink,get_entry_button_chosen,value,=$value\n");
-					 #print("param_widgets_pink,get_entry_button_chosen,index,=$choice\n");
-     	} 
-	}
-	return($value);
+    # print("param_widgets_pink,get_entry_button_chosen,widget,=$widget\n");
+
+    for ( my $choice = $first ; $choice < $length ; $choice++ ) {
+        if ( $widget eq @{ $param_widgets_pink->{_values_w_aref} }[$choice] ) {
+            my $parameter_value_index = $choice;
+            my $parameter_name_index  = $choice;
+
+          #$label = @{$param_widgets->{_labels_w_aref}}[$choice]->cget('-text');
+            $value = @{ $param_widgets_pink->{_values_w_aref} }[$choice]->get();
+
+           #print("param_widgets_pink,get_entry_button_chosen,label,=$label\n");
+            print("param_widgets_pink,get_entry_button_chosen,value,=$value\n");
+
+          #print("param_widgets_pink,get_entry_button_chosen,index,=$choice\n");
+        }
+    }
+    return ($value);
 }
-
 
 =head2 sub get_values_aref
 
@@ -725,20 +772,21 @@ sub get_value4entry_button_chosen {
 =cut
 
 sub get_values_aref {
-	my ($self) = @_;
-	
-	if ( $param_widgets_pink->{_values_aref} ne $empty_string ) {
-		
-		my $values_aref = \@{$param_widgets_pink->{_values_aref}};
-  	 	# print("param_widgets_pink,get_values_aref,value[0]= @{$param_widgets_pink->{_values_aref}}[0]\n");
- 		return($values_aref);
-		
-	} else {	
-		# print("param_widgets_pink, get_values_aref,  missing values_aref\n");
-	}
+    my ($self) = @_;
+
+    if ( $param_widgets_pink->{_values_aref} ne $empty_string ) {
+
+        my $values_aref = \@{ $param_widgets_pink->{_values_aref} };
+
+# print("param_widgets_pink,get_values_aref,value[0]= @{$param_widgets_pink->{_values_aref}}[0]\n");
+        return ($values_aref);
+
+    }
+    else {
+        # print("param_widgets_pink, get_values_aref,  missing values_aref\n");
+    }
 
 }
-
 
 =head2 sub get_labels_aref
 
@@ -748,13 +796,12 @@ sub get_values_aref {
 
 sub get_labels_aref {
 
-   my ($self) 			= @_;
-   my $labels_aref 		= \@{$param_widgets_pink->{_labels_aref}};
-  	 			  	# print("param_widgets_pink,get_labels_aref: @{$param_widgets_pink->{_labels_aref}}\n"); # all labels in array may not be there
-   return ($param_widgets_pink->{_labels_aref});
+    my ($self) = @_;
+    my $labels_aref = \@{ $param_widgets_pink->{_labels_aref} };
+
+# print("param_widgets_pink,get_labels_aref: @{$param_widgets_pink->{_labels_aref}}\n"); # all labels in array may not be there
+    return ( $param_widgets_pink->{_labels_aref} );
 }
-
-
 
 =head2 sub get_names_aref
 
@@ -764,12 +811,12 @@ sub get_labels_aref {
 
 sub get_names_aref {
 
-   my ($self) 			= @_;
-   my $labels_aref 		= \@{$param_widgets_pink->{_labels_aref}};
-  	 			  	# print("param_widgets_pink,get_labels_aref: @{$param_widgets_pink->{_labels_aref}}\n"); # all labels in array may not be there
-   return ($param_widgets_pink->{_labels_aref});
-}
+    my ($self) = @_;
+    my $labels_aref = \@{ $param_widgets_pink->{_labels_aref} };
 
+# print("param_widgets_pink,get_labels_aref: @{$param_widgets_pink->{_labels_aref}}\n"); # all labels in array may not be there
+    return ( $param_widgets_pink->{_labels_aref} );
+}
 
 =head2 sub initialize_check_buttons
 
@@ -777,106 +824,101 @@ sub get_names_aref {
 
 =cut
 
-sub  initialize_check_buttons  {
-  my ($self) 		= @_;
-  my ($first, $length);
-  my (@off);
+sub initialize_check_buttons {
+    my ($self) = @_;
+    my ( $first, $length );
+    my (@off);
 
-  $first 	= $param_widgets_pink->{_first_idx}; 
-  $length 	= $param_widgets_pink->{_length}; 
+    $first  = $param_widgets_pink->{_first_idx};
+    $length = $param_widgets_pink->{_length};
 
-  for (my $i=$first; $i<$length; $i++) {
-    $off[$i] 	 = 'off';
-  }
+    for ( my $i = $first ; $i < $length ; $i++ ) {
+        $off[$i] = 'off';
+    }
 
-  $check_buttons	->specs($default_param_specs);
-  $check_buttons	->frame($param_widgets_pink->{_check_buttons_frame_href});
-  $check_buttons	->make(\@off);
+    $check_buttons->specs($default_param_specs);
+    $check_buttons->frame( $param_widgets_pink->{_check_buttons_frame_href} );
+    $check_buttons->make( \@off );
 
-  $param_widgets_pink->{_check_buttons_w_aref} = $check_buttons ->get_w_aref();
-  
-  # print("param_widgets, initialize_check_buttons check_buttons_w_aref: $param_widgets_pink->{_check_buttons_w_aref}\n");
+    $param_widgets_pink->{_check_buttons_w_aref} = $check_buttons->get_w_aref();
+
+# print("param_widgets, initialize_check_buttons check_buttons_w_aref: $param_widgets_pink->{_check_buttons_w_aref}\n");
 
 }
-
 
 =head2 sub initialize_labels
 
 
 =cut
 
-sub  initialize_labels  {
+sub initialize_labels {
 
-	my ($self) = @_;
-	my ($labels,$first,$length);
-	my (@blank_labels);
+    my ($self) = @_;
+    my ( $labels, $first, $length );
+    my (@blank_labels);
 
-	use label_boxes;
+    use label_boxes;
 
-	$labels 	= label_boxes->new();
-	$first 		= $param_widgets_pink->{_first_idx}; 
-	$length 	= $param_widgets_pink->{_length}; 
-   					 # print("param_widgets_pink,initialize_labels,first:$first\n"); 
-   					 # print("param_widgets_pink,initialize_labels,length:$length\n"); 
+    $labels = label_boxes->new();
+    $first  = $param_widgets_pink->{_first_idx};
+    $length = $param_widgets_pink->{_length};
 
-	 for (my $i=$first; $i<$length; $i++) {
-	    $blank_labels[$i] 	 = '';
-	 }
+    # print("param_widgets_pink,initialize_labels,first:$first\n");
+    # print("param_widgets_pink,initialize_labels,length:$length\n");
 
-	 $labels	->specs($default_param_specs);
-	 $labels	->frame($param_widgets_pink->{_labels_frame_href});
- 	 $labels	->texts(\@blank_labels);
+    for ( my $i = $first ; $i < $length ; $i++ ) {
+        $blank_labels[$i] = '';
+    }
 
-  	 $param_widgets_pink->{_labels_w_aref} = $labels ->get_w_aref();
-};
+    $labels->specs($default_param_specs);
+    $labels->frame( $param_widgets_pink->{_labels_frame_href} );
+    $labels->texts( \@blank_labels );
 
+    $param_widgets_pink->{_labels_w_aref} = $labels->get_w_aref();
+}
 
 =head2 sub initialize_values
 
 
 =cut
 
-sub  initialize_values  {
-  my ($self) 		= @_;
-  my ($values,$first,$length);
-  my @blank_values  = ();
-  use value_boxes;
-  $values 	 		= value_boxes->new();
+sub initialize_values {
+    my ($self) = @_;
+    my ( $values, $first, $length );
+    my @blank_values = ();
+    use value_boxes;
+    $values = value_boxes->new();
 
-  $first 			= $param_widgets_pink->{_first_idx}; 
-  $length			= $param_widgets_pink->{_length}; 
+    $first  = $param_widgets_pink->{_first_idx};
+    $length = $param_widgets_pink->{_length};
 
-  for (my $i=$first; $i<$length ; $i++) {
-    $blank_values[$i] 	 = '';
-  }
+    for ( my $i = $first ; $i < $length ; $i++ ) {
+        $blank_values[$i] = '';
+    }
 
-  $values	->specs($default_param_specs);
-  $values	->frame($param_widgets_pink->{_values_frame_href});
-  $values	->texts(\@blank_values);
+    $values->specs($default_param_specs);
+    $values->frame( $param_widgets_pink->{_values_frame_href} );
+    $values->texts( \@blank_values );
 
-  $param_widgets_pink->{_values_w_aref} = $values ->get_w_aref();
+    $param_widgets_pink->{_values_w_aref} = $values->get_w_aref();
 
-};
+}
 
- 	
- 	# find out what the label is and if it is datain then go ahead
- 	# default is to do nothing
- 	# if (not $datain) {
- 	# 	# do nothing
- 	# } else {
- 	# 	
- 	# 	# proceed to find the data
+# find out what the label is and if it is datain then go ahead
+# default is to do nothing
+# if (not $datain) {
+# 	# do nothing
+# } else {
+#
+# 	# proceed to find the data
 
- 	# $$option_sref == 'Select' 
- 	# in main you should then go ahead and activate the File Dialog to open a file
- 	 	# }
- 	#print("TODO: value_boxes,_callback from MB_3 on index= $index entry that has as label datain\n");
- 	#return();
- 	
+# $$option_sref == 'Select'
+# in main you should then go ahead and activate the File Dialog to open a file
+# }
+#print("TODO: value_boxes,_callback from MB_3 on index= $index entry that has as label datain\n");
+#return();
+
 #}
- 
-
-
 
 =head2 sub local_checks 
  When original value of Entry widget (package create, sub valuesc) 
@@ -924,8 +966,8 @@ sub  initialize_values  {
 #
 #					# first-time selection program but program has not been modified or just added to flow iwhtout modification
 # # or a drag and drop has just occurred in which case we assume
-# # that changes were implemented fully (i.e. no effective change on this round 
-# # or that a flow prgram has just been moved and inserted in the flow 
+# # that changes were implemented fully (i.e. no effective change on this round
+# # or that a flow prgram has just been moved and inserted in the flow
 #   if ($param_widgets_pink->{_is_new_listbox_selection} || $param_widgets_pink->{_is_add2flow_button} || $param_widgets_pink->{_is_moveNdrop_in_flow}) {
 #
 #					# work through a program's entries
@@ -939,24 +981,20 @@ sub  initialize_values  {
 #	      $param_widgets_pink->{_is_add2flow_button} 	 = $true;
 #										   # print("3. param_widgets_pink,local_checks,new flow selection, idx=$index\n\n");
 #   	    return($false);  # false change detected
-#     } 
+#     }
 #   } elsif ($param_widgets_pink->{_is_delete_from_flow_button} || $param_widgets_pink->{_is_sunix_listbox} ) {
 #   	    return($false);	# do nothing, false change detected
 #
-#   } else {  # By exclusion of everything we can ONLY be but truly CHANGING entries 
+#   } else {  # By exclusion of everything we can ONLY be but truly CHANGING entries
 #	    								   print("4. param_widgets_pink,local_checks,leaving index:  $index\n\n");
 #   	    								  print("4. param_widgets_pink,local_checks, value just changed to: @{$param_widgets_pink->{_values_aref}}[$index]\n");
 #   	    if( $index < $length) { # not beyond parameter range
-#             return($true);    # true change detected 
+#             return($true);    # true change detected
 #        }
 #   }
-# } 
-
-
+# }
 
 #
-
-
 
 =head2 sub range 
 
@@ -969,66 +1007,75 @@ sub  initialize_values  {
 =cut 
 
 sub range {
-  	my ($self, $ref_hash) 	= @_;
-  	  		  	
-  	  	# for adding to flows as a user-built flow
-  		if( $param_widgets_pink->{_is_add2flow_button} || $param_widgets_pink->{_is_add2flow}) {
-  			
-  			$param_widgets_pink->{_first_idx}		= $ref_hash->{_param_sunix_first_idx};
-  			$param_widgets_pink->{_length}			= $ref_hash->{_param_sunix_length};
-	 	 	# print("1.param_widgets_pink,range,  (add2flow_button and add2flow)  first idx:$param_widgets_pink->{_first_idx}, and length:$param_widgets_pink->{_length}\n"); 
-		}
-		
-		# for sunix selections
-       	elsif( $param_widgets_pink->{_is_sunix_listbox} ) {
-       		
-  			$param_widgets_pink->{_first_idx}		= $ref_hash->{_param_sunix_first_idx};
-  			$param_widgets_pink->{_length}			= $ref_hash->{_param_sunix_length};
-	 		# print("2. param_widgets_pink,range, (sunix_listbox) first idx:$param_widgets_pink->{_first_idx}, and length:$param_widgets_pink->{_length}\n"); 
-		}
+    my ( $self, $ref_hash ) = @_;
 
-		# for user-built flows
-       	elsif( $param_widgets_pink->{_is_flow_listbox_grey_w}  || 
-       		$param_widgets_pink->{_is_flow_listbox_pink_w} 	||
-       		$param_widgets_pink->{_is_flow_listbox_green_w} ||
-       		$param_widgets_pink->{_is_flow_listbox_blue_w}	||
-       		$param_widgets_pink->{_is_flow_listbox_color_w} ||
-       		$param_widgets_pink->{_is_user_built_flow} )     {
-       			
-  			$param_widgets_pink->{_first_idx}		= $ref_hash->{_param_flow_first_idx};
-  			$param_widgets_pink->{_length}			= $ref_hash->{_param_flow_length};
-	 		# print("3. param_widgets_pink,range, (user-built-flow)  first idx:$param_widgets_pink->{_first_idx}, and length:$param_widgets_pink->{_length}\n"); 
-		}
-		
-		# button for L_SU and no button for project selector
-       	elsif( $ref_hash->{_is_superflow_select_button} || $ref_hash->{_is_superflow})  {  
-       	
-  			$param_widgets_pink->{_first_idx}		= $ref_hash->{_superflow_first_idx};
-  			$param_widgets_pink->{_length}			= $ref_hash->{_superflow_length};
-	 			# print("4. param_widgets_pink,range, (superflows) first idx:$param_widgets_pink->{_first_idx}, and length:$param_widgets_pink->{_length}\n"); 
-		
+    # for adding to flows as a user-built flow
+    if (   $param_widgets_pink->{_is_add2flow_button}
+        || $param_widgets_pink->{_is_add2flow} )
+    {
+
+        $param_widgets_pink->{_first_idx} = $ref_hash->{_param_sunix_first_idx};
+        $param_widgets_pink->{_length}    = $ref_hash->{_param_sunix_length};
+
+# print("1.param_widgets_pink,range,  (add2flow_button and add2flow)  first idx:$param_widgets_pink->{_first_idx}, and length:$param_widgets_pink->{_length}\n");
+    }
+
+    # for sunix selections
+    elsif ( $param_widgets_pink->{_is_sunix_listbox} ) {
+
+        $param_widgets_pink->{_first_idx} = $ref_hash->{_param_sunix_first_idx};
+        $param_widgets_pink->{_length}    = $ref_hash->{_param_sunix_length};
+
+# print("2. param_widgets_pink,range, (sunix_listbox) first idx:$param_widgets_pink->{_first_idx}, and length:$param_widgets_pink->{_length}\n");
+    }
+
+    # for user-built flows
+    elsif ($param_widgets_pink->{_is_flow_listbox_grey_w}
+        || $param_widgets_pink->{_is_flow_listbox_pink_w}
+        || $param_widgets_pink->{_is_flow_listbox_green_w}
+        || $param_widgets_pink->{_is_flow_listbox_blue_w}
+        || $param_widgets_pink->{_is_flow_listbox_color_w}
+        || $param_widgets_pink->{_is_user_built_flow} )
+    {
+
+        $param_widgets_pink->{_first_idx} = $ref_hash->{_param_flow_first_idx};
+        $param_widgets_pink->{_length}    = $ref_hash->{_param_flow_length};
+
+# print("3. param_widgets_pink,range, (user-built-flow)  first idx:$param_widgets_pink->{_first_idx}, and length:$param_widgets_pink->{_length}\n");
+    }
+
+    # button for L_SU and no button for project selector
+    elsif ($ref_hash->{_is_superflow_select_button}
+        || $ref_hash->{_is_superflow} )
+    {
+
+        $param_widgets_pink->{_first_idx} = $ref_hash->{_superflow_first_idx};
+        $param_widgets_pink->{_length}    = $ref_hash->{_superflow_length};
+
+# print("4. param_widgets_pink,range, (superflows) first idx:$param_widgets_pink->{_first_idx}, and length:$param_widgets_pink->{_length}\n");
+
 #		# case of now pre-existing color (not even neutral) and the perl flow is selected
-		# this case actually does not need range because the following subroutines estimate
-		# the length fromt he scalar of the array and all correctly assume that the first index=0
+# this case actually does not need range because the following subroutines estimate
+# the length fromt he scalar of the array and all correctly assume that the first index=0
 #		elsif ($ref_hash->{_is_user_built_flow} && $ref_hash->{_is_new_listbox_selection} )   {
-#			
+#
 #	 		$param_widgets_pink->{_first_idx}		= $ref_hash->{_param_flow_first_idx};
 #  			$param_widgets_pink->{_length}			= $ref_hash->{_param_flow_length};
-#	 		print("5. param_widgets_pink,range, (user-built-flow)  first idx:$param_widgets_pink->{_first_idx}, and length:$param_widgets_pink->{_length}\n"); 
-#				
+#	 		print("5. param_widgets_pink,range, (user-built-flow)  first idx:$param_widgets_pink->{_first_idx}, and length:$param_widgets_pink->{_length}\n");
+#
 #		}
 
-		# case of now pre-existing color (not even neutral) and the perl flow is selected
-		# this case actually does not need range because the following subroutines estimate
-		# the length fromt he scalar of the array and all correctly assume that the first index=0
-		} else {
-				#NADA print ("6. param_widgets_pink,range, _missing ref_hash\n");
-		}
+# case of now pre-existing color (not even neutral) and the perl flow is selected
+# this case actually does not need range because the following subroutines estimate
+# the length fromt he scalar of the array and all correctly assume that the first index=0
+    }
+    else {
+        #NADA print ("6. param_widgets_pink,range, _missing ref_hash\n");
+    }
 
-       		# print ("6. param_widgets_pink,range, _values_w_aref:  $param_widgets_pink->{_values_w_aref}\n");
-       return();
+# print ("6. param_widgets_pink,range, _values_w_aref:  $param_widgets_pink->{_values_w_aref}\n");
+    return ();
 }
-  
 
 =head2 sub redisplay_check_buttons 
     
@@ -1036,37 +1083,40 @@ sub range {
 
 =cut
 
- sub redisplay_check_buttons{
-	my ($self) 	    	= @_;
-  	my $button_w_aref 	= $param_widgets_pink->{_check_buttons_w_aref};
-  	my $first 	    	= $param_widgets_pink->{_first_idx};
-  	my $length  	    = scalar @{$param_widgets_pink->{_check_buttons_settings_aref}}; 
-  					# my $length 			= $param_widgets_pink->{_length};
-  	my $settings_aref	= $param_widgets_pink->{_check_buttons_settings_aref};
+sub redisplay_check_buttons {
+    my ($self)        = @_;
+    my $button_w_aref = $param_widgets_pink->{_check_buttons_w_aref};
+    my $first         = $param_widgets_pink->{_first_idx};
+    my $length =
+      scalar @{ $param_widgets_pink->{_check_buttons_settings_aref} };
 
-  	    	 # print("1. param_widgets_pink,redisplay_check_buttons,settings @{$settings_aref}[0]\n");
-  	    	 # print("2. param_widgets_pink,redisplay_check_buttons,settings @{$param_widgets_pink->{_check_buttons_settings_aref}}[0]\n");
-  	    	 # print("2. param_widgets_pink,redisplay_check_buttons,length: $length\n");
+    # my $length 			= $param_widgets_pink->{_length};
+    my $settings_aref = $param_widgets_pink->{_check_buttons_settings_aref};
 
-	if ($button_w_aref && $settings_aref) {
-		
-		  for (my $i=$first; $i<$length; $i++) {
-		  	 
-      		@$button_w_aref[$i] ->configure(
-				-onvalue      		=> 'on',
-	  			-offvalue     		=> 'off',
-          		-selectcolor  		=> 'green',
-          		-activebackground 	=> 'red',
-          		-background   		=> 'red',
-                -variable         	=> \@$settings_aref[$i],
-			);
-		  }		  
- 	 } else {
- 	 	print("param_widgets_pink, redisplay_check_buttons missing parameters\n");	 	
- 	 }
- return();
- };
+# print("1. param_widgets_pink,redisplay_check_buttons,settings @{$settings_aref}[0]\n");
+# print("2. param_widgets_pink,redisplay_check_buttons,settings @{$param_widgets_pink->{_check_buttons_settings_aref}}[0]\n");
+# print("2. param_widgets_pink,redisplay_check_buttons,length: $length\n");
 
+    if ( $button_w_aref && $settings_aref ) {
+
+        for ( my $i = $first ; $i < $length ; $i++ ) {
+
+            @$button_w_aref[$i]->configure(
+                -onvalue          => 'on',
+                -offvalue         => 'off',
+                -selectcolor      => 'green',
+                -activebackground => 'red',
+                -background       => 'red',
+                -variable         => \@$settings_aref[$i],
+            );
+        }
+    }
+    else {
+        print(
+            "param_widgets_pink, redisplay_check_buttons missing parameters\n");
+    }
+    return ();
+}
 
 =head2 sub redisplay_labels 
 
@@ -1076,29 +1126,31 @@ sub range {
 
 =cut
 
- sub redisplay_labels {
-  my ($self)      		= @_;
-  my $labels_w_aref 	= $param_widgets_pink->{_labels_w_aref};
-  my $labels_aref 		= $param_widgets_pink->{_labels_aref};
-  my $first 	        = $param_widgets_pink->{_first_idx};
-  my $length  	        = scalar @{$param_widgets_pink->{_labels_aref}};
-  				# my $length 			= $param_widgets_pink->{_length};
-  	
-  if($labels_w_aref ) {
-	for (my $i = $first; $i < $length; $i++) {
-       	 # print("i:$i   param_widgets_pink,redisplay_labels length:$length\n");
-       	 # print(" text is @{$labels_aref}\n");
-	@$labels_w_aref[$i]->configure(
-				-text 	=> @$labels_aref[$i],
-      			);
-	}
-  } else {
-  	print("param_widgets_pink,redisplay labels, Warning parameters or labels_w_aref missing \n");
-  }
-   return();
- }
+sub redisplay_labels {
+    my ($self)        = @_;
+    my $labels_w_aref = $param_widgets_pink->{_labels_w_aref};
+    my $labels_aref   = $param_widgets_pink->{_labels_aref};
+    my $first         = $param_widgets_pink->{_first_idx};
+    my $length        = scalar @{ $param_widgets_pink->{_labels_aref} };
 
- 
+    # my $length 			= $param_widgets_pink->{_length};
+
+    if ($labels_w_aref) {
+        for ( my $i = $first ; $i < $length ; $i++ ) {
+
+         # print("i:$i   param_widgets_pink,redisplay_labels length:$length\n");
+         # print(" text is @{$labels_aref}\n");
+            @$labels_w_aref[$i]->configure( -text => @$labels_aref[$i], );
+        }
+    }
+    else {
+        print(
+"param_widgets_pink,redisplay labels, Warning parameters or labels_w_aref missing \n"
+        );
+    }
+    return ();
+}
+
 =head2 sub redisplay_values 
 
   display parameter values without quotes
@@ -1116,58 +1168,61 @@ sub range {
 
 =cut 
 
- sub redisplay_values {
+sub redisplay_values {
 
-  	my ($self)     	= @_;
-  	my $values_w_aref 		= $param_widgets_pink->{_values_w_aref};
-  	my $values_aref 		= $param_widgets_pink->{_values_aref};
-  	my $first 	        	= $param_widgets_pink->{_first_idx};
-    my $length  	        = scalar @{$param_widgets_pink->{_values_aref}};
+    my ($self)        = @_;
+    my $values_w_aref = $param_widgets_pink->{_values_w_aref};
+    my $values_aref   = $param_widgets_pink->{_values_aref};
+    my $first         = $param_widgets_pink->{_first_idx};
+    my $length        = scalar @{ $param_widgets_pink->{_values_aref} };
 
-   					#  my $length 				= $param_widgets_pink->{_length};
-				 	# print("param_widgets_pink, redisplay_values, length is $length\n");
-	if ($values_w_aref && $values_aref) {
-	  	 use control;
-	  	 
-		 for (my $i = $first; $i < $length; $i++) {
-		 	
-		 	my $control	= control->new();
-    		# print("1. param_widgets_pink,redisplay_values,chkbtn @{$param_widgets_pink->{_check_buttons_settings_aref}}[$i]\n");  
-    	
-  					# print("param_widgets_pink, redisplay_values, i is $i\n");
-  					# print("1. param_widgets_pink, redisplay_values, value is @{$values_aref}[$i]\n");
-      
-					#  &_changes is invoked if
-					#  there is a new selection after an entry change
-					#  or even just if redisplay is selected
-					#  _changes returns a 0 to invoke an error check
-					# -validate				=> 'focusout',
-			
-			# remove terminal quotes for values, only for display purposes
-			# when later read again the values will be given quotes if they
-			# do not look like a number-- this occurs in a superclass		
-			@{$values_aref}[$i]      = $control->get_no_quotes(@{$values_aref}[$i]);
-			# print("2. param_widgets_pink, redisplay_values, value is @{$values_aref}[$i]\n");	
-       		@$values_w_aref[$i]->configure(
-				-textvariable 			=> \@{$values_aref}[$i],
- 	        	-validate				=> 'all',   
- 	        	-validatecommand		=> [\&_changes,$i],
-	        	-invalidcommand    		=> \&error_check,
-        		);    
-        	
- 				# print("2. param_widgets_pink,redisplay_values,chkbtn @{$param_widgets_pink->{_check_buttons_settings_aref}}[$i]\n");  
-		 }		
-	} else {
-		print("2. param_widgets_pink,redisplay_values,missing parameters\n");		
-	} 
-  					 # print("param_widgets_pink, redisplay_values, first item's value is  @{$values_aref}[$first]\n");
-  					# print("param_widgets_pink, redisplay_values, last item's values is  @{$values_aref}[($length-1)]\n");
-  					# print("param_widgets_pink, redisplay_values, last values are  @{$values_aref}\n");
+    #  my $length 				= $param_widgets_pink->{_length};
+    # print("param_widgets_pink, redisplay_values, length is $length\n");
+    if ( $values_w_aref && $values_aref ) {
+        use control;
 
- 
- return();
- }
+        for ( my $i = $first ; $i < $length ; $i++ ) {
 
+            my $control = control->new();
+
+# print("1. param_widgets_pink,redisplay_values,chkbtn @{$param_widgets_pink->{_check_buttons_settings_aref}}[$i]\n");
+
+# print("param_widgets_pink, redisplay_values, i is $i\n");
+# print("1. param_widgets_pink, redisplay_values, value is @{$values_aref}[$i]\n");
+
+            #  &_changes is invoked if
+            #  there is a new selection after an entry change
+            #  or even just if redisplay is selected
+            #  _changes returns a 0 to invoke an error check
+            # -validate				=> 'focusout',
+
+            # remove terminal quotes for values, only for display purposes
+            # when later read again the values will be given quotes if they
+            # do not look like a number-- this occurs in a superclass
+            @{$values_aref}[$i] =
+              $control->get_no_quotes( @{$values_aref}[$i] );
+
+# print("2. param_widgets_pink, redisplay_values, value is @{$values_aref}[$i]\n");
+            @$values_w_aref[$i]->configure(
+                -textvariable    => \@{$values_aref}[$i],
+                -validate        => 'all',
+                -validatecommand => [ \&_changes, $i ],
+                -invalidcommand  => \&error_check,
+            );
+
+# print("2. param_widgets_pink,redisplay_values,chkbtn @{$param_widgets_pink->{_check_buttons_settings_aref}}[$i]\n");
+        }
+    }
+    else {
+        print("2. param_widgets_pink,redisplay_values,missing parameters\n");
+    }
+
+# print("param_widgets_pink, redisplay_values, first item's value is  @{$values_aref}[$first]\n");
+# print("param_widgets_pink, redisplay_values, last item's values is  @{$values_aref}[($length-1)]\n");
+# print("param_widgets_pink, redisplay_values, last values are  @{$values_aref}\n");
+
+    return ();
+}
 
 =head2 sub set_current_program
 
@@ -1178,29 +1233,30 @@ sub range {
 
 =cut
 
- sub set_current_program {
+sub set_current_program {
 
- 	my ($self,$prog_name_sref) 			= @_;
-	if ($prog_name_sref) {
-		$param_widgets_pink->{_current_program_name}  	= $$prog_name_sref;
-     		# print("param_widgets_pink,set_current_program, program name: $param_widgets_pink->{_current_program_name}\n");
- }
-	}
- 
+    my ( $self, $prog_name_sref ) = @_;
+    if ($prog_name_sref) {
+        $param_widgets_pink->{_current_program_name} = $$prog_name_sref;
+
+# print("param_widgets_pink,set_current_program, program name: $param_widgets_pink->{_current_program_name}\n");
+    }
+}
+
 =head2 sub set_first_idx
 
 =0
 
 =cut
 
- sub set_first_idx {
+sub set_first_idx {
 
- 	my ($self) 			= @_;
-		$param_widgets_pink->{_first_idx} = 0;
-			# print("param-widgets,first_idx:$param_widgets_pink->{_first_idx}\n");
-		return();
-	}
+    my ($self) = @_;
+    $param_widgets_pink->{_first_idx} = 0;
 
+    # print("param-widgets,first_idx:$param_widgets_pink->{_first_idx}\n");
+    return ();
+}
 
 =head2 sub set_labels_frame
 
@@ -1208,75 +1264,77 @@ sub range {
 
 =cut
 
- sub  set_labels_frame {
- 	my ($self,$labels_frame_href) = @_;
- 	$param_widgets_pink->{_labels_frame_href} = $labels_frame_href;
+sub set_labels_frame {
+    my ( $self, $labels_frame_href ) = @_;
+    $param_widgets_pink->{_labels_frame_href} = $labels_frame_href;
 
- }
-	
-	
+}
+
 =head2 sub set_length
 
  override default length values
  
 =cut
 
- sub set_length{
+sub set_length {
 
-	my ($self,$length) 			= @_;
-	if ($length) {
-		
-		$param_widgets_pink->{_length}  	= $length;
-     		# print("param_widgets_pink,set_length = $param_widgets_pink->{_length}\n");
-     		
- 	} else {
- 		print("param_widgets_pink,missing length\n");		
- 	}
- }
+    my ( $self, $length ) = @_;
+    if ($length) {
 
- 
+        $param_widgets_pink->{_length} = $length;
+
+    # print("param_widgets_pink,set_length = $param_widgets_pink->{_length}\n");
+
+    }
+    else {
+        print("param_widgets_pink,missing length\n");
+    }
+}
+
 =head2 sub set_check_buttons_w_aref
 
 
 =cut
 
 sub set_check_buttons_w_aref {
-	my ($self,$check_buttons_w_aref) = @_;
-	
-	if ( $check_buttons_w_aref ) {
-		
-		$param_widgets_pink->{_check_buttons_w_aref} =  $check_buttons_w_aref;
-		# print("param_widgets_pink,set_check_buttons_w_aref, $check_buttons_w_aref \n");
-		
-	} else {	
-		print("param_widgets_pink, set_check_buttons_w_aref,missing check_buttons_w_aref \n");
+    my ( $self, $check_buttons_w_aref ) = @_;
 
-	}
-			return();
+    if ($check_buttons_w_aref) {
+
+        $param_widgets_pink->{_check_buttons_w_aref} = $check_buttons_w_aref;
+
+# print("param_widgets_pink,set_check_buttons_w_aref, $check_buttons_w_aref \n");
+
+    }
+    else {
+        print(
+"param_widgets_pink, set_check_buttons_w_aref,missing check_buttons_w_aref \n"
+        );
+
+    }
+    return ();
 }
-
-
-
 
 =head2 set_labels_w_aref
 
 =cut
 
 sub set_labels_w_aref {
-	my ($self,$labels_w_aref) = @_;
-	
-	if ($labels_w_aref ) {
-		
-		$param_widgets_pink->{_labels_w_aref} = $labels_w_aref ;
-		# print("param_widgets_pink,set_labels_w_aref, $labels_w_aref \n");
-		
-	} else {	
-		print("param_widgets_pink,set_labels_w_aref, missing labels_w_aref \n");
+    my ( $self, $labels_w_aref ) = @_;
 
-	}
-	return();
-}		
+    if ($labels_w_aref) {
 
+        $param_widgets_pink->{_labels_w_aref} = $labels_w_aref;
+
+        # print("param_widgets_pink,set_labels_w_aref, $labels_w_aref \n");
+
+    }
+    else {
+        print("param_widgets_pink,set_labels_w_aref, missing labels_w_aref \n");
+
+    }
+    return ();
+}
 
 =head2 sub set_values_frame
 
@@ -1284,40 +1342,43 @@ sub set_labels_w_aref {
 
 =cut
 
-sub  set_values_frame {
-	
-	my ($self,$values_frame_href) = @_;
-	
- 	if (defined $values_frame_href ) {
-  	
-		$param_widgets_pink->{_values_frame_href} = $values_frame_href;	
-    
-	} else {
-		print("param_widgets_pink, set_values_frame, missing  values_frame_href\n");
-	}
-	
-	return();
-}
+sub set_values_frame {
 
+    my ( $self, $values_frame_href ) = @_;
+
+    if ( defined $values_frame_href ) {
+
+        $param_widgets_pink->{_values_frame_href} = $values_frame_href;
+
+    }
+    else {
+        print(
+            "param_widgets_pink, set_values_frame, missing  values_frame_href\n"
+        );
+    }
+
+    return ();
+}
 
 =head2 set_values_w_aref
 
 =cut
 
 sub set_values_w_aref {
-	my ($self,$values_w_aref) = @_;
-	
-	if ($values_w_aref ) {
-		
-		$param_widgets_pink->{_values_w_aref} = $values_w_aref;
-		# print("param_widgets_pink,set_values_w_aref,  $param_widgets_pink->{_values_w_aref}\n");
-		
-	} else {	
-		print("param_widgets_pink,set_values_w_aref, missing values_w_aref \n");
-	}
-	return();
-}
+    my ( $self, $values_w_aref ) = @_;
 
+    if ($values_w_aref) {
+
+        $param_widgets_pink->{_values_w_aref} = $values_w_aref;
+
+# print("param_widgets_pink,set_values_w_aref,  $param_widgets_pink->{_values_w_aref}\n");
+
+    }
+    else {
+        print("param_widgets_pink,set_values_w_aref, missing values_w_aref \n");
+    }
+    return ();
+}
 
 =head2 sub show_values 
 
@@ -1325,26 +1386,28 @@ packing
 
 =cut
 
-sub show_values{
-   my ($self) = @_;
-   my ($first,$length);  
-   my (@values_w);
+sub show_values {
+    my ($self) = @_;
+    my ( $first, $length );
+    my (@values_w);
 
-   @values_w  	= @{$param_widgets_pink->{_values_w_aref}};
-   $first 		= $param_widgets_pink->{_first_idx};
-   $length  	= $param_widgets_pink->{_length};
-   					 # print("param_widgets_pink,show_values,first:$first\n"); 
-   					 # print("param_widgets_pink,show_values,length:$length\n"); 
+    @values_w = @{ $param_widgets_pink->{_values_w_aref} };
+    $first    = $param_widgets_pink->{_first_idx};
+    $length   = $param_widgets_pink->{_length};
 
-   for (my $i=$first; $i<$length; $i++) {
-   					  # print("param_widgets_pink,show_values,values_w at $i $values_w[$i]\n"); 
-     $values_w[$i]	 ->pack( 
-    		   -side  	=> 'top',
-    		   -anchor	=> 'w',
-    		   -fill	=> 'x'
-    		   ); 
-   }
- return();
+    # print("param_widgets_pink,show_values,first:$first\n");
+    # print("param_widgets_pink,show_values,length:$length\n");
+
+    for ( my $i = $first ; $i < $length ; $i++ ) {
+
+       # print("param_widgets_pink,show_values,values_w at $i $values_w[$i]\n");
+        $values_w[$i]->pack(
+            -side   => 'top',
+            -anchor => 'w',
+            -fill   => 'x'
+        );
+    }
+    return ();
 }
 
 =head2 sub set_check_buttons_frame
@@ -1353,26 +1416,25 @@ sub show_values{
 
 =cut
 
-sub set_check_buttons_frame{
-   my ($self,$check_buttons_frame_href) = @_;
-   $param_widgets_pink->{_check_buttons_frame_href} = $check_buttons_frame_href;
-   
-  return();
+sub set_check_buttons_frame {
+    my ( $self, $check_buttons_frame_href ) = @_;
+    $param_widgets_pink->{_check_buttons_frame_href} =
+      $check_buttons_frame_href;
+
+    return ();
 }
-
-
 
 =head2 sub set_entry_change_status 
 
 =cut
 
-sub set_entry_change_status{
-	my ($self,$status) = @_;
+sub set_entry_change_status {
+    my ( $self, $status ) = @_;
     $param_widgets_pink->{_changed_entry} = $status;
-	  # print("param_widgets_pink, set_entry_change_status: to $status\n");
-    return();
-}
 
+    # print("param_widgets_pink, set_entry_change_status: to $status\n");
+    return ();
+}
 
 =head2 sub set_location_in_gui
 
@@ -1384,108 +1446,126 @@ sub set_entry_change_status{
 
 =cut
 
- sub set_location_in_gui {
-   	my ($self,$location_href) = @_;
-	my $here = $location_href;
-	
-	 			#print("param_widgets_pink, set_location_in_gui , _values_w_aref, $param_widgets_pink->{_values_w_aref} \n");
+sub set_location_in_gui {
+    my ( $self, $location_href ) = @_;
+    my $here = $location_href;
 
-	
-	if 	( $here->{_is_flow_listbox_grey_w} &&  $here->{_is_add2flow} ) 	{
-		
-		_reset		
-		$param_widgets_pink->{_is_flow_listbox_grey_w} 		= $true;
-		$param_widgets_pink->{_is_flow_listbox_color_w} 	= $true;
-		# print("param_widgets_pink, set_location_in_gui, _is_flow_listbox_grey_w and _is_add2flow \n");
-	
-	} elsif 		( $here->{_is_flow_listbox_grey_w} ) 	{
-		
-		_reset		
-		$param_widgets_pink->{_is_flow_listbox_grey_w} 		= $true;
-		$param_widgets_pink->{_is_flow_listbox_color_w} 	= $true;
-		# print("param_widgets_pink, set_location_in_gui, _is_flow_listbox_grey_w ++ true\n");
-			
-	} elsif ( $here->{_is_flow_listbox_pink_w} ) 	{
-		
-		_reset
-	 	$param_widgets_pink->{_is_flow_listbox_pink_w} 		= $true;
-		$param_widgets_pink->{_is_flow_listbox_color_w} 	= $true;
-		# print("param_widgets_pink, set_location_in_gui, _is_flow_listbox_pink_w ++\n");
-					 	
-	} elsif ( $here->{_is_flow_listbox_green_w} ) 	{
-		
-		_reset
-		$param_widgets_pink->{_is_flow_listbox_green_w} 	= $true;
-		$param_widgets_pink->{_is_flow_listbox_color_w} 	= $true;
-		# print("param_widgets_pink, set_location_in_gui, _is_flow_listbox_green_w ++\n");
-						
-	}  elsif ($here->{_is_flow_listbox_blue_w}) 	{
-		
-		_reset
-		$param_widgets_pink->{_is_flow_listbox_blue_w} 	= $true;
-		$param_widgets_pink->{_is_flow_listbox_color_w} 	= $true;
-		# print("param_widgets_pink, set_location_in_gui, _is_flow_listbox_blue_w ++\n");
-			
-	} elsif ($here->{_is_flow_listbox_color_w}) 	{	
-			
-		_reset		
-		$param_widgets_pink->{_is_flow_listbox_color_w} 	= $true;
-		# print("param_widgets_pink, set_location_in_gui, _is_flow_listbox_color_w\n");
+#print("param_widgets_pink, set_location_in_gui , _values_w_aref, $param_widgets_pink->{_values_w_aref} \n");
 
-	} elsif ( $here->{_is_add2flow} ) {
-		 		
-		$param_widgets_pink->{_is_new_listbox_selection} = $true; # so change not allowed
-		 # print("param_widgets_pink, set_location_in_gui, _is_new_listbox_selection \n");	
-		
-	} elsif ( $here->{_is_add2flow_button} ) {
-		
-   		_reset
-		$param_widgets_pink->{_is_new_listbox_selection} = $true; # so change not allowed
-		 # print("param_widgets_pink, set_location_in_gui, _is_new_listbox_selection \n");
-			
-	} elsif ($here->{_is_sunix_listbox}) {
-		
-  		_reset();
-		$param_widgets_pink->{_is_new_listbox_selection} = $true; # so changes not allowed
-		$param_widgets_pink->{_is_sunix_listbox} 		= $true;
-		# print("param_widgets_pink, set_location_in_gui, _is_sunix_listbox and _is_new_listbox_selection\n");
-			
-	} elsif ($here->{_is_moveNdrop_in_flow}) {
-		
-  		_reset();   		  
-		$param_widgets_pink->{_is_flow_listbox_grey_w} 	= $true;
-		$param_widgets_pink->{_is_flow_listbox_pink_w} 	= $true;
-		$param_widgets_pink->{_is_flow_listbox_green_w} = $true;
-		$param_widgets_pink->{_is_flow_listbox_blue_w} 	= $true;
-		$param_widgets_pink->{_is_flow_listbox_color_w} = $true;		
-		$param_widgets_pink->{_is_moveNdrop_in_flow}	= $true;
-		# print("param_widgets_pink, set_location_in_gui, _is_moveNdrop_in_flow ++ \n");
-		
-	} elsif ($here->{_is_delete_from_flow_button}) {
-		
-   		  _reset();
-		$param_widgets_pink->{_is_delete_from_flow_button} = $true;
-		# TODO double check if next 2-5 lines should be flse instead
-		$param_widgets_pink->{_is_flow_listbox_grey_w} 	= $true;
-		$param_widgets_pink->{_is_flow_listbox_pink_w} 	= $true;
-		$param_widgets_pink->{_is_flow_listbox_green_w} 	= $true;
-		$param_widgets_pink->{_is_flow_listbox_blue_w} 	= $true;
-		$param_widgets_pink->{_is_flow_listbox_color_w} 	= $true;
-		# print("param_widgets_pink, set_location_in_gui, _is_delete_from_flow_button ++\n");
-		
-	} elsif ($here->{_is_superflow_select_button}) {
-		
-		_reset
-  		# print("param_widgets_pink,NEW set_location_in_gui, superflow_select_button\n");
-		$param_widgets_pink->{_is_superflow_select_button}	= $true;
-		# print("param_widgets_pink, set_location_in_gui, _is_superflow_select_button \n")
-				
-	} else {
-		print("param_widgets_pink, set_location_in_gui, missing  params \n");
-	}
-	return();
- }
+    if ( $here->{_is_flow_listbox_grey_w} && $here->{_is_add2flow} ) {
 
+        _reset $param_widgets_pink->{_is_flow_listbox_grey_w} = $true;
+        $param_widgets_pink->{_is_flow_listbox_color_w} = $true;
+
+# print("param_widgets_pink, set_location_in_gui, _is_flow_listbox_grey_w and _is_add2flow \n");
+
+    }
+    elsif ( $here->{_is_flow_listbox_grey_w} ) {
+
+        _reset $param_widgets_pink->{_is_flow_listbox_grey_w} = $true;
+        $param_widgets_pink->{_is_flow_listbox_color_w} = $true;
+
+# print("param_widgets_pink, set_location_in_gui, _is_flow_listbox_grey_w ++ true\n");
+
+    }
+    elsif ( $here->{_is_flow_listbox_pink_w} ) {
+
+        _reset $param_widgets_pink->{_is_flow_listbox_pink_w} = $true;
+        $param_widgets_pink->{_is_flow_listbox_color_w} = $true;
+
+# print("param_widgets_pink, set_location_in_gui, _is_flow_listbox_pink_w ++\n");
+
+    }
+    elsif ( $here->{_is_flow_listbox_green_w} ) {
+
+        _reset $param_widgets_pink->{_is_flow_listbox_green_w} = $true;
+        $param_widgets_pink->{_is_flow_listbox_color_w} = $true;
+
+# print("param_widgets_pink, set_location_in_gui, _is_flow_listbox_green_w ++\n");
+
+    }
+    elsif ( $here->{_is_flow_listbox_blue_w} ) {
+
+        _reset $param_widgets_pink->{_is_flow_listbox_blue_w} = $true;
+        $param_widgets_pink->{_is_flow_listbox_color_w} = $true;
+
+# print("param_widgets_pink, set_location_in_gui, _is_flow_listbox_blue_w ++\n");
+
+    }
+    elsif ( $here->{_is_flow_listbox_color_w} ) {
+
+        _reset $param_widgets_pink->{_is_flow_listbox_color_w} = $true;
+
+ # print("param_widgets_pink, set_location_in_gui, _is_flow_listbox_color_w\n");
+
+    }
+    elsif ( $here->{_is_add2flow} ) {
+
+        $param_widgets_pink->{_is_new_listbox_selection} =
+          $true;    # so change not allowed
+         # print("param_widgets_pink, set_location_in_gui, _is_new_listbox_selection \n");
+
+    }
+    elsif ( $here->{_is_add2flow_button} ) {
+
+        _reset $param_widgets_pink->{_is_new_listbox_selection} =
+          $true;    # so change not allowed
+         # print("param_widgets_pink, set_location_in_gui, _is_new_listbox_selection \n");
+
+    }
+    elsif ( $here->{_is_sunix_listbox} ) {
+
+        _reset();
+        $param_widgets_pink->{_is_new_listbox_selection} =
+          $true;    # so changes not allowed
+        $param_widgets_pink->{_is_sunix_listbox} = $true;
+
+# print("param_widgets_pink, set_location_in_gui, _is_sunix_listbox and _is_new_listbox_selection\n");
+
+    }
+    elsif ( $here->{_is_moveNdrop_in_flow} ) {
+
+        _reset();
+        $param_widgets_pink->{_is_flow_listbox_grey_w}  = $true;
+        $param_widgets_pink->{_is_flow_listbox_pink_w}  = $true;
+        $param_widgets_pink->{_is_flow_listbox_green_w} = $true;
+        $param_widgets_pink->{_is_flow_listbox_blue_w}  = $true;
+        $param_widgets_pink->{_is_flow_listbox_color_w} = $true;
+        $param_widgets_pink->{_is_moveNdrop_in_flow}    = $true;
+
+# print("param_widgets_pink, set_location_in_gui, _is_moveNdrop_in_flow ++ \n");
+
+    }
+    elsif ( $here->{_is_delete_from_flow_button} ) {
+
+        _reset();
+        $param_widgets_pink->{_is_delete_from_flow_button} = $true;
+
+        # TODO double check if next 2-5 lines should be flse instead
+        $param_widgets_pink->{_is_flow_listbox_grey_w}  = $true;
+        $param_widgets_pink->{_is_flow_listbox_pink_w}  = $true;
+        $param_widgets_pink->{_is_flow_listbox_green_w} = $true;
+        $param_widgets_pink->{_is_flow_listbox_blue_w}  = $true;
+        $param_widgets_pink->{_is_flow_listbox_color_w} = $true;
+
+# print("param_widgets_pink, set_location_in_gui, _is_delete_from_flow_button ++\n");
+
+    }
+    elsif ( $here->{_is_superflow_select_button} ) {
+
+        _reset
+
+# print("param_widgets_pink,NEW set_location_in_gui, superflow_select_button\n");
+          $param_widgets_pink->{_is_superflow_select_button} = $true;
+
+# print("param_widgets_pink, set_location_in_gui, _is_superflow_select_button \n")
+
+    }
+    else {
+        print("param_widgets_pink, set_location_in_gui, missing  params \n");
+    }
+    return ();
+}
 
 =head2 sub set_labels 
  
@@ -1493,12 +1573,11 @@ sub set_entry_change_status{
 
 =cut
 
-sub set_labels{
-   my ($self,$labels_aref) 			= @_;
-   $param_widgets_pink->{_labels_aref} 	= $labels_aref;
-   return();
+sub set_labels {
+    my ( $self, $labels_aref ) = @_;
+    $param_widgets_pink->{_labels_aref} = $labels_aref;
+    return ();
 }
-
 
 =head2 sub set_prog_name_sref 
  set prog_name by user from outside 
@@ -1506,20 +1585,19 @@ sub set_labels{
 =cut
 
 sub set_prog_name_sref {
-	my ($self,$prog_name_sref) 				= @_;
-	
-	if ( $prog_name_sref ) {
-		$param_widgets_pink->{_prog_name_sref} 	= $prog_name_sref;
-		
-		print("param_widgets_pink,set_prog_name_sref, $$prog_name_sref\n");
-		
-	} else {
-   		print("param_widgets_pink, set_prog_name_sref, missing prog name\n");
-	}
-   return();
+    my ( $self, $prog_name_sref ) = @_;
+
+    if ($prog_name_sref) {
+        $param_widgets_pink->{_prog_name_sref} = $prog_name_sref;
+
+        print("param_widgets_pink,set_prog_name_sref, $$prog_name_sref\n");
+
+    }
+    else {
+        print("param_widgets_pink, set_prog_name_sref, missing prog name\n");
+    }
+    return ();
 }
-
-
 
 =head2 sub set_value4entry_button_chosen
 
@@ -1532,30 +1610,34 @@ sub set_prog_name_sref {
 =cut
 
 sub set_value4entry_button_chosen {
-    my ($self,$value) 			= @_;
-					# first and last indices
-    my $first 			= $param_widgets_pink->{_first_idx};
-	my $length          = $param_widgets_pink->{_length};
+    my ( $self, $value ) = @_;
 
-	 				 # print("param_widgets_pink,set_entry_button_chosen,length_=$param_widgets_pink->{_length} \n");
+    # first and last indices
+    my $first  = $param_widgets_pink->{_first_idx};
+    my $length = $param_widgets_pink->{_length};
+
+# print("param_widgets_pink,set_entry_button_chosen,length_=$param_widgets_pink->{_length} \n");
 
     my $widget = $param_widgets_pink->{_entry_button_chosen_widget};
-					print("param_widgets_pink,set_entry_button_chosen,widget,=$widget\n");
-					
-					# run through widgets until the match is made
-    for (my $choice = $first;  $choice < $length; $choice++) {  
-        if ($widget eq @{$param_widgets_pink->{_values_w_aref}}[$choice]) {
-        	
-       		@{$param_widgets_pink->{_values_w_aref}}[$choice]->configure(-text => $value);
+    print("param_widgets_pink,set_entry_button_chosen,widget,=$widget\n");
 
-			print("param_widgets_pink,set_entry_button_chosen,value= @{$param_widgets_pink->{_values_w_aref}}[$choice]\n");
-			print("param_widgets_pink,set_entry_button_chosen,choice= $choice\n");
+    # run through widgets until the match is made
+    for ( my $choice = $first ; $choice < $length ; $choice++ ) {
+        if ( $widget eq @{ $param_widgets_pink->{_values_w_aref} }[$choice] ) {
 
-     	} 
-	}
-	return($value);
+            @{ $param_widgets_pink->{_values_w_aref} }[$choice]
+              ->configure( -text => $value );
+
+            print(
+"param_widgets_pink,set_entry_button_chosen,value= @{$param_widgets_pink->{_values_w_aref}}[$choice]\n"
+            );
+            print(
+                "param_widgets_pink,set_entry_button_chosen,choice= $choice\n");
+
+        }
+    }
+    return ($value);
 }
-
 
 =head2 sub set_values 
  
@@ -1563,42 +1645,41 @@ sub set_value4entry_button_chosen {
 
 =cut
 
-sub set_values{
-   my ($self,$values_aref) = @_;
-   
-   if(defined $values_aref) {
-   	
-   	   $param_widgets_pink->{_values_aref} = $values_aref;
-   	   # print("param_widgets_pink,set_values,@{$param_widgets_pink->{_values_aref}}\n");
-   		
-   }else{
-   		print("param_widgets_pink,set_values, values_aref missing\n");
-   }
+sub set_values {
+    my ( $self, $values_aref ) = @_;
 
-   return();
+    if ( defined $values_aref ) {
+
+        $param_widgets_pink->{_values_aref} = $values_aref;
+
+# print("param_widgets_pink,set_values,@{$param_widgets_pink->{_values_aref}}\n");
+
+    }
+    else {
+        print("param_widgets_pink,set_values, values_aref missing\n");
+    }
+
+    return ();
 }
 
- 
 =head2 sub show_check_buttons 
 
 packing
 
 =cut
 
- sub show_check_buttons{
-  my ($self) 	   = @_;
-  my $button_w_ref = $param_widgets_pink->{_check_buttons_w_aref};
-  my $first 	   = $param_widgets_pink->{_first_idx};
-  my $length  	   = $param_widgets_pink->{_length};
+sub show_check_buttons {
+    my ($self)       = @_;
+    my $button_w_ref = $param_widgets_pink->{_check_buttons_w_aref};
+    my $first        = $param_widgets_pink->{_first_idx};
+    my $length       = $param_widgets_pink->{_length};
 
-  for (my $i=$first; $i<$length; $i++) {
-      @$button_w_ref[$i] ->pack(-anchor => 'n',-fill=>'y');
-  }
- return();
+    for ( my $i = $first ; $i < $length ; $i++ ) {
+        @$button_w_ref[$i]->pack( -anchor => 'n', -fill => 'y' );
+    }
+    return ();
 
- };
-
-
+}
 
 =head2 sub show_labels 
  
@@ -1610,29 +1691,25 @@ packing
 
 =cut
 
-sub show_labels{
-   my ($self) = @_;
-   my ($first,$length);  
-   my (@labels_w);
+sub show_labels {
+    my ($self) = @_;
+    my ( $first, $length );
+    my (@labels_w);
 
-   @labels_w  	= @{$param_widgets_pink->{_labels_w_aref}};
-   $first 		= $param_widgets_pink->{_first_idx};
-   $length  	= $param_widgets_pink->{_length};
+    @labels_w = @{ $param_widgets_pink->{_labels_w_aref} };
+    $first    = $param_widgets_pink->{_first_idx};
+    $length   = $param_widgets_pink->{_length};
 
-   					# print("param_widgets_pink,show_labels,first:$first\n"); 
-   					# print("param_widgets_pink,show_labels,length:$length\n"); 
-   for (my $i=$first; $i<$length; $i++) {
-     $labels_w[$i]	 ->pack(
-    		   -side  	=> 'top',
-    		   -anchor	=> 'w',
-    		   -fill	=> 'x'
-    		   ); 
- 	}
- 	return();
-};
-
-
-
-
+    # print("param_widgets_pink,show_labels,first:$first\n");
+    # print("param_widgets_pink,show_labels,length:$length\n");
+    for ( my $i = $first ; $i < $length ; $i++ ) {
+        $labels_w[$i]->pack(
+            -side   => 'top',
+            -anchor => 'w',
+            -fill   => 'x'
+        );
+    }
+    return ();
+}
 
 1;

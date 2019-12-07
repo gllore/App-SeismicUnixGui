@@ -314,7 +314,7 @@ sub set_param_flow {
 
  	use save;
 	use files_LSU;
-	use messages::message_director;		
+	use message_director;		
 	use config_superflows;	
 	use whereami;
 	
@@ -573,7 +573,7 @@ DB:
 # 	
 # 	use save;
 #	use files_LSU;
-#	use messages::message_director;
+#	use message_director;
 #	
 #	# use whereami;
 #	

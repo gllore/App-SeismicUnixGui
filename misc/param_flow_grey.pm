@@ -380,8 +380,8 @@ sub delete_selection {
 
 	# CASE 1: delete end item but not the last one
 	if ( $index2delete == $end && $num_items > 1 ) {    # final item but more than one item
-		                                                # print("index2delete = end, idx $index2delete\n");
-		                                                # empty end index of array
+														# print("index2delete = end, idx $index2delete\n");
+														# empty end index of array
 		pop @{ $param_flow_grey->{_checkbuttons_aref2} };
 		pop @{ $param_flow_grey->{_names_aref2} };
 		pop @{ $param_flow_grey->{_values_aref2} };
@@ -671,6 +671,7 @@ sub get_num_items {
 		my $num_items = $param_flow_grey->{_num_items};
 
 		my $result = $num_items;
+
 		# print("param_flow_grey,get_num_items, num_items = $param_flow_grey->{_num_items} \n");
 		return ($result);
 
@@ -841,11 +842,11 @@ sub insert_selection {
 		}
 	}
 	else {    # assume $destn_idx = 0
-		      #  swap files have one less item than the original array
-		      #   print(" 2A. destn_idx = $destn_idx\n");
-		      # print(" 4. swap vector index=0 with @{$swap_names_aref[0]}\n");
-		      # print(" 4. swap vector index=1 with @{$swap_names_aref[1]}\n");
-		      # print(" 4. swap vector index=2 with @{$swap_names_aref[2]}\n\n");
+			  #  swap files have one less item than the original array
+			  #   print(" 2A. destn_idx = $destn_idx\n");
+			  # print(" 4. swap vector index=0 with @{$swap_names_aref[0]}\n");
+			  # print(" 4. swap vector index=1 with @{$swap_names_aref[1]}\n");
+			  # print(" 4. swap vector index=2 with @{$swap_names_aref[2]}\n\n");
 
 		for ( my $i = ( $first + 1 ), my $j = $first; $j < $end; $i++, $j++ ) {
 			my @swp_nam_tr = @{ $swap_names_aref[$j] };
@@ -903,7 +904,7 @@ sub length {
 		@values_aref = @{ @{ $param_flow_grey->{_values_aref2} }[$index] };
 		$length      = scalar @values_aref;
 
-		#  						print("param_flow_grey, length, num values: $length\n");
+		# print("param_flow_grey, length, num values: $length\n");
 		#  						print("param_flow_grey, index: $index\n");
 		return ($length);
 	}
@@ -1437,26 +1438,31 @@ sub view_data {
 	my $indices = $param_flow_grey->{_indices};
 	$num_progs[0] = $param_flow_grey->{_num_items};
 
-	$num_progs[1] = scalar( @{ $param_flow_grey->{_names_aref2} } );
+	if ( $num_progs[0] > 0 ) {
+		
+		$num_progs[1] = scalar( @{ $param_flow_grey->{_names_aref2} } );
 
-	#    $num_progs[3] = scalar  ( @{$param_flow_grey->{_values_aref2}} );
-	#    $num_progs[4] = scalar  ( @{$param_flow_grey->{_checkbuttons_aref2}});
-	$num_progs[5] = scalar( @{ $param_flow_grey->{_prog_names_aref} } );
+		#    $num_progs[3] = scalar  ( @{$param_flow_grey->{_values_aref2}} );
+		#    $num_progs[4] = scalar  ( @{$param_flow_grey->{_checkbuttons_aref2}});
+		$num_progs[2] = scalar( @{ $param_flow_grey->{_prog_names_aref} } );
+		print("\nparam_flow_grey,view_data:number of items in list in 4-5 different ways  @num_progs \n");
 
-	# print("\n param_flow_grey,view_data, _prog_names @{$param_flow_grey->{_prog_names_aref}}\n");
-	print("\nparam_flow_grey,view_data:number of items in list in 4-5 different ways  @num_progs \n");
+		# print("\n param_flow_grey,view_data, _prog_names @{$param_flow_grey->{_prog_names_aref}}\n");
 
-	# print("param_flow_grey,view_data:max index = $indices  \n\n");
+		# print("param_flow_grey,view_data:max index = $indices  \n\n");
 
-	# print("param_flow_grey,view_data, param_flow_grey_ has hash=$param_flow_grey\n ");
+		# print("param_flow_grey,view_data, param_flow_grey_ has hash=$param_flow_grey\n ");
 
-	for ( my $i = 0; $i <= $indices; $i++ ) {
+		for ( my $i = 0; $i <= $indices; $i++ ) {
 
-		print("param_flow_grey,view_data: names:        @{@{$param_flow_grey->{_names_aref2}}[$i]}\n");
-		print("param_flow_grey,view_data: values:       @{@{$param_flow_grey->{_values_aref2}}[$i]}\n");
+			print("param_flow_grey,view_data: names:        @{@{$param_flow_grey->{_names_aref2}}[$i]}\n");
+			print("param_flow_grey,view_data: values:       @{@{$param_flow_grey->{_values_aref2}}[$i]}\n");
 
-		#     print("param_flow_grey,view_data: checkbuttons: @{@{$param_flow_grey->{_checkbuttons_aref2}}[$i]}\n\n");
+			#     print("param_flow_grey,view_data: checkbuttons: @{@{$param_flow_grey->{_checkbuttons_aref2}}[$i]}\n\n");
+		}
+
 	}
+
 }
 
 1;

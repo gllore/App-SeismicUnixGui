@@ -391,7 +391,7 @@ sub _FileDialog {
 	my ($self) = @_;
 
    	# use Tk::JFileDialog;
-   	use misc::JFileDialog;# 4/25/2019
+   	use JFileDialog;# 4/25/2019
    	my $my_title	   	=  _get_dialog_type();  # e.g., 'SaveAs' or 'Save' or 'Flow'
     my $FileDialog_path	=  _get_path();    # e.g., $PL or $DATA_SEISMIC_SU
     
@@ -1343,7 +1343,7 @@ sub _user_built_flow_close_perl_file  {
 	use iFile;
 	use decisions 1.00;
 	use control;
-	use messages::message_director;
+	use message_director;
 	
 	my $control					= new control;
 	my $file_dialog_messages 	= message_director->new();

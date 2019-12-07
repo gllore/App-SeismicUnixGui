@@ -41,7 +41,7 @@ use Tk::Font;
 use L_SU_global_constants;
 use param_widgets;
 use project_selector;
-use messages::message_director;
+use message_director;
 my $project_selector = project_selector->new();
 my $get              = new L_SU_global_constants();    #$
 my $param_widgets    = param_widgets->new();
