@@ -14,7 +14,7 @@ $use[3] = "\t" . 'my $Project' . "\t\t" . '= new Project_config();' . "\n";
 $use[4] = "\t" . 'my $DATA_SEISMIC_SU' . "\t" . '= $Project->DATA_SEISMIC_SU;' . "\n";
 $use[5] = "\t" . 'my $DATA_SEISMIC_BIN' . "\t". '= $Project->DATA_SEISMIC_BIN;' . "\n";
 $use[6] = "\t" . 'my $DATA_SEISMIC_TXT' . "\t" . '= $Project->DATA_SEISMIC_TXT;' . "\n\n";
-$use[7] = "\t" . 'use misc::message;' . "\n" . "\t" . 'use misc::flow;' . "\n";
+$use[7] = "\t" . 'use message;' . "\n" . "\t" . 'use flow;' . "\n";
 
 sub section {
 	return ( \@use );

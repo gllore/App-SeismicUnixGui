@@ -1,0 +1,11 @@
+/home/gom/moon/seismics/pl/HRK_E122/ACH01/synthetic/surface_waves/1/gom/4.view_vel
+/home/gom/moon/seismics/pl/HRK_E122/ACH01/synthetic/surface_waves/1/gom/3.make_unif2
+/home/gom/moon/seismics/pl/HRK_E122/ACH01/synthetic/surface_waves/1/gom/2.make_unif2
+/home/gom/moon/seismics/pl/HRK_E122/ACH01/synthetic/surface_waves/1/gom/1.make_velocity_model
+/home/gom/moon/seismics/pl/HRK_E122/ACH01/synthetic/surface_waves/1/gom/7.view_hseis.pl
+/home/gom/moon/seismics/data/HRK_E122/ACH01/synthetic/surface_waves/1/su/gom/hseis.su
+/home/gom/moon/seismics/pl/HRK_E122/ACH01/synthetic/surface_waves/1/gom/sufft.pl
+/home/gom/moon/seismics/pl/HRK_E122/ACH01/synthetic/surface_waves/1/gom/suphasvel1.pl
+/home/gom/moon/seismics/pl/HRK_E122/ACH01/synthetic/surface_waves/1/gom/5.finite_difference_movie
+/home/gom/moon/seismics/pl/HRK_E122/ACH01/synthetic/surface_waves/1/gom/8.view_sseis.pl
+/home/gom/moon/seismics/pl/HRK_E122/ACH01/synthetic/surface_waves/1/gom/6.view_vseis.pl

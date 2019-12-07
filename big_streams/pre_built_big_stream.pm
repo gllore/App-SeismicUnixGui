@@ -37,10 +37,9 @@ my $pre_built_big_stream_href_sub_ref;    # $pre_built_big_stream_href->{_sub_re
 
 # potentially in all packages
 use L_SU_global_constants;
-use messages::message_director;
+use message_director;
 use whereami;
 use param_widgets4pre_built_streams;
-
 
 =head2 Instantiation
 
@@ -492,7 +491,7 @@ sub set_flowNsuperflow_name_w {
 
 =head2 sub select
 
- chosen superflow
+ chosen big stream
  displays the parameter names and their values
  but does not write them to a file
    	
@@ -775,8 +774,8 @@ sub set_hash_ref {
 	$param_widgets->set_hash_ref($pre_built_big_stream_href);
 	$message_w     = $pre_built_big_stream_href->{_message_w};
 	
-	print("pre_built_big_stream, set_hash_ref, print gui_history.txt\n");
-	$gui_history->view();
+	# print("pre_built_big_stream, set_hash_ref, print gui_history.txt\n");
+	# $gui_history->view();
 
 #    $check_buttons_settings_aref           = $hash_ref->{_check_buttons_settings_aref};
 #    $dialog_type                           = $hash_ref->{_dialog_type};

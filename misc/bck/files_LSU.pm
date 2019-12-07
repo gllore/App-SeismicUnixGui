@@ -35,7 +35,7 @@ package files_LSU;
 	use L_SU_global_constants;
 	use Project_config;
   	my $Project = new Project_config();
-	use misc::oop_text;
+	use oop_text;
 	
 	use SeismicUnix qw ($su $suffix_su);
 

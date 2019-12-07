@@ -70,7 +70,7 @@ extends 'gui_history' => { -version => 0.0.2 };
 use Tk;
 use Tk::Pane;
 use Tk::NoteBook;
-use L_SUV2 0.1.5;
+use L_SU 0.1.5;
 use L_SU_global_constants;
 
 =head2 Instantiation
@@ -78,7 +78,7 @@ use L_SU_global_constants;
 =cut
 
 my $get         = L_SU_global_constants->new();
-my $L_SU        = L_SUV2->new();
+my $L_SU        = L_SU->new();
 my $gui_history = gui_history->new();
 
 =head2 Import Special Variables
@@ -1904,18 +1904,16 @@ sub _L_SU_flow_bindings {
 		my $button = $method;
 
 		$gui_history->set_flow_type($user_built);
-
-		#$gui_history->set_button($button);
-		$gui_history->set_flow_select_color($color);
-
-		$L_SU->set_hash_ref($main_href);
-
-		# print("main,_L_SU_flow_bindings,method:$method\n");
-		# print("main,_L_SU_flow_bindings,color:$color\n");
-		$L_SU->user_built_flows($method);
-
-		# print("1. main, _L_SU_flow_bindings: writing gui_history.txt\n");
+		# print("2. main, _L_SU_flow_bindings: writing gui_history.txt\n");
 		# $gui_history->view();
+		
+		$gui_history->set_flow_color($color); # only once but does not update flow_select_color
+		# print("1. main,_L_SU_flow_bindings,color:$color\n");
+		
+		$L_SU->set_hash_ref($main_href);
+		# print("2. main,_L_SU_flow_bindings,method:$method\n");
+
+		$L_SU->user_built_flows($method);
 
 	}
 	else {
@@ -2007,7 +2005,7 @@ in L_SU
 sub _L_SU {
 	my ( $set_method, $value ) = @_;
 
-	print("1. main,_L_SU,method:$set_method, ref scalar value:$$value\n");
+	# print("1. main,_L_SU,method:$set_method, ref scalar value:$$value\n");
 
 	if ( $set_method && $value ) {
 
@@ -2057,18 +2055,16 @@ sub _L_SU_add2flows {
 
 		my $color  = $value;
 		my $button = $method;
-
-		$gui_history->set_add2flow_color($color);
-		$gui_history->set_button($button);
-		$gui_history->set_flow_type($user_built);
+		$gui_history->set_add2flow_color($color);	# flow_color set 
+		$gui_history->set_button($button);	
+		$gui_history->set_flow_type($user_built);	
 		$main_href = $gui_history->get_defaults();
-
-		# print(" main,_L_SU _add2flows, button=$button, print gui_history.txt\n");
-		# $gui_history->view();
 
 		$L_SU->set_hash_ref($main_href);
 		$L_SU->user_built_flows($method);
-
+		
+		# print(" main,_L_SU_add2flows, button=$button, print gui_history.txt\n");
+		# $gui_history->view();
 		# print("2 main,_L_SU,method:$method, scalar value:$value, method: $method\n");
 
 	}
@@ -2081,13 +2077,15 @@ sub _L_SU_add2flows {
 
 =head2 sub _L_SU_superflows 
 
+Select pre-built streams or Tools
+
 
 =cut 
 
 sub _L_SU_superflows {
 	my ( $set_method, $value ) = @_;
 	if ( $set_method && $value ) {    # value is sref
-		print("main, _L_SU_superflows,set_method,value, $set_method,$$value\n");
+		# print("main, _L_SU_superflows,set_method,value, $set_method,$$value\n");
 
 		my $tool_name = $$value;
 

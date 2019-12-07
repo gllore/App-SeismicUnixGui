@@ -77,8 +77,9 @@ sub clear {
 
 =head2 sub cols_1 
 
- readfiless cols 1 in a text file
+ read files cols 1 in a text file
  open the file of interest
+ first item has index=1
 
 =cut
 
@@ -107,7 +108,7 @@ sub cols_1 {
 	if ($ref_origin) {
 		$readfiles->{_ref_file} = $ref_origin;
 
-		#print ("\n readfiles, cols_1, The input file is called $ref_origin\n");
+	   # print ("\n readfiles, cols_1, The input file is called $ref_origin\n");
 		open( FILE, $readfiles->{_ref_file} )
 			|| print("Can't open file_name, $!\n");
 
@@ -119,12 +120,12 @@ sub cols_1 {
 
 		while ( $line = <FILE> ) {
 
-			#print("\n$line");
+			# print("readfiles, col1,--$line--\n");
 			chomp($line);
 			my ($x) = $line;
 			$OFFSET[$i] = $x;
 
-			#print("\n Reading 1 col file:@OFFSET[$i]\n");
+			# print("\n Reading 1 col file:$OFFSET[$i]\n");
 			$i = $i + 1;
 		}
 
@@ -133,6 +134,78 @@ sub cols_1 {
 		$num_rows = $i - 1;
 
 		#print out the number of lines of data for the user
+		#print ("This file contains $num_rows rows of data\n\n\n");
+
+	}
+	return ( \@OFFSET, $num_rows );
+
+}
+
+=head2 sub cols_1p 
+
+ read files cols 1 in a text file
+ open the file of interest
+ 1st item has index=0
+ exclude empty lines
+
+=cut
+
+sub cols_1p {
+
+	my ( $variable, $ref_origin ) = @_;
+
+=pod 
+
+ declare local variables  
+
+=cut
+
+	my $line;
+
+=pod 
+
+ counter, a number, row number  
+
+=cut
+
+	my $i = 0;
+	my ( $x, $num_rows );
+	my (@OFFSET);
+
+	if ($ref_origin) {
+		$readfiles->{_ref_file} = $ref_origin;
+
+	   # print ("\n readfiles, cols_1, The input file is called $ref_origin\n");
+		open( FILE, $readfiles->{_ref_file} )
+			|| print("Can't open file_name, $!\n");
+
+=pod 
+
+ read contents of list, e.g. shotpoint geometry file, file names etc.
+ 
+=cut
+
+		while ( $line = <FILE> ) {
+
+			# print("readfiles, col1,--$line--\n");
+			chomp($line);
+
+			if ( $line ne $empty_string ) {
+				
+				my ($x) = $line;
+				$OFFSET[$i] = $x;
+
+				# print("Reading 1 col file:$OFFSET[$i]\n");
+				$i = $i + 1;
+			}
+
+		}
+
+		close(FILE);
+
+		$num_rows = $i;
+
+		# print out the number of lines of data for the user
 		# print ("This file contains $num_rows rows of data\n\n\n");
 
 	}
@@ -245,275 +318,275 @@ sub cols_2 {
 #
 #  return(\@param,\@values,\@checkbutton_on_off);
 #}
+#
+#=cut
+#=head2  sub config
+#deprecated in L_SU V0.3.6
+#
+# input is hash key and value pair
+# Simple reads configuration file and
+# cretes a hash with parameters (keys/names) and
+# their values as assigned inside the configuration
+# file
+#
+# Debug with
+#
+# print("1. program name is $program_name\n\n");
+#
+# local values of the programs have priority
+#
+# TODO: objectify name changes and
+#   variable setting too!
+#
+# Load variables from local configuration file
+#
+#  tests: does this file Project_variables.config
+#  exist?
+#  from ./Project_variables.config
+#  my %values 		= %{$cfg->vars()};
+#  my $hash_size  		= keys %values;
+#  print ("hash size is $hash_size\n\n");
+#  print(" program name is $LSU->{_tool_name} \n\n");
+#  print(" program name is $choice \n\n");
+#else {  # all other normal programs whose configuration
+#       #file resides locally
+#       #$cfg = new Config::Simple($readfiles->{_program_name_config});
+#    } #test for iVA2.config
+#
+#
+#  print("progr name is $program_name\n");
+#
+#=cut
+#
+#sub config {
+#
+#	my ( $self, $program_name ) = @_;
+#	my @CFG;
+#	my $ref_CFG;
+#	my $cfg;
+#	use Moose;
+#	# use Config::Simple;
+#	use name;
+#	use control;
+#	my $name    = new name();
+#	my $control = new control;
+#
+#	if ( defined $program_name ) {
+#		$readfiles->{_program_name_config} =
+#			$name->change_config($program_name);
+#		if ( -e "./$readfiles->{_program_name_config}" ) {
+#
+#=pod
+#
+# Values taken from the simple,local
+# file: iVA2.config called
+# LOCAL VARIABLES FOR THIS PROJECT
+#     file_name  			= 'All_cmp'
+#     cdp_first   			= 15
+#     cdp_inc    			= 1
+#     cdp_last    			= 100
+#     data_scale    		 	= 1
+#     freq    		        = '0,3,100,200'
+#     number_of_velocities   = 300
+#     first_velocity   	    = 3
+#     velocity_increment   	= 10
+#     min_semblance    	    = .0
+#     max_semblance    	    = .75
+#
+#   print("home is $CFG[0]\n\n");
+#   print("Project home is $CFG[1]\n\n");
+#
+#=cut
+#
+#			if ( $readfiles->{_program_name_config} eq 'iVA2.config' ) {
+#				$cfg = new Config::Simple( $readfiles->{_program_name_config} );
+#				$CFG[0]  = "file_name";
+#				$CFG[1]  = $cfg->param("file_name");
+#				$CFG[2]  = "cdp_first";
+#				$CFG[3]  = $cfg->param("cdp_first");
+#				$CFG[4]  = "cdp_inc";
+#				$CFG[5]  = $cfg->param("cdp_inc");
+#				$CFG[6]  = "cdp_last";
+#				$CFG[7]  = $cfg->param("cdp_last");
+#				$CFG[8]  = "data_scale";
+#				$CFG[9]  = $cfg->param("data_scale");
+#				$CFG[10] = "freq";
+#				$CFG[11] = $cfg->param("freq");
+#				$CFG[12] = "number_of_velocities";
+#				$CFG[13] = $cfg->param("number_of_velocities");
+#				$CFG[14] = "first_velocity";
+#				$CFG[15] = $cfg->param("first_velocity");
+#				$CFG[16] = "velocity_increment";
+#				$CFG[17] = $cfg->param("velocity_increment");
+#				$CFG[18] = "min_semblance";
+#				$CFG[19] = $cfg->param("min_semblance");
+#				$CFG[20] = "max_semblance";
+#				$CFG[21] = $cfg->param("max_semblance");
 
-=cut
-=head2  sub config 
-deprecated in L_SU V0.3.6
-
- input is hash key and value pair
- Simple reads configuration file and
- cretes a hash with parameters (keys/names) and
- their values as assigned inside the configuration
- file
-
- Debug with
-
- print("1. program name is $program_name\n\n");
-
- local values of the programs have priority
-
- TODO: objectify name changes and
-   variable setting too!
-
- Load variables from local configuration file
-
-  tests: does this file Project_variables.config 
-  exist?
-  from ./Project_variables.config
-  my %values 		= %{$cfg->vars()};
-  my $hash_size  		= keys %values;
-  print ("hash size is $hash_size\n\n");
-  print(" program name is $LSU->{_tool_name} \n\n");
-  print(" program name is $choice \n\n");
-else {  # all other normal programs whose configuration 
-       #file resides locally
-       #$cfg = new Config::Simple($readfiles->{_program_name_config});
-    } #test for iVA2.config
-
-
-  print("progr name is $program_name\n");
-
-=cut
-
-sub config {
-
-	my ( $self, $program_name ) = @_;
-	my @CFG;
-	my $ref_CFG;
-	my $cfg;
-	use Moose;
-	use Config::Simple;
-	use name;
-	use control;
-	my $name    = new name();
-	my $control = new control;
-
-	if ( defined $program_name ) {
-		$readfiles->{_program_name_config} =
-			$name->change_config($program_name);
-		if ( -e "./$readfiles->{_program_name_config}" ) {
-
-=pod 
-
- Values taken from the simple,local
- file: iVA2.config called
- LOCAL VARIABLES FOR THIS PROJECT
-     file_name  			= 'All_cmp'
-     cdp_first   			= 15
-     cdp_inc    			= 1
-     cdp_last    			= 100
-     data_scale    		 	= 1
-     freq    		        = '0,3,100,200'
-     number_of_velocities   = 300
-     first_velocity   	    = 3
-     velocity_increment   	= 10
-     min_semblance    	    = .0
-     max_semblance    	    = .75
-
-   print("home is $CFG[0]\n\n");
-   print("Project home is $CFG[1]\n\n");
-
-=cut 
-
-			if ( $readfiles->{_program_name_config} eq 'iVA2.config' ) {
-				$cfg = new Config::Simple( $readfiles->{_program_name_config} );
-				$CFG[0]  = "file_name";
-				$CFG[1]  = $cfg->param("file_name");
-				$CFG[2]  = "cdp_first";
-				$CFG[3]  = $cfg->param("cdp_first");
-				$CFG[4]  = "cdp_inc";
-				$CFG[5]  = $cfg->param("cdp_inc");
-				$CFG[6]  = "cdp_last";
-				$CFG[7]  = $cfg->param("cdp_last");
-				$CFG[8]  = "data_scale";
-				$CFG[9]  = $cfg->param("data_scale");
-				$CFG[10] = "freq";
-				$CFG[11] = $cfg->param("freq");
-				$CFG[12] = "number_of_velocities";
-				$CFG[13] = $cfg->param("number_of_velocities");
-				$CFG[14] = "first_velocity";
-				$CFG[15] = $cfg->param("first_velocity");
-				$CFG[16] = "velocity_increment";
-				$CFG[17] = $cfg->param("velocity_increment");
-				$CFG[18] = "min_semblance";
-				$CFG[19] = $cfg->param("min_semblance");
-				$CFG[20] = "max_semblance";
-				$CFG[21] = $cfg->param("max_semblance");
-
-=podfor iVA
-
- package control corrects for missing commas in number strings
- and file names with a suffix
-
-=cut
-
-			 #print(" 1. readfiles,config, for iVA2, freq is $CFG[11]\n\n");
-			 #print(" 1. readfiles,config, for iVA2, file_name is $CFG[1]\n\n");
-				$CFG[11] = $control->commas( \$CFG[11] );
-				$CFG[1]  = $control->su_file_name( \$CFG[1] );
-
-			 #print(" 2. readfiles,config, for iVA2, freq is $CFG[11]\n\n");
-			 #print(" 1. readfiles,config, for iVA2, file_name is $CFG[1]\n\n");
-
-			}
-
-			if ( $readfiles->{_program_name_config} eq
-				( $$alias_superflow_config_name[0] . '.config' ) )
-			{
-
-# print("readfiles,fk alias_superflow_config_name : $$alias_superflow_config_name[0]\n");
-				$cfg = new Config::Simple( $readfiles->{_program_name_config} );
-				$CFG[0]  = "file_name";
-				$CFG[1]  = $cfg->param("file_name");
-				$CFG[2]  = "sudipfilter_1_dt";
-				$CFG[3]  = $cfg->param("sudipfilter_1_dt");
-				$CFG[4]  = "sudipfilter_1_dx";
-				$CFG[5]  = $cfg->param("sudipfilter_1_dx");
-				$CFG[6]  = "sudipfilter_1_slopes";
-				$CFG[7]  = $cfg->param("sudipfilter_1_slopes");
-				$CFG[8]  = "sudipfilter_1_bias";
-				$CFG[9]  = $cfg->param("sudipfilter_1_bias");
-				$CFG[10] = "sudipfilter_1_amps";
-				$CFG[11] = $cfg->param("sudipfilter_1_amps");
-				$CFG[12] = "sudipfilter_2_dt";
-				$CFG[13] = $cfg->param("sudipfilter_2_dt");
-				$CFG[14] = "sudipfilter_2_dx";
-				$CFG[15] = $cfg->param("sudipfilter_2_dx");
-				$CFG[16] = "sudipfilter_2_slopes";
-				$CFG[17] = $cfg->param("sudipfilter_2_slopes");
-				$CFG[18] = "sudipfilter_2_bias";
-				$CFG[19] = $cfg->param("sudipfilter_2_bias");
-				$CFG[20] = "sudipfilter_2_amps";
-				$CFG[21] = $cfg->param("sudipfilter_2_amps");
-				$CFG[22] = "sufilter_1_freq";
-				$CFG[23] = $cfg->param("sufilter_1_freq");
-				$CFG[24] = "sufilter_1_amplitude";
-				$CFG[25] = $cfg->param("sufilter_1_amplitude");
-				$CFG[26] = "suspecfk_1_dt";
-				$CFG[27] = $cfg->param("suspecfk_1_dt");
-				$CFG[28] = "suspecfk_1_dx";
-				$CFG[29] = $cfg->param("suspecfk_1_dx");
-				$CFG[30] = "suwind_1_tmin";
-				$CFG[31] = $cfg->param("suwind_1_tmin");
-				$CFG[32] = "suwind_1_tmax";
-				$CFG[33] = $cfg->param("suwind_1_tmax");
-				$CFG[34] = "suwind_2_key";
-				$CFG[35] = $cfg->param("suwind_2_key");
-				$CFG[36] = "suwind_2_min";
-				$CFG[37] = $cfg->param("suwind_2_min");
-				$CFG[38] = "suwind_2_max";
-				$CFG[39] = $cfg->param("suwind_2_max");
-				$CFG[40] = "TOP_LEFT_sugain_pbal_switch";
-				$CFG[41] = $cfg->param("TOP_LEFT_sugain_pbal_switch");
-				$CFG[42] = "TOP_LEFT_sugain_pbal_switch";
-				$CFG[43] = $cfg->param("TOP_LEFT_sugain_pbal_switch");
-				$CFG[44] = "TOP_LEFT_sugain_pbal_switch";
-				$CFG[45] = $cfg->param("TOP_LEFT_sugain_pbal_switch");
-				$CFG[46] = "TOP_LEFT_sugain_pbal_switch";
-				$CFG[47] = $cfg->param("TOP_LEFT_sugain_pbal_switch");
-
-=pod
-
- Config::Simple interprets configuration values improperly
- for cases of numbers separated by commas
- Also, filename is file, without a suffix!
-
-=cut
-
-				$CFG[1]  = $control->su_file_name( \$CFG[1] );
-				$CFG[7]  = $control->commas( \$CFG[7] );
-				$CFG[11] = $control->commas( \$CFG[11] );
-				$CFG[17] = $control->commas( \$CFG[17] );
-				$CFG[21] = $control->commas( \$CFG[21] );
-				$CFG[23] = $control->commas( \$CFG[23] );
-				$CFG[25] = $control->commas( \$CFG[25] );
-			}
-			if ( $readfiles->{_program_name_config} eq 'Project' . '.config' ) {
-
-			}
-
-			if ( $readfiles->{_program_name_config} eq $alias_PV . '.config' ) {
-
-				$cfg = new Config::Simple( $readfiles->{_program_name_config} );
-
-=head2 
-
- contains all the configuration variables in
- perl script
-   HOME                 ='/home/gom';
-   PROJECT_HOME			= '/FalseRiver';;
-   site					= 'Bueche';
-   spare_dir			= '';
-   date					= '051216';
-   component			= 'H';
-   line					= '1';
-   subUser				= 'gom';
-   geomaps				= 'no'
-   print("home is $CFG[0]\n\n");
-   print("Project home is $CFG[1]\n\n");
-   $ref_CFG          	= default_Tkcfg($program_name);
-   $cfg -> write($CFG);
-   ($ref_labels_w,$ref_values_w) =  disappear(\@param,\@values,$entries); 
-
-=cut 
-
-				$CFG[0]  = "HOME";
-				$CFG[1]  = $cfg->param("HOME");
-				$CFG[2]  = "PROJECT_HOME";
-				$CFG[3]  = $cfg->param("PROJECT_HOME");
-				$CFG[4]  = "site";
-				$CFG[5]  = $cfg->param("site");
-				$CFG[6]  = "spare_dir";
-				$CFG[7]  = $cfg->param("spare_dir");
-				$CFG[8]  = "date";
-				$CFG[9]  = $cfg->param("date");
-				$CFG[10] = "component";
-				$CFG[11] = $cfg->param("component");
-				$CFG[12] = "line";
-				$CFG[13] = $cfg->param("line");
-				$CFG[14] = "subUser";
-				$CFG[15] = $cfg->param("subUser");
-				$CFG[14] = "geomaps";
-				$CFG[15] = $cfg->param("geomaps");
-
-=pod
-
- package control corrects for empty string 
-
-=cut
-
-				$CFG[7] = $control->empty_string( \$CFG[7] );
-
-			}
-			else {    # all other normal programs whose configuration
-				 #file resides locally
-				 #$cfg = new Config::Simple($readfiles->{_program_name_config});
-			}    #test for Project_Variables.config
-		}
-		else {
-			print(
-				"file $readfiles->{_program_name} should exist in current directory\n"
-			);
-			print(
-				"A new file:$readfiles->{_program_name}.config  will be created in the local directory\n"
-			);
-
-		}
-
-		return ( \@CFG );
-
-	}    # test entries
-}    #sub config
+#=podfor iVA
+#
+# package control corrects for missing commas in number strings
+# and file names with a suffix
+#
+#=cut
+#
+#			 #print(" 1. readfiles,config, for iVA2, freq is $CFG[11]\n\n");
+#			 #print(" 1. readfiles,config, for iVA2, file_name is $CFG[1]\n\n");
+#				$CFG[11] = $control->commas( \$CFG[11] );
+#				$CFG[1]  = $control->su_file_name( \$CFG[1] );
+#
+#			 #print(" 2. readfiles,config, for iVA2, freq is $CFG[11]\n\n");
+#			 #print(" 1. readfiles,config, for iVA2, file_name is $CFG[1]\n\n");
+#
+#			}
+#
+#			if ( $readfiles->{_program_name_config} eq
+#				( $$alias_superflow_config_name[0] . '.config' ) )
+#			{
+#
+## print("readfiles,fk alias_superflow_config_name : $$alias_superflow_config_name[0]\n");
+#				$cfg = new Config::Simple( $readfiles->{_program_name_config} );
+#				$CFG[0]  = "file_name";
+#				$CFG[1]  = $cfg->param("file_name");
+#				$CFG[2]  = "sudipfilter_1_dt";
+#				$CFG[3]  = $cfg->param("sudipfilter_1_dt");
+#				$CFG[4]  = "sudipfilter_1_dx";
+#				$CFG[5]  = $cfg->param("sudipfilter_1_dx");
+#				$CFG[6]  = "sudipfilter_1_slopes";
+#				$CFG[7]  = $cfg->param("sudipfilter_1_slopes");
+#				$CFG[8]  = "sudipfilter_1_bias";
+#				$CFG[9]  = $cfg->param("sudipfilter_1_bias");
+#				$CFG[10] = "sudipfilter_1_amps";
+#				$CFG[11] = $cfg->param("sudipfilter_1_amps");
+#				$CFG[12] = "sudipfilter_2_dt";
+#				$CFG[13] = $cfg->param("sudipfilter_2_dt");
+#				$CFG[14] = "sudipfilter_2_dx";
+#				$CFG[15] = $cfg->param("sudipfilter_2_dx");
+#				$CFG[16] = "sudipfilter_2_slopes";
+#				$CFG[17] = $cfg->param("sudipfilter_2_slopes");
+#				$CFG[18] = "sudipfilter_2_bias";
+#				$CFG[19] = $cfg->param("sudipfilter_2_bias");
+#				$CFG[20] = "sudipfilter_2_amps";
+#				$CFG[21] = $cfg->param("sudipfilter_2_amps");
+#				$CFG[22] = "sufilter_1_freq";
+#				$CFG[23] = $cfg->param("sufilter_1_freq");
+#				$CFG[24] = "sufilter_1_amplitude";
+#				$CFG[25] = $cfg->param("sufilter_1_amplitude");
+#				$CFG[26] = "suspecfk_1_dt";
+#				$CFG[27] = $cfg->param("suspecfk_1_dt");
+#				$CFG[28] = "suspecfk_1_dx";
+#				$CFG[29] = $cfg->param("suspecfk_1_dx");
+#				$CFG[30] = "suwind_1_tmin";
+#				$CFG[31] = $cfg->param("suwind_1_tmin");
+#				$CFG[32] = "suwind_1_tmax";
+#				$CFG[33] = $cfg->param("suwind_1_tmax");
+#				$CFG[34] = "suwind_2_key";
+#				$CFG[35] = $cfg->param("suwind_2_key");
+#				$CFG[36] = "suwind_2_min";
+#				$CFG[37] = $cfg->param("suwind_2_min");
+#				$CFG[38] = "suwind_2_max";
+#				$CFG[39] = $cfg->param("suwind_2_max");
+#				$CFG[40] = "TOP_LEFT_sugain_pbal_switch";
+#				$CFG[41] = $cfg->param("TOP_LEFT_sugain_pbal_switch");
+#				$CFG[42] = "TOP_LEFT_sugain_pbal_switch";
+#				$CFG[43] = $cfg->param("TOP_LEFT_sugain_pbal_switch");
+#				$CFG[44] = "TOP_LEFT_sugain_pbal_switch";
+#				$CFG[45] = $cfg->param("TOP_LEFT_sugain_pbal_switch");
+#				$CFG[46] = "TOP_LEFT_sugain_pbal_switch";
+#				$CFG[47] = $cfg->param("TOP_LEFT_sugain_pbal_switch");
+#
+#=pod
+#
+# Config::Simple interprets configuration values improperly
+# for cases of numbers separated by commas
+# Also, filename is file, without a suffix!
+#
+#=cut
+#
+#				$CFG[1]  = $control->su_file_name( \$CFG[1] );
+#				$CFG[7]  = $control->commas( \$CFG[7] );
+#				$CFG[11] = $control->commas( \$CFG[11] );
+#				$CFG[17] = $control->commas( \$CFG[17] );
+#				$CFG[21] = $control->commas( \$CFG[21] );
+#				$CFG[23] = $control->commas( \$CFG[23] );
+#				$CFG[25] = $control->commas( \$CFG[25] );
+#			}
+#			if ( $readfiles->{_program_name_config} eq 'Project' . '.config' ) {
+#
+#			}
+#
+#			if ( $readfiles->{_program_name_config} eq $alias_PV . '.config' ) {
+#
+#				$cfg = new Config::Simple( $readfiles->{_program_name_config} );
+#
+#=head2
+#
+# contains all the configuration variables in
+# perl script
+#   HOME                 ='/home/gom';
+#   PROJECT_HOME			= '/FalseRiver';;
+#   site					= 'Bueche';
+#   spare_dir			= '';
+#   date					= '051216';
+#   component			= 'H';
+#   line					= '1';
+#   subUser				= 'gom';
+#   geomaps				= 'no'
+#   print("home is $CFG[0]\n\n");
+#   print("Project home is $CFG[1]\n\n");
+#   $ref_CFG          	= default_Tkcfg($program_name);
+#   $cfg -> write($CFG);
+#   ($ref_labels_w,$ref_values_w) =  disappear(\@param,\@values,$entries);
+#
+#=cut
+#
+#				$CFG[0]  = "HOME";
+#				$CFG[1]  = $cfg->param("HOME");
+#				$CFG[2]  = "PROJECT_HOME";
+#				$CFG[3]  = $cfg->param("PROJECT_HOME");
+#				$CFG[4]  = "site";
+#				$CFG[5]  = $cfg->param("site");
+#				$CFG[6]  = "spare_dir";
+#				$CFG[7]  = $cfg->param("spare_dir");
+#				$CFG[8]  = "date";
+#				$CFG[9]  = $cfg->param("date");
+#				$CFG[10] = "component";
+#				$CFG[11] = $cfg->param("component");
+#				$CFG[12] = "line";
+#				$CFG[13] = $cfg->param("line");
+#				$CFG[14] = "subUser";
+#				$CFG[15] = $cfg->param("subUser");
+#				$CFG[14] = "geomaps";
+#				$CFG[15] = $cfg->param("geomaps");
+#
+#=pod
+#
+# package control corrects for empty string
+#
+#=cut
+#
+#				$CFG[7] = $control->empty_string( \$CFG[7] );
+#
+#			}
+#			else {    # all other normal programs whose configuration
+#				 #file resides locally
+#				 #$cfg = new Config::Simple($readfiles->{_program_name_config});
+#			}    #test for Project_Variables.config
+#		}
+#		else {
+#			print(
+#				"file $readfiles->{_program_name} should exist in current directory\n"
+#			);
+#			print(
+#				"A new file:$readfiles->{_program_name}.config  will be created in the local directory\n"
+#			);
+#
+#		}
+#
+#		return ( \@CFG );
+#
+#	}    # test entries
+#}    #sub config
 
 #=head2 sub defaults
 #
@@ -611,7 +684,7 @@ sub configs {
 	if ($program) {
 		my $control = control->new();
 		my ( @parameter, @value );
-		my ( $this,      $eq);
+		my ( $this,      $eq );
 
 		$this = $program;
 
@@ -680,21 +753,21 @@ sub configs {
 
 			# split line using =
 			( $t_whole, $x ) = split( /\s+=\s*/, $line );
-			$t				= $t_whole; # redundanct in long run unless the 
-			# following changes
+			$t = $t_whole;    # redundanct in long run unless the
+			                  # following changes
 
-#		  #  Only first of a composite set of labels e.g. boundary_conditions|abs
-#			if ( defined $t_whole
-#				&& $t_whole ne $empty_string )
-#			{
-#				my @t_split = $t_whole =~ m/(\w+)/;
-#				$t       	= $t_split[0];
-#
-#			}
-#			else {
-#				$t			= $t_whole;
-#				# print(" readfiles,configs, unexpected empty label ,NADA\n");
-#			}
+	#		  #  Only first of a composite set of labels e.g. boundary_conditions|abs
+	#			if ( defined $t_whole
+	#				&& $t_whole ne $empty_string )
+	#			{
+	#				my @t_split = $t_whole =~ m/(\w+)/;
+	#				$t       	= $t_split[0];
+	#
+	#			}
+	#			else {
+	#				$t			= $t_whole;
+	#				# print(" readfiles,configs, unexpected empty label ,NADA\n");
+	#			}
 
 			# print("3-1a. readfiles,configs $t\t$x \n");
 

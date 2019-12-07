@@ -59,7 +59,7 @@ use decisions 1.00;
 # potentially used in all packages
 use L_SU_global_constants;
 use name;
-use messages::message_director;
+use message_director;
 
 # use control;
 use whereami;
@@ -719,7 +719,7 @@ sub set_hash_ref {
 #
 # 	use save;
 #	use files_LSU;
-#	use messages::message_director;
+#	use message_director;
 #
 #		# for 2.built_in_flow.pm ONLY run_button superflow_select check_code_button
 #	use config_superflows;
@@ -789,7 +789,7 @@ sub set_hash_ref {
 ##
 ## 	use save;
 ##	use files_LSU;
-##	use messages::message_director;
+##	use message_director;
 ##
 ##	# use whereami;
 ##

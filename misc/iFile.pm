@@ -428,7 +428,7 @@ sub get_Data_path {
 		# CASE 2A
 		if ( $entry_label eq $base_file_name ) {
 
-			print("2. iFile,get_Data_path,$DATA_SEISMIC_SU\n");
+			# print("2. iFile,get_Data_path,$DATA_SEISMIC_SU\n");
 			#_get_DATA_DIR_OUT;
 			# _get_DATA_DIR_IN;
 			$iFile->{_path} = _get_DATA_DIR_IN;
@@ -637,39 +637,6 @@ sub get_prog_name_s {
 	return ($program_name);
 }
 
-#=head2 sub _close4flow 
-#
-#	highlight the last index touched
-#
-#=cut
-#
-#sub _close4flow {
-#	my ($self) = @_;
-#
-#	# print( "iFile,_close4flow, iFile->{_last_flow_index_touched}: $iFile->{_last_flow_index_touched} \n" );
-#	# print( "iFile,_close4flow, iFile->{_last_flow_listbox_touched_w}: $iFile->{_last_flow_listbox_touched_w} \n" );
-#
-#	if ( $iFile->{_last_flow_listbox_touched_w}
-#		&& ( $iFile->{_last_flow_index_touched} >= 0 ) )
-#	{    # -1 does exist as default in L_SU.pm
-#		$iFile->{_last_flow_listbox_touched_w}->selectionSet( $iFile->{_last_flow_index_touched}, );
-#	}
-#	else {
-#		print("iFile, _close4flow, missing widget and or index (integer)\n");
-#	}
-#	return ();
-#}
-
-#=head2 sub _close4superflow 
-#
-#=cut
-#
-#sub _close4superflow {
-#
-#	my ($self) = @_;
-#
-#	return ();
-#}
 
 =head2 sub _get_prog_name
 

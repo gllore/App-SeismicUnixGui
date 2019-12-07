@@ -25,7 +25,6 @@ my $max_index       = $suop2->get_max_index();
 my $suop2_spec = {
 	_DATA_DIR_IN           => $DATA_SEISMIC_SU,
 	_DATA_DIR_OUT          => $DATA_SEISMIC_SU,
-	_DATA_DIR_OUT          => $PL_SEISMIC,
 	_binding_index_aref    => '',
 	_suffix_type_in        => $su,
 	_data_suffix_in        => $suffix_su,
@@ -103,7 +102,7 @@ sub flow_type_aref {
 	my @type;
 
 	$type[0] = $flow_type->{_user_built};
-
+	$type[1] = $flow_type->{_user_built};
 	$suop2_spec->{_flow_type_aref} = \@type;
 	return ();
 

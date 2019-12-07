@@ -60,6 +60,7 @@ my $suxwigb           = new suxwigb();
 my $Project           = new Project_config();
 my ($DATA_SEISMIC_SU) = $Project->DATA_SEISMIC_SU();
 my ($PL_SEISMIC)      = $Project->PL_SEISMIC();
+# print("iSuvelan, DATA_SEISMIC_SU: $DATA_SEISMIC_SU\n\n");
 
 =head2
  
@@ -210,6 +211,7 @@ sub file_in {
         $iSuvelan->{_sufile_in} = $file_in . '.su';
     }
     $iSuvelan->{_inbound} = $DATA_SEISMIC_SU . '/' . $iSuvelan->{_sufile_in};
+    # print("iSuvelan_inbound is $iSuvelan->{_inbound}\n\n");
 }
 
 =head2  subroutine first_velocity
@@ -431,7 +433,7 @@ by time
     $suximage->first_tick_number_x( quotemeta( $iSuvelan->{_first_velocity} ) );
     $suximage->picks( $iSuvelan->{_Tvel_outbound} )
       ;    # quotemeta does not work JL Nov 2 2018
-     #print("iSuvelan, calcNdisplay: Writing picks to $iSuvelan->{_Tvel_outbound}\n\n");
+     # print("iSuvelan, calcNdisplay: Writing picks to $iSuvelan->{_Tvel_outbound}\n\n");
 
 =head2 conditions
  
@@ -443,7 +445,7 @@ by time
 
     if ( $iSuvelan->{_number_of_tries} >= 2 ) {
 
-        # print("using a curve file:\n");
+        print("using a curve file:\n");
         # print("\t$iSuvelan->{_Tvel_inbound}\n\n");
         $suximage->curvefile( quotemeta( $iSuvelan->{_Tvel_inbound} ) )
           ;    # does not like quotemeta
@@ -549,8 +551,8 @@ DB
 
 =cut
 
-    $run->flow( \$flow[1] );
-    $run->flow( \$flow[2] );
+     $run->flow( \$flow[1] );
+     $run->flow( \$flow[2] );
 
 =head2  LOG FLOW(S)
 
@@ -559,7 +561,7 @@ DB
 =cut
 
     # print  "$flow[1]\n";
-    #  print  "$flow[2]\n";
+    # print  "$flow[2]\n";
     #  $log->file($flow[1]);
     #  $log->file($flow[2]);
     #

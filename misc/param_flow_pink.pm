@@ -1428,26 +1428,26 @@ sub view_data {
 	my $indices = $param_flow_pink->{_indices};
 	$num_progs[0] = $param_flow_pink->{_num_items};
 
-	#    $num_progs[1] = scalar  ( @{$param_flow_pink->{_names_aref2}}  );
+	$num_progs[1] = scalar( @{ $param_flow_pink->{_names_aref2} } );
+
 	#    $num_progs[3] = scalar  ( @{$param_flow_pink->{_values_aref2}} );
 	#    $num_progs[4] = scalar  ( @{$param_flow_pink->{_checkbuttons_aref2}});
-	# $num_progs[5] = scalar  ( @{$param_flow_pink->{_prog_names_aref}});
+	$num_progs[5] = scalar( @{ $param_flow_pink->{_prog_names_aref} } );
 
-	#	 print("\n param_flow_pink,view_data, _prog_names @{$param_flow_pink->{_prog_names_aref}}\n");
+	 print("\n param_flow_pink,view_data, _prog_names @{$param_flow_pink->{_prog_names_aref}}\n");
 	# print("\nparam_flow_pink,view_data:number of items in list in 4-5 different ways  @num_progs \n");
-	print("param_flow_pink,view_data:max index = $indices  \n\n");
+
+	# print("param_flow_pink,view_data:max index = $indices  \n\n");
 
 	# print("param_flow_pink,view_data, param_flow_pink_ has hash=$param_flow_pink\n ");
 
-	print( "param_flow_pink,view_data:  prog_names:   @{$param_flow_pink->{_prog_names_aref}}\n" );
+	 for ( my $i = 0; $i <= $indices; $i++ ) {
 
-	for ( my $i = 0; $i <= $indices; $i++ ) {
+		 print("param_flow_pink,view_data: names:        @{@{$param_flow_pink->{_names_aref2}}[$i]}\n");
+		 print("param_flow_pink,view_data: values:       @{@{$param_flow_pink->{_values_aref2}}[$i]}\n");
 
-		#    print("param_flow_pink,view_data: names:        @{@{$param_flow_pink->{_names_aref2}}[$i]}\n");
-		print( "param_flow_pink,view_data: values:       @{@{$param_flow_pink->{_values_aref2}}[$i]}\n" );
-
-		#     print("param_flow_pink,view_data: checkbuttons: @{@{$param_flow_pink->{_checkbuttons_aref2}}[$i]}\n\n");
-	}
+		     print("param_flow_pink,view_data: checkbuttons: @{@{$param_flow_pink->{_checkbuttons_aref2}}[$i]}\n\n");
+	 }
 }
 
 1;

@@ -280,7 +280,7 @@ sub get_labels_w_aref {
 sub get_length_check_buttons_on {
 	my ($self) = @_;
 	my ( $length, $count );
-	my $check_buttons_aref = _get_check_buttons_aref();
+	my $check_buttons_aref = _get_check_buttons_settings_aref();
 
 	# print("param_widgets,get_length_check_buttons_on, @$check_buttons_aref)\n");
 	my @button_settings = @$check_buttons_aref;
@@ -305,7 +305,7 @@ sub get_length_check_buttons_on {
 sub get_index_check_buttons_on {
 	my ($self) = @_;
 	my ( $length, $count );
-	my $check_buttons_aref = _get_check_buttons_aref();
+	my $check_buttons_aref = _get_check_buttons_settings_aref();
 
 	# print("param_widgets,get_length_check_buttons_on, @$check_buttons_aref)\n");
 	my @button_settings = @$check_buttons_aref;
@@ -641,18 +641,43 @@ sub get_current_widget_name {
 	return ($widget_name);
 }
 
-=head2 sub get_check_buttons_aref
+=head2 sub get_check_buttons_settings_aref
 
 =cut
 
-sub get_check_buttons_aref {
-	my ($self)                      = @_;
-	my $check_buttons_settings_aref = \@{ $param_widgets->{_check_buttons_settings_aref} };
-	my $check_buttons_aref          = $check_buttons_settings_aref;
+sub get_check_buttons_settings_aref {
+	my ($self) = @_;
 
-	# print("param_widgets,get_check_buttons_aref: @{$param_widgets->{_check_buttons_settings_aref}}\n");
-	return ($check_buttons_aref);
+	if ( defined $param_widgets->{_check_buttons_settings_aref}
+		&& $param_widgets->{_check_buttons_settings_aref} ne $empty_string )
+	{
+
+		my $check_buttons_settings_aref =
+			\@{ $param_widgets->{_check_buttons_settings_aref} };
+		my $check_buttons_aref = $check_buttons_settings_aref;
+
+		return ($check_buttons_aref);
+	}
+	else {
+		my @check_buttons_aref = ();
+		# print("param_widgets,get_check_buttons_settings_aref is empty NADA\n");
+		return ( \@check_buttons_aref );
+	}
+
 }
+
+#=head2 sub get_check_buttons_settings_aref
+#
+#=cut
+#
+#sub get_check_buttons_settings_aref {
+#	my ($self)                      = @_;
+#	my $check_buttons_settings_aref = \@{ $param_widgets->{_check_buttons_settings_aref} };
+#	my $check_buttons_aref          = $check_buttons_settings_aref;
+#
+#	# print("param_widgets,get_check_buttons_settings_aref: @{$param_widgets->{_check_buttons_settings_aref}}\n");
+#	return ($check_buttons_aref);
+#}
 
 sub set_entry_button_chosen_index {
 
@@ -663,16 +688,16 @@ sub set_entry_button_chosen_index {
 
 }
 
-=head2 sub _get_check_buttons_aref
+=head2 sub _get_check_buttons_settings_aref
 
 =cut
 
-sub _get_check_buttons_aref {
+sub _get_check_buttons_settings_aref {
 	my ($self)                      = @_;
 	my $check_buttons_settings_aref = \@{ $param_widgets->{_check_buttons_settings_aref} };
 	my $check_buttons_aref          = $check_buttons_settings_aref;
 
-	#print("param_widgets,get_check_buttons_aref: @{$param_widgets->{_check_buttons_settings_aref}}\n");
+	#print("param_widgets,get_check_buttons_settings_aref: @{$param_widgets->{_check_buttons_settings_aref}}\n");
 	return ($check_buttons_aref);
 }
 
@@ -1625,7 +1650,19 @@ sub set_hash_ref {
 
 sub set_labels {
 	my ( $self, $labels_aref ) = @_;
-	$param_widgets->{_labels_aref} = $labels_aref;
+ #       print("param_widgets,set_labels\n");
+	if ( defined $labels_aref ) {
+
+		$param_widgets->{_labels_aref} = $labels_aref;
+
+		# my $length = scalar @{ $param_widgets->{_labels_aref} };
+		# print("param_widgets,set_labels, length=$length\n");
+
+	}
+	else {
+		print("param_widgets_green,set_labels, missinglabels\n")
+			;
+	}
 	return ();
 }
 

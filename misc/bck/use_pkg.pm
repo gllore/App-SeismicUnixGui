@@ -9,8 +9,8 @@ use Moose;
  my @use;
 
  $use[0] =  
- "\t".'use misc::message;'."\n".
- "\t".'use misc::flow;'."\n";
+ "\t".'use message;'."\n".
+ "\t".'use flow;'."\n";
 
 
 sub section {

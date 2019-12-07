@@ -61,19 +61,17 @@ our $VERSION = '0.0.3';
 
 extends 'gui_history' => { -version => 0.0.2 };
 
-use param_widgets_neutral2;
-use param_flow_neutral;
+use param_widgets_neutral 0.0.2;
+use param_flow_neutral 0.0.3;
 use flow_widgets;
-# use conditions_gui;
 
-# my $conditions_gui = conditions_gui->new();
 my $flow_widgets   = flow_widgets->new();
 my $get            = L_SU_global_constants->new();
 my $gui_history    = gui_history->new();
 my $param_flow     = param_flow_neutral->new();
 
 # print("user_built flow, make param_flow instance in user_built flow\n");
-my $param_widgets   = param_widgets_neutral2->new();
+my $param_widgets   = param_widgets_neutral->new();
 my $flow_type       = $get->flow_type_href();
 my $color_flow_href = $gui_history->get_defaults();
 
@@ -86,7 +84,7 @@ my $color_flow_href = $gui_history->get_defaults();
 
 my ($flow_color);
 my ($flowNsuperflow_name_w);
-my $last_flow_color;
+# my $last_flow_color;
 my $message_w;
 my $sunix_listbox;
 my $var = $get->var();
@@ -142,36 +140,36 @@ sub get_flow_color {
 
 }
 
-=head2 sub get_last_flow_color
-	
-		returns current folor (neutral) as the last fow color
-		get_hash_ref is NOT USED intentionally
-		The variabels needed by other colored flows exceed the capacity of the current package
-		I opt for enacapsulation
- 	
-=cut
-
-sub get_last_flow_color {
-
-	my ($self) = @_;
-
-	if ( $color_flow_href->{_flow_color} ) {
-
-		$color_flow_href->{_last_flow_color} = $color_flow_href->{_flow_color};
-
-		# for export
-		$last_flow_color = $color_flow_href->{_last_flow_color};
-
-		# print("neutral_flow, get_last_flow_color, last_flow_color:  $last_flow_color\n");
-		return ($last_flow_color);
-
-	}
-	else {
-		print("neutral_flow, get_last_flow_color,  flow_color missing \n");
-	}
-
-	return ();
-}
+#=head2 sub get_last_flow_color
+#	
+#		returns current folor (neutral) as the last fow color
+#		get_hash_ref is NOT USED intentionally
+#		The variabels needed by other colored flows exceed the capacity of the current package
+#		I opt for enacapsulation
+# 	
+#=cut
+#
+#sub get_last_flow_color {
+#
+#	my ($self) = @_;
+#
+#	if ( $color_flow_href->{_flow_color} ) {
+#
+#		$color_flow_href->{_last_flow_color} = $color_flow_href->{_flow_color};
+#
+#		# for export
+#		$last_flow_color = $color_flow_href->{_last_flow_color};
+#
+#		# print("neutral_flow, get_last_flow_color, last_flow_color:  $last_flow_color\n");
+#		return ($last_flow_color);
+#
+#	}
+#	else {
+#		print("neutral_flow, get_last_flow_color,  flow_color missing \n");
+#	}
+#
+#	return ();
+#}
 
 =head2 sub get_prog_name_sref 
 
@@ -246,7 +244,7 @@ sub set_hash_ref {
 #	$file_menubutton               = $color_flow_href->{_file_menubutton};
 	$flow_color                    = $color_flow_href->{_flow_color};
 	$flowNsuperflow_name_w         = $color_flow_href->{_flowNsuperflow_name_w};
-	$last_flow_color               = $color_flow_href->{_last_flow_color};                 # used in flow_select
+#	$last_flow_color               = $color_flow_href->{_last_flow_color};                 # used in flow_select
 #	$labels_w_aref                 = $color_flow_href->{_labels_w_aref};
 	$message_w                     = $color_flow_href->{_message_w};
 	$sunix_listbox                 = $color_flow_href->{_sunix_listbox};
@@ -286,7 +284,7 @@ sub sunix_select {
 
 	$color_flow_href->{_flow_type} = $flow_type->{_user_built};    # should be at start of neutral_flow
 	                                                               # print("neutral_flow, sunix_select,parameter_values_frame: $parameter_values_frame\n");
-	use messages::message_director;
+	use message_director;
 	use param_sunix;
 	use Clone 'clone';
 

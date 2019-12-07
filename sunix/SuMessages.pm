@@ -60,12 +60,12 @@ VELAN DATA
 =cut
 
 my $SuMessages = {
-    _cdp_num       => '',
-    _gather_num    => '',
-    _gather_type   => '',
-    _gather_header => '',
-    _type          => '',
-    _instructions  => ''
+	_cdp_num       => '',
+	_gather_num    => '',
+	_gather_type   => '',
+	_gather_header => '',
+	_type          => '',
+	_instructions  => ''
 };
 
 =head2 subroutine clear
@@ -76,12 +76,12 @@ my $SuMessages = {
 
 sub clear {
 
-    $SuMessages->{_cdp_num}       = '';
-    $SuMessages->{_gather_num}    = '';
-    $SuMessages->{_gather_type}   = '';
-    $SuMessages->{_gather_header} = '';
-    $SuMessages->{_type}          = '';
-    $SuMessages->{_instructions}  = '';
+	$SuMessages->{_cdp_num}       = '';
+	$SuMessages->{_gather_num}    = '';
+	$SuMessages->{_gather_type}   = '';
+	$SuMessages->{_gather_header} = '';
+	$SuMessages->{_type}          = '';
+	$SuMessages->{_instructions}  = '';
 }
 
 =head2 subroutine cdp_num
@@ -91,10 +91,20 @@ sub clear {
 =cut
 
 sub cdp_num {
-    my ( $self, $cdp_num ) = @_;
-    $SuMessages->{_cdp_num} = $cdp_num if defined($cdp_num);
+	my ( $self, $cdp_num ) = @_;
 
-    #print("\ncdp num is $SuMessages->{_cdp_num}\n");
+	if ( defined $cdp_num ) {
+		
+		$SuMessages->{_cdp_num}    = $cdp_num;
+		$SuMessages->{_gather_num} = $cdp_num;
+		# print("\ncdp num is $SuMessages->{_cdp_num}\n");
+		
+	}
+	else {
+
+		print("\nSuMessages, cdp num, missing cdp_num\n");
+	}
+
 }
 
 =head2 subroutine gather_header
@@ -104,10 +114,10 @@ sub cdp_num {
 =cut
 
 sub gather_header {
-    my ( $self, $gather_header ) = @_;
-    $SuMessages->{_gather_header} = $gather_header if defined($gather_header);
+	my ( $self, $gather_header ) = @_;
+	$SuMessages->{_gather_header} = $gather_header if defined($gather_header);
 
-    #print("\ngather_header is $SuMessages->{_gather_header}\n");
+	#print("\ngather_header is $SuMessages->{_gather_header}\n");
 }
 
 =head2 subroutine gather_type
@@ -117,10 +127,10 @@ sub gather_header {
 =cut
 
 sub gather_type {
-    my ( $self, $gather_type ) = @_;
-    $SuMessages->{_gather_type} = $gather_type if defined($gather_type);
+	my ( $self, $gather_type ) = @_;
+	$SuMessages->{_gather_type} = $gather_type if defined($gather_type);
 
-    #print("\n_gather_type is $SuMessages->{_gather_type}\n");
+	#print("\n_gather_type is $SuMessages->{_gather_type}\n");
 }
 
 =head2 subroutine gather_num
@@ -130,10 +140,10 @@ sub gather_type {
 =cut
 
 sub gather_num {
-    my ( $self, $gather_num ) = @_;
-    $SuMessages->{_gather_num} = $gather_num if defined($gather_num);
+	my ( $self, $gather_num ) = @_;
+	$SuMessages->{_gather_num} = $gather_num if defined($gather_num);
 
-    #print("\ngather num is $SuMessages->{_gather_num}\n");
+	print("\ngather num is $SuMessages->{_gather_num}\n");
 }
 
 =head2
@@ -151,18 +161,18 @@ sub gather_num {
 =cut
 
 sub set {
-    my ( $self, $message_type ) = @_;
+	my ( $self, $message_type ) = @_;
 
-    if ( defined($message_type) && $message_type ne $empty_string ) {
+	if ( defined($message_type) && $message_type ne $empty_string ) {
 
-        $SuMessages->{_type} = $message_type;
+		$SuMessages->{_type} = $message_type;
 
-        # print("SuMessages, set, type is $SuMessages->{_type}\n\n");
+		# print("SuMessages, set, type is $SuMessages->{_type}\n\n");
 
-    }
-    else {
-        print("SuMessages,set,unexpected message type");
-    }
+	}
+	else {
+		print("SuMessages,set,unexpected message type");
+	}
 }
 
 =head2
@@ -176,16 +186,19 @@ sub set {
 
 sub instructions {
 
-    my ( $self, $instructions ) = @_;
+	my ( $self, $instructions ) = @_;
 
-    # print("SuMessages,instructions,$instructions\n\n");
-    if (   defined($instructions)
-        && defined( $SuMessages->{_gather_num} )
-        && $instructions ne $empty_string
-        && $SuMessages->{_gather_num} ne $empty_string )
-    {
+#	print(
+#		"SuMessages,instructions:$instructions,gather_num: $SuMessages->{_gather_num}\n\n"
+#	);
 
-        $SuMessages->{_instructions} = $instructions;
+	if (   defined($instructions)
+		&& defined( $SuMessages->{_gather_num} )
+		&& $instructions ne $empty_string
+		&& $SuMessages->{_gather_num} ne $empty_string )
+	{
+
+		$SuMessages->{_instructions} = $instructions;
 
 =item CASE:
 
@@ -193,20 +206,20 @@ sub instructions {
 
 =cut 
 
-        if ( $SuMessages->{_type} eq 'iSpectralAnalysis' ) {
+		if ( $SuMessages->{_type} eq 'iSpectralAnalysis' ) {
 
-            if ( $SuMessages->{_instructions} eq 'firstSpectralAnalysis' ) {
+			if ( $SuMessages->{_instructions} eq 'firstSpectralAnalysis' ) {
 
-                print("\n   GATHER = $SuMessages->{_gather_num}\n\n");
-                print("  1. PICK two(2) X-T pairs\n");
-                print("  2. Quit window*\n");
-                print("  3. Click CALC \n\n\n");
-                print("  (*To FINISH picking in window, enter: q \n");
-                print("    while mouse lies over image)\n");
-                print("LSULSULSULSULSULSULSULSULSULSULSULSULSULSU\n");
-                return ();
-            }    # end first spectral analysis instructions
-        }
+				print("\n   GATHER = $SuMessages->{_gather_num}\n\n");
+				print("  1. PICK two(2) X-T pairs\n");
+				print("  2. Quit window*\n");
+				print("  3. Click CALC \n\n\n");
+				print("  (*To FINISH picking in window, enter: q \n");
+				print("    while mouse lies over image)\n");
+				print("LSULSULSULSULSULSULSULSULSULSULSULSULSULSU\n");
+				return ();
+			}    # end first spectral analysis instructions
+		}
 
 =item CASE:
 
@@ -214,50 +227,50 @@ sub instructions {
 
 =cut 
 
-        if ( $SuMessages->{_type} eq 'iva' ) {
+		if ( $SuMessages->{_type} eq 'iva' ) {
 
-            if ( $SuMessages->{_instructions} eq 'first_velan' ) {
+			if ( $SuMessages->{_instructions} eq 'first_velan' ) {
 
-                print("\n   CDP = $SuMessages->{_cdp_num}\n\n");
-                print("   Click PICK  (if you want to pick V-T pairs) \n");
-                print("   or Click NEXT  (next CDP)\n\n");
-                print("LSULSULSULSULSULSULSULSULSULSULSULSULSULSU\n");
-                return ();
+				print("\n   CDP = $SuMessages->{_cdp_num}\n\n");
+				print("   Click PICK  (if you want to pick V-T pairs) \n");
+				print("   or Click NEXT  (next CDP)\n\n");
+				print("LSULSULSULSULSULSULSULSULSULSULSULSULSULSU\n");
+				return ();
 
-            }    # end first-velan instructions
+			}    # end first-velan instructions
 
-            if ( $SuMessages->{_instructions} eq 'pre_pick_velan' ) {
+			if ( $SuMessages->{_instructions} eq 'pre_pick_velan' ) {
 
-                print("  1. PICK V-T pairs\n");
-                print("  2. Quit window*\n");
-                print("  3. Click CALC \n\n\n");
-                print("  (*To FINISH picking in window, enter: q \n");
-                print("    while mouse lies over image)\n");
-                print("LSULSULSULSULSULSULSULSULSULSULSULSULSULSU\n");
-                return ();
+				print("  1. PICK V-T pairs\n");
+				print("  2. Quit window*\n");
+				print("  3. Click CALC \n\n\n");
+				print("  (*To FINISH picking in window, enter: q \n");
+				print("    while mouse lies over image)\n");
+				print("LSULSULSULSULSULSULSULSULSULSULSULSULSULSU\n");
+				return ();
 
-            }    # end 'pre_pick_velan' instructions
+			}    # end 'pre_pick_velan' instructions
 
-            if ( $SuMessages->{_instructions} eq 'post_pick_velan' ) {
+			if ( $SuMessages->{_instructions} eq 'post_pick_velan' ) {
 
-                print("\tCDP = $SuMessages->{_cdp_num}\n\n");
-                print(" Are you HAPPY with these picks? \n");
-                print("\n");
-                print(" If NOT:  \n");
-                print("  1. RE-PICK the V-T pairs  \n");
-                print("  2. Quit window*, and \n");
-                print("  3. Click CALC\n\n");
-                print(" If SATISFIED:\n");
-                print("  1. Quit window*,\n");
-                print("  2. Click NEXT to go to next CDP  \n");
-                print("  or Click EXIT    \n\n\n");
-                print("  (*To FINISH picking in window, enter: q \n");
-                print("    while mouse lies over image)\n");
-                print("LSULSULSULSULSULSULSULSULSULSULSULSULSULSU\n");
-                return ();
+				print("\tCDP = $SuMessages->{_cdp_num}\n\n");
+				print(" Are you HAPPY with these picks? \n");
+				print("\n");
+				print(" If NOT:  \n");
+				print("  1. RE-PICK the V-T pairs  \n");
+				print("  2. Quit window*, and \n");
+				print("  3. Click CALC\n\n");
+				print(" If SATISFIED:\n");
+				print("  1. Quit window*,\n");
+				print("  2. Click NEXT to go to next CDP  \n");
+				print("  or Click EXIT    \n\n\n");
+				print("  (*To FINISH picking in window, enter: q \n");
+				print("    while mouse lies over image)\n");
+				print("LSULSULSULSULSULSULSULSULSULSULSULSULSULSU\n");
+				return ();
 
-            }    # end post-pick velan
-        }    # end iva-type instructions
+			}    # end post-pick velan
+		}    # end iva-type instructions
 
 =item CASE
 
@@ -265,51 +278,51 @@ sub instructions {
 
 =cut 
 
-        if ( $SuMessages->{_type} eq 'iTopMute' ) {
+		if ( $SuMessages->{_type} eq 'iTopMute' ) {
 
-            if ( $SuMessages->{_instructions} eq 'first_top_mute' ) {
+			if ( $SuMessages->{_instructions} eq 'first_top_mute' ) {
 
-                print(
-"\n  $SuMessages->{_gather_type}  GATHER  = $SuMessages->{_gather_num}\n\n"
-                );
-                print("   Click PICK  (if you want to pick X-T pairs) \n");
-                print("   or Click NEXT  (next GATHER)\n\n");
-                print("LSULSULSULSULSULSULSULSULSULSULSULSULSULSU\n");
-                return ();
-            }
+				print(
+					"\n  $SuMessages->{_gather_type}  GATHER  = $SuMessages->{_gather_num}\n\n"
+				);
+				print("   Click PICK  (if you want to pick X-T pairs) \n");
+				print("   or Click NEXT  (next GATHER)\n\n");
+				print("LSULSULSULSULSULSULSULSULSULSULSULSULSULSU\n");
+				return ();
+			}
 
-            if ( $SuMessages->{_instructions} eq 'pre_pick_mute' ) {
+			if ( $SuMessages->{_instructions} eq 'pre_pick_mute' ) {
 
-                print("  1. PICK X-T pairs\n");
-                print("  2. Quit window*\n");
-                print("  3. Click CALC \n\n\n");
-                print("  (*To FINISH picking in window, enter: q \n");
-                print("    while mouse lies over image)\n");
-                print("LSULSULSULSULSULSULSULSULSULSULSULSULSULSU\n");
-                return ();
-            }
+				print("  1. PICK X-T pairs\n");
+				print("  2. Quit window*\n");
+				print("  3. Click CALC \n\n\n");
+				print("  (*To FINISH picking in window, enter: q \n");
+				print("    while mouse lies over image)\n");
+				print("LSULSULSULSULSULSULSULSULSULSULSULSULSULSU\n");
+				return ();
+			}
 
-            if ( $SuMessages->{_instructions} eq 'post_pick_mute' ) {
+			if ( $SuMessages->{_instructions} eq 'post_pick_mute' ) {
 
-                print(
-"\t $SuMessages->{_gather_type} GATHER = $SuMessages->{_gather_num}\n\n"
-                );
-                print(" Are you HAPPY with these picks? \n");
-                print("\n");
-                print(" If NOT:  \n");
-                print("  1. PICK the X-T pairs  \n");
-                print("  2. Quit window*, and \n");
-                print("  3. Click CALC\n\n");
-                print(" If SATISFIED:\n");
-                print("  1. Quit window*,\n");
-                print("  2. Click NEXT to go to next CDP  \n");
-                print("  or Click EXIT    \n\n");
-                print("LSULSULSULSULSULSULSULSULSULSULSULSULSULSU\n");
-                return ();
+				print(
+					"\t $SuMessages->{_gather_type} GATHER = $SuMessages->{_gather_num}\n\n"
+				);
+				print(" Are you HAPPY with these picks? \n");
+				print("\n");
+				print(" If NOT:  \n");
+				print("  1. PICK the X-T pairs  \n");
+				print("  2. Quit window*, and \n");
+				print("  3. Click CALC\n\n");
+				print(" If SATISFIED:\n");
+				print("  1. Quit window*,\n");
+				print("  2. Click NEXT to go to next CDP  \n");
+				print("  or Click EXIT    \n\n");
+				print("LSULSULSULSULSULSULSULSULSULSULSULSULSULSU\n");
+				return ();
 
-            }    # end post-pick mute
+			}    # end post-pick mute
 
-        }    # end top mute instructions
+		}    # end top mute instructions
 
 =item CASE
 
@@ -317,51 +330,51 @@ sub instructions {
 
 =cut 
 
-        if ( $SuMessages->{_type} eq 'iBottomMute' ) {
+		if ( $SuMessages->{_type} eq 'iBottomMute' ) {
 
-            if ( $SuMessages->{_instructions} eq 'first_bottom_mute' ) {
+			if ( $SuMessages->{_instructions} eq 'first_bottom_mute' ) {
 
-                print(
-"\n  $SuMessages->{_gather_type}  GATHER  = $SuMessages->{_gather_num}\n\n"
-                );
-                print("   Click PICK  (if you want to pick X-T pairs) \n");
-                print("   or Click NEXT  (next GATHER)\n\n");
-                print("LSULSULSULSULSULSULSULSULSULSULSULSULSULSU\n");
-                return ();
-            }
+				print(
+					"\n  $SuMessages->{_gather_type}  GATHER  = $SuMessages->{_gather_num}\n\n"
+				);
+				print("   Click PICK  (if you want to pick X-T pairs) \n");
+				print("   or Click NEXT  (next GATHER)\n\n");
+				print("LSULSULSULSULSULSULSULSULSULSULSULSULSULSU\n");
+				return ();
+			}
 
-            if ( $SuMessages->{_instructions} eq 'pre_pick_mute' ) {
+			if ( $SuMessages->{_instructions} eq 'pre_pick_mute' ) {
 
-                print("  1. PICK X-T pairs\n");
-                print("  2. Quit window*\n");
-                print("  3. Click CALC \n\n\n");
-                print("  (*To FINISH picking in window, enter: q \n");
-                print("    while mouse lies over image)\n");
-                print("LSULSULSULSULSULSULSULSULSULSULSULSULSULSU\n");
-                return ();
-            }
+				print("  1. PICK X-T pairs\n");
+				print("  2. Quit window*\n");
+				print("  3. Click CALC \n\n\n");
+				print("  (*To FINISH picking in window, enter: q \n");
+				print("    while mouse lies over image)\n");
+				print("LSULSULSULSULSULSULSULSULSULSULSULSULSULSU\n");
+				return ();
+			}
 
-            if ( $SuMessages->{_instructions} eq 'post_pick_mute' ) {
+			if ( $SuMessages->{_instructions} eq 'post_pick_mute' ) {
 
-                print(
-"\t $SuMessages->{_gather_type} GATHER = $SuMessages->{_gather_num}\n\n"
-                );
-                print(" Are you HAPPY with these picks? \n");
-                print("\n");
-                print(" If NOT:  \n");
-                print("  1. PICK the X-T pairs  \n");
-                print("  2. Quit window*, and \n");
-                print("  3. Click CALC\n\n");
-                print(" If SATISFIED:\n");
-                print("  1. Quit window*,\n");
-                print("  2. Click NEXT to go to next CDP  \n");
-                print("  or Click EXIT    \n\n");
-                print("LSULSULSULSULSULSULSULSULSULSULSULSULSULSU\n");
-                return ();
+				print(
+					"\t $SuMessages->{_gather_type} GATHER = $SuMessages->{_gather_num}\n\n"
+				);
+				print(" Are you HAPPY with these picks? \n");
+				print("\n");
+				print(" If NOT:  \n");
+				print("  1. PICK the X-T pairs  \n");
+				print("  2. Quit window*, and \n");
+				print("  3. Click CALC\n\n");
+				print(" If SATISFIED:\n");
+				print("  1. Quit window*,\n");
+				print("  2. Click NEXT to go to next CDP  \n");
+				print("  or Click EXIT    \n\n");
+				print("LSULSULSULSULSULSULSULSULSULSULSULSULSULSU\n");
+				return ();
 
-            }    # end post-pick mute
+			}    # end post-pick mute
 
-        }    # end bottom mute instructions
+		}    # end bottom mute instructions
 
 =item CASE
 
@@ -369,58 +382,58 @@ sub instructions {
 
 =cut 
 
-        if ( $SuMessages->{_type} eq 'iPick_xt' ) {
+		if ( $SuMessages->{_type} eq 'iPick_xt' ) {
 
-            if ( $SuMessages->{_instructions} eq 'first_pick_xt' ) {
+			if ( $SuMessages->{_instructions} eq 'first_pick_xt' ) {
 
-                print(
-"\n  $SuMessages->{_gather_type}  GATHER  = $SuMessages->{_gather_num}\n\n"
-                );
-                print("   Click PICK  (if you want to pick X-T pairs) \n");
-                print("   or Click NEXT  (next GATHER)\n\n");
-                print("LSULSULSULSULSULSULSULSULSULSULSULSULSULSU\n");
-                return ();
-            }
+				print(
+					"\n  $SuMessages->{_gather_type}  GATHER  = $SuMessages->{_gather_num}\n\n"
+				);
+				print("   Click PICK  (if you want to pick X-T pairs) \n");
+				print("   or Click NEXT  (next GATHER)\n\n");
+				print("LSULSULSULSULSULSULSULSULSULSULSULSULSULSU\n");
+				return ();
+			}
 
-            if ( $SuMessages->{_instructions} eq 'pre_pick_xt' ) {
+			if ( $SuMessages->{_instructions} eq 'pre_pick_xt' ) {
 
-                print("  1. PICK X-T pairs\n");
-                print("  2. Quit window*\n");
-                print("  3. Click CALC \n\n\n");
-                print("  (*To FINISH picking in window, enter: q \n");
-                print("    while mouse lies over image)\n");
-                print("LSULSULSULSULSULSULSULSULSULSULSULSULSULSU\n");
-                return ();
-            }
+				print("  1. PICK X-T pairs\n");
+				print("  2. Quit window*\n");
+				print("  3. Click CALC \n\n\n");
+				print("  (*To FINISH picking in window, enter: q \n");
+				print("    while mouse lies over image)\n");
+				print("LSULSULSULSULSULSULSULSULSULSULSULSULSULSU\n");
+				return ();
+			}
 
-            if ( $SuMessages->{_instructions} eq 'post_pick_xt' ) {
+			if ( $SuMessages->{_instructions} eq 'post_pick_xt' ) {
 
-                print(
-"\t $SuMessages->{_gather_type} GATHER = $SuMessages->{_gather_num}\n\n"
-                );
-                print(" Are you HAPPY with these picks? \n");
-                print("\n");
-                print(" If NOT:  \n");
-                print("  1. PICK the X-T pairs  \n");
-                print("  2. Quit window*, and \n");
-                print("  3. Click CALC\n\n");
-                print(" If SATISFIED:\n");
-                print("  1. Quit window*,\n");
-                print("  2. Click NEXT to go to next CDP  \n");
-                print("  or Click EXIT    \n\n");
-                print("LSULSULSULSULSULSULSULSULSULSULSULSULSULSU\n");
-                return ();
+				print(
+					"\t $SuMessages->{_gather_type} GATHER = $SuMessages->{_gather_num}\n\n"
+				);
+				print(" Are you HAPPY with these picks? \n");
+				print("\n");
+				print(" If NOT:  \n");
+				print("  1. PICK the X-T pairs  \n");
+				print("  2. Quit window*, and \n");
+				print("  3. Click CALC\n\n");
+				print(" If SATISFIED:\n");
+				print("  1. Quit window*,\n");
+				print("  2. Click NEXT to go to next CDP  \n");
+				print("  or Click EXIT    \n\n");
+				print("LSULSULSULSULSULSULSULSULSULSULSULSULSULSU\n");
+				return ();
 
-            }    # end post-pick
+			}    # end post-pick
 
-        }    # end pick instructions
+		}    # end pick instructions
 
-    }
-    else {
-        print(
-            "SuMessages, instructions, missing instructions or gather_num \n\n"
-        );
-    }
+	}
+	else {
+		print(
+			"SuMessages, instructions, missing instructions or gather_num \n\n"
+		);
+	}
 
 }    # end sub instructions
 

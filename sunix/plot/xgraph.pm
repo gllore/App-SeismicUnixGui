@@ -851,7 +851,7 @@ sub line_widths {
 			$xgraph->{_note} . ' linewidth=' . $xgraph->{_linewidth};
 		$xgraph->{_Step} =
 			$xgraph->{_Step} . ' linewidth=' . $xgraph->{_linewidth};
-		print("2. xgraph, line_widths, $linewidth\n");
+		# print("2. xgraph, line_widths, $linewidth\n");
 
 	}
 	else {
