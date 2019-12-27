@@ -1,244 +1,178 @@
-#! /bin/perl
+=head2 SYNOPSIS
 
-use Moose;
+PACKAGE NAME: 
 
+AUTHOR:  
 
-=head1 DOCUMENTATION
+DATE:
+
+DESCRIPTION:
+
+Version:
+
+=head2 USE
+
+=head3 NOTES
+
+=head4 Examples
 
 =head2 SYNOPSIS
 
-  PROGRAM NAME: Xamine.pl
-  Purpose: Simple viewing of an su file 
-  AUTHOR:  Juan M. Lorenzo
-  DEPENDS: Seismic Unix modules from CSM 
-  DATE:    June 18 2013 V0.1
-           July 19 2016 V0.2 i
-             Show processing notes on images
-  DESCRIPTION:  based upon non-oop Xamine.pl  
+=head3 SEISMIC UNIX NOTES
 
-=head 2 USES
-
- (for subroutines) 
-     manage_files_by 
-     System_Variables (for subroutines)
-
-     (for variable definitions)
-     SeismicUnix (Seismic Unix modules)
-
-
-=head2 NOTES 
-
- We are using moose 
- moose already declares that you need debuggers turned on
- so you don't need a line like the following:
-
- use warnings;
- 
-=head2 USES
-
- (for subroutines) 
-     manage_files_by 
-     System_Variables (for subroutines)
-
-     (for variable definitions)
-     SeismicUnix (Seismic Unix modules)
-
-
- use SeismicUnix qw ($in $out $on $go $to $suffix_ascii $off $suffix_su); 
-  
-=head3 STEPS IN THE PROGRAM 
-
-
-=cut
- use sugain;
- use sufilter;
- use suximage;
- use suxwigb;
- use message;
- use flow;
- use susort;
- use SeismicUnix qw ($in $out $on $go $to $suffix_ascii $off $suffix_su); 
- use Project;
-
-=head2 Instantiate classes 
-
-       Create a new version of the package
-       Personalize to give it a new name if you wish
-     Use classes:
-     flow
-     log
-     message
-     sufilter
-     sugain
-     suspecfx
-     suxwigb
+=head2 CHANGES and their DATES
 
 =cut
 
-  my $log 				= new message();
-  my $run    				= new flow();
-  my $suxwigb				= new suxwigb();
-  my $suximage				= new suximage();
-  my $sufilter				= new sufilter();
-  my $sugain				= new sugain();
-  my $susort				= new susort();
-  my $Project				= new Project();
 
-  my ($DATA_SEISMIC_SU) = $Project->DATA_SEISMIC_SU();
+	use Moose;
+	use SeismicUnix qw ($in $out $on $go $to $suffix_ascii $off $suffix_su $suffix_bin);
+	use Project_config;
+
+	my $Project		= new Project_config();
+	my $DATA_SEISMIC_SU	= $Project->DATA_SEISMIC_SU;
+	my $DATA_SEISMIC_BIN	= $Project->DATA_SEISMIC_BIN;
+	my $DATA_SEISMIC_TXT	= $Project->DATA_SEISMIC_TXT;
+
+	use misc::message;
+	use misc::flow;
+	use sunix::data::data_in;
+	use sunix::transform::sutaup;
+	use sunix::shapeNcut::sugain;
+	use sunix::plot::suximage;
+
+	my $log					= new message();
+	my $run					= new flow();
+	my $data_in				= new data_in();
+	my $sutaup				= new sutaup();
+	my $sugain				= new sugain();
+	my $suximage				= new suximage();
+
 
 =head2 Declare
 
-  local variables 
-
-=cut
-  my (@flow,@file_in,@sufile_in,@inbound);
-  my (@suxwigb,@sufilter,@sufilterNote,@sugain,@sugainNote,@items,@suximage);
-  my (@susort,@susortNote,@suwind,@sunmo);
-
-=head2 Declare 
-  File names
+	local variables
 
 =cut
 
-   $file_in[1] 		            = '1_120';
-   $file_in[1] 		            = 'All';
-   $file_in[1] 		            = 'L28Hz_Ibeam';
-   $file_in[1] 		            = 'L28Hz_Ibeam_geom';
-   $file_in[1] 		            = 'All_cmp';  
-   
-   $sufile_in[1]		    = $file_in[1].$suffix_su;
-   $inbound[1]			    = $DATA_SEISMIC_SU.'/'.$sufile_in[1];
-#
-=head2 Set
+	my (@flow);
+	my (@items);
+	my (@data_in);
+	my (@sutaup);
+	my (@sugain);
+	my (@suximage);
 
- sugain
+=head2 Set up
+
+	data_in parameter values
 
 =cut
 
- my $sugainVersion = 1;
+ 	 $data_in 	 	 	 	 ->clear();
+ 	 $data_in 	 	 	 	 ->base_file_name(quotemeta('60_clean'));
+ 	 $data_in 	 	 	 	 ->suffix_type(quotemeta('su'));
+ 	 $data_in [1]  	 	 	 = $data_in ->Step();
 
- $sugain     	-> clear();
- $sugain     	-> agc(quotemeta($on));
- $sugain     	-> width(quotemeta(0.2));
-# $sugain    	 -> setdt(1000);
- $sugain[1]   	= $sugain->Step();
- $sugainNote[1] = $sugain->note();
+=head2 Set up
 
-
- $sugain     	-> clear();
- $sugain     	-> pbal(quotemeta($on));
- $sugain[2]   	= $sugain->Step();
- $sugainNote[2] = $sugain->note();
-
-=head2 set
-
-filtering parameters 
-
-=cut
-# $sugain    	 -> setdt(1000);
-
- #$sufilter    	 -> freq("0,0,500,1000");
- $sufilter    	 -> freq(quotemeta('0,10,500,1000'));
- $sufilter[1]  	 = $sufilter->Step();
- $sufilterNote[1]= $sufilter->note();
-
-=head2 Set
-
- susort
+	sutaup parameter values
 
 =cut
 
- my $susortVersion = 1;
+ 	 $sutaup 	 	 	 	 ->clear();
+ 	 $sutaup 	 	 	 	 ->dx(quotemeta(1));
+ 	 $sutaup 	 	 	 	 ->fmin(quotemeta(3));
+ 	 $sutaup 	 	 	 	 ->forward_via_fk(quotemeta(1));
+ 	 $sutaup 	 	 	 	 ->np(quotemeta(240));
+ 	 $sutaup 	 	 	 	 ->npoints(quotemeta(71));
+ 	 $sutaup 	 	 	 	 ->verbose(quotemeta(0));
+ 	 $sutaup 	 	 	 	 ->vmax(quotemeta(120));
+ 	 $sutaup 	 	 	 	 ->vmin(quotemeta(-120));
+ 	 $sutaup 	 	 	 	 ->xmin(quotemeta(0));
+ 	 $sutaup [1]  	 	 	 = $sutaup ->Step();
 
- $susort     			-> clear();
- $susort     			-> headerword(quotemeta('cdp offset'));
- $susort[$susortVersion]   	= $susort->Step();
- $susortNote[$susortVersion] 	= $susort->note();
+=head2 Set up
 
-=head2 Set
-
-  suxwigb parameters 
-
-=cut
-
- my $is_number = looks_like_number('TWTT s');
- print ("is_number=$is_number\n");
-
- $suxwigb-> clear(); 
- $suxwigb-> title(quotemeta($sufilterNote[1].$sugainNote[$sugainVersion])); 
- $suxwigb-> xlabel(quotemeta('TWTT s'));  
- $suxwigb-> ylabel(quotemeta('No.traces')); 
- $suxwigb-> box_width(quotemeta(800)); 
- $suxwigb-> box_height(quotemeta(700)); 
- $suxwigb-> box_X0(quotemeta(0)); 
- $suxwigb-> box_Y0(quotemeta(0)); 
- $suxwigb-> absclip(quotemeta(2))
- $suxwigb-> xcur(quotemeta(2));
- $suxwigb-> windowtitle(quotemeta($sufile_in[1]));
- $suxwigb[1]  = $suxwigb->Step();
-
-=head2 Set
-
-  suximage parameters 
+	sugain parameter values
 
 =cut
 
- $suximage-> clear(); 
- $suximage-> title(quotemeta($sufilterNote[1].$sugainNote[$sugainVersion])); 
- $suximage-> xlabel(quotemeta('No. traces'));  
- $suximage-> ylabel(quotemeta('TWTT s')); 
- $suximage-> box_width(800); 
- $suximage-> box_height(700); 
- $suximage-> legend($on); 
- $suximage-> box_X0(825); 
- $suximage-> box_Y0(0); 
- #$suximage-> absclip(3);
- $suximage-> loclip(0);
- $suximage-> hiclip(2);
- $suximage-> windowtitle($sufile_in[1]);
- $suximage[1]  = $suximage->Step();
+ 	 $sugain 	 	 	 	 ->clear();
+ 	 $sugain 	 	 	 	 ->pbal(quotemeta(1));
+ 	 $sugain 	 	 	 	 ->tmpdir(quotemeta('/tmp'));
+ 	 $sugain [1]  	 	 	 = $sugain ->Step();
 
-=head2 DEFINE FLOW(S)
- 
+=head2 Set up
+
+	suximage parameter values
+
 =cut
 
- @items   = ($sufilter[1],$in,$inbound[1],$to,
-             $sugain[$sugainVersion],$to,$suxwigb[1],$go);
- $flow[1] = $run->modules(\@items);
+ 	 $suximage 	 	 	 	 ->clear();
+ 	 $suximage 	 	 	 	 ->absclip(quotemeta(1));
+ 	 $suximage 	 	 	 	 ->cmap(quotemeta('hsv4'));
+ 	 $suximage 	 	 	 	 ->dx(quotemeta(1.0));
+ 	 $suximage 	 	 	 	 ->first_time_sample_value(quotemeta(0.0));
+ 	 $suximage 	 	 	 	 ->gridcolor(quotemeta('blue'));
+ 	 $suximage 	 	 	 	 ->labelcolor(quotemeta('blue'));
+ 	 $suximage 	 	 	 	 ->labelfont(quotemeta('Erg14'));
+ 	 $suximage 	 	 	 	 ->legend(quotemeta(1));
+ 	 $suximage 	 	 	 	 ->legendfont(quotemeta('times_roman10'));
+ 	 $suximage 	 	 	 	 ->lwidth(quotemeta(16));
+ 	 $suximage 	 	 	 	 ->lx(quotemeta(3));
+ 	 $suximage 	 	 	 	 ->picks(quotemeta('/dev/tty'));
+ 	 $suximage 	 	 	 	 ->num_minor_ticks_betw_time_ticks(quotemeta(1));
+ 	 $suximage 	 	 	 	 ->num_minor_ticks_betw_distance_ticks(quotemeta(1));
+ 	 $suximage 	 	 	 	 ->percent4clip(quotemeta(100.0));
+ 	 $suximage 	 	 	 	 ->plotfile(quotemeta('plotfile.ps'));
+ 	 $suximage 	 	 	 	 ->orientation(quotemeta('seismic'));
+ 	 $suximage 	 	 	 	 ->title(quotemeta('suximage'));
+ 	 $suximage 	 	 	 	 ->titlecolor(quotemeta('red'));
+ 	 $suximage 	 	 	 	 ->titlefont(quotemeta('Rom22'));
+ 	 $suximage 	 	 	 	 ->tmpdir(quotemeta('./'));
+ 	 $suximage 	 	 	 	 ->units(quotemeta('unit'));
+ 	 $suximage 	 	 	 	 ->verbose(quotemeta(1));
+ 	 $suximage 	 	 	 	 ->windowtitle(quotemeta('suximage'));
+ 	 $suximage 	 	 	 	 ->wperc(quotemeta(100.0));
+ 	 $suximage 	 	 	 	 ->box_X0(quotemeta(500));
+ 	 $suximage 	 	 	 	 ->box_Y0(quotemeta(500));
+ 	 $suximage 	 	 	 	 ->box_width(quotemeta(550));
+ 	 $suximage 	 	 	 	 ->box_height(quotemeta(550));
+ 	 $suximage [1]  	 	 	 = $suximage ->Step();
 
- @items   = ($sufilter[1],$in,$inbound[1],$to,
-             $sugain[$sugainVersion],$to,$suximage[1],$go);
- $flow[2] = $run->modules(\@items);
 
-
- @items   = ($susort[1],$in,$inbound[1],$to,
-             $suwind[2],$to,
-             $sufilter[1],$to,
-	     	 $sunmo[1],$to,
-             $sugain[$sugainVersion],$to,
-             $suximage[2],
-	     $go);
- $flow[3] = $run->modules(\@items);
- 
- 
-=head2 RUN FLOW(S)
+=head2 DEFINE FLOW(s) 
 
 
 =cut
 
- $run->flow(\$flow[1]);
- $run->flow(\$flow[2]);
+	 @items	= (
+		  $sutaup[1], $in,
+		  $data_in[1], $to,
+		  $sugain[1], $to,
+		  $suximage[1],
+		  $go
+		  );
+	$flow[1] = $run->modules(\@items);
 
 
-=head2 LOG FLOW(S)
+=head2 RUN FLOW(s) 
 
- TO SCREEN AND FILE
 
 =cut
 
- print  "$flow[1]\n";
-#$log->file($flow[1]);
+	$run->flow(\$flow[1]);
 
- print  "$flow[2]\n";
-#$log->file($flow[2]);
+
+
+=head2 LOG FLOW(s)
+
+	to screen and FILE
+
+=cut
+
+	print $flow[1];
+
+	$log->file($flow[1]);
+
 
