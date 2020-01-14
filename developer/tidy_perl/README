@@ -1,7 +1,0 @@
-Copy the configuration perltidy file to the home user's directory under
-a slightly different name.
-
-For example
-cp perltidy.config /home/gom/.perltidyrc
-
-JML 8/2/19
