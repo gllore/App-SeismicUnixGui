@@ -141,12 +141,12 @@ my $L_SU_gui = {
 
 =head2
 
-	Opening a file for a superflow
-	Only sperflow bindings use this private ('_') subroutine.
+	Opening a file of folder for a superflow
+	Only superflow bindings use this private ('_') subroutine.
 	Superflows that are opening Data files from GUI are directed here
 	
 	FileDialog_button is mainly used for user-built flows but directs superflows
-	here t _FileDialog_button
+	to _FileDialog_button
 	
 	For safety, place set_hash_ref first
 	$$dialog_type_sref can be Data Save or SaveAs
@@ -162,6 +162,8 @@ sub _FileDialog_button {
 		$file_dialog->set_hash_ref($L_SU_href);
 		$file_dialog->FileDialog_director();
 		$L_SU_href = $file_dialog->get_hash_ref();
+		
+		# print(" L_SU,_FileDialog_button, values_aref: @{$L_SU_href->{_values_aref}}\n");
 
 	}
 	else {
@@ -180,7 +182,6 @@ sub _get_flow_color {
 	my $color;
 	if ( $L_SU_href->{_flow_color} ) {
 
-		
 		# print("L_SU, _get_flow_color, color:$L_SU_href->{_flow_color} \n");
 		$color = $L_SU_href->{_flow_color};
 		return ($color);
@@ -189,7 +190,8 @@ sub _get_flow_color {
 	else {
 
 		$color = '';
-		print("L_SU, _get_flow_color, missing color\n");
+
+		# print("L_SU, _get_flow_color, missing color\n");
 		return ($color);
 	}
 }
@@ -645,6 +647,7 @@ sub FileDialog_button {
 
 	if ( defined $dialog_type_sref ) {
 
+		# print("L_SU,FileDialog_button, CASE 1 print gui_history.txt\n");
 		# $gui_history->view();
 
 		# CASE 1 in prep for CASE 4
@@ -801,8 +804,7 @@ sub FileDialog_button {
 		elsif ( $L_SU_href->{_flow_type} eq 'pre_built_superflow' ) {
 
 			$L_SU_href->{_dialog_type} = $$dialog_type_sref;
-			$file_dialog->set_hash_ref($L_SU_href);    # uses 7/ 115 in
-													   # $file_dialog->set_gui_widgets($L_SU_href);    # uses 18/115 in
+			$file_dialog->set_hash_ref($L_SU_href);
 			$file_dialog->FileDialog_director();
 			$L_SU_href = $file_dialog->get_hash_ref();
 
@@ -940,11 +942,12 @@ sub pre_built_superflows {
 		my $sub_ref = \&_FileDialog_button;
 		$pre_built_big_stream->set_sub_ref($sub_ref);
 
-		#		print("41 L_SU,pre_built_superflows, gui_history.txt\n");
-		#		$gui_history->view();
+		# print("41 L_SU,pre_built_superflows, gui_history.txt\n");
+		# $gui_history->view();
 
-		# select method
-		# displays of all the parameters and names
+		# display parameters values and names
+		# of a chosen superflow
+		# but do not write them to a file
 		$pre_built_big_stream->select();
 
 		# print("41 L_SU,pre_built_superflows, parameter_values_frame: $L_SU_href->{_parameter_values_frame}\n");
@@ -952,6 +955,7 @@ sub pre_built_superflows {
 
 		# return changes to $L_SU_href without altering other original values
 		$L_SU_href = $pre_built_big_stream->get_hash_ref();    # 96 returned
+		# print("41 L_SU,pre_built_superflows, values_aref: @{$L_SU_href->{_values_aref}}\n");
 	}
 	else {
 
@@ -1401,7 +1405,7 @@ sub set_param_widgets {
  to move up and down a list of flow items
  'flow_item_up_arrow_button'
  'flow_item_down_arrow_button'
- add2flow_button
+ add2flows
  
  unix_listbox help (MB3)
  flow-item selection ('flow_select') (MB1)
@@ -1459,21 +1463,19 @@ sub user_built_flows {
 	{
 
 		if ( $color eq 'grey' ) {
-			
-			if ( @{ $L_SU_gui->{_occupied_listbox_aref} }[0] == $true ) {
+
 			# flow already exists
-			# in order to use delete_from_flow_button
-			# move item up a flow 
-			# or move item down a flow
-			# or save_buttton
-			# or run_button
+			# for delete_from_flow_button
+			# move item up or down a flow
+			#
+			if ( @{ $L_SU_gui->{_occupied_listbox_aref} }[0] == $true ) {
 				
 				#  bind flow parameters to the opening files
 				$grey_flow->set_hash_ref($L_SU_href);
 				$grey_flow->set_occupied_listbox_aref( $L_SU_gui->{_occupied_listbox_aref} );
-				$gui_history->set_flow_select_color($color);
-				$grey_flow->$method;				
-				$grey_flow->flow_select_director($method);
+				$grey_flow->$method;
+				
+				$grey_flow->flow_select2update_most_recent_flow();
 				$L_SU_href = $grey_flow->get_hash_ref();
 
 			}    # flow does not exist
@@ -1484,22 +1486,26 @@ sub user_built_flows {
 
 					$grey_flow->set_hash_ref($L_SU_href);
 					$grey_flow->set_occupied_listbox_aref( $L_SU_gui->{_occupied_listbox_aref} );
+
 					# must preceed add2flow	method
 					$gui_history->set_flow_select_color($color);
+					# $gui_history->set_button('flow_select');
+
 					$grey_flow->$method;
-					$grey_flow->flow_select_director($method);
+					$grey_flow->flow_select2update_most_recent_flow();
+
 					#  updates flow_select color
 					$L_SU_href = $grey_flow->get_hash_ref();
 					_set_occupied_listbox_aref();
 
 				}    # indicate preferred future occupation of this listbox color
-				elsif ( $method eq 'flow_select' ) {  #future deprecation? TODO
+				elsif ( $method eq 'flow_select' ) {
 
 					_set_future_listbox2occupy('grey');
 
 				}
 				else {
-					# print(" L_SU,user_built_flows, grey, unexpected:--$method-- NADA\n");
+					print(" L_SU,user_built_flows, grey, unexpected:--$method--\n");
 				}
 			}
 			else {
@@ -1518,9 +1524,8 @@ sub user_built_flows {
 
 				$pink_flow->set_hash_ref($L_SU_href);
 				$pink_flow->set_occupied_listbox_aref( $L_SU_gui->{_occupied_listbox_aref} );
-				$gui_history->set_flow_select_color($color);
 				$pink_flow->$method;
-				$pink_flow->flow_select_director();
+				$pink_flow->flow_select2update_most_recent_flow();
 				$L_SU_href = $pink_flow->get_hash_ref();
 
 			}    # flow does not exist
@@ -1531,9 +1536,8 @@ sub user_built_flows {
 
 					$pink_flow->set_hash_ref($L_SU_href);    # uses 79/115 in
 					$pink_flow->set_occupied_listbox_aref( $L_SU_gui->{_occupied_listbox_aref} );
-					$gui_history->set_flow_select_color($color);
 					$pink_flow->$method;
-					$pink_flow->flow_select_director();
+					$pink_flow->flow_select2update_most_recent_flow();
 					$L_SU_href = $pink_flow->get_hash_ref();
 					_set_occupied_listbox_aref();
 
@@ -1566,9 +1570,8 @@ sub user_built_flows {
 				#  bind flow parameters to the opening files
 				$green_flow->set_hash_ref($L_SU_href);    # uses 79/115 in
 				$green_flow->set_occupied_listbox_aref( $L_SU_gui->{_occupied_listbox_aref} );
-				$gui_history->set_flow_select_color($color);
 				$green_flow->$method;
-				$green_flow->flow_select_director();
+				$green_flow->flow_select2update_most_recent_flow();
 				$L_SU_href = $green_flow->get_hash_ref();
 
 			}
@@ -1581,9 +1584,8 @@ sub user_built_flows {
 
 					$green_flow->set_hash_ref($L_SU_href);    # uses 79/115 in
 					$green_flow->set_occupied_listbox_aref( $L_SU_gui->{_occupied_listbox_aref} );
-					$gui_history->set_flow_select_color($color);
 					$green_flow->$method;
-					$green_flow->flow_select_director();
+					$green_flow->flow_select2update_most_recent_flow();
 					$L_SU_href = $green_flow->get_hash_ref();
 					_set_occupied_listbox_aref();
 
@@ -1617,9 +1619,8 @@ sub user_built_flows {
 
 				$blue_flow->set_hash_ref($L_SU_href);    # uses 79/115 in
 				$blue_flow->set_occupied_listbox_aref( $L_SU_gui->{_occupied_listbox_aref} );
-				$gui_history->set_flow_select_color($color);
 				$blue_flow->$method;
-				$blue_flow->flow_select_director();
+				$blue_flow->flow_select2update_most_recent_flow();
 				$L_SU_href = $blue_flow->get_hash_ref();
 
 			}
@@ -1632,9 +1633,8 @@ sub user_built_flows {
 
 					$blue_flow->set_hash_ref($L_SU_href);    # uses 79/115 in
 					$blue_flow->set_occupied_listbox_aref( $L_SU_gui->{_occupied_listbox_aref} );
-					$gui_history->set_flow_select_color($color);
 					$blue_flow->$method;
-					$blue_flow->flow_select_director();
+					$blue_flow->flow_select2update_most_recent_flow();
 					$L_SU_href = $blue_flow->get_hash_ref();
 					_set_occupied_listbox_aref();
 

@@ -28,7 +28,7 @@
  
  Fall 2018
  V 0.3.1 makes Run = Save and Run
- Moves SaveAs to L_SU Menu and removes Save button
+ Moves SaveAs to Main Menu and removes Save button
  
  V 0.3.2 has 4 flow panels
  
@@ -40,10 +40,8 @@
      From now on users can write words with gaps and commas and L_SU will accept these
      value and formulate the correct Seismic Unix sytnax.
      
- V 0.3.8 Standardized format with PerlTidy, tidyviewer .perltidyrc Aug., 2019
- 
- V 0.3.9 Introduce Moose attributes to handle GUI history in OOP style
- 
+ V 0.3.8 STandardized format with PerlTidy, tidyviewer .perltidyrc Aug., 2019
+
 =cut
 
 =head2 USE
@@ -63,39 +61,56 @@
 =cut 
 
 use Moose;
-our $VERSION = '0.3.9';
-
-extends 'gui_history' => { -version => 0.0.2 };
+our $VERSION = '0.3.8';
 
 use Tk;
 use Tk::Pane;
 use Tk::NoteBook;
-use L_SU 0.1.5;
+use L_SU 0.1.4;
 use L_SU_global_constants;
 
-=head2 Instantiation
+my $get  			= new L_SU_global_constants();
+my $L_SU 			= L_SU->new();
+
+=head2
+
+ share the following parameters in same name 
+ space
+
+ flow_listbox_grey_w   -left listbox, input by user selection
+ flow_listbox_green_w  -right listbox,input by user selection
+ sunix_listbox   		-choice of listed sunix modules in a listbox
+ 
+ 29 off, 4 off, 1 off
 
 =cut
 
-my $get         = L_SU_global_constants->new();
-my $L_SU        = L_SU->new();
-my $gui_history = gui_history->new();
-
-=head2 Import Special Variables
-
-=cut
+my ($mw);
+my ($top_menu_frame, $top_titles_frame,
+	$work_frame,     $parameter_titles_frame,
+);
+my ( $side_menu_frame, $parameter_menu_frame );
+my ($sunix_frame_top_row, $sunix_frame_bottom_row,
+	$parameters_pane,     $flow_control_frame
+);
+my ($parameter_values_button_frame);
+my ( $parameter_names_frame, $parameter_values_frame );
+my ($sunix_listbox,       $flow_listbox_grey_w, $flow_listbox_green_w,
+	$flow_listbox_pink_w, $flow_listbox_blue_w
+);
+my ( $dnd_token_grey,  $dropsite_token_grey );
+my ( $dnd_token_pink,  $dropsite_token_pink );
+my ( $dnd_token_green, $dropsite_token_green );
+my ( $dnd_token_blue,  $dropsite_token_blue );
+my ( @param,           @values, @args );
 
 my $var                           = $get->var();
-my $on                            = $var->{_on};
-my $true                          = $var->{_true};
-my $false                         = $var->{_false};
-my $empty_string                  = $var->{_empty_string};
-my $flow_type                     = $get->flow_type_href();
 my $alias_FileDialog_button_label = $get->alias_FileDialog_button_label_aref;
 my $superflow_names_gui_aref      = $get->superflow_names_gui_aref();
 my $file_dialog_type              = $get->file_dialog_type_href();
 my $global_libs                   = $get->global_libs();
 
+@values = qw//;
 my @sunix_data_programs        = @{ $var->{_sunix_data_programs} };
 my @sunix_datum_programs       = @{ $var->{_sunix_datum_programs} };
 my @sunix_plot_programs        = @{ $var->{_sunix_plot_programs} };
@@ -113,31 +128,6 @@ my @sunix_statsMath_programs   = @{ $var->{_sunix_statsMath_programs} };
 my @sunix_transform_programs   = @{ $var->{_sunix_transform_programs} };
 my @sunix_well_programs        = @{ $var->{_sunix_well_programs} };
 
-=head2 Declare private variables
-
- flow_listbox_color_w   -listbox, input by user selection
- sunix_listbox   		-choice of listed sunix modules in a listbox
- 
- flow_types: 'user_built flow' and 'pre_built_superflow'
- 
- 29 off, 4 off, 1 off
-
-=cut
-
-my ( $top_menu_frame, $top_titles_frame, $work_frame, $parameter_titles_frame, );
-my ($side_menu_frame);
-my ( $sunix_frame_top_row, $sunix_frame_bottom_row, $parameters_pane, $flow_control_frame );
-my ( @param, @args );
-my @values = qw//;
-
-=head2 Define private variables
-
-=cut
-
-my $user_built          = $flow_type->{_user_built};
-my $pre_built_superflow = $flow_type->{_pre_built_superflow};
-my $no_color            = 'no_color';
-
 =head2 Default Tk settings{
 
  Create scoped hash 
@@ -145,15 +135,56 @@ my $no_color            = 'no_color';
 
 =cut
 
-my $main_href = $gui_history->get_defaults();
+my $TkPl_SU = {
 
-=head2 Set gui_history conditions for debugging
+	_Data_menubutton               => '',
+	_Flow_menubutton               => '',
+	_SaveAs_menubutton             => '',
+	_add2flow_button_grey          => '',
+	_add2flow_button_pink          => '',
+	_add2flow_button_green         => '',
+	_add2flow_button_blue          => '',
+	_check_code_button             => '',
+	_delete_from_flow_button       => '',
+	_dnd_token_grey                => '',
+	_dnd_token_pink                => '',
+	_dnd_token_green               => '',
+	_dnd_token_blue                => '',
+	_dropsite_token_grey           => '',
+	_dropsite_token_pink           => '',
+	_dropsite_token_green          => '',
+	_dropsite_token_blue           => '',
+	_file_menubutton               => '',
+	_flow_item_down_arrow_button   => '',
+	_flow_item_up_arrow_button     => '',
+	_flow_listbox_grey_w           => '',
+	_flow_listbox_pink_w           => '',
+	_flow_listbox_green_w          => '',
+	_flow_listbox_blue_w           => '',
+	_flow_name_grey_w              => '',
+	_flow_name_pink_w              => '',
+	_flow_name_green_w             => '',
+	_flow_name_blue_w              => '',
+	_flowNsuperflow_name_w         => '',
+	_good_labels_aref2             => '',
+	_gui_history_aref			   => '',
+	_prog_names_aref               => '',
+	_name_aref                     => '',
+	_names_aref                    => '',
+	_index2move                    => '',
+	_destination_index             => '',
+	_run_button                    => '',
+	_mw                            => '',
+	_parameter_values_frame        => '',
+	_parameter_names_frame         => '',
+	_parameter_values_button_frame => '',
+	_prog_name                     => '',
+	_save_button                   => '',
+	_sunix_listbox                 => '',
 
-=cut
+};
 
-# $gui_history->set_log_view($true);
-
-=head2 L_SU Window contains
+=head2 Main Window contains
 
  a top menu frame 
  a middle menu titles frame
@@ -164,10 +195,10 @@ my $main_href = $gui_history->get_defaults();
 
 =cut
 
-( $main_href->{_mw} ) = MainWindow->new;
-( $main_href->{_mw} )->title( $var->{_program_title} );
-( $main_href->{_mw} )->geometry( $var->{_box_position} );
-( $main_href->{_mw} )->resizable( 0, 0 );    # not resizable in either width or height
+$mw = MainWindow->new;
+$mw->title( $var->{_program_title} );
+$mw->geometry( $var->{_box_position} );
+$mw->resizable( 0, 0 );    #not resizable in either width or height
 
 =head2 Define 
   
@@ -175,21 +206,21 @@ my $main_href = $gui_history->get_defaults();
 
 =cut
 
-my $garamond = ( $main_href->{_mw} )->fontCreate(
+my $garamond = $mw->fontCreate(
 	'garamond',
 	-family => 'garamond',
 	-weight => 'normal',
 	-size   => -14
 );
 
-my $arial_14 = ( $main_href->{_mw} )->fontCreate(
+my $arial_14 = $mw->fontCreate(
 	'arial_14',
 	-family => 'arial',
 	-weight => 'normal',
 	-size   => -14
 );
 
-my $arial_16 = ( $main_href->{_mw} )->fontCreate(
+my $arial_16 = $mw->fontCreate(
 	'arial_16',
 	-family => 'arial',
 	-weight => 'normal',
@@ -198,21 +229,21 @@ my $arial_16 = ( $main_href->{_mw} )->fontCreate(
 
 my $arial_notebooks = $arial_14;
 
-my $arial_18 = ( $main_href->{_mw} )->fontCreate(
+my $arial_18 = $mw->fontCreate(
 	'arial_18',
 	-family => 'arial',
 	-weight => 'normal',
 	-size   => -18
 );
 
-my $arial_12 = ( $main_href->{_mw} )->fontCreate(
+my $arial_12 = $mw->fontCreate(
 	'arial_12',
 	-family => 'arial',
 	-weight => 'normal',
 	-size   => -12
 );
 
-my $arial_italic_18 = ( $main_href->{_mw} )->fontCreate(
+my $arial_italic_18 = $mw->fontCreate(
 	'arial_italic_18',
 	-family => 'arial',
 	-weight => 'normal',
@@ -220,7 +251,7 @@ my $arial_italic_18 = ( $main_href->{_mw} )->fontCreate(
 	-size   => -18
 );
 
-my $arial_18_bold = ( $main_href->{_mw} )->fontCreate(
+my $arial_18_bold = $mw->fontCreate(
 	'arial_18_bold',
 	-family => 'arial',
 	-weight => 'bold',
@@ -229,16 +260,17 @@ my $arial_18_bold = ( $main_href->{_mw} )->fontCreate(
 
 my $arial_italic_large = $arial_italic_18;
 
-my $arial_italic_12 = ( $main_href->{_mw} )->fontCreate(
+my $arial_italic_12 = $mw->fontCreate(
 	'arial_italic_small',
 	-family => 'arial',
 	-weight => 'normal',
 	-slant  => 'italic',
 	-size   => -12
 );
+
 my $arial_italic_medium = $arial_italic_12;
 
-my $arial_italic_very_small = ( $main_href->{_mw} )->fontCreate(
+my $arial_italic_very_small = $mw->fontCreate(
 	'arial_italic_very_small',
 	-family => 'arial',
 	-slant  => 'italic',
@@ -246,18 +278,19 @@ my $arial_italic_very_small = ( $main_href->{_mw} )->fontCreate(
 	-size   => -9
 );
 
-my $small_garamond = ( $main_href->{_mw} )->fontCreate(
+my $small_garamond = $mw->fontCreate(
 	'small_garamond',
 	-family => 'garamond',
 	-weight => 'normal',
 	-size   => -9
 );
 
-$top_menu_frame = ( $main_href->{_mw} )->Frame(
+$top_menu_frame = $mw->Frame(
 	-borderwidth => $var->{_no_borderwidth},
 	-background  => $var->{_my_purple},
 	-relief      => 'groove'
 );
+
 
 # 	$top_menu_frame  ->Label(
 #					-text 	=> 'topmenuframstuff',
@@ -266,13 +299,15 @@ $top_menu_frame = ( $main_href->{_mw} )->Frame(
 #					-background  => $var->{_my_purple},
 #                );
 
-$side_menu_frame = ( $main_href->{_mw} )->Frame(
+$side_menu_frame = $mw->Frame(
 	-borderwidth => $var->{_no_borderwidth},
 	-background  => $var->{_my_purple},
 	-relief      => 'groove'
 );
 
+
 =head2 load images
+
 Button bitmaps and pixmaps
 XXX_cartoon image is used to delete
 a seismic unix program from the flow
@@ -280,14 +315,17 @@ a seismic unix program from the flow
 =cut
 
 my $cross_cartoon =
-	( $main_href->{_mw} )->Pixmap( -file => $global_libs->{_images} . 'cross.xpm', );
+	$mw->Pixmap( -file => $global_libs->{_images} . 'cross.xpm', );
 my $minus_cartoon =
-	( $main_href->{_mw} )->Pixmap( -file => $global_libs->{_images} . 'minus.xpm', );
+	$mw->Pixmap( -file => $global_libs->{_images} . 'minus.xpm', );
 my $flow_item_up_arrow =
-	( $main_href->{_mw} )->Bitmap( -file => $global_libs->{_images} . 'file_item_up_arrow.xbm', );
-my $flow_item_down_arrow = ( $main_href->{_mw} )->Bitmap( -file => $global_libs->{_images} . 'file_item_down_arrow.xbm', );
+	$mw->Bitmap( -file => $global_libs->{_images} . 'file_item_up_arrow.xbm', );
+my $flow_item_down_arrow =
+	$mw->Bitmap( -file => $global_libs->{_images} . 'file_item_down_arrow.xbm',
+	);
 
 =head2  top menu frame
+
 Contains:
 (1) top menus
 for superflows
@@ -297,7 +335,7 @@ help goes to superflow bindings
 
 =cut
 
-$main_href->{_superflow_select} = $top_menu_frame->Menubutton(
+my $superflow_select = $top_menu_frame->Menubutton(
 	-text               => 'Tools',
 	-font               => $arial_16,
 	-height             => 1,
@@ -311,9 +349,10 @@ $main_href->{_superflow_select} = $top_menu_frame->Menubutton(
 	-relief             => 'flat'
 );
 
-my $top_menu_bar = ( $main_href->{_superflow_select} )->Menu( -font => $arial_16 );
+my $top_menu_bar = $superflow_select->Menu( -font => $arial_16 );
 
-$top_menu_bar->bind( '<ButtonRelease-3>' => [ \&_L_SU_superflow_bindings, 'help' ], );
+$top_menu_bar->bind(
+	'<ButtonRelease-3>' => [ \&_L_SU_superflow_bindings, 'help' ], );
 
 =head2 Top menu frame icon
 wipe background plots
@@ -321,7 +360,7 @@ enable from the start
 
 =cut 
 
-$main_href->{_wipe_plots_button} = $top_menu_frame->Button(
+my $wipe_plots_button = $top_menu_frame->Button(
 	-image              => $cross_cartoon,
 	-height             => $var->{_18_pixels},
 	-border             => 0,
@@ -335,6 +374,7 @@ $main_href->{_wipe_plots_button} = $top_menu_frame->Button(
 	-relief             => 'flat',
 	-state              => 'active',
 );
+
 
 =head2 Top title reminders for Selected flow and Superflow names
 
@@ -360,7 +400,7 @@ my $top_menu_frame_spacer = $top_menu_frame->Label(
 	-relief             => 'flat'
 );
 
-$main_href->{_flowNsuperflow_name_w} = $top_menu_frame->Label(
+my $flowNsuperflow_name_w = $top_menu_frame->Label(
 	-text               => 'Flow Name',
 	-anchor             => 'center',
 	-font               => $arial_italic_large,
@@ -394,18 +434,20 @@ $main_href->{_flowNsuperflow_name_w} = $top_menu_frame->Label(
 @args = @$superflow_names_gui_aref;
 my $length_sflows = ( scalar @args ) - 1;    # last member is "temp"
 
-( $main_href->{_superflow_select} )->configure( -menu => $top_menu_bar );
+$superflow_select->configure( -menu => $top_menu_bar );
 
 for ( my $sflows = 0; $sflows < $length_sflows; $sflows++ ) {
-	$main_href->{_superflow_select}->command(
+	$superflow_select->command(
 		-label     => $args[$sflows],
 		-underline => 0,
 		-font      => $arial_16,
-		-command   => [ \&_L_SU_superflows, 'pre_built_superflows', \$args[$sflows] ],
+		-command =>
+			[ \&_L_SU_superflows, 'pre_built_superflows', \$args[$sflows] ],
 	);
 }
 
 =pod tied button widgets
+
 to a tool_array
 for easier management
 bind MB3 to help
@@ -430,7 +472,7 @@ print join("\n", $top_menu_bar->bind($class) ), "\n";
 
 =cut
 
-$main_href->{_file_menubutton} = $side_menu_frame->Menubutton(
+my $file_menubutton = $side_menu_frame->Menubutton(
 	-text               => 'File',
 	-font               => $arial_16,
 	-height             => 1,
@@ -442,17 +484,19 @@ $main_href->{_file_menubutton} = $side_menu_frame->Menubutton(
 	-activebackground   => $var->{_my_dark_grey},
 );
 
-my $side_menu_bar = ( $main_href->{_file_menubutton} )->Menu( -font => $arial_16 );
+#    		           	-state 				=> 'disabled',
 
-( $main_href->{_file_menubutton} )->configure( -menu => $side_menu_bar );
+my $side_menu_bar = $file_menubutton->Menu( -font => $arial_16 );
 
-( $main_href->{_file_menubutton} )->separator;
+$file_menubutton->configure( -menu => $side_menu_bar );
+
+$file_menubutton->separator;
 my @File_option;
 $File_option[0] = $file_dialog_type->{_Data};
 $File_option[1] = $file_dialog_type->{_Flow};
 $File_option[2] = $file_dialog_type->{_SaveAs};
 
-$main_href->{_Data_menubutton} = ( $main_href->{_file_menubutton} )->command(
+my $Data_menubutton = $file_menubutton->command(
 	-label     => @$alias_FileDialog_button_label[0],
 	-underline => 0,
 	-state     => 'disabled',
@@ -460,18 +504,34 @@ $main_href->{_Data_menubutton} = ( $main_href->{_file_menubutton} )->command(
 	-font      => $arial_16
 );
 
+# 						print("L_SU, main,Data_menubutton deref Array: @{$Data_menubutton}\n");
+# 						print("L_SU, main,file_menubutton Hash: $file_menubutton\n");
+# 						$Data_menubutton->configure(-state => 'normal');
+# 	 					my $option_hash = $file_menubutton->{_names_};
+# 						 print("L_SU, main,option_array, $file_menubutton->{_names_}\n");
+#
+# 						print("L_SU, main,file_menubutton->{_names_}: $file_menubutton->{_names_}\n");
+# 	 					foreach my $key (sort keys %$file_menubutton) {
+#      					print (" L_SU, main, file_menubutton,key is $key, value is $file_menubutton->{$key}\n");
+# 						}
+#
+#
+# 	 					foreach my $key (sort keys %$option_hash) {
+#      					print (" L_SU, main,option_hash, key is $key, value is $option_hash->{$key}\n");
+# 						}
+
 # Flow is the only button enabled from the start
 # in order to open a user-built perl flow
-( $main_href->{_file_menubutton} )->separator;
-$main_href->{_Flow_menubutton} = ( $main_href->{_file_menubutton} )->command(
+$file_menubutton->separator;
+my $Flow_menubutton = $file_menubutton->command(
 	-label     => @$alias_FileDialog_button_label[1],
 	-underline => 0,
 	-command   => [ \&_L_SU, 'FileDialog_button', \$File_option[1] ],
 	-font      => $arial_16,
 );
 
-( $main_href->{_file_menubutton} )->separator;
-$main_href->{_SaveAs_menubutton} = ( $main_href->{_file_menubutton} )->command(
+$file_menubutton->separator;
+my $SaveAs_menubutton = $file_menubutton->command(
 	-label     => @$alias_FileDialog_button_label[2],
 	-underline => 0,
 	-state     => 'disabled',
@@ -479,31 +539,32 @@ $main_href->{_SaveAs_menubutton} = ( $main_href->{_file_menubutton} )->command(
 	-font      => $arial_16
 );
 
-$top_titles_frame = ( $main_href->{_mw} )->Frame(
+$top_titles_frame = $mw->Frame(
 	-borderwidth => $var->{_one_pixel_borderwidth},
 	-background  => $var->{_light_gray},
 	-relief      => 'groove'
 );
 
-$main_href->{_parameter_menu_frame} = ( $main_href->{_mw} )->Frame(
+$parameter_menu_frame = $mw->Frame(
 	-borderwidth => $var->{_one_pixel_borderwidth},
 	-background  => $var->{_light_gray},
 	-relief      => 'groove'
 );
-$parameter_titles_frame = ( $main_href->{_mw} )->Frame(
+$parameter_titles_frame = $mw->Frame(
 	-borderwidth => $var->{_one_pixel_borderwidth},
 	-background  => $var->{_light_gray},
 	-relief      => 'groove'
 );
 
 =head2  side menu frame
-contains side menus
+
+ contains side menus
  2. for action 
 
 =cut
 
 my $Run_option = 'Run';
-$main_href->{_run_button} = $side_menu_frame->Button(
+my $run_button = $side_menu_frame->Button(
 	-text               => 'Run',
 	-font               => $arial_16,
 	-height             => 1,
@@ -518,7 +579,7 @@ $main_href->{_run_button} = $side_menu_frame->Button(
 );
 
 my $Save_option = 'Save';
-$main_href->{_save_button} = $side_menu_frame->Button(
+my $save_button = $side_menu_frame->Button(
 	-text               => 'Save',
 	-font               => $arial_16,
 	-height             => 1,
@@ -533,7 +594,7 @@ $main_href->{_save_button} = $side_menu_frame->Button(
 );
 
 my $Check_code_option = 'Check';
-$main_href->{_check_code_button} = $side_menu_frame->Button(
+my $check_code_button = $side_menu_frame->Button(
 	-text               => 'Check',
 	-font               => $arial_16,
 	-height             => 1,
@@ -544,12 +605,14 @@ $main_href->{_check_code_button} = $side_menu_frame->Button(
 	-activebackground   => $var->{_my_dark_grey},
 	-relief             => 'flat',
 	-state              => 'disabled',
-	-command            => [ \&_L_SU, 'check_code_button', \$Check_code_option ],
+	-command => [ \&_L_SU, 'check_code_button', \$Check_code_option ],
 );
 
+
 =head2 top_titles frame
-above the work frame
-contains Titles only 
+
+ above the work frame
+ contains Titles only 
 
 =cut
 
@@ -564,7 +627,7 @@ my $top_titles_spacer = $top_titles_frame->Label(
 	-relief     => 'groove'
 );
 
-$main_href->{_add2flow_button_grey} = ( $main_href->{_parameter_menu_frame} )->Button(
+my $add2flow_button_grey = $parameter_menu_frame->Button(
 	-text               => '   Flow -+->',
 	-font               => $arial_16,
 	-height             => 1,
@@ -577,10 +640,10 @@ $main_href->{_add2flow_button_grey} = ( $main_href->{_parameter_menu_frame} )->B
 	-activebackground   => $var->{_my_dark_grey},
 	-relief             => 'flat',
 	-state              => 'disabled',
-	-command            => [ \&_L_SU_add2flows, 'add2flow_button', 'grey' ],
+	-command            => [ \&_L_SU_flows, 'add2flow_button', 'grey' ],
 );
 
-$main_href->{_add2flow_button_pink} = ( $main_href->{_parameter_menu_frame} )->Button(
+my $add2flow_button_pink = $parameter_menu_frame->Button(
 	-text               => '2. -+->',
 	-font               => $arial_16,
 	-height             => 1,
@@ -592,10 +655,10 @@ $main_href->{_add2flow_button_pink} = ( $main_href->{_parameter_menu_frame} )->B
 	-activebackground   => $var->{_my_dark_grey},
 	-relief             => 'flat',
 	-state              => 'disabled',
-	-command            => [ \&_L_SU_add2flows, 'add2flow_button', 'pink' ],
+	-command            => [ \&_L_SU_flows, 'add2flow_button', 'pink' ],
 );
 
-$main_href->{_add2flow_button_green} = ( $main_href->{_parameter_menu_frame} )->Button(
+my $add2flow_button_green = $parameter_menu_frame->Button(
 	-text               => '3. -+->',
 	-font               => $arial_16,
 	-height             => 1,
@@ -607,10 +670,10 @@ $main_href->{_add2flow_button_green} = ( $main_href->{_parameter_menu_frame} )->
 	-activebackground   => $var->{_my_dark_grey},
 	-relief             => 'flat',
 	-state              => 'disabled',
-	-command            => [ \&_L_SU_add2flows, 'add2flow_button', 'green' ],
+	-command            => [ \&_L_SU_flows, 'add2flow_button', 'green' ],
 );
 
-$main_href->{_add2flow_button_blue} = ( $main_href->{_parameter_menu_frame} )->Button(
+my $add2flow_button_blue = $parameter_menu_frame->Button(
 	-text               => '4. -+->',
 	-font               => $arial_16,
 	-height             => 1,
@@ -622,10 +685,10 @@ $main_href->{_add2flow_button_blue} = ( $main_href->{_parameter_menu_frame} )->B
 	-activebackground   => $var->{_my_dark_grey},
 	-relief             => 'flat',
 	-state              => 'disabled',
-	-command            => [ \&_L_SU_add2flows, 'add2flow_button', 'blue' ]
+	-command            => [ \&_L_SU_flows, 'add2flow_button', 'blue' ]
 );
 
-$main_href->{_delete_from_flow_button} = ( $main_href->{_parameter_menu_frame} )->Button(
+my $delete_from_flow_button = $parameter_menu_frame->Button(
 	-image              => $minus_cartoon,
 	-height             => $var->{_24_pixels},
 	-border             => 0,
@@ -640,14 +703,30 @@ $main_href->{_delete_from_flow_button} = ( $main_href->{_parameter_menu_frame} )
 	-state              => 'disabled',
 );
 
+# 	my $delete_from_flow_button = $parameter_menu_frame->Button(
+#                   		-text				=> '',
+#						-font 				=> $arial_18_bold,
+#						-height      		=> $var->{_one_character},
+#						-border      		=> 0,
+#                   		-padx        		=> 4,
+#                   		-width       		=> 1,
+#                   		-background			=> $var->{_my_light_grey},
+#						-foreground 		=> $var->{_my_black},
+#						-disabledforeground => $var->{_my_dark_grey},
+#						-activeforeground 	=> $var->{_my_white},
+#						-activebackground 	=> $var->{_my_dark_grey},
+#                   		-relief      		=> 'flat',
+#                   		-state       		=> 'disabled',
+#                 		 );
+
 =pod
 
-button that moves items (program names) UP in a flow (color grey, pink, green or blue);
+ button that moves items (program names) UP in a flow (color grey, pink, green or blue);
  up within a listbox
 
 =cut
 
-$main_href->{_flow_item_up_arrow_button} = ( $main_href->{_parameter_menu_frame} )->Button(
+my $flow_item_up_arrow_button = $parameter_menu_frame->Button(
 	-image              => $flow_item_up_arrow,
 	-height             => $var->{_24_pixels},
 	-border             => 0,
@@ -669,7 +748,7 @@ $main_href->{_flow_item_up_arrow_button} = ( $main_href->{_parameter_menu_frame}
 
 =cut
 
-$main_href->{_flow_item_down_arrow_button} = ( $main_href->{_parameter_menu_frame} )->Button(
+my $flow_item_down_arrow_button = $parameter_menu_frame->Button(
 	-image              => $flow_item_down_arrow,
 	-height             => $var->{_24_pixels},
 	-border             => 0,
@@ -685,49 +764,58 @@ $main_href->{_flow_item_down_arrow_button} = ( $main_href->{_parameter_menu_fram
 );
 
 =head2 Listbox widgets
+
 tied to button action
 for easier management
 
 =cut
 
-( $main_href->{_delete_from_flow_button} )->bind( '<1>' => [ \&_L_SU_flow_bindings_any_color, 'delete_from_flow_button' ], );
+$delete_from_flow_button->bind(
+	'<1>' => [ \&_L_SU_flow_bindings_any_color, 'delete_from_flow_button' ], );
 
-( $main_href->{_flow_item_up_arrow_button} )->bind( '<1>' => [ \&_L_SU_flow_bindings_any_color, 'flow_item_up_arrow_button' ], );
+$flow_item_up_arrow_button->bind(
+	'<1>' => [ \&_L_SU_flow_bindings_any_color, 'flow_item_up_arrow_button' ],
+);
 
-( $main_href->{_flow_item_down_arrow_button} )->bind( '<1>' => [ \&_L_SU_flow_bindings_any_color, 'flow_item_down_arrow_button' ], );
+$flow_item_down_arrow_button->bind(
+	'<1>' => [ \&_L_SU_flow_bindings_any_color, 'flow_item_down_arrow_button' ],
+);
 
-( $main_href->{_wipe_plots_button} )->bind( '<1>' => [ \&_L_SU_bindings_shell, 'wipe_plots_button' ], );
+$wipe_plots_button->bind(
+	'<1>' => [ \&_L_SU_bindings_shell, 'wipe_plots_button' ], );
 
-$work_frame = ( $main_href->{_mw} )->Frame(
+$work_frame = $mw->Frame(
 	-borderwidth => $var->{_one_pixel_borderwidth},
 	-background  => 'yellow',
 	-relief      => 'groove'
 );
 
 =head2 work frame
-has menu items to its left
-contains a sunix_frame at its top, 
-a parameters_pane (with names value buttons and values) in the middle left
-and four listboxes contained in a module-sequences frame on the middle right
-and a message text area across the whole bottom
+
+ has menu items to its left
+ contains a sunix_frame at its top, 
+ a parameters_pane (with names value buttons and values) in the middle left
+ and four listboxes contained in a module-sequences frame on the middle right
+ and a message text area across the whole bottom
  
 =cut
 
 =head2 sunix_frame
-The sunix_frame itself contains five stories
-sub-frames called sunix_frame_I through and sunix_frame_V
-(levels 1 through 5)
+
+  The sunix_frame itself contains five stories
+  sub-frames called sunix_frame_I through and sunix_frame_V
+  (levels 1 through 5)
  
 =cut 
 
-$sunix_frame_top_row = ( $main_href->{_mw} )->Frame(
+$sunix_frame_top_row = $mw->Frame(
 	-borderwidth => $var->{_no_borderwidth},
 	-relief      => 'flat',
 
 	#-width       	=> $var->{_11_characters},
 	-background => $var->{_my_purple},
 );
-$sunix_frame_bottom_row = ( $main_href->{_mw} )->Frame(
+$sunix_frame_bottom_row = $mw->Frame(
 	-borderwidth => $var->{_no_borderwidth},
 	-relief      => 'flat',
 
@@ -773,8 +861,7 @@ my $sunix_frame_I = $sunix_frame_bottom_row->Frame(
 	-background  => $var->{_my_purple},
 );
 
-=head2 Notebooks 
-within sunix_frame_V (top row)
+=head2 Notebooks within sunix_frame_V (top row)
 
  
 =cut  
@@ -785,12 +872,16 @@ my $sunix_programs_V_book = $sunix_frame_V->NoteBook(
 	-backpagecolor => $var->{_my_purple},
 );
 
-my $sunix_data_programs_tab  = $sunix_programs_V_book->add( "data programs tab",  -label => "data" );
-my $sunix_datum_programs_tab = $sunix_programs_V_book->add( "datum programs tab", -label => "datum" );
+my $sunix_data_programs_tab =
+	$sunix_programs_V_book->add( "data programs tab", -label => "data" );
+my $sunix_datum_programs_tab =
+	$sunix_programs_V_book->add( "datum programs tab", -label => "datum" );
 
-my $sunix_plot_programs_tab = $sunix_programs_V_book->add( "plot programs tab", -label => "plot" );
+my $sunix_plot_programs_tab =
+	$sunix_programs_V_book->add( "plot programs tab", -label => "plot" );
 
-my $sunix_filter_programs_tab = $sunix_programs_V_book->add( "filter programs tab", -label => "filter", );
+my $sunix_filter_programs_tab =
+	$sunix_programs_V_book->add( "filter programs tab", -label => "filter", );
 my $sunix_data_programs_listbox = $sunix_data_programs_tab->Scrolled(
 	"Listbox",
 	-scrollbars  => "osoe",
@@ -833,9 +924,9 @@ $sunix_datum_programs_listbox->insert( "end", sort @sunix_datum_programs, );
 $sunix_plot_programs_listbox->insert( "end", sort @sunix_plot_programs, );
 $sunix_filter_programs_listbox->insert( "end", sort @sunix_filter_programs, );
 
-=head2 Notebooks
-within sunix_frame_IV (top row)
+=head2 Notebooks within sunix_frame_IV (top row)
 
+ 
 =cut  
 
 my $sunix_programs_IV_book = $sunix_frame_IV->NoteBook(
@@ -844,11 +935,16 @@ my $sunix_programs_IV_book = $sunix_frame_IV->NoteBook(
 	-backpagecolor => $var->{_my_purple},
 );
 
-my $sunix_header_programs_tab = $sunix_programs_IV_book->add( "header programs tab", -label => "header" );
+my $sunix_header_programs_tab =
+	$sunix_programs_IV_book->add( "header programs tab", -label => "header" );
 
-my $sunix_inversion_programs_tab = $sunix_programs_IV_book->add( "inversion programs tab", -label => "inversion" );
+my $sunix_inversion_programs_tab =
+	$sunix_programs_IV_book->add( "inversion programs tab",
+	-label => "inversion" );
 
-my $sunix_migration_programs_tab = $sunix_programs_IV_book->add( "migration programs tab", -label => "migration", );
+my $sunix_migration_programs_tab =
+	$sunix_programs_IV_book->add( "migration programs tab",
+	-label => "migration", );
 
 my $sunix_header_programs_listbox = $sunix_header_programs_tab->Scrolled(
 	"Listbox",
@@ -879,12 +975,15 @@ my $sunix_migration_programs_listbox = $sunix_migration_programs_tab->Scrolled(
 
 $sunix_header_programs_listbox->insert( "end", sort @sunix_header_programs, );
 
-$sunix_inversion_programs_listbox->insert( "end", sort @sunix_inversion_programs, );
+$sunix_inversion_programs_listbox->insert( "end",
+	sort @sunix_inversion_programs,
+);
 
-$sunix_migration_programs_listbox->insert( "end", sort @sunix_migration_programs, );
+$sunix_migration_programs_listbox->insert( "end",
+	sort @sunix_migration_programs,
+);
 
-=head2 Notebooks within 
-sunix_frame_III (top row)
+=head2 Notebooks within sunix_frame_III (top row)
 
  
 =cut  
@@ -895,13 +994,18 @@ my $sunix_programs_III_book = $sunix_frame_III->NoteBook(
 	-backpagecolor => $var->{_my_purple},
 );
 
-my $sunix_model_programs_tab = $sunix_programs_III_book->add( "model programs tab", -label => "model" );
+my $sunix_model_programs_tab =
+	$sunix_programs_III_book->add( "model programs tab", -label => "model" );
 
-my $sunix_NMO_Vel_Stk_programs_tab = $sunix_programs_III_book->add( "NMO_Vel_Stk programs tab", -label => "NMO_Vel_Stk" );
+my $sunix_NMO_Vel_Stk_programs_tab =
+	$sunix_programs_III_book->add( "NMO_Vel_Stk programs tab",
+	-label => "NMO_Vel_Stk" );
 
-my $sunix_par_programs_tab = $sunix_programs_III_book->add( "par programs tab", -label => "par", );
+my $sunix_par_programs_tab =
+	$sunix_programs_III_book->add( "par programs tab", -label => "par", );
 
-my $sunix_picks_programs_tab = $sunix_programs_III_book->add( "picks programs tab", -label => "picks", );
+my $sunix_picks_programs_tab =
+	$sunix_programs_III_book->add( "picks programs tab", -label => "picks", );
 
 my $sunix_model_programs_listbox = $sunix_model_programs_tab->Scrolled(
 	"Listbox",
@@ -912,14 +1016,15 @@ my $sunix_model_programs_listbox = $sunix_model_programs_tab->Scrolled(
 	-borderwidth => $var->{_no_borderwidth}
 );
 
-my $sunix_NMO_Vel_Stk_programs_listbox = $sunix_NMO_Vel_Stk_programs_tab->Scrolled(
+my $sunix_NMO_Vel_Stk_programs_listbox =
+	$sunix_NMO_Vel_Stk_programs_tab->Scrolled(
 	"Listbox",
 	-scrollbars  => "osoe",
 	-height      => $var->{_2_lines},
 	-width       => $var->{_11_characters},
 	-selectmode  => "single",
 	-borderwidth => $var->{_no_borderwidth}
-);
+	);
 
 my $sunix_par_programs_listbox = $sunix_par_programs_tab->Scrolled(
 	"Listbox",
@@ -941,14 +1046,15 @@ my $sunix_picks_programs_listbox = $sunix_picks_programs_tab->Scrolled(
 
 $sunix_model_programs_listbox->insert( "end", sort @sunix_model_programs, );
 
-$sunix_NMO_Vel_Stk_programs_listbox->insert( "end", sort @sunix_NMO_Vel_Stk_programs, );
+$sunix_NMO_Vel_Stk_programs_listbox->insert( "end",
+	sort @sunix_NMO_Vel_Stk_programs,
+);
 
 $sunix_par_programs_listbox->insert( "end", sort @sunix_par_programs, );
 
 $sunix_picks_programs_listbox->insert( "end", sort @sunix_picks_programs, );
 
-=head2 Notebooks within
-sunix_frame_II (top row )
+=head2 Notebooks within sunix_frame_II (top row )
 
  
 =cut 
@@ -959,11 +1065,16 @@ my $sunix_programs_II_book = $sunix_frame_II->NoteBook(
 	-backpagecolor => $var->{_my_purple},
 );
 
-my $sunix_shapeNcut_programs_tab = $sunix_programs_II_book->add( "shapeNcut programs tab", -label => "shapeNcut", );
+my $sunix_shapeNcut_programs_tab =
+	$sunix_programs_II_book->add( "shapeNcut programs tab",
+	-label => "shapeNcut", );
 
-my $sunix_shell_programs_tab = $sunix_programs_II_book->add( "shell programs tab", -label => "shell", );
+my $sunix_shell_programs_tab =
+	$sunix_programs_II_book->add( "shell programs tab", -label => "shell", );
 
-my $sunix_statsMath_programs_tab = $sunix_programs_II_book->add( "statsMath programs tab", -label => "statsMath", );
+my $sunix_statsMath_programs_tab =
+	$sunix_programs_II_book->add( "statsMath programs tab",
+	-label => "statsMath", );
 
 my $sunix_shapeNcut_programs_listbox = $sunix_shapeNcut_programs_tab->Scrolled(
 	"Listbox",
@@ -992,14 +1103,17 @@ my $sunix_statsMath_programs_listbox = $sunix_statsMath_programs_tab->Scrolled(
 	-borderwidth => $var->{_no_borderwidth}
 );
 
-$sunix_shapeNcut_programs_listbox->insert( "end", sort @sunix_shapeNcut_programs, );
+$sunix_shapeNcut_programs_listbox->insert( "end",
+	sort @sunix_shapeNcut_programs,
+);
 
 $sunix_shell_programs_listbox->insert( "end", sort @sunix_shell_programs, );
 
-$sunix_statsMath_programs_listbox->insert( "end", sort @sunix_statsMath_programs, );
+$sunix_statsMath_programs_listbox->insert( "end",
+	sort @sunix_statsMath_programs,
+);
 
-=head2 Notebooks within 
-sunix_frame_I (bottom row )
+=head2 Notebooks within sunix_frame_I (bottom row )
 
  
 =cut 
@@ -1010,9 +1124,12 @@ my $sunix_programs_I_book = $sunix_frame_I->NoteBook(
 	-backpagecolor => $var->{_my_purple},
 );
 
-my $sunix_transform_programs_tab = $sunix_programs_I_book->add( "transform programs tab", -label => "transform" );
+my $sunix_transform_programs_tab =
+	$sunix_programs_I_book->add( "transform programs tab",
+	-label => "transform" );
 
-my $sunix_well_programs_tab = $sunix_programs_I_book->add( "well programs tab", -label => "well", );
+my $sunix_well_programs_tab =
+	$sunix_programs_I_book->add( "well programs tab", -label => "well", );
 
 my $sunix_transform_programs_listbox = $sunix_transform_programs_tab->Scrolled(
 	"Listbox",
@@ -1032,12 +1149,13 @@ my $sunix_well_programs_listbox = $sunix_well_programs_tab->Scrolled(
 	-borderwidth => $var->{_no_borderwidth}
 );
 
-$sunix_transform_programs_listbox->insert( "end", sort @sunix_transform_programs, );
+$sunix_transform_programs_listbox->insert( "end",
+	sort @sunix_transform_programs,
+);
 
 $sunix_well_programs_listbox->insert( "end", sort @sunix_well_programs, );
 
-=head2 Notebooks within 
-sunix_frame_I (bottom row )
+=head2 Notebooks within sunix_frame_I (bottom row )
 
  
 =cut	             			             			             											
@@ -1047,81 +1165,112 @@ sunix_frame_I (bottom row )
   to a tool_array
   for easier management
   
-  This binding occurs inside L_SU.pm and NOT
-  within the current program
+  This binding occurs inside L_SU.pm
 
 =cut
 
-$sunix_data_programs_listbox->bind( '<1>' => [ \&_L_SU_sunix_bindings, 'sunix_select', 'neutral', 'data' ] );
-$sunix_datum_programs_listbox->bind( '<1>' => [ \&_L_SU_sunix_bindings, 'sunix_select', 'neutral', 'datum' ] );
-$sunix_plot_programs_listbox->bind( '<1>' => [ \&_L_SU_sunix_bindings, 'sunix_select', 'neutral', 'plot' ] );
-$sunix_filter_programs_listbox->bind( '<1>' => [ \&_L_SU_sunix_bindings, 'sunix_select', 'neutral', 'filter' ] );
-$sunix_header_programs_listbox->bind( '<1>' => [ \&_L_SU_sunix_bindings, 'sunix_select', 'neutral', 'header' ] );
-$sunix_inversion_programs_listbox->bind( '<1>' => [ \&_L_SU_sunix_bindings, 'sunix_select', 'neutral', 'inversion' ] );
-$sunix_migration_programs_listbox->bind( '<1>' => [ \&_L_SU_sunix_bindings, 'sunix_select', 'neutral', 'migration' ] );
+$sunix_data_programs_listbox->bind(
+	'<1>' => [ \&_L_SU_sunix_bindings, 'sunix_select', 'neutral', 'data' ] );
+$sunix_datum_programs_listbox->bind(
+	'<1>' => [ \&_L_SU_sunix_bindings, 'sunix_select', 'neutral', 'datum' ] );
+$sunix_plot_programs_listbox->bind(
+	'<1>' => [ \&_L_SU_sunix_bindings, 'sunix_select', 'neutral', 'plot' ] );
+$sunix_filter_programs_listbox->bind(
+	'<1>' => [ \&_L_SU_sunix_bindings, 'sunix_select', 'neutral', 'filter' ] );
+$sunix_header_programs_listbox->bind(
+	'<1>' => [ \&_L_SU_sunix_bindings, 'sunix_select', 'neutral', 'header' ] );
+$sunix_inversion_programs_listbox->bind( '<1>' =>
+		[ \&_L_SU_sunix_bindings, 'sunix_select', 'neutral', 'inversion' ] );
+$sunix_migration_programs_listbox->bind( '<1>' =>
+		[ \&_L_SU_sunix_bindings, 'sunix_select', 'neutral', 'migration' ] );
 
-$sunix_model_programs_listbox->bind( '<1>' => [ \&_L_SU_sunix_bindings, 'sunix_select', 'neutral', 'model' ] );
-$sunix_NMO_Vel_Stk_programs_listbox->bind( '<1>' => [ \&_L_SU_sunix_bindings, 'sunix_select', 'neutral', 'NMO_Vel_Stk' ] );
-$sunix_par_programs_listbox->bind( '<1>' => [ \&_L_SU_sunix_bindings, 'sunix_select', 'neutral', 'par' ] );
-$sunix_picks_programs_listbox->bind( '<1>' => [ \&_L_SU_sunix_bindings, 'sunix_select', 'neutral', 'picks' ] );
+$sunix_model_programs_listbox->bind(
+	'<1>' => [ \&_L_SU_sunix_bindings, 'sunix_select', 'neutral', 'model' ] );
+$sunix_NMO_Vel_Stk_programs_listbox->bind( '<1>' =>
+		[ \&_L_SU_sunix_bindings, 'sunix_select', 'neutral', 'NMO_Vel_Stk' ] );
+$sunix_par_programs_listbox->bind(
+	'<1>' => [ \&_L_SU_sunix_bindings, 'sunix_select', 'neutral', 'par' ] );
+$sunix_picks_programs_listbox->bind(
+	'<1>' => [ \&_L_SU_sunix_bindings, 'sunix_select', 'neutral', 'picks' ] );
 
-$sunix_shapeNcut_programs_listbox->bind( '<1>' => [ \&_L_SU_sunix_bindings, 'sunix_select', 'neutral', 'shapeNcut' ] );
+$sunix_shapeNcut_programs_listbox->bind( '<1>' =>
+		[ \&_L_SU_sunix_bindings, 'sunix_select', 'neutral', 'shapeNcut' ] );
 
 # TODO return to 'neutral'
-$sunix_shell_programs_listbox->bind( '<1>' => [ \&_L_SU_sunix_bindings, 'sunix_select', 'neutral', 'shell' ] );
-$sunix_statsMath_programs_listbox->bind( '<1>' => [ \&_L_SU_sunix_bindings, 'sunix_select', 'neutral', 'statsMath' ] );
-$sunix_transform_programs_listbox->bind( '<1>' => [ \&_L_SU_sunix_bindings, 'sunix_select', 'neutral', 'transform' ] );
-$sunix_well_programs_listbox->bind( '<1>' => [ \&_L_SU_sunix_bindings, 'sunix_select', 'neutral', 'well' ] );
+$sunix_shell_programs_listbox->bind(
+	'<1>' => [ \&_L_SU_sunix_bindings, 'sunix_select', 'neutral', 'shell' ] );
+$sunix_statsMath_programs_listbox->bind( '<1>' =>
+		[ \&_L_SU_sunix_bindings, 'sunix_select', 'neutral', 'statsMath' ] );
+$sunix_transform_programs_listbox->bind( '<1>' =>
+		[ \&_L_SU_sunix_bindings, 'sunix_select', 'neutral', 'transform' ] );
+$sunix_well_programs_listbox->bind(
+	'<1>' => [ \&_L_SU_sunix_bindings, 'sunix_select', 'neutral', 'well' ] );
 
 $sunix_data_programs_listbox->bind(
-	'<3>' => [ \&_L_SU_sunix_bindings, 'help', 'neutral', 'data' ]    #TODO return to 'neutral'
+	'<3>' => [ \&_L_SU_sunix_bindings, 'help', 'neutral',
+		'data' ]    #TODO return to 'neutral'
 );
 $sunix_datum_programs_listbox->bind(
-	'<3>' => [ \&_L_SU_sunix_bindings, 'help', 'neutral', 'datum' ]    #TODo return to 'neutral'
+	'<3>' => [ \&_L_SU_sunix_bindings, 'help', 'neutral',
+		'datum' ]    #TODo return to 'neutral'
 );
 $sunix_plot_programs_listbox->bind(
-	'<3>' => [ \&_L_SU_sunix_bindings, 'help', 'neutral', 'plot' ]     #TODo return to 'neutral'
+	'<3>' => [ \&_L_SU_sunix_bindings, 'help', 'neutral',
+		'plot' ]     #TODo return to 'neutral'
 );
 $sunix_filter_programs_listbox->bind(
-	'<3>' => [ \&_L_SU_sunix_bindings, 'help', 'neutral', 'filter' ]    #TODo return to 'neutral'
+	'<3>' => [ \&_L_SU_sunix_bindings, 'help', 'neutral',
+		'filter' ]    #TODo return to 'neutral'
 );
 
 $sunix_header_programs_listbox->bind(
-	'<3>' => [ \&_L_SU_sunix_bindings, 'help', 'neutral', 'header' ]    #TODo return to 'neutral'
+	'<3>' => [ \&_L_SU_sunix_bindings, 'help', 'neutral',
+		'header' ]    #TODo return to 'neutral'
 );
 $sunix_inversion_programs_listbox->bind(
-	'<3>' => [ \&_L_SU_sunix_bindings, 'help', 'neutral', 'inversion' ]    #TODo return to 'neutral'
+	'<3>' => [ \&_L_SU_sunix_bindings, 'help', 'neutral',
+		'inversion' ]    #TODo return to 'neutral'
 );
 $sunix_migration_programs_listbox->bind(
-	'<3>' => [ \&_L_SU_sunix_bindings, 'help', 'neutral', 'migration' ]    #TODo return to 'neutral'
+	'<3>' => [ \&_L_SU_sunix_bindings, 'help', 'neutral',
+		'migration' ]    #TODo return to 'neutral'
 );
 $sunix_model_programs_listbox->bind(
-	'<3>' => [ \&_L_SU_sunix_bindings, 'help', 'neutral', 'model' ]        #TODo return to 'neutral'
+	'<3>' => [ \&_L_SU_sunix_bindings, 'help', 'neutral',
+		'model' ]        #TODo return to 'neutral'
 );
 $sunix_NMO_Vel_Stk_programs_listbox->bind(
-	'<3>' => [ \&_L_SU_sunix_bindings, 'help', 'neutral', 'NMO_Vel_Stk' ]    #TODo return to 'neutral'
+	'<3>' => [ \&_L_SU_sunix_bindings, 'help', 'neutral',
+		'NMO_Vel_Stk' ]    #TODo return to 'neutral'
 );
 $sunix_par_programs_listbox->bind(
-	'<3>' => [ \&_L_SU_sunix_bindings, 'help', 'neutral', 'par' ]            #TODo return to 'neutral'
+	'<3>' => [ \&_L_SU_sunix_bindings, 'help', 'neutral',
+		'par' ]            #TODo return to 'neutral'
 );
 $sunix_picks_programs_listbox->bind(
-	'<3>' => [ \&_L_SU_sunix_bindings, 'help', 'neutral', 'picks' ]          #TODo return to 'neutral'
+	'<3>' => [ \&_L_SU_sunix_bindings, 'help', 'neutral',
+		'picks' ]          #TODo return to 'neutral'
 );
 
 $sunix_shapeNcut_programs_listbox->bind(
-	'<3>' => [ \&_L_SU_sunix_bindings, 'help', 'neutral', 'shapeNcut' ]      #TODo return to 'neutral'
+	'<3>' => [ \&_L_SU_sunix_bindings, 'help', 'neutral',
+		'shapeNcut' ]      #TODo return to 'neutral'
 );
 $sunix_shell_programs_listbox->bind(
-	'<3>' => [ \&_L_SU_sunix_bindings, 'help', 'neutral', 'shell' ]          #TODo return to 'neutral'
+	'<3>' => [ \&_L_SU_sunix_bindings, 'help', 'neutral',
+		'shell' ]          #TODo return to 'neutral'
 );
 $sunix_statsMath_programs_listbox->bind(
-	'<3>' => [ \&_L_SU_sunix_bindings, 'help', 'neutral', 'statsMath' ]      #TODo return to 'neutral'
+	'<3>' => [ \&_L_SU_sunix_bindings, 'help', 'neutral',
+		'statsMath' ]      #TODo return to 'neutral'
 );
 $sunix_transform_programs_listbox->bind(
-	'<3>' => [ \&_L_SU_sunix_bindings, 'help', 'neutral', 'transform' ]      #TODo return to 'neutral'
+	'<3>' => [ \&_L_SU_sunix_bindings, 'help', 'neutral',
+		'transform' ]      #TODo return to 'neutral'
 );
 $sunix_well_programs_listbox->bind(
-	'<3>' => [ \&_L_SU_sunix_bindings, 'help', 'neutral', 'well' ]           #TODo return to 'neutral'
+	'<3>' => [ \&_L_SU_sunix_bindings, 'help', 'neutral',
+		'well' ]           #TODo return to 'neutral'
 );
 
 =head2 parameter_titles label
@@ -1181,19 +1330,19 @@ $parameters_pane = $work_frame->Scrolled(
 
 =cut
 
-$main_href->{_parameter_values_frame} = $parameters_pane->Frame(
+$parameter_values_frame = $parameters_pane->Frame(
 	-borderwidth => $var->{_one_pixel_borderwidth},
 	-background  => $var->{_my_purple},
 	-relief      => 'flat',
 );
 
-$main_href->{_parameter_names_frame} = $parameters_pane->Frame(
+$parameter_names_frame = $parameters_pane->Frame(
 	-borderwidth => $var->{_no_borderwidth},
 	-background  => $var->{_my_black},
 	-relief      => 'flat',
 );
 
-$main_href->{_parameter_values_button_frame} = $parameters_pane->Frame(
+$parameter_values_button_frame = $parameters_pane->Frame(
 	-borderwidth => $var->{_one_pixel_borderwidth},
 	-background  => $var->{_my_purple},
 	-relief      => 'flat',
@@ -1205,7 +1354,7 @@ $main_href->{_parameter_values_button_frame} = $parameters_pane->Frame(
 
 =cut
 
-$main_href->{_message_w} = $work_frame->Text(
+my $message = $work_frame->Text(
 	-height     => $var->{_3_lines},
 	-font       => $arial_16,
 	-foreground => $var->{_my_white},
@@ -1275,7 +1424,7 @@ my $flow_control_frame_bottom_row = $flow_control_frame->Frame(
 
 =cut
 
-$main_href->{_flow_name_grey_w} = $flow_control_frame_names4top_row->Label(
+my $flow_name_grey_w = $flow_control_frame_names4top_row->Label(
 
 	-activeforeground   => $var->{_my_white},
 	-activebackground   => $var->{_my_dark_grey},
@@ -1293,7 +1442,7 @@ $main_href->{_flow_name_grey_w} = $flow_control_frame_names4top_row->Label(
 	-width              => $var->{_14_characters},
 );
 
-$main_href->{_flow_name_pink_w} = $flow_control_frame_names4top_row->Label(
+my $flow_name_pink_w = $flow_control_frame_names4top_row->Label(
 
 	-activeforeground   => $var->{_my_white},
 	-activebackground   => $var->{_my_dark_grey},
@@ -1311,7 +1460,7 @@ $main_href->{_flow_name_pink_w} = $flow_control_frame_names4top_row->Label(
 	-width              => $var->{_14_characters},
 );
 
-$main_href->{_flow_name_green_w} = $flow_control_frame_names4bottom_row->Label(
+my $flow_name_green_w = $flow_control_frame_names4bottom_row->Label(
 
 	-activeforeground   => $var->{_my_white},
 	-activebackground   => $var->{_my_dark_grey},
@@ -1329,7 +1478,7 @@ $main_href->{_flow_name_green_w} = $flow_control_frame_names4bottom_row->Label(
 	-width              => $var->{_14_characters},
 );
 
-$main_href->{_flow_name_blue_w} = $flow_control_frame_names4bottom_row->Label(
+my $flow_name_blue_w = $flow_control_frame_names4bottom_row->Label(
 	-activeforeground   => $var->{_my_white},
 	-activebackground   => $var->{_my_dark_grey},
 	-anchor             => 'w',
@@ -1346,7 +1495,7 @@ $main_href->{_flow_name_blue_w} = $flow_control_frame_names4bottom_row->Label(
 	-width              => $var->{_14_characters},
 );
 
-$main_href->{_flow_listbox_grey_w} = $flow_control_frame_top_row->Scrolled(
+$flow_listbox_grey_w = $flow_control_frame_top_row->Scrolled(
 	"Listbox",
 	-scrollbars       => "osoe",
 	-height           => $var->{_7_lines},
@@ -1361,7 +1510,7 @@ $main_href->{_flow_listbox_grey_w} = $flow_control_frame_top_row->Scrolled(
 	-state            => 'disabled',
 );
 
-$main_href->{_flow_listbox_pink_w} = $flow_control_frame_top_row->Scrolled(
+$flow_listbox_pink_w = $flow_control_frame_top_row->Scrolled(
 	"Listbox",
 	-scrollbars       => "osoe",
 	-height           => $var->{_7_lines},
@@ -1376,7 +1525,7 @@ $main_href->{_flow_listbox_pink_w} = $flow_control_frame_top_row->Scrolled(
 	-state            => 'disabled',
 );
 
-$main_href->{_flow_listbox_green_w} = $flow_control_frame_bottom_row->Scrolled(
+$flow_listbox_green_w = $flow_control_frame_bottom_row->Scrolled(
 	"Listbox",
 	-scrollbars       => "osoe",
 	-height           => $var->{_7_lines},
@@ -1391,7 +1540,7 @@ $main_href->{_flow_listbox_green_w} = $flow_control_frame_bottom_row->Scrolled(
 	-state            => 'disabled',
 );
 
-$main_href->{_flow_listbox_blue_w} = $flow_control_frame_bottom_row->Scrolled(
+$flow_listbox_blue_w = $flow_control_frame_bottom_row->Scrolled(
 	"Listbox",
 	-scrollbars  => "osoe",
 	-height      => $var->{_7_lines},
@@ -1416,20 +1565,28 @@ $main_href->{_flow_listbox_blue_w} = $flow_control_frame_bottom_row->Scrolled(
 
 =cut
 
-( $main_href->{_flow_listbox_grey_w} )->bind( '<1>' => [ \&_L_SU_flow_bindings, 'flow_select', 'grey' ], );
-( $main_href->{_flow_listbox_grey_w} )->bind( '<3>' => [ \&_L_SU_flow_bindings, 'help',        'grey' ] );
+$flow_listbox_grey_w->bind(
+	'<1>' => [ \&_L_SU_flow_bindings, 'flow_select', 'grey' ], );
+$flow_listbox_grey_w->bind(
+	'<3>' => [ \&_L_SU_flow_bindings, 'help', 'grey' ] );
 
-( $main_href->{_flow_listbox_pink_w} )->bind( '<1>' => [ \&_L_SU_flow_bindings, 'flow_select', 'pink' ], );
-( $main_href->{_flow_listbox_pink_w} )->bind( '<3>' => [ \&_L_SU_flow_bindings, 'help',        'pink' ] );
+$flow_listbox_pink_w->bind(
+	'<1>' => [ \&_L_SU_flow_bindings, 'flow_select', 'pink' ], );
+$flow_listbox_pink_w->bind(
+	'<3>' => [ \&_L_SU_flow_bindings, 'help', 'pink' ] );
 
-( $main_href->{_flow_listbox_green_w} )->bind( '<1>' => [ \&_L_SU_flow_bindings, 'flow_select', 'green' ], );
-( $main_href->{_flow_listbox_green_w} )->bind( '<3>' => [ \&_L_SU_flow_bindings, 'help',        'green' ] );
+$flow_listbox_green_w->bind(
+	'<1>' => [ \&_L_SU_flow_bindings, 'flow_select', 'green' ], );
+$flow_listbox_green_w->bind(
+	'<3>' => [ \&_L_SU_flow_bindings, 'help', 'green' ] );
 
-( $main_href->{_flow_listbox_blue_w} )->bind( '<1>' => [ \&_L_SU_flow_bindings, 'flow_select', 'blue' ], );
-( $main_href->{_flow_listbox_blue_w} )->bind( '<3>' => [ \&_L_SU_flow_bindings, 'help',        'blue' ] );
+$flow_listbox_blue_w->bind(
+	'<1>' => [ \&_L_SU_flow_bindings, 'flow_select', 'blue' ], );
+$flow_listbox_blue_w->bind(
+	'<3>' => [ \&_L_SU_flow_bindings, 'help', 'blue' ] );
 
 =head2 Packing Frame widget 
- contianed within L_SU menu frame
+ contianed within main menu frame
 
 =cut     
 
@@ -1457,12 +1614,12 @@ $sunix_frame_bottom_row->pack(
 );
 
 # top menu frame
-( $main_href->{_superflow_select} )->pack(
+$superflow_select->pack(
 	-side => "left",
 	-fill => 'y'
 );
 
-( $main_href->{_wipe_plots_button} )->pack(
+$wipe_plots_button->pack(
 	-side => "left",
 	-fill => 'y'
 );
@@ -1472,27 +1629,27 @@ $top_menu_frame_spacer->pack(
 	-fill => 'y'
 );
 
-( $main_href->{_flowNsuperflow_name_w} )->pack(
+$flowNsuperflow_name_w->pack(
 	-side => "left",
 	-fill => 'y'
 );
 
 #side menu frame
-( $main_href->{_file_menubutton} )->pack(
+$file_menubutton->pack(
 	-side => "top",
 	-fill => 'x'
 );
 
-( $main_href->{_run_button} )->pack(
+$run_button->pack(
 	-side => "top",
 	-fill => 'x',
 );
-( $main_href->{_save_button} )->pack(
+$save_button->pack(
 	-side => "top",
 	-fill => 'x',
 );
 
-#$main_href->{_check_code_button}	    ->pack(
+#$check_code_button	    ->pack(
 #                        -side  	=> "top",
 #		    			-fill   => 'x',
 #                        );
@@ -1507,7 +1664,7 @@ $top_menu_frame_spacer->pack(
 	
 =cut	          
 
-( $main_href->{_message_w} )->pack(
+$message->pack(
 	-side => "bottom",
 	-fill => 'x',
 );
@@ -1517,23 +1674,22 @@ $top_menu_frame_spacer->pack(
 #    $top_titles_spacer  	->pack(
 #							-side  	=> "left",
 #                            );
-( $main_href->{_parameter_menu_frame} )->pack(
+$parameter_menu_frame->pack(
 	-side => "top",
 	-fill => "x",
 );
 
-# my $add2flow_button_grey = ($main_href->{_add2flow_button_grey});
-( $main_href->{_add2flow_button_grey} )->pack( -side => "left", );
-( $main_href->{_add2flow_button_pink} )->pack( -side => "left", );
-( $main_href->{_add2flow_button_green} )->pack( -side => "left", );
-( $main_href->{_add2flow_button_blue} )->pack( -side => "left", );
+$add2flow_button_grey->pack( -side => "left", );
+$add2flow_button_pink->pack( -side => "left", );
+$add2flow_button_green->pack( -side => "left", );
+$add2flow_button_blue->pack( -side => "left", );
 
 # $delete_from_flow_button->pack( -side => "right", );
-( $main_href->{_flow_item_up_arrow_button} )->pack( -side => "right", );
-( $main_href->{_flow_item_down_arrow_button} )->pack( -side => "right", );
-( $main_href->{_delete_from_flow_button} )->pack( -side => "right", );
+$flow_item_up_arrow_button->pack( -side => "right", );
+$flow_item_down_arrow_button->pack( -side => "right", );
+$delete_from_flow_button->pack( -side => "right", );
 
-# parameter titles belongs to L_SU frame
+# parameter titles belongs to main frame
 # and contains the following
 $parameter_titles_frame->pack(
 	-side => "top",
@@ -1545,7 +1701,7 @@ $parameter_titles_label->pack(
 	-fill => "x",
 );
 
-# work frame belongs to L_SU frame
+# work frame belongs to main frame
 $work_frame->pack(
 	-side => "left",
 	-fill => "y",
@@ -1689,17 +1845,17 @@ $sunix_well_programs_listbox->pack(
 # parameter_values_button_frame
 # have parameter_values_frame
 
-( $main_href->{_parameter_names_frame} )->pack(
+$parameter_names_frame->pack(
 	-side => "left",
 	-fill => "both",
 );
 
-( $main_href->{_parameter_values_button_frame} )->pack(
+$parameter_values_button_frame->pack(
 	-side => "left",
 	-fill => "both",
 );
 
-( $main_href->{_parameter_values_frame} )->pack(
+$parameter_values_frame->pack(
 	-side => "left",
 	-fill => "both",
 );
@@ -1729,77 +1885,113 @@ $flow_control_frame_bottom_row->pack(
 	-expand => 1,
 );
 
-( $main_href->{_flow_name_grey_w} )->pack(
+$flow_name_grey_w->pack(
 	-side => "left",
 	-fill => "x",
 );
 
-( $main_href->{_flow_name_pink_w} )->pack(
+$flow_name_pink_w->pack(
 	-side => "right",
 	-fill => "x",
 );
 
-( $main_href->{_flow_listbox_grey_w} )->pack(
+$flow_listbox_grey_w->pack(
 	-side => "left",
 	-fill => "x",
 );
 
-( $main_href->{_flow_listbox_pink_w} )->pack(
+$flow_listbox_pink_w->pack(
 	-side => "left",
 	-fill => "x",
 );
 
-( $main_href->{_flow_name_green_w} )->pack(
+$flow_name_green_w->pack(
 	-side => "left",
 	-fill => "x",
 );
 
-( $main_href->{_flow_name_blue_w} )->pack(
+$flow_name_blue_w->pack(
 	-side => "right",
 	-fill => "x",
 );
-( $main_href->{_flow_listbox_green_w} )->pack(
+$flow_listbox_green_w->pack(
 	-side => "left",
 	-fill => "y",
 );
-( $main_href->{_flow_listbox_blue_w} )->pack(
+$flow_listbox_blue_w->pack(
 	-fill => "y",
 	-side => "left",
 );
 
-# send widgets to the L_SU package from the current perl program
-# once BUT
-# transfer must ALSO be repeated within each subroutine
+=head2 prepare
+
+ 34 to export hash ref
+
+=cut
+
+$TkPl_SU->{_Data_menubutton}             = $Data_menubutton;
+$TkPl_SU->{_SaveAs_menubutton}           = $SaveAs_menubutton;
+$TkPl_SU->{_Flow_menubutton}             = $Flow_menubutton;
+$TkPl_SU->{_add2flow_button_grey}        = $add2flow_button_grey;
+$TkPl_SU->{_add2flow_button_pink}        = $add2flow_button_pink;
+$TkPl_SU->{_add2flow_button_green}       = $add2flow_button_green;
+$TkPl_SU->{_add2flow_button_blue}        = $add2flow_button_blue;
+$TkPl_SU->{_check_code_button}           = $check_code_button;
+$TkPl_SU->{_delete_from_flow_button}     = $delete_from_flow_button;
+$TkPl_SU->{_dnd_token_grey}              = $dnd_token_grey;
+$TkPl_SU->{_dnd_token_pink}              = $dnd_token_pink;
+$TkPl_SU->{_dnd_token_green}             = $dnd_token_green;
+$TkPl_SU->{_dnd_token_blue}              = $dnd_token_blue;
+$TkPl_SU->{_dropsite_token_grey}         = $dropsite_token_grey;
+$TkPl_SU->{_dropsite_token_pink}         = $dropsite_token_pink;
+$TkPl_SU->{_dropsite_token_green}        = $dropsite_token_green;
+$TkPl_SU->{_dropsite_token_blue}         = $dropsite_token_blue;
+$TkPl_SU->{_file_menubutton}             = $file_menubutton;
+$TkPl_SU->{_flow_item_down_arrow_button} = $flow_item_down_arrow_button;
+$TkPl_SU->{_flow_item_up_arrow_button}   = $flow_item_up_arrow_button;
+$TkPl_SU->{_flow_listbox_grey_w}         = $flow_listbox_grey_w;
+$TkPl_SU->{_flow_listbox_pink_w}         = $flow_listbox_pink_w;
+$TkPl_SU->{_flow_listbox_green_w}        = $flow_listbox_green_w;
+$TkPl_SU->{_flow_listbox_blue_w}         = $flow_listbox_blue_w;
+$TkPl_SU->{_flow_name_grey_w}            = $flow_name_grey_w;
+$TkPl_SU->{_flow_name_pink_w}            = $flow_name_pink_w;
+$TkPl_SU->{_flow_name_green_w}           = $flow_name_green_w;
+$TkPl_SU->{_flow_name_blue_w}            = $flow_name_blue_w;
+$TkPl_SU->{_flowNsuperflow_name_w}       = $flowNsuperflow_name_w;
+
+$TkPl_SU->{_wipe_plots_button}         	   = $wipe_plots_button;
+$TkPl_SU->{_message_w}                     = $message;
+$TkPl_SU->{_mw}                            = $mw;
+$TkPl_SU->{_parameter_names_frame}         = $parameter_names_frame;
+$TkPl_SU->{_parameter_values_frame}        = $parameter_values_frame;
+$TkPl_SU->{_parameter_values_button_frame} = $parameter_values_button_frame;
+$TkPl_SU->{_run_button}                    = $run_button;
+$TkPl_SU->{_save_button}                   = $save_button;
+$TkPl_SU->{_sunix_listbox} = $sunix_listbox;    # empty at first
+
+# send widgets to the main package from the current perl program
+# one time BUT
+# transfer must also be repeated within each subroutine
 # outside MainLoop
-$L_SU->set_hash_ref($main_href);
+$L_SU->set_hash_ref($TkPl_SU);
 
-# print("setting up first hash from main\n");
+# print("setting up first hash from TkPl_SU\n");
 $L_SU->set_param_widgets();    # Initialize screen parameter names and values
 
 MainLoop;
 
-=head2 sub _L_SU_bindings
-For help in pre-built superflows and 
-for help in user-built listbox flows
-
-color not needed but $self is needed
-
-=cut 
-
-sub _L_SU_bindings {           #
+# used for help in pre-built superflows and help in user-built listbox flows
+sub _L_SU_bindings {           # color not needed but $self is needed
 
 	my ( $self, $set_method ) = @_;
 
 	# print("1 main,_L_SU_bindings ,method:$set_method,\n");
 	if ($set_method) {
 
-		$L_SU->set_hash_ref($main_href);
+		$L_SU->set_hash_ref($TkPl_SU);
 
 		# print("2 main,_L_SU_bindings,method:$set_method\n");
 		$L_SU->$set_method();
-
-		# print("1. main, _L_SU_sunix_bindings: writing gui_history.txt\n");
-		# $gui_history->view();
 
 	}
 	else {
@@ -1820,104 +2012,70 @@ sub _L_SU_bindings_shell {
 
 	# print("1 main,_L_SU_bindings_shell, method:$set_method,\n");
 	if ($set_method) {
-
-		my $button = $set_method;
-		$gui_history->set_button($button);
-		$main_href = $gui_history->get_defaults();
-
-		$L_SU->set_hash_ref($main_href);
+		$L_SU->set_hash_ref($TkPl_SU);
 
 		# print("2 main,_L_SU, _L_SU_bindings_shell,method:$set_method\n");
 		$L_SU->$set_method();
 
-		# print("1. main, _L_SU_sunix_bindings_shell: writing gui_history.txt\n");
-		# $gui_history->view();
-
 	}
 	else {
-		print("_L_SU,_L_SU_bindings_shell, no method: $set_method error 1,\n");
+		print("_L_SU,superflow_bindings_shell, no method: $set_method error 1,\n");
 	}
 
 	return ();
 }
 
-=head2 sub _L_SU_sunix_bindings
-used for 
-	sunix_listbox help (MB3)
-	sunix_select		(MB1) 
-method='sunix_select'
-color='neutral'
-
-=cut
-
+# used for sunix_listbox help
 sub _L_SU_sunix_bindings {
 	my ( $self, $method, $color, $prog_group ) = @_;
 
-	# print("1 main,_L_SU_sunix_bindings, button:$method, color: $color prog_group: $prog_group \n");
+# print("1 main,_L_SU_sunix_bindings, method:$method, color $color prog_group $prog_group \n");
 	if ( $method && $color && $prog_group ) {
 
 		_set_prog_group($prog_group);
-		my $button = $method;
+		$L_SU->set_hash_ref($TkPl_SU);
 
-		# print ("main,_L_SU_sunix_bindings,sunx_listbox:$main_href->{_sunix_listbox}n");
-
-		$gui_history->set_sunix_prog_group($prog_group);
-		$gui_history->set_sunix_prog_group_color($color);
-		$gui_history->set_button($button);
-
-		# print("1. main, _L_SU_sunix_bindings: writing gui_history.txt\n");
-		# $gui_history->view();
-
-		$L_SU->set_hash_ref($main_href);
+		# print("main,_L_SU_sunix_bindings,method:$method\n");
+		# print("main,_L_SU_sunix_bindings
+		# sunix_select follows a 'neutral' color
+		$L_SU->set_flow_color($color);
 		$L_SU->user_built_flows($method);
 
 	}
-
 	else {
-		print("main, _L_SU_sunix_bindings, no method, color or group : $method error 1,\n");
+		print(
+			"main, _L_SU_sunix_bindings, no method, color or group : $method error 1,\n"
+		);
 	}
 
 	return ();
 }
 
 =head2 sub _L_SU_flow_bindings
-used for:
-	sunix_listbox help (MB3)
-	flow-item selection ('flow_select') (MB1)
-
-Main
-	L_SU, user_built_flows
-			color_flow, flow_select
-
-N.B. flow_select is activated both here and
-independently 
-within gui_history by set_button
-
+ 	  # used for sunix_listbox help
+ 	  # also for flow-item selection
+ 	  calls L_SU->user_built_flows
 =cut
 
 sub _L_SU_flow_bindings {
 	my ( $self, $method, $color ) = @_;
 
-	# print("1 main,_L_SU_flow_bindings ,method:$method,\n");
+	#print("1 main,_L_SU_flow_bindings ,method:$method,\n");
 	if ( $method && $color ) {
 
-		my $button = $method;
+		$L_SU->set_hash_ref($TkPl_SU);
 
-		$gui_history->set_flow_type($user_built);
-		# print("2. main, _L_SU_flow_bindings: writing gui_history.txt\n");
-		# $gui_history->view();
-		
-		$gui_history->set_flow_select_color($color);
-		# print("1. main,_L_SU_flow_bindings,color:$color\n");
-		
-		$L_SU->set_hash_ref($main_href);
-		# print("2. main,_L_SU_flow_bindings,method:$method\n");
-
+		# print("main,_L_SU_flow_bindings,method:$method\n");
+		# print("main,_L_SU_flow_bindings,color:$color\n");
+		# sunix_select follows a 'neutral' color
+		$L_SU->set_flow_color($color);
 		$L_SU->user_built_flows($method);
 
 	}
 	else {
-		print("main, _L_SU_flow_bindings, no method, color : $method error 1,\n");
+		print(
+			"main, _L_SU_flow_bindings, no method, color : $method error 1,\n"
+		);
 	}
 
 	return ();
@@ -1926,47 +2084,33 @@ sub _L_SU_flow_bindings {
 =head2 sub _L_SU_flow_bindings_any_color
 
  for any colored flow
- use to delete an item from a flow
- 'delete_from_flow_button'
- used to move up and down a list of flow items
- 'flow_item_up_arrow_button'
- 'flow_item_down_arrow_button'
+
 
 =cut
 
 sub _L_SU_flow_bindings_any_color {
 	my ( $self, $method ) = @_;
 
-	# print("1 main,_L_SU_flow_bindings ,method:$method,\n");
+	#print("1 main,_L_SU_flow_bindings ,method:$method,\n");
 	if ($method) {
+		$L_SU->set_hash_ref($TkPl_SU);
 
-		my $button = $method;
-
-		$gui_history->set_button($button);
-
-		$main_href = $gui_history->get_defaults();
-
-		$L_SU->set_hash_ref($main_href);
-
-		# print("main,_L_SU_flow_bindings_any_color,method:$method\n");
-		# print("main,_L_SU_flow_bindings_any_color,value: any_color\n");
+		# print("main,_L_SU_flow_bindings,method:$method\n");
+		# print("main,_L_SU_flow_bindings,value: any_color\n");
 		$L_SU->user_built_flows($method);
-
-		# print("1 main,_L_SU_flow_bindings , print gui_history.txt\n");
-		#$gui_history->view();
 
 	}
 	else {
-		print("main _L_SU_flow_bindings, no method: $method error 1,\n");
+		print("main, _L_SU_flow_bindings, no method: $method error 1,\n");
 	}
 
 	return ();
 }
 
 =head2 sub _L_SU_superflow_bindings
-Redirect user selections to L_SU.pm
-for the case of: Help for superflows 
-(mouse-button 3 bindings)
+
+redirect user selections to L_SU.pm
+for the case of: superflows and mouse-button bindings
 
 
 =cut
@@ -1976,29 +2120,22 @@ sub _L_SU_superflow_bindings {
 
 	# print("1 main,_L_SU,method:$set_method,\n");
 	if ($set_method) {
-		$L_SU->set_hash_ref($main_href);
+		$L_SU->set_hash_ref($TkPl_SU);
 
 		# print("2 main,_L_SU, superflow_bindings,method:$set_method\n");
 		$L_SU->$set_method();
 
-		# print("1 main,_L_SU_bindings , print gui_superflow_bindings, history.txt\n");
-		# $gui_history->view();
-
 	}
 	else {
-		print("main,_L_SU_superflow_bindings, no method: $set_method error 1,\n");
+		print("_L_SU,superflow_bindings, no method: $set_method error 1,\n");
 	}
 
 	return ();
 }
 
 =head2 sub _L_SU
-Invoke a method in L_SU from a button click
-in L_SU
-	save_button
-	run_button
-	FileDialog_button with one of 3
-	possible values: 'Flow' 'Data' or 'SaveAs'
+
+ invoke a method in L_SU from a button click
 
 =cut
 
@@ -2006,31 +2143,11 @@ sub _L_SU {
 	my ( $set_method, $value ) = @_;
 
 	# print("1. main,_L_SU,method:$set_method, ref scalar value:$$value\n");
-
+	# print("1 main,_L_SU,method:$set_method, scalar value:$value\n");
 	if ( $set_method && $value ) {
+		$L_SU->set_hash_ref($TkPl_SU);
 
-		my $button = $set_method;
-		my $name   = $$value;
-
-		$gui_history->set_button($button);
-
-		if ( $button eq 'FileDialog_button' ) {
-
-			$gui_history->set_FileDialog_type($name);
-
-		}
-		else {
-			# print("2 main,_L_SU,method:$set_method, deref scalar value:$$value NADA\n");
-		}
-
-		$main_href = $gui_history->get_defaults();
-
-		# print("2 main,_L_SU,method:$set_method, deref scalar value:$$value\n");
-		$L_SU->set_hash_ref($main_href);
-
-		# print(" main,_L_SU , button=$button, print gui_history.txt\n");
-		# $gui_history->view();
-
+	   # print("2 main,_L_SU,method:$set_method, deref scalar value:$$value\n");
 		$L_SU->$set_method($value);
 
 	}
@@ -2040,70 +2157,64 @@ sub _L_SU {
 	return ();
 }
 
-=head2 sub _L_SU_add2flows
+=head2 sub _L_SU_flows
 
   e.g., can call add2flow_button
 
 =cut 
 
-sub _L_SU_add2flows {
+sub _L_SU_flows {
 	my ( $method, $value ) = @_;
 
-	# print("1 main,_L_SU,method/button:$method, scalar value:$value\n");
+	# print("1. main,_L_SU,method:$set_method, ref scalar value:$$value\n");
+	# print("1 main,_L_SU,method:$method, scalar value:$value\n");
 
-	if ( $method && $value ) {
+	if ( $method && $value ) {    # value is sref
 
-		my $color  = $value;
-		my $button = $method;
-		$gui_history->set_add2flow_color($color);	# flow_color set 
-		$gui_history->set_button($button);	
-		$gui_history->set_flow_type($user_built);	
-		$main_href = $gui_history->get_defaults();
-
-		$L_SU->set_hash_ref($main_href);
+		$L_SU->set_hash_ref($TkPl_SU);
+		$L_SU->set_flow_color($value);
 		$L_SU->user_built_flows($method);
-		
-		# print(" main,_L_SU_add2flows, button=$button, print gui_history.txt\n");
-		# $gui_history->view();
 
-
-		# print("2 main,_L_SU,method:$method, scalar value:$value, method: $method\n");
+ # print("2 main,_L_SU,method:$method, scalar value:$value, method: $method\n");
 
 	}
 	else {
-		print("main, _L_SU_add2flows, no method: method error 1,\n");
+		print("main, _L_SU_flows, no method: method error 1,\n");
 	}
 
 	return ();
 }
 
-=head2 sub _L_SU_superflows 
-
-Select pre-built streams or Tools
-
+=head2sub _L_SU_flows_any_color 
 
 =cut 
+
+sub _L_SU_flows_any_color {
+	my ($method) = @_;
+
+	# print("1. main,_L_SU,method:$set_method\n");
+	if ($method) {    # value is sref
+		$L_SU->set_hash_ref($TkPl_SU);
+		$L_SU->user_built_flows($method);
+
+	   # print("2 main,_L_SU,method:$set_method, deref scalar value:$$value\n");
+	   # method = pre_built_sueprflow and value = Project or Sseg2su
+
+	}
+	else {
+		print("main, _L_SU_flows, no method: method error 1,\n");
+	}
+
+	return ();
+}
 
 sub _L_SU_superflows {
 	my ( $set_method, $value ) = @_;
 	if ( $set_method && $value ) {    # value is sref
-		# print("main, _L_SU_superflows,set_method,value, $set_method,$$value\n");
 
-		my $tool_name = $$value;
-
-		my $button = 'superflow_select_button';
-
-		$gui_history->set_flow_type($pre_built_superflow);
-		$gui_history->set_button($button);
-		$gui_history->set_superflow_tool($tool_name);
-
-		$main_href = $gui_history->get_defaults();
-
-		$L_SU->set_hash_ref($main_href);
+		$L_SU->set_hash_ref($TkPl_SU);
 		$L_SU->$set_method($value);
 
-		# print(" main,_L_SU _superflows, button=$button, print gui_history.txt\n");
-		# $gui_history->view();
 	}
 	else {
 		print("main,_L_SU_superflows,no method: $set_method error 1,\n");
@@ -2121,52 +2232,52 @@ sub _set_prog_group {
 	my ($prog_group) = @_;
 
 	if ( $prog_group eq 'data' ) {
-		$main_href->{_sunix_listbox} = $sunix_data_programs_listbox;
+		$TkPl_SU->{_sunix_listbox} = $sunix_data_programs_listbox;
 	}
 	elsif ( $prog_group eq 'datum' ) {
-		$main_href->{_sunix_listbox} = $sunix_datum_programs_listbox;
+		$TkPl_SU->{_sunix_listbox} = $sunix_datum_programs_listbox;
 	}
 	elsif ( $prog_group eq 'plot' ) {
-		$main_href->{_sunix_listbox} = $sunix_plot_programs_listbox;
+		$TkPl_SU->{_sunix_listbox} = $sunix_plot_programs_listbox;
 	}
 	elsif ( $prog_group eq 'filter' ) {
-		$main_href->{_sunix_listbox} = $sunix_filter_programs_listbox;
+		$TkPl_SU->{_sunix_listbox} = $sunix_filter_programs_listbox;
 	}
 	elsif ( $prog_group eq 'header' ) {
-		$main_href->{_sunix_listbox} = $sunix_header_programs_listbox;
+		$TkPl_SU->{_sunix_listbox} = $sunix_header_programs_listbox;
 	}
 	elsif ( $prog_group eq 'inversion' ) {
-		$main_href->{_sunix_listbox} = $sunix_inversion_programs_listbox;
+		$TkPl_SU->{_sunix_listbox} = $sunix_inversion_programs_listbox;
 	}
 	elsif ( $prog_group eq 'migration' ) {
-		$main_href->{_sunix_listbox} = $sunix_migration_programs_listbox;
+		$TkPl_SU->{_sunix_listbox} = $sunix_migration_programs_listbox;
 	}
 	elsif ( $prog_group eq 'model' ) {
-		$main_href->{_sunix_listbox} = $sunix_model_programs_listbox;
+		$TkPl_SU->{_sunix_listbox} = $sunix_model_programs_listbox;
 	}
 	elsif ( $prog_group eq 'NMO_Vel_Stk' ) {
-		$main_href->{_sunix_listbox} = $sunix_NMO_Vel_Stk_programs_listbox;
+		$TkPl_SU->{_sunix_listbox} = $sunix_NMO_Vel_Stk_programs_listbox;
 	}
 	elsif ( $prog_group eq 'par' ) {
-		$main_href->{_sunix_listbox} = $sunix_par_programs_listbox;
+		$TkPl_SU->{_sunix_listbox} = $sunix_par_programs_listbox;
 	}
 	elsif ( $prog_group eq 'picks' ) {
-		$main_href->{_sunix_listbox} = $sunix_picks_programs_listbox;
+		$TkPl_SU->{_sunix_listbox} = $sunix_picks_programs_listbox;
 	}
 	elsif ( $prog_group eq 'shapeNcut' ) {
-		$main_href->{_sunix_listbox} = $sunix_shapeNcut_programs_listbox;
+		$TkPl_SU->{_sunix_listbox} = $sunix_shapeNcut_programs_listbox;
 	}
 	elsif ( $prog_group eq 'shell' ) {
-		$main_href->{_sunix_listbox} = $sunix_shell_programs_listbox;
+		$TkPl_SU->{_sunix_listbox} = $sunix_shell_programs_listbox;
 	}
 	elsif ( $prog_group eq 'statsMath' ) {
-		$main_href->{_sunix_listbox} = $sunix_statsMath_programs_listbox;
+		$TkPl_SU->{_sunix_listbox} = $sunix_statsMath_programs_listbox;
 	}
 	elsif ( $prog_group eq 'transform' ) {
-		$main_href->{_sunix_listbox} = $sunix_transform_programs_listbox;
+		$TkPl_SU->{_sunix_listbox} = $sunix_transform_programs_listbox;
 	}
 	elsif ( $prog_group eq 'well' ) {
-		$main_href->{_sunix_listbox} = $sunix_well_programs_listbox;
+		$TkPl_SU->{_sunix_listbox} = $sunix_well_programs_listbox;
 	}
 	else {
 		print("main,_set_prog_group, no prog_group\n");

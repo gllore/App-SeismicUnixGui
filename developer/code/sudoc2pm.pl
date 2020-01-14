@@ -78,8 +78,10 @@ my $sudoc2pm = {
 my $group_no = 12;    # e.g. transfoms=14
 
 $prog_doc2pm->set_group_directory($group_no);
-my $path_in        = $prog_doc2pm->get_path_in();
-my $path_out       = $prog_doc2pm->get_path_out();
+my $path_in        			= $prog_doc2pm->get_path_in();
+my $config_path_out       = $prog_doc2pm->get_config_path_out();
+my $spec_path_out       	= $prog_doc2pm->get_spec_path_out();
+my $sunix_path_out       	= $prog_doc2pm->get_sunix_path_out();
 my $list_length    = $prog_doc2pm->get_list_length();
 my @long_file_name = @{ $prog_doc2pm->get_list_aref() };
 

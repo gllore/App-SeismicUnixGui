@@ -19,43 +19,6 @@ package file_dialog;
 
 =head3 NOTES
 
-
-	#				# confirm listboxes are active
-#  	if ($pre_req_ok) {
-
-    #my $entry_changed = $param_widgets->get_entry_change_status();
-     					 	# print(" L_SU, FileDialog_button, entry_change_status= $entry_changed\n"); 
-    # if($entry_changed) {  
-							# get program index most recently selected from left flow
-     $index = $L_SU->{_last_flow_index_touched};
-     print("L_SU,FileDialog_button,in left flow, program index= $index\n");
-
-    						# get entry values of selected program from storage
-# 	$param_flow			->set_flow_index($index);
-# 	$L_SU->{_values_aref} 	=	$param_flow->get_values_aref();
-  						 # print("2. L_SU, FileDialog_button,parameter values is @{$L_SU->{_values_aref}}\n");
-							 $whereami->in_gui();
- my $index = $L_SU->{_last_flow_index_touched};
-     print("L_SU,FileDialog_button,in left flow, program index= $index\n");
-
-				
-	sets
-		$messages in gui
-		param_widgets
-		iFile
-	
-	gets from
-		whereami ( which sees all gui)
-		parameter_values_frame
-		param_widgets
-		iFile
-	
-	calls
-		_conditions   		-> set4FileDialog_select_start()
-		$file_dialog   	-> set4FileDialog_select_end();
-	sees:
-		messages box
-
 =head4 Examples
 
 
@@ -71,7 +34,6 @@ our $VERSION = '0.0.3';
 use Tk;
 
 use decisions 1.00;
-
 # potentially used in all packages
 use L_SU_global_constants;
 
@@ -80,7 +42,6 @@ extends 'gui_history' => { -version => 0.0.2 };
 my $decisions   = decisions->new();
 my $get         = L_SU_global_constants->new();
 my $gui_history = gui_history->new();
-
 
 my $file_dialog_type = $get->file_dialog_type_href();
 my $flow_type_h      = $get->flow_type_href();
@@ -106,272 +67,10 @@ my $file_dialog = $gui_history->get_defaults();
 =cut
 
 $file_dialog = {
-#
-#	_Data_menubutton                       => '',
-#	_FileDialog_sub_ref                    => '',
-#	_FileDialog_option                     => '',
-#	_Flow_menubutton                       => '',
-#	_SaveAs_menubutton                     => '',
-#	_add2flow_button_grey                  => '',
-#	_add2flow_button_pink                  => '',
-#	_add2flow_button_green                 => '',
-#	_add2flow_button_blue                  => '',
-#	_check_code_button                     => '',
+
 	_check_buttons_settings_aref           => '',
-#	_check_buttons_w_aref                  => '',
-#	_delete_from_flow_button               => '',
-#	_destination_index                     => '',
-#	_dialog_type                           => '',
-#	_dnd_token_grey                        => '',
-#	_dnd_token_pink                        => '',
-#	_dnd_token_green                       => '',
-#	_dnd_token_blue                        => '',
-#	_dropsite_token_grey                   => '',
-#	_dropsite_token_pink                   => '',
-#	_dropsite_token_green                  => '',
-#	_dropsite_token_blue                   => '',
-#	_file_menubutton                       => '',
-#	_flow_color                            => '',
-#	_flow_item_down_arrow_button           => '',
-#	_flow_item_up_arrow_button             => '',
-#	_flow_listbox_grey_w                   => '',
-#	_flow_listbox_pink_w                   => '',
-#	_flow_listbox_green_w                  => '',
-#	_flow_listbox_blue_w                   => '',
-#	_flow_listbox_color_w                  => '',
-#	_flow_name_grey_w                      => '',
-#	_flow_name_pink_w                      => '',
-#	_flow_name_green_w                     => '',
-#	_flow_name_blue_w                      => '',
-#	_flow_name_in                          => '',
-#	_flow_name_out                         => '',
-#	_flow_type                             => '',
-#	_flow_widget_index                     => '',
-#	_flowNsuperflow_name_w                 => '',
-#	_gui_history_ref                       => '',
-#	_has_used_check_code_button            => '',
-#	_has_used_open_perl_file_button        => '',
-#	_has_used_run_button                   => '',
-#	_has_used_Save_button                  => '',
-#	_has_used_Save_superflow               => '',
-#	_has_used_SaveAs_button                => '',
-#	_index2move                            => '',
-#	_is_SaveAs_file_button                 => '',
-#	_is_SaveAs_button                      => '',
-#	_is_Save_button                        => '',
-#	_is_add2flow_button                    => '',
-#	_is_check_code_button                  => '',
-#	_is_delete_from_flow_button            => '',
-#	_is_dragNdrop                          => '',
-#	_is_flow_item_down_arrow_button        => '',
-#	_is_flow_item_up_arrow_button          => '',
-#	_is_flow_listbox_grey_w                => '',
-#	_is_flow_listbox_pink_w                => '',
-#	_is_flow_listbox_green_w               => '',
-#	_is_flow_listbox_blue_w                => '',
-#	_is_flow_listbox_color_w               => '',
-#	_is_last_flow_index_touched_grey       => '',
-#	_is_last_flow_index_touched_pink       => '',
-#	_is_last_flow_index_touched_green      => '',
-#	_is_last_flow_index_touched_blue       => '',
-#	_is_last_flow_index_touched            => '',
-#	_is_last_parameter_index_touched_grey  => '',
-#	_is_last_parameter_index_touched_pink  => '',
-#	_is_last_parameter_index_touched_green => '',
-#	_is_last_parameter_index_touched_blue  => '',
-#	_is_last_parameter_index_touched_color => '',
-#	_is_moveNdrop_in_flow                  => '',
-#	_is_new_listbox_selection              => '',
-#	_is_open_file_button                   => '',
-#	_is_pre_built_superflow                => '',
-#	_is_run_button                         => '',
-#	_is_select_file_button                 => '',
-#	_is_selected_file_name                 => '',
-#	_is_selected_path                      => '',
-#	_is_sunix_listbox                      => '',
-#	_is_superflow                          => '',
-#	_is_superflow_select_button            => '',
-#	_is_user_built_flow                    => '',
-#	_items_checkbuttons_aref2              => '',
-#	_items_names_aref2                     => '',
-#	_items_values_aref2                    => '',
-#	_items_versions_aref                   => '',
-#	_labels_w_aref                         => '',
-#	_last_flow_color                       => '',
-#	_last_flow_index_touched               => -1,
-#	_last_flow_index_touched_grey          => -1,
-#	_last_flow_index_touched_pink          => -1,
-#	_last_flow_index_touched_green         => -1,
-#	_last_flow_index_touched_blue          => -1,
-#	_last_flow_listbox_touched             => -1,
-#	_last_flow_listbox_touched_w           => '',
-#	_last_parameter_index_touched_grey     => -1,
-#	_last_parameter_index_touched_pink     => -1,
-#	_last_parameter_index_touched_green    => -1,
-#	_last_parameter_index_touched_blue     => -1,
-#	_last_parameter_index_touched_color    => -1,
-#	_last_path_touched                     => './',
-#	_message_w                             => '',
-#	_mw                                    => '',
-#	_names_aref                            => '',
-#	_occupied_listbox_aref                 => '',
-#	_param_flow_length                     => '',
-#	_parameter_names_frame                 => '',
-#	_param_sunix_first_idx                 => 0,
-#	_param_sunix_length                    => '',
-#	_parameter_value_index                 => '',
-#	_parameter_values_button_frame         => '',
-#	_parameter_values_frame                => '',
-#	_path                                  => '',
-#	_prog_name_sref                        => '',
-#	_prog_names_aref                       => '',
-#	_run_button                            => '',
-#	_save_button                           => '',
-#	_sub_ref                               => '',
-#	_selected_file_name                    => '',
-#	_sunix_listbox                         => '',     # pre-built-superflow or flow name as well
-#	_values_aref                           => '',
-#	_values_w_ref                          => '',
-#	_selected_file_name                    => '',
-#	_superflow_first_idx                   => '',
-#	_superflow_length                      => '',
-#
+
 };
-
-=head2 
- 
-  124 of convenient private abbreviated-variable names
-  These are defiend in every subroutine so that get_hash_ref can export them
-  
-=cut
-
-my $Data_menubutton;
-my $FileDialog_sub_ref;
-my $FileDialog_option;
-my $Flow_menubutton;
-my $SaveAs_menubutton;
-my $add2flow_button_grey;
-my $add2flow_button_pink;
-my $add2flow_button_green;
-my $add2flow_button_blue;
-my $check_buttons_settings_aref;
-my $check_buttons_w_aref;
-my $check_code_button;
-my $delete_from_flow_button;
-my $destination_index;
-my $dialog_type;
-my $dnd_token_grey;
-my $dnd_token_pink;
-my $dnd_token_green;
-my $dnd_token_blue;
-my $dropsite_token_grey;
-my $dropsite_token_pink;
-my $dropsite_token_green;
-my $dropsite_token_blue;
-my $file_menubutton;
-my $flowNsuperflow_name_w;
-my $flow_color;
-my $flow_item_down_arrow_button;
-my $flow_item_up_arrow_button;
-my $flow_listbox_grey_w;
-my $flow_listbox_pink_w;
-my $flow_listbox_green_w;
-my $flow_listbox_blue_w;
-my $flow_listbox_color_w;
-my $flow_name_grey_w;
-my $flow_name_pink_w;
-my $flow_name_green_w;
-my $flow_name_blue_w;
-my $flow_name_in;
-my $flow_name_out;
-my $flow_type;
-my $flow_widget_index;
-my $gui_history_ref;
-my $has_used_check_code_button;
-my $has_used_open_perl_file_button;
-my $has_used_run_button;
-my $has_used_SaveAs_button;
-my $has_used_Save_button;
-my $has_used_Save_superflow;
-my $index2move;
-my $is_Save_button;
-my $is_SaveAs_button;
-my $is_SaveAs_file_button;
-my $is_add2flow_button;
-my $is_check_code_button;
-my $is_delete_from_flow_button;
-my $is_dragNdrop;
-my $is_flow_item_down_arrow_button;
-my $is_flow_item_up_arrow_button;
-my $is_flow_listbox_grey_w;
-my $is_flow_listbox_pink_w;
-my $is_flow_listbox_green_w;
-my $is_flow_listbox_blue_w;
-my $is_flow_listbox_color_w;
-my $is_last_flow_index_touched_grey;
-my $is_last_flow_index_touched_pink;
-my $is_last_flow_index_touched_green;
-my $is_last_flow_index_touched_blue;
-my $is_last_flow_index_touched;
-my $is_last_parameter_index_touched_grey;
-my $is_last_parameter_index_touched_pink;
-my $is_last_parameter_index_touched_green;
-my $is_last_parameter_index_touched_blue;
-my $is_last_parameter_index_touched_color;
-my $is_moveNdrop_in_flow;
-my $is_new_listbox_selection;
-my $is_open_file_button;
-my $is_pre_built_superflow;
-my $is_run_button;
-my $is_select_file_button;
-my $is_selected_file_name;
-my $is_selected_path;
-my $is_sunix_listbox;
-my $is_superflow_select_button;
-my $is_superflow;
-my $is_user_built_flow;
-my $items_checkbuttons_aref2;
-my $items_names_aref2;
-my $items_values_aref2;
-my $items_versions_aref;
-my $labels_w_aref;
-my $last_flow_color;
-my $last_flow_listbox_touched;
-my $last_flow_listbox_touched_w;
-my $last_flow_index_touched_grey;
-my $last_flow_index_touched_pink;
-my $last_flow_index_touched_green;
-my $last_flow_index_touched_blue;
-my $last_flow_index_touched;
-my $last_parameter_index_touched_grey;
-my $last_parameter_index_touched_pink;
-my $last_parameter_index_touched_green;
-my $last_parameter_index_touched_blue;
-my $last_parameter_index_touched_color;
-my $last_path_touched;
-# my $message_w;
-# my $mw;
-my $names_aref;
-my $occupied_listbox_aref;
-my $param_flow_length;
-my $parameter_names_frame;
-my $param_sunix_first_idx;
-my $param_sunix_length;
-my $parameter_value_index;
-my $parameter_values_frame;
-my $parameter_values_button_frame;
-my $path;
-my $prog_names_aref;
-my $prog_name_sref;
-my $run_button;
-my $save_button;
-my $selected_file_name;
-my $sunix_listbox;
-my $superflow_first_idx;
-my $superflow_length;
-my $sub_ref;
-my $values_aref;
-my $values_w_aref;
 
 =head2 sub _FileDialog
 
@@ -610,7 +309,7 @@ sub _pre_built_superflow_close_data_file {
 
 	my $iFile         = new iFile;
 	my $control       = new control;
-	my $param_widgets = param_widgets->new();
+	my $param_widgets = param_widgets4pre_built_streams->new();
 
 	my @fields;
 	my $topic     = $file_dialog->{_dialog_type};
@@ -630,7 +329,7 @@ sub _pre_built_superflow_close_data_file {
 		print("file_dialog, _pre_built_superflow_close_data_file,Cancelled. No  name selected\n");
 	}
 
-	#TODO: check whether _is_superflow_select_button is needed inside decisions
+	# TODO: check whether _is_superflow_select_button is needed inside decisions
 	$decisions->set4FileDialog_select($file_dialog);
 	my $pre_req_ok = $decisions->get4FileDialog_select();
 
@@ -641,9 +340,9 @@ sub _pre_built_superflow_close_data_file {
 		# both flows and superflows require the following
 		my $current_index = $file_dialog->{_parameter_value_index};
 
-		#        print(
-		#"2. file_dialog,_pre_built_superflow_close_data_file, current parameter index $current_index\n"
-		#        );
+		        print(
+		"2. file_dialog,_pre_built_superflow_close_data_file, current parameter index $current_index\n"
+		        );
 
 		@{ $file_dialog->{_check_buttons_settings_aref} }[$current_index] =
 			$on;
@@ -673,7 +372,7 @@ sub _pre_built_superflow_close_data_file {
 		# print("7. file_dialog,_pre_built_superflow_close_data_fileprog_name=
 		# ${$file_dialog->{_prog_name_sref}}\n");
 
-		# only ProjectVariables (a superflow) which does
+		# legacy code: only ProjectVariables (a superflow) which does
 		# not have files/only directories requires the following
 		if ( ${ $file_dialog->{_prog_name_sref} } eq $superflow_names->{_ProjectVariables} ) {
 
@@ -689,12 +388,13 @@ sub _pre_built_superflow_close_data_file {
 		# collect parameter widget values
 		$file_dialog->{_values_aref} = $param_widgets->get_values_aref();    # gets 61 because 61 are initialized
 		                                                                     # assign new file name to the array of values
+		                                                                     
+		print("10. file_dialog,_pre_built_superflow_close_data_file values are: @{$file_dialog->{_values_aref}} \n");
 		@{ $file_dialog->{_values_aref} }[$current_index] =
 			$file_dialog->{_selected_file_name};
 
 		# update the gui with the new file name
 		$param_widgets->set_values( $file_dialog->{_values_aref} );
-
 		# print("10. file_dialog,_pre_built_superflow_close_data_file values are: @{$file_dialog->{_values_aref}} \n");
 		$param_widgets->redisplay_values();
 
@@ -724,7 +424,7 @@ sub _pre_built_superflow_close_path {
 
 	my $iFile         = new iFile;
 	my $control       = new control;
-	my $param_widgets = param_widgets->new();
+	my $param_widgets = param_widgets4pre_built_streams->new();
 
 	my $topic             = $file_dialog->{_dialog_type};
 	my $last_path_touched = $file_dialog->{_last_path_touched};
@@ -783,13 +483,13 @@ sub _pre_built_superflow_close_path {
 		@{ $file_dialog->{_values_aref} }[$current_index] = $result;
 
 		@{ $file_dialog->{_check_buttons_settings_aref} }[$current_index] = $on;
-
+		
 		# update the gui with the new path
 		$param_widgets->set_values( $file_dialog->{_values_aref} );
 
 		# print("10. file_dialog,_pre_built_superflow_close_path values are: @{$file_dialog->{_values_aref}} \n");
 
-		$param_widgets->redisplay_values();
+		# $param_widgets->redisplay_values();
 
 		$gui_history->set4superflow_close_path_end();
 		$file_dialog = $gui_history->get_hash_ref();    # retrieves 99
@@ -813,10 +513,10 @@ sub _pre_built_superflow_open_data_file {
 	use iFile;
 	use whereami;
 
-	use param_widgets;
+	use param_widgets4pre_built_streams;
 	use L_SU_global_constants;
 
-	my $param_widgets = param_widgets->new();
+	my $param_widgets = param_widgets4pre_built_streams->new();
 	my $get           = L_SU_global_constants->new();
 	my $whereami      = whereami->new();
 	my $iFile         = iFile->new();
@@ -928,7 +628,7 @@ sub _pre_built_superflow_open_path {
 	use whereami;
 	use L_SU_global_constants;
 
-	my $param_widgets = param_widgets->new();
+	my $param_widgets = param_widgets4pre_built_streams->new();
 	my $get           = L_SU_global_constants->new();
 	my $whereami      = whereami->new();
 	my $iFile         = iFile->new();
@@ -952,7 +652,7 @@ sub _pre_built_superflow_open_path {
 
 	my $widget_type = $whereami->widget_type($file_dialog->{_parameter_values_frame});
 
-	print("file_dialog  _pre_built_superflow_open_path selected widget type is = $widget_type	\n");
+	# print("file_dialog  _pre_built_superflow_open_path selected widget type is = $widget_type	\n");
 
 	if ( $widget_type eq 'Entry' ) {
 
@@ -990,7 +690,7 @@ sub _pre_built_superflow_open_path {
 
 			$file_dialog->{_path} = $iFile->get_Path();
 
-			print("1.file_dialog,_pre-built_superflow_path, PATH:  $file_dialog->{_path} \n");
+			# print("1.file_dialog,_pre-built_superflow_path, PATH:  $file_dialog->{_path} \n");
 			# print("1.file_dialog,_pre-built_superflow_path, _values_aref: @{$file_dialog->{_values_aref}}[0]\n");
 
 			# TODO move _set_Path to iFile->get_Path
@@ -1004,7 +704,7 @@ sub _pre_built_superflow_open_path {
 			# print("2.file_dialog,_pre-built_superflow_path, _values_aref: @{$file_dialog->{_values_aref}}[0]\n");
 			# my $length= scalar @{$file_dialog->{_values_aref}};  # 61 values
 			# for (my $i=0; $i < $length; $i++) {
-			# 	 print("3.file_dialog,_pre-built_superflow_path, _values_aref: @{$file_dialog->{_values_aref}}[$i]\n");
+			# 	print("3.file_dialog,_pre-built_superflow_path, _values_aref: @{$file_dialog->{_values_aref}}[$i]\n");
 			# }
 		}
 	}
@@ -1152,7 +852,6 @@ sub _user_built_flow_SaveAs_perl_file {
 	# print("0. file_dialog, user_built_flow_SaveAs_perl_file _is_user_built_flow: $file_dialog->{_is_user_built_flow}\n");
 
 	$gui_history->set_hash_ref($file_dialog);
-	# $gui_history->set_gui_widgets($file_dialog);    # uses 23 / 38 in
 	$gui_history->set4FileDialog_SaveAs_start();    # sets  3
 	$file_dialog = $gui_history->get_hash_ref();    # retrieves 93
 	                                                   # print("1. file_dialog, user_built_flow_SaveAs_perl_file _is_user_built_flow: $file_dialog->{_is_user_built_flow}\n");
@@ -1168,14 +867,12 @@ sub _user_built_flow_SaveAs_perl_file {
 		use iFile;
 		use control;
 
-		# use param_widgets;
 		use whereami;
 
 		my $iFile   = iFile->new();
 		my $control = control->new();
 		my $get     = L_SU_global_constants->new();
 
-		# my $param_widgets 			= param_widgets		->new();
 		my $whereami = whereami->new();
 
 		my $default_param_specs = $get->param();
@@ -1426,6 +1123,7 @@ sub _user_built_flow_close_perl_file {
 	use decisions 1.00;
 	use control;
 	use message_director;
+	use param_widgets;
 
 	my $control              = new control;
 	my $file_dialog_messages = message_director->new();
@@ -1492,6 +1190,7 @@ sub _user_built_flow_open_data_file {
 
 	# use param_widgets;
 	use L_SU_global_constants;
+	use param_widgets;
 
 	my $param_widgets = param_widgets->new();
 	my $get           = L_SU_global_constants->new();
@@ -1602,6 +1301,7 @@ sub _user_built_flow_open_perl_file {
 	# use param_widgets;
 	use L_SU_global_constants;
 	use message_director;
+	use param_widgets;
 
 	my $param_widgets           = param_widgets->new();
 	my $get                     = L_SU_global_constants->new();
@@ -2069,296 +1769,9 @@ sub set_hash_ref {
 
 		# print("param_widgets_color,_update_hash_ref: $gui_history->get_defaults()\n");
 	}
-	#
-	#		$file_dialog->{_FileDialog_sub_ref}                    = $hash_ref->{_FileDialog_sub_ref};
-	#		$file_dialog->{_FileDialog_option}                     = $hash_ref->{_FileDialog_option};
-	#		$file_dialog->{_check_buttons_settings_aref}           = $hash_ref->{_check_buttons_settings_aref};
-	#		$file_dialog->{_destination_index}                     = $hash_ref->{_destination_index};
-	#		$file_dialog->{_dialog_type}                           = $hash_ref->{_dialog_type};
-	#		$file_dialog->{_dnd_token_grey}                        = $hash_ref->{_dnd_token_grey};
-	#		$file_dialog->{_dnd_token_pink}                        = $hash_ref->{_dnd_token_pink};
-	#		$file_dialog->{_dnd_token_green}                       = $hash_ref->{_dnd_token_green};
-	#		$file_dialog->{_dnd_token_blue}                        = $hash_ref->{_dnd_token_blue};
-	#		$file_dialog->{_dropsite_token_grey}                   = $hash_ref->{_dropsite_token_grey};
-	#		$file_dialog->{_dropsite_token_pink}                   = $hash_ref->{_dropsite_token_pink};
-	#		$file_dialog->{_dropsite_token_green}                  = $hash_ref->{_dropsite_token_green};
-	#		$file_dialog->{_dropsite_token_blue}                   = $hash_ref->{_dropsite_token_blue};
-	#		$file_dialog->{_flow_color}                            = $hash_ref->{_flow_color};
-	#		$file_dialog->{_flow_item_down_arrow_button}           = $hash_ref->{_flow_item_down_arrow_button};
-	#		$file_dialog->{_flow_item_up_arrow_button}             = $hash_ref->{_flow_item_up_arrow_button};
-	#		$file_dialog->{_flow_name_in}                          = $hash_ref->{_flow_name_in};
-	#		$file_dialog->{_flow_name_out}                         = $hash_ref->{_flow_name_out};
-	#		$file_dialog->{_flow_type}                             = $hash_ref->{_flow_type};
-	#		$file_dialog->{_flow_widget_index}                     = $hash_ref->{_flow_widget_index};
-	#		$file_dialog->{_gui_history_ref}                       = $hash_ref->{_gui_history_ref};
-	#		$file_dialog->{_has_used_check_code_button}            = $hash_ref->{_has_used_check_code_button};
-	#		$file_dialog->{_has_used_open_perl_file_button}        = $hash_ref->{_has_used_open_perl_file_button};
-	#		$file_dialog->{_has_used_run_button}                   = $hash_ref->{_has_used_run_button};
-	#		$file_dialog->{_has_used_SaveAs_button}                = $hash_ref->{_has_used_SaveAs_button};
-	#		$file_dialog->{_has_used_Save_button}                  = $hash_ref->{_has_used_Save_button};
-	#		$file_dialog->{_has_used_Save_superflow}               = $hash_ref->{_has_used_Save_superflow};
-	#		$file_dialog->{_index2move}                            = $hash_ref->{_index2move};
-	#		$file_dialog->{_is_Save_button}                        = $hash_ref->{_is_Save_button};
-	#		$file_dialog->{_is_SaveAs_button}                      = $hash_ref->{_is_SaveAs_button};
-	#		$file_dialog->{_is_SaveAs_file_button}                 = $hash_ref->{_is_SaveAs_file_button};
-	#		$file_dialog->{_is_add2flow_button}                    = $hash_ref->{_is_add2flow_button};
-	#		$file_dialog->{_is_check_code_button}                  = $hash_ref->{_is_check_code_button};
-	#		$file_dialog->{_is_delete_from_flow_button}            = $hash_ref->{_is_delete_from_flow_button};
-	#		$file_dialog->{_is_dragNdrop}                          = $hash_ref->{_is_dragNdrop};
-	#		$file_dialog->{_is_flow_item_down_arrow_button}        = $hash_ref->{_is_flow_item_down_arrow_button};
-	#		$file_dialog->{_is_flow_item_up_arrow_button}          = $hash_ref->{_is_flow_item_up_arrow_button};
-	#		$file_dialog->{_is_flow_listbox_grey_w}                = $hash_ref->{_is_flow_listbox_grey_w};
-	#		$file_dialog->{_is_flow_listbox_pink_w}                = $hash_ref->{_is_flow_listbox_pink_w};
-	#		$file_dialog->{_is_flow_listbox_green_w}               = $hash_ref->{_is_flow_listbox_green_w};
-	#		$file_dialog->{_is_flow_listbox_blue_w}                = $hash_ref->{_is_flow_listbox_blue_w};
-	#		$file_dialog->{_is_flow_listbox_color_w}               = $hash_ref->{_is_flow_listbox_color_w};
-	#		$file_dialog->{_is_last_flow_index_touched_grey}       = $hash_ref->{_is_last_flow_index_touched_grey};
-	#		$file_dialog->{_is_last_flow_index_touched_pink}       = $hash_ref->{_is_last_flow_index_touched_pink};
-	#		$file_dialog->{_is_last_flow_index_touched_green}      = $hash_ref->{_is_last_flow_index_touched_green};
-	#		$file_dialog->{_is_last_flow_index_touched_blue}       = $hash_ref->{_is_last_flow_index_touched_blue};
-	#		$file_dialog->{_is_last_parameter_index_touched_grey}  = $hash_ref->{_is_last_parameter_index_touched_grey};
-	#		$file_dialog->{_is_last_parameter_index_touched_pink}  = $hash_ref->{_is_last_parameter_index_touched_pink};
-	#		$file_dialog->{_is_last_parameter_index_touched_green} = $hash_ref->{_is_last_parameter_index_touched_green};
-	#		$file_dialog->{_is_last_parameter_index_touched_blue}  = $hash_ref->{_is_last_parameter_index_touched_blue};
-	#		$file_dialog->{_is_last_flow_index_touched}            = $hash_ref->{_is_last_flow_index_touched};
-	#		$file_dialog->{_is_last_parameter_index_touched_color} = $hash_ref->{_is_last_parameter_index_touched_color};
-	#		$file_dialog->{_is_moveNdrop_in_flow}                  = $hash_ref->{_is_moveNdrop_in_flow};
-	#		$file_dialog->{_is_new_listbox_selection}              = $hash_ref->{_is_new_listbox_selection};
-	#		$file_dialog->{_is_open_file_button}                   = $hash_ref->{_is_open_file_button};
-	#		$file_dialog->{_is_run_button}                         = $hash_ref->{_is_run_button};
-	#		$file_dialog->{_is_select_file_button}                 = $hash_ref->{_is_select_file_button};
-	#		$file_dialog->{_is_selected_file_name}                 = $hash_ref->{_is_selected_file_name};
-	#		$file_dialog->{_is_selected_path}                      = $hash_ref->{_is_selected_path};
-	#		$file_dialog->{_is_sunix_listbox}                      = $hash_ref->{_is_sunix_listbox};
-	#		$file_dialog->{_is_pre_built_superflow}                = $hash_ref->{_is_pre_built_superflow};
-	#		$file_dialog->{_is_superflow}                          = $hash_ref->{_is_superflow};
-	#		$file_dialog->{_is_superflow_select_button}            = $hash_ref->{_is_superflow_select_button};
-	#		$file_dialog->{_is_user_built_flow}                    = $hash_ref->{_is_user_built_flow};
-	#		$file_dialog->{_last_flow_color}                       = $hash_ref->{_last_flow_color};
-	#		$file_dialog->{_last_flow_index_touched}               = $hash_ref->{_last_flow_index_touched};
-	#		$file_dialog->{_last_flow_index_touched_grey}          = $hash_ref->{_last_flow_index_touched_grey};
-	#		$file_dialog->{_last_flow_index_touched_pink}          = $hash_ref->{_last_flow_index_touched_pink};
-	#		$file_dialog->{_last_flow_index_touched_green}         = $hash_ref->{_last_flow_index_touched_green};
-	#		$file_dialog->{_last_flow_index_touched_blue}          = $hash_ref->{_last_flow_index_touched_blue};
-	#		$file_dialog->{_last_parameter_index_touched_color}    = $hash_ref->{_last_parameter_index_touched_color};
-	#		$file_dialog->{_last_parameter_index_touched_blue}     = $hash_ref->{_last_parameter_index_touched_blue};
-	#		$file_dialog->{_last_parameter_index_touched_grey}     = $hash_ref->{_last_parameter_index_touched_grey};
-	#		$file_dialog->{_last_parameter_index_touched_pink}     = $hash_ref->{_last_parameter_index_touched_pink};
-	#		$file_dialog->{_last_parameter_index_touched_green}    = $hash_ref->{_last_parameter_index_touched_green};
-	#		$file_dialog->{_last_path_touched}                     = $hash_ref->{_last_path_touched};
-	#		$file_dialog->{_names_aref}                            = $hash_ref->{_names_aref};
-	#		$file_dialog->{_occupied_listbox_aref}                 = $hash_ref->{_occupied_listbox_aref};
-	#		$file_dialog->{_param_flow_length}                     = $hash_ref->{_param_flow_length};
-	#		$file_dialog->{_parameter_names_frame}                 = $hash_ref->{_parameter_names_frame};
-	#		$file_dialog->{_param_sunix_first_idx}                 = $hash_ref->{_param_sunix_first_idx};
-	#		$file_dialog->{_param_sunix_length}                    = $hash_ref->{_param_sunix_length};
-	#		$file_dialog->{_path}                                  = $hash_ref->{_path};
-	#		$file_dialog->{_prog_names_aref}                       = $hash_ref->{_prog_names_aref};
-	#		$file_dialog->{_prog_name_sref}                        = $hash_ref->{_prog_name_sref};
-	#		$file_dialog->{_selected_file_name}                    = $hash_ref->{_selected_file_name};
-	#		$file_dialog->{_superflow_first_idx}                   = $hash_ref->{_superflow_first_idx};
-	#		$file_dialog->{_superflow_length}                      = $hash_ref->{_superflow_length};
-	#		$file_dialog->{_sub_ref}                               = $hash_ref->{_sub_ref};
-	#		$file_dialog->{_values_aref}                           = $hash_ref->{_values_aref};
-	#
-	#		$FileDialog_sub_ref                    = $hash_ref->{_FileDialog_sub_ref};
-	#		$FileDialog_option                     = $hash_ref->{_FileDialog_option};
-	#		$check_buttons_settings_aref           = $hash_ref->{_check_buttons_settings_aref};
-	#		$destination_index                     = $hash_ref->{_destination_index};
-	#		$dialog_type                           = $hash_ref->{_dialog_type};
-	#		$dnd_token_grey                        = $hash_ref->{_dnd_token_grey};
-	#		$dnd_token_pink                        = $hash_ref->{_dnd_token_pink};
-	#		$dnd_token_green                       = $hash_ref->{_dnd_token_green};
-	#		$dnd_token_blue                        = $hash_ref->{_dnd_token_blue};
-	#		$dropsite_token_grey                   = $hash_ref->{_dropsite_token_grey};
-	#		$dropsite_token_pink                   = $hash_ref->{_dropsite_token_pink};
-	#		$dropsite_token_green                  = $hash_ref->{_dropsite_token_green};
-	#		$dropsite_token_blue                   = $hash_ref->{_dropsite_token_blue};
-	#		$flow_color                            = $hash_ref->{_flow_color};
-	#		$flow_item_down_arrow_button           = $hash_ref->{_flow_item_down_arrow_button};
-	#		$flow_item_up_arrow_button             = $hash_ref->{_flow_item_up_arrow_button};
-	#		$flow_name_in                          = $hash_ref->{_flow_name_in};
-	#		$flow_name_out                         = $hash_ref->{_flow_name_out};
-	#		$flow_type                             = $hash_ref->{_flow_type};
-	#		$flow_widget_index                     = $hash_ref->{_flow_widget_index};
-	#		$gui_history_ref                       = $hash_ref->{_gui_history_ref};
-	#		$has_used_check_code_button            = $hash_ref->{_has_used_check_code_button};
-	#		$has_used_open_perl_file_button        = $hash_ref->{_has_used_open_perl_file_button};
-	#		$has_used_run_button                   = $hash_ref->{_has_used_run_button};
-	#		$has_used_SaveAs_button                = $hash_ref->{_has_used_SaveAs_button};
-	#		$has_used_Save_button                  = $hash_ref->{_has_used_Save_button};
-	#		$has_used_Save_superflow               = $hash_ref->{_has_used_Save_superflow};
-	#		$index2move                            = $hash_ref->{_index2move};
-	#		$is_Save_button                        = $hash_ref->{_is_Save_button};
-	#		$is_SaveAs_button                      = $hash_ref->{_is_SaveAs_button};
-	#		$is_SaveAs_file_button                 = $hash_ref->{_is_SaveAs_file_button};
-	#		$is_add2flow_button                    = $hash_ref->{_is_add2flow_button};
-	#		$is_check_code_button                  = $hash_ref->{_is_check_code_button};
-	#		$is_dragNdrop                          = $hash_ref->{_is_dragNdrop};
-	#		$is_delete_from_flow_button            = $hash_ref->{_is_delete_from_flow_button};
-	#		$is_flow_item_down_arrow_button        = $hash_ref->{_is_flow_item_down_arrow_button};
-	#		$is_flow_item_up_arrow_button          = $hash_ref->{_is_flow_item_up_arrow_button};
-	#		$is_flow_listbox_grey_w                = $hash_ref->{_is_flow_listbox_grey_w};
-	#		$is_flow_listbox_pink_w                = $hash_ref->{_is_flow_listbox_pink_w};
-	#		$is_flow_listbox_green_w               = $hash_ref->{_is_flow_listbox_green_w};
-	#		$is_flow_listbox_blue_w                = $hash_ref->{_is_flow_listbox_blue_w};
-	#		$is_flow_listbox_color_w               = $hash_ref->{_is_flow_listbox_color_w};
-	#		$is_last_flow_index_touched_grey       = $hash_ref->{_is_last_flow_index_touched_grey};
-	#		$is_last_flow_index_touched_pink       = $hash_ref->{_is_last_flow_index_touched_pink};
-	#		$is_last_flow_index_touched_green      = $hash_ref->{_is_last_flow_index_touched_green};
-	#		$is_last_flow_index_touched_blue       = $hash_ref->{_is_last_flow_index_touched_blue};
-	#		$is_last_flow_index_touched            = $hash_ref->{_is_last_flow_index_touched};
-	#		$is_last_parameter_index_touched_grey  = $hash_ref->{_is_last_parameter_index_touched_grey};
-	#		$is_last_parameter_index_touched_pink  = $hash_ref->{_is_last_parameter_index_touched_pink};
-	#		$is_last_parameter_index_touched_green = $hash_ref->{_is_last_parameter_index_touched_green};
-	#		$is_last_parameter_index_touched_blue  = $hash_ref->{_is_last_parameter_index_touched_blue};
-	#		$is_last_parameter_index_touched_color = $hash_ref->{_is_last_parameter_index_touched_color};
-	#		$is_moveNdrop_in_flow                  = $hash_ref->{_is_moveNdrop_in_flow};
-	#		$is_open_file_button                   = $hash_ref->{_is_open_file_button};
-	#		$is_run_button                         = $hash_ref->{_is_run_button};
-	#		$is_select_file_button                 = $hash_ref->{_is_select_file_button};
-	#		$is_selected_file_name                 = $hash_ref->{_is_selected_file_name};
-	#		$is_selected_path                      = $hash_ref->{_is_selected_path};
-	#		$is_sunix_listbox                      = $hash_ref->{_is_sunix_listbox};
-	#		$is_new_listbox_selection              = $hash_ref->{_is_new_listbox_selection};
-	#		$is_pre_built_superflow                = $hash_ref->{_is_pre_built_superflow};
-	#		$is_superflow                          = $hash_ref->{_is_superflow};
-	#		$is_superflow_select_button            = $hash_ref->{_is_superflow_select_button};
-	#		$is_user_built_flow                    = $hash_ref->{_is_user_built_flow};
-	#		$items_checkbuttons_aref2              = $hash_ref->{_items_checkbuttons_aref2};
-	#		$items_names_aref2                     = $hash_ref->{_items_names_aref2};
-	#		$items_values_aref2                    = $hash_ref->{_items_names_aref2};
-	#		$items_versions_aref                   = $hash_ref->{_items_values_aref2};
-	#		$last_flow_color                       = $hash_ref->{_last_flow_color};
-	#		$last_flow_index_touched_grey          = $hash_ref->{_last_flow_index_touched_grey};
-	#		$last_flow_index_touched_pink          = $hash_ref->{_last_flow_index_touched_pink};
-	#		$last_flow_index_touched_green         = $hash_ref->{_last_flow_index_touched_green};
-	#		$last_flow_index_touched_blue          = $hash_ref->{_last_flow_index_touched_blue};
-	#		$last_flow_index_touched               = $hash_ref->{_last_flow_index_touched};
-	#		$last_parameter_index_touched_grey     = $hash_ref->{_last_parameter_index_touched_grey};
-	#		$last_parameter_index_touched_pink     = $hash_ref->{_last_parameter_index_touched_pink};
-	#		$last_parameter_index_touched_green    = $hash_ref->{_last_parameter_index_touched_green};
-	#		$last_parameter_index_touched_blue     = $hash_ref->{_last_parameter_index_touched_blue};
-	#		$last_parameter_index_touched_color    = $hash_ref->{_last_parameter_index_touched_color};
-	#		$last_path_touched                     = $hash_ref->{_last_path_touched};
-	#		$names_aref                            = $hash_ref->{_names_aref};
-	#		$param_flow_length                     = $hash_ref->{_param_flow_length};
-	#		$parameter_names_frame                 = $hash_ref->{_parameter_names_frame};
-	#		$param_sunix_first_idx                 = $hash_ref->{_param_sunix_first_idx};
-	#		$param_sunix_length                    = $hash_ref->{_param_sunix_length};
-	#		$path                                  = $hash_ref->{_path};
-	#		$prog_names_aref                       = $hash_ref->{_prog_names_aref};
-	#		$prog_name_sref                        = $hash_ref->{_prog_name_sref};
-	#		$selected_file_name                    = $hash_ref->{_selected_file_name};
-	#		$superflow_first_idx                   = $hash_ref->{_superflow_first_idx};
-	#		$superflow_length                      = $hash_ref->{_superflow_length};
-	#		$sub_ref                               = $hash_ref->{_sub_ref};
-	#		$values_aref                           = $hash_ref->{_values_aref};
-	#
-	#		# print("file_dialog, set_hash_ref, _is_flow_listbox_grey_w: $file_dialog->{_is_flow_listbox_grey_w} \n");
-	#		# print("file_dialog, set_hash_ref, _check_buttons_settings_aref: $file_dialog->{_check_buttons_settings_aref} \n");
-	#		# print("file_dialog,set_hash_ref, values_aref[0]: $file_dialog->{_values_aref}[0]\n");
-	#	}
-	#	else {
-	#
-	#		print("file_dialog, set_gui_widgets, missing hash_ref\n");
+
 return ();
 }
-
-#
-#=head2 sub set_gui_widgets
-#
-# bring in important widget addresses: 34
-# encapsulate within private scalar carriers: 34
-# (private simplified names)
-#	
-#=cut
-#
-#sub set_gui_widgets {
-#	my ( $self, $widget_hash_ref ) = @_;
-#
-#	if ($widget_hash_ref) {
-#
-#		$file_dialog->{_Data_menubutton}               = $widget_hash_ref->{_Data_menubutton};
-#		$file_dialog->{_Flow_menubutton}               = $widget_hash_ref->{_Flow_menubutton};
-#		$file_dialog->{_SaveAs_menubutton}             = $widget_hash_ref->{_SaveAs_menubutton};
-#		$file_dialog->{_add2flow_button_grey}          = $widget_hash_ref->{_add2flow_button_grey};
-#		$file_dialog->{_add2flow_button_pink}          = $widget_hash_ref->{_add2flow_button_pink};
-#		$file_dialog->{_add2flow_button_green}         = $widget_hash_ref->{_add2flow_button_green};
-#		$file_dialog->{_add2flow_button_blue}          = $widget_hash_ref->{_add2flow_button_blue};
-#		$file_dialog->{_check_buttons_w_aref}          = $widget_hash_ref->{_check_buttons_w_aref};
-#		$file_dialog->{_check_code_button}             = $widget_hash_ref->{_check_code_button};
-#		$file_dialog->{_delete_from_flow_button}       = $widget_hash_ref->{_delete_from_flow_button};
-#		$file_dialog->{_file_menubutton}               = $widget_hash_ref->{_file_menubutton};
-#		$file_dialog->{_flowNsuperflow_name_w}         = $widget_hash_ref->{_flowNsuperflow_name_w};
-#		$file_dialog->{_flow_item_down_arrow_button}   = $widget_hash_ref->{_flow_item_down_arrow_button};
-#		$file_dialog->{_flow_item_up_arrow_button}     = $widget_hash_ref->{_flow_item_up_arrow_button};
-#		$file_dialog->{_flow_listbox_grey_w}           = $widget_hash_ref->{_flow_listbox_grey_w};
-#		$file_dialog->{_flow_listbox_pink_w}           = $widget_hash_ref->{_flow_listbox_pink_w};
-#		$file_dialog->{_flow_listbox_green_w}          = $widget_hash_ref->{_flow_listbox_green_w};
-#		$file_dialog->{_flow_listbox_blue_w}           = $widget_hash_ref->{_flow_listbox_blue_w};
-#		$file_dialog->{_flow_listbox_color_w}          = $widget_hash_ref->{_flow_listbox_color_w};
-#		$file_dialog->{_flow_name_grey_w}              = $widget_hash_ref->{_flow_name_grey_w};
-#		$file_dialog->{_flow_name_pink_w}              = $widget_hash_ref->{_flow_name_pink_w};
-#		$file_dialog->{_flow_name_green_w}             = $widget_hash_ref->{_flow_name_green_w};
-#		$file_dialog->{_flow_name_blue_w}              = $widget_hash_ref->{_flow_name_blue_w};
-#		$file_dialog->{_flow_widget_index}             = $widget_hash_ref->{_flow_widget_index};
-#		$file_dialog->{_labels_w_aref}                 = $widget_hash_ref->{_labels_w_aref};
-#		$file_dialog->{_message_w}                     = $widget_hash_ref->{_message_w};
-#		$file_dialog->{_mw}                            = $widget_hash_ref->{_mw};
-#		$file_dialog->{_parameter_values_button_frame} = $widget_hash_ref->{_parameter_values_button_frame};
-#		$file_dialog->{_parameter_values_frame}        = $widget_hash_ref->{_parameter_values_frame};
-#		$file_dialog->{_parameter_value_index}         = $widget_hash_ref->{_parameter_value_index};
-#		$file_dialog->{_run_button}                    = $widget_hash_ref->{_run_button};
-#		$file_dialog->{_save_button}                   = $widget_hash_ref->{_save_button};
-#		$file_dialog->{_sunix_listbox}                 = $widget_hash_ref->{_sunix_listbox};
-#		$file_dialog->{_values_w_aref}                 = $widget_hash_ref->{_values_w_aref};
-#
-#		$Data_menubutton               = $file_dialog->{_Data_menubutton};
-#		$Flow_menubutton               = $file_dialog->{_Flow_menubutton};
-#		$SaveAs_menubutton             = $file_dialog->{_SaveAs_menubutton};
-#		$add2flow_button_grey          = $file_dialog->{_add2flow_button_grey};
-#		$add2flow_button_pink          = $file_dialog->{_add2flow_button_pink};
-#		$add2flow_button_green         = $file_dialog->{_add2flow_button_green};
-#		$add2flow_button_blue          = $file_dialog->{_add2flow_button_blue};
-#		$check_buttons_w_aref          = $file_dialog->{_check_buttons_w_aref};
-#		$check_code_button             = $file_dialog->{_check_code_button};
-#		$delete_from_flow_button       = $file_dialog->{_delete_from_flow_button};
-#		$file_menubutton               = $file_dialog->{_file_menubutton};
-#		$flowNsuperflow_name_w         = $file_dialog->{_flowNsuperflow_name_w};
-#		$flow_item_down_arrow_button   = $file_dialog->{_flow_item_down_arrow_button};
-#		$flow_item_up_arrow_button     = $file_dialog->{_flow_item_up_arrow_button};
-#		$flow_listbox_grey_w           = $file_dialog->{_flow_listbox_grey_w};
-#		$flow_listbox_pink_w           = $file_dialog->{_flow_listbox_pink_w};
-#		$flow_listbox_green_w          = $file_dialog->{_flow_listbox_green_w};
-#		$flow_listbox_blue_w           = $file_dialog->{_flow_listbox_blue_w};
-#		$flow_listbox_color_w          = $file_dialog->{_flow_listbox_color_w};
-#		$flow_name_grey_w              = $file_dialog->{_flow_name_grey_w};
-#		$flow_name_pink_w              = $file_dialog->{_flow_name_pink_w};
-#		$flow_name_green_w             = $file_dialog->{_flow_name_green_w};
-#		$flow_name_blue_w              = $file_dialog->{_flow_name_blue_w};
-#		$flow_widget_index             = $file_dialog->{_flow_widget_index};
-#		$labels_w_aref                 = $file_dialog->{_labels_w_aref};
-#		$message_w                     = $file_dialog->{_message_w};
-#		$mw                            = $file_dialog->{_mw};
-#		$parameter_values_button_frame = $file_dialog->{parameter_values_button_frame};
-#		$parameter_values_frame        = $file_dialog->{_parameter_values_frame};
-#		$parameter_value_index         = $file_dialog->{_parameter_value_index};
-#		$run_button                    = $file_dialog->{_run_button};
-#		$save_button                   = $file_dialog->{_save_button};
-#		$sunix_listbox                 = $file_dialog->{_sunix_listbox};
-#		$values_w_aref                 = $file_dialog->{_values_w_aref};
-#
-#		# print("file_dialog, set_gui_widgets	parameter_values_frame: $parameter_values_frame\n");
-#		# print("file_dialog, set_gui_widgets	flowNsuperflow_name_w: $flowNsuperflow_name_w\n");
-#
-#	}
-#	else {
-#
-#		print("file_dialog, set_gui_widgets, missing gui_widgets\n");
-#	}
-#	return ();
-#}
 
 sub FileDialog_director {
 	my ($self) = @_;

@@ -119,10 +119,6 @@ my $Sucat_config = {
 
 sub get_values {
     my ($self) = @_;
-    
-    use control;
-    
-    my $control = control->new();
 
     # Warning: set using a scalar reference
     $Sucat_config->{_prog_name} = \@{$superflow_config_names}[10];
@@ -147,21 +143,18 @@ sub get_values {
     my $output_file_name  = @{ $Sucat_config->{_values_aref} }[7];
     my $alternative_inbound_directory  = @{ $Sucat_config->{_values_aref} }[8];
     my $alternative_outbound_directory  = @{ $Sucat_config->{_values_aref} }[9];
-    
-    #remove unwanted quotes    
-    $input_suffix = $control->get_no_quotes ($input_suffix);
 
     my $CFG = {
         sucat => {
             1 => {
-                first_file_number_in 	=> $first_file_number_in,
-                last_file_number_in  	=> $last_file_number_in,
-                number_of_files_in   	=> $number_of_files_in,
-                input_suffix      		=> $input_suffix,
+                first_file_number_in => $first_file_number_in,
+                last_file_number_in  => $last_file_number_in,
+                number_of_files_in   => $number_of_files_in,
+                output_file_name  => $output_file_name,
+                input_suffix      => $input_suffix,
      			input_name_prefix       => $input_name_prefix,
     			input_name_extension    => $input_name_extension,             
-                list              		=> $list,
-                output_file_name  		=> $output_file_name,
+                list              => $list,
                 alternative_inbound_directory => $alternative_inbound_directory,
                 alternative_outbound_directory => $alternative_outbound_directory,
             }
