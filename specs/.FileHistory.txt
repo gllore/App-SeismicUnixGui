@@ -1,0 +1,2 @@
+/home/gom/moon/seismics/pl/MSFC_regolith_field/100Hz_geophones/081419/Z/1/gom/a
+/home/gom/moon/seismics/data/MSFC_regolith_field/100Hz_geophones/081419/Z/1/segy/gom/1007.sgy

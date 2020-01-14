@@ -1,0 +1,6 @@
+/home/gom/demos/seismics/data/Synthetic/Finite_Difference/Sufdmod1/Xdemo1/1/bin/velocity.bin
+/home/gom/demos/seismics/pl/Synthetic/Finite_Difference/Sufdmod1/Xdemo1/1/3.show.velocity.model
+/home/gom/demos/seismics/pl/Synthetic/Finite_Difference/Sufdmod1/Xdemo1/1/velocity.plot
+/home/gom/demos/seismics/pl/Synthetic/Finite_Difference/Sufdmod1/Xdemo1/1/1.create.velocity.model
+/home/gom/demos/seismics/pl/Synthetic/Finite_Difference/Sufdmod1/Xdemo1/1/sample.velocity
+/home/gom/demos/seismics/pl/Synthetic/Finite_Difference/Sufdmod1/Xdemo1/1/2.create.density.model

@@ -1,0 +1,17 @@
+#!/bin/bash
+
+# see if global variable is set
+# L_SU is a global variable for locating the  main folder
+
+ if [ -z "${L_SU}" ]; then
+
+ 	echo "global variable L_SU must be set"
+ 	echo "e.g. in .bashrc: "
+ 	echo " export L_SU=/usr/local/pl/L_SU "
+
+ else
+
+	perl $L_SU/L_SU_project_selector.pl
+	perl $L_SU/L_SUV0.3.9.pl
+
+ fi

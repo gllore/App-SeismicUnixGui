@@ -1,0 +1,17 @@
+#!/bin/bash
+
+# see if global variable is set
+# global variable L_SU locates main folder
+
+ if [ -z "${L_SU}" ]; then
+
+ 	echo "global variable L_SU must first be set"
+ 	echo "e.g. in .bashrc: "
+ 	echo " export L_SU=/usr/local/pl "
+
+ else
+
+	# run Project.pl
+	# echo "perl" $L_SU"/big_streams/Project.pl"
+	perl $L_SU/big_streams/Project.pl
+fi

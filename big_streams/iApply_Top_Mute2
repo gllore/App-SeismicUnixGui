@@ -1,0 +1,71 @@
+#! /usr/local/bin/perl  -w
+
+# SCRIPT NAME
+# iApply_top_mute.pl
+# Purpose: Linear Top Mute of Data 
+# V1.
+# Aug 17, 2011
+
+# LOAD SEISMIC UNIX GLOBAL SYSTEM LIBARAY
+#  use lib '/usr/local/pl/libAll';
+#  use SeismicUnix;
+  use SeismicUnix qw ($on $off $itop_mute $itemp_top_mute_picks_ $itemp_top_mute_num_points $itemp_top_mute_picks_sorted_par_ $itop_mute_par_ $suffix_su $suffix_hyphen);
+
+# library path
+#  use lib './libAll';
+
+# use library
+  use System_Variables;
+  my ($DATA_SEISMIC_SU) 	= System_Variables::DATA_SEISMIC_SU();
+
+# use library
+  use iTop_Mute qw ($file_name );
+
+# sufile names
+$N=1;
+  $sufile_in[$N] 		= $file_name;
+  $sufile_out[$N] 		= $sufile_in[1].$suffix_hyphen.$itop_mute;
+  $inbound[$N]	  		= $DATA_SEISMIC_SU.'/'.$sufile_in[1].$suffix_su;
+  $outbound[$N]  		= $DATA_SEISMIC_SU.'/'.$sufile_out[1].$suffix_su;
+$N=0;
+
+# MUTE DATA   
+ ($ref_sumute_key,$ref_sumute_pick_file_outbound,
+   $ref_sumute_par_file_inbound,$ref_sumute_type,
+   $sumute_Nmax) 				     = iTop_Mute::sumute();
+
+	$sumute[1]  =  (" sumute 	            		\\
+		par=$$ref_sumute_par_file_inbound[1]		\\
+		key=$$ref_sumute_key[1]				\\
+		mode=$$ref_sumute_type[1]			\\
+              ");
+
+#SUWIND  PARAMETERS
+  my($ref_suwind_key,$ref_suwind_min,$ref_suwind_max,
+	$suwind_Nmax) 					= iTop_Mute::suwind();
+
+# SUWIND 
+$suwind_N = $suwind_Nmax;
+for($N=1;$N<=$suwind_N;$N++){
+	$suwind[$N]  =  (" suwind 	            		\\
+		key=$$ref_suwind_key[$N]			\\
+		min=$$ref_suwind_min[$N]			\\
+		max=$$ref_suwind_max[$N]			\\
+              ");
+}
+$N=0;
+
+
+#  DEFINE FLOW(S)
+	$flow[1] = (" 						\\
+		$suwind[1] 	 				\\
+		< $inbound[1] |					\\
+		$sumute[1]   	 				\\
+		> $outbound[1]					\\
+		&						\\
+		"); 
+
+# RUN FLOW(S)
+       system $flow[1]; 
+       system 'echo', $flow[1];	
+

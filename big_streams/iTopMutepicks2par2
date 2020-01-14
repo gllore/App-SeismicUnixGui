@@ -1,0 +1,96 @@
+#! /usr/local/bin/perl
+
+# SCRIPT NAME
+# iMutepicks2par.pl
+# Purpose: write data pairs to par format for input to sumute 
+# Juan M. Lorenzo
+# May 5 2009 
+# V 1.
+# V2 for interactive top mute picks
+
+# Use shell transparently to locate home directory before compilation
+
+        my $library_location;
+
+        BEGIN {
+                use Shell qw(echo);
+
+                $home_directory = ` echo \$HOME`;
+                chomp $home_directory;
+                $library_location = $home_directory.'/lsu/libAll';
+        }
+
+# LOAD GENERAL PERL LIBRARY
+  use lib $library_location;
+
+# LOAD SEISMIC UNIX GLOBAL SYSTEM LIBARAY
+  # use lib '/usr/local/pl/libAll';
+  use SeismicUnix;
+  use SeismicUnix qw ($true $false $itop_mute_par_ $itemp_top_mute_picks_ $itemp_top_mute_picks_sorted_par_  $suffix_su);
+
+# library path
+  # use lib './libAll';
+
+# use library
+# import system variables
+  use System_Variables;
+
+  my ($DATA_SEISMIC_SU) 	= System_Variables::DATA_SEISMIC_SU();
+
+# use library
+ use iTop_Mute;
+ use iTop_Mute qw ($file_name $taup_data $panel_first $panel_last $panel_inc $traces_per_panel);
+
+# sufile names
+  $sufile_in[1] 		= $file_name;
+
+# par file names
+  $mkparfile_in[1] 		= $itemp_top_mute_picks_.$sufile_in[1];
+  $mkparfile_inbound[1] 	= $DATA_SEISMIC_SU.'/'.$mkparfile_in[1];
+
+# TODO if no sorting is ever needed
+# rm file name from $itemp_top_mute_picks_sorted_par to itemp_top_mute_picks
+
+  $mkparfile_out[1] 		= $itemp_top_mute_picks_sorted_par_.$sufile_in[1];
+  $mkparfile_outbound[1]  	= $DATA_SEISMIC_SU.'/'.$mkparfile_out[1];
+
+# CONVERT TEXT FILE TO PAR FILE
+   	$mkparfile[1]	=  ("mkparfile			\\
+		string1=tmute 				\\
+		string2=xmute 				\\
+		");
+
+# DEFINE FLOW(s)
+# CONVERT t-p picks to t-trace picks
+   $taup = $taup_data;
+
+   if ($taup == $true) {
+	print("Mute picks inbound file: $mkparfile_inbound[1]\n\n");
+	print("This is taup data\n\n");
+
+	($ref_inbound) = iTop_Mute::tp_piks2ttr(\@mkparfile_inbound[1]);
+
+	$flow[1] = (" 						\\
+		$mkparfile[1] 					\\
+		< $$ref_inbound[1] 				\\
+		>$mkparfile_outbound[1]  			\\
+								\\
+		"); 
+
+   }
+  elsif ($taup == $false) {
+
+#  DEFINE FLOW(S)
+   print("Regular xt data\n\n");
+	$flow[1] = (" 						\\
+		$mkparfile[1] 					\\
+		< $mkparfile_inbound[1]				\\
+		>$mkparfile_outbound[1]				\\
+								\\
+		"); 
+
+  }
+
+# RUN FLOW(S)
+       system $flow[1]; 
+       system 'echo', $flow[1];	
