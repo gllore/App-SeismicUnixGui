@@ -44,59 +44,59 @@ use Moose;
 
 sub does_file_exist {
 
-    my ( $does_file_exist, $ref_file ) = @_;
+	my ( $does_file_exist, $ref_file ) = @_;
 
-    $does_file_exist->{ref_file} = $$ref_file if defined($ref_file);
+	$does_file_exist->{ref_file} = $$ref_file if defined($ref_file);
 
-    # print("file name is, $$ref_file\n");
+	# print("file name is, $$ref_file\n");
 
-    # default situation is to have a file non-existent
-    my $answer = 0;
+	# default situation is to have a file non-existent
+	my $answer = 0;
 
-    # -e returns 1 or ''
-    # verified by JL
-    # print("plain file for test is $$ref_file\n\n");
-    if ( -f $does_file_exist->{ref_file} ) {
+	# -e returns 1 or ''
+	# verified by JL
+	# print("plain file for test is $$ref_file\n\n");
+	if ( -f $does_file_exist->{ref_file} ) {
 
-        #print  ("file existence verified\n\n") ;
-        $answer = 1;
-    }
+		#print  ("file existence verified\n\n") ;
+		$answer = 1;
+	}
 
-    #	answer=1 if existent and =0 if non-existent
-    #verified by JL
-    return ($answer);
+	#	answer=1 if existent and =0 if non-existent
+	#verified by JL
+	return ($answer);
 }
 
 sub does_file_exist_sref {
 
-    my ($ref_file) = @_;
+	my ($ref_file) = @_;
 
-    if ($ref_file) {
+	if ($ref_file) {
 
-        my $file = $$ref_file;
+		my $file = $$ref_file;
 
-    # print("manage_files_by2,does_file_exist_sref,file name is, $$ref_file\n");
+	# print("manage_files_by2,does_file_exist_sref,file name is, $$ref_file\n");
 
-        # default situation is to have a file non-existent
-        my $answer = 0;
+		# default situation is to have a file non-existent
+		my $answer = 0;
 
-        # -e returns 1 or ''
-        # verified by JL
-        # print("file for exist test is $$ref_file\n\n");
-        # actually dies it exist and is it a plain file!!
-        if ( -f $file ) {
+		# -e returns 1 or ''
+		# verified by JL
+		# print("file for exist test is $$ref_file\n\n");
+		# actually dies it exist and is it a plain file!!
+		if ( -f $file ) {
 
-            # print  ("file existence verified\n\n") ;
-            $answer = 1;
-        }
+			# print  ("file existence verified\n\n") ;
+			$answer = 1;
+		}
 
-        #	answer=1 if existent and =0 if non-existent
-        #verified by JL
-        return ($answer);
-    }
-    else {
-        print("does_file_exist_sref, ref_file is missing\n");
-    }
+		#	answer=1 if existent and =0 if non-existent
+		#verified by JL
+		return ($answer);
+	}
+	else {
+		print("does_file_exist_sref, ref_file is missing\n");
+	}
 
 }
 
@@ -107,70 +107,70 @@ sub does_file_exist_sref {
 =cut 
 
 sub unique_elements {
-    my ( $self, $array_ref ) = @_;
+	my ( $self, $array_ref ) = @_;
 
-    my $results_ref;
+	my $results_ref;
 
-    if ($array_ref) {
+	if ($array_ref) {
 
-        my @unique_progs;
-        my $total_num_progs4flow = scalar @{$array_ref};
-        my $false                = 0;
-        my $true                 = 1;
-        my $num_unique_progs     = 1;
+		my @unique_progs;
+		my $total_num_progs4flow = scalar @{$array_ref};
+		my $false                = 0;
+		my $true                 = 1;
+		my $num_unique_progs     = 1;
 
-        my $seen = $true;
-        $unique_progs[0] = @{$array_ref}[0];
+		my $seen = $true;
+		$unique_progs[0] = @{$array_ref}[0];
 
-        # print("manage_files_by2, program in flow: @{$array_ref}[0]\n");
+		# print("manage_files_by2, program in flow: @{$array_ref}[0]\n");
 
-        for ( my $i = 1 ; $i < $total_num_progs4flow ; $i++ ) {
+		for ( my $i = 1 ; $i < $total_num_progs4flow ; $i++ ) {
 
-        # print("manage_files_by2, program in flow: @{$array_ref}[$i]\n");
-        # print ("1. manage_files_by2, num_unique_progs=$num_unique_progs\n\n");
-            for ( my $j = 0 ; $j < $num_unique_progs ; $j++ ) {
+		# print("manage_files_by2, program in flow: @{$array_ref}[$i]\n");
+		# print ("1. manage_files_by2, num_unique_progs=$num_unique_progs\n\n");
+			for ( my $j = 0 ; $j < $num_unique_progs ; $j++ ) {
 
-                if ( $unique_progs[$j] eq @{$array_ref}[$i] ) {
+				if ( $unique_progs[$j] eq @{$array_ref}[$i] ) {
 
-            # print("program index in flow=$i\n");
-            # print(" 1. manage_files_by2,repeated program detected \n");
-            # print("manage_files_by2, prog_ repeated: @{$array_ref}[]$i]\n\n");
-                    $seen = $true;
+			# print("program index in flow=$i\n");
+			# print(" 1. manage_files_by2,repeated program detected \n");
+			# print("manage_files_by2, prog_ repeated: @{$array_ref}[]$i]\n\n");
+					$seen = $true;
 
-                    # exit if-loop and increment $j
-                }
-                else {
-      # print("program index in flow=$i\n");
-      # print("manage_files_by2, prog @{array_ref}[]$i] is unique\n\n");
-      # print ("2. manage_files_by2,unique_prog detected=@{$array_ref}[$i] \n");
-                    $seen = $false;
-                }
-            }
+					# exit if-loop and increment $j
+				}
+				else {
+	  # print("program index in flow=$i\n");
+	  # print("manage_files_by2, prog @{array_ref}[]$i] is unique\n\n");
+	  # print ("2. manage_files_by2,unique_prog detected=@{$array_ref}[$i] \n");
+					$seen = $false;
+				}
+			}
 
-            if ($seen) {
-                $seen = $false;    #reset for next check
-            }
-            else {
-                push @unique_progs, @{$array_ref}[$i];
+			if ($seen) {
+				$seen = $false;    #reset for next check
+			}
+			else {
+				push @unique_progs, @{$array_ref}[$i];
 
-         # print(" 1. manage_files_by2,unique new program found for output \n");
-                $num_unique_progs++;
-            }
+		 # print(" 1. manage_files_by2,unique new program found for output \n");
+				$num_unique_progs++;
+			}
 
-        }    # end all programs
+		}    # end all programs
 
-        # print("3. manage_files_by2, unique_progs are: @unique_progs\n");
-        # print ("3. manage_files_by2, num_unique_progs=$num_unique_progs\n\n");
+		# print("3. manage_files_by2, unique_progs are: @unique_progs\n");
+		# print ("3. manage_files_by2, num_unique_progs=$num_unique_progs\n\n");
 
-        $results_ref = \@unique_progs;
-        return ($results_ref);
+		$results_ref = \@unique_progs;
+		return ($results_ref);
 
-    }
-    else {
-        print("manage_files_by2,unique_elements, missing array\n");
-        return ();
+	}
+	else {
+		print("manage_files_by2,unique_elements, missing array\n");
+		return ();
 
-    }    # end if
+	}    # end if
 }
 
 =pod
@@ -183,45 +183,113 @@ sub unique_elements {
 
 sub read_2cols {
 
-    my ( $variable, $ref_origin ) = @_;
+	my ( $variable, $ref_origin ) = @_;
 
-    #declare locally scoped variables
-    my ( $i, $line, $t, $x, $num_rows );
-    my ( @TIME, @TIME_OUT, @OFFSET, @OFFSET_OUT );
-    print("In this subroutine $$ref_origin\n");
+	#declare locally scoped variables
+	my ( $i, $line, $t, $x, $num_rows );
+	my ( @TIME, @TIME_OUT, @OFFSET, @OFFSET_OUT );
+	print("In this subroutine $$ref_origin\n");
 
-    # open the file of interest
-    open( FILE, $$ref_origin ) || print("Can't open. $$ref_origin \n");
+	# open the file of interest
+	open( FILE, $$ref_origin ) || print("Can't open. $$ref_origin \n");
 
-    #set the counter
-    $i = 1;
+	#set the counter
+	$i = 1;
 
-    # read contents of shotpoint geometry file
-    while ( $line = <FILE> ) {
+	# read contents of shotpoint geometry file
+	while ( $line = <FILE> ) {
 
-        #print("\n$line");
-        chomp($line);
-        ( $t, $x ) = split( "  ", $line );
-        $TIME[$i]   = $t;
-        $OFFSET[$i] = $x;
+		#print("\n$line");
+		chomp($line);
+		( $t, $x ) = split( "  ", $line );
+		$TIME[$i]   = $t;
+		$OFFSET[$i] = $x;
 
-        #print("\n $TIME[$i] $OFFSET[$i]\n");
-        $i = $i + 1;
+		#print("\n $TIME[$i] $OFFSET[$i]\n");
+		$i = $i + 1;
 
-    }
+	}
 
-    close(FILE);
+	close(FILE);
 
-    $num_rows = $i - 1;
+	$num_rows = $i - 1;
 
-    # print out the number of lines of data for the user
-    #print ("\nThis file contains $num_rows row(s) of data\n");
+	# print out the number of lines of data for the user
+	#print ("\nThis file contains $num_rows row(s) of data\n");
 
-    #   to prevent contaminating outside variables
-    @TIME_OUT   = @TIME;
-    @OFFSET_OUT = @OFFSET;
+	#   to prevent contaminating outside variables
+	@TIME_OUT   = @TIME;
+	@OFFSET_OUT = @OFFSET;
 
-    return ( \@TIME_OUT, \@OFFSET_OUT, $num_rows );
+	return ( \@TIME_OUT, \@OFFSET_OUT, $num_rows );
+}
+
+=head2 sub read_par
+
+ read parameter file
+ file name is a scalar reference to 
+ scalar file name
+
+=cut 
+
+sub read_par {
+
+	my ( $self, $ref_file_name ) = @_;
+
+# print ("\nmanage_files_by2,read_par,The input file is called $$ref_file_name\n");
+
+=pod Steps
+
+     1. open file
+
+     2. set the counter
+
+     3. read contents of parameter file
+
+     4. odd-numbered lines contain tnmo and even contain vnmo
+     
+
+=cut
+
+	open( FILE, $$ref_file_name ) || print("Can't open file_name, $!\n");
+
+	my $row = -1;
+	my (@Items);
+	my ( $i,   $line );
+	my ( @row, @ValuesPerRow );
+
+	while ( $line = <FILE> ) {
+		$row++;
+		my @things;
+
+		# print("manage_files_by2,read_par, $line");
+
+=pod
+
+ 1. remove end of line
+ 2. calculate number of useful elements
+ 2. only leave the numbers with commas in between:
+ 	e.g. things=tnmo 0.0567282,0.271768
+ 	N.B. these are only 2 things and not 3 things
+
+=cut
+
+		chomp($line);
+		@things = split /[=,]/, $line;
+		print("manage_files_by2,read_par, things=@things, row= $row\n");
+		$Items[$row]        = \@things;
+		$ValuesPerRow[$row] = scalar(@things);
+
+# print("manage_files_by2,read_par, ValuesPerRow=$ValuesPerRow[$row], row=$row\n");
+
+	}
+	close(FILE);
+
+# print("manage_files_by2,read_par, ROW 0 $Items[0] \n");
+# print("manage_files_by2,read_par, ROW 1 $Items[1]\n");
+# print("manage_files_by2,read_par, ROW 0,1 number of titems: @ValuesPerRow\n");
+	return ( \@Items, \@ValuesPerRow );
+
 }
 
 =pod
@@ -232,29 +300,90 @@ sub read_2cols {
 
 sub write_2cols {
 
-    # open and write to output file
-    my ( $variable, $ref_X, $ref_Y, $num_rows, $ref_file_name, $ref_fmt ) = @_;
+	# open and write to output file
+	my ( $variable, $ref_X, $ref_Y, $num_rows, $ref_file_name, $ref_fmt ) = @_;
 
-    #declare locally scoped variables
-    my $j;
+	#declare locally scoped variables
+	my $j;
 
-    # $variable is an unused hash
+	# $variable is an unused hash
 
-    #print("\nThe subroutine has is called $variable\n");
-    #print("\nThe output file contains $num_rows rows\n");
-    #print("\nThe output file uses the following format: $$ref_fmt\n");
-    open( OUT, ">$$ref_file_name" );
+	#print("\nThe subroutine has is called $variable\n");
+	#print("\nThe output file contains $num_rows rows\n");
+	#print("\nThe output file uses the following format: $$ref_fmt\n");
+	open( OUT, ">$$ref_file_name" );
 
-    for ( $j = 1 ; $j <= $num_rows ; $j++ ) {
+	for ( $j = 1 ; $j <= $num_rows ; $j++ ) {
 
-        #print OUT  ("$$ref_X[$j] $$ref_Y[$j]\n");
-        printf OUT "$$ref_fmt\n", $$ref_X[$j], $$ref_Y[$j];
+		#print OUT  ("$$ref_X[$j] $$ref_Y[$j]\n");
+		printf OUT "$$ref_fmt\n", $$ref_X[$j], $$ref_Y[$j];
 
-        #print("$$ref_X[$j] $$ref_Y[$j]\n");
-    }
+		#print("$$ref_X[$j] $$ref_Y[$j]\n");
+	}
 
-    close(OUT);
+	close(OUT);
 
+}
+
+=head2 sub write_par
+
+ write parameter file
+ file name is a scalar reference to 
+ scalar file name
+
+=cut 
+
+sub write_par {
+
+	my ( $self, $ref_outbound, $ref_array_tnmo_row, $ref_array_vnmo_row ) = @_;
+
+	#print(
+	#	"\nmanage_files_by2,write_par,The input file is called $$ref_outbound\n"
+	#);
+
+=head2 local definitions
+
+=cut
+
+	my $values_per_row;
+	my @tnmo_array = @$ref_array_tnmo_row;
+	my @vnmo_array = @$ref_array_vnmo_row;
+	my $number_of_values_per_row = scalar @tnmo_array;
+
+=pod Steps
+
+     odd-numbered lines contain tnmo and even contain vnmo
+     e.g., tnmo=1,2,3
+     	   vnm==4,5,6
+     
+=cut
+
+
+=head2 open and write values
+
+=cut
+
+	open( my $fh, '>', $$ref_outbound );
+
+	print $fh ("tnmo=$tnmo_array[1]");
+
+	for ( my $i = 2 ; $i < $number_of_values_per_row ; $i++ ) {
+
+		print $fh (",$tnmo_array[$i]");
+
+	}
+	
+	print $fh ("\n");
+
+	print $fh ("vnmo=$vnmo_array[1]");
+
+	for ( my $i = 2 ; $i < $number_of_values_per_row ; $i++ ) {
+
+		print $fh (",$vnmo_array[$i]");
+
+	}
+
+	close($fh);
 }
 
 1;

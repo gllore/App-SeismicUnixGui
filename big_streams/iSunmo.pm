@@ -23,6 +23,7 @@ package iSunmo;
 =cut
 
 use Moose;
+use L_SU_global_constants;
 use Project_config;
 use SeismicUnix qw ($on $off $in $to $go);
 use flow;
@@ -56,6 +57,11 @@ my $Project           = new Project_config();
 my ($DATA_SEISMIC_SU) = $Project->DATA_SEISMIC_SU();
 my ($PL_SEISMIC)      = $Project->PL_SEISMIC();
 
+
+my $get = new L_SU_global_constants();
+my $var          = $get->var();
+my $empty_string = $var->{_empty_string};
+
 =head2
  
  establish just the localally scoped variables
@@ -83,6 +89,7 @@ my $N;
 =cut 
 
 my $iSunmo = {
+	_base_file_name => '',
     _cdp_num      => '',
     _file_in      => '',
     _freq         => '',
@@ -100,7 +107,9 @@ my $iSunmo = {
 
 =cut
 
-sub clear {
+sub clear 
+{
+	$iSunmo->{_base_file_name}   = '';
     $iSunmo->{_cdp_num}     = '';
     $iSunmo->{_file_in}     = '';
     $iSunmo->{_freq}        = '';
@@ -109,6 +118,9 @@ sub clear {
     $iSunmo->{_textfile_in} = '';
     $iSunmo->{_tmax_s}      = '';
 }
+
+
+
 
 =head2
 
@@ -337,7 +349,7 @@ sub calcNdisplay {
 
 =cut
 
-    #print  "$flow[1]\n";
+    print  "$flow[1]\n";
     #$log->file($flow[1]);
 }
 

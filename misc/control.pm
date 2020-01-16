@@ -281,11 +281,11 @@ sub get_back_slashBgone {
 
 		my $stringWback_slash;
 
-# print("control,get_back_slashBgone, control->{_stringWback_slash}: $control->{_stringWback_slash}\n");
+		# print("control,get_back_slashBgone, control->{_stringWback_slash}: $control->{_stringWback_slash}\n");
 		$stringWback_slash = $control->{_stringWback_slash};
 		$stringWback_slash =~ s/\\//g;
 
-# print("control,get_back_slashBgone, stringWback_slash}: $stringWback_slash\n");
+		# print("control,get_back_slashBgone, stringWback_slash}: $stringWback_slash\n");
 		return ($stringWback_slash);
 
 	}
@@ -744,7 +744,7 @@ sub remove_su_suffix4sref {
 sub set_back_slashBgone {
 	my ( $self, $stringWback_slash ) = @_;
 
-# print("control,set_back_slashBgome, stringWback_slash: $stringWback_slash\n");
+	 # print("control,set_back_slashBgome, stringWback_slash: $stringWback_slash\n");
 
 	if ( $stringWback_slash ne $empty_string ) {
 
