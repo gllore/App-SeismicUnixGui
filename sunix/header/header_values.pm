@@ -188,11 +188,11 @@ sub get_number() {
 		my $result;
 		my $scale = $values[1];
 
-		print ("header_values, get_number,values[0]:$values[0]...\n");
-		print ("header_values, get_number,values[1]:$values[1]\n");
+#		print ("header_values, get_number,values[0]:$values[0]...\n");
+#		print ("header_values, get_number,values[1]:$values[1]\n");
 		my $length = scalar @values;
 
-		print ("header_values, get_number,length=$length\n");
+#		print ("header_values, get_number,length=$length\n");
 
 		if ( defined $scale ) {
 			print("header_values,get_number, values[1]:$values[1]\n");

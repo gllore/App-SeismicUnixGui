@@ -191,7 +191,7 @@ sub _get_data_scale {
 
 =cut
 
-	print("sunmo, _get_data_scale, _base_file_name=$sunmo->{_base_file_name}\n");
+#	print("sunmo, _get_data_scale, _base_file_name=$sunmo->{_base_file_name}\n");
 
 	my $sunmo = header_values->new();
 
@@ -203,7 +203,7 @@ sub _get_data_scale {
 		my $data_scale = $sunmo->get_number();
 
 		my $result = $data_scale;
-		print("sunmo, _get_data_scale, data_scale = $data_scale\n");
+#		print("sunmo, _get_data_scale, data_scale = $data_scale\n");
 		return ($result);
 
 	}
@@ -211,7 +211,7 @@ sub _get_data_scale {
 
 		my $data_scale = 1;
 		my $result     = $data_scale;
-		print("sunmo, _get_data_scale, data_scale = 1:1\n");
+#		print("sunmo, _get_data_scale, data_scale = 1:1\n");
 		return ($result);
 
 	}
@@ -369,7 +369,7 @@ sub par {
 			$array_vnmo_row[$i] = $array_vnmo_row[$i] * $data_scale;
 
 		}
-		print("sunmo,par,par, data_scale=$data_scale\n");
+#		print("sunmo,par,par, data_scale=$data_scale\n");
 
 =head2 write new par file
 
