@@ -526,7 +526,7 @@ sub get_index2delete {
 
  from the current listbox
  returns a scalar reference to the element selected
- from the list box
+ fromt the list box
 
 =cut
 
@@ -569,11 +569,8 @@ sub get_current_program {
 			my $result       = $program_name;
 			return ( \$result );
 
-		} elsif ($flow_num_items == 0 ) {
-			my $result      = $empty_string;
-			return ( \$result );
-			
-		} else {
+		}
+		else {
 			print("flow_widgets,get_current_program, unexpected num_items=$flow_num_items\n");
 
 			# print("flow_widgets,get_current_program, Perhaps null selection index\n");
@@ -617,8 +614,7 @@ sub get_flow_selection {
 		}
 		else {
 			# print("flow_widgets,get_flow_selection,selection_index is missing, need to select an item again NADA\n");
-			my $result = -1;
-			return ($result);
+			return ();
 		}
 
 	}

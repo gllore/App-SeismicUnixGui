@@ -30,21 +30,21 @@
     
 Either: 
 
-Case 1) Use a list without values for first 6 parameters. Only include the output
+Case 1) Use a list without values for first 7 parameters. Only include the output
 name. The alternative directories are optional.
 That is, a list can only be used when the values of the prior
-6 parameters are blank
+7 parameters are blank
 
 Example:
     
-    first_file_number_in              =               
+     first_file_number_in               =               
     last_file_number_in                =                
-    number_of_files_in                 =                            
+    number_of_files_in                 =                  
+    output_file_name                   =           
     input_suffix                       =               
     input_name_prefix                  =                  
     input_name_extension               =              
-    list                               =  a list_name (found in $PL_SEISMIC)      
-    output_file_name                   =       
+    list                               =  a list_name (found in $PL_SEISMIC)            
     alternative_inbound_directory      =  [$PL_SEISMIC]             
     alternative_outbound_directory     =  [$PL_SEISMIC]  
 
@@ -60,20 +60,20 @@ Exmples:
   Builds a hash of the configuration parameters
     first_file_number_in               = 1000                
     last_file_number_in                = 1001                
-    number_of_files_in                 = 11                             
+    number_of_files_in                 = 11                  
+    output_file_name                   = 1000_01            
     input_suffix                       = su                  
     input_name_prefix                  = cdp                 
     input_name_extension               = _clean              
-    list                               =  
-    output_file_name                   = 1000_01                 
+    list                               =                   
     alternative_inbound_directory      =                   
     alternative_outbound_directory     =  
     
     The above case will produce
     
     cat DIR1/cdp1000_clean.su DIR1/cdp1001_clean.su > DIR2/1000_01.su
-    wher DIR1
    
+    
     A list can not be in use when 
     any value exists for any of the following:
     
@@ -83,12 +83,17 @@ Exmples:
     input_suffix                          = su                  
     input_name_prefix                     = cdp                 
     input_name_extension                  = _clean
- 
+    
+
+
+    
+
+
 =head2 NOTES 
 
     Defaults are to have DIR1=DIR2 but these can be overridden by the alternatives
-    The input and output default directories is [$PL_SEISMIC]
-    The list is expected to be found also in [$PL_SEISMIC]
+    The input and output default directories is $PL_SEISMIC
+    The list is expected to be found also in $PL_SEISMIC
     Internally, the data_type can be mute, velan 
     If data_type = mute or velan then the concatenated output file
     will automatically be reformatted for input into
@@ -145,7 +150,6 @@ my $inbound_directory;
 my ( @ref_array, @sucat );
 my $ref_array;
 my $num_cdps;
-my ($DIR_IN,$DIR_OUT);
 
 =head2 2. Instantiate classes:
 
@@ -159,23 +163,29 @@ my $log        = new message();
 my $run        = new flow();
 my $sucat      = new sucat();
 my $read       = new readfiles();
+my $Sucat_spec = new Sucat_spec;
 
 my $get          = new L_SU_global_constants->new();
 my $Sucat_config = Sucat_config->new();
 
 =head2 Get configuration information
-and defaults defined herein for the location of the list file,
+Establish default variables using a *_spec file
+and defaults defined hereinf or the location of the list file;
 in PL_SEISMIC
 
 =cut
 
 my ( $CFG_h, $CFG_aref ) = $Sucat_config->get_values();
+my $Sucat_spec_variables = $Sucat_spec->variables();
 
+my $DATA_DIR_IN  = $Sucat_spec_variables->{_DATA_DIR_IN};
+my $DATA_DIR_OUT = $Sucat_spec_variables->{_DATA_DIR_OUT};
 my $PL_SEISMIC   = $Project->PL_SEISMIC;
-my $list_directory  = $PL_SEISMIC;
 
-# clear all the variables in sucat.pm
-$sucat->clear();
+$inbound_directory  = $DATA_DIR_IN;
+$outbound_directory = $DATA_DIR_OUT;
+my $list_directory = $PL_SEISMIC;
+
 $sucat->list_directory($list_directory);
 
 =head2 set global imported variables
@@ -216,36 +226,46 @@ $alternative_outbound_directory =
 
 $list      = $control->get_no_quotes($list);
 
-# print("1. Sucat.pl, list: $list\n\n");
+# print("Sucat.pl, list: $list\n\n");
+# print("Sucat.pl, list: $data_type\n\n");
 
-=header set up sucat
-
-=cut
-
-$sucat->first_file_number_in($first_file_number_in);
-$sucat->last_file_number_in($last_file_number_in);
-$sucat->number_of_files_in($number_of_files_in);
-$sucat->input_suffix($input_suffix);
-$sucat->input_name_prefix($input_name_prefix);
-$sucat->input_name_extension($input_name_extension);
-$sucat->output_file_name($output_file_name);
-$sucat->list_name($list);
-$sucat->alternative_inbound_directory($alternative_outbound_directory);
-$sucat->alternative_outbound_directory($alternative_outbound_directory);
-
-
-=head2
-the inbound and outbound directories can be overridden if there
-are alternative directory paths
+=head2 3. Consider compatible
+parameter inputs
 
 =cut
 
-$outbound_directory = $sucat->get_outbound_directory;
+# CASE 1: new inbound and or/outbound directories replace defaults
+if ( $alternative_outbound_directory ne $empty_string ) {
+	$outbound_directory = $alternative_outbound_directory;
+
+}
+elsif ( $alternative_outbound_directory eq $empty_string ) {
+	$outbound_directory = $PL_SEISMIC;
+
+}
+else {
+	print("Sucat.pl, unexpected alternative_outbound_directory  \n");
+}
+
+if ( $alternative_inbound_directory ne $empty_string ) {
+	$inbound_directory = $alternative_inbound_directory;
+
+}
+elsif ( $alternative_inbound_directory eq $empty_string ) {
+	$inbound_directory = $PL_SEISMIC;
+
+}
+else {
+	print("Sucat.pl, unexpected alternative_inbound_directory  \n");
+}
+
+# print("Sucat.pl,inbound_directory:---$inbound_directory--\n");
+# print("Sucat.pl,outbound_directory:---$outbound_directory--\n");
 
 =head2 3. Declare outout file names and their paths
 
   inbound and outbound directories
-  are defaulted but can be different
+  are  defaulted but can be different
 
 =cut
 
@@ -266,6 +286,22 @@ else {
 	print("Sucat.pl,unexpected empty string\n");
 }
 
+=header set up sucat
+
+=cut
+
+$sucat->clear();
+$sucat->first_file_number_in($first_file_number_in);
+$sucat->last_file_number_in($last_file_number_in);
+$sucat->number_of_files_in($number_of_files_in);
+$sucat->input_suffix($input_suffix);
+$sucat->input_name_prefix($input_name_prefix);
+$sucat->input_name_extension($input_name_extension);
+$sucat->output_file_name($output_file_name);
+$sucat->list($list);
+$sucat->list_directory($list_directory);
+$sucat->inbound_directory($inbound_directory);
+$sucat->outbound_directory($outbound_directory);
 
 =head2 4. create script to concatenate files
 files may use either a default directory
@@ -275,11 +311,8 @@ parameter inputs
 
 =cut
 
-# CASE 1 If there is a list
-# 1. we do not need numbers or other forms of names
-# 2. data type is determined automatically from names in the list
-# inside sucat.pm
-
+# CASE 1 If there is a list, we do not need numbers or
+# other forms of names
 if (    $list ne $empty_string
 	and $first_file_number_in eq $empty_string
 	and $last_file_number_in eq $empty_string
@@ -289,26 +322,26 @@ if (    $list ne $empty_string
 	and $input_name_extension eq $empty_string )
 {
 
-		print("2. Sucat.pl, list:---$list---\n");
-
+		# print("2. Sucat.pl, list:---$list---\n");
+		# print("2. Sucat.pl, list:---0:@$ref_array[0], 1:@$ref_array[1]\n");
+		# my $ans =scalar @$ref_array;
+		# print("2. Sucat.pl, num_rows---$ans, $num_rows\n");
 		my $inbound_list = $list_directory . '/' . $list;
 		( $ref_array, $num_cdps ) = $read->cols_1p($inbound_list);
-		# print("2. Sucat.pl, num_cdps $num_cdps\n");
 		$sucat->set_list_aref($ref_array);
 		$sucat->data_type();
 
-		# print("ref_array is num_cdps is $num_cdps\n\n");
+	# print("ref_array is num_cdps is $num_cdps\n\n");
 }
 
 # CASE 2 If there is no list but at least the first 3 file parameters exist
-# 1. data_type is not set
 elsif ( $list eq $empty_string
 	and $first_file_number_in ne $empty_string
 	and $last_file_number_in ne $empty_string
 	and $number_of_files_in ne $empty_string )
 {
 
-	# print("3. Sucat.pl, OK, empty list, NADA\n");
+	# print("3. Sucat.pl, OK, NADA\n");
 
 }
 else {
@@ -330,19 +363,19 @@ $sucat[1] = $sucat->Step();
 
 =cut
 
- @items = ( $sucat[1], $out, $outbound[1], $go );
+@items = ( $sucat[1], $out, $outbound[1], $go );
 
- $flow[1] = $run->modules( \@items );
+$flow[1] = $run->modules( \@items );
 
 =head2  B. RUN FLOW(S)
 
 =cut
 
- $run->flow( \$flow[1] );
+$run->flow( \$flow[1] );
 
 =head2 C. LOG FLOW(S)TO SCREEN AND FILE
 =cut
 
- print "$flow[1]\n";
+print "$flow[1]\n";
 
-# $log->file($flow[1]);
+#$log->file($flow[1]);

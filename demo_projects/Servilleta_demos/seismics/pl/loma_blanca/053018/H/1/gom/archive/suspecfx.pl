@@ -1,152 +1,157 @@
-=head2 SYNOPSIS
+#! /usr/bin/perl
+#
+use Moose;
 
- PACKAGE NAME: 
+# SCRIPT NAME
+# Suspecfk.pl
+# Purpose: f-x spectral analysis
+# Juan M. Lorenzo
+# Feb 18 2008
+# May 31, 2018 added Moose options
 
- AUTHOR:  
+  use Project;
 
- DATE:
+  my $Project	= Project->new();
 
- DESCRIPTION:
-
- Version:
-
-=head2 USE
-
-=head3 NOTES
-
-=head4 Examples
-
-=head2 SYNOPSIS
-
-=head3 SEISMIC UNIX NOTES
-
-=head2 CHANGES and their DATES
+=head2 Declare variables
 
 =cut
 
-	use Moose;
-	use SeismicUnix qw ($in $out $on $go $to $suffix_ascii $off $suffix_su);
-	use Project_config;
+ my @sufile_in;
+ my @flow;
+ my @title;
+ my (@sugain);
+ my @sufilter;
+ 
+ my @suxwigb;
+ my @suximage;
+ my @suwind;
+ my @inbound;
+ my @suspecfx;
 
-	my $Project = new Project_config();
+	
+# import system variables
+  my ($PL_SEISMIC)      = $Project->PL_SEISMIC();
+  my ($DATA_SEISMIC_SU) = $Project->DATA_SEISMIC_SU();
+  my ($date)            = $Project->date();
 
-	my $DATA_SEISMIC_SU = $Project->DATA_SEISMIC_SU;
+# sufile names
+#$sufile_in[1] 		= $date;
+ $sufile_in[1] 		= 'L28Hz_Ibeam';
+ $inbound[1]		= $DATA_SEISMIC_SU.'/'.$sufile_in[1].'.su';
 
-	use misc::message;
-	use misc::flow;
-	use misc::data_in;
-	use sunix::suspecfx;
-	use sunix::suximage;
+# print("$sufile_in[1]\n");
 
-	my $log					= new message();
-	my $run					= new flow();
-	my $data_in				= new data_in();
-	my $suspecfx				= new suspecfx();
-	my $suximage				= new suximage();
+# GAIN DATA
+	$sugain[1]  =  (" sugain 	            		\\
+		pbal=1				  		\\
+               ");
 
+# GAIN DATA
+	$sugain[2]  =  (" sugain 	            		\\
+		wagc=.2				  	\\
+		agc=1				  		\\
+               ");
 
-=head2 Declare
-
-	local variables
-
-=cut
-
-	my (@flow);
-	my (@items);
-	my (@data_in);
-	my (@suspecfx);
-	my (@suximage);
-
-=head2 Set up
-
-	data_in parameter values
-
-=cut
-
-	$data_in				->clear();
-	$data_in				->base_file_name(quotemeta('1000_clean'));
-	$data_in				->suffix_type(quotemeta('su'));
-	$data_in[1] 			= $data_in->Step();
-
-=head2 Set up
-
-	suspecfx parameter values
-
-=cut
-
-	$suspecfx				->clear();
-	$suspecfx[1] 			= $suspecfx->Step();
-
-=head2 Set up
-
-	suximage parameter values
-
-=cut
-
-	$suximage				->clear();
-	$suximage				->absclip(quotemeta(1));
-	$suximage				->cmap(quotemeta('hsv0'));
-	$suximage				->dx(quotemeta(1.0));
-	$suximage				->first_time_sample_value(quotemeta(0.0));
-	$suximage				->gridcolor(quotemeta('blue'));
-	$suximage				->labelcolor(quotemeta('blue'));
-	$suximage				->labelfont(quotemeta('Erg14'));
-	$suximage				->legend(quotemeta(1));
-	$suximage				->legendfont(quotemeta('times_roman10'));
-	$suximage				->lwidth(quotemeta(16));
-	$suximage				->lx(quotemeta(3));
-	$suximage				->picks(quotemeta('/dev/tty'));
-	$suximage				->num_minor_ticks_betw_time_ticks(quotemeta(1));
-	$suximage				->num_minor_ticks_betw_distance_ticks(quotemeta(1));
-	$suximage				->percent4clip(quotemeta(100.0));
-	$suximage				->plotfile(quotemeta('plotfile.ps'));
-	$suximage				->orientation(quotemeta('seismic'));
-	$suximage				->title(quotemeta('suximage'));
-	$suximage				->titlecolor(quotemeta('red'));
-	$suximage				->titlefont(quotemeta('Rom22'));
-	$suximage				->tmpdir(quotemeta('./'));
-	$suximage				->units(quotemeta('unit'));
-	$suximage				->verbose(quotemeta(1));
-	$suximage				->windowtitle(quotemeta('suximage'));
-	$suximage				->wperc(quotemeta(100.0));
-	$suximage				->box_X0(quotemeta(500));
-	$suximage				->box_Y0(quotemeta(500));
-	$suximage				->box_width(quotemeta(550));
-	$suximage				->box_height(quotemeta(550));
-	$suximage[1] 			= $suximage->Step();
-
-
-=head2 DEFINE FLOW(s) 
-
-
-=cut
-
-	 @items	= (
-		  $suspecfx[1], $in,
-		  $data_in[1], $to,
-		  $suximage[1],
-		  $go
-		  );
-	$flow[1] = $run->modules(\@items);
-
-
-=head2 RUN FLOW(s) 
-
-
-=cut
-
-	$run->flow(\$flow[1]);
+# FILTER  DATA
+	$sufilter[1] =  (" sufilter 	            		\\
+		   f=0,0,800,1000		\\
+               ");
 
 
 
-=head2 LOG FLOW(s)
+# WINDOW  DATA by time
+	$suwind[1] =  (" suwind 	            		\\
+		< $inbound[1]					\\
+		tmin=0   					\\
+		tmax=1  					\\
+               ");
 
-	to screen and FILE
+# WINDOW  DATA by traces 
+	$suwind[2] =  (" suwind 	            		\\
+		key=tracl   					\\
+		max=  					\\
+		min=  						\\
+               ");
 
-=cut
+# SPECTRAL FX ANALYSIS  
+	$suspecfx[1] =  (" suspecfx 	            		\\
+               ");
 
-	print $flow[1];
+# DISPLAY DATA
+	$title[1]	= 'spectrum f-x';
+	$suximage[1] =  (" suximage				\\
+		windowtitle=$sufile_in[1]				\\
+		title=$title[1]			\\
+		label1='Frequency (Hz)'				\\
+		label2='No. traces'				\\
+                legend=1					\\
+		n2tic=1 d2num=1				\\
+                wclip=0 bclip=15				\\
+		wbox=400 hbox=700 xbox=0 ybox=0			\\
+		");
 
-	$log->file($flow[1]);
+# DISPLAY DATA
+	$title[2] =	'4.5 Hz vertical geophones';
+
+	$suximage[2] =  (" suximage				\\
+		windowtitle=$sufile_in[1]				\\
+		title=$title[2]			\\
+		label1='Time (s)'				\\
+		label2='No. traces'				\\
+		n2tic=1 d2num=2 				\\
+                legend=1					\\
+		clip=10						\\
+		wbox=400 hbox=700 xbox=400 ybox=0		\\
+		");
+# DISPLAY DATA
+	$title[2] =	'';
+
+	$suxwigb[1] =  (" suxwigb				\\
+		windowtitle=$sufile_in[1]				\\
+		title=$title[2]			\\
+		label1='Time (s)'				\\
+		label2='No. traces'				\\
+		n2tic=1 d2num=2 				\\
+                legend=1					\\
+		clip=10						\\
+		wbox=400 hbox=700 xbox=400 ybox=0		\\
+		");
+
+#  DEFINE FLOW(S)
+	$flow[1] = (" 						\\
+		$suwind[1] | 					\\
+                $sufilter[1] |                                  \\
+		$sugain[2] | 					\\
+		$suximage[2]					\\
+		&						\\
+		");  	
+                #$sufilter[1] |                                  \\
+		#$sugain[2] | 					\\
+	$flow[2] = (" 						\\
+		$suwind[1] | 					\\
+		$suxwigb[1]					\\
+		&						\\
+		");  	
+                #$sufilter[1] |                                  \\
 
 
+#  DEFINE FLOW(S)
+	$flow[3] = (" 						\\
+		$suwind[1] | 					\\
+                $sufilter[1] |                                  \\
+		$suspecfx[1] | 					\\
+		$suximage[1]					\\
+		&						\\
+		");  	
+                #$sufilter[1] |                                  \\
+
+# RUN FLOW(S)
+       system $flow[1]; 
+       system 'echo', $flow[1];	
+
+       system $flow[2]; 
+       system 'echo', $flow[2];	
+
+       system $flow[3]; 
+       system 'echo', $flow[3];	

@@ -452,7 +452,7 @@ my @sunix_picks_programs = (
 
 );
 
-my @sunix_plot_programs = ( "pswigb", "pswigp", "supswigp", "suximage", "suxgraph", "suxwigb", "suxmovie", 
+my @sunix_plot_programs = ( "pswigb", "pswigp", "supswigb", "supswigp", "suximage", "suxgraph", "suxwigb", "suxmovie", 
 "xgraph", "ximage", "xmovie","xwigb", );
   
 =head2 Remaining to incorporate into L_SU
@@ -477,7 +477,6 @@ spsplot
 supscontour
 supscubecontour
 supscube
-supswigb
 supsgraph
 supsimage
 supsmax
@@ -497,7 +496,8 @@ xpicker
 xpsp
 =cut
 
-my @sunix_shapeNcut_programs = ( "sukill", "sumute", "sugain","sugprfb","susort", "suwind", "suxmax",);
+my @sunix_shapeNcut_programs = ( "sukill", "sumute", "sugain","sugprfb","susplit",
+"susort", "suwind", "suxmax",);
 
 my @sunix_statsMath_programs = (
 

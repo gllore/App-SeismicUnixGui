@@ -128,6 +128,7 @@ my $SuMessages         = new SuMessages();
 my $iSunmo             = new iSunmo();
 my $get                = new L_SU_global_constants();
 my $global_libs        = $get->global_libs();
+my $xk      			= new xk;
 
 =head2 Get configuration information
 
@@ -425,8 +426,8 @@ sub pick {
     refresh_Tvel_inbound();
     refresh_Tvel_outbound();
 
-    #xk::kill_this('suximage');
-    #xk::kill_this('suxwigb');
+    #$xk->kill_this('suximage');
+    #$xk->kill_this('suxwigb');
     message('pre_pick_velan');
     $iVA2->{_number_of_tries}++;
     semblance();
@@ -462,9 +463,9 @@ sub next {
 
     #print("Next CDP_NUM IS $iVA2->{_cdp_num}");
 
-    #xk::kill_this('suximage');
-    #xk::kill_this('suxwigb');
-    #xk::kill_this('xgraph');
+    #$xk->kill_this('suximage');
+    #$xk->kill_this('suxwigb');
+    #$xk->kill_this('xgraph');
     if ( $iVA2->{_cdp_num} > $iVA2->{_cdp_last} ) {
         exit();
     }
@@ -483,9 +484,9 @@ sub exit {
 
     print("Good bye.\n");
     print("Not continuing to next cdp\n");
-    xk::kill_this('suximage');
-    xk::kill_this('suxwigb');
-    xk::kill_this('xgraph');
+    $xk->kill_this('suximage');
+    $xk->kill_this('suxwigb');
+    $xk->kill_this('xgraph');
     exit(1);
 
 }
@@ -504,8 +505,8 @@ sub calc {
 
     #print("Calculating...\n");
 
-    #xk::kill_this('suximage');
-    #xk::kill_this('suxwigb');
+    #$xk->kill_this('suximage');
+    #$xk->kill_this('suxwigb');
     iWrite_All_iva_out();
     iVrms2Vint();
     icp_sorted2oldpicks();

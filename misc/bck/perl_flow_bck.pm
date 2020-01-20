@@ -231,13 +231,13 @@ sub parse {
  	use Project_config;
  	
 	my $param_sunix	= param_sunix -> new();
-	my $Project  	= $Project_config -> new(); 
+	my $Project  	= Project_config -> new(); 
 	
 	my $PL_SEISMIC	= $Project->PL_SEISMIC();
 	
  	my (@all_labels_aref2, @all_values_aref2,@check_buttons_settings_aref2);  # array of arrays
  	
- 	my ($PL_SEISMIC) 	= $Project->PL_SEISMIC();
+ 	# my ($PL_SEISMIC) 	= $Project->PL_SEISMIC();
 	$sunix_pl      	->set_perl_path($PL_SEISMIC);
 	$sunix_pl		->whole();
 	$sunix_pl		->set_progs_start_with('clear'); # 1st identifier

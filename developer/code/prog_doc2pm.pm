@@ -176,7 +176,7 @@ PROGRAM NAME:  prog_doc2pm.pm
 		
 		my @file_name;
 		my $list_aref;
-		my $path_in			= _get_path_in();
+		my $path_in				= _get_path_in();
 		my $directory 			= $prog_doc2pm->{_group_directory};
 		$prog_doc2pm->{_path} 	= $path_in.'/Stripped/'.$directory;
 		my $path				= $prog_doc2pm->{_path};
@@ -224,8 +224,9 @@ PROGRAM NAME:  prog_doc2pm.pm
 	if ( $prog_doc2pm->{_group_directory} ne $empty_string ) {
 
  		# my $path 	= '/usr/local/cwp_su_all_48/src/doc/Stripped';
-
-		my $path_in 			= '/usr/local/pl/developer';
+		my $L_SU_env =  $ENV{'L_SU'}; 
+		# print "prog_doc2pm, $L_SU_env\n"; 
+		my $path_in 			= $L_SU_env.'/developer';
 		# print("prog_doc2pm,_get_path_in = $path_in\n");		
 		return($path_in);
 
@@ -365,8 +366,10 @@ PROGRAM NAME:  prog_doc2pm.pm
  		# my $path 	= '/usr/local/cwp_su_all_48/src/doc/Stripped';
  		my $dir					= $prog_doc2pm->{_group_directory};
 
-		my $path_in 			= '/usr/local/pl/developer/Stripped'.'/'.$dir;
-		# print("prog_doc2pm,get_path_in = $path_out\n");		
+		my $L_SU_env =  $ENV{'L_SU'}; 
+		# print "prog_doc2pm,get_path_in, $L_SU_env\n"; 
+		my $path_in 			= $L_SU_env.'/developer/Stripped'.'/'.$dir;
+		# print("prog_doc2pm,get_path_in = $path_in\n");		
 		return($path_in);
 
 	} else { 
@@ -375,7 +378,30 @@ PROGRAM NAME:  prog_doc2pm.pm
 	}	
  } 
  
- 
+=head2 sub get_config_path_out
+
+
+=cut
+
+ sub get_config_path_out{
+
+	my ($self)		= @_;
+	
+	if ( $prog_doc2pm->{_group_directory} ne $empty_string ) {
+
+ 		# my $path 	= '/usr/local/pl/L_SU/configs';
+		my $dir					= $prog_doc2pm->{_group_directory};
+		my $L_SU_env =  $ENV{'L_SU'}; 
+		# print "prog_doc2pm, $L_SU_env\n"; 
+		my $path_out 			= $L_SU_env.'/configs'.'/'.$dir;
+		# print("prog_doc2pm,get_path_out = $path_out\n");		
+		return($path_out);
+
+	} else { 
+		print("prog_doc2pm, get_config_path_out missing directory,\n");
+		return();
+	}	
+  
  
   
 =head2 sub get_path_out
@@ -391,8 +417,10 @@ PROGRAM NAME:  prog_doc2pm.pm
 
  		# my $path 	= '/usr/local/cwp_su_all_48/src/doc/Stripped';
 		my $dir					= $prog_doc2pm->{_group_directory};
-		my $path_out 			= '/usr/local/pl/developer/Stripped'.'/'.$dir;
-		print("prog_doc2pm,get_path_out = $path_out\n");		
+		my $L_SU_env =  $ENV{'L_SU'}; 
+		# print "prog_doc2pm, $L_SU_env\n"; 
+		my $path_out 			= $L_SU_env.'/developer/Stripped'.'/'.$dir;
+		# print("prog_doc2pm,get_path_out = $path_out\n");		
 		return($path_out);
 
 	} else { 
@@ -450,7 +478,58 @@ PROGRAM NAME:  prog_doc2pm.pm
 	}
 	
  } 
-  	
+
+
+=head2 sub get_spec_path_out
+
+
+=cut
+
+ sub get_spec_path_out{
+
+	my ($self)		= @_;
+	
+	if ( $prog_doc2pm->{_group_directory} ne $empty_string ) {
+
+ 		# my $path 	= '/usr/local/pl/L_SU/specs';
+		my $dir					= $prog_doc2pm->{_group_directory};
+		my $L_SU_env =  $ENV{'L_SU'}; 
+		# print "prog_doc2pm, $L_SU_env\n"; 
+		my $path_out 			= $L_SU_env.'/specs'.'/'.$dir;
+		# print("prog_doc2pm,get_path_out = $path_out\n");		
+		return($path_out);
+
+	} else { 
+		print("prog_doc2pm, get_spec_path_out missing directory,\n");
+		return();
+	}
+
+
+=head2 sub get_sunix_path_out
+
+
+=cut
+
+ sub get_sunix_path_out{
+
+	my ($self)		= @_;
+	
+	if ( $prog_doc2pm->{_group_directory} ne $empty_string ) {
+
+ 		# my $path 	= '/usr/local/pl/L_SU/sunix';
+		my $dir					= $prog_doc2pm->{_group_directory};
+		my $L_SU_env =  $ENV{'L_SU'}; 
+		# print "prog_doc2pm, $L_SU_env\n"; 
+		my $path_out 			= $L_SU_env.'/sunix'.'/'.$dir;
+		# print("prog_doc2pm,get_path_out = $path_out\n");		
+		return($path_out);
+
+	} else { 
+		print("prog_doc2pm, get_sunix_path_out missing directory,\n");
+		return();
+	}
+
+
 =head2 sub set_group_directory 
 
 
