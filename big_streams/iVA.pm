@@ -12,7 +12,6 @@ package iVA;
          July 15 2015
          Aug 18 2016
          Jan 7 2017
-	 Jan 13, 2020
 
  DESCRIPTION: 
  Version: 1.0
@@ -140,6 +139,7 @@ my $var          = $get->var();
 my $empty_string = $var->{_empty_string};
 
 =head2 Get configuration information
+from gui
 
 =cut 
 
@@ -167,7 +167,7 @@ $iVA->{_base_file_name} = $control->get_ticksBgone();
 $control->set_infection( $iVA->{_freq} );
 $iVA->{_freq} = $control->get_ticksBgone();
 
-# print("file name --without su extension -- is $iVA->{_base_file_name}\n\n");
+print("1. iVA, file name --without su extension -- is $iVA->{_base_file_name}\n\n");
 
 # get data scale from headers of the sunix data file
 $iVA->{_data_scale} = _get_data_scale();
@@ -232,132 +232,35 @@ get scalco or scalel from file header
 
 sub _get_data_scale {
 	my ($self) = @_;
+	use header_values;
+
+=head2 instantiate class
+
+=cut
+
+	my $header_values = header_values->new();
+
 	if ( defined $iVA->{_base_file_name}
 		&& $iVA->{_base_file_name} ne $empty_string )
 	{
-
-=head2 Declare
-
-	import and instantiate classes
-
-=cut
-
-		use Project_config;
-		use message;
-		use flow;
-		use surange;
-		use SeismicUnix
-			qw ($in $out $on $go $to $suffix_ascii $off $suffix_su $suffix_bin);
-
-		my $log     = new message;
-		my $run     = flow->new();
-		my $surange = surange->new();
-
-=head2 Declare
-
-	local variables
-
-=cut
-
-		my (@flow);
-		my (@items);
-		my (@data_in);
-		my (@surange);
-		my $Project         = new Project_config();
-		my $DATA_SEISMIC_SU = $Project->DATA_SEISMIC_SU;
-
-=head2 Set up
-
-	data_in parameter values
-
-=cut
-
-		$data_in[1] =
-			$DATA_SEISMIC_SU . '/' . $iVA->{_base_file_name} . $suffix_su;
-
-=head2 Set up
-
-	surange parameter values
-
-=cut
-
-		$surange->clear();
-		$surange->key( quotemeta('scalel') );
-		$surange[1] = $surange->Step();
-
-=head2 DEFINE FLOW(s) 
-
-=cut
-
-		@items = ( $surange[1], $in, $data_in[1], $go );
-
-=head2 RUN FLOW(s) and Capture output (with backticks) from the system
-
-=cut
-
-		my @values = `@items`;
-
-=head2 parse output to obtain header value
-
-=cut 		
-
-		my $result;
-		my $scale = $values[1];
-
-		# print ("values[1]:$values[1]\n");
-		if ( defined $scale ) {
-			print("values[1]:$values[1]\n");
-
-			if (   $scale == 0
-				or $scale eq $empty_string )
-			{
-				$result = 1;
-				print("iVA, _get_data_scale, scale=$result... \n");
-				return ($result);
-
-			}
-			else {
-
-				$scale =~ s/dt\s*//;
-				chomp($scale);
-				print("scale:$scale....\n");
-
-				if ( $scale > 0 ) {
-
-					# 10, 100 stays as 10, 100
-					$result = $scale;
-					print("iVA, _get_data_scale, scale=$result... \n");
-					return ($result);
-
-				}
-				elsif ( ( $scale < 0 ) ) {
-
-					# -10, -100 becomes .1, .01
-					$result = 1 / $scale;
-					print("iVA, _get_data_scale, scale=$result... \n");
-					return ($result);
-
-				}
-
-			}
-
-		}
-		else {
-			$result = 1;
-			print("iVA, _get_data_scale, data_scale = 1:1\n");
-			return ($result);
-		}
-
-=head2 LOG FLOW(s)
-
-	to screen
-
-=cut
-
-		print @items;
-
+		$header_values->set_base_file_name( $iVA->{_base_file_name} );
+		$header_values->set_header_name('scalel');
+		my $data_scale = $header_values->get_number();
+		
+		my $result     = $data_scale;
+		print("2. iVA, _get_data_scale, data_scale = $data_scale\n");
+		return($result);
+		
+	} else {
+		
+		my $data_scale = 1;
+		my $result     = $data_scale;
+		print("iVA, _get_data_scale, data_scale = 1:1\n");
+		return ($result);
+		
 	}
 }
+
 
 =head2 subroutine  set_message
 
@@ -387,7 +290,7 @@ sub _message {
 
 	if ($instructions) {
 		$iVA->{_instructions} = $instructions
-			if defined($instructions);
+		  if defined($instructions);
 		$SuMessages->instructions( $iVA->{_instructions} );
 
 		#print("Instructions are $iVA->{_instructions} \n\n");
@@ -402,7 +305,7 @@ sub _message {
 
 sub refresh_Tvel_outbound {
 	$iVA->{_textfile_out} =
-		'ivpicks_' . $iVA->{_base_file_name} . $iVA->{_cdp_num_suffix};
+	  'ivpicks_' . $iVA->{_base_file_name} . $iVA->{_cdp_num_suffix};
 	$iVA->{_Tvel_outbound} = $PL_SEISMIC . '/' . $iVA->{_textfile_out};
 
 	#print("output file is $iVA->{_Tvel_outbound} \n\n");
@@ -416,7 +319,7 @@ sub refresh_Tvel_outbound {
 
 sub refresh_Tvel_inbound {
 	$iVA->{_textfile_in} =
-		'ivpicks_old' . '_' . $iVA->{_base_file_name} . $iVA->{_cdp_num_suffix};
+	  'ivpicks_old' . '_' . $iVA->{_base_file_name} . $iVA->{_cdp_num_suffix};
 	$iVA->{_Tvel_inbound} = $PL_SEISMIC . '/' . $iVA->{_textfile_in};
 }
 
@@ -436,7 +339,7 @@ sub old_data {
 	my ( $variable, $old_data ) = @_;
 	my $ans;
 
-	#print("variable and old_data $variable, $old_data\n\n");
+	# print("variable and old_data $variable, $old_data\n\n");
 	#switches old data of velan type
 	if ($old_data) {
 		$iVA->{_type} = $old_data;
@@ -446,34 +349,34 @@ sub old_data {
 			cdp_num_suffix( $iVA->{_cdp_num} );
 
 			$iVA->{_textfile_in} =
-				  'ivpicks_old' . '_'
-				. $iVA->{_base_file_name}
-				. $iVA->{_cdp_num_suffix};
+			    'ivpicks_old' . '_'
+			  . $iVA->{_base_file_name}
+			  . $iVA->{_cdp_num_suffix};
 
 			if ($PL_SEISMIC) {
 				$iVA->{_Tvel_inbound} =
-					$PL_SEISMIC . '/' . $iVA->{_textfile_in};
+				  $PL_SEISMIC . '/' . $iVA->{_textfile_in};
 				$ans = $test->does_file_exist( \$iVA->{_Tvel_inbound} );
 
 				if (   $iVA->{_base_file_name}
 					&& $iVA->{_cdp_num_suffix} )
 				{
 					$iVA->{_textfile_out} =
-						  'ivpicks_'
-						. $iVA->{_base_file_name}
-						. $iVA->{_cdp_num_suffix};
+					    'ivpicks_'
+					  . $iVA->{_base_file_name}
+					  . $iVA->{_cdp_num_suffix};
 					$iVA->{_Tvel_outbound} =
-						$PL_SEISMIC . '/' . $iVA->{_textfile_out};
+					  $PL_SEISMIC . '/' . $iVA->{_textfile_out};
 				}
 			}
 
-			#print("TV in is $iVA->{_Tvel_inbound}\n\n");
+			# print("TV in is $iVA->{_Tvel_inbound}\n\n");
 			#print("TV out is $iVA->{_Tvel_outbound}\n\n");
 
 			if ($ans) {
 				print("Old picks already exist.\n");
 				print(
-					"Delete \(\"rm \*old\*\"\)or Save old picks, and then restart\n\n"
+"Delete \(\"rm -rf \*old\*\"\)or Save old picks, and then restart\n\n"
 				);
 				exit;
 			}
@@ -642,7 +545,7 @@ sub exit {
 
 sub calc {
 
-	# print("iVA, calc, Calculating...\n");
+	print("iVA, calc, Calculating...\n");
 
 	#$xk->kill_this('suximage');
 	#$xk->kill_this('suxwigb');
@@ -650,6 +553,7 @@ sub calc {
 	iVrms2Vint();
 	icp_sorted2oldpicks();
 	iVpicks2par();
+	print("iVA, calc, Calculating...\n");
 	iSunmo();
 	$iVA->{_number_of_tries}++;
 	_message('post_pick_velan');
@@ -696,15 +600,12 @@ sub icp_sorted2oldpicks {
 	# sort file names
 	$sortfile_in[1] = $vpicks_in[1];
 	$inbound[1] =
-		$PL_SEISMIC . '/' . $sortfile_in[1] . '_' . $sufile_in[1] . $suffix[3];
+	  $PL_SEISMIC . '/' . $sortfile_in[1] . '_' . $sufile_in[1] . $suffix[3];
 
 	# Velocity write file names
 	$writefile_out[1] = $vpicks_out[1];
 	$outbound[1] =
-		  $PL_SEISMIC . '/'
-		. $writefile_out[1] . '_'
-		. $sufile_in[1]
-		. $suffix[3];
+	  $PL_SEISMIC . '/' . $writefile_out[1] . '_' . $sufile_in[1] . $suffix[3];
 
 	#  DEFINE FLOW(S)
 	$flow[1] = (
@@ -756,16 +657,22 @@ sub iVrms2Vint {
 =cut
 
 sub iVpicks2par {
+	
+	my ($self) = @_;
 
 	$iVpicks2par->file_in( $iVA->{_base_file_name} )
-		;    # only if internal ticks have been removed
+	  ;    # only if internal ticks have been removed
 	$iVpicks2par->cdp_num( $iVA->{_cdp_num} );
 	$iVpicks2par->flows();
 
 }
 
 sub iSunmo {
-
+	
+	my ($self) = @_;
+	
+	print(" iVA, iSunmo base_file_name=$iVA->{_base_file_name}\n\n");
+	
 	$iSunmo->file_in( $iVA->{_base_file_name} );
 	$iSunmo->cdp_num( $iVA->{_cdp_num} );
 	$iSunmo->freq( $iVA->{_freq} );

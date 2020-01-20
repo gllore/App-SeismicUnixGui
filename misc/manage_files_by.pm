@@ -1,5 +1,6 @@
 package manage_files_by;
 
+
 # manage_files_by  class
 # Contains methods/subroutines/functions to operate on directories
 # V 1. March 3 2008
@@ -233,12 +234,12 @@ sub read_mute_par {
 	}
 	close(FILE);
 
-	#     print("\n number of rows is $row\n\n");
+	     print("\n number of rows is $row\n\n");
 
-	#     for ($i=0; $i<$row;$i++) {
-	#          print("\n row $i contains $Items[$i]");
-	#         print(" i.e., $numberOfValues[$i] values\n");
-	#     }
+	     for ($i=0; $i<$row;$i++) {
+	          print("\n row $i contains $Items[$i]");
+	         print(" i.e., $numberOfValues[$i] values\n");
+	     }
 
 	return ( \@Items, \@numberOfValues );
 
@@ -278,7 +279,7 @@ sub read_par {
 
 	while ( $line = <FILE> ) {
 
-		# print("manage_files_by,read_par, $line");
+	# print("manage_files_by,read_par, $line");
 
 =pod
 
@@ -299,6 +300,7 @@ sub read_par {
 	return ( \@Items, \@ValuesPerRow );
 
 }
+
 
 sub read_2cols_sugethw {
 

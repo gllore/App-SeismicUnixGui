@@ -1,6 +1,7 @@
 package iVpicks2par;
 
 use Moose;
+use L_SU_global_constants;
 use iWrite_All_iva_out;
 use manage_files_by2;
 
@@ -60,6 +61,7 @@ VELAN DATA
 my $iVpicks2par = {
     _cdp_num => '',
     _file_in => '',
+    _base_file_name => '',
 };
 
 =pod =head3
@@ -72,6 +74,11 @@ use SeismicUnix qw ($on $off $in $to $go);
 use Project_config;
 my $Project = new Project_config();
 my ($PL_SEISMIC) = $Project->PL_SEISMIC();
+
+
+my $get = new L_SU_global_constants();
+my $var          = $get->var();
+my $empty_string = $var->{_empty_string};
 
 =pod
 
@@ -91,10 +98,12 @@ my $test               = new manage_files_by2();
 sub clear {
     $iVpicks2par->{_cdp_num} = '';
     $iVpicks2par->{_file_in} = '';
+    $iVpicks2par->{_base_file_name}   = '';
 }
 my ( @suffix,      @file_in,  @sortfile_in, @inbound );
 my ( @parfile_out, @outbound, @sort,        @mkparfile );
 my (@flow);
+
 
 =pod
 
@@ -148,12 +157,13 @@ sub flows {
     $parfile_out[1] = 'ivpicks_sorted_par_' . $file_in[1] . $suffix[1];
     $outbound[1]    = $PL_SEISMIC . '/' . $parfile_out[1];
 
+	# my $data_scale = _get_data_scale();
+	# print("2. iVpicks2par, data_scale = $data_scale\n");
+
+# 		| awk '{print $1, $2* ${data_scale} }'	
     # SORT a TEXT FILE
-    $sort[1] = (
-        " sort 			\\
-		-n								\\
-		"
-    );
+    $sort[1] = q(
+        sort -n	);
 
     # CONVERT TEXT FILE TO PAR FILE
     $mkparfile[1] = (
@@ -178,8 +188,9 @@ sub flows {
     # RUN FLOW(S)
     system $flow[1];
 
-    #       system 'echo', $flow[1];
+    # system 'echo', $flow[1];
 }
+
 
 #end flows
 # following line returns a "true" logical value to the program
