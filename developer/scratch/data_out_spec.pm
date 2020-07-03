@@ -23,6 +23,7 @@ package data_out_spec;
 	my $max_index           = $data_out->get_max_index();
 	
 	my $data_out_spec = {
+	_CONFIG					=> 'Nada'
 	_DATA_DIR_IN		    => $DATA_SEISMIC_SU,
 	_DATA_DIR_OUT		    => $DATA_SEISMIC_SU,
 	_binding_index_aref	    => '',

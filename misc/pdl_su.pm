@@ -683,7 +683,7 @@ sub _su2pdl {
 # print("pdl_su,_su2pdl,inbound= $inbound \n");
 # print("pdl_su,_su2pdl,size=$size Bytes,ntr=$ntr dt=$dt ns=$ns bytes_per_sample=$bytes_per_sample\n");
 # anonymous list
-#build a trace - X and time -vertical array
+# build a trace - X and time -vertical array
         my $header = [
             {
                 Type  => 'float',

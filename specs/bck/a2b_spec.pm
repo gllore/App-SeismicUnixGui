@@ -25,10 +25,11 @@ my $DATA_SEISMIC_TXT = $Project->DATA_SEISMIC_TXT();
 my $PL_SEISMIC       = $Project->PL_SEISMIC();
 my $max_index        = $a2b->get_max_index();
 
-my $a2b_spec = {
+my $a2b_spec =  {
+    _CONFIG	 				=> 'Nada',
     _DATA_DIR_IN           => $PL_SEISMIC,
     _DATA_DIR_OUT          => $PL_SEISMIC,
-    _binding_index_aref    => '',
+	_binding_index_aref    => '',
     _suffix_type_in        => $suffix_txt,
     _data_suffix_in        => $suffix_txt,
     _suffix_type_out       => $bin,

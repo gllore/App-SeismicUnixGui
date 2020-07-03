@@ -20,12 +20,14 @@ my $file_dialog_type = $get->file_dialog_type_href();
 my $flow_type        = $get->flow_type_href();
 
 my $PL_SEISMIC = $Project->PL_SEISMIC();     # parfile data directory
+my $DATA_SEISMIC_SU = $Project->DATA_SEISMIC_SU; # seismic data directory
 my $max_index  = $sumute->get_max_index();
 
-my $sumute_spec = {
-    _DATA_DIR_IN           => $PL_SEISMIC,
-    _DATA_DIR_OUT          => $PL_SEISMIC,
-    _binding_index_aref    => '',
+my $sumute_spec =  {
+    _CONFIG	 				=> $PL_SEISMIC,
+    _DATA_DIR_IN           => $DATA_SEISMIC_SU,
+	_DATA_DIR_OUT          => $DATA_SEISMIC_SU,
+	_binding_index_aref    => '',
     _suffix_type_in        => $su,
     _data_suffix_in        => $suffix_su,
     _suffix_type_out       => $su,
@@ -57,6 +59,8 @@ my $sumute_spec = {
 	to a callback via a mouse-click
 	array of indices with an associated binding
 	
+	
+	
 =cut
 
 sub binding_index_aref {
@@ -65,16 +69,38 @@ sub binding_index_aref {
 
     my @index;
 
-    $index[0] = 7;    # eighth item is bound to $PL_SEISMIC
+	# item is  bound to PL_SEISMIC, perl Flow directory
+    $index[0] = 4; # multi_gather_par_file
+    	# item is  bound to PL_SEISMIC, perl Flow directory
+    $index[1] = 5; # multi_gather_su_file
+    
+ 	# item is  bound to PL_SEISMIC, perl Flow directory   
+    # $index[1] = 8; # eighth item is bound to $PL_SEISMIC
+    
+	# item is  bound to PL_SEISMIC, perl Flow directory    
+    $index[2] = 9; # par_file|parfile|par
+    
+	# item is  bound to PL_SEISMIC, perl Flow directory    
+    $index[3] = 10; # tfile
+    
+	# item is  bound to PL_SEISMIC, perl Flow directory    
+    $index[4] = 14;# xfile     
 
     $sumute_spec->{_binding_index_aref} = \@index;
     return ();
 
 }
 
-=head2  sub file_dialog_type_aref
+=head2 sub file_dialog_type_aref
 
 type of dialog (Data, Flow, SaveAs) is needed by binding
+one type of dialog for each index
+
+'Path' -  can go anywhere
+but starts by going to $PL_SEISMICS directory
+
+type of dialog (Data, Flow, SaveAs) is needed 
+for binding
 one type of dialog for each index
 
 =cut
@@ -84,10 +110,12 @@ sub file_dialog_type_aref {
     my ($self) = @_;
 
     my @type;
-
-    $type[0] = $file_dialog_type->{_Data};
-
-    # $type[1]	= $file_dialog_type->{_Flow};  # test
+    $type[0] = $file_dialog_type->{_Data_PL_SEISMIC};
+    $type[1] = $file_dialog_type->{_Data};
+    # $type[1] = $file_dialog_type->{_Path};
+    $type[2] = $file_dialog_type->{_Data_PL_SEISMIC};  
+    $type[3] = $file_dialog_type->{_Data_PL_SEISMIC};
+    $type[4] = $file_dialog_type->{_Data_PL_SEISMIC};
 
     $sumute_spec->{_file_dialog_type_aref} = \@type;
     return ();

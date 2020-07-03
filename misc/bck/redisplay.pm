@@ -1,7 +1,7 @@
 package redisplay;
 
 use Moose;
-my ($first,$last,$all);
+my ( $first, $last, $all );
 my $true  = 1;
 my $false = 0;
 
@@ -9,22 +9,22 @@ my $false = 0;
 
 =cut
 
- my $entries = {
-    _max_entry_num    			=> '',
-    _first_entry_num  			=> '',
-    _final_entry_num  			=> '',
-    _prev_final_entry_num 		=> '',
-    _changed_index			=> '',
- };
+my $entries = {
+    _max_entry_num        => '',
+    _first_entry_num      => '',
+    _final_entry_num      => '',
+    _prev_final_entry_num => '',
+    _changed_index        => '',
+};
 
- my $LSU = {
-    _ref_labels_w  			=> '',
-    _ref_values_w  			=> '',
-    _ref_param_value_button_variable  	=> '', 
-    _ref_param_value_button           	=> '', 
-    _entry_array_ref			=> '',
-    _file 				=> '',
-  };
+my $LSU = {
+    _ref_labels_w                    => '',
+    _ref_values_w                    => '',
+    _ref_param_value_button_variable => '',
+    _ref_param_value_button          => '',
+    _entry_array_ref                 => '',
+    _file                            => '',
+};
 
 =head2 sub file 
 
@@ -35,7 +35,7 @@ my $false = 0;
 =cut
 
 sub file {
-  my ($self, $hash_ref) = @_;
+    my ( $self, $hash_ref ) = @_;
 }
 
 =head2 sub range
@@ -51,13 +51,13 @@ sub file {
 
 =cut
 
- sub range {
-   my ($self,$ref_hash) = @_;
-   $entries     	= $ref_hash;
-   $first  		=  ($entries->{_first_entry_num})-1;
-   $last   		=  $entries->{_final_entry_num};
-   $all    		=  $entries->{_max_entry_num};
- };
+sub range {
+    my ( $self, $ref_hash ) = @_;
+    $entries = $ref_hash;
+    $first   = ( $entries->{_first_entry_num} ) - 1;
+    $last    = $entries->{_final_entry_num};
+    $all     = $entries->{_max_entry_num};
+}
 
 =head2 sub
 
@@ -70,19 +70,17 @@ sub file {
 
 =cut
 
- sub labels {
-   my ($self,$label_array_ref, $ref_label_w)     = @_;
+sub labels {
+    my ( $self, $label_array_ref, $ref_label_w ) = @_;
 
-  if($label_array_ref) {
-    $LSU->{_label_array_ref} = $label_array_ref;
-    for (my $i = $first; $i < $last; $i++) {
-      @$ref_label_w[$i]->configure(
-		-text 	=> @$label_array_ref[$i],
-      );
+    if ($label_array_ref) {
+        $LSU->{_label_array_ref} = $label_array_ref;
+        for ( my $i = $first ; $i < $last ; $i++ ) {
+            @$ref_label_w[$i]->configure( -text => @$label_array_ref[$i], );
+        }
+        return ();
     }
-    return();
-  }
- }
+}
 
 =head2 sub values 
 
@@ -99,34 +97,32 @@ sub file {
 
 =cut 
 
- sub values {
-  my ($self,$entry_array_ref,$ref_entry_w)     	= @_;
-  if ($entry_array_ref) {
-    $LSU->{_entry_array_ref} 		= $entry_array_ref;
+sub values {
+    my ( $self, $entry_array_ref, $ref_entry_w ) = @_;
+    if ($entry_array_ref) {
+        $LSU->{_entry_array_ref} = $entry_array_ref;
 
-    for (my $i = $first; $i < $last; $i++) {
-       @$ref_entry_w[$i]->configure(
-		-textvariable 			=> \@{$LSU->{_entry_array_ref}}[$i],
- 	        -validate			=> 'focusout',
- 	        -validatecommand		=> [\&new_entry,$i],
-	        -invalidcommand      		=> \&error_check,
-        )     
+        for ( my $i = $first ; $i < $last ; $i++ ) {
+            @$ref_entry_w[$i]->configure(
+                -textvariable    => \@{ $LSU->{_entry_array_ref} }[$i],
+                -validate        => 'focusout',
+                -validatecommand => [ \&new_entry, $i ],
+                -invalidcommand  => \&error_check,
+            );
+        }
     }
-  }
- }
+}
 
 =head2 sub collect_new_values
 
 
 =cut
 
-
 sub collect_new_entry_values {
 
- return(\@{$LSU->{_entry_array_ref}});
+    return ( \@{ $LSU->{_entry_array_ref} } );
 
 }
-
 
 =head2 sub new_entry 
 
@@ -153,13 +149,14 @@ sub collect_new_entry_values {
 
 =cut
 
- sub new_entry {
-   my ($index) = @_;
-   $entries->{_index} = $index;
- #print("redisplay,new_entry,new_entry_index is  $index\n");
- #print("redisplay,new_entry,new_entry is @{$LSU->{_entry_array_ref}}[$index]\n");
-   return($true);
- } 
+sub new_entry {
+    my ($index) = @_;
+    $entries->{_index} = $index;
+
+#print("redisplay,new_entry,new_entry_index is  $index\n");
+#print("redisplay,new_entry,new_entry is @{$LSU->{_entry_array_ref}}[$index]\n");
+    return ($true);
+}
 
 =head2 sub error_check
 
@@ -171,12 +168,11 @@ sub collect_new_entry_values {
 =cut
 
 sub error_check {
- my $entry_value_ref 	= $entries->{_index}  ;
- #print("Index is  $$entry_value_ref\n");
- return($true);
+    my $entry_value_ref = $entries->{_index};
+
+    #print("Index is  $$entry_value_ref\n");
+    return ($true);
 }
-
-
 
 =head2 sub
 
@@ -187,19 +183,19 @@ sub error_check {
 
 =cut
 
-  sub checkbuttons {
-    my ($self, $ref_button,$ref_variable)    	= @_;
+sub checkbuttons {
+    my ( $self, $ref_button, $ref_variable ) = @_;
     my $i;
 
-    if(defined($ref_button)) {
-      for ($i= $first; $i < $last; $i++) { 
-        @$ref_button[$i]->configure(
+    if ( defined($ref_button) ) {
+        for ( $i = $first ; $i < $last ; $i++ ) {
+            @$ref_button[$i]->configure(
                 -background       => 'red',
                 -activebackground => 'red',
                 -variable         => \@$ref_variable[$i],
-	);
-      }
-     return();
-   }
-  }
+            );
+        }
+        return ();
+    }
+}
 1;

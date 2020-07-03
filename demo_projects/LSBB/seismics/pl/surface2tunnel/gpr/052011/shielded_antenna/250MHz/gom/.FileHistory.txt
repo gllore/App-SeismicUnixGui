@@ -1,0 +1,6 @@
+/home/gom/LSBB/seismics/data/surface2tunnel/gpr/052011/shielded_antenna/250MHz/su/gom/LSBB1-1.su
+/home/gom/LSBB/seismics/pl/surface2tunnel/gpr/052011/shielded_antenna/250MHz/gom/a
+/home/gom/LSBB/seismics/pl/surface2tunnel/gpr/052011/shielded_antenna/250MHz/gom/view2
+/home/gom/LSBB/seismics/pl/surface2tunnel/gpr/052011/shielded_antenna/250MHz/gom/view
+/home/gom/LSBB/seismics/pl/surface2tunnel/gpr/052011/shielded_antenna/250MHz/gom/range
+/home/gom/LSBB/seismics/data/surface2tunnel/gpr/052011/shielded_antenna/250MHz/su/gom/junk.su

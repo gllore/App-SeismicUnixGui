@@ -42,13 +42,29 @@ use Moose;
 
 =cut
 
+
+=head2 Private anonymous hash 
+sharable by methods
+
+=cut
+
+my $manage_files_by2 = {
+	
+	
+};
+
+
+=head2 sub does_file_exist
+
+=cut
+
 sub does_file_exist {
 
 	my ( $does_file_exist, $ref_file ) = @_;
 
 	$does_file_exist->{ref_file} = $$ref_file if defined($ref_file);
 
-	# print("file name is, $$ref_file\n");
+	# print("manage_files_by2,does_file_exist,file name is, $$ref_file\n");
 
 	# default situation is to have a file non-existent
 	my $answer = 0;
@@ -58,12 +74,12 @@ sub does_file_exist {
 	# print("plain file for test is $$ref_file\n\n");
 	if ( -f $does_file_exist->{ref_file} ) {
 
-		#print  ("file existence verified\n\n") ;
+		# print  ("manage_files_by2,does_file_exist,file existence verified\n\n") ;
 		$answer = 1;
 	}
 
 	#	answer=1 if existent and =0 if non-existent
-	#verified by JL
+	# verified by JL
 	return ($answer);
 }
 
@@ -75,7 +91,7 @@ sub does_file_exist_sref {
 
 		my $file = $$ref_file;
 
-	# print("manage_files_by2,does_file_exist_sref,file name is, $$ref_file\n");
+		# print("manage_files_by2,does_file_exist_sref,file name is, $$ref_file\n");
 
 		# default situation is to have a file non-existent
 		my $answer = 0;
@@ -93,12 +109,13 @@ sub does_file_exist_sref {
 		#	answer=1 if existent and =0 if non-existent
 		#verified by JL
 		return ($answer);
-	}
-	else {
+	} else {
 		print("does_file_exist_sref, ref_file is missing\n");
 	}
 
 }
+
+
 
 =pod sub unique_elements
 
@@ -124,36 +141,35 @@ sub unique_elements {
 
 		# print("manage_files_by2, program in flow: @{$array_ref}[0]\n");
 
-		for ( my $i = 1 ; $i < $total_num_progs4flow ; $i++ ) {
+		for ( my $i = 1; $i < $total_num_progs4flow; $i++ ) {
 
-		# print("manage_files_by2, program in flow: @{$array_ref}[$i]\n");
-		# print ("1. manage_files_by2, num_unique_progs=$num_unique_progs\n\n");
-			for ( my $j = 0 ; $j < $num_unique_progs ; $j++ ) {
+			# print("manage_files_by2, program in flow: @{$array_ref}[$i]\n");
+			# print ("1. manage_files_by2, num_unique_progs=$num_unique_progs\n\n");
+			for ( my $j = 0; $j < $num_unique_progs; $j++ ) {
 
 				if ( $unique_progs[$j] eq @{$array_ref}[$i] ) {
 
-			# print("program index in flow=$i\n");
-			# print(" 1. manage_files_by2,repeated program detected \n");
-			# print("manage_files_by2, prog_ repeated: @{$array_ref}[]$i]\n\n");
+					# print("program index in flow=$i\n");
+					# print(" 1. manage_files_by2,repeated program detected \n");
+					# print("manage_files_by2, prog_ repeated: @{$array_ref}[]$i]\n\n");
 					$seen = $true;
 
 					# exit if-loop and increment $j
-				}
-				else {
-	  # print("program index in flow=$i\n");
-	  # print("manage_files_by2, prog @{array_ref}[]$i] is unique\n\n");
-	  # print ("2. manage_files_by2,unique_prog detected=@{$array_ref}[$i] \n");
+				} else {
+
+					# print("program index in flow=$i\n");
+					# print("manage_files_by2, prog @{array_ref}[]$i] is unique\n\n");
+					# print ("2. manage_files_by2,unique_prog detected=@{$array_ref}[$i] \n");
 					$seen = $false;
 				}
 			}
 
 			if ($seen) {
 				$seen = $false;    #reset for next check
-			}
-			else {
+			} else {
 				push @unique_progs, @{$array_ref}[$i];
 
-		 # print(" 1. manage_files_by2,unique new program found for output \n");
+				# print(" 1. manage_files_by2,unique new program found for output \n");
 				$num_unique_progs++;
 			}
 
@@ -165,8 +181,7 @@ sub unique_elements {
 		$results_ref = \@unique_progs;
 		return ($results_ref);
 
-	}
-	else {
+	} else {
 		print("manage_files_by2,unique_elements, missing array\n");
 		return ();
 
@@ -227,8 +242,9 @@ sub read_2cols {
 =head2 sub read_par
 
  read parameter file
- file name is a scalar reference to 
- scalar file name
+ file name is a scalar reference (to 
+ scalar file name)
+ o/p includes array of array references
 
 =cut 
 
@@ -236,7 +252,7 @@ sub read_par {
 
 	my ( $self, $ref_file_name ) = @_;
 
-# print ("\nmanage_files_by2,read_par,The input file is called $$ref_file_name\n");
+	# print ("\nmanage_files_by2,read_par, The input file is called $$ref_file_name\n");
 
 =pod Steps
 
@@ -276,19 +292,90 @@ sub read_par {
 
 		chomp($line);
 		@things = split /[=,]/, $line;
-		print("manage_files_by2,read_par, things=@things, row= $row\n");
+
+		# print("manage_files_by2,read_par, things=@things, row= $row\n");
 		$Items[$row]        = \@things;
 		$ValuesPerRow[$row] = scalar(@things);
 
-# print("manage_files_by2,read_par, ValuesPerRow=$ValuesPerRow[$row], row=$row\n");
+		# print("manage_files_by2,read_par, ValuesPerRow=$ValuesPerRow[$row], row=$row\n");
 
 	}
 	close(FILE);
 
-# print("manage_files_by2,read_par, ROW 0 $Items[0] \n");
-# print("manage_files_by2,read_par, ROW 1 $Items[1]\n");
-# print("manage_files_by2,read_par, ROW 0,1 number of titems: @ValuesPerRow\n");
+	# print("manage_files_by2,read_par, ROW 0 @{$Items[0]} \n");
+	# print("manage_files_by2,read_par, ROW 1 @{$Items[1]} \n");
+	# print("manage_files_by2,read_par, ROW 0,1 Values per rows: @ValuesPerRow\n");
 	return ( \@Items, \@ValuesPerRow );
+}
+
+=pod
+
+  write out a 1-column file
+
+=cut
+
+sub write_1col_aref {
+
+	# open and write to output file
+	my ( $variable, $ref_X, $ref_file_name, $ref_fmt ) = @_;
+
+	#declare locally scoped variables
+	my $j;
+
+	my $num_rows = scalar @$ref_X;
+
+	# $variable is an unused hash
+
+	# print("\n manage_files_by2,write_1col_aref,The output file name = $$ref_file_name\n");
+	# print("\n manage_files_by2,write_1col_aref,The output file contains $num_rows rows\n");
+	# print("\n manage_files_by2,write_1col_aref,The output file uses the following format: $$ref_fmt\n");
+
+	open( OUT, ">$$ref_file_name" );
+
+	for ( $j = 0; $j < $num_rows; $j++ ) {
+
+		printf OUT "$$ref_fmt\n", @$ref_X[$j];
+
+	}
+
+	close(OUT);
+	return ();
+
+}
+
+=pod
+
+  write out a 1-columned file
+
+=cut
+
+sub write_1col1 {
+
+	# open and write to output file
+	my ( $variable, $ref_X, $ref_file_name, $ref_fmt ) = @_;
+
+	#declare locally scoped variables
+	my $j;
+
+	my $num_rows = scalar $$ref_X;
+
+	# $variable is an unused hash
+
+	#print("\nThe subroutine has is called $variable\n");
+	#print("\nThe output file contains $num_rows rows\n");
+	#print("\nThe output file uses the following format: $$ref_fmt\n");
+	open( OUT, ">$$ref_file_name" );
+
+	for ( $j = 1; $j <= $num_rows; $j++ ) {
+
+		#print OUT  ("$$ref_X[$j] $$ref_Y[$j]\n");
+		printf OUT "$$ref_fmt\n", $$ref_X[$j];
+
+		#print("$$ref_X[$j] $$ref_Y[$j]\n");
+	}
+
+	close(OUT);
+	return ();
 
 }
 
@@ -313,7 +400,7 @@ sub write_2cols {
 	#print("\nThe output file uses the following format: $$ref_fmt\n");
 	open( OUT, ">$$ref_file_name" );
 
-	for ( $j = 1 ; $j <= $num_rows ; $j++ ) {
+	for ( $j = 1; $j <= $num_rows; $j++ ) {
 
 		#print OUT  ("$$ref_X[$j] $$ref_Y[$j]\n");
 		printf OUT "$$ref_fmt\n", $$ref_X[$j], $$ref_Y[$j];
@@ -322,6 +409,7 @@ sub write_2cols {
 	}
 
 	close(OUT);
+	return ();
 
 }
 
@@ -335,19 +423,17 @@ sub write_2cols {
 
 sub write_par {
 
-	my ( $self, $ref_outbound, $ref_array_tnmo_row, $ref_array_vnmo_row ) = @_;
+	my ( $self, $ref_outbound, $ref_array_tnmo_row, $ref_array_vnmo_row, $first_name, $second_name ) = @_;
 
-	#print(
-	#	"\nmanage_files_by2,write_par,The input file is called $$ref_outbound\n"
-	#);
+	# print("\nmanage_files_by2,write_par,The input file is called $$ref_outbound\n");
 
 =head2 local definitions
 
 =cut
 
 	my $values_per_row;
-	my @tnmo_array = @$ref_array_tnmo_row;
-	my @vnmo_array = @$ref_array_vnmo_row;
+	my @tnmo_array               = @$ref_array_tnmo_row;
+	my @vnmo_array               = @$ref_array_vnmo_row;
 	my $number_of_values_per_row = scalar @tnmo_array;
 
 =pod Steps
@@ -358,32 +444,111 @@ sub write_par {
      
 =cut
 
-
 =head2 open and write values
 
 =cut
 
 	open( my $fh, '>', $$ref_outbound );
 
-	print $fh ("tnmo=$tnmo_array[1]");
+	print $fh ("$first_name=$tnmo_array[1]");
 
-	for ( my $i = 2 ; $i < $number_of_values_per_row ; $i++ ) {
+	for ( my $i = 2; $i < $number_of_values_per_row; $i++ ) {
 
 		print $fh (",$tnmo_array[$i]");
 
 	}
-	
+
 	print $fh ("\n");
 
-	print $fh ("vnmo=$vnmo_array[1]");
+	print $fh ("$second_name=$vnmo_array[1]");
 
-	for ( my $i = 2 ; $i < $number_of_values_per_row ; $i++ ) {
+	for ( my $i = 2; $i < $number_of_values_per_row; $i++ ) {
 
 		print $fh (",$vnmo_array[$i]");
 
 	}
 
 	close($fh);
+	return ();
+}
+
+=head2 sub write_multipar
+
+ write parameter file
+ file name is a scalar reference to 
+ scalar file name
+
+=cut 
+
+sub write_multipar {
+
+	my (
+		$self,               $ref_outbound, $ref_array_cdp_row,
+		$ref_array_tnmo_row, $ref_array_vnmo_row,
+		$first_name,         $second_name
+	) = @_;
+
+	#	print(
+	#		"\nmanage_files_by2,write_par,The input file is called $$ref_outbound\n"
+	#	);
+
+=head2 local definitions
+
+=cut
+
+	my $values_per_row;
+	my @cdp_array                = $ref_array_cdp_row;
+	my @tnmo_array               = @$ref_array_tnmo_row;
+	my @vnmo_array               = @$ref_array_vnmo_row;
+	my $number_of_values_per_row = scalar @tnmo_array;
+	my $number_of_cdp_per_row    = scalar @cdp_array;
+
+	#	print("@$ref_array_cdp_row \n");
+	#	print("$number_of_values_per_row \n");
+
+=pod Steps
+
+     odd-numbered lines contain tnmo and even contain vnmo
+     e.g., tnmo=1,2,3
+     	   vnm==4,5,6
+     
+=cut
+
+=head2 open and write values
+
+=cut
+
+	#print("manage_files_by2,par, tnmo_row @tnmo_array\n");
+	#print("manage_files_by2,par, vnmo_row @vnmo_array\n");
+
+	#print("manage_files_by2,par, tnmo_row $tnmo_array[1] \n");
+
+	#print("manage_files_by2,par, ref_outbound $$ref_outbound \n");
+
+	open( my $fh, '>', $$ref_outbound );
+
+	print $fh ("$first_name=$tnmo_array[1]");
+
+	for ( my $i = 2; $i < $number_of_values_per_row; $i++ ) {
+
+		print $fh (",$tnmo_array[$i]");
+
+	}
+
+	print $fh ("\n");
+
+	print $fh ("second_name=$vnmo_array[1]");
+
+	for ( my $i = 2; $i < $number_of_values_per_row; $i++ ) {
+
+		print $fh (",$vnmo_array[$i]");
+
+	}
+
+	print $fh ("\n");
+
+	close($fh);
+	return ();
 }
 
 1;

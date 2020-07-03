@@ -24,10 +24,11 @@ my $DATA_SEISMIC_SU  = $Project->DATA_SEISMIC_SU();
 my $DATA_SEISMIC_TXT = $Project->DATA_SEISMIC_TXT();    # output
 my $max_index        = $b2a->get_max_index();
 
-my $b2a_spec = {
+my $b2a_spec =  {
+    _CONFIG	 				=> $PL_SEISMIC,
     _DATA_DIR_IN           => $DATA_SEISMIC_BIN,
     _DATA_DIR_OUT          => $DATA_SEISMIC_TXT,
-    _binding_index_aref    => '',
+	_binding_index_aref    => '',
     _suffix_type_in        => $bin,
     _data_suffix_in        => $suffix_bin,
     _suffix_type_out       => $txt,

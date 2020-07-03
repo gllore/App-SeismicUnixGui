@@ -1,11 +1,5 @@
 package binding;
 
-use Moose;
-use Tk;
-use L_SU_global_constants;
-my $get = new L_SU_global_constants();
-my $var = $get->var();
-
 =head1 DOCUMENTATION
 
 =head2 SYNOPSIS 
@@ -59,6 +53,32 @@ Make a binding based on the paramters
  a_ref = get_suffix_types     su / text
  a_ref = get_command names    open/save/view/plot etc.
  a_ref = get_command_settings 1,2,3,4  etc. or empty
+
+=cut
+
+
+=head2 Modules in use
+
+=cut
+
+use Moose;
+our $VERSION = '0.0.2';
+use Tk;
+use L_SU_global_constants;
+
+=head2 Instantiation
+
+=cut
+
+my $get = new L_SU_global_constants();
+my $var = $get->var();
+
+
+=head2 Declare local variables
+
+=cut
+
+my $empty_string         = $var->{_empty_string};
 
 =head2 private hash
 
@@ -156,7 +176,7 @@ sub set {
 
 	my $prog_name = ${ $binding->{_prog_name_sref} };
 
-	# print("binding,set, prog_name: $prog_name \n");
+	# print("1. binding,set, prog_name: $prog_name \n");
 
 	my $module    = $prog_name . '_spec';
 	my $module_pm = $module . '.pm';
@@ -184,24 +204,25 @@ sub set {
 	my $file_dialog_type_aref = $package->get_file_dialog_type_aref();
 	my @file_dialog_type      = @$file_dialog_type_aref;
 
-	# from *_spec.pm file, e.g., pre_built_superflow,
+	# from *_spec.pm file, e.g., from a pre_built_superflow,
 	# or a user_built_flow
 	my $flow_type_aref = $package->get_flow_type_aref();
 
 	my $length = $package->get_binding_length();
 
-	# print("binding,set, no. bound items=length:$length\n");
+	# print("2. binding,set, no. bound items=length:$length\n");
 
 	for ( my $i = 0; $i < $length; $i++ ) {
 
 		my $dial_type = $file_dialog_type[$i];
 
-		# print("binding,set,file_dialog_type: $dial_type\n");
-		# print("binding,set,prog_name: ${$binding->{_prog_name_sref}}\n");
-
+		# print("3A. binding,set,prog_name: ${$binding->{_prog_name_sref}}\n");
+		# print("3B. binding,set,file_dialog_type: $dial_type\n");
 		# ACTUAL binding takes place here...
 		# TODO dynamic binding as a function of input from user in flow
-		if ( $dial_type ne '' or $dial_type ) {
+		if ( defined $dial_type and
+			$dial_type ne $empty_string) {
+				
 			# print("binding,set,file_dialog_type: $dial_type\n");
 
 			$values_w[ $index[$i] ]->bind( '<ButtonRelease-3>' => [ $sub_ref, \$dial_type ], );
@@ -211,7 +232,7 @@ sub set {
 
 		}
 		else {
-			# print("binding,set, no bindings\n");
+			# print("4. binding,set, no bindings\n");
 		}
 	}
 }

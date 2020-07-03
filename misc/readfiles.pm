@@ -35,12 +35,12 @@ USAGE 1
 use L_SU_global_constants;
 
 my $get                  = new L_SU_global_constants();
-my $alias_superflow_name = $get->alias_superflow_names_h;
+# my $alias_superflow_name = $get->alias_superflow_names_h;
 
 #print("readfiles, alias_superflow_name, fk is $alias_superflow_name->{fk}\n");
 my $global_libs                 = $get->global_libs;
-my $alias_PV                    = $alias_superflow_name->{_ProjectVariables};
-my $alias_superflow_config_name = $get->alias_superflow_config_names_aref();
+# my $alias_PV                    = $alias_superflow_name->{_ProjectVariables};
+# my $alias_superflow_config_name = $get->alias_superflow_config_names_aref();
 
 #WARNING---- watch out for missing underscore!!
 # print("readfiles,fk alias_superflow_config_name : $$alias_superflow_config_name[0]\n");
@@ -682,6 +682,7 @@ sub configs {
 	use control;
 
 	if ($program) {
+		
 		my $control = control->new();
 		my ( @parameter, @value );
 		my ( $this,      $eq );
@@ -816,13 +817,14 @@ sub configs {
 					# print("                    replace x=$x  with ''\n");
 				}
 
-				#assume ALL bad x value shave been caught , including x=0
+				# assume ALL bad x value shave been caught , including x=0
 
-			  # print("5-1. readfiles,configs:parameter name, value : $t,$x\n");
+			   # print("5-1. readfiles,configs:parameter name, value : $t,$x\n");
 				$parameter[$i] = $t;
 				$value[$i]     = $x;
 
-# print("5-2. readfiles,configs: parameter,value : $parameter[$i],$value[$i]\n");
+				# print("5-2. readfiles,configs: parameter,value :
+				# --$parameter[$i]--,--$value[$i]--\n");
 				$i++;
 			}
 		}

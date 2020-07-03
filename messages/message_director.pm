@@ -5,6 +5,7 @@ use FileDialog_button_messages;
 use FileDialog_close_messages;
 use save_button_messages;
 use flows_messages;
+use immodpg_messages;
 use iPick_messages;
 use run_button_messages;
 use null_messages;
@@ -20,6 +21,7 @@ my $superflow         = new superflow_messages;
 my $null              = new null_messages;
 my $project_selector  = new project_selector_messages;
 my $iPick             = new iPick_messages;
+my $immodpg			  = new immodpg_messages;
 
 =head1 DOCUMENTATION
 
@@ -100,6 +102,15 @@ sub FileDialog_close {
     my $message     = @$message_ref[$number];
 
     # print("message_director,FileDialog_close,message =$message\n");
+    return ($message);
+}
+
+
+sub immodpg {
+    my ( $self, $number ) = @_;
+    my $message_ref = $immodpg->get($number);
+    my $message     = @$message_ref[$number];
+    print("message_director,immodpg,message =$message\n");
     return ($message);
 }
 

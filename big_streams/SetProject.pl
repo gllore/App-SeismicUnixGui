@@ -8,7 +8,7 @@
 	Date:     December 15, 2011 
 	Purpose:  Create Project Directores  
  		      makes system-wide and local directories
-        Details:  "sub-packages" use
+        Details:  "sub-packages" use~/Servilleta_demos/seismics/
                   Project_Variables package 
 
         Usage:    directories can be turned
@@ -70,7 +70,9 @@ my ($CPP_SEISMIC)                  = $Project->CPP_SEISMIC();
 my ($MATLAB_SEISMIC)               = $Project->MATLAB_SEISMIC();
 my ($MATLAB_WELL)                  = $Project->MATLAB_WELL();
 my ($MATLAB_GEOMAPS)               = $Project->MATLAB_GEOMAPS();
-my ($MMODPG)                       = $Project->MMODPG();
+my ($IMMODPG)                      = $Project->IMMODPG();
+my ($IMMODPG_INVISIBLE)            = $Project->IMMODPG_INVISIBLE();
+my ($MMODPG)             		   = $Project->MMODPG();
 my ($PL_SEISMIC)                   = $Project->PL_SEISMIC();
 my ($PL_GEOMAPS)                   = $Project->PL_GEOMAPS();
 my ($R_WELL)                       = $Project->R_WELL();
@@ -150,6 +152,9 @@ manage_dirs_by::make_dir($MATLAB_GEOMAPS);
 
 # manage_dirs_by::make_dir($MATLAB_WELL);
 # manage_dirs_by::make_dir($MMODPG);
+# print("SetProject.pl,MMODPG_INVISIBLE=$MMODPG_INVISIBLE\n");
+# manage_dirs_by::make_dir($IMMODPG_INVISIBLE);
+
 #  manage_dirs_by::make_dir($PL_SEISMIC);
 manage_dirs_by::make_dir($PL_GEOMAPS);
 

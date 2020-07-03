@@ -19,9 +19,11 @@ my $file_dialog_type = $get->file_dialog_type_href();
 my $flow_type        = $get->flow_type_href();
 
 my $DATA_SEISMIC_SU = $Project->DATA_SEISMIC_SU();      # output data directory
+my $PL_SEISMIC        = $Project->PL_SEISMIC();
 my $max_index       = $suxmax->get_max_index();
 
-my $suxmax_spec = {
+my $suxmax_spec = 
+	_DATA_DIR_OUT          => $DATA_SEISMIC_SU,
 	_DATA_DIR_IN           => $DATA_SEISMIC_SU,
 	_DATA_DIR_OUT          => $DATA_SEISMIC_SU,
 	_binding_index_aref    => '',

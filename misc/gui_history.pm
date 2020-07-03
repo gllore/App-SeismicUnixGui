@@ -42,7 +42,8 @@ potentially, all packages contain L_SU_global_constants
 =cut
 
 extends
-#	'whereami2'       => { -version => 0.0.2 },
+
+	#	'whereami2'       => { -version => 0.0.2 },
 	'conditions4flows' => { -version => 0.0.2 };
 
 use L_SU_global_constants;
@@ -54,6 +55,7 @@ use flow_widgets;
 
 my $flow_widgets = flow_widgets->new();
 my $get          = L_SU_global_constants->new();
+
 # my $whereami     = whereami2->new();
 
 =head2 Declare Special Variables
@@ -106,6 +108,16 @@ has 'button' => (
 	writer    => 'set_button',
 	predicate => 'has_button',
 	trigger   => \&_update_button,
+);
+
+has 'clear' => (
+	default   => 'no_clear',
+	is        => 'ro',
+	isa       => 'Str',
+	reader    => 'get_clear',
+	writer    => 'set_clear',
+	predicate => 'has_clear',
+	trigger   => \&_clear,
 );
 
 has 'flow_select_color' => (
@@ -222,6 +234,16 @@ has 'sunix_prog_group' => (
 	predicate => 'has_sunix_prog_group',
 	trigger   => \&_update_sunix_prog_group,
 
+);
+
+has 'subtract' => (
+	default   => 'no_subtract',
+	is        => 'ro',
+	isa       => 'Str',
+	reader    => 'get_subtract',
+	writer    => 'set_subtract',
+	predicate => 'has_subtract',
+	trigger   => \&_subtract,
 );
 
 has 'sunix_prog_group_color' => (
@@ -358,10 +380,10 @@ my $flow_select_index_href = {
 	_item        => $empty_string,
 	_index       => $index_start,
 	_name        => 'flow_select_index',
-	_most_recent => $index_start,
-	_earliest    => $index_start,
-	_next        => $index_start,
-	_prior       => $index_start,
+	_most_recent => $current_index_start,
+	_earliest    => $earliest_index_start,
+	_next        => $next_index_start,
+	_prior       => $prior_index_start,
 };
 
 my $flow_select_click_seq_href = {
@@ -405,8 +427,8 @@ my $parameter_color_on_exit_href = {
 };
 
 my $parameter_index_on_entry_href = {
-	_item  		=> $empty_string,
-	_index 		=> $index_start,
+	_item        => $empty_string,
+	_index       => $index_start,
 	_name        => 'parameter_index_on_entry',
 	_most_recent => $current_index_start,
 	_earliest    => $earliest_index_start,
@@ -547,8 +569,8 @@ sub _find_button {
 
 			my $found = $key;
 			return ($found);
-		}
-		else {
+		} else {
+
 			#			print("gui_history,_find_button, not found: NADA\n");
 			#			print("gui_history,_find_button,key:		**$key** \n");
 
@@ -625,8 +647,7 @@ sub _increment_count {
 		my $ans = ( $gui_history->get_defaults() )->{_count};
 
 		# print("gui_history, _increment_count,new value: $ans\n");
-	}
-	else {
+	} else {
 		print("gui_history, _increment_count, count missing \n");
 	}
 
@@ -786,7 +807,8 @@ sub _initialize {
 		_last_parameter_index_touched_green     => -1,
 		_last_parameter_index_touched_blue      => -1,
 		_length                                 => $default_param_specs->{_length},
-#		_log_view                               => $true,
+
+		#		_log_view                               => $true,
 		_location_in_gui                        => '',
 		_message_w                              => '',
 		_name_aref                              => '',
@@ -795,7 +817,7 @@ sub _initialize {
 		_destination_index                      => '',
 		_run_button                             => '',
 		_mw                                     => '',
-		_occupied_listbox_aref                  => '',                                         #  new
+		_occupied_listbox_aref                  => '',                              #  new
 		_param_flow_length                      => '',
 		_parameter_color_on_entry_href          => $parameter_color_on_entry_href,
 		_parameter_color_on_exit_href           => $parameter_color_on_exit_href,
@@ -807,13 +829,13 @@ sub _initialize {
 		_param_sunix_first_idx                  => 0,
 		_param_sunix_length                     => '',
 		_parameter_values_button_frame          => '',
-		_parameter_values_frame                 => '',                                         # new
+		_parameter_values_frame                 => '',                              # new
 		_parameter_value_index                  => -1,
 		_pre_built_tool_href                    => '',
 		_pre_built_tool_button_href             => '',
 		_prog_name                              => '',
 		_prog_names_aref                        => '',
-		_prog_name_sref                         => '',                                         # has pre-existing _spec.pm and *.pm
+		_prog_name_sref                         => '',                              # has pre-existing _spec.pm and *.pm
 		_run_button                             => '',
 		_run_button_click_seq_href              => '',
 		_prog_name                              => '',
@@ -861,13 +883,15 @@ sub _reset {
 	# print("gui_history,_reset, gui_history=$gui_history,type = $type \n");
 
 	if ( $type eq 'listbox_color_w' ) {
+		
 		( $gui_history->get_defaults() )->{_is_flow_listbox_grey_w}  = $false;
 		( $gui_history->get_defaults() )->{_is_flow_listbox_pink_w}  = $false;
 		( $gui_history->get_defaults() )->{_is_flow_listbox_green_w} = $false;
 		( $gui_history->get_defaults() )->{_is_flow_listbox_blue_w}  = $false;
 		( $gui_history->get_defaults() )->{_is_flow_listbox_color_w} = $false;
-	}
-	elsif ( $type ne 'listbox_color_w' ) {
+		
+	} elsif ( $type ne 'listbox_color_w' ) {
+		
 		( $gui_history->get_defaults() )->{_is_add2flow}                = $false;    # needed? double confirmation?
 		( $gui_history->get_defaults() )->{_is_add2flow_button}         = $false;    # needed? double confirmation?
 		( $gui_history->get_defaults() )->{_is_delete_from_flow_button} = $false;
@@ -876,15 +900,22 @@ sub _reset {
 		( $gui_history->get_defaults() )->{_is_delete_from_flow_button} = $false;
 		( $gui_history->get_defaults() )->{_is_moveNdrop_in_flow}       = $false;
 		( $gui_history->get_defaults() )->{_is_sunix_listbox}           = $false;
-	}
-	else {
+		
+	} else {
 		print("gui_history,_reset, unexpected type \n");
 	}
 	return ();
 }
 
 =head2 sub _set_click_sequence
-For general case, new count should not be sequential with previous index in $property_href
+
+For general case, new count will not be sequential with previous 
+index value in  the same $property_href
+Count changes whenever the user clicks
+
+indices for property_href should increase only if the most_recent
+is different to the prior. i.e., only if there is a real change
+indices only changes if there is a real change
 
 =cut
 
@@ -901,8 +932,16 @@ sub _set_click_sequence {
 	if ( defined $property_href ) {
 
 		# update the indices of appearance
-		$property_href->{_earliest} = $property_href->{_prior};
-		$property_href->{_prior}    = $property_href->{_most_recent};
+		if ( $property_href->{_most_recent} != $property_href->{_prior} ) {
+			$property_href->{_earliest} = $property_href->{_prior};
+			$property_href->{_prior}    = $property_href->{_most_recent};
+
+		} elsif ( $property_href->{_most_recent} == $property_href->{_prior} ) {
+			print("gui_history, _set_click_sequence, property is not changed\n");
+
+		} else {
+			print("gui_history, _set_click_sequence, unexpected value\n");
+		}
 
 		$gui_history->_increment_count();
 		$property_href->{_most_recent} = ( $gui_history->get_defaults() )->{_count};
@@ -918,26 +957,6 @@ sub _set_click_sequence {
 
 	}
 }
-
-#=head2 sub _set_flow_color
-#
-#
-#=cut
-#
-#sub _set_flow_color {
-#	my ($color) = @_;
-#
-#	if ($color) {
-#
-#		# print("gui_history, _set_flow_color , color:$color\n");
-#		( $gui_history->get_defaults() )->{_flow_color} = $color;
-#	}
-#	else {
-#
-#		print("gui_history, set_flow_color, missing color\n");
-#	}
-#	return ();
-#}
 
 =head2 sub _set_flow_listbox_color_w
 
@@ -956,8 +975,7 @@ sub _set_flow_listbox_color_w {
 
 		( $gui_history->get_defaults() )->{_flow_listbox_color_w} = ( $gui_history->get_defaults() )->{$key1};
 		( $gui_history->get_defaults() )->{$key2} = $true;
-	}
-	else {
+	} else {
 		print("gui_history,_set_flow_listbox_color_w, missing color\n");
 	}
 
@@ -975,7 +993,10 @@ $gui_history = current package
 =cut
 
 sub _update_FileDialog_type {
-	my ( $gui_history, $new_most_recent_FileDialog_type, $new_prior_FileDialog_type ) = @_;
+	my (
+		$gui_history, $new_most_recent_FileDialog_type,
+		$new_prior_FileDialog_type
+	) = @_;
 
 	if ( defined $FileDialog_type_href ) {
 
@@ -1027,37 +1048,46 @@ sub _update_button {
 
 			( $gui_history->get_defaults() )->{_is_FileDialog_button} = $true;
 
-			_set_click_sequence( $gui_history, $FileDialog_button_click_seq_href );
+			_set_click_sequence(
+				$gui_history,
+				$FileDialog_button_click_seq_href
+			);
 
 			# update the history of FileDialog_button use according  to click count
 			( $gui_history->get_defaults )->{_FileDialog_button_click_seq_href} = $FileDialog_button_click_seq_href;
 
 			# print("gui_history, _update_button, button matched = $new_most_recent_button\n");
 			return ();
-		}
 
-		elsif ( $new_most_recent_button eq 'add2flow_button' ) {
+		} elsif ( $new_most_recent_button eq 'add2flow_button' ) {
 
 			( $gui_history->get_defaults() )->{_is_add2flow_button} = $true;
 			( $gui_history->get_defaults() )->{_is_add2flow}        = $true;
 
-			_set_click_sequence( $gui_history, $add2flow_button_click_seq_href );
+			_set_click_sequence(
+				$gui_history,
+				$add2flow_button_click_seq_href
+			);
 
 			# update the history of add2flow_button use according  to click count
-			( $gui_history->get_defaults() )->{_add2flow_button_click_seq_href} = $add2flow_button_click_seq_href;
-			( $gui_history->get_defaults() )->{_is_new_listbox_selection}       = $true;
+			( $gui_history->get_defaults() )->{_add2flow_button_click_seq_href}
+				= $add2flow_button_click_seq_href;
+			( $gui_history->get_defaults() )->{_is_new_listbox_selection} = $true;
 
 			# print("gui_history, _update_button, button matched = $new_most_recent_button\n");
 			return ();
-		}
-		elsif ( $new_most_recent_button eq 'delete_from_flow_button' ) {
+		} elsif ( $new_most_recent_button eq 'delete_from_flow_button' ) {
 
 			( $gui_history->get_defaults() )->{_is_delete_from_flow_button} = $true;
 
-			_set_click_sequence( $gui_history, $delete_from_flow_button_click_seq_href );
+			_set_click_sequence(
+				$gui_history,
+				$delete_from_flow_button_click_seq_href
+			);
 
 			# update the history of delete_from_flow_button use according  to click count
-			( $gui_history->get_defaults )->{_delete_from_flow_button_click_seq_href} = $delete_from_flow_button_click_seq_href;
+			( $gui_history->get_defaults )->{_delete_from_flow_button_click_seq_href}
+				= $delete_from_flow_button_click_seq_href;
 
 			_reset( $gui_history, 'listbox_color_w' );
 
@@ -1075,55 +1105,68 @@ sub _update_button {
 			# print("gui_history, _update_button, button matched = $new_most_recent_button\n");
 			return ();
 
-		}
-		elsif ( $new_most_recent_button eq 'flow_item_down_arrow_button' ) {
+		} elsif ( $new_most_recent_button eq 'flow_item_down_arrow_button' ) {
 
-			( $gui_history->get_defaults() )->{_is_flow_item_down_arrow_button} = $true;
+			( $gui_history->get_defaults() )->{_is_flow_item_down_arrow_button}
+				= $true;
 
-			_set_click_sequence( $gui_history, $flow_item_down_arrow_button_click_seq_href );
+			_set_click_sequence(
+				$gui_history,
+				$flow_item_down_arrow_button_click_seq_href
+			);
 
 			# update the history of flow_item_down_arrow_button use according  to click count
-			( $gui_history->get_defaults )->{_flow_item_down_arrow_button_click_seq_href} = $flow_item_down_arrow_button_click_seq_href;
+			( $gui_history->get_defaults )->{_flow_item_down_arrow_button_click_seq_href}
+				= $flow_item_down_arrow_button_click_seq_href;
 
 			# print("gui_history, _update_button, button matched = $new_most_recent_button\n");
 			return ();
 
-		}
-		elsif ( $new_most_recent_button eq 'flow_item_up_arrow_button' ) {
+		} elsif ( $new_most_recent_button eq 'flow_item_up_arrow_button' ) {
 
 			( $gui_history->get_defaults() )->{_is_flow_item_up_arrow_button} = $true;
 
-			_set_click_sequence( $gui_history, $flow_item_up_arrow_button_click_seq_href );
+			_set_click_sequence(
+				$gui_history,
+				$flow_item_up_arrow_button_click_seq_href
+			);
 
 			# update the history of  flow_item_up_arrow_button use according  to click count
-			( $gui_history->get_defaults )->{_flow_item_up_arrow_button_click_seq_href} = $flow_item_up_arrow_button_click_seq_href;
+			( $gui_history->get_defaults )->{_flow_item_up_arrow_button_click_seq_href}
+				= $flow_item_up_arrow_button_click_seq_href;
 
 			# print("gui_history, _update_button, button matched = $new_most_recent_button\n");
 			return ();
 
-		}
-		elsif ( $new_most_recent_button eq 'flow_select' ) {
+		} elsif ( $new_most_recent_button eq 'flow_select' ) {
 
-			my $ans = ($gui_history->get_defaults())->{_count};
+			my $ans = ( $gui_history->get_defaults() )->{_count};
+
 			# print("1. gui_history, _update_button, for flow_select count=$ans\n");
 
 			my $_flow_listbox_color_w = _get_flow_listbox_color_w($gui_history);
 			my $most_recent_index     = $flow_widgets->get_flow_selection($_flow_listbox_color_w);
 
-			# print("1. gui_history, _update_button, for flow_select most_recent_index=$most_recent_index \n");
-			
 			# CASE 1: flow listbox is cleared with no highlights
-			if ( not defined $most_recent_index ) {		
+			if ( not defined $most_recent_index ) {
+
 				# no change to indices
 				# increment record sequence as total number of mouse clicks
-				_set_click_sequence( $gui_history, $flow_select_click_seq_href );
-				# print("2. gui_history, _update_button, for _flow_listbox_color_w=$_flow_listbox_color_w \n");
+				_set_click_sequence(
+					$gui_history,
+					$flow_select_click_seq_href
+				);
 
-				( $gui_history->get_defaults() )->{_flow_select_click_seq_href} = $flow_select_click_seq_href;
+				# print("2. gui_history, _update_button, for _flow_listbox_color_w=$_flow_listbox_color_w \n");
+				( $gui_history->get_defaults() )->{_flow_select_click_seq_href}
+					= $flow_select_click_seq_href;
 			}
-			
-			# CASE 2 flow listbox must have been selected and highlighted an element
-			elsif ( $most_recent_index ne $empty_string ) {  
+
+			# CASE 2 flow listbox must have been selected and have highlighted an element
+			# and the selected index must be different to the previous index
+			# only such case among the many tracked properties of the GUI
+			elsif ( $most_recent_index ne $empty_string
+				and $most_recent_index ne $flow_select_index_href->{_most_recent} ) {
 
 				# update the history of flow_select usage according to the index chosen
 				$flow_select_index_href->{_earliest}    = $flow_select_index_href->{_prior};
@@ -1131,131 +1174,40 @@ sub _update_button {
 				$flow_select_index_href->{_most_recent} = $most_recent_index;
 				( $gui_history->get_defaults() )->{_flow_select_index_href} = $flow_select_index_href;
 
-				# record sequence as total number of mouse clicks
-				_set_click_sequence( $gui_history, $flow_select_click_seq_href );
+				# print(
+				# 	"2. gui_history, _update_button, for flow_select new most_recent_index=$most_recent_index \n");
+				# print(
+				# 	"2. gui_history, _update_button, for flow_select new prior_index=$flow_select_index_href->{_prior} \n"
+				# );
 
-				# not really reset ??? mystery
-				( $gui_history->get_defaults() )->{_flow_select_click_seq_href} = $flow_select_click_seq_href;
+				# print("gui_history, _update_button, flow_select_click_seq_href= ($gui_history->get_defaults )->{_flow_select_click_seq_href}\n");
+				# print("3. gui_history, _update_button, flow_select most_recent_index=$most_recent_index \n");
 
 				# print("gui_history, _update_button, flow_select_click_seq_href= ($gui_history->get_defaults )->{_flow_select_click_seq_href}\n");
 				# print("3. gui_history, _update_button, button matched = $new_most_recent_button\n");
 
-=pod
+			} elsif ( $most_recent_index ne $empty_string
+				and $most_recent_index eq $flow_select_index_href->{_most_recent} ) {
 
-CASE 1: When flow_select is being used for the first time
-BUT when no previous flow has been selected
-This case can occur when a flow is read into a GUI which is used
-for the first time, i.e., when no listboxes have been occupied previously
+				# record sequence as total number of mouse clicks, when user reclicks the same location
+				# However in _set_click_dequence the property indices will not be updated
+				# only the general gui count JML 2-2020
+				_set_click_sequence(
+					$gui_history,
+					$flow_select_click_seq_href
+				);
 
-=cut
+				# not really reset ??? mystery
+				( $gui_history->get_defaults() )->{_flow_select_click_seq_href}
+					= $flow_select_click_seq_href;
 
-=pod 
-
-		my  $last_flow_select_color 	= ( $gui_history->get_defaults() )->{_flow_select_color_href})->{_prior};
-		my  $current_flow_select_color	=( $gui_history->get_defaults() )->{_flow_select_color_href})->{_most_recent};
-		my  $last_parameter_index_touched_color = ( $gui_history->get_defaults() )->{_parameter_index_on_exit};
-		if (  $last_flow_color eq $no_color ) {
-			
-			
-		}
-=cut
-
-				#
-				#	if (  !( $gui_history->{_last_flow_color} )
-				#		|| ( $gui_history->{_last_flow_color} eq $empty_string ) )
-				#	{
-				#		# print("color_flow,flow_select, CASE #1 \n");
-				#		# print( "color_flow,flow_select, color_flow->{_last_flow_color}=$gui_history->{_last_flow_color}\n" );
-				#
-				#		$gui_history->{_last_flow_color} = $gui_history->{_flow_color};
-				#
-				#		$gui_history->{_is_last_flow_index_touched_grey}      = $true;
-				##		$gui_history->{_is_last_parameter_index_touched_grey} = $true;
-				#		my $num_indices = $flow_widgets->get_num_indices( \$_flow_listbox_color_w );
-				#		$gui_history->{_last_flow_index_touched}            = -1;    # $num_indices;
-				#		$gui_history->{_last_parameter_index_touched_color} = 0;
-				#
-				#=pod
-				#
-				#CASE 2 flow_select is used actively (directly clicked) by the user for the first time
-				#The first flow of the session has already been run and saved
-				#BUT if the flow has never been actively selected by the user then the following
-				#parameters are not activated
-				#and so the internal parameters of the flow items will not get saved
-				#at the start of this subroutine.
-				#This can happen when user
-				#(1) loads, saves and runs a pre-built user-flow
-				#selects a new flow item
-				#WITHOUT selecting an existant flow item
-				#Does not happen if the user chooses a flow item before going on to select a new sunix
-				#program
-				#
-				#=cut
-				#
-				#	}
-				#	elsif ($gui_history->{_last_flow_color} eq 'neutral'
-				#		&& defined $gui_history->{_flow_color}
-				#		&& $gui_history->{_flow_color} eq $this_color
-				#		&& defined $gui_history->{_prog_name_sref}
-				#		&& $gui_history->{_prog_name_sref} ne $empty_string
-				#		&& !( $gui_history->{_is_last_flow_index_touched_grey} )
-				#		&& !( $gui_history->{_is_last_flow_index_touched_pink} )
-				#		&& !( $gui_history->{_is_last_flow_index_touched_green} )
-				#		&& !( $gui_history->{_is_last_flow_index_touched_blue} ) )
-				#	{
-				#
-				#		# print("CASE # 2\n");
-				#		# $param_flow_color_pkg->view_data();
-				#
-				#		$gui_history->{_last_flow_color}                      = $gui_history->{_flow_color};
-				#		$gui_history->{_is_last_flow_index_touched_grey}      = $true;
-				#		$gui_history->{_is_last_parameter_index_touched_grey} = $true;
-				#		my $num_indices = $flow_widgets->get_num_indices( \$_flow_listbox_color_w );
-				#		$gui_history->{_last_flow_index_touched}            = $num_indices;
-				#		$gui_history->{_last_parameter_index_touched_color} = 0;
-				#
-				#	}
-				#
-				#=pod
-				#
-				#CASE 3
-				#Flow selected is used a second time only
-				#
-				#=cut
-				#
-				#	else {
-				#		# print("color_flow,flow_select CASE NADA\n");
-				#		# print( "1 color_flow , flow_select, last_flow_color is:  $gui_history->{_last_flow_color}\n" );
-				#		# print( "1 color_flow , flow_select, flow_color is:  $gui_history->{_flow_color}\n" );
-				#		# print("1 color_flow , flow_select, this flow color is:  $this_color\n");
-				#		# print( "1 color_flow , flow_select, _is_last_flow_index_touched_grey:  $gui_history->{_is_last_flow_index_touched_grey}\n" );
-				#		# print( "1 color_flow , flow_select, _is_last_flow_index_touched_gpink:  $gui_history->{_is_last_flow_index_touched_pink}\n" );
-				#		# print( "1 color_flow , flow_select, _is_last_flow_index_touched_green:  $gui_history->{_is_last_flow_index_touched_green}\n" );
-				#		# print( "1 color_flow , flow_select, _is_last_flow_index_touched_blue:  $gui_history->{_is_last_flow_index_touched_blue}\n" );
-				#		# print( "1 color_flow , flow_select, last_flow_index_touched:  $gui_history->{_last_flow_index_touched}\n" );
-				#	}
-				#
-
-				# my $key_hash_ref = ( $gui_history->get_defaults() )->{_flow_select_click_seq_href};
-				# print("24. gui_history, view, key_hash_ref = $key_hash_ref \n");
-				# foreach my $sub2_key ( sort keys %{$key_hash_ref} ) {
-				#
-				#	my $ans = $key_hash_ref->{$sub2_key};
-				#
-				# 	print(" 24. key_hash_ref->{$sub2_key}: $sub2_key= $ans\n");
-				# }
-
-				#TODO	_set_flow_item_index ($gui_history, $flow_select_item_index_href );
-
-			} else{
-				print(" gui_hiustory, set_button for flow_select, unexpected result \n");			
+			} else {
+				print(" gui_history, set_button for flow_select, unexpected result \n");
 			}
 
 			return ();
 
-		}
-
-		elsif ( $new_most_recent_button eq 'run_button' ) {
+		} elsif ( $new_most_recent_button eq 'run_button' ) {
 
 			( $gui_history->get_defaults() )->{_is_run_button} = $true;
 
@@ -1267,8 +1219,7 @@ for the first time, i.e., when no listboxes have been occupied previously
 			# print("gui_history, _update_button, button matched = $new_most_recent_button\n");
 			return ();
 
-		}
-		elsif ( $new_most_recent_button eq 'save_button' ) {
+		} elsif ( $new_most_recent_button eq 'save_button' ) {
 
 			( $gui_history->get_defaults() )->{_is_save_button} = $true;
 
@@ -1280,8 +1231,7 @@ for the first time, i.e., when no listboxes have been occupied previously
 			# print("gui_history, _update_button, button matched = $new_most_recent_button\n");
 			return ();
 
-		}
-		elsif ( $new_most_recent_button eq 'save_as_button' ) {
+		} elsif ( $new_most_recent_button eq 'save_as_button' ) {
 
 			( $gui_history->get_defaults() )->{_is_save_as_button} = $true;
 
@@ -1293,8 +1243,7 @@ for the first time, i.e., when no listboxes have been occupied previously
 			# print("gui_history, _update_button, button matched = $new_most_recent_button\n");
 			return ();
 
-		}
-		elsif ( $new_most_recent_button eq 'sunix_select' ) {
+		} elsif ( $new_most_recent_button eq 'sunix_select' ) {
 
 			( $gui_history->get_defaults() )->{_is_sunix_select}          = $true;
 			( $gui_history->get_defaults() )->{_is_new_listbox_selection} = $true;    # so changes not allowed
@@ -1305,28 +1254,32 @@ for the first time, i.e., when no listboxes have been occupied previously
 			# print("gui_history, _update_button, button matched = $new_most_recent_button\n");
 			return ();
 
-		}
-		elsif ( $new_most_recent_button eq 'superflow_select_button' ) {
+		} elsif ( $new_most_recent_button eq 'superflow_select_button' ) {
 
 			( $gui_history->get_defaults() )->{_is_superflow_select_button} = $true;
 			( $gui_history->get_defaults() )->{_is_superflow}               = $true;
 			( $gui_history->get_defaults() )->{_is_pre_built_superflow}     = $true;
 
-			_set_click_sequence( $gui_history, $superflow_select_button_click_seq_href );
+			_set_click_sequence(
+				$gui_history,
+				$superflow_select_button_click_seq_href
+			);
 
 			# update the history of superflow_select_button use according  to click count
-			( $gui_history->get_defaults )->{_superflow_select_button_click_seq_href} = $superflow_select_button_click_seq_href;
+			( $gui_history->get_defaults )->{_superflow_select_button_click_seq_href}
+				= $superflow_select_button_click_seq_href;
 
 			# print("gui_history, _update_button, button matched = $new_most_recent_button\n");
 			return ();
 
-		}
-
-		elsif ( $new_most_recent_button eq 'wipe_plots_button' ) {
+		} elsif ( $new_most_recent_button eq 'wipe_plots_button' ) {
 
 			( $gui_history->get_defaults() )->{_is_wipe_plots_button} = $true;
 
-			_set_click_sequence( $gui_history, $wipe_plots_button_click_seq_href );
+			_set_click_sequence(
+				$gui_history,
+				$wipe_plots_button_click_seq_href
+			);
 
 			# update the history of wipe_plots_button use according  to click count
 			( $gui_history->get_defaults )->{_wipe_plots_button_click_seq_href} = $wipe_plots_button_click_seq_href;
@@ -1334,13 +1287,11 @@ for the first time, i.e., when no listboxes have been occupied previously
 			# print("gui_history, _update_button, button matched = $new_most_recent_button\n");
 			return ();
 
-		}
-		else {
+		} else {
 			print("gui_history,_update_button, button unmatched NADA\n");
 			return ();
 		}
-	}
-	else {
+	} else {
 		print("gui_history,_update_button, button not found:\n");
 		return ();
 	}
@@ -1365,8 +1316,7 @@ sub _update_add2flow_color {
 	# for safety
 	if (   $new_most_recent_color ne 'nada'
 		&& $new_most_recent_color ne $neutral
-		&& $new_most_recent_color ne 'no_color' )
-	{
+		&& $new_most_recent_color ne 'no_color' ) {
 		( $gui_history->get_defaults() )->{_flow_color} = $new_most_recent_color;
 
 		my $current_count = ( $gui_history->get_defaults() )->{_count};
@@ -1383,8 +1333,8 @@ sub _update_add2flow_color {
 			# print("1.gui_history,_update_add2flow_color, new_most_recent_color:$new_most_recent_color, new_prior_color=$new_prior_color\n");
 		}
 
-	}
-	else {
+	} else {
+
 		# print("2.gui_history,_update_add2flow_color wrong color \n");
 	}
 
@@ -1425,36 +1375,36 @@ sub _update_flow_select_color {
 
 		# if ( $flow_select_click_seq_href->{_most_recent} == $current_count ) {    # safety
 
-			( $gui_history->get_defaults() )->{_last_color} = $new_most_recent_color;
+		( $gui_history->get_defaults() )->{_last_color} = $new_most_recent_color;
 
-			# print("1.gui_history,updated color for flow_select:new_most_recent_color, $new_most_recent_color\n");
+		# print("1.gui_history,updated color for flow_select:new_most_recent_color, $new_most_recent_color\n");
 
-			# update the history of flow_select usage according to the color used
-			$flow_select_color_href->{_earliest}    = $flow_select_color_href->{_prior};
-			$flow_select_color_href->{_prior}       = $flow_select_color_href->{_most_recent};
-			$flow_select_color_href->{_most_recent} = $new_most_recent_color;
-			# print("2.gui_history,updated color for flow_select:new prior_color,$flow_select_color_href->{_prior} \n\n");
+		# update the history of flow_select usage according to the color used
+		$flow_select_color_href->{_earliest}    = $flow_select_color_href->{_prior};
+		$flow_select_color_href->{_prior}       = $flow_select_color_href->{_most_recent};
+		$flow_select_color_href->{_most_recent} = $new_most_recent_color;
 
-			( $gui_history->get_defaults() )->{_flow_select_color_href} = $flow_select_color_href;
+		# print("2.gui_history,updated color for flow_select:new prior_color,$flow_select_color_href->{_prior} \n\n");
 
-			# _click_($new_most_recent_color);
-			my $flow_listbox_color_w_key = '_flow_listbox_' . $new_most_recent_color . '_w';
-			my $flow_listbox_color_w_txt = 'flow_listbox_' . $new_most_recent_color . '_w';
-			my $flow_listbox_color_w     = $gui_history->{$flow_listbox_color_w_key};
+		( $gui_history->get_defaults() )->{_flow_select_color_href} = $flow_select_color_href;
 
-			# _set_flow_listbox_last_touched_txt($flow_listbox_color_w_txt);
-			# _set_flow_listbox_last_touched_w($flow_listbox_color_w);
+		# _click_($new_most_recent_color);
+		my $flow_listbox_color_w_key = '_flow_listbox_' . $new_most_recent_color . '_w';
+		my $flow_listbox_color_w_txt = 'flow_listbox_' . $new_most_recent_color . '_w';
+		my $flow_listbox_color_w     = $gui_history->{$flow_listbox_color_w_key};
 
-			# dynamic location within gui
-			my $value2 = '_is_flow_listbox_' . $new_most_recent_color . '_w';
-			$gui_history->{$value2} = $true;
-			$gui_history->{_is_flow_listbox_color_w} = $true;
+		# _set_flow_listbox_last_touched_txt($flow_listbox_color_w_txt);
+		# _set_flow_listbox_last_touched_w($flow_listbox_color_w);
+
+		# dynamic location within gui
+		my $value2 = '_is_flow_listbox_' . $new_most_recent_color . '_w';
+		$gui_history->{$value2} = $true;
+		$gui_history->{_is_flow_listbox_color_w} = $true;
 
 		#} else {
-	#		print("flow_select_click_seq_href->{_most_recent}=$flow_select_click_seq_href->{_most_recent} does not equal current_count=$current_count\n"); 
-#		}
-	}
-	else {
+		#		print("flow_select_click_seq_href->{_most_recent}=$flow_select_click_seq_href->{_most_recent} does not equal current_count=$current_count\n");
+		#		}
+	} else {
 		print("2.gui_history,_update_flow_select_color unexpected value \n");
 	}
 
@@ -1469,7 +1419,11 @@ $gui_history = current package
 =cut
 
 sub _update_flow_listbox_color_w {
-	my ( $gui_history, $new_most_recent_flow_listbox_color_w, $new_prior_flow_listbox_color_w ) = @_;
+	my (
+		$gui_history,
+		$new_most_recent_flow_listbox_color_w,
+		$new_prior_flow_listbox_color_w
+	) = @_;
 
 	( $gui_history->get_defaults() )->{_flow_listbox_color_w} = $new_most_recent_flow_listbox_color_w;
 
@@ -1487,8 +1441,8 @@ sub _update_flow_listbox_color_w {
 		#TODO		_set_flow_listbox_last_touched_txt($flow_listbox_color_w_txt);
 		#TODO		_set_flow_listbox_last_touched_w($$new_most_recent_flow_listbox_color_w);
 
-	}
-	else {
+	} else {
+
 		# print("gui_history,updated flow listbox_color_w :unexpected flow lsitbox \n");
 	}
 
@@ -1522,21 +1476,19 @@ sub _update_flow_type {
 		$flow_type_href->{_most_recent} = $new_most_recent_flow_type;
 
 		( $gui_history->get_defaults() )->{_flow_type_href} = $flow_type_href;
-		my $ans = (( $gui_history->get_defaults() )->{_flow_type_href})->{_most_recent};
+		my $ans = ( ( $gui_history->get_defaults() )->{_flow_type_href} )->{_most_recent};
+
 		# print("2. gui_history,updated flow type, new_most_recent_flow_type: $ans \n");
-	}
-	else {
+	} else {
 		print("gui_history, missing flow hash NADA\n");
 	}
 
 	if ( $gui_history->get_flow_type eq 'user_built' ) {
 		( $gui_history->get_defaults() )->{_is_user_built_flow} = $true;
-	}
-	elsif ( $gui_history->get_flow_type eq 'pre_built_superflow' ) {
+	} elsif ( $gui_history->get_flow_type eq 'pre_built_superflow' ) {
 		( $gui_history->get_defaults() )->{_is_pre_built_superflow} = $true;
 		( $gui_history->get_defaults() )->{_is_superflow}           = $true;
-	}
-	else {
+	} else {
 		print("3 gui_history,updated flow type :unexpected flow type NADA\n");
 	}
 
@@ -1552,7 +1504,11 @@ $gui_history = current package
 =cut
 
 sub _update_parameter_color_on_entry {
-	my ( $gui_history, $new_most_recent_parameter_color_on_entry, $new_prior_parameter_color_on_entry ) = @_;
+	my (
+		$gui_history,
+		$new_most_recent_parameter_color_on_entry,
+		$new_prior_parameter_color_on_entry
+	) = @_;
 
 	# print("gui_history,updated parameter_color_on_entry :$new_most_recent_parameter_color_on_entry\n");
 
@@ -1565,8 +1521,7 @@ sub _update_parameter_color_on_entry {
 
 		( $gui_history->get_defaults )->{_parameter_color_on_entry_href} = $parameter_color_on_entry_href;
 
-	}
-	else {
+	} else {
 		print("gui_history, missing flow hash NADA\n");
 	}
 
@@ -1583,7 +1538,11 @@ $gui_history = current package
 =cut
 
 sub _update_parameter_color_on_exit {
-	my ( $gui_history, $new_most_recent_parameter_color_on_exit, $new_prior_parameter_color_on_exit ) = @_;
+	my (
+		$gui_history,
+		$new_most_recent_parameter_color_on_exit,
+		$new_prior_parameter_color_on_exit
+	) = @_;
 
 	( $gui_history->get_defaults() )->{_parameter_color_on_exit} = $new_most_recent_parameter_color_on_exit;
 
@@ -1598,8 +1557,7 @@ sub _update_parameter_color_on_exit {
 
 		( $gui_history->get_defaults )->{_parameter_color_on_exit_href} = $parameter_color_on_exit_href;
 
-	}
-	else {
+	} else {
 		print("gui_history, missing flow hash NADA\n");
 	}
 
@@ -1614,7 +1572,11 @@ $gui_history = current package
 =cut
 
 sub _update_parameter_index_on_entry {
-	my ( $gui_history, $new_most_recent_parameter_index_on_entry, $new_prior_parameter_index_on_entry ) = @_;
+	my (
+		$gui_history,
+		$new_most_recent_parameter_index_on_entry,
+		$new_prior_parameter_index_on_entry
+	) = @_;
 
 	( $gui_history->get_defaults() )->{_parameter_index_on_entry} = $new_most_recent_parameter_index_on_entry;
 
@@ -1623,12 +1585,15 @@ sub _update_parameter_index_on_entry {
 	if ( defined $parameter_index_on_entry_click_seq_href ) {
 
 		# update the history of parameter_index_on_entry according to click count
-		_set_click_sequence( $gui_history, $parameter_index_on_entry_click_seq_href );
+		_set_click_sequence(
+			$gui_history,
+			$parameter_index_on_entry_click_seq_href
+		);
 
-		( $gui_history->get_defaults )->{_parameter_index_on_entry_click_seq_href} = $parameter_index_on_entry_click_seq_href;
+		( $gui_history->get_defaults )->{_parameter_index_on_entry_click_seq_href}
+			= $parameter_index_on_entry_click_seq_href;
 
-	}
-	else {
+	} else {
 		print("gui_history, missing flow hash NADA\n");
 	}
 	if ( defined $parameter_index_on_entry_href ) {
@@ -1640,8 +1605,7 @@ sub _update_parameter_index_on_entry {
 
 		( $gui_history->get_defaults )->{_parameter_index_on_entry_href} = $parameter_index_on_entry_href;
 
-	}
-	else {
+	} else {
 		print("gui_history, missing flow hash NADA\n");
 	}
 
@@ -1658,7 +1622,11 @@ $gui_history = current package
 =cut
 
 sub _update_parameter_index_on_exit {
-	my ( $gui_history, $new_most_recent_parameter_index_on_exit, $new_prior_parameter_index_on_exit ) = @_;
+	my (
+		$gui_history,
+		$new_most_recent_parameter_index_on_exit,
+		$new_prior_parameter_index_on_exit
+	) = @_;
 
 	( $gui_history->get_defaults() )->{_parameter_index_on_exit} = $new_most_recent_parameter_index_on_exit;
 
@@ -1667,12 +1635,15 @@ sub _update_parameter_index_on_exit {
 	if ( defined $parameter_index_on_exit_click_seq_href ) {
 
 		# update the history of  parameter_index_on_exit usage according to click count
-		_set_click_sequence( $gui_history, $parameter_index_on_exit_click_seq_href );
+		_set_click_sequence(
+			$gui_history,
+			$parameter_index_on_exit_click_seq_href
+		);
 
-		( $gui_history->get_defaults )->{_parameter_index_on_exit_click_seq_href} = $parameter_index_on_exit_click_seq_href;
+		( $gui_history->get_defaults )->{_parameter_index_on_exit_click_seq_href}
+			= $parameter_index_on_exit_click_seq_href;
 
-	}
-	else {
+	} else {
 		print("gui_history, missing flow hash NADA\n");
 	}
 	if ( defined $parameter_index_on_exit_href ) {
@@ -1684,8 +1655,7 @@ sub _update_parameter_index_on_exit {
 
 		( $gui_history->get_defaults )->{_parameter_index_on_exit_href} = $parameter_index_on_exit_href;
 
-	}
-	else {
+	} else {
 		print("gui_history, missing flow hash NADA\n");
 	}
 
@@ -1702,7 +1672,10 @@ $gui_history = current package
 =cut
 
 sub _update_sunix_prog_group {
-	my ( $gui_history, $new_most_recent_sunix_prog_group, $new_prior_sunix_prog_group ) = @_;
+	my (
+		$gui_history, $new_most_recent_sunix_prog_group,
+		$new_prior_sunix_prog_group
+	) = @_;
 
 	( $gui_history->get_defaults() )->{_sunix_prog_group} = $new_most_recent_sunix_prog_group;
 
@@ -1718,16 +1691,14 @@ sub _update_sunix_prog_group {
 		( $gui_history->get_defaults )->{_sunix_prog_group_href} = $sunix_prog_group_href;
 		( $gui_history->get_defaults )->{_is_sunix_listbox}      = $true;
 
-	}
-	else {
+	} else {
 		print("gui_history, missing flow hash NADA\n");
 	}
 
 	if ( defined $sunix_prog_group_click_seq_href ) {
 		_set_click_sequence( $gui_history, $sunix_prog_group_click_seq_href );
 		( $gui_history->get_defaults )->{_sunix_prog_group_click_seq_href} = $sunix_prog_group_click_seq_href;
-	}
-	else {
+	} else {
 		print("gui_history, missing flow hash seq NADA\n");
 	}
 
@@ -1746,7 +1717,11 @@ color is always the same (= neutral)
 =cut
 
 sub _update_sunix_prog_group_color {
-	my ( $gui_history, $new_most_recent_sunix_prog_group_color, $new_prior_sunix_prog_group_color ) = @_;
+	my (
+		$gui_history,
+		$new_most_recent_sunix_prog_group_color,
+		$new_prior_sunix_prog_group_color
+	) = @_;
 
 	( $gui_history->get_defaults() )->{_flow_color} = $new_most_recent_sunix_prog_group_color;
 
@@ -1805,8 +1780,7 @@ around BUILDARGS => sub {
 		#			print(" gui_history, BUILDARGS, key is $key, value is $orig->{$key} \n ");
 		#		}
 
-	}
-	else {
+	} else {
 
 		# print(" gui_history,BUILDARGS, unexpected external default value(s) NADA\n");
 		my $result = $gui_history->$orig(@_);
@@ -1853,76 +1827,6 @@ sub get_internal {
 
 }
 
-#=head2 sub get_last_flow_color
-#
-#=cut
-#
-#sub get_last_flow_color {
-#
-#	my ($gui_history) = @_;
-#
-#	if ( defined  $flow_select_color_href ) {
-#
-#		my $flow_select_color_href = ( $gui_history->get_defaults() )->{_flow_select_color_href};
-#		my $most_recent_flow_color = $flow_select_color_href->{_most_recent};
-#		my $result                 = $most_recent_flow_color;
-#
-#		print(" gui_history, get_last_flow_color, result : $result \n ");
-#
-#		return ($result);
-#	}
-#
-#}
-
-#=head2 sub get_last_flow_index_touched
-#
-#=cut
-#
-#sub get_last_flow_index_touched {
-#
-#	my ($self) = @_;
-#
-#	if ( defined $flow_select_index_href  ) {
-#
-#		my $flow_select_color_href = ( $gui_history->get_defaults )->{_flow_select_color_href};
-#		my $most_recent_flow_color = $flow_select_color_href->{_most_recent};
-#		my $result                 = $most_recent_flow_color;
-#
-#		print(" gui_history, get_last_flow_index_touched, result : $result \n ");
-#
-#		return ($result);
-#
-#	}
-#	else {
-#		print(" gui_history, get_last_flow_index_touched,  missing href \n ");
-#		return ();
-#	}
-#
-#}
-
-#=head2 sub get_last_parameter_index_touched_color
-#
-#=cut
-#
-#sub get_last_parameter_index_touched_color {
-#
-#	my ($self) = @_;
-#
-#	if ( defined $parameter_index_on_exit_href  ) {
-#		my $parameter_index_on_exit_href              = ( $gui_history->get_defaults() )->{_flow_select_color_href};
-#		my $most_recent_parameter_index_touched_color = $parameter_index_on_exit_href->{_most_recent};
-#		my $result                                    = $most_recent_parameter_index_touched_color;
-#
-#		print(" gui_history, get_last_parameter_index_touched_color, result : $result \n ");
-#
-#		return ($result);
-#	}
-#	else {
-#		print(" gui_history, get_last_parameter_index_touched_color, missing href\n ");
-#	}
-#
-#}
-
 =head2 sub set_internally
 
 =cut
@@ -1945,147 +1849,64 @@ sub set_internally {
 
 }
 
-#=head2 sub set_location_in_gui
-#
-# set check_buttons by user from outside
-#
-#	     	foreach my $key (sort keys %$here) {
-#   			print (" param_widgets,set_location_in_gui, key is $key, value is $here->{$key}\n");
-#  		}
-#
-#=cut
-#
-#sub set_location_in_gui {
-#	my ($gui_history) = @_;
-#
-#	# print("gui_history, set_location_in_gui , _values_w_aref, ( $gui_history->get_defaults())->{_values_w_aref} \n");
-#
-#	if (   ( $gui_history->get_defaults() )->{_is_flow_listbox_grey_w}
-#		&& ( $gui_history->get_defaults() )->{_is_add2flow} )
-#	{
-#		_reset( $gui_history, 'listbox_color_w' );
-#		( $gui_history->get_defaults() )->{_is_flow_listbox_grey_w}  = $true;
-#		( $gui_history->get_defaults() )->{_is_flow_listbox_color_w} = $true;
-#
-#		# print("gui_history, set_location_in_gui, _is_flow_listbox_grey_w and _is_add2flow \n");
-#
-#	}
-#	elsif ( ( $gui_history->get_defaults() )->{_is_flow_listbox_grey_w} ) {
-#
-#		_reset( $gui_history, 'listbox_color_w' );
-#		( $gui_history->get_defaults() )->{_is_flow_listbox_grey_w}  = $true;
-#		( $gui_history->get_defaults() )->{_is_flow_listbox_color_w} = $true;
-#
-#		# print("gui_history, set_location_in_gui, _is_flow_listbox_grey_w ++ true\n");
-#
-#	}
-#	elsif ( ( $gui_history->get_defaults() )->{_is_flow_listbox_pink_w} ) {
-#
-#		_reset( $gui_history, 'listbox_color_w' );
-#		( $gui_history->get_defaults() )->{_is_flow_listbox_pink_w}  = $true;
-#		( $gui_history->get_defaults() )->{_is_flow_listbox_color_w} = $true;
-#
-#		# print("gui_history, set_location_in_gui, _is_flow_listbox_pink_w ++\n");
-#
-#	}
-#	elsif ( ( $gui_history->get_defaults() )->{_is_flow_listbox_green_w} ) {
-#
-#		_reset( $gui_history, 'listbox_color_w' );
-#		( $gui_history->get_defaults() )->{_is_flow_listbox_green_w} = $true;
-#		( $gui_history->get_defaults() )->{_is_flow_listbox_color_w} = $true;
-#
-#		# print("gui_history, set_location_in_gui, _is_flow_listbox_green_w ++\n");
-#
-#	}
-#	elsif ( ( $gui_history->get_defaults() )->{_is_flow_listbox_blue_w} ) {
-#
-#		_reset( $gui_history, 'listbox_color_w' );
-#		( $gui_history->get_defaults() )->{_is_flow_listbox_blue_w}  = $true;
-#		( $gui_history->get_defaults() )->{_is_flow_listbox_color_w} = $true;
-#
-#		# print("gui_history, set_location_in_gui, _is_flow_listbox_blue_w ++\n");
-#
-#	}
-#	elsif ( ( $gui_history->get_defaults() )->{_is_flow_listbox_color_w} ) {
-#
-#		_reset( $gui_history, 'listbox_color_w' );
-#		( $gui_history->get_defaults() )->{_is_flow_listbox_color_w} = $true;
-#
-#		# print("gui_history, set_location_in_gui, _is_flow_listbox_color_w\n");
-#
-#	}
-#	elsif ( ( $gui_history->get_defaults() )->{_is_add2flow} ) {
-#
-#		( $gui_history->get_defaults() )->{_is_new_listbox_selection} = $true;    # so change not allowed
-#		                                                                          # print("gui_history, set_location_in_gui, _is_new_listbox_selection \n");
-#
-#	}
-#	elsif ( ( $gui_history->get_defaults() )->{_is_add2flow_button} ) {
-#
-#		_reset( $gui_history, 'listbox_color_w' );
-#		( $gui_history->get_defaults() )->{_is_new_listbox_selection} = $true;    # so change not allowed
-#		                                                                          # print("gui_history, set_location_in_gui, _is_new_listbox_selection \n");
-#	}
-#	elsif ( ( $gui_history->get_defaults() )->{_is_sunix_listbox} ) {
-#
-#		_reset( $gui_history, 'listbox_color_w' );
-#		( $gui_history->get_defaults() )->{_is_new_listbox_selection} = $true;    # so changes not allowed
-#		( $gui_history->get_defaults() )->{_is_sunix_listbox}         = $true;
-#
-#		# print("gui_history, set_location_in_gui, _is_sunix_listbox and _is_new_listbox_selection\n");
-#
-#	}
-#	elsif ( ( $gui_history->get_defaults() )->{_is_moveNdrop_in_flow} ) {
-#
-#		_reset( $gui_history, '' );
-#		( $gui_history->get_defaults() )->{_is_flow_listbox_grey_w}  = $true;
-#		( $gui_history->get_defaults() )->{_is_flow_listbox_pink_w}  = $true;
-#		( $gui_history->get_defaults() )->{_is_flow_listbox_green_w} = $true;
-#		( $gui_history->get_defaults() )->{_is_flow_listbox_blue_w}  = $true;
-#		( $gui_history->get_defaults() )->{_is_flow_listbox_color_w} = $true;
-#		( $gui_history->get_defaults() )->{_is_moveNdrop_in_flow}    = $true;
-#
-#		# print("gui_history, set_location_in_gui, _is_moveNdrop_in_flow ++ \n");
-#
-#	}
-#	elsif ( ( $gui_history->get_defaults() )->{_is_delete_from_flow_button} ) {
-#
-#		_reset();
-#		( $gui_history->get_defaults() )->{_is_delete_from_flow_button} = $true;
-#
-#		# TODO double check if next 2-5 lines should be flse instead
-#		( $gui_history->get_defaults() )->{_is_flow_listbox_grey_w}  = $true;
-#		( $gui_history->get_defaults() )->{_is_flow_listbox_pink_w}  = $true;
-#		( $gui_history->get_defaults() )->{_is_flow_listbox_green_w} = $true;
-#		( $gui_history->get_defaults() )->{_is_flow_listbox_blue_w}  = $true;
-#		( $gui_history->get_defaults() )->{_is_flow_listbox_color_w} = $true;
-#
-#		print("gui_history, set_location_in_gui, _is_delete_from_flow_button ++\n");
-#
-#	}
-#	elsif ( ( $gui_history->get_defaults )->{_is_superflow_select_button} ) {
-#
-#		_reset
-#
-#			# print("gui_history,NEW set_location_in_gui, superflow_select_button\n");
-#			( $gui_history->get_defaults() )->{_is_superflow_select_button} = $true;
-#
-#		# print("gui_history, set_location_in_gui, _is_superflow_select_button \n")
-#
-#	}
-#	else {
-#		print("gui_history, set_location_in_gui, missing  params \n");
-#	}
-#	return ();
-#}
-#
-#sub show_gh {
-#	my ($self) = @_;
-#	$whereami->show_whereami();
-#	my $ans = $self->{_is_add2flow_button};
-#
-#	# print("gui_history, show_gh ,_is_add2flow_button=***$ans***\n");
-#}
+=head2 sub clear
+
+restore defaults to gui history items
+
+=cut
+
+sub _clear {
+
+	my (
+		$gui_history, $latest_button,
+		$prior_button
+	) = @_;
+
+	if ( $latest_button eq 'delete_from_flow_button' ) {
+		# the index selected should now be clean
+
+		$flow_select_index_href = {
+			_item        => $empty_string,
+			_index       => $index_start,
+			_name        => 'flow_select_index',
+			_most_recent => $current_index_start,
+			_earliest    => $earliest_index_start,
+			_next        => $next_index_start,
+			_prior       => $prior_index_start,
+		};
+		
+		# update the hash that will be used outside the module
+		( $gui_history->get_defaults() )->{_flow_select_index_href} = $flow_select_index_href;
+
+		# print("gui_history, _clear, success\n");
+	}
+
+}
+
+=head2 sub _subtract
+
+restore defaults to gui history items
+
+=cut
+
+sub _subtract {
+
+	my ( $gui_history, $button ) = @_;
+
+	if ( $button eq 'add2flow_button' ) {
+		# the indeices should be reduced by 1
+			$flow_select_index_href->{_earliest}    = $flow_select_index_href->{_earliest} -1;
+			$flow_select_index_href->{_prior}		= $flow_select_index_href->{_prior} - 1;
+			$flow_select_index_href->{_most_recent} = $flow_select_index_href->{_most_recent} -1;
+					
+		# update the hash that will be used outside the module
+		( $gui_history->get_defaults() )->{_flow_select_index_href} = $flow_select_index_href;
+
+		print("gui_history, _subtract, success\n");
+		print("gui_history, _subtract, most_recent = $flow_select_index_href->{_most_recent}\n");
+	}
+
+}
 
 =head2 sub view
 Writes out internals to a file
@@ -2129,8 +1950,7 @@ sub view {
 					print $fh (" gui_history->{$key}: $sub_key= $ans\n");
 
 					# print(" gui_history->{$key}: $sub_key= $ans\n");
-				}
-				else {
+				} else {
 					print $fh (" gui_history->{$key}: $sub_key= 'nada'\n");
 
 					# print(" gui_history, view, ans is not available \n");
@@ -2152,10 +1972,11 @@ sub view {
 					if ( defined $ans and $ans ne $empty_string ) {
 
 						# print(" key_hash_ref->{$sub2_key}: $sub2_key= $ans\n");
-						print $fh (" ( (gui_history->{defaults})->{_FileDialog_type_href})->{$sub2_key}: $sub2_key= $ans\n");
-					}
-					else {
-						print $fh (" ( (gui_history->{defaults})->{_FileDialog_type_href})->{$sub2_key}: $sub2_key= 'nada'\n");
+						print $fh (
+							" ( (gui_history->{defaults})->{_FileDialog_type_href})->{$sub2_key}: $sub2_key= $ans\n");
+					} else {
+						print $fh (
+							" ( (gui_history->{defaults})->{_FileDialog_type_href})->{$sub2_key}: $sub2_key= 'nada'\n");
 
 						# print(" gui_history, view, ans is not available \n");
 					}
@@ -2176,12 +1997,16 @@ sub view {
 					if ( defined $ans and $ans ne $empty_string ) {
 
 						# print(" key_hash_ref->{$sub2_key}: $sub2_key= $ans\n");
-						print $fh (" ( (gui_history->{defaults})->{_FileDialog_button_click_seq_href})->{$sub2_key}: $sub2_key= $ans\n");
+						print $fh (
+							" ( (gui_history->{defaults})->{_FileDialog_button_click_seq_href})->{$sub2_key}: $sub2_key= $ans\n"
+						);
 
-					}
-					else {
+					} else {
+
 						# print(" gui_history-, view, ans is not available \n");
-						print $fh (" ( (gui_history->{defaults})->{_FileDialog_button_click_seq_href})->{$sub2_key}: $sub2_key= nada \n");
+						print $fh (
+							" ( (gui_history->{defaults})->{_FileDialog_button_click_seq_href})->{$sub2_key}: $sub2_key= nada \n"
+						);
 					}
 				}
 			}
@@ -2199,11 +2024,15 @@ sub view {
 					if ( defined $ans and $ans ne $empty_string ) {
 
 						# print(" 2. key_hash_ref->{$sub2_key}: $sub2_key= $ans\n");
-						print $fh (" ( (gui_history->{defaults})->{_add2flow_button_click_seq_href})->{$sub2_key}: $sub2_key= $ans\n");
-					}
-					else {
+						print $fh (
+							" ( (gui_history->{defaults})->{_add2flow_button_click_seq_href})->{$sub2_key}: $sub2_key= $ans\n"
+						);
+					} else {
+
 						# print(" gui_history-, view, ans is not available \n");
-						print $fh (" ( (gui_history->{defaults})->{_add2flow_button_click_seq_href})->{$sub2_key}: $sub2_key= nada\n");
+						print $fh (
+							" ( (gui_history->{defaults})->{_add2flow_button_click_seq_href})->{$sub2_key}: $sub2_key= nada\n"
+						);
 					}
 				}
 			}
@@ -2220,11 +2049,15 @@ sub view {
 					if ( defined $ans and $ans ne $empty_string ) {
 
 						# print(" 3. key_hash_ref->{$sub2_key}: $sub2_key= $ans\n");
-						print $fh (" ( (gui_history->{defaults})->{_add2flow_button_color_href})->{$sub2_key}: $sub2_key= $ans\n");
-					}
-					else {
+						print $fh (
+							" ( (gui_history->{defaults})->{_add2flow_button_color_href})->{$sub2_key}: $sub2_key= $ans\n"
+						);
+					} else {
+
 						# print(" gui_history-, view, ans is not available \n");
-						print $fh (" ( (gui_history->{defaults})->{_add2flow_button_color_href})->{$sub2_key}: $sub2_key= nada\n");
+						print $fh (
+							" ( (gui_history->{defaults})->{_add2flow_button_color_href})->{$sub2_key}: $sub2_key= nada\n"
+						);
 					}
 				}
 			}
@@ -2242,8 +2075,8 @@ sub view {
 
 						# print(" key_hash_ref->{$sub2_key}: $sub2_key= $ans\n");
 						print $fh (" ( (gui_history->{defaults})->{_button_href})->{$sub2_key}: $sub2_key= $ans\n");
-					}
-					else {
+					} else {
+
 						# print(" gui_history-, view, ans is not available \n");
 						print $fh (" ( (gui_history->{defaults})->{_button_href})->{$sub2_key}: $sub2_key= nada\n");
 					}
@@ -2261,10 +2094,13 @@ sub view {
 					if ( defined $ans and $ans ne $empty_string ) {
 
 						# print(" 4. key_hash_ref->{$sub2_key}: $sub2_key= $ans\n");
-						print $fh (" ( (gui_history->get_defaults() )->{_delete_from_flow_button_click_seq_href})->{$sub2_key}: $sub2_key= $ans\n");
-					}
-					else {
-						print $fh (" ( (gui_history->get_defaults() )->{_delete_from_flow_button_click_seq_href})->{$sub2_key}: $sub2_key=  nada\n");
+						print $fh (
+							" ( (gui_history->get_defaults() )->{_delete_from_flow_button_click_seq_href})->{$sub2_key}: $sub2_key= $ans\n"
+						);
+					} else {
+						print $fh (
+							" ( (gui_history->get_defaults() )->{_delete_from_flow_button_click_seq_href})->{$sub2_key}: $sub2_key=  nada\n"
+						);
 
 						# print(" gui_history-, view, ans is not available \n");
 					}
@@ -2283,10 +2119,13 @@ sub view {
 					if ( defined $ans and $ans ne $empty_string ) {
 
 						# # print(" 5. key_hash_ref->{$sub2_key}: $sub2_key= $ans\n");
-						print $fh (" ( (gui_history->get_defaults() )->{_flow_item_down_arrow_button_click_seq_href})->{$sub2_key}: $sub2_key= $ans\n");
-					}
-					else {
-						print $fh (" ( (gui_history->get_defaults() )->{_flow_item_down_arrow_button_click_seq_href})->{$sub2_key}: $sub2_key= nada\n");
+						print $fh (
+							" ( (gui_history->get_defaults() )->{_flow_item_down_arrow_button_click_seq_href})->{$sub2_key}: $sub2_key= $ans\n"
+						);
+					} else {
+						print $fh (
+							" ( (gui_history->get_defaults() )->{_flow_item_down_arrow_button_click_seq_href})->{$sub2_key}: $sub2_key= nada\n"
+						);
 
 						# print(" gui_history-, view, ans is not available \n");
 					}
@@ -2304,10 +2143,13 @@ sub view {
 					if ( defined $ans and $ans ne $empty_string ) {
 
 						# print(" key_hash_ref->{$sub2_key}: $sub2_key= $ans\n");
-						print $fh (" ( (gui_history->get_defaults() )->{_flow_item_up_arrow_button_click_seq_href})->{$sub2_key}: $sub2_key= $ans\n");
-					}
-					else {
-						print $fh (" ( (gui_history->get_defaults() )->{_flow_item_up_arrow_button_click_seq_href})->{$sub2_key}: $sub2_key= nada\n");
+						print $fh (
+							" ( (gui_history->get_defaults() )->{_flow_item_up_arrow_button_click_seq_href})->{$sub2_key}: $sub2_key= $ans\n"
+						);
+					} else {
+						print $fh (
+							" ( (gui_history->get_defaults() )->{_flow_item_up_arrow_button_click_seq_href})->{$sub2_key}: $sub2_key= nada\n"
+						);
 
 						# print(" gui_history-, view, ans is not available \n");
 					}
@@ -2326,10 +2168,13 @@ sub view {
 					if ( defined $ans and $ans ne $empty_string ) {
 
 						# print(" key_hash_ref->{$sub2_key}: $sub2_key= $ans\n");
-						print $fh (" ( (gui_history->get_defaults() )->{_flow_select_color_href})->{$sub2_key}: $sub2_key= $ans\n");
-					}
-					else {
-						print $fh (" ( (gui_history->get_defaults() )->{_flow_select_color_href})->{$sub2_key}: $sub2_key= nada\n");
+						print $fh (
+							" ( (gui_history->get_defaults() )->{_flow_select_color_href})->{$sub2_key}: $sub2_key= $ans\n"
+						);
+					} else {
+						print $fh (
+							" ( (gui_history->get_defaults() )->{_flow_select_color_href})->{$sub2_key}: $sub2_key= nada\n"
+						);
 
 						# print(" gui_history-, view, ans is not available \n");
 					}
@@ -2347,38 +2192,18 @@ sub view {
 					if ( defined $ans and $ans ne $empty_string ) {
 
 						# print(" 25 key_hash_ref->{$sub2_key}: $sub2_key= $ans\n");
-						print $fh (" ( (gui_history->get_defaults() )->{_flow_select_index_href})->{$sub2_key}: $sub2_key= $ans\n");
-					}
-					else {
-						print $fh (" ( (gui_history->get_defaults() )->{_flow_select_index_href})->{$sub2_key}: $sub2_key= nada\n");
+						print $fh (
+							" ( (gui_history->get_defaults() )->{_flow_select_index_href})->{$sub2_key}: $sub2_key= $ans\n"
+						);
+					} else {
+						print $fh (
+							" ( (gui_history->get_defaults() )->{_flow_select_index_href})->{$sub2_key}: $sub2_key= nada\n"
+						);
 
 						# print(" gui_history-, view, ans is not available \n");
 					}
 				}
 			}
-
-			#			if ( ( $gui_history->get_defaults() )->{_flow_select_color_href} ) {
-			#
-			#				# print additional subsets: flow_select-seq
-			#				$key_hash_ref = ( $gui_history->get_defaults() )->{_flow_select_color_href};
-			#
-			#				# print("gui_history, view, key_hash_ref = $key_hash_ref \n");
-			#				foreach my $sub2_key ( sort keys %{$key_hash_ref} ) {
-			#
-			#					my $ans = $key_hash_ref->{$sub2_key};
-			#					if (defined $ans and $ans ne $empty_string) {
-			#
-			#						# print(" key_hash_ref->{$sub2_key}: $sub2_key= $ans\n");
-			#						print $fh (" ( (gui_history->get_defaults() )->{_flow_select_color_href})->{$sub2_key}: $sub2_key= $ans\n");
-			#					}
-			#					else {
-			#						# print(" key_hash_ref->{$sub2_key}: $sub2_key= $ans\n");
-			#						print $fh (" ( (gui_history->get_defaults() )->{_flow_select_color_href})->{$sub2_key}: $sub2_key= nada\n");
-			#
-			#						# print(" gui_history-, view, ans is not available \n");
-			#					}
-			#				}
-			#			}
 
 			if ( ( $gui_history->get_defaults() )->{_flow_select_click_seq_href} ) {
 
@@ -2392,11 +2217,15 @@ sub view {
 					if ( defined $ans and $ans ne $empty_string ) {
 
 						# print(" key_hash_ref->{$sub2_key}: $sub2_key= $ans\n");
-						print $fh (" ( (gui_history->get_defaults() )->{_flow_select_click_seq_href})->{$sub2_key}: $sub2_key= $ans\n");
-					}
-					else {
+						print $fh (
+							" ( (gui_history->get_defaults() )->{_flow_select_click_seq_href})->{$sub2_key}: $sub2_key= $ans\n"
+						);
+					} else {
+
 						# print(" key_hash_ref->{$sub2_key}: $sub2_key= $ans\n");
-						print $fh (" ( (gui_history->get_defaults() )->{_flow_select_click_seq_href})->{$sub2_key}: $sub2_key= nada\n");
+						print $fh (
+							" ( (gui_history->get_defaults() )->{_flow_select_click_seq_href})->{$sub2_key}: $sub2_key= nada\n"
+						);
 
 						# print(" gui_history-, view, ans is not available \n");
 					}
@@ -2407,6 +2236,7 @@ sub view {
 
 				# print additional subset: _flow_type_href
 				$key_hash_ref = ( $gui_history->get_defaults() )->{_flow_type_href};
+
 				# my $ans =  (( $gui_history->get_defaults() )->{_flow_type_href})->{_most_recent};
 				# print("gui_history, msot recent flow type = $ans\n");
 				# print("gui_history, view, key_hash_ref = $key_hash_ref \n");
@@ -2417,9 +2247,9 @@ sub view {
 
 						# print(" key_hash_ref->{$sub2_key}: $sub2_key= $ans\n");
 						print $fh (" ( (gui_history->{defaults})->{_flow_type_href})->{$sub2_key}: $sub2_key= $ans\n");
-						# print  (" ( (gui_history->{defaults})->{_flow_type_href})->{$sub2_key}: $sub2_key= $ans\n");						
-					}
-					else {
+
+						# print  (" ( (gui_history->{defaults})->{_flow_type_href})->{$sub2_key}: $sub2_key= $ans\n");
+					} else {
 						print $fh (" ( (gui_history->{defaults})->{_flow_type_href})->{$sub2_key}: $sub2_key= nada\n");
 
 						# print(" gui_history-, view, ans is not available \n");
@@ -2439,10 +2269,13 @@ sub view {
 					if ( defined $ans and $ans ne $empty_string ) {
 
 						# print(" key_hash_ref->{$sub2_key}: $sub2_key= $ans\n");
-						print $fh (" ( (gui_history->{defaults})->{_parameter_color_on_exit_href})->{$sub2_key}: $sub2_key= $ans\n");
-					}
-					else {
-						print $fh (" ( (gui_history->{defaults})->{_parameter_color_on_exit_href})->{$sub2_key}: $sub2_key= nada\n");
+						print $fh (
+							" ( (gui_history->{defaults})->{_parameter_color_on_exit_href})->{$sub2_key}: $sub2_key= $ans\n"
+						);
+					} else {
+						print $fh (
+							" ( (gui_history->{defaults})->{_parameter_color_on_exit_href})->{$sub2_key}: $sub2_key= nada\n"
+						);
 
 						# print(" gui_history-, view, ans is not available \n");
 					}
@@ -2460,10 +2293,13 @@ sub view {
 					if ( defined $ans and $ans ne $empty_string ) {
 
 						# print(" key_hash_ref->{$sub2_key}: $sub2_key= $ans\n");
-						print $fh (" ( (gui_history->{defaults})->{_parameter_color_on_entry_href})->{$sub2_key}: $sub2_key= $ans\n");
-					}
-					else {
-						print $fh (" ( (gui_history->{defaults})->{_parameter_color_on_entry_href})->{$sub2_key}: $sub2_key= nada\n");
+						print $fh (
+							" ( (gui_history->{defaults})->{_parameter_color_on_entry_href})->{$sub2_key}: $sub2_key= $ans\n"
+						);
+					} else {
+						print $fh (
+							" ( (gui_history->{defaults})->{_parameter_color_on_entry_href})->{$sub2_key}: $sub2_key= nada\n"
+						);
 
 						# print(" gui_history-, view, ans is not available \n");
 					}
@@ -2481,10 +2317,13 @@ sub view {
 					if ( defined $ans and $ans ne $empty_string ) {
 
 						# print(" key_hash_ref->{$sub2_key}: $sub2_key= $ans\n");
-						print $fh (" ( (gui_history->{defaults})->{_parameter_index_on_entry_href})->{$sub2_key}: $sub2_key= $ans\n");
-					}
-					else {
-						print $fh (" ( (gui_history->{defaults})->{_parameter_index_on_entry_href})->{$sub2_key}: $sub2_key= nada\n");
+						print $fh (
+							" ( (gui_history->{defaults})->{_parameter_index_on_entry_href})->{$sub2_key}: $sub2_key= $ans\n"
+						);
+					} else {
+						print $fh (
+							" ( (gui_history->{defaults})->{_parameter_index_on_entry_href})->{$sub2_key}: $sub2_key= nada\n"
+						);
 
 						# print(" gui_history-, view, ans is not available \n");
 					}
@@ -2502,10 +2341,13 @@ sub view {
 					if ( defined $ans and $ans ne $empty_string ) {
 
 						# print(" key_hash_ref->{$sub2_key}: $sub2_key= $ans\n");
-						print $fh (" ( (gui_history->{defaults})->{_parameter_index_on_entry_click_seq_href})->{$sub2_key}: $sub2_key= $ans\n");
-					}
-					else {
-						print $fh (" ( (gui_history->{defaults})->{_parameter_index_touched_color_on_entry_click_seq_href})->{$sub2_key}: $sub2_key= nada\n");
+						print $fh (
+							" ( (gui_history->{defaults})->{_parameter_index_on_entry_click_seq_href})->{$sub2_key}: $sub2_key= $ans\n"
+						);
+					} else {
+						print $fh (
+							" ( (gui_history->{defaults})->{_parameter_index_touched_color_on_entry_click_seq_href})->{$sub2_key}: $sub2_key= nada\n"
+						);
 
 						# print(" gui_history-, view, ans is not available \n");
 					}
@@ -2523,10 +2365,13 @@ sub view {
 					if ( defined $ans and $ans ne $empty_string ) {
 
 						# print(" key_hash_ref->{$sub2_key}: $sub2_key= $ans\n");
-						print $fh (" ( (gui_history->{defaults})->{_parameter_index_on_exit_href})->{$sub2_key}: $sub2_key= $ans\n");
-					}
-					else {
-						print $fh (" ( (gui_history->{defaults})->{_parameter_index_on_exit_href})->{$sub2_key}: $sub2_key= nada\n");
+						print $fh (
+							" ( (gui_history->{defaults})->{_parameter_index_on_exit_href})->{$sub2_key}: $sub2_key= $ans\n"
+						);
+					} else {
+						print $fh (
+							" ( (gui_history->{defaults})->{_parameter_index_on_exit_href})->{$sub2_key}: $sub2_key= nada\n"
+						);
 
 						# print(" gui_history-, view, ans is not available \n");
 					}
@@ -2544,10 +2389,13 @@ sub view {
 					if ( defined $ans and $ans ne $empty_string ) {
 
 						# print(" key_hash_ref->{$sub2_key}: $sub2_key= $ans\n");
-						print $fh (" ( (gui_history->{defaults})->{_parameter_index_on_exit_click_seq_href})->{$sub2_key}: $sub2_key= $ans\n");
-					}
-					else {
-						print $fh (" ( (gui_history->{defaults})->{_parameter_index_on_exit_click_seq_href})->{$sub2_key}: $sub2_key= nada\n");
+						print $fh (
+							" ( (gui_history->{defaults})->{_parameter_index_on_exit_click_seq_href})->{$sub2_key}: $sub2_key= $ans\n"
+						);
+					} else {
+						print $fh (
+							" ( (gui_history->{defaults})->{_parameter_index_on_exit_click_seq_href})->{$sub2_key}: $sub2_key= nada\n"
+						);
 
 						# print(" gui_history-, view, ans is not available \n");
 					}
@@ -2565,10 +2413,13 @@ sub view {
 					if ( defined $ans and $ans ne $empty_string ) {
 
 						# print(" key_hash_ref->{$sub2_key}: $sub2_key= $ans\n");
-						print $fh (" ( (gui_history->{defaults})->{_run_button_click_seq_href})->{$sub2_key}: $sub2_key= $ans\n");
-					}
-					else {
-						print $fh (" ( (gui_history->{defaults})->{_run_button_click_seq_href})->{$sub2_key}: $sub2_key= nada\n");
+						print $fh (
+							" ( (gui_history->{defaults})->{_run_button_click_seq_href})->{$sub2_key}: $sub2_key= $ans\n"
+						);
+					} else {
+						print $fh (
+							" ( (gui_history->{defaults})->{_run_button_click_seq_href})->{$sub2_key}: $sub2_key= nada\n"
+						);
 
 						# print(" gui_history-, view, ans is not available \n");
 					}
@@ -2586,10 +2437,13 @@ sub view {
 					if ( defined $ans and $ans ne $empty_string ) {
 
 						# print(" key_hash_ref->{$sub2_key}: $sub2_key= $ans\n");
-						print $fh (" ( (gui_history->{defaults})->{_save_button_click_seq_href})->{$sub2_key}: $sub2_key= $ans\n");
-					}
-					else {
-						print $fh (" ( (gui_history->{defaults})->{_save_button_click_seq_href})->{$sub2_key}: $sub2_key= nada\n");
+						print $fh (
+							" ( (gui_history->{defaults})->{_save_button_click_seq_href})->{$sub2_key}: $sub2_key= $ans\n"
+						);
+					} else {
+						print $fh (
+							" ( (gui_history->{defaults})->{_save_button_click_seq_href})->{$sub2_key}: $sub2_key= nada\n"
+						);
 
 						# print(" gui_history-, view, ans is not available \n");
 					}
@@ -2607,10 +2461,13 @@ sub view {
 					if ( defined $ans and $ans ne $empty_string ) {
 
 						# print(" key_hash_ref->{$sub2_key}: $sub2_key= $ans\n");
-						print $fh (" ( (gui_history->{defaults})->{_save_as_button_click_seq_href})->{$sub2_key}: $sub2_key= $ans\n");
-					}
-					else {
-						print $fh (" ( (gui_history->{defaults})->{_save_as_button_click_seq_href})->{$sub2_key}: $sub2_key= nada\n");
+						print $fh (
+							" ( (gui_history->{defaults})->{_save_as_button_click_seq_href})->{$sub2_key}: $sub2_key= $ans\n"
+						);
+					} else {
+						print $fh (
+							" ( (gui_history->{defaults})->{_save_as_button_click_seq_href})->{$sub2_key}: $sub2_key= nada\n"
+						);
 
 						# print(" gui_history-, view, ans is not available \n");
 					}
@@ -2628,10 +2485,11 @@ sub view {
 					if ( defined $ans and $ans ne $empty_string ) {
 
 						# print(" key_hash_ref->{$sub2_key}: $sub2_key= $ans\n");
-						print $fh (" ( (gui_history->{defaults})->{_sunix_prog_group_href})->{$sub2_key}: $sub2_key= $ans\n");
-					}
-					else {
-						print $fh (" ( (gui_history->{defaults})->{_sunix_prog_group_href})->{$sub2_key}: $sub2_key= nada\n");
+						print $fh (
+							" ( (gui_history->{defaults})->{_sunix_prog_group_href})->{$sub2_key}: $sub2_key= $ans\n");
+					} else {
+						print $fh (
+							" ( (gui_history->{defaults})->{_sunix_prog_group_href})->{$sub2_key}: $sub2_key= nada\n");
 
 						# print(" gui_history-, view, ans is not available \n");
 					}
@@ -2649,10 +2507,13 @@ sub view {
 					if ( defined $ans and $ans ne $empty_string ) {
 
 						# print(" key_hash_ref->{$sub2_key}: $sub2_key= $ans\n");
-						print $fh (" ( (gui_history->{defaults})->{_sunix_prog_group_click_seq_href})->{$sub2_key}: $sub2_key= $ans\n");
-					}
-					else {
-						print $fh (" ( (gui_history->{defaults})->{_sunix_prog_group_click_seq_href})->{$sub2_key}: $sub2_key= nada\n");
+						print $fh (
+							" ( (gui_history->{defaults})->{_sunix_prog_group_click_seq_href})->{$sub2_key}: $sub2_key= $ans\n"
+						);
+					} else {
+						print $fh (
+							" ( (gui_history->{defaults})->{_sunix_prog_group_click_seq_href})->{$sub2_key}: $sub2_key= nada\n"
+						);
 
 						# print(" gui_history-, view, ans is not available \n");
 					}
@@ -2670,10 +2531,13 @@ sub view {
 					if ( defined $ans and $ans ne $empty_string ) {
 
 						# print(" key_hash_ref->{$sub2_key}: $sub2_key= $ans\n");
-						print $fh (" ( (gui_history->{defaults})->{_superflow_select_button_click_seq_href})->{$sub2_key}: $sub2_key= $ans\n");
-					}
-					else {
-						print $fh (" ( (gui_history->{defaults})->{_superflow_select_button_click_seq_href})->{$sub2_key}: $sub2_key= nada\n");
+						print $fh (
+							" ( (gui_history->{defaults})->{_superflow_select_button_click_seq_href})->{$sub2_key}: $sub2_key= $ans\n"
+						);
+					} else {
+						print $fh (
+							" ( (gui_history->{defaults})->{_superflow_select_button_click_seq_href})->{$sub2_key}: $sub2_key= nada\n"
+						);
 
 						# print(" gui_history-, view, ans is not available \n");
 					}
@@ -2691,10 +2555,11 @@ sub view {
 					if ( defined $ans and $ans ne $empty_string ) {
 
 						# print(" key_hash_ref->{$sub2_key}: $sub2_key= $ans\n");
-						print $fh (" ( (gui_history->{defaults})->{_superflow_tool_href})->{$sub2_key}: $sub2_key= $ans\n");
-					}
-					else {
-						print $fh (" ( (gui_history->{defaults})->{_superflow_tool_href})->{$sub2_key}: $sub2_key= nada\n");
+						print $fh (
+							" ( (gui_history->{defaults})->{_superflow_tool_href})->{$sub2_key}: $sub2_key= $ans\n");
+					} else {
+						print $fh (
+							" ( (gui_history->{defaults})->{_superflow_tool_href})->{$sub2_key}: $sub2_key= nada\n");
 
 						# print(" gui_history-, view, ans is not available \n");
 					}
@@ -2714,18 +2579,21 @@ sub view {
 					if ( defined $ans and $ans ne $empty_string ) {
 
 						# print(" key_hash_ref->{$sub2_key}: $sub2_key= $ans\n");
-						print $fh (" ( (gui_history->get_defaults() )->{_wipe_plots_button_click_seq_href})->{$sub2_key}: $sub2_key= $ans\n");
-					}
-					else {
-						print $fh (" ( (gui_history->get_defaults() )->{_wipe_plots_button_click_seq_href})->{$sub2_key}: $sub2_key= nada\n");
+						print $fh (
+							" ( (gui_history->get_defaults() )->{_wipe_plots_button_click_seq_href})->{$sub2_key}: $sub2_key= $ans\n"
+						);
+					} else {
+						print $fh (
+							" ( (gui_history->get_defaults() )->{_wipe_plots_button_click_seq_href})->{$sub2_key}: $sub2_key= nada\n"
+						);
 
 						# print(" gui_history-, view, ans is not available \n");
 					}
 				}
 			}
 
-		}
-		else {
+		} else {
+
 			#			print $fh (" \nNow, print the attribute values, BUT they can not be pritned directly\n");
 			#			print $fh (" 1.gui_history->{$key} = $gui_history->{$key}\n");
 			#

@@ -23,6 +23,7 @@ package suwind_spec;
 	my $max_index           = $suwind->get_max_index();
 	
 	my $suwind_spec = {
+	_CONFIG					=> 'Nada'
 	_DATA_DIR_IN		    => $DATA_SEISMIC_SU,
 	_DATA_DIR_OUT		    => $DATA_SEISMIC_SU,
 	_binding_index_aref	    => '',

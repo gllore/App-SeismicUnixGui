@@ -29,10 +29,12 @@ my $max_index         = $Sseg2su_config->get_max_index();
 
 =cut
 
-my $Sseg2su_spec = {
+my $Sseg2su_spec =  {
+    _CONFIG	 				=> 'Nada',
     _DATA_DIR_IN           => $DATA_SEISMIC_SEG2,
-    _DATA_DIR_OUT          => $DATA_SEISMIC_SU,
-    _binding_index_aref    => '',
+		_DATA_DIR_OUT          => $DATA_SEISMIC_SU,
+    _CONFIG					=>'Nada',
+	_binding_index_aref    => '',
     _suffix_type_in        => $seg2,
     _data_suffix_in        => $suffix_DAT,
     _suffix_type_out       => $su,

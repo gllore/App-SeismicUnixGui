@@ -1125,150 +1125,150 @@ sub range {
 	return ();
 }
 
-=head2 sub redisplay_check_buttons 
-    
-    update colors in check button boxes
+#=head2 sub redisplay_check_buttons 
+#    
+#    update colors in check button boxes
+#
+#=cut
+#
+#sub redisplay_check_buttons {
+#	my ($self)        = @_;
+#	my $button_w_aref = $param_widgets->{_check_buttons_w_aref};
+#	my $first         = $param_widgets->{_first_idx};
+#	my $length = scalar @{ $param_widgets->{_check_buttons_settings_aref} };
+#
+#	# my $length 			= $param_widgets->{_length};
+#	my $settings_aref = $param_widgets->{_check_buttons_settings_aref};
+#
+## print("1. param_widgets,redisplay_check_buttons,settings @{$settings_aref}[0]\n");
+## print("2. param_widgets,redisplay_check_buttons,settings @{$param_widgets->{_check_buttons_settings_aref}}[0]\n");
+## print("2. param_widgets,redisplay_check_buttons,length: $length\n");
+#
+#	if ( $button_w_aref && $settings_aref ) {
+#
+#		for ( my $i = $first; $i < $length; $i++ ) {
+#
+#			@$button_w_aref[$i]->configure(
+#				-onvalue          => 'on',
+#				-offvalue         => 'off',
+#				-selectcolor      => 'green',
+#				-activebackground => 'red',
+#				-background       => 'red',
+#				-variable         => \@$settings_aref[$i],
+#			);
+#		}
+#	}
+#	else {
+#		print("param_widgets, redisplay_check_buttons missing parameters\n");
+#	}
+#	return ();
+#}
+#
+#=head2 sub redisplay_labels 
+#
+#  print("1. redisplay, resdisplay_labels, text is @{$label_array_ref}[$i]\n");
+#  print("redisplay, resdisplay_labels, i is $i\n");
+#  print("2. redisplay, resdisplay_labels, text is @{$LSU->{_label_array_ref}}[$i]\n");
+#
+#=cut
+#
+#sub redisplay_labels {
+#	my ($self)        = @_;
+#	my $labels_w_aref = $param_widgets->{_labels_w_aref};
+#	my $labels_aref   = $param_widgets->{_labels_aref};
+#	my $first         = $param_widgets->{_first_idx};
+#	my $length        = scalar @{ $param_widgets->{_labels_aref} };
+#
+#	# my $length 			= $param_widgets->{_length};
+#
+#	if ($labels_w_aref) {
+#		for ( my $i = $first; $i < $length; $i++ ) {
+#
+#			# print("i:$i   param_widgets,redisplay_labels length:$length\n");
+#			# print(" text is @{$labels_aref}\n");
+#			@$labels_w_aref[$i]->configure( -text => @$labels_aref[$i], );
+#		}
+#	}
+#	else {
+#		print(
+#			"param_widgets,redisplay labels, Warning parameters or labels_w_aref missing \n"
+#		);
+#	}
+#	return ();
+#}
 
-=cut
-
-sub redisplay_check_buttons {
-	my ($self)        = @_;
-	my $button_w_aref = $param_widgets->{_check_buttons_w_aref};
-	my $first         = $param_widgets->{_first_idx};
-	my $length = scalar @{ $param_widgets->{_check_buttons_settings_aref} };
-
-	# my $length 			= $param_widgets->{_length};
-	my $settings_aref = $param_widgets->{_check_buttons_settings_aref};
-
-# print("1. param_widgets,redisplay_check_buttons,settings @{$settings_aref}[0]\n");
-# print("2. param_widgets,redisplay_check_buttons,settings @{$param_widgets->{_check_buttons_settings_aref}}[0]\n");
-# print("2. param_widgets,redisplay_check_buttons,length: $length\n");
-
-	if ( $button_w_aref && $settings_aref ) {
-
-		for ( my $i = $first; $i < $length; $i++ ) {
-
-			@$button_w_aref[$i]->configure(
-				-onvalue          => 'on',
-				-offvalue         => 'off',
-				-selectcolor      => 'green',
-				-activebackground => 'red',
-				-background       => 'red',
-				-variable         => \@$settings_aref[$i],
-			);
-		}
-	}
-	else {
-		print("param_widgets, redisplay_check_buttons missing parameters\n");
-	}
-	return ();
-}
-
-=head2 sub redisplay_labels 
-
-  print("1. redisplay, resdisplay_labels, text is @{$label_array_ref}[$i]\n");
-  print("redisplay, resdisplay_labels, i is $i\n");
-  print("2. redisplay, resdisplay_labels, text is @{$LSU->{_label_array_ref}}[$i]\n");
-
-=cut
-
-sub redisplay_labels {
-	my ($self)        = @_;
-	my $labels_w_aref = $param_widgets->{_labels_w_aref};
-	my $labels_aref   = $param_widgets->{_labels_aref};
-	my $first         = $param_widgets->{_first_idx};
-	my $length        = scalar @{ $param_widgets->{_labels_aref} };
-
-	# my $length 			= $param_widgets->{_length};
-
-	if ($labels_w_aref) {
-		for ( my $i = $first; $i < $length; $i++ ) {
-
-			# print("i:$i   param_widgets,redisplay_labels length:$length\n");
-			# print(" text is @{$labels_aref}\n");
-			@$labels_w_aref[$i]->configure( -text => @$labels_aref[$i], );
-		}
-	}
-	else {
-		print(
-			"param_widgets,redisplay labels, Warning parameters or labels_w_aref missing \n"
-		);
-	}
-	return ();
-}
-
-=head2 sub redisplay_values 
-
-  display parameter values without quotes
-  although internally we always have quotes for strings
-  and no quotes if the value looks like a number
-  
-  i/p: 2 array references
-  o/p: array reference
-
-  N.B. This is an ENTRY widget
-  textvariables must be a reference in order
-  for -validatecommand to work. BEWARE!
-
-  DB
-
-=cut 
-
-sub redisplay_values {
-
-	my ($self)        = @_;
-	my $values_w_aref = $param_widgets->{_values_w_aref};
-	my $values_aref   = $param_widgets->{_values_aref};
-	my $first         = $param_widgets->{_first_idx};
-	my $length        = scalar @{ $param_widgets->{_values_aref} };
-
-	#  my $length 				= $param_widgets->{_length};
-	# print("param_widgets, redisplay_values, length is $length\n");
-	if ( $values_w_aref && $values_aref ) {
-		use control;
-
-		for ( my $i = $first; $i < $length; $i++ ) {
-
-			my $control = control->new();
-
-# print("1. param_widgets,redisplay_values,chkbtn @{$param_widgets->{_check_buttons_settings_aref}}[$i]\n");
-
-  # print("param_widgets, redisplay_values, i is $i\n");
-  # print("1. param_widgets, redisplay_values, value is @{$values_aref}[$i]\n");
-
-			#  &_changes is invoked if
-			#  there is a new selection after an entry change
-			#  or even just if redisplay is selected
-			#  _changes returns a 0 to invoke an error check
-			# -validate				=> 'focusout',
-
-			# remove terminal quotes for values, only for display purposes
-			# when later read again the values will be given quotes if they
-			# do not look like a number-- this occurs in a superclass
-			@{$values_aref}[$i] =
-				$control->get_no_quotes( @{$values_aref}[$i] );
-
-  # print("2. param_widgets, redisplay_values, value is @{$values_aref}[$i]\n");
-			@$values_w_aref[$i]->configure(
-				-textvariable    => \@{$values_aref}[$i],
-				-validate        => 'all',
-				-validatecommand => [ \&_changes, $i ],
-				-invalidcommand  => \&error_check,
-			);
-
-# print("2. param_widgets,redisplay_values,chkbtn @{$param_widgets->{_check_buttons_settings_aref}}[$i]\n");
-		}
-	}
-	else {
-		print("2. param_widgets,redisplay_values,missing parameters\n");
-	}
-
-# print("param_widgets, redisplay_values, first item's value is  @{$values_aref}[$first]\n");
-# print("param_widgets, redisplay_values, last item's values is  @{$values_aref}[($length-1)]\n");
-# print("param_widgets, redisplay_values, last values are  @{$values_aref}\n");
-
-	return ();
-}
+#=head2 sub redisplay_values 
+#
+#  display parameter values without quotes
+#  although internally we always have quotes for strings
+#  and no quotes if the value looks like a number
+#  
+#  i/p: 2 array references
+#  o/p: array reference
+#
+#  N.B. This is an ENTRY widget
+#  textvariables must be a reference in order
+#  for -validatecommand to work. BEWARE!
+#
+#  DB
+#
+#=cut 
+#
+#sub redisplay_values {
+#
+#	my ($self)        = @_;
+#	my $values_w_aref = $param_widgets->{_values_w_aref};
+#	my $values_aref   = $param_widgets->{_values_aref};
+#	my $first         = $param_widgets->{_first_idx};
+#	my $length        = scalar @{ $param_widgets->{_values_aref} };
+#
+#	#  my $length 				= $param_widgets->{_length};
+#	# print("param_widgets, redisplay_values, length is $length\n");
+#	if ( $values_w_aref && $values_aref ) {
+#		use control;
+#
+#		for ( my $i = $first; $i < $length; $i++ ) {
+#
+#			my $control = control->new();
+#
+## print("1. param_widgets,redisplay_values,chkbtn @{$param_widgets->{_check_buttons_settings_aref}}[$i]\n");
+#
+#  # print("param_widgets, redisplay_values, i is $i\n");
+#  # print("1. param_widgets, redisplay_values, value is @{$values_aref}[$i]\n");
+#
+#			#  &_changes is invoked if
+#			#  there is a new selection after an entry change
+#			#  or even just if redisplay is selected
+#			#  _changes returns a 0 to invoke an error check
+#			# -validate				=> 'focusout',
+#
+#			# remove terminal quotes for values, only for display purposes
+#			# when later read again the values will be given quotes if they
+#			# do not look like a number-- this occurs in a superclass
+#			@{$values_aref}[$i] =
+#				$control->get_no_quotes( @{$values_aref}[$i] );
+#
+#  # print("2. param_widgets, redisplay_values, value is @{$values_aref}[$i]\n");
+#			@$values_w_aref[$i]->configure(
+#				-textvariable    => \@{$values_aref}[$i],
+#				-validate        => 'all',
+#				-validatecommand => [ \&_changes, $i ],
+#				-invalidcommand  => \&error_check,
+#			);
+#
+## print("2. param_widgets,redisplay_values,chkbtn @{$param_widgets->{_check_buttons_settings_aref}}[$i]\n");
+#		}
+#	}
+#	else {
+#		print("2. param_widgets,redisplay_values,missing parameters\n");
+#	}
+#
+## print("param_widgets, redisplay_values, first item's value is  @{$values_aref}[$first]\n");
+## print("param_widgets, redisplay_values, last item's values is  @{$values_aref}[($length-1)]\n");
+## print("param_widgets, redisplay_values, last values are  @{$values_aref}\n");
+#
+#	return ();
+#}
 
 =head2 sub set_current_program
 
@@ -1656,7 +1656,7 @@ sub set_prog_name_sref {
 
 =head2 sub set_value4entry_button_chosen
 
- dassign value to  Entry Buttonchosen
+ assign value to  Entry Buttonchosen
 
     print("param is $entry_param;\n");
          print ("selected widget is # $LSU->{_parameter_value_index}\");

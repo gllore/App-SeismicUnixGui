@@ -19,15 +19,18 @@ my $false            = $var->{_false};
 my $file_dialog_type = $get->file_dialog_type_href();
 my $flow_type        = $get->flow_type_href();
 
+
 my $DATA_SEISMIC_SEGY = $Project->DATA_SEISMIC_SEGY();   # output data directory
 my $DATA_SEISMIC_BIN  = $Project->DATA_SEISMIC_BIN();    # input bin
+my $PL_SEISMIC        = $Project->PL_SEISMIC();
 
 my $max_index = $segywrite->get_max_index();
 
-my $segywrite_spec = {
+my $segywrite_spec =  {
+    _CONFIG	 				=> $PL_SEISMIC,
     _DATA_DIR_IN           => $DATA_SEISMIC_BIN,
     _DATA_DIR_OUT          => $DATA_SEISMIC_SEGY,
-    _binding_index_aref    => '',
+	_binding_index_aref    => '',
     _suffix_type_in        => $su,
     _data_suffix_in        => $suffix_bin,
     _suffix_type_out       => $su,

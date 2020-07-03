@@ -22,6 +22,7 @@ my $alias_superflow_names_h = {
     Synseis           => 'Synseis',
     Sseg2su           => 'Sseg2su',
     Sucat             => 'Sucat',
+    immodpg           => 'immodpg',    
     temp              => 'temp',                # make last
 };
 
@@ -38,6 +39,7 @@ my $alias_superflow_spec_names_h = {
     Synseis           => 'Synseis',
     Sseg2su           => 'Sseg2su',
     Sucat             => 'Sucat',
+    immodpg           => 'immodpg',
     temp              => 'temp',                # make last
 };
 
@@ -56,6 +58,7 @@ my $superflow_names_h = {
     _Synseis           => 'Synseis',
     _Sseg2su           => 'Sseg2su',
     _Sucat             => 'Sucat',
+    _immodpg           => 'immodpg',    
     _temp              => 'temp',                # make last
 };
 
@@ -66,17 +69,18 @@ my $superflow_names_h = {
 =cut
 
 my @superflow_names_gui;
-$superflow_names_gui[7]  = 'fk';
+$superflow_names_gui[0]  = 'Project';
+$superflow_names_gui[1]  = 'Sseg2su';
+$superflow_names_gui[2]  = 'Sucat';
 $superflow_names_gui[3]  = 'iSpectralAnalysis';
 $superflow_names_gui[4]  = 'iVelAnalysis';
 $superflow_names_gui[5]  = 'iTopMute';
 $superflow_names_gui[6]  = 'iBottomMute';
-$superflow_names_gui[0]  = 'Project';
+$superflow_names_gui[7]  = 'fk';
 $superflow_names_gui[8]  = 'Synseis';
-$superflow_names_gui[1]  = 'Sseg2su';
-$superflow_names_gui[2]  = 'Sucat';
 $superflow_names_gui[9]  = 'iPick';
-$superflow_names_gui[10] = 'temp';                # make last
+$superflow_names_gui[10] = 'immodpg';
+$superflow_names_gui[11] = 'temp';                # make last
 
 my @superflow_names;
 $superflow_names[0]  = 'fk';
@@ -91,7 +95,8 @@ $superflow_names[8]  = 'Synseis';
 $superflow_names[9]  = 'Sseg2su';
 $superflow_names[10] = 'Sucat';
 $superflow_names[11] = 'iPick';
-$superflow_names[12] = 'temp';                # make last
+$superflow_names[12] = 'immodpg';
+$superflow_names[13] = 'temp';                # make last
 
 my @alias_superflow_names;
 $alias_superflow_names[0]  = 'Sudipfilt';
@@ -106,7 +111,26 @@ $alias_superflow_names[8]  = 'Synseis';
 $alias_superflow_names[9]  = 'Sseg2su';
 $alias_superflow_names[10] = 'Sucat';
 $alias_superflow_names[11] = 'iPick';
-$alias_superflow_names[12] = 'temp';                # make last
+$alias_superflow_names[12] = 'immodpg';
+$alias_superflow_names[13] = 'temp';                # make last
+
+# to match each alias_superflow_names (above)
+# Tools subdirectories
+my @developer_Tools_categories;		
+$developer_Tools_categories[0] 	= 'big_streams'; 
+$developer_Tools_categories[1] 	= '.';
+$developer_Tools_categories[2]  = '.';
+$developer_Tools_categories[3]  = 'big_streams';
+$developer_Tools_categories[4]  = 'big_streams';
+$developer_Tools_categories[5]  = 'big_streams';
+$developer_Tools_categories[6]  = 'big_streams';
+$developer_Tools_categories[7]  = '.';
+$developer_Tools_categories[8]  = 'big_streams';
+$developer_Tools_categories[9]  = 'big_streams';
+$developer_Tools_categories[10] = 'big_streams';
+$developer_Tools_categories[11] = 'big_streams';
+$developer_Tools_categories[12] = 'big_streams';
+$developer_Tools_categories[13] = 'big_streams';
 
 my @superflow_config_names;
 $superflow_config_names[0]  = 'fk';
@@ -121,7 +145,8 @@ $superflow_config_names[8]  = 'Synseis';
 $superflow_config_names[9]  = 'Sseg2su';
 $superflow_config_names[10] = 'Sucat';
 $superflow_config_names[11] = 'iPick';
-$superflow_config_names[12] = 'temp';                # make last
+$superflow_config_names[12] = 'immodpg';
+$superflow_config_names[13] = 'temp';                # make last
 
 my @alias_superflow_config_names;
 $alias_superflow_config_names[0]  = 'Sudipfilt';
@@ -136,25 +161,33 @@ $alias_superflow_config_names[8]  = 'Synseis';
 $alias_superflow_config_names[9]  = 'Sseg2su';
 $alias_superflow_config_names[10] = 'Sucat';
 $alias_superflow_config_names[11] = 'iPick';
-$alias_superflow_config_names[12] = 'temp';                          # make last
+$alias_superflow_config_names[12] = 'immodpg';
+$alias_superflow_config_names[13] = 'temp';    # make last
 
+# for the visible buttons in the GUI only
+# e.g., Path and PL_SEISMIC are not visible to the user
+# but Data Flow and SaveAs are.
 my @alias_FileDialog_button_label;
 $alias_FileDialog_button_label[0] = 'Data';
 $alias_FileDialog_button_label[1] = 'Flow';
 $alias_FileDialog_button_label[2] = 'SaveAs';
 
 my @file_dialog_type;
-$file_dialog_type[0] = 'Data';
-$file_dialog_type[1] = 'Path';                                       #
-$file_dialog_type[2] = 'Flow';
-$file_dialog_type[3] = 'SaveAs';
+# in spec files Data_PL_SEISMIC, is not necessarily informed by DATA_DIR_IN and DATA_DIR_OUT
+$file_dialog_type[0] = 'Data_PL_SEISMIC',
+# in spec files Data, is informed by DATA_DIR_IN and DATA_DIR_OUT
+$file_dialog_type[1] = 'Data';
+$file_dialog_type[2] = 'Path';
+$file_dialog_type[3] = 'Flow';
+$file_dialog_type[4] = 'SaveAs';
 
 my $file_dialog_type_h = {
-    _Data   => 'Data',
-    _Path   => 'Path',                                               #
-    _Flow   => 'Flow',
-    _SaveAs => 'SaveAs',
-    _Save   => 'Save',
+	_Data_PL_SEISMIC => 'Data_PL_SEISMIC',
+    _Data   		=> 'Data',
+    _Path   		=> 'Path',                                               #
+    _Flow   		=> 'Flow',
+    _SaveAs 		=> 'SaveAs',
+    _Save   		=> 'Save',
 };
 
 my @flow_type;
@@ -169,10 +202,14 @@ my $flow_type_h = {
 my $purpose = { _geopsy => 'geopsy', };
 
 my $var = {
+    _1_character	=> '1',	
     _14_characters  => '14',
     _13_characters  => '13',
     _12_characters  => '12',
     _11_characters  => '11',
+    _2_characters   => '2',
+    _3_characters   => '3',
+    _4_characters   => '4',
     _8_characters   => '8',
     _10_characters  => '10',
     _15_characters  => '15',
@@ -187,6 +224,7 @@ my $var = {
 
     #_box_position        => '890x660+12+12',
     _clear_text                    => '',
+    _config_file_format			   => '%-35s%1s%-20s',
     _eight_characters              => '8',
     _empty_string                  => '',
     _failure                       => -1,
@@ -202,6 +240,9 @@ my $var = {
     _4_lines                       => '4',
     _8_lines                       => '8',
     _7_lines                       => '7',
+    _1_pixel                       => '1',
+    _3_pixels                      => '3',
+    _6_pixels                      => '6',
     _24_pixels                     => '24',
     _12_pixels                     => '12',
     _18_pixels                     => '18',
@@ -280,21 +321,24 @@ my $param = {
 my $L_SU = '/usr/local/pl/L_SU';    # default
 
 my $global_libs = {
-    _param        => $L_SU . '/configs/',
-    _superflows   => $L_SU . '/big_streams/',
-    _images       => $L_SU . '/images/',
-    _default_path => './',
+	_configs_big_streams 	=> $L_SU . '/configs/big_streams',
+    _param        			=> $L_SU . '/configs/',
+    _superflows   			=> $L_SU . '/big_streams/',
+    _images       			=> $L_SU . '/images/',
+    _default_path 			=> './',
 };
 
 $L_SU = $ENV{'L_SU'};
 
-if ( $L_SU ne $var->{_empty_string} ) {  # must empty sting is predefined herein
+# empty string is predefined herein
+if ( $L_SU ne $var->{_empty_string} ) {  
 
     $global_libs = {
-        _param        => $L_SU . '/configs/',
-        _superflows   => $L_SU . '/big_streams/',
-        _images       => $L_SU . '/images/',
-        _default_path => './',
+    	_configs_big_streams => $L_SU . '/configs/big_streams',
+        _param        		=> $L_SU . '/configs/',
+        _superflows   		=> $L_SU . '/big_streams/',
+        _images       		=> $L_SU . '/images/',
+        _default_path 		=> './',
     };
 
 }
@@ -302,33 +346,32 @@ else {
     print("L_SU_global_constants, L_SU is missing\n");
 }
 
-my @developer_categories;
+my @developer_sunix_categories;
 
-$developer_categories[0] 	= 'data';
-$developer_categories[1] 	= 'datum';
-$developer_categories[2] 	= 'plot';
-$developer_categories[3] 	= 'filter';
-$developer_categories[4] 	= 'header';
-$developer_categories[5] 	= 'inversion';
-$developer_categories[6] 	= 'migration';
-$developer_categories[7] 	= 'model';
-$developer_categories[8] 	= 'NMO_Vel_Stk';
-$developer_categories[9] 	= 'par';
-$developer_categories[10] 	= 'picks';
-$developer_categories[11] 	= 'shapeNcut';
-$developer_categories[12] 	= 'shell';
-$developer_categories[13] 	= 'statsMath';
-$developer_categories[14] 	= 'transform';
-$developer_categories[15] 	= 'well';
-$developer_categories[16] 	= '.'; # Tools. have no subdirectory
-$developer_categories[17] 	= '';
+$developer_sunix_categories[0] 	= 'data';
+$developer_sunix_categories[1] 	= 'datum';
+$developer_sunix_categories[2] 	= 'plot';
+$developer_sunix_categories[3] 	= 'filter';
+$developer_sunix_categories[4] 	= 'header';
+$developer_sunix_categories[5] 	= 'inversion';
+$developer_sunix_categories[6] 	= 'migration';
+$developer_sunix_categories[7] 	= 'model';
+$developer_sunix_categories[8] 	= 'NMO_Vel_Stk';
+$developer_sunix_categories[9] 	= 'par';
+$developer_sunix_categories[10] = 'picks';
+$developer_sunix_categories[11] = 'shapeNcut';
+$developer_sunix_categories[12] = 'shell';
+$developer_sunix_categories[13] = 'statsMath';
+$developer_sunix_categories[14] = 'transform';
+$developer_sunix_categories[15] = 'well';
+$developer_sunix_categories[16] = '';
+
 
 my @sunix_data_programs = (
     "data_in",
     "data_out",
     "segyread",
     "segywrite",
-
     #            "swapbytes",
     #            "segyhdrs",
     #            "segyclean",
@@ -360,7 +403,7 @@ my @sunix_header_programs = (
 my @sunix_inversion_programs = ( );
 
 my @sunix_migration_programs = ( "sustolt", );
-my @sunix_shell_programs     = ( "evince" );
+my @sunix_shell_programs     = ( "evince", "sugetgthr", "suputgthr");
 
 =pod
 
@@ -497,7 +540,7 @@ xpsp
 =cut
 
 my @sunix_shapeNcut_programs = ( "sukill", "sumute", "sugain","sugprfb","susplit",
-"susort", "suwind", "suxmax",);
+"susort", "suwind", "suxmax");
 
 my @sunix_statsMath_programs = (
 
@@ -565,9 +608,15 @@ sub alias_superflow_spec_names_h {
     return ($alias_superflow_spec_names_h);
 }
 
-sub developer_categories {
+sub developer_sunix_categories_aref {
 	
-	return (\@developer_categories);
+	return (\@developer_sunix_categories);
+	
+}
+
+sub developer_Tools_categories_aref {
+	
+	return (\@developer_Tools_categories);
 	
 }
 

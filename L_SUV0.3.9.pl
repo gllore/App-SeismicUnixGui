@@ -25,7 +25,7 @@
       
  V 0.2.0 Jan 12 2018: removed all Config::Simple dependencies   
  V 0.3.0 May 14, 2018: refactored into L_SU.pm and L_SU.pl
- 
+ 0
  Fall 2018
  V 0.3.1 makes Run = Save and Run
  Moves SaveAs to L_SU Menu and removes Save button
@@ -168,6 +168,8 @@ my $main_href = $gui_history->get_defaults();
 ( $main_href->{_mw} )->title( $var->{_program_title} );
 ( $main_href->{_mw} )->geometry( $var->{_box_position} );
 ( $main_href->{_mw} )->resizable( 0, 0 );    # not resizable in either width or height
+( $main_href->{_mw} )->focusFollowsMouse;
+
 
 =head2 Define 
   
@@ -258,13 +260,6 @@ $top_menu_frame = ( $main_href->{_mw} )->Frame(
 	-background  => $var->{_my_purple},
 	-relief      => 'groove'
 );
-
-# 	$top_menu_frame  ->Label(
-#					-text 	=> 'topmenuframstuff',
-#					-font 	=> $arial_16,
-#					-width	=> $var->{_no_pixel},
-#					-background  => $var->{_my_purple},
-#                );
 
 $side_menu_frame = ( $main_href->{_mw} )->Frame(
 	-borderwidth => $var->{_no_borderwidth},
@@ -1624,7 +1619,6 @@ $sunix_filter_programs_listbox->pack(
 );
 
 # pack tabs in Notebook level 4 (IV)
-
 $sunix_header_programs_listbox->pack(
 	-side => "left",
 	-fill => "x",
@@ -1768,12 +1762,11 @@ $flow_control_frame_bottom_row->pack(
 );
 
 # send widgets to the L_SU package from the current perl program
-# once BUT
-# transfer must ALSO be repeated within each subroutine
+# once BUT transfer must ALSO be repeated within each subroutine
 # outside MainLoop
 $L_SU->set_hash_ref($main_href);
-
 # print("setting up first hash from main\n");
+
 $L_SU->set_param_widgets();    # Initialize screen parameter names and values
 
 MainLoop;
@@ -1898,7 +1891,7 @@ within gui_history by set_button
 sub _L_SU_flow_bindings {
 	my ( $self, $method, $color ) = @_;
 
-	# print("1 main,_L_SU_flow_bindings ,method:$method,\n");
+#	print("1 main,_L_SU_flow_bindings ,method:$method,\n");
 	if ( $method && $color ) {
 
 		my $button = $method;
@@ -1911,7 +1904,7 @@ sub _L_SU_flow_bindings {
 		# print("1. main,_L_SU_flow_bindings,color:$color\n");
 		
 		$L_SU->set_hash_ref($main_href);
-		# print("2. main,_L_SU_flow_bindings,method:$method\n");
+       # print("2. main,_L_SU_flow_bindings,method:$method\n");
 
 		$L_SU->user_built_flows($method);
 
