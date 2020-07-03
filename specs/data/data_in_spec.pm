@@ -18,7 +18,7 @@ package data_in_spec;
  Version 0.0.2 July 22 2018
 
 
-=cut
+=cut# output data directory
 
 =head2 USE
 
@@ -52,14 +52,16 @@ my $false        	= $var->{_false};
 my $Project      	= new Project_config;
 
 my $DATA_SEISMIC_SU = $Project->DATA_SEISMIC_SU();    # output data directory
+my $PL_SEISMIC      = $Project->PL_SEISMIC();
 
 my $data_in   = new data_in;
 my $max_index = $data_in->get_max_index();
 
-my $data_in_spec = {
+my $data_in_spec =  {
+    _CONFIG	 			   => $PL_SEISMIC,
     _DATA_DIR_IN           => $DATA_SEISMIC_SU,
-    _DATA_DIR_OUT          => $DATA_SEISMIC_SU,
-    _binding_index_aref    => '',
+	_DATA_DIR_OUT          => $DATA_SEISMIC_SU,
+	_binding_index_aref    => '',
     _suffix_type_in        => $su,
     _data_suffix_in        => $suffix_su,
     _suffix_type_out       => $su,

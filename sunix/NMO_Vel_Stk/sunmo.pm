@@ -11,6 +11,7 @@ package sunmo;
  Version: 0.0.1
           0.0.2 July 15, 2015 (JML)
  		  0.0.3 Jan 14, 2020 (DLL)
+ 		  0.0.4 Feb 06, 2020 (DLL)
 =head2 USE
 
 =head3 NOTES 
@@ -113,20 +114,21 @@ my $var          = $get->var();
 my $empty_string = $var->{_empty_string};
 
 my $sunmo = {
-	_base_file_name => '',
-	_cdp            => '',
-	_invert         => '',
-	_lmute          => '',
-	_par            => '',
-	_smute          => '',
-	_sscale         => '',
-	_scaled_par     => '',
-	_tnmo           => '',
-	_upward         => '',
-	_vnmo           => '',
-	_voutfile       => '',
-	_Step           => '',
-	_note           => '',
+	_base_file_name       => '',
+	_cdp                  => '',
+	_invert               => '',
+	_lmute                => '',
+	_multi_gather_parfile => '',
+	_par                  => '',
+	_smute                => '',
+	_sscale               => '',
+	_scaled_par           => '',
+	_tnmo                 => '',
+	_upward               => '',
+	_vnmo                 => '',
+	_voutfile             => '',
+	_Step                 => '',
+	_note                 => '',
 };
 
 =head2 sub Step
@@ -162,19 +164,20 @@ sub note {
 =cut
 
 sub clear {
-	$sunmo->{_base_file_name} = '';
-	$sunmo->{_cdp}            = '';
-	$sunmo->{_invert}         = '';
-	$sunmo->{_lmute}          = '';
-	$sunmo->{_smute}          = '';
-	$sunmo->{_sscale}         = '';
-	$sunmo->{_scaled_par}     = '';
-	$sunmo->{_tnmo}           = '';
-	$sunmo->{_upward}         = '';
-	$sunmo->{_vnmo}           = '';
-	$sunmo->{_voutfile}       = '';
-	$sunmo->{_Step}           = '';
-	$sunmo->{_note}           = '';
+	$sunmo->{_base_file_name}       = '';
+	$sunmo->{_cdp}                  = '';
+	$sunmo->{_invert}               = '';
+	$sunmo->{_lmute}                = '';
+	$sunmo->{_smute}                = '';
+	$sunmo->{_sscale}               = '';
+	$sunmo->{_multi_gather_parfile} = '';
+	$sunmo->{_scaled_par}           = '';
+	$sunmo->{_tnmo}                 = '';
+	$sunmo->{_upward}               = '';
+	$sunmo->{_vnmo}                 = '';
+	$sunmo->{_voutfile}             = '';
+	$sunmo->{_Step}                 = '';
+	$sunmo->{_note}                 = '';
 }
 
 =head2 sub _get_data_scale
@@ -191,27 +194,27 @@ sub _get_data_scale {
 
 =cut
 
-#	print("sunmo, _get_data_scale, _base_file_name=$sunmo->{_base_file_name}\n");
+	#	print("sunmo, _get_data_scale, _base_file_name=$sunmo->{_base_file_name}\n");
 
 	my $sunmo = header_values->new();
 
 	if ( defined $sunmo->{_base_file_name}
-		&& $sunmo->{_base_file_name} ne $empty_string )
-	{
+		&& $sunmo->{_base_file_name} ne $empty_string ) {
 		$sunmo->set_base_file_name( $sunmo->{_base_file_name} );
 		$sunmo->set_header_name('scalel');
 		my $data_scale = $sunmo->get_number();
 
 		my $result = $data_scale;
-#		print("sunmo, _get_data_scale, data_scale = $data_scale\n");
+
+		# print("sunmo, _get_data_scale, data_scale = $data_scale\n");
 		return ($result);
 
-	}
-	else {
+	} else {
 
 		my $data_scale = 1;
 		my $result     = $data_scale;
-#		print("sunmo, _get_data_scale, data_scale = 1:1\n");
+
+		# print("sunmo, _get_data_scale, data_scale = 1:1\n");
 		return ($result);
 
 	}
@@ -231,8 +234,7 @@ sub cdp {
 		$sunmo->{_note} = $sunmo->{_note} . ' cdp=' . $sunmo->{_cdp};
 		$sunmo->{_Step} = $sunmo->{_Step} . ' cdp=' . $sunmo->{_cdp};
 
-	}
-	else {
+	} else {
 		print("sunmo, cdp, missing cdp,\n");
 	}
 }
@@ -251,8 +253,7 @@ sub invert {
 		$sunmo->{_note}   = $sunmo->{_note} . ' invert=' . $sunmo->{_invert};
 		$sunmo->{_Step}   = $sunmo->{_Step} . ' invert=' . $sunmo->{_invert};
 
-	}
-	else {
+	} else {
 		print("sunmo, invert, missing invert,\n");
 	}
 }
@@ -271,8 +272,7 @@ sub lmute {
 		$sunmo->{_note}  = $sunmo->{_note} . ' lmute=' . $sunmo->{_lmute};
 		$sunmo->{_Step}  = $sunmo->{_Step} . ' lmute=' . $sunmo->{_lmute};
 
-	}
-	else {
+	} else {
 		print("sunmo, lmute, missing lmute,\n");
 	}
 }
@@ -284,6 +284,240 @@ automatic use of data_scale
 read par file (assume in m/s or ft/s)
 scale a new output par file * data-scale
 assign new output par file
+
+A typical parfile does only handles one gather
+at a time
+
+=cut
+
+sub multi_gather_parfile {
+
+	my ( $self, $par ) = @_;
+	if ( $par ne $empty_string ) {
+
+		use manage_files_by2;
+		use Project_config;
+		use control;
+
+=head2 instantiate classes
+
+=cut
+
+		my $files   = new manage_files_by2();
+		my $Project = new Project_config();
+		my $control = new control;
+
+=head2 declare local variables
+
+=cut
+
+		my @parfile_in;
+		my @parfile_out;
+		my ( $inbound, $outbound );
+
+		my $PL_SEISMIC = $Project->PL_SEISMIC;
+
+		# par file names
+		$parfile_in[1] = $par;
+
+=head2 private definitions
+
+=cut
+
+		$parfile_out[1]       = '.temp_scaled_multi_gather_parfile_iVA';
+		$inbound              = $PL_SEISMIC . '/' . $parfile_in[1];
+		$sunmo->{_scaled_par} = $PL_SEISMIC . '/' . $parfile_out[1];
+		$outbound             = $sunmo->{_scaled_par};
+
+=head2 read i/p file
+=cut
+
+		$control->set_back_slashBgone($inbound);
+		$inbound = $control->get_back_slashBgone();
+
+		my $ref_file_name = \$inbound;
+
+		my ( $items_aref2, $numberOfItems_aref ) = $files->read_par($ref_file_name);
+		my $row0_aref = @$items_aref2[0];
+		my @array_cdp_row = @$row0_aref;
+
+=head2 scale par file values
+
+=cut
+
+		my @row_out;
+		my $row_out;
+		my $row;
+
+		my @cdp_array             = @array_cdp_row;
+		my $number_of_cdp_per_row = scalar @cdp_array;
+
+		$row_out[1] = '.temp_row0';
+
+		$row = $PL_SEISMIC . '/' . $row_out[1];
+
+		open( my $fh, '>', $row );
+
+		print $fh ("cdp=$cdp_array[1]");
+
+		for ( my $i = 2; $i < $number_of_cdp_per_row; $i++ ) {
+
+			print $fh (",$cdp_array[$i]");
+
+		}
+
+		print $fh ("\n");
+
+		close($fh);
+
+		my $row1_sample = @$items_aref2[1];
+
+		my @array_row1_sample = @$row1_sample;
+
+		my $length_row1_sample = scalar @array_row1_sample;
+
+		my $rowoutbound;
+
+		my $array_columns = scalar @$items_aref2;
+
+		# print("sunmo,par, number of rows $array_columns\n");
+
+		for ( my $j = 1; $j < $array_columns; $j += 2 ) {
+
+			$parfile_out[1] = '.temp_row' . $j;
+
+			$row_out     = $PL_SEISMIC . '/' . $parfile_out[1];
+			$rowoutbound = $row_out;
+
+			my $row_tnmo_aref = @$items_aref2[$j];
+
+			my $row_vnmo_aref = @$items_aref2[ $j + 1 ];
+
+			my @array_tnmo_row = @$row_tnmo_aref;
+
+			# print("sunmo,par, tnmo_row @array_tnmo_row\n");
+			
+			my @array_vnmo_row = @$row_vnmo_aref;
+
+			# print("sunmo,par, vnmo_row @array_vnmo_row\n");
+
+			my $data_scale = _get_data_scale();
+
+			# $data_scale = 100;
+
+			for ( my $i = 1; $i < $length_row1_sample; $i++ ) {
+
+				$array_vnmo_row[$i] = $array_vnmo_row[$i] * $data_scale;
+
+			}
+
+			# print("sunmo,par,par, data_scale=$data_scale\n");
+			# print("$outbound, @array_tnmo_row, @array_vnmo_row \n");
+
+=head2 write new par file
+
+
+=cut
+			my $first_name 		='tnmo';
+			my $second_name 	='vnmo';
+			$files->write_multipar(
+				\$rowoutbound,    \@array_cdp_row,
+				\@array_tnmo_row, \@array_vnmo_row,
+				$first_name, $second_name
+			);
+
+		}
+
+=head2 cat scaled par files
+
+=cut
+
+		my $DATA_SEISMIC_SU = $Project->DATA_SEISMIC_SU;
+
+		use message;
+		use flow;
+
+		my $log = new message();
+		my $run = new flow();
+
+=head2 Declare
+
+	local variables
+
+=cut
+
+		my (@flow);
+		my (@items);
+		my $list = '';
+
+=head2 Set up a list of files for action
+
+	my $file_name_list_in
+	my $file_name_list_out
+	my @file_name_list 
+	
+=cut 
+
+		my $first_file_num = 1;
+		my $maxfile_num    = $array_columns;
+
+		# print("cat_max_file_num $maxfile_num \n");
+
+		my $file_name_out = '.temp_scaled_multi_gather_parfile_iVA';
+		my $outboundcat   = $PL_SEISMIC . '/' . $file_name_out;
+
+		for ( my $i = $first_file_num; $i < $maxfile_num; $i = $i += 2 ) {
+
+			$list = $list . $PL_SEISMIC . '/' . '.temp_row' . $i . ' ';
+
+		}
+
+=head2 Set up  FLOW 
+
+
+=cut
+
+		my $cat = "cat $PL_SEISMIC/.temp_row0 $list > $outboundcat";
+
+=head2 RUN FLOW 
+
+
+=cut
+
+		system($cat);
+
+=head2 LOG FLOW(s)
+
+	to screen and FILE
+
+=cut
+
+		print(" $cat\n");
+
+=head2 send to sunmo
+
+=cut
+
+		# $sunmo->{_scaled_par} = $par;
+
+		$sunmo->{_note} = $sunmo->{_note} . ' par=' . $sunmo->{_scaled_par};
+		$sunmo->{_Step} = $sunmo->{_Step} . ' par=' . $sunmo->{_scaled_par};
+
+	} else {
+		print("sunmo, par, missing par,\n");
+	}
+}
+
+=head2 sub par 
+V0.0.3 1-14-2020 DLL
+automatic use of data_scale
+
+read par file (assume in m/s or ft/s)
+scale a new output par file * data-scale
+assign new output par file
+
+A typical parfile does only handles one gather
+at a time
 
 =cut
 
@@ -322,23 +556,24 @@ sub par {
 =cut
 
 		$parfile_out[1]       = '.temp_scaled_par_iVA';
-		$inbound              = $parfile_in[1];
+		$inbound              = $PL_SEISMIC . '/' . $parfile_in[1];
 		$sunmo->{_scaled_par} = $PL_SEISMIC . '/' . $parfile_out[1];
 		$outbound             = $sunmo->{_scaled_par};
 
 =head2 read i/p file
-
 =cut
 
 		$control->set_back_slashBgone($inbound);
 		$inbound = $control->get_back_slashBgone();
 
 		my $ref_file_name = \$inbound;
+		
+		# print("$inbound\n");
 
-		my ( $items_aref2, $numberOfItems_aref ) =
-		  $files->read_par($ref_file_name);
+		my ( $items_aref2, $numberOfItems_aref ) = $files->read_par($ref_file_name);
 
-		# my $no_rows = scalar @$items_aref2;
+		my $no_rows = scalar @$items_aref2;
+
 		# print("sunmo,par, no_rows=$no_rows\n");
 
 		my $row0_aref = @$items_aref2[0];
@@ -349,9 +584,11 @@ sub par {
 		# print("sunmo,par, ARRAY ref inside ROW 1 $row1_aref\n");
 
 		my @array_tnmo_row = @$row0_aref;
-		# print("sunmo,par, complete array values in row 0 @array_tnmo_row\n");
+
+		#		 print("sunmo,par, complete array values in row 0 @array_tnmo_row\n");
 		my @array_vnmo_row = @$row1_aref;
-		# print("sunmo,par, complete array values in row 1 @array_vnmo_row\n");
+
+		#		 print("sunmo,par, complete array values in row 1 @array_vnmo_row\n");
 
 		my $length_tnmo_row = scalar @array_tnmo_row;
 		my $length_vnmo_row = scalar @array_vnmo_row;
@@ -361,34 +598,34 @@ sub par {
 =cut
 
 		my $data_scale = _get_data_scale();
-		
-		$data_scale=100;
 
-		for ( my $i = 1 ; $i < $length_vnmo_row ; $i++ ) {
+		# $data_scale = 100;
+
+		for ( my $i = 1; $i < $length_vnmo_row; $i++ ) {
 
 			$array_vnmo_row[$i] = $array_vnmo_row[$i] * $data_scale;
 
 		}
-#		print("sunmo,par,par, data_scale=$data_scale\n");
+
+		# print("sunmo,par,par, data_scale=$data_scale\n");
 
 =head2 write new par file
 
 
 =cut
-
-		$files->write_par( \$outbound, \@array_tnmo_row, \@array_vnmo_row );
-
+		my $first_name='tnmo';
+		my $second_name='vnmo';
+		$files->write_par( \$outbound, \@array_tnmo_row, \@array_vnmo_row,
+				$first_name,$second_name);
+		print("sunmo,par,first_name:$first_name,second_name:$second_name\n");
 =head2 send to sunmo
 
 =cut
 
-		# $sunmo->{_scaled_par} = $par;
-
 		$sunmo->{_note} = $sunmo->{_note} . ' par=' . $sunmo->{_scaled_par};
 		$sunmo->{_Step} = $sunmo->{_Step} . ' par=' . $sunmo->{_scaled_par};
 
-	}
-	else {
+	} else {
 		print("sunmo, par, missing par,\n");
 	}
 }
@@ -407,8 +644,7 @@ sub smute {
 		$sunmo->{_note}  = $sunmo->{_note} . ' smute=' . $sunmo->{_smute};
 		$sunmo->{_Step}  = $sunmo->{_Step} . ' smute=' . $sunmo->{_smute};
 
-	}
-	else {
+	} else {
 		print("sunmo, smute, missing smute,\n");
 	}
 }
@@ -419,7 +655,6 @@ sub smute {
 =cut
 
 sub sscale {
-
 	my ( $self, $sscale ) = @_;
 	if ($sscale) {
 
@@ -427,8 +662,7 @@ sub sscale {
 		$sunmo->{_note}   = $sunmo->{_note} . ' sscale=' . $sunmo->{_sscale};
 		$sunmo->{_Step}   = $sunmo->{_Step} . ' sscale=' . $sunmo->{_sscale};
 
-	}
-	else {
+	} else {
 		print("sunmo, sscale, missing sscale,\n");
 	}
 }
@@ -445,9 +679,8 @@ sub set_base_file_name {
 
 		$sunmo->{_base_file_name} = $base_file_name;
 		print("header_values,set_base_file_name,$sunmo->{_base_file_name}\n");
-	}
-	else {
-
+		
+	} else {
 		print("header_values,set_base_file_name, missing base file name\n");
 	}
 
@@ -469,8 +702,7 @@ sub tnmo {
 		$sunmo->{_note} = $sunmo->{_note} . ' tnmo=' . $sunmo->{_tnmo};
 		$sunmo->{_Step} = $sunmo->{_Step} . ' tnmo=' . $sunmo->{_tnmo};
 
-	}
-	else {
+	} else {
 		print("sunmo, tnmo, missing tnmo,\n");
 	}
 }
@@ -489,8 +721,7 @@ sub upward {
 		$sunmo->{_note}   = $sunmo->{_note} . ' upward=' . $sunmo->{_upward};
 		$sunmo->{_Step}   = $sunmo->{_Step} . ' upward=' . $sunmo->{_upward};
 
-	}
-	else {
+	} else {
 		print("sunmo, upward, missing upward,\n");
 	}
 }
@@ -509,8 +740,7 @@ sub vnmo {
 		$sunmo->{_note} = $sunmo->{_note} . ' vnmo=' . $sunmo->{_vnmo};
 		$sunmo->{_Step} = $sunmo->{_Step} . ' vnmo=' . $sunmo->{_vnmo};
 
-	}
-	else {
+	} else {
 		print("sunmo, vnmo, missing vnmo,\n");
 	}
 }
@@ -529,8 +759,7 @@ sub vnmo_mps {
 		$sunmo->{_note} = $sunmo->{_note} . ' vnmo=' . $sunmo->{_vnmo};
 		$sunmo->{_Step} = $sunmo->{_Step} . ' vnmo=' . $sunmo->{_vnmo};
 
-	}
-	else {
+	} else {
 		print("sunmo, vnmo, missing vnmo,\n");
 	}
 }
@@ -546,13 +775,10 @@ sub voutfile {
 	if ($voutfile) {
 
 		$sunmo->{_voutfile} = $voutfile;
-		$sunmo->{_note} =
-		  $sunmo->{_note} . ' voutfile=' . $sunmo->{_voutfile};
-		$sunmo->{_Step} =
-		  $sunmo->{_Step} . ' voutfile=' . $sunmo->{_voutfile};
+		$sunmo->{_note}     = $sunmo->{_note} . ' voutfile=' . $sunmo->{_voutfile};
+		$sunmo->{_Step}     = $sunmo->{_Step} . ' voutfile=' . $sunmo->{_voutfile};
 
-	}
-	else {
+	} else {
 		print("sunmo, voutfile, missing voutfile,\n");
 	}
 }
@@ -565,7 +791,7 @@ max index = number of input variables -1
 
 sub get_max_index {
 	my ($self) = @_;
-	my $max_index = 8;
+	my $max_index = 10;
 
 	return ($max_index);
 }

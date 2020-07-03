@@ -20,12 +20,13 @@ package tetramod_spec;
 	my $flow_type			= $get->flow_type_href();
 
 	my $DATA_SEISMIC_SU  	= $Project->DATA_SEISMIC_SU();   # output data directory
+my $PL_SEISMIC        = $Project->PL_SEISMIC();
 	my $max_index           = $tetramod->get_max_index();
 
-	my $tetramod_spec = {
+	my $tetramod_spec= {
+		_CONFIG	   => $PL_SEISMIC,
 		_DATA_DIR_IN		    => $DATA_SEISMIC_SU,
-	 	_DATA_DIR_OUT		    => $DATA_SEISMIC_SU,
-		_binding_index_aref	    => '',
+		_DATA_DIR_OUT          => $DATA_SEISMIC_SU,
 	 	_suffix_type_in			=> $su,
 		_data_suffix_in			=> $suffix_su,
 		_suffix_type_out		=> $su,

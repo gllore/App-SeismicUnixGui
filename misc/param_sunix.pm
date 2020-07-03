@@ -30,36 +30,39 @@ my $VERSION = '1.0.0';
 =cut
 
 my $param_sunix = {
-    _program_name    => '',
-    _label_boxes_w   => '',
-    _entry_boxes_w   => '',
-    _check_buttons_w => '',
-    _all_aref        => '',
-    _first_idx       => 0,
-    _last            => '',
-    _length          => '',
-    _size            => '',
+	_flow_type       => '',
+	_program_name    => '',
+	_label_boxes_w   => '',
+	_entry_boxes_w   => '',
+	_check_buttons_w => '',
+	_all_aref        => '',
+	_first_idx       => 0,
+	_last            => '',
+	_length          => '',
+	_size            => '',
 };
 
-has 'program_name' => (
-    is        => 'rw',
-    isa       => 'HashRef',
-    clearer   => 'clear_program_name',
-    predicate => 'has_program_name',
-    reader    => 'get_program_name',
-    trigger   => \&set_program_name,
-);
+#has 'program_name' => (
+#    is        => 'rw',
+#    isa       => 'HashRef',
+#    clearer   => 'clear_program_name',
+#    predicate => 'has_program_name',
+#    reader    => 'get_program_name',
+##    writer	  => 'set_program_name',
+#	trigger   => \&set_program_name,
+#);
 
 use L_SU_global_constants;
-my $get = new L_SU_global_constants();
-my $var = $get->var();
-my $on  = $var->{_on};
-my $off = $var->{_off};
-my $nu  = $var->{_nu};
-my $yes = $var->{_yes};
-my $no  = $var->{_no};
+my $get          = new L_SU_global_constants();
+my $var          = $get->var();
+my $on           = $var->{_on};
+my $off          = $var->{_off};
+my $nu           = $var->{_nu};
+my $yes          = $var->{_yes};
+my $no           = $var->{_no};
+my $empty_string = $var->{_empty_string};
 
-=head2 sub  set_program_name
+=head2 sub set_program_name
 
  i/p is scalar ref
  o/p is scalar ref
@@ -67,13 +70,23 @@ my $no  = $var->{_no};
 =cut 
 
 sub set_program_name {
-    my ( $self, $program_name_sref ) = @_;
-    if ($program_name_sref) {
-        $param_sunix->{_program_name} = $program_name_sref;
+	my ( $self, $program_name_sref ) = @_;
+	# print("1. param_sunix, set_program_name,is $$program_name_sref\n");
 
- # print("param_sunix, set_program_name,is ${$param_sunix->{_program_name}}\n");
-        get_all();
-    }
+	if (
+		defined $program_name_sref
+		&& $program_name_sref ne $empty_string
+		&& $param_sunix->{_flow_type} ne $empty_string
+	) {
+
+		# print("2. param_sunix, set_program_name,is $$program_name_sref\n");
+		$param_sunix->{_program_name} = $program_name_sref;
+
+		_defaults( $param_sunix->{_program_name} );
+
+	} else {
+		print("param_sunix, set_program_name, name or flow_type is missing \n");
+	}
 }
 
 =pod
@@ -83,9 +96,11 @@ sub set_program_name {
 =cut
 
 sub get_all {
-    my ($self) = '';
-    _defaults( $param_sunix->{_program_name} );
-    return ();
+	my ($self) = @_;
+
+	_defaults( $param_sunix->{_program_name} );
+
+	return ();
 }
 
 =head2 sub defaults
@@ -101,22 +116,23 @@ sub get_all {
 =cut
 
 sub defaults {
-    my ( $self, $program_name_sref ) = @_;
+	my ($program_name_sref) = @_;
 
-    # print("param_sunix,defaults,program_name is $$program_name_sref\n");
+	print("param_sunix,defaults,program_name is $$program_name_sref\n");
 
-    if ( defined $program_name_sref ) {
-        use su_param;
-        my $su_param = new su_param();
-        my ( $cfg_aref, $size );
+	if ( defined $program_name_sref ) {
 
-        $cfg_aref                 = $su_param->get($program_name_sref);
-        $param_sunix->{_all_aref} = $cfg_aref;
-        $param_sunix->{_length}   = $su_param->length($program_name_sref);
+		use su_param;
+		my $su_param = new su_param();
+		my ( $cfg_aref, $size );
 
-        # print("param_sunix,defaults, length:$param_sunix->{_length}\n");
-        return ();
-    }
+		$cfg_aref                 = $su_param->get($program_name_sref);
+		$param_sunix->{_all_aref} = $cfg_aref;
+		$param_sunix->{_length}   = $su_param->length($program_name_sref);
+
+		print("param_sunix,defaults, length:$param_sunix->{_length}\n");
+		return ();
+	}
 }
 
 =head2 sub _defaults
@@ -127,22 +143,30 @@ sub defaults {
 =cut
 
 sub _defaults {
-    my ($program_name_sref) = @_;
+	my ($program_name_sref) = @_;
 
-    # print("param_sunix,_defaults,program_name is $$program_name_sref\n");
+	# print("param_sunix,_defaults,program_name is $$program_name_sref\n");
+	# print("param_sunix,_defaults,param_sunix->{_flow_type} is $param_sunix->{_flow_type}\n");
 
-    if ( defined $program_name_sref ) {
-        use su_param;
-        my $su_param = new su_param();
-        my ( $cfg_aref, $size );
+	if ( defined $program_name_sref
+		&& $param_sunix->{_flow_type} ne $empty_string ) {
 
-        $cfg_aref                 = $su_param->get($program_name_sref);
-        $param_sunix->{_all_aref} = $cfg_aref;
-        $param_sunix->{_length}   = $su_param->length($program_name_sref);
+		use su_param;
+		my $su_param = new su_param();
+		my ( $cfg_aref, $size );
 
-        # print("param_sunix,_defaults, length:$param_sunix->{_length}\n");
-        return ();
-    }
+		$su_param->set_flow_type( $param_sunix->{_flow_type} );
+
+		$cfg_aref                 = $su_param->get($program_name_sref);
+		$param_sunix->{_all_aref} = $cfg_aref;
+		$param_sunix->{_length}   = $su_param->length($program_name_sref);
+
+		# print("param_sunix,_defaults, length:$param_sunix->{_length}\n");
+		return ();
+
+	} else {
+		print("param_sunix,_defaults, missing program_name_sref\n");
+	}
 }
 
 =cut 
@@ -154,13 +178,13 @@ sub _defaults {
 =cut 
 
 sub first_idx {
-	
+
 	my ($self) = @_;
 
-    $param_sunix->{_first_idx} = 0;
-    
-    my $result = $param_sunix->{_first_idx};
-    return ( $result );
+	$param_sunix->{_first_idx} = 0;
+
+	my $result = $param_sunix->{_first_idx};
+	return ($result);
 
 }
 
@@ -170,31 +194,29 @@ sub first_idx {
 =cut
 
 sub get_check_buttons_settings {
-    my ($self)   = @_;
-    my $cfg_aref = $param_sunix->{_all_aref};
-    my $length   = $param_sunix->{_length};
-    my ( $i, $j );
-    my @on_off;
-    my @values;
+	my ($self)   = @_;
+	my $cfg_aref = $param_sunix->{_all_aref};
+	my $length   = $param_sunix->{_length};
+	my ( $i, $j );
+	my @on_off;
+	my @values;
 
-    for ( $i = 1, $j = 0 ; $i < $length ; $i = $i + 2, $j++ ) {
-        $values[$j] = @$cfg_aref[$i];
+	for ( $i = 1, $j = 0; $i < $length; $i = $i + 2, $j++ ) {
+		$values[$j] = @$cfg_aref[$i];
 
-	# print("param_sunix, get_check_buttons_settings :index..$j..values:$values[$j]\n");
-        if (   $values[$j] eq $nu
-            || $values[$j] eq "'nu'"
-            || $values[$j] eq ''
-            || $values[$j] eq "''" )
-        {
-            $on_off[$j] = $off;
-        }
-        else {
-            $on_off[$j] = $on;
-        }
+		# print("param_sunix, get_check_buttons_settings :index..$j..values:$values[$j]\n");
+		if (   $values[$j] eq $nu
+			|| $values[$j] eq "'nu'"
+			|| $values[$j] eq ''
+			|| $values[$j] eq "''" ) {
+			$on_off[$j] = $off;
+		} else {
+			$on_off[$j] = $on;
+		}
 
-	# print("param_sunix: get_check_buttons_settings :index $j setting: $on_off[$j]\n");
-    }
-    return ( \@on_off );
+		# print("param_sunix: get_check_buttons_settings :index $j setting: $on_off[$j]\n");
+	}
+	return ( \@on_off );
 }
 
 =head2 sub get_half_length 
@@ -206,19 +228,18 @@ sub get_check_buttons_settings {
 
 sub get_half_length {
 
-    my ($self) = @_;
+	my ($self) = @_;
 
-    if ( $param_sunix->{_length} ) {
+	if ( $param_sunix->{_length} ) {
 
-        my $half_length = ( $param_sunix->{_length} ) / 2;
+		my $half_length = ( $param_sunix->{_length} ) / 2;
 
-        # print("param_sunix, get_length, length is $length\n");
+		# print("param_sunix, get_length, length is $length\n");
 
-        return ($half_length);
-    }
-    else {
-        print("param_sunix,get_length. Warning Juan,CHECK THIS CASE\n");
-    }
+		return ($half_length);
+	} else {
+		print("param_sunix,get_length. Warning Juan,CHECK THIS CASE\n");
+	}
 
 }
 
@@ -231,21 +252,18 @@ sub get_half_length {
 
 sub get_length4perl_flow {
 
-    my ($self) = @_;
+	my ($self) = @_;
 
-    if ( $param_sunix->{_length} ) {
+	if ( $param_sunix->{_length} ) {
 
-        my $length = ( $param_sunix->{_length} ) / 2;
+		my $length = ( $param_sunix->{_length} ) / 2;
 
-        # print("param_sunix, get_length4perl_flow , length is $length\n");
+		# print("param_sunix, get_length4perl_flow , length is $length\n");
 
-        return ($length);
-    }
-    else {
-        print(
-            "param_sunix,get_length4perl_flow . Warning Juan,CHECK THIS CASE\n"
-        );
-    }
+		return ($length);
+	} else {
+		print("param_sunix,get_length4perl_flow . Warning Juan,CHECK THIS CASE\n");
+	}
 
 }
 
@@ -258,19 +276,18 @@ sub get_length4perl_flow {
 
 sub get_length {
 
-    my ($self) = @_;
+	my ($self) = @_;
 
-    if ( $param_sunix->{_length} ) {
+	if ( $param_sunix->{_length} ) {
 
-        my $length = $param_sunix->{_length};
+		my $length = $param_sunix->{_length};
 
-        # print("param_sunix, get_length, length is $length\n");
+		# print("param_sunix, get_length, length is $length\n");
 
-        return ($length);
-    }
-    else {
-        print("param_sunix,get_length. Warning Juan,CHECK THIS CASE\n");
-    }
+		return ($length);
+	} else {
+		print("param_sunix,get_length. Warning Juan,CHECK THIS CASE\n");
+	}
 
 }
 
@@ -280,19 +297,19 @@ sub get_length {
 =cut
 
 sub get_names {
-    my ($self)   = @_;
-    my $cfg_aref = $param_sunix->{_all_aref};
-    my $length   = $param_sunix->{_length};
-    my ( $i, $j );
-    my @names;
+	my ($self)   = @_;
+	my $cfg_aref = $param_sunix->{_all_aref};
+	my $length   = $param_sunix->{_length};
+	my ( $i, $j );
+	my @names;
 
-    # print("1. param_sunix, get_names: we have length = $length\n\n");
-    for ( $i = 0, $j = 0 ; $i < $length ; $i = $i + 2, $j++ ) {
-        $names[$j] = @$cfg_aref[$i];
+	# print("1. param_sunix, get_names: we have length = $length\n\n");
+	for ( $i = 0, $j = 0; $i < $length; $i = $i + 2, $j++ ) {
+		$names[$j] = @$cfg_aref[$i];
 
-        # print(" param_sunix, get_names :index $j names:  $names[$j]\n");
-    }
-    return ( \@names );
+		# print(" param_sunix, get_names :index $j names:  $names[$j]\n");
+	}
+	return ( \@names );
 }
 
 =head2 sub values
@@ -301,21 +318,40 @@ sub get_names {
 =cut
 
 sub get_values {
-    my ($self)   = @_;
-    my $cfg_aref = $param_sunix->{_all_aref};
-    my $length   = $param_sunix->{_length};
-    my ( $i, $j );
-    my @values;
+	my ($self)   = @_;
+	my $cfg_aref = $param_sunix->{_all_aref};
+	my $length   = $param_sunix->{_length};
+	my ( $i, $j );
+	my @values;
 
-    # print("cfg_aref is @$cfg_aref\n");
+	# print("cfg_aref is @$cfg_aref\n");
 
-    for ( $i = 1, $j = 0 ; $i < $length ; $i = $i + 2, $j++ ) {
-        $values[$j] = @$cfg_aref[$i];
+	for ( $i = 1, $j = 0; $i < $length; $i = $i + 2, $j++ ) {
+		$values[$j] = @$cfg_aref[$i];
 
-        # print("param_sunix, get_values :index $j values: $values[$j]\n");
-         # print("param_sunix, get_values :index $i values:  @$cfg_aref[$i]\n");        print("param_sunix, get_values :index $j values: $values[$j]\n");       
-    }
-    return ( \@values );
+		# print("param_sunix, get_values :index $j values: $values[$j]\n");
+		# print("param_sunix, get_values :index $i values:  @$cfg_aref[$i]\n");        print("param_sunix, get_values :index $j values: $values[$j]\n");
+	}
+	return ( \@values );
+}
+
+sub set_flow_type {
+
+	my ( $self, $flow_type ) = @_;
+
+	# print("param_sunix,  set_flow_type ,flow_type=$flow_type\n");
+	if ( defined $flow_type
+		&& $flow_type ne $empty_string ) {
+
+		$param_sunix->{_flow_type} = $flow_type;
+
+		# print("param_sunix,  set_flow_type ,flow_type=$param_sunix->{_flow_type}\n");
+
+	} else {
+		print("param_sunix,  set_flow_type , missing value\n");
+	}
+
+	return ();
 }
 
 =head2 sub set_half_length 
@@ -327,19 +363,18 @@ sub get_values {
 
 sub set_half_length {
 
-    my @self = @_;
+	my @self = @_;
 
-    if ( $param_sunix->{_length} ) {
+	if ( $param_sunix->{_length} ) {
 
-        $param_sunix->{_length} = ( $param_sunix->{_length} ) / 2;
+		$param_sunix->{_length} = ( $param_sunix->{_length} ) / 2;
 
-        # print("param_sunix, set_length, length: $param_sunix->{_length}\n");
+		# print("param_sunix, set_length, length: $param_sunix->{_length}\n");
 
-        return ();
-    }
-    else {
-        print("param_sunix,set_length. Warning Juan,CHECK THIS CASE\n");
-    }
+		return ();
+	} else {
+		print("param_sunix,set_length. Warning Juan,CHECK THIS CASE\n");
+	}
 
 }
 
@@ -352,19 +387,18 @@ sub set_half_length {
 
 sub set_length {
 
-    my @self = @_;
+	my @self = @_;
 
-    if ( $param_sunix->{_length} ) {
+	if ( $param_sunix->{_length} ) {
 
-        $param_sunix->{_length} = ( $param_sunix->{_length} ) / 2;
+		$param_sunix->{_length} = ( $param_sunix->{_length} ) / 2;
 
-        print("param_sunix, set_length, length: $param_sunix->{_length}\n");
+		print("param_sunix, set_length, length: $param_sunix->{_length}\n");
 
-        return ();
-    }
-    else {
-        print("param_sunix,set_length. Warning Juan,CHECK THIS CASE\n");
-    }
+		return ();
+	} else {
+		print("param_sunix,set_length. Warning Juan,CHECK THIS CASE\n");
+	}
 
 }
 

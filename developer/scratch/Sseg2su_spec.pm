@@ -28,6 +28,7 @@ package Sseg2su_spec;
 
 =cut
 	my $Sseg2su_spec = {
+	_CONFIG					=> 'Nada'
 	_DATA_DIR_IN		    => $DATA_SEISMIC_SEG2,
 	_DATA_DIR_OUT		    => $DATA_SEISMIC_SU,
 	_binding_index_aref	    => '',

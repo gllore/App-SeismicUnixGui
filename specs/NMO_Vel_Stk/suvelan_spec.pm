@@ -20,12 +20,14 @@ my $file_dialog_type = $get->file_dialog_type_href();
 my $flow_type        = $get->flow_type_href();
 
 my $DATA_SEISMIC_PL = $Project->PL_SEISMIC();      # output data directory
+my $PL_SEISMIC        = $Project->PL_SEISMIC();
 my $max_index       = $suvelan->get_max_index();
 
-my $suvelan_spec = {
+my $suvelan_spec =  {
+    _CONFIG	 				=> $PL_SEISMIC,
     _DATA_DIR_IN           => $DATA_SEISMIC_PL,
     _DATA_DIR_OUT          => $DATA_SEISMIC_PL,
-    _binding_index_aref    => '',
+	_binding_index_aref    => '',
     _suffix_type_in        => $su,
     _data_suffix_in        => $suffix_su,
     _suffix_type_out       => $su,

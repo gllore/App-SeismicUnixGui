@@ -68,9 +68,11 @@ sub texts {
             -background   => $var->{_my_light_grey},
             -foreground   => $var->{_my_black},
             -borderwidth  => $var->{_no_borderwidth},
-            -textvariable => \$value,
         );
-
+        
+        $values_w[$i]->delete(0,'end');
+        $values_w[$i]->insert(0,$value);
+        
     }
 
     $value_boxes->{_values_w_aref} = \@values_w;

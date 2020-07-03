@@ -128,7 +128,15 @@ sub labels {
     $LSU->{_ref_labels_w} = $create->labelsc(\@blank_choices,
 	\$parameter_names_frame);
      print("wipe i $i\n");
+     
+	solve mystery memory leak
+    $entries->{_check_buttons_settings_aref} = $temp;
+	print("wipe,full_range,length of previous selected sueprflow = $entries->{_length}\n");
+	print("wipe,full_range,check_buttons_settings_aref=--@{$entries->{_check_buttons_settings_aref}}--\n");
 
+	print("wipe,values, _values_w_aref: @{$entries->{_values_w_aref}} \n");
+	print("wipe,values, first_idx: $first_idx, length: $length, _values_w_aref: @{$entries->{_values_w_aref}} \n");	
+	
 =cut 
 
 sub values {
@@ -143,26 +151,14 @@ sub values {
     if ( $entries->{_values_w_aref} ) {
 
         @values_w = @{ $entries->{_values_w_aref} };
-
         for ( $i = $first_idx ; $i < $length ; $i++ ) {
-
-            $values_w[$i]->configure( -textvariable => \$clear_text, );
-			# my $ans = ($values_w[$i])->get;
-			# print("wipe,values,_values_w: $ans\n");
-			# print("wipe,values,check_buttons-settings_aref=--@{$entries->{_check_buttons_settings_aref}}--\n");
+            $values_w[$i]->delete(0,'end');
         }
-		# print("wipe,values, _values_w_aref: @{$entries->{_values_w_aref}} \n");
-		#print("wipe,values, first_idx: $first_idx, length: $length, _values_w_aref: @{$entries->{_values_w_aref}} \n");
     }
     else {
-    # print("warning: wipe,values, missing entries->{_values_w_aref}\n");
-    # print("wipe,values, first_idx: $first_idx, length: $length, _values_w_aref: $entries->{_values_w_aref} \n");
+    	# print("warning: wipe,values, missing entries->{_values_w_aref}\n");
+    	# print("wipe,values, first_idx: $first_idx, length: $length, _values_w_aref: $entries->{_values_w_aref} \n");
     }
-
-	# solve mystery memory leak
-    # $entries->{_check_buttons_settings_aref} = $temp;
-	# print("wipe,full_range,length of previous selected sueprflow = $entries->{_length}\n");
-	# print("wipe,full_range,check_buttons_settings_aref=--@{$entries->{_check_buttons_settings_aref}}--\n");
     return ();
 }
 

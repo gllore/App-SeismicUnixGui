@@ -29,9 +29,10 @@ my $is_loclip  = $false;
 my $is_hiclip  = $false;
 
 my $suximage_spec = {
-	_DATA_DIR_IN => $DATA_SEISMIC_TXT,
-
-	# 	_DATA_DIR_OUT		    => $DATA_SEISMIC_SU,
+	_CONFIG				   => $PL_SEISMIC,
+	_DATA_DIR_OUT          => $DATA_SEISMIC_SU,
+	_DATA_DIR_IN 			=> $DATA_SEISMIC_TXT,
+	# 	_DATA_DIR_OUT		 => $DATA_SEISMIC_SU,
 	_DATA_DIR_OUT          => $PL_SEISMIC,  # DEFAULT
 	_binding_index_aref    => '',
 	_suffix_type_in        => $su,

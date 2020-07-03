@@ -21,11 +21,13 @@ my $flow_type        = $get->flow_type_href();
 my $DATA_SEISMIC_BIN =
 	$Project->DATA_SEISMIC_BIN();    # input data directory
 my $DATA_SEISMIC_SU = $Project->DATA_SEISMIC_SU();    # output data directory
+my $PL_SEISMIC        = $Project->PL_SEISMIC();
 my $max_index       = $xmovie->get_max_index();
 
-my $xmovie_spec = {
+my $xmovie_spec = 
+		_DATA_DIR_OUT          => $DATA_SEISMIC_SU,
 	_DATA_DIR_IN           => $DATA_SEISMIC_BIN,
-	_DATA_DIR_OUT          => $DATA_SEISMIC_SU,
+		_DATA_DIR_OUT          => $DATA_SEISMIC_SU,
 	_binding_index_aref    => '',
 	_suffix_type_in        => $su,
 	_data_suffix_in        => $suffix_su,

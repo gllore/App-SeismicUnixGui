@@ -23,6 +23,7 @@ package suxwigb_spec;
 	my $max_index           = $suxwigb->get_max_index();
 	
 	my $suxwigb_spec = {
+	_CONFIG					=> 'Nada'
 	_DATA_DIR_IN		    => $DATA_SEISMIC_SU,
 	_DATA_DIR_OUT		    => $DATA_SEISMIC_SU,
 	_binding_index_aref	    => '',

@@ -22,10 +22,12 @@ my $flow_type        = $get->flow_type_href();
 my $DATA_SEISMIC_BIN = $Project->DATA_SEISMIC_BIN();    # output data directory
 my $max_index        = $ximage->get_max_index();
 
-my $ximage_spec = {
+my $ximage_spec =  {
+    _CONFIG	 				=> 'Nada',
     _DATA_DIR_IN           => $DATA_SEISMIC_BIN,
     _DATA_DIR_OUT          => $DATA_SEISMIC_BIN,
-    _binding_index_aref    => '',
+    _CONFIG					=>'Nada',
+	_binding_index_aref    => '',
     _suffix_type_in        => $su,
     _data_suffix_in        => $suffix_bin,
     _suffix_type_out       => $su,

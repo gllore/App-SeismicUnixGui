@@ -908,8 +908,8 @@ sub length {
 		return ($length);
 	}
 	else {
-		print("param_flow_grey,length,  index does not exist\n");
-		print("param_flow_grey, length, num values: $length\n");
+		print("param_flow_grey,length,  index=$index does not exist\n");
+		print("param_flow_grey, length, length can not be calculated\n");
 		return ();
 	}
 }
@@ -1441,7 +1441,7 @@ sub view_data {
 
 	#    $num_progs[3] = scalar  ( @{$param_flow_grey->{_values_aref2}} );
 	#    $num_progs[4] = scalar  ( @{$param_flow_grey->{_checkbuttons_aref2}});
-	$num_progs[5] = scalar( @{ $param_flow_grey->{_prog_names_aref} } );
+	$num_progs[2] = scalar( @{ $param_flow_grey->{_prog_names_aref} } );
 
 	# print("\n param_flow_grey,view_data, _prog_names @{$param_flow_grey->{_prog_names_aref}}\n");
 	print("\nparam_flow_grey,view_data:number of items in list in 4-5 different ways  @num_progs \n");
@@ -1457,6 +1457,8 @@ sub view_data {
 
 		#     print("param_flow_grey,view_data: checkbuttons: @{@{$param_flow_grey->{_checkbuttons_aref2}}[$i]}\n\n");
 	}
+	print("\n");
+	
 }
 
 1;

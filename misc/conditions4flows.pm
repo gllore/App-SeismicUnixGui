@@ -4,7 +4,7 @@ package conditions4flows;
 
 =head2 SYNOPSIS 
 
- PERL PACKAGE NAME: conditions_gui.pm
+ PERL PACKAGE NAME: conditions4flows.pm
  AUTHOR: 	Juan Lorenzo
  DATE: 		May 16 2018 
 
@@ -29,7 +29,7 @@ package conditions4flows;
  		one or a few to survive for manipulation internally. But, because
  		all variables that enter are sheltered in private variables those that are not
  		changed can safely be handed back to the namespace of the module that is calling 
- 		conditions_gui.
+ 		conditions4flows.
  		
  		get_flow_index_last_touched needs to be exported so do not reset it
  		
@@ -200,7 +200,7 @@ my $wipe_plots_button;
 
 =cut
 
-my $conditions_gui = {
+my $conditions4flows = {
 
 	_Data_menubutton                       => '',
 	_Flow_menubutton                       => '',
@@ -323,26 +323,26 @@ sub _get_add2flow {
 	my $color;
 	my $correct_add2flow_button;
 
-	$color = $conditions_gui->{_flow_color};
+	$color = $conditions4flows->{_flow_color};
 
 	if ( $color eq 'grey' ) {
-		$correct_add2flow_button = $conditions_gui->{_add2flow_button_grey};
+		$correct_add2flow_button = $conditions4flows->{_add2flow_button_grey};
 
 	}
 	elsif ( $color eq 'pink' ) {
-		$correct_add2flow_button = $conditions_gui->{_add2flow_button_pink};
+		$correct_add2flow_button = $conditions4flows->{_add2flow_button_pink};
 
 	}
 	elsif ( $color eq 'green' ) {
-		$correct_add2flow_button = $conditions_gui->{_add2flow_button_green};
+		$correct_add2flow_button = $conditions4flows->{_add2flow_button_green};
 
 	}
 	elsif ( $color eq 'blue' ) {
-		$correct_add2flow_button = $conditions_gui->{_add2flow_button_blue};
+		$correct_add2flow_button = $conditions4flows->{_add2flow_button_blue};
 
 	}
 	else {
-		print( "conditions_gui,  _get_add2flow_button, missing color,missing color, color:$color\n" );
+		print( "conditions4flows,  _get_add2flow_button, missing color,missing color, color:$color\n" );
 	}
 
 	return ($correct_add2flow_button);
@@ -358,26 +358,26 @@ sub _get_add2flow_button {
 	my $color;
 	my $correct_add2flow_button;
 
-	$color = $conditions_gui->{_flow_color};
+	$color = $conditions4flows->{_flow_color};
 
 	if ( $color eq 'grey' ) {
-		$correct_add2flow_button = $conditions_gui->{_add2flow_button_grey};
+		$correct_add2flow_button = $conditions4flows->{_add2flow_button_grey};
 
 	}
 	elsif ( $color eq 'pink' ) {
-		$correct_add2flow_button = $conditions_gui->{_add2flow_button_pink};
+		$correct_add2flow_button = $conditions4flows->{_add2flow_button_pink};
 
 	}
 	elsif ( $color eq 'green' ) {
-		$correct_add2flow_button = $conditions_gui->{_add2flow_button_green};
+		$correct_add2flow_button = $conditions4flows->{_add2flow_button_green};
 
 	}
 	elsif ( $color eq 'blue' ) {
-		$correct_add2flow_button = $conditions_gui->{_add2flow_button_blue};
+		$correct_add2flow_button = $conditions4flows->{_add2flow_button_blue};
 
 	}
 	else {
-		print( "conditions_gui,  _get_add2flow_button, missing color,missing color, color:$color\n" );
+		print( "conditions4flows,  _get_add2flow_button, missing color,missing color, color:$color\n" );
 	}
 
 	return ($correct_add2flow_button);
@@ -392,14 +392,14 @@ sub _get_flow_color {
 	my ($self) = @_;
 	my $color;
 
-	if ( $conditions_gui->{_flow_color} ) {
+	if ( $conditions4flows->{_flow_color} ) {
 
-		$color = $conditions_gui->{_flow_color};
+		$color = $conditions4flows->{_flow_color};
 		return ($color);
 
 	}
 	else {
-		print( "conditions_gui,_get_flow_color  missing conditions_gui->{_flow_color}\n" );
+		print( "conditions4flows,_get_flow_color  missing conditions4flows->{_flow_color}\n" );
 
 	}
 
@@ -414,14 +414,14 @@ sub _get_flow_listbox_color_w {
 	my ($self) = @_;
 	my $correct_flow_listbox_color_w;
 
-	if ( $conditions_gui->{_flow_listbox_color_w} ) {
+	if ( $conditions4flows->{_flow_listbox_color_w} ) {
 
-		my $correct_flow_listbox_color_w = $conditions_gui->{_flow_listbox_color_w};
+		my $correct_flow_listbox_color_w = $conditions4flows->{_flow_listbox_color_w};
 		return ($correct_flow_listbox_color_w);
 
 	}
 	else {
-		print( "conditions_gui, _get_flow_listbox_color_w, unassigned flow listbox w for current color\n" );
+		print( "conditions4flows, _get_flow_listbox_color_w, unassigned flow listbox w for current color\n" );
 		return ();
 	}
 
@@ -438,78 +438,33 @@ sub _get_flow_listbox_color_w {
 sub _reset {
 	my ($self) = @_;
 
-	$conditions_gui->{_is_Save_button}                 = $false;
-	$conditions_gui->{_is_SaveAs_file_button}          = $false;
-	$conditions_gui->{_is_SaveAs_button}               = $false;
-	$conditions_gui->{_has_used_check_code_button}     = $false;
-	$conditions_gui->{_has_used_run_button}            = $false;
-	$conditions_gui->{_is_add2flow_button}             = $false;
-	$conditions_gui->{_is_check_code_button}           = $false;
-	$conditions_gui->{_is_delete_from_flow_button}     = $false;
-	$conditions_gui->{_is_dragNdrop}                   = $false;
-	$conditions_gui->{_is_flow_item_down_arrow_button} = $false;
-	$conditions_gui->{_is_flow_item_up_arrow_button}   = $false;
-	$conditions_gui->{_is_flow_listbox_grey_w}         = $false;
-	$conditions_gui->{_is_flow_listbox_pink_w}         = $false;
-	$conditions_gui->{_is_flow_listbox_green_w}        = $false;
-	$conditions_gui->{_is_flow_listbox_blue_w}         = $false;
-	$conditions_gui->{_is_flow_listbox_color_w}        = $false;
-	$conditions_gui->{_is_moveNdrop_in_flow}           = $false;
-	$conditions_gui->{_is_open_file_button}            = $false;
-	$conditions_gui->{_is_select_file_button}          = $false;
-	$conditions_gui->{_is_sunix_listbox}               = $false;
-	$conditions_gui->{_is_new_listbox_selection}       = $false;
-	$conditions_gui->{_is_superflow_select_button}     = $false;
-	$conditions_gui->{_is_run_button}                  = $false;
-	$conditions_gui->{_is_pre_built_superflow}         = $false;
-	$conditions_gui->{_is_superflow}                   = $false;
-	$conditions_gui->{_is_user_built_flow}             = $false;
-	$conditions_gui->{_is_wipe_plots_button}           = $false;
-
-	#  	 		$conditions_gui->{_has_used_check_code_button   	 	}   			= $false;
-	#	   	 	$conditions_gui->{_has_used_open_perl_file_button}   			= $false;
-	#	   	 	$conditions_gui->{_has_used_run_button}   			= $false;
-	#	   	 	$conditions_gui->{_has_used_SaveAs_button}   			= $false;
-	#	   	 	$conditions_gui->{_has_used_Save_button}   			= $false;
-	#	   	 	$conditions_gui->{_has_used_Save_superflow}   			= $false;
-	# 	   	 	$conditions_gui->{_is_add2flow}   			= $false;
-	# 	   	 	$conditions_gui->{_is_add2flow_button}   			= $false;
-	# 	   	 	$conditions_gui->{_is_check_code_button}   			= $false;
-	# 	   	 	$conditions_gui->{_is_delete_from_flow_button}   			= $false;
-	# 	   	 	$conditions_gui->{_is_dragNdrop}   			= $false;
-	# 	   	 	$conditions_gui->{_is_flow_item_down_arrow_button}   			= $false;
-	# 	   	 	$conditions_gui->{_is_flow_item_up_arrow_button}   			= $false;
-	# 	   	 	$conditions_gui->{_is_flow_listbox_grey_w}   			= $false;
-	# 	   	 	$conditions_gui->{_is_flow_listbox_pink_w}   			= $false;
-	# 	   	 	$conditions_gui->{_is_flow_listbox_green_w	}   			= $false;
-	# 	   	 	$conditions_gui->{_is_flow_listbox_blue_w}   			= $false;
-	# 	   	 	$conditions_gui->{_is_flow_listbox_color_w}   			= $false;
-	#	   	 	$conditions_gui->{_is_last_flow_index_touched_grey }   			= $false;
-	#	   	 	$conditions_gui->{_is_last_flow_index_touched_pink}   			= $false;
-	#	   	 	$conditions_gui->{_is_last_flow_index_touched_green}   			= $false;
-	#	   	 	$conditions_gui->{_is_last_flow_index_touched_blue}   			= $false;
-	#	   	 	$conditions_gui->{_is_last_flow_index_touched}   			= $false;
-	#	   	 	$conditions_gui->{_is_last_parameter_index_touched_grey}   			= $false;
-	#	   	 	$conditions_gui->{_is_last_parameter_index_touched_pink}   			= $false;
-	#	   	 	$conditions_gui->{_is_last_parameter_index_touched_green}   			= $false;
-	#	   	 	$conditions_gui->{_is_last_parameter_index_touched_blue}   			= $false;
-	#	   	 	$conditions_gui->{_is_last_parameter_index_touched_color}   			= $false;
-	#	   	 	$conditions_gui->{_is_moveNdrop_in_flow}   			= $false;
-	#  	   	 	$conditions_gui->{_is_new_listbox_selection}   			= $false;
-	#  	   	 	$conditions_gui->{_is_open_file_button}   			= $false;
-	#  	   	 	$conditions_gui->{_is_pre_built_superflow}   			= $false;
-	#  	   	 	$conditions_gui->{_is_run_button}   			= $false;
-	# 	   	 	$conditions_gui->{_is_select_file_button}   			= $false;
-	#       	 	$conditions_gui->{_is_selected_file_name}   			= $false;
-	#       	 	$conditions_gui->{_is_selected_path}   			= $false;
-	#   	   	 	$conditions_gui->{_is_Save_button}   			= $false;
-	#   	   	 	$conditions_gui->{_is_SaveAs_button}   			= $false;
-	#  	   	 	$conditions_gui->{_is_SaveAs_file_button}   			= $false;
-	# 	   	 	$conditions_gui->{_is_sunix_listbox}   			= $false;
-	#   	   	 	$conditions_gui->{_is_superflow_select_button}   			= $false;
-	#   	   	 	$conditions_gui->{_is_superflow}   			= $false;  # for deprecation
-	#  	   	 	$conditions_gui->{_is_user_built_flow}   			= $false;
-	#
+	$conditions4flows->{_is_Save_button}                 = $false;
+	$conditions4flows->{_is_SaveAs_file_button}          = $false;
+	$conditions4flows->{_is_SaveAs_button}               = $false;
+	$conditions4flows->{_has_used_check_code_button}     = $false;
+	$conditions4flows->{_has_used_run_button}            = $false;
+	$conditions4flows->{_is_add2flow_button}             = $false;
+	$conditions4flows->{_is_check_code_button}           = $false;
+	$conditions4flows->{_is_delete_from_flow_button}     = $false;
+	$conditions4flows->{_is_dragNdrop}                   = $false;
+	$conditions4flows->{_is_flow_item_down_arrow_button} = $false;
+	$conditions4flows->{_is_flow_item_up_arrow_button}   = $false;
+	$conditions4flows->{_is_flow_listbox_grey_w}         = $false;
+	$conditions4flows->{_is_flow_listbox_pink_w}         = $false;
+	$conditions4flows->{_is_flow_listbox_green_w}        = $false;
+	$conditions4flows->{_is_flow_listbox_blue_w}         = $false;
+	$conditions4flows->{_is_flow_listbox_color_w}        = $false;
+	$conditions4flows->{_is_moveNdrop_in_flow}           = $false;
+	$conditions4flows->{_is_open_file_button}            = $false;
+	$conditions4flows->{_is_select_file_button}          = $false;
+	$conditions4flows->{_is_sunix_listbox}               = $false;
+	$conditions4flows->{_is_new_listbox_selection}       = $false;
+	$conditions4flows->{_is_superflow_select_button}     = $false;
+	$conditions4flows->{_is_run_button}                  = $false;
+	$conditions4flows->{_is_pre_built_superflow}         = $false;
+	$conditions4flows->{_is_superflow}                   = $false;
+	$conditions4flows->{_is_user_built_flow}             = $false;
+	$conditions4flows->{_is_wipe_plots_button}           = $false;
 
 }
 
@@ -521,17 +476,17 @@ sub _reset {
 sub _reset_is_flow_listbox_color_w {
 	my ($self) = @_;
 
-	if (   $conditions_gui->{_flow_color} eq 'grey'
-		|| $conditions_gui->{_flow_color} eq 'pink'
-		|| $conditions_gui->{_flow_color} eq 'green'
-		|| $conditions_gui->{_flow_color} eq 'blue'
-		|| $conditions_gui->{_flow_color} eq 'neutral' )
+	if (   $conditions4flows->{_flow_color} eq 'grey'
+		|| $conditions4flows->{_flow_color} eq 'pink'
+		|| $conditions4flows->{_flow_color} eq 'green'
+		|| $conditions4flows->{_flow_color} eq 'blue'
+		|| $conditions4flows->{_flow_color} eq 'neutral' )
 	{
 
-		$conditions_gui->{_is_flow_listbox_grey_w}  = $false;
-		$conditions_gui->{_is_flow_listbox_pink_w}  = $false;
-		$conditions_gui->{_is_flow_listbox_green_w} = $false;
-		$conditions_gui->{_is_flow_listbox_blue_w}  = $false;
+		$conditions4flows->{_is_flow_listbox_grey_w}  = $false;
+		$conditions4flows->{_is_flow_listbox_pink_w}  = $false;
+		$conditions4flows->{_is_flow_listbox_green_w} = $false;
+		$conditions4flows->{_is_flow_listbox_blue_w}  = $false;
 
 		# for export
 		$is_flow_listbox_grey_w  = $false;
@@ -541,7 +496,7 @@ sub _reset_is_flow_listbox_color_w {
 
 	}
 	else {
-		print( " conditions_gui, _reset_is_flow_listbox_color_w ,missing flow color \n" );
+		print( " conditions4flows, _reset_is_flow_listbox_color_w ,missing flow color \n" );
 	}
 
 	return ();
@@ -557,12 +512,12 @@ sub _set_flow_color {
 
 	if ($color) {
 
-		# print("conditions_gui, _set_flow_color , color:$color\n");
-		$conditions_gui->{_flow_color} = $color;
+		# print("conditions4flows, _set_flow_color , color:$color\n");
+		$conditions4flows->{_flow_color} = $color;
 	}
 	else {
 
-		print("conditions_gui, set_flow_color, missing color\n");
+		print("conditions4flows, set_flow_color, missing color\n");
 	}
 	return ();
 }
@@ -576,35 +531,35 @@ sub _set_flow_listbox_color_w {
 	my ($color) = @_;
 
 	if ( $color eq 'grey' ) {
-		$conditions_gui->{_flow_listbox_color_w}   = $conditions_gui->{_flow_listbox_grey_w};
-		$conditions_gui->{_is_flow_listbox_grey_w} = $true;
-		$flow_listbox_color_w                      = $conditions_gui->{_flow_listbox_grey_w};    # for possible export via get_hash_ref
+		$conditions4flows->{_flow_listbox_color_w}   = $conditions4flows->{_flow_listbox_grey_w};
+		$conditions4flows->{_is_flow_listbox_grey_w} = $true;
+		$flow_listbox_color_w                      = $conditions4flows->{_flow_listbox_grey_w};    # for possible export via get_hash_ref
 		$is_flow_listbox_grey_w                    = $true;                                      # for possible export via get_hash_ref
 
 	}
 	elsif ( $color eq 'pink' ) {
-		$conditions_gui->{_flow_listbox_color_w}   = $conditions_gui->{_flow_listbox_pink_w};
-		$conditions_gui->{_is_flow_listbox_pink_w} = $true;
-		$flow_listbox_color_w                      = $conditions_gui->{_flow_listbox_pink_w};    # for possible export via get_hash_ref
+		$conditions4flows->{_flow_listbox_color_w}   = $conditions4flows->{_flow_listbox_pink_w};
+		$conditions4flows->{_is_flow_listbox_pink_w} = $true;
+		$flow_listbox_color_w                      = $conditions4flows->{_flow_listbox_pink_w};    # for possible export via get_hash_ref
 		$is_flow_listbox_pink_w                    = $true;                                      # for possible export via get_hash_ref
 
 	}
 	elsif ( $color eq 'green' ) {
-		$conditions_gui->{_flow_listbox_color_w}    = $conditions_gui->{_flow_listbox_green_w};
-		$conditions_gui->{_is_flow_listbox_green_w} = $true;
-		$flow_listbox_color_w                       = $conditions_gui->{_flow_listbox_green_w};    # for possible export via get_hash_ref
+		$conditions4flows->{_flow_listbox_color_w}    = $conditions4flows->{_flow_listbox_green_w};
+		$conditions4flows->{_is_flow_listbox_green_w} = $true;
+		$flow_listbox_color_w                       = $conditions4flows->{_flow_listbox_green_w};    # for possible export via get_hash_ref
 		$is_flow_listbox_green_w                    = $true;                                       # for possible export via get_hash_ref
 
 	}
 	elsif ( $color eq 'blue' ) {
-		$conditions_gui->{_flow_listbox_color_w}   = $conditions_gui->{_flow_listbox_blue_w};
-		$conditions_gui->{_is_flow_listbox_blue_w} = $true;
-		$flow_listbox_color_w                      = $conditions_gui->{_flow_listbox_blue_w};      # for possible export via get_hash_ref
+		$conditions4flows->{_flow_listbox_color_w}   = $conditions4flows->{_flow_listbox_blue_w};
+		$conditions4flows->{_is_flow_listbox_blue_w} = $true;
+		$flow_listbox_color_w                      = $conditions4flows->{_flow_listbox_blue_w};      # for possible export via get_hash_ref
 		$is_flow_listbox_blue_w                    = $true;                                        # for possible export via get_hash_ref
 
 	}
 	else {
-		print( "conditions_gui, _set_flow_listbox_color_w, missing color, color:$color\n" );
+		print( "conditions4flows, _set_flow_listbox_color_w, missing color, color:$color\n" );
 	}
 
 	return ();
@@ -620,16 +575,16 @@ sub _set_flow_listbox_last_touched_txt {
 	my ($last_flow_lstbx_touched) = @_;
 
 	if ($last_flow_lstbx_touched) {
-		$conditions_gui->{_last_flow_listbox_touched} = $last_flow_lstbx_touched;
+		$conditions4flows->{_last_flow_listbox_touched} = $last_flow_lstbx_touched;
 
-		# print("conditions_gui,_set_flow_listbox_touched left listbox = $conditions_gui->{_last_flow_listbox_touched}\n");
+		# print("conditions4flows,_set_flow_listbox_touched left listbox = $conditions4flows->{_last_flow_listbox_touched}\n");
 
 		# for possible export via get_hash_ref
 		$last_flow_listbox_touched = $last_flow_lstbx_touched;
 
 	}
 	else {
-		print( "conditions_gui,set_flow_listbox_touched_txt, missing listbox name\n" );
+		print( "conditions4flows,set_flow_listbox_touched_txt, missing listbox name\n" );
 	}
 
 	return ();
@@ -645,17 +600,17 @@ sub _set_flow_listbox_last_touched_w {
 
 	#_set_gui_widgets();
 
-	# print("1 conditions_gui, _set_flow_listbox_last_touched_w; flow_listbox_color_w: $flow_listbox_color_w \n");
+	# print("1 conditions4flows, _set_flow_listbox_last_touched_w; flow_listbox_color_w: $flow_listbox_color_w \n");
 
 	if ($flow_listbox_color_w) {
 
-		# print("1 conditions_gui, _set_flow_listbox_last_touched_w; $flow_listbox_color_w\n");
-		$conditions_gui->{_last_flow_listbox_touched_w} = $flow_listbox_color_w;
+		# print("1 conditions4flows, _set_flow_listbox_last_touched_w; $flow_listbox_color_w\n");
+		$conditions4flows->{_last_flow_listbox_touched_w} = $flow_listbox_color_w;
 		$last_flow_listbox_touched_w = $flow_listbox_color_w;    # for export via get_hash-ref
 
 	}
 	else {
-		print( "conditions_gui,_set_flow_listbox_touched_w, missing listbox widget\n" );
+		print( "conditions4flows,_set_flow_listbox_touched_w, missing listbox widget\n" );
 	}
 	return ();
 }
@@ -665,8 +620,8 @@ sub _set_flow_listbox_last_touched_w {
 #	 spread important widget addresses
 #	 privately for convenience using abbreviated names,
 #	 i.e. in scalar instead of hash notaion
-#	 print("1 conditions_gui,_set_gui_widgets, delete_from_flow_button: $delete_from_flow_button\n");
-#	 print("conditions_gui,_set_gui_widgets,flow_listbox_grey_w : $flow_listbox_grey_w \n");
+#	 print("1 conditions4flows,_set_gui_widgets, delete_from_flow_button: $delete_from_flow_button\n");
+#	 print("conditions4flows,_set_gui_widgets,flow_listbox_grey_w : $flow_listbox_grey_w \n");
 #	
 #	25 off
 #	
@@ -675,32 +630,32 @@ sub _set_flow_listbox_last_touched_w {
 #sub _set_gui_widgets {
 #	my ($self) = @_;
 #
-#	$add2flow_button_grey        = $conditions_gui->{_add2flow_button_grey};
-#	$add2flow_button_pink        = $conditions_gui->{_add2flow_button_pink};
-#	$add2flow_button_green       = $conditions_gui->{_add2flow_button_green};
-#	$add2flow_button_blue        = $conditions_gui->{_add2flow_button_blue};
-#	$check_buttons_w_aref        = $conditions_gui->{_check_buttons_w_aref};
-#	$check_code_button           = $conditions_gui->{_check_code_button};
-#	$delete_from_flow_button     = $conditions_gui->{_delete_from_flow_button};
-#	$file_menubutton             = $conditions_gui->{_file_menubutton};
-#	$flowNsuperflow_name_w       = $conditions_gui->{_flowNsuperflow_name_w};
-#	$flow_item_down_arrow_button = $conditions_gui->{_flow_item_down_arrow_button};
-#	$flow_item_up_arrow_button   = $conditions_gui->{_flow_item_up_arrow_button};
-#	$flow_listbox_grey_w         = $conditions_gui->{_flow_listbox_grey_w};
-#	$flow_listbox_pink_w         = $conditions_gui->{_flow_listbox_pink_w};
-#	$flow_listbox_green_w        = $conditions_gui->{_flow_listbox_green_w};
-#	$flow_listbox_blue_w         = $conditions_gui->{_flow_listbox_blue_w};
-#	$flow_listbox_color_w        = $conditions_gui->{_flow_listbox_color_w};
-#	$flow_widget_index           = $conditions_gui->{_flow_widget_index};
-#	$labels_w_aref               = $conditions_gui->{_labels_w_aref};
-#	$message_w                   = $conditions_gui->{_message_w};
-#	$mw                          = $conditions_gui->{_mw};
-#	$parameter_values_frame      = $conditions_gui->{_parameter_values_frame};
-#	$parameter_value_index       = $conditions_gui->{_parameter_value_index};
-#	$run_button                  = $conditions_gui->{_run_button};
-#	$save_button                 = $conditions_gui->{_save_button};
-#	$values_w_aref               = $conditions_gui->{_values_w_aref};
-#	$wipe_plots_button           = $conditions_gui->{_wipe_plots_button};
+#	$add2flow_button_grey        = $conditions4flows->{_add2flow_button_grey};
+#	$add2flow_button_pink        = $conditions4flows->{_add2flow_button_pink};
+#	$add2flow_button_green       = $conditions4flows->{_add2flow_button_green};
+#	$add2flow_button_blue        = $conditions4flows->{_add2flow_button_blue};
+#	$check_buttons_w_aref        = $conditions4flows->{_check_buttons_w_aref};
+#	$check_code_button           = $conditions4flows->{_check_code_button};
+#	$delete_from_flow_button     = $conditions4flows->{_delete_from_flow_button};
+#	$file_menubutton             = $conditions4flows->{_file_menubutton};
+#	$flowNsuperflow_name_w       = $conditions4flows->{_flowNsuperflow_name_w};
+#	$flow_item_down_arrow_button = $conditions4flows->{_flow_item_down_arrow_button};
+#	$flow_item_up_arrow_button   = $conditions4flows->{_flow_item_up_arrow_button};
+#	$flow_listbox_grey_w         = $conditions4flows->{_flow_listbox_grey_w};
+#	$flow_listbox_pink_w         = $conditions4flows->{_flow_listbox_pink_w};
+#	$flow_listbox_green_w        = $conditions4flows->{_flow_listbox_green_w};
+#	$flow_listbox_blue_w         = $conditions4flows->{_flow_listbox_blue_w};
+#	$flow_listbox_color_w        = $conditions4flows->{_flow_listbox_color_w};
+#	$flow_widget_index           = $conditions4flows->{_flow_widget_index};
+#	$labels_w_aref               = $conditions4flows->{_labels_w_aref};
+#	$message_w                   = $conditions4flows->{_message_w};
+#	$mw                          = $conditions4flows->{_mw};
+#	$parameter_values_frame      = $conditions4flows->{_parameter_values_frame};
+#	$parameter_value_index       = $conditions4flows->{_parameter_value_index};
+#	$run_button                  = $conditions4flows->{_run_button};
+#	$save_button                 = $conditions4flows->{_save_button};
+#	$values_w_aref               = $conditions4flows->{_values_w_aref};
+#	$wipe_plots_button           = $conditions4flows->{_wipe_plots_button};
 #
 #	return ();
 #}
@@ -715,16 +670,16 @@ sub get_flow_color {
 	my ($self) = @_;
 	my $flow_color;
 
-	if ( $conditions_gui->{_flow_color} ) {
+	if ( $conditions4flows->{_flow_color} ) {
 
-		$flow_color = $conditions_gui->{_flow_color};
+		$flow_color = $conditions4flows->{_flow_color};
 
-		print("conditions_gui, conditions_gui->{_flow_color}: $conditions_gui->{_flow_color}\n");
+		print("conditions4flows, conditions4flows->{_flow_color}: $conditions4flows->{_flow_color}\n");
 		return ($flow_color);
 
 	}
 	else {
-		print("conditions_gui, get_flow_color , missing flow color value \n");
+		print("conditions4flows, get_flow_color , missing flow color value \n");
 		return ();
 	}
 }
@@ -745,119 +700,119 @@ sub get_flow_color {
 sub get_hash_ref {
 	my ($self) = @_;
 
-	if ($conditions_gui) {
+	if ($conditions4flows) {
 
-		$conditions_gui->{_Data_menubutton}                       = $Data_menubutton;
-		$conditions_gui->{_Flow_menubutton}                       = $Flow_menubutton;
-		$conditions_gui->{_SaveAs_menubutton}                     = $SaveAs_menubutton;
-		$conditions_gui->{_add2flow_button_grey}                  = $add2flow_button_grey;
-		$conditions_gui->{_add2flow_button_pink}                  = $add2flow_button_pink;
-		$conditions_gui->{_add2flow_button_green}                 = $add2flow_button_green;
-		$conditions_gui->{_add2flow_button_blue}                  = $add2flow_button_blue;
-		$conditions_gui->{_check_buttons_w_aref}                  = $check_buttons_w_aref;
-		$conditions_gui->{_check_buttons_settings_aref}           = $check_buttons_settings_aref;
-		$conditions_gui->{_check_code_button}                     = $check_code_button;
-		$conditions_gui->{_delete_from_flow_button}               = $delete_from_flow_button;
-		$conditions_gui->{_file_menubutton}                       = $file_menubutton;
-		$conditions_gui->{_flowNsuperflow_name_w}                 = $flowNsuperflow_name_w;
-		$conditions_gui->{_flow_item_down_arrow_button}           = $flow_item_down_arrow_button;
-		$conditions_gui->{_flow_item_up_arrow_button}             = $flow_item_up_arrow_button;
-		$conditions_gui->{_flow_listbox_grey_w}                   = $flow_listbox_grey_w;
-		$conditions_gui->{_flow_listbox_pink_w}                   = $flow_listbox_pink_w;
-		$conditions_gui->{_flow_listbox_green_w}                  = $flow_listbox_green_w;
-		$conditions_gui->{_flow_listbox_blue_w}                   = $flow_listbox_blue_w;
-		$conditions_gui->{_flow_listbox_color_w}                  = $flow_listbox_color_w;
-		$conditions_gui->{_flow_widget_index}                     = $flow_widget_index;
-		$conditions_gui->{_labels_w_aref}                         = $labels_w_aref;
-		$conditions_gui->{_message_w}                             = $message_w;
-		$conditions_gui->{_mw}                                    = $mw;
-		$conditions_gui->{_parameter_values_frame}                = $parameter_values_frame;
-		$conditions_gui->{_parameter_value_index}                 = $parameter_value_index;
-		$conditions_gui->{_run_button}                            = $run_button;
-		$conditions_gui->{_save_button}                           = $save_button;
-		$conditions_gui->{_values_w_aref}                         = $values_w_aref;
-		$conditions_gui->{_dialog_type}                           = $dialog_type;
-		$conditions_gui->{_flow_color}                            = $flow_color;
-		$conditions_gui->{_flow_name_in}                          = $flow_name_in;
-		$conditions_gui->{_flow_name_out}                         = $flow_name_out;
-		$conditions_gui->{_flow_type}                             = $flow_type;
-		$conditions_gui->{_flow_widget_index}                     = $flow_widget_index;
-		$conditions_gui->{_gui_history_ref}                       = $gui_history_ref;
-		$conditions_gui->{_has_used_SaveAs_button}                = $has_used_SaveAs_button;
-		$conditions_gui->{_has_used_Save_button}                  = $has_used_Save_button;
-		$conditions_gui->{_has_used_Save_superflow}               = $has_used_Save_superflow;
-		$conditions_gui->{_has_used_check_code_button}            = $has_used_check_code_button;
-		$conditions_gui->{_has_used_open_perl_file_button}        = $has_used_open_perl_file_button;
-		$conditions_gui->{_has_used_run_button}                   = $has_used_run_button;
-		$conditions_gui->{_is_add2flow_button}                    = $is_add2flow_button;
-		$conditions_gui->{_is_check_code_button}                  = $is_check_code_button;
-		$conditions_gui->{_is_delete_from_flow_button}            = $is_delete_from_flow_button;
-		$conditions_gui->{_is_dragNdrop}                          = $is_dragNdrop;
-		$conditions_gui->{_is_flow_item_up_arrow_button}          = $is_flow_item_up_arrow_button;
-		$conditions_gui->{_is_flow_item_down_arrow_button}        = $is_flow_item_down_arrow_button;
-		$conditions_gui->{_is_flow_listbox_grey_w}                = $is_flow_listbox_grey_w;
-		$conditions_gui->{_is_flow_listbox_pink_w}                = $is_flow_listbox_pink_w;
-		$conditions_gui->{_is_flow_listbox_green_w}               = $is_flow_listbox_green_w;
-		$conditions_gui->{_is_flow_listbox_blue_w}                = $is_flow_listbox_blue_w;
-		$conditions_gui->{_is_flow_listbox_color_w}               = $is_flow_listbox_color_w;
-		$conditions_gui->{_is_future_flow_listbox_grey}           = $is_future_flow_listbox_grey;
-		$conditions_gui->{_is_future_flow_listbox_pink}           = $is_future_flow_listbox_pink;
-		$conditions_gui->{_is_future_flow_listbox_green}          = $is_future_flow_listbox_green;
-		$conditions_gui->{_is_future_flow_listbox_blue}           = $is_future_flow_listbox_blue;
-		$conditions_gui->{_is_last_flow_index_touched}            = $is_last_flow_index_touched;
-		$conditions_gui->{_is_last_flow_index_touched_grey}       = $is_last_flow_index_touched_grey;
-		$conditions_gui->{_is_last_flow_index_touched_pink}       = $is_last_flow_index_touched_pink;
-		$conditions_gui->{_is_last_flow_index_touched_green}      = $is_last_flow_index_touched_green;
-		$conditions_gui->{_is_last_flow_index_touched_blue}       = $is_last_flow_index_touched_blue;
-		$conditions_gui->{_is_last_parameter_index_touched_grey}  = $is_last_parameter_index_touched_grey;
-		$conditions_gui->{_is_last_parameter_index_touched_pink}  = $is_last_parameter_index_touched_pink;
-		$conditions_gui->{_is_last_parameter_index_touched_green} = $is_last_parameter_index_touched_green;
-		$conditions_gui->{_is_last_parameter_index_touched_blue}  = $is_last_parameter_index_touched_blue;
-		$conditions_gui->{_is_last_parameter_index_touched_color} = $is_last_parameter_index_touched_color;
-		$conditions_gui->{_is_open_file_button}                   = $is_open_file_button;
-		$conditions_gui->{_is_run_button}                         = $is_run_button;
-		$conditions_gui->{_is_moveNdrop_in_flow}                  = $is_moveNdrop_in_flow;
-		$conditions_gui->{_is_user_built_flow}                    = $is_user_built_flow;
-		$conditions_gui->{_is_select_file_button}                 = $is_select_file_button;
-		$conditions_gui->{_is_selected_file_name}                 = $is_selected_file_name;
-		$conditions_gui->{_is_selected_path}                      = $is_selected_path;
-		$conditions_gui->{_is_Save_button}                        = $is_Save_button;
-		$conditions_gui->{_is_SaveAs_button}                      = $is_SaveAs_button;
-		$conditions_gui->{_is_SaveAs_file_button}                 = $is_SaveAs_file_button;
-		$conditions_gui->{_is_sunix_listbox}                      = $is_sunix_listbox;
-		$conditions_gui->{_is_new_listbox_selection}              = $is_new_listbox_selection;
-		$conditions_gui->{_is_pre_built_superflow}                = $is_pre_built_superflow;
-		$conditions_gui->{_is_superflow_select_button}            = $is_superflow_select_button;
-		$conditions_gui->{_is_superflow}                          = $is_superflow;                            # for deprecation TODO
-		$conditions_gui->{_is_moveNdrop_in_flow}                  = $is_moveNdrop_in_flow;
-		$conditions_gui->{_is_wipe_plots_button}                  = $is_wipe_plots_button;
-#		$conditions_gui->{_last_flow_color}                       = $last_flow_color;
-		$conditions_gui->{_last_flow_index_touched_grey}          = $last_flow_index_touched_grey;
-		$conditions_gui->{_last_flow_index_touched_pink}          = $last_flow_index_touched_pink;
-		$conditions_gui->{_last_flow_index_touched_green}         = $last_flow_index_touched_green;
-		$conditions_gui->{_last_flow_index_touched_blue}          = $last_flow_index_touched_blue;
-		$conditions_gui->{_last_parameter_index_touched_grey}     = $last_parameter_index_touched_grey;
-		$conditions_gui->{_last_parameter_index_touched_pink}     = $last_parameter_index_touched_pink;
-		$conditions_gui->{_last_parameter_index_touched_green}    = $last_parameter_index_touched_green;
-		$conditions_gui->{_last_parameter_index_touched_blue}     = $last_parameter_index_touched_blue;
-		$conditions_gui->{_last_parameter_index_touched_color}    = $last_parameter_index_touched_color;
-		$conditions_gui->{_last_flow_index_touched}               = $last_flow_index_touched;
-		$conditions_gui->{_names_aref}                            = $names_aref;
-		$conditions_gui->{_occupied_listbox_aref}                 = $occupied_listbox_aref;
-		$conditions_gui->{_parameter_values_frame}                = $parameter_values_frame;
-		$conditions_gui->{_path}                                  = $path;
-#		$conditions_gui->{_prog_name_sref}                        = $prog_name_sref;
-		$conditions_gui->{_sub_ref}                               = $sub_ref;
-		$conditions_gui->{_values_aref}                           = $values_aref;
-		$conditions_gui->{_wipe_plots_button}                     = $wipe_plots_button;
+		$conditions4flows->{_Data_menubutton}                       = $Data_menubutton;
+		$conditions4flows->{_Flow_menubutton}                       = $Flow_menubutton;
+		$conditions4flows->{_SaveAs_menubutton}                     = $SaveAs_menubutton;
+		$conditions4flows->{_add2flow_button_grey}                  = $add2flow_button_grey;
+		$conditions4flows->{_add2flow_button_pink}                  = $add2flow_button_pink;
+		$conditions4flows->{_add2flow_button_green}                 = $add2flow_button_green;
+		$conditions4flows->{_add2flow_button_blue}                  = $add2flow_button_blue;
+		$conditions4flows->{_check_buttons_w_aref}                  = $check_buttons_w_aref;
+		$conditions4flows->{_check_buttons_settings_aref}           = $check_buttons_settings_aref;
+		$conditions4flows->{_check_code_button}                     = $check_code_button;
+		$conditions4flows->{_delete_from_flow_button}               = $delete_from_flow_button;
+		$conditions4flows->{_file_menubutton}                       = $file_menubutton;
+		$conditions4flows->{_flowNsuperflow_name_w}                 = $flowNsuperflow_name_w;
+		$conditions4flows->{_flow_item_down_arrow_button}           = $flow_item_down_arrow_button;
+		$conditions4flows->{_flow_item_up_arrow_button}             = $flow_item_up_arrow_button;
+		$conditions4flows->{_flow_listbox_grey_w}                   = $flow_listbox_grey_w;
+		$conditions4flows->{_flow_listbox_pink_w}                   = $flow_listbox_pink_w;
+		$conditions4flows->{_flow_listbox_green_w}                  = $flow_listbox_green_w;
+		$conditions4flows->{_flow_listbox_blue_w}                   = $flow_listbox_blue_w;
+		$conditions4flows->{_flow_listbox_color_w}                  = $flow_listbox_color_w;
+		$conditions4flows->{_flow_widget_index}                     = $flow_widget_index;
+		$conditions4flows->{_labels_w_aref}                         = $labels_w_aref;
+		$conditions4flows->{_message_w}                             = $message_w;
+		$conditions4flows->{_mw}                                    = $mw;
+		$conditions4flows->{_parameter_values_frame}                = $parameter_values_frame;
+		$conditions4flows->{_parameter_value_index}                 = $parameter_value_index;
+		$conditions4flows->{_run_button}                            = $run_button;
+		$conditions4flows->{_save_button}                           = $save_button;
+		$conditions4flows->{_values_w_aref}                         = $values_w_aref;
+		$conditions4flows->{_dialog_type}                           = $dialog_type;
+		$conditions4flows->{_flow_color}                            = $flow_color;
+		$conditions4flows->{_flow_name_in}                          = $flow_name_in;
+		$conditions4flows->{_flow_name_out}                         = $flow_name_out;
+		$conditions4flows->{_flow_type}                             = $flow_type;
+		$conditions4flows->{_flow_widget_index}                     = $flow_widget_index;
+		$conditions4flows->{_gui_history_ref}                       = $gui_history_ref;
+		$conditions4flows->{_has_used_SaveAs_button}                = $has_used_SaveAs_button;
+		$conditions4flows->{_has_used_Save_button}                  = $has_used_Save_button;
+		$conditions4flows->{_has_used_Save_superflow}               = $has_used_Save_superflow;
+		$conditions4flows->{_has_used_check_code_button}            = $has_used_check_code_button;
+		$conditions4flows->{_has_used_open_perl_file_button}        = $has_used_open_perl_file_button;
+		$conditions4flows->{_has_used_run_button}                   = $has_used_run_button;
+		$conditions4flows->{_is_add2flow_button}                    = $is_add2flow_button;
+		$conditions4flows->{_is_check_code_button}                  = $is_check_code_button;
+		$conditions4flows->{_is_delete_from_flow_button}            = $is_delete_from_flow_button;
+		$conditions4flows->{_is_dragNdrop}                          = $is_dragNdrop;
+		$conditions4flows->{_is_flow_item_up_arrow_button}          = $is_flow_item_up_arrow_button;
+		$conditions4flows->{_is_flow_item_down_arrow_button}        = $is_flow_item_down_arrow_button;
+		$conditions4flows->{_is_flow_listbox_grey_w}                = $is_flow_listbox_grey_w;
+		$conditions4flows->{_is_flow_listbox_pink_w}                = $is_flow_listbox_pink_w;
+		$conditions4flows->{_is_flow_listbox_green_w}               = $is_flow_listbox_green_w;
+		$conditions4flows->{_is_flow_listbox_blue_w}                = $is_flow_listbox_blue_w;
+		$conditions4flows->{_is_flow_listbox_color_w}               = $is_flow_listbox_color_w;
+		$conditions4flows->{_is_future_flow_listbox_grey}           = $is_future_flow_listbox_grey;
+		$conditions4flows->{_is_future_flow_listbox_pink}           = $is_future_flow_listbox_pink;
+		$conditions4flows->{_is_future_flow_listbox_green}          = $is_future_flow_listbox_green;
+		$conditions4flows->{_is_future_flow_listbox_blue}           = $is_future_flow_listbox_blue;
+		$conditions4flows->{_is_last_flow_index_touched}            = $is_last_flow_index_touched;
+		$conditions4flows->{_is_last_flow_index_touched_grey}       = $is_last_flow_index_touched_grey;
+		$conditions4flows->{_is_last_flow_index_touched_pink}       = $is_last_flow_index_touched_pink;
+		$conditions4flows->{_is_last_flow_index_touched_green}      = $is_last_flow_index_touched_green;
+		$conditions4flows->{_is_last_flow_index_touched_blue}       = $is_last_flow_index_touched_blue;
+		$conditions4flows->{_is_last_parameter_index_touched_grey}  = $is_last_parameter_index_touched_grey;
+		$conditions4flows->{_is_last_parameter_index_touched_pink}  = $is_last_parameter_index_touched_pink;
+		$conditions4flows->{_is_last_parameter_index_touched_green} = $is_last_parameter_index_touched_green;
+		$conditions4flows->{_is_last_parameter_index_touched_blue}  = $is_last_parameter_index_touched_blue;
+		$conditions4flows->{_is_last_parameter_index_touched_color} = $is_last_parameter_index_touched_color;
+		$conditions4flows->{_is_open_file_button}                   = $is_open_file_button;
+		$conditions4flows->{_is_run_button}                         = $is_run_button;
+		$conditions4flows->{_is_moveNdrop_in_flow}                  = $is_moveNdrop_in_flow;
+		$conditions4flows->{_is_user_built_flow}                    = $is_user_built_flow;
+		$conditions4flows->{_is_select_file_button}                 = $is_select_file_button;
+		$conditions4flows->{_is_selected_file_name}                 = $is_selected_file_name;
+		$conditions4flows->{_is_selected_path}                      = $is_selected_path;
+		$conditions4flows->{_is_Save_button}                        = $is_Save_button;
+		$conditions4flows->{_is_SaveAs_button}                      = $is_SaveAs_button;
+		$conditions4flows->{_is_SaveAs_file_button}                 = $is_SaveAs_file_button;
+		$conditions4flows->{_is_sunix_listbox}                      = $is_sunix_listbox;
+		$conditions4flows->{_is_new_listbox_selection}              = $is_new_listbox_selection;
+		$conditions4flows->{_is_pre_built_superflow}                = $is_pre_built_superflow;
+		$conditions4flows->{_is_superflow_select_button}            = $is_superflow_select_button;
+		$conditions4flows->{_is_superflow}                          = $is_superflow;                            # for deprecation TODO
+		$conditions4flows->{_is_moveNdrop_in_flow}                  = $is_moveNdrop_in_flow;
+		$conditions4flows->{_is_wipe_plots_button}                  = $is_wipe_plots_button;
+#		$conditions4flows->{_last_flow_color}                       = $last_flow_color;
+		$conditions4flows->{_last_flow_index_touched_grey}          = $last_flow_index_touched_grey;
+		$conditions4flows->{_last_flow_index_touched_pink}          = $last_flow_index_touched_pink;
+		$conditions4flows->{_last_flow_index_touched_green}         = $last_flow_index_touched_green;
+		$conditions4flows->{_last_flow_index_touched_blue}          = $last_flow_index_touched_blue;
+		$conditions4flows->{_last_parameter_index_touched_grey}     = $last_parameter_index_touched_grey;
+		$conditions4flows->{_last_parameter_index_touched_pink}     = $last_parameter_index_touched_pink;
+		$conditions4flows->{_last_parameter_index_touched_green}    = $last_parameter_index_touched_green;
+		$conditions4flows->{_last_parameter_index_touched_blue}     = $last_parameter_index_touched_blue;
+		$conditions4flows->{_last_parameter_index_touched_color}    = $last_parameter_index_touched_color;
+		$conditions4flows->{_last_flow_index_touched}               = $last_flow_index_touched;
+		$conditions4flows->{_names_aref}                            = $names_aref;
+		$conditions4flows->{_occupied_listbox_aref}                 = $occupied_listbox_aref;
+		$conditions4flows->{_parameter_values_frame}                = $parameter_values_frame;
+		$conditions4flows->{_path}                                  = $path;
+#		$conditions4flows->{_prog_name_sref}                        = $prog_name_sref;
+		$conditions4flows->{_sub_ref}                               = $sub_ref;
+		$conditions4flows->{_values_aref}                           = $values_aref;
+		$conditions4flows->{_wipe_plots_button}                     = $wipe_plots_button;
 
-		# print("conditions_gui, get_hash_ref , conditions_gui->{_flowNsuperflow_name_w: $conditions_gui->{_flowNsuperflow_name_w}\n");
+		# print("conditions4flows, get_hash_ref , conditions4flows->{_flowNsuperflow_name_w: $conditions4flows->{_flowNsuperflow_name_w}\n");
 
-		return ($conditions_gui);
+		return ($conditions4flows);
 
 	}
 	else {
-		print( "conditions_gui, get_hash_ref , missing hconditions_gui hash_ref\n" );
+		print( "conditions4flows, get_hash_ref , missing hconditions4flows hash_ref\n" );
 	}
 }
 
@@ -871,32 +826,32 @@ sub reset {
 	my ($self) = @_;
 
 	# location within GUI
-	$conditions_gui->{_has_used_check_code_button}     = $false;
-	$conditions_gui->{_has_used_run_button}            = $false;
-	$conditions_gui->{_is_Save_button}                 = $false;
-	$conditions_gui->{_is_add2flow_button}             = $false;
-	$conditions_gui->{_is_check_code_button}           = $false;
-	$conditions_gui->{_is_delete_from_flow_button}     = $false;
-	$conditions_gui->{_is_dragNdrop}                   = $false;
-	$conditions_gui->{_is_flow_item_down_arrow_button} = $false;
-	$conditions_gui->{_is_flow_item_up_arrow_button}   = $false;
-	$conditions_gui->{_is_flow_listbox_grey_w}         = $false;
-	$conditions_gui->{_is_flow_listbox_pink_w}         = $false;
-	$conditions_gui->{_is_flow_listbox_green_w}        = $false;
-	$conditions_gui->{_is_flow_listbox_blue_w}         = $false;
-	$conditions_gui->{_is_flow_listbox_color_w}        = $false;
-	$conditions_gui->{_is_open_file_button}            = $false;
-	$conditions_gui->{_is_select_file_button}          = $false;
-	$conditions_gui->{_is_SaveAs_file_button}          = $false;
-	$conditions_gui->{_is_sunix_listbox}               = $false;
-	$conditions_gui->{_is_new_listbox_selection}       = $false;
-	$conditions_gui->{_is_superflow_select_button}     = $false;
-	$conditions_gui->{_is_run_button}                  = $false;
-	$conditions_gui->{_is_pre_built_superflow}         = $false;
-	$conditions_gui->{_is_superflow}                   = $false;    # for deprecation TODO
-	$conditions_gui->{_is_user_built_flow}             = $false;
-	$conditions_gui->{_is_moveNdrop_in_flow}           = $false;
-	$conditions_gui->{_is_wipe_plots_button}           = $false;
+	$conditions4flows->{_has_used_check_code_button}     = $false;
+	$conditions4flows->{_has_used_run_button}            = $false;
+	$conditions4flows->{_is_Save_button}                 = $false;
+	$conditions4flows->{_is_add2flow_button}             = $false;
+	$conditions4flows->{_is_check_code_button}           = $false;
+	$conditions4flows->{_is_delete_from_flow_button}     = $false;
+	$conditions4flows->{_is_dragNdrop}                   = $false;
+	$conditions4flows->{_is_flow_item_down_arrow_button} = $false;
+	$conditions4flows->{_is_flow_item_up_arrow_button}   = $false;
+	$conditions4flows->{_is_flow_listbox_grey_w}         = $false;
+	$conditions4flows->{_is_flow_listbox_pink_w}         = $false;
+	$conditions4flows->{_is_flow_listbox_green_w}        = $false;
+	$conditions4flows->{_is_flow_listbox_blue_w}         = $false;
+	$conditions4flows->{_is_flow_listbox_color_w}        = $false;
+	$conditions4flows->{_is_open_file_button}            = $false;
+	$conditions4flows->{_is_select_file_button}          = $false;
+	$conditions4flows->{_is_SaveAs_file_button}          = $false;
+	$conditions4flows->{_is_sunix_listbox}               = $false;
+	$conditions4flows->{_is_new_listbox_selection}       = $false;
+	$conditions4flows->{_is_superflow_select_button}     = $false;
+	$conditions4flows->{_is_run_button}                  = $false;
+	$conditions4flows->{_is_pre_built_superflow}         = $false;
+	$conditions4flows->{_is_superflow}                   = $false;    # for deprecation TODO
+	$conditions4flows->{_is_user_built_flow}             = $false;
+	$conditions4flows->{_is_moveNdrop_in_flow}           = $false;
+	$conditions4flows->{_is_wipe_plots_button}           = $false;
 
 }
 
@@ -910,14 +865,14 @@ sub set_flow_color {
 
 	if ($color) {
 
-		$conditions_gui->{_flow_color} = $color;
+		$conditions4flows->{_flow_color} = $color;
 		$flow_color = $color;    # export via get_hash_ref
 
 	}
 	else {
 		# my $parameter					 			= '_is_flow_listbox_'.$color.'_w';
-		# $conditions_gui->{$parameter} 				 = $true;
-		print("conditions_gui, set_flow_color, missing color\n");
+		# $conditions4flows->{$parameter} 				 = $true;
+		print("conditions4flows, set_flow_color, missing color\n");
 	}
 	return ();
 }
@@ -935,60 +890,60 @@ sub set_gui_widgets {
 
 	if ($widget_hash_ref) {
 
-		# my $conditions_gui = $widget_hash_ref;
+		# my $conditions4flows = $widget_hash_ref;
 
-		#		$conditions_gui->{_Data_menubutton} =
+		#		$conditions4flows->{_Data_menubutton} =
 		#			$widget_hash_ref->{_Data_menubutton};
-		#		$conditions_gui->{_Flow_menubutton} =
+		#		$conditions4flows->{_Flow_menubutton} =
 		#			$widget_hash_ref->{_Flow_menubutton};
-		#		$conditions_gui->{_SaveAs_menubutton} =
+		#		$conditions4flows->{_SaveAs_menubutton} =
 		#			$widget_hash_ref->{_SaveAs_menubutton};
-		#		$conditions_gui->{_add2flow_button_grey} =
+		#		$conditions4flows->{_add2flow_button_grey} =
 		#			$widget_hash_ref->{_add2flow_button_grey};
-		#		$conditions_gui->{_add2flow_button_pink} =
+		#		$conditions4flows->{_add2flow_button_pink} =
 		#			$widget_hash_ref->{_add2flow_button_pink};
-		#		$conditions_gui->{_add2flow_button_green} =
+		#		$conditions4flows->{_add2flow_button_green} =
 		#			$widget_hash_ref->{_add2flow_button_green};
-		#		$conditions_gui->{_add2flow_button_blue} =
+		#		$conditions4flows->{_add2flow_button_blue} =
 		#			$widget_hash_ref->{_add2flow_button_blue};
-		#		$conditions_gui->{_check_buttons_w_aref} =
+		#		$conditions4flows->{_check_buttons_w_aref} =
 		#			$widget_hash_ref->{_check_buttons_w_aref};
-		#		$conditions_gui->{_check_code_button} =
+		#		$conditions4flows->{_check_code_button} =
 		#			$widget_hash_ref->{_check_code_button};
-		#		$conditions_gui->{_delete_from_flow_button} =
+		#		$conditions4flows->{_delete_from_flow_button} =
 		#			$widget_hash_ref->{_delete_from_flow_button};
-		#		$conditions_gui->{_file_menubutton} =
+		#		$conditions4flows->{_file_menubutton} =
 		#			$widget_hash_ref->{_file_menubutton};
-		#		$conditions_gui->{_flowNsuperflow_name_w} =
+		#		$conditions4flows->{_flowNsuperflow_name_w} =
 		#			$widget_hash_ref->{_flowNsuperflow_name_w};
-		#		$conditions_gui->{_flow_color} = $widget_hash_ref->{_flow_color};
-		#		$conditions_gui->{_flow_item_down_arrow_button} =
+		#		$conditions4flows->{_flow_color} = $widget_hash_ref->{_flow_color};
+		#		$conditions4flows->{_flow_item_down_arrow_button} =
 		#			$widget_hash_ref->{_flow_item_down_arrow_button};
-		#		$conditions_gui->{_flow_item_up_arrow_button} =
+		#		$conditions4flows->{_flow_item_up_arrow_button} =
 		#			$widget_hash_ref->{_flow_item_up_arrow_button};
-		#		$conditions_gui->{_flow_listbox_grey_w} =
+		#		$conditions4flows->{_flow_listbox_grey_w} =
 		#			$widget_hash_ref->{_flow_listbox_grey_w};
-		#		$conditions_gui->{_flow_listbox_pink_w} =
+		#		$conditions4flows->{_flow_listbox_pink_w} =
 		#			$widget_hash_ref->{_flow_listbox_pink_w};
-		#		$conditions_gui->{_flow_listbox_green_w} =
+		#		$conditions4flows->{_flow_listbox_green_w} =
 		#			$widget_hash_ref->{_flow_listbox_green_w};
-		#		$conditions_gui->{_flow_listbox_blue_w} =
+		#		$conditions4flows->{_flow_listbox_blue_w} =
 		#			$widget_hash_ref->{_flow_listbox_blue_w};
-		#		$conditions_gui->{_flow_listbox_color_w} =
+		#		$conditions4flows->{_flow_listbox_color_w} =
 		#			$widget_hash_ref->{_flow_listbox_color_w};
-		#		$conditions_gui->{_flow_widget_index} =
+		#		$conditions4flows->{_flow_widget_index} =
 		#			$widget_hash_ref->{_flow_widget_index};
-		#		$conditions_gui->{_labels_w_aref} = $widget_hash_ref->{_labels_w_aref};
-		#		$conditions_gui->{_message_w}     = $widget_hash_ref->{_message_w};
-		#		$conditions_gui->{_mw}            = $widget_hash_ref->{_mw};
-		#		$conditions_gui->{_parameter_values_frame} =
+		#		$conditions4flows->{_labels_w_aref} = $widget_hash_ref->{_labels_w_aref};
+		#		$conditions4flows->{_message_w}     = $widget_hash_ref->{_message_w};
+		#		$conditions4flows->{_mw}            = $widget_hash_ref->{_mw};
+		#		$conditions4flows->{_parameter_values_frame} =
 		#			$widget_hash_ref->{_parameter_values_frame};
-		#		$conditions_gui->{_parameter_value_index} =
+		#		$conditions4flows->{_parameter_value_index} =
 		#			$widget_hash_ref->{_parameter_value_index};
-		#		$conditions_gui->{_run_button}    = $widget_hash_ref->{_run_button};
-		#		$conditions_gui->{_save_button}   = $widget_hash_ref->{_save_button};
-		#		$conditions_gui->{_values_w_aref} = $widget_hash_ref->{_values_w_aref};
-		#		$conditions_gui->{_wipe_plots_button} =
+		#		$conditions4flows->{_run_button}    = $widget_hash_ref->{_run_button};
+		#		$conditions4flows->{_save_button}   = $widget_hash_ref->{_save_button};
+		#		$conditions4flows->{_values_w_aref} = $widget_hash_ref->{_values_w_aref};
+		#		$conditions4flows->{_wipe_plots_button} =
 		#			$widget_hash_ref->{_wipe_plots_button};
 
 #		$Data_menubutton             = $widget_hash_ref->{_Data_menubutton};
@@ -1022,13 +977,13 @@ sub set_gui_widgets {
 #		$values_w_aref               = $widget_hash_ref->{_values_w_aref};
 #		$wipe_plots_button           = $widget_hash_ref->{_wipe_plots_button};
 
-		# print("conditions_gui, set_gui_widgets , conditions_gui->{_delete_from_flow_button: $widget_hash_ref->{_delete_from_flow_button}\n");
-		# print("conditions_gui,  set_gui_widgets, conditions_gui->{_flowNsuperflow_name_w: $widget_hash_ref->{_flowNsuperflow_name_w}\n");
+		# print("conditions4flows, set_gui_widgets , conditions4flows->{_delete_from_flow_button: $widget_hash_ref->{_delete_from_flow_button}\n");
+		# print("conditions4flows,  set_gui_widgets, conditions4flows->{_flowNsuperflow_name_w: $widget_hash_ref->{_flowNsuperflow_name_w}\n");
 
 	}
 	else {
 
-		print("conditions_gui, set_gui_widgets , missing hash_ref\n");
+		print("conditions4flows, set_gui_widgets , missing hash_ref\n");
 	}
 	return ();
 }
@@ -1048,153 +1003,7 @@ sub set_hash_ref {
 
 	if ($hash_ref) {
 
-		$conditions_gui = $hash_ref;
-		#		$conditions_gui->{check_buttons_settings_aref} =
-		#			$hash_ref->{_check_buttons_settings_aref};
-		#		$conditions_gui->{_dialog_type}     = $hash_ref->{_dialog_type};
-		#		$conditions_gui->{_dnd_token_grey}  = $hash_ref->{_dnd_token_grey};
-		#		$conditions_gui->{_dnd_token_pink}  = $hash_ref->{_dnd_token_pink};
-		#		$conditions_gui->{_dnd_token_green} = $hash_ref->{_dnd_token_green};
-		#		$conditions_gui->{_dnd_token_blue}  = $hash_ref->{_dnd_token_blue};
-		#		$conditions_gui->{_dropsite_token_grey} =
-		#			$hash_ref->{_dropsite_token_grey};
-		#		$conditions_gui->{_dropsite_token_pink} =
-		#			$hash_ref->{_dropsite_token_pink};
-		#		$conditions_gui->{_dropsite_token_green} =
-		#			$hash_ref->{_dropsite_token_green};
-		#		$conditions_gui->{_dropsite_token_blue} =
-		#			$hash_ref->{_dropsite_token_blue};
-		#		$conditions_gui->{_flow_color} = $hash_ref->{_flow_color};
-		#		$conditions_gui->{_flow_item_down_arrow_button} =
-		#			$hash_ref->{_flow_item_down_arrow_button};
-		#		$conditions_gui->{_flow_item_up_arrow_button} =
-		#			$hash_ref->{_flow_item_up_arrow_button};
-		#		$conditions_gui->{_flow_name_in}      = $hash_ref->{_flow_name_in};
-		#		$conditions_gui->{_flow_name_out}     = $hash_ref->{_flow_name_out};
-		#		$conditions_gui->{_flow_type}         = $hash_ref->{_flow_type};
-		#		$conditions_gui->{_flow_widget_index} = $hash_ref->{_flow_widget_index};
-		#		$conditions_gui->{_gui_history_ref}   = $hash_ref->{_gui_history_ref};
-		#		$conditions_gui->{_has_used_check_code_button} =
-		#			$hash_ref->{_has_used_check_code_button};
-		#		$conditions_gui->{_has_used_open_perl_file_button} =
-		#			$hash_ref->{_has_used_open_perl_file_button};
-		#		$conditions_gui->{_has_used_run_button} =
-		#			$hash_ref->{_has_used_run_button};
-		#		$conditions_gui->{_has_used_SaveAs_button} =
-		#			$hash_ref->{_has_used_SaveAs_button};
-		#		$conditions_gui->{_has_used_Save_button} =
-		#			$hash_ref->{_has_used_Save_button};
-		#		$conditions_gui->{_has_used_Save_superflow} =
-		#			$hash_ref->{_has_used_Save_superflow};
-		#		$conditions_gui->{_is_add2flow_button} =
-		#			$hash_ref->{_is_add2flow_button};
-		#		$conditions_gui->{_is_check_code_button} =
-		#			$hash_ref->{_is_check_code_button};
-		#		$conditions_gui->{_is_delete_from_flow_button} =
-		#			$hash_ref->{_is_delete_from_flow_button};
-		#		$conditions_gui->{_is_dragNdrop} = $hash_ref->{_is_dragNdrop};
-		#		$conditions_gui->{_is_flow_item_down_arrow_button} =
-		#			$hash_ref->{_is_flow_item_down_arrow_button};
-		#		$conditions_gui->{_is_flow_item_up_arrow_button} =
-		#			$hash_ref->{_is_flow_item_up_arrow_button};
-		#		$conditions_gui->{_is_flow_listbox_grey_w} =
-		#			$hash_ref->{_is_flow_listbox_grey_w};
-		#		$conditions_gui->{_is_flow_listbox_pink_w} =
-		#			$hash_ref->{_is_flow_listbox_pink_w};
-		#		$conditions_gui->{_is_flow_listbox_green_w} =
-		#			$hash_ref->{_is_flow_listbox_green_w};
-		#		$conditions_gui->{_is_flow_listbox_blue_w} =
-		#			$hash_ref->{_is_flow_listbox_blue_w};
-		#		$conditions_gui->{_is_future_flow_listbox_grey} =
-		#			$hash_ref->{_is_future_flow_listbox_grey};
-		#		$conditions_gui->{_is_future_flow_listbox_pink} =
-		#			$hash_ref->{_is_future_flow_listbox_pink};
-		#		$conditions_gui->{_is_future_flow_listbox_green} =
-		#			$hash_ref->{_is_future_flow_listbox_green};
-		#		$conditions_gui->{_is_future_flow_listbox_blue} =
-		#			$hash_ref->{_is_future_flow_listbox_blue};
-		#		$conditions_gui->{_is_last_flow_index_touched} =
-		#			$hash_ref->{_is_last_flow_index_touched};
-		#		$conditions_gui->{_is_last_flow_index_touched_grey} =
-		#			$hash_ref->{_is_last_flow_index_touched_grey};
-		#		$conditions_gui->{_is_last_flow_index_touched_pink} =
-		#			$hash_ref->{_is_last_flow_index_touched_pink};
-		#		$conditions_gui->{_is_last_flow_index_touched_green} =
-		#			$hash_ref->{_is_last_flow_index_touched_green};
-		#		$conditions_gui->{_is_last_flow_index_touched_blue} =
-		#			$hash_ref->{_is_last_flow_index_touched_blue};
-		#		$conditions_gui->{_is_last_parameter_index_touched_color} =
-		#			$hash_ref->{_is_last_parameter_index_touched_color};
-		#		$conditions_gui->{_is_last_parameter_index_touched_grey} =
-		#			$hash_ref->{_is_last_parameter_index_touched_grey};
-		#		$conditions_gui->{_is_last_parameter_index_touched_pink} =
-		#			$hash_ref->{_is_last_parameter_index_touched_pink};
-		#		$conditions_gui->{_is_last_parameter_index_touched_green} =
-		#			$hash_ref->{_is_last_parameter_index_touched_green};
-		#		$conditions_gui->{_is_last_parameter_index_touched_blue} =
-		#			$hash_ref->{_is_last_parameter_index_touched_blue};
-		#		$conditions_gui->{_is_lightning} = $hash_ref->{_is_lightning};
-		#		$conditions_gui->{_is_last_parameter_index_touched_blue} =
-		#			$hash_ref->{_is_last_parameter_index_touched_blue};
-		#		$conditions_gui->{_is_open_file_button} =
-		#			$hash_ref->{_is_open_file_button};
-		#		$conditions_gui->{_is_run_button} = $hash_ref->{_is_run_button};
-		#		$conditions_gui->{_is_moveNdrop_in_flow} =
-		#			$hash_ref->{_is_moveNdrop_in_flow};
-		#		$conditions_gui->{_is_user_built_flow} =
-		#			$hash_ref->{_is_user_built_flow};
-		#		$conditions_gui->{_is_select_file_button} =
-		#			$hash_ref->{_is_select_file_button};
-		#		$conditions_gui->{_is_selected_file_name} =
-		#			$hash_ref->{_is_selected_file_name};
-		#		$conditions_gui->{_is_selected_path} = $hash_ref->{_is_selected_path};
-		#		$conditions_gui->{_is_Save_button}   = $hash_ref->{_is_Save_button};
-		#		$conditions_gui->{_is_SaveAs_button} = $hash_ref->{_is_SaveAs_button};
-		#		$conditions_gui->{_is_SaveAs_file_button} =
-		#			$hash_ref->{_is_SaveAs_file_button};
-		#		$conditions_gui->{_is_sunix_listbox} = $hash_ref->{_is_sunix_listbox};
-		#		$conditions_gui->{_is_new_listbox_selection} =
-		#			$hash_ref->{_is_new_listbox_selection};
-		#		$conditions_gui->{_is_pre_built_superflow} =
-		#			$hash_ref->{_is_pre_built_superflow};
-		#		$conditions_gui->{_is_superflow_select_button} =
-		#			$hash_ref->{_is_superflow_select_button};
-		#		$conditions_gui->{_is_superflow} =
-		#			$hash_ref->{_is_superflow};    # for deprecation TODO
-		#		$conditions_gui->{_is_moveNdrop_in_flow} =
-		#			$hash_ref->{_is_moveNdrop_in_flow};
-		#		$conditions_gui->{_is_wipe_plots_button} =
-		#			$hash_ref->{_is_wipe_plots_button};
-		#		$conditions_gui->{_last_flow_color} =
-		#			$hash_ref->{_last_flow_color};    # used in flow_select
-		#		$conditions_gui->{_last_flow_index_touched} =
-		#			$hash_ref->{_last_flow_index_touched};
-		#		$conditions_gui->{_last_flow_index_touched_grey} =
-		#			$hash_ref->{_last_flow_index_touched_grey};
-		#		$conditions_gui->{_last_flow_index_touched_pink} =
-		#			$hash_ref->{_last_flow_index_touched_pink};
-		#		$conditions_gui->{_last_flow_index_touched_green} =
-		#			$hash_ref->{_last_flow_index_touched_green};
-		#		$conditions_gui->{_last_flow_index_touched_blue} =
-		#			$hash_ref->{_last_flow_index_touched_blue};
-		#		$conditions_gui->{_last_parameter_index_touched_grey} =
-		#			$hash_ref->{_last_parameter_index_touched_grey};
-		#		$conditions_gui->{_last_parameter_index_touched_pink} =
-		#			$hash_ref->{_last_parameter_index_touched_pink};
-		#		$conditions_gui->{_last_parameter_index_touched_green} =
-		#			$hash_ref->{_last_parameter_index_touched_green};
-		#		$conditions_gui->{_last_parameter_index_touched_blue} =
-		#			$hash_ref->{_last_parameter_index_touched_blue};
-		#		$conditions_gui->{_last_parameter_index_touched_color} =
-		#			$hash_ref->{_last_parameter_index_touched_color};
-		#		$conditions_gui->{_occupied_listbox_aref} =
-		#			$hash_ref->{_occupied_listbox_aref};
-		#		$conditions_gui->{_path}              = $hash_ref->{_path};
-		#		$conditions_gui->{_prog_name_sref}    = $hash_ref->{_prog_name_sref};
-		#		$conditions_gui->{_sub_ref}           = $hash_ref->{_sub_ref};
-		#		$conditions_gui->{_names_aref}        = $hash_ref->{_names_aref};
-		#		$conditions_gui->{_values_aref}       = $hash_ref->{_values_aref};
-		#		$conditions_gui->{_wipe_plots_button} = $hash_ref->{_wipe_plots_button};
+		$conditions4flows = $hash_ref;
 		
 		$Data_menubutton             = $hash_ref->{_Data_menubutton};
 		$Flow_menubutton             = $hash_ref->{_Flow_menubutton};
@@ -1229,32 +1038,32 @@ sub set_hash_ref {
 
 
 
-#	$add2flow_button_grey        = $conditions_gui->{_add2flow_button_grey};
-#	$add2flow_button_pink        = $conditions_gui->{_add2flow_button_pink};
-#	$add2flow_button_green       = $conditions_gui->{_add2flow_button_green};
-#	$add2flow_button_blue        = $conditions_gui->{_add2flow_button_blue};
-#	$check_buttons_w_aref        = $conditions_gui->{_check_buttons_w_aref};
-#	$check_code_button           = $conditions_gui->{_check_code_button};
-#	$delete_from_flow_button     = $conditions_gui->{_delete_from_flow_button};
-#	$file_menubutton             = $conditions_gui->{_file_menubutton};
-#	$flowNsuperflow_name_w       = $conditions_gui->{_flowNsuperflow_name_w};
-#	$flow_item_down_arrow_button = $conditions_gui->{_flow_item_down_arrow_button};
-#	$flow_item_up_arrow_button   = $conditions_gui->{_flow_item_up_arrow_button};
-#	$flow_listbox_grey_w         = $conditions_gui->{_flow_listbox_grey_w};
-#	$flow_listbox_pink_w         = $conditions_gui->{_flow_listbox_pink_w};
-#	$flow_listbox_green_w        = $conditions_gui->{_flow_listbox_green_w};
-#	$flow_listbox_blue_w         = $conditions_gui->{_flow_listbox_blue_w};
-#	$flow_listbox_color_w        = $conditions_gui->{_flow_listbox_color_w};
-#	$flow_widget_index           = $conditions_gui->{_flow_widget_index};
-#	$labels_w_aref               = $conditions_gui->{_labels_w_aref};
-#	$message_w                   = $conditions_gui->{_message_w};
-#	$mw                          = $conditions_gui->{_mw};
-#	$parameter_values_frame      = $conditions_gui->{_parameter_values_frame};
-#	$parameter_value_index       = $conditions_gui->{_parameter_value_index};
-#	$run_button                  = $conditions_gui->{_run_button};
-#	$save_button                 = $conditions_gui->{_save_button};
-#	$values_w_aref               = $conditions_gui->{_values_w_aref};
-#	$wipe_plots_button           = $conditions_gui->{_wipe_plots_button};
+#	$add2flow_button_grey        = $conditions4flows->{_add2flow_button_grey};
+#	$add2flow_button_pink        = $conditions4flows->{_add2flow_button_pink};
+#	$add2flow_button_green       = $conditions4flows->{_add2flow_button_green};
+#	$add2flow_button_blue        = $conditions4flows->{_add2flow_button_blue};
+#	$check_buttons_w_aref        = $conditions4flows->{_check_buttons_w_aref};
+#	$check_code_button           = $conditions4flows->{_check_code_button};
+#	$delete_from_flow_button     = $conditions4flows->{_delete_from_flow_button};
+#	$file_menubutton             = $conditions4flows->{_file_menubutton};
+#	$flowNsuperflow_name_w       = $conditions4flows->{_flowNsuperflow_name_w};
+#	$flow_item_down_arrow_button = $conditions4flows->{_flow_item_down_arrow_button};
+#	$flow_item_up_arrow_button   = $conditions4flows->{_flow_item_up_arrow_button};
+#	$flow_listbox_grey_w         = $conditions4flows->{_flow_listbox_grey_w};
+#	$flow_listbox_pink_w         = $conditions4flows->{_flow_listbox_pink_w};
+#	$flow_listbox_green_w        = $conditions4flows->{_flow_listbox_green_w};
+#	$flow_listbox_blue_w         = $conditions4flows->{_flow_listbox_blue_w};
+#	$flow_listbox_color_w        = $conditions4flows->{_flow_listbox_color_w};
+#	$flow_widget_index           = $conditions4flows->{_flow_widget_index};
+#	$labels_w_aref               = $conditions4flows->{_labels_w_aref};
+#	$message_w                   = $conditions4flows->{_message_w};
+#	$mw                          = $conditions4flows->{_mw};
+#	$parameter_values_frame      = $conditions4flows->{_parameter_values_frame};
+#	$parameter_value_index       = $conditions4flows->{_parameter_value_index};
+#	$run_button                  = $conditions4flows->{_run_button};
+#	$save_button                 = $conditions4flows->{_save_button};
+#	$values_w_aref               = $conditions4flows->{_values_w_aref};
+#	$wipe_plots_button           = $conditions4flows->{_wipe_plots_button};
 		
 		
 		$check_buttons_settings_aref           = $hash_ref->{_check_buttons_settings_aref};
@@ -1344,7 +1153,7 @@ sub set_hash_ref {
 	}
 	else {
 
-		print("conditions_gui, set_hash_ref , missing hash_ref\n");
+		print("conditions4flows, set_hash_ref , missing hash_ref\n");
 	}
 	return ();
 }
@@ -1358,9 +1167,9 @@ sub set4_check_code_button {
 	my ($self) = @_;
 
 	# _conditions	->reset();
-	# print("1. conditions_gui, set4end_of_check_code_button,last left listbox flow program touched had index = $conditions_gui->{_last_flow_index_touched}\n");
+	# print("1. conditions4flows, set4end_of_check_code_button,last left listbox flow program touched had index = $conditions4flows->{_last_flow_index_touched}\n");
 	# location within GUI
-	$conditions_gui->{_has_used_check_code_button} = $true;
+	$conditions4flows->{_has_used_check_code_button} = $true;
 
 	# for potential export via get_hash_ref
 	$has_used_check_code_button = $true;
@@ -1379,9 +1188,9 @@ sub set4_check_code_button {
 #	#_reset();
 #	 #  ERROR if _reset() the param_widgets table is reset;
 #	 #  ERROR if _reset() the 	 #  f
-#    $conditions_gui->{_is_select_file_button}					= $true;
-#    # print("conditions_gui,set4FileDialog_select_start  $conditions_gui->{_is_select_file_button} 	\n");
-#    #print("conditions_gui,set4FileDialog_open_start,listbox_l listbox_r  $conditions_gui->{_is_flow_listbox_grey_w} 	$conditions_gui->{_is_flow_listbox_green_w}\n");
+#    $conditions4flows->{_is_select_file_button}					= $true;
+#    # print("conditions4flows,set4FileDialog_select_start  $conditions4flows->{_is_select_file_button} 	\n");
+#    #print("conditions4flows,set4FileDialog_open_start,listbox_l listbox_r  $conditions4flows->{_is_flow_listbox_grey_w} 	$conditions4flows->{_is_flow_listbox_green_w}\n");
 #
 #	return();
 # }
@@ -1394,9 +1203,9 @@ sub set4_check_code_button {
 #
 #sub  set4FileDialog_select_end {
 #	my ($self) = @_;
-#    $conditions_gui->{_is_select_file_button}		= $false;
-#    # print("conditions_gui,set4FileDialog_select_end  $conditions_gui->{_is_select_file_button}\n");
-#    #print("conditions_gui,set4FileDialog_open_start,listbox_l listbox_r  $conditions_gui->{_is_flow_listbox_grey_w} 	$conditions_gui->{_is_flow_listbox_green_w}\n");
+#    $conditions4flows->{_is_select_file_button}		= $false;
+#    # print("conditions4flows,set4FileDialog_select_end  $conditions4flows->{_is_select_file_button}\n");
+#    #print("conditions4flows,set4FileDialog_open_start,listbox_l listbox_r  $conditions4flows->{_is_flow_listbox_grey_w} 	$conditions4flows->{_is_flow_listbox_green_w}\n");
 #
 #	return();
 #}
@@ -1409,17 +1218,17 @@ sub set4_check_code_button {
 sub set4FileDialog_SaveAs_end {
 	my ($self) = @_;
 
-	$conditions_gui->{_is_SaveAs_file_button}  = $false;
-	$conditions_gui->{_has_used_SaveAs_button} = $true;
+	$conditions4flows->{_is_SaveAs_file_button}  = $false;
+	$conditions4flows->{_has_used_SaveAs_button} = $true;
 
 	# for potential export via get_hash_ref
 	$is_SaveAs_file_button  = $false;
 	$has_used_SaveAs_button = $true;
 
 	# clean path
-	# $conditions_gui->{_path}						= '';
-	# print("conditions_gui,set4FileDialog_SaveAs_end
-	# $conditions_gui->{_is_SaveAs_file_button}\n");
+	# $conditions4flows->{_path}						= '';
+	# print("conditions4flows,set4FileDialog_SaveAs_end
+	# $conditions4flows->{_is_SaveAs_file_button}\n");
 	return ();
 }
 
@@ -1431,12 +1240,12 @@ sub set4FileDialog_SaveAs_end {
 sub set4FileDialog_open_end {
 	my ($self) = @_;
 
-	$conditions_gui->{_is_open_file_button} = $false;
+	$conditions4flows->{_is_open_file_button} = $false;
 
 	# for potential export via get_hash_ref
 	$is_open_file_button = $false;
 
-	# print("conditions_gui,set4FileDialog_open_end  $conditions_gui->{_is_open_file_button}\n");
+	# print("conditions4flows,set4FileDialog_open_end  $conditions4flows->{_is_open_file_button}\n");
 
 	return ();
 }
@@ -1449,14 +1258,14 @@ sub set4FileDialog_open_end {
 sub set4FileDialog_open_perl_file_end {
 	my ($self) = @_;
 
-	$conditions_gui->{_is_open_file_button}            = $false;
-	$conditions_gui->{_has_used_open_perl_file_button} = $true;
+	$conditions4flows->{_is_open_file_button}            = $false;
+	$conditions4flows->{_has_used_open_perl_file_button} = $true;
 
 	# for potential export via get_hash_ref
 	$is_open_file_button            = $false;
 	$has_used_open_perl_file_button = $true;
 
-	# print("conditions_gui,set4FileDialog_open_perl_file_end  $conditions_gui->{_is_open_file_button}\n");
+	# print("conditions4flows,set4FileDialog_open_perl_file_end  $conditions4flows->{_is_open_file_button}\n");
 
 	return ();
 }
@@ -1470,12 +1279,12 @@ sub set4FileDialog_open_start {
 
 	my ($self) = @_;
 
-	$conditions_gui->{_is_open_file_button} = $true;
+	$conditions4flows->{_is_open_file_button} = $true;
 
 	# for potential export via get_hash_ref
 	$is_open_file_button = $true;
 
-	# print("conditions_gui,set4FileDialog_open_start _is_open_file_button}:  $conditions_gui->{_is_open_file_button}\n");
+	# print("conditions4flows,set4FileDialog_open_start _is_open_file_button}:  $conditions4flows->{_is_open_file_button}\n");
 
 	return ();
 }
@@ -1489,12 +1298,12 @@ sub set4FileDialog_open_perl_file_start {
 
 	my ($self) = @_;
 
-	$conditions_gui->{_is_open_file_button} = $true;
+	$conditions4flows->{_is_open_file_button} = $true;
 
 	# for potential export via get_hash_ref
 	$is_open_file_button = $true;
 
-	# print("conditions_gui,set4FileDialog_open_perl_file_start _is_open_file_button}:  $conditions_gui->{_is_open_file_button}\n");
+	# print("conditions4flows,set4FileDialog_open_perl_file_start _is_open_file_button}:  $conditions4flows->{_is_open_file_button}\n");
 
 	return ();
 }
@@ -1511,34 +1320,34 @@ sub set4FileDialog_SaveAs_start {
 	my $get         = L_SU_global_constants->new();
 	my $flow_type_h = $get->flow_type_href();
 
-	$conditions_gui->{_is_SaveAs_file_button} = $true;
-	$conditions_gui->{_is_SaveAs_button}      = $true;
+	$conditions4flows->{_is_SaveAs_file_button} = $true;
+	$conditions4flows->{_is_SaveAs_button}      = $true;
 
 	# for potential export via get_hash_ref
 	$is_SaveAs_file_button = $true;
 	$is_SaveAs_button      = $true;
 
-	if ( $conditions_gui->{_flow_type} eq $flow_type_h->{_user_built} ) {
-		$conditions_gui->{_is_user_built_flow}     = $true;
-		$conditions_gui->{_is_pre_built_superflow} = $false;
+	if ( $conditions4flows->{_flow_type} eq $flow_type_h->{_user_built} ) {
+		$conditions4flows->{_is_user_built_flow}     = $true;
+		$conditions4flows->{_is_pre_built_superflow} = $false;
 
 		# for potential export via get_hash_ref
 		$is_user_built_flow     = $true;
 		$is_pre_built_superflow = $false;
 
 	}
-	elsif ( $conditions_gui->{_flow_type} eq $flow_type_h->{_pre_built_superflow} ) {
+	elsif ( $conditions4flows->{_flow_type} eq $flow_type_h->{_pre_built_superflow} ) {
 
-		$conditions_gui->{_user_built_flow}        = $false;
-		$conditions_gui->{_is_pre_built_superflow} = $true;
+		$conditions4flows->{_user_built_flow}        = $false;
+		$conditions4flows->{_is_pre_built_superflow} = $true;
 
 		# for potential export via get_hash_ref
 		$is_user_built_flow     = $false;
 		$is_pre_built_superflow = $true;
 	}
 
-	# print("conditions_gui,set4FileDialog_SaveAs_start
-	# $conditions_gui->{_is_SaveAs_file_button}\n");
+	# print("conditions4flows,set4FileDialog_SaveAs_start
+	# $conditions4flows->{_is_SaveAs_file_button}\n");
 	return ();
 }
 
@@ -1551,9 +1360,9 @@ sub set4_Save_button {
 	my ($self) = @_;
 
 	# _conditions	->reset();
-	# print("1. conditions_gui, set4end_of_save_button,last left listbox flow program touched had index = $conditions_gui->{_last_flow_index_touched}\n");
+	# print("1. conditions4flows, set4end_of_save_button,last left listbox flow program touched had index = $conditions4flows->{_last_flow_index_touched}\n");
 	# location within GUI
-	$conditions_gui->{_has_used_Save_button} = $true;
+	$conditions4flows->{_has_used_Save_button} = $true;
 
 	return ();
 }
@@ -1566,39 +1375,39 @@ sub set4_Save_button {
 sub set4_end_of_SaveAs_button {
 	my ($self) = @_;
 
-	$conditions_gui->{_has_used_SaveAs_button} = $true;
-	$conditions_gui->{_is_SaveAs_button}       = $false;
+	$conditions4flows->{_has_used_SaveAs_button} = $true;
+	$conditions4flows->{_is_SaveAs_button}       = $false;
 
 	_reset_is_flow_listbox_color_w();
 
-	if ( $conditions_gui->{_flow_color} eq 'grey' ) {
-		$conditions_gui->{_is_flow_listbox_grey_w} = $true;
+	if ( $conditions4flows->{_flow_color} eq 'grey' ) {
+		$conditions4flows->{_is_flow_listbox_grey_w} = $true;
 		$is_flow_listbox_grey_w = $true;
 
 	}
-	elsif ( $conditions_gui->{_flow_color} eq 'pink' ) {
-		$conditions_gui->{_is_flow_listbox_pink_w} = $true;
+	elsif ( $conditions4flows->{_flow_color} eq 'pink' ) {
+		$conditions4flows->{_is_flow_listbox_pink_w} = $true;
 		$is_flow_listbox_pink_w = $true;
 
 	}
-	elsif ( $conditions_gui->{_flow_color} eq 'green' ) {
-		$conditions_gui->{_is_flow_listbox_green_w} = $true;
+	elsif ( $conditions4flows->{_flow_color} eq 'green' ) {
+		$conditions4flows->{_is_flow_listbox_green_w} = $true;
 		$is_flow_listbox_green_w = $true;
 
 	}
-	elsif ( $conditions_gui->{_flow_color} eq 'blue' ) {
-		$conditions_gui->{_is_flow_listbox_blue_w} = $true;
+	elsif ( $conditions4flows->{_flow_color} eq 'blue' ) {
+		$conditions4flows->{_is_flow_listbox_blue_w} = $true;
 		$is_flow_listbox_blue_w = $true;
 
 	}
-	elsif ( $conditions_gui->{_flow_type} eq 'pre_built_superflow' ) {
+	elsif ( $conditions4flows->{_flow_type} eq 'pre_built_superflow' ) {
 
-		# print("2 conditions_gui,set4start_of_run_button Running a pre-built superflow\n");
+		# print("2 conditions4flows,set4start_of_run_button Running a pre-built superflow\n");
 		# NADA
 
 	}
 	else {
-		print("2 conditions_gui,set4start_of_run_button missing color \n");
+		print("2 conditions4flows,set4start_of_run_button missing color \n");
 	}
 	return ();
 
@@ -1612,7 +1421,7 @@ sub set4_end_of_SaveAs_button {
 sub set4_start_of_SaveAs_button {
 	my ($self) = @_;
 
-	$conditions_gui->{_is_SaveAs_button} = $true;
+	$conditions4flows->{_is_SaveAs_button} = $true;
 
 	return ();
 }
@@ -1626,9 +1435,9 @@ sub set4end_of_check_code_button {
 	my ($self) = @_;
 
 	# _conditions	->reset();
-	# print("1. conditions_gui, set4end_of_check_code_button,last left listbox flow program touched had index = $conditions_gui->{_last_flow_index_touched}\n");
+	# print("1. conditions4flows, set4end_of_check_code_button,last left listbox flow program touched had index = $conditions4flows->{_last_flow_index_touched}\n");
 	# location within GUI
-	$conditions_gui->{_is_check_code_button} = $false;
+	$conditions4flows->{_is_check_code_button} = $false;
 
 	return ();
 }
@@ -1641,8 +1450,8 @@ sub set4end_of_check_code_button {
 sub set4end_of_SaveAs_button {
 	my ($self) = @_;
 
-	$conditions_gui->{_is_SaveAs_button}       = $false;
-	$conditions_gui->{_has_used_SaveAs_button} = $true;
+	$conditions4flows->{_is_SaveAs_button}       = $false;
+	$conditions4flows->{_has_used_SaveAs_button} = $true;
 	return ();
 }
 
@@ -1655,10 +1464,10 @@ sub set4start_of_check_code_button {
 	my ($self) = @_;
 
 	# _conditions	->reset();
-	# print("1. conditions_gui, set4start_of_button,last left listbox flow program touched had index = $conditions_gui->{_last_flow_index_touched}\n");
+	# print("1. conditions4flows, set4start_of_button,last left listbox flow program touched had index = $conditions4flows->{_last_flow_index_touched}\n");
 	# location within GUI
-	$conditions_gui->{_is_check_code_button}       = $true;
-	$conditions_gui->{_has_used_check_code_button} = $false;
+	$conditions4flows->{_is_check_code_button}       = $true;
+	$conditions4flows->{_has_used_check_code_button} = $false;
 
 	return ();
 }
@@ -1675,7 +1484,7 @@ sub set4end_of_flow_item_up_arrow_button {
 	if ($color) {
 		_reset();
 
-		$conditions_gui->{_is_flow_item_up_arrow_button} = $true;
+		$conditions4flows->{_is_flow_item_up_arrow_button} = $true;
 		_set_flow_color($color);
 
 		# from color create general keys and assign values to those keys (text names)
@@ -1684,15 +1493,15 @@ sub set4end_of_flow_item_up_arrow_button {
 		my $is_flow_listbox_color_w_key = '_is_flow_listbox_' . $color . '_w';
 		my $flow_listbox_color_w_key    = '_flow_listbox_' . $color . '_w';
 
-		$conditions_gui->{$is_flow_listbox_color_w_key} = $true;
-		$conditions_gui->{_is_user_built_flow} = $true;
+		$conditions4flows->{$is_flow_listbox_color_w_key} = $true;
+		$conditions4flows->{_is_user_built_flow} = $true;
 
-		$conditions_gui->{_flow_listbox_color_w} = $conditions_gui->{$flow_listbox_color_w_key};
-		$flow_listbox_color_w = $conditions_gui->{$flow_listbox_color_w_key};
+		$conditions4flows->{_flow_listbox_color_w} = $conditions4flows->{$flow_listbox_color_w_key};
+		$flow_listbox_color_w = $conditions4flows->{$flow_listbox_color_w_key};
 
 	}
 	else {
-		print( "conditions_gui, set4end_of_flow_item_up_arrow_button, no color: $color\n" );
+		print( "conditions4flows, set4end_of_flow_item_up_arrow_button, no color: $color\n" );
 	}
 
 	return ();
@@ -1710,7 +1519,7 @@ sub set4end_of_flow_item_up_arrow_button {
 #	if ($color) {
 #		_reset();
 #
-#		$conditions_gui->{_is_wipe_plots_button} = $true;
+#		$conditions4flows->{_is_wipe_plots_button} = $true;
 #		_set_flow_color($color);
 #
 ## from color create general keys and assign values to those keys (text names)
@@ -1719,17 +1528,17 @@ sub set4end_of_flow_item_up_arrow_button {
 #		my $is_flow_listbox_color_w_key = '_is_flow_listbox_' . $color . '_w';
 #		my $flow_listbox_color_w_key    = '_flow_listbox_' . $color . '_w';
 #
-#		$conditions_gui->{$is_flow_listbox_color_w_key} = $true;
-#		$conditions_gui->{_is_user_built_flow} = $true;
+#		$conditions4flows->{$is_flow_listbox_color_w_key} = $true;
+#		$conditions4flows->{_is_user_built_flow} = $true;
 #
-#		$conditions_gui->{_flow_listbox_color_w} =
-#			$conditions_gui->{$flow_listbox_color_w_key};
-#		$flow_listbox_color_w = $conditions_gui->{$flow_listbox_color_w_key};
+#		$conditions4flows->{_flow_listbox_color_w} =
+#			$conditions4flows->{$flow_listbox_color_w_key};
+#		$flow_listbox_color_w = $conditions4flows->{$flow_listbox_color_w_key};
 #
 #	}
 #	else {
 #		print(
-#			"conditions_gui, set4end_of_wipe_plots_button, no color: $color\n"
+#			"conditions4flows, set4end_of_wipe_plots_button, no color: $color\n"
 #		);
 #	}
 #
@@ -1740,8 +1549,8 @@ sub set4end_of_flow_item_up_arrow_button {
 
    location within GUI
    
-   foreach my $key (sort keys %$conditions_gui) {
-     print ("conditions_gui user,set4end_of_flow_select,key is $key, value is $conditions_gui->{$key}\n");
+   foreach my $key (sort keys %$conditions4flows) {
+     print ("conditions4flows user,set4end_of_flow_select,key is $key, value is $conditions4flows->{$key}\n");
    }
    
    if an item within a user-built list of programs is selected then 
@@ -1760,19 +1569,19 @@ sub set4end_of_flow_select {
 		_set_flow_color($color);
 
 		# my $is_flow_listbox_color_w_key      	= '_is_flow_listbox_'.$color.'_w';
-		# print("conditions_gui, set4end_of_flow_select, color:$color\n");
-		# print("1. conditions_gui, set4end_of_flow_select,last left listbox flow program touched had index = $conditions_gui->{_last_flow_index_touched}\n");
-		# print("1. conditions_gui, set4end_of_flow_select, is_flow_listbox_color_w: $is_flow_listbox_color_w \n");
-		# $conditions_gui->{$is_flow_listbox_color_w_key}			= $true;
-		# my $ans = $conditions_gui->{$is_flow_listbox_color_w_key};
-		# print("1. conditions_gui, set4end_of_flow_select, is_flow_listbox_color_w: $ans is EMPTY\n");
+		# print("conditions4flows, set4end_of_flow_select, color:$color\n");
+		# print("1. conditions4flows, set4end_of_flow_select,last left listbox flow program touched had index = $conditions4flows->{_last_flow_index_touched}\n");
+		# print("1. conditions4flows, set4end_of_flow_select, is_flow_listbox_color_w: $is_flow_listbox_color_w \n");
+		# $conditions4flows->{$is_flow_listbox_color_w_key}			= $true;
+		# my $ans = $conditions4flows->{$is_flow_listbox_color_w_key};
+		# print("1. conditions4flows, set4end_of_flow_select, is_flow_listbox_color_w: $ans is EMPTY\n");
 
-		$conditions_gui->{_flow_color}                 = $color;
-		$conditions_gui->{_is_delete_from_flow_button} = $true;
-		$conditions_gui->{_is_flow_listbox_color_w}    = $true;
+		$conditions4flows->{_flow_color}                 = $color;
+		$conditions4flows->{_is_delete_from_flow_button} = $true;
+		$conditions4flows->{_is_flow_listbox_color_w}    = $true;
 
-		$conditions_gui->{_flow_item_down_arrow_button} = $true;
-		$conditions_gui->{_flow_item_up_arrow_button}   = $true;
+		$conditions4flows->{_flow_item_down_arrow_button} = $true;
+		$conditions4flows->{_flow_item_up_arrow_button}   = $true;
 
 		# Because the flow is selected automatically without user clicking,
 		# as the case of when a perl flow has been read in, then
@@ -1782,10 +1591,10 @@ sub set4end_of_flow_select {
 		# and place these requirements into _flow_select as well
 		if ( $color eq 'grey' ) {
 
-			$conditions_gui->{_is_flow_listbox_grey_w} = $true;
+			$conditions4flows->{_is_flow_listbox_grey_w} = $true;
 
-			$conditions_gui->{_is_last_flow_index_touched_grey}      = $true;
-			$conditions_gui->{_is_last_parameter_index_touched_grey} = $true;
+			$conditions4flows->{_is_last_flow_index_touched_grey}      = $true;
+			$conditions4flows->{_is_last_parameter_index_touched_grey} = $true;
 
 			# for export
 			$is_flow_listbox_grey_w                = $true;
@@ -1793,13 +1602,13 @@ sub set4end_of_flow_select {
 			$is_last_parameter_index_touched_grey  = $true;
 			$is_last_parameter_index_touched_color = $true;
 
-			# print("conditions_gui, set4end_of_flow_select,is_last_parameter_index_touched_grey=$is_last_parameter_index_touched_grey\n");
-			# print("conditions_gui, set4end_of_flow_select,is_last_flow_index_touched_grey=$is_last_flow_index_touched_grey\n");
+			# print("conditions4flows, set4end_of_flow_select,is_last_parameter_index_touched_grey=$is_last_parameter_index_touched_grey\n");
+			# print("conditions4flows, set4end_of_flow_select,is_last_flow_index_touched_grey=$is_last_flow_index_touched_grey\n");
 
 		}
 		elsif ( $color eq 'pink' ) {
 
-			$conditions_gui->{_is_flow_listbox_pink_w} = $true;
+			$conditions4flows->{_is_flow_listbox_pink_w} = $true;
 
 			# for export
 			$is_flow_listbox_pink_w = $true;
@@ -1807,7 +1616,7 @@ sub set4end_of_flow_select {
 		}
 		elsif ( $color eq 'green' ) {
 
-			$conditions_gui->{_is_flow_listbox_green_w} = $true;
+			$conditions4flows->{_is_flow_listbox_green_w} = $true;
 
 			# for export
 			$is_flow_listbox_green_w = $true;
@@ -1815,24 +1624,24 @@ sub set4end_of_flow_select {
 		}
 		elsif ( $color eq 'blue' ) {
 
-			$conditions_gui->{_is_flow_listbox_blue_w} = $true;
+			$conditions4flows->{_is_flow_listbox_blue_w} = $true;
 
 			# for export
 			$is_flow_listbox_blue_w = $true;
 
 		}
 		else {
-			print( "conditions_gui, set4end_of_flow_select , color missing: $color\n" );
+			print( "conditions4flows, set4end_of_flow_select , color missing: $color\n" );
 		}
 
 	}
 	else {
-		print("conditions_gui, set4end_of_flow_select , color missing: $color\n");
+		print("conditions4flows, set4end_of_flow_select , color missing: $color\n");
 	}
 
-	#		my $ans = $conditions_gui->{$is_flow_listbox_color_w};
-	#	   	print("conditions_gui, set4end_of_flow_select, color:$color\n");
-	#   		print("conditions_gui, set4end_of_flow_select, is_flow_listbox_color_w 'grey pink green or blue'_w: $ans \n");
+	#		my $ans = $conditions4flows->{$is_flow_listbox_color_w};
+	#	   	print("conditions4flows, set4end_of_flow_select, color:$color\n");
+	#   		print("conditions4flows, set4end_of_flow_select, is_flow_listbox_color_w 'grey pink green or blue'_w: $ans \n");
 
 	return ();
 }
@@ -1842,7 +1651,7 @@ sub set4end_of_flow_select {
 location within GUI 
 
 	sets 
-	conditions_gui
+	conditions4flows
 
 =cut
 
@@ -1850,11 +1659,11 @@ sub set4end_of_run_button {
 	my ($self) = @_;
 
 	# location within GUI
-	$conditions_gui->{_is_run_button}           = $false;
-	$conditions_gui->{_has_used_run_button}     = $false;
-	$conditions_gui->{_has_used_Save_button}    = $false;
-	$conditions_gui->{_has_used_Save_superflow} = $false;
-	$conditions_gui->{_last_flow_index_touched} = -1;
+	$conditions4flows->{_is_run_button}           = $false;
+	$conditions4flows->{_has_used_run_button}     = $false;
+	$conditions4flows->{_has_used_Save_button}    = $false;
+	$conditions4flows->{_has_used_Save_superflow} = $false;
+	$conditions4flows->{_last_flow_index_touched} = -1;
 
 	# for potential export
 	$has_used_run_button     = $false;
@@ -1873,15 +1682,15 @@ sub set4end_of_run_button {
 location within GUI 
 
 	sets 
-	conditions_gui
+	conditions4flows
 
 =cut
 
 sub set4end_of_run_superflow {
 
 	# location within GUI
-	$conditions_gui->{_is_run_button}           = $false;
-	$conditions_gui->{_has_used_Save_superflow} = $true;
+	$conditions4flows->{_is_run_button}           = $false;
+	$conditions4flows->{_has_used_Save_superflow} = $true;
 
 	# for potential export
 	$is_run_button           = $false;
@@ -1898,10 +1707,10 @@ sub set4end_of_run_superflow {
 sub set4start_of_Save_button {
 	my ($self) = @_;
 
-	# print("1. conditions_gui, set4start_of_Save_button,last left listbox flow program touched had index = $conditions_gui->{_last_flow_index_touched}\n");
+	# print("1. conditions4flows, set4start_of_Save_button,last left listbox flow program touched had index = $conditions4flows->{_last_flow_index_touched}\n");
 	# location within GUI
-	$conditions_gui->{_is_Save_button}       = $true;
-	$conditions_gui->{_has_used_Save_button} = $false;
+	$conditions4flows->{_is_Save_button}       = $true;
+	$conditions4flows->{_has_used_Save_button} = $false;
 
 	# for potential export
 	$is_Save_button       = $true;
@@ -1918,10 +1727,10 @@ sub set4start_of_Save_button {
 sub set4start_of_SaveAs_button {
 	my ($self) = @_;
 
-	# print("1. conditions_gui, set4start_of_Save_button,last left listbox flow program touched had index = $conditions_gui->{_last_flow_index_touched}\n");
+	# print("1. conditions4flows, set4start_of_Save_button,last left listbox flow program touched had index = $conditions4flows->{_last_flow_index_touched}\n");
 	# location within GUI
-	$conditions_gui->{_is_SaveAs_button}       = $true;
-	$conditions_gui->{_has_used_SaveAs_button} = $false;
+	$conditions4flows->{_is_SaveAs_button}       = $true;
+	$conditions4flows->{_has_used_SaveAs_button} = $false;
 
 	# for potential export
 	$is_SaveAs_button       = $true;
@@ -1940,14 +1749,14 @@ sub set4end_of_sunix_select {
 	$add2flow_button_green->configure( -state => 'normal', );
 	$add2flow_button_blue->configure( -state => 'normal', );
 	
-	# print ("conditions_gui,set4end_of_sunix_select, prog_name: ${$conditions_gui->{_prog_name_sref}}\n");
+	# print ("conditions4flows,set4end_of_sunix_select, prog_name: ${$conditions4flows->{_prog_name_sref}}\n");
 
-	#   	$conditions_gui->{_is_flow_listbox_grey_w}			= $false;
-	#   	$conditions_gui->{_is_flow_listbox_pink_w}			= $false;
-	#   	$conditions_gui->{_is_flow_listbox_green_w}			= $false;
-	#   	$conditions_gui->{_is_flow_listbox_blue_w}			= $false;
-	#   	$conditions_gui->{_is_flow_listbox_color_w}			= $false;
-	# $conditions_gui->{_is_add2flow_button} = $true; LOOK
+	#   	$conditions4flows->{_is_flow_listbox_grey_w}			= $false;
+	#   	$conditions4flows->{_is_flow_listbox_pink_w}			= $false;
+	#   	$conditions4flows->{_is_flow_listbox_green_w}			= $false;
+	#   	$conditions4flows->{_is_flow_listbox_blue_w}			= $false;
+	#   	$conditions4flows->{_is_flow_listbox_color_w}			= $false;
+	# $conditions4flows->{_is_add2flow_button} = $true; LOOK
 
 	# for export
 	#   	$is_flow_listbox_grey_w								= $false;
@@ -1957,7 +1766,7 @@ sub set4end_of_sunix_select {
 	#   	$is_flow_listbox_color_w							= $false;
 	# $is_add2flow_button = $true; LOOK
 
-	# $conditions_gui->{_is_sunix_listbox} = $false;
+	# $conditions4flows->{_is_sunix_listbox} = $false;
 }
 
 =head2
@@ -1969,12 +1778,12 @@ sub set4end_of_Save_button {
 	my ($self) = @_;
 
 	# _conditions	->reset();
-	# print("1. conditions_gui, set4end_of_save_button,last left listbox flow program touched had index = $conditions_gui->{_last_flow_index_touched}\n");
+	# print("1. conditions4flows, set4end_of_save_button,last left listbox flow program touched had index = $conditions4flows->{_last_flow_index_touched}\n");
 	# location within GUI
-	$conditions_gui->{_is_Save_button}                 = $false;
-	$conditions_gui->{_has_used_Save_button}           = $true;
-	$conditions_gui->{_has_used_SaveAs_button}         = $false;
-	$conditions_gui->{_has_used_open_perl_file_button} = $false;
+	$conditions4flows->{_is_Save_button}                 = $false;
+	$conditions4flows->{_has_used_Save_button}           = $true;
+	$conditions4flows->{_has_used_SaveAs_button}         = $false;
+	$conditions4flows->{_has_used_open_perl_file_button} = $false;
 
 	# for export
 	$is_Save_button       = $false;    # a reset
@@ -1987,37 +1796,82 @@ sub set4end_of_Save_button {
 
 	_reset_is_flow_listbox_color_w();
 
-	if ( $conditions_gui->{_flow_color} eq 'grey' ) {
-		$conditions_gui->{_is_flow_listbox_grey_w} = $true;
+	if ( $conditions4flows->{_flow_color} eq 'grey' ) {
+		$conditions4flows->{_is_flow_listbox_grey_w} = $true;
 		$is_flow_listbox_grey_w = $true;
 
 	}
-	elsif ( $conditions_gui->{_flow_color} eq 'pink' ) {
-		$conditions_gui->{_is_flow_listbox_pink_w} = $true;
+	elsif ( $conditions4flows->{_flow_color} eq 'pink' ) {
+		$conditions4flows->{_is_flow_listbox_pink_w} = $true;
 		$is_flow_listbox_pink_w = $true;
 
 	}
-	elsif ( $conditions_gui->{_flow_color} eq 'green' ) {
-		$conditions_gui->{_is_flow_listbox_green_w} = $true;
+	elsif ( $conditions4flows->{_flow_color} eq 'green' ) {
+		$conditions4flows->{_is_flow_listbox_green_w} = $true;
 		$is_flow_listbox_green_w = $true;
 
 	}
-	elsif ( $conditions_gui->{_flow_color} eq 'blue' ) {
-		$conditions_gui->{_is_flow_listbox_blue_w} = $true;
+	elsif ( $conditions4flows->{_flow_color} eq 'blue' ) {
+		$conditions4flows->{_is_flow_listbox_blue_w} = $true;
 		$is_flow_listbox_blue_w = $true;
 
 	}
-	elsif ( $conditions_gui->{_flow_type} eq 'pre_built_superflow' ) {
+	elsif ( $conditions4flows->{_flow_type} eq 'pre_built_superflow' ) {
 
-		# print("2 conditions_gui,set4end_of_save_button Running a pre-built superflow NADA\n");
+		# print("2 conditions4flows,set4end_of_save_button Running a pre-built superflow NADA\n");
 
 	}
 	else {
-		print("2 conditions_gui,set4start_of_run_button missing color \n");
+		print("2 conditions4flows,set4start_of_run_button missing color \n");
 	}
 	return ();
 
 }
+
+
+
+
+=head2 sub set4user_built_flow_close_path_end
+inherited from set4superflow_close_path_end 
+
+=cut
+
+sub set4user_built_flow_close_path_end {
+	my ($self) = @_;
+
+	print("conditions4flows, set4user_built_flow_close_path_end OK \n");
+	# Forces a Save before the next Run
+	$conditions4flows->{_has_used_Save_button} = $false;
+
+	# for potential export
+	$has_used_Save_button = $false;
+
+	# Allows user to open a user-built perl flow
+	# $Flow_menubutton->configure( -state => 'normal', );
+
+	return ();
+}
+
+
+=head2 sub set4user_built_open_path_end
+inherited from
+set4superflow_open_path_end
+
+
+=cut
+
+sub set4user_built_flow_open_path_end {
+	my ($self) = @_;
+
+	# print("conditions4flows, set4superflow_open_path_end OK \n");
+	$conditions4flows->{_is_user_built_flow} 		= $true;
+
+	# for potential export
+	$is_user_built_flow = $true;
+
+	return ();
+}
+
 
 =head2 sub _get_num_listboxes_occupied
 
@@ -2027,21 +1881,21 @@ sub set4end_of_Save_button {
 sub _get_num_listboxes_occupied {
 	my ($self) = @_;
 
-	# print("1 conditions_gui, _get_num_listboxes_occupied: @{$conditions_gui->{_occupied_listbox_aref}} \n");
-	if ( $conditions_gui->{_occupied_listbox_aref} ) {
+	# print("1 conditions4flows, _get_num_listboxes_occupied: @{$conditions4flows->{_occupied_listbox_aref}} \n");
+	if ( $conditions4flows->{_occupied_listbox_aref} ) {
 
 		my $number =
-			  @{ $conditions_gui->{_occupied_listbox_aref} }[0]
-			+ @{ $conditions_gui->{_occupied_listbox_aref} }[1]
-			+ @{ $conditions_gui->{_occupied_listbox_aref} }[2]
-			+ @{ $conditions_gui->{_occupied_listbox_aref} }[3];
+			  @{ $conditions4flows->{_occupied_listbox_aref} }[0]
+			+ @{ $conditions4flows->{_occupied_listbox_aref} }[1]
+			+ @{ $conditions4flows->{_occupied_listbox_aref} }[2]
+			+ @{ $conditions4flows->{_occupied_listbox_aref} }[3];
 
-		# print("2 conditions_gui, _get_num_listboxes_occupied= $number \n");
+		# print("2 conditions4flows, _get_num_listboxes_occupied= $number \n");
 		return ($number);
 
 	}
 	else {
-		print( "2 conditions_gui, get_num_listboxes_occupied: missing conditions_gui->{_occupied_listbox_aref} \n" );
+		print( "2 conditions4flows, get_num_listboxes_occupied: missing conditions4flows->{_occupied_listbox_aref} \n" );
 	}
 }
 
@@ -2077,19 +1931,19 @@ sub set_defaults4last_delete_from_flow_button {
 
 	}
 	else {
-		print( "conditions_gui, set_defaults4last_delete_from_flow_button, color missing: $color\n" );
+		print( "conditions4flows, set_defaults4last_delete_from_flow_button, color missing: $color\n" );
 	}
 
 	if ( $color eq 'grey' ) {
 
-		$conditions_gui->{_is_flow_listbox_grey_w} = $false;
-		@{ $conditions_gui->{_occupied_listbox_aref} }[0] = $false;
+		$conditions4flows->{_is_flow_listbox_grey_w} = $false;
+		@{ $conditions4flows->{_occupied_listbox_aref} }[0] = $false;
 
 		# turn off flow -listbox
 		$flow_listbox_grey_w->configure( -state => 'disabled', );
 
 		# name is removed from the namespace
-		$conditions_gui->{_flow_name_out} = $empty_string;
+		$conditions4flows->{_flow_name_out} = $empty_string;
 
 		# for export
 		$is_flow_listbox_grey_w = $false;
@@ -2101,14 +1955,14 @@ sub set_defaults4last_delete_from_flow_button {
 	}
 	elsif ( $color eq 'pink' ) {
 
-		$conditions_gui->{_is_flow_listbox_pink_w} = $false;
-		@{ $conditions_gui->{_occupied_listbox_aref} }[1] = $false;
+		$conditions4flows->{_is_flow_listbox_pink_w} = $false;
+		@{ $conditions4flows->{_occupied_listbox_aref} }[1] = $false;
 
 		# turn off flow -listbox
 		$flow_listbox_pink_w->configure( -state => 'disabled', );
 
 		# name is removed from the namespace
-		$conditions_gui->{_flow_name_out} = $empty_string;
+		$conditions4flows->{_flow_name_out} = $empty_string;
 
 		# for export
 		$is_flow_listbox_pink_w = $false;
@@ -2120,14 +1974,14 @@ sub set_defaults4last_delete_from_flow_button {
 	}
 	elsif ( $color eq 'green' ) {
 
-		$conditions_gui->{_is_flow_listbox_green_w} = $false;
-		@{ $conditions_gui->{_occupied_listbox_aref} }[2] = $false;
+		$conditions4flows->{_is_flow_listbox_green_w} = $false;
+		@{ $conditions4flows->{_occupied_listbox_aref} }[2] = $false;
 
 		# turn off flow -listbox
 		$flow_listbox_green_w->configure( -state => 'disabled', );
 
 		# name is removed from the namespace
-		$conditions_gui->{_flow_name_out} = $empty_string;
+		$conditions4flows->{_flow_name_out} = $empty_string;
 
 		# for export
 		$is_flow_listbox_green_w = $false;
@@ -2139,14 +1993,14 @@ sub set_defaults4last_delete_from_flow_button {
 	}
 	elsif ( $color eq 'blue' ) {
 
-		$conditions_gui->{_is_flow_listbox_blue_w} = $false;
-		@{ $conditions_gui->{_occupied_listbox_aref} }[3] = $false;
+		$conditions4flows->{_is_flow_listbox_blue_w} = $false;
+		@{ $conditions4flows->{_occupied_listbox_aref} }[3] = $false;
 
 		# turn off flow -listbox
 		$flow_listbox_blue_w->configure( -state => 'disabled', );
 
 		# name is removed from the namespace
-		$conditions_gui->{_flow_name_out} = $empty_string;
+		$conditions4flows->{_flow_name_out} = $empty_string;
 
 		# for export
 		$is_flow_listbox_blue_w = $false;
@@ -2157,12 +2011,12 @@ sub set_defaults4last_delete_from_flow_button {
 
 	}
 	else {
-		print( "conditions_gui, set_defaults4last_delete_from_flow_buttonset, color missing: $color\n" );
+		print( "conditions4flows, set_defaults4last_delete_from_flow_buttonset, color missing: $color\n" );
 	}
 
 	my $number = _get_num_listboxes_occupied();
 
-	# print("conditions_gui, set_defaults4last_delete_from_flow_button, number=$number\n");
+	# print("conditions4flows, set_defaults4last_delete_from_flow_button, number=$number\n");
 
 	# when last item in last listbox is deleted
 	if ( $number < 0 ) {
@@ -2199,15 +2053,15 @@ sub set_defaults4last_delete_from_flow_button {
 		$check_code_button->configure( -state => 'disabled' );
 	}
 	else {
-		# NADA print("conditions_gui,set_defaults4last_delete_from_flow_button, not at the last listbox yet\n");
+		# NADA print("conditions4flows,set_defaults4last_delete_from_flow_button, not at the last listbox yet\n");
 	}
 
-	$conditions_gui->{_is_flow_listbox_color_w}        = $false;
-	$conditions_gui->{_is_user_built_flow}             = $false;
-	$conditions_gui->{_is_sunix_listbox}               = $false;
-	$conditions_gui->{_is_delete_from_flow_button}     = $false;
-	$conditions_gui->{_is_flow_item_down_arrow_button} = $false;
-	$conditions_gui->{_is_flow_item_up_arrow_button}   = $false;
+	$conditions4flows->{_is_flow_listbox_color_w}        = $false;
+	$conditions4flows->{_is_user_built_flow}             = $false;
+	$conditions4flows->{_is_sunix_listbox}               = $false;
+	$conditions4flows->{_is_delete_from_flow_button}     = $false;
+	$conditions4flows->{_is_flow_item_down_arrow_button} = $false;
+	$conditions4flows->{_is_flow_item_up_arrow_button}   = $false;
 
 	# for export
 	$is_delete_from_flow_button     = $false;
@@ -2236,15 +2090,15 @@ sub set4run_button {
 
 	# _reset();
 	# location within GUI
-	$conditions_gui->{_is_run_button}       = $true;
-	$conditions_gui->{_has_used_run_button} = $true;
+	$conditions4flows->{_is_run_button}       = $true;
+	$conditions4flows->{_has_used_run_button} = $true;
 
 	# reset save and SaveAs options because
 	# file must be saved before running, always
-	$conditions_gui->{_has_used_SaveAs_button}         = $false;
-	$conditions_gui->{_has_used_Save_button}           = $false;
-	$conditions_gui->{_has_used_Save_superflow}        = $false;
-	$conditions_gui->{_has_used_open_perl_file_button} = $false;
+	$conditions4flows->{_has_used_SaveAs_button}         = $false;
+	$conditions4flows->{_has_used_Save_button}           = $false;
+	$conditions4flows->{_has_used_Save_superflow}        = $false;
+	$conditions4flows->{_has_used_open_perl_file_button} = $false;
 
 	# for export to calling module via get_hash_ref
 	$is_run_button       = $true;
@@ -2264,7 +2118,7 @@ sub set4run_button {
 location within GUI 
 
 	sets 
-		$conditions_gui
+		$conditions4flows
 		
 		legacy?
 		look at set4start_of_run_button and set4end_of_run_button
@@ -2275,8 +2129,8 @@ sub set4run_button_end {
 	my ($self) = @_;
 
 	# location within GUI
-	$conditions_gui->{_is_run_button}       = $false;
-	$conditions_gui->{_has_used_run_button} = $false;
+	$conditions4flows->{_is_run_button}       = $false;
+	$conditions4flows->{_has_used_run_button} = $false;
 
 	$is_run_button       = $false;
 	$has_used_run_button = $false;
@@ -2296,8 +2150,8 @@ sub set_defaults4start_of_delete_from_flow_button {
 	if ($color) {
 		_reset();
 
-		# print("conditions_gui, set_defaults_4start_of_delete_from_flow_button, color: $color\n");
-		$conditions_gui->{_is_delete_from_flow_button} = $true;
+		# print("conditions4flows, set_defaults_4start_of_delete_from_flow_button, color: $color\n");
+		$conditions4flows->{_is_delete_from_flow_button} = $true;
 		$is_delete_from_flow_button = $true;
 		_set_flow_color($color);
 
@@ -2307,44 +2161,44 @@ sub set_defaults4start_of_delete_from_flow_button {
 
 		my $is_flow_listbox_color_w_key = '_is_flow_listbox_' . $color . '_w';    # true or false
 		my $flow_listbox_color_w_key    = '_flow_listbox_' . $color . '_w';       # value a widget hash
-		$conditions_gui->{_flow_listbox_color_w} = $conditions_gui->{$flow_listbox_color_w_key};
-		$conditions_gui->{_is_user_built_flow}   = $true;
+		$conditions4flows->{_flow_listbox_color_w} = $conditions4flows->{$flow_listbox_color_w_key};
+		$conditions4flows->{_is_user_built_flow}   = $true;
 
 		# set treu or false values for a colored flow ( the reset are assumed = 0)
-		$conditions_gui->{$is_flow_listbox_color_w_key} = $true;
+		$conditions4flows->{$is_flow_listbox_color_w_key} = $true;
 
 		# set up for get_hash_ref call from outside module
 		$is_user_built_flow      = $true;
 		$is_flow_listbox_color_w = $true;
 
 		if ( $color eq 'grey' ) {
-			$flow_listbox_grey_w    = $conditions_gui->{$flow_listbox_color_w_key};
+			$flow_listbox_grey_w    = $conditions4flows->{$flow_listbox_color_w_key};
 			$is_flow_listbox_grey_w = $true;
 
 		}
 		elsif ( $color eq 'pink' ) {
-			$flow_listbox_pink_w    = $conditions_gui->{$flow_listbox_color_w_key};
+			$flow_listbox_pink_w    = $conditions4flows->{$flow_listbox_color_w_key};
 			$is_flow_listbox_pink_w = $true;
 
 		}
 		elsif ( $color eq 'green' ) {
-			$flow_listbox_green_w    = $conditions_gui->{$flow_listbox_color_w_key};
+			$flow_listbox_green_w    = $conditions4flows->{$flow_listbox_color_w_key};
 			$is_flow_listbox_green_w = $true;
 
 		}
 		elsif ( $color eq 'blue' ) {
-			$flow_listbox_blue_w    = $conditions_gui->{$flow_listbox_color_w_key};
+			$flow_listbox_blue_w    = $conditions4flows->{$flow_listbox_color_w_key};
 			$is_flow_listbox_blue_w = $true;
 		}
 
-		#   				print("conditions_gui, set_defaults_4start_of_delete_from_flow_button, conditions_gui->$is_flow_listbox_color_w_key: $is_flow_listbox_color_w\n");
-		#   				print("conditions_gui, set_defaults_4start_of_delete_from_flow_button, conditions_gui->$flow_listbox_color_w_key: $flow_listbox_color_w\n");
-		#   				print("conditions_gui, set_defaults_4start_of_delete_from_flow_button, _is_flow_listbox_color_w_key: $is_flow_listbox_color_w_key\n");
-		#   				print("conditions_gui, set_defaults_4start_of_delete_from_flow_button, flow_listbox_color_w_key: $flow_listbox_color_w_key\n");
+		#   				print("conditions4flows, set_defaults_4start_of_delete_from_flow_button, conditions4flows->$is_flow_listbox_color_w_key: $is_flow_listbox_color_w\n");
+		#   				print("conditions4flows, set_defaults_4start_of_delete_from_flow_button, conditions4flows->$flow_listbox_color_w_key: $flow_listbox_color_w\n");
+		#   				print("conditions4flows, set_defaults_4start_of_delete_from_flow_button, _is_flow_listbox_color_w_key: $is_flow_listbox_color_w_key\n");
+		#   				print("conditions4flows, set_defaults_4start_of_delete_from_flow_button, flow_listbox_color_w_key: $flow_listbox_color_w_key\n");
 
 	}
 	else {
-		print( "conditions_gui, set_defaults4start_of_delete_from_flow_button, no color: $color\n" );
+		print( "conditions4flows, set_defaults4start_of_delete_from_flow_button, no color: $color\n" );
 	}
 
 	return ();
@@ -2362,11 +2216,11 @@ sub set4start_of_flow_item_up_arrow_button {
 	if ($color) {
 		_reset();
 
-		$conditions_gui->{_is_flow_item_up_arrow_button} = $true;
+		$conditions4flows->{_is_flow_item_up_arrow_button} = $true;
 		_set_flow_color($color);
 		my $is_flow_listbox_color_w_key = '_is_flow_listbox_' . $color . '_w';
-		$conditions_gui->{$is_flow_listbox_color_w_key} = $true;
-		$conditions_gui->{_is_user_built_flow} = $true;
+		$conditions4flows->{$is_flow_listbox_color_w_key} = $true;
+		$conditions4flows->{_is_user_built_flow} = $true;
 
 		# set up for get_hash_ref call from outside module
 		$is_user_built_flow      = $true;
@@ -2374,7 +2228,7 @@ sub set4start_of_flow_item_up_arrow_button {
 
 	}
 	else {
-		print( "conditions_gui, set4start_of_flow_item_up_arrow_button, no color: $color\n" );
+		print( "conditions4flows, set4start_of_flow_item_up_arrow_button, no color: $color\n" );
 	}
 
 	return ();
@@ -2392,11 +2246,11 @@ sub set4start_of_flow_item_up_arrow_button {
 #	if ($color) {
 #		_reset();
 #
-#		$conditions_gui->{_is_wipe_plots_button} = $true;
+#		$conditions4flows->{_is_wipe_plots_button} = $true;
 #		_set_flow_color($color);
 #		my $is_flow_listbox_color_w_key = '_is_flow_listbox_' . $color . '_w';
-#		$conditions_gui->{$is_flow_listbox_color_w_key} = $true;
-#		$conditions_gui->{_is_user_built_flow} = $true;
+#		$conditions4flows->{$is_flow_listbox_color_w_key} = $true;
+#		$conditions4flows->{_is_user_built_flow} = $true;
 #
 #		# set up for get_hash_ref call from outside module
 #		$is_user_built_flow      = $true;
@@ -2405,7 +2259,7 @@ sub set4start_of_flow_item_up_arrow_button {
 #	}
 #	else {
 #		print(
-#			"conditions_gui, set4start_of_wipe_plots_button, no color: $color\n"
+#			"conditions4flows, set4start_of_wipe_plots_button, no color: $color\n"
 #		);
 #	}
 #
@@ -2435,29 +2289,29 @@ sub set_defaults_4start_of_flow_select {
 		_set_flow_color($color);
 		my $flow_listbox_color_w_key = '_flow_listbox_' . $color . '_w';
 		my $flow_listbox_color_w_txt = 'flow_listbox_' . $color . '_w';
-		my $flow_listbox_color_w     = $conditions_gui->{$flow_listbox_color_w_key};
+		my $flow_listbox_color_w     = $conditions4flows->{$flow_listbox_color_w_key};
 
 		my $value2 = '_is_flow_listbox_' . $color . '_w';
-		$conditions_gui->{$value2} 						= $true;
-		$conditions_gui->{_is_flow_listbox_color_w} 	= $true;
+		$conditions4flows->{$value2} 						= $true;
+		$conditions4flows->{_is_flow_listbox_color_w} 	= $true;
 
-		# print("conditions_gui, set_defaults_4start_of_flow_select , color:$color; flow_listbox_color_w =$conditions_gui->{$flow_listbox_color_w_key}\n");
+		# print("conditions4flows, set_defaults_4start_of_flow_select , color:$color; flow_listbox_color_w =$conditions4flows->{$flow_listbox_color_w_key}\n");
 		_set_flow_listbox_last_touched_txt($flow_listbox_color_w_txt);
 		_set_flow_listbox_last_touched_w($flow_listbox_color_w);
 
-		# print("conditions_gui, set_defaults_4start_of_flow_select , _set_flow_listbox_last_touched_w\n");
+		# print("conditions4flows, set_defaults_4start_of_flow_select , _set_flow_listbox_last_touched_w\n");
 
 #		# location within GUI
 #		if ( $color eq 'grey' ) {
 #
-#			$conditions_gui->{_is_flow_listbox_grey_w} = $true;
+#			$conditions4flows->{_is_flow_listbox_grey_w} = $true;
 #
 #			# for export to calling module via get_hash_ref
 #			$is_flow_listbox_grey_w = $true;
 #
 #		}
 #		elsif ( $color eq 'pink' ) {
-#			$conditions_gui->{_is_flow_listbox_pink_w} = $true;
+#			$conditions4flows->{_is_flow_listbox_pink_w} = $true;
 #
 #			# for export to calling module via get_hash_ref
 #			$is_flow_listbox_pink_w = $true;
@@ -2465,7 +2319,7 @@ sub set_defaults_4start_of_flow_select {
 #		}
 #		elsif ( $color eq 'green' ) {
 #
-#			$conditions_gui->{_is_flow_listbox_green_w} = $true;
+#			$conditions4flows->{_is_flow_listbox_green_w} = $true;
 #
 #			# for export to calling module via get_hash_ref
 #			$is_flow_listbox_green_w = $true;
@@ -2473,21 +2327,21 @@ sub set_defaults_4start_of_flow_select {
 #		}
 #		elsif ( $color eq 'blue' ) {
 #
-#			$conditions_gui->{_is_flow_listbox_blue_w} = $true;
+#			$conditions4flows->{_is_flow_listbox_blue_w} = $true;
 #
 #			# for export to calling module via get_hash_ref
 #			$is_flow_listbox_blue_w = $true;
 #
 #		}
 #		else {
-#			print("conditions_gui, set_defaults_4start_of_flow_select , missing color\n");
+#			print("conditions4flows, set_defaults_4start_of_flow_select , missing color\n");
 #		}
 
-		$conditions_gui->{_is_flow_listbox_color_w}    = $true;
-		$conditions_gui->{_is_pre_built_superflow}     = $false;
-		$conditions_gui->{_is_superflow}               = $false;
-		$conditions_gui->{_is_superflow_select_button} = $false;
-		$conditions_gui->{_is_user_built_flow}         = $true;
+		$conditions4flows->{_is_flow_listbox_color_w}    = $true;
+		$conditions4flows->{_is_pre_built_superflow}     = $false;
+		$conditions4flows->{_is_superflow}               = $false;
+		$conditions4flows->{_is_superflow_select_button} = $false;
+		$conditions4flows->{_is_user_built_flow}         = $true;
 
 		$delete_from_flow_button->configure( -state => 'active', );
 		$flow_item_down_arrow_button->configure( -state => 'active', );
@@ -2518,7 +2372,7 @@ sub set_defaults_4start_of_flow_select {
 		#	$entry_button->focus
 	}
 	else {
-		print("conditions_gui, set_defaults_4start_of_flow_select , no color:$color\n");
+		print("conditions4flows, set_defaults_4start_of_flow_select , no color:$color\n");
 
 	}
 	return ();
@@ -2536,7 +2390,7 @@ sub set4run_button_start {
 	my ($self) = @_;
 
 	# location within GUI
-	$conditions_gui->{_is_run_button} = $true;
+	$conditions4flows->{_is_run_button} = $true;
 
 	# for export to calling module via get_hash_ref
 	$is_run_button = $true;
@@ -2548,7 +2402,7 @@ sub set4run_button_start {
 =head2 sub set4end_of_add2flow
 
 		sets 
-			$conditions_gui
+			$conditions4flows
 			$add2flow_button_grey
 			$flow_listbox_grey_w
 			
@@ -2563,7 +2417,7 @@ sub set4run_button_start {
 sub set4end_of_add2flow {
 	my ( $self, $color ) = @_;
 
-	# print("2 conditions_gui,set4end_of_add2flow  color: $color\n");
+	# print("2 conditions4flows,set4end_of_add2flow  color: $color\n");
 
 	if ($color) {
 		_set_flow_color($color);
@@ -2572,10 +2426,10 @@ sub set4end_of_add2flow {
 		my $flow_listbox_color_w_key    = '_flow_listbox_' . $color . '_w';
 		my $flow_listbox_color_w_txt    = 'flow_listbox_' . $color . '_w';
 		my $is_flow_listbox_color_w_key = '_is_flow_listbox_' . $color . '_w';
-		# print("2 conditions_gui,set4end_of_add2flow  flow_listbox_color_w: $flow_listbox_color_w\n");
-		# print("2 conditions_gui,set4end_of_add2flow  color: $color");
+		# print("2 conditions4flows,set4end_of_add2flow  flow_listbox_color_w: $flow_listbox_color_w\n");
+		# print("2 conditions4flows,set4end_of_add2flow  color: $color");
 
-		my $flow_listbox_color_w = $conditions_gui->{$flow_listbox_color_w_key};
+		my $flow_listbox_color_w = $conditions4flows->{$flow_listbox_color_w_key};
 
 		_set_flow_listbox_last_touched_w($flow_listbox_color_w);
 		_set_flow_listbox_last_touched_txt($flow_listbox_color_w_txt);
@@ -2587,8 +2441,8 @@ sub set4end_of_add2flow {
 		$flow_listbox_color_w->selectionSet("end");
 
 		# note the last program that was touched
-		$conditions_gui->{_is_add2flow} = $false;
-		$conditions_gui->{$is_flow_listbox_color_w_key} = $true;
+		$conditions4flows->{_is_add2flow} = $false;
+		$conditions4flows->{$is_flow_listbox_color_w_key} = $true;
 
 		# for potential export via get_hash-ref
 		$is_add2flow             = $false;
@@ -2596,24 +2450,24 @@ sub set4end_of_add2flow {
 
 		# keep track of which listbox was just chosen
 		# for possible export
-		if ( $conditions_gui->{_flow_color} eq 'grey' ) {
-			$is_flow_listbox_grey_w = $conditions_gui->{_is_flow_listbox_grey_w};
+		if ( $conditions4flows->{_flow_color} eq 'grey' ) {
+			$is_flow_listbox_grey_w = $conditions4flows->{_is_flow_listbox_grey_w};
 
 		}
-		elsif ( $conditions_gui->{_flow_color} eq 'pink' ) {
-			$is_flow_listbox_pink_w = $conditions_gui->{_is_flow_listbox_pink_w};
+		elsif ( $conditions4flows->{_flow_color} eq 'pink' ) {
+			$is_flow_listbox_pink_w = $conditions4flows->{_is_flow_listbox_pink_w};
 
 		}
-		elsif ( $conditions_gui->{_flow_color} eq 'green' ) {
-			$is_flow_listbox_green_w = $conditions_gui->{_is_flow_listbox_green_w};
+		elsif ( $conditions4flows->{_flow_color} eq 'green' ) {
+			$is_flow_listbox_green_w = $conditions4flows->{_is_flow_listbox_green_w};
 
 		}
-		elsif ( $conditions_gui->{_flow_color} eq 'blue' ) {
-			$is_flow_listbox_blue_w = $conditions_gui->{_is_flow_listbox_blue_w};
+		elsif ( $conditions4flows->{_flow_color} eq 'blue' ) {
+			$is_flow_listbox_blue_w = $conditions4flows->{_is_flow_listbox_blue_w};
 
 		}
 		else {
-			print( "2 conditions_gui,set4end_of_add2flow_of_run_button missing color \n" );
+			print( "2 conditions4flows,set4end_of_add2flow_of_run_button missing color \n" );
 		}
 
 		# disable All Add-to-flow buttons
@@ -2624,17 +2478,17 @@ sub set4end_of_add2flow {
 		$add2flow_button_green->configure( -state => 'disabled' );
 		$add2flow_button_blue->configure( -state => 'disabled' );
 
-		# print("1 conditions_gui,set4end_of_add2flow_button color: $color\n");
+		# print("1 conditions4flows,set4end_of_add2flow_button color: $color\n");
 
 		# set flow color back to neutral after add2flow ends
 		# _set_flow_color('neutral');
 
-		# print("2 conditions_gui,set4end_of_add2flow color: $color\n");
+		# print("2 conditions4flows,set4end_of_add2flow color: $color\n");
 		return ();
 
 	}
 	else {
-		print("2 conditions_gui,set4end_of_add2flow reset color: $color\n");
+		print("2 conditions4flows,set4end_of_add2flow reset color: $color\n");
 	}
 
 }
@@ -2642,7 +2496,7 @@ sub set4end_of_add2flow {
 =head2 sub set4end_of_add2flow_button
 
 		sets 
-			$conditions_gui
+			$conditions4flows
 			$add2flow_button_grey
 			$flow_listbox_grey_w
 			
@@ -2657,7 +2511,7 @@ sub set4end_of_add2flow {
 sub set4end_of_add2flow_button {
 	my ( $self, $color ) = @_;
 
-	# print("2 conditions_gui,set4end_of_add2flow_button  color: $color\n");
+	# print("2 conditions4flows,set4end_of_add2flow_button  color: $color\n");
 
 	if ($color) {
 		#_set_gui_widgets();
@@ -2668,9 +2522,9 @@ sub set4end_of_add2flow_button {
 		my $flow_listbox_color_w_txt    = 'flow_listbox_' . $color . '_w';
 		my $is_flow_listbox_color_w_key = '_is_flow_listbox_' . $color . '_w';
 
-		my $flow_listbox_color_w = $conditions_gui->{$flow_listbox_color_w_key};
+		my $flow_listbox_color_w = $conditions4flows->{$flow_listbox_color_w_key};
 
-		# print("2 conditions_gui,set4end_of_add2flow_button  flow_listbox_color_w: $flow_listbox_color_w\n");
+		# print("2 conditions4flows,set4end_of_add2flow_button  flow_listbox_color_w: $flow_listbox_color_w\n");
 
 		_set_flow_listbox_last_touched_w($flow_listbox_color_w);
 		_set_flow_listbox_last_touched_txt($flow_listbox_color_w_txt);
@@ -2679,32 +2533,32 @@ sub set4end_of_add2flow_button {
 		$flow_listbox_color_w->selectionSet("end");
 
 		# note the last program that was touched
-		$conditions_gui->{_is_add2flow} = $false;
-		$conditions_gui->{$is_flow_listbox_color_w_key} = $true;
+		$conditions4flows->{_is_add2flow} = $false;
+		$conditions4flows->{$is_flow_listbox_color_w_key} = $true;
 
 		# for potential export via get_hash-ref
 		$is_add2flow             = $false;
 		$is_flow_listbox_color_w = $true;
 
 		# keep track of which listbox was just chosen
-		if ( $conditions_gui->{_flow_color} eq 'grey' ) {
-			$is_flow_listbox_grey_w = $conditions_gui->{_is_flow_listbox_grey_w};
+		if ( $conditions4flows->{_flow_color} eq 'grey' ) {
+			$is_flow_listbox_grey_w = $conditions4flows->{_is_flow_listbox_grey_w};
 
 		}
-		elsif ( $conditions_gui->{_flow_color} eq 'pink' ) {
-			$is_flow_listbox_pink_w = $conditions_gui->{_is_flow_listbox_pink_w};
+		elsif ( $conditions4flows->{_flow_color} eq 'pink' ) {
+			$is_flow_listbox_pink_w = $conditions4flows->{_is_flow_listbox_pink_w};
 
 		}
-		elsif ( $conditions_gui->{_flow_color} eq 'green' ) {
-			$is_flow_listbox_green_w = $conditions_gui->{_is_flow_listbox_green_w};
+		elsif ( $conditions4flows->{_flow_color} eq 'green' ) {
+			$is_flow_listbox_green_w = $conditions4flows->{_is_flow_listbox_green_w};
 
 		}
-		elsif ( $conditions_gui->{_flow_color} eq 'blue' ) {
-			$is_flow_listbox_blue_w = $conditions_gui->{_is_flow_listbox_blue_w};
+		elsif ( $conditions4flows->{_flow_color} eq 'blue' ) {
+			$is_flow_listbox_blue_w = $conditions4flows->{_is_flow_listbox_blue_w};
 
 		}
 		else {
-			print( "2 conditions_gui,set4end_of_add2flow_button_of_run_button missing color \n" );
+			print( "2 conditions4flows,set4end_of_add2flow_button_of_run_button missing color \n" );
 		}
 
 		# disable All Add-to-flow buttons
@@ -2715,17 +2569,17 @@ sub set4end_of_add2flow_button {
 		$add2flow_button_green->configure( -state => 'disabled' );
 		$add2flow_button_blue->configure( -state => 'disabled' );
 
-		# print("1 conditions_gui,set4end_of_add2flow_button color: $color\n");
+		# print("1 conditions4flows,set4end_of_add2flow_button color: $color\n");
 
 		# set flow color back to neutral after add2flow_button is clicked
 		# _set_flow_color('neutral');
 
-		# print("2 conditions_gui,set4end_of_add2flow_button color: $color\n");
+		# print("2 conditions4flows,set4end_of_add2flow_button color: $color\n");
 		return ();
 
 	}
 	else {
-		print( "2 conditions_gui,set4end_of_add2flow_button reset color: $color\n" );
+		print( "2 conditions4flows,set4end_of_add2flow_button reset color: $color\n" );
 	}
 }
 
@@ -2737,11 +2591,11 @@ sub set4end_of_add2flow_button {
 sub set4end_of_superflow_Save {
 	my ($self) = @_;
 
-	# print("conditions_gui, set4end_of_superflow_Save OK \n");
-	$conditions_gui->{_has_used_Save_superflow}    = $true;
-	$conditions_gui->{_is_pre_built_superflow}     = $false;
-	$conditions_gui->{_is_superflow}               = $false;
-	$conditions_gui->{_is_superflow_select_button} = $false;
+	# print("conditions4flows, set4end_of_superflow_Save OK \n");
+	$conditions4flows->{_has_used_Save_superflow}    = $true;
+	$conditions4flows->{_is_pre_built_superflow}     = $false;
+	$conditions4flows->{_is_superflow}               = $false;
+	$conditions4flows->{_is_superflow_select_button} = $false;
 
 	# for possible later export
 	$has_used_Save_superflow    = $true;
@@ -2761,13 +2615,13 @@ sub set4end_of_superflow_run_button {
 	my ($self) = @_;
 
 	# location within GUI
-	$conditions_gui->{_is_run_button}       = $false;
-	$conditions_gui->{_has_used_run_button} = $true;
+	$conditions4flows->{_is_run_button}       = $false;
+	$conditions4flows->{_has_used_run_button} = $true;
 
 	# reset save and SaveAs options because
 	# file must be saved before running, always
-	$conditions_gui->{_has_used_SaveAs_button}  = $false;
-	$conditions_gui->{_has_used_Save_superflow} = $false;
+	$conditions4flows->{_has_used_SaveAs_button}  = $false;
+	$conditions4flows->{_has_used_Save_superflow} = $false;
 
 	# for export to calling module via get_hash_ref
 	$has_used_SaveAs_button  = $false;
@@ -2786,10 +2640,10 @@ sub set4end_of_superflow_run_button {
 sub set4end_of_superflow_select {
 	my ($self) = @_;
 
-	# print("conditions_gui, set4end_of_superflow_select OK \n");
-	$conditions_gui->{_is_superflow}               = $false;
-	$conditions_gui->{_is_superflow_select_button} = $false;
-	$conditions_gui->{_is_pre_built_superflow}     = $false;
+	# print("conditions4flows, set4end_of_superflow_select OK \n");
+	$conditions4flows->{_is_superflow}               = $false;
+	$conditions4flows->{_is_superflow_select_button} = $false;
+	$conditions4flows->{_is_pre_built_superflow}     = $false;
 
 	# for possible later export
 	$is_superflow               = $false;
@@ -2809,38 +2663,38 @@ sub set4start_of_run_button {
 	my ($self) = @_;
 
 	# location within GUI
-	$conditions_gui->{_is_run_button} = $true;
+	$conditions4flows->{_is_run_button} = $true;
 	$is_run_button = $true;
 	_reset_is_flow_listbox_color_w();
 
-	if ( $conditions_gui->{_flow_color} eq 'grey' ) {
-		$conditions_gui->{_is_flow_listbox_grey_w} = $true;
+	if ( $conditions4flows->{_flow_color} eq 'grey' ) {
+		$conditions4flows->{_is_flow_listbox_grey_w} = $true;
 		$is_flow_listbox_grey_w = $true;
 
 	}
-	elsif ( $conditions_gui->{_flow_color} eq 'pink' ) {
-		$conditions_gui->{_is_flow_listbox_pink_w} = $true;
+	elsif ( $conditions4flows->{_flow_color} eq 'pink' ) {
+		$conditions4flows->{_is_flow_listbox_pink_w} = $true;
 		$is_flow_listbox_pink_w = $true;
 
 	}
-	elsif ( $conditions_gui->{_flow_color} eq 'green' ) {
-		$conditions_gui->{_is_flow_listbox_green_w} = $true;
+	elsif ( $conditions4flows->{_flow_color} eq 'green' ) {
+		$conditions4flows->{_is_flow_listbox_green_w} = $true;
 		$is_flow_listbox_green_w = $true;
 
 	}
-	elsif ( $conditions_gui->{_flow_color} eq 'blue' ) {
-		$conditions_gui->{_is_flow_listbox_blue_w} = $true;
+	elsif ( $conditions4flows->{_flow_color} eq 'blue' ) {
+		$conditions4flows->{_is_flow_listbox_blue_w} = $true;
 		$is_flow_listbox_blue_w = $true;
 
 	}
-	elsif ( $conditions_gui->{_flow_type} eq 'pre_built_superflow' ) {
+	elsif ( $conditions4flows->{_flow_type} eq 'pre_built_superflow' ) {
 
-		# print("2 conditions_gui,set4start_of_run_button Running a pre-built superflow\n");
+		# print("2 conditions4flows,set4start_of_run_button Running a pre-built superflow\n");
 		# NADA
 
 	}
 	else {
-		print("2 conditions_gui,set4start_of_run_button missing color \n");
+		print("2 conditions4flows,set4start_of_run_button missing color \n");
 	}
 	return ();
 }
@@ -2860,17 +2714,17 @@ sub set4start_of_add2flow {
 
 	my $flow_listbox_color_w = _get_flow_listbox_color_w();
 
-	# print("conditions_gui, set4start_of_add2flow flow_listbox_color_w $flow_listbox_color_w\n");
+	# print("conditions4flows, set4start_of_add2flow flow_listbox_color_w $flow_listbox_color_w\n");
 
 	_set_flow_listbox_last_touched_w($flow_listbox_color_w);
 
-	$conditions_gui->{_is_add2flow}              = $true;
-	$conditions_gui->{_is_new_listbox_selection} = $true;
+	$conditions4flows->{_is_add2flow}              = $true;
+	$conditions4flows->{_is_new_listbox_selection} = $true;
 
 	# null some user dialogs
-	$conditions_gui->{_has_used_Save_button}    = $false;
-	$conditions_gui->{_has_used_SaveAs_button}  = $false;
-	$conditions_gui->{_has_used_Save_superflow} = $false;
+	$conditions4flows->{_has_used_Save_button}    = $false;
+	$conditions4flows->{_has_used_SaveAs_button}  = $false;
+	$conditions4flows->{_has_used_Save_superflow} = $false;
 
 	# for potential later export
 	$is_add2flow              = $true;
@@ -2880,7 +2734,7 @@ sub set4start_of_add2flow {
 	$has_used_Save_superflow  = $false;
 
 	#turn on the following buttons
-	# print("conditions_gui, set4start_of_add2flow file_menubutton $file_menubutton\n");
+	# print("conditions4flows, set4start_of_add2flow file_menubutton $file_menubutton\n");
 	$file_menubutton->configure( -state => 'normal' );
 	$Data_menubutton->configure( -state => 'normal' );
 	$SaveAs_menubutton->configure( -state => 'normal' );
@@ -2906,7 +2760,7 @@ sub set4start_of_add2flow {
 
 	$flow_listbox_color_w->selectionClear( 0, "end" );
 
-	# print("conditions_gui, set4start_of_add2flow, color is: $color \n");
+	# print("conditions4flows, set4start_of_add2flow, color is: $color \n");
 	return ();
 }
 
@@ -2927,14 +2781,14 @@ sub set4start_of_add2flow_button {
 
 	_set_flow_listbox_last_touched_w($flow_listbox_color_w);
 
-	$conditions_gui->{_is_add2flow_button}       = $true;
-	$conditions_gui->{_is_sunix_listbox}         = $true;
-	$conditions_gui->{_is_new_listbox_selection} = $true;
+	$conditions4flows->{_is_add2flow_button}       = $true;
+	$conditions4flows->{_is_sunix_listbox}         = $true;
+	$conditions4flows->{_is_new_listbox_selection} = $true;
 
 	# null some user dialogs
-	$conditions_gui->{_has_used_Save_button}    = $false;
-	$conditions_gui->{_has_used_Save_superflow} = $false;
-	$conditions_gui->{_has_used_SaveAs_button}  = $false;
+	$conditions4flows->{_has_used_Save_button}    = $false;
+	$conditions4flows->{_has_used_Save_superflow} = $false;
+	$conditions4flows->{_has_used_SaveAs_button}  = $false;
 
 	# for potential later export
 	$is_add2flow_button       = $true;
@@ -2970,7 +2824,7 @@ sub set4start_of_add2flow_button {
 	$flow_listbox_green_w->configure( -state => 'normal', );
 	$flow_listbox_blue_w->configure( -state => 'normal', );
 
-	# print("conditions_gui, set4start_of_add2flow_button, color is: $color \n");
+	# print("conditions4flows, set4start_of_add2flow_button, color is: $color \n");
 	return ();
 }
 
@@ -2983,9 +2837,9 @@ sub set4start_of_sunix_select {
 	my ($self) = @_;
 
 	_reset();
-	$conditions_gui->{_is_sunix_listbox} = $true;
+	$conditions4flows->{_is_sunix_listbox} = $true;
 
-	# print("conditions_gui, set4start_of_sunix_select, $conditions_gui->{_is_sunix_listbox}\n");
+	# print("conditions4flows, set4start_of_sunix_select, $conditions4flows->{_is_sunix_listbox}\n");
 	$delete_from_flow_button->configure( -state => 'disabled', );
 	$flow_item_up_arrow_button->configure( -state => 'disabled', );
 	$flow_item_down_arrow_button->configure( -state => 'disabled', );
@@ -3005,7 +2859,7 @@ sub set4start_of_superflow_run_button {
 	my ($self) = @_;
 
 	# location within GUI
-	$conditions_gui->{_is_run_button} = $true;
+	$conditions4flows->{_is_run_button} = $true;
 	$is_run_button = $true;
 
 	return ();
@@ -3019,17 +2873,17 @@ sub set4start_of_superflow_run_button {
 sub set4start_of_superflow_Save {
 	my ($self) = @_;
 
-	#		# print("conditions_gui, set4superflow_Save OK \n");
+	#		# print("conditions4flows, set4superflow_Save OK \n");
 	#	use L_SU_global_constants;
 	#	my $get											= L_SU_global_constants->new();
 	#	my $flow_type_h									= $get->flow_type_href();
 	#	my $alias_FileDialog_button_label				= $get->alias_FileDialog_button_label_aref;
 	#        		# location within GUI
-	#	$conditions_gui->{_is_new_listbox_selection} 	= $true;
-	$conditions_gui->{_is_Save_button} = $true;
+	#	$conditions4flows->{_is_new_listbox_selection} 	= $true;
+	$conditions4flows->{_is_Save_button} = $true;
 
-	# 	$conditions_gui->{_is_pre_built_superflow}		= $true;
-	# 	$conditions_gui	->{_flow_type}					= $flow_type_h->{_pre_built_superflow};
+	# 	$conditions4flows->{_is_pre_built_superflow}		= $true;
+	# 	$conditions4flows	->{_flow_type}					= $flow_type_h->{_pre_built_superflow};
 	#
 	# for re-export via get_hash-ref
 	# 	$is_new_listbox_selection 						= $true;
@@ -3069,19 +2923,19 @@ sub set4start_of_superflow_Save {
 sub set4start_of_superflow_select {
 	my ($self) = @_;
 
-	# print("conditions_gui, set4superflow_open_data_file_start OK \n");
+	# print("conditions4flows, set4superflow_open_data_file_start OK \n");
 	use L_SU_global_constants;
 	my $get                           = L_SU_global_constants->new();
 	my $flow_type_h                   = $get->flow_type_href();
 	my $alias_FileDialog_button_label = $get->alias_FileDialog_button_label_aref;
 
 	# For location within GUI
-	$conditions_gui->{_flow_type}                  = $flow_type_h->{_pre_built_superflow};
-	$conditions_gui->{_is_new_listbox_selection}   = $true;
-	$conditions_gui->{_is_pre_built_superflow}     = $true;
-	$conditions_gui->{_is_superflow}               = $true;
-	$conditions_gui->{_is_superflow_select_button} = $true;
-	$conditions_gui->{_is_user_built_flow}         = $false;
+	$conditions4flows->{_flow_type}                  = $flow_type_h->{_pre_built_superflow};
+	$conditions4flows->{_is_new_listbox_selection}   = $true;
+	$conditions4flows->{_is_pre_built_superflow}     = $true;
+	$conditions4flows->{_is_superflow}               = $true;
+	$conditions4flows->{_is_superflow_select_button} = $true;
+	$conditions4flows->{_is_user_built_flow}         = $false;
 
 	# for re-export via get_hash-ref
 	$flow_type                  = $flow_type_h->{_pre_built_superflow};    # see set_hash_ref
@@ -3121,12 +2975,12 @@ sub set4start_of_superflow_select {
 sub set4superflow_close_data_file_end {
 	my ($self) = @_;
 
-	# print("conditions_gui, set4superflow_close_data_file_end OK \n");
+	# print("conditions4flows, set4superflow_close_data_file_end OK \n");
 	# Forces a Save before the next Run
-	$conditions_gui->{_has_used_Save_superflow} = $false;
+	$conditions4flows->{_has_used_Save_button} = $false;
 
 	# for potential export
-	$has_used_Save_superflow = $false;
+	$has_used_Save_button = $false;
 
 	# Allows user to open a user-built perl flow
 	$Flow_menubutton->configure( -state => 'normal', );
@@ -3141,9 +2995,9 @@ sub set4superflow_close_data_file_end {
 sub set4superflow_close_path_end {
 	my ($self) = @_;
 
-	# print("conditions_gui, set4superflow_close_path_end OK \n");
+	# print("conditions4flows, set4superflow_close_path_end OK \n");
 	# Forces a Save before the next Run
-	$conditions_gui->{_has_used_Save_superflow} = $false;
+	$conditions4flows->{_has_used_Save_superflow} = $false;
 
 	# for potential export
 	$has_used_Save_superflow = $false;
@@ -3161,11 +3015,11 @@ sub set4superflow_close_path_end {
 sub set4superflow_open_data_file_end {
 	my ($self) = @_;
 
-	# print("conditions_gui, set4end_of_superflow_select OK \n");
-	$conditions_gui->{_is_pre_built_superflow} = $true;
-	$conditions_gui->{_is_superflow}           = $true;
+	# print("conditions4flows, set4end_of_superflow_select OK \n");
+	$conditions4flows->{_is_pre_built_superflow} = $true;
+	$conditions4flows->{_is_superflow}           = $true;
 
-	#  	$conditions_gui->{_is_superflow_select_button}	= $true;
+	#  	$conditions4flows->{_is_superflow_select_button}	= $true;
 
 	# for potential export
 	$is_pre_built_superflow = $true;
@@ -3183,19 +3037,19 @@ sub set4superflow_open_data_file_end {
 sub set4superflow_open_data_file_start {
 	my ($self) = @_;
 
-	# print("conditions_gui, set4superflow_open_data_file_start OK \n");
+	# print("conditions4flows, set4superflow_open_data_file_start OK \n");
 	use L_SU_global_constants;
 	my $get                           = L_SU_global_constants->new();
 	my $flow_type_h                   = $get->flow_type_href();
 	my $alias_FileDialog_button_label = $get->alias_FileDialog_button_label_aref;
 
 	# For location within GUI
-	$conditions_gui->{_flow_type}                = $flow_type_h->{_pre_built_superflow};
-	$conditions_gui->{_is_new_listbox_selection} = $true;
-	$conditions_gui->{_is_pre_built_superflow}   = $true;
-	$conditions_gui->{_is_superflow}             = $true;
+	$conditions4flows->{_flow_type}                = $flow_type_h->{_pre_built_superflow};
+	$conditions4flows->{_is_new_listbox_selection} = $true;
+	$conditions4flows->{_is_pre_built_superflow}   = $true;
+	$conditions4flows->{_is_superflow}             = $true;
 
-	#	$conditions_gui->{_is_superflow_select_button}	= $true;
+	#	$conditions4flows->{_is_superflow_select_button}	= $true;
 
 	# for re-export via get_hash-ref
 	$flow_type                = $flow_type_h->{_pre_built_superflow};    # see set_hash_ref
@@ -3236,9 +3090,9 @@ sub set4superflow_open_path_end {
 
 	my ($self) = @_;
 
-	# print("conditions_gui, set4superflow_open_path_end OK \n");
-	$conditions_gui->{_is_pre_built_superflow} = $true;
-	$conditions_gui->{_is_superflow}           = $true;
+	# print("conditions4flows, set4superflow_open_path_end OK \n");
+	$conditions4flows->{_is_pre_built_superflow} = $true;
+	$conditions4flows->{_is_superflow}           = $true;
 
 	# for potential export
 	$is_pre_built_superflow = $true;
@@ -3254,7 +3108,7 @@ sub set4superflow_open_path_end {
 sub set4superflow_open_path_start {
 	my ($self) = @_;
 
-	# print("conditions_gui, set4superflow_open_path_start OK \n");
+	# print("conditions4flows, set4superflow_open_path_start OK \n");
 	use L_SU_global_constants;
 	my $get         = L_SU_global_constants->new();
 	my $flow_type_h = $get->flow_type_href();
@@ -3262,10 +3116,10 @@ sub set4superflow_open_path_start {
 	# my $alias_FileDialog_button_label				= $get->alias_FileDialog_button_label_aref;
 
 	# For location within GUI
-	$conditions_gui->{_flow_type}                = $flow_type_h->{_pre_built_superflow};
-	$conditions_gui->{_is_new_listbox_selection} = $true;
-	$conditions_gui->{_is_pre_built_superflow}   = $true;
-	$conditions_gui->{_is_superflow}             = $true;
+	$conditions4flows->{_flow_type}                = $flow_type_h->{_pre_built_superflow};
+	$conditions4flows->{_is_new_listbox_selection} = $true;
+	$conditions4flows->{_is_pre_built_superflow}   = $true;
+	$conditions4flows->{_is_superflow}             = $true;
 
 	# for re-export via get_hash-ref
 	$flow_type                = $flow_type_h->{_pre_built_superflow};    # see set_hash_ref
@@ -3304,8 +3158,8 @@ sub set4superflow_open_path_start {
 sub set4superflow_Save {
 	my ($self) = @_;
 
-	$conditions_gui->{_has_used_Save_superflow} = $true;
-	$conditions_gui->{_has_used_Save_button}    = $false;
+	$conditions4flows->{_has_used_Save_superflow} = $true;
+	$conditions4flows->{_has_used_Save_button}    = $false;
 
 	#for possible export
 
@@ -3324,14 +3178,14 @@ sub set4superflow_Save {
 sub set_flow_index_last_touched {
 	my ( $self, $index ) = @_;
 
-	if ($index) {    # if defined
+	if (length($index)) {    # if defined
 
-		if ( $index >= 0 ) {    # -1 does exist in conditions_gui thru default definition
-			$conditions_gui->{_last_flow_index_touched_grey}  = $index;    # internal
-			$conditions_gui->{_last_flow_index_touched_pink}  = $index;    # internal
-			$conditions_gui->{_last_flow_index_touched_green} = $index;    # internal
-			$conditions_gui->{_last_flow_index_touched_blue}  = $index;    # internal
-			$conditions_gui->{_last_flow_index_touched}       = $index;    # internal
+		if ( $index >= 0 ) {    # -1 does exist in conditions4flows thru default definition
+			$conditions4flows->{_last_flow_index_touched_grey}  = $index;    # internal
+			$conditions4flows->{_last_flow_index_touched_pink}  = $index;    # internal
+			$conditions4flows->{_last_flow_index_touched_green} = $index;    # internal
+			$conditions4flows->{_last_flow_index_touched_blue}  = $index;    # internal
+			$conditions4flows->{_last_flow_index_touched}       = $index;    # internal
 			$last_flow_index_touched_grey                     = $index;    # for get_hash-ref
 			$last_flow_index_touched_pink                     = $index;    # for get_hash-ref
 			$last_flow_index_touched_green                    = $index;    # for get_hash-ref
@@ -3343,21 +3197,21 @@ sub set_flow_index_last_touched {
 			$is_last_flow_index_touched_blue                  = $true;     # for get_hash-ref
 			$is_last_flow_index_touched                       = $true;     # for get_hash-ref
 
-			#print("1. conditions_gui, set_flow_index_last_touched had index = $conditions_gui->{_last_flow_index_touched}\n");
+			#print("1. conditions4flows, set_flow_index_last_touched had index = $conditions4flows->{_last_flow_index_touched}\n");
 		}
 		else {
-			print("conditions_gui,set_flow_index_touched, missing index\n");
+			print("conditions4flows,set_flow_index_touched, missing index\n");
 		}
 
 	}
 	else {
-		#print("conditions_gui,set_flow_index_touched, index is undefined but needed, so assume index=0\n");
+		#print("conditions4flows,set_flow_index_touched, index is undefined but needed, so assume index=0\n");
 		$index                                            = 0;
-		$conditions_gui->{_last_flow_index_touched_grey}  = $index;        # internal
-		$conditions_gui->{_last_flow_index_touched_pink}  = $index;        # internal
-		$conditions_gui->{_last_flow_index_touched_green} = $index;        # internal
-		$conditions_gui->{_last_flow_index_touched_blue}  = $index;        # internal
-		$conditions_gui->{_last_flow_index_touched}       = $index;        # internal
+		$conditions4flows->{_last_flow_index_touched_grey}  = $index;        # internal
+		$conditions4flows->{_last_flow_index_touched_pink}  = $index;        # internal
+		$conditions4flows->{_last_flow_index_touched_green} = $index;        # internal
+		$conditions4flows->{_last_flow_index_touched_blue}  = $index;        # internal
+		$conditions4flows->{_last_flow_index_touched}       = $index;        # internal
 		$last_flow_index_touched_grey                     = $index;        # for get_hash-ref
 		$last_flow_index_touched_pink                     = $index;        # for get_hash-ref
 		$last_flow_index_touched_green                    = $index;        # for get_hash-ref
@@ -3370,7 +3224,7 @@ sub set_flow_index_last_touched {
 		$is_last_flow_index_touched                       = $true;         # for get_hash-ref
 	}
 
-	# print("1. conditions_gui, set_flow_index_last_touched had index = $index\n");
+	# print("1. conditions4flows, set_flow_index_last_touched had index = $index\n");
 	return ();
 }
 

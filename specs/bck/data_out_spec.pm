@@ -22,10 +22,12 @@ my $DATA_SEISMIC_SU = $Project->DATA_SEISMIC_SU();    # output data directory
 my $data_out  = new data_out;
 my $max_index = $data_out->get_max_index();
 
-my $data_out_spec = {
+my $data_out_spec =  {
+    _CONFIG	 				=> 'Nada',
     _DATA_DIR_IN           => $DATA_SEISMIC_SU,
-    _DATA_DIR_OUT          => $DATA_SEISMIC_SU,
-    _binding_index_aref    => '',
+		_DATA_DIR_OUT          => $DATA_SEISMIC_SU,
+    _CONFIG					=>'Nada',
+	_binding_index_aref    => '',
     _suffix_type_in        => $su,
     _data_suffix_in        => $suffix_su,
     _suffix_type_out       => $su,

@@ -30,17 +30,19 @@ our $VERSION = '1.0.0';
   $itemp_bot_mute_num_points $itemp_bot_mute_num_points_ $itemp_bot_mute_picks_sorted
   $itemp_bot_mute_picks_sorted_ $itemp_bot_mute_picks_sorted_par $itemp_bot_mute_picks_sorted_par_
   $ibot_mute_check_pickfile $ibot_mute_check_pickfile_ $ibot_mute_xfile_picks $ibot_mute_tfile_picks
+  $temp_single_gather_par_file_mute  
   $ivpicks_sorted_par_
   $ms2s $us2s
   $ps
-  $DAT $dat $seg2 $segy $sgy $su
+  $DAT $dat $seg2 $segy $sgy $su $par $none
   $start_time
-  $suffix_DAT $suffix_dat $suffix_ascii $suffix_text $suffix_bin $suffix_bot_mute $suffix_top_mute $suffix_fft $suffix_fp
+  $suffix_DAT $suffix_dat $suffix_ascii $suffix_none $suffix_par $suffix_text $suffix_bin $suffix_bot_mute $suffix_top_mute $suffix_fft $suffix_fp
   $suffix_geom $suffix_hyphen $suffix_isurf $suffix_lsu $suffix_mute $suffix_null 
   $suffix_ps $suffix_rev
   $suffix_segd $suffix_segy $suffix_sgy $suffix_su $suffix_seg2 $suffix_taup $suffix_top_mute $suffix_usp $suffix_itop_mute
   $suffix_sac $suffix_txt $prefix_taup_picks_ $prefix_taup_picks $out
-  $suffix_target $suffix_param $suffix_env $suffix_report $to $txt $text $tracf $tracl $trid $year);
+  $suffix_target $suffix_param $suffix_env $suffix_report $to $txt $text $tracf $tracl $trid $year
+  $tmute $xmute );
 
 # suffix_types
 our $DAT  = 'DAT;';
@@ -50,6 +52,8 @@ our $su   = 'su';
 our $segy = 'segy';
 our $sgy  = 'sgy';
 our $bin  = 'bin';
+our	$none = '';
+our $par  = 'par';
 
 #	our $txt							= 'txt';   ALSO in SEGY HEADERS- below
 our $text = 'text';
@@ -97,6 +101,9 @@ our $ibot_mute_check_pickfile_        = '.ibotmute_pickfile_exists_';
 our $ibot_mute_check_pickfile         = '.ibotmute_pickfile_exists_';
 our $ibot_mute_xfile_picks            = 'bot_mute_xfile_picks';
 our $ibot_mute_tfile_picks            = 'bot_mute_tfile_picks';
+our $temp_single_gather_par_file_mute = '.temp_single_gather_par_file_mute';
+our $tmute							  = 'tmute';
+our $xmute							  = 'xmute';
 
 our $gather_numo_suffix = '_gather';
 
@@ -171,6 +178,10 @@ our $_stkvel = '_stkvel';
 our $suffix_ascii = '.asc';
 
 our $suffix_bin = '.bin';
+
+our $suffix_none=	'';
+
+our $suffix_par = '.par';
 
 our $start_time = 'start_time';
 

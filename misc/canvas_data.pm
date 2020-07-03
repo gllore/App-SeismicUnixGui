@@ -697,7 +697,7 @@ sub set_seismic_plot_y_offset_pix {
 
 =head2 sub set_widget
 
-
+my $var     = $immodpg->var();
 =cut
 
 sub set_widget {

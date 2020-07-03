@@ -21,10 +21,12 @@ my $DATA_SEISMIC_TXT = $Project->DATA_SEISMIC_TXT();    # output data directory
 my $iPick_config = new iPick_config;
 my $max_index    = $iPick_config->get_max_index();
 
-my $iPick_spec = {
+my $iPick_spec =  {
+    _CONFIG	 				=> 'Nada',
     _DATA_DIR_IN           => $DATA_SEISMIC_SU,
     _DATA_DIR_OUT          => $DATA_SEISMIC_TXT,
-    _binding_index_aref    => '',
+    _CONFIG					=>'Nada',
+	_binding_index_aref    => '',
     _suffix_type_in        => $su,
     _data_suffix_in        => $suffix_su,
     _suffix_type_out       => $txt,

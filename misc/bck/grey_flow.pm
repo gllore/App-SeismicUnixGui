@@ -727,7 +727,7 @@ sub _check4parameter_changes {
 	# param_flow_color stores Data
 	_set_param_flow_color_i($flow_color);
 
-	# N.B., {_last_parameter_index_touched_color} < 0
+	# N.B., if {_last_parameter_index_touched_color} < 0
 	# does exist and means the parameters are untouched
 	if ( $color_flow->{_last_parameter_index_touched_color} >= 0 ) {
 
@@ -740,7 +740,7 @@ sub _check4parameter_changes {
 		$color_flow->{_names_aref}                  = $param_widgets->get_labels_aref();
 		$color_flow->{_check_buttons_settings_aref} = $param_widgets->get_check_buttons_aref();
 
-		# $color_flow->{_values_aref}					= $param_flow_color_pkg ->get_values_aref();
+		# $color_flow->{_values_aref}				= $param_flow_color_pkg ->get_values_aref();
 
 		# For flow item index of the program in the color-flow listbox that is currently being used,
 		# i.e., not the index of the last-used program
@@ -1644,6 +1644,7 @@ sub add2flow_button {
 		_check4flow_changes();
 	}
 	else {
+		print("NADA, number of flow items is <1 or >1")
 	}
 
 	$color_flow->{_flow_type} = $flow_type->{_user_built};
@@ -1710,7 +1711,6 @@ sub add2flow_button {
 	$param_widgets->set_check_buttons( $color_flow->{_check_buttons_settings_aref} );
 	$param_widgets->redisplay_labels();
 	$param_widgets->redisplay_values();
-
 	$param_widgets->redisplay_check_buttons();
 
 	# Collect and store prog versions changed in list box
@@ -2012,91 +2012,91 @@ sub drag {
 	}
 }
 
-=head2 sub drop
-
-   Item is successfully moved from one part of the flow
-   listbox to another part of the same listbox
-   
-   drop does not occur if the user drags the item out of
-   the listbox area
-   
-	
-	$whereami					->set4moveNdrop_in_flow();
-	my $here 					= $whereami->get4moveNdrop_in_flow();
-	$param_widgets				->set_location_in_gui($here);
-
-    print("drop,confirm done\n");
-    
-	make param_widgets not detect any entry changes
-	This IS needed for sub flow_select also not to sense previous changes
-	or else the stored parameters in the flow will not be correct
-   	$param_widgets->set_entry_change_status($false);
-   	
-   	TODO: Refactoring
-   	Encapsulation is poor:
-   		gets from:
-   			$color_flow
-   			$flow_widgets
-   			$flow_listbox_color_w  	
-   	
-   	 	sets:
-   	 		$color_flow
-   			$flow_listbox_color_w
-   			$flow_widgets
-
-	calls external _stack_versions
-	calls external _move_in_stored_flows
-	
-	happens inside a Listbox only
-	
-=cut
-
-sub drop {
-	my ($self) = @_;
-	my $done;
-	my $chosen_index_to_drop = $flow_widgets->drag_end($dnd_token_grey);
-	my $prog_name;
-
-	# listbox must have at least one item
-	if ( $color_flow->{_prog_name_sref} ) {
-		$prog_name = ${ $color_flow->{_prog_name_sref} };
-
-	}
-
-	if ( $prog_name && $chosen_index_to_drop && $chosen_index_to_drop >= 0 ) {    # same as destination_index
-
-		# if insertion occurs within the listbox
-		$color_flow->{_index2move}        = $flow_widgets->index2move();
-		$color_flow->{_destination_index} = $flow_widgets->destination_index;
-
-		# note the last program that was touched
-		$color_flow->{_last_flow_index_touched}         = $color_flow->{_destination_index};
-		$color_flow->{_is_last_flow_index_touched_grey} = $true;
-
-		# move stored data in agreement with this drop
-		_move_in_stored_flows();
-
-		# update program versions if listbox changes
-		# stored in param_flows
-		_stack_versions();
-
-		# If there is no delete while dragging
-		# the counter is also increased, so
-		# reset drag and drop vigil_on_delete counter
-		# this is a bug in the DragandDrop package
-
-		$flow_widgets->set_vigil_on_delete();
-
-		$flow_widgets->dec_vigil_on_delete_counter(2);
-
-		# highlight new index
-		_set_flow_listbox_color_w($flow_color);    # in "color"_flow namespace
-		$flow_listbox_color_w->selectionSet( $color_flow->{_destination_index}, );
-
-		#$flow_listbox_grey_w    ->selectionSet( $color_flow->{_destination_index},);
-
-	}
-}
+#=head2 sub drop
+#
+#   Item is successfully moved from one part of the flow
+#   listbox to another part of the same listbox
+#   
+#   drop does not occur if the user drags the item out of
+#   the listbox area
+#   
+#	
+#	$whereami					->set4moveNdrop_in_flow();
+#	my $here 					= $whereami->get4moveNdrop_in_flow();
+#	$param_widgets				->set_location_in_gui($here);
+#
+#    print("drop,confirm done\n");
+#    
+#	make param_widgets not detect any entry changes
+#	This IS needed for sub flow_select also not to sense previous changes
+#	or else the stored parameters in the flow will not be correct
+#   	$param_widgets->set_entry_change_status($false);
+#   	
+#   	TODO: Refactoring
+#   	Encapsulation is poor:
+#   		gets from:
+#   			$color_flow
+#   			$flow_widgets
+#   			$flow_listbox_color_w  	
+#   	
+#   	 	sets:
+#   	 		$color_flow
+#   			$flow_listbox_color_w
+#   			$flow_widgets
+#
+#	calls external _stack_versions
+#	calls external _move_in_stored_flows
+#	
+#	happens inside a Listbox only
+#	
+#=cut
+#
+#sub drop {
+#	my ($self) = @_;
+#	my $done;
+#	my $chosen_index_to_drop = $flow_widgets->drag_end($dnd_token_grey);
+#	my $prog_name;
+#
+#	# listbox must have at least one item
+#	if ( $color_flow->{_prog_name_sref} ) {
+#		$prog_name = ${ $color_flow->{_prog_name_sref} };
+#
+#	}
+#
+#	if ( $prog_name && $chosen_index_to_drop && $chosen_index_to_drop >= 0 ) {    # same as destination_index
+#
+#		# if insertion occurs within the listbox
+#		$color_flow->{_index2move}        = $flow_widgets->index2move();
+#		$color_flow->{_destination_index} = $flow_widgets->destination_index;
+#
+#		# note the last program that was touched
+#		$color_flow->{_last_flow_index_touched}         = $color_flow->{_destination_index};
+#		$color_flow->{_is_last_flow_index_touched_grey} = $true;
+#
+#		# move stored data in agreement with this drop
+#		_move_in_stored_flows();
+#
+#		# update program versions if listbox changes
+#		# stored in param_flows
+#		_stack_versions();
+#
+#		# If there is no delete while dragging
+#		# the counter is also increased, so
+#		# reset drag and drop vigil_on_delete counter
+#		# this is a bug in the DragandDrop package
+#
+#		$flow_widgets->set_vigil_on_delete();
+#
+#		$flow_widgets->dec_vigil_on_delete_counter(2);
+#
+#		# highlight new index
+#		_set_flow_listbox_color_w($flow_color);    # in "color"_flow namespace
+#		$flow_listbox_color_w->selectionSet( $color_flow->{_destination_index}, );
+#
+#		#$flow_listbox_grey_w    ->selectionSet( $color_flow->{_destination_index},);
+#
+#	}
+#}
 
 =head2 sub flow_item_down_arrow_button
 
@@ -2381,9 +2381,8 @@ sub flow_select {
 
 	$color_flow->{_flow_type} = $flow_type->{_user_built};
 
-	# print("1. color_flow,flow_select, last_flow_index_touched:$color_flow->{_last_flow_index_touched}\n");
-	# print("gui_history_aref = $gui_history_aref\n");
-	# print("color_flow,flow_select, last_flow_color:$color_flow->{_last_flow_color}\n");
+	print("1. color_flow,flow_select, last_flow_index_touched:$color_flow->{_last_flow_index_touched}\n");	
+	print("color_flow,flow_select, last_flow_color:$color_flow->{_last_flow_color}\n");
 
 	# reset residual flow_listbox_color_w of another color
 	_set_flow_listbox_color_w($flow_color);
@@ -2908,8 +2907,8 @@ sub save_button {
 
 		# Start refocus index in flow, in case focus has been removed
 		# e.g., by double-clicking in parameter values window
-		my $last_flow_index = $color_flow->{_last_flow_index_touched};
-		$last_flow_color = $color_flow->{_last_flow_color};
+		my $last_flow_index	= $color_flow->{_last_flow_index_touched};
+			$last_flow_color = $color_flow->{_last_flow_color};
 
 		if (   $last_flow_color
 			&& $last_flow_index

@@ -38,50 +38,55 @@ sub kill {
 		if ( $this eq 'ximage' || $this eq 'suximage' ) {
 
 			system("killall ximage -wq");
-		}
-		elsif ( $this eq 'suxwigb' || $this eq 'xwigb' ) {
+		} elsif ( $this eq 'suxwigb' || $this eq 'xwigb' ) {
 
 			# do it -wq uietly
 			system("killall xwigb -wq");
 
-		}
-		elsif ( $this eq 'suxgraph' || $this eq 'xgraph' ) {
-		}
-		else {
+		} elsif ( $this eq 'suxgraph' || $this eq 'xgraph' ) {
+		} else {
 			system("killall $xk->{_process} -wq");
 		}
-	}
-	else {
+	} else {
 		print("xk,kill,missing process\n");
 	}
 }
 
+sub kill_process {
+
+	my ($self) = @_;
+
+	if ( defined $xk->{_process}
+		&& $xk->{_process} ne $empty_string ) {
+		system("killall $xk->{_process} -wq");
+	} else {
+		print("xk,kill,missing process\n");
+	}
+	return ();
+}
+
 sub kill_this {
 
-	my ($self,$process) = @_;
+	my ( $self, $process ) = @_;
 
-	if ( defined $process &&
-		 $process ne $empty_string ) {
+	if ( defined $process
+		&& $process ne $empty_string ) {
 
 		my $this = $process;
 
 		if ( $this eq 'ximage' || $this eq 'suximage' ) {
 
 			system("killall ximage -wq");
-		}
-		elsif ( $this eq 'suxwigb' || $this eq 'xwigb' ) {
+		} elsif ( $this eq 'suxwigb' || $this eq 'xwigb' ) {
 
 			# do it -wq uietly
 			system("killall xwigb -wq");
 
-		}
-		elsif ( $this eq 'suxgraph' || $this eq 'xgraph' ) {
-		}
-		else {
+		} elsif ( $this eq 'suxgraph' || $this eq 'xgraph' ) {
+		} else {
 			system("killall $xk->{_process} -wq");
 		}
-	}
-	else {
+	} else {
 		print("xk,kill,missing process\n");
 	}
 }
@@ -91,15 +96,13 @@ sub set_process {
 	my ( $self, $process ) = @_;
 
 	if ( defined $process
-		&& $process ne $empty_string )
-	{
+		&& $process ne $empty_string ) {
 
 		my $program_name = $process;
 		$xk->{_process} = $program_name;
 
 		return ();
-	}
-	else {
+	} else {
 		print("xk,kill_this, missing process \n");
 	}
 }

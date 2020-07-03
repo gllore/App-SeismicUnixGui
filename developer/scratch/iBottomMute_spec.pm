@@ -22,6 +22,7 @@ package iBottomMute_spec;
 
 
 	my $iBottomMute_spec = {
+	_CONFIG					=> 'Nada'
 	_DATA_DIR_IN		    => $DATA_SEISMIC_SU,
 	_DATA_DIR_OUT		    => $DATA_SEISMIC_SU,
 	_binding_index_aref	    => '',

@@ -23,10 +23,12 @@ my $DATA_SEISMIC_SU  = $Project->DATA_SEISMIC_SU();
 my $DATA_SEISMIC_BIN = $Project->DATA_SEISMIC_BIN();
 my $max_index        = $sushw->get_max_index();
 
-my $sushw_spec = {
+my $sushw_spec =  {
+    _CONFIG	 				=> 'Nada',
     _DATA_DIR_IN           => $DATA_SEISMIC_SU,
-    _DATA_DIR_OUT          => $DATA_SEISMIC_SU,
-    _binding_index_aref    => '',
+		_DATA_DIR_OUT          => $DATA_SEISMIC_SU,
+    _CONFIG					=>'Nada',
+	_binding_index_aref    => '',
     _suffix_type_in        => $su,
     _data_suffix_in        => $suffix_su,
     _suffix_type_out       => $su,

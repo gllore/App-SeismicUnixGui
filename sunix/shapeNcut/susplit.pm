@@ -23,17 +23,11 @@ Version:
 =head3 SEISMIC UNIX NOTES
  SUSPLIT - Split traces into different output files by keyword value	
 
-
-
      susplit <stdin >stdout [options]					
-
-
 
  Required Parameters:							
 
 	none								
-
-
 
  Optional Parameters:							
 
@@ -52,7 +46,6 @@ Version:
 	close=1		=1 to close files before opening new ones	
 
 
-
  Notes:								
 
  The most efficient way to use this program is to presort the input data
@@ -60,18 +53,12 @@ Version:
  into common keyword gathers, prior to using susplit.			"
 
 
-
  Use "suputgthr" to put SU data into SU data directory format.	
-
 
 
  Credits:
 
 	Geocon: Garry Perratt hacked together from various other codes
-
- 
-
-
 
 =head2 CHANGES and their DATES
 
@@ -79,7 +66,6 @@ Version:
 
 use Moose;
 our $VERSION = '0.0.1';
-
 
 =head2 Import packages
 
@@ -90,39 +76,38 @@ use L_SU_global_constants();
 use SeismicUnix qw ($in $out $on $go $to $suffix_ascii $off $suffix_su $suffix_bin);
 use Project_config;
 
-
 =head2 instantiation of packages
 
 =cut
 
-my $get					= new L_SU_global_constants();
-my $Project				= new Project_config();
-my $DATA_SEISMIC_SU		= $Project->DATA_SEISMIC_SU();
-my $DATA_SEISMIC_BIN	= $Project->DATA_SEISMIC_BIN();
-my $DATA_SEISMIC_TXT	= $Project->DATA_SEISMIC_TXT();
+my $get              = new L_SU_global_constants();
+my $Project          = new Project_config();
+my $DATA_SEISMIC_SU  = $Project->DATA_SEISMIC_SU();
+my $DATA_SEISMIC_BIN = $Project->DATA_SEISMIC_BIN();
+my $DATA_SEISMIC_TXT = $Project->DATA_SEISMIC_TXT();
 
-my $var				= $get->var();
-my $on				= $var->{_on};
-my $off				= $var->{_off};
-my $true			= $var->{_true};
-my $false			= $var->{_false};
-my $empty_string	= $var->{_empty_string};
+my $var          = $get->var();
+my $on           = $var->{_on};
+my $off          = $var->{_off};
+my $true         = $var->{_true};
+my $false        = $var->{_false};
+my $empty_string = $var->{_empty_string};
 
 =head2 Encapsulated
 hash of private variables
 
 =cut
 
-my $susplit			= {
-	_close					=> '',
-	_key					=> '',
-	_middle					=> '',
-	_numlength					=> '',
-	_stem					=> '',
-	_suffix					=> '',
-	_verbose					=> '',
-	_Step					=> '',
-	_note					=> '',
+my $susplit = {
+	_close     => '',
+	_key       => '',
+	_middle    => '',
+	_numlength => '',
+	_stem      => '',
+	_suffix    => '',
+	_verbose   => '',
+	_Step      => '',
+	_note      => '',
 
 };
 
@@ -133,13 +118,12 @@ by adding the program name
 
 =cut
 
- sub  Step {
+sub Step {
 
-	$susplit->{_Step}     = 'susplit'.$susplit->{_Step};
+	$susplit->{_Step} = 'susplit' . $susplit->{_Step};
 	return ( $susplit->{_Step} );
 
- }
-
+}
 
 =head2 sub note
 
@@ -148,185 +132,174 @@ by adding the program name
 
 =cut
 
- sub  note {
+sub note {
 
-	$susplit->{_note}     = 'susplit'.$susplit->{_note};
+	$susplit->{_note} = 'susplit' . $susplit->{_note};
 	return ( $susplit->{_note} );
 
- }
-
-
+}
 
 =head2 sub clear
 
 =cut
 
- sub clear {
+sub clear {
 
-		$susplit->{_close}			= '';
-		$susplit->{_key}			= '';
-		$susplit->{_middle}			= '';
-		$susplit->{_numlength}			= '';
-		$susplit->{_stem}			= '';
-		$susplit->{_suffix}			= '';
-		$susplit->{_verbose}			= '';
-		$susplit->{_Step}			= '';
-		$susplit->{_note}			= '';;
- }
-
+	$susplit->{_close}     = '';
+	$susplit->{_key}       = '';
+	$susplit->{_middle}    = '';
+	$susplit->{_numlength} = '';
+	$susplit->{_stem}      = '';
+	$susplit->{_suffix}    = '';
+	$susplit->{_verbose}   = '';
+	$susplit->{_Step}      = '';
+	$susplit->{_note}      = '';
+}
 
 =head2 sub close 
 
 
 =cut
 
- sub close {
+sub close {
 
-	my ( $self,$close )		= @_;
+	my ( $self, $close ) = @_;
 	if ( $close ne $empty_string ) {
 
-		$susplit->{_close}		= $close;
-		$susplit->{_note}		= $susplit->{_note}.' close='.$susplit->{_close};
-		$susplit->{_Step}		= $susplit->{_Step}.' close='.$susplit->{_close};
+		$susplit->{_close} = $close;
+		$susplit->{_note}  = $susplit->{_note} . ' close=' . $susplit->{_close};
+		$susplit->{_Step}  = $susplit->{_Step} . ' close=' . $susplit->{_close};
 
-	} else { 
+	} else {
 		print("susplit, close, missing close,\n");
-	 }
- }
-
+	}
+}
 
 =head2 sub key 
 
 
 =cut
 
- sub key {
+sub key {
 
-	my ( $self,$key )		= @_;
+	my ( $self, $key ) = @_;
 	if ( $key ne $empty_string ) {
 
-		$susplit->{_key}		= $key;
-		$susplit->{_note}		= $susplit->{_note}.' key='.$susplit->{_key};
-		$susplit->{_Step}		= $susplit->{_Step}.' key='.$susplit->{_key};
+		$susplit->{_key}  = $key;
+		$susplit->{_note} = $susplit->{_note} . ' key=' . $susplit->{_key};
+		$susplit->{_Step} = $susplit->{_Step} . ' key=' . $susplit->{_key};
 
-	} else { 
+	} else {
 		print("susplit, key, missing key,\n");
-	 }
- }
-
+	}
+}
 
 =head2 sub middle 
 
 
 =cut
 
- sub middle {
+sub middle {
 
-	my ( $self,$middle )		= @_;
+	my ( $self, $middle ) = @_;
 	if ( $middle ne $empty_string ) {
 
-		$susplit->{_middle}		= $middle;
-		$susplit->{_note}		= $susplit->{_note}.' middle='.$susplit->{_middle};
-		$susplit->{_Step}		= $susplit->{_Step}.' middle='.$susplit->{_middle};
+		$susplit->{_middle} = $middle;
+		$susplit->{_note}   = $susplit->{_note} . ' middle=' . $susplit->{_middle};
+		$susplit->{_Step}   = $susplit->{_Step} . ' middle=' . $susplit->{_middle};
 
-	} else { 
+	} else {
 		print("susplit, middle, missing middle,\n");
-	 }
- }
-
+	}
+}
 
 =head2 sub numlength 
 
 
 =cut
 
- sub numlength {
+sub numlength {
 
-	my ( $self,$numlength )		= @_;
+	my ( $self, $numlength ) = @_;
 	if ( $numlength ne $empty_string ) {
 
-		$susplit->{_numlength}		= $numlength;
-		$susplit->{_note}		= $susplit->{_note}.' numlength='.$susplit->{_numlength};
-		$susplit->{_Step}		= $susplit->{_Step}.' numlength='.$susplit->{_numlength};
+		$susplit->{_numlength} = $numlength;
+		$susplit->{_note}      = $susplit->{_note} . ' numlength=' . $susplit->{_numlength};
+		$susplit->{_Step}      = $susplit->{_Step} . ' numlength=' . $susplit->{_numlength};
 
-	} else { 
+	} else {
 		print("susplit, numlength, missing numlength,\n");
-	 }
- }
-
+	}
+}
 
 =head2 sub stem 
 
 
 =cut
 
- sub stem {
+sub stem {
 
-	my ( $self,$stem )		= @_;
+	my ( $self, $stem ) = @_;
 	if ( $stem ne $empty_string ) {
 
-		$susplit->{_stem}		= $stem;
-		$susplit->{_note}		= $susplit->{_note}.' stem='.$susplit->{_stem};
-		$susplit->{_Step}		= $susplit->{_Step}.' stem='.$susplit->{_stem};
+		$susplit->{_stem} = $stem;
+		$susplit->{_note} = $susplit->{_note} . ' stem=' . $susplit->{_stem};
+		$susplit->{_Step} = $susplit->{_Step} . ' stem=' . $susplit->{_stem};
 
-	} else { 
+	} else {
 		print("susplit, stem, missing stem,\n");
-	 }
- }
-
+	}
+}
 
 =head2 sub suffix 
 
 
 =cut
 
- sub suffix {
+sub suffix {
 
-	my ( $self,$suffix )		= @_;
+	my ( $self, $suffix ) = @_;
 	if ( $suffix ne $empty_string ) {
 
-		$susplit->{_suffix}		= $suffix;
-		$susplit->{_note}		= $susplit->{_note}.' suffix='.$susplit->{_suffix};
-		$susplit->{_Step}		= $susplit->{_Step}.' suffix='.$susplit->{_suffix};
+		$susplit->{_suffix} = $suffix;
+		$susplit->{_note}   = $susplit->{_note} . ' suffix=' . $susplit->{_suffix};
+		$susplit->{_Step}   = $susplit->{_Step} . ' suffix=' . $susplit->{_suffix};
 
-	} else { 
+	} else {
 		print("susplit, suffix, missing suffix,\n");
-	 }
- }
-
+	}
+}
 
 =head2 sub verbose 
 
 
 =cut
 
- sub verbose {
+sub verbose {
 
-	my ( $self,$verbose )		= @_;
+	my ( $self, $verbose ) = @_;
 	if ( $verbose ne $empty_string ) {
 
-		$susplit->{_verbose}		= $verbose;
-		$susplit->{_note}		= $susplit->{_note}.' verbose='.$susplit->{_verbose};
-		$susplit->{_Step}		= $susplit->{_Step}.' verbose='.$susplit->{_verbose};
+		$susplit->{_verbose} = $verbose;
+		$susplit->{_note}    = $susplit->{_note} . ' verbose=' . $susplit->{_verbose};
+		$susplit->{_Step}    = $susplit->{_Step} . ' verbose=' . $susplit->{_verbose};
 
-	} else { 
+	} else {
 		print("susplit, verbose, missing verbose,\n");
-	 }
- }
-
+	}
+}
 
 =head2 sub get_max_index
 
 max index = number of input variables -1
  
 =cut
- 
-sub get_max_index {
- 	  my ($self) = @_;
-    my $max_index = 3;
 
-    return($max_index);
+sub get_max_index {
+	my ($self) = @_;
+	my $max_index = 3;
+
+	return ($max_index);
 }
- 
- 
-1; 
+
+1;

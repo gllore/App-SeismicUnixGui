@@ -23,6 +23,7 @@ package iVA_spec;
 	my $max_index           = $iVA_config->get_max_index();
 
 	my $iVA_spec = {
+	_CONFIG					=> 'Nada'
 	_DATA_DIR_IN		    => $DATA_SEISMIC_SU,
 	_DATA_DIR_OUT		    => $DATA_SEISMIC_SU,
 	_binding_index_aref	    => '',

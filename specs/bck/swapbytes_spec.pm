@@ -22,10 +22,12 @@ my $flow_type        = $get->flow_type_href();
 my $DATA_SEISMIC_BIN = $Project->DATA_SEISMIC_BIN();    # output data directory
 my $max_index        = $swapbytes->get_max_index();
 
-my $swapbytes_spec = {
+my $swapbytes_spec =  {
+    _CONFIG	 				=> 'Nada',
     _DATA_DIR_IN           => $DATA_SEISMIC_BIN,
     _DATA_DIR_OUT          => $DATA_SEISMIC_BIN,
-    _binding_index_aref    => '',
+    _CONFIG					=>'Nada',
+	_binding_index_aref    => '',
     _suffix_type_in        => $bin,
     _data_suffix_in        => $suffix_bin,
     _suffix_type_out       => $bin,

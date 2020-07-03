@@ -22,10 +22,12 @@ my $flow_type        = $get->flow_type_href();
 my $PL_SEISMIC = $Project->PL_SEISMIC();     # parfile data directory
 my $max_index  = $sumute->get_max_index();
 
-my $sumute_spec = {
+my $sumute_spec =  {
+    _CONFIG	 				=> 'Nada',
     _DATA_DIR_IN           => $PL_SEISMIC,
     _DATA_DIR_OUT          => $PL_SEISMIC,
-    _binding_index_aref    => '',
+    _CONFIG					=>'Nada',
+	_binding_index_aref    => '',
     _suffix_type_in        => $su,
     _data_suffix_in        => $suffix_su,
     _suffix_type_out       => $su,

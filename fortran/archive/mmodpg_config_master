@@ -1,0 +1,16 @@
+pre_digitized_XT_pairs		= yes
+data_traces		= yes
+clip		= 10.0
+min_t_s		= 100.000000
+min_x_m		= 100000.000000
+x_increment_m		= 25.000
+source_depth_m		= 0.
+receiver_depth_m		= 0.
+reducing_vel_mps		= 1000.
+plot_min_x_m		= 0.
+plot_max_x_m		= 1000.
+plot_min_t_s		= 1000.
+plot_max_t_s		= 1000.
+previous_model		= yes
+new_model			= no
+starting_layer      = 1

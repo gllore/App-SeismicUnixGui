@@ -91,7 +91,8 @@ my $surange = surange->new();
 my $var          = $get->var();
 my $empty_string = $var->{_empty_string};
 
-my $suinfo = {
+my $suinfo =  {
+    _CONFIG	 				=> $PL_SEISMIC,
     _DATA_DIR_IN                    => '',
     _first                          => '',
     _inbound_base_file_name         => '',
