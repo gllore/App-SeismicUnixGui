@@ -107,7 +107,17 @@ read_layer_file.o: $(L_SU_FORTRAN_SRC)/read_layer_file.f
 	$(FORTRAN_COMPILER) $(FORTRAN95_FLAGS) \
 	-c $(L_SU_FORTRAN_SRC)/read_layer_file.f \
 	-o $(L_SU_FORTRAN_OBJ)/read_layer_file.o
-
+	
+read_thickness_increment_m_file.o: $(L_SU_FORTRAN_SRC)/read_thickness_increment_m_file.f
+	$(FORTRAN_COMPILER) $(FORTRAN95_FLAGS) \
+	-c $(L_SU_FORTRAN_SRC)/read_thickness_increment_m_file.f \
+	-o $(L_SU_FORTRAN_OBJ)/read_thickness_increment_m_file.o
+	
+read_thickness_m_file.o: $(L_SU_FORTRAN_SRC)/read_thickness_m_file.f
+	$(FORTRAN_COMPILER) $(FORTRAN95_FLAGS) \
+	-c $(L_SU_FORTRAN_SRC)/read_thickness_m_file.f \
+	-o $(L_SU_FORTRAN_OBJ)/read_thickness_m_file.o
+	
 read_option_file.o: $(L_SU_FORTRAN_SRC)/read_option_file.f
 	$(FORTRAN_COMPILER) $(FORTRAN95_FLAGS) \
 	-c $(L_SU_FORTRAN_SRC)/read_option_file.f \
@@ -183,7 +193,8 @@ denfvp.o thi.o wrimod2.o txpr.o txgrd.o moveNzoom.o \
 readVbot_file.o readVbot_upper_file.o readVtop_file.o readVtop_lower_file.o \
 readVincrement_file.o readVbotNtop_factor_file.o read_bin_data.o \
 read_immodpg_config.o \
-read_clip_file.o read_layer_file.o read_option_file.o read_parmmod_file.o \
+read_clip_file.o read_layer_file.o read_thickness_m_file.o  read_thickness_increment_m_file.o  \
+read_option_file.o read_parmmod_file.o \
 read_yes_no_file.o \
 write_model_file_text.o write_yes_no_file.o \
 messa.o Project_config.o
@@ -208,6 +219,8 @@ messa.o Project_config.o
 	$(L_SU_FORTRAN_OBJ)/read_immodpg_config.o \
 	$(L_SU_FORTRAN_OBJ)/read_clip_file.o \
 	$(L_SU_FORTRAN_OBJ)/read_layer_file.o \
+	$(L_SU_FORTRAN_OBJ)/read_thickness_increment_m_file.o \
+	$(L_SU_FORTRAN_OBJ)/read_thickness_m_file.o \
 	$(L_SU_FORTRAN_OBJ)/read_option_file.o \
 	$(L_SU_FORTRAN_OBJ)/read_parmmod_file.o \
 	$(L_SU_FORTRAN_OBJ)/read_yes_no_file.o \

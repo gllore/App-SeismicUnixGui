@@ -9,6 +9,7 @@ package iVA_config;
  DATE: Aug 18 2016 
        July 19 2017
        Jan 7 2017
+       Jan 13 2020
  DESCRIPTION Combines configuration variables
      both from a simple text file and from
      from additional packages.
@@ -26,6 +27,8 @@ package iVA_config;
     
   July 19 2017 - added tmax_s parameter to configuration file
   January 7, 2017 - remove outside dependency on Config-Simple
+  
+  Jan 13 2020: data_scale removed from gui; max_index=11
      
 
 =cut
@@ -40,7 +43,6 @@ package iVA_config;
      cdp_inc    				= 1
      cdp_last    				= 100
      tmax_s             		= .2
-     data_scale    				= 1
      dt_s    					= .004
      freq    		    		= '0,3,100,200'
      number_of_velocities   	= 300
@@ -52,7 +54,7 @@ package iVA_config;
 =cut 
 
 use Moose;
-our $VERSION = '1.0.0';
+our $VERSION = '1.0.1';
 use config_superflows;
 use control;
 use L_SU_global_constants;
@@ -109,15 +111,14 @@ sub get_values {
     my $cdp_first            = @{ $iVA->{_values_aref} }[1];
     my $cdp_inc              = @{ $iVA->{_values_aref} }[2];
     my $cdp_last             = @{ $iVA->{_values_aref} }[3];
-    my $data_scale           = @{ $iVA->{_values_aref} }[4];
-    my $dt_s                 = @{ $iVA->{_values_aref} }[5];
-    my $tmax_s               = @{ $iVA->{_values_aref} }[6];
-    my $freq                 = @{ $iVA->{_values_aref} }[7];
-    my $number_of_velocities = @{ $iVA->{_values_aref} }[8];
-    my $first_velocity       = @{ $iVA->{_values_aref} }[9];
-    my $velocity_increment   = @{ $iVA->{_values_aref} }[10];
-    my $min_semblance        = @{ $iVA->{_values_aref} }[11];
-    my $max_semblance        = @{ $iVA->{_values_aref} }[12];
+    my $dt_s                 = @{ $iVA->{_values_aref} }[4];
+    my $tmax_s               = @{ $iVA->{_values_aref} }[5];
+    my $freq                 = @{ $iVA->{_values_aref} }[6];
+    my $number_of_velocities = @{ $iVA->{_values_aref} }[7];
+    my $first_velocity       = @{ $iVA->{_values_aref} }[8];
+    my $velocity_increment   = @{ $iVA->{_values_aref} }[9];
+    my $min_semblance        = @{ $iVA->{_values_aref} }[10];
+    my $max_semblance        = @{ $iVA->{_values_aref} }[11];
 
     # check on formats
     $freq = $control->commas( \$freq );    # needed?
@@ -136,7 +137,6 @@ sub get_values {
                 cdp_inc              => $cdp_inc,
                 cdp_last             => $cdp_last,
                 tmax_s               => $tmax_s,
-                data_scale           => $data_scale,
                 dt_s                 => $dt_s,
                 freq                 => $freq,
                 first_velocity       => $first_velocity,
@@ -160,8 +160,8 @@ max index = number of input variables -1
 sub get_max_index {
     my ($self) = @_;
 
-    # only file_name : index=12
-    my $max_index = 12;
+    # only file_name : index=11
+    my $max_index = 11;
 
     return ($max_index);
 }

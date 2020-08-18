@@ -33,8 +33,8 @@
 
 	my $DATA_SEISMIC_SU = $Project->DATA_SEISMIC_SU;
 
-	use misc::message;
-	use misc::flow;
+	use message;
+	use flow;
 
 
 	my $log					= new message();

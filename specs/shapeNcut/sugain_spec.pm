@@ -23,6 +23,7 @@ my $PL_SEISMIC        = $Project->PL_SEISMIC();
 my $max_index       = $sugain->get_max_index();
 
 my $sugain_spec = {
+	_CONFIG						=> $PL_SEISMIC ,
 	_DATA_DIR_OUT          => $DATA_SEISMIC_SU,
 	_DATA_DIR_OUT          => $DATA_SEISMIC_SU,
 	_binding_index_aref    => '',

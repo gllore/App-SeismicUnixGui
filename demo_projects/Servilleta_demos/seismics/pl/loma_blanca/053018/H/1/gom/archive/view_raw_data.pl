@@ -36,8 +36,8 @@ Version:
 
 	use misc::message;
 	use misc::flow;
-	use sunix::data::data_in;
-	use sunix::plot::suximage;
+	use  data_in;
+	use  suximage;
 
 	my $log					= new message();
 	my $run					= new flow();

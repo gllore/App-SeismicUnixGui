@@ -13,29 +13,34 @@
        dimension IR(nlmax-1),VT(nlmax),VB(nlmax),DZ(nlmax)
        dimension VST(nlmax),VSB(nlmax),RHOT(nlmax),RHOB(nlmax)
        dimension va(2*nlmax),za(2*nlmax)
+       dimension va_prior(2*nlmax), za_prior(2*nlmax)
        dimension multin(nlmax)
        dimension ILA(npmax),P(npmax),X(npmax),T(npmax)
        dimension xa1(npamax),xa2(npamax),xa3(npamax),xa4(npamax)
-
+       real   a1,a2,a1_prior,a2_prior
 !      next line added on Aug 20 2013
-       dimension xout(npmax,nlmax),tout(npmax,nlmax),array_ntp(npmax)
+       dimension xout(npmax,nlmax)
+       dimension tout(npmax,nlmax),array_ntp(npmax)
 
        dimension xdig(nxymax),tdig(nxymax)
        character*255 set_DIR, get_DIR
        character*300 inboundVincrement, inboundVbotNtop_factor
        character*300 inbound_change, inbound_config, inbound_option
        character*300 inbound_layer, inbound_par, inbound_clip
-       character*300 inbound_Vbot,inbound_Vtop
-       character*300 inbound_Vbot_upper,inbound_Vtop_lower
-       character*300 outbound_option, outbound_model
+        character*300 inbound_thickness_m
+       character*300 inboundVbot,inboundVtop
+       character*300 inboundVbot_upper,inboundVtop_lower
+       character*300 outbound_option, outbound_model_txt
+       character*300  outbound_model_bin
        character val,finxy*40
        character*40 change_file,config_file,no,option_file,layer_file
-       character*40 clip_file, model_file_text
+       character*40 clip_file, model_file_text, thickness_m_file
+       character*40 model_file_bin
        character*40 Vbot_file,Vbot_upper_file,Vtop_file,Vtop_lower_file
        character*40 Vincrement_file, VbotNtop_factor_file
        character*40 par_file, moveNzoom_file
        logical   flag, is_change, base_file,ans
-       integer   sleep_time_s
+       integer   sleep_time_s, upper_layer_number,lower_layer_number
        integer   option,layer,option_default
        integer   VtopNVot_upper_layer_opt
        integer   VbotNVtop_lower_layer_opt
@@ -46,24 +51,34 @@
        integer   VtopNVbot_upper_layer_minus_opt
        integer   VbotNVtop_lower_layer_plus_opt
        integer   VbotNVtop_lower_layer_minus_opt
-       integer   changeVbotNtop_factor_opt,zoom_plus_opt,zoom_minus_opt
+       integer   change_VbotNtop_factor_opt,zoom_plus_opt
+       integer    zoom_minus_opt
        integer   VbotNtop_multiply_opt
+       integer    changeVtop_lower_layer_opt,  changeVbot_upper_layer_opt
+       integer    changeVbot_opt, changeVtop_opt
        integer   move_image_down_opt, move_image_left_opt
        integer   move_image_up_opt,move_image_right_opt
-       integer   change_thickness_opt, change_velocity_opt
+       integer   change_velocity_opt
        integer   change_thickness_increment_opt
        integer   changeVincrement_opt, exit_opt, change_clip4plot_opt
        integer   change_layer_number_opt,new_layer_number
+       integer   change_thickness_m_opt
+       integer   thickness_m_minus_opt, thickness_m_plus_opt
        integer   current_layer_number,prior_layer_number
        integer   current_moveNzoom
        integer   prior_moveNzoom
        integer   new_moveNzoom
+       real     new_thickness_m, current_thickness_m,prior_thickness_m
        real      Vtop_mps,Vbot_mps,Vtop_lower_mps,Vbot_upper_mps
-       real*4    thickness_increment_m, Vincrement_mps, VbotNtop_factor
+       real      Vtop_kmps,Vbot_kmps,Vtop_lower_kmps,Vbot_upper_kmps
+       real*4  thickness_increment_m, Vincrement_mps
+       real*4  thickness_increment_km
+       real*4 VbotNtop_factor, Vincrement_kmps, m2km
        real      current_clip,prior_clip,new_clip, clip_max, clip_min
-       real      priorVincrement, currentVincrement,newVincrement
+       real      priorVincrement_mps, currentVincrement_mps
+       real      newVincrement_mps
        real      prior_thickness_increment_m
-       real      current_thickness_increment_m,new_thickness_increment_m
+       real   current_thickness_increment_m,new_thickness_increment_m
        real      priorVbotNtop_factor, currentVbotNtop_factor
        real      newVbotNtop_factor
        real      priorVtop, currentVtop, newVtop
@@ -79,6 +94,7 @@
 !       DICTIONARY AND DEFINITIONS
 !       array_npt       number of total calcualted points in each layer
 !       change_file     a messaging file contining either yes or no
+
         Vbot_file            = "Vbot"
         Vbot_upper_file      = "Vbot_upper_layer"
         Vincrement_file      = "Vincrement"
@@ -89,6 +105,7 @@
         clip_file           = "clip"
         config_file         = "immodpg.config"
         model_file_text     = "model.txt"
+        model_file_bin       = "immodpg.out"
         is_change           = .FALSE.
         layer_file          = "layer"
         no                  = "no"
@@ -97,20 +114,21 @@
         new_layer_number    = -1
         current_layer_number =-1
         prior_layer_number  =-2
+        thickness_m_file       = "thickness_m"
 
 !      Coded user options
-       Vbot_opt                           = 20
+       changeVbot_opt                           = 20
        Vbot_minus_opt                     = 21
        Vbot_plus_opt                      = 22
-       Vbot_upper_opt                     = 23
+       changeVbot_upper_layer_opt                     = 23
 
        VbotNVtop_lower_layer_minus_opt    = 61
        VbotNVtop_lower_layer_plus_opt     = 62
        VbotNVtop_minus_opt                = 41
        VbotNVtop_plus_opt                 = 42
 
-       Vtop_opt                           = 10
-       Vtop_lower_opt                     = 11
+       changeVtop_opt                           = 10
+       changeVtop_lower_layer_opt                     = 11
        Vtop_minus_opt                     = 12
        Vtop_plus_opt                      = 13
 
@@ -119,11 +137,13 @@
        VtopNVbot_upper_layer_minus_opt    = 51
        VtopNVbot_upper_layer_plus_opt     = 52
        change_layer_number_opt            = 0
-       change_thickness_opt               = 14
+       change_thickness_m_opt               = 14 ! do not forget todo
        change_thickness_increment_opt     = 15
        changeVincrement_opt               = 7
        changeVbotNtop_factor_opt          = 68
        change_clip4plot_opt               = 9
+       thickness_m_minus_opt            = 140
+       thickness_m_plus_opt               = 141
        exit_opt                           = 99
 
        option_default                     = -1
@@ -152,8 +172,11 @@
 !       how often user calls immodpg via a click in the  gui
        sleep_time_s         = 1
        thickness increment_m = 10.
-       Vincrement_mps       = 10
+       Vincrement_mps       = 10.
 !       tout            cal! time output, Aug 2013 by Juan
+!       va and va_prior, za and za_prior are velocity  and depth
+!       vectors for plotting the velocity-versus-depth model om
+!       far right side
 !       xa1
 !       xa2
 !       xa3
@@ -172,6 +195,7 @@
 !       xinc    increment for km/s in modeling or thickness in modelign
 
 ! DEFAULT PARAMETERS
+       m2km =.001
 	sdepth = 0.0
 	rdepth = 0.0
 ! 	pmin   = 0.0
@@ -208,7 +232,7 @@
 ! 	datadt = 0.005
         datat1 = 0.0
         flag   = .false.
-	idred  = 0
+	 idred  = 0
         idrdtr = 0
         idrxy  = 0
 !
@@ -217,38 +241,60 @@
 	  enddo
 
 ! define the different needed directories
-      set_DIR = "IMMODPG"
-      call Project_config(set_DIR,get_DIR)
+        set_DIR = "IMMODPG"
+       call Project_config(set_DIR,get_DIR)
    !     define needed files
-      inbound_config = trim(get_DIR)//"/"//config_file
+       inbound_config = trim(get_DIR)//"/"//config_file
 !      print*, 'immodpg.for, inbound_config:',trim(inbound_config),'--'
-      outbound_model = trim(get_DIR)//"/"//model_file_text
-
-! define the different needeFd directories
-      set_DIR = "IMMODPG_INVISIBLE"
-      call Project_config(set_DIR,get_DIR)
+       outbound_model_txt = trim(get_DIR)//"/"//model_file_text
+       outbound_model_bin = trim(get_DIR)//"/"//model_file_bin
+! define the different needed directories
+       set_DIR = "IMMODPG_INVISIBLE"
+       call Project_config(set_DIR,get_DIR)
 !      print*, '1. immodpg.for, get_DIR:',trim(get_DIR),'--'
 !      print*, '1. immodpg.for, change_file:',change_file,'--'
 !      inbound_change = trim(get_DIR)//"/"//change_file
-      inbound_layer  = trim(get_DIR)//"/"//layer_file
-      inbound_option = trim(get_DIR)//"/"//option_file
-      outbound_option=inbound_option
+       inbound_layer  = trim(get_DIR)//"/"//layer_file
+       inbound_option = trim(get_DIR)//"/"//option_file
+       outbound_option=inbound_option
 
 ! define the different needed directories
-      set_DIR = "IMMODPG_INVISIBLE"
-      call Project_config(set_DIR,get_DIR)
+       set_DIR = "IMMODPG_INVISIBLE"
+       call Project_config(set_DIR,get_DIR)
+       inboundVtop_lower = trim(get_DIR)//"/"//Vtop_lower_file
+
+! define the different needed directories
+       set_DIR = "IMMODPG_INVISIBLE"
+       call Project_config(set_DIR,get_DIR)
+       inboundVbot = trim(get_DIR)//"/"//Vbot_file
+
+! define the different needed directories
+       set_DIR = "IMMODPG_INVISIBLE"
+       call Project_config(set_DIR,get_DIR)
+       inboundVtop = trim(get_DIR)//"/"//Vtop_file
+
+! define the different needed directories
+       set_DIR = "IMMODPG_INVISIBLE"
+       call Project_config(set_DIR,get_DIR)
+       inboundVbot_upper = trim(get_DIR)//"/"//Vbot_upper_file
+
+! define the different needed directories
+       set_DIR = "IMMODPG_INVISIBLE"
+       call Project_config(set_DIR,get_DIR)
 !      print*, '1. immodpg.for, get_DIR:',trim(get_DIR),'--'
 !      print*, '1. immodpg.for, change_file:',change_file,'--'
-      inboundVincrement  = trim(get_DIR)//"/"//Vincrement_file
+       inboundVincrement  = trim(get_DIR)//"/"//Vincrement_file
 !      print*,'inboundVIncrement=',inboundVincrement
-      inboundVbotNtop_factor  = trim(get_DIR)//"/"//VbotNtop_factor_file
+       inboundVbotNtop_factor  =
+     +trim(get_DIR)//"/"//VbotNtop_factor_file
+        inbound_thickness_m =trim(get_DIR)//"/"//thickness_m_file
 ! read all the configuration parameters for immodpg
 ! i/p inbound_config
 ! o/p base_file, result,
-      call read_immodpg_config(base_file, result, inbound_config)
-
+       call read_immodpg_config(base_file, result, inbound_config)
+!       print*, 'L 260, base_file=',base_file
  ! Read digitized X-T pairs, 0- No',idrxy
-      idrxy=int(result(1))
+       idrxy=int(result(1))
  !  Read data traces, 0- No',idrdtr
       idrdtr=int(result(2))
       datat1    =result(4)
@@ -268,7 +314,8 @@
       starting_layer       = result(16)
       current_layer_number = int(starting_layer)
       VbotNtop_factor      = result(17)
-      Vincrement_mps       = result(18)
+      Vincrement_kmps       = result(18)
+      thickness_increment_km =result(19)
 
 !      print*, 'immodpg.for,read pre_digitized_XT_pairs (y/n)=',idrxy
 !      print*, 'immodpg.for,reading data_traces(y/n)=',idrdtr
@@ -281,12 +328,12 @@
 !      print*, 'immodpg.for,PLOTTING LAYOUT'new_clip
 !      print*, 'immodpg.for,rv (KM/S)=',rv
 !      print*, 'immodpg.for,MINIMUN DISTANCE (KM)xmin=',xmin
-!      print*, 'immodpg.for,MAXIMUN DISTANCE (KM)=',xmax
+!      print*, 'L300 immodpg.for,MAXIMUN DISTANCE (KM)=',xmax
 !      print*, 'immodpg.for,tmin (s)=',tmin
 !      print*, 'immodpg.for,tmax (s)=',tmax
 !      print *, "immodpg.for,starting layer:", current_layer_number
 !      print*, 'immodpg.for,VbotNtop_factor=',VbotNtop_factor
-!      print*, 'immodpg.for,Vincrement_mps=',Vincrement_mps
+!      print*, 'immodpg.for,Vincrement_kmps=',Vincrement_kmps
 ! Read digitized X-T pairs, 0- No',idrxy
       if(idrxy.eq.1) then
          finxy = '???'
@@ -316,8 +363,8 @@
          current_clip   = result(3)
          clip_min    = -current_clip
          clip_max    =  current_clip
-!         print*, '262 immodpg.for,clip_min=',clip_min
-!         print*, '263 immodpg.for,current_clip=',current_clip
+!         print*, '330 immodpg.for,clip_min=',clip_min
+!         print*, '331 immodpg.for,current_clip=',current_clip
 
        endif ! end read bin data file
 
@@ -358,14 +405,33 @@
 	if(current_layer_number.gt.nl)  current_layer_number = nl
 
 ! Open X-T Window ****************
-	call pgbegin(0,'?',1,1)  ! TBstarted
-!       !	call pgpaper(12.0,8.5/11.0)
-	call pgpaper(13.0,0.4)
-!         !       call pgpaper(10.0,0.5)
+!       print *,' 1. start '
+!       call pgbegin(0,'?',1,1)  !ask what device to use
+
+	call pgbegin(0,' ',1,1)  ! use default device
+
+!      width_in,aspect
+	call pgpaper(10.0,0.45)
+! (XLEFT, XRIGHT, YBOT, YTOP)
+!	call pgvport(-5.,1.,0.,1.)
+!       call pgsvp(0.0,0.5,0.5,1.0)
        call pgask(flag)
 
+!      default velocity model
+       a1_prior =  0.0
+       a2_prior = -1.0
+       do 8  i = 1,current_layer_number
+              k = 2*i - 1
+              va_prior(k) = vt(i)
+              if(vt(i).gt.a2_prior) a2=vt(i)
+              za_prior(k) = a1_prior
+              va_prior(k+1) = vb(i)
+              if(vb(i).gt.a2) a2=vb(i)
+              a1_prior = a1_prior + dz(i)
+              za_prior(k+1) = a1_prior
+8     continue
 ! End of setup
-! user sees an EMPTY BLACk SCREEN
+! user sees an EMPTY BLACkKSCREEN
 !       print *,' 1. start of principal input loop'
 10	continue
 
@@ -403,6 +469,8 @@
 55	continue
 
 !      PLOTTING and REPLOTTING when correct option turns
+       call pgpage ! clear screen
+!       left_bottom_X, right_top_X,left_bottom_Y,right_top_Y
        call pgvport(0.075,1.0,0.08,0.925)
 	call pgwindow(xmin,xmax,tmax,tmin)
 	call pgbox('BCTN',0.0,0,'BCTN',0.0,0)
@@ -411,8 +479,8 @@
 !
 !      plot seismic image in a window
        if(idrdtr.eq.1) then
-!        print *, 'L356, clip_max=',clip_max
-!        print *, 'L357, clip_min=',clip_min
+!        print *, 'L435, clip_max=',clip_max
+!        print *, 'L436, clip_min=',clip_min
 !        clip_min = -1.00000
 !        clip_max = 1.00000
 	  call pggray(Amp,ntrmax,nsmax,1,ntr,1,ns,clip_max,clip_min,tr)
@@ -468,7 +536,7 @@
 !      print*, 'immodpg.for,PLOTTING LAYOUT'
 !      print*, 'immodpg.for,rv (KM/S)=',rv
 !      print*, 'immodpg.for,MINIMUN DISTANCE (KM)xmin=',xmin
-!      print*, 'immodpg.for,MAXIMUN DISTANCE (KM)=',xmax
+!      print*, 'L 491 immodpg.for,MAXIMUN DISTANCE (KM)=',xmax
 !      print*, 'immodpg.for,tmin (s)=',tmin
 !      print*, 'immodpg.for,tmax (s)=',tmax
 !      print *, "immodpg.for,starting layer:", current_layer_number
@@ -500,8 +568,20 @@
 
       endif
 !
-!      Draw velocity model
-!
+!      Draw velocity vs. depth plot at far right
+!      STEP 1: Erase previous model
+!       0 = black (erase)
+
+       call pgsci(0)
+       call pgvport(0.88,0.98,0.2,0.8)
+       call pgwindow(0.0,a2_prior,a1_prior,0.0)
+       call pgbox('BCTN',0.0,0,'BCNST',0.0,0)
+       call pglabel('V(km/s)','Z(km)','')
+       call pgline(2*current_layer_number,va_prior,za_prior)
+!       print *, 'L 555 current layer number is ', current_layer_number
+!       print *, 'L 556 end of draw velocity model'
+
+!      STEP 2: Calcualte the current model
 ! ****** descomentar para trabajo con OBS  ***
 !       dz(1) = 2.0 * dz(1)
 ! ***********************
@@ -518,10 +598,18 @@
               za(k+1) = a1
 145   continue
 
+!      STEP 3: Save the current model as the "prior"
+       a1_prior = a1
+       a2_prior = a2
+       va_prior = va
+       za_prior = za
+
+!            STEP 4: Draw the current model
 ! ****** descomentar para trabajo con OBS  ***
 !       dz(1) = dz(1)/2.0
 ! ***********************
-!
+!      set color index: 3 = green
+!       white on black background =1
        call pgsci(3)
        call pgvport(0.88,0.98,0.2,0.8)
 	call pgwindow(0.0,a2,a1,0.0)
@@ -529,9 +617,9 @@
 	call pglabel('V(km/s)','Z(km)','')
 !	call pgslw(5)
 	call pgline(2*current_layer_number,va,za)
-!       print *, 'L 475 current layer number is ', current_layer_number
+!       print *, 'L 594 current layer number is ', current_layer_number
 !	call pgslw(1)
-!       print *, 'L 477 end of draw velocity model'
+!       print *, 'L 596 end of draw velocity model'
 
 150    continue
 
@@ -549,7 +637,6 @@
 
        do while (ans)
 
-
 !       slow fortran for Perl i/o to .001 s
         call cpu_time(start)
 !        print '("Time = ",f6.3," seconds.")',start
@@ -560,7 +647,6 @@
         if (cpu_duration .lt. .001) go to 151
 !        print '("Time = ",f6.3," seconds.")',cpu_duration
 
-
 !           call sleep(sleep_time_s)
            icount=icount+1
 !           print *, 'L 551 do loop: immodpg,icount=',icount
@@ -568,16 +654,16 @@
 !          print*, '2. immodpg.for,inbound_change:',inbound_change,'--'
 
            call read_yes_no_file(is_change,inbound_change)
-!           print*, '513.immodpg.for,is_change:',is_change,'--'
+!           print*, '580.immodpg.for,is_change:',is_change,'--'
 
            if (is_change ) then
-!              print *, 'L. 517 immodpg.for,is_change=',is_change
+!              print *, 'L. 583 immodpg.for,is_change=',is_change
 !             Restore change to "no"
               call write_yes_no_file(no,inbound_change)
 !             read option number
               call read_option_file(option,inbound_option)
-!              print *, '508 immodpg.for,option#=',option
-!              print *,'L 509 immodpg.for,clnopt=',
+!              print *, '663 immodpg.for,option#=',option
+!              print *,'L 41 immodpg.for,clnopt=',
 !     +        change_layer_number_opt
 
               if(option.eq.change_layer_number_opt) then
@@ -601,11 +687,35 @@
 !                       print *, 'L526. current layer_number'
                    endif
 
-!                   save the current model to a file before
+! write modified model to terminal before
 !                   changing layer
-!                   call WRIMOD2(nl,VT,VB,DZ,VST,VSB,RHOT,RHOB)
 !
-!                   print *,'L 533 current layer #:',current_layer_number
+                   write(*,*) ' '
+                    write(*,*) 'modified model prior to layer change:'
+                   call WRIMOD2(nl,VT,VB,DZ,VST,VSB,RHOT,RHOB)
+!
+! write modified model to file immodpg.out
+!
+!                   write(*,*) ' '
+!                    write(*,*) 'Binary file: immodpg.out'
+
+                   OPEN(UNIT=IOUT,FILE=outbound_model_bin,
+     +               STATUS='UNKNOWN',
+     +               FORM='UNFORMATTED')
+                      do K=1,NL+1
+                            write(IOUT) VT(K),VB(K),DZ(K),
+     +                      VST(K),VSB(K),RHOT(K),RHOB(K)
+                      enddo
+                      CLOSE(UNIT=IOUT)
+
+! write modified text file out
+!                     write(*,*) ' '
+!                    write(*,*) 'Text file: model.txt'
+             call write_model_file_text(nl,VT,VB,DZ,VST,VSB,RHOT,RHOB,
+     +         outbound_model_txt);
+
+!
+!                   print *,'L 703 current layer #:',current_layer_number
                    go to 10 ! start of all interactions with user
 
                  elseif(current_layer_number.eq.prior_layer_number) then
@@ -619,16 +729,16 @@
               endif ! end check for change in layer
 
               if(option.eq.change_clip4plot_opt) then
-!               print *, 'L 561 immodpg.for,change_clip4plot_opt=',
+!               print *, 'L 631 immodpg.for,change_clip4plot_opt=',
 !     +         change_clip4plot_opt
-!              print *, 'L 562 immodpg.for,clip4plot_opt=',option
+!              print *, 'L 633 immodpg.for,option=',option
                    call read_clip_file(new_clip,inbound_clip)
 !                   print*,'L 545 new clip is',new_clip
                    prior_clip         = current_clip
                    current_clip       = new_clip
                    clip_min           = -current_clip
                    clip_max           =  current_clip
-!                   print*,'L 550 new clip is',clip_max
+!                   print*,'L 640 new clip is',clip_max
                    go to 10 ! start of all interactions with user
 
               endif
@@ -655,34 +765,40 @@
              if(option.eq.change_thickness_increment_opt) then
 !              read new thickness increment value
 !              call read_thickness_increment
-              print*,'L 644 new thickness_increment_m is',
-     +         new_thickness_increment_m
+!              print*,'L 644 new thickness_increment_m is',
+!     +         new_thickness_increment_m
               prior_thickness_increment_= current_thickness_increment_m
               current_thickness_increment_m= new_thickness_increment_m
               thickness_increment_m    = current_thickness_increment_m
+              thickness_increment_km  = thickness_increment_m * m2km
               go to 150  ! start of this do loop
               option = option_default
              endif
 
-             if(option.eq.changeVbot_upper_opt) then
+             if(option.eq.changeVbot_upper_layer_opt) then
 !             read new bottom velocity  value
-               call readVbot_upper_file(newVbot,inboundVbot)
+               call readVbot_upper_file(newVbot_upper,inboundVbot_upper)
                print*,'L 655 new Vbot_upper is',newVbot_upper
                priorVbot_upper         = currentVbot_upper
                currentVbot_upper       = newVbot_upper
                Vbot_upper_mps          = currentVbot_upper
+               Vbot_upper_kmps       = currentVbot_upper * m2km
+               VB(current_layer_number-1) = Vbot_upper_kmps
                go to 150 ! start of this do loop
                option = option_default
 
              endif
 
-             if(option.eq.changeVtop_lower_opt) then
+             if(option.eq.changeVtop_lower_layer_opt) then
 !             read new bottom velocity  value
+               print*,'L794,changing Vtop_lower_layer'
                call readVtop_lower_file(newVtop_lower,inboundVtop_lower)
-               print*,'L 655 new Vtop_lower is',newVtop_lower
-               priorVtop_lower         = currentVtop_lower
-               currentVtop_lower       = newVtop_lower
-               Vtop_lower_mps          = currentVtop_lower
+!               print*,'L 655 new Vtop_lower is',newVtop_lower
+!               priorVtop_lower         = currentVtop_lower
+!               currentVtop_lower       = newVtop_lower
+!               Vtop_lower_mps          = currentVtop_lower
+!                Vtop_lower_kmps          = currentVtop_lower * km2m
+!               VT(current_layer_number+1) = Vtop_lower_kmps
                go to 150 ! start of this do loop
                option = option_default
 
@@ -691,10 +807,12 @@
              if(option.eq.changeVbot_opt) then
              !             read new bottom velocity  value
                call readVbot_file(newVbot,inboundVbot)
-               print*,'L 655 new Vbot is',newVbot
+!               print*,'L 655 new Vbot is',newVbot
                priorVbot         = currentVbot
                currentVbot       = newVbot
                Vbot_mps          = currentVbot
+               Vbot_kmps          = currentVbot  * km2m
+               VB(current_layer_number) = Vbot_kmps
                go to 150 ! start of this do loop
                option = option_default
 
@@ -703,21 +821,25 @@
              if(option.eq.changeVtop_opt) then
 !             read new bottom velocity  value
                call readVtop_file(newVtop,inboundVtop)
-               print*,'L 655 new Vtop is',newVtop
+!               print*,'L 655 new Vtop is',newVtop
                priorVtop         = currentVtop
                currentVtop       = newVtop
                Vtop_mps          = currentVtop
+               Vtop_kmps          = currentVtop * km2m
+               VT(current_layer_number) = Vtop_kmps
                go to 150 ! start of this do loop
                option = option_default
 
              endif
              if(option.eq.changeVincrement_opt) then
 !             read new velocity increment value
-               call readVincrement_file(newVincrement,inboundVincrement)
-               print*,'L 655 new VIncrement is',newVincrement
-               priorVincrement         = currentVincrement
-               currentVincrement       = newVincrement
-               Vincrement_mps          = currentVincrement
+               call readVincrement_file(newVincrement_mps,
+     +              inboundVincrement)
+!               print*,'L 655 new VIncrement is',newVincrement_mps
+               priorVincrement_mps         = currentVincrement_mps
+               currentVincrement_mps       = newVincrement_mps
+               Vincrement_mps          = currentVincrement_mps
+               VIncrement_kmps        = Vincrement_mps * m2km
                go to 150 ! start of this do loop
                option = option_default
 
@@ -727,7 +849,7 @@
 !             read new velocity factor value
               call readVbotNtop_factor_file(
      +               newVbotNtop_factor,inboundVbotNtop_factor)
-               print*,'L 655 new VbotNtop_factor:',newVbotNtop_factor
+!               print*,'L 655 new VbotNtop_factor:',newVbotNtop_factor
                priorVbotNtop_factor     = currentVbotNtop_factor
                currentVbotNtop_factor   = newVbotNtop_factor
                VbotNtop_factor          = currentVbotNtop_factor
@@ -742,89 +864,101 @@
 !             if(option.ge.10.and.option.le.69) then
              if(option.eq.Vbot_minus_opt) then
                 VB(current_layer_number) =
-     +          VB(current_layer_number) - Vincrement_mps
-                print*,'mmodpg.for,option=',Vbot_minus_opt
+     +          VB(current_layer_number) - Vincrement_kmps
+!                print*,'mmodpg.for,option=',Vbot_minus_opt
              endif
 
              if(option.eq.Vbot_plus_opt) then
                 VB(current_layer_number) =
-     +          VB(current_layer_number) + Vincrement_mps
+     +          VB(current_layer_number) + Vincrement_kmps
                 print*,'mmodpg.for,option=',Vbot_plus_opt
              endif
 
              if(option.eq.Vtop_minus_opt) then
                 VT(current_layer_number) =
-     +          VT(current_layer_number) - Vincrement_mps
-                 print*,'mmodpg.for,option=',Vtop_minus_opt
+     +          VT(current_layer_number) - Vincrement_kmps
+!                 print*,'mmodpg.for,option=',Vtop_minus_opt
              endif
 
              if(option.eq.Vtop_plus_opt) then
                  VT(current_layer_number) =
-     +           VT(current_layer_number) + Vincrement_mps
-                 print*,'mmodpg.for,option=',Vtop_plus_opt
+     +           VT(current_layer_number) + Vincrement_kmps
+!                 print*,'mmodpg.for,option=',Vtop_plus_opt
              endif
 !             if(option.eq.3) DZ(current_layer_number) =
 !     + DZ(current_layer_number) + a1
 !
              if(option.eq.VbotNVtop_minus_opt) then
                      VT(current_layer_number) =
-     +         VT(current_layer_number) - Vincrement_mps
+     +         VT(current_layer_number) - Vincrement_kmps
                      VB(current_layer_number) =
-     +         VB(current_layer_number) - Vincrement_mps
+     +         VB(current_layer_number) - Vincrement_kmps
 
                print*,'mmodpg.for,option=',VbotNVtop_minus_opt
              endif
 
              if(option.eq.VbotNVtop_plus_opt) then
                      VT(current_layer_number) =
-     +         VT(current_layer_number) + Vincrement_mps
+     +         VT(current_layer_number) + Vincrement_kmps
                      VB(current_layer_number) =
-     +         VB(current_layer_number) + Vincrement_mps
+     +         VB(current_layer_number) + Vincrement_kmps
                print*,'mmodpg.for,option=',VbotNVtop_plus_opt
+               print*,'mmodpg.for,option=VT',VT(current_layer_number)
+               print*,'mmodpg.for,option=VB',VB(current_layer_number)
+
              endif
 
              if(option.eq.VtopNVbot_upper_layer_minus_opt
      +         .and. current_layer_number.gt.1) then
 
-               VT(current_layer_number) =
-     +         VT(current_layer_number) - Vincrement_mps
+               upper_layer_number = current_layer_number -1
 
-               VB(current_layer_number-1) =
-     +         VB(current_layer_number-1) - Vincrement_mps
-            print*,'mmodpg.for,option=',VtopNVbot_upper_layer_minus_opt
+               VT(current_layer_number) =
+     +         VT(current_layer_number) - Vincrement_kmps
+
+               VB(upper_layer_number) =
+     +         VB(upper_layer_number) - Vincrement_kmps
+
+!              print*,'mmodpg.for,option=',VtopNVbot_upper_layer_minus_opt
+!              print*,'mmodpg.for,VT=',VT(current_layer_number)
+!              print*,'mmodpg.for,VB_upper=',VB(upper_layer_number)
+!              print*,'mmodpg.for,Vincrement_kmps=',Vincrement_kmps
              endif
 
              if(option.eq.VtopNVbot_upper_layer_plus_opt
      +         .and. current_layer_number.gt.1) then
 
               VT(current_layer_number) =
-     +        VT(current_layer_number) + Vincrement_mps
+     +        VT(current_layer_number) + Vincrement_kmps
 
               VB(current_layer_number-1) =
-     +        VB(current_layer_number-1) + Vincrement_mps
-              print*,'mmodpg.for,option=',VtopNVbot_upper_layer_plus_opt
+     +        VB(current_layer_number-1) + Vincrement_kmps
+!              print*,'mmodpg.for,option=',VtopNVbot_upper_layer_plus_opt
+!              print*,'mmodpg.for,VT=',VT(current_layer_number)
+!              print*,'mmodpg.for,VB_upper=',VB(current_layer_number-1)
+!              print*,'mmodpg.for,Vincrement_kmps=',Vincrement_kmps
              endif
 
              if(option.eq.VbotNVtop_lower_layer_minus_opt
      +         .and. current_layer_number.lt.nl) then
 
               VT(current_layer_number) =
-     +        VT(current_layer_number) - Vincrement_mps
+     +        VT(current_layer_number) - Vincrement_kmps
 
               VB(current_layer_number+1) =
-     +        VB(current_layer_number+1) - Vincrement_mps
-             print*,'mmodpg.for,option=',VbotNVtop_lower_layer_minus_opt
+     +        VB(current_layer_number+1) - Vincrement_kmps
+!             print*,'mmodpg.for,option=',VbotNVtop_lower_layer_minus_opt
              endif
 
              if(option.eq.VbotNVtop_lower_layer_plus_opt
      +         .and. current_layer_number.lt.nl) then
 
               VT(current_layer_number) =
-     +        VT(current_layer_number) + Vincrement_mps
+     +        VT(current_layer_number) + Vincrement_kmps
 
               VB(current_layer_number+1) =
-     +        VB(current_layer_number+1) + Vincrement_mps
-              print*,'mmodpg.for,option=',VbotNVtop_lower_layer_plus_opt
+     +        VB(current_layer_number+1) + Vincrement_kmps
+!              print*,'mmodpg.for,option=',VbotNVtop_lower_layer_plus_opt
              endif
 
              if(option.eq.VbotNtop_multiply_opt) then
@@ -832,24 +966,46 @@
      +             VbotNtop_factor * VT(current_layer_number)
                VB(current_layer_number) =
      +             VbotNtop_factor * VB(current_layer_number)
-                print*,'mmodpg.for,option=',VbotNtop_multiply_opt
+!                print*,'mmodpg.for,option=',VbotNtop_multiply_opt
 
              endif
 
-             if(option.eq.change_thickness_opt) then
+             if(option.eq.change_thickness_m_opt) then
+!                 print*,'mmodpg.for,option=', change_thickness_m_opt
+                call read_thickness_m_file(
+     +                    new_thickness_m,inbound_thickness_m)
+                prior_thickness_m   = current_thickness_m
+                current_thickness_m = new_thickness_m
+                DZ(current_layer_number) = new_thickness_m
+                go to 150 ! start of this do loop
+                option = option_default
+             endif
+
+
+             if(option.eq.thickness_m_plus_opt) then
+!                print*,'mmodpg.for,option=', thickness_m_plus_opt
                DZ(current_layer_number) =
-     +         DZ(current_layer_number) + thickness_increment_m
-                print*,'mmodpg.for,option=', change_thickness_opt
+     +         DZ(current_layer_number) + thickness_increment_km
              endif
 
-             if(option.eq.3) DZ(current_layer_number) =
-     +        DZ(current_layer_number) + a1
+               if(option.eq.thickness_m_minus_opt) then
+                print*,'mmodpg.for,option=', thickness_m_minus_opt
+                print*,'mmodpg.for,th_inc_km=', thickness_increment_km
+               DZ(current_layer_number) =
+     +         DZ(current_layer_number) - thickness_increment_km
+
+
+             endif
+
+
+!             if(option.eq.3) DZ(current_layer_number) =
+!     +        DZ(current_layer_number) + a1
 
 !             exit do loop + all interaction
              if(option.eq.exit_opt) then
-               print*,'exiting from immodpg.for'
+!               print*,'exiting from immodpg.for'
 !              return option file to default (= -1)
-              print*,'mmodpg.for,option=', exit_opt
+!              print*,'mmodpg.for,option=', exit_opt
               go to 255
            endif
       go to 10 ! start of all interactions with user
@@ -886,7 +1042,7 @@
       icolor = 0
       call pgpage   ! clear screen
       call pgsci(1) ! set color index
-      print *, 'L 576 clear screen'
+!      print *, 'L 576 clear screen'
 
       go to 10 ! START of ALL interactions with USER
 
@@ -894,7 +1050,7 @@
 
 !       write modified file to a text file
        call write_model_file_text(nl,VT,VB,DZ,VST,VSB,RHOT,RHOB,
-     + outbound_model);
+     + outbound_model_txt);
 !
 ! write modified model to terminal
 !
@@ -904,7 +1060,7 @@
 !
 ! write modified model to file immodpg.out
 !
-        OPEN(UNIT=IOUT,FILE='immodpg.out',STATUS='UNKNOWN',
+        OPEN(UNIT=IOUT,FILE=outbound_model_bin,STATUS='UNKNOWN',
      +  FORM='UNFORMATTED')
         do K=1,NL+1
         	write(IOUT) VT(K),VB(K),DZ(K),
@@ -959,19 +1115,17 @@
       inbound_config = trim(get_DIR)//"/"//config_file
 
 !      print*,'immodpg.for,rdata,inbound_config:',inbound_config
-
 !   read all the configuration parameters for immodpg
       call read_immodpg_config(base_file,result,inbound_config)
-
 ! define the different needed directories
       set_DIR        = "DATA_SEISMIC_BIN"
       call Project_config(set_DIR,get_DIR)
       inbound_bin    = trim(get_DIR)//"/"//trim(base_file)//".bin"
-!      print*, 'immodpg.for, rdata,inbound_bin:',trim(inbound_bin),'--'
+!            print*,'996immodpg.for,rdata,base_file:',trim(base_file)
+!      print*,'997-immodpg.for,rdata,inbound_bin:',trim(inbound_bin)
 
 ! Read data File
       call read_bin_data (inbound_bin,ntrmax,nsmax,ntr,ns,Amp)
-!      print*, 'immodpg.for, rdata, finishded reading data'
 
       Amp_min = 1e30
       Amp_max = -1e30
@@ -984,6 +1138,7 @@
  20   continue
 !	write(*,*) 'immodpg.for,rdata, Data min,max=',Amp_min,Amp_max
 !	write(*,*)
+!	print*, 'immodpg.for, L 1037, rdata, finished reading data'
 
       END ! of subroutine
 !

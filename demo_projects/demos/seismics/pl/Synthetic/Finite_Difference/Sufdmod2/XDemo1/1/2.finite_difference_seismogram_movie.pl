@@ -34,11 +34,11 @@ Version:
 	my $DATA_SEISMIC_BIN	= $Project->DATA_SEISMIC_BIN;
 	my $DATA_SEISMIC_TXT	= $Project->DATA_SEISMIC_TXT;
 
-	use misc::message;
-	use misc::flow;
-	use sunix::data::data_in;
-	use sunix::model::sufdmod2;
-	use sunix::plot::suxmovie;
+	use message;
+	use flow;
+	use  data_in;
+	use  sufdmod2;
+	use  suxmovie;
 
 	my $log					= new message();
 	my $run					= new flow();

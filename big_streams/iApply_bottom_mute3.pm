@@ -30,6 +30,7 @@ use suwind;
 use suxwigb;
 use suximage;
 use SuMessages;
+use Project_config;
 
 use SeismicUnix
   qw ($go $in $on $off $ibot_mute $itemp_bot_mute_picks_ $itemp_bot_mute_num_points $itemp_bot_mute_picks_sorted_par_ $ibot_mute_par_ $suffix_su $suffix_hyphen $to);
@@ -53,6 +54,7 @@ my $suwind     = new suwind;
 my $suxwigb    = new suxwigb();
 my $suximage   = new suximage();
 my $SuMessages = new SuMessages();
+my $Project			= Project_config->new();
 
 =head2
 
@@ -61,8 +63,8 @@ my $SuMessages = new SuMessages();
 =cut 
 
 use SeismicUnix qw($itemp_bot_mute_picks_sorted_par_);
-my ($PL_SEISMIC)      = System_Variables::PL_SEISMIC();
-my ($DATA_SEISMIC_SU) = System_Variables::DATA_SEISMIC_SU();
+my ($PL_SEISMIC)      = $Project->PL_SEISMIC();
+my ($DATA_SEISMIC_SU) = $Project->DATA_SEISMIC_SU();
 
 =head2
  

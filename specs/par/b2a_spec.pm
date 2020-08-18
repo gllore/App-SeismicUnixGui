@@ -22,7 +22,8 @@ my $flow_type        = $get->flow_type_href();
 my $DATA_SEISMIC_BIN = $Project->DATA_SEISMIC_BIN();    # input data directory
 my $DATA_SEISMIC_SU  = $Project->DATA_SEISMIC_SU();
 my $DATA_SEISMIC_TXT = $Project->DATA_SEISMIC_TXT();    # output
-my $max_index        = $b2a->get_max_index();
+my $PL_SEISMIC  			  = $Project->PL_SEISMIC();
+my $max_index        			= $b2a->get_max_index();
 
 my $b2a_spec =  {
     _CONFIG	 				=> $PL_SEISMIC,

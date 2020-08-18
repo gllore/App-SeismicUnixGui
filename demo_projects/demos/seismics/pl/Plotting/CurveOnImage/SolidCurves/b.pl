@@ -34,11 +34,11 @@
 	my $DATA_SEISMIC_BIN	= $Project->DATA_SEISMIC_BIN;
 	my $DATA_SEISMIC_TXT	= $Project->DATA_SEISMIC_TXT;
 
-	use misc::message;
-	use misc::flow;
-	use sunix::model::suplane;
-	use sunix::filter::sufilter;
-	use sunix::plot::suximage;
+	use message;
+	use flow;
+	use  suplane;
+	use  sufilter;
+	use  suximage;
 
 	my $log					= new message();
 	my $run					= new flow();

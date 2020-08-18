@@ -2611,7 +2611,7 @@ sub flow_select {
 	use message_director;
 	use decisions;
 	$color_flow_href->{_flow_type} = $flow_type->{_user_built};
-	print("color_flow,flow_select, START\n");
+#	print("color_flow,flow_select, START\n");
 
 	#		print("1. color_flow,flow_select, view stored param values:\n");
 	#		$param_flow_color_pkg->view_data();

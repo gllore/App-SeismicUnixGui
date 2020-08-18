@@ -36,9 +36,9 @@ Version:
 
 	use message;
 	use flow;
-	use sunix::data::data_in;
+	use  data_in;
 	use sunix::header::sushw;
-	use sunix::data::data_out;
+	use  data_out;
 
 	my $log					= new message();
 	my $run					= new flow();

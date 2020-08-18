@@ -17,13 +17,12 @@ my $Project          	= new Project_config;
 my $DATA_SEISMIC_SU  	= $Project->DATA_SEISMIC_SU();   # output data directory
 my $IMMODPG  			= $Project->IMMODPG();
 
-my $max_index    		= 18;
+my $max_index    		= 19;
 
 my $immodpg_spec =  {
     _CONFIG	 				=> $IMMODPG,
     _DATA_DIR_IN           => $DATA_SEISMIC_SU,
 	_DATA_DIR_OUT          => $DATA_SEISMIC_SU,
-    _CONFIG		   		   => $IMMODPG,
 	_binding_index_aref    => '',
     _suffix_type_in        => $su,
     _data_suffix_in        => $suffix_su,

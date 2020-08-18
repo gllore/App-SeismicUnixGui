@@ -33,10 +33,10 @@
 	my $DATA_SEISMIC_SU	= $Project->DATA_SEISMIC_SU;
 	my $DATA_SEISMIC_BIN	= $Project->DATA_SEISMIC_BIN;
 
-	use misc::message;
-	use misc::flow;
-	use misc::data_in;
-	use sunix::suxmax;
+	use message;
+	use flow;
+	use data_in;
+	use suxmax;
 
 	my $log					= new message();
 	my $run					= new flow();

@@ -143,19 +143,21 @@ sub _set_model_file_text {
 		use File::Copy;
 		my ( $to, $from );
 
-		my $inbound_model_file_text_extra 	= ( $immodpg_config->{_GLOBAL_CONFIG_LIB}) . '/' . $immodpg_config->{_model_file_text};	
-		my $inbound_model_file_text       	= ( $immodpg_config->{_GLOBAL_CONFIG_LIB}) . '/' . $immodpg_config->{_model_file_text};
-		
-		my $outbound_model_file_text 		= ( $Project->IMMODPG_INVISIBLE() ) . '/' . $immodpg_config->{_model_file_text};		
-		my $outbound_model_file_text_extra	= ( $Project->IMMODPG() ) . '/' . $immodpg_config->{_model_file_text};
-				
+		my $inbound_model_file_text_extra
+			= ( $immodpg_config->{_GLOBAL_CONFIG_LIB} ) . '/' . $immodpg_config->{_model_file_text};
+		my $inbound_model_file_text
+			= ( $immodpg_config->{_GLOBAL_CONFIG_LIB} ) . '/' . $immodpg_config->{_model_file_text};
+
+		my $outbound_model_file_text = ( $Project->IMMODPG_INVISIBLE() ) . '/' . $immodpg_config->{_model_file_text};
+		my $outbound_model_file_text_extra = ( $Project->IMMODPG() ) . '/' . $immodpg_config->{_model_file_text};
+
 		if (    $manage_files_by2->does_file_exist( \$outbound_model_file_text )
 			and $manage_files_by2->does_file_exist( \$outbound_model_file_text_extra ) ) {
 
 			# CASE 1 do nothing--files are there
 			# print("case 1, _set_model_file_text, found all model.text files\n");
 			# print("case 1, _set_model_file_text, outbound_model_file_text=$outbound_model_file_text \n");
-			# print("case 1, _set_model_file_text, outbound_model_file_text_extra=$outbound_model_file_text_extra \n");								
+			# print("case 1, _set_model_file_text, outbound_model_file_text_extra=$outbound_model_file_text_extra \n");
 			# print("_set_model_file_text, NADA\n");
 
 		} elsif ( not $manage_files_by2->does_file_exist( \$outbound_model_file_text_extra )
@@ -182,7 +184,7 @@ sub _set_model_file_text {
 
 			# CASE 4 copy the file in the hidden directory to the visible directory
 			print("case 4 _set_model_file_text, no cases of model.text file exist\n");
-			print("case 4 _set_model_file_text, inbound_model_file_text=$inbound_model_file_text \n");			
+			print("case 4 _set_model_file_text, inbound_model_file_text=$inbound_model_file_text \n");
 
 			$from = $inbound_model_file_text;
 			$to   = $outbound_model_file_text;
@@ -200,10 +202,19 @@ sub _set_model_file_text {
 	}
 }
 
+=head2 get_values
+control for string quotes
+
+=cut
+
 # set the superflow name: 12 is for immodpg
+
 sub get_values {
 
 	my ($self) = @_;
+
+	use control;
+	my $control = control->new();
 
 	# Warning: set using a scalar reference
 	$immodpg_config->{_prog_name} = \@{$superflow_config_names}[12];
@@ -216,29 +227,41 @@ sub get_values {
 	$immodpg_config->{_values_aref} = $config_superflows->get_values();
 
 	# print("immodpg_config,values=--@{$immodpg_config->{_values_aref}}--\n");
-	my $base_file_name         = @{ $immodpg_config->{_values_aref} }[0];
+	my $base_file_name = @{ $immodpg_config->{_values_aref} }[0];
+	$base_file_name = $control->get_no_quotes($base_file_name);
+
 	my $pre_digitized_XT_pairs = @{ $immodpg_config->{_values_aref} }[1];
-	my $data_traces            = @{ $immodpg_config->{_values_aref} }[2];
-	my $clip                   = @{ $immodpg_config->{_values_aref} }[3];
-	my $min_t_s                = @{ $immodpg_config->{_values_aref} }[4];
-	my $min_x_m                = @{ $immodpg_config->{_values_aref} }[5];
-	my $thickness_increment_m  = @{ $immodpg_config->{_values_aref} }[6];
-	my $source_depth_m         = @{ $immodpg_config->{_values_aref} }[7];
-	my $receiver_depth_m       = @{ $immodpg_config->{_values_aref} }[8];
-	my $reducing_vel_mps       = @{ $immodpg_config->{_values_aref} }[9];
-	my $plot_min_x_m           = @{ $immodpg_config->{_values_aref} }[10];
-	my $plot_max_x_m           = @{ $immodpg_config->{_values_aref} }[11];
-	my $plot_min_t_s           = @{ $immodpg_config->{_values_aref} }[12];
-	my $plot_max_t_s           = @{ $immodpg_config->{_values_aref} }[13];
-	my $previous_model         = @{ $immodpg_config->{_values_aref} }[14];
-	my $new_model              = @{ $immodpg_config->{_values_aref} }[15];
-	my $layer                  = @{ $immodpg_config->{_values_aref} }[16];
-	my $VbotNtop_factor        = @{ $immodpg_config->{_values_aref} }[17];
-	my $Vincrement             = @{ $immodpg_config->{_values_aref} }[18];
+	$pre_digitized_XT_pairs = $control->get_no_quotes($pre_digitized_XT_pairs);
+
+	my $data_traces = @{ $immodpg_config->{_values_aref} }[2];
+	$data_traces = $control->get_no_quotes($data_traces);
+
+	my $clip                  = @{ $immodpg_config->{_values_aref} }[3];
+	my $min_t_s               = @{ $immodpg_config->{_values_aref} }[4];
+	my $min_x_m               = @{ $immodpg_config->{_values_aref} }[5];
+	my $data_x_inc_m 			= @{ $immodpg_config->{_values_aref} }[6];
+	my $source_depth_m        = @{ $immodpg_config->{_values_aref} }[7];
+	my $receiver_depth_m      = @{ $immodpg_config->{_values_aref} }[8];
+	my $reducing_vel_mps      = @{ $immodpg_config->{_values_aref} }[9];
+	my $plot_min_x_m          = @{ $immodpg_config->{_values_aref} }[10];
+	my $plot_max_x_m          = @{ $immodpg_config->{_values_aref} }[11];
+	my $plot_min_t_s          = @{ $immodpg_config->{_values_aref} }[12];
+	my $plot_max_t_s          = @{ $immodpg_config->{_values_aref} }[13];
+	
+	my $previous_model        = @{ $immodpg_config->{_values_aref} }[14];
+	$previous_model = $control->get_no_quotes($previous_model);
+	
+	my $new_model = @{ $immodpg_config->{_values_aref} }[15];
+	$new_model = $control->get_no_quotes($new_model);
+	
+	my $layer           = @{ $immodpg_config->{_values_aref} }[16];
+	my $VbotNtop_factor = @{ $immodpg_config->{_values_aref} }[17];
+	my $Vincrement_mps      = @{ $immodpg_config->{_values_aref} }[18];
+	my $thickness_increment_m = @{ $immodpg_config->{_values_aref} }[19];
 
 	# print("1. immodpg_config,base_file_name=$base_file_name\n");\
-	# print("1. immodpg_config,new_model=$new_model\n");
-
+#	print("1. immodpg_config,Vincrement_mps=$Vincrement_mps\n");
+#	print("1. immodpg_config,data_x_inc_m =$data_x_inc_m \n");
 	$base_file_name         = $control->su_data_name( \$base_file_name );
 	$new_model              = $control->get_no_quotes($new_model);
 	$previous_model         = $control->get_no_quotes($previous_model);
@@ -262,7 +285,7 @@ sub get_values {
 				clip                   => $clip,
 				min_t_s                => $min_t_s,
 				min_x_m                => $min_x_m,
-				thickness_increment_m  => $thickness_increment_m,
+				data_x_inc_m		=> $data_x_inc_m,
 				source_depth_m         => $source_depth_m,
 				receiver_depth_m       => $receiver_depth_m,
 				reducing_vel_mps       => $reducing_vel_mps,
@@ -274,13 +297,14 @@ sub get_values {
 				new_model              => $new_model,
 				layer                  => $layer,
 				VbotNtop_factor        => $VbotNtop_factor,
-				Vincrement             => $Vincrement,
+				Vincrement_mps             => $Vincrement_mps,
+				thickness_increment_m  => $thickness_increment_m,				
 
 			}
 		}
 	};    # end of CFG hash
 		  # print("immodpg_config,base_file_name=$CFG->{immodpg}{1}{base_file_name}\n");
-		  # print("immodpg_config,new_model=$CFG->{immodpg}{1}{new_model}\n");
+#		  print("immodpg_config,data_x_inc_m=$CFG->{immodpg}{1}{data_x_inc_m/data_x}\n");
 	return ( $CFG, $immodpg_config->{_values_aref} );    # hash and arrary reference
 };    # end of sub get_values
 
@@ -292,7 +316,7 @@ max index = number of input variables -1
 
 sub get_max_index {
 	my ($self) = @_;
-	my $max_index = 18;
+	my $max_index = 19;
 
 	return ($max_index);
 }

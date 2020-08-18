@@ -23,7 +23,8 @@ my $DATA_SEISMIC_SU = $Project->DATA_SEISMIC_SU();    # output data directory
 my $PL_SEISMIC        = $Project->PL_SEISMIC();
 my $max_index       = $sufdmod2->get_max_index();
 
-my $sufdmod2_spec = 
+my $sufdmod2_spec =  {
+	_CONFIG						  => $PL_SEISMIC,
 	_DATA_DIR_OUT          => $DATA_SEISMIC_SU,
 	_DATA_DIR_IN           => $DATA_SEISMIC_SU,
 	_DATA_DIR_OUT          => $DATA_SEISMIC_SU,

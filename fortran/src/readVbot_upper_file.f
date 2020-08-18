@@ -7,21 +7,24 @@
       character (len=30) :: format1
       integer :: err_message, ready
 
-      format1= "(F5.1)"
+      format1=  "(F7.1)"
 
 !      print *, 'readVbot_upper_file.f, inbound is:', trim(inbound)
 !      in case inbound is of a different, but shorter length in main
 !      create a temporary, new, lock file
+
 10     open(status='new',unit=30,file=inbound_locked,iostat=ready)
 
        if (ready.eq.0) then
          open(unit=29,file=trim(inbound),status='old',
      +    iostat=err_message)
+
  !       check whether file opens data file
          if (err_message.eq.0) then
 
+          print *, 'readVbot_upper_file.f'
           read (29,format1) result
-!          print *, 'readVbot_upper_file.f, result',result
+          print *, 'readVbot_upper_file.f, result',result
           close (unit=29)
 
          else

@@ -22,8 +22,8 @@ my $PS_SEISMIC 		= $Project->PS_SEISMIC();    # output data directory
 my $PL_SEISMIC        = $Project->PL_SEISMIC();
 my $max_index       = $evince->get_max_index();
 
-my $evince_spec = 
-	_DATA_DIR_OUT          => $DATA_SEISMIC_SU,
+my $evince_spec =  {
+	_CONFIG						 => $PL_SEISMIC,
 	_DATA_DIR_IN           => $PS_SEISMIC,
 	_DATA_DIR_OUT          => $PS_SEISMIC,
 	_binding_index_aref    => '',

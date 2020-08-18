@@ -58,9 +58,9 @@ LOAD GENERAL PERL LIBRARIES
 
 	my $DATA_SEISMIC_SU = $Project->DATA_SEISMIC_SU;
 
-	use sunix::shapeNcut::sumute;
-	use misc::message;
-	use misc::flow;
+	use sumute;
+	use message;
+	use flow;
 
 
 =pod

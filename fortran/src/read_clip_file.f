@@ -22,25 +22,25 @@
          if (err_message.eq.0) then
 
            read (31,format1) result
-           print *, 'read_clip_file.f, result',result
+!           print *, 'read_clip_file.f, result',result
            close (unit=31)
 
          else
           print *, 'read_clip_file.f, err_message=',err_message
-          print *, 'read_clip_file.f, counter=',counter
+!          print *, 'read_clip_file.f, counter=',counter
 !         rest a little before trying again
           call sleep(1)
           go to 10
          end if
        else
-         print *, 'read_clip_file.f, locked, try again,read =',ready
+!         print *, 'read_clip_file.f, locked, try again,read =',ready
          go to 10
        end if
 !       remove lock file
 11      close (status='delete',unit=30,iostat=err_message)
         if (err_message.ne.0) then
          go to 11
-         print *, 'read_clip_file.f, err_messg=',err_message
+!         print *, 'read_clip_file.f, err_messg=',err_message
         end if
 !       print *, 'read_clip_file, result',result
 

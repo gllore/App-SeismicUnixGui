@@ -37,7 +37,7 @@ Version:
 	use misc::message;
 	use misc::flow;
 	use sunix::statsMath::suop2;
-	use sunix::data::data_out;
+	use  data_out;
 
 	my $log					= new message();
 	my $run					= new flow();

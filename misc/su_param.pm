@@ -396,16 +396,20 @@ sub _check4local_config {
 
 		my $module_spec    = $$name_sref . '_spec';
 		my $module_spec_pm = $module_spec . '.pm';
-
-		require $module_spec_pm;
+#		print("1. su_param,_check4local_config, module_spec_pm = $module_spec_pm \n");
+# my $prog_spec_pm = "iVA_spec";
+# eval  "use $prog_spec_pm;";
+		eval "use $module_spec";
 		my $package = $module_spec->new;
+		
+#		print("2. su_param,_check4local_config,package=($package->variables)->{_CONFIG}\n");
 
 		# collect specifications of output directory
 		# from a program_spec.pm module
-		my $specs_h = $package->variables();
+		my $specs_h  = $package->variables();
 		my $CONFIG  = $specs_h->{_CONFIG};
 
-		# print("su_param,_check4local_config, CONFIG=$CONFIG \n");
+#		print("3. su_param,_check4local_config, CONFIG=$CONFIG \n");
 		my $prog_name_config = $CONFIG . '/' . $$name_sref . '.config';
 		# print("su_param,_check4local_config,prog_name_config =$prog_name_config\n");
 		if ( -e ($prog_name_config) ) {

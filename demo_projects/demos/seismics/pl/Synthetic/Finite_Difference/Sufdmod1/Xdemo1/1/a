@@ -33,9 +33,9 @@
 	my $DATA_SEISMIC_SU	= $Project->DATA_SEISMIC_SU;
 	my $DATA_SEISMIC_BIN	= $Project->DATA_SEISMIC_BIN;
 
-	use misc::message;
-	use misc::flow;
-	use misc::data_in;
+	use message;
+	use flow;
+	use data_in;
 	use sunix::xgraph;
 
 	my $log					= new message();

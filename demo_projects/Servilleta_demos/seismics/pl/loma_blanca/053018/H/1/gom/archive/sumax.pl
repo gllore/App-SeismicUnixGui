@@ -36,7 +36,7 @@ Version:
 
 	use misc::message;
 	use misc::flow;
-	use sunix::data::data_in;
+	use  data_in;
 	use sunix::statsMath::sumax;
 
 	my $log					= new message();

@@ -11,7 +11,7 @@
 !      in case definition in main is slightly different
        change = 'no'
 
-      print *, 'read_layer_file, inbound is:', inbound
+!      print *, 'read_layer_file, inbound is:', inbound
 !      in case inbound is of a different, but shorter length in main
       inbound=inbound
       open(unit=1,file=inbound,status='old')
@@ -23,8 +23,8 @@
         result = .FALSE.
        end if
 
-       print *, 'read_layer_file, change:',change
-       print *, 'read_layer_file, result',result
+!       print *, 'read_layer_file, change:',change
+!       print *, 'read_layer_file, result',result
        close (unit=1)
 
       end subroutine read_layer_file

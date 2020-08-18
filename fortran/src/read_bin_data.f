@@ -10,7 +10,8 @@
 !      trim end and adjustl start of empty spaces
       inbound=trim(adjustl(inbound_bin))
 !      print *, 'read_bin_data, inbound is:',inbound,'--'
-
+       inbound_locked=trim(inbound)//"_locked"
+!       print *, 'read_bin_data, inbound_locked is:',inbound_locked,'--'
 !      create a temporary, new, lock file
 10     open(status='new',unit=19,file=inbound_locked,iostat=ready)
 !       print *, 'read_bin_data.f,inbound_locked iostat:',ready
@@ -34,13 +35,13 @@
 !        print *, 'read_bin_data.f, result',result
  125     close (unit=20)
 
-       else
+        else
 !         print *, 'read_bin_data.f, err_message=',err_message
 !         print *, 'read_bin_data.f, counter=',counter
 
 !         rest a little before trying again
 !         call sleep(1)
-         go to 10
+           go to 10
         end if
        else
          print *, 'read_bin_data.f,locked, try again,read =',ready

@@ -7,7 +7,7 @@
       character (len=30) :: format1
       integer :: err_message, ready
 
-      format1= "(F5.1)"
+      format1= "(F7.1)"
 
 !      print *, 'readVbot_file.f, inbound is:', trim(inbound)
 !      in case inbound is of a different, but shorter length in main
@@ -25,7 +25,7 @@
           close (unit=29)
 
          else
-          print *, 'readVbot_file.f,,locked, try again,read =',ready
+          print *, 'readVbot_file.f,locked, try again,read =',ready
 !         rest a little before trying again
 !         call sleep(1)
           go to 10
