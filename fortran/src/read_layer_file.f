@@ -39,5 +39,5 @@
         end if
 
        end if
-       print *, 'read_layer_file, result',result
+!       print *, 'read_layer_file, result',result
       end subroutine read_layer_file

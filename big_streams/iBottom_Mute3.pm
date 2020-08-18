@@ -76,12 +76,16 @@ use iSelect_tr_Sumute_bottom3;
 use iBottomMutePicks2par3;
 use old_data;
 use iSave_bottom_mute_picks3;
+use Project_config;
 use SuMessages;
 use SeismicUnix
   qw ($on $off $in $to $go $ibot_mute_par_ $ibot_mute_check_pickfile_ $false $true );
-my ($PL_SEISMIC)      = System_Variables::PL_SEISMIC();
-my ($DATA_SEISMIC_SU) = System_Variables::DATA_SEISMIC_SU();
-my ($date)            = System_Variables::date();
+
+my $Project = Project_config->new();
+  
+my ($PL_SEISMIC)      = $Project->PL_SEISMIC();
+my ($DATA_SEISMIC_SU) = $Project->DATA_SEISMIC_SU();
+my ($date)            = $Project->date();
 
 =head2 instantiate 
 

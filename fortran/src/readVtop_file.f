@@ -7,7 +7,7 @@
       character (len=30)  :: format1
       integer             :: err_message, counter, ready
 
-      format1= "(F5.1)"
+      format1=  "(F7.1)"
 
 !      print *, 'readVtop_file, inbound is:', trim(inbound)
 !      in case inbound is of a different, but shorter length in main

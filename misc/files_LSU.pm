@@ -387,12 +387,12 @@ except Project.config, which uses sub write2
 sub check2write {
 	my (@self) = @_;
 
-	# print("files_LSU, check2write,start\n");
+#	print("files_LSU, check2write,start\n");
 
 	if ( not -e $files_LSU->{_outbound} ) {
 
 		# CASE if configuration file does not already exist
-		# e.g. IMMODPG/immodpg.config
+		# e.g. , IMMODPG/immodpg.config
 		use File::Copy;
 		_set_prog_name_config();
 		my $prog_name_config = _get_prog_name_config();
@@ -1119,13 +1119,17 @@ sub sizes {
 
 
 =head2 sub _write
-	
-	write out configuration files to script
+Write out configuration files to script
 
 =cut
 
 sub _write {
+	
 	my ($self)      = @_;
+	
+	use control;
+	my $control = control->new();
+	
 	my $length      = ( scalar @{ $files_LSU->{_CFG} } ) / 2;
 	my $length_info = scalar @{ $files_LSU->{_info} };
 	my @info        = @{ $files_LSU->{_info} };
@@ -1135,14 +1139,19 @@ sub _write {
 	open( my $fh, '>', $files_LSU->{_outbound} )
 		or die "Can't open parameter file:$!";
 
-	# print("files_LSU,_write,length is $length\n");
+#	print("files_LSU,_write,length is $length\n");
 
 	for ( my $i = 0; $i < $length_info; $i++ ) {
 		printf $fh $info[$i];
+		# print("files_LSU,_write,info is $info[$i]\n");
 	}
 
 	for ( my $i = 0, my $j = 0; $i < $length; $i++, $j = $j + 2 ) {
-		printf $fh $format."\n", $CFG[$j], "= ", $CFG[ ( $j + 1 ) ];
+		
+		my $old_value = $CFG[ ( $j + 1 )];
+		my $new_value = $control->get_no_quotes( $old_value);
+		printf $fh $format."\n", $CFG[$j], "= ", $new_value;
+#		print("files_LSU,_write,$CFG[$j]= $CFG[ ( $j + 1 ) ]\n");	
 	}
 	close($fh);
 }
@@ -1220,7 +1229,7 @@ sub write2 {
 
 	my $PATH = $CONFIGURATION . '/' . $active_project_name;
 
-	print("files_LSU,write2, active_project_name: $active_project_name\n");
+#	print("files_LSU,write2, active_project_name: $active_project_name\n");
 
 	# print("files_LSU,write2, CONFIGURATION: $CONFIGURATION\n");
 	# print("files_LSU,write2, Project_config: $Project_config\n");

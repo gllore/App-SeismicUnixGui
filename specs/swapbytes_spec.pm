@@ -105,7 +105,7 @@ with definitions
 
 sub variables {
     my $self     = @_;
-    my $hash_ref = $suxgraph_spec;
+    my $hash_ref = $swapbytes_spec;
     return ($hash_ref);
 }
 

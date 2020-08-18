@@ -50,9 +50,9 @@ package Sucat_config;
   This package uses a list OR a continuous sequence of define 
   numieric names.
 
-  #$number_of_files	= 10;
-  #$first_file_number  	= 1;
-  #$last_file_number  	= 10;
+  #$number_of_files_in	= 10;
+  #$first_file_number_in  	= 1;
+  #$last_file_number_in  	= 10;
   
         Common to all data files
   $input_suffix  	= '.su';
@@ -69,9 +69,9 @@ package Sucat_config;
   $output_file_name     = 'All_good_sp';
 
   Another example:
-  first_file_number   = 1000  a numerical value,
-  last_file_number    = 1010  a numerical value,
-  number_of_files     = 11    a numerical value,
+  first_file_number_in   = 1000  a numerical value,
+  last_file_number_in    = 1010  a numerical value,
+  number_of_files_in     = 11    a numerical value,
   #output_file_name    = 1001_10 
   output_file_name    = 1000_10 
   #output_file_name    = All_good_SH_B4diff 
@@ -81,6 +81,7 @@ package Sucat_config;
   #list               = list_good_shot_numbers
   #list               = list_good_shot_numbers
   #list               = list_good_SP_from_SW
+  data_type			  =
   #list               = list_good_SP_from_NE
   list_directory= ./ 
 
@@ -98,7 +99,8 @@ my $config_superflows = new config_superflows;
 my $control           = new control();
 my $Project           = new Project_config;
 
-my $inbound_directory      = $Project->DATA_SEISMIC_SU();
+my $inbound_directory      = $Project->DATA_SEISMIC_SU(); #defaulted
+my $outbound_directory     = $Project->DATA_SEISMIC_SU(); #defaulted
 my $superflow_config_names = $get->superflow_config_names_aref();
 
 # WARNING---- watch out for missing underscore!!
@@ -128,28 +130,33 @@ sub get_values {
     # parameter values from superflow configuration file
     $Sucat_config->{_values_aref} = $config_superflows->get_values();
 
-    # print("Sucat_config,values=@{$Sucat_config->{_values_aref}}}\n");
+    # print("Sucat_config,values=@{$Sucat_config->{_values_aref}}\n");
 
-    my $first_file_number = @{ $Sucat_config->{_values_aref} }[0];
-    my $last_file_number  = @{ $Sucat_config->{_values_aref} }[1];
-    my $number_of_files   = @{ $Sucat_config->{_values_aref} }[2];
-    my $output_file_name  = @{ $Sucat_config->{_values_aref} }[3];
-    my $input_suffix      = @{ $Sucat_config->{_values_aref} }[4];
-    my $list              = @{ $Sucat_config->{_values_aref} }[5];
-    my $list_directory    = @{ $Sucat_config->{_values_aref} }[6];
-    my $inbounddirectory  = @{ $Sucat_config->{_values_aref} }[7];
+    my $first_file_number_in = @{ $Sucat_config->{_values_aref} }[0];
+    my $last_file_number_in  = @{ $Sucat_config->{_values_aref} }[1];
+    my $number_of_files_in   = @{ $Sucat_config->{_values_aref} }[2];
+
+    my $input_suffix      = @{ $Sucat_config->{_values_aref} }[3];
+    my $input_name_prefix       = @{ $Sucat_config->{_values_aref} }[4];
+    my $input_name_extension    = @{ $Sucat_config->{_values_aref} }[5];
+    my $list              = @{ $Sucat_config->{_values_aref} }[6];    
+    my $output_file_name  = @{ $Sucat_config->{_values_aref} }[7];
+    my $alternative_inbound_directory  = @{ $Sucat_config->{_values_aref} }[8];
+    my $alternative_outbound_directory  = @{ $Sucat_config->{_values_aref} }[9];
 
     my $CFG = {
         sucat => {
             1 => {
-                first_file_number => $first_file_number,
-                last_file_number  => $last_file_number,
-                number_of_files   => $number_of_files,
+                first_file_number_in => $first_file_number_in,
+                last_file_number_in  => $last_file_number_in,
+                number_of_files_in   => $number_of_files_in,
                 output_file_name  => $output_file_name,
                 input_suffix      => $input_suffix,
+     			input_name_prefix       => $input_name_prefix,
+    			input_name_extension    => $input_name_extension,             
                 list              => $list,
-                list_directory    => $list_directory,
-                inbound_directory => $inbound_directory,
+                alternative_inbound_directory => $alternative_inbound_directory,
+                alternative_outbound_directory => $alternative_outbound_directory,
             }
         }
     };    # end of CFG hash
@@ -167,8 +174,7 @@ max index = number of input variables -1
 sub get_max_index {
     my ($self) = @_;
 
-    # only file_name : index=7
-    my $max_index = 7;
+    my $max_index = 9;
 
     return ($max_index);
 }

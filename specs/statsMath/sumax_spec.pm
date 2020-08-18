@@ -20,6 +20,7 @@ my $file_dialog_type = $get->file_dialog_type_href();
 my $flow_type        = $get->flow_type_href();
 
 my $DATA_SEISMIC_SU = $Project->DATA_SEISMIC_SU();    # input data directory
+my $PL_SEISMIC				= $Project->PL_SEISMIC();
 my $max_index       = $sumax->get_max_index();
 
 my $sumax_spec =  {

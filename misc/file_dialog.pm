@@ -105,8 +105,8 @@ sub _FileDialog {
 
 	my ($self) = @_;
 
-	# use Tk::JFileDialog;
-	use JFileDialog;    # 4/25/2019
+	use Tk::JFileDialog;
+	# use JFileDialog;    # 4/25/2019
 	my $my_title        = _get_dialog_type();    # e.g., 'SaveAs' or 'Save' or 'Flow'
 	my $FileDialog_path = _get_path();           # e.g., $PL or $DATA_SEISMIC_SU
 

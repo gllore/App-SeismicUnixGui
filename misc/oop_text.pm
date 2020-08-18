@@ -768,8 +768,8 @@ e.g., 	use message;
 output in the text file should look something like 
 	    use message;
 		use flow;
-		use sunix::data::data_in	
-		use sunix::plot::suxwigb
+		use  data_in	
+		use  suxwigb
 		
 		4-4-19: prevent repetition of programs being output
 

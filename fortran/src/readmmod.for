@@ -202,6 +202,7 @@ c
 c *** MODIFICATIONS ***
 c
 	ID=0
+!	Juan's modification for iimodpg.for July 25 2020
 	CALL READ_PAR_I4('1-MAKE SOME CHANGES ON THIS FILE, 0- NO',ID)
 	IF(ID.NE.1) GO TO 135
 127	write(*,*)'1-DELETE OR 2-INSERT AFTER LAYER,3- CHANGE LAYER '

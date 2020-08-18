@@ -14,7 +14,7 @@ C
 C WRITES VELOCITY MODEL In a file
 C
        ICH = 9
-       open (unit=ICH,file=outbound,status='new')
+       open (unit=ICH,file=outbound,status='replace')
 
        WRITE(ICH,50)
        WRITE(ICH,100)

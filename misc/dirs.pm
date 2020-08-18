@@ -120,7 +120,7 @@ sub get_last_dirInpath {
 
         my @dir = split( /\//, $dirs->{_path} );
 
-        print("dirs, get_last_dir, $dir[$#dir] \n");
+        # print("dirs, get_last_dir, $dir[$#dir] \n");
         $result = $dir[$#dir];
         return ($result);
 

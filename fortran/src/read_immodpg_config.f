@@ -9,16 +9,17 @@
       character (len=30) :: format7,format8,format9
       character (len=30) :: format10,format11,format12,format13
       character (len=30) :: format14,format15,format16,format17
-      character (len=30) :: format18
+      character (len=30) :: format18,format19
       character (len=5)  :: equal,previous_model,new_model
       character (len=5)  :: pre_digitized_XT_pairs,data_traces
       character (len=50) :: base_file
       character (len=255):: inbound, inbound_locked
       real               :: min_t_s,max_t_s,min_x_m,max_x_m
-      real               ::z_increment_m,source_depth_m,receiver_depth_m
+      real               :: thickness_increment_m
+      real               ::data_x_inc_m,source_depth_m,receiver_depth_m
       real               :: reducing_vel_mps,plot_min_x_m,plot_max_x_m
       real               :: plot_min_t_s,plot_max_t_s,VtopNbot_factor
-      real               :: results(30), Vincrement, clip
+      real               :: results(30), Vincrement_mps, clip, m2km
       integer*2          :: layer
       integer            :: err_message, counter, ready
 !       in case definition in main is slightly different
@@ -45,7 +46,9 @@
       format15= "(A9,26X,A1,1X,A)"
       format16= "(A5,30X,A1,1X,I2)"
       format17= "(A15,20X,A1,1X,F10.3)"
-      format18= "(A10,25X,A1,1X,F10.3)"
+      format18= "(A14,21X,A1,1X,F10.3)"
+      format19= "(A21,14X,A1,1X,F10.3)"
+      m2km = .001;
 
 !      print*, 'read_immodpg_config.f, inbound is:', trim(inbound)
 !      in case inbound is of a different length in main
@@ -73,7 +76,7 @@
 !       print*, '3. read_immodpg_config.f, clip:',clip
          read (1,format4) name,equal,min_t_s
          read (1,format5) name,equal,min_x_m
-         read (1,format6) name,equal,z_increment_m
+         read (1,format6) name,equal,data_x_inc_m
          read (1,format7) name,equal,source_depth_m
          read (1,format8) name,equal,receiver_depth_m
          read (1,format9) name,equal,reducing_vel_mps
@@ -83,7 +86,8 @@
          read (1,format13) name,equal,plot_max_t_s
 !      print*, '4. read_immodpg_config.f, min_t_s:',min_t_s
 !      print*, '5. read_immodpg_config.f, min_x_m:',min_x_m
-!      print*, '6. read_immodpg_config.f, z_increment_m:',z_increment_m
+!      print*, '6. read_immodpg_config.f, data_x_inc_m:',
+!     + real(data_x_inc_m)
 !      print*, '7. read_immodpg_config.f, source_depth_m:',
 !     + source_depth_m
 !      print*,'8. read_immodpg_config.f,receiver_depth_m:',
@@ -105,9 +109,12 @@
          read (1,format17) name,equal,VtopNbot_factor
 !       print*,'17.read_immodpg_config.f, ,VtopNbot_factor:'
 !     + ,VtopNbot_factor
-         read (1,format18) name,equal,Vincrement
-!       print*,'18.read_immodpg_config.f, ,Vincrement:'
-!     + ,Vincrement
+         read (1,format18) name,equal,Vincrement_mps
+!       print*,'18.read_immodpg_config.f,Vincrement_mps:'
+!     + ,Vincrement_mps
+         read (1,format19) name,equal,thickness_increment_m
+!       print*,'19.read_immodpg_config.f,thickness_increment_m:'
+!     + ,thickness_increment_m
          if (base_file .ne. '') then
 !      print*, 'NADA,read_immodpg_config.f, base_file:',base_file
          else
@@ -128,13 +135,13 @@
 
          results(3) = real(clip)
          results(4) = min_t_s
-         results(5) = min_x_m/1000.
-         results(6) = z_increment_m/1000.
-         results(7) = source_depth_m/1000.
-         results(8) = receiver_depth_m/1000.
-         results(9) = reducing_vel_mps/1000.
-         results(10) = plot_min_x_m/1000.
-         results(11) = plot_max_x_m/1000.
+         results(5) = min_x_m * m2km
+         results(6) = real(data_x_inc_m) * m2km
+         results(7) = source_depth_m * m2km
+         results(8) = receiver_depth_m * m2km
+         results(9) = reducing_vel_mps * m2km
+         results(10) = plot_min_x_m * m2km
+         results(11) = plot_max_x_m * m2km
          results(12) = plot_min_t_s
          results(13) = plot_max_t_s
 
@@ -159,6 +166,10 @@
           results(16) = -1.00
 !      print*,'2.read_immodpg_config.f,layer:',layer
          end if
+
+         results(17) = VtopNbot_factor;
+         results(18) = Vincrement_mps * m2km;
+         results(19) = thickness_increment_m * m2km;
 !       result = 1
        close (unit=1)
 !      if (answer == 'yes')
@@ -175,7 +186,7 @@
          end if
        else
          print *, 'read_immodpg_config.f,locked,try again,read=',ready
-         go to 10
+!         go to 10
        end if
 !       remove lock file
 11      close (status='delete',unit=2,iostat=err_message)

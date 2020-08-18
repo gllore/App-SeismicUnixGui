@@ -22,7 +22,8 @@ my $DATA_SEISMIC_SU = $Project->DATA_SEISMIC_SU();    # output data directory
 my $PL_SEISMIC        = $Project->PL_SEISMIC();
 my $max_index       = $sukill->get_max_index();
 
-my $sukill_spec = 
+my $sukill_spec = {
+    _CONFIG	 				=> $PL_SEISMIC,	
 	_DATA_DIR_OUT          => $DATA_SEISMIC_SU,
 	_DATA_DIR_IN           => $DATA_SEISMIC_SU,
 	_DATA_DIR_OUT          => $DATA_SEISMIC_SU,

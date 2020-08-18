@@ -48,7 +48,7 @@
          go to 10
         end if
        else
-        print *, 'read_yes_no_file.f,locked, try again,read =',ready
+!        print *, 'read_yes_no_file.f,locked, try again,read =',ready
         go to 10
        end if
 
@@ -56,7 +56,7 @@
 11     close (status='delete',unit=11,iostat=err_message)
         if (err_message.ne.0) then
          go to 11
-         print *, 'read_yes_no_file.f, err_messg=',err_message
+!         print *, 'read_yes_no_file.f, err_messg=',err_message
         end if
 
       end subroutine read_yes_no_file

@@ -26,7 +26,8 @@ my $DATA_SEISMIC_SU  = $Project->DATA_SEISMIC_SU();     # output data directory
 my $PL_SEISMIC        = $Project->PL_SEISMIC();
 my $max_index = 17;    #$sufdmod1->get_max_index() mystery error
 
-my $sufdmod1_spec = 
+my $sufdmod1_spec =  {
+	_CONFIG						  => $PL_SEISMIC,
 	_DATA_DIR_OUT          => $DATA_SEISMIC_SU,
 	_DATA_DIR_IN           => $DATA_SEISMIC_BIN,
 	_DATA_DIR_OUT          => $DATA_SEISMIC_SU,

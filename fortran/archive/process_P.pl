@@ -46,14 +46,14 @@
 
 	my $DATA_SEISMIC_SU = $Project->DATA_SEISMIC_SU;
 
-	use misc::message;
-	use misc::flow;
-	use sunix::data::data_in;
+	use message;
+	use flow;
+	use  data_in;
 	use sunix::shapeNcut::suwind;
-	use sunix::filter::sufilter;
+	use  sufilter;
 	use sunix::shapeNcut::sugain;
-	use sunix::plot::suximage;
-	use sunix::data::data_out;
+	use  suximage;
+	use  data_out;
 	
 	my $log					= new message();
 	my $run					= new flow();

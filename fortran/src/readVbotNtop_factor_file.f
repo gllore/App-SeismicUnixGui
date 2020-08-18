@@ -7,7 +7,7 @@
       character (len=30)  :: format1
       integer :: err_message, ready
 
-      format1= "(F5.1)"
+      format1=  "(F7.1)"
 !      create a temporary, new, lock file
 10     open(status='new',unit=30,file=inbound_locked,iostat=ready)
 

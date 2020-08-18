@@ -36,10 +36,10 @@ Version:
 
 	use misc::message;
 	use misc::flow;
-	use sunix::data::data_in;
+	use  data_in;
 	use sunix::transform::sutaup;
 	use sunix::shapeNcut::sugain;
-	use sunix::plot::suximage;
+	use  suximage;
 
 	my $log					= new message();
 	my $run					= new flow();

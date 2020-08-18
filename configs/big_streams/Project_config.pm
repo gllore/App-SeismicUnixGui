@@ -52,7 +52,7 @@ my $Project = {
 	_gmt_is_selected              => '',
 	_grass__is_selected           => '',
 	_matlab_is_selected           => '',
-	_immodpg_is_selected           => '',
+	_immodpg_is_selected          => '',
 	_sqlite_is_selected           => '',
 	_line                         => '',
 	_component                    => '',
@@ -118,7 +118,8 @@ my $Project = {
 	_MATLAB_WELL                  => '',
 	_MATLAB_SEISMIC               => '',
 	_IMMODPG                      => '',
-	_IMMODPG_INVISIBLE            => '',	
+	_IMMODPG_INVISIBLE            => '',
+	_MMODPG									=>'',
 	_MOD2D_TOMO                   => '',
 	_PL_SEISMIC                   => '',
 	_PL_GEOMAPS                   => '',
@@ -193,12 +194,11 @@ sub _basic_dirs {
 	my $prog_name_old    = 'Project_Variables';
 	my $prog_name_config = '';
 
-
 	if ( -e $prog_name_old . '.config' ) {
-		
+
 		# CASE 1 check local directory first LEGACY Project_Variables file
 		print("1. Project_config,_basic_dirs,using local $prog_name_old.config\n");
-		
+
 		$prog_name = $prog_name_old;
 		print("1a. Project_config,_basic_dirs,using local $prog_name_old.config \n");
 		$prog_name_config = $prog_name_old . '.config';
@@ -211,14 +211,14 @@ sub _basic_dirs {
 		_change_basic_dirs();
 
 	} elsif ( -e $prog_name_new . '.config' ) {
-		
+
 		# CASE2 check local directory for Project.config
 
 		$prog_name        = $prog_name_new;                # system uses $GLOBAL_CONFIG_LIB.'/'.$prog_name_new
 		$prog_name_config = $prog_name_new . '.config';    # i.e. Project.config
 
-
 	} elsif ( -e $ACTIVE_PROJECT . '/' . $prog_name_new . '.config' ) {
+
 		# CASE 3 check user configuration directory for Project.config
 
 		# print("2. Project_config,_basic_dirs,using local $prog_name_new.config\n");
@@ -242,14 +242,15 @@ sub _basic_dirs {
 
 		_change_basic_dirs();
 
-	} else {    
+	} else {
+
 		# CASE 4 If nothing exists so you will have to
 		# a. create the correct files and directories
 		# B. set THE PATH NAME as the user configuration path
 		# copy a default Project configuration file from
 		# the GLOBAL_LIBS directory defined in
 		# L_SU_global_constants.pm
-		print ("Project_config, _basic_dirs, no configuration files exist\n");
+		print("Project_config, _basic_dirs, no configuration files exist\n");
 
 		use manage_dirs_by;
 		use File::Copy;
@@ -389,7 +390,7 @@ sub _change_basic_dirs {
 	my ( $date,          $line,         $subUser );
 	my ( $HOME,          $PROJECT_HOME, $site, $spare_dir );
 	my ( $geomaps_logic, $geopsy_logic, $matlab_logic );
-	my ( $gmt_logic,    $grass_logic );
+	my ( $gmt_logic,     $grass_logic );
 	my ( $immodpg_logic, $sqlite_logic, );
 
 	# TODO my ()$matlab,$fast,$immodpg,gmt);
@@ -398,7 +399,7 @@ sub _change_basic_dirs {
 
 	for ( my $i = 0, my $j = 0; $i < $length; $i++, $j = $j + 2 ) {
 
-		#print(" 6. Project_config,make_local_dirs,ref_DIR:@{$Project->{_ref_DIR}}[$i]\n");
+		# print(" 6. Project_config,make_local_dirs,ref_DIR:@{$Project->{_ref_DIR}}[$i]\n");
 		$CFG[$j] = @{ $Project->{_ref_DIR_FUNCTION} }[$i];
 		$CFG[ ( $j + 1 ) ] = @{ $Project->{_ref_DIR} }[$i];
 
@@ -424,7 +425,7 @@ sub _change_basic_dirs {
 	$gmt_logic     = $control->set_str2logic( $CFG[21] );
 	$grass_logic   = $control->set_str2logic( $CFG[23] );
 	$matlab_logic  = $control->set_str2logic( $CFG[25] );
-	$immodpg_logic  = $control->set_str2logic( $CFG[27] );
+	$immodpg_logic = $control->set_str2logic( $CFG[27] );
 	$sqlite_logic  = $control->set_str2logic( $CFG[29] );
 
 	# print("1. Project_config,_change_basic_dirs PROJECT_HOME=$Project->{_PROJECT_HOME}\n");
@@ -496,7 +497,7 @@ sub _change_basic_dirs {
 	$Project->{_grass_is_selected}   = $grass_logic;
 	$Project->{_gmt_is_selected}     = $gmt_logic;
 	$Project->{_matlab_is_selected}  = $matlab_logic;
-	$Project->{_immodpg_is_selected}  = $immodpg_logic;
+	$Project->{_immodpg_is_selected} = $immodpg_logic;
 	$Project->{_sqlite_is_selected}  = $sqlite_logic;
 
 	return ();
@@ -617,7 +618,7 @@ sub _system_dirs {
 
 	# MMODPG DIRECTORY
 	my $MMODPG = $SEISMIC . '/mmodpg/' . $DATE_LINE_COMPONENT_STAGE_PROCESS . '/' . $subUser;
-	
+
 	# IMMODPG DIRECTORY
 	my $IMMODPG = $SEISMIC . '/mmodpg/' . $DATE_LINE_COMPONENT_STAGE_PROCESS . '/' . $subUser;
 
@@ -959,7 +960,7 @@ sub system_dirs {
 	my $MATLAB_SEISMIC = $SEISMIC . '/matlab/' . $DATE_LINE_COMPONENT_STAGE_PROCESS . '/' . $subUser;
 	my $MATLAB_WELL    = $WELL . '/matlab/' . $DATE_LINE_COMPONENT_STAGE_PROCESS . '/' . $subUser;
 	my $MATLAB_GEOMAPS = $GEOMAPS . '/matlab/' . $DATE_LINE_COMPONENT_STAGE_PROCESS . '/' . $subUser;
-	
+
 	# MMODPG DIRECTORY
 	my $MMODPG = $SEISMIC . '/mmodpg/' . $DATE_LINE_COMPONENT_STAGE_PROCESS . '/' . $subUser;
 
@@ -967,8 +968,8 @@ sub system_dirs {
 	my $IMMODPG = $SEISMIC . '/mmodpg/' . $DATE_LINE_COMPONENT_STAGE_PROCESS . '/' . $subUser;
 
 	# IMMODPG DIRECTORY
-	my $IMMODPG_INVISIBLE
-		= $SEISMIC . '/mmodpg/' . $DATE_LINE_COMPONENT_STAGE_PROCESS . '/' . $subUser . '/.immodpg';
+	my $IMMODPG_INVISIBLE = $SEISMIC . '/mmodpg/' . $DATE_LINE_COMPONENT_STAGE_PROCESS . '/' . $subUser . '/.immodpg';
+
 	# print("Project_config,system_dirs, IMMODPG_INVISIBLE: $IMMODPG_INVISIBLE\n");
 
 	# FAST DIRECTORY for 2D RAYTRACING
@@ -1661,11 +1662,12 @@ sub MMODPG {
 	return ($MMODPG);
 }
 
-sub IMMODPG {
+sub IMMODPG  {
 	_basic_dirs();
 	_system_dirs();
 
 	my $IMMODPG = $Project->{_IMMODPG};
+#	print("Project_config, IMMODPG=$IMMODPG \n");
 	return ($IMMODPG);
 }
 
@@ -1675,6 +1677,7 @@ sub IMMODPG_INVISIBLE {
 
 	my $IMMODPG_INVISIBLE = $Project->{_IMMODPG_INVISIBLE};
 	return ($IMMODPG_INVISIBLE);
+	
 }
 
 sub MOD2D_TOMO {
@@ -1989,23 +1992,28 @@ sub make_local_dirs {
 	# sioseis
 
 	# mmodpg-deprecated
-	my $MMODPG           = $Project->{_MMODPG};
-	# print("Project_config,IMMODPG= $MMODPG\n");
+	my $MMODPG = $Project->{_MMODPG};
+	my $IMMODPG_INVISIBLE = $Project->{_IMMODPG_INVISIBLE};
+	
 	if ( $Project->{_mmodpg_is_selected} ) {
+		
+		print("Project_config,IMMODPG= $MMODPG\n");
 		manage_dirs_by::make_dir($MMODPG);
+		manage_dirs_by::make_dir($IMMODPG_INVISIBLE);	
+		
 	}
 
 	# immodpg
-	 $MMODPG           = $Project->{_MMODPG};
-	my $IMMODPG_INVISIBLE = $Project->{_IMMODPG_INVISIBLE};
-	# print("Project_config,IMMODPG_INVISIBLE= $IMMODPG_INVISIBLE\n");
-	# print("Project_config,IMMODPG= $IMMODPG\n");
-	if ( $Project->{_immodpg_is_selected} ) {
-		manage_dirs_by::make_dir($MMODPG);
-		manage_dirs_by::make_dir($IMMODPG_INVISIBLE);
-	}
+	my $IMMODPG = $Project->{_IMMODPG};
 	
-
+	if ( $Project->{_immodpg_is_selected} ) {
+		
+#		("Project_config,IMMODPG= $IMMODPG\n");
+#		print("Project_config,IMMODPG_INVISIBLE= $IMMODPG_INVISIBLE\n");
+		manage_dirs_by::make_dir($IMMODPG);
+		manage_dirs_by::make_dir($IMMODPG_INVISIBLE);
+		
+	}
 
 	# fast tomography
 	my $TEMP_FAST_TOMO = $Project->{_TEMP_FAST_TOMO};
@@ -2191,10 +2199,11 @@ sub update_configuration_files {
 	$project->{_names_aref}  = $names_aref;
 	$project->{_values_aref} = $values_aref;
 	my $Project_site = @{ $project->{_values_aref} }[2];
+
 	# print("Project_config, update_configuration_files,Project site= $Project_site\n");
 	# print("Project_config, update_configuration_files,project->{_values_aref:@{$project->{_values_aref}}\n");
-	
-	my $PROJECT_PATH				= @{$project->{_values_aref}}[1];
+
+	my $PROJECT_PATH = @{ $project->{_values_aref} }[1];
 	$dirs->set_path($Project_site);
 	my $Project_name = $dirs->get_last_dirInpath();
 	$control->set_infection($Project_name);

@@ -4,6 +4,7 @@ use Moose;
 use message;
 use flow;
 use mkparfile;
+use Project_config;
 
 =head1 DOCUMENTATION
 
@@ -56,6 +57,7 @@ Examples
 my $log       = new message();
 my $run       = new flow();
 my $mkparfile = new mkparfile();
+my $Project 	= Project_config->new();
 
 =pod
  
@@ -95,7 +97,7 @@ my $iBottomMutePicks2par3 = {
 
 use SeismicUnix
   qw ($true $false $in $out $to $ibot_mute_par_ $itemp_bot_mute_picks_ $itemp_bot_mute_picks_sorted_par_  $out $suffix_su);
-my ($PL_SEISMIC) = System_Variables::PL_SEISMIC();
+my ($PL_SEISMIC) = $Project->PL_SEISMIC();
 
 =head2 subroutine clear
 

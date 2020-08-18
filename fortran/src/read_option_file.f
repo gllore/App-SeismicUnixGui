@@ -8,7 +8,7 @@
       integer :: err_message, counter, ready
       integer :: result
 
-      format1= "(I2)"
+      format1= "(I3)"
 
 !      print *, 'read_option_file, inbound is:', trim(inbound)
 !      in case inbound is of a different, but shorter length in main
@@ -44,7 +44,7 @@
          go to 10
         end if
        else
-         print *, 'read_option_file.f,locked, try again,read =',ready
+!         print *, 'read_option_file.f,locked, try again,read =',ready
          go to 10
        end if
 !       remove lock file
