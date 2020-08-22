@@ -2,7 +2,7 @@
          implicit none
 !       read a configuration file
 
-      real*4              :: result
+      real*4          :: result
       character (len=255) :: inbound, inbound_locked
       character (len=30)  :: format1
       integer             :: err_message, counter, ready

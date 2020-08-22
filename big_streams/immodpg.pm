@@ -3256,11 +3256,11 @@ _config_file_format			        => '%-35s%1s%-20s',
 =cut	
 
 	my $variables             = $immodpg_spec->variables();
-	my $format_clip  		= $var_immodpg->{_config_file_format_clip};
+	my $format_clip           = $var_immodpg->{_config_file_format_clip};
 	my $format_string         = $var_immodpg->{_config_file_format};
 	my $format_real           = $var_immodpg->{_config_file_format_real};
 	my $format_signed_integer = $var_immodpg->{_config_file_format_signed_integer};
-	
+
 =head2 correct errors
 
 =cut
@@ -3827,6 +3827,9 @@ reset default files as well
 sub clean_trash {
 	my ($self) = @_;
 	use File::stat;
+	use manage_files_by2;
+	
+	my $clean = manage_files_by2->new();
 
 	my ($outbound_locked);
 
@@ -3879,97 +3882,19 @@ sub clean_trash {
 	_set_change( $immodpg->{_change_default} );
 
 	# delete empty files
-	my ( @size,      @file_name, @inode );
-	my ( $i,         $junk,      $cmd_file_name, $num_file_names );
-	my ( $cmd_inode, $cmd_size,  $index_node_number );
+	# remove weird, locked files from the current directory
+	my $CD	= `pwd`;	
+	$clean->set_directory($CD);
+	$clean->clear_empty_files();
 
 	# remove weird lock files from the main directory
-	$cmd_file_name  = "ls -1 $IMMODPG";
-	$cmd_size       = "ls -s1 $IMMODPG";
-	$cmd_inode      = "ls -i1 $IMMODPG";
-	@file_name      = `$cmd_file_name`;
-	@size           = `$cmd_size`;
-	@inode          = `$cmd_inode`;
-	$num_file_names = scalar @file_name;
-
-	for ( my $i = 0; $i < $num_file_names; $i++ ) {
-		chomp $file_name[$i];
-		chomp $inode[$i];
-
-		$inode[$i] =~ s/^\s+//g;    # trim spaces at start
-		( $inode[$i], $junk ) = split( / /, $inode[$i] );
-
-	}
-
-	for ( my $i = 1; $i <= $num_file_names; $i++ ) {
-
-		chomp $size[$i];
-		$size[$i] =~ s/^\s+//g;     # trim spaces at start
-		( $size[$i], $junk ) = split( / /, $size[$i] );
-
-	}
-
-	for ( my $i = 0, my $j = 1; $i < $num_file_names; $i++, $j++ ) {
-
-#		print("CASE VISIBLE  name inode size = $file_name[$i] $inode[$i] $size[$j]\n");
-
-		if ( $size[$j] == 0 ) {
-			$index_node_number = $inode[$i];
-			my $flow = (
-				"cd $IMMODPG
-								find . -inum $index_node_number -exec rm {} \\;"
-			);
-#			print $flow;
-			system $flow;
-
-		} else {
-#			print("immodpg,clean_trash,size>0,line=$i, NADA\n");
-		}
-	}
-	# remove weird lock files from the invisible  directory inside the main directory
-	$cmd_file_name  = "ls -1 $IMMODPG_INVISIBLE";
-	$cmd_size       = "ls -s1 $IMMODPG_INVISIBLE";
-	$cmd_inode      = "ls -i1 $IMMODPG_INVISIBLE";
-	@file_name      = `$cmd_file_name`;
-	@size           = `$cmd_size`;
-	@inode          = `$cmd_inode`;
-	$num_file_names = scalar @file_name;
-
-	for ( my $i = 0; $i < $num_file_names; $i++ ) {
-		chomp $file_name[$i];
-		chomp $inode[$i];
-
-		$inode[$i] =~ s/^\s+//g;    # trim spaces at start
-		( $inode[$i], $junk ) = split( / /, $inode[$i] );
-
-	}
-
-	for ( my $i = 1; $i <= $num_file_names; $i++ ) {
-
-		chomp $size[$i];
-		$size[$i] =~ s/^\s+//g;     # trim spaces at start
-		( $size[$i], $junk ) = split( / /, $size[$i] );
-
-	}
-
-	for ( my $i = 0, my $j = 1; $i < $num_file_names; $i++, $j++ ) {
-
-#		print("CASE 2 INVISIBLE name inode size = $file_name[$i] $inode[$i] $size[$j]\n");
-
-		if ( $size[$j] == 0 ) {
-			$index_node_number = $inode[$i];
-			my $flow = (
-				"cd $IMMODPG_INVISIBLE
-								find . -inum $index_node_number -exec rm {} \\;"
-			);
-#			print $flow;
-			system $flow;
-
-		} else {
-#			print("immodpg,clean_trash,size>0,line=$i, NADA\n");
-		}
-	}
-
+	$clean->set_directory($IMMODPG);
+	$clean->clear_empty_files();
+	
+	# remove weird lock files from the IMMODPG_INVISIBLE
+	$clean->set_directory($IMMODPG_INVISIBLE);
+	$clean->clear_empty_files();
+	
 	return ();
 }
 
@@ -4002,14 +3927,13 @@ sub exit {
 	use xk;
 	my $xk = xk->new();
 
-	$xk->set_process('immodpg1.1');
+#	$xk->set_process('immodpg1.1');
 
 	#	print("immodpg,exit: kill immodpg1.1\n");
-	$xk->kill_process();
+#	$xk->kill_process();
 
 	$xk->set_process('pgxwin_server');
-
-	#	print("immodpg,exit: kill pgxwin_server\n");
+	print("immodpg,exit: kill pgxwin_server\n");
 	$xk->kill_process();
 
 	print("immodpg,exit: Goodbye!\n");
@@ -4364,20 +4288,20 @@ sub setVbotNVtop_lower_layer_minus {
 			$immodpg->{_isVtop_lower_layer_changed} = $yes;
 			$immodpg->{_isVbot_changed}             = $yes;
 
-			#			print("immodpg, setVbotNVtop_lower_layer_minus, new Vtop_lower_layer= $new_Vtop_lower_layer\n");
-			#			print("immodpg, setVbotNVtop_lower_layer_minus, Vincrement= $Vincrement\n");
+#			print("immodpg, setVbotNVtop_lower_layer_minus, new Vtop_lower_layer= $new_Vtop_lower_layer\n");
+#			print("immodpg, setVbotNVtop_lower_layer_minus, Vincrement= $Vincrement\n");
 
 			if (   $immodpg->{_isVtop_lower_layer_changed} eq $yes
 				&& $immodpg->{_isVbot_changed} eq $yes ) {
 
 				# for fortran program to read
-				#				print("immodpg, setVbotNVtop_lower_layer_minus, Vbot is changed: $yes \n");
+#				print("immodpg, setVbotNVtop_lower_layer_minus, Vbot is changed: $yes \n");
 
 				_set_option($VbotNVtop_lower_layer_minus_opt);
 				_set_change($yes);
 
-				#				print("immodpg, setVbotNVtop_lower_layer_minus,option:$VbotNVtop_lower_layer_minus_opt\n");
-				#				print("immodpg, setVbotNVtop_lower_layer_minus, V=$immodpg->{_Vtop_lower_layer_current}\n");
+#				print("immodpg, setVbotNVtop_lower_layer_minus,option:$VbotNVtop_lower_layer_minus_opt\n");
+#				print("immodpg, setVbotNVtop_lower_layer_minus, V=$immodpg->{_Vtop_lower_layer_current}\n");
 
 			} else {
 
@@ -4427,8 +4351,8 @@ sub setVbotNVtop_lower_layer_plus {
 		if (   looks_like_number($Vtop_lower_layer)
 			&& looks_like_number($Vbot) ) {
 
-			my $new_Vtop_lower_layer = $Vtop_lower_layer - $Vincrement;
-			my $new_Vbot             = $Vbot - $Vincrement;
+			my $new_Vtop_lower_layer = $Vtop_lower_layer + $Vincrement;
+			my $new_Vbot             = $Vbot + $Vincrement;
 
 			$immodpg->{_Vtop_lower_layer_prior}   = $immodpg->{_Vtop_lower_layer_current};
 			$immodpg->{_Vtop_lower_layer_current} = $new_Vtop_lower_layer;
@@ -4497,6 +4421,7 @@ sub setVtopNVbot_upper_layer_minus {
 
 	my ($self) = @_;
 
+print("layer_current = $immodpg->{_layer_current};\n");
 	if (
 		   looks_like_number( $immodpg->{_Vincrement_current} )
 		&& length( $immodpg->{_Vbot_upper_layerEntry} )
@@ -4509,9 +4434,10 @@ sub setVtopNVbot_upper_layer_minus {
 		my $Vincrement       = ( $immodpg->{_VincrementEntry} )->get();
 		my $layer_current    = $immodpg->{_layer_current};
 
-		if ( looks_like_number($Vbot_upper_layer) && looks_like_number($Vtop)
-			and $layer_current > 0 ) {
-
+		if ( looks_like_number($Vbot_upper_layer) 
+			&& looks_like_number($Vtop)
+			and $layer_current > 1 ) {
+print("2\n");
 			my $new_Vbot_upper_layer = $Vbot_upper_layer - $Vincrement;
 			my $new_Vtop             = $Vtop - $Vincrement;
 
@@ -4530,20 +4456,20 @@ sub setVtopNVbot_upper_layer_minus {
 			$immodpg->{_isVbot_upper_layer_changed} = $yes;
 			$immodpg->{_isVtop_changed}             = $yes;
 
-			#			print("immodpg, setVtopNVbot_upper_layer_minus, new Vbot_upper_layer= $new_Vbot_upper_layer\n");
-			#			print("immodpg, setVtopNVbot_upper_layer_minus, Vincrement= $Vincrement\n");
+			print("immodpg, setVtopNVbot_upper_layer_minus, new Vbot_upper_layer= $new_Vbot_upper_layer\n");
+			print("immodpg, setVtopNVbot_upper_layer_minus, Vincrement= $Vincrement\n");
 
 			if (   $immodpg->{_isVbot_upper_layer_changed} eq $yes
 				&& $immodpg->{_isVtop_changed} eq $yes ) {
 
 				# for fortran program to read
-				#				print("immodpg, setVtopNVbot_upper_layer_minus, Vbot is changed: $yes \n");
+				print("immodpg, setVtopNVbot_upper_layer_minus, Vbot is changed: $yes \n");
 
 				_set_option($VtopNVbot_upper_layer_minus_opt);
 				_set_change($yes);
 
-				#				print("immodpg, setVtopNVbot_upper_layer_minus,option:$VtopNVbot_upper_layer_minus_opt\n");
-				#				print("immodpg, setVtopNVbot_upper_layer_minus, V=$immodpg->{_Vbot_upper_layer_current}\n");
+				print("immodpg, setVtopNVbot_upper_layer_minus,option:$VtopNVbot_upper_layer_minus_opt\n");
+				print("immodpg, setVtopNVbot_upper_layer_minus, V=$immodpg->{_Vbot_upper_layer_current}\n");
 
 			} else {
 
@@ -4597,7 +4523,7 @@ sub setVtopNVbot_upper_layer_plus {
 		my $layer_current    = $immodpg->{_layer_current};
 
 		if ( looks_like_number($Vbot_upper_layer) && looks_like_number($Vtop)
-			and $layer_current > 0 ) {
+			and $layer_current > 1 ) {
 
 			my $new_Vbot_upper_layer = $Vbot_upper_layer + $Vincrement;
 			my $new_Vtop             = $Vtop + $Vincrement;
@@ -5168,10 +5094,9 @@ sub set_layer {
 		&& $immodpg->{_VbotEntry} ne $empty_string
 		&& $immodpg->{_VtopEntry} ne $empty_string
 		&& $immodpg->{_Vbot_upper_layerEntry} ne $empty_string
-		&& $immodpg->{_Vtop_lower_layerEntry} ne $empty_string 
-		&& length($immodpg->{_thickness_mEntry})
-		&& looks_like_number( $immodpg->{_thickness_m_current} )
-		) {
+		&& $immodpg->{_Vtop_lower_layerEntry} ne $empty_string
+		&& length( $immodpg->{_thickness_mEntry} )
+		&& looks_like_number( $immodpg->{_thickness_m_current} ) ) {
 
 		# print("2. immodpg, layer, $immodpg->{_layerEntry}\n");
 		_check_layer();
@@ -5194,9 +5119,10 @@ and thickness values of the new layer
 
 			_set_model_layer( $immodpg->{_layer_current} );
 			my ( $Vp_ref, $dz ) = _getVp_dz_initial();
-			my @V = @$Vp_ref;
+			my @V           = @$Vp_ref;
 			my $thickness_m = $dz;
-#			print("immodpg,set_layer,thickness=$thickness_m \n");
+
+			#			print("immodpg,set_layer,thickness=$thickness_m \n");
 
 			my $Vbot_upper_layer = $V[0];
 			my $Vtop             = $V[1];
@@ -5205,8 +5131,8 @@ and thickness values of the new layer
 
 			# print("immodpg, set_layer, Vbot=$Vbot\n");
 			$immodpg->{_thickness_mEntry}->delete( 0, 'end' );
-			$immodpg->{_thickness_mEntry}->insert( 0, $thickness_m);
-			
+			$immodpg->{_thickness_mEntry}->insert( 0, $thickness_m );
+
 			# print("immodpg, set_layer, Vbot=$Vbot\n");
 			$immodpg->{_VbotEntry}->delete( 0, 'end' );
 			$immodpg->{_VbotEntry}->insert( 0, $Vbot );
@@ -5232,8 +5158,8 @@ and thickness values of the new layer
 			$immodpg->{_Vbot_upper_layer_current} = $Vbot_upper_layer;
 			$immodpg->{_Vtop_lower_layer_prior}   = $immodpg->{_Vtop_lower_layer_current};
 			$immodpg->{_Vtop_lower_layer_current} = $Vtop_lower_layer;
-			$immodpg->{_thickness_m_prior}   = $immodpg->{_thickness_m_current};
-			$immodpg->{_thickness_m_current} = $thickness_m;			
+			$immodpg->{_thickness_m_prior}        = $immodpg->{_thickness_m_current};
+			$immodpg->{_thickness_m_current}      = $thickness_m;
 
 			# affects immodpg.for
 			# print("3. immodpg, set_layer, layer is changed: $yes \n");

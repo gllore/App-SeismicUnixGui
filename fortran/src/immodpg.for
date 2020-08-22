@@ -77,7 +77,7 @@
        real      current_clip,prior_clip,new_clip, clip_max, clip_min
        real      priorVincrement_mps, currentVincrement_mps
        real      newVincrement_mps
-       real      prior_thickness_increment_m
+       real      prior_thickness_increment_msub setVtopNVbot_upper_laye
        real   current_thickness_increment_m,new_thickness_increment_m
        real      priorVbotNtop_factor, currentVbotNtop_factor
        real      newVbotNtop_factor
@@ -654,15 +654,15 @@
 !          print*, '2. immodpg.for,inbound_change:',inbound_change,'--'
 
            call read_yes_no_file(is_change,inbound_change)
-!           print*, '580.immodpg.for,is_change:',is_change,'--'
+!           print*, '656.immodpg.for,is_change:',is_change,'--'
 
            if (is_change ) then
-!              print *, 'L. 583 immodpg.for,is_change=',is_change
+!              print *, 'L660 immodpg.for,is_change=',is_change
 !             Restore change to "no"
               call write_yes_no_file(no,inbound_change)
 !             read option number
               call read_option_file(option,inbound_option)
-!              print *, '663 immodpg.for,option#=',option
+!              print *, '665 immodpg.for,option#=',option
 !              print *,'L 41 immodpg.for,clnopt=',
 !     +        change_layer_number_opt
 
@@ -713,7 +713,6 @@
 !                    write(*,*) 'Text file: model.txt'
              call write_model_file_text(nl,VT,VB,DZ,VST,VSB,RHOT,RHOB,
      +         outbound_model_txt);
-
 !
 !                   print *,'L 703 current layer #:',current_layer_number
                    go to 10 ! start of all interactions with user
@@ -775,62 +774,6 @@
               option = option_default
              endif
 
-             if(option.eq.changeVbot_upper_layer_opt) then
-!             read new bottom velocity  value
-               call readVbot_upper_file(newVbot_upper,inboundVbot_upper)
-               print*,'L 655 new Vbot_upper is',newVbot_upper
-               priorVbot_upper         = currentVbot_upper
-               currentVbot_upper       = newVbot_upper
-               Vbot_upper_mps          = currentVbot_upper
-               Vbot_upper_kmps       = currentVbot_upper * m2km
-               VB(current_layer_number-1) = Vbot_upper_kmps
-               go to 150 ! start of this do loop
-               option = option_default
-
-             endif
-
-             if(option.eq.changeVtop_lower_layer_opt) then
-!             read new bottom velocity  value
-               print*,'L794,changing Vtop_lower_layer'
-               call readVtop_lower_file(newVtop_lower,inboundVtop_lower)
-!               print*,'L 655 new Vtop_lower is',newVtop_lower
-!               priorVtop_lower         = currentVtop_lower
-!               currentVtop_lower       = newVtop_lower
-!               Vtop_lower_mps          = currentVtop_lower
-!                Vtop_lower_kmps          = currentVtop_lower * km2m
-!               VT(current_layer_number+1) = Vtop_lower_kmps
-               go to 150 ! start of this do loop
-               option = option_default
-
-             endif
-
-             if(option.eq.changeVbot_opt) then
-             !             read new bottom velocity  value
-               call readVbot_file(newVbot,inboundVbot)
-!               print*,'L 655 new Vbot is',newVbot
-               priorVbot         = currentVbot
-               currentVbot       = newVbot
-               Vbot_mps          = currentVbot
-               Vbot_kmps          = currentVbot  * km2m
-               VB(current_layer_number) = Vbot_kmps
-               go to 150 ! start of this do loop
-               option = option_default
-
-             endif
-
-             if(option.eq.changeVtop_opt) then
-!             read new bottom velocity  value
-               call readVtop_file(newVtop,inboundVtop)
-!               print*,'L 655 new Vtop is',newVtop
-               priorVtop         = currentVtop
-               currentVtop       = newVtop
-               Vtop_mps          = currentVtop
-               Vtop_kmps          = currentVtop * km2m
-               VT(current_layer_number) = Vtop_kmps
-               go to 150 ! start of this do loop
-               option = option_default
-
-             endif
              if(option.eq.changeVincrement_opt) then
 !             read new velocity increment value
                call readVincrement_file(newVincrement_mps,
@@ -860,8 +803,66 @@
 
 !
 ! *** Options that require recompute
-!     recomputation of  X-T curves
-!             if(option.ge.10.and.option.le.69) then
+!     recomputation and replot of  X-T curves
+
+             if(option.eq.changeVbot_upper_layer_opt) then
+!             read new bottom velocity  value
+               call readVbot_upper_file(newVbot_upper,inboundVbot_upper)
+
+               priorVbot_upper         = currentVbot_upper
+               currentVbot_upper       = newVbot_upper
+               Vbot_upper_mps          = currentVbot_upper
+               Vbot_upper_kmps       = currentVbot_upper * m2km
+               VB(current_layer_number-1) = Vbot_upper_kmps
+!               print*,'L786 new Vbot_upper', VB(current_layer_number-1)
+!               go to 150 ! start of this do loop
+               option = option_default
+
+             endif
+
+             if(option.eq.changeVtop_lower_layer_opt) then
+!             read new bottom velocity  value
+!               print*,'L794,changing Vtop_lower_layer'
+               call readVtop_lower_file(newVtop_lower,inboundVtop_lower)
+!               print*,'L 797 new Vtop_lower is',newVtop_lower
+               priorVtop_lower         = currentVtop_lower
+               currentVtop_lower       = newVtop_lower
+               Vtop_lower_mps          = currentVtop_lower
+                Vtop_lower_kmps          = currentVtop_lower * m2km
+               VT(current_layer_number+1) = Vtop_lower_kmps
+!                print*,'L803 new Vtop_lower',VT(current_layer_number+1)
+!               go to 150 ! start of this do loop
+               option = option_default
+
+             endif
+
+             if(option.eq.changeVbot_opt) then
+             !             read new bottom velocity  value
+               call readVbot_file(newVbot,inboundVbot)
+!               print*,'L 655 new Vbot is',newVbot
+               priorVbot         = currentVbot
+               currentVbot       = newVbot
+               Vbot_mps          = currentVbot
+               Vbot_kmps          = currentVbot  * km2m
+               VB(current_layer_number) = Vbot_kmps
+!               go to 150 ! start of this do loop
+               option = option_default
+
+             endif
+
+             if(option.eq.changeVtop_opt) then
+!             read new bottom velocity  value
+               call readVtop_file(newVtop,inboundVtop)
+!               print*,'L 655 new Vtop is',newVtop
+               priorVtop         = currentVtop
+               currentVtop       = newVtop
+               Vtop_mps          = currentVtop
+               Vtop_kmps          = currentVtop * km2m
+               VT(current_layer_number) = Vtop_kmps
+!               go to 150 ! start of this do loop
+               option = option_default
+
+             endif
              if(option.eq.Vbot_minus_opt) then
                 VB(current_layer_number) =
      +          VB(current_layer_number) - Vincrement_kmps
@@ -871,7 +872,7 @@
              if(option.eq.Vbot_plus_opt) then
                 VB(current_layer_number) =
      +          VB(current_layer_number) + Vincrement_kmps
-                print*,'mmodpg.for,option=',Vbot_plus_opt
+!                print*,'mmodpg.for,option=',Vbot_plus_opt
              endif
 
              if(option.eq.Vtop_minus_opt) then
@@ -894,7 +895,7 @@
                      VB(current_layer_number) =
      +         VB(current_layer_number) - Vincrement_kmps
 
-               print*,'mmodpg.for,option=',VbotNVtop_minus_opt
+!               print*,'mmodpg.for,option=',VbotNVtop_minus_opt
              endif
 
              if(option.eq.VbotNVtop_plus_opt) then
@@ -902,10 +903,9 @@
      +         VT(current_layer_number) + Vincrement_kmps
                      VB(current_layer_number) =
      +         VB(current_layer_number) + Vincrement_kmps
-               print*,'mmodpg.for,option=',VbotNVtop_plus_opt
-               print*,'mmodpg.for,option=VT',VT(current_layer_number)
-               print*,'mmodpg.for,option=VB',VB(current_layer_number)
-
+!               print*,'mmodpg.for,option=',VbotNVtop_plus_opt
+!               print*,'mmodpg.for,option=VT',VT(current_layer_number)
+!               print*,'mmodpg.for,option=VB',VB(current_layer_number)
              endif
 
              if(option.eq.VtopNVbot_upper_layer_minus_opt
@@ -919,10 +919,10 @@
                VB(upper_layer_number) =
      +         VB(upper_layer_number) - Vincrement_kmps
 
-!              print*,'mmodpg.for,option=',VtopNVbot_upper_layer_minus_opt
-!              print*,'mmodpg.for,VT=',VT(current_layer_number)
-!              print*,'mmodpg.for,VB_upper=',VB(upper_layer_number)
-!              print*,'mmodpg.for,Vincrement_kmps=',Vincrement_kmps
+              print*,'mmodpg.for,option=',VtopNVbot_upper_layer_minus_opt
+              print*,'mmodpg.for,VT=',VT(current_layer_number)
+              print*,'mmodpg.for,VB_upper=',VB(upper_layer_number)
+              print*,'mmodpg.for,Vincrement_kmps=',Vincrement_kmps
              endif
 
              if(option.eq.VtopNVbot_upper_layer_plus_opt
@@ -981,7 +981,6 @@
                 option = option_default
              endif
 
-
              if(option.eq.thickness_m_plus_opt) then
 !                print*,'mmodpg.for,option=', thickness_m_plus_opt
                DZ(current_layer_number) =
@@ -989,14 +988,12 @@
              endif
 
                if(option.eq.thickness_m_minus_opt) then
-                print*,'mmodpg.for,option=', thickness_m_minus_opt
-                print*,'mmodpg.for,th_inc_km=', thickness_increment_km
+!                print*,'mmodpg.for,option=', thickness_m_minus_opt
+!                print*,'mmodpg.for,th_inc_km=', thickness_increment_km
                DZ(current_layer_number) =
      +         DZ(current_layer_number) - thickness_increment_km
 
-
              endif
-
 
 !             if(option.eq.3) DZ(current_layer_number) =
 !     +        DZ(current_layer_number) + a1
@@ -1025,7 +1022,6 @@
 !
 ! **************************
 
-
 !     START of loop that detects changes in the GUI
 !     END of first plot that will be repeated
 
@@ -1047,7 +1043,8 @@
       go to 10 ! START of ALL interactions with USER
 
 255   continue  ! leave if option_exit
-
+!          print*,'L1047 Vtop_lower',VT(current_layer_number+1)
+!          print*,'L1048 VB_upper=',VB(current_layer_number-1)
 !       write modified file to a text file
        call write_model_file_text(nl,VT,VB,DZ,VST,VSB,RHOT,RHOB,
      + outbound_model_txt);
