@@ -323,16 +323,16 @@ my $param = {
 # Locate environment variables automatically
 my $L_SU = '/usr/local/pl/L_SU';    # default
 
-my $global_libs = {
-	_configs_big_streams 	=> $L_SU . '/configs/big_streams',
-    _param        			=> $L_SU . '/configs/',
-    _superflows   			=> $L_SU . '/big_streams/',
-    _images       			=> $L_SU . '/images/',
-    _default_path 			=> './',
-};
+#my $global_libs = {
+#	_configs_big_streams 	=> $L_SU . '/configs/big_streams',
+#    _param        			=> $L_SU . '/configs/',
+#    _superflows   			=> $L_SU . '/big_streams/',
+#    _images       			=> $L_SU . '/images/',
+#    _default_path 			=> './',
+#};
 
 $L_SU = $ENV{'L_SU'};
-
+my $global_libs;
 # empty string is predefined herein
 if ( $L_SU ne $var->{_empty_string} ) {  
 

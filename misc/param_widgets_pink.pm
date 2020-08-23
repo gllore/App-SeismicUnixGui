@@ -125,7 +125,7 @@ sub set_hash_ref {
  all parameter (Entry) widgets belonging to 
  a program
  
- We keep track of whether user is entring or leaving a 
+ We keep track of whether user is entering or leaving a 
  widget: _chek_value_changes
  
  changes are only allowed for those sunix programs whose spec files
@@ -158,17 +158,18 @@ sub _changes {
 			# always = 1 (yes)
 			# my $changed_entry = $param_widgets_color_href->{_changed_entry};
 			# print("param_widgets_pink,_changes,changed 1-yes 0 -no? $changed_entry\n");
-
+#			print("param_widgets_pink,_changes,index= $index\n");
+			
 			_set_entry_change_status($true);
 			_update_check_button_setting($index);    # TODO next
 
 			$self->set_hash_ref($param_widgets_color_href);
 
-			#		my $ans = ( $self->get_hash_ref() )->{_parameter_index_on_exit};
+#            		my $ans = ( $self->get_hash_ref() )->{_parameter_index_on_exit};
 			#		print(" param_widgets_pink, changes, prog_name: $prog_name \n");
-			#		print(" param_widgets_pink, _check_value_changes, _parameter_index_on_exit: $ans \n");
-			#		$ans = ( $self->get_hash_ref() )->{_parameter_index_on_entry};
-			#		print(" param_widgets_pink, _check_value_changes, _parameter_index_on_entry: $ans \n");
+#					print(" param_widgets_pink, _check_value_changes, _parameter_index_on_exit: $ans \n");
+#					$ans = ( $self->get_hash_ref() )->{_parameter_index_on_entry};
+#					print(" param_widgets_pink, _check_value_changes, _parameter_index_on_entry: $ans \n");
 			#		my $max_idx = $control->get_max_index($prog_name);
 			#		print(" param_widgets_pink,max_index, $max_idx \n");
 
@@ -208,8 +209,10 @@ project_selector does not yet have a max_index defined in a separate module
 			my $index = $param_widgets_color_href->{_index_on_entry};    # =0
 
 			# my $ans = $self->get_index_on_exit();
-			# my $ans = $param_widgets_color_href->{_parameter_index_on_entry};
-			#		print(" 2. param_widgets_pink, _check_value_changes, ENTERED INDEX=$index\n");
+#			my $ans = $param_widgets_color_href->{_parameter_index_on_entry};
+#			print(" 2. param_widgets_pink, _check_value_changes, ENTERED INDEX=$index\n");
+#			$ans = $param_widgets->{_entry_in_switch};
+#			print(" 2. param_widgets_pink, _check_value_changes, entry_in_switch=$ans\n");			
 			$gui_history->set_parameter_index_on_entry($index);
 			$gui_history->set_parameter_color_on_entry($this_color);
 
@@ -222,7 +225,10 @@ project_selector does not yet have a max_index defined in a separate module
 
 			my $idx = $param_widgets_color_href->{_parameter_index_on_entry};
 
-			#		print(" 3. param_widgets_pink, _check_value_changes, Leaving INDEX=$idx \n");
+#			print(" 3. param_widgets_pink, _check_value_changes, Leaving INDEX=$idx \n");
+#			my $ans = $param_widgets->{_entry_in_switch};
+#			print(" 2. param_widgets_pink, _check_value_changes, entry_in_switch=$ans\n");	
+				
 			$param_widgets_color_href->{_parameter_index_on_exit} = $idx;
 			$gui_history->set_parameter_index_on_exit($idx);
 			$gui_history->set_parameter_color_on_exit($this_color);
@@ -273,7 +279,7 @@ sub _update_value_changes {
 
 	my ($self) = @_;
 
-	if ( $param_widgets->{_entry_in_switch} = $off ) {
+	if ( $param_widgets->{_entry_in_switch} eq $off ) {
 
 		# CASE 1 just left a widget after having entered it
 		# save the value of the prior widget
@@ -281,7 +287,7 @@ sub _update_value_changes {
 		my $prior_value   = @{ $param_widgets_color_href->{_values_w_aref} }[$index_on_entry]->get();
 		@{ $param_widgets_color_href->{_values_aref} }[$index_on_entry] = $prior_value;
 		
-	} elsif ( $param_widgets->{_entry_in_switch} = $on ) {
+	} elsif ( $param_widgets->{_entry_in_switch} eq $on ) {
 
 		# CASE 2 just entering a widget after having left another
 		# save the value in the prior widget
@@ -643,19 +649,6 @@ sub _update_check_button_setting {
 
 	return ();
 }
-
-=head2 sub get_index_on_entry
-#
-#=cut
-#
-#sub get_index_on_entry {
-#
-#	my @self = @_;
-#
-#	my $result = $param_widgets_color_href->{_index_on_entry};
-#
-#	return ($result);
-#}
 
 =head2 sub _set_index_on_entry
 
@@ -1086,7 +1079,7 @@ sub range {
 	# when, e.g., color_flow,add2flow is called
 	# but list box is not set yet
 	elsif (
-		   $param_widgets_color_href->{_is_flow_listbox_pink_w}
+		   $param_widgets_color_href->{_is_flow_listbox_grey_w}
 		|| $param_widgets_color_href->{_is_flow_listbox_pink_w}
 		|| $param_widgets_color_href->{_is_flow_listbox_green_w}
 		|| $param_widgets_color_href->{_is_flow_listbox_blue_w}
@@ -1532,22 +1525,22 @@ sub set_entry_change_status {
 #
 #	# print("param_widgets_pink, set_location_in_gui , _values_w_aref, $param_widgets_color_href->{_values_w_aref} \n");
 #
-#	#	if ( $here->{_is_flow_listbox_pink_w} && $here->{_is_add2flow} ) {
+#	#	if ( $here->{_is_flow_listbox_grey_w} && $here->{_is_add2flow} ) {
 #	#
 #	#		_reset;
-#	#		$param_widgets_color_href->{_is_flow_listbox_pink_w}  = $true;
+#	#		$param_widgets_color_href->{_is_flow_listbox_grey_w}  = $true;
 #	#		$param_widgets_color_href->{_is_flow_listbox_color_w} = $true;
 #	#
-#	#		print("param_widgets_pink, set_location_in_gui, _is_flow_listbox_pink_w and _is_add2flow \n");
+#	#		print("param_widgets_pink, set_location_in_gui, _is_flow_listbox_grey_w and _is_add2flow \n");
 #	#
 #	#	}
-#	#	elsif ( $here->{_is_flow_listbox_pink_w} ) {
+#	#	elsif ( $here->{_is_flow_listbox_grey_w} ) {
 #	#
 #	#		_reset;
-#	#		$param_widgets_color_href->{_is_flow_listbox_pink_w}  = $true;
+#	#		$param_widgets_color_href->{_is_flow_listbox_grey_w}  = $true;
 #	#		$param_widgets_color_href->{_is_flow_listbox_color_w} = $true;
 #	#
-#	#		print("param_widgets_pink, set_location_in_gui, _is_flow_listbox_pink_w ++ true\n");
+#	#		print("param_widgets_pink, set_location_in_gui, _is_flow_listbox_grey_w ++ true\n");
 #	#
 #	#	}
 #	#	elsif ( $here->{_is_flow_listbox_pink_w} ) {
@@ -1610,7 +1603,7 @@ sub set_entry_change_status {
 #	elsif ( $here->{_is_moveNdrop_in_flow} ) {
 #
 #		_reset();
-#		$param_widgets_color_href->{_is_flow_listbox_pink_w}  = $true;
+#		$param_widgets_color_href->{_is_flow_listbox_grey_w}  = $true;
 #		$param_widgets_color_href->{_is_flow_listbox_pink_w}  = $true;
 #		$param_widgets_color_href->{_is_flow_listbox_green_w} = $true;
 #		$param_widgets_color_href->{_is_flow_listbox_blue_w}  = $true;
@@ -1626,7 +1619,7 @@ sub set_entry_change_status {
 #		$param_widgets_color_href->{_is_delete_from_flow_button} = $true;
 #
 #		# TODO double check if next 2-5 lines should be flse instead
-#		$param_widgets_color_href->{_is_flow_listbox_pink_w}  = $true;
+#		$param_widgets_color_href->{_is_flow_listbox_grey_w}  = $true;
 #		$param_widgets_color_href->{_is_flow_listbox_pink_w}  = $true;
 #		$param_widgets_color_href->{_is_flow_listbox_green_w} = $true;
 #		$param_widgets_color_href->{_is_flow_listbox_blue_w}  = $true;
