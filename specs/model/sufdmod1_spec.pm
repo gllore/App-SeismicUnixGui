@@ -23,13 +23,16 @@ my $flow_type        = $get->flow_type_href();
 
 my $DATA_SEISMIC_BIN = $Project->DATA_SEISMIC_BIN();    # input data directory
 my $DATA_SEISMIC_SU  = $Project->DATA_SEISMIC_SU();     # output data directory
+my $PL_SEISMIC        = $Project->PL_SEISMIC();
 my $max_index = 17;    #$sufdmod1->get_max_index() mystery error
 
-my $sufdmod1_spec = {
+my $sufdmod1_spec =  {
+	_CONFIG						  => $PL_SEISMIC,
+	_DATA_DIR_OUT          => $DATA_SEISMIC_SU,
 	_DATA_DIR_IN           => $DATA_SEISMIC_BIN,
 	_DATA_DIR_OUT          => $DATA_SEISMIC_SU,
 	_binding_index_aref    => '',
-	_suffix_type_in        => $su,
+	_suffix_type_in        => $su, # TODO should be bin ???
 	_data_suffix_in        => $suffix_bin,
 	_suffix_type_out       => $su,
 	_data_suffix_out       => $suffix_su,

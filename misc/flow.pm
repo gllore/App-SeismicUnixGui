@@ -3,21 +3,21 @@ package flow;
 use Moose;
 
 my $flow = {
-    _inbound      => '',
-    _outbound     => '',
-    _ref_list     => '',
-    _instructions => '',
-    _ref_PID      => '',
+	_inbound      => '',
+	_outbound     => '',
+	_ref_list     => '',
+	_instructions => '',
+	_ref_PID      => '',
 };
 
 sub inbound {
-    my ( $flow, $inbound ) = @_;
-    $flow->{_inbound} = $inbound if defined($inbound);
+	my ( $flow, $inbound ) = @_;
+	$flow->{_inbound} = $inbound if defined($inbound);
 }
 
 sub outbound {
-    my ( $flow, $outbound ) = @_;
-    $flow->{_outbound} = $outbound if defined($outbound);
+	my ( $flow, $outbound ) = @_;
+	$flow->{_outbound} = $outbound if defined($outbound);
 }
 
 =head2 sub modules
@@ -33,20 +33,28 @@ sub outbound {
 =cut
 
 sub modules {
-    my ( $flow, $ref_list ) = @_;
-    my $i;
+	my ( $flow, $ref_list ) = @_;
+	my $i;
+	
+	if ( defined $ref_list
+		and ( scalar @$ref_list ) > 0 ) {  # N.B. at least '&' exists
 
-    # print("flow so far is @$ref_list\n\n");
-    my $list_length = $#$ref_list;
-    my $word        = $$ref_list[0];
+		# print("flow so far is @$ref_list\n\n");
+		my $list_length = $#$ref_list;
+		my $word        = $$ref_list[0];
 
-    for ( $i = 1 ; $i <= $list_length ; $i++ ) {
-        $word = $word . $$ref_list[$i];
-    }
+		for ( $i = 1; $i <= $list_length; $i++ ) {
+			$word = $word . $$ref_list[$i];
+		}
 
-    $flow->{_ref_list} = $word;
-    return $flow->{_ref_list};
-}
+		$flow->{_ref_list} = $word;
+		return $flow->{_ref_list};
+		
+		} else {
+			print("flow,modules, empty ref_list\n\n");
+		}
+		return();
+	}
 
 =head2 sub flow 
 
@@ -63,21 +71,21 @@ sub modules {
 
 =cut
 
-sub flow {
+	sub flow {
 
-    my ( $self, $ref_instructions ) = @_;
+		my ( $self, $ref_instructions ) = @_;
 
-    if ($ref_instructions) {
+		if ($ref_instructions) {
 
-        $flow->{_instructions} = $$ref_instructions;
-        # print("flow,flow, $flow->{_instructions}\n");
-        system("$flow->{_instructions}");
-        return ();
+			$flow->{_instructions} = $$ref_instructions;
 
-    }
-    else {
-        print("flow,flow,missing instructions \n");
-    }
-}
+			# print("flow,flow, $flow->{_instructions}\n");
+			system("$flow->{_instructions}");
+			return ();
 
-1;
+		} else {
+			print("flow,flow,missing instructions \n");
+		}
+	}
+
+	1;

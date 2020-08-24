@@ -19,10 +19,12 @@ my $file_dialog_type = $get->file_dialog_type_href();
 my $flow_type        = $get->flow_type_href();
 
 my $DATA_SEISMIC_SU  = $Project->DATA_SEISMIC_SU();     # output data directory
+my $PL_SEISMIC        = $Project->PL_SEISMIC();
 my $DATA_SEISMIC_BIN = $Project->DATA_SEISMIC_BIN();    # output data directory
 my $max_index        = $unif2->get_max_index();
 
 my $unif2_spec = {
+	_DATA_DIR_OUT          => $DATA_SEISMIC_SU,
 	_DATA_DIR_IN           => $DATA_SEISMIC_BIN,
 	_DATA_DIR_OUT          => $DATA_SEISMIC_BIN,
 	_binding_index_aref    => '',

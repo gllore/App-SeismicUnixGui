@@ -22,10 +22,12 @@ my $flow_type        = $get->flow_type_href();
 my $DATA_SEISMIC_PL = $Project->PL_SEISMIC();      # output data directory
 my $max_index       = $suvelan->get_max_index();
 
-my $suvelan_spec = {
+my $suvelan_spec =  {
+    _CONFIG	 				=> 'Nada',
     _DATA_DIR_IN           => $DATA_SEISMIC_PL,
     _DATA_DIR_OUT          => $DATA_SEISMIC_PL,
-    _binding_index_aref    => '',
+    _CONFIG					=>'Nada',
+	_binding_index_aref    => '',
     _suffix_type_in        => $su,
     _data_suffix_in        => $suffix_su,
     _suffix_type_out       => $su,

@@ -22,39 +22,54 @@
 =head2 USAGE
  
  Sucat 
- Will need alocal configuration file Sucat.config
- GUi will provide one 
+ Needs a local configuration file Sucat.config
+ GUI will generate a new one if needed one, but will
+ prefer to use the contents of an existant configuration file. 
 
-=head2 EXAMPLES 
+=head2 TWO CASES 
 
-    
-Either: 
+CASE 1
+Use a list, for concatenating iVelan pick files ( Vrms,time pairs)
+into the correct format
 
-Case 1) Use a list without values for first 7 parameters. Only include the output
+Use a list WITHOUT values for first 7 parameters. 
+Only include the output
 name. The alternative directories are optional.
 That is, a list can only be used when the values of the prior
 7 parameters are blank
 
 Example:
     
-     first_file_number_in               =               
+    first_file_number_in               =               
     last_file_number_in                =                
     number_of_files_in                 =                  
     output_file_name                   =           
     input_suffix                       =               
     input_name_prefix                  =                  
     input_name_extension               =              
-    list                               =  a list_name (found in $PL_SEISMIC)            
+    list                               =  a file name [found in $PL_SEISMIC]
+    output_file_name				   =    
     alternative_inbound_directory      =  [$PL_SEISMIC]             
     alternative_outbound_directory     =  [$PL_SEISMIC]  
+    
+    
+    The list is expected to be found in $PL_SEISMIC
+    Internally, the data_type will be determined from the file names in the list
+    that will contain "velan" etc." 
+    If data_type = velan then the concatenated output file
+    will automatically be reformatted for input into
+    sunmo.
 
 OR
 
-Case 2) Do not use a list. Instead include values for at least the first 3 
+CASE 2
+General concatenation of files with patterns in their names
+
+DO NOT use a list. Instead, include values for at least the first 3 
 parameters and up to and including values for all the remaining parameters,
- except the list
+except the list
  
-Exmples:
+Examples:
  
  Sucat_config
   Builds a hash of the configuration parameters
@@ -65,7 +80,8 @@ Exmples:
     input_suffix                       = su                  
     input_name_prefix                  = cdp                 
     input_name_extension               = _clean              
-    list                               =                   
+    list                               =                
+    output_file_name				   = 
     alternative_inbound_directory      =                   
     alternative_outbound_directory     =  
     
@@ -74,7 +90,7 @@ Exmples:
     cat DIR1/cdp1000_clean.su DIR1/cdp1001_clean.su > DIR2/1000_01.su
    
     
-    A list can not be in use when 
+    A list CAN NOT be in use when 
     any value exists for any of the following:
     
     first_file_number_in                  = 1000                
@@ -86,18 +102,11 @@ Exmples:
     
 
 
-    
-
-
 =head2 NOTES 
 
     Defaults are to have DIR1=DIR2 but these can be overridden by the alternatives
     The input and output default directories is $PL_SEISMIC
-    The list is expected to be found also in $PL_SEISMIC
-    Internally, the data_type can be mute, velan 
-    If data_type = mute or velan then the concatenated output file
-    will automatically be reformatted for input into
-    sunmo, or sumute respectively
+
 
  We are using Moose.
  Moose already declares that you need debuggers turned on
@@ -105,8 +114,8 @@ Exmples:
  use warnings;
  
  TODO: other formats, and other default output directories
- e.g., perhaps in future mute and velan picks should be in the 
- 'txt' directories or in their own 'mute' or 'velan' directories
+ e.g., perhaps in future velan picks should be in the 
+ 'txt' directories or in their own 'velan' directories
  
  USES the following classes:
  flow
@@ -119,7 +128,7 @@ Exmples:
  
   V 0.1.2 considers empty file_names May 30, 2019; NM
   V 0.1.3 includes additional concatenation for:
-  (1) sorted ivpicks and (2) sorted imute picks
+  (1) sorted ivpicks
 
 =cut
 

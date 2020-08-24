@@ -1,0 +1,2 @@
+/home/gom/demos/seismics/pl/Synthetic/Finite_Difference/Sufdmod1/Xdemo1/1/supswigp.pl
+/home/gom/demos/seismics/pl/Synthetic/Finite_Difference/Sufdmod1/Xdemo1/1/evince.pl

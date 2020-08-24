@@ -1,0 +1,9 @@
+/home/gom/Servilleta_demos/seismics/pl/loma_blanca//053018/H/1/gom/Suclean_geom.pl
+/home/gom/Servilleta_demos/seismics/pl/loma_blanca//053018/H/1/gom/a
+/home/gom/Servilleta_demos/seismics/data/loma_blanca//053018/H/1/su/gom/1_120.su
+/home/gom/Servilleta_demos/seismics/images/ps/loma_blanca//053018/H/1/gom/junk.ps
+/home/gom/Servilleta_demos/seismics/data/loma_blanca//053018/H/1/su/gom/101.su
+/home/gom/Servilleta_demos/seismics/pl/loma_blanca//053018/H/1/gom/plot_ps.pl
+/home/gom/Servilleta_demos/seismics/pl/loma_blanca//053018/H/1/gom/pswigp_out
+/home/gom/Servilleta_demos/seismics/pl/loma_blanca//053018/H/1/gom/b
+/home/gom/Servilleta_demos/seismics/data/loma_blanca//053018/H/1/su/gom/100.su

@@ -23,10 +23,12 @@ my $max_index                = $iSpectralAnalysis_config->get_max_index();
 
 # print("iSpectralAnalysis_spec, max_index= $max_index\n");
 
-my $iSA_spec = {
+my $iSA_spec =  {
+    _CONFIG	 				=> 'Nada',
     _DATA_DIR_IN           => $DATA_SEISMIC_SU,
-    _DATA_DIR_OUT          => $DATA_SEISMIC_SU,
-    _binding_index_aref    => '',
+		_DATA_DIR_OUT          => $DATA_SEISMIC_SU,
+    _CONFIG					=>'Nada',
+	_binding_index_aref    => '',
     _suffix_type_in        => $su,
     _data_suffix_in        => $suffix_su,
     _suffix_type_out       => $su,

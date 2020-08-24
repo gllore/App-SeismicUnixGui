@@ -190,7 +190,7 @@ sub setcol_1 {
 sub setfile {
     my ( $variables, $ref_filename ) = @_;
     $file_out = $ref_filename if defined($ref_filename);
-    print("filename out is: $file_out\n\n");
+    print("filename out is: $$file_out\n\n");
 }
 
 =head2 sub set_file_name

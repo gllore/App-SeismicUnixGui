@@ -19,12 +19,14 @@ my $Project = new Project_config;
 my $sugain  = new sugain;
 
 my $DATA_SEISMIC_SU = $Project->DATA_SEISMIC_SU();    # output data directory
+my $PL_SEISMIC        = $Project->PL_SEISMIC();
 my $max_index       = $sugain->get_max_index();
 
 my $sugain_spec = {
-    _DATA_DIR_OUT          => $DATA_SEISMIC_SU,
-    _DATA_DIR_OUT          => $DATA_SEISMIC_SU,
-    _binding_index_aref    => '',
+	_CONFIG						=> $PL_SEISMIC ,
+	_DATA_DIR_OUT          => $DATA_SEISMIC_SU,
+	_DATA_DIR_OUT          => $DATA_SEISMIC_SU,
+	_binding_index_aref    => '',
     _suffix_type_in        => $su,
     _data_suffix_in        => $suffix_su,
     _suffix_type_out       => $su,

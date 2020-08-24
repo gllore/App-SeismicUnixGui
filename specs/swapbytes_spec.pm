@@ -20,12 +20,14 @@ my $file_dialog_type = $get->file_dialog_type_href();
 my $flow_type        = $get->flow_type_href();
 
 my $DATA_SEISMIC_BIN = $Project->DATA_SEISMIC_BIN();    # output data directory
+my $PL_SEISMIC        = $Project->PL_SEISMIC();
 my $max_index        = $swapbytes->get_max_index();
 
-my $swapbytes_spec = {
+my $swapbytes_spec =  {
+    _CONFIG	 				=> $PL_SEISMIC,
     _DATA_DIR_IN           => $DATA_SEISMIC_BIN,
     _DATA_DIR_OUT          => $DATA_SEISMIC_BIN,
-    _binding_index_aref    => '',
+	_binding_index_aref    => '',
     _suffix_type_in        => $bin,
     _data_suffix_in        => $suffix_bin,
     _suffix_type_out       => $bin,
@@ -103,7 +105,7 @@ with definitions
 
 sub variables {
     my $self     = @_;
-    my $hash_ref = $suxgraph_spec;
+    my $hash_ref = $swapbytes_spec;
     return ($hash_ref);
 }
 

@@ -192,7 +192,7 @@ sub new {
 sub initiate {
     $supolar->{_Step} = '';
     $supolar->{_note} = '';
-    $newline          = '
+    my $newline          = '
 ';
 }
 
@@ -360,7 +360,7 @@ sub f1 {
 
 sub global_parameter {
     my ( $supolar, $global_parameter ) = @_;
-    $supolar->{_global_paramter} = $global_paramter
+    $supolar->{_global_paramter} = $global_parameter
       if defined($global_parameter);
     $supolar->{_note} =
       $supolar->{_note} . ' tau=' . $supolar->{_global_parameter};

@@ -24,8 +24,7 @@ package verhulst_spec;
 
 	my $verhulst_spec = {
 		_DATA_DIR_IN		    => $DATA_SEISMIC_SU,
-	 	_DATA_DIR_OUT		    => $DATA_SEISMIC_SU,
-		_binding_index_aref	    => '',
+		_DATA_DIR_OUT          => $DATA_SEISMIC_SU,
 	 	_suffix_type_in			=> $su,
 		_data_suffix_in			=> $suffix_su,
 		_suffix_type_out		=> $su,

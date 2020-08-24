@@ -84,24 +84,24 @@ sub _get_no_quotes {
 			#  anywhere in the line
 			$entry_value =~ tr/"//d;
 
-		# 2. remove extra single quotes if they exist at the start of the string
+			# 2. remove extra single quotes if they exist at the start of the string
 			$entry_value =~ s/^'//;
 
-		  # 3. remove extra single quotes if they exist at the end of the string
+			# 3. remove extra single quotes if they exist at the end of the string
 			$entry_value =~ s/'$//;
 			$exit_value = $entry_value;
 
 			# print("control,_get_no_quotes, result: $exit_value\n");
 			return ($exit_value);
 
-		}
-		else {
+		} else {
+
 			# print("control,_get_no_quotes, equals $empty_string\n");
 			return ($empty_string);
 		}
 
-	}
-	else {
+	} else {
+
 		# print("control,_get_no_quotes, undefined value\n");
 		return ($empty_string);
 	}
@@ -126,28 +126,27 @@ sub _get_string_or_number {
 
 		if ($fmt) {
 
-# print("control, _get_string_or_number,$entry_value looks like a number , NADA\n");
-# do nothing
+			# print("control, _get_string_or_number,$entry_value looks like a number , NADA\n");
+			# do nothing
 			my $exit_value_as_number = $entry_value;
 			return ($exit_value_as_number);
 
-		}
-		else {
-# print("control, _get_string_or_number, exit_value does not look like a number \n");
+		} else {
+
+			# print("control, _get_string_or_number, exit_value does not look like a number \n");
 			my $exit_value_as_string = '\'' . $entry_value . '\'';
 
-# print ("control, get_string_or_number,  value into a string: $exit_value_as_string\n");
+			# print ("control, get_string_or_number,  value into a string: $exit_value_as_string\n");
 			return ($exit_value_as_string);
 		}
 
-	}
-	else {
-	   #
-	   # print("control,_get_string_or_number, missing entry_value or empty\n");
+	} else {
+		#
+		# print("control,_get_string_or_number, missing entry_value or empty\n");
 		return ($empty_string);
 	}
 
-# print("control,_get_string_or_number, missed loop entry_value = $entry_value \n");
+	# print("control,_get_string_or_number, missed loop entry_value = $entry_value \n");
 }
 
 =head2 sub commas
@@ -177,6 +176,30 @@ sub commas {
 	return ($freq_string);
 }
 
+=head2 sub commify
+place commas between list elements
+
+=cut
+
+sub commify {
+	my ( $self, $array_ref ) = @_;
+
+	if ( $array_ref ne $empty_string ) {
+
+		my @array = @$array_ref;
+
+		my $aa = join ',', @array;
+
+		# print $aa."\n";
+		return ($aa);
+
+	} else {
+		print("control, commify, unexpected array reference\n");
+		return ();
+	}
+
+}
+
 =head2 sub empty_string
  test for interpreted arrays that should be 
  
@@ -202,21 +225,15 @@ sub empty_string {
 		$$sref_entry_value = '';
 		print("1.control,empty_string,new value is $$sref_entry_value-\n");
 
-	}
-	elsif ( $$sref_entry_value eq 'nu' ) {
+	} elsif ( $$sref_entry_value eq 'nu' ) {
 
 		$$sref_entry_value = $null_scalar;
-		print(
-			"4.control,empty_string,='nu',new value =----$$sref_entry_value----\n"
-		);
+		print("4.control,empty_string,='nu',new value =----$$sref_entry_value----\n");
 
-	}
-	elsif ( !defined($$sref_entry_value) ) {
+	} elsif ( !defined($$sref_entry_value) ) {
 
 		$$sref_entry_value = $null_scalar;
-		print(
-			"5.control,empty_string,undefined,new value =----$$sref_entry_value----\n"
-		);
+		print("5.control,empty_string,undefined,new value =----$$sref_entry_value----\n");
 	}
 	return ($$sref_entry_value);
 
@@ -233,35 +250,30 @@ sub empty_directory {
 
 	if ($sref_entry_value) {
 
-		if ( ref($$sref_entry_value) eq "ARRAY" )
-		{    # should not agree because we have a scalar reference instead
+		if ( ref($$sref_entry_value) eq "ARRAY" ) {    # should not agree because we have a scalar reference instead
 			$$sref_entry_value = '';
 
-# print("1.control,array with empty_string,new value is $$sref_entry_value-\n");
+			# print("1.control,array with empty_string,new value is $$sref_entry_value-\n");
 
-		}
-		elsif ( ref($$sref_entry_value) eq "SCALAR" ) {    # is a scalar
+		} elsif ( ref($$sref_entry_value) eq "SCALAR" ) {    # is a scalar
 
 			if ( $$sref_entry_value eq '' ) {
 				$$sref_entry_value = $null_scalar;
 
-# print("1.control,scalar with empty_string,new value is now $$sref_entry_value-\n");
-			}
-			else {
+				# print("1.control,scalar with empty_string,new value is now $$sref_entry_value-\n");
+			} else {
+
 				# leave the value unchanged;
 			}
 
-		}
-		else {
-		 #print("4.control,empty_directory, neither array or scalar... ??? \n");
+		} else {
+
+			#print("4.control,empty_directory, neither array or scalar... ??? \n");
 		}
 
-	}
-	else {
+	} else {
 
-		print(
-			"control,empty_directory,missing scalar reference to entry value \n"
-		);
+		print("control,empty_directory,missing scalar reference to entry value \n");
 
 	}
 	return ($$sref_entry_value);
@@ -281,18 +293,15 @@ sub get_back_slashBgone {
 
 		my $stringWback_slash;
 
-# print("control,get_back_slashBgone, control->{_stringWback_slash}: $control->{_stringWback_slash}\n");
+		# print("control,get_back_slashBgone, control->{_stringWback_slash}: $control->{_stringWback_slash}\n");
 		$stringWback_slash = $control->{_stringWback_slash};
 		$stringWback_slash =~ s/\\//g;
 
-# print("control,get_back_slashBgone, stringWback_slash}: $stringWback_slash\n");
+		# print("control,get_back_slashBgone, stringWback_slash}: $stringWback_slash\n");
 		return ($stringWback_slash);
 
-	}
-	else {
-		print(
-			"control,get_back_slashBgone, error: need to set stringWbackslash first\n"
-		);
+	} else {
+		print("control,get_back_slashBgone, error: need to set stringWbackslash first\n");
 	}
 
 }
@@ -311,18 +320,15 @@ sub get_commas2space {
 
 		my $stringWcommas;
 
-# print("control,get_commas2space, control->{_stringWcommas}: $control->{_stringWcommas}\n");
+		# print("control,get_commas2space, control->{_stringWcommas}: $control->{_stringWcommas}\n");
 		$stringWcommas = $control->{_stringWcommas};
 		$stringWcommas =~ s/\,/\ /g;
 
 		# print("control,get_commas2space, stringWcommas}: $stringWcommas\n");
 		return ($stringWcommas);
 
-	}
-	else {
-		print(
-			"control,get_stringWcommas, error: need to set stringWcommas first\n"
-		);
+	} else {
+		print("control,get_stringWcommas, error: need to set stringWcommas first\n");
 	}
 
 }
@@ -359,16 +365,17 @@ sub get_max_index {
 
 	if ($alias_program_name) {
 
-	# print(" control, get_max_index,alias_superflow_names_h:\n");
-	# print("alias for $program_name is $alias_superflow_names_h->{$program_name}\n");
+		# print(" control, get_max_index,alias_superflow_names_h:\n");
+		# print("alias for $program_name is $alias_superflow_names_h->{$program_name}\n");
 		$program_name = $alias_program_name;    # only for superflows
-	}
-	else {
-		# do nothing for single programs
+
+	} else {
+
+		# do nothing for simple sunix-type programs
 	}
 
 	if ($program_name) {
-		
+
 		my $module_spec    = $program_name . '_spec';
 		my $module_spec_pm = $program_name . '_spec.pm';
 
@@ -404,7 +411,7 @@ sub get_no_quotes {
 
 	if ( defined $entry_value ) {    # =0 case is OK
 
-		if ( $entry_value ne $empty_string ) {
+		if ( length $entry_value ) {# must not be of zero length
 
 			my $exit_value;
 
@@ -414,10 +421,10 @@ sub get_no_quotes {
 			#  anywhere in the line
 			$entry_value =~ tr/"//d;
 
-		# 2. remove extra single quotes if they exist at the start of the string
+			# 2. remove extra single quotes if they exist at the start of the string
 			$entry_value =~ s/^'//;
 
-		  # 3. remove extra single quotes if they exist at the end of the string
+			# 3. remove extra single quotes if they exist at the end of the string
 			$entry_value =~ s/'$//;
 
 			# print("after removing only a last single quote: $x\n ");
@@ -426,14 +433,13 @@ sub get_no_quotes {
 
 			return ($exit_value);
 
-		}
-		else {
+		} else {
 			# print("control,get_no_quotes, missing entry_value or empty\n");
 			return ($empty_string);
 		}
 
-	}
-	else {
+	} else {
+
 		# print("control,get_no_quotes, undefined entry_value NADA\n");
 		return ();
 	}
@@ -459,18 +465,17 @@ sub get_no_quotes4array {
 
 		for ( my $i = 0; $i < $length; $i++ ) {
 
-		   # print("control, get_no_quotes4array,entry value is $array[$i] \n");
+			# print("control, get_no_quotes4array,entry value is $array[$i] \n");
 			$array[$i] = _get_no_quotes( $array[$i] );
 
-		   # print("control, get_no_quotes4array,exit value  is $array[$i] \n");
+			# print("control, get_no_quotes4array,exit value  is $array[$i] \n");
 		}
 
 		$exit_array_ref = \@array;
 
 		return ($exit_array_ref);
 
-	}
-	else {
+	} else {
 		print("control, get_no_quotes4array, bad array reference\n");
 		return ();
 	}
@@ -489,39 +494,36 @@ sub get_string_or_number {
 		if ( $entry_value ne $empty_string ) {
 			use Scalar::Util qw(looks_like_number);
 
-		 # print ("control, get_string_or_number, entry_value: $entry_value\n");
-		 # determine whether we have a string or a number
+			# print ("control, get_string_or_number, entry_value: $entry_value\n");
+			# determine whether we have a string or a number
 			my $fmt = 0;
 			$fmt = looks_like_number($entry_value);
 
 			if ($fmt) {
 
-   # print("control, get_string_or_number,$entry_value looks like a number \n");
-   # do nothing
+				# print("control, get_string_or_number,$entry_value looks like a number \n");
+				# do nothing
 				my $exit_value_as_number = $entry_value;
 				return ($exit_value_as_number);
 
-			}
-			else {
-# print("control, get_string_or_number, exit_value does not look like a number \n");
+			} else {
+				# print("control, get_string_or_number, exit_value does not look like a number \n");
 				my $exit_value_as_string = '\'' . $entry_value . '\'';
 
-# print ("control, get_string_or_number,  value into a string: $exit_value_as_string\n");
+				# print ("control, get_string_or_number,  value into a string: $exit_value_as_string\n");
 				return ($exit_value_as_string);
 			}
+		} else {
 
-		}
-		else {
-		# print("control,get_string_or_number, missing entry_value or empty\n");
+			# print("control,get_string_or_number, missing entry_value or empty\n");
 			return ($empty_string);
 		}
 
-	}
-	else {    # empty string becomes: ''
-		 # print("control,get_string_or_number, undefined entry value NADA \n");
+	} else {    # empty string becomes: ''
+				# print("control,get_string_or_number, undefined entry value NADA \n");
 		my $exit_value_as_empty_string = '\'' . '\'';
 
-# print ("control, get_string_or_number,  value into a string: $exit_value_as_empty_string\n");
+		# print ("control, get_string_or_number,  value into a string: $exit_value_as_empty_string\n");
 		return ($exit_value_as_empty_string);
 	}
 }
@@ -549,8 +551,7 @@ sub get_string_or_number4array {
 
 		return ($exit_array_ref);
 
-	}
-	else {
+	} else {
 		print("control, get_string_or_number4array, bad array reference\n");
 		return ();
 	}
@@ -601,18 +602,15 @@ sub get_ticksBgone {
 	my $working_string;
 	if ( $control->{_infected_string} ) {
 
-# print("control,get_ticksBgone, infected_string $control->{_infected_string}\n");
+		# print("control,get_ticksBgone, infected_string $control->{_infected_string}\n");
 		$working_string = $control->{_infected_string};
 		$working_string =~ s/\'//g;
 
-	   # print("control,get_ticksBgone, disinfected string: $working_string\n");
+		# print("control,get_ticksBgone, disinfected string: $working_string\n");
 		return ($working_string);
 
-	}
-	else {
-		print(
-			"control,get_ticksBgone, error: need to set the infected string first\n"
-		);
+	} else {
+		print("control,get_ticksBgone, error: need to set the infected string first\n");
 	}
 }
 
@@ -637,8 +635,7 @@ sub get_w_single_quotes {
 		$first_name_w_single_quotes = ("'$first_name_string'");
 		return ($first_name_w_single_quotes);
 
-	}
-	else {
+	} else {
 		print("4.control,w_single_quotes, missing first_name-string\n");
 		return ();
 	}
@@ -709,28 +706,26 @@ sub remove_su_suffix4sref {
 		if ( ref($first_name_sref) eq "ARRAY" ) {    # do nothing
 			print("0.control,remove_su_suffix4sref,file_name: is ARRAY-\n");
 
-		}
-		elsif ( ref($first_name_sref) eq "SCALAR" ) {
+		} elsif ( ref($first_name_sref) eq "SCALAR" ) {
 
 			# print("2.control,remove_su_suffix4sref: is SCALAR -\n");
 
 			$first_name_string = $$first_name_sref;
 			$first_name_string =~ s{\.[^.]+$}{};
 
-# print("4.control,remove_su_suffix4sref,old ref value is now $first_name_string-\n");
+			# print("4.control,remove_su_suffix4sref,old ref value is now $first_name_string-\n");
 
 			$control->{_first_name_string} = $first_name_string;
 			return ();
 
 		}
-	}
-	else {    # not a reference
+	} else {    # not a reference
 		print("3.control,remove_su_suffix4sref,missing reference\n");
 		return ();
 
-#		$first_name_string 	= $$sref_entry_value;
-#	    $first_name_string 	=~ s{\.[^.]+$}{};
-#	    $first_name_string   = "'".$first_name_string."'"; #for complex names, in addition to plain letters
+		#		$first_name_string 	= $$sref_entry_value;
+		#	    $first_name_string 	=~ s{\.[^.]+$}{};
+		#	    $first_name_string   = "'".$first_name_string."'"; #for complex names, in addition to plain letters
 	}
 }
 
@@ -744,7 +739,7 @@ sub remove_su_suffix4sref {
 sub set_back_slashBgone {
 	my ( $self, $stringWback_slash ) = @_;
 
-# print("control,set_back_slashBgome, stringWback_slash: $stringWback_slash\n");
+	# print("control,set_back_slashBgome, stringWback_slash: $stringWback_slash\n");
 
 	if ( $stringWback_slash ne $empty_string ) {
 
@@ -789,8 +784,7 @@ sub set_empty_str2logic {
 		print("control,set_empty_str2logic: string = $string\n");
 		if ( $string eq 'yes' ) { $logic = 1; }
 
-	}
-	else {    # error check
+	} else {    # error check
 		$logic = 0;
 		print("control,set_empty_str2logic,empty string, logic= $logic\n");
 	}
@@ -880,10 +874,10 @@ sub set_str2logic {
 
 	if ( defined $string ) {
 
-# remove a single  quote from the string if it is  exists
-# e.g. 'no' becomes no, or 'yes' becomes yes , all of which are strings.
-# However, no can be compared to $no but the original string can not
-# Also yes can be compared to $yes, but 'yes' is not the same as $yes, which does not contain the single quotes
+		# remove a single  quote from the string if it is  exists
+		# e.g. 'no' becomes no, or 'yes' becomes yes , all of which are strings.
+		# However, no can be compared to $no but the original string can not
+		# Also yes can be compared to $yes, but 'yes' is not the same as $yes, which does not contain the single quotes
 		$string =~ s/\'//;
 		$string =~ s/\'//;
 
@@ -902,23 +896,22 @@ sub set_str2logic {
 
 				# print("4. control,set_str2logic: string = $string\n");
 
-			}
-			else {    # error check
-				 # print("control,set_str2logic,change parameter value string in gui to either yes or no\n");
-				 # print("Did you forget to list an expected variable ?\n");
-				 # print("control,set_str2logic: string = $string\n");
+			} else {    # error check
+						# print("control,set_str2logic,change parameter value string in gui to either yes or no\n");
+						# print("Did you forget to list an expected variable ?\n");
+						# print("control,set_str2logic: string = $string\n");
 			}
 
 			# print("control,set_str2logic: logic = $logic\n");
 			return ($logic);
 
-		}
-		else {
+		} else {
+
 			# print("5. control,set_str2logic,missing string\n");
 		}
 
-	}
-	else {
+	} else {
+
 		#print("3. control,set_str2logic: string is not defined NADA\n");
 	}
 }
@@ -950,32 +943,27 @@ sub set_suffix {
 		# print("1. control,set_suffix,is: empty\n");
 		$control->{_suffix} = '';
 
-	}
-	elsif ( $suffix eq 'su' ) {
+	} elsif ( $suffix eq 'su' ) {
 		$control->{_suffix} = 'su';
 
 		# print("control,set_suffix,is: $control->{_suffix}\n");
 
-	}
-	elsif ( $suffix eq 'config' ) {
+	} elsif ( $suffix eq 'config' ) {
 		$control->{_suffix} = 'config';
 
 		# print("control,set_suffix,is: $control->{_suffix}\n");
 
-	}
-	elsif ( $suffix eq 'pl' ) {
+	} elsif ( $suffix eq 'pl' ) {
 		$control->{_suffix} = 'pl';
 
 		# print("control,set_suffix,is: $control->{_suffix}\n");
 
-	}
-	elsif ( $suffix eq 'txt' ) {
+	} elsif ( $suffix eq 'txt' ) {
 		$control->{_suffix} = 'txt';
 
 		# print("control,set_suffix,is: $control->{_suffix}\n");
 
-	}
-	else {
+	} else {
 		$control->{_suffix} = '';
 
 		# print("2. control,set_suffix, suffix:$suffix is empty\n");
@@ -987,50 +975,60 @@ sub set_suffix {
   For a  scalar reference  remove the .su extension
   For a scalar also remove the .su extension
   For an  array reference do nothig 
-	returns a non-empty string if EXPR is a reference, the empty string otherwise. If EXPR is not specified, $_ will be used. The value returned depends on the type of thing the reference is a reference to.
+	returns a non-empty string if EXPR is a reference, the empty string otherwise. 
+	If EXPR is not specified, $_ will be used. The value returned depends on the 
+	type of thing the reference is a reference to.
 DB 
 
-# || ref($$sref_entry_value)  or ref($$sref_entry_value)crashes program
+# ref($$sref_entry_value)  or ref($$sref_entry_value)crashes program
  TODO: if may not properly catch all variations of the input
- currently works for file_name_strings like '1.su' Nov 17 2017
+ but currently works for file_name_strings like '1.su' Nov 17 2017
 
 =cut 
 
 sub su_data_name {
 	my ( $self, $sref_entry_value ) = @_;
 
-	my $first_name_string = $sref_entry_value;
+	# print("-1.control,su_data_name, value is:--$$sref_entry_value--\n");
 
-	# print("-1.control,su_data_name, value is: $$first_name_string-\n");
-	if ( ref($sref_entry_value) ) {
+	if (
+		defined $sref_entry_value
+		&& length $$sref_entry_value    # must not be of zero length
+	) {
 
-		# print("-2. ref_entry_value is a reference-\n");
-		if ( ref($$sref_entry_value) eq "ARRAY" ) {    # do nothing
-			    # print("0.control,su_data_name,file_name: is ARRAY-\n");
+		my $first_name_string = $sref_entry_value;
 
-		}
-		elsif ( ref($sref_entry_value) eq "SCALAR" ) {
+		# print("-2.control,su_data_name, value is:--$$first_name_string--\n");
+		if ( ref($sref_entry_value) ) {
 
-			# print("2.control,file_name: is SCALAR -\n");
+			# print("-2. ref_entry_value is a reference-\n");
+			if ( ref($$sref_entry_value) eq "ARRAY" ) {    # do nothing
+														   # print("0.control,su_data_name,file_name: is ARRAY-\n");
+
+			} elsif ( ref($sref_entry_value) eq "SCALAR" ) {
+
+				# print("2.control,file_name: is SCALAR -\n");
+				$first_name_string = $$sref_entry_value;
+				$first_name_string =~ s{\.[^.]+$}{};
+
+				# print("1.control,su_data_name,value comes from a reference scalar $first_name_string-\n");
+			}
+		} else {    # not a reference
+			# print("3.control,su_data_name,entry_value=$sref_entry_value\n");
 			$first_name_string = $$sref_entry_value;
 			$first_name_string =~ s{\.[^.]+$}{};
-
-# print("1.control,su_data_name,value comes from a reference scalar $first_name_string-\n");
+			$first_name_string = "'" . $first_name_string . "'";    #for complex names, in addition to plain letters
 		}
-	}
-	else {      # not a reference
-		    # print("3.control,su_data_name,entry_value=$sref_entry_value\n");
-		$first_name_string = $$sref_entry_value;
-		$first_name_string =~ s{\.[^.]+$}{};
-		$first_name_string = "'"
-			. $first_name_string
-			. "'";    #for complex names, in addition to plain letters
 
+		# print("4.control,su_data_name,old ref value is now--$first_name_string--\n");
+		$control->{_first_name_string} = $first_name_string;
+		return ($first_name_string);
+
+	} else{		
+		print("5. control,su_data_name, unexpected or missing value--\n");		
+		return($empty_string);
 	}
 
-   # print("4.control,su_data_name,old ref value is now $first_name_string-\n");
-	$control->{_first_name_string} = $first_name_string;
-	return ($first_name_string);
 }
 
 =head2 sub freq

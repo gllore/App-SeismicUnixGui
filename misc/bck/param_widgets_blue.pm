@@ -168,7 +168,7 @@ sub _changes {
     		my $changed_entry = $param_widgets_blue->{_changed_entry}; #always
     		
 			# print("param_widgets_blue,changes,changed 1-yes 0 -no? $changed_entry\n");
-			local_update_check_button_setting($idx);
+			_update_check_button_setting($idx);
        				# local_set_last_changed_entry_index($idx);
 		}
 		
@@ -385,7 +385,7 @@ sub local_set_entry_change_status{
     return();
 }
 
-=head2 sub local_update_check_button_setting
+=head2 sub _update_check_button_setting
 
  update for one parameter index 
  in currently active program
@@ -394,7 +394,7 @@ sub local_set_entry_change_status{
 
 =cut
 
- sub local_update_check_button_setting {
+ sub _update_check_button_setting {
 	my ($index) 	= @_;  
 	my $idx			= $index;
    	my @values 		= @{$param_widgets_blue->{_values_aref}};
@@ -410,32 +410,32 @@ sub local_set_entry_change_status{
 			if ($values[$idx] eq '0' ) {
 		
 		    	$on_off[$idx]     = $on;
-		    	# print("1.20 param_widgets_blue,,local_update_check_button_setting index: $idx , value:$values[$idx] or '0' \n");
+		    	# print("1.20 param_widgets_blue,,_update_check_button_setting index: $idx , value:$values[$idx] or '0' \n");
 		    
 			} elsif ($values[$idx] eq '0.0' ) {
 		
 		    	$on_off[$idx]     = $on;
-    			# print("1.21 param_widgets_blue,local_update_check_button_setting, ndex: $idx , value:$values[$idx] or 0.0 \n");				
+    			# print("1.21 param_widgets_blue,_update_check_button_setting, ndex: $idx , value:$values[$idx] or 0.0 \n");				
 			 
 			} elsif ($values[$idx] eq '0' ) {
 		
 		    	$on_off[$idx]     = $on;
-		    	# print("1.22 param_widgets_blue,,local_update_check_button_setting index: $idx , value:$values[$idx] or '0' \n");
+		    	# print("1.22 param_widgets_blue,,_update_check_button_setting index: $idx , value:$values[$idx] or '0' \n");
 		    
 			} elsif ($values[$idx] eq '0.0' ) {
 		
 		    	$on_off[$idx]     = $on;
-    			# print("1.23 param_widgets_blue,local_update_check_button_setting, ndex: $idx , value:$values[$idx] or 0.0 \n");
+    			# print("1.23 param_widgets_blue,_update_check_button_setting, ndex: $idx , value:$values[$idx] or 0.0 \n");
     					    
   			} else {
   			
-  				# print("1.24 param_widgets_blue,local_update_check_button_setting; empty value,  :index $idx value: $values[$idx]\n");
+  				# print("1.24 param_widgets_blue,_update_check_button_setting; empty value,  :index $idx value: $values[$idx]\n");
 				$on_off[$idx]     = $off;			
   			}		    
   					    
   		} else {
   			
-  			# print("param_widgets_blue,local_update_check_button_setting; unexpected cases\n");
+  			# print("param_widgets_blue,_update_check_button_setting; unexpected cases\n");
 			$on_off[$idx]     = $off; 			
   		}
   	
@@ -445,47 +445,47 @@ sub local_set_entry_change_status{
 		if ( $values[$idx] eq "0" ) {
     	    	
 			$on_off[$idx]     = $on;
-    		# print("1.11.23 1 param_widgets_blue,local_update_check_button_setting, index: $idx value: $values[$idx]\n");
+    		# print("1.11.23 1 param_widgets_blue,_update_check_button_setting, index: $idx value: $values[$idx]\n");
     		
 		} elsif ($values[$idx] eq '0.0' ) {
 		
 		    $on_off[$idx]     = $on;
-    		# print("1.12 param_widgets_blue,local_update_check_button_setting, ndex: $idx , value:$values[$idx] or 0.0 \n");		
+    		# print("1.12 param_widgets_blue,_update_check_button_setting, ndex: $idx , value:$values[$idx] or 0.0 \n");		
 		    		       		
     	} elsif ($values[$idx] eq "") {
     			
       		$on_off[$idx]     = $off;
-      		# print("1.13 param_widgets_blue,local_update_check_button_setting, \"\" \n"); 
+      		# print("1.13 param_widgets_blue,_update_check_button_setting, \"\" \n"); 
       		 	  	     		  		
     	} elsif  ($values[$idx] eq ''){
   			
-  			# print("1.14 param_widgets_blue,local_update_check_button_setting, \'\' \n");
+  			# print("1.14 param_widgets_blue,_update_check_button_setting, \'\' \n");
     	    $on_off[$idx]     = $off;
     	    
     	} elsif( $values[$idx] eq "'nu'" ) {
 			
     		$on_off[$idx]     = $off;
-     		# print("1. param_widgets_blue,local_update_check_button_setting, \"\'nu\'\"  \n"); 
+     		# print("1. param_widgets_blue,_update_check_button_setting, \"\'nu\'\"  \n"); 
      				  	   
     	} elsif ($values[$idx] eq $nu ) {
     		$on_off[$idx]     = $off;
-     		# print("1.15 param_widgets_blue,local_update_check_button_setting, \$nu \n"); 
+     		# print("1.15 param_widgets_blue,_update_check_button_setting, \$nu \n"); 
       		
 		} elsif ($values[$idx] eq $no ) {
       		$on_off[$idx]     = $off;
-      		print("2. param_widgets_blue,local_update_check_button_setting, \$no \n");
+      		print("2. param_widgets_blue,_update_check_button_setting, \$no \n");
       		 
 		} elsif ($values[$idx] eq "'0'" ) {
       		$on_off[$idx]     = $on;
-      		# print("2.1 param_widgets_blue,local_update_check_button_setting, \"\'0\'\" \n");
+      		# print("2.1 param_widgets_blue,_update_check_button_setting, \"\'0\'\" \n");
       		 	    		    				    		 	    		    				
     	} else {   		
-      		# print("3.1 param_widgets_blue,local_update_check_button_setting, all else\n");
+      		# print("3.1 param_widgets_blue,_update_check_button_setting, all else\n");
     		$on_off[$idx]     = $on;
 		}
 		 	          
     } else {   		
-    	print("param-widgets,local_update_check_button_setting, apparently unconsidered case\n"); # weird TODO
+    	print("param-widgets,_update_check_button_setting, apparently unconsidered case\n"); # weird TODO
     }
 
    	$check_buttons	->set_index($idx);
@@ -493,7 +493,7 @@ sub local_set_entry_change_status{
 
 	# update a single change in private hash
     @{$param_widgets_blue->{_check_buttons_settings_aref}}[$idx] = $on_off[$idx];
-    # print("param_widgets_blue: local_update_check_button_setting :index $idx setting is: $on_off[$idx]\n");
+    # print("param_widgets_blue: _update_check_button_setting :index $idx setting is: $on_off[$idx]\n");
     # print("param_widgets_blue: update_check_buttons_settings_aref @{$param_widgets_blue->{_check_buttons_settings_aref}}\n");
 
     return();

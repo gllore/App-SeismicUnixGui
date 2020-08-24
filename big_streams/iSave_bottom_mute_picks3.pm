@@ -52,6 +52,7 @@ use cp;
 my $log = new message();
 my $run = new flow();
 my $cp  = new cp();
+my $Project = Project_config->new();
 
 =head2
 
@@ -84,7 +85,7 @@ my $iSave_bot_mute_picks3 = {
 =cut 
 
 use SeismicUnix qw ($itemp_bot_mute_picks_sorted_par_ $ibot_mute_par_);
-my ($PL_SEISMIC) = System_Variables::PL_SEISMIC();
+my ($PL_SEISMIC) = $Project->PL_SEISMIC();
 
 =head2 subroutine clear
 

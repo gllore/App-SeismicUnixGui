@@ -83,15 +83,19 @@ our $VERSION = '0.0.1';
 
 use SeismicUnix qw($true $false $suffix_su $us2s $ms2s);
 use L_SU_global_constants();
+use Project_config;
 use surange;
 
 my $get     = new L_SU_global_constants();
 my $surange = surange->new();
+my $Project		= Project_config->new();
 
 my $var          = $get->var();
 my $empty_string = $var->{_empty_string};
+my $PL_SEISMIC	  = $Project->PL_SEISMIC();
 
-my $suinfo = {
+my $suinfo =  {
+    _CONFIG	 				=> $PL_SEISMIC,
     _DATA_DIR_IN                    => '',
     _first                          => '',
     _inbound_base_file_name         => '',

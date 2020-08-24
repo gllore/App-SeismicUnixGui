@@ -3128,8 +3128,8 @@ sub set4start_of_superflow_select {
 	use L_SU_global_constants;
 	my $get         = L_SU_global_constants->new();
 	my $flow_type_h = $get->flow_type_href();
-	my $alias_FileDialog_button_label =
-		$get->alias_FileDialog_button_label_aref;
+#	my $alias_FileDialog_button_label =
+#		$get->alias_FileDialog_button_label_aref;
 
 	# For location within GUI
 	$conditions_gui->{_flow_type} = $flow_type_h->{_pre_built_superflow};
@@ -3251,8 +3251,8 @@ sub set4superflow_open_data_file_start {
 	use L_SU_global_constants;
 	my $get         = L_SU_global_constants->new();
 	my $flow_type_h = $get->flow_type_href();
-	my $alias_FileDialog_button_label =
-		$get->alias_FileDialog_button_label_aref;
+#	my $alias_FileDialog_button_label =
+#		$get->alias_FileDialog_button_label_aref;
 
 	# For location within GUI
 	$conditions_gui->{_flow_type} = $flow_type_h->{_pre_built_superflow};

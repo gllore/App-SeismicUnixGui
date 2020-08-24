@@ -1,7 +1,5 @@
 package message;
 
-use Moose;
-
 =pod
 
 =head1 DOCUMENTATION
@@ -24,7 +22,34 @@ use Moose;
 
 =head3 UNIX NOTES  
 =head4 CHANGES and their DATES
+V0.0.2 April 4, 2020
 
+
+=cut
+
+=head2 Define
+local variables
+
+=cut
+
+use Moose;
+our $VERSION = '0.0.2';
+use Project_config;
+
+=head2 import variables 
+
+=cut
+
+my $Project = new Project_config();
+
+=head2 Declare
+local variables
+
+=cut
+
+my $PL_SEISMIC = $Project->PL_SEISMIC();
+
+=head2 private hash
 
 =cut
 
@@ -39,7 +64,7 @@ my $message = { _text => '' };
 =cut
 
 sub clear {
-    $message->{_text} = '';
+	$message->{_text} = '';
 }
 
 =pod
@@ -51,11 +76,14 @@ sub clear {
 =cut
 
 sub file {
-    ( $message, my $text ) = @_;
-    $message->{_text} = $text if defined($text);
-    open( STDOUT, '>>log.txt' );
-    print STDOUT $text;
-    close(STDOUT);
+	( $message, my $text ) = @_;
+
+	$message->{_text} = $text if defined($text);
+	my $filename = $PL_SEISMIC . '/' . 'log.txt';
+	
+	open( message_STDOUT, '>>', $filename ) or die $!;
+		print message_STDOUT $text . "\n";
+	close(message_STDOUT);
 }
 
 =pod
@@ -67,11 +95,11 @@ sub file {
 =cut
 
 sub screen {
-    ( $message, my $text ) = @_;
-    $message->{_text} = $text if defined($text);
+	( $message, my $text ) = @_;
+	$message->{_text} = $text if defined($text);
 
-    #print ("$text\n\n");
-    print("Hi\n\n");
+	#print ("$text\n\n");
+	print("Hi\n\n");
 }
 
 # a 1 is sent to perl to signify the end of the package

@@ -595,34 +595,35 @@ sub get_body_section {
 	$package_name = $sunix_spec->{_package_name};
 	
     $head[0]    = '	my $'.$package_name.'_spec'.' = {'."\n";
-    $head[1]    = '		_DATA_DIR_IN		    => $DATA_SEISMIC_SU,'."\n";
-    $head[2]    = '	 	_DATA_DIR_OUT		    => $DATA_SEISMIC_SU,'."\n";
-    $head[3]    = '		_binding_index_aref	    => \'\','."\n";
-    $head[4]    = '	 	_suffix_type_in			=> $su,'."\n";
-    $head[5]    = '		_data_suffix_in			=> $suffix_su,'."\n";
-    $head[6]    = '		_suffix_type_out		=> $su,'."\n";
-    $head[7]    = '	 	_data_suffix_out		=> $suffix_su,'."\n";
- 	$head[8]    = '		_file_dialog_type_aref	=> \'\','."\n";
-	$head[9]    = '		_flow_type_aref			=> \'\','."\n";		
-    $head[10]   = '	 	_has_infile				=> $true,'."\n";	
-    $head[11]   = '	 	_has_pipe_in			=> $true,	'."\n";
-    $head[12]   = '	 	_has_pipe_out           => $true,'."\n";	 
-    $head[13]   = '	 	_has_redirect_in		=> $true,'."\n";
-    $head[14]   = '	 	_has_redirect_out		=> $true,'."\n";
-    $head[15]   = '	 	_has_subin_in			=> $false,'."\n";
-    $head[16]   = '	 	_has_subin_out			=> $false,'."\n";
-    $head[17]   = '	 	_is_data				=> $false,'."\n";
-    $head[18]   = '		_is_first_of_2			=> $true,'."\n";
-    $head[19]   = '		_is_first_of_3or_more	=> $true,'."\n";
-    $head[20]   = '		_is_first_of_4or_more	=> $true,'."\n";
-    $head[21]   = '	 	_is_last_of_2			=> $false,'."\n";
-    $head[22]   = '	 	_is_last_of_3or_more	=> $false,'."\n";
-    $head[23]   = '		_is_last_of_4or_more	=> $false,'."\n";
-    $head[24]   = '		_is_suprog				=> $true,'."\n";
-    $head[25]   = '	 	_is_superflow			=> $false,'."\n";
-    $head[26]   = '	 	_max_index              => $max_index,'."\n";
-    $head[27]   = '	};'."\n";
-    $head[28]   = ''."\n\n"; 
+    $head[1]    = '		_CONFIG		            => $PL_SEISMIC."\n";
+    $head[2]    = '		_DATA_DIR_IN		    => $DATA_SEISMIC_SU,'."\n";
+    $head[3]    = '	 	_DATA_DIR_OUT		    => $DATA_SEISMIC_SU,'."\n";
+    $head[4]    = '		_binding_index_aref	    => \'\','."\n";
+    $head[5]    = '	 	_suffix_type_in			=> $su,'."\n";
+    $head[6]    = '		_data_suffix_in			=> $suffix_su,'."\n";
+    $head[7]    = '		_suffix_type_out		=> $su,'."\n";
+    $head[8]    = '	 	_data_suffix_out		=> $suffix_su,'."\n";
+ 	$head[9]    = '		_file_dialog_type_aref	=> \'\','."\n";
+	$head[10]    = '		_flow_type_aref			=> \'\','."\n";		
+    $head[11]   = '	 	_has_infile				=> $true,'."\n";	
+    $head[12]   = '	 	_has_pipe_in			=> $true,	'."\n";
+    $head[13]   = '	 	_has_pipe_out           => $true,'."\n";	 
+    $head[14]   = '	 	_has_redirect_in		=> $true,'."\n";
+    $head[15]   = '	 	_has_redirect_out		=> $true,'."\n";
+    $head[16]   = '	 	_has_subin_in			=> $false,'."\n";
+    $head[17]   = '	 	_has_subin_out			=> $false,'."\n";
+    $head[18]   = '	 	_is_data				=> $false,'."\n";
+    $head[19]   = '		_is_first_of_2			=> $true,'."\n";
+    $head[20]   = '		_is_first_of_3or_more	=> $true,'."\n";
+    $head[21]   = '		_is_first_of_4or_more	=> $true,'."\n";
+    $head[22]   = '	 	_is_last_of_2			=> $false,'."\n";
+    $head[23]   = '	 	_is_last_of_3or_more	=> $false,'."\n";
+    $head[24]   = '		_is_last_of_4or_more	=> $false,'."\n";
+    $head[25]   = '		_is_suprog				=> $true,'."\n";
+    $head[26]   = '	 	_is_superflow			=> $false,'."\n";
+    $head[27]   = '	 	_max_index              => $max_index,'."\n";
+    $head[28]   = '	};'."\n";
+    $head[29]   = ''."\n\n"; 
     
     	my $incompatibles = {
 		_clip              => ['mbal', 'pbal'],	
@@ -660,8 +661,9 @@ sub get_header_section {
     $head[4]    = $declare[0];
 	$head[5]    = ''."\n";
 	$head[6]   = '	my $DATA_SEISMIC_SU  	= $Project->DATA_SEISMIC_SU();   # output data directory'."\n";
-	$head[7]   = '	my $max_index           = $'.$package_name.'->get_max_index();'."\n";
-	$head[8]   = ''."\n";	
+	$head[7]   = '  my $PL_SEISMIC		    = $Project->PL_SEISMIC();
+	$head[8]   = '	my $max_index           = $'.$package_name.'->get_max_index();'."\n";
+	$head[9]   = ''."\n";	
     
     # print ("sunix_spec, get_header_section:\n @head\n");
  	return (\@head);

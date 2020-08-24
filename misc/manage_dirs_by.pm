@@ -46,10 +46,10 @@ sub make_dir {
     # this function/method  makes a  directory
     # if it does not exist already
 
-    #get directory names
+    # get directory names
     my ($directory) = shift @_;
 
-    # print ("\nMaking directories $directory \n");
+   # print ("\nmanage_dirs_by, make_dir, Making directories----$directory---\n");
 
     system(
         "                       	\\

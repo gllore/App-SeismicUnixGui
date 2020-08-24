@@ -1,5 +1,6 @@
 package manage_files_by;
 
+
 # manage_files_by  class
 # Contains methods/subroutines/functions to operate on directories
 # V 1. March 3 2008
@@ -233,12 +234,12 @@ sub read_mute_par {
 	}
 	close(FILE);
 
-	#     print("\n number of rows is $row\n\n");
+	     print("\n number of rows is $row\n\n");
 
-	#     for ($i=0; $i<$row;$i++) {
-	#          print("\n row $i contains $Items[$i]");
-	#         print(" i.e., $numberOfValues[$i] values\n");
-	#     }
+	     for ($i=0; $i<$row;$i++) {
+	          print("\n row $i contains $Items[$i]");
+	         print(" i.e., $numberOfValues[$i] values\n");
+	     }
 
 	return ( \@Items, \@numberOfValues );
 
@@ -278,7 +279,7 @@ sub read_par {
 
 	while ( $line = <FILE> ) {
 
-		# print("manage_files_by,read_par, $line");
+	# print("manage_files_by,read_par, $line");
 
 =pod
 
@@ -299,6 +300,7 @@ sub read_par {
 	return ( \@Items, \@ValuesPerRow );
 
 }
+
 
 sub read_2cols_sugethw {
 
@@ -1300,6 +1302,45 @@ sub write_cdp {
 	close(OUT);
 }
 
+
+=head2 write_gather
+
+	write out only the gather nos.
+	
+	gather=g,h
+	
+	for the first part of a file that contains
+	more than one tnmo, vnmo pair 
+
+=cut
+
+sub write_gather {
+
+	# WRITE OUT FILE
+
+	# open and write to output file
+	my ( $gather_aref,$DIR_OUT) = @_;
+
+	my ( $i, $number_of_gathers, $number_of_lines );
+
+	$number_of_gathers = scalar @$gather_aref;
+
+	# print("number of gathers is $number_of_gathers \n");
+	# print("number of gathers is $number_of_gathers \n");
+	my $temp = '.gather';
+	open( OUT, ">$DIR_OUT/$temp" );
+
+	# print first line
+	print OUT ("gather=");
+	print OUT ("@$gather_aref[0]");
+
+	for ( $i = 1; $i < $number_of_gathers; $i++ ) {
+		print OUT (",@$gather_aref[$i]");
+	}
+	print OUT ("\n");
+
+	close(OUT);
+}
 	
 =head2 write_tmute_xmute
 
@@ -1319,16 +1360,16 @@ sub write_tmute_xmute {
 	# WRITE OUT FILE
 
 	# open and write to output file
-	my ( $cdp_aref, $tmute_aref, $xmute_aref, $DIR_OUT) = @_;
+	my ( $gather_aref, $tmute_aref, $xmute_aref, $DIR_OUT) = @_;
 
-	my ( $i, $number_of_cdps);
-	$number_of_cdps = scalar @$cdp_aref;	
+	my ( $i, $number_of_gathers);
+	$number_of_gathers = scalar @$gather_aref;	
 
 	my $temp = '.tx';
 	open( OUT, ">$DIR_OUT/$temp" );
 
 	# print out subsequent lines
-	for ( my $i = 0; $i < $number_of_cdps; $i++ )
+	for ( my $i = 0; $i < $number_of_gathers; $i++ )
 	{
 
 		# for each CDP

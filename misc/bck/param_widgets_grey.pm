@@ -82,7 +82,7 @@ my $param_widgets_grey = {
 	_is_flow_listbox_green_w     => '',
 	_is_flow_listbox_blue_w      => '',
 	_is_flow_listbox_color_w     => '',
-	_is_moveNdrop_in_flow        => '',
+#	_is_moveNdrop_in_flow        => '',
 	_is_new_listbox_selection    => '',
 	_is_sunix_listbox            => '',
 	_is_superflow_select_button  => '',
@@ -91,7 +91,7 @@ my $param_widgets_grey = {
 	_labels_w_aref               => '',
 
 	#_last_changed_program_index => '',
-	_index_on_entry => '',
+#	_index_on_entry => '',
 	_last                     => '',
 	_length                   => $default_param_specs->{_length},
 	_prog_name                => '',
@@ -179,7 +179,7 @@ sub _changes {
 			# print("param_widgets_grey,changes,changed 1-yes 0 -no? $changed_entry\n");
 			_update_check_button_setting($idx);
 
-			_set_index_on_entry($idx);
+#			_set_index_on_entry($idx);
 		}
 
 		return ($true);                                                      # for Entry widget to say there is no error
@@ -538,30 +538,30 @@ sub _update_check_button_setting {
 	return ();
 }
 
-=head2 sub get_index_on_entry
+#=head2 sub get_index_on_entry
+#
+#=cut
+#
+#sub get_index_on_entry{
+#	
+#	my @self = @_;
+#	
+#    my $result = $param_widgets_grey->{_index_on_entry};
+#    
+#    return($result);
+#}
 
-=cut
-
-sub get_index_on_entry{
-	
-	my @self = @_;
-	
-    my $result = $param_widgets_grey->{_index_on_entry};
-    
-    return($result);
-}
-
-=head2 sub _set_index_on_entry
-
-=cut
-
-sub _set_index_on_entry {
-	my ($self) = @_;
-	$param_widgets_grey->{_index_on_entry} = $self;
-
-	print("param_widgets_grey,_set_index_on_entry:  $param_widgets_grey->{_index_on_entry} \n");
-	return ();
-}
+#=head2 sub _set_index_on_entry
+#
+#=cut
+#
+#sub _set_index_on_entry {
+#	my ($self) = @_;
+#	$param_widgets_grey->{_index_on_entry} = $self;
+#
+#	print("param_widgets_grey,_set_index_on_entry:  $param_widgets_grey->{_index_on_entry} \n");
+#	return ();
+#}
 
 =head2 sub set_check_buttons
  a widget reference
@@ -1188,11 +1188,13 @@ sub redisplay_values {
 
 			# print("2. param_widgets_grey, redisplay_values, quoteless value is @{$values_aref}[$i]\n");
 			@$values_w_aref[$i]->configure(
-				-textvariable    => \@{$values_aref}[$i],
 				-validate        => 'all',
 				-validatecommand => [ \&_changes, $i ],
 				-invalidcommand  => \&error_check,
 			);
+			
+			@$values_w_aref[$i]->delete(0,'end');
+			@$values_w_aref[$i]->insert(0,@{$values_aref}[$i]);
 
 			# print("2. param_widgets_grey,redisplay_values,chkbtn @{$param_widgets_grey->{_check_buttons_settings_aref}}[$i]\n");
 		}
@@ -1433,7 +1435,8 @@ sub set_location_in_gui {
 
 	if ( $here->{_is_flow_listbox_grey_w} && $here->{_is_add2flow} ) {
 
-		_reset $param_widgets_grey->{_is_flow_listbox_grey_w} = $true;
+		_reset();
+		 $param_widgets_grey->{_is_flow_listbox_grey_w} = $true;
 		$param_widgets_grey->{_is_flow_listbox_color_w} = $true;
 
 		# print("param_widgets_grey, set_location_in_gui, _is_flow_listbox_grey_w and _is_add2flow \n");
@@ -1441,7 +1444,8 @@ sub set_location_in_gui {
 	}
 	elsif ( $here->{_is_flow_listbox_grey_w} ) {
 
-		_reset $param_widgets_grey->{_is_flow_listbox_grey_w} = $true;
+		_reset();
+		 $param_widgets_grey->{_is_flow_listbox_grey_w} = $true;
 		$param_widgets_grey->{_is_flow_listbox_color_w} = $true;
 
 		# print("param_widgets_grey, set_location_in_gui, _is_flow_listbox_grey_w ++ true\n");
@@ -1449,7 +1453,8 @@ sub set_location_in_gui {
 	}
 	elsif ( $here->{_is_flow_listbox_pink_w} ) {
 
-		_reset $param_widgets_grey->{_is_flow_listbox_pink_w} = $true;
+		_reset();
+		 $param_widgets_grey->{_is_flow_listbox_pink_w} = $true;
 		$param_widgets_grey->{_is_flow_listbox_color_w} = $true;
 
 		# print("param_widgets_grey, set_location_in_gui, _is_flow_listbox_pink_w ++\n");
@@ -1457,7 +1462,8 @@ sub set_location_in_gui {
 	}
 	elsif ( $here->{_is_flow_listbox_green_w} ) {
 
-		_reset $param_widgets_grey->{_is_flow_listbox_green_w} = $true;
+		_reset();
+		 $param_widgets_grey->{_is_flow_listbox_green_w} = $true;
 		$param_widgets_grey->{_is_flow_listbox_color_w} = $true;
 
 		# print("param_widgets_grey, set_location_in_gui, _is_flow_listbox_green_w ++\n");
@@ -1465,7 +1471,8 @@ sub set_location_in_gui {
 	}
 	elsif ( $here->{_is_flow_listbox_blue_w} ) {
 
-		_reset $param_widgets_grey->{_is_flow_listbox_blue_w} = $true;
+		_reset();
+		 $param_widgets_grey->{_is_flow_listbox_blue_w} = $true;
 		$param_widgets_grey->{_is_flow_listbox_color_w} = $true;
 
 		# print("param_widgets_grey, set_location_in_gui, _is_flow_listbox_blue_w ++\n");
@@ -1473,7 +1480,8 @@ sub set_location_in_gui {
 	}
 	elsif ( $here->{_is_flow_listbox_color_w} ) {
 
-		_reset $param_widgets_grey->{_is_flow_listbox_color_w} = $true;
+		_reset();
+		 $param_widgets_grey->{_is_flow_listbox_color_w} = $true;
 
 		# print("param_widgets_grey, set_location_in_gui, _is_flow_listbox_color_w\n");
 
@@ -1486,7 +1494,8 @@ sub set_location_in_gui {
 	}
 	elsif ( $here->{_is_add2flow_button} ) {
 
-		_reset $param_widgets_grey->{_is_new_listbox_selection} = $true;    # so change not allowed
+		_reset();
+		 $param_widgets_grey->{_is_new_listbox_selection} = $true;    # so change not allowed
 		                                                                    # print("param_widgets_grey, set_location_in_gui, _is_new_listbox_selection \n");
 
 	}
@@ -1529,7 +1538,7 @@ sub set_location_in_gui {
 	}
 	elsif ( $here->{_is_superflow_select_button} ) {
 
-		_reset
+		_reset();
 
 			# print("param_widgets_grey,NEW set_location_in_gui, superflow_select_button\n");
 			$param_widgets_grey->{_is_superflow_select_button} = $true;

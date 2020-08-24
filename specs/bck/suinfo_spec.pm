@@ -23,10 +23,12 @@ my $DATA_SEISMIC_SU  = $Project->DATA_SEISMIC_SU();     # output data directory
 my $DATA_SEISMIC_TXT = $Project->DATA_SEISMIC_TXT();    # output data directory
 my $max_index        = $suinfo->get_max_index();
 
-my $suinfo_spec = {
+my $suinfo_spec =  {
+    _CONFIG	 				=> 'Nada',
     _DATA_DIR_IN           => $DATA_SEISMIC_SU,
     _DATA_DIR_OUT          => $DATA_SEISMIC_TXT,
-    _binding_index_aref    => '',
+    _CONFIG					=>'Nada',
+	_binding_index_aref    => '',
     _suffix_type_in        => $su,
     _data_suffix_in        => $suffix_su,
     _suffix_type_out       => $txt,

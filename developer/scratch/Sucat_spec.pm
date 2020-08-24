@@ -21,6 +21,7 @@ package Sucat_spec;
 	
 
 	my $Sucat_spec = {
+	_CONFIG					=> 'Nada'
 	_DATA_DIR_IN		    => $DATA_SEISMIC_SU, #default
 	_DATA_DIR_OUT		    => $DATA_SEISMIC_SU, #default
 	_binding_index_aref	    => '',

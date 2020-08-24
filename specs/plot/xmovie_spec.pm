@@ -18,12 +18,14 @@ my $false            = $var->{_false};
 my $file_dialog_type = $get->file_dialog_type_href();
 my $flow_type        = $get->flow_type_href();
 
-my $DATA_SEISMIC_BIN =
-	$Project->DATA_SEISMIC_BIN();    # input data directory
-my $DATA_SEISMIC_SU = $Project->DATA_SEISMIC_SU();    # output data directory
-my $max_index       = $xmovie->get_max_index();
+my $DATA_SEISMIC_BIN = $Project->DATA_SEISMIC_BIN();    # input data directory
+my $DATA_SEISMIC_SU  = $Project->DATA_SEISMIC_SU();     # output data directory
+my $PL_SEISMIC       = $Project->PL_SEISMIC();
+my $max_index        = $xmovie->get_max_index();
 
 my $xmovie_spec = {
+	_CONFIG                => $PL_SEISMIC,
+	_DATA_DIR_OUT          => $DATA_SEISMIC_SU,
 	_DATA_DIR_IN           => $DATA_SEISMIC_BIN,
 	_DATA_DIR_OUT          => $DATA_SEISMIC_SU,
 	_binding_index_aref    => '',
@@ -119,11 +121,8 @@ sub get_binding_index_aref {
 		my $index_aref = $xmovie_spec->{_binding_index_aref};
 		return ($index_aref);
 
-	}
-	else {
-		print(
-			"xmovie_spec, get_binding_index_aref, missing binding_index_aref\n"
-		);
+	} else {
+		print("xmovie_spec, get_binding_index_aref, missing binding_index_aref\n");
 		return ();
 	}
 
@@ -143,8 +142,7 @@ sub get_binding_length {
 		my $binding_length = scalar @{ $xmovie_spec->{_binding_index_aref} };
 		return ($binding_length);
 
-	}
-	else {
+	} else {
 		print("xmovie_spec, get_binding_length, missing binding_length\n");
 		return ();
 	}
@@ -164,11 +162,8 @@ sub get_file_dialog_type_aref {
 		my $index_aref = $xmovie_spec->{_file_dialog_type_aref};
 		return ($index_aref);
 
-	}
-	else {
-		print(
-			"xmovie_spec, get_file_dialog_type_aref, missing get_file_dialog_type_aref\n"
-		);
+	} else {
+		print("xmovie_spec, get_file_dialog_type_aref, missing get_file_dialog_type_aref\n");
 		return ();
 	}
 
@@ -188,8 +183,7 @@ sub get_flow_type_aref {
 		my $index_aref = $xmovie_spec->{_flow_type_aref};
 		return ($index_aref);
 
-	}
-	else {
+	} else {
 		print("xmovie_spec, get_flow_type_aref, missing flow_type_aref\n");
 		return ();
 	}
@@ -231,14 +225,11 @@ sub get_incompatibles {
 
 		for ( my $i = 0; $i < $len_1_needed; $i++ ) {
 
-			print(
-				"xmovie, get_incompatibles,need_only_1:  @{@{$params->{_need_only_1}}[$i]}\n"
-			);
+			print("xmovie, get_incompatibles,need_only_1:  @{@{$params->{_need_only_1}}[$i]}\n");
 
 		}
 
-	}
-	else {
+	} else {
 		print("get_incompatibles, no incompatibles\n");
 	}
 
@@ -259,8 +250,7 @@ sub get_prefix_aref {
 		my $prefix_aref = $xmovie_spec->{_prefix_aref};
 		return ($prefix_aref);
 
-	}
-	else {
+	} else {
 		print("xmovie_spec, get_prefix_aref, missing prefix_aref\n");
 		return ();
 	}
@@ -281,8 +271,7 @@ sub get_suffix_aref {
 		my $suffix_aref = $xmovie_spec->{_suffix_aref};
 		return ($suffix_aref);
 
-	}
-	else {
+	} else {
 		print("$xmovie_spec, get_suffix_aref, missing suffix_aref\n");
 		return ();
 	}

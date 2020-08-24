@@ -3,7 +3,7 @@
 
 =head2 SYNOPSIS 
 
-	NAME:     SetProject 
+	NAME:     Project 
 	Author:   Juan M. Lorenzo 
 	Date:     Jan 1 2017
 	          from SetProject December 15, 2011 

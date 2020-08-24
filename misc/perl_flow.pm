@@ -50,6 +50,7 @@ my $off                   = $var->{_off};
 my $null_sunix_value      = $var->{_null_sunix_value};
 my $string2startFlowSetUp = $var->{_string2startFlowSetUp};
 my $string2endFlowSetUp   = $var->{_string2endFlowSetUp};
+my $flow_type_href 		  = $get->flow_type_href();
 
 my @file_in;
 my @file_out;
@@ -334,7 +335,10 @@ sub parse {
 
 		# print("perl_flow, parse prog: $prog_idx--num_good_params: $num_good_params---\n");
 		# print("perl_flow, program name: prog_name, $good_prog_name\n");
-
+		
+		# tell param_sunix the type of flow
+		$param_sunix->set_flow_type($flow_type_href->{_user_built});
+		
 		# info about a sunix program from its configuration file e.g., suximage.config
 		$param_sunix->set_program_name( \$good_prog_name );
 		my $sunix_first_idx    = $param_sunix->first_idx();
@@ -437,6 +441,7 @@ sub parse {
 	$perl_flow->{_all_values_aref2}             = \@all_values_aref2;
 	$perl_flow->{_check_buttons_settings_aref2} = \@check_buttons_settings_aref2;
 }
+
 
 =head2 sub set_perl_file_in
 

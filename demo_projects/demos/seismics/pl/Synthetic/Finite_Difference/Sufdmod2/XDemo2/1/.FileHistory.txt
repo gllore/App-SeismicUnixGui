@@ -1,0 +1,4 @@
+/home/gom/demos/seismics/pl/Synthetic/Finite_Difference/Sufdmod2/XDemo2/1/3.view
+/home/gom/demos/seismics/pl/Synthetic/Finite_Difference/Sufdmod2/XDemo2/1/2.finite_difference_seismogram_w_movie
+/home/gom/demos/seismics/data/Synthetic/Finite_Difference/Sufdmod2/XDemo2/1/bin/vel_out.bin
+/home/gom/demos/seismics/pl/Synthetic/Finite_Difference/Sufdmod2/XDemo2/1/1.make_velocity_model

@@ -14,7 +14,7 @@ User-built flows ( 4 colors) diverge from 'grey_flow.pm', pink_flow.pm, etc.
 
 sunix_select.pm uses exclusively 'neutral_flow.pm' 
 
-Superflows diverge from L_SU via pre_built-sueprflow.pm
+Superflows diverge from L_SU via pre_built-superflow.pm
 
 User-built flows can be of 4 colors.
 
@@ -40,8 +40,8 @@ sunix programs use _FileDialog_button to find files.
  	'color'_flow
 		_FileDialog_button module lies within each of the 'colored' flows: e.g. grey_flow.pm, pink_flow.pm, etc.
 		The type of files that can be opened are (1) user_built flows {_Flow}, 
-		2) data files e.g. su, binary, and plain text files {_Data}
-		and (3) pre_built superflows
+		2) data files e.g. su, binary, par, and plain text files {_Data} [_Data_PL_SEISMIC}
+		and (3) pre_built superflows and directories {_Path}
 		
 For a sunix program with a binding how does the FileDialog get activated?
  
@@ -76,11 +76,11 @@ conditions_gui: temporarily establishes the widget in a private hash
   Internally a new set of private variable siscast from the hash that is entered.
 
 decisions:
-  Judges conditions for making choices automatically
+  Judges conditions for making choices automatically in
   the namespace.
   
 Superflows/tools read configuration files and write configuration files
-   using internal libraries, i.e. no longer usign 3rd-party library like Config-Simple
+   using internal libraries, i.e. no longer using 3rd-party library like Config-Simple
    configuration parameters are found in arrays and not in hashes as for
    the outside libraries of Config-Simple.  Former version of L_SU used Config-Simple
  
@@ -95,9 +95,9 @@ Main, _L_SU_superflows calls pre_built_superflow
 
        pre_built_superflow,select calls config_superflows
  
-               config_superflows, get_local_or_defaults calls superflows_config
+               config_superflows, get_local_or_defaults calls big_streams_param
                
-                      	superflows_config extends su_param
+                      	big_streams_param extends su_param
                       
                			su_param reads variables using readfiles.pm
                
@@ -276,9 +276,10 @@ Example 2: parameter "purpose" in "iPick".  One parameter value can be "geopsy"
  	
  		by adding new methods that accept the parameter value for "purpose"
  		and with modifications to those modules that employ "purpose"
- 
-	
-How to Add a Completely New Superflow:
+
+
+#################################################################
+Q. How to Add a Completely New Superflow:
 Example files needed:   Synseis        (only master)
 					    Synseis.config (master and local versions)
 						Synseis_config (only master)
@@ -419,15 +420,16 @@ TODO Idea: build program behaviors using spec files
  Also, whenever a seismic unix program is clicked within the flow_listbox (any of the four)
  (NOT the seismic unix selection listbox), the parameters are redisplayed
   
-  sub called: 	flow_select       (main, flow_select)
-  
-If selected, sub flow_select always assumes a change has been made to one of the parameters
-and runs: sub local_check4changes();   (main, flow_select, local_check4changes)
-sub local_check4changes: 
-							 -finds out which program was just touched
-		                     -assumes all prior programs touched have
-		                     modified parameters 
-		                     -updates the touched program's stored values
+
+ 
+#deprecated
+#If selected, sub flow_select always assumes a change has been made to one of the parameters
+#and runs: sub local_check4changes();   (main, flow_select, local_check4changes)
+#sub local_check4changes: 
+#							 -finds out which program was just touched
+#		                     -assumes all prior programs touched have
+#		                     modified parameters 
+#		                     -updates the touched program's stored values
 
 
 The only place that a flow is checked for how correct its parameters are will be at the
@@ -508,9 +510,8 @@ main; L_SU; grey_flow; files_LSU, save; oop_text; instantiation, set_prog_names_
       V0.0.2 July 24 2018 include data_in, exclude data_out
  main; L_SU; grey_flow; files_LSU, save; oop_text; prog_params (sets the text)
  		
-Q. What sequence of programs is used when a pre-existing perl file flow or 
-new perl flow
-is opened i.e., when 'Flow' is used
+Q. What sequence of programs are used when looking either a pre-existing perl file flow or 
+i.e., when 'Flow' is used
 Opening a Data perl file or a user-built flow involves the following sequence:
 
 main, 
@@ -533,7 +534,7 @@ Opening a Data file from within a superflow can follow two routes:
 
 Route 1:  Directly from the GUI menu selection of "File/Data" 
 
-Route 2: Via bindings defined in spec files:
+Route 2: Indirfectly, via bindings defined in spec files:
 	L_SU, _FileDialog_button (for MB3 bindings)
 	
 Superflow bindings use this subroutine exclusively
@@ -692,12 +693,12 @@ Access to the help instructions of the
  	For anopther program you may have to modify the parser target.
  
  
-Q. How does LSU_project_selector create new Proejct directories?
+Q. How does LSU_project_selector create new Project directories?
   
 				
-    1 superflows_config, which extends su_param::get, provides  e.g., HOME /home/gom PROJECT_HOME /home/gom/jj site San_Acacia spare_dir '' date 
+    1 big_streams_param, which extends su_param::get, provides  e.g., HOME /home/gom PROJECT_HOME /home/gom/jj site San_Acacia spare_dir '' date 
     
-    2. config_superflows::get_local_or_defaults uses superflows_config(above) to get e.g., HOME /home/gome PROJECT_HOME /home/gom/jj site San_Acacia spare_dir '' date
+    2. config_superflows::get_local_or_defaults uses big_streams_param(above) to get e.g., HOME /home/gome PROJECT_HOME /home/gom/jj site San_Acacia spare_dir '' date
 	
 	3. The previous module (config_superflows) provides  L_SU_local_user_constants::_get_active_project_name with the $project_name (e.g., jj)
 	
@@ -886,12 +887,12 @@ Q. How does LSU_project_selector create new Proejct directories?
     What do some of the private variables (hash keys) in spec_files mean?
     
     Note that if the GUI has  'data_in' as the first program in the flow list
-    if will be corrected in the bash script into second position.
-    There 'corrected' positions are the ones that are referred to 
+    it will be corrected and placed in the bash script into second position.
+    The 'corrected' positions are the ones that are referred to 
     in the following:
     
-    	For use internally to the program, e.g., when 
-    	par-file paramters are bound to a specific direcory
+    	For use internally in the program, e.g., when 
+    	par-file parameters are bound to a specific direcory
    		_DATA_DIR_IN		    input data directory 
 	 	_DATA_DIR_OUT		    output data directory 
 	 	
@@ -908,7 +909,7 @@ Q. How does LSU_project_selector create new Proejct directories?
 	 	: for stdin/stdout and when this program is assembled with others 
 	 	to form a flow
      	_file_dialog_type_aref	unused
-     	_flow_type_aref			unsed
+     	_flow_type_aref			unused
 	 	_has_infile				does it require to read a data set?
 	 	_has_pipe_in			can linux \|' be used ?	
 	 	_has_pipe_out           can another program follow?
@@ -967,8 +968,8 @@ Q. How does Project Tool update the gui parameter values
 1. When user makes a selection of a new file or folder via bindings
 L_SU
 	_FileDialog_button,
-	 # Only superflow bindings use this private ('_') subroutine.
-     # Opening a file of folder for a superflow, exclusively
+	 # Superflow bindings use this private ('_') subroutine.
+     # Opening a file of folder for a superflow use _FileDialog_button
      # FileDialog_button is mainly used for user-built flows but directs superflows
 	 # to _FileDialog_button
  
@@ -982,13 +983,21 @@ L_SU
 					redisplay_values();
 
 	$L_SU_href = $file_dialog->get_hash_ref();
-				
+	
+Also
+	color_flow
+	
+		file_dialog 
+			_user_built_flow_close_data_file
+			get_selected_file_name
+
 				
 2. WHen user selects a new tool
 	
 Q. What else does iFile do?
 	
-	iFile sets the PATHS for data and programs used in superflow parameters and in user-built flows.
+	iFile sets the PATHS for data and programs used both in superflow parameters 
+	and in user-built flows.
 	
 Q How does iFile get selected?
 
@@ -1035,16 +1044,24 @@ L_SU
 				get_Path,
 				iFile				
 		
+	If we are using file_type_dialog = Path
+	then for a superlow we use file_dialog and iFile and dirs
 	
 10-1-2018
 
-	How do I read a perl script file:
+	What is the sequence of programs for reading a user-build perl flow script file:
 	
-	e.g.,  grey_flow,_perl_flow;perl_flow,parse; sunix_pl,get_good_sunix_params
+	e.g.,  grey_flow,
+			_perl_flow;
+				perl_flow
+					parse
+						param_sunix
+					
+					# read in variables from the perl flow file
+					sunix_pl
+						get_good_sunix_params
 	 	
-	 	# read in variables from the perl flow file
 
-	    $perl_flow->parse(); sunix_pl
 	   
 	   
 What does binding do? 
@@ -1076,7 +1093,7 @@ What does binding do?
   'Data' will go to seismic su data by default
   'Data' does not create a directory path on the parameter value in GUI (why -- TODO)
   
-  'Path' searches for only a PATH
+  'Path' searches for only a directory PATH
   
   SaveAs goes to  PL_SEISMIC
  
@@ -1144,10 +1161,6 @@ What does binding do?
  Q. What does flows.pm do?
    It fixes the order of files in a flow when the user generates a perl script via the GUI.
   
-  Q How are configuration files read for ordinary sunix programs
-  
-  Use param_sunix, e.g. in neutral_flow for examples
-  
   Q Where are potential errors in the order of the program set when a perl script is written out?
   
   		files_LSU, 
@@ -1165,8 +1178,8 @@ Q. Where are symbols , e.g. >,< and | set?
 A. In flows,set_specs.
 
 
-Q. How does a superflow run:
-   - click Run
+Q. Q. How does a superflow run?:
+   A. - click Run
    
     within main, _L_SU, sees both a method:save_button, and a deref scalar value:Save
     				L_SU->set_hash_ref  L_SU->run_button  		
@@ -1220,7 +1233,7 @@ Q. How does a superflow run:
     
     
     TODO:
-    additional bindings are activated when a flow has more than one program.... at index=0 e.g.. sumute.pl
+    additional bindings are activated when a flow has more than one program .... at index=0 e.g.. sumute.pl
     mutiple flows cause programs parameters to repeat 
     
     Q In what sequence are the listboxes filled, starting from a completely empty listboxes?
@@ -1235,9 +1248,25 @@ Q. How does a superflow run:
      
     Q.Which program keeps track of the listbox currently in use?
     
-    Q a sequence when an sunix program is called:
+    Q What is the sequence of modules that are run when an sunix program is called:
     
-    param_sunix, defaults;  su_param, get; readfiles,configs
+    param_sunix, 
+    	defaults; e.g. in neutral_flow for examples
+    		su_param, get; readfiles,configs
+   
+	 
+	 Main
+	  L_SU_sunix_bindings 
+	  	( e.g., for xk method=sunix_select, neutral=color, group=shell)	  	
+	  	
+	  	L_SU
+	  		user_built_flows
+	  			neutral_flow
+	  				sunix_select
+	  					param_sunix
+	  						_defaults
+	  						su_param ( sets which global library to use )
+	  							developer ( sets the sub-program category)
     
     
     TODO: is there circularity in what follows?
@@ -1261,8 +1290,8 @@ Q. How does a superflow run:
     A. For superflows, the sequence is: 
     	Main, _L_SU_superflows calls pre_built_superflow
        		pre_built_superflow,select calls config_superflows
- 				config_superflows, get_local_or_defaults calls superflows_config,get
-               		superflows_config,get extends su_param,get
+ 				config_superflows, get_local_or_defaults calls big_streams_param,get
+               		big_streams_param,get extends su_param,get
                       su_param reads variables using readfiles.pm
                				readfiles.pm,configs reads in values
              			
@@ -1290,20 +1319,21 @@ Q. How does a superflow run:
     		but removes them as unnecessary. (todo:readfiles,configs )
 
     
-    Q. How are configuration files written?
+    Q. How are configuration files written/saved?
     In 3 different ways:
     
     A. For superflows, the sequence is:  
     	main; 
     		L_SU,save_button; 
     			save_button,director,_Save_pre_built_superflow
-    				config_superflows,save; 
+    				config_superflows,save;
+    				THEN:
     					files_LSU,write2 for Project.config
     				OR
- 			   			files_LSU,check2write for all pre-built other superflows
+ 			   			files_LSU,check2write for all other pre-built or superflows
  			   			
- 			   Outgoing variables do not have to have ticks at the start and end of string sequences
- 			   written to the configuration file (todo: ???)
+ 			   Outgoing variables  should not have ticks removed at the start and end of string sequences
+ 			   written to the configuration file
  			   
     B. For user-built flows, the sequence is:
     	main; 
@@ -1362,26 +1392,7 @@ Q. How does a superflow run:
    	N.B. _last_parameter_index_touched is either 0 or -1 and nothing else
     If there has been a change (=0) then all parameters are updated
      
-   
-Q. Where is _is_last_parameter_index_touched_color set?
 
-    FileDialog_button
-    add2flow_button
-    save_button
-    _add2flow
-    _FileDialog_button
-
-Q. Where is _is_last_flow_index_touched_color set?
-  in color flow e.g., grey_flow:
-  
-    _check4parameter_changes
-   	delete_from_flow_button 
-   	drop
-    flow_item_down_arrow_button
-    flow_item_up_arrow_button   
-    _FileDialog_button
-    FileDialog_button
-    
       TODO: Find out why sometimes all colors here are set to true
       
   Q. Where is _last_flow_color set?
@@ -1419,7 +1430,15 @@ sunix_pl reading perl flows
 	takes into account suffixes and prefixes on parameter names, e.g. suop2 and sufdmod1 which have i/p and o/p 
 	file names in a single module without the need for data_in or data_out
 	
-iFile for finding out which diredctories to open for writing and reading e.g. sufdmod1 
+	iFile for finding out which diredctories to open for writing and reading e.g. sufdmod1
+	iFile is used for specific progams e.g. suop2
+	
+	iFile is also used for pre-built-superflow paths
+	
+	iFile is used for most user-built flow problems
+	
+	iFile is not used for _user_built_flow_SaveAs_perl_file, which isntead uses
+		file_dialog, _set_file_path is only used 
  
   JBrowse
   required forcing w->{-maxwidth} to tis default value of 0, which allows the widgets
@@ -1527,8 +1546,8 @@ iFile for finding out which diredctories to open for writing and reading e.g. su
 	Prior History for CASE 5
 		 1. open pre-existing user-built perl flow
 
-   	
-Q . How to build a new superflow from scratch?
+ #########################################################################  	
+Q . How to build a new superflow new pre-built superflows from scratch?
    	
    	e.g., interactive picking: iPick.pl
    	
@@ -1692,8 +1711,122 @@ $itemp_num_points $itemp_picks_sorted_ $itemp_picks_sorted_par_ $ipicks_par_ $ip
     our $itemp_picks_par_					= '.itemp_picks_par_';
      our $itemp_picks_sorted_				= '.itemp_picks_sorted_';   
     our $itemp_picks_sorted_par_			= '.itemp_picks_sorted_par_';
+  
+  
+ #########################################################################
+ Another example: immodpg
+ 
+ Q . How to build a new superflow new pre-built superflows from scratch?
+   	
+   	e.g., interactive ray modeling of seismograms
+   	
+   	NEEDS:
+   		~L_SU/big_streams/immodpg (user-invoked from command line)
    		
-   
+   		~L_SU/big_streams/immodpg.pl (gui engine)
+   		
+   		~L_SU/big_streams/immodpg.pm (main module)
+   		
+   		immodpg.config (a local file with work parameter values; a global default equivalent exists 
+   		inside ~L_SU/configs/big_streams/)
+   		
+   		immodpg_spec.pm (behavioral definitions for immodpg)
+   		
+   		immodpg_config.pm (module that links local GUI parameters to the progam flow)
+   		
+   		
+ include messaging option:
+ 
+ message_director.pm
+ 
+ The following is added:
+ in message_director
+ 	use immodpg_messages;
+ 	my $immodpg			  = new immodpg_messages;
+ 	
+ immodpg_messages is created using iPick_messages as an example:
+
+package immodpg_messages;
+
+use Moose;
+
+sub get {
+    my ( $self, $number ) = @_;
+    my @message;
+
+    $message[0] = ("Warning:   (immodpg_message=0)\n");
+
+    return ( \@message );
+}
+
+1;
+
+insdie L_SU/configs/big_streams/immodpg_config.pm (copied from iPicks_config.pm)
+
+Change the number#		    \@{$superflow_config_names}[#]; 12
+
+Also: change the following:
+
+	my $base_file_name 			= @{ $immodpg_config->{_values_aref} }[0];
+	my $pre_digitized_XT_pairs = @{ $immodpg_config->{_values_aref} }[1];
+	my $data_traces            = @{ $immodpg_config->{_values_aref} }[2];
+	my $clip                   = @{ $immodpg_config->{_values_aref} }[3];
+	my $min_t_s                = @{ $immodpg_config->{_values_aref} }[4];
+	my $min_x_m                = @{ $immodpg_config->{_values_aref} }[5];
+	my $x_increment_m          = @{ $immodpg_config->{_values_aref} }[6];
+	my $source_depth_m         = @{ $immodpg_config->{_values_aref} }[7];
+	my $receiver_depth_m       = @{ $immodpg_config->{_values_aref} }[8];
+	my $reducing_vel_mps       = @{ $immodpg_config->{_values_aref} }[9];
+	my $plot_min_x_m           = @{ $immodpg_config->{_values_aref} }[10];
+	my $plot_max_x_m           = @{ $immodpg_config->{_values_aref} }[11];
+	my $plot_min_t_s           = @{ $immodpg_config->{_values_aref} }[12];
+	my $plot_max_t_s           = @{ $immodpg_config->{_values_aref} }[13];
+	my $previous_model         = @{ $immodpg_config->{_values_aref} }[14];
+	my $new_model              = @{ $immodpg_config->{_values_aref} }[15];
+	my $plot_max_t_s           = @{ $immodpg_config->{_values_aref} }[16];
+	my $starting_layer         = @{ $immodpg_config->{_values_aref} }[17];
+
+ 	Modify the max index number has to be changed to: (number of variables - 1)
+  
+
+In package: L_SU_global_constants.pm
+
+Change and add new sequence numbers as in array sequences in the package: 
+		array: @superflow_config_names;
+		
+e.g., $superflow_config_names[12] = 'immodpg';
+
+That is, change 'temp' to immodpg ( 9 times; lines 25, 42, 61, 25, 82, 98, 114, 130, 146) 
+and add an additional temp to the arrays and hashes
+for the next Tool that will be added
+ 
+ 
+Modify package misc/config_superflows:
+  Lines 453:
+          if ( $$program_name_sref eq $superflow_names->{_immodpg} ) {
+
+# warning: must omit underscore
+#print("config_superflows, set_program_name,superflow_names=$superflow_names->{_immodpg}\n");
+#print("config_superflows, set_program_name,alias superflow_names=$superflow_names->{_immodpg}\n");
+            $name_sref = \$alias->{immodpg};
+        }  
+ 				       
+     ( I have left a "temp" example you can replace);
+ 
+Modify the main program, i.e. immodpg.config.pm
+ 							    
+ 	so that it can import values from the configuration file
+    by adding the following lines, as an example for immodpg:
+ 
+     use immodpg_config;
+     my $immodpg_config = immodpg_config->new();
+     
+   	
+ 	Also create specs/immodpg_spec.pm for superflows
+ 	Update the values in the $immodpg.pm has
+ 	
+ 
+ #########################################################################  
    Q. Inside each spec file, What does binding_index_aref ?
    
     Marks the index of the parameter value,
@@ -1748,17 +1881,7 @@ $itemp_num_points $itemp_picks_sorted_ $itemp_picks_sorted_par_ $ipicks_par_ $ip
 	 
 	 Q. What program exemplifeis buinding sepcifications?
 	 A. sufdmod2_spec
-	 
-	 Q. What is the order of programs when selecting an sunix program
-	 
-	 Main
-	  L_SU_sunix_bindings ( e.g., for xk 
-	  method=sunix_select, neutral=color, group=shell	  	
-	  	
-	  	L_SU
-	  		user_built_flows
-	  			neutral_flow
-	  				sunix_select
+	
 	  				
 	  Q. If I add a new button, which programs must I update?
 	  
@@ -1766,7 +1889,7 @@ $itemp_num_points $itemp_picks_sorted_ $itemp_picks_sorted_par_ $ipicks_par_ $ip
 	  
 	  Q. where is gui history stored:
 	  
-	  In gui_history-ref whenever the following modules are used.
+	  In gui_history-ref whenever the following modules are used,
 	  The following modules involve gui_interaction
 	  
 	  	Main
@@ -1798,8 +1921,17 @@ $itemp_num_points $itemp_picks_sorted_ $itemp_picks_sorted_par_ $ipicks_par_ $ip
 	 Note that spec-file binding indices is used to determine which indices can have access to FileDialog
 	 Once an index is determined the directory to be opened is in the hash value: _DATA_DIR_OUT
 	 specific directories in the "spec" files are used to build perl files Setups
-
 	 
+	 For example, if file_dialog_type= Data, Data is informed by DATA_DIR_IN and DATA_DIR_OUT
+	 
+	 Non-standard uses:	
+	 But, file_dialog_type= Data_PL_SEISMIC, is NOT informed by DATA_DIR_IN and DATA_DIR_OUT
+		$file_dialog_type[0] = 'Data_PL_SEISMIC',
+		
+	_pre_built_superflow_open_data_file uses iFile->get_data_path  is used to determine the correct data path (directory)
+	
+		
+
 	 Q. How to add a unix command to the GUI?
 	 
 	 e.g. 1.create_evince_doc.pl to create the documentation in a file  o/p is evince.par
@@ -1814,7 +1946,7 @@ $itemp_num_points $itemp_picks_sorted_ $itemp_picks_sorted_par_ $ipicks_par_ $ip
    		 	set_specs
    		 	
  Oct. 12:  From now on during refactoring:
- conditions_gui willtry to establish as many of the duynamic defaults
+ conditions_gui will try to establish as many of the dynamic defaults
    gui_history will try to incorporate user gui responses
    
    Where are flow selection indices highlighted?
@@ -1827,16 +1959,16 @@ $itemp_num_points $itemp_picks_sorted_ $itemp_picks_sorted_par_ $ipicks_par_ $ip
      
    Where are the highlight selections recorded?
    in delete_from_flow_button and
-   in flow_select,where the index is recorded before updating prior parameters: 
+   in flow_select, where the index is recorded before updating prior parameters: 
    		flow_select, gui_history->set_button('flow_select')
    		
- In color_flows, how are stored flows updated?
+Q. In color_flows, how are stored flows updated?
  
- The following uses _update_prior_param_flow :
+ The following use _update_prior_param_flow :
  		
   	flow_select
  
- The following use _update_most_recent_param_flow2:
+ The following use _updateNsave_most_recent_param_flow:
  
 		_add2flow (used only when reading a perl file)
 		_perl_flow (used only when reading a perl file)
@@ -1846,50 +1978,321 @@ $itemp_num_points $itemp_picks_sorted_ $itemp_picks_sorted_par_ $ipicks_par_ $ip
 		flow_item_up_arrow_button
 
 		
- The following use _update_most_recent_param_flow:
+ In color_flow, the following use _save_most_recent_param_flow :
  
  	FileDialog_button
  	_FileDialog_button
  	
- The following use both  _update_most_recent_param_flow and 
+ The following use both  _save_most_recent_param_flow and 
  _update_prior_param_flow:
  
  	save_button
  	
- 	What happens when flow_select is picked:
  	
  1. Where and how many times is set_flow_select_color?
  
- Once:
- for add2flow_button
+ 1 time in:
+ 	add2flow_button
  
- 2 times:
-  for the simple:  flow_select
+ 2 times in:
+    flow_select
  
  Main.pm:
 1--$gui_history.pm->set_flow_select_color($color);
  
 		pkg L_SU
 			sub user_built_flow,
-			$grey_flow->flow_select2update_most_recent_flow();
-			
+			$grey_flow->flow_select2save_most_recent_param_flow();
+			i.e.,
 			pkg color_flow
-				sub flow_select2update_most_recent_flow
+				sub flow_select2save_most_recent_param_flow();
+							( color->	_save_most_recent_param_flow)
   		
  In all the following subs set_flow_select($color) is run: 		
  		pkg color_flow
  			sub _flow_select_director 
- 			sub flow_select2update_most_recent_flow
- 			sub _flow_select2update_most_recent_flow 
+ 			sub flow_select2save_most_recent_param_flow
+ 			sub _flow_select2save_most_recent_param_flow 
  			sub delete_from_flow_button
  			sub flow_select
  			sub save_button
- 		
- 	
+ 			
+ Q. What does _flow_select_director do?
+ 	It determines the type of update to the stored param-flow values takes place
+  
+	  IF
+			$type eq '_add2flow'    # when perl flow is read
+			or $type eq '_perl_flow'
+			or $type eq 'delete_from_flow_button'
+			or $type eq 'flow_item_down_arrow_button'
+			# ##### NOT $type eq 'add2flow_button'
+			or $type eq 'flow_item_up_arrow_button'
+	  THEN
+			# update most recent flow
+			_flow_select2save_most_recent_param_flow();
+				_updateNsave_most_recent_param_flow
+	 ELSE	
+			flow_select();
+				_update_prior_param_flow();
+	
+	
+	
+What does MANUALLY selecting add2flow do?
 
-
-
-   		
-
+	Main, add2flow_button
+		L_SU
+			user_built_flows
+				color_flow-> 'add2flow'		
+					flow_select2save_most_recent_param_flow		
+						_updateNsave_most_recent_param_flow		
+				
+						
+Sub Q : what does delete_from_flow_button do?
+		THEN
+			# 
+			_flow_select2save_most_recent_param_flow();
+				_update most recent flow
+			 		flow_widgets->get_current_program
+			 
+ Q. Where is color_flow->_flow_select_director activated?
+ A. within color_flow
  
-   		 	
+ 
+Q.  What happens when flow_select is picked manually:
+ 	 sub called: 	flow_select       (main, flow_select)
+ 
+  flow_select is MANUALLY activated through 
+  	main 
+		L_SU
+			user_built_flows (flow_select)
+			
+			 if color box occupied again:
+			
+				grey_flow->flow_select
+					gui_history->
+						set_button for ('flow_select') (inc index)
+					_update_prior_param_flow(); (repeated color)
+					
+           if color box occupied first time								
+				grey_flow->flow_select2save_most_recent_param_flow();
+					_updateNsave_most_recent_param_flow();
+				
+  Also, within
+  main
+  	gui_history by 
+  	'set_button' 
+  	which triggers 
+  	_update_button
+  	which updates history of usage within hash: $flow_select_index_href (inc index)
+ 	
+N.B. flow_select_button can ONLY be selected manually
+
+Q. In color_flow.pm what is the difference between
+	_update_prior_param_flow
+	
+	_save_most_recent_param_flow 
+		No change to flow selection but save flow parameters to param_flow anyway
+		
+   	_updateNsave_most_recent_param_flow 	
+   		update parameter values of the most recently touched
+		program in the flow
+
+2/20/2020		
+
+Q. Where is flow_select_index_href updated when the following are used?
+
+				WITHIN: gui_history,set_button-- as follows:
+				
+	(1) add2flow_button
+	
+	On the first try, i.e., if there is nothing in the listbox:
+	The following also occurs after the first try as well
+	
+		main
+			L_SU
+				user_built_flow
+					color_flow
+						add2flow_button
+						flow_select_director('add2flow_button')
+						flow_select
+							gui_history,set_button (inc index)
+					   color_flow->flow_select2save_most_recent_param_flow();
+					   					->	_save_most_recent_param_flow
+	
+	(2) flow_select_button on an empty listbox:
+			main
+				L_SU
+				user_built_flow
+					NADA except color is set 
+			
+							
+FileDialog_button: handles Data, SaveAs and (perl) Flow (in) is
+					FileDialog_button		
+						_perl_flow
+						_add2flow
+							gui_history,set_button (inc index)					
+						flow_select_director('_perl_flow')				
+						  _flow_select2save_most_recent_param_flow()
+						 _save_most_recent_param_flow
+												
+recorded sequences of indices during an add2flow (3 times), followed by 
+a deletion (item 3):
+						
+	most_recent = mr  prior=pr index2delete=i  update the indices = u   ( for flow_select_idnex_href)
+	item 1 = index 0;  item 2 = index 1;
+	
+	add2flow:  mr -1 pr -2   item=1   ( indices are the same throughout add2flow)
+	
+	    u
+	
+	add2flow mr 0 pr: -1      item=2
+	
+		u     mr 1  pr: 0
+		
+	add2flow  mr 1  pr: 0     item =3
+	
+	    u     m: 2  pr: 1
+	 
+	delete_from_flow_button item =3
+	          mr: 1 pr :2  i: 2
+	                                
+	automatically located on item =2 
+	add2flow  mr: 2 pr: 1 
+
+2/23/2020
+Q. How does a selected file name get put inside an Entry box within the gui?
+	What sequence of programs is used when a data file is selected from within
+	a parameter Entry box?
+	For user-built flows as follows:
+ 
+ 	'color'_flow
+ 		_FileDialog_button is used to find files.
+		_FileDialog_button module lies within each of the 'colored' flows: 
+		 e.g. grey_flow.pm, pink_flow.pm, etc.
+		
+		The type of files that can be opened are 
+		(1) user_built flows {_Flow}, 
+		(2) data files e.g. su, binary, par, and plain text files {_Data}, and
+		(3) pre_built superflows
+		
+		Q What is developeer package?
+		
+Hard codes relative location of directories for configuration files, parameter files which are
+not accessible via the PERL5LIB global variable or @INC array.
+
+Explain the different "flow types" used to bind MB3 clicks using the spec files:
+
+
+   {_Data}  	...	open pre-existing data file
+   {_Flow} 		...	open pre-existing user-built flow
+   {_SaveAs} 	...	save a new user-built flow
+   {_Save} 	    ...	re-save a user-built flow 
+   {_Data_PL_SEISMIC} ... data file but inside  PL_SEISMIC directory
+   {_Path}      ...	is a directory
+
+
+  The type of dialog (Data, Path, Flow, SaveAs) is needed during MB3 binding
+  Use one type of dialog for each index
+  
+
+  'Flow' will go only to to PL_SEISMIC
+  'Flow' creates a directory path on the parameter value in GUI (why -- TODO)
+  
+    used by:
+ 	file_dialog
+ 		_user_built_flow_open_perl_file
+ 	
+ 	 
+  'Data' will go to seismic su data by default
+  'Data' does not create a directory path on the parameter value in GUI (why -- TODO)
+   used by:
+ 	file_dialog 
+  	_pre_built_superflow_open_data_file
+  	
+  	OR
+  	
+  	_user_built_flow_open_data_file
+  	    goes to $DATA_SEISMIC_SU
+  
+  
+  
+  'Path' searches for only a directory PATH
+   In spec files, DATA_DIR_IN and DATA_DIR_OUT define the 'Path' 
+ 
+  used by:
+ 	file_dialog 
+  		_pre_built_superflow_open_path
+  		
+  			iFile
+  				get_Data_Path
+  					print("iFile,get_Data_path, DATA_PATH_IN = $DATA_PATH_IN\n");
+
+
+	
+  'Data_PL_SEISMIC" is a general directory path when looking for data inside the
+   PL_SEISMIC directory
+   
+   color_flow
+   	_FileDialog_button 
+	file_dialog
+		_pre_built_superflow_open_data_file
+    and
+		iFile
+			get_Data_path
+		 
+	
+	'SaveAs'
+	  used by: 
+		file_dialog
+			_user_built_flow_SaveAs_perl_file
+			
+	Q. What does Project_config do?
+	
+	A. Defines all the file structure used throughout L_SU by all other packages.
+	
+	Q. Where are aliases set?
+	
+ 1) For big streams (pre-built super flows):
+ 
+	config_superflows
+			set_program_name
+	
+	param_widgets
+	param_widgets_color/neutral
+	param_widgets4pre_built_streams
+	
+    All above use:
+		control
+			get_max_index (alias_superflow_names_h)
+		
+	developer
+	 _program_category ($get->alias_superflow_names_aref();)
+	 
+	files_LSU
+	   set_superflow_specs (my $alias_program_name = $alias_superflow_spec_names_h->{$base_program_name};)
+	 
+	 help
+	  _program_name ($$program_name_sref eq $superflow_names->{_fk})
+	 
+	 iFile
+	 	_get_DATA_DIR_IN ($prog_name = $alias_superflow_spec_names_h->{$alias_prog_name};)
+	 
+	 	get_prog_name_href (my @names = @$alias_superflow_config_names_aref;)
+	 	
+	 L_SU_global_constants
+	 
+	 L_SU
+	 
+	 mmodpg_global_constants
+	 
+	 files_LSU
+	 	outbound (for superflows and user-built flows)
+	 	name
+	 		$name->change_config($program_name)
+	 
+	 run_button
+	 	_Run_pre_built_superflow (my $run_name = $name->get_alias_superflow_names( $run_button->{_prog_name_sref} );)
+	 
+	 sunix
+	 
+	 TODO: check if conditions-gui has not been repalced by conditions4flows and conditions_superflow

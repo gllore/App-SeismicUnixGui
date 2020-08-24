@@ -81,8 +81,6 @@
 
 
 	my $sunhmospike		= {
-		_2					=> '',
-		_3					=> '',
 		_a1					=> '',
 		_a2					=> '',
 		_a3					=> '',
@@ -170,46 +168,6 @@ by adding the program name
 		$sunhmospike->{_t4}			= '';
 		$sunhmospike->{_Step}			= '';
 		$sunhmospike->{_note}			= '';
- }
-
-
-=head2 sub 2 
-
-
-=cut
-
- sub 2 {
-
-	my ( $self,$2 )		= @_;
-	if ( $2 ne $empty_string ) {
-
-		$sunhmospike->{_2}		= $2;
-		$sunhmospike->{_note}		= $sunhmospike->{_note}.' 2='.$sunhmospike->{_2};
-		$sunhmospike->{_Step}		= $sunhmospike->{_Step}.' 2='.$sunhmospike->{_2};
-
-	} else { 
-		print("sunhmospike, 2, missing 2,\n");
-	 }
- }
-
-
-=head2 sub 3 
-
-
-=cut
-
- sub 3 {
-
-	my ( $self,$3 )		= @_;
-	if ( $3 ne $empty_string ) {
-
-		$sunhmospike->{_3}		= $3;
-		$sunhmospike->{_note}		= $sunhmospike->{_note}.' 3='.$sunhmospike->{_3};
-		$sunhmospike->{_Step}		= $sunhmospike->{_Step}.' 3='.$sunhmospike->{_3};
-
-	} else { 
-		print("sunhmospike, 3, missing 3,\n");
-	 }
  }
 
 

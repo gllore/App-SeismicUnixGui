@@ -65,10 +65,10 @@ use param_widgets_neutral 0.0.2;
 use param_flow_neutral 0.0.3;
 use flow_widgets;
 
-my $flow_widgets   = flow_widgets->new();
-my $get            = L_SU_global_constants->new();
-my $gui_history    = gui_history->new();
-my $param_flow     = param_flow_neutral->new();
+my $flow_widgets = flow_widgets->new();
+my $get          = L_SU_global_constants->new();
+my $gui_history  = gui_history->new();
+my $param_flow   = param_flow_neutral->new();
 
 # print("user_built flow, make param_flow instance in user_built flow\n");
 my $param_widgets   = param_widgets_neutral->new();
@@ -84,6 +84,7 @@ my $color_flow_href = $gui_history->get_defaults();
 
 my ($flow_color);
 my ($flowNsuperflow_name_w);
+
 # my $last_flow_color;
 my $message_w;
 my $sunix_listbox;
@@ -101,8 +102,6 @@ my $false = $var->{_false};
 	that follow-- these variables will be reset by conditions_gui.p.
 
 =cut
-
-
 
 =head2 sub get_hash_ref 
 
@@ -133,20 +132,19 @@ sub get_flow_color {
 		$color = $color_flow_href->{_flow_color};
 		return ($color);
 
-	}
-	else {
+	} else {
 		print("neutral_flow, get_flow_color, missing flow color\n");
 	}
 
 }
 
 #=head2 sub get_last_flow_color
-#	
+#
 #		returns current folor (neutral) as the last fow color
 #		get_hash_ref is NOT USED intentionally
 #		The variabels needed by other colored flows exceed the capacity of the current package
 #		I opt for enacapsulation
-# 	
+#
 #=cut
 #
 #sub get_last_flow_color {
@@ -184,12 +182,11 @@ sub get_prog_name_sref {
 		my $name;
 
 		$name = $color_flow_href->{_prog_name_sref};
-		
+
 		# print("neutral_flow, get_prog_name_sref,  $$name\n");
 		return ($name);
 
-	}
-	else {
+	} else {
 		print("neutral_flow, get_prog_name_sref, missing \n");
 	}
 
@@ -235,19 +232,21 @@ sub set_hash_ref {
 
 	$gui_history->set_defaults($hash_ref);
 	$color_flow_href = $gui_history->get_defaults();
-	
-			# REALLY?
-		# set up param_widgets for later use
-		# give param_widgets the needed values
-		$param_widgets->set_hash_ref($color_flow_href);
 
-#	$file_menubutton               = $color_flow_href->{_file_menubutton};
-	$flow_color                    = $color_flow_href->{_flow_color};
-	$flowNsuperflow_name_w         = $color_flow_href->{_flowNsuperflow_name_w};
-#	$last_flow_color               = $color_flow_href->{_last_flow_color};                 # used in flow_select
-#	$labels_w_aref                 = $color_flow_href->{_labels_w_aref};
-	$message_w                     = $color_flow_href->{_message_w};
-	$sunix_listbox                 = $color_flow_href->{_sunix_listbox};
+	# REALLY?
+	# set up param_widgets for later use
+	# give param_widgets the needed values
+	$param_widgets->set_hash_ref($color_flow_href);
+
+	#	$file_menubutton               = $color_flow_href->{_file_menubutton};
+	$flow_color            = $color_flow_href->{_flow_color};
+	$flowNsuperflow_name_w = $color_flow_href->{_flowNsuperflow_name_w};
+
+	#	$last_flow_color               = $color_flow_href->{_last_flow_color};                 # used in flow_select
+	#	$labels_w_aref                 = $color_flow_href->{_labels_w_aref};
+	$message_w     = $color_flow_href->{_message_w};
+	$sunix_listbox = $color_flow_href->{_sunix_listbox};
+
 	# print("neutral_flowset_hash_ref,delete_from_flow_button: $delete_from_flow_button\n");
 
 	return ();
@@ -283,7 +282,7 @@ sub sunix_select {
 	my ($self) = @_;
 
 	$color_flow_href->{_flow_type} = $flow_type->{_user_built};    # should be at start of neutral_flow
-	                                                               # print("neutral_flow, sunix_select,parameter_values_frame: $parameter_values_frame\n");
+		 # print("neutral_flow, sunix_select,parameter_values_frame: $parameter_values_frame\n");
 	use message_director;
 	use param_sunix;
 	use Clone 'clone';
@@ -304,12 +303,12 @@ sub sunix_select {
 	# print("neutral_flow,1. sunix_select,flow_color: $color_flow_href->{_flow_color}\n");
 	# print("neutral_flow,1. sunix_select,_is_flow_listbox_neutral_w:	$color_flow_href->{_is_flow_listbox_neutral_w} \n");
 
-    $gui_history->set_hash_ref($color_flow_href);
+	$gui_history->set_hash_ref($color_flow_href);
 	$gui_history->set4start_of_sunix_select();
-	
+
 	# print("neutral_flow, sunix_select print gui_history.txt\n");
 	# $gui_history->view();
-	
+
 	#$color_flow_href->{_flow_color} 			= $gui_history->get_flow_color();
 	my $flow_color = $color_flow_href->{_flow_color};
 
@@ -320,44 +319,48 @@ sub sunix_select {
 	# get program name
 	$color_flow_href->{_prog_name_sref} = $param_widgets->get_current_program( \$sunix_listbox );
 
-	# print("3. neutral_flow sunix_select, program name is ${$color_flow_href->{_prog_name_sref}}\n");
+	$param_sunix->set_flow_type($color_flow_href->{_flow_type});
 	$param_sunix->set_program_name( $color_flow_href->{_prog_name_sref} );
+	# print("3. neutral_flow sunix_select, program name is ${$color_flow_href->{_prog_name_sref}}\n");
+	
 	$color_flow_href->{_names_aref}                  = $param_sunix->get_names();
 	$color_flow_href->{_values_aref}                 = $param_sunix->get_values();
 	$color_flow_href->{_check_buttons_settings_aref} = $param_sunix->get_check_buttons_settings();
 	$color_flow_href->{_param_sunix_first_idx}       = $param_sunix->first_idx();
-	$param_sunix->set_half_length();              # # values not index
-	$color_flow_href->{_param_sunix_length} = $param_sunix->get_length();    #
+	# use values not index
+	$param_sunix->set_half_length();    			
+	$color_flow_href->{_param_sunix_length} 		= $param_sunix->get_length();    #
 	# print("4. neutral_flow sunix_select, program name is ${$color_flow_href->{_prog_name_sref}}\n");
 	# print("2. neutral_flow, sunix_select, length $color_flow_href->{_param_sunix_length}\n");
 
-	
 	# widgets initialized in super class
 	$param_widgets->set_labels_w_aref( $color_flow_href->{_labels_w_aref} );
 	$param_widgets->set_values_w_aref( $color_flow_href->{_values_w_aref} );
 	$param_widgets->set_check_buttons_w_aref( $color_flow_href->{_check_buttons_w_aref} );
+
 	# print("5. neutral_flow sunix_select, program name is ${$color_flow_href->{_prog_name_sref}}\n");
-    # print("41. neutral_flow sunix_select, check button settings--@{$color_flow_href->{_check_buttons_settings_aref}}--\n");	
-    
-    # strange memory leak inside param_widgets
-	my $save = clone ($color_flow_href->{_check_buttons_settings_aref});
+	# print("41. neutral_flow sunix_select, check button settings--@{$color_flow_href->{_check_buttons_settings_aref}}--\n");
+
+	# strange memory leak inside param_widgets
+	my $save = clone( $color_flow_href->{_check_buttons_settings_aref} );
 	$param_widgets->gui_full_clear();
-	
-    # print("42. neutral_flow sunix_select, check button settings--@$save-\n");	
-    @{$color_flow_href->{_check_buttons_settings_aref}} = @$save;
-    # print("42. neutral_flow sunix_select, check button settings--@{$color_flow_href->{_check_buttons_settings_aref}}--\n");	
-		
-	# $param_widgets->range($color_flow_href);	
-  	# print("43. neutral_flow sunix_select, check button settings @{$color_flow_href->{_check_buttons_settings_aref}}\n");	
-	
+
+	# print("42. neutral_flow sunix_select, check button settings--@$save-\n");
+	@{ $color_flow_href->{_check_buttons_settings_aref} } = @$save;
+
+	# print("42. neutral_flow sunix_select, check button settings--@{$color_flow_href->{_check_buttons_settings_aref}}--\n");
+
+	# $param_widgets->range($color_flow_href);
+	# print("43. neutral_flow sunix_select, check button settings @{$color_flow_href->{_check_buttons_settings_aref}}\n");
+
 	# print("6 neutral_flow sunix_select\n");
 	$param_widgets->set_labels( $color_flow_href->{_names_aref} );    # equiv to "labels_aref"
 	$param_widgets->set_values( $color_flow_href->{_values_aref} );
-	
+
 	# print("1. neutral_flow, sunix_select, _values_aref @{$color_flow_href->{_values_aref}}\n");
-	# print("1. neutral_flow, sunix_select, _names_aref @{$color_flow_href->{_names_aref}}\n");	
-    # print("44. neutral_flow sunix_select, check button settings @{$color_flow_href->{_check_buttons_settings_aref}}\n");	
-	
+	# print("1. neutral_flow, sunix_select, _names_aref @{$color_flow_href->{_names_aref}}\n");
+	# print("44. neutral_flow sunix_select, check button settings @{$color_flow_href->{_check_buttons_settings_aref}}\n");
+
 	$param_widgets->set_check_buttons( $color_flow_href->{_check_buttons_settings_aref} );
 	$param_widgets->set_current_program( $color_flow_href->{_prog_name_sref} );
 
@@ -372,19 +375,19 @@ sub sunix_select {
 	# print("neutral_flow,2. sunix_select,1 line after set4end_of_sunix_select\n");
 	# $flow_color				= $color_flow_href->{_flow_color};
 	# TODo are  following 1 line and past 1 line needed?
-#	print("1. neutral_flow sunix_select, program name is ${$color_flow_href->{_prog_name_sref}}\n");
+	#	print("1. neutral_flow sunix_select, program name is ${$color_flow_href->{_prog_name_sref}}\n");
 	# $color_flow_href 		= $gui_history->get_hash_ref();
-	
+
 	# print("2. neutral_flow, sunix_select, _values_aref @{$color_flow_href->{_values_aref}}\n");
 	# print("2. neutral_flow, sunix_select, _names_aref @{$color_flow_href->{_names_aref}}\n");
-	
-#	$color_flow_href->{_last_flow_color} = $flow_color;
-#	print("7. neutral_flow sunix_select, program name is ${$color_flow_href->{_prog_name_sref}}\n");
+
+	#	$color_flow_href->{_last_flow_color} = $flow_color;
+	#	print("7. neutral_flow sunix_select, program name is ${$color_flow_href->{_prog_name_sref}}\n");
 	# for export to other colored flows
-#	$last_flow_color = $flow_color;
-#	print("4. neutral_flow, sunix_select, _values_w_aref $color_flow_href->{_values_w_aref}\n");
-#	print("neutral_flow,3. sunix_select,flow_color: $flow_color\n");
-#	print("8. neutral_flow sunix_select, program name is ${$color_flow_href->{_prog_name_sref}}\n");
+	#	$last_flow_color = $flow_color;
+	#	print("4. neutral_flow, sunix_select, _values_w_aref $color_flow_href->{_values_w_aref}\n");
+	#	print("neutral_flow,3. sunix_select,flow_color: $flow_color\n");
+	#	print("8. neutral_flow sunix_select, program name is ${$color_flow_href->{_prog_name_sref}}\n");
 	return ();
 }
 
