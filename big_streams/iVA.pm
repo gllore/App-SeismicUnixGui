@@ -12,12 +12,14 @@ package iVA;
          July 15 2015
          Aug 18 2016
          Jan 7 2017
+	 Jan 13, 2020
 
  DESCRIPTION: 
  Version: 1.0
  Package used for interactive velocity analysis
  Version 1.0.1 separates graphics from calculations
  Version 1.0.2 removes dependency on Config-Simple
+ Version 1.0.3 considers scaleco or scalel in header
 
 =head2 USE
 
@@ -29,6 +31,10 @@ package iVA;
 =head3 SEISMIC UNIX NOTES  
 
 =head4 CHANGES and their DATES
+
+Jan 13 2020 Version 1.0.3
+_get_data_scale is now calculated internally
+data_scale parameter removed from gui
 
 
 =cut
@@ -54,8 +60,8 @@ VELAN DATA
 
 use Moose;
 use control;
-use flow;
-our $VERSION = '1.0.2';
+our $VERSION = '1.0.3';
+use L_SU_global_constants;
 use iSunmo;
 use iVA_config;
 use suxwigb;
@@ -64,10 +70,8 @@ use iWrite_All_iva_out;
 use iVpicks2par;
 use iVrms2Vint;
 use manage_files_by2;
-use message;
 use Project_config;
-use SeismicUnix qw ($on $off $in $to $go);
-use L_SU_global_constants;
+
 use SuMessages;
 use xk;
 
@@ -76,32 +80,32 @@ use xk;
 =cut 
 
 my $iVA = {
-    _cdp_last             => '',
-    _cdp_first            => '',
-    _cdp_num              => '',
-    _cdp_num_suffix       => '',
-    _cdp_inc              => '',
-    _data_scale           => '',
-    _dt_s                 => '',
-    _base_file_name       => '',
-    _freq                 => '',
-    _instructions         => '',
-    _min_semblance        => '',
-    _max_semblance        => '',
-    _message_type         => 'iva',
-    _next_step            => '',
-    _number_of_tries      => '',
-    _number_of_velocities => '',
-    _old_data             => '',
-    _tmax_s               => '',
-    _Tvel_inbound         => '',
-    _Tvel_outbound        => '',
-    _textfile_in          => '',
-    _textfile_out         => '',
-    _type                 => '',
-    _velocity_increment   => '',
-    _velocity_min         => '',
-    _velocity_max         => '',
+	_cdp_last             => '',
+	_cdp_first            => '',
+	_cdp_num              => '',
+	_cdp_num_suffix       => '',
+	_cdp_inc              => '',
+	_data_scale           => '',
+	_dt_s                 => '',
+	_base_file_name       => '',
+	_freq                 => '',
+	_instructions         => '',
+	_min_semblance        => '',
+	_max_semblance        => '',
+	_message_type         => 'iva',
+	_next_step            => '',
+	_number_of_tries      => '',
+	_number_of_velocities => '',
+	_old_data             => '',
+	_tmax_s               => '',
+	_Tvel_inbound         => '',
+	_Tvel_outbound        => '',
+	_textfile_in          => '',
+	_textfile_out         => '',
+	_type                 => '',
+	_velocity_increment   => '',
+	_velocity_min         => '',
+	_velocity_max         => '',
 };
 
 =head2 Instantiate classes:
@@ -111,10 +115,9 @@ my $iVA = {
 
 =cut
 
-my $read               = new readfiles();
-my $control            = new control();
-my $log                = new message();
-my $run                = new flow();
+my $read    = new readfiles();
+my $control = new control();
+
 my $suxwigb            = new suxwigb();
 my $semblance          = new iSuvelan();
 my $iWrite_All_iva_out = new iWrite_All_iva_out();
@@ -127,7 +130,14 @@ my $get                = new L_SU_global_constants();
 my $global_libs        = $get->global_libs();
 my $Project            = new Project_config();
 my $iVA_config         = new iVA_config();
-my $xk      			= new xk;
+my $xk                 = new xk;
+
+=head2 Import Special Variables
+
+=cut
+
+my $var          = $get->var();
+my $empty_string = $var->{_empty_string};
 
 =head2 Get configuration information
 
@@ -135,12 +145,12 @@ my $xk      			= new xk;
 
 my ( $CFG_h, $CFG_aref ) = $iVA_config->get_values();
 
-$iVA->{_base_file_name}       = $CFG_h->{iva}{1}{base_file_name};
-$iVA->{_cdp_first}            = $CFG_h->{iva}{1}{cdp_first};
-$iVA->{_cdp_inc}              = $CFG_h->{iva}{1}{cdp_inc};
-$iVA->{_cdp_last}             = $CFG_h->{iva}{1}{cdp_last};
-$iVA->{_tmax_s}               = $CFG_h->{iva}{1}{tmax_s};
-$iVA->{_data_scale}           = $CFG_h->{iva}{1}{data_scale};
+$iVA->{_base_file_name} = $CFG_h->{iva}{1}{base_file_name};
+$iVA->{_cdp_first}      = $CFG_h->{iva}{1}{cdp_first};
+$iVA->{_cdp_inc}        = $CFG_h->{iva}{1}{cdp_inc};
+$iVA->{_cdp_last}       = $CFG_h->{iva}{1}{cdp_last};
+$iVA->{_tmax_s}         = $CFG_h->{iva}{1}{tmax_s};
+
 $iVA->{_dt_s}                 = $CFG_h->{iva}{1}{dt_s};
 $iVA->{_freq}                 = $CFG_h->{iva}{1}{freq};
 $iVA->{_first_velocity}       = $CFG_h->{iva}{1}{first_velocity};
@@ -153,7 +163,14 @@ $iVA->{_velocity_increment}   = $CFG_h->{iva}{1}{velocity_increment};
 $control->set_infection( $iVA->{_base_file_name} );
 $iVA->{_base_file_name} = $control->get_ticksBgone();
 
+# remove ticks at the start and end of freqquncy series
+$control->set_infection( $iVA->{_freq} );
+$iVA->{_freq} = $control->get_ticksBgone();
+
 # print("file name --without su extension -- is $iVA->{_base_file_name}\n\n");
+
+# get data scale from headers of the sunix data file
+$iVA->{_data_scale} = _get_data_scale();
 
 =head2 
 
@@ -173,9 +190,7 @@ $iVA->{_base_file_name} = $control->get_ticksBgone();
 
 =cut 
 
-my ($PL_SEISMIC)      = $Project->PL_SEISMIC();
-my ($DATA_SEISMIC_SU) = $Project->DATA_SEISMIC_SU();
-my ($date)            = $Project->date();
+my ($PL_SEISMIC) = $Project->PL_SEISMIC();
 
 =head2 subroutine clear
 
@@ -184,29 +199,164 @@ my ($date)            = $Project->date();
 =cut
 
 sub clear {
-    $iVA->{_cdp_num}              = '';
-    $iVA->{_cdp_first}            = '';
-    $iVA->{_cdp_last}             = '';
-    $iVA->{_cdp_inc}              = '';
-    $iVA->{_data_scale}           = '';
-    $iVA->{_dt_s}                 = '';
-    $iVA->{_base_file_name}       = '';
-    $iVA->{_freq}                 = '';
-    $iVA->{_instructions}         = '';
-    $iVA->{_min_semblance}        = '';
-    $iVA->{_max_semblance}        = '';
-    $iVA->{_message_type}         = '';
-    $iVA->{_next_step}            = '';
-    $iVA->{_number_of_tries}      = '';
-    $iVA->{_number_of_velocities} = '';
-    $iVA->{_old_data}             = '';
-    $iVA->{_test}                 = '';
-    $iVA->{_tmax_s}               = '';
-    $iVA->{_Tvel_inbound}         = '';
-    $iVA->{_Tvel_outbound}        = '';
-    $iVA->{_velocity_min}         = '';
-    $iVA->{_velocity_max}         = '';
-    $iVA->{_velocity_increment}   = '';
+	$iVA->{_cdp_num}              = '';
+	$iVA->{_cdp_first}            = '';
+	$iVA->{_cdp_last}             = '';
+	$iVA->{_cdp_inc}              = '';
+	$iVA->{_data_scale}           = '';
+	$iVA->{_dt_s}                 = '';
+	$iVA->{_base_file_name}       = '';
+	$iVA->{_freq}                 = '';
+	$iVA->{_instructions}         = '';
+	$iVA->{_min_semblance}        = '';
+	$iVA->{_max_semblance}        = '';
+	$iVA->{_message_type}         = '';
+	$iVA->{_next_step}            = '';
+	$iVA->{_number_of_tries}      = '';
+	$iVA->{_number_of_velocities} = '';
+	$iVA->{_old_data}             = '';
+	$iVA->{_test}                 = '';
+	$iVA->{_tmax_s}               = '';
+	$iVA->{_Tvel_inbound}         = '';
+	$iVA->{_Tvel_outbound}        = '';
+	$iVA->{_velocity_min}         = '';
+	$iVA->{_velocity_max}         = '';
+	$iVA->{_velocity_increment}   = '';
+}
+
+=head2 sub _get_data_scale
+
+get scalco or scalel from file header
+
+=cut
+
+sub _get_data_scale {
+	my ($self) = @_;
+	if ( defined $iVA->{_base_file_name}
+		&& $iVA->{_base_file_name} ne $empty_string )
+	{
+
+=head2 Declare
+
+	import and instantiate classes
+
+=cut
+
+		use Project_config;
+		use message;
+		use flow;
+		use surange;
+		use SeismicUnix
+			qw ($in $out $on $go $to $suffix_ascii $off $suffix_su $suffix_bin);
+
+		my $log     = new message;
+		my $run     = flow->new();
+		my $surange = surange->new();
+
+=head2 Declare
+
+	local variables
+
+=cut
+
+		my (@flow);
+		my (@items);
+		my (@data_in);
+		my (@surange);
+		my $Project         = new Project_config();
+		my $DATA_SEISMIC_SU = $Project->DATA_SEISMIC_SU;
+
+=head2 Set up
+
+	data_in parameter values
+
+=cut
+
+		$data_in[1] =
+			$DATA_SEISMIC_SU . '/' . $iVA->{_base_file_name} . $suffix_su;
+
+=head2 Set up
+
+	surange parameter values
+
+=cut
+
+		$surange->clear();
+		$surange->key( quotemeta('scalel') );
+		$surange[1] = $surange->Step();
+
+=head2 DEFINE FLOW(s) 
+
+=cut
+
+		@items = ( $surange[1], $in, $data_in[1], $go );
+
+=head2 RUN FLOW(s) and Capture output (with backticks) from the system
+
+=cut
+
+		my @values = `@items`;
+
+=head2 parse output to obtain header value
+
+=cut 		
+
+		my $result;
+		my $scale = $values[1];
+
+		# print ("values[1]:$values[1]\n");
+		if ( defined $scale ) {
+			print("values[1]:$values[1]\n");
+
+			if (   $scale == 0
+				or $scale eq $empty_string )
+			{
+				$result = 1;
+				print("iVA, _get_data_scale, scale=$result... \n");
+				return ($result);
+
+			}
+			else {
+
+				$scale =~ s/dt\s*//;
+				chomp($scale);
+				print("scale:$scale....\n");
+
+				if ( $scale > 0 ) {
+
+					# 10, 100 stays as 10, 100
+					$result = $scale;
+					print("iVA, _get_data_scale, scale=$result... \n");
+					return ($result);
+
+				}
+				elsif ( ( $scale < 0 ) ) {
+
+					# -10, -100 becomes .1, .01
+					$result = 1 / $scale;
+					print("iVA, _get_data_scale, scale=$result... \n");
+					return ($result);
+
+				}
+
+			}
+
+		}
+		else {
+			$result = 1;
+			print("iVA, _get_data_scale, data_scale = 1:1\n");
+			return ($result);
+		}
+
+=head2 LOG FLOW(s)
+
+	to screen
+
+=cut
+
+		print @items;
+
+	}
 }
 
 =head2 subroutine  set_message
@@ -217,12 +367,12 @@ sub clear {
 =cut
 
 sub set_message {
-    my ( $variable, $type ) = @_;
-    $iVA->{_message_type} = $type if defined($type);
+	my ( $variable, $type ) = @_;
+	$iVA->{_message_type} = $type if defined($type);
 
-    #print("message type is $iVA->{_message_type}\n\n");
-    $SuMessages->set( $iVA->{_message_type} );
-    $SuMessages->cdp_num( $iVA->{_cdp_num} );
+	#print("message type is $iVA->{_message_type}\n\n");
+	$SuMessages->set( $iVA->{_message_type} );
+	$SuMessages->cdp_num( $iVA->{_cdp_num} );
 
 }
 
@@ -232,15 +382,16 @@ sub set_message {
 
 =cut
 
-sub message {
-    my ($instructions) = @_;
+sub _message {
+	my ($instructions) = @_;
 
-    if ($instructions) {
-        $iVA->{_instructions} = $instructions if defined($instructions);
-        $SuMessages->instructions( $iVA->{_instructions} );
+	if ($instructions) {
+		$iVA->{_instructions} = $instructions
+			if defined($instructions);
+		$SuMessages->instructions( $iVA->{_instructions} );
 
-        #print("Instructions are $iVA->{_instructions} \n\n");
-    }
+		#print("Instructions are $iVA->{_instructions} \n\n");
+	}
 }
 
 =head2 
@@ -250,11 +401,11 @@ sub message {
 =cut
 
 sub refresh_Tvel_outbound {
-    $iVA->{_textfile_out} =
-      'ivpicks_' . $iVA->{_base_file_name} . $iVA->{_cdp_num_suffix};
-    $iVA->{_Tvel_outbound} = $PL_SEISMIC . '/' . $iVA->{_textfile_out};
+	$iVA->{_textfile_out} =
+		'ivpicks_' . $iVA->{_base_file_name} . $iVA->{_cdp_num_suffix};
+	$iVA->{_Tvel_outbound} = $PL_SEISMIC . '/' . $iVA->{_textfile_out};
 
-    #print("output file is $iVA->{_Tvel_outbound} \n\n");
+	#print("output file is $iVA->{_Tvel_outbound} \n\n");
 }
 
 =head2 
@@ -264,9 +415,9 @@ sub refresh_Tvel_outbound {
 =cut
 
 sub refresh_Tvel_inbound {
-    $iVA->{_textfile_in} =
-      'ivpicks_old' . '_' . $iVA->{_base_file_name} . $iVA->{_cdp_num_suffix};
-    $iVA->{_Tvel_inbound} = $PL_SEISMIC . '/' . $iVA->{_textfile_in};
+	$iVA->{_textfile_in} =
+		'ivpicks_old' . '_' . $iVA->{_base_file_name} . $iVA->{_cdp_num_suffix};
+	$iVA->{_Tvel_inbound} = $PL_SEISMIC . '/' . $iVA->{_textfile_in};
 }
 
 =head2 look for old data
@@ -282,52 +433,54 @@ sub refresh_Tvel_inbound {
 =cut
 
 sub old_data {
-    my ( $variable, $old_data ) = @_;
-    my $ans;
+	my ( $variable, $old_data ) = @_;
+	my $ans;
 
-    #print("variable and old_data $variable, $old_data\n\n");
-    #switches old data of velan type
-    if ($old_data) {
-        $iVA->{_type} = $old_data;
-        if ( $iVA->{_type} eq 'velan' ) {
+	#print("variable and old_data $variable, $old_data\n\n");
+	#switches old data of velan type
+	if ($old_data) {
+		$iVA->{_type} = $old_data;
+		if ( $iVA->{_type} eq 'velan' ) {
 
-            cdp_num( $iVA->{_cdp_first} );
-            cdp_num_suffix( $iVA->{_cdp_num} );
+			cdp_num( $iVA->{_cdp_first} );
+			cdp_num_suffix( $iVA->{_cdp_num} );
 
-            $iVA->{_textfile_in} =
-                'ivpicks_old' . '_'
-              . $iVA->{_base_file_name}
-              . $iVA->{_cdp_num_suffix};
+			$iVA->{_textfile_in} =
+				  'ivpicks_old' . '_'
+				. $iVA->{_base_file_name}
+				. $iVA->{_cdp_num_suffix};
 
-            if ($PL_SEISMIC) {
-                $iVA->{_Tvel_inbound} =
-                  $PL_SEISMIC . '/' . $iVA->{_textfile_in};
-                $ans = $test->does_file_exist( \$iVA->{_Tvel_inbound} );
+			if ($PL_SEISMIC) {
+				$iVA->{_Tvel_inbound} =
+					$PL_SEISMIC . '/' . $iVA->{_textfile_in};
+				$ans = $test->does_file_exist( \$iVA->{_Tvel_inbound} );
 
-                if ( $iVA->{_base_file_name} && $iVA->{_cdp_num_suffix} ) {
-                    $iVA->{_textfile_out} =
-                        'ivpicks_'
-                      . $iVA->{_base_file_name}
-                      . $iVA->{_cdp_num_suffix};
-                    $iVA->{_Tvel_outbound} =
-                      $PL_SEISMIC . '/' . $iVA->{_textfile_out};
-                }
-            }
+				if (   $iVA->{_base_file_name}
+					&& $iVA->{_cdp_num_suffix} )
+				{
+					$iVA->{_textfile_out} =
+						  'ivpicks_'
+						. $iVA->{_base_file_name}
+						. $iVA->{_cdp_num_suffix};
+					$iVA->{_Tvel_outbound} =
+						$PL_SEISMIC . '/' . $iVA->{_textfile_out};
+				}
+			}
 
-            #print("TV in is $iVA->{_Tvel_inbound}\n\n");
-            #print("TV out is $iVA->{_Tvel_outbound}\n\n");
+			#print("TV in is $iVA->{_Tvel_inbound}\n\n");
+			#print("TV out is $iVA->{_Tvel_outbound}\n\n");
 
-            if ($ans) {
-                print("Old picks already exist.\n");
-                print(
-"Delete \(\"rm \*old\*\"\)or Save old picks, and then restart\n\n"
-                );
-                exit;
-            }
-            return ($ans);
-        }
+			if ($ans) {
+				print("Old picks already exist.\n");
+				print(
+					"Delete \(\"rm \*old\*\"\)or Save old picks, and then restart\n\n"
+				);
+				exit;
+			}
+			return ($ans);
+		}
 
-    }
+	}
 }
 
 =head2 subroutine cdp
@@ -338,10 +491,10 @@ sub old_data {
 =cut
 
 sub cdp_num {
-    my ($cdp_num) = @_;
-    $iVA->{_cdp_num} = $cdp_num if defined($cdp_num);
+	my ($cdp_num) = @_;
+	$iVA->{_cdp_num} = $cdp_num if defined($cdp_num);
 
-    #print("cdp_num is $cdp_num\n\n");
+	#print("cdp_num is $cdp_num\n\n");
 }
 
 =head2 subroutine cdp_num_suffix
@@ -352,24 +505,13 @@ sub cdp_num {
 =cut
 
 sub cdp_num_suffix {
-    my ($cdp_num) = @_;
-    if ($cdp_num) {
-        $iVA->{_cdp_num_suffix} = '_cdp' . $cdp_num;
+	my ($cdp_num) = @_;
+	if ($cdp_num) {
+		$iVA->{_cdp_num_suffix} = '_cdp' . $cdp_num;
 
-        #print("cdp_num suffix in iVA.pm is $iVA->{_cdp_num_suffix}\n\n");
-    }
+		#print("cdp_num suffix in iVA.pm is $iVA->{_cdp_num_suffix}\n\n");
+	}
 }
-
-#=head2 subroutine cdp_first
-#
-#  sets min cdp number to consider
-#
-#=cut
-#
-#sub cdp_first {
-#   my($variable,$cdp_first)  	= @_;
-#   $iVA->{_cdp_first} 		= $cdp_first if defined ($cdp_first);
-#}
 
 =head2 subroutine start 
 
@@ -383,17 +525,17 @@ sub cdp_num_suffix {
 
 sub start {
 
-    print("NEW PICKS\n");
-    set_message( $iVA->{_message_type} );
-    $SuMessages->cdp_num( $iVA->{_cdp_first} );
+	print("NEW PICKS\n");
+	set_message( $iVA->{_message_type} );
+	$SuMessages->cdp_num( $iVA->{_cdp_first} );
 
-    cdp_num( $iVA->{_cdp_first} );
-    cdp_num_suffix( $iVA->{_cdp_first} );
+	cdp_num( $iVA->{_cdp_first} );
+	cdp_num_suffix( $iVA->{_cdp_first} );
 
-    print("cdp_num_suffix is $iVA->{_cdp_num_suffix}\n\n");
-    message('first_velan');
-    $iVA->{_number_of_tries} = 0;
-    semblance();
+	#print("cdp_num_suffix is $iVA->{_cdp_num_suffix}\n\n");
+	_message('first_velan');
+	$iVA->{_number_of_tries} = 0;
+	semblance();
 
 }
 
@@ -417,17 +559,17 @@ sub start {
 
 sub pick {
 
-    print("Picking...cdp $iVA->{_cdp_num}\n");
-    print("NOW, PICK\n\n");
-    cdp_num_suffix( $iVA->{_cdp_num} );
-    refresh_Tvel_inbound();
-    refresh_Tvel_outbound();
+	print("Picking...cdp $iVA->{_cdp_num}\n");
+	print("NOW, PICK\n\n");
+	cdp_num_suffix( $iVA->{_cdp_num} );
+	refresh_Tvel_inbound();
+	refresh_Tvel_outbound();
 
-    #$xk->kill_this('suximage');
-    #$xk->kill_this('suxwigb');
-    message('pre_pick_velan');
-    $iVA->{_number_of_tries}++;
-    semblance();
+	#$xk->kill_this('suximage');
+	#$xk->kill_this('suxwigb');
+	_message('pre_pick_velan');
+	$iVA->{_number_of_tries}++;
+	semblance();
 
 }
 
@@ -452,24 +594,24 @@ sub pick {
 
 sub next {
 
-    $iVA->{_cdp_num} = $iVA->{_cdp_num} + $iVA->{_cdp_inc};
-    cdp_num_suffix( $iVA->{_cdp_num} );
-    refresh_Tvel_inbound();
-    refresh_Tvel_outbound();
-    $iVA->{_number_of_tries} = 0;
+	$iVA->{_cdp_num} = $iVA->{_cdp_num} + $iVA->{_cdp_inc};
+	cdp_num_suffix( $iVA->{_cdp_num} );
+	refresh_Tvel_inbound();
+	refresh_Tvel_outbound();
+	$iVA->{_number_of_tries} = 0;
 
-    #print("Next CDP_NUM IS $iVA->{_cdp_num}");
+	#print("Next CDP_NUM IS $iVA->{_cdp_num}");
 
-    #$xk->kill_this('suximage');
-    #$xk->kill_this('suxwigb');
-    #$xk->kill_this('xgraph');
-    if ( $iVA->{_cdp_num} > $iVA->{_cdp_last} ) {
-        exit();
-    }
+	#$xk->kill_this('suximage');
+	#$xk->kill_this('suxwigb');
+	#$xk->kill_this('xgraph');
+	if ( $iVA->{_cdp_num} > $iVA->{_cdp_last} ) {
+		exit();
+	}
 
-    semblance();
-    $SuMessages->cdp_num( $iVA->{_cdp_num} );
-    message('first_velan');
+	semblance();
+	$SuMessages->cdp_num( $iVA->{_cdp_num} );
+	_message('first_velan');
 
 }
 
@@ -479,12 +621,12 @@ sub next {
 
 sub exit {
 
-    print("Good bye.\n");
-    print("Not continuing to next cdp\n");
-    $xk->kill_this('suximage');
-    $xk->kill_this('suxwigb');
-    $xk->kill_this('xgraph');
-    exit(1);
+	print("Good bye.\n");
+	print("Not continuing to next cdp\n");
+	$xk->kill_this('suximage');
+	$xk->kill_this('suxwigb');
+	$xk->kill_this('xgraph');
+	exit(1);
 
 }
 
@@ -500,18 +642,18 @@ sub exit {
 
 sub calc {
 
-    # print("iVA, calc, Calculating...\n");
+	# print("iVA, calc, Calculating...\n");
 
-    #$xk->kill_this('suximage');
-    #$xk->kill_this('suxwigb');
-    iWrite_All_iva_out();
-    iVrms2Vint();
-    icp_sorted2oldpicks();
-    iVpicks2par();
-    iSunmo();
-    $iVA->{_number_of_tries}++;
-    message('post_pick_velan');
-    semblance();
+	#$xk->kill_this('suximage');
+	#$xk->kill_this('suxwigb');
+	iWrite_All_iva_out();
+	iVrms2Vint();
+	icp_sorted2oldpicks();
+	iVpicks2par();
+	iSunmo();
+	$iVA->{_number_of_tries}++;
+	_message('post_pick_velan');
+	semblance();
 
 }
 
@@ -532,49 +674,52 @@ sub calc {
 
 sub icp_sorted2oldpicks {
 
-    my ( @cdp_num,     @sorted_suffix, @suffix );
-    my ( @sufile_in,   @vpicks_in,     @vpicks_out );
-    my ( @sortfile_in, @inbound,       @outbound );
-    my (@writefile_out);
-    my (@flow);
+	my ( @cdp_num,     @sorted_suffix, @suffix );
+	my ( @sufile_in,   @vpicks_in,     @vpicks_out );
+	my ( @sortfile_in, @inbound,       @outbound );
+	my (@writefile_out);
+	my (@flow);
 
-    $cdp_num[1] = $iVA->{_cdp_num};
+	$cdp_num[1] = $iVA->{_cdp_num};
 
-    # suffixes
-    $sorted_suffix[1] = '_sorted';
-    $suffix[3]        = '_cdp' . $iVA->{_cdp_num};
+	# suffixes
+	$sorted_suffix[1] = '_sorted';
+	$suffix[3]        = '_cdp' . $iVA->{_cdp_num};
 
-    # su file names
-    $sufile_in[1] = $iVA->{_base_file_name};    # any itnernal ticks removed
+	# su file names
+	$sufile_in[1] = $iVA->{_base_file_name};    # any itnernal ticks removed
 
-    #V file names
-    $vpicks_in[1]  = 'ivpicks_old' . $sorted_suffix[1];
-    $vpicks_out[1] = 'ivpicks_old';
+	#V file names
+	$vpicks_in[1]  = 'ivpicks_old' . $sorted_suffix[1];
+	$vpicks_out[1] = 'ivpicks_old';
 
-    # sort file names
-    $sortfile_in[1] = $vpicks_in[1];
-    $inbound[1] =
-      $PL_SEISMIC . '/' . $sortfile_in[1] . '_' . $sufile_in[1] . $suffix[3];
+	# sort file names
+	$sortfile_in[1] = $vpicks_in[1];
+	$inbound[1] =
+		$PL_SEISMIC . '/' . $sortfile_in[1] . '_' . $sufile_in[1] . $suffix[3];
 
-    # Velocity write file names
-    $writefile_out[1] = $vpicks_out[1];
-    $outbound[1] =
-      $PL_SEISMIC . '/' . $writefile_out[1] . '_' . $sufile_in[1] . $suffix[3];
+	# Velocity write file names
+	$writefile_out[1] = $vpicks_out[1];
+	$outbound[1] =
+		  $PL_SEISMIC . '/'
+		. $writefile_out[1] . '_'
+		. $sufile_in[1]
+		. $suffix[3];
 
-    #  DEFINE FLOW(S)
-    $flow[1] = (
-        " 						\\
+	#  DEFINE FLOW(S)
+	$flow[1] = (
+		" 						\\
 		cp 	 							\\
 		 $inbound[1] 					\\
 		 $outbound[1]					\\
 		"
-    );
+	);
 
-    # RUN FLOW(S)
-    system $flow[1];
+	# RUN FLOW(S)
+	system $flow[1];
 
-    # system 'echo', $flow[1];
-    #end of copy of Vrms old picks sorted to ivpicks_old
+	# system 'echo', $flow[1];
+	#end of copy of Vrms old picks sorted to ivpicks_old
 }
 
 =head2 sub iVrms2Vint
@@ -588,13 +733,13 @@ sub icp_sorted2oldpicks {
 
 sub iVrms2Vint {
 
-    $iVrms2Vint->first_velocity( $iVA->{_first_velocity} );
-    $iVrms2Vint->number_of_velocities( $iVA->{_number_of_velocities} );
-    $iVrms2Vint->velocity_increment( $iVA->{_velocity_increment} );
-    $iVrms2Vint->file_in( $iVA->{_base_file_name} );
-    $iVrms2Vint->cdp_num( $iVA->{_cdp_num} );
-    $iVrms2Vint->tmax_s( $iVA->{_tmax_s} );
-    $iVrms2Vint->calcNdisplay();
+	$iVrms2Vint->first_velocity( $iVA->{_first_velocity} );
+	$iVrms2Vint->number_of_velocities( $iVA->{_number_of_velocities} );
+	$iVrms2Vint->velocity_increment( $iVA->{_velocity_increment} );
+	$iVrms2Vint->file_in( $iVA->{_base_file_name} );
+	$iVrms2Vint->cdp_num( $iVA->{_cdp_num} );
+	$iVrms2Vint->tmax_s( $iVA->{_tmax_s} );
+	$iVrms2Vint->calcNdisplay();
 
 }
 
@@ -612,20 +757,20 @@ sub iVrms2Vint {
 
 sub iVpicks2par {
 
-    $iVpicks2par->file_in( $iVA->{_base_file_name} )
-      ;    # only if internal ticks have been removed
-    $iVpicks2par->cdp_num( $iVA->{_cdp_num} );
-    $iVpicks2par->flows();
+	$iVpicks2par->file_in( $iVA->{_base_file_name} )
+		;    # only if internal ticks have been removed
+	$iVpicks2par->cdp_num( $iVA->{_cdp_num} );
+	$iVpicks2par->flows();
 
 }
 
 sub iSunmo {
 
-    $iSunmo->file_in( $iVA->{_base_file_name} );
-    $iSunmo->cdp_num( $iVA->{_cdp_num} );
-    $iSunmo->freq( $iVA->{_freq} );
-    $iSunmo->tmax_s( $iVA->{_tmax_s} );
-    $iSunmo->calcNdisplay();
+	$iSunmo->file_in( $iVA->{_base_file_name} );
+	$iSunmo->cdp_num( $iVA->{_cdp_num} );
+	$iSunmo->freq( $iVA->{_freq} );
+	$iSunmo->tmax_s( $iVA->{_tmax_s} );
+	$iSunmo->calcNdisplay();
 
 }
 
@@ -638,26 +783,26 @@ sub iSunmo {
 
 sub semblance {
 
-    # print(" running semblance\n");
-    print(" iVA, semblance, number of tries is $iVA->{_number_of_tries}\n\n");
+	# print(" running semblance\n");
+	# print(" iVA, semblance, number of tries is $iVA->{_number_of_tries}\n\n");
 
-    $semblance->clear();
-    $semblance->cdp_num( $iVA->{_cdp_num} );
-    $semblance->cdp_num_suffix( $iVA->{_cdp_num} );
-    $semblance->file_in( $iVA->{_base_file_name} );
-    $semblance->data_scale( $iVA->{_data_scale} );
-    $semblance->dt_s( $iVA->{_dt_s} );
-    $semblance->tmax_s( $iVA->{_tmax_s} );
-    $semblance->first_velocity( $iVA->{_first_velocity} );
-    $semblance->freq( $iVA->{_freq} );
-    $semblance->max_semblance( $iVA->{_max_semblance} );
-    $semblance->min_semblance( $iVA->{_min_semblance} );
-    $semblance->number_of_tries( $iVA->{_number_of_tries} );
-    $semblance->number_of_velocities( $iVA->{_number_of_velocities} );
-    $semblance->velocity_increment( $iVA->{_velocity_increment} );
-    $semblance->Tvel_inbound( $iVA->{_Tvel_inbound} );
-    $semblance->Tvel_outbound( $iVA->{_Tvel_outbound} );
-    $semblance->calcNdisplay();
+	$semblance->clear();
+	$semblance->cdp_num( $iVA->{_cdp_num} );
+	$semblance->cdp_num_suffix( $iVA->{_cdp_num} );
+	$semblance->file_in( $iVA->{_base_file_name} );
+	$semblance->set_data_scale( $iVA->{_data_scale} );
+	$semblance->dt_s( $iVA->{_dt_s} );
+	$semblance->tmax_s( $iVA->{_tmax_s} );
+	$semblance->first_velocity( $iVA->{_first_velocity} );
+	$semblance->freq( $iVA->{_freq} );
+	$semblance->max_semblance( $iVA->{_max_semblance} );
+	$semblance->min_semblance( $iVA->{_min_semblance} );
+	$semblance->number_of_tries( $iVA->{_number_of_tries} );
+	$semblance->number_of_velocities( $iVA->{_number_of_velocities} );
+	$semblance->velocity_increment( $iVA->{_velocity_increment} );
+	$semblance->Tvel_inbound( $iVA->{_Tvel_inbound} );
+	$semblance->Tvel_outbound( $iVA->{_Tvel_outbound} );
+	$semblance->calcNdisplay();
 }
 
 =head2
@@ -670,9 +815,9 @@ sub semblance {
 
 sub iWrite_All_iva_out {
 
-    $iWrite_All_iva_out->file_in( $iVA->{_base_file_name} );
-    $iWrite_All_iva_out->cdp_num( $iVA->{_cdp_num} );
-    $iWrite_All_iva_out->flows();
+	$iWrite_All_iva_out->file_in( $iVA->{_base_file_name} );
+	$iWrite_All_iva_out->cdp_num( $iVA->{_cdp_num} );
+	$iWrite_All_iva_out->flows();
 
 }
 

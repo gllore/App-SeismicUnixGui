@@ -46,6 +46,7 @@ use suxwigb;
 use Project_config;
 use message;
 use SeismicUnix qw($on $off $in $to $go);
+use L_SU_global_constants;
 
 #print(" iSuvelan on,off,in,to,go: $on $off $in $to $go \n");
 my $log               = new message();
@@ -60,7 +61,13 @@ my $suxwigb           = new suxwigb();
 my $Project           = new Project_config();
 my ($DATA_SEISMIC_SU) = $Project->DATA_SEISMIC_SU();
 my ($PL_SEISMIC)      = $Project->PL_SEISMIC();
-# print("iSuvelan, DATA_SEISMIC_SU: $DATA_SEISMIC_SU\n\n");
+my $get         		= L_SU_global_constants->new();
+
+=head2 Import Special Variables
+
+=cut
+my $var               = $get->var();
+my $empty_string      = $var->{_empty_string};
 
 =head2
  
@@ -88,25 +95,25 @@ my ( @flow,                @items );
 =cut 
 
 my $iSuvelan = {
-    _cdp_num              => '',
-    _cdp_num_suffix       => '',
-    _data_scale           => '',
-    _dt_s                 => '',
-    _file_in              => '',
-    _first_velocity       => '',
-    _freq                 => '',
-    _inbound              => '',
-    _max_semblance        => '',
-    _min_semblance        => '',
-    _number_of_tries      => '',
-    _number_of_velocities => '',
-    _sufile_in            => '',
-    _tmax_s               => '',
-    _textfile_in          => '',
-    _textfile_out         => '',
-    _Tvel_inbound         => '',
-    _Tvel_outbound        => '',
-    _velocity_increment   => '',
+	_cdp_num              => '',
+	_cdp_num_suffix       => '',
+	_data_scale           => 1,
+	_dt_s                 => '',
+	_file_in              => '',
+	_first_velocity       => '',
+	_freq                 => '',
+	_inbound              => '',
+	_max_semblance        => '',
+	_min_semblance        => '',
+	_number_of_tries      => '',
+	_number_of_velocities => '',
+	_sufile_in            => '',
+	_tmax_s               => '',
+	_textfile_in          => '',
+	_textfile_out         => '',
+	_Tvel_inbound         => '',
+	_Tvel_outbound        => '',
+	_velocity_increment   => '',
 };
 
 =head2 subroutine clear
@@ -116,25 +123,25 @@ my $iSuvelan = {
 =cut
 
 sub clear {
-    $iSuvelan->{_cdp_num}              = '';
-    $iSuvelan->{_cdp_num_suffix}       = '';
-    $iSuvelan->{_data_scale}           = '';
-    $iSuvelan->{_dt_s}                 = '';
-    $iSuvelan->{_file_in}              = '';
-    $iSuvelan->{_first_velocity}       = '';
-    $iSuvelan->{_freq}                 = '';
-    $iSuvelan->{_inbound}              = '';
-    $iSuvelan->{_max_semblance}        = '';
-    $iSuvelan->{_min_semblance}        = '';
-    $iSuvelan->{_number_of_tries}      = '';
-    $iSuvelan->{_number_of_velocities} = '';
-    $iSuvelan->{_velocity_increment}   = '';
-    $iSuvelan->{_sufile_in}            = '';
-    $iSuvelan->{_textfile_in}          = '';
-    $iSuvelan->{_textfile_out}         = '';
-    $iSuvelan->{_Tvel_inbound}         = '';
-    $iSuvelan->{_Tvel_outbound}        = '';
-    $iSuvelan->{_tmax_s}               = '';
+	$iSuvelan->{_cdp_num}              = '';
+	$iSuvelan->{_cdp_num_suffix}       = '';
+	$iSuvelan->{_data_scale}           = '';
+	$iSuvelan->{_dt_s}                 = '';
+	$iSuvelan->{_file_in}              = '';
+	$iSuvelan->{_first_velocity}       = '';
+	$iSuvelan->{_freq}                 = '';
+	$iSuvelan->{_inbound}              = '';
+	$iSuvelan->{_max_semblance}        = '';
+	$iSuvelan->{_min_semblance}        = '';
+	$iSuvelan->{_number_of_tries}      = '';
+	$iSuvelan->{_number_of_velocities} = '';
+	$iSuvelan->{_velocity_increment}   = '';
+	$iSuvelan->{_sufile_in}            = '';
+	$iSuvelan->{_textfile_in}          = '';
+	$iSuvelan->{_textfile_out}         = '';
+	$iSuvelan->{_Tvel_inbound}         = '';
+	$iSuvelan->{_Tvel_outbound}        = '';
+	$iSuvelan->{_tmax_s}               = '';
 }
 
 =head2 subroutine cdp_num
@@ -147,12 +154,12 @@ sub clear {
 =cut
 
 sub cdp_num {
-    my ( $variable, $cdp_num ) = @_;
-    if ($cdp_num) {
-        $iSuvelan->{_cdp_num} = $cdp_num;
+	my ( $variable, $cdp_num ) = @_;
+	if ($cdp_num) {
+		$iSuvelan->{_cdp_num} = $cdp_num;
 
-        #print("cdp_num in iSuvelan is $iSuvelan->{_cdp_num}\n\n");
-    }
+		#print("cdp_num in iSuvelan is $iSuvelan->{_cdp_num}\n\n");
+	}
 }
 
 =head2 subroutine cdp_num_suffix
@@ -164,23 +171,14 @@ sub cdp_num {
 =cut
 
 sub cdp_num_suffix {
-    my ( $variable, $cdp_num ) = @_;
-    if ($cdp_num) {
-        $iSuvelan->{_cdp_num_suffix} = '_cdp' . $cdp_num;
+	my ( $variable, $cdp_num ) = @_;
+	if ($cdp_num) {
+		$iSuvelan->{_cdp_num_suffix} = '_cdp' . $cdp_num;
 
-        #print("suffix in iSuvelan is $iSuvelan->{_cdp_num_suffix}\n\n");
-    }
+		#print("suffix in iSuvelan is $iSuvelan->{_cdp_num_suffix}\n\n");
+	}
 }
 
-=head2 subroutine data_scale
-
-
-=cut
-
-sub data_scale {
-    my ( $variable, $data_scale ) = @_;
-    $iSuvelan->{_data_scale} = $data_scale if defined($data_scale);
-}
 
 =head2 subroutine dt_s
 
@@ -188,10 +186,10 @@ sub data_scale {
 =cut
 
 sub dt_s {
-    my ( $variable, $dt_s ) = @_;
-    if ($dt_s) {
-        $iSuvelan->{_dt_s} = $dt_s;
-    }
+		my ( $variable, $dt_s ) = @_;
+		if ($dt_s) {
+			$iSuvelan->{_dt_s} = $dt_s;
+	}
 }
 
 =head2 subroutine file_in
@@ -205,13 +203,13 @@ sub dt_s {
 =cut
 
 sub file_in {
-    my ( $variable, $file_in ) = @_;
-    if ($file_in) {
-        $iSuvelan->{_file_in}   = $file_in;
-        $iSuvelan->{_sufile_in} = $file_in . '.su';
-    }
-    $iSuvelan->{_inbound} = $DATA_SEISMIC_SU . '/' . $iSuvelan->{_sufile_in};
-    # print("iSuvelan_inbound is $iSuvelan->{_inbound}\n\n");
+		my ( $variable, $file_in ) = @_;
+		if ($file_in) {
+			$iSuvelan->{_file_in}   = $file_in;
+			$iSuvelan->{_sufile_in} = $file_in . '.su';
+		}
+		$iSuvelan->{_inbound} =
+			$DATA_SEISMIC_SU . '/' . $iSuvelan->{_sufile_in};
 }
 
 =head2  subroutine first_velocity
@@ -221,10 +219,10 @@ sub file_in {
 =cut
 
 sub first_velocity {
-    my ( $variable, $first_velocity ) = @_;
-    if ($first_velocity) {
-        $iSuvelan->{_first_velocity} = $first_velocity;
-    }
+		my ( $variable, $first_velocity ) = @_;
+		if ($first_velocity) {
+			$iSuvelan->{_first_velocity} = $first_velocity;
+	}
 }
 
 =head2 subroutine freq
@@ -236,8 +234,10 @@ sub first_velocity {
 =cut
 
 sub freq {
-    my ( $variable, $freq ) = @_;
-    $iSuvelan->{_freq} = $freq if defined($freq);
+		my ( $variable, $freq ) = @_;
+		$iSuvelan->{_freq} = $freq if defined($freq);
+
+		# print("iSuvelan,freq= $iSuvelan->{_freq}\n");
 }
 
 =head2  subroutine  number_of_tries
@@ -248,12 +248,32 @@ sub freq {
 =cut
 
 sub number_of_tries {
-    my ( $variable, $number_of_tries ) = @_;
-    $iSuvelan->{_number_of_tries} = $number_of_tries
-      if defined($number_of_tries);
+		my ( $variable, $number_of_tries ) = @_;
+		$iSuvelan->{_number_of_tries} = $number_of_tries
+			if defined($number_of_tries);
 
 #print("num of tries is $iSuvelan->{_number_of_tries}\n\n");
 #print("\nReading: $Tvel_iSuvelan->{_inbound} \nTime=$$ref_T_nmo[1],Vel=$$ref_Vnmo[1],npairs=$num_tvel_pairs \n");
+
+}
+
+=head2 subroutine set_data_scale
+
+suvelan does not consider scalco or scalel header values
+automatically
+
+=cut
+
+sub set_data_scale {
+	my ( $variable, $data_scale ) = @_;
+	
+	if (defined $data_scale && $data_scale ne $empty_string )
+		{
+			$iSuvelan->{_data_scale} = $data_scale;
+	}
+	else {
+		print("iSuvelan, unexpected data_scale\n");
+	}
 
 }
 
@@ -263,10 +283,10 @@ sub number_of_tries {
 =cut
 
 sub tmax_s {
-    my ( $self, $tmax_s ) = @_;
-    if ($tmax_s) {
-        $iSuvelan->{_tmax_s} = $tmax_s;
-    }
+		my ( $self, $tmax_s ) = @_;
+		if ($tmax_s) {
+			$iSuvelan->{_tmax_s} = $tmax_s;
+	}
 }
 
 =head2  subroutine velocity increment 
@@ -275,11 +295,11 @@ sub tmax_s {
 =cut
 
 sub velocity_increment {
-    my ( $variable, $velocity_increment ) = @_;
-    $iSuvelan->{_velocity_increment} = $velocity_increment
-      if defined($velocity_increment);
+		my ( $variable, $velocity_increment ) = @_;
+		$iSuvelan->{_velocity_increment} = $velocity_increment
+			if defined($velocity_increment);
 
-    #print("velocity_increment is $iSuvelan->{_velocity_increment} \n\n");
+		#print("velocity_increment is $iSuvelan->{_velocity_increment} \n\n");
 }
 
 =head2 subroutine calcNdisplay
@@ -290,7 +310,7 @@ sub velocity_increment {
 
 sub calcNdisplay {
 
-    # print(" iSuvelan, calcNdisplay\n\n");
+		# print(" iSuvelan, calcNdisplay\n\n");
 
 =head2 WINDOW  DATA
 
@@ -298,14 +318,14 @@ by cdp
 
 =cut
 
-    $suwind_min[1] = $iSuvelan->{_cdp_num};
-    $suwind_max[1] = $iSuvelan->{_cdp_num};
+		$suwind_min[1] = $iSuvelan->{_cdp_num};
+		$suwind_max[1] = $iSuvelan->{_cdp_num};
 
-    $suwind->clear();
-    $suwind->setheaderword( quotemeta('cdp') );
-    $suwind->min( quotemeta( $suwind_min[1] ) );
-    $suwind->max( quotemeta( $suwind_max[1] ) );
-    $suwind[1] = $suwind->Step();
+		$suwind->clear();
+		$suwind->setheaderword( quotemeta('cdp') );
+		$suwind->min( quotemeta( $suwind_min[1] ) );
+		$suwind->max( quotemeta( $suwind_max[1] ) );
+		$suwind[1] = $suwind->Step();
 
 =head2 WINDOW  DATA 
 
@@ -313,16 +333,16 @@ by time
 
 =cut
 
-    $suwind->clear();
-    $suwind->tmin( quotemeta(0) );
-    $suwind->tmax( quotemeta( $iSuvelan->{_tmax_s} ) );
-    $suwind[2] = $suwind->Step();
+		$suwind->clear();
+		$suwind->tmin( quotemeta(0) );
+		$suwind->tmax( quotemeta( $iSuvelan->{_tmax_s} ) );
+		$suwind[2] = $suwind->Step();
 
-    # SORT data into CDP before calcualting semblance
-    $susort->clear();
-    $susort->headerword( quotemeta('cdp') );
-    $susort->headerword( quotemeta('offset') );
-    $susort[1] = $susort->Step();
+		# SORT data into CDP before calcualting semblance
+		$susort->clear();
+		$susort->headerword( quotemeta('cdp') );
+		$susort->headerword( quotemeta('offset') );
+		$susort[1] = $susort->Step();
 
 =head2 GAIN DATA
 
@@ -332,17 +352,16 @@ by time
 
 =cut
 
-    $sugain->clear();
-    $sugain->pbal( quotemeta($on) );
-    $sugain[1] = $sugain->Step();
+		$sugain->clear();
+		$sugain->pbal( quotemeta($on) );
+		$sugain[1] = $sugain->Step();
 
-    $sugain->clear();
-    $sugain->agc( quotemeta($on) );
-    my $width = 0.1 * $iSuvelan->{_tmax_s};
-    $sugain->width( quotemeta($width) );
+		$sugain->clear();
+		$sugain->agc( quotemeta($on) );
+		my $width = 0.1 * $iSuvelan->{_tmax_s};
+		$sugain->width( quotemeta($width) );
 
-    # $sugain    -> setdt(1000);
-    $sugain[2] = $sugain->Step();
+		$sugain[2] = $sugain->Step();
 
 =head2
 
@@ -350,31 +369,33 @@ by time
 
 =cut
 
-    $sufilter->clear();
-    $sufilter->freq( quotemeta( $iSuvelan->{_freq} ) );
-    $sufilter[1] = $sufilter->Step();
+		$sufilter->clear();
+		$sufilter->freq( quotemeta( $iSuvelan->{_freq} ) );
+		$sufilter[1] = $sufilter->Step();
 
 =head2 semblance analysis
 
  a scaling factor is needed to match 
  scalel found in data headers
+ suvelan does not take scaleco or scalel into consdieration
+ automatically
 
 =cut
 
-    $suvelan->clear();
-    $suvelan->number_of_velocities(
-        quotemeta( $iSuvelan->{_number_of_velocities} ) );
-    $suvelan->velocity_increment(
-        quotemeta(
-            ( $iSuvelan->{_velocity_increment} * $iSuvelan->{_data_scale} )
-        )
-    );
-    $suvelan->first_velocity(
-        quotemeta(
-            ( $iSuvelan->{_first_velocity} * $iSuvelan->{_data_scale} )
-        )
-    );
-    $suvelan[1] = suvelan->Step();
+		$suvelan->clear();
+		$suvelan->number_of_velocities(
+			quotemeta( $iSuvelan->{_number_of_velocities} ) );
+		$suvelan->velocity_increment(
+			quotemeta(
+				( $iSuvelan->{_velocity_increment} * $iSuvelan->{_data_scale} )
+			)
+		);
+		$suvelan->first_velocity(
+			quotemeta(
+				( $iSuvelan->{_first_velocity} * $iSuvelan->{_data_scale} )
+			)
+		);
+		$suvelan[1] = suvelan->Step();
 
 =head2 DISPLAY DATA
 
@@ -383,57 +404,60 @@ by time
 
 =cut
 
-    #my $time_inc_major 	  =  $time_inc_minor * 2;
-    my $time_inc_major = $iSuvelan->{_tmax_s} / 10;
+		#my $time_inc_major 	  =  $time_inc_minor * 2;
+		my $time_inc_major = $iSuvelan->{_tmax_s} / 10;
 
-    #my $time_inc_minor	  =  $time_inc_major / 2;
-    my $number_minor_time_divisions = 2;
+		#my $time_inc_minor	  =  $time_inc_major / 2;
+		my $number_minor_time_divisions = 2;
 
-    # to make Jorge Reyes' data work
-    #my $new_dt_s            = $iSuvelan->{_tmax_s} * $iSuvelan->{_dt_s} ;
-    my $new_dt_s = $iSuvelan->{_dt_s};
+		# to make Jorge Reyes' data work
+		#my $new_dt_s            = $iSuvelan->{_tmax_s} * $iSuvelan->{_dt_s} ;
+		my $new_dt_s = $iSuvelan->{_dt_s};
 
-    # print("iSuvelan,tmax_s $iSuvelan->{_tmax_s}\n");
-    # print("iSuvelan,new_dt_s $new_dt_s\n");
+		# print("iSuvelan,tmax_s $iSuvelan->{_tmax_s}\n");
+		# print("iSuvelan,new_dt_s $new_dt_s\n");
 
-    $N = 2;
-    $windowtitle[1] = '\('
-      . $N . '\)\ '
-      . $iSuvelan->{_sufile_in}
-      . '\ CDP=\ '
-      . $iSuvelan->{_cdp_num};
+		$N = 2;
+		$windowtitle[1] = '\('
+			. $N . '\)\ '
+			. $iSuvelan->{_sufile_in}
+			. '\ CDP=\ '
+			. $iSuvelan->{_cdp_num};
 
-    #units=Semblance					\\
-    $suximage->clear();
-    $suximage->box_width( quotemeta(300) );
-    $suximage->box_height( quotemeta(450) );
-    $suximage->box_X0( quotemeta(600) );
-    $suximage->box_Y0( quotemeta(0) );
-    $suximage->title( quotemeta( $iSuvelan->{_cdp_num_suffix} ) );
-    $suximage->windowtitle( quotemeta('Semblance') );
-    $suximage->ylabel( quotemeta('TWTT (s)') );
-    $suximage->xlabel( quotemeta('Velocity (m/s)') );
-    $suximage->legend( quotemeta($on) );
-    $suximage->cmap( quotemeta('hsv2') );
-    $suximage->first_x( quotemeta( $iSuvelan->{_first_velocity} ) );
-    $suximage->dx( quotemeta( $iSuvelan->{_velocity_increment} ) );
+		#units=Semblance					\\
+		$suximage->clear();
+		$suximage->box_width( quotemeta(300) );
+		$suximage->box_height( quotemeta(450) );
+		$suximage->box_X0( quotemeta(600) );
+		$suximage->box_Y0( quotemeta(0) );
+		$suximage->title( quotemeta( $iSuvelan->{_cdp_num_suffix} ) );
+		$suximage->windowtitle( quotemeta('Semblance') );
+		$suximage->ylabel( quotemeta('TWTT (s)') );
+		$suximage->xlabel( quotemeta('Velocity (m/s)') );
+		$suximage->legend( quotemeta($on) );
+		$suximage->cmap( quotemeta('hsv2') );
+		$suximage->first_x( quotemeta( $iSuvelan->{_first_velocity} ) );
+		$suximage->dx( quotemeta( $iSuvelan->{_velocity_increment} ) );
 
-    #$suximage -> dt_s($new_dt_s);
-    $suximage->loclip( quotemeta( $iSuvelan->{_min_semblance} ) );
-    $suximage->hiclip( quotemeta( $iSuvelan->{_max_semblance} ) );
-    $suximage->verbose( quotemeta($off) );
+		#$suximage -> dt_s($new_dt_s);
+		$suximage->loclip( quotemeta( $iSuvelan->{_min_semblance} ) );
+		$suximage->hiclip( quotemeta( $iSuvelan->{_max_semblance} ) );
+		$suximage->verbose( quotemeta($off) );
 
-    #print ("d2num is ($iSuvelan->{_velocity_increment})\n\n");
-    $suximage->dx_major_divisions(
-        quotemeta( ( $iSuvelan->{_velocity_increment} ) * 10 ) );
-    $suximage->dy_minor_divisions( quotemeta($number_minor_time_divisions) );
-    $suximage->dy_major_divisions( quotemeta($time_inc_major) );
+		#print ("d2num is ($iSuvelan->{_velocity_increment})\n\n");
+		$suximage->dx_major_divisions(
+			quotemeta( ( $iSuvelan->{_velocity_increment} ) * 10 ) );
+		$suximage->dy_minor_divisions(
+			quotemeta($number_minor_time_divisions) );
+		$suximage->dy_major_divisions( quotemeta($time_inc_major) );
 
-    #$suximage -> percent4clip(quotemeta(95.0);
-    $suximage->first_tick_number_x( quotemeta( $iSuvelan->{_first_velocity} ) );
-    $suximage->picks( $iSuvelan->{_Tvel_outbound} )
-      ;    # quotemeta does not work JL Nov 2 2018
-     # print("iSuvelan, calcNdisplay: Writing picks to $iSuvelan->{_Tvel_outbound}\n\n");
+		#$suximage -> percent4clip(quotemeta(95.0);
+		$suximage->first_tick_number_x(
+			quotemeta( $iSuvelan->{_first_velocity} ) );
+		$suximage->picks( $iSuvelan->{_Tvel_outbound} );
+
+# quotemeta does not work JL Nov 2 2018
+#print("iSuvelan, calcNdisplay: Writing picks to $iSuvelan->{_Tvel_outbound}\n\n");
 
 =head2 conditions
  
@@ -443,23 +467,23 @@ by time
 
 =cut
 
-    if ( $iSuvelan->{_number_of_tries} >= 2 ) {
+		if ( $iSuvelan->{_number_of_tries} >= 2 ) {
 
-        print("using a curve file:\n");
-        # print("\t$iSuvelan->{_Tvel_inbound}\n\n");
-        $suximage->curvefile( quotemeta( $iSuvelan->{_Tvel_inbound} ) )
-          ;    # does not like quotemeta
-        my ( $ref_T_nmo, $ref_Vnmo, $num_tvel_pairs ) =
-          manage_files_by::read_2cols( \$iSuvelan->{_Tvel_inbound} );
-        $suximage->npair( quotemeta($num_tvel_pairs) );
-        $suximage->curvecolor( quotemeta(2) );
-    }
+			# print("using a curve file:\n");
+			# print("\t$iSuvelan->{_Tvel_inbound}\n\n");
+			$suximage->curvefile( quotemeta( $iSuvelan->{_Tvel_inbound} ) )
+				;    # does not like quotemeta
+			my ( $ref_T_nmo, $ref_Vnmo, $num_tvel_pairs ) =
+				manage_files_by::read_2cols( \$iSuvelan->{_Tvel_inbound} );
+			$suximage->npair( quotemeta($num_tvel_pairs) );
+			$suximage->curvecolor( quotemeta(2) );
+		}
 
-    $suximage[1] = $suximage->Step();
+		$suximage[1] = $suximage->Step();
 
-    # print("$suximage[1]\n\n");
+		# print("$suximage[1]\n\n");
 
-    $N = 1;
+		$N = 1;
 
 =head2  set suxwigb parameters
 
@@ -469,19 +493,19 @@ by time
 
 =cut
 
-    $suxwigb->clear();
-    $suxwigb->title( quotemeta( $iSuvelan->{_sufile_in} ) );
-    $suxwigb->ylabel( quotemeta('Time s') );
-    $suxwigb->xlabel( quotemeta('Offset m') );
-    $suxwigb->box_width( quotemeta(300) );
-    $suxwigb->box_height( quotemeta(450) );
-    $suxwigb->box_X0( quotemeta(875) );
-    $suxwigb->box_Y0( quotemeta(0) );
-    $suxwigb->absclip( quotemeta(2) );
-    $suxwigb->xcur( quotemeta(1) );
-    $suxwigb->windowtitle( quotemeta( $iSuvelan->{_cdp_num_suffix} ) );
-    $suxwigb->shading( quotemeta(1) );
-    $suxwigb[1] = $suxwigb->Step();
+		$suxwigb->clear();
+		$suxwigb->title( quotemeta( $iSuvelan->{_sufile_in} ) );
+		$suxwigb->ylabel( quotemeta('Time s') );
+		$suxwigb->xlabel( quotemeta('Offset m') );
+		$suxwigb->box_width( quotemeta(300) );
+		$suxwigb->box_height( quotemeta(450) );
+		$suxwigb->box_X0( quotemeta(875) );
+		$suxwigb->box_Y0( quotemeta(0) );
+		$suxwigb->absclip( quotemeta(2) );
+		$suxwigb->xcur( quotemeta(1) );
+		$suxwigb->windowtitle( quotemeta( $iSuvelan->{_cdp_num_suffix} ) );
+		$suxwigb->shading( quotemeta(1) );
+		$suxwigb[1] = $suxwigb->Step();
 
 =head2  DEFINE FLOW(S)
 
@@ -497,13 +521,13 @@ by time
 
 =cut
 
-    @items = (
-        $susort[1],   $in, $iSuvelan->{_inbound}, $to,
-        $suwind[1],   $to, $suwind[2],            $to,
-        $sufilter[1], $to, $sugain[2],            $to,
-        $suxwigb[1],  $go
-    );
-    $flow[1] = $run->modules( \@items );
+		@items = (
+			$susort[1],   $in, $iSuvelan->{_inbound}, $to,
+			$suwind[1],   $to, $suwind[2],            $to,
+			$sufilter[1], $to, $sugain[2],            $to,
+			$suxwigb[1],  $go
+		);
+		$flow[1] = $run->modules( \@items );
 
 =head2  do not halt flow
 
@@ -511,15 +535,15 @@ by time
 
 =cut
 
-    if ( $iSuvelan->{_number_of_tries} == 0 ) {
-        @items = (
-            $susort[1],   $in, $iSuvelan->{_inbound}, $to,
-            $suwind[1],   $to, $suwind[2],            $to,
-            $sufilter[1], $to, $suvelan[1],           $to,
-            $suximage[1], $go
-        );
-        $flow[2] = $run->modules( \@items );
-    }
+		if ( $iSuvelan->{_number_of_tries} == 0 ) {
+			@items = (
+				$susort[1],   $in, $iSuvelan->{_inbound}, $to,
+				$suwind[1],   $to, $suwind[2],            $to,
+				$sufilter[1], $to, $suvelan[1],           $to,
+				$suximage[1], $go
+			);
+			$flow[2] = $run->modules( \@items );
+		}
 
 =head2  do not halt flow either 
 
@@ -532,15 +556,15 @@ DB
              #$to,$sufilter[1],$to,$suvelan[1],$to,$suximage[1],$go); 
 =cut
 
-    if ( $iSuvelan->{_number_of_tries} >= 1 ) {
-        @items = (
-            $susort[1],   $in, $iSuvelan->{_inbound}, $to,
-            $suwind[1],   $to, $suwind[2],            $to,
-            $sufilter[1], $to, $suvelan[1],           $to,
-            $suximage[1], $go
-        );
-        $flow[2] = $run->modules( \@items );
-    }
+		if ( $iSuvelan->{_number_of_tries} >= 1 ) {
+			@items = (
+				$susort[1],   $in, $iSuvelan->{_inbound}, $to,
+				$suwind[1],   $to, $suwind[2],            $to,
+				$sufilter[1], $to, $suvelan[1],           $to,
+				$suximage[1], $go
+			);
+			$flow[2] = $run->modules( \@items );
+		}
 
 =head2
 
@@ -551,8 +575,8 @@ DB
 
 =cut
 
-     $run->flow( \$flow[1] );
-     $run->flow( \$flow[2] );
+		$run->flow( \$flow[1] );
+		$run->flow( \$flow[2] );
 
 =head2  LOG FLOW(S)
 
@@ -560,11 +584,11 @@ DB
 
 =cut
 
-    # print  "$flow[1]\n";
-    # print  "$flow[2]\n";
-    #  $log->file($flow[1]);
-    #  $log->file($flow[2]);
-    #
+		# print  "iSuvelen, $flow[1]\n";
+		# print  "iSuvelan, $flow[2]\n";
+		#  $log->file($flow[1]);
+		#  $log->file($flow[2]);
+		#
 }
 
 # end of calc_display subroutine
@@ -575,8 +599,8 @@ DB
 =cut
 
 sub max_semblance {
-    my ( $variable, $max_semblance ) = @_;
-    $iSuvelan->{_max_semblance} = $max_semblance if defined $max_semblance;
+		my ( $variable, $max_semblance ) = @_;
+		$iSuvelan->{_max_semblance} = $max_semblance if defined $max_semblance;
 }
 
 =head2  subroutine minimum semblance to plot 
@@ -585,8 +609,8 @@ sub max_semblance {
 =cut
 
 sub min_semblance {
-    my ( $variable, $min_semblance ) = @_;
-    $iSuvelan->{_min_semblance} = $min_semblance if defined $min_semblance;
+		my ( $variable, $min_semblance ) = @_;
+		$iSuvelan->{_min_semblance} = $min_semblance if defined $min_semblance;
 }
 
 =head2  subroutine  TV pick file in
@@ -595,8 +619,8 @@ sub min_semblance {
 =cut
 
 sub Tvel_inbound {
-    my ( $variable, $Tvel_inbound ) = @_;
-    $iSuvelan->{_Tvel_inbound} = $Tvel_inbound if defined $Tvel_inbound;
+		my ( $variable, $Tvel_inbound ) = @_;
+		$iSuvelan->{_Tvel_inbound} = $Tvel_inbound if defined $Tvel_inbound;
 }
 
 =head2 
@@ -606,8 +630,8 @@ sub Tvel_inbound {
 =cut
 
 sub Tvel_outbound {
-    my ( $variable, $Tvel_outbound ) = @_;
-    $iSuvelan->{_Tvel_outbound} = $Tvel_outbound if defined $Tvel_outbound;
+		my ( $variable, $Tvel_outbound ) = @_;
+		$iSuvelan->{_Tvel_outbound} = $Tvel_outbound if defined $Tvel_outbound;
 }
 
 =head2 
@@ -617,11 +641,11 @@ sub Tvel_outbound {
 =cut
 
 sub number_of_velocities {
-    my ( $variable, $number_of_velocities ) = @_;
-    $iSuvelan->{_number_of_velocities} = $number_of_velocities
-      if defined $number_of_velocities;
+		my ( $variable, $number_of_velocities ) = @_;
+		$iSuvelan->{_number_of_velocities} = $number_of_velocities
+			if defined $number_of_velocities;
 
-    #print(" number_of_velocities is $iSuvelan->{_number_of_velocities} \n\n");
+	 #print(" number_of_velocities is $iSuvelan->{_number_of_velocities} \n\n");
 }
 
 #end of iSuvelan

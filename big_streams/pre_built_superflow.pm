@@ -835,7 +835,7 @@ sub select {
 
     # print("4 pre_built_superflow,superflow_select,chkb=@{$superflow->{_check_buttons_settings_aref}}\n");
 
-    # in order to export this private hash we need to send if back via a private variable
+    # in order to export this private hash we need to send ii back via a private variable
     # values_aref that will be assigned in pre_built_superflow, get_hash_ref.
     $values_aref = $superflow->{_values_aref};
 

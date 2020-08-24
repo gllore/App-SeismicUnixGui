@@ -96,7 +96,7 @@ sub set_path_out {
 
 	$sunix_package->{_path_out} = @$file_aref[0];
 
-	# print("sunix_package,set_path_out,path_out is $sunix_package->{_path_out}\n");
+	print("sunix_package,set_path_out,path_out is $sunix_package->{_path_out}\n");
 }
 
 =head2 sub set_param_names

@@ -428,7 +428,7 @@ sub get_Data_path {
 		# CASE 2A
 		if ( $entry_label eq $base_file_name ) {
 
-			# print("2. iFile,get_Data_path,$DATA_SEISMIC_SU\n");
+			print("2. iFile,get_Data_path,$DATA_SEISMIC_SU\n");
 			#_get_DATA_DIR_OUT;
 			# _get_DATA_DIR_IN;
 			$iFile->{_path} = _get_DATA_DIR_IN;

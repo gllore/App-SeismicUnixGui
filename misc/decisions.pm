@@ -54,12 +54,10 @@ extends 'gui_history' => { -version => 0.0.2 };
 my $false = 0;
 my $true  = 1;
 
-my $get         		= L_SU_global_constants->new();
-my $gui_history 		= gui_history->new();
+my $get         = L_SU_global_constants->new();
+my $gui_history = gui_history->new();
 
-my $flow_type 			= $get->flow_type_href();
-my $var                 = $get->var();
-my $empty_string        = $var->{_empty_string};
+my $flow_type = $get->flow_type_href();
 
 # holds gui_history
 my $decisions_href;
@@ -327,10 +325,8 @@ sub get4flow_select {
 
 	my $most_recent_flow_type =
 		( ( $gui_history->get_defaults() )->{_flow_type_href} )->{_most_recent};
-	my $selected_program_name = ${( $gui_history->get_defaults() )->{_prog_name_sref}};
 
-	if ( $most_recent_flow_type eq $flow_type->{_user_built} 
-		and $selected_program_name ne $empty_string ) {
+	if ( $most_recent_flow_type eq $flow_type->{_user_built} ) {
 		
 #		print(
 #			"decisions get4flow_select, prior_flow_type = $most_recent_flow_type \n"
@@ -344,8 +340,7 @@ sub get4flow_select {
 		$result = $false;
 	}
 	else {
-		# print("decisions, get4flow_select, most_recent_flow_type is unknown \n");
-		$result = $false;
+		print("decisions, get4flow_select, most_recent_flow_type is unknown \n");
 	}
 
 	return ($result);

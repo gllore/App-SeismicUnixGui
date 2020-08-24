@@ -1234,8 +1234,9 @@ sub redisplay_values {
 	my $first         = $param_widgets->{_first_idx};
 	my $length        = scalar @{ $param_widgets->{_values_aref} };
 
-	#  my $length 				= $param_widgets->{_length};
+	# my $length 				= $param_widgets->{_length};
 	# print("param_widgets, redisplay_values, length is $length\n");
+	# print("param_widgets, redisplay_values, first is $first\n");
 	if ( $values_w_aref && $values_aref ) {
 		use control;
 

@@ -41,25 +41,6 @@ For example, total number of files =74  first file is "1000.su"
  so you don't need a line like the following:
  use warnings;
  
- USES the following classes:
- ireadfiles
-  and packages of subroutines
- System_Variables
- SeismicUnix
-
-# Use shell transparently to locate home directory before compilation
-
-        my $library_location;
-
-        BEGIN {
-                use Shell qw(echo);
-
-                $home_directory = ` echo \$HOME`;
-                chomp $home_directory;
-                $library_location = $home_directory.'/lsu/libAll';
-        }
-
-  use lib $library_location;
 
 =cut
 
@@ -97,7 +78,7 @@ my ( $CFG_h, $CFG_aref ) = $Sseg2su_config->get_values();
 my $number_of_files   = $CFG_h->{seg2su}{1}{number_of_files};
 my $first_file_number = $CFG_h->{seg2su}{1}{first_file_number};
 
-print("values are $number_of_files,$first_file_number\n\n");
+# print("values are $number_of_files, $first_file_number\n\n");
 
 
 =head2  Convert *dat
@@ -125,9 +106,9 @@ for (
 for ( $i = 1; $i <= $number_of_files; $i++ ) {
 
     $cp_dat2DAT[$i] = (
-        "   cp $DATA_SEISMIC_SEG2/$file_name[$i].dat \\
-				$DATA_SEISMIC_SEG2/$file_name[$i].DAT\\
-			"
+        " cp $DATA_SEISMIC_SEG2/$file_name[$i].dat \\
+	$DATA_SEISMIC_SEG2/$file_name[$i].DAT
+		"
     );
 
 =pod INPUT FILE NAMES
@@ -136,24 +117,21 @@ convert seg2 files to su files
 
 =cut
 
-    $sioseis[$i] = (
-        "  							\\
-		cd $DATA_SEISMIC_SEG2;						\\
-        echo `pwd`;							\\
-      	sioseis << eof
-      	procs seg2in diskoa end
-   		seg2in
-    		ffilen $file_name[$i] 	lfilen $file_name[$i]  end
-   		end
-   		diskoa
-   		opath $DATA_SEISMIC_SU/$file_name[$i].su
-		ofmt 1
- 		format su end
-   		end
-      	end 
-      	eof								\\
-		"
-    );
+    $sioseis[$i] = ("
+cd $DATA_SEISMIC_SEG2;
+echo 'moving to' `pwd`;
+sioseis << eof
+procs seg2in diskoa end
+seg2in
+    ffilen $file_name[$i] 	lfilen $file_name[$i]  end
+end
+diskoa
+opath $DATA_SEISMIC_SU/$file_name[$i].su
+ofmt 5
+format su end
+end
+end
+eof");
 
 =pod Clean 
 
@@ -183,11 +161,11 @@ for ( $i = 1; $i <= $number_of_files; $i += 1 ) {
     $flow[2][$i] = $sioseis[$i];
     $flow[3][$i] = $segyclean[$i];
 
-    system $flow[1][$i];
-    system 'echo', $flow[1][$i];
+   system $flow[1][$i];
+   # system 'echo', $flow[1][$i];
 
     system $flow[2][$i];
-    system 'echo', $flow[2][$i];
+    # system 'echo', $flow[2][$i];
 
     system $flow[3][$i];
     system 'echo', $flow[3][$i];
