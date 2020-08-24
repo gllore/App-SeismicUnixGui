@@ -126,8 +126,8 @@ sub clear_empty_files {
 				not ($test) ) {
 						my $ans = ($test );
 						
-#				print("CASE of not a directory and file =0\n");				
-#				print("CASE name inode size = $file_name[$i] $inode[$i] $size[$j]\n");
+				print("CASE of not a directory and file =0\n");				
+				print("CASE name inode size = $file_name[$i] $inode[$i] $size[$j]\n");
 				
 				$index_node_number = $inode[$i];
 				my $flow = (
@@ -136,7 +136,7 @@ sub clear_empty_files {
 				);
 
 				#		    print $flow;
-				system $flow;
+				#			system $flow;
 
 			} else {
 

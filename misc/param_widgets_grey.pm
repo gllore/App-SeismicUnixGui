@@ -125,7 +125,7 @@ sub set_hash_ref {
  all parameter (Entry) widgets belonging to 
  a program
  
- We keep track of whether user is entering or leaving a 
+ We keep track of whether user is entring or leaving a 
  widget: _chek_value_changes
  
  changes are only allowed for those sunix programs whose spec files
@@ -158,18 +158,17 @@ sub _changes {
 			# always = 1 (yes)
 			# my $changed_entry = $param_widgets_color_href->{_changed_entry};
 			# print("param_widgets_grey,_changes,changed 1-yes 0 -no? $changed_entry\n");
-#			print("param_widgets_grey,_changes,index= $index\n");
-			
+
 			_set_entry_change_status($true);
 			_update_check_button_setting($index);    # TODO next
 
 			$self->set_hash_ref($param_widgets_color_href);
 
-#            		my $ans = ( $self->get_hash_ref() )->{_parameter_index_on_exit};
+			#		my $ans = ( $self->get_hash_ref() )->{_parameter_index_on_exit};
 			#		print(" param_widgets_grey, changes, prog_name: $prog_name \n");
-#					print(" param_widgets_grey, _check_value_changes, _parameter_index_on_exit: $ans \n");
-#					$ans = ( $self->get_hash_ref() )->{_parameter_index_on_entry};
-#					print(" param_widgets_grey, _check_value_changes, _parameter_index_on_entry: $ans \n");
+			#		print(" param_widgets_grey, _check_value_changes, _parameter_index_on_exit: $ans \n");
+			#		$ans = ( $self->get_hash_ref() )->{_parameter_index_on_entry};
+			#		print(" param_widgets_grey, _check_value_changes, _parameter_index_on_entry: $ans \n");
 			#		my $max_idx = $control->get_max_index($prog_name);
 			#		print(" param_widgets_grey,max_index, $max_idx \n");
 
@@ -209,10 +208,8 @@ project_selector does not yet have a max_index defined in a separate module
 			my $index = $param_widgets_color_href->{_index_on_entry};    # =0
 
 			# my $ans = $self->get_index_on_exit();
-#			my $ans = $param_widgets_color_href->{_parameter_index_on_entry};
-#			print(" 2. param_widgets_grey, _check_value_changes, ENTERED INDEX=$index\n");
-#			$ans = $param_widgets->{_entry_in_switch};
-#			print(" 2. param_widgets_grey, _check_value_changes, entry_in_switch=$ans\n");			
+			# my $ans = $param_widgets_color_href->{_parameter_index_on_entry};
+			#		print(" 2. param_widgets_grey, _check_value_changes, ENTERED INDEX=$index\n");
 			$gui_history->set_parameter_index_on_entry($index);
 			$gui_history->set_parameter_color_on_entry($this_color);
 
@@ -225,10 +222,7 @@ project_selector does not yet have a max_index defined in a separate module
 
 			my $idx = $param_widgets_color_href->{_parameter_index_on_entry};
 
-#			print(" 3. param_widgets_grey, _check_value_changes, Leaving INDEX=$idx \n");
-#			my $ans = $param_widgets->{_entry_in_switch};
-#			print(" 2. param_widgets_grey, _check_value_changes, entry_in_switch=$ans\n");	
-				
+			#		print(" 3. param_widgets_grey, _check_value_changes, Leaving INDEX=$idx \n");
 			$param_widgets_color_href->{_parameter_index_on_exit} = $idx;
 			$gui_history->set_parameter_index_on_exit($idx);
 			$gui_history->set_parameter_color_on_exit($this_color);
@@ -279,7 +273,7 @@ sub _update_value_changes {
 
 	my ($self) = @_;
 
-	if ( $param_widgets->{_entry_in_switch} eq $off ) {
+	if ( $param_widgets->{_entry_in_switch} = $off ) {
 
 		# CASE 1 just left a widget after having entered it
 		# save the value of the prior widget
@@ -287,7 +281,7 @@ sub _update_value_changes {
 		my $prior_value   = @{ $param_widgets_color_href->{_values_w_aref} }[$index_on_entry]->get();
 		@{ $param_widgets_color_href->{_values_aref} }[$index_on_entry] = $prior_value;
 		
-	} elsif ( $param_widgets->{_entry_in_switch} eq $on ) {
+	} elsif ( $param_widgets->{_entry_in_switch} = $on ) {
 
 		# CASE 2 just entering a widget after having left another
 		# save the value in the prior widget
@@ -649,6 +643,19 @@ sub _update_check_button_setting {
 
 	return ();
 }
+
+=head2 sub get_index_on_entry
+#
+#=cut
+#
+#sub get_index_on_entry {
+#
+#	my @self = @_;
+#
+#	my $result = $param_widgets_color_href->{_index_on_entry};
+#
+#	return ($result);
+#}
 
 =head2 sub _set_index_on_entry
 

@@ -1,28 +1,28 @@
  gui_history, view; 
 	 contains main hash which contains all the gui history and 
-  gui_history->{defaults}: _Data_menubutton= Tk::Menu::Button=ARRAY(0x4291440)
- gui_history->{defaults}: _FileDialog_button_click_seq_href= HASH(0x247da10)
+  gui_history->{defaults}: _Data_menubutton= Tk::Menu::Button=ARRAY(0x3e8ca60)
+ gui_history->{defaults}: _FileDialog_button_click_seq_href= HASH(0x21159c0)
  gui_history->{defaults}: _FileDialog_option= 'nada'
  gui_history->{defaults}: _FileDialog_sub_ref= 'nada'
  gui_history->{defaults}: _FileDialog_type= 'nada'
- gui_history->{defaults}: _FileDialog_type_href= HASH(0x2493e88)
- gui_history->{defaults}: _Flow_menubutton= Tk::Menu::Button=ARRAY(0x42e6c48)
- gui_history->{defaults}: _SaveAs_menubutton= Tk::Menu::Button=ARRAY(0x42e7458)
- gui_history->{defaults}: _add2flow_button_blue= Tk::Button=HASH(0x42f1418)
- gui_history->{defaults}: _add2flow_button_click_seq_href= HASH(0x2648508)
- gui_history->{defaults}: _add2flow_button_color_href= HASH(0x26488c8)
- gui_history->{defaults}: _add2flow_button_green= Tk::Button=HASH(0x42eb570)
- gui_history->{defaults}: _add2flow_button_grey= Tk::Button=HASH(0x42ec0b0)
- gui_history->{defaults}: _add2flow_button_pink= Tk::Button=HASH(0x42f1370)
- gui_history->{defaults}: _button_href= HASH(0x2629148)
- gui_history->{defaults}: _changed_entry= 1
+ gui_history->{defaults}: _FileDialog_type_href= HASH(0x20fced0)
+ gui_history->{defaults}: _Flow_menubutton= Tk::Menu::Button=ARRAY(0x3e8cf40)
+ gui_history->{defaults}: _SaveAs_menubutton= Tk::Menu::Button=ARRAY(0x3e8ceb0)
+ gui_history->{defaults}: _add2flow_button_blue= Tk::Button=HASH(0x3eac7f0)
+ gui_history->{defaults}: _add2flow_button_click_seq_href= HASH(0x22b25e0)
+ gui_history->{defaults}: _add2flow_button_color_href= HASH(0x22b2ef0)
+ gui_history->{defaults}: _add2flow_button_green= Tk::Button=HASH(0x3eac748)
+ gui_history->{defaults}: _add2flow_button_grey= Tk::Button=HASH(0x3ea68f8)
+ gui_history->{defaults}: _add2flow_button_pink= Tk::Button=HASH(0x3ea6790)
+ gui_history->{defaults}: _button_href= HASH(0x22c0798)
+ gui_history->{defaults}: _changed_entry= 0
  gui_history->{defaults}: _check_buttons_frame_href= 'nada'
- gui_history->{defaults}: _check_buttons_settings_aref= ARRAY(0x4ab9d78)
- gui_history->{defaults}: _check_buttons_w_aref= ARRAY(0x2c8f8a8)
- gui_history->{defaults}: _check_code_button= Tk::Button=HASH(0x42ebf30)
- gui_history->{defaults}: _count= 21
+ gui_history->{defaults}: _check_buttons_settings_aref= ARRAY(0x2fc4db0)
+ gui_history->{defaults}: _check_buttons_w_aref= ARRAY(0x287da08)
+ gui_history->{defaults}: _check_code_button= Tk::Button=HASH(0x3ea6550)
+ gui_history->{defaults}: _count= 71
  gui_history->{defaults}: _current_program_name= suximage
- gui_history->{defaults}: _delete_from_flow_button= Tk::Button=HASH(0x42f1598)
+ gui_history->{defaults}: _delete_from_flow_button= Tk::Button=HASH(0x3ea6748)
  gui_history->{defaults}: _delete_from_flow_button_click_seq_href= 'nada'
  gui_history->{defaults}: _destination_index= 'nada'
  gui_history->{defaults}: _dialog_type= Flow
@@ -36,43 +36,43 @@
  gui_history->{defaults}: _dropsite_token_pink= 'nada'
  gui_history->{defaults}: _entry_button_chosen_index= 'nada'
  gui_history->{defaults}: _entry_button_chosen_widget= 'nada'
- gui_history->{defaults}: _file_menubutton= Tk::Menubutton=HASH(0x42e0db0)
+ gui_history->{defaults}: _file_menubutton= Tk::Menubutton=HASH(0x3e8c328)
  gui_history->{defaults}: _first_idx= 0
- gui_history->{defaults}: _flowNsuperflow_name_w= Tk::Label=HASH(0x42920b8)
+ gui_history->{defaults}: _flowNsuperflow_name_w= Tk::Label=HASH(0x3e58410)
  gui_history->{defaults}: _flow_color= grey
- gui_history->{defaults}: _flow_item_down_arrow_button= Tk::Button=HASH(0x42f1d78)
- gui_history->{defaults}: _flow_item_up_arrow_button= Tk::Button=HASH(0x42f1bf8)
- gui_history->{defaults}: _flow_listbox_blue_w= Tk::Frame=HASH(0x45b8d80)
- gui_history->{defaults}: _flow_listbox_color_w= Tk::Frame=HASH(0x459a6a0)
+ gui_history->{defaults}: _flow_item_down_arrow_button= Tk::Button=HASH(0x3ead018)
+ gui_history->{defaults}: _flow_item_up_arrow_button= Tk::Button=HASH(0x3ea6ca0)
+ gui_history->{defaults}: _flow_listbox_blue_w= Tk::Frame=HASH(0x4178cb0)
+ gui_history->{defaults}: _flow_listbox_color_w= Tk::Frame=HASH(0x4157c60)
  gui_history->{defaults}: _flow_listbox_color_w_href= 'nada'
- gui_history->{defaults}: _flow_listbox_green_w= Tk::Frame=HASH(0x45c0eb0)
- gui_history->{defaults}: _flow_listbox_grey_w= Tk::Frame=HASH(0x459a6a0)
- gui_history->{defaults}: _flow_listbox_pink_w= Tk::Frame=HASH(0x4599fc8)
- gui_history->{defaults}: _flow_name_blue_w= Tk::Label=HASH(0x459a4c0)
- gui_history->{defaults}: _flow_name_green_w= Tk::Label=HASH(0x459aca0)
- gui_history->{defaults}: _flow_name_grey_w= Tk::Label=HASH(0x459a5c8)
+ gui_history->{defaults}: _flow_listbox_green_w= Tk::Frame=HASH(0x417c0b0)
+ gui_history->{defaults}: _flow_listbox_grey_w= Tk::Frame=HASH(0x4157c60)
+ gui_history->{defaults}: _flow_listbox_pink_w= Tk::Frame=HASH(0x4154e70)
+ gui_history->{defaults}: _flow_name_blue_w= Tk::Label=HASH(0x4157948)
+ gui_history->{defaults}: _flow_name_green_w= Tk::Label=HASH(0x4154f90)
+ gui_history->{defaults}: _flow_name_grey_w= Tk::Label=HASH(0x41571f8)
  gui_history->{defaults}: _flow_name_in= a
  gui_history->{defaults}: _flow_name_out= a
- gui_history->{defaults}: _flow_name_pink_w= Tk::Label=HASH(0x459aa60)
- gui_history->{defaults}: _flow_select_click_seq_href= HASH(0x2667e78)
- gui_history->{defaults}: _flow_select_color_href= HASH(0x2647238)
- gui_history->{defaults}: _flow_select_index_href= HASH(0x2647f10)
+ gui_history->{defaults}: _flow_name_pink_w= Tk::Label=HASH(0x41575a0)
+ gui_history->{defaults}: _flow_select_click_seq_href= HASH(0x22c7440)
+ gui_history->{defaults}: _flow_select_color_href= HASH(0x22b2838)
+ gui_history->{defaults}: _flow_select_index_href= HASH(0x22b3be0)
  gui_history->{defaults}: _flow_type= user_built
- gui_history->{defaults}: _flow_type_href= HASH(0x2628ea8)
+ gui_history->{defaults}: _flow_type_href= HASH(0x2286c30)
  gui_history->{defaults}: _flow_widget_index= 'nada'
- gui_history->{defaults}: _good_labels_aref2= ARRAY(0x347c938)
- gui_history->{defaults}: _good_values_aref2= ARRAY(0x33e5f78)
+ gui_history->{defaults}: _good_labels_aref2= 'nada'
+ gui_history->{defaults}: _good_values_aref2= 'nada'
  gui_history->{defaults}: _gui_history_aref= 'nada'
  gui_history->{defaults}: _gui_history_ref= 'nada'
  gui_history->{defaults}: _has_used_SaveAs_button= 0
  gui_history->{defaults}: _has_used_Save_button= 0
  gui_history->{defaults}: _has_used_Save_superflow= 0
  gui_history->{defaults}: _has_used_check_code_button= 'nada'
- gui_history->{defaults}: _has_used_open_perl_file_button= 0
+ gui_history->{defaults}: _has_used_open_perl_file_button= 1
  gui_history->{defaults}: _has_used_run_button= 0
  gui_history->{defaults}: _index= 'nada'
  gui_history->{defaults}: _index2move= 'nada'
- gui_history->{defaults}: _index_on_entry= 0
+ gui_history->{defaults}: _index_on_entry= 2
  gui_history->{defaults}: _is_FileDialog_button= 1
  gui_history->{defaults}: _is_SaveAs_button= 0
  gui_history->{defaults}: _is_SaveAs_file_button= 0
@@ -109,7 +109,7 @@
  gui_history->{defaults}: _is_pre_built_superflow= 0
  gui_history->{defaults}: _is_run_button= 0
  gui_history->{defaults}: _is_save_as_button= 0
- gui_history->{defaults}: _is_save_button= 1
+ gui_history->{defaults}: _is_save_button= 0
  gui_history->{defaults}: _is_select_file_button= 'nada'
  gui_history->{defaults}: _is_selected_file_name= 1
  gui_history->{defaults}: _is_selected_path= 'nada'
@@ -121,76 +121,76 @@
  gui_history->{defaults}: _items_checkbuttons_aref2= 'nada'
  gui_history->{defaults}: _items_names_aref2= 'nada'
  gui_history->{defaults}: _items_values_aref2= 'nada'
- gui_history->{defaults}: _items_versions_aref= ARRAY(0x48e8b08)
- gui_history->{defaults}: _labels_aref= ARRAY(0x4ab4ff0)
+ gui_history->{defaults}: _items_versions_aref= ARRAY(0x443a808)
+ gui_history->{defaults}: _labels_aref= ARRAY(0x45bd9a8)
  gui_history->{defaults}: _labels_frame_href= 'nada'
- gui_history->{defaults}: _labels_w_aref= ARRAY(0x2cb6e00)
+ gui_history->{defaults}: _labels_w_aref= ARRAY(0x28e44c0)
  gui_history->{defaults}: _last= 'nada'
  gui_history->{defaults}: _last_color= grey
  gui_history->{defaults}: _last_flow_color= grey
- gui_history->{defaults}: _last_flow_index_touched= -1
- gui_history->{defaults}: _last_flow_index_touched_blue= 2
- gui_history->{defaults}: _last_flow_index_touched_green= 2
- gui_history->{defaults}: _last_flow_index_touched_grey= 2
- gui_history->{defaults}: _last_flow_index_touched_pink= 2
+ gui_history->{defaults}: _last_flow_index_touched= 1
+ gui_history->{defaults}: _last_flow_index_touched_blue= 1
+ gui_history->{defaults}: _last_flow_index_touched_green= 1
+ gui_history->{defaults}: _last_flow_index_touched_grey= 1
+ gui_history->{defaults}: _last_flow_index_touched_pink= 1
  gui_history->{defaults}: _last_flow_listbox_touched= flow_listbox_grey_w
- gui_history->{defaults}: _last_flow_listbox_touched_w= Tk::Frame=HASH(0x459a6a0)
+ gui_history->{defaults}: _last_flow_listbox_touched_w= Tk::Frame=HASH(0x4157c60)
  gui_history->{defaults}: _last_parameter_index_touched_blue= -1
  gui_history->{defaults}: _last_parameter_index_touched_color= 0
  gui_history->{defaults}: _last_parameter_index_touched_green= -1
  gui_history->{defaults}: _last_parameter_index_touched_grey= -1
  gui_history->{defaults}: _last_parameter_index_touched_pink= -1
- gui_history->{defaults}: _last_path_touched= /home/gllore/Servilleta_demos/seismics/pl/loma_blanca//053018/H/1/gom
+ gui_history->{defaults}: _last_path_touched= /home/gllore/moon/seismics/pl/HRK_E122/ACH01/091719/Z/1/gom
  gui_history->{defaults}: _length= 60
  gui_history->{defaults}: _location_in_gui= 'nada'
- gui_history->{defaults}: _message_w= Tk::Text=HASH(0x40f75e0)
+ gui_history->{defaults}: _message_w= Tk::Text=HASH(0x3cd40f0)
  gui_history->{defaults}: _most_recent_program_name= 'nada'
- gui_history->{defaults}: _mw= MainWindow=HASH(0x40f7940)
+ gui_history->{defaults}: _mw= MainWindow=HASH(0x3cd4450)
  gui_history->{defaults}: _name_aref= 'nada'
- gui_history->{defaults}: _names_aref= ARRAY(0x4ab6a98)
- gui_history->{defaults}: _occupied_listbox_aref= 'nada'
+ gui_history->{defaults}: _names_aref= ARRAY(0x45bd9a8)
+ gui_history->{defaults}: _occupied_listbox_aref= ARRAY(0x3b246d0)
  gui_history->{defaults}: _param_flow_first_idx= 0
  gui_history->{defaults}: _param_flow_length= 60
  gui_history->{defaults}: _param_sunix_first_idx= 0
  gui_history->{defaults}: _param_sunix_length= 60
- gui_history->{defaults}: _parameter_color_on_entry_href= HASH(0x2656418)
+ gui_history->{defaults}: _parameter_color_on_entry_href= HASH(0x22c6600)
  gui_history->{defaults}: _parameter_color_on_exit= grey
- gui_history->{defaults}: _parameter_color_on_exit_href= HASH(0x26669a0)
- gui_history->{defaults}: _parameter_index_on_entry= 0
- gui_history->{defaults}: _parameter_index_on_entry_click_seq_href= HASH(0x2667f20)
- gui_history->{defaults}: _parameter_index_on_entry_href= HASH(0x2668010)
- gui_history->{defaults}: _parameter_index_on_exit= 0
- gui_history->{defaults}: _parameter_index_on_exit_click_seq_href= HASH(0x2667fe0)
- gui_history->{defaults}: _parameter_index_on_exit_href= HASH(0x2667ec0)
- gui_history->{defaults}: _parameter_menu_frame= Tk::Frame=HASH(0x42e6b28)
- gui_history->{defaults}: _parameter_names_frame= Tk::Frame=HASH(0x4465508)
+ gui_history->{defaults}: _parameter_color_on_exit_href= HASH(0x22c0228)
+ gui_history->{defaults}: _parameter_index_on_entry= 2
+ gui_history->{defaults}: _parameter_index_on_entry_click_seq_href= HASH(0x22c7128)
+ gui_history->{defaults}: _parameter_index_on_entry_href= HASH(0x22d9c38)
+ gui_history->{defaults}: _parameter_index_on_exit= 2
+ gui_history->{defaults}: _parameter_index_on_exit_click_seq_href= HASH(0x22da2b0)
+ gui_history->{defaults}: _parameter_index_on_exit_href= HASH(0x22d9ad0)
+ gui_history->{defaults}: _parameter_menu_frame= Tk::Frame=HASH(0x3e8cdd8)
+ gui_history->{defaults}: _parameter_names_frame= Tk::Frame=HASH(0x401fe80)
  gui_history->{defaults}: _parameter_value_index= -1
- gui_history->{defaults}: _parameter_values_button_frame= Tk::Frame=HASH(0x4459308)
- gui_history->{defaults}: _parameter_values_frame= Tk::Frame=HASH(0x4459ae8)
- gui_history->{defaults}: _path= /home/gllore/Servilleta_demos/seismics/pl/loma_blanca//053018/H/1/gom
+ gui_history->{defaults}: _parameter_values_button_frame= Tk::Frame=HASH(0x400f9e0)
+ gui_history->{defaults}: _parameter_values_frame= Tk::Frame=HASH(0x4014bc8)
+ gui_history->{defaults}: _path= /home/gllore/moon/seismics/pl/HRK_E122/ACH01/091719/Z/1/gom
  gui_history->{defaults}: _pre_built_tool_button_href= 'nada'
  gui_history->{defaults}: _pre_built_tool_href= 'nada'
  gui_history->{defaults}: _prog_name= 'nada'
- gui_history->{defaults}: _prog_name_sref= SCALAR(0x4aad908)
- gui_history->{defaults}: _prog_names_aref= ARRAY(0x33fb9d0)
- gui_history->{defaults}: _run_button= Tk::Button=HASH(0x42eba20)
- gui_history->{defaults}: _run_button_click_seq_href= HASH(0x26685f8)
+ gui_history->{defaults}: _prog_name_sref= SCALAR(0x443b1c8)
+ gui_history->{defaults}: _prog_names_aref= 'nada'
+ gui_history->{defaults}: _run_button= Tk::Button=HASH(0x3ea6100)
+ gui_history->{defaults}: _run_button_click_seq_href= 'nada'
  gui_history->{defaults}: _save_as_button= 'nada'
  gui_history->{defaults}: _save_as_button_click_seq_href= 'nada'
- gui_history->{defaults}: _save_button= Tk::Button=HASH(0x42ebe40)
- gui_history->{defaults}: _save_button_click_seq_href= HASH(0x26686d0)
- gui_history->{defaults}: _selected_file_name= /home/gllore/Servilleta_demos/seismics/pl/loma_blanca//053018/H/1/gom/a
+ gui_history->{defaults}: _save_button= Tk::Button=HASH(0x3ea6040)
+ gui_history->{defaults}: _save_button_click_seq_href= 'nada'
+ gui_history->{defaults}: _selected_file_name= /home/gllore/moon/seismics/pl/HRK_E122/ACH01/091719/Z/1/gom/a
  gui_history->{defaults}: _sub_ref= 'nada'
  gui_history->{defaults}: _sunix_listbox= 'nada'
  gui_history->{defaults}: _sunix_prog_group_click_seq_href= 'nada'
  gui_history->{defaults}: _sunix_prog_group_href= 'nada'
- gui_history->{defaults}: _superflow_select= Tk::Menubutton=HASH(0x416e228)
+ gui_history->{defaults}: _superflow_select= Tk::Menubutton=HASH(0x3cf6318)
  gui_history->{defaults}: _superflow_select_button_click_seq_href= 'nada'
  gui_history->{defaults}: _superflow_tool_href= 'nada'
- gui_history->{defaults}: _values_aref= ARRAY(0x4ab6ac8)
+ gui_history->{defaults}: _values_aref= ARRAY(0x2fc46d8)
  gui_history->{defaults}: _values_frame_href= 'nada'
- gui_history->{defaults}: _values_w_aref= ARRAY(0x2cf58f8)
- gui_history->{defaults}: _wipe_plots_button= Tk::Button=HASH(0x4291fb0)
+ gui_history->{defaults}: _values_w_aref= ARRAY(0x28f5cf8)
+ gui_history->{defaults}: _wipe_plots_button= Tk::Button=HASH(0x3e58890)
  gui_history->{defaults}: _wipe_plots_button_click_seq_href= 'nada'
  ( (gui_history->{defaults})->{_FileDialog_type_href})->{_earliest}: _earliest= 'nada'
  ( (gui_history->{defaults})->{_FileDialog_type_href})->{_index}: _index= 'nada'
@@ -206,27 +206,27 @@
  ( (gui_history->{defaults})->{_FileDialog_button_click_seq_href})->{_name}: _name= FileDialog_button_seq
  ( (gui_history->{defaults})->{_FileDialog_button_click_seq_href})->{_next}: _next= 0
  ( (gui_history->{defaults})->{_FileDialog_button_click_seq_href})->{_prior}: _prior= -1
- ( (gui_history->{defaults})->{_add2flow_button_click_seq_href})->{_earliest}: _earliest= 1
+ ( (gui_history->{defaults})->{_add2flow_button_click_seq_href})->{_earliest}: _earliest= -1
  ( (gui_history->{defaults})->{_add2flow_button_click_seq_href})->{_index}: _index= -1
  ( (gui_history->{defaults})->{_add2flow_button_click_seq_href})->{_item}: _item= nada
- ( (gui_history->{defaults})->{_add2flow_button_click_seq_href})->{_most_recent}: _most_recent= 3
+ ( (gui_history->{defaults})->{_add2flow_button_click_seq_href})->{_most_recent}: _most_recent= 2
  ( (gui_history->{defaults})->{_add2flow_button_click_seq_href})->{_name}: _name= add2flow_button_seq
  ( (gui_history->{defaults})->{_add2flow_button_click_seq_href})->{_next}: _next= 0
- ( (gui_history->{defaults})->{_add2flow_button_click_seq_href})->{_prior}: _prior= 2
- ( (gui_history->{defaults})->{_add2flow_button_color_href})->{_earliest}: _earliest= grey
+ ( (gui_history->{defaults})->{_add2flow_button_click_seq_href})->{_prior}: _prior= 1
+ ( (gui_history->{defaults})->{_add2flow_button_color_href})->{_earliest}: _earliest= no_color
  ( (gui_history->{defaults})->{_add2flow_button_color_href})->{_index}: _index= -1
  ( (gui_history->{defaults})->{_add2flow_button_color_href})->{_item}: _item= nada
  ( (gui_history->{defaults})->{_add2flow_button_color_href})->{_most_recent}: _most_recent= grey
  ( (gui_history->{defaults})->{_add2flow_button_color_href})->{_name}: _name= add2flow_button_color
  ( (gui_history->{defaults})->{_add2flow_button_color_href})->{_next}: _next= no_color
  ( (gui_history->{defaults})->{_add2flow_button_color_href})->{_prior}: _prior= grey
- ( (gui_history->{defaults})->{_button_href})->{_earliest}: _earliest= run_button
+ ( (gui_history->{defaults})->{_button_href})->{_earliest}: _earliest= flow_select
  ( (gui_history->{defaults})->{_button_href})->{_index}: _index= nada
  ( (gui_history->{defaults})->{_button_href})->{_item}: _item= nada
  ( (gui_history->{defaults})->{_button_href})->{_most_recent}: _most_recent= flow_select
  ( (gui_history->{defaults})->{_button_href})->{_name}: _name= button
  ( (gui_history->{defaults})->{_button_href})->{_next}: _next= nada
- ( (gui_history->{defaults})->{_button_href})->{_prior}: _prior= save_button
+ ( (gui_history->{defaults})->{_button_href})->{_prior}: _prior= flow_select
  ( (gui_history->get_defaults() )->{_flow_select_color_href})->{_earliest}: _earliest= grey
  ( (gui_history->get_defaults() )->{_flow_select_color_href})->{_index}: _index= no_color
  ( (gui_history->get_defaults() )->{_flow_select_color_href})->{_item}: _item= nada
@@ -234,20 +234,20 @@
  ( (gui_history->get_defaults() )->{_flow_select_color_href})->{_name}: _name= flow_select_color
  ( (gui_history->get_defaults() )->{_flow_select_color_href})->{_next}: _next= no_color
  ( (gui_history->get_defaults() )->{_flow_select_color_href})->{_prior}: _prior= grey
- ( (gui_history->get_defaults() )->{_flow_select_index_href})->{_earliest}: _earliest= 0
+ ( (gui_history->get_defaults() )->{_flow_select_index_href})->{_earliest}: _earliest= 1
  ( (gui_history->get_defaults() )->{_flow_select_index_href})->{_index}: _index= -1
  ( (gui_history->get_defaults() )->{_flow_select_index_href})->{_item}: _item= nada
- ( (gui_history->get_defaults() )->{_flow_select_index_href})->{_most_recent}: _most_recent= 2
+ ( (gui_history->get_defaults() )->{_flow_select_index_href})->{_most_recent}: _most_recent= 1
  ( (gui_history->get_defaults() )->{_flow_select_index_href})->{_name}: _name= flow_select_index
  ( (gui_history->get_defaults() )->{_flow_select_index_href})->{_next}: _next= 0
- ( (gui_history->get_defaults() )->{_flow_select_index_href})->{_prior}: _prior= 1
- ( (gui_history->get_defaults() )->{_flow_select_click_seq_href})->{_earliest}: _earliest= 4
+ ( (gui_history->get_defaults() )->{_flow_select_index_href})->{_prior}: _prior= 0
+ ( (gui_history->get_defaults() )->{_flow_select_click_seq_href})->{_earliest}: _earliest= 35
  ( (gui_history->get_defaults() )->{_flow_select_click_seq_href})->{_index}: _index= -1
  ( (gui_history->get_defaults() )->{_flow_select_click_seq_href})->{_item}: _item= nada
- ( (gui_history->get_defaults() )->{_flow_select_click_seq_href})->{_most_recent}: _most_recent= 21
+ ( (gui_history->get_defaults() )->{_flow_select_click_seq_href})->{_most_recent}: _most_recent= 54
  ( (gui_history->get_defaults() )->{_flow_select_click_seq_href})->{_name}: _name= flow_select_seq
  ( (gui_history->get_defaults() )->{_flow_select_click_seq_href})->{_next}: _next= 0
- ( (gui_history->get_defaults() )->{_flow_select_click_seq_href})->{_prior}: _prior= 12
+ ( (gui_history->get_defaults() )->{_flow_select_click_seq_href})->{_prior}: _prior= 52
  ( (gui_history->{defaults})->{_flow_type_href})->{_earliest}: _earliest= user_built
  ( (gui_history->{defaults})->{_flow_type_href})->{_index}: _index= -1
  ( (gui_history->{defaults})->{_flow_type_href})->{_item}: _item= nada
@@ -269,45 +269,31 @@
  ( (gui_history->{defaults})->{_parameter_color_on_entry_href})->{_name}: _name= parameter_color_on_entry
  ( (gui_history->{defaults})->{_parameter_color_on_entry_href})->{_next}: _next= nada
  ( (gui_history->{defaults})->{_parameter_color_on_entry_href})->{_prior}: _prior= grey
- ( (gui_history->{defaults})->{_parameter_index_on_entry_href})->{_earliest}: _earliest= 0
+ ( (gui_history->{defaults})->{_parameter_index_on_entry_href})->{_earliest}: _earliest= 2
  ( (gui_history->{defaults})->{_parameter_index_on_entry_href})->{_index}: _index= -1
  ( (gui_history->{defaults})->{_parameter_index_on_entry_href})->{_item}: _item= nada
- ( (gui_history->{defaults})->{_parameter_index_on_entry_href})->{_most_recent}: _most_recent= 0
+ ( (gui_history->{defaults})->{_parameter_index_on_entry_href})->{_most_recent}: _most_recent= 2
  ( (gui_history->{defaults})->{_parameter_index_on_entry_href})->{_name}: _name= parameter_index_on_entry
  ( (gui_history->{defaults})->{_parameter_index_on_entry_href})->{_next}: _next= 0
- ( (gui_history->{defaults})->{_parameter_index_on_entry_href})->{_prior}: _prior= 2
- ( (gui_history->{defaults})->{_parameter_index_on_entry_click_seq_href})->{_earliest}: _earliest= 13
+ ( (gui_history->{defaults})->{_parameter_index_on_entry_href})->{_prior}: _prior= 1
+ ( (gui_history->{defaults})->{_parameter_index_on_entry_click_seq_href})->{_earliest}: _earliest= 66
  ( (gui_history->{defaults})->{_parameter_index_on_entry_click_seq_href})->{_index}: _index= -1
  ( (gui_history->{defaults})->{_parameter_index_touched_color_on_entry_click_seq_href})->{_item}: _item= nada
- ( (gui_history->{defaults})->{_parameter_index_on_entry_click_seq_href})->{_most_recent}: _most_recent= 18
+ ( (gui_history->{defaults})->{_parameter_index_on_entry_click_seq_href})->{_most_recent}: _most_recent= 70
  ( (gui_history->{defaults})->{_parameter_index_on_entry_click_seq_href})->{_name}: _name= parameter_index_on_entry_seq
  ( (gui_history->{defaults})->{_parameter_index_on_entry_click_seq_href})->{_next}: _next= 0
- ( (gui_history->{defaults})->{_parameter_index_on_entry_click_seq_href})->{_prior}: _prior= 15
- ( (gui_history->{defaults})->{_parameter_index_on_exit_href})->{_earliest}: _earliest= 0
+ ( (gui_history->{defaults})->{_parameter_index_on_entry_click_seq_href})->{_prior}: _prior= 68
+ ( (gui_history->{defaults})->{_parameter_index_on_exit_href})->{_earliest}: _earliest= 2
  ( (gui_history->{defaults})->{_parameter_index_on_exit_href})->{_index}: _index= -1
  ( (gui_history->{defaults})->{_parameter_index_on_exit_href})->{_item}: _item= nada
- ( (gui_history->{defaults})->{_parameter_index_on_exit_href})->{_most_recent}: _most_recent= 0
+ ( (gui_history->{defaults})->{_parameter_index_on_exit_href})->{_most_recent}: _most_recent= 2
  ( (gui_history->{defaults})->{_parameter_index_on_exit_href})->{_name}: _name= parameter_index_on_exit
  ( (gui_history->{defaults})->{_parameter_index_on_exit_href})->{_next}: _next= 0
- ( (gui_history->{defaults})->{_parameter_index_on_exit_href})->{_prior}: _prior= 2
- ( (gui_history->{defaults})->{_parameter_index_on_exit_click_seq_href})->{_earliest}: _earliest= 14
+ ( (gui_history->{defaults})->{_parameter_index_on_exit_href})->{_prior}: _prior= 1
+ ( (gui_history->{defaults})->{_parameter_index_on_exit_click_seq_href})->{_earliest}: _earliest= 67
  ( (gui_history->{defaults})->{_parameter_index_on_exit_click_seq_href})->{_index}: _index= -1
  ( (gui_history->{defaults})->{_parameter_index_on_exit_click_seq_href})->{_item}: _item= nada
- ( (gui_history->{defaults})->{_parameter_index_on_exit_click_seq_href})->{_most_recent}: _most_recent= 19
+ ( (gui_history->{defaults})->{_parameter_index_on_exit_click_seq_href})->{_most_recent}: _most_recent= 71
  ( (gui_history->{defaults})->{_parameter_index_on_exit_click_seq_href})->{_name}: _name= parameter_index_on_exit_seq
  ( (gui_history->{defaults})->{_parameter_index_on_exit_click_seq_href})->{_next}: _next= 0
- ( (gui_history->{defaults})->{_parameter_index_on_exit_click_seq_href})->{_prior}: _prior= 16
- ( (gui_history->{defaults})->{_run_button_click_seq_href})->{_earliest}: _earliest= -2
- ( (gui_history->{defaults})->{_run_button_click_seq_href})->{_index}: _index= -1
- ( (gui_history->{defaults})->{_run_button_click_seq_href})->{_item}: _item= nada
- ( (gui_history->{defaults})->{_run_button_click_seq_href})->{_most_recent}: _most_recent= 17
- ( (gui_history->{defaults})->{_run_button_click_seq_href})->{_name}: _name= run_button_seq
- ( (gui_history->{defaults})->{_run_button_click_seq_href})->{_next}: _next= 0
- ( (gui_history->{defaults})->{_run_button_click_seq_href})->{_prior}: _prior= -1
- ( (gui_history->{defaults})->{_save_button_click_seq_href})->{_earliest}: _earliest= -1
- ( (gui_history->{defaults})->{_save_button_click_seq_href})->{_index}: _index= -1
- ( (gui_history->{defaults})->{_save_button_click_seq_href})->{_item}: _item= nada
- ( (gui_history->{defaults})->{_save_button_click_seq_href})->{_most_recent}: _most_recent= 20
- ( (gui_history->{defaults})->{_save_button_click_seq_href})->{_name}: _name= save_button_seq
- ( (gui_history->{defaults})->{_save_button_click_seq_href})->{_next}: _next= 0
- ( (gui_history->{defaults})->{_save_button_click_seq_href})->{_prior}: _prior= 11
+ ( (gui_history->{defaults})->{_parameter_index_on_exit_click_seq_href})->{_prior}: _prior= 69

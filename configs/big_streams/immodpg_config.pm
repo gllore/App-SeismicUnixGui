@@ -164,7 +164,7 @@ sub _set_model_file_text {
 			and $manage_files_by2->does_file_exist( \$outbound_model_file_text ) ) {
 
 			# CASE 2 copy the version in the hidden directory to the visible directory
-			# print("Case 2 immodpg_config,  _set_model_file_text, one missing case of model.text config file\n");
+			print("case 2 _set_model_file_text, one missing case of model.text config file\n");
 
 			$from = $outbound_model_file_text;
 			$to   = $outbound_model_file_text_extra;
