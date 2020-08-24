@@ -50,6 +50,8 @@ _su_release invokes _rectangle_window to plot zoomed image
 =head2 CHANGES and their DATES
 
 
+
+
 =cut 
 
 use Moose;
@@ -163,7 +165,7 @@ read from a configuration file
 
 =cut 
 
-my $inbound_base_file_name = '13_clean';
+my $inbound_base_file_name = '1007';
 my $inbound_suffix_type    = 'su';
 
 # print ("$inbound_base_file_name\n");

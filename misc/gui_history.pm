@@ -1630,8 +1630,8 @@ sub _update_parameter_index_on_exit {
 
 	( $gui_history->get_defaults() )->{_parameter_index_on_exit} = $new_most_recent_parameter_index_on_exit;
 
-#	print("gui_history,updated parameter_index_on_exit :$new_most_recent_parameter_index_on_exit\n");
-	
+	# print("gui_history,updated parameter_index_on_exit :$new_most_recent_parameter_index_on_exit\n");
+
 	if ( defined $parameter_index_on_exit_click_seq_href ) {
 
 		# update the history of  parameter_index_on_exit usage according to click count
@@ -1646,7 +1646,6 @@ sub _update_parameter_index_on_exit {
 	} else {
 		print("gui_history, missing flow hash NADA\n");
 	}
-	
 	if ( defined $parameter_index_on_exit_href ) {
 
 		# update the history of parameter_index_on_exit according to the parameter_index_on_exit used

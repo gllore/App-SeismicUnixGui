@@ -31,11 +31,11 @@
        character*300 inboundVbot,inboundVtop
        character*300 inboundVbot_upper,inboundVtop_lower
        character*300 outbound_option, outbound_model_txt
-       character*300  outbound_model_bin, outbound_model_bin_bck
+       character*300  outbound_model_bin
        character val,finxy*40
        character*40 change_file,config_file,no,option_file,layer_file
        character*40 clip_file, model_file_text, thickness_m_file
-       character*40 model_file_bin, model_file_bin_bck
+       character*40 model_file_bin
        character*40 Vbot_file,Vbot_upper_file,Vtop_file,Vtop_lower_file
        character*40 Vincrement_file, VbotNtop_factor_file
        character*40 par_file, moveNzoom_file
@@ -106,7 +106,6 @@
         config_file         = "immodpg.config"
         model_file_text     = "model.txt"
         model_file_bin       = "immodpg.out"
-        model_file_bin_bck       = ".immodpg.out"
         is_change           = .FALSE.
         layer_file          = "layer"
         no                  = "no"
@@ -249,7 +248,6 @@
 !      print*, 'immodpg.for, inbound_config:',trim(inbound_config),'--'
        outbound_model_txt = trim(get_DIR)//"/"//model_file_text
        outbound_model_bin = trim(get_DIR)//"/"//model_file_bin
-       outbound_model_bin_bck = trim(get_DIR)//"/"//model_file_bin_bck
 ! define the different needed directories
        set_DIR = "IMMODPG_INVISIBLE"
        call Project_config(set_DIR,get_DIR)
@@ -1066,17 +1064,6 @@
      +  	VST(K),VSB(K),RHOT(K),RHOB(K)
         enddo
         CLOSE(UNIT=IOUT)
-!
-! write backup modified model to file immodpg.out
-!
-        OPEN(UNIT=IOUT,FILE=outbound_model_bin_bck,
-     +  STATUS='UNKNOWN', FORM='UNFORMATTED')
-        do K=1,NL+1
-              write(IOUT) VT(K),VB(K),DZ(K),
-     +        VST(K),VSB(K),RHOT(K),RHOB(K)
-        enddo
-        CLOSE(UNIT=IOUT)
-
 
 ! write first breaks out
 !
