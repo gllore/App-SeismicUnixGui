@@ -42,17 +42,114 @@ use Moose;
 
 =cut
 
-
 =head2 Private anonymous hash 
 sharable by methods
 
 =cut
 
 my $manage_files_by2 = {
-	
-	
+	_directory => ' ',
 };
 
+=head2 sub set_directory
+
+=cut
+
+sub set_directory {
+
+	my ( $self, $dir ) = @_;
+
+	if ( length($dir) ) {
+
+		$manage_files_by2->{_directory} = $dir;
+
+		#		print("manage_files_by2, set_directory, dir=$manage_files_by2->{_directory} \n");
+
+	} else {
+		print("manage_fiels_by2, set_directory, missing value\n");
+	}
+
+	return ();
+}
+
+=head2 sub clear_empty_files
+
+=cut
+
+sub clear_empty_files {
+
+	my ($self) = @_;
+
+	if ( length( $manage_files_by2->{_directory} ) ) {
+		
+		my $dir = $manage_files_by2->{_directory};
+
+		my ( @size,      @file_name, @inode );
+		my ( $i,         $junk,      $cmd_file_name, $num_file_names );
+		my ( $cmd_inode, $cmd_size,  $index_node_number );
+			  #		print("manage_files_by2, clear_empty_files, dir=$manage_files_by2->{_directory} \n");
+
+#		print("\n manage_files_by2, clear_empty_files in dir=$dir\n");
+		chomp $dir;
+		
+		$cmd_file_name  = "ls -1 $dir";
+		$cmd_size       = "ls -s1 $dir";
+		$cmd_inode      = "ls -i1 $dir";
+		@file_name      = `$cmd_file_name`;
+		@size           = `$cmd_size`;
+		@inode          = `$cmd_inode`;
+		$num_file_names = scalar @file_name;
+
+		for ( my $i = 0; $i < $num_file_names; $i++ ) {
+			chomp $file_name[$i];
+			chomp $inode[$i];
+
+			$inode[$i] =~ s/^\s+//g;    # trim spaces at start
+			( $inode[$i], $junk ) = split( / /, $inode[$i] );
+			
+			$file_name[$i] =~ s/^\s+//g;    # trim spaces at start
+			( $file_name[$i], $junk ) = split( / /, $file_name[$i] );
+		}
+
+		for ( my $i = 1; $i <= $num_file_names; $i++ ) {
+
+			chomp $size[$i];
+			$size[$i] =~ s/^\s+//g;     # trim spaces at start
+			( $size[$i], $junk ) = split( / /, $size[$i] );
+
+		}
+
+		for ( my $i = 0, my $j = 1; $i < $num_file_names; $i++, $j++ ) {
+			
+			my $test = (-d $dir.'/'.$file_name[$i] );
+			if ( $size[$j] == 0 &&
+				not ($test) ) {
+						my $ans = ($test );
+						
+				print("CASE of not a directory and file =0\n");				
+				print("CASE name inode size = $file_name[$i] $inode[$i] $size[$j]\n");
+				
+				$index_node_number = $inode[$i];
+				my $flow = (
+					"cd $dir
+								find . -inum $index_node_number -exec rm {} \\;"
+				);
+
+				#		    print $flow;
+				#			system $flow;
+
+			} else {
+
+				#			print("immodpg,clean_trash,size>0,line=$i, NADA\n");
+			}
+		}
+
+	} else {
+
+	}
+
+	return ();
+}
 
 =head2 sub does_file_exist
 
@@ -114,8 +211,6 @@ sub does_file_exist_sref {
 	}
 
 }
-
-
 
 =pod sub unique_elements
 

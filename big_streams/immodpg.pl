@@ -2206,8 +2206,10 @@ sub _setVbot {
 =cut
 
 sub _setVbot_upper_layer {
+	
+	my ($self) = @_;
 
-	print("main,_setVbot_upper_layer, Vbot_upper_layer_opt=$Vbot_upper_layer_opt\n");
+#	print("main,_setVbot_upper_layer, Vbot_upper_layer_opt=$Vbot_upper_layer_opt\n");
 	$immodpg->set_widgets($immodpg_Tk);
 	$immodpg->setVbot_upper_layer();
 	return (1);
@@ -2316,7 +2318,7 @@ sub _setVbotNtop_plus {
 sub _setVbotNVtop_lower_layer_minus {
 
 	$immodpg->set_widgets($immodpg_Tk);
-	# print("write VbotNVtop_lower_layer_minus -, $VbotNVtop_lower_layer_minus_opt \n");
+#	print("write VbotNVtop_lower_layer_minus -, $VbotNVtop_lower_layer_minus_opt \n");
 	$immodpg->setVbotNVtop_lower_layer_minus();
 
 }
@@ -2423,7 +2425,7 @@ sub _setVbotNtop_minus {
 sub _setVtopNVbot_upper_layer_minus {
 
 	$immodpg->set_widgets($immodpg_Tk);
-	# print("write VtopNVbot_upper_layer_minus -,$VtopNVbot_upper_layer_minus_opt \n");
+	print("write VtopNVbot_upper_layer_minus -,$VtopNVbot_upper_layer_minus_opt \n");
 	$immodpg->setVtopNVbot_upper_layer_minus();
 }
 

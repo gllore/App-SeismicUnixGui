@@ -2,7 +2,7 @@
          implicit none
 !       read a configuration file
 
-      integer :: result
+      real*4        :: result
       character (len=255) :: inbound, inbound_locked
       character (len=30) :: format1
       integer :: err_message, ready
@@ -22,9 +22,9 @@
  !       check whether file opens data file
          if (err_message.eq.0) then
 
-          print *, 'readVbot_upper_file.f'
+!          print *, 'readVbot_upper_file.f'
           read (29,format1) result
-          print *, 'readVbot_upper_file.f, result',result
+!          print *, 'readVbot_upper_file.f, result',result
           close (unit=29)
 
          else
@@ -42,5 +42,5 @@
         end if
 
        end if
-       print *, 'readVbot_upper_file, result',result
+!       print *, 'readVbot_upper_file, result',result
       end subroutine readVbot_upper_file
