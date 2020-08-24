@@ -57,6 +57,7 @@
 use Moose;
 use Tk;
 use L_SU_global_constants;
+use Project_config;
 use SuMessages;
 
 # must precede immodpg_config
@@ -121,12 +122,16 @@ my $immodpg_config = immodpg_config->new();
 my $message = SuMessages->new();
 my $premmod = premmod->new();
 my $xk      = xk->new();
+my $Project        = Project_config->new();
 
+my $IMMODPG           = $Project->IMMODPG();
 my $var_L_SU               = $get_L_SU->var();
 my $var_immodpg            = $get_immodpg->var();
 my $change_thickness_m_opt = $var_immodpg->{_change_thickness_m_opt};
 my $clip_opt               = $var_immodpg->{_clip_opt};
 my $exit_opt               = $var_immodpg->{_exit_opt};
+my $global_libs 			= $get_L_SU->global_libs();
+my $immodpg_model =  $var_immodpg ->{_immodpg_model};
 my $move_down_opt          = $var_immodpg->{_move_down_opt};
 my $move_left_opt          = $var_immodpg->{_move_left_opt};
 my $move_minus_opt         = $var_immodpg->{_move_minus_opt};
@@ -158,6 +163,8 @@ my $update_opt   = $var_immodpg->{_update_opt};
 my $no           = $var_L_SU->{_no};
 my $yes          = $var_L_SU->{_yes};
 my $empty_string = $var_L_SU->{_empty_string};
+my $on           = $var_L_SU->{_on};
+my $off          = $var_L_SU->{_off};
 
 =head2 Declare variables 
     in local memory space
@@ -197,7 +204,7 @@ my $layer_default                 = 2;
 my $lower_layer_default           = 3;
 my $thickness_m_default           = 1000.001;
 my $upper_layer_default           = 1;
-my $Vincrement_mps_default            = 10;
+my $Vincrement_mps_default        = 10;
 my $thickness_increment_m_default = 10;
 
 =head2 initialize:
@@ -216,7 +223,7 @@ my $clip4plot             = $clip4plot_default;
 my $layer                 = $layer_default;
 my $lower_layer           = $lower_layer_default;
 my $thickness_m           = $thickness_m_default;
-my $Vincrement_mps            = $Vincrement_mps_default;
+my $Vincrement_mps        = $Vincrement_mps_default;
 my $thickness_increment_m = $thickness_increment_m_default;
 
 =head2 clean old files
@@ -232,6 +239,11 @@ after cleaning trash
 =head2 initialize values in modules
 
 =cut
+my $replacement= $global_libs->{_configs_big_streams}.'/'.$immodpg_model;
+my $missing = $IMMODPG.'/'.$immodpg_model;
+$immodpg->set_missing($missing);
+$immodpg->set_replacement4missing($replacement);
+$immodpg->get_replacement4missing();
 
 $immodpg->set_defaults();
 
@@ -250,9 +262,9 @@ my $base_file_name         = $CFG_h->{immodpg}{1}{base_file_name};
 my $pre_digitized_XT_pairs = $CFG_h->{immodpg}{1}{offset_type};
 my $data_traces            = $CFG_h->{immodpg}{1}{data_traces};
 $clip4plot = $CFG_h->{immodpg}{1}{clip};
-my $min_t_s = $CFG_h->{immodpg}{1}{min_t_s};
-my $min_x_m = $CFG_h->{immodpg}{1}{min_x_m};
-my $data_x_inc_m =$CFG_h->{immodpg}{1}{data_x_inc_m};
+my $min_t_s          = $CFG_h->{immodpg}{1}{min_t_s};
+my $min_x_m          = $CFG_h->{immodpg}{1}{min_x_m};
+my $data_x_inc_m     = $CFG_h->{immodpg}{1}{data_x_inc_m};
 my $source_depth_m   = $CFG_h->{immodpg}{1}{source_depth_m};
 my $receiver_depth_m = $CFG_h->{immodpg}{1}{receiver_depth_m};
 my $reducing_vel_mps = $CFG_h->{immodpg}{1}{reducing_vel_mps};
@@ -262,9 +274,9 @@ my $plot_min_t_s     = $CFG_h->{immodpg}{1}{plot_min_t_s};
 my $plot_max_t_s     = $CFG_h->{immodpg}{1}{plot_max_t_s};
 my $previous_model   = $CFG_h->{immodpg}{1}{previous_model};
 my $new_model        = $CFG_h->{immodpg}{1}{new_model};
-$layer           = $CFG_h->{immodpg}{1}{layer};
-$VbotNtop_factor = $CFG_h->{immodpg}{1}{VbotNtop_factor};
-$Vincrement_mps      = $CFG_h->{immodpg}{1}{Vincrement_mps};
+$layer                 = $CFG_h->{immodpg}{1}{layer};
+$VbotNtop_factor       = $CFG_h->{immodpg}{1}{VbotNtop_factor};
+$Vincrement_mps        = $CFG_h->{immodpg}{1}{Vincrement_mps};
 $thickness_increment_m = $CFG_h->{immodpg}{1}{thickness_increment_m};
 
 =head2 Error checks
@@ -304,14 +316,26 @@ in GUI
 =cut
 
 $immodpg->set_model_layer($layer);
-my ( $Vp_ref, $dz ) = $immodpg->getVp_dz_initial();
-my @V = @$Vp_ref;
-$thickness_m = $dz;
+my ( $Vp_ref, $dz, $error_switch ) = $immodpg->getVp_dz_initial();
 
-$Vbot_upper_layer = $V[0];
-$Vtop             = $V[1];
-$Vbot             = $V[2];
-$Vtop_lower_layer = $V[3];
+if ( $error_switch eq $off ) {
+	# CASE 1 ALL OK
+	
+	my @V = @$Vp_ref;
+	$thickness_m = $dz;
+
+	$Vbot_upper_layer = $V[0];
+	$Vtop             = $V[1];
+	$Vbot             = $V[2];
+	$Vtop_lower_layer = $V[3];
+
+} elsif ( $error_switch eq $on ) {
+		# CASE 2  BAD MODEL FILE
+        print("immodpg.pl, CORRUPT immodpg.out (fortran binary model file)\n");
+        
+} else {
+	print("immodpg.pl, unexpected variable\n");
+}
 
 =head2 Prepare su file
 for input to immodpg.for
@@ -2155,7 +2179,7 @@ return(1) validates command for Entry'
 
 sub _set_clip {
 
-#	print("immodpg.pl,_set_clip,$immodpg_Tk->{_clip4plotEntry}\n");
+	#	print("immodpg.pl,_set_clip,$immodpg_Tk->{_clip4plotEntry}\n");
 	$immodpg->set_widgets($immodpg_Tk);
 	$immodpg->set_clip();
 	return (1);
@@ -2171,8 +2195,8 @@ sub _set_clip {
 
 sub _set_layer {
 
-#	print("immodpg.pl,_set_layer,$immodpg_Tk->{_layerEntry}\n");
-#	print("\nimmodpg.pl,_set_layer,layer=$layer\n");
+	#	print("immodpg.pl,_set_layer,$immodpg_Tk->{_layerEntry}\n");
+	#	print("\nimmodpg.pl,_set_layer,layer=$layer\n");
 	$immodpg->set_widgets($immodpg_Tk);
 	$immodpg->set_layer();
 	return (1);
@@ -2206,10 +2230,10 @@ sub _setVbot {
 =cut
 
 sub _setVbot_upper_layer {
-	
+
 	my ($self) = @_;
 
-#	print("main,_setVbot_upper_layer, Vbot_upper_layer_opt=$Vbot_upper_layer_opt\n");
+	#	print("main,_setVbot_upper_layer, Vbot_upper_layer_opt=$Vbot_upper_layer_opt\n");
 	$immodpg->set_widgets($immodpg_Tk);
 	$immodpg->setVbot_upper_layer();
 	return (1);
@@ -2245,8 +2269,8 @@ sub _setVtop_lower_layer {
 
 	my ($self) = @_;
 
-#	print("main,_setVtop_lower_layer, Vtop_lower_layer_opt=$Vtop_lower_layer_opt\n");
-	$immodpg->set_widgets($immodpg_Tk);	
+	#	print("main,_setVtop_lower_layer, Vtop_lower_layer_opt=$Vtop_lower_layer_opt\n");
+	$immodpg->set_widgets($immodpg_Tk);
 	$immodpg->setVtop_lower_layer();
 	return (1);
 }
@@ -2283,8 +2307,9 @@ sub _setVbotNtop_multiply {
 =cut
 
 sub _setVbot_minus {
-	
+
 	$immodpg->set_widgets($immodpg_Tk);
+
 	# print("write Vbot_minus_opt -, $Vbot_minus_opt\n");
 	$immodpg->setVbot_minus();
 
@@ -2301,7 +2326,7 @@ sub _setVbot_minus {
 sub _setVbotNtop_plus {
 
 	# print("write VbotNVtop_plus +\n");
-	$immodpg->set_widgets($immodpg_Tk);	
+	$immodpg->set_widgets($immodpg_Tk);
 	$immodpg->setVtop_plus();
 	$immodpg->setVbot_plus();
 
@@ -2318,7 +2343,8 @@ sub _setVbotNtop_plus {
 sub _setVbotNVtop_lower_layer_minus {
 
 	$immodpg->set_widgets($immodpg_Tk);
-#	print("write VbotNVtop_lower_layer_minus -, $VbotNVtop_lower_layer_minus_opt \n");
+
+	#	print("write VbotNVtop_lower_layer_minus -, $VbotNVtop_lower_layer_minus_opt \n");
 	$immodpg->setVbotNVtop_lower_layer_minus();
 
 }
@@ -2334,6 +2360,7 @@ sub _setVbotNVtop_lower_layer_minus {
 sub _setVbotNVtop_lower_layer_plus {
 
 	$immodpg->set_widgets($immodpg_Tk);
+
 	# print("write VbotNVtop_lower_layer_plus +, $VbotNVtop_lower_layer_plus_opt \n");
 	$immodpg->setVbotNVtop_lower_layer_plus();
 
@@ -2348,7 +2375,8 @@ sub _setVbotNVtop_lower_layer_plus {
 =cut
 
 sub _setVbot_plus {
-#	print("main  _setVbot_plus,Vbot_plus_opt +=$Vbot_plus_opt\n");
+
+	#	print("main  _setVbot_plus,Vbot_plus_opt +=$Vbot_plus_opt\n");
 	$immodpg->set_widgets($immodpg_Tk);
 	$immodpg->setVbot_plus();
 
@@ -2405,7 +2433,7 @@ sub _setVtop_plus {
 
 sub _setVbotNtop_minus {
 
-#	print("write VbotNtop_minus -, $VbotNtop_minus_opt\n");
+	#	print("write VbotNtop_minus -, $VbotNtop_minus_opt\n");
 	$immodpg->set_widgets($immodpg_Tk);
 	$immodpg->setVbot_minus();
 	$immodpg->setVtop_minus();
@@ -2443,7 +2471,8 @@ sub _setVtopNVbot_upper_layer_minus {
 sub _setVtopNVbot_upper_layer_plus {
 
 	$immodpg->set_widgets($immodpg_Tk);
-#	print("write VtopNVbot_upper_layer_plus +, $VtopNVbot_upper_layer_plus_opt \n");
+
+	#	print("write VtopNVbot_upper_layer_plus +, $VtopNVbot_upper_layer_plus_opt \n");
 	$immodpg->setVtopNVbot_upper_layer_plus();
 
 }
@@ -2607,6 +2636,7 @@ sub _set_thickness_m {
 sub _set_thickness_m_minus {
 
 	$immodpg->set_widgets($immodpg_Tk);
+
 	# print("write _set_thickness_m_minus - \n");
 	$immodpg->set_thickness_m_minus();
 
@@ -2619,6 +2649,7 @@ sub _set_thickness_m_minus {
 sub _set_thickness_m_plus {
 
 	$immodpg->set_widgets($immodpg_Tk);
+
 	# print("write _set_thickness_m_plus -\n");
 	$immodpg->set_thickness_m_plus();
 
