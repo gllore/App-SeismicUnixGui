@@ -258,10 +258,10 @@ project_selector does not yet have a max_index defined in a separate module
 
 			# my $ans = $self->get_index_on_exit();
 			my $ans = $param_widgets->{_parameter_index_on_entry};
-			print(" 2. param_widgets, _check_value_changes, ENTERED INDEX=$ans\n");
+#			print(" 2. param_widgets, _check_value_changes, ENTERED INDEX=$ans\n");
 
 			$ans = $param_widgets->{_entry_in_switch};
-			print(" 2. param_widgets, _check_value_changes, entry_in_switch=$ans\n");
+#			print(" 2. param_widgets, _check_value_changes, entry_in_switch=$ans\n");
 
 		} elsif ( $param_widgets->{_entry_in_switch} eq $on ) {    
 			# i.e., on and set =0
@@ -275,7 +275,7 @@ project_selector does not yet have a max_index defined in a separate module
 #			 print(" 2. param_widgets, _check_value_changes, entry_in_switch=$ans\n");
 
 			$param_widgets->{_parameter_index_on_exit} = $idx;
-			print(" 3. param_widgets, _check_value_changes, Leaving INDEX=$param_widgets->{_parameter_index_on_exit}\n");
+#			print(" 3. param_widgets, _check_value_changes, Leaving INDEX=$param_widgets->{_parameter_index_on_exit}\n");
 			
 		} else {
 			print(" param_widgets, changes, bad switch \n");
@@ -303,14 +303,14 @@ project_selector does not yet have a max_index defined in a separate module
 sub _update_value_changes {
 
 	my ($self) = @_;
-   print(" start param_widgets, _update_value_changes\n");
+#   print(" start param_widgets, _update_value_changes\n");
   
 	if ( $param_widgets->{_entry_in_switch} eq $off ) {
 		
 		# CASE 1 just left a widget after having entered it
 		# save the value of the prior widget
 		my $index_on_entry = $param_widgets->{_parameter_index_on_entry};
-		print(" param_widgets, _update_value_changes,index_on_entry =$index_on_entry\n");		
+#		print(" param_widgets, _update_value_changes,index_on_entry =$index_on_entry\n");		
 		my $prior_value    = @{ $param_widgets->{_values_w_aref} }[$index_on_entry]->get();
 		@{ $param_widgets->{_values_aref} }[$index_on_entry] = $prior_value;
 
@@ -319,7 +319,7 @@ sub _update_value_changes {
 		# CASE 2 just entering a widget after having left another
 		# save the value in the prior widget
 		my $index_on_exit = $param_widgets->{_parameter_index_on_exit};
-		print(" param_widgets, _update_value_changes,index_on_entry =$index_on_exit \n");
+#		print(" param_widgets, _update_value_changes,index_on_entry =$index_on_exit \n");
 		my $prior_value   = @{ $param_widgets->{_values_w_aref} }[$index_on_exit]->get();
 		@{ $param_widgets->{_values_aref} }[$index_on_exit] = $prior_value;
 
@@ -676,7 +676,7 @@ sub _update_check_button_setting {
 	# update a single change in private hash
 	@{ $param_widgets->{_check_buttons_settings_aref} }[$idx] = $on_off[$idx];
 
-	print("param_widgets: _update_check_button_setting :index $idx setting is: $on_off[$idx]\n");
+#	print("param_widgets: _update_check_button_setting :index $idx setting is: $on_off[$idx]\n");
 
 	# print("param_widgets: update_check_buttons_settings_aref @{$param_widgets->{_check_buttons_settings_aref}}\n");
 

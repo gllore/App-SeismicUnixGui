@@ -132,7 +132,7 @@ sub _create_new {
 
 		my $name              = $project_selector->{_current_program_name};
 		my $param_widgets_pkg = $project_selector->{_param_widgets_pkg};
-		print("project_selector,_create_new, name =$name \n");
+#		print("project_selector,_create_new, name =$name \n");
 
 =pod private hash
  	
@@ -374,7 +374,7 @@ sub _ok {
 	# 2. CASES for NEWLY created Project Configuration File and New Project
 	elsif ( $project_selector->{_create_new} ) {
 
-		print("CASE 2 project_select,_ok, project newly created \n");
+#		print("CASE 2 project_select,_ok, project newly created \n");
 
 		# save the new .Project configure to
 		# /home/username/configuration/active
@@ -453,7 +453,7 @@ sub _ok {
 			my $message = $message_director->project_selector(1);    # project already exists
 			$message_box_w->insert( 'end', $message );
 
-			print("project_selector,_ok, CASE 2B A project with that name exists already. Try again \n");
+#			print("project_selector,_ok, CASE 2B A project with that name exists already. Try again \n");
 		}
 
 	}
@@ -702,7 +702,7 @@ new current settings
 sub create_new {
 	my ( $self, $value ) = @_;
 
-	print("project_selector,create_new,value: $value\n");
+#	print("project_selector,create_new,value: $value\n");
 
 	if ($value) {
 		_create_new();
