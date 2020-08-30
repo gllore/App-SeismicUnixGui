@@ -53,13 +53,14 @@ my $project_selector = {
 	_length               => '',
 	_labels_w_aref        => '',
 	_message_box_w        => '',
-	_name                 => 'Project',
+	_current_program_name => '',
 	_values_w_aref        => '',
 	_check_buttons_w_aref => '',
 	_project_names_aref   => '',
 	_PROJECT_HOMES_aref   => '',
 	_mw                   => '',
 	_param_widgets_pkg    => '',
+	_widget               => '',
 };
 
 =head2 sub _continue
@@ -125,73 +126,77 @@ sub _create_new {
 	use message_director;
 	use config_superflows;
 	my $config_superflows = config_superflows->new();
-	my $name              = 'Project';
 
-	my $param_widgets_pkg = $project_selector->{_param_widgets_pkg};
+	if (    length( $project_selector->{_current_program_name} )
+		and length( $project_selector->{_param_widgets_pkg} ) ) {
+
+		my $name              = $project_selector->{_current_program_name};
+		my $param_widgets_pkg = $project_selector->{_param_widgets_pkg};
+		print("project_selector,_create_new, name =$name \n");
 
 =pod private hash
  	
 =cut
 
-	my $message_box_w    = _get_message_box_w();
-	my $message_director = message_director->new();
+		my $message_box_w    = _get_message_box_w();
+		my $message_director = message_director->new();
 
-	#my $message         		= $message_director->project_selector(0);
-	$message_box_w->delete( "1.0", 'end' );
+		$message_box_w->delete( "1.0", 'end' );
 
-	#message_box_w				->insert('end', $message);
+		my $project = {
+			_prog_name_sref              => \$name,
+			_names_aref                  => '',
+			_values_aref                 => '',
+			_check_buttons_settings_aref => '',
+			_is_superflow                => $true,    # needed for param_widgets.pm
+			_superflow_first_idx         => '',
+			_superflow_length            => '',
+		};
 
-	my $project = {
-		_prog_name_sref              => \$name,
-		_names_aref                  => '',
-		_values_aref                 => '',
-		_check_buttons_settings_aref => '',
-		_is_superflow                => $true,    # needed for param_widgets.pm
-		_superflow_first_idx         => '',
-		_superflow_length            => '',
-	};
+		_set_length();
+		_set_first_idx();
 
-	_set_length();
-	_set_first_idx();
+		# first clean the current gui parameter and values in the window
+		my $length = $project_selector->{_length};
+		$param_widgets_pkg->set_first_idx;
+		$param_widgets_pkg->set_length($length);
+		$param_widgets_pkg->gui_clean;
 
-	# first clean the current gui parameter and values in the window
-	my $length = $project_selector->{_length};
-	$param_widgets_pkg->set_first_idx;
-	$param_widgets_pkg->set_length($length);
-	$param_widgets_pkg->gui_clean;
+		# get values names and checkbuttons from a
+		# default the Project.config file
 
-	# get values names and checkbuttons from a
-	# default the Project.config file
+		$config_superflows->set_program_name( $project->{_prog_name_sref} );    # really sref
+			# parameter names from superflow configuration file
+		$project->{_names_aref} = $config_superflows->get_names();
 
-	$config_superflows->set_program_name( $project->{_prog_name_sref} );    #really sref
+		# parameter values from superflow configuration file
+		$project->{_values_aref} = $config_superflows->get_values();
 
-	# parameter names from superflow configuration file
-	$project->{_names_aref} = $config_superflows->get_names();
+		# print("project_selector,_create_new,values=@{$project->{_values_aref}}\n");
 
-	# parameter values from superflow configuration file
-	$project->{_values_aref} = $config_superflows->get_values();
+		$project->{_check_buttons_settings_aref} = $config_superflows->get_check_buttons_settings();
 
-	# print("project_selector,_create_new,values=@{$project->{_values_aref}}\n");
+		# print("project_selector,_create_new,chkb=@{$project->{_check_buttons_settings_aref}}\n");
 
-	$project->{_check_buttons_settings_aref} = $config_superflows->get_check_buttons_settings();
+		$project->{_superflow_first_idx} = $config_superflows->first_idx();
+		$project->{_superflow_length}    = $config_superflows->length();
 
-	# print("project_selector,_create_new,chkb=@{$project->{_check_buttons_settings_aref}}\n");
+		# assign the new parameter names and values to the widgets in the gui
+		$param_widgets_pkg->range($project);
+		$param_widgets_pkg->set_labels( $project->{_names_aref} );
+		$param_widgets_pkg->set_values( $project->{_values_aref} );
+		$param_widgets_pkg->set_check_buttons( $project->{_check_buttons_settings_aref} );
 
-	$project->{_superflow_first_idx} = $config_superflows->first_idx();
-	$project->{_superflow_length}    = $config_superflows->length();
+		# update the length
+		$param_widgets_pkg->set_length( $project->{_superflows_length} );
+		$param_widgets_pkg->redisplay_labels();
+		$param_widgets_pkg->redisplay_values();
+		$param_widgets_pkg->redisplay_check_buttons();
 
-	# assign the new parameter names and values to the widgets in the gui
-	$param_widgets_pkg->range($project);
-	$param_widgets_pkg->set_labels( $project->{_names_aref} );
-	$param_widgets_pkg->set_values( $project->{_values_aref} );
-	$param_widgets_pkg->set_check_buttons( $project->{_check_buttons_settings_aref} );
-
-	# update the length
-	$param_widgets_pkg->set_length( $project->{_superflows_length} );
-	$param_widgets_pkg->redisplay_labels();
-	$param_widgets_pkg->redisplay_values();
-	$param_widgets_pkg->redisplay_check_buttons();
-
+	} else {
+		print("project_select,_create_new, variables are missing n");
+	}
+	return ();
 }
 
 =head2 _get_message_box_w
@@ -260,7 +265,14 @@ For the case that a new project is created:
 sub _ok {
 	my ($self) = @_;
 
-	# print("project_select,_ok, starting \n");
+#	# take focus to force update of Entry widgets
+#	if ( length( $project_selector->{_mw} ) ) {
+#		
+#		( $project_selector->{_mw})->focusNext;
+#
+#	} else {
+#		print("project_select,_ok, missing widget \n");
+#	}
 
 	use L_SU_local_user_constants;
 	use L_SU_global_constants;
@@ -273,29 +285,31 @@ sub _ok {
 	my $message_director = message_director->new();
 	my $message_box_w    = _get_message_box_w();
 	my $global_libs      = $get->global_libs();
-	my $run_name         = 'Project';
+	my $run_name         = 'Project';                 # todo make project_selector
 
-	# CASES when an existing project is selected
+	# 1. CASES when an existing project is selected
 	if ( $project_selector->{_active_project} ) {
 
 		# extra security
-		# print("project_select,_ok, active project already exists-Good\n");
+		#		print("project_select,_ok, active project already exists-Good\n");
 
 		my $param_widgets_pkg       = $project_selector->{_param_widgets_pkg};
 		my $length_check_buttons_on = $param_widgets_pkg->get_length_check_buttons_on();
 
-		# CASE 1 More than one button is selected
+		#		print("project_selector,_ok, length_check_buttons_on: $length_check_buttons_on\n");
+
+		# CASE 1.A More than one button is selected
 		if ( $length_check_buttons_on > 1 ) {    # possible mistake by user
 
-			# print("CASE1: project_selector,_ok, >1 length_check_buttons_on: $length_check_buttons_on\n");
-			# 		 	print("project_selector,_ok, length_check_buttons_on: $length_check_buttons_on\n");
+			#			print("CASE 1A: project_selector,_ok, >1 length_check_buttons_on: $length_check_buttons_on\n");
+			#			print("project_selector,_ok, length_check_buttons_on: $length_check_buttons_on\n");
 			$message_box_w->delete( "1.0", 'end' );
 			my $message = $message_director->project_selector(0);    # only one button can be chosen
 			$message_box_w->insert( 'end', $message );
 
 		}
 
-		# CASE 2 no buttons are selected ('on')
+		# CASE 1.B no buttons are selected ('on')
 		elsif ( $length_check_buttons_on == 0 ) {                    # implies that no projects exist
 
 			my $list_ref = $user_constants->get_project_names();
@@ -304,7 +318,7 @@ sub _ok {
 			if ( $length == 0 ) {
 
 				# i.e. no project names exist is confirmed
-				# print("CASE2:project_selector,_ok, length_project names $length\n");
+				#				print("CASE 1.B :project_selector,_ok, length_project names $length\n");
 
 				$message_box_w->delete( "1.0", 'end' );
 				my $message = $message_director->project_selector(2);    # Create New or select old project
@@ -313,10 +327,10 @@ sub _ok {
 			}
 		}
 
-		# CASE 3 an existing project is chosen
+		# CASE 1.C  an existing project is chosen
 		elsif ( $length_check_buttons_on == 1 ) {
 
-			# print("CASE 3: project_selector,_ok, length_check_buttons_on: $length_check_buttons_on\n");
+			#			print("CASE 1.C: project_selector,_ok, length_check_buttons_on: $length_check_buttons_on\n");
 			use File::Copy;
 			my $CONFIGURATION       = $user_constants->get_CONFIGURATION;
 			my $ACTIVE_PROJECT      = $user_constants->get_ACTIVE_PROJECT;
@@ -343,7 +357,8 @@ sub _ok {
 			copy( $from, $to );
 
 			# Instruction to create the new directories runs in system
-			# print("project_selector,_ok,create new Project and its directories \n");
+			#			print("project_selector,_ok,create new Project and its directories \n");
+
 			# print("$global_libs->{_superflows}$run_name \n");
 			system("sh $global_libs->{_superflows}$run_name");
 
@@ -356,10 +371,11 @@ sub _ok {
 		}
 	}
 
-	# CASES for NEWLY created Project Configuration File and New Project
+	# 2. CASES for NEWLY created Project Configuration File and New Project
 	elsif ( $project_selector->{_create_new} ) {
 
-		# print("project_select,_ok, new project created \n");
+		print("CASE 2 project_select,_ok, project newly created \n");
+
 		# save the new .Project configure to
 		# /home/username/configuration/active
 
@@ -375,16 +391,17 @@ sub _ok {
 			_names_aref         => '',
 			_values_aref        => '',
 			_check_buttons_aref => '',
+			_prog_name_sref     => '',
 		};
 
 		$project->{_names_aref}  = $param_widgets_pkg->get_labels_aref();
 		$project->{_values_aref} = $param_widgets_pkg->get_values_aref();
-		my $name = $project_selector->{_name};
+		my $name = $project_selector->{_current_program_name};
 		$project->{_prog_name_sref} = \$name;
 
-		# print("project_selector,_ok, labels @{$project->{_names_aref}}\n");
-		# print("project_selector,_ok, values @{$project->{_values_aref}}\n");
-		# print("project_selector,_ok, prog_name ${$project->{_prog_name_sref}} \n");
+		#		print("project_selector,_ok, labels @{$project->{_names_aref}}\n");
+		#		print("project_selector,_ok, values @{$project->{_values_aref}}\n");
+		#		print("project_selector,_ok, prog_name ${$project->{_prog_name_sref}} \n");
 
 		# saves the configuration file ONLY to ./L_SU/configuration/active/Project.config
 		$config_superflows->save($project);
@@ -402,23 +419,25 @@ sub _ok {
 		$user_constants->set_PROJECT_name($active_project_name);
 		my $NEW_PROJECT_exists = $user_constants->get_PROJECT_exists();
 
-		# CASE 1 if new project does not already exist
+		# CASE 2.A if new project does not already exist
 		# it is ok to create a new configuration directory and
 		# file for the new project
 		if ( not $NEW_PROJECT_exists ) {
 			use File::Copy;
 			manage_dirs_by::make_dir($NEW_PROJECT);
 
+			# uipdate active project to lates changed Entry widget values in the project_selector GUI
+
 			my $FROM_project_config = $ACTIVE_PROJECT . '/' . $name . '.config';
 			$user_constants->set_user_configuration_Project_config();
 
 			my $TO_project_config = $NEW_PROJECT . '/' . $name . '.config';
 
-			# print("project_selector,_ok, CASE 1 of new project copying from $FROM_project_config to $TO_project_config\n");
+			#			print("project_selector,_ok, CASE 2A of new project copying from $FROM_project_config to $TO_project_config\n");
 			copy( $FROM_project_config, $TO_project_config );
 
 			# Instruction to create the new directories runs in system
-			print("project_selector,_ok,create new Project and its directories \n");
+			#			print("project_selector,_ok,create new Project and its directories \n");
 			system("sh $global_libs->{_superflows}$run_name");
 
 			# kill windows but exit with 1
@@ -428,13 +447,13 @@ sub _ok {
 
 		} else {
 
-			# CASE 2 new project already exists
+			# CASE 2B new project already exists
 
 			$message_box_w->delete( "1.0", 'end' );
 			my $message = $message_director->project_selector(1);    # project already exists
 			$message_box_w->insert( 'end', $message );
 
-			print("project_selector,_ok, A project with that name exists already. Try again \n");
+			print("project_selector,_ok, CASE 2B A project with that name exists already. Try again \n");
 		}
 
 	}
@@ -457,9 +476,10 @@ sub _set_gui {
 	_set_length();
 	_set_project_names_aref();
 	_set_PROJECT_HOMES_aref();
-	
+
 	my $param_widgets_pkg = $project_selector->{_param_widgets_pkg};
-#	print(" project_selector,param_widgets_pkg: $param_widgets_pkg\n");
+
+	#	print(" project_selector,param_widgets_pkg: $param_widgets_pkg\n");
 
 	if ($param_widgets_pkg) {
 		my $project_names_aref = $project_selector->{_project_names_aref};
@@ -527,7 +547,7 @@ sub _set_gui {
 
 			$param_widgets_pkg->set_check_buttons( \@check_buttons );
 			$param_widgets_pkg->redisplay_check_buttons;
-			
+
 		} else {
 
 			print("project_selector, _set_gui, lost logic\n");
@@ -682,7 +702,7 @@ new current settings
 sub create_new {
 	my ( $self, $value ) = @_;
 
-	# print("project_selector,create_new,value: $value\n");
+	print("project_selector,create_new,value: $value\n");
 
 	if ($value) {
 		_create_new();
@@ -902,10 +922,32 @@ sub set_param_widgets_pkg {
 	if ($pkg_ref) {
 		$project_selector->{_param_widgets_pkg} = $pkg_ref;
 
-		# print("project_selector, set_param_widgets_pkg: $project_selector->{_param_widgets_pkg}\n");
-	
+		#		print("project_selector, set_param_widgets_pkg: $project_selector->{_param_widgets_pkg}\n");
+
 	} else {
 		print("project_selector, no package reference\n");
+	}
+	return ();
+}
+
+=head2 sub set_current_program_name
+
+set project names from
+user configuration directory
+
+=cut
+
+sub set_current_program_name {
+	my ( $self, $current_program_name ) = @_;
+
+	if (    length($current_program_name)
+		and length( $project_selector->{_param_widgets_pkg} ) ) {
+
+		$project_selector->{_current_program_name} = $current_program_name;
+		( $project_selector->{_param_widgets_pkg} )->set_current_program_name($current_program_name);
+
+	} else {
+		print("project_selector, set_current_program_name: missing name or package \n");
 	}
 	return ();
 }
@@ -944,18 +986,24 @@ sub set_values_w_aref {
 	return ();
 }
 
-# TODO lacks _spec and lacks .config files
-#=head2 sub get_max_index
-#
-#max index = number of input variables -1
-#
-#=cut
-#
-#sub get_max_index {
-# 	  my ($self) = @_;
-#    my $max_index = 36;
-#
-#    return($max_index);
-#}
+=head2 sub set_widget
+
+
+=cut
+
+sub set_widget {
+	my ( $self, $widget ) = @_;
+
+	if ( length($widget) ) {
+
+		$project_selector->{_widget} = $widget;
+
+		#		print("project_selector, set_widget=$widget\n");
+
+	} else {
+		print("project_selector, set_widget,missing widget \n");
+	}
+	return ();
+}
 
 1;

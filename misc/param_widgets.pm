@@ -46,6 +46,14 @@ my $nu                  = $var->{_nu};
 my $no                  = $var->{_no};
 my $empty_string        = $var->{_empty_string};
 
+=head2 Declare 
+local variables
+
+=cut
+
+my $default_entry_in_switch = 'default_entry_in_switch';
+my $default_parameter_index_on_entry = 0;
+my $default_parameter_index_on_exit = 0;
 # print("param_widgets, default_param_specs,first entry num=$default_param_specs->{_first_entry_num}\n");
 
 =head2 private hash references
@@ -61,29 +69,32 @@ my $param_widgets = {
 	_check_buttons_frame_href    => '',
 	_check_buttons_w_aref        => '',
 	_current_program_name        => '',
+	_entry_in_switch             => $default_entry_in_switch,
 	_entry_button_chosen_index   => '',
 	_entry_button_chosen_widget  => '',
 	_location_in_gui             => '',
 	_first_idx                   => $default_param_specs->{_first_entry_idx},
-	_index                       => '',                                         # for current program in a listbox
-	_is_delete_from_flow_button  => '',
-	_is_flow_listbox_grey_w      => '',
-	_is_flow_listbox_pink_w      => '',
-	_is_flow_listbox_green_w     => '',
-	_is_flow_listbox_blue_w      => '',
-	_is_flow_listbox_color_w     => '',
-	_is_moveNdrop_in_flow        => '',
-	_is_new_listbox_selection    => '',
-	_is_sunix_listbox            => '',
-	_is_superflow_select_button  => '',
-	_labels_aref                 => '',
-	_labels_frame_href           => '',
-	_labels_w_aref               => '',
-
+	_index                       => '',
+	_index_on_entry		=> '',
+	#	_is_delete_from_flow_button  => '',
+	#	_is_flow_listbox_grey_w      => '',
+	#	_is_flow_listbox_pink_w      => '',
+	#	_is_flow_listbox_green_w     => '',
+	#	_is_flow_listbox_blue_w      => '',
+	#	_is_flow_listbox_color_w     => '',
+	#	_is_moveNdrop_in_flow        => '',
+	#	_is_new_listbox_selection    => '',
+	#	_is_sunix_listbox            => '',
+	#	_is_superflow_select_button  => '',
+	_labels_aref       => '',
+#	_labels_frame_href => '',
+	_labels_w_aref     => '',
 	#_last_changed_program_index => '',
-	_last_changed_entry_index => '',
+#	_last_changed_entry_index => '',
 	_last                     => '',
 	_length                   => $default_param_specs->{_length},
+	_parameter_index_on_entry => $default_parameter_index_on_entry,
+	_parameter_index_on_exit => $default_parameter_index_on_exit,
 	_prog_name                => '',
 	_prog_name_sref           => '',
 	_values_aref              => '',
@@ -184,39 +195,139 @@ sub _reset {
 
 sub _changes {
 	my ( $self, $index ) = @_;
+
 	my $idx = $index;    # individual parameter line
 	use control;
 	my $control = new control;
 
 	# two cases possible
 	# in general L_SU
-	if ( $param_widgets->{_current_program_name} ) {
-		my $prog_name = $param_widgets->{_current_program_name};
+	if (    $idx >= 0
+		and length($param_widgets->{_current_program_name}) ) {
 
-		# print(" param_widgets, changes, prog_name: $prog_name \n");
-		# print(" param_widgets, changes, index: $idx \n");
+		my $prog_name = $param_widgets->{_current_program_name};
+#		print(" param_widgets, _changes, prog_name: $prog_name \n");
+#		print(" param_widgets, _changes, index: $idx \n");
 
 		my $max_idx = $control->get_max_index($prog_name);
 
 		# print(" param_widgets,max_index, $max_idx \n");
-		if ( $idx >= 0 && $idx <= $control->get_max_index($prog_name) ) {    # cautious, index must be reasonable
+		if ( $idx <= $control->get_max_index($prog_name) ) {
 
-			local_set_entry_change_status($true);
-			my $changed_entry = $param_widgets->{_changed_entry};            #always
+			# cautious, index must be reasonable
 
-			# print("param_widgets,changes,changed 1-yes 0 -no? $changed_entry\n");
+			_set_index_on_entry($idx);
+			_check_value_changes();
+     		_update_value_changes();
+
+			# my $changed_entry = $param_widgets->{_changed_entry};            #always
+			# print("param_widgets,_changes,changed 1-yes 0 -no? $changed_entry\n");
+			# always = 1 (yes)
+			_set_entry_change_status($true);
 			_update_check_button_setting($idx);
 
-			# local_set_last_changed_entry_index($idx);
+			# _set_last_changed_entry_index($idx);
+		} else {
+			print(" param_widgets, _changes, bad index \n");
+		}
+	} else {
+		print("param_widgets, _changes,missing  prog_name\n");
+	}
+
+=head2 sub _check_value_changes
+ 	
+ 	locate change index for Entry widget
+ 	off = 0
+ 	on = 1
+
+Second case applies when we are using project_selector
+project_selector does not yet have a max_index defined in a separate module
+
+=cut
+
+	sub _check_value_changes {
+
+		my ($self) = @_;
+
+#		print(" 1. sub _check_value_changes\n");
+
+		if (   $param_widgets->{_entry_in_switch} eq $off
+			or $param_widgets->{_entry_in_switch} eq $default_entry_in_switch ) {
+
+			$param_widgets->{_entry_in_switch} = $on;
+
+			# my $ans = $self->get_index_on_exit();
+			my $ans = $param_widgets->{_parameter_index_on_entry};
+			print(" 2. param_widgets, _check_value_changes, ENTERED INDEX=$ans\n");
+
+			$ans = $param_widgets->{_entry_in_switch};
+			print(" 2. param_widgets, _check_value_changes, entry_in_switch=$ans\n");
+
+		} elsif ( $param_widgets->{_entry_in_switch} eq $on ) {    
+			# i.e., on and set =0
+			
+			$param_widgets->{_entry_in_switch} = $off;
+			
+			my $idx = $param_widgets->{_parameter_index_on_entry};
+#			print(" 2. param_widgets, _check_value_changes, ENTERED INDEX=$ans\n");
+						
+#			 my $ans = $param_widgets->{_entry_in_switch};
+#			 print(" 2. param_widgets, _check_value_changes, entry_in_switch=$ans\n");
+
+			$param_widgets->{_parameter_index_on_exit} = $idx;
+			print(" 3. param_widgets, _check_value_changes, Leaving INDEX=$param_widgets->{_parameter_index_on_exit}\n");
+			
+		} else {
+			print(" param_widgets, changes, bad switch \n");
 		}
 
-		return ($true);                                                      # for Entry widget to say there is no error
+		return ();    # for Entry widget to learn there is no error
 
-		# second case is when we are using project_selector
-		# project_selector does not yet have a max_index defined in a separate module
-	} else {
-		return ($true);    # for Entry widget to say there is no error
 	}
+
+	#	my @array = @{ $param_widgets_color_href->{_values_w_aref} };
+	#	my $ans = $array[0]->get();
+	#	print(" 1. param_widgets, _update_value_changes, array of widget Entry values:$ans \n");
+	#	$ans = $array[1]->get();
+	#	print(" 1. param_widgets, _update_value_changes, array of widget Entry values:$ans \n");
+
+	return (1);    # marks success for Entry widget
+}
+
+=head2 sub _update_value_changes
+ 	
+ 	locate change index for Entry widget
+
+=cut
+
+sub _update_value_changes {
+
+	my ($self) = @_;
+   print(" start param_widgets, _update_value_changes\n");
+  
+	if ( $param_widgets->{_entry_in_switch} eq $off ) {
+		
+		# CASE 1 just left a widget after having entered it
+		# save the value of the prior widget
+		my $index_on_entry = $param_widgets->{_parameter_index_on_entry};
+		print(" param_widgets, _update_value_changes,index_on_entry =$index_on_entry\n");		
+		my $prior_value    = @{ $param_widgets->{_values_w_aref} }[$index_on_entry]->get();
+		@{ $param_widgets->{_values_aref} }[$index_on_entry] = $prior_value;
+
+	} elsif ( $param_widgets->{_entry_in_switch} eq $on ) {
+
+		# CASE 2 just entering a widget after having left another
+		# save the value in the prior widget
+		my $index_on_exit = $param_widgets->{_parameter_index_on_exit};
+		print(" param_widgets, _update_value_changes,index_on_entry =$index_on_exit \n");
+		my $prior_value   = @{ $param_widgets->{_values_w_aref} }[$index_on_exit]->get();
+		@{ $param_widgets->{_values_aref} }[$index_on_exit] = $prior_value;
+
+	} else {
+		print(" 1. param_widgets, _update_value_changes, missing value\n");
+	}
+
+	return ();
 
 }
 
@@ -227,6 +338,7 @@ sub _changes {
 =cut
 
 sub error_check {
+
 	my ($self) = @_;
 	print("param_widgets,error_check return is $true\n");
 	return ($true);
@@ -417,16 +529,29 @@ sub gui_full_clear {
 	return ();
 }
 
-=head2 sub  local_set_entry_change_status
+=head2 sub  _set_entry_change_status
 
 =cut
 
-sub local_set_entry_change_status {
+sub _set_entry_change_status {
 	my ($ans) = @_;
 	$param_widgets->{_changed_entry} = $ans;
 
-	# print("param_widgets,local_set_entry_change_status,changed_entry,is: success \n");
+	# print("param_widgets,_set_entry_change_status,changed_entry,is: success \n");
 
+	return ();
+}
+
+=head2 sub _set_index_on_entry
+
+=cut
+
+sub _set_index_on_entry {
+	my ($parameter_index_on_entry) = @_;
+
+	$param_widgets->{_parameter_index_on_entry} = $parameter_index_on_entry;
+
+	#	print("1. param_widgets,_set_index_on_entry:  $param_widgets->{_parameter_index_on_entry} \n");
 	return ();
 }
 
@@ -555,18 +680,6 @@ sub _update_check_button_setting {
 
 	# print("param_widgets: update_check_buttons_settings_aref @{$param_widgets->{_check_buttons_settings_aref}}\n");
 
-	return ();
-}
-
-=head2 sub local_set_last_changed_entry_index
-
-=cut
-
-sub local_set_last_changed_entry_index {
-	my ($self) = @_;
-	$param_widgets->{_last_changed_entry_index} = $self;
-
-	# print("param_widgets,local_set_last_changed_entry_index:  $param_widgets->{_last_changed_entry_index} \n");
 	return ();
 }
 
@@ -1101,14 +1214,14 @@ sub redisplay_check_buttons {
 	my ($self)        = @_;
 	my $button_w_aref = $param_widgets->{_check_buttons_w_aref};
 	my $first         = $param_widgets->{_first_idx};
-	my $length = scalar @{ $param_widgets->{_check_buttons_settings_aref} };
+	my $length        = scalar @{ $param_widgets->{_check_buttons_settings_aref} };
 
 	# my $length 			= $param_widgets->{_length};
 	my $settings_aref = $param_widgets->{_check_buttons_settings_aref};
 
-# print("1. param_widgets,redisplay_check_buttons,settings @{$settings_aref}\n");
-# print("2. param_widgets,redisplay_check_buttons,settings @{$param_widgets->{_check_buttons_settings_aref}}[0]\n");
-# print("2. param_widgets,redisplay_check_buttons,length: $length\n");
+	# print("1. param_widgets,redisplay_check_buttons,settings @{$settings_aref}\n");
+	# print("2. param_widgets,redisplay_check_buttons,settings @{$param_widgets->{_check_buttons_settings_aref}}[0]\n");
+	# print("2. param_widgets,redisplay_check_buttons,length: $length\n");
 
 	if ( $button_w_aref && $settings_aref ) {
 
@@ -1123,13 +1236,11 @@ sub redisplay_check_buttons {
 				-variable         => \@$settings_aref[$i],
 			);
 		}
-	}
-	else {
+	} else {
 		print("param_widgets, redisplay_check_buttons missing parameters\n");
 	}
 	return ();
 }
-
 
 =head2 sub redisplay_labels 
 
@@ -1224,7 +1335,7 @@ sub redisplay_values {
 			# do not look like a number-- this occurs in a superclass
 			@{$values_aref}[$i] = $control->get_no_quotes( @{$values_aref}[$i] );
 
-			# print("2. param_widgets_grey, redisplay_values, quoteless value is @{$values_aref}[$i]\n");
+			# print("2. param_widgets, redisplay_values, quoteless value is @{$values_aref}[$i]\n");
 
 			@$values_w_aref[$i]->configure(
 				-validate        => 'focus',
@@ -1258,13 +1369,17 @@ sub redisplay_values {
 
 =cut
 
-sub set_current_program {
+sub set_current_program_name {
 
-	my ( $self, $prog_name_sref ) = @_;
-	if ($prog_name_sref) {
-		$param_widgets->{_current_program_name} = $$prog_name_sref;
-
-		# print("param_widgets,set_current_program, program name: $param_widgets->{_current_program_name}\n");
+	my ( $self, $prog_name ) = @_;
+	
+	if (length($prog_name)) {
+		
+		$param_widgets->{_current_program_name} = $prog_name;
+#		print("param_widgets,set_current_program, program name: $param_widgets->{_current_program_name}\n");
+		
+	}else {
+		print("param_widgets,set_current_program, missing program name\n");
 	}
 }
 
