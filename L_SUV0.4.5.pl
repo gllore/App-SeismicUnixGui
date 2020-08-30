@@ -42,7 +42,10 @@
      
  V 0.3.8 Standardized format with PerlTidy, tidyviewer .perltidyrc Aug., 2019
  
- V 0.3.9 Introduce Moose attributes to handle GUI history in OOP style
+ V 0.3.9 Introduce Moose attributes to record real-time GUI history
+ 
+ V 0.4.5 Include PDL packages to handle interactive modeling and reading fortran-generated
+ files
  
 =cut
 
@@ -120,7 +123,7 @@ my @sunix_well_programs        = @{ $var->{_sunix_well_programs} };
  
  flow_types: 'user_built flow' and 'pre_built_superflow'
  
- 29 off, 4 off, 1 off9iAGABJIBAzUuMZgBAKABAaoBB2d3cy13aXo&sclient=psy-ab&ved=0ahUKEwip09T9rMjqAhUJd6wKHWdJDGAQ4dUDCAs&uact=5
+ 29 off, 4 off, 1 off
 
 =cut
 
@@ -161,6 +164,8 @@ my $main_href = $gui_history->get_defaults();
  bottom  work_frame
  font is made to be arial normal 14
  border width is defaulted too
+ gui focus automatically changes to
+ where mouse is located 
 
 =cut
 

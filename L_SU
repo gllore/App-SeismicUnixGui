@@ -12,6 +12,6 @@
  else
 
 	perl $L_SU/L_SU_project_selector.pl
-	perl $L_SU/L_SUV0.3.9.pl
+	perl $L_SU/L_SUV0.4.5.pl
 
  fi

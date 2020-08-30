@@ -206,7 +206,7 @@ sub _local_or_defaults {
 	my $flow_type           = $get->flow_type_href();
 	my $pre_built_superflow = $flow_type->{_pre_built_superflow};
 
-	# print("config_superflows, _local_or_defaults,pre_built_superflow=$pre_built_superflow\n");
+#	print("config_superflows, _local_or_defaults,pre_built_superflow=$pre_built_superflow\n");
 	# set flow type before big_streams_param->get
 	$big_streams_param->set_flow_type($pre_built_superflow);
 	my $cfg_aref = $big_streams_param->get($name_sref);

@@ -87,6 +87,7 @@ my $L_SU_project_selector = {
 	_check_buttons_w_aref => '',
 	_mw                   => '',
 	_create_new_button    => '',
+	_prog_name		=> 'Project',
 };
 
 =head2 Main Window contains
@@ -103,6 +104,7 @@ my $L_SU_project_selector = {
 $mw = MainWindow->new;
 $mw->geometry( $var->{project_selector_box_position} );
 $mw->resizable( 0, 0 );    #not resizable in either width or height
+#$mw->focusFollowsMouse;
 $L_SU_project_selector->{_mw}                = $mw;
 $L_SU_project_selector->{_param_widgets_pkg} = $param_widgets;
 
@@ -170,7 +172,7 @@ $buttons_frame = $mw->Frame(
 );
 
 =head2
-Buttons within bottom buttonsframe
+Buttons within bottom buttons_frame
 
 =cut
 
@@ -201,6 +203,7 @@ my $ok_button = $buttons_frame->Button(
 	-state            => 'normal',
 	-command          => [ \&_project_selector, 'ok', 1 ],
 );
+	
 my $cancel_button = $buttons_frame->Button(
 	-text             => 'Cancel',
 	-font             => $arial,
@@ -362,6 +365,7 @@ $project_selector->set_mw( $L_SU_project_selector->{_mw} );
 # pass the package reference to another package
 # MUST be called before the first gui is started (i.e., set_gui)
 $project_selector->set_param_widgets_pkg( $L_SU_project_selector->{_param_widgets_pkg} );
+$project_selector->set_current_program_name( $L_SU_project_selector->{_prog_name} );
 $project_selector->set_message_box_w( $L_SU_project_selector->{_message_box_w} );
 $project_selector->set_create_new_button_w( $L_SU_project_selector->{_create_new_button} );
 

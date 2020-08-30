@@ -313,8 +313,8 @@ sub get {
 				$path                   = $su_param->{_user_active_project_path};
 				$sub_category_directory = '.';
 
-				# print("1B su_param,get,user_active_project_path_exists= $user_active_project_path_exists\n");
-				# print("1B su_param,get,active path is now $su_param->{_user_active_project_path} \n");
+#				print("CASE 1B su_param,get,user_active_project_path_exists= $user_active_project_path_exists\n");
+#				print("1B su_param,get,active path is now $su_param->{_user_active_project_path} \n");
 
 			} elsif ( not $local_config_exists ) {
 
@@ -322,7 +322,7 @@ sub get {
 				$path                   = _get_global_lib();
 				$sub_category_directory = $developer->get_program_sub_category();
 
-				# print("1C su_param,get,using global lib: path is $path\n");
+				print("1C su_param,get,using global lib: path is $path\n");
 			}
 
 		} elsif ( $su_param->{_flow_type} eq $flow_type_href->{_user_built} ) {
@@ -330,7 +330,7 @@ sub get {
 			# CASE 2A: for use of sunix programs in user_built_flows
 			$path = _get_global_lib();
 
-			# print("2.A su_param,get,using global lib: path for sunix programs is $path\n");
+			print("CASE 2.A su_param,get,using global lib: path for sunix programs is $path\n");
 			$sub_category_directory = $developer->get_program_sub_category();
 
 			# print("2.A su_param,get,using sub_category_directory:  for sunix programs is $sub_category_directory\n");
@@ -346,7 +346,7 @@ sub get {
 
 		$program_config = _get_program_config();
 
-		# print("su_param, get,configuration file to read=$program_config\n");
+#		print("su_param, get,configuration file to read=$program_config\n");
 
 		( $names_aref, $values_aref ) = $read->configs($program_config);
 		$su_param->{_names_aref} 	= $names_aref;
@@ -358,7 +358,7 @@ sub get {
 			$CFG[$j] = $$names_aref[$i];
 			$CFG[ ( $j + 1 ) ] = $$values_aref[$i];
 
-			# print("su_param,get,values:--$CFG[$j+1]--\n");
+#			print("su_param,get,values:--$CFG[$j+1]--\n");
 		}
 
 		return ( \@CFG );
