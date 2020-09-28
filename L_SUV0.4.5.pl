@@ -170,10 +170,12 @@ my $main_href = $gui_history->get_defaults();
 =cut
 
 ( $main_href->{_mw} ) = MainWindow->new;
+($main_href->{_mw})->optionAdd('*font', 'Arial');
 ( $main_href->{_mw} )->title( $var->{_program_title} );
 ( $main_href->{_mw} )->geometry( $var->{_box_position} );
-( $main_href->{_mw} )->resizable( 0, 0 );    # not resizable in either width or height
+( $main_href->{_mw} )->resizable( 1, 1);    # not resizable in either width or height
 ( $main_href->{_mw} )->focusFollowsMouse;
+
 
 
 =head2 Define 

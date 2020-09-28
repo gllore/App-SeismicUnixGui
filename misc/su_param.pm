@@ -322,7 +322,7 @@ sub get {
 				$path                   = _get_global_lib();
 				$sub_category_directory = $developer->get_program_sub_category();
 
-				print("1C su_param,get,using global lib: path is $path\n");
+#				print("1C su_param,get,using global lib: path is $path\n");
 			}
 
 		} elsif ( $su_param->{_flow_type} eq $flow_type_href->{_user_built} ) {
@@ -330,7 +330,7 @@ sub get {
 			# CASE 2A: for use of sunix programs in user_built_flows
 			$path = _get_global_lib();
 
-			print("CASE 2.A su_param,get,using global lib: path for sunix programs is $path\n");
+#			print("CASE 2.A su_param,get,using global lib: path for sunix programs is $path\n");
 			$sub_category_directory = $developer->get_program_sub_category();
 
 			# print("2.A su_param,get,using sub_category_directory:  for sunix programs is $sub_category_directory\n");
@@ -382,7 +382,7 @@ and also look in specified _CONFIG folder
  _CONFIG folder is defined as PL_SEISMIC for all but 
  pre-built big streams
 or superflows (e.g., immodpg)
-look at program_spec to find the definition for _CONFIG
+For the latter look at program_spec to find the definition for _CONFIG
 
 =cut
 
@@ -399,11 +399,14 @@ sub _check4local_config {
 #		print("1. su_param,_check4local_config, module_spec_pm = $module_spec_pm \n");
 # my $prog_spec_pm = "iVA_spec";
 # eval  "use $prog_spec_pm;";
-		eval "use $module_spec";
+		require $module_spec_pm;
 		my $package = $module_spec->new;
-		
-#		print("2. su_param,_check4local_config,package=($package->variables)->{_CONFIG}\n");
-
+#		my $a = $package->variables();
+#		foreach my $key (sort keys %$a) {
+#      	print (" su_param,_check4local_config, , key is $key, value is $a->{$key}\n");
+# 	}
+#		my $ans= $a->{_CONFIG};
+#		print("2. su_param,_check4local_config,package=$ans\n");
 		# collect specifications of output directory
 		# from a program_spec.pm module
 		my $specs_h  = $package->variables();

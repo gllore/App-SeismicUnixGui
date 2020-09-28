@@ -32,7 +32,7 @@ my $max_index         = $Sseg2su_config->get_max_index();
 =cut
 
 my $Sseg2su_spec =  {
-    _CONFIG	 				=> $PL_SEISMIC,
+    _CONFIG	 					=> $PL_SEISMIC,
     _DATA_DIR_IN           => $DATA_SEISMIC_SEG2,
 	_DATA_DIR_OUT          => $DATA_SEISMIC_SU,
 	_binding_index_aref    => '',
@@ -221,8 +221,6 @@ sub get_binding_length {
 sub variables {
     my ($self) = @_;
 
-    # print("Sseg2su_spec,variables,
-    # first_of_2,$Sseg2su_spec->{_is_first_of_2}\n");
     my $hash_ref = $Sseg2su_spec;
     return ($hash_ref);
 }
