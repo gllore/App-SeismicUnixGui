@@ -401,10 +401,10 @@ sub _check4local_config {
 # eval  "use $prog_spec_pm;";
 		require $module_spec_pm;
 		my $package = $module_spec->new;
-#		my $a = $package->variables();
+		my $a = $package->variables();
 #		foreach my $key (sort keys %$a) {
 #      	print (" su_param,_check4local_config, , key is $key, value is $a->{$key}\n");
-# 	}
+#	}
 #		my $ans= $a->{_CONFIG};
 #		print("2. su_param,_check4local_config,package=$ans\n");
 		# collect specifications of output directory

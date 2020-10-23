@@ -7,6 +7,8 @@ similar names as the variables in immodpg.for
 in the DICTIONARY ~ line 55
 and also in moveNzoom.for
 
+loop_limit:			for searching for a locked_file 
+
 =cut
 
 my $var = {
@@ -52,6 +54,7 @@ my $var = {
     _immodpg_model	                    => 'immodpg.out',
     _immodpg_model_file_text		    => 'model.txt',
     _layer_file							=> 'layer',
+    _loop_limit							=> 100,
     _move_down_opt						=> 83, 
 	_move_left_opt						=> 84,
 	_move_up_opt						=> 81,

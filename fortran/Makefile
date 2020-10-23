@@ -40,23 +40,12 @@ main.o:	$(L_SU_FORTRAN_SRC)/main.f
 	$(FORTRAN_COMPILER) $(FORTRAN95_FLAGS) \
 	-c $(L_SU_FORTRAN_SRC)/main.f \
 	-o $(L_SU_FORTRAN_OBJ)/main.o
-	
-main_read_from_fifo.o:	$(L_SU_FORTRAN_SRC)/main_read_from_fifo.f
-	$(FORTRAN_COMPILER) $(FORTRAN95_FLAGS) \
-	-c $(L_SU_FORTRAN_SRC)/main_read_from_fifo.f \./bin/immodpg1.1
-	-o $(L_SU_FORTRAN_OBJ)/main_read_from_fifo.o
 
 main: main.o read_1col.o write_1col.o
 	$(FORTRAN_COMPILER) $(FORTRAN95_FLAGS) \
 	$(L_SU_FORTRAN_OBJ)/main.o \
 	$(L_SU_FORTRAN_OBJ)/read_1col.o \
 	-o $(L_SU_FORTRAN_BIN)/main
-	
-mainf: main_read_from_fifo.o read_1col.o write_1col.o
-	$(FORTRAN_COMPILER) $(FORTRAN95_FLAGS) \
-	$(L_SU_FORTRAN_OBJ)/main_read_from_fifo.o \
-	$(L_SU_FORTRAN_OBJ)/read_1col.o \
-	-o $(L_SU_FORTRAN_BIN)/mainf
 	
 readVbot_file.o: $(L_SU_FORTRAN_SRC)/readVbot_file.f
 	$(FORTRAN_COMPILER) $(FORTRAN95_FLAGS) \

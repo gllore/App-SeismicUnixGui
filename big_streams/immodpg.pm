@@ -2153,7 +2153,7 @@ sub _set_change {
 	if (   length($yes_or_no)
 		&& length( $immodpg->{_change_file} ) ) {
 
-		#		print("immodpg, _set_change, yes_or_no:$yes_or_no\n");
+		# print("immodpg, _set_change, yes_or_no:$yes_or_no\n");
 
 		use manage_files_by2;
 		use control;
@@ -2178,9 +2178,11 @@ variables
 		my $outbound_locked = $outbound . '_locked';
 		my $format          = $var_immodpg->{_format_string};
 
-		for ( my $i = 0; $test eq $yes; $i++ ) {
+		my $count      = 0;
+		my $max_counts = 1000;
+		for ( my $i = 0; ( $test eq $yes ) and ( $count < $max_counts ); $i++ ) {
 
-			#			print("in loop \n");
+			# print("1. immodpg,_set_change, in loop count=$count \n");
 
 			if ( not( $files->does_file_exist( \$outbound_locked ) ) ) {
 
@@ -2190,27 +2192,53 @@ variables
 				# print("immodpg, _set_change, outbound_locked=$outbound_locked\n");
 				# print("immodpg, _set_change, IMMODPG_INVISIBLE=$IMMODPG_INVISIBLE\n");
 				# print("immodpg, _set_change, created empty locked file=$X[0]\n");
-				$X[0] = $yes_or_no;
 
 				# print("immodpg, _set_change, outbound=$outbound\n");
-				#				# print("immodpg, _set_change, IMMODPG_INVISIBLE=$IMMODPG_INVISIBLE\n");
-				$files->write_1col_aref( \@X, \$outbound, \$format );
+				# print("immodpg, _set_change, IMMODPG_INVISIBLE=$IMMODPG_INVISIBLE\n");
 
-				unlink($outbound_locked);
+				# do not overwrite a waiting change (= yes)
+				my $response_aref = $files->read_1col_aref( \$outbound );
+				my $ans           = @{$response_aref}[0];
 
-				#				print("1. immodpg, _set_change, delete locked file\n");
-				#				print("immodpg, _set_change, yes_or_no=$X[0]\n");
+				if ( $ans eq $yes ) {
 
-				# print("2. immodpg, _set_change, delete locked file\n");
-				$test = $no;
+					# do not overwrite a waiting change (= yes)
+					# print("2. immodpg, _set_change, SKIP\n");
+					# print("immodpg, _set_change,do not overwrite change_file\n");
 
-			}    # if
+					unlink($outbound_locked);
+
+				} elsif ( $ans eq $no ) {
+
+					# overwrite change_file(=no) with no or yes
+					$X[0] = $yes_or_no;
+					$files->write_1col_aref( \@X, \$outbound, \$format );
+
+					# print("immodpg, _set_change, overwrite change file with $X[0]\n");
+
+					unlink($outbound_locked);
+
+					# print("3. immodpg, _set_change, delete locked file\n");
+					# print("4. immodpg, _set_change, yes_or_no=$X[0]\n");
+
+					$test = $no;
+
+				} else {
+					print("immodpg, _set_change, unexpected result \n");
+				}    # test change_file's content
+
+			} else {
+
+				# print("immodpg,_set_change, locked change file\n");
+				$count++;    # governor on finding an unlocked change_file
+			}    # if unlocked file is missing and change_file is free
+
+			$count++;    # governor on checking for a change_file = yes
 		}    # for
 
 	} else {
 		print("immodpg, _set_change, missing values\n");
 	}
-
 	return ();
 }
 
@@ -2267,7 +2295,8 @@ variables
 				$X[0] = $clip;
 				$format = '%5.1f';
 				$files->write_1col_aref( \@X, \$outbound, \$format );
-				print("immodpg, _set_clip, output clip = $clip\n");
+
+				# print("immodpg, _set_clip, output clip = $clip\n");
 				unlink($outbound_locked);
 				$test = $yes;
 
@@ -3988,8 +4017,8 @@ sub clean_trash {
 	use xk;
 
 	my $xk    = xk->new();
-	my $clean = manage_files_by2->new();
-	my ($outbound_locked);
+	my $files = manage_files_by2->new();
+	my ($outbound_locked,$outbound);
 
 	my @X;
 	my $Vbot_file                  = $immodpg->{_Vbot_file};
@@ -4029,8 +4058,7 @@ sub clean_trash {
 	$outbound_locked = $IMMODPG_INVISIBLE . '/' . $Vtop_lower_layer_file . '_locked';
 	unlink($outbound_locked);
 	$outbound_locked = $IMMODPG_INVISIBLE . '/' . $change_file . '_locked';
-
-	# print("delete $outbound_locked\n");
+#	print("immodpg, clean_trash, delete $outbound_locked\n");
 	unlink($outbound_locked);
 	$outbound_locked = $IMMODPG_INVISIBLE . '/' . $clip_file . '_locked';
 	unlink($outbound_locked);
@@ -4044,7 +4072,14 @@ sub clean_trash {
 	unlink($outbound_locked);
 	$outbound_locked = $IMMODPG_INVISIBLE . '/' . $thickness_increment_m_file . '_locked';
 	unlink($outbound_locked);
-
+	
+	# reset files to their default options
+	$outbound = $IMMODPG_INVISIBLE . '/' . $change_file;
+	unlink($outbound);
+	my $format          = $var_immodpg->{_format_string};
+	$X[0] =$immodpg->{_change_default};
+	$files->write_1col_aref( \@X, \$outbound, \$format );
+	
 	_fortran_layer( $immodpg->{_layer_default} );
 	_set_option( $immodpg->{_option_default} );
 	_set_change( $immodpg->{_change_default} );
@@ -4052,16 +4087,16 @@ sub clean_trash {
 	# delete empty files (including surviving lock files)
 	# remove weird, locked files from the current directory
 	my $CD = `pwd`;
-	$clean->set_directory($CD);
-	$clean->clear_empty_files();
+	$files->set_directory($CD);
+	$files->clear_empty_files();
 
 	# remove weird lock files from the main directory
-	$clean->set_directory($IMMODPG);
-	$clean->clear_empty_files();
+	$files->set_directory($IMMODPG);
+	$files->clear_empty_files();
 
 	# remove weird lock files from the IMMODPG_INVISIBLE
-	$clean->set_directory($IMMODPG_INVISIBLE);
-	$clean->clear_empty_files();
+	$files->set_directory($IMMODPG_INVISIBLE);
+	$files->clear_empty_files();
 
 	return ();
 }
@@ -4302,29 +4337,28 @@ sub get_replacement4missing {
 		my $inbound     = $immodpg->{_inbound_missing};
 		my $replacement = $immodpg->{_replacement4missing};
 
-		if (
-			not( -e $inbound ) ) {
-#				print("immodpg,get_replacement4missing ,file is missing\n");
-				use File::Copy;
-				my $from = $replacement;
-				my $to   = $inbound;
-				copy( $from, $to );
-				
-			} elsif ( -e $inbound ) {
+		if ( not( -e $inbound ) ) {
 
-#				print("immodpg,get_replacement4missing,OK-NADA \n");
+			#				print("immodpg,get_replacement4missing ,file is missing\n");
+			use File::Copy;
+			my $from = $replacement;
+			my $to   = $inbound;
+			copy( $from, $to );
 
-			} else {
-				print("immodpg,get_replacement4missing,unexpected value\n");
-			}
-			
+		} elsif ( -e $inbound ) {
+
+			#				print("immodpg,get_replacement4missing,OK-NADA \n");
+
+		} else {
+			print("immodpg,get_replacement4missing,unexpected value\n");
 		}
-		else {
-			print("immodpg, get_replacement4missing, missing replacement\n");
-		}
-		
-		return ();
+
+	} else {
+		print("immodpg, get_replacement4missing, missing replacement\n");
 	}
+
+	return ();
+}
 
 =head2 sub setVbot
 
@@ -4337,52 +4371,52 @@ through a message in file= "Vbot"
 
 =cut
 
-	sub setVbot {
+sub setVbot {
 
-		my ($self) = @_;
+	my ($self) = @_;
 
-		my $isVbot_changed = $immodpg->{_isVbot_changed};
+	my $isVbot_changed = $immodpg->{_isVbot_changed};
 
-		if ( length( $immodpg->{_VbotEntry} ) ) {
+	if ( length( $immodpg->{_VbotEntry} ) ) {
 
-			$immodpg->{_Vbot_current} = ( $immodpg->{_VbotEntry} )->get();
+		$immodpg->{_Vbot_current} = ( $immodpg->{_VbotEntry} )->get();
 
-			# redefinition required ???
-			$immodpg->{_isVbot_changed} = $isVbot_changed;
+		# redefinition required ???
+		$immodpg->{_isVbot_changed} = $isVbot_changed;
 
-			#		print("immodpg, setVbot, $immodpg->{_isVbot_changed}\n");
+		#		print("immodpg, setVbot, $immodpg->{_isVbot_changed}\n");
 
-			_checkVbot();
-			_updateVbot();
+		_checkVbot();
+		_updateVbot();
 
-			if ( length( $immodpg->{_isVbot_changed} )
-				&& $immodpg->{_isVbot_changed} eq $yes ) {
+		if ( length( $immodpg->{_isVbot_changed} )
+			&& $immodpg->{_isVbot_changed} eq $yes ) {
 
-				# for fortran program to read
-				# print("immodpg, set_Vbot, Vbot is changed: $yes \n");
+			# for fortran program to read
+			# print("immodpg, set_Vbot, Vbot is changed: $yes \n");
 
-				_setVbot( $immodpg->{_Vbot_current} );
-				_set_option($Vbot_opt);
-				_set_change($yes);
+			_setVbot( $immodpg->{_Vbot_current} );
+			_set_option($Vbot_opt);
+			_set_change($yes);
 
-				# print("immodpg, setVbot,option:$Vbot_opt\n");
-				#			print("immodpg, setVbot, V=$immodpg->{_Vbot_current}\n");
-
-			} else {
-
-				#			negative cases are reset by fortran program
-				#			and so eliminate need to read locked files
-				#			while use of locked files helps most of the time
-				#			creation and deletion of locked files in perl are not
-				#			failsafe
-
-				#  print("immodpg, setVbot, same Vbot NADA\n");
-			}
+			# print("immodpg, setVbot,option:$Vbot_opt\n");
+			#			print("immodpg, setVbot, V=$immodpg->{_Vbot_current}\n");
 
 		} else {
 
+			#			negative cases are reset by fortran program
+			#			and so eliminate need to read locked files
+			#			while use of locked files helps most of the time
+			#			creation and deletion of locked files in perl are not
+			#			failsafe
+
+			#  print("immodpg, setVbot, same Vbot NADA\n");
 		}
+
+	} else {
+
 	}
+}
 
 =head2 sub setVbot_upper_layer
 
@@ -4395,64 +4429,64 @@ through a message in file= "Vbot_lower"
 
 =cut
 
-	sub setVbot_upper_layer {
+sub setVbot_upper_layer {
 
-		my ($self) = @_;
+	my ($self) = @_;
 
-		# for convenience
-		my $isVbot_upper_layer_changed = $immodpg->{_isVbot_upper_layer_changed};
-		my $layer_current              = $immodpg->{_layer_current};
+	# for convenience
+	my $isVbot_upper_layer_changed = $immodpg->{_isVbot_upper_layer_changed};
+	my $layer_current              = $immodpg->{_layer_current};
 
-		# print("immodpg, setVbot_upper_layer, self, $self\n");
+	# print("immodpg, setVbot_upper_layer, self, $self\n");
 
-		if ( length( $immodpg->{_Vbot_upper_layerEntry} ) ) {
+	if ( length( $immodpg->{_Vbot_upper_layerEntry} ) ) {
 
-			my $Vbot_upper_layer_current = ( $immodpg->{_Vbot_upper_layerEntry} )->get();
+		my $Vbot_upper_layer_current = ( $immodpg->{_Vbot_upper_layerEntry} )->get();
 
-			# redfinition of lost value ????
-			$immodpg->{_isVbot_upper_layer_changed} = $isVbot_upper_layer_changed;
+		# redfinition of lost value ????
+		$immodpg->{_isVbot_upper_layer_changed} = $isVbot_upper_layer_changed;
 
-			if (    $Vbot_upper_layer_current ne $empty_string
-				and looks_like_number($Vbot_upper_layer_current)
-				and $layer_current > 0 ) {
+		if (    $Vbot_upper_layer_current ne $empty_string
+			and looks_like_number($Vbot_upper_layer_current)
+			and $layer_current > 0 ) {
 
-				#			print("immodpg, setVbot_upper_layer, V=$immodpg->{_Vbot_upper_layer}\n");
+			#			print("immodpg, setVbot_upper_layer, V=$immodpg->{_Vbot_upper_layer}\n");
 
-				_checkVbot_upper_layer();
-				_updateVbot_upper_layer();
+			_checkVbot_upper_layer();
+			_updateVbot_upper_layer();
 
-				if ( $immodpg->{_isVbot_upper_layer_changed} eq $yes ) {
+			if ( $immodpg->{_isVbot_upper_layer_changed} eq $yes ) {
 
-					# for fortran program to read
-					#				print("immodpg, set_Vbot_upper_layer, Vbot_upper_layer is changed: $yes \n");
+				# for fortran program to read
+				#				print("immodpg, set_Vbot_upper_layer, Vbot_upper_layer is changed: $yes \n");
 
-					_setVbot_upper_layer( $immodpg->{_Vbot_upper_layer_current} );
-					_set_option($Vbot_upper_layer_opt);
-					_set_change($yes);
+				_setVbot_upper_layer( $immodpg->{_Vbot_upper_layer_current} );
+				_set_option($Vbot_upper_layer_opt);
+				_set_change($yes);
 
-					#				print("immodpg, setVbot_upper_layer,option:$Vbot_upper_layer_opt\n");
-					#				print("immodpg, setVbot_upper_layer,V= $immodpg->{_Vbot_upper_layer_current}\n");
-
-				} else {
-
-					#			negative cases are reset by fortran program
-					#			and so eliminate need to read locked files
-					#			while use of locked files helps most of the time
-					#			creation and deletion of locked files in perl are not
-					#			failsafe
-
-					# print("immodpg, setVbot_upper_layer, same Vbot NADA\n");
-				}
+				#				print("immodpg, setVbot_upper_layer,option:$Vbot_upper_layer_opt\n");
+				#				print("immodpg, setVbot_upper_layer,V= $immodpg->{_Vbot_upper_layer_current}\n");
 
 			} else {
 
-				# print("immodpg, setVbot_upper_layer, Velocity is empty in non-layer NADA\n");
+				#			negative cases are reset by fortran program
+				#			and so eliminate need to read locked files
+				#			while use of locked files helps most of the time
+				#			creation and deletion of locked files in perl are not
+				#			failsafe
+
+				# print("immodpg, setVbot_upper_layer, same Vbot NADA\n");
 			}
 
 		} else {
 
+			# print("immodpg, setVbot_upper_layer, Velocity is empty in non-layer NADA\n");
 		}
+
+	} else {
+
 	}
+}
 
 =head2 setVbotNVtop_lower_layer_minus
 update Vbot value in gui
@@ -4463,77 +4497,77 @@ output option for immodpg.for
 
 =cut
 
-	sub setVbotNVtop_lower_layer_minus {
+sub setVbotNVtop_lower_layer_minus {
 
-		my ($self) = @_;
+	my ($self) = @_;
 
-		if (   looks_like_number( $immodpg->{_Vincrement_current} )
-			&& length( $immodpg->{_Vtop_lower_layerEntry} )
-			&& length( $immodpg->{_VbotEntry} ) ) {
+	if (   looks_like_number( $immodpg->{_Vincrement_current} )
+		&& length( $immodpg->{_Vtop_lower_layerEntry} )
+		&& length( $immodpg->{_VbotEntry} ) ) {
 
-			my $Vbot             = ( $immodpg->{_VbotEntry} )->get();
-			my $Vtop_lower_layer = ( $immodpg->{_Vtop_lower_layerEntry} )->get();
-			my $Vincrement       = ( $immodpg->{_VincrementEntry} )->get();
+		my $Vbot             = ( $immodpg->{_VbotEntry} )->get();
+		my $Vtop_lower_layer = ( $immodpg->{_Vtop_lower_layerEntry} )->get();
+		my $Vincrement       = ( $immodpg->{_VincrementEntry} )->get();
 
-			if (   looks_like_number($Vtop_lower_layer)
-				&& looks_like_number($Vbot) ) {
+		if (   looks_like_number($Vtop_lower_layer)
+			&& looks_like_number($Vbot) ) {
 
-				my $new_Vtop_lower_layer = $Vtop_lower_layer - $Vincrement;
-				my $new_Vbot             = $Vbot - $Vincrement;
+			my $new_Vtop_lower_layer = $Vtop_lower_layer - $Vincrement;
+			my $new_Vbot             = $Vbot - $Vincrement;
 
-				$immodpg->{_Vtop_lower_layer_prior}   = $immodpg->{_Vtop_lower_layer_current};
-				$immodpg->{_Vtop_lower_layer_current} = $new_Vtop_lower_layer;
+			$immodpg->{_Vtop_lower_layer_prior}   = $immodpg->{_Vtop_lower_layer_current};
+			$immodpg->{_Vtop_lower_layer_current} = $new_Vtop_lower_layer;
 
-				$immodpg->{_Vbot_prior}   = $immodpg->{_Vbot_current};
-				$immodpg->{_Vbot_current} = $new_Vbot;
+			$immodpg->{_Vbot_prior}   = $immodpg->{_Vbot_current};
+			$immodpg->{_Vbot_current} = $new_Vbot;
 
-				$immodpg->{_Vtop_lower_layerEntry}->delete( 0, 'end' );
-				$immodpg->{_Vtop_lower_layerEntry}->insert( 0, $new_Vtop_lower_layer );
+			$immodpg->{_Vtop_lower_layerEntry}->delete( 0, 'end' );
+			$immodpg->{_Vtop_lower_layerEntry}->insert( 0, $new_Vtop_lower_layer );
 
-				$immodpg->{_VbotEntry}->delete( 0, 'end' );
-				$immodpg->{_VbotEntry}->insert( 0, $new_Vbot );
+			$immodpg->{_VbotEntry}->delete( 0, 'end' );
+			$immodpg->{_VbotEntry}->insert( 0, $new_Vbot );
 
-				$immodpg->{_isVtop_lower_layer_changed} = $yes;
-				$immodpg->{_isVbot_changed}             = $yes;
+			$immodpg->{_isVtop_lower_layer_changed} = $yes;
+			$immodpg->{_isVbot_changed}             = $yes;
 
-				#			print("immodpg, setVbotNVtop_lower_layer_minus, new Vtop_lower_layer= $new_Vtop_lower_layer\n");
-				#			print("immodpg, setVbotNVtop_lower_layer_minus, Vincrement= $Vincrement\n");
+			#			print("immodpg, setVbotNVtop_lower_layer_minus, new Vtop_lower_layer= $new_Vtop_lower_layer\n");
+			#			print("immodpg, setVbotNVtop_lower_layer_minus, Vincrement= $Vincrement\n");
 
-				if (   $immodpg->{_isVtop_lower_layer_changed} eq $yes
-					&& $immodpg->{_isVbot_changed} eq $yes ) {
+			if (   $immodpg->{_isVtop_lower_layer_changed} eq $yes
+				&& $immodpg->{_isVbot_changed} eq $yes ) {
 
-					# for fortran program to read
-					#				print("immodpg, setVbotNVtop_lower_layer_minus, Vbot is changed: $yes \n");
+				# for fortran program to read
+				#				print("immodpg, setVbotNVtop_lower_layer_minus, Vbot is changed: $yes \n");
 
-					_set_option($VbotNVtop_lower_layer_minus_opt);
-					_set_change($yes);
+				_set_option($VbotNVtop_lower_layer_minus_opt);
+				_set_change($yes);
 
-					#				print("immodpg, setVbotNVtop_lower_layer_minus,option:$VbotNVtop_lower_layer_minus_opt\n");
-					#				print("immodpg, setVbotNVtop_lower_layer_minus, V=$immodpg->{_Vtop_lower_layer_current}\n");
-
-				} else {
-
-					#	negative cases are reset by fortran program
-					#	and so eliminate need to read locked files
-					#	while use of locked files helps most of the time
-					#	creation and deletion of locked files in perl are not
-					#	failsafe
-					#
-					#				print("immodpg, setVbotNVtop_lower_layer_minus, same Vbot and Vtop_lower_layer; NADA\n");
-				}
+				#				print("immodpg, setVbotNVtop_lower_layer_minus,option:$VbotNVtop_lower_layer_minus_opt\n");
+				#				print("immodpg, setVbotNVtop_lower_layer_minus, V=$immodpg->{_Vtop_lower_layer_current}\n");
 
 			} else {
-				print("immodpg, setVbotNVtop_lower_layer_minus, Vbot or Vtop_lower_layer value missing\n");
+
+				#	negative cases are reset by fortran program
+				#	and so eliminate need to read locked files
+				#	while use of locked files helps most of the time
+				#	creation and deletion of locked files in perl are not
+				#	failsafe
+				#
+				#				print("immodpg, setVbotNVtop_lower_layer_minus, same Vbot and Vtop_lower_layer; NADA\n");
 			}
 
 		} else {
-			print("immodpg, setVbotNVtop_lower_layer_minus, missing widget or Vincrement\n");
-
-			#		print("immodpg, setVtopNVtop_lower_layer_minus, Vtop_lower_layerEntry=$immodpg->{_Vtop_lower_layerEntry}\n");
-			#		print("immodpg, setVtopNVtop_lower_layer_minus, Vincrement=$immodpg->{_Vincrement_current}\n");
+			print("immodpg, setVbotNVtop_lower_layer_minus, Vbot or Vtop_lower_layer value missing\n");
 		}
-		return ();
+
+	} else {
+		print("immodpg, setVbotNVtop_lower_layer_minus, missing widget or Vincrement\n");
+
+		#		print("immodpg, setVtopNVtop_lower_layer_minus, Vtop_lower_layerEntry=$immodpg->{_Vtop_lower_layerEntry}\n");
+		#		print("immodpg, setVtopNVtop_lower_layer_minus, Vincrement=$immodpg->{_Vincrement_current}\n");
 	}
+	return ();
+}
 
 =head2 setVbotNVtop_lower_layer_plus
 update Vbot value in gui
@@ -4544,77 +4578,77 @@ output option for immodpg.for
 
 =cut
 
-	sub setVbotNVtop_lower_layer_plus {
+sub setVbotNVtop_lower_layer_plus {
 
-		my ($self) = @_;
+	my ($self) = @_;
 
-		if (   looks_like_number( $immodpg->{_Vincrement_current} )
-			&& length( $immodpg->{_Vtop_lower_layerEntry} )
-			&& length( $immodpg->{_VbotEntry} ) ) {
+	if (   looks_like_number( $immodpg->{_Vincrement_current} )
+		&& length( $immodpg->{_Vtop_lower_layerEntry} )
+		&& length( $immodpg->{_VbotEntry} ) ) {
 
-			my $Vbot             = ( $immodpg->{_VbotEntry} )->get();
-			my $Vtop_lower_layer = ( $immodpg->{_Vtop_lower_layerEntry} )->get();
-			my $Vincrement       = ( $immodpg->{_VincrementEntry} )->get();
+		my $Vbot             = ( $immodpg->{_VbotEntry} )->get();
+		my $Vtop_lower_layer = ( $immodpg->{_Vtop_lower_layerEntry} )->get();
+		my $Vincrement       = ( $immodpg->{_VincrementEntry} )->get();
 
-			if (   looks_like_number($Vtop_lower_layer)
-				&& looks_like_number($Vbot) ) {
+		if (   looks_like_number($Vtop_lower_layer)
+			&& looks_like_number($Vbot) ) {
 
-				my $new_Vtop_lower_layer = $Vtop_lower_layer + $Vincrement;
-				my $new_Vbot             = $Vbot + $Vincrement;
+			my $new_Vtop_lower_layer = $Vtop_lower_layer + $Vincrement;
+			my $new_Vbot             = $Vbot + $Vincrement;
 
-				$immodpg->{_Vtop_lower_layer_prior}   = $immodpg->{_Vtop_lower_layer_current};
-				$immodpg->{_Vtop_lower_layer_current} = $new_Vtop_lower_layer;
+			$immodpg->{_Vtop_lower_layer_prior}   = $immodpg->{_Vtop_lower_layer_current};
+			$immodpg->{_Vtop_lower_layer_current} = $new_Vtop_lower_layer;
 
-				$immodpg->{_Vbot_prior}   = $immodpg->{_Vbot_current};
-				$immodpg->{_Vbot_current} = $new_Vbot;
+			$immodpg->{_Vbot_prior}   = $immodpg->{_Vbot_current};
+			$immodpg->{_Vbot_current} = $new_Vbot;
 
-				$immodpg->{_Vtop_lower_layerEntry}->delete( 0, 'end' );
-				$immodpg->{_Vtop_lower_layerEntry}->insert( 0, $new_Vtop_lower_layer );
+			$immodpg->{_Vtop_lower_layerEntry}->delete( 0, 'end' );
+			$immodpg->{_Vtop_lower_layerEntry}->insert( 0, $new_Vtop_lower_layer );
 
-				$immodpg->{_VbotEntry}->delete( 0, 'end' );
-				$immodpg->{_VbotEntry}->insert( 0, $new_Vbot );
+			$immodpg->{_VbotEntry}->delete( 0, 'end' );
+			$immodpg->{_VbotEntry}->insert( 0, $new_Vbot );
 
-				$immodpg->{_isVtop_lower_layer_changed} = $yes;
-				$immodpg->{_isVbot_changed}             = $yes;
+			$immodpg->{_isVtop_lower_layer_changed} = $yes;
+			$immodpg->{_isVbot_changed}             = $yes;
 
-				#			print("immodpg, setVbotNVtop_lower_layer_plus, new Vtop_lower_layer= $new_Vtop_lower_layer\n");
-				#			print("immodpg, setVbotNVtop_lower_layer_plus, Vincrement= $Vincrement\n");
+			#			print("immodpg, setVbotNVtop_lower_layer_plus, new Vtop_lower_layer= $new_Vtop_lower_layer\n");
+			#			print("immodpg, setVbotNVtop_lower_layer_plus, Vincrement= $Vincrement\n");
 
-				if (   $immodpg->{_isVtop_lower_layer_changed} eq $yes
-					&& $immodpg->{_isVbot_changed} eq $yes ) {
+			if (   $immodpg->{_isVtop_lower_layer_changed} eq $yes
+				&& $immodpg->{_isVbot_changed} eq $yes ) {
 
-					# for fortran program to read
-					#				print("immodpg, setVbotNVtop_lower_layer_plus, Vbot is changed: $yes \n");
+				# for fortran program to read
+				#				print("immodpg, setVbotNVtop_lower_layer_plus, Vbot is changed: $yes \n");
 
-					_set_option($VbotNVtop_lower_layer_plus_opt);
-					_set_change($yes);
+				_set_option($VbotNVtop_lower_layer_plus_opt);
+				_set_change($yes);
 
-					#				print("immodpg, setVbotNVtop_lower_layer_plus,option:$VbotNVtop_lower_layer_plus_opt\n");
-					#				print("immodpg, setVbotNVtop_lower_layer_plus, V=$immodpg->{_Vtop_lower_layer_current}\n");
-
-				} else {
-
-					#	negative cases are reset by fortran program
-					#	and so eliminate need to read locked files
-					#	while use of locked files helps most of the time
-					#	creation and deletion of locked files in perl are not
-					#	failsafe
-					#
-					#				print("immodpg, setVbotNVtop_lower_layer_plus, same Vbot and Vtop_lower_layer; NADA\n");
-				}
+				#				print("immodpg, setVbotNVtop_lower_layer_plus,option:$VbotNVtop_lower_layer_plus_opt\n");
+				#				print("immodpg, setVbotNVtop_lower_layer_plus, V=$immodpg->{_Vtop_lower_layer_current}\n");
 
 			} else {
-				print("immodpg, setVbotNVtop_lower_layer_plus, Vbot or Vtop_lower_layer value missing\n");
+
+				#	negative cases are reset by fortran program
+				#	and so eliminate need to read locked files
+				#	while use of locked files helps most of the time
+				#	creation and deletion of locked files in perl are not
+				#	failsafe
+				#
+				#				print("immodpg, setVbotNVtop_lower_layer_plus, same Vbot and Vtop_lower_layer; NADA\n");
 			}
 
 		} else {
-			print("immodpg, setVbotNVtop_lower_layer_plus, missing widget or Vincrement\n");
-
-			#		print("immodpg, setVtopNVtop_lower_layer_plus, Vtop_lower_layerEntry=$immodpg->{_Vtop_lower_layerEntry}\n");
-			print("immodpg, setVtopNVtop_lower_layer_plus, Vincrement=$immodpg->{_Vincrement_current}\n");
+			print("immodpg, setVbotNVtop_lower_layer_plus, Vbot or Vtop_lower_layer value missing\n");
 		}
-		return ();
+
+	} else {
+		print("immodpg, setVbotNVtop_lower_layer_plus, missing widget or Vincrement\n");
+
+		#		print("immodpg, setVtopNVtop_lower_layer_plus, Vtop_lower_layerEntry=$immodpg->{_Vtop_lower_layerEntry}\n");
+		print("immodpg, setVtopNVtop_lower_layer_plus, Vincrement=$immodpg->{_Vincrement_current}\n");
 	}
+	return ();
+}
 
 =head2 sub setVtopNVbot_upper_layer_minus
 update Vtop value in gui
@@ -4625,83 +4659,83 @@ output option for immodpg.for
 
 =cut
 
-	sub setVtopNVbot_upper_layer_minus {
+sub setVtopNVbot_upper_layer_minus {
 
-		my ($self) = @_;
+	my ($self) = @_;
 
-		print("layer_current = $immodpg->{_layer_current};\n");
-		if (
-			   looks_like_number( $immodpg->{_Vincrement_current} )
-			&& length( $immodpg->{_Vbot_upper_layerEntry} )
-			&& length( $immodpg->{_VtopEntry} )
+	print("layer_current = $immodpg->{_layer_current};\n");
+	if (
+		   looks_like_number( $immodpg->{_Vincrement_current} )
+		&& length( $immodpg->{_Vbot_upper_layerEntry} )
+		&& length( $immodpg->{_VtopEntry} )
 
-		) {
+	) {
 
-			my $Vtop             = ( $immodpg->{_VtopEntry} )->get();
-			my $Vbot_upper_layer = ( $immodpg->{_Vbot_upper_layerEntry} )->get();
-			my $Vincrement       = ( $immodpg->{_VincrementEntry} )->get();
-			my $layer_current    = $immodpg->{_layer_current};
+		my $Vtop             = ( $immodpg->{_VtopEntry} )->get();
+		my $Vbot_upper_layer = ( $immodpg->{_Vbot_upper_layerEntry} )->get();
+		my $Vincrement       = ( $immodpg->{_VincrementEntry} )->get();
+		my $layer_current    = $immodpg->{_layer_current};
 
-			if ( looks_like_number($Vbot_upper_layer) && looks_like_number($Vtop)
-				and $layer_current > 1 ) {
-				print("2\n");
-				my $new_Vbot_upper_layer = $Vbot_upper_layer - $Vincrement;
-				my $new_Vtop             = $Vtop - $Vincrement;
+		if ( looks_like_number($Vbot_upper_layer) && looks_like_number($Vtop)
+			and $layer_current > 1 ) {
+			print("2\n");
+			my $new_Vbot_upper_layer = $Vbot_upper_layer - $Vincrement;
+			my $new_Vtop             = $Vtop - $Vincrement;
 
-				$immodpg->{_Vbot_upper_layer_prior}   = $immodpg->{_Vbot_upper_layer_current};
-				$immodpg->{_Vbot_upper_layer_current} = $new_Vbot_upper_layer;
+			$immodpg->{_Vbot_upper_layer_prior}   = $immodpg->{_Vbot_upper_layer_current};
+			$immodpg->{_Vbot_upper_layer_current} = $new_Vbot_upper_layer;
 
-				$immodpg->{_Vtop_prior}   = $immodpg->{_Vtop_current};
-				$immodpg->{_Vtop_current} = $new_Vtop;
+			$immodpg->{_Vtop_prior}   = $immodpg->{_Vtop_current};
+			$immodpg->{_Vtop_current} = $new_Vtop;
 
-				$immodpg->{_Vbot_upper_layerEntry}->delete( 0, 'end' );
-				$immodpg->{_Vbot_upper_layerEntry}->insert( 0, $new_Vbot_upper_layer );
+			$immodpg->{_Vbot_upper_layerEntry}->delete( 0, 'end' );
+			$immodpg->{_Vbot_upper_layerEntry}->insert( 0, $new_Vbot_upper_layer );
 
-				$immodpg->{_VtopEntry}->delete( 0, 'end' );
-				$immodpg->{_VtopEntry}->insert( 0, $new_Vtop );
+			$immodpg->{_VtopEntry}->delete( 0, 'end' );
+			$immodpg->{_VtopEntry}->insert( 0, $new_Vtop );
 
-				$immodpg->{_isVbot_upper_layer_changed} = $yes;
-				$immodpg->{_isVtop_changed}             = $yes;
+			$immodpg->{_isVbot_upper_layer_changed} = $yes;
+			$immodpg->{_isVtop_changed}             = $yes;
 
-				print("immodpg, setVtopNVbot_upper_layer_minus, new Vbot_upper_layer= $new_Vbot_upper_layer\n");
-				print("immodpg, setVtopNVbot_upper_layer_minus, Vincrement= $Vincrement\n");
+			print("immodpg, setVtopNVbot_upper_layer_minus, new Vbot_upper_layer= $new_Vbot_upper_layer\n");
+			print("immodpg, setVtopNVbot_upper_layer_minus, Vincrement= $Vincrement\n");
 
-				if (   $immodpg->{_isVbot_upper_layer_changed} eq $yes
-					&& $immodpg->{_isVtop_changed} eq $yes ) {
+			if (   $immodpg->{_isVbot_upper_layer_changed} eq $yes
+				&& $immodpg->{_isVtop_changed} eq $yes ) {
 
-					# for fortran program to read
-					print("immodpg, setVtopNVbot_upper_layer_minus, Vbot is changed: $yes \n");
+				# for fortran program to read
+				print("immodpg, setVtopNVbot_upper_layer_minus, Vbot is changed: $yes \n");
 
-					_set_option($VtopNVbot_upper_layer_minus_opt);
-					_set_change($yes);
+				_set_option($VtopNVbot_upper_layer_minus_opt);
+				_set_change($yes);
 
-					print("immodpg, setVtopNVbot_upper_layer_minus,option:$VtopNVbot_upper_layer_minus_opt\n");
-					print("immodpg, setVtopNVbot_upper_layer_minus, V=$immodpg->{_Vbot_upper_layer_current}\n");
-
-				} else {
-
-					#	negative cases are reset by fortran program
-					#	and so eliminate need to read locked files
-					#	while use of locked files helps most of the time
-					#	creation and deletion of locked files in perl are not
-					#	failsafe
-					#
-					#				print("immodpg, setVtopNVbot_upper_layer_minus, same Vtop and Vbot_upper_layer; NADA\n");
-				}
+				print("immodpg, setVtopNVbot_upper_layer_minus,option:$VtopNVbot_upper_layer_minus_opt\n");
+				print("immodpg, setVtopNVbot_upper_layer_minus, V=$immodpg->{_Vbot_upper_layer_current}\n");
 
 			} else {
 
-				# print("immodpg, setVtopNVbot_upper_layer_minus, Vtop or Vbot_upper_layer value missing-NADA\n");
+				#	negative cases are reset by fortran program
+				#	and so eliminate need to read locked files
+				#	while use of locked files helps most of the time
+				#	creation and deletion of locked files in perl are not
+				#	failsafe
+				#
+				#				print("immodpg, setVtopNVbot_upper_layer_minus, same Vtop and Vbot_upper_layer; NADA\n");
 			}
 
 		} else {
-			print("immodpg, setVtopNVbot_upper_layer_minus, missing widget or Vincrement\n");
 
-			#		print("immodpg, setVtopNVbot_upper_layer_minus, Vbot_upper_layerEntry=$immodpg->{_Vbot_upper_layerEntry}\n");
-			#		print("immodpg, setVtopNVbot_upper_layer_minus, Vincrement=$immodpg->{_Vincrement_current}\n");
+			# print("immodpg, setVtopNVbot_upper_layer_minus, Vtop or Vbot_upper_layer value missing-NADA\n");
 		}
-		return ();
+
+	} else {
+		print("immodpg, setVtopNVbot_upper_layer_minus, missing widget or Vincrement\n");
+
+		#		print("immodpg, setVtopNVbot_upper_layer_minus, Vbot_upper_layerEntry=$immodpg->{_Vbot_upper_layerEntry}\n");
+		#		print("immodpg, setVtopNVbot_upper_layer_minus, Vincrement=$immodpg->{_Vincrement_current}\n");
 	}
+	return ();
+}
 
 =head2 sub setVtopNVbot_upper_layer_plus
 
@@ -4713,82 +4747,82 @@ output option for immodpg.for
 
 =cut
 
-	sub setVtopNVbot_upper_layer_plus {
+sub setVtopNVbot_upper_layer_plus {
 
-		my ($self) = @_;
+	my ($self) = @_;
 
-		if (
-			   looks_like_number( $immodpg->{_Vincrement_current} )
-			&& length( $immodpg->{_Vbot_upper_layerEntry} )
-			&& length( $immodpg->{_VtopEntry} )
+	if (
+		   looks_like_number( $immodpg->{_Vincrement_current} )
+		&& length( $immodpg->{_Vbot_upper_layerEntry} )
+		&& length( $immodpg->{_VtopEntry} )
 
-		) {
+	) {
 
-			my $Vtop             = ( $immodpg->{_VtopEntry} )->get();
-			my $Vbot_upper_layer = ( $immodpg->{_Vbot_upper_layerEntry} )->get();
-			my $Vincrement       = ( $immodpg->{_VincrementEntry} )->get();
-			my $layer_current    = $immodpg->{_layer_current};
+		my $Vtop             = ( $immodpg->{_VtopEntry} )->get();
+		my $Vbot_upper_layer = ( $immodpg->{_Vbot_upper_layerEntry} )->get();
+		my $Vincrement       = ( $immodpg->{_VincrementEntry} )->get();
+		my $layer_current    = $immodpg->{_layer_current};
 
-			if ( looks_like_number($Vbot_upper_layer) && looks_like_number($Vtop)
-				and $layer_current > 1 ) {
+		if ( looks_like_number($Vbot_upper_layer) && looks_like_number($Vtop)
+			and $layer_current > 1 ) {
 
-				my $new_Vbot_upper_layer = $Vbot_upper_layer + $Vincrement;
-				my $new_Vtop             = $Vtop + $Vincrement;
+			my $new_Vbot_upper_layer = $Vbot_upper_layer + $Vincrement;
+			my $new_Vtop             = $Vtop + $Vincrement;
 
-				$immodpg->{_Vbot_upper_layer_prior}   = $immodpg->{_Vbot_upper_layer_current};
-				$immodpg->{_Vbot_upper_layer_current} = $new_Vbot_upper_layer;
+			$immodpg->{_Vbot_upper_layer_prior}   = $immodpg->{_Vbot_upper_layer_current};
+			$immodpg->{_Vbot_upper_layer_current} = $new_Vbot_upper_layer;
 
-				$immodpg->{_Vtop_prior}   = $immodpg->{_Vtop_current};
-				$immodpg->{_Vtop_current} = $new_Vtop;
+			$immodpg->{_Vtop_prior}   = $immodpg->{_Vtop_current};
+			$immodpg->{_Vtop_current} = $new_Vtop;
 
-				$immodpg->{_Vbot_upper_layerEntry}->delete( 0, 'end' );
-				$immodpg->{_Vbot_upper_layerEntry}->insert( 0, $new_Vbot_upper_layer );
+			$immodpg->{_Vbot_upper_layerEntry}->delete( 0, 'end' );
+			$immodpg->{_Vbot_upper_layerEntry}->insert( 0, $new_Vbot_upper_layer );
 
-				$immodpg->{_VtopEntry}->delete( 0, 'end' );
-				$immodpg->{_VtopEntry}->insert( 0, $new_Vtop );
+			$immodpg->{_VtopEntry}->delete( 0, 'end' );
+			$immodpg->{_VtopEntry}->insert( 0, $new_Vtop );
 
-				$immodpg->{_isVbot_upper_layer_changed} = $yes;
-				$immodpg->{_isVtop_changed}             = $yes;
+			$immodpg->{_isVbot_upper_layer_changed} = $yes;
+			$immodpg->{_isVtop_changed}             = $yes;
 
-				#			print("immodpg, setVtopNVbot_upper_layer_plus, new Vbot_upper_layer= $new_Vbot_upper_layer\n");
-				#			print("immodpg, setVtopNVbot_upper_layer_plus, Vincrement= $Vincrement\n");
+			#			print("immodpg, setVtopNVbot_upper_layer_plus, new Vbot_upper_layer= $new_Vbot_upper_layer\n");
+			#			print("immodpg, setVtopNVbot_upper_layer_plus, Vincrement= $Vincrement\n");
 
-				if (   $immodpg->{_isVbot_upper_layer_changed} eq $yes
-					&& $immodpg->{_isVtop_changed} eq $yes ) {
+			if (   $immodpg->{_isVbot_upper_layer_changed} eq $yes
+				&& $immodpg->{_isVtop_changed} eq $yes ) {
 
-					# for fortran program to read
-					#				print("immodpg, setVtopNVbot_upper_layer_plus, Vbot is changed: $yes \n");
+				# for fortran program to read
+				#				print("immodpg, setVtopNVbot_upper_layer_plus, Vbot is changed: $yes \n");
 
-					_set_option($VtopNVbot_upper_layer_plus_opt);
-					_set_change($yes);
+				_set_option($VtopNVbot_upper_layer_plus_opt);
+				_set_change($yes);
 
-					#				print("immodpg, setVtopNVbot_upper_layer_plus,option:$VtopNVbot_upper_layer_plus_opt\n");
-					#				print("immodpg, setVtopNVbot_upper_layer_plus, V=$immodpg->{_Vbot_upper_layer_current}\n");
-
-				} else {
-
-					#	negative cases are reset by fortran program
-					#	and so eliminate need to read locked files
-					#	while use of locked files helps most of the time
-					#	creation and deletion of locked files in perl are not
-					#	failsafe
-					#
-					#				print("immodpg, setVtopNVbot_upper_layer_plus, same Vtop and Vbot_upper_layer; NADA\n");
-				}
+				#				print("immodpg, setVtopNVbot_upper_layer_plus,option:$VtopNVbot_upper_layer_plus_opt\n");
+				#				print("immodpg, setVtopNVbot_upper_layer_plus, V=$immodpg->{_Vbot_upper_layer_current}\n");
 
 			} else {
 
-				#			print("immodpg, setVtopNVbot_upper_layer_plus, Vtop or Vbot_upper_layer value missing NADA\n");
+				#	negative cases are reset by fortran program
+				#	and so eliminate need to read locked files
+				#	while use of locked files helps most of the time
+				#	creation and deletion of locked files in perl are not
+				#	failsafe
+				#
+				#				print("immodpg, setVtopNVbot_upper_layer_plus, same Vtop and Vbot_upper_layer; NADA\n");
 			}
 
 		} else {
-			print("immodpg, setVtopNVbot_upper_layer_plus, missing widget or Vincrement\n");
 
-			#		print("immodpg, setVtopNVbot_upper_layer_plus, Vbot_upper_layerEntry=$immodpg->{_Vbot_upper_layerEntry}\n");
-			#		print("immodpg, setVtopNVbot_upper_layer_plus, Vincrement=$immodpg->{_Vincrement}\n");
+			#			print("immodpg, setVtopNVbot_upper_layer_plus, Vtop or Vbot_upper_layer value missing NADA\n");
 		}
-		return ();
+
+	} else {
+		print("immodpg, setVtopNVbot_upper_layer_plus, missing widget or Vincrement\n");
+
+		#		print("immodpg, setVtopNVbot_upper_layer_plus, Vbot_upper_layerEntry=$immodpg->{_Vbot_upper_layerEntry}\n");
+		#		print("immodpg, setVtopNVbot_upper_layer_plus, Vincrement=$immodpg->{_Vincrement}\n");
 	}
+	return ();
+}
 
 =head2 sub setVincrement
 
@@ -4798,46 +4832,46 @@ compared to former Vincrement values
 
 =cut
 
-	sub setVincrement {
+sub setVincrement {
 
-		my ($self) = @_;
+	my ($self) = @_;
 
-		# print("immodpg,  setVincrement, self, $self\n");
+	# print("immodpg,  setVincrement, self, $self\n");
 
-		if ( looks_like_number( $immodpg->{_Vincrement} ) ) {
+	if ( looks_like_number( $immodpg->{_Vincrement} ) ) {
 
-			_checkVincrement();
-			_updateVincrement();
-			_write_config();
+		_checkVincrement();
+		_updateVincrement();
+		_write_config();
 
-			if ( $immodpg->{_isVincrement_changed} eq $yes ) {
+		if ( $immodpg->{_isVincrement_changed} eq $yes ) {
 
-				# for fortran program to read
-				# print("immodpg, set_Vincrement, Vincrement is changed: $yes \n");
+			# for fortran program to read
+			# print("immodpg, set_Vincrement, Vincrement is changed: $yes \n");
 
-				_setVincrement( $immodpg->{_Vincrement_current} );
-				_set_option($changeVincrement_opt);
-				_set_change($yes);
+			_setVincrement( $immodpg->{_Vincrement_current} );
+			_set_option($changeVincrement_opt);
+			_set_change($yes);
 
-				# print("immodpg, setVincrement,option:$changeVincrement_opt\n");
-				# print("immodpg, setVincrement, $immodpg->{_Vincrement_current}\n");
-
-			} else {
-
-				#			negative cases are reset by fortran program
-				#			and so eliminate need to read locked files
-				#			while use of locked files helps most of the time
-				#			creation and deletion of locked files in perl are not
-				#			failsafe
-
-				# print("immodpg, setVincrement, same Vincrement NADA\n");
-			}
+			# print("immodpg, setVincrement,option:$changeVincrement_opt\n");
+			# print("immodpg, setVincrement, $immodpg->{_Vincrement_current}\n");
 
 		} else {
 
+			#			negative cases are reset by fortran program
+			#			and so eliminate need to read locked files
+			#			while use of locked files helps most of the time
+			#			creation and deletion of locked files in perl are not
+			#			failsafe
+
+			# print("immodpg, setVincrement, same Vincrement NADA\n");
 		}
 
+	} else {
+
 	}
+
+}
 
 =head2 sub setVtop
 
@@ -4851,50 +4885,50 @@ through a message in file= "Vtop"
 
 =cut
 
-	sub setVtop {
+sub setVtop {
 
-		my ($self) = @_;
-		my $isVtop_changed = $immodpg->{_isVtop_changed};
+	my ($self) = @_;
+	my $isVtop_changed = $immodpg->{_isVtop_changed};
 
-		if ( length( $immodpg->{_VtopEntry} ) ) {
+	if ( length( $immodpg->{_VtopEntry} ) ) {
 
-			$immodpg->{_Vtop_current} = ( $immodpg->{_VtopEntry} )->get();
+		$immodpg->{_Vtop_current} = ( $immodpg->{_VtopEntry} )->get();
 
-			#		print("immodpg, setVtop, $immodpg->{_Vtop}\n");
-			#      redefinition required ???
-			$immodpg->{_isVtop_changed} = $isVtop_changed;
+		#		print("immodpg, setVtop, $immodpg->{_Vtop}\n");
+		#      redefinition required ???
+		$immodpg->{_isVtop_changed} = $isVtop_changed;
 
-			_checkVtop();
-			_updateVtop();
+		_checkVtop();
+		_updateVtop();
 
-			if ( $immodpg->{_isVtop_changed} eq $yes ) {
+		if ( $immodpg->{_isVtop_changed} eq $yes ) {
 
-				# for fortran program to read
-				#			print("immodpg, set_Vtop, Vtop is changed: $yes \n");
+			# for fortran program to read
+			#			print("immodpg, set_Vtop, Vtop is changed: $yes \n");
 
-				_setVtop( $immodpg->{_Vtop_current} );
-				_set_option($changeVtop_opt);
-				_set_change($yes);
+			_setVtop( $immodpg->{_Vtop_current} );
+			_set_option($changeVtop_opt);
+			_set_change($yes);
 
-				#			print("immodpg, setVtop,option:$changeVtop_opt\n");
-				#			print("immodpg, setVtop, V=$immodpg->{_Vtop_current}\n");
-
-			} else {
-
-				#			negative cases are reset by fortran program
-				#			and so eliminate need to read locked files
-				#			while use of locked files helps most of the time
-				#			creation and deletion of locked files in perl are not
-				#			failsafe
-
-				#					print("immodpg, setVtop, same Vtop NADA\n");
-			}
+			#			print("immodpg, setVtop,option:$changeVtop_opt\n");
+			#			print("immodpg, setVtop, V=$immodpg->{_Vtop_current}\n");
 
 		} else {
-			print("immodpg, setVtop, _Vtop value missing\n");
-			print("immodpg, setVtop, Vtop=$immodpg->{_Vtop}\n");
+
+			#			negative cases are reset by fortran program
+			#			and so eliminate need to read locked files
+			#			while use of locked files helps most of the time
+			#			creation and deletion of locked files in perl are not
+			#			failsafe
+
+			#					print("immodpg, setVtop, same Vtop NADA\n");
 		}
+
+	} else {
+		print("immodpg, setVtop, _Vtop value missing\n");
+		print("immodpg, setVtop, Vtop=$immodpg->{_Vtop}\n");
 	}
+}
 
 =head2 sub setVtop_lower_layer
 
@@ -4907,49 +4941,49 @@ through a message in file= "Vtop_lower_layer"
 
 =cut
 
-	sub setVtop_lower_layer {
+sub setVtop_lower_layer {
 
-		my ($self) = @_;
-		my $isVtop_lower_layer_changed = $immodpg->{_isVtop_lower_layer_changed};
+	my ($self) = @_;
+	my $isVtop_lower_layer_changed = $immodpg->{_isVtop_lower_layer_changed};
 
-		if ( length( $immodpg->{_Vtop_lower_layerEntry} ) ) {
+	if ( length( $immodpg->{_Vtop_lower_layerEntry} ) ) {
 
-			$immodpg->{_Vtop_lower_layer} = ( $immodpg->{_Vtop_lower_layerEntry} )->get();
+		$immodpg->{_Vtop_lower_layer} = ( $immodpg->{_Vtop_lower_layerEntry} )->get();
 
-			# unexpectedly during "get" (above) the following value is made blank
-			# redefinition required ??
-			$immodpg->{_isVtop_lower_layer_changed} = $isVtop_lower_layer_changed;
+		# unexpectedly during "get" (above) the following value is made blank
+		# redefinition required ??
+		$immodpg->{_isVtop_lower_layer_changed} = $isVtop_lower_layer_changed;
 
-			_checkVtop_lower_layer();
-			_updateVtop_lower_layer();
+		_checkVtop_lower_layer();
+		_updateVtop_lower_layer();
 
-			# print("0 after update  immodpg, set_Vtop_lower_layer, isVtop_lower_layer is changed= $immodpg->{_isVtop_lower_layer_changed}\n");
+		# print("0 after update  immodpg, set_Vtop_lower_layer, isVtop_lower_layer is changed= $immodpg->{_isVtop_lower_layer_changed}\n");
 
-			if ( $immodpg->{_isVtop_lower_layer_changed} eq $yes ) {
+		if ( $immodpg->{_isVtop_lower_layer_changed} eq $yes ) {
 
-				# for fortran program to read
+			# for fortran program to read
 
-				_setVtop_lower_layer( $immodpg->{_Vtop_lower_layer_current} );
-				_set_option($Vtop_lower_layer_opt);
-				_set_change($yes);
+			_setVtop_lower_layer( $immodpg->{_Vtop_lower_layer_current} );
+			_set_option($Vtop_lower_layer_opt);
+			_set_change($yes);
 
-				#	print("immodpg, setVtop_lower_layer,option:$Vtop_lower_layer_opt\n");
-
-			} else {
-
-				#			negative cases are reset by fortran program
-				#			and so eliminate need to read locked files
-				#			while use of locked files helps most of the time
-				#			creation and deletion of locked files in perl are not
-				#			failsafe
-
-				#			print("immodpg, setVtop_lower_layer, same Vtop_lower_layer NADA\n");
-			}
+			#	print("immodpg, setVtop_lower_layer,option:$Vtop_lower_layer_opt\n");
 
 		} else {
-			("immodpg, setVtop_lower_layer, missing widget\n");
+
+			#			negative cases are reset by fortran program
+			#			and so eliminate need to read locked files
+			#			while use of locked files helps most of the time
+			#			creation and deletion of locked files in perl are not
+			#			failsafe
+
+			#			print("immodpg, setVtop_lower_layer, same Vtop_lower_layer NADA\n");
 		}
+
+	} else {
+		("immodpg, setVtop_lower_layer, missing widget\n");
 	}
+}
 
 =head2 sub setVbotNtop_factor
 
@@ -4959,43 +4993,43 @@ compared to former VbotNtop_factor values
 
 =cut
 
-	sub setVbotNtop_factor {
+sub setVbotNtop_factor {
 
-		my ($self) = @_;
+	my ($self) = @_;
 
-		# print("immodpg, _setVbotNtop_factor, self, $self\n");
-		#	print("immodpg, setVbotNtop_factor, $immodpg->{_VbotNtop_factor_current}\n");
-		if ( length( $immodpg->{_VbotNtop_factorEntry} )
-			&& looks_like_number( $immodpg->{_VbotNtop_factor_current} ) ) {
+	# print("immodpg, _setVbotNtop_factor, self, $self\n");
+	#	print("immodpg, setVbotNtop_factor, $immodpg->{_VbotNtop_factor_current}\n");
+	if ( length( $immodpg->{_VbotNtop_factorEntry} )
+		&& looks_like_number( $immodpg->{_VbotNtop_factor_current} ) ) {
 
-			_checkVbotNtop_factor();
-			_updateVbotNtop_factor();
-			_write_config();
+		_checkVbotNtop_factor();
+		_updateVbotNtop_factor();
+		_write_config();
 
-			if ( $immodpg->{_isVbotNtop_factor_changed} eq $yes ) {
+		if ( $immodpg->{_isVbotNtop_factor_changed} eq $yes ) {
 
-				# print("immodpg, setVbotNtop_factor,  VbotNtop_factor is changed: $yes \n");
+			# print("immodpg, setVbotNtop_factor,  VbotNtop_factor is changed: $yes \n");
 
-				_setVbotNtop_factor( $immodpg->{_VbotNtop_factor_current} );
-				_set_option($changeVbotNtop_factor_opt);
-				_set_change($yes);
+			_setVbotNtop_factor( $immodpg->{_VbotNtop_factor_current} );
+			_set_option($changeVbotNtop_factor_opt);
+			_set_change($yes);
 
-				# print("immodpg, setVbotNtop_factor,option:$changeVbotNtop_factor_opt\n");
-
-			} else {
-				_set_change($no);
-
-				# print("immodpg, setVbotNtop_factor, same VbotNtop_factor_opt NADA\n");
-			}
+			# print("immodpg, setVbotNtop_factor,option:$changeVbotNtop_factor_opt\n");
 
 		} else {
-			print("immodpg, setVbotNtop_factor, bad factor or widget\n");
+			_set_change($no);
 
-			# correct for bad typing
-			_set_VbotNtop_factor_control();
-			_get_control_VbotNtop_factor();
+			# print("immodpg, setVbotNtop_factor, same VbotNtop_factor_opt NADA\n");
 		}
+
+	} else {
+		print("immodpg, setVbotNtop_factor, bad factor or widget\n");
+
+		# correct for bad typing
+		_set_VbotNtop_factor_control();
+		_get_control_VbotNtop_factor();
 	}
+}
 
 =head2 sub _set_VbotNtop_factor_control
 value adjusts to current
@@ -5003,21 +5037,21 @@ clip value in use
 
 =cut
 
-	sub _set_VbotNtop_factor_control {
+sub _set_VbotNtop_factor_control {
 
-		my ( $self, $VbotNtop_factor ) = @_;
+	my ( $self, $VbotNtop_factor ) = @_;
 
-		my $result;
+	my $result;
 
-		if ( length($VbotNtop_factor)
-			&& ( not( looks_like_number($VbotNtop_factor) ) ) ) {
+	if ( length($VbotNtop_factor)
+		&& ( not( looks_like_number($VbotNtop_factor) ) ) ) {
 
-		} else {
-			print("immodpg,_set_VbotNtop_factor_control, unexpectedvalue\n");
-		}
-
-		return ();
+	} else {
+		print("immodpg,_set_VbotNtop_factor_control, unexpectedvalue\n");
 	}
+
+	return ();
+}
 
 =head2 sub setVbotNtop_multiply
 Multiply Vbot and Vtop with factor
@@ -5030,79 +5064,79 @@ output option for immodpg.for
 
 =cut
 
-	sub setVbotNtop_multiply {
+sub setVbotNtop_multiply {
 
-		my ($self) = @_;
+	my ($self) = @_;
 
-		# print("immodpg, _setVbotNtop_multiply, self, $self\n");
-		#	print(
-		#		"immodpg, setVbotNtop_multiply, \n
-		#	_VbotNtop_factor_current=$immodpg->{_VbotNtop_factor_current}\n"
-		#	);
+	# print("immodpg, _setVbotNtop_multiply, self, $self\n");
+	#	print(
+	#		"immodpg, setVbotNtop_multiply, \n
+	#	_VbotNtop_factor_current=$immodpg->{_VbotNtop_factor_current}\n"
+	#	);
 
-		if (   looks_like_number( $immodpg->{_VbotNtop_factor_current} )
-			&& length( $immodpg->{_VbotEntry}->get() )
-			&& length( $immodpg->{_VtopEntry}->get() ) ) {
+	if (   looks_like_number( $immodpg->{_VbotNtop_factor_current} )
+		&& length( $immodpg->{_VbotEntry}->get() )
+		&& length( $immodpg->{_VtopEntry}->get() ) ) {
 
-			my $factor          = $immodpg->{_VbotNtop_factor_current};
-			my $Vbot            = ( $immodpg->{_VbotEntry} )->get();
-			my $Vtop            = ( $immodpg->{_VtopEntry} )->get();
-			my $Vbot_multiplied = $Vbot * $factor;
-			my $Vtop_multiplied = $Vtop * $factor;
-			$immodpg->{_Vtop_multiplied} = $Vtop_multiplied;
-			$immodpg->{_Vbot_multiplied} = $Vtop_multiplied;
+		my $factor          = $immodpg->{_VbotNtop_factor_current};
+		my $Vbot            = ( $immodpg->{_VbotEntry} )->get();
+		my $Vtop            = ( $immodpg->{_VtopEntry} )->get();
+		my $Vbot_multiplied = $Vbot * $factor;
+		my $Vtop_multiplied = $Vtop * $factor;
+		$immodpg->{_Vtop_multiplied} = $Vtop_multiplied;
+		$immodpg->{_Vbot_multiplied} = $Vtop_multiplied;
 
-			# print("immodpg, setVbotNtop_multiply, Vbot=$Vbot_multiplied=, Vtop= $Vtop_multiplied\n");
+		# print("immodpg, setVbotNtop_multiply, Vbot=$Vbot_multiplied=, Vtop= $Vtop_multiplied\n");
 
-			_updateVbotNtop_multiply();
-			_set_option($VbotNtop_multiply_opt);
-			_set_change($yes);
+		_updateVbotNtop_multiply();
+		_set_option($VbotNtop_multiply_opt);
+		_set_change($yes);
 
-		} else {
-			print("immodpg, setVbotNtop_multiply, missing value\n");
-		}
-
-		return ();
-
+	} else {
+		print("immodpg, setVbotNtop_multiply, missing value\n");
 	}
+
+	return ();
+
+}
 
 =head2 sub invert 
 
 
 =cut
 
-	sub invert {
+sub invert {
 
-		my ( $self, $invert ) = @_;
-		if ( $invert ne $empty_string ) {
+	my ( $self, $invert ) = @_;
+	if ( $invert ne $empty_string ) {
 
-			$immodpg->{_invert} = $invert;
-			$immodpg->{_note}   = $immodpg->{_note} . ' invert=' . $immodpg->{_invert};
-			$immodpg->{_Step}   = $immodpg->{_Step} . ' invert=' . $immodpg->{_invert};
+		$immodpg->{_invert} = $invert;
+		$immodpg->{_note}   = $immodpg->{_note} . ' invert=' . $immodpg->{_invert};
+		$immodpg->{_Step}   = $immodpg->{_Step} . ' invert=' . $immodpg->{_invert};
 
-		} else {
-			print("immodpg, invert, missing invert,\n");
-		}
+	} else {
+		print("immodpg, invert, missing invert,\n");
 	}
+}
 
 =head2 sub lmute 
 
 
 =cut
 
-	sub lmute {
+sub lmute {
 
-		my ( $self, $lmute ) = @_;
-		if ($lmute) {
+	my ( $self, $lmute ) = @_;
+	if ($lmute) {
 
-			$immodpg->{_lmute} = $lmute;
-			$immodpg->{_note}  = $immodpg->{_note} . ' lmute=' . $immodpg->{_lmute};
-			$immodpg->{_Step}  = $immodpg->{_Step} . ' lmute=' . $immodpg->{_lmute};
+		$immodpg->{_lmute} = $lmute;
+		$immodpg->{_note}  = $immodpg->{_note} . ' lmute=' . $immodpg->{_lmute};
+		$immodpg->{_Step}  = $immodpg->{_Step} . ' lmute=' . $immodpg->{_lmute};
 
-		} else {
-			print("immodpg, lmute, missing lmute,\n");
-		}
+	} else {
+		print("immodpg, lmute, missing lmute,\n");
 	}
+}
 
 =head2 sub premmod 
 
@@ -5118,20 +5152,20 @@ basic parameters of the SU file (ntr,ns,dt) also used by mmodpg.
 
 =cut
 
-	sub premmod {
-		my ($self) = @_;
+sub premmod {
+	my ($self) = @_;
 
-		#	_set_inbound;
-		#	my $inbound = _get_inbound();
-		my $inbound;
+	#	_set_inbound;
+	#	my $inbound = _get_inbound();
+	my $inbound;
 
-		if ( $inbound ne $empty_string ) {
+	if ( $inbound ne $empty_string ) {
 
-		} else {
-			print("immodpg,premmod, unexpected result\n");
-		}
-
+	} else {
+		print("immodpg,premmod, unexpected result\n");
 	}
+
+}
 
 =head2 sub set_clip
 
@@ -5141,38 +5175,38 @@ compared to former clip values
 
 =cut
 
-	sub set_clip {
+sub set_clip {
 
-		my ($self) = @_;
+	my ($self) = @_;
 
-		if ( length( $immodpg->{_clip4plotEntry} )
-			&& looks_like_number( $immodpg->{_clip4plot_current} ) ) {
+	if ( length( $immodpg->{_clip4plotEntry} )
+		&& looks_like_number( $immodpg->{_clip4plot_current} ) ) {
 
-			#		print("immodpg, set_clip, $immodpg->{_clip4plotEntry}\n");
-			_check_clip();
-			_update_clip();
-			_write_config();
+		#		print("immodpg, set_clip, $immodpg->{_clip4plotEntry}\n");
+		_check_clip();
+		_update_clip();
+		_write_config();
 
-			if ( $immodpg->{_is_clip_changed} eq $yes ) {
+		if ( $immodpg->{_is_clip_changed} eq $yes ) {
 
-				#			print("immodpg, set_clip, clip is changed: $yes \n");
-				_set_clip( $immodpg->{_clip4plot_current} );
-				_set_option($change_clip_opt);
-				_set_change($yes);
+			# ("immodpg, set_clip, clip is changed: $yes \n");
+			_set_clip( $immodpg->{_clip4plot_current} );
+			_set_option($change_clip_opt);
+			_set_change($yes);
 
-				#			print("immodpg, set_clip,option:$change_clip_opt\n");
-				#			print("immodpg, set_clip,immodpg->{_clip4plot_current}=$immodpg->{_clip4plot_current}\n");
-
-			} else {
-				_set_change($no);
-
-				# print("immodpg, set_clip, same clip NADA\n");
-			}
+			#			print("immodpg, set_clip,option:$change_clip_opt\n");
+			#			print("immodpg, set_clip,immodpg->{_clip4plot_current}=$immodpg->{_clip4plot_current}\n");
 
 		} else {
+			_set_change($no);
 
+			# print("immodpg, set_clip, same clip NADA\n");
 		}
+
+	} else {
+
 	}
+}
 
 =head2 sub set_layer
 When you enter or leave
@@ -5181,31 +5215,31 @@ compared to former layer values
 
 =cut
 
-	sub set_layer {
-		my ($self) = @_;
+sub set_layer {
+	my ($self) = @_;
 
-		#  print("1. immodpg, set_layer\n");
-		#	print("immodpg, set_layer, $immodpg->{_layerEntry}\n");
+	#  print("1. immodpg, set_layer\n");
+	#	print("immodpg, set_layer, $immodpg->{_layerEntry}\n");
 
-		if (   length( $immodpg->{_layerEntry} )
-			&& looks_like_number( $immodpg->{_layer_current} )
-			&& $immodpg->{_VbotEntry} ne $empty_string
-			&& $immodpg->{_VtopEntry} ne $empty_string
-			&& $immodpg->{_Vbot_upper_layerEntry} ne $empty_string
-			&& $immodpg->{_Vtop_lower_layerEntry} ne $empty_string
-			&& length( $immodpg->{_thickness_mEntry} )
-			&& looks_like_number( $immodpg->{_thickness_m_current} ) ) {
+	if (   length( $immodpg->{_layerEntry} )
+		&& looks_like_number( $immodpg->{_layer_current} )
+		&& $immodpg->{_VbotEntry} ne $empty_string
+		&& $immodpg->{_VtopEntry} ne $empty_string
+		&& $immodpg->{_Vbot_upper_layerEntry} ne $empty_string
+		&& $immodpg->{_Vtop_lower_layerEntry} ne $empty_string
+		&& length( $immodpg->{_thickness_mEntry} )
+		&& looks_like_number( $immodpg->{_thickness_m_current} ) ) {
 
-			# print("2. immodpg, layer, $immodpg->{_layerEntry}\n");
-			_check_layer();
-			_update_layer();
-			_update_upper_layer();
-			_update_lower_layer();
-			_check_thickness_m();
-			_update_thickness_m();
-			_write_config();
+		# print("2. immodpg, layer, $immodpg->{_layerEntry}\n");
+		_check_layer();
+		_update_layer();
+		_update_upper_layer();
+		_update_lower_layer();
+		_check_thickness_m();
+		_update_thickness_m();
+		_write_config();
 
-			if ( $immodpg->{_is_layer_changed} eq $yes ) {
+		if ( $immodpg->{_is_layer_changed} eq $yes ) {
 
 =head3 Get model values from
 immodpg.out for initial settings
@@ -5215,68 +5249,68 @@ and thickness values of the new layer
 
 =cut
 
-				_set_model_layer( $immodpg->{_layer_current} );
-				my ( $Vp_ref, $dz, $error_switch ) = _getVp_dz_initial();
-				my @V           = @$Vp_ref;
-				my $thickness_m = $dz;
+			_set_model_layer( $immodpg->{_layer_current} );
+			my ( $Vp_ref, $dz, $error_switch ) = _getVp_dz_initial();
+			my @V           = @$Vp_ref;
+			my $thickness_m = $dz;
 
-				#	print("immodpg,set_layer,thickness=$thickness_m \n");
+			#	print("immodpg,set_layer,thickness=$thickness_m \n");
 
-				my $Vbot_upper_layer = $V[0];
-				my $Vtop             = $V[1];
-				my $Vbot             = $V[2];
-				my $Vtop_lower_layer = $V[3];
+			my $Vbot_upper_layer = $V[0];
+			my $Vtop             = $V[1];
+			my $Vbot             = $V[2];
+			my $Vtop_lower_layer = $V[3];
 
-				# print("immodpg, set_layer, Vbot=$Vbot\n");
-				$immodpg->{_thickness_mEntry}->delete( 0, 'end' );
-				$immodpg->{_thickness_mEntry}->insert( 0, $thickness_m );
+			# print("immodpg, set_layer, Vbot=$Vbot\n");
+			$immodpg->{_thickness_mEntry}->delete( 0, 'end' );
+			$immodpg->{_thickness_mEntry}->insert( 0, $thickness_m );
 
-				# print("immodpg, set_layer, Vbot=$Vbot\n");
-				$immodpg->{_VbotEntry}->delete( 0, 'end' );
-				$immodpg->{_VbotEntry}->insert( 0, $Vbot );
+			# print("immodpg, set_layer, Vbot=$Vbot\n");
+			$immodpg->{_VbotEntry}->delete( 0, 'end' );
+			$immodpg->{_VbotEntry}->insert( 0, $Vbot );
 
-				# print("immodpg, set_layer, Vtop=$Vtop\n");
-				$immodpg->{_VtopEntry}->delete( 0, 'end' );
-				$immodpg->{_VtopEntry}->insert( 0, $Vtop );
+			# print("immodpg, set_layer, Vtop=$Vtop\n");
+			$immodpg->{_VtopEntry}->delete( 0, 'end' );
+			$immodpg->{_VtopEntry}->insert( 0, $Vtop );
 
-				# print("immodpg, set_layer, Vbot_upper_layer=$Vbot_upper_layer\n");
-				$immodpg->{_Vbot_upper_layerEntry}->delete( 0, 'end' );
-				$immodpg->{_Vbot_upper_layerEntry}->insert( 0, $Vbot_upper_layer );
+			# print("immodpg, set_layer, Vbot_upper_layer=$Vbot_upper_layer\n");
+			$immodpg->{_Vbot_upper_layerEntry}->delete( 0, 'end' );
+			$immodpg->{_Vbot_upper_layerEntry}->insert( 0, $Vbot_upper_layer );
 
-				# print("immodpg, set_layer, Vtop_lower_layer=$Vtop_lower_layer\n");
-				$immodpg->{_Vtop_lower_layerEntry}->delete( 0, 'end' );
-				$immodpg->{_Vtop_lower_layerEntry}->insert( 0, $Vtop_lower_layer );
+			# print("immodpg, set_layer, Vtop_lower_layer=$Vtop_lower_layer\n");
+			$immodpg->{_Vtop_lower_layerEntry}->delete( 0, 'end' );
+			$immodpg->{_Vtop_lower_layerEntry}->insert( 0, $Vtop_lower_layer );
 
-				# update stored values
-				$immodpg->{_Vtop_prior}               = $immodpg->{_Vtop_current};
-				$immodpg->{_Vtop_current}             = $Vtop;
-				$immodpg->{_Vbot_prior}               = $immodpg->{_Vbot_current};
-				$immodpg->{_Vbot_current}             = $Vbot;
-				$immodpg->{_Vbot_upper_layer_prior}   = $immodpg->{_Vbot_upper_layer_current};
-				$immodpg->{_Vbot_upper_layer_current} = $Vbot_upper_layer;
-				$immodpg->{_Vtop_lower_layer_prior}   = $immodpg->{_Vtop_lower_layer_current};
-				$immodpg->{_Vtop_lower_layer_current} = $Vtop_lower_layer;
-				$immodpg->{_thickness_m_prior}        = $immodpg->{_thickness_m_current};
-				$immodpg->{_thickness_m_current}      = $thickness_m;
+			# update stored values
+			$immodpg->{_Vtop_prior}               = $immodpg->{_Vtop_current};
+			$immodpg->{_Vtop_current}             = $Vtop;
+			$immodpg->{_Vbot_prior}               = $immodpg->{_Vbot_current};
+			$immodpg->{_Vbot_current}             = $Vbot;
+			$immodpg->{_Vbot_upper_layer_prior}   = $immodpg->{_Vbot_upper_layer_current};
+			$immodpg->{_Vbot_upper_layer_current} = $Vbot_upper_layer;
+			$immodpg->{_Vtop_lower_layer_prior}   = $immodpg->{_Vtop_lower_layer_current};
+			$immodpg->{_Vtop_lower_layer_current} = $Vtop_lower_layer;
+			$immodpg->{_thickness_m_prior}        = $immodpg->{_thickness_m_current};
+			$immodpg->{_thickness_m_current}      = $thickness_m;
 
-				# affects immodpg.for
-				# print("3. immodpg, set_layer, layer is changed: $yes \n");
-				_fortran_layer( $immodpg->{_layer_current} );
-				_set_option($change_layer_number_opt);
-				_set_change($yes);
+			# affects immodpg.for
+			# print("3. immodpg, set_layer, layer is changed: $yes \n");
+			_fortran_layer( $immodpg->{_layer_current} );
+			_set_option($change_layer_number_opt);
+			_set_change($yes);
 
-				# print("immodpg, set_layer,option:$change_layer_number_opt\n");
-
-			} else {
-				_set_change($no);
-
-				#	print("immodpg, layer, same layer NADA\n");
-			}
+			# print("immodpg, set_layer,option:$change_layer_number_opt\n");
 
 		} else {
+			_set_change($no);
 
+			#	print("immodpg, layer, same layer NADA\n");
 		}
+
+	} else {
+
 	}
+}
 
 =head2 sub set_layer_control
 Value adjusts to current
@@ -5284,48 +5318,48 @@ layer number in use
 
 =cut
 
-	sub set_layer_control {
+sub set_layer_control {
 
-		my ( $self, $control_layer_external ) = @_;
+	my ( $self, $control_layer_external ) = @_;
 
-		my $result;
+	my $result;
 
-		if ( length($control_layer_external) ) {
+	if ( length($control_layer_external) ) {
 
-			$immodpg->{_control_layer_external} = $control_layer_external;
+		$immodpg->{_control_layer_external} = $control_layer_external;
 
-			#		print("immodpg,set_layer_control,control_layer_external = $control_layer_external \n");
+		#		print("immodpg,set_layer_control,control_layer_external = $control_layer_external \n");
 
-		} elsif ( not( length($control_layer_external) ) ) {
+	} elsif ( not( length($control_layer_external) ) ) {
 
-			#		print("immodpg,set_layer_control, empty string\n");
-			$immodpg->{_control_layer_external} = $control_layer_external;
+		#		print("immodpg,set_layer_control, empty string\n");
+		$immodpg->{_control_layer_external} = $control_layer_external;
 
-		} else {
-			print("immodpg,set_layer_control, missing value\n");
-		}
-
-		return ();
+	} else {
+		print("immodpg,set_layer_control, missing value\n");
 	}
+
+	return ();
+}
 
 =head2 sub set_missing 
 
 
 =cut
 
-	sub set_missing {
+sub set_missing {
 
-		my ( $self, $inbound_missing ) = @_;
+	my ( $self, $inbound_missing ) = @_;
 
-		if ( length($inbound_missing) ) {
+	if ( length($inbound_missing) ) {
 
-			$immodpg->{_inbound_missing} = $inbound_missing;
+		$immodpg->{_inbound_missing} = $inbound_missing;
 
-		} else {
-			print("immodpg, missing, missing file,\n");
-		}
-		return ();
+	} else {
+		print("immodpg, missing, missing file,\n");
 	}
+	return ();
+}
 
 =head2 set_model_layer
 Set the number of layers in
@@ -5333,42 +5367,42 @@ mmodpg
 
 =cut
 
-	sub set_model_layer {
+sub set_model_layer {
 
-		my ( $self, $model_layer_number ) = @_;
+	my ( $self, $model_layer_number ) = @_;
 
-		if ( $model_layer_number != 0
-			&& length($model_layer_number) ) {
+	if ( $model_layer_number != 0
+		&& length($model_layer_number) ) {
 
-			$immodpg->{_model_layer_number} = $model_layer_number;
+		$immodpg->{_model_layer_number} = $model_layer_number;
 
-		} else {
-			print("immodpg, set_model_layer, unexpected layer# \n");
-		}
-
-		#	print("immodpg, set_model_layer,modellayer# =$immodpg->{_model_layer_number}\n");
-
-		return ();
+	} else {
+		print("immodpg, set_model_layer, unexpected layer# \n");
 	}
+
+	#	print("immodpg, set_model_layer,modellayer# =$immodpg->{_model_layer_number}\n");
+
+	return ();
+}
 
 =head2 sub set_replacement4missing
 
 
 =cut
 
-	sub set_replacement4missing {
+sub set_replacement4missing {
 
-		my ( $self, $replacement4missing ) = @_;
+	my ( $self, $replacement4missing ) = @_;
 
-		if ( length($replacement4missing) ) {
+	if ( length($replacement4missing) ) {
 
-			$immodpg->{_replacement4missing} = $replacement4missing;
+		$immodpg->{_replacement4missing} = $replacement4missing;
 
-		} else {
-			print("immodpg, set_replacement4missing, missing replacement\n");
-		}
-		return ();
+	} else {
+		print("immodpg, set_replacement4missing, missing replacement\n");
 	}
+	return ();
+}
 
 =head2 sub set_thickness_m_minus
 
@@ -5379,68 +5413,68 @@ output option for immodpg.for
 
 =cut
 
-	sub set_thickness_m_minus {
+sub set_thickness_m_minus {
 
-		my ($self) = @_;
+	my ($self) = @_;
 
-		if ( length( $immodpg->{_thickness_mEntry} )
-			&& looks_like_number( $immodpg->{_thickness_increment_m} ) ) {
+	if ( length( $immodpg->{_thickness_mEntry} )
+		&& looks_like_number( $immodpg->{_thickness_increment_m} ) ) {
 
-			my $thickness_m = ( $immodpg->{_thickness_mEntry} )->get();
+		my $thickness_m = ( $immodpg->{_thickness_mEntry} )->get();
 
-			if ( looks_like_number($thickness_m) ) {
+		if ( looks_like_number($thickness_m) ) {
 
-				my $thickness_increment_m = ( $immodpg->{_thickness_increment_mEntry} )->get();
-				my $new_thickness_m       = $thickness_m - $thickness_increment_m;
+			my $thickness_increment_m = ( $immodpg->{_thickness_increment_mEntry} )->get();
+			my $new_thickness_m       = $thickness_m - $thickness_increment_m;
 
-				$immodpg->{_thickness_m_prior}   = $immodpg->{_thickness_m_current};
-				$immodpg->{_thickness_m_current} = $new_thickness_m;
+			$immodpg->{_thickness_m_prior}   = $immodpg->{_thickness_m_current};
+			$immodpg->{_thickness_m_current} = $new_thickness_m;
 
-				$immodpg->{_thickness_mEntry}->delete( 0, 'end' );
-				$immodpg->{_thickness_mEntry}->insert( 0, $new_thickness_m );
+			$immodpg->{_thickness_mEntry}->delete( 0, 'end' );
+			$immodpg->{_thickness_mEntry}->insert( 0, $new_thickness_m );
 
-				$immodpg->{_is_thickness_m_changed} = $yes;
+			$immodpg->{_is_thickness_m_changed} = $yes;
 
-				#			print("immodpg, set new _thickness_m= $new_thickness_m\n");
-				#			print("immodpg, set_thickness_m_minus, thickness_increment_m= $thickness_increment_m\n");
+			#			print("immodpg, set new _thickness_m= $new_thickness_m\n");
+			#			print("immodpg, set_thickness_m_minus, thickness_increment_m= $thickness_increment_m\n");
 
-				if ( $immodpg->{_is_thickness_m_changed} eq $yes ) {
+			if ( $immodpg->{_is_thickness_m_changed} eq $yes ) {
 
-					# for fortran program to read
-					#								print("immodpg, set_thickness_m_minus, _thickness_m is changed: $yes \n");
+				# for fortran program to read
+				#								print("immodpg, set_thickness_m_minus, _thickness_m is changed: $yes \n");
 
-					_set_option($thickness_m_minus_opt);
-					_set_change($yes);
+				_set_option($thickness_m_minus_opt);
+				_set_change($yes);
 
-					#								print("immodpg, set_thickness_m_minus,option:$thickness_m_minus_opt\n");
-					#								print("immodpg, set_thickness_m_minus, V=$immodpg->{_thickness_m_current}\n");
-
-				} else {
-
-					#				print("immodpg, set_thickness_m_minus, _thickness_mEntry=$immodpg->{_thickness_mEntry}\n");
-					#				print("immodpg, set_thickness_m_minus, thickness_increment_m=$immodpg->{_thickness_increment_m}\n");
-
-					#	negative cases are reset by fortran program
-					#	and so eliminate need to read locked files
-					#	while use of locked files helps most of the time
-					#	creation and deletion of locked files in perl are not
-					#	failsafe
-					#
-					#	print("immodpg, set_thickness_m_minus, same _thickness_m NADA\n");
-				}
+				#								print("immodpg, set_thickness_m_minus,option:$thickness_m_minus_opt\n");
+				#								print("immodpg, set_thickness_m_minus, V=$immodpg->{_thickness_m_current}\n");
 
 			} else {
-				print("immodpg, set_thickness_m_minus, _thickness_m value missing\n");
 
-				#			print("immodpg, set_thickness_m_minus, _thickness_mEntry=$immodpg->{_thickness_mEntry}\n");
-				#			print("immodpg, set_thickness_m_minus, thickness_increment_m=$immodpg->{_thickness_increment_m}\n");
+				#				print("immodpg, set_thickness_m_minus, _thickness_mEntry=$immodpg->{_thickness_mEntry}\n");
+				#				print("immodpg, set_thickness_m_minus, thickness_increment_m=$immodpg->{_thickness_increment_m}\n");
+
+				#	negative cases are reset by fortran program
+				#	and so eliminate need to read locked files
+				#	while use of locked files helps most of the time
+				#	creation and deletion of locked files in perl are not
+				#	failsafe
+				#
+				#	print("immodpg, set_thickness_m_minus, same _thickness_m NADA\n");
 			}
 
 		} else {
-			print("immodpg, set_thickness_m_minus, missing widget or thickness_increment_m\n");
+			print("immodpg, set_thickness_m_minus, _thickness_m value missing\n");
+
+			#			print("immodpg, set_thickness_m_minus, _thickness_mEntry=$immodpg->{_thickness_mEntry}\n");
+			#			print("immodpg, set_thickness_m_minus, thickness_increment_m=$immodpg->{_thickness_increment_m}\n");
 		}
-		return ();
+
+	} else {
+		print("immodpg, set_thickness_m_minus, missing widget or thickness_increment_m\n");
 	}
+	return ();
+}
 
 =head2 sub set_thickness_m_plus
 
@@ -5451,68 +5485,68 @@ output option for immodpg.for
 
 =cut
 
-	sub set_thickness_m_plus {
+sub set_thickness_m_plus {
 
-		my ($self) = @_;
+	my ($self) = @_;
 
-		if ( length( $immodpg->{_thickness_mEntry} )
-			&& looks_like_number( $immodpg->{_thickness_increment_m} ) ) {
+	if ( length( $immodpg->{_thickness_mEntry} )
+		&& looks_like_number( $immodpg->{_thickness_increment_m} ) ) {
 
-			my $thickness_m = ( $immodpg->{_thickness_mEntry} )->get();
+		my $thickness_m = ( $immodpg->{_thickness_mEntry} )->get();
 
-			if ( looks_like_number($thickness_m) ) {
+		if ( looks_like_number($thickness_m) ) {
 
-				my $thickness_increment_m = ( $immodpg->{_thickness_increment_mEntry} )->get();
-				my $new_thickness_m       = $thickness_m + $thickness_increment_m;
+			my $thickness_increment_m = ( $immodpg->{_thickness_increment_mEntry} )->get();
+			my $new_thickness_m       = $thickness_m + $thickness_increment_m;
 
-				$immodpg->{_thickness_m_prior}   = $immodpg->{_thickness_m_current};
-				$immodpg->{_thickness_m_current} = $new_thickness_m;
+			$immodpg->{_thickness_m_prior}   = $immodpg->{_thickness_m_current};
+			$immodpg->{_thickness_m_current} = $new_thickness_m;
 
-				$immodpg->{_thickness_mEntry}->delete( 0, 'end' );
-				$immodpg->{_thickness_mEntry}->insert( 0, $new_thickness_m );
+			$immodpg->{_thickness_mEntry}->delete( 0, 'end' );
+			$immodpg->{_thickness_mEntry}->insert( 0, $new_thickness_m );
 
-				$immodpg->{_is_thickness_m_changed} = $yes;
+			$immodpg->{_is_thickness_m_changed} = $yes;
 
-				#			print("immodpg, set new _thickness_m= $new_thickness_m\n");
-				#			print("immodpg, set_thickness_m_plus, thickness_increment_m= $thickness_increment_m\n");
+			#			print("immodpg, set new _thickness_m= $new_thickness_m\n");
+			#			print("immodpg, set_thickness_m_plus, thickness_increment_m= $thickness_increment_m\n");
 
-				if ( $immodpg->{_is_thickness_m_changed} eq $yes ) {
+			if ( $immodpg->{_is_thickness_m_changed} eq $yes ) {
 
-					# for fortran program to read
-					#				print("immodpg, set_thickness_m_plus, _thickness_m is changed: $yes \n");
+				# for fortran program to read
+				#				print("immodpg, set_thickness_m_plus, _thickness_m is changed: $yes \n");
 
-					_set_option($thickness_m_plus_opt);
-					_set_change($yes);
+				_set_option($thickness_m_plus_opt);
+				_set_change($yes);
 
-					#				print("immodpg, set_thickness_m_plus,option:$_thickness_m_plus_opt\n");
-					#				print("immodpg, set_thickness_m_plus, V=$immodpg->{_thickness_m_current}\n");
-
-				} else {
-
-					#				print("immodpg, set_thickness_m_plus, _thickness_mEntry=$immodpg->{_thickness_mEntry}\n");
-					#				print("immodpg, set_thickness_m_plus, thickness_increment_m=$immodpg->{_thickness_increment_m}\n");
-
-					#	negative cases are reset by fortran program
-					#	and so eliminate need to read locked files
-					#	while use of locked files helps most of the time
-					#	creation and deletion of locked files in perl are not
-					#	failsafe
-					#
-					#	print("immodpg, set_thickness_m_plus, same _thickness_m NADA\n");
-				}
+				#				print("immodpg, set_thickness_m_plus,option:$_thickness_m_plus_opt\n");
+				#				print("immodpg, set_thickness_m_plus, V=$immodpg->{_thickness_m_current}\n");
 
 			} else {
-				print("immodpg, set_thickness_m_plus, _thickness_m value missing\n");
 
-				#			print("immodpg, set_thickness_m_plus, _thickness_mEntry=$immodpg->{_thickness_mEntry}\n");
-				#			print("immodpg, set_thickness_m_plus, thickness_increment_m=$immodpg->{_thickness_increment_m}\n");
+				#				print("immodpg, set_thickness_m_plus, _thickness_mEntry=$immodpg->{_thickness_mEntry}\n");
+				#				print("immodpg, set_thickness_m_plus, thickness_increment_m=$immodpg->{_thickness_increment_m}\n");
+
+				#	negative cases are reset by fortran program
+				#	and so eliminate need to read locked files
+				#	while use of locked files helps most of the time
+				#	creation and deletion of locked files in perl are not
+				#	failsafe
+				#
+				#	print("immodpg, set_thickness_m_plus, same _thickness_m NADA\n");
 			}
 
 		} else {
-			print("immodpg, set_thickness_m_plus, missing widget or thickness_increment_m\n");
+			print("immodpg, set_thickness_m_plus, _thickness_m value missing\n");
+
+			#			print("immodpg, set_thickness_m_plus, _thickness_mEntry=$immodpg->{_thickness_mEntry}\n");
+			#			print("immodpg, set_thickness_m_plus, thickness_increment_m=$immodpg->{_thickness_increment_m}\n");
 		}
-		return ();
+
+	} else {
+		print("immodpg, set_thickness_m_plus, missing widget or thickness_increment_m\n");
 	}
+	return ();
+}
 
 =head2 sub set_update
 Save all values in the immodpg
@@ -5520,81 +5554,81 @@ gui to immodpg.config
 
 =cut
 
-	sub set_update {
-		my ($self) = @_;
+sub set_update {
+	my ($self) = @_;
 
-		#	print("immodpg, set_update\n");
+	#	print("immodpg, set_update\n");
 
-		setVincrement();
-		set_thickness_increment_m();
-		set_thickness_m();
-		setVbotNtop_factor();
-		set_clip();
+	setVincrement();
+	set_thickness_increment_m();
+	set_thickness_m();
+	setVbotNtop_factor();
+	set_clip();
 
-		setVbot();
-		setVtop();
-		setVbot_upper_layer();
-		setVtop_lower_layer();
-		set_layer();
+	setVbot();
+	setVtop();
+	setVbot_upper_layer();
+	setVtop_lower_layer();
+	set_layer();
 
+}
+
+sub set_widgets {
+
+	my ( $self, $widget_h ) = @_;
+
+	if ($widget_h) {
+
+		# print("immodpg, set_widgets, immodpg->{_clip4plotEntry}: $immodpg->{_clip4plotEntry}\n");
+
+		$immodpg->{_VbotEntry}                  = $widget_h->{_VbotEntry};
+		$immodpg->{_Vbot_upper_layerEntry}      = $widget_h->{_Vbot_upper_layerEntry};
+		$immodpg->{_VincrementEntry}            = $widget_h->{_VincrementEntry};
+		$immodpg->{_VtopEntry}                  = $widget_h->{_VtopEntry};
+		$immodpg->{_Vtop_lower_layerEntry}      = $widget_h->{_Vtop_lower_layerEntry};
+		$immodpg->{_VbotNtop_factorEntry}       = $widget_h->{_VbotNtop_factorEntry};
+		$immodpg->{_clip4plotEntry}             = $widget_h->{_clip4plotEntry};
+		$immodpg->{_layerEntry}                 = $widget_h->{_layerEntry};
+		$immodpg->{_thickness_mEntry}           = $widget_h->{_thickness_mEntry};
+		$immodpg->{_thickness_increment_mEntry} = $widget_h->{_thickness_increment_mEntry};
+		$immodpg->{_upper_layerLabel}           = $widget_h->{_upper_layerLabel};
+		$immodpg->{_lower_layerLabel}           = $widget_h->{_lower_layerLabel};
+
+		#		print("immodpg, set_widgets, immodpg->{_Vtop_lower_layerEntry}: $immodpg->{_Vtop_lower_layerEntry}\n");
+
+		#		print("immodpg, set_widgets, immodpg->{_VtopEntry}: $immodpg->{_VtopEntry}\n");
+		# print("immodpg, set_widgets, OK\n");
+		return ();
+
+	} else {
+		print("immodpg, set_widgets, unexpected\n");
 	}
 
-	sub set_widgets {
-
-		my ( $self, $widget_h ) = @_;
-
-		if ($widget_h) {
-
-			# print("immodpg, set_widgets, immodpg->{_clip4plotEntry}: $immodpg->{_clip4plotEntry}\n");
-
-			$immodpg->{_VbotEntry}                  = $widget_h->{_VbotEntry};
-			$immodpg->{_Vbot_upper_layerEntry}      = $widget_h->{_Vbot_upper_layerEntry};
-			$immodpg->{_VincrementEntry}            = $widget_h->{_VincrementEntry};
-			$immodpg->{_VtopEntry}                  = $widget_h->{_VtopEntry};
-			$immodpg->{_Vtop_lower_layerEntry}      = $widget_h->{_Vtop_lower_layerEntry};
-			$immodpg->{_VbotNtop_factorEntry}       = $widget_h->{_VbotNtop_factorEntry};
-			$immodpg->{_clip4plotEntry}             = $widget_h->{_clip4plotEntry};
-			$immodpg->{_layerEntry}                 = $widget_h->{_layerEntry};
-			$immodpg->{_thickness_mEntry}           = $widget_h->{_thickness_mEntry};
-			$immodpg->{_thickness_increment_mEntry} = $widget_h->{_thickness_increment_mEntry};
-			$immodpg->{_upper_layerLabel}           = $widget_h->{_upper_layerLabel};
-			$immodpg->{_lower_layerLabel}           = $widget_h->{_lower_layerLabel};
-
-			#		print("immodpg, set_widgets, immodpg->{_Vtop_lower_layerEntry}: $immodpg->{_Vtop_lower_layerEntry}\n");
-
-			#		print("immodpg, set_widgets, immodpg->{_VtopEntry}: $immodpg->{_VtopEntry}\n");
-			# print("immodpg, set_widgets, OK\n");
-			return ();
-
-		} else {
-			print("immodpg, set_widgets, unexpected\n");
-		}
-
-	}
+}
 
 =head2 sub set_base_file_name
 
 =cut
 
-	sub set_base_file_name {
+sub set_base_file_name {
 
-		my ( $self, $base_file_name ) = @_;
+	my ( $self, $base_file_name ) = @_;
 
-		if ( $base_file_name ne $empty_string ) {
+	if ( $base_file_name ne $empty_string ) {
 
-			$immodpg->{_base_file_name} = $base_file_name;
+		$immodpg->{_base_file_name} = $base_file_name;
 
-			print("header_values,set_base_file_name,$immodpg->{_base_file_name}\n");
+		print("header_values,set_base_file_name,$immodpg->{_base_file_name}\n");
 
-		} else {
-			print("header_values,set_base_file_name, missing base file name\n");
-		}
-
-		return ();
-
+	} else {
+		print("header_values,set_base_file_name, missing base file name\n");
 	}
 
-=head2 sub set_change 
+	return ();
+
+}
+
+=head2 sub set_change
 verify another lock file does not exist and
 only then:
 
@@ -5608,72 +5642,101 @@ writing (Perl) of files
 
 =cut
 
-	sub set_change {
+sub set_change {
 
-		my ( $self, $yes_or_no ) = @_;
+	my ( $self, $yes_or_no ) = @_;
 
-		# print("immodpg, set_change, yes_or_no:$yes_or_no\n");
+#	print("immodpg, set_change, yes_or_no:$yes_or_no\n");
 
-		if ( defined($yes_or_no)
-			&& $immodpg->{_change_file} ne $empty_string ) {
+	if ( defined($yes_or_no)
+		&& $immodpg->{_change_file} ne $empty_string ) {
 
-			use manage_files_by2;
-			use control;
+		use manage_files_by2;
+		use control;
 
 =head2 instantiate classes
 
 =cut
 
-			my $files   = new manage_files_by2();
-			my $control = new control;
+		my $files   = new manage_files_by2();
+		my $control = new control;
 
 =head2 Define local
 variables
 
 =cut		
 
-			my @X;
-			my $change = $immodpg->{_change_file};
+		my @X;
+		my $change = $immodpg->{_change_file};
 
-			my $test            = $no;
-			my $outbound        = $IMMODPG_INVISIBLE . '/' . $change;
-			my $outbound_locked = $outbound . '_locked';
-			my $format          = $var_immodpg->{_format_string};
+		my $test            = $yes;
+		my $outbound        = $IMMODPG_INVISIBLE . '/' . $change;
+		my $outbound_locked = $outbound . '_locked';
+		my $format          = $var_immodpg->{_format_string};
 
-			for ( my $i = 0; $test eq $no; $i++ ) {
+		my $count      = 0;
+		my $max_counts = $var_immodpg->{_loop_limit};
+		for ( my $i = 0; ( $test eq $yes ) and ( $count < $max_counts ); $i++ ) {
 
-				# print("in loop \n");
+#			print("1. immodpg,set_change, in loop count=$count \n");
 
-				if ( not( $files->does_file_exist( \$outbound_locked ) ) ) {
+			if ( not( $files->does_file_exist( \$outbound_locked ) ) ) {
 
-					$X[0] = $empty_string;
-					$files->write_1col_aref( \@X, \$outbound_locked, \$format );
+				$X[0] = $empty_string;
+				$files->write_1col_aref( \@X, \$outbound_locked, \$format );
 
-					# print("immodpg, set_change, outbound_locked=$outbound_locked\n");
-					# print("immodpg, set_change, IMMODPG_INVISIBLE=$IMMODPG_INVISIBLE\n");
-					# print("immodpg, set_change, created empty locked file=$X[0]\n");
-					$X[0] = $yes_or_no;
+				# print("immodpg, set_change, outbound_locked=$outbound_locked\n");
+				# print("immodpg, set_change, IMMODPG_INVISIBLE=$IMMODPG_INVISIBLE\n");
+				# print("immodpg, set_change, created empty locked file=$X[0]\n");
 
-					# print("immodpg, set_change, outbound=$outbound\n");
-					# print("immodpg, set_change, IMMODPG_INVISIBLE=$IMMODPG_INVISIBLE\n");
-					$files->write_1col_aref( \@X, \$outbound, \$format );
+				# print("immodpg, set_change, outbound=$outbound\n");
+				# print("immodpg, set_change, IMMODPG_INVISIBLE=$IMMODPG_INVISIBLE\n");
 
-					# print("immodpg, set_change, yes_or_no=$X[0]\n");
-					# print("1. immodpg, set_change, delete locked file\n");
+				# do not overwrite a waiting change (= yes)
+				my $response_aref = $files->read_1col_aref( \$outbound );
+				my $ans           = @{$response_aref}[0];
+
+				if ( $ans eq $yes ) {
+
+					# do not overwrite a waiting change (= yes)
+					# print("2. immodpg, set_change, SKIP\n");
+					# print("immodpg, set_change,do not overwrite change_file\n");
+
 					unlink($outbound_locked);
 
-					# print("2. immodpg, set_change, delete locked file\n");
-					$test = $yes;
+				} elsif ( $ans eq $no ) {
 
-				}    # if
-			}    # for
+					# overwrite change_file(=no) with no or yes
+					$X[0] = $yes_or_no;
+					$files->write_1col_aref( \@X, \$outbound, \$format );
+#					print("immodpg, set_change, overwrite change file with $X[0]\n");
 
-		} else {
-			print("immodpg, set_change, unexpected answer\n");
-		}
+					unlink($outbound_locked);
 
-		return ();
-	}    # sub
+					# print("3. immodpg, set_change, delete locked file\n");
+					# print("4. immodpg, set_change, yes_or_no=$X[0]\n");
+
+					$test = $no;
+
+				} else {
+					print("immodpg, set_change, unexpected result \n");
+				}    # test change_file's content
+
+			} else {
+
+				# print("immodpg,_set_change, locked change file\n");
+				$count++;    # governor on finding an unlocked change_file
+			}    # if unlocked file is missing and change_file is free
+
+			$count++;    # governor on checking for a change_file = yes
+		}    # for
+
+	} else {
+		print("immodpg, set_change, missing values\n");
+	}
+	return ();
+	
+}    # sub
 
 =head2 sub set_clip_control
 value adjusts to current
@@ -5681,30 +5744,30 @@ clip value in use
 
 =cut
 
-	sub set_clip_control {
+sub set_clip_control {
 
-		my ( $self, $control_clip ) = @_;
+	my ( $self, $control_clip ) = @_;
 
-		my $result;
+	my $result;
 
-		if ( length($control_clip)
-			&& $control_clip > 0 ) {
+	if ( length($control_clip)
+		&& $control_clip > 0 ) {
 
-			$immodpg->{_control_clip} = $control_clip;
+		$immodpg->{_control_clip} = $control_clip;
 
-			#		print("immodpg,set_clip_control, control_clip=$immodpg->{_control_clip}\n");
+		#		print("immodpg,set_clip_control, control_clip=$immodpg->{_control_clip}\n");
 
-		} elsif ( not( length($control_clip) ) ) {
+	} elsif ( not( length($control_clip) ) ) {
 
-			# print("immodpg,_set_clip_control, empty string\n");
-			$immodpg->{_control_clip} = $control_clip;
+		# print("immodpg,_set_clip_control, empty string\n");
+		$immodpg->{_control_clip} = $control_clip;
 
-		} else {
-			print("immodpg,set_clip_control, missing value\n");
-		}
-
-		return ();
+	} else {
+		print("immodpg,set_clip_control, missing value\n");
 	}
+
+	return ();
+}
 
 =head2 sub set_option
 Verify another lock file does not exist and
@@ -5720,102 +5783,102 @@ writing (Perl) of files
 
 =cut
 
-	sub set_option {
+sub set_option {
 
-		my ( $self, $option ) = @_;
+	my ( $self, $option ) = @_;
 
-		if ( looks_like_number($option)
-			&& $immodpg->{_option_file} ne $empty_string ) {
+	if ( looks_like_number($option)
+		&& $immodpg->{_option_file} ne $empty_string ) {
 
-			use manage_files_by2;
-			use control;
+		use manage_files_by2;
+		use control;
 
 =head2 instantiate classes
 
 =cut
 
-			my $files   = new manage_files_by2();
-			my $control = new control;
+		my $files   = new manage_files_by2();
+		my $control = new control;
 
 =head2 Define local
 variables
 
 =cut		
 
-			my @X;
-			my $option_file = $immodpg->{_option_file};
+		my @X;
+		my $option_file = $immodpg->{_option_file};
 
-			my $test            = $no;
-			my $outbound        = $IMMODPG_INVISIBLE . '/' . $option_file;
-			my $outbound_locked = $outbound . '_locked';
+		my $test            = $no;
+		my $outbound        = $IMMODPG_INVISIBLE . '/' . $option_file;
+		my $outbound_locked = $outbound . '_locked';
 
-			for ( my $i = 0; $test eq $no; $i++ ) {
+		for ( my $i = 0; $test eq $no; $i++ ) {
 
-				if ( not( $files->does_file_exist( \$outbound_locked ) ) ) {
-					my $format = $var_immodpg->{_format_string};
-					$X[0] = $empty_string;
-					$files->write_1col_aref( \@X, \$outbound_locked, \$format );
+			if ( not( $files->does_file_exist( \$outbound_locked ) ) ) {
+				my $format = $var_immodpg->{_format_string};
+				$X[0] = $empty_string;
+				$files->write_1col_aref( \@X, \$outbound_locked, \$format );
 
-					$X[0] = $option;
-					$format = '%i';
+				$X[0] = $option;
+				$format = '%i';
 
-					#				print("immodpg,set_option,option=$option\n");
-					$files->write_1col_aref( \@X, \$outbound, \$format );
+				#				print("immodpg,set_option,option=$option\n");
+				$files->write_1col_aref( \@X, \$outbound, \$format );
 
-					unlink($outbound_locked);
+				unlink($outbound_locked);
 
-					$test = $yes;
-				}    # if
-			}    # for
+				$test = $yes;
+			}    # if
+		}    # for
 
-		} elsif ( $immodpg->{_is_option_changed} eq $no ) {
+	} elsif ( $immodpg->{_is_option_changed} eq $no ) {
 
-			# NADA
+		# NADA
 
-		} else {
-			print("immodpg, set_option, unexpected answer\n");
-		}
-
-		return ();
+	} else {
+		print("immodpg, set_option, unexpected answer\n");
 	}
+
+	return ();
+}
 
 =head2 sub smute 
 
 
 =cut
 
-	sub smute {
+sub smute {
 
-		my ( $self, $smute ) = @_;
-		if ($smute) {
+	my ( $self, $smute ) = @_;
+	if ($smute) {
 
-			$immodpg->{_smute} = $smute;
-			$immodpg->{_note}  = $immodpg->{_note} . ' smute=' . $immodpg->{_smute};
-			$immodpg->{_Step}  = $immodpg->{_Step} . ' smute=' . $immodpg->{_smute};
+		$immodpg->{_smute} = $smute;
+		$immodpg->{_note}  = $immodpg->{_note} . ' smute=' . $immodpg->{_smute};
+		$immodpg->{_Step}  = $immodpg->{_Step} . ' smute=' . $immodpg->{_smute};
 
-		} else {
-			print("immodpg, smute, missing smute,\n");
-		}
+	} else {
+		print("immodpg, smute, missing smute,\n");
 	}
+}
 
 =head2 sub sscale 
 
 
 =cut
 
-	sub sscale {
+sub sscale {
 
-		my ( $self, $sscale ) = @_;
-		if ($sscale) {
+	my ( $self, $sscale ) = @_;
+	if ($sscale) {
 
-			$immodpg->{_sscale} = $sscale;
-			$immodpg->{_note}   = $immodpg->{_note} . ' sscale=' . $immodpg->{_sscale};
-			$immodpg->{_Step}   = $immodpg->{_Step} . ' sscale=' . $immodpg->{_sscale};
+		$immodpg->{_sscale} = $sscale;
+		$immodpg->{_note}   = $immodpg->{_note} . ' sscale=' . $immodpg->{_sscale};
+		$immodpg->{_Step}   = $immodpg->{_Step} . ' sscale=' . $immodpg->{_sscale};
 
-		} else {
-			print("immodpg, sscale, missing sscale,\n");
-		}
+	} else {
+		print("immodpg, sscale, missing sscale,\n");
 	}
+}
 
 =head2 sub set_thickness_m
 
@@ -5829,47 +5892,47 @@ through a message in file= "thickness_m"
 
 =cut
 
-	sub set_thickness_m {
+sub set_thickness_m {
 
-		my ($self) = @_;
+	my ($self) = @_;
 
-		#	print("immodpg, set_thickness_m,immodpg->{_thickness_m_current} =$immodpg->{_thickness_m_current} \n");
-		#	print("immodpg, set_thickness_m,immodpg->{_thickness_m_current} =$immodpg->{_thickness_m_current} \n");
-		#	print("immodpg, set_thickness_m,immodpg->{_thickness_m_current} =$immodpg->{_thickness_m_current} \n");
+	#	print("immodpg, set_thickness_m,immodpg->{_thickness_m_current} =$immodpg->{_thickness_m_current} \n");
+	#	print("immodpg, set_thickness_m,immodpg->{_thickness_m_current} =$immodpg->{_thickness_m_current} \n");
+	#	print("immodpg, set_thickness_m,immodpg->{_thickness_m_current} =$immodpg->{_thickness_m_current} \n");
 
-		if ( looks_like_number( $immodpg->{_thickness_m_current} ) ) {
+	if ( looks_like_number( $immodpg->{_thickness_m_current} ) ) {
 
-			_check_thickness_m();
-			_update_thickness_m();
+		_check_thickness_m();
+		_update_thickness_m();
 
-			if ( $immodpg->{_is_thickness_m_changed} eq $yes ) {
+		if ( $immodpg->{_is_thickness_m_changed} eq $yes ) {
 
-				# for fortran program to read
-				# print("immodpg, set_thickness_m, thickness_m is changed: $yes \n");
+			# for fortran program to read
+			# print("immodpg, set_thickness_m, thickness_m is changed: $yes \n");
 
-				_set_thickness_m( $immodpg->{_thickness_m_current} );
-				_set_option($change_thickness_m_opt);
-				_set_change($yes);
+			_set_thickness_m( $immodpg->{_thickness_m_current} );
+			_set_option($change_thickness_m_opt);
+			_set_change($yes);
 
-				# print("immodpg, set_thickness_m,option:$change_thickness_m_opt\n");
-				# print("immodpg, set_thickness_m, V=$immodpg->{_thickness_m_current}\n");
-
-			} else {
-
-				#			negative cases are reset by fortran program
-				#			and so eliminate need to read locked files
-				#			while use of locked files helps most of the time
-				#			creation and deletion of locked files in perl are not
-				#			failsafe
-
-				# print("immodpg, set_thickness_m, same thickness_m NADA\n");
-			}
+			# print("immodpg, set_thickness_m,option:$change_thickness_m_opt\n");
+			# print("immodpg, set_thickness_m, V=$immodpg->{_thickness_m_current}\n");
 
 		} else {
-			print("immodpg, set_thickness_m, _thickness_m value missing\n");
-			print("immodpg, set_thickness_m, thickness_m=$immodpg->{_thickness_m}\n");
+
+			#			negative cases are reset by fortran program
+			#			and so eliminate need to read locked files
+			#			while use of locked files helps most of the time
+			#			creation and deletion of locked files in perl are not
+			#			failsafe
+
+			# print("immodpg, set_thickness_m, same thickness_m NADA\n");
 		}
+
+	} else {
+		print("immodpg, set_thickness_m, _thickness_m value missing\n");
+		print("immodpg, set_thickness_m, thickness_m=$immodpg->{_thickness_m}\n");
 	}
+}
 
 =head2 sub set_thickness_increment_m
 When you enter or leave
@@ -5882,136 +5945,136 @@ through a message in file= "thickness_increment_m"
 
 =cut
 
-	sub set_thickness_increment_m {
+sub set_thickness_increment_m {
 
-		my ($self) = @_;
+	my ($self) = @_;
 
-		# print("immodpg, set_thickness_increment_m, self, $self\n");
+	# print("immodpg, set_thickness_increment_m, self, $self\n");
 
-		if ( defined $immodpg->{_thickness_increment_mEntry}
-			&& $immodpg->{_thickness_increment_mEntry} ne $empty_string ) {
+	if ( defined $immodpg->{_thickness_increment_mEntry}
+		&& $immodpg->{_thickness_increment_mEntry} ne $empty_string ) {
 
-			# print("immodpg, set_thickness_increment_m, $immodpg->{_thickness_increment_mEntry}\n");
-			_check_thickness_increment_m();
-			_update_thickness_increment_m();
-			_write_config();
+		# print("immodpg, set_thickness_increment_m, $immodpg->{_thickness_increment_mEntry}\n");
+		_check_thickness_increment_m();
+		_update_thickness_increment_m();
+		_write_config();
 
-			if ( $immodpg->{_is_thickness_increment_m_changed} eq $yes ) {
+		if ( $immodpg->{_is_thickness_increment_m_changed} eq $yes ) {
 
-				print("immodpg, set_thickness_increment_m, thickness_increment_m is changed: $yes \n");
-				_set_thickness_increment_m( $immodpg->{_thickness_increment_m_current} );
-				_set_option($change_thickness_increment_m_opt);
-				_set_change($yes);
+			print("immodpg, set_thickness_increment_m, thickness_increment_m is changed: $yes \n");
+			_set_thickness_increment_m( $immodpg->{_thickness_increment_m_current} );
+			_set_option($change_thickness_increment_m_opt);
+			_set_change($yes);
 
-				print("immodpg, set_thickness_increment_m,option:$change_thickness_increment_m_opt\n");
-				print(
-					"immodpg, set_thickness_increment_m,immodpg->{_thickness_increment_m_current}=$immodpg->{_thickness_increment_m_current}\n"
-				);
-
-			} else {
-				_set_change($no);
-
-				# print("immodpg, set_thickness_increment_m, same thickness_increment_m NADA\n");
-			}
+			print("immodpg, set_thickness_increment_m,option:$change_thickness_increment_m_opt\n");
+			print(
+				"immodpg, set_thickness_increment_m,immodpg->{_thickness_increment_m_current}=$immodpg->{_thickness_increment_m_current}\n"
+			);
 
 		} else {
+			_set_change($no);
 
+			# print("immodpg, set_thickness_increment_m, same thickness_increment_m NADA\n");
 		}
+
+	} else {
+
 	}
+}
 
 =head2 sub tnmo 
 
 
 =cut
 
-	sub tnmo {
+sub tnmo {
 
-		my ( $self, $tnmo ) = @_;
-		if ( $tnmo ne $empty_string ) {
+	my ( $self, $tnmo ) = @_;
+	if ( $tnmo ne $empty_string ) {
 
-			$immodpg->{_tnmo} = $tnmo;
-			$immodpg->{_note} = $immodpg->{_note} . ' tnmo=' . $immodpg->{_tnmo};
-			$immodpg->{_Step} = $immodpg->{_Step} . ' tnmo=' . $immodpg->{_tnmo};
+		$immodpg->{_tnmo} = $tnmo;
+		$immodpg->{_note} = $immodpg->{_note} . ' tnmo=' . $immodpg->{_tnmo};
+		$immodpg->{_Step} = $immodpg->{_Step} . ' tnmo=' . $immodpg->{_tnmo};
 
-		} else {
-			print("immodpg, tnmo, missing tnmo,\n");
-		}
+	} else {
+		print("immodpg, tnmo, missing tnmo,\n");
 	}
+}
 
 =head2 sub upward 
 
 
 =cut
 
-	sub upward {
+sub upward {
 
-		my ( $self, $upward ) = @_;
-		if ( $upward ne $empty_string ) {
+	my ( $self, $upward ) = @_;
+	if ( $upward ne $empty_string ) {
 
-			$immodpg->{_upward} = $upward;
-			$immodpg->{_note}   = $immodpg->{_note} . ' upward=' . $immodpg->{_upward};
-			$immodpg->{_Step}   = $immodpg->{_Step} . ' upward=' . $immodpg->{_upward};
+		$immodpg->{_upward} = $upward;
+		$immodpg->{_note}   = $immodpg->{_note} . ' upward=' . $immodpg->{_upward};
+		$immodpg->{_Step}   = $immodpg->{_Step} . ' upward=' . $immodpg->{_upward};
 
-		} else {
-			print("immodpg, upward, missing upward,\n");
-		}
+	} else {
+		print("immodpg, upward, missing upward,\n");
 	}
+}
 
 =head2 sub vnmo 
 
 
 =cut
 
-	sub vnmo {
+sub vnmo {
 
-		my ( $self, $vnmo ) = @_;
-		if ($vnmo) {
+	my ( $self, $vnmo ) = @_;
+	if ($vnmo) {
 
-			$immodpg->{_vnmo} = $vnmo;
-			$immodpg->{_note} = $immodpg->{_note} . ' vnmo=' . $immodpg->{_vnmo};
-			$immodpg->{_Step} = $immodpg->{_Step} . ' vnmo=' . $immodpg->{_vnmo};
+		$immodpg->{_vnmo} = $vnmo;
+		$immodpg->{_note} = $immodpg->{_note} . ' vnmo=' . $immodpg->{_vnmo};
+		$immodpg->{_Step} = $immodpg->{_Step} . ' vnmo=' . $immodpg->{_vnmo};
 
-		} else {
-			print("immodpg, vnmo, missing vnmo,\n");
-		}
+	} else {
+		print("immodpg, vnmo, missing vnmo,\n");
 	}
+}
 
 =head2 sub vnmo_mps 
 
 
 =cut
 
-	sub vnmo_mps {
+sub vnmo_mps {
 
-		my ( $self, $vnmo ) = @_;
-		if ($vnmo) {
+	my ( $self, $vnmo ) = @_;
+	if ($vnmo) {
 
-			$immodpg->{_vnmo} = $vnmo;
-			$immodpg->{_note} = $immodpg->{_note} . ' vnmo=' . $immodpg->{_vnmo};
-			$immodpg->{_Step} = $immodpg->{_Step} . ' vnmo=' . $immodpg->{_vnmo};
+		$immodpg->{_vnmo} = $vnmo;
+		$immodpg->{_note} = $immodpg->{_note} . ' vnmo=' . $immodpg->{_vnmo};
+		$immodpg->{_Step} = $immodpg->{_Step} . ' vnmo=' . $immodpg->{_vnmo};
 
-		} else {
-			print("immodpg, vnmo, missing vnmo,\n");
-		}
+	} else {
+		print("immodpg, vnmo, missing vnmo,\n");
 	}
+}
 
 =head2 sub voutfile 
 
 
 =cut
 
-	sub voutfile {
+sub voutfile {
 
-		my ( $self, $voutfile ) = @_;
-		if ($voutfile) {
+	my ( $self, $voutfile ) = @_;
+	if ($voutfile) {
 
-			$immodpg->{_voutfile} = $voutfile;
-			$immodpg->{_note}     = $immodpg->{_note} . ' voutfile=' . $immodpg->{_voutfile};
-			$immodpg->{_Step}     = $immodpg->{_Step} . ' voutfile=' . $immodpg->{_voutfile};
+		$immodpg->{_voutfile} = $voutfile;
+		$immodpg->{_note}     = $immodpg->{_note} . ' voutfile=' . $immodpg->{_voutfile};
+		$immodpg->{_Step}     = $immodpg->{_Step} . ' voutfile=' . $immodpg->{_voutfile};
 
-		} else {
-			print("immodpg, voutfile, missing voutfile,\n");
-		}
+	} else {
+		print("immodpg, voutfile, missing voutfile,\n");
 	}
+}
 
-	1;
+1;

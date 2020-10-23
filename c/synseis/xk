@@ -1,0 +1,44 @@
+#! /bin/sh
+#  usage plotdat.sh  site#
+# set -x
+#
+rm -f tempo
+rm -f tempo2
+ps -ef |grep xgraph > tempo
+awk '{print $2}' tempo > tempo2
+# awk '{print NR}' tempo >! NR
+for i in `cat tempo2`
+do
+# `sed 's/  .*//
+#           1q' tempo2`'
+# echo "kill -9" $i
+kill -9 $i
+done
+ps -x |grep ximage > tempo
+awk '{print $1}' tempo > tempo2
+for i in `cat tempo2`
+do
+# echo "kill -9" $i
+kill -9 $i
+done
+ps -x |grep xwigb > tempo
+awk '{print $1}' tempo > tempo2
+for i in `cat tempo2`
+do
+# echo "kill -9" $i
+kill -9 $i
+done
+ps -x |grep pageview > tempo
+awk '{print $1}' tempo > tempo2
+for i in `cat tempo2`
+do
+# echo "kill -9" $i
+kill -9 $i
+done
+
+
+
+
+
+
+

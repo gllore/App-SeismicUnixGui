@@ -8,7 +8,6 @@
       character (len=80)  :: change
       integer :: err_message, counter, ready
 
-      counter =0;
       inbound_locked=trim(inbound)//"_locked"
       format1= "(A)"
 !      in case definition in main is slightly different
@@ -36,8 +35,8 @@
           result = .FALSE.
          end if
 
-!        print *, 'read_yes_no_file.f, change:',change
-!        print *, 'read_yes_no_file.f, result',result
+        print *, 'read_yes_no_file.f, change:',change
+        print *, 'read_yes_no_file.f, result',result
          close (unit=12)
 
         else

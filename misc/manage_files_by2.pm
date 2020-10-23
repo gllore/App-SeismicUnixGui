@@ -285,6 +285,50 @@ sub unique_elements {
 
 =pod
 
+  read a 1-column file
+
+=cut
+
+sub read_1col_aref {
+
+	# open and read and input file
+	my ($caller,$ref_file_name) = @_;
+
+	#declare locally scoped variables
+	my ($j,$num_rows);
+	my ($i,$x);
+	my @X;
+ 	my $line;
+	# print("manage_files_by2,read_1col_aref,The output file name = $$ref_file_name\n");
+	# set the counter
+	
+	$i = 0;
+	open( IN, "<$$ref_file_name")  or die "Could not open file '$$ref_file_name'. $!";
+
+	# read contents of file
+	while ( $line = <IN> ) {
+
+		# print("\n$line");
+		chomp($line);
+		($x) = split( "  ", $line );
+		$X[$i] = $x;
+
+		# print("\n $X[$i]\n");
+		$i++;
+
+	}
+
+	close(FILE);
+
+	$num_rows = $i;
+	# print ("\nThis file contains $num_rows row(s) of data\n");
+
+	return (\@X);
+
+}
+
+=pod
+
  read in a 2-columned file
  reads cols 1 and 2 in a text file
 

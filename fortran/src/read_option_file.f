@@ -8,6 +8,7 @@
       integer :: err_message, counter, ready
       integer :: result
 
+      inbound_locked=trim(inbound)//"_locked"
       format1= "(I3)"
 
 !      print *, 'read_option_file, inbound is:', trim(inbound)
@@ -30,9 +31,9 @@
 !       check whether file opens data file
         if (err_message.eq.0) then
 
-         read (29,format1) result
+          read (29,format1) result
 
-!        print *, 'read_option_file.f, result',result
+        print *, 'read_option_file.f, result',result
          close (unit=29)
 
         else

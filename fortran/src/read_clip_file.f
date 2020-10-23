@@ -7,6 +7,7 @@
       character (len=30)  :: format1
       integer             :: err_message, counter, ready
 
+      inbound_locked=trim(inbound)//"_locked"
       format1= "(F5.1)"
 
 !      print *, 'read_clip_file, inbound is:', trim(inbound)

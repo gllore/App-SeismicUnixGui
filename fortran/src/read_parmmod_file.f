@@ -9,6 +9,7 @@
 !      print *, 'read_parmmod_file, inbound is:',trim(inbound),'--'
 !      in case inbound is of a different, but shorter length in main
 !      inbound=inbound
+      inbound_locked=trim(inbound)//"_locked"
 
 10     open(status='new',unit=25,file=inbound_locked,iostat=ready)
 

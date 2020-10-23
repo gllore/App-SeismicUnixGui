@@ -392,7 +392,8 @@ Reading and plotting data and synthetic seismogram
 =cut
 
 # create ss
-@items = ( $Synseis[1], $out, $output_synthetic_seismogram );
+my $program_ss='/usr/local/pl/L_SU/big_streams/'.$Synseis[1];
+@items = ($program_ss, $out, $output_synthetic_seismogram );
 $flow[1] = $run->modules( \@items );
 
 # print  "ss: @items\n";

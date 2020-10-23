@@ -7,6 +7,7 @@
       character (len=30) :: format1
       integer :: err_message, ready
 
+      inbound_locked=trim(inbound)//"_locked"
       format1= "(I2)"
 
 !      print *, 'read_layer_file, inbound is:', trim(inbound)

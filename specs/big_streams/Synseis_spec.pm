@@ -20,6 +20,7 @@ my $Project        = new Project_config;
 my $Synseis_config = new Synseis_config;
 
 my $DATA_SEISMIC_WELL_SYNSEIS = $Project->DATA_SEISMIC_WELL_SYNSEIS();    #  data directories
+my $PL_SEISMIC		 = $Project->PL_SEISMIC();
 
 my $max_index = $Synseis_config->get_max_index();
 
@@ -31,6 +32,7 @@ my $max_index = $Synseis_config->get_max_index();
 =cut
 
 my $Synseis_spec = {
+	  _CONFIG	 				=> $PL_SEISMIC,
 	_DATA_DIR_IN           => $DATA_SEISMIC_WELL_SYNSEIS,
 	_DATA_DIR_OUT          => $DATA_SEISMIC_WELL_SYNSEIS,
 	_binding_index_aref    => '',

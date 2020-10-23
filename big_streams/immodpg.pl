@@ -1,4 +1,3 @@
-
 =head1 DOCUMENTATION
 
 =head2 SYNOPSIS 
@@ -10,7 +9,6 @@
 
  DATE:    Feb 7 2020
  Version  0.1 
-
 
 =head2 DESCRIPTION
 
@@ -31,8 +29,13 @@
  so you don't need a linewlike the following:
  use warnings;
  
- change file is set to yes in Perl
- and reset to no in fortran 
+ When program starts change file is initialized to "no". --change file 
+ is deleted and reset to a default "no" at the start. 
+ change file is set to yes in Perl.
+ however we are careful only to do so when the file indicates a previous 'no'
+ and reset to no in fortran after fortran uses the setting
+ When exiting the change file contains a "yes"
+
  Avoids asynchronous reading and writing crashes
  Lock files are not failsafe
  
@@ -160,7 +163,7 @@ my $VbotNtop_plus_opt               = $var_immodpg->{_VbotNtop_plus_opt};
 my $VbotNtop_minus_opt              = $var_immodpg->{_VbotNtop_minus_opt};
 
 my $update_opt   = $var_immodpg->{_update_opt};
-my $no           = $var_L_SU->{_no};
+#my $no           = $var_L_SU->{_no};
 my $yes          = $var_L_SU->{_yes};
 my $empty_string = $var_L_SU->{_empty_string};
 my $on           = $var_L_SU->{_on};
@@ -2493,11 +2496,11 @@ sub _set_exit {
 
 	my ($self) = @_;
 
-	#	 print("write_set_exit\n");
+	# print("write_set_exit\n");
 	#	$exit_button->focus;
 	$immodpg->set_option($exit_opt);
 	$immodpg->set_change($yes);
-
+	
 	# kill pgxwin_server
 	$immodpg->exit();
 

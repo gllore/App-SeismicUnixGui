@@ -656,15 +656,15 @@
 !          print*, '2. immodpg.for,inbound_change:',inbound_change,'--'
 
            call read_yes_no_file(is_change,inbound_change)
-!           print*, '656.immodpg.for,is_change:',is_change,'--'
+!          print*, '659.immodpg.for,is_change:',is_change,'--'
 
            if (is_change ) then
-!              print *, 'L660 immodpg.for,is_change=',is_change
 !             Restore change to "no"
               call write_yes_no_file(no,inbound_change)
 !             read option number
               call read_option_file(option,inbound_option)
-!              print *, '665 immodpg.for,option#=',option
+!              print *, 'L666 immodpg.for,is_change=',is_change
+!              print *, '667 immodpg.for,option#=',option
 !              print *,'L 41 immodpg.for,clnopt=',
 !     +        change_layer_number_opt
 
@@ -730,16 +730,16 @@
               endif ! end check for change in layer
 
               if(option.eq.change_clip4plot_opt) then
-!               print *, 'L 631 immodpg.for,change_clip4plot_opt=',
+!               print *, 'L 733 immodpg.for,change_clip4plot_opt=',
 !     +         change_clip4plot_opt
-!              print *, 'L 633 immodpg.for,option=',option
+!              print *, 'L 735 immodpg.for,option=',option
                    call read_clip_file(new_clip,inbound_clip)
-!                   print*,'L 545 new clip is',new_clip
+!                   print*,'L 737 new clip is',new_clip
                    prior_clip         = current_clip
                    current_clip       = new_clip
                    clip_min           = -current_clip
                    clip_max           =  current_clip
-!                   print*,'L 640 new clip is',clip_max
+!                   print*,'L 742 new clip is',clip_max
                    go to 10 ! start of all interactions with user
 
               endif

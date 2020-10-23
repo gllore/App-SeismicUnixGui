@@ -7,6 +7,7 @@
       character (len=30) :: format1
       integer :: err_message, ready
 
+      inbound_locked=trim(inbound)//"_locked"
       format1= "(F7.1)"
 
 !      print *, 'readVbot_file.f, inbound is:', trim(inbound)
