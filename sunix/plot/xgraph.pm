@@ -176,7 +176,7 @@ sub Step {
 		$xgraph->{_Step} = 'xgraph' . $xgraph->{_Step}.' '.$xgraph->{_geometry} ;	
 	}
 	else {
-		print("xgraph,missing parameters, NADA\n");
+#		print("xgraph,missing parameters, NADA\n");
 		$xgraph->{_Step} = 'xgraph' . $xgraph->{_Step};
 	}
 

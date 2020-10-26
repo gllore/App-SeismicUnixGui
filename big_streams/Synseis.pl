@@ -17,11 +17,11 @@
 =head3 NOTES
  This script creates the synthetic seismogram in an ascii file
  usage Synseis.sh Site number
-#
+
  ***** SETTING SITE WATER DEPTHS******* NOTE 1 ***************************
-#water_depth=1123. # water depth at site 904 delay = 370 ms
+water_depth=1123. # water depth at site 904 delay = 370 ms
 water_depth=1; #1123.  #wqter depth incurrent zrhov model
-#
+
 
  ********SETTING PATHS ******* NOTE 2 ***************************
  
@@ -31,7 +31,7 @@ water_depth=1; #1123.  #wqter depth incurrent zrhov model
  commonly are.
 
 ----
-#
+
 # Setting paths
 path=./
 zrhov_filename=./zrhov.904 # input filename 
@@ -43,66 +43,66 @@ reg_density_file=./zrho.reg
 reg_velocity_file=./zv.reg
 #
 # *********** OPTIONS ************* NOTE 3 *************************
-# The program has various options, e.g.
-#	1) variable sampling rate
-#	2) synthetic Ricker source
-#	3A) real MCS source ready to roll!
-#	3B) sources that need to be resampled at a finer sampling rate
-#
-# For each option several parameters must be turned off and others turned
-# on.  At present this program works using an MCS source wavelet with
-# a 2ms sampling interval taken from EW Line 1027 at CDP 1377 1.106-1.166ms
-# (1027.source) found in /projects/projects5/Geol4068/Synseis_class/sources
-# Be careful with the units as SUnix uses microseconds and you may
-# like to think in terms of milliseconds or just seconds!
-#
-# ---------------- uncomment before next line if using resampled source
-#  OTHER OPTIONAL SOURCES with DIFFERENT (!!!) sampling intervals
-#
-# 1ms SI; first source used, fromCDP 1400, line2, SCS
-# input_source_filename=$path/sources/CDP1400.source
-# time_sampling_interval=0.001 # in seconds
-#
-# 1ms SI;  CDP 1210 1086-1173ms 
-# input_source_filename=$path/sources/line2.source 
-# time_sampling_interval=0.001 # in seconds
-#
-# ******************************************************
-# WE USE THE FOLLOWING SOURCE IN THIS EXAMPLE
-# *******************************************************
-# 2ms SI CDP 1377 1.106-1.166ms
-input_source_filename=./1027.source 
-time_sampling_interval=0.002 # in seconds
-#
-depth_sampling_interval=0.4   # in meters
-#
-# Remember that you can't use an MCS source AND a Ricker wavelet
-# and a seismic source wavelet you would like to change within Synseis
-# SIMLUTANEOUSLY.  Therefore, if you want to use on eof these options
-# other options MUST be set off.  I advise you to not use the following
-# options for the time being without help.
+ The program has various options, e.g.
+	1) variable sampling rate
+	2) synthetic Ricker source
+	3A) real MCS source ready to roll!
+	3B) sources that need to be resampled at a finer sampling rate
 
-# If you want to use the following options
-# ----------------- uncomment before next line for source for sampling
-#  source_resampling_interval=0.004
+ For each option several parameters must be turned off and others turned
+ on.  At present this program works using an MCS source wavelet with
+ a 2ms sampling interval taken from EW Line 1027 at CDP 1377 1.106-1.166ms
+ (1027.source) found in /projects/projects5/Geol4068/Synseis_class/sources
+ Be careful with the units as SUnix uses microseconds and you may
+ like to think in terms of milliseconds or just seconds!
+
+ ---------------- uncomment before next line if using resampled source
+  OTHER OPTIONAL SOURCES with DIFFERENT (!!!) sampling intervals
+
+ 1ms SI; first source used, fromCDP 1400, line2, SCS
+ input_source_filename=$path/sources/CDP1400.source
+ time_sampling_interval=0.001  in seconds
+
+ 1ms SI;  CDP 1210 1086-1173ms 
+ input_source_filename=$path/sources/line2.source 
+ time_sampling_interval=0.001  in seconds
+
+ ******************************************************
+ WE USE THE FOLLOWING SOURCE IN THIS EXAMPLE
+ *******************************************************
+ 2ms SI CDP 1377 1.106-1.166ms
+ input_source_filename=./1027.source 
+ time_sampling_interval=0.002  in seconds
+
+depth_sampling_interval=0.4    in meters
+
+ Remember that you can't use an MCS source AND a Ricker wavelet
+ and a seismic source wavelet you would like to change within Synseis
+ SIMLUTANEOUSLY.  Therefore, if you want to use on eof these options
+ other options MUST be set off.  I advise you to not use the following
+ options for the time being without help.
+
+ If you want to use the following options
+ ----------------- uncomment before next line for source for sampling
+  source_resampling_interval=0.004
 ##  tmin_resampled_source=0.004 
-#  xstart4resampling_source=0.0
-# -X0$xstart4resampling_source \
-#-S$input_source_filename
-#
-# --------------- uncomment below this line if using Ricker --------
-# Ricker_endtime=0.15    # s
-# Ricker_file=$path2/Geol4068/users/$1/modeling/output/ricker.out
-# Ricker_frequency=40.   # Hz
-# -AF$Ricker_frequency \
-# -AE$Ricker_endtime \
-# -Ao$Ricker_file 
-# -----------------------------------------------------------------  
-# ************* Running the program *********** NOTE   ***************
-# -V allows output of all values during run time : not recommended
-# unless you desire to inspect the gizzards of the beast
-#
-# -X0$xstart4resampling_source \
+  xstart4resampling_source=0.0
+ -X0$xstart4resampling_source \
+-S$input_source_filename
+
+ --------------- uncomment below this line if using Ricker --------
+ Ricker_endtime=0.15     s
+ Ricker_file=$path2/Geol4068/users/$1/modeling/output/ricker.out
+ Ricker_frequency=40.    Hz
+ -AF$Ricker_frequency \
+ -AE$Ricker_endtime \
+ -Ao$Ricker_file 
+ -----------------------------------------------------------------  
+ ************* Running the program *********** NOTE   ***************
+ -V allows output of all values during run time : not recommended
+ unless you desire to inspect the gizzards of the beast
+
+ -X0$xstart4resampling_source \
 Synseis \
 -S$input_source_filename \
 -CZ$reflec_coef_depth \
@@ -114,7 +114,7 @@ Synseis \
 -Ro$output_source \
 -Z$zrhov_filename \
 -W$water_depth
-# -V
+ -V
 
 =head4 Examples
 
@@ -175,9 +175,8 @@ my ( @geometry, @a2b_file_name );
 my ( $wbox, $hbox, $xbox, $ybox );
 
 
-=head2 default values
- 
-  geomtery of boxes
+=head2 default values for
+geomtery of boxes
  
 =cut
 
@@ -185,10 +184,8 @@ $wbox = 230;
 $hbox = 600;
 $ybox = 500;
 
-
 =head2 Get configuration information
-
-	input hash and an array reference
+input hash and an array reference
 
 =cut
 
@@ -196,8 +193,7 @@ my ( $CFG_h, $CFG_aref ) = $Synseis_config->get_values();
 
 
 =head2 set the different parameters
-
-  includes sugain variables
+includes sugain variables
 
 =cut
 
@@ -227,8 +223,6 @@ my $plot_ss_amplitude_max = $CFG_h->{Synseis}{1}{plot_ss_amplitude_max};
 my $output_synthetic_seismogram = $DATA_SEISMIC_WELL_SYNSEIS . '/' . 'ss';
 
 # file names and their full paths
-
-#my $base_file_name						= 'zrhov_1';
 my $reflection_coef_time  = $DATA_SEISMIC_WELL_SYNSEIS . '/' . 'rc_t';
 my $reflection_coef_depth = $DATA_SEISMIC_WELL_SYNSEIS . '/' . 'rc_z';
 my $zrho_reg              = $DATA_SEISMIC_WELL_SYNSEIS . '/' . 'zrho_reg';
@@ -238,7 +232,8 @@ my $zrhov = $DATA_SEISMIC_WELL_SYNSEIS . '/' . $base_file_name;
 # my $zrhov							= $DATA_RESISTIVITY_WELL_TXT.'/'.'zrhov_W8';
 
 # default calculations
-my $water_depth_s = $water_depth_m / 1500 / 2;
+my $water_velocity_mps = 1500.;
+my $water_depth_s = $water_depth_m / $water_velocity_mps/ 2;
 
 # print("Synseis.pl, DATA In is $base_file_name\n");
 # print("Synseis.pl, plot_time_min_s is $plot_time_min_s\n");
@@ -250,9 +245,7 @@ my $water_depth_s = $water_depth_m / 1500 / 2;
 # print(" 1. Synseis.pl, plot_ss_amplitude_min:$plot_ss_amplitude_min\n\n");
 # print(" 1. Synseis.pl, plot_reflection_coefficient_min:$plot_reflection_coefficient_min\n\n");
 
-=head2 Set
-
- a2b 
+=head2 Set a2b 
 
 =cut
 
@@ -266,10 +259,7 @@ $a2b->outpar(
     quotemeta( $DATA_SEISMIC_WELL_SYNSEIS . '/' . '.temp_zrho_reg' ) );
 $a2b[1] = $a2b->Step();
 
-
-=head2 Set
-
- a2b 
+=head2 Set  a2b 
 
 =cut
 
@@ -284,9 +274,7 @@ $a2b->outpar(
 $a2b[2] = $a2b->Step();
 
 
-=head2 Set
-
- a2b 
+=head2 Set a2b 
 
 =cut
 
@@ -304,9 +292,7 @@ $a2b->outpar(
 $a2b[3] = $a2b->Step();
 
 
-=head2 Set
-
- a2b 
+=head2 Set a2b 
 
 =cut
 
@@ -324,9 +310,7 @@ $a2b->outpar(
 $a2b[4] = $a2b->Step();
 
 
-=head2 Set
-
- a2b 
+=head2 Set a2b 
 
 =cut
 
@@ -345,22 +329,18 @@ $a2b->outpar(
 $a2b[5] = $a2b->Step();
 
 
-=head2 Set
-
- sed 
+=head2 Set sed 
 
 =cut
 
 my $sed_num_points;
 
-
-=head2 Set
-
- Synseis
+=head2 Set Synseis
 
 =cut
 
-my $time_sampling_interval_us = $time_sampling_interval_s * 1000000;
+my $s2us = 1000000;
+my $time_sampling_interval_us = $time_sampling_interval_s * $s2us;
 
 $Synseis->clear();
 $Synseis->reflec_coef_depth( quotemeta($reflection_coef_depth) );
@@ -379,109 +359,92 @@ $Synseis->Ricker_file(
     quotemeta( $DATA_SEISMIC_WELL_SYNSEIS . '/' . 'ricker.out' ) );
 $Synseis->Ricker_frequency( quotemeta($Ricker_frequency) );     # Hz
 $Synseis->water_depth( quotemeta($water_depth_m) );
-
-# $Synseis     		-> verbose(quotemeta($on));
+# only for debugging, will generate
+# error in running flow 6
+# because the errors are output to stdout which is also ss (text)
+#$Synseis     		-> verbose(quotemeta($on));
 $Synseis[1]     = $Synseis->Step();
 $SynseisNote[1] = $Synseis->note();
 
-
 =head2 DEFINE FLOW(S)
-
-Reading and plotting data and synthetic seismogram
+Reading and plotting data 
+and synthetic seismogram
  
 =cut
 
-# create ss
-my $program_ss='/usr/local/pl/L_SU/big_streams/'.$Synseis[1];
+# run main (synseis) and its switches
+my $program_ss=$Synseis[1];
 @items = ($program_ss, $out, $output_synthetic_seismogram );
+# @items = ($program_ss);
 $flow[1] = $run->modules( \@items );
-
-# print  "ss: @items\n";
 
 # create zrhoreg.bin
 @items = ( $a2b[1], $in, $a2b_inbound[1], $out, $a2b_outbound[1] );
-
 # print  "@items\n";
 $flow[2] = $run->modules( \@items );
 
 # create zvreg.bin
 @items = ( $a2b[2], $in, $a2b_inbound[2], $out, $a2b_outbound[2] );
 $flow[3] = $run->modules( \@items );
-
 # print  "zvreg: @items\n";
 
 # create reflection_coef_depth.bin
 @items = ( $a2b[3], $in, $a2b_inbound[3], $out, $a2b_outbound[3] );
 $flow[4] = $run->modules( \@items );
-
 # print  "synthetic seismograms: @items\n";
 
 # create  reflection_coef_time.bin
 @items = ( $a2b[4], $in, $a2b_inbound[4], $out, $a2b_outbound[4] );
-$flow[5] = $run->modules( \@items );
-
+ $flow[5] = $run->modules( \@items );
 # print  "rc_time: @items\n";
 
 # create ss.bin
 @items = ( $a2b[5], $in, $a2b_inbound[5], $out, $a2b_outbound[5] );
-
 # print  "synthetic seismograms: @items\n";
-
-$flow[6] = $run->modules( \@items );
-
+ $flow[6] = $run->modules( \@items );
 
 =head2 RUN FLOW(S)
-
-
+flow 1 to create ss and accompanying files
+flow 2 create zrhoreg.bin
 =cut
 
-# create ss
+# run main
 $run->flow( \$flow[1] );
+#print  "Synseis.pl,flow1: $flow[1]\n";
 
-# print  "$flow[1]\n";
-
-# create zrhoreg.bin
+# create zrho_reg.bin
 $run->flow( \$flow[2] );
+#print  "Synseis.pl,flow2: $flow[2]\n";
 
-# print  "$flow[2]\n";
-
-# get meta-data from zrhoreg
+#get meta-data from zrhoreg
 my $num_points_zrho_reg = manage_files_by::count_lines( \$zrho_reg );
+#print("num_points_zrho_reg  $num_points_zrho_reg \n");
 
-# print("num_points_zrho_reg  $num_points_zrho_reg \n");
-
-# create zvreg.bin
+#create zv_reg.bin
 $run->flow( \$flow[3] );
-
-# get meta-data from zvreg
+#get meta-data from zvreg
 my $num_points_zv_reg = manage_files_by::count_lines( \$zv_reg );
+#print("num_points_zv_reg  $num_points_zv_reg \n");
 
-# print("num_points_zv_reg  $num_points_zv_reg \n");
-
-# create reflection_coef_depth.bin
+#create reflection_coef_depth.bin
 $run->flow( \$flow[4] );
-
 # get meta-data from reflection_coef_depth
-my $num_points_depth =
-     manage_files_by::count_lines( \$reflection_coef_depth );
-
+my $num_points_depth = manage_files_by::count_lines( \$reflection_coef_depth );
 #print("num_points_depth  $num_points_depth \n");
 
 # create reflection_coef_time.bin
 $run->flow( \$flow[5] );
-
+#print  "Synseis.pl,flow5: $flow[5]\n";
 # get meta-data from reflection_coef_time
 my $num_points_time = manage_files_by::count_lines( \$reflection_coef_time );
-
 #print("num_points_time $num_points_time \n");
 
 # create ss.bin
 $run->flow( \$flow[6] );
 
-# get meta-data from ss
+## get meta-data from ss
 my $num_points_synthetic_seismogram =
      manage_files_by::count_lines( \$output_synthetic_seismogram );
-
 # print("num_points_synthetic_seismogram $num_points_synthetic_seismogram \n");
 
 =head2 plot zrho_reg.bin
@@ -493,11 +456,9 @@ my $num_points_synthetic_seismogram =
 $xbox = 0;
 $geometry[1] = $wbox . 'x' . $hbox . '+' . $xbox . '+' . $ybox;
 
-# print(" geometry is $geometry[1]\n\n");
-
 $xgraph->clear();
 $xgraph->axes_style( quotemeta('seismic') );
-$xgraph->title( quotemeta('zrho_reg_g/cc') );
+$xgraph->title( quotemeta('resampled rho in depth, g/cc') );
 $xgraph->x2beg( quotemeta($plot_density_min) );
 $xgraph->x2end( quotemeta($plot_density_max) );
 $xgraph->x1beg( quotemeta($plot_depth_min_m) );
@@ -515,7 +476,6 @@ $xgraph_inbound[1] = $xgraph_file_name . $suffix_bin;
 @items = ( $xgraph[1], $in, $xgraph_inbound[1], $go );
 
 # print  "@items\n";
-
 $flow[7] = $run->modules( \@items );
 
 # print  "$flow[7]\n";
@@ -529,12 +489,9 @@ $flow[7] = $run->modules( \@items );
 $xbox = 230;
 $geometry[2] = $wbox . 'x' . $hbox . '+' . $xbox . '+' . $ybox;
 
-# print(" geometry is $geometry[2]\n\n");
-
-
 $xgraph->clear();
 $xgraph->axes_style( quotemeta('seismic') );
-$xgraph->title( quotemeta('zv_reg') );
+$xgraph->title( quotemeta('resampled V in depth') );
 $xgraph->x1beg( quotemeta($plot_depth_min_m) );
 $xgraph->x1end( quotemeta($plot_depth_max_m) );
 $xgraph->x2beg( quotemeta($plot_velocity_min) );
@@ -557,18 +514,16 @@ $flow[8] = $run->modules( \@items );
 
 =cut
 
-
 $xbox = 460;
 $geometry[3] = $wbox . 'x' . $hbox . '+' . $xbox . '+' . $ybox;
 
-#print(" geometry is quotemeta($geometry[3])\n\n");
-
-
 $xgraph->clear();
 $xgraph->axes_style( quotemeta('seismic') );
-$xgraph->title( quotemeta('A_ratio_z') );
+$xgraph->title( quotemeta('refl. coeffic. in depth') );
 $xgraph->x2beg( quotemeta($plot_reflection_coefficient_min) );
 $xgraph->x2end( quotemeta($plot_reflection_coefficient_max) );
+$xgraph->x1beg( quotemeta($plot_depth_min_m) );
+$xgraph->x1end( quotemeta($plot_depth_max_m) );
 $xgraph->nTic2( quotemeta(2) );
 $xgraph->grid2_type( quotemeta('solid') );
 $xgraph->grid1_type( quotemeta('solid') );
@@ -591,12 +546,9 @@ $flow[9] = $run->modules( \@items );
 $xbox = 690;
 $geometry[4] = $wbox . 'x' . $hbox . '+' . $xbox . '+' . $ybox;
 
-#print(" geometry is quotemeta($geometry[3])\n\n");
-
-
 $xgraph->clear();
 $xgraph->axes_style( quotemeta('seismic') );
-$xgraph->title( quotemeta('A_ratio_t') );
+$xgraph->title( quotemeta('Refl. coeff. in time') );
 $xgraph->x2beg( quotemeta($plot_reflection_coefficient_min) );
 $xgraph->x2end( quotemeta($plot_reflection_coefficient_max) );
 $xgraph->x1beg( quotemeta($plot_time_min_s) );
@@ -614,7 +566,6 @@ $xgraph_inbound[4] = $xgraph_file_name . $suffix_bin;
 $flow[10] = $run->modules( \@items );
 
 =head2 Set
-
  xgraph plot ss.bin
 
 =cut
@@ -622,17 +573,13 @@ $flow[10] = $run->modules( \@items );
 $xbox = 920;
 $geometry[5] = $wbox . 'x' . $hbox . '+' . $xbox . '+' . $ybox;
 
-#print(" geometry is quotemeta($geometry[5])\n\n");
-
-
 $xgraph->clear();
 $xgraph->axes_style( quotemeta('seismic') );
-$xgraph->title( quotemeta('wiggle') );
+$xgraph->title( quotemeta('synthetic seismogram') );
 $xgraph->x2beg( quotemeta($plot_ss_amplitude_min) );
 $xgraph->x2end( quotemeta($plot_ss_amplitude_max) );
 $xgraph->x1beg( quotemeta($plot_time_min_s) );
 $xgraph->x1end( quotemeta($plot_time_max_s) );
-
 $xgraph->nTic2( quotemeta(2) );
 $xgraph->grid2_type( quotemeta('solid') );
 $xgraph->geometry( quotemeta( $geometry[5] ) );
@@ -661,42 +608,42 @@ $run->flow( \$flow[10] );
 $run->flow( \$flow[11] );
 
 =head2 LOG FLOW(S)
-
  TO SCREEN AND FILE
 
 =cut
 
-#          print  "$flow[1]\n";
-# $log->file($flow[1]);
+##          print  "$flow[1]\n";
+## $log->file($flow[1]);
+##
 #
-
-#$log->file($flow[2]);
+##$log->file($flow[2]);
+##
+##      print  "$flow[3]\n";
+##$log->file($flow[3]);
 #
-#      print  "$flow[3]\n";
-#$log->file($flow[3]);
-
-#     print  "$flow[4]\n";
-#$log->file($flow[2]);
-
-#     print  "$flow[5]\n";
-#$log->file($flow[5]);
-
-#        print  "$flow[6]\n";
-#$log->file($flow[6]);
-
-# plot zrho_reg.bin
-# print  "$flow[7]\n";
-#$log->file($flow[7]);
-
-# print  "$flow[8]\n";
-#$log->file($flow[8]);
-
+##     print  "$flow[4]\n";
+##$log->file($flow[2]);
+#
+##     print  "$flow[5]\n";
+##$log->file($flow[5]);
+#
+##        print  "$flow[6]\n";
+##$log->file($flow[6]);
+#
+## plot zrho_reg.bin
+## print  "$flow[7]\n";
+##$log->file($flow[7]);
+#
+## print  "$flow[8]\n";
+##$log->file($flow[8]);
+#
 #    print  "$flow[9]\n";
 #$log->file($flow[9]);
-
-#    print  "$flow[10]\n";
-#$log->file($flow[10]);
-
-#     print  "$flow[11]\n";
-#$log->file($flow[11]);
-
+#
+##    print  "$flow[10]\n";
+##$log->file($flow[10]);
+#
+##     print  "$flow[11]\n";
+##$log->file($flow[11]);
+#
+#system("sh /usr/local/pl/L_SU/c/synseis/run_me_only.sh");

@@ -7,7 +7,7 @@
 
  	echo "global variable L_SU must first be set"
  	echo "e.g. in .bashrc: "
- 	echo " export L_SU=/usr/local/pl "
+ 	echo " export L_SU=/usr/local/pl/L_SU"
 
  else
 

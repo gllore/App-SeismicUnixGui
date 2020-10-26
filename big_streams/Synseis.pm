@@ -194,7 +194,6 @@ sub reflec_coef_depth {
 
 =head2 sub reflec_coef_time 
 
-
 =cut
 
 sub reflec_coef_time {

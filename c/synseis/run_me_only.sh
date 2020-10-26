@@ -9,10 +9,8 @@
  	echo "e.g. in .bashrc: "
  	echo " export L_SU=/usr/local/pl/L_SU "
 
- else
-
-	# run iSpectralAnalysis.pl
-	# echo "perl" $L_SU"/big_streams/iSpectralAnalysis.pl"
-	
-     perl $L_SU/big_streams/iSpectralAnalysis.pl
 fi
+
+cd ${L_SU}/c/synseis
+sh set_env_variables.sh
+make synseis

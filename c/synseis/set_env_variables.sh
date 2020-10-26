@@ -10,9 +10,5 @@
  	echo " export L_SU=/usr/local/pl/L_SU "
 
  else
-
-	# run iSpectralAnalysis.pl
-	# echo "perl" $L_SU"/big_streams/iSpectralAnalysis.pl"
-	
-     perl $L_SU/big_streams/iSpectralAnalysis.pl
+	echo "L_SU =" ${L_SU}
 fi
