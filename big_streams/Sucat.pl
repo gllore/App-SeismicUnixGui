@@ -39,7 +39,7 @@ That is, a list can only be used when the values of the prior
 7 parameters are blank
 
 Example:
-    
+    .
     first_file_number_in               =               
     last_file_number_in                =                
     number_of_files_in                 =                  
@@ -75,7 +75,7 @@ Examples:
   Builds a hash of the configuration parameters
     first_file_number_in               = 1000                
     last_file_number_in                = 1001                
-    number_of_files_in                 = 11                  
+    number_of_files_in                 = 2                  
     output_file_name                   = 1000_01            
     input_suffix                       = su                  
     input_name_prefix                  = cdp                 
@@ -96,7 +96,7 @@ Examples:
     first_file_number_in                  = 1000                
     last_file_number_in                   = 1010                
     number_of_files_in                    = 11                               
-    input_suffix                          = su                  
+    input_suffix                          = su           
     input_name_prefix                     = cdp                 
     input_name_extension                  = _clean
     
@@ -246,11 +246,12 @@ parameter inputs
 # CASE 1: new inbound and or/outbound directories replace defaults
 if ( $alternative_outbound_directory ne $empty_string ) {
 	$outbound_directory = $alternative_outbound_directory;
+	# print("1. Sucat.pl, selected alternative_outbound_directory  $outbound_directory\n");
 
 }
 elsif ( $alternative_outbound_directory eq $empty_string ) {
-	$outbound_directory = $PL_SEISMIC;
-
+	$outbound_directory = $DATA_DIR_OUT;
+	# print("2. Sucat.pl, selected outbound_directory $outbound_directory  \n");
 }
 else {
 	print("Sucat.pl, unexpected alternative_outbound_directory  \n");
@@ -258,11 +259,11 @@ else {
 
 if ( $alternative_inbound_directory ne $empty_string ) {
 	$inbound_directory = $alternative_inbound_directory;
-
+	# print("1. Sucat.pl, selected alternative inbound_directory=$inbound_directory  \n");
 }
 elsif ( $alternative_inbound_directory eq $empty_string ) {
-	$inbound_directory = $PL_SEISMIC;
-
+	$inbound_directory = $DATA_DIR_IN;
+	# print("2. Sucat.pl, selected inbound_directory=$inbound_directory  \n");
 }
 else {
 	print("Sucat.pl, unexpected alternative_inbound_directory  \n");

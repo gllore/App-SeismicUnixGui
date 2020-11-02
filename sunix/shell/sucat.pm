@@ -86,6 +86,9 @@ is a hash of important variables
 my $sucat = {
 	_first_file_number_in => '',
 	_inbound_directory    => '',
+	_input_suffix         => '',
+	_input_name_extension => '',
+	_input_name_prefix    => '',
 	_outbound_directory   => '',
 	_last_file_number_in  => '',
 	_list_aref            => '',
@@ -108,6 +111,8 @@ sub clear {
 	my ($self) = @_;
 	$sucat->{_first_file_number_in} = '';
 	$sucat->{_inbound_directory}    = '';
+	$sucat->{_input_name_extension} = '';
+	$sucat->{_input_suffix}         = '';
 	$sucat->{_outbound_directory}   = '';
 	$sucat->{_last_file_number_in}  = '';
 	$sucat->{_list_array}           = '';
@@ -343,7 +348,7 @@ sub data_type {
 =cut
 
 			my @sorted_indices       = sort { $gather_number[$a] <=> $gather_number[$b] } 0 .. $#gather_number;
-			my @sorted_gather_number = sort { $a <=> $b } @gather_number;
+			my @sorted_gather_number = sort { $a                 <=> $b } @gather_number;
 
 			# print("sucat, data_type, sorted indices: @sorted_indices \n");
 			# print("sucat, data_type, unsorted indices: 0 .. $#gather_number\n");
@@ -362,7 +367,7 @@ sub data_type {
 			}
 
 			if ( $data_type eq 'velan' ) {
-				
+
 				manage_files_by::write_cdp( \@sorted_gather_number, $DIR_OUT );
 				manage_files_by::write_tnmo_vnmo(
 					\@sorted_gather_number, \@sorted_result_t, \@sorted_result_v,
@@ -750,14 +755,22 @@ sub Step {
 					$sucat->{_Step}
 						= $sucat->{_Step} . ' '
 						. $sucat->{_inbound_directory} . '/'
-						. $file . '.'
+						. $sucat->{_input_name_prefix}
+						. $file
+						. $sucat->{_input_name_extension} .
+						'.'
 						. $sucat->{_input_suffix};
-
 				}
 
-				# CASE 2A-2 there is not input suffix specified by user
+				# CASE 2A-2 there is no input suffix specified by user
 				elsif ( $sucat->{_input_suffix} eq $empty_string ) {
-					$sucat->{_Step} = $sucat->{_Step} . ' ' . $sucat->{_inbound_directory} . '/' . $file;
+					$sucat->{_Step}
+						= $sucat->{_Step} . ' '
+						. $sucat->{_inbound_directory} . '/'
+						. $sucat->{_input_name_prefix}
+						. $file
+						. $sucat->{_input_name_extension};
+
 				} else {
 					print(" sucat,Step, unexpected input, growing numbers\n");
 				}
@@ -779,13 +792,23 @@ sub Step {
 				if ( $sucat->{_input_suffix} ne $empty_string ) {
 
 					$sucat->{_Step}
-						= $sucat->{_Step} . ' ' . $sucat->{_inbound_directory} . '/' . $file . $sucat->{_input_suffix};
+						= $sucat->{_Step} . ' '
+						. $sucat->{_inbound_directory} . '/'
+						. $sucat->{_input_name_prefix}
+						. $file
+						. $sucat->{_input_name_extension}
+						. $sucat->{_input_suffix};
 					print("2A-1 sucat,Step,file=$file\n");
 				}
 
-				# CASE 2A-2 there is not input suffix specified by user
+				# CASE 2A-2 there is no input suffix specified by user
 				elsif ( $sucat->{_input_suffix} eq $empty_string ) {
-					$sucat->{_Step} = $sucat->{_Step} . ' ' . $sucat->{_inbound_directory} . '/' . $file;
+					$sucat->{_Step}
+						= $sucat->{_Step} . ' '
+						. $sucat->{_inbound_directory} . '/'
+						. $sucat->{_input_name_prefix}
+						. $file
+						. $sucat->{_input_name_extension};
 					print("2A-2 sucat,Step,file=$file\n");
 
 				} else {

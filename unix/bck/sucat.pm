@@ -65,16 +65,16 @@ my $newline = '
 my (@list);
 
 my $sucat = {
-	_first_file_number              => '',
 	_alternative_inbound_directory  => '',
 	_alternative_outbound_directory => '',
+	_first_file_number              => '',
 	_last_file_number               => '',
 	_list_array                     => '',
 	_list_directory                 => '',
 	_number_of_files                => '',
 	_input_suffix                   => '',
-	_name_prefix                    => '',
-	_name_extension                 => '',
+	_input_name_prefix                    => '',
+	_input_name_extension                 => '',
 	_output_file_name               => '',
 	_Step                           => ''
 };
@@ -86,18 +86,18 @@ my $sucat = {
 =cut
 
 sub clear {
-	$sucat->{_first_file_number}              = '';
 	$sucat->{_alternative_inbound_directory}  = '';
 	$sucat->{_alternative_outbound_directory} = '';
+	$sucat->{_first_file_number}              = '';	
+	$sucat->{_input_name_extension}             = '',
+	$sucat->{_input_suffix}                   = '';
+	$sucat->{_input_name_prefix}                    = '',
 	$sucat->{_last_file_number}               = '';
 	$sucat->{_list_array}                     = '';
 	$sucat->{_list_directory}                 = '';
 	$sucat->{_number_of_files}                = '';
-	$sucat->{_input_suffix}                   = '';
-	$sucat->{_name_prefix}                    = '',
-		$sucat->{_name_extension}             = '',
-		$sucat->{_output_file_name}           = '',
-		$sucat->{_Step}                       = '';
+	$sucat->{_output_file_name}           = '',
+	 $sucat->{_Step}                       = '';
 }
 
 =head2 sub test:
@@ -116,19 +116,6 @@ sub test {
 	print(
 		"\@value, the second scalar is something 'real' you put in, i.e., @value\n\n"
 	);
-}
-
-=head2 sub first_file_number:
-
- for first_file_number numerical file name
-
-=cut
-
-sub first_file_number {
-	my ( $variable, $first_file_number ) = @_;
-	$sucat->{_first_file_number} = $first_file_number
-		if defined($first_file_number);
-	return ();
 }
 
 =head2 sub alternative_inbound_directory:
@@ -156,6 +143,67 @@ sub alternative_outbound_directory {
 		if defined($alternative_outbound_directory);
 	return ();
 }
+
+
+=head2 sub first_file_number:
+
+ for first_file_number numerical file name
+
+=cut
+
+sub first_file_number {
+	my ( $variable, $first_file_number ) = @_;
+	$sucat->{_first_file_number} = $first_file_number
+		if defined($first_file_number);
+	return ();
+}
+
+
+=head2 sub input_name_prefix 
+
+ use after dot for all names
+
+=cut
+
+sub input_name_prefix {
+	my ( $variable, $input_name_prefix ) = @_;
+	$sucat->{_input_name_prefix} = $input_name_prefix if defined($input_name_prefix);
+	return ();
+}
+
+
+=head2 sub last_file_number:
+
+ for first_file_number numerical file name 
+
+=cut
+
+
+
+=head2 sub input_suffix 
+
+ use after dot for all names
+
+=cut
+
+sub input_suffix {
+	my ( $variable, $input_suffix ) = @_;
+	$sucat->{_input_suffix} = $input_suffix if defined($input_suffix);
+	return ();
+}
+
+=head2 sub input_name_extension 
+
+ use after dot for all names
+
+=cut
+
+sub input_name_extension {
+	my ( $variable, $input_name_extension ) = @_;
+	$sucat->{_input_name_extension} = $input_name_extension if defined($input_name_extension);
+	return ();
+}
+
 
 =head2 sub last_file_number:
 
@@ -218,11 +266,6 @@ sub list_directory {
 	return ();
 }
 
-=head2 sub last_file_number:
-
- for first_file_number numerical file name 
-
-=cut
 
 =head2 sub number_of_files:
 
@@ -233,42 +276,6 @@ sub list_directory {
 sub number_of_files {
 	my ( $variable, $number_of_files ) = @_;
 	$sucat->{_number_of_files} = $number_of_files if defined($number_of_files);
-	return ();
-}
-
-=head2 sub input_suffix 
-
- use after dot for all names
-
-=cut
-
-sub input_suffix {
-	my ( $variable, $input_suffix ) = @_;
-	$sucat->{_input_suffix} = $input_suffix if defined($input_suffix);
-	return ();
-}
-
-=head2 sub name_extension 
-
- use after dot for all names
-
-=cut
-
-sub name_extension {
-	my ( $variable, $name_extension ) = @_;
-	$sucat->{_name_extension} = $name_extension if defined($name_extension);
-	return ();
-}
-
-=head2 sub name_prefix 
-
- use after dot for all names
-
-=cut
-
-sub name_prefix {
-	my ( $variable, $name_prefix ) = @_;
-	$sucat->{_name_prefix} = $name_prefix if defined($name_prefix);
 	return ();
 }
 
@@ -295,8 +302,8 @@ sub Step {
 			$sucat->{_Step} =
 				  $sucat->{_Step}
 				. $sucat->{_alternative_inbound_directory} . '/'
-				. $sucat->{_list_array}[$i]
-				. $sucat->{_input_suffix} . ' \\'
+				. $sucat->{_list_array}[$i] . ' \\'
+#				. $sucat->{_input_suffix} . ' \\'	
 				. $newline;
 
 			#print(" list is $sucat->{_Step}\n\n");
@@ -312,7 +319,9 @@ sub Step {
 			$sucat->{_Step} =
 				  $sucat->{_Step} . ' '
 				. $sucat->{_alternative_inbound_directory} . '/'
+				.$sucat->{_input_name_prefix}	
 				. $file
+				.$sucat->{_input_name_extension}
 				. $sucat->{_input_suffix};
 		}
 	}
@@ -327,9 +336,10 @@ sub Step {
 			$sucat->{_Step} =
 				  $sucat->{_Step} . ' '
 				. $sucat->{_alternative_inbound_directory} . '/'
+				.$sucat->{_input_name_prefix}	
 				. $file
-				. $sucat->{_input_suffix};
-			print("sucat,Step,file=$file\n");
+				.$sucat->{_input_name_extension}
+			    print("sucat,Step,file=$file\n");
 		}
 	}
 	return $sucat->{_Step};

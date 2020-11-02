@@ -1316,9 +1316,9 @@ sub user_built_flows {
 
 					my $prior_flow_color       = ( $L_SU_href->{_flow_select_color_href} )->{_prior};
 					my $most_recent_flow_color = ( $L_SU_href->{_flow_select_color_href} )->{_most_recent};
-					print(
-						"L_SU, prior_flow_color , most_recent_flow_color= $prior_flow_color , $most_recent_flow_color\n"
-					);
+#					print(
+#						"L_SU, prior_flow_color , most_recent_flow_color= $prior_flow_color , $most_recent_flow_color\n"
+#					);
 
 					if ( $prior_flow_color eq $most_recent_flow_color ) {
 
@@ -1342,7 +1342,7 @@ sub user_built_flows {
 					$grey_flow->$method;
 
 				} else {
-					print("NADA L_SU,user_built_flows, skip thismethod\n");
+					print("NADA L_SU,user_built_flows, skip this method\n");
 				}
 
 				$L_SU_href = $grey_flow->get_hash_ref();
@@ -1396,9 +1396,9 @@ sub user_built_flows {
 
 					my $prior_flow_color       		= ( $L_SU_href->{_flow_select_color_href} )->{_prior};
 					my $most_recent_flow_color = ( $L_SU_href->{_flow_select_color_href} )->{_most_recent};
-					print(
-						"L_SU, prior_flow_color , most_recent_flow_color= $prior_flow_color , $most_recent_flow_color\n"
-					);
+#					print(
+#						"L_SU, prior_flow_color , most_recent_flow_color= $prior_flow_color , $most_recent_flow_color\n"
+#					);
 
 					if ( $prior_flow_color eq $most_recent_flow_color ) {
 
@@ -1474,9 +1474,9 @@ sub user_built_flows {
 
 					my $prior_flow_color       		= ( $L_SU_href->{_flow_select_color_href} )->{_prior};
 					my $most_recent_flow_color = ( $L_SU_href->{_flow_select_color_href} )->{_most_recent};
-					print(
-						"L_SU, prior_flow_color , most_recent_flow_color= $prior_flow_color , $most_recent_flow_color\n"
-					);
+#					print(
+#						"L_SU, prior_flow_color , most_recent_flow_color= $prior_flow_color , $most_recent_flow_color\n"
+#					);
 
 					if ( $prior_flow_color eq $most_recent_flow_color ) {
 
