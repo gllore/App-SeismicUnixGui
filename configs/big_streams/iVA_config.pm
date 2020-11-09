@@ -87,13 +87,14 @@ my $iVA = {
 # set the superflow name: 4 is for iVA
 # print("iVA_config, prog_name : @{$superflow_config_names}[4]\n");
 # Warning: set using a scalar reference
+
 sub get_values {
     $iVA->{_prog_name} = \@{$superflow_config_names}[4];
 
     $config_superflows->set_program_name( $iVA->{_prog_name} );
 
     # parameter names from superflow configuration file
-    # $iVA->{_names_aref}  = $config_superflows->get_names();
+    $iVA->{_names_aref}  = $config_superflows->get_names();
     # print("iVA_config,prog=@{$iVA->{_names_aref}}\n");
 
     # parameter values from superflow configuration file

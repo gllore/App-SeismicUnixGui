@@ -102,6 +102,7 @@ $old_data = $iVA->old_data('velan');
 
 if ( !$old_data ) {
 
+	print("iVelocityAnalysis, no old data\n");
     $iVA->start();
 
     $mw = MainWindow->new;

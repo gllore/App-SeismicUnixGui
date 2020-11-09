@@ -177,7 +177,7 @@ sub freq {
 
 sub calcNdisplay {
 
-    #print(" calc and display\n\n");
+    print(" calc and display\n\n");
     # suffixes
     $suffix[1] = '_cdp' . $iSunmo->{_cdp_num};
 
@@ -191,7 +191,9 @@ sub calcNdisplay {
     $suwind_max[1] = $iSunmo->{_cdp_num};
 
     # par file names
-    $vel_in[1] = $PL_SEISMIC . '/' . $parfile_in[1];
+    $vel_in[1] = $parfile_in[1];
+    
+    # print("iSunmo, calcNDisplay, par file names= $vel_in[1]\n");
 
 =head2
 

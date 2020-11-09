@@ -74,13 +74,13 @@ sub change_config {
         # print("name,change_config,length	= $length\n");
 
         for ( my $i = 0 ; $i < $length ; $i++ ) {
-
+        	 # print("name,change_config, $superflow_config_names_aref[$i]=$superflow_config_names_aref[$i]\n");
             if ( $program_name eq $superflow_config_names_aref[$i] ) {
 
                 $name->{_program_name_config} =
-                  $alias_superflow_config_names_aref[$i] . '.config';
+                $alias_superflow_config_names_aref[$i] . '.config';
 
-# print("name,change_config,progr name config is $name->{_program_name_config}\n");
+               #  print ("name,change_config,progr name config is $name->{_program_name_config}\n");
             }
         }
         return ( $name->{_program_name_config} );

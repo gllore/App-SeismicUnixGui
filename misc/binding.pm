@@ -192,7 +192,7 @@ sub set {
 	$package->flow_type_aref();
 	$package->file_dialog_type_aref();
 
-	#  Bind each entry: empty text for only the case of data_in (label) to MB-3
+	#  Bind each entry: empty text for only the case of data_in (label) to MB3
 	my $values_w_aref = $binding->{_values_w_aref};
 	my @values_w      = @$values_w_aref;
 
@@ -210,8 +210,6 @@ sub set {
 
 	my $length = $package->get_binding_length();
 
-	# print("2. binding,set, no. bound items=length:$length\n");
-
 	for ( my $i = 0; $i < $length; $i++ ) {
 
 		my $dial_type = $file_dialog_type[$i];
@@ -224,6 +222,7 @@ sub set {
 			$dial_type ne $empty_string) {
 				
 			# print("binding,set,file_dialog_type: $dial_type\n");
+			# print("2. binding,set, no. bound items=$length,index=$i\n");
 
 			$values_w[ $index[$i] ]->bind( '<ButtonRelease-3>' => [ $sub_ref, \$dial_type ], );
 

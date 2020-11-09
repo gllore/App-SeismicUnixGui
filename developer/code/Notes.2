@@ -4,6 +4,7 @@ Abbreviations in this file:
 
 ',' are methods/subroutines within a module/package
 ';' separates entire modules/packages
+.pm is left out in reference to module names in what follows
 
 
 INDEX to this file
@@ -31,7 +32,8 @@ The SaveAs and Data and Flow buttons have their own logic path through L_SU, Fil
 
 If there are superflow bindings for opening data files, then these use 
 	L_SU, pre_built_superflows,
- 			pre_built_superflow->select() and _FileDialog_button,
+ 			pre_built_superflow->select() ( is it now pre_bult_big_stream?) and 
+ 			_FileDialog_button,
  			pre_built_superflow,select,binding->set() (where actual binding takes place!)
 
 BINDINGS-for DEVELOPERS
@@ -534,7 +536,7 @@ Opening a Data file from within a superflow can follow two routes:
 
 Route 1:  Directly from the GUI menu selection of "File/Data" 
 
-Route 2: Indirfectly, via bindings defined in spec files:
+Route 2: Indirectly, via bindings defined in spec files:
 	L_SU, _FileDialog_button (for MB3 bindings)
 	
 Superflow bindings use this subroutine exclusively
@@ -1070,7 +1072,7 @@ What does binding do?
 
 	    
 10-1-2018 
-	How does the GUI know which directory to open when MB3 works?
+	How does the GUI know which directory to open when MB3 is clicked?
 	
 	 binding,set reads program_name_spec->binding_index_aref
 	 
@@ -1288,7 +1290,7 @@ Q. Q. How does a superflow run?:
     In 2 different ways:
     
     A. For superflows, the sequence is: 
-    	Main, _L_SU_superflows calls pre_built_superflow
+    	Main, _L_SU_superflows calls L_SU->pre_built_superflows (e.g., iVelocityAnalysis.pl)
        		pre_built_superflow,select calls config_superflows
  				config_superflows, get_local_or_defaults calls big_streams_param,get
                		big_streams_param,get extends su_param,get

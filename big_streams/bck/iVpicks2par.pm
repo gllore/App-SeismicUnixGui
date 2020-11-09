@@ -178,7 +178,7 @@ sub flows {
     # RUN FLOW(S)
     system $flow[1];
 
-    #       system 'echo', $flow[1];
+    system 'echo', $flow[1];
 }
 
 #end flows

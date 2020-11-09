@@ -525,7 +525,9 @@ sub par {
 
 	my ( $self, $par ) = @_;
 	if ( $par ne $empty_string ) {
-
+      
+      print("sunmo,  par file name in =$par\n");
+      
 		use manage_files_by2;
 		use Project_config;
 		use control;
@@ -559,7 +561,7 @@ sub par {
 		$inbound              = $PL_SEISMIC . '/' . $parfile_in[1];
 		$sunmo->{_scaled_par} = $PL_SEISMIC . '/' . $parfile_out[1];
 		$outbound             = $sunmo->{_scaled_par};
-
+      
 =head2 read i/p file
 =cut
 
@@ -568,27 +570,27 @@ sub par {
 
 		my $ref_file_name = \$inbound;
 		
-		# print("$inbound\n");
+		print("sunmo $inbound\n");
 
 		my ( $items_aref2, $numberOfItems_aref ) = $files->read_par($ref_file_name);
 
 		my $no_rows = scalar @$items_aref2;
 
-		# print("sunmo,par, no_rows=$no_rows\n");
+		print("sunmo,par, no_rows=$no_rows\n");
 
 		my $row0_aref = @$items_aref2[0];
 
-		# print("sunmo,par, ARRAY ref inside ROW 0 $row0_aref\n");
+		print("sunmo,par, ARRAY ref inside ROW 0 $row0_aref\n");
 		my $row1_aref = @$items_aref2[1];
 
-		# print("sunmo,par, ARRAY ref inside ROW 1 $row1_aref\n");
+		print("sunmo,par, ARRAY ref inside ROW 1 $row1_aref\n");
 
 		my @array_tnmo_row = @$row0_aref;
 
-		#		 print("sunmo,par, complete array values in row 0 @array_tnmo_row\n");
+		print("sunmo,par, complete array values in row 0 @array_tnmo_row\n");
 		my @array_vnmo_row = @$row1_aref;
 
-		#		 print("sunmo,par, complete array values in row 1 @array_vnmo_row\n");
+		print("sunmo,par, complete array values in row 1 @array_vnmo_row\n");
 
 		my $length_tnmo_row = scalar @array_tnmo_row;
 		my $length_vnmo_row = scalar @array_vnmo_row;
@@ -607,7 +609,7 @@ sub par {
 
 		}
 
-		# print("sunmo,par,par, data_scale=$data_scale\n");
+		print("sunmo,par,par, data_scale=$data_scale\n");
 
 =head2 write new par file
 

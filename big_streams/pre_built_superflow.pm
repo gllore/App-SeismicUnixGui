@@ -41,9 +41,7 @@ use whereami;
 use param_widgets;
 
 my $conditions_gui = conditions_gui->new();
-
 my $get = L_SU_global_constants->new();
-
 my $param_widgets = param_widgets->new();
 my $whereami      = whereami->new();
 
@@ -809,7 +807,7 @@ sub select {
     $param_widgets->redisplay_check_buttons();
 
     # print("2 pre_built_superflow,superflow_select,chkb=@{$superflow->{_check_buttons_settings_aref}}\n");
-    # put focus on first entry widget in new value and paramter list
+    # put focus on first entry widget in new value and parameter list
     my @Entry_widget = @{ $param_widgets->get_values_w_aref() };
 
     # print("L_SU,flow_select,Entry_widgets@Entry_widget\n");

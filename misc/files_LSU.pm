@@ -401,7 +401,7 @@ sub check2write {
 
 		copy( $from, $to );
 
-#		print("files_LSU check2write copy $from to $to \n");
+		print("files_LSU check2write copy $from to $to \n");
 
 		# Now you can overwrite the file
 		_write();
@@ -409,8 +409,8 @@ sub check2write {
 	} else {
 
 		# CASE if file does already exist
-		# print("files_LSU, write_config OK: $files_LSU->{_outbound}\n");
-		# print("files_LSU, write_config, configuration file exists and will be overwritten\n");
+		 # print("files_LSU, write_config OK: $files_LSU->{_outbound}\n");
+		 # print("files_LSU, write_config, configuration file exists and will be overwritten\n");
 		_write();
 	}
 	return ();
@@ -528,7 +528,7 @@ sub outbound {
 			$files_LSU->{_program_name_config} = $name->change_config($program_name);
 			$files_LSU->{_outbound}            = $CONFIG . '/' . $files_LSU->{_program_name_config};
 
-			# print("Case 2 files_LSU, outbound, outbound: $files_LSU->{_outbound} \n");
+			 # print("Case 2 files_LSU, outbound, outbound: $files_LSU->{_outbound} \n");
 
 		} elsif ( $files_LSU->{_is_pl} 
 			&& $files_LSU->{_PL_SEISMIC} ) {
@@ -1032,7 +1032,7 @@ sub set_superflow_specs {
 	#      					print (" files_LSU,set_superflow_specs, key is $key, value is $hash_ref->{$key}\n");
 	# 					}
 	#
-	# 					print ("1. files_LSU,set_superflow_specs,prog_name_sref: $files_LSU->{_prog_name_sref} \n");
+	# print ("1. files_LSU,set_superflow_specs,prog_name_sref: ${$files_LSU->{_prog_name_sref}} \n");
 
 	if ( $hash_ref && $files_LSU->{_prog_name_sref} ) {
 
@@ -1044,7 +1044,7 @@ sub set_superflow_specs {
 
 		my $base_program_name  = ${ $files_LSU->{_prog_name_sref} };
 		my $alias_program_name = $alias_superflow_spec_names_h->{$base_program_name};
-		my $module_spec        = $alias_program_name . '_spec';                         #conveniently shorter
+		my $module_spec             = $alias_program_name . '_spec';                         #conveniently shorter
 		my $module_spec_pm     = $module_spec . '.pm';
 		require $module_spec_pm;
 
@@ -1053,14 +1053,14 @@ sub set_superflow_specs {
 		# INSTANTIATE
 		my $program_name_spec = ($module_spec)->new();
 
-		# print ("2. files_LSU,set_superflow_specs, instantiate $program_namee_spec\n");
+		# print ("2. files_LSU,set_superflow_specs, instantiate $program_name_spec\n");
 
 		my $max_index = $program_name_spec->get_max_index();
 		$length = $max_index + 1;
 
 		# get length from corresponding spec file
 		# length-1 : is largest occupied index
-		# print("4. files_LSU, set_superflow_specs, length=$length\n");
+		# print("3. files_LSU, set_superflow_specs, length=$length\n");
 
 		for ( my $i = 0, my $j = 0; $i < $length; $i++, $j = $j + 2 ) {
 
@@ -1079,7 +1079,6 @@ sub set_superflow_specs {
 		# my @lines      = @$ref_lines;
 		# for (my $i=0; $i<$num_lines; $i++) {
 		# printf OUT $lines[$i];
-
 		# print("files_LSU,set_superflow_specs,program_name_config: $files_LSU->{_program_name_config}\n");
 
 		if ( $files_LSU->{_program_name_config} eq $alias_PV . '.config' ) {
@@ -1171,8 +1170,8 @@ sub write {
 	my @info        = @{ $files_LSU->{_info} };
 	my @CFG         = @{ $files_LSU->{_CFG} };
 
-	# print("files_LSU, write, length:$length,length_info:$length_info \n");
-	# print("files_LSU,write,files_LSU->{_outbound}: $files_LSU->{_outbound} \n");
+	print("files_LSU, write, length:$length,length_info:$length_info \n");
+	print("files_LSU,write,files_LSU->{_outbound}: $files_LSU->{_outbound} \n");
 
 	open( my $fh, '>', $files_LSU->{_outbound} )
 		or die "Can't open parameter file:$!";

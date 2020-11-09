@@ -151,7 +151,7 @@ my $L_SU_gui = {
 	to _FileDialog_button
 	
 	For safety, place set_hash_ref first
-	$$dialog_type_sref can be Data Save or SaveAs
+	$$dialog_type_sref can be Data, Save or SaveAs
 
 =cut 
 
@@ -164,7 +164,7 @@ sub _FileDialog_button {
 		$file_dialog->set_hash_ref($L_SU_href);
 		$file_dialog->FileDialog_director();
 		$L_SU_href = $file_dialog->get_hash_ref();
-
+		# print(" L_SU,_FileDialog_button, dialog type: $L_SU_href->{_dialog_type}\n");
 		# print(" L_SU,_FileDialog_button, values_aref: @{$L_SU_href->{_values_aref}}\n");
 
 	} else {
@@ -584,7 +584,7 @@ sub _set_user_built_flow_type {
  	the Save (main) option goes straight to the L_SU,save_button for both 'user_built' and 'pre_built_superflow'
 
  	flow_type can be 'user_built' or 'pre_built_superflow'
-	for saftey place set_hash_ref first
+	for safety, place set_hash_ref first
 	
 	each colored flow will be directed to a different program
 
@@ -756,7 +756,7 @@ sub FileDialog_button {
 		# CASE 4
 		# when GUI opens Data for a superflow
 		elsif ( $L_SU_href->{_flow_type} eq 'pre_built_superflow' ) {
-
+			print("L_SU,FileDialog_button,dialog type=  $$dialog_type_sref");
 			$L_SU_href->{_dialog_type} = $$dialog_type_sref;
 			$file_dialog->set_hash_ref($L_SU_href);
 			$file_dialog->FileDialog_director();
@@ -824,7 +824,7 @@ sub help {
 	if ($pre_req_ok) {
 		my $prog_name = ${ $L_SU_href->{_prog_name_sref} };
 		my $alias     = $alias_superflow_names_h->{$prog_name};
-		print("L_SU,help,alias: $alias\n");
+		# print("L_SU,help,alias: $alias\n");
 		$help->set_name( \$alias );
 		$help->tkpod();
 
@@ -872,7 +872,7 @@ sub help {
 sub pre_built_superflows {
 	my ( $self, $superflow_name_sref ) = @_;
 
-	# print("2. L_SU,select,should be NO values=@{$L_SU_href->{_values_aref}}\n");
+	# print("2. L_SU,pre_built_superflows ,superflow_name_sref=$$superflow_name_sref\n");
 
 	if ($superflow_name_sref) {
 

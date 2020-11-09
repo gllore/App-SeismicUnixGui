@@ -845,7 +845,7 @@ sub line_widths {
 	my ( $self, $linewidth ) = @_;
 	if ( $linewidth ne $empty_string ) {
 
-		print("1. xgraph, line_widths, $linewidth\n");
+		# print("1. xgraph, line_widths, $linewidth\n");
 		$xgraph->{_linewidth} = $linewidth;
 		$xgraph->{_note} =
 			$xgraph->{_note} . ' linewidth=' . $xgraph->{_linewidth};

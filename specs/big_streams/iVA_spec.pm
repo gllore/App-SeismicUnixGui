@@ -1,5 +1,42 @@
+
 package iVA_spec;
-our $VERSION = '1.00';
+
+=head1 DOCUMENTATION
+
+=head2 SYNOPSIS 
+
+ PERL PROGRAM NAME: iVA_spec
+ AUTHOR: 	Juan Lorenzo
+ DATE: 		2017
+
+ DESCRIPTION 
+     
+
+ BASED ON:
+ 
+ 
+=cut
+
+=head2 USE
+
+=head3 NOTES
+
+=head4 Examples
+
+=head3 SEISMIC UNIX NOTES
+
+=head2 CHANGES and their DATES
+
+V1.1 Nov 9, 2020
+uses CONFIG
+
+=cut 
+
+=head2 Notes from bash
+ 
+=cut 
+
+our $VERSION = '1.1';
 use Moose;
 use Project_config;
 use L_SU_global_constants;

@@ -307,7 +307,7 @@ sub get {
 
 			} elsif ($user_active_project_path_exists) {
 
-				# CASE 1B:
+				# su_param, missing either program_srefCASE 1B:
 				# If progam_sref= Project
 				# and ONLY applies to  ./L_SU/configuration/active/Project.config
 				$path                   = $su_param->{_user_active_project_path};
@@ -346,7 +346,7 @@ sub get {
 
 		$program_config = _get_program_config();
 
-#		print("su_param, get,configuration file to read=$program_config\n");
+         # print("su_param, get,configuration file to read=$program_config\n");
 
 		( $names_aref, $values_aref ) = $read->configs($program_config);
 		$su_param->{_names_aref} 	= $names_aref;
@@ -363,9 +363,9 @@ sub get {
 
 		return ( \@CFG );
 
-	} else {
+} else {
 		print("su_param, missing either program_sref or flow type\n");
-		print("program_sref: $$program_sref\n");
+		print("program_sref: $program_sref\n");
 		print("su_param->{_flow_type}: $su_param->{_flow_type}\n");
 	}
 }

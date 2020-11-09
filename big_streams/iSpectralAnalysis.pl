@@ -11,6 +11,8 @@
  DATE:    August 1 2016
  Version  1.0 
           read iSpectralAnalysis.config text file
+ Version 1.1 Nov 8 2020use Moose;
+ 		 accepts NaN as undeclared gather number
 
 =head2 DESCRIPTION
 
@@ -44,6 +46,7 @@
 =cut
 
 use Moose;
+our $VERSION = '1.1';
 use Tk;
 use Tk::Pretty;
 use iSpectralAnalysis;
@@ -76,6 +79,7 @@ my $var     = $get->var();
 my ( $calc_rb, $exit_rb, $pick_rb, $next_rb, $saveNcont_rb );
 my $rb_value = "red";
 our $mw;
+my $NaN = $var->{_NaN};
 
 
 =head2 Create Main Window 
@@ -123,9 +127,8 @@ $mw->configure(
 
 print("NEW PICKS\n");
 $message->set('iSpectralAnalysis');
+$message->gather_num($NaN);
 $message->instructions('firstSpectralAnalysis');
-
-# $iSA            ->select();
 
 =head2 Print
 

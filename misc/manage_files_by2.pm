@@ -342,7 +342,7 @@ sub read_2cols {
 	#declare locally scoped variables
 	my ( $i, $line, $t, $x, $num_rows );
 	my ( @TIME, @TIME_OUT, @OFFSET, @OFFSET_OUT );
-	print("In this subroutine $$ref_origin\n");
+	# print("In this subroutine $$ref_origin\n");
 
 	# open the file of interest
 	open( FILE, $$ref_origin ) || print("Can't open. $$ref_origin \n");
@@ -391,7 +391,7 @@ sub read_par {
 
 	my ( $self, $ref_file_name ) = @_;
 
-	# print ("\nmanage_files_by2,read_par, The input file is called $$ref_file_name\n");
+	print ("\nmanage_files_by2,read_par, The input file is called $$ref_file_name\n");
 
 =pod Steps
 

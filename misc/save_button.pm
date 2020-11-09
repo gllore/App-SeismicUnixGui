@@ -60,138 +60,8 @@ my $false           = $var->{_false};
 my $superflow_names = $get->superflow_names_h();
 my $save_button     = $gui_history->get_defaults();
 
-#=head2 private hash
-#
-#132 off
-#
-#=cut
-#
-#my $save_button = {
-#
-#    _Data_menubutton                       => '',
-#    _FileDialog_sub_ref                    => '',
-#    _FileDialog_option                     => '',
-#    _Flow_menubutton                       => '',
-#    _SaveAs_menubutton                     => '',
-#    _add2flow_button_grey                  => '',
-#    _add2flow_button_pink                  => '',
-#    _add2flow_button_green                 => '',
-#    _add2flow_button_blue                  => '',
-#    _check_code_button                     => '',
-#    _check_buttons_settings_aref           => '',
-#    _check_buttons_w_aref                  => '',
-#    _delete_from_flow_button               => '',
-#    _destination_index                     => '',
-#    _dialog_type                           => '',    #set_dialog_type
-#    _dnd_token_grey                        => '',
-#    _dnd_token_pink                        => '',
-#    _dnd_token_green                       => '',
-#    _dnd_token_blue                        => '',
-#    _dropsite_token_grey                   => '',
-#    _dropsite_token_pink                   => '',
-#    _dropsite_token_green                  => '',
-#    _dropsite_token_blue                   => '',
-#    _file_menubutton                       => '',
-#    _flowNsuperflow_name_w                 => '',
-#    _flow_color                            => '',
-#    _flow_item_down_arrow_button           => '',
-#    _flow_item_up_arrow_button             => '',
-#    _flow_listbox_grey_w                   => '',
-#    _flow_listbox_pink_w                   => '',
-#    _flow_listbox_green_w                  => '',
-#    _flow_listbox_blue_w                   => '',
-#    _flow_listbox_color_w                  => '',
-#    _flow_name_grey_w                      => '',
-#    _flow_name_pink_w                      => '',
-#    _flow_name_green_w                     => '',
-#    _flow_name_blue_w                      => '',
-#    _flow_name_out                         => '',
-#    _flow_name_in                          => '',
-#    _flow_type                             => '',    # set_flow_type
-#    _flow_widget_index                     => '',
-#    _has_used_check_code_button            => '',
-#    _has_used_open_perl_file_button        => '',
-#    _has_used_run_button                   => '',
-#    _has_used_Save_button                  => '',
-#    _has_used_Save_superflow               => '',
-#    _has_used_SaveAs_button                => '',
-#    _index2move                            => '',
-#    _is_SaveAs_file_button                 => '',
-#    _is_SaveAs_button                      => '',
-#    _is_Save_button                        => '',
-#    _is_add2flowbutton                     => '',
-#    _is_check_code_button                  => '',
-#    _is_delete_from_flow_button            => '',
-#    _is_dragNdrop                          => '',
-#    _is_flow_item_down_arrow_button        => '',
-#    _is_flow_item_up_arrow_button          => '',
-#    _is_flow_listbox_grey_w                => '',
-#    _is_flow_listbox_green_w               => '',
-#    _is_flow_listbox_pink_w                => '',
-#    _is_flow_listbox_blue_w                => '',
-#    _is_flow_listbox_color_w               => '',
-#    _is_last_flow_index_touched_grey       => '',
-#    _is_last_flow_index_touched_pink       => '',
-#    _is_last_flow_index_touched_green      => '',
-#    _is_last_flow_index_touched_blue       => '',
-#    _is_last_flow_index_touched            => '',
-#    _is_last_parameter_index_touched_grey  => '',
-#    _is_last_parameter_index_touched_pink  => '',
-#    _is_last_parameter_index_touched_green => '',
-#    _is_last_parameter_index_touched_blue  => '',
-#    _is_last_parameter_index_touched_color => '',
-#    _is_moveNdrop_in_flow                  => '',
-#    _is_new_listbox_selection              => '',
-#    _is_open_file_button                   => '',
-#    _is_pre_built_superflow                => '',
-#    _is_run_button                         => '',
-#    _is_select_file_button                 => '',
-#    _is_selected_file_name                 => '',
-#    _is_selected_path                      => '',
-#    _is_sunix_listbox                      => '',
-#    _is_superflow                          => '',
-#    _is_superflow_select_button            => '',
-#    _is_user_built_flow                    => '',
-#    _items_checkbuttons_aref2              => '',
-#    _items_names_aref2                     => '',
-#    _items_values_aref2                    => '',
-#    _items_versions_aref                   => '',
-#    _labels_aref                  => '', # equiv no names but not used... legacy
-#    _labels_w_aref                => '',
-#    _last_flow_index_touched      => -1,
-#    _last_flow_index_touched_grey => -1,
-#    _last_flow_index_touched_pink => -1,
-#    _last_flow_index_touched_green => -1,
-#    _last_flow_index_touched_blue  => -1,
-#    _last_flow_listbox_touched     => '',
-#    _last_flow_listbox_touched_w   => '',
-#    _last_path_touched             => './',
-#    _message_w                     => '',
-#    _mw                            => '',     # main window widget
-#    _names_aref                    => '',     # equiv labels
-#    _occupied_listbox_aref         => '',
-#    _param_flow                    => '',
-#    _param_flow_length             => '',
-#    _parameter_names_frame         => '',
-#    _param_sunix_first_idx         => 0,
-#    _param_sunix_length            => '',
-#    _parameter_values_frame        => '',
-#    _parameter_values_button_frame => '',
-#    _parameter_value_index         => '',
-#    _path                          => '',
-#    _prog_names_aref               => '',
-#    _prog_name_sref                => '',     # set_prog_name_sref
-#    _run_button                    => '',
-#    _save_button                   => '',
-#    _selected_file_name            => '',
-#    _sub_ref                       => '',
-#    _sunix_listbox       => '',    # pre-built-superflow or flow name as well
-#    _superflow_first_idx => '',
-#    _superflow_length    => '',
-#    _values_aref         => '',
-#    _values_w_ref        => '',
-#
-#};
+#print("1. save_button: writing gui_history.txt\n");
+#$gui_history->view();
 
 =head2 declare variables
 
@@ -284,26 +154,8 @@ sub _user_built_flow_SaveAs_perl_file {
     	  foreach my $key (sort keys %$save_button) {
            print (" save_button,_Save_pre_built_superflow: key is $key, value is $save_button->{$key}\n");
           }	
-          
-           	print("save_button,_ Save_pre_built_superflow \n");
-           	
-           	conditions for set4start of save button:
-           	
-           	   	$gui_history->{_is_Save_button}			= $true;
-   				$gui_history->{_has_used_Save_button}	= $true;
-   				
-   			conditions for set4superflow_select:
-   			
-   				$gui_history->{_is_new_listbox_selection} 	= $true;
- 				$gui_history->{_is_superflow_select_button}	= $true;
- 				$gui_history->{_is_pre_built_superflow}		= $true;
- 				also 13 widget settings
- 				
- 		set4_Save_button
- 		   	$gui_history->{_has_used_Save_button} = true
-			$gui_history->{_is_Save_button}		= $false;
- 				
- 				print("save_button 2.built_in_flow.pm ONLY save_button superflow_select check_code_button\n");
+         	
+ 			print("save_button 2.built_in_flow.pm ONLY save_button superflow_select check_code_button\n");
 
 =cut
 
@@ -325,12 +177,9 @@ sub _Save_pre_built_superflow {
 	$message_w->delete( "1.0", 'end' );
 	$message_w->insert( 'end', $message );
 
-	$gui_history->set_hash_ref($save_button);    #    uses 36 /69 in
-
-	#    $gui_history->set_gui_widgets($save_button);    #    uses 22 / 69 in
-
+	$gui_history->set_hash_ref($save_button); 
 	$gui_history->set4start_of_superflow_Save();
-	$save_button = $gui_history->get_hash_ref();    # returns 89
+	$save_button = $gui_history->get_hash_ref();
 
 	# print("1. save_button,_Save_pre_built_superflow,has_used_Save_superflow: $save_button->{_has_used_Save_superflow}\n");
 	# print("1. save_button,_Save_pre_built_superflow,has_used_SaveAs_button: $save_button->{_has_used_SaveAs_button}\n");
@@ -346,8 +195,9 @@ sub _Save_pre_built_superflow {
 
 		# print("2. save_button, Save_pre_built_superflow,_values_aref: @{$save_button->{_values_aref}}\n");
 		# print("2. save_button, Save_pre_built_superflow,_labels_aref: @{$save_button->{_labels_aref}}\n");
-		my $thinks = scalar @{$save_button->{_values_aref}};
-		# print("3. save_button, Save_pre_built_superflow, default no. values=61!! actual no. values: $thinks\n");
+		# my $ans = ${$save_button->{_prog_name_sref}};
+		# print("3. save_button, _Save_pre_built_superflow, prog_name=: $ans\n");
+		# consider aliases
 		$config_superflows->save($save_button);    # in 69
 		$gui_history->set4superflow_Save();
 		$save_button = $gui_history->get_hash_ref();

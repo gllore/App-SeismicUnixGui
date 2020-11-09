@@ -22,7 +22,7 @@ my $PL_SEISMIC		 = $Project->PL_SEISMIC();
 my $iSpectralAnalysis_config = new iSpectralAnalysis_config;
 my $max_index                = $iSpectralAnalysis_config->get_max_index();
 
-# print("iSpectralAnalysis_spec, max_index= $max_index\n");
+#print("iSpectralAnalysis_spec, max_index= $max_index\n");
 
 my $iSA_spec =  {
     _CONFIG	 				=> $PL_SEISMIC,

@@ -527,11 +527,9 @@ sub _pre_built_superflow_open_data_file {
 	my $topic = _get_dialog_type();
 
 	$gui_history->set_hash_ref($file_dialog);
-
-	# $gui_history->set_gui_widgets($file_dialog);
 	$gui_history->set4FileDialog_open_start();
 	$gui_history->set4superflow_open_data_file_start();
-	$file_dialog = $gui_history->get_hash_ref();    # gets 93
+	$file_dialog = $gui_history->get_hash_ref();  
 
 	# Tests follow:
 	# 1. if an appropriate entry widget is first selected, ie. Entry
@@ -573,9 +571,8 @@ sub _pre_built_superflow_open_data_file {
 			 # print("4. file_dialog,_pre_built_flow_open_data_file, parameter_value_index= $file_dialog->{_parameter_value_index}\n");
 			$file_dialog->{_entry_button_label} = $param_widgets->get_label4entry_button_chosen();
 			
-
-			# print(
-			# 	"5. file_dialog,_pre_built_superflow_open_data_file,entry_button_label = $file_dialog->{_entry_button_label}\n"
+			#print(
+			#	"5. file_dialog,_pre_built_superflow_open_data_file,entry_button_label = $file_dialog->{_entry_button_label}\n"
 			# );
 
 			# use iFile to determine the correct data path (directory)
@@ -1834,8 +1831,6 @@ sub set_hash_ref {
 sub FileDialog_director {
 	my ($self) = @_;
 
-	# print ("1. file_dialog,FileDialog_director, is_last_parameter_index_touched_color: $file_dialog->{_is_last_parameter_index_touched_color} \n");
-	# print ("1. file_dialog,FileDialog_director, is_last_flow_index_touched: $file_dialog->{_is_last_flow_index_touched} \n");
 	# print("1. file_dialog, FileDialog_director, flowNsuperflow_name_w:$file_dialog->{_flowNsuperflow_name_w} \n");
 
 	my $file_dialog_flow_type = _get_flow_type();

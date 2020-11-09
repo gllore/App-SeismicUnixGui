@@ -285,7 +285,7 @@ sub get_Data_path {
 	my $suffix_type1 = @{ $iFile->{_values_aref} }[1];
 
 	# print("iFile,get_path,suffix_type = $suffix_type1\n");
-	# print("iFile,get_path,flow_type =$iFile->{_flow_type}\n");
+	# print("iFile,get_Data_path,flow_type =$iFile->{_flow_type}\n");
 
 	my $Project                   = new Project_config();
 	my $DATA_SEISMIC_BIN          = $Project->DATA_SEISMIC_BIN();
@@ -422,8 +422,8 @@ sub get_Data_path {
 
 		} elsif ( $entry_label eq $empty_string ) {    # unlikely
 			# CASE 1B.4
-			# print("CASE1B.4 1iFile,get_Data_path, entry_label is empty \n");
-			# print("iFile,get_Data_path, PL_SEISMIC path chose \n");
+			print("CASE1B.4 1iFile,get_Data_path, entry_label is empty \n");
+			print("iFile,get_Data_path, PL_SEISMIC path chose \n");
 			$iFile->{_path} = $PL_SEISMIC;
 
 		} else {
@@ -438,7 +438,6 @@ sub get_Data_path {
 	} elsif ( $iFile->{_flow_type} eq $flow_type_href->{_pre_built_superflow} ) {
 
 		# CASE 2: for superflows
-		
 		if ( $entry_label eq $base_file_name ) {
 
 			# CASE 2A.1:
@@ -455,14 +454,14 @@ sub get_Data_path {
 			and $iFile->{_dialog_type} eq $file_dialog_type_h->{_Data_PL_SEISMIC} ) {
 
 			# case 2A.2
-			# print("case 2A.2 iFile,get_Data_path, dialog_type=$iFile->{_dialog_type} \n");
+			print("case 2A.2 iFile,get_Data_path, dialog_type=$iFile->{_dialog_type} \n");
 			$iFile->{_path} = $Data_PL_SEISMIC;
 
 		} elsif ( $entry_label eq $empty_string ) {
 
 			# CASE 2A.3
-			# print("iFile,get_Data_path, entry_label is empty \n");
-			# print("CASE 2A.3 File,get_Data_path, PL_SEISMIC path chosen \n");
+			print("iFile,get_Data_path, entry_label is empty \n");
+			print("CASE 2A.3 File,get_Data_path, PL_SEISMIC path chosen \n");
 			$iFile->{_path} = $PL_SEISMIC;
 
 		} else {
@@ -470,8 +469,9 @@ sub get_Data_path {
 			# CASE 2A.4
 			$iFile->{_path} = $default_path;
 
-			# print("iFile, get_Data_path, superflow entry label is unexpected \n");
-			# print("CASE 2A.4, iFile,get_path,path=$iFile->{_path}\n");
+			print("iFile, get_Data_path, superflow entry label is unexpected \n");
+			print("case 2A.4 iFile,get_Data_path, dialog_type=$iFile->{_dialog_type} \n");
+			print("CASE 2A.4, iFile,get_path,path=$iFile->{_path}\n");
 		}
 
 	} else {
@@ -479,7 +479,7 @@ sub get_Data_path {
 		# CASE 3: all other cases
 		$iFile->{_path} = $default_path;
 
-		# print("CASE 3: iFile,get_Data_path, unsuitable flow type \n");
+		print("CASE 3: iFile,get_Data_path, unsuitable flow type \n");
 		# print("CASE 3: iFile,get_path,path=$iFile->{_path}\n");
 	}
 

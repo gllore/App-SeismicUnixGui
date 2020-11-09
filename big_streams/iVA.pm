@@ -167,7 +167,7 @@ $iVA->{_base_file_name} = $control->get_ticksBgone();
 $control->set_infection( $iVA->{_freq} );
 $iVA->{_freq} = $control->get_ticksBgone();
 
-print("1. iVA, file name --without su extension -- is $iVA->{_base_file_name}\n\n");
+# print("1. iVA, file name --without su extension -- is $iVA->{_base_file_name}\n\n");
 
 # get data scale from headers of the sunix data file
 $iVA->{_data_scale} = _get_data_scale();
@@ -435,7 +435,7 @@ sub start {
 	cdp_num( $iVA->{_cdp_first} );
 	cdp_num_suffix( $iVA->{_cdp_first} );
 
-	#print("cdp_num_suffix is $iVA->{_cdp_num_suffix}\n\n");
+	print("cdp_num_suffix is $iVA->{_cdp_num_suffix}\n\n");
 	_message('first_velan');
 	$iVA->{_number_of_tries} = 0;
 	semblance();
@@ -545,7 +545,7 @@ sub exit {
 
 sub calc {
 
-	print("iVA, calc, Calculating...\n");
+	# print("iVA, calc, Calculating...\n");
 
 	#$xk->kill_this('suximage');
 	#$xk->kill_this('suxwigb');
@@ -553,7 +553,7 @@ sub calc {
 	iVrms2Vint();
 	icp_sorted2oldpicks();
 	iVpicks2par();
-	print("iVA, calc, Calculating...\n");
+	# print("iVA, calc, Calculating...\n");
 	iSunmo();
 	$iVA->{_number_of_tries}++;
 	_message('post_pick_velan');
