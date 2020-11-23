@@ -377,7 +377,6 @@ sub _set_suffix_type_out {
 	return ();
 }
 
-
 =head2 sub check2write
 files_LSU,check2write for pre-built or superflows
 except Project.config, which uses sub write2
@@ -387,7 +386,7 @@ except Project.config, which uses sub write2
 sub check2write {
 	my (@self) = @_;
 
-#	print("files_LSU, check2write,start\n");
+	# print("files_LSU, check2write,start\n");
 
 	if ( not -e $files_LSU->{_outbound} ) {
 
@@ -396,25 +395,28 @@ sub check2write {
 		use File::Copy;
 		_set_prog_name_config();
 		my $prog_name_config = _get_prog_name_config();
-		my $from             = $GLOBAL_CONFIG_LIB .'/'. $prog_name_config;
+		my $from             = $GLOBAL_CONFIG_LIB . '/' . $prog_name_config;
 		my $to               = $files_LSU->{_outbound};
 
 		copy( $from, $to );
-
-		print("files_LSU check2write copy $from to $to \n");
+		# print("files_LSU check2write copy $from to $to \n");
 
 		# Now you can overwrite the file
 		_write();
 
-	} else {
-
+	} elsif ( -e $files_LSU->{_outbound} ) {
+		
 		# CASE if file does already exist
-		 # print("files_LSU, write_config OK: $files_LSU->{_outbound}\n");
-		 # print("files_LSU, write_config, configuration file exists and will be overwritten\n");
+		# print("files_LSU, write_config OK: $files_LSU->{_outbound}\n");
+		# print("files_LSU, write_config, configuration file exists and will be overwritten\n");
 		_write();
+		
+	} else {
+		# CASE if file does already exist
+		print("files_LSU, write_config, unexpected result\n");
 	}
+	
 	return ();
-
 }
 
 =head2 sub copy_default_config
@@ -429,14 +431,14 @@ sub copy_default_config {
 
 	# print("files_LSU, copy_default_config,start\n");
 
-	if ( not -e $files_LSU->{_outbound} ) { # double check
+	if ( not -e $files_LSU->{_outbound} ) {    # double check
 
 		# CASE if configuration file does not already exist
 		# e.g. IMMODPG/immodpg.config
 		use File::Copy;
 		_set_prog_name_config();
 		my $prog_name_config = _get_prog_name_config();
-		my $from             = $GLOBAL_CONFIG_LIB .'/'. $prog_name_config;
+		my $from             = $GLOBAL_CONFIG_LIB . '/' . $prog_name_config;
 		my $to               = $files_LSU->{_outbound};
 
 		copy( $from, $to );
@@ -444,6 +446,7 @@ sub copy_default_config {
 		# print("files_LSU copy_default_config copy $from to $to \n");
 
 	} else {
+
 		# CASE if file does already exist
 		# print("files_LSU, write_config OK: $files_LSU->{_outbound}\n");
 		print("files_LSU, write_config, configuration file exists; NADA\n");
@@ -510,27 +513,28 @@ sub outbound {
 				print("TEMP solution is to write Project.config locally\n");
 			}
 
-		} elsif ( $files_LSU->{_is_config} ) { # double check
-				
+		} elsif ( $files_LSU->{_is_config} ) {    # double check
+
 			my $DATA_PATH_IN;
+
 			# CASE 2 for superflows
 			my $module_spec    = $program_name . '_spec';
 			my $module_spec_pm = $module_spec . '.pm';
-			
+
 			require $module_spec_pm;
-			my $package 		= $module_spec->new;
+			my $package = $module_spec->new;
 
 			# collect specifications of output directory
 			# from a program_spec.pm module
 			my $specs_h = $package->variables();
-			my $CONFIG = $specs_h->{_CONFIG};
-			
+			my $CONFIG  = $specs_h->{_CONFIG};
+
 			$files_LSU->{_program_name_config} = $name->change_config($program_name);
 			$files_LSU->{_outbound}            = $CONFIG . '/' . $files_LSU->{_program_name_config};
 
-			 # print("Case 2 files_LSU, outbound, outbound: $files_LSU->{_outbound} \n");
+			# print("Case 2 files_LSU, outbound, outbound: $files_LSU->{_outbound} \n");
 
-		} elsif ( $files_LSU->{_is_pl} 
+		} elsif ( $files_LSU->{_is_pl}
 			&& $files_LSU->{_PL_SEISMIC} ) {
 
 			#CASE 3 for user-built flows
@@ -544,8 +548,7 @@ sub outbound {
 		} else {
 			print("WARNING: files_LSU,set_outbound,$files_LSU->{_outbound}\n");
 		}
-
-		# print("files_LSU, outbound,$files_LSU->{_outbound}\n");
+#		print("files_LSU, outbound,$files_LSU->{_outbound}\n");
 	}
 
 	return ();
@@ -781,7 +784,6 @@ sub set2pl {
 
        #print("files_LSU,set_outbound,program_name $files_LSU->{_program_name}\n");
        #print("files_LSU,set_outbound,program_name_config $files_LSU->{_program_name_config}\n");
-       #print("files_LSU,set_outbound,outbound $files_LSU->{_outbound}\n");
 
 =cut 
 
@@ -1044,7 +1046,7 @@ sub set_superflow_specs {
 
 		my $base_program_name  = ${ $files_LSU->{_prog_name_sref} };
 		my $alias_program_name = $alias_superflow_spec_names_h->{$base_program_name};
-		my $module_spec             = $alias_program_name . '_spec';                         #conveniently shorter
+		my $module_spec        = $alias_program_name . '_spec';                         #conveniently shorter
 		my $module_spec_pm     = $module_spec . '.pm';
 		require $module_spec_pm;
 
@@ -1115,42 +1117,42 @@ sub sizes {
 	return ($size);
 }
 
-
-
 =head2 sub _write
 Write out configuration files to script
 
 =cut
 
 sub _write {
-	
-	my ($self)      = @_;
-	
+
+	my ($self) = @_;
+
 	use control;
 	my $control = control->new();
-	
+
 	my $length      = ( scalar @{ $files_LSU->{_CFG} } ) / 2;
 	my $length_info = scalar @{ $files_LSU->{_info} };
 	my @info        = @{ $files_LSU->{_info} };
 	my @CFG         = @{ $files_LSU->{_CFG} };
-	my $format		= $var->{_config_file_format};
+	my $format      = $var->{_config_file_format};
+
+	# print("files_LSU,_write,files_LSU->{_outbound} is $files_LSU->{_outbound}\n");
 
 	open( my $fh, '>', $files_LSU->{_outbound} )
 		or die "Can't open parameter file:$!";
 
-#	print("files_LSU,_write,length is $length\n");
-
 	for ( my $i = 0; $i < $length_info; $i++ ) {
 		printf $fh $info[$i];
+
 		# print("files_LSU,_write,info is $info[$i]\n");
 	}
 
 	for ( my $i = 0, my $j = 0; $i < $length; $i++, $j = $j + 2 ) {
-		
-		my $old_value = $CFG[ ( $j + 1 )];
-		my $new_value = $control->get_no_quotes( $old_value);
-		printf $fh $format."\n", $CFG[$j], "= ", $new_value;
-#		print("files_LSU,_write,$CFG[$j]= $CFG[ ( $j + 1 ) ]\n");	
+
+		my $old_value = $CFG[ ( $j + 1 ) ];
+		my $new_value = $control->get_no_quotes($old_value);
+		printf $fh $format . "\n", $CFG[$j], "= ", $new_value;
+
+		#		print("files_LSU,_write,$CFG[$j]= $CFG[ ( $j + 1 ) ]\n");
 	}
 	close($fh);
 }
@@ -1228,7 +1230,7 @@ sub write2 {
 
 	my $PATH = $CONFIGURATION . '/' . $active_project_name;
 
-#	print("files_LSU,write2, active_project_name: $active_project_name\n");
+	#	print("files_LSU,write2, active_project_name: $active_project_name\n");
 
 	# print("files_LSU,write2, CONFIGURATION: $CONFIGURATION\n");
 	# print("files_LSU,write2, Project_config: $Project_config\n");

@@ -20,12 +20,10 @@ my $DATA_SEISMIC_SU = $Project->DATA_SEISMIC_SU();    # output data directory
 my $iTopMute_config = new iTopMute_config;
 my $max_index       = $iTopMute_config->get_max_index();
 
-my $iTopMute_spec =  {
-    _CONFIG	 				=> 'Nada',
+my $iTopMute_spec = {
     _DATA_DIR_IN           => $DATA_SEISMIC_SU,
-		_DATA_DIR_OUT          => $DATA_SEISMIC_SU,
-    _CONFIG					=>'Nada',
-	_binding_index_aref    => '',
+    _DATA_DIR_OUT          => $DATA_SEISMIC_SU,
+    _binding_index_aref    => '',
     _suffix_type_in        => $su,
     _data_suffix_in        => $suffix_su,
     _suffix_type_out       => $su,

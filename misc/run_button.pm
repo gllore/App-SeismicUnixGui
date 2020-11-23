@@ -275,21 +275,21 @@ sub _Run_pre_built_superflow {
 	if ($pre_req_ok) {
 
 		# print("2. run_button,_Run_pre_built_superflow, passed pre_ok check\n");
-		# if( $run_button->{_is_superflow_select_button} ) {
-		# 	print("3. run_button,program name is ${$run_button->{_prog_name_sref}}\n");
-		# }
-
+#		if ( $run_button->{_is_superflow_select_button} ) {
+#			print("3. run_button,program name is ${$run_button->{_prog_name_sref}}\n");
+#		}
 		my $run_name = $name->get_alias_superflow_names( $run_button->{_prog_name_sref} );
 
 		# print("4. run_button,program name is ${$run_button->{_prog_name_sref}}\n");
-        # print("4. run_button,program run name is $run_name \n");
-        # print("4. run_button,program name is $global_libs->{_superflows}$run_name \n");
+		# print("4. run_button,program RUN name is $run_name \n");
+		# print("4. run_button,program name is $global_libs->{_superflows}$run_name \n");
 
 		# Instruction runs in system
+#		print("4. run_button,running as sh $global_libs->{_superflows}$run_name \n");
 		system("sh $global_libs->{_superflows}$run_name");
 
-	}
-	else {
+	} else {
+
 		# print("3. run_button,_Run_pre_built_superflow\n");
 		my $message = $run_button_messages->run_button(0);
 		$message_w->delete( "1.0", 'end' );
@@ -319,19 +319,20 @@ sub _Run_user_built_flow {
 	$message_w->insert( 'end', $message );
 
 	# print("1 run_button,_Run_user_built_flow is_last_parameter_index_touched_color:	$run_button->{_is_last_parameter_index_touched_color} \n");
+	# replace conditions_gui with gui_history which internally refers to the correct conditions_gui
 	$conditions_gui->set_hash_ref($run_button);       # used 35 / 80 in
 	$conditions_gui->set_gui_widgets($run_button);    # used 23 / 80  in
 	$conditions_gui->set4start_of_run_button();       # 1 set, out of 59
-	                                                  #$L_SU				= $conditions_gui->get4start_of_run_button(); 51 out
+													  #$L_SU				= $conditions_gui->get4start_of_run_button(); 51 out
 	$run_button = $conditions_gui->get_hash_ref();    # returns 89
-	                                                  # print("2 run_button,_Run_user_built_flow is_last_parameter_index_touched_color:	$run_button->{_is_last_parameter_index_touched_color} \n");
+	 # print("2 run_button,_Run_user_built_flow is_last_parameter_index_touched_color:	$run_button->{_is_last_parameter_index_touched_color} \n");
 
 	# tests whether has_used_Save OR has_used_SaveAs
 	# must be: has_used_Save AND has_used_SaveAs  OR has_used_SaveAs but NOT only has_used_Save
-	$decisions->set4run_select($run_button);    # 2 set
+	$decisions->set4run_select($run_button);          # 2 set
 	my $pre_req_ok = $decisions->get4run_select();    # 2 tested
-	                                                  #$whereami				->in_gui();
-	                                                  # print("run_button,_Run_user_built_flow, program name is $run_button->{_has_used_SaveAs_button}\n");
+													  #$whereami				->in_gui();
+		# print("run_button,_Run_user_built_flow, program name is $run_button->{_has_used_SaveAs_button}\n");
 
 	# must have saved files already
 	if ($pre_req_ok) {
@@ -361,14 +362,13 @@ sub _Run_user_built_flow {
 		$conditions_gui->set4run_button();
 		$run_button = $conditions_gui->get_hash_ref();
 
-	}
-	else {
+	} else {
 		my $message = $run_button_messages->run_button(1);
 		$message_w->delete( "1.0", 'end' );
 		$message_w->insert( 'end', $message );
 	}
 
-	$conditions_gui->set4end_of_run_button();    # 2 set
+	$conditions_gui->set4end_of_run_button();         # 2 set
 	$run_button = $conditions_gui->get_hash_ref();    # 89 returned
 	return ();
 
@@ -392,8 +392,7 @@ sub _get_flow_type {
 
 		return ($how_built);
 
-	}
-	else {
+	} else {
 		print("run_button, _get_flow_type , missing topic\n");
 		return ();
 	}
@@ -450,14 +449,12 @@ sub director {
 		# print("run_button, director, flow_type: $flow_type\n");
 		_Run_user_built_flow();
 
-	}
-	elsif ( $flow_type eq $flow_type_h->{_pre_built_superflow} ) {
+	} elsif ( $flow_type eq $flow_type_h->{_pre_built_superflow} ) {
 
 		# print("run_button, director, is superflow_type:$flow_type\n");
 		_Run_pre_built_superflow();
 
-	}
-	else {
+	} else {
 		print("run_button, director has a flow-type problem\n");
 	}
 	return ();
@@ -482,8 +479,7 @@ sub get_all_hash_ref {
 		# print("run_button, get_hash_ref , run_button->{_flow_color}: $run_button->{_flow_color}\n");
 		return ($run_button);
 
-	}
-	else {
+	} else {
 		print("run_button, get_hash_ref , missing hrun_button hash_ref\n");
 	}
 }
@@ -556,8 +552,7 @@ sub set_gui_widgets {
 		$flow_listbox_blue_w    = $run_button->{_flow_listbox_blue_w};
 
 		# print("run_button, set_gui_widgets	parameter_values_frame: $parameter_values_frame\n");
-	}
-	else {
+	} else {
 
 		print("run_button, set_gui_widgets, missing gui_widgets\n");
 	}
@@ -580,8 +575,7 @@ sub set_flow_type {
 
 		# print("run_button, set_flow_type : $run_button->{_flow_type}\n");
 
-	}
-	else {
+	} else {
 		print("run_button, set_flow_type , missing how_built\n");
 	}
 	return ();
@@ -690,17 +684,16 @@ sub set_hash_ref {
 		$run_button->{_prog_name_sref}                        = $hash_ref->{_prog_name_sref};
 		$run_button->{_selected_file_name}                    = $hash_ref->{_selected_file_name};
 		$run_button->{_sub_ref}                               = $hash_ref->{_sub_ref};
-		$run_button->{_sunix_listbox}                         = $hash_ref->{_sunix_listbox};                           # pre-built-superflow or flow name as well
-		$run_button->{_superflow_first_idx}                   = $hash_ref->{_superflow_first_idx};
-		$run_button->{_superflow_length}                      = $hash_ref->{_superflow_length};
-		$run_button->{_values_aref}                           = $hash_ref->{_values_aref};
-		$run_button->{_values_w_aref}                         = $hash_ref->{_values_w_aref};
+		$run_button->{_sunix_listbox}       = $hash_ref->{_sunix_listbox};    # pre-built-superflow or flow name as well
+		$run_button->{_superflow_first_idx} = $hash_ref->{_superflow_first_idx};
+		$run_button->{_superflow_length}    = $hash_ref->{_superflow_length};
+		$run_button->{_values_aref}         = $hash_ref->{_values_aref};
+		$run_button->{_values_w_aref}       = $hash_ref->{_values_w_aref};
 
 		# print("run_button, set_hash_ref, is superflow: $run_button->{_is_superflow_select_button} \n");
 		# print("run_button, set_hash_ref, user-built _flow_name_out: $run_button->{_flow_name_out} \n");
 
-	}
-	else {
+	} else {
 
 		print("run_button, set_gui_widgets, missing hash_ref\n");
 	}
@@ -947,8 +940,7 @@ sub set_flow_name_out {
 
 		# print("run_button, set_flow_name_out, $run_button->{_flow_name_out}\n");
 
-	}
-	else {
+	} else {
 		print("run_button, set_flow_name_out, missing name\n");
 	}
 	return ();
@@ -971,8 +963,7 @@ sub set_prog_name_sref {
 
 		# print("run_button, set_prog_name_sref , ${$run_button->{_prog_name_sref}}\n");
 
-	}
-	else {
+	} else {
 		print("run_button, set_prog_name_sref , missing name\n");
 	}
 	return ();

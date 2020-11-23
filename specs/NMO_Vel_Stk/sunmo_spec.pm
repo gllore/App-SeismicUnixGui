@@ -107,7 +107,7 @@ sub flow_type_aref {
     my @type;
 
     $type[0] = $flow_type->{_user_built};
-
+    
     $sunmo_spec->{_flow_type_aref} = \@type;
     return ();
 

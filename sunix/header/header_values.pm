@@ -171,7 +171,7 @@ sub get_number() {
 
 =cut
 		my @values = `@items`;
-		print("@values \n");
+		# print("header_values, @values \n");
 
 =head2 LOG FLOW(s)
 
@@ -195,7 +195,7 @@ sub get_number() {
 #		print ("header_values, get_number,length=$length\n");
 
 		if ( defined $scale ) {
-			print("header_values,get_number, values[1]:$values[1]\n");
+			# print("header_values,get_number, values[1]:$values[1]\n");
 
 			if (   $scale eq 0
 				or $scale eq $empty_string )
@@ -234,7 +234,7 @@ sub get_number() {
 		}
 		else {
 			$result = 1;
-			print("header_values, get_number, data_scale = 1:1\n");
+			# print("header_values, get_number, data_scale = 1:1\n");
 			return ($result);
 		}
 		return ($result);

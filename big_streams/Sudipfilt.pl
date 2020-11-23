@@ -1,4 +1,3 @@
-
 =pod
 
 =head1 DOCUMENTATION
@@ -47,6 +46,7 @@
 
 use Moose;
 our $VERSION = '1.0.2';
+
 use flow;
 use message;
 use sudipfilt;
@@ -96,8 +96,6 @@ my $read             = new readfiles();
 
 =head2 notes
 
-  print("Sudipfilt,HOME=$CFG_h->{Project_Variables}{1}{HOME}\n");
-
 =cut
 
 my ( @flow, @sufile_out, @inbound, @outbound );
@@ -108,8 +106,6 @@ my ($sufile_in);
 =head2 Get configuration information
 
 =cut
-
-# my %iVA;
 my ( $CFG_h, $CFG_aref ) = $Sudipfilt_config->get_values();
 
 =head2 TOP LEFT PLOT
@@ -118,6 +114,8 @@ my ( $CFG_h, $CFG_aref ) = $Sudipfilt_config->get_values();
 
 =cut
 
+# print("Sudipfilt.pl,HOME=$CFG_h->{Project_Variables}{1}{HOME}\n");
+  
 my $TOP_LEFT_sugain_pbal_switch = $CFG_h->{TOP_LEFT}{sugain}{pbal_switch};
 my $TOP_LEFT_sugain_agc_switch  = $CFG_h->{TOP_LEFT}{sugain}{agc_switch};
 my $TOP_LEFT_sugain_agc_width   = $CFG_h->{TOP_LEFT}{sugain}{agc_width};

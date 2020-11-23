@@ -173,7 +173,7 @@ sub flow_type_aref {
 
     my @type;
 
-    $type[0] = $flow_type->{_user_built};
+    $type[0] = $flow_type->{_pre_built_superflow};
 
     $Sucat_spec->{_flow_type_aref} = \@type;
 

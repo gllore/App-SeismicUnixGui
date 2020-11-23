@@ -127,7 +127,7 @@ sub set_hash_ref {
  a program
  
  We keep track of whether user is entering or leaving a 
- widget: _chek_value_changes
+ widget: _check_value_changes
  
  changes are only allowed for those sunix programs whose spec files
  have a max_index defined
@@ -144,6 +144,8 @@ sub _changes {
 
 	use control;    # =0
 	my $control = new control;
+	
+	print("param_widgets_grey, changes, index=$index\n");
 
 	if (    $index >= 0
 		and $param_widgets_color_href->{_current_program_name} ) {
@@ -173,10 +175,10 @@ sub _changes {
 			#		print(" param_widgets_grey,max_index, $max_idx \n");
 
 		} else {
-			print(" param_widgets_grey, changes, bad index \n");
+			print(" param_widgets_grey, _changes, bad index \n");
 		}
 	} else {
-		print("param_widgets_grey, changes,missing  prog_name\n");
+		print("param_widgets_grey, _changes,missing  prog_name\n");
 	}
 
 =head2 sub _check_value_changes
@@ -759,7 +761,6 @@ sub set_entry_button_chosen_widget {
 
 	my ( $self, $widget_h ) = @_;
 	$param_widgets_color_href->{_entry_button_chosen_widget} = $widget_h;
-
 	# print (" param_widgets_grey,set_entry_button_chosen_widget, #$widget_h \n");
 
 }
@@ -778,19 +779,21 @@ sub get_entry_button_chosen_index {
 	my $first  = $param_widgets_color_href->{_first_idx};
 	my $length = $param_widgets_color_href->{_length};
 
-	# print("param_widget,get_entry_button_chosen_index,first_index=$param_widgets_color_href->{_first_idx}\n");
-	# print("param_widget,get_entry_button_chosen_index,length_=$param_widgets_color_href->{_length} \n");
+	print("param_widget,get_entry_button_chosen_index,first_index=$param_widgets_color_href->{_first_idx}\n");
+	print("param_widget,get_entry_button_chosen_index,length_=$param_widgets_color_href->{_length} \n");
 
 	my $widget = $param_widgets_color_href->{_entry_button_chosen_widget};
 
-	# print("param_widget,get_entry_button_chosen_index,widget,=$widget\n");
-
 	for ( my $choice = $first; $choice < $length; $choice++ ) {
-		if ( $widget eq @{ $param_widgets_color_href->{_values_w_aref} }[$choice] ) {
+		
+		my $label=@{ $param_widgets_color_href->{_labels_w_aref} }[$choice]->cget('-text');
+	     print("param_widget,get_entry_button_chosen_index,label=$label\n");
+		
+		if ( $widget eq @{ $param_widgets_color_href->{_values_w_aref} }[$choice] ) {		
 
 			$param_widgets_color_href->{_entry_button_chosen_index} = $choice;
 
-			# print (" param_widgets_grey,get_entry_button_chosen_index, #$choice \n");
+			print (" param_widgets_grey,get_entry_button_chosen_index, #$choice \n");
 			$index = $choice;
 		}
 	}

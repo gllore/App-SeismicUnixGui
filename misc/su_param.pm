@@ -249,8 +249,8 @@ sub _get_program_config {
 =cut
 
 sub get {
+	
 	my ( $self, $program_sref ) = @_;
-
 	if (   defined $program_sref
 		&& ( defined $su_param->{_flow_type} )
 		&& ( $su_param->{_flow_type} ne $empty_string ) ) {
@@ -274,8 +274,8 @@ sub get {
 		my $local_config_exists             = _check4local_config($program_sref);
 		my $user_active_project_path_exists = _check4user_config($program_sref);
 
-		# print("B. su_param, get, local_config_exists: $local_config_exists\n");
-		# print("C. su_param, get,user_active_project_path_exists: $user_active_project_path_exists\n");
+#		print("B. su_param, get, local_config_exists: $local_config_exists\n");
+#		print("C. su_param, get,user_active_project_path_exists: $user_active_project_path_exists\n");
 
 		if ( $su_param->{_flow_type} eq $flow_type_href->{_pre_built_superflow} ) {
 
@@ -301,9 +301,9 @@ sub get {
 				my $local_path             = $su_param->{_local_path};
 				my $sub_category_directory = $developer->get_program_sub_category();
 
-				# print("1.1 su_param,get,local configuration files exists\n");
-				# print("1.2 su_param,get,local_path:$CONFIG \n");
-				# print("1.3 su_param,get,sub_category_directory=$sub_category_directory\n");
+#				print("1.1 su_param,get,local configuration files exists\n");
+#				print("1.2 su_param,get,local_path:$CONFIG \n");
+#				print("1.3 su_param,get,sub_category_directory=$sub_category_directory\n");
 
 			} elsif ($user_active_project_path_exists) {
 
@@ -333,7 +333,7 @@ sub get {
 #			print("CASE 2.A su_param,get,using global lib: path for sunix programs is $path\n");
 			$sub_category_directory = $developer->get_program_sub_category();
 
-			# print("2.A su_param,get,using sub_category_directory:  for sunix programs is $sub_category_directory\n");
+#			print("2.A su_param,get,using sub_category_directory:  for sunix programs is $sub_category_directory\n");
 
 		} else {
 			print("su_param,get,unexpected\n");
@@ -346,13 +346,13 @@ sub get {
 
 		$program_config = _get_program_config();
 
-         # print("su_param, get,configuration file to read=$program_config\n");
+#         print("su_param, get,configuration file to read=$program_config\n");
 
 		( $names_aref, $values_aref ) = $read->configs($program_config);
 		$su_param->{_names_aref} 	= $names_aref;
 		$length 					= scalar @$names_aref;
 
-		#print("su_param,get:we have $length pairs\n\n");
+#		print("su_param,get:we have $length pairs\n\n");
 		for ( $i = 0, $j = 0; $i < $length; $i++, $j = $j + 2 ) {
 
 			$CFG[$j] = $$names_aref[$i];

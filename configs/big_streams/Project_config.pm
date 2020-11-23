@@ -200,13 +200,13 @@ sub _basic_dirs {
 		print("1. Project_config,_basic_dirs,using local $prog_name_old.config\n");
 
 		$prog_name = $prog_name_old;
-		print("1a. Project_config,_basic_dirs,using local $prog_name_old.config \n");
+#		print("1a. Project_config,_basic_dirs,using local $prog_name_old.config \n");
 		$prog_name_config = $prog_name_old . '.config';
 		my ( $ref_DIR_FUNCTION, $ref_DIR )
 			= $read->configs( ( $prog_name . '.config' ) );
 		$Project->{_ref_DIR} = $ref_DIR;
 
-		print(" 1. Project_config,basic_dirs,ref_DIR:@{$Project->{_ref_DIR}}\n");
+#		print(" 1. Project_config,basic_dirs,ref_DIR:@{$Project->{_ref_DIR}}\n");
 		$Project->{_ref_DIR_FUNCTION} = $ref_DIR_FUNCTION;
 		_change_basic_dirs();
 

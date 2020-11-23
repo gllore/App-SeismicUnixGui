@@ -49,6 +49,7 @@ my $alias_superflow_spec_names_h = {
 
 my $superflow_names_h = {
     _fk                => 'fk',
+    _Sudipfilt	     => 'Sudipfilt',
     _ProjectVariables  => 'ProjectVariables',
     _iPick             => 'iPick',
     _SetProject        => 'SetProject',
@@ -136,7 +137,7 @@ $developer_Tools_categories[12] = 'big_streams';
 $developer_Tools_categories[13] = 'big_streams';
 
 my @superflow_config_names;
-$superflow_config_names[0]  = 'fk';
+$superflow_config_names[0]  = 'Sudipfilt';
 $superflow_config_names[1]  = 'ProjectVariables';
 $superflow_config_names[2]  = 'ProjectVariables';
 $superflow_config_names[3]  = 'iSpectralAnalysis';

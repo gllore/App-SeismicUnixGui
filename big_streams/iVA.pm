@@ -248,14 +248,14 @@ sub _get_data_scale {
 		my $data_scale = $header_values->get_number();
 		
 		my $result     = $data_scale;
-		print("2. iVA, _get_data_scale, data_scale = $data_scale\n");
+		# print("2. iVA, _get_data_scale, data_scale = $data_scale\n");
 		return($result);
 		
 	} else {
 		
 		my $data_scale = 1;
 		my $result     = $data_scale;
-		print("iVA, _get_data_scale, data_scale = 1:1\n");
+		# print("iVA, _get_data_scale, data_scale = 1:1\n");
 		return ($result);
 		
 	}
@@ -374,10 +374,67 @@ sub old_data {
 			#print("TV out is $iVA->{_Tvel_outbound}\n\n");
 
 			if ($ans) {
+				
+# TODO put a message into the gui
+#				use message_director;
+#				
+#=head2 sub set_hash_ref
+#
+#	copies with simplified names are also kept (40) so later
+#	the hash can be returned to a calling module
+#	
+#	imports external hash into private settings via gui_history 
+#	accessory
+#
+#print("color_flow,set_hash_ref,hash_ref->{_log_view}: $ans\n");
+#my $ans = $gui_history->get_log_view();
+#print("2. color_flow,set_hash_ref: gui_history->get_log_view:$ans \n");
+# 	
+#=cut
+#
+#sub set_hash_ref {
+#	my ( $self, $hash_ref ) = @_;
+#
+#	$gui_history->set_defaults($hash_ref);
+#	$color_flow_href = $gui_history->get_defaults();
+#
+#	# REALLY?
+#	# set up param_widgets for later use
+#	# give param_widgets the needed values
+#	$param_widgets->set_hash_ref($color_flow_href);
+#
+#	$flow_color = $color_flow_href->{_flow_color};
+#
+#	# $gui_history_aref = $color_flow_href->{_gui_history_aref};
+#
+#	# for local use
+#	$last_flow_color               = $color_flow_href->{_last_flow_color};                 # used in flow_select
+#	$message_w                     = $color_flow_href->{_message_w};
+#	$parameter_values_frame        = $color_flow_href->{_parameter_values_frame};
+#	$parameter_values_button_frame = $color_flow_href->{_parameter_values_button_frame};
+#
+#	# $sunix_listbox                 = $color_flow_href->{_sunix_listbox};
+#
+#	# print("color_flow, set_hash_ref _check_buttons_settings_aref: @{$color_flow_href->{_check_buttons_settings_aref}}\n");
+#
+#	# print("color_flow,set_hash_ref: print gui_history->view\n");
+#	# $gui_history->view();
+#
+#	return ();
+#}		
+#				my $message_w;
+#					$message_w                     = $color_flow_href->{_message_w};
+#				my $iva_messages = message_director->new();
+#				my $message = $color_flow_messages->null_button(0);
+#				$message_w->delete( "1.0", 'end' );
+#				$message_w->insert( 'end', $message );
+
+
+
+
 				print("Old picks already exist.\n");
-				print(
-"Delete \(\"rm -rf \*old\*\"\)or Save old picks, and then restart\n\n"
-				);
+				print("Delete \(\"rm -rf \*old\*\"\) or, \n");
+				print("Save old picks (in: $PL_SEISMIC), and then restart\n\n");
 				exit;
 			}
 			return ($ans);

@@ -1092,7 +1092,9 @@ What does binding do?
   'Flow' will go to PL_SEISMIC by default
   'Flow' creates a directory path on the parameter value in GUI (why -- TODO)
   
-  'Data' will go to seismic su data by default
+  'Data' will go to seismic su data by default or
+  whatever the *_spec file defines the DATA_DIR_IN or DATA_DIR_OUT which could be,
+  e.g. PL_SEISMIC
   'Data' does not create a directory path on the parameter value in GUI (why -- TODO)
   
   'Path' searches for only a directory PATH
@@ -2177,7 +2179,7 @@ Q. How does a selected file name get put inside an Entry box within the gui?
 		(2) data files e.g. su, binary, par, and plain text files {_Data}, and
 		(3) pre_built superflows
 		
-		Q What is developeer package?
+		Q What is developer package?
 		
 Hard codes relative location of directories for configuration files, parameter files which are
 not accessible via the PERL5LIB global variable or @INC array.

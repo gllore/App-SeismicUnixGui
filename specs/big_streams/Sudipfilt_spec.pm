@@ -23,15 +23,14 @@ my $Project          = new Project_config;
 my $Sudipfilt_config = new Sudipfilt_config;
 
 my $DATA_SEISMIC_SU = $Project->DATA_SEISMIC_SU();    # output data directory
-my $PL_SEISMIC		 = $Project->PL_SEISMIC();
-
+my $PL_SEISMIC = $Project->PL_SEISMIC();    # output directory for configuration file
 my $max_index = $Sudipfilt_config->get_max_index();
 
-my $Sudipfilt_spec =  {
-    _CONFIG	 				=> $PL_SEISMIC,
+my $Sudipfilt_spec = {
+	_CONFIG					=> $PL_SEISMIC,
     _DATA_DIR_IN           => $DATA_SEISMIC_SU,
-	_DATA_DIR_OUT          => $DATA_SEISMIC_SU,
-	_binding_index_aref    => '',
+    _DATA_DIR_OUT          => $DATA_SEISMIC_SU,
+    _binding_index_aref    => '',
     _suffix_type_in        => $su,
     _data_suffix_in        => $suffix_su,
     _suffix_type_out       => $su,
@@ -200,7 +199,6 @@ sub get_binding_length {
 
     }
     else {
-
         print("Sudipfilt_spec, get_binding_length, missing length \n");
         return ();
     }
@@ -217,8 +215,8 @@ sub get_binding_length {
 sub variables {
     my ($self) = @_;
 
-    # print("Sudipfilt_spec,variables,
-    # first_of_2,$Sudipfilt_spec->{_is_first_of_2}\n");
+#    print("Sudipfilt_spec,variables,
+#    CONFIG=$Sudipfilt_spec->{_CONFIG}\n");
     my $hash_ref = $Sudipfilt_spec;
     return ($hash_ref);
 }

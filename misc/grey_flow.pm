@@ -327,21 +327,18 @@ sub _FileDialog_button {
 		# values are retrieved
 		$color_flow_href->{_values_aref} = $file_dialog->get_values_aref();
 
-		# assume that after selection to open of a data file while using file-dialog button the
+		# assume that after selection to open of a data file ,while using file-dialog button, the
 		# GUI has been updated
-		# See if the last parameter index has been touched (>= 0)
 		# Assume we are still dealing with the current flow item selected
-
-		# Here we update the value of the Entry widget (in GUI) with the selected file name
-		# Now might be a good moment to update the parameter_widgets with the updated value
-		# update entry with those parameters
+		# Update the value of the Entry widget (in GUI) with the selected file name
+		# ALso pdate the parameter_widgets with the updated value
 		my $selected_Entry_widget = $parameter_values_frame->focusCurrent;
 
 		# print("color flow, selected_Entry_widget: $selected_Entry_widget\n");
 		$param_widgets->set_entry_button_chosen_widget($selected_Entry_widget);
 		$color_flow_href->{_parameter_value_index} = $param_widgets->get_entry_button_chosen_index();
 
-		# print("color flow, selected_Entry_widget index: $color_flow_href->{_parameter_value_index}\n");
+		print("color flow, selected_Entry_widget index: $color_flow_href->{_parameter_value_index}\n");
 		$color_flow_href->{_entry_button_label} = $param_widgets->get_label4entry_button_chosen();
 		my $current_index = $color_flow_href->{_parameter_value_index};
 		@{ $param_widgets->{_values_aref} }[$current_index]   = $file_dialog->get_selected_file_name();

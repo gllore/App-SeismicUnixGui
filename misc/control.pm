@@ -363,7 +363,7 @@ sub get_max_index {
 
 	my $alias_program_name = $alias_superflow_names_h->{$program_name};
 
-	if ($alias_program_name) {
+	if ( length($alias_program_name) ) {
 
 		# print(" control, get_max_index,alias_superflow_names_h:\n");
 		# print("alias for $program_name is $alias_superflow_names_h->{$program_name}\n");

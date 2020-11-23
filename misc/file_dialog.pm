@@ -1687,7 +1687,6 @@ sub get_selected_file_name {
 		return ($result);
 
 	} else {
-
 		# print("file_dialog, get_selected_file_name, empty string\n");
 		return ();
 	}

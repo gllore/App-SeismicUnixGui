@@ -317,7 +317,7 @@ sub _local_or_defaults {
 	my ($self) = @_;
 	my $name_sref = $config_superflows->{_program_name_sref};
 
-	# print("config_superflows, _local_or_defaults,program name=$$name_sref\n");
+	# print("config_superflows, _local_or_defaults, program name=$name_sref\n");
 	# print("config_superflows, _local_or_defaults,SCALAR program name=$name_sref\n");
 	use big_streams_param;
 
@@ -325,7 +325,7 @@ sub _local_or_defaults {
 	my $flow_type           = $get->flow_type_href();
 	my $pre_built_superflow = $flow_type->{_pre_built_superflow};
 
-#	print("config_superflows, _local_or_defaults,pre_built_superflow=$pre_built_superflow\n");
+	#	print("config_superflows, _local_or_defaults,pre_built_superflow=$pre_built_superflow\n");
 	# set flow type before big_streams_param->get
 	$big_streams_param->set_flow_type($pre_built_superflow);
 	my $cfg_aref = $big_streams_param->get($name_sref);
@@ -458,7 +458,6 @@ sub save {
  i/p is scalar ref
  o/p is scalar ref
  print("config_superflows, program_name,:$alias->{ProjectVariables}\n"); 
- print("config_superflows, program_name,is ${$config_superflows->{_program_name_sref}}\n");
 
 =cut 
 
@@ -470,10 +469,11 @@ sub set_program_name {
 	if ($program_name_sref) {
 		my $name_sref;
 
-		if ( $$program_name_sref eq $superflow_names->{_fk} ) {
-			# print("config_superflows, fk name = $superflow_names->{_fk}\n");
+		if ( $$program_name_sref eq $superflow_names->{_fk} 
+		 or $$program_name_sref eq $superflow_names->{_Sudipfilt}) {
+		    # print("config_superflows, fk name = $superflow_names->{_fk}\n");
 			$name_sref = \$alias->{fk};
-			# print("config_superflows, alias of program name is $$name_sref\n");
+			# print("config_superflows, alias of $superflow_names->{_fk} is $$name_sref\n");
 		}
 
 		if ( $$program_name_sref eq $superflow_names->{_iBottomMute} ) {
@@ -565,7 +565,7 @@ sub set_program_name {
 
 		$config_superflows->{_program_name_sref} = $name_sref;
 
-		# print("config_superflows,set_program_name alias = ${$config_superflows->{_program_name_sref}}\n");
+		# print("config_superflows,set_program_name alias = ${$name_sref}}\n");
 		_get_all;
 
 	}

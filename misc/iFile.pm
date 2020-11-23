@@ -147,7 +147,7 @@ sub _get_DATA_DIR_OUT {
 		# fromt a program_spec.pm module
 		my $specs_h = $package->variables();
 		$DATA_PATH_OUT = $specs_h->{_DATA_DIR_OUT};
-		print("iFile,get_Data_path, DATA_PATH_OUT = $DATA_PATH_OUT\n");
+		# print("iFile,get_Data_path, DATA_PATH_OUT = $DATA_PATH_OUT\n");
 		return ($DATA_PATH_OUT);
 
 	} else {

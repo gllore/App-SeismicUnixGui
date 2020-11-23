@@ -93,7 +93,7 @@ my $DATA_SEISMIC_SU        = $Project->DATA_SEISMIC_SU();
 my $superflow_config_names = $get->superflow_config_names_aref();
 
 # WARNING---- watch out for missing underscore!!
-# print("1. Sudipfilt_config,fk superflow_config_name : $$superflow_config_name[0]\n");
+#print("1. Sudipfilt_config,fk superflow_config_name : @{$superflow_config_names}\n");
 
 =head2  private hash
 
@@ -112,7 +112,7 @@ sub get_values {
     # Warning: set using a scalar reference
     $Sudipfilt->{_prog_name} = \@{$superflow_config_names}[0];
 
-    # print("Sudipfilt_config, prog_name : @{$superflow_config_names}[0]\n");
+#    print("Sudipfilt_config, get_values, prog_name : @{$superflow_config_names}[0]\n");
 
     $config_superflows->set_program_name( $Sudipfilt->{_prog_name} );
 
