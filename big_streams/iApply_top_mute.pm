@@ -272,7 +272,6 @@ sub calcNdisplay {
     $sumute->par_directory('PL_SEISMIC');
     $sumute->parfile( $iApply_top_mute->{_parfile_in} );
     $sumute->headerword( $iApply_top_mute->{_offset_type} );
-
     #not taper applied
     # $sumute ->ntaper($iApply_top_mute->{_ntaper});
     $sumute->type('top');
@@ -437,10 +436,10 @@ sub calcNdisplay {
 =cut
 
     #for suximage
-    # print  "$flow[1]\n";
+    # print("iApply_top_mute:$flow[1]\n");
     #$log->file($flow[1]);
 
-    #for suxwib
+    #for suxwibg
     # print  "$flow[2]\n";
 
 }    # end calcNdisplay subroutine

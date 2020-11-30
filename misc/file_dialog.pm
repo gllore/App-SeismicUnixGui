@@ -125,6 +125,8 @@ sub _FileDialog {
 		-HistFile     => "./.FileHistory.txt",
 		-PathFile     => "./.Bookmarks.txt",
 		-Create       => 1,
+		-width  => 52,
+		-maxwidth => 59,
 	);
 
 	# results from interactive file selection
@@ -233,8 +235,8 @@ sub _set_file_path {
 			$file_dialog->{_path} = $PL_SEISMIC;
 
 			# print("file_dialog, _set_file_path ,dialog type:$topic\n");
-			# rint("file_dialog, _set_file_path ,path:$file_dialog->{_path}\n");
-			#
+			# print("file_dialog, _set_file_path ,path:$file_dialog->{_path}\n");
+			
 		} elsif ( $topic eq 'Save' ) {
 			$file_dialog->{_path} = $PL_SEISMIC;
 
@@ -694,8 +696,7 @@ sub _pre_built_superflow_open_path {
 
 			$file_dialog->{_path} = $iFile->get_Path();
 
-			print("1.file_dialog,_pre-built_superflow_path, PATH:  $file_dialog->{_path} \n");
-
+			# print("1.file_dialog,_pre-built_superflow_path, PATH:  $file_dialog->{_path} \n");
 			# print("1.file_dialog,_pre-built_superflow_path, _values_aref: @{$file_dialog->{_values_aref}}[0]\n");
 
 			_FileDialog();                                      # open file dialog widget
@@ -770,8 +771,7 @@ sub _set_FileDialog2user_built_flow {
 		# Save a new user-built flow
 	} elsif ( $topic eq $file_dialog_type->{_SaveAs} ) {
 
-		# print("file_dialog, _set_FileDialog2user_built_flow ,dialog type:$topic\n");
-
+		print("file_dialog, _set_FileDialog2user_built_flow ,dialog type:$topic\n");
 		_user_built_flow_SaveAs_perl_file();
 
 		#	} elsif ($topic eq 'Save') {
@@ -860,11 +860,11 @@ sub _user_built_flow_SaveAs_perl_file {
 	# print("0. file_dialog, user_built_flow_SaveAs_perl_file _is_user_built_flow: $file_dialog->{_is_user_built_flow}\n");
 
 	$gui_history->set_hash_ref($file_dialog);
-	$gui_history->set4FileDialog_SaveAs_start();    # sets  3
-	$file_dialog = $gui_history->get_hash_ref();    # retrieves 93
+	$gui_history->set4FileDialog_SaveAs_start();
+	$file_dialog = $gui_history->get_hash_ref();
 	  # print("1. file_dialog, user_built_flow_SaveAs_perl_file _is_user_built_flow: $file_dialog->{_is_user_built_flow}\n");
 	$decisions->set4FileDialog_SaveAs($file_dialog);
-	my $pre_req_ok = $decisions->get4FileDialog_SaveAs();    # uses 6/38 in
+	my $pre_req_ok = $decisions->get4FileDialog_SaveAs(); 
 
 	if ($pre_req_ok) {
 
@@ -874,7 +874,6 @@ sub _user_built_flow_SaveAs_perl_file {
 		use L_SU_global_constants;
 		use iFile;
 		use control;
-
 		use whereami;
 
 		my $iFile   = iFile->new();
@@ -882,13 +881,12 @@ sub _user_built_flow_SaveAs_perl_file {
 		my $get     = L_SU_global_constants->new();
 
 		my $whereami = whereami->new();
-
 		my $default_param_specs = $get->param();
 
 		my @fields;
 		my $full_path_name;
 
-		# print ("file_dialog _user_built_flow_SaveAs_perl_file, _last_parameter_index_touched_color: $file_dialog->{_last_parameter_index_touched_color} \n");
+		# print ("file_dialog _user_built_flow_SaveAs_perl_file_user_built_flow_SaveAs_perl_file, _last_parameter_index_touched_color: $file_dialog->{_last_parameter_index_touched_color} \n");
 
 		# make the file paths for the current file_dialog type ( Save, SaveAs, Flow, Data etc.)}
 		_set_file_path();
@@ -900,17 +898,15 @@ sub _user_built_flow_SaveAs_perl_file {
 
 		# print("file-dialog _user_built_flow_SaveAs_perl_file, file_dialog->{_dialog_type}: $topic\n");
 		$full_path_name = $file_dialog->{_selected_file_name};
-
 		# print("file-dialog _user_built_flow_SaveAs_perl_file, If not cancelled, full_path_name: $full_path_name\n");
 
-		if ( defined $full_path_name
-			&& $full_path_name ne $empty_string ) {
+		if ( length $full_path_name ) {
 
 			@fields = split( /\//, $full_path_name );
 			$file_dialog->{_is_selected_file_name} = $true;
-
+		     # print("file-dialog _user_built_flow_SaveAs_perl_file,file_dialog->{_is_selected_file_name}=$file_dialog->{_is_selected_file_name} \n");
+		     
 		} else {
-
 			# print("file_dialog, _user_built_flow_SaveAs_perl_file,Cancelled. No output flow name selected NADA\n");
 		}
 
@@ -930,10 +926,10 @@ sub _user_built_flow_SaveAs_perl_file {
 
 			# print("file_dialog,_user_built_flow_SaveAs_perl_file, SaveAs,suffix: $suffix\n");
 			# print("file_dialog,,_user_built_flow_SaveAs_perl_file, SaveAs,first_name: $first_name\n");
-			# print("1. file_dialog,_user_built_flow_SaveAs_perl_file, flow_name_out: $file_dialog->{_flow_name_out}\n");
+		    # print("1. file_dialog,_user_built_flow_SaveAs_perl_file, flow_name_out: $file_dialog->{_flow_name_out}\n");
 			# print ("file-dialog _user_built_flow_SaveAs_perl_file, _last_parameter_index_touched_color: $file_dialog->{_last_parameter_index_touched_color} \n");
-		} else {
-
+		
+			} else {
 			# print("file_dialog,_user_built_flow_SaveAs_perl_file, No file name selected NADA\n");
 		}
 
@@ -1362,7 +1358,7 @@ sub _user_built_flow_open_path {
 
 	my ($self) = @_;
 
-	# print ("file_dialog, _user_built_flow_open_path\n ");
+	print ("file_dialog, _user_built_flow_open_path\n ");
 	use iFile;
 	use whereami;
 	use L_SU_global_constants;
@@ -1394,7 +1390,7 @@ sub _user_built_flow_open_path {
 
 	my $widget_type = $whereami->widget_type( $file_dialog->{_parameter_values_frame} );
 
-	# print("file_dialog  _user_built_flow_open_path selected widget type is = $widget_type	\n");
+	print("file_dialog  _user_built_flow_open_path selected widget type is = $widget_type	\n");
 
 	if ( $widget_type eq 'Entry' ) {
 
@@ -1513,7 +1509,7 @@ sub _user_built_flow_open_perl_file {
 
 	# print("1. file_dialog,_user_built_flow_open_perl_file,_flowNsuperflow_name_w:$file_dialog->{_flowNsuperflow_name_w} \n");
 
-	$file_dialog = $gui_history->get_hash_ref();    # gets 93
+	$file_dialog = $gui_history->get_hash_ref();
 	  # print("1. file_dialog,_user_built_flow_open_perl_file,_flowNsuperflow_name_w:$file_dialog->{_flowNsuperflow_name_w} \n");
 	  # if an appropriate entry widget is first selected, ie. Entry
 	  # get index of entry button pressed
@@ -1529,15 +1525,15 @@ sub _user_built_flow_open_perl_file {
 	$file_dialog->{_message_w}->insert( 'end', $message );
 
 	# set path to flows
-	# print("file_dialog,_user_built_flow_open_perl_file, got here\n");
 	$file_dialog->{_path} = $iFile->get_Open_perl_flow_path();
+	# print("file_dialog,_user_built_flow_open_perl_file, path = $file_dialog->{_path}\n");
 
 	# collects the name of the data file to be opened
 	_FileDialog();    # directory mega widget
 	my $successful = _user_built_flow_close_perl_file();
 
-	$gui_history->set_hash_ref($file_dialog);             # uses 74 / 124 given
-	$gui_history->set4FileDialog_open_perl_file_end();    # sets 2
+	$gui_history->set_hash_ref($file_dialog);
+	$gui_history->set4FileDialog_open_perl_file_end(); 
 
 	#	foreach my $key (sort keys %$file_dialog) {
 	#		print (" file_dialog,key is $key, value is $file_dialog->{$key}\n");

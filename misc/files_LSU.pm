@@ -95,11 +95,11 @@ my $files_LSU = {
 };
 
 $files_LSU->{_filehandle} = undef;
-
-_set_PL_SEISMIC();
+# will be called again internally by other software
+# in case there are changes
+_set_PL_SEISMIC(); 
 
 =head2 sub _close 
-
 
 =cut
 
@@ -107,6 +107,7 @@ sub _close {
 	my ($self) = @_;
 
 	close( $files_LSU->{_filehandle} );
+#	print("files_L_SU,_close, closing perl file for writing\n");
 
 	return ();
 }
@@ -138,7 +139,8 @@ sub _get_prog_name_config {
 sub _get_PL_SEISMIC {
 
 	my ($self) = @_;
-
+	
+	_set_PL_SEISMIC();
 	if ( defined $files_LSU->{_PL_SEISMIC} ) {
 
 		my $PL_SEISMIC = $files_LSU->{_PL_SEISMIC};
@@ -152,14 +154,13 @@ sub _get_PL_SEISMIC {
 
 =head2 _open2write
 
-
 =cut
 
 sub _open2write {
 	my ($self) = @_;
+	
+	# print("files_L_SU,_open2write, $files_LSU->{_outbound}\n");
 
-	# open($files_LSU->{_filehandle},">$files_LSU->{_outbound}") ||
-	# die ("Can't open file name, $!\n");
 	open( $files_LSU->{_filehandle}, '>', $files_LSU->{_outbound} )
 		or die("Can't open file name, $!\n");
 
@@ -189,10 +190,10 @@ sub _set_PL_SEISMIC {
 
 	my ($self) = @_;
 	use Project_config;
-
 	my $Project = Project_config->new();
 
 	$files_LSU->{_PL_SEISMIC} = $Project->PL_SEISMIC();
+	# print("files_LSU, _set_PL_SEISMIC, PL_SEISMIC=$files_LSU->{_PL_SEISMIC}\n");
 	return ();
 
 }
@@ -327,7 +328,6 @@ sub _set_prog_version_aref {
 
        #print("files_LSU,_set_outbound2pl,program_name $files_LSU->{_program_name}\n");
        #print("files_LSU,_set_outbound2pl,program_name_config $files_LSU->{_program_name_config}\n");
-       #print("files_LSU,_set_outbound2pl,outbound $files_LSU->{_outbound}\n");
 
 =cut 
 
@@ -339,8 +339,8 @@ sub _set_outbound2pl {
 
 		# update PL_SEISMIC in case of change
 		my $PL_SEISMIC = _get_PL_SEISMIC();
-
 		$files_LSU->{_outbound} = $PL_SEISMIC . '/' . $files_LSU->{_flow_name_out};
+		
 	}
 
 	# print("files_LSU,_set_outbound2pl,
@@ -1172,8 +1172,8 @@ sub write {
 	my @info        = @{ $files_LSU->{_info} };
 	my @CFG         = @{ $files_LSU->{_CFG} };
 
-	print("files_LSU, write, length:$length,length_info:$length_info \n");
-	print("files_LSU,write,files_LSU->{_outbound}: $files_LSU->{_outbound} \n");
+	# print("files_LSU, write, length:$length,length_info:$length_info \n");
+	# print("files_LSU,write,files_LSU->{_outbound}: $files_LSU->{_outbound} \n");
 
 	open( my $fh, '>', $files_LSU->{_outbound} )
 		or die "Can't open parameter file:$!";
@@ -1316,7 +1316,7 @@ sub write_config {
 
 =head2 sub save
 
-	write *.pl flow files
+	write out user-built *.pl flow files
 
 	#for (my $i=0, my $j=0;  $i<$length; $i++, $j=$j+2){
     	#printf  $OUT "%-35s%1s%-20s\n",$CFG[$j],"= ",$CFG[($j+1)];
@@ -1331,7 +1331,7 @@ sub save {
 	_set_prog_names_aref();
 	_set_prog_version_aref();    # already collected in sub set_data
 
-	# print("files_LSU-save, is data:$files_LSU->{_is_data}\n");
+	# print("files_LSU, save, is data:$files_LSU->{_is_data}\n");
 
 	$oop_text->set_data_io_L_SU($files_LSU);    # already collected in sub set_data;
 	$oop_text->set_message($files_LSU);         # already collected in sub set_data;
@@ -1366,10 +1366,7 @@ sub save {
 				my $file_name = $params[0];
 				$oop_text->set_file_name_in($file_name);
 
-				# $oop_text->declare_data_in(); # removed in V 0.0.2
-				#				  print("2. files_LSU, got to declare data in\n");
 			} else {
-
 				# print("files_LSU, save, missing,files_LSU->{_is_data_in}\n ");
 			}    # we have data
 		}
@@ -1382,8 +1379,6 @@ sub save {
 				my $file_name = $params[0];
 				$oop_text->set_file_name_out($file_name);
 
-				#				 $oop_text->declare_data_out(); # removed in V 0.0.2
-				#				 # print("3. files_LSU, got to declare data out \n");
 			}
 		}
 	}

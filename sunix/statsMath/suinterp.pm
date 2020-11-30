@@ -396,6 +396,8 @@ sub linear {
 
 =head2 sub ninterp 
 
+How many new traces to create between each
+existing pair 
 
 =cut
 

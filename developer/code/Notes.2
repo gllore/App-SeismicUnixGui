@@ -19,20 +19,20 @@ Superflows diverge from L_SU via pre_built-superflow.pm
 
 User-built flows can be of 4 colors.
 
-
 The namespaces for each color flow and superflows are independent 
 for the most part of other parts of the program. 
 
 There are two sets of dialogs for interacting with files and directories.
 
-The Save and Run have their OWN logic-separated paths (L_SU, run_button and L_SU, save_button)
+The "Run" and "Save" have their OWN logic-separated paths:
+	L_SU, run_button and L_SU, save_button
 for superflows versus user-built flows, including parameter_widgets etc.
 
 The SaveAs and Data and Flow buttons have their own logic path through L_SU, FileDialog_button
 
 If there are superflow bindings for opening data files, then these use 
 	L_SU, pre_built_superflows,
- 			pre_built_superflow->select() ( is it now pre_bult_big_stream?) and 
+ 			pre_built_superflow->select() ( is it now pre_built_big_stream?) and 
  			_FileDialog_button,
  			pre_built_superflow,select,binding->set() (where actual binding takes place!)
 
@@ -86,8 +86,7 @@ Superflows/tools read configuration files and write configuration files
    configuration parameters are found in arrays and not in hashes as for
    the outside libraries of Config-Simple.  Former version of L_SU used Config-Simple
  
- For Project.config there is no local configuration file.  This superflow is
- handled by project_selector gui or by Project_config itself from within the main L_SU gui.
+
  
  Other superflows can have a local configuration file( i.e., iSpectralAnalysis.config)
  Make sure that your local configuration file also gets updated accordingly if you change
@@ -494,6 +493,7 @@ Q. What programs are used to generate a perl script which uses
   the parameters from the GUI:
   
 A. Saving a perl-based file, involves:
+How do I save a perl-based flow built by user (user-built)?
 
 N.B. files_LSU,save handles ultimate writing of .pl
 
@@ -880,7 +880,8 @@ Q. How does LSU_project_selector create new Project directories?
 	5. When a user goes to Save the current flow ( just in case the check button has not yet been set to new changes)  TODO
 	
 	
-	6. When a user goes to save the current flow under a name and employs 'SaveAs' ( just in case the check button has not yet been set to new changes)  TODO
+	6. When a user goes to save the current flow under a name and employs 'SaveAs' 
+	( just in case the check button has not yet been set to new changes)  TODO
 	
 	
 	
@@ -1376,15 +1377,13 @@ Q. Q. How does a superflow run?:
    Q What about neutral_flow?
    A. Yes, Very different to the rest but there are almost no changes to make when the colored flows are changed
    
-   TODO: remove dependency on param_flow_color_i in all color_flow.pm's
-   
    Q. How does last changed entry index get evaluated in color_flow (e.g., grey-flow.pm)
    
-   In grey_flow, e.g., 
+  #  In grey_flow, e.g., 
    
-   1. is initialized as = -1
-   2. also initialized  = 0 by add2flow  
-   3. ALSO, from $file_dialog, set_hash_ref
+  #  1. is initialized as = -1
+  #  2. also initialized  = 0 by add2flow  
+  #  3. ALSO, from $file_dialog, set_hash_ref
 
    = $color_flow->{_last_parameter_index_touched_color}
    = $file_dialog->get_last_parameter_index_touched_color();
@@ -1393,8 +1392,8 @@ Q. Q. How does a superflow run?:
    	=  $file_dialog->{_parameter_value_index}
    	= $param_widgets->get_entry_button_chosen_index()
    	
-   	N.B. _last_parameter_index_touched is either 0 or -1 and nothing else
-    If there has been a change (=0) then all parameters are updated
+ #  	N.B. _last_parameter_index_touched is either 0 or -1 and nothing else
+  #  If there has been a change (=0) then all parameters are updated
      
 
       TODO: Find out why sometimes all colors here are set to true
@@ -1441,8 +1440,8 @@ sunix_pl reading perl flows
 	
 	iFile is used for most user-built flow problems
 	
-	iFile is not used for _user_built_flow_SaveAs_perl_file, which isntead uses
-		file_dialog, _set_file_path is only used 
+	iFile is not used for _user_built_flow_SaveAs_perl_file, which instead uses only
+		file_dialog, _set_file_path
  
   JBrowse
   required forcing w->{-maxwidth} to tis default value of 0, which allows the widgets
@@ -2300,3 +2299,18 @@ Explain the different "flow types" used to bind MB3 clicks using the spec files:
 	 sunix
 	 
 	 TODO: check if conditions-gui has not been repalced by conditions4flows and conditions_superflow
+	 
+	 Q. How does SaveAs work?
+	 
+	 main, _L_SU
+	 	L_SU
+	 	FileDialog_button with options: 'Flow',  'Data' or 'SaveAs'
+	 		color_flow,
+	 		FileDialog_button(options)
+	 		_SaveAs_button
+	 			files_LSU,
+	 			save
+	 			
+Q. How are superflow parameters selctged in the case of Project
+ For Project.config there is no local configuration file.  This superflow is
+ handled by project_selector gui or by Project_config itself from within the main L_SU gui.

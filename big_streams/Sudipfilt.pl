@@ -1,3 +1,4 @@
+
 =pod
 
 =head1 DOCUMENTATION
@@ -47,10 +48,11 @@
 use Moose;
 our $VERSION = '1.0.2';
 
+use Sudipfilt_config;
 use flow;
 use message;
 use sudipfilt;
-use Sudipfilt_config;
+use suinterp;
 use suspecfk;
 use suxwigb;
 use suximage;
@@ -90,6 +92,7 @@ my $suspecfk         = new suspecfk();
 my $suxwigb          = new suxwigb();
 my $suximage         = new suximage();
 my $sufilter         = new sufilter();
+my $suinterp         = new suinterp();
 my $sugain           = new sugain();
 my $suwind           = new suwind();
 my $read             = new readfiles();
@@ -98,14 +101,19 @@ my $read             = new readfiles();
 
 =cut
 
-my ( @flow, @sufile_out, @inbound, @outbound );
-my ( @suxwigb, @sufilter, @suximage, @sugain, @items, @suspecfk );
+my ( @flow,        @sufile_out, @inbound,  @outbound );
+my ( @suxwigb,     @sufilter,   @suximage, @sugain, @suinterp, @items, @suspecfk );
 my ( @sudipfilter, @suwind );
 my ($sufile_in);
+
+my $yes           = $get->var->{_yes};
+my $no            = $get->var->{_no};
+my $skip_suinterp = $yes;
 
 =head2 Get configuration information
 
 =cut
+
 my ( $CFG_h, $CFG_aref ) = $Sudipfilt_config->get_values();
 
 =head2 TOP LEFT PLOT
@@ -115,7 +123,7 @@ my ( $CFG_h, $CFG_aref ) = $Sudipfilt_config->get_values();
 =cut
 
 # print("Sudipfilt.pl,HOME=$CFG_h->{Project_Variables}{1}{HOME}\n");
-  
+
 my $TOP_LEFT_sugain_pbal_switch = $CFG_h->{TOP_LEFT}{sugain}{pbal_switch};
 my $TOP_LEFT_sugain_agc_switch  = $CFG_h->{TOP_LEFT}{sugain}{agc_switch};
 my $TOP_LEFT_sugain_agc_width   = $CFG_h->{TOP_LEFT}{sugain}{agc_width};
@@ -133,6 +141,8 @@ my $sudipfilter_2_dx     = $CFG_h->{sudipfilter}{2}{dx};
 my $sudipfilter_2_slopes = $CFG_h->{sudipfilter}{2}{slopes};
 my $sudipfilter_2_bias   = $CFG_h->{sudipfilter}{2}{bias};
 my $sudipfilter_2_amps   = $CFG_h->{sudipfilter}{2}{amps};
+
+my $suinterp_1_ninterp = $CFG_h->{suinterp}{1}{ninterp};
 
 my $suwind_1_tmin = $CFG_h->{suwind}{1}{tmin};
 my $suwind_1_tmax = $CFG_h->{suwind}{1}{tmax};
@@ -169,19 +179,44 @@ $outbound[1]   = $inbound_directory . '/' . $sufile_out[1];
 
 if ( $TOP_LEFT_sugain_pbal_switch eq $on ) {
 
-    $sugain->clear();
-    $sugain->pbal( quotemeta($TOP_LEFT_sugain_pbal_switch) );
-    $sugain[1] = $sugain->Step();
+	$sugain->clear();
+	$sugain->pbal( quotemeta($TOP_LEFT_sugain_pbal_switch) );
+	$sugain[1] = $sugain->Step();
 
+} else {
+
+	$sugain->clear();
+	$sugain->agc( quotemeta($TOP_LEFT_sugain_agc_switch) );
+	$sugain->width( quotemeta($TOP_LEFT_sugain_agc_width) );
+
+	# $sugain     	-> setdt(quotemeta(1000));
+	$sugain[1] = $sugain->Step();
 }
-else {
 
-    $sugain->clear();
-    $sugain->agc( quotemeta($TOP_LEFT_sugain_agc_switch) );
-    $sugain->width( quotemeta($TOP_LEFT_sugain_agc_width) );
+=head2 suinterp
+  
+ Set interpolation to reduce aliasing
 
-    # $sugain     	-> setdt(quotemeta(1000));
-    $sugain[1] = $sugain->Step();
+=cut
+
+if ( length $suinterp_1_ninterp and $suinterp_1_ninterp > 0 ) {
+
+	$suinterp->clear();
+	$suinterp->ninterp( quotemeta($suinterp_1_ninterp) );
+	$suinterp[1] = $suinterp->Step();
+
+	# print("Sudipfilt.pl, do not skip suninterp \n");
+	# print $suinterp[1]."\n";
+	$skip_suinterp = $no;
+	# print("Sudipfilt.pl, skip suninterp= $skip_suinterp\n");
+
+} else {
+
+	$suinterp->clear();
+	print("Sudipfilt.pl, skip suninterp--bad ninterp \n");
+	$skip_suinterp = $yes;
+	# print("Sudipfilt.pl, skip suninterp= $skip_suinterp\n");
+
 }
 
 =head2 sufilter
@@ -201,7 +236,6 @@ $sufilter[1] = $sufilter->Step();
 
 =cut
 
-
 =head2 Window 
    
    by time
@@ -212,7 +246,6 @@ $suwind->clear();
 $suwind->tmin( quotemeta($suwind_1_tmin) );
 $suwind->tmax( quotemeta($suwind_1_tmax) );
 $suwind[1] = $suwind->Step();
-
 
 =head2  Window 
    
@@ -374,7 +407,7 @@ $suximage[1] = $suximage->Step();
 =head2 DISPLAY DATA as IMAGE
 
   Set parameters
-  Tope right image
+  Top right image
 
 =cut
 
@@ -388,24 +421,16 @@ $suximage->box_X0( quotemeta(670) );
 $suximage->box_Y0( quotemeta(0) );
 $suximage->hiclip( quotemeta(1) );
 $suximage->loclip( quotemeta(-1) );
-$suximage->tstart_s( quotemeta(0.) );
+$suximage->tstart_s( quotemeta($suwind_1_tmin) );
 $suximage->first_distance_tick_num( quotemeta(-0.5) );
-$suximage->tend_s( quotemeta(0.5) );
+$suximage->tend_s( quotemeta($suwind_1_tmax) );
 $suximage->num_minor_ticks_betw_distance_ticks( quotemeta(1) );
 $suximage->x_tick_increment( quotemeta(5) );
-
-#$suximage-> first_distance_tick_num(quotemeta(-0.5));
 $suximage->num_minor_ticks_betw_time_ticks( quotemeta(2) );
 $suximage->y_tick_increment( quotemeta(.1) );
-
-#$suximage-> label1(quotemeta('Frequency (quotemeta(Hz) dt=1 Nf=0.5'));
-# $suximage-> absclip(quotemeta(3));
 $suximage->legend( quotemeta(1) );
 $suximage->style( quotemeta('seismic') );
-
-#$suximage-> wigclip(quotemeta(1));
-#$suximage-> windowtitle(quotemeta("filtered_data"));
-$suximage[2] = $suximage->Step();     #
+$suximage[2] = $suximage->Step();    #
 
 =head2 DISPLAY DATA as IMAGE
 
@@ -435,8 +460,6 @@ $suximage->xlabel( quotemeta('k (1/m) dx=1 Nk=0.5') );
 $suximage->hiclip( quotemeta(1000) );
 $suximage->loclip( quotemeta(0) );
 $suximage->cmap( quotemeta('hsv2') );
-
-#$suximage-> style(quotemeta('seismic'));
 $suximage->windowtitle( quotemeta('Dip-filtered') );
 $suximage[4] = $suximage->Step();
 
@@ -450,85 +473,203 @@ $suximage[4] = $suximage->Step();
 $suximage->clear();
 $suximage->title( quotemeta($sufile_in) );
 $suximage->xlabel( quotemeta('No. traces') );
-$suximage->ylabel( quotemeta('Time (quotemeta(s)') );
+$suximage->ylabel( quotemeta('Time (s)') );
 $suximage->box_width( quotemeta(300) );
 $suximage->box_height( quotemeta(370) );
 $suximage->box_X0( quotemeta(670) );
 $suximage->box_Y0( quotemeta(440) );
-$suximage->tstart_s( quotemeta(0) );
-$suximage->tend_s( quotemeta(.5) );
+$suximage->tstart_s( quotemeta($suwind_1_tmin) );
+$suximage->tend_s( quotemeta($suwind_1_tmax) );
 $suximage->num_minor_ticks_betw_distance_ticks( quotemeta(1) );
-$suximage->x_tick_increment( quotemeta(5) );     #0.2
-    #$suximage-> first_distance_tick_num(quotemeta(-0.5));
+$suximage->x_tick_increment( quotemeta(5) );    #0.2
 $suximage->num_minor_ticks_betw_time_ticks( quotemeta(2) );
 $suximage->y_tick_increment( quotemeta(.1) );
-
-#$suximage-> dt(quotemeta(0.001));
 $suximage->first_time_sample_value( quotemeta(0) );
 $suximage->absclip( quotemeta($BOTTOM_RIGHT_suximage_absclip) );
 $suximage->legend( quotemeta(1) );
-
-#$suximage-> style(quotemeta('seismic'));
-#$suximage-> wigclip(quotemeta(1));
-#$suximage-> windowtitle(quotemeta("filtered_data"));
 $suximage[6] = $suximage->Step();
 
 =head2
  
   Standard:
   1. DEFINE FLOW(S)
+  
+  top left image
+  top middle plot
+  top right plot
+  bottom left image
+  bottom middle plot
+  bottom right image
+  output filtered data set
 
 =cut
 
-@items = (
-    $suwind[1], $in, $inbound[1], $to, $suwind[2], $to, $sugain[1],
-    $to, $sufilter[1], $to, $suspecfk[1], $to, $suximage[1], $go
-);
-$flow[1] = $run->modules( \@items );
+if ( length $skip_suinterp and $skip_suinterp eq $yes ) {
 
-@items = (
-    $suwind[1], $in, $inbound[1],  $to, $suwind[2],  $to,
-    $sugain[1], $to, $sufilter[1], $to, $suxwigb[1], $go
-);
-$flow[2] = $run->modules( \@items );
+	# top left
+	@items = (
+		$suwind[1], $in,          $inbound[1], $to,          $suwind[2], $to,          $sugain[1],
+		$to,        $sufilter[1], $to,         $suspecfk[1], $to,        $suximage[1], $go
+	);
+	$flow[1] = $run->modules( \@items );
 
-@items = (
-    $suwind[1], $in, $inbound[1],  $to, $suwind[2],   $to,
-    $sugain[1], $to, $sufilter[1], $to, $suximage[2], $go
-);
-$flow[3] = $run->modules( \@items );
+	# top middle
+	@items = (
+		$suwind[1], $in, $inbound[1],  $to, $suwind[2],  $to,
+		$sugain[1], $to, $sufilter[1], $to, $suxwigb[1], $go
+	);
+	$flow[2] = $run->modules( \@items );
 
-@items = (
-    $suwind[1],      $in, $inbound[1],  $to, $suwind[2],      $to,
-    $sugain[1],      $to, $sufilter[1], $to, $sudipfilter[1], $to,
-    $sudipfilter[2], $to, $suspecfk[1], $to, $suximage[4],    $go
-);
-$flow[4] = $run->modules( \@items );
+	# top right plot
+	@items = (
+		$suwind[1], $in, $inbound[1],  $to, $suwind[2],   $to,
+		$sugain[1], $to, $sufilter[1], $to, $suximage[2], $go
+	);
+	$flow[3] = $run->modules( \@items );
 
-@items = (
-    $suwind[1],      $in, $inbound[1],  $to, $suwind[2],      $to,
-    $sugain[1],      $to, $sufilter[1], $to, $sudipfilter[1], $to,
-    $sudipfilter[2], $to, $sugain[1],   $to, $suxwigb[5],     $go
-);
-$flow[5] = $run->modules( \@items );
+	# bottom left
+	@items = (
+		$suwind[1],      $in, $inbound[1],  $to, $suwind[2],      $to,
+		$sugain[1],      $to, $sufilter[1], $to, $sudipfilter[1], $to,
+		$sudipfilter[2], $to, $suspecfk[1], $to, $suximage[4],    $go
+	);
+	$flow[4] = $run->modules( \@items );
 
-@items = (
-    $suwind[1],   $in, $inbound[1],     $to, $suwind[2],      $to,
-    $sufilter[1], $to, $sudipfilter[1], $to, $sudipfilter[2], $to,
-    $sugain[1],   $to, $suximage[6],    $go
-);
-$flow[6] = $run->modules( \@items );
+	# bottom middle
+	@items = (
+		$suwind[1],      $in, $inbound[1],  $to, $suwind[2],      $to,
+		$sugain[1],      $to, $sufilter[1], $to, $sudipfilter[1], $to,
+		$sudipfilter[2], $to, $sugain[1],   $to, $suxwigb[5],     $go
+	);
+	$flow[5] = $run->modules( \@items );
 
-#$sugain[1],$to,
+	# bottom right image fk filter
+	@items = (
+		$suwind[1],      $in,
+		$inbound[1],     $to,
+		$suwind[2],      $to,
+		$sufilter[1],    $to,
+		$sudipfilter[1], $to,
+		$sudipfilter[2], $to,
+		$sugain[1],      $to,
+		$suximage[6],    $go
+	);
+	$flow[6] = $run->modules( \@items );
 
-@items = (
-    $suwind[1],      $in,          $inbound[1],  $to,             $suwind[2],
-    $to,             $sufilter[1], $to,          $sudipfilter[1], $to,
-    $sudipfilter[2], $out,         $outbound[1], $go
-);
-$flow[7] = $run->modules( \@items );
+	@items = (
+		$suwind[1],   $in,         
+		 $inbound[1],  $to, 
+		  $suwind[2], $to,
+		  $sufilter[1], $to,
+		  $sudipfilter[1], $to,
+		$sudipfilter[2], $out,
+		$outbound[1], $go
+	);
+	$flow[7] = $run->modules( \@items );
+	
+} elsif ( length $skip_suinterp and $skip_suinterp eq $no ) {
 
-#$sugain[1],$to,
+	# top left
+	@items = (
+		$suwind[1],   $in,
+		$inbound[1],  $to,
+		$suwind[2],   $to,
+		$suinterp[1], $to,
+		$sugain[1],   $to,
+		$sufilter[1], $to,
+		$suspecfk[1], $to,
+		$suximage[1], $go
+	);
+	$flow[1] = $run->modules( \@items );
+
+	# top middle
+	@items = (
+		$suwind[1],   $in,
+		$inbound[1],  $to,
+		$suwind[2],   $to,
+		$suinterp[1], $to,
+		$sugain[1],   $to,
+		$sufilter[1], $to,
+		$suxwigb[1],  $go
+	);
+	$flow[2] = $run->modules( \@items );
+
+	#top right
+	@items = (
+		$suwind[1],   $in,
+		$inbound[1],  $to,
+		$suwind[2],   $to,
+		$suinterp[1], $to,
+		$sugain[1],   $to,
+		$sufilter[1], $to,
+		$suximage[2], $go
+	);
+	$flow[3] = $run->modules( \@items );
+
+	# bottom left
+	@items = (
+		$suwind[1],      $in,
+		$inbound[1],     $to,
+		$suwind[2],      $to,
+		$suinterp[1],    $to,
+		$sufilter[1],    $to,
+		$sugain[1],      $to,
+		$sudipfilter[1], $to,
+		$sudipfilter[2], $to,
+		$suspecfk[1],    $to,
+		$suximage[4],    $go
+	);
+	$flow[4] = $run->modules( \@items );
+
+	# bottom middle
+	@items = (
+		$suwind[1],      $in,
+		$inbound[1],     $to,
+		$suwind[2],      $to,
+		$suinterp[1],    $to,
+		$sufilter[1],    $to,
+		$sugain[1],      $to,
+		$sudipfilter[1], $to,
+		$sudipfilter[2], $to,
+		$sugain[1],      $to,
+		$suxwigb[5],     $go
+	);
+	$flow[5] = $run->modules( \@items );
+
+	# bottom right image fk filter
+	@items = (
+		$suwind[1],      $in,
+		$inbound[1],     $to,
+		$suwind[2],      $to,
+		$suinterp[1],    $to,
+		$sufilter[1],    $to,
+		$sudipfilter[1], $to,
+		$suwind[1],      $in,
+		$inbound[1],     $to,
+		$suwind[2],      $to,
+		$sufilter[1],    $to,
+		$sudipfilter[1], $to,
+		$sudipfilter[2], $to,
+		$sugain[1],      $to,
+		$suximage[6],    $go
+	);
+	$flow[6] = $run->modules( \@items );
+
+	@items = (
+		$suwind[1],   $in,         
+		 $inbound[1],  $to, 
+		  $suwind[2], $to,
+		  $suinterp[1],    $to,
+		  $sufilter[1], $to,
+		  $sudipfilter[1], $to,
+		$sudipfilter[2], $out,
+		$outbound[1], $go
+	);
+	$flow[7] = $run->modules( \@items );
+
+} else {
+	print("Sudipfilt.pl, skip_interp is bad\n");
+}
 
 =pod
 
@@ -550,27 +691,27 @@ $run->flow( \$flow[7] );
 
 =cut
 
-print "$flow[1]\n";
+# print "$flow[1]\n";
 
 #$log->file($flow[1]);
 
-print "$flow[2]\n";
+# print "$flow[2]\n";
 
 #$log->file($flow[2]);
 
-print "$flow[3]\n";
+# print "$flow[3]\n";
 
 #$log->file($flow[3]);
 
-print "$flow[4]\n";
+# print "$flow[4]\n";
 
 #$log->file($flow[4]);
 
-print "$flow[5]\n";
+# print "$flow[5]\n";
 
 #$log->file($flow[5]);
 
-print "$flow[6]\n";
+#print "$flow[6]\n";
 
 #$log->file($flow[6]);
 

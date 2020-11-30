@@ -145,7 +145,7 @@ sub _changes {
 	use control;    # =0
 	my $control = new control;
 	
-	print("param_widgets_grey, changes, index=$index\n");
+	# print("param_widgets_grey, changes, index=$index\n");
 
 	if (    $index >= 0
 		and $param_widgets_color_href->{_current_program_name} ) {
@@ -175,7 +175,10 @@ sub _changes {
 			#		print(" param_widgets_grey,max_index, $max_idx \n");
 
 		} else {
-			print(" param_widgets_grey, _changes, bad index \n");
+			#			NADA
+#			print(" param_widgets_grey, _changes, bad index \n");
+#			print("param_widgets_grey,_changes,index= $index\n");
+#			print("param_widgets_grey,_changes,max_index$control->get_max_index($prog_name)\n");
 		}
 	} else {
 		print("param_widgets_grey, _changes,missing  prog_name\n");

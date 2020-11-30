@@ -35,8 +35,8 @@
           result = .FALSE.
          end if
 
-        print *, 'read_yes_no_file.f, change:',change
-        print *, 'read_yes_no_file.f, result',result
+!        print *, 'read_yes_no_file.f, change:',change
+!        print *, 'read_yes_no_file.f, result',result
          close (unit=12)
 
         else

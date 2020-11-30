@@ -33,7 +33,7 @@
 
           read (29,format1) result
 
-        print *, 'read_option_file.f, result',result
+!        print *, 'read_option_file.f, result',result
          close (unit=29)
 
         else

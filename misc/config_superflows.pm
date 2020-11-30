@@ -362,7 +362,7 @@ sub _local_or_defaults {
 
 sub get_local_or_defaults {
 	my ( $self, $config_base_name ) = @_;
-	print("config_superflows, get_local_or_defaults,program name=$config_base_name\n");
+	# print("config_superflows, get_local_or_defaults,program name=$config_base_name\n");
 	
 	use L_SU_local_user_constants;
 	my $user_constants = L_SU_local_user_constants->new();
@@ -374,8 +374,8 @@ sub get_local_or_defaults {
 
 		my $name_sref = $config_superflows->{_program_name_sref};
 
-		print("config_superflows, get_local_or_defaults,program name=$$name_sref\n");
-		print("config_superflows, get_local_or_defaults,SCALAR program name=$name_sref\n");
+		# print("config_superflows, get_local_or_defaults,program name=$$name_sref\n");
+		# print("config_superflows, get_local_or_defaults,SCALAR program name=$name_sref\n");
 
 		$cfg_aref = $big_streams_param->get($name_sref);
 

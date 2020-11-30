@@ -197,7 +197,7 @@ sub _basic_dirs {
 	if ( -e $prog_name_old . '.config' ) {
 
 		# CASE 1 check local directory first LEGACY Project_Variables file
-		print("1. Project_config,_basic_dirs,using local $prog_name_old.config\n");
+		# print("1. Project_config,_basic_dirs,using local $prog_name_old.config\n");
 
 		$prog_name = $prog_name_old;
 #		print("1a. Project_config,_basic_dirs,using local $prog_name_old.config \n");

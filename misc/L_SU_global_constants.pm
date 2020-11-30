@@ -227,7 +227,7 @@ my $var = {
     _40_characters  => '40',
     _45_characters  => '45',
     _base_file_name => 'base_file_name',
-    _box_position   => '870x650+12+50',
+    _box_position   => '1000x650+12+50',
 
     #_box_position        => '890x660+12+12',
     _clear_text                    => '',

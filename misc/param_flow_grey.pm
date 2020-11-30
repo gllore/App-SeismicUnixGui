@@ -1015,7 +1015,7 @@ sub set_flow_index {
 	my ( $self, $index ) = @_;
 
 	# print("param_flow_grey, set_flow_index,index, $index\n");
-	if ( defined $index ) {
+	if (  CORE::length($index)  ) {
 
 		if ( $index ne $empty_string && $index >= 0 ) {
 
@@ -1039,7 +1039,6 @@ sub set_flow_index {
 
 	}
 	else {
-
 		print("param_flow_grey, set_flow_index,unexpected index value\n");
 	}
 

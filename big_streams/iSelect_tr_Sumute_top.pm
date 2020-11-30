@@ -307,14 +307,7 @@ sub calcNdisplay {
 
  filtering parameters 
 
-  use lib "./libAll";
-  use iTop_Mute_config qw ( $href_sufilter);
-  
-
 =cut
-
-    #use lib "./libAll";
-    #use iTop_Mute_config qw ($href_sufilter);
 
 =head2
   print has reference value
@@ -385,6 +378,7 @@ sub calcNdisplay {
     $suxwigb->box_height( quotemeta(600) );
     $suxwigb->box_X0( quotemeta(750) );
     $suxwigb->box_Y0( quotemeta(150) );
+    #$suxwigb->f2(quotemeta(60));
     $suxwigb->title( quotemeta( $base_caption[2] ) );
     $suxwigb->windowtitle( $windowtitle[2] );
     $suxwigb->ylabel( quotemeta('TWTT s') );
@@ -451,11 +445,11 @@ sub calcNdisplay {
 
 =cut
 
-    print "$flow[1]\n";
+    # print "iSelect_tr-Sumute_top $flow[1]\n";
 
     #$log->file($flow[1]);
 
-    print "$flow[2]\n";
+    # print( "iSelect_tr-Sumute_top $flow[2]\n");
 
     #$log->file($flow[2);
 

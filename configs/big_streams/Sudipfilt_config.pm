@@ -54,6 +54,8 @@ sudipfilter_2_slopes	= '-40,-10,-3,0'
 
 sudipfilter_2_amps	= '0,0,0,1'
 
+suinterp_ninterp                     = 1     
+
 suwind_1_tmin	= 0
 suwind_1_tmax	= 1 
 
@@ -136,19 +138,20 @@ sub get_values {
     my $sudipfilter_2_bias            = @{ $Sudipfilt->{_values_aref} }[8];
     my $sudipfilter_2_slopes          = @{ $Sudipfilt->{_values_aref} }[9];
     my $sudipfilter_2_amps            = @{ $Sudipfilt->{_values_aref} }[10];
-    my $suwind_1_tmin                 = @{ $Sudipfilt->{_values_aref} }[11];
-    my $suwind_1_tmax                 = @{ $Sudipfilt->{_values_aref} }[12];
-    my $suwind_2_key                  = @{ $Sudipfilt->{_values_aref} }[13];
-    my $suwind_2_min                  = @{ $Sudipfilt->{_values_aref} }[14];
-    my $suwind_2_max                  = @{ $Sudipfilt->{_values_aref} }[15];
-    my $suspecfk_1_dt                 = @{ $Sudipfilt->{_values_aref} }[16];
-    my $suspecfk_1_dx                 = @{ $Sudipfilt->{_values_aref} }[17];
-    my $sufilter_1_freq               = @{ $Sudipfilt->{_values_aref} }[18];
-    my $sufilter_1_amplitude          = @{ $Sudipfilt->{_values_aref} }[19];
-    my $TOP_LEFT_sugain_pbal_switch   = @{ $Sudipfilt->{_values_aref} }[20];
-    my $TOP_LEFT_sugain_agc_switch    = @{ $Sudipfilt->{_values_aref} }[21];
-    my $TOP_LEFT_sugain_agc_width     = @{ $Sudipfilt->{_values_aref} }[22];
-    my $BOTTOM_RIGHT_suximage_absclip = @{ $Sudipfilt->{_values_aref} }[23];
+     my $suinterp_ninterp                = @{ $Sudipfilt->{_values_aref} }[11];
+    my $suwind_1_tmin                 = @{ $Sudipfilt->{_values_aref} }[12];
+    my $suwind_1_tmax                 = @{ $Sudipfilt->{_values_aref} }[13];
+    my $suwind_2_key                  = @{ $Sudipfilt->{_values_aref} }[14];
+    my $suwind_2_min                  = @{ $Sudipfilt->{_values_aref} }[15];
+    my $suwind_2_max                  = @{ $Sudipfilt->{_values_aref} }[16];
+    my $suspecfk_1_dt                 = @{ $Sudipfilt->{_values_aref} }[17];
+    my $suspecfk_1_dx                 = @{ $Sudipfilt->{_values_aref} }[18];
+    my $sufilter_1_freq               = @{ $Sudipfilt->{_values_aref} }[19];
+    my $sufilter_1_amplitude          = @{ $Sudipfilt->{_values_aref} }[20];
+    my $TOP_LEFT_sugain_pbal_switch   = @{ $Sudipfilt->{_values_aref} }[21];
+    my $TOP_LEFT_sugain_agc_switch    = @{ $Sudipfilt->{_values_aref} }[22];
+    my $TOP_LEFT_sugain_agc_width     = @{ $Sudipfilt->{_values_aref} }[23];
+    my $BOTTOM_RIGHT_suximage_absclip = @{ $Sudipfilt->{_values_aref} }[24];
 
     # check on formats
     # $freq 							= $control->commas(\$freq); # needed?
@@ -222,6 +225,11 @@ sub get_values {
                 amplitude => $sufilter_1_amplitude,
             },
         },
+         suinterp => {
+            1 => {
+                ninterp => $suinterp_ninterp,
+            },
+         },
         suspecfk => {
             1 => {
                 dt => $suspecfk_1_dt,
@@ -246,8 +254,8 @@ max index = number of input variables -1
 sub get_max_index {
     my ($self) = @_;
 
-    # only file_name : index=23
-    my $max_index = 23;
+    # only file_name : index=24
+    my $max_index = 24;
 
     return ($max_index);
 }

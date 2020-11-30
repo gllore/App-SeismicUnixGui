@@ -177,7 +177,6 @@ my $main_href = $gui_history->get_defaults();
 ( $main_href->{_mw} )->focusFollowsMouse;
 
 
-
 =head2 Define 
   
   fonts to use in the menu
@@ -265,7 +264,7 @@ my $small_garamond = ( $main_href->{_mw} )->fontCreate(
 $top_menu_frame = ( $main_href->{_mw} )->Frame(
 	-borderwidth => $var->{_no_borderwidth},
 	-background  => $var->{_my_purple},
-	-relief      => 'groove'
+	-relief      => 'groove',
 );
 
 $side_menu_frame = ( $main_href->{_mw} )->Frame(
@@ -725,14 +724,12 @@ sub-frames called sunix_frame_I through and sunix_frame_V
 $sunix_frame_top_row = ( $main_href->{_mw} )->Frame(
 	-borderwidth => $var->{_no_borderwidth},
 	-relief      => 'flat',
-
 	#-width       	=> $var->{_11_characters},
 	-background => $var->{_my_purple},
 );
 $sunix_frame_bottom_row = ( $main_href->{_mw} )->Frame(
 	-borderwidth => $var->{_no_borderwidth},
 	-relief      => 'flat',
-
 	#-width       	=> $var->{_11_characters},
 	-background => $var->{_my_purple},
 );
@@ -778,7 +775,6 @@ my $sunix_frame_I = $sunix_frame_bottom_row->Frame(
 =head2 Notebooks 
 within sunix_frame_V (top row)
 
- 
 =cut  
 
 my $sunix_programs_V_book = $sunix_frame_V->NoteBook(
@@ -1438,24 +1434,35 @@ $main_href->{_flow_listbox_blue_w} = $flow_control_frame_bottom_row->Scrolled(
 $top_menu_frame->pack(
 	-side => "top",
 	-fill => 'x',
+	-expand => 0,
+	-anchor   => "nw",
 );
+
 $top_titles_frame->pack(
 	-side => "top",
-	-fill => 'x'
+	-fill => 'x',
+	-expand => 0,
 );
 
 $side_menu_frame->pack(
 	-side => "left",
-	-fill => "both"
+	-fill => "y",
+    -expand => 0,
+	-anchor   => "nw",
 );
 
 $sunix_frame_top_row->pack(
 	-side => "top",
-	-fill => "y",
+	-fill => "x",
+	-expand => 0,
+	-anchor => "nw",
 );
+
 $sunix_frame_bottom_row->pack(
 	-side => "top",
 	-fill => "x",
+	-expand => 0,
+	-anchor => "nw",	
 );
 
 # top menu frame
@@ -1998,7 +2005,7 @@ in L_SU
 	save_button
 	run_button
 	FileDialog_button with one of 3
-	possible values: 'Flow' 'Data' or 'SaveAs'
+	possible values: 'Flow',  'Data' or 'SaveAs'
 
 =cut
 

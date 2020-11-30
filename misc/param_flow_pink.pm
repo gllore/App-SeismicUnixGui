@@ -185,7 +185,7 @@ sub _set_good_labels4item {
 
 			}
 			else {
-				print( "param_flow_pink, _set_good_labels_4item: unexpected ending\n" );
+				print("param_flow_pink, _set_good_labels_4item: unexpected ending\n");
 			}
 
 		}
@@ -255,7 +255,7 @@ sub _set_good_values4item {
 
 			}
 			else {
-				print( "param_flow_pink, _set_good_values_4item: unexpected ending\n" );
+				print("param_flow_pink, _set_good_values_4item: unexpected ending\n");
 			}
 
 		}
@@ -355,7 +355,7 @@ sub clear_flow_items_version_aref {
 
 	}
 	else {
-		print( "param_flow_pink, clear_flow_items_version_aref, missing program_version_aref\n" );
+		print("param_flow_pink, clear_flow_items_version_aref, missing program_version_aref\n");
 	}
 
 }
@@ -668,10 +668,11 @@ sub get_num_items {
 	my ($self) = @_;
 
 	if ( $param_flow_pink->{_num_items} >= 0 ) {
-		my $num_items = $param_flow_pink->{_num_items4flow};
+		my $num_items = $param_flow_pink->{_num_items};
 
+		my $result = $num_items;
 		# print("param_flow_pink,get_num_items, num_items = $param_flow_pink->{_num_items} \n");
-		return ($num_items);
+		return ($result);
 
 	}
 	else {
@@ -717,7 +718,7 @@ sub get_values_aref {
 
 	}
 	else {
-		print( "param_flow_pink,get_values_aref :selection_index <=0  or values_aref2\n" );
+		print("param_flow_pink,get_values_aref :selection_index <=0  or values_aref2\n");
 		return ();
 	}
 }
@@ -902,13 +903,13 @@ sub length {
 		@values_aref = @{ @{ $param_flow_pink->{_values_aref2} }[$index] };
 		$length      = scalar @values_aref;
 
-		#  						print("param_flow_pink, length, num values: $length\n");
+		# print("param_flow_pink, length, num values: $length\n");
 		#  						print("param_flow_pink, index: $index\n");
 		return ($length);
 	}
 	else {
-		print("param_flow_pink,length,  index does not exist\n");
-		print("param_flow_pink, length, num values: $length\n");
+		print("param_flow_pink,length,  index=$index does not exist\n");
+		print("param_flow_pink, length, length can not be calculated\n");
 		return ();
 	}
 }
@@ -1014,7 +1015,7 @@ sub set_flow_index {
 	my ( $self, $index ) = @_;
 
 	# print("param_flow_pink, set_flow_index,index, $index\n");
-	if ( defined $index ) { 
+	if (  CORE::length($index)  ) {
 
 		if ( $index ne $empty_string && $index >= 0 ) {
 
@@ -1027,13 +1028,18 @@ sub set_flow_index {
 			# );
 		}
 	}
-	else {
+	elsif ( $index ne $empty_string && $index < 0 ) {
+
 		# assume flow index selected = 0 . Should not be a problem because we assume that any and
 		# all parameters values are changed when ANY flow item is selected
 		$index = 0;
 		$param_flow_pink->{_selection_index} = $index;
 
-		# print("param_flow_pink, set_flow_index,index does not exist, index:$index\n");
+		print("param_flow_pink, set_flow_index,index does not exist, index:$index\n");
+
+	}
+	else {
+		print("param_flow_pink, set_flow_index,unexpected index value\n");
 	}
 
 	return ();
@@ -1306,7 +1312,7 @@ sub stack_flow_item {
 	if ($program_name_sref) {
 		my $index = $param_flow_pink->{_index4flow} + 1;
 
-		# print("param_flow_pink, stack_flow_item, index: $index\n");
+		# rint("param_flow_pink, stack_flow_item, index: $index\n");
 
 		$program_names[$index] = $$program_name_sref;
 		$param_flow_pink->{_prog_names_aref} = \@program_names;
@@ -1315,6 +1321,9 @@ sub stack_flow_item {
 		$param_flow_pink->{_index4flow} = $index;
 		$param_flow_pink->{_num_items4flow}++;
 		$param_flow_pink->{_num_items}++;
+
+		# print("param_flow_pink, stack_flow_item @{$param_flow_pink->{_prog_names_aref}}, num_items $param_flow_pink->{_num_items}\n");
+		# print("param_flow_pink, stack_flow_item, index: $index\n");
 
 	}
 	return ();
@@ -1343,7 +1352,7 @@ sub stack_names_aref2 {
 	if ($names_aref) {
 		my $index = $param_flow_pink->{_index4names} + 1;
 
-		# print("param_flow_pink,names_aref2,index: $index\n");
+		# print("param_flow_pink,stack_names_aref2,index: $index\n");
 		$names[$index]                   = $names_aref;
 		$param_flow_pink->{_names_aref2} = \@names;
 		$param_flow_pink->{_indices}     = $index;
@@ -1351,10 +1360,9 @@ sub stack_names_aref2 {
 		$param_flow_pink->{_num_items4names}++;
 		$param_flow_pink->{_num_items} = $param_flow_pink->{_num_items4names};
 
-		#
-		#  	for (my $i=0; $i<=$index;$i++) {
-		#     	print("param_flow_pink,stack_names_aref2, an accumulating array of arrays: @{$param_flow_pink->{_names_aref2}} item $i\n");
-		#  	}
+		# for (my $i=0; $i<=$index;$i++) {
+		#  	print("param_flow_pink,stack_names_aref2, an accumulating array of arrays: @{@{$param_flow_pink->{_names_aref2}}[$i]} item $i\n");
+		# }
 
 	}
 	else {
@@ -1432,22 +1440,24 @@ sub view_data {
 
 	#    $num_progs[3] = scalar  ( @{$param_flow_pink->{_values_aref2}} );
 	#    $num_progs[4] = scalar  ( @{$param_flow_pink->{_checkbuttons_aref2}});
-	$num_progs[5] = scalar( @{ $param_flow_pink->{_prog_names_aref} } );
+	$num_progs[2] = scalar( @{ $param_flow_pink->{_prog_names_aref} } );
 
-	 print("\n param_flow_pink,view_data, _prog_names @{$param_flow_pink->{_prog_names_aref}}\n");
-	# print("\nparam_flow_pink,view_data:number of items in list in 4-5 different ways  @num_progs \n");
+	# print("\n param_flow_pink,view_data, _prog_names @{$param_flow_pink->{_prog_names_aref}}\n");
+	print("\nparam_flow_pink,view_data:number of items in list in 4-5 different ways  @num_progs \n");
 
 	# print("param_flow_pink,view_data:max index = $indices  \n\n");
 
 	# print("param_flow_pink,view_data, param_flow_pink_ has hash=$param_flow_pink\n ");
 
-	 for ( my $i = 0; $i <= $indices; $i++ ) {
+	for ( my $i = 0; $i <= $indices; $i++ ) {
 
-		 print("param_flow_pink,view_data: names:        @{@{$param_flow_pink->{_names_aref2}}[$i]}\n");
-		 print("param_flow_pink,view_data: values:       @{@{$param_flow_pink->{_values_aref2}}[$i]}\n");
+		print("param_flow_pink,view_data: names:        @{@{$param_flow_pink->{_names_aref2}}[$i]}\n");
+		print("param_flow_pink,view_data: values:       @{@{$param_flow_pink->{_values_aref2}}[$i]}\n");
 
-		     print("param_flow_pink,view_data: checkbuttons: @{@{$param_flow_pink->{_checkbuttons_aref2}}[$i]}\n\n");
-	 }
+		#     print("param_flow_pink,view_data: checkbuttons: @{@{$param_flow_pink->{_checkbuttons_aref2}}[$i]}\n\n");
+	}
+	print("\n");
+	
 }
 
 1;

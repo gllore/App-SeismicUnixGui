@@ -64,11 +64,12 @@ sub binding_index_aref {
 
 	# do not change HOME, i.e. first parameter
 	# do not change PROJECT_HOME, i.e. second parameter
-	$index[0] = 2;    # first item is bound to value of the third parameter
-	$index[1] = 3;    # first item is bound to value of the fourth parameter
-	$index[2] = 4;    # first item is bound to value of the fifth parameter
-	$index[3] = 5;    # first item is bound to value of the sixth parameter
-	$index[4] = 6;    # first item is bound to value of the seventh parameter
+	$index[0] = 1;    # first item is bound to value of the second parameter	
+	$index[1] = 2;    # first item is bound to value of the third parameter
+	$index[2] = 3;    # first item is bound to value of the fourth parameter
+	$index[3] = 4;    # first item is bound to value of the fifth parameter
+	$index[4] = 5;    # first item is bound to value of the sixth parameter
+	$index[5] = 6;    # first item is bound to value of the seventh parameter
 
 	$Project_spec->{_binding_index_aref} = \@index;
 
@@ -130,7 +131,8 @@ sub file_dialog_type_aref {
 	$type[2] = $file_dialog_type->{_Path};
 	$type[3] = $file_dialog_type->{_Path};
 	$type[4] = $file_dialog_type->{_Path};
-
+	$type[5] = $file_dialog_type->{_Path};
+	
 	$Project_spec->{_file_dialog_type_aref} = \@type;
 
 	return ();
@@ -200,7 +202,6 @@ sub get_binding_length {
 		return ($length);
 
 	} else {
-
 		print("Project_spec, get_binding_length, missing length \n");
 		return ();
 	}

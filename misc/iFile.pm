@@ -156,51 +156,6 @@ sub _get_DATA_DIR_OUT {
 	}
 }
 
-#=head2 sub close
-#
-#	close out File Dialog and highlight the next
-#	location in the GUI
-#   			 #  print("iFile,close, superflow=$hash_ref->{_is_superflow_select_button}\n");
-#   			 #  print("iFile,close, flowleft=$hash_ref->{_is_flow_listbox_grey_w}\n");
-#
-#=cut
-#
-#sub close {
-#	my ( $self, $hash_ref ) = @_;
-#
-#	if ( $hash_ref->{_last_flow_listbox_touched_w} ) {
-#
-#		$iFile->{_last_flow_listbox_touched_w} = $hash_ref->{_last_flow_listbox_touched_w};
-#		$iFile->{_last_flow_index_touched}     = $hash_ref->{_last_flow_index_touched};
-#
-#		print("1. iFile,close, _last_flow_listbox_touched_w = $iFile->{_last_flow_listbox_touched_w}\n");
-#		print("2. iFile,close, _last_flow_index_touched = $hash_ref->{_last_flow_index_touched}\n");
-#
-#		if (   $hash_ref->{_is_flow_listbox_grey_w}
-#			|| $hash_ref->{_is_flow_listbox_pink_w}
-#			|| $hash_ref->{_is_flow_listbox_green_w}
-#			|| $hash_ref->{_is_flow_listbox_blue_w}
-#			|| $hash_ref->{_is_flow_listbox_color_w} )
-#		{
-#			# print("3 of 3 iFile,close, is grey listbox  =$hash_ref->{_is_flow_listbox_grey_w}\n");
-#
-#			_close4flow();
-#		}
-#
-#		if ( $hash_ref->{_is_superflow_select_button} ) {
-#
-#			_close4superflow();
-#
-#		}
-#
-#	}
-#	else {
-#		print("iFile,close, missing _last_flow_listbox_touched_w \n");
-#	}
-#
-#	return ();
-#}
-
 =head2 sub get_Open_perl_flow_path 
 
 =cut
@@ -522,7 +477,7 @@ sub get_Path {
 		my $Project      = Project_config->new();
 		my $program_name = _get_prog_name();
 
-		print("iFile,get_Path,flow_type: $iFile->{_flow_type}\n");
+		# print("iFile,get_Path,flow_type: $iFile->{_flow_type}\n");
 
 		if ( $iFile->{_flow_type} eq $flow_type_href->{_user_built} ) {
 
@@ -530,7 +485,7 @@ sub get_Path {
 			# first get values from the Project
 			my $PROJECT_HOME = $Project->PROJECT_HOME();
 
-			print("iFile,get_Path for $program_name PROJECT_HOME=$PROJECT_HOME\n");
+			# print("iFile,get_Path for $program_name PROJECT_HOME=$PROJECT_HOME\n");
 
 			my $entry_label = $iFile->{_entry_button_label};
 			my $index       = $iFile->{_parameter_value_index};
@@ -559,14 +514,14 @@ sub get_Path {
 				)
 
 			{
-				print("1.iFile,get_Path, _values_aref: @{$iFile->{_values_aref}}[0]\n");
+				# print("1.iFile,get_Path, _values_aref: @{$iFile->{_values_aref}}[0]\n");
 
 				my $entry_label = $iFile->{_entry_button_label};
 				my $index       = $iFile->{_parameter_value_index};
 				my @values      = @{ $iFile->{_values_aref} };
 
-				print("iFile,get_Path,parameter label or name 	=---$entry_label---\n");
-				print("1.iFile,get_Path, _values_aref: @{$iFile->{_values_aref}}\n");
+				# print("iFile,get_Path,parameter label or name 	=---$entry_label---\n");
+				# print("1.iFile,get_Path, _values_aref: @{$iFile->{_values_aref}}\n");
 
 				my $forHOME         = $values[0];
 				my $forPROJECT_HOME = $values[0];
@@ -635,7 +590,7 @@ sub get_Path {
 	$iFile->{_path} = $Path;
 	$result = $iFile->{_path};
 
-	print("7. iFile,get_Path,path=$iFile->{_path}\n");
+	# print("7. iFile,get_Path,path=$iFile->{_path}\n");
 	return ($result);
 }
 
