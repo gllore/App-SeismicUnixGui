@@ -1,5 +1,6 @@
 package oop_flows;
 use Moose;
+our $VERSION = '0.0.3';
 use message_director;
 
 my $L_SU_messages = message_director->new();
@@ -28,9 +29,10 @@ my @lines;
 
 	final assemblage of text for perl script
 	this section covers the defined flows
-	Removed in V 0.0.2
+	Removed in V 0.0.2:
 	if ( ($prog_name[$prog_idx] ne 'data_in') &&  ($prog_name[$prog_idx] ne 'data_out') ) { 
-
+   12.3.20 corrected symbol at index 3
+  
 =cut
 
 sub get_section {
@@ -56,22 +58,23 @@ sub get_section {
 			# print("flows,get_section,version=$version[$prog_idx]\n");
 			# print("flows,get_section,symbol=$symbol[$prog_idx]\n");
 
-			$lines[$j] = "\t\t  " . '$' . $prog_name[$prog_idx] . '[' . "$version[$prog_idx]" . '], ' . $symbol[$prog_idx] . ',';
+			$lines[$j]
+				= "\t\t  " . '$'
+				. $prog_name[$prog_idx] . '['
+				. "$version[$prog_idx]" . '], '
+				. $symbol[$prog_idx] . ',';
 
 		}
 		if (   ( $prog_name[$prog_idx] ne 'data_in' )
-			&& ( $prog_name[$prog_idx] ne 'data_out' ) )
-		{
+			&& ( $prog_name[$prog_idx] ne 'data_out' ) ) {
 
 			$lines[$j] = "\t\t  " . '$' . $prog_name[$prog_idx] . '[' . "$version[$prog_idx]" . '],';
 
-		}
-		elsif ( $prog_name[$prog_idx] eq 'data_in' ) {
+		} elsif ( $prog_name[$prog_idx] eq 'data_in' ) {
 
 			$lines[$j] = "\t\t  " . '$data_in[1],';
 
-		}
-		elsif ( $prog_name[$prog_idx] eq 'data_out' ) {
+		} elsif ( $prog_name[$prog_idx] eq 'data_out' ) {
 
 			$lines[$j] = "\t\t  " . '$data_out[1],';
 		}
@@ -85,8 +88,7 @@ sub get_section {
 
 		return ( \@lines );
 
-	}
-	else {
+	} else {
 		print("flows,get_section,missing num_progs4flow \n");
 	}
 
@@ -194,7 +196,7 @@ sub set_specs {
 	my @prog_versions = @$prog_names_version_aref;
 	my $length        = $oop_flows->{_num_progs4flow};
 	my $last_idx      = $length - 1;
-	$message_w = $oop_flows->{_message_w};    # (widget)
+	$message_w = $oop_flows->{_message_w};
 
 	# STEP 1
 	# REVERSE first two items in the flow
@@ -222,8 +224,7 @@ sub set_specs {
 				$prog_versions[$i] = @{$prog_names_version_aref}[$i];
 			}
 		}
-	}
-	elsif ( $length == 1 ) {
+	} elsif ( $length == 1 ) {
 
 		# Not enough items in a flow sequence
 		# NULL CASE
@@ -238,8 +239,7 @@ sub set_specs {
 		$message_w->delete( "1.0", 'end' );
 		$message_w->insert( 'end', $message );
 
-	}
-	else {
+	} else {
 		print("2.Warning No item in flow--flow will not run: flows,set_specs,length = 0 \n");
 
 		my $message_w = $oop_flows->{_message_w};
@@ -314,59 +314,52 @@ sub set_specs {
 
 					# only if second item is NOT data_out, i.e. probably data_in
 					# BUT not certain this will be the case always TODO
-				}
-				elsif (( $corrected_prog_names[1] ne 'data_out' )
-					&& ( $corrected_prog_names[1] ne 'data_in' ) )
-				{
+				} elsif ( ( $corrected_prog_names[1] ne 'data_out' )
+					&& ( $corrected_prog_names[1] ne 'data_in' ) ) {
 
 					# print(" 2. flows, second item is now $module_spec[1]\n");
 					$symbols[0] = '$to';    # pipe
 
-				}
-				elsif ( $corrected_prog_names[1] eq 'data_in' ) {
+				} elsif ( $corrected_prog_names[1] eq 'data_in' ) {
 
 					if ( $specs[0]->{_is_suprog} ) {
 
 						# print(" 3. flows, second item is now $module_spec[1]\n");
 						$symbols[0] = '$in';    # redirect
-					}
-					elsif ( not $specs[0]->{_is_suprog} ) {
+					} elsif ( not $specs[0]->{_is_suprog} ) {
 
 						# print(" 4. flows, second item is now $module_spec[1]\n");
 
 						if ( $specs[0]->{_has_redirect_in} ) {
+
 							# print(" 5. flows, second item is now $module_spec[1]\n");
 							$symbols[0] = '$in';    # redirect
-						}
-						elsif ( not $specs[0]->{_has_redirect_in} ) {
+						} elsif ( not $specs[0]->{_has_redirect_in} ) {
+
 							# print(" 6. flows, second item is now $module_spec[1]\n");
 							$symbols[0] = " ";      # nothing, e.g., evince file_name.ps
 
-						}
-						else {
+						} else {
 							print(" 1. oop_flows, set_specs first item has bad spec file\n");
 						}
 
-					}
-					else {
+					} else {
 						print(" 2. oop_flows, set_specs first item has bad spec file\n");
 					}
-
-				}
-				else {
+				} else {
 					print(" oop_flows, set_specs unexpected case\n");
 				}
-			}
-			else {
-				print(" Warning: Second item ($module_spec[1]) is not allowed. Check *spec.pm file (oop_flows,set_specs)\n");
+			} else {
+				print(
+					" Warning: Second item ($module_spec[1]) is not allowed. Check *spec.pm file (oop_flows,set_specs)\n"
+				);
 				print(" oop_flows, set_specs, unexpected input\n");
 				$message = $L_SU_messages->flows(0);
 				$message_w->delete( "1.0", 'end' );
 				$message_w->insert( 'end', $message );
 			}
 
-		}
-		else {
+		} else {
 			$message = $L_SU_messages->flows(1);
 			$message_w->delete( "1.0", 'end' );
 			$message_w->insert( 'end', $message );
@@ -380,15 +373,16 @@ sub set_specs {
 	if ( $length == 3 ) {
 
 		# CASE 3.1 first and second items
-		# for symbol 0
+		# for symbol whose index=0
 		# e.g., sugain < data_in
 		if (   $specs[0]->{_is_first_of_3or_more}
-			&& $corrected_prog_names[1] eq 'data_in' )
-		{
+			&& $corrected_prog_names[1] eq 'data_in' ) {
 
 			$symbols[0] = '$in';
 
 			# print(" oop_flows,set_specs,case 3.1\n");
+			# print(" Between items 1 and 2 symbol=$symbols[0], with index=0 \n");
+
 			# for Third item
 			if ( $specs[2]->{_is_last_of_3or_more} ) {
 
@@ -401,41 +395,45 @@ sub set_specs {
 
 					# print(" oop_flows,set_specs,case 3.1.1\n");
 
-					# CASE 3.1.2
-					# e.g., sugain < data_in | suximage
-					# fors symbols[1]
-
 				}
+
+				# CASE 3.1.2
+				# e.g., sugain < data_in | suximage
+				# fors symbols[1]
 				elsif ($specs[2]->{_is_suprog}
 					&& $corrected_prog_names[1] eq 'data_in'
-					&& $specs[2]->{_has_pipe_in} )
-				{
+					&& $specs[2]->{_has_pipe_in} ) {
+
 					# print(" oop_flows,set_specs,corrected_prog_names[1]= $corrected_prog_names[1]\n");
 					$symbols[1] = '$to';
 
-				}
-				else {
+				} elsif (
+					$specs[2]->{_is_suprog}
+					&& $specs[2]->{_has_outpar}
+				) {
+
+					# print(" oop_flows,set_specs,corrected_prog_names[1]= $corrected_prog_names[1]\n");
+					$symbols[1] = '$tty';
+
+				} else {
 					$message = $L_SU_messages->flows(2);
 					$message_w->delete( "1.0", 'end' );
 					$message_w->insert( 'end', $message );
 
-					# print(" Warning: Last item is not allowed. Use data_out or a program (oop_flows,set_specs)\n");
+					# print(" 1. Warning: Last item is not allowed. Use data_out or a program (oop_flows,set_specs)\n");
 				}
-			}
-			else {
-				print(" Warning: Last item is not allowed. (oop_flows,set_specs)\n");
+			} else {
+				print(" 2. Warning: Last item is not allowed. (oop_flows,set_specs)\n");
 			}
 
 			# CASE 3.2 first and second items,
 			# where the first program has internal access to files
 			# e.g., suop2 | sugain
 			# for symbols[0]
-		}
-		elsif ($specs[0]->{_is_first_of_3or_more}
+		} elsif ( $specs[0]->{_is_first_of_3or_more}
 			&& $specs[0]->{_has_pipe_out}
 			&& $specs[1]->{_is_suprog}
-			&& $specs[1]->{_has_pipe_in} )
-		{
+			&& $specs[1]->{_has_pipe_in} ) {
 
 			$symbols[0] = '$to';
 
@@ -453,16 +451,13 @@ sub set_specs {
 					# e.g., suop2 | sugain | suximage
 					# for second symbol symbol[1] between
 					# second and thrid program
-				}
-				elsif ($specs[2]->{_is_suprog}
+				} elsif ( $specs[2]->{_is_suprog}
 					&& $specs[1]->{_has_pipe_out}
-					&& $specs[2]->{_has_pipe_in} )
-				{
+					&& $specs[2]->{_has_pipe_in} ) {
 
 					$symbols[1] = '$to';
 
-				}
-				else {
+				} else {
 					$message = $L_SU_messages->flows(2);
 					$message_w->delete( "1.0", 'end' );
 					$message_w->insert( 'end', $message );
@@ -470,8 +465,7 @@ sub set_specs {
 					# print(" Warning: Last item is not allowed. Use data_out or program (oop_flows,set_specs)\n");
 				}
 			}
-		}
-		else {
+		} else {
 			$message = $L_SU_messages->flows(3);
 			$message_w->delete( "1.0", 'end' );
 			$message_w->insert( 'end', $message );
@@ -479,7 +473,8 @@ sub set_specs {
 			# print(" Warning: First or second items are not allowed. (oop_flows,set_specs)\n");
 		}
 
-	}    
+	}
+
 	# end of CASE with 3 items in flow
 
 	# CASE 4
@@ -493,8 +488,7 @@ sub set_specs {
 		# e.g., sugain < data_in ...| suprog
 		# for symbols[0]
 		if (   $specs[0]->{_is_first_of_4or_more}
-			&& $corrected_prog_names[1] eq 'data_in' )
-		{
+			&& $corrected_prog_names[1] eq 'data_in' ) {
 
 			$symbols[0] = '$in';
 
@@ -506,17 +500,16 @@ sub set_specs {
 
 			if (   $specs[2]->{_is_suprog}
 				&& $specs[1]->{_has_pipe_out}
-				&& $specs[2]->{_has_pipe_in} )
-			{
+				&& $specs[2]->{_has_pipe_in} ) {
 
 				$symbols[1] = '$to';
 
 				# print(" oop_flows,set_specs,case 4.1.1\n");
 
-			}
-			else {
+			} else {
 				print(" Warning: Problem with item 2 or beyond, item OK (oop_flows,set_specs)\n");
-			}    
+			}
+
 			# End CASE 4.1.1
 
 			# CASE 4.1.2
@@ -529,15 +522,13 @@ sub set_specs {
 
 				if (   $specs[$i]->{_is_suprog}
 					&& $specs[$i]->{_has_pipe_out}
-					&& $specs[$j]->{_has_pipe_in} )
-				{
+					&& $specs[$j]->{_has_pipe_in} ) {
 
 					$symbols[$i] = '$to';
 
 					# print(" " oop_flows,set_specs,case 4.1.2\n");
 
-				}
-				else {
+				} else {
 					print(" Case 4.1.2 Warning: Problem with item 3 or beyond, items 1 and 2 OK (flows,set_specs)\n");
 					print(
 						" Case 4.1.2 flows,set_specs,\n
@@ -546,7 +537,8 @@ sub set_specs {
 							\tspecs[$j]->{_has_pipe_in}=$specs[$j]->{_has_pipe_in}\n"
 					);
 				}
-			}    
+			}
+
 			# End CASE 4.1.2
 
 			# CASE 4.1.3
@@ -562,18 +554,15 @@ sub set_specs {
 					# print(" oop_flows,set_specs,case 4.1.3.1\n");
 
 					# CASE 4.1.3.2  sugain < data_in | suprog | suprog
-				}
-				elsif ($specs[$last_idx]->{_is_suprog}
-					&& $specs[$last_idx]->{_has_pipe_in} )
-				{
+				} elsif ( $specs[$last_idx]->{_is_suprog}
+					&& $specs[$last_idx]->{_has_pipe_in} ) {
 
 					# print("flows,set_specs,second_last_idx=$second_last_idx\n");
 					$symbols[$second_last_idx] = '$to';
 
 					# print(" oop_flows,set_specs,case 4.1.2.2\n");
 
-				}
-				else {
+				} else {
 					$message = $L_SU_messages->flows(2);
 					$message_w->delete( "1.0", 'end' );
 					$message_w->insert( 'end', $message );
@@ -581,15 +570,15 @@ sub set_specs {
 					print(" Warning: 3 Last item is not allowed. Use data_out or program (flows,set_specs)\n");
 				}
 
-			}
-			else {
+			} else {
 				$message = $L_SU_messages->flows(2);
 				$message_w->delete( "1.0", 'end' );
 				$message_w->insert( 'end', $message );
 				print(" Warning: 4. unexpected last item (flows,set_specs)\n");
 				print(" Warning: 4. Last item is not allowed. Use data_out or program (flows,set_specs)\n");
 
-			}    
+			}
+
 			# End CASE 4.1.3
 
 			# CASE 4.2
@@ -597,29 +586,27 @@ sub set_specs {
 			# where the first program has internal access to files
 			# e.g., suop2 | suprog | ... suprog .... > data_out or |	suximage
 			# for symbols[0]
-		}
-		elsif ($specs[0]->{_is_first_of_4or_more}
+		} elsif ( $specs[0]->{_is_first_of_4or_more}
 			&& $specs[0]->{_has_pipe_out}
 			&& $specs[1]->{_has_pipe_in}
-			&& $specs[1]->{_is_suprog} )
-		{
-			# print(" oop_flows,set_specs,case 4.2\n");
+			&& $specs[1]->{_is_suprog} ) {
 			$symbols[0] = '$to';
+
+			# print(" oop_flows,set_specs,case 4.2\n");
+			# print ("Between programs 1 and 2, symbol=$symbols[0], with index=0\n");
 
 			# CASE 4.2.1
 			# For symbol between second and third items
 			# for symbols[1]
 			if (   $specs[1]->{_is_suprog}
 				&& $specs[1]->{_has_pipe_out}
-				&& $specs[2]->{_has_pipe_in} )
-			{
+				&& $specs[2]->{_has_pipe_in} ) {
 
 				$symbols[1] = '$to';
 
 				# print(" oop_flows,set_specs,case 4.2.1\n");
-
-			}
-			else {
+				# print ("Between programs 2 and 3, symbol=$symbols[1], with index=1\n");
+			} else {
 				print(" Warning: Problem with item 2 or beyond, item OK (flows,set_specs)\n");
 
 			}
@@ -634,13 +621,13 @@ sub set_specs {
 
 				if (   $specs[$i]->{_is_suprog}
 					&& $specs[$i]->{_has_pipe_out}
-					&& $specs[$j]->{_has_pipe_in} )
-				{
-					# print(" oop_flows,set_specs,case 4.2.1\n");
-					$symbols[$j] = '$to';
+					&& $specs[$j]->{_has_pipe_in} ) {
 
-				}
-				else {
+					$symbols[$i] = '$to';
+
+					# print(" oop_flows,set_specs,case 4.2.1\n");
+					# print ("Between programs $j and ($j+1), symbol=$symbols[$i], with index=$i\n");
+				} else {
 					print(" Case 4.2.2 Warning: Problem with item 3 or beyond, items 1 and 2 OK (flows,set_specs)\n");
 				}
 			}
@@ -660,15 +647,13 @@ sub set_specs {
 
 					# CASE 4.2.3.2  sugain | suprog | suprog | suprog
 					# for last symbol
-				}
-				elsif ($specs[$last_idx]->{_is_suprog}
-					&& $specs[$last_idx]->{_has_pipe_in} )
-				{
+				} elsif ( $specs[$last_idx]->{_is_suprog}
+					&& $specs[$last_idx]->{_has_pipe_in} ) {
+
 					# print(" oop_flows,set_specs,case 4.2.3.2\n");
 					$symbols[$second_last_idx] = '$to';
 
-				}
-				else {
+				} else {
 					$message = $L_SU_messages->flows(2);
 					$message_w->delete( "1.0", 'end' );
 					$message_w->insert( 'end', $message );
@@ -676,8 +661,7 @@ sub set_specs {
 					print(" Warning: 1 Last item is not allowed. Use data_out or program (flows,set_specs)\n");
 				}
 
-			}
-			else {
+			} else {
 
 				$message = $L_SU_messages->flows(2);
 				$message_w->delete( "1.0", 'end' );
@@ -685,11 +669,11 @@ sub set_specs {
 				print(" Warning:  2. unexpected last item (flows,set_specs)\n");
 				print(" Warning: 2 Last item is not allowed. Use data_out or program (flows,set_specs)\n");
 
-			}    
+			}
+
 			# End CASE 4.2.3
 
-		}
-		else {
+		} else {
 			print(" Warning:  unexpected first item (flows,set_specs)\n");
 		}    # CASE 4.2
 

@@ -78,12 +78,13 @@ my $sudoc2pm = {
 
 # which group number do you want to use to create
 # *.pm, *.config, and *_spec.pm files ?
-my $group_no = 13;    # e.g. transfoms=15
+my $group_no = 15;    # e.g. transfoms=15
 
 # which program do you want to work on
 my $selected_program_name = 'sugetgthr';
 my $selected_program_name = 'sugain';
 my $selected_program_name = 'suputgthr';
+my $selected_program_name = 'suifft';
 
 $prog_doc2pm->set_group_directory($group_no);
 my $path_in         = $prog_doc2pm->get_path_in();
@@ -120,9 +121,9 @@ for ( my $i = 2; $i < $list_length; $i++ ) {
 	if ( $selected_program_name eq $package_name[0] ) {
 		print("sudoc2pm.pl, I am in group=$group_no \n");
 		print("sudoc2pm.pl, I am working on package =$package_name[0] \n");
-		print("sudoc2pm.pl, writing $pm_file_out[0]\n");
-		print("sudoc2pm.pl, writing $config_file_out[0]\n");
-		print("sudoc2pm.pl, writing $spec_file_out[0]\n");
+		print("sudoc2pm.pl, writing $pm_file_out[0] in scratch\n");
+		print("sudoc2pm.pl, writing $config_file_out[0] in scratch\\n");
+		print("sudoc2pm.pl, writing $spec_file_out[0]in scratch\ \n");
 
 =head2 Read in sunix documentaion
 =cut

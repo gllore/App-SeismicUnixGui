@@ -52,7 +52,8 @@
 =head2 USE
 
 =head3 NOTES
-
+= $j\n");
+					$symbols[$j] = '$to';
 =head4 Examples
 
 =head3 SEISMIC UNIX NOTES

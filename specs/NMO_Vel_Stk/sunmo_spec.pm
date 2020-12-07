@@ -3,7 +3,7 @@ use Moose;
 our $VERSION = '0.0.1';
 
 use Project_config;
-use SeismicUnix qw ($par $none $suffix_par $suffix_none);
+use SeismicUnix qw ($su $suffix_su);
 use L_SU_global_constants;
 use sunmo;
 
@@ -19,25 +19,22 @@ my $false            = $var->{_false};
 my $file_dialog_type = $get->file_dialog_type_href();
 my $flow_type        = $get->flow_type_href();
 
-my $DATA_DIR_IN		 = $Project->PL_SEISMIC();    # output data directory
-my $PL_SEISMIC       = $Project->PL_SEISMIC();
-my $DATA_DIR_OUT	 = $Project->PL_SEISMIC();    # output data directory
+my $DATA_SEISMIC_SU = $Project->DATA_SEISMIC_SU();    # output data directory
+my $max_index       = $sunmo->get_max_index();
 
-
-my $max_index		 = $sunmo->get_max_index();
-
-my $sunmo_spec =  {
-    _CONFIG	 				=> $PL_SEISMIC,
-    _DATA_DIR_IN           => $DATA_DIR_IN,
-    _DATA_DIR_OUT          => $DATA_DIR_OUT,
+my $sunmo_spec = {
+    _DATA_DIR_IN           => $DATA_SEISMIC_SU,
+	_DATA_DIR_OUT          => $DATA_SEISMIC_SU,
+    _CONFIG					=>'Nada',
 	_binding_index_aref    => '',
-    _suffix_type_in        => $par,
-    _data_suffix_in        => $suffix_par,
-    _suffix_type_out       => $none,
-    _data_suffix_out       => $suffix_none,
+    _suffix_type_in        => $su,
+    _data_suffix_in        => $suffix_su,
+    _suffix_type_out       => $su,
+    _data_suffix_out       => $suffix_su,
     _file_dialog_type_aref => '',
     _flow_type_aref        => '',
     _has_infile            => $true,
+    _has_outpar          => $false,
     _has_pipe_in           => $true,
     _has_pipe_out          => $true,
     _has_redirect_in       => $true,
@@ -47,7 +44,7 @@ my $sunmo_spec =  {
     _is_data               => $false,
     _is_first_of_2         => $true,
     _is_first_of_3or_more  => $true,
-    _is_first_of_4or_more  => $true,
+    _is_first_of_4or_more  => $sunmo,
     _is_last_of_2          => $false,
     _is_last_of_3or_more   => $false,
     _is_last_of_4or_more   => $false,
@@ -66,9 +63,7 @@ sub binding_index_aref {
 
     my @index;
 
-	$index[0] = 3;    # first item is  bound to PL_SEISMIC, perl Flow directory
-	$index[1] = 4;    # second item is bound to PL_SEISMIC, perl Flow directory
-
+    $index[0] = 0;
 
     $sunmo_spec->{_binding_index_aref} = \@index;
     return ();
@@ -88,8 +83,7 @@ sub file_dialog_type_aref {
 
     my @type;
 
-	$type[0] = $file_dialog_type->{_Data};
-	$type[1] = $file_dialog_type->{_Data};
+    $type[0] = '';
 
     $sunmo_spec->{_file_dialog_type_aref} = \@type;
     return ();
@@ -107,7 +101,7 @@ sub flow_type_aref {
     my @type;
 
     $type[0] = $flow_type->{_user_built};
-    
+
     $sunmo_spec->{_flow_type_aref} = \@type;
     return ();
 

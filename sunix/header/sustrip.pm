@@ -113,7 +113,7 @@ sub clear {
 sub ftn {
 
     my ( $self, $ftn ) = @_;
-    if ($ftn) {
+    if (length $ftn) {
 
         $sustrip->{_ftn}  = $ftn;
         $sustrip->{_note} = $sustrip->{_note} . ' ftn=' . $sustrip->{_ftn};

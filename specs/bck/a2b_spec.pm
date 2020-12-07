@@ -37,6 +37,7 @@ my $a2b_spec =  {
     _file_dialog_type_aref => '',
     _flow_type_aref        => '',
     _has_infile            => $true,
+    _has_outpar          => $false,
     _has_pipe_in           => $true,
     _has_pipe_out          => $true,
     _has_redirect_in       => $true,

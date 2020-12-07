@@ -120,7 +120,7 @@ sub set_hash_ref {
 =head2 _changes
  If you are at this subroutine it means that
  an Entry widget has lost or gained focus
-
+param_widgets_pink, changes,
  If we reach this subroutine we 
  will assume changes occurred to 
  all parameter (Entry) widgets belonging to 

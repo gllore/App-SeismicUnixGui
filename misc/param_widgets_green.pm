@@ -174,7 +174,7 @@ sub _changes {
 			#		print(" param_widgets_green,max_index, $max_idx \n");
 
 		} else {
-			print(" param_widgets_green, changes, bad index \n");
+			# print(" param_widgets_green, changes, bad index NADA \n");
 		}
 	} else {
 		print("param_widgets_green, changes,missing  prog_name\n");

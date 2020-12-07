@@ -1,152 +1,204 @@
 package suifft;
-use Moose;
-
-=pod
-
-=head1 DOCUMENTATION
 
 =head2 SYNOPSIS
 
-  PROGRAM NAME: suifft
-  AUTHOR: Juan Lorenzo 
-  DATE:  July 7 2016
-  DESCRIPTION:  A package that transforms real time traces
-		into complex frequency traces
-  VERSION: 1.0
+PACKAGE NAME: 
 
-=head2 Use
+AUTHOR:  
 
-=head2 Notes
+DATE:
 
-	'_note' keeps track of actions for use in graphics
-	'_Step' keeps track of actions for execution in the system
+DESCRIPTION:
 
-=head2 Seismic Unix Notes
+Version:
 
- SUIFFT - fft complex frequency traces to real time traces
- 
- suiftt <stdin >sdout sign=-1
- 
- Required parameters:
-        none
- 
- Optional parameter:
-        sign=-1         sign in exponent of inverse fft
- 
- Output traces are normalized by 1/N where N is the fft size.
- 
- Note: suifft | suifft is not quite a no-op since the trace
-        length will usually be longer due to fft padding.
+=head2 USE
+
+=head3 NOTES
+
+=head4 Examples
+
+=head2 SYNOPSIS
+
+=head3 SEISMIC UNIX NOTES
+ SUIFFT - fft complex frequency traces to real time traces	
+
+
+
+ suiftt <stdin >sdout sign=-1					
+
+
+
+ Required parameters:						
+
+ 	none							
+
+
+
+ Optional parameter:						
+
+ 	sign=-1		sign in exponent of inverse fft		
+
+
+
+ Output traces are normalized by 1/N where N is the fft size.	
+
+
+
+ Note: sufft | suifft is not quite a no-op since the trace	
+
+ 	length will usually be longer due to fft padding.	
+
+
+
+
+
+ Credits:
+
+
+
+	CWP: Shuki, Chris, Jack
+
+
+
+ Trace header fields accessed: ns, trid
+
+ Trace header fields modified: ns, trid
+
+
+
+=head2 CHANGES and their DATES
 
 =cut
 
-my $suifft = {
-    _Step    => '',
-    _note    => '',
-    _sign    => '',
-    _dt      => '',
-    _verbose => ''
+use Moose;
+our $VERSION = '0.0.1';
+
+
+=head2 Import packages
+
+=cut
+
+use L_SU_global_constants();
+
+use SeismicUnix qw ($in $out $on $go $to $suffix_ascii $off $suffix_su $suffix_bin);
+use Project_config;
+
+
+=head2 instantiation of packages
+
+=cut
+
+my $get					= new L_SU_global_constants();
+my $Project				= new Project_config();
+my $DATA_SEISMIC_SU		= $Project->DATA_SEISMIC_SU();
+my $DATA_SEISMIC_BIN	= $Project->DATA_SEISMIC_BIN();
+my $DATA_SEISMIC_TXT	= $Project->DATA_SEISMIC_TXT();
+
+my $var				= $get->var();
+my $on				= $var->{_on};
+my $off				= $var->{_off};
+my $true			= $var->{_true};
+my $false			= $var->{_false};
+my $empty_string	= $var->{_empty_string};
+
+=head2 Encapsulated
+hash of private variables
+
+=cut
+
+my $suifft			= {
+	_sign					=> '',
+	_Step					=> '',
+	_note					=> '',
+
 };
 
-=pod
+=head2 sub Step
 
-=head1 Description of Subroutines
-
-=head2 Subroutine clear
-	
-	Sets all variable strings to '' (nothing) 
+collects switches and assembles bash instructions
+by adding the program name
 
 =cut
 
-sub clear {
-    $suifft->{_Step}    = '';
-    $suifft->{_note}    = '';
-    $suifft->{_sign}    = '';
-    $suifft->{_dt}      = '';
-    $suifft->{_verbose} = '';
-}
+ sub  Step {
 
-=pod
+	$suifft->{_Step}     = 'suifft'.$suifft->{_Step};
+	return ( $suifft->{_Step} );
 
-=head2 Subroutine sign
-	
-	sign in exponent of inverse fft
-	!!Should be left undefined or at '-1'!!
+ }
+
+
+=head2 sub note
+
+collects switches and assembles bash instructions
+by adding the program name
 
 =cut
 
-sub sign {
-    my ( $sub, $sign ) = @_;
-    $suifft->{_sign} = $sign if defined($sign);
-    $suifft->{_note} = $suifft->{_note} . ' sign=' . $suifft->{_sign};
-    $suifft->{_Step} = $suifft->{_Step} . ' sign=' . $suifft->{_sign};
-}
+ sub  note {
 
-=head2 Subroutine dt
-	
-	dt 
+	$suifft->{_note}     = 'suifft'.$suifft->{_note};
+	return ( $suifft->{_note} );
 
-=cut
+ }
 
-sub dt {
-    my ( $sub, $dt ) = @_;
-    $suifft->{_dt}   = $dt if defined($dt);
-    $suifft->{_note} = $suifft->{_note} . ' dt=' . $suifft->{_dt};
-    $suifft->{_Step} = $suifft->{_Step} . ' dt=' . $suifft->{_dt};
-}
 
-=head2 Subroutine verbose
-	
-	verbose 
+
+=head2 sub clear
 
 =cut
 
-sub verbose {
-    my ( $sub, $verbose ) = @_;
-    $suifft->{_verbose} = $verbose if defined($verbose);
-    $suifft->{_note}    = $suifft->{_note} . ' verbose=' . $suifft->{_verbose};
-    $suifft->{_Step}    = $suifft->{_Step} . ' verbose=' . $suifft->{_verbose};
-}
+ sub clear {
+		$suifft->{__sign}			= '';
+		$suifft->{_empty_string}			= '';
+		$suifft->{_false}			= '';
+		$suifft->{_get}			= '';
+		$suifft->{_index}			= '';
+		$suifft->{_max_index}			= '';
+		$suifft->{_off}			= '';
+		$suifft->{_on}			= '';
+		$suifft->{_sign}			= '';
+		$suifft->{_suifft}			= '';
+		$suifft->{_true}			= '';
+		$suifft->{_var}			= '';
+		$suifft->{_Step}			= '';
+		$suifft->{_note}			= '';
+ }
 
-=pod
 
-=head2 Subroutine Step
+=head2 sub sign 
 
-	Keeps track of actions for execution in the system
-
-=cut
-
-sub Step {
-    $suifft->{_Step} = 'suifft' . $suifft->{_Step};
-    return $suifft->{_Step};
-}
-
-=pod
-
-=head2 Subroutine note
-
-	Keeps track of actions for possible use in graphics
 
 =cut
 
-sub note {
-    $suifft->{_note} = $suifft->{_note};
-    return $suifft->{_note};
-}
+ sub sign {
+
+	my ( $self,$sign )		= @_;
+	if ( $sign ne $empty_string ) {
+
+		$suifft->{_sign}		= $sign;
+		$suifft->{_note}		= $suifft->{_note}.' sign='.$suifft->{_sign};
+		$suifft->{_Step}		= $suifft->{_Step}.' sign='.$suifft->{_sign};
+
+	} else { 
+		print("suifft, sign, missing sign,\n");
+	 }
+ }
+
 
 =head2 sub get_max_index
 
 max index = number of input variables -1
-
+ 
 =cut
-
+ 
 sub get_max_index {
-    my ($self) = @_;
+ 	  my ($self) = @_;
+    my $max_index = 0;
 
-    # only file_name : index=6
-    my $max_index = 6;
-
-    return ($max_index);
+    return($max_index);
 }
-
-1;
+ 
+ 
+1; 
