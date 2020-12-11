@@ -495,8 +495,8 @@ sub get_Path {
 			my $forSITE         = $forPROJECT_HOME . '/seismics/pl/';
 
 			# make base path
-			print("5.iFile,get_Path, forSITE: $forSITE \n");
-			print("6.iFile,get_Path,for program_name: $program_name \n");
+			# print("5.iFile,get_Path, forSITE: $forSITE \n");
+			# print("6.iFile,get_Path,for program_name: $program_name \n");
 			$Path = $forSITE;
 
 		} elsif ( $flow_type_href->{_pre_built_superflow} ) {
@@ -523,9 +523,9 @@ sub get_Path {
 				# print("iFile,get_Path,parameter label or name 	=---$entry_label---\n");
 				# print("1.iFile,get_Path, _values_aref: @{$iFile->{_values_aref}}\n");
 
-				my $forHOME         = $values[0];
+				my $forHOME         = $values[0];  #can't be changed
 				my $forPROJECT_HOME = $values[0];
-				my $forSITE         = $values[1] . '/seismics/pl/';
+				my $forSITE         = $values[1] . '/seismics/pl/';  # seismics/pl chosen out of convenience; could be gmt/pl
 				my $forSPARE_DIR    = $forSITE . $values[2] . '/';
 				my $forDATE         = $forSPARE_DIR . $values[3] . '/';
 				my $forCOMPONENT    = $forDATE . $values[4] . '/';

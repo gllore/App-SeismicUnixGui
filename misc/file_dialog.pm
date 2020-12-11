@@ -106,6 +106,7 @@ sub _FileDialog {
 	my ($self) = @_;
 
 	use Tk::JFileDialog;
+
 	# use JFileDialog;    # 4/25/2019
 	my $my_title        = _get_dialog_type();    # e.g., 'SaveAs' or 'Save' or 'Flow'
 	my $FileDialog_path = _get_path();           # e.g., $PL or $DATA_SEISMIC_SU
@@ -125,8 +126,8 @@ sub _FileDialog {
 		-HistFile     => "./.FileHistory.txt",
 		-PathFile     => "./.Bookmarks.txt",
 		-Create       => 1,
-		-width  => 52,
-		-maxwidth => 59,
+		-width        => 52,
+		-maxwidth     => 59,
 	);
 
 	# results from interactive file selection
@@ -139,6 +140,198 @@ sub _FileDialog {
 	# print("file_dialog,_FileDialog,selected_file_name
 	# is $file_dialog->{_selected_file_name} \n");
 	return ();
+}
+
+=head2  _big_stream_last_dir_in_path
+
+=cut 
+
+sub _big_stream_last_dir_in_path {
+
+	my ($self) = @_;
+
+	print("file_dialog, _big_stream_last_dir_in_path\n ");
+	use iFile;
+	use whereami;
+	use L_SU_global_constants;
+
+	my $param_widgets = param_widgets4pre_built_streams->new();
+	my $get           = L_SU_global_constants->new();
+	my $whereami      = whereami->new();
+	my $iFile         = iFile->new();
+
+	my $default_param_specs = $get->param();
+	my $first_idx           = $default_param_specs->{_first_entry_idx};
+	my $length              = $default_param_specs->{_length};
+
+	$gui_history->set_hash_ref($file_dialog);
+	$gui_history->set4FileDialog_open_start();
+	$gui_history->set4superflow_open_path_start();
+	$file_dialog = $gui_history->get_hash_ref();    # gets 93
+
+	# If an appropriate Entry widget is first selected,
+	# Find out which entry button has been chosen (index)
+	# Confirm that it IS the file button
+
+	# print("file_dialog,_big_stream_last_dir_in_path,_FileDialog_button pressed, \n");
+	# print("file_dialog, _big_stream_last_dir_in_path selected  _values_aref=@{$file_dialog->{_values_aref}}\n");
+	# print("file_dialog, _big_stream_last_dir_in_path selected  _values_aref=@{$file_dialog->{_names_aref}}\n");
+	# print("file_dialog  _big_stream_last_dir_in_path selected  parameter_values_frame = $file_dialog->{_parameter_values_frame} \n");
+
+	my $widget_type = $whereami->widget_type( $file_dialog->{_parameter_values_frame} );
+
+	# print("file_dialog  _big_stream_last_dir_in_path selected widget type is = $widget_type	\n");
+
+	if ( $widget_type eq 'Entry' ) {
+
+		# print("1. file_dialog,_big_stream_last_dir_in_path, selected widget_type=$widget_type \n");
+
+		my $selected_Entry_widget = $file_dialog->{_parameter_values_frame}->focusCurrent;
+		$param_widgets->set_entry_button_chosen_widget($selected_Entry_widget);
+
+		# Need to set the length and first_idx or, $param-widgets->set_length($file_dialog_length);
+		# print("file_dialog,_big_stream_last_dir_in_path,selection_Entry_widget HASH = $selected_Entry_widget\n");
+		# print("file_dialog,_big_stream_last_dir_in_path, parameter_value_index= $file_dialog->{_parameter_value_index}\n");
+
+		$param_widgets->set_first_idx($first_idx);
+		$param_widgets->set_length($length);
+
+		# print("2. file_dialog  _big_stream_last_dir_in_path, selected_Entry_widget: $selected_Entry_widget\n");
+
+		$file_dialog->{_parameter_value_index} = $param_widgets->get_entry_button_chosen_index();
+
+		# print("file_dialog,_big_stream_last_dir_in_path,selection_Entry_widget HASH = $selected_Entry_widget\n");
+		# print("file_dialog,_big_stream_last_dir_in_path, parameter_value_index= $file_dialog->{_parameter_value_index}\n");
+
+		if ( $file_dialog->{_parameter_value_index} >= 0 ) {    # for additional certainty; but is it needed?
+			 # print("4. file_dialog,ig_stream_last_dir_in_path, parameter_value_index= $file_dialog->{_parameter_value_index}\n");
+			$file_dialog->{_entry_button_label} = $param_widgets->get_label4entry_button_chosen();
+
+			# print("5. file_dialog,_big_stream_last_dir_in_path,entry_button_label = $file_dialog->{_entry_button_label}\n");
+
+			# use iFile to determine the stored Path in the current configuration file
+			$iFile->set_entry($file_dialog);                    # selected entry label
+			$iFile->set_flow_type_h($file_dialog);              # a pre-built superflow
+			$iFile->set_parameter_value_index($file_dialog);    # e.g., 0
+			$iFile->set_values_aref($file_dialog);              # e.g., /home/gom/
+			$iFile->set_prog_name_sref($file_dialog);           # e.g., Project_config
+
+			$file_dialog->{_path} = $iFile->get_Path();
+
+			print("1.file_dialog,_pre-built_superflow_path, PATH:  $file_dialog->{_path} \n");
+
+			# print("1.file_dialog,ig_stream_last_dir_in_path, _values_aref: @{$file_dialog->{_values_aref}}[0]\n");
+
+			_FileDialog();                                      # open file dialog widget
+
+			print("2.file_dialog,_pre-built_superflow_path, last_path_touched:  $file_dialog->{_last_path_touched} \n");
+
+			_big_stream_last_dir_in_path_close();
+
+			# print("2.file_dialog,ig_stream_last_dir_in_path, _values_aref: @{$file_dialog->{_values_aref}}[0]\n");
+			# my $length= scalar @{$file_dialog->{_values_aref}};  # 61 values
+		   # for (my $i=0; $i < $length; $i++) {
+			 # 	print("3.file_dialog,ig_stream_last_dir_in_path, _values_aref: @{$file_dialog->{_values_aref}}[$i]\n");
+			 # }
+		}
+		
+	} elsif ( $widget_type eq 'MainWindow' ) {    # opening a random file
+
+		print("file_dialog,_big_stream_last_dir_in_path widget type is 'MainWindow' \n");
+		my $message = $file_dialog->{_message_w}->FileDialog_button(0);
+		$file_dialog->{_message_w}->delete( "1.0", 'end' );
+		$file_dialog->{_message_w}->insert( 'end', $message );
+
+	} else {
+		print("file_dialog,big_stream_last_dir_in_path, no widget type selected \n");
+	}
+}
+
+=head2 sub _big_stream_last_dir_in_path_close
+
+  re-organizing the display after a directory (path) is selected
+
+    TODO: CASE of opening a pre-existing superflow configuration file
+        or previously scripted flow by this GUI
+        BEFORE or While the menubutton OR Frame are selected
+        
+ 
+=cut
+
+sub _big_stream_last_dir_in_path_close {
+	my ($self) = @_;
+
+	use iFile;
+	use decisions 1.00;
+	use control;
+
+	my $iFile         = new iFile;
+	my $control       = new control;
+	my $param_widgets = param_widgets4pre_built_streams->new();
+
+	my $topic             = $file_dialog->{_dialog_type};
+	my $last_path_touched = $file_dialog->{_last_path_touched};
+
+	if ( defined $last_path_touched
+		&& $last_path_touched ne $empty_string ) {
+
+		$file_dialog->{_is_selected_path} = $true;
+
+	} else {
+		print("file_dialog, _big_stream_last_dir_in_path_close, Cancelled. No path\n");
+	}
+
+	$decisions->set4FileDialog_select($file_dialog);
+	my $pre_req_ok = $decisions->get4FileDialog_select();
+
+	# print("1. file_dialog,_big_stream_last_dir_in_path_close, pre_req_ok= $pre_req_ok \n");
+
+	if ($pre_req_ok) {
+
+		my $result = 0;
+
+		# print("3. file_dialog,_big_stream_last_dir_in_path_close,last_path_touched= $file_dialog->{_last_path_touched}\n");
+		# print("4. file_dialog,_big_stream_last_dir_in_path_close,prog_name:${$file_dialog->{_prog_name_sref}}\n");
+
+		if (    defined( $file_dialog->{_last_path_touched} )
+			and $file_dialog->{_last_path_touched} ne $empty_string
+			and ${ $file_dialog->{_prog_name_sref} } ne $empty_string ) {
+
+			print("file_dialog,_big_stream_last_dir_in_path_close, for $file_dialog->{_prog_name_sref} \n");
+			use dirs;
+			my $dirs = dirs->new();
+			$dirs->set_path( $file_dialog->{_last_path_touched} );
+			$result = dirs->get_last_dirInpath();    # only keep the last directory name
+			print("file_dialog,_big_stream_last_dir_in_path_close, is $result  \n");
+
+		} else {
+			print("file_dialog,_big_stream_last_dir_in_path_close No path was selected\n");
+			# print("4. file_dialog,_big_stream_last_dir_in_path_close,last path touched was
+			# $file_dialog->{_last_path_touched}\n") ;
+		}
+
+		# print("7. file_dialog,_big_stream_last_dir_in_path_close prog_name=${$file_dialog->{_prog_name_sref}}\n");
+
+		my $current_index = $file_dialog->{_parameter_value_index};
+
+		# both flows and big streams require the following entry updates
+		# collect parameter widget values
+		$file_dialog->{_values_aref} = $param_widgets->get_values_aref();
+
+		# assign new file name to the array of values
+		@{ $file_dialog->{_values_aref} }[$current_index]                 = $result;
+		@{ $file_dialog->{_check_buttons_settings_aref} }[$current_index] = $on;
+
+		# update the gui with the new path
+		$param_widgets->set_values( $file_dialog->{_values_aref} );
+
+		# print("10. file_dialog,_pre_built_superflow_close_path values are: @{$file_dialog->{_values_aref}} \n");
+		# $param_widgets->redisplay_values();
+
+		$gui_history->set4superflow_close_path_end();
+		$file_dialog = $gui_history->get_hash_ref();
+
+	}    # if pre_req_OK
 }
 
 =head2 sub _get_dialog_type 
@@ -236,7 +429,7 @@ sub _set_file_path {
 
 			# print("file_dialog, _set_file_path ,dialog type:$topic\n");
 			# print("file_dialog, _set_file_path ,path:$file_dialog->{_path}\n");
-			
+
 		} elsif ( $topic eq 'Save' ) {
 			$file_dialog->{_path} = $PL_SEISMIC;
 
@@ -450,19 +643,9 @@ sub _pre_built_superflow_close_path {
 			and $file_dialog->{_last_path_touched} ne $empty_string
 			and ${ $file_dialog->{_prog_name_sref} } ne $empty_string ) {
 
-			if ( ${ $file_dialog->{_prog_name_sref} } eq 'Sucat' ) {
-
-				$result = $file_dialog->{_last_path_touched};    # no abbreviation
-
-			} elsif ( ${ $file_dialog->{_prog_name_sref} } ne 'Sucat' ) {
-
-				use dirs;
-				my $dirs = dirs->new();
-				$dirs->set_path( $file_dialog->{_last_path_touched} );
-				$result = dirs->get_last_dirInpath();            # only keep the last directory name
-			}
-
-			# print("4. file_dialog,_pre_built_superflow_close_path,value that will be saved: $result\n");
+			# print("file_dialog,_pre_built_superflow_close_path,CASE #1  Sucat\n");
+			$result = $file_dialog->{_last_path_touched};    # no abbreviation
+			print("4. file_dialog,_pre_built_superflow_close_path,value that will be saved: $result\n");
 
 		} else {
 			print("file_dialog,_pre_built_superflow_close_path No path was selected\n");
@@ -480,19 +663,17 @@ sub _pre_built_superflow_close_path {
 		$file_dialog->{_values_aref} = $param_widgets->get_values_aref();    # gets 61 because 61 are initialized
 
 		# assign new file name to the array of values
-		@{ $file_dialog->{_values_aref} }[$current_index] = $result;
-
+		@{ $file_dialog->{_values_aref} }[$current_index]                 = $result;
 		@{ $file_dialog->{_check_buttons_settings_aref} }[$current_index] = $on;
 
 		# update the gui with the new path
 		$param_widgets->set_values( $file_dialog->{_values_aref} );
 
 		# print("10. file_dialog,_pre_built_superflow_close_path values are: @{$file_dialog->{_values_aref}} \n");
-
 		# $param_widgets->redisplay_values();
 
 		$gui_history->set4superflow_close_path_end();
-		$file_dialog = $gui_history->get_hash_ref();    # retrieves 99
+		$file_dialog = $gui_history->get_hash_ref();
 
 	}    # if pre_req_OK
 }
@@ -531,7 +712,7 @@ sub _pre_built_superflow_open_data_file {
 	$gui_history->set_hash_ref($file_dialog);
 	$gui_history->set4FileDialog_open_start();
 	$gui_history->set4superflow_open_data_file_start();
-	$file_dialog = $gui_history->get_hash_ref();  
+	$file_dialog = $gui_history->get_hash_ref();
 
 	# Tests follow:
 	# 1. if an appropriate entry widget is first selected, ie. Entry
@@ -566,13 +747,13 @@ sub _pre_built_superflow_open_data_file {
 		# print("file_dialog,_pre_built_superflow_open_data_file, parameter_value_index= $file_dialog->{_parameter_value_index}\n");
 
 		if ( $file_dialog->{_parameter_value_index} >= 0 ) {    # for additional certainty; but is it needed?
-			
+
 			# e.g. Data_Pl_SEISMIC, Data, Path, Flow etc.
 			my $topic = _get_dialog_type();
-			
-			 # print("4. file_dialog,_pre_built_flow_open_data_file, parameter_value_index= $file_dialog->{_parameter_value_index}\n");
+
+			# print("4. file_dialog,_pre_built_flow_open_data_file, parameter_value_index= $file_dialog->{_parameter_value_index}\n");
 			$file_dialog->{_entry_button_label} = $param_widgets->get_label4entry_button_chosen();
-			
+
 			#print(
 			#	"5. file_dialog,_pre_built_superflow_open_data_file,entry_button_label = $file_dialog->{_entry_button_label}\n"
 			# );
@@ -614,7 +795,7 @@ sub _pre_built_superflow_open_data_file {
 	}
 
 	$gui_history->set4superflow_open_data_file_end();
-	$gui_history->set4FileDialog_open_end();    # 2 set
+	$gui_history->set4FileDialog_open_end();        # 2 set
 	$file_dialog = $gui_history->get_hash_ref();    # retrieves 93
 
 }
@@ -697,6 +878,7 @@ sub _pre_built_superflow_open_path {
 			$file_dialog->{_path} = $iFile->get_Path();
 
 			# print("1.file_dialog,_pre-built_superflow_path, PATH:  $file_dialog->{_path} \n");
+
 			# print("1.file_dialog,_pre-built_superflow_path, _values_aref: @{$file_dialog->{_values_aref}}[0]\n");
 
 			_FileDialog();                                      # open file dialog widget
@@ -723,8 +905,8 @@ sub _pre_built_superflow_open_path {
 	}
 
 	$gui_history->set4superflow_open_path_end();
-	$gui_history->set4FileDialog_open_end();      # 2 set
-	$file_dialog = $gui_history->get_hash_ref();  # retrieves 93
+	$gui_history->set4FileDialog_open_end();        # 2 set
+	$file_dialog = $gui_history->get_hash_ref();    # retrieves 93
 }
 
 =head2  sub  _set_FileDialog2user_built_flow
@@ -803,8 +985,13 @@ sub _set_FileDialog2pre_built_superflow {
 
 	} elsif ( $topic eq $file_dialog_type->{_Path} ) {
 
-		# print("file_dialog,set_FileDialog2pre_built_superflow, topic= $topic\n");
+		print("1. file_dialog,set_FileDialog2pre_built_superflow, topic= $topic\n");
 		_pre_built_superflow_open_path();
+
+	} elsif ( $topic eq $file_dialog_type->{_last_dir_in_path} ) {
+
+		print("2. file_dialog,set_FileDialog2pre_built_superflow, topic= $topic\n");
+		_big_stream_last_dir_in_path();
 
 	} elsif ( $topic eq $file_dialog_type->{_Flow} ) {
 		print("file_dialog,set_FileDialog2pre_built_superflow, not allowed \n");
@@ -862,9 +1049,10 @@ sub _user_built_flow_SaveAs_perl_file {
 	$gui_history->set_hash_ref($file_dialog);
 	$gui_history->set4FileDialog_SaveAs_start();
 	$file_dialog = $gui_history->get_hash_ref();
-	  # print("1. file_dialog, user_built_flow_SaveAs_perl_file _is_user_built_flow: $file_dialog->{_is_user_built_flow}\n");
+
+	# print("1. file_dialog, user_built_flow_SaveAs_perl_file _is_user_built_flow: $file_dialog->{_is_user_built_flow}\n");
 	$decisions->set4FileDialog_SaveAs($file_dialog);
-	my $pre_req_ok = $decisions->get4FileDialog_SaveAs(); 
+	my $pre_req_ok = $decisions->get4FileDialog_SaveAs();
 
 	if ($pre_req_ok) {
 
@@ -880,7 +1068,7 @@ sub _user_built_flow_SaveAs_perl_file {
 		my $control = control->new();
 		my $get     = L_SU_global_constants->new();
 
-		my $whereami = whereami->new();
+		my $whereami            = whereami->new();
 		my $default_param_specs = $get->param();
 
 		my @fields;
@@ -898,15 +1086,18 @@ sub _user_built_flow_SaveAs_perl_file {
 
 		# print("file-dialog _user_built_flow_SaveAs_perl_file, file_dialog->{_dialog_type}: $topic\n");
 		$full_path_name = $file_dialog->{_selected_file_name};
+
 		# print("file-dialog _user_built_flow_SaveAs_perl_file, If not cancelled, full_path_name: $full_path_name\n");
 
 		if ( length $full_path_name ) {
 
 			@fields = split( /\//, $full_path_name );
 			$file_dialog->{_is_selected_file_name} = $true;
-		     # print("file-dialog _user_built_flow_SaveAs_perl_file,file_dialog->{_is_selected_file_name}=$file_dialog->{_is_selected_file_name} \n");
-		     
+
+			# print("file-dialog _user_built_flow_SaveAs_perl_file,file_dialog->{_is_selected_file_name}=$file_dialog->{_is_selected_file_name} \n");
+
 		} else {
+
 			# print("file_dialog, _user_built_flow_SaveAs_perl_file,Cancelled. No output flow name selected NADA\n");
 		}
 
@@ -926,10 +1117,11 @@ sub _user_built_flow_SaveAs_perl_file {
 
 			# print("file_dialog,_user_built_flow_SaveAs_perl_file, SaveAs,suffix: $suffix\n");
 			# print("file_dialog,,_user_built_flow_SaveAs_perl_file, SaveAs,first_name: $first_name\n");
-		    # print("1. file_dialog,_user_built_flow_SaveAs_perl_file, flow_name_out: $file_dialog->{_flow_name_out}\n");
+			# print("1. file_dialog,_user_built_flow_SaveAs_perl_file, flow_name_out: $file_dialog->{_flow_name_out}\n");
 			# print ("file-dialog _user_built_flow_SaveAs_perl_file, _last_parameter_index_touched_color: $file_dialog->{_last_parameter_index_touched_color} \n");
-		
-			} else {
+
+		} else {
+
 			# print("file_dialog,_user_built_flow_SaveAs_perl_file, No file name selected NADA\n");
 		}
 
@@ -985,6 +1177,7 @@ sub _user_built_flow_close_data_file {
 		$file_dialog->{_is_selected_file_name} = $true;
 
 	} else {
+
 		# print("file_dialog,_user_built_flow_close_data_file, Cancelled. No output flow name selected NADA\n");
 	}
 
@@ -1127,9 +1320,9 @@ sub _user_built_flow_close_path {
 	use whereami2;
 	use L_SU_global_constants;
 
-	my $control       = control->new();
-	my $get           = L_SU_global_constants->new();
-	my $whereami      = whereami2->new();
+	my $control  = control->new();
+	my $get      = L_SU_global_constants->new();
+	my $whereami = whereami2->new();
 
 	my @fields;
 	my ( $full_path_name, $result );
@@ -1148,31 +1341,33 @@ sub _user_built_flow_close_path {
 	# open was used to open a path
 	# But now the _FileDialog is closing
 	$decisions->set4FileDialog_select($file_dialog);
-	my $pre_req_ok = $decisions->get4FileDialog_select();	
+	my $pre_req_ok = $decisions->get4FileDialog_select();
+
 	# print("1. file_dialog,_user_built_flow_close_path,pre_req_ok= $pre_req_ok \n");
 
 	if ($pre_req_ok) {
 
 		my $widget_type = $whereami->widget_type( $file_dialog->{_parameter_values_frame} );
+
 		# print("file_dialog  _user_built_flow_close_path selected widget type is = $widget_type	\n");
 
 		if ( defined( $file_dialog->{_last_path_touched} )
 			and $file_dialog->{_last_path_touched} ne $empty_string ) {
 
 			$result = $file_dialog->{_last_path_touched};    # no abbreviation
-			# print("4. file_dialog,_user_built_flow_close_path,value that will be saved: $result\n");
+				# print("4. file_dialog,_user_built_flow_close_path,value that will be saved: $result\n");
 
 		} else {
 			print("file_dialog,_user_built_flow_close_path No path was selected\n");
 		}
 
 		# update the gui with the new path
-		_set_selected_file_name( $result);
-		
+		_set_selected_file_name($result);
+
 		$gui_history->set4user_built_flow_close_path_end();
 		$file_dialog = $gui_history->get_hash_ref();
-		
-	}  # if prereq_OK
+
+	}    # if prereq_OK
 
 }
 
@@ -1311,7 +1506,7 @@ sub _user_built_flow_open_data_file {
 
 			# e.g. Data_Pl_SEISMIC, Data, Path, Flow etc.
 			my $topic = _get_dialog_type();
-			
+
 			# print("4. file_dialog,_user_built_flow_open_data_file, parameter_value_index= $file_dialog->{_parameter_value_index}\n");
 
 			$file_dialog->{_entry_button_label} = $param_widgets->get_label4entry_button_chosen();
@@ -1336,7 +1531,7 @@ sub _user_built_flow_open_data_file {
 			# print("6. file_dialog,_user_built_flow_open_data_file End\n");
 		}
 	} elsif ( $widget_type eq 'MainWindow' ) {    # opening a random file
-		# print("file_dialog,_user_built_flow_open_data_file widget type is 'MainWindow' \n");
+			# print("file_dialog,_user_built_flow_open_data_file widget type is 'MainWindow' \n");
 		my $message = $file_dialog->{_message_w}->FileDialog_button(0);
 		$file_dialog->{_message_w}->delete( "1.0", 'end' );
 		$file_dialog->{_message_w}->insert( 'end', $message );
@@ -1358,7 +1553,7 @@ sub _user_built_flow_open_path {
 
 	my ($self) = @_;
 
-	print ("file_dialog, _user_built_flow_open_path\n ");
+	print("file_dialog, _user_built_flow_open_path\n ");
 	use iFile;
 	use whereami;
 	use L_SU_global_constants;
@@ -1414,7 +1609,7 @@ sub _user_built_flow_open_path {
 		# print("file_dialog,_user_built_flow_open_path, parameter_value_index= $file_dialog->{_parameter_value_index}\n");
 
 		if ( $file_dialog->{_parameter_value_index} >= 0 ) {    # for additional certainty; but is it needed?
-			
+
 			# e.g. Data_Pl_SEISMIC, Data, Path, Flow etc.
 			my $topic = _get_dialog_type();
 			print(
@@ -1426,12 +1621,12 @@ sub _user_built_flow_open_path {
 				"5. file_dialog,_user_built_flow_open_path,entry_button_label = $file_dialog->{_entry_button_label}\n");
 
 			# use iFile to determine the stored Path in the current configuration file
-			$iFile->set_entry($file_dialog);                    # selected entry label
-			$iFile->set_flow_type_h($file_dialog);              # user_built
+			$iFile->set_entry($file_dialog);          # selected entry label
+			$iFile->set_flow_type_h($file_dialog);    # user_built
 
 			$iFile->set_values_aref($file_dialog);   # will determine the DIR based on type of data set e.g., /home/gom/
 			$iFile->set_prog_name_sref($file_dialog);    # e.g., Project_config
-			$iFile->set_dialog_type($topic);       # e.g. Data_Pl_SEISMIC, _Data
+			$iFile->set_dialog_type($topic);             # e.g. Data_Pl_SEISMIC, _Data
 
 			$file_dialog->{_path} = $iFile->get_Path();
 
@@ -1439,10 +1634,11 @@ sub _user_built_flow_open_path {
 			print("1.file_dialog,_user_built_flow_path, _values_aref: @{$file_dialog->{_values_aref}}[0]\n");
 
 			_FileDialog();                               # open file dialog widget
-			print("2.file_dialog,_user_built_flow_open_path, last_path_touched:  $file_dialog->{_last_path_touched} \n");
-			
+			print(
+				"2.file_dialog,_user_built_flow_open_path, last_path_touched:  $file_dialog->{_last_path_touched} \n");
+
 			# updates the gui
-			_user_built_flow_close_path();  
+			_user_built_flow_close_path();
 
 			# print("2.file_dialog,_user_built_flow_open_path, _values_aref: @{$file_dialog->{_values_aref}}[0]\n");
 			# my $length= scalar @{$file_dialog->{_values_aref}};  # 61 values
@@ -1463,7 +1659,7 @@ sub _user_built_flow_open_path {
 	} else {
 		print("file_dialog,_pre-built_superflow_path no widget type selected \n");
 	}
-	
+
 	# $gui_history->set4user_built_flow_open_path_end();
 	#	$gui_history->set4FileDialog_open_end();      # 2 set
 	#	$file_dialog = $gui_history->get_hash_ref();  # retrieves 93
@@ -1510,14 +1706,15 @@ sub _user_built_flow_open_perl_file {
 	# print("1. file_dialog,_user_built_flow_open_perl_file,_flowNsuperflow_name_w:$file_dialog->{_flowNsuperflow_name_w} \n");
 
 	$file_dialog = $gui_history->get_hash_ref();
-	  # print("1. file_dialog,_user_built_flow_open_perl_file,_flowNsuperflow_name_w:$file_dialog->{_flowNsuperflow_name_w} \n");
-	  # if an appropriate entry widget is first selected, ie. Entry
-	  # get index of entry button pressed
-	  # find out which entry button has been chosen
-	  # confirm that it IS the file button
-	  # TODO determine the required file type and file path
-	  # TODO from the *_spec.pm file for the particular program in the flow.
-	  # print("file_dialog,FileDialog_button pressed\n");
+
+	# print("1. file_dialog,_user_built_flow_open_perl_file,_flowNsuperflow_name_w:$file_dialog->{_flowNsuperflow_name_w} \n");
+	# if an appropriate entry widget is first selected, ie. Entry
+	# get index of entry button pressed
+	# find out which entry button has been chosen
+	# confirm that it IS the file button
+	# TODO determine the required file type and file path
+	# TODO from the *_spec.pm file for the particular program in the flow.
+	# print("file_dialog,FileDialog_button pressed\n");
 
 	# a blank message
 	my $message = $open_perl_file_messages->null_button(0);
@@ -1526,6 +1723,7 @@ sub _user_built_flow_open_perl_file {
 
 	# set path to flows
 	$file_dialog->{_path} = $iFile->get_Open_perl_flow_path();
+
 	# print("file_dialog,_user_built_flow_open_perl_file, path = $file_dialog->{_path}\n");
 
 	# collects the name of the data file to be opened
@@ -1533,7 +1731,7 @@ sub _user_built_flow_open_perl_file {
 	my $successful = _user_built_flow_close_perl_file();
 
 	$gui_history->set_hash_ref($file_dialog);
-	$gui_history->set4FileDialog_open_perl_file_end(); 
+	$gui_history->set4FileDialog_open_perl_file_end();
 
 	#	foreach my $key (sort keys %$file_dialog) {
 	#		print (" file_dialog,key is $key, value is $file_dialog->{$key}\n");
@@ -1683,6 +1881,7 @@ sub get_selected_file_name {
 		return ($result);
 
 	} else {
+
 		# print("file_dialog, get_selected_file_name, empty string\n");
 		return ();
 	}
@@ -1728,7 +1927,7 @@ sub set_dialog_type {
 
 	if ($topic) {
 		$file_dialog->{_dialog_type} = $topic;
-
+        print("file_dialog, set_dialog_type  is $file_dialog->{_dialog_type}\n");
 	} else {
 		print("file_dialog, set_dialog_type , missing topic\n");
 	}

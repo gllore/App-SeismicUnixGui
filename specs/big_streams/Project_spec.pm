@@ -128,10 +128,12 @@ sub file_dialog_type_aref {
 
 	$type[0] = $file_dialog_type->{_Path};
 	$type[1] = $file_dialog_type->{_Path};
-	$type[2] = $file_dialog_type->{_Path};
-	$type[3] = $file_dialog_type->{_Path};
-	$type[4] = $file_dialog_type->{_Path};
-	$type[5] = $file_dialog_type->{_Path};
+	$type[2] = $file_dialog_type->{_last_dir_in_path};
+	$type[3] = $file_dialog_type->{_last_dir_in_path};
+	$type[4] = $file_dialog_type->{_last_dir_in_path};
+	$type[5] = $file_dialog_type->{_last_dir_in_path};
+	
+	print(" Project_spec, file_dialog_type_aref = $type[2]  \n");
 	
 	$Project_spec->{_file_dialog_type_aref} = \@type;
 

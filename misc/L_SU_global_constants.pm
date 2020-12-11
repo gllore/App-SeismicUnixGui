@@ -181,16 +181,18 @@ my @file_dialog_type;
 # in spec files Data_PL_SEISMIC, is not necessarily informed by DATA_DIR_IN and DATA_DIR_OUT
 $file_dialog_type[0] = 'Data_PL_SEISMIC',
 
-	# in spec files Data, is informed by DATA_DIR_IN and DATA_DIR_OUT
-	$file_dialog_type[1] = 'Data';
+# in spec files Data, is informed by DATA_DIR_IN and DATA_DIR_OUT
+$file_dialog_type[1] = 'Data';
 $file_dialog_type[2] = 'Path';
 $file_dialog_type[3] = 'Flow';
 $file_dialog_type[4] = 'SaveAs';
+$file_dialog_type[5] ='last_dir_in_path';
 
 my $file_dialog_type_h = {
 	_Data_PL_SEISMIC => 'Data_PL_SEISMIC',
 	_Data            => 'Data',
-	_Path            => 'Path',              #
+	_Path            => 'Path',
+	_last_dir_in_path => 'last_dir_in_path',
 	_Flow            => 'Flow',
 	_SaveAs          => 'SaveAs',
 	_Save            => 'Save',

@@ -1199,9 +1199,7 @@ sub write {
 }
 
 =head2 sub write2 
-
  used for dealing with ONLY Project.config
-
 
 =cut 
 
@@ -1230,8 +1228,7 @@ sub write2 {
 
 	my $PATH = $CONFIGURATION . '/' . $active_project_name;
 
-	#	print("files_LSU,write2, active_project_name: $active_project_name\n");
-
+	# print("files_LSU,write2, active_project_name: $active_project_name\n");
 	# print("files_LSU,write2, CONFIGURATION: $CONFIGURATION\n");
 	# print("files_LSU,write2, Project_config: $Project_config\n");
 	manage_dirs_by::make_dir($PATH);
@@ -1270,14 +1267,14 @@ sub write2 {
 					printf $fh "%-35s%1s%-20s\n", $CFG[$j], "= ", $cfg;
 
 				} else {
-					print("1 files_LSU,write2, cfg is not defined NADA\n");
-					printf $fh "%-35s%1s%-20s\n", $CFG[$j], "= ",
-						$empty_string;
+					# print("1 files_LSU,write2, cfg is not defined NADA\n");
+					# printf $fh "%-35s%1s%-20s\n", $CFG[$j], "= ",
+					#	$empty_string;
 				}
 
 			} else {
-				print("2 files_LSU,write2, cfg is not defined NADA\n");
-				printf $fh "%-35s%1s%-20s\n", $CFG[$j], "= ", $empty_string;
+				# print("2 files_LSU,write2, cfg is not defined NADA\n");
+				# printf $fh "%-35s%1s%-20s\n", $CFG[$j], "= ", $empty_string;
 			}
 		}
 

@@ -48,17 +48,6 @@ my $dirs = {
     _ref_ls => '',
 };
 
-sub set_dir {
-    my ( $self, $DIR ) = @_;
-
-    if ($DIR) {
-        $dirs->{_DIR} = $DIR;
-
-        # print("dirs,set_dir, DIR: $dirs->{_DIR}\n");
-    }
-    return ();
-}
-
 =head2 sub get_ls 
 
 i/p directgry
@@ -95,20 +84,6 @@ sub get_ls {
 
 }
 
-sub set_path {
-    my ( $self, $path ) = @_;
-
-    if ( defined $path
-        && $path ne $empty_string )
-    {
-
-        $dirs->{_path} = $path;
-
-    }
-
-    return ();
-}
-
 sub get_last_dirInpath {
 
     my ($self) = @_;
@@ -130,7 +105,32 @@ sub get_last_dirInpath {
     }
 }
 
-#my @dir= `ls`;
-#print "\n @dir";
+sub set_dir {
+    my ( $self, $DIR ) = @_;
+
+    if ($DIR) {
+        $dirs->{_DIR} = $DIR;
+
+        # print("dirs,set_dir, DIR: $dirs->{_DIR}\n");
+    }
+    return ();
+}
+
+
+sub set_path {
+    my ( $self, $path ) = @_;
+
+    if ( defined $path
+        && $path ne $empty_string )
+    {
+
+        $dirs->{_path} = $path;
+
+    }
+
+    return ();
+}
+
+
 
 1;

@@ -966,15 +966,15 @@ Q. How does LSU_project_selector create new Project directories?
 	
 	A. iFile.pm->get_Data_path
 
-Q. How does Project Tool update the gui parameter values
+Q. How does Project Tool update the gui parameter values?
 
 1. When user makes a selection of a new file or folder via bindings
 L_SU
 	_FileDialog_button,
-	 # Superflow bindings use this private ('_') subroutine.
-     # Opening a file of folder for a superflow use _FileDialog_button
-     # FileDialog_button is mainly used for user-built flows but directs superflows
-	 # to _FileDialog_button
+	 Superflow bindings use this private ('_') subroutine.
+     Opening a file of folder for a superflow uses _FileDialog_button
+     FileDialog_button is mainly used for user-built flows but directs superflows
+	 to _FileDialog_button
  
  		file_dialog	
 			FileDialog_director
