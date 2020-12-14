@@ -63,262 +63,6 @@ my $pre_built_big_stream_href = $gui_history->get_defaults();
 my $message_w;
 my ($values_aref,$names_aref,$check_buttons_settings_aref);
 
-#=head2 private hash_reference
-#
-#	_sub_ref						=> '',  does not seem to allow
-#	intra-namespace transfer of the subroutine reference
-# 	125
-# 
-#=cut
-
-#my $pre_built_big_stream_href = {
-#
-#    _Data_menubutton                       => '',
-#    _Flow_menubutton                       => '',
-#    _FileDialog_sub_ref                    => '',
-#    _FileDialog_option                     => '',
-#    _SaveAs_menubutton                     => '',
-#    _add2flow_button_grey                  => '',
-#    _add2flow_button_pink                  => '',
-#    _add2flow_button_green                 => '',
-#    _add2flow_button_blue                  => '',
-#    _check_code_button                     => '',
-#    _check_buttons_settings_aref           => '',
-#    _check_buttons_w_aref                  => '',
-#    _delete_from_flow_button               => '',
-#    _destination_index                     => '',
-#    _dialog_type                           => '',
-#    _dnd_token_grey                        => '',
-#    _dnd_token_pink                        => '',
-#    _dnd_token_green                       => '',
-#    _dnd_token_blue                        => '',
-#    __token_grey                   => '',
-#    _dropsite_token_pink                   => '',
-#    _dropsite_token_green                  => '',
-#    _dropsite_token_blue                   => '',
-#    _file_menubutton                       => '',
-#    _flow_color                            => '',
-#    _flow_item_down_arrow_button           => '',
-#    _flow_item_up_arrow_button             => '',
-#    _flow_listbox_grey_w                   => '',
-#    _flow_listbox_pink_w                   => '',
-#    _flow_listbox_green_w                  => '',
-#    _flow_listbox_blue_w                   => '',
-#    _flow_listbox_color_w                  => '',
-#    _flow_name_grey_w                      => '',
-#    _flow_name_pink_w                      => '',
-#    _flow_name_green_w                     => '',
-#    _flow_name_blue_w                      => '',
-#    _flow_name_in                          => '',
-#    _flow_name_out                         => '',
-#    _flow_type                             => '',
-#    _flow_widget_index                     => '',
-#    _flowNsuperflow_name_w                 => '',
-#    _good_labels_aref2                     => '',
-#    _good_values_aref2                     => '',
-#    _gui_history_ref                       => '',
-#    _has_used_check_code_button            => '',
-#    _has_used_Save_button                  => '',
-#    _has_used_Save_superflow               => '',
-#    _has_used_SaveAs_button                => '',
-#    _has_used_open_perl_file_button        => '',
-#    _has_used_run_button                   => '',
-#    _is_add2flow                           => '',
-#    _index2move                            => '',
-#    _is_Save_button                        => '',
-#    _is_SaveAs_button                      => '',
-#    _is_SaveAs_file_button                 => '',
-#    _is_add2flow_button                    => '',
-#    _is_check_code_button                  => '',
-#    _is_delete_from_flow_button            => '',
-#    _is_dragNdrop                          => '',
-#    _is_flow_item_down_arrow_button        => '',
-#    _is_flow_item_up_arrow_button          => '',
-#    _is_flow_listbox_grey_w                => 0,
-#    _is_flow_listbox_pink_w                => 0,
-#    _is_flow_listbox_green_w               => 0,
-#    _is_flow_listbox_blue_w                => 0,
-#    _is_flow_listbox_color_w               => '',
-#    _is_last_flow_index_touched            => '',
-#    _is_last_flow_index_touched_grey       => '',
-#    _is_last_flow_index_touched_pink       => '',
-#    _is_last_flow_index_touched_green      => '',
-#    _is_last_flow_index_touched_blue       => '',
-#    _is_last_parameter_index_touched       => '',
-#    _is_last_parameter_index_touched_grey  => '',
-#    _is_last_parameter_index_touched_pink  => '',
-#    _is_last_parameter_index_touched_green => '',
-#    _is_last_parameter_index_touched_blue  => '',
-#    _is_moveNdrop_in_flow                  => '',
-#    _is_new_listbox_selection              => '',
-#    _is_open_file_button                   => '',
-#    _is_pre_built_superflow                => '',
-#    _is_prog_name                          => '',
-#    _is_run_button                         => '',
-#    _is_select_file_button                 => '',
-#    _is_selected_file_name                 => '',
-#    _is_selected_path                      => '',
-#    _is_sunix_listbox                      => '',
-#    _is_superflow_select_button            => 0,
-#    _is_superflow                          => '',     # should it be _pre_built_superflow?
-#    _is_user_built_flow                    => '',
-#    _items_checkbuttons_aref2              => '',
-#    _items_names_aref2                     => '',
-#    _items_values_aref2                    => '',
-#    _items_versions_aref                   => '',
-#    _labels_w_aref                         => '',
-#    _last_flow_index_touched               => -1,
-#    _last_flow_index_touched_grey          => -1,
-#    _last_flow_index_touched_pink          => -1,
-#    _last_flow_index_touched_green         => -1,
-#    _last_flow_index_touched_blue          => -1,
-#    _last_flow_listbox_touched             => '',
-#    _last_flow_listbox_touched_w           => '',
-#    _last_parameter_index_touched          => -1,
-#    _last_parameter_index_touched_grey     => -1,
-#    _last_parameter_index_touched_pink     => -1,
-#    _last_parameter_index_touched_green    => -1,
-#    _last_parameter_index_touched_blue     => -1,
-#    _last_path_touched                     => './',
-#    _message_w                             => '',
-#    _mw                                    => '',
-#    _names_aref                            => '',
-#    _param_flow_length                     => '',
-#    _parameter_names_frame                 => '',
-#    _param_sunix_first_idx                 => 0,
-#    _param_sunix_length                    => '',
-#    _parameter_values_frame                => '',
-#    _parameter_values_button_frame         => '',
-#    _parameter_value_index                 => '',
-#    _path                                  => '',
-#    _prog_names_aref                       => '',
-#    _prog_name_sref                        => '',     # has pre-existing _spec.pm and *.pm
-#    _run_button                            => '',
-#    _save_button                           => '',
-#    _selected_file_name                    => '',
-#    _sunix_listbox                         => '',     # pre-built-superflow or flow name as well
-#    _superflow_first_idx                   => '',
-#    _superflow_length                      => '',
-#    _values_aref                           => '',
-#    _values_w_aref                         => '',
-#
-#};
-
-=head2 declare variables
-
-	106
-
-=cut
-
-# my $Data_menubutton;
-#my $FileDialog_sub_ref;
-#my $FileDialog_option;
-# my $Flow_menubutton;
-# my $SaveAs_menubutton;
-#my $add2flow_button_grey;
-#my $add2flow_button_pink;
-#my $add2flow_button_green;
-#my $add2flow_button_blue;
-#my $check_buttons_settings_aref;
-#my $check_buttons_w_aref;
-#my $check_code_button;    #6
-#my $delete_from_flow_button;
-#my $dialog_type;
-#my $dnd_token_grey;
-#my $dnd_token_pink;
-#my $dnd_token_green;
-#my $dnd_token_blue;       #12
-#my $dropsite_token_grey;
-#my $dropsite_token_pink;
-#my $dropsite_token_green;
-#my $dropsite_token_blue;    #16
-#my $file_menubutton;
-#my $flowNsuperflow_name_w;
-#my $flow_color;
-#my $flow_item_down_arrow_button;    #19
-#my $flow_item_up_arrow_button;
-#my $flow_listbox_grey_w;
-#my $flow_listbox_pink_w;
-#my $flow_listbox_green_w;
-#my $flow_listbox_blue_w;
-#my $flow_listbox_color_w;           #25
-#my $flow_name_in;
-#my $flow_name_out;
-#my $flow_type;                      #28
-#my $gui_history_ref;
-#my $flow_widget_index;
-#my $has_used_check_code_button;
-#my $has_used_run_button;
-#my $has_used_SaveAs_button;
-#my $has_used_Save_button;
-#my $has_used_Save_superflow;
-#my $has_used_open_perl_file_button;
-#my $index2move;
-#my $is_add2flow;
-#my $is_add2flow_button;
-#my $is_check_code_button;
-#my $is_delete_from_flow_button;
-#my $is_dragNdrop;    #37
-#my $is_flow_item_down_arrow_button;
-#my $is_flow_item_up_arrow_button;
-#my $is_flow_listbox_grey_w;
-#my $is_flow_listbox_pink_w;
-#my $is_flow_listbox_green_w;
-#my $is_flow_listbox_blue_w;
-#my $is_flow_listbox_color_w;    #44
-#my $is_last_flow_index_touched_grey;
-#my $is_last_flow_index_touched_pink;
-#my $is_last_flow_index_touched_green;
-#my $is_last_flow_index_touched_blue;
-#my $is_last_parameter_index_touched_grey;
-#my $is_last_parameter_index_touched_pink;
-#my $is_last_parameter_index_touched_green;
-#my $is_last_parameter_index_touched_blue;
-#my $is_last_flow_index_touched;
-#my $is_last_parameter_index_touched;
-#my $is_moveNdrop_in_flow;
-#my $is_new_listbox_selection;    #48
-#my $is_open_file_button;
-#my $is_pre_built_superflow;
-#my $is_prog_name;
-#my $is_run_button;
-#my $is_select_file_button;       #52
-#my $is_selected_file_name;
-#my $is_selected_path;
-#my $is_Save_button;
-#my $is_SaveAs_button;
-#my $is_SaveAs_file_button;       #55
-#my $is_sunix_listbox;
-#my $is_superflow_select_button;
-#my $is_superflow;
-#my $is_user_built_flow;          #59
-#my $labels_w_aref;
-#my $last_flow_index_touched_grey;
-#my $last_flow_index_touched_pink;
-#my $last_flow_index_touched_green;
-#my $last_flow_index_touched_blue;
-#my $last_flow_index_touched;
-#my $last_flow_listbox_touched;
-#my $last_flow_listbox_touched_w;    #63
-#my $last_parameter_index_touched_grey;
-#my $last_parameter_index_touched_pink;
-#my $last_parameter_index_touched_green;
-#my $last_parameter_index_touched_blue;
-#my $last_parameter_index_touched;
-#my $message_w;
-#my $names_aref;
-#my $mw;
-#my $parameter_value_index;          #67
-#my $parameter_values_frame;
-#my $path;
-#my $prog_name_sref;
-#my $run_button;
-#my $labels_w_aref;
-#my $selected_file_name;
-#my $sub_ref;
-#my $values_aref;
-#my $values_w_aref;
-
 =head2 sub get_hash_ref
 
 	return ALL values of the private hash, supposedly
@@ -417,10 +161,10 @@ sub select {
 
     # print("1. pre_built_superflow,select,should be NO values=@{$pre_built_big_stream_href->{_values_aref}}\n");
     # local location within GUI
-    # gui_history->set_gui_widgets($pre_built_big_stream_href);        # sets 25 / given 103
-    gui_history->set_hash_ref($pre_built_big_stream_href);           # sets 49 / given 103
-    gui_history->set4start_of_superflow_select();    # sets 3; sets gui_widgets
-    $pre_built_big_stream_href = gui_history->get_hash_ref();        # returns 98 !
+    # gui_history->set_gui_widgets($pre_built_big_stream_href);  
+    gui_history->set_hash_ref($pre_built_big_stream_href); 
+    gui_history->set4start_of_superflow_select(); 
+    $pre_built_big_stream_href = gui_history->get_hash_ref(); 
 
     # print("pre_built_big_stream,select,_is_pre_built_superflow: $pre_built_big_stream_href->{_is_pre_built_superflow}\n");
     # print("pre_built_big_stream,select,_flow_type: $pre_built_big_stream_href->{_flow_type}\n");
@@ -439,7 +183,6 @@ sub select {
         my $user_constants = L_SU_local_user_constants->new();
 
         if ( $user_constants->user_configuration_Project_config_exists() ) {
-
             # read active configuration file
 
         }
@@ -505,9 +248,6 @@ sub select {
     $param_widgets->set_check_buttons( $pre_built_big_stream_href->{_check_buttons_settings_aref} );
     $param_widgets->set_current_program($prog_name_sref);
 
-    # OLD WAY: Here is where you would rebind the different buttons depending on the
-    # program name that is selected (i.e. through spec.pm... if you did it in param widgets)
-    ## $param_widgets			->set_superflow_bindings();
     $param_widgets->redisplay_labels();
     $param_widgets->redisplay_values();
     $param_widgets->redisplay_check_buttons();
@@ -856,23 +596,23 @@ sub set_name_sref {
     return ();
 }
 =head2
- $pre_built_big_stream_href->{_sub_ref} is collected but
- can not transfer from the current namespace into the select subroutine
- VERY WEIRD behavior; memory leak? TODO ( is this already working now?)
+ 
+ The $pre_built_big_stream_href->{_sub_ref} is collected but
+and transferred from the current namespace 
+into the selected subroutine in the superclass
 
 =cut
 
 sub set_sub_ref {
     my ( $self, $sub_ref ) = @_;
 
-    if ($sub_ref) {
+    if (length $sub_ref) {
 
         # $pre_built_big_stream_href->{_sub_ref} = $sub_ref; does not transfer to other subroutine within
         # in the namespace ???
         $pre_built_big_stream_href_sub_ref = $sub_ref;
 
-        #print("pre_built_big_stream, set_sub_ref, sub_ref: $pre_built_big_stream_href->{_sub_ref}\n");
-        #print("pre_built_big_stream, set_sub_ref, sub_ref: $pre_built_big_stream_href_sub_ref \n");
+       #  print("pre_built_big_stream, set_sub_ref, sub_ref: $pre_built_big_stream_href_sub_ref \n");
     }
     else {
         print("pre_built_big_stream, set_sub_ref, missing sub ref\n");

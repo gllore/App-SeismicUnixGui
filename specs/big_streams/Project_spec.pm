@@ -62,15 +62,15 @@ sub binding_index_aref {
 	my ($self) = @_;
 	my @index;
 
-	# do not change HOME, i.e. first parameter
-	# do not change PROJECT_HOME, i.e. second parameter
-	$index[0] = 1;    # first item is bound to value of the second parameter	
-	$index[1] = 2;    # first item is bound to value of the third parameter
-	$index[2] = 3;    # first item is bound to value of the fourth parameter
-	$index[3] = 4;    # first item is bound to value of the fifth parameter
-	$index[4] = 5;    # first item is bound to value of the sixth parameter
-	$index[5] = 6;    # first item is bound to value of the seventh parameter
-
+	$index[0] = 0; 
+	$index[1] = 1;  
+	$index[2] = 2; 
+	$index[3] = 3;  
+	$index[4] = 4;  
+	$index[5] = 5;   
+	$index[6] = 6;
+	$index[7] = 7;   
+		
 	$Project_spec->{_binding_index_aref} = \@index;
 
 	return ();
@@ -93,7 +93,7 @@ sub get_binding_index_aref {
 		return ();
 	}
 
-	my $index_aref = $Project_spec->{_binding_index_aref};
+	my $index_aref = $Project_spec->{_binding_index_aref}; 	
 
 }
 
@@ -132,8 +132,9 @@ sub file_dialog_type_aref {
 	$type[3] = $file_dialog_type->{_last_dir_in_path};
 	$type[4] = $file_dialog_type->{_last_dir_in_path};
 	$type[5] = $file_dialog_type->{_last_dir_in_path};
-	
-	print(" Project_spec, file_dialog_type_aref = $type[2]  \n");
+	$type[6] = $file_dialog_type->{_last_dir_in_path};
+	$type[7] = $file_dialog_type->{_last_dir_in_path};
+	# print(" Project_spec, file_dialog_type_aref = $type[2]  \n");
 	
 	$Project_spec->{_file_dialog_type_aref} = \@type;
 

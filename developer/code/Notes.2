@@ -969,12 +969,22 @@ Q. How does LSU_project_selector create new Project directories?
 Q. How does Project Tool update the gui parameter values?
 
 1. When user makes a selection of a new file or folder via bindings
-L_SU
-	_FileDialog_button,
-	 Superflow bindings use this private ('_') subroutine.
+		
+	 Superflow bindings use the private ('_') subroutine.
      Opening a file of folder for a superflow uses _FileDialog_button
      FileDialog_button is mainly used for user-built flows but directs superflows
 	 to _FileDialog_button
+	 
+[	 binding to the dialog types for each MB3 click takes place within
+L_SU	 
+	 pre_built_superflows
+   		# for binding to file dialog options
+		my $sub_ref = \&_FileDialog_button;
+		   $pre_built_big_stream->set_sub_ref($sub_ref);
+		   $pre_built_big_stream->select();
+		        binding->set (where binding actually takes place)  ]
+		     
+	  _FileDialog_button
  
  		file_dialog	
 			FileDialog_director
@@ -1844,8 +1854,8 @@ Modify the main program, i.e. immodpg.config.pm
 	
 	Q Inside each spec file, What does file_dialog_type_aref do?
 	Indentifies the type of binding operation..
-	which can be of 4 types
-	The type of dialog (Data, Path, Flow, SaveAs) is needed during MB3 binding
+	which can be of 5 (?) types
+	The type of dialog (Data, Path, Flow, SaveAs, ) is needed during MB3 binding
     Use one type of dialog for each index
   
 	'Flow' will go to PL_SEISMIC by default
@@ -1855,6 +1865,9 @@ Modify the main program, i.e. immodpg.config.pm
 	'Data' does not create a directory path on the parameter value in GUI (why -- TODO)
   
 	'Path' searches for only a PATH
+	
+	'last_dir_in_path' searches for the last directory in PATH
+	
   
 	 SaveAs goes to  PL_SEISMIC
 	 

@@ -150,7 +150,7 @@ sub _big_stream_last_dir_in_path {
 
 	my ($self) = @_;
 
-	print("file_dialog, _big_stream_last_dir_in_path\n ");
+#	print("file_dialog, _big_stream_last_dir_in_path\n ");
 	use iFile;
 	use whereami;
 	use L_SU_global_constants;
@@ -204,7 +204,7 @@ sub _big_stream_last_dir_in_path {
 		# print("file_dialog,_big_stream_last_dir_in_path, parameter_value_index= $file_dialog->{_parameter_value_index}\n");
 
 		if ( $file_dialog->{_parameter_value_index} >= 0 ) {    # for additional certainty; but is it needed?
-			 # print("4. file_dialog,ig_stream_last_dir_in_path, parameter_value_index= $file_dialog->{_parameter_value_index}\n");
+		    # print("4. file_dialog,ig_stream_last_dir_in_path, parameter_value_index= $file_dialog->{_parameter_value_index}\n");
 			$file_dialog->{_entry_button_label} = $param_widgets->get_label4entry_button_chosen();
 
 			# print("5. file_dialog,_big_stream_last_dir_in_path,entry_button_label = $file_dialog->{_entry_button_label}\n");
@@ -218,13 +218,13 @@ sub _big_stream_last_dir_in_path {
 
 			$file_dialog->{_path} = $iFile->get_Path();
 
-			print("1.file_dialog,_pre-built_superflow_path, PATH:  $file_dialog->{_path} \n");
+#			print("1.file_dialog,_pre-built_superflow_path, PATH:  $file_dialog->{_path} \n");
 
 			# print("1.file_dialog,ig_stream_last_dir_in_path, _values_aref: @{$file_dialog->{_values_aref}}[0]\n");
 
 			_FileDialog();                                      # open file dialog widget
 
-			print("2.file_dialog,_pre-built_superflow_path, last_path_touched:  $file_dialog->{_last_path_touched} \n");
+#			print("2.file_dialog,_pre-built_superflow_path, last_path_touched:  $file_dialog->{_last_path_touched} \n");
 
 			_big_stream_last_dir_in_path_close();
 
@@ -297,12 +297,12 @@ sub _big_stream_last_dir_in_path_close {
 			and $file_dialog->{_last_path_touched} ne $empty_string
 			and ${ $file_dialog->{_prog_name_sref} } ne $empty_string ) {
 
-			print("file_dialog,_big_stream_last_dir_in_path_close, for $file_dialog->{_prog_name_sref} \n");
+#			print("file_dialog,_big_stream_last_dir_in_path_close, for $file_dialog->{_prog_name_sref} \n");
 			use dirs;
 			my $dirs = dirs->new();
 			$dirs->set_path( $file_dialog->{_last_path_touched} );
 			$result = dirs->get_last_dirInpath();    # only keep the last directory name
-			print("file_dialog,_big_stream_last_dir_in_path_close, is $result  \n");
+#			print("file_dialog,_big_stream_last_dir_in_path_close, is $result  \n");
 
 		} else {
 			print("file_dialog,_big_stream_last_dir_in_path_close No path was selected\n");
@@ -353,6 +353,7 @@ sub _get_dialog_type {
 	if ( $file_dialog->{_dialog_type} ) {
 
 		my $topic = $file_dialog->{_dialog_type};
+		# print("file_dialog, _get_dialog_type is $topic\n");
 		return ($topic);
 
 	} else {
@@ -645,7 +646,7 @@ sub _pre_built_superflow_close_path {
 
 			# print("file_dialog,_pre_built_superflow_close_path,CASE #1  Sucat\n");
 			$result = $file_dialog->{_last_path_touched};    # no abbreviation
-			print("4. file_dialog,_pre_built_superflow_close_path,value that will be saved: $result\n");
+			# print("4. file_dialog,_pre_built_superflow_close_path,value that will be saved: $result\n");
 
 		} else {
 			print("file_dialog,_pre_built_superflow_close_path No path was selected\n");
@@ -813,11 +814,13 @@ sub _pre_built_superflow_open_path {
 	use iFile;
 	use whereami;
 	use L_SU_global_constants;
+	use control;
 
 	my $param_widgets = param_widgets4pre_built_streams->new();
 	my $get           = L_SU_global_constants->new();
 	my $whereami      = whereami->new();
 	my $iFile         = iFile->new();
+	my $control     = control->new();
 
 	my $default_param_specs = $get->param();
 	my $first_idx           = $default_param_specs->{_first_entry_idx};
@@ -874,8 +877,9 @@ sub _pre_built_superflow_open_path {
 			$iFile->set_parameter_value_index($file_dialog);    # e.g., 0
 			$iFile->set_values_aref($file_dialog);              # e.g., /home/gom/
 			$iFile->set_prog_name_sref($file_dialog);           # e.g., Project_config
-
 			$file_dialog->{_path} = $iFile->get_Path();
+			$control->set_path($file_dialog->{_path});
+			$file_dialog->{_path} = $control->get_path_wo_last_slash();
 
 			# print("1.file_dialog,_pre-built_superflow_path, PATH:  $file_dialog->{_path} \n");
 
@@ -985,16 +989,16 @@ sub _set_FileDialog2pre_built_superflow {
 
 	} elsif ( $topic eq $file_dialog_type->{_Path} ) {
 
-		print("1. file_dialog,set_FileDialog2pre_built_superflow, topic= $topic\n");
+		# print("1. file_dialog,set_FileDialog2pre_built_superflow, topic= $topic\n");
 		_pre_built_superflow_open_path();
 
 	} elsif ( $topic eq $file_dialog_type->{_last_dir_in_path} ) {
 
-		print("2. file_dialog,set_FileDialog2pre_built_superflow, topic= $topic\n");
+		# print("2. file_dialog,set_FileDialog2pre_built_superflow, topic= $topic\n");
 		_big_stream_last_dir_in_path();
 
 	} elsif ( $topic eq $file_dialog_type->{_Flow} ) {
-		print("file_dialog,set_FileDialog2pre_built_superflow, not allowed \n");
+		# print("file_dialog,set_FileDialog2pre_built_superflow, not allowed \n");
 
 		# NADA
 
@@ -1589,7 +1593,7 @@ sub _user_built_flow_open_path {
 
 	if ( $widget_type eq 'Entry' ) {
 
-		print("1. file_dialog,_user_built_flow_open_path, selected widget_type=$widget_type \n");
+#		print("1. file_dialog,_user_built_flow_open_path, selected widget_type=$widget_type \n");
 
 		my $selected_Entry_widget = $file_dialog->{_parameter_values_frame}->focusCurrent;
 		$param_widgets->set_entry_button_chosen_widget($selected_Entry_widget);
@@ -1601,7 +1605,7 @@ sub _user_built_flow_open_path {
 		$param_widgets->set_first_idx($first_idx);
 		$param_widgets->set_length($length);
 
-		print("2. file_dialog  _user_built_flow_open_path, selected_Entry_widget: $selected_Entry_widget\n");
+#		print("2. file_dialog  _user_built_flow_open_path, selected_Entry_widget: $selected_Entry_widget\n");
 
 		$file_dialog->{_parameter_value_index} = $param_widgets->get_entry_button_chosen_index();
 
@@ -2013,9 +2017,8 @@ sub set_hash_ref {
 		$gui_history->set_defaults($hash_ref);
 		$file_dialog = $gui_history->get_defaults();
 
-		#		 print("1. param_widgets_color,_update_hash_ref: ENTERING\n");
-		#		 $gui_history->view();
-
+		# print("1. file_dialog, set_hash_ref,output gui history\n");
+		# $gui_history->view();
 		# print("param_widgets_color,_update_hash_ref: $gui_history->get_defaults()\n");
 	}
 

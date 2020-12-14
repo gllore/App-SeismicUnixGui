@@ -239,7 +239,7 @@ sub get_Data_path {
 
 	my $suffix_type1 = @{ $iFile->{_values_aref} }[1];
 
-	# print("iFile,get_path,suffix_type = $suffix_type1\n");
+	print("iFile,get_path,suffix_type = $suffix_type1\n");
 	# print("iFile,get_Data_path,flow_type =$iFile->{_flow_type}\n");
 
 	my $Project                   = new Project_config();
@@ -495,7 +495,7 @@ sub get_Path {
 			my $forSITE         = $forPROJECT_HOME . '/seismics/pl/';
 
 			# make base path
-			# print("5.iFile,get_Path, forSITE: $forSITE \n");
+		 	# print("5.iFile,get_Path, forSITE: $forSITE \n");
 			# print("6.iFile,get_Path,for program_name: $program_name \n");
 			$Path = $forSITE;
 
@@ -522,15 +522,19 @@ sub get_Path {
 
 				# print("iFile,get_Path,parameter label or name 	=---$entry_label---\n");
 				# print("1.iFile,get_Path, _values_aref: @{$iFile->{_values_aref}}\n");
+#				for(my $i=0; $i <8; $i++) {
+#					print ("iFile, get_Path, values[$i] = $values[$i]\n");					
+#				}
 
-				my $forHOME         = $values[0];  #can't be changed
+				my $forHOME         = $values[0];
 				my $forPROJECT_HOME = $values[0];
 				my $forSITE         = $values[1] . '/seismics/pl/';  # seismics/pl chosen out of convenience; could be gmt/pl
 				my $forSPARE_DIR    = $forSITE . $values[2] . '/';
 				my $forDATE         = $forSPARE_DIR . $values[3] . '/';
 				my $forCOMPONENT    = $forDATE . $values[4] . '/';
-				my $forLINE         = $forCOMPONENT . $values[5];
-
+				my $forLINE         = $forCOMPONENT . $values[5].'/';
+				my $forSUBUSER         = $forLINE . $values[6]; # assumes each previous one is correct
+				
 				if ( $index == 0 ) {
 					$Path = $forHOME;
 
@@ -551,7 +555,10 @@ sub get_Path {
 
 				} elsif ( $index == 6 ) {
 					$Path = $forLINE;
-
+					
+				} elsif ( $index == 7 ) {
+					$Path = $forSUBUSER;
+					
 				} else {
 					print("2.iFile,get_Path, unexpected index \n");
 					$Path = $empty_string;
@@ -561,7 +568,7 @@ sub get_Path {
 
 				# CASE 1 B first get values from the Project
 				my $PROJECT_HOME = $Project->PROJECT_HOME();
-				print("iFile,get_Path for $program_name PROJECT_HOME=$PROJECT_HOME\n");
+#				print("iFile,get_Path for $program_name PROJECT_HOME=$PROJECT_HOME\n");
 
 				my $entry_label = $iFile->{_entry_button_label};
 				my $index       = $iFile->{_parameter_value_index};
@@ -571,8 +578,8 @@ sub get_Path {
 				my $forSITE         = $forPROJECT_HOME . '/seismics/pl/';
 
 				# make base path p
-				print("5.iFile,get_Path, forSITE: $forSITE \n");
-				print("6.iFile,get_Path,for program_name: $program_name \n");
+#				print("5.iFile,get_Path, forSITE: $forSITE \n");
+#				print("6.iFile,get_Path,for program_name: $program_name \n");
 
 				$Path = $forSITE;
 
@@ -590,7 +597,7 @@ sub get_Path {
 	$iFile->{_path} = $Path;
 	$result = $iFile->{_path};
 
-	# print("7. iFile,get_Path,path=$iFile->{_path}\n");
+#	print("7. iFile,get_Path,path=$iFile->{_path}\n");
 	return ($result);
 }
 
@@ -846,7 +853,7 @@ sub set_values_aref {
 	my ( $self, $hash_ref ) = @_;
 	if ( $hash_ref->{_values_aref} ) {
 
-		# print("iFile,set_values_aref,raw: @{$hash_ref->{_values_aref}}[0],@{$hash_ref->{_values_aref}}[1]\n");
+#		print("iFile,set_values_aref,raw: @{$hash_ref->{_values_aref}}[0],@{$hash_ref->{_values_aref}}[1]\n");
 		$iFile->{_values_aref} = $hash_ref->{_values_aref};
 
 	} else {

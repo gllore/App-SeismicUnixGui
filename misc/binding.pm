@@ -114,7 +114,7 @@ sub set_prog_name_sref {
 
 =head2 sub setFileDialog_button_sub_ref 
 
-set reference to a subroutine in upper levels 
+Set reference to a subroutine in upper levels 
 i.e., L_SU, _FileDialog_button, 
 that connects to the Filebutton for opening directories
 
@@ -161,7 +161,7 @@ Bring in a different module for each binding
 each module has its own rules through *_spec.pm
 as a program gets used.
 
-superflow bindings for dial_type = Data
+superflow bindings for dial_type e.g., = Data
 use _FileDialog_button, which lives in: L_SU
 
 User-built programs (e.g., sunix programs)
@@ -218,16 +218,16 @@ sub set {
 		# print("3B. binding,set,file_dialog_type: $dial_type\n");
 		# ACTUAL binding takes place here...
 		# TODO dynamic binding as a function of input from user in flow
-		if ( defined $dial_type and
-			$dial_type ne $empty_string) {
+		if ( length $dial_type ) {
 				
-			# print("binding,set,file_dialog_type: $dial_type\n");
-			# print("2. binding,set, no. bound items=$length,index=$i\n");
+			# print("binding,set,file_dialog_type: $dial_type at index=$i \n");
+			# print("2. binding,set, no. bound items=$length\n");
 
 			$values_w[ $index[$i] ]->bind( '<ButtonRelease-3>' => [ $sub_ref, \$dial_type ], );
 
 			# sub_ref can be: "L_SU, _FileDialog_button" for superflows
-			# sub_ref can be: "grey_flow, _FileDialog_button"for  user-built flow that is grey
+			# sub_ref can be: "grey_flow, _FileDialog_button" for  a user-built flow that 
+			# lies in the grey list box
 
 		}
 		else {

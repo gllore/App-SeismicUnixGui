@@ -2106,8 +2106,8 @@ sub make_local_dirs {
 	my $DATA_RESISTIVITY_SURFACE_TXT = $Project->{_DATA_RESISTIVITY_SURFACE_TXT};
 
 	# manage_dirs_by::make_dir($R_RESISTIVITY_SURFACE);
-	# manage_dirs_by::make_dir($DATA_RESISTIVITY_SURFACE);
-	# manage_dirs_by::make_dir($DATA_RESISTIVITY_SURFACE_TXT);
+	manage_dirs_by::make_dir($DATA_RESISTIVITY_SURFACE);
+	manage_dirs_by::make_dir($DATA_RESISTIVITY_SURFACE_TXT);
 
 	# CATEGORY resistivity data
 	# location well

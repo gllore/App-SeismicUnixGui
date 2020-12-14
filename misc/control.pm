@@ -481,6 +481,25 @@ sub get_no_quotes4array {
 	}
 }
 
+=head2 sub get_path_wo_last_slash
+
+=cut
+
+sub get_path_wo_last_slash {
+	my ( $self) = @_;
+
+	if ( length $control->{_path} ) {
+		my $thing = $control->{_path};
+		chop $thing;
+		my $result = $thing;
+		# print("control,get_path_wo_last_slash, : $result\n");
+		return($result);
+		
+	} else {
+		print("control, get_path_wo_last_slash, missing argument \n");
+	}
+	return ();
+}
 =head2 sub get_string_or_number
 
 =cut
@@ -750,6 +769,8 @@ sub set_back_slashBgone {
 	return ();
 }
 
+
+
 =head2 sub set_commas2space
 
     Replace commas in strings
@@ -915,6 +936,24 @@ sub set_str2logic {
 		#print("3. control,set_str2logic: string is not defined NADA\n");
 	}
 }
+
+
+=head2 sub set_path
+mark the path
+
+=cut
+
+sub set_path {
+	my ( $self, $path) = @_;
+
+	if ( length $path ) {
+		
+		$control->{_path} = $path;
+#		print("control,set_path, : $path\n");
+	}
+	return ();
+}
+
 
 =head2 set_suffix
 
