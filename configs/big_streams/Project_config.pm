@@ -123,6 +123,7 @@ my $Project = {
 	_MOD2D_TOMO                   => '',
 	_PL_SEISMIC                   => '',
 	_PL_GEOMAPS                   => '',
+	_PL_RESISTIVITY_SURFACE => '',
 	_PL_WELL                      => '',
 	_RESISTIVITY_SURFACE          => '',
 	_R_GAMMA_WELL                 => '',
@@ -544,9 +545,8 @@ sub _system_dirs {
 	my $GEOMAPS             = $PROJECT_HOME . '/geomaps';
 	my $WELL                = $PROJECT_HOME . '/well';
 	my $SEISMIC             = $PROJECT_HOME . '/seismics';
-	my $SURFACE             = $PROJECT_HOME . '/surface';    # legacy
 	my $GAMMA_WELL          = $WELL . '/gamma';
-	my $RESISTIVITY_SURFACE = $SURFACE . '/resistivity';     # legacy
+	my $RESISTIVITY_SURFACE = $PROJECT_HOME .'/'.'resistivity_surface';
 	my $RESISTIVITY_WELL    = $WELL . '/resistivity';
 	my $SEISMIC_WELL        = $WELL . '/seismics';
 
@@ -629,6 +629,7 @@ sub _system_dirs {
 	my $MOD2D_TOMO = $SEISMIC . '/fast_tomo/All/mod2d';
 
 	# PERL DIRECTOIES
+	my $PL_RESISTIVITY_SURFACE = $RESISTIVITY_SURFACE . '/pl/' . $DATE_LINE_COMPONENT_STAGE_PROCESS . '/' . $subUser;
 	my $PL_SEISMIC = $SEISMIC . '/pl/' . $DATE_LINE_COMPONENT_STAGE_PROCESS . '/' . $subUser;
 	my $PL_GEOMAPS = $GEOMAPS . '/pl/' . $DATE_LINE_COMPONENT_STAGE_PROCESS . '/' . $subUser;
 	my $PL_WELL    = $WELL . '/pl/' . $DATE_LINE_COMPONENT_STAGE_PROCESS . '/' . $subUser;
@@ -776,7 +777,6 @@ sub _system_dirs {
 	# $Project->{_DATA_RESISTIVITY_TXT}		= $DATA_RESISTIVITY_TXT;
 	$Project->{_DATA_RESISTIVITY_SURFACE}     = $DATA_RESISTIVITY_SURFACE;
 	$Project->{_DATA_RESISTIVITY_SURFACE_TXT} = $DATA_RESISTIVITY_SURFACE_TXT;
-
 	$Project->{_DATA_RESISTIVITY_WELL}     = $DATA_RESISTIVITY_WELL;
 	$Project->{_DATA_RESISTIVITY_WELL_TXT} = $DATA_RESISTIVITY_WELL_TXT;
 
@@ -827,6 +827,7 @@ sub _system_dirs {
 	$Project->{_MATLAB_SEISMIC}            = $MATLAB_SEISMIC;
 	$Project->{_MMODPG}                    = $MMODPG;
 	$Project->{_MOD2D_TOMO}                = $MOD2D_TOMO;
+	$Project->{_PL_RESISTIVITY_SURFACE}                = $PL_RESISTIVITY_SURFACE;	
 	$Project->{_PL_SEISMIC}                = $PL_SEISMIC;
 
 	# print("Project_config,_system_dirs,PL_SEISMIC = $PL_SEISMIC\n");
@@ -842,7 +843,6 @@ sub _system_dirs {
 	$Project->{_PS_SEISMIC}            = $PS_SEISMIC;
 	$Project->{_PS_WELL}               = $PS_WELL;
 	$Project->{_RAYINVR}               = $RAYINVR;
-	$Project->{_SURFACE}               = $SURFACE;
 	$Project->{_TEMP_DATA_GEOMAPS}     = $TEMP_DATA_GEOMAPS;
 	$Project->{_TEMP_DATA_SEISMIC}     = $TEMP_DATA_SEISMIC;
 	$Project->{_TEMP_DATA_SEISMIC_SU}  = $TEMP_DATA_SEISMIC_SU;
@@ -879,9 +879,11 @@ sub system_dirs {
 
 	# DATA CATEGORIES BY TOOL collected at the surface (default)
 	my $RESISTIVITY              = $PROJECT_HOME . '/resistivity';
-	my $RESISTIVITY_SURFACE      = $PROJECT_HOME . '/resistivity_surface';    # legacy
+	# print("Project_config,RESISTIVITY=$RESISTIVITY\n");
+	my $RESISTIVITY_SURFACE      = $RESISTIVITY.'_surface'; 
+	# print("Project_config,RESISTIVITY_SURFACE=$RESISTIVITY_SURFACE\n");
 	my $DATA_RESISTIVITY         = $RESISTIVITY . '/data';
-	my $DATA_RESISTIVITY_SURFACE = $RESISTIVITY_SURFACE . '/data';            # legacy
+	my $DATA_RESISTIVITY_SURFACE = $RESISTIVITY_SURFACE . '/data';
 
 	my $SEISMIC      = $PROJECT_HOME . '/seismics';
 	my $DATA_SEISMIC = $SEISMIC . '/data';
@@ -976,6 +978,7 @@ sub system_dirs {
 	my $MOD2D_TOMO = $SEISMIC . '/fast_tomo/All/mod2d';
 
 	# PERL DIRECTORIES
+	my $PL_RESISTIVITY_SURFACE = $RESISTIVITY_SURFACE . '/pl/' . $DATE_LINE_COMPONENT_STAGE_PROCESS . '/' . $subUser;
 	my $PL_SEISMIC = $SEISMIC . '/pl/' . $DATE_LINE_COMPONENT_STAGE_PROCESS . '/' . $subUser;
 	my $PL_GEOMAPS = $GEOMAPS . '/pl/' . $DATE_LINE_COMPONENT_STAGE_PROCESS . '/' . $subUser;
 	my $PL_WELL    = $WELL . '/pl/' . $DATE_LINE_COMPONENT_STAGE_PROCESS . '/' . $subUser;
@@ -1167,6 +1170,7 @@ sub system_dirs {
 	$Project->{_IMMODPG}                      = $IMMODPG;
 	$Project->{_IMMODPG_INVISIBLE}            = $IMMODPG_INVISIBLE;
 	$Project->{_MOD2D_TOMO}                   = $MOD2D_TOMO;
+	$Project->{_PL_RESISTIVITY_SURFACE}     = $PL_RESISTIVITY_SURFACE;
 	$Project->{_PL_SEISMIC}                   = $PL_SEISMIC;
 	$Project->{_PL_GEOMAPS}                   = $PL_GEOMAPS;
 	$Project->{_PL_WELL}                      = $PL_WELL;
@@ -1273,7 +1277,6 @@ sub DATA_RESISTIVITY_SURFACE {
 sub DATA_RESISTIVITY_SURFACE_TXT {
 	_basic_dirs();
 	_system_dirs();
-
 	my $DATA_RESISTIVITY_SURFACE_TXT = $Project->{_DATA_RESISTIVITY_SURFACE_TXT};
 	return ($DATA_RESISTIVITY_SURFACE_TXT);
 }
@@ -1687,6 +1690,26 @@ sub MOD2D_TOMO {
 	return ($MOD2D_TOMO);
 }
 
+sub PL_GEOMAPS {
+	_basic_dirs();
+	_system_dirs();
+	my $PL_GEOMAPS = $Project->{_PL_GEOMAPS};
+	return ($PL_GEOMAPS);
+}
+
+sub PL_RESISTIVITY_SURFACE {
+	_basic_dirs();
+	_system_dirs();
+	my $PL_RESISTIVITY_SURFACE= $Project->{_PL_RESISTIVITY_SURFACE};
+#	my $PL_RESISTIVITY_SURFACE_h= $Project->{_PL_RESISTIVITY_SURFACE};
+#	control->set_infection($PL_RESISTIVITY_SURFACE_h);
+#	my $PL_RESISTIVITY_SURFACE = $control->get_ticksBgone;
+
+	# This subroutine returns the value of PL_RESISTIVITY_SURFACE
+	print ("\nProject_config, PL_RESISTIVITY_SURFACE,PL_RESISTIVITY_SURFACE: $PL_RESISTIVITY_SURFACE\n");
+	return ($PL_RESISTIVITY_SURFACE);
+}
+
 sub PL_SEISMIC {
 	_basic_dirs();
 	_system_dirs();
@@ -1699,12 +1722,6 @@ sub PL_SEISMIC {
 	return ($PL_SEISMIC);
 }
 
-sub PL_GEOMAPS {
-	_basic_dirs();
-	_system_dirs();
-	my $PL_GEOMAPS = $Project->{_PL_GEOMAPS};
-	return ($PL_GEOMAPS);
-}
 
 sub PL_WELL {
 	_basic_dirs();
@@ -1915,6 +1932,9 @@ sub make_local_dirs {
 		manage_dirs_by::make_dir($MATLAB_GEOMAPS);
 	}
 
+  # CATEGORY resistivity surface data and Perl
+	my $PL_RESISTIVITY_SURFACE   = $Project->{_PL_RESISTIVITY_SURFACE};
+
 	# sh scripts and seismic
 	my $SH_SEISMIC = $Project->{_SH_SEISMIC};
 
@@ -2029,7 +2049,11 @@ sub make_local_dirs {
 	my $ANTELOPE = $Project->{_ANTELOPE};
 
 	# manage_dirs_by::make_dir($ANTELOPE);
-
+	
+	# pl programs and surface resistitivy data
+	# Always create
+	manage_dirs_by::make_dir($PL_RESISTIVITY_SURFACE);
+	
 	# pl programs and seismic data
 	# Always create
 	manage_dirs_by::make_dir($PL_SEISMIC);
@@ -2104,6 +2128,7 @@ sub make_local_dirs {
 	my $R_RESISTIVITY_SURFACE        = $Project->{_R_RESISTIVITY_SURFACE};
 	my $DATA_RESISTIVITY_SURFACE     = $Project->{_DATA_RESISTIVITY_SURFACE};
 	my $DATA_RESISTIVITY_SURFACE_TXT = $Project->{_DATA_RESISTIVITY_SURFACE_TXT};
+	# print("9. DATA_RESISTIVITY_SURFACE_TXT = $Project->{_DATA_RESISTIVITY_SURFACE_TXT}\n");
 
 	# manage_dirs_by::make_dir($R_RESISTIVITY_SURFACE);
 	manage_dirs_by::make_dir($DATA_RESISTIVITY_SURFACE);
@@ -2115,10 +2140,11 @@ sub make_local_dirs {
 	my $R_RESISTIVITY_WELL        = $Project->{_R_RESISTIVITY_WELL};
 	my $DATA_RESISTIVITY_WELL     = $Project->{_DATA_RESISTIVITY_WELL};
 	my $DATA_RESISTIVITY_WELL_TXT = $Project->{_DATA_RESISTIVITY_WELL_TXT};
-
-	# manage_dirs_by::make_dir($R_RESISTIVITY_WELL);
-	# manage_dirs_by::make_dir($DATA_RESISTIVITY_WELL);
-	# manage_dirs_by::make_dir($DATA_RESISTIVITY_WELL_TXT);
+	
+	# CATEGORY resistivity data
+	# location surface 
+	# and program PL
+	manage_dirs_by::make_dir($PL_RESISTIVITY_SURFACE);
 
 	#CATEGORY GAMMA data
 	# location well

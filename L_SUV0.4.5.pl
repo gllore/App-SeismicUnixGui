@@ -1270,7 +1270,7 @@ my $flow_control_frame_bottom_row = $flow_control_frame->Frame(
 
 =head2 workflow_control_frame
 
- includes flow names
+ Includes flow names
 
 =cut
 
@@ -1289,7 +1289,7 @@ $main_href->{_flow_name_grey_w} = $flow_control_frame_names4top_row->Label(
 	-relief             => 'flat',
 	-state              => 'disabled',
 	-text               => 'grey name',
-	-width              => $var->{_14_characters},
+	-width              => $var->{_18_characters},
 );
 
 $main_href->{_flow_name_pink_w} = $flow_control_frame_names4top_row->Label(
@@ -1307,7 +1307,7 @@ $main_href->{_flow_name_pink_w} = $flow_control_frame_names4top_row->Label(
 	-relief             => 'flat',
 	-state              => 'disabled',
 	-text               => 'pink name',
-	-width              => $var->{_14_characters},
+	-width              => $var->{_18_characters},
 );
 
 $main_href->{_flow_name_green_w} = $flow_control_frame_names4bottom_row->Label(
@@ -1325,7 +1325,7 @@ $main_href->{_flow_name_green_w} = $flow_control_frame_names4bottom_row->Label(
 	-relief             => 'flat',
 	-state              => 'disabled',
 	-text               => 'green name',
-	-width              => $var->{_14_characters},
+	-width              => $var->{_18_characters},
 );
 
 $main_href->{_flow_name_blue_w} = $flow_control_frame_names4bottom_row->Label(
@@ -1342,7 +1342,7 @@ $main_href->{_flow_name_blue_w} = $flow_control_frame_names4bottom_row->Label(
 	-relief             => 'flat',
 	-state              => 'disabled',
 	-text               => 'blue name',
-	-width              => $var->{_14_characters},
+	-width              => $var->{_18_characters},
 );
 
 $main_href->{_flow_listbox_grey_w} = $flow_control_frame_top_row->Scrolled(
@@ -1912,14 +1912,14 @@ sub _L_SU_flow_bindings {
 		my $button = $method;
 
 		$gui_history->set_flow_type($user_built);
-		# print("2. main, _L_SU_flow_bindings: writing gui_history.txt\n");
+#		print("2. main, _L_SU_flow_bindings: writing gui_history.txt\n");
 		# $gui_history->view();
 		
 		$gui_history->set_flow_select_color($color);
 		# print("1. main,_L_SU_flow_bindings,color:$color\n");
 		
 		$L_SU->set_hash_ref($main_href);
-       # print("2. main,_L_SU_flow_bindings,method:$method\n");
+        #print("2. main,_L_SU_flow_bindings,method:$method\n");
 
 		$L_SU->user_built_flows($method);
 

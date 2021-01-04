@@ -190,7 +190,6 @@ sub get_num_prog_names {
 
 	}
 	else {
-
 		print("perl_flow,missing num_progs\n");
 		return ();
 	}

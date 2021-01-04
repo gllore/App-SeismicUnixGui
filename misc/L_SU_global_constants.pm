@@ -231,8 +231,7 @@ my $var = {
 	_40_characters  => '40',
 	_45_characters  => '45',
 	_base_file_name => 'base_file_name',
-	_box_position   => '1000x650+12+50',
-
+	_box_position   => '1100x750+12+5',
 	#_box_position        => '890x660+12+12',
 	_clear_text                    => '',
 	_config_file_format            => '%-35s%1s%-20s',
@@ -302,6 +301,7 @@ my $var = {
 	_eleven_characters             => '11',
 	_five_characters               => '5',
 	_thirty_characters             => '30',
+	_18_characters					=> '18',
 	_thirty_five_characters        => '35',
 	_tiny_width                    => '12',
 	_true                          => 1,

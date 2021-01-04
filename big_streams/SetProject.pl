@@ -15,7 +15,6 @@
                   on/off with comment marks ("#")
 =head2 NEEDS
 
- System_Variables package
  manage_dirs_by package
 
 =cut
@@ -73,6 +72,7 @@ my ($MATLAB_GEOMAPS)               = $Project->MATLAB_GEOMAPS();
 my ($IMMODPG)                      = $Project->IMMODPG();
 my ($IMMODPG_INVISIBLE)            = $Project->IMMODPG_INVISIBLE();
 my ($MMODPG)             		   = $Project->MMODPG();
+my ($PL_RESISTIVITY_SURFACE) = $Project->PL_RESISTIVITY_SURFACE();
 my ($PL_SEISMIC)                   = $Project->PL_SEISMIC();
 my ($PL_GEOMAPS)                   = $Project->PL_GEOMAPS();
 my ($R_WELL)                       = $Project->R_WELL();
@@ -117,6 +117,7 @@ manage_dirs_by::make_dir($GEOMAPS_IMAGES_PS);
 manage_dirs_by::make_dir($DATA_GEOMAPS_TOPO);
 
 manage_dirs_by::make_dir($DATA_RESISTIVITY_SURFACE);
+manage_dirs_by::make_dir($PL_RESISTIVITY_SURFACE);
 manage_dirs_by::make_dir($DATA_RESISTIVITY_SURFACE_TXT);
 #  manage_dirs_by::make_dir($DATA_RESISTIVITY_WELL);
 # manage_dirs_by::make_dir($DATA_RESISTIVITY_WELL_TXT);
@@ -154,9 +155,9 @@ manage_dirs_by::make_dir($MATLAB_GEOMAPS);
 # manage_dirs_by::make_dir($MMODPG);
 # print("SetProject.pl,MMODPG_INVISIBLE=$MMODPG_INVISIBLE\n");
 # manage_dirs_by::make_dir($IMMODPG_INVISIBLE);
-
-#  manage_dirs_by::make_dir($PL_SEISMIC);
 manage_dirs_by::make_dir($PL_GEOMAPS);
+# manage_dirs_by::make_dir($PL_RESISTIVITY_SURFACE);
+# manage_dirs_by::make_dir($PL_SEISMIC);
 
 # manage_dirs_by::make_dir($PL_WELL);
 # manage_dirs_by::make_dir($PS_SEISMIC);

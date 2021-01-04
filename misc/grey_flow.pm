@@ -913,7 +913,7 @@ sub _SaveAs_button {
 		my $most_recent_flow_index_touched = ( $color_flow_href->{_flow_select_index_href} )->{_most_recent};
 		my $prior_flow_index_touched       = ( $color_flow_href->{_flow_select_index_href} )->{_prior};
 		my $most_recent_flow_color         = ( $color_flow_href->{_flow_select_color_href} )->{_most_recent};
-		my $last_flow_index                		= $most_recent_flow_index_touched;
+		my $last_flow_index                = $most_recent_flow_index_touched;
 
 		# print("1 OLD save, last_flow_color is:  $color_flow_href->{_last_flow_color} \n");
 		# print("1 OLD save, last_flow_index is:  $color_flow_href->{_last_flow_index} \n");
@@ -955,17 +955,17 @@ sub _SaveAs_button {
 		#   print("color_flow,_prog_versions_aref,
 		#   @{$color_flow_href->{_items_versions_aref}}\n");
 
-		$files_LSU->set_prog_param_labels_aref2($color_flow_href);  
-		$files_LSU->set_prog_param_values_aref2($color_flow_href);    
-		$files_LSU->set_prog_names_aref($color_flow_href);            
-		$files_LSU->set_items_versions_aref($color_flow_href);        
+		$files_LSU->set_prog_param_labels_aref2($color_flow_href);
+		$files_LSU->set_prog_param_values_aref2($color_flow_href);
+		$files_LSU->set_prog_names_aref($color_flow_href);
+		$files_LSU->set_items_versions_aref($color_flow_href);
 		$files_LSU->set_data();
 		$files_LSU->set_message($color_flow_href);
 
-		$files_LSU->set2pl($color_flow_href);                         # flows saved to PL_SEISMIC
+		$files_LSU->set2pl($color_flow_href);    # flows saved to PL_SEISMIC
 		$files_LSU->save();
 
-		$gui_history->set4_end_of_SaveAs_button();               # sets: _has_used_SaveAs=true
+		$gui_history->set4_end_of_SaveAs_button();    # sets: _has_used_SaveAs=true
 		$color_flow_href = $gui_history->get_hash_ref();
 
 		return ();
@@ -1029,44 +1029,48 @@ sub _perl_flow {
 
 	my $num_prog_names = $perl_flow->get_num_prog_names();
 
-	for ( my $prog_idx = 0; $prog_idx < $num_prog_names; $prog_idx++ ) {
+	if ( length $num_prog_names ) {
 
-		# collect info. from perl file
-		$perl_flow->set_prog_index($prog_idx);
-		$color_flow_href->{_prog_name_sref}              = $perl_flow->get_prog_name_sref();
-		$color_flow_href->{_names_aref}                  = $perl_flow->get_all_names_aref();
-		$color_flow_href->{_values_aref}                 = $perl_flow->get_all_values_aref();
-		$color_flow_href->{_check_buttons_settings_aref} = $perl_flow->get_check_buttons_settings_aref();
+		for ( my $prog_idx = 0; $prog_idx < $num_prog_names; $prog_idx++ ) {
 
-		# remove quotes upon input
-		$color_flow_href->{_values_aref} = $control->get_no_quotes4array( $color_flow_href->{_values_aref} );
+			# collect info. from perl file
+			$perl_flow->set_prog_index($prog_idx);
+			$color_flow_href->{_prog_name_sref}              = $perl_flow->get_prog_name_sref();
+			$color_flow_href->{_names_aref}                  = $perl_flow->get_all_names_aref();
+			$color_flow_href->{_values_aref}                 = $perl_flow->get_all_values_aref();
+			$color_flow_href->{_check_buttons_settings_aref} = $perl_flow->get_check_buttons_settings_aref();
 
-		# add single quotes upon input only to strings
-		$color_flow_href->{_values_aref}
-			= $control->get_string_or_number4array( $color_flow_href->{_values_aref} );
+			# remove quotes upon input
+			$color_flow_href->{_values_aref} = $control->get_no_quotes4array( $color_flow_href->{_values_aref} );
 
-		# my $names = scalar @{$color_flow_href->{_names_aref}};
-		$perl_flow->set_prog_index($prog_idx);
-		my $number_of_values = scalar @{ $color_flow_href->{_values_aref} };
+			# add single quotes upon input only to strings
+			$color_flow_href->{_values_aref}
+				= $control->get_string_or_number4array( $color_flow_href->{_values_aref} );
 
-		$color_flow_href->{_param_sunix_length} = $perl_flow->get_param_sunix_length();
+			# my $names = scalar @{$color_flow_href->{_names_aref}};
+			$perl_flow->set_prog_index($prog_idx);
+			my $number_of_values = scalar @{ $color_flow_href->{_values_aref} };
 
-		# int("1. color_flow,perl_flow, length = $number_of_values\n");
-		# int("2. color_flow,perl_flow, length = $color_flow_href->{_param_sunix_length} \n");
+			$color_flow_href->{_param_sunix_length} = $perl_flow->get_param_sunix_length();
 
-		# Populate GUI with the parameter values and labels of the first item
-		# _add2flow will call _flow_select to select the last flow item loaded
-		# _flow select marks the gui history and calls
-		# flow_select which will detect any parameter changes
-		# and will store
-		# upload variables into the param_flow for each program
-		_add2flow();
+			# int("1. color_flow,perl_flow, length = $number_of_values\n");
+			# int("2. color_flow,perl_flow, length = $color_flow_href->{_param_sunix_length} \n");
 
+			# Populate GUI with the parameter values and labels of the first item
+			# _add2flow will call _flow_select to select the last flow item loaded
+			# _flow select marks the gui history and calls
+			# flow_select which will detect any parameter changes
+			# and will store
+			# upload variables into the param_flow for each program
+			_add2flow();
+		}
+		_flow_select_director('_perl_flow');
+		return ();
+		
+	} else {
+		print("$this_color flow is missing the number of programs in a flow\n");
 	}
 
-	_flow_select_director('_perl_flow');
-
-	return ();
 }
 
 =head2 sub _set_flow_color
@@ -1819,6 +1823,7 @@ sub FileDialog_button {
 
 				# go save perl flow file
 				_SaveAs_button($topic);
+
 				# print("color_flow,FileDialog_button, saving the perl file\n");
 
 				# restore message at the bottom of the string to blank if not already so
@@ -2205,7 +2210,7 @@ sub delete_from_flow_button {
 
 				# reinitialize flow_select_count
 				$gui_history->set_clear('delete_from_flow_button');
-				print("1. last item deleted Shut down delete button\n");
+				# print("1. last item deleted Shut down delete button\n");
 
 			} elsif ( $index > 0 ) {
 
@@ -2542,10 +2547,10 @@ sub flow_item_up_arrow_button {
 
 Pick a Seismic Unix module
 from within a (colored) flow listbox
-    	     	 
-always takes focus on first entry ; index = 0
-if focus is on first entry then also make the
-last_parameter_index_touched = 0
+    	     	
+Always takes focus on first entry ; index = 0
+If focus is on first entry then also make the
+$color_flow_href->{_last_parameter_index_touched_color}  =0
 
 print(" flow_select, view stored param flow data before update of prior\n");
 $param_flow_color_pkg->view_data();
@@ -2745,7 +2750,7 @@ sub flow_select {
 		$gui_history->set4end_of_flow_select($flow_color);
 		$gui_history->set_flow_index_last_touched($index);
 		$color_flow_href = $gui_history->get_hash_ref();    # now color_flow= 0; flow_type=user_built
-			# Update thr entry button value that displays the currently active
+			# Update thre entry button value that displays the currently active
 			# flow or superflow name, by using the currently selected program name from the flow list
 			# e.g. data_in, suximage, suxgraph etc.
 		( $color_flow_href->{_flowNsuperflow_name_w} )->configure( -text => ${ $color_flow_href->{_prog_name_sref} } );
@@ -3053,16 +3058,15 @@ for the first time that is when no listboxes have been occupied previously
 }
 
 =head2 sub set_hash_ref
+	
+	Imports external hash into private settings via gui_history 
+	hash
 
-	copies with simplified names are also kept (40) so later
+	Keys that used simplified names are also kept (40) so later
 	the hash can be returned to a calling module
 	
-	imports external hash into private settings via gui_history 
-	accessory
-
-print("color_flow,set_hash_ref,hash_ref->{_log_view}: $ans\n");
-my $ans = $gui_history->get_log_view();
-print("2. color_flow,set_hash_ref: gui_history->get_log_view:$ans \n");
+	print("color_flow, END of flow_select: writing gui_history.txt\n");
+	$gui_history->view();
  	
 =cut
 

@@ -378,6 +378,59 @@ sub read_2cols {
 	return ( \@TIME_OUT, \@OFFSET_OUT, $num_rows );
 }
 
+=head2 sub get_3cols_aref
+  
+  This function reads 3 cols in a text file
+  
+=cut
+
+sub get_3cols_aref {
+
+	my ($reference, $file_name, $skip_lines) = @_;
+	my (@X, @Y, @Z);
+	my $lines;
+
+	print ("\nThe input file is called $file_name\n");
+	# open the file of interest
+	open( FILE, "$file_name" ) || print("Can't open file name, $!\n");
+    
+    # skip lines
+    for (my $i=0; $i< $skip_lines; $i ++ ) {
+    	$lines = <FILE>;
+    	print("line $i = $lines\n");
+    }
+    
+	#set the counter
+	my $i = 0;
+	# read contents of file
+	while ( my $lines = <FILE> ) {
+
+		#     print("$lines");
+		chomp($lines);
+		my ( $x, $y, $z ) = split( " ", $lines );
+
+		print("\n$x \n");
+		$X[$i] = $x;
+		$Y[$i] = $y;
+		$Z[$i] = $z;
+
+		#print("\n @X[$i] @Y[$i] @Z[$i] \n");
+		$i++;
+	}
+
+	# number of geophones stations in file
+	my $num_rows = $i - 1;
+
+	#print ("This file contains $num_rows rows\n\n\n");
+	# close the file of interest
+	close(FILE);
+
+	# make sure arrays do not contaminate outside
+
+	return ( \@X, \@Y, \@Z);
+
+}
+
 =head2 sub read_par
 
  read parameter file
