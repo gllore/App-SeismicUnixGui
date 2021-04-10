@@ -18,8 +18,7 @@ my $surms = new sumax();
 
 use Project_config;
 my $Project = new Project_config();
-use SeismicUnix
-  qw ($rms_amp $rms $ascii $to_outpar_file $suffix_hyphen $suffix_ascii $surms_notes $suffix_su);
+use SeismicUnix qw ($rms_amp $rms $ascii $to_outpar_file $suffix_hyphen $suffix_ascii $surms_notes $suffix_su);
 my ($TEMP_DATA_SEISMIC_SU) = $Project->TEMP_DATA_SEISMIC_SU();
 
 sub note {

@@ -1,0 +1,39 @@
+sub setVbot {
+
+	my ($self) = @_;
+
+	if ( length( $immodpg->{_VbotEntry} ) ) {
+
+		$immodpg->{_Vbot_current} = ( $immodpg->{_VbotEntry} )->get();
+
+	_checkVbot();
+		_updateVbot();
+
+		if ( length( $immodpg->{_isVbot_changed_in_gui} )
+			&& $immodpg->{_isVbot_changed_in_gui} eq $yes ) {
+
+			# for fortran program to read
+			# print("immodpg, set_Vbot, Vbot is changed: $yes \n");
+
+			_setVbot( $immodpg->{_Vbot_current} );
+			_set_option($Vbot_opt);
+			_set_change($yes);
+
+			# print("immodpg, setVbot,option:$Vbot_opt\n");
+			#			print("immodpg, setVbot, V=$immodpg->{_Vbot_current}\n");
+
+		} else {
+
+			#			negative cases are reset by fortran program
+			#			and so eliminate need to read locked files
+			#			while use of locked files helps most of the time
+			#			creation and deletion of locked files in perl are not
+			#			failsafe
+
+			#  print("immodpg, setVbot, same Vbot NADA\n");
+		}
+
+	} else {
+
+	}
+}

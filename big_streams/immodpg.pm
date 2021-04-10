@@ -54,11 +54,16 @@ package immodpg;
 
 =head4 CHANGES and their DATES
 
+V0.2 April 4, 2021
+
+April 2021: controlled data input errors
+Added model values to namespace of immodpg.pm
+
 
 =cut
 
 use Moose;
-our $VERSION = '0.0.1';
+our $VERSION = '0.2';
 use L_SU_global_constants();
 use Project_config;
 use immodpg_config;
@@ -89,122 +94,134 @@ my $immodpg_model           = $var_immodpg->{_immodpg_model};
 =cut
 
 my $immodpg = {
-	_Vbot                             => '',
-	_VbotEntry                        => '',
-	_Vbot_current                     => '',
-	_Vbot_default                     => '',
-	_Vbot_multiplied                  => '',
-	_Vbot_prior                       => '',
-	_Vbot_upper_layer                 => '',
-	_Vbot_upper_layerEntry            => '',
-	_Vbot_upper_layer_current         => '',
-	_Vbot_upper_layer_default         => '',
-	_Vbot_upper_layer_prior           => '',
-	_Vincrement                       => '',
-	_VincrementEntry                  => '',
-	_Vincrement_current               => '',
-	_Vincrement_default               => '',
-	_Vincrement_prior                 => '',
-	_Vtop                             => '',
-	_Vtop_current                     => '',
-	_Vtop_prior                       => '',
-	_Vtop_lower_layer_current         => '',
-	_Vtop_lower_layer                 => '',
-	_Vtop_lower_layer_prior           => '',
-	_Vtop_multiplied                  => '',
-	_VbotNtop_factor                  => '',
-	_VbotNtop_factorEntry             => '',
-	_VbotNtop_factor_current          => '',
-	_VbotNtop_factor_default          => '',
-	_VbotNtop_factor_prior            => '',
-	_base_file_name                   => '',
-	_cdp                              => '',
-	_change_file                      => '',
-	_change_default                   => $no,
-	_clip                             => '',
-	_clip_file                        => '',
-	_clip4plot                        => '',
-	_clip4plotEntry                   => '',
-	_clip4plot_current                => '',
-	_clip4plot_default                => '',
-	_clip4plot_prior                  => '',
-	_data_traces                      => '',
-	_control_layer                    => '',
-	_control_layer_external           => '',
-	_inbound_missing                  => '',
-	_inVbot                           => '',
-	_inVbot_upper_layer               => '',
-	_inVincrement                     => '',
-	_inVtop                           => '',
-	_inVtop_lower_layer               => '',
-	_inVbotNtop_factor                => '',
-	_in_clip                          => '',
-	_in_layer                         => '',
-	_layerEntry                       => '',
-	_layer_current                    => '',
-	_layer_default                    => '',
-	_layer_prior                      => '',
-	_in_thickness_increment_m         => '',
-	_invert                           => '',
-	_isVbot_changed                   => $no,
-	_isVbot_upper_layer_changed       => $no,
-	_isVincrement_changed             => $no,
-	_isVtop_changed                   => $no,
-	_isVtop_lower_layer_changed       => $no,
-	_isVbotNtop_factor_changed        => $no,
-	_is_clip_changed                  => $no,
-	_is_layer_changed                 => $no,
-	_is_thickness_increment_m_changed => $no,
-	_layer                            => '',
-	_layer_file                       => '',
-	_lmute                            => '',
-	_lower_layerLabel                 => '',
-	_min_t_s                          => '',
-	_min_x_m                          => '',
-	_model_file_text                  => $var_immodpg->{_immodpg_model_file_text},
-	_model_error                      => $off,
-	_model_layer_number               => '',
-	_new_model                        => '',
-	_option_default                   => -1,
-	_option_file                      => '',
-	_outsideVbot                      => '',
-	_outsideVbot_upper_layer          => '',
-	_outsideVincrement                => '',
-	_outsideVtop                      => '',
-	_outsideVtop_lower_layer          => '',
-	_outsideVbotNtop_factor           => '',
-	_outside_clip                     => '',
-	_outside_layer                    => '',
-	_outside_thickness_increment_m    => '',
-	_par                              => '',
-	_plot_max_t_s                     => '',
-	_plot_max_x_m                     => '',
-	_plot_min_t_s                     => '',
-	_plot_min_x_m                     => '',
-	_pre_digitized_XT_pairs           => '',
-	_previous_model                   => '',
-	_receiver_depth_m                 => '',
-	_reducing_vel_mps                 => '',
-	_replacement4missing              => '',
-	_scaled_par                       => '',
-	_smute                            => '',
-	_source_depth_m                   => '',
-	_sscale                           => '',
-	_tnmo                             => '',
-	_upper_layerLabel                 => '',
-	_upward                           => '',
-	_vnmo                             => '',
-	_voutfile                         => '',
-	_thickness_increment_m            => '',
-	_thickness_increment_mEntry       => '',
-	_thickness_increment_m_current    => '',
-	_thickness_increment_m_default    => '',
-	_thickness_increment_m_prior      => '',
-	_Step                             => '',
-	_note                             => '',
+	_Vbot                              => '',
+	_VbotEntry                         => '',
+	_Vbot_current                      => '',
+	_Vbot_default                      => '',
+	_Vbot_multiplied                   => '',
+	_Vbot_prior                        => '',
+	_Vbot_upper_layer                  => '',
+	_Vbot_upper_layerEntry             => '',
+	_Vbot_upper_layer_current          => '',
+	_Vbot_upper_layer_default          => '',
+	_Vbot_upper_layer_prior            => '',
+	_Vincrement                        => '',
+	_VincrementEntry                   => '',
+	_Vincrement_current                => '',
+	_Vincrement_default                => '',
+	_Vincrement_prior                  => '',
+	_Vtop                              => '',
+	_Vtop_current                      => '',
+	_Vtop_prior                        => '',
+	_Vtop_lower_layer_current          => '',
+	_Vtop_lower_layer                  => '',
+	_Vtop_lower_layer_prior            => '',
+	_Vtop_multiplied                   => '',
+	_VbotNtop_factor                   => '',
+	_VbotNtop_factorEntry              => '',
+	_VbotNtop_factor_current           => '',
+	_VbotNtop_factor_default           => '',
+	_VbotNtop_factor_prior             => '',
+	_base_file_name                    => '',
+	_cdp                               => '',
+	_change_file                       => '',
+	_change_default                    => $no,
+	_clip                              => '',
+	_clip_file                         => '',
+	_clip4plot                         => '',
+	_clip4plotEntry                    => '',
+	_clip4plot_current                 => '',
+	_clip4plot_default                 => '',
+	_clip4plot_prior                   => '',
+	_control_value                     => '',
+	_data_traces                       => '',
+	_control_layer                     => '',
+	_control_layer_external            => '',
+	_error_switch                      => '',
+	_inbound_missing                   => '',
+	_inVbot                            => '',
+	_inVbot_upper_layer                => '',
+	_inVincrement                      => '',
+	_inVtop                            => '',
+	_inVtop_lower_layer                => '',
+	_inVbotNtop_factor                 => '',
+	_in_clip                           => '',
+	_in_layer                          => '',
+	_layerEntry                        => '',
+	_layer_current                     => '',
+	_layer_default                     => '',
+	_layer_prior                       => '',
+	_in_thickness_increment_m          => '',
+	_invert                            => '',
+	_isVbot_changed_in_gui             => $no,
+	_isVbot_upper_layer_changed_in_gui => $no,
+	_isVincrement_changed_in_gui       => $no,
+	_isVtop_changed_in_gui             => $no,
+	_isVtop_lower_layer_changed_in_gui => $no,
+	_isVbotNtop_factor_changed_in_gui  => $no,
+	_is_clip_changed_in_gui            => $no,
+	_is_layer_changed_in_gui           => $no,
+	_is_layer_changed_in_gui           => $no,
+	_layer                             => '',
+	_layer_file                        => '',
+	_lmute                             => '',
+	_lower_layerLabel                  => '',
+	_min_t_s                           => '',
+	_min_x_m                           => '',
+	_model_file_text                   => $var_immodpg->{_immodpg_model_file_text},
+	_model_error                       => $off,
+	_model_layer_number                => '',
+	_message_box_w                     => '',
+	_message_upper_frame               => '',
+	_message_lower_frame               => '',
+	_message_label_w                   => '',
+	_message_box_wait                  => '',
+	_message_ok_button                 => '',
+	_mw                                => '',
+	_new_model                         => '',
+	_option_default                    => -1,
+	_option_file                       => '',
+	_outsideVbot                       => '',
+	_outsideVbot_upper_layer           => '',
+	_outsideVincrement                 => '',
+	_outsideVtop                       => '',
+	_outsideVtop_lower_layer           => '',
+	_outsideVbotNtop_factor            => '',
+	_outside_clip                      => '',
+	_outside_layer                     => '',
+	_outside_thickness_increment_m     => '',
+	_par                               => '',
+	_plot_max_t_s                      => '',
+	_plot_max_x_m                      => '',
+	_plot_min_t_s                      => '',
+	_plot_min_x_m                      => '',
+	_pre_digitized_XT_pairs            => '',
+	_previous_model                    => '',
+	_receiver_depth_m                  => '',
+	_reducing_vel_mps                  => '',
+	_refVPtop                          => '',
+	_refVPbot                          => '',
+	_ref_dz                            => '',
+	_replacement4missing               => '',
+	_scaled_par                        => '',
+	_smute                             => '',
+	_source_depth_m                    => '',
+	_sscale                            => '',
+	_tnmo                              => '',
+	_upper_layerLabel                  => '',
+	_upward                            => '',
+	_vnmo                              => '',
+	_voutfile                          => '',
+	_thickness_increment_m             => '',
+	_thickness_increment_mEntry        => '',
+	_thickness_increment_m_current     => '',
+	_thickness_increment_m_default     => '',
+	_thickness_increment_m_prior       => '',
+	_Step                              => '',
+	_note                              => '',
 };
 
-#	print("immodpg, starting, _isVtop_lower_layer_changed: $immodpg->{_isVtop_lower_layer_changed}\n");
+#	print("immodpg, starting, _isVtop_lower_layer_changed_in_gui: $immodpg->{_is_isVtop_lower_layer_changed_in_gui}\n");
 
 =head2 Define
 private variables
@@ -265,12 +282,14 @@ my $VbotNtop_minus_opt              = $var_immodpg->{_VbotNtop_minus_opt};
 my $update_opt                      = $var_immodpg->{_update_opt};
 
 my $change_clip_opt                  = $var_immodpg->{_clip4plot_opt};
-my $change_layer_number_opt          = $var_immodpg->{_change_layer_number_opt};
-my $change_thickness_increment_m_opt = $var_immodpg->{_change_thickness_increment_m_opt};
-my $change_thickness_m_opt           = $var_immodpg->{_change_thickness_m_opt};
+my $change_layer_number_opt          = $var_immodpg->{_layer_number_opt};
+my $change_thickness_increment_m_opt = $var_immodpg->{_thickness_increment_m_opt};
+my $change_thickness_m_opt           = $var_immodpg->{_thickness_m_opt};
 my $changeVtop_opt                   = $var_immodpg->{_Vtop_opt};
 my $changeVincrement_opt             = $var_immodpg->{_Vincrement_opt};
 my $changeVbotNtop_factor_opt        = $var_immodpg->{_VbotNtop_factor_opt};
+my $change_working_model_bin_opt  			= $var_immodpg->{ _working_model_bin_opt};   
+my $change_working_model_text_opt  			= $var_immodpg->{ _working_model_text_opt};   
 
 =head2 sub Step
 collects switches and assembles bash instructions
@@ -335,6 +354,7 @@ sub _checkVbot {
 			# Now leaving Entry widget
 			$Vbot_current = $immodpg->{_VbotEntry}->get();
 
+			# print("immodpg,_checkVbot, Vbot_current:$Vbot_current\n");
 			# reverse the conditions now
 			# when user leaves Entry widget
 			$inVbot      = $no;
@@ -392,7 +412,7 @@ sub _checkVbot_upper_layer {
 
 	my ($self) = @_;
 
-	#	print("immodpg, _checkVbot_upper_layer, $immodpg->{_Vbot_upper_layerEntry}\n");
+	# print("immodpg, _checkVbot_upper_layer, $immodpg->{_Vbot_upper_layerEntry}\n");
 
 	if (   length( $immodpg->{_Vbot_upper_layerEntry} )
 		&& $immodpg->{_Vbot_upper_layerEntry} ne $empty_string
@@ -412,7 +432,7 @@ sub _checkVbot_upper_layer {
 		if (   $inVbot_upper_layer eq $yes
 			&& $outsideVbot_upper_layer eq $no ) {
 
-			#			print("immodpg, _checkVbot_upper_layer, Leaving widget\n");
+			#	print("immodpg, _checkVbot_upper_layer, Leaving widget\n");
 
 			# CASE 1: Previously, inside Entry widget
 			# Now leaving Entry widget
@@ -825,8 +845,8 @@ sub _check_clip {
 		my $clip4plot_current = $immodpg->{_clip4plot_current};
 		my $clip4plot_prior   = $immodpg->{_clip4plot_prior};
 
-		# print("immodpg,_check_clip, in_clip:$in_clip\n");
-		# print("immodpg,_check_clip, outside_clip: $outside_clip\n");
+		#		print("immodpg,_check_clip, in_clip:$in_clip\n");
+		#		print("immodpg,_check_clip, outside_clip: $outside_clip\n");
 		if (   $in_clip eq $yes
 			&& $outside_clip eq $no ) {
 
@@ -835,6 +855,8 @@ sub _check_clip {
 			# CASE 1: Previously, inside Entry widget
 			# Now leaving Entry widget
 			$clip4plot_current = $immodpg->{_clip4plotEntry}->get();
+
+			# rint("immodpg, _check_clip, clip4plot_current:$clip4plot_current\n");
 
 			# reverse the conditions now
 			# when user leaves Entry widget
@@ -887,8 +909,9 @@ When you enter or leave
 check what the current layer value is
 compared to former layer values
 
-If you enter the LayerEntry widget it will be before you change
+If you enter the LayerEntry widget it will check before you change
 its value
+
 If you enter another widget that now has the focus you
 will have to recall the current and prior values of the 
 layerEntry widget
@@ -919,11 +942,11 @@ sub _check_layer {
 			&& $outside_layer eq $no ) {
 
 			# CASE 1: Previously, inside Entry widget
-			#			print("immodpg, _check_layer, left widget\n");
+			# print("immodpg, _check_layer, left widget\n");
 			# possible layer number idiosyncracies
 			my $temp_layer_current = $immodpg->{_layerEntry}->get();
 
-			# print("immodpg, _check_layer, temp layer number = $temp_layer_current\n");
+			# print("immodpg, _check_layer, CASE 1 temp layer number = $temp_layer_current\n");
 			_set_layer_control($temp_layer_current);
 			my $new_layer_current = _get_control_layer();
 
@@ -1064,8 +1087,8 @@ sub _check_thickness_m {
 =head2 sub _check_thickness_increment_m
 
 When you enter or leave
-check what the current thickness_increment_mvalue is
-compared to former thickness_increment_mvalues
+check what the current thickness_increment_m value is
+compared to former thickness_increment_m values
 
 =cut
 
@@ -1144,32 +1167,52 @@ sub _check_thickness_increment_m {
 	}
 }
 
-=head2 sub _get_control_VbotNtop_factor
-adjust  bad VbotNtop_factor value
-set defaults
+=head2 sub _get_control
+find corrected value
 
 =cut
 
-sub _get_control_VbotNtop_factor {
-
+sub _get_control {
 	my ($self) = @_;
 
 	my $result;
 
-	if ( not( looks_like_number( $immodpg->{_control_VbotNtop_factor} ) ) ) {
+	if ( length( $immodpg->{_control_value} ) ) {
 
-		$immodpg->{_VbotNtop_factor_current} = $immodpg->{_VbotNtop_factor_default};
-		$immodpg->{_VbotNtop_factor_prior}   = $immodpg->{_VbotNtop_factor_default};
-		$immodpg->{_VbotNtop_factorEntry}->delete( 0, 'end' );
-		$immodpg->{_VbotNtop_factorEntry}->insert( 0, $immodpg->{_VbotNtop_factor_current} );
-		$immodpg->{_isVbotNtop_factor_changed} = $no,;
+		$result = $immodpg->{_control_value};
 
 	} else {
-		print("immodpg, _get_control_VbotNtop_factor,  bad value\n");
+		print("immodpg, _get_control, unexpected value\n");
 	}
-
-	return ();
+	return ($result);
 }
+
+#=head2 sub _get_control_VbotNtop_factor
+#adjust  bad VbotNtop_factor value
+#set defaults
+#
+#=cut
+#
+#	sub _get_control_VbotNtop_factor {
+#
+#		my ($self) = @_;
+#
+#		my $result;
+#
+#		if ( not( looks_like_number( $immodpg->{_control_VbotNtop_factor} ) ) ) {
+#
+#			$immodpg->{_VbotNtop_factor_current} = $immodpg->{_VbotNtop_factor_default};
+#			$immodpg->{_VbotNtop_factor_prior}   = $immodpg->{_VbotNtop_factor_default};
+#			$immodpg->{_VbotNtop_factorEntry}->delete( 0, 'end' );
+#			$immodpg->{_VbotNtop_factorEntry}->insert( 0, $immodpg->{_VbotNtop_factor_current} );
+#			$immodpg->{_isVbotNtop_factor_changed_in_gui} = $no,;
+#
+#		} else {
+#			print("immodpg, _get_control_VbotNtop_factor,  bad value\n");
+#		}
+#
+#		return ();
+#	}
 
 =head2 sub _get_control_clip
 adjust clip value
@@ -1316,9 +1359,9 @@ sub _get_data_scale {
 	}
 }
 
-=head2 _get_model
+=head2 _get_initial_model
 
- PERL PACKAGE NAME: read_get_model_wPDL
+ PERL PACKAGE NAME: _get_initial_model
  AUTHOR: 	Juan Lorenzo
  DATE: 		May 21 2020
 
@@ -1356,16 +1399,17 @@ version of the model data file
 =cut
 
 =head2 CHANGES and their DATES
-
+3.31.21
+ Consider storing model values and 
+ their changes within this namespace
 
 =cut 
 
-sub _get_model {
+sub _get_initial_model {
 
 	my ($self) = @_;
 
 	use Project_config;
-	use PDL;
 	use PDL::Core;
 	use PDL::IO::FlexRaw;
 	use immodpg_global_constants;
@@ -1385,10 +1429,187 @@ sub _get_model {
 	my $km2m    = 1000;
 	my $gcc2MKS = 1000;
 
-	# print("immodpg, _get_model,model_layer_number =$immodpg->{_model_layer_number}\n");
 	my $number_of_layers = _get_number_of_layers();
 
-	#	print("immodpg, _get_model,number_of_layers = $number_of_layers\n");
+	# print("immodpg, _get_initial_model,number_of_layers = $number_of_layers\n");
+
+	my $header = [
+		{ Type => 'f77' },
+		{
+			Type  => 'float',
+			NDims => 2,
+			Dims  => [ $cols, ($number_of_layers) ]
+		}
+	];
+
+	# does file exist?
+	if ( -e $inbound ) {
+
+		# CASE 1: file exists
+		my $model_pdl = readflex( $inbound, $header );
+
+		# print("$model_pdl\n");
+		my $nelem = nelem($model_pdl);
+
+		# print("immodpg,_get_initial_model,nelem=$nelem,#cols=$cols,#layers=$number_of_layers\n");
+
+		for ( my $layer_index = 0; $layer_index < $number_of_layers; $layer_index++ ) {
+
+			my $magic_number_str = '0:1';
+			my $value_indices    = $magic_number_str;
+			my $full_indices     = $value_indices . ',' . $layer_index;
+
+			# pdl 2 perl
+			@VP                  = ( $model_pdl->slice($full_indices) )->list;
+			$VPtop[$layer_index] = sprintf( "%.2f", ( $VP[0] * $km2m ) );
+			$VPbot[$layer_index] = sprintf( "%.2f", ( $VP[1] * $km2m ) );
+
+			$value_indices = '2:6';
+			$full_indices  = $value_indices . ',' . $layer_index;
+
+			# pdl 2 perl
+			@model                     = ( $model_pdl->slice($full_indices) )->list;
+			$dz[$layer_index]          = sprintf( "%.3f", ( $model[0] * $km2m ) );
+			$VStop[$layer_index]       = sprintf( "%.3f", ( $model[1] * $km2m ) );
+			$VSbot[$layer_index]       = sprintf( "%.3f", ( $model[2] * $km2m ) );
+			$density_top[$layer_index] = sprintf( "%.3f", ( $model[3] * $gcc2MKS ) );
+			$density_bot[$layer_index] = sprintf( "%.3f", ( $model[4] * $gcc2MKS ) );
+
+			#				print(
+			#					"immodpg,_get_initial_model,V,layer_index=$layer_index\n"
+			#				);
+			#				print(
+			#					"immodpg,_get_initial_model,VPtop = $VPtop[$layer_index], VPbot=$VPbot[$layer_index]\n"
+			#				);
+
+			#			print("VStop = $VStop[$layer_index], VSbot=$VSbot[$layer_index],layer_index=$layer_index\n");
+			#			print("dz = $dz[$layer_index], rho_top=$density_top[$layer_index],rho_bot=$density_bot[$layer_index]\n");
+
+			#				my $x_indices     = pdl(5);
+			#				my $layer_indices = pdl(2);
+		}    # end a for loop
+
+		# test for errors
+		_set_model_control( \@VPbot, \@VPtop, \@VSbot, \@VStop, \@density_bot, \@density_top, \@dz );
+		my $error_switch = _get_model_control();
+
+		if ( $error_switch eq $on ) {
+
+			# CASE 1A File exists and is corrupt
+			_messages( 'immodpg', 1 );
+			return ();
+
+		} elsif ( $error_switch eq $off ) {
+
+			# CASE 1B File exists and is OK
+			# print("immodpg,_get_initial_model, MODEL OK ;NADA\n");
+			return ( \@VPtop, \@VPbot, \@dz, $error_switch );
+		} else {
+			print("immodpg,_get_initial_model, unexpected value\n");
+		}
+
+		#	        print pdl(@VPtop,@VPbot,@dz,@VStop,@VSbot,@density_top,@density_bot);
+		#	        print ("\n");
+		#			print $model_pdl->index2d($x_indices,$layer_indices);
+		#			print ("\n");
+		#			print $model_pdl;
+
+	} elsif ( not( -e $inbound ) ) {
+
+		# print("immodpg,_get_initial_model,file is missing\n");
+		use File::Copy;
+		my $from = $global_libs->{_configs_big_streams} . '/' . $immodpg_model;
+		my $to   = $IMMODPG . '/' . $immodpg_model_file_text;
+		copy( $from, $to );
+
+		$from = $global_libs->{_configs_big_streams} . '/' . $immodpg_model_file_text;
+		$to   = $IMMODPG . '/' . $immodpg_model_file_text;
+		copy( $from, $to );
+
+		return ();
+
+	} else {
+		print("immodpg,_get_initial_model,unexpected value\n");
+		return ();
+	}
+
+	return ();
+}
+
+=head2 _get_initial_model4gui
+
+ PERL PACKAGE NAME: _get_initial_model4gui
+ AUTHOR: 	Juan Lorenzo
+ DATE: 		May 21 2020
+
+ DESCRIPTION:  
+    
+   read Fortran 77 unformatted binary model file
+   from mmodpg
+
+=cut
+
+=head2 USE
+
+=over
+
+=item
+
+Number of layers is passed as a variable
+Number of layers is read from an ascii 
+version of the model data file
+
+=item
+
+
+=back
+	
+=cut
+
+=head2 NOTES
+
+	
+=cut	
+
+=head4 Examples
+
+=cut
+
+=head2 CHANGES and their DATES
+3.31.21
+ Consider storing model values and 
+ their changes within this namespace
+
+=cut 
+
+sub _get_initial_model4gui {
+
+	my ($self) = @_;
+
+	use Project_config;
+	use PDL::Core;
+	use PDL::IO::FlexRaw;
+	use immodpg_global_constants;
+
+	my $Project = Project_config->new();
+	my $IMMODPG = $Project->IMMODPG();
+	my $var     = ( immodpg_global_constants->new() )->var;
+
+	my ( @VPtop, @VStop, @density_top, @dz );
+	my ( @VPbot, @VSbot, @density_bot );
+	my ( @VP,    @VS,    @model );
+	my $error_switch = $off;
+	my $result       = '';
+
+	my $inbound = $IMMODPG . '/' . $var->{_immodpg_model};
+	my $cols    = 9;                                         #default
+	my $km2m    = 1000;
+	my $gcc2MKS = 1000;
+
+	#		print("immodpg, _get_initial_model4gui,model_layer_number =$immodpg->{_model_layer_number}\n");
+	my $number_of_layers = _get_number_of_layers();
+
+	#		print("immodpg, _get_initial_model4gui,number_of_layers = $number_of_layers\n");
 
 	if (   $immodpg->{_model_layer_number} > 0
 		&& $immodpg->{_model_layer_number} <= $number_of_layers ) {
@@ -1411,7 +1632,7 @@ sub _get_model {
 			# print("$model_pdl\n");
 			my $nelem = nelem($model_pdl);
 
-			# print("immodpg,_get_model,nelem=$nelem,#cols=$cols,#layers=$number_of_layers\n");
+			# print("immodpg,_get_initial_model4gui,nelem=$nelem,#cols=$cols,#layers=$number_of_layers\n");
 
 			for ( my $layer_index = 0; $layer_index < $number_of_layers; $layer_index++ ) {
 
@@ -1436,7 +1657,7 @@ sub _get_model {
 				$density_bot[$layer_index] = sprintf( "%.3f", ( $model[4] * $gcc2MKS ) );
 
 				# print(
-				# 	"immodpg,_get_model,VPtop = $VPtop[$layer_index], VPbot=$VPbot[$layer_index],layer_index=$layer_index\n"
+				# 	"immodpg,_get_initial_model4gui,VPtop = $VPtop[$layer_index], VPbot=$VPbot[$layer_index],layer_index=$layer_index\n"
 				# );
 
 				#			print("VStop = $VStop[$layer_index], VSbot=$VSbot[$layer_index],layer_index=$layer_index\n");
@@ -1453,21 +1674,17 @@ sub _get_model {
 			if ( $error_switch eq $on ) {
 
 				# CASE 1A File exists and is corrupt
-				print("immodpg,_get_model, CORRUPT MODEL in some layer\n");
-				print("OPTION: #1 Copy backup file .immodpg.out to immodpg.out\n");
-				print("OPTION: #2  Delete  immodpg.out\n");
-				print("And restart immodpg\n\n");
-
+				_messages( 'immodpg', 1 );
 				return ();
 
 			} elsif ( $error_switch eq $off ) {
 
 				# CASE 1B File exists and is OK
-				# print("immodpg,_get_model, MODEL OK ;NADA\n");
+				# print("immodpg,_get_initial_model4gui, MODEL OK ;NADA\n");
 				return ( \@VPtop, \@VPbot, \@dz, $error_switch );
 
 			} else {
-				print("immodpg,_get_model, unexpected value\n");
+				print("immodpg,_get_initial_model4gui, unexpected value\n");
 			}
 
 			#	        print pdl(@VPtop,@VPbot,@dz,@VStop,@VSbot,@density_top,@density_bot);
@@ -1478,7 +1695,7 @@ sub _get_model {
 
 		} elsif ( not( -e $inbound ) ) {
 
-			print("immodpg,_get_model,file is missing\n");
+			print("immodpg,_get_initial_model4gui,file is missing\n");
 			use File::Copy;
 			my $from = $global_libs->{_configs_big_streams} . '/' . $immodpg_model;
 			my $to   = $IMMODPG . '/' . $immodpg_model_file_text;
@@ -1490,12 +1707,12 @@ sub _get_model {
 
 			return ();
 		} else {
-			print("immodpg,_get_model,unexpected value\n");
+			print("immodpg,_get_initial_model4gui,unexpected value\n");
 			return ();
 		}
 
 	} else {
-		print("immodpg,_get_model,bad layer number\n");
+		print("immodpg,_get_initial_model4gui,bad layer number\n");
 		return ();
 	}
 	return ();
@@ -1519,7 +1736,7 @@ sub _get_number_of_layers {
 		my $magic_number            = 4;
 		my $inbound_model_file_text = $IMMODPG . '/' . $immodpg->{_model_file_text};
 
-		#		print ("immodpg,_get_number_of_layers,inbound_model_file_text=$inbound_model_file_text\n");
+		# print ("immodpg,_get_number_of_layers,inbound_model_file_text=$inbound_model_file_text\n");
 
 		open( my $fh, '<', $inbound_model_file_text );
 
@@ -1532,7 +1749,7 @@ sub _get_number_of_layers {
 
 		$number_of_layers = $count - $magic_number;
 
-		#		print("immodpg,_get_number_of_layers, layers = $number_of_layers \n");
+		#			print("immodpg,_get_number_of_layers, layers = $number_of_layers \n");
 
 	} else {
 
@@ -1544,11 +1761,48 @@ sub _get_number_of_layers {
 	return ($result);
 }
 
-=head2 sub _getVp_dz_initial
+=head2 sub _getVp_ref_dz_ref
+Collect the currently update
+values in the model for
+layers and their velocities and 
+thicknesses
 
 =cut
 
-sub _getVp_dz_initial {
+sub _getVp_ref_dz_ref {
+
+	my ($self) = @_;
+
+	my @VPtop = @{ $immodpg->{_refVPtop} };
+	my @VPbot = @{ $immodpg->{_refVPbot} };
+	my @dz    = @{ $immodpg->{_ref_dz} };
+	my $layer = $immodpg->{_model_layer_number};
+
+	#	 print("immodpg,_getVp_ref_dz_ref layer_number = $layer \n");
+    
+	if (    looks_like_number($layer)
+		and scalar(@VPtop)
+		and scalar(@VPbot)
+		and scalar(@dz) ) {
+
+		return ( \@VPtop, \@VPbot, \@dz );
+		
+	} else {
+		print("immodpg,_getVp_ref_dz_ref , unexpected value\n");
+		return ();
+	}
+
+}
+
+=head2 sub _getVp_ref_dz_scalar
+Collect the currently update
+values in the model for
+layers and their velocities and 
+thicknesses
+
+=cut
+
+sub _getVp_ref_dz_scalar {
 
 	my ($self) = @_;
 
@@ -1558,20 +1812,21 @@ sub _getVp_dz_initial {
 		my ( @V,                        @result );
 
 		my $layer = $immodpg->{_model_layer_number};
-		my ( $ref_VPtop, $ref_VPbot, $ref_dz, $error_switch ) = _get_model();
 
-		if (    length($ref_VPtop)
-			and length($ref_VPbot)
-			and length($ref_dz)
-			and length($error_switch) ) {
+		#			print("immodpg,_getVp_ref_dz_scalar layer_number = $layer \n");
 
-			my @VPtop = @$ref_VPtop;
-			my @VPbot = @$ref_VPbot;
-			my @dz    = @$ref_dz;
+		my @VPtop = @{ $immodpg->{_refVPtop} };
+		my @VPbot = @{ $immodpg->{_refVPbot} };
+		my @dz    = @{ $immodpg->{_ref_dz} };
 
-			#		print("immodpg,_getVp_dz_initial VPtop= @VPtop\n");
-			#		print("immodpg,_getVp_dz_initial VPbot= @VPbot\n");
-			#		print("immodpg,_getVp_dz_initial layer_number = $layer \n");
+		#		$error_switch		= $immodpg->{_error_switch};
+
+		if (    scalar(@VPtop)
+			and scalar(@VPbot)
+			and scalar(@dz) ) {
+
+			# print("immodpg,_getVp_ref_dz_scalar VPtop= $VPtop[($layer-1)]\n");
+			# print("immodpg,_getVp_ref_dz_scalar for layer:($layer), VPbot= $VPbot[($layer-1)]\n");
 
 			my $layer_index             = $layer - 1;
 			my $layer_index_upper_layer = $layer - 2;
@@ -1595,7 +1850,95 @@ sub _getVp_dz_initial {
 
 				@result = @V;
 
-				#			print("immodpg_getVp_dz_initial: velocities are:  @V \n");
+				# print("immodpg,_getVp_ref_dz_scalar: velocities are:  @V \n");
+				return ( \@result, $dz );
+
+				#				return ( \@result, $dz, $error_switch );
+
+			} elsif ( $layer >= 1 ) {
+
+				# CASE of first of one or more layers
+				my $Vbot_upper_layer = $empty_string;
+				my $Vtop_lower_layer = $VPtop[$layer_index_lower_layer];
+
+				$V[0] = $Vbot_upper_layer;
+				$V[1] = $Vtop;
+				$V[2] = $Vbot;
+				$V[3] = $Vtop_lower_layer;
+
+				@result = @V;
+
+				#				return ( \@result, $dz, $error_switch );
+				return ( \@result, $dz );
+			} else {
+				print("immodpg, _getVp_ref_dz_scalar, unexpected layer number \n");
+				return ();
+			}
+		} else {
+			return ();
+			print("immodpg,_getVp_ref_dz_scalar, _get_initial_model gives bad values\ n");
+		}
+
+	} else {
+		print("immodpg,_getVp_ref_dz_scalar,missing layer\n");
+		return ();
+	}
+	return ();
+
+}
+
+=head2 sub _get_initialVp_dz4gui
+
+=cut
+
+sub _get_initialVp_dz4gui {
+
+	my ($self) = @_;
+
+	if ( looks_like_number( $immodpg->{_model_layer_number} ) ) {
+
+		my ( $_thickness_m_upper_layer, $Vbot_lower_layer );
+		my ( @V,                        @result );
+
+		my $layer = $immodpg->{_model_layer_number};
+		my ( $refVPtop, $refVPbot, $ref_dz, $error_switch ) = _get_initial_model4gui();
+
+		if (    length($refVPtop)
+			and length($refVPbot)
+			and length($ref_dz)
+			and length($error_switch) ) {
+
+			my @VPtop = @$refVPtop;
+			my @VPbot = @$refVPbot;
+			my @dz    = @$ref_dz;
+
+			#		print("immodpg,_get_initialVp_dz4gui VPtop= @VPtop\n");
+			#		print("immodpg,_get_initialVp_dz4gui VPbot= @VPbot\n");
+			#		print("immodpg,_get_initialVp_dz4gui layer_number = $layer \n");
+
+			my $layer_index             = $layer - 1;
+			my $layer_index_upper_layer = $layer - 2;
+			my $layer_index_lower_layer = $layer;
+
+			# For all cases
+			my $Vtop = $VPtop[$layer_index];
+			my $Vbot = $VPbot[$layer_index];
+			my $dz   = $dz[$layer_index];
+
+			if ( $layer >= 2 ) {
+
+				# CASE of second of two or more layers
+				my $Vbot_upper_layer = $VPbot[$layer_index_upper_layer];
+				my $Vtop_lower_layer = $VPtop[$layer_index_lower_layer];
+
+				$V[0] = $Vbot_upper_layer;
+				$V[1] = $Vtop;
+				$V[2] = $Vbot;
+				$V[3] = $Vtop_lower_layer;
+
+				@result = @V;
+
+				#			print("immodpg_get_initialVp_dz4gui: velocities are:  @V \n");
 				return ( \@result, $dz, $error_switch );
 
 			} elsif ( $layer >= 1 ) {
@@ -1613,20 +1956,58 @@ sub _getVp_dz_initial {
 				return ( \@result, $dz, $error_switch );
 
 			} else {
-				print("immodpg, _getVp_dz_initial, unexpected layer number \n");
+				print("immodpg, _get_initialVp_dz4gui, unexpected layer number \n");
 				return ();
 			}
 		} else {
 			return ();
-			print("immodpg,getVp_dz_initial, _get_model gives bad valuesn");
+			print("immodpg,_get_initialVp_dz4gui, _get_initial_model gives bad values \n");
 		}
 
 	} else {
-		print("immodpg,getVp_dz_initial,missing layer\\n");
+		print("immodpg,_get_initialVp_dz4gui,missing layer\\n");
 		return ();
 	}
 	return ();
 
+}
+
+=head2 sub _messages
+Show warnings or errors in a message box
+Message box is defined in main where it is
+also made invisible (withdraw)
+Here we turn on the message box (deiconify, raise)
+The message does not release the program
+until OK is clicked and wait variable changes from yes 
+to no.
+
+=cut
+
+sub _messages {
+
+	my ( $run_name, $number ) = @_;
+
+	use message_director;
+	my $run_name_message = message_director->new();
+	my $message          = $run_name_message->immodpg($number);
+
+	my $message_box       = $immodpg->{_message_box_w};
+	my $message_label     = $immodpg->{_message_label_w};
+	my $message_box_wait  = $immodpg->{_message_box_wait};
+	my $message_ok_button = $immodpg->{_message_ok_button};
+
+	# print("1 immodpg,_messages, message_box=$message_box\n");
+
+	$message_box->title($run_name);
+
+	$message_label->configure(
+		-textvariable => \$message,
+	);
+
+	$message_box->deiconify();
+	$message_box->raise();
+	$message_ok_button->waitVariable( \$message_box_wait );
+	return ();
 }
 
 =head2 sub _setVbot
@@ -1641,7 +2022,6 @@ Then, delete the lock file
 Avoids crash between asynchronous 
 reading (fortran) and
 writing (Perl) of files
-_setVbot
 
 =cut
 
@@ -1649,7 +2029,7 @@ sub _setVbot {
 	my ($Vbot) = @_;
 
 	if ( looks_like_number($Vbot)
-		&& $immodpg->{_isVbot_changed} eq $yes ) {
+		&& $immodpg->{_isVbot_changed_in_gui} eq $yes ) {
 
 		use manage_files_by2;
 		use control;
@@ -1690,7 +2070,7 @@ variables
 			}    # if
 		}    # for
 
-	} elsif ( $immodpg->{_isVbot_changed} eq $no ) {
+	} elsif ( $immodpg->{_isVbot_changed_in_gui} eq $no ) {
 
 		# NADA
 
@@ -1721,7 +2101,7 @@ sub _setVbot_upper_layer {
 	my ($Vbot_upper_layer) = @_;
 
 	if (   $Vbot_upper_layer ne $empty_string
-		&& $immodpg->{_isVbot_upper_layer_changed} eq $yes ) {
+		&& $immodpg->{_isVbot_upper_layer_changed_in_gui} eq $yes ) {
 
 		use manage_files_by2;
 		use control;
@@ -1762,7 +2142,7 @@ variables
 			}    # if
 		}    # for
 
-	} elsif ( $immodpg->{_isVbot_upper_layer_changed} eq $no ) {
+	} elsif ( $immodpg->{_isVbot_upper_layer_changed_in_gui} eq $no ) {
 
 		# NADA
 
@@ -1793,7 +2173,7 @@ sub _setVbotNtop_factor {
 	my ($VbotNtop_factor) = @_;
 
 	if (   $VbotNtop_factor ne $empty_string
-		&& $immodpg->{_isVbotNtop_factor_changed} eq $yes ) {
+		&& $immodpg->{_isVbotNtop_factor_changed_in_gui} eq $yes ) {
 
 		use manage_files_by2;
 		use control;
@@ -1834,7 +2214,7 @@ variables
 			}    # if
 		}    # for
 
-	} elsif ( $immodpg->{_isVbotNtop_factor_changed} eq $no ) {
+	} elsif ( $immodpg->{_isVbotNtop_factor_changed_in_gui} eq $no ) {
 
 		# NADA
 
@@ -1933,7 +2313,7 @@ sub _setVincrement {
 	my ($Vincrement) = @_;
 
 	if (   $Vincrement ne $empty_string
-		&& $immodpg->{_isVincrement_changed} eq $yes ) {
+		&& $immodpg->{_isVincrement_changed_in_gui} eq $yes ) {
 
 		use manage_files_by2;
 		use control;
@@ -1974,12 +2354,263 @@ variables
 			}    # if
 		}    # for
 
-	} elsif ( $immodpg->{_isVincrement_changed} eq $no ) {
+	} elsif ( $immodpg->{_isVincrement_changed_in_gui} eq $no ) {
 
 		# NADA
 
 	} else {
 		print("immodpg, _setVincrement, unexpected answer\n");
+	}
+
+	return ();
+}
+
+=head2 sub _set_control
+Correct improper values
+
+=cut
+
+sub _set_control {
+
+	my ( $name, $value ) = @_;
+
+	if (   length($name)
+		&& length($value) ) {
+
+		# print("immodpg, _set_control, name=$name, value=$value\n");
+
+		if ( $name eq 'Vtop' ) {
+			if ( $value < 0 ) {
+
+				$immodpg->{_control_value} = 10;
+
+				# print("immodpg, _set_control, new corrected Vtop=$immodpg->{_control_value}\n");
+
+			} else {
+				$immodpg->{_control_value} = $value;
+			}
+
+		} elsif ( $name eq 'Vbot' ) {
+			if ( $value < 0 ) {
+
+				$immodpg->{_control_value} = 10;
+
+				# print("immodpg, _set_control, new corrected Vbot=$immodpg->{_control_value}\n");
+
+			} else {
+				$immodpg->{_control_value} = $value;
+			}
+
+		} elsif ( $name eq 'Vbot_upper_layer' ) {
+			if ( $value < 0 ) {
+
+				$immodpg->{_control_value} = 10;
+
+				# print("immodpg, _set_control, corrected Vbot_upper_layer=$immodpg->{_control_value}\n");
+
+			} else {
+				$immodpg->{_control_value} = $value;
+
+				# print("immodpg, _set_control, uncorrected Vbot_upper_layer=$immodpg->{_control_value}\n");
+			}
+
+		} elsif ( $name eq 'VbotNtop_factor' ) {
+			if ( $value < 0 ) {
+
+				$immodpg->{_control_value} = 1;
+
+				# print("immodpg, _set_control, new corrected VbotNtop_factor=$immodpg->{_control_value}\n");
+
+			} else {
+				$immodpg->{_control_value} = $value;
+
+				# print("immodpg, _set_control, uncorrected VbotNtop_factor=$immodpg->{_control_value}\n");
+			}
+		} elsif ( $name eq 'Vincrement' ) {
+			if ( $value < 0 ) {
+
+				# Vincrement is wild
+				$immodpg->{_control_value} = $value;
+
+				# print("immodpg, _set_control, new corrected Vincrement=$immodpg->{_control_value}\n");
+
+			} else {
+				$immodpg->{_control_value} = $value;
+
+				# print("immodpg, _set_control, uncorrected VbotNtop_factor=$immodpg->{_control_value}\n");
+			}
+
+		} elsif ( $name eq 'Vtop_lower_layer' ) {
+			if ( $value < 0 ) {
+
+				$immodpg->{_control_value} = 10;
+
+				# print("immodpg, _set_control, new corrected Vtop_lower_layer=$immodpg->{_control_value}\n");
+
+			} else {
+				$immodpg->{_control_value} = $value;
+			}
+
+		} elsif ( $name eq 'clip4plot' ) {
+			if ( $value < 0 ) {
+
+				$immodpg->{_control_value} = 0.1;
+
+				# print("immodpg, _set_control, new corrected clip4plot=$immodpg->{_control_value}\n");
+
+			} else {
+				$immodpg->{_control_value} = $value;
+
+				# print("immodpg, _set_control, uncorrected clip4plot=$immodpg->{_control_value}\n");
+			}
+
+		} elsif ( $name eq 'thickness_m' ) {
+			if ( $value < 0 ) {
+
+				$immodpg->{_control_value} = 0.1;
+
+				# print("immodpg, _set_control, new corrected thickness_m=$immodpg->{_control_value}\n");
+
+			} else {
+				$immodpg->{_control_value} = $value;
+			}
+
+		} elsif ( $name eq 'thickness_increment_m' ) {
+			if ( $value < 0 ) {
+
+				$immodpg->{_control_value} = 1;
+
+				# print("immodpg, _set_control, new corrected thicknessincrement_m=$immodpg->{_control_value}\n");
+
+			} else {
+				$immodpg->{_control_value} = $value;
+			}
+		} else {
+			print("immodpg,_setVp_dz, unexpected name \n");
+		}
+
+	} else {
+		print("immodpg, _setVp_dz, missing variable\n");
+		print("immodpg, _setVp_dz, name=$name\n");
+		print("immodpg, _setVp_dz, value=$value\n");
+	}
+	return ();
+}
+
+=head2 sub _set_initialVp_dz
+Establish the initial values
+from the model that will
+be used in the gui 
+initially
+
+=cut
+
+sub _set_initialVp_dz {
+
+	my ( $refVPtop, $refVPbot, $ref_dz, $error_switch ) = @_;
+
+	if (   length($refVPtop)
+		&& length($refVPbot)
+		&& length($ref_dz)
+		&& length($error_switch) ) {
+
+		if ( $error_switch eq $on ) {
+
+			print("immodpg, _set_initialVp_dz, corrupt model\n");
+
+		} elsif ( $error_switch eq $off ) {
+
+			$immodpg->{_refVPtop}     = $refVPtop;
+			$immodpg->{_refVPbot}     = $refVPbot;
+			$immodpg->{_ref_dz}       = $ref_dz;
+			$immodpg->{_error_switch} = $error_switch;
+
+		} else {
+			print("immodpg, _set_initialVp_dz, unexpected error switch value\n");
+		}
+	} else {
+		print("immodpg, _set_initialVp_dz, unexpected model values \n");
+	}
+	return ();
+}
+
+=head2 sub _setVp_dz
+Dynamically collect 
+values layers, layer velocities and 
+thicknesses
+during interaction with user
+
+=cut
+
+sub _setVp_dz {
+
+	my ( $name, $value ) = @_;
+
+	if (   length($name)
+		&& length($value)
+		&& length( $immodpg->{_refVPtop} )
+		&& length( $immodpg->{_refVPbot} )
+		&& length( $immodpg->{_ref_dz} ) ) {
+
+		my $layer_index = $immodpg->{_layer_current} - 1;
+
+		if ( $name eq 'Vtop' ) {
+
+			my $refVPtop = $immodpg->{_refVPtop};
+			my @VPtop    = @$refVPtop;
+			$VPtop[$layer_index] = $value;
+
+			# print("immodpg, _setVp_dz,Vtop,VPtop[$layer_index]=$VPtop[$layer_index]\n");
+			$immodpg->{_refVPtop} = \@VPtop;
+
+		} elsif ( $name eq 'Vtop_lower_layer' ) {
+
+			my $refVPtop = $immodpg->{_refVPtop};
+			my @VPtop    = @$refVPtop;
+			$VPtop[ ( $layer_index + 1 ) ] = $value;
+
+			# print("immodpg, _setVp_dz,Vtop_lower_layer, VPtop[($layer_index+1)]=$VPtop[($layer_index+1)]\n");
+			$immodpg->{_refVPtop} = \@VPtop;
+
+		} elsif ( $name eq 'Vbot' ) {
+
+			#			print("immodpg, _setVp_dz,immodpg->{_Vbot_current}= $immodpg->{_Vbot_current}\n");
+			#			print("immodpg, _setVp_dz,immodpg->{_layer_current}= $immodpg->{_layer_current}\n");
+			my $refVPbot = $immodpg->{_refVPbot};
+			my @VPbot    = @$refVPbot;
+			$VPbot[$layer_index] = $value;
+
+			# print("immodpg, _setVp_dz,Vbot,VPbot[$layer_index]=$VPbot[$layer_index]\n");
+			$immodpg->{_refVPbot} = \@VPbot;
+
+		} elsif ( $name eq 'Vbot_upper_layer' ) {
+
+			my $refVPbot = $immodpg->{_refVPbot};
+			my @VPbot    = @$refVPbot;
+			$VPbot[ ( $layer_index - 1 ) ] = $value;
+
+			# print("immodpg, _setVp_dz,Vbot_upper_layer,VPbot[($layer_index-1)]=$VPbot[($layer_index-1)]\n");
+			$immodpg->{_refVPbot} = \@VPbot;
+
+		} elsif ( $name eq 'thickness_m' ) {
+
+			my $ref_dz = $immodpg->{_ref_dz};
+			my @dz     = @$ref_dz;
+			$dz[$layer_index] = $value;
+
+			# print("immodpg, _setVp_dz, dz: dz[$layer_index]=$dz[$layer_index]\n");
+			$immodpg->{_ref_dz} = \@dz;
+
+		} else {
+			print("immodpg,_setVp_dz, unexpected name \n");
+		}
+	} else {
+		print("immodpg, _setVp_dz, missing variable\n");
+		print("immodpg, _setVp_dz, name=$name\n");
+		print("immodpg, _setVp_dz, value = $value\n");
+		print("immodpg, _setVp_dz, _refVPtop = @{$immodpg->{_refVPtop}}\n");
+		print("immodpg, _setVp_dz, _refVPbot = @{$immodpg->{_refVPbot}}\n");
+		print("immodpg, _setVp_dz, _dz = $immodpg->{_dz}\n");
 	}
 
 	return ();
@@ -2005,9 +2636,9 @@ sub _setVtop {
 	my ($Vtop) = @_;
 
 	if ( looks_like_number($Vtop)
-		&& $immodpg->{_isVtop_changed} eq $yes ) {
+		&& $immodpg->{_isVtop_changed_in_gui} eq $yes ) {
 
-		print("immodpg,_setVtop,write out fortran value of Vtop\n");
+		# print("immodpg,_setVtop,write out fortran value of Vtop\n");
 
 		use manage_files_by2;
 		use control;
@@ -2048,7 +2679,7 @@ variables
 			}    # if
 		}    # for
 
-	} elsif ( $immodpg->{_isVtop_changed} eq $no ) {
+	} elsif ( $immodpg->{_isVtop_changed_in_gui} eq $no ) {
 
 		# NADA
 		print("immodpg, _setVtop, no change\n");
@@ -2079,7 +2710,7 @@ sub _setVtop_lower_layer {
 	my ($Vtop_lower_layer) = @_;
 
 	if ( looks_like_number($Vtop_lower_layer)
-		&& $immodpg->{_isVtop_lower_layer_changed} eq $yes ) {
+		&& $immodpg->{_isVtop_lower_layer_changed_in_gui} eq $yes ) {
 
 		use manage_files_by2;
 		use control;
@@ -2120,7 +2751,7 @@ variables
 			}    # if
 		}    # for
 
-	} elsif ( $immodpg->{_isVtop_lower_layer_changed} eq $no ) {
+	} elsif ( $immodpg->{_isVtop_lower_layer_changed_in_gui} eq $no ) {
 
 		# NADA
 
@@ -2261,7 +2892,7 @@ sub _set_clip {
 	my ($clip) = @_;
 
 	if (   $clip ne $empty_string
-		&& $immodpg->{_is_clip_changed} eq $yes ) {
+		&& $immodpg->{_is_clip_changed_in_gui} eq $yes ) {
 
 		use manage_files_by2;
 		use control;
@@ -2303,7 +2934,7 @@ variables
 			}    # if
 		}    # for
 
-	} elsif ( $immodpg->{_is_clip_changed} eq $no ) {
+	} elsif ( $immodpg->{_is_clip_changed_in_gui} eq $no ) {
 
 		# NADA
 
@@ -2333,7 +2964,7 @@ sub _set_thickness_m {
 	my ($thickness_m) = @_;
 
 	if (   $thickness_m ne $empty_string
-		&& $immodpg->{_is_thickness_m_changed} eq $yes ) {
+		&& $immodpg->{_is_thickness_m_changed_in_gui} eq $yes ) {
 
 		use manage_files_by2;
 		use control;
@@ -2374,7 +3005,7 @@ variables
 			}    # if
 		}    # for
 
-	} elsif ( $immodpg->{_is_thickness_m_changed} eq $no ) {
+	} elsif ( $immodpg->{_is_thickness_m_changed_in_gui} eq $no ) {
 
 		# NADA
 
@@ -2404,7 +3035,7 @@ sub _set_thickness_increment_m {
 	my ($thickness_increment_m) = @_;
 
 	if (   $thickness_increment_m ne $empty_string
-		&& $immodpg->{_is_thickness_increment_m_changed} eq $yes ) {
+		&& $immodpg->{_is_layer_changed_in_gui} eq $yes ) {
 
 		use manage_files_by2;
 		use control;
@@ -2445,7 +3076,7 @@ variables
 			}    # if
 		}    # for
 
-	} elsif ( $immodpg->{_is_thickness_increment_m_changed} eq $no ) {
+	} elsif ( $immodpg->{_is_layer_changed_in_gui} eq $no ) {
 
 		# NADA
 
@@ -2477,7 +3108,7 @@ sub _fortran_layer {
 	my ($layer) = @_;
 
 	if (   $layer ne $empty_string
-		&& $immodpg->{_is_layer_changed} eq $yes ) {
+		&& $immodpg->{_is_layer_changed_in_gui} eq $yes ) {
 
 		use manage_files_by2;
 		use control;
@@ -2519,7 +3150,7 @@ variables
 			}    # if
 		}    # for
 
-	} elsif ( $immodpg->{_is_layer_changed} eq $no ) {
+	} elsif ( $immodpg->{_is_layer_changed_in_gui} eq $no ) {
 
 		# NADA
 
@@ -2529,6 +3160,34 @@ variables
 
 	return ();
 
+}
+
+
+=head2 sub set_working_model_bin
+
+=cut
+
+sub _set_working_model_bin {
+		my ($self) = @_;
+		
+#		print("l3171 $immodpg->{_working_model_bin_opt} \n");
+		_set_option($change_working_model_bin_opt);
+		_set_change($yes);
+	
+	return();
+}
+
+
+=head2 sub set_working_model_text
+
+=cut
+
+sub _set_working_model_text {
+	
+	_set_option($change_working_model_text_opt);
+	_set_change($yes);
+	
+	return();
 }
 
 =head2 sub _set_clip_control
@@ -2614,7 +3273,7 @@ sub _get_model_control {
 
 }
 
-=head2 sub _set_model_control
+=head2 sub set_model_control
 find out if there is an error in the binary
 fortran model
 
@@ -2622,13 +3281,13 @@ fortran model
 
 sub _set_model_control {
 
-	my ( $ref_VPbot, $ref_VPtop, $ref_VSbot, $ref_VStop, $ref_density_bot, $ref_density_top, $ref_dz ) = @_;
+	my ( $refVPbot, $refVPtop, $ref_VSbot, $ref_VStop, $ref_density_bot, $ref_density_top, $ref_dz ) = @_;
 
 	my $result       = '';
 	my $error_switch = $off;
 
-	if (    length($ref_VPbot)
-		and length($ref_VPtop)
+	if (    length($refVPbot)
+		and length($refVPtop)
 		and length($ref_VSbot)
 		and length($ref_VStop)
 		and length($ref_density_bot)
@@ -2637,39 +3296,52 @@ sub _set_model_control {
 
 		my @VSbot            = @$ref_VSbot;
 		my @VStop            = @$ref_VStop;
-		my @VPbot            = @$ref_VPbot;
-		my @VPtop            = @$ref_VPtop;
+		my @VPbot            = @$refVPbot;
+		my @VPtop            = @$refVPtop;
 		my @density_bot      = @$ref_density_bot;
 		my @density_top      = @$ref_density_top;
 		my @dz               = @$ref_dz;
-		my $number_of_layers = scalar @$ref_VPbot;
+		my $number_of_layers = scalar @$refVPbot;
 
 		#		print("immodpg,set_model_control,num_layers=$number_of_layers\n");
-		for ( my $layer_index = 0; $layer_index < $number_of_layers; $layer_index++ ) {
+		if ( $number_of_layers > 1 ) {
 
-			if (   $VStop[$layer_index] < 0
-				or $VSbot[$layer_index] < 0
-				or $VPtop[$layer_index] < 0
-				or $VPbot[$layer_index] < 0
-				or $density_bot[$layer_index] < 0
-				or $density_top[$layer_index] < 0 ) {
+			for ( my $layer_index = 0; $layer_index < $number_of_layers; $layer_index++ ) {
 
-				$error_switch = $on;
+				if (   $VStop[$layer_index] < 0
+					or $VSbot[$layer_index] < 0
+					or $VPtop[$layer_index] < 0
+					or $VPbot[$layer_index] < 0
+					or $density_bot[$layer_index] < 0
+					or $density_top[$layer_index] < 0
+					or $dz[$layer_index] < 0 ) {
 
-			} else {
+					$error_switch = $on;
 
-				#	print("immodpg,_get_model, TEST OK NADA\n");
+				} else {
+
+					# print("immodpg,_get_initial_model, TEST OK NADA\n");
+				}
+			}    # end for loop
+
+			if ( $error_switch eq $on ) {
+
+				#	print("immodpg,set_model_control, CORRUPT MODEL\n");
+				$immodpg->{_model_error} = $error_switch;
 			}
-		}    # end for loop
 
-		if ( $error_switch eq $on ) {
+			return ($result);
 
-			#			print("immodpg,set_model_control, CORRUPT MODEL\n");
-			$immodpg->{_model_error} = $error_switch;
+		} else {
+			print("immodpg, _set_model_control, error with layer number\n");
+			return ($result);
 		}
 
+	} else {
+		print("immodpg, _set_model_control, unexpected model error\n");
 		return ($result);
 	}
+
 }
 
 =head2 _set_model_layer
@@ -2716,7 +3388,7 @@ sub _set_option {
 
 	my ($option) = @_;
 
-	# print("immodpg, set_option, option:$option\n");
+	#		print("immodpg, set_option, option:$option\n");
 
 	if ( defined($option)
 		&& $immodpg->{_option_file} ne $empty_string ) {
@@ -2745,7 +3417,7 @@ variables
 
 		for ( my $i = 0; $test eq $no; $i++ ) {
 
-			# print("in loop \n");
+			# print("immodpg,_set_option, in loop \n");
 
 			if ( not( $files->does_file_exist( \$outbound_locked ) ) ) {
 				my $format = $var_immodpg->{_format_string};
@@ -2777,8 +3449,12 @@ variables
 =head2 sub _updateVbot
 
 keep tabs on Vbot values
-and change the values on the 
+and changes in the values in the  
 GUI
+Also updates an shared copy
+of the model properties
+
+use control method to check for bad values
 
 =cut
 
@@ -2789,22 +3465,29 @@ sub _updateVbot {
 	if (    looks_like_number( $immodpg->{_Vbot_current} )
 		and looks_like_number( $immodpg->{_Vbot_prior} ) && $immodpg->{_Vbot_current} != $immodpg->{_Vbot_prior} ) {
 
-		# CASE Vbot has not changed
-		$immodpg->{_isVbot_changed} = $yes;
-		$immodpg->{_Vbot_prior}     = $immodpg->{_Vbot_current};
+		# CASE Vbot has changed
+		$immodpg->{_isVbot_changed_in_gui} = $yes;
+		$immodpg->{_Vbot_prior}            = $immodpg->{_Vbot_current};
 
-		# print("immodpg,_updateVbot,Vbot_current=$immodpg->{_Vbot_current}\n");
-		# print("immodpg,_updateVbot,Vbot_prior=$immodpg->{_Vbot_prior}\n");
+		# print("immodpg, _updateVbot, has changed\n");
+		# print("1. immodpg,_updateVbot,Vbot_current=$immodpg->{_Vbot_current}\n");
+		# print("1. immodpg,_updateVbot,Vbot_prior=$immodpg->{_Vbot_prior}\n");
+
+		_set_control( 'Vbot', $immodpg->{_Vbot_current} );
+		$immodpg->{_Vbot_current} = _get_control('Vbot');
+
+		_setVp_dz( 'Vbot', $immodpg->{_Vbot_current} );
+
 		return ();
 
 	} elsif ( $immodpg->{_Vbot_current} == $immodpg->{_Vbot_prior} ) {
 
-		# CASE Vbot has unchanged
+		# CASE Vbot is unchanged
 		# print("immodpg, _updateVbot, unchanged\n");
-		$immodpg->{_isVbot_changed} = $no;
+		$immodpg->{_isVbot_changed_in_gui} = $no;
 
-		# print("immodpg,_updateVbot,Vbot_current=$immodpg->{_Vbot_current}\n");
-		# print("immodpg,_updateVbot,Vbot_prior=$immodpg->{_Vbot_prior}\n");
+		# print("2. immodpg,_updateVbot,Vbot_current=$immodpg->{_Vbot_current}\n");
+		# print("2. immodpg,_updateVbot,Vbot_prior=$immodpg->{_Vbot_prior}\n");
 		return ();
 
 	} else {
@@ -2816,7 +3499,7 @@ sub _updateVbot {
 =head2 sub _updateVbot_upper_layer
 
 keep tabs on upper layer Vbottom values
-and change the values on the 
+and changes in the values in the 
 GUI
 current layer must >0
 
@@ -2832,27 +3515,31 @@ sub _updateVbot_upper_layer {
 		&& $immodpg->{_Vbot_upper_layer_current} != $immodpg->{_Vbot_upper_layer_prior} ) {
 
 		# CASE Vbot_upper_layer changed
-		$immodpg->{_isVbot_upper_layer_changed} = $yes;
-		$immodpg->{_Vbot_upper_layer_prior}     = $immodpg->{_Vbot_upper_layer_current};
+		$immodpg->{_isVbot_upper_layer_changed_in_gui} = $yes;
+		$immodpg->{_Vbot_upper_layer_prior}            = $immodpg->{_Vbot_upper_layer_current};
 
 		# print("immodpg, _updateVbot_upper_layer, updated to $immodpg->{_Vbot_upper_layer_current}\n");
 		# print("immodpg,_updateVbot_upper_layer,Vbot_upper_layer_current=$immodpg->{_Vbot_upper_layer_current}\n");
 		# print("immodpg,_updateVbot_upper_layer,Vbot_upper_layer_prior=$immodpg->{_Vbot_upper_layer_prior}\n");
+		_set_control( 'Vbot_upper_layer', $immodpg->{_Vbot_upper_layer_current} );
+		$immodpg->{_Vbot_upper_layer_current} = _get_control('Vbot_upper_layer');
+
+		_setVp_dz( 'Vbot_upper_layer', $immodpg->{_Vbot_upper_layer_current} );
 		return ();
 
 	} elsif ( looks_like_number( $immodpg->{_Vbot_upper_layer_current} )
 		&& $immodpg->{_Vbot_upper_layer_current} == $immodpg->{_Vbot_upper_layer_prior} ) {
 
-		# CASE clip has unchanged
+		# CASE Vbot_upper_layer is unchanged
 		# print("immodpg, _updateVbot_upper_layer, unchanged\n");
-		$immodpg->{_isVbot_upper_layer_changed} = $no;
+		$immodpg->{_isVbot_upper_layer_changed_in_gui} = $no;
 
 		# print("immodpg,_updateVbot_upper_layer,Vbot_upper_layer_prior=$immodpg->{_Vbot_upper_layer_prior}\n");
 		return ();
 
 	} elsif ( not( looks_like_number( $immodpg->{_Vbot_upper_layer_current} ) ) ) {
 
-		# CASE clip has unchanged
+		# CASE Vbot_upper_layer is unchanged
 		#		print("immodpg, _updateVbot_upper_layer, no value in Vbot_upper_layer NADA\n");
 		# print("immodpg,_updateVbot_upper_layer,Vbot_upper_layer_prior=$immodpg->{_Vbot_upper_layer_prior}\n");
 		return ();
@@ -2867,8 +3554,8 @@ sub _updateVbot_upper_layer {
 
 =head2 sub _update_Vincrement
 
-keep tabs on clip values
-and change the values on the 
+keep tabs on Vincrement values
+and changes in the values in the  
 GUI
 
 =cut
@@ -2881,8 +3568,8 @@ sub _updateVincrement {
 		&& $immodpg->{_Vincrement_current} != $immodpg->{_Vincrement_prior} ) {
 
 		# CASE Vincrement changed
-		$immodpg->{_Vincrement_current}   = $immodpg->{_Vincrement_current};
-		$immodpg->{_isVincrement_changed} = $yes;
+		$immodpg->{_Vincrement_current}          = $immodpg->{_Vincrement_current};
+		$immodpg->{_isVincrement_changed_in_gui} = $yes;
 
 		# print("immodpg, _updateVincrement, updated to $immodpg->{_Vincrement_current}\n");
 
@@ -2892,9 +3579,9 @@ sub _updateVincrement {
 
 	} elsif ( $immodpg->{_Vincrement_current} == $immodpg->{_Vincrement_prior} ) {
 
-		# CASE clip has unchanged
+		# CASE Vincrement is unchanged
 		# print("immodpg, _updateVincrement, unchanged\n");
-		$immodpg->{_isVincrement_changed} = $no;
+		$immodpg->{_isVincrement_changed_in_gui} = $no;
 
 		# print("immodpg,_updateVincrement,Vincrement_current=$immodpg->{_Vincrement_current}\n");
 		# print("immodpg,_updateVincrement,Vincrement_prior=$immodpg->{_Vincrement_prior}\n");
@@ -2909,8 +3596,10 @@ sub _updateVincrement {
 =head2 sub _updateVtop
 
 keep tabs on Vtop values
-and change the values on the 
+and changes in the values in the  
 GUI
+Also updates an shared copy
+of the model properties
 
 =cut
 
@@ -2922,19 +3611,24 @@ sub _updateVtop {
 		&& $immodpg->{_Vtop_current} != $immodpg->{_Vtop_prior} ) {
 
 		# CASE Vtop changed
-		$immodpg->{_isVtop_changed} = $yes;
-		$immodpg->{_Vtop_prior}     = $immodpg->{_Vtop_current};
+		$immodpg->{_isVtop_changed_in_gui} = $yes;
+		$immodpg->{_Vtop_prior}            = $immodpg->{_Vtop_current};
 
 		#		print("immodpg, _updateVtop, updated to $immodpg->{_Vtop_current}\n");
 		#		print("immodpg,_updateVtop,Vtop_current=$immodpg->{_Vtop_current}\n");
 		#		print("immodpg,_updateVtop,Vtop_prior=$immodpg->{_Vtop_prior}\n");
+
+		_set_control( 'Vtop', $immodpg->{_Vtop_current} );
+		$immodpg->{_Vtop_current} = _get_control('Vtop');
+		_setVp_dz( 'Vtop', $immodpg->{_Vtop_current} );
+
 		return ();
 
 	} elsif ( $immodpg->{_Vtop_current} == $immodpg->{_Vtop_prior} ) {
 
-		# CASE Vtop has unchanged
+		# CASE Vtop is unchanged
 		#		print("immodpg, _updateVtop, unchanged\n");
-		$immodpg->{_isVtop_changed} = $no;
+		$immodpg->{_isVtop_changed_in_gui} = $no;
 
 		#		print("immodpg,_updateVtop,Vtop_current=$immodpg->{_Vtop_current}\n");
 		#		print("immodpg,_updateVtop,Vtop_prior=$immodpg->{_Vtop_prior}\n");
@@ -2948,9 +3642,11 @@ sub _updateVtop {
 
 =head2 sub _updateVtop_lower_layer
 
-keep tabs on clip values
-and change the values on the 
+keep tabs on Vtop_lower_layer values
+and changes in the values in the  
 GUI
+Also updates an shared copy
+of the model properties
 
 =cut
 
@@ -2963,33 +3659,36 @@ sub _updateVtop_lower_layer {
 
 		# CASE Vtop changed
 		#		print("immodpg, _updateVtop_lower_layer, Vcurrent=$immodpg->{_Vtop_lower_layer_current}\n");
-		$immodpg->{_isVtop_lower_layer_changed} = $yes;
-		$immodpg->{_Vtop_lower_layer_prior}     = $immodpg->{_Vtop_lower_layer_current};
+		$immodpg->{_isVtop_lower_layer_changed_in_gui} = $yes;
+		$immodpg->{_Vtop_lower_layer_prior}            = $immodpg->{_Vtop_lower_layer_current};
 
 		#		print("immodpg, _updateVtop_lower_layer, changed\n");
+		_set_control( 'Vtop_lower_layer', $immodpg->{_Vtop_lower_layer_current} );
+		$immodpg->{_Vtop_lower_layer_current} = _get_control('Vtop_lower_layer');
+
+		_setVp_dz( 'Vtop_lower_layer', $immodpg->{_Vtop_lower_layer_current} );
+
 		return ();
 
 	} elsif ( $immodpg->{_Vtop_lower_layer_current} == $immodpg->{_Vtop_lower_layer_prior} ) {
 
-		# CASE clip has unchanged
+		# CASE Vtop_lower_layer is unchanged
 		#		print("immodpg, _updateVtop_lower_layer, unchanged\n");
 		#		print("immodpg, _updateVtop_lower_layer, Vcurrent=$immodpg->{_Vtop_lower_layer_current}\n");
-		$immodpg->{_isVtop_lower_layer_changed} = $no;
+		$immodpg->{_isVtop_lower_layer_changed_in_gui} = $no;
 
 		return ();
 
 	} else {
 		print("immodpg, _updateVtop_lower_layer, unexpected\n");
-
-		#		         print("immodpg, 4_updateVtop_lower_layer, _isVtop_lower_layer_changed=$immodpg->{_isVtop_lower_layer_changed} \n");
 		return ();
 	}
 }
 
 =head2 sub _updateVbotNtop_factor
 
-keep tabs on clip values
-and change the values on the 
+keep tabs on VbotNtop_factor  values
+and changes in the values in the  
 GUI
 
 =cut
@@ -3001,20 +3700,22 @@ sub _updateVbotNtop_factor {
 	if ( looks_like_number( $immodpg->{_VbotNtop_factor_current} )
 		&& $immodpg->{_VbotNtop_factor_current} != $immodpg->{_VbotNtop_factor_prior} ) {
 
-		# CASE clip changed
-		$immodpg->{_VbotNtop_factor_current}   = $immodpg->{_VbotNtop_factor_current};
-		$immodpg->{_isVbotNtop_factor_changed} = $yes;
+		# CASE VbotNtop_factor changed
+		#			$immodpg->{_VbotNtop_factor_current}          = $immodpg->{_VbotNtop_factor_current};
+		_set_control( 'VbotNtop_factor', $immodpg->{_VbotNtop_factor_current} );
+		$immodpg->{_VbotNtop_factor_current}          = _get_control('VbotNtop_factor');
+		$immodpg->{_isVbotNtop_factor_changed_in_gui} = $yes;
 
-		# print("immodpg, _updateVbotNtop_factor, updated to $immodpg->{_VbotNtop_factor_current}\n");
-		#		print("immodpg,_updateVbotNtop_factor,VbotNtop_factor_current=$immodpg->{_VbotNtop_factor_current}\n");
-		#		print("immodpg,_updateVbotNtop_factor,VbotNtop_factor_prior=$immodpg->{_VbotNtop_factor_prior}\n");
+		#			print("immodpg, _updateVbotNtop_factor, updated to $immodpg->{_VbotNtop_factor_current}\n");
+		#			print("immodpg,_updateVbotNtop_factor,VbotNtop_factor_current=$immodpg->{_VbotNtop_factor_current}\n");
+		#			print("immodpg,_updateVbotNtop_factor,VbotNtop_factor_prior=$immodpg->{_VbotNtop_factor_prior}\n");
 		return ();
 
 	} elsif ( $immodpg->{_VbotNtop_factor_current} == $immodpg->{_VbotNtop_factor_prior} ) {
 
-		# CASE VbotNtop_factor has unchanged
+		# CASE VbotNtop_factor is unchanged
 		# print("immodpg, _updateVbotNtop_factor, unchanged\n");
-		$immodpg->{_isVbotNtop_factor_changed} = $no;
+		$immodpg->{_isVbotNtop_factor_changed_in_gui} = $no;
 
 		# print("immodpg,_updateVbotNtop_factor,VbotNtop_factor_current=$immodpg->{_VbotNtop_factor_current}\n");
 		# print("immodpg,_updateVbotNtop_factor,VbotNtop_factor_prior=$immodpg->{_VbotNtop_factor_prior}\n");
@@ -3029,8 +3730,10 @@ sub _updateVbotNtop_factor {
 =head2 sub _updateVbotNtop_multiply
 
 keep tabs on Vbot AND Vtop values together
-and change the values on the 
+and changes in the values in the  
 GUI
+Also updates an shared copy
+of the model properties
 
 =cut
 
@@ -3049,6 +3752,12 @@ sub _updateVbotNtop_multiply {
 		$immodpg->{_Vtop_prior}   = $immodpg->{_Vtop_current};
 		$immodpg->{_Vtop_current} = $immodpg->{_Vtop_multiplied};
 
+		_set_control( 'Vbot', $immodpg->{_Vbot_current} );
+		$immodpg->{_Vbot_current} = _get_control('Vbot');
+
+		_set_control( 'Vtop', $immodpg->{_Vtop_current} );
+		$immodpg->{_Vtop_current} = _get_control('Vtop');
+
 		# conveniently short variable names
 		my $Vtop_current = $immodpg->{_Vtop_current};
 		my $Vbot_current = $immodpg->{_Vbot_current};
@@ -3061,6 +3770,11 @@ sub _updateVbotNtop_multiply {
 		# print("immodpg, _updateVbotNtop_multiply, updated to $immodpg->{_VbotNtop_multiply_current}\n");
 		# print("immodpg,_updateVbotNtop_multiply,VbotNtop_multiply_current=$immodpg->{_VbotNtop_multiply_current}\n");
 		# print("immodpg,_updateVbotNtop_multiply,VbotNtop_multiply_prior=$immodpg->{_VbotNtop_multiply_prior}\n");
+		#			_checkVbot(); #todo
+		_updateVbot();
+
+		#			_checkVtop(); #todo
+		_updateVtop();
 
 	} else {
 		print("immodpg, _updateVbotNtop_factor, unexpected\n");
@@ -3071,7 +3785,7 @@ sub _updateVbotNtop_multiply {
 =head2 sub _update_clip
 
 keep tabs on clip values
-and change the values on the 
+and changes in the values in the  
 GUI
 
 =cut
@@ -3084,8 +3798,8 @@ sub _update_clip {
 		&& $immodpg->{_clip4plot_current} != $immodpg->{_clip4plot_prior} ) {
 
 		# CASE clip changed
-		$immodpg->{_clip4plot_current} = $immodpg->{_clip4plot_current};
-		$immodpg->{_is_clip_changed}   = $yes;
+		$immodpg->{_clip4plot_current}      = $immodpg->{_clip4plot_current};
+		$immodpg->{_is_clip_changed_in_gui} = $yes;
 
 		# print("immodpg, _update_clip, updated to $immodpg->{_clip4plot_current}\n");
 		# print("immodpg,_update_clip,clip4plot_current=$immodpg->{_clip4plot_current}\n");
@@ -3094,9 +3808,9 @@ sub _update_clip {
 
 	} elsif ( $immodpg->{_clip4plot_current} == $immodpg->{_clip4plot_prior} ) {
 
-		# CASE clip has unchanged
+		# CASE clip4plot  is unchanged
 		# print("immodpg, _update_clip, unchanged\n");
-		$immodpg->{_is_clip_changed} = $no;
+		$immodpg->{_is_clip_changed_in_gui} = $no;
 
 		# print("immodpg,_update_clip,clip4plot_current=$immodpg->{_clip4plot_current}\n");
 		# print("immodpg,_update_clip,clip4plot_prior=$immodpg->{_clip4plot_prior}\n");
@@ -3111,8 +3825,10 @@ sub _update_clip {
 =head2 sub _update_thickness_m
 
 keep tabs on thickness_m values
-and change the values on the 
+and changes in the values in the  
 GUI
+Also updates an shared copy
+of the model properties
 
 =cut
 
@@ -3124,19 +3840,23 @@ sub _update_thickness_m {
 		&& $immodpg->{_thickness_m_current} != $immodpg->{_thickness_m_prior} ) {
 
 		# CASE _thickness_m changed
-		$immodpg->{_is_thickness_m_changed} = $yes;
+		$immodpg->{_is_thickness_m_changed_in_gui} = $yes;
 
 		# print("immodpg, _update_thickness_m, updated to $immodpg->{_thickness_m_current}\n");
-
-		#		print("immodpg,_update_thickness_m,_thickness_m_current=$immodpg->{_thickness_m_current}\n");
+		#	print("immodpg,_update_thickness_m,_thickness_m_current=$immodpg->{_thickness_m_current}\n");
 		# print("immodpg,_update_thickness_m,_thickness_m_prior=$immodpg->{_thickness_m_prior}\n");
+
+		_set_control( 'thickness_m', $immodpg->{_thickness_m_current} );
+		$immodpg->{_thickness_m_current} = _get_control('thickness_m');
+		_setVp_dz( 'thickness_m', $immodpg->{_thickness_m_current} );
+
 		return ();
 
 	} elsif ( $immodpg->{_thickness_m_current} == $immodpg->{_thickness_m_prior} ) {
 
-		# CASE _thickness_m has unchanged
+		# CASE _thickness_m is unchanged
 		# print("immodpg, _update_thickness_m, unchanged\n");
-		$immodpg->{_is_thickness_m_changed} = $no;
+		$immodpg->{_is_thickness_m_changed_in_gui} = $no;
 
 		# print("immodpg,_update_thickness_m,_thickness_m_current=$immodpg->{_thickness_m_current}\n");
 		# print("immodpg,_update_thickness_m,_thickness_m_prior=$immodpg->{_thickness_m_prior}\n");
@@ -3148,57 +3868,57 @@ sub _update_thickness_m {
 	}
 }
 
-=head2 sub _update_thickness_increment_m
+=head2 sub _update_thickness_increment_m_in_gui
 
 keep tabs on thickness_increment_m values
-and change the values on the 
+and changes in the values in the  
 GUI
 
 =cut
 
-sub _update_thickness_increment_m {
+sub _update_thickness_increment_m_in_gui {
 
 	my ($self) = @_;
 
 	if ( looks_like_number( $immodpg->{_thickness_increment_m_current} )
 		&& $immodpg->{_thickness_increment_m_current} != $immodpg->{_thickness_increment_m_prior} ) {
 
-		# CASE clip changed
-		$immodpg->{_thickness_increment_m_current}    = $immodpg->{_thickness_increment_m_current};
-		$immodpg->{_is_thickness_increment_m_changed} = $yes;
+		# CASE thickness changed
+		$immodpg->{_thickness_increment_m_prior} = $immodpg->{_thickness_increment_m_current};
+		$immodpg->{_is_layer_changed_in_gui}     = $yes;
 
-		# print("immodpg, _update_thickness_increment_m, updated to $immodpg->{_thickness_increment_m_current}\n");
-		# print("immodpg,_update_thickness_increment_m,thickness_increment_m_current=$immodpg->{_thickness_increment_m_current}\n");
-		# print("immodpg,_update_thickness_increment_m,thickness_increment_m_prior=$immodpg->{_thickness_increment_m_prior}\n");
+		# print("immodpg, _update_thickness_increment_m_in_gui, updated to $immodpg->{_thickness_increment_m_current}\n");
+		# print("immodpg,_update_thickness_increment_m_in_gui,thickness_increment_m_current=$immodpg->{_thickness_increment_m_current}\n");
+		# print("immodpg,_update_thickness_increment_m_in_gui,thickness_increment_m_prior=$immodpg->{_thickness_increment_m_prior}\n");
 		return ();
 
 	} elsif ( $immodpg->{_thickness_increment_m_current} == $immodpg->{_thickness_increment_m_prior} ) {
 
-		# CASE thickness_increment_mhas unchanged
-		# print("immodpg, _update_thickness_increment_m, unchanged\n");
-		$immodpg->{_is_thickness_increment_m_changed} = $no;
+		# CASE thickness_increment_m is unchanged
+		# print("immodpg, _update_thickness_increment_m_in_gui, unchanged\n");
+		$immodpg->{_is_layer_changed_in_gui} = $no;
 
-		# print("immodpg,_update_thickness_increment_m,thickness_increment_m_current=$immodpg->{_thickness_increment_m_current}\n");
-		# print("immodpg,_update_thickness_increment_m,thickness_increment_m_prior=$immodpg->{_thickness_increment_m_prior}\n");
+		# print("immodpg,_update_thickness_increment_m_in_gui,thickness_increment_m_current=$immodpg->{_thickness_increment_m_current}\n");
+		# print("immodpg,_update_thickness_increment_m_in_gui,thickness_increment_m_prior=$immodpg->{_thickness_increment_m_prior}\n");
 		return ();
 
 	} else {
-		print("immodpg, _update_thickness_increment_m, unexpected\n");
+		print("immodpg, _update_thickness_increment_m_in_gui, unexpected\n");
 		return ();
 	}
 }
 
-=head2 sub _update_layer
+=head2 sub _update_layer_in_gui
 
 keep tabs on layer values
-and change the values on the 
+and changes in the values in the  
 GUI
 
 update prior in advance of _check_layer
 
 =cut
 
-sub _update_layer {
+sub _update_layer_in_gui {
 
 	my ($self) = @_;
 
@@ -3207,7 +3927,7 @@ sub _update_layer {
 		and ( $immodpg->{_layer_current} != $immodpg->{_layer_prior} ) ) {
 
 		# CASE layer changed
-		$immodpg->{_is_layer_changed} = $yes;
+		$immodpg->{_is_layer_changed_in_gui} = $yes;
 		my $layer_current   = $immodpg->{_layer_current};
 		my $new_layer_prior = $immodpg->{_layer_current};
 
@@ -3216,7 +3936,7 @@ sub _update_layer {
 
 		$immodpg->{_layer_prior} = $new_layer_prior;
 
-		#		print("immodpg, _update_layer, prior=$immodpg->{_layer_prior}current= $immodpg->{_layer_current}\n");
+		#		print("immodpg, _update_layer_in_gui, prior=$immodpg->{_layer_prior}current= $immodpg->{_layer_current}\n");
 
 		return ();
 
@@ -3225,35 +3945,35 @@ sub _update_layer {
 		and ( $immodpg->{_layer_current} == $immodpg->{_layer_prior} ) ) {
 
 		# CASE layer has not changed
-		#		print("immodpg, _update_layer, unchanged\n");
-		$immodpg->{_is_layer_changed} = $no;
+		#		print("immodpg, _update_layer_in_gui, unchanged\n");
+		$immodpg->{_is_layer_changed_in_gui} = $no;
 
 		$immodpg->{_layerEntry}->delete( 0, 'end' );
 		$immodpg->{_layerEntry}->insert( 0, $immodpg->{_layer_current} );
 
-		#		print("immodpg,_update_layer, prior=$immodpg->{_layer_prior},current=$immodpg->{_layer_current}\n");
+		#		print("immodpg,_update_layer_in_gui, prior=$immodpg->{_layer_prior},current=$immodpg->{_layer_current}\n");
 		return ();
 
 	} else {
-		print("immodpg, _update_layer, unexpected\n");
+		print("immodpg, _update_layer_in_gui, unexpected\n");
 		return ();
 	}
 	return ();
 }
 
-=head2 sub _update_lower_layer
+=head2 sub _update_lower_layer_in_gui
 
-keep tabs on layer values
-and change the values on the 
+keep tabs on lower_layer values
+and changes in the values in the  
 GUI
 
 =cut
 
-sub _update_lower_layer {
+sub _update_lower_layer_in_gui {
 
 	my ($self) = @_;
 
-	if (   $immodpg->{_is_layer_changed} eq $yes
+	if (   $immodpg->{_is_layer_changed_in_gui} eq $yes
 		&& $immodpg->{_layer_current} >= 1 ) {
 
 		# CASE layer changed
@@ -3262,31 +3982,31 @@ sub _update_lower_layer {
 
 		return ();
 
-	} elsif ( $immodpg->{_is_layer_changed} eq $no ) {
+	} elsif ( $immodpg->{_is_layer_changed_in_gui} eq $no ) {
 
-		# CASE layer has unchanged
-		#		print("immodpg, _update_lower_layer, unchanged\n");
+		# CASE layer is unchanged
+		#		print("immodpg, _update_lower_layer_in_gui, unchanged\n");
 		return ();
 
 	} else {
-		print("immodpg, _update_lower_layer, unexpected\n");
+		print("immodpg, _update_lower_layer_in_gui, unexpected\n");
 		return ();
 	}
 }
 
-=head2 sub _update_upper_layer
+=head2 sub _update_upper_layer_in_gui
 
-keep tabs on layer values
-and change the values on the 
+keep tabs on upper_layer values
+and changes in the values in the  
 GUI
 
 =cut
 
-sub _update_upper_layer {
+sub _update_upper_layer_in_gui {
 
 	my ($self) = @_;
 
-	if (   $immodpg->{_is_layer_changed} eq $yes
+	if (   $immodpg->{_is_layer_changed_in_gui} eq $yes
 		&& $immodpg->{_layer_current} >= 1 ) {
 
 		# CASE layer changed
@@ -3300,15 +4020,15 @@ sub _update_upper_layer {
 		my $layer_current = ( $immodpg->{_upper_layerLabel} )->configure( -textvariable => \$upper_layer, );
 		return ();
 
-	} elsif ( $immodpg->{_is_layer_changed} eq $no ) {
+	} elsif ( $immodpg->{_is_layer_changed_in_gui} eq $no ) {
 
-		# CASE layer has unchanged
-		#		print("immodpg, _update_upper_layer, unchanged\n");
+		# CASE layer is unchanged
+		#		print("immodpg, _update_upper_layer_in_gui, unchanged\n");
 		return ();
 
 	} else {
 		return ();
-		print("immodpg, _update_upper_layer, unexpected\n");
+		print("immodpg, _update_upper_layer_in_gui, unexpected\n");
 	}
 }
 
@@ -3321,10 +4041,10 @@ write out Vincrement
 sub _writeVincrement {
 	my ($self) = @_;
 
-	if ( $immodpg->{_isVincrement_changed} == $yes ) {
+	if ( $immodpg->{_isVincrement_changed_in_gui} eq $yes ) {
 		_write_config();
 
-	} elsif ( $immodpg->{_isVincrement_changed} == $no ) {
+	} elsif ( $immodpg->{_isVincrement_changed_in_gui} eq $no ) {
 
 		#NADA
 
@@ -3343,10 +4063,10 @@ write out VbotNtop_factor
 sub _writeVbotNtop_factor {
 	my ($self) = @_;
 
-	if ( $immodpg->{_isVbotNtop_factor_changed} == $yes ) {
+	if ( $immodpg->{_isVbotNtop_factor_changed_in_gui} eq $yes ) {
 		_write_config();
 
-	} elsif ( $immodpg->{_isVbotNtop_factor_changed} == $no ) {
+	} elsif ( $immodpg->{_isVbotNtop_factor_changed_in_gui} eq $no ) {
 
 		#NADA
 
@@ -3365,10 +4085,10 @@ write out clip
 sub _write_clip {
 	my ($self) = @_;
 
-	if ( $immodpg->{_is_clip_changed} == $yes ) {
+	if ( $immodpg->{_is_clip_changed_in_gui} eq $yes ) {
 		_write_config();
 
-	} elsif ( $immodpg->{_is_clip_changed} == $no ) {
+	} elsif ( $immodpg->{_is_clip_changed_in_gui} eq $no ) {
 
 		#NADA
 
@@ -3387,10 +4107,10 @@ write out thickness_increment_m
 sub _write_thickness_increment_m {
 	my ($self) = @_;
 
-	if ( $immodpg->{_is_thickness_increment_m_changed} == $yes ) {
+	if ( $immodpg->{_is_layer_changed_in_gui} eq $yes ) {
 		_write_config();
 
-	} elsif ( $immodpg->{_is_thickness_increment_m_changed} == $no ) {
+	} elsif ( $immodpg->{_is_layer_changed_in_gui} eq $no ) {
 
 		#NADA
 
@@ -3478,11 +4198,86 @@ declare private variables
 
 }
 
-=head2 sub getVp_dz_initial
+=head2 sub _set_simple_model_text
+
+write out the model in ASCII
+format
 
 =cut
 
-sub getVp_dz_initial {
+sub _set_simple_model_text {
+
+	my ($self) = @_;
+
+	use immodpg_spec;
+
+=pod 
+instantiate modules
+
+=cut	
+
+	my $immodpg_spec = immodpg_spec->new();
+
+=pod import private variables
+
+=cut	
+
+	my $variables        = $immodpg_spec->variables();
+	my $format_title     = $var_immodpg->{_model_text_file_format_title};
+	my $format_values    = $var_immodpg->{_model_text_file_format_values};
+	my $simple_model_txt = $var_immodpg->{_simple_model_txt};
+	my $number_of_layers = _get_number_of_layers();
+#    print("$simple_model_txt \n");
+  
+	if (   length($variables)
+		&& length($format_title)
+		&& length($format_values)
+		&& length($simple_model_txt)
+		&& length($number_of_layers) ) {
+
+=pod
+declare private variables
+
+=cut
+
+		my ( @Vtop, @Vbot, @dz );
+		my $file     = $simple_model_txt;
+		my $outbound = $variables->{_CONFIG} . '/' . $file;
+
+		my ( $Vtop_ref, $Vbot_ref, $dz_ref ) = _getVp_ref_dz_ref();
+		@Vtop = @$Vtop_ref;
+		@Vbot = @$Vbot_ref;
+		@dz    = @$dz_ref;
+		
+		# print("immodpg,_getVp_ref_dz_ref; VPtop,VPbot,dz= @Vtop,@Vbot,@dz\n");
+
+		open( OUT, ">$outbound" );
+		printf OUT $format_title . "\n", "    VPtop    VPbottom    thickness(m)";
+		
+		for (my $i=0; $i <$number_of_layers; $i++) {
+			print OUT ("     $Vtop[$i] \t$Vbot[$i]\t\t$dz[$i]\n");
+		}
+
+		close(OUT);
+#		print("immodpg,_write_simple_model_txt\n");
+
+	} else {
+		print("immodpg,_write_simple_model_txt, no output\n");
+		print("variables             = $immodpg_spec->variables()\n");
+		print("format_title         = $var_immodpg->{_model_text_file_format_title}\n");
+		print("format_values           = $var_immodpg->{_model_text_file_format_values}\n");
+		print("simple_model_txt     = $var_immodpg->{_simple_model_txt}\n");
+		print("number_of_layers     = _get_number_of_layers()\n");
+	}
+}
+
+
+
+=head2 sub get_initialVp_dz4gui
+
+=cut
+
+sub get_initialVp_dz4gui {
 
 	my ($self) = @_;
 
@@ -3492,20 +4287,22 @@ sub getVp_dz_initial {
 		my ( @V,                        @result );
 
 		my $layer = $immodpg->{_model_layer_number};
-		my ( $ref_VPtop, $ref_VPbot, $ref_dz, $error_switch ) = _get_model();
 
-		if (    length($ref_VPtop)
-			and length($ref_VPbot)
+		my ( $refVPtop, $refVPbot, $ref_dz, $error_switch ) = _get_initial_model();
+
+		if (    length($refVPtop)
+			and length($refVPbot)
 			and length($ref_dz)
 			and length($error_switch) ) {
 
-			my @VPtop = @$ref_VPtop;
-			my @VPbot = @$ref_VPbot;
+			my @VPtop = @$refVPtop;
+			my @VPbot = @$refVPbot;
 			my @dz    = @$ref_dz;
 
-			#			print("immodpg,getVp_dz_initial VPtop= @VPtop\n");
-			#			print("immodpg,getVp_dz_initial VPbot= @VPbot\n");
-			#			print("immodpg,getVp_dz_initial layer_number = $layer \n");
+			#			print("immodpg,get_initialVp_dz4gui VPtop= @VPtop\n");
+			#			print("immodpg,get_initialVp_dz4gui VPbot= @VPbot\n");
+			#			print("immodpg,get_initialVp_dz4gui dz= @dz\n");
+			#			print("immodpg,get_initialVp_dz4gui layer_number = $layer \n");
 
 			my $layer_index             = $layer - 1;
 			my $layer_index_upper_layer = $layer - 2;
@@ -3529,7 +4326,7 @@ sub getVp_dz_initial {
 
 				@result = @V;
 
-				#				print("immodpg, getVp_dz_initial: velocities are:  @V \n");
+				#				print("immodpg, get_initialVp_dz4gui: velocities are:  @V \n");
 				return ( \@result, $dz, $error_switch );
 
 			} elsif ( $layer >= 1 ) {
@@ -3547,17 +4344,17 @@ sub getVp_dz_initial {
 				return ( \@result, $dz, $error_switch );
 
 			} else {
-				print("immodpg, getVp_dz_initial, unexpected layer number \n");
+				print("immodpg, get_initialVp_dz4gui, unexpected layer number \n");
 				return ();
 			}
 
 		} else {
+			print("immodpg,get_initialVp_dz4gui, _get_initial_model gives bad values \n");
 			return ();
-			print("immodpg,getVp_dz_initial, _get_model gives bad valuesn");
 		}
 
 	} else {
-		print("immodpg,getVp_dz_initial,missing layer\\n");
+		print("immodpg,get_initialVp_dz4gui,missing layer\\n");
 		return ();
 	}
 	return ();
@@ -3615,7 +4412,7 @@ sub set_defaults {
 	$immodpg->{_layer} = _get_control_layer();
 
 	_set_model_layer( $immodpg->{_layer} );
-	my ( $Vp_ref, $dz ) = _getVp_dz_initial();
+	my ( $Vp_ref, $dz ) = _get_initialVp_dz4gui();
 	my @V = @$Vp_ref;
 	$immodpg->{_thickness_m} = $dz;
 
@@ -3723,29 +4520,29 @@ sub setVbot_minus {
 		if ( looks_like_number($Vbot) ) {
 
 			my $Vincrement = ( $immodpg->{_VincrementEntry} )->get();
-			my $new_Vbot   = $Vbot - $Vincrement;
+			my $newVbot    = $Vbot - $Vincrement;
+			_set_control( 'Vbot', $newVbot );
+			$newVbot = _get_control('Vbot');
 
 			$immodpg->{_Vbot_prior}   = $immodpg->{_Vbot_current};
-			$immodpg->{_Vbot_current} = $new_Vbot;
+			$immodpg->{_Vbot_current} = $newVbot;
 
 			$immodpg->{_VbotEntry}->delete( 0, 'end' );
-			$immodpg->{_VbotEntry}->insert( 0, $new_Vbot );
+			$immodpg->{_VbotEntry}->insert( 0, $newVbot );
 
-			$immodpg->{_isVbot_changed} = $yes;
+			#				$immodpg->{_isVbot_changed_in_gui} = $yes;
+			#				_checkVbot(); # todo
+			_updateVbot();
 
-			#						print("immodpg, setVbot_minus, new Vbot= $new_Vbot\n");
-			#						print("immodpg, setVbot_minus, Vincrement= $Vincrement\n");
-
-			if ( $immodpg->{_isVbot_changed} eq $yes ) {
+			if ( $immodpg->{_isVbot_changed_in_gui} eq $yes ) {
 
 				# for fortran program to read
-				#				print("immodpg, setVbot_minus, Vbot is changed: $yes \n");
-
 				_set_option($Vbot_minus_opt);
 				_set_change($yes);
 
-				#								print("immodpg, setVbot_minus,option:$Vbot_minus_opt\n");
-				#				print("immodpg, setVbot_minus, V=$immodpg->{_Vbot_current}\n");
+				#					print("immodpg, setVbot_minus, Vbot is changed: $yes \n");
+				#					print("immodpg, setVbot_minus,option:$Vbot_minus_opt\n");
+				#					print("immodpg, setVbot_minus, V=$immodpg->{_Vbot_current}\n");
 
 			} else {
 
@@ -3775,7 +4572,6 @@ sub setVbot_minus {
 
 update Vbot value in gui
 update private value in this module
-
 output option for immodpg.for
 
 =cut
@@ -3792,29 +4588,32 @@ sub setVbot_plus {
 		if ( looks_like_number($Vbot) ) {
 
 			my $Vincrement = ( $immodpg->{_VincrementEntry} )->get();
-			my $new_Vbot   = $Vbot + $Vincrement;
+			my $newVbot    = $Vbot + $Vincrement;
+
+			_set_control( 'Vbot', $newVbot );
+			$newVbot = _get_control('Vbot');
 
 			$immodpg->{_Vbot_prior}   = $immodpg->{_Vbot_current};
-			$immodpg->{_Vbot_current} = $new_Vbot;
+			$immodpg->{_Vbot_current} = $newVbot;
 
 			$immodpg->{_VbotEntry}->delete( 0, 'end' );
-			$immodpg->{_VbotEntry}->insert( 0, $new_Vbot );
+			$immodpg->{_VbotEntry}->insert( 0, $newVbot );
 
-			$immodpg->{_isVbot_changed} = $yes;
+			#				$immodpg->{_isVbot_changed_in_gui} = $yes;
+			#				_checkVbot(); #todo
+			_updateVbot();
 
-			#			print("immodpg, setVbot_plus, new Vbot= $new_Vbot\n");
-			#			print("immodpg, setVbot_plus, Vincrement= $Vincrement\n");
+			print("immodpg, setVbot_plus, new Vbot= $newVbot\n");
 
-			if ( $immodpg->{_isVbot_changed} eq $yes ) {
+			# print("immodpg, setVbot_plus, Vincrement= $Vincrement\n");
+
+			if ( $immodpg->{_isVbot_changed_in_gui} eq $yes ) {
 
 				# for fortran program to read
-				#				print("immodpg, setVbot_plus, Vbot is changed: $yes \n");
-
 				_set_option($Vbot_plus_opt);
 				_set_change($yes);
 
-				#				print("immodpg, setVbot_plus,option:$Vbot_plus_opt\n");
-				#				print("immodpg, setVbot_plus, V=$immodpg->{_Vbot_current}\n");
+				#					print("immodpg, setVbot_plus, Vbot_plus_opt:$Vbot_plus_opt \n");
 
 			} else {
 
@@ -3861,24 +4660,24 @@ sub setVtop_minus {
 		if ( looks_like_number($Vtop) ) {
 
 			my $Vincrement = ( $immodpg->{_VincrementEntry} )->get();
-			my $new_Vtop   = $Vtop - $Vincrement;
+			my $newVtop    = $Vtop - $Vincrement;
+
+			_set_control( 'Vtop', $newVtop );
+			$newVtop = _get_control('Vtop');
 
 			$immodpg->{_Vtop_prior}   = $immodpg->{_Vtop_current};
-			$immodpg->{_Vtop_current} = $new_Vtop;
+			$immodpg->{_Vtop_current} = $newVtop;
 
 			$immodpg->{_VtopEntry}->delete( 0, 'end' );
-			$immodpg->{_VtopEntry}->insert( 0, $new_Vtop );
+			$immodpg->{_VtopEntry}->insert( 0, $newVtop );
 
-			$immodpg->{_isVtop_changed} = $yes;
+			#				$immodpg->{_isVtop_changed_in_gui} = $yes;
+			#				_checkVtop(); #todo
+			_updateVtop();
 
-			#			print("immodpg, setVtop_minus, new Vtop= $new_Vtop\n");
-			#			print("immodpg, setVtop_minus, Vincrement= $Vincrement\n");
-
-			if ( $immodpg->{_isVtop_changed} eq $yes ) {
+			if ( $immodpg->{_isVtop_changed_in_gui} eq $yes ) {
 
 				# for fortran program to read
-				#				print("immodpg, set_Vtop_minus, Vtop is changed: $yes \n");
-
 				_set_option($Vtop_minus_opt);
 				_set_change($yes);
 
@@ -3902,7 +4701,6 @@ sub setVtop_minus {
 
 	} else {
 		print("immodpg, setVtop_minus, missing widget or Vincrement\n");
-
 		print("immodpg, setVtop_minus, VtopEntry=$immodpg->{_VtopEntry}\n");
 		print("immodpg, setVtop_minus, Vincrement=$immodpg->{_Vincrement_current}\n");
 	}
@@ -3932,29 +4730,33 @@ sub setVtop_plus {
 		if ( looks_like_number($Vtop) ) {
 
 			my $Vincrement = ( $immodpg->{_VincrementEntry} )->get();
-			my $new_Vtop   = $Vtop + $Vincrement;
+			my $newVtop    = $Vtop + $Vincrement;
 
 			$immodpg->{_Vtop_prior}   = $immodpg->{_Vtop_current};
-			$immodpg->{_Vtop_current} = $new_Vtop;
+			$immodpg->{_Vtop_current} = $newVtop;
+
+			_set_control( 'Vtop', $immodpg->{_Vtop_current} );
+			$immodpg->{_Vtop_current} = _get_control('Vtop');
+			$newVtop = $immodpg->{_Vtop_current};
 
 			$immodpg->{_VtopEntry}->delete( 0, 'end' );
-			$immodpg->{_VtopEntry}->insert( 0, $new_Vtop );
+			$immodpg->{_VtopEntry}->insert( 0, $newVtop );
 
-			$immodpg->{_isVtop_changed} = $yes;
+			#				$immodpg->{_isVtop_changed_in_gui} = $yes;
+			#				_checkVtop(); #todo
+			_updateVtop();
 
-			#			print("immodpg, set new Vtop= $new_Vtop\n");
+			#				print("immodpg, setVtop_plus, $immodpg->{_Vtop_current}= $immodpg->{_Vtop_current}\n");
 			#			print("immodpg, setVtop_plus, Vincrement= $Vincrement\n");
 			#			print("2. immodpg, setVtop_plus, VtopEntry=$immodpg->{_VtopEntry}\n");
-			if ( $immodpg->{_isVtop_changed} eq $yes ) {
+			if ( $immodpg->{_isVtop_changed_in_gui} eq $yes ) {
 
 				# for fortran program to read
-				#				print("immodpg, set_Vtop_plus, Vtop is changed: $yes \n");
-
 				_set_option($Vtop_plus_opt);
 				_set_change($yes);
 
-				#				print("immodpg, setVtop_plus,option:$Vtop_plus_opt\n");
-				#				print("immodpg, setVtop_plus, V=$immodpg->{_Vtop_current}\n");
+				#					print("immodpg, setVtop_plus,option:$Vtop_plus_opt\n");
+				#					print("immodpg, setVtop_plus, V=$immodpg->{_Vtop_current}\n");
 
 			} else {
 
@@ -4018,7 +4820,7 @@ sub clean_trash {
 
 	my $xk    = xk->new();
 	my $files = manage_files_by2->new();
-	my ($outbound_locked,$outbound);
+	my ( $outbound_locked, $outbound );
 
 	my @X;
 	my $Vbot_file                  = $immodpg->{_Vbot_file};
@@ -4058,7 +4860,8 @@ sub clean_trash {
 	$outbound_locked = $IMMODPG_INVISIBLE . '/' . $Vtop_lower_layer_file . '_locked';
 	unlink($outbound_locked);
 	$outbound_locked = $IMMODPG_INVISIBLE . '/' . $change_file . '_locked';
-#	print("immodpg, clean_trash, delete $outbound_locked\n");
+
+	#	print("immodpg, clean_trash, delete $outbound_locked\n");
 	unlink($outbound_locked);
 	$outbound_locked = $IMMODPG_INVISIBLE . '/' . $clip_file . '_locked';
 	unlink($outbound_locked);
@@ -4072,14 +4875,14 @@ sub clean_trash {
 	unlink($outbound_locked);
 	$outbound_locked = $IMMODPG_INVISIBLE . '/' . $thickness_increment_m_file . '_locked';
 	unlink($outbound_locked);
-	
+
 	# reset files to their default options
 	$outbound = $IMMODPG_INVISIBLE . '/' . $change_file;
 	unlink($outbound);
-	my $format          = $var_immodpg->{_format_string};
-	$X[0] =$immodpg->{_change_default};
+	my $format = $var_immodpg->{_format_string};
+	$X[0] = $immodpg->{_change_default};
 	$files->write_1col_aref( \@X, \$outbound, \$format );
-	
+
 	_fortran_layer( $immodpg->{_layer_default} );
 	_set_option( $immodpg->{_option_default} );
 	_set_change( $immodpg->{_change_default} );
@@ -4138,6 +4941,9 @@ sub exit {
 	$xk->set_process('immodpg1.1');
 
 	#	print("immodpg,exit: kill immodpg1.1\n");
+	$xk->kill_process();
+
+	$xk->set_process('immodpg');
 	$xk->kill_process();
 
 	#	print("immodpg,exit: Goodbye!\n");
@@ -4279,7 +5085,129 @@ sub get_max_index {
 	return ($max_index);
 }
 
-=head2
+=head2 sub initialize_messages
+Create widgets that show messages
+Show warnings or errors in a message box
+Message box is defined in main where it is
+also made invisible (withdraw)
+Here we turn on the message box (deiconify, raise)
+The message does not release the program
+until OK is clicked and wait variable changes from yes 
+to no.
+
+=cut
+
+sub initialize_messages {
+
+	my ($self) = @_;
+
+	my $arial_14_b = ( $immodpg->{_mw} )->fontCreate(
+		'arial_14_b',
+		-family => 'arial',
+		-weight => 'bold',
+		-size   => -14
+	);
+
+=head2 message box
+withdraw temporarily while filling
+with widgets
+
+=cut 
+
+	$immodpg->{_message_box_w} = $immodpg->{_mw}->Toplevel(
+		-background => $var_L_SU->{_my_yellow},
+	);
+	$immodpg->{_message_box_w}->withdraw;
+
+	$immodpg->{_message_box_w}->geometry( $var_L_SU->{_message_box_geometry} );
+
+	$immodpg->{_message_upper_frame} = $immodpg->{_message_box_w}->Frame(
+		-borderwidth => $var_L_SU->{_no_borderwidth},
+		-background  => $var_L_SU->{_my_yellow},
+	);
+	$immodpg->{_message_lower_frame} = $immodpg->{_message_box_w}->Frame(
+		-borderwidth => $var_L_SU->{_no_borderwidth},
+		-background  => $var_L_SU->{_my_yellow},
+		-height      => '10',
+	);
+	$immodpg->{_message_label_w} = $immodpg->{_message_upper_frame}->Label(
+		-background => $var_L_SU->{_my_yellow},
+		-font       => $arial_14_b,
+		-justify    => 'left',
+	);
+
+	$immodpg->{_message_box_wait}  = $var_L_SU->{_yes};
+	$immodpg->{_message_ok_button} = $immodpg->{_message_box_w}->Button(
+		-text    => "ok",
+		-font    => $arial_14_b,
+		-command => sub {
+			$immodpg->{_message_box_w}->grabRelease;
+			$immodpg->{_message_box_w}->withdraw;
+		},
+	);
+
+=head2 Pack message box
+This Toplevel window has 
+geometry that is independent
+of the main window widget.
+Upper frame contains message.
+Lower frame contains ok button.
+
+=cut
+
+	$immodpg->{_message_upper_frame}->pack();
+	$immodpg->{_message_label_w}->pack(
+		-side => 'top',
+	);
+	$immodpg->{_message_lower_frame}->pack(
+		-side => 'top',
+	);
+
+	$immodpg->{_message_ok_button}->pack(
+		-side   => "top",
+		-fill   => 'none',
+		-expand => 0,
+	);
+
+	#    $message_ok_button->configure (
+	#    	-command 		=> sub {
+	#			$message_box->grabRelease;
+	#			$message_box->withdraw;
+	#		    $message_box_wait = $no;}
+	#    );
+
+	return ();
+}
+
+=head2 sub initialize_model
+
+Load into namespace the immodpg model to 
+establish the first set of layers
+their velocities and thickness
+
+=cut
+
+sub initialize_model {
+	my ($self) = @_;
+
+	my ( $refVPtop, $refVPbot, $ref_dz, $error_switch ) = _get_initial_model();
+
+	if (   length($refVPtop)
+		&& length($refVPbot)
+		&& length($ref_dz)
+		&& length($error_switch) ) {
+
+		_set_initialVp_dz( $refVPtop, $refVPbot, $ref_dz, $error_switch );
+
+	} else {
+		print(" immodpg, L5046, missing or corrupt variables \n");
+	}
+
+	return ();
+
+}
+
+=head2 sub get_number_of_layers
 
 determine number of layers
 from model.text file
@@ -4364,10 +5292,10 @@ sub get_replacement4missing {
 
 When you enter or leave
 check what the current Vbot value is
-compared to former Vbot values
-Vtop value is updated in immodpg.for 
+compared to former Vbot values.
+
+Vtop value is updated for immodpg.for 
 through a message in file= "Vbot"
-(&_setVbot)
 
 =cut
 
@@ -4375,32 +5303,31 @@ sub setVbot {
 
 	my ($self) = @_;
 
-	my $isVbot_changed = $immodpg->{_isVbot_changed};
-
 	if ( length( $immodpg->{_VbotEntry} ) ) {
 
 		$immodpg->{_Vbot_current} = ( $immodpg->{_VbotEntry} )->get();
 
-		# redefinition required ???
-		$immodpg->{_isVbot_changed} = $isVbot_changed;
+		_set_control( 'Vbot', $immodpg->{_Vbot_current} );
+		$immodpg->{_Vbot_current} = _get_control('Vbot');
+		my $newVbot = $immodpg->{_Vbot_current};
 
-		#		print("immodpg, setVbot, $immodpg->{_isVbot_changed}\n");
+		$immodpg->{_VbotEntry}->delete( 0, 'end' );
+		$immodpg->{_VbotEntry}->insert( 0, $newVbot );
 
 		_checkVbot();
 		_updateVbot();
 
-		if ( length( $immodpg->{_isVbot_changed} )
-			&& $immodpg->{_isVbot_changed} eq $yes ) {
+		if ( length( $immodpg->{_isVbot_changed_in_gui} )
+			&& $immodpg->{_isVbot_changed_in_gui} eq $yes ) {
 
 			# for fortran program to read
-			# print("immodpg, set_Vbot, Vbot is changed: $yes \n");
+			#				print("immodpg, set_Vbot, Vbot is changed: $yes \n");
+			#				print("immodpg, setVbot,option:$Vbot_opt\n");
+			#				print("immodpg, setVbot, V=$immodpg->{_Vbot_current}\n");
 
 			_setVbot( $immodpg->{_Vbot_current} );
 			_set_option($Vbot_opt);
 			_set_change($yes);
-
-			# print("immodpg, setVbot,option:$Vbot_opt\n");
-			#			print("immodpg, setVbot, V=$immodpg->{_Vbot_current}\n");
 
 		} else {
 
@@ -4434,31 +5361,36 @@ sub setVbot_upper_layer {
 	my ($self) = @_;
 
 	# for convenience
-	my $isVbot_upper_layer_changed = $immodpg->{_isVbot_upper_layer_changed};
-	my $layer_current              = $immodpg->{_layer_current};
-
-	# print("immodpg, setVbot_upper_layer, self, $self\n");
+	my $layer_current = $immodpg->{_layer_current};
+	my $newVbot_upper_layer;
 
 	if ( length( $immodpg->{_Vbot_upper_layerEntry} ) ) {
 
-		my $Vbot_upper_layer_current = ( $immodpg->{_Vbot_upper_layerEntry} )->get();
+		$immodpg->{_Vbot_upper_layer_current} = ( $immodpg->{_Vbot_upper_layerEntry} )->get();
+		my $Vbot_upper_layer_current = $immodpg->{_Vbot_upper_layer_current};
 
-		# redfinition of lost value ????
-		$immodpg->{_isVbot_upper_layer_changed} = $isVbot_upper_layer_changed;
-
+		# print("1. immodpg, setVbot_upper_layer, immodpg->{_Vbot_upper_layer_current}=$Vbot_upper_layer_current\n");
 		if (    $Vbot_upper_layer_current ne $empty_string
 			and looks_like_number($Vbot_upper_layer_current)
 			and $layer_current > 0 ) {
 
-			#			print("immodpg, setVbot_upper_layer, V=$immodpg->{_Vbot_upper_layer}\n");
+			# print("immodpg, setVbot_upper_layer, immodpg->{_Vbot_upper_layer_current}=$immodpg->{_Vbot_upper_layer_current}\n");
+
+			_set_control( 'Vbot_upper_layer', $immodpg->{_Vbot_upper_layer_current} );
+			$immodpg->{_Vbot_upper_layer_current} = _get_control('Vbot_upper_layer');
+			$newVbot_upper_layer = $immodpg->{_Vbot_upper_layer_current};
+
+			# print("2. immodpg, setVbot_upper_layer, newVbot_upper_layer=$newVbot_upper_layer\n");
+
+			$immodpg->{_Vbot_upper_layerEntry}->delete( 0, 'end' );
+			$immodpg->{_Vbot_upper_layerEntry}->insert( 0, $newVbot_upper_layer );
 
 			_checkVbot_upper_layer();
 			_updateVbot_upper_layer();
 
-			if ( $immodpg->{_isVbot_upper_layer_changed} eq $yes ) {
+			if ( $immodpg->{_isVbot_upper_layer_changed_in_gui} eq $yes ) {
 
 				# for fortran program to read
-				#				print("immodpg, set_Vbot_upper_layer, Vbot_upper_layer is changed: $yes \n");
 
 				_setVbot_upper_layer( $immodpg->{_Vbot_upper_layer_current} );
 				_set_option($Vbot_upper_layer_opt);
@@ -4512,29 +5444,36 @@ sub setVbotNVtop_lower_layer_minus {
 		if (   looks_like_number($Vtop_lower_layer)
 			&& looks_like_number($Vbot) ) {
 
-			my $new_Vtop_lower_layer = $Vtop_lower_layer - $Vincrement;
-			my $new_Vbot             = $Vbot - $Vincrement;
+			my $newVtop_lower_layer = $Vtop_lower_layer - $Vincrement;
+			my $newVbot             = $Vbot - $Vincrement;
+
+			_set_control( 'Vtop', $newVtop_lower_layer );
+			$newVtop_lower_layer = _get_control('Vtop');
+			_set_control( 'Vbot', $newVbot );
+			$newVbot = _get_control('Vbot');
 
 			$immodpg->{_Vtop_lower_layer_prior}   = $immodpg->{_Vtop_lower_layer_current};
-			$immodpg->{_Vtop_lower_layer_current} = $new_Vtop_lower_layer;
+			$immodpg->{_Vtop_lower_layer_current} = $newVtop_lower_layer;
 
 			$immodpg->{_Vbot_prior}   = $immodpg->{_Vbot_current};
-			$immodpg->{_Vbot_current} = $new_Vbot;
+			$immodpg->{_Vbot_current} = $newVbot;
 
 			$immodpg->{_Vtop_lower_layerEntry}->delete( 0, 'end' );
-			$immodpg->{_Vtop_lower_layerEntry}->insert( 0, $new_Vtop_lower_layer );
+			$immodpg->{_Vtop_lower_layerEntry}->insert( 0, $newVtop_lower_layer );
 
 			$immodpg->{_VbotEntry}->delete( 0, 'end' );
-			$immodpg->{_VbotEntry}->insert( 0, $new_Vbot );
+			$immodpg->{_VbotEntry}->insert( 0, $newVbot );
 
-			$immodpg->{_isVtop_lower_layer_changed} = $yes;
-			$immodpg->{_isVbot_changed}             = $yes;
+			#				$immodpg->{_isVtop_lower_layer_changed_in_gui} = $yes;
+			#				$immodpg->{_isVbot_changed_in_gui}             = $yes;
+			#				_checkVbot(); #todo
+			_updateVbot();
 
-			#			print("immodpg, setVbotNVtop_lower_layer_minus, new Vtop_lower_layer= $new_Vtop_lower_layer\n");
-			#			print("immodpg, setVbotNVtop_lower_layer_minus, Vincrement= $Vincrement\n");
+			#				_checkVtop_lower_layer(); #todo
+			_updateVtop_lower_layer();
 
-			if (   $immodpg->{_isVtop_lower_layer_changed} eq $yes
-				&& $immodpg->{_isVbot_changed} eq $yes ) {
+			if (   $immodpg->{_isVtop_lower_layer_changed_in_gui} eq $yes
+				&& $immodpg->{_isVbot_changed_in_gui} eq $yes ) {
 
 				# for fortran program to read
 				#				print("immodpg, setVbotNVtop_lower_layer_minus, Vbot is changed: $yes \n");
@@ -4593,29 +5532,39 @@ sub setVbotNVtop_lower_layer_plus {
 		if (   looks_like_number($Vtop_lower_layer)
 			&& looks_like_number($Vbot) ) {
 
-			my $new_Vtop_lower_layer = $Vtop_lower_layer + $Vincrement;
-			my $new_Vbot             = $Vbot + $Vincrement;
+			my $newVtop_lower_layer = $Vtop_lower_layer + $Vincrement;
+			my $newVbot             = $Vbot + $Vincrement;
+
+			_set_control( 'Vbot', $newVbot );
+			$newVbot = _get_control('Vbot');
+			_set_control( 'Vtop', $newVtop_lower_layer );
+			$newVtop_lower_layer = _get_control('Vtop');
 
 			$immodpg->{_Vtop_lower_layer_prior}   = $immodpg->{_Vtop_lower_layer_current};
-			$immodpg->{_Vtop_lower_layer_current} = $new_Vtop_lower_layer;
+			$immodpg->{_Vtop_lower_layer_current} = $newVtop_lower_layer;
 
 			$immodpg->{_Vbot_prior}   = $immodpg->{_Vbot_current};
-			$immodpg->{_Vbot_current} = $new_Vbot;
+			$immodpg->{_Vbot_current} = $newVbot;
 
 			$immodpg->{_Vtop_lower_layerEntry}->delete( 0, 'end' );
-			$immodpg->{_Vtop_lower_layerEntry}->insert( 0, $new_Vtop_lower_layer );
+			$immodpg->{_Vtop_lower_layerEntry}->insert( 0, $newVtop_lower_layer );
 
 			$immodpg->{_VbotEntry}->delete( 0, 'end' );
-			$immodpg->{_VbotEntry}->insert( 0, $new_Vbot );
+			$immodpg->{_VbotEntry}->insert( 0, $newVbot );
 
-			$immodpg->{_isVtop_lower_layer_changed} = $yes;
-			$immodpg->{_isVbot_changed}             = $yes;
+			#				$immodpg->{_isVtop_lower_layer_changed_in_gui} = $yes;
+			#				$immodpg->{_isVbot_changed_in_gui}             = $yes;
 
-			#			print("immodpg, setVbotNVtop_lower_layer_plus, new Vtop_lower_layer= $new_Vtop_lower_layer\n");
+			_checkVbot();                # todo
+			_updateVbot();
+			_checkVtop_lower_layer();    # todo
+			_updateVtop_lower_layer();
+
+			#			print("immodpg, setVbotNVtop_lower_layer_plus, new Vtop_lower_layer= $newVtop_lower_layer\n");
 			#			print("immodpg, setVbotNVtop_lower_layer_plus, Vincrement= $Vincrement\n");
 
-			if (   $immodpg->{_isVtop_lower_layer_changed} eq $yes
-				&& $immodpg->{_isVbot_changed} eq $yes ) {
+			if (   $immodpg->{_isVtop_lower_layer_changed_in_gui} eq $yes
+				&& $immodpg->{_isVbot_changed_in_gui} eq $yes ) {
 
 				# for fortran program to read
 				#				print("immodpg, setVbotNVtop_lower_layer_plus, Vbot is changed: $yes \n");
@@ -4663,7 +5612,7 @@ sub setVtopNVbot_upper_layer_minus {
 
 	my ($self) = @_;
 
-	print("layer_current = $immodpg->{_layer_current};\n");
+	# print("layer_current = $immodpg->{_layer_current};\n");
 	if (
 		   looks_like_number( $immodpg->{_Vincrement_current} )
 		&& length( $immodpg->{_Vbot_upper_layerEntry} )
@@ -4678,39 +5627,51 @@ sub setVtopNVbot_upper_layer_minus {
 
 		if ( looks_like_number($Vbot_upper_layer) && looks_like_number($Vtop)
 			and $layer_current > 1 ) {
-			print("2\n");
-			my $new_Vbot_upper_layer = $Vbot_upper_layer - $Vincrement;
-			my $new_Vtop             = $Vtop - $Vincrement;
+
+			my $newVbot_upper_layer = $Vbot_upper_layer - $Vincrement;
+			my $newVtop             = $Vtop - $Vincrement;
+
+			_set_control( 'Vbot', $newVbot_upper_layer );
+			$newVbot_upper_layer = _get_control('Vbot');
+
+			_set_control( 'Vtop', $newVtop );
+			$newVtop = _get_control('Vtop');
 
 			$immodpg->{_Vbot_upper_layer_prior}   = $immodpg->{_Vbot_upper_layer_current};
-			$immodpg->{_Vbot_upper_layer_current} = $new_Vbot_upper_layer;
+			$immodpg->{_Vbot_upper_layer_current} = $newVbot_upper_layer;
 
 			$immodpg->{_Vtop_prior}   = $immodpg->{_Vtop_current};
-			$immodpg->{_Vtop_current} = $new_Vtop;
+			$immodpg->{_Vtop_current} = $newVtop;
 
 			$immodpg->{_Vbot_upper_layerEntry}->delete( 0, 'end' );
-			$immodpg->{_Vbot_upper_layerEntry}->insert( 0, $new_Vbot_upper_layer );
+			$immodpg->{_Vbot_upper_layerEntry}->insert( 0, $newVbot_upper_layer );
 
 			$immodpg->{_VtopEntry}->delete( 0, 'end' );
-			$immodpg->{_VtopEntry}->insert( 0, $new_Vtop );
+			$immodpg->{_VtopEntry}->insert( 0, $newVtop );
 
-			$immodpg->{_isVbot_upper_layer_changed} = $yes;
-			$immodpg->{_isVtop_changed}             = $yes;
+			#				$immodpg->{_isVbot_upper_layer_changed_in_gui} = $yes;
+			#				$immodpg->{_isVtop_changed_in_gui}             = $yes;
 
-			print("immodpg, setVtopNVbot_upper_layer_minus, new Vbot_upper_layer= $new_Vbot_upper_layer\n");
-			print("immodpg, setVtopNVbot_upper_layer_minus, Vincrement= $Vincrement\n");
+			#			print("immodpg, setVtopNVbot_upper_layer_minus, new Vbot_upper_layer= $newVbot_upper_layer\n");
+			# print("immodpg, setVtopNVbot_upper_layer_minus, Vincrement= $Vincrement\n");
 
-			if (   $immodpg->{_isVbot_upper_layer_changed} eq $yes
-				&& $immodpg->{_isVtop_changed} eq $yes ) {
+			#				_checkVtop(); #todo
+			_updateVtop();
+
+			#				_checkVbot_upper_layer(); #todo
+			_updateVbot_upper_layer();
+
+			if (   $immodpg->{_isVbot_upper_layer_changed_in_gui} eq $yes
+				&& $immodpg->{_isVtop_changed_in_gui} eq $yes ) {
 
 				# for fortran program to read
-				print("immodpg, setVtopNVbot_upper_layer_minus, Vbot is changed: $yes \n");
+				#					print("immodpg, setVtopNVbot_upper_layer_minus, Vbot is changed: $yes \n");
 
 				_set_option($VtopNVbot_upper_layer_minus_opt);
 				_set_change($yes);
 
-				print("immodpg, setVtopNVbot_upper_layer_minus,option:$VtopNVbot_upper_layer_minus_opt\n");
-				print("immodpg, setVtopNVbot_upper_layer_minus, V=$immodpg->{_Vbot_upper_layer_current}\n");
+				#				print("immodpg, setVtopNVbot_upper_layer_minus,option:$VtopNVbot_upper_layer_minus_opt\n");
+				#				print("immodpg, setVtopNVbot_upper_layer_minus, V=$immodpg->{_Vbot_upper_layer_current}\n");
 
 			} else {
 
@@ -4720,7 +5681,7 @@ sub setVtopNVbot_upper_layer_minus {
 				#	creation and deletion of locked files in perl are not
 				#	failsafe
 				#
-				#				print("immodpg, setVtopNVbot_upper_layer_minus, same Vtop and Vbot_upper_layer; NADA\n");
+				# print("immodpg, setVtopNVbot_upper_layer_minus, same Vtop and Vbot_upper_layer; NADA\n");
 			}
 
 		} else {
@@ -4766,32 +5727,43 @@ sub setVtopNVbot_upper_layer_plus {
 		if ( looks_like_number($Vbot_upper_layer) && looks_like_number($Vtop)
 			and $layer_current > 1 ) {
 
-			my $new_Vbot_upper_layer = $Vbot_upper_layer + $Vincrement;
-			my $new_Vtop             = $Vtop + $Vincrement;
+			my $newVbot_upper_layer = $Vbot_upper_layer + $Vincrement;
+			my $newVtop             = $Vtop + $Vincrement;
+
+			_set_control( 'Vbot', $newVbot_upper_layer );
+			$newVbot_upper_layer = _get_control('Vbot');
+
+			_set_control( 'Vtop', $newVtop );
+			$newVtop = _get_control('Vtop');
 
 			$immodpg->{_Vbot_upper_layer_prior}   = $immodpg->{_Vbot_upper_layer_current};
-			$immodpg->{_Vbot_upper_layer_current} = $new_Vbot_upper_layer;
+			$immodpg->{_Vbot_upper_layer_current} = $newVbot_upper_layer;
 
 			$immodpg->{_Vtop_prior}   = $immodpg->{_Vtop_current};
-			$immodpg->{_Vtop_current} = $new_Vtop;
+			$immodpg->{_Vtop_current} = $newVtop;
 
 			$immodpg->{_Vbot_upper_layerEntry}->delete( 0, 'end' );
-			$immodpg->{_Vbot_upper_layerEntry}->insert( 0, $new_Vbot_upper_layer );
+			$immodpg->{_Vbot_upper_layerEntry}->insert( 0, $newVbot_upper_layer );
 
 			$immodpg->{_VtopEntry}->delete( 0, 'end' );
-			$immodpg->{_VtopEntry}->insert( 0, $new_Vtop );
+			$immodpg->{_VtopEntry}->insert( 0, $newVtop );
 
-			$immodpg->{_isVbot_upper_layer_changed} = $yes;
-			$immodpg->{_isVtop_changed}             = $yes;
+			#				$immodpg->{_isVbot_upper_layer_changed_in_gui} = $yes;
+			#				$immodpg->{_isVtop_changed_in_gui}             = $yes;
+			#				_checkVtop(); #todo
+			_updateVtop();
 
-			#			print("immodpg, setVtopNVbot_upper_layer_plus, new Vbot_upper_layer= $new_Vbot_upper_layer\n");
+			#				_checkVbot_upper_layer(); # todo
+			_updateVbot_upper_layer();
+
+			#			print("immodpg, setVtopNVbot_upper_layer_plus, new Vbot_upper_layer= $newVbot_upper_layer\n");
 			#			print("immodpg, setVtopNVbot_upper_layer_plus, Vincrement= $Vincrement\n");
 
-			if (   $immodpg->{_isVbot_upper_layer_changed} eq $yes
-				&& $immodpg->{_isVtop_changed} eq $yes ) {
+			if (   $immodpg->{_isVbot_upper_layer_changed_in_gui} eq $yes
+				&& $immodpg->{_isVtop_changed_in_gui} eq $yes ) {
 
 				# for fortran program to read
-				#				print("immodpg, setVtopNVbot_upper_layer_plus, Vbot is changed: $yes \n");
+				#	print("immodpg, setVtopNVbot_upper_layer_plus, Vbot is changed: $yes \n");
 
 				_set_option($VtopNVbot_upper_layer_plus_opt);
 				_set_change($yes);
@@ -4812,7 +5784,7 @@ sub setVtopNVbot_upper_layer_plus {
 
 		} else {
 
-			#			print("immodpg, setVtopNVbot_upper_layer_plus, Vtop or Vbot_upper_layer value missing NADA\n");
+			# print("immodpg, setVtopNVbot_upper_layer_plus, Vtop or Vbot_upper_layer value missing NADA\n");
 		}
 
 	} else {
@@ -4836,15 +5808,26 @@ sub setVincrement {
 
 	my ($self) = @_;
 
-	# print("immodpg,  setVincrement, self, $self\n");
+	if ( length( $immodpg->{_VincrementEntry} ) ) {
 
-	if ( looks_like_number( $immodpg->{_Vincrement} ) ) {
+		$immodpg->{_Vincrement_current} = $immodpg->{_VincrementEntry}->get();
+
+		# print("1. immodpg, set_clip,immodpg->{_Vincrement_current}:$immodpg->{_Vincrement_current}\n");
+
+		_set_control( 'Vincrement', $immodpg->{_Vincrement_current} );
+		$immodpg->{_Vincrement_current} = _get_control('Vincrement');
+		my $newVincrement = $immodpg->{_Vincrement_current};
+
+		# print("2. immodpg, set_clip,immodpg->{_Vincrement_current}:$immodpg->{_Vincrement_current}\n");
+
+		$immodpg->{_VincrementEntry}->delete( 0, 'end' );
+		$immodpg->{_VincrementEntry}->insert( 0, $newVincrement );
 
 		_checkVincrement();
 		_updateVincrement();
 		_write_config();
 
-		if ( $immodpg->{_isVincrement_changed} eq $yes ) {
+		if ( $immodpg->{_isVincrement_changed_in_gui} eq $yes ) {
 
 			# for fortran program to read
 			# print("immodpg, set_Vincrement, Vincrement is changed: $yes \n");
@@ -4888,23 +5871,28 @@ through a message in file= "Vtop"
 sub setVtop {
 
 	my ($self) = @_;
-	my $isVtop_changed = $immodpg->{_isVtop_changed};
 
 	if ( length( $immodpg->{_VtopEntry} ) ) {
 
 		$immodpg->{_Vtop_current} = ( $immodpg->{_VtopEntry} )->get();
 
-		#		print("immodpg, setVtop, $immodpg->{_Vtop}\n");
-		#      redefinition required ???
-		$immodpg->{_isVtop_changed} = $isVtop_changed;
+		_set_control( 'Vtop', $immodpg->{_Vtop_current} );
+		$immodpg->{_Vtop_current} = _get_control('Vtop');
+		my $newVtop = $immodpg->{_Vtop_current};
+
+		$immodpg->{_VtopEntry}->delete( 0, 'end' );
+		$immodpg->{_VtopEntry}->insert( 0, $newVtop );
 
 		_checkVtop();
 		_updateVtop();
 
-		if ( $immodpg->{_isVtop_changed} eq $yes ) {
+		if ( $immodpg->{_isVtop_changed_in_gui} eq $yes ) {
 
 			# for fortran program to read
-			#			print("immodpg, set_Vtop, Vtop is changed: $yes \n");
+			# print("immodpg, set_Vtop, Vtop is changed: $yes \n");
+
+			#				$immodpg->{_VtopEntry}->delete( 0, 'end');
+			#				$immodpg->{_VtopEntry}->insert( 0, $newVtop );
 
 			_setVtop( $immodpg->{_Vtop_current} );
 			_set_option($changeVtop_opt);
@@ -4944,24 +5932,32 @@ through a message in file= "Vtop_lower_layer"
 sub setVtop_lower_layer {
 
 	my ($self) = @_;
-	my $isVtop_lower_layer_changed = $immodpg->{_isVtop_lower_layer_changed};
+
+	my $newVtop_lower_layer;
+
+	# my $isVtop_lower_layer_changed = $immodpg->{_isVtop_lower_layer_changed_in_gui};
 
 	if ( length( $immodpg->{_Vtop_lower_layerEntry} ) ) {
 
 		$immodpg->{_Vtop_lower_layer} = ( $immodpg->{_Vtop_lower_layerEntry} )->get();
 
-		# unexpectedly during "get" (above) the following value is made blank
-		# redefinition required ??
-		$immodpg->{_isVtop_lower_layer_changed} = $isVtop_lower_layer_changed;
+		_set_control( 'Vtop_lower_layer', $immodpg->{_Vtop_lower_layer} );
+		$immodpg->{_Vtop_lower_layer} = _get_control('Vtop_lower_layer');
+		$newVtop_lower_layer = $immodpg->{_Vtop_lower_layer};
+
+		$immodpg->{_Vtop_lower_layerEntry}->delete( 0, 'end' );
+		$immodpg->{_Vtop_lower_layerEntry}->insert( 0, $newVtop_lower_layer );
 
 		_checkVtop_lower_layer();
 		_updateVtop_lower_layer();
 
-		# print("0 after update  immodpg, set_Vtop_lower_layer, isVtop_lower_layer is changed= $immodpg->{_isVtop_lower_layer_changed}\n");
-
-		if ( $immodpg->{_isVtop_lower_layer_changed} eq $yes ) {
+		if ( $immodpg->{_isVtop_lower_layer_changed_in_gui} eq $yes ) {
 
 			# for fortran program to read
+			#            print(" immodpg, set_Vtop_lower_layer, newVtop_lower_layer = $newVtop_lower_layer\n");
+
+			#				$immodpg->{_Vtop_lower_layerEntry}->delete( 0, 'end' );
+			#				$immodpg->{_Vtop_lower_layerEntry}->insert( 0, $newVtop_lower_layer);
 
 			_setVtop_lower_layer( $immodpg->{_Vtop_lower_layer_current} );
 			_set_option($Vtop_lower_layer_opt);
@@ -4997,18 +5993,25 @@ sub setVbotNtop_factor {
 
 	my ($self) = @_;
 
-	# print("immodpg, _setVbotNtop_factor, self, $self\n");
-	#	print("immodpg, setVbotNtop_factor, $immodpg->{_VbotNtop_factor_current}\n");
-	if ( length( $immodpg->{_VbotNtop_factorEntry} )
-		&& looks_like_number( $immodpg->{_VbotNtop_factor_current} ) ) {
+	if ( length( $immodpg->{_VbotNtop_factorEntry} ) ) {
+
+		$immodpg->{_VbotNtop_factor_current} = $immodpg->{_VbotNtop_factorEntry}->get();
+
+		# print("1, immodpg, setVbotNtop_factor,immodpg->{_VbotNtop_factor_current}: $immodpg->{_VbotNtop_factor_current} \n");
+		_set_control( 'VbotNtop_factor', $immodpg->{_VbotNtop_factor_current} );
+		$immodpg->{_VbotNtop_factor_current} = _get_control('VbotNtop_factor');
+		my $newVbotNtop_factor = $immodpg->{_VbotNtop_factor_current};
+
+		# print("2. immodpg, setVbotNtop_factor,newVbotNtop_factor:$newVbotNtop_factor\n");
+
+		$immodpg->{_VbotNtop_factorEntry}->delete( 0, 'end' );
+		$immodpg->{_VbotNtop_factorEntry}->insert( 0, $newVbotNtop_factor );
 
 		_checkVbotNtop_factor();
 		_updateVbotNtop_factor();
 		_write_config();
 
-		if ( $immodpg->{_isVbotNtop_factor_changed} eq $yes ) {
-
-			# print("immodpg, setVbotNtop_factor,  VbotNtop_factor is changed: $yes \n");
+		if ( $immodpg->{_isVbotNtop_factor_changed_in_gui} eq $yes ) {
 
 			_setVbotNtop_factor( $immodpg->{_VbotNtop_factor_current} );
 			_set_option($changeVbotNtop_factor_opt);
@@ -5026,32 +6029,13 @@ sub setVbotNtop_factor {
 		print("immodpg, setVbotNtop_factor, bad factor or widget\n");
 
 		# correct for bad typing
-		_set_VbotNtop_factor_control();
-		_get_control_VbotNtop_factor();
+		#			_set_control('VbotNtop_factor',)
+		#			_set_VbotNtop_factor_control();
+		#			_get_control_VbotNtop_factor();
 	}
 }
 
-=head2 sub _set_VbotNtop_factor_control
-value adjusts to current
-clip value in use
-
-=cut
-
-sub _set_VbotNtop_factor_control {
-
-	my ( $self, $VbotNtop_factor ) = @_;
-
-	my $result;
-
-	if ( length($VbotNtop_factor)
-		&& ( not( looks_like_number($VbotNtop_factor) ) ) ) {
-
-	} else {
-		print("immodpg,_set_VbotNtop_factor_control, unexpectedvalue\n");
-	}
-
-	return ();
-}
+#
 
 =head2 sub setVbotNtop_multiply
 Multiply Vbot and Vtop with factor
@@ -5068,23 +6052,17 @@ sub setVbotNtop_multiply {
 
 	my ($self) = @_;
 
-	# print("immodpg, _setVbotNtop_multiply, self, $self\n");
-	#	print(
-	#		"immodpg, setVbotNtop_multiply, \n
-	#	_VbotNtop_factor_current=$immodpg->{_VbotNtop_factor_current}\n"
-	#	);
-
 	if (   looks_like_number( $immodpg->{_VbotNtop_factor_current} )
 		&& length( $immodpg->{_VbotEntry}->get() )
 		&& length( $immodpg->{_VtopEntry}->get() ) ) {
 
-		my $factor          = $immodpg->{_VbotNtop_factor_current};
+		my $factor          = $immodpg->{_VbotNtop_factorEntry}->get();
 		my $Vbot            = ( $immodpg->{_VbotEntry} )->get();
 		my $Vtop            = ( $immodpg->{_VtopEntry} )->get();
 		my $Vbot_multiplied = $Vbot * $factor;
 		my $Vtop_multiplied = $Vtop * $factor;
+		$immodpg->{_Vbot_multiplied} = $Vbot_multiplied;
 		$immodpg->{_Vtop_multiplied} = $Vtop_multiplied;
-		$immodpg->{_Vbot_multiplied} = $Vtop_multiplied;
 
 		# print("immodpg, setVbotNtop_multiply, Vbot=$Vbot_multiplied=, Vtop= $Vtop_multiplied\n");
 
@@ -5098,6 +6076,174 @@ sub setVbotNtop_multiply {
 
 	return ();
 
+}
+
+=head2 sub setVbotNtop_minus
+
+update Vbot and Vtop values in gui
+update private svalue in this module
+output option for immodpg.for
+
+=cut
+
+sub setVbotNtop_minus {
+
+	my ($self) = @_;
+
+	if (   length( $immodpg->{_VbotEntry} )
+		&& length( $immodpg->{_VtopEntry} ) ) {
+
+		my $Vbot       = ( $immodpg->{_VbotEntry} )->get();
+		my $Vtop       = ( $immodpg->{_VtopEntry} )->get();
+		my $Vincrement = $immodpg->{_VincrementEntry}->get();
+
+		if (   looks_like_number($Vbot)
+			&& looks_like_number($Vtop)
+			&& looks_like_number($Vincrement) ) {
+
+			my $newVbot = $Vbot - $Vincrement;
+
+			_set_control( 'Vbot', $newVbot );
+			$newVbot = _get_control('Vbot');
+
+			$immodpg->{_Vbot_prior}   = $immodpg->{_Vbot_current};
+			$immodpg->{_Vbot_current} = $newVbot;
+
+			$immodpg->{_VbotEntry}->delete( 0, 'end' );
+			$immodpg->{_VbotEntry}->insert( 0, $newVbot );
+
+			_updateVbot();
+
+			my $newVtop = $Vtop - $Vincrement;
+			_set_control( 'Vtop', $newVtop );
+			$newVtop = _get_control('Vtop');
+
+			$immodpg->{_Vtop_prior}   = $immodpg->{_Vtop_current};
+			$immodpg->{_Vtop_current} = $newVtop;
+
+			$immodpg->{_VtopEntry}->delete( 0, 'end' );
+			$immodpg->{_VtopEntry}->insert( 0, $newVtop );
+
+			_updateVtop();
+
+			#				print("immodpg, setVbotNtop_minus, new Vbot= $newVbot\n");
+			#				print("immodpg, setVbotNtop_minus, new Vtop= $newVtop\n");
+			# print("immodpg, setVbotNtop_minus, Vincrement= $Vincrement\n");
+
+			if (   $immodpg->{_isVbot_changed_in_gui} eq $yes
+				&& $immodpg->{_isVtop_changed_in_gui} eq $yes ) {
+
+				# for fortran program to read
+				_set_option($VbotNtop_minus_opt);
+				_set_change($yes);
+
+				#					print("immodpg, setVbotNtop_minus, VbotNtop_minus_opt:$VbotNtop_minus_opt \n");
+
+			} else {
+
+				#	negative cases are reset by fortran program
+				#	and so eliminate need to read locked files
+				#	while use of locked files helps most of the time
+				#	creation and deletion of locked files in perl are not
+				#	failsafe
+				#
+				#				print("immodpg, setVbotNtop_minus, same VbotNtop NADA\n");
+			}
+
+		} else {
+			print("immodpg, setVbotNtop_minus, VbotNtop value missing\n");
+		}
+
+	} else {
+		print("immodpg, setVbotNtop_minus, missing widget or Vincrement\n");
+
+		#		print("immodpg, setVbotNtop_minus, Vincrement=$immodpg->{_Vincrement}\n");
+	}
+	return ();
+}
+
+=head2 sub setVbotNtop_plus
+
+update Vbot and Vtop values in gui
+update private svalue in this module
+output option for immodpg.for
+
+=cut
+
+sub setVbotNtop_plus {
+
+	my ($self) = @_;
+
+	if (   length( $immodpg->{_VbotEntry} )
+		&& length( $immodpg->{_VtopEntry} ) ) {
+
+		my $Vbot       = ( $immodpg->{_VbotEntry} )->get();
+		my $Vtop       = ( $immodpg->{_VtopEntry} )->get();
+		my $Vincrement = $immodpg->{_VincrementEntry}->get();
+
+		if (   looks_like_number($Vbot)
+			&& looks_like_number($Vtop)
+			&& looks_like_number($Vincrement) ) {
+
+			my $newVbot = $Vbot + $Vincrement;
+
+			_set_control( 'Vbot', $newVbot );
+			$newVbot = _get_control('Vbot');
+
+			$immodpg->{_Vbot_prior}   = $immodpg->{_Vbot_current};
+			$immodpg->{_Vbot_current} = $newVbot;
+
+			$immodpg->{_VbotEntry}->delete( 0, 'end' );
+			$immodpg->{_VbotEntry}->insert( 0, $newVbot );
+
+			_updateVbot();
+
+			my $newVtop = $Vtop + $Vincrement;
+			_set_control( 'Vtop', $newVtop );
+			$newVtop = _get_control('Vtop');
+
+			$immodpg->{_Vtop_prior}   = $immodpg->{_Vtop_current};
+			$immodpg->{_Vtop_current} = $newVtop;
+
+			$immodpg->{_VtopEntry}->delete( 0, 'end' );
+			$immodpg->{_VtopEntry}->insert( 0, $newVtop );
+
+			_updateVtop();
+
+			#				print("immodpg, setVbotNtop_plus, new Vbot= $newVbot\n");
+			#				print("immodpg, setVbotNtop_plus, new Vtop= $newVtop\n");
+			# print("immodpg, setVbotNtop_plus, Vincrement= $Vincrement\n");
+
+			if (   $immodpg->{_isVbot_changed_in_gui} eq $yes
+				&& $immodpg->{_isVtop_changed_in_gui} eq $yes ) {
+
+				# for fortran program to read
+				_set_option($VbotNtop_plus_opt);
+				_set_change($yes);
+
+				#					print("immodpg, setVbotNtop_plus, VbotNtop_plus_opt:$VbotNtop_plus_opt \n");
+
+			} else {
+
+				#	negative cases are reset by fortran program
+				#	and so eliminate need to read locked files
+				#	while use of locked files helps most of the time
+				#	creation and deletion of locked files in perl are not
+				#	failsafe
+				#
+				#				print("immodpg, setVbotNtop_plus, same VbotNtop NADA\n");
+			}
+
+		} else {
+			print("immodpg, setVbotNtop_plus, VbotNtop value missing\n");
+		}
+
+	} else {
+		print("immodpg, setVbotNtop_plus, missing widget or Vincrement\n");
+
+		#		print("immodpg, setVbotNtop_plus, Vincrement=$immodpg->{_Vincrement}\n");
+	}
+	return ();
 }
 
 =head2 sub invert 
@@ -5179,22 +6325,31 @@ sub set_clip {
 
 	my ($self) = @_;
 
-	if ( length( $immodpg->{_clip4plotEntry} )
-		&& looks_like_number( $immodpg->{_clip4plot_current} ) ) {
+	if ( length( $immodpg->{_clip4plotEntry} ) ) {
 
-		#		print("immodpg, set_clip, $immodpg->{_clip4plotEntry}\n");
+		$immodpg->{_clip4plot_current} = $immodpg->{_clip4plotEntry}->get();
+
+		# print("1. immodpg, set_clip,immodpg->{_clip4plot_current}:$immodpg->{_clip4plot_current}\n");
+
+		_set_control( 'clip4plot', $immodpg->{_clip4plot_current} );
+		$immodpg->{_clip4plot_current} = _get_control('clip4plot');
+		my $new_clip4plot = $immodpg->{_clip4plot_current};
+
+		# print("2. immodpg, set_clip,immodpg->{_clip4plot_current}:$immodpg->{_clip4plot_current}\n");
+
+		$immodpg->{_clip4plotEntry}->delete( 0, 'end' );
+		$immodpg->{_clip4plotEntry}->insert( 0, $new_clip4plot );
+
 		_check_clip();
 		_update_clip();
 		_write_config();
 
-		if ( $immodpg->{_is_clip_changed} eq $yes ) {
+		if ( $immodpg->{_is_clip_changed_in_gui} eq $yes ) {
 
-			# ("immodpg, set_clip, clip is changed: $yes \n");
 			_set_clip( $immodpg->{_clip4plot_current} );
 			_set_option($change_clip_opt);
 			_set_change($yes);
 
-			#			print("immodpg, set_clip,option:$change_clip_opt\n");
 			#			print("immodpg, set_clip,immodpg->{_clip4plot_current}=$immodpg->{_clip4plot_current}\n");
 
 		} else {
@@ -5218,7 +6373,6 @@ compared to former layer values
 sub set_layer {
 	my ($self) = @_;
 
-	#  print("1. immodpg, set_layer\n");
 	#	print("immodpg, set_layer, $immodpg->{_layerEntry}\n");
 
 	if (   length( $immodpg->{_layerEntry} )
@@ -5230,27 +6384,27 @@ sub set_layer {
 		&& length( $immodpg->{_thickness_mEntry} )
 		&& looks_like_number( $immodpg->{_thickness_m_current} ) ) {
 
-		# print("2. immodpg, layer, $immodpg->{_layerEntry}\n");
 		_check_layer();
-		_update_layer();
-		_update_upper_layer();
-		_update_lower_layer();
-		_check_thickness_m();
-		_update_thickness_m();
-		_write_config();
+		_update_layer_in_gui();
+		_update_upper_layer_in_gui();
+		_update_lower_layer_in_gui();
 
-		if ( $immodpg->{_is_layer_changed} eq $yes ) {
+		#		_write_config();  TODO
+
+		if ( $immodpg->{_is_layer_changed_in_gui} eq $yes ) {
 
 =head3 Get model values from
 immodpg.out for initial settings
 in GUI
-also change associated velocity values
-and thickness values of the new layer
+If the layer changes, also change associated 
+velocity values and thickness values of the new layer
 
 =cut
 
+			# print("immodpg, set_layer, layer is changed to: $immodpg->{_layer_current}\n");
 			_set_model_layer( $immodpg->{_layer_current} );
-			my ( $Vp_ref, $dz, $error_switch ) = _getVp_dz_initial();
+
+			my ( $Vp_ref, $dz ) = _getVp_ref_dz_scalar();
 			my @V           = @$Vp_ref;
 			my $thickness_m = $dz;
 
@@ -5261,7 +6415,7 @@ and thickness values of the new layer
 			my $Vbot             = $V[2];
 			my $Vtop_lower_layer = $V[3];
 
-			# print("immodpg, set_layer, Vbot=$Vbot\n");
+			# print("immodpg, set_layer, Vbot=$Vbot for layer=$immodpg->{_layer_current} \n");
 			$immodpg->{_thickness_mEntry}->delete( 0, 'end' );
 			$immodpg->{_thickness_mEntry}->insert( 0, $thickness_m );
 
@@ -5426,6 +6580,8 @@ sub set_thickness_m_minus {
 
 			my $thickness_increment_m = ( $immodpg->{_thickness_increment_mEntry} )->get();
 			my $new_thickness_m       = $thickness_m - $thickness_increment_m;
+			_set_control( 'thickness_m', $new_thickness_m );
+			$new_thickness_m = _get_control('thickness_m');
 
 			$immodpg->{_thickness_m_prior}   = $immodpg->{_thickness_m_current};
 			$immodpg->{_thickness_m_current} = $new_thickness_m;
@@ -5433,16 +6589,20 @@ sub set_thickness_m_minus {
 			$immodpg->{_thickness_mEntry}->delete( 0, 'end' );
 			$immodpg->{_thickness_mEntry}->insert( 0, $new_thickness_m );
 
-			$immodpg->{_is_thickness_m_changed} = $yes;
-
 			#			print("immodpg, set new _thickness_m= $new_thickness_m\n");
 			#			print("immodpg, set_thickness_m_minus, thickness_increment_m= $thickness_increment_m\n");
 
-			if ( $immodpg->{_is_thickness_m_changed} eq $yes ) {
+			#				_check_thickness_m(); #todo
+			_update_thickness_m();
+
+			$immodpg->{_is_thickness_m_changed_in_gui} = $yes;
+
+			if ( $immodpg->{_is_thickness_m_changed_in_gui} eq $yes ) {
 
 				# for fortran program to read
-				#								print("immodpg, set_thickness_m_minus, _thickness_m is changed: $yes \n");
+				# print("immodpg, set_thickness_m_minus, _thickness_m is changed: $yes \n");
 
+				#				   _set_thickness_m( $immodpg->{_thickness_m_current} );
 				_set_option($thickness_m_minus_opt);
 				_set_change($yes);
 
@@ -5450,9 +6610,6 @@ sub set_thickness_m_minus {
 				#								print("immodpg, set_thickness_m_minus, V=$immodpg->{_thickness_m_current}\n");
 
 			} else {
-
-				#				print("immodpg, set_thickness_m_minus, _thickness_mEntry=$immodpg->{_thickness_mEntry}\n");
-				#				print("immodpg, set_thickness_m_minus, thickness_increment_m=$immodpg->{_thickness_increment_m}\n");
 
 				#	negative cases are reset by fortran program
 				#	and so eliminate need to read locked files
@@ -5498,6 +6655,8 @@ sub set_thickness_m_plus {
 
 			my $thickness_increment_m = ( $immodpg->{_thickness_increment_mEntry} )->get();
 			my $new_thickness_m       = $thickness_m + $thickness_increment_m;
+			_set_control( 'thickness_m', $new_thickness_m );
+			$new_thickness_m = _get_control('thickness_m');
 
 			$immodpg->{_thickness_m_prior}   = $immodpg->{_thickness_m_current};
 			$immodpg->{_thickness_m_current} = $new_thickness_m;
@@ -5505,21 +6664,23 @@ sub set_thickness_m_plus {
 			$immodpg->{_thickness_mEntry}->delete( 0, 'end' );
 			$immodpg->{_thickness_mEntry}->insert( 0, $new_thickness_m );
 
-			$immodpg->{_is_thickness_m_changed} = $yes;
+			#				print("immodpg, set_thickness_m_plus, set new _thickness_m= $new_thickness_m\n");
+			_check_thickness_m();    #todo
+			_update_thickness_m();
 
-			#			print("immodpg, set new _thickness_m= $new_thickness_m\n");
-			#			print("immodpg, set_thickness_m_plus, thickness_increment_m= $thickness_increment_m\n");
+			$immodpg->{_is_thickness_m_changed_in_gui} = $yes;
 
-			if ( $immodpg->{_is_thickness_m_changed} eq $yes ) {
+			if ( $immodpg->{_is_thickness_m_changed_in_gui} eq $yes ) {
 
 				# for fortran program to read
-				#				print("immodpg, set_thickness_m_plus, _thickness_m is changed: $yes \n");
+				# print("immodpg, set_thickness_m_plus, _thickness_m is changed: $yes \n");
 
+				#				    _set_thickness_m( $immodpg->{_thickness_m_current} );
 				_set_option($thickness_m_plus_opt);
 				_set_change($yes);
 
-				#				print("immodpg, set_thickness_m_plus,option:$_thickness_m_plus_opt\n");
-				#				print("immodpg, set_thickness_m_plus, V=$immodpg->{_thickness_m_current}\n");
+				#	print("immodpg, set_thickness_m_plus,option:$_thickness_m_plus_opt\n");
+				# print("immodpg, set_thickness_m_plus, dz=$immodpg->{_thickness_m_current}\n");
 
 			} else {
 
@@ -5570,6 +6731,9 @@ sub set_update {
 	setVbot_upper_layer();
 	setVtop_lower_layer();
 	set_layer();
+	_set_simple_model_text();
+	_set_working_model_bin();
+	_set_working_model_text();
 
 }
 
@@ -5579,8 +6743,7 @@ sub set_widgets {
 
 	if ($widget_h) {
 
-		# print("immodpg, set_widgets, immodpg->{_clip4plotEntry}: $immodpg->{_clip4plotEntry}\n");
-
+		# print("immodpg, set_widgets, widget_ ->{_mw}: $widget_h ->{_mw}\n");
 		$immodpg->{_VbotEntry}                  = $widget_h->{_VbotEntry};
 		$immodpg->{_Vbot_upper_layerEntry}      = $widget_h->{_Vbot_upper_layerEntry};
 		$immodpg->{_VincrementEntry}            = $widget_h->{_VincrementEntry};
@@ -5593,11 +6756,17 @@ sub set_widgets {
 		$immodpg->{_thickness_increment_mEntry} = $widget_h->{_thickness_increment_mEntry};
 		$immodpg->{_upper_layerLabel}           = $widget_h->{_upper_layerLabel};
 		$immodpg->{_lower_layerLabel}           = $widget_h->{_lower_layerLabel};
+		$immodpg->{_mw}                         = $widget_h->{_mw};
+		$immodpg->{_message_box_w}              = $widget_h->{_message_box_w};
+		$immodpg->{_message_upper_frame}        = $widget_h->{_message_upper_frame};
+		$immodpg->{_message_lower_frame}        = $widget_h->{_message_lower_frame};
+		$immodpg->{_message_label_w}            = $widget_h->{_message_label_w};
+		$immodpg->{_message_box_wait}           = $widget_h->{_message_box_wait};
+		$immodpg->{_message_ok_button}          = $widget_h->{_message_ok_button};
 
-		#		print("immodpg, set_widgets, immodpg->{_Vtop_lower_layerEntry}: $immodpg->{_Vtop_lower_layerEntry}\n");
-
-		#		print("immodpg, set_widgets, immodpg->{_VtopEntry}: $immodpg->{_VtopEntry}\n");
+		# print("immodpg, set_widgets, immodpg->{_message_box_w}: $immodpg->{_message_box_w}\n");
 		# print("immodpg, set_widgets, OK\n");
+
 		return ();
 
 	} else {
@@ -5646,7 +6815,7 @@ sub set_change {
 
 	my ( $self, $yes_or_no ) = @_;
 
-#	print("immodpg, set_change, yes_or_no:$yes_or_no\n");
+	#	print("immodpg, set_change, yes_or_no:$yes_or_no\n");
 
 	if ( defined($yes_or_no)
 		&& $immodpg->{_change_file} ne $empty_string ) {
@@ -5678,7 +6847,7 @@ variables
 		my $max_counts = $var_immodpg->{_loop_limit};
 		for ( my $i = 0; ( $test eq $yes ) and ( $count < $max_counts ); $i++ ) {
 
-#			print("1. immodpg,set_change, in loop count=$count \n");
+			#			print("1. immodpg,set_change, in loop count=$count \n");
 
 			if ( not( $files->does_file_exist( \$outbound_locked ) ) ) {
 
@@ -5709,7 +6878,8 @@ variables
 					# overwrite change_file(=no) with no or yes
 					$X[0] = $yes_or_no;
 					$files->write_1col_aref( \@X, \$outbound, \$format );
-#					print("immodpg, set_change, overwrite change file with $X[0]\n");
+
+					#					print("immodpg, set_change, overwrite change file with $X[0]\n");
 
 					unlink($outbound_locked);
 
@@ -5735,7 +6905,7 @@ variables
 		print("immodpg, set_change, missing values\n");
 	}
 	return ();
-	
+
 }    # sub
 
 =head2 sub set_clip_control
@@ -5834,7 +7004,6 @@ variables
 	} elsif ( $immodpg->{_is_option_changed} eq $no ) {
 
 		# NADA
-
 	} else {
 		print("immodpg, set_option, unexpected answer\n");
 	}
@@ -5888,7 +7057,6 @@ compared to former thickness_m values
 
 thickness_m value is updated in immodpg.for 
 through a message in file= "thickness_m"
-(&_set_thickness_m)
 
 =cut
 
@@ -5896,26 +7064,23 @@ sub set_thickness_m {
 
 	my ($self) = @_;
 
-	#	print("immodpg, set_thickness_m,immodpg->{_thickness_m_current} =$immodpg->{_thickness_m_current} \n");
-	#	print("immodpg, set_thickness_m,immodpg->{_thickness_m_current} =$immodpg->{_thickness_m_current} \n");
-	#	print("immodpg, set_thickness_m,immodpg->{_thickness_m_current} =$immodpg->{_thickness_m_current} \n");
-
 	if ( looks_like_number( $immodpg->{_thickness_m_current} ) ) {
+
+		_set_control( 'thickness_m', $immodpg->{_thickness_m_current} );
+		$immodpg->{_thickness_m_current} = _get_control('thickness_m');
 
 		_check_thickness_m();
 		_update_thickness_m();
 
-		if ( $immodpg->{_is_thickness_m_changed} eq $yes ) {
+		if ( length( $immodpg->{_is_thickness_m_changed_in_gui} )
+			&& $immodpg->{_is_thickness_m_changed_in_gui} eq $yes ) {
 
 			# for fortran program to read
-			# print("immodpg, set_thickness_m, thickness_m is changed: $yes \n");
+			print("immodpg, set_thickness_m, thickness_m is changed: $yes \n");
 
 			_set_thickness_m( $immodpg->{_thickness_m_current} );
 			_set_option($change_thickness_m_opt);
 			_set_change($yes);
-
-			# print("immodpg, set_thickness_m,option:$change_thickness_m_opt\n");
-			# print("immodpg, set_thickness_m, V=$immodpg->{_thickness_m_current}\n");
 
 		} else {
 
@@ -5951,25 +7116,33 @@ sub set_thickness_increment_m {
 
 	# print("immodpg, set_thickness_increment_m, self, $self\n");
 
-	if ( defined $immodpg->{_thickness_increment_mEntry}
-		&& $immodpg->{_thickness_increment_mEntry} ne $empty_string ) {
+	if ( length( $immodpg->{_thickness_increment_mEntry} ) ) {
+
+		$immodpg->{_thickness_increment_m_current} = ( $immodpg->{_thickness_increment_mEntry} )->get();
+		_set_control( 'thickness_increment_m', $immodpg->{_thickness_increment_m_current} );
+		$immodpg->{_thickness_increment_m_current} = _get_control('thickness_increment_m');
+		my $new_thickness_increment_m = $immodpg->{_thickness_increment_m_current};
+
+		$immodpg->{_thickness_increment_mEntry}->delete( 0, 'end' );
+		$immodpg->{_thickness_increment_mEntry}->insert( 0, $new_thickness_increment_m );
 
 		# print("immodpg, set_thickness_increment_m, $immodpg->{_thickness_increment_mEntry}\n");
 		_check_thickness_increment_m();
-		_update_thickness_increment_m();
+		_update_thickness_increment_m_in_gui();
 		_write_config();
 
-		if ( $immodpg->{_is_thickness_increment_m_changed} eq $yes ) {
+		if ( $immodpg->{_is_layer_changed_in_gui} eq $yes ) {
 
 			print("immodpg, set_thickness_increment_m, thickness_increment_m is changed: $yes \n");
+
 			_set_thickness_increment_m( $immodpg->{_thickness_increment_m_current} );
 			_set_option($change_thickness_increment_m_opt);
 			_set_change($yes);
 
-			print("immodpg, set_thickness_increment_m,option:$change_thickness_increment_m_opt\n");
-			print(
-				"immodpg, set_thickness_increment_m,immodpg->{_thickness_increment_m_current}=$immodpg->{_thickness_increment_m_current}\n"
-			);
+			#				print("immodpg, set_thickness_increment_m,option:$change_thickness_increment_m_opt\n");
+			#				print(
+			#					"immodpg, set_thickness_increment_m,immodpg->{_thickness_increment_m_current}=$immodpg->{_thickness_increment_m_current}\n"
+			#				);
 
 		} else {
 			_set_change($no);

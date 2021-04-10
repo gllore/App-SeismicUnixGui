@@ -46,6 +46,7 @@ c
 
       else if (previous_model == 1.0 .and. new_model == 0.0) then
        ID =0
+!       print *, 'L49 readmmod.for, correct answer'
       else
        print *, 'readmmod.for, unexpected model answer'
       end if
@@ -202,8 +203,10 @@ c
 c *** MODIFICATIONS ***
 c
 	ID=0
-!	Juan's modification for iimodpg.for July 25 2020
-	CALL READ_PAR_I4('1-MAKE SOME CHANGES ON THIS FILE, 0- NO',ID)
+!	Juan's modification for immodpg.for July 25 2020
+!       write(*,*) 'readmmod.for L207'
+	CALL READ_PAR_I4('1-MAKE SOME CHANGES ON THIS FILE1, 0- NO',ID)
+!       write(*,*) 'readmmod.for L209 ID=', ID
 	IF(ID.NE.1) GO TO 135
 127	write(*,*)'1-DELETE OR 2-INSERT AFTER LAYER,3- CHANGE LAYER '
 	read(5,*) IMOD

@@ -52,7 +52,7 @@
 11      close (status='delete',unit=28,iostat=err_message)
         if (err_message.ne.0) then
          go to 11
-         print *, 'read_option_file.f, err_messg=',err_message
+!         print *, 'read_option_file.f, err_messg=',err_message
         end if
 
       end subroutine read_option_file

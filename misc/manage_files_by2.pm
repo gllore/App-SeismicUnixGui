@@ -518,9 +518,9 @@ sub write_1col_aref {
 
 	# $variable is an unused hash
 
-	# print("\n manage_files_by2,write_1col_aref,The output file name = $$ref_file_name\n");
-	# print("\n manage_files_by2,write_1col_aref,The output file contains $num_rows rows\n");
-	# print("\n manage_files_by2,write_1col_aref,The output file uses the following format: $$ref_fmt\n");
+#	print("\n manage_files_by2,write_1col_aref,The output file name = $$ref_file_name\n");
+#	print("\n manage_files_by2,write_1col_aref,The output file contains $num_rows rows\n");
+#	print("\n manage_files_by2,write_1col_aref,The output file uses the following format: $$ref_fmt\n");
 
 	open( OUT, ">$$ref_file_name" );
 
@@ -712,9 +712,7 @@ sub write_multipar {
 
 	#print("manage_files_by2,par, tnmo_row @tnmo_array\n");
 	#print("manage_files_by2,par, vnmo_row @vnmo_array\n");
-
 	#print("manage_files_by2,par, tnmo_row $tnmo_array[1] \n");
-
 	#print("manage_files_by2,par, ref_outbound $$ref_outbound \n");
 
 	open( my $fh, '>', $$ref_outbound );

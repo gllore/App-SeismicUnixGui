@@ -35,13 +35,13 @@ package run_button;
   	$pre_req_ok
   	
   calls 
-	$conditions_gui		->set4run_button_start();
-	$conditions_gui		->set4run_button();     
+	$gui_history		->set4run_button_start();
+	$gui_history		->set4run_button();     
 	$decisions		      	->set4run_select($run_button);
-	$conditions_gui		->set4run_button_end();
+	$gui_history		->set4run_button_end();
 	$whereami				->in_gui();
 	message box: 			$message
-	$run_button 			= $conditions_gui->get_hash_ref();	
+	$run_button 			= $gui_history->get_hash_ref();	
 	
 =cut 
 
@@ -53,20 +53,25 @@ use Moose;
 our $VERSION = '0.0.1';
 
 use Tk;
-use conditions_gui;
+#use conditions_gui;
+# TODO Do I need decisions???
 use decisions 1.00;
+
+# uses conditions_flows which derives
+# from conditions_gui
+extends 'gui_history' => { -version => 0.0.2 };
 
 # potentially used in all packages
 use L_SU_global_constants;
 use name;
-use message_director;
 
 # use control;
 use whereami;
 
+my $gui_history = gui_history->new();
 my $decisions           = decisions->new();
 my $get                 = L_SU_global_constants->new();
-my $conditions_gui      = conditions_gui->new();
+#my $conditions_gui      = conditions_gui->new();
 my $name                = name->new();
 my $run_button_messages = message_director->new();
 my $whereami            = whereami->new();
@@ -80,6 +85,7 @@ my $true            = $var->{_true};
 my $false           = $var->{_false};
 my $superflow_names = $get->superflow_names_h();
 my $global_libs     = $get->global_libs();
+my $run_button     = $gui_history->get_defaults();
 
 # print("L_SU,run_button,flow_name_out: $run_button->{_flow_name_out}\n");
 
@@ -97,147 +103,196 @@ my $values_aref;
 my ( $flow_listbox_grey_w, $flow_listbox_pink_w, $flow_listbox_green_w, $flow_listbox_blue_w );
 my $sub_ref;
 
-=head2 private hash
 
-125 off
-
-not in calling module L_SU: 
-	_flow_name_out
-	#TODO
+=head2 sub _messages
+Show warnings or errors in a message box
+Message box is defined in main where it is
+also made invisible (withdraw)
+Here we turn on the message box (deiconify, raise)
+The message does not release the program
+until OK is clicked and wait variable changes from yes 
+to no.
 
 =cut
 
-my $run_button = {
+sub _messages {
+	
+	my ($run_name)    = @_;
+	
+	use message_director;
+    my $run_name_message = message_director->new();
+    my $message       = $run_name_message->immodpg(0);
+	
+    # print("1. run_button,_messages,writing gui_history.txt\n");
+    # $gui_history->view();
+    
+    my $message_box   =  $run_button->{_message_box_w};
+    my $message_label =  $run_button->{_message_label_w};
+    my $message_box_wait=  $run_button->{_message_box_wait};
+    my $message_ok_button= $run_button->{_message_ok_button};
+    # print("1 run_button,_messages, message_box_wait=$message_box_wait\n");   
+  
+    $message_box->title( "immodpg" );
+	$message_label->configure (
+	 	-textvariable => \$message,
+        );
+    $message_ok_button->configure (
+    	-command 		=> sub { 
+			$message_box->grabRelease;
+			$message_box->withdraw;
+		    $message_box_wait = $var->{_no};}
+    );
+    
+	$message_box->deiconify();
+	$message_box->raise();
+    
+	$message_ok_button->waitVariable(\$message_box_wait);
+#    print("2 run_button,_messages,message_box_wait=$message_box_wait\n");
+     return();
+            
+}
 
-	_Data_menubutton                       => '',
-	_Flow_menubutton                       => '',
-	_FileDialog_sub_ref                    => '',
-	_FileDialog_option                     => '',
-	_add2flow_button_grey                  => '',
-	_add2flow_button_pink                  => '',
-	_add2flow_button_green                 => '',
-	_add2flow_button_blue                  => '',
-	_check_code_button                     => '',
-	_check_buttons_settings_aref           => '',
-	_check_buttons_w_aref                  => '',
-	_delete_from_flow_button               => '',
-	_destination_index                     => '',
-	_dialog_type                           => '',     #set_dialog_type
-	_dnd_token_grey                        => '',
-	_dnd_token_pink                        => '',
-	_dnd_token_green                       => '',
-	_dnd_token_blue                        => '',
-	_dropsite_token_grey                   => '',
-	_dropsite_token_pink                   => '',
-	_dropsite_token_green                  => '',
-	_dropsite_token_blue                   => '',
-	_file_menubutton                       => '',
-	_flow_color                            => '',
-	_flow_item_down_arrow_button           => '',
-	_flow_item_up_arrow_button             => '',
-	_flow_listbox_grey_w                   => '',
-	_flow_listbox_pink_w                   => '',
-	_flow_listbox_green_w                  => '',
-	_flow_listbox_blue_w                   => '',
-	_flow_listbox_color_w                  => '',
-	_flow_name_grey_w                      => '',
-	_flow_name_pink_w                      => '',
-	_flow_name_green_w                     => '',
-	_flow_name_blue_w                      => '',
-	_flow_name_in                          => '',
-	_flow_name_out                         => '',
-	_flow_type                             => '',     # set_flow_type
-	_flow_widget_index                     => '',
-	_flowNsuperflow_name_w                 => '',
-	_good_labels_aref2                     => '',
-	_good_values_aref2                     => '',
-	_has_used_check_code_button            => '',
-	_has_used_open_perl_file_button        => '',
-	_has_used_Save_button                  => '',
-	_has_used_Save_superflow               => '',
-	_has_used_SaveAs_button                => '',
-	_has_used_run_button                   => '',
-	_index2move                            => '',
-	_is_SaveAs_file_button                 => '',
-	_is_SaveAs_button                      => '',
-	_is_Save_button                        => '',
-	_is_add2flow_button                    => '',
-	_is_check_code_button                  => '',
-	_is_delete_from_flow_button            => '',
-	_is_dragNdrop                          => '',
-	_is_flow_item_down_arrow_button        => '',
-	_is_flow_item_up_arrow_button          => '',
-	_is_flow_listbox_grey_w                => '',
-	_is_flow_listbox_green_w               => '',
-	_is_flow_listbox_pink_w                => '',
-	_is_flow_listbox_blue_w                => '',
-	_is_flow_listbox_color_w               => '',
-	_is_last_flow_index_touched            => '',
-	_is_last_flow_index_touched_grey       => '',
-	_is_last_flow_index_touched_pink       => '',
-	_is_last_flow_index_touched_green      => '',
-	_is_last_flow_index_touched_blue       => '',
-	_is_last_parameter_index_touched_color => '',
-	_is_last_parameter_index_touched_grey  => '',
-	_is_last_parameter_index_touched_pink  => '',
-	_is_last_parameter_index_touched_green => '',
-	_is_last_parameter_index_touched_blue  => '',
-	_is_moveNdrop_in_flow                  => '',
-	_is_new_listbox_selection              => '',
-	_is_open_file_button                   => '',
-	_is_pre_built_superflow                => '',
-	_is_prog_name                          => '',
-	_is_run_button                         => '',
-	_is_select_file_button                 => '',
-	_is_selected_file_name                 => '',
-	_is_selected_path                      => '',
-	_is_sunix_listbox                      => '',
-	_is_superflow                          => '',     # should it be _pre_built_superflow?
-	_is_superflow_select_button            => '',
-	_is_user_built_flow                    => '',
-	_items_checkbuttons_aref2              => '',
-	_items_names_aref2                     => '',
-	_items_values_aref2                    => '',
-	_items_versions_aref                   => '',
-	_labels_w_aref                         => '',
-	_last_flow_index_touched               => -1,
-	_last_flow_index_touched_grey          => -1,
-	_last_flow_index_touched_pink          => -1,
-	_last_flow_index_touched_green         => -1,
-	_last_flow_index_touched_blue          => -1,
-	_last_flow_listbox_touched             => '',
-	_last_flow_listbox_touched_w           => '',
-	_last_parameter_index_touched_color    => -1,
-	_last_parameter_index_touched_grey     => -1,
-	_last_parameter_index_touched_pink     => -1,
-	_last_parameter_index_touched_green    => -1,
-	_last_parameter_index_touched_blue     => -1,
-	_last_path_touched                     => './',
-	_message_w                             => '',
-	_mw                                    => '',     # main window widget
-	_names_aref                            => '',
-	_occupied_listbox_aref                 => '',
-	_param_flow_length                     => '',
-	_parameter_names_frame                 => '',
-	_param_sunix_first_idx                 => 0,
-	_param_sunix_length                    => '',
-	_parameter_values_frame                => '',
-	_parameter_values_button_frame         => '',
-	_parameter_value_index                 => '',
-	_path                                  => '',
-	_prog_names_aref                       => '',
-	_prog_name_sref                        => '',     # set_prog_name_sref
-	_run_button                            => '',
-	_save_button                           => '',
-	_selected_file_name                    => '',
-	_sub_ref                               => '',
-	_sunix_listbox                         => '',     # pre-built-superflow or flow name as well
-	_superflow_first_idx                   => '',
-	_superflow_length                      => '',
-	_values_aref                           => '',
-	_values_w_aref                         => '',
-
-};
+#=head2 private hash
+#
+#125 off
+#
+#not in calling module L_SU: 
+#	_flow_name_out
+#	#TODO
+#
+#=cut
+#
+#my $run_button = {
+#
+#	_Data_menubutton                       => '',
+#	_Flow_menubutton                       => '',
+#	_FileDialog_sub_ref                    => '',
+#	_FileDialog_option                     => '',
+#	_add2flow_button_grey                  => '',
+#	_add2flow_button_pink                  => '',
+#	_add2flow_button_green                 => '',
+#	_add2flow_button_blue                  => '',
+#	_check_code_button                     => '',
+#	_check_buttons_settings_aref           => '',
+#	_check_buttons_w_aref                  => '',
+#	_delete_from_flow_button               => '',
+#	_destination_index                     => '',
+#	_dialog_type                           => '',     #set_dialog_type
+#	_dnd_token_grey                        => '',
+#	_dnd_token_pink                        => '',
+#	_dnd_token_green                       => '',
+#	_dnd_token_blue                        => '',
+#	_dropsite_token_grey                   => '',
+#	_dropsite_token_pink                   => '',
+#	_dropsite_token_green                  => '',
+#	_dropsite_token_blue                   => '',
+#	_file_menubutton                       => '',
+#	_flow_color                            => '',
+#	_flow_item_down_arrow_button           => '',
+#	_flow_item_up_arrow_button             => '',
+#	_flow_listbox_grey_w                   => '',
+#	_flow_listbox_pink_w                   => '',
+#	_flow_listbox_green_w                  => '',
+#	_flow_listbox_blue_w                   => '',
+#	_flow_listbox_color_w                  => '',
+#	_flow_name_grey_w                      => '',
+#	_flow_name_pink_w                      => '',
+#	_flow_name_green_w                     => '',
+#	_flow_name_blue_w                      => '',
+#	_flow_name_in                          => '',
+#	_flow_name_out                         => '',
+#	_flow_type                             => '',     # set_flow_type
+#	_flow_widget_index                     => '',
+#	_flowNsuperflow_name_w                 => '',
+#	_good_labels_aref2                     => '',
+#	_good_values_aref2                     => '',
+#	_has_used_check_code_button            => '',
+#	_has_used_open_perl_file_button        => '',
+#	_has_used_Save_button                  => '',
+#	_has_used_Save_superflow               => '',
+#	_has_used_SaveAs_button                => '',
+#	_has_used_run_button                   => '',
+#	_index2move                            => '',
+#	_is_SaveAs_file_button                 => '',
+#	_is_SaveAs_button                      => '',
+#	_is_Save_button                        => '',
+#	_is_add2flow_button                    => '',
+#	_is_check_code_button                  => '',
+#	_is_delete_from_flow_button            => '',
+#	_is_dragNdrop                          => '',
+#	_is_flow_item_down_arrow_button        => '',
+#	_is_flow_item_up_arrow_button          => '',
+#	_is_flow_listbox_grey_w                => '',
+#	_is_flow_listbox_green_w               => '',
+#	_is_flow_listbox_pink_w                => '',
+#	_is_flow_listbox_blue_w                => '',
+#	_is_flow_listbox_color_w               => '',
+#	_is_last_flow_index_touched            => '',
+#	_is_last_flow_index_touched_grey       => '',
+#	_is_last_flow_index_touched_pink       => '',
+#	_is_last_flow_index_touched_green      => '',
+#	_is_last_flow_index_touched_blue       => '',
+#	_is_last_parameter_index_touched_color => '',
+#	_is_last_parameter_index_touched_grey  => '',
+#	_is_last_parameter_index_touched_pink  => '',
+#	_is_last_parameter_index_touched_green => '',
+#	_is_last_parameter_index_touched_blue  => '',
+#	_is_moveNdrop_in_flow                  => '',
+#	_is_new_listbox_selection              => '',
+#	_is_open_file_button                   => '',
+#	_is_pre_built_superflow                => '',
+#	_is_prog_name                          => '',
+#	_is_run_button                         => '',
+#	_is_select_file_button                 => '',
+#	_is_selected_file_name                 => '',
+#	_is_selected_path                      => '',
+#	_is_sunix_listbox                      => '',
+#	_is_superflow                          => '',     # should it be _pre_built_superflow?
+#	_is_superflow_select_button            => '',
+#	_is_user_built_flow                    => '',
+#	_items_checkbuttons_aref2              => '',
+#	_items_names_aref2                     => '',
+#	_items_values_aref2                    => '',
+#	_items_versions_aref                   => '',
+#	_labels_w_aref                         => '',
+#	_last_flow_index_touched               => -1,
+#	_last_flow_index_touched_grey          => -1,
+#	_last_flow_index_touched_pink          => -1,
+#	_last_flow_index_touched_green         => -1,
+#	_last_flow_index_touched_blue          => -1,
+#	_last_flow_listbox_touched             => '',
+#	_last_flow_listbox_touched_w           => '',
+#	_last_parameter_index_touched_color    => -1,
+#	_last_parameter_index_touched_grey     => -1,
+#	_last_parameter_index_touched_pink     => -1,
+#	_last_parameter_index_touched_green    => -1,
+#	_last_parameter_index_touched_blue     => -1,
+#	_last_path_touched                     => './',
+#	_message_w                             => '',
+#	_mw                                    => '',     # main window widget
+#	_names_aref                            => '',
+#	_occupied_listbox_aref                 => '',
+#	_param_flow_length                     => '',
+#	_parameter_names_frame                 => '',
+#	_param_sunix_first_idx                 => 0,
+#	_param_sunix_length                    => '',
+#	_parameter_values_frame                => '',
+#	_parameter_values_button_frame         => '',
+#	_parameter_value_index                 => '',
+#	_path                                  => '',
+#	_prog_names_aref                       => '',
+#	_prog_name_sref                        => '',     # set_prog_name_sref
+#	_run_button                            => '',
+#	_save_button                           => '',
+#	_selected_file_name                    => '',
+#	_sub_ref                               => '',
+#	_sunix_listbox                         => '',     # pre-built-superflow or flow name as well
+#	_superflow_first_idx                   => '',
+#	_superflow_length                      => '',
+#	_values_aref                           => '',
+#	_values_w_aref                         => '',
+#
+#};
 
 =head2 _Run_pre_built_superflow
  
@@ -257,17 +312,23 @@ sub _Run_pre_built_superflow {
 	my ($self) = @_;
 
 	my $message = $run_button_messages->null_button(0);
+	$message_w = $run_button->{_message_w};
 	$message_w->delete( "1.0", 'end' );
 	$message_w->insert( 'end', $message );
 
 	# print("1.run_button, _values_aref[0]: @{$run_button->{_values_aref}}[0]\n");
-	$conditions_gui->set_hash_ref($run_button);              #35 used / 80 in
-	$conditions_gui->set_gui_widgets($run_button);           # 22 used/ 80 in
-	$conditions_gui->set4start_of_superflow_run_button();    # 1 set
-	$run_button = $conditions_gui->get_hash_ref();
+#	$conditions_gui->set_hash_ref($run_button);              
+#	$conditions_gui->set_gui_widgets($run_button);           
+#	$conditions_gui->set4start_of_superflow_run_button();   
+#	$run_button = $conditions_gui->get_hash_ref();
+
+	$gui_history->set_hash_ref($run_button);              
+#	$gui_history->set_gui_widgets($run_button);           
+	$gui_history->set4start_of_superflow_run_button();   
+	$run_button = $gui_history->get_hash_ref();
 
 	# print("2. L_SU, run_button, _values_aref[0]: @{$run_button->{_values_aref}}[0]\n");
-	$decisions->set4run_select($run_button);                 # 2 used/ 80 in
+	$decisions->set4run_select($run_button);     
 	my $pre_req_ok = $decisions->get4run_select();
 
 	# print("1. run_button,_Run_pre_built_superflow\n");
@@ -280,6 +341,11 @@ sub _Run_pre_built_superflow {
 #		}
 		my $run_name = $name->get_alias_superflow_names( $run_button->{_prog_name_sref} );
 
+		if ($run_name eq 'immodpg') {
+		 
+		   _messages($run_name);	
+		
+		}
 		# print("4. run_button,program name is ${$run_button->{_prog_name_sref}}\n");
 		# print("4. run_button,program RUN name is $run_name \n");
 		# print("4. run_button,program name is $global_libs->{_superflows}$run_name \n");
@@ -296,8 +362,10 @@ sub _Run_pre_built_superflow {
 		$message_w->insert( 'end', $message );
 	}
 
-	$conditions_gui->set4end_of_superflow_run_button();
-	$run_button = $conditions_gui->get_hash_ref();    # return 89
+#	$conditions_gui->set4end_of_superflow_run_button();
+    $gui_history->set4end_of_superflow_run_button();
+#	$run_button = $conditions_gui->get_hash_ref();    # return 89
+	$run_button = $gui_history->get_hash_ref();
 	return ();
 }
 
@@ -320,11 +388,15 @@ sub _Run_user_built_flow {
 
 	# print("1 run_button,_Run_user_built_flow is_last_parameter_index_touched_color:	$run_button->{_is_last_parameter_index_touched_color} \n");
 	# replace conditions_gui with gui_history which internally refers to the correct conditions_gui
-	$conditions_gui->set_hash_ref($run_button);       # used 35 / 80 in
-	$conditions_gui->set_gui_widgets($run_button);    # used 23 / 80  in
-	$conditions_gui->set4start_of_run_button();       # 1 set, out of 59
+#	$conditions_gui->set_hash_ref($run_button);       # used 35 / 80 in
+#	$conditions_gui->set_gui_widgets($run_button);    # used 23 / 80  in
+#	$conditions_gui->set4start_of_run_button();       # 1 set, out of 59
+	$gui_history->set_hash_ref($run_button);
+#	$gui_history->set_gui_widgets($run_button);
+	$gui_history->set4start_of_run_button();
+	
 													  #$L_SU				= $conditions_gui->get4start_of_run_button(); 51 out
-	$run_button = $conditions_gui->get_hash_ref();    # returns 89
+	$run_button = $gui_history->get_hash_ref();    # returns 89
 	 # print("2 run_button,_Run_user_built_flow is_last_parameter_index_touched_color:	$run_button->{_is_last_parameter_index_touched_color} \n");
 
 	# tests whether has_used_Save OR has_used_SaveAs
@@ -359,8 +431,8 @@ sub _Run_user_built_flow {
 			system("perl $PL_SEISMIC/$run_name");
 		}
 
-		$conditions_gui->set4run_button();
-		$run_button = $conditions_gui->get_hash_ref();
+		$gui_history->set4run_button();
+		$run_button = $gui_history->get_hash_ref();
 
 	} else {
 		my $message = $run_button_messages->run_button(1);
@@ -368,8 +440,8 @@ sub _Run_user_built_flow {
 		$message_w->insert( 'end', $message );
 	}
 
-	$conditions_gui->set4end_of_run_button();         # 2 set
-	$run_button = $conditions_gui->get_hash_ref();    # 89 returned
+	$gui_history->set4end_of_run_button();         # 2 set
+	$run_button = $gui_history->get_hash_ref();    # 89 returned
 	return ();
 
 }
@@ -415,10 +487,10 @@ sub _get_flow_type {
  i/p: $run_button
  i/p: $config_superflows
  
- o/p: $conditions_gui	->set4start_of_run_button();
- o/p: $conditions_gui	->set4_run_button
- o/p: $conditions_gui	->set4end_of_run_button();
-  $run_button 			= $conditions_gui->get_hash_ref();
+# o/p: $conditions_gui	->set4start_of_run_button();
+# o/p: $gui_history	->set4_run_button
+# o/p: $gui_history	->set4end_of_run_button();
+  $run_button 			= $gui_history->get_hash_ref();
  o/p: _check4changes();
  
  o/p: $run_button
@@ -484,80 +556,80 @@ sub get_all_hash_ref {
 	}
 }
 
-=head2 sub set_gui_widgets
-
-	bring it important widget addresses
-	42
-	
-	make convenient locat shorter names for 9
-	
-=cut
-
-sub set_gui_widgets {
-	my ( $self, $gui_widgets ) = @_;
-
-	if ($gui_widgets) {
-
-		$run_button->{_Data_menubutton}               = $gui_widgets->{_Data_menubutton};
-		$run_button->{_Flow_menubutton}               = $gui_widgets->{_Flow_menubutton};
-		$run_button->{_add2flow_button_grey}          = $gui_widgets->{_add2flow_button_grey};
-		$run_button->{_add2flow_button_pink}          = $gui_widgets->{_add2flow_button_pink};
-		$run_button->{_add2flow_button_green}         = $gui_widgets->{_add2flow_button_green};
-		$run_button->{_add2flow_button_blue}          = $gui_widgets->{_add2flow_button_blue};
-		$run_button->{_check_code_button}             = $gui_widgets->{_check_code_button};
-		$run_button->{_check_buttons_w_aref}          = $gui_widgets->{_check_buttons_w_aref};
-		$run_button->{_delete_from_flow_button}       = $gui_widgets->{_delete_from_flow_button};
-		$run_button->{_dnd_token_grey}                = $gui_widgets->{_dnd_token_grey};
-		$run_button->{_dnd_token_pink}                = $gui_widgets->{_dnd_token_pink};
-		$run_button->{_dnd_token_green}               = $gui_widgets->{_dnd_token_green};
-		$run_button->{_dnd_token_blue}                = $gui_widgets->{_dnd_token_blue};
-		$run_button->{_dropsite_token_grey}           = $gui_widgets->{_dropsite_token_grey};
-		$run_button->{_dropsite_token_pink}           = $gui_widgets->{_dropsite_token_pink};
-		$run_button->{_dropsite_token_green}          = $gui_widgets->{_dropsite_token_green};
-		$run_button->{_dropsite_token_blue}           = $gui_widgets->{_dropsite_token_blue};
-		$run_button->{_file_menubutton}               = $gui_widgets->{_file_menubutton};
-		$run_button->{_flow_color}                    = $gui_widgets->{_flow_color};
-		$run_button->{_flow_item_down_arrow_button}   = $gui_widgets->{_flow_item_down_arrow_button};
-		$run_button->{_flow_item_up_arrow_button}     = $gui_widgets->{_flow_item_up_arrow_button};
-		$run_button->{_flow_listbox_grey_w}           = $gui_widgets->{_flow_listbox_grey_w};
-		$run_button->{_flow_listbox_pink_w}           = $gui_widgets->{_flow_listbox_pink_w};
-		$run_button->{_flow_listbox_green_w}          = $gui_widgets->{_flow_listbox_green_w};
-		$run_button->{_flow_listbox_blue_w}           = $gui_widgets->{_flow_listbox_blue_w};
-		$run_button->{_flow_listbox_color_w}          = $gui_widgets->{_flow_listbox_color_w};
-		$run_button->{_flow_name_grey_w}              = $gui_widgets->{_flow_name_grey_w};
-		$run_button->{_flow_name_pink_w}              = $gui_widgets->{_flow_name_pink_w};
-		$run_button->{_flow_name_green_w}             = $gui_widgets->{_flow_name_green_w};
-		$run_button->{_flow_name_blue_w}              = $gui_widgets->{_flow_name_blue_w};
-		$run_button->{_flowNsuperflow_name_w}         = $gui_widgets->{_flowNsuperflow_name_w};
-		$run_button->{_flow_widget_index}             = $gui_widgets->{_flow_widget_index};
-		$run_button->{_labels_w_aref}                 = $gui_widgets->{_labels_w_aref};
-		$run_button->{_message_w}                     = $gui_widgets->{_message_w};
-		$run_button->{_mw}                            = $gui_widgets->{_mw};
-		$run_button->{_parameter_values_frame}        = $gui_widgets->{_parameter_values_frame};
-		$run_button->{_parameter_values_button_frame} = $gui_widgets->{_parameter_values_button_frame};
-		$run_button->{_parameter_value_index}         = $gui_widgets->{_parameter_value_index};
-		$run_button->{_run_button}                    = $gui_widgets->{_run_button};
-		$run_button->{_save_button}                   = $gui_widgets->{_save_button};
-		$run_button->{_values_aref}                   = $gui_widgets->{_values_aref};
-		$run_button->{_values_w_aref}                 = $gui_widgets->{_values_w_aref};
-
-		$mw                     = $run_button->{_mw};
-		$parameter_values_frame = $run_button->{_parameter_values_frame};
-		$parameter_value_index  = $run_button->{_parameter_value_index};
-		$values_aref            = $run_button->{_values_aref};
-		$message_w              = $run_button->{_message_w};
-		$flow_listbox_grey_w    = $run_button->{_flow_listbox_grey_w};
-		$flow_listbox_pink_w    = $run_button->{_flow_listbox_pink_w};
-		$flow_listbox_green_w   = $run_button->{_flow_listbox_green_w};
-		$flow_listbox_blue_w    = $run_button->{_flow_listbox_blue_w};
-
-		# print("run_button, set_gui_widgets	parameter_values_frame: $parameter_values_frame\n");
-	} else {
-
-		print("run_button, set_gui_widgets, missing gui_widgets\n");
-	}
-	return ();
-}
+#=head2 sub set_gui_widgets
+#
+#	bring it important widget addresses
+#	42
+#	
+#	make convenient locat shorter names for 9
+#	
+#=cut
+#
+#sub set_gui_widgets {
+#	my ( $self, $gui_widgets ) = @_;
+#
+#	if ($gui_widgets) {
+#
+#		$run_button->{_Data_menubutton}               = $gui_widgets->{_Data_menubutton};
+#		$run_button->{_Flow_menubutton}               = $gui_widgets->{_Flow_menubutton};
+#		$run_button->{_add2flow_button_grey}          = $gui_widgets->{_add2flow_button_grey};
+#		$run_button->{_add2flow_button_pink}          = $gui_widgets->{_add2flow_button_pink};
+#		$run_button->{_add2flow_button_green}         = $gui_widgets->{_add2flow_button_green};
+#		$run_button->{_add2flow_button_blue}          = $gui_widgets->{_add2flow_button_blue};
+#		$run_button->{_check_code_button}             = $gui_widgets->{_check_code_button};
+#		$run_button->{_check_buttons_w_aref}          = $gui_widgets->{_check_buttons_w_aref};
+#		$run_button->{_delete_from_flow_button}       = $gui_widgets->{_delete_from_flow_button};
+#		$run_button->{_dnd_token_grey}                = $gui_widgets->{_dnd_token_grey};
+#		$run_button->{_dnd_token_pink}                = $gui_widgets->{_dnd_token_pink};
+#		$run_button->{_dnd_token_green}               = $gui_widgets->{_dnd_token_green};
+#		$run_button->{_dnd_token_blue}                = $gui_widgets->{_dnd_token_blue};
+#		$run_button->{_dropsite_token_grey}           = $gui_widgets->{_dropsite_token_grey};
+#		$run_button->{_dropsite_token_pink}           = $gui_widgets->{_dropsite_token_pink};
+#		$run_button->{_dropsite_token_green}          = $gui_widgets->{_dropsite_token_green};
+#		$run_button->{_dropsite_token_blue}           = $gui_widgets->{_dropsite_token_blue};
+#		$run_button->{_file_menubutton}               = $gui_widgets->{_file_menubutton};
+#		$run_button->{_flow_color}                    = $gui_widgets->{_flow_color};
+#		$run_button->{_flow_item_down_arrow_button}   = $gui_widgets->{_flow_item_down_arrow_button};
+#		$run_button->{_flow_item_up_arrow_button}     = $gui_widgets->{_flow_item_up_arrow_button};
+#		$run_button->{_flow_listbox_grey_w}           = $gui_widgets->{_flow_listbox_grey_w};
+#		$run_button->{_flow_listbox_pink_w}           = $gui_widgets->{_flow_listbox_pink_w};
+#		$run_button->{_flow_listbox_green_w}          = $gui_widgets->{_flow_listbox_green_w};
+#		$run_button->{_flow_listbox_blue_w}           = $gui_widgets->{_flow_listbox_blue_w};
+#		$run_button->{_flow_listbox_color_w}          = $gui_widgets->{_flow_listbox_color_w};
+#		$run_button->{_flow_name_grey_w}              = $gui_widgets->{_flow_name_grey_w};
+#		$run_button->{_flow_name_pink_w}              = $gui_widgets->{_flow_name_pink_w};
+#		$run_button->{_flow_name_green_w}             = $gui_widgets->{_flow_name_green_w};
+#		$run_button->{_flow_name_blue_w}              = $gui_widgets->{_flow_name_blue_w};
+#		$run_button->{_flowNsuperflow_name_w}         = $gui_widgets->{_flowNsuperflow_name_w};
+#		$run_button->{_flow_widget_index}             = $gui_widgets->{_flow_widget_index};
+#		$run_button->{_labels_w_aref}                 = $gui_widgets->{_labels_w_aref};
+#		$run_button->{_message_w}                     = $gui_widgets->{_message_w};
+#		$run_button->{_mw}                            = $gui_widgets->{_mw};
+#		$run_button->{_parameter_values_frame}        = $gui_widgets->{_parameter_values_frame};
+#		$run_button->{_parameter_values_button_frame} = $gui_widgets->{_parameter_values_button_frame};
+#		$run_button->{_parameter_value_index}         = $gui_widgets->{_parameter_value_index};
+#		$run_button->{_run_button}                    = $gui_widgets->{_run_button};
+#		$run_button->{_save_button}                   = $gui_widgets->{_save_button};
+#		$run_button->{_values_aref}                   = $gui_widgets->{_values_aref};
+#		$run_button->{_values_w_aref}                 = $gui_widgets->{_values_w_aref};
+#
+##		$mw                     = $run_button->{_mw};
+#		$parameter_values_frame = $run_button->{_parameter_values_frame};
+#		$parameter_value_index  = $run_button->{_parameter_value_index};
+#		$values_aref            = $run_button->{_values_aref};
+#		$message_w              = $run_button->{_message_w};
+#		$flow_listbox_grey_w    = $run_button->{_flow_listbox_grey_w};
+#		$flow_listbox_pink_w    = $run_button->{_flow_listbox_pink_w};
+#		$flow_listbox_green_w   = $run_button->{_flow_listbox_green_w};
+#		$flow_listbox_blue_w    = $run_button->{_flow_listbox_blue_w};
+#
+#		# print("run_button, set_gui_widgets	parameter_values_frame: $parameter_values_frame\n");
+#	} else {
+#
+#		print("run_button, set_gui_widgets, missing gui_widgets\n");
+#	}
+#	return ();
+#}
 
 =head2 sub set_flow_type
 
@@ -581,10 +653,9 @@ sub set_flow_type {
 	return ();
 }
 
-=head2 sub set_hash_ref
 
+=head2 sub set_hash_ref
 	bring in important widget addresses 
-	96
 	
 =cut
 
@@ -592,113 +663,121 @@ sub set_hash_ref {
 	my ( $self, $hash_ref ) = @_;
 
 	if ($hash_ref) {
-
-		$run_button->{_FileDialog_sub_ref}                    = $hash_ref->{_ileDialog_sub_ref};
-		$run_button->{_FileDialog_option}                     = $hash_ref->{_FileDialog_option};
-		$run_button->{_check_buttons_settings_aref}           = $hash_ref->{_check_buttons_settings_aref};
-		$run_button->{_destination_index}                     = $hash_ref->{_destination_index};
-		$run_button->{_dialog_type}                           = $hash_ref->{_dialog_type};
-		$run_button->{_flow_color}                            = $hash_ref->{_flow_color};
-		$run_button->{_flow_name_in}                          = $hash_ref->{_flow_name_in};
-		$run_button->{_flow_name_out}                         = $hash_ref->{_flow_name_out};
-		$run_button->{_flow_type}                             = $hash_ref->{_flow_type};
-		$run_button->{_flow_widget_index}                     = $hash_ref->{_flow_widget_index};
-		$run_button->{_good_labels_aref2}                     = $hash_ref->{_good_labels_aref2};
-		$run_button->{_good_values_aref2}                     = $hash_ref->{_good_values_aref2};
-		$run_button->{_has_used_check_code_button}            = $hash_ref->{_has_used_check_code_button};
-		$run_button->{_has_used_open_perl_file_button}        = $hash_ref->{_has_used_open_perl_file_button};
-		$run_button->{_has_used_Save_button}                  = $hash_ref->{_has_used_Save_button};
-		$run_button->{_has_used_Save_superflow}               = $hash_ref->{_has_used_Save_superflow};
-		$run_button->{_has_used_SaveAs_button}                = $hash_ref->{_has_used_SaveAs_button};
-		$run_button->{_has_used_run_button}                   = $hash_ref->{_has_used_run_button};
-		$run_button->{_is_add2flow_button}                    = $hash_ref->{_is_add2flow_button};
-		$run_button->{_is_check_code_button}                  = $hash_ref->{_is_check_code_button};
-		$run_button->{_is_delete_from_flow_button}            = $hash_ref->{_is_delete_from_flow_button};
-		$run_button->{_is_dragNdrop}                          = $hash_ref->{_is_dragNdrop};
-		$run_button->{_is_flow_item_down_arrow_button}        = $hash_ref->{_is_flow_item_down_arrow_button};
-		$run_button->{_is_flow_item_up_arrow_button}          = $hash_ref->{_is_flow_item_up_arrow_button};
-		$run_button->{_is_flow_listbox_grey_w}                = $hash_ref->{_is_flow_listbox_grey_w};
-		$run_button->{_is_flow_listbox_pink_w}                = $hash_ref->{_is_flow_listbox_pink_w};
-		$run_button->{_is_flow_listbox_green_w}               = $hash_ref->{_is_flow_listbox_green_w};
-		$run_button->{_is_flow_listbox_blue_w}                = $hash_ref->{_is_flow_listbox_blue_w};
-		$run_button->{_is_flow_listbox_color_w}               = $hash_ref->{_is_flow_listbox_color_w};
-		$run_button->{_flow_name_grey_w}                      = $hash_ref->{_flow_name_grey_w};
-		$run_button->{_flow_name_pink_w}                      = $hash_ref->{_flow_name_pink_w};
-		$run_button->{_flow_name_green_w}                     = $hash_ref->{_flow_name_green_w};
-		$run_button->{_flow_name_blue_w}                      = $hash_ref->{_flow_name_blue_w};
-		$run_button->{_items_checkbuttons_aref2}              = $hash_ref->{_items_checkbuttons_aref2};
-		$run_button->{_items_names_aref2}                     = $hash_ref->{_items_names_aref2};
-		$run_button->{_items_values_aref2}                    = $hash_ref->{_items_values_aref2};
-		$run_button->{_items_versions_aref}                   = $hash_ref->{_items_versions_aref};
-		$run_button->{_is_last_flow_index_touched}            = $hash_ref->{_is_last_flow_index_touched};
-		$run_button->{_is_last_flow_index_touched_grey}       = $hash_ref->{_is_last_flow_index_touched_grey};
-		$run_button->{_is_last_flow_index_touched_pink}       = $hash_ref->{_is_last_flow_index_touched_pink};
-		$run_button->{_is_last_flow_index_touched_green}      = $hash_ref->{_is_last_flow_index_touched_green};
-		$run_button->{_is_last_flow_index_touched_blue}       = $hash_ref->{_is_last_flow_index_touched_blue};
-		$run_button->{_is_last_parameter_index_touched_color} = $hash_ref->{_is_last_parameter_index_touched_color};
-		$run_button->{_is_last_parameter_index_touched_grey}  = $hash_ref->{_is_last_parameter_index_touched_grey};
-		$run_button->{_is_last_parameter_index_touched_pink}  = $hash_ref->{_is_last_parameter_index_touched_pink};
-		$run_button->{_is_last_parameter_index_touched_green} = $hash_ref->{_is_last_parameter_index_touched_green};
-		$run_button->{_is_last_parameter_index_touched_blue}  = $hash_ref->{_is_last_parameter_index_touched_blue};
-		$run_button->{_last_path_touched}                     = $hash_ref->{_last_path_touched};
-		$run_button->{_index2move}                            = $hash_ref->{_index2move};
-		$run_button->{_is_open_file_button}                   = $hash_ref->{_is_open_file_button};
-		$run_button->{_is_run_button}                         = $hash_ref->{_is_run_button};
-		$run_button->{_is_moveNdrop_in_flow}                  = $hash_ref->{_is_moveNdrop_in_flow};
-		$run_button->{_is_user_built_flow}                    = $hash_ref->{_is_user_built_flow};
-		$run_button->{_is_select_file_button}                 = $hash_ref->{_is_select_file_button};
-		$run_button->{_is_Save_button}                        = $hash_ref->{_is_Save_button};
-		$run_button->{_is_SaveAs_file_button}                 = $hash_ref->{_is_SaveAs_file_button};
-		$run_button->{_is_SaveAs_button}                      = $hash_ref->{_is_SaveAs_button};
-		$run_button->{_is_new_listbox_selection}              = $hash_ref->{_is_new_listbox_selection};
-		$run_button->{_is_pre_built_superflow}                = $hash_ref->{_is_pre_built_superflow};
-		$run_button->{_is_selected_file_name}                 = $hash_ref->{_is_selected_file_name};
-		$run_button->{_is_selected_path}                      = $hash_ref->{_is_selected_path};
-		$run_button->{_is_sunix_listbox}                      = $hash_ref->{_is_sunix_listbox};
-		$run_button->{_is_superflow_select_button}            = $hash_ref->{_is_superflow_select_button};
-		$run_button->{_is_superflow}                          = $hash_ref->{_is_superflow};
-		$run_button->{_is_moveNdrop_in_flow}                  = $hash_ref->{_is_moveNdrop_in_flow};
-		$run_button->{_items_checkbuttons_aref2}              = $hash_ref->{_items_checkbuttons_aref2};
-		$run_button->{_items_names_aref2}                     = $hash_ref->{_items_names_aref2};
-		$run_button->{_items_values_aref2}                    = $hash_ref->{_items_values_aref2};
-		$run_button->{_items_versions_aref}                   = $hash_ref->{_items_versions_aref};
-		$run_button->{_last_flow_index_touched_grey}          = $hash_ref->{_last_flow_index_touched_grey};
-		$run_button->{_last_flow_index_touched_pink}          = $hash_ref->{_last_flow_index_touched_pink};
-		$run_button->{_last_flow_index_touched_green}         = $hash_ref->{_last_flow_index_touched_green};
-		$run_button->{_last_flow_index_touched_blue}          = $hash_ref->{_last_flow_index_touched_blue};
-		$run_button->{_last_flow_index_touched}               = $hash_ref->{_last_flow_index_touched};
-		$run_button->{_last_parameter_index_touched_color}    = $hash_ref->{_last_parameter_index_touched_color};
-		$run_button->{_last_parameter_index_touched_grey}     = $hash_ref->{_last_parameter_index_touched_grey};
-		$run_button->{_last_parameter_index_touched_pink}     = $hash_ref->{_last_parameter_index_touched_pink};
-		$run_button->{_last_parameter_index_touched_green}    = $hash_ref->{_last_parameter_index_touched_green};
-		$run_button->{_last_parameter_index_touched_blue}     = $hash_ref->{_last_parameter_index_touched_blue};
-		$run_button->{_last_path_touched}                     = $hash_ref->{_last_path_touched};
-		$run_button->{_names_aref}                            = $hash_ref->{_names_aref};
-		$run_button->{_occupied_listbox_aref}                 = $hash_ref->{_occupied_listbox_aref};
-		$run_button->{_param_flow_length}                     = $hash_ref->{_param_flow_length};
-		$run_button->{_parameter_names_frame}                 = $hash_ref->{_parameter_names_frame};
-		$run_button->{_param_sunix_first_idx}                 = $hash_ref->{_param_sunix_first_idx};
-		$run_button->{_param_sunix_length}                    = $hash_ref->{_param_sunix_length};
-		$run_button->{_path}                                  = $hash_ref->{_path};
-		$run_button->{_prog_names_aref}                       = $hash_ref->{_prog_names_aref};
-		$run_button->{_prog_name_sref}                        = $hash_ref->{_prog_name_sref};
-		$run_button->{_selected_file_name}                    = $hash_ref->{_selected_file_name};
-		$run_button->{_sub_ref}                               = $hash_ref->{_sub_ref};
-		$run_button->{_sunix_listbox}       = $hash_ref->{_sunix_listbox};    # pre-built-superflow or flow name as well
-		$run_button->{_superflow_first_idx} = $hash_ref->{_superflow_first_idx};
-		$run_button->{_superflow_length}    = $hash_ref->{_superflow_length};
-		$run_button->{_values_aref}         = $hash_ref->{_values_aref};
-		$run_button->{_values_w_aref}       = $hash_ref->{_values_w_aref};
-
-		# print("run_button, set_hash_ref, is superflow: $run_button->{_is_superflow_select_button} \n");
-		# print("run_button, set_hash_ref, user-built _flow_name_out: $run_button->{_flow_name_out} \n");
-
-	} else {
-
-		print("run_button, set_gui_widgets, missing hash_ref\n");
+		$gui_history->set_defaults($hash_ref);
+		$run_button = $gui_history->get_defaults();
+        # print("save_button, set_gui_widgets, missing hash_ref\n");
 	}
 	return ();
 }
+
+#	if ($hash_ref) {
+#
+#		$run_button->{_FileDialog_sub_ref}                    = $hash_ref->{_ileDialog_sub_ref};
+#		$run_button->{_FileDialog_option}                     = $hash_ref->{_FileDialog_option};
+#		$run_button->{_check_buttons_settings_aref}           = $hash_ref->{_check_buttons_settings_aref};
+#		$run_button->{_destination_index}                     = $hash_ref->{_destination_index};
+#		$run_button->{_dialog_type}                           = $hash_ref->{_dialog_type};
+#		$run_button->{_flow_color}                            = $hash_ref->{_flow_color};
+#		$run_button->{_flow_name_in}                          = $hash_ref->{_flow_name_in};
+#		$run_button->{_flow_name_out}                         = $hash_ref->{_flow_name_out};
+#		$run_button->{_flow_type}                             = $hash_ref->{_flow_type};
+#		$run_button->{_flow_widget_index}                     = $hash_ref->{_flow_widget_index};
+#		$run_button->{_good_labels_aref2}                     = $hash_ref->{_good_labels_aref2};
+#		$run_button->{_good_values_aref2}                     = $hash_ref->{_good_values_aref2};
+#		$run_button->{_has_used_check_code_button}            = $hash_ref->{_has_used_check_code_button};
+#		$run_button->{_has_used_open_perl_file_button}        = $hash_ref->{_has_used_open_perl_file_button};
+#		$run_button->{_has_used_Save_button}                  = $hash_ref->{_has_used_Save_button};
+#		$run_button->{_has_used_Save_superflow}               = $hash_ref->{_has_used_Save_superflow};
+#		$run_button->{_has_used_SaveAs_button}                = $hash_ref->{_has_used_SaveAs_button};
+#		$run_button->{_has_used_run_button}                   = $hash_ref->{_has_used_run_button};
+#		$run_button->{_is_add2flow_button}                    = $hash_ref->{_is_add2flow_button};
+#		$run_button->{_is_check_code_button}                  = $hash_ref->{_is_check_code_button};
+#		$run_button->{_is_delete_from_flow_button}            = $hash_ref->{_is_delete_from_flow_button};
+#		$run_button->{_is_dragNdrop}                          = $hash_ref->{_is_dragNdrop};
+#		$run_button->{_is_flow_item_down_arrow_button}        = $hash_ref->{_is_flow_item_down_arrow_button};
+#		$run_button->{_is_flow_item_up_arrow_button}          = $hash_ref->{_is_flow_item_up_arrow_button};
+#		$run_button->{_is_flow_listbox_grey_w}                = $hash_ref->{_is_flow_listbox_grey_w};
+#		$run_button->{_is_flow_listbox_pink_w}                = $hash_ref->{_is_flow_listbox_pink_w};
+#		$run_button->{_is_flow_listbox_green_w}               = $hash_ref->{_is_flow_listbox_green_w};
+#		$run_button->{_is_flow_listbox_blue_w}                = $hash_ref->{_is_flow_listbox_blue_w};
+#		$run_button->{_is_flow_listbox_color_w}               = $hash_ref->{_is_flow_listbox_color_w};
+#		$run_button->{_flow_name_grey_w}                      = $hash_ref->{_flow_name_grey_w};
+#		$run_button->{_flow_name_pink_w}                      = $hash_ref->{_flow_name_pink_w};
+#		$run_button->{_flow_name_green_w}                     = $hash_ref->{_flow_name_green_w};
+#		$run_button->{_flow_name_blue_w}                      = $hash_ref->{_flow_name_blue_w};
+#		$run_button->{_items_checkbuttons_aref2}              = $hash_ref->{_items_checkbuttons_aref2};
+#		$run_button->{_items_names_aref2}                     = $hash_ref->{_items_names_aref2};
+#		$run_button->{_items_values_aref2}                    = $hash_ref->{_items_values_aref2};
+#		$run_button->{_items_versions_aref}                   = $hash_ref->{_items_versions_aref};
+#		$run_button->{_is_last_flow_index_touched}            = $hash_ref->{_is_last_flow_index_touched};
+#		$run_button->{_is_last_flow_index_touched_grey}       = $hash_ref->{_is_last_flow_index_touched_grey};
+#		$run_button->{_is_last_flow_index_touched_pink}       = $hash_ref->{_is_last_flow_index_touched_pink};
+#		$run_button->{_is_last_flow_index_touched_green}      = $hash_ref->{_is_last_flow_index_touched_green};
+#		$run_button->{_is_last_flow_index_touched_blue}       = $hash_ref->{_is_last_flow_index_touched_blue};
+#		$run_button->{_is_last_parameter_index_touched_color} = $hash_ref->{_is_last_parameter_index_touched_color};
+#		$run_button->{_is_last_parameter_index_touched_grey}  = $hash_ref->{_is_last_parameter_index_touched_grey};
+#		$run_button->{_is_last_parameter_index_touched_pink}  = $hash_ref->{_is_last_parameter_index_touched_pink};
+#		$run_button->{_is_last_parameter_index_touched_green} = $hash_ref->{_is_last_parameter_index_touched_green};
+#		$run_button->{_is_last_parameter_index_touched_blue}  = $hash_ref->{_is_last_parameter_index_touched_blue};
+#		$run_button->{_last_path_touched}                     = $hash_ref->{_last_path_touched};
+#		$run_button->{_index2move}                            = $hash_ref->{_index2move};
+#		$run_button->{_is_open_file_button}                   = $hash_ref->{_is_open_file_button};
+#		$run_button->{_is_run_button}                         = $hash_ref->{_is_run_button};
+#		$run_button->{_is_moveNdrop_in_flow}                  = $hash_ref->{_is_moveNdrop_in_flow};
+#		$run_button->{_is_user_built_flow}                    = $hash_ref->{_is_user_built_flow};
+#		$run_button->{_is_select_file_button}                 = $hash_ref->{_is_select_file_button};
+#		$run_button->{_is_Save_button}                        = $hash_ref->{_is_Save_button};
+#		$run_button->{_is_SaveAs_file_button}                 = $hash_ref->{_is_SaveAs_file_button};
+#		$run_button->{_is_SaveAs_button}                      = $hash_ref->{_is_SaveAs_button};
+#		$run_button->{_is_new_listbox_selection}              = $hash_ref->{_is_new_listbox_selection};
+#		$run_button->{_is_pre_built_superflow}                = $hash_ref->{_is_pre_built_superflow};
+#		$run_button->{_is_selected_file_name}                 = $hash_ref->{_is_selected_file_name};
+#		$run_button->{_is_selected_path}                      = $hash_ref->{_is_selected_path};
+#		$run_button->{_is_sunix_listbox}                      = $hash_ref->{_is_sunix_listbox};
+#		$run_button->{_is_superflow_select_button}            = $hash_ref->{_is_superflow_select_button};
+#		$run_button->{_is_superflow}                          = $hash_ref->{_is_superflow};
+#		$run_button->{_is_moveNdrop_in_flow}                  = $hash_ref->{_is_moveNdrop_in_flow};
+#		$run_button->{_items_checkbuttons_aref2}              = $hash_ref->{_items_checkbuttons_aref2};
+#		$run_button->{_items_names_aref2}                     = $hash_ref->{_items_names_aref2};
+#		$run_button->{_items_values_aref2}                    = $hash_ref->{_items_values_aref2};
+#		$run_button->{_items_versions_aref}                   = $hash_ref->{_items_versions_aref};
+#		$run_button->{_last_flow_index_touched_grey}          = $hash_ref->{_last_flow_index_touched_grey};
+#		$run_button->{_last_flow_index_touched_pink}          = $hash_ref->{_last_flow_index_touched_pink};
+#		$run_button->{_last_flow_index_touched_green}         = $hash_ref->{_last_flow_index_touched_green};
+#		$run_button->{_last_flow_index_touched_blue}          = $hash_ref->{_last_flow_index_touched_blue};
+#		$run_button->{_last_flow_index_touched}               = $hash_ref->{_last_flow_index_touched};
+#		$run_button->{_last_parameter_index_touched_color}    = $hash_ref->{_last_parameter_index_touched_color};
+#		$run_button->{_last_parameter_index_touched_grey}     = $hash_ref->{_last_parameter_index_touched_grey};
+#		$run_button->{_last_parameter_index_touched_pink}     = $hash_ref->{_last_parameter_index_touched_pink};
+#		$run_button->{_last_parameter_index_touched_green}    = $hash_ref->{_last_parameter_index_touched_green};
+#		$run_button->{_last_parameter_index_touched_blue}     = $hash_ref->{_last_parameter_index_touched_blue};
+#		$run_button->{_last_path_touched}                     = $hash_ref->{_last_path_touched};
+#		$run_button->{_names_aref}                            = $hash_ref->{_names_aref};
+#		$run_button->{_occupied_listbox_aref}                 = $hash_ref->{_occupied_listbox_aref};
+#		$run_button->{_param_flow_length}                     = $hash_ref->{_param_flow_length};
+#		$run_button->{_parameter_names_frame}                 = $hash_ref->{_parameter_names_frame};
+#		$run_button->{_param_sunix_first_idx}                 = $hash_ref->{_param_sunix_first_idx};
+#		$run_button->{_param_sunix_length}                    = $hash_ref->{_param_sunix_length};
+#		$run_button->{_path}                                  = $hash_ref->{_path};
+#		$run_button->{_prog_names_aref}                       = $hash_ref->{_prog_names_aref};
+#		$run_button->{_prog_name_sref}                        = $hash_ref->{_prog_name_sref};
+#		$run_button->{_selected_file_name}                    = $hash_ref->{_selected_file_name};
+#		$run_button->{_sub_ref}                               = $hash_ref->{_sub_ref};
+#		$run_button->{_sunix_listbox}       = $hash_ref->{_sunix_listbox};    # pre-built-superflow or flow name as well
+#		$run_button->{_superflow_first_idx} = $hash_ref->{_superflow_first_idx};
+#		$run_button->{_superflow_length}    = $hash_ref->{_superflow_length};
+#		$run_button->{_values_aref}         = $hash_ref->{_values_aref};
+#		$run_button->{_values_w_aref}       = $hash_ref->{_values_w_aref};
+#
+#		# print("run_button, set_hash_ref, is superflow: $run_button->{_is_superflow_select_button} \n");
+#		# print("run_button, set_hash_ref, user-built _flow_name_out: $run_button->{_flow_name_out} \n");
+#
+#	} else {
+#
+#		print("run_button, set_gui_widgets, missing hash_ref\n");
+#	}
+#	return ();
+#}
 
 #=head2
 #

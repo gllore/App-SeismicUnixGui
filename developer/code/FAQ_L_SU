@@ -112,7 +112,7 @@ Example 1: parameter "geopsy" in "Project"
  
  
  (1) add new variables in
- 				   master file:			 ~/configs/Project.config
+ 				   master file:			 ~/configs/big_streams/Project.config
  				   and in the files:	 ~/.L_SU/configuration/active./Project.config
  				   	              		 ~/.L_SU/configuration/"project_name"/Project.config
  				   	              		 
@@ -120,18 +120,17 @@ Example 1: parameter "geopsy" in "Project"
  				   	              		   
  (2) Modify:  package    ~/configs/Project_config.pm
  
- 	At line ~ 49, 	add key and value to  $Project hash: _geopsy_is_selected				=> '',
-  	Add new line ~49:  			    	  	
- 			    	 $Project  ->{_geopsy_is_selected} = $geopsy; 
- 	At line ~ 362, in sub _change_basic_dirs,
- 
- 	Add "$geopsy_logic" to line ~ 363:  e.g.,  my ($geomaps_logic, $geopsy_logic);
- 	Add new line ~389:	 $geopsy_logic		  = $control->set_str2logic($CFG[19]); 
+ 	At line ~ 52, 	add key and value to  $Project hash: _geopsy_is_selected				=> '',
+  	Add new line ~498:  			    	  	
+ 			    	 $Project  ->{_geopsy_is_selected} = $geopsy_logic; 
+ 	Near line ~ 385, in sub _change_basic_dirs,
+ 	Add "$geopsy_logic" to line ~ 394:  e.g.,  my ($geomaps_logic, $geopsy_logic, $matlab_logic);
+ 	Add new line ~426:	 $geopsy_logic		  = $control->set_str2logic($CFG[19]); 
  	N.B. the following sequence number skips a value and is an odd number
    	  		
- 	Add new line ~ 459: _geopsy_is_selected	=>  $geopsy_logic,	
+ 	Add new line ~ 499: _geopsy_is_selected	=>  $geopsy_logic,	
  
- 	Add "if" clause at line ~ 1749 : 	if ( $Project->{_geopsy_is_selected} ) {
+ 	Add "if" clause at line ~ 1913 : 	if ( $Project->{_geopsy_is_selected} ) {
  							manage_dirs_by::make_dir($GEOPSY);
 							manage_dirs_by::make_dir($GEOPSY_PARAMS);
  							manage_dirs_by::make_dir($GEOPSY_PICKS); 
@@ -140,7 +139,7 @@ Example 1: parameter "geopsy" in "Project"
 							manage_dirs_by::make_dir($GEOPSY_TARGETS);
  						}		
  		 
- 	Modify ~ line 1960:  increase value of $max_index by 1
+ 	Modify ~ line 2190:  increase value of $max_index by 1
  	
  						sub get_max_index {
  							my ($self) = @_;
@@ -159,7 +158,7 @@ Example 1: parameter "geopsy" in "Project"
 					_GEOPSY_REPORTS					=> '',
 					_GEOPSY_TARGETS					=> '',
  	
- 	Add ~ line 538: 
+ 	Add ~ line 927: 
 # GEOPSY DIRECTORY SURFACE WAVE MODELING (first time)
    my $GEOPSY              	= $SEISMIC.'/geopsy/'.$DATE_LINE_COMPONENT_STAGE_PROCESS.'/'.$subUser;
    my $GEOPSY_PARAMS        = $SEISMIC.'/geopsy/'.$DATE_LINE_COMPONENT_STAGE_PROCESS.'/'.$subUser.'/'.'params';
@@ -168,7 +167,7 @@ Example 1: parameter "geopsy" in "Project"
    my $GEOPSY_REPORTS       = $SEISMIC.'/geopsy/'.$DATE_LINE_COMPONENT_STAGE_PROCESS.'/'.$subUser.'/'.'reports';       
    my $GEOPSY_TARGETS       = $SEISMIC.'/geopsy/'.$DATE_LINE_COMPONENT_STAGE_PROCESS.'/'.$subUser.'/'.'targets';
  	
- 	Add the following ~ line 746: (first time)
+ 	Add the following ~ line 815: (first time)
  	 $Project->{_GEOPSY}						= $GEOPSY;
  	$Project->{_GEOPSY_PARAMS}				= $GEOPSY_PARAMS;
  	$Project->{_GEOPSY_PICKS}				= $GEOPSY_PICKS;
@@ -176,7 +175,7 @@ Example 1: parameter "geopsy" in "Project"
  	$Project->{_GEOPSY_REPORTS}				= $GEOPSY_REPORTS;
   	$Project->{_GEOPSY_TARGETS}				= $GEOPSY_TARGETS;
  						 
-    Add the following ~ line 842:
+    Add the following ~ line 929:
     
 # GEOPSY DIRECTORY SURFACE WAVE MODELING (second time)
    my $GEOPSY              	= $SEISMIC.'/geopsy/'.$DATE_LINE_COMPONENT_STAGE_PROCESS.'/'.$subUser;
@@ -187,7 +186,7 @@ Example 1: parameter "geopsy" in "Project"
    my $GEOPSY_TARGETS       = $SEISMIC.'/geopsy/'.$DATE_LINE_COMPONENT_STAGE_PROCESS.'/'.$subUser.'/'.'targets';
     
     
-    Add the following ~ line 1051: (second time)
+    Add the following ~ line 1158: (second time)
     $Project->{_GEOPSY}						= $GEOPSY;
     $Project->{_GEOPSY_PARAMS}				= $GEOPSY_PARAMS;
  	$Project->{_GEOPSY_PICKS}				= $GEOPSY_PICKS;	
@@ -196,7 +195,7 @@ Example 1: parameter "geopsy" in "Project"
  	$Project->{_GEOPSY_TARGETS}				= $GEOPSY_TARGETS;						
           
     
-  Add new subroutines as needed , e.g., near lines 1430
+  Add new subroutines as needed , e.g., near lines 1601
   
    sub GEOPSY {
 	_basic_dirs();
@@ -232,9 +231,8 @@ sub GEOPSY_REPORTS {
 		my $GEOPSY_REPORTS= $Project->{_GEOPSY_REPORTS};		
         return ($GEOPSY_REPORTS);
 }
- 	
 	
- 	Add the following ~ line: 1713 (third time)
+ 	Add the following ~ line: 1873 (third time)
  	my $GEOPSY				= $Project->{_GEOPSY};
 	my $GEOPSY_PARAMS		= $Project->{_GEOPSY_PARAMS};
 	my $GEOPSY_PICKS		= $Project->{_GEOPSY_PICKS};
@@ -242,8 +240,8 @@ sub GEOPSY_REPORTS {
 	my $GEOPSY_REPORTS		= $Project->{_GEOPSY_REPORTS};
 	my $GEOPSY_TARGETS		= $Project->{_GEOPSY_TARGETS};		    	 
  
- 
-  	Add the following ~ line: 1753
+
+  	Add the following ~ line: 1915
  
 	if ( $Project->{_geopsy_is_selected} ) {
 		manage_dirs_by::make_dir($GEOPSY);
@@ -420,17 +418,7 @@ TODO Idea: build program behaviors using spec files
  
  Also, whenever a seismic unix program is clicked within the flow_listbox (any of the four)
  (NOT the seismic unix selection listbox), the parameters are redisplayed
-  
-
  
-#deprecated
-#If selected, sub flow_select always assumes a change has been made to one of the parameters
-#and runs: sub local_check4changes();   (main, flow_select, local_check4changes)
-#sub local_check4changes: 
-#							 -finds out which program was just touched
-#		                     -assumes all prior programs touched have
-#		                     modified parameters 
-#		                     -updates the touched program's stored values
 
 
 The only place that a flow is checked for how correct its parameters are will be at the

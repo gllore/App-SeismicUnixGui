@@ -17,12 +17,13 @@
        dimension multin(nlmax)
        dimension ILA(npmax),P(npmax),X(npmax),T(npmax)
        dimension xa1(npamax),xa2(npamax),xa3(npamax),xa4(npamax)
-       real   a1,a2,a1_prior,a2_prior
+       real   a1,a2,a1_prior,a2_prior, time_delay
 !      next line added on Aug 20 2013
        dimension xout(npmax,nlmax)
        dimension tout(npmax,nlmax),array_ntp(npmax)
 
        dimension xdig(nxymax),tdig(nxymax)
+       character*255 message
        character*255 set_DIR, get_DIR
        character*300 inboundVincrement, inboundVbotNtop_factor
        character*300 inbound_change, inbound_config, inbound_option
@@ -31,16 +32,18 @@
        character*300 inboundVbot,inboundVtop
        character*300 inboundVbot_upper,inboundVtop_lower
        character*300 outbound_option, outbound_model_txt
+       character*300 outbound_wrkng_modl_txt
        character*300  outbound_model_bin, outbound_model_bin_bck
        character val,finxy*40
        character*40 change_file,config_file,no,option_file,layer_file
        character*40 clip_file, model_file_text, thickness_m_file
+       character*40 working_model_txt
        character*40 model_file_bin, model_file_bin_bck
        character*40 Vbot_file,Vbot_upper_file,Vtop_file,Vtop_lower_file
        character*40 Vincrement_file, VbotNtop_factor_file
        character*40 par_file, moveNzoom_file
        logical   flag, is_change, base_file,ans
-       integer   sleep_time_s, upper_layer_number,lower_layer_number
+       integer   upper_layer_number,lower_layer_number
        integer   option,layer,option_default
        integer   VtopNVot_upper_layer_opt
        integer   VbotNVtop_lower_layer_opt
@@ -105,6 +108,7 @@
         clip_file           = "clip"
         config_file         = "immodpg.config"
         model_file_text     = "model.txt"
+        working_model_txt = "working_model.txt"
         model_file_bin       = "immodpg.out"
         model_file_bin_bck       = ".immodpg.out"
         is_change           = .FALSE.
@@ -116,12 +120,13 @@
         current_layer_number =-1
         prior_layer_number  =-2
         thickness_m_file       = "thickness_m"
+        time_delay                 = 0.001 ! wait seconds for Perl processing
 
 !      Coded user options
        changeVbot_opt                           = 20
        Vbot_minus_opt                     = 21
        Vbot_plus_opt                      = 22
-       changeVbot_upper_layer_opt                     = 23
+       changeVbot_upper_layer_opt        = 23
 
        VbotNVtop_lower_layer_minus_opt    = 61
        VbotNVtop_lower_layer_plus_opt     = 62
@@ -129,7 +134,7 @@
        VbotNVtop_plus_opt                 = 42
 
        changeVtop_opt                           = 10
-       changeVtop_lower_layer_opt                     = 11
+       changeVtop_lower_layer_opt      = 11
        Vtop_minus_opt                     = 12
        Vtop_plus_opt                      = 13
 
@@ -145,6 +150,8 @@
        change_clip4plot_opt               = 9
        thickness_m_minus_opt            = 140
        thickness_m_plus_opt               = 141
+       write_simple_model_text_opt   =70
+       write_model_bin_opt                 = 71
        exit_opt                           = 99
 
        option_default                     = -1
@@ -171,7 +178,6 @@
 !       rv 		reducing velocity km/s
 !
 !       how often user calls immodpg via a click in the  gui
-       sleep_time_s         = 1
        thickness increment_m = 10.
        Vincrement_mps       = 10.
 !       tout            cal! time output, Aug 2013 by Juan
@@ -248,6 +254,7 @@
        inbound_config = trim(get_DIR)//"/"//config_file
 !      print*, 'immodpg.for, inbound_config:',trim(inbound_config),'--'
        outbound_model_txt = trim(get_DIR)//"/"//model_file_text
+       outbound_wrkng_modl_txt=trim(get_DIR)//"/"//working_model_txt
        outbound_model_bin = trim(get_DIR)//"/"//model_file_bin
        outbound_model_bin_bck = trim(get_DIR)//"/"//model_file_bin_bck
 ! define the different needed directories
@@ -399,8 +406,11 @@
 	tr(6)  =  datadt
 
 ! READ VELOCITY DEPTH MODEL
+!       call execute_command_line ("fg",exitstat=i, cmdmsg=message)
+!       print *, "Exit status of fg was ", i
+!       print *, "Message from fg was ", message
 	call READMMOD(VT,VB,DZ,VST,VSB,RHOT,RHOB,nl)
-!       print*, '2. immodpg.for,readmod'
+!       print*, 'L 407  immodpg.for,readmod'
 
 ! error check the working layer number
 	if(current_layer_number.lt.1)   current_layer_number = 1
@@ -646,10 +656,9 @@
 !        print*,'slowing'
         cpu_duration = finish-start
 !        print '("Time = ",f6.3," seconds.")',cpu_duration
-        if (cpu_duration .lt. .001) go to 151
+        if (cpu_duration .lt. time_delay) go to 151
 !        print '("Time = ",f6.3," seconds.")',cpu_duration
 
-!           call sleep(sleep_time_s)
            icount=icount+1
 !           print *, 'L 551 do loop: immodpg,icount=',icount
 !          Detect for change:  "yes"
@@ -728,6 +737,27 @@
                  endif
 
               endif ! end check for change in layer
+
+!              write out an elicited working text model
+              if(option.eq.write_simple_model_text_opt) then
+
+               call write_model_file_text(nl,VT,VB,DZ,VST,VSB,RHOT,RHOB,
+     + outbound_wrkng_modl_txt);
+
+              endif
+
+!              write out an elicited  working binary model
+              if(option.eq.write_model_bin_opt) then
+
+        OPEN(UNIT=IOUT,FILE=outbound_model_bin,
+     + STATUS='UNKNOWN',
+     +  FORM='UNFORMATTED')
+        do K=1,NL+1
+              write(IOUT) VT(K),VB(K),DZ(K),
+     +        VST(K),VSB(K),RHOT(K),RHOB(K)
+        enddo
+        CLOSE(UNIT=IOUT)
+              endif
 
               if(option.eq.change_clip4plot_opt) then
 !               print *, 'L 733 immodpg.for,change_clip4plot_opt=',
@@ -868,25 +898,29 @@
              if(option.eq.Vbot_minus_opt) then
                 VB(current_layer_number) =
      +          VB(current_layer_number) - Vincrement_kmps
-!                print*,'mmodpg.for,option=',Vbot_minus_opt
+!                print*,'mmodpg.for,Vbot_minus_option=',Vbot_minus_opt
+!                print*,'mmodpg.for,Vbot_minus=',VB(current_layer_number)
              endif
 
              if(option.eq.Vbot_plus_opt) then
                 VB(current_layer_number) =
      +          VB(current_layer_number) + Vincrement_kmps
-!                print*,'mmodpg.for,option=',Vbot_plus_opt
+!                print*,'mmodpg.for,Vbot_plus_option=',Vbot_plus_opt
+!                print*,'mmodpg.for,Vbot_plus=',VB(current_layer_number)
              endif
 
              if(option.eq.Vtop_minus_opt) then
                 VT(current_layer_number) =
      +          VT(current_layer_number) - Vincrement_kmps
 !                 print*,'mmodpg.for,option=',Vtop_minus_opt
+!                print*,'mmodpg.for,Vtop_minus=',VT(current_layer_number)
              endif
 
              if(option.eq.Vtop_plus_opt) then
                  VT(current_layer_number) =
      +           VT(current_layer_number) + Vincrement_kmps
 !                 print*,'mmodpg.for,option=',Vtop_plus_opt
+!                 print*,'mmodpg.for,Vtop_plus=',VT(current_layer_number)
              endif
 !             if(option.eq.3) DZ(current_layer_number) =
 !     + DZ(current_layer_number) + a1
@@ -921,10 +955,10 @@
                VB(upper_layer_number) =
      +         VB(upper_layer_number) - Vincrement_kmps
 
-              print*,'mmodpg.for,option=',VtopNVbot_upper_layer_minus_opt
-              print*,'mmodpg.for,VT=',VT(current_layer_number)
-              print*,'mmodpg.for,VB_upper=',VB(upper_layer_number)
-              print*,'mmodpg.for,Vincrement_kmps=',Vincrement_kmps
+!              print*,'mmodpg.for,option=',VtopNVbot_upper_layer_minus_opt
+!              print*,'mmodpg.for,VT=',VT(current_layer_number)
+!              print*,'mmodpg.for,VB_upper=',VB(upper_layer_number)
+!              print*,'mmodpg.for,Vincrement_kmps=',Vincrement_kmps
              endif
 
              if(option.eq.VtopNVbot_upper_layer_plus_opt

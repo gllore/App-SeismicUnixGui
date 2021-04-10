@@ -47,6 +47,9 @@
  V 0.4.5 Include PDL packages to handle interactive modeling and reading fortran-generated
  files
  
+  V 0.5.0 new color_listbox class handles occupancy and vacancies among the listboxes March 2021
+ 
+ 
 =cut
 
 =head2 USE
@@ -67,14 +70,14 @@
 =cut 
 
 use Moose;
-our $VERSION = '0.3.9';
+our $VERSION = '0.5.0';
 
 extends 'gui_history' => { -version => 0.0.2 };
 
 use Tk;
 use Tk::Pane;
 use Tk::NoteBook;
-use L_SU 0.1.5;
+use L_SU 0.1.6;
 use L_SU_global_constants;
 
 =head2 Instantiation
@@ -173,10 +176,9 @@ my $main_href = $gui_history->get_defaults();
 ( $main_href->{_mw} ) = MainWindow->new;
 ($main_href->{_mw})->optionAdd('*font', 'Arial');
 ( $main_href->{_mw} )->title( $var->{_program_title} );
-( $main_href->{_mw} )->geometry( $var->{_box_position} );
+( $main_href->{_mw} )->geometry( $var->{_main_window_geometry} );
 ( $main_href->{_mw} )->resizable( 1, 1);    # not resizable in either width or height
 ( $main_href->{_mw} )->focusFollowsMouse;
-
 
 =head2 Define 
   
@@ -195,6 +197,13 @@ my $arial_14 = ( $main_href->{_mw} )->fontCreate(
 	'arial_14',
 	-family => 'arial',
 	-weight => 'normal',
+	-size   => -14
+);
+
+my $arial_14_bold = ( $main_href->{_mw} )->fontCreate(
+	'arial_14_bold',
+	-family => 'arial',
+	-weight => 'bold',
 	-size   => -14
 );
 
@@ -268,6 +277,42 @@ $top_menu_frame = ( $main_href->{_mw} )->Frame(
 	-relief      => 'groove',
 );
 
+=head2 message box
+withdraw temporarily while filling
+with widgets
+
+=cut 
+
+$main_href->{_message_box_w} = ( $main_href->{_mw} )->Toplevel(
+ 	-background =>$var->{_my_yellow},
+ );
+ $main_href->{_message_box_w}->geometry($var->{_message_box_geometry});
+ $main_href->{_message_box_w}->withdraw;
+ 
+ $main_href->{_message_upper_frame} = $main_href->{_message_box_w}->Frame(
+	-borderwidth => $var->{_no_borderwidth},
+	-background  => $var->{_my_yellow},
+);
+ $main_href->{_message_lower_frame }= $main_href->{_message_box_w}->Frame(
+   	-borderwidth => $var->{_no_borderwidth},
+	 -background => $var->{_my_yellow},
+	 -height     => '10',
+);
+  $main_href->{_message_label_w} =  $main_href->{_message_upper_frame}->Label(
+         -background => $var->{_my_yellow},
+         -font              => $arial_14_bold,
+         -justify           => 'left',
+ );
+  
+  $main_href->{_message_box_wait} = $var->{_yes};
+  $main_href->{_message_ok_button} = $main_href->{_message_box_w}->Button(
+		-text    				=> "ok",
+		-font              	=> $arial_14_bold,
+		-command 		=> sub { 
+			$main_href->{_message_box_w}->grabRelease;
+			$main_href->{_message_box_w}->withdraw;},
+   );
+ 
 $side_menu_frame = ( $main_href->{_mw} )->Frame(
 	-borderwidth => $var->{_no_borderwidth},
 	-background  => $var->{_my_purple},
@@ -1262,7 +1307,6 @@ my $flow_control_frame_names4bottom_row = $flow_control_frame->Frame(
 my $flow_control_frame_bottom_row = $flow_control_frame->Frame(
 	-borderwidth => $var->{_no_borderwidth},
 	-relief      => 'groove',
-
 	#-width       	=> '400',
 	-height     => '150',
 	-background => 'purple',
@@ -1410,8 +1454,6 @@ $main_href->{_flow_listbox_blue_w} = $flow_control_frame_bottom_row->Scrolled(
 
   to a tool_array
   for easier management
-  
-  # could also be done in L_SU.pm/param_widgets
 
 =cut
 
@@ -1427,8 +1469,35 @@ $main_href->{_flow_listbox_blue_w} = $flow_control_frame_bottom_row->Scrolled(
 ( $main_href->{_flow_listbox_blue_w} )->bind( '<1>' => [ \&_L_SU_flow_bindings, 'flow_select', 'blue' ], );
 ( $main_href->{_flow_listbox_blue_w} )->bind( '<3>' => [ \&_L_SU_flow_bindings, 'help',        'blue' ] );
 
+=head2 Pack message box
+This Toplevel window has 
+geometry that is independent
+of the main window widget.
+Upper frame contains message.
+Lower frame contains ok button.
+
+=cut
+
+$main_href->{_message_upper_frame}->pack(
+   -side => "top",
+	-fill => 'x',
+	-expand => 0,
+	-anchor   => "nw",
+);
+
+$main_href->{_message_label_w} ->pack;  
+
+$main_href->{_message_lower_frame}->pack(
+  -side => "top",
+	-fill => 'x',
+	-expand => 1,
+	-anchor   => "nw",
+);
+
+$main_href->{_message_ok_button}->pack;
+
 =head2 Packing Frame widget 
- contianed within L_SU menu frame
+ contained within L_SU menu frame
 
 =cut     
 

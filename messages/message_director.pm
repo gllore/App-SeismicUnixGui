@@ -80,7 +80,7 @@ sub clear {
 
 sub flows {
     my ( $self, $number ) = @_;
-    my $message_ref = $flows->get($number);
+    my $message_ref = $flows->get();
     my $message     = @$message_ref[$number];
 
     # print("message_director,flows,message =$message\n");
@@ -89,7 +89,7 @@ sub flows {
 
 sub FileDialog_button {
     my ( $self, $number ) = @_;
-    my $message_ref = $FileDialog_button->get($number);
+    my $message_ref = $FileDialog_button->get();
     my $message     = @$message_ref[$number];
 
     # print("message_director,FileDialog_button,message =$message\n");
@@ -98,7 +98,7 @@ sub FileDialog_button {
 
 sub FileDialog_close {
     my ( $self, $number ) = @_;
-    my $message_ref = $FileDialog_close->get($number);
+    my $message_ref = $FileDialog_close->get();
     my $message     = @$message_ref[$number];
 
     # print("message_director,FileDialog_close,message =$message\n");
@@ -108,15 +108,17 @@ sub FileDialog_close {
 
 sub immodpg {
     my ( $self, $number ) = @_;
-    my $message_ref = $immodpg->get($number);
+
+    my $message_ref = $immodpg->get();
     my $message     = @$message_ref[$number];
-    print("message_director,immodpg,message =$message\n");
+    # print("message_director,immodpg,message =$message\n");
+    
     return ($message);
 }
 
 sub iPick {
     my ( $self, $number ) = @_;
-    my $message_ref = $iPick->get($number);
+    my $message_ref = $iPick->get();
     my $message     = @$message_ref[$number];
     print("message_director,iPick,message =$message\n");
     return ($message);
@@ -124,7 +126,7 @@ sub iPick {
 
 sub null_button {
     my ( $self, $number ) = @_;
-    my $message_ref = $null->get($number);
+    my $message_ref = $null->get();
     my $message     = @$message_ref[$number];
 
     # print("message_director,null,message =$message\n");
@@ -133,7 +135,7 @@ sub null_button {
 
 sub project_selector {
     my ( $self, $number ) = @_;
-    my $message_ref = $project_selector->get($number);
+    my $message_ref = $project_selector->get();
     my $message     = @$message_ref[$number];
 
     # print("message_director,project_selector,message =$message\n");
@@ -142,7 +144,7 @@ sub project_selector {
 
 sub run_button {
     my ( $self, $number ) = @_;
-    my $message_ref = $run_button->get($number);
+    my $message_ref = $run_button->get();
     my $message     = @$message_ref[$number];
 
     # print("message_director,run_button,message =$message\n");
@@ -151,7 +153,7 @@ sub run_button {
 
 sub save_button {
     my ( $self, $number ) = @_;
-    my $message_ref = $save_button->get($number);
+    my $message_ref = $save_button->get();
     my $message     = @$message_ref[$number];
 
     # print("message_director,save_button,message =$message\n");
@@ -160,7 +162,7 @@ sub save_button {
 
 sub superflow {
     my ( $self, $number ) = @_;
-    my $message_ref = $superflow->get($number);
+    my $message_ref = $superflow->get();
     my $message     = @$message_ref[$number];
 
     # print("message_director,sueprflow,message =$message\n");

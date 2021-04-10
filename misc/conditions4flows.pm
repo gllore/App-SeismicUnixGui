@@ -40,6 +40,7 @@ package conditions4flows;
  		
  BASED ON:
  
+ conditions_gui.pm
  previous version the main L_SU.pl (V 0.3)
   
 =cut

@@ -70,6 +70,7 @@ my $color_start                     = 'grey';
 my $occupied_start                  = $false;
 my $future_occupied_start           = $false;
 my $vacant_start                    = $true;
+my $future_vacancy_start           = $false;
 my $flow_listbox_color_start        = $color_start;
 my $future_flow_listbox_color_start = $color_start;
 
@@ -129,6 +130,31 @@ sub _default_occupied_listbox_aref {
 
 }
 
+=head2 sub default_future_occupied_listbox_aref
+
+Initialize array of future occupied-flow-listbox-array
+indicators that indicate which listbox will next be
+used
+
+=cut
+
+sub _default_future_vacancy_listbox_aref {
+
+	my ($self) = @_;
+
+	my @future_vacancy_listbox = (
+		$future_vacancy_start,
+		$future_vacancy_start,
+		$future_vacancy_start,
+		$future_vacancy_start
+	);
+
+	my $flow_listbox_future_vacancy_aref = \@future_vacancy_listbox;
+	return ($flow_listbox_future_vacancy_aref);
+
+}
+
+
 =head2 sub _default_vacant_listbox_aref
 
 Initialize array of empty-flow-listbox-array
@@ -152,8 +178,8 @@ sub _default_vacant_listbox_aref {
 
 }
 
-my $vacant_listbox_aref    = _default_vacant_listbox_aref();
-my $occupied_list_box_aref = _default_occupied_listbox_aref();
+# my $vacant_listbox_aref    = _default_vacant_listbox_aref();
+# my $occupied_list_box_aref = _default_occupied_listbox_aref();
 
 =head2 Declare attributes
 
@@ -206,10 +232,8 @@ has 'flow_listbox_vacancy_aref' => (
 	is      => 'ro',
 	isa     => 'ArrayRef',
 	reader  => 'get_flow_listbox_vacancy_aref',
-
 	#	writer    => 'set_flow_listbox_vacancy_aref',
 	predicate => 'has_flow_listbox_vacancy_aref',
-
 	#	trigger   => \&_update_flow_listbox_vacancy_aref ,
 );
 
@@ -222,6 +246,47 @@ has 'future_flow_listbox_color' => (
 	predicate => 'has_future_flow_listbox_color',
 	trigger   => \&_update_future_flow_listbox_color,
 );
+
+sub is_vacant_listbox {
+
+	my ($self, $color) = @_;
+#	print("1 color_listbox, is_vacant_listbox, currently, color to test for occupation=  $color \n");
+	
+	my @vacant_listbox   = @{ $self->get_flow_listbox_vacancy_aref() };
+
+	if ( scalar(@vacant_listbox) ) {
+		if ( $vacant_listbox[0] == $false
+			&& $color eq 'grey' ) {
+				
+#            print("1 color_listbox, is_vacant_listbox, grey is already occupied \n");
+			return ($false);
+
+		} elsif ( $vacant_listbox[1] == $false
+			&& $color eq 'pink' ) {
+				
+#            print("1 color_listbox, is_vacant_listbox, pink  is already occupied \n");
+			return ($false);
+
+		} elsif ( $vacant_listbox[2] == $false
+			&& $color eq 'green' ) {
+#            print("1 color_listbox, is_vacant_listbox, green is already occupied \n");
+			return ($false);
+
+		} elsif ( $vacant_listbox[3] == $false
+			&& $color eq 'blue' ) {
+#            print("1 color_listbox, is_vacant_listbox, blue  is already occupied \n");
+			return ($false);
+
+		} else {
+#			print("color_listbox, _is_vacant_listbox, $color listbox seems vacant\n");
+			return ($true);
+		}
+
+	} else {
+		print("color_listbox, _is_vacant_listbox, difficult to say\n");
+		return ();
+	}
+}
 
 =head2 sub _update_flow_listbox_color
 
@@ -245,7 +310,6 @@ sub _update_flow_listbox_color {
 			$color_listbox->{_is_flow_listbox_grey_w} = $true;
 			_update_flow_listbox_occupancyNvacancy_aref($color_listbox);
 			_update_flow_listbox_vacancy_color($color_listbox);
-
 			# print("1. L_SU,_set_flow_listbox, color:$color \n");
 
 		} elsif ( $new_current_flow_listbox_color eq 'pink' ) {
@@ -319,10 +383,10 @@ sub _update_flow_listbox_occupancyNvacancy_aref {
 			$occupied_listbox[3] = $true;
 			$vacant_listbox[3]   = $false;
 
+
+		} elsif ( $color_listbox->get_flow_listbox_color() eq 'neutral' ) {
 			# CASE perl flow selection when none of the listboxes are occupied
 			# default to gray listbox
-		} elsif ( $color_listbox->get_flow_listbox_color() eq 'neutral' ) {
-
 			$occupied_listbox[0] = $true;
 			$vacant_listbox[0]   = $false;
 
@@ -486,9 +550,9 @@ sub _update_future_flow_listbox_color {
 
 	my ( $color_listbox, $new_current_future_flow_listbox_color, $new_prior_future_flow_listbox_color ) = @_;
 
-	#	print(
-	#		"color_listbox,_update_future_flow_listbox_color,new_current_future_flow_listbox_color=$new_current_future_flow_listbox_color, new_prior_future_flow_listbox_color=$new_prior_future_flow_listbox_color\n"
-	#	);
+	print(
+		"color_listbox,_update_future_flow_listbox_color,new_current_future_flow_listbox_color=$new_current_future_flow_listbox_color, new_prior_future_flow_listbox_color=$new_prior_future_flow_listbox_color\n"
+		);
 	if ( $new_current_future_flow_listbox_color eq 'grey' ) {
 
 		$color_listbox->{_is_future_flow_listbox_grey}  = $true;
@@ -499,7 +563,7 @@ sub _update_future_flow_listbox_color {
 		$color_listbox->{future_flow_listbox_color}    = $color;
 		$color_listbox->{_is_future_flow_listbox_grey} = $false;    #clean
 
-		# print("L_SU,_update_future_flow_listbox_color, color:$color \n");
+		print("color_listbox,_update_future_flow_listbox_color, color:$color \n");
 
 	} elsif ( $new_current_future_flow_listbox_color eq 'pink' ) {
 
@@ -510,11 +574,11 @@ sub _update_future_flow_listbox_color {
 		my $color = 'pink';
 		$color_listbox->{future_flow_listbox_color}    = $color;
 		$color_listbox->{_is_future_flow_listbox_pink} = $false;    #clean
-			# print("L_SU,_update_future_flow_listbox_color, color:$color\n");
+		print("color_listbox,_update_future_flow_listbox_color, color:$color\n");
 
 	} elsif ( $new_current_future_flow_listbox_color eq 'green' ) {
 
-		# print("L_SU,_update_future_flow_listbox_color, color:$color\n");
+		print("color_listbox,_update_future_flow_listbox_color, color: green\n");
 		$color_listbox->{_is_future_flow_listbox_grey}  = $false;
 		$color_listbox->{_is_future_flow_listbox_pink}  = $false;
 		$color_listbox->{_is_future_flow_listbox_green} = $true;
@@ -525,7 +589,7 @@ sub _update_future_flow_listbox_color {
 
 	} elsif ( $new_current_future_flow_listbox_color eq 'blue' ) {
 
-		# print("L_SU,_update_future_flow_listbox_color, color:$color\n");
+		print("color_listbox,_update_future_flow_listbox_color, color:blue\n");
 		$color_listbox->{_is_future_flow_listbox_grey}  = $false;
 		$color_listbox->{_is_future_flow_listbox_pink}  = $false;
 		$color_listbox->{_is_future_flow_listbox_green} = $false;
@@ -535,159 +599,9 @@ sub _update_future_flow_listbox_color {
 		$color_listbox->{_is_future_flow_listbox_blue} = $false;     #clean
 
 	} else {
-		print("L_SU,_update_future_flow_listbox_color, missing color \n");
+		print("color_listbox,_update_future_flow_listbox_color, missing color \n");
 	}
 
-	#	my @vacancy   = @{ $color_listbox->get_flow_listbox_vacancy_aref() };
-	#	my @occupancy = @{ $color_listbox->get_flow_listbox_occupancy_aref() };
-	#
-	#	my $occupied   = $true;
-	#	my $unoccupied = $false;
-	#
-	#	my $ans= $color_listbox->get_flow_listbox_color() ;
-	#	print("color_listbox, _update_future_flow_listbox_color internally color is $ans \n");
-	#	print("color_listbox, _update_future_flow_listbox_color future color is $new_current_future_flow_listbox_color\n");
-	#
-	#	if ( length $new_current_future_flow_listbox_color ) {
-	#
-	#		if (   $new_current_future_flow_listbox_color eq ''
-	#			or $new_current_future_flow_listbox_color eq 'grey' ) {
-	#
-	#			if ( $vacancy[0] eq $true ) {
-	#				print(" 1. color_listbox, _update_future_flow_listbox_color, grey listbox is free to use\n");
-	#				$color_listbox->set_flow_listbox_vacancy_color('grey');
-	#
-	#			} elsif ( $vacancy[0] eq $false ) {
-	#
-	#				print(
-	#					" 2. color_listbox, _update_future_flow_listbox_color, Warning: grey listbox is already occupied\n"
-	#				);
-	#
-	#				if ( $occupancy[0] eq $true ) {
-	#
-	#					print(
-	#						" 2. color_listbox, _update_future_flow_listbox_color, Warning: grey listbox is already occupied\n"
-	#					);
-	#
-	#				} else {
-	#					print(" 2. color_listbox, _update_future_flow_listbox_color, grey listbox CAN BE occupied\n");
-	#				}
-	#
-	#			} else {
-	#				print("color_listbox, _update_future_flow_listbox_color, unexpected values\n");
-	#			}
-	#
-	#			# print("1. L_SU,_set_flow_listbox, color:$color \n");
-	#
-	#		} elsif ( $new_current_future_flow_listbox_color eq 'pink' ) {
-	#			if ( $vacancy[1] eq $true ) {
-	#				print(" 1. color_listbox, _update_future_flow_listbox_color, pink listbox is free to use\n");
-	#				$color_listbox->set_flow_listbox_vacancy_color('pink');
-	#
-	#			} elsif ( $vacancy[1] eq $false ) {
-	#
-	#				print(
-	#					" 2. color_listbox, _update_future_flow_listbox_color, Warning: pink listbox is already occupied\n"
-	#				);
-	#
-	#				if ( $occupancy[1] eq $true ) {
-	#
-	#					print(
-	#						" 2. color_listbox, _update_future_flow_listbox_color, Warning: pink listbox is already occupied\n"
-	#					);
-	#
-	#				} else {
-	#					print(" 2. color_listbox, _update_future_flow_listbox_color, pink listbox CAN BE occupied\n");
-	#				}
-	#
-	#			} else {
-	#				print("color_listbox, _update_future_flow_listbox_color, unexpected values\n");
-	#			}
-	#
-	#			# print("L_SU,_set_flow_listbox, color:$color\n");
-	#
-	#		} elsif ( $new_current_future_flow_listbox_color eq 'green' ) {
-	#			if ( $vacancy[2] eq $true ) {
-	#				print(" 1. color_listbox, _update_future_flow_listbox_color, grey listbox is free to use\n");
-	#				$color_listbox->set_flow_listbox_vacancy_color('green');
-	#
-	#			} elsif ( $vacancy[2] eq $false ) {
-	#
-	#				print(
-	#					" 2. color_listbox, _update_future_flow_listbox_color, Warning: green listbox is already occupied\n"
-	#				);
-	#
-	#				if ( $occupancy[2] eq $true ) {
-	#
-	#					print(
-	#						" 2. color_listbox, _update_future_flow_listbox_color, Warning: green listbox is already occupied\n"
-	#					);
-	#
-	#				} else {
-	#					print(" 2. color_listbox, _update_future_flow_listbox_color, grey listbox CAN BE occupied\n");
-	#				}
-	#
-	#			} else {
-	#				print("color_listbox, _update_future_flow_listbox_color, unexpected values\n");
-	#			}
-	#
-	#			# print("L_SU,_set_flow_listbox, color:$color\n");
-	#
-	#		} elsif ( $new_current_future_flow_listbox_color eq 'blue' ) {
-	#			if ( $vacancy[3] eq $true ) {
-	#				print(" 1. color_listbox, _update_future_flow_listbox_color, blue listbox is free to use\n");
-	#				$color_listbox->set_flow_listbox_vacancy_color('blue');
-	#
-	#			} elsif ( $vacancy[3] eq $false ) {
-	#
-	#				print(
-	#					" 2. color_listbox, _update_future_flow_listbox_color, Warning: grey listbox is already occupied\n"
-	#				);
-	#
-	#				if ( $occupancy[3] eq $true ) {
-	#
-	#					print(
-	#						" 2. color_listbox, _update_future_flow_listbox_color, Warning: blue listbox is already occupied\n"
-	#					);
-	#
-	#				} else {
-	#					print(" 2. color_listbox, _update_future_flow_listbox_color, blue listbox CAN BE occupied\n");
-	#				}
-	#
-	#			} else {
-	#				print("color_listbox, _update_future_flow_listbox_color, unexpected values\n");
-	#			}
-	#
-	#			# print("L_SU,_set_flow_listbox, color:$color\n");
-	#
-	#		} else {
-	#			print("color_listbox,_set_flow_listbox, missing color \n");
-	#		}
-
-	return ();
-
-	#	}
-}
-
-=head2 sub _update_flow_listbox_future_occupancy_aref
-
-Mark the next listbox color to use
-
-=cut
-
-sub _update_flow_listbox_future_occupancy_aref {
-
-	#	my ( ( $color_listbox, $new_current_listbox_future_occupancy_aref, $new_prior_flow_listbox_occupancy_aref ) ) = @_;
-	#
-	#	my $result;
-	#	my @array;
-	#
-	#	my $array_ref = _default_future_occupied_listbox_aref
-	#	my @array      = \@array_ref;
-	#	my $length = scalar @array;
-	#
-	#	$color_listbox->get_flow_listbox
-	#    $color_listbox->{flow_listbox_future_occupancy_aref} = \@array;
 	return ();
 }
 

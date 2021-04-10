@@ -67,7 +67,7 @@ General concatenation of files with patterns in their names
 
 DO NOT use a list. Instead, include values for at least the first 3 
 parameters and up to and including values for all the remaining parameters,
-except the list
+except the list. An output name is possible.
  
 Examples:
  

@@ -1,12 +1,2 @@
-/home/gllore/mars/seismics/pl/hrk_e122/wheel/101020/Z/ACH01_shaker/gllore/1.matBode_fft2Sufft.pl
-/home/gllore/mars/seismics/pl/hrk_e122/wheel/101020/Z/ACH01_shaker/gllore/4.ifft.pl
-/home/gllore/mars/seismics/pl/hrk_e122/wheel/101020/Z/ACH01_shaker/gllore/5.ifft.plot
-/home/gllore/mars/seismics/pl/hrk_e122/wheel/101020/Z/ACH01_shaker/gllore/2.fft_phase_plot.pl
-/home/gllore/mars/seismics/pl/hrk_e122/wheel/101020/Z/ACH01_shaker/gllore/3.fft_amp_plot.pl
-/home/gllore/mars/seismics/pl/hrk_e122/wheel/101020/Z/ACH01_shaker/gllore/6.ReconstructedImpulse_fft_plot.pl
-/home/gllore/mars/seismics/data/hrk_e122/wheel/101020/Z/ACH01_shaker/su/gllore/ACH01_impulse_desired.su
-/home/gllore/mars/seismics/pl/hrk_e122/wheel/110520/A_z_radial/1/gllore/2.A_Z_radial_fft_amp_plot.pl
-/home/gllore/mars/seismics/pl/hrk_e122/wheel/110520/A_z_radial/1/gllore/ifft_plot.pl
-/home/gllore/mars/seismics/pl/hrk_e122/wheel/110520/A_z_radial/1/gllore/1.matBode_fft2Sufft.pl
-/home/gllore/mars/seismics/pl/hrk_e122/wheel/110520/A_z_radial/1/gllore/3.A_Z_radial_fft_phase_plot.pl
-/home/gllore/mars/seismics/data/hrk_e122/wheel/110520/A_z_radial/1/su/gllore/Az_radial_ACH01_fft.su
+/home/gllore/DuncanPoint/seismics/data/VetSchool/E/032221/SH/pseudo_walkaway/su/gllore/SH_planted4mmodpg.su
+/home/gllore/DuncanPoint/seismics/pl/VetSchool/E/032221/SH/pseudo_walkaway/gllore/plot_prep4mmodpg.pl

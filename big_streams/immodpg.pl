@@ -7,8 +7,10 @@
 
 =head2 CHANGES and their DATES
 
- DATE:    Feb 7 2020
- Version  0.1 
+ DATES:    Feb 7 2020
+ 				April 4 2021
+ 
+ Version  0.1 , 0.2
 
 =head2 DESCRIPTION
 
@@ -43,7 +45,7 @@
  
  One method type only sets the message type (immodpg->set_option(message #)) and 
  indicates a forced change (immodpg->set_change(yes)) for use with fortran 
- programm immodpg.for
+ program immodpg.for
  e.g., _setVbot_plus, _set_move_down.
  The gui shows a symbol for these cases
 
@@ -54,20 +56,23 @@
  The gui shows a parameter value that can be changed by the user.
  The Entry widget is configured to recognize text value changes and
  a return(1) is needed to indicate a successful validation
+ 
+immodpg must precede immodpg_config
+immodpg_config contains immodpg_spec
+immodpg_spec uses get_max from immodpg
+
+April 2021, removed commented lines
 
 =cut
 
 use Moose;
+use Time::HiRes qw (gettimeofday tv_interval);
 use Tk;
 use L_SU_global_constants;
 use Project_config;
-use SuMessages;
 
-# must precede immodpg_config
-use immodpg;
+use immodpg 0.2;
 
-# immodpg_config contains immodpg_spec
-# immodpg_spec uses get_max from immodpg
 use immodpg_config;
 use immodpg_global_constants;
 use premmod;
@@ -87,6 +92,7 @@ my $immodpg_Tk = {
 	_lower_layerLabel           => '',
 	_min_t_s                    => '',
 	_min_x_m                    => '',
+	_mw								=> '',
 	_thickness_increment_m      => '',
 	_thickness_mEntry           => '',
 	_thickness_mLabel           => '',
@@ -100,6 +106,7 @@ my $immodpg_Tk = {
 	_previous_model             => '',
 	_new_model                  => '',
 	_layer                      => '',
+	_mw                      => '',
 	_thickness_increment_mEntry => '',
 	_upper_layerLabel           => '',
 	_VbotEntry                  => '',
@@ -119,10 +126,9 @@ my $immodpg_Tk = {
 
 my $get_L_SU       = L_SU_global_constants->new();
 my $get_immodpg    = immodpg_global_constants->new();
-my $immodpg        = immodpg->new();
+my $immodpg   = immodpg->new();
 my $immodpg_config = immodpg_config->new();
 
-my $message = SuMessages->new();
 my $premmod = premmod->new();
 my $xk      = xk->new();
 my $Project        = Project_config->new();
@@ -130,7 +136,7 @@ my $Project        = Project_config->new();
 my $IMMODPG           = $Project->IMMODPG();
 my $var_L_SU               = $get_L_SU->var();
 my $var_immodpg            = $get_immodpg->var();
-my $change_thickness_m_opt = $var_immodpg->{_change_thickness_m_opt};
+my $change_thickness_m_opt = $var_immodpg->{_thickness_m_opt};
 my $clip_opt               = $var_immodpg->{_clip_opt};
 my $exit_opt               = $var_immodpg->{_exit_opt};
 my $global_libs 			= $get_L_SU->global_libs();
@@ -163,7 +169,6 @@ my $VbotNtop_plus_opt               = $var_immodpg->{_VbotNtop_plus_opt};
 my $VbotNtop_minus_opt              = $var_immodpg->{_VbotNtop_minus_opt};
 
 my $update_opt   = $var_immodpg->{_update_opt};
-#my $no           = $var_L_SU->{_no};
 my $yes          = $var_L_SU->{_yes};
 my $empty_string = $var_L_SU->{_empty_string};
 my $on           = $var_L_SU->{_on};
@@ -229,6 +234,30 @@ my $thickness_m           = $thickness_m_default;
 my $Vincrement_mps        = $Vincrement_mps_default;
 my $thickness_increment_m = $thickness_increment_m_default;
 
+
+=head2 Create Main Window 
+
+ Start event-driven loop
+ Interaction with user
+ 
+ immodpg requires Main window widget to display
+ error messages
+
+=cut
+
+=head2 Decide whether to 
+	Start Main widget but temporarily withdraw
+	until checks are complete
+	Window is needed for error messages
+
+=cut
+
+$mw = MainWindow->new;
+$mw->withdraw;
+$immodpg_Tk->{_mw}     = $mw;
+$immodpg->set_widgets($immodpg_Tk);
+$immodpg->initialize_messages();
+
 =head2 clean old files
 from past sessions
 
@@ -239,8 +268,6 @@ $immodpg->clean_trash();
 =head2 initialize files
 after cleaning trash
 
-=head2 initialize values in modules
-
 =cut
 my $replacement= $global_libs->{_configs_big_streams}.'/'.$immodpg_model;
 my $missing = $IMMODPG.'/'.$immodpg_model;
@@ -248,10 +275,14 @@ $immodpg->set_missing($missing);
 $immodpg->set_replacement4missing($replacement);
 $immodpg->get_replacement4missing();
 
-$immodpg->set_defaults();
+
+=head2 initialize values
+in modules
 
 =cut
+$immodpg->set_defaults();
 $immodpg->set_change( $change_default);
+$immodpg->initialize_model();
 
 =head2 Get starting configuration
  
@@ -312,25 +343,28 @@ $lower_layer = $layer + 1;
 #print("immodpg.pl, layer=$layer\n");
 #print("immodpg.pl, lower layer=$lower_layer\n");
 
-=head2 Get model values from
+=head2 Get model values 
+of Vp, thickness, and error switch from
 immodpg.out for initial settings
 in GUI
 
 =cut
 
 $immodpg->set_model_layer($layer);
-my ( $Vp_ref, $dz, $error_switch ) = $immodpg->getVp_dz_initial();
+
+my ( $Vp_ref, $dz, $error_switch ) = $immodpg->get_initialVp_dz4gui();
 
 if ( $error_switch eq $off ) {
 	# CASE 1 ALL OK
 	
 	my @V = @$Vp_ref;
-	$thickness_m = $dz;
 
 	$Vbot_upper_layer = $V[0];
-	$Vtop             = $V[1];
-	$Vbot             = $V[2];
+	$Vtop             			= $V[1];
+	$Vbot             			= $V[2];
 	$Vtop_lower_layer = $V[3];
+	
+	$thickness_m = $dz;
 
 } elsif ( $error_switch eq $on ) {
 		# CASE 2  BAD MODEL FILE
@@ -349,33 +383,20 @@ generate a binary file
 $premmod->set_binary_strip();
 $premmod->out_header_values();
 
-=head2 Create Main Window 
 
- Start event-driven loop
- Interaction with user
- initialize values
-_set Message type to imoddpg
+=head2 Establish Main Window
 
-=cut
-
-=head2 Decide whether to 
-
-  Changing geometry of the toplevel window
-  my $h = $mw->screenheight();
-  my $w = $mw->screenwidth();
-  print("width and height of screen are $w,$h\n\n");
-  print("geometry of screen is $geom\n\n");
-
-=cut
-
-$mw = MainWindow->new;
+=cut 
+$mw->deiconify();
+$mw->raise();
 $mw->geometry("430x280+40+100");
-$mw->title("immodpg");
+$mw->title("immodpg2");
 $mw->configure(
 	-highlightcolor => 'blue',
 	-background     => $var_L_SU->{_my_purple},
 );
 $mw->focusFollowsMouse;
+
 
 =head2  top_settings frame
 
@@ -2140,6 +2161,30 @@ $Vlayer_frame->grid(
 
 MainLoop;    # for Tk widgets
 
+sub _delay {
+	my ($self) = @_;
+	
+	my ($time_passed, $usecs_now,$usecs_start);
+	my ($secs_now,$secs_start);
+	
+	($secs_start,$usecs_start) = gettimeofday(); 
+	$time_passed = $var_immodpg->{_time_passed_us_default};
+	
+	while ( $time_passed < $var_immodpg->{_time_delay_us} ) {
+
+		($secs_now,$usecs_now) = gettimeofday();
+	    $time_passed = $usecs_now - $usecs_start;
+
+	}
+	
+#	if( $time_passed > $var_immodpg->{_time_delay_s} ) {
+#	 	   print("usecs_now  = $usecs_now\n");
+#           print("time_passed=$time_passed\n");
+#	}
+	
+	return();
+	 }
+
 =head2 sub _setVincrement
 _setVincrement sets
 interaction with immodpg.for
@@ -2318,22 +2363,6 @@ sub _setVbot_minus {
 
 }
 
-=head2 sub _setVbotNtop_plus
- callbacks
- write out message for mmodpg.f
- set_option and set_change
- set interactions with immodpg.f
- 
-=cut
-
-sub _setVbotNtop_plus {
-
-	# print("write VbotNVtop_plus +\n");
-	$immodpg->set_widgets($immodpg_Tk);
-	$immodpg->setVtop_plus();
-	$immodpg->setVbot_plus();
-
-}
 
 =head2 sub _setVbotNVtop_lower_layer_minus
  callbacks
@@ -2431,16 +2460,38 @@ sub _setVtop_plus {
  write out message for mmodpg.f
  set_change:
  set interactions with immodpg.f
+ 
+ create pause between Vbot and Vtop changes
 
 =cut
 
 sub _setVbotNtop_minus {
-
-	#	print("write VbotNtop_minus -, $VbotNtop_minus_opt\n");
+	my ($self) = @_;
+    
 	$immodpg->set_widgets($immodpg_Tk);
 	$immodpg->setVbot_minus();
+	_delay();
 	$immodpg->setVtop_minus();
 }
+
+=head2 sub _setVbotNtop_plus
+ callbacks
+ write out message for mmodpg.f
+ set_option and set_change
+ set interactions with immodpg.f
+ 
+=cut
+
+sub _setVbotNtop_plus {
+
+	# print("write VbotNVtop_plus +\n");
+	$immodpg->set_widgets($immodpg_Tk);
+	$immodpg->setVbotNtop_plus();
+#	_delay();
+#    $immodpg->setVtop_plus();
+
+}
+
 
 =head2 sub _setVtopNVbot_upper_layer_minus
  callbacks
@@ -2456,7 +2507,7 @@ sub _setVbotNtop_minus {
 sub _setVtopNVbot_upper_layer_minus {
 
 	$immodpg->set_widgets($immodpg_Tk);
-	print("write VtopNVbot_upper_layer_minus -,$VtopNVbot_upper_layer_minus_opt \n");
+	# print("main,_setVtopNVbot_upper_layer_minus, write VtopNVbot_upper_layer_minus -,$VtopNVbot_upper_layer_minus_opt \n");
 	$immodpg->setVtopNVbot_upper_layer_minus();
 }
 

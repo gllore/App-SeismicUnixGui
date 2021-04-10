@@ -3,7 +3,7 @@ package FileDialog_button_messages;
 use Moose;
 
 sub get {
-    my ( $self, $number ) = @_;
+    my ( $self) = @_;
     my @message;
 
     $message[0] = (

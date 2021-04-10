@@ -20,17 +20,25 @@ C
 	IF(ILEN.LT.50) JLEN=50-ILEN
 C
  100	WRITE(*,*)TEXT,FILL(:JLEN),' I*4 [',PARI4,'] '
+!              WRITE(*,*) 'readpar.for L23'
 C
 	READ(*,'(A)')BUFFER
+!	WRITE(*,*) 'readpar.for L26'
 	SPACE_POS=INDEX(BUFFER,' ')
+!	WRITE(*,*) 'readpar.for L27'
 	IF (SPACE_POS.EQ.1) RETURN
+!	WRITE(*,*) 'readpar.for L29'
 C
 		WRITE(I_FORMAT(3:3),'(I1)',ERR=200)SPACE_POS-1
 		READ(BUFFER,I_FORMAT,ERR=200)PARI4
 	PAR1=PARI4
+!	WRITE(*,*) 'readpar.for L32'
 	RETURN
  200	WRITE(*,'(1X,A)')'TYPING ERROR, TRY AGAIN<CR>'
 	GO TO 100
+
+	WRITE(*,*) 'readpar.for L36'
+
 	END
 C***********************************************************************
 C TYPES TEXT AND CURRENT VALUE OF PARAMETER.

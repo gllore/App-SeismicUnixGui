@@ -39,7 +39,6 @@ use Moose;
 our $VERSION = '0.0.2';
 
 use Tk;
-use decisions 1.00;
 
 extends 'gui_history' => { -version => 0.0.2 };
 
@@ -47,7 +46,6 @@ extends 'gui_history' => { -version => 0.0.2 };
 use L_SU_global_constants;
 
 my $gui_history = gui_history->new();
-my $decisions   = decisions->new();
 my $get         = L_SU_global_constants->new();
 
 my $file_dialog_type = $get->file_dialog_type_href();
@@ -99,56 +97,56 @@ sub set_param_flow {
 
 }
 
-=head2 sub _user_built_flow_SaveAs_perl_file 
-
-
-=cut
-
-sub _user_built_flow_SaveAs_perl_file {
-	my ($self) = @_;
-
-	if (   $save_button->{_is_flow_listbox_grey_w}
-		|| $save_button->{_is_flow_listbox_pink_w}
-		|| $save_button->{_is_flow_listbox_green_w}
-		|| $save_button->{_is_flow_listbox_blue_w} ) {
-
-		#		$param_flow						->set_good_values;
-		#		$param_flow						->set_good_labels;
-		#		$save_button->{_good_labels_aref2}		= $param_flow->get_good_labels_aref2;
-		#		$save_button->{_items_versions_aref}	= $param_flow->get_flow_items_version_aref;
-		#		$save_button->{_good_values_aref2} 	= $param_flow->get_good_values_aref2;
-		#		$save_button->{_prog_names_aref} 		= $param_flow->get_flow_prog_names_aref;
-		#
-		#		 		# print("save_button,_prog_names_aref,
-		#		 		# @{$save_button->{_prog_names_aref}}\n");
-		#		# my $num_items4flow = scalar @{$save_button->{_good_labels_aref2}};
-		#
-		#				 # for (my $i=0; $i < $num_items4flow; $i++ ) {
-		#					# print("save_button,_good_labels_aref2,
-		#				# @{@{$save_button->{_good_labels_aref2}}[$i]}\n");
-		#				# }
-		#
-		#				# for (my $i=0; $i < $num_items4flow; $i++ ) {
-		#				#	print("save_button,_good_values_aref2,
-		#				#	@{@{$save_button->{_good_values_aref2}}[$i]}\n");
-		#				#}
-		#				#   print("save_button,_prog_versions_aref,
-		#				#   @{$save_button->{_items_versions_aref}}\n");
-		#
-		# 		$files_LSU	->set_prog_param_labels_aref2($save_button);
-		# 		$files_LSU	->set_prog_param_values_aref2($save_button);
-		# 		$files_LSU	->set_prog_names_aref($save_button);
-		# 		$files_LSU	->set_items_versions_aref($save_button);
-		# 		$files_LSU	->set_data();
-		# 		$files_LSU	->set_message($save_button);
-		#		$files_LSU	->set2pl($save_button); # flows saved to PL_SEISMIC
-		#		$files_LSU	->save();
-		#		$gui_history	->set4_save_button();
-		#		$save_button 			= $gui_history->get_hash_ref();
-
-	}
-	return ();
-}
+#=head2 sub _user_built_flow_SaveAs_perl_file 
+#
+#
+#=cut
+#
+#sub _user_built_flow_SaveAs_perl_file {
+#	my ($self) = @_;
+#
+#	if (   $save_button->{_is_flow_listbox_grey_w}
+#		|| $save_button->{_is_flow_listbox_pink_w}
+#		|| $save_button->{_is_flow_listbox_green_w}
+#		|| $save_button->{_is_flow_listbox_blue_w} ) {
+#
+#		#		$param_flow						->set_good_values;
+#		#		$param_flow						->set_good_labels;
+#		#		$save_button->{_good_labels_aref2}		= $param_flow->get_good_labels_aref2;
+#		#		$save_button->{_items_versions_aref}	= $param_flow->get_flow_items_version_aref;
+#		#		$save_button->{_good_values_aref2} 	= $param_flow->get_good_values_aref2;
+#		#		$save_button->{_prog_names_aref} 		= $param_flow->get_flow_prog_names_aref;
+#		#
+#		#		 		# print("save_button,_prog_names_aref,
+#		#		 		# @{$save_button->{_prog_names_aref}}\n");
+#		#		# my $num_items4flow = scalar @{$save_button->{_good_labels_aref2}};
+#		#
+#		#				 # for (my $i=0; $i < $num_items4flow; $i++ ) {
+#		#					# print("save_button,_good_labels_aref2,
+#		#				# @{@{$save_button->{_good_labels_aref2}}[$i]}\n");
+#		#				# }
+#		#
+#		#				# for (my $i=0; $i < $num_items4flow; $i++ ) {
+#		#				#	print("save_button,_good_values_aref2,
+#		#				#	@{@{$save_button->{_good_values_aref2}}[$i]}\n");
+#		#				#}
+#		#				#   print("save_button,_prog_versions_aref,
+#		#				#   @{$save_button->{_items_versions_aref}}\n");
+#		#
+#		# 		$files_LSU	->set_prog_param_labels_aref2($save_button);
+#		# 		$files_LSU	->set_prog_param_values_aref2($save_button);
+#		# 		$files_LSU	->set_prog_names_aref($save_button);
+#		# 		$files_LSU	->set_items_versions_aref($save_button);
+#		# 		$files_LSU	->set_data();
+#		# 		$files_LSU	->set_message($save_button);
+#		#		$files_LSU	->set2pl($save_button); # flows saved to PL_SEISMIC
+#		#		$files_LSU	->save();
+#		#		$gui_history	->set4_save_button();
+#		#		$save_button 			= $gui_history->get_hash_ref();
+#
+#	}
+#	return ();
+#}
 
 =head2 sub _Save_pre_built_superflow 
  						

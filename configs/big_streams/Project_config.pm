@@ -53,6 +53,7 @@ my $Project = {
 	_grass__is_selected           => '',
 	_matlab_is_selected           => '',
 	_immodpg_is_selected          => '',
+	_r_is_selected							=> '',
 	_sqlite_is_selected           => '',
 	_line                         => '',
 	_component                    => '',
@@ -129,6 +130,7 @@ my $Project = {
 	_R_GAMMA_WELL                 => '',
 	_R_RESISTIVITY_SURFACE        => '',
 	_R_RESISTIVITY_WELL_R_SEISMIC => '',
+	_R_SEISMIC					=> '',
 	_R_WELL                       => '',
 	_SH_SEISMIC                   => '',
 	_PS_SEISMIC                   => '',
@@ -392,7 +394,7 @@ sub _change_basic_dirs {
 	my ( $HOME,          $PROJECT_HOME, $site, $spare_dir );
 	my ( $geomaps_logic, $geopsy_logic, $matlab_logic );
 	my ( $gmt_logic,     $grass_logic );
-	my ( $immodpg_logic, $sqlite_logic, );
+	my ( $immodpg_logic, $r_logic, $sqlite_logic, );
 
 	# TODO my ()$matlab,$fast,$immodpg,gmt);
 	# print(" 5. Project_config,_change_basic_dirs,ref_DIR:@{$Project->{_ref_DIR}}\n");
@@ -427,7 +429,8 @@ sub _change_basic_dirs {
 	$grass_logic   = $control->set_str2logic( $CFG[23] );
 	$matlab_logic  = $control->set_str2logic( $CFG[25] );
 	$immodpg_logic = $control->set_str2logic( $CFG[27] );
-	$sqlite_logic  = $control->set_str2logic( $CFG[29] );
+	$r_logic = $control->set_str2logic( $CFG[29] );	
+	$sqlite_logic  = $control->set_str2logic( $CFG[31] );
 
 	# print("1. Project_config,_change_basic_dirs PROJECT_HOME=$Project->{_PROJECT_HOME}\n");
 	# print("1. Project_config,_change_basic_dirs spare_dir=----$spare_dir----\n");
@@ -499,6 +502,7 @@ sub _change_basic_dirs {
 	$Project->{_gmt_is_selected}     = $gmt_logic;
 	$Project->{_matlab_is_selected}  = $matlab_logic;
 	$Project->{_immodpg_is_selected} = $immodpg_logic;
+	$Project->{_r_is_selected} = $r_logic;	
 	$Project->{_sqlite_is_selected}  = $sqlite_logic;
 
 	return ();
@@ -537,7 +541,7 @@ sub _system_dirs {
 		# print("New L_SU project detected: Project_config, _system_dirs\n");
 	}
 
-	# META-DATA FILE STRUCTRUE
+	# META-DATA FILE STRUCTURE
 	my $DATE_LINE_COMPONENT_STAGE_PROCESS = $date . '/' . $line . '/' . $component . '/' . $stage . '/' . $process;
 	$DATE_LINE_COMPONENT_STAGE_PROCESS =~ s/\'//g;
 
@@ -1151,7 +1155,7 @@ sub system_dirs {
 	$Project->{_DATABASE_SEISMIC_SQLITE}      = $DATABASE_SEISMIC_SQLITE;
 	$Project->{_DATA_WELL}                    = $DATA_WELL;
 	$Project->{_FAST_TOMO}                    = $FAST_TOMO;
-	$Project->{_GEOPSY}                       = $GEOPSY;
+	$Project->{_GEOPSY}                       	= $GEOPSY;
 	$Project->{_GEOPSY_PARAMS}                = $GEOPSY_PARAMS;
 	$Project->{_GEOPSY_PICKS}                 = $GEOPSY_PICKS;
 	$Project->{_GEOPSY_PICKS_RAW}             = $GEOPSY_PICKS_RAW;
@@ -1853,7 +1857,7 @@ sub make_local_dirs {
 
 	# Always create basic types
 	my $PROJECT_HOME = $Project->{_PROJECT_HOME};
-	my $HOME         = $Project->{_HOME};
+#	my $HOME         = $Project->{_HOME};
 
 	# manage_dirs_by::make_dir($HOME);
 	manage_dirs_by::make_dir($PROJECT_HOME);
@@ -1896,7 +1900,11 @@ sub make_local_dirs {
 	my $MATLAB_SEISMIC = $Project->{_MATLAB_SEISMIC};
 
 	# CATEGORY well data and R and Perl and Matlab
-	my $MATLAB_WELL = $Project->{_MATLAB_WELL};
+	my $MATLAB_WELL 	= $Project->{_MATLAB_WELL};
+
+  #CATEGORY SEISMIC DATA and programming language for R
+	my $R_SEISMIC   		= $Project->{_R_SEISMIC};
+	my $DATA_SEISMIC_R = $Project->{_DATA_SEISMIC_R};
 
 	if ( $Project->{_geomaps_is_selected} ) {
 		manage_dirs_by::make_dir($DATA_GEOMAPS);
@@ -1923,7 +1931,12 @@ sub make_local_dirs {
 		manage_dirs_by::make_dir($GEOMAPS_IMAGES_PS);
 		manage_dirs_by::make_dir($PL_GEOMAPS);
 	}
-
+	
+	if ( $Project->{_r_is_selected} ) {
+		manage_dirs_by::make_dir($R_SEISMIC);
+		manage_dirs_by::make_dir($DATA_SEISMIC_R);
+	}
+	
 	if ( $Project->{_matlab_is_selected} ) {
 		manage_dirs_by::make_dir($MATLAB_SEISMIC);
 	}
@@ -2067,15 +2080,12 @@ sub make_local_dirs {
 
 	# manage_dirs_by::make_dir($DATA_SEISMIC_SEGY_RAW);
 
-	# program R and format rseis seismic data
-	my $DATA_SEISMIC_R     = $Project->{_DATA_SEISMIC_R};
-	my $DATA_SEISMIC_RSEIS = $Project->{_DATA_SEISMIC_RSEIS};
+
 
 	# manage_dirs_by::make_dir($DATA_SEISMIC_RSEIS);
 	# manage_dirs_by::make_dir($DATA_SEISMIC_R);
 
-	# program R and seismic data
-	my $R_SEISMIC = $Project->{_R_SEISMIC};
+
 
 	# manage_dirs_by::make_dir($R_SEISMIC);
 
@@ -2178,7 +2188,7 @@ max index = number of input variables -1
 sub get_max_index {
 	my ($self) = @_;
 
-	my $max_index = 14;
+	my $max_index = 15;
 
 	return ($max_index);
 }
