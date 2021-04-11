@@ -111,7 +111,6 @@ my ( $run_button_w,    $save_button_w, $message_w );
 my ($sunix_listbox);
 my ( $add2flow_button_grey, $add2flow_button_pink, $add2flow_button_green, $add2flow_button_blue );
 my ($check_code_button);
-my ($delete_from_flow_button);
 my ($file_menubutton);
 my ( $flow_item_down_arrow_button, $flow_item_up_arrow_button );
 my $wipe_plots_button;
@@ -996,6 +995,7 @@ sub set_param_widgets {
  to move up and down a list of flow items
  'flow_item_up_arrow_button'
  'flow_item_down_arrow_button'
+ 'delete_whole_flow_button'
  add2flows
  
  unix_listbox help (MB3)
@@ -1109,7 +1109,7 @@ sub user_built_flows {
 
 			} elsif ( @{ $L_SU_gui->{_occupied_listbox_aref} }[0] == $false ) {
 
-				# CASE: A flow does NOT yest exist in ths colored flow box
+				# CASE: A flow does NOT yet exist in ths colored flow box
 				# indicate preferred future occupation of this listbox color
 
 				if ( $method eq 'add2flow_button' ) {

@@ -1,2 +1,8 @@
+/home/gllore/DuncanPoint/seismics/pl/VetSchool/E/032221/SH/pseudo_walkaway/gllore/'
+/home/gllore/DuncanPoint/seismics/pl/VetSchool/E/032221/SH/pseudo_walkaway/gllore/Shsum_plates.pl
+/home/gllore/DuncanPoint/seismics/pl/VetSchool/E/032221/SH/pseudo_walkaway/gllore/plot_SH_plates.pl
+/home/gllore/DuncanPoint/seismics/pl/VetSchool/E/032221/SH/pseudo_walkaway/gllore/plotE2W_plates_cat.pl
+/home/gllore/DuncanPoint/seismics/pl/VetSchool/E/032221/SH/pseudo_walkaway/gllore/plot_SH_planted.pl
+/home/gllore/DuncanPoint/seismics/pl/VetSchool/E/032221/SH/pseudo_walkaway/gllore/plotE2W_cat.pl
 /home/gllore/DuncanPoint/seismics/data/VetSchool/E/032221/SH/pseudo_walkaway/su/gllore/SH_planted4mmodpg.su
 /home/gllore/DuncanPoint/seismics/pl/VetSchool/E/032221/SH/pseudo_walkaway/gllore/plot_prep4mmodpg.pl

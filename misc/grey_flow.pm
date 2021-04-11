@@ -102,7 +102,6 @@ my $_flow_name_color_w                     = '_flow_name_' . $this_color . '_w';
  share the following parameters in same name 
  space
  
-
 =cut
 
 my $flow_color;
@@ -2340,6 +2339,238 @@ sub delete_from_flow_button {
 	}
 
 	# print("color_flow, END delete_from_flow_button, print gui_history.txt\n");
+	# $gui_history->view();
+}
+
+=head2 sub delete_whole_flow_button
+
+if flow_select was last clicked then 
+$gui_history has already recorded the chosen flow color
+
+my $flow_color = $gui_history->get_flow_color();
+ 	 	
+=cut
+
+sub delete_whole_flow_button {
+
+	my ($self) = @_;
+
+	my $flow_color = ( $color_flow_href->{_flow_select_color_href} )->{_most_recent};
+
+	print(" START color_flow, delete_whole_flow_button, \n");
+
+	print("color_flow, delete_whole_flow_button, current color= $flow_color\n");
+	# print("color_flow, delete_whole_flow_button, print gui_history.txt\n");
+	# $gui_history->view();
+
+	if ($flow_color) {
+
+		_set_flow_color($flow_color);
+
+		use message_director;
+		use decisions 1.00;
+
+		my $color_flow_messages = message_director->new();
+		my $decisions           = decisions->new();
+
+		my $message = $color_flow_messages->null_button(0);
+		$message_w->delete( "1.0", 'end' );
+		$message_w->insert( 'end', $message );
+
+		my $_flow_listbox_color_w = _get_flow_listbox_color_w();
+
+		$gui_history->set_hash_ref($color_flow_href);
+		$gui_history->set_defaults4start_of_delete_from_flow_button($flow_color);
+		$color_flow_href = $gui_history->get_hash_ref();
+
+		$decisions->set4delete_from_flow_button($color_flow_href);
+		my $pre_req_ok = $decisions->get4delete_from_flow_button();
+
+		# confirm listboxes are active
+		if ($pre_req_ok) {
+
+#			# location within GUI on first clicking delete button
+#			$gui_history->set_hash_ref($color_flow_href);
+#
+#			# $gui_history->set_defaults4start_of_delete_whole_flow_button($flow_color);
+#			$color_flow_href = $gui_history->get_hash_ref();
+#
+#			# flow_color is in 'color'_flow namespace
+#			my $index = $flow_widgets->get_flow_selection($_flow_listbox_color_w);
+#
+#			# print("color_flow, delete_whole_flow_button index=$index\n");
+#
+#			if (    $index == 0
+#				and $param_flow_color_pkg->get_num_items() == 1 ) {
+#
+#				# CASE: LAST ITEM in listbox is deleted
+#				# extra checking includes verifying number of items
+#
+#				# For Run and Save button
+#				$flow_widgets->delete_selection($_flow_listbox_color_w);
+#
+#				# Blank out the names of the programs in the GUI
+#				_set_flow_name_color_w($flow_color);
+#				$flow_name_color_w->configure( -text => $var->{_clear_text} );
+#				$color_flow_href->{_flowNsuperflow_name_w}->configure( -text => $var->{_clear_text} );
+#
+#				# delete stored programs and their parameters
+#				my $index2delete = $flow_widgets->get_index2delete();
+#
+#				# delete_from_stored_flows();
+#				$param_flow_color_pkg->delete_selection($index2delete);
+#
+#				# collect and store latest program versions from changed list
+#				# clear all the versions from the changed list
+#				# _stack_versions();
+#				_clear_stack_versions();
+#
+#				$gui_history->set_hash_ref($color_flow_href);
+#				$gui_history->set_defaults4last_delete_from_flow_button();
+#				$color_flow_href = $gui_history->get_hash_ref();
+#
+#				# Blank out all the stored parameter values and names within param_flow
+#				# clear 31 parameters
+#				$param_flow_color_pkg->clear();
+#
+#				# clear the parameter values and labels from the gui
+#				# strange memory leak inside param_widgets
+#				my $save = clone( $color_flow_href->{_check_buttons_settings_aref} );
+#				$param_widgets->gui_full_clear();
+#				@{ $color_flow_href->{_check_buttons_settings_aref} } = @$save;
+#
+#				# reinitialize flow_select_count
+#				$gui_history->set_clear('delete_whole_flow_button');
+#				# print("1. last item deleted Shut down delete button\n");
+#
+#			} elsif ( $index > 0 ) {
+#
+#				# CASE more more than one item remains in a listbox (implied)
+#				# but selected index is not the first
+#				$flow_widgets->delete_selection($_flow_listbox_color_w);
+#
+#				# delete stored programs and their parameters
+#				# delete_from_stored_flows();
+#				my $index2delete = $flow_widgets->get_index2delete();
+#
+#				#				print("2. color_flow deletefrom a stored flow,index2delete:$index2delete\n");
+#				$param_flow_color_pkg->delete_selection($index2delete);
+#
+#				# keep track of flow selection clicks and colors
+#				$_flow_listbox_color_w->selectionSet( ( $index2delete - 1 ) );
+#				$gui_history->set_flow_select_color($this_color);
+#				$gui_history->set_button('flow_select');
+#
+#				# Update the widget parameter names and values
+#				# to those of new selection after deletion
+#				# Only the chkbuttons, values and names of the last program used
+#				# are stored in param_widgets at any one time
+#				# Get parameters from storage
+#				my $next_idx_selected_after_deletion = $index2delete - 1;
+#				if ( $next_idx_selected_after_deletion == -1 ) {
+#					$next_idx_selected_after_deletion = 0;
+#				}    # NOT < 0
+#					 # $next_idx_selected_after_deletion\n");
+#
+#				$param_flow_color_pkg->set_flow_index($next_idx_selected_after_deletion);
+#				$color_flow_href->{_names_aref} = $param_flow_color_pkg->get_names_aref();
+#
+#				# is @{$color_flow_href->{_names_aref}}\n");
+#				$color_flow_href->{_values_aref} = $param_flow_color_pkg->get_values_aref();
+#
+#				# is @{$color_flow_href->{_values_aref}}\n");
+#				$color_flow_href->{_check_buttons_settings_aref} = $param_flow_color_pkg->get_check_buttons_settings();
+#
+#				# get stored first index and num of items
+#				$color_flow_href->{_param_flow_first_idx} = $param_flow_color_pkg->first_idx();
+#				$color_flow_href->{_param_flow_length}    = $param_flow_color_pkg->length();
+#				$color_flow_href->{_prog_name_sref} = $param_widgets->get_current_program( \$_flow_listbox_color_w );
+#				$param_widgets->set_current_program( $color_flow_href->{_prog_name_sref} );
+#
+#				$param_widgets->gui_full_clear();    # formerly gui_clean
+#				$param_widgets->range($color_flow_href);
+#				$param_widgets->set_labels( $color_flow_href->{_names_aref} );
+#				$param_widgets->set_values( $color_flow_href->{_values_aref} );
+#				$param_widgets->set_check_buttons( $color_flow_href->{_check_buttons_settings_aref} );
+#
+#				$param_widgets->redisplay_labels();
+#				$param_widgets->redisplay_values();
+#				$param_widgets->redisplay_check_buttons();
+#
+#				# collect and store latest program versions from changed list
+#				_stack_versions();
+#
+#			} elsif ( $index == 0
+#				and $param_flow_color_pkg->get_num_items() > 1 ) {
+#
+#				# CASE more than 1 item exists and selected index is first
+#				$flow_widgets->delete_selection($_flow_listbox_color_w);
+#
+#				# delete stored programs and their parameters
+#				# delete_from_stored_flows();
+#				my $index2delete = $flow_widgets->get_index2delete();
+#
+#				# print("2. color_flow delete_from_stored,index2delete:$index2delete\n");
+#				$param_flow_color_pkg->delete_selection($index2delete);
+#
+#				# keep track of flow selection clicks and colors
+#				$_flow_listbox_color_w->selectionSet( ( $index2delete - 1 ) );
+#				$gui_history->set_flow_select_color($this_color);
+#				$gui_history->set_button('flow_select');
+#
+#				# Update the widget parameter names and values
+#				# to those of new selection after deletion
+#				# Only the chekbuttons, values and names of the last program used
+#				# are stored in param_widgets at any one time
+#				# Get parameters from storage
+#				my $next_idx_selected_after_deletion = $index2delete - 1;
+#
+#				# NOT < 0
+#				# $next_idx_selected_after_deletion\n");
+#				if ( $next_idx_selected_after_deletion == -1 ) {
+#
+#					$next_idx_selected_after_deletion = 0;
+#				}
+#
+#				$param_flow_color_pkg->set_flow_index($next_idx_selected_after_deletion);
+#				$color_flow_href->{_names_aref} = $param_flow_color_pkg->get_names_aref();
+#
+#				# is @{$color_flow_href->{_names_aref}}\n");
+#				$color_flow_href->{_values_aref} = $param_flow_color_pkg->get_values_aref();
+#
+#				# is @{$color_flow_href->{_values_aref}}\n");
+#				$color_flow_href->{_check_buttons_settings_aref} = $param_flow_color_pkg->get_check_buttons_settings();
+#
+#				# get stored first index and num of items
+#				$color_flow_href->{_param_flow_first_idx} = $param_flow_color_pkg->first_idx();
+#				$color_flow_href->{_param_flow_length}    = $param_flow_color_pkg->length();
+#				$color_flow_href->{_prog_name_sref} = $param_widgets->get_current_program( \$_flow_listbox_color_w );
+#				$param_widgets->set_current_program( $color_flow_href->{_prog_name_sref} );
+#
+#				#print(" 2. color_flow, delete_from-flow_button \n");
+#				$param_widgets->gui_full_clear();    # formerly gui_clean
+#				$param_widgets->range($color_flow_href);
+#				$param_widgets->set_labels( $color_flow_href->{_names_aref} );
+#				$param_widgets->set_values( $color_flow_href->{_values_aref} );
+#				$param_widgets->set_check_buttons( $color_flow_href->{_check_buttons_settings_aref} );
+#
+#				$param_widgets->redisplay_labels();
+#				$param_widgets->redisplay_values();
+#				$param_widgets->redisplay_check_buttons();
+#
+#				# collect and store latest program versions from changed list
+#				_stack_versions();
+#
+#			} else {
+#				print("color_flow, delete_whole_flow_button unexpected result\n");
+#			}
+		}    # if pre_req_ok
+
+	} else {    # if flow_color
+		print("color_flow, delete_whole_flow_button, flow color missing: \n");
+	}
+
+	print("color_flow, END delete_whole_flow_button, print gui_history.txt\n");
 	# $gui_history->view();
 }
 

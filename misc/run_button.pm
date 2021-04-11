@@ -617,7 +617,6 @@ sub get_all_hash_ref {
 #		$parameter_values_frame = $run_button->{_parameter_values_frame};
 #		$parameter_value_index  = $run_button->{_parameter_value_index};
 #		$values_aref            = $run_button->{_values_aref};
-#		$message_w              = $run_button->{_message_w};
 #		$flow_listbox_grey_w    = $run_button->{_flow_listbox_grey_w};
 #		$flow_listbox_pink_w    = $run_button->{_flow_listbox_pink_w};
 #		$flow_listbox_green_w   = $run_button->{_flow_listbox_green_w};
@@ -662,10 +661,14 @@ sub set_flow_type {
 sub set_hash_ref {
 	my ( $self, $hash_ref ) = @_;
 
-	if ($hash_ref) {
+	if (length($hash_ref) ){
+		
 		$gui_history->set_defaults($hash_ref);
 		$run_button = $gui_history->get_defaults();
-        # print("save_button, set_gui_widgets, missing hash_ref\n");
+		$message_w              = $run_button->{_message_w};
+        
+	}else {
+		 print("run_button, set_hash_ref, missing hash_ref\n");
 	}
 	return ();
 }

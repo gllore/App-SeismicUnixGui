@@ -4603,7 +4603,7 @@ sub setVbot_plus {
 			#				_checkVbot(); #todo
 			_updateVbot();
 
-			print("immodpg, setVbot_plus, new Vbot= $newVbot\n");
+#			print("immodpg, setVbot_plus, new Vbot= $newVbot\n");
 
 			# print("immodpg, setVbot_plus, Vincrement= $Vincrement\n");
 
@@ -7076,7 +7076,7 @@ sub set_thickness_m {
 			&& $immodpg->{_is_thickness_m_changed_in_gui} eq $yes ) {
 
 			# for fortran program to read
-			print("immodpg, set_thickness_m, thickness_m is changed: $yes \n");
+			# print("immodpg, set_thickness_m, thickness_m is changed: $yes \n");
 
 			_set_thickness_m( $immodpg->{_thickness_m_current} );
 			_set_option($change_thickness_m_opt);

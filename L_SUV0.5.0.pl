@@ -49,6 +49,7 @@
  
   V 0.5.0 new color_listbox class handles occupancy and vacancies among the listboxes March 2021
  
+ V0.5.1 delete_whole_flow_button,  April 9, 2021
  
 =cut
 
@@ -687,6 +688,21 @@ $main_href->{_delete_from_flow_button} = ( $main_href->{_parameter_menu_frame} )
 	-state              => 'disabled',
 );
 
+$main_href->{_delete_whole_flow_button} = ( $main_href->{_parameter_menu_frame} )->Button(
+	-image              => $cross_cartoon,
+	-height             => $var->{_24_pixels},
+	-border             => 0,
+	-padx               => 8,
+	-width              => $var->{_12_pixels},
+	-background         => $var->{_my_light_grey},
+	-foreground         => $var->{_my_black},
+	-disabledforeground => $var->{_my_dark_grey},
+	-activeforeground   => $var->{_my_white},
+	-activebackground   => $var->{_my_dark_grey},
+	-relief             => 'flat',
+	-state              => 'disabled',
+);
+
 =pod
 
 button that moves items (program names) UP in a flow (color grey, pink, green or blue);
@@ -742,6 +758,8 @@ for easier management
 ( $main_href->{_flow_item_up_arrow_button} )->bind( '<1>' => [ \&_L_SU_flow_bindings_any_color, 'flow_item_up_arrow_button' ], );
 
 ( $main_href->{_flow_item_down_arrow_button} )->bind( '<1>' => [ \&_L_SU_flow_bindings_any_color, 'flow_item_down_arrow_button' ], );
+
+( $main_href->{_delete_whole_flow_button} )->bind( '<1>' => [ \&_L_SU_flow_bindings_any_color, 'delete_whole_flow_button' ], );
 
 ( $main_href->{_wipe_plots_button} )->bind( '<1>' => [ \&_L_SU_bindings_shell, 'wipe_plots_button' ], );
 
@@ -1607,10 +1625,10 @@ $top_menu_frame_spacer->pack(
 ( $main_href->{_add2flow_button_green} )->pack( -side => "left", );
 ( $main_href->{_add2flow_button_blue} )->pack( -side => "left", );
 
-# $delete_from_flow_button->pack( -side => "right", );
 ( $main_href->{_flow_item_up_arrow_button} )->pack( -side => "right", );
 ( $main_href->{_flow_item_down_arrow_button} )->pack( -side => "right", );
 ( $main_href->{_delete_from_flow_button} )->pack( -side => "right", );
+( $main_href->{_delete_whole_flow_button} )->pack( -side => "right", );
 
 # parameter titles belongs to L_SU frame
 # and contains the following
@@ -2008,13 +2026,14 @@ sub _L_SU_flow_bindings {
  used to move up and down a list of flow items
  'flow_item_up_arrow_button'
  'flow_item_down_arrow_button'
+ 'delete_whole_flow_button'
 
 =cut
 
 sub _L_SU_flow_bindings_any_color {
 	my ( $self, $method ) = @_;
 
-	# print("1 main,_L_SU_flow_bindings ,method:$method,\n");
+	print("1 main,_L_SU_flow_bindings ,method:$method,\n");
 	if ($method) {
 
 		my $button = $method;
