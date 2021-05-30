@@ -78,7 +78,7 @@ extends 'gui_history' => { -version => 0.0.2 };
 use Tk;
 use Tk::Pane;
 use Tk::NoteBook;
-use L_SU 0.1.7;
+use L_SU 0.1.6;
 use L_SU_global_constants;
 
 =head2 Instantiation
@@ -291,7 +291,6 @@ $top_menu_frame = ( $main_href->{_mw} )->Frame(
 is withdrawn temporarily while filling
 with widgets. Dialog box is iconified in
 subclasses.
-A Toplevel widget is required to define geometry.
 
 =cut 
 
@@ -333,9 +332,8 @@ $side_menu_frame = ( $main_href->{_mw} )->Frame(
 
 =head2 my dialog box
 is withdrawn temporarily while filling
-with widgets. 
-Dialog box is iconified in subclasses.
-A Toplevel widget is required to define geometry.
+with widgets. Dialog box is iconified in
+subclasses.
 
 =cut 
 
@@ -366,15 +364,7 @@ $main_href->{_my_dialog_ok_button} = $main_href->{_my_dialog_box_w}->Button(
 $main_href->{_my_dialog_cancel_button} = $main_href->{_my_dialog_box_w}->Button(
 	-text    => "cancel",
 	-font    => $arial_14_bold,
-);	
-	# set up interactive message widgets to configure
-	# buttons in my_dialog_box
-	my $ok_button = $main_href->{_my_dialog_ok_button};
-	my $label= $main_href->{_my_dialog_label_w};
-	my $cancel_button=$main_href->{_my_dialog_cancel_button};
-	my $top_level=$main_href->{_my_dialog_box_w};
-	$L_SU->initialize_my_dialogs($ok_button,$label, $cancel_button,$top_level);
-
+);
 $main_href->{_blank_button_spacer_center} = $main_href->{_my_dialog_box_w}->Button(
 	-text                => " ",
 	-relief              => 'flat',
@@ -1595,7 +1585,7 @@ sunix_frame_I (bottom row )
 
 =head2 Pack my dialog box
 Upper frame contains my message.
-Lower frame contains an  'ok' and a 'cancel' button.
+Lower frame contains an\ 'ok' and a 'cancel' button.
 
 =cut
 
@@ -2031,6 +2021,8 @@ Lower frame contains ok button.
 	# set up interactive message widgets
 	$L_SU->initialize_messages();
 
+	# set up interactive message widgets
+	$L_SU->initialize_my_dialogs();
 	MainLoop;
 
 =head2 sub _L_SU_bindings
@@ -2271,6 +2263,7 @@ in L_SU
 				$gui_history->set_FileDialog_type($name);
 
 			} else {
+
 				# print("2 main,_L_SU,method:$set_method, deref scalar value:$$value NADA\n");
 			}
 

@@ -5169,13 +5169,6 @@ Lower frame contains ok button.
 		-expand => 0,
 	);
 
-	#    $message_ok_button->configure (
-	#    	-command 		=> sub {
-	#			$message_box->grabRelease;
-	#			$message_box->withdraw;
-	#		    $message_box_wait = $no;}
-	#    );
-
 	return ();
 }
 
@@ -6757,12 +6750,12 @@ sub set_widgets {
 		$immodpg->{_upper_layerLabel}           = $widget_h->{_upper_layerLabel};
 		$immodpg->{_lower_layerLabel}           = $widget_h->{_lower_layerLabel};
 		$immodpg->{_mw}                         = $widget_h->{_mw};
-		$immodpg->{_message_box_w}              = $widget_h->{_message_box_w};
-		$immodpg->{_message_upper_frame}        = $widget_h->{_message_upper_frame};
-		$immodpg->{_message_lower_frame}        = $widget_h->{_message_lower_frame};
-		$immodpg->{_message_label_w}            = $widget_h->{_message_label_w};
-		$immodpg->{_message_box_wait}           = $widget_h->{_message_box_wait};
-		$immodpg->{_message_ok_button}          = $widget_h->{_message_ok_button};
+#		$immodpg->{_message_box_w}              = $widget_h->{_message_box_w};
+#		$immodpg->{_message_upper_frame}        = $widget_h->{_message_upper_frame};
+#		$immodpg->{_message_lower_frame}        = $widget_h->{_message_lower_frame};
+#		$immodpg->{_message_label_w}            = $widget_h->{_message_label_w};
+#		$immodpg->{_message_box_wait}           = $widget_h->{_message_box_wait};
+#		$immodpg->{_message_ok_button}          = $widget_h->{_message_ok_button};
 
 		# print("immodpg, set_widgets, immodpg->{_message_box_w}: $immodpg->{_message_box_w}\n");
 		# print("immodpg, set_widgets, OK\n");

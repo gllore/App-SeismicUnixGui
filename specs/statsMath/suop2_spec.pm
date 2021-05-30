@@ -105,7 +105,8 @@ sub flow_type_aref {
 	my @type;
 
 	$type[0] = $flow_type->{_user_built};
-
+	$type[1] = $flow_type->{_user_built};
+	
 	$suop2_spec->{_flow_type_aref} = \@type;
 	return ();
 

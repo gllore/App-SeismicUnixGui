@@ -1,7 +1,5 @@
 package message;
 
-=pod
-
 =head1 DOCUMENTATION
 
 =head2 SYNOPSIS 
@@ -10,7 +8,7 @@ package message;
  AUTHOR:  Juan Lorenzo
  DATE:   July 25 2015,
  DESCRIPTION: 
- Version: 1.1
+ Version: 0.0.1
 
 =head2 USE
 
@@ -55,7 +53,7 @@ my $PL_SEISMIC = $Project->PL_SEISMIC();
 
 my $message = { _text => '' };
 
-=pod
+
 
 =head2 subroutine clear
 
@@ -67,7 +65,6 @@ sub clear {
 	$message->{_text} = '';
 }
 
-=pod
 
 =head2 subroutine file 
 
@@ -86,9 +83,8 @@ sub file {
 	close(message_STDOUT);
 }
 
-=pod
 
-=head2 subroutine file 
+=head2 subroutine screen
 
  send message to screen 
 

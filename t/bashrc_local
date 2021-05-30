@@ -83,3 +83,9 @@ export PATH=$PATH:$L_SU/big_streams
 # for executable L_SU-related compiled and linked programs 
 export PATH=$PATH:$L_SU/fortran/bin
 export PATH=$PATH:$L_SU/c/bin
+
+# this bash script will runs every time 'tester'
+
+if [ -f $LSU/t/tester/tests.sh ]; then
+        sh $LSU/t/tester/tests.sh
+fi

@@ -28,7 +28,9 @@ The "Run" and "Save" have their OWN logic-separated paths:
 	L_SU, run_button and L_SU, save_button
 for superflows versus user-built flows, including parameter_widgets etc.
 
-The SaveAs and Data and Flow buttons have their own logic path through L_SU, FileDialog_button
+The SaveAs and Data and Flow buttons have their own logic path through 
+
+L_SU, FileDialog_button
 
 If there are superflow bindings for opening data files, then these use 
 	L_SU, pre_built_superflows,
@@ -501,8 +503,15 @@ main; L_SU; grey_flow; files_LSU, save; oop_text; instantiation, set_prog_names_
  main; L_SU; grey_flow; files_LSU, save; oop_text; prog_params (sets the text)
  		
 Q. What sequence of programs are used when looking either a pre-existing perl file flow or 
-i.e., when 'Flow' is used
-Opening a Data perl file or a user-built flow involves the following sequence:
+i.e., when 'Flow' is used:
+
+main, 
+	_L_SU
+		L_SU
+		FileDialog_button (with value 'Flow')
+		
+
+Opening a Data-type perl file or a user-built flow involves the following sequence:
 
 main, 
 	FileDialog_button, _L_SU,
@@ -1012,7 +1021,6 @@ L_SU
  For user-built flows
 	
  For superflows:
- 
  L_SU,
   FileDialog_button,
   	
@@ -1245,9 +1253,9 @@ Q. Q. How does a superflow run?:
     Q In what sequence are the listboxes filled, after all the listboxes are empty?
     Only gray listbox wil have its flow sequence completely replaced
     
-    Q. Which program keeps track of which colored listbox is occupied?
+    Q. Which module keeps track of which colored listbox is occupied?
     
-     L_SU, _set_occupied_listbox_aref
+     L_SU, color_listbox
      
     Q.Which program keeps track of the listbox currently in use?
     
@@ -1490,15 +1498,15 @@ sunix_pl reading perl flows
    		
    	Q. Which settings are made when the user navigates
    		between superflows and user-built flows work while opening flows?
-   		What history of recent activity influences settings
+   		What history of recent activity influences settings?
    		
-   		Here are some situations:
+   		Here are some situations PRIOR to:
    		
-   		Opening and Reading a user-built flow
+   1: Opening and Reading a user-built flow (Flow button)
+   		which invokes:
    		
    		L_SU,
    			FileDialog_button
-   		
    		     			
    	Prior History  for  CASE 1, in prep for CASE 4
 		  1. Open a pre-built superflow
@@ -1509,7 +1517,7 @@ sunix_pl reading perl flows
 	Prior History for CASES 3A-3D	
 		Normally for user-built flows already in use:
 		in grey (case A), 
-		pink(case AB, 
+		pink(case B) 
 		green(case C) or 
 		blue(case D)
 		
@@ -2184,7 +2192,8 @@ Q. How does a selected file name get put inside an Entry box within the gui?
 Hard codes relative location of directories for configuration files, parameter files which are
 not accessible via the PERL5LIB global variable or @INC array.
 
-Explain the different "flow types" used to bind MB3 clicks using the spec files:
+Q. What are the different "flow types" used to bind MB3 clicks 
+when using the spec files:
 
 
    {_Data}  	...	open pre-existing data file
@@ -2299,7 +2308,7 @@ Explain the different "flow types" used to bind MB3 clicks using the spec files:
 	 
 	 sunix
 	 
-	 TODO: check if conditions-gui has not been repalced by conditions4flows and conditions_superflow
+	 TODO: check if conditions-gui has not been replaced by conditions4flows and conditions_superflow
 	 
 	 Q. How does SaveAs work?
 	 
@@ -2315,3 +2324,62 @@ Explain the different "flow types" used to bind MB3 clicks using the spec files:
 Q. How are superflow parameters selctged in the case of Project
  For Project.config there is no local configuration file.  This superflow is
  handled by project_selector gui or by Project_config itself from within the main L_SU gui.
+ 
+ Q. How are dialogs provided to the user?
+ As an example, look at
+ L_SU L 402
+          $color_listbox->my_dialogs( 'color_listbox', 0 ) 
+          Two possible outcomes ($ans4ok and $ans4cancel)
+          The first parameter called is the title of the dialog box and the
+          second parameter (this case = 0) selects which message to display.
+          The first parameter also serves to find the corresponding message which
+          can be found within the messages folder
+          
+ Q.. How do I know that a listbox is about to be overwritten?
+color_listbox
+	my $vacancy = $color_listbox->is_vacant_listbox($future_color);
+	gui_history is a hash that stores common variables that are needed by multiple
+	programs at once.
+	e.g.,  within conditions4flows we have:
+	conditions4flows->{_occupied_listbox_aref}
+	The hash variable:
+		"_occupied_listbox_aref ", accessible in 
+	L_SU via the shared "gui_history" hash
+	
+	Q. Where do we set vacancy and occupancy of 'color' listboxes?
+	
+	In color_flow
+		delete_from_flow_button 
+	In L_SU
+	      user_built_flows and FileDialog_button
+	      conditions4flows, set_defaults4delete_whole_flow_button 
+	      gui_history
+	      conditions4big_streams
+	      conditions_gui (reprecated?)
+	      
+	      
+	Q.  What are the extension abbreviations for different types of files, according to their format
+	
+	 text  is usually                       txt
+	 SEG-Y files is usually             sgy
+	 Seismic Unix files is always    su
+	 
+	 
+	 Q. How does L_SU know on which line to put a selected file name in the parameter list?
+	  
+	  (1) _spec files bind the index of the appropriate line in the list to a directory which will be openened.
+	  TODO: A click in the first line always will take the user to a data directory TODO: make all links via bindings
+	  defined in *_spec files.
+	  
+	  (2) 
+	  
+	  Q. How do I add another default directory to be created when a new project is saved and run?
+	  For examples a new directory call 'png' for image files of that type?
+	  
+	  Follow the examples:
+	   in: ~/configs/big_streams/Project_config.pm   where all used and unused definitions are kept
+	   and in in ~big_streams/SetProject.pl where we can see how some are implemented but others are
+	   not (Commented lines)
+	  
+	   
+          

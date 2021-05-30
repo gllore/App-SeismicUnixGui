@@ -1,11 +1,11 @@
-HOME                               = /home/gllore        
-PROJECT_HOME                       = /home/gllore/Servilleta_demos
+HOME                               = $HOME        
+PROJECT_HOME                       = $HOME/Servilleta_demos
 site                               = loma_blanca         
 spare_dir                          =                     
 date                               = 053018              
 component                          = H                   
 line                               = 1                   
-subUser                            = gllore              
+subUser                            = $username              
 geomaps                            = no                  
 geopsy                             = no                  
 gmt                                = no                  

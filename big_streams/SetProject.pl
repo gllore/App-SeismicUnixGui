@@ -35,6 +35,7 @@ my ($DATA_GEOMAPS)                 = $Project->DATA_GEOMAPS();
 my ($DATA_GEOMAPS_BIN)             = $Project->DATA_GEOMAPS_BIN();
 my ($GEOMAPS_IMAGES)               = $Project->GEOMAPS_IMAGES();
 my ($GEOMAPS_IMAGES_JPEG)          = $Project->GEOMAPS_IMAGES_JPEG();
+my ($GEOMAPS_IMAGES_PNG)          = $Project->GEOMAPS_IMAGES_PNG();
 my ($GEOMAPS_IMAGES_TIF)           = $Project->GEOMAPS_IMAGES_TIF();
 my ($GEOMAPS_IMAGES_PS)            = $Project->GEOMAPS_IMAGES_PS();
 my ($DATA_GEOMAPS_TEXT)            = $Project->DATA_GEOMAPS_TEXT();
@@ -75,6 +76,7 @@ my ($MMODPG)             		   = $Project->MMODPG();
 my ($PL_RESISTIVITY_SURFACE) = $Project->PL_RESISTIVITY_SURFACE();
 my ($PL_SEISMIC)                   = $Project->PL_SEISMIC();
 my ($PL_GEOMAPS)                   = $Project->PL_GEOMAPS();
+my ($PNG_SEISMIC)                 = $Project->PNG();
 my ($R_WELL)                       = $Project->R_WELL();
 my ($PL_WELL)                      = $Project->PL_WELL();
 my ($PS_SEISMIC)                   = $Project->PS_SEISMIC();
@@ -108,6 +110,7 @@ manage_dirs_by::make_dir($DATA_GEOMAPS);
 
 #manage_dirs_by::make_dir($GEOMAPS_IMAGES);
 manage_dirs_by::make_dir($GEOMAPS_IMAGES_JPEG);
+manage_dirs_by::make_dir($GEOMAPS_IMAGES_PNG);
 
 #manage_dirs_by::make_dir($GEOMAPS_BIN);
 #manage_dirs_by::make_dir($GEOMAPS_IMAGES_TIF);
@@ -156,6 +159,7 @@ manage_dirs_by::make_dir($MATLAB_GEOMAPS);
 # print("SetProject.pl,MMODPG_INVISIBLE=$MMODPG_INVISIBLE\n");
 # manage_dirs_by::make_dir($IMMODPG_INVISIBLE);
 manage_dirs_by::make_dir($PL_GEOMAPS);
+# manage_dirs_by::make_dir($PNG_SEISMIC);
 # manage_dirs_by::make_dir($PL_RESISTIVITY_SURFACE);
 # manage_dirs_by::make_dir($PL_SEISMIC);
 

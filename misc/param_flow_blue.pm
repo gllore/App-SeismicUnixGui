@@ -12,6 +12,8 @@ package param_flow_blue;
  V 0.0.1 Aug 3 2017
  V 0.0.2 July 23 2018
  V 0.0.3 Oct 10 2018 allows numeric values = 0
+ V 0.0.4 April 2021 delete_selection can delete
+ 'all' at once
 
  USED FOR: 
 
@@ -21,7 +23,7 @@ package param_flow_blue;
 =cut
 
 use Moose;
-our $VERSION = '0.0.3';
+our $VERSION = '0.0.4';
 use Clone 'clone';
 
 =pod
@@ -140,7 +142,6 @@ sub _get_values_aref {
 
 =head2 sub _set_good_labels4item 
 
- 	my $num_items4flow = $param_flow_blue->{_num_items4flow};
  	Oct 10. 2018 allow numbers=0 
 
 =cut
@@ -190,7 +191,7 @@ sub _set_good_labels4item {
 
 		}
 		else {
-			# NADAprint("param_flow_blue, _set_good_labels_4item: no values are present, can not be saved\n");
+			# NADA print("param_flow_blue, _set_good_labels_4item: no values are present, can not be saved\n");
 		}
 	}
 
@@ -215,8 +216,6 @@ sub _set_good_labels4item {
 	Set good values privately for a single item (program name)
 	within a flow
 	only non-empty values will be used
-
- 	my $num_items4flow = $param_flow_blue->{_num_items4flow}; 
 
 =cut
 
@@ -363,7 +362,8 @@ sub clear_flow_items_version_aref {
 =head2 sub delete_selection
 
  delete parameter names and values
- of on one  selected item
+ from one  selected item at a time
+ as well as all at once
 
 =cut
 
@@ -377,23 +377,61 @@ sub delete_selection {
 
 	# print("\nparam_flow_blue,delete_selection B4 deletion,idx2delete=$index2delete\n");
 	# view_data($index2delete);
-
-	# CASE 1: delete end item but not the last one
-	if ( $index2delete == $end && $num_items > 1 ) {    # final item but more than one item
-		                                                # print("index2delete = end, idx $index2delete\n");
-		                                                # empty end index of array
+	
+	if ( $index2delete eq 'all' 
+	and $num_items > 0 ) {
+		
+		# print("param_flow_blue, all deleted using double quotes \n");
+		
+		@{ $param_flow_blue->{_checkbuttons_aref2} } = '';
+		@{ $param_flow_blue->{_names_aref2} } = '';
+		@{ $param_flow_blue->{_values_aref2} } = '';
+		@{ $param_flow_blue->{_prog_names_aref} } = '';
+		
+		$param_flow_blue->{_num_items} = 0;
+		$param_flow_blue->{_num_items4flow} = 0;
+		$param_flow_blue->{_num_items4values} = 0;
+		$param_flow_blue->{_num_items4names} = 0;
+		$param_flow_blue->{_num_items4checkbuttons} = 0;
+	
+		$param_flow_blue->{_indices} = -1;
+		$param_flow_blue->{_index4values} = -1;
+		$param_flow_blue->{_index4names} = -1;
+		$param_flow_blue->{_index4checkbuttons} = -1;
+		$param_flow_blue->{_index4flow} = -1;
+		
+	}
+	elsif ( $index2delete == $end && $num_items > 1 ) {    
+			# CASE 1: delete end item but not the last one
+			# final item but more than one item
+		    # print("index2delete = end, idx $index2delete\n");
+		    # empty end index of array
+		    
 		pop @{ $param_flow_blue->{_checkbuttons_aref2} };
 		pop @{ $param_flow_blue->{_names_aref2} };
 		pop @{ $param_flow_blue->{_values_aref2} };
 		pop @{ $param_flow_blue->{_prog_names_aref} };
+	
+		$param_flow_blue->{_num_items}--;
+		$param_flow_blue->{_num_items4flow}--;
+		$param_flow_blue->{_num_items4values}--;
+		$param_flow_blue->{_num_items4names}--;
+		$param_flow_blue->{_num_items4checkbuttons}--;
+			
+		$param_flow_blue->{_indices}--;
+		$param_flow_blue->{_index4values}--;
+		$param_flow_blue->{_index4names}--;
+		$param_flow_blue->{_index4checkbuttons}--;
+			
+		$param_flow_blue->{_index4flow}--;
 
 		# no $index_after;
+	
 	}
-
-	# CASE 2: GENERAL CASE
-	#         listbox has 3 items or more
-	#         I can delete any but final
-	if ( $index2delete >= 0 && $index2delete < $end ) {
+	elsif ( $index2delete >= 0 && $index2delete < $end ) {
+		# CASE 2: GENERAL CASE
+		#  listbox has 3 items or more
+		#  I can delete any but final
 		my $index_after = $index2delete + 1;
 
 		# print("index2delete >= 0 , idx2delete=$index2delete end=$end \n");
@@ -421,36 +459,50 @@ sub delete_selection {
 		pop @{ $param_flow_blue->{_prog_names_aref} };
 
 		# print("Prog names After delete @{$param_flow_blue->{_prog_names_aref}}	\n");
+						
+	 	$param_flow_blue->{_num_items}--;
+		$param_flow_blue->{_num_items4flow}--;
+		$param_flow_blue->{_num_items4values}--;
+		$param_flow_blue->{_num_items4names}--;
+		$param_flow_blue->{_num_items4checkbuttons}--;
+			
+		$param_flow_blue->{_indices}--;
+		$param_flow_blue->{_index4values}--;
+		$param_flow_blue->{_index4names}--;
+		$param_flow_blue->{_index4checkbuttons}--;
+			
+		$param_flow_blue->{_index4flow}--;
+		
 	}
-
-	# CASE 3: listbox has only 1 and final item left
-	if ( $index2delete == 0 && $num_items == 1 ) {
-
+	elsif ( $index2delete == 0 && $num_items == 1 ) {
+		# CASE 3: listbox has only 1 and final item left	
 		# print("index2delete = 0 and num_items=1, idx $index2delete\n");
 		# empty end index of array
 		pop @{ $param_flow_blue->{_checkbuttons_aref2} };
 		pop @{ $param_flow_blue->{_names_aref2} };
 		pop @{ $param_flow_blue->{_values_aref2} };
 		pop @{ $param_flow_blue->{_prog_names_aref} };
+		
+		$param_flow_blue->{_num_items} = 0;
+		$param_flow_blue->{_num_items4flow} = 0;
+		$param_flow_blue->{_num_items4values} = 0;
+		$param_flow_blue->{_num_items4names} = 0;
+		$param_flow_blue->{_num_items4checkbuttons} = 0;
+	
+		$param_flow_blue->{_indices} = -1;
+		$param_flow_blue->{_index4values} = -1;
+		$param_flow_blue->{_index4names} = -1;
+		$param_flow_blue->{_index4checkbuttons} = -1;
+	
+		$param_flow_blue->{_index4flow} = -1;
 
 		# no $index_after;
+		
+	} else {
+		print("delete_selection, param_flow_blue, unexcpeted result\n");
 	}
-
-	$param_flow_blue->{_num_items}--;
-	$param_flow_blue->{_num_items4flow}--;
-	$param_flow_blue->{_num_items4values}--;
-	$param_flow_blue->{_num_items4names}--;
-	$param_flow_blue->{_num_items4checkbuttons}--;
-
-	$param_flow_blue->{_indices}--;
-	$param_flow_blue->{_index4values}--;
-	$param_flow_blue->{_index4names}--;
-	$param_flow_blue->{_index4checkbuttons}--;
-
-	$param_flow_blue->{_index4flow}--;
-
 	# print("\nAfter delete_selection, index2delete was $index2delete\n");
-	#view_data($index2delete);
+	# view_data($index2delete);
 
 	return ();
 }
@@ -610,9 +662,7 @@ sub get_good_values_aref2 {
 sub get_names_aref {
 	my ($self) = @_;
 	my $index = $param_flow_blue->{_selection_index};
-
-	# print(" param_flow_blue, get_name_aref names: index is $index\n");
-
+	
 	if ( $index >= 0 ) {
 		my @names_aref;
 		my ($length);
@@ -671,7 +721,7 @@ sub get_num_items {
 		my $num_items = $param_flow_blue->{_num_items};
 
 		my $result = $num_items;
-		# print("param_flow_blue,get_num_items, num_items = $param_flow_blue->{_num_items} \n");
+#		print("param_flow_blue,get_num_items, num_items = $param_flow_blue->{_num_items} \n");
 		return ($result);
 
 	}
@@ -1113,7 +1163,6 @@ sub set_good_values {
 
 =head2 sub set_good_labels4item 
 
- 	my $num_items4flow = $param_flow_blue->{_num_items4flow}; 
 
 =cut
 
@@ -1167,7 +1216,6 @@ sub set_good_labels4item {
 
 =head2 sub set_good_values4item 
 
- 	my $num_items4flow = $param_flow_blue->{_num_items4flow}; 
 	work on finding good values for one item
 
 =cut

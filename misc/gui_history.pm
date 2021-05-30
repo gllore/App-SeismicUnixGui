@@ -42,8 +42,6 @@ potentially, all packages contain L_SU_global_constants
 =cut
 
 extends
-
-	#	'whereami2'       => { -version => 0.0.2 },
 	'conditions4flows' => { -version => 0.0.2 };
 
 use L_SU_global_constants;
@@ -56,7 +54,6 @@ use flow_widgets;
 my $flow_widgets = flow_widgets->new();
 my $get          = L_SU_global_constants->new();
 
-# my $whereami     = whereami2->new();
 
 =head2 Declare Special Variables
 
@@ -330,6 +327,16 @@ my $delete_from_flow_button_click_seq_href = {
 	_item        => $empty_string,
 	_index       => $index_start,
 	_name        => 'delete_from_flow_button_seq',
+	_most_recent => $current_index_start,
+	_earliest    => $earliest_index_start,
+	_next        => $next_index_start,
+	_prior       => $prior_index_start,
+};
+
+my $delete_whole_flow_button_click_seq_href = {
+	_item        => $empty_string,
+	_index       => $index_start,
+	_name        => 'delete_whole_flow_button_seq',
 	_most_recent => $current_index_start,
 	_earliest    => $earliest_index_start,
 	_next        => $next_index_start,
@@ -692,7 +699,9 @@ sub _initialize {
 		_count                                  => $count_start,
 		_most_recent_program_name               => '',
 		_delete_from_flow_button                => '',
+		_delete_whole_flow_button                => '',
 		_delete_from_flow_button_click_seq_href => '',
+		_delete_whole_flow_button_click_seq_href => '',		
 		_destination_index                      => '',
 		_dialog_type                            => '',
 		_FileDialog_type                        => '',
@@ -752,6 +761,7 @@ sub _initialize {
 		_is_add2flow_button                     => $false,
 		_is_check_code_button                   => $false,
 		_is_delete_from_flow_button             => $false,
+		_is_delete_whole_flow_button             => $false,
 		_is_flow_item_down_arrow_button         => $false,
 		_is_flow_item_up_arrow_button           => $false,
 		_is_flow_listbox_grey_w                 => $false,
@@ -849,6 +859,7 @@ sub _initialize {
 		_superflow_select                       => '',
 		_superflow_select_button_click_seq_href => '',
 		_superflow_tool_href                    => '',
+		_vacant_listbox_aref                  => '',                              #  new
 		_values_aref                            => \@empty_array,
 		_values_frame_href                      => '',
 		_values_w_aref                          => '',
@@ -897,7 +908,7 @@ sub _reset {
 		( $gui_history->get_defaults() )->{_is_delete_from_flow_button} = $false;
 		( $gui_history->get_defaults() )->{_is_new_listbox_selection}   = $false;
 		( $gui_history->get_defaults() )->{_is_superflow_select_button} = $false;
-		( $gui_history->get_defaults() )->{_is_delete_from_flow_button} = $false;
+		( $gui_history->get_defaults() )->{_is_delete_whole_flow_button} = $false;
 		( $gui_history->get_defaults() )->{_is_moveNdrop_in_flow}       = $false;
 		( $gui_history->get_defaults() )->{_is_sunix_listbox}           = $false;
 		
@@ -1104,6 +1115,34 @@ sub _update_button {
 
 			# print("gui_history, _update_button, button matched = $new_most_recent_button\n");
 			return ();
+			
+		} elsif ( $new_most_recent_button eq 'delete_whole_flow_button' ) {
+
+			( $gui_history->get_defaults() )->{_is_delete_whole_flow_button} = $true;
+
+			_set_click_sequence(
+				$gui_history,
+				$delete_whole_flow_button_click_seq_href
+			);
+
+			# update the history of delete_whole_flow_button use according  to click count
+			( $gui_history->get_defaults )->{_delete_whole_flow_button_click_seq_href}
+				= $delete_whole_flow_button_click_seq_href;
+
+			_reset( $gui_history, 'listbox_color_w' );
+
+			# find out the latest color
+			# assume that flow select color is the latest color
+			my $color = _get_most_recent_color_selected_in_gui($gui_history);
+
+			my $key1 = '_is_flow_listbox_' . $color . '_w';
+
+			( $gui_history->get_defaults() )->{$key1} = $true;
+			( $gui_history->get_defaults() )->{_is_flow_listbox_color_w} = $true;
+
+			# print("gui_history, _update_button, delete_whole_flow_button \n");
+			# print("gui_history, _update_button, button matched = $new_most_recent_button\n");
+			return ();
 
 		} elsif ( $new_most_recent_button eq 'flow_item_down_arrow_button' ) {
 
@@ -1288,7 +1327,7 @@ sub _update_button {
 			return ();
 
 		} else {
-			print("gui_history,_update_button, button unmatched NADA\n");
+			# print("gui_history,_update_button, button unmatched NADA\n");
 			return ();
 		}
 	} else {
@@ -1747,8 +1786,8 @@ sub _update_superflow_tool {
 	$superflow_tool_href->{_prior}       = $superflow_tool_href->{_most_recent};
 	$superflow_tool_href->{_most_recent} = $new_most_recent_tool;
 
-	( $gui_history->get_defaults )->{_superflow_tool_href} = $superflow_tool_href;
-
+#	( $gui_history->delete_whole_flow)->{_superflow_tool_href} = $superflow_tool_href;
+     ( $gui_history->get_defaults())->{_superflow_tool_href} = $superflow_tool_href;
 	# print("2. gui_history,updated superflow_tool :$new_most_recent_tool, new_prior_tool=$new_prior_tool\n");
 
 	return ();
@@ -2101,6 +2140,31 @@ sub view {
 					} else {
 						print $fh (
 							" ( (gui_history->get_defaults() )->{_delete_from_flow_button_click_seq_href})->{$sub2_key}: $sub2_key=  nada\n"
+						);
+
+						# print(" gui_history-, view, ans is not available \n");
+					}
+				}
+			}
+			
+			if ( ( $gui_history->get_defaults() )->{_delete_whole_flow_button_click_seq_href} ) {
+
+				# print additional subsets: delete_whole_flow_button
+				$key_hash_ref = ( $gui_history->get_defaults() )->{_delete_whole_flow_button_click_seq_href};
+
+				# print("gui_history, view, key_hash_ref = $key_hash_ref \n");
+				foreach my $sub2_key ( sort keys %{$key_hash_ref} ) {
+
+					my $ans = $key_hash_ref->{$sub2_key};
+					if ( defined $ans and $ans ne $empty_string ) {
+
+						# print(" 4. key_hash_ref->{$sub2_key}: $sub2_key= $ans\n");
+						print $fh (
+							" ( (gui_history->get_defaults() )->{_delete_whole_flow_button_click_seq_href})->{$sub2_key}: $sub2_key= $ans\n"
+						);
+					} else {
+						print $fh (
+							" ( (gui_history->get_defaults() )->{_delete_whole_flow_button_click_seq_href})->{$sub2_key}: $sub2_key=  nada\n"
 						);
 
 						# print(" gui_history-, view, ans is not available \n");

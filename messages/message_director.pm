@@ -3,6 +3,7 @@ package message_director;
 use Moose;
 use FileDialog_button_messages;
 use FileDialog_close_messages;
+use color_listbox_messages;
 use save_button_messages;
 use flows_messages;
 use immodpg_messages;
@@ -22,6 +23,7 @@ my $null              = new null_messages;
 my $project_selector  = new project_selector_messages;
 my $iPick             = new iPick_messages;
 my $immodpg			  = new immodpg_messages;
+my $color_listbox		  = new color_listbox_messages;
 
 =head1 DOCUMENTATION
 
@@ -105,6 +107,15 @@ sub FileDialog_close {
     return ($message);
 }
 
+sub color_listbox {
+    my ($self, $number ) = @_;
+
+    my $message_ref = $color_listbox->get();
+    my $message     = @$message_ref[$number];
+#    print("message_director,color_listbox,message =$message\n");
+    
+    return ($message);
+}
 
 sub immodpg {
     my ( $self, $number ) = @_;

@@ -75,6 +75,7 @@ my $decisions = {
 	_has_used_Save_superflow               => $false,
 	_has_used_open_perl_file_button        => $false,
 	_is_delete_from_flow_button            => $false,
+	_is_delete_whole_flow_button            => $false,	
 	_is_flow_listbox_grey_w                => $false,
 	_is_flow_listbox_pink_w                => $false,
 	_is_flow_listbox_green_w               => $false,
@@ -116,6 +117,7 @@ sub reset {
 		_has_used_Save_superflow               => $false,
 		_has_used_open_perl_file_button        => $false,
 		_is_delete_from_flow_button            => $false,
+		_is_delete_whole_flow_button            => $false,		
 		_is_flow_listbox_grey_w                => $false,
 		_is_flow_listbox_pink_w                => $false,
 		_is_flow_listbox_green_w               => $false,
@@ -158,6 +160,7 @@ sub _reset {
 		_has_used_Save_superflow               => $false,
 		_has_used_open_perl_file_button        => $false,
 		_is_delete_from_flow_button            => $false,
+		_is_delete_whole_flow_button            => $false,	
 		_is_flow_listbox_grey_w                => $false,
 		_is_flow_listbox_pink_w                => $false,
 		_is_flow_listbox_green_w               => $false,
@@ -185,27 +188,6 @@ sub _reset {
 
 }
 
-#=head2 sub get4_FileDialog_button
-#
-#
-#=cut
-#
-#sub get4FileDialog_button{
-#	my ($self,$hash_ref) = @_;
-#	#_reset();
-#
-#	if( $decisions->{_is_flow_listbox_grey_w} 	&&
-#		$decisions->{_is_flow_listbox_green_w} 	&&
-#		$decisions->{_is_open_file_button} ) {
-#
-#    	return($true);
-#
-#	} else {
-#
-#    	return($false);
-#
-#	}
-#}
 
 =head2 sub get4_FileDialog_select
 
@@ -432,6 +414,37 @@ sub get4delete_from_flow_button {
 		return ($false);
 	}
 }
+
+=head2 sub get4delete_whole_flow_button
+
+=cut
+
+sub get4delete_whole_flow_button {
+	my ($self) = @_;
+	my @state;
+
+	$state[1] = $decisions->{_is_flow_listbox_grey_w};
+	$state[2] = $decisions->{_is_flow_listbox_pink_w};
+	$state[3] = $decisions->{_is_flow_listbox_green_w};
+	$state[4] = $decisions->{_is_flow_listbox_blue_w};
+	$state[5] = $decisions->{_is_flow_listbox_color_w};
+	$state[6] = $decisions->{_is_delete_whole_flow_button};
+
+	if ( ( $state[1] || $state[2] || $state[3] || $state[4] || $state[5] )
+		&& $state[6] )
+	{
+		# print(" decisions,get4delete_whole_flow_button, state is $true\n");
+		return ($true);
+	}
+	else {
+		print(" decisions,get4delete_whole_flow_button, state is $false\n");
+		print(" decisions,get4delete_whole_flow_button, \n
+		state[1]=$state[1],state[2]=$state[2],state[3]=$state[3]],state[4]=$state[4]\n
+		],state[5]=$state[5],state[6]=$state[6]\n");
+		return ($false);
+	}
+}
+
 
 =head2 sub get4help
 
@@ -661,6 +674,30 @@ sub set4delete_from_flow_button {
 		$hash_ref->{_is_flow_listbox_color_w};
 	$decisions->{_is_delete_from_flow_button} =
 		$hash_ref->{_is_delete_from_flow_button};
+
+	return ();
+}
+
+=head2 sub set4delete_whole_flow_button
+
+=cut
+
+sub set4delete_whole_flow_button {
+	my ( $self, $hash_ref ) = @_;
+	_reset();
+
+	$decisions->{_is_flow_listbox_grey_w} =
+		$hash_ref->{_is_flow_listbox_grey_w};
+	$decisions->{_is_flow_listbox_pink_w} =
+		$hash_ref->{_is_flow_listbox_pink_w};
+	$decisions->{_is_flow_listbox_green_w} =
+		$hash_ref->{_is_flow_listbox_green_w};
+	$decisions->{_is_flow_listbox_blue_w} =
+		$hash_ref->{_is_flow_listbox_blue_w};
+	$decisions->{_is_flow_listbox_color_w} =
+		$hash_ref->{_is_flow_listbox_color_w};
+	$decisions->{_is_delete_whole_flow_button} =
+		$hash_ref->{_is_delete_whole_flow_button};
 
 	return ();
 }

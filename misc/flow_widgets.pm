@@ -52,8 +52,6 @@ my $empty_string = $var->{_empty_string};
 
 my $flow_widgets = {
 	_current_get_flow_selection_index => '',
-	_chosen_index2drag                => '',
-	_drop_complete                    => '',
 	_first_index                      => '',
 	_first_item                       => '',
 	_flow_listbox_wref                => '',
@@ -62,15 +60,39 @@ my $flow_widgets = {
 	_labels_aref                      => '',
 	_labels_w_aref                    => '',
 	_last_index                       => '',
-	_leave_dropsite                   => -1,
 	_last_item                        => '',
 	_num_items                        => '',
-	_target_index2drop                => '',
 	_all_items_aref                   => '',
 };
 
 my $true  = 1;
 my $false = 0;
+
+=head2 p sub _reset
+
+	16
+
+=cut
+
+ sub _reset {
+ 	
+ 	my ($self) = @_;
+ 	
+	$flow_widgets->{_current_get_flow_selection_index} =  ''; 
+	$flow_widgets->{_first_index} =  ''; 
+	$flow_widgets->{_first_item } =  ''; 
+	$flow_widgets->{_flow_listbox_wref} =  ''; 
+	$flow_widgets->{_index} =  ''; 
+	$flow_widgets->{_index2delete} =  ''; 
+	$flow_widgets->{_labels_aref} =  ''; 
+	$flow_widgets->{_labels_w_aref} =  ''; 
+	$flow_widgets->{_last_index} =  ''; 
+	$flow_widgets->{_last_item} =  ''; 
+	$flow_widgets->{_num_items} =  ''; 
+	$flow_widgets->{_all_items_aref} =  ''; 
+	
+	return();
+};
 
 =head2 sub clear
 
@@ -84,23 +106,24 @@ sub clear {
 	my ( $self, $flow_listbox_w ) = @_;
 
 	if ($flow_listbox_w) {
+		
+		my $first_index  = 0;	
+		$flow_listbox_w->delete( $first_index, 'end');
+	  _reset();
 
-		$flow_listbox_w->delete( 0, 'end' );
-
-	}
-	else {
+	} else {
 		print("2. flow_widgets, clear, missing flow_listbox_w\n");
 	}
 	return ();
 }
 
-=head2 sub clear_flow_items 
+=head2 sub clear_flow_item 
 
  empty flow item hash
 
 =cut
 
-sub clear_flow_items {
+sub clear_flow_item {
 
 	my ( $self, $flow_listbox_w ) = @_;
 
@@ -122,7 +145,8 @@ sub clear_flow_items {
 			my $first_item     = $flow_listbox->get($first_index);
 			my $last_index     = $num_items - 1;
 			my $all_items_aref = $flow_listbox->get( $first_index, 'end' );
-			$flow_listbox_w->delete( $first_item, $last_item );
+			
+			$flow_listbox_w->delete( $first_index, $last_index );
 			$flow_widgets->{_all_items_aref} = $all_items_aref;
 			$flow_widgets->{_last_index}     = $last_index;
 			$flow_widgets->{_first_item}     = $first_item;
@@ -133,13 +157,12 @@ sub clear_flow_items {
 
 			return ();
 
-		}
-		else {
+		} else {
+
 			# print ("flow_widgets,clear_flow_items, $num_items is unexpected--NADA\n");
 			return ();
 		}
-	}
-	else {
+	} else {
 		print("flow_widgets,clear_flow_items, missing flow_listbox_w\n");
 		return ();
 	}
@@ -157,10 +180,12 @@ sub clear_items_versions_aref {
 	my ( $length, $clear_items_versions_aref );
 	my (@items_aref);
 
+	# print("flow_widgets,clear_items_versions_aref,flow_widgets->{_all_items_aref} }= @{ $flow_widgets->{_all_items_aref} }\n");
+
 	@items_aref = @{ $flow_widgets->{_all_items_aref} };
 	$length     = $flow_widgets->{_last_index} + 1;
 
-	# print("flow_widgets,clear_items_versions_aref,length is  $length\n");
+
 	# initialize an array of zeroes
 	for ( my $i = 0; $i < $length; $i++ ) {
 
@@ -196,29 +221,22 @@ sub clear_items_versions_aref {
 	return ( \@version );
 }
 
-=head2
-
-   silly limits because of weird drag and drop behavior
-   counter can increase ( impleis deleting) but can not
-   decrease .. imy arbitrary limit
-
-=cut
-
-sub dec_vigil_on_delete_counter {
-	my ( $self, $value ) = @_;
-	my $new_counter = $flow_widgets->{_leave_dropsite} - $value;
-	$flow_widgets->{_leave_dropsite} = $new_counter;
-
-	# print("flow_widgets, dec_vigil_on_delete_counter, count=$flow_widgets->{_leave_dropsite}\n");
-	return ();
-}
-
-=head2 sub delete_selection
-
- delete one selected item
- from the listbox
-
-=cut
+#=head2
+#
+#   silly limits because of weird drag and drop behavior
+#   counter can increase ( impleis deleting) but can not
+#   decrease .. imy arbitrary limit
+#
+#=cut
+#
+#sub dec_vigil_on_delete_counter {
+#	my ( $self, $value ) = @_;
+#	my $new_counter = $flow_widgets->{_leave_dropsite} - $value;
+#	$flow_widgets->{_leave_dropsite} = $new_counter;
+#
+#	# print("flow_widgets, dec_vigil_on_delete_counter, count=$flow_widgets->{_leave_dropsite}\n");
+#	return ();
+#}
 
 sub delete_selection {
 	my ( $self, $flow_listbox_w ) = @_;
@@ -260,7 +278,7 @@ sub delete_selection {
 			$flow_widgets->{_last_item}  = 'nu';
 			$flow_widgets->{_num_items}  = $flow_widgets->{_num_items} - 1;     #=0
 			$flow_widgets->{_last_index} = $flow_widgets->{_last_index} - 1;    #=-1
-																				# print("2. flow_widgets, delete_selection, deleted index: is $index2delete..\n");
+				# print("2. flow_widgets, delete_selection, deleted index: is $index2delete..\n");
 		}
 	}
 
@@ -274,241 +292,6 @@ sub destination_index {
 	my $destination_index = $flow_widgets->{_chosen_index2drop};
 	return ($destination_index);
 }
-#
-#=head2 sub drag_end
-#
-#			my $pointery = $site->pointery;
-#    		print("drag_end, y coordinate of arrow in screen coords $pointery\n");
-#            my $y_origin  =$site->rooty; 
-#    	    print("drag_end, y coordinate of Top_left listbox corner in screen coords $y_origin\n");
-#            # y coordinate of drop pointer with respect to root window 
-#            # origins are top left. x, y increase L-R and Top-Down
-#            # $site->pointerx arrow X in screen coords 
-#            # $site->pointery arrow  Y in screen coords 
-#            # 
-#            # site->rooty  is listbox origin Y in screen coords 
-#            # site->rootx is listbox origin X in screen coords 
-#            
-#
-#    		print("drag_end,dndtoken $token\n"); is a HASH Tk::DragDrop
-#=cut
-#
-#sub drag_end {
-#	my ( $self, $token ) = @_;
-#	my ( $xmin_destination_box,  $xmax_destination_box );
-#	my ( $ymin_destination_box,  $ymax_destination_box );
-#	my ( $min_y_listbox_inuse,   $max_y_listbox_inuse );
-#	my ( $final_insertion_point, $done );
-#	$done = 0;
-#
-#	my $site     = $token->parent;
-#	my $number   = $site->size;
-#	my $last_idx = $number;
-#
-#	# we sometimes work with one index less
-#	# while the mobile item is disconnected from list
-#	print("flow_widgets, drag_end last index $last_idx\n");
-#
-#	# print("drag_end,dndtoken parent is the listbox $site\n");
-#	my $text   = $token->cget('-text');
-#	my $yarrow = $site->pointery - $site->rooty;
-#	my $xarrow = $site->pointerx - $site->rootx;
-#
-#	my $nearest = ( $site->nearest($yarrow) );    # works ok
-#												  # print("1 flow_widgets, drag_end, nearest index is $nearest\n");
-#												  # print("1 flow_widgets, drag_end, x and y of arrow wrt listbox $xarrow $yarrow\n");
-#
-#	if ( $nearest < 0 ) {
-#		$site->insert( 0, $text );
-#		$flow_widgets->{_chosen_index2drop} = 0;
-#		print("2. flow_widgets, drag_end, insertion index is 0\n");
-#	}
-#	elsif ( $nearest >= 0 ) {
-#		my @xy          = $site->bbox($nearest);    #coordinates of nearest list item  box
-#		my $min_x_item  = $xy[0];
-#		my $min_y_item  = $xy[1];
-#		my $width_item  = $xy[2];
-#		my $height_item = $xy[3];
-#
-#		$xmin_destination_box = $min_x_item;
-#		$xmax_destination_box = $min_x_item + $width_item;
-#		$ymin_destination_box = $min_y_item;
-#		$ymax_destination_box = $min_y_item + $height_item;
-#
-#		$min_y_listbox_inuse = $min_y_item;                                                                  # $xy[0] = 3
-#		$max_y_listbox_inuse = $last_idx * ( $height_item + $min_y_listbox_inuse ) + $min_y_listbox_inuse;
-#
-#		print(" 3 flow_widgets, drag_end, destination item's x,y dx, dy in lb coords\n");
-#		print(" 4 Destination box xy values in lb coords xy[0]:$xy[0], xy[1]:$xy[1], xy[2]:$xy[2], xy[3]:$xy[3]  \n");
-#		print(" 5 Destination lbox L-R boundaries, lb coord xmin: $xmin_destination_box xmax: $xmax_destination_box \n");
-#		print(" 6 Top-Bot boundaries destination box        ymin:$ymin_destination_box ymax:$ymax_destination_box \n");
-#		print(" 7 YMin YMax box area of lb in use: $min_y_listbox_inuse, $max_y_listbox_inuse \n");
-#
-#		# ARROW Lies between Top and Bott boundaries of listbox
-#		#        if (($yarrow >= $min_y_listbox_inuse )  &&
-#		#             $yarrow <= $max_y_listbox_inuse ) {
-#		#             print("8 within Top_Bot boundaries in lb coord$min_y_listbox_inuse $max_y_listbox_inuse\n");
-#		#             $site->insert( $nearest, $text );
-#
-#		if ( ( $yarrow > $min_y_listbox_inuse )
-#			&& $yarrow < $max_y_listbox_inuse )
-#		{
-#			print("8. within Top_Bot boundaries in lb coord: $min_y_listbox_inuse $max_y_listbox_inuse\n");
-#			$site->insert( $nearest, $text );
-#
-#			if ( $nearest < 0 ) {    # CASE 0
-#
-#				$final_insertion_point = 0;
-#				$flow_widgets->{_chosen_index2drop} = $final_insertion_point;
-#				print("9.flow_widgets  Drop, insertion index is $flow_widgets->{_chosen_index2drop}\n");
-#
-#			}
-#			elsif ( $nearest == 0 ) {    # CASE 1
-#
-#				my $final_insertion_point = $nearest;
-#				$flow_widgets->{_chosen_index2drop} = $final_insertion_point;
-#				print("10 flow_widgets  Drop, insertion index is $flow_widgets->{_chosen_index2drop}\n");
-#
-#			}
-#			elsif ( $nearest > 0 && ( $nearest < $last_idx ) ) {    # CASE 2
-#
-#				my $final_insertion_point = $nearest;
-#				$flow_widgets->{_chosen_index2drop} = $final_insertion_point;
-#				print("11.flow_widgets  Drop, insertion index is $flow_widgets->{_chosen_index2drop}\n");
-#
-#			}
-#			elsif ( $nearest >= $last_idx ) {                       # CASE 3
-#
-#				$site->insert( 'end', $text );
-#				my $final_insertion_point = $nearest;
-#				$flow_widgets->{_chosen_index2drop} = $final_insertion_point;
-#				print("12.flow_widgets  Drop, insertion index is $flow_widgets->{_chosen_index2drop}\n");
-#
-#			}
-#			else {
-#				print("12A flow_widgets drag_end missing index\n");
-#			}
-#
-#			# CASE 4 -5 Lies outside Top or Bottom boundaries of listbox  ?
-#		}
-#		elsif ( $yarrow >= $max_y_listbox_inuse ) {    # CASE4
-#
-#			$final_insertion_point = $last_idx;
-#			$site->insert( 'end', $text );
-#			$flow_widgets->{_chosen_index2drop} = $final_insertion_point;
-#			print("13.flow_widgets  Drop, insertion index is $flow_widgets->{_chosen_index2drop}\n");
-#
-#		}
-#		elsif ( $yarrow <= $min_y_listbox_inuse ) {
-#
-#			$site->insert( 0, $text );
-#			$flow_widgets->{_chosen_index2drop} = 0;
-#			print("14. Drop, insertion index is 0\n");
-#		}
-#		else {
-#			print("12A flow_widgets drag_end:lost in space\n");
-#		}    # CASES  4-5 nearest is still >= 0
-#	}
-#	else {
-#		print("12A flow_widgets drag_end: impossible index \n");
-#	}    # nearest is still >= 0
-#
-#	$flow_widgets->{_drop_complete} = 1;
-#	$done = $flow_widgets->{_chosen_index2drop};
-#
-#	# print(" 15. flow_widgets drop, done is $done\n");
-#	# print("16.flow_widgets  Drop, insertion index is $flow_widgets->{_chosen_index2drop}\n");
-#	return ($done);
-#}
-#
-#=head2
-#
-#	site is listbox
-#	token is listbox drag and drop item
-#
-#=cut
-#
-#sub drag_start {
-#	my ( $self, $token ) = @_;
-#	my $site         = $token->parent;
-#	my $e            = $site->XEvent;
-#	my $idx          = $site->index( '@' . $e->x . ',' . $e->y );    # arrow start location just B4 drag
-#	my @chosen_index = $site->curselection;
-#	$flow_widgets->{_chosen_index2drag} = $chosen_index[0];
-#
-#	# print("flow_widgets, drag_start, chosen index is $flow_widgets->{_chosen_index2drag}\n");
-#	my $text  = $site->get( $chosen_index[0] );
-#	my $text2 = $site->get($idx);
-#
-#	if ( $idx != $chosen_index[0] ) {
-#
-#		# print("\n\nERROR:\n");
-#		# print("flow_widgets drag_start The chosen text to drag is $text\n");
-#		# print("flow_widgets drag_start but the chosen text to drag is also $text2\n");
-#		$idx = $chosen_index[0];
-#
-#		# print("flow_widget,drag_start, changing chosen index internally to $idx\n");
-#	}
-#
-#	if ( $idx >= 0 ) {
-#
-#		# print("flow_widgets,drag_start idx is $idx\n");
-#		$token->configure(
-#			-text       => $site->get($idx),
-#			-background => 'white',
-#
-#			#-borderwidth=> $var->{_no_borderwidth},
-#			-padx => 10
-#		);
-#		$site->delete($idx);
-#		my ( $X, $Y ) = ( $e->X, $e->Y );
-#		$token->MoveToplevelWindow( $X, $Y );
-#		$token->raise;
-#		$token->deiconify;
-#		$token->FindSite( $X, $Y, $e );
-#	}
-#
-#}
-#
-#sub drop_complete {
-#	my ($self) = @_;
-#
-#	# print("flow_widgets, drop_complete (=0)\n");
-#	return ( $flow_widgets->{_drop_complete} );
-#}
-#
-#=head2  sub get_drag_deleted_index 
-#
-#	input is widget
-#	output is scalar
-#
-#=cut
-#
-#sub get_drag_deleted_index {
-#
-#	my ( $self, $flow_listbox_grey_w_w ) = @_;
-#	my $num_items;
-#	my $check;
-#	my $this;
-#
-#	$num_items = local_get_num_items($flow_listbox_grey_w_w);
-#	$check     = local_get_vigil_on_delete();
-#
-#	#				 print("1. flow_widgets, get_drag_deleted_index, check=$check \n");
-#	# print("2. flow_widgets, get_drag_deleted_index, num_items =$num_items \n");
-#
-#	if ( $num_items >= 1 ) {    # not allowed for less
-#								#if( $check >-1  && $check <= 3 ) {
-#								# print("3. flow_widgets, get_drag_deleted_index, check=$check \n");
-#		$this = local_get_chosen_index2drag();
-#
-#		# print("4 flow_widgets, get_drag_deleted_index, =$this \n");
-#		local_set_vigil_on_delete();
-#		return ($this);
-#
-#		#}
-#	}
-#}
 
 =head2 sub get_index2delete
 
@@ -547,14 +330,12 @@ sub get_current_program {
 			# print("1. flow_widgets  get_current_program program name is $prog_name\n");
 			return ( \$prog_name );
 
-		}
-		else {
+		} else {
 			print("flow_widgets,get_current_program, unexpected selection index:@selection_index \n");
 			return ();
 		}
 
-	}
-	else {    # no item selected or no items exist
+	} else {    # no item selected or no items exist
 
 		# make sure that the first flow item exists,
 		# (TODO) and that you have not changed color
@@ -569,8 +350,8 @@ sub get_current_program {
 			my $result       = $program_name;
 			return ( \$result );
 
-		}
-		else {
+		} else {
+
 			# print("flow_widgets,get_current_program, unexpected num_items=$flow_num_items\n");
 
 			# print("flow_widgets,get_current_program, Perhaps null selection index\n");
@@ -611,14 +392,14 @@ sub get_flow_selection {
 
 			return ($current_selected_index);
 
-		}
-		else {
+		} else {
+
 			# print("flow_widgets,get_flow_selection,selection_index is missing, need to select an item again NADA\n");
 			return ();
 		}
 
-	}
-	else {
+	} else {
+
 		# print("flow_widgets,get_flow_selection, missing flow_listbox widget returns -1\n");
 		my $result = -1;
 		return ($result);
@@ -645,8 +426,7 @@ sub get_num_indices {
 		# print("2. flow_widgets,get_num_indices,num_indices=$num_indices\n");
 		return ($num_indices);
 
-	}
-	else {
+	} else {
 		print("2. flow_widgets,get_num_indices,missing flow_listbox_w\n");
 		return ();
 	}
@@ -671,8 +451,7 @@ sub get_num_items {
 		# print("2. flow_widgets,get_num_items,num_items=$num_items\n");
 		return ($num_items);
 
-	}
-	else {
+	} else {
 		print("2. flow_widgets,get_num_items,missing flow_listbox_w\n");
 		return ();
 	}

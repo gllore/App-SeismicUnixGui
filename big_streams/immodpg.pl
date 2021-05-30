@@ -2157,8 +2157,6 @@ $Vlayer_frame->grid(
 	-sticky     => 'nsew',
 );
 
-# $immodpg->set_widgets($immodpg_Tk);
-
 MainLoop;    # for Tk widgets
 
 sub _delay {

@@ -45,6 +45,19 @@ my $alias_superflow_spec_names_h = {
 	temp              => 'temp',                # make last
 };
 
+=head2 
+
+  hash that assigns numbers to each color
+  
+=cut
+
+my $number_from_color =  {
+	_grey => 0,
+	_pink => 1,
+	_green => 2,
+	_blue   => 3,
+}; 
+
 #print("my constants, alias for fk: $alias_h->{fk}\n");
 
 my $superflow_names_h = {
@@ -279,6 +292,7 @@ my $var = {
 	_my_light_grey                 => 'LightGrey',
 	_my_pink                       => 'pink',
 	_my_light_blue                 => 'LightBlue',
+	_my_dialog_box_geometry  => '400x250+400+400',
 	_no_pixel                      => '0',
 	_no_borderwidth                => '0',
 	_nu                            => 'nu',
@@ -661,6 +675,13 @@ sub flow_type_aref {
 sub flow_type_href {
 
 	return ($flow_type_h);
+}
+
+sub number_from_color_href {
+	
+	my ($self) = @_;
+	return($number_from_color);
+	
 }
 
 sub alias_superflow_config_names_aref {

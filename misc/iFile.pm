@@ -219,7 +219,7 @@ sub get_SaveAs_path {
  
  pre-built user flows in the general case
  
- TODO sepearate the determination of data paths for user-built flows 
+ TODO: sepearate the determination of data paths for user-built flows 
  and pre-built flows
  
 =cut
@@ -233,14 +233,9 @@ sub get_Data_path {
 	my $entry_label = $iFile->{_entry_button_label};
 	my $dialog_type = $iFile->{_dialog_type};
 
-	# print("iFile,get_path,parameter label or name = $entry_label\n");
-
-	# print("iFile, Data_File,get_Data_path,base_file_name  = $base_file_name\n");
-
-	my $suffix_type1 = @{ $iFile->{_values_aref} }[1];
-
-	print("iFile,get_path,suffix_type = $suffix_type1\n");
-	# print("iFile,get_Data_path,flow_type =$iFile->{_flow_type}\n");
+#	print("iFile, get_path, parameter label or name = $entry_label\n");
+#	print("iFile, Data_File,get_Data_path, base_file_name  = $base_file_name\n");
+#	print("iFile,get_Data_path,flow_type =$iFile->{_flow_type}\n");
 
 	my $Project                   = new Project_config();
 	my $DATA_SEISMIC_BIN          = $Project->DATA_SEISMIC_BIN();
@@ -254,13 +249,12 @@ sub get_Data_path {
 
 	if ( $iFile->{_flow_type} eq $flow_type_href->{_user_built} ) {
 
-		# CASE 1 user-built flows
-		# print("CASE 1 iFile,get_path,flow_type = $iFile->{_flow_type}\n");
-
 		if ( $entry_label eq $base_file_name ) {
-
-			# FOR A VERY SPECIFIC CASE
+		
+			# CASE 1 user-built flows
 			# CASE 1A first label/name is base_file_name
+			# print("CASE 1 iFile,get_path,flow_type = $iFile->{_flow_type}\n");
+			# FOR A VERY SPECIFIC CASE (TODO: move all cases to the _spec files)
 
 			my $suffix_type = @{ $iFile->{_values_aref} }[1];
 			# print("CASE 1 iFile,get_path,suffix_type = $suffix_type\n");
@@ -273,7 +267,6 @@ sub get_Data_path {
 				# print("iFile,get_path,entry_button_label= $entry_label\n");
 				# print("CASE 1A.1 iFile,get_Data_path=$DATA_SEISMIC_SU\n");
 				$iFile->{_path} = $DATA_SEISMIC_SU;
-
 
 			} elsif ( $suffix_type eq 'segy'
 				or $suffix_type eq "'segy'"
@@ -373,20 +366,21 @@ sub get_Data_path {
 
 			$iFile->{_path} = _get_DATA_DIR_IN;
 
-			# print("CASE 1B.3 iFile,get_Data_path, DATA_DIR_IN= $iFile->{_path}\n");
+#			print("CASE 1B.3 iFile,get_Data_path, DATA_DIR_IN= $iFile->{_path}\n");
 
-		} elsif ( $entry_label eq $empty_string ) {    # unlikely
+		} elsif ( $entry_label eq $empty_string ) {    
+			# unlikely
 			# CASE 1B.4
 			print("CASE1B.4 1iFile,get_Data_path, entry_label is empty \n");
-			print("iFile,get_Data_path, PL_SEISMIC path chose \n");
+			print("iFile,get_Data_path, PL_SEISMIC is new chosen path \n");
 			$iFile->{_path} = $PL_SEISMIC;
 
 		} else {
 			# CASE 1B.5
 			$iFile->{_path} = $default_path;
 			print("CASE1B.5 iFile,get_Data_path, entry_label is empty \n");
+			
 			# print("iFile,get_path,path=$iFile->{_path}\n");
-
 			# print("iFile, get_Data_path, entry label is neither base_file_name (i.e. without suffix) nor fileX \n");
 		}
 
@@ -409,14 +403,14 @@ sub get_Data_path {
 			and $iFile->{_dialog_type} eq $file_dialog_type_h->{_Data_PL_SEISMIC} ) {
 
 			# case 2A.2
-			print("case 2A.2 iFile,get_Data_path, dialog_type=$iFile->{_dialog_type} \n");
+#			print("case 2A.2 iFile,get_Data_path, dialog_type=$iFile->{_dialog_type} \n");
 			$iFile->{_path} = $Data_PL_SEISMIC;
 
 		} elsif ( $entry_label eq $empty_string ) {
 
 			# CASE 2A.3
 			print("iFile,get_Data_path, entry_label is empty \n");
-			print("CASE 2A.3 File,get_Data_path, PL_SEISMIC path chosen \n");
+			print("CASE 2A.3 File,get_Data_path, new PL_SEISMIC path chosen \n");
 			$iFile->{_path} = $PL_SEISMIC;
 
 		} else {

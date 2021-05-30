@@ -68,6 +68,7 @@ my $Project = {
 	_DATA_GEOMAPS_TOPO            => '',
 	_GEOMAPS_IMAGES               => '',
 	_GEOMAPS_IMAGES_JPEG          => '',
+	_GEOMAPS_IMAGES_PNG          => '',
 	_GEOMAPS_IMAGES_TIF           => '',
 	_GEOMAPS_IMAGES_PS            => '',
 	_PROJECT_HOME                 => '',
@@ -126,6 +127,7 @@ my $Project = {
 	_PL_GEOMAPS                   => '',
 	_PL_RESISTIVITY_SURFACE => '',
 	_PL_WELL                      => '',
+	_PNG                         => '',
 	_RESISTIVITY_SURFACE          => '',
 	_R_GAMMA_WELL                 => '',
 	_R_RESISTIVITY_SURFACE        => '',
@@ -599,6 +601,9 @@ sub _system_dirs {
 	# JPEG IMAGE STORAGE DIRECTORY
 	my $JPEG = $IMAGES_SEISMIC . '/jpeg/' . $DATE_LINE_COMPONENT_STAGE_PROCESS . '/' . $subUser;
 
+	# PNG IMAGE STORAGE DIRECTORY
+	my $PNG = $IMAGES_SEISMIC . '/png/' . $DATE_LINE_COMPONENT_STAGE_PROCESS . '/' . $subUser;
+	
 	# ISOLA DIRECTORY
 	my $ISOLA = $SEISMIC . '/isola/' . $DATE_LINE_COMPONENT_STAGE_PROCESS . '/' . $subUser;
 
@@ -739,6 +744,10 @@ sub _system_dirs {
 	# GEOMAPS IMAGES DIRECTORY
 	my $GEOMAPS_IMAGES_JPEG
 		= $GEOMAPS . '/' . $DATE_LINE_COMPONENT_STAGE_PROCESS . '/images' . '/jpeg' . '/' . $subUser;
+		
+	# GEOMAPS IMAGES DIRECTORY
+	my $GEOMAPS_IMAGES_PNG
+		= $GEOMAPS . '/' . $DATE_LINE_COMPONENT_STAGE_PROCESS . '/images' . '/png' . '/' . $subUser;	
 
 	# GEOMAPS IMAGES DIRECTORY
 	my $GEOMAPS_IMAGES_TIF = $GEOMAPS . '/' . $DATE_LINE_COMPONENT_STAGE_PROCESS . '/images' . '/tif' . '/' . $subUser;
@@ -767,6 +776,7 @@ sub _system_dirs {
 	$Project->{_DATA_GEOMAPS_TOPO}   = $DATA_GEOMAPS_TOPO;
 	$Project->{_GEOMAPS_IMAGES}      = $GEOMAPS_IMAGES;
 	$Project->{_GEOMAPS_IMAGES_JPEG} = $GEOMAPS_IMAGES_JPEG;
+	$Project->{_GEOMAPS_IMAGES_PNG} = $GEOMAPS_IMAGES_PNG;	
 	$Project->{_GEOMAPS_IMAGES_TIF}  = $GEOMAPS_IMAGES_TIF;
 	$Project->{_GEOMAPS_IMAGES_PS}   = $GEOMAPS_IMAGES_PS;
 	$Project->{_DATA_GEOMAPS_TEXT}   = $DATA_GEOMAPS_TEXT;
@@ -836,7 +846,8 @@ sub _system_dirs {
 
 	# print("Project_config,_system_dirs,PL_SEISMIC = $PL_SEISMIC\n");
 	$Project->{_PL_GEOMAPS}            = $PL_GEOMAPS;
-	$Project->{_PL_WELL}               = $PL_WELL;
+	$Project->{_PL_WELL}               		= $PL_WELL;
+	$Project->{_PNG}                      		= $PNG;
 	$Project->{_RESISTIVITY_SURFACE}   = $RESISTIVITY_SURFACE;
 	$Project->{_R_GAMMA_WELL}          = $R_GAMMA_WELL;
 	$Project->{_R_RESISTIVITY_SURFACE} = $R_RESISTIVITY_SURFACE;
@@ -945,6 +956,10 @@ sub system_dirs {
 	# JPEG IMAGE STORAGE DIRECTORY
 	my $JPEG         = $IMAGES_SEISMIC . '/jpeg/' . $DATE_LINE_COMPONENT_STAGE_PROCESS . '/' . $subUser;
 	my $JPEG_SEISMIC = $JPEG;
+
+	# PNG IMAGE STORAGE DIRECTORY
+	my $PNG         = $IMAGES_SEISMIC . '/png/' . $DATE_LINE_COMPONENT_STAGE_PROCESS . '/' . $subUser;
+	my $PNG_SEISMIC = $PNG;
 
 	# ISOLA DIRECTORY
 	my $ISOLA = $SEISMIC . '/isola/' . $DATE_LINE_COMPONENT_STAGE_PROCESS . '/' . $subUser;
@@ -1088,6 +1103,10 @@ sub system_dirs {
 	# GEOMAPS IMAGES DIRECTORY
 	my $GEOMAPS_IMAGES_JPEG
 		= $GEOMAPS . '/' . $DATE_LINE_COMPONENT_STAGE_PROCESS . '/images' . '/jpeg' . '/' . $subUser;
+		
+	# GEOMAPS IMAGES DIRECTORY
+	my $GEOMAPS_IMAGES_PNG
+		= $GEOMAPS . '/' . $DATE_LINE_COMPONENT_STAGE_PROCESS . '/images' . '/jpeg' . '/' . $subUser;
 
 	# GEOMAPS IMAGES DIRECTORY
 	my $GEOMAPS_IMAGES_TIF = $GEOMAPS . '/' . $DATE_LINE_COMPONENT_STAGE_PROCESS . '/images' . '/tif' . '/' . $subUser;
@@ -1116,6 +1135,7 @@ sub system_dirs {
 	$Project->{_DATA_GEOMAPS_TOPO}   = $DATA_GEOMAPS_TOPO;
 	$Project->{_GEOMAPS_IMAGES}      = $GEOMAPS_IMAGES;
 	$Project->{_GEOMAPS_IMAGES_JPEG} = $GEOMAPS_IMAGES_JPEG;
+	$Project->{_GEOMAPS_IMAGES_PNG} = $GEOMAPS_IMAGES_PNG;
 	$Project->{_GEOMAPS_IMAGES_TIF}  = $GEOMAPS_IMAGES_TIF;
 	$Project->{_GEOMAPS_IMAGES_PS}   = $GEOMAPS_IMAGES_PS;
 	$Project->{_DATA_GEOMAPS_TEXT}   = $DATA_GEOMAPS_TEXT;
@@ -1178,6 +1198,8 @@ sub system_dirs {
 	$Project->{_PL_SEISMIC}                   = $PL_SEISMIC;
 	$Project->{_PL_GEOMAPS}                   = $PL_GEOMAPS;
 	$Project->{_PL_WELL}                      = $PL_WELL;
+	$Project->{_PNG}                         		= $PNG;
+	$Project->{_PNG_SEISMIC}                 = $PNG_SEISMIC;	
 	$Project->{_RESISTIVITY_SURFACE}          = $RESISTIVITY_SURFACE;
 	$Project->{_R_GAMMA_WELL}                 = $R_GAMMA_WELL;
 	$Project->{_R_RESISTIVITY_SURFACE}        = $R_RESISTIVITY_SURFACE;
@@ -1347,6 +1369,14 @@ sub GEOMAPS_IMAGES_JPEG {
 
 	my $GEOMAPS_IMAGES_JPEG = $Project->{_GEOMAPS_IMAGES_JPEG};
 	return ($GEOMAPS_IMAGES_JPEG);
+}
+
+sub GEOMAPS_IMAGES_PNG {
+	_basic_dirs();
+	_system_dirs();
+
+	my $GEOMAPS_IMAGES_PNG = $Project->{_GEOMAPS_IMAGES_PNG};
+	return ($GEOMAPS_IMAGES_PNG);
 }
 
 sub GEOMAPS_IMAGES_TIF {
@@ -1734,6 +1764,21 @@ sub PL_WELL {
 	return ($PL_WELL);
 }
 
+sub PNG {
+	_basic_dirs();
+	_system_dirs();
+	my $PNG = $Project->{_PNG};
+	return ($PNG);
+}
+
+sub PNG_SEISMIC {
+	_basic_dirs();
+	_system_dirs();
+	my $PNG_SEISMIC = $Project->{_PNG_SEISMIC};
+	return ($PNG_SEISMIC);
+}
+
+
 sub RESISTIVITY_SURFACE {
 	_basic_dirs();
 	_system_dirs();
@@ -1866,8 +1911,9 @@ sub make_local_dirs {
 	# CATEGORY GEOMAPS images and data
 	my $DATA_GEOMAPS        = $Project->{_DATA_GEOMAPS};
 	my $GEOMAPS_IMAGES      = $Project->{_GEOMAPS_IMAGES};
-	my $GEOMAPS_IMAGES_JPEG = $Project->{_GEOMAPS_IMAGES_JPEG};
 	my $GEOMAPS_BIN         = $Project->{_GEOMAPS_BIN};
+	my $GEOMAPS_IMAGES_JPEG = $Project->{_GEOMAPS_IMAGES_JPEG};
+	my $GEOMAPS_IMAGES_PNG = $Project->{_GEOMAPS_IMAGES_PNG};
 	my $GEOMAPS_IMAGES_TIF  = $Project->{_GEOMAPS_IMAGES_TIF};
 	my $GEOMAPS_IMAGES_PS   = $Project->{_GEOMAPS_IMAGES_PS};
 	my $GEOPSY              = $Project->{_GEOPSY};
@@ -1910,6 +1956,7 @@ sub make_local_dirs {
 		manage_dirs_by::make_dir($DATA_GEOMAPS);
 		manage_dirs_by::make_dir($GEOMAPS_IMAGES);
 		manage_dirs_by::make_dir($GEOMAPS_IMAGES_JPEG);
+		manage_dirs_by::make_dir($GEOMAPS_IMAGES_PNG);	
 		manage_dirs_by::make_dir($GEOMAPS_IMAGES_PS);
 		manage_dirs_by::make_dir($DATA_GEOMAPS_TEXT);
 		manage_dirs_by::make_dir($PL_GEOMAPS);
@@ -1928,6 +1975,7 @@ sub make_local_dirs {
 	if ( $Project->{_grass_is_selected} ) {
 		manage_dirs_by::make_dir($GEOMAPS_IMAGES);
 		manage_dirs_by::make_dir($GEOMAPS_IMAGES_JPEG);
+		manage_dirs_by::make_dir($GEOMAPS_IMAGES_PNG);		
 		manage_dirs_by::make_dir($GEOMAPS_IMAGES_PS);
 		manage_dirs_by::make_dir($PL_GEOMAPS);
 	}
@@ -1979,12 +2027,14 @@ sub make_local_dirs {
 	my $PS_SEISMIC   = $Project->{_PS_SEISMIC};
 	my $GIF_SEISMIC  = $Project->{_GIF_SEISMIC};
 	my $JPEG_SEISMIC = $Project->{_JPEG_SEISMIC};
+	my $PNG_SEISMIC = $Project->{_PNG_SEISMIC};
 	my $PL_SEISMIC   = $Project->{_PL_SEISMIC};
 
 	# manage_dirs_by::make_dir($GIF_SEISMIC);
 
 	# Always create imag efiles
 	manage_dirs_by::make_dir($JPEG_SEISMIC);
+	manage_dirs_by::make_dir($PNG_SEISMIC);
 	manage_dirs_by::make_dir($PS_SEISMIC);
 
 	# manage_dirs_by::make_dir($TEMP_DATA_SEISMIC);
