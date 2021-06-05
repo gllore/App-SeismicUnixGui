@@ -1,0 +1,1 @@
+/home/gllore/demos/seismics/pl/shapeNcut//sumute///1.multi_gather_file_mute.pl
