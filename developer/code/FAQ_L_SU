@@ -379,8 +379,9 @@ Modify          misc/L_SU_global_constants
 Q. What happens when changes are made to individual parameters (Entry widget changes) 
 A.  Subroutine ("param_widgets, _changes") is called from the Entry widget when
 the user moves between entry widgets and the index value is detected.
-This index could be used to compare the current and past value of the parameter space. However, historical
-versions of the parameters would have to be stored, made possible via the param_flow package or param_widgets package.
+This index could be used to compare the current and past value of the parameter space. 
+However, historical versions of the parameters would have to be stored, 
+made possible via the param_flow package or param_widgets package.
 On the other hand it is simple if this index could be assumed to always represent a change and 
 to so to always confirm that "specs" files are not being violated.
 
@@ -538,7 +539,7 @@ Route 2: Indirectly, via bindings defined in spec files:
 	
 Superflow bindings use this subroutine exclusively
 
-binding,set calls this subroutine when the dialog type = Data and we are dealing with a superflow
+binding, set calls this subroutine when the dialog type = Data and we are dealing with a superflow
 
 How do we separate namespaces between pre-built superflow usage and user-built flows?
 Some dialog widgets are used exclusively for superflows ( superflow selection) 
@@ -721,7 +722,7 @@ Q. How does LSU_project_selector create new Project directories?
 				file for the new project
 				
 			In the two cases above: Both save_buton and run_buttons are activated from L_SU
-			This process mimics whatever can bedone by the user  manually from L_SU
+			This process mimics whatever can be done by the user  manually from L_SU
 				
 			# Instruction to create the new directories runs in system
 			# print("project_selector,_ok,create new Project and its directories \n");
@@ -755,7 +756,7 @@ Q. How does LSU_project_selector create new Project directories?
 	
 	Q. How are input parameters from GUI selected before writing to an output perl flow file?
 	 
-	A.  Not directly from the GUI, but actually from the namespace kept by param_flow_grey (example for grey listbox flows) 
+	A.  NOT directly from the GUI, but actually from the namespace kept by param_flow_grey (example for grey listbox flows) 
 
 	 By using get_good_labels_aref2 method as follows: $param_flow_color_i->get_good_labels_aref2
 
@@ -887,14 +888,34 @@ Q. How does LSU_project_selector create new Project directories?
     What do some of the private variables (hash keys) in spec_files mean?
     
     Note that if the GUI has  'data_in' as the first program in the flow list
-    it will be corrected and placed in the bash script into second position.
+    it will be corrected and placed in the bash script into second position
+    e.g. program < data_file instead of data_file > program
     The 'corrected' positions are the ones that are referred to 
     in the following:
     
-    	For use internally in the program, e.g., when 
-    	par-file parameters are bound to a specific direcory
-   		_DATA_DIR_IN		    input data directory 
+    	For use internally to program, e.g., when 
+    	par-file parameters are bound to a specific directory, such as 
+    	a binary file with parameters. This file does not get directed via stdin or stdout
+   		_DATA_DIR_IN		    input data directory , e.g., $DATA_SEISMIC_BIN for sufctanismod
 	 	_DATA_DIR_OUT		    output data directory 
+	 	
+	 	In some situations the key _DATA_DIR_IN can have two or more values within the same program
+	 	e.g. sufctanismod:
+	 	DATA_SEISMIC_BIN and DATA_SEISMIC_SU
+	 	For this cases the defaulted $prefix (in *_specs nodule) that is defined for that particualr index will override
+	 	We solve this by requiring that if a prefix for that index exists, it should be equatl to
+	 	the value for the key _DATA_DIR_IN and that if it is not the $prefix should be substituted
+	 	and that if there is no $prefix, a warning should be issued.
+	 	Otherwise,
+	 	_DATA_DIR_IN = $prefix value for the index
+	 	
+	 	These changes are considered when iFile (_get_DATA_DIR_IN) selects the opening directory
+	 	for File_Dialog,
+	 	 and  a second time, when the perl script  is being prepared to be written out: oop_prog_params
+	 	
+	 	L
+	 	See oop_
+	 	
 	 	
 	 	2 previous are used by
 	 	  			iFile,_get_DATA_DIR_IN
@@ -903,7 +924,7 @@ Q. How does LSU_project_selector create new Project directories?
 	 	_data_type_in			data type by suffix
 		_data_suffix_in			exact suffix used for files read by the program							
 		_data_type_out			data type by suffix 
-	 	_data_suffix_out		exact suffix used
+	 	_data_suffix_out		exact suffix used, e..g., '.su instead of only 'su'
 	 	
 	 	
 	 	: for stdin/stdout and when this program is assembled with others 
@@ -915,8 +936,8 @@ Q. How does LSU_project_selector create new Project directories?
 	 	_has_pipe_out           can another program follow?
 	 	_has_redirect_in		can input be a file?
 	 	_has_redirect_out		can output be a file?
-	 	_has_subin_in			is binary read in : for stdin/stdout
-	 	_has_subin_out			is binary output? : for stdin/stdout
+	 	_has_subin_in			  is binary read in via stdin?
+	 	_has_subin_out			is binary put out via stdout?
 	 	_is_data				is this program or a data entry program
 		_is_first_of_2			in the bash script  can this program be the first of two?
 								e.g., although sugain can be the first of three or more
@@ -955,7 +976,7 @@ Q. How does LSU_project_selector create new Project directories?
 	 	
 	 	
 9-28-18
-	What program sets the directory as a function of the data type (format type) being used? e.g.
+	What program sets the directory as a function of the data type (format type) being used? e.g.m
 	segy, text, su etc.:
 	iFile
 	
@@ -1058,7 +1079,7 @@ L_SU
 	
 10-1-2018
 
-	What is the sequence of programs for reading a user-build perl flow script file:
+	What is the sequence of programs for reading a user-built perl flow script file:
 	
 	e.g.,  grey_flow,
 			_perl_flow;
@@ -1080,10 +1101,13 @@ What does binding do?
 	    
 10-1-2018 
 	How does the GUI know which directory to open when MB3 is clicked?
+	Q. Where does binding take place for parameters of sunix programs within user-built flows
 	
-	 binding,set reads program_name_spec->binding_index_aref
+	 binding, set, reads program_name_spec->binding_index_aref
+	       
+      iFile defines what the directory is to search
 	 
-	 indices bound to the right mouse-button click are listed in program_name.spec->binding_index_aref
+	 indices bound to the right mouse-button click are listed in program_name_spec->binding_index_aref
 	 the input and output directores are defined in the hash 'variable'  which can be exported.
 	 
 	 Within each program_name_spec.pm file the following subroutines must be populated: 
@@ -1268,7 +1292,7 @@ Q. Q. How does a superflow run?:
 	 
 	 Main
 	  L_SU_sunix_bindings 
-	  	( e.g., for xk method=sunix_select, neutral=color, group=shell)	  	
+	  	( e.g., for xk, method=sunix_select, neutral=color, group=shell)	  	
 	  	
 	  	L_SU
 	  		user_built_flows
@@ -1330,8 +1354,7 @@ Q. Q. How does a superflow run?:
     		but removes them as unnecessary. (todo:readfiles,configs )
 
     
-    Q. How are configuration files written/saved?
-    In 3 different ways:
+    Q. For superflows, how are configuration files written/saved?
     
     A. For superflows, the sequence is:  
     	main; 
@@ -1345,7 +1368,8 @@ Q. Q. How does a superflow run?:
  			   			
  			   Outgoing variables  should not have ticks removed at the start and end of string sequences
  			   written to the configuration file
- 			   
+ 	
+ 	Q. For user-built flows, how are perl files written/saved?
     B. For user-built flows, the sequence is:
     	main; 
     		L_SU, save_button;
@@ -1356,8 +1380,11 @@ Q. Q. How does a superflow run?:
 		main; 
 			L_SU,save_button; 
 				color_flow,save_button; 
-					files_LSU, save; 
-						oop_text; 
+					files_LSU, save;
+						oop_text
+							oop_prog_params
+								color_flow
+									param_widgets (N.B., not param_widgets_color)							
 							use_pkg, section			
 		main; 
 			L_SU,save_button; 
@@ -1365,21 +1392,22 @@ Q. Q. How does a superflow run?:
 					files_LSU, save; 
 						oop_text; 
 							instantiation, set_prog_names_aref
+		
+		etc.
      	
-		However, if the outgoing variables are identified as strings,then new ticks will be added 
+		If the outgoing variables are identified as strings,then new ticks will be added 
 		so that when they are written out they will be in the proper Seismic Unix format 
     	These ticks are needed by quotemeta to format word sequences for Seismic Unix programs 
-    	todo: ???)
+    	TODO: revplace ticks and quotemeta by " ".
     		
     C. For pre-defined seismic unix program configuration files, e.g. suximage.pm
     	The default configuration file remains unaltered. 
     
-      
    Q.  differences between param_flow_grey param_flow_pink param_flow_green and param_flow_blue
    A. None except the words param_flow_color are replaced by the appropriate color: grey, pink, green, blue
    or neutral
    
-   Q. Are there differences between grey_flow, pink_flow, green_flow, and blue_blow?  Yes.... be careful
+   Q. Are there differences between grey_flow, pink_flow, green_flow, and blue_blow?  Yes .... color names
    Q What about neutral_flow?
    A. Yes, Very different to the rest but there are almost no changes to make when the colored flows are changed
    
@@ -1415,14 +1443,21 @@ Q. Q. How does a superflow run?:
   program to search
   prog_params will search for these prefixes (DIR PATh NAMES) are prefix them to the file names that are used.
   
-  when writing our oop perl flows
-  prog_params,_get_prefix_aref
-  is used to get prefix values externally (from a spec file) for the module
-  MUST first have used prefix_aref method (in the *_spec.pm file)to internally set prefixes
+  Writing out oop perl flows uses:
+  
+ oop_prog_params,_get_prefix_aref
+ 
+  is used to get prefix values externally (from a spec file) for the module.
+  To use the prefix values, the spec file must have 
+  
+  (1) _has_prefix = $true
+  (2) sub prefix_aref method/subroutine (in the *_spec.pm file) to set prefixes internally 
+ (3) sub get_prefix
   
   when Reading, sunix_pl filters out prefixes and suffixes to parameter values
   
-  In the case of segyread, a suffix should be attached to the file 
+  In the case of segyread, in the GUI a suffix should be attached to the tape|input file name.
+  e.g. 1000.sgy 
    
    Note on segy suffixes
    preference is given to convention .sgy (cf. .segy)
@@ -1855,10 +1890,8 @@ Modify the main program, i.e. immodpg.config.pm
     Use one type of dialog for each index
   
 	'Flow' will go to PL_SEISMIC by default
-	'Flow' creates a directory path on the parameter value in GUI (why -- TODO)
   
 	'Data' will go to seismic su data by default
-	'Data' does not create a directory path on the parameter value in GUI (why -- TODO)
   
 	'Path' searches for only a PATH
 	
@@ -2118,7 +2151,7 @@ Q. Where is flow_select_index_href updated when the following are used?
 	(1) add2flow_button
 	
 	On the first try, i.e., if there is nothing in the listbox:
-	The following also occurs after the first try as well
+	and also, after the first try:
 	
 		main
 			L_SU
@@ -2195,8 +2228,7 @@ not accessible via the PERL5LIB global variable or @INC array.
 Q. What are the different "flow types" used to bind MB3 clicks 
 when using the spec files:
 
-
-   {_Data}  	...	open pre-existing data file
+   {_Data}  	   ...	open pre-existing data file
    {_Flow} 		...	open pre-existing user-built flow
    {_SaveAs} 	...	save a new user-built flow
    {_Save} 	    ...	re-save a user-built flow 
@@ -2321,7 +2353,7 @@ when using the spec files:
 	 			files_LSU,
 	 			save
 	 			
-Q. How are superflow parameters selctged in the case of Project
+Q. How are superflow parameters selected in the case of Project
  For Project.config there is no local configuration file.  This superflow is
  handled by project_selector gui or by Project_config itself from within the main L_SU gui.
  
@@ -2381,5 +2413,167 @@ color_listbox
 	   and in in ~big_streams/SetProject.pl where we can see how some are implemented but others are
 	   not (Commented lines)
 	  
+	  Q. How do I add in a new sunix-based program into L_SU, e.g., a
+	  Seismic Unix program such as sufctanismod
+	  
+	  EXAMPLE 1
+	  1. Run ~ developer/sunix/sudoc2pm.pl
+	  
+	  As a result, three files will be generated:
+	  A. sufctanismod_spec.pm,
+	  B. sufctanismod.config and
+	  C. sufctanismod.pm,
+	  
+	  These three files are found in the same directory as their model
+	   program 
+	  e.g.~ developer/Stripped/model
+
+	  2. Modify each file as follows:
+	  
+	  A.  sufctanismod.config
+	  Make sure that only variables and their values that belong to the program appear in
+	  this file. You will have to carefully review the self-documents that correspond
+	  to this program, i.e. ~ developer/Stripped/model/sufctanismod.su.main.synthetics_waveforms_testpatterns
+
+	  B. sufctanismod.pm
+	  Make sure that you have one method/subroutine for each of the variables listed on one line each
+	  in 'sufctanismod.config'.  Because there are 61 such variables in this example, make the $max_index =
+	  (number of variables -1 ) = 60
+	  
+	  Near ~ L1824 ...
+	    my $max_index = 60;
+	    
+	   C. sufctanismod_spec.pm
+	  Although tis program is used in standalone fashion normally, for convenience, 
+	  I kept all the default settings that explain the behavior of this program for stdin and stdout.
 	   
-          
+	  
+	  3. Move each of the 3 files into their respective directories:
+	      
+	     A. Move sufctanismod.config to ~configs/model
+	     B. Move sufctanismod.pm to ~sunix/model
+	     C. Move sufctanismod_spec.pm to  ~specs/model
+
+	  
+	  4. Modify  the following perl modules:
+	  
+	   A.  ~misc/L_SU_global_constants.pm
+          ~ L. 442 
+           In alphabetical order, include the program name within the following list :
+  my @sunix_model_programs = ( "suplane", "susynlv", "unif2", "suea2df", "sufctanismod","sufdmod1", "sufdmod2" );
+  
+  EXAMPLE 2
+	  1. Run ~ developer/sunix/sudoc2pm.pl
+	  
+	  As a result, three files will be generated:
+	  A. vel2stiff_spec.pm,
+	  B. vel2stiff.config and
+	  C. vel2stiff.pm,
+	  
+	  These three files are found in the same directory as their model
+	   program 
+	  e.g.~ developer/Stripped/par
+
+	  2. Modify each file as follows:
+	  
+	  A.  vel2stiff.config
+	  Make sure that only variables and their values that belong to the program appear in
+	  this file. You will have to carefully review the self-documents that correspond
+	  to this program, i.e. ~ developer/Stripped/par/vel2stiff.par.main
+
+	  B. vel2stiff.pm
+	  Make sure that you have one method/subroutine for each of the variables listed on one line each
+	  in 'vel2stiff.config'.  Because there are 18 such variables in this example, make the $max_index =
+	  (number of variables -1 ) = 17
+	  
+	  Near ~ L618 ...
+	    my $max_index = 17;
+	    
+	   C. vel2stiff_spec.pm
+	  This program is used in standalone fashion normally, for convenience, 
+	  I kept most of the default settings that explain the behavior of this program for stdin and stdout.
+	  
+	  L~24
+	  my $max_index = 17;
+	  
+	  However, I did change the 'values' of the following 'keys':
+	  
+	  ~L28-29
+	  _DATA_DIR_IN           => $DATA_SEISMIC_BIN,
+	  _DATA_DIR_OUT          => $DATA_SEISMIC
+	  
+	  
+	  ~L31-34
+	   _suffix_type_in        => $bin,
+	 _data_suffix_in        => $suffix_bin,
+	 _suffix_type_out       => $bin,
+	 _data_suffix_out       => $suffix_bin,
+	 
+	 
+	 I also had to ALSO import new variables into the module:
+	 
+	~ L 6
+	 use SeismicUnix qw ($su $suffix_su $bin $suffix_bin);
+	  
+	 ~L 21
+	  my $DATA_SEISMIC_BIN= $Project->DATA_SEISMIC_BIN();    # output data directory
+	   
+	   
+	   In the GUI for vel2stiff, there are many files (14) that have to be defined
+	  by the user (using MB3). The MB3 callback are programmed as bindings.
+	  Bindings are named within this same module (vel2stiff_specs.pm) for each
+	  of the 14 files, in a method/subroutine:
+	  sub binding_index_aref
+	   e.g., ~L77:
+	   $index[10] = 10;       # second item is bound to DATA_DIR_IN
+	   
+	  We also need to know for the purpose of the widget that allows the user to select
+	  or name the file that the files to be opened contain "Data"
+	  
+	  sub file_dialog_type_aref
+	  e.g., ~L110:
+	  $type[10] = $file_dialog_type->{_Data};
+	  
+	  The current seismic unix program forms part of a work-flow 
+	  that is being built by the user. For this last reason the method/subroutine:
+	  sub flow_type_aref  includes a  "flow_type" name for each file, e.g., 
+	  
+	  e.g., ~ L141
+	  $type[10] = $flow_type->{_user_built};
+	  
+	  
+	  
+	  
+	  
+	  3. Move each of the 3 files into their respective directories:
+	      
+	     A. Move vel2stiff.config to ~configs/par
+	     B. Move vel2stiff.pm to ~sunix/par
+	     C. Move vel2stiff_spec.pm to  ~specs/par
+
+	  
+	  4. Modify  the following perl modules:
+	  
+	   A.  ~misc/L_SU_global_constants.pm
+          ~ L. 442 
+           In alphabetical order, include the program name within the following list :
+  my @sunix_par_programs = ( "suplane", "susynlv", "unif2", "suea2df", "sufctanismod","sufdmod1", "sufdmod2" );
+  
+      
+      Q. What happens if I just default type[0] to nothing, an empty string?       	
+     A.      	$type[0] ='';  Is it a local text file?
+     
+       Q. What happens if I just default binding to $index[0]?       	
+     A.      	TODO
+     
+      For bindings in the *_spec files
+      note that the values within the @index array bear the same
+      number as the index sequence itself, e.g.
+      $index[22] = 22;
+      $index[40] = 40;
+      
+     
+      Q. Where does binding take place for parameters of sunix programs within user-built flows
+      
+       binding, set, reads program_name_spec->binding_index_aref
+      iFile defines what the directory is to search

@@ -6,12 +6,10 @@ use Project_config;
 use SeismicUnix qw ($su $suffix_su $suffix_bin);
 use L_SU_global_constants;
 
-# use sufdmod1;
 
 my $get     = new L_SU_global_constants();
 my $Project = new Project_config;
 
-# my $sufdmod1 = new sufdmod1;
 
 my $var = $get->var();
 
@@ -28,7 +26,6 @@ my $max_index = 17;    #$sufdmod1->get_max_index() mystery error
 
 my $sufdmod1_spec =  {
 	_CONFIG						  => $PL_SEISMIC,
-	_DATA_DIR_OUT          => $DATA_SEISMIC_SU,
 	_DATA_DIR_IN           => $DATA_SEISMIC_BIN,
 	_DATA_DIR_OUT          => $DATA_SEISMIC_SU,
 	_binding_index_aref    => '',

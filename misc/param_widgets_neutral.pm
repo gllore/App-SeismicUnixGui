@@ -1137,15 +1137,17 @@ sub redisplay_labels {
 	my $first         = $param_widgets_color_href->{_first_idx};
 	my $length        = scalar @{ $param_widgets_color_href->{_labels_aref} };
 
-	# print("param_widgets_neutral,redisplay_labels, length=$length\n");
-	# print("param_widgets_neutral,redisplay_labels, first=$first\n");
-	if ($labels_w_aref) {
+#	print("param_widgets_neutral,redisplay_labels, length=$length\n");
+#	print("param_widgets_neutral,redisplay_labels, first=$first\n");
+	
+	if (length $labels_w_aref) {
+		
 		for ( my $i = $first; $i < $length; $i++ ) {
 
-			# print("i:$i   param_widgets_neutral2,redisplay_labels length:$length\n");
-
-			# print(" text is @{$labels_aref}[$i]\n");
-
+#			print("i:$i   param_widgets_neutral2,redisplay_labels length:$length\n");
+#			print(" text is @{$labels_aref}[$i]\n");
+#            print(" label array widget $labels_w_aref\n");
+            
 			@$labels_w_aref[$i]->configure( -text => @$labels_aref[$i], );
 		}
 	}

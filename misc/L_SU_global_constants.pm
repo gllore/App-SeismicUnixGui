@@ -244,7 +244,6 @@ my $var = {
 	_40_characters  => '40',
 	_45_characters  => '45',
 	_base_file_name => 'base_file_name',
-	#_box_position        => '890x660+12+12',
 	_clear_text                    => '',
 	_config_file_format            => '%-35s%1s%-20s',
 	_eight_characters              => '8',
@@ -294,6 +293,7 @@ my $var = {
 	_my_light_blue                 => 'LightBlue',
 	_my_dialog_box_geometry  => '400x250+400+400',
 	_no_pixel                      => '0',
+	_no_dir 						 => '/',
 	_no_borderwidth                => '0',
 	_nu                            => 'nu',
 	_no                            => 'no',
@@ -335,13 +335,13 @@ my $var = {
 =cut
 
 my $param = {
-	_max_entry_num   => 60,
+	_max_entry_num   => 90,
 	_first_entry_num => 0,
 	_first_entry_idx => 0,
-	_final_entry_num => 60,
-	_final_entry_idx => 60,
+	_final_entry_num => 90,
+	_final_entry_idx => 90,
 	_default_index   => 0,
-	_length          => 61,    # max number of allowable parameters in GUI
+	_length          => 90,    # max number of allowable parameters in GUI
 };
 
 # Locate environment variables automatically
@@ -438,7 +438,7 @@ my @sunix_shell_programs     = ( "evince", "sugetgthr", "suputgthr" );
 
 =cut
 
-my @sunix_model_programs = ( "suplane", "susynlv", "unif2", "suea2df", "sufdmod1", "sufdmod2" );
+my @sunix_model_programs = ( "suplane", "susynlv", "unif2", "suea2df", "sufctanismod","sufdmod1", "sufdmod2" );
 
 =pod
 
@@ -452,7 +452,7 @@ raydata
 suaddevent
 suaddnoise
 sudgwaveform
-sufctanismod
+
 sufdmod2l.pm
 sugoupillaud
 sugoupillaudpo
@@ -491,7 +491,7 @@ uni2trielacheck
 
 my @sunix_NMO_Vel_Stk_programs = ( "sunmo", "sustack", "suttoz", "suvelan", );
 
-my @sunix_par_programs = ( "a2b", "b2a", "mkparfile", "makevel", "unisam" );
+my @sunix_par_programs = ( "a2b", "b2a", "mkparfile", "makevel", "unisam", "vel2stiff" );
 
 =pod
 a2i

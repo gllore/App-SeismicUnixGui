@@ -78,7 +78,7 @@ sub _get_no_quotes {
 
 			my $exit_value;
 
-			# print("control,_get_no_quotes, entry_value = $entry_value\n");
+#			print("control,_get_no_quotes, entry_value = $entry_value\n");
 
 			# 1. remove double quotes if they exist
 			#  anywhere in the line
@@ -91,7 +91,7 @@ sub _get_no_quotes {
 			$entry_value =~ s/'$//;
 			$exit_value = $entry_value;
 
-			# print("control,_get_no_quotes, result: $exit_value\n");
+#			print("control,_get_no_quotes, result: $exit_value\n");
 			return ($exit_value);
 
 		} else {
@@ -415,7 +415,7 @@ sub get_no_quotes {
 
 			my $exit_value;
 
-			# print("control,no_quotes, entry_value = $entry_value\n");
+#			print("control,no_quotes, entry_value = $entry_value\n");
 
 			# 1. remove double quotes if they exist
 			#  anywhere in the line
@@ -427,7 +427,7 @@ sub get_no_quotes {
 			# 3. remove extra single quotes if they exist at the end of the string
 			$entry_value =~ s/'$//;
 
-			# print("after removing only a last single quote: $x\n ");
+#			print("after removing only a last single quote: $x\n ");
 
 			$exit_value = $entry_value;
 
@@ -443,7 +443,6 @@ sub get_no_quotes {
 		# print("control,get_no_quotes, undefined entry_value NADA\n");
 		return ();
 	}
-
 }
 
 =head2 sub get_no_quotes4array
@@ -470,7 +469,7 @@ sub get_no_quotes4array {
 
 			# print("control, get_no_quotes4array,exit value  is $array[$i] \n");
 		}
-
+		
 		$exit_array_ref = \@array;
 
 		return ($exit_array_ref);
@@ -663,7 +662,7 @@ sub get_w_single_quotes {
 =head2 ors
 
 	remove logical ors and use only the label
-	in front of the or to write out to 
+	in front of the 'or' to write out to 
 	the perl script
 
 =cut

@@ -1,30 +1,32 @@
 package vel2stiff_spec;
 	use Moose;
-	our $VERSION = '0.0.1';
+our $VERSION = '0.0.1';
 
-	use Project_config;
-	use SeismicUnix qw ($su $suffix_su);
-	use L_SU_global_constants;
-	use vel2stiff;
+use Project_config;
+use SeismicUnix qw ($su $suffix_su);
+use L_SU_global_constants;
+use vel2stiff;
+my $get					= new L_SU_global_constants();
+my $Project 				= new Project_config;
+my $vel2stiff		= new vel2stiff;
 
-	my $get					= new L_SU_global_constants();
-	my $Project 			= new Project_config;
-	my $vel2stiff			    = new vel2stiff;
+my $var					= $get->var();
 
-	my $var					= $get->var();
-
-	my $empty_string      	= $var->{_empty_string};
-	my $true      			= $var->{_true};
-	my $false      			= $var->{_false};
-	my $file_dialog_type	= $get->file_dialog_type_href();
-	my $flow_type			= $get->flow_type_href();
+my $empty_string			= $var->{_empty_string};
+my $true					= $var->{_true};
+my $false      			= $var->{_false};
+my $file_dialog_type		= $get->file_dialog_type_href();
+my $flow_type				= $get->flow_type_href();
 
 	my $DATA_SEISMIC_SU  	= $Project->DATA_SEISMIC_SU();   # output data directory
+  my $PL_SEISMIC		    = $Project->PL_SEISMIC();
 	my $max_index           = $vel2stiff->get_max_index();
 
 	my $vel2stiff_spec = {
+		_CONFIG		            => $PL_SEISMIC,
 		_DATA_DIR_IN		    => $DATA_SEISMIC_SU,
-		_DATA_DIR_OUT          => $DATA_SEISMIC_SU,
+	 	_DATA_DIR_OUT		    => $DATA_SEISMIC_SU,
+		_binding_index_aref	    => '',
 	 	_suffix_type_in			=> $su,
 		_data_suffix_in			=> $suffix_su,
 		_suffix_type_out		=> $su,
@@ -32,6 +34,7 @@ package vel2stiff_spec;
 		_file_dialog_type_aref	=> '',
 		_flow_type_aref			=> '',
 	 	_has_infile				=> $true,
+	 	_has_outpar				=> $false,
 	 	_has_pipe_in			=> $true,	
 	 	_has_pipe_out           => $true,
 	 	_has_redirect_in		=> $true,
@@ -73,7 +76,6 @@ package vel2stiff_spec;
 
 type of dialog (Data, Flow, SaveAs) is needed by binding
 one type of dialog for each index
-
 =cut
 
  sub file_dialog_type_aref {
@@ -317,7 +319,6 @@ are filtered by sunix_pl
 =head2  sub suffix_aref
 
 Initialize suffixes as empty
-Assign specific suffixes to parameter
 values
 
 =cut
@@ -341,15 +342,17 @@ values
 
 =head2 sub variables
 
+
 return a hash array 
 with definitions
  
 =cut
  
- sub variables {
- 	my ($self) = @_;
- 	my $hash_ref = $vel2stiff_spec;
- 	return ($hash_ref);
- }
+sub variables {
+
+	my ($self) = @_;
+	my $hash_ref = $vel2stiff_spec;
+	return ($hash_ref);
+}
 
 1;

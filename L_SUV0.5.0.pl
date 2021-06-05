@@ -2276,7 +2276,7 @@ in L_SU
 
 			$main_href = $gui_history->get_defaults();
 
-			# print("2 main,_L_SU,method:$set_method, deref scalar value:$$value\n");
+#			print("2 main,_L_SU,method:$set_method, deref scalar value:$$value\n");
 			$L_SU->set_hash_ref($main_href);
 
 			# print(" main,_L_SU , button=$button, print gui_history.txt\n");

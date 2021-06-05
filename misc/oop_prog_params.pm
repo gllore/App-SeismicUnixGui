@@ -35,7 +35,7 @@ by importing the conditions set in each 'program_spec.pm module
  V 0.0.3 September 1 2019
  Allows multiple-valued parameters (e.g., curve1, curve2 in suximage) 
  each each with a separate prefix  ->label(quotemeta($PREFIX.'/'.$curve1,$PREFIX.'/'.$curve2));
- Changes occur in get_section
+ Changes occur in get_a_section
  Only one suffix and prefix allowed per label
  
 
@@ -79,7 +79,6 @@ sub _get_prefix_aref {
 	if ( $oop_prog_params->{_prog_name} ) {
 
 		my $prog_name = $oop_prog_params->{_prog_name};
-
 		# print("oop_prog_params,_get_prefix_aref, prog_name=$prog_name \n");
 
 		my $module_spec    = $prog_name . '_spec';
@@ -110,9 +109,11 @@ sub _get_prefix_aref {
 =head2 sub _get_suffix_aref
 
 	use program_name_spec.pm
-	bring in a different module 
-	each program
+	to bring in a different module 
+	for each program
 	suffix rules are in *_spec.pm
+	
+	bring in suffixes, if they exist
 	
 =cut
 
@@ -137,7 +138,7 @@ sub _get_suffix_aref {
 		$package->suffix_aref();
 		my $suffix_aref = $package->get_suffix_aref();
 
-		# print("oop_prog_params,_get_suffix_aref, suffixes are: @{$suffix_aref}\n");
+#		print("oop_prog_params,_get_suffix_aref, suffixes are: @{$suffix_aref}\n");
 		return ($suffix_aref);
 
 	}
@@ -273,7 +274,7 @@ sub _get_suffix_for_a_label {
 			# e.g., boundary_conditions|abs becomes abs
 			my $clean_config_label = $control->ors( $all_program_labels[$i] );
 
-			my @suffixes = @{ _get_suffix_aref() };
+			my @suffixes = @{_get_suffix_aref() };
 
 			# a match locates the index to read from the program_spec.pm file
 			if ( $label eq $clean_config_label ) {
@@ -338,7 +339,7 @@ sub _set_label_for_a_prefix {
 
 =head2 sub get_a_section
 
-Here the output text is assembled
+Herein, the output text is assembled
  
 In order to write the following:
  e.g., 
@@ -379,31 +380,32 @@ sub get_a_section {
 
 			my $label = @{ $oop_prog_params->{_param_labels_aref} }[$param_idx];
 
-			# print(" 1. oop_prog_params, get_section, label = $label \n ");
+#			print(" 1. oop_prog_params, get_a_section, label = $label \n ");
 
 			$label = $control->ors($label);
 
-			# print(" 2. oop_prog_params, get_section, label = $label \n ");
+#			print(" 2. oop_prog_params, get_a_section, label = $label \n ");
 
 			my $value = @{ $oop_prog_params->{_param_values_aref} }[$param_idx];
 
-			# after the label has been cleaned (just above)
+			# Only, after the label has been cleaned (just above)
 			_set_label_for_a_suffix($label);
 			my $suffix = _get_suffix_for_a_label;
+#			print(" oop_prog_params, get_a_section suffix =$suffix \n ");
 
 			_set_label_for_a_prefix($label);
 			my $prefix = _get_prefix_for_a_label;
 
-			if ( $prefix && $suffix ) {
+			if ( length $prefix && length $suffix ) {
 
-				# print(" oop_prog_params, get_section CASE #1 \n ");
+#				print(" oop_prog_params, get_a_section CASE #1 \n ");
 				# OUTPUT TEXT is set here
 				$oop_prog_params[$j] = " \t " . '$' . $prog_name . " \t \t \t \t " . '->' . $label . '(quotemeta(' . $prefix . $value . $suffix . '));';
 
 			}
-			elsif ( !($prefix) && $suffix ) {
+			elsif ( !(length($prefix)) && length($suffix) ) {
 
-				# print(" oop_prog_params, get_section CASE #2 \n ");
+				# print(" oop_prog_params, get_a_section CASE #2 \n ");
 				# OUTPUT TEXT is set here
 				$oop_prog_params[$j] = " \t " . '$' . $prog_name . " \t \t \t \t " . '->' . $label . '(quotemeta(' . $value . $suffix . '));';
 
@@ -469,7 +471,7 @@ sub get_a_section {
 
 					}
 					elsif ( $num_values == 1 ) {
-						# print(" oop_prog_params, get_section CASE #3B, single-value case\n ");
+						# print(" oop_prog_params, get_a_section CASE #3B, single-value case\n ");
 
 						# OUTPUT TEXT is set here
 						# otherwise the prefix is set here , only ONCE
@@ -490,7 +492,7 @@ sub get_a_section {
 			}
 			elsif ( $suffix && !($prefix) ) {
 
-				# print(" oop_prog_params, get_section = CASE _for_ \n ");
+				# print(" oop_prog_params, get_a_section = CASE _for_ \n ");
 				# OUTPUT TEXT is set here
 				$oop_prog_params[$j] = " \t " . '$' . $prog_name . " \t \t \t \t " . '->' . $label . '(quotemeta(' . $value . $suffix . '));';
 
@@ -498,17 +500,17 @@ sub get_a_section {
 			}
 			elsif ( !($suffix) && !($prefix) ) {
 
-				# print(" oop_prog_params, get_section = CASE 5 \n ");
+				# print(" oop_prog_params, get_a_section = CASE 5 \n ");
 				# OUTPUT TEXT is set here
 				$oop_prog_params[$j] = " \t " . '$' . $prog_name . " \t \t \t \t " . '->' . $label . '(quotemeta(' . $value . '));';
 
 				# CASE 6
 			}
 			else {
-				print(" oop_prog_params, get_section prefix and suffixes are weird \n ");
+				print(" oop_prog_params, get_a_section prefix and suffixes are weird \n ");
 			}
 
-			# print(" 2. oop_prog_params, get_section, label, value = $oop_prog_params[$j] \n ");
+			# print(" 2. oop_prog_params, get_a_section, label, value = $oop_prog_params[$j] \n ");
 		}
 
 		$oop_prog_params[$j] = " \t " . '$' . "$prog_name " . '[' . $version . '] ' . " \t \t \t " . '= $' . "$prog_name " . '->Step();';
@@ -517,7 +519,7 @@ sub get_a_section {
 	}
 	else {
 
-		# print(" oop_prog_params, get_section, data detected \n ");
+		# print(" oop_prog_params, get_a_section, data detected \n ");
 		$oop_prog_params[0] = " \t " . 'place data here' . " \n ";
 		return ( \@oop_prog_params );
 
@@ -531,8 +533,8 @@ sub set_many_param_labels {
 	if ($param_labels_href) {
 		$oop_prog_params->{_param_labels_aref} = $param_labels_href->{_prog_param_labels_aref};
 
-		# print(" oop_prog_params, set_param_labels, param_labels,
-		# @{ $oop_prog_params->{_param_labels_aref} } \n ");
+#		print(" oop_prog_params, set_param_labels, param_labels,
+#		@{ $oop_prog_params->{_param_labels_aref} } \n ");
 	}
 	return ();
 }

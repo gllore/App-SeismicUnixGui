@@ -25,7 +25,6 @@ my $max_index       = $sufdmod2->get_max_index();
 
 my $sufdmod2_spec =  {
 	_CONFIG						  => $PL_SEISMIC,
-	_DATA_DIR_OUT          => $DATA_SEISMIC_SU,
 	_DATA_DIR_IN           => $DATA_SEISMIC_SU,
 	_DATA_DIR_OUT          => $DATA_SEISMIC_SU,
 	_binding_index_aref    => '',

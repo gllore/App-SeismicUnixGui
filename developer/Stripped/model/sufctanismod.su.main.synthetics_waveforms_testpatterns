@@ -167,6 +167,27 @@ Notes:
 	Two major stages are used in the algorithm:
 	(1) conventional finite-difference wave extrapolation
 	(2) followed by an FCT correction 
+	
+	Additional notes:
+	
+	The demos also use the following parameters
+   Using moving boundaries
+
+	mbx1=10
+	mbx2=900
+	mbz1=10
+	mbz2=90
+	
+	Source information (index.direction of source)
+    indexux=0 
+    indexuy=0 
+    indexuz=1 
+	indexdt =0 speeds up the operation
+	
+	time=0.25
+	
+	impulse is 1 is a single source
+	impulse=1
 
 References:
 	The detailed algorithm description is given in the article

@@ -74,13 +74,22 @@ my $iFile = {
 
 works for both user-built and pre-built superflows
 JML Nov-14-2018
+6.4.21 includes mutiple file types within a single program
 
 =cut
 
 sub _get_DATA_DIR_IN {
 	my ($self) = @_;
 
+	use Project_config;
+	my $Project = Project_config->new();
+
+	my $DATA_SEISMIC_BIN = $Project->DATA_SEISMIC_BIN();
+	my $DATA_SEISMIC_SU  = $Project->DATA_SEISMIC_SU();
+	my $PL_SEISMIC       = $Project->PL_SEISMIC();
+	my $DATA_SEISMIC_TXT = $Project->DATA_SEISMIC_TXT();
 	my $prog_name;
+	my $result;
 
 	# correct the superflow alias for _spec_name
 	# N.B. that a hyphen is not needed inside the value of $prog_name
@@ -99,7 +108,7 @@ sub _get_DATA_DIR_IN {
 		print("iFile, unexpected flow type \n");
 	}
 
-	if ($prog_name) {
+	if ( length $prog_name ) {
 
 		my $DATA_PATH_IN;
 
@@ -113,14 +122,54 @@ sub _get_DATA_DIR_IN {
 		# from a program_spec.pm module
 		my $specs_h = $package->variables();
 		$DATA_PATH_IN = $specs_h->{_DATA_DIR_IN};
+        
+        $package->prefix_aref();
+		my @prefix = @{$package->get_prefix_aref()};
+		my $index  = $iFile->{_parameter_value_index};
 
-		# print("iFile,get_Data_path, DATA_PATH_IN = $DATA_PATH_IN\n");
-		return ($DATA_PATH_IN);
+		if ( length $DATA_PATH_IN
+			and ( length $index ) ) {
+
+			if ( $prefix[$index] ne $empty_string ) {
+
+				if ( $prefix[$index] eq '$DATA_SEISMIC_SU' . ".'/'." ) {
+
+					$result = $DATA_SEISMIC_SU;
+
+				} elsif ( $prefix[$index] eq '$DATA_SEISMIC_BIN' . ".'/'." ) {
+
+					$result = $DATA_SEISMIC_BIN;
+
+				} elsif ( $prefix[$index] eq '$DATA_SEISMIC_TXT' . ".'/'." ) {
+
+					$result = $DATA_SEISMIC_TXT;
+
+				} elsif ( $prefix[$index] eq '$PL_SEISMIC' . ".'/'." ) {
+
+					$result = $PL_SEISMIC;
+
+				} else {
+					print("iFile, _get_DATA_DIR_IN, unexpected result \n");
+				}
+
+			} elsif ( $prefix[$index] eq $empty_string ) {
+
+				$result = $DATA_PATH_IN;
+
+			} else {
+				print("iFile, _get_DATA_DIR_IN, unexpected \n");
+			}
+
+		} else {
+			print("iFile, _get_DATA_DIR_IN, mising value \n");
+		}
 
 	} else {
 		print("iFile,_get_DATA_DIR_IN, missing prog_name\n");
-		return ();
 	}
+
+#	print("iFile,get_Data_path, DATA_DIR_IN = $result\n");
+	return ($result);
 }
 
 =head2 _get_DATA_DIR_OUT
@@ -147,6 +196,7 @@ sub _get_DATA_DIR_OUT {
 		# fromt a program_spec.pm module
 		my $specs_h = $package->variables();
 		$DATA_PATH_OUT = $specs_h->{_DATA_DIR_OUT};
+
 		# print("iFile,get_Data_path, DATA_PATH_OUT = $DATA_PATH_OUT\n");
 		return ($DATA_PATH_OUT);
 
@@ -233,9 +283,9 @@ sub get_Data_path {
 	my $entry_label = $iFile->{_entry_button_label};
 	my $dialog_type = $iFile->{_dialog_type};
 
-#	print("iFile, get_path, parameter label or name = $entry_label\n");
-#	print("iFile, Data_File,get_Data_path, base_file_name  = $base_file_name\n");
-#	print("iFile,get_Data_path,flow_type =$iFile->{_flow_type}\n");
+	#	print("iFile, get_path, parameter label or name = $entry_label\n");
+	#	print("iFile, Data_File,get_Data_path, base_file_name  = $base_file_name\n");
+	#	print("iFile,get_Data_path,flow_type =$iFile->{_flow_type}\n");
 
 	my $Project                   = new Project_config();
 	my $DATA_SEISMIC_BIN          = $Project->DATA_SEISMIC_BIN();
@@ -250,13 +300,14 @@ sub get_Data_path {
 	if ( $iFile->{_flow_type} eq $flow_type_href->{_user_built} ) {
 
 		if ( $entry_label eq $base_file_name ) {
-		
+
 			# CASE 1 user-built flows
 			# CASE 1A first label/name is base_file_name
 			# print("CASE 1 iFile,get_path,flow_type = $iFile->{_flow_type}\n");
 			# FOR A VERY SPECIFIC CASE (TODO: move all cases to the _spec files)
 
 			my $suffix_type = @{ $iFile->{_values_aref} }[1];
+
 			# print("CASE 1 iFile,get_path,suffix_type = $suffix_type\n");
 
 			if ( $suffix_type eq 'su' or $suffix_type eq "'su'" ) {
@@ -297,7 +348,7 @@ sub get_Data_path {
 				or $suffix_type eq 'ASCII'
 				or $suffix_type eq "'ascii'"
 				or $suffix_type eq "'ASCII'" ) {
-				
+
 				# CASE 1A.3
 				# and second (index=1) text
 				# if second label/name = 'type' &&  value is text
@@ -310,7 +361,7 @@ sub get_Data_path {
 				or $suffix_type eq 'BIN'
 				or $suffix_type eq "'bin'"
 				or $suffix_type eq "'BIN'" ) {
-					
+
 				# CASE 1A.4
 				# and second (index=1) entry value = binary data
 				# if second label/name = 'type' &&  value = bin
@@ -323,7 +374,7 @@ sub get_Data_path {
 				or $suffix_type eq 'PS'
 				or $suffix_type eq "'ps'"
 				or $suffix_type eq "'PS'" ) {
-					
+
 				# CASE 1A.6
 				# and second (index=1) entry value = postscript file
 				# if second label/name = 'type' &&  value = ps
@@ -334,8 +385,9 @@ sub get_Data_path {
 
 			} else {
 				$iFile->{_path} = $default_path;
+
 				# CASE 1A.7	unrecognized data type
-				
+
 				# print("iFile,get_path,path=$iFile->{_path}\n");
 				# print("CASE 1A.7 iFile,get_Data_path, unrecognized data type ... TB Added\n");
 			}
@@ -348,13 +400,13 @@ sub get_Data_path {
 			# first label/name   = 'file1'
 			# second label/name  = 'file2'
 			$iFile->{_path} = $DATA_SEISMIC_SU;
-			
+
 			# print("CASE 1B.1 : iFile,get_path,path=$iFile->{_path}\n");
-			
-			} elsif ( $entry_label ne $empty_string
+
+		} elsif ( $entry_label ne $empty_string
 			and $iFile->{_dialog_type} eq $file_dialog_type_h->{_Data_PL_SEISMIC} ) {
 
-		# case 1B.2
+			# case 1B.2
 			# print("case 1B.2 iFile,get_Data_path, dialog_type=$iFile->{_dialog_type} \n");
 			$iFile->{_path} = $Data_PL_SEISMIC;
 
@@ -366,9 +418,10 @@ sub get_Data_path {
 
 			$iFile->{_path} = _get_DATA_DIR_IN;
 
-#			print("CASE 1B.3 iFile,get_Data_path, DATA_DIR_IN= $iFile->{_path}\n");
+			#			print("CASE 1B.3 iFile,get_Data_path, DATA_DIR_IN= $iFile->{_path}\n");
 
-		} elsif ( $entry_label eq $empty_string ) {    
+		} elsif ( $entry_label eq $empty_string ) {
+
 			# unlikely
 			# CASE 1B.4
 			print("CASE1B.4 1iFile,get_Data_path, entry_label is empty \n");
@@ -376,10 +429,11 @@ sub get_Data_path {
 			$iFile->{_path} = $PL_SEISMIC;
 
 		} else {
+
 			# CASE 1B.5
 			$iFile->{_path} = $default_path;
 			print("CASE1B.5 iFile,get_Data_path, entry_label is empty \n");
-			
+
 			# print("iFile,get_path,path=$iFile->{_path}\n");
 			# print("iFile, get_Data_path, entry label is neither base_file_name (i.e. without suffix) nor fileX \n");
 		}
@@ -403,7 +457,7 @@ sub get_Data_path {
 			and $iFile->{_dialog_type} eq $file_dialog_type_h->{_Data_PL_SEISMIC} ) {
 
 			# case 2A.2
-#			print("case 2A.2 iFile,get_Data_path, dialog_type=$iFile->{_dialog_type} \n");
+			#			print("case 2A.2 iFile,get_Data_path, dialog_type=$iFile->{_dialog_type} \n");
 			$iFile->{_path} = $Data_PL_SEISMIC;
 
 		} elsif ( $entry_label eq $empty_string ) {
@@ -429,6 +483,7 @@ sub get_Data_path {
 		$iFile->{_path} = $default_path;
 
 		print("CASE 3: iFile,get_Data_path, unsuitable flow type \n");
+
 		# print("CASE 3: iFile,get_path,path=$iFile->{_path}\n");
 	}
 
@@ -489,7 +544,7 @@ sub get_Path {
 			my $forSITE         = $forPROJECT_HOME . '/seismics/pl/';
 
 			# make base path
-		 	# print("5.iFile,get_Path, forSITE: $forSITE \n");
+			# print("5.iFile,get_Path, forSITE: $forSITE \n");
 			# print("6.iFile,get_Path,for program_name: $program_name \n");
 			$Path = $forSITE;
 
@@ -516,19 +571,19 @@ sub get_Path {
 
 				# print("iFile,get_Path,parameter label or name 	=---$entry_label---\n");
 				# print("1.iFile,get_Path, _values_aref: @{$iFile->{_values_aref}}\n");
-#				for(my $i=0; $i <8; $i++) {
-#					print ("iFile, get_Path, values[$i] = $values[$i]\n");					
-#				}
+				#				for(my $i=0; $i <8; $i++) {
+				#					print ("iFile, get_Path, values[$i] = $values[$i]\n");
+				#				}
 
 				my $forHOME         = $values[0];
 				my $forPROJECT_HOME = $values[0];
-				my $forSITE         = $values[1] . '/seismics/pl/';  # seismics/pl chosen out of convenience; could be gmt/pl
-				my $forSPARE_DIR    = $forSITE . $values[2] . '/';
-				my $forDATE         = $forSPARE_DIR . $values[3] . '/';
-				my $forCOMPONENT    = $forDATE . $values[4] . '/';
-				my $forLINE         = $forCOMPONENT . $values[5].'/';
-				my $forSUBUSER         = $forLINE . $values[6]; # assumes each previous one is correct
-				
+				my $forSITE = $values[1] . '/seismics/pl/';    # seismics/pl chosen out of convenience; could be gmt/pl
+				my $forSPARE_DIR = $forSITE . $values[2] . '/';
+				my $forDATE      = $forSPARE_DIR . $values[3] . '/';
+				my $forCOMPONENT = $forDATE . $values[4] . '/';
+				my $forLINE      = $forCOMPONENT . $values[5] . '/';
+				my $forSUBUSER   = $forLINE . $values[6];              # assumes each previous one is correct
+
 				if ( $index == 0 ) {
 					$Path = $forHOME;
 
@@ -549,10 +604,10 @@ sub get_Path {
 
 				} elsif ( $index == 6 ) {
 					$Path = $forLINE;
-					
+
 				} elsif ( $index == 7 ) {
 					$Path = $forSUBUSER;
-					
+
 				} else {
 					print("2.iFile,get_Path, unexpected index \n");
 					$Path = $empty_string;
@@ -562,7 +617,8 @@ sub get_Path {
 
 				# CASE 1 B first get values from the Project
 				my $PROJECT_HOME = $Project->PROJECT_HOME();
-#				print("iFile,get_Path for $program_name PROJECT_HOME=$PROJECT_HOME\n");
+
+				#				print("iFile,get_Path for $program_name PROJECT_HOME=$PROJECT_HOME\n");
 
 				my $entry_label = $iFile->{_entry_button_label};
 				my $index       = $iFile->{_parameter_value_index};
@@ -572,8 +628,8 @@ sub get_Path {
 				my $forSITE         = $forPROJECT_HOME . '/seismics/pl/';
 
 				# make base path p
-#				print("5.iFile,get_Path, forSITE: $forSITE \n");
-#				print("6.iFile,get_Path,for program_name: $program_name \n");
+				#				print("5.iFile,get_Path, forSITE: $forSITE \n");
+				#				print("6.iFile,get_Path,for program_name: $program_name \n");
 
 				$Path = $forSITE;
 
@@ -591,7 +647,7 @@ sub get_Path {
 	$iFile->{_path} = $Path;
 	$result = $iFile->{_path};
 
-#	print("7. iFile,get_Path,path=$iFile->{_path}\n");
+	#	print("7. iFile,get_Path,path=$iFile->{_path}\n");
 	return ($result);
 }
 
@@ -801,7 +857,7 @@ sub set_parameter_value_index {
 
 	if ( defined $hash_ref ) {
 
-		# print("iFile,set_parameter_value_index, index=$hash_ref->{_parameter_value_index}----\n");
+		#		print("iFile,set_parameter_value_index, index=$hash_ref->{_parameter_value_index}----\n");
 
 		if ( $hash_ref->{_parameter_value_index} ne $empty_string ) {
 
@@ -847,7 +903,7 @@ sub set_values_aref {
 	my ( $self, $hash_ref ) = @_;
 	if ( $hash_ref->{_values_aref} ) {
 
-#		print("iFile,set_values_aref,raw: @{$hash_ref->{_values_aref}}[0],@{$hash_ref->{_values_aref}}[1]\n");
+		#		print("iFile,set_values_aref,raw: @{$hash_ref->{_values_aref}}[0],@{$hash_ref->{_values_aref}}[1]\n");
 		$iFile->{_values_aref} = $hash_ref->{_values_aref};
 
 	} else {

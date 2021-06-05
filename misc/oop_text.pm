@@ -657,7 +657,7 @@ sub set_prog_name {
 	if ($prog_name) {
 		$oop_text->{_prog_name} = $prog_name;
 
-		# print("oop_text,set_prog_name,prog_name=$oop_text->{_prog_name}\n");
+#		 print("oop_text,set_prog_name,prog_name=$oop_text->{_prog_name}\n");
 	}
 	return ();
 }

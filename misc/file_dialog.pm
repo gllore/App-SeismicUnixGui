@@ -1480,7 +1480,7 @@ sub _user_built_flow_open_data_file {
 
 	$file_dialog = $gui_history->get_hash_ref();
 
-	# if an appropriate entry widget is first selected, ie. Entry
+	# if an appropriate entry widget is first selected, i.e., Entry
 	# get index of entry button pressed
 	# find out which entry button has been chosen
 	# confirm that it IS the file button
@@ -1489,7 +1489,7 @@ sub _user_built_flow_open_data_file {
 
 	$user_built_flow_open_data_widget_type = $whereami->widget_type( $file_dialog->{_parameter_values_frame} );
 
-	if ( $user_built_flow_open_data_widget_type eq 'Entry' ) {  # extra certainty
+	if ( $user_built_flow_open_data_widget_type eq 'Entry' ) {  # for extra certainty
 
 #		print("1. file_dialog,_user_built_flow_open_data_file, selected widget_type=$user_built_flow_open_data_widget_type \n");
 
@@ -1505,9 +1505,9 @@ sub _user_built_flow_open_data_file {
 		$file_dialog->{_parameter_value_index} = $user_built_flow_open_data_parameter_value_index;
         my $index = $user_built_flow_open_data_parameter_value_index;
 		# print("file_dialog,_user_built_flow_open_data_file,selection_Entry_widget HASH = $selected_Entry_widget\n");
-		#		print("file_dialog,_user_built_flow_open_data_file, parameter_value_index= $file_dialog->{_parameter_value_index}\n");
+#		print("file_dialog,_user_built_flow_open_data_file, parameter_value_index= $file_dialog->{_parameter_value_index}\n");
 
-		if ( $index >= 0 ) {    # for additional certainty
+		if ( $index >= 0 ) {    # also for additional certainty
 
 			# e.g. Data_Pl_SEISMIC, Data, Path, Flow etc.
 			my $topic = _get_dialog_type();
@@ -1518,10 +1518,11 @@ sub _user_built_flow_open_data_file {
   
 			$file_dialog->{_entry_button_label} = $param_widgets->get_label4entry_button_chosen();
 
-			# print("5. file_dialog,_user_built_flow_open_data_file,entry_button_label = $file_dialog->{_entry_button_label}\n");
+#			print("5. file_dialog,_user_built_flow_open_data_file,entry_button_label = $file_dialog->{_entry_button_label}\n");
 
 			# use iFile to determine the correct data path (directory )
 			$iFile->set_entry($file_dialog);
+			$iFile->set_parameter_value_index($file_dialog);			
 			$iFile->set_flow_type_h($file_dialog);    # user_built
 			$iFile->set_dialog_type($topic);
 			$iFile->set_values_aref($file_dialog);    # will determine the DIR based on type of data set

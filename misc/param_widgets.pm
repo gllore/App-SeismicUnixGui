@@ -303,7 +303,7 @@ project_selector does not yet have a max_index defined in a separate module
 sub _update_value_changes {
 
 	my ($self) = @_;
-#   print(" start param_widgets, _update_value_changes\n");
+   print(" start param_widgets, _update_value_changes\n");
   
 	if ( $param_widgets->{_entry_in_switch} eq $off ) {
 		
@@ -503,19 +503,18 @@ clear the gui completely of 61 parameter values
 
 sub gui_full_clear {
 	my ($self) = @_;
-
+   print("param_widgets,guifull_clear, start\n");
+   
 	use wipe;
 	my $wipe = new wipe();
 
 	my $safe = $param_widgets->{_length};
-
-	# print("param_widgets, gui_full_clear, temp save length $param_widgets_color_href->{_length} \n");
 	_max_length_in_gui();
 
-	# print("param_widgets, gui_full_clear, length used for cleaning $param_widgets_color_href->{_length} \n");
-
-	# print("param_widgets, gui_full_clear, _values_w_aref, $param_widgets_color_href->{_values_w_aref} \n");
-	# print("param_widgets, gui_full_clear, _labels_w_aref, $param_widgets_color_href->{_labels_w_aref} \n");
+	print("param_widgets, gui_full_clear, length used for cleaning $param_widgets->{_length} \n");
+	print("param_widgets, gui_full_clear, _values_aref, $param_widgets->{_values_aref} \n");
+	print("param_widgets, gui_full_clear, _labels_aref, $param_widgets>{_labels_aref} \n");
+	
 	$wipe->range($param_widgets);
 	$wipe->values();
 	$wipe->labels();
@@ -524,7 +523,7 @@ sub gui_full_clear {
 	# return to original length value
 	_set_length_in_gui($safe);
 
-	# print("param_widgets, gui_full_clear, restored length $param_widgets_color_href->{_length} \n");
+	print("param_widgets, gui_full_clear, restored length $param_widgets->{_length} \n");
 
 	return ();
 }
@@ -908,12 +907,12 @@ sub get_values_aref {
 
 		my $values_aref = \@{ $param_widgets->{_values_aref} };
 
-		# print("param_widgets,get_values_aref,value[0]= @{$param_widgets->{_values_aref}}[0]\n");
+		print("param_widgets,get_values_aref,value[0]= @{$param_widgets->{_values_aref}}[0]\n");
 		return ($values_aref);
 
 	} else {
-
-		# print("param_widgets, get_values_aref,  missing values_aref\n");
+		print("param_widgets, get_values_aref, missing values_aref\n");
+		return();
 	}
 
 }
@@ -944,7 +943,7 @@ sub get_names_aref {
 	my ($self) = @_;
 	my $labels_aref = \@{ $param_widgets->{_labels_aref} };
 
-	# print("param_widgets,get_labels_aref: @{$param_widgets->{_labels_aref}}\n"); # all labels in array may not be there
+	print("param_widgets,get_labels_aref: @{$param_widgets->{_labels_aref}}\n"); # all labels in array may not be there
 	return ( $param_widgets->{_labels_aref} );
 }
 
@@ -1033,98 +1032,6 @@ sub initialize_values {
 	$param_widgets->{_values_w_aref} = $values->get_w_aref();
 
 }
-
-# find out what the label is and if it is datain then go ahead
-# default is to do nothing
-# if (not $datain) {
-# 	# do nothing
-# } else {
-#
-# 	# proceed to find the data
-
-# $$option_sref == 'Select'
-# in main you should then go ahead and activate the File Dialog to open a file
-# }
-#print("TODO: value_boxes,_callback from MB_3 on index= $index entry that has as label datain\n");
-#return();
-
-#}
-
-=head2 sub local_checks 
- When original value of Entry widget (package create, sub valuesc) 
- is modified:
-  test the new value
-  a true response means changes are actually happening
-  a false response means there is no reall change
-  occurring.
-
-  E.g., A  test for integers or decimal values as follows:
-  if (($test =~ /^-?\d+/) || ($test =~ /^-?\d+\.\d+/)) {
-  print ("Error: Entered an integer (First check)\n");
-  print ("or a decimal (2nd check)\n");
-
- TODO multiple values
-
- NB.
-  Dereference one scalar reference 
-  within an array of references 
-  First ascertain values are not blank
-  as during initialization of GUI. 
-
- DB
-
-=cut
-
-=head2 sub local_checks 
-
-  the first time a flow is added (add2flow) or just looked at
-  by clicking the sunix-listbox item no changes can be made
-
-
-=cut
-
-# sub local_checks {
-#   my ($index) = @_;
-#
-#   # changed entry updates automatically
-#   my $first 		= $param_widgets->{_first_idx};
-#   my $length  		= $param_widgets->{_length};
-#		     # print("1. param_widgets,local_checks,number of items in program: $length\n");
-#		     # print("1. param_widgets,local_checks,recently current entry was index: $index\n");
-#		    # print("1. param_widgets,local_checks,is new listbox selected? : $param_widgets->{_is_new_listbox_selection}\n\n");
-#		   # print("1. param_widgets,local_checks,result of add2flow_button selected? : $param_widgets->{_is_add2flow_button}\n\n");
-#
-#					# first-time selection program but program has not been modified or just added to flow iwhtout modification
-# # or a drag and drop has just occurred in which case we assume
-# # that changes were implemented fully (i.e. no effective change on this round
-# # or that a flow prgram has just been moved and inserted in the flow
-#   if ($param_widgets->{_is_new_listbox_selection} || $param_widgets->{_is_add2flow_button} || $param_widgets->{_is_moveNdrop_in_flow}) {
-#
-#					# work through a program's entries
-#	 if( $index == ($length-1) ) {      				# at last  entry (via local subs: redisplay or gui_update)
-#	    $param_widgets->{_is_new_listbox_selection} = $false;
-#	    $param_widgets->{_is_add2flow_button} 		= $false;
-#										  # print("2. param_widgets,local_checks, at last item#; # $length\n\n");
-#   	    return($false);  # false change detected
-#     } elsif( $index < ($length-2) ) {  #unlikely case but answer is still false
-#	     $param_widgets->{_is_new_listbox_selection} = $true;
-#	      $param_widgets->{_is_add2flow_button} 	 = $true;
-#										   # print("3. param_widgets,local_checks,new flow selection, idx=$index\n\n");
-#   	    return($false);  # false change detected
-#     }
-#   } elsif ($param_widgets->{_is_delete_from_flow_button} || $param_widgets->{_is_sunix_listbox} ) {
-#   	    return($false);	# do nothing, false change detected
-#
-#   } else {  # By exclusion of everything we can ONLY be but truly CHANGING entries
-#	    								   print("4. param_widgets,local_checks,leaving index:  $index\n\n");
-#   	    								  print("4. param_widgets,local_checks, value just changed to: @{$param_widgets->{_values_aref}}[$index]\n");
-#   	    if( $index < $length) { # not beyond parameter range
-#             return($true);    # true change detected
-#        }
-#   }
-# }
-
-#
 
 =head2 sub range 
 

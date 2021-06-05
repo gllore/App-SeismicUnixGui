@@ -126,6 +126,8 @@ sub set_path {
 
         $dirs->{_path} = $path;
 
+    } else {
+    	print("dirs,set_path, missing value\n");
     }
 
     return ();

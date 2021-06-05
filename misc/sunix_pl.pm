@@ -1449,7 +1449,7 @@ sub set_perl_path_in {
 
 	if ($path) {
 
-		print("sunix_pl,set_perl_path_in, $path\n");
+#		print("sunix_pl,set_perl_path_in, $path\n");
 		$sunix_pl->{_path} = $path;
 
 	}

@@ -145,7 +145,7 @@ sub _changes {
 	use control;    # =0
 	my $control = new control;
 	
-	# print("param_widgets_color, changes, index=$index\n");
+#	print("param_widgets_color, changes, index=$index\n");
 
 	if (    $index >= 0
 		and $param_widgets_color_href->{_current_program_name} ) {
@@ -158,8 +158,7 @@ sub _changes {
 			_check_value_changes();
 			_update_value_changes();
 
-			# print("param_widgets_color,_changes,changed 1-yes 0 -no? $changed_entry\n");
-			#print("param_widgets_color,_changes,index= $index\n");
+#			print("param_widgets_color,_changes, index= $index\n");
 			# always = 1 (yes)
 			_set_entry_change_status($true);
 			_update_check_button_setting($index);
@@ -245,11 +244,13 @@ project_selector does not yet have a max_index defined in a separate module
 
 	}
 
-	#	my @array = @{ $param_widgets_color_href->{_values_w_aref} };
-	#	my $ans = $array[0]->get();
-	#	print(" 1. param_widgets_color, _update_value_changes, array of widget Entry values:$ans \n");
-	#	$ans = $array[1]->get();
-	#	print(" 1. param_widgets_color, _update_value_changes, array of widget Entry values:$ans \n");
+#	my @array = @{ $param_widgets_color_href->{_values_w_aref} };
+#	my $xidx = 16;
+#	my $ans = $array[$xidx]->get();
+#	print(" 1. param_widgets_color, _update_value_changes, idx=$xidx array of widget Entry values:$ans \n");
+#	$xidx=17;
+#	$ans = $array[$xidx]->get();
+#	print(" 1. param_widgets_color, _update_value_changes, idx=$xidx array of widget Entry values:$ans \n");
 
 	return (1);    # marks success for Entry widget
 }
@@ -888,6 +889,7 @@ sub get_value4entry_button_chosen {
 =head2 sub get_values_aref
 
 	all the values for one program at a time
+	from the parameter list in the GUI
 
 =cut
 
@@ -898,8 +900,8 @@ sub get_values_aref {
 
 		my $values_aref = \@{ $param_widgets_color_href->{_values_aref} };
 
-		#		print("param_widgets_color,get_values_aref,values=--@{$param_widgets_color_href->{_values_aref}}[0]--\n");
-		#		print("param_widgets_color,get_values_aref,values=--@{$param_widgets_color_href->{_values_aref}}[1]--\n");
+#		print("param_widgets_color,get_values_aref,values=--@{$values_aref}--\n");
+#		print("param_widgets_color,get_values_aref,values=--@{$param_widgets_color_href->{_values_aref}}[18]--\n");
 		return ($values_aref);
 
 	} else {
@@ -1177,7 +1179,6 @@ sub redisplay_labels {
 		for ( my $i = $first; $i < $length; $i++ ) {
 
 			# print("i:$i   param_widgets_grey2,redisplay_labels length:$length\n");
-
 			# print(" text is @{$labels_aref}[$i]\n");
 
 			@$labels_w_aref[$i]->configure( -text => @$labels_aref[$i], );
@@ -1263,6 +1264,9 @@ sub redisplay_values {
 
 			# print("2. param_widgets_color,redisplay_values,chkbtn @{$param_widgets_color_href->{_check_buttons_settings_aref}}[$i]\n");
 		}
+#		print("2. param_widgets_color,redisplay_values,index=0@{$values_aref}[16]\n");
+#		print("2. param_widgets_color,redisplay_values,index=1@{$values_aref}[17]\n");
+		
 	} else {
 		print("2. param_widgets_color,redisplay_values,missing parameters\n");
 	}
@@ -1550,44 +1554,6 @@ sub set_prog_name_sref {
 	return ();
 }
 
-#=head2 sub set_value4entry_button_chosen
-#
-# assign value to  Entry Button chosen
-#
-#    print("param is $entry_param;\n");
-#         print ("selected widget is # $LSU->{_parameter_value_index}\");
-#         print ("label is  $out\n");
-#
-#=cut
-#
-#sub set_value4entry_button_chosen {
-#		my ( $self, $value ) = @_;
-#
-#		# first and last indices
-#		my $first  = $param_widgets_color_href->{_first_idx};
-#		my $length = $param_widgets_color_href->{_length};
-#
-#		# print("param_widgets_color,set_entry_button_chosen,length_=$param_widgets_color_href->{_length} \n");
-#
-#		my $widget = $param_widgets_color_href->{_entry_button_chosen_widget};
-#		print("param_widgets_color,set_entry_button_chosen,widget,=$widget\n");
-#
-#		# run through widgets until the match is made
-#		for ( my $choice = $first; $choice < $length; $choice++ ) {
-#			if ( $widget eq @{ $param_widgets_color_href->{_values_w_aref} }[$choice] ) {
-#
-#				@{ $param_widgets_color_href->{_values_w_aref} }[$choice]->configure( -text => $value );
-#
-#				print(
-#					"param_widgets_color,set_entry_button_chosen,value= @{$param_widgets_color_href->{_values_w_aref}}[$choice]\n"
-#				);
-#				print("param_widgets_color,set_entry_button_chosen,choice= $choice\n");
-#
-#		}
-#		}
-#		return ($value);
-#}
-
 =head2 sub set_values 
  
  set values by user from outside 
@@ -1601,7 +1567,7 @@ sub set_values {
 
 		$param_widgets_color_href->{_values_aref} = $values_aref;
 
-		# print("param_widgets_color,set_values,@{$param_widgets_color_href->{_values_aref}}\n");
+#		print("param_widgets_color,set_values,@{$param_widgets_color_href->{_values_aref}}\n");
 
 	} else {
 		print("param_widgets_color,set_values, values_aref missing\n");

@@ -1008,11 +1008,12 @@ sub save_button {
 						# But, after Save_button is used, reset _has_used_SaveAs_button to false
 						# and has_used_Save_button to true
 
-						$gui_history->set_hash_ref($L_SU_href);       # uses 79/ 115 in
+						$gui_history->set_hash_ref($L_SU_href); 
 						$gui_history->set4end_of_Save_button();
-						$L_SU_href = $gui_history->get_hash_ref();    # 98 out
-							# print("2. L_SU, save_button, for user_built_flow, print out gui_history.txt\n");
-							# $gui_history->view();
+						$L_SU_href = $gui_history->get_hash_ref();
+						
+						# print("2. L_SU, save_button, for user_built_flow, print out gui_history.txt\n");
+						# $gui_history->view();
 
 					} else {
 						my $message = $save_button_messages->save_button(1);

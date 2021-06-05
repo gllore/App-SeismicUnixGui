@@ -1668,7 +1668,7 @@ sub _get_num_listboxes_occupied {
 	}
 }
 
-=head2  sub set_defaults4delete_whole_flow_button 
+=head2  sub set_defaults4end_of_delete_whole_flow_button 
 
 	when all items are removed from a flow listbox
 	the following conditions are set
@@ -1678,7 +1678,7 @@ sub _get_num_listboxes_occupied {
 
 =cut
 
-sub set_defaults4delete_whole_flow_button {
+sub set_defaults4end_of_delete_whole_flow_button {
 	my ($self) = @_;
 
 	my $color = _get_flow_color();
@@ -1694,7 +1694,6 @@ sub set_defaults4delete_whole_flow_button {
 
 		$flow_item_down_arrow_button->configure( -state => 'disabled', );
 		$flow_item_up_arrow_button->configure( -state => 'disabled', );
-
 		$delete_from_flow_button->configure( -state => 'disabled', );
 		$delete_whole_flow_button->configure( -state => 'disabled', );
 				
@@ -1708,6 +1707,7 @@ sub set_defaults4delete_whole_flow_button {
 		$conditions4flows->{_is_flow_listbox_grey_w} = $false;
 		@{ $conditions4flows->{_occupied_listbox_aref} }[0] = $false;
 		@{ $conditions4flows->{_vacant_listbox_aref} }[0] = $true;
+		
 		# turn off flow listbox
 		$flow_listbox_grey_w->configure( -state => 'disabled', );
 
@@ -1787,7 +1787,6 @@ sub set_defaults4delete_whole_flow_button {
 	# print("conditions4flows, set_defaults4delete_whole_flow_button, number of list boxes occupied=$number\n");
 
 	# because the last item in last listbox is deleted
-#	if ( $number < 0 ) {
 	     # print("conditions4flows, set_defaults4delete_whole_flow_button, if number < 0 remove this if statement\n");
 		# turn off delete button
 		$delete_from_flow_button->configure( -state => 'disabled', );
@@ -1802,12 +1801,8 @@ sub set_defaults4delete_whole_flow_button {
 		$flow_item_down_arrow_button->configure( -state => 'disabled', );
 
 		# turn off run button
-		$run_button->configure( -state => 'disabled' );
+#		$run_button->configure( -state => 'disabled' );
 
-		# turn off file menu button
-		# $file_menubutton			->configure(
-		#				-state => 'disabled'
-		#				);
 		# turn off SaveAs menu button
 		$SaveAs_menubutton->configure( -state => 'disabled' );
 
@@ -1818,14 +1813,10 @@ sub set_defaults4delete_whole_flow_button {
 		$Flow_menubutton->configure( -state => 'normal' );
 
 		# turn off save button
-		$save_button->configure( -state => 'disabled' );
+#		$save_button->configure( -state => 'disabled' );
 
 		# turn off  check_code_button
 		$check_code_button->configure( -state => 'disabled' );
-#	}
-#	else {
-#		# NADA print("conditions4flows,set_defaults4last_delete_from_flow_button, not at the last listbox yet\n");
-#	}
 
 	$conditions4flows->{_is_flow_listbox_color_w}        = $false;
 	$conditions4flows->{_is_user_built_flow}             = $false;
@@ -1984,11 +1975,6 @@ sub set_defaults4last_delete_from_flow_button {
 		# turn off run button
 		$run_button->configure( -state => 'disabled' );
 
-		# turn off file menu button
-		# $file_menubutton			->configure(
-		#				-state => 'disabled'
-		#				);
-		# turn off SaveAs menu button
 		$SaveAs_menubutton->configure( -state => 'disabled' );
 
 		# turn off Data menu button

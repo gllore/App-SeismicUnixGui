@@ -23,10 +23,9 @@ my $PL_SEISMIC      = $Project->PL_SEISMIC();
 my $max_index       = $suop2->get_max_index();
 
 my $suop2_spec =  {
-	   _CONFIG	 				=> $PL_SEISMIC,
-	_DATA_DIR_OUT          => $DATA_SEISMIC_SU,
+	_CONFIG	 				=> $PL_SEISMIC,
 	_DATA_DIR_IN           => $DATA_SEISMIC_SU,
-	_DATA_DIR_OUT          => $DATA_SEISMIC_SU,
+#	_DATA_DIR_OUT          => $DATA_SEISMIC_SU,
 	_DATA_DIR_OUT          => $PL_SEISMIC,
 	_binding_index_aref    => '',
 	_suffix_type_in        => $su,

@@ -42,6 +42,12 @@ my $get               = new L_SU_global_constants();
 my $global_lib        = $get->global_libs();
 my $GLOBAL_CONFIG_LIB = $global_lib->{_configs_big_streams};
 
+=head2 set local vaiables
+
+=cut
+
+my $var = $get->var();
+
 my $Project = {
 	_ref_DIR                      => '',
 	_ref_DIR_FUNCTION             => '',
@@ -53,7 +59,7 @@ my $Project = {
 	_grass__is_selected           => '',
 	_matlab_is_selected           => '',
 	_immodpg_is_selected          => '',
-	_r_is_selected							=> '',
+	_r_is_selected                => '',
 	_sqlite_is_selected           => '',
 	_line                         => '',
 	_component                    => '',
@@ -68,7 +74,7 @@ my $Project = {
 	_DATA_GEOMAPS_TOPO            => '',
 	_GEOMAPS_IMAGES               => '',
 	_GEOMAPS_IMAGES_JPEG          => '',
-	_GEOMAPS_IMAGES_PNG          => '',
+	_GEOMAPS_IMAGES_PNG           => '',
 	_GEOMAPS_IMAGES_TIF           => '',
 	_GEOMAPS_IMAGES_PS            => '',
 	_PROJECT_HOME                 => '',
@@ -121,18 +127,18 @@ my $Project = {
 	_MATLAB_SEISMIC               => '',
 	_IMMODPG                      => '',
 	_IMMODPG_INVISIBLE            => '',
-	_MMODPG									=>'',
+	_MMODPG                       => '',
 	_MOD2D_TOMO                   => '',
 	_PL_SEISMIC                   => '',
 	_PL_GEOMAPS                   => '',
-	_PL_RESISTIVITY_SURFACE => '',
+	_PL_RESISTIVITY_SURFACE       => '',
 	_PL_WELL                      => '',
-	_PNG                         => '',
+	_PNG                          => '',
 	_RESISTIVITY_SURFACE          => '',
 	_R_GAMMA_WELL                 => '',
 	_R_RESISTIVITY_SURFACE        => '',
 	_R_RESISTIVITY_WELL_R_SEISMIC => '',
-	_R_SEISMIC					=> '',
+	_R_SEISMIC                    => '',
 	_R_WELL                       => '',
 	_SH_SEISMIC                   => '',
 	_PS_SEISMIC                   => '',
@@ -205,13 +211,14 @@ sub _basic_dirs {
 		# print("1. Project_config,_basic_dirs,using local $prog_name_old.config\n");
 
 		$prog_name = $prog_name_old;
-#		print("1a. Project_config,_basic_dirs,using local $prog_name_old.config \n");
+
+		#		print("1a. Project_config,_basic_dirs,using local $prog_name_old.config \n");
 		$prog_name_config = $prog_name_old . '.config';
 		my ( $ref_DIR_FUNCTION, $ref_DIR )
 			= $read->configs( ( $prog_name . '.config' ) );
 		$Project->{_ref_DIR} = $ref_DIR;
 
-#		print(" 1. Project_config,basic_dirs,ref_DIR:@{$Project->{_ref_DIR}}\n");
+		#		print(" 1. Project_config,basic_dirs,ref_DIR:@{$Project->{_ref_DIR}}\n");
 		$Project->{_ref_DIR_FUNCTION} = $ref_DIR_FUNCTION;
 		_change_basic_dirs();
 
@@ -431,7 +438,7 @@ sub _change_basic_dirs {
 	$grass_logic   = $control->set_str2logic( $CFG[23] );
 	$matlab_logic  = $control->set_str2logic( $CFG[25] );
 	$immodpg_logic = $control->set_str2logic( $CFG[27] );
-	$r_logic = $control->set_str2logic( $CFG[29] );	
+	$r_logic       = $control->set_str2logic( $CFG[29] );
 	$sqlite_logic  = $control->set_str2logic( $CFG[31] );
 
 	# print("1. Project_config,_change_basic_dirs PROJECT_HOME=$Project->{_PROJECT_HOME}\n");
@@ -504,7 +511,7 @@ sub _change_basic_dirs {
 	$Project->{_gmt_is_selected}     = $gmt_logic;
 	$Project->{_matlab_is_selected}  = $matlab_logic;
 	$Project->{_immodpg_is_selected} = $immodpg_logic;
-	$Project->{_r_is_selected} = $r_logic;	
+	$Project->{_r_is_selected}       = $r_logic;
 	$Project->{_sqlite_is_selected}  = $sqlite_logic;
 
 	return ();
@@ -552,7 +559,7 @@ sub _system_dirs {
 	my $WELL                = $PROJECT_HOME . '/well';
 	my $SEISMIC             = $PROJECT_HOME . '/seismics';
 	my $GAMMA_WELL          = $WELL . '/gamma';
-	my $RESISTIVITY_SURFACE = $PROJECT_HOME .'/'.'resistivity_surface';
+	my $RESISTIVITY_SURFACE = $PROJECT_HOME . '/' . 'resistivity_surface';
 	my $RESISTIVITY_WELL    = $WELL . '/resistivity';
 	my $SEISMIC_WELL        = $WELL . '/seismics';
 
@@ -603,7 +610,7 @@ sub _system_dirs {
 
 	# PNG IMAGE STORAGE DIRECTORY
 	my $PNG = $IMAGES_SEISMIC . '/png/' . $DATE_LINE_COMPONENT_STAGE_PROCESS . '/' . $subUser;
-	
+
 	# ISOLA DIRECTORY
 	my $ISOLA = $SEISMIC . '/isola/' . $DATE_LINE_COMPONENT_STAGE_PROCESS . '/' . $subUser;
 
@@ -639,9 +646,9 @@ sub _system_dirs {
 
 	# PERL DIRECTOIES
 	my $PL_RESISTIVITY_SURFACE = $RESISTIVITY_SURFACE . '/pl/' . $DATE_LINE_COMPONENT_STAGE_PROCESS . '/' . $subUser;
-	my $PL_SEISMIC = $SEISMIC . '/pl/' . $DATE_LINE_COMPONENT_STAGE_PROCESS . '/' . $subUser;
-	my $PL_GEOMAPS = $GEOMAPS . '/pl/' . $DATE_LINE_COMPONENT_STAGE_PROCESS . '/' . $subUser;
-	my $PL_WELL    = $WELL . '/pl/' . $DATE_LINE_COMPONENT_STAGE_PROCESS . '/' . $subUser;
+	my $PL_SEISMIC             = $SEISMIC . '/pl/' . $DATE_LINE_COMPONENT_STAGE_PROCESS . '/' . $subUser;
+	my $PL_GEOMAPS             = $GEOMAPS . '/pl/' . $DATE_LINE_COMPONENT_STAGE_PROCESS . '/' . $subUser;
+	my $PL_WELL                = $WELL . '/pl/' . $DATE_LINE_COMPONENT_STAGE_PROCESS . '/' . $subUser;
 
 	# R DIRECTORIES
 	my $R_RESISTIVITY_WELL    = $RESISTIVITY_WELL . '/r/' . $DATE_LINE_COMPONENT_STAGE_PROCESS . '/' . $subUser;
@@ -744,10 +751,9 @@ sub _system_dirs {
 	# GEOMAPS IMAGES DIRECTORY
 	my $GEOMAPS_IMAGES_JPEG
 		= $GEOMAPS . '/' . $DATE_LINE_COMPONENT_STAGE_PROCESS . '/images' . '/jpeg' . '/' . $subUser;
-		
+
 	# GEOMAPS IMAGES DIRECTORY
-	my $GEOMAPS_IMAGES_PNG
-		= $GEOMAPS . '/' . $DATE_LINE_COMPONENT_STAGE_PROCESS . '/images' . '/png' . '/' . $subUser;	
+	my $GEOMAPS_IMAGES_PNG = $GEOMAPS . '/' . $DATE_LINE_COMPONENT_STAGE_PROCESS . '/images' . '/png' . '/' . $subUser;
 
 	# GEOMAPS IMAGES DIRECTORY
 	my $GEOMAPS_IMAGES_TIF = $GEOMAPS . '/' . $DATE_LINE_COMPONENT_STAGE_PROCESS . '/images' . '/tif' . '/' . $subUser;
@@ -776,7 +782,7 @@ sub _system_dirs {
 	$Project->{_DATA_GEOMAPS_TOPO}   = $DATA_GEOMAPS_TOPO;
 	$Project->{_GEOMAPS_IMAGES}      = $GEOMAPS_IMAGES;
 	$Project->{_GEOMAPS_IMAGES_JPEG} = $GEOMAPS_IMAGES_JPEG;
-	$Project->{_GEOMAPS_IMAGES_PNG} = $GEOMAPS_IMAGES_PNG;	
+	$Project->{_GEOMAPS_IMAGES_PNG}  = $GEOMAPS_IMAGES_PNG;
 	$Project->{_GEOMAPS_IMAGES_TIF}  = $GEOMAPS_IMAGES_TIF;
 	$Project->{_GEOMAPS_IMAGES_PS}   = $GEOMAPS_IMAGES_PS;
 	$Project->{_DATA_GEOMAPS_TEXT}   = $DATA_GEOMAPS_TEXT;
@@ -791,8 +797,8 @@ sub _system_dirs {
 	# $Project->{_DATA_RESISTIVITY_TXT}		= $DATA_RESISTIVITY_TXT;
 	$Project->{_DATA_RESISTIVITY_SURFACE}     = $DATA_RESISTIVITY_SURFACE;
 	$Project->{_DATA_RESISTIVITY_SURFACE_TXT} = $DATA_RESISTIVITY_SURFACE_TXT;
-	$Project->{_DATA_RESISTIVITY_WELL}     = $DATA_RESISTIVITY_WELL;
-	$Project->{_DATA_RESISTIVITY_WELL_TXT} = $DATA_RESISTIVITY_WELL_TXT;
+	$Project->{_DATA_RESISTIVITY_WELL}        = $DATA_RESISTIVITY_WELL;
+	$Project->{_DATA_RESISTIVITY_WELL_TXT}    = $DATA_RESISTIVITY_WELL_TXT;
 
 	$Project->{_DATA_SEISMIC_BIN}          = $DATA_SEISMIC_BIN;
 	$Project->{_DATA_SEISMIC_DAT}          = $DATA_SEISMIC_DAT;
@@ -841,13 +847,13 @@ sub _system_dirs {
 	$Project->{_MATLAB_SEISMIC}            = $MATLAB_SEISMIC;
 	$Project->{_MMODPG}                    = $MMODPG;
 	$Project->{_MOD2D_TOMO}                = $MOD2D_TOMO;
-	$Project->{_PL_RESISTIVITY_SURFACE}                = $PL_RESISTIVITY_SURFACE;	
+	$Project->{_PL_RESISTIVITY_SURFACE}    = $PL_RESISTIVITY_SURFACE;
 	$Project->{_PL_SEISMIC}                = $PL_SEISMIC;
 
 	# print("Project_config,_system_dirs,PL_SEISMIC = $PL_SEISMIC\n");
 	$Project->{_PL_GEOMAPS}            = $PL_GEOMAPS;
-	$Project->{_PL_WELL}               		= $PL_WELL;
-	$Project->{_PNG}                      		= $PNG;
+	$Project->{_PL_WELL}               = $PL_WELL;
+	$Project->{_PNG}                   = $PNG;
 	$Project->{_RESISTIVITY_SURFACE}   = $RESISTIVITY_SURFACE;
 	$Project->{_R_GAMMA_WELL}          = $R_GAMMA_WELL;
 	$Project->{_R_RESISTIVITY_SURFACE} = $R_RESISTIVITY_SURFACE;
@@ -893,9 +899,11 @@ sub system_dirs {
 	my $SURFACE      = $PROJECT_HOME . '/surface';    # legacy
 
 	# DATA CATEGORIES BY TOOL collected at the surface (default)
-	my $RESISTIVITY              = $PROJECT_HOME . '/resistivity';
+	my $RESISTIVITY = $PROJECT_HOME . '/resistivity';
+
 	# print("Project_config,RESISTIVITY=$RESISTIVITY\n");
-	my $RESISTIVITY_SURFACE      = $RESISTIVITY.'_surface'; 
+	my $RESISTIVITY_SURFACE = $RESISTIVITY . '_surface';
+
 	# print("Project_config,RESISTIVITY_SURFACE=$RESISTIVITY_SURFACE\n");
 	my $DATA_RESISTIVITY         = $RESISTIVITY . '/data';
 	my $DATA_RESISTIVITY_SURFACE = $RESISTIVITY_SURFACE . '/data';
@@ -998,9 +1006,9 @@ sub system_dirs {
 
 	# PERL DIRECTORIES
 	my $PL_RESISTIVITY_SURFACE = $RESISTIVITY_SURFACE . '/pl/' . $DATE_LINE_COMPONENT_STAGE_PROCESS . '/' . $subUser;
-	my $PL_SEISMIC = $SEISMIC . '/pl/' . $DATE_LINE_COMPONENT_STAGE_PROCESS . '/' . $subUser;
-	my $PL_GEOMAPS = $GEOMAPS . '/pl/' . $DATE_LINE_COMPONENT_STAGE_PROCESS . '/' . $subUser;
-	my $PL_WELL    = $WELL . '/pl/' . $DATE_LINE_COMPONENT_STAGE_PROCESS . '/' . $subUser;
+	my $PL_SEISMIC             = $SEISMIC . '/pl/' . $DATE_LINE_COMPONENT_STAGE_PROCESS . '/' . $subUser;
+	my $PL_GEOMAPS             = $GEOMAPS . '/pl/' . $DATE_LINE_COMPONENT_STAGE_PROCESS . '/' . $subUser;
+	my $PL_WELL                = $WELL . '/pl/' . $DATE_LINE_COMPONENT_STAGE_PROCESS . '/' . $subUser;
 
 	# R DIRECTORIES
 	my $R_RESISTIVITY_WELL    = $RESISTIVITY_WELL . '/r/' . $DATE_LINE_COMPONENT_STAGE_PROCESS . '/' . $subUser;
@@ -1103,10 +1111,9 @@ sub system_dirs {
 	# GEOMAPS IMAGES DIRECTORY
 	my $GEOMAPS_IMAGES_JPEG
 		= $GEOMAPS . '/' . $DATE_LINE_COMPONENT_STAGE_PROCESS . '/images' . '/jpeg' . '/' . $subUser;
-		
+
 	# GEOMAPS IMAGES DIRECTORY
-	my $GEOMAPS_IMAGES_PNG
-		= $GEOMAPS . '/' . $DATE_LINE_COMPONENT_STAGE_PROCESS . '/images' . '/jpeg' . '/' . $subUser;
+	my $GEOMAPS_IMAGES_PNG = $GEOMAPS . '/' . $DATE_LINE_COMPONENT_STAGE_PROCESS . '/images' . '/jpeg' . '/' . $subUser;
 
 	# GEOMAPS IMAGES DIRECTORY
 	my $GEOMAPS_IMAGES_TIF = $GEOMAPS . '/' . $DATE_LINE_COMPONENT_STAGE_PROCESS . '/images' . '/tif' . '/' . $subUser;
@@ -1135,7 +1142,7 @@ sub system_dirs {
 	$Project->{_DATA_GEOMAPS_TOPO}   = $DATA_GEOMAPS_TOPO;
 	$Project->{_GEOMAPS_IMAGES}      = $GEOMAPS_IMAGES;
 	$Project->{_GEOMAPS_IMAGES_JPEG} = $GEOMAPS_IMAGES_JPEG;
-	$Project->{_GEOMAPS_IMAGES_PNG} = $GEOMAPS_IMAGES_PNG;
+	$Project->{_GEOMAPS_IMAGES_PNG}  = $GEOMAPS_IMAGES_PNG;
 	$Project->{_GEOMAPS_IMAGES_TIF}  = $GEOMAPS_IMAGES_TIF;
 	$Project->{_GEOMAPS_IMAGES_PS}   = $GEOMAPS_IMAGES_PS;
 	$Project->{_DATA_GEOMAPS_TEXT}   = $DATA_GEOMAPS_TEXT;
@@ -1175,7 +1182,7 @@ sub system_dirs {
 	$Project->{_DATABASE_SEISMIC_SQLITE}      = $DATABASE_SEISMIC_SQLITE;
 	$Project->{_DATA_WELL}                    = $DATA_WELL;
 	$Project->{_FAST_TOMO}                    = $FAST_TOMO;
-	$Project->{_GEOPSY}                       	= $GEOPSY;
+	$Project->{_GEOPSY}                       = $GEOPSY;
 	$Project->{_GEOPSY_PARAMS}                = $GEOPSY_PARAMS;
 	$Project->{_GEOPSY_PICKS}                 = $GEOPSY_PICKS;
 	$Project->{_GEOPSY_PICKS_RAW}             = $GEOPSY_PICKS_RAW;
@@ -1194,12 +1201,12 @@ sub system_dirs {
 	$Project->{_IMMODPG}                      = $IMMODPG;
 	$Project->{_IMMODPG_INVISIBLE}            = $IMMODPG_INVISIBLE;
 	$Project->{_MOD2D_TOMO}                   = $MOD2D_TOMO;
-	$Project->{_PL_RESISTIVITY_SURFACE}     = $PL_RESISTIVITY_SURFACE;
+	$Project->{_PL_RESISTIVITY_SURFACE}       = $PL_RESISTIVITY_SURFACE;
 	$Project->{_PL_SEISMIC}                   = $PL_SEISMIC;
 	$Project->{_PL_GEOMAPS}                   = $PL_GEOMAPS;
 	$Project->{_PL_WELL}                      = $PL_WELL;
-	$Project->{_PNG}                         		= $PNG;
-	$Project->{_PNG_SEISMIC}                 = $PNG_SEISMIC;	
+	$Project->{_PNG}                          = $PNG;
+	$Project->{_PNG_SEISMIC}                  = $PNG_SEISMIC;
 	$Project->{_RESISTIVITY_SURFACE}          = $RESISTIVITY_SURFACE;
 	$Project->{_R_GAMMA_WELL}                 = $R_GAMMA_WELL;
 	$Project->{_R_RESISTIVITY_SURFACE}        = $R_RESISTIVITY_SURFACE;
@@ -1699,12 +1706,13 @@ sub MMODPG {
 	return ($MMODPG);
 }
 
-sub IMMODPG  {
+sub IMMODPG {
 	_basic_dirs();
 	_system_dirs();
 
 	my $IMMODPG = $Project->{_IMMODPG};
-#	print("Project_config, IMMODPG=$IMMODPG \n");
+
+	#	print("Project_config, IMMODPG=$IMMODPG \n");
 	return ($IMMODPG);
 }
 
@@ -1714,7 +1722,7 @@ sub IMMODPG_INVISIBLE {
 
 	my $IMMODPG_INVISIBLE = $Project->{_IMMODPG_INVISIBLE};
 	return ($IMMODPG_INVISIBLE);
-	
+
 }
 
 sub MOD2D_TOMO {
@@ -1734,13 +1742,14 @@ sub PL_GEOMAPS {
 sub PL_RESISTIVITY_SURFACE {
 	_basic_dirs();
 	_system_dirs();
-	my $PL_RESISTIVITY_SURFACE= $Project->{_PL_RESISTIVITY_SURFACE};
-#	my $PL_RESISTIVITY_SURFACE_h= $Project->{_PL_RESISTIVITY_SURFACE};
-#	control->set_infection($PL_RESISTIVITY_SURFACE_h);
-#	my $PL_RESISTIVITY_SURFACE = $control->get_ticksBgone;
+	my $PL_RESISTIVITY_SURFACE = $Project->{_PL_RESISTIVITY_SURFACE};
+
+	#	my $PL_RESISTIVITY_SURFACE_h= $Project->{_PL_RESISTIVITY_SURFACE};
+	#	control->set_infection($PL_RESISTIVITY_SURFACE_h);
+	#	my $PL_RESISTIVITY_SURFACE = $control->get_ticksBgone;
 
 	# This subroutine returns the value of PL_RESISTIVITY_SURFACE
-	print ("\nProject_config, PL_RESISTIVITY_SURFACE,PL_RESISTIVITY_SURFACE: $PL_RESISTIVITY_SURFACE\n");
+	print("\nProject_config, PL_RESISTIVITY_SURFACE,PL_RESISTIVITY_SURFACE: $PL_RESISTIVITY_SURFACE\n");
 	return ($PL_RESISTIVITY_SURFACE);
 }
 
@@ -1755,7 +1764,6 @@ sub PL_SEISMIC {
 	# print ("\nProject_config, PL_SEISMIC,PL_SEISMIC: $PL_SEISMIC\n");
 	return ($PL_SEISMIC);
 }
-
 
 sub PL_WELL {
 	_basic_dirs();
@@ -1777,7 +1785,6 @@ sub PNG_SEISMIC {
 	my $PNG_SEISMIC = $Project->{_PNG_SEISMIC};
 	return ($PNG_SEISMIC);
 }
-
 
 sub RESISTIVITY_SURFACE {
 	_basic_dirs();
@@ -1902,7 +1909,8 @@ sub make_local_dirs {
 
 	# Always create basic types
 	my $PROJECT_HOME = $Project->{_PROJECT_HOME};
-#	my $HOME         = $Project->{_HOME};
+
+	#	my $HOME         = $Project->{_HOME};
 
 	# manage_dirs_by::make_dir($HOME);
 	manage_dirs_by::make_dir($PROJECT_HOME);
@@ -1913,7 +1921,7 @@ sub make_local_dirs {
 	my $GEOMAPS_IMAGES      = $Project->{_GEOMAPS_IMAGES};
 	my $GEOMAPS_BIN         = $Project->{_GEOMAPS_BIN};
 	my $GEOMAPS_IMAGES_JPEG = $Project->{_GEOMAPS_IMAGES_JPEG};
-	my $GEOMAPS_IMAGES_PNG = $Project->{_GEOMAPS_IMAGES_PNG};
+	my $GEOMAPS_IMAGES_PNG  = $Project->{_GEOMAPS_IMAGES_PNG};
 	my $GEOMAPS_IMAGES_TIF  = $Project->{_GEOMAPS_IMAGES_TIF};
 	my $GEOMAPS_IMAGES_PS   = $Project->{_GEOMAPS_IMAGES_PS};
 	my $GEOPSY              = $Project->{_GEOPSY};
@@ -1946,17 +1954,17 @@ sub make_local_dirs {
 	my $MATLAB_SEISMIC = $Project->{_MATLAB_SEISMIC};
 
 	# CATEGORY well data and R and Perl and Matlab
-	my $MATLAB_WELL 	= $Project->{_MATLAB_WELL};
+	my $MATLAB_WELL = $Project->{_MATLAB_WELL};
 
-  #CATEGORY SEISMIC DATA and programming language for R
-	my $R_SEISMIC   		= $Project->{_R_SEISMIC};
+	#CATEGORY SEISMIC DATA and programming language for R
+	my $R_SEISMIC      = $Project->{_R_SEISMIC};
 	my $DATA_SEISMIC_R = $Project->{_DATA_SEISMIC_R};
 
 	if ( $Project->{_geomaps_is_selected} ) {
 		manage_dirs_by::make_dir($DATA_GEOMAPS);
 		manage_dirs_by::make_dir($GEOMAPS_IMAGES);
 		manage_dirs_by::make_dir($GEOMAPS_IMAGES_JPEG);
-		manage_dirs_by::make_dir($GEOMAPS_IMAGES_PNG);	
+		manage_dirs_by::make_dir($GEOMAPS_IMAGES_PNG);
 		manage_dirs_by::make_dir($GEOMAPS_IMAGES_PS);
 		manage_dirs_by::make_dir($DATA_GEOMAPS_TEXT);
 		manage_dirs_by::make_dir($PL_GEOMAPS);
@@ -1975,16 +1983,16 @@ sub make_local_dirs {
 	if ( $Project->{_grass_is_selected} ) {
 		manage_dirs_by::make_dir($GEOMAPS_IMAGES);
 		manage_dirs_by::make_dir($GEOMAPS_IMAGES_JPEG);
-		manage_dirs_by::make_dir($GEOMAPS_IMAGES_PNG);		
+		manage_dirs_by::make_dir($GEOMAPS_IMAGES_PNG);
 		manage_dirs_by::make_dir($GEOMAPS_IMAGES_PS);
 		manage_dirs_by::make_dir($PL_GEOMAPS);
 	}
-	
+
 	if ( $Project->{_r_is_selected} ) {
 		manage_dirs_by::make_dir($R_SEISMIC);
 		manage_dirs_by::make_dir($DATA_SEISMIC_R);
 	}
-	
+
 	if ( $Project->{_matlab_is_selected} ) {
 		manage_dirs_by::make_dir($MATLAB_SEISMIC);
 	}
@@ -1993,8 +2001,8 @@ sub make_local_dirs {
 		manage_dirs_by::make_dir($MATLAB_GEOMAPS);
 	}
 
-  # CATEGORY resistivity surface data and Perl
-	my $PL_RESISTIVITY_SURFACE   = $Project->{_PL_RESISTIVITY_SURFACE};
+	# CATEGORY resistivity surface data and Perl
+	my $PL_RESISTIVITY_SURFACE = $Project->{_PL_RESISTIVITY_SURFACE};
 
 	# sh scripts and seismic
 	my $SH_SEISMIC = $Project->{_SH_SEISMIC};
@@ -2027,7 +2035,7 @@ sub make_local_dirs {
 	my $PS_SEISMIC   = $Project->{_PS_SEISMIC};
 	my $GIF_SEISMIC  = $Project->{_GIF_SEISMIC};
 	my $JPEG_SEISMIC = $Project->{_JPEG_SEISMIC};
-	my $PNG_SEISMIC = $Project->{_PNG_SEISMIC};
+	my $PNG_SEISMIC  = $Project->{_PNG_SEISMIC};
 	my $PL_SEISMIC   = $Project->{_PL_SEISMIC};
 
 	# manage_dirs_by::make_dir($GIF_SEISMIC);
@@ -2075,27 +2083,27 @@ sub make_local_dirs {
 	# sioseis
 
 	# mmodpg-deprecated
-	my $MMODPG = $Project->{_MMODPG};
+	my $MMODPG            = $Project->{_MMODPG};
 	my $IMMODPG_INVISIBLE = $Project->{_IMMODPG_INVISIBLE};
-	
+
 	if ( $Project->{_mmodpg_is_selected} ) {
-		
+
 		print("Project_config,IMMODPG= $MMODPG\n");
 		manage_dirs_by::make_dir($MMODPG);
-		manage_dirs_by::make_dir($IMMODPG_INVISIBLE);	
-		
+		manage_dirs_by::make_dir($IMMODPG_INVISIBLE);
+
 	}
 
 	# immodpg
 	my $IMMODPG = $Project->{_IMMODPG};
-	
+
 	if ( $Project->{_immodpg_is_selected} ) {
-		
-#		("Project_config,IMMODPG= $IMMODPG\n");
-#		print("Project_config,IMMODPG_INVISIBLE= $IMMODPG_INVISIBLE\n");
+
+		#		("Project_config,IMMODPG= $IMMODPG\n");
+		#		print("Project_config,IMMODPG_INVISIBLE= $IMMODPG_INVISIBLE\n");
 		manage_dirs_by::make_dir($IMMODPG);
 		manage_dirs_by::make_dir($IMMODPG_INVISIBLE);
-		
+
 	}
 
 	# fast tomography
@@ -2112,11 +2120,11 @@ sub make_local_dirs {
 	my $ANTELOPE = $Project->{_ANTELOPE};
 
 	# manage_dirs_by::make_dir($ANTELOPE);
-	
+
 	# pl programs and surface resistitivy data
 	# Always create
 	manage_dirs_by::make_dir($PL_RESISTIVITY_SURFACE);
-	
+
 	# pl programs and seismic data
 	# Always create
 	manage_dirs_by::make_dir($PL_SEISMIC);
@@ -2130,12 +2138,8 @@ sub make_local_dirs {
 
 	# manage_dirs_by::make_dir($DATA_SEISMIC_SEGY_RAW);
 
-
-
 	# manage_dirs_by::make_dir($DATA_SEISMIC_RSEIS);
 	# manage_dirs_by::make_dir($DATA_SEISMIC_R);
-
-
 
 	# manage_dirs_by::make_dir($R_SEISMIC);
 
@@ -2188,6 +2192,7 @@ sub make_local_dirs {
 	my $R_RESISTIVITY_SURFACE        = $Project->{_R_RESISTIVITY_SURFACE};
 	my $DATA_RESISTIVITY_SURFACE     = $Project->{_DATA_RESISTIVITY_SURFACE};
 	my $DATA_RESISTIVITY_SURFACE_TXT = $Project->{_DATA_RESISTIVITY_SURFACE_TXT};
+
 	# print("9. DATA_RESISTIVITY_SURFACE_TXT = $Project->{_DATA_RESISTIVITY_SURFACE_TXT}\n");
 
 	# manage_dirs_by::make_dir($R_RESISTIVITY_SURFACE);
@@ -2200,9 +2205,9 @@ sub make_local_dirs {
 	my $R_RESISTIVITY_WELL        = $Project->{_R_RESISTIVITY_WELL};
 	my $DATA_RESISTIVITY_WELL     = $Project->{_DATA_RESISTIVITY_WELL};
 	my $DATA_RESISTIVITY_WELL_TXT = $Project->{_DATA_RESISTIVITY_WELL_TXT};
-	
+
 	# CATEGORY resistivity data
-	# location surface 
+	# location surface
 	# and program PL
 	manage_dirs_by::make_dir($PL_RESISTIVITY_SURFACE);
 
@@ -2286,23 +2291,47 @@ sub update_configuration_files {
 	$project->{_values_aref} = $values_aref;
 	my $Project_site = @{ $project->{_values_aref} }[2];
 
-	# print("Project_config, update_configuration_files,Project site= $Project_site\n");
+	#	my $PROJECT_PATH = @{ $project->{_values_aref} }[1];
+   #	print("Project_config, update_configuration_files, Project site= $Project_site\n");
 	# print("Project_config, update_configuration_files,project->{_values_aref:@{$project->{_values_aref}}\n");
 
-	my $PROJECT_PATH = @{ $project->{_values_aref} }[1];
-	$dirs->set_path($Project_site);
-	my $Project_name = $dirs->get_last_dirInpath();
-	$control->set_infection($Project_name);
-	$Project_name = $control->get_ticksBgone();
+	if ( !( length ($Project_site) ) ) {
+		
+	    $Project_site = $var->{_no_dir};
+	    
+	    $dirs->set_path($Project_site);
+		my $Project_name = $dirs->get_last_dirInpath();
+		$control->set_infection($Project_name);
+		$Project_name = $control->get_ticksBgone();
 
-	# print("Project_config,update_configuration_file, PROJECT_PATH: $PROJECT_PATH\n");
-	# print("Project_config,update_configuration_file, Project_name: $Project_name \n");
+		# print("Project_config,update_configuration_file, PROJECT_PATH: $PROJECT_PATH\n");
+		# print("Project_config,update_configuration_file, Project_name: $Project_name \n");
 
-	my $FROM_project_config = $inbound;
-	my $TO_project_config   = $HOME . '/.L_SU/configuration/' . $Project_name . '/Project.config';
+		my $FROM_project_config = $inbound;
+		my $TO_project_config   = $HOME . '/.L_SU/configuration/' . $Project_name . '/Project.config';
 
-	# print("Project_config,update_configuration_files copying from $FROM_project_config to $TO_project_config\n");
-	copy( $FROM_project_config, $TO_project_config );
+		# print("Project_config,update_configuration_files copying from $FROM_project_config to $TO_project_config\n");
+		copy( $FROM_project_config, $TO_project_config );
+	    
+	} elsif  (length $Project_site) {
+	    	
+		$dirs->set_path($Project_site);
+		my $Project_name = $dirs->get_last_dirInpath();
+		$control->set_infection($Project_name);
+		$Project_name = $control->get_ticksBgone();
+
+		# print("Project_config,update_configuration_file, PROJECT_PATH: $PROJECT_PATH\n");
+		# print("Project_config,update_configuration_file, Project_name: $Project_name \n");
+
+		my $FROM_project_config = $inbound;
+		my $TO_project_config   = $HOME . '/.L_SU/configuration/' . $Project_name . '/Project.config';
+
+		# print("Project_config,update_configuration_files copying from $FROM_project_config to $TO_project_config\n");
+		copy( $FROM_project_config, $TO_project_config );
+
+	} else {
+		print("Project_config, update_configuration_files. unexpected value \n");
+	}
 
 	return ();
 }
