@@ -2168,7 +2168,11 @@ within gui_history by set_button
 			#print("2. main,_L_SU_flow_bindings,method:$method\n");
 
 			$L_SU->user_built_flows($method);
-
+			
+		}elsif ( not($method) && $color ) {
+			
+			print("main,_L_SU_flow_bindings, missing method\n");
+			
 		} else {
 			print("main, _L_SU_flow_bindings, no method, color : $method error 1,\n");
 		}

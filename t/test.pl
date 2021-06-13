@@ -34,7 +34,6 @@ use lib '.';
 use check 0.0.1;
 use clean 0.0.1;
 use configuration 0.0.1;
-use permission 0.0.1;
 use user 0.0.1;
 
 my @message;
@@ -47,7 +46,6 @@ my $check         = check->new();
 my $clean         = clean->new();
 my $configuration = configuration->new();
 my $user          = user->new();
-my $permission    = permission->new();
 
 =pod
 
@@ -65,7 +63,8 @@ if ( not length($L_SU) ) {
 	print " export L_SU=/usr/local/pl/L_SU ";
 
 } else {
-#	print("test.pl: \$L_SU = $L_SU \n");
+
+	#	print("test.pl: \$L_SU = $L_SU \n");
 }
 
 my $PATH    = $L_SU . '/t';
@@ -88,20 +87,29 @@ $number_of_messages     = scalar @message;
 if (   length($number_of_messages)
 	or length($number_of_instructions) ) {
 
-$number_of_messages =2;
+	$number_of_messages     = 5;
+	$number_of_instructions = 4;
 	open( message_STDOUT, '>>', $logfile ) or die $!;
+
 	for ( my $i = 0; $i < $number_of_messages; $i++ ) {
 
-		# print("\t$message[$i]\n");
-		# print("$instruction[$i]\n");
-
 		if ( length( $message[$i] ) ) {
+			print("$message[$i]\n");
 			print message_STDOUT ("$message[$i]") . "\n";
+		}
+
+	}
+
+	for ( my $i = 0; $i < $number_of_instructions; $i++ ) {
+
+		if ( length( $instruction[$i] ) ) {
+#			print("$instruction[$i]\n");
+			print message_STDOUT ("$instruction[$i]") . "\n";
 		}
 
 		if ( length( $instruction[$i] ) ) {
 			print message_STDOUT (">$instruction[$i]") . "\n";
-            system( $instruction[$i] );
+	#		system( $instruction[$i] );
 		}
 
 	}
@@ -111,7 +119,7 @@ $number_of_messages =2;
 	print("\nl106:test.pl, bad instructions or messages for users\n");
 }
 
-=head2 set work files
+=head2 set configuration files
 
 =cut
 
@@ -125,19 +133,29 @@ $number_of_messages     = scalar @message;
 if (   length($number_of_messages)
 	or length($number_of_instructions) ) {
 
+	$number_of_messages     = 8;
+	$number_of_instructions = 8;
 	open( message_STDOUT, '>>', $logfile ) or die $!;
+
 	for ( my $i = 0; $i < $number_of_messages; $i++ ) {
 
-		# print("\t$message[$i]\n");
-		# print("$instruction[$i]\n");
-
 		if ( length( $message[$i] ) ) {
+			print("$message[$i]\n");
 			print message_STDOUT ("$message[$i]") . "\n";
+		}
+
+	}
+
+	for ( my $i = 0; $i < $number_of_instructions; $i++ ) {
+
+		if ( length( $instruction[$i] ) ) {
+			print("$instruction[$i]\n");
+			print message_STDOUT ("$instruction[$i]") . "\n";
 		}
 
 		if ( length( $instruction[$i] ) ) {
 			print message_STDOUT (">$instruction[$i]") . "\n";
-			# system( $instruction[$i] );
+#			system( $instruction[$i] );
 		}
 
 	}
@@ -161,27 +179,43 @@ $number_of_messages     = scalar @message;
 if (   length($number_of_messages)
 	or length($number_of_instructions) ) {
 
+	$number_of_messages     = 2;
+	$number_of_instructions = 1;
 	open( message_STDOUT, '>>', $logfile ) or die $!;
+
 	for ( my $i = 0; $i < $number_of_messages; $i++ ) {
-
-		# print("\t$message[$i]\n");
-		# print("$instruction[$i]\n");
-
+ 
 		if ( length( $message[$i] ) ) {
+			print("$message[$i]\n");
 			print message_STDOUT ("$message[$i]") . "\n";
+		}
+		
+	}
+
+	for ( my $i = 0; $i < $number_of_instructions; $i++ ) {
+
+		if ( length( $instruction[$i] ) ) {
+			print("$instruction[$i]\n");
+			print message_STDOUT ("$instruction[$i]") . "\n";
 		}
 
 		if ( length( $instruction[$i] ) ) {
 			print message_STDOUT (">$instruction[$i]") . "\n";
-			# system( $instruction[$i] );
+			system( $instruction[$i] );
 		}
-
+		
 	}
 	close(message_STDOUT);
 
 } else {
 	print("\nL135. test.pl, bad instructions or messages for configurations\n");
 }
+
+=head2 run tests
+
+=cut
+
+    $check->get_test_results();
 
 =head2 set clean
 
@@ -197,21 +231,29 @@ $number_of_messages     = scalar @message;
 if (   length($number_of_messages)
 	or length($number_of_instructions) ) {
 
-	my $text;
+	$number_of_messages     = 0;
+	$number_of_instructions = 0;
 	open( message_STDOUT, '>>', $logfile ) or die $!;
 
 	for ( my $i = 0; $i < $number_of_messages; $i++ ) {
 
-		# print("\t$message[$i]\n");
-		# print(">$instruction[$i].\n\t");
-
 		if ( length( $message[$i] ) ) {
+			print("$message[$i]\n");
 			print message_STDOUT ("$message[$i]") . "\n";
+		}
+
+	}
+
+	for ( my $i = 0; $i < $number_of_instructions; $i++ ) {
+
+		if ( length( $instruction[$i] ) ) {
+			print("$instruction[$i]\n");
+			print message_STDOUT ("$instruction[$i]") . "\n";
 		}
 
 		if ( length( $instruction[$i] ) ) {
 			print message_STDOUT (">$instruction[$i]") . "\n";
-			#		system( $instruction[$i] );
+#			system( $instruction[$i] );
 		}
 
 	}

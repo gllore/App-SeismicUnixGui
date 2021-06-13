@@ -32,21 +32,75 @@ demos and Servilleta_demos
 
 use Moose;
 our $VERSION = '0.0.1';
-use Test::Simple tests => 235;
 
-# L_SU is a global variable for locating the  main folder
+=head2 sub get_test_results
+
+Where testing gets done
+
+=cut
+
+sub get_test_results{
+	
+	use Test::Most tests => 4, 'die';
+	use File::Compare;
+
+=head2 Instantiation 
+
+=cut
+
+
+=head2 Variable declaration
+ $L_SU is a global variable for locating 
+ the  main folder.
+ 
+ REF_DATA_SEISMIC_SU is the reference 
+ for comparison.
+ 
+=cut
+
+	my @file_name;
+	my @PATH_n_file_name;
+	
+	my $L_SU = $ENV{'L_SU'};
+
+	if ( not length($L_SU) ) {
+
+		print "global variable L_SU must be set";
+		print "e.g. in .bashrc: ";
+		print " export L_SU=/usr/local/pl/L_SU ";
+
+	} else {
+		print("\$L_SU = $L_SU \n");
+	}
+
+	my $REF_DATA_SEISMIC_SU = $L_SU . '/demo_projects/Servilleta_demos/seismics/data/loma_blanca/050318/H/1/su/gom';
+	my $TEST_DATA_SEISMIC_SU   =  $L_SU . '/t/tester/Servilleta_demos/seismics/data/loma_blanca/050318/H/1/su/gom';
+	my $PL_SEISMIC_SU       = $L_SU . '/t/tester/Servilleta_demos/seismics/pl/loma_blanca/050318/H/1/su/gom';
+	
+#	system('sudo -i -u $username 'Se')
+	$file_name[0] =  '79.su';
+	$PATH_n_file_name[0] = $TEST_DATA_SEISMIC_SU . '/' . $file_name[0];
+	my $compare  = compare( $file_name[0], $file_name[0] );
+	my $response = $PATH_n_file_name[0] . ' equals ' . $file_name[0];
+
+	ok $compare, $response;
+	is 2, 2, '... as should all passing tests';
+	eq_or_diff [3], [4], '... but failing tests should die';
+	ok 4, '... will never get to here';
+
+}
 
 sub get_instructions {
 	my ($self) = @_;
 
-	# L_SU is a global variable for locating the  main folder
 	my $L_SU = $ENV{'L_SU'};
 
 	my $username = 'tester';
 	my ( @instruction, @message );
-#	my $password = 'a!efg101$-_qop5';
+
+	#	my $password = 'a!efg101$-_qop5';
 	my $password = '5';
-	
+
 	if ( not length($L_SU) ) {
 
 		print "global variable L_SU must be set";
@@ -60,12 +114,16 @@ sub get_instructions {
 	my $PATH = $L_SU . '/L_SU/t';
 	my $HOME = $PATH . '/' . $username;
 
-	$instruction[0] = "sudo su -l $username \
-								  L_SU ";
+	$instruction[1] = (
+		"					\
+	sudo ls -la $HOME       				\");
+#	exit &											\
+#	"
+	);
 
-	$message[0] = ("\ncheck.pm\n    Test functionality of each demonstration script");
-#	$message[1] = ("   Create temporary account for tester");
-	
+	$message[0] = ("   \ncheck.pm\n    4. Test functionality of each demonstration script");
+	$message[1] = ("\t--Leave account");
+
 	return ( \@message, \@instruction );
 
 }

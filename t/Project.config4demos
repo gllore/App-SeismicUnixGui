@@ -1,11 +1,11 @@
 HOME                               = $HOME        
-PROJECT_HOME              = $HOME/demos
-site                                     = loma_blanca         
-spare_dir                          =                     
-date                                   = 053018              
-component                          = H                   
+PROJECT_HOME              	   = $HOME/demos
+site                               = Synthetic         
+spare_dir                          = Finite_Difference                    
+date                               = Sufctansimod              
+component                          = Xdemo1                   
 line                               = 1                   
-subUser                            = $username              
+subUser                            = gllore              
 geomaps                            = no                  
 geopsy                             = no                  
 gmt                                = no                  

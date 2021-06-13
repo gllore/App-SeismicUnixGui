@@ -8,6 +8,7 @@ use SeismicUnix qw ($su $suffix_su $txt $suffix_txt);
 
 my $get              = new L_SU_global_constants();
 my $var              = $get->var();
+my $empty_string     = $var->{_empty_string};
 my $file_dialog_type = $get->file_dialog_type_href();
 my $flow_type        = $get->flow_type_href();
 
@@ -50,6 +51,8 @@ my $iPick_spec =  {
     _is_suprog             => $false,
     _is_superflow          => $true,
     _max_index             => $max_index,
+	_prefix_aref           => '',
+    _suffix_aref			=> '',
 };
 
 =head2 sub binding_index_aref
@@ -181,6 +184,91 @@ sub get_flow_type_aref {
         return ();
     }
 }
+
+=head2 sub get_prefix_aref
+
+=cut
+
+ sub get_prefix_aref {
+
+	my $self 	= @_;
+
+	if ( defined $iPick_spec->{_prefix_aref} ) {
+
+		my $prefix_aref= $iPick_spec->{_prefix_aref};
+		return($prefix_aref);
+
+	} else {
+		print("iPick_spec, get_prefix_aref, missing prefix_aref\n");
+		return();
+	}
+
+	return();
+ }
+
+=head2 sub get_suffix_aref
+
+=cut
+
+ sub get_suffix_aref {
+
+	my $self 	= @_;
+
+	if ($iPick_spec->{_suffix_aref} ) {
+
+			my $suffix_aref= $iPick_spec->{_suffix_aref};
+			return($suffix_aref);
+
+	} else {
+			print("iPick_spec, get_suffix_aref, missing suffix_aref\n");
+			return();
+	}
+
+	return();
+ }
+
+
+=head2  sub prefix_aref
+
+=cut
+
+ sub prefix_aref {
+
+	my $self 	= @_;
+
+	my @prefix;
+
+	for (my $i=0; $i < $max_index; $i++) {
+
+		$prefix[$i]	= $empty_string;
+
+	}
+	$iPick_spec ->{_prefix_aref} = \@prefix;
+	return();
+
+ }
+
+
+=head2  sub suffix_aref
+
+=cut
+
+ sub suffix_aref {
+
+	my $self 	= @_;
+
+	my @suffix;
+
+	for (my $i=0; $i < $max_index; $i++) {
+
+		$suffix[$i]	= $empty_string;
+
+	}
+	$iPick_spec ->{_suffix_aref} = \@suffix;
+	return();
+
+ }
+
 
 =head2 sub get_binding_length
 

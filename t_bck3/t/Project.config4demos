@@ -1,0 +1,15 @@
+HOME                               = $HOME        
+PROJECT_HOME              	   = $HOME/demos
+site                               = Synthetic         
+spare_dir                          = Finite_Difference                    
+date                               = Sufctansimod              
+component                          = Xdemo1                   
+line                               = 1                   
+subUser                            = gllore              
+geomaps                            = no                  
+geopsy                             = no                  
+gmt                                = no                  
+grass                              = no                  
+matlab                             = no                  
+mmodpg                             = yes                 
+sqlite                             = no              

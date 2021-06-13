@@ -46,7 +46,8 @@ sub get_instructions {
 	my $username = 'tester';
 	my ( @instruction, @message );
 	#my $password = 'a!efg101$-_qop5';
-    my $password = '5';
+    	my $password = '5';
+
 	if ( not length($L_SU) ) {
 
 		print "global variable L_SU must be set";
@@ -54,35 +55,43 @@ sub get_instructions {
 		print " export L_SU=/usr/local/pl/L_SU ";
 
 	} else {
-#		print("\$L_SU = $L_SU \n"); NADA
+		print("\$L_SU = $L_SU \n"); 
 	}
 
 	my $PATH = $L_SU . '/t';
 	my $HOME = $PATH . '/' . $username;
 
-	$instruction[0] = ( "getent passwd $username > /dev/null		\
-									if [ \$\? -eq 0 ]; then									\
-    								    sudo /usr/sbin/userdel -r $username   	\
-									else																\
-    									echo \"No, the user does not exist\"		\
-									fi");
+	$instruction[0] = ( "
+	username='tester'
+	getent passwd $username > /dev/null		\
+	if [ \$\? -eq 0 ]; then											\
+    	echo \"A user = tester already exists. Can not continue\"	\
+    	echo \"Must change test user name\"							\
+		exit 0														\
+																	\
+	else															\
+	    echo \"A user= tester does not exist. OK to continue\"		\
+	fi													   			\
+	");
 
-	$instruction[1]= ("sudo /usr/sbin/luseradd --directory=$HOME --plainpassword=$password -g=$username --shell=/bin/bash $username");
-	$instruction[2] = "sudo  chmod 755 $HOME ";
-    $instruction[3] = ("while [ !  -f  $HOME/.bashrc ]    \
-     								do 											\
-     								     echo 'waiting'   					\
-     								done											\
-     								# echo 'found it' 							\
-     								sudo chmod 777 $HOME/.bashrc
-     								sudo cat $PATH/bashrc_local >> $HOME/.bashrc 
-     								sudo chmod 744 $HOME/.bashrc
-     								sudo  chmod 700 $HOME
-     								");
-	$message[0] = ("   \nuser.pm\n    Clear any pre-existing account information and files belonging to 'tester'");
-	$message[1] = ("   Create temporary account for tester");
-	$message[2] = ("   Change permissions for tester");	
-	$message[3] = ("   Append environmental variables to tester's '.bashrc' file");
+	$instruction[1] = ( "sudo /usr/sbin/luseradd --directory=$HOME --plainpassword=$password -g=$username --shell=/bin/bash $username");
+	$instruction[2] = ("sudo  chmod 755 $HOME ");
+    $instruction[3] = ("											\
+	while [ !  -f  $HOME/.bashrc ]    								\
+     	do 															\
+     		echo 'waiting to find .bashrc'   						\
+     	done														\
+     	# echo 'found it' 											\
+     	sudo chmod 777 $HOME/.bashrc 								\
+     	sudo cat $PATH/bashrc_local >> $HOME/.bashrc  				\
+     	sudo chmod 744 $HOME/.bashrc 								\
+     	sudo  chmod 700 $HOME 										\
+");
+	$message[0] = ("   \nuser.pm\n    1. Create user directory and files");
+	$message[1] = ("\t--Clear any pre-existing account information and files belonging to 'tester'");
+	$message[2] = ("\t--Create temporary account for tester");
+	$message[3] = ("\t--Change permissions for tester");	
+	$message[4] = ("\t--Append environmental variables to tester's '.bashrc' file");
 	
 	return ( \@message, \@instruction );
 

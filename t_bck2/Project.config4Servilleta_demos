@@ -1,0 +1,15 @@
+HOME                               = $HOME        
+PROJECT_HOME                       = $HOME/Servilleta_demos
+site                               = loma_blanca         
+spare_dir                          =                     
+date                               = 053018              
+component                          = H                   
+line                               = 1                   
+subUser                            = tester             
+geomaps                            = no                  
+geopsy                             = no                  
+gmt                                = no                  
+grass                              = no                  
+matlab                             = no                  
+mmodpg                             = yes                 
+sqlite                             = no                  

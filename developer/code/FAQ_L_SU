@@ -2172,6 +2172,8 @@ Q. Where is flow_select_index_href updated when the following are used?
 			
 							
 FileDialog_button: handles Data, SaveAs and (perl) Flow (in) is
+			main
+ 				L_SU
 					FileDialog_button		
 						_perl_flow
 						_add2flow
@@ -2352,6 +2354,8 @@ when using the spec files:
 	 		_SaveAs_button
 	 			files_LSU,
 	 			save
+	 			
+	 		For SaveAs, how is the color flow selected? 			
 	 			
 Q. How are superflow parameters selected in the case of Project
  For Project.config there is no local configuration file.  This superflow is

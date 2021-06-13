@@ -59,9 +59,8 @@ sub get_instructions {
 	my $Project_configuration = 'Project.config';
 	my ( @active_directory, @latent_directory );
 
-
 	# only one active directory can exist at a time
-	$active_directory[0] = $HOME . '/.L_SU/configuration/active/Servilleta_demos';
+	$active_directory[0] = $HOME . '/.L_SU/configuration/active';
 
 	$latent_directory[0] = $HOME . '/.L_SU/configuration/Servilleta_demos';
 	$latent_directory[1] = $HOME . '/.L_SU/configuration/demos';
@@ -78,17 +77,17 @@ sub get_instructions {
 	$instruction[7] = ("sudo cp -r $L_SU/demo_projects/Servilleta_demos $L_SU/t/$username");
 	$instruction[8] = ("sudo cp -r $L_SU/demo_projects/demos $L_SU/t/$username");	
 
-	$message[0] = ("   \nconfiguration.pm\n    Create configuration subdirectories and files");
-	$message[1] = "    Create Servilleta_demos project in active directory";
-	$message[2] = "    Create Servilleta_demos project in latent directory";
-	$message[3] = "    Create demos project in latent directory";
+	$message[0] = ("   \nconfiguration.pm\n    2. Create configuration subdirectories and files");
+	$message[1] = "\t--Create Servilleta_demos project in active directory";
+	$message[2] = "\t--Create Servilleta_demos project in latent directory";
+	$message[3] = "\t--Create demos project in latent directory";
 
 	# A latent configuration exists for demos and Servilleta_demos
-	$message[4] = ("    Write $active_directory[0]/$Project_configuration");
-	$message[5] = ("    Write $latent_directory[0]/$Project_configuration");
-	$message[6] = ("    Write $latent_directory[1]/$Project_configuration");
-    $message[7] = ("    Copy $L_SU/demo_projects/Servilleta_demos $L_SU/t/$username");
-    $message[8] = ("    Copy $L_SU/demo_projects/demos $L_SU/t/$username");
+	$message[4] = ("\t--Copy $active_directory[0]/$Project_configuration");
+	$message[5] = ("\t--Copy $latent_directory[0]/$Project_configuration");
+	$message[6] = ("\t--Copy $latent_directory[1]/$Project_configuration");
+    $message[7] = ("\t--Copy $L_SU/demo_projects/Servilleta_demos $L_SU/t/$username");
+    $message[8] = ("\t--Copy $L_SU/demo_projects/demos $L_SU/t/$username");
     
 	return ( \@message, \@instruction );
 

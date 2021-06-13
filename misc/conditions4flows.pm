@@ -1616,7 +1616,7 @@ sub set4user_built_flow_close_path_end {
 	$has_used_Save_button = $false;
 
 	# Allows user to open a user-built perl flow
-	# $Flow_menubutton->configure( -state => 'normal', );
+	$Flow_menubutton->configure( -state => 'normal', );
 
 	return ();
 }
@@ -1803,13 +1803,13 @@ sub set_defaults4end_of_delete_whole_flow_button {
 		# turn off run button
 #		$run_button->configure( -state => 'disabled' );
 
-		# turn off SaveAs menu button
-		$SaveAs_menubutton->configure( -state => 'disabled' );
+#		# turn off SaveAs menu button
+#		$SaveAs_menubutton->configure( -state => 'disabled' );
 
-		# turn off Data menu button
-		$Data_menubutton->configure( -state => 'disabled' );
+#		# turn off Data menu button
+#		$Data_menubutton->configure( -state => 'disabled' );
 
-		# turn off Flow menu button
+#		# turn on Flow menu button
 		$Flow_menubutton->configure( -state => 'normal' );
 
 		# turn off save button

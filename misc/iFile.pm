@@ -74,7 +74,7 @@ my $iFile = {
 
 works for both user-built and pre-built superflows
 JML Nov-14-2018
-6.4.21 includes mutiple file types within a single program
+6.4.21 allows mutiple file  formats (bin,su,txt) within a single program
 
 =cut
 

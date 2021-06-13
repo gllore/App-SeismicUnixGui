@@ -294,7 +294,7 @@ sub _set_user_built_flow_type {
 }
 
 =head2 sub FileDialog_button
-
+	For user-built flows.
 	Interactively choose a file name
     that will then be entered into the
     values of the parameter frame and 
@@ -309,7 +309,7 @@ sub _set_user_built_flow_type {
  	print("L_SU,FileDialog_button	parameter_values_frame: $parameter_values_frame\n");
  	
  	dialog_type is one of 3 topics:  'Data', (open a) 
- 	Flow (a user-built perl flow) or 'SaveAs'  a user-built perl flow)
+ 	Flow (open a user-built perl flow) or 'SaveAs'  a user-built perl flow)
  	
  	the Save (main) option goes straight to the L_SU,save_button for both 'user_built' and 'pre_built_superflow'
 
@@ -488,7 +488,7 @@ sub FileDialog_button {
 			# = nothing if chosen before a colored flow exists
 			# when coming from a user-built flow
 			# = neutral when superflow Data is chosen
-			# print("CASES 3A-3D L_SU, FileDialog_button, color is $color\n");
+			print("CASES 3A-3D L_SU, FileDialog_button, color is $color\n");
 
 			# update any newly added listboxes for all cases 3A-3D
 			#	print("CASES 3A-D L_SU,FileDialog_button, L_SU_gui->{_occupied_listbox_aref},@{$L_SU_gui->{_occupied_listbox_aref}}\n");
@@ -504,11 +504,11 @@ sub FileDialog_button {
 										   # mark the neutral-colored flow as unused
 										   # helps bind flow parameters to the opening files
 
-				#print("CASE 3A L_SU, FileDialog_button, color is $color\n");
+				print("CASE 3A L_SU, FileDialog_button, color is $color\n");
 				$color_listbox->set_future_flow_listbox_color($color);
 				my $which_color = $color_listbox->get_future_flow_listbox_color();
 
-				# print("CASE 3A 1.L_SU,FileDialog_button, $which_color will be occupied\n");
+				print("CASE 3A 1.L_SU,FileDialog_button, $which_color will be occupied\n");
 
 				$grey_flow->set_hash_ref($L_SU_href);
 
@@ -528,7 +528,7 @@ sub FileDialog_button {
 				#				print("case 3b L_SU,FileDialog_button, L_SU_gui->{_occupied_listbox_aref},@{$L_SU_gui->{_occupied_listbox_aref}}\n");
 				#				print("case 3b L_SU,FileDialog_button, L_SU_gui->{_vacant_listbox_aref},@{$L_SU_gui->{_vacant_listbox_aref}}\n");
 
-				# print("CASE 3B, L_SU, FileDialog_button, color is $color\n");
+				print("CASE 3B, L_SU, FileDialog_button, color is $color\n");
 				$color_listbox->set_future_flow_listbox_color($color);
 				my $which_color = $color_listbox->get_future_flow_listbox_color();
 
@@ -542,7 +542,7 @@ sub FileDialog_button {
 				$color_listbox->set_future_flow_listbox_color($color);
 				my $which_color = $color_listbox->get_future_flow_listbox_color();
 
-				# print("CASE 3C 1.L_SU,FileDialog_button, $which_color will be occupied\n");
+				print("CASE 3C 1.L_SU,FileDialog_button, $which_color will be occupied\n");
 
 				# print("CASE 3C, L_SU,FileDialog_button,_flow_name_green_w:	$L_SU_href->{_flow_name_green_w} \n");
 				$green_flow->set_hash_ref($L_SU_href);
@@ -556,7 +556,7 @@ sub FileDialog_button {
 				my $which_color = $color_listbox->get_future_flow_listbox_color();
 
 				# print("CASE 3D 1.L_SU,FileDialog_button, $which_color will be occupied\n");
-				# print("CASE 3D, L_SU, FileDialog_button, color is $color\n");
+				print("CASE 3D, L_SU, FileDialog_button, color is $color\n");
 
 				$blue_flow->set_hash_ref($L_SU_href);
 				$blue_flow->FileDialog_button($dialog_type_sref);
@@ -588,7 +588,7 @@ sub FileDialog_button {
 			&& ( $L_SU_href->{_flow_type} eq 'user_built_flow' ) 
 			&& ($L_SU_gui->{_my_dialogs_ans4cancel} eq $my_dialogs_ans4cancel_default)
 		    && ($L_SU_gui->{_my_dialogs_ans4ok} eq $my_dialogs_ans4ok_default)) {
-#			print("L_SU,FileDialog_button, Case 6\n");
+			print("L_SU,FileDialog_button, Case 6\n");
 
 			# CASE 6
 			# Flow when program opens a (pre-existing) user-built perl flow
@@ -610,7 +610,6 @@ sub FileDialog_button {
 			$grey_flow->FileDialog_button($dialog_type_sref);
 			$L_SU_href->{_flow_color} = $grey_flow->get_flow_color();
 			
-
 		} else {
 			print("6. L_SU, FileDialog_button, not a color: $color \n");
 			print("6. L_SU, FileDialog_button, missing color, and flow types \n");
