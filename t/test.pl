@@ -33,7 +33,9 @@ use Moose;
 use lib '.';
 use check 0.0.1;
 use clean 0.0.1;
-use configuration 0.0.1;
+use configuration 0.0.2;
+use flow;
+use message;
 use user 0.0.1;
 
 my @message;
@@ -42,9 +44,15 @@ my ( $message_aref, $instruction_aref );
 my $number_of_instructions;
 my $number_of_messages;
 
+=head2 Instantiation
+
+=cut
+
 my $check         = check->new();
 my $clean         = clean->new();
 my $configuration = configuration->new();
+my $log           = message->new();
+my $run					= new flow();
 my $user          = user->new();
 
 =pod
@@ -73,192 +81,162 @@ my $logfile = $PATH . '/log.txt';
 open( message_STDOUT, '>', $logfile ) or die $!;
 close(message_STDOUT);
 
-=head2 create user="tester"
+=head2 Create user="tester"
 
 =cut
 
 ( $message_aref, $instruction_aref ) = $user->get_instructions();
-@message     = @$message_aref;
 @instruction = @$instruction_aref;
 
-$number_of_instructions = scalar @instruction;
-$number_of_messages     = scalar @message;
+$number_of_messages     = 5;
+$number_of_instructions = 4;
 
-if (   length($number_of_messages)
-	or length($number_of_instructions) ) {
+=pod
 
-	$number_of_messages     = 5;
-	$number_of_instructions = 4;
-	open( message_STDOUT, '>>', $logfile ) or die $!;
-
-	for ( my $i = 0; $i < $number_of_messages; $i++ ) {
-
-		if ( length( $message[$i] ) ) {
-			print("$message[$i]\n");
-			print message_STDOUT ("$message[$i]") . "\n";
-		}
-
-	}
-
-	for ( my $i = 0; $i < $number_of_instructions; $i++ ) {
-
-		if ( length( $instruction[$i] ) ) {
-#			print("$instruction[$i]\n");
-			print message_STDOUT ("$instruction[$i]") . "\n";
-		}
-
-		if ( length( $instruction[$i] ) ) {
-			print message_STDOUT (">$instruction[$i]") . "\n";
-	#		system( $instruction[$i] );
-		}
-
-	}
-	close(message_STDOUT);
-
-} else {
-	print("\nl106:test.pl, bad instructions or messages for users\n");
-}
-
-=head2 set configuration files
+instructions first
 
 =cut
 
+$log->set_file_name($logfile);
+$log->set_message_aref($instruction_aref);
+$log->set_number_of_messages($number_of_instructions);
+#$log->command_line();
+#$log->file_name();
+
+=pod
+
+messages next
+
+=cut
+
+$log->set_file_name($logfile);
+$log->set_message_aref($message_aref);
+$log->set_number_of_messages($number_of_messages);
+$log->command_line();
+#$log->file_name();
+
+#$run->set_instruction_aref($instruction_aref);
+#$run->set_number_of_instructions($number_of_instructions);
+#$run->system();
+
+=head2 Set configuration files
+
+=cut
+
+$configuration->set_preparations();
+
 ( $message_aref, $instruction_aref ) = $configuration->get_instructions();
-@message     = @$message_aref;
-@instruction = @$instruction_aref;
 
-$number_of_instructions = scalar @instruction;
-$number_of_messages     = scalar @message;
+$number_of_messages     = 12;
+$number_of_instructions = 12;
 
-if (   length($number_of_messages)
-	or length($number_of_instructions) ) {
+=pod
 
-	$number_of_messages     = 8;
-	$number_of_instructions = 8;
-	open( message_STDOUT, '>>', $logfile ) or die $!;
+instructions first
 
-	for ( my $i = 0; $i < $number_of_messages; $i++ ) {
+=cut
 
-		if ( length( $message[$i] ) ) {
-			print("$message[$i]\n");
-			print message_STDOUT ("$message[$i]") . "\n";
-		}
+$log->set_file_name($logfile);
+$log->set_message_aref($instruction_aref);
+$log->set_number_of_messages($number_of_instructions);
+#$log->command_line();
+#$log->file_name();
 
-	}
+=pod
 
-	for ( my $i = 0; $i < $number_of_instructions; $i++ ) {
+messages next
 
-		if ( length( $instruction[$i] ) ) {
-			print("$instruction[$i]\n");
-			print message_STDOUT ("$instruction[$i]") . "\n";
-		}
+=cut
 
-		if ( length( $instruction[$i] ) ) {
-			print message_STDOUT (">$instruction[$i]") . "\n";
-#			system( $instruction[$i] );
-		}
+$log->set_file_name($logfile);
+$log->set_message_aref($message_aref);
+$log->set_number_of_messages($number_of_messages);
+$log->command_line();
+#$log->file_name();
 
-	}
-	close(message_STDOUT);
+#$run->set_instruction_aref($instruction_aref);
+#$run->set_number_of_instructions($number_of_instructions);
+#$run->system();
 
-} else {
-	print("\nL135. test.pl, bad instructions or messages for configurations\n");
-}
 
-=head2 set check
+=head2 Run tests
 
 =cut
 
 ( $message_aref, $instruction_aref ) = $check->get_instructions();
-@message     = @$message_aref;
-@instruction = @$instruction_aref;
 
-$number_of_instructions = scalar @instruction;
-$number_of_messages     = scalar @message;
+	$number_of_messages     = 1;
+	$number_of_instructions = 0;
+	
+=pod
 
-if (   length($number_of_messages)
-	or length($number_of_instructions) ) {
-
-	$number_of_messages     = 2;
-	$number_of_instructions = 1;
-	open( message_STDOUT, '>>', $logfile ) or die $!;
-
-	for ( my $i = 0; $i < $number_of_messages; $i++ ) {
- 
-		if ( length( $message[$i] ) ) {
-			print("$message[$i]\n");
-			print message_STDOUT ("$message[$i]") . "\n";
-		}
-		
-	}
-
-	for ( my $i = 0; $i < $number_of_instructions; $i++ ) {
-
-		if ( length( $instruction[$i] ) ) {
-			print("$instruction[$i]\n");
-			print message_STDOUT ("$instruction[$i]") . "\n";
-		}
-
-		if ( length( $instruction[$i] ) ) {
-			print message_STDOUT (">$instruction[$i]") . "\n";
-			system( $instruction[$i] );
-		}
-		
-	}
-	close(message_STDOUT);
-
-} else {
-	print("\nL135. test.pl, bad instructions or messages for configurations\n");
-}
-
-=head2 run tests
+instructions first
 
 =cut
 
-    $check->get_test_results();
+$log->set_file_name($logfile);
+$log->set_message_aref($instruction_aref);
+$log->set_number_of_messages($number_of_instructions);
+#$log->command_line();
+#$log->file_name();
+
+=pod
+
+messages next
+
+=cut
+
+$log->set_file_name($logfile);
+$log->set_message_aref($message_aref);
+$log->set_number_of_messages($number_of_messages);
+$log->command_line();
+#$log->file_name();
+
+#$run->set_instruction_aref($instruction_aref);
+#$run->set_number_of_instructions($number_of_instructions);
+#$run->system();
+
+
+=head2 See test results
+
+=cut
+
+$check->get_test_results();
+
 
 =head2 set clean
 
 =cut
 
 ( $message_aref, $instruction_aref ) = $clean->get_instructions();
-@message     = @$message_aref;
-@instruction = @$instruction_aref;
-
-$number_of_instructions = scalar @instruction;
-$number_of_messages     = scalar @message;
-
-if (   length($number_of_messages)
-	or length($number_of_instructions) ) {
 
 	$number_of_messages     = 0;
 	$number_of_instructions = 0;
-	open( message_STDOUT, '>>', $logfile ) or die $!;
+	
+=pod
 
-	for ( my $i = 0; $i < $number_of_messages; $i++ ) {
+instructions first
 
-		if ( length( $message[$i] ) ) {
-			print("$message[$i]\n");
-			print message_STDOUT ("$message[$i]") . "\n";
-		}
+=cut
 
-	}
+$log->set_file_name($logfile);
+$log->set_message_aref($instruction_aref);
+$log->set_number_of_messages($number_of_instructions);
+#$log->command_line();
+#$log->file_name();
 
-	for ( my $i = 0; $i < $number_of_instructions; $i++ ) {
+=pod
 
-		if ( length( $instruction[$i] ) ) {
-			print("$instruction[$i]\n");
-			print message_STDOUT ("$instruction[$i]") . "\n";
-		}
+messages next
 
-		if ( length( $instruction[$i] ) ) {
-			print message_STDOUT (">$instruction[$i]") . "\n";
-#			system( $instruction[$i] );
-		}
+=cut
 
-	}
-	close(message_STDOUT);
+$log->set_file_name($logfile);
+$log->set_message_aref($message_aref);
+$log->set_number_of_messages($number_of_messages);
+$log->command_line();
+#$log->file_name();
 
-} else {
-	print("\ntest.pl, bad instructions or messages for cleans\n");
-}
+#$run->set_instruction_aref($instruction_aref);
+#$run->set_number_of_instructions($number_of_instructions);
+#$run->system();

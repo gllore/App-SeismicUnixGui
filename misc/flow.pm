@@ -1,15 +1,143 @@
 package flow;
 
+=head1 DOCUMENTATION
+
+
+=head2 SYNOPSIS 
+
+ PERL PROGRAM NAME: test.pl 
+ AUTHOR: 	Juan Lorenzo
+ DATE: 		June 15 2021
+ (original c. 2018)
+
+
+DESCRIPTION 
+     
+
+ BASED ON:
+
+=cut
+
+=head2 USE
+
+=head3 NOTES
+
+=head4 Examples
+
+
+=head2 CHANGES and their DATES
+
+=cut 
+
 use Moose;
+our $VERSION = '0.0.2';
 
 my $flow = {
 	_inbound      => '',
+    _instructions => '',
 	_outbound     => '',
-	_ref_list     => '',
-	_instructions => '',
 	_ref_PID      => '',
+	_ref_list     => '',
+	_this_package =>'',
 };
 
+
+=head2 Defaults
+
+=cut
+my $number_of_instructions_start = 2;
+my $instruction_start            = 'hi';
+
+sub BUILD {
+	my ($this_package_address) = @_;
+
+	$flow->{_this_package} = $this_package_address;
+
+}
+
+
+=head2 sub default_instruction_aref
+Initialize array 
+
+=cut
+
+sub _default_instruction_aref_start {
+
+	my ($self) = @_;
+
+	my @instruction = (
+		$instruction_start,
+		$instruction_start,
+	);
+
+	my $instruction_aref = \@instruction;
+	return ($instruction_aref);
+
+}
+
+=head2 Declare attributes
+
+=cut
+
+has 'instruction_aref' => (
+	default => \&_default_instruction_aref_start,
+	is      => 'rw',
+	isa     => 'ArrayRef',
+	writer  => 'set_instruction_aref',
+	reader  => 'get_instruction_aref',
+
+	#	trigger=> \&_update_instruction_aref,
+);
+
+has 'number_of_instructions' => (
+	default => $number_of_instructions_start,
+	is      => 'rw',
+	isa     => 'Int',
+	writer  => 'set_number_of_instructions',
+	reader  => 'get_number_of_instructions',
+
+	#	trigger=> \&_update_number_of_instructions,
+);
+
+=head2 sub _update_instruction_aref
+
+update instruction_aref
+
+=cut
+
+sub _update_instruction_aref {
+
+	my ( $instruction, $new_current_instruction_aref, $new_prior_instruction_aref ) = @_;
+
+	my @ans = @{$new_current_instruction_aref};
+
+	#    my @ans = @{$new_prior_instruction_aref};
+
+	#	print("1. instruction,_update_instruction_aref,instruction_aref= @ans  \n");
+
+	@ans = @{ $instruction->get_instruction_aref() };
+	print("2. flow,_update_instruction_aref,instruction_aref= @ans  \n");
+
+	return ();
+}
+
+=head2 sub _update_number_of_instructions
+
+update file_name
+
+=cut
+
+sub _update_number_of_instructions {
+
+	my ( $flow, $new_current_number_of_instructions, $new_prior_number_of_instructions ) = @_;
+
+	my $ans = $flow->get_number_of_instructions();
+
+	print("flow,_update_number_of_instructions, number_of_instructions= $ans  \n");
+
+	return ();
+
+}
 sub inbound {
 	my ( $flow, $inbound ) = @_;
 	$flow->{_inbound} = $inbound if defined($inbound);

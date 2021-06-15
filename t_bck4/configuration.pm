@@ -85,10 +85,7 @@ sub get_instructions {
 	$instruction[6] = ("sudo cp $L_SU/t/Project.config4demos $latent_directory[1]/$Project_configuration");
 	$instruction[7] = ("sudo cp -r $L_SU/demo_projects/Servilleta_demos $L_SU/t/$username");
 	$instruction[8] = ("sudo cp -r $L_SU/demo_projects/demos $L_SU/t/$username");
-    $instruction[9] = ("sudo chmod -R 755  $L_SU/t/$username");
-    $instruction[10] = ("sudo chown -R $username $L_SU/t/$username");
-    $instruction[11] = ("sudo chgrp -R $username $L_SU/t/$username");
-        
+
 	$message[0] = ("   \nconfiguration.pm\n    2. Create configuration subdirectories and files");
 	$message[1] = "\t--Create Servilleta_demos project in active directory";
 	$message[2] = "\t--Create Servilleta_demos project in latent directory";
@@ -98,12 +95,9 @@ sub get_instructions {
 	$message[4] = ("\t--Copy $active_directory[0]/$Project_configuration");
 	$message[5] = ("\t--Copy $latent_directory[0]/$Project_configuration");
 	$message[6] = ("\t--Copy $latent_directory[1]/$Project_configuration");
-	$message[7] = ("\t--Copy $L_SU/demo_projects/Servilleta_demos to $L_SU/t/$username");
-	$message[8] = ("\t--Copy $L_SU/demo_projects/demos to $L_SU/t/$username");
-	$message[9] = ("\t--Make $username\'s directory exectubale and writable for the owner");
-	$message[10] = ("\t--Make $username\'s files belong the owner");
-    $message[11] = ("\t--Make $username\'s files belong to their own group");
-    
+	$message[7] = ("\t--Copy $L_SU/demo_projects/Servilleta_demos $L_SU/t/$username");
+	$message[8] = ("\t--Copy $L_SU/demo_projects/demos $L_SU/t/$username");
+
 	return ( \@message, \@instruction );
 
 }
@@ -146,10 +140,12 @@ sub set_preparations {
 
 	if ( -e $file ) {
 
+#		print("File $file exists\n");
 		@lines = read_file($file);
+#		print("\nconfiguration, set_preparations, line[0]=@lines,\n");
 		$lines[0] =~ s/\$HOME/$HOME/;
 		$lines[1] =~ s/\$HOME/$HOME/;
-		write_file($file, @lines);
+#		print("configuration, set_preparations, lines=\n @lines,\n");
 
 	} else {
 		print("configuration, set_preparations, filename does not exist\n");

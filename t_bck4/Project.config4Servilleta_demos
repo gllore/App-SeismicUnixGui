@@ -1,11 +1,11 @@
-HOME                               = /usr/local/pl/L_SU/t/tester        
-PROJECT_HOME                       = /usr/local/pl/L_SU/t/tester/Servilleta_demos
+HOME                               = $HOME        
+PROJECT_HOME                       = $HOME/Servilleta_demos
 site                               = loma_blanca         
 spare_dir                          =                     
 date                               = 053018              
 component                          = H                   
 line                               = 1                   
-subUser                            = gom             
+subUser                            = gllore             
 geomaps                            = no                  
 geopsy                             = no                  
 gmt                                = no                  
