@@ -1,3 +1,0 @@
-/home/gllore/demos/seismics/pl/Synthetic/Finite_Difference/Sufdmod2/XDemo3/1/gllore/1.make_velocity_model
-/home/gllore/demos/seismics/pl/Synthetic/Finite_Difference/Sufdmod2/XDemo3/1/gllore/2.make_unif2
-/home/gllore/demos/seismics/pl/Synthetic/Finite_Difference/Sufdmod2/XDemo1/1/gllore/1.make_velocity_model

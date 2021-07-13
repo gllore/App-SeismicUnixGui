@@ -1,9 +1,0 @@
-/home/gllore/demos/seismics/pl/Synthetic/Finite_Difference/Sufctanismod/Xdemo1/1/gllore/suspecfx.pl
-/home/gllore/demos/seismics/pl/Synthetic/Finite_Difference/Sufctanismod/Xdemo1/1/gllore/suphasevel.pl
-/home/gllore/demos/seismics/pl/Synthetic/Finite_Difference/Sufctanismod/Xdemo1/1/gllore/plot.pl
-/home/gllore/demos/seismics/pl/Synthetic/Finite_Difference/Sufctanismod/Xdemo1/1/gllore/13.transform2stiffness.pl
-/home/gllore/demos/seismics/data/Synthetic/Finite_Difference/Sufctanismod/Xdemo1/1/su/gllore/zreflectionz_geom.su
-/home/gllore/demos/seismics/pl/Synthetic/Finite_Difference/Sufctanismod/Xdemo1/1/gllore/geom.pl
-/home/gllore/demos/seismics/data/Synthetic/Finite_Difference/Sufctanismod/Xdemo1/1/su/gllore/zreflectionz.su
-/home/gllore/demos/seismics/pl/Synthetic/Finite_Difference/Sufdmod2/XDemo3/1/gllore/2.make_unif2
-/home/gllore/demos/seismics/pl/Synthetic/Finite_Difference/Sufdmod2/XDemo3/1/gllore/1.make_velocity_model
