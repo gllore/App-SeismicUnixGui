@@ -331,7 +331,7 @@ sub prefix_aref {
 	my $index_aref = get_binding_index_aref();
 	my @index      = @$index_aref;
 
-	# label 2 n GUI is input c11_file and needs a home directory
+	# label 2 in GUI is input c11_file and needs a home directory
 	$prefix[ $index[1] ] = '$DATA_SEISMIC_BIN' . ".'/'.";
 
 	# label 4 in GUI is input c33_file and needs a home directory

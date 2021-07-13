@@ -163,7 +163,7 @@ sub _reset {
 sub _changes {
 	my ( $self, $index ) = @_;
 	my $idx = $index;    # individual parameter line
-	use control;
+	use control 0.0.3;
 	my $control = new control;
 
 	# two cases possible
@@ -1187,7 +1187,7 @@ sub redisplay_values {
 	if (   $values_w_aref
 		&& $values_aref )
 	{
-		use control;
+		use control 0.0.3;
 
 		for ( my $i = $first; $i < $length; $i++ ) {
 

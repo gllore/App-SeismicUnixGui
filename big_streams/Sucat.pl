@@ -134,7 +134,7 @@ Examples:
 
 use Moose;
 our $VERSION = '0.1.3';
-use control;
+use control 0.0.3;
 use Project_config;
 use readfiles;
 use flow;

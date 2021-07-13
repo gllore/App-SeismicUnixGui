@@ -94,18 +94,8 @@ my $var = $get->var();
 my $true  = $var->{_true};
 my $false = $var->{_false};
 
-=head2 private hash
-
-	92 off
-	_is_flow_listbox_color_w is generic colored widget
-	Warning: conditions_gui.pm does not contain all the hash keys and values
-	that follow-- these variables will be reset by conditions_gui.p.
-
-=cut
-
 =head2 sub get_hash_ref 
-
-	exports private hash 
+Exports private hash 
  
 =cut
 
@@ -118,8 +108,7 @@ sub get_hash_ref {
 }
 
 =head2 sub get_flow_color 
-
-	exports private hash value
+Exports private hash value
  
 =cut
 
@@ -138,40 +127,9 @@ sub get_flow_color {
 
 }
 
-#=head2 sub get_last_flow_color
-#
-#		returns current folor (neutral) as the last fow color
-#		get_hash_ref is NOT USED intentionally
-#		The variabels needed by other colored flows exceed the capacity of the current package
-#		I opt for enacapsulation
-#
-#=cut
-#
-#sub get_last_flow_color {
-#
-#	my ($self) = @_;
-#
-#	if ( $color_flow_href->{_flow_color} ) {
-#
-#		$color_flow_href->{_last_flow_color} = $color_flow_href->{_flow_color};
-#
-#		# for export
-#		$last_flow_color = $color_flow_href->{_last_flow_color};
-#
-#		# print("neutral_flow, get_last_flow_color, last_flow_color:  $last_flow_color\n");
-#		return ($last_flow_color);
-#
-#	}
-#	else {
-#		print("neutral_flow, get_last_flow_color,  flow_color missing \n");
-#	}
-#
-#	return ();
-#}
 
 =head2 sub get_prog_name_sref 
-
-	exports private hash value
+Exports private hash value
  
 =cut
 
@@ -193,17 +151,15 @@ sub get_prog_name_sref {
 }
 
 =head2 sub help
-
- Callback sequence following MB3 click 
- activation of a sunix (Listbox) item
- program name is a scalar reference
+Callback sequence following MB3 click 
+activation of a sunix (Listbox) item
+program name is a scalar reference
  
  Let help decide whether it is a superflow
  or a user-created flow
  
  Show a window with the perldoc to the user
  
-
 =cut 
 
 sub help {
@@ -216,15 +172,9 @@ sub help {
 }
 
 =head2 sub set_hash_ref
+Copies with simplified names are also kept (40) so later
+the hash can be returned to a calling module
 
-	copies with simplified names are also kept (40) so later
-	the hash can be returned to a calling module
-	
-	imports external hash into private settings 
- 	40 and 33 
- 	
- 	local extra  
- 	
 =cut
 
 sub set_hash_ref {
@@ -253,8 +203,7 @@ sub set_hash_ref {
 }
 
 =head2 sub sunix_select (subroutine is only active in neutral_flow)
-
-  Pick Seismic Unix modules
+Pick Seismic Unix modules
 
   foreach my $key (sort keys %$color_flow_href) {
    print (" neutral_flowkey is $key, value is $color_flow_href->{$key}\n");
@@ -327,6 +276,7 @@ sub sunix_select {
 	$color_flow_href->{_values_aref}                 = $param_sunix->get_values();
 	$color_flow_href->{_check_buttons_settings_aref} = $param_sunix->get_check_buttons_settings();
 	$color_flow_href->{_param_sunix_first_idx}       = $param_sunix->first_idx();
+	
 	# use values not index
 	$param_sunix->set_half_length();    			
 	$color_flow_href->{_param_sunix_length} 		= $param_sunix->get_length();    #
@@ -341,7 +291,7 @@ sub sunix_select {
 	# print("5. neutral_flow sunix_select, program name is ${$color_flow_href->{_prog_name_sref}}\n");
 	# print("41. neutral_flow sunix_select, check button settings--@{$color_flow_href->{_check_buttons_settings_aref}}--\n");
 
-	# strange memory leak inside param_widgets
+	# Correct strange memory leak inside param_widgets
 	my $save = clone( $color_flow_href->{_check_buttons_settings_aref} );
 	$param_widgets->gui_full_clear();
 

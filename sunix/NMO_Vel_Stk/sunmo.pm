@@ -297,7 +297,7 @@ sub multi_gather_parfile {
 
 		use manage_files_by2;
 		use Project_config;
-		use control;
+		use control 0.0.3;
 
 =head2 instantiate classes
 
@@ -530,7 +530,7 @@ sub par {
       
 		use manage_files_by2;
 		use Project_config;
-		use control;
+		use control 0.0.3;
 
 =head2 instantiate classes
 

@@ -61,7 +61,7 @@ sub binding_index_aref {
     my ($self) = @_;
     my @index;
 
-    $index[0] = 0;
+    $index[0] = 0;     # item is  bound to _DATA_DIR_IN
 
     $immodpg_spec->{_binding_index_aref} = \@index;
 

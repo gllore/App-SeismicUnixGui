@@ -58,7 +58,7 @@ VELAN DATA
 =cut
 
 use Moose;
-use control;
+use control 0.0.3;
 our $VERSION = '1.0.3';
 use L_SU_global_constants;
 use iSunmo;

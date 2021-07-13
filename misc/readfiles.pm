@@ -367,7 +367,7 @@ sub cols_2 {
 #	use Moose;
 #	# use Config::Simple;
 #	use name;
-#	use control;
+#	use control 0.0.3;
 #	my $name    = new name();
 #	my $control = new control;
 #
@@ -679,7 +679,7 @@ sub cfg {
 
 sub configs {
 	my ( $self, $program ) = @_;
-	use control;
+	use control 0.0.3;
 
 	if ($program) {
 		
@@ -778,6 +778,10 @@ sub configs {
 
 			# print("3-1b. readfiles,configs $t\t$x \n");
 
+		# establish which program is active in the flow 7.10.21
+#		$color_flow_href->{_prog_names_aref} = $param_flow_color_pkg->get_flow_prog_names_aref();
+#   	    $control->set_flow_prog_names_aref($color_flow_href->{_prog_names_aref});
+#   	    $control->set_flow_prog_name_index($most_recent_flow_index_touched);
 			# add single strings to the start and end if we do have a string
 			# but do nothing if it is a number
 			$x = $control->get_string_or_number($x);

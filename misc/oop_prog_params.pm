@@ -162,7 +162,7 @@ sub _get_prefix_for_a_label {
 	my ($self) = @_;
 
 	use param_sunix;
-	use control;
+	use control 0.0.3;
 
 	my $param_sunix = param_sunix->new();
 	my $control     = control->new();
@@ -240,7 +240,7 @@ sub _get_suffix_for_a_label {
 	my ($self) = @_;
 
 	use param_sunix;
-	use control;
+	use control 0.0.3;
 
 	my $param_sunix = param_sunix->new();
 	my $control     = control->new();
@@ -359,7 +359,7 @@ In order to write the following:
 sub get_a_section {
 	my ($self) = @_;
 
-	use control;
+	use control 0.0.3;
 	my $control = new control();
 
 	my $prog_name = $oop_prog_params->{_prog_name};
@@ -434,7 +434,7 @@ sub get_a_section {
 
 					if ( $num_values >= 2 ) {
 
-						use control;
+						use control 0.0.3;
 						my $control = control->new();
 
 						# de-tick sub-values for initial case

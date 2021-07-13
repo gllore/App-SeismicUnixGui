@@ -23,7 +23,7 @@ package param_flow_grey;
 =cut
 
 use Moose;
-our $VERSION = '0.0.4';
+our $VERSION = '0.0.5';
 use Clone 'clone';
 
 =pod

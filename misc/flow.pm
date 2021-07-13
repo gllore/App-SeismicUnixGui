@@ -34,17 +34,17 @@ our $VERSION = '0.0.2';
 
 my $flow = {
 	_inbound      => '',
-    _instructions => '',
+	_instructions => '',
 	_outbound     => '',
 	_ref_PID      => '',
 	_ref_list     => '',
-	_this_package =>'',
+	_this_package => '',
 };
-
 
 =head2 Defaults
 
 =cut
+
 my $number_of_instructions_start = 2;
 my $instruction_start            = 'hi';
 
@@ -54,7 +54,6 @@ sub BUILD {
 	$flow->{_this_package} = $this_package_address;
 
 }
-
 
 =head2 sub default_instruction_aref
 Initialize array 
@@ -138,14 +137,33 @@ sub _update_number_of_instructions {
 	return ();
 
 }
+
+=head2 sub flow 
+Sending a list of instructions to 
+  operating system to run
+
+=cut
+
+sub flow {
+
+	my ( $self, $ref_instructions ) = @_;
+
+	if ($ref_instructions) {
+
+		$flow->{_instructions} = $$ref_instructions;
+
+		# print("flow,flow, $flow->{_instructions}\n");
+		system("$flow->{_instructions}");
+		return ();
+
+	} else {
+#		print("flow,flow,missing instructions NADA \n");
+	}
+}
+
 sub inbound {
 	my ( $flow, $inbound ) = @_;
 	$flow->{_inbound} = $inbound if defined($inbound);
-}
-
-sub outbound {
-	my ( $flow, $outbound ) = @_;
-	$flow->{_outbound} = $outbound if defined($outbound);
 }
 
 =head2 sub modules
@@ -163,9 +181,9 @@ sub outbound {
 sub modules {
 	my ( $flow, $ref_list ) = @_;
 	my $i;
-	
+
 	if ( defined $ref_list
-		and ( scalar @$ref_list ) > 0 ) {  # N.B. at least '&' exists
+		and ( scalar @$ref_list ) > 0 ) {    # N.B. at least '&' exists
 
 		# print("flow so far is @$ref_list\n\n");
 		my $list_length = $#$ref_list;
@@ -177,43 +195,48 @@ sub modules {
 
 		$flow->{_ref_list} = $word;
 		return $flow->{_ref_list};
-		
-		} else {
-			print("flow,modules, empty ref_list\n\n");
-		}
-		return();
-	}
 
-=head2 sub flow 
+	} else {
+		print("flow,modules, empty ref_list\n\n");
+	}
+	return ();
+}
+
+sub outbound {
+	my ( $flow, $outbound ) = @_;
+	$flow->{_outbound} = $outbound if defined($outbound);
+}
+
+=head2 sub system 
 
    sending a list of instructions to 
    operating system to run
 
-   Debug using:
-    print("ref_instr is $$ref_instructions\n\n");
-    print "it's an array reference!";
-    print("flows=$flow->{_instructions}\n\n");
-			print("flow,flow,$$ref_instructions\n");
-
-			 print("flow,flow,/usr/local/bin/pl $$ref_instructions\n");
-
 =cut
 
-	sub flow {
+sub system {
 
-		my ( $self, $ref_instructions ) = @_;
+	my ($self) = @_;
 
-		if ($ref_instructions) {
+	my $flow = $flow->{_this_package};
 
-			$flow->{_instructions} = $$ref_instructions;
+	my @instructions           = @{ $flow->get_instruction_aref() };
+	my $number_of_instructions = $flow->get_number_of_instructions();
 
-			# print("flow,flow, $flow->{_instructions}\n");
-			system("$flow->{_instructions}");
-			return ();
+	if ( $number_of_instructions > 0 ) {
 
-		} else {
-			print("flow,flow,missing instructions \n");
+		for ( my $i=0; $i < $number_of_instructions; $i++ ) {
+
+#			print("flow, system,$instructions[$i]\n");
+			system("$instructions[$i]");
+			
 		}
+
+	} else {
+#		print("flow,flow,missing instructions NADA\n");
 	}
 
-	1;
+	return ();
+}
+
+1;

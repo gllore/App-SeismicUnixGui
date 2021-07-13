@@ -124,11 +124,9 @@ my @sunix_well_programs        = @{ $var->{_sunix_well_programs} };
 =head2 Declare private variables
 
  flow_listbox_color_w   -listbox, input by user selection
- sunix_listbox   		-choice of listed sunix modules in a listbox
+ sunix_listbox   		-choice from listed sunix modules in a listbox
  
  flow_types: 'user_built flow' and 'pre_built_superflow'
- 
- 29 off, 4 off, 1 off
 
 =cut
 

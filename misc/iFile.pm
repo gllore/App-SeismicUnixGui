@@ -74,7 +74,7 @@ my $iFile = {
 
 works for both user-built and pre-built superflows
 JML Nov-14-2018
-6.4.21 allows mutiple file  formats (bin,su,txt) within a single program
+Now allows mutiple file  formats (bin,su,txt) within a single program: 6.4.21 
 
 =cut
 
@@ -97,8 +97,7 @@ sub _get_DATA_DIR_IN {
 
 		my $alias_prog_name = _get_prog_name();
 		$prog_name = $alias_superflow_spec_names_h->{$alias_prog_name};
-
-		# print("iFile,get_Data_path, my unaliased program = $prog_name\n");
+		print("iFile,_get_DATA_DIR_IN, my unaliased program = $prog_name\n");
 
 	} elsif ( $iFile->{_flow_type} eq $flow_type_href->{_user_built} ) {
 
@@ -108,7 +107,8 @@ sub _get_DATA_DIR_IN {
 		print("iFile, unexpected flow type \n");
 	}
 
-	if ( length $prog_name ) {
+	if ( length $prog_name 
+	&& length ($iFile->{_parameter_value_index} ) ) {
 
 		my $DATA_PATH_IN;
 
@@ -161,11 +161,14 @@ sub _get_DATA_DIR_IN {
 			}
 
 		} else {
-			print("iFile, _get_DATA_DIR_IN, mising value \n");
+			print("iFile, _get_DATA_DIR_IN, mising values \n");
+			print("iFile, $DATA_PATH_IN=$DATA_PATH_IN \n");
+			print("iFile, index=$index\n");
 		}
 
 	} else {
-		print("iFile,_get_DATA_DIR_IN, missing prog_name\n");
+		print("iFile,_get_DATA_DIR_IN, missing prog_name=$prog_name, OR \n");
+		print("iFile,_get_DATA_DIR_IN, missing iFile->{_parameter_value_index}=$iFile->{_parameter_value_index}\n");
 	}
 
 #	print("iFile,get_Data_path, DATA_DIR_IN = $result\n");
@@ -265,11 +268,11 @@ sub get_SaveAs_path {
  make sure to remove unneeded ticks in strings
  
  used in user-built flows 
- for very specific programs
+ for very specific programs (data_in, suop2)
  
- pre-built user flows in the general case
+ and for pre-built user flows in the general case
  
- TODO: sepearate the determination of data paths for user-built flows 
+ TODO: separate the determination of data paths for user-built flows 
  and pre-built flows
  
 =cut
@@ -283,9 +286,9 @@ sub get_Data_path {
 	my $entry_label = $iFile->{_entry_button_label};
 	my $dialog_type = $iFile->{_dialog_type};
 
-	#	print("iFile, get_path, parameter label or name = $entry_label\n");
-	#	print("iFile, Data_File,get_Data_path, base_file_name  = $base_file_name\n");
-	#	print("iFile,get_Data_path,flow_type =$iFile->{_flow_type}\n");
+#	print("iFile, get_Data_path, parameter label or name = $entry_label\n");
+#	print("iFile, Data_File,get_Data_path, base_file_name  = $base_file_name\n");
+	print("iFile,get_Data_path,flow_type =$iFile->{_flow_type}\n");
 
 	my $Project                   = new Project_config();
 	my $DATA_SEISMIC_BIN          = $Project->DATA_SEISMIC_BIN();
@@ -303,12 +306,12 @@ sub get_Data_path {
 
 			# CASE 1 user-built flows
 			# CASE 1A first label/name is base_file_name
-			# print("CASE 1 iFile,get_path,flow_type = $iFile->{_flow_type}\n");
+#			print("CASE 1 iFile,get_Data_path,flow_type = $iFile->{_flow_type}\n");
 			# FOR A VERY SPECIFIC CASE (TODO: move all cases to the _spec files)
 
 			my $suffix_type = @{ $iFile->{_values_aref} }[1];
 
-			# print("CASE 1 iFile,get_path,suffix_type = $suffix_type\n");
+#			print("CASE 1 iFile,get_Data_path,suffix_type = $suffix_type\n");
 
 			if ( $suffix_type eq 'su' or $suffix_type eq "'su'" ) {
 
@@ -332,8 +335,8 @@ sub get_Data_path {
 				# and second (index=1) 'segy'
 				# if second label/name = 'type' &&  value = 'segy'
 
-				# print("iFile,get_path,entry_button_label= $entry_label\n");
-				# print("CASE 1A.2 iFile,get_Data_path,$DATA_SEISMIC_SEGY\n");
+#				print("iFile,get_path,entry_button_label= $entry_label\n");
+#				print("CASE 1A.2 iFile,get_Data_path,$DATA_SEISMIC_SEGY\n");
 				$iFile->{_path} = $DATA_SEISMIC_SEGY;
 
 			} elsif ( $suffix_type eq 'txt'
@@ -367,7 +370,7 @@ sub get_Data_path {
 				# if second label/name = 'type' &&  value = bin
 
 				# print("iFile,get_path,entry_button_label= $entry_label\n");
-				print("CASE 1A.4 iFile,get_Data_path,$DATA_SEISMIC_BIN\n");
+#				print("CASE 1A.4 iFile,get_Data_path,$DATA_SEISMIC_BIN\n");
 				$iFile->{_path} = $DATA_SEISMIC_BIN;
 
 			} elsif ( $suffix_type eq 'ps'
@@ -389,7 +392,7 @@ sub get_Data_path {
 				# CASE 1A.7	unrecognized data type
 
 				# print("iFile,get_path,path=$iFile->{_path}\n");
-				# print("CASE 1A.7 iFile,get_Data_path, unrecognized data type ... TB Added\n");
+				print("CASE 1A.7 iFile,get_Data_path, unrecognized data type ... TB Added\n");
 			}
 
 		} elsif ( $entry_label eq 'file1'
@@ -418,14 +421,14 @@ sub get_Data_path {
 
 			$iFile->{_path} = _get_DATA_DIR_IN;
 
-			#			print("CASE 1B.3 iFile,get_Data_path, DATA_DIR_IN= $iFile->{_path}\n");
+			print("CASE 1B.3 iFile,get_Data_path, DATA_DIR_IN= $iFile->{_path}\n");
 
 		} elsif ( $entry_label eq $empty_string ) {
 
 			# unlikely
 			# CASE 1B.4
-			print("CASE1B.4 1iFile,get_Data_path, entry_label is empty \n");
-			print("iFile,get_Data_path, PL_SEISMIC is new chosen path \n");
+#			print("CASE1B.4 1iFile,get_Data_path, entry_label is empty \n");
+#			print("iFile,get_Data_path, PL_SEISMIC is new chosen path \n");
 			$iFile->{_path} = $PL_SEISMIC;
 
 		} else {
@@ -439,32 +442,28 @@ sub get_Data_path {
 		}
 
 	} elsif ( $iFile->{_flow_type} eq $flow_type_href->{_pre_built_superflow} ) {
-
-		# CASE 2: for superflows
+		# CASES 2: for superflows
+		
 		if ( $entry_label eq $base_file_name ) {
-
 			# CASE 2A.1:
 			# first label/name = 'base_file_name
 			# and second label/name  = 'type',
 			# and second (index=1) entry value = 'su', 'segy' etc.
-			# print("CASE 2A.1: iFile,get_Data_path,$DATA_SEISMIC_SU\n");
-
-			# _get_DATA_DIR_OUT;
-			# _get_DATA_DIR_IN;
-			$iFile->{_path} = _get_DATA_DIR_IN;
+			print("CASE 2A.1: iFile,get_Data_path, $DATA_SEISMIC_SU\n");
+			$iFile->{_path} = _get_DATA_DIR_IN();
 
 		} elsif ( $entry_label ne $empty_string
 			and $iFile->{_dialog_type} eq $file_dialog_type_h->{_Data_PL_SEISMIC} ) {
 
 			# case 2A.2
-			#			print("case 2A.2 iFile,get_Data_path, dialog_type=$iFile->{_dialog_type} \n");
+#			print("case 2A.2 iFile,get_Data_path, dialog_type=$iFile->{_dialog_type} \n");
 			$iFile->{_path} = $Data_PL_SEISMIC;
 
 		} elsif ( $entry_label eq $empty_string ) {
 
 			# CASE 2A.3
-			print("iFile,get_Data_path, entry_label is empty \n");
-			print("CASE 2A.3 File,get_Data_path, new PL_SEISMIC path chosen \n");
+#			print("iFile,get_Data_path, entry_label is empty \n");
+#			print("CASE 2A.3 File,get_Data_path, new PL_SEISMIC path chosen \n");
 			$iFile->{_path} = $PL_SEISMIC;
 
 		} else {
@@ -472,24 +471,23 @@ sub get_Data_path {
 			# CASE 2A.4
 			$iFile->{_path} = $default_path;
 
-			print("iFile, get_Data_path, superflow entry label is unexpected \n");
-			print("case 2A.4 iFile,get_Data_path, dialog_type=$iFile->{_dialog_type} \n");
-			print("CASE 2A.4, iFile,get_path,path=$iFile->{_path}\n");
+#			print("iFile, get_Data_path, superflow entry label is unexpected \n");
+#			print("case 2A.4 iFile,get_Data_path, dialog_type=$iFile->{_dialog_type} \n");
+#			print("CASE 2A.4, iFile,get_path,path=$iFile->{_path}\n");
 		}
 
 	} else {
-
 		# CASE 3: all other cases
 		$iFile->{_path} = $default_path;
 
-		print("CASE 3: iFile,get_Data_path, unsuitable flow type \n");
+#		print("CASE 3: iFile,get_Data_path, unsuitable flow type \n");
 
 		# print("CASE 3: iFile,get_path,path=$iFile->{_path}\n");
 	}
 
 	my $result = $iFile->{_path};
 
-	# print("2. iFile,get_path,result=$iFile->{_path}\n");
+	print("2. iFile,get_Data_path,result=$iFile->{_path}\n");
 	return ($result);
 }
 
@@ -764,7 +762,7 @@ sub set_dialog_type {
 
 		$iFile->{_dialog_type} = $dialog_type;
 
-		# print("iFile, set_dialog_type, dialog_type=$iFile->{_dialog_type} \n");
+#		print("iFile, set_dialog_type, dialog_type=$iFile->{_dialog_type} \n");
 
 	} else {
 		print("iFile, set_dialog_type, missing dialog_type\n");
@@ -857,7 +855,7 @@ sub set_parameter_value_index {
 
 	if ( defined $hash_ref ) {
 
-		#		print("iFile,set_parameter_value_index, index=$hash_ref->{_parameter_value_index}----\n");
+		print("iFile,set_parameter_value_index, index=$hash_ref->{_parameter_value_index}----\n");
 
 		if ( $hash_ref->{_parameter_value_index} ne $empty_string ) {
 
@@ -882,8 +880,8 @@ sub set_prog_name_sref {
 	my ( $self, $hash_ref ) = @_;
 	if ( $hash_ref->{_prog_name_sref} ) {
 
-		# print("iFile,set_prog_name_sref,raw: $hash_ref->{_prog_name_sref}\n");
-		# print("iFile,set_prog_name_sref,-- if assumed a scalar ref: ${$hash_ref->{_prog_name_sref}}\n");
+#		print("iFile,set_prog_name_sref,raw: $hash_ref->{_prog_name_sref}\n");
+#		print("iFile,set_prog_name_sref,-- if assumed a scalar ref: ${$hash_ref->{_prog_name_sref}}\n");
 		$iFile->{_prog_name_sref} = $hash_ref->{_prog_name_sref};
 
 	} else {
@@ -893,8 +891,7 @@ sub set_prog_name_sref {
 }
 
 =head2 sub set_values_aref
-
-	introduce array or parameter values
+Introduce array or parameter values
  
 =cut
 

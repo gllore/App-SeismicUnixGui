@@ -142,7 +142,7 @@ param_widgets_pink, changes,
 sub _changes {
 	my ( $self, $index ) = @_;
 
-	use control;    # =0
+	use control 0.0.3;    # =0
 	my $control = new control;
 	
 #	print("param_widgets_color, changes, index=$index\n");
@@ -1217,7 +1217,7 @@ sub redisplay_labels {
   widget. That means the _changes will be invoked at every
   shift of the mouse to a new widget.
   
-  use control to remove terminal quotes for values, only for display purposes
+  use control 0.0.3 to remove terminal quotes for values, only for display purposes
   when later read again the values will be given quotes if they
   do not look like a number-- this occurs in a superclass
   
@@ -1238,7 +1238,7 @@ sub redisplay_values {
 
 	if (   length($values_w_aref)
 		&& length($values_aref) ) {
-		use control;
+		use control 0.0.3;
 
 		for ( my $i = $first; $i < $length; $i++ ) {
 

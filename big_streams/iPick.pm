@@ -51,7 +51,7 @@ use Moose;
 my $VERSION = '0.0.1';
 use L_SU_global_constants;
 use Project_config;
-use control;
+use control 0.0.3;
 use message;
 use cp;
 use flow;

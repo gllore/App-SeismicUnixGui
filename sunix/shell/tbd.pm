@@ -241,7 +241,7 @@ sub data_type {
 
 		use readfiles;
 		use manage_files_by;
-		use control;
+		use control 0.0.3;
 
 =head2 instantiate packages
 

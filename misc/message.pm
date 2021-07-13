@@ -6,7 +6,7 @@ package message;
 
  PACKAGE NAME: message 
  AUTHOR:  Juan Lorenzo
- DATE:   July 25 2015,
+ DATE:   July 25 2015
  DESCRIPTION: 
  Version: 0.0.1
 
@@ -25,35 +25,53 @@ V0.0.2 April 4, 2020
 
 =cut
 
-=head2 Define
-local variables
+=head2 Declare
+Modules
 
 =cut
 
 use Moose;
 our $VERSION = '0.0.2';
+use L_SU_global_constants;
 use namespace::autoclean;    # best-practices hygiene
 use Project_config;
 
-=head2 import variables 
+=head2 Instantiation
 
 =cut
 
 my $Project = new Project_config();
+my $get         = L_SU_global_constants->new();
+
 
 =head2 Declare
 local variables
 
 =cut
 
-my $PL_SEISMIC = $Project->PL_SEISMIC();
+my $var                     = $get->var();
+my $log_file_txt        = $var->{_log_file_txt};
+my $test_dir_name = $var->{_test_dir_name};
+
+my $L_SU = $ENV{'L_SU'};
+
+if ( not length($L_SU) ) {
+	
+    print "message.pm, L53\n";
+	print "global variable L_SU must be set\n";
+	print "e.g., in .bashrc: ";
+	print " export L_SU=/usr/local/pl/L_SU ";
+
+} else {
+	#	print("test.pl: \$L_SU = $L_SU; NADA \n");
+}
 
 =head2 Defaults
 
 =cut
 
-my $PATH_start               = $PL_SEISMIC;
-my $file_name_start          = 'log.txt';
+my $PATH_start               = 	'./';
+my $file_name_start          = $log_file_txt;
 my $number_of_messages_start = 2;
 my $message_start            = 'hi';
 
@@ -98,14 +116,27 @@ sub BUILD {
 
 =cut
 
+has 'PATH' => (
+	default => $PATH_start,
+	is      => 'rw',
+	isa     => 'Str',
+	writer  => 'set_PATH',
+	reader  => 'get_PATH',
+
+	#	trigger => \&_update_PATH,
+);
+
+=head2 Declare attributes
+
+=cut
+
 has 'file_name' => (
 	default => $file_name_start,
 	is      => 'rw',
 	isa     => 'Str',
 	writer  => 'set_file_name',
 	reader  => 'get_file_name',
-
-	#	trigger => \&_update_file_name,
+	trigger => \&_update_file_name,
 );
 
 =head2 Declare attributes
@@ -144,7 +175,7 @@ sub _update_file_name {
 
 	my $ans = $message->get_file_name();
 
-	print("message,_file_name,file_name= $ans  \n");
+#	print("message,_file_name,file_name= $ans  NADA \n");
 
 	return ();
 
@@ -244,10 +275,12 @@ sub file {
 	my ( $message, $text ) = @_;
 
 	$message->{_text} = $text if defined($text);
-	my $filename = $PL_SEISMIC . '/' . 'log.txt';
+	my $PATH    = $message->get_PATH();
+	my $PATH_n_file = $PATH . '/' . $log_file_txt;
+#	print("\nmessage, file, PATH_n_file=$PATH_n_file\n");
 
-	open( message_STDOUT, '>>', $filename ) or die $!;
-	print message_STDOUT $text . "\n";
+	open( message_STDOUT, '>>', $PATH_n_file ) or die $!;
+	print message_STDOUT $text . "\n\n";
 	close(message_STDOUT);
 }
 
@@ -257,23 +290,29 @@ sub file {
 
 =cut
 
-sub file_name {
+sub send2file_name {
 	my ($self) = @_;
 
 	my $message = $message->{_this_package};
+	my $PATH    = $message->get_PATH();
 
-	if (   length $PL_SEISMIC
+	if (   length $PATH
 		&& length ($message->get_file_name()) ) {
 
-		my $PATH_n_file = $PL_SEISMIC . '/' . $message->get_file_name();
+		my $PATH_n_file = $PATH.'/' . $message->get_file_name();
 		my $text        = @{ $message->get_message_aref() }[0];
-
+		my $send2file_name = $message->get_file_name();
+		
+#		print("message, send2file_name, PATH=$PATH\n");
+#		print("message, send2file_name, PATH_n_file=$PATH_n_file\n");
+#		print("message, send2file_name, send2file_name=$send2file_name\n");
+		
 		open( message_STDOUT, '>>', $PATH_n_file ) or die $!;
 		print message_STDOUT $text . "\n";
 		close(message_STDOUT);
 
 	} else {
-		print("message,file_name, missing value(s)\n");
+		print("message,send2file_name, missing value(s)\n");
 	}
 
 }
@@ -288,9 +327,7 @@ sub screen {
 	my ( $message, $text ) = @_;
 
 	$message->{_text} = $text if defined($text);
-
-	#print ("$text\n\n");
-	print("Hi\n\n");
+	print ("message,screen:\n$text\n\n");
 }
 
 # a 1 is sent to perl to signify the end of the package

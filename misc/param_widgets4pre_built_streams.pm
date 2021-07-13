@@ -161,7 +161,7 @@ my $param_widgets       = $gui_history->get_defaults();
 sub _changes {
 	my ($index) = @_;
 	my $idx = $index;    # individual parameter line
-	use control;
+	use control 0.0.3;
 	my $control = new control;
 
 	# two cases possible
@@ -1239,7 +1239,7 @@ sub redisplay_values {
 	# print("param_widgets, redisplay_values, length is $length\n");
 	# print("param_widgets, redisplay_values, first is $first\n");
 	if ( $values_w_aref && $values_aref ) {
-		use control;
+		use control 0.0.3;
 
 		for ( my $i = $first; $i < $length; $i++ ) {
 

@@ -197,7 +197,7 @@ sub _changes {
 	my ( $self, $index ) = @_;
 
 	my $idx = $index;    # individual parameter line
-	use control;
+	use control 0.0.3;
 	my $control = new control;
 
 	# two cases possible
@@ -1208,7 +1208,7 @@ For the Entry widget do not alter the
   widget. That means the _changes will be invoked at every
   shift of the mouse to a new widget.
   
-  use control to remove terminal quotes for values, only for display purposes
+  use control 0.0.3 to remove terminal quotes for values, only for display purposes
   when later read again the values will be given quotes if they
   do not look like a number-- this occurs in a superclass
   
@@ -1227,7 +1227,7 @@ sub redisplay_values {
 	# print("param_widgets, redisplay_values, length is $length\n");
 	if (    length($values_w_aref)
 		and length($values_aref) ) {
-		use control;
+		use control 0.0.3;
 
 		for ( my $i = $first; $i < $length; $i++ ) {
 

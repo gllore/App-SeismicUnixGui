@@ -72,11 +72,19 @@ sub _get_DIR {
 	if ( $data_in->{_suffix_type} ) {
 
 		use Project_config;
+		use control 0.0.3;
+		
 		my $Project = new Project_config();
+		my $control = control->new();
 		use SeismicUnix qw ($segy $sgy $ps $su $txt $bin);
 
 		my $DIR;
-		my $suffix_type = $data_in->{_suffix_type};
+		
+		# remove quotes
+		my $suffix_type = $control->get_no_quotes($data_in->{_suffix_type});
+		
+#		print("data_in,_get_DIR,internal suffix_type,=---$suffix_type-----\n");
+#		print("data_in,_get_DIR,su_type from SeismicUnix=---$su-----\n");
 
 		if ( $suffix_type eq $su ) {
 
@@ -142,21 +150,36 @@ sub _get_suffix {
 	my ($self) = @_;
 
 	if ( $data_in->{_suffix_type} ) {
+		
+		use control 0.0.3;
+		use SeismicUnix qw ($suffix_sgy $suffix_ps $suffix_su $suffix_bin $suffix_txt $sgy $ps $su $txt $bin);
 
 		my $suffix;
 		my $suffix_type = $data_in->{_suffix_type};
+	    my $control = control->new();
+	    
+	    $suffix_type =$control->get_no_quotes($suffix_type);
+#		print("data_in,_get_suffix,internal suffix_type,=---$suffix_type-----\n");
+#		print("data_in,_get_suffix,su_type from SeismicUnix=---$su-----\n");
 
-		use SeismicUnix qw ($suffix_sgy $suffix_ps $suffix_su $suffix_bin $suffix_txt $sgy $ps $su $txt $bin);
+		if ( $suffix_type eq $su ) {
 
-		if ( $suffix_type eq $ps ) {
+			$suffix = $suffix_su;
+
+		}
+		elsif ( $suffix_type eq $ps ) {
 
 			$suffix = $suffix_ps;
 
 		}
+		elsif ( $suffix_type eq $bin ) {
 
-		elsif ( $suffix_type eq $su ) {
+			$suffix = $suffix_bin;			
+	
+		}
+		elsif ( $suffix_type eq $segy ) {
 
-			$suffix = $suffix_su;
+			$suffix = $suffix_sgy;
 
 		}
 		elsif ( $suffix_type eq $sgy ) {
@@ -172,11 +195,10 @@ sub _get_suffix {
 		elsif ( $suffix_type eq $txt ) {
 
 			$suffix = $suffix_txt;
+			
 		}
-
 		else {
-			print("data_in, suffix_type=($suffix_type) is not ps, su, bin, sgy or txt\n");
-
+			print("data_in, suffix_type=($suffix_type) is not $ps, $su, $bin, $segy, $sgy or $txt\n");
 		}
 
 		return ($suffix);
@@ -348,7 +370,6 @@ sub get_inbound {
 		return ($inbound);
 	}
 	else {
-
 		print("data_in, missing: suffix_type, base file name  \n");
 	}
 }
@@ -425,12 +446,17 @@ sub suffix_type {
 	my ( $self, $suffix_type ) = @_;
 
 	if ($suffix_type) {
-
+		use control 0.0.3;
+		
+		my $control = control->new();
+#		print("data_in, suffix_type =  $suffix_type\n");
+		
+		# put quotes on string
+		$suffix_type = $control->get_string_or_number($suffix_type);
 		$data_in->{_suffix_type} = $suffix_type;
 
 	}
 	else {
-
 		print("data_in, suffix_type missing \n");
 	}
 }

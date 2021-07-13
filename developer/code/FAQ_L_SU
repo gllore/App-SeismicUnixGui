@@ -486,13 +486,12 @@ Q. What programs are used to generate a perl script which uses
 A. Saving a perl-based file, involves:
 How do I save a perl-based flow built by user (user-built)?
 
-N.B. files_LSU,save handles ultimate writing of .pl
+N.B. files_LSU,save,  handles ultimate writing of .pl
 
 main
 L_SU 
-	grey_flow 
-		files_LSU
-		save 
+	color_flow, save_button
+		files_LSU, save 
 			oop_text
 			pod_header
 			section
@@ -503,16 +502,16 @@ main; L_SU; grey_flow; files_LSU, save; oop_text; instantiation, set_prog_names_
       V0.0.2 July 24 2018 include data_in, exclude data_out
  main; L_SU; grey_flow; files_LSU, save; oop_text; prog_params (sets the text)
  		
-Q. What sequence of programs are used when looking either a pre-existing perl file flow or 
-i.e., when 'Flow' is used:
+Q. What sequence of programs are used when opening a pre-existing perl file flow, 
+i.e., when 'Flow' from the GUI, is used:
 
 main, 
 	_L_SU
 		L_SU
 		FileDialog_button (with value 'Flow')
 		
-
-Opening a Data-type perl file or a user-built flow involves the following sequence:
+		
+Opening a Data-type perl file or a user-built 'Flow' involves the following sequence:
 
 main, 
 	FileDialog_button, _L_SU,
@@ -521,11 +520,18 @@ main,
 		L_SU,FileDialog_button
 		
 		color_flow, FileDialog_button, .... 
-			_add2flow and flow_select (both VIA _perl_flow)
+			_add2flow and flow_select (both, VIA _perl_flow)
 			
-		file_dialog, FileDialog_director,_set_FileDialog2user_built_flow,
-		_user_built_flow_open_data_file, _FileDialog, _user_built_flow_close_data_file,
-			file_dialog; control, set_file_name, 
+		file_dialog, 
+		   FileDialog_director
+		   _set_FileDialog2user_built_flow
+		   _user_built_flow_open_data_file ,
+		   or _user_built_flow_open_perl_file, 
+		   _FileDialog, 
+		   _user_built_flow_close_data_file,
+		   or _user_built_flow_close_perl_file
+		   
+		     control, set_file_name, 
 				remove_su_suffix4sref;  
 					get_w_single _quotes(remove suffix, add single quotes);
 
@@ -556,7 +562,6 @@ Flow or 'SaveAs'( are exclusively for user-built perl flow) Save can be for supe
 Flow types can be flow_type can be 'user_built' or 'pre_built_superflow'
 
 L_SU sets flow types and colors plus listbox logicals (e.g., _is_listobox_grey_w = 0 or false)
-
 
 N.B., Historically, some conditions are repeated using different variable names, e.g. 
 is_pre_built_superflow, is_superflow and is_superflow_select_button
@@ -745,13 +750,14 @@ Q. How does LSU_project_selector create new Project directories?
 	user clicks "Save"
      invokes LSUV0.3.4.pl to call:
     
-	   grey_flow->save_button
-	which invokes save_button to call:
-			$files_LSU	->save,
-	
-	which invokes oop_text->set_data_io_L_SU($files_LSU)
-	
-	N.B., set_data_io_LSU decides what suffix to place based on the 'data_type'
+	grey_flow
+	   save_button
+	   which invokes save_button to call:
+	       files_LSU
+	            set_prog_param_values_aref2
+	            save
+	                oop_text, set_data_io_L_SU($files_LSU)
+	                (decides what suffix to place based on the 'data_type')
 	
 	
 	Q. How are input parameters from GUI selected before writing to an output perl flow file?
@@ -785,7 +791,6 @@ Q. How does LSU_project_selector create new Project directories?
 	 	 	
 	 	save_button: 	
 	 	assume a parameter index has been changed so that 
-		_check4parameter_changes is forced to update changes
 		provide values in the current widget
 		$color_flow->{_values_aref} 		= $param_widgets->get_values_aref();
 		
@@ -806,10 +811,6 @@ Q. How does LSU_project_selector create new Project directories?
 		        neutral_flow,check4flow_changes: _last_parameter_index_touched_color -1
 		        
 		$color_flow->{_values_aref} 						= $param_widgets->get_values_aref();
-		
-		_check4parameter_changes
-		
-		(N.B. above two cases may or may not be BOTH used at a time)
 		
 	In pre-built Superflows:
 		file_dialog:
@@ -865,8 +866,6 @@ Q. How does LSU_project_selector create new Project directories?
 	1. param_widgets_grey-> redisplay_values-> issues changes which in turn call
 							local_update_check_button_setting : for the index of the parameter that was just left
 	                         param_widgets_grey-> local_update_check_button_setting : for the index of the new parameter line that has just been clicked
-	
-	2. When grey_flow->File Dialog calls  _check4parameter_changes
 	
 	3. via flow_select ( after parsing a perl file via grey_flow->perl_parse->_flow_select)
 	
@@ -1040,6 +1039,19 @@ L_SU
 
 
  For user-built flows
+ color_flow
+	FileFialog_button
+	  e.g., when file_dialog_type->{_Data}
+	  
+	  file_dialog,
+	  _user_built_flow_open_data_file, 
+	        iFile->get_Data_path	  
+	  or
+	  _user_built_flow_open_path, or
+	   _set_FileDialog2user_built_flow
+	   
+followed by
+        iFile->get_Data_path
 	
  For superflows:
  L_SU,
@@ -1306,17 +1318,7 @@ Q. Q. How does a superflow run?:
     
     TODO: is there circularity in what follows?
  
-    Q Where are quotes for a string or strings (needed by Seismic Unix programs) handled?
-     
-     VIA: control->get_string_or_number4array which is used 6 types inside each color_flow
-      
-      		_FileDialog_button
-      		_check4flow_changes
-      		_perl_flow, 
-      		
-      		_stack_flow
-      		FileDialog_button (twice: once for _Data and once for 'SaveAs' options
-      		save_button
+
     
     Q. In how many different ways are configuration files read?
 
@@ -1371,17 +1373,12 @@ Q. Q. How does a superflow run?:
  	
  	Q. For user-built flows, how are perl files written/saved?
     B. For user-built flows, the sequence is:
-    	main; 
-    		L_SU, save_button;
-    			color_flow,save_button; 
-    				files_LSU, save; 
-    					oop_text; 
-    						pod_header,section
+    
 		main; 
 			L_SU,save_button; 
 				color_flow,save_button; 
 					files_LSU, save;
-						oop_text
+						oop_text, pod_header,section
 							oop_prog_params
 								color_flow
 									param_widgets (N.B., not param_widgets_color)							
@@ -1389,16 +1386,29 @@ Q. Q. How does a superflow run?:
 		main; 
 			L_SU,save_button; 
 				color_flow,save_button; 
+				    control (assigns single quotes around strings)
 					files_LSU, save; 
-						oop_text; 
-							instantiation, set_prog_names_aref
-		
-		etc.
+ 					      	# principal documentation for the program
+							$oop_text->pod_header();
+							
+							# for message and flow
+							$oop_text->use_pkg();
+									
+							# for all programs in the flow
+							$oop_text->instantiation();
+									
+							# establish local variables e.g., my @sugain
+							$oop_text->pod_declare();
+									
+							# print("files_LSU_ save, declaring packages\n");
+							$oop_text->declare_pkg();
+											
+							etc.
      	
 		If the outgoing variables are identified as strings,then new ticks will be added 
 		so that when they are written out they will be in the proper Seismic Unix format 
     	These ticks are needed by quotemeta to format word sequences for Seismic Unix programs 
-    	TODO: revplace ticks and quotemeta by " ".
+    	TODO: replace ticks and quotemeta by " ".
     		
     C. For pre-defined seismic unix program configuration files, e.g. suximage.pm
     	The default configuration file remains unaltered. 
@@ -1474,7 +1484,7 @@ sunix_pl reading perl flows
 	takes into account suffixes and prefixes on parameter names, e.g. suop2 and sufdmod1 which have i/p and o/p 
 	file names in a single module without the need for data_in or data_out
 	
-	iFile for finding out which diredctories to open for writing and reading e.g. sufdmod1
+	iFile for finding out which directories to open for writing and reading e.g. sufdmod1
 	iFile is used for specific progams e.g. suop2
 	
 	iFile is also used for pre-built-superflow paths
@@ -1489,8 +1499,22 @@ sunix_pl reading perl flows
   to be as wide as the number of characters available
 
    
-   Q. Do ticks matter around parameters that are strings
-    Not really.
+   TOPIC Ticks and strings:
+   
+       Q Where are quotes for a string or strings (needed by Seismic Unix programs) handled?
+     
+     VIA: control->get_string_or_number4array which is used many times  inside each color_flow
+      
+      		_FileDialog_button
+      		_check4flow_changes
+      		_perl_flow, 
+      		
+      		_stack_flow
+      		FileDialog_button (twice: once for _Data and once for 'SaveAs' options
+      		save_button
+    
+    Q. Are ticks needed in the GUI for parameters that are strings
+    No.
     Users can choose to mark strings explicitly using terminal single quotes
     But, internally L_SU removes them for display.
     However, all outputs to scripts and configuration files  will write stringless 
@@ -1499,13 +1523,19 @@ sunix_pl reading perl flows
     First they are made quoteless and then terminal quotes are applied when a parameter
     value does not look like a number (probably a string then)
          module control.pm handles these types of objects
-    All displays are however kept quoteless in the GUI.
+    Note that there is a case where file names are numerical e.g., '00001.sgy'
+    these are internally recognized as strings for the special cases when they 
+    are used such as in data_in and data_out via control.pm. For this situation
+    control.pm must be given a lsit of the program names. If no program names
+    are given then control will revert to internal default values.
+    In the GUI all displays are however kept quoteless in the GUI.
+    
     Ticks for strings are kept internally for when user-built perl scripts are generated
-    User-build scripts need ticked strings in the quotemeta module in order to maineatin
+    User-build scripts need ticked strings in the quotemeta module in order to maintain
     proper Seismic Unix syntax. Otherwise we would not need to write out strings with ticks, e.g. 
     in sufilter f=1,2,30,60  is written out as a string through use of quotemeta('1,2,30,60') 
     
-    Just as param_widgets->redisplay_values removes ticks
+    Just as param_widgets->redisplay_values removes ticks,
     recall that the ticks must be restored every time after we use param_widgets->get_values_aref (from the GUI)
     
     Q. How do we clear a whole flow sequence from the GUI (for user)

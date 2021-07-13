@@ -1,0 +1,54 @@
+sushw a=0\,1 j=60\,60 key=sx\,gx b=0\,1 c=1\,0 < /usr/local/pl/L_SU/t/tester/Servilleta_demos/seismics/data/loma_blanca//053018/H/1/su/gom/L28Hz_Ibeam.su > /usr/local/pl/L_SU/t/tester/Servilleta_demos/seismics/data/loma_blanca//053018/H/1/su/gom/L28Hz_Ibeam_geom2.su & 
+
+sugethw key=tracl\,ep output=binary < /usr/local/pl/L_SU/t/tester/Servilleta_demos/seismics/data/loma_blanca//053018/H/1/su/gom/L28Hz_Ibeam_geom3.su | xgraph grid1=dot grid2=dot gridColor=4 linewidth=0 marksize=1 n=15000 reverse=0 style=normal title=blue windowtitle=windowtitle x1beg=0 x1end=120 x2beg=0 x2end=100 label2=ep label1=tracl -geometry 400x600+0+0 & 
+
+sushw a=0\,0\,0\,0\,0\,0\,0\,0\,0 key=year\,day\,hour\,minute\,sec\,trid\,fldr\,d1\,f2 < /usr/local/pl/L_SU/t/tester/Servilleta_demos/seismics/data/loma_blanca//053018/H/1/su/gom/1_120.su | sushw a=1\,1\,1 j=64\,64\,64 key=tracl\,tracr\,tracf b=1\,1\,1 c=0\,0\,64 > /usr/local/pl/L_SU/t/tester/Servilleta_demos/seismics/data/loma_blanca//053018/H/1/su/gom/1_120_clean.su & 
+
+sushw a=0\,1 j=60\,60 key=sx\,gx b=0\,1 c=1\,0 < /usr/local/pl/L_SU/t/tester/Servilleta_demos/seismics/data/loma_blanca//053018/H/1/su/gom/L28Hz_Ibeam.su > /usr/local/pl/L_SU/t/tester/Servilleta_demos/seismics/data/loma_blanca//053018/H/1/su/gom/L28Hz_Ibeam_geom2.su & 
+
+sugethw key=tracl\,ep output=binary < /usr/local/pl/L_SU/t/tester/Servilleta_demos/seismics/data/loma_blanca//053018/H/1/su/gom/L28Hz_Ibeam_geom3.su | xgraph grid1=dot grid2=dot gridColor=4 linewidth=0 marksize=1 n=15000 reverse=0 style=normal title=blue windowtitle=windowtitle x1beg=0 x1end=120 x2beg=0 x2end=100 label2=ep label1=tracl -geometry 400x600+0+0 & 
+
+sushw a=0\,0\,0\,0\,0\,0\,0\,0\,0 key=year\,day\,hour\,minute\,sec\,trid\,fldr\,d1\,f2 < /usr/local/pl/L_SU/t/tester/Servilleta_demos/seismics/data/loma_blanca//053018/H/1/su/gom/1_120.su | sushw a=1\,1\,1 j=64\,64\,64 key=tracl\,tracr\,tracf b=1\,1\,1 c=0\,0\,64 > /usr/local/pl/L_SU/t/tester/Servilleta_demos/seismics/data/loma_blanca//053018/H/1/su/gom/1_120_clean.su & 
+
+sushw a=0\,1 j=60\,60 key=sx\,gx b=0\,1 c=1\,0 < /usr/local/pl/L_SU/t/tester/Servilleta_demos/seismics/data/loma_blanca//053018/H/1/su/gom/L28Hz_Ibeam.su > /usr/local/pl/L_SU/t/tester/Servilleta_demos/seismics/data/loma_blanca//053018/H/1/su/gom/L28Hz_Ibeam_geom2.su & 
+
+sugethw key=tracl\,ep output=binary < /usr/local/pl/L_SU/t/tester/Servilleta_demos/seismics/data/loma_blanca//053018/H/1/su/gom/L28Hz_Ibeam_geom3.su | xgraph grid1=dot grid2=dot gridColor=4 linewidth=0 marksize=1 n=15000 reverse=0 style=normal title=blue windowtitle=windowtitle x1beg=0 x1end=120 x2beg=0 x2end=100 label2=ep label1=tracl -geometry 400x600+0+0 & 
+
+sushw a=0\,0\,0\,0\,0\,0\,0\,0\,0 key=year\,day\,hour\,minute\,sec\,trid\,fldr\,d1\,f2 < /usr/local/pl/L_SU/t/tester/Servilleta_demos/seismics/data/loma_blanca//053018/H/1/su/gom/1_120.su | sushw a=1\,1\,1 j=64\,64\,64 key=tracl\,tracr\,tracf b=1\,1\,1 c=0\,0\,64 > /usr/local/pl/L_SU/t/tester/Servilleta_demos/seismics/data/loma_blanca//053018/H/1/su/gom/1_120_clean.su & 
+
+sushw a=0\,1 j=60\,60 key=sx\,gx b=0\,1 c=1\,0 < /usr/local/pl/L_SU/t/tester/Servilleta_demos/seismics/data/loma_blanca//053018/H/1/su/gom/L28Hz_Ibeam.su > /usr/local/pl/L_SU/t/tester/Servilleta_demos/seismics/data/loma_blanca//053018/H/1/su/gom/L28Hz_Ibeam_geom2.su & 
+
+sugethw key=tracl\,ep output=binary < /usr/local/pl/L_SU/t/tester/Servilleta_demos/seismics/data/loma_blanca//053018/H/1/su/gom/L28Hz_Ibeam_geom3.su | xgraph grid1=dot grid2=dot gridColor=4 linewidth=0 marksize=1 n=15000 reverse=0 style=normal title=blue windowtitle=windowtitle x1beg=0 x1end=120 x2beg=0 x2end=100 label2=ep label1=tracl -geometry 400x600+0+0 & 
+
+sushw a=0\,0\,0\,0\,0\,0\,0\,0\,0 key=year\,day\,hour\,minute\,sec\,trid\,fldr\,d1\,f2 < /usr/local/pl/L_SU/t/tester/Servilleta_demos/seismics/data/loma_blanca//053018/H/1/su/gom/1_120.su | sushw a=1\,1\,1 j=64\,64\,64 key=tracl\,tracr\,tracf b=1\,1\,1 c=0\,0\,64 > /usr/local/pl/L_SU/t/tester/Servilleta_demos/seismics/data/loma_blanca//053018/H/1/su/gom/1_120_clean.su & 
+
+sushw a=0\,1 key=sx\,gx b=1\,0 c=0\,1 < /usr/local/pl/L_SU/t/tester/Servilleta_demos/seismics/data/loma_blanca//053018/H/1/su/gom/L28Hz_Ibeam.su > /usr/local/pl/L_SU/t/tester/Servilleta_demos/seismics/data/loma_blanca//053018/H/1/su/gom/L28Hz_Ibeam_geom2.su & 
+
+suchw a=0 b=1 c=\-1 d=1 e=1 f=1 key1=offset key2=gx key3=sx < /usr/local/pl/L_SU/t/tester/Servilleta_demos/seismics/data/loma_blanca//053018/H/1/su/gom/L28Hz_Ibeam_geom2.su > /usr/local/pl/L_SU/t/tester/Servilleta_demos/seismics/data/loma_blanca//053018/H/1/su/gom/L28Hz_Ibeam_geom3.su & 
+
+sufilter f=3\,6\,50\,80 verbose=0 < /usr/local/pl/L_SU/t/tester/Servilleta_demos/seismics/data/loma_blanca//053018/H/1/su/gom/L28Hz_Ibeam.su | sugain agc=1 wagc=0\.1 | suximage clip=1 cmap=hsv0 d2=1 f1=0 gridcolor=blue labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 lwidth=16 lx=3 mpicks=\/dev\/tty n1tic=1 n2tic=1 perc=100 plotfile=plotfile\.ps style=seismic title=suximage titlecolor=red titlefont=Rom22 tmpdir=\.\/ units=unit verbose=1 windowtitle=suximage wperc=100 xbox=500 ybox=500 wbox=550 hbox=550 & 
+
+sushw a=0\,1 j=60\,60 key=sx\,gx b=0\,1 c=1\,0 < /usr/local/pl/L_SU/t/tester/Servilleta_demos/seismics/data/loma_blanca//053018/H/1/su/gom/L28Hz_Ibeam.su > /usr/local/pl/L_SU/t/tester/Servilleta_demos/seismics/data/loma_blanca//053018/H/1/su/gom/L28Hz_Ibeam_geom2.su & 
+
+sugethw key=tracl\,ep output=binary < /usr/local/pl/L_SU/t/tester/Servilleta_demos/seismics/data/loma_blanca//053018/H/1/su/gom/L28Hz_Ibeam_geom3.su | xgraph grid1=dot grid2=dot gridColor=4 linewidth=0 marksize=1 n=15000 reverse=0 style=normal title=blue windowtitle=windowtitle x1beg=0 x1end=120 x2beg=0 x2end=100 label2=ep label1=tracl -geometry 400x600+0+0 & 
+
+sushw a=0\,0\,0\,0\,0\,0\,0\,0\,0 key=year\,day\,hour\,minute\,sec\,trid\,fldr\,d1\,f2 < /usr/local/pl/L_SU/t/tester/Servilleta_demos/seismics/data/loma_blanca//053018/H/1/su/gom/1_120.su | sushw a=1\,1\,1 j=64\,64\,64 key=tracl\,tracr\,tracf b=1\,1\,1 c=0\,0\,64 > /usr/local/pl/L_SU/t/tester/Servilleta_demos/seismics/data/loma_blanca//053018/H/1/su/gom/1_120_clean.su & 
+
+sushw a=0\,1 key=sx\,gx b=1\,0 c=0\,1 < /usr/local/pl/L_SU/t/tester/Servilleta_demos/seismics/data/loma_blanca//053018/H/1/su/gom/L28Hz_Ibeam.su > /usr/local/pl/L_SU/t/tester/Servilleta_demos/seismics/data/loma_blanca//053018/H/1/su/gom/L28Hz_Ibeam_geom2.su & 
+
+suchw a=0 b=1 c=\-1 d=1 e=1 f=1 key1=offset key2=gx key3=sx < /usr/local/pl/L_SU/t/tester/Servilleta_demos/seismics/data/loma_blanca//053018/H/1/su/gom/L28Hz_Ibeam_geom2.su > /usr/local/pl/L_SU/t/tester/Servilleta_demos/seismics/data/loma_blanca//053018/H/1/su/gom/L28Hz_Ibeam_geom3.su & 
+
+sufilter f=3\,6\,50\,80 verbose=0 < /usr/local/pl/L_SU/t/tester/Servilleta_demos/seismics/data/loma_blanca//053018/H/1/su/gom/L28Hz_Ibeam.su | sugain agc=1 wagc=0\.1 | suximage clip=1 cmap=hsv0 d2=1 f1=0 gridcolor=blue labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 lwidth=16 lx=3 mpicks=\/dev\/tty n1tic=1 n2tic=1 perc=100 plotfile=plotfile\.ps style=seismic title=suximage titlecolor=red titlefont=Rom22 tmpdir=\.\/ units=unit verbose=1 windowtitle=suximage wperc=100 xbox=500 ybox=500 wbox=550 hbox=550 & 
+
+sushw a=0\,1 j=60\,60 key=sx\,gx b=0\,1 c=1\,0 < /usr/local/pl/L_SU/t/tester/Servilleta_demos/seismics/data/loma_blanca//053018/H/1/su/gom/L28Hz_Ibeam.su > /usr/local/pl/L_SU/t/tester/Servilleta_demos/seismics/data/loma_blanca//053018/H/1/su/gom/L28Hz_Ibeam_geom2.su & 
+
+sugethw key=tracl\,ep output=binary < /usr/local/pl/L_SU/t/tester/Servilleta_demos/seismics/data/loma_blanca//053018/H/1/su/gom/L28Hz_Ibeam_geom3.su | xgraph grid1=dot grid2=dot gridColor=4 linewidth=0 marksize=1 n=15000 reverse=0 style=normal title=blue windowtitle=windowtitle x1beg=0 x1end=120 x2beg=0 x2end=100 label2=ep label1=tracl -geometry 400x600+0+0 & 
+
+sushw a=0\,0\,0\,0\,0\,0\,0\,0\,0 key=year\,day\,hour\,minute\,sec\,trid\,fldr\,d1\,f2 < /usr/local/pl/L_SU/t/tester/Servilleta_demos/seismics/data/loma_blanca//053018/H/1/su/gom/1_120.su | sushw a=1\,1\,1 j=64\,64\,64 key=tracl\,tracr\,tracf b=1\,1\,1 c=0\,0\,64 > /usr/local/pl/L_SU/t/tester/Servilleta_demos/seismics/data/loma_blanca//053018/H/1/su/gom/1_120_clean.su & 
+
+sushw a=0\,1 key=sx\,gx b=1\,0 c=0\,1 < /usr/local/pl/L_SU/t/tester/Servilleta_demos/seismics/data/loma_blanca//053018/H/1/su/gom/L28Hz_Ibeam.su > /usr/local/pl/L_SU/t/tester/Servilleta_demos/seismics/data/loma_blanca//053018/H/1/su/gom/L28Hz_Ibeam_geom2.su & 
+
+suchw a=0 b=1 c=\-1 d=1 e=1 f=1 key1=offset key2=gx key3=sx < /usr/local/pl/L_SU/t/tester/Servilleta_demos/seismics/data/loma_blanca//053018/H/1/su/gom/L28Hz_Ibeam_geom2.su > /usr/local/pl/L_SU/t/tester/Servilleta_demos/seismics/data/loma_blanca//053018/H/1/su/gom/L28Hz_Ibeam_geom3.su & 
+
+sufilter f=3\,6\,50\,80 verbose=0 < /usr/local/pl/L_SU/t/tester/Servilleta_demos/seismics/data/loma_blanca//053018/H/1/su/gom/L28Hz_Ibeam.su | sugain agc=1 wagc=0\.1 | suximage clip=1 cmap=hsv0 d2=1 f1=0 gridcolor=blue labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 lwidth=16 lx=3 mpicks=\/dev\/tty n1tic=1 n2tic=1 perc=100 plotfile=plotfile\.ps style=seismic title=suximage titlecolor=red titlefont=Rom22 tmpdir=\.\/ units=unit verbose=1 windowtitle=suximage wperc=100 xbox=500 ybox=500 wbox=550 hbox=550 & 
+

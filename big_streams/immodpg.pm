@@ -2032,7 +2032,7 @@ sub _setVbot {
 		&& $immodpg->{_isVbot_changed_in_gui} eq $yes ) {
 
 		use manage_files_by2;
-		use control;
+		use control 0.0.3;
 
 =head2 instantiate classes
 
@@ -2104,7 +2104,7 @@ sub _setVbot_upper_layer {
 		&& $immodpg->{_isVbot_upper_layer_changed_in_gui} eq $yes ) {
 
 		use manage_files_by2;
-		use control;
+		use control 0.0.3;
 
 =head2 instantiate classes
 
@@ -2176,7 +2176,7 @@ sub _setVbotNtop_factor {
 		&& $immodpg->{_isVbotNtop_factor_changed_in_gui} eq $yes ) {
 
 		use manage_files_by2;
-		use control;
+		use control 0.0.3;
 
 =head2 instantiate classes
 
@@ -2248,7 +2248,7 @@ sub _setVbotNtop_multiply {
 		&& looks_like_number( $immodpg->{_Vtop_current} ) ) {
 
 		use manage_files_by2;
-		use control;
+		use control 0.0.3;
 
 =head2 instantiate classes
 
@@ -2316,7 +2316,7 @@ sub _setVincrement {
 		&& $immodpg->{_isVincrement_changed_in_gui} eq $yes ) {
 
 		use manage_files_by2;
-		use control;
+		use control 0.0.3;
 
 =head2 instantiate classes
 
@@ -2641,7 +2641,7 @@ sub _setVtop {
 		# print("immodpg,_setVtop,write out fortran value of Vtop\n");
 
 		use manage_files_by2;
-		use control;
+		use control 0.0.3;
 
 =head2 instantiate classes
 
@@ -2713,7 +2713,7 @@ sub _setVtop_lower_layer {
 		&& $immodpg->{_isVtop_lower_layer_changed_in_gui} eq $yes ) {
 
 		use manage_files_by2;
-		use control;
+		use control 0.0.3;
 
 =head2 instantiate classes
 
@@ -2787,7 +2787,7 @@ sub _set_change {
 		# print("immodpg, _set_change, yes_or_no:$yes_or_no\n");
 
 		use manage_files_by2;
-		use control;
+		use control 0.0.3;
 
 =head2 instantiate classes
 
@@ -2895,7 +2895,7 @@ sub _set_clip {
 		&& $immodpg->{_is_clip_changed_in_gui} eq $yes ) {
 
 		use manage_files_by2;
-		use control;
+		use control 0.0.3;
 
 =head2 instantiate classes
 
@@ -2967,7 +2967,7 @@ sub _set_thickness_m {
 		&& $immodpg->{_is_thickness_m_changed_in_gui} eq $yes ) {
 
 		use manage_files_by2;
-		use control;
+		use control 0.0.3;
 
 =head2 instantiate classes
 
@@ -3038,7 +3038,7 @@ sub _set_thickness_increment_m {
 		&& $immodpg->{_is_layer_changed_in_gui} eq $yes ) {
 
 		use manage_files_by2;
-		use control;
+		use control 0.0.3;
 
 =head2 instantiate classes
 
@@ -3111,7 +3111,7 @@ sub _fortran_layer {
 		&& $immodpg->{_is_layer_changed_in_gui} eq $yes ) {
 
 		use manage_files_by2;
-		use control;
+		use control 0.0.3;
 
 =head2 instantiate classes
 
@@ -3394,7 +3394,7 @@ sub _set_option {
 		&& $immodpg->{_option_file} ne $empty_string ) {
 
 		use manage_files_by2;
-		use control;
+		use control 0.0.3;
 
 =head2 instantiate classes
 
@@ -3454,7 +3454,7 @@ GUI
 Also updates an shared copy
 of the model properties
 
-use control method to check for bad values
+use control 0.0.3 method to check for bad values
 
 =cut
 
@@ -6814,7 +6814,7 @@ sub set_change {
 		&& $immodpg->{_change_file} ne $empty_string ) {
 
 		use manage_files_by2;
-		use control;
+		use control 0.0.3;
 
 =head2 instantiate classes
 
@@ -6954,7 +6954,7 @@ sub set_option {
 		&& $immodpg->{_option_file} ne $empty_string ) {
 
 		use manage_files_by2;
-		use control;
+		use control 0.0.3;
 
 =head2 instantiate classes
 

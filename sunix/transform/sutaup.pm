@@ -692,7 +692,7 @@ sub vmin {
 
     my ( $self, $vmin ) = @_;
     if ( $vmin ne $empty_string ) {
-    	use control;
+    	use control 0.0.3;
     	my $control = control->new();
     	
     	$control->set_back_slashBgone($vmin );

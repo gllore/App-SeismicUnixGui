@@ -23,7 +23,7 @@ package param_flow_pink;
 =cut
 
 use Moose;
-our $VERSION = '0.0.4';
+our $VERSION = '0.0.5';
 use Clone 'clone';
 
 =pod
@@ -135,7 +135,7 @@ sub _get_values_aref {
 		my ( @values_aref, @values );
 		@values_aref = @{ @{ $param_flow_pink->{_values_aref2} }[$item_index] };
 
-		#print("param_flow_pink, _get_values_aref, $values_aref[0], index=$item_index\n");
+#		print("param_flow_pink, _get_values_aref, @values_aref, index=$item_index\n");
 		return ( \@values_aref );
 	}
 }
@@ -222,22 +222,23 @@ sub _set_good_labels4item {
 sub _set_good_values4item {
 	my ($index4flow) = @_;
 
-	# print("param_flow_pink,set_good_indices4item,index4flow: $index4flow \n");
+#	print("param_flow_pink,set_good_indices4item,index4flow: $index4flow \n");
 
 	my $idx = $index4flow;    # program sequence in flow
 	my (@good);
 	my ($j);
 
-	# print("1. param_flow_pink,_set_good_values4item, flow index:$idx, prog name:@{$param_flow_pink->{_prog_names_aref}}[$idx] \n");
+#	print("1. param_flow_pink,_set_good_values4item, flow index:$idx, 
+#	prog name:@{$param_flow_pink->{_prog_names_aref}}[$idx] \n");
 
 	my $values_aref = _get_values_aref($idx);
 	my $length      = scalar @$values_aref;
 
-	# print("2. param_flow_pink,_set_good_values4item, length: $length\n");
+#	print("2. param_flow_pink,_set_good_values4item, length: $length\n");
 
 	for ( my $i = 0, $j = 0; $i < $length; $i++ ) {
 
-		# print("param_flow_pink, _set_good_values_4item: values_aref is @$values_aref[$i]\n");
+#		print("param_flow_pink, _set_good_values_4item: index=$i, values_aref= @$values_aref[$i]\n");
 		if ( defined( @{$values_aref}[$i] )
 			&& ( @{$values_aref}[$i] ne $empty_string ) )
 		{
@@ -247,8 +248,8 @@ sub _set_good_values4item {
 				my $value =
 					${ @{ $param_flow_pink->{_values_aref2} }[$idx] }[$i];
 
-				# print("2. param_flow_pink,_set_good_values4item,good index #$i\n");
-				# print("2. param_flow_pink,_set_good_values4item,value:$value \n");
+#				print("2. param_flow_pink,_set_good_values4item,good index #$i\n");
+#				print("2. param_flow_pink,_set_good_values4item,value:$value \n");
 				$good[$j] = $value;
 				$j++;
 
@@ -259,13 +260,13 @@ sub _set_good_values4item {
 
 		}
 		else {
-			# print("param_flow_pink, _set_good_values_4item: no values are present, can not be saved\n");
+#			print("NADA,param_flow_pink, _set_good_values_4item: no values are present, can not be saved\n");
 		}
 	}
 
 	$num_good_values[$idx] = $j;
 
-	# print("param_flow_pink,_set_good_values4item,good_values=@good \n");
+#	print("param_flow_pink,_set_good_values4item,good_values=@good \n");
 
 	$param_flow_pink->{_num_good_values_aref} = \@num_good_values;
 
@@ -646,9 +647,8 @@ sub get_good_values_aref2 {
 	if ( $param_flow_pink->{_good_values_aref2} ) {
 		my $good_values_aref2 = $param_flow_pink->{_good_values_aref2};
 
-		# print(" param_flow_pink,get_good_values_aref2,
-		# good_values for index 0= :
-		# @{@{$param_flow_pink->{_good_values_aref2}}[0]}\n");
+#		my $ans = @{@{$param_flow_pink->{_good_values_aref2}}[0]};
+#		print("param_flow_pink,get_good_values_aref2,good_values for index=0:$ans\n");
 		return ($good_values_aref2);
 	}
 	return ();
@@ -1296,7 +1296,7 @@ sub set_values_aref {
 			for ( $i = 1, $j = 0; $i < $length; $i = $i + 2, $j++ ) {
 				$values[$j] = $values_aref[$i];
 
-				# print("param_flow_pink, set_values :index $j values: $values[$j]\n");
+				print("param_flow_pink, set_values :index $j values: $values[$j]\n");
 			}
 		}
 	}
@@ -1491,7 +1491,7 @@ sub view_data {
 	$num_progs[2] = scalar( @{ $param_flow_pink->{_prog_names_aref} } );
 
 	# print("\n param_flow_pink,view_data, _prog_names @{$param_flow_pink->{_prog_names_aref}}\n");
-	print("\nparam_flow_pink,view_data:number of items in list in 4-5 different ways  @num_progs \n");
+   # print("\nparam_flow_pink,view_data:number of items in list in 4-5 different ways  @num_progs \n");
 
 	# print("param_flow_pink,view_data:max index = $indices  \n\n");
 

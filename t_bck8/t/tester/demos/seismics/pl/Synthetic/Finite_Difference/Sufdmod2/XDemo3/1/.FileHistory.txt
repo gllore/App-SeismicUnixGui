@@ -1,0 +1,6 @@
+/home/gom/moon/seismics/pl/synthetics
+/home/gom/demos/seismics/pl/Synthetic/Finite_Difference/Sufdmod2/XDemo3/1/5.finite_difference_movie
+/home/gom/demos/seismics/pl/Synthetic/Finite_Difference/Sufdmod2/XDemo3/1/4.view_vel
+/home/gom/demos/seismics/pl/Synthetic/Finite_Difference/Sufdmod2/XDemo3/1/3.make_unif2
+/home/gom/demos/seismics/data/Synthetic/Finite_Difference/Sufdmod2/XDemo3/1/bin/model.out.bin
+/home/gom/demos/seismics/pl/Synthetic/Finite_Difference/Sufdmod2/XDemo3/1/2.make_unif2

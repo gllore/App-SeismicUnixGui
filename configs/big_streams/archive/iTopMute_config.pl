@@ -42,7 +42,7 @@
 
 use Moose;
 use Config::Simple;
-use control;
+use control 0.0.3;
 use System_Variables;
 use SeismicUnix qw ($in $out $on $go $to $suffix_ascii $off $suffix_su);
 

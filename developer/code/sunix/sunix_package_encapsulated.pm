@@ -24,7 +24,7 @@ sub  set_param_names{
  	my ($self,$name_aref) = @_;
  	my ($first,$last,$i,$package_name);
  	
- 	use control;
+ 	use control 0.0.3;
  	
  	# my $control 	= control->new();
  	

@@ -52,7 +52,7 @@ use L_SU_global_constants;
 use Project_config;
 use SeismicUnix qw ($in $out $on $go $to $suffix_ascii $off $suffix_su);
 use config_superflows;
-use control;
+use control 0.0.3;
 use immodpg_spec;
 use immodpg_global_constants;
 use manage_files_by2;
@@ -213,7 +213,7 @@ sub get_values {
 
 	my ($self) = @_;
 
-	use control;
+	use control 0.0.3;
 	my $control = control->new();
 
 	# Warning: set using a scalar reference

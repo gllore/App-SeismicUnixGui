@@ -248,7 +248,7 @@ sub sign2 {
     print("sucepstrum,sign2: $sign2\n");
     if ( defined $sign2 && $sign2 ne $empty_string ) {
 
-        use control;
+        use control 0.0.3;
         my $control = control->new();
         $control->set_back_slashBgone($sign2);
         $sign2 = $control->get_back_slashBgone();

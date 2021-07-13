@@ -52,7 +52,7 @@ package Sseg2su_config;
 
 use Moose;
 our $VERSION = '1.0.2';
-use control;
+use control 0.0.3;
 use config_superflows;
 use Project_config;
 use L_SU_global_constants;

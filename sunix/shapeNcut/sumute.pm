@@ -161,7 +161,7 @@ sub _get_par_sets {
 		and $sumute->{_gather_type} ne $empty_string ) {
 
 		use manage_files_by2;
-		use control;
+		use control 0.0.3;
 
 =head2 instantiate classes
 
@@ -342,7 +342,7 @@ with multi_gather_su_file
 
 		use susplit;
 		use flow;
-		use control;
+		use control 0.0.3;
 
 =head2 instantiate modules
 

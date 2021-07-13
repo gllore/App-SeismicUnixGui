@@ -3,7 +3,7 @@ package iPicks2sort;
 use Moose;
 use L_SU_global_constants;
 my $VERSION = '0.0.1';
-use control;
+use control 0.0.3;
 use message;
 use flow;
 use Project_config;

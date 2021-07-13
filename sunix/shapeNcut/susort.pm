@@ -165,7 +165,7 @@ sub header_word {
 
         my ( $new_header_word, $header_no_commas );
 
-        use control;
+        use control 0.0.3;
 
         my $control = control->new();
 

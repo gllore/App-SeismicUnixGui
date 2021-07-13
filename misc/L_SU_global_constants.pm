@@ -278,6 +278,7 @@ my $var = {
 	_l_suplot_box_positionNsize    => '600x800+1000+1000',
 	_l_suplot_width                => '500',
 	_l_suplot_height               => '300',
+	_log_file_txt                     => 'log.txt',
 	_main_window_geometry   => '1100x750+12+5',
 	_medium_width                  => '100',
 	_message_box_geometry  => '400x250+400+400',
@@ -313,6 +314,7 @@ my $var = {
 	_string2endFlowSetUp           => '->Step\(\);',                               # for regex in perl_flow
 	_standard_width                => '20',
 	_ten_characters                => '10',
+	_test_dir_name                 => 't',
 	_eleven_characters             => '11',
 	_five_characters               => '5',
 	_thirty_characters             => '30',
@@ -322,6 +324,7 @@ my $var = {
 	_true                          => 1,
 	_us_per_s                      => 1000000,
 	_twenty_characters             => '20',
+	_username                            => 'tester',
 	_very_small_width              => '25',
 	_very_large_width              => '500',
 	_yes                           => 'yes',
@@ -569,7 +572,7 @@ xpsp
 
 my @sunix_shapeNcut_programs = (
 	"sukill", "sumute", "sugain", "sugprfb", "susplit",
-	"susort", "suwind", "suxmax"
+	"susort", "suwind"
 );
 
 my @sunix_statsMath_programs = (
@@ -578,11 +581,9 @@ my @sunix_statsMath_programs = (
 	# 			"suconv"
 	"suacor",
 	"suattributes",
-	"sumax",
-
-	#			"sunormalize",
 	"suinterp",
-
+	"sumax",
+	#			"sunormalize",
 	#			"sumean",
 	#			"suhistogram",
 	#			"supolar",
@@ -591,6 +592,7 @@ my @sunix_statsMath_programs = (
 	"suop",
 	"suop2",
 	"suxcor",
+	"suxmax",
 );
 
 my @sunix_transform_programs = (

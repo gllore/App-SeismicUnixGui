@@ -42,7 +42,7 @@
 
 use Moose;
 use Config::Simple;
-use control;
+use control 0.0.3;
 my $control = new control;
 my $cfg     = new Config::Simple('Project_Variables.config');
 

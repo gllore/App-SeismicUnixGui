@@ -1,0 +1,1045 @@
+New Survey 
+Calibrate StrataVisor NZ every shots
+Correlation is OFF.
+Auto Stack, Stack Limit 1.
+Unstack option is disable.
+Stack Polarity Positive
+Sample Interval 0.250 msec, Record Len 2.000 Sec, Delay 0.000 Sec,
+Filters: FILTER OUT, FILTER OUT
+Geophone Interval 5.00 Meters
+Preamp Gain Style is set to Low (Default 24 DB)
+Shot Location 0.00 Meters
+1st Phone Location 0.00 Meters, Last Phone (CH 64) Location 315.00 Meters
+Auto Save is OFF.
+Saving to disk - Next File Number is 1 - Data Dir is D:\1000 - SEG-2 Format
+
+Client name  : Juan Lorenzo, Michael Hubenthal
+Equiment  : 60channel_L-28s_Horizontals_Only
+Source  : Horizontal_Strike_Plate
+Project Title  : NMT_Interns_2018
+
+Trigger Holdoff 0.50s.  
+Trigger Sensitivity 50.  
+Auto Arm is ON.
+Self Trigger is OFF.
+Not Using External Trigger Distribution Box
+
+Found Line 1 Connected To Network Card: Intel(R) 8255xER PCI Adapter  (Address: 00.04.BF.B0.34.1A)
+Found 1 Geode(s) or NZ System On Line 1
+Line 1 has 8 Boards (8 Acquisition Boards and 0 Repeater Boards) 64 Channels
+
+System Total: Lines=1  Geodes or NZ=1  Total Boards=8  Acquisition Boards=8  Repeater Boards=0  Channels=64
+
+#BV LINE 1 GEODE 1 = 13.8V
+#BV LINE 1 GEODE 1 = 13.8V
+#BV LINE 1 GEODE 1 = 13.8V
+#BV LINE 1 GEODE 1 = 13.7V
+#BV LINE 1 GEODE 1 = 13.8V
+#BV LINE 1 GEODE 1 = 13.8V
+#BV LINE 1 GEODE 1 = 13.8V
+#BV LINE 1 GEODE 1 = 13.8V
+#BV LINE 1 GEODE 1 = 13.8V
+#BV LINE 1 GEODE 1 = 13.8V
+#BV LINE 1 GEODE 1 = 13.8V
+#BV LINE 1 GEODE 1 = 13.8V
+#BV LINE 1 GEODE 1 = 13.7V
+#BV LINE 1 GEODE 1 = 13.8V
+#BV LINE 1 GEODE 1 = 13.8V
+#BV LINE 1 GEODE 1 = 13.7V
+#BV LINE 1 GEODE 1 = 13.8V
+#BV LINE 1 GEODE 1 = 13.8V
+#BV LINE 1 GEODE 1 = 13.8V
+#BV LINE 1 GEODE 1 = 13.8V
+#BV LINE 1 GEODE 1 = 13.8V
+#BV LINE 1 GEODE 1 = 13.8V
+#BV LINE 1 GEODE 1 = 13.8V
+#BV LINE 1 GEODE 1 = 13.8V
+#BV LINE 1 GEODE 1 = 13.8V
+#BV LINE 1 GEODE 1 = 13.8V
+#BV LINE 1 GEODE 1 = 13.8V
+#BV LINE 1 GEODE 1 = 13.8V
+#BV LINE 1 GEODE 1 = 13.8V
+#BV LINE 1 GEODE 1 = 13.8V
+#BV LINE 1 GEODE 1 = 13.8V
+#BV LINE 1 GEODE 1 = 13.8V
+#BV LINE 1 GEODE 1 = 13.8V
+#BV LINE 1 GEODE 1 = 13.7V
+#BV LINE 1 GEODE 1 = 13.8V
+#BV LINE 1 GEODE 1 = 13.8V
+#BV LINE 1 GEODE 1 = 13.8V
+#BV LINE 1 GEODE 1 = 13.8V
+#BV LINE 1 GEODE 1 = 13.8V
+#BV LINE 1 GEODE 1 = 13.7V
+#BV LINE 1 GEODE 1 = 13.8V
+#BV LINE 1 GEODE 1 = 13.8V
+#BV LINE 1 GEODE 1 = 13.8V
+#BV LINE 1 GEODE 1 = 13.8V
+#BV LINE 1 GEODE 1 = 13.8V
+#BV LINE 1 GEODE 1 = 13.8V
+#BV LINE 1 GEODE 1 = 13.8V
+#BV LINE 1 GEODE 1 = 13.8V
+#BV LINE 1 GEODE 1 = 13.8V
+#BV LINE 1 GEODE 1 = 13.8V
+#BV LINE 1 GEODE 1 = 13.8V
+#BV LINE 1 GEODE 1 = 13.8V
+#BV LINE 1 GEODE 1 = 13.8V
+#BV LINE 1 GEODE 1 = 13.8V
+#BV LINE 1 GEODE 1 = 13.8V
+#BV LINE 1 GEODE 1 = 13.8V
+#BV LINE 1 GEODE 1 = 13.8V
+#BV LINE 1 GEODE 1 = 13.8V
+#BV LINE 1 GEODE 1 = 13.8V
+#BV LINE 1 GEODE 1 = 13.8V
+#BV LINE 1 GEODE 1 = 13.8V
+#BV LINE 1 GEODE 1 = 13.8V
+#BV LINE 1 GEODE 1 = 13.8V
+#BV LINE 1 GEODE 1 = 13.8V
+#BV LINE 1 GEODE 1 = 13.8V
+#BV LINE 1 GEODE 1 = 13.8V
+#BV LINE 1 GEODE 1 = 13.8V
+#BV LINE 1 GEODE 1 = 13.8V
+#BV LINE 1 GEODE 1 = 13.8V
+#BV LINE 1 GEODE 1 = 13.8V
+#BV LINE 1 GEODE 1 = 13.8V
+#BV LINE 1 GEODE 1 = 13.8V
+#BV LINE 1 GEODE 1 = 13.8V
+#BV LINE 1 GEODE 1 = 13.8V
+#BV LINE 1 GEODE 1 = 13.8V
+#BV LINE 1 GEODE 1 = 13.8V
+#BV LINE 1 GEODE 1 = 13.8V
+#BV LINE 1 GEODE 1 = 13.8V
+#BV LINE 1 GEODE 1 = 13.8V
+#BV LINE 1 GEODE 1 = 13.8V
+#BV LINE 1 GEODE 1 = 13.8V
+#BV LINE 1 GEODE 1 = 13.8V
+#BV LINE 1 GEODE 1 = 13.8V
+#BV LINE 1 GEODE 1 = 13.8V
+#BV LINE 1 GEODE 1 = 13.8V
+#BV LINE 1 GEODE 1 = 13.8V
+#BV LINE 1 GEODE 1 = 13.8V
+#BV LINE 1 GEODE 1 = 13.8V
+#BV LINE 1 GEODE 1 = 13.8V
+#BV LINE 1 GEODE 1 = 13.8V
+#BV LINE 1 GEODE 1 = 13.8V
+#BV LINE 1 GEODE 1 = 13.8V
+#BV LINE 1 GEODE 1 = 13.8V
+#BV LINE 1 GEODE 1 = 13.8V
+#BV LINE 1 GEODE 1 = 13.8V
+#BV LINE 1 GEODE 1 = 13.8V
+#BV LINE 1 GEODE 1 = 13.8V
+#BV LINE 1 GEODE 1 = 13.8V
+#BV LINE 1 GEODE 1 = 13.8V
+#BV LINE 1 GEODE 1 = 13.7V
+#BV LINE 1 GEODE 1 = 13.8V
+#BV LINE 1 GEODE 1 = 13.8V
+#BV LINE 1 GEODE 1 = 13.8V
+#BV LINE 1 GEODE 1 = 13.8V
+#BV LINE 1 GEODE 1 = 13.8V
+#BV LINE 1 GEODE 1 = 13.8V
+#BV LINE 1 GEODE 1 = 13.8V
+#BV LINE 1 GEODE 1 = 13.8V
+#BV LINE 1 GEODE 1 = 13.8V
+#BV LINE 1 GEODE 1 = 13.8V
+#BV LINE 1 GEODE 1 = 13.8V
+#BV LINE 1 GEODE 1 = 13.8V
+#BV LINE 1 GEODE 1 = 13.8V
+#BV LINE 1 GEODE 1 = 13.8V
+#BV LINE 1 GEODE 1 = 13.8V
+#BV LINE 1 GEODE 1 = 13.8V
+Restarting Survey at Line Number 0
+Correlation is OFF.
+Auto Stack
+Unstack option is disable.
+Stack Polarity Positive
+Sample Interval 0.250 msec, Record Len 2.000 Sec, Delay 0.000 Sec,
+Filters: FILTER OUT, FILTER OUT
+Calibrate StrataVisor NZ every shots
+Continuous Acquisition Is Disabled. 
+Subsample Trigger Synchronization Is Enabled. 
+ADC High Pass Filter Is Enabled.
+Preamp Gain Style is set to Low (Default 24 DB)
+Shot Location 0.00 Meters
+1st Phone Location 0.00 Meters, Last Phone (CH 64) Location 315.00 Meters
+Automatic Rolling On Auto Save Is Disable.
+Shot Increment 0
+Active Spread 0
+Auto Save is OFF.
+Saving to disk - Next File Number is 1 - Data Dir is D:\1000 - SEG-2 Format
+Trigger Holdoff 0.50s.  
+Trigger Sensitivity 50.  
+Auto Arm is ON.
+Self Trigger is OFF.
+Not Using External Trigger Distribution Box
+
+Found Line 1 Connected To Network Card: Intel(R) 8255xER PCI Adapter  (Address: 00.04.BF.B0.34.1A)
+Found 1 Geode(s) or NZ System On Line 1
+Line 1 has 8 Boards (8 Acquisition Boards and 0 Repeater Boards) 64 Channels
+
+System Total: Lines=1  Geodes or NZ=1  Total Boards=8  Acquisition Boards=8  Repeater Boards=0  Channels=64
+
+#BV LINE 1 GEODE 1 = 13.8V
+#BV LINE 1 GEODE 1 = 13.8V
+#BV LINE 1 GEODE 1 = 13.8V
+#BV LINE 1 GEODE 1 = 13.8V
+ File       1 (Stack  1, Shot Loc: 0 Meters) 09:46:36.72 05/11/2018 
+#BV LINE 1 GEODE 1 = 13.8V
+#BV LINE 1 GEODE 1 = 13.8V
+#BV LINE 1 GEODE 1 = 13.8V
+#BV LINE 1 GEODE 1 = 13.8V
+#BV LINE 1 GEODE 1 = 13.7V
+#BV LINE 1 GEODE 1 = 13.7V
+Restarting Survey at Line Number 0
+Correlation is OFF.
+Auto Stack
+Unstack option is disable.
+Stack Polarity Positive
+Sample Interval 0.250 msec, Record Len 2.000 Sec, Delay 0.000 Sec,
+Filters: FILTER OUT, FILTER OUT
+Calibrate StrataVisor NZ every shots
+Continuous Acquisition Is Disabled. 
+Subsample Trigger Synchronization Is Enabled. 
+ADC High Pass Filter Is Enabled.
+Preamp Gain Style is set to Low (Default 24 DB)
+Shot Location 0.00 Meters
+1st Phone Location 0.00 Meters, Last Phone (CH 64) Location 315.00 Meters
+Automatic Rolling On Auto Save Is Disable.
+Shot Increment 0
+Active Spread 0
+Auto Save is OFF.
+Saving to disk - Next File Number is 1 - Data Dir is D:\1000 - SEG-2 Format
+Trigger Holdoff 0.50s.  
+Trigger Sensitivity 50.  
+Auto Arm is ON.
+Self Trigger is OFF.
+Not Using External Trigger Distribution Box
+
+Found Line 1 Connected To Network Card: Intel(R) 8255xER PCI Adapter  (Address: 00.04.BF.B0.34.1A)
+Found 1 Geode(s) or NZ System On Line 1
+Line 1 has 8 Boards (8 Acquisition Boards and 0 Repeater Boards) 64 Channels
+
+System Total: Lines=1  Geodes or NZ=1  Total Boards=8  Acquisition Boards=8  Repeater Boards=0  Channels=64
+
+ File       1 (Stack  1, Shot Loc: 0 Meters) 16:11:41.93 05/31/2018 
+ File       1 (Stack  1, Shot Loc: 0 Meters) 16:12:11.58 05/31/2018 
+ File       1 (Stack  2, Shot Loc: 0 Meters) 16:15:49.50 05/31/2018 
+ File       1 (Stack  3, Shot Loc: 0 Meters) 16:16:11.76 05/31/2018 
+ File       1 (Stack  4, Shot Loc: 0 Meters) 16:16:26.72 05/31/2018 
+ File       1 (Stack  5, Shot Loc: 0 Meters) 16:16:36.66 05/31/2018 
+#BV LINE 1 GEODE 1 = 12.2V
+Sample Interval 1.000 msec, Record Len 2.000 Sec, Delay 0.000 Sec,
+Sample Interval 1.000 msec, Record Len 2.000 Sec, Delay -0.010 Sec,
+ File       1 (Stack  1, Shot Loc: 0 Meters) 16:34:04.83 05/31/2018 
+ File       1 (Stack  2, Shot Loc: 0 Meters) 16:34:09.27 05/31/2018 
+ File       1 (Stack  1, Shot Loc: 0 Meters) 16:35:26.44 05/31/2018 
+Preamp Gain Style is set to Low (Default 24 DB)
+ File       1 (Stack  1, Shot Loc: 0 Meters) 16:36:56.40 05/31/2018 
+#BV LINE 1 GEODE 1 = 12.2V
+ File       1 (Stack  2, Shot Loc: 0 Meters) 16:37:06.48 05/31/2018 
+ File       1 (Stack  3, Shot Loc: 0 Meters) 16:37:20.40 05/31/2018 
+ File       1 (Stack  3, Shot Loc: 0 Meters) 16:37:20.40 05/31/2018 
+ File       1 (Stack  3, Shot Loc: 0 Meters) 16:37:20.40 05/31/2018  547 KBytes SAVED 
+ File       2 (Stack  1, Shot Loc: 0 Meters) 16:38:27.06 05/31/2018 
+ File       2 (Stack  2, Shot Loc: 0 Meters) 16:38:34.68 05/31/2018 
+ File       2 (Stack  3, Shot Loc: 0 Meters) 16:38:55.58 05/31/2018 
+ File       2 (Stack  3, Shot Loc: 0 Meters) 16:38:55.58 05/31/2018  547 KBytes SAVED 
+ File       2 (Stack  3, Shot Loc: 0 Meters) 16:38:55.58 05/31/2018 
+Shot Location 1.00 Meters
+1st Phone Location 0.00 Meters, Last Phone (CH 64) Location 315.00 Meters
+Preamp Gain Style is set to Low (Default 24 DB)
+ File       3 (Stack  1, Shot Loc: 1 Meters) 16:40:13.74 05/31/2018 
+ File       3 (Stack  1, Shot Loc: 1 Meters) 16:41:10.72 05/31/2018 
+ File       3 (Stack  2, Shot Loc: 1 Meters) 16:41:23.88 05/31/2018 
+ File       3 (Stack  3, Shot Loc: 1 Meters) 16:41:37.37 05/31/2018 
+ File       3 (Stack  3, Shot Loc: 1 Meters) 16:41:37.37 05/31/2018  547 KBytes SAVED 
+ File       3 (Stack  3, Shot Loc: 1 Meters) 16:41:37.37 05/31/2018 
+ File       4 (Stack  1, Shot Loc: 1 Meters) 16:42:11.93 05/31/2018 
+ File       4 (Stack  2, Shot Loc: 1 Meters) 16:42:22.18 05/31/2018 
+ File       4 (Stack  3, Shot Loc: 1 Meters) 16:42:34.59 05/31/2018 
+ File       4 (Stack  3, Shot Loc: 1 Meters) 16:42:34.59 05/31/2018 
+ File       4 (Stack  3, Shot Loc: 1 Meters) 16:42:34.59 05/31/2018  547 KBytes SAVED 
+Shot Location 2.00 Meters
+1st Phone Location 0.00 Meters, Last Phone (CH 64) Location 315.00 Meters
+Preamp Gain Style is set to Low (Default 24 DB)
+ File       5 (Stack  1, Shot Loc: 2 Meters) 16:43:05.49 05/31/2018 
+ File       5 (Stack  1, Shot Loc: 2 Meters) 16:43:30.29 05/31/2018 
+ File       5 (Stack  1, Shot Loc: 2 Meters) 16:43:49.04 05/31/2018 
+ File       5 (Stack  2, Shot Loc: 2 Meters) 16:43:59.32 05/31/2018 
+ File       5 (Stack  3, Shot Loc: 2 Meters) 16:44:08.80 05/31/2018 
+ File       5 (Stack  3, Shot Loc: 2 Meters) 16:44:08.80 05/31/2018  547 KBytes SAVED 
+ File       5 (Stack  3, Shot Loc: 2 Meters) 16:44:08.80 05/31/2018 
+ File       6 (Stack  1, Shot Loc: 2 Meters) 16:44:39.88 05/31/2018 
+ File       6 (Stack  2, Shot Loc: 2 Meters) 16:44:48.21 05/31/2018 
+ File       6 (Stack  3, Shot Loc: 2 Meters) 16:44:56.35 05/31/2018 
+ File       6 (Stack  3, Shot Loc: 2 Meters) 16:44:56.35 05/31/2018  547 KBytes SAVED 
+ File       6 (Stack  3, Shot Loc: 2 Meters) 16:44:56.35 05/31/2018 
+Shot Location 3.00 Meters
+1st Phone Location 0.00 Meters, Last Phone (CH 64) Location 315.00 Meters
+Preamp Gain Style is set to Low (Default 24 DB)
+ File       7 (Stack  1, Shot Loc: 3 Meters) 16:45:41.93 05/31/2018 
+ File       7 (Stack  2, Shot Loc: 3 Meters) 16:45:48.46 05/31/2018 
+ File       7 (Stack  3, Shot Loc: 3 Meters) 16:45:54.79 05/31/2018 
+ File       7 (Stack  3, Shot Loc: 3 Meters) 16:45:54.79 05/31/2018 
+ File       7 (Stack  3, Shot Loc: 3 Meters) 16:45:54.79 05/31/2018  547 KBytes SAVED 
+ File       8 (Stack  1, Shot Loc: 3 Meters) 16:46:26.42 05/31/2018 
+ File       8 (Stack  2, Shot Loc: 3 Meters) 16:46:33.04 05/31/2018 
+ File       8 (Stack  3, Shot Loc: 3 Meters) 16:46:40.08 05/31/2018 
+ File       8 (Stack  3, Shot Loc: 3 Meters) 16:46:40.08 05/31/2018 
+ File       8 (Stack  3, Shot Loc: 3 Meters) 16:46:40.08 05/31/2018  547 KBytes SAVED 
+Shot Location 4.00 Meters
+1st Phone Location 0.00 Meters, Last Phone (CH 64) Location 315.00 Meters
+Preamp Gain Style is set to Low (Default 24 DB)
+ File       9 (Stack  1, Shot Loc: 4 Meters) 16:47:30.19 05/31/2018 
+ File       9 (Stack  2, Shot Loc: 4 Meters) 16:47:37.96 05/31/2018 
+ File       9 (Stack  1, Shot Loc: 4 Meters) 16:48:03.43 05/31/2018 
+ File       9 (Stack  1, Shot Loc: 4 Meters) 16:48:21.86 05/31/2018 
+ File       9 (Stack  2, Shot Loc: 4 Meters) 16:48:31.93 05/31/2018 
+ File       9 (Stack  3, Shot Loc: 4 Meters) 16:48:38.63 05/31/2018 
+ File       9 (Stack  3, Shot Loc: 4 Meters) 16:48:38.63 05/31/2018  547 KBytes SAVED 
+ File       9 (Stack  3, Shot Loc: 4 Meters) 16:48:38.63 05/31/2018 
+ File      10 (Stack  1, Shot Loc: 4 Meters) 16:49:06.13 05/31/2018 
+ File      10 (Stack  2, Shot Loc: 4 Meters) 16:49:13.67 05/31/2018 
+ File      10 (Stack  3, Shot Loc: 4 Meters) 16:49:34.92 05/31/2018 
+ File      10 (Stack  3, Shot Loc: 4 Meters) 16:49:34.92 05/31/2018  547 KBytes SAVED 
+ File      10 (Stack  3, Shot Loc: 4 Meters) 16:49:34.92 05/31/2018 
+Shot Location 5.00 Meters
+1st Phone Location 0.00 Meters, Last Phone (CH 64) Location 315.00 Meters
+Preamp Gain Style is set to Low (Default 24 DB)
+ File      11 (Stack  1, Shot Loc: 5 Meters) 16:50:22.27 05/31/2018 
+ File      11 (Stack  2, Shot Loc: 5 Meters) 16:50:28.62 05/31/2018 
+ File      11 (Stack  3, Shot Loc: 5 Meters) 16:50:33.38 05/31/2018 
+ File      11 (Stack  3, Shot Loc: 5 Meters) 16:50:33.38 05/31/2018  547 KBytes SAVED 
+ File      11 (Stack  3, Shot Loc: 5 Meters) 16:50:33.38 05/31/2018 
+ File      12 (Stack  1, Shot Loc: 5 Meters) 16:51:05.88 05/31/2018 
+ File      12 (Stack  2, Shot Loc: 5 Meters) 16:51:17.86 05/31/2018 
+ File      12 (Stack  3, Shot Loc: 5 Meters) 16:51:26.04 05/31/2018 
+ File      12 (Stack  3, Shot Loc: 5 Meters) 16:51:26.04 05/31/2018 
+ File      12 (Stack  3, Shot Loc: 5 Meters) 16:51:26.04 05/31/2018  547 KBytes SAVED 
+Shot Location 6.00 Meters
+1st Phone Location 0.00 Meters, Last Phone (CH 64) Location 315.00 Meters
+Preamp Gain Style is set to Low (Default 24 DB)
+ File      13 (Stack  1, Shot Loc: 6 Meters) 16:51:55.47 05/31/2018 
+#BV LINE 1 GEODE 1 = 12.1V
+ File      13 (Stack  1, Shot Loc: 6 Meters) 16:52:39.66 05/31/2018 
+ File      13 (Stack  2, Shot Loc: 6 Meters) 16:52:47.50 05/31/2018 
+ File      13 (Stack  3, Shot Loc: 6 Meters) 16:52:56.87 05/31/2018 
+ File      13 (Stack  3, Shot Loc: 6 Meters) 16:52:56.87 05/31/2018 
+ File      13 (Stack  3, Shot Loc: 6 Meters) 16:52:56.87 05/31/2018  547 KBytes SAVED 
+ File      14 (Stack  1, Shot Loc: 6 Meters) 16:53:27.76 05/31/2018 
+ File      14 (Stack  2, Shot Loc: 6 Meters) 16:53:35.45 05/31/2018 
+ File      14 (Stack  3, Shot Loc: 6 Meters) 16:53:45.87 05/31/2018 
+ File      14 (Stack  3, Shot Loc: 6 Meters) 16:53:45.87 05/31/2018 
+ File      14 (Stack  3, Shot Loc: 6 Meters) 16:53:45.87 05/31/2018  547 KBytes SAVED 
+Shot Location 7.00 Meters
+1st Phone Location 0.00 Meters, Last Phone (CH 64) Location 315.00 Meters
+Preamp Gain Style is set to Low (Default 24 DB)
+ File      15 (Stack  1, Shot Loc: 7 Meters) 16:54:19.46 05/31/2018 
+ File      15 (Stack  1, Shot Loc: 7 Meters) 16:55:13.04 05/31/2018 
+ File      15 (Stack  2, Shot Loc: 7 Meters) 16:55:21.20 05/31/2018 
+ File      15 (Stack  3, Shot Loc: 7 Meters) 16:55:31.21 05/31/2018 
+ File      15 (Stack  3, Shot Loc: 7 Meters) 16:55:31.21 05/31/2018  547 KBytes SAVED 
+ File      15 (Stack  3, Shot Loc: 7 Meters) 16:55:31.21 05/31/2018 
+ File      16 (Stack  1, Shot Loc: 7 Meters) 16:56:03.35 05/31/2018 
+ File      16 (Stack  2, Shot Loc: 7 Meters) 16:56:13.03 05/31/2018 
+ File      16 (Stack  3, Shot Loc: 7 Meters) 16:56:20.86 05/31/2018 
+ File      16 (Stack  3, Shot Loc: 7 Meters) 16:56:20.86 05/31/2018 
+ File      16 (Stack  3, Shot Loc: 7 Meters) 16:56:20.86 05/31/2018  547 KBytes SAVED 
+Shot Location 8.00 Meters
+1st Phone Location 0.00 Meters, Last Phone (CH 64) Location 315.00 Meters
+Preamp Gain Style is set to Low (Default 24 DB)
+ File      17 (Stack  1, Shot Loc: 8 Meters) 16:56:58.64 05/31/2018 
+ File      17 (Stack  1, Shot Loc: 8 Meters) 16:57:34.37 05/31/2018 
+ File      17 (Stack  1, Shot Loc: 8 Meters) 16:57:57.09 05/31/2018 
+ File      17 (Stack  2, Shot Loc: 8 Meters) 16:58:09.50 05/31/2018 
+ File      17 (Stack  3, Shot Loc: 8 Meters) 16:58:17.20 05/31/2018 
+ File      17 (Stack  3, Shot Loc: 8 Meters) 16:58:17.20 05/31/2018  547 KBytes SAVED 
+ File      17 (Stack  3, Shot Loc: 8 Meters) 16:58:17.20 05/31/2018 
+ File      18 (Stack  1, Shot Loc: 8 Meters) 16:58:41.39 05/31/2018 
+ File      18 (Stack  2, Shot Loc: 8 Meters) 16:58:51.18 05/31/2018 
+ File      18 (Stack  3, Shot Loc: 8 Meters) 16:58:59.91 05/31/2018 
+ File      18 (Stack  3, Shot Loc: 8 Meters) 16:58:59.91 05/31/2018 
+ File      18 (Stack  3, Shot Loc: 8 Meters) 16:58:59.91 05/31/2018  547 KBytes SAVED 
+Shot Location 9.00 Meters
+1st Phone Location 0.00 Meters, Last Phone (CH 64) Location 315.00 Meters
+Preamp Gain Style is set to Low (Default 24 DB)
+ File      19 (Stack  1, Shot Loc: 9 Meters) 16:59:31.31 05/31/2018 
+ File      19 (Stack  1, Shot Loc: 9 Meters) 17:00:14.80 05/31/2018 
+ File      19 (Stack  2, Shot Loc: 9 Meters) 17:00:22.19 05/31/2018 
+ File      19 (Stack  3, Shot Loc: 9 Meters) 17:00:31.27 05/31/2018 
+ File      19 (Stack  3, Shot Loc: 9 Meters) 17:00:31.27 05/31/2018  547 KBytes SAVED 
+ File      19 (Stack  3, Shot Loc: 9 Meters) 17:00:31.27 05/31/2018 
+ File      20 (Stack  1, Shot Loc: 9 Meters) 17:00:55.58 05/31/2018 
+ File      20 (Stack  2, Shot Loc: 9 Meters) 17:01:03.55 05/31/2018 
+ File      20 (Stack  3, Shot Loc: 9 Meters) 17:01:11.63 05/31/2018 
+ File      20 (Stack  3, Shot Loc: 9 Meters) 17:01:11.63 05/31/2018  547 KBytes SAVED 
+ File      20 (Stack  3, Shot Loc: 9 Meters) 17:01:11.63 05/31/2018 
+Shot Location 10.00 Meters
+1st Phone Location 0.00 Meters, Last Phone (CH 64) Location 315.00 Meters
+Preamp Gain Style is set to Low (Default 24 DB)
+ File      21 (Stack  1, Shot Loc: 10 Meters) 17:02:01.50 05/31/2018 
+ File      21 (Stack  2, Shot Loc: 10 Meters) 17:02:12.87 05/31/2018 
+ File      21 (Stack  3, Shot Loc: 10 Meters) 17:02:22.51 05/31/2018 
+ File      21 (Stack  3, Shot Loc: 10 Meters) 17:02:22.51 05/31/2018  548 KBytes SAVED 
+ File      21 (Stack  3, Shot Loc: 10 Meters) 17:02:22.51 05/31/2018 
+ File      22 (Stack  1, Shot Loc: 10 Meters) 17:02:48.16 05/31/2018 
+ File      22 (Stack  2, Shot Loc: 10 Meters) 17:02:57.16 05/31/2018 
+ File      22 (Stack  3, Shot Loc: 10 Meters) 17:03:06.44 05/31/2018 
+ File      22 (Stack  3, Shot Loc: 10 Meters) 17:03:06.44 05/31/2018 
+ File      22 (Stack  3, Shot Loc: 10 Meters) 17:03:06.44 05/31/2018  548 KBytes SAVED 
+ File      23 (Stack  1, Shot Loc: 10 Meters) 17:03:28.72 05/31/2018 
+Shot Location 11.00 Meters
+1st Phone Location 0.00 Meters, Last Phone (CH 64) Location 315.00 Meters
+Preamp Gain Style is set to Low (Default 24 DB)
+ File      23 (Stack  1, Shot Loc: 11 Meters) 17:04:20.64 05/31/2018 
+ File      23 (Stack  2, Shot Loc: 11 Meters) 17:04:32.09 05/31/2018 
+ File      23 (Stack  3, Shot Loc: 11 Meters) 17:04:40.44 05/31/2018 
+ File      23 (Stack  3, Shot Loc: 11 Meters) 17:04:40.44 05/31/2018 
+ File      23 (Stack  3, Shot Loc: 11 Meters) 17:04:40.44 05/31/2018  548 KBytes SAVED 
+ File      24 (Stack  1, Shot Loc: 11 Meters) 17:05:20.99 05/31/2018 
+ File      24 (Stack  2, Shot Loc: 11 Meters) 17:05:30.58 05/31/2018 
+ File      24 (Stack  3, Shot Loc: 11 Meters) 17:05:41.16 05/31/2018 
+ File      24 (Stack  3, Shot Loc: 11 Meters) 17:05:41.16 05/31/2018 
+ File      24 (Stack  3, Shot Loc: 11 Meters) 17:05:41.16 05/31/2018  548 KBytes SAVED 
+Shot Location 12.00 Meters
+1st Phone Location 0.00 Meters, Last Phone (CH 64) Location 315.00 Meters
+Preamp Gain Style is set to Low (Default 24 DB)
+ File      25 (Stack  1, Shot Loc: 12 Meters) 17:06:31.77 05/31/2018 
+ File      25 (Stack  2, Shot Loc: 12 Meters) 17:06:43.19 05/31/2018 
+ File      25 (Stack  3, Shot Loc: 12 Meters) 17:06:52.75 05/31/2018 
+ File      25 (Stack  3, Shot Loc: 12 Meters) 17:06:52.75 05/31/2018 
+ File      25 (Stack  3, Shot Loc: 12 Meters) 17:06:52.75 05/31/2018  548 KBytes SAVED 
+#BV LINE 1 GEODE 1 = 12.1V
+ File      26 (Stack  1, Shot Loc: 12 Meters) 17:07:29.29 05/31/2018 
+ File      26 (Stack  2, Shot Loc: 12 Meters) 17:07:39.71 05/31/2018 
+ File      26 (Stack  3, Shot Loc: 12 Meters) 17:07:50.54 05/31/2018 
+ File      26 (Stack  3, Shot Loc: 12 Meters) 17:07:50.54 05/31/2018  548 KBytes SAVED 
+ File      26 (Stack  3, Shot Loc: 12 Meters) 17:07:50.54 05/31/2018 
+Shot Location 13.00 Meters
+1st Phone Location 0.00 Meters, Last Phone (CH 64) Location 315.00 Meters
+Preamp Gain Style is set to Low (Default 24 DB)
+ File      27 (Stack  1, Shot Loc: 13 Meters) 17:08:49.29 05/31/2018 
+ File      27 (Stack  2, Shot Loc: 13 Meters) 17:08:59.45 05/31/2018 
+ File      27 (Stack  3, Shot Loc: 13 Meters) 17:09:14.04 05/31/2018 
+ File      27 (Stack  3, Shot Loc: 13 Meters) 17:09:14.04 05/31/2018 
+ File      27 (Stack  3, Shot Loc: 13 Meters) 17:09:14.04 05/31/2018  548 KBytes SAVED 
+ File      28 (Stack  1, Shot Loc: 13 Meters) 17:09:48.03 05/31/2018 
+ File      28 (Stack  2, Shot Loc: 13 Meters) 17:09:59.08 05/31/2018 
+ File      28 (Stack  3, Shot Loc: 13 Meters) 17:10:06.70 05/31/2018 
+ File      28 (Stack  3, Shot Loc: 13 Meters) 17:10:06.70 05/31/2018  548 KBytes SAVED 
+ File      28 (Stack  3, Shot Loc: 13 Meters) 17:10:06.70 05/31/2018 
+Shot Location 14.00 Meters
+1st Phone Location 0.00 Meters, Last Phone (CH 64) Location 315.00 Meters
+Preamp Gain Style is set to Low (Default 24 DB)
+ File      29 (Stack  1, Shot Loc: 14 Meters) 17:11:13.88 05/31/2018 
+ File      29 (Stack  2, Shot Loc: 14 Meters) 17:11:32.68 05/31/2018 
+ File      29 (Stack  3, Shot Loc: 14 Meters) 17:11:49.97 05/31/2018 
+ File      29 (Stack  1, Shot Loc: 14 Meters) 17:12:43.86 05/31/2018 
+ File      29 (Stack  2, Shot Loc: 14 Meters) 17:13:06.46 05/31/2018 
+ File      29 (Stack  3, Shot Loc: 14 Meters) 17:13:14.70 05/31/2018 
+ File      29 (Stack  3, Shot Loc: 14 Meters) 17:13:14.70 05/31/2018 
+ File      29 (Stack  3, Shot Loc: 14 Meters) 17:13:14.70 05/31/2018  548 KBytes SAVED 
+ File      30 (Stack  1, Shot Loc: 14 Meters) 17:14:08.56 05/31/2018 
+ File      30 (Stack  2, Shot Loc: 14 Meters) 17:14:21.18 05/31/2018 
+ File      30 (Stack  3, Shot Loc: 14 Meters) 17:14:30.90 05/31/2018 
+ File      30 (Stack  3, Shot Loc: 14 Meters) 17:14:30.90 05/31/2018 
+ File      30 (Stack  3, Shot Loc: 14 Meters) 17:14:30.90 05/31/2018  548 KBytes SAVED 
+Shot Location 15.00 Meters
+1st Phone Location 0.00 Meters, Last Phone (CH 64) Location 315.00 Meters
+Preamp Gain Style is set to Low (Default 24 DB)
+ File      31 (Stack  1, Shot Loc: 15 Meters) 17:15:37.84 05/31/2018 
+ File      31 (Stack  2, Shot Loc: 15 Meters) 17:15:46.71 05/31/2018 
+ File      31 (Stack  3, Shot Loc: 15 Meters) 17:15:55.90 05/31/2018 
+ File      31 (Stack  3, Shot Loc: 15 Meters) 17:15:55.90 05/31/2018 
+ File      31 (Stack  3, Shot Loc: 15 Meters) 17:15:55.90 05/31/2018  548 KBytes SAVED 
+ File      32 (Stack  1, Shot Loc: 15 Meters) 17:16:31.31 05/31/2018 
+ File      32 (Stack  2, Shot Loc: 15 Meters) 17:16:47.27 05/31/2018 
+ File      32 (Stack  3, Shot Loc: 15 Meters) 17:16:56.12 05/31/2018 
+ File      32 (Stack  3, Shot Loc: 15 Meters) 17:16:56.12 05/31/2018 
+ File      32 (Stack  3, Shot Loc: 15 Meters) 17:16:56.12 05/31/2018  548 KBytes SAVED 
+Shot Location 16.00 Meters
+1st Phone Location 0.00 Meters, Last Phone (CH 64) Location 315.00 Meters
+Preamp Gain Style is set to Low (Default 24 DB)
+ File      33 (Stack  1, Shot Loc: 16 Meters) 17:17:34.09 05/31/2018 
+ File      33 (Stack  2, Shot Loc: 16 Meters) 17:17:41.29 05/31/2018 
+ File      33 (Stack  3, Shot Loc: 16 Meters) 17:17:48.58 05/31/2018 
+ File      33 (Stack  3, Shot Loc: 16 Meters) 17:17:48.58 05/31/2018 
+ File      33 (Stack  3, Shot Loc: 16 Meters) 17:17:48.58 05/31/2018  548 KBytes SAVED 
+ File      34 (Stack  1, Shot Loc: 16 Meters) 17:18:11.90 05/31/2018 
+ File      34 (Stack  2, Shot Loc: 16 Meters) 17:18:19.02 05/31/2018 
+ File      34 (Stack  3, Shot Loc: 16 Meters) 17:18:25.87 05/31/2018 
+ File      34 (Stack  3, Shot Loc: 16 Meters) 17:18:25.87 05/31/2018  548 KBytes SAVED 
+ File      34 (Stack  3, Shot Loc: 16 Meters) 17:18:25.87 05/31/2018 
+Shot Location 17.00 Meters
+1st Phone Location 0.00 Meters, Last Phone (CH 64) Location 315.00 Meters
+Preamp Gain Style is set to Low (Default 24 DB)
+ File      35 (Stack  1, Shot Loc: 17 Meters) 17:19:17.87 05/31/2018 
+ File      35 (Stack  2, Shot Loc: 17 Meters) 17:19:25.73 05/31/2018 
+ File      35 (Stack  3, Shot Loc: 17 Meters) 17:19:36.12 05/31/2018 
+ File      35 (Stack  3, Shot Loc: 17 Meters) 17:19:36.12 05/31/2018 
+ File      35 (Stack  3, Shot Loc: 17 Meters) 17:19:36.12 05/31/2018  548 KBytes SAVED 
+ File      36 (Stack  4, Shot Loc: 17 Meters) 17:20:14.63 05/31/2018 
+ File      36 (Stack  5, Shot Loc: 17 Meters) 17:20:23.28 05/31/2018 
+ File      36 (Stack  6, Shot Loc: 17 Meters) 17:20:34.37 05/31/2018 
+#BV LINE 1 GEODE 1 = 12.1V
+ File      35 (Stack  3, Shot Loc: 17 Meters) 17:19:36.00 05/31/2018 
+ File      35 (Stack  3, Shot Loc: 17 Meters) 17:19:36.00 05/31/2018 READ
+ File      36 (Stack  1, Shot Loc: 17 Meters) 17:25:03.19 05/31/2018 
+ File      36 (Stack  2, Shot Loc: 17 Meters) 17:25:16.20 05/31/2018 
+ File      36 (Stack  3, Shot Loc: 17 Meters) 17:25:24.05 05/31/2018 
+ File      36 (Stack  3, Shot Loc: 17 Meters) 17:25:24.05 05/31/2018  548 KBytes SAVED 
+ File      36 (Stack  3, Shot Loc: 17 Meters) 17:25:24.05 05/31/2018 
+Shot Location 18.00 Meters
+1st Phone Location 0.00 Meters, Last Phone (CH 64) Location 315.00 Meters
+Preamp Gain Style is set to Low (Default 24 DB)
+ File      37 (Stack  1, Shot Loc: 18 Meters) 17:26:04.37 05/31/2018 
+ File      37 (Stack  1, Shot Loc: 18 Meters) 17:26:30.25 05/31/2018 
+ File      37 (Stack  2, Shot Loc: 18 Meters) 17:26:36.52 05/31/2018 
+ File      37 (Stack  3, Shot Loc: 18 Meters) 17:26:42.78 05/31/2018 
+ File      37 (Stack  3, Shot Loc: 18 Meters) 17:26:42.78 05/31/2018 
+ File      37 (Stack  3, Shot Loc: 18 Meters) 17:26:42.78 05/31/2018  548 KBytes SAVED 
+ File      38 (Stack  1, Shot Loc: 18 Meters) 17:27:05.28 05/31/2018 
+ File      38 (Stack  2, Shot Loc: 18 Meters) 17:27:12.08 05/31/2018 
+ File      38 (Stack  3, Shot Loc: 18 Meters) 17:27:18.11 05/31/2018 
+ File      38 (Stack  3, Shot Loc: 18 Meters) 17:27:18.11 05/31/2018 
+ File      38 (Stack  3, Shot Loc: 18 Meters) 17:27:18.11 05/31/2018  548 KBytes SAVED 
+Shot Location 19.00 Meters
+1st Phone Location 0.00 Meters, Last Phone (CH 64) Location 315.00 Meters
+Preamp Gain Style is set to Low (Default 24 DB)
+ File      39 (Stack  1, Shot Loc: 19 Meters) 17:27:57.10 05/31/2018 
+ File      39 (Stack  2, Shot Loc: 19 Meters) 17:28:04.01 05/31/2018 
+ File      39 (Stack  3, Shot Loc: 19 Meters) 17:28:11.33 05/31/2018 
+ File      39 (Stack  3, Shot Loc: 19 Meters) 17:28:11.33 05/31/2018 
+ File      39 (Stack  3, Shot Loc: 19 Meters) 17:28:11.33 05/31/2018  548 KBytes SAVED 
+ File      40 (Stack  1, Shot Loc: 19 Meters) 17:28:36.03 05/31/2018 
+ File      40 (Stack  2, Shot Loc: 19 Meters) 17:28:43.32 05/31/2018 
+ File      40 (Stack  3, Shot Loc: 19 Meters) 17:28:50.61 05/31/2018 
+ File      40 (Stack  3, Shot Loc: 19 Meters) 17:28:50.61 05/31/2018  548 KBytes SAVED 
+ File      40 (Stack  3, Shot Loc: 19 Meters) 17:28:50.61 05/31/2018 
+Shot Location 20.00 Meters
+1st Phone Location 0.00 Meters, Last Phone (CH 64) Location 315.00 Meters
+Preamp Gain Style is set to Low (Default 24 DB)
+ File      41 (Stack  1, Shot Loc: 20 Meters) 17:29:27.40 05/31/2018 
+ File      41 (Stack  2, Shot Loc: 20 Meters) 17:29:34.06 05/31/2018 
+ File      41 (Stack  3, Shot Loc: 20 Meters) 17:29:40.87 05/31/2018 
+ File      41 (Stack  3, Shot Loc: 20 Meters) 17:29:40.87 05/31/2018 
+ File      41 (Stack  3, Shot Loc: 20 Meters) 17:29:40.87 05/31/2018  548 KBytes SAVED 
+ File      42 (Stack  1, Shot Loc: 20 Meters) 17:30:02.38 05/31/2018 
+ File      42 (Stack  2, Shot Loc: 20 Meters) 17:30:09.62 05/31/2018 
+ File      42 (Stack  3, Shot Loc: 20 Meters) 17:30:16.78 05/31/2018 
+ File      42 (Stack  3, Shot Loc: 20 Meters) 17:30:16.78 05/31/2018 
+ File      42 (Stack  3, Shot Loc: 20 Meters) 17:30:16.78 05/31/2018  548 KBytes SAVED 
+Shot Location 21.00 Meters
+1st Phone Location 0.00 Meters, Last Phone (CH 64) Location 315.00 Meters
+Preamp Gain Style is set to Low (Default 24 DB)
+ File      43 (Stack  1, Shot Loc: 21 Meters) 17:30:49.68 05/31/2018 
+ File      43 (Stack  2, Shot Loc: 21 Meters) 17:30:56.42 05/31/2018 
+ File      43 (Stack  3, Shot Loc: 21 Meters) 17:31:03.03 05/31/2018 
+ File      43 (Stack  3, Shot Loc: 21 Meters) 17:31:03.03 05/31/2018  548 KBytes SAVED 
+ File      43 (Stack  3, Shot Loc: 21 Meters) 17:31:03.03 05/31/2018 
+ File      44 (Stack  1, Shot Loc: 21 Meters) 17:31:27.97 05/31/2018 
+ File      44 (Stack  2, Shot Loc: 21 Meters) 17:31:34.51 05/31/2018 
+ File      44 (Stack  3, Shot Loc: 21 Meters) 17:31:41.28 05/31/2018 
+ File      44 (Stack  3, Shot Loc: 21 Meters) 17:31:41.28 05/31/2018 
+ File      44 (Stack  3, Shot Loc: 21 Meters) 17:31:41.28 05/31/2018  548 KBytes SAVED 
+Shot Location 22.00 Meters
+1st Phone Location 0.00 Meters, Last Phone (CH 64) Location 315.00 Meters
+Preamp Gain Style is set to Low (Default 24 DB)
+ File      45 (Stack  1, Shot Loc: 22 Meters) 17:32:16.12 05/31/2018 
+ File      45 (Stack  2, Shot Loc: 22 Meters) 17:32:22.84 05/31/2018 
+ File      45 (Stack  3, Shot Loc: 22 Meters) 17:32:29.14 05/31/2018 
+ File      45 (Stack  3, Shot Loc: 22 Meters) 17:32:29.14 05/31/2018  548 KBytes SAVED 
+ File      45 (Stack  3, Shot Loc: 22 Meters) 17:32:29.14 05/31/2018 
+ File      46 (Stack  1, Shot Loc: 22 Meters) 17:32:50.27 05/31/2018 
+ File      46 (Stack  2, Shot Loc: 22 Meters) 17:32:56.61 05/31/2018 
+ File      46 (Stack  3, Shot Loc: 22 Meters) 17:33:02.98 05/31/2018 
+ File      46 (Stack  3, Shot Loc: 22 Meters) 17:33:02.98 05/31/2018  548 KBytes SAVED 
+ File      46 (Stack  3, Shot Loc: 22 Meters) 17:33:02.98 05/31/2018 
+Shot Location 23.00 Meters
+1st Phone Location 0.00 Meters, Last Phone (CH 64) Location 315.00 Meters
+Preamp Gain Style is set to Low (Default 24 DB)
+ File      47 (Stack  1, Shot Loc: 23 Meters) 17:33:59.18 05/31/2018 
+ File      47 (Stack  2, Shot Loc: 23 Meters) 17:34:05.92 05/31/2018 
+ File      47 (Stack  3, Shot Loc: 23 Meters) 17:34:14.97 05/31/2018 
+ File      47 (Stack  3, Shot Loc: 23 Meters) 17:34:14.97 05/31/2018 
+ File      47 (Stack  3, Shot Loc: 23 Meters) 17:34:14.97 05/31/2018  548 KBytes SAVED 
+ File      48 (Stack  1, Shot Loc: 23 Meters) 17:34:55.32 05/31/2018 
+ File      48 (Stack  2, Shot Loc: 23 Meters) 17:35:09.32 05/31/2018 
+ File      48 (Stack  3, Shot Loc: 23 Meters) 17:35:16.21 05/31/2018 
+ File      48 (Stack  4, Shot Loc: 23 Meters) 17:35:23.67 05/31/2018 
+ File      48 (Stack  4, Shot Loc: 23 Meters) 17:35:23.67 05/31/2018 
+ File      48 (Stack  4, Shot Loc: 23 Meters) 17:35:23.67 05/31/2018  548 KBytes SAVED 
+Shot Location 24.00 Meters
+1st Phone Location 0.00 Meters, Last Phone (CH 64) Location 315.00 Meters
+Preamp Gain Style is set to Low (Default 24 DB)
+ File      49 (Stack  1, Shot Loc: 24 Meters) 17:37:03.68 05/31/2018 
+#BV LINE 1 GEODE 1 = 12.0V
+ File      49 (Stack  2, Shot Loc: 24 Meters) 17:37:10.03 05/31/2018 
+ File      49 (Stack  3, Shot Loc: 24 Meters) 17:37:16.72 05/31/2018 
+ File      49 (Stack  3, Shot Loc: 24 Meters) 17:37:16.72 05/31/2018  548 KBytes SAVED 
+ File      49 (Stack  3, Shot Loc: 24 Meters) 17:37:16.72 05/31/2018 
+ File      50 (Stack  1, Shot Loc: 24 Meters) 17:37:46.14 05/31/2018 
+ File      50 (Stack  2, Shot Loc: 24 Meters) 17:37:53.44 05/31/2018 
+ File      50 (Stack  3, Shot Loc: 24 Meters) 17:38:00.20 05/31/2018 
+ File      50 (Stack  3, Shot Loc: 24 Meters) 17:38:00.20 05/31/2018 
+ File      50 (Stack  3, Shot Loc: 24 Meters) 17:38:00.20 05/31/2018  548 KBytes SAVED 
+Shot Location 25.00 Meters
+1st Phone Location 0.00 Meters, Last Phone (CH 64) Location 315.00 Meters
+Preamp Gain Style is set to Low (Default 24 DB)
+ File      51 (Stack  1, Shot Loc: 25 Meters) 17:38:31.80 05/31/2018 
+ File      51 (Stack  2, Shot Loc: 25 Meters) 17:38:38.70 05/31/2018 
+ File      51 (Stack  3, Shot Loc: 25 Meters) 17:38:45.11 05/31/2018 
+ File      51 (Stack  3, Shot Loc: 25 Meters) 17:38:45.11 05/31/2018 
+ File      51 (Stack  3, Shot Loc: 25 Meters) 17:38:45.11 05/31/2018  548 KBytes SAVED 
+ File      52 (Stack  1, Shot Loc: 25 Meters) 17:39:06.57 05/31/2018 
+ File      52 (Stack  2, Shot Loc: 25 Meters) 17:39:13.65 05/31/2018 
+ File      52 (Stack  3, Shot Loc: 25 Meters) 17:39:20.13 05/31/2018 
+ File      52 (Stack  3, Shot Loc: 25 Meters) 17:39:20.13 05/31/2018 
+ File      52 (Stack  3, Shot Loc: 25 Meters) 17:39:20.13 05/31/2018  548 KBytes SAVED 
+Shot Location 26.00 Meters
+1st Phone Location 0.00 Meters, Last Phone (CH 64) Location 315.00 Meters
+Preamp Gain Style is set to Low (Default 24 DB)
+ File      53 (Stack  1, Shot Loc: 26 Meters) 17:39:56.84 05/31/2018 
+ File      53 (Stack  2, Shot Loc: 26 Meters) 17:40:04.01 05/31/2018 
+ File      53 (Stack  3, Shot Loc: 26 Meters) 17:40:12.40 05/31/2018 
+ File      53 (Stack  3, Shot Loc: 26 Meters) 17:40:12.40 05/31/2018 
+ File      53 (Stack  3, Shot Loc: 26 Meters) 17:40:12.40 05/31/2018  548 KBytes SAVED 
+ File      54 (Stack  1, Shot Loc: 26 Meters) 17:40:48.00 05/31/2018 
+ File      54 (Stack  2, Shot Loc: 26 Meters) 17:40:55.24 05/31/2018 
+ File      54 (Stack  3, Shot Loc: 26 Meters) 17:41:01.62 05/31/2018 
+ File      54 (Stack  3, Shot Loc: 26 Meters) 17:41:01.62 05/31/2018 
+ File      54 (Stack  3, Shot Loc: 26 Meters) 17:41:01.62 05/31/2018  548 KBytes SAVED 
+Shot Location 27.00 Meters
+1st Phone Location 0.00 Meters, Last Phone (CH 64) Location 315.00 Meters
+Preamp Gain Style is set to Low (Default 24 DB)
+ File      55 (Stack  1, Shot Loc: 27 Meters) 17:41:54.07 05/31/2018 
+ File      55 (Stack  2, Shot Loc: 27 Meters) 17:42:01.39 05/31/2018 
+ File      55 (Stack  2, Shot Loc: 27 Meters) 17:42:01.39 05/31/2018 
+ File      55 (Stack  2, Shot Loc: 27 Meters) 17:42:01.39 05/31/2018  548 KBytes SAVED 
+ File      56 (Stack  1, Shot Loc: 27 Meters) 17:42:24.22 05/31/2018 
+ File      56 (Stack  2, Shot Loc: 27 Meters) 17:42:32.00 05/31/2018 
+ File      56 (Stack  3, Shot Loc: 27 Meters) 17:42:39.75 05/31/2018 
+ File      56 (Stack  3, Shot Loc: 27 Meters) 17:42:39.75 05/31/2018  548 KBytes SAVED 
+ File      56 (Stack  3, Shot Loc: 27 Meters) 17:42:39.75 05/31/2018 
+Shot Location 28.00 Meters
+1st Phone Location 0.00 Meters, Last Phone (CH 64) Location 315.00 Meters
+Preamp Gain Style is set to Low (Default 24 DB)
+ File      57 (Stack  1, Shot Loc: 28 Meters) 17:43:38.75 05/31/2018 
+ File      57 (Stack  2, Shot Loc: 28 Meters) 17:43:47.54 05/31/2018 
+ File      57 (Stack  3, Shot Loc: 28 Meters) 17:43:54.60 05/31/2018 
+ File      57 (Stack  3, Shot Loc: 28 Meters) 17:43:54.60 05/31/2018 
+ File      57 (Stack  3, Shot Loc: 28 Meters) 17:43:54.60 05/31/2018  548 KBytes SAVED 
+ File      58 (Stack  1, Shot Loc: 28 Meters) 17:44:16.79 05/31/2018 
+ File      58 (Stack  2, Shot Loc: 28 Meters) 17:44:24.02 05/31/2018 
+ File      58 (Stack  3, Shot Loc: 28 Meters) 17:44:30.75 05/31/2018 
+ File      58 (Stack  3, Shot Loc: 28 Meters) 17:44:30.75 05/31/2018 
+ File      58 (Stack  3, Shot Loc: 28 Meters) 17:44:30.75 05/31/2018  548 KBytes SAVED 
+Shot Location 29.00 Meters
+1st Phone Location 0.00 Meters, Last Phone (CH 64) Location 315.00 Meters
+Preamp Gain Style is set to Low (Default 24 DB)
+ File      59 (Stack  1, Shot Loc: 29 Meters) 17:45:12.43 05/31/2018 
+ File      59 (Stack  2, Shot Loc: 29 Meters) 17:45:19.72 05/31/2018 
+ File      59 (Stack  3, Shot Loc: 29 Meters) 17:45:27.02 05/31/2018 
+ File      59 (Stack  3, Shot Loc: 29 Meters) 17:45:27.02 05/31/2018 
+ File      59 (Stack  3, Shot Loc: 29 Meters) 17:45:27.02 05/31/2018  548 KBytes SAVED 
+ File      60 (Stack  1, Shot Loc: 29 Meters) 17:45:49.40 05/31/2018 
+ File      60 (Stack  2, Shot Loc: 29 Meters) 17:46:02.55 05/31/2018 
+ File      60 (Stack  3, Shot Loc: 29 Meters) 17:46:16.19 05/31/2018 
+ File      60 (Stack  3, Shot Loc: 29 Meters) 17:46:16.19 05/31/2018  548 KBytes SAVED 
+ File      60 (Stack  3, Shot Loc: 29 Meters) 17:46:16.19 05/31/2018 
+Shot Location 30.00 Meters
+1st Phone Location 0.00 Meters, Last Phone (CH 64) Location 315.00 Meters
+Preamp Gain Style is set to Low (Default 24 DB)
+ File      61 (Stack  1, Shot Loc: 30 Meters) 17:46:51.64 05/31/2018 
+ File      61 (Stack  2, Shot Loc: 30 Meters) 17:46:58.61 05/31/2018 
+ File      61 (Stack  3, Shot Loc: 30 Meters) 17:47:05.43 05/31/2018 
+ File      61 (Stack  3, Shot Loc: 30 Meters) 17:47:05.43 05/31/2018 
+ File      61 (Stack  3, Shot Loc: 30 Meters) 17:47:05.43 05/31/2018  548 KBytes SAVED 
+ File      62 (Stack  1, Shot Loc: 30 Meters) 17:47:30.13 05/31/2018 
+ File      62 (Stack  2, Shot Loc: 30 Meters) 17:47:36.87 05/31/2018 
+ File      62 (Stack  3, Shot Loc: 30 Meters) 17:47:43.83 05/31/2018 
+ File      62 (Stack  3, Shot Loc: 30 Meters) 17:47:43.83 05/31/2018  548 KBytes SAVED 
+ File      62 (Stack  3, Shot Loc: 30 Meters) 17:47:43.83 05/31/2018 
+Shot Location 31.00 Meters
+1st Phone Location 0.00 Meters, Last Phone (CH 64) Location 315.00 Meters
+Preamp Gain Style is set to Low (Default 24 DB)
+ File      63 (Stack  1, Shot Loc: 31 Meters) 17:48:10.54 05/31/2018 
+ File      63 (Stack  2, Shot Loc: 31 Meters) 17:48:17.00 05/31/2018 
+ File      63 (Stack  3, Shot Loc: 31 Meters) 17:48:23.75 05/31/2018 
+ File      63 (Stack  3, Shot Loc: 31 Meters) 17:48:23.75 05/31/2018 
+ File      63 (Stack  3, Shot Loc: 31 Meters) 17:48:23.75 05/31/2018  548 KBytes SAVED 
+ File      64 (Stack  1, Shot Loc: 31 Meters) 17:48:44.27 05/31/2018 
+ File      64 (Stack  2, Shot Loc: 31 Meters) 17:48:54.31 05/31/2018 
+ File      64 (Stack  3, Shot Loc: 31 Meters) 17:49:01.15 05/31/2018 
+ File      64 (Stack  3, Shot Loc: 31 Meters) 17:49:01.15 05/31/2018 
+ File      64 (Stack  3, Shot Loc: 31 Meters) 17:49:01.15 05/31/2018  548 KBytes SAVED 
+Shot Location 32.00 Meters
+1st Phone Location 0.00 Meters, Last Phone (CH 64) Location 315.00 Meters
+Preamp Gain Style is set to Low (Default 24 DB)
+ File      65 (Stack  1, Shot Loc: 32 Meters) 17:49:54.94 05/31/2018 
+ File      65 (Stack  2, Shot Loc: 32 Meters) 17:50:01.80 05/31/2018 
+ File      65 (Stack  3, Shot Loc: 32 Meters) 17:50:08.69 05/31/2018 
+ File      65 (Stack  3, Shot Loc: 32 Meters) 17:50:08.69 05/31/2018 
+ File      65 (Stack  3, Shot Loc: 32 Meters) 17:50:08.69 05/31/2018  548 KBytes SAVED 
+ File      66 (Stack  1, Shot Loc: 32 Meters) 17:50:32.44 05/31/2018 
+ File      66 (Stack  2, Shot Loc: 32 Meters) 17:50:40.57 05/31/2018 
+ File      66 (Stack  3, Shot Loc: 32 Meters) 17:50:48.02 05/31/2018 
+ File      66 (Stack  3, Shot Loc: 32 Meters) 17:50:48.02 05/31/2018 
+ File      66 (Stack  3, Shot Loc: 32 Meters) 17:50:48.02 05/31/2018  548 KBytes SAVED 
+Shot Location 33.00 Meters
+1st Phone Location 0.00 Meters, Last Phone (CH 64) Location 315.00 Meters
+Preamp Gain Style is set to Low (Default 24 DB)
+ File      67 (Stack  1, Shot Loc: 33 Meters) 17:51:19.28 05/31/2018 
+ File      67 (Stack  2, Shot Loc: 33 Meters) 17:51:25.86 05/31/2018 
+ File      67 (Stack  3, Shot Loc: 33 Meters) 17:51:32.56 05/31/2018 
+ File      67 (Stack  3, Shot Loc: 33 Meters) 17:51:32.56 05/31/2018 
+ File      67 (Stack  3, Shot Loc: 33 Meters) 17:51:32.56 05/31/2018  548 KBytes SAVED 
+ File      68 (Stack  1, Shot Loc: 33 Meters) 17:51:52.36 05/31/2018 
+ File      68 (Stack  2, Shot Loc: 33 Meters) 17:51:58.81 05/31/2018 
+#BV LINE 1 GEODE 1 = 11.9V
+ File      68 (Stack  3, Shot Loc: 33 Meters) 17:52:05.32 05/31/2018 
+ File      68 (Stack  3, Shot Loc: 33 Meters) 17:52:05.32 05/31/2018 
+ File      68 (Stack  3, Shot Loc: 33 Meters) 17:52:05.32 05/31/2018  548 KBytes SAVED 
+Shot Location 34.00 Meters
+1st Phone Location 0.00 Meters, Last Phone (CH 64) Location 315.00 Meters
+Preamp Gain Style is set to Low (Default 24 DB)
+ File      69 (Stack  1, Shot Loc: 34 Meters) 17:52:29.45 05/31/2018 
+ File      69 (Stack  2, Shot Loc: 34 Meters) 17:52:36.43 05/31/2018 
+ File      69 (Stack  3, Shot Loc: 34 Meters) 17:52:43.16 05/31/2018 
+ File      69 (Stack  3, Shot Loc: 34 Meters) 17:52:43.16 05/31/2018  548 KBytes SAVED 
+ File      69 (Stack  3, Shot Loc: 34 Meters) 17:52:43.16 05/31/2018 
+ File      70 (Stack  1, Shot Loc: 34 Meters) 17:53:03.70 05/31/2018 
+ File      70 (Stack  2, Shot Loc: 34 Meters) 17:53:18.36 05/31/2018 
+ File      70 (Stack  3, Shot Loc: 34 Meters) 17:53:27.33 05/31/2018 
+ File      70 (Stack  3, Shot Loc: 34 Meters) 17:53:27.33 05/31/2018 
+ File      70 (Stack  3, Shot Loc: 34 Meters) 17:53:27.33 05/31/2018  548 KBytes SAVED 
+Shot Location 35.00 Meters
+1st Phone Location 0.00 Meters, Last Phone (CH 64) Location 315.00 Meters
+Preamp Gain Style is set to Low (Default 24 DB)
+ File      71 (Stack  1, Shot Loc: 35 Meters) 17:53:58.38 05/31/2018 
+ File      71 (Stack  2, Shot Loc: 35 Meters) 17:54:05.49 05/31/2018 
+ File      71 (Stack  3, Shot Loc: 35 Meters) 17:54:14.15 05/31/2018 
+ File      71 (Stack  3, Shot Loc: 35 Meters) 17:54:14.15 05/31/2018  548 KBytes SAVED 
+ File      71 (Stack  3, Shot Loc: 35 Meters) 17:54:14.15 05/31/2018 
+ File      72 (Stack  1, Shot Loc: 35 Meters) 17:54:36.10 05/31/2018 
+ File      72 (Stack  2, Shot Loc: 35 Meters) 17:54:43.00 05/31/2018 
+ File      72 (Stack  3, Shot Loc: 35 Meters) 17:54:49.19 05/31/2018 
+ File      72 (Stack  3, Shot Loc: 35 Meters) 17:54:49.19 05/31/2018  548 KBytes SAVED 
+ File      72 (Stack  3, Shot Loc: 35 Meters) 17:54:49.19 05/31/2018 
+Shot Location 36.00 Meters
+1st Phone Location 0.00 Meters, Last Phone (CH 64) Location 315.00 Meters
+Preamp Gain Style is set to Low (Default 24 DB)
+ File      73 (Stack  1, Shot Loc: 36 Meters) 17:55:16.39 05/31/2018 
+ File      73 (Stack  2, Shot Loc: 36 Meters) 17:55:23.32 05/31/2018 
+ File      73 (Stack  3, Shot Loc: 36 Meters) 17:55:30.54 05/31/2018 
+ File      73 (Stack  3, Shot Loc: 36 Meters) 17:55:30.54 05/31/2018 
+ File      73 (Stack  3, Shot Loc: 36 Meters) 17:55:30.54 05/31/2018  548 KBytes SAVED 
+ File      74 (Stack  1, Shot Loc: 36 Meters) 17:56:02.37 05/31/2018 
+ File      74 (Stack  2, Shot Loc: 36 Meters) 17:56:09.41 05/31/2018 
+ File      74 (Stack  3, Shot Loc: 36 Meters) 17:56:21.23 05/31/2018 
+ File      74 (Stack  3, Shot Loc: 36 Meters) 17:56:21.23 05/31/2018 
+ File      74 (Stack  3, Shot Loc: 36 Meters) 17:56:21.23 05/31/2018  548 KBytes SAVED 
+Shot Location 37.00 Meters
+1st Phone Location 0.00 Meters, Last Phone (CH 64) Location 315.00 Meters
+Preamp Gain Style is set to Low (Default 24 DB)
+ File      75 (Stack  1, Shot Loc: 37 Meters) 17:56:48.56 05/31/2018 
+ File      75 (Stack  2, Shot Loc: 37 Meters) 17:56:54.55 05/31/2018 
+ File      75 (Stack  3, Shot Loc: 37 Meters) 17:57:02.29 05/31/2018 
+ File      75 (Stack  3, Shot Loc: 37 Meters) 17:57:02.29 05/31/2018 
+ File      75 (Stack  3, Shot Loc: 37 Meters) 17:57:02.29 05/31/2018  548 KBytes SAVED 
+ File      76 (Stack  1, Shot Loc: 37 Meters) 17:57:23.65 05/31/2018 
+ File      76 (Stack  2, Shot Loc: 37 Meters) 17:57:30.46 05/31/2018 
+ File      76 (Stack  3, Shot Loc: 37 Meters) 17:57:38.11 05/31/2018 
+ File      76 (Stack  3, Shot Loc: 37 Meters) 17:57:38.11 05/31/2018 
+ File      76 (Stack  3, Shot Loc: 37 Meters) 17:57:38.11 05/31/2018  548 KBytes SAVED 
+Shot Location 38.00 Meters
+1st Phone Location 0.00 Meters, Last Phone (CH 64) Location 315.00 Meters
+Preamp Gain Style is set to Low (Default 24 DB)
+ File      77 (Stack  1, Shot Loc: 38 Meters) 17:58:05.64 05/31/2018 
+ File      77 (Stack  2, Shot Loc: 38 Meters) 17:58:12.41 05/31/2018 
+ File      77 (Stack  3, Shot Loc: 38 Meters) 17:58:21.19 05/31/2018 
+ File      77 (Stack  3, Shot Loc: 38 Meters) 17:58:21.19 05/31/2018  548 KBytes SAVED 
+ File      77 (Stack  3, Shot Loc: 38 Meters) 17:58:21.19 05/31/2018 
+ File      78 (Stack  1, Shot Loc: 38 Meters) 17:58:58.46 05/31/2018 
+ File      78 (Stack  2, Shot Loc: 38 Meters) 17:59:05.26 05/31/2018 
+ File      78 (Stack  3, Shot Loc: 38 Meters) 17:59:11.83 05/31/2018 
+ File      78 (Stack  3, Shot Loc: 38 Meters) 17:59:11.83 05/31/2018 
+ File      78 (Stack  3, Shot Loc: 38 Meters) 17:59:11.83 05/31/2018  548 KBytes SAVED 
+Shot Location 39.00 Meters
+1st Phone Location 0.00 Meters, Last Phone (CH 64) Location 315.00 Meters
+Preamp Gain Style is set to Low (Default 24 DB)
+ File      79 (Stack  1, Shot Loc: 39 Meters) 17:59:43.65 05/31/2018 
+ File      79 (Stack  2, Shot Loc: 39 Meters) 17:59:50.35 05/31/2018 
+ File      79 (Stack  3, Shot Loc: 39 Meters) 17:59:57.03 05/31/2018 
+ File      79 (Stack  3, Shot Loc: 39 Meters) 17:59:57.03 05/31/2018 
+ File      79 (Stack  3, Shot Loc: 39 Meters) 17:59:57.03 05/31/2018  548 KBytes SAVED 
+ File      80 (Stack  1, Shot Loc: 39 Meters) 18:00:16.18 05/31/2018 
+ File      80 (Stack  2, Shot Loc: 39 Meters) 18:00:23.30 05/31/2018 
+ File      80 (Stack  3, Shot Loc: 39 Meters) 18:00:30.29 05/31/2018 
+ File      80 (Stack  3, Shot Loc: 39 Meters) 18:00:30.29 05/31/2018 
+ File      80 (Stack  3, Shot Loc: 39 Meters) 18:00:30.29 05/31/2018  548 KBytes SAVED 
+Shot Location 40.00 Meters
+1st Phone Location 0.00 Meters, Last Phone (CH 64) Location 315.00 Meters
+Preamp Gain Style is set to Low (Default 24 DB)
+ File      81 (Stack  1, Shot Loc: 40 Meters) 18:00:58.74 05/31/2018 
+ File      81 (Stack  2, Shot Loc: 40 Meters) 18:01:08.88 05/31/2018 
+ File      81 (Stack  3, Shot Loc: 40 Meters) 18:01:15.62 05/31/2018 
+ File      81 (Stack  3, Shot Loc: 40 Meters) 18:01:15.62 05/31/2018 
+ File      81 (Stack  3, Shot Loc: 40 Meters) 18:01:15.62 05/31/2018  548 KBytes SAVED 
+ File      82 (Stack  1, Shot Loc: 40 Meters) 18:01:40.23 05/31/2018 
+ File      82 (Stack  2, Shot Loc: 40 Meters) 18:01:50.53 05/31/2018 
+ File      82 (Stack  3, Shot Loc: 40 Meters) 18:01:57.18 05/31/2018 
+ File      82 (Stack  3, Shot Loc: 40 Meters) 18:01:57.18 05/31/2018 
+ File      82 (Stack  3, Shot Loc: 40 Meters) 18:01:57.18 05/31/2018  548 KBytes SAVED 
+Shot Location 41.00 Meters
+1st Phone Location 0.00 Meters, Last Phone (CH 64) Location 315.00 Meters
+Preamp Gain Style is set to Low (Default 24 DB)
+ File      83 (Stack  1, Shot Loc: 41 Meters) 18:02:34.59 05/31/2018 
+ File      83 (Stack  2, Shot Loc: 41 Meters) 18:02:42.15 05/31/2018 
+ File      83 (Stack  3, Shot Loc: 41 Meters) 18:02:51.53 05/31/2018 
+ File      83 (Stack  3, Shot Loc: 41 Meters) 18:02:51.53 05/31/2018 
+ File      83 (Stack  3, Shot Loc: 41 Meters) 18:02:51.53 05/31/2018  548 KBytes SAVED 
+ File      84 (Stack  1, Shot Loc: 41 Meters) 18:03:11.13 05/31/2018 
+ File      84 (Stack  2, Shot Loc: 41 Meters) 18:03:18.46 05/31/2018 
+ File      84 (Stack  3, Shot Loc: 41 Meters) 18:03:25.24 05/31/2018 
+ File      84 (Stack  3, Shot Loc: 41 Meters) 18:03:25.24 05/31/2018 
+ File      84 (Stack  3, Shot Loc: 41 Meters) 18:03:25.24 05/31/2018  548 KBytes SAVED 
+Shot Location 42.00 Meters
+1st Phone Location 0.00 Meters, Last Phone (CH 64) Location 315.00 Meters
+Preamp Gain Style is set to Low (Default 24 DB)
+ File      85 (Stack  1, Shot Loc: 42 Meters) 18:03:49.54 05/31/2018 
+ File      85 (Stack  2, Shot Loc: 42 Meters) 18:03:57.49 05/31/2018 
+ File      85 (Stack  3, Shot Loc: 42 Meters) 18:04:04.81 05/31/2018 
+ File      85 (Stack  3, Shot Loc: 42 Meters) 18:04:04.81 05/31/2018 
+ File      85 (Stack  3, Shot Loc: 42 Meters) 18:04:04.81 05/31/2018  548 KBytes SAVED 
+ File      86 (Stack  1, Shot Loc: 42 Meters) 18:04:26.79 05/31/2018 
+ File      86 (Stack  2, Shot Loc: 42 Meters) 18:04:34.10 05/31/2018 
+ File      86 (Stack  3, Shot Loc: 42 Meters) 18:04:42.70 05/31/2018 
+ File      86 (Stack  3, Shot Loc: 42 Meters) 18:04:42.70 05/31/2018 
+ File      86 (Stack  3, Shot Loc: 42 Meters) 18:04:42.70 05/31/2018  548 KBytes SAVED 
+Shot Location 43.00 Meters
+1st Phone Location 0.00 Meters, Last Phone (CH 64) Location 315.00 Meters
+Preamp Gain Style is set to Low (Default 24 DB)
+ File      87 (Stack  1, Shot Loc: 43 Meters) 18:05:11.50 05/31/2018 
+ File      87 (Stack  2, Shot Loc: 43 Meters) 18:05:19.38 05/31/2018 
+ File      87 (Stack  3, Shot Loc: 43 Meters) 18:05:27.14 05/31/2018 
+ File      87 (Stack  3, Shot Loc: 43 Meters) 18:05:27.14 05/31/2018 
+ File      87 (Stack  3, Shot Loc: 43 Meters) 18:05:27.14 05/31/2018  548 KBytes SAVED 
+ File      88 (Stack  1, Shot Loc: 43 Meters) 18:05:47.40 05/31/2018 
+ File      88 (Stack  2, Shot Loc: 43 Meters) 18:05:54.78 05/31/2018 
+ File      88 (Stack  3, Shot Loc: 43 Meters) 18:06:01.52 05/31/2018 
+ File      88 (Stack  3, Shot Loc: 43 Meters) 18:06:01.52 05/31/2018 
+ File      88 (Stack  3, Shot Loc: 43 Meters) 18:06:01.52 05/31/2018  548 KBytes SAVED 
+Shot Location 44.00 Meters
+1st Phone Location 0.00 Meters, Last Phone (CH 64) Location 315.00 Meters
+Preamp Gain Style is set to Low (Default 24 DB)
+ File      89 (Stack  1, Shot Loc: 44 Meters) 18:06:26.51 05/31/2018 
+ File      89 (Stack  2, Shot Loc: 44 Meters) 18:06:33.20 05/31/2018 
+ File      89 (Stack  3, Shot Loc: 44 Meters) 18:06:39.87 05/31/2018 
+ File      89 (Stack  3, Shot Loc: 44 Meters) 18:06:39.87 05/31/2018 
+ File      89 (Stack  3, Shot Loc: 44 Meters) 18:06:39.87 05/31/2018  548 KBytes SAVED 
+#BV LINE 1 GEODE 1 = 11.9V
+ File      90 (Stack  1, Shot Loc: 44 Meters) 18:07:05.11 05/31/2018 
+ File      90 (Stack  2, Shot Loc: 44 Meters) 18:07:13.45 05/31/2018 
+ File      90 (Stack  3, Shot Loc: 44 Meters) 18:07:21.75 05/31/2018 
+ File      90 (Stack  3, Shot Loc: 44 Meters) 18:07:21.75 05/31/2018  548 KBytes SAVED 
+ File      90 (Stack  3, Shot Loc: 44 Meters) 18:07:21.75 05/31/2018 
+Shot Location 45.00 Meters
+1st Phone Location 0.00 Meters, Last Phone (CH 64) Location 315.00 Meters
+Preamp Gain Style is set to Low (Default 24 DB)
+ File      91 (Stack  1, Shot Loc: 45 Meters) 18:07:53.83 05/31/2018 
+ File      91 (Stack  2, Shot Loc: 45 Meters) 18:08:01.34 05/31/2018 
+ File      91 (Stack  3, Shot Loc: 45 Meters) 18:08:08.69 05/31/2018 
+ File      91 (Stack  3, Shot Loc: 45 Meters) 18:08:08.69 05/31/2018  548 KBytes SAVED 
+ File      91 (Stack  3, Shot Loc: 45 Meters) 18:08:08.69 05/31/2018 
+ File      92 (Stack  1, Shot Loc: 45 Meters) 18:08:31.53 05/31/2018 
+ File      92 (Stack  2, Shot Loc: 45 Meters) 18:08:38.68 05/31/2018 
+ File      92 (Stack  3, Shot Loc: 45 Meters) 18:08:48.12 05/31/2018 
+ File      92 (Stack  3, Shot Loc: 45 Meters) 18:08:48.12 05/31/2018 
+ File      92 (Stack  3, Shot Loc: 45 Meters) 18:08:48.12 05/31/2018  548 KBytes SAVED 
+Shot Location 46.00 Meters
+1st Phone Location 0.00 Meters, Last Phone (CH 64) Location 315.00 Meters
+Preamp Gain Style is set to Low (Default 24 DB)
+ File      93 (Stack  1, Shot Loc: 46 Meters) 18:09:31.47 05/31/2018 
+ File      93 (Stack  2, Shot Loc: 46 Meters) 18:09:38.63 05/31/2018 
+ File      93 (Stack  3, Shot Loc: 46 Meters) 18:09:45.62 05/31/2018 
+ File      93 (Stack  3, Shot Loc: 46 Meters) 18:09:45.62 05/31/2018 
+ File      93 (Stack  3, Shot Loc: 46 Meters) 18:09:45.62 05/31/2018  548 KBytes SAVED 
+ File      94 (Stack  1, Shot Loc: 46 Meters) 18:10:09.59 05/31/2018 
+ File      94 (Stack  2, Shot Loc: 46 Meters) 18:10:19.52 05/31/2018 
+ File      94 (Stack  3, Shot Loc: 46 Meters) 18:10:28.49 05/31/2018 
+ File      94 (Stack  3, Shot Loc: 46 Meters) 18:10:28.49 05/31/2018 
+ File      94 (Stack  3, Shot Loc: 46 Meters) 18:10:28.49 05/31/2018  548 KBytes SAVED 
+Shot Location 47.00 Meters
+1st Phone Location 0.00 Meters, Last Phone (CH 64) Location 315.00 Meters
+Preamp Gain Style is set to Low (Default 24 DB)
+ File      95 (Stack  1, Shot Loc: 47 Meters) 18:11:12.84 05/31/2018 
+ File      95 (Stack  2, Shot Loc: 47 Meters) 18:11:21.38 05/31/2018 
+ File      95 (Stack  3, Shot Loc: 47 Meters) 18:11:30.21 05/31/2018 
+ File      95 (Stack  3, Shot Loc: 47 Meters) 18:11:30.21 05/31/2018 
+ File      95 (Stack  3, Shot Loc: 47 Meters) 18:11:30.21 05/31/2018  548 KBytes SAVED 
+ File      96 (Stack  1, Shot Loc: 47 Meters) 18:11:55.69 05/31/2018 
+ File      96 (Stack  2, Shot Loc: 47 Meters) 18:12:05.01 05/31/2018 
+ File      96 (Stack  3, Shot Loc: 47 Meters) 18:12:13.32 05/31/2018 
+ File      96 (Stack  3, Shot Loc: 47 Meters) 18:12:13.32 05/31/2018 
+ File      96 (Stack  3, Shot Loc: 47 Meters) 18:12:13.32 05/31/2018  548 KBytes SAVED 
+Shot Location 48.00 Meters
+1st Phone Location 0.00 Meters, Last Phone (CH 64) Location 315.00 Meters
+Preamp Gain Style is set to Low (Default 24 DB)
+ File      97 (Stack  1, Shot Loc: 48 Meters) 18:13:01.87 05/31/2018 
+ File      97 (Stack  2, Shot Loc: 48 Meters) 18:13:15.51 05/31/2018 
+ File      97 (Stack  3, Shot Loc: 48 Meters) 18:13:22.96 05/31/2018 
+ File      97 (Stack  3, Shot Loc: 48 Meters) 18:13:22.96 05/31/2018 
+ File      97 (Stack  3, Shot Loc: 48 Meters) 18:13:22.96 05/31/2018  548 KBytes SAVED 
+ File      98 (Stack  1, Shot Loc: 48 Meters) 18:13:57.92 05/31/2018 
+ File      98 (Stack  2, Shot Loc: 48 Meters) 18:14:05.87 05/31/2018 
+ File      98 (Stack  3, Shot Loc: 48 Meters) 18:14:14.10 05/31/2018 
+ File      98 (Stack  3, Shot Loc: 48 Meters) 18:14:14.10 05/31/2018  548 KBytes SAVED 
+ File      98 (Stack  3, Shot Loc: 48 Meters) 18:14:14.10 05/31/2018 
+Shot Location 49.00 Meters
+1st Phone Location 0.00 Meters, Last Phone (CH 64) Location 315.00 Meters
+Preamp Gain Style is set to Low (Default 24 DB)
+ File      99 (Stack  1, Shot Loc: 49 Meters) 18:14:41.43 05/31/2018 
+ File      99 (Stack  2, Shot Loc: 49 Meters) 18:14:50.45 05/31/2018 
+ File      99 (Stack  3, Shot Loc: 49 Meters) 18:15:01.88 05/31/2018 
+ File      99 (Stack  3, Shot Loc: 49 Meters) 18:15:01.88 05/31/2018 
+ File      99 (Stack  3, Shot Loc: 49 Meters) 18:15:01.88 05/31/2018  548 KBytes SAVED 
+ File     100 (Stack  1, Shot Loc: 49 Meters) 18:15:35.94 05/31/2018 
+ File     100 (Stack  2, Shot Loc: 49 Meters) 18:15:44.54 05/31/2018 
+ File     100 (Stack  3, Shot Loc: 49 Meters) 18:15:53.34 05/31/2018 
+ File     100 (Stack  3, Shot Loc: 49 Meters) 18:15:53.34 05/31/2018  548 KBytes SAVED 
+ File     100 (Stack  3, Shot Loc: 49 Meters) 18:15:53.34 05/31/2018 
+Shot Location 50.00 Meters
+1st Phone Location 0.00 Meters, Last Phone (CH 64) Location 315.00 Meters
+Preamp Gain Style is set to Low (Default 24 DB)
+ File     101 (Stack  1, Shot Loc: 50 Meters) 18:16:28.83 05/31/2018 
+ File     101 (Stack  2, Shot Loc: 50 Meters) 18:16:36.73 05/31/2018 
+ File     101 (Stack  3, Shot Loc: 50 Meters) 18:16:44.79 05/31/2018 
+ File     101 (Stack  3, Shot Loc: 50 Meters) 18:16:44.79 05/31/2018 
+ File     101 (Stack  3, Shot Loc: 50 Meters) 18:16:44.79 05/31/2018  548 KBytes SAVED 
+ File     102 (Stack  1, Shot Loc: 50 Meters) 18:17:08.53 05/31/2018 
+ File     102 (Stack  2, Shot Loc: 50 Meters) 18:17:46.57 05/31/2018 
+ File     102 (Stack  3, Shot Loc: 50 Meters) 18:17:54.93 05/31/2018 
+ File     102 (Stack  3, Shot Loc: 50 Meters) 18:17:54.93 05/31/2018 
+ File     102 (Stack  3, Shot Loc: 50 Meters) 18:17:54.93 05/31/2018  548 KBytes SAVED 
+Shot Location 51.00 Meters
+1st Phone Location 0.00 Meters, Last Phone (CH 64) Location 315.00 Meters
+Preamp Gain Style is set to Low (Default 24 DB)
+ File     103 (Stack  1, Shot Loc: 51 Meters) 18:19:01.42 05/31/2018 
+ File     103 (Stack  2, Shot Loc: 51 Meters) 18:19:09.61 05/31/2018 
+ File     103 (Stack  3, Shot Loc: 51 Meters) 18:19:17.39 05/31/2018 
+ File     103 (Stack  3, Shot Loc: 51 Meters) 18:19:17.39 05/31/2018  548 KBytes SAVED 
+ File     103 (Stack  3, Shot Loc: 51 Meters) 18:19:17.39 05/31/2018 
+ File     104 (Stack  1, Shot Loc: 51 Meters) 18:19:53.24 05/31/2018 
+ File     104 (Stack  2, Shot Loc: 51 Meters) 18:20:00.72 05/31/2018 
+ File     104 (Stack  3, Shot Loc: 51 Meters) 18:20:08.96 05/31/2018 
+ File     104 (Stack  3, Shot Loc: 51 Meters) 18:20:08.96 05/31/2018 
+ File     104 (Stack  3, Shot Loc: 51 Meters) 18:20:08.96 05/31/2018  548 KBytes SAVED 
+Shot Location 52.00 Meters
+1st Phone Location 0.00 Meters, Last Phone (CH 64) Location 315.00 Meters
+Preamp Gain Style is set to Low (Default 24 DB)
+ File     105 (Stack  1, Shot Loc: 52 Meters) 18:20:38.75 05/31/2018 
+ File     105 (Stack  2, Shot Loc: 52 Meters) 18:20:45.81 05/31/2018 
+ File     105 (Stack  3, Shot Loc: 52 Meters) 18:20:53.29 05/31/2018 
+ File     105 (Stack  3, Shot Loc: 52 Meters) 18:20:53.29 05/31/2018  548 KBytes SAVED 
+ File     105 (Stack  3, Shot Loc: 52 Meters) 18:20:53.29 05/31/2018 
+ File     106 (Stack  1, Shot Loc: 52 Meters) 18:21:15.45 05/31/2018 
+ File     106 (Stack  2, Shot Loc: 52 Meters) 18:21:23.16 05/31/2018 
+ File     106 (Stack  3, Shot Loc: 52 Meters) 18:21:30.76 05/31/2018 
+ File     106 (Stack  3, Shot Loc: 52 Meters) 18:21:30.76 05/31/2018 
+ File     106 (Stack  3, Shot Loc: 52 Meters) 18:21:30.76 05/31/2018  548 KBytes SAVED 
+Shot Location 53.00 Meters
+1st Phone Location 0.00 Meters, Last Phone (CH 64) Location 315.00 Meters
+Preamp Gain Style is set to Low (Default 24 DB)
+ File     107 (Stack  1, Shot Loc: 53 Meters) 18:21:50.71 05/31/2018 
+#BV LINE 1 GEODE 1 = 11.9V
+ File     107 (Stack  1, Shot Loc: 53 Meters) 18:22:06.18 05/31/2018 
+ File     107 (Stack  2, Shot Loc: 53 Meters) 18:22:13.39 05/31/2018 
+ File     107 (Stack  3, Shot Loc: 53 Meters) 18:22:19.75 05/31/2018 
+ File     107 (Stack  3, Shot Loc: 53 Meters) 18:22:19.75 05/31/2018 
+ File     107 (Stack  3, Shot Loc: 53 Meters) 18:22:19.75 05/31/2018  548 KBytes SAVED 
+ File     108 (Stack  1, Shot Loc: 53 Meters) 18:22:40.63 05/31/2018 
+ File     108 (Stack  2, Shot Loc: 53 Meters) 18:22:48.10 05/31/2018 
+ File     108 (Stack  3, Shot Loc: 53 Meters) 18:22:56.25 05/31/2018 
+ File     108 (Stack  3, Shot Loc: 53 Meters) 18:22:56.25 05/31/2018  548 KBytes SAVED 
+ File     108 (Stack  3, Shot Loc: 53 Meters) 18:22:56.25 05/31/2018 
+Shot Location 54.00 Meters
+1st Phone Location 0.00 Meters, Last Phone (CH 64) Location 315.00 Meters
+Preamp Gain Style is set to Low (Default 24 DB)
+ File     109 (Stack  1, Shot Loc: 54 Meters) 18:23:30.86 05/31/2018 
+ File     109 (Stack  2, Shot Loc: 54 Meters) 18:23:38.25 05/31/2018 
+ File     109 (Stack  3, Shot Loc: 54 Meters) 18:23:46.12 05/31/2018 
+ File     109 (Stack  3, Shot Loc: 54 Meters) 18:23:46.12 05/31/2018 
+ File     109 (Stack  3, Shot Loc: 54 Meters) 18:23:46.12 05/31/2018  548 KBytes SAVED 
+ File     110 (Stack  1, Shot Loc: 54 Meters) 18:24:08.13 05/31/2018 
+ File     110 (Stack  2, Shot Loc: 54 Meters) 18:24:15.23 05/31/2018 
+ File     110 (Stack  3, Shot Loc: 54 Meters) 18:24:23.39 05/31/2018 
+ File     110 (Stack  3, Shot Loc: 54 Meters) 18:24:23.39 05/31/2018  548 KBytes SAVED 
+ File     110 (Stack  3, Shot Loc: 54 Meters) 18:24:23.39 05/31/2018 
+Shot Location 55.00 Meters
+1st Phone Location 0.00 Meters, Last Phone (CH 64) Location 315.00 Meters
+Preamp Gain Style is set to Low (Default 24 DB)
+ File     111 (Stack  1, Shot Loc: 55 Meters) 18:24:56.09 05/31/2018 
+ File     111 (Stack  2, Shot Loc: 55 Meters) 18:25:03.37 05/31/2018 
+ File     111 (Stack  3, Shot Loc: 55 Meters) 18:25:10.49 05/31/2018 
+ File     111 (Stack  3, Shot Loc: 55 Meters) 18:25:10.49 05/31/2018  548 KBytes SAVED 
+ File     111 (Stack  3, Shot Loc: 55 Meters) 18:25:10.49 05/31/2018 
+ File     112 (Stack  1, Shot Loc: 55 Meters) 18:25:29.83 05/31/2018 
+ File     112 (Stack  2, Shot Loc: 55 Meters) 18:25:37.88 05/31/2018 
+ File     112 (Stack  3, Shot Loc: 55 Meters) 18:25:45.91 05/31/2018 
+ File     112 (Stack  3, Shot Loc: 55 Meters) 18:25:45.91 05/31/2018  548 KBytes SAVED 
+ File     112 (Stack  3, Shot Loc: 55 Meters) 18:25:45.91 05/31/2018 
+Shot Location 56.00 Meters
+1st Phone Location 0.00 Meters, Last Phone (CH 64) Location 315.00 Meters
+Preamp Gain Style is set to Low (Default 24 DB)
+ File     113 (Stack  1, Shot Loc: 56 Meters) 18:26:34.93 05/31/2018 
+ File     113 (Stack  2, Shot Loc: 56 Meters) 18:26:40.98 05/31/2018 
+ File     113 (Stack  3, Shot Loc: 56 Meters) 18:26:47.93 05/31/2018 
+ File     113 (Stack  3, Shot Loc: 56 Meters) 18:26:47.93 05/31/2018 
+ File     113 (Stack  3, Shot Loc: 56 Meters) 18:26:47.93 05/31/2018  548 KBytes SAVED 
+ File     114 (Stack  1, Shot Loc: 56 Meters) 18:27:07.08 05/31/2018 
+ File     114 (Stack  2, Shot Loc: 56 Meters) 18:27:14.79 05/31/2018 
+ File     114 (Stack  3, Shot Loc: 56 Meters) 18:27:22.27 05/31/2018 
+ File     114 (Stack  3, Shot Loc: 56 Meters) 18:27:22.27 05/31/2018 
+ File     114 (Stack  3, Shot Loc: 56 Meters) 18:27:22.27 05/31/2018  548 KBytes SAVED 
+Shot Location 57.00 Meters
+1st Phone Location 0.00 Meters, Last Phone (CH 64) Location 315.00 Meters
+Preamp Gain Style is set to Low (Default 24 DB)
+ File     115 (Stack  1, Shot Loc: 57 Meters) 18:27:49.06 05/31/2018 
+ File     115 (Stack  2, Shot Loc: 57 Meters) 18:27:56.53 05/31/2018 
+ File     115 (Stack  3, Shot Loc: 57 Meters) 18:28:04.35 05/31/2018 
+ File     115 (Stack  3, Shot Loc: 57 Meters) 18:28:04.35 05/31/2018 
+ File     115 (Stack  3, Shot Loc: 57 Meters) 18:28:04.35 05/31/2018  548 KBytes SAVED 
+ File     116 (Stack  1, Shot Loc: 57 Meters) 18:28:23.95 05/31/2018 
+ File     116 (Stack  2, Shot Loc: 57 Meters) 18:28:31.54 05/31/2018 
+ File     116 (Stack  3, Shot Loc: 57 Meters) 18:28:39.24 05/31/2018 
+ File     116 (Stack  3, Shot Loc: 57 Meters) 18:28:39.24 05/31/2018 
+ File     116 (Stack  3, Shot Loc: 57 Meters) 18:28:39.24 05/31/2018  548 KBytes SAVED 
+Shot Location 58.00 Meters
+1st Phone Location 0.00 Meters, Last Phone (CH 64) Location 315.00 Meters
+Preamp Gain Style is set to Low (Default 24 DB)
+ File     117 (Stack  1, Shot Loc: 58 Meters) 18:29:03.33 05/31/2018 
+ File     117 (Stack  1, Shot Loc: 58 Meters) 18:29:18.75 05/31/2018 
+ File     117 (Stack  2, Shot Loc: 58 Meters) 18:29:26.60 05/31/2018 
+ File     117 (Stack  3, Shot Loc: 58 Meters) 18:29:37.85 05/31/2018 
+ File     117 (Stack  3, Shot Loc: 58 Meters) 18:29:37.85 05/31/2018  548 KBytes SAVED 
+ File     117 (Stack  3, Shot Loc: 58 Meters) 18:29:37.85 05/31/2018 
+ File     118 (Stack  1, Shot Loc: 58 Meters) 18:30:18.66 05/31/2018 
+ File     118 (Stack  2, Shot Loc: 58 Meters) 18:30:26.57 05/31/2018 
+ File     118 (Stack  3, Shot Loc: 58 Meters) 18:30:50.72 05/31/2018 
+ File     118 (Stack  3, Shot Loc: 58 Meters) 18:30:50.72 05/31/2018 
+ File     118 (Stack  3, Shot Loc: 58 Meters) 18:30:50.72 05/31/2018  548 KBytes SAVED 
+Shot Location 59.00 Meters
+1st Phone Location 0.00 Meters, Last Phone (CH 64) Location 315.00 Meters
+Preamp Gain Style is set to Low (Default 24 DB)
+ File     119 (Stack  1, Shot Loc: 59 Meters) 18:31:21.78 05/31/2018 
+ File     119 (Stack  1, Shot Loc: 59 Meters) 18:31:46.29 05/31/2018 
+ File     119 (Stack  2, Shot Loc: 59 Meters) 18:31:54.26 05/31/2018 
+ File     119 (Stack  3, Shot Loc: 59 Meters) 18:32:01.90 05/31/2018 
+ File     119 (Stack  3, Shot Loc: 59 Meters) 18:32:01.90 05/31/2018 
+ File     119 (Stack  3, Shot Loc: 59 Meters) 18:32:01.90 05/31/2018  548 KBytes SAVED 
+ File     120 (Stack  1, Shot Loc: 59 Meters) 18:32:35.52 05/31/2018 
+ File     120 (Stack  2, Shot Loc: 59 Meters) 18:32:43.78 05/31/2018 
+ File     120 (Stack  3, Shot Loc: 59 Meters) 18:32:51.95 05/31/2018 
+ File     120 (Stack  3, Shot Loc: 59 Meters) 18:32:51.95 05/31/2018 
+ File     120 (Stack  3, Shot Loc: 59 Meters) 18:32:51.95 05/31/2018  548 KBytes SAVED 
+ File      27 (Stack  3, Shot Loc: 13 Meters) 17:09:14.00 05/31/2018 
+ File      27 (Stack  3, Shot Loc: 13 Meters) 17:09:14.00 05/31/2018 READ

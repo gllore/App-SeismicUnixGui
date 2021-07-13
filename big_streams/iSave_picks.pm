@@ -328,7 +328,7 @@ sub gather_type {
 #	my $HOME 			= $home_directory;
 #
 #	use File::Copy;
-#	use control;
+#	use control 0.0.3;
 #	use dirs;
 #	use readfiles;
 #
@@ -383,7 +383,7 @@ sub set_purpose {
         && $type ne $empty_string )
     {
 
-        use control;
+        use control 0.0.3;
         my $control = control->new();
         $control->set_infection($type);
         $type = control->get_ticksBgone();

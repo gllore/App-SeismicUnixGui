@@ -11,7 +11,7 @@ my @print_flows;
 
 $print_flows[0] =
 
-  "\t" . 'print $flow[1];' . "\n";
+  ("\t\$log->screen(\$flow[1]);\n");
 
 sub section {
     my ($self) = @_;

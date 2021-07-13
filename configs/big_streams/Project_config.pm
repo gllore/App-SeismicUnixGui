@@ -33,7 +33,7 @@ use Moose;
 our $VERSION = '1.0.2';
 
 use manage_dirs_by;
-use control;
+use control 0.0.3;
 use readfiles;
 use L_SU_global_constants;
 my $read              = new readfiles;
@@ -394,7 +394,7 @@ sub basic_dirs {
 
 sub _change_basic_dirs {
 	my ($self) = @_;
-	use control;
+	use control 0.0.3;
 	my $control = control->new();
 
 	my @CFG;
@@ -2268,7 +2268,7 @@ sub update_configuration_files {
 	my $HOME = $home_directory;
 
 	use File::Copy;
-	use control;
+	use control 0.0.3;
 	use dirs;
 	use readfiles;
 

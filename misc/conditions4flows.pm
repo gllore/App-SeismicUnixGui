@@ -1608,7 +1608,7 @@ inherited from set4superflow_close_path_end
 sub set4user_built_flow_close_path_end {
 	my ($self) = @_;
 
-	print("conditions4flows, set4user_built_flow_close_path_end OK \n");
+	# print("conditions4flows, set4user_built_flow_close_path_end OK \n");
 	# Forces a Save before the next Run
 	$conditions4flows->{_has_used_Save_button} = $false;
 

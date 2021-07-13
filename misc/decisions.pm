@@ -49,18 +49,37 @@ flow
 use Moose;
 our $VERSION = '1.0.0';
 
+=head2 inheritance
+
+=cut
+
 extends 'gui_history' => { -version => 0.0.2 };
 
-my $false = 0;
-my $true  = 1;
 
-my $get         = L_SU_global_constants->new();
+=head2 Import modules
+
+=cut
+
+use L_SU_global_constants;
+
+=head2 Instantiation
+
+=cut
+
+my $get            = L_SU_global_constants->new();
 my $gui_history = gui_history->new();
 
-my $flow_type = $get->flow_type_href();
+=head Local variables
 
+=cut
+
+my $flow_type = $get->flow_type_href();
 # holds gui_history
 my $decisions_href;
+my $var                  = $get->var();
+my $empty_string         = $var->{_empty_string};
+my $true            = $var->{_true};
+my $false           = $var->{_false};
 
 =head2 private hash
 
@@ -211,7 +230,7 @@ sub get4FileDialog_select {
 			|| $decisions->{_is_last_path_touched}
 		)
 		&& (   $decisions->{_is_selected_file_name}
-			|| $decisions->{_is_selected_path} )
+			|| $decisions->{_is_selected_path} ) # for data file name, not pl file name
 
 		)
 	{
@@ -222,31 +241,42 @@ sub get4FileDialog_select {
 	}
 }
 
-=head2 sub get4_FileDialog_open
-
+=head2 sub get4FileDialog_open_perl
 
 =cut
 
-sub get4FileDialog_open {
+sub get4FileDialog_open_perl {
 	my ($self) = @_;
 
-	if (   $decisions->{_is_flow_listbox_grey_w}
-		|| $decisions->{_is_flow_listbox_pink_w}
-		|| $decisions->{_is_flow_listbox_green_w}
-		|| $decisions->{_is_flow_listbox_blue_w}
-		|| $decisions->{_is_pre_built_superflow}
-		|| !( $decisions->{_is_selected_file_name} )
+	if (   $decisions->{_is_open_file_button}
+		|| $decisions->{_is_selected_file_name} 
 		|| !(
-			$decisions->{_is_selected_path} ) # data file name, not pl file name
+			$decisions->{_is_selected_path} ) # for data file name, not pl file name
 		)
 	{
-		return ($false);
+		return ($true);
 	}
 	else {
-		if ( $decisions->{_is_open_file_button} ) {
-			return ($true);
-		}
+			return ($false);
 	}
+
+#	if (   $decisions->{_is_flow_listbox_grey_w}
+#		|| $decisions->{_is_flow_listbox_pink_w}
+#		|| $decisions->{_is_flow_listbox_green_w}
+#		|| $decisions->{_is_flow_listbox_blue_w}
+#		|| $decisions->{_is_pre_built_superflow}
+#		|| $decisions->{_is_selected_file_name} 
+#		|| !(
+#			$decisions->{_is_selected_path} ) # for data file name, not pl file name
+#		)
+#	{
+#		return ($true);
+#	}
+#	else {
+#		if ( $decisions->{_is_open_file_button} ) {
+#			return ($true);
+#		}
+#	}
 }
 
 =head2 sub get4_FileDialog_SaveAs
@@ -541,16 +571,6 @@ sub get4run_select {
 	}
 }
 
-#sub set4FileDialog_button{
-#	my ($self) = @_;
-#    my @state;
-#	_reset();
-#
-#	$decisions->{_is_flow_listbox_grey_w}	= $true;
-#	$decisions->{_is_flow_listbox_green_w}	= $true;
-#	$decisions->{_is_open_file_button}	= $true;
-#    return();
-#}
 
 =head2 sub set4_FileDialog_select
 
@@ -590,15 +610,15 @@ sub set4FileDialog_select {
 
 # print ("decisions, set4FileDialog_select,left and right listbox:$decisions->{_is_flow_listbox_grey_w} , $decisions->{_is_flow_listbox_green_w} superflow is $decisions->{_is_pre_built_superflow}	selected_file_name= $decisions->{_is_selected_file_name}\n");
 
-	return ();
+	return($empty_string);
 
 }
 
-=head2 sub set4_FileDialog_open
+=head2 sub set4FileDialog_open_perl
 
 =cut
 
-sub set4FileDialog_open {
+sub set4FileDialog_open_perl {
 	my ( $self, $hash_ref ) = @_;
 
 	_reset();
@@ -611,12 +631,17 @@ sub set4FileDialog_open {
 		$hash_ref->{_is_flow_listbox_green_w};
 	$decisions->{_is_flow_listbox_blue_w} =
 		$hash_ref->{_is_flow_listbox_blue_w};
-	$decisions->{_is_pre_built_superflow} =
-		$hash_ref->{_is_pre_built_superflow};
+#	$decisions->{_is_pre_built_superflow} =
+#		$hash_ref->{_is_pre_built_superflow};
 	$decisions->{_is_selected_file_name} = $hash_ref->{_is_selected_file_name};
 	$decisions->{_is_selected_path}      = $hash_ref->{_is_selected_path};
+	
+#	print("decisions, set4FileDialog_open_perl\n");
+#	foreach my $key (sort keys %$decisions) {
+#   		print (" decisions key is $key, value is $decisions->{$key}\n");
+#   }
 
-	return ();
+	return($empty_string);
 
 }
 
@@ -649,7 +674,7 @@ sub set4FileDialog_SaveAs {
 # print("decisions, set4FileDialog_SaveAs, decisions->{_is_pre_built_superflow}: $decisions->{_is_pre_built_superflow}\n");
 # print("decisions, set4FileDialog_SaveAs, decisions->{_is_user_built_flow}: $decisions->{_is_user_built_flow}\n");
 
-	return ();
+	return($empty_string);
 
 }
 
@@ -675,7 +700,7 @@ sub set4delete_from_flow_button {
 	$decisions->{_is_delete_from_flow_button} =
 		$hash_ref->{_is_delete_from_flow_button};
 
-	return ();
+	return($empty_string);
 }
 
 =head2 sub set4delete_whole_flow_button
@@ -699,12 +724,11 @@ sub set4delete_whole_flow_button {
 	$decisions->{_is_delete_whole_flow_button} =
 		$hash_ref->{_is_delete_whole_flow_button};
 
-	return ();
+	return($empty_string);
 }
 
 =head2 sub set4flow_select
-
-account for null prog_name case
+Account for null prog_name case
 
 =cut
 
@@ -757,7 +781,7 @@ sub set4flow_select {
 # print(" decisions,set4flow_select, left and right listbox are $decisions->{_is_flow_listbox_grey_w}$decisions->{_is_flow_listbox_green_w}\n");
 	}
 
-	return ();
+	return($empty_string);
 }
 
 sub set_hash_ref {
@@ -766,7 +790,7 @@ sub set_hash_ref {
 	$gui_history->set_defaults($hash_ref);
 	$decisions_href = $gui_history->get_defaults();
 
-	return ();
+	return($empty_string);
 }
 
 =head2 sub set4help
@@ -822,7 +846,7 @@ sub set4help {
 # print(" decisions,set4help, left and right listbox are $decisions->{_is_flow_listbox_grey_w}$decisions->{_is_flow_listbox_green_w}\n");
 	}
 
-	return ();
+	return($empty_string);
 }
 
 =head2 sub set4run_select
@@ -847,7 +871,7 @@ sub set4run_select {
 # print("decisions,set4run_select, _has_used_SaveAs_button= $decisions->{_has_used_SaveAs_button} \n");
 # print("decisions,set4run_select, _has_used_Save_button= $decisions->{_has_used_Save_button} \n");
 # print("decisions,set4run_select, _is_Save_button= $decisions->{_is_Save_button} \n");
-	return ();
+	return($empty_string);
 
 }
 

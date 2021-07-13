@@ -1,0 +1,1 @@
+makevel nx=200 nz=200 v000=3000 vlens=3000 > /home/gom/demos/seismics/data/Synthetic/Finite_Difference/Sufdmod2/XDemo1/1/bin//vel_out.bin & 

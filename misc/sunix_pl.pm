@@ -1006,14 +1006,14 @@ sub get_good_sunix_params {
 			}
 
 			# USER ERRORS
-			# CASE 1 : label that is not 'clear' and  empty
+			# CASE 1 : label that is not 'clear' and  is empty
 			# print("1. sunix_pl,get_good_sunix_params,labels[0]:--$labels[0]--\n");
 			if ( $labels[0] ne 'clear'
 				and ( !$labels[0] or $labels[0] eq $empty_string ) )
 			{
 
 				# print(
-				# 	"1 USER ERROR: Gedit your flow; Cannot continue; A program is missing all its values\n"
+				# 	"1 USER ERROR: edit your flow; Cannot continue; A program is missing all its values\n"
 				# );
 				#  print(
 				# 	"prog_name is  $sunix_pl->{_prog_names}[$prog_count]\n\n ");

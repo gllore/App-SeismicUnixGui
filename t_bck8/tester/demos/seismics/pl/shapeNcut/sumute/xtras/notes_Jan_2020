@@ -1,0 +1,278 @@
+=head2  Processing Steps January, 2020
+
+=head2  1. segyreadNclean.pl
+
+Read # segy files from a folder, clean headers, and output .su files.
+Input naming and output naming can be different.
+The following variables values or names can be changed depending on the purpose: $base_file_name_in, $file_name_suffix_out, $max, $first_changing_number_in, $first_changing_number_out.
+
+	e.g.
+	segyread bfile=binary buff=1 conv=1 ebcdic=1 errmax=0 tape=/home/dlocci2/DATA/projects/vet_school/seismics/data/east/acquisition/100619/H/1_low_stage/segy/dlocci2/1080.sgy hfile=header over=0 trcwt=1 trmin=1 vblock=50 verbose=0 | segyclean trmax=200 > /home/dlocci2/DATA/projects/vet_school/seismics/data/east/acquisition/100619/H/1_low_stage/su/dlocci2/1084_clean.su & file_name_list=1081 
+	6+1 records out
+	3200 bytes (3.2 kB) copied, 0.0014525 s, 2.2 MB/s
+
+	i/p in e.g., 1080.sgy
+	o/p e.g.,    1084_clean.su
+	
+=cut 	
+
+=head2  2. Reverse_polarity.pl
+
+Fixes polarity reversals on traces. Uses a single shotgather as a input and separates first 12 traces (1 to 12), and last 12 traces (13 to 24). To traces 13 to 24 applies suop (op=neg) to reverse the polarity. Later, it concatenates the first 12 traces (1 to 12) and the reserved last 12 trace (13 to 24).
+	
+	e.g.
+	suwind  key=tracr min=1 max=12 < /home/dlocci2/DATA/projects/vet_school/seismics/data/east/acquisition/100619/H/1_low_stage/su/dlocci2/1084_clean.su > /home/dlocci2/DATA/projects/vet_school/seismics/data/east/acquisition/100619/H/1_low_stage/su/dlocci2/.temp_positive_1084 
+	suwind  key=tracr min=13 max=24 < /home/dlocci2/DATA/projects/vet_school/seismics/data/east/acquisition/100619/H/1_low_stage/su/dlocci2/1084_clean.su | suop nw=21 op=neg > /home/dlocci2/DATA/projects/vet_school/seismics/data/east/acquisition/100619/H/1_low_stage/su/dlocci2/.temp_negative_1084 
+	cat /home/dlocci2/DATA/projects/vet_school/seismics/data/east/acquisition/100619/H/1_low_stage/su/dlocci2/.temp_positive_1084 /home/dlocci2/DATA/projects/vet_school/seismics/data/east/acquisition/100619/H/1_low_stage/su/dlocci2/.temp_negative_1084  > /home/dlocci2/DATA/projects/vet_school/seismics/data/east/acquisition/100619/H/1_low_stage/su/dlocci2/1084_clean_rev.su
+
+=cut 
+
+
+=head2  3. cat.pl
+
+Creates a list and cat all near and far offsets in increasing order and separating E2W and W2E shots.
+
+        e.g. output:
+
+                cat_nearfar_offsets_E2W.su
+                cat_nearfar_offsets_W2E.su
+
+
+=cut 
+
+=head2  4. diff.pl
+
+Substract two files.
+
+        e.g.:
+
+        cat_nearfar_offsets_substracted.su = cat_nearfar_offsets_W2E.su (-) cat_nearfar_offsets_E2W.su 
+
+
+=cut 
+
+
+=head2  5. headerclean_and_fix
+
+Clean and fix headers.
+
+Note: sx, gx, and ep are in cm (multiplied by 100).
+
+		sx=ep location are half space between geophones (1-48) -> 150,250,350,450 ... 4850.
+		
+		gx -> 100,200,300,400 ... 4800.
+
+	 e.g.:
+
+ 	 $sushw 	 	 	 	 ->clear();
+ 	 $sushw 	 	 	 	 ->first_value(quotemeta('150,100,150,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0'));
+ 	 $sushw 	 	 	 	 ->gather_size(quotemeta('48,48,48,48,48,48,48,0,0,0,0,0,0,0,0,0,0,0,0'));
+ 	 $sushw 	 	 	 	 ->header_bias(quotemeta('0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0'));
+ 	 $sushw 	 	 	 	 ->headerwords(quotemeta('sx,gx,ep,fldr,tracf,tracr,tracl,gelev,gy,timbas,trid,scalco,scalel,counit,year,day,hour,minute,sec'));
+ 	 $sushw 	 	 	 	 ->intra_gather_inc(quotemeta('0,100,0,0,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0'));
+ 	 $sushw 	 	 	 	 ->inter_gather_inc(quotemeta('100,0,100,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0'));
+ 	 $sushw [1]  	 	 	 = $sushw ->Step();
+ 	 
+ 	 
+ 	 i/p in e.g., cat_nearfar_offsets_substracted.su
+	 o/p e.g.,    cat_nearfar_offsets_substracted_geom.su
+
+
+
+
+=head2  6. Make_offset
+
+Creates offsets.
+
+     e.g.:
+
+ 	 $suchw 	 	 	 	 ->clear();
+ 	 $suchw 	 	 	 	 ->add_to_all(quotemeta(0));
+ 	 $suchw 	 	 	 	 ->multiply_hdr1_by(quotemeta(1));
+ 	 $suchw 	 	 	 	 ->multiply_hdr2_by(quotemeta(-1));
+ 	 $suchw 	 	 	 	 ->divide_all_by(quotemeta(1));
+ 	 $suchw 	 	 	 	 ->hdr1_exponent(quotemeta(1));
+ 	 $suchw 	 	 	 	 ->hdr2_exponent(quotemeta(1));
+ 	 $suchw 	 	 	 	 ->result_header(quotemeta('offset'));
+ 	 $suchw 	 	 	 	 ->first_header(quotemeta('gx'));
+ 	 $suchw 	 	 	 	 ->second_header(quotemeta('sx'));
+ 	 $suchw [1]  	 	 	 = $suchw ->Step();
+ 	 
+ 	 
+ 	 i/p in e.g., cat_nearfar_offsets_substracted_geom.su
+	 o/p e.g.,    cat_nearfar_offsets_substracted_geom_offset.su
+
+=cut 
+
+=head2  7. Make_cmp
+
+Creates cmps.
+
+Note: $suchw->divide_all_by(quotemeta(300))
+
+	  CMP's normally calculated by (sx+gx)/2
+	  
+	  In this case (sg+gx)/300
+	  
+	  300 -> 3 to create super gathers
+	  300 -> 00 gx and sx are in cm. This factor keeps units correct (cm instead of m)
+ 
+ 
+
+     e.g.:
+
+ 	 $suchw 	 	 	 	 ->clear();
+ 	 $suchw 	 	 	 	 ->add_to_all(quotemeta(0));
+ 	 $suchw 	 	 	 	 ->multiply_hdr1_by(quotemeta(1));
+ 	 $suchw 	 	 	 	 ->multiply_hdr2_by(quotemeta(1));
+ 	 $suchw 	 	 	 	 ->divide_all_by(quotemeta(300));
+ 	 $suchw 	 	 	 	 ->hdr1_exponent(quotemeta(1));
+ 	 $suchw 	 	 	 	 ->hdr2_exponent(quotemeta(1));
+ 	 $suchw 	 	 	 	 ->result_header(quotemeta('cdp'));
+ 	 $suchw 	 	 	 	 ->first_header(quotemeta('gx'));
+ 	 $suchw 	 	 	 	 ->second_header(quotemeta('sx'));
+ 	 $suchw [1]  	 	 	 = $suchw ->Step();
+ 	 
+ 	 
+ 	 i/p in e.g., cat_nearfar_offsets_substracted_geom_offset.su
+	 o/p e.g.,    All_cmp300.su
+	 
+	 
+	Note: other cmp files generated 
+	
+			All_cmp2.su -> divided by 2
+			All_cmp3.su -> divided by 3
+			All_cmp200.su -> divided by 200
+		
+	
+=cut 
+
+
+
+=head2  8. sumute_single_ep_50.pl
+
+
+  PROGRAM NAME: single file sumute in a loop.
+  AUTHOR: Daniel Locci Lopez
+  DATE: 
+  DESCRIPTION:  
+  Mute single gather using parfile, and uses a loop for x number of gathers with their respective parfiles.
+
+  Version 1 December 5, 2019 (for muting surface waves).
+  
+  NOTES: 
+  Pick x,t values in single a gather to mute surface waves and save in a parfile, then use susplit to sepate gathers into ep, and use sumute_single_ep_50.pl.
+  
+  e.g.:
+  
+  susplit < All_cmp300.su > All_cmp300_ep.su key=ep numlength=1
+  
+  		o/p e.g.,    split_ep150.su, split_ep250.su, split_ep350.su ... split_ep4850.su
+   
+  
+  sumute key=tracl par=/home/dlocci2/DATA/projects/vet_school/seismics/pl/east/acquisition/100619/H/1_low_stage/dlocci2/itop_mute_par_All_cmp300_ep150 < /home/dlocci2/DATA/projects/vet_school/seismics/data/east/acquisition/100619/H/1_low_stage/su/dlocci2/split_ep150.su > /home/dlocci2/DATA/projects/vet_school/seismics/data/east/acquisition/100619/H/1_low_stage/su/dlocci2/split_ep150_muted.su
+  
+  		parfile input example: itop_mute_par_All_cmp300_ep150
+  		
+=cut 
+ 
+ 
+=head2  9. cat_ep_50.pl
+ 
+ Concatenates all single shot gathers from sumute_single_ep_50.pl into one file.
+ 
+ 		i/p in e.g., split_ep150.su, split_ep250.su, split_ep350.su ... split_ep4850.su
+ 		
+ 		o/p e.g.,All_cmp300_muted.su
+ 		
+=cut 
+
+
+=head2  10. f-k filter
+
+Used to remove surface waves that were missed or overlay reflections events.
+
+
+    base_file_name                     = All_cmp300_muted    
+    sudipfilter_1_dt                   = 1                   
+    sudipfilter_1_dx                   = 1                   
+    sudipfilter_1_bias                 = 0                   
+    sudipfilter_1_slopes               = 0,6,7,13,14,20      
+    sudipfilter_1_amps                 = 1,0.6,0.1,0.1,0.6,1 
+    sudipfilter_2_dt                   = 1                   
+    sudipfilter_2_dx                   = 1                   
+    sudipfilter_2_bias                 = 0                   
+    sudipfilter_2_slopes               = -20,-14,-13,-7,-6,0 
+    sudipfilter_2_amps                 = 1,0.6,0.1,0.1,0.6,1 
+    suwind_1_tmin                      = 0                   
+    suwind_1_tmax                      = 2                   
+    suwind_2_key                       = ep                  
+    suwind_2_min                       = 150                 
+    suwind_2_max                       = 4850                
+    suspecfk_1_dt                      = 1                   
+    suspecfk_1_dx                      = 1                   
+    sufilter_1_freq                    = 0,3,80,200          
+    sufilter_1_amplitude               = 1,1,1,0             
+    TOP_LEFT_sugain_pbal_switch        = 0                   
+    TOP_LEFT_sugain_agc_switch         = 1                   
+    TOP_LEFT_sugain_agc_width          = .1                  
+    BOTTOM_RIGHT_suximage_absclip      = 5 
+
+
+ 		i/p in e.g., All_cmp300_muted .su
+ 		
+ 		o/p e.g., All_cmp300_muted_fk.su                  
+
+=cut 
+
+
+=head2  11. spiking_decon.pl
+ 
+Spiking deconvolution is used to increase the signal density of the wavelet.
+
+
+ 	 $supef 	 	 	 	 ->clear();
+ 	 $supef 	 	 	 	 ->maxlag(quotemeta(0.02));
+ 	 $supef 	 	 	 	 ->pnoise(quotemeta(0.001));
+ 	 $supef 	 	 	 	 ->showwiener(quotemeta(0));
+ 	 $supef 	 	 	 	 ->outpar(quotemeta('/dev/null'));
+ 	 $supef 	 	 	 	 ->perc(quotemeta(95));
+ 	 $supef 	 	 	 	 ->showweiner(quotemeta(1));
+ 	 $supef [1]  	 	 	 = $supef ->Step();
+ 
+ 		i/p in e.g., All_cmp300_muted_fk.su 
+ 		
+ 		o/p e.g., All_cmp300_muted_fk_supef.su 
+ 		
+=cut 
+
+=head2  12. nmo_mig.pl
+
+susort cdp offset < /home/dlocci2/DATA/projects/vet_school/seismics/data/east/acquisition/030919/H/1_high_stage/su/dlocci2/All_cmp300_muted_fk_supef.su |
+sunmo invert=0 lmute=25 smute=1\.5 sscale=1 tnmo=0\.16804\,0\.236264\,0\.285256\,0\.322344\,0\.390568\,0\.417582 upward=0 vnmo=13800\,15300\,16400\,17500\,19400\,20700 |
+sustack key=cdp normpow=0 nrepeat=1 repeat=0 verbose=0 | sustolt cdpmax=32 cdpmin=1 dxcdp=1 lbtaper=0 lstaper=0 noffmix=1 smig=1 tmig=0\.16804\,0\.236264\,0\.285256\,0\.322344\,0\.390568\,0\.417582 tmpdir=\.\/ verbose=0 vmig=138\,153\,164\,175\,194\,207 vscale=0\.01 |
+sugain agc=1 wagc=0\.05 tmpdir=\/tmp | sufilter f=10\,15\,60\,120 verbose=0 |
+suximage wclip=2 bclip=\-2 cmap=hsv0 d2=1 f1=0 gridcolor=blue labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 lwidth=16 lx=3 mpicks=\/dev\/tty n1tic=1 n2tic=1 perc=100 plotfile=plotfile\.ps style=seismic title=east\ high\ stage titlecolor=red titlefont=Rom22 tmpdir=\.\/ x1beg=0 x1end=0\.5 units=unit verbose=1 windowtitle=suximage wperc=100 xbox=600 ybox=800 wbox=600 hbox=800 & 
+ 
+ 
+=cut 
+
+=head2  13. nmo_mig_wiggle.pl
+
+susort cdp offset < /home/dlocci2/DATA/projects/vet_school/seismics/data/east/acquisition/030919/H/1_high_stage/su/dlocci2/All_cmp300_muted_fk_supef.su |
+sunmo invert=0 lmute=25 smute=1\.5 sscale=1 tnmo=0\.16804\,0\.236264\,0\.285256\,0\.322344\,0\.390568\,0\.417582 upward=0 vnmo=13800\,15300\,16400\,17500\,19400\,20700 |
+sustack key=cdp normpow=0 nrepeat=1 repeat=0 verbose=0 | sustolt cdpmax=32 cdpmin=1 dxcdp=1 lbtaper=0 lstaper=0 noffmix=1 smig=1 tmig=0\.16804\,0\.236264\,0\.285256\,0\.322344\,0\.390568\,0\.417582 tmpdir=\.\/ verbose=0 vmig=138\,153\,164\,175\,194\,207 vscale=0\.01 |
+sugain agc=1 wagc=0\.05 tmpdir=\/tmp | sufilter f=10\,15\,60\,120 verbose=0 | suxwigb clip=2 wbox=600 hbox=800 xbox=600 ybox=800 style=seismic x1end=0\.5 x1beg=0 title=west\ low\ stage & 
+  
+=cut 
+
+=head2  EXTRA
+  
+  	sugethw < All_cmp300.su  key=tracl,tracr,tracf,fldr,ep,gx,sx,offset,cdp > All_cmp3_LAB_HEADER.txt
+
+	sukeycount < All_cmp300_sorted.su key=cdp > All_cmp300_sorted_FOLD.txt
+
+	sugethw < All_cmp300_sorted.su  key=cdp,offset,gx,sx > All_cmp300_sorted_HEADER.txt
+	
+=cut 
+

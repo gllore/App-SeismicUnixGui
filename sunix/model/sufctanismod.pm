@@ -1943,12 +1943,16 @@ by adding the program name
  sub time {
 
 	my ( $self,$time )		= @_;
-	if ( $time ne $empty_string ) {
+	
+	
+	if ( length $time) {
 
 		$sufctanismod->{_time}		= $time;
 		$sufctanismod->{_note}		= $sufctanismod->{_note}.' time='.$sufctanismod->{_time};
 		$sufctanismod->{_Step}		= $sufctanismod->{_Step}.' time='.$sufctanismod->{_time};
-
+		
+        print("sufctanismod, time=$time,\n");
+        
 	} else { 
 		print("sufctanismod, time, missing time,\n");
 	 }

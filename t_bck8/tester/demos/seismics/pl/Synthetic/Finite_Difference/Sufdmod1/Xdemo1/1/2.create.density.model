@@ -1,0 +1,121 @@
+=head2 SYNOPSIS
+
+ PACKAGE NAME: 
+
+ AUTHOR:  
+
+ DATE:
+
+ DESCRIPTION:
+
+ Version:
+
+=head2 USE
+
+=head3 NOTES
+
+=head4 Examples
+
+=head2 SYNOPSIS
+
+=head3 SEISMIC UNIX NOTES
+
+=head2 CHANGES and their DATES
+
+=cut
+
+
+	use Moose;
+	use SeismicUnix qw ($in $out $on $go $to $suffix_ascii $off $suffix_su);
+	use Project_config;
+
+	my $Project		= new Project_config();
+	my $DATA_SEISMIC_SU	= $Project->DATA_SEISMIC_SU;
+	my $DATA_SEISMIC_BIN	= $Project->DATA_SEISMIC_BIN;
+
+	use message;
+	use flow;
+	use sunix::unisam;
+	use data_out;
+
+	my $log					= new message();
+	my $run					= new flow();
+	my $unisam				= new unisam();
+	my $data_out				= new data_out();
+
+
+=head2 Declare
+
+	local variables
+
+=cut
+
+	my (@flow);
+	my (@items);
+	my (@unisam);
+	my (@data_out);
+
+=head2 Set up
+
+	unisam parameter values
+
+=cut
+
+	$unisam				->clear();
+	$unisam				->dxout(quotemeta(1));
+	$unisam				->fxout(quotemeta(0));
+	$unisam				->method(quotemeta('linear'));
+	$unisam				->nout(quotemeta(2001));
+	$unisam				->nwidth(quotemeta(0));
+	$unisam				->r(quotemeta(10));
+	$unisam				->sloth(quotemeta(0));
+	$unisam				->smooth(quotemeta(0));
+	$unisam				->xin(quotemeta('0,600,601,1200,1201,1500,1501,2000'));
+	$unisam				->yin(quotemeta('1.5,1.5,2.0,2.0,2.0,2.0,2.6,2.6'));
+	$unisam[1] 			= $unisam->Step();
+
+=head2 Set up
+
+	data_out parameter values
+
+=cut
+
+	$data_out				->clear();
+	$data_out				->base_file_name(quotemeta('density'));
+	$data_out				->suffix_type(quotemeta('bin'));
+	$data_out[1] 			= $data_out->Step();
+
+
+=head2 DEFINE FLOW(s) 
+
+
+=cut
+
+	 @items	= (
+		  $unisam[1], $out,
+		  $data_out[1],
+		  $go
+		  );
+	$flow[1] = $run->modules(\@items);
+
+
+=head2 RUN FLOW(s) 
+
+
+=cut
+
+	$run->flow(\$flow[1]);
+
+
+
+=head2 LOG FLOW(s)
+
+	to screen and FILE
+
+=cut
+
+	print $flow[1];
+
+	$log->file($flow[1]);
+
+

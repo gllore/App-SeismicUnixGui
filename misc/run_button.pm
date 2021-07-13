@@ -65,7 +65,7 @@ extends 'gui_history' => { -version => 0.0.2 };
 use L_SU_global_constants;
 use name;
 
-# use control;
+# use control 0.0.3;
 use whereami;
 
 my $gui_history = gui_history->new();

@@ -27,7 +27,7 @@ package iShow_picks;
 use Moose;
 use L_SU_global_constants;
 my $VERSION = '0.0.1';
-use control;
+use control 0.0.3;
 use iPick_spec;
 use message;
 use flow;

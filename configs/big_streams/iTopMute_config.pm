@@ -55,7 +55,7 @@ package iTopMute_config;
 use Moose;
 my $VERSION = '1.0.3';
 use Project_config;
-use control;
+use control 0.0.3;
 use config_superflows;
 use L_SU_global_constants;
 use SeismicUnix qw ($in $out $on $go $to $suffix_ascii $off $suffix_su);

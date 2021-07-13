@@ -1,0 +1,34 @@
+# March 16, 2020
+# JML
+# if you want to concatenate multiple files
+# each of which have a list of tmute, xmute pairs
+# run the following instruction on the command line or
+# interactively from within L_SU
+# itop_mute_par* files contain the tmute, xmute pairs
+# tmute, xmute pairs are the result of an interactive session in
+# L_SU that uses Tools->iTopMute
+
+Sucat
+
+# Sucat will use Sucat.config in the current directory
+# Sucat will output mute_multi_gather_file
+# Sucat needs 
+# sumute_list and
+# itop_mute_par_Locci_cmp300_ep150
+# itop_mute_par_Locci_cmp300_ep1150
+# itop_mute_par_Locci_cmp300_ep2150
+# itop_mute_par_Locci_cmp300_ep3150
+# itop_mute_par_Locci_cmp300_ep4150
+
+
+# in order to mute a file consisting of multiple gathers
+# e.g. Locci_cmp300.su 
+# run the following instruction on the command line or
+# interactively from within L_SU
+
+perl 1.multi_gather_file_mute.pl
+
+
+# in order to clean unnecessary files 
+# run the following instruction on the command line
+sh Clean.sh

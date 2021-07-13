@@ -1554,6 +1554,7 @@ sub _user_built_flow_open_data_file {
 			# use iFile to determine the correct data path (directory )
 			$iFile->set_entry($file_dialog);
 			$iFile->set_flow_type_h($file_dialog);    # user_built
+			print("file_dialog, _user_built_flow_open_data_file, giving values to iFile\n");
 			$iFile->set_values_aref($file_dialog);    # will determine the DIR based on type of data set
 			$iFile->set_prog_name_sref($file_dialog);
 

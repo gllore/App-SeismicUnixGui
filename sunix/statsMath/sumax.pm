@@ -221,7 +221,7 @@ sub outpar {
         && $outpar ne $empty_string )
     {
 
-        use control;
+        use control 0.0.3;
         use Scalar::Util qw(looks_like_number);
 
         my $control = control->new();

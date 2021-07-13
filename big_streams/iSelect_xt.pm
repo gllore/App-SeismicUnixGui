@@ -27,7 +27,7 @@ package iSelect_xt;
 use Moose;
 use L_SU_global_constants;
 my $VERSION = '0.0.1';
-use control;
+use control 0.0.3;
 use message;
 use flow;
 use iPick_spec;
@@ -614,7 +614,7 @@ sub set_purpose {
 		&& $type ne $empty_string )
 	{
 
-		use control;
+		use control 0.0.3;
 		my $control = control->new();
 		$control->set_infection($type);
 		$type = control->get_ticksBgone();

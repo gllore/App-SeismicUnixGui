@@ -47,7 +47,7 @@ package Synseis_config;
 use Moose;
 our $VERSION = '1.0.0';
 use config_superflows;
-use control;
+use control 0.0.3;
 use L_SU_global_constants;
 
 my $get                    = new L_SU_global_constants();
