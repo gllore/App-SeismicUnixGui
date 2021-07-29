@@ -1,4 +1,0 @@
-#! /bin/bash
-# Make
-# rm -r synseis
-cc -o    synseis  synseis.c
