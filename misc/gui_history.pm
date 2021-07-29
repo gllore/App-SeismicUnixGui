@@ -26,6 +26,7 @@ package gui_history;
 =head2 CHANGES and their DATES
 			9-1-19 0.0.1   dabbling with refs
  			9-12-19 0.0.2
+ 			7.20.21 initialize some hashes
 
 =cut 
 
@@ -41,8 +42,7 @@ potentially, all packages contain L_SU_global_constants
 
 =cut
 
-extends
-	'conditions4flows' => { -version => 0.0.2 };
+extends 'conditions4flows' => { -version => 0.0.2 };
 
 use L_SU_global_constants;
 use flow_widgets;
@@ -53,7 +53,6 @@ use flow_widgets;
 
 my $flow_widgets = flow_widgets->new();
 my $get          = L_SU_global_constants->new();
-
 
 =head2 Declare Special Variables
 
@@ -678,194 +677,214 @@ sub _initialize {
 
 	my $markers_href = {
 
-		_Data_menubutton                        => '',
-		_FileDialog_button_click_seq_href       => '',
-		_FileDialog_option                      => '',
-		_FileDialog_sub_ref                     => '',
-		_Flow_menubutton                        => '',
-		_SaveAs_menubutton                      => '',
-		_add2flow_button_click_seq_href         => '',
-		_add2flow_button_color_href             => '',
-		_add2flow_button_grey                   => '',
-		_add2flow_button_pink                   => '',
-		_add2flow_button_green                  => '',
-		_add2flow_button_blue                   => '',
-		_button_href                            => '',
-		_changed_entry                          => 0,
-		_check_buttons_settings_aref            => '',
-		_check_buttons_frame_href               => '',
-		_check_buttons_w_aref                   => '',
-		_check_code_button                      => '',
-		_count                                  => $count_start,
-		_most_recent_program_name               => '',
-		_delete_from_flow_button                => '',
+		_Data_menubutton                         => '',
+		_FileDialog_option                       => '',
+		_FileDialog_sub_ref                      => '',
+		_Flow_menubutton                         => '',
+		_SaveAs_menubutton                       => '',
+		_add2flow_button_grey                    => '',
+		_add2flow_button_pink                    => '',
+		_add2flow_button_green                   => '',
+		_add2flow_button_blue                    => '',
+		_big_stream_name_in                      => '',
+		_big_stream_name_out                     => '',
+		_changed_entry                           => 0,
+		_check_buttons_settings_aref             => '',
+		_check_buttons_frame_href                => '',
+		_check_buttons_w_aref                    => '',
+		_check_code_button                       => '',
+		_count                                   => $count_start,
+		_most_recent_program_name                => '',
+		_delete_from_flow_button                 => '',
 		_delete_whole_flow_button                => '',
-		_delete_from_flow_button_click_seq_href => '',
-		_delete_whole_flow_button_click_seq_href => '',		
-		_destination_index                      => '',
-		_dialog_type                            => '',
-		_FileDialog_type                        => '',
-		_dnd_token_grey                         => '',
-		_dnd_token_pink                         => '',
-		_dnd_token_green                        => '',
-		_dnd_token_blue                         => '',
-		_dropsite_token_grey                    => '',
-		_dropsite_token_pink                    => '',
-		_dropsite_token_green                   => '',
-		_dropsite_token_blue                    => '',
-		_entry_button_chosen_index              => '',
-		_entry_button_chosen_widget             => '',
-		_file_menubutton                        => '',
-		_first_idx                              => $default_param_specs->{_first_entry_idx},
-		_flow_color                             => '',
-		_flow_item_down_arrow_button            => '',
-		_flow_item_up_arrow_button              => '',
-		_flow_listbox_color_w                   => '',
-		_flow_listbox_grey_w                    => '',
-		_flow_listbox_pink_w                    => '',
-		_flow_listbox_green_w                   => '',
-		_flow_listbox_blue_w                    => '',
-		_flow_listbox_color_w                   => '',
-		_flow_listbox_color_w_href              => '',
-		_flow_name_in                           => '',
-		_flow_name_out                          => '',
-		_flow_select_click_seq_href             => $flow_select_click_seq_href,
-		_flow_select_color_href                 => $flow_select_color_href,
-		_flow_select_index_href                 => $flow_select_index_href,
-		_flow_type                              => '',
-		_flow_type_href                         => '',
-		_flow_widget_index                      => '',
-		_flow_name_grey_w                       => '',
-		_flow_name_pink_w                       => '',
-		_flow_name_green_w                      => '',
-		_flow_name_blue_w                       => '',
-		_flowNsuperflow_name_w                  => '',
-		_good_labels_aref2                      => '',
-		_good_values_aref2                      => '',
-		_gui_history_aref                       => '',
-		_gui_history_ref                        => '',
-		_has_used_check_code_button             => '',
-		_has_used_open_perl_file_button         => $false,
-		_has_used_Save_button                   => $false,
-		_has_used_Save_superflow                => $false,
-		_has_used_SaveAs_button                 => $false,
-		_has_used_run_button                    => $false,
-		_index                                  => '',
-		_index2move                             => $false,
-		_index_on_entry                         => '',
-		_is_FileDialog_button                   => $false,
-		_is_Save_button                         => $false,
-		_is_SaveAs_button                       => $false,
-		_is_SaveAs_file_button                  => $false,
-		_is_add2flow                            => $false,
-		_is_add2flow_button                     => $false,
-		_is_check_code_button                   => $false,
-		_is_delete_from_flow_button             => $false,
+		_destination_index                       => '',
+		_dialog_type                             => '',
+		_FileDialog_type                         => '',
+#		_dnd_token_grey                          => '',
+#		_dnd_token_pink                          => '',
+#		_dnd_token_green                         => '',
+#		_dnd_token_blue                          => '',
+#		_dropsite_token_grey                     => '',
+#		_dropsite_token_pink                     => '',
+#		_dropsite_token_green                    => '',
+#		_dropsite_token_blue                     => '',
+		_entry_button_chosen_index               => '',
+		_entry_button_chosen_widget              => '',
+		_file_menubutton                         => '',
+		_first_idx                               => $default_param_specs->{_first_entry_idx},
+		_flow_color                              => '',
+		_flow_item_down_arrow_button             => '',
+		_flow_item_up_arrow_button               => '',
+		_flow_listbox_color_w                    => '',
+		_flow_listbox_grey_w                     => '',
+		_flow_listbox_pink_w                     => '',
+		_flow_listbox_green_w                    => '',
+		_flow_listbox_blue_w                     => '',
+		_flow_listbox_color_w                    => '',
+		_flow_name_in                            => '',
+		_flow_name_in_blue                       => '',
+		_flow_name_in_grey                       => '',
+		_flow_name_in_green                      => '',
+		_flow_name_in_pink                       => '',
+		_flow_name_out                           => '',
+		_flow_name_out_blue                      => '',
+		_flow_name_out_grey                      => '',
+		_flow_name_out_green                     => '',
+		_flow_name_out_pink                      => '',
+		_flow_type                               => '',
+		_flow_widget_index                       => '',
+		_flow_name_grey_w                        => '',
+		_flow_name_pink_w                        => '',
+		_flow_name_green_w                       => '',
+		_flow_name_blue_w                        => '',
+		_flowNsuperflow_name_w                   => '',
+		_good_labels_aref2                       => '',
+		_good_values_aref2                       => '',
+		_gui_history_aref                        => '',
+		_gui_history_ref                         => '',
+		_has_used_check_code_button              => '',
+		_has_used_open_perl_file_button          => $false,
+		_has_used_Save_button                    => $false,
+		_has_used_Save_superflow                 => $false,
+		_has_used_SaveAs_button                  => $false,
+		_has_used_run_button                     => $false,
+		_index                                   => '',
+		_index2move                              => $false,
+		_index_on_entry                          => '',
+		_is_FileDialog_button                    => $false,
+		_is_Save_button                          => $false,
+		_is_SaveAs_button                        => $false,
+		_is_SaveAs_file_button                   => $false,
+		_is_add2flow                             => $false,
+		_is_add2flow_button                      => $false,
+		_is_check_code_button                    => $false,
+		_is_delete_from_flow_button              => $false,
 		_is_delete_whole_flow_button             => $false,
-		_is_flow_item_down_arrow_button         => $false,
-		_is_flow_item_up_arrow_button           => $false,
-		_is_flow_listbox_grey_w                 => $false,
-		_is_flow_listbox_pink_w                 => $false,
-		_is_flow_listbox_green_w                => $false,
-		_is_flow_listbox_blue_w                 => $false,
-		_is_flow_listbox_color_w                => $false,
-		_is_future_flow_listbox_grey            => $false,
-		_is_future_flow_listbox_pink            => $false,
-		_is_future_flow_listbox_green           => $false,
-		_is_future_flow_listbox_blue            => $false,
-		_is_last_flow_index_touched_grey        => $false,
-		_is_last_flow_index_touched_pink        => $false,
-		_is_last_flow_index_touched_green       => $false,
-		_is_last_flow_index_touched_blue        => $false,
-		_is_last_flow_index_touched             => $false,
-		_is_last_parameter_index_touched_grey   => $false,
-		_is_last_parameter_index_touched_pink   => $false,
-		_is_last_parameter_index_touched_green  => $false,
-		_is_last_parameter_index_touched_blue   => $false,
-		_is_last_parameter_index_touched_color  => $false,
-		_is_new_listbox_selection               => '',
-		_is_wipe_plots_button                   => $false,
-		_is_moveNdrop_in_flow                   => $false,
-		_is_pre_built_superflow                 => $false,
-		_is_run_button                          => $false,
-		_is_save_button                         => $false,
-		_is_save_as_button                      => $false,
-		_is_sunix_listbox                       => $false,
-		_is_superflow_select_button             => $false,
-		_is_superflow                           => $false,
-		_is_user_built_flow                     => $false,
-		_items_checkbuttons_aref2               => '',
-		_items_names_aref2                      => '',
-		_items_values_aref2                     => '',
-		_items_versions_aref                    => '',
-		_labels_aref                            => '',
-		_labels_frame_href                      => '',
-		_labels_w_aref                          => '',
-		_last                                   => '',
-		_last_flow_color                        => '',
-		_last_flow_index_touched                => -1,
-		_last_flow_index_touched_grey           => -1,
-		_last_flow_index_touched_pink           => -1,
-		_last_flow_index_touched_green          => -1,
-		_last_flow_index_touched_blue           => -1,
-		_last_flow_listbox_touched              => '',
-		_last_flow_listbox_touched_w            => '',
-		_last_path_touched                      => './',
-		_last_parameter_index_touched_color     => -1,
-		_last_parameter_index_touched_grey      => -1,
-		_last_parameter_index_touched_pink      => -1,
-		_last_parameter_index_touched_green     => -1,
-		_last_parameter_index_touched_blue      => -1,
-		_length                                 => $default_param_specs->{_length},
-
-		#		_log_view                               => $true,
-		_location_in_gui                        => '',
-		_message_w                              => '',
-		_name_aref                              => '',
-		_names_aref                             => '',
-		_index2move                             => '',
-		_destination_index                      => '',
-		_run_button                             => '',
-		_mw                                     => '',
-		_occupied_listbox_aref                  => '',                              #  new
-		_param_flow_length                      => '',
-		_parameter_color_on_entry_href          => $parameter_color_on_entry_href,
-		_parameter_color_on_exit_href           => $parameter_color_on_exit_href,
-		_parameter_index_on_entry               => -1,
-		_parameter_index_on_exit                => -1,
-		_parameter_menu_frame                   => '',
-		_parameter_values_frame                 => '',
-		_parameter_names_frame                  => '',
-		_param_sunix_first_idx                  => 0,
-		_param_sunix_length                     => '',
-		_parameter_values_button_frame          => '',
-		_parameter_values_frame                 => '',                              # new
-		_parameter_value_index                  => -1,
-		_pre_built_tool_href                    => '',
-		_pre_built_tool_button_href             => '',
-		_prog_name                              => '',
-		_prog_names_aref                        => '',
-		_prog_name_sref                         => '',                              # has pre-existing _spec.pm and *.pm
-		_run_button                             => '',
-		_run_button_click_seq_href              => '',
-		_prog_name                              => '',
-		_save_button                            => '',
-		_save_as_button                         => '',
-		_save_as_button_click_seq_href          => '',
-		_save_button_click_seq_href             => '',
-		_sunix_listbox                          => '',
-		_sunix_prog_group_href                  => '',
-		_sunix_prog_group_click_seq_href        => '',
-		_superflow_select                       => '',
-		_superflow_select_button_click_seq_href => '',
-		_superflow_tool_href                    => '',
-		_vacant_listbox_aref                  => '',                              #  new
-		_values_aref                            => \@empty_array,
-		_values_frame_href                      => '',
-		_values_w_aref                          => '',
-		_wipe_plots_button                      => '',
-		_wipe_plots_button_click_seq_href       => '',
+		_is_flow_item_down_arrow_button          => $false,
+		_is_flow_item_up_arrow_button            => $false,
+		_is_flow_listbox_grey_w                  => $false,
+		_is_flow_listbox_pink_w                  => $false,
+		_is_flow_listbox_green_w                 => $false,
+		_is_flow_listbox_blue_w                  => $false,
+		_is_flow_listbox_color_w                 => $false,
+		_is_future_flow_listbox_grey             => $false,
+		_is_future_flow_listbox_pink             => $false,
+		_is_future_flow_listbox_green            => $false,
+		_is_future_flow_listbox_blue             => $false,
+		_is_last_flow_index_touched_grey         => $false,
+		_is_last_flow_index_touched_pink         => $false,
+		_is_last_flow_index_touched_green        => $false,
+		_is_last_flow_index_touched_blue         => $false,
+		_is_last_flow_index_touched              => $false,
+		_is_last_parameter_index_touched_grey    => $false,
+		_is_last_parameter_index_touched_pink    => $false,
+		_is_last_parameter_index_touched_green   => $false,
+		_is_last_parameter_index_touched_blue    => $false,
+		_is_last_parameter_index_touched_color   => $false,
+		_is_new_listbox_selection                => '',
+		_is_wipe_plots_button                    => $false,
+		_is_moveNdrop_in_flow                    => $false,
+		_is_pre_built_superflow                  => $false,
+		_is_run_button                           => $false,
+		_is_save_button                          => $false,
+		_is_save_as_button                       => $false,
+		_is_sunix_listbox                        => $false,
+		_is_superflow_select_button              => $false,
+		_is_superflow                            => $false,
+		_is_user_built_flow                      => $false,
+		_items_checkbuttons_aref2                => '',
+		_items_names_aref2                       => '',
+		_items_values_aref2                      => '',
+		_items_versions_aref                     => '',
+		_labels_aref                             => '',
+		_labels_frame_href                       => '',
+		_labels_w_aref                           => '',
+		_last                                    => '',
+		_last_flow_color                         => '',
+		_last_flow_index_touched                 => -1,
+		_last_flow_index_touched_grey            => -1,
+		_last_flow_index_touched_pink            => -1,
+		_last_flow_index_touched_green           => -1,
+		_last_flow_index_touched_blue            => -1,
+		_last_flow_listbox_touched               => '',
+		_last_flow_listbox_touched_w             => '',
+		_last_path_touched                       => './',
+		_last_parameter_index_touched_color      => -1,
+		_last_parameter_index_touched_grey       => -1,
+		_last_parameter_index_touched_pink       => -1,
+		_last_parameter_index_touched_green      => -1,
+		_last_parameter_index_touched_blue       => -1,
+		_length                                  => $default_param_specs->{_length},
+		_location_in_gui                         => '',
+		_message_w                               => '',
+		_name_aref                               => '',
+		_names_aref                              => '',
+		_index2move                              => '',
+		_destination_index                       => '',
+		_run_button                              => '',
+		_mw                                      => '',
+		_occupied_listbox_aref                   => '',                                         #  new
+		_param_flow_length                       => '',
+		_parameter_index_on_entry                => -1,
+		_parameter_index_on_exit                 => -1,
+		_parameter_menu_frame                    => '',
+		_parameter_values_frame                  => '',
+		_parameter_names_frame                   => '',
+		_param_sunix_first_idx                   => 0,
+		_param_sunix_length                      => '',
+		_parameter_values_button_frame           => '',
+		_parameter_values_frame                  => '',                                         # new
+		_parameter_value_index                   => -1,
+		_pre_built_tool_href                     => '',
+		_pre_built_tool_button_href              => '',
+		_prog_name                               => '',
+		_prog_names_aref                         => '',
+		_prog_name_sref                          => '',              # has pre-existing _spec.pm and *.pm
+		_run_button                              => '',
+		_prog_name                               => '',
+		_save_button                             => '',
+		_save_as_button                          => '',
+		_sunix_listbox                           => '',
+		_sunix_prog_group_click_seq_href         => '',
+		_superflow_select                        => '',
+		_this_package                            => $gui_history,
+		_vacant_listbox_aref                     => '',              #  new
+		_values_aref                             => \@empty_array,
+		_values_frame_href                       => '',
+		_values_w_aref                           => '',
+		_wipe_plots_button                       => '',
 	};
+
+	# in addition .... 7.21.21
+	$markers_href->{_FileDialog_type_href}                   = $FileDialog_type_href;
+	$markers_href->{_FileDialog_button_click_seq_href} = $FileDialog_button_click_seq_href;
+	$markers_href->{_add2flow_button_click_seq_href} = $add2flow_button_click_seq_href;
+	$markers_href->{_add2flow_button_color_href} = $add2flow_button_color_href;
+	$markers_href->{_button_href}                             = $button_href;
+	$markers_href->{_delete_from_flow_button_click_seq_href}     = $delete_from_flow_button_click_seq_href;
+	$markers_href->{_delete_whole_flow_button_click_seq_href} = $delete_whole_flow_button_click_seq_href;
+	$markers_href->{_flow_listbox_color_w_href}               = $flow_listbox_color_w_href;
+	$markers_href->{_flow_item_down_arrow_button_click_seq_href}    = 	$flow_item_down_arrow_button_click_seq_href;
+	$markers_href->{_flow_item_up_arrow_button_click_seq_href}    = 	$flow_item_up_arrow_button_click_seq_href;
+	$markers_href->{_flow_select_color_href}    = 	$flow_select_color_href;
+	$markers_href->{_flow_select_index_href}    = 	$flow_select_index_href;
+	$markers_href->{_flow_select_click_seq_href}    = 	$flow_select_click_seq_href;
+	$markers_href->{_flow_type_href}    = 	$flow_type_href;
+	$markers_href->{_parameter_color_on_entry_href}    = 	$parameter_color_on_entry_href;
+	$markers_href->{_parameter_color_on_exit_href}    = 	$parameter_color_on_exit_href;
+	$markers_href->{_parameter_index_on_entry_href}    = 	$parameter_index_on_entry_href;
+	$markers_href->{_parameter_index_on_entry_click_seq_href}    = 	$parameter_index_on_entry_click_seq_href;
+	$markers_href->{_parameter_index_on_exit_href}     = 	$parameter_index_on_exit_href;
+	$markers_href->{_parameter_index_on_exit_click_seq_href}    = 	$parameter_index_on_exit_click_seq_href;
+	$markers_href->{_run_button_click_seq_href}    = 	$run_button_click_seq_href ;
+	$markers_href->{_save_button_click_seq_href}    = 	$save_button_click_seq_href ;
+	$markers_href->{_save_as_button_click_seq_href}    = 	$save_as_button_click_seq_href ;
+	$markers_href->{_sunix_prog_group_href}    = 	$sunix_prog_group_href ;
+	$markers_href->{_sunix_prog_group_click_seq_href}    = 	$sunix_prog_group_click_seq_href;
+	$markers_href->{_superflow_select_button_click_seq_href}    = 	$superflow_select_button_click_seq_href ;
+	$markers_href->{_superflow_tool_href}    = 	$superflow_tool_href;
+	$markers_href->{_wipe_plots_button_click_seq_href}    = 	$wipe_plots_button_click_seq_href ;
+
 	my $result = $markers_href;
 
 	# print(" gui_history, _initialize, result = $result \n ");
@@ -894,29 +913,31 @@ sub _reset {
 	# print("gui_history,_reset, gui_history=$gui_history,type = $type \n");
 
 	if ( $type eq 'listbox_color_w' ) {
-		
+
 		( $gui_history->get_defaults() )->{_is_flow_listbox_grey_w}  = $false;
 		( $gui_history->get_defaults() )->{_is_flow_listbox_pink_w}  = $false;
 		( $gui_history->get_defaults() )->{_is_flow_listbox_green_w} = $false;
 		( $gui_history->get_defaults() )->{_is_flow_listbox_blue_w}  = $false;
 		( $gui_history->get_defaults() )->{_is_flow_listbox_color_w} = $false;
-		
+
 	} elsif ( $type ne 'listbox_color_w' ) {
-		
-		( $gui_history->get_defaults() )->{_is_add2flow}                = $false;    # needed? double confirmation?
-		( $gui_history->get_defaults() )->{_is_add2flow_button}         = $false;    # needed? double confirmation?
-		( $gui_history->get_defaults() )->{_is_delete_from_flow_button} = $false;
-		( $gui_history->get_defaults() )->{_is_new_listbox_selection}   = $false;
-		( $gui_history->get_defaults() )->{_is_superflow_select_button} = $false;
+
+		( $gui_history->get_defaults() )->{_is_add2flow}                 = $false;    # needed? double confirmation?
+		( $gui_history->get_defaults() )->{_is_add2flow_button}          = $false;    # needed? double confirmation?
+		( $gui_history->get_defaults() )->{_is_delete_from_flow_button}  = $false;
+		( $gui_history->get_defaults() )->{_is_new_listbox_selection}    = $false;
+		( $gui_history->get_defaults() )->{_is_superflow_select_button}  = $false;
 		( $gui_history->get_defaults() )->{_is_delete_whole_flow_button} = $false;
-		( $gui_history->get_defaults() )->{_is_moveNdrop_in_flow}       = $false;
-		( $gui_history->get_defaults() )->{_is_sunix_listbox}           = $false;
-		
+		( $gui_history->get_defaults() )->{_is_moveNdrop_in_flow}        = $false;
+		( $gui_history->get_defaults() )->{_is_sunix_listbox}            = $false;
+
 	} else {
 		print("gui_history,_reset, unexpected type \n");
 	}
 	return ();
 }
+
+#			( $gui_history->get_defaults )->{_parameter_index_on_exit_href} = $parameter_index_on_exit_href;
 
 =head2 sub _set_click_sequence
 
@@ -1115,7 +1136,7 @@ sub _update_button {
 
 			# print("gui_history, _update_button, button matched = $new_most_recent_button\n");
 			return ();
-			
+
 		} elsif ( $new_most_recent_button eq 'delete_whole_flow_button' ) {
 
 			( $gui_history->get_defaults() )->{_is_delete_whole_flow_button} = $true;
@@ -1327,6 +1348,7 @@ sub _update_button {
 			return ();
 
 		} else {
+
 			# print("gui_history,_update_button, button unmatched NADA\n");
 			return ();
 		}
@@ -1635,6 +1657,7 @@ sub _update_parameter_index_on_entry {
 	} else {
 		print("gui_history, missing flow hash NADA\n");
 	}
+
 	if ( defined $parameter_index_on_entry_href ) {
 
 		# update the history of parameter_index_on_entry according to the parameter_index_on_entry used
@@ -1667,36 +1690,56 @@ sub _update_parameter_index_on_exit {
 		$new_prior_parameter_index_on_exit
 	) = @_;
 
-	( $gui_history->get_defaults() )->{_parameter_index_on_exit} = $new_most_recent_parameter_index_on_exit;
+	if ( length $new_most_recent_parameter_index_on_exit ) {
 
-#	print("gui_history,updated parameter_index_on_exit :$new_most_recent_parameter_index_on_exit\n");
-	
-	if ( defined $parameter_index_on_exit_click_seq_href ) {
+		# CASE: A parameter is selected
 
-		# update the history of  parameter_index_on_exit usage according to click count
-		_set_click_sequence(
-			$gui_history,
-			$parameter_index_on_exit_click_seq_href
-		);
+		( $gui_history->get_defaults() )->{_parameter_index_on_exit} = $new_most_recent_parameter_index_on_exit;
 
-		( $gui_history->get_defaults )->{_parameter_index_on_exit_click_seq_href}
-			= $parameter_index_on_exit_click_seq_href;
+		print("gui_history,updated parameter_index_on_exit :$new_most_recent_parameter_index_on_exit\n");
+
+		if ( defined $parameter_index_on_exit_click_seq_href ) {
+
+			# update the history of  parameter_index_on_exit usage according to click count
+			_set_click_sequence(
+				$gui_history,
+				$parameter_index_on_exit_click_seq_href
+			);
+
+			( $gui_history->get_defaults )->{_parameter_index_on_exit_click_seq_href}
+				= $parameter_index_on_exit_click_seq_href;
+
+		} else {
+			print("gui_history, missing flow hash NADA\n");
+		}
+
+		if ( defined $parameter_index_on_exit_href ) {
+
+			# update the history of parameter_index_on_exit according to the parameter_index_on_exit used
+			$parameter_index_on_exit_href->{_earliest}    = $parameter_index_on_exit_href->{_prior};
+			$parameter_index_on_exit_href->{_prior}       = $parameter_index_on_exit_href->{_most_recent};
+			$parameter_index_on_exit_href->{_most_recent} = $new_most_recent_parameter_index_on_exit;
+
+			( $gui_history->get_defaults )->{_parameter_index_on_exit_href} = $parameter_index_on_exit_href;
+
+		} else {
+			print("gui_history, missing flow hash NADA\n");
+		}
 
 	} else {
-		print("gui_history, missing flow hash NADA\n");
-	}
-	
-	if ( defined $parameter_index_on_exit_href ) {
 
-		# update the history of parameter_index_on_exit according to the parameter_index_on_exit used
-		$parameter_index_on_exit_href->{_earliest}    = $parameter_index_on_exit_href->{_prior};
-		$parameter_index_on_exit_href->{_prior}       = $parameter_index_on_exit_href->{_most_recent};
-		$parameter_index_on_exit_href->{_most_recent} = $new_most_recent_parameter_index_on_exit;
+		# CASE: parameter is not selected
+		if ( defined $parameter_index_on_exit_href ) {
 
-		( $gui_history->get_defaults )->{_parameter_index_on_exit_href} = $parameter_index_on_exit_href;
+			print("gui_history, no parameter was selected; NO UPDATES to clicks\n");
+			( $gui_history->get_defaults )->{_parameter_index_on_exit_href} = $parameter_index_on_exit_href;
 
-	} else {
-		print("gui_history, missing flow hash NADA\n");
+			( $gui_history->get_defaults )->{_parameter_index_on_exit_click_seq_href}
+				= $parameter_index_on_exit_click_seq_href;
+
+		} else {
+			print("gui_history, no parameter is selected and  flow hash missing\n");
+		}
 	}
 
 	return ();
@@ -1786,8 +1829,9 @@ sub _update_superflow_tool {
 	$superflow_tool_href->{_prior}       = $superflow_tool_href->{_most_recent};
 	$superflow_tool_href->{_most_recent} = $new_most_recent_tool;
 
-#	( $gui_history->delete_whole_flow)->{_superflow_tool_href} = $superflow_tool_href;
-     ( $gui_history->get_defaults())->{_superflow_tool_href} = $superflow_tool_href;
+	#	( $gui_history->delete_whole_flow)->{_superflow_tool_href} = $superflow_tool_href;
+	( $gui_history->get_defaults() )->{_superflow_tool_href} = $superflow_tool_href;
+
 	# print("2. gui_history,updated superflow_tool :$new_most_recent_tool, new_prior_tool=$new_prior_tool\n");
 
 	return ();
@@ -1838,15 +1882,15 @@ foreach my $key ( sort keys %$gui_history ) {
 =cut
 
 sub BUILD {
-	my ($gui_history) = @_;
+	my ($this_package_address) = @_;
 
 	# _defaults attribute start empty
 	# print("1. gui_history,BUILD,initializing with: $gui_history()\n");
-	_initialize($gui_history);
-
-	# print("2. gui_history,BUILD,initializing with: $gui_history->get_defaults()\n");
+	_initialize($this_package_address);
 
 }
+
+# print("2. gui_history,BUILD,initializing with: $gui_history->get_defaults()\n");
 
 =head2 sub get_internal
 
@@ -1903,6 +1947,7 @@ sub _clear {
 	) = @_;
 
 	if ( $latest_button eq 'delete_from_flow_button' ) {
+
 		# the index selected should now be clean
 
 		$flow_select_index_href = {
@@ -1914,7 +1959,7 @@ sub _clear {
 			_next        => $next_index_start,
 			_prior       => $prior_index_start,
 		};
-		
+
 		# update the hash that will be used outside the module
 		( $gui_history->get_defaults() )->{_flow_select_index_href} = $flow_select_index_href;
 
@@ -1934,11 +1979,12 @@ sub _subtract {
 	my ( $gui_history, $button ) = @_;
 
 	if ( $button eq 'add2flow_button' ) {
+
 		# the indeices should be reduced by 1
-			$flow_select_index_href->{_earliest}    = $flow_select_index_href->{_earliest} -1;
-			$flow_select_index_href->{_prior}		= $flow_select_index_href->{_prior} - 1;
-			$flow_select_index_href->{_most_recent} = $flow_select_index_href->{_most_recent} -1;
-					
+		$flow_select_index_href->{_earliest}    = $flow_select_index_href->{_earliest} - 1;
+		$flow_select_index_href->{_prior}       = $flow_select_index_href->{_prior} - 1;
+		$flow_select_index_href->{_most_recent} = $flow_select_index_href->{_most_recent} - 1;
+
 		# update the hash that will be used outside the module
 		( $gui_history->get_defaults() )->{_flow_select_index_href} = $flow_select_index_href;
 
@@ -2146,7 +2192,7 @@ sub view {
 					}
 				}
 			}
-			
+
 			if ( ( $gui_history->get_defaults() )->{_delete_whole_flow_button_click_seq_href} ) {
 
 				# print additional subsets: delete_whole_flow_button

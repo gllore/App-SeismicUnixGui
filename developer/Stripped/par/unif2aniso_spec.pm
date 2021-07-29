@@ -1,30 +1,33 @@
 package unif2aniso_spec;
 	use Moose;
-	our $VERSION = '0.0.1';
+our $VERSION = '0.0.1';
 
-	use Project_config;
-	use SeismicUnix qw ($su $suffix_su);
-	use L_SU_global_constants;
-	use unif2aniso;
+use Project_config;
+use SeismicUnix qw ($ascii $bin $su $suffix_ascii $suffix_bin $suffix_su);
+use L_SU_global_constants;
+use unif2aniso;
+my $get					= new L_SU_global_constants();
+my $Project 				= new Project_config;
+my $unif2aniso		= new unif2aniso;
 
-	my $get					= new L_SU_global_constants();
-	my $Project 			= new Project_config;
-	my $unif2aniso			    = new unif2aniso;
+my $var					= $get->var();
 
-	my $var					= $get->var();
+my $empty_string			= $var->{_empty_string};
+my $true					= $var->{_true};
+my $false      			= $var->{_false};
+my $file_dialog_type		= $get->file_dialog_type_href();
+my $flow_type				= $get->flow_type_href();
 
-	my $empty_string      	= $var->{_empty_string};
-	my $true      			= $var->{_true};
-	my $false      			= $var->{_false};
-	my $file_dialog_type	= $get->file_dialog_type_href();
-	my $flow_type			= $get->flow_type_href();
-
+	my $DATA_SEISMIC_BIN  	= $Project->DATA_SEISMIC_BIN();
 	my $DATA_SEISMIC_SU  	= $Project->DATA_SEISMIC_SU();   # output data directory
-	my $max_index           = $unif2aniso->get_max_index();
+  my $PL_SEISMIC		    = $Project->PL_SEISMIC();
+	my $max_index           = # Insert a number here
 
 	my $unif2aniso_spec = {
-		_DATA_DIR_IN		    => $DATA_SEISMIC_SU,
-		_DATA_DIR_OUT          => $DATA_SEISMIC_SU,
+		_CONFIG		            => $PL_SEISMIC,
+		_DATA_DIR_IN		    => $DATA_SEISMIC_BIN,
+	 	_DATA_DIR_OUT		    => $DATA_SEISMIC_SU,
+		_binding_index_aref	    => '',
 	 	_suffix_type_in			=> $su,
 		_data_suffix_in			=> $suffix_su,
 		_suffix_type_out		=> $su,
@@ -32,6 +35,7 @@ package unif2aniso_spec;
 		_file_dialog_type_aref	=> '',
 		_flow_type_aref			=> '',
 	 	_has_infile				=> $true,
+	 	_has_outpar				=> $false,
 	 	_has_pipe_in			=> $true,	
 	 	_has_pipe_out           => $true,
 	 	_has_redirect_in		=> $true,
@@ -48,6 +52,8 @@ package unif2aniso_spec;
 		_is_suprog				=> $true,
 	 	_is_superflow			=> $false,
 	 	_max_index              => $max_index,
+	 	_prefix_aref               => '',
+	 	_suffix_aref               => '',
 	};
 
 
@@ -61,7 +67,12 @@ package unif2aniso_spec;
 
 	my @index;
 
-	$index[0]	= 0;
+	# first binding index (0)
+	# connects to second item (1)
+	# in the parameter list
+	$index[0] = 1; # inbound item is  bound to _DATA_DIR_IN
+	$index[1]	= 2; # inbound item is  bound to _DATA_DIR_IN
+	$index[2]	= 8; # outbound item is  bound to _DATA_DIR_OUT
 
 	$unif2aniso_spec ->{_binding_index_aref} = \@index;
 	return();
@@ -73,7 +84,6 @@ package unif2aniso_spec;
 
 type of dialog (Data, Flow, SaveAs) is needed by binding
 one type of dialog for each index
-
 =cut
 
  sub file_dialog_type_aref {
@@ -82,7 +92,10 @@ one type of dialog for each index
 
 	my @type;
 
-	$type[0]	= '';
+		# bound index will look for data
+	$type[0]	=  $file_dialog_type->{_Data};
+	$type[1]	=  $file_dialog_type->{_Data};
+	$type[2]	=  $file_dialog_type->{_Data};
 
 	$unif2aniso_spec ->{_file_dialog_type_aref} = \@type;
 	return();
@@ -308,6 +321,19 @@ are filtered by sunix_pl
 		$prefix[$i]	= $empty_string;
 
 	}
+
+	my $index_aref = get_binding_index_aref();
+	my @index       = @$index_aref;
+
+	# label 2 in GUI is input xx_file and needs a home directory
+	$prefix[ $index[0] ] = '$DATA_SEISMIC_BIN' . ''.'/'.'';
+
+	# label 3 in GUI is input yy_file and needs a home directory
+	$prefix[ $index[1] ] = '$DATA_SEISMIC_BIN' . ''.'/'.'';
+
+	# label 9 in GUI is input zz_file and needs a home directory
+	$prefix[ $index[2] ] = '$DATA_SEISMIC_SU' . ''.'/'.'';
+
 	$unif2aniso_spec ->{_prefix_aref} = \@prefix;
 	return();
 
@@ -317,7 +343,6 @@ are filtered by sunix_pl
 =head2  sub suffix_aref
 
 Initialize suffixes as empty
-Assign specific suffixes to parameter
 values
 
 =cut
@@ -333,6 +358,19 @@ values
 		$suffix[$i]	= $empty_string;
 
 	}
+
+	my $index_aref = get_binding_index_aref();
+	my @index       = @$index_aref;
+
+	# label 2 in GUI is input xx_file and needs a home directory
+	$suffix[ $index[0] ] = ''.'' . '$suffix_bin';
+
+	# label 3 in GUI is input yy_file and needs a home directory
+	$suffix[ $index[1] ] = ''.'' . '$suffix_bin';
+
+	# label 9 in GUI is output zz_file and needs a home directory
+	$suffix[ $index[2] ] = ''.'' . '$suffix_su';
+
 	$unif2aniso_spec ->{_suffix_aref} = \@suffix;
 	return();
 
@@ -341,15 +379,17 @@ values
 
 =head2 sub variables
 
+
 return a hash array 
 with definitions
  
 =cut
  
- sub variables {
- 	my ($self) = @_;
- 	my $hash_ref = $unif2aniso_spec;
- 	return ($hash_ref);
- }
+sub variables {
+
+	my ($self) = @_;
+	my $hash_ref = $unif2aniso_spec;
+	return ($hash_ref);
+}
 
 1;

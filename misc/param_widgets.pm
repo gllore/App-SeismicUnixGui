@@ -907,7 +907,7 @@ sub get_values_aref {
 
 		my $values_aref = \@{ $param_widgets->{_values_aref} };
 
-		print("param_widgets,get_values_aref,value[0]= @{$param_widgets->{_values_aref}}[0]\n");
+#		print("param_widgets,get_values_aref,value[0]= @{$param_widgets->{_values_aref}}[0]\n");
 		return ($values_aref);
 
 	} else {

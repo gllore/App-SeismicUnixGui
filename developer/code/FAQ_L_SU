@@ -58,11 +58,14 @@ For a sunix program with a binding how does the FileDialog get activated?
  A. Superflows use L_SU->save_button
  A. user-built flows use color_flow.pm->save_button
  
- Q. What are MB1 bindings for colored listboxes
+ Q. What are MB1 bindings for colored listboxes?
+ Q. How are colored flow listboxes selected?
+ Q. how do I select a colored flow listbox?
  
- When MB1 is clicked over a colored listbox flow then that colored flow is selected;
- e.g. 	L_SUV0.X.C,_L_SU_flow_bindings(grey,flow_select); 
- 		L_SU->user_built_flows(flow_select), grey_flow->flow_select
+ When MB1 is clicked over a colored listbox flow (grey, pink, green or blue)
+  then that colored flow is selected;
+ e.g. 	L_SUV0.X.C,_L_SU_flow_bindings(color,flow_select); 
+ 		            L_SU->user_built_flows(flow_select), grey_flow->flow_select
 
 
 Differences between the following packages:
@@ -510,8 +513,10 @@ main,
 		L_SU
 		FileDialog_button (with value 'Flow')
 		
-		
-Opening a Data-type perl file or a user-built 'Flow' involves the following sequence:
+
+Q. What sequence is used to open a Data-type perl file ('Data') or a user-built 'Flow'
+
+A. Opening a Data-type perl file or a user-built 'Flow' involves the following sequence:
 
 main, 
 	FileDialog_button, _L_SU,
@@ -527,7 +532,9 @@ main,
 		   _set_FileDialog2user_built_flow
 		   _user_built_flow_open_data_file ,
 		   or _user_built_flow_open_perl_file, 
+		   
 		   _FileDialog, 
+		   
 		   _user_built_flow_close_data_file,
 		   or _user_built_flow_close_perl_file
 		   
@@ -867,7 +874,7 @@ Q. How does LSU_project_selector create new Project directories?
 							local_update_check_button_setting : for the index of the parameter that was just left
 	                         param_widgets_grey-> local_update_check_button_setting : for the index of the new parameter line that has just been clicked
 	
-	3. via flow_select ( after parsing a perl file via grey_flow->perl_parse->_flow_select)
+	3. via flow_select ( after parsing a perl file via color_flow->perl_parse->_flow_select)
 	
 	i.e., Only after flow_select_button click changes to Entry widget parameter values will be noticed
            
@@ -886,6 +893,10 @@ Q. How does LSU_project_selector create new Project directories?
 	9-27-2018
     What do some of the private variables (hash keys) in spec_files mean?
     
+    Normally the spec values were implemented for stdin and stdout.
+    When the program itself calls files from different directories,
+    if uses prefixes, and suffixes that are defined internally 7.14.21
+    
     Note that if the GUI has  'data_in' as the first program in the flow list
     it will be corrected and placed in the bash script into second position
     e.g. program < data_file instead of data_file > program
@@ -896,13 +907,13 @@ Q. How does LSU_project_selector create new Project directories?
     	par-file parameters are bound to a specific directory, such as 
     	a binary file with parameters. This file does not get directed via stdin or stdout
    		_DATA_DIR_IN		    input data directory , e.g., $DATA_SEISMIC_BIN for sufctanismod
-	 	_DATA_DIR_OUT		    output data directory 
+	 	_DATA_DIR_OUT		  output data directory 
 	 	
 	 	In some situations the key _DATA_DIR_IN can have two or more values within the same program
 	 	e.g. sufctanismod:
 	 	DATA_SEISMIC_BIN and DATA_SEISMIC_SU
 	 	For this cases the defaulted $prefix (in *_specs nodule) that is defined for that particualr index will override
-	 	We solve this by requiring that if a prefix for that index exists, it should be equatl to
+	 	We solve this by requiring that if a prefix for that index exists, it should be equal to
 	 	the value for the key _DATA_DIR_IN and that if it is not the $prefix should be substituted
 	 	and that if there is no $prefix, a warning should be issued.
 	 	Otherwise,
@@ -1287,11 +1298,8 @@ Q. Q. How does a superflow run?:
     gray->pink->green->blue
     
     Q In what sequence are the listboxes filled, after all the listboxes are empty?
-    Only gray listbox wil have its flow sequence completely replaced
+    Only grey listbox wil have its flow sequence completely replaced
     
-    Q. Which module keeps track of which colored listbox is occupied?
-    
-     L_SU, color_listbox
      
     Q.Which program keeps track of the listbox currently in use?
     
@@ -2053,7 +2061,7 @@ Q. In color_flows, how are stored flows updated?
 		flow_item_up_arrow_button
 
 		
- In color_flow, the following use _save_most_recent_param_flow :
+ In color_flow, the following use: _save_most_recent_param_flow :
  
  	FileDialog_button
  	_FileDialog_button
@@ -2215,7 +2223,7 @@ FileDialog_button: handles Data, SaveAs and (perl) Flow (in) is
 recorded sequences of indices during an add2flow (3 times), followed by 
 a deletion (item 3):
 						
-	most_recent = mr  prior=pr index2delete=i  update the indices = u   ( for flow_select_idnex_href)
+	most_recent = mr  prior=pr index2delete=i  update the indices = u   ( for flow_select_index_href)
 	item 1 = index 0;  item 2 = index 1;
 	
 	add2flow:  mr -1 pr -2   item=1   ( indices are the same throughout add2flow)
@@ -2392,6 +2400,7 @@ Q. How are superflow parameters selected in the case of Project
  handled by project_selector gui or by Project_config itself from within the main L_SU gui.
  
  Q. How are dialogs provided to the user?
+ Q. How are error messages conveyed to the user?
  As an example, look at
  L_SU L 402
           $color_listbox->my_dialogs( 'color_listbox', 0 ) 
@@ -2402,9 +2411,12 @@ Q. How are superflow parameters selected in the case of Project
           can be found within the messages folder
           
  Q.. How do I know that a listbox is about to be overwritten?
+ 
 color_listbox
 	my $vacancy = $color_listbox->is_vacant_listbox($future_color);
-	gui_history is a hash that stores common variables that are needed by multiple
+	
+ Q. What is gui_history used for?
+	gui_history is a hash and module of the same name that stores common variables that are needed by multiple
 	programs at once.
 	e.g.,  within conditions4flows we have:
 	conditions4flows->{_occupied_listbox_aref}
@@ -2414,21 +2426,30 @@ color_listbox
 	
 	Q. Where do we set vacancy and occupancy of 'color' listboxes?
 	
-	In color_flow
-		delete_from_flow_button 
-	In L_SU
+	In color_flow:
+		delete_from_flow_button
+		
+	In L_SU:
 	      user_built_flows and FileDialog_button
 	      conditions4flows, set_defaults4delete_whole_flow_button 
 	      gui_history
 	      conditions4big_streams
-	      conditions_gui (reprecated?)
+	      conditions_gui (deprecated? Should be!7.15.21)
 	      
+	 Q. Which module keeps track of which colored listbox is occupied?
+    
+     L_SU, color_listbox
+	 
+	 Q. Where do we check to see whether a flow box is occupied before we can reserve a space?
 	      
 	Q.  What are the extension abbreviations for different types of files, according to their format
 	
 	 text  is usually                       txt
 	 SEG-Y files is usually             sgy
 	 Seismic Unix files is always    su
+	 binary files								bin 
+	 
+	Extra:  "no extension" means go to the PL_SEISMIC directory to search for or deposit files
 	 
 	 
 	 Q. How does L_SU know on which line to put a selected file name in the parameter list?
@@ -2611,3 +2632,20 @@ color_listbox
       
        binding, set, reads program_name_spec->binding_index_aref
       iFile defines what the directory is to search
+      
+      Q. How are output file names selected when writing user-built scripts?
+      
+      files_LSU
+      
+      color_flow
+      
+         FileDialog
+             file_dialog, get_perl_flow_name_in();
+         
+        save_button
+        	files_LSU, set2pl
+               $files_LSU->{_flow_name_out} = $hash_ref->{_flow_name_out};
+               _set_outbound2pl
+                     $files_LSU->{_flow_name_out}
+            files_LSU,save
+           

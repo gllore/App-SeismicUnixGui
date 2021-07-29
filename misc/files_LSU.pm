@@ -17,6 +17,7 @@ package files_LSU;
  changed _private_* to _*
       
 	V 0.0.3 July 24 2018 include data_in, exclude data_out
+	V 0.0.4 7.14.21 sets the flow color
 
 =cut
 
@@ -31,12 +32,13 @@ package files_LSU;
 =cut 
 
 use Moose;
-our $VERSION = '0.0.3';
+our $VERSION = '0.0.4';
+
 use L_SU_global_constants;
 use Project_config;
 my $Project = new Project_config();
 use oop_text;
-use SeismicUnix qw ($su $suffix_su);
+use SeismicUnix qw ($su $suffix_su $txt $suffix_txt);
 
 my $get                          = new L_SU_global_constants();
 my $oop_text                     = new oop_text;
@@ -67,6 +69,7 @@ my $files_LSU = {
 	_PL_SEISMIC              => '',
 	_suffix_type_in          => '',
 	_suffix_type_out         => '',
+	_flow_color              => '',
 	_flow_name_out           => '',
 	_filehandle              => '',
 	_is_config               => $false,
@@ -111,7 +114,7 @@ sub _close {
 
 	#	print("files_L_SU,_close, closing perl file for writing\n");
 
-	return($empty_string);
+	return ($empty_string);
 }
 
 =head2  sub _get_prog_name_config
@@ -130,7 +133,7 @@ sub _get_prog_name_config {
 
 	} else {
 		print("files_LSU,_get_prog_name_config, missing prog_name\n");
-		return($empty_string);
+		return ($empty_string);
 	}
 }
 
@@ -150,7 +153,7 @@ sub _get_PL_SEISMIC {
 
 	} else {
 		print("files_LSU,_get_PL_SEISMIC, missing prog_name\n");
-		return($empty_string);
+		return ($empty_string);
 	}
 }
 
@@ -161,12 +164,12 @@ sub _get_PL_SEISMIC {
 sub _open2write {
 	my ($self) = @_;
 
-	# print("files_L_SU,_open2write, $files_LSU->{_outbound}\n");
+	#	print("files_L_SU,_open2write, $files_LSU->{_outbound}\n");
 
 	open( $files_LSU->{_filehandle}, '>', $files_LSU->{_outbound} )
 		or die("Can't open file name, $!\n");
 
-	return($empty_string);
+	return ($empty_string);
 }
 
 =pod 
@@ -197,7 +200,7 @@ sub _set_PL_SEISMIC {
 	$files_LSU->{_PL_SEISMIC} = $Project->PL_SEISMIC();
 
 	# print("files_LSU, _set_PL_SEISMIC, PL_SEISMIC=$files_LSU->{_PL_SEISMIC}\n");
-	return($empty_string);
+	return ($empty_string);
 
 }
 
@@ -212,7 +215,7 @@ sub _set_data_direction_in {
 	$files_LSU->{_is_data_in} = $true;
 	_set_data();
 
-	return($empty_string);
+	return ($empty_string);
 }
 
 =head2 _set_data_direction_out
@@ -225,7 +228,7 @@ sub _set_data_direction_out {
 	$files_LSU->{_is_data_out} = $true;
 	_set_data();
 
-	return($empty_string);
+	return ($empty_string);
 }
 
 =head2 sub _set_data
@@ -241,24 +244,24 @@ sub _set_data {
 
 	# print("files_LSU,_set_data,is_data: $files_LSU->{_is_data}\n");
 
-	return($empty_string);
+	return ($empty_string);
 }
 
-=head2 sub _set_data_in
-
-
-=cut 
-
-sub _set_data_in {
-
-	my ($self) = @_;
-
-	$files_LSU->{_is_data_in} = $true;
-
-	# print("files_LSU,_set_data_in,is_data_in: $files_LSU->{_is_data}\n");
-
-	return($empty_string);
-}
+#=head2 sub _set_data_in
+#
+#
+#=cut
+#
+#sub _set_data_in {
+#
+#	my ($self) = @_;
+#
+#	$files_LSU->{_is_data_in} = $true;
+#
+#	# print("files_LSU,_set_data_in,is_data_in: $files_LSU->{_is_data}\n");
+#
+#	return($empty_string);
+#}
 
 =head2 sub _set_data_out
 
@@ -274,7 +277,7 @@ sub _set_data_out {
 	# print("files_LSU,_set_data_out,
 	# is_data_out: $files_LSU->{_is_data}\n");
 
-	return($empty_string);
+	return ($empty_string);
 }
 
 =head2  sub _set_prog_name_config
@@ -289,11 +292,11 @@ sub _set_prog_name_config {
 	if ( $files_LSU->{_prog_name_sref} ) {
 
 		$files_LSU->{_prog_name_config} = ${ $files_LSU->{_prog_name_sref} } . '.config';
-		return($empty_string);
+		return ($empty_string);
 
 	} else {
 		print("files_LSU,_set_prog_name_config, missing prog_name_sref \n");
-		return($empty_string);
+		return ($empty_string);
 	}
 }
 
@@ -309,7 +312,7 @@ sub _set_prog_names_aref {
 
 	# print("files_LSU, set_prog_names_aref: $files_LSU->{_prog_names_aref} \n");
 
-	return($empty_string);
+	return ($empty_string);
 }
 
 =head2 sub _set_prog_version_aref 
@@ -325,13 +328,13 @@ sub _set_prog_version_aref {
 	# print("files_LSU,_set_prog_version_aref,versions
 	# @{$files_LSU->{_items_versions_aref}} \n");
 
-	return($empty_string);
+	return ($empty_string);
 }
 
 =head2 sub _set_outbound2pl
 
-       #print("files_LSU,_set_outbound2pl,program_name $files_LSU->{_program_name}\n");
-       #print("files_LSU,_set_outbound2pl,program_name_config $files_LSU->{_program_name_config}\n");
+     print("files_LSU,_set_outbound2pl,program_name $files_LSU->{_program_name}\n");
+     print("files_LSU,_set_outbound2pl,program_name_config $files_LSU->{_program_name_config}\n");
 
 =cut 
 
@@ -339,17 +342,20 @@ sub _set_outbound2pl {
 
 	my ($self) = @_;
 
-	if ( $files_LSU->{_is_pl} ) {
+	if ( length $files_LSU->{_is_pl} 
+	&& length $files_LSU->{_flow_name_out}) {
 
 		# update PL_SEISMIC in case of change
 		my $PL_SEISMIC = _get_PL_SEISMIC();
 		$files_LSU->{_outbound} = $PL_SEISMIC . '/' . $files_LSU->{_flow_name_out};
 
+	} else {
+		print("files_LSU,_set_outbound2pl, missing variables\n");
 	}
 
-#	print("files_LSU,_set_outbound2pl, $files_LSU->{_outbound}\n");
+	#	print("files_LSU,_set_outbound2pl, $files_LSU->{_outbound}\n");
 
-	return($empty_string);
+	return ($empty_string);
 }
 
 =head2 _set_suffix_type_in
@@ -362,7 +368,7 @@ sub _set_suffix_type_in {
 	_set_data();
 	$files_LSU->{_suffix_type_in} = $suffix_type;
 	$files_LSU->{_is_suffix_type} = $true;
-	return($empty_string);
+	return ($empty_string);
 }
 
 =head2 _set_suffix_type_out
@@ -376,7 +382,7 @@ sub _set_suffix_type_out {
 	_set_data();
 	$files_LSU->{_suffix_type_out} = $suffix_type;
 	$files_LSU->{_is_suffix_type}  = $true;
-	return($empty_string);
+	return ($empty_string);
 }
 
 =head2 sub check2write
@@ -420,7 +426,7 @@ sub check2write {
 		print("files_LSU, write_config, unexpected result\n");
 	}
 
-	return($empty_string);
+	return ($empty_string);
 }
 
 =head2 sub copy_default_config
@@ -455,7 +461,7 @@ sub copy_default_config {
 		# print("files_LSU, write_config OK: $files_LSU->{_outbound}\n");
 		print("files_LSU, write_config, configuration file exists; NADA\n");
 	}
-	return($empty_string);
+	return ($empty_string);
 
 }
 
@@ -556,7 +562,7 @@ sub outbound {
 		#		print("files_LSU, outbound,$files_LSU->{_outbound}\n");
 	}
 
-	return($empty_string);
+	return ($empty_string);
 }
 
 =head2 sub outbound2
@@ -613,7 +619,7 @@ sub outbound2 {
 		# print("files_LSU, outbound,$files_LSU->{_outbound2}\n");
 	}
 
-	return($empty_string);
+	return ($empty_string);
 }
 
 =head2 sub set_PL_SEISMIC
@@ -628,7 +634,7 @@ sub set_PL_SEISMIC {
 	my $Project = Project_config->new();
 	$files_LSU->{_PL_SEISMIC} = $Project->PL_SEISMIC();
 
-	return($empty_string);
+	return ($empty_string);
 
 }
 
@@ -643,7 +649,7 @@ sub set_Project_config {
 	$files_LSU->{_is_config}         = $false;
 	$files_LSU->{_is_Project_config} = $true;
 
-	return($empty_string);
+	return ($empty_string);
 }
 
 =head2 set_config
@@ -656,13 +662,14 @@ sub set_config {
 	$files_LSU->{_is_config}         = $true;
 	$files_LSU->{_is_Project_config} = $false;
 
-	return($empty_string);
+	return ($empty_string);
 }
 
 =head2 set_data
 
 		detects and attempts to rectify program order error
 		$oop_text->set_bin_out();
+		Expects suprograms that start with "su" or "uni"
 		
 =cut
 
@@ -676,40 +683,50 @@ sub set_data {
 		if ( $prog_names[$i] eq 'data_in' ) {
 			my $first_2_char = substr( $prog_names[$i], 0, 2 );
 
-			#			if ($first_2_char eq 'da') {
-			#					# print("1. files_LSU,set_data,data_in detected\n");
-			#					# print("1. files_LSU,set_data,flow_item=$i\n");
+			#			if ( $first_2_char eq 'da' ) {
 			#
-			#			else {
-			#					print("files_LSU,set_data,su missing data_in program");
+			#				print("1. files_LSU,set_data,data_in detected\n");
+			#				print("1. files_LSU,set_data,flow_item=$i\n");
+			#
+			#			} else {
+			#				print("files_LSU,set_data,su missing data_in program");
 			#			}
 
 			# 2nd program must exist
 			if ( $num_progs4flow > 1 ) {
 
-				# suprog must follow
+				# suprog can follow
 				my $first_2_char = substr( $prog_names[ ( $i + 1 ) ], 0, 2 );
+				my $first_3_char = substr( $prog_names[ ( $i + 1 ) ], 0, 3 );
+
+				#                print( "files_LSU,set_data, second program name starts with first_2_char =$first_2_char\n");
 
 				if ( $first_2_char eq $su ) {
 
-					# print("1. files_LSU,set_data,su data_in suffix_type");
+					# print("1. files_LSU,set_data,su data_in suffix_type\n");
 					_set_suffix_type_in($su);
+					_set_data_direction_in();
+
+				} elsif ( $first_3_char eq 'uni' ) {
+
+					#				    print("1. files_LSU,set_data, txt data_in suffix_type\n");
+					_set_suffix_type_in($txt);
 					_set_data_direction_in();
 
 				} else {
 
-					# print("N.B.: files_LSU, set_data, missing su suffix type NADA\n");
+					#					print("Warning: files_LSU, set_data, missing su,txt suffix type\n");
 				}
 
 			} else {
 
-				# print("files_LSU,only data and no suffix_type \n");
+				#				print("files_LSU,only data and no suffix_type \n");
 				_set_suffix_type_in($su);    # TODO
 				_set_data_direction_in();
 			}
-		} else {
 
-			# print("1. files_LSU,set_data,program detected\n");
+		} else {
+#			print("1. files_LSU,set_data, acceptable second program detected NADA\n");
 		}
 
 		if ( $prog_names[$i] eq 'data_out' ) {
@@ -731,6 +748,7 @@ sub set_data {
 					_set_suffix_type_out($su);    # TODO
 					_set_data_direction_out();
 				}
+
 			} else {
 
 				# print("files_LSU,only data and no psuffix_typex program\n");
@@ -743,7 +761,26 @@ sub set_data {
 			# NADA print("2. files_LSU,set_data,program detected\n");
 		}
 	}
-	return($empty_string);
+	return ($empty_string);
+}
+
+=head2 sub set_flow_color
+
+=cut 
+
+sub set_flow_color {
+	my ( $self, $flow_color ) = @_;
+
+	if ( length $flow_color ) {
+
+		$files_LSU->{_flow_color} = $flow_color;
+
+#		print("files_LSU, set_flow_color:$files_LSU->{_flow_color}\n");
+
+	} else {
+		print("files_LSU, set_flow_color, missing color\n");
+	}
+	return ($empty_string);
 }
 
 =head2 set_message
@@ -762,7 +799,7 @@ sub set_message {
 	} else {
 		print("files_LSU, set_message, missing message widget \n");
 	}
-	return($empty_string);
+	return ($empty_string);
 }
 
 =head2 set2pl
@@ -773,19 +810,27 @@ sub set_message {
 
 sub set2pl {
 	my ( $self, $hash_ref ) = @_;
-	$files_LSU->{_is_pl}         = $true;
-	$files_LSU->{_flow_name_out} = $hash_ref->{_flow_name_out};
+	$files_LSU->{_is_pl} = $true;
 
-#	print(
-#		"files_LSU,set2pl, is $files_LSU->{_is_pl} \n
-#	self,hash_ref: $self,$hash_ref\n"
-#	);
-#	print(
-#		"files_LSU,set2pl, _flow_name_out is
-#	$hash_ref->{_flow_name_out} \n"
-#	);
+	if ( length $files_LSU->{_flow_color} 
+		&& length $hash_ref) {
+		
+		my $this_color = $files_LSU->{_flow_color};
+		my $_flow_name_out_color = '_flow_name_out_'.$this_color;
+#		print("files_LSU,set2pl, _flow_name_out_color =$_flow_name_out_color \n");
+		$files_LSU->{_flow_name_out} = $hash_ref->{$_flow_name_out_color};
+		
+		#		print(
+		#			"files_LSU,set2pl, is $files_LSU->{_is_pl} \n
+		#		self,hash_ref: $self,$hash_ref\n"
+		#		);
+#		print("files_LSU,set2pl, _flow_name_out =$hash_ref->{$_flow_name_out_color} \n");
 
-	_set_outbound2pl();
+		_set_outbound2pl();
+		
+	} else {
+			print("files_LSU,set2pl, missing flow color assignment/hash ref \n");
+	}
 
 	return ($empty_string);
 }
@@ -848,7 +893,7 @@ sub set_outbound {
 		# print("files_LSU,set_outbound,$files_LSU->{_outbound}\n");
 	}
 
-	return($empty_string);
+	return ($empty_string);
 }
 
 =head2 sub set_outbound2
@@ -902,7 +947,7 @@ sub set_outbound2 {
 		# print("files_LSU,set_outbound,$files_LSU->{_outbound}\n");
 	}
 
-	return($empty_string);
+	return ($empty_string);
 }
 
 =head2 sub set_items_versions_aref
@@ -918,7 +963,7 @@ sub set_items_versions_aref {
 	# print("files_LSU,set_items_versions_aref,
 	#	   @{$files_LSU->{_items_versions_aref}}\n");
 
-	return($empty_string);
+	return ($empty_string);
 }
 
 =head2 sub set_prog_param_values_aref2
@@ -930,7 +975,7 @@ sub set_prog_param_values_aref2 {
 	my ( $self, $hash_aref2 ) = @_;
 	$files_LSU->{_prog_param_values_aref2} = $hash_aref2->{_good_values_aref2};
 
-	return($empty_string);
+	return ($empty_string);
 }
 
 =head2 sub set_prog_param_labels_aref2
@@ -959,7 +1004,7 @@ sub set_prog_param_labels_aref2 {
 
 	$files_LSU->{_prog_param_labels_aref2} = $hash_aref2->{_good_labels_aref2};
 
-	return($empty_string);
+	return ($empty_string);
 }
 
 =head2 sub set_prog_names_aref
@@ -975,11 +1020,11 @@ sub set_prog_name_sref {
 		$files_LSU->{_prog_name_sref} = $sref;
 
 		# print("files_LSU, set_prog_name_sref, prog_name:${$files_LSU->{_prog_name_sref}}\n");
-		return($empty_string);
+		return ($empty_string);
 
 	} else {
 		print("files_LSU, set_prog_name_sref, prog name missing\n");
-		return($empty_string);
+		return ($empty_string);
 	}
 }
 
@@ -995,7 +1040,7 @@ sub set_prog_names_aref {
 
 	# print("files_LSU, set_prog_names_aref, prog_names:@{$files_LSU->{_prog_names_aref}}\n");
 
-	return($empty_string);
+	return ($empty_string);
 }
 
 =head2 sub set_superflow_specs 
@@ -1102,7 +1147,7 @@ sub set_superflow_specs {
 		print("files_LSU,set_superflow_specs, missing hash_ref or prog_name_sref\n");
 	}
 
-	return($empty_string);
+	return ($empty_string);
 }
 
 =head2 sub sizes 
@@ -1328,7 +1373,7 @@ sub save {
 	_set_prog_names_aref();
 	_set_prog_version_aref();    # already collected in sub set_data
 
-	# print("files_LSU, save, is data:$files_LSU->{_is_data}\n");
+	#	print("files_LSU, save, is data:files_LSU->{_is_data}?:$files_LSU->{_is_data}\n");
 
 	# for suffix type
 	$oop_text->set_data_io_L_SU($files_LSU);    # already collected in sub set_data;
@@ -1338,7 +1383,7 @@ sub save {
 	$oop_text->set_num_progs4flow( $files_LSU->{_prog_names_aref} );
 	my $num_progs4flow = scalar @{ $files_LSU->{_prog_names_aref} };
 
-	# print("\nfiles_LSU,save,num_progs4flow: $num_progs4flow\n");
+#	print("\nfiles_LSU,save,num_progs4flow: $num_progs4flow\n");
 
 	# principal documentation for the program
 	$oop_text->pod_header();
@@ -1369,10 +1414,12 @@ sub save {
 				my $file_name = $params[0];
 				$oop_text->set_file_name_in($file_name);
 
-				#				print("1. files_LSU_ save, prog_name=$prog_name\n");
+				print("1. files_LSU_ save, prog_name=$prog_name\n");
 
 			} else {
-				print("2. files_LSU, save, missing,files_LSU->{_is_data_in}\n ");
+
+				#				print("2. files_LSU, save, missing,files_LSU->{_is_data_in}=$files_LSU->{_is_data_in}\n ");
+				#				print("2. files_LSU, save, missing, we have data\n ");
 			}    # we have data
 		}
 
@@ -1384,15 +1431,15 @@ sub save {
 				my @params    = @{ @{ $files_LSU->{_prog_param_values_aref2} }[$j] };
 				my $file_name = $params[0];
 				$oop_text->set_file_name_out($file_name);
-				print("2. files_LSU_ save, prog_name=$prog_name\n");
+#				print("2. files_LSU_ save, prog_name=$prog_name\n");
 
 			}
 		}
 	}
 
 	# print $files_LSU->{_filehandle}  'here\n';
-	# pod_instantiation();
-	# instantiation();
+	#	# pod_instantiation();
+	#	# instantiation();
 
 	# declare programs and their parameters
 	for ( my $j = 0; $j < $num_progs4flow; $j++ ) {

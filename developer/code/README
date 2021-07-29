@@ -1,0 +1,33 @@
+=head2 Instructions
+
+=cut 
+
+
+=head3  In order to create an su module for
+incorporation into L_SU 
+
+ you will need access to the self-instructions of the
+ seismic unix module, which I find in:
+  /usr/local/pl/L_SU/developer/Stripped/'group of programs'
+where 'group of programs' is a generic type of programs, e.g.
+modeling programs are found within the folder called:
+'model'
+
+ 1. modify the following:
+
+  sudoc2pm.pl
+
+  by adding lines, such as the following:
+  
+ e.g., group=8 is the group of modeling
+ programs whose readme files are 
+ found in ~developer/Stripped/model
+ 
+   my $group_no = 8;  
+   my $selected_program_name = 'sufctanismod';
+
+ 2. run the following:
+
+  perl sudoc2pm.pl ( under ~L_SU)
+
+=cut

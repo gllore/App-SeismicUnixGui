@@ -8,7 +8,7 @@ use Moose;
 
 my @use;
 $use[0] = "\t" . 'use Moose;' . "\n";
-$use[1] = "\t" . 'use SeismicUnix qw ($in $out $on $go $to $suffix_ascii $off $suffix_su $suffix_bin);' . "\n";
+$use[1] = "\t" . 'use SeismicUnix qw ($in $out $on $go $to $suffix_ascii $off $suffix_su $suffix_txt $suffix_bin);' . "\n";
 $use[2] = "\t" . 'use Project_config;' . "\n\n";
 $use[3] = "\t" . 'my $Project' . "\t\t" . '= new Project_config();' . "\n";
 $use[4] = "\t" . 'my $DATA_SEISMIC_SU' . "\t" . '= $Project->DATA_SEISMIC_SU;' . "\n";

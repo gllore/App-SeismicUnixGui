@@ -64,8 +64,23 @@ sub binding_index_aref {
 
     my @index;
 
-    $index[0] = 0;
-
+	# first binding index (0)
+	# connects to 4th item (index=3)
+	# in the parameter list
+	
+	$index[0]  = 4;     # item is  bound to _DATA_DIR_IN
+	$index[1]  =5;     # item is  bound to _DATA_DIR_IN
+	$index[2] = 6;    # item is  bound to _DATA_DIR_IN
+	$index[3] = 7;    # item is  bound to _DATA_DIR_IN
+	$index[4] = 8;    # item is  bound to _DATA_DIR_IN
+	$index[5] = 9;    # item is  bound to _DATA_DIR_IN
+	$index[6] = 17;    # item is  bound to prefix
+	$index[7] = 23;    # item is  bound to prefix
+	$index[8] = 26;    # item is  bound to prefix
+	$index[9] = 29;    # item is  bound to _DATA_DIR_IN
+	$index[67] = 30;    # item is  bound to _DATA_DIR_IN
+	$index[68] = 37;    # item is  bound to _DATA_DIR_IN
+	
     $suea2df_spec->{_binding_index_aref} = \@index;
     return ();
 

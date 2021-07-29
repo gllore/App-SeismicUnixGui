@@ -97,7 +97,7 @@ sub _get_DATA_DIR_IN {
 
 		my $alias_prog_name = _get_prog_name();
 		$prog_name = $alias_superflow_spec_names_h->{$alias_prog_name};
-		print("iFile,_get_DATA_DIR_IN, my unaliased program = $prog_name\n");
+#		print("iFile,_get_DATA_DIR_IN, my unaliased program = $prog_name\n");
 
 	} elsif ( $iFile->{_flow_type} eq $flow_type_href->{_user_built} ) {
 
@@ -288,7 +288,7 @@ sub get_Data_path {
 
 #	print("iFile, get_Data_path, parameter label or name = $entry_label\n");
 #	print("iFile, Data_File,get_Data_path, base_file_name  = $base_file_name\n");
-	print("iFile,get_Data_path,flow_type =$iFile->{_flow_type}\n");
+#	print("iFile,get_Data_path,flow_type =$iFile->{_flow_type}\n");
 
 	my $Project                   = new Project_config();
 	my $DATA_SEISMIC_BIN          = $Project->DATA_SEISMIC_BIN();
@@ -421,7 +421,7 @@ sub get_Data_path {
 
 			$iFile->{_path} = _get_DATA_DIR_IN;
 
-			print("CASE 1B.3 iFile,get_Data_path, DATA_DIR_IN= $iFile->{_path}\n");
+#			print("CASE 1B.3 iFile,get_Data_path, DATA_DIR_IN= $iFile->{_path}\n");
 
 		} elsif ( $entry_label eq $empty_string ) {
 
@@ -435,7 +435,7 @@ sub get_Data_path {
 
 			# CASE 1B.5
 			$iFile->{_path} = $default_path;
-			print("CASE1B.5 iFile,get_Data_path, entry_label is empty \n");
+#			print("CASE1B.5 iFile,get_Data_path, entry_label is empty \n");
 
 			# print("iFile,get_path,path=$iFile->{_path}\n");
 			# print("iFile, get_Data_path, entry label is neither base_file_name (i.e. without suffix) nor fileX \n");
@@ -449,7 +449,7 @@ sub get_Data_path {
 			# first label/name = 'base_file_name
 			# and second label/name  = 'type',
 			# and second (index=1) entry value = 'su', 'segy' etc.
-			print("CASE 2A.1: iFile,get_Data_path, $DATA_SEISMIC_SU\n");
+#			print("CASE 2A.1: iFile,get_Data_path, $DATA_SEISMIC_SU\n");
 			$iFile->{_path} = _get_DATA_DIR_IN();
 
 		} elsif ( $entry_label ne $empty_string
@@ -487,7 +487,7 @@ sub get_Data_path {
 
 	my $result = $iFile->{_path};
 
-	print("2. iFile,get_Data_path,result=$iFile->{_path}\n");
+#	print("2. iFile,get_Data_path,result=$iFile->{_path}\n");
 	return ($result);
 }
 
@@ -664,7 +664,7 @@ sub get_prog_name_href {
 		$length     = scalar(@names);
 		$first_name = $hash_ref->{_selected_first_name};
 
-		print("iFile,get_prog_name_href,first_name=$first_name\n");
+#		print("iFile,get_prog_name_href,first_name=$first_name\n");
 
 		for ( my $i = 0; $i < $length; $i++ ) {
 			if ( $names[$i] eq $first_name ) {
@@ -672,7 +672,7 @@ sub get_prog_name_href {
 			}
 		}
 		$program_name = $names[$ans];
-		print("iFile,get_prog_name,superflow name = $names[$ans]\n");
+#		print("iFile,get_prog_name,superflow name = $names[$ans]\n");
 	}
 	return ($program_name);
 }
@@ -707,7 +707,7 @@ sub get_prog_name_s {
 			}
 		}
 		if ($program_name) {
-			print("iFile,get_prog_name_s,superflow name = $program_name\n");
+#			print("iFile,get_prog_name_s,superflow name = $program_name\n");
 		} else {
 			print("iFile,get_prog_name_s,superflow name = NO MATCH\n");
 		}
@@ -782,7 +782,7 @@ sub set_dialog_type_h {
 
 		$iFile->{_dialog_type} = $href->{_dialog_type};
 
-		print("iFile, set_dialog_type, dialog_type=$iFile->{_dialog_type} \n");
+#		print("iFile, set_dialog_type, dialog_type=$iFile->{_dialog_type} \n");
 
 	} else {
 		print("iFile, set_dialog_type, missing dialog_type\n");
@@ -855,7 +855,7 @@ sub set_parameter_value_index {
 
 	if ( defined $hash_ref ) {
 
-		print("iFile,set_parameter_value_index, index=$hash_ref->{_parameter_value_index}----\n");
+#		print("iFile,set_parameter_value_index, index=$hash_ref->{_parameter_value_index}----\n");
 
 		if ( $hash_ref->{_parameter_value_index} ne $empty_string ) {
 

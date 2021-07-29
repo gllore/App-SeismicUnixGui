@@ -342,8 +342,7 @@ sub get_inbound {
 		return ($inbound);
 	}
 	else {
-
-		print("data_out, missing: suffix_type, base file name  \n");
+		print("data_out, missing: suffix_type, base file name . Assume that is what the user wants NADA\n");
 	}
 }
 

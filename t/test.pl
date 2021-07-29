@@ -52,6 +52,7 @@ Testing is broken into steps:
 =head2 CHANGES and their DATES
 
 V0.0.2 Add documentation 7.12.21
+V 0.0.3 Add switches on 7.13.21
 
 =cut 
 
@@ -60,7 +61,7 @@ V0.0.2 Add documentation 7.12.21
 =cut
 
 use Moose;
-our $VERSION = '0.0.2';
+our $VERSION = '0.0.3';
 use L_SU_global_constants;
 
 use lib '.';

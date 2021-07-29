@@ -43,7 +43,7 @@ use param_widgets;
 use project_selector;
 use message_director;
 my $project_selector = project_selector->new();
-my $get              = new L_SU_global_constants();    #$
+my $get              = new L_SU_global_constants();
 my $param_widgets    = param_widgets->new();
 my $message_director = message_director->new();
 
@@ -87,7 +87,7 @@ my $L_SU_project_selector = {
 	_check_buttons_w_aref => '',
 	_mw                   => '',
 	_create_new_button    => '',
-	_prog_name		=> 'Project',
+	_prog_name            => 'Project',
 };
 
 =head2 Main Window contains
@@ -104,6 +104,7 @@ my $L_SU_project_selector = {
 $mw = MainWindow->new;
 $mw->geometry( $var->{project_selector_box_position} );
 $mw->resizable( 0, 0 );    #not resizable in either width or height
+
 #$mw->focusFollowsMouse;
 $L_SU_project_selector->{_mw}                = $mw;
 $L_SU_project_selector->{_param_widgets_pkg} = $param_widgets;
@@ -203,7 +204,7 @@ my $ok_button = $buttons_frame->Button(
 	-state            => 'normal',
 	-command          => [ \&_project_selector, 'ok', 1 ],
 );
-	
+
 my $cancel_button = $buttons_frame->Button(
 	-text             => 'Cancel',
 	-font             => $arial,
@@ -387,14 +388,13 @@ controls the following actions:
 sub _project_selector {
 	my ( $set_method, $value ) = @_;
 
-	if ( $set_method && $value ) {
-
+	if ( length $set_method && length $value ) {
+		
+#		print("main,_project_selector,method:$set_method, value:$value\n");
+		
 		$project_selector->$set_method($value);
 
-		# print("main,_project_selector,method:$set_method, value:$value\n");
-
-	}
-	else {
+	} else {
 		print("_project_selector,no method: $set_method error 1,\n");
 	}
 

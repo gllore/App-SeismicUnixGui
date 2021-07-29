@@ -247,23 +247,17 @@ sub _Run_user_built_flow {
 
 	# print("1 run_button,_Run_user_built_flow is_last_parameter_index_touched_color:	$run_button->{_is_last_parameter_index_touched_color} \n");
 	# replace conditions_gui with gui_history which internally refers to the correct conditions_gui
-#	$conditions_gui->set_hash_ref($run_button);       # used 35 / 80 in
-#	$conditions_gui->set_gui_widgets($run_button);    # used 23 / 80  in
-#	$conditions_gui->set4start_of_run_button();       # 1 set, out of 59
 	$gui_history->set_hash_ref($run_button);
-#	$gui_history->set_gui_widgets($run_button);
 	$gui_history->set4start_of_run_button();
 	
-													  #$L_SU				= $conditions_gui->get4start_of_run_button(); 51 out
-	$run_button = $gui_history->get_hash_ref();    # returns 89
+	$run_button = $gui_history->get_hash_ref();  
 	 # print("2 run_button,_Run_user_built_flow is_last_parameter_index_touched_color:	$run_button->{_is_last_parameter_index_touched_color} \n");
 
 	# tests whether has_used_Save OR has_used_SaveAs
 	# must be: has_used_Save AND has_used_SaveAs  OR has_used_SaveAs but NOT only has_used_Save
-	$decisions->set4run_select($run_button);          # 2 set
-	my $pre_req_ok = $decisions->get4run_select();    # 2 tested
-													  #$whereami				->in_gui();
-		# print("run_button,_Run_user_built_flow, program name is $run_button->{_has_used_SaveAs_button}\n");
+	$decisions->set4run_select($run_button);
+	my $pre_req_ok = $decisions->get4run_select(); 
+	# print("run_button,_Run_user_built_flow, program name is $run_button->{_has_used_SaveAs_button}\n");
 
 	# must have saved files already
 	if ($pre_req_ok) {
@@ -281,6 +275,7 @@ sub _Run_user_built_flow {
 		my $ok2run = $true;
 
 		if ($ok2run) {
+			
 			my $run_name = $run_button->{_flow_name_out};
 			use Project_config;
 			my $Project    = Project_config->new();
@@ -415,79 +410,6 @@ sub get_all_hash_ref {
 	}
 }
 
-#=head2 sub set_gui_widgets
-#
-#	bring it important widget addresses
-#	42
-#	
-#	make convenient locat shorter names for 9
-#	
-#=cut
-#
-#sub set_gui_widgets {
-#	my ( $self, $gui_widgets ) = @_;
-#
-#	if ($gui_widgets) {
-#
-#		$run_button->{_Data_menubutton}               = $gui_widgets->{_Data_menubutton};
-#		$run_button->{_Flow_menubutton}               = $gui_widgets->{_Flow_menubutton};
-#		$run_button->{_add2flow_button_grey}          = $gui_widgets->{_add2flow_button_grey};
-#		$run_button->{_add2flow_button_pink}          = $gui_widgets->{_add2flow_button_pink};
-#		$run_button->{_add2flow_button_green}         = $gui_widgets->{_add2flow_button_green};
-#		$run_button->{_add2flow_button_blue}          = $gui_widgets->{_add2flow_button_blue};
-#		$run_button->{_check_code_button}             = $gui_widgets->{_check_code_button};
-#		$run_button->{_check_buttons_w_aref}          = $gui_widgets->{_check_buttons_w_aref};
-#		$run_button->{_delete_from_flow_button}       = $gui_widgets->{_delete_from_flow_button};
-#		$run_button->{_dnd_token_grey}                = $gui_widgets->{_dnd_token_grey};
-#		$run_button->{_dnd_token_pink}                = $gui_widgets->{_dnd_token_pink};
-#		$run_button->{_dnd_token_green}               = $gui_widgets->{_dnd_token_green};
-#		$run_button->{_dnd_token_blue}                = $gui_widgets->{_dnd_token_blue};
-#		$run_button->{_dropsite_token_grey}           = $gui_widgets->{_dropsite_token_grey};
-#		$run_button->{_dropsite_token_pink}           = $gui_widgets->{_dropsite_token_pink};
-#		$run_button->{_dropsite_token_green}          = $gui_widgets->{_dropsite_token_green};
-#		$run_button->{_dropsite_token_blue}           = $gui_widgets->{_dropsite_token_blue};
-#		$run_button->{_file_menubutton}               = $gui_widgets->{_file_menubutton};
-#		$run_button->{_flow_color}                    = $gui_widgets->{_flow_color};
-#		$run_button->{_flow_item_down_arrow_button}   = $gui_widgets->{_flow_item_down_arrow_button};
-#		$run_button->{_flow_item_up_arrow_button}     = $gui_widgets->{_flow_item_up_arrow_button};
-#		$run_button->{_flow_listbox_grey_w}           = $gui_widgets->{_flow_listbox_grey_w};
-#		$run_button->{_flow_listbox_pink_w}           = $gui_widgets->{_flow_listbox_pink_w};
-#		$run_button->{_flow_listbox_green_w}          = $gui_widgets->{_flow_listbox_green_w};
-#		$run_button->{_flow_listbox_blue_w}           = $gui_widgets->{_flow_listbox_blue_w};
-#		$run_button->{_flow_listbox_color_w}          = $gui_widgets->{_flow_listbox_color_w};
-#		$run_button->{_flow_name_grey_w}              = $gui_widgets->{_flow_name_grey_w};
-#		$run_button->{_flow_name_pink_w}              = $gui_widgets->{_flow_name_pink_w};
-#		$run_button->{_flow_name_green_w}             = $gui_widgets->{_flow_name_green_w};
-#		$run_button->{_flow_name_blue_w}              = $gui_widgets->{_flow_name_blue_w};
-#		$run_button->{_flowNsuperflow_name_w}         = $gui_widgets->{_flowNsuperflow_name_w};
-#		$run_button->{_flow_widget_index}             = $gui_widgets->{_flow_widget_index};
-#		$run_button->{_labels_w_aref}                 = $gui_widgets->{_labels_w_aref};
-#		$run_button->{_message_w}                     = $gui_widgets->{_message_w};
-#		$run_button->{_mw}                            = $gui_widgets->{_mw};
-#		$run_button->{_parameter_values_frame}        = $gui_widgets->{_parameter_values_frame};
-#		$run_button->{_parameter_values_button_frame} = $gui_widgets->{_parameter_values_button_frame};
-#		$run_button->{_parameter_value_index}         = $gui_widgets->{_parameter_value_index};
-#		$run_button->{_run_button}                    = $gui_widgets->{_run_button};
-#		$run_button->{_save_button}                   = $gui_widgets->{_save_button};
-#		$run_button->{_values_aref}                   = $gui_widgets->{_values_aref};
-#		$run_button->{_values_w_aref}                 = $gui_widgets->{_values_w_aref};
-#
-##		$mw                     = $run_button->{_mw};
-#		$parameter_values_frame = $run_button->{_parameter_values_frame};
-#		$parameter_value_index  = $run_button->{_parameter_value_index};
-#		$values_aref            = $run_button->{_values_aref};
-#		$flow_listbox_grey_w    = $run_button->{_flow_listbox_grey_w};
-#		$flow_listbox_pink_w    = $run_button->{_flow_listbox_pink_w};
-#		$flow_listbox_green_w   = $run_button->{_flow_listbox_green_w};
-#		$flow_listbox_blue_w    = $run_button->{_flow_listbox_blue_w};
-#
-#		# print("run_button, set_gui_widgets	parameter_values_frame: $parameter_values_frame\n");
-#	} else {
-#
-#		print("run_button, set_gui_widgets, missing gui_widgets\n");
-#	}
-#	return ();
-#}
 
 =head2 sub set_flow_type
 
@@ -543,9 +465,10 @@ sub set_flow_name_out {
 	my ( $self, $name ) = @_;
 
 	if ($name) {
+		
 		$run_button->{_flow_name_out} = $name;
 
-		# print("run_button, set_flow_name_out, $run_button->{_flow_name_out}\n");
+#		print("run_button, set_flow_name_out, $run_button->{_flow_name_out}\n");
 
 	} else {
 		print("run_button, set_flow_name_out, missing name\n");

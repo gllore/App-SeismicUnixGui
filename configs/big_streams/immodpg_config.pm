@@ -112,7 +112,7 @@ if ( $manage_files_by2->does_file_exist( \$inbound_config ) ) {
 } elsif ( not $manage_files_by2->does_file_exist( \$inbound_config ) ) {
 
 	# print("immodpg_config, missing immodpg config file\n");
-	use files_LSU;
+	use files_LSU;;
 	my $files_LSU = files_LSU->new();
 
 	$files_LSU->set_config();

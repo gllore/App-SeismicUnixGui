@@ -53,36 +53,38 @@ my $gui_history = gui_history->new();
 
 =cut
 
-my $var          = $get->var();
-my $on           = $var->{_on};
-my $true         = $var->{_true};
-my $false        = $var->{_false};
-my $empty_string = $var->{_empty_string};
+my $var                       = $get->var();
+my $empty_string              = $var->{_empty_string};
+my $color_default             = $var->{_color_default};
+my $reservation_color_default = $var->{_reservation_color_default};
+my $false                     = $var->{_false};
+my $no                        = $var->{_no};
+my $true                      = $var->{_true};
 
 =head2 Defaults
 
 =cut
 
-my $color_start                     = 'grey';
-my $occupied_start                  = $false;
-my $future_occupied_start           = $false;
-my $vacant_start                    = $true;
-my $future_vacancy_start            = $false;
-my $flow_listbox_color_start        = $color_start;
-my $flow_listbox_color2check_start  = $color_start;
-my $future_flow_listbox_color_start = $color_start;
-my $yes                             = $var->{_yes};
-my $no                              = $var->{_no};
-my $dialog_box_ok_default           = $no;
-my $dialog_box_cancel_default       = $no;
-my $dialog_box_click_default        = $no;
-my $my_dialog_box_click_start        = $no;
-my $my_dialog_cancel_click_start    = $no;
-my $my_dialog_ok_click_start        = $no;
-
+my $availability_start                   = $false;
+my $color_start                          = $color_default;
+my $my_dialog_box_cancel_default         = $no;
+my $my_dialog_box_click_default          = $no;
+my $my_dialog_box_ok_default             = $no;
+my $my_dialog_box_click_start            = $no;
+my $my_dialog_cancel_click_start         = $no;
+my $my_dialog_ok_click_start             = $no;
+my $flow_listbox_color_start             = $color_default;
+my $flow_listbox_color2check_start       = $color_default;
+my $future_occupied_start                = $false;
+my $future_vacancy_start                 = $false;
+my $future_flow_listbox_color_start      = $color_default;
+my $occupied_start                       = $false;
+my $flow_listbox_color_reservation_start = $reservation_color_default;
+my $vacant_start                         = $true;
+my $yes                                  = $var->{_yes};
 
 # initialization only
-# must be populated fromt he outside via set_hash_ref
+# must be populated fromt  the outside via set_hash_ref
 my $color_listbox_href = $gui_history->get_defaults();
 
 =head2 private anonymous array
@@ -91,26 +93,26 @@ my $color_listbox_href = $gui_history->get_defaults();
 
 my $color_listbox = {
 	_is_flow_listbox_color_available => '',
-	_is_flow_listbox_blue_w       => '',
-	_is_flow_listbox_green_w      => '',
-	_is_flow_listbox_grey_w       => '',
-	_is_flow_listbox_pink_w       => '',
-	_is_future_flow_listbox_blue  => '',
-	_is_future_flow_listbox_color => '',
-	_is_future_flow_listbox_green => '',
-	_is_future_flow_listbox_grey  => '',
-	_is_future_flow_listbox_pink  => '',
-	_my_dialog_cancel_click       => $dialog_box_cancel_default,
-	_my_dialog_box_click          => $dialog_box_click_default,
-	_my_dialog_ok_click => $dialog_box_ok_default,
-	_this_package            => '',
+	_is_flow_listbox_blue_w          => '',
+	_is_flow_listbox_green_w         => '',
+	_is_flow_listbox_grey_w          => '',
+	_is_flow_listbox_pink_w          => '',
+	_is_future_flow_listbox_blue     => '',
+	_is_future_flow_listbox_color    => '',
+	_is_future_flow_listbox_green    => '',
+	_is_future_flow_listbox_grey     => '',
+	_is_future_flow_listbox_pink     => '',
+	_my_dialog_cancel_click          => $my_dialog_box_cancel_default,
+	_my_dialog_box_click             => $my_dialog_box_click_default,
+	_my_dialog_ok_click              => $my_dialog_box_ok_default,
+	_this_package                    => '',
 };
 
 sub BUILD {
 	my ($this_package_address) = @_;
-	
+
 	$color_listbox->{_this_package} = $this_package_address;
-	
+
 }
 
 #print("2. color_listbox, color_listbox->{_my_dialog_box_click}=$color_listbox->{_my_dialog_box_click}\n");
@@ -123,6 +125,30 @@ containing history
 =head2 initialize arrays
 
 =cut
+
+=head2 sub _default_flow_listbox_color_availability_aref 
+
+Initialize array of listbox availability across an array
+of colored listboxes
+indicators show whether listbox may be available.
+
+=cut
+
+sub _default_flow_listbox_color_availability_aref {
+
+	my ($self) = @_;
+
+	my @availability_listbox_color = (
+		$availability_start,
+		$availability_start,
+		$availability_start,
+		$availability_start
+	);
+
+	my $flow_listbox_color_availability_aref = \@availability_listbox_color;
+	return ($flow_listbox_color_availability_aref);
+
+}
 
 =head2 sub default_future_occupied_listbox_aref
 
@@ -219,8 +245,21 @@ sub _default_vacant_listbox_aref {
 }
 
 =head2 Declare attributes
+Check hat empty flows are marked vacant.
+Mark occupied and vacant flows as available
+for occupation or reoccupation, (potentially)
 
 =cut
+
+has 'flow_listbox_color_availability_aref' => (
+	default => \&_default_flow_listbox_color_availability_aref,
+	is      => 'ro',
+	isa     => 'ArrayRef',
+	reader  => 'get_flow_listbox_color_availability_aref',
+	writer  => 'set_flow_listbox_color_availability_aref',
+	trigger => \&_update_flow_listbox_color_availability_aref,
+
+);
 
 has 'flow_listbox_color2check' => (
 	default => $flow_listbox_color2check_start,
@@ -257,9 +296,9 @@ has 'flow_listbox_occupancy_aref' => (
 	reader    => 'get_flow_listbox_occupancy_aref',
 	writer    => 'set_flow_listbox_occupancy_aref',
 	predicate => 'has_flow_listbox_occupancy_aref',
+
 	# trigger method is not in use
 );
-
 
 has 'flow_listbox_vacancy_color' => (
 	default   => $color_start,
@@ -277,6 +316,7 @@ has 'flow_listbox_vacancy_aref' => (
 	isa       => 'ArrayRef',
 	reader    => 'get_flow_listbox_vacancy_aref',
 	predicate => 'has_flow_listbox_vacancy_aref',
+
 	# trigger method is not in use
 );
 
@@ -302,7 +342,8 @@ has my_dialog_ok_click => (
 	isa     => 'Str',
 	reader  => 'get_my_dialog_ok_click',
 	writer  => 'set_my_dialog_ok_click',
-#	trigger => \&_update_my_dialog_ok_click,
+
+	#	trigger => \&_update_my_dialog_ok_click,
 );
 
 has my_dialog_box_click => (
@@ -311,6 +352,17 @@ has my_dialog_box_click => (
 	isa     => 'Str',
 	reader  => 'get_my_dialog_box_click',
 	writer  => 'set_my_dialog_box_click',
+);
+
+has 'flow_listbox_color_reservation' => (
+	default => $flow_listbox_color_reservation_start,
+	is      => 'ro',
+	isa     => 'Str',
+	reader  => 'get_flow_listbox_color_reservation',
+	writer  => 'set_flow_listbox_color_reservation',
+
+	#	trigger => \&_update_flow_listbox_color_reservation
+
 );
 
 =head2  sub _flow_listbox_color2check
@@ -516,9 +568,10 @@ sub _set_message_box_ok_click {
 
 sub _set_my_dialog_box_click {
 	my ($ans) = @_;
-    my $self = shift;
+	my $self = shift;
 	$color_listbox->{_my_dialog_box_click} = $ans;
 	$color_listbox->{_this_package}->set_my_dialog_box_click($ans);
+
 	#	print("color_listbox,_set_my_dialog_box_click ,color_listbox->{_my_dialog_box_click} = $ans \n");
 }
 
@@ -530,7 +583,7 @@ sub _set_my_dialog_ok_click {
 	my ($ans) = @_;
 
 	$color_listbox->{_my_dialog_ok_click} = $ans;
-	($color_listbox->{_this_package})->set_my_dialog_ok_click($ans);
+	( $color_listbox->{_this_package} )->set_my_dialog_ok_click($ans);
 
 	#	print("color_listbox,_set_my_dialog_ok_click ,color_listbox->{_my_dialog_ok_click} = $ans \n");
 }
@@ -543,7 +596,8 @@ sub _set_my_dialog_cancel_click {
 	my ($ans) = @_;
 
 	$color_listbox->{_my_dialog_cancel_click} = $ans;
-	($color_listbox->{_this_package})->set_my_dialog_cancel_click($ans);
+	( $color_listbox->{_this_package} )->set_my_dialog_cancel_click($ans);
+
 	#	print("color_listbox,_set_message_box_cancel_click ,color_listbox->{_my_dialog_cancel_click} = $ans \n");
 }
 
@@ -586,12 +640,124 @@ sub _set_shared_wait2 {
 
 	my $cancel_click  = &_get_my_dialog_cancel_click();
 	my $my_dialog_box = $color_listbox_href->{_my_dialog_box_w};
-#	print("color_listbox_set_shared_wait2,cancel_click=$cancel_click \n");
+
+
+	#	print("color_listbox_set_shared_wait2,cancel_click=$cancel_click \n");
 	&_hide_dialog_box($my_dialog_box);
 
 	return ();
 }
 
+=head2 sub set_flow_listbox_availability
+
+Update which listboxes (colors)  are possibly available
+for re-occupancy
+Also make sure that occupied listboxes are not empty
+
+=cut
+
+sub set_flow_listbox_availability {
+
+	my ($self) = @_;
+
+    my @listbox_colors           = ("grey", "pink","green", "blue");
+	my $number_of_listboxes = scalar @listbox_colors;
+	my @number_of_programs;
+	my @listbox_color_w;
+
+	# all color listboxes are potentially available !!
+	my @listbox_availability = (1, 1, 1, 1 );
+    $color_listbox->{flow_listbox_color_availability_aref} = \@listbox_availability ;
+
+	my $color_listbox    = $color_listbox->{_this_package};
+	my @vacant_listbox   = @{ $color_listbox->get_flow_listbox_vacancy_aref() };
+	my @occupied_listbox = @{ $color_listbox->get_flow_listbox_occupancy_aref() };
+	$color_listbox->{flow_listbox_color_availability_aref} = \@listbox_availability;
+
+	$listbox_color_w[0] = $color_listbox_href->{_flow_listbox_grey_w};
+	$listbox_color_w[1] = $color_listbox_href->{_flow_listbox_pink_w};
+	$listbox_color_w[2] = $color_listbox_href->{_flow_listbox_green_w};
+	$listbox_color_w[3] = $color_listbox_href->{_flow_listbox_blue_w};
+	
+#	print("color_listbox,listbox_color_w= @listbox_color_w\n"); #widgets
+print("color_listbox, number_of_listboxes = $number_of_listboxes\n"); #widgets
+
+	for ( my $i = 0; $i < $number_of_listboxes; $i++ ) {
+
+		$number_of_programs[$i] = ( $listbox_color_w[0] )->size();
+
+		if ( $number_of_programs[$i] == 0 ) {
+
+			$occupied_listbox[$i] = $false;
+			$vacant_listbox[$i]   = $true;
+
+		} elsif ( $number_of_programs[$i] > 0 ) {
+
+			$occupied_listbox[$i] = $true;
+			$vacant_listbox[$i]   = $false;
+
+		} else {
+			print("color_listbox,listbox_color_w, unexpected result\n");
+		}
+
+	}
+
+	print("color_listbox, _set_flow_listbox_availability, occupied = @occupied_listbox\n");
+	print("color_listbox, _set_flow_listbox_availability, vacant = @vacant_listbox\n");
+
+	return ();
+
+}
+
+#=head2 sub _update_flow_listbox_color_availability_aref
+#
+#Update which listboxes (colors)  are possibly available
+#for re-occupancy
+#Also make sure that occupied listboxes are not empty
+#
+#=cut
+#
+#sub _update_flow_listbox_color_availability_aref {
+#
+#	my (
+#		$color_listbox, $new_current_flow_listbox_availability_aref,
+#		$new_prior_flow_listbox_availability_aref
+#	) = @_;
+#
+#	my @vacant_listbox = @{ $color_listbox->get_flow_listbox_vacancy_aref() };
+#	my @occupied_listbox= @{ $color_listbox->get_flow_listbox_occupancy_aref() };
+#
+#	# all color listboxes are potentially available !!
+#	my @array = [1,1,1,1];
+#	$color_listbox->{flow_listbox_color_availability_aref} = \@array;
+#
+#	print("color_listbox,_update_flow_listbox_color_availability_aref=$new_current_flow_listbox_availability_aref=@{$new_current_flow_listbox_availability_aref}\n");
+#
+#	my $length = scalar @vacant_listbox;
+#
+#    print("1. color_listbox,_update_flow_listbox_color_availability_aref\n");
+#    $gui_history->view();
+#
+#	if ( @vacant_listbox ) {
+#
+##		for ( my $i = 0; $i < $length; $i++ ) {
+##
+##			$vacant_listbox[$i] = abs( @{$new_current_flow_listbox_availability_aref}[$i] - 1 );
+##
+##		}
+#
+##		_update_flow_listbox_vacancy_color($color_listbox);
+#
+#		print("color_listbox,_update_flow_listbox_availabilityNvacancy_aref vacant_listbox=@vacant_listbox\n");
+#		#	    print("color_listbox,_update_flow_listbox_availabilityNvacancy_aref vacant_listbox, new_current_flow_listbox_availability_aref =@{$new_current_flow_listbox_availability_aref}\n");
+#
+#	} else {
+#		print("color_listbox,_update_flow_listbox_occupancyNvacancy_aref, missing vacant listbox,\n");
+#	}
+#
+#	return ();
+#
+#}
 
 =head2 sub _update_flow_listbox_color
 
@@ -971,8 +1137,8 @@ sub _update_my_dialog_ok_click {
 
 	my ( $self, $new_current_my_dialog_ok_click, $new_prior_my_dialog_ok_click ) = @_;
 
-#	print("color_listbox, _update_my_dialog_ok_click,new_prior_my_dialog_ok_click=$new_prior_my_dialog_ok_click\n");
-#	print("color_listbox, _update_my_dialog_ok_click,new_current_my_dialog_ok_click=$new_current_my_dialog_ok_click\n");
+	#	print("color_listbox, _update_my_dialog_ok_click,new_prior_my_dialog_ok_click=$new_prior_my_dialog_ok_click\n");
+	#	print("color_listbox, _update_my_dialog_ok_click,new_current_my_dialog_ok_click=$new_current_my_dialog_ok_click\n");
 
 	if ( length $new_current_my_dialog_ok_click ) {
 		$color_listbox->{_my_dialog_ok_click} = $my_dialog_ok_click_start;
@@ -994,12 +1160,12 @@ sub _update_my_dialog_cancel_click {
 
 	my ( $self, $new_current_my_dialog_cancel_click, $new_prior_my_dialog_cancel_click ) = @_;
 
-#	print("color_listbox, _update_my_dialog_cancel_click,new_prior_my_dialog_cancel_click=$new_prior_my_dialog_cancel_click\n"
-#	);
-#	print("color_listbox, _update_my_dialog_cancel_click,new_current_my_dialog_cancel_click=$new_current_my_dialog_cancel_click\n"
-#	);
+	#	print("color_listbox, _update_my_dialog_cancel_click,new_prior_my_dialog_cancel_click=$new_prior_my_dialog_cancel_click\n"
+	#	);
+	#	print("color_listbox, _update_my_dialog_cancel_click,new_current_my_dialog_cancel_click=$new_current_my_dialog_cancel_click\n"
+	#	);
 
-#	print("color_listbox, update_my_dialog_cancel_click\n");
+	#	print("color_listbox, update_my_dialog_cancel_click\n");
 
 	if ( length( $color_listbox->{_my_dialog_cancel_click} ) ) {
 
@@ -1120,7 +1286,7 @@ sub is_vacant_listbox {
 
 	my ( $self, $color ) = @_;
 
-#	print("1 color_listbox, is_vacant_listbox, currently, color to test for occupation=  $color \n");
+	#	print("1 color_listbox, is_vacant_listbox, currently, color to test for occupation=  $color \n");
 
 	my @vacant_listbox = @{ $self->get_flow_listbox_vacancy_aref() };
 
@@ -1128,7 +1294,7 @@ sub is_vacant_listbox {
 		if (   $vacant_listbox[0] == $false
 			&& $color eq 'grey' ) {
 
-#		    print("1 color_listbox, is_vacant_listbox, grey is already occupied \n");
+			#		    print("1 color_listbox, is_vacant_listbox, grey is already occupied \n");
 			return ($false);
 
 		} elsif ( $vacant_listbox[1] == $false

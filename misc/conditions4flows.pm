@@ -89,6 +89,8 @@ my $add2flow_button_grey;
 my $add2flow_button_pink;
 my $add2flow_button_green;
 my $add2flow_button_blue;
+my $big_stream_name_in;
+my $big_stream_name_out;
 my $check_buttons_settings_aref;
 my $check_buttons_w_aref;
 my $check_code_button;
@@ -106,7 +108,15 @@ my $flow_listbox_green_w;
 my $flow_listbox_blue_w;
 my $flow_listbox_color_w;
 my $flow_name_in;
+my $flow_name_in_blue;
+my $flow_name_in_grey;
+my $flow_name_in_green;
+my $flow_name_in_pink;
 my $flow_name_out;
+my $flow_name_out_blue;
+my $flow_name_out_grey;
+my $flow_name_out_green;
+my $flow_name_out_pink;
 my $flow_type;
 my $flow_widget_index;
 my $gui_history_ref;
@@ -205,15 +215,17 @@ my $conditions4flows = {
 	_add2flow_button_pink                  => '',
 	_add2flow_button_green                 => '',
 	_add2flow_button_blue                  => '',
+#	_big_stream_name_in                    => '',
+#	_big_stream_name_out                   => '',
 	_check_code_button                     => '',
 	_check_buttons_settings_aref           => '',
 	_check_buttons_w_aref                  => '',
 	_delete_from_flow_button               => '',
-	_delete_whole_flow_button			   => '',
+	_delete_whole_flow_button              => '',
 	_dialog_type                           => '',
 	_file_menubutton                       => '',
 	_flowNsuperflow_name_w                 => '',
-	_flow_color                            => '',
+	_flow_color                            => '',	
 	_flow_item_down_arrow_button           => '',
 	_flow_item_up_arrow_button             => '',
 	_flow_listbox_grey_w                   => '',
@@ -222,7 +234,15 @@ my $conditions4flows = {
 	_flow_listbox_blue_w                   => '',
 	_flow_listbox_color_w                  => '',
 	_flow_name_in                          => '',
+#	_flow_name_in_blue                     => '',
+#	_flow_name_in_grey                     => '',
+#	_flow_name_in_green                    => '',
+#	_flow_name_in_pink                     => '',
 	_flow_name_out                         => '',
+#	_flow_name_out_blue                    => '',
+#	_flow_name_out_grey                    => '',
+#	_flow_name_out_green                   => '',
+#	_flow_name_out_pink                    => '',
 	_flow_type                             => '',
 	_flow_widget_index                     => '',
 	_gui_history_aref                      => '',
@@ -236,7 +256,7 @@ my $conditions4flows = {
 	_is_add2flow_button                    => '',
 	_is_check_code_button                  => '',
 	_is_delete_from_flow_button            => '',
-	_is_delete_whole_flow_button            => '',	
+	_is_delete_whole_flow_button           => '',
 	_is_dragNdrop                          => '',
 	_is_flow_item_down_arrow_button        => '',
 	_is_flow_item_up_arrow_button          => '',
@@ -297,7 +317,7 @@ my $conditions4flows = {
 	_run_button                            => '',
 	_save_button                           => '',
 	_sub_ref                               => '',
-	_vacant_listbox_aref                 => '',
+	_vacant_listbox_aref                   => '',
 	_values_aref                           => '',
 	_values_w_ref                          => '',
 	_wipe_plots_button                     => '',
@@ -319,21 +339,17 @@ sub _get_add2flow {
 	if ( $color eq 'grey' ) {
 		$correct_add2flow_button = $conditions4flows->{_add2flow_button_grey};
 
-	}
-	elsif ( $color eq 'pink' ) {
+	} elsif ( $color eq 'pink' ) {
 		$correct_add2flow_button = $conditions4flows->{_add2flow_button_pink};
 
-	}
-	elsif ( $color eq 'green' ) {
+	} elsif ( $color eq 'green' ) {
 		$correct_add2flow_button = $conditions4flows->{_add2flow_button_green};
 
-	}
-	elsif ( $color eq 'blue' ) {
+	} elsif ( $color eq 'blue' ) {
 		$correct_add2flow_button = $conditions4flows->{_add2flow_button_blue};
 
-	}
-	else {
-		print( "conditions4flows,  _get_add2flow_button, missing color,missing color, color:$color\n" );
+	} else {
+		print("conditions4flows,  _get_add2flow_button, missing color,missing color, color:$color\n");
 	}
 
 	return ($correct_add2flow_button);
@@ -354,21 +370,17 @@ sub _get_add2flow_button {
 	if ( $color eq 'grey' ) {
 		$correct_add2flow_button = $conditions4flows->{_add2flow_button_grey};
 
-	}
-	elsif ( $color eq 'pink' ) {
+	} elsif ( $color eq 'pink' ) {
 		$correct_add2flow_button = $conditions4flows->{_add2flow_button_pink};
 
-	}
-	elsif ( $color eq 'green' ) {
+	} elsif ( $color eq 'green' ) {
 		$correct_add2flow_button = $conditions4flows->{_add2flow_button_green};
 
-	}
-	elsif ( $color eq 'blue' ) {
+	} elsif ( $color eq 'blue' ) {
 		$correct_add2flow_button = $conditions4flows->{_add2flow_button_blue};
 
-	}
-	else {
-		print( "conditions4flows,  _get_add2flow_button, missing color,missing color, color:$color\n" );
+	} else {
+		print("conditions4flows,  _get_add2flow_button, missing color,missing color, color:$color\n");
 	}
 
 	return ($correct_add2flow_button);
@@ -388,9 +400,8 @@ sub _get_flow_color {
 		$color = $conditions4flows->{_flow_color};
 		return ($color);
 
-	}
-	else {
-		print( "conditions4flows,_get_flow_color  missing conditions4flows->{_flow_color}\n" );
+	} else {
+		print("conditions4flows,_get_flow_color  missing conditions4flows->{_flow_color}\n");
 
 	}
 
@@ -410,9 +421,8 @@ sub _get_flow_listbox_color_w {
 		my $correct_flow_listbox_color_w = $conditions4flows->{_flow_listbox_color_w};
 		return ($correct_flow_listbox_color_w);
 
-	}
-	else {
-		print( "conditions4flows, _get_flow_listbox_color_w, unassigned flow listbox w for current color\n" );
+	} else {
+		print("conditions4flows, _get_flow_listbox_color_w, unassigned flow listbox w for current color\n");
 		return ();
 	}
 
@@ -437,7 +447,7 @@ sub _reset {
 	$conditions4flows->{_is_add2flow_button}             = $false;
 	$conditions4flows->{_is_check_code_button}           = $false;
 	$conditions4flows->{_is_delete_from_flow_button}     = $false;
-	$conditions4flows->{_is_delete_whole_flow_button}     = $false;
+	$conditions4flows->{_is_delete_whole_flow_button}    = $false;
 	$conditions4flows->{_is_dragNdrop}                   = $false;
 	$conditions4flows->{_is_flow_item_down_arrow_button} = $false;
 	$conditions4flows->{_is_flow_item_up_arrow_button}   = $false;
@@ -472,8 +482,7 @@ sub _reset_is_flow_listbox_color_w {
 		|| $conditions4flows->{_flow_color} eq 'pink'
 		|| $conditions4flows->{_flow_color} eq 'green'
 		|| $conditions4flows->{_flow_color} eq 'blue'
-		|| $conditions4flows->{_flow_color} eq 'neutral' )
-	{
+		|| $conditions4flows->{_flow_color} eq 'neutral' ) {
 
 		$conditions4flows->{_is_flow_listbox_grey_w}  = $false;
 		$conditions4flows->{_is_flow_listbox_pink_w}  = $false;
@@ -486,9 +495,8 @@ sub _reset_is_flow_listbox_color_w {
 		$is_flow_listbox_green_w = $false;
 		$is_flow_listbox_blue_w  = $false;
 
-	}
-	else {
-		print( " conditions4flows, _reset_is_flow_listbox_color_w ,missing flow color \n" );
+	} else {
+		print(" conditions4flows, _reset_is_flow_listbox_color_w ,missing flow color \n");
 	}
 
 	return ();
@@ -506,8 +514,7 @@ sub _set_flow_color {
 
 		# print("conditions4flows, _set_flow_color , color:$color\n");
 		$conditions4flows->{_flow_color} = $color;
-	}
-	else {
+	} else {
 
 		print("conditions4flows, set_flow_color, missing color\n");
 	}
@@ -525,33 +532,29 @@ sub _set_flow_listbox_color_w {
 	if ( $color eq 'grey' ) {
 		$conditions4flows->{_flow_listbox_color_w}   = $conditions4flows->{_flow_listbox_grey_w};
 		$conditions4flows->{_is_flow_listbox_grey_w} = $true;
-		$flow_listbox_color_w                      = $conditions4flows->{_flow_listbox_grey_w};    # for possible export via get_hash_ref
-		$is_flow_listbox_grey_w                    = $true;                                      # for possible export via get_hash_ref
+		$flow_listbox_color_w   = $conditions4flows->{_flow_listbox_grey_w};    # for possible export via get_hash_ref
+		$is_flow_listbox_grey_w = $true;                                        # for possible export via get_hash_ref
 
-	}
-	elsif ( $color eq 'pink' ) {
+	} elsif ( $color eq 'pink' ) {
 		$conditions4flows->{_flow_listbox_color_w}   = $conditions4flows->{_flow_listbox_pink_w};
 		$conditions4flows->{_is_flow_listbox_pink_w} = $true;
-		$flow_listbox_color_w                      = $conditions4flows->{_flow_listbox_pink_w};    # for possible export via get_hash_ref
-		$is_flow_listbox_pink_w                    = $true;                                      # for possible export via get_hash_ref
+		$flow_listbox_color_w   = $conditions4flows->{_flow_listbox_pink_w};    # for possible export via get_hash_ref
+		$is_flow_listbox_pink_w = $true;                                        # for possible export via get_hash_ref
 
-	}
-	elsif ( $color eq 'green' ) {
+	} elsif ( $color eq 'green' ) {
 		$conditions4flows->{_flow_listbox_color_w}    = $conditions4flows->{_flow_listbox_green_w};
 		$conditions4flows->{_is_flow_listbox_green_w} = $true;
-		$flow_listbox_color_w                       = $conditions4flows->{_flow_listbox_green_w};    # for possible export via get_hash_ref
-		$is_flow_listbox_green_w                    = $true;                                       # for possible export via get_hash_ref
+		$flow_listbox_color_w    = $conditions4flows->{_flow_listbox_green_w};    # for possible export via get_hash_ref
+		$is_flow_listbox_green_w = $true;                                         # for possible export via get_hash_ref
 
-	}
-	elsif ( $color eq 'blue' ) {
+	} elsif ( $color eq 'blue' ) {
 		$conditions4flows->{_flow_listbox_color_w}   = $conditions4flows->{_flow_listbox_blue_w};
 		$conditions4flows->{_is_flow_listbox_blue_w} = $true;
-		$flow_listbox_color_w                      = $conditions4flows->{_flow_listbox_blue_w};      # for possible export via get_hash_ref
-		$is_flow_listbox_blue_w                    = $true;                                        # for possible export via get_hash_ref
+		$flow_listbox_color_w   = $conditions4flows->{_flow_listbox_blue_w};      # for possible export via get_hash_ref
+		$is_flow_listbox_blue_w = $true;                                          # for possible export via get_hash_ref
 
-	}
-	else {
-		print( "conditions4flows, _set_flow_listbox_color_w, missing color, color:$color\n" );
+	} else {
+		print("conditions4flows, _set_flow_listbox_color_w, missing color, color:$color\n");
 	}
 
 	return ();
@@ -574,9 +577,8 @@ sub _set_flow_listbox_last_touched_txt {
 		# for possible export via get_hash_ref
 		$last_flow_listbox_touched = $last_flow_lstbx_touched;
 
-	}
-	else {
-		print( "conditions4flows,set_flow_listbox_touched_txt, missing listbox name\n" );
+	} else {
+		print("conditions4flows,set_flow_listbox_touched_txt, missing listbox name\n");
 	}
 
 	return ();
@@ -590,19 +592,16 @@ sub _set_flow_listbox_last_touched_txt {
 sub _set_flow_listbox_last_touched_w {
 	my ($flow_listbox_color_w) = @_;
 
-	#_set_gui_widgets();
-
 	# print("1 conditions4flows, _set_flow_listbox_last_touched_w; flow_listbox_color_w: $flow_listbox_color_w \n");
 
 	if ($flow_listbox_color_w) {
 
 		# print("1 conditions4flows, _set_flow_listbox_last_touched_w; $flow_listbox_color_w\n");
 		$conditions4flows->{_last_flow_listbox_touched_w} = $flow_listbox_color_w;
-		$last_flow_listbox_touched_w = $flow_listbox_color_w;    # for export via get_hash-ref
+		$last_flow_listbox_touched_w = $flow_listbox_color_w;                         # for export via get_hash-ref
 
-	}
-	else {
-		print( "conditions4flows,_set_flow_listbox_touched_w, missing listbox widget\n" );
+	} else {
+		print("conditions4flows,_set_flow_listbox_touched_w, missing listbox widget\n");
 	}
 	return ();
 }
@@ -624,8 +623,7 @@ sub get_flow_color {
 		print("conditions4flows, conditions4flows->{_flow_color}: $conditions4flows->{_flow_color}\n");
 		return ($flow_color);
 
-	}
-	else {
+	} else {
 		print("conditions4flows, get_flow_color , missing flow color value \n");
 		return ();
 	}
@@ -656,11 +654,13 @@ sub get_hash_ref {
 		$conditions4flows->{_add2flow_button_pink}                  = $add2flow_button_pink;
 		$conditions4flows->{_add2flow_button_green}                 = $add2flow_button_green;
 		$conditions4flows->{_add2flow_button_blue}                  = $add2flow_button_blue;
+		$conditions4flows->{_big_stream_name_in}                    = $big_stream_name_in;
+		$conditions4flows->{_big_stream_name_out}                   = $big_stream_name_out;
 		$conditions4flows->{_check_buttons_w_aref}                  = $check_buttons_w_aref;
 		$conditions4flows->{_check_buttons_settings_aref}           = $check_buttons_settings_aref;
 		$conditions4flows->{_check_code_button}                     = $check_code_button;
 		$conditions4flows->{_delete_from_flow_button}               = $delete_from_flow_button;
-		$conditions4flows->{_delete_whole_flow_button}               = $delete_whole_flow_button;		
+		$conditions4flows->{_delete_whole_flow_button}              = $delete_whole_flow_button;
 		$conditions4flows->{_file_menubutton}                       = $file_menubutton;
 		$conditions4flows->{_flowNsuperflow_name_w}                 = $flowNsuperflow_name_w;
 		$conditions4flows->{_flow_item_down_arrow_button}           = $flow_item_down_arrow_button;
@@ -670,6 +670,16 @@ sub get_hash_ref {
 		$conditions4flows->{_flow_listbox_green_w}                  = $flow_listbox_green_w;
 		$conditions4flows->{_flow_listbox_blue_w}                   = $flow_listbox_blue_w;
 		$conditions4flows->{_flow_listbox_color_w}                  = $flow_listbox_color_w;
+		$conditions4flows->{_flow_name_in}                          = $flow_name_in;
+		$conditions4flows->{_flow_name_in_blue}                     = $flow_name_in_blue;
+		$conditions4flows->{_flow_name_in_grey}                     = $flow_name_in_grey;
+		$conditions4flows->{_flow_name_in_green}                    = $flow_name_in_green;
+		$conditions4flows->{_flow_name_in_pink}                     = $flow_name_in_pink;
+		$conditions4flows->{_flow_name_out}                         = $flow_name_out;
+		$conditions4flows->{_flow_name_out_blue}                    = $flow_name_out_blue;
+		$conditions4flows->{_flow_name_out_grey}                    = $flow_name_out_grey;
+		$conditions4flows->{_flow_name_out_green}                   = $flow_name_out_green;
+		$conditions4flows->{_flow_name_out_pink}                    = $flow_name_out_pink;
 		$conditions4flows->{_flow_widget_index}                     = $flow_widget_index;
 		$conditions4flows->{_labels_w_aref}                         = $labels_w_aref;
 		$conditions4flows->{_message_w}                             = $message_w;
@@ -681,8 +691,6 @@ sub get_hash_ref {
 		$conditions4flows->{_values_w_aref}                         = $values_w_aref;
 		$conditions4flows->{_dialog_type}                           = $dialog_type;
 		$conditions4flows->{_flow_color}                            = $flow_color;
-		$conditions4flows->{_flow_name_in}                          = $flow_name_in;
-		$conditions4flows->{_flow_name_out}                         = $flow_name_out;
 		$conditions4flows->{_flow_type}                             = $flow_type;
 		$conditions4flows->{_flow_widget_index}                     = $flow_widget_index;
 		$conditions4flows->{_gui_history_ref}                       = $gui_history_ref;
@@ -695,7 +703,7 @@ sub get_hash_ref {
 		$conditions4flows->{_is_add2flow_button}                    = $is_add2flow_button;
 		$conditions4flows->{_is_check_code_button}                  = $is_check_code_button;
 		$conditions4flows->{_is_delete_from_flow_button}            = $is_delete_from_flow_button;
-		$conditions4flows->{_is_delete_whole_flow_button}            = $is_delete_whole_flow_button;		
+		$conditions4flows->{_is_delete_whole_flow_button}           = $is_delete_whole_flow_button;
 		$conditions4flows->{_is_dragNdrop}                          = $is_dragNdrop;
 		$conditions4flows->{_is_flow_item_up_arrow_button}          = $is_flow_item_up_arrow_button;
 		$conditions4flows->{_is_flow_item_down_arrow_button}        = $is_flow_item_down_arrow_button;
@@ -732,36 +740,36 @@ sub get_hash_ref {
 		$conditions4flows->{_is_new_listbox_selection}              = $is_new_listbox_selection;
 		$conditions4flows->{_is_pre_built_superflow}                = $is_pre_built_superflow;
 		$conditions4flows->{_is_superflow_select_button}            = $is_superflow_select_button;
-		$conditions4flows->{_is_superflow}                          = $is_superflow;                            # for deprecation TODO
+		$conditions4flows->{_is_superflow}                          = $is_superflow;           # for deprecation TODO
 		$conditions4flows->{_is_moveNdrop_in_flow}                  = $is_moveNdrop_in_flow;
 		$conditions4flows->{_is_wipe_plots_button}                  = $is_wipe_plots_button;
-#		$conditions4flows->{_last_flow_color}                       = $last_flow_color;
-		$conditions4flows->{_last_flow_index_touched_grey}          = $last_flow_index_touched_grey;
-		$conditions4flows->{_last_flow_index_touched_pink}          = $last_flow_index_touched_pink;
-		$conditions4flows->{_last_flow_index_touched_green}         = $last_flow_index_touched_green;
-		$conditions4flows->{_last_flow_index_touched_blue}          = $last_flow_index_touched_blue;
-		$conditions4flows->{_last_parameter_index_touched_grey}     = $last_parameter_index_touched_grey;
-		$conditions4flows->{_last_parameter_index_touched_pink}     = $last_parameter_index_touched_pink;
-		$conditions4flows->{_last_parameter_index_touched_green}    = $last_parameter_index_touched_green;
-		$conditions4flows->{_last_parameter_index_touched_blue}     = $last_parameter_index_touched_blue;
-		$conditions4flows->{_last_parameter_index_touched_color}    = $last_parameter_index_touched_color;
-		$conditions4flows->{_last_flow_index_touched}               = $last_flow_index_touched;
-		$conditions4flows->{_names_aref}                            = $names_aref;
-		$conditions4flows->{_occupied_listbox_aref}                 = $occupied_listbox_aref;
-		$conditions4flows->{_parameter_values_frame}                = $parameter_values_frame;
-		$conditions4flows->{_path}                                  = $path;
-		$conditions4flows->{_sub_ref}                               = $sub_ref;
-		$conditions4flows->{_vacant_listbox_aref}                 = $vacant_listbox_aref;
-		$conditions4flows->{_values_aref}                           = $values_aref;
-		$conditions4flows->{_wipe_plots_button}                     = $wipe_plots_button;
+
+		#		$conditions4flows->{_last_flow_color}                       = $last_flow_color;
+		$conditions4flows->{_last_flow_index_touched_grey}       = $last_flow_index_touched_grey;
+		$conditions4flows->{_last_flow_index_touched_pink}       = $last_flow_index_touched_pink;
+		$conditions4flows->{_last_flow_index_touched_green}      = $last_flow_index_touched_green;
+		$conditions4flows->{_last_flow_index_touched_blue}       = $last_flow_index_touched_blue;
+		$conditions4flows->{_last_parameter_index_touched_grey}  = $last_parameter_index_touched_grey;
+		$conditions4flows->{_last_parameter_index_touched_pink}  = $last_parameter_index_touched_pink;
+		$conditions4flows->{_last_parameter_index_touched_green} = $last_parameter_index_touched_green;
+		$conditions4flows->{_last_parameter_index_touched_blue}  = $last_parameter_index_touched_blue;
+		$conditions4flows->{_last_parameter_index_touched_color} = $last_parameter_index_touched_color;
+		$conditions4flows->{_last_flow_index_touched}            = $last_flow_index_touched;
+		$conditions4flows->{_names_aref}                         = $names_aref;
+		$conditions4flows->{_occupied_listbox_aref}              = $occupied_listbox_aref;
+		$conditions4flows->{_parameter_values_frame}             = $parameter_values_frame;
+		$conditions4flows->{_path}                               = $path;
+		$conditions4flows->{_sub_ref}                            = $sub_ref;
+		$conditions4flows->{_vacant_listbox_aref}                = $vacant_listbox_aref;
+		$conditions4flows->{_values_aref}                        = $values_aref;
+		$conditions4flows->{_wipe_plots_button}                  = $wipe_plots_button;
 
 		# print("conditions4flows, get_hash_ref , conditions4flows->{_flowNsuperflow_name_w: $conditions4flows->{_flowNsuperflow_name_w}\n");
 
 		return ($conditions4flows);
 
-	}
-	else {
-		print( "conditions4flows, get_hash_ref , missing hconditions4flows hash_ref\n" );
+	} else {
+		print("conditions4flows, get_hash_ref , missing hconditions4flows hash_ref\n");
 	}
 }
 
@@ -781,7 +789,7 @@ sub reset {
 	$conditions4flows->{_is_add2flow_button}             = $false;
 	$conditions4flows->{_is_check_code_button}           = $false;
 	$conditions4flows->{_is_delete_from_flow_button}     = $false;
-	$conditions4flows->{_is_delete_whole_flow_button}     = $false;	
+	$conditions4flows->{_is_delete_whole_flow_button}    = $false;
 	$conditions4flows->{_is_dragNdrop}                   = $false;
 	$conditions4flows->{_is_flow_item_down_arrow_button} = $false;
 	$conditions4flows->{_is_flow_item_up_arrow_button}   = $false;
@@ -816,17 +824,16 @@ sub set_flow_color {
 	if ($color) {
 
 		$conditions4flows->{_flow_color} = $color;
-		$flow_color = $color;    # export via get_hash_ref
+		$flow_color = $color;                         # export via get_hash_ref
 
-	}
-	else {
+	} else {
+
 		# my $parameter					 			= '_is_flow_listbox_'.$color.'_w';
 		# $conditions4flows->{$parameter} 				 = $true;
 		print("conditions4flows, set_flow_color, missing color\n");
 	}
 	return ();
 }
-
 
 =head2 sub set_hash_ref
 A private hash that helps
@@ -840,7 +847,7 @@ sub set_hash_ref {
 	if ($hash_ref) {
 
 		$conditions4flows = $hash_ref;
-		
+
 		$Data_menubutton             = $hash_ref->{_Data_menubutton};
 		$Flow_menubutton             = $hash_ref->{_Flow_menubutton};
 		$SaveAs_menubutton           = $hash_ref->{_SaveAs_menubutton};
@@ -848,10 +855,12 @@ sub set_hash_ref {
 		$add2flow_button_pink        = $hash_ref->{_add2flow_button_pink};
 		$add2flow_button_green       = $hash_ref->{_add2flow_button_green};
 		$add2flow_button_blue        = $hash_ref->{_add2flow_button_blue};
+		$big_stream_name_in          = $hash_ref->{_big_stream_name_in};
+		$big_stream_name_out         = $hash_ref->{_big_stream_name_out};
 		$check_buttons_w_aref        = $hash_ref->{_check_buttons_w_aref};
 		$check_code_button           = $hash_ref->{_check_code_button};
 		$delete_from_flow_button     = $hash_ref->{_delete_from_flow_button};
-		$delete_whole_flow_button     = $hash_ref->{_delete_whole_flow_button};		
+		$delete_whole_flow_button    = $hash_ref->{_delete_whole_flow_button};
 		$file_menubutton             = $hash_ref->{_file_menubutton};
 		$flowNsuperflow_name_w       = $hash_ref->{_flowNsuperflow_name_w};
 		$flow_color                  = $hash_ref->{_flow_color};
@@ -862,7 +871,7 @@ sub set_hash_ref {
 		$flow_listbox_green_w        = $hash_ref->{_flow_listbox_green_w};
 		$flow_listbox_blue_w         = $hash_ref->{_flow_listbox_blue_w};
 		$flow_listbox_color_w        = $hash_ref->{_flow_listbox_color_w};
-		$flow_widget_index           = $hash_ref->{_flow_widget_index};
+		$flow_widget_index           = $hash_ref->{_flow_widget_iindex};
 		$labels_w_aref               = $hash_ref->{_labels_w_aref};
 		$message_w                   = $hash_ref->{_message_w};
 		$mw                          = $hash_ref->{_mw};
@@ -872,14 +881,21 @@ sub set_hash_ref {
 		$save_button                 = $hash_ref->{_save_button};
 		$values_w_aref               = $hash_ref->{_values_w_aref};
 		$wipe_plots_button           = $hash_ref->{_wipe_plots_button};
-		
 		$check_buttons_settings_aref           = $hash_ref->{_check_buttons_settings_aref};
 		$dialog_type                           = $hash_ref->{_dialog_type};
 		$flow_color                            = $hash_ref->{_flow_color};
 		$flow_item_down_arrow_button           = $hash_ref->{_flow_item_down_arrow_button};
 		$flow_item_up_arrow_button             = $hash_ref->{_flow_item_up_arrow_button};
 		$flow_name_in                          = $hash_ref->{_flow_name_in};
+		$flow_name_in_blue                     = $hash_ref->{_flow_name_in_blue};
+		$flow_name_in_grey                     = $hash_ref->{_flow_name_in_grey};
+		$flow_name_in_green                    = $hash_ref->{_flow_name_in_green};
+		$flow_name_in_pink                     = $hash_ref->{_flow_name_in_pink};
 		$flow_name_out                         = $hash_ref->{_flow_name_out};
+		$flow_name_out_blue                    = $hash_ref->{_flow_name_out_blue};
+		$flow_name_out_grey                    = $hash_ref->{_flow_name_out_grey};
+		$flow_name_out_green                   = $hash_ref->{_flow_name_out_green};
+		$flow_name_out_pink                    = $hash_ref->{_flow_name_out_pink};
 		$flow_type                             = $hash_ref->{_flow_type};
 		$flow_widget_index                     = $hash_ref->{_flow_widget_index};
 		$gui_history_ref                       = $hash_ref->{_gui_history_ref};
@@ -893,7 +909,7 @@ sub set_hash_ref {
 		$is_check_code_button                  = $hash_ref->{_is_check_code_button};
 		$is_dragNdrop                          = $hash_ref->{_is_dragNdrop};
 		$is_delete_from_flow_button            = $hash_ref->{_is_delete_from_flow_button};
-		$is_delete_whole_flow_button            = $hash_ref->{_is_delete_whole_flow_button};		
+		$is_delete_whole_flow_button           = $hash_ref->{_is_delete_whole_flow_button};
 		$is_flow_item_down_arrow_button        = $hash_ref->{_is_flow_item_down_arrow_button};
 		$is_flow_item_up_arrow_button          = $hash_ref->{_is_flow_item_up_arrow_button};
 		$is_flow_listbox_grey_w                = $hash_ref->{_is_flow_listbox_grey_w};
@@ -928,30 +944,29 @@ sub set_hash_ref {
 		$is_new_listbox_selection              = $hash_ref->{_is_new_listbox_selection};
 		$is_pre_built_superflow                = $hash_ref->{_is_pre_built_superflow};
 		$is_superflow_select_button            = $hash_ref->{_is_superflow_select_button};
-		$is_superflow                          = $hash_ref->{_is_superflow};                            # for deprecation TODO
+		$is_superflow                          = $hash_ref->{_is_superflow};           # for deprecation TODO
 		$is_moveNdrop_in_flow                  = $hash_ref->{_is_moveNdrop_in_flow};
 		$is_wipe_plots_button                  = $hash_ref->{_is_wipe_plots_button};
-#		$last_flow_color                       = $hash_ref->{_last_flow_color};
-		$last_flow_index_touched_grey          = $hash_ref->{_last_flow_index_touched_grey};
-		$last_flow_index_touched_pink          = $hash_ref->{_last_flow_index_touched_pink};
-		$last_flow_index_touched_green         = $hash_ref->{_last_flow_index_touched_green};
-		$last_flow_index_touched_blue          = $hash_ref->{_last_flow_index_touched_blue};
-		$last_flow_index_touched               = $hash_ref->{_last_flow_index_touched};
-		$last_parameter_index_touched_grey     = $hash_ref->{_last_parameter_index_touched_grey};
-		$last_parameter_index_touched_pink     = $hash_ref->{_last_parameter_index_touched_pink};
-		$last_parameter_index_touched_green    = $hash_ref->{_last_parameter_index_touched_green};
-		$last_parameter_index_touched_blue     = $hash_ref->{_last_parameter_index_touched_blue};
-		$last_parameter_index_touched_color    = $hash_ref->{_last_parameter_index_touched_color};
-		$occupied_listbox_aref                 = $hash_ref->{_occupied_listbox_aref};
-		$path                                  = $hash_ref->{_path};
-		$sub_ref                               = $hash_ref->{_sub_ref};
-		$names_aref                            = $hash_ref->{_names_aref};                              # equiv labels
-		$vacant_listbox_aref                 = $hash_ref->{_vacant_listbox_aref};
-		$values_aref                           = $hash_ref->{_values_aref};
-		$wipe_plots_button                     = $hash_ref->{_wipe_plots_button};
+		#		$last_flow_color                       = $hash_ref->{_last_flow_color};
+		$last_flow_index_touched_grey       = $hash_ref->{_last_flow_index_touched_grey};
+		$last_flow_index_touched_pink       = $hash_ref->{_last_flow_index_touched_pink};
+		$last_flow_index_touched_green      = $hash_ref->{_last_flow_index_touched_green};
+		$last_flow_index_touched_blue       = $hash_ref->{_last_flow_index_touched_blue};
+		$last_flow_index_touched            = $hash_ref->{_last_flow_index_touched};
+		$last_parameter_index_touched_grey  = $hash_ref->{_last_parameter_index_touched_grey};
+		$last_parameter_index_touched_pink  = $hash_ref->{_last_parameter_index_touched_pink};
+		$last_parameter_index_touched_green = $hash_ref->{_last_parameter_index_touched_green};
+		$last_parameter_index_touched_blue  = $hash_ref->{_last_parameter_index_touched_blue};
+		$last_parameter_index_touched_color = $hash_ref->{_last_parameter_index_touched_color};
+		$occupied_listbox_aref              = $hash_ref->{_occupied_listbox_aref};
+		$path                               = $hash_ref->{_path};
+		$sub_ref                            = $hash_ref->{_sub_ref};
+		$names_aref                         = $hash_ref->{_names_aref};                           # equiv labels
+		$vacant_listbox_aref                = $hash_ref->{_vacant_listbox_aref};
+		$values_aref                        = $hash_ref->{_values_aref};
+		$wipe_plots_button                  = $hash_ref->{_wipe_plots_button};
 
-	}
-	else {
+	} else {
 
 		print("conditions4flows, set_hash_ref , missing hash_ref\n");
 	}
@@ -976,7 +991,6 @@ sub set4_check_code_button {
 
 	return ();
 }
-
 
 =head2 sub  set4FileDialog_SaveAs_end 
 
@@ -1103,8 +1117,7 @@ sub set4FileDialog_SaveAs_start {
 		$is_user_built_flow     = $true;
 		$is_pre_built_superflow = $false;
 
-	}
-	elsif ( $conditions4flows->{_flow_type} eq $flow_type_h->{_pre_built_superflow} ) {
+	} elsif ( $conditions4flows->{_flow_type} eq $flow_type_h->{_pre_built_superflow} ) {
 
 		$conditions4flows->{_user_built_flow}        = $false;
 		$conditions4flows->{_is_pre_built_superflow} = $true;
@@ -1152,29 +1165,24 @@ sub set4_end_of_SaveAs_button {
 		$conditions4flows->{_is_flow_listbox_grey_w} = $true;
 		$is_flow_listbox_grey_w = $true;
 
-	}
-	elsif ( $conditions4flows->{_flow_color} eq 'pink' ) {
+	} elsif ( $conditions4flows->{_flow_color} eq 'pink' ) {
 		$conditions4flows->{_is_flow_listbox_pink_w} = $true;
 		$is_flow_listbox_pink_w = $true;
 
-	}
-	elsif ( $conditions4flows->{_flow_color} eq 'green' ) {
+	} elsif ( $conditions4flows->{_flow_color} eq 'green' ) {
 		$conditions4flows->{_is_flow_listbox_green_w} = $true;
 		$is_flow_listbox_green_w = $true;
 
-	}
-	elsif ( $conditions4flows->{_flow_color} eq 'blue' ) {
+	} elsif ( $conditions4flows->{_flow_color} eq 'blue' ) {
 		$conditions4flows->{_is_flow_listbox_blue_w} = $true;
 		$is_flow_listbox_blue_w = $true;
 
-	}
-	elsif ( $conditions4flows->{_flow_type} eq 'pre_built_superflow' ) {
+	} elsif ( $conditions4flows->{_flow_type} eq 'pre_built_superflow' ) {
 
 		# print("2 conditions4flows,set4start_of_run_button Running a pre-built superflow\n");
 		# NADA
 
-	}
-	else {
+	} else {
 		print("2 conditions4flows,set4start_of_run_button missing color \n");
 	}
 	return ();
@@ -1267,9 +1275,8 @@ sub set4end_of_flow_item_up_arrow_button {
 		$conditions4flows->{_flow_listbox_color_w} = $conditions4flows->{$flow_listbox_color_w_key};
 		$flow_listbox_color_w = $conditions4flows->{$flow_listbox_color_w_key};
 
-	}
-	else {
-		print( "conditions4flows, set4end_of_flow_item_up_arrow_button, no color: $color\n" );
+	} else {
+		print("conditions4flows, set4end_of_flow_item_up_arrow_button, no color: $color\n");
 	}
 
 	return ();
@@ -1344,10 +1351,10 @@ sub set4end_of_flow_select {
 		# my $ans = $conditions4flows->{$is_flow_listbox_color_w_key};
 		# print("1. conditions4flows, set4end_of_flow_select, is_flow_listbox_color_w: $ans is EMPTY\n");
 
-		$conditions4flows->{_flow_color}                 = $color;
-		$conditions4flows->{_is_delete_from_flow_button} = $true;
-		$conditions4flows->{_is_delete_whole_flow_button} = $true;		
-		$conditions4flows->{_is_flow_listbox_color_w}    = $true;	
+		$conditions4flows->{_flow_color}                  = $color;
+		$conditions4flows->{_is_delete_from_flow_button}  = $true;
+		$conditions4flows->{_is_delete_whole_flow_button} = $true;
+		$conditions4flows->{_is_flow_listbox_color_w}     = $true;
 
 		$conditions4flows->{_flow_item_down_arrow_button} = $true;
 		$conditions4flows->{_flow_item_up_arrow_button}   = $true;
@@ -1374,37 +1381,32 @@ sub set4end_of_flow_select {
 			# print("conditions4flows, set4end_of_flow_select,is_last_parameter_index_touched_grey=$is_last_parameter_index_touched_grey\n");
 			# print("conditions4flows, set4end_of_flow_select,is_last_flow_index_touched_grey=$is_last_flow_index_touched_grey\n");
 
-		}
-		elsif ( $color eq 'pink' ) {
+		} elsif ( $color eq 'pink' ) {
 
 			$conditions4flows->{_is_flow_listbox_pink_w} = $true;
 
 			# for export
 			$is_flow_listbox_pink_w = $true;
 
-		}
-		elsif ( $color eq 'green' ) {
+		} elsif ( $color eq 'green' ) {
 
 			$conditions4flows->{_is_flow_listbox_green_w} = $true;
 
 			# for export
 			$is_flow_listbox_green_w = $true;
 
-		}
-		elsif ( $color eq 'blue' ) {
+		} elsif ( $color eq 'blue' ) {
 
 			$conditions4flows->{_is_flow_listbox_blue_w} = $true;
 
 			# for export
 			$is_flow_listbox_blue_w = $true;
 
-		}
-		else {
-			print( "conditions4flows, set4end_of_flow_select , color missing: $color\n" );
+		} else {
+			print("conditions4flows, set4end_of_flow_select , color missing: $color\n");
 		}
 
-	}
-	else {
+	} else {
 		print("conditions4flows, set4end_of_flow_select , color missing: $color\n");
 	}
 
@@ -1517,7 +1519,7 @@ sub set4end_of_sunix_select {
 	$add2flow_button_pink->configure( -state => 'normal', );
 	$add2flow_button_green->configure( -state => 'normal', );
 	$add2flow_button_blue->configure( -state => 'normal', );
-	
+
 	# print ("conditions4flows,set4end_of_sunix_select, prog_name: ${$conditions4flows->{_prog_name_sref}}\n");
 
 	#   	$conditions4flows->{_is_flow_listbox_grey_w}			= $false;
@@ -1569,36 +1571,28 @@ sub set4end_of_Save_button {
 		$conditions4flows->{_is_flow_listbox_grey_w} = $true;
 		$is_flow_listbox_grey_w = $true;
 
-	}
-	elsif ( $conditions4flows->{_flow_color} eq 'pink' ) {
+	} elsif ( $conditions4flows->{_flow_color} eq 'pink' ) {
 		$conditions4flows->{_is_flow_listbox_pink_w} = $true;
 		$is_flow_listbox_pink_w = $true;
 
-	}
-	elsif ( $conditions4flows->{_flow_color} eq 'green' ) {
+	} elsif ( $conditions4flows->{_flow_color} eq 'green' ) {
 		$conditions4flows->{_is_flow_listbox_green_w} = $true;
 		$is_flow_listbox_green_w = $true;
 
-	}
-	elsif ( $conditions4flows->{_flow_color} eq 'blue' ) {
+	} elsif ( $conditions4flows->{_flow_color} eq 'blue' ) {
 		$conditions4flows->{_is_flow_listbox_blue_w} = $true;
 		$is_flow_listbox_blue_w = $true;
 
-	}
-	elsif ( $conditions4flows->{_flow_type} eq 'pre_built_superflow' ) {
+	} elsif ( $conditions4flows->{_flow_type} eq 'pre_built_superflow' ) {
 
 		# print("2 conditions4flows,set4end_of_save_button Running a pre-built superflow NADA\n");
 
-	}
-	else {
+	} else {
 		print("2 conditions4flows,set4start_of_run_button missing color \n");
 	}
 	return ();
 
 }
-
-
-
 
 =head2 sub set4user_built_flow_close_path_end
 inherited from set4superflow_close_path_end 
@@ -1621,7 +1615,6 @@ sub set4user_built_flow_close_path_end {
 	return ();
 }
 
-
 =head2 sub set4user_built_open_path_end
 inherited from
 set4superflow_open_path_end
@@ -1633,14 +1626,13 @@ sub set4user_built_flow_open_path_end {
 	my ($self) = @_;
 
 	# print("conditions4flows, set4superflow_open_path_end OK \n");
-	$conditions4flows->{_is_user_built_flow} 		= $true;
+	$conditions4flows->{_is_user_built_flow} = $true;
 
 	# for potential export
 	$is_user_built_flow = $true;
 
 	return ();
 }
-
 
 =head2 sub _get_num_listboxes_occupied
 
@@ -1653,8 +1645,8 @@ sub _get_num_listboxes_occupied {
 	# print("1 conditions4flows, _get_num_listboxes_occupied: @{$conditions4flows->{_occupied_listbox_aref}} \n");
 	if ( $conditions4flows->{_occupied_listbox_aref} ) {
 
-		my $number =
-			  @{ $conditions4flows->{_occupied_listbox_aref} }[0]
+		my $number
+			= @{ $conditions4flows->{_occupied_listbox_aref} }[0]
 			+ @{ $conditions4flows->{_occupied_listbox_aref} }[1]
 			+ @{ $conditions4flows->{_occupied_listbox_aref} }[2]
 			+ @{ $conditions4flows->{_occupied_listbox_aref} }[3];
@@ -1662,9 +1654,8 @@ sub _get_num_listboxes_occupied {
 		# print("2 conditions4flows, _get_num_listboxes_occupied= $number \n");
 		return ($number);
 
-	}
-	else {
-		print( "2 conditions4flows, get_num_listboxes_occupied: missing conditions4flows->{_occupied_listbox_aref} \n" );
+	} else {
+		print("2 conditions4flows, get_num_listboxes_occupied: missing conditions4flows->{_occupied_listbox_aref} \n");
 	}
 }
 
@@ -1672,8 +1663,6 @@ sub _get_num_listboxes_occupied {
 
 	when all items are removed from a flow listbox
 	the following conditions are set
-	
-	TODO... ? ... separate flow_name_out_grey, pink,green,blue
 	
 
 =cut
@@ -1686,8 +1675,7 @@ sub set_defaults4end_of_delete_whole_flow_button {
 	if (   $color eq 'grey'
 		|| $color eq 'pink'
 		|| $color eq 'green'
-		|| $color eq 'blue' )
-	{
+		|| $color eq 'blue' ) {
 
 		# the last program that was touched is cancelled out
 		$last_flow_index_touched = -1;
@@ -1696,139 +1684,138 @@ sub set_defaults4end_of_delete_whole_flow_button {
 		$flow_item_up_arrow_button->configure( -state => 'disabled', );
 		$delete_from_flow_button->configure( -state => 'disabled', );
 		$delete_whole_flow_button->configure( -state => 'disabled', );
-				
-	}
-	else {
-		print( "conditions4flows, set_defaults4delete_whole_flow_button, color missing: $color\n" );
+
+	} else {
+		print("conditions4flows, set_defaults4delete_whole_flow_button, color missing: $color\n");
 	}
 
 	if ( $color eq 'grey' ) {
 
 		$conditions4flows->{_is_flow_listbox_grey_w} = $false;
 		@{ $conditions4flows->{_occupied_listbox_aref} }[0] = $false;
-		@{ $conditions4flows->{_vacant_listbox_aref} }[0] = $true;
-		
+		@{ $conditions4flows->{_vacant_listbox_aref} }[0]   = $true;
+
 		# turn off flow listbox
 		$flow_listbox_grey_w->configure( -state => 'disabled', );
 
 		# name is removed from the namespace
-		$conditions4flows->{_flow_name_out} = $empty_string;
+		$conditions4flows->{_flow_name_out_grey} = $empty_string;
 
 		# for export
 		$is_flow_listbox_grey_w = $false;
-		$flow_name_out          = $empty_string;
+		$flow_name_out_grey     = $empty_string;
 
 		# the last program that was touched is cancelled out
 		$is_last_flow_index_touched_grey = $false;
 
-	}
-	elsif ( $color eq 'pink' ) {
+	} elsif ( $color eq 'pink' ) {
 
 		$conditions4flows->{_is_flow_listbox_pink_w} = $false;
 		@{ $conditions4flows->{_occupied_listbox_aref} }[1] = $false;
-		@{ $conditions4flows->{_vacant_listbox_aref} }[1] = $true;
+		@{ $conditions4flows->{_vacant_listbox_aref} }[1]   = $true;
+
 		# turn off flow -listbox
 		$flow_listbox_pink_w->configure( -state => 'disabled', );
 
 		# name is removed from the namespace
-		$conditions4flows->{_flow_name_out} = $empty_string;
+		$conditions4flows->{_flow_name_out_pink} = $empty_string;
 
 		# for export
 		$is_flow_listbox_pink_w = $false;
-		$flow_name_out          = $empty_string;
+		$flow_name_out_pink          = $empty_string;
 
 		# the last program that was touched is cancelled out
 		$is_last_flow_index_touched_pink = $false;
 
-	}
-	elsif ( $color eq 'green' ) {
+	} elsif ( $color eq 'green' ) {
 
 		$conditions4flows->{_is_flow_listbox_green_w} = $false;
 		@{ $conditions4flows->{_occupied_listbox_aref} }[2] = $false;
-		@{ $conditions4flows->{_vacant_listbox_aref} }[2] = $true;
+		@{ $conditions4flows->{_vacant_listbox_aref} }[2]   = $true;
+
 		# turn off flow -listbox
 		$flow_listbox_green_w->configure( -state => 'disabled', );
 
 		# name is removed from the namespace
-		$conditions4flows->{_flow_name_out} = $empty_string;
+		$conditions4flows->{_flow_name_out_green} = $empty_string;
 
 		# for export
 		$is_flow_listbox_green_w = $false;
-		$flow_name_out           = $empty_string;
+		$flow_name_out_green           = $empty_string;
 
 		# the last program that was touched is cancelled out
 		$is_last_flow_index_touched_green = $false;
 
-	}
-	elsif ( $color eq 'blue' ) {
+	} elsif ( $color eq 'blue' ) {
 
 		$conditions4flows->{_is_flow_listbox_blue_w} = $false;
 		@{ $conditions4flows->{_occupied_listbox_aref} }[3] = $false;
-		@{ $conditions4flows->{_vacant_listbox_aref} }[3] = $true;
+		@{ $conditions4flows->{_vacant_listbox_aref} }[3]   = $true;
+
 		# turn off flow -listbox
 		$flow_listbox_blue_w->configure( -state => 'disabled', );
 
 		# name is removed from the namespace
-		$conditions4flows->{_flow_name_out} = $empty_string;
+		$conditions4flows->{_flow_name_out_blue} = $empty_string;
 
 		# for export
 		$is_flow_listbox_blue_w = $false;
-		$flow_name_out          = $empty_string;
+		$flow_name_out_blue          = $empty_string;
 
 		# the last program that was touched is cancelled out
 		$is_last_flow_index_touched_blue = $false;
 
-	}
-	else {
-		print( "conditions4flows, set_defaults4delete_whole_flow_buttonset, color missing: $color\n" );
+	} else {
+		print("conditions4flows, set_defaults4delete_whole_flow_buttonset, color missing: $color\n");
 	}
 
 	my $number = _get_num_listboxes_occupied();
+
 	# print("conditions4flows, set_defaults4delete_whole_flow_button, number of list boxes occupied=$number\n");
 
 	# because the last item in last listbox is deleted
-	     # print("conditions4flows, set_defaults4delete_whole_flow_button, if number < 0 remove this if statement\n");
-		# turn off delete button
-		$delete_from_flow_button->configure( -state => 'disabled', );
+	# print("conditions4flows, set_defaults4delete_whole_flow_button, if number < 0 remove this if statement\n");
+	# turn off delete button
+	$delete_from_flow_button->configure( -state => 'disabled', );
 
-		# turn off delete whole flow button		
-		$delete_whole_flow_button->configure( -state => 'disabled', );	
+	# turn off delete whole flow button
+	$delete_whole_flow_button->configure( -state => 'disabled', );
 
-		# turn off up-arrow
-		$flow_item_up_arrow_button->configure( -state => 'disabled', );
+	# turn off up-arrow
+	$flow_item_up_arrow_button->configure( -state => 'disabled', );
 
-		# turn off down_arrow
-		$flow_item_down_arrow_button->configure( -state => 'disabled', );
+	# turn off down_arrow
+	$flow_item_down_arrow_button->configure( -state => 'disabled', );
 
-		# turn off run button
-#		$run_button->configure( -state => 'disabled' );
+	# turn off run button
+	#		$run_button->configure( -state => 'disabled' );
 
-#		# turn off SaveAs menu button
-#		$SaveAs_menubutton->configure( -state => 'disabled' );
+	#		# turn off SaveAs menu button
+	#		$SaveAs_menubutton->configure( -state => 'disabled' );
 
-#		# turn off Data menu button
-#		$Data_menubutton->configure( -state => 'disabled' );
+	#		# turn off Data menu button
+	#		$Data_menubutton->configure( -state => 'disabled' );
 
-#		# turn on Flow menu button
-		$Flow_menubutton->configure( -state => 'normal' );
+	#		# turn on Flow menu button
+	$Flow_menubutton->configure( -state => 'normal' );
 
-		# turn off save button
-#		$save_button->configure( -state => 'disabled' );
+	# turn off save button
+	#		$save_button->configure( -state => 'disabled' );
 
-		# turn off  check_code_button
-		$check_code_button->configure( -state => 'disabled' );
+	# turn off  check_code_button
+	$check_code_button->configure( -state => 'disabled' );
 
 	$conditions4flows->{_is_flow_listbox_color_w}        = $false;
 	$conditions4flows->{_is_user_built_flow}             = $false;
 	$conditions4flows->{_is_sunix_listbox}               = $false;
 	$conditions4flows->{_is_delete_from_flow_button}     = $false;
-	$conditions4flows->{_is_delete_whole_flow_button}     = $false;	
+	$conditions4flows->{_is_delete_whole_flow_button}    = $false;
 	$conditions4flows->{_is_flow_item_down_arrow_button} = $false;
 	$conditions4flows->{_is_flow_item_up_arrow_button}   = $false;
 
 	# for export
 	$is_delete_from_flow_button     = $false;
-	$is_delete_whole_flow_button     = $false;
+	$is_delete_whole_flow_button    = $false;
 	$is_flow_item_down_arrow_button = $false;
 	$is_flow_item_up_arrow_button   = $false;
 
@@ -1844,22 +1831,18 @@ sub set_defaults4end_of_delete_whole_flow_button {
 	when all items are removed from a flow listbox
 	the following conditions are set
 	
-	TODO... ? ... separate flow_name_out_grey, pink,green,blue
-	
 
 =cut
 
 sub set_defaults4last_delete_from_flow_button {
 	my ($self) = @_;
 
-	# _set_gui_widgets();
 	my $color = _get_flow_color();
 
 	if (   $color eq 'grey'
 		|| $color eq 'pink'
 		|| $color eq 'green'
-		|| $color eq 'blue' )
-	{
+		|| $color eq 'blue' ) {
 
 		# the last program that was touched is cancelled out
 		$last_flow_index_touched = -1;
@@ -1867,90 +1850,88 @@ sub set_defaults4last_delete_from_flow_button {
 		$flow_item_down_arrow_button->configure( -state => 'disabled', );
 		$flow_item_up_arrow_button->configure( -state => 'disabled', );
 		$delete_whole_flow_button->configure( -state => 'disabled', );
-	}
-	else {
-		print( "conditions4flows, set_defaults4last_delete_from_flow_button, color missing: $color\n" );
+	} else {
+		print("conditions4flows, set_defaults4last_delete_from_flow_button, color missing: $color\n");
 	}
 
 	if ( $color eq 'grey' ) {
 
 		$conditions4flows->{_is_flow_listbox_grey_w} = $false;
 		@{ $conditions4flows->{_occupied_listbox_aref} }[0] = $false;
-		@{ $conditions4flows->{_vacant_listbox_aref} }[0] = $true;
-		
+		@{ $conditions4flows->{_vacant_listbox_aref} }[0]   = $true;
+
 		# turn off flow listbox
 		$flow_listbox_grey_w->configure( -state => 'disabled', );
 
 		# name is removed from the namespace
-		$conditions4flows->{_flow_name_out} = $empty_string;
+		$conditions4flows->{_flow_name_out_grey} = $empty_string;
 
 		# for export
 		$is_flow_listbox_grey_w = $false;
-		$flow_name_out          = $empty_string;
+		$flow_name_out_grey          = $empty_string;
 
 		# the last program that was touched is cancelled out
 		$is_last_flow_index_touched_grey = $false;
 
-	}
-	elsif ( $color eq 'pink' ) {
+	} elsif ( $color eq 'pink' ) {
 
 		$conditions4flows->{_is_flow_listbox_pink_w} = $false;
 		@{ $conditions4flows->{_occupied_listbox_aref} }[1] = $false;
-		@{ $conditions4flows->{_vacant_listbox_aref} }[1] = $true;
+		@{ $conditions4flows->{_vacant_listbox_aref} }[1]   = $true;
+
 		# turn off flow -listbox
 		$flow_listbox_pink_w->configure( -state => 'disabled', );
 
 		# name is removed from the namespace
-		$conditions4flows->{_flow_name_out} = $empty_string;
+		$conditions4flows->{_flow_name_out_pink} = $empty_string;
 
 		# for export
 		$is_flow_listbox_pink_w = $false;
-		$flow_name_out          = $empty_string;
+		$flow_name_out_pink          = $empty_string;
 
 		# the last program that was touched is cancelled out
 		$is_last_flow_index_touched_pink = $false;
 
-	}
-	elsif ( $color eq 'green' ) {
+	} elsif ( $color eq 'green' ) {
 
 		$conditions4flows->{_is_flow_listbox_green_w} = $false;
 		@{ $conditions4flows->{_occupied_listbox_aref} }[2] = $false;
-		@{ $conditions4flows->{_vacant_listbox_aref} }[2] = $true;
+		@{ $conditions4flows->{_vacant_listbox_aref} }[2]   = $true;
+
 		# turn off flow -listbox
 		$flow_listbox_green_w->configure( -state => 'disabled', );
 
 		# name is removed from the namespace
-		$conditions4flows->{_flow_name_out} = $empty_string;
+		$conditions4flows->{_flow_name_out_green} = $empty_string;
 
 		# for export
 		$is_flow_listbox_green_w = $false;
-		$flow_name_out           = $empty_string;
+		$flow_name_out_green           = $empty_string;
 
 		# the last program that was touched is cancelled out
 		$is_last_flow_index_touched_green = $false;
 
-	}
-	elsif ( $color eq 'blue' ) {
+	} elsif ( $color eq 'blue' ) {
 
 		$conditions4flows->{_is_flow_listbox_blue_w} = $false;
 		@{ $conditions4flows->{_occupied_listbox_aref} }[3] = $false;
-		@{ $conditions4flows->{_vacant_listbox_aref} }[3] = $true;
+		@{ $conditions4flows->{_vacant_listbox_aref} }[3]   = $true;
+
 		# turn off flow -listbox
 		$flow_listbox_blue_w->configure( -state => 'disabled', );
 
 		# name is removed from the namespace
-		$conditions4flows->{_flow_name_out} = $empty_string;
+		$conditions4flows->{_flow_name_out_blue} = $empty_string;
 
 		# for export
 		$is_flow_listbox_blue_w = $false;
-		$flow_name_out          = $empty_string;
+		$flow_name_out_blue          = $empty_string;
 
 		# the last program that was touched is cancelled out
 		$is_last_flow_index_touched_blue = $false;
 
-	}
-	else {
-		print( "conditions4flows, set_defaults4last_delete_from_flow_buttonset, color missing: $color\n" );
+	} else {
+		print("conditions4flows, set_defaults4last_delete_from_flow_buttonset, color missing: $color\n");
 	}
 
 	my $number = _get_num_listboxes_occupied();
@@ -1962,7 +1943,7 @@ sub set_defaults4last_delete_from_flow_button {
 
 		# turn off delete button
 		$delete_from_flow_button->configure( -state => 'disabled', );
-		
+
 		# turn off whole-flow delete button
 		$delete_whole_flow_button->configure( -state => 'disabled', );
 
@@ -1988,8 +1969,8 @@ sub set_defaults4last_delete_from_flow_button {
 
 		# turn off  check_code_button
 		$check_code_button->configure( -state => 'disabled' );
-	}
-	else {
+	} else {
+
 		# NADA print("conditions4flows,set_defaults4last_delete_from_flow_button, not at the last listbox yet\n");
 	}
 
@@ -1997,13 +1978,13 @@ sub set_defaults4last_delete_from_flow_button {
 	$conditions4flows->{_is_user_built_flow}             = $false;
 	$conditions4flows->{_is_sunix_listbox}               = $false;
 	$conditions4flows->{_is_delete_from_flow_button}     = $false;
-	$conditions4flows->{_is_delete_whole_flow_button}     = $false;	
+	$conditions4flows->{_is_delete_whole_flow_button}    = $false;
 	$conditions4flows->{_is_flow_item_down_arrow_button} = $false;
 	$conditions4flows->{_is_flow_item_up_arrow_button}   = $false;
 
 	# for export
 	$is_delete_from_flow_button     = $false;
-	$is_delete_whole_flow_button     = $false;
+	$is_delete_whole_flow_button    = $false;
 	$is_flow_item_down_arrow_button = $false;
 	$is_flow_item_up_arrow_button   = $false;
 
@@ -2114,18 +2095,15 @@ sub set_defaults4start_of_delete_from_flow_button {
 			$flow_listbox_grey_w    = $conditions4flows->{$flow_listbox_color_w_key};
 			$is_flow_listbox_grey_w = $true;
 
-		}
-		elsif ( $color eq 'pink' ) {
+		} elsif ( $color eq 'pink' ) {
 			$flow_listbox_pink_w    = $conditions4flows->{$flow_listbox_color_w_key};
 			$is_flow_listbox_pink_w = $true;
 
-		}
-		elsif ( $color eq 'green' ) {
+		} elsif ( $color eq 'green' ) {
 			$flow_listbox_green_w    = $conditions4flows->{$flow_listbox_color_w_key};
 			$is_flow_listbox_green_w = $true;
 
-		}
-		elsif ( $color eq 'blue' ) {
+		} elsif ( $color eq 'blue' ) {
 			$flow_listbox_blue_w    = $conditions4flows->{$flow_listbox_color_w_key};
 			$is_flow_listbox_blue_w = $true;
 		}
@@ -2135,14 +2113,12 @@ sub set_defaults4start_of_delete_from_flow_button {
 		#   				print("conditions4flows, set_defaults_4start_of_delete_from_flow_button, _is_flow_listbox_color_w_key: $is_flow_listbox_color_w_key\n");
 		#   				print("conditions4flows, set_defaults_4start_of_delete_from_flow_button, flow_listbox_color_w_key: $flow_listbox_color_w_key\n");
 
-	}
-	else {
-		print( "conditions4flows, set_defaults4start_of_delete_from_flow_button, no color: $color\n" );
+	} else {
+		print("conditions4flows, set_defaults4start_of_delete_from_flow_button, no color: $color\n");
 	}
 
 	return ();
 }
-
 
 =head2 sub set_defaults4start_of_delete_whole_flow_button 
 
@@ -2178,37 +2154,32 @@ sub set_defaults4start_of_delete_whole_flow_button {
 		$is_flow_listbox_color_w = $true;
 
 		if ( $color eq 'grey' ) {
-			
+
 			$flow_listbox_grey_w    = $conditions4flows->{$flow_listbox_color_w_key};
 			$is_flow_listbox_grey_w = $true;
 
-		}
-		elsif ( $color eq 'pink' ) {
-			
+		} elsif ( $color eq 'pink' ) {
+
 			$flow_listbox_pink_w    = $conditions4flows->{$flow_listbox_color_w_key};
 			$is_flow_listbox_pink_w = $true;
 
-		}
-		elsif ( $color eq 'green' ) {
-			
+		} elsif ( $color eq 'green' ) {
+
 			$flow_listbox_green_w    = $conditions4flows->{$flow_listbox_color_w_key};
 			$is_flow_listbox_green_w = $true;
 
-		}
-		elsif ( $color eq 'blue' ) {
-			
+		} elsif ( $color eq 'blue' ) {
+
 			$flow_listbox_blue_w    = $conditions4flows->{$flow_listbox_color_w_key};
 			$is_flow_listbox_blue_w = $true;
 		}
 
-	}
-	else {
-		print( "conditions4flows, set_defaults4start_of_delete_whole_flow_button, no color: $color\n" );
+	} else {
+		print("conditions4flows, set_defaults4start_of_delete_whole_flow_button, no color: $color\n");
 	}
 
 	return ();
 }
-
 
 =head2
 
@@ -2232,9 +2203,8 @@ sub set4start_of_flow_item_up_arrow_button {
 		$is_user_built_flow      = $true;
 		$is_flow_listbox_color_w = $true;
 
-	}
-	else {
-		print( "conditions4flows, set4start_of_flow_item_up_arrow_button, no color: $color\n" );
+	} else {
+		print("conditions4flows, set4start_of_flow_item_up_arrow_button, no color: $color\n");
 	}
 
 	return ();
@@ -2298,8 +2268,8 @@ sub set_defaults_4start_of_flow_select {
 		my $flow_listbox_color_w     = $conditions4flows->{$flow_listbox_color_w_key};
 
 		my $value2 = '_is_flow_listbox_' . $color . '_w';
-		$conditions4flows->{$value2} 						= $true;
-		$conditions4flows->{_is_flow_listbox_color_w} 	= $true;
+		$conditions4flows->{$value2} = $true;
+		$conditions4flows->{_is_flow_listbox_color_w} = $true;
 
 		# print("conditions4flows, set_defaults_4start_of_flow_select , color:$color; flow_listbox_color_w =$conditions4flows->{$flow_listbox_color_w_key}\n");
 		_set_flow_listbox_last_touched_txt($flow_listbox_color_w_txt);
@@ -2307,41 +2277,41 @@ sub set_defaults_4start_of_flow_select {
 
 		# print("conditions4flows, set_defaults_4start_of_flow_select , _set_flow_listbox_last_touched_w\n");
 
-#		# location within GUI
-#		if ( $color eq 'grey' ) {
-#
-#			$conditions4flows->{_is_flow_listbox_grey_w} = $true;
-#
-#			# for export to calling module via get_hash_ref
-#			$is_flow_listbox_grey_w = $true;
-#
-#		}
-#		elsif ( $color eq 'pink' ) {
-#			$conditions4flows->{_is_flow_listbox_pink_w} = $true;
-#
-#			# for export to calling module via get_hash_ref
-#			$is_flow_listbox_pink_w = $true;
-#
-#		}
-#		elsif ( $color eq 'green' ) {
-#
-#			$conditions4flows->{_is_flow_listbox_green_w} = $true;
-#
-#			# for export to calling module via get_hash_ref
-#			$is_flow_listbox_green_w = $true;
-#
-#		}
-#		elsif ( $color eq 'blue' ) {
-#
-#			$conditions4flows->{_is_flow_listbox_blue_w} = $true;
-#
-#			# for export to calling module via get_hash_ref
-#			$is_flow_listbox_blue_w = $true;
-#
-#		}
-#		else {
-#			print("conditions4flows, set_defaults_4start_of_flow_select , missing color\n");
-#		}
+		#		# location within GUI
+		#		if ( $color eq 'grey' ) {
+		#
+		#			$conditions4flows->{_is_flow_listbox_grey_w} = $true;
+		#
+		#			# for export to calling module via get_hash_ref
+		#			$is_flow_listbox_grey_w = $true;
+		#
+		#		}
+		#		elsif ( $color eq 'pink' ) {
+		#			$conditions4flows->{_is_flow_listbox_pink_w} = $true;
+		#
+		#			# for export to calling module via get_hash_ref
+		#			$is_flow_listbox_pink_w = $true;
+		#
+		#		}
+		#		elsif ( $color eq 'green' ) {
+		#
+		#			$conditions4flows->{_is_flow_listbox_green_w} = $true;
+		#
+		#			# for export to calling module via get_hash_ref
+		#			$is_flow_listbox_green_w = $true;
+		#
+		#		}
+		#		elsif ( $color eq 'blue' ) {
+		#
+		#			$conditions4flows->{_is_flow_listbox_blue_w} = $true;
+		#
+		#			# for export to calling module via get_hash_ref
+		#			$is_flow_listbox_blue_w = $true;
+		#
+		#		}
+		#		else {
+		#			print("conditions4flows, set_defaults_4start_of_flow_select , missing color\n");
+		#		}
 
 		$conditions4flows->{_is_flow_listbox_color_w}    = $true;
 		$conditions4flows->{_is_pre_built_superflow}     = $false;
@@ -2350,7 +2320,7 @@ sub set_defaults_4start_of_flow_select {
 		$conditions4flows->{_is_user_built_flow}         = $true;
 
 		$delete_from_flow_button->configure( -state => 'active', );
-		$delete_whole_flow_button->configure( -state => 'active', );		
+		$delete_whole_flow_button->configure( -state => 'active', );
 		$flow_item_down_arrow_button->configure( -state => 'active', );
 		$flow_item_up_arrow_button->configure( -state => 'active', );
 		$flow_listbox_grey_w->configure( -state => 'normal', );
@@ -2373,13 +2343,12 @@ sub set_defaults_4start_of_flow_select {
 
 		# turn on 'action' buttons to arrange the programs in a flow
 		$delete_from_flow_button->configure( -state => 'active', );
-		$delete_whole_flow_button->configure( -state => 'active', );	
+		$delete_whole_flow_button->configure( -state => 'active', );
 		$flow_item_up_arrow_button->configure( -state => 'active', );
 		$flow_item_down_arrow_button->configure( -state => 'active', );
 
 		#	$entry_button->focus
-	}
-	else {
+	} else {
 		print("conditions4flows, set_defaults_4start_of_flow_select , no color:$color\n");
 
 	}
@@ -2434,6 +2403,7 @@ sub set4end_of_add2flow {
 		my $flow_listbox_color_w_key    = '_flow_listbox_' . $color . '_w';
 		my $flow_listbox_color_w_txt    = 'flow_listbox_' . $color . '_w';
 		my $is_flow_listbox_color_w_key = '_is_flow_listbox_' . $color . '_w';
+
 		# print("2 conditions4flows,set4end_of_add2flow  flow_listbox_color_w: $flow_listbox_color_w\n");
 		# print("2 conditions4flows,set4end_of_add2flow  color: $color");
 
@@ -2443,8 +2413,8 @@ sub set4end_of_add2flow {
 		_set_flow_listbox_last_touched_txt($flow_listbox_color_w_txt);
 
 		# clear any and all previous highlighted indices
-		$flow_listbox_color_w->selectionClear(0,"end");
-		
+		$flow_listbox_color_w->selectionClear( 0, "end" );
+
 		# highlight new index !!!!!!!!!
 		$flow_listbox_color_w->selectionSet("end");
 
@@ -2461,21 +2431,17 @@ sub set4end_of_add2flow {
 		if ( $conditions4flows->{_flow_color} eq 'grey' ) {
 			$is_flow_listbox_grey_w = $conditions4flows->{_is_flow_listbox_grey_w};
 
-		}
-		elsif ( $conditions4flows->{_flow_color} eq 'pink' ) {
+		} elsif ( $conditions4flows->{_flow_color} eq 'pink' ) {
 			$is_flow_listbox_pink_w = $conditions4flows->{_is_flow_listbox_pink_w};
 
-		}
-		elsif ( $conditions4flows->{_flow_color} eq 'green' ) {
+		} elsif ( $conditions4flows->{_flow_color} eq 'green' ) {
 			$is_flow_listbox_green_w = $conditions4flows->{_is_flow_listbox_green_w};
 
-		}
-		elsif ( $conditions4flows->{_flow_color} eq 'blue' ) {
+		} elsif ( $conditions4flows->{_flow_color} eq 'blue' ) {
 			$is_flow_listbox_blue_w = $conditions4flows->{_is_flow_listbox_blue_w};
 
-		}
-		else {
-			print( "2 conditions4flows,set4end_of_add2flow_of_run_button missing color \n" );
+		} else {
+			print("2 conditions4flows,set4end_of_add2flow_of_run_button missing color \n");
 		}
 
 		# disable All Add-to-flow buttons
@@ -2494,8 +2460,7 @@ sub set4end_of_add2flow {
 		# print("2 conditions4flows,set4end_of_add2flow color: $color\n");
 		return ();
 
-	}
-	else {
+	} else {
 		print("2 conditions4flows,set4end_of_add2flow reset color: $color\n");
 	}
 
@@ -2505,8 +2470,8 @@ sub set4end_of_add2flow {
 
 		sets 
 			$conditions4flows
-			$add2flow_button_grey
-			$flow_listbox_grey_w
+			$add2flow_button_color
+			$flow_listbox_color_w
 			
 		calls
 			_reset();
@@ -2522,7 +2487,7 @@ sub set4end_of_add2flow_button {
 	# print("2 conditions4flows,set4end_of_add2flow_button  color: $color\n");
 
 	if ($color) {
-		#_set_gui_widgets();
+
 		_set_flow_color($color);
 
 		my $add2flow_button_color       = _get_add2flow_button();
@@ -2532,7 +2497,7 @@ sub set4end_of_add2flow_button {
 
 		my $flow_listbox_color_w = $conditions4flows->{$flow_listbox_color_w_key};
 
-		# print("2 conditions4flows,set4end_of_add2flow_button  flow_listbox_color_w: $flow_listbox_color_w\n");
+		#		print("2 conditions4flows,set4end_of_add2flow_button  flow_listbox_color_w: $flow_listbox_color_w\n");
 
 		_set_flow_listbox_last_touched_w($flow_listbox_color_w);
 		_set_flow_listbox_last_touched_txt($flow_listbox_color_w_txt);
@@ -2552,21 +2517,17 @@ sub set4end_of_add2flow_button {
 		if ( $conditions4flows->{_flow_color} eq 'grey' ) {
 			$is_flow_listbox_grey_w = $conditions4flows->{_is_flow_listbox_grey_w};
 
-		}
-		elsif ( $conditions4flows->{_flow_color} eq 'pink' ) {
+		} elsif ( $conditions4flows->{_flow_color} eq 'pink' ) {
 			$is_flow_listbox_pink_w = $conditions4flows->{_is_flow_listbox_pink_w};
 
-		}
-		elsif ( $conditions4flows->{_flow_color} eq 'green' ) {
+		} elsif ( $conditions4flows->{_flow_color} eq 'green' ) {
 			$is_flow_listbox_green_w = $conditions4flows->{_is_flow_listbox_green_w};
 
-		}
-		elsif ( $conditions4flows->{_flow_color} eq 'blue' ) {
+		} elsif ( $conditions4flows->{_flow_color} eq 'blue' ) {
 			$is_flow_listbox_blue_w = $conditions4flows->{_is_flow_listbox_blue_w};
 
-		}
-		else {
-			print( "2 conditions4flows,set4end_of_add2flow_button_of_run_button missing color \n" );
+		} else {
+			print("2 conditions4flows,set4end_of_add2flow_button_of_run_button missing color \n");
 		}
 
 		# disable All Add-to-flow buttons
@@ -2577,17 +2538,16 @@ sub set4end_of_add2flow_button {
 		$add2flow_button_green->configure( -state => 'disabled' );
 		$add2flow_button_blue->configure( -state => 'disabled' );
 
-		# print("1 conditions4flows,set4end_of_add2flow_button color: $color\n");
+		#		print("1 conditions4flows,set4end_of_add2flow_button color: $color\n");
 
 		# set flow color back to neutral after add2flow_button is clicked
 		# _set_flow_color('neutral');
 
-		# print("2 conditions4flows,set4end_of_add2flow_button color: $color\n");
+		#		print("2 conditions4flows,set4end_of_add2flow_button color: $color\n");
 		return ();
 
-	}
-	else {
-		print( "2 conditions4flows,set4end_of_add2flow_button reset color: $color\n" );
+	} else {
+		print("2 conditions4flows,set4end_of_add2flow_button reset color: $color\n");
 	}
 }
 
@@ -2679,29 +2639,24 @@ sub set4start_of_run_button {
 		$conditions4flows->{_is_flow_listbox_grey_w} = $true;
 		$is_flow_listbox_grey_w = $true;
 
-	}
-	elsif ( $conditions4flows->{_flow_color} eq 'pink' ) {
+	} elsif ( $conditions4flows->{_flow_color} eq 'pink' ) {
 		$conditions4flows->{_is_flow_listbox_pink_w} = $true;
 		$is_flow_listbox_pink_w = $true;
 
-	}
-	elsif ( $conditions4flows->{_flow_color} eq 'green' ) {
+	} elsif ( $conditions4flows->{_flow_color} eq 'green' ) {
 		$conditions4flows->{_is_flow_listbox_green_w} = $true;
 		$is_flow_listbox_green_w = $true;
 
-	}
-	elsif ( $conditions4flows->{_flow_color} eq 'blue' ) {
+	} elsif ( $conditions4flows->{_flow_color} eq 'blue' ) {
 		$conditions4flows->{_is_flow_listbox_blue_w} = $true;
 		$is_flow_listbox_blue_w = $true;
 
-	}
-	elsif ( $conditions4flows->{_flow_type} eq 'pre_built_superflow' ) {
+	} elsif ( $conditions4flows->{_flow_type} eq 'pre_built_superflow' ) {
 
 		# print("2 conditions4flows,set4start_of_run_button Running a pre-built superflow\n");
 		# NADA
 
-	}
-	else {
+	} else {
 		print("2 conditions4flows,set4start_of_run_button missing color \n");
 	}
 	return ();
@@ -2851,7 +2806,7 @@ sub set4start_of_sunix_select {
 
 	# print("conditions4flows, set4start_of_sunix_select, $conditions4flows->{_is_sunix_listbox}\n");
 	$delete_from_flow_button->configure( -state => 'disabled', );
-	$delete_whole_flow_button->configure( -state => 'disabled', );	
+	$delete_whole_flow_button->configure( -state => 'disabled', );
 	$flow_item_up_arrow_button->configure( -state => 'disabled', );
 	$flow_item_down_arrow_button->configure( -state => 'disabled', );
 
@@ -2921,19 +2876,19 @@ sub set4start_of_superflow_select {
 	$is_user_built_flow         = $false;
 
 	$delete_from_flow_button->configure( -state => 'disabled', );
-	$delete_whole_flow_button->configure( -state => 'disabled', );	
+	$delete_whole_flow_button->configure( -state => 'disabled', );
 	$flow_item_up_arrow_button->configure( -state => 'disabled', );
 	$flow_item_down_arrow_button->configure( -state => 'disabled', );
 
 	# turn off Flow label
-	$flow_listbox_grey_w->configure( -state => 'disabled' );               # turn off top left flow listbox
-	$flow_listbox_pink_w->configure( -state => 'disabled' );               # turn off top-right flow listbox
-	$flow_listbox_green_w->configure( -state => 'disabled' );              # turn off bottom-left flow listbox
-	$flow_listbox_blue_w->configure( -state => 'disabled' );               # turn off bottom-right flow listbox
-	$add2flow_button_grey->configure( -state => 'disable', );              # turn off Flow label
-	$add2flow_button_pink->configure( -state => 'disable', );              # turn off Flow label
-	$add2flow_button_green->configure( -state => 'disable', );             # turn off Flow label
-	$add2flow_button_blue->configure( -state => 'disable', );              # turn off Flow label
+	$flow_listbox_grey_w->configure( -state => 'disabled' );      # turn off top left flow listbox
+	$flow_listbox_pink_w->configure( -state => 'disabled' );      # turn off top-right flow listbox
+	$flow_listbox_green_w->configure( -state => 'disabled' );     # turn off bottom-left flow listbox
+	$flow_listbox_blue_w->configure( -state => 'disabled' );      # turn off bottom-right flow listbox
+	$add2flow_button_grey->configure( -state => 'disable', );     # turn off Flow label
+	$add2flow_button_pink->configure( -state => 'disable', );     # turn off Flow label
+	$add2flow_button_green->configure( -state => 'disable', );    # turn off Flow label
+	$add2flow_button_blue->configure( -state => 'disable', );     # turn off Flow label
 	$run_button->configure( -state => 'normal' );
 	$save_button->configure( -state => 'normal' );
 
@@ -3036,19 +2991,19 @@ sub set4superflow_open_data_file_start {
 	#	$is_superflow_select_button						= $true;
 
 	$delete_from_flow_button->configure( -state => 'disabled', );
-	$delete_whole_flow_button->configure( -state => 'disabled', );	
+	$delete_whole_flow_button->configure( -state => 'disabled', );
 	$flow_item_up_arrow_button->configure( -state => 'disabled', );
 	$flow_item_down_arrow_button->configure( -state => 'disabled', );
 
 	# turn off Flow label
-	$flow_listbox_grey_w->configure( -state => 'disabled' );             # turn off top left flow listbox
-	$flow_listbox_pink_w->configure( -state => 'disabled' );             # turn off top-right flow listbox
-	$flow_listbox_green_w->configure( -state => 'disabled' );            # turn off bottom-left flow listbox
-	$flow_listbox_blue_w->configure( -state => 'disabled' );             # turn off bottom-right flow listbox
-	$add2flow_button_grey->configure( -state => 'disable', );            # turn off Flow label
-	$add2flow_button_pink->configure( -state => 'disable', );            # turn off Flow label
-	$add2flow_button_green->configure( -state => 'disable', );           # turn off Flow label
-	$add2flow_button_blue->configure( -state => 'disable', );            # turn off Flow label
+	$flow_listbox_grey_w->configure( -state => 'disabled' );      # turn off top left flow listbox
+	$flow_listbox_pink_w->configure( -state => 'disabled' );      # turn off top-right flow listbox
+	$flow_listbox_green_w->configure( -state => 'disabled' );     # turn off bottom-left flow listbox
+	$flow_listbox_blue_w->configure( -state => 'disabled' );      # turn off bottom-right flow listbox
+	$add2flow_button_grey->configure( -state => 'disable', );     # turn off Flow label
+	$add2flow_button_pink->configure( -state => 'disable', );     # turn off Flow label
+	$add2flow_button_green->configure( -state => 'disable', );    # turn off Flow label
+	$add2flow_button_blue->configure( -state => 'disable', );     # turn off Flow label
 	$run_button->configure( -state => 'normal' );
 	$save_button->configure( -state => 'normal' );
 
@@ -3105,7 +3060,7 @@ sub set4superflow_open_path_start {
 	$is_pre_built_superflow   = $true;
 
 	$delete_from_flow_button->configure( -state => 'disabled', );
-	$delete_whole_flow_button->configure( -state => 'disabled', );	
+	$delete_whole_flow_button->configure( -state => 'disabled', );
 	$flow_item_up_arrow_button->configure( -state => 'disabled', );
 	$flow_item_down_arrow_button->configure( -state => 'disabled', );
 
@@ -3156,7 +3111,7 @@ sub set4superflow_Save {
 sub set_flow_index_last_touched {
 	my ( $self, $index ) = @_;
 
-	if (length($index)) {    # if defined
+	if ( length($index) ) {    # if defined
 
 		if ( $index >= 0 ) {    # -1 does exist in conditions4flows thru default definition
 			$conditions4flows->{_last_flow_index_touched_grey}  = $index;    # internal
@@ -3164,42 +3119,41 @@ sub set_flow_index_last_touched {
 			$conditions4flows->{_last_flow_index_touched_green} = $index;    # internal
 			$conditions4flows->{_last_flow_index_touched_blue}  = $index;    # internal
 			$conditions4flows->{_last_flow_index_touched}       = $index;    # internal
-			$last_flow_index_touched_grey                     = $index;    # for get_hash-ref
-			$last_flow_index_touched_pink                     = $index;    # for get_hash-ref
-			$last_flow_index_touched_green                    = $index;    # for get_hash-ref
-			$last_flow_index_touched_blue                     = $index;    # for get_hash-ref
-			$last_flow_index_touched                          = $index;    # for get_hash-ref
-			$is_last_flow_index_touched_grey                  = $true;     # for get_hash-ref
-			$is_last_flow_index_touched_pink                  = $true;     # for get_hash-ref
-			$is_last_flow_index_touched_green                 = $true;     # for get_hash-ref
-			$is_last_flow_index_touched_blue                  = $true;     # for get_hash-ref
-			$is_last_flow_index_touched                       = $true;     # for get_hash-ref
+			$last_flow_index_touched_grey                       = $index;    # for get_hash-ref
+			$last_flow_index_touched_pink                       = $index;    # for get_hash-ref
+			$last_flow_index_touched_green                      = $index;    # for get_hash-ref
+			$last_flow_index_touched_blue                       = $index;    # for get_hash-ref
+			$last_flow_index_touched                            = $index;    # for get_hash-ref
+			$is_last_flow_index_touched_grey                    = $true;     # for get_hash-ref
+			$is_last_flow_index_touched_pink                    = $true;     # for get_hash-ref
+			$is_last_flow_index_touched_green                   = $true;     # for get_hash-ref
+			$is_last_flow_index_touched_blue                    = $true;     # for get_hash-ref
+			$is_last_flow_index_touched                         = $true;     # for get_hash-ref
 
 			#print("1. conditions4flows, set_flow_index_last_touched had index = $conditions4flows->{_last_flow_index_touched}\n");
-		}
-		else {
+		} else {
 			print("conditions4flows,set_flow_index_touched, missing index\n");
 		}
 
-	}
-	else {
+	} else {
+
 		#print("conditions4flows,set_flow_index_touched, index is undefined but needed, so assume index=0\n");
-		$index                                            = 0;
+		$index                                              = 0;
 		$conditions4flows->{_last_flow_index_touched_grey}  = $index;        # internal
 		$conditions4flows->{_last_flow_index_touched_pink}  = $index;        # internal
 		$conditions4flows->{_last_flow_index_touched_green} = $index;        # internal
 		$conditions4flows->{_last_flow_index_touched_blue}  = $index;        # internal
 		$conditions4flows->{_last_flow_index_touched}       = $index;        # internal
-		$last_flow_index_touched_grey                     = $index;        # for get_hash-ref
-		$last_flow_index_touched_pink                     = $index;        # for get_hash-ref
-		$last_flow_index_touched_green                    = $index;        # for get_hash-ref
-		$last_flow_index_touched_blue                     = $index;        # for get_hash-ref
-		$last_flow_index_touched                          = $index;        # for get_hash-ref
-		$is_last_flow_index_touched_grey                  = $true;         # for get_hash-ref
-		$is_last_flow_index_touched_pink                  = $true;         # for get_hash-ref
-		$is_last_flow_index_touched_green                 = $true;         # for get_hash-ref
-		$is_last_flow_index_touched_blue                  = $true;         # for get_hash-ref
-		$is_last_flow_index_touched                       = $true;         # for get_hash-ref
+		$last_flow_index_touched_grey                       = $index;        # for get_hash-ref
+		$last_flow_index_touched_pink                       = $index;        # for get_hash-ref
+		$last_flow_index_touched_green                      = $index;        # for get_hash-ref
+		$last_flow_index_touched_blue                       = $index;        # for get_hash-ref
+		$last_flow_index_touched                            = $index;        # for get_hash-ref
+		$is_last_flow_index_touched_grey                    = $true;         # for get_hash-ref
+		$is_last_flow_index_touched_pink                    = $true;         # for get_hash-ref
+		$is_last_flow_index_touched_green                   = $true;         # for get_hash-ref
+		$is_last_flow_index_touched_blue                    = $true;         # for get_hash-ref
+		$is_last_flow_index_touched                         = $true;         # for get_hash-ref
 	}
 
 	# print("1. conditions4flows, set_flow_index_last_touched had index = $index\n");

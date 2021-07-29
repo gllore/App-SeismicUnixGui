@@ -70,7 +70,7 @@ my $project_selector = {
 sub _continue {
 	my ($self) = @_;
 
-	# print("project_selector, _continue\n");
+#	print("project_selector, _continue\n");
 	my $mw = $project_selector->{_mw};
 	$mw->destroy() if Tk::Exists($mw);
 	exit(1);
@@ -97,7 +97,7 @@ sub cancel {
 	my ( $self, $value ) = @_;
 	if ($value) {
 		_cancel();
-		print("project_select,cancel,value: $value\n");
+#		print("project_select,cancel,value: $value\n");
 	} else {
 		print("project_select,cancel,error, value: $value\n");
 	}
@@ -291,18 +291,18 @@ sub _ok {
 	if ( $project_selector->{_active_project} ) {
 
 		# extra security
-		#		print("project_select,_ok, active project already exists-Good\n");
+		# print("project_select,_ok, active project already exists-Good\n");
 
 		my $param_widgets_pkg       = $project_selector->{_param_widgets_pkg};
 		my $length_check_buttons_on = $param_widgets_pkg->get_length_check_buttons_on();
 
-		#		print("project_selector,_ok, length_check_buttons_on: $length_check_buttons_on\n");
+#		print("project_selector,_ok, length_check_buttons_on: $length_check_buttons_on\n");
 
 		# CASE 1.A More than one button is selected
 		if ( $length_check_buttons_on > 1 ) {    # possible mistake by user
 
-			#			print("CASE 1A: project_selector,_ok, >1 length_check_buttons_on: $length_check_buttons_on\n");
-			#			print("project_selector,_ok, length_check_buttons_on: $length_check_buttons_on\n");
+#			print("CASE 1A: project_selector,_ok, >1 length_check_buttons_on: $length_check_buttons_on\n");
+#			print("project_selector,_ok, length_check_buttons_on: $length_check_buttons_on\n");
 			$message_box_w->delete( "1.0", 'end' );
 			my $message = $message_director->project_selector(0);    # only one button can be chosen
 			$message_box_w->insert( 'end', $message );
@@ -318,7 +318,7 @@ sub _ok {
 			if ( $length == 0 ) {
 
 				# i.e. no project names exist is confirmed
-				#				print("CASE 1.B :project_selector,_ok, length_project names $length\n");
+#				print("CASE 1.B :project_selector,_ok, length_project names $length\n");
 
 				$message_box_w->delete( "1.0", 'end' );
 				my $message = $message_director->project_selector(2);    # Create New or select old project
@@ -330,7 +330,7 @@ sub _ok {
 		# CASE 1.C  an existing project is chosen
 		elsif ( $length_check_buttons_on == 1 ) {
 
-			#			print("CASE 1.C: project_selector,_ok, length_check_buttons_on: $length_check_buttons_on\n");
+#			print("CASE 1.C: project_selector,_ok, length_check_buttons_on: $length_check_buttons_on\n");
 			use File::Copy;
 			my $CONFIGURATION       = $user_constants->get_CONFIGURATION;
 			my $ACTIVE_PROJECT      = $user_constants->get_ACTIVE_PROJECT;
@@ -357,9 +357,9 @@ sub _ok {
 			copy( $from, $to );
 
 			# Instruction to create the new directories runs in system
-			#			print("project_selector,_ok,create new Project and its directories \n");
+#			print("project_selector,_ok,create new Project and its directories \n");
 
-			# print("$global_libs->{_superflows}$run_name \n");
+#		     print("project_selector,_ok, sh $global_libs->{_superflows}$run_name \n");
 			system("sh $global_libs->{_superflows}$run_name");
 
 			# print("project_selector,_ok,copying new active project configuration file \n FROM:$from TO:$to");
@@ -374,7 +374,7 @@ sub _ok {
 	# 2. CASES for NEWLY created Project Configuration File and New Project
 	elsif ( $project_selector->{_create_new} ) {
 
-#		print("CASE 2 project_select,_ok, project newly created \n");
+#	print("CASE 2 project_select,_ok, project newly created \n");
 
 		# save the new .Project configure to
 		# /home/username/configuration/active
@@ -536,9 +536,9 @@ sub _set_gui {
 					$check_buttons[$i] = 'on';
 
 					# print("project_selector,_set_gui i=$i,active project match chkn ON \n");
+					
 				} else {
 					$check_buttons[$i] = 'off';
-
 					# print("project_selector,_set_gui,i=$i, NO active project match chkn OFF \n");
 				}
 			}
@@ -549,10 +549,10 @@ sub _set_gui {
 			$param_widgets_pkg->redisplay_check_buttons;
 
 		} else {
-
 			print("project_selector, _set_gui, lost logic\n");
 			return ();
 		}
+		
 	} else {
 		print("project_selector,_set_gui, param_widgets_pkg must be first created\n");
 		return ();
@@ -709,7 +709,6 @@ sub create_new {
 		_set_start_of_create_new();
 
 	} else {
-
 		# print("project_selector,save,error, value: $value\n");
 	}
 	return ();
@@ -753,7 +752,6 @@ sub set_check_buttons_w_aref {
 
 	} else {
 		print("project_selector, set_check_buttons_w_aref,missing check_buttons_w_aref \n");
-
 	}
 	return ();
 }
@@ -773,7 +771,6 @@ sub set_create_new_button_w {
 
 	} else {
 		print("project_selector, set_,missing  create_new_button_w \n");
-
 	}
 	return ();
 }
@@ -824,6 +821,7 @@ sub set_hash_ref {
 
 sub set_labels_frame {
 	my ( $self, $label ) = @_;
+	
 	print("my label-$label\n");
 
 }
@@ -841,7 +839,6 @@ sub set_labels_w_aref {
 
 	} else {
 		print("project_selector,set_labels_w_aref, missing labels_w_aref \n");
-
 	}
 	return ();
 }
@@ -902,9 +899,7 @@ sub set_mw {
 		$project_selector->{_mw} = my $mw;
 
 	} else {
-
 		# print("project_selector, set_mw,missing check_buttons_w_aref \n");
-
 	}
 	return ();
 }

@@ -180,7 +180,7 @@ sub _big_stream_last_dir_in_path {
 	$gui_history->set_hash_ref($file_dialog);
 	$gui_history->set4FileDialog_open_start();
 	$gui_history->set4superflow_open_path_start();
-	$file_dialog = $gui_history->get_hash_ref();    # gets 93
+	$file_dialog = $gui_history->get_hash_ref();
 
 	# If an appropriate Entry widget is first selected,
 	# Find out which entry button has been chosen (index)
@@ -298,7 +298,7 @@ sub _big_stream_last_dir_in_path_close {
 	$decisions->set4FileDialog_select($file_dialog);
 	my $pre_req_ok = $decisions->get4FileDialog_select();
 
-	print("1. file_dialog,_big_stream_last_dir_in_path_close, pre_req_ok= $pre_req_ok \n");
+#	print("1. file_dialog,_big_stream_last_dir_in_path_close, pre_req_ok= $pre_req_ok \n");
 
 	if ($pre_req_ok) {
 
@@ -1356,32 +1356,33 @@ sub _user_built_flow_close_path {
 	$decisions->set4FileDialog_select($file_dialog);
 	my $pre_req_ok = $decisions->get4FileDialog_select();
 
-	# print("1. file_dialog,_user_built_flow_close_path,pre_req_ok= $pre_req_ok \n");
+	print("1. file_dialog,_user_built_flow_close_path,pre_req_ok= $pre_req_ok \n");
 
 	if ($pre_req_ok) {
 
 		my $widget_type = $whereami->widget_type( $file_dialog->{_parameter_values_frame} );
 
-		# print("file_dialog  _user_built_flow_close_path selected widget type is = $widget_type	\n");
+		print("file_dialog  _user_built_flow_close_path selected widget type is = $widget_type	\n");
 
 		if ( defined( $file_dialog->{_last_path_touched} )
 			and $file_dialog->{_last_path_touched} ne $empty_string ) {
 
 			$result = $file_dialog->{_last_path_touched};    # no abbreviation
-				# print("4. file_dialog,_user_built_flow_close_path,value that will be saved: $result\n");
+			print("4. file_dialog,_user_built_flow_close_path,value that will be saved: $result\n");
 
 		} else {
 			print("file_dialog,_user_built_flow_close_path No path was selected\n");
 		}
 
-		# update the gui with the new path
+		# update the gui with the new PATH
 		_set_selected_file_name($result);
 
 		$gui_history->set4user_built_flow_close_path_end();
 		$file_dialog = $gui_history->get_hash_ref();
 
 	}    # if prereq_OK
-
+	
+	return($empty_string);
 }
 
 =head2 sub _user_built_flow_close_perl_file 

@@ -1,0 +1,880 @@
+sustrip ftn=1 head=\/dev\/null outpar=\/dev\/null < /home/gllore/mars/seismics/data/hrk_e122/wheel/022321/rad_tangent_axial/1/su/gllore/1002_clean.su > /home/gllore/mars/seismics/data/hrk_e122/wheel/022321/rad_tangent_axial/1/bin/gllore/1002_clean.bin & 
+
+unisam dxout=1 nout=2001 xin=0\,600\,601\,1200\,1201\,1500\,1501\,2000 yin=2000\,2000\,3000\,3000\,2600\,2600\,4500\,4500 > 1 & 
+
+suxgraph width=240 height=300 linecolor=4 style=seismic title=suxgraph windowtitle=suxgraph x1end=2 label1=time\ \(s\) x1beg=0 -geometry 240x300+550+50 < /home/gllore/demos/seismics/data/Synthetic/Finite_Difference/Sufdmod1/Xdemo1/1/su/gllore/seismogram.su & 
+
+sugain pbal=1 tmpdir=\/tmp < /home/gllore/demos/seismics/data/Synthetic/Finite_Difference/Sufctanismod/Xdemo1/1/su/gllore/xreflectionx.su | suximage cmap=hsv0 d2=1 f1=0 gridcolor=blu label1=Time\ \(s\) label2=Surface\ coord\.\ \(m\) legend=1 perc=99\.5 title=Horizontal\ component\ of\ horizontal\ section units=unit verbose=1 windowtitle=suximage xbox=500 ybox=500 wbox=550 hbox=500 & 
+
+suximage clip=1 cmap=hsv0 d2=1 f1=0 gridcolor=blue labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 lwidth=16 lx=3 mpicks=\/dev\/tty n1tic=1 n2tic=1 perc=100 plotfile=plotfile\.ps style=seismic title=suximage titlecolor=red titlefont=Rom22 units=unit verbose=1 windowtitle=suximage xbox=500 ybox=500 wbox=550 < /home/gllore/demos/seismics/data/Synthetic/Finite_Difference/Sufctanismod/Xdemo1/1/su/gllore/xreflectionx.su & 
+
+sugain agc=1 wagc=0\.1 tmpdir=\/tmp < /home/gllore/demos/seismics/data/Synthetic/Finite_Difference/Sufctanismod/Xdemo1/1/su/gllore/xreflectionx.su | suximage clip=1 cmap=hsv0 d2=1 f1=0 gridcolor=blue labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 lwidth=16 lx=3 mpicks=\/dev\/tty n1tic=1 n2tic=1 perc=100 plotfile=plotfile\.ps style=seismic title=suximage titlecolor=red titlefont=Rom22 units=unit verbose=1 windowtitle=suximage xbox=500 ybox=500 wbox=550 & 
+
+sugain pbal=1 tmpdir=\/tmp < /home/gllore/demos/seismics/data/Synthetic/Finite_Difference/Sufctanismod/Xdemo1/1/su/gllore/zreflectionz.su | suximage cmap=hsv0 d2=1 f1=0 gridcolor=blu label1=Time\ \(s\) label2=Surface\ coord\.\ \(m\) legend=1 perc=99\.5 title=Vertical\ component\ of\ horizontal\ section units=unit verbose=1 windowtitle=suximage xbox=500 ybox=500 wbox=550 & 
+
+unif2aniso c11_file=\/home\/gllore\/demos\/seismics\/data\/Synthetic\/Finite_Difference\/Suea2df\/Xdemo1\/1\/bin\/gllore\/c11_file\.bin c13_file=\/home\/gllore\/demos\/seismics\/data\/Synthetic\/Finite_Difference\/Suea2df\/Xdemo1\/1\/bin\/gllore\/c13_file\.bin c15_file=\/home\/gllore\/demos\/seismics\/data\/Synthetic\/Finite_Difference\/Suea2df\/Xdemo1\/1\/bin\/gllore\/c15_file\.bin c33_file=\/home\/gllore\/demos\/seismics\/data\/Synthetic\/Finite_Difference\/Suea2df\/Xdemo1\/1\/bin\/gllore\/c33_file\.bin c35_file=\/home\/gllore\/demos\/seismics\/data\/Synthetic\/Finite_Difference\/Suea2df\/Xdemo1\/1\/bin\/gllore\/c35_file\.bin c44_file=\/home\/gllore\/demos\/seismics\/data\/Synthetic\/Finite_Difference\/Suea2df\/Xdemo1\/1\/bin\/gllore\/c44_file\.bin c55_file=\/home\/gllore\/demos\/seismics\/data\/Synthetic\/Finite_Difference\/Suea2df\/Xdemo1\/1\/bin\/gllore\/c55_file\.bin c66_file=\/home\/gllore\/demos\/seismics\/data\/Synthetic\/Finite_Difference\/Suea2df\/Xdemo1\/1\/bin\/gllore\/c66_file\.bin dddx=0\.0\,0\.0 dddz=0\.0\,0\.0 dedx=0\.0\,0\.0 dedz=0\.0\,0\.0 delta00=0\,0 dgdx=0\.0\,0\.0 dgdz=0\.0\,0\.0 dqdx=0\.0\,0\.0 dqdz=0\.0\,0\.0 drdx=0\.0\,0\.0 drdz=0\.0\,0\.0 dvpdx=0\.0\,0\.0 dvpdz=0\.0\,0\.0 dvsdx=0\.0\,0\.0 dvsdz=0\.0\,0\.0 dx=6 dz=6 eps00=0\,0 fx=0 fz=0 gamma00=0\,0 method=linear n1=100 ninf=1 npmax=201 nx=255 nz=294 paramtype=1 phi00=0\,0 q00=110\,120 q_file=\/home\/gllore\/demos\/seismics\/data\/Synthetic\/Finite_Difference\/Suea2df\/Xdemo1\/1\/bin\/gllore\/q_file\.bin rho00=2250\.\,2250\. rho_file=\/home\/gllore\/demos\/seismics\/data\/Synthetic\/Finite_Difference\/Suea2df\/Xdemo1\/1\/bin\/gllore\/rho_file\.bin tfile=\/home\/gllore\/demos\/seismics\/data\/Synthetic\/Finite_Difference\/Suea2df\/Xdemo1\/1\/bin\/gllore\/testfilename\.bin vp00=2898\.0\,3320\.0 vs00=1398\.0\,1498\.0 x0=0\.0\,0\.0\,0\.0 < /home/gllore/demos/seismics/data/Synthetic/Finite_Difference/Suea2df/Xdemo1/1/txt/gllore/model_unif.txt & 
+
+unif2aniso c11_file=\/home\/gllore\/demos\/seismics\/data\/Synthetic\/Finite_Difference\/Suea2df\/Xdemo1\/1\/bin\/gllore\/c11_file\.bin c13_file=\/home\/gllore\/demos\/seismics\/data\/Synthetic\/Finite_Difference\/Suea2df\/Xdemo1\/1\/bin\/gllore\/c13_file\.bin c15_file=\/home\/gllore\/demos\/seismics\/data\/Synthetic\/Finite_Difference\/Suea2df\/Xdemo1\/1\/bin\/gllore\/c15_file\.bin c33_file=\/home\/gllore\/demos\/seismics\/data\/Synthetic\/Finite_Difference\/Suea2df\/Xdemo1\/1\/bin\/gllore\/c33_file\.bin c35_file=\/home\/gllore\/demos\/seismics\/data\/Synthetic\/Finite_Difference\/Suea2df\/Xdemo1\/1\/bin\/gllore\/c35_file\.bin c44_file=\/home\/gllore\/demos\/seismics\/data\/Synthetic\/Finite_Difference\/Suea2df\/Xdemo1\/1\/bin\/gllore\/c44_file\.bin c55_file=\/home\/gllore\/demos\/seismics\/data\/Synthetic\/Finite_Difference\/Suea2df\/Xdemo1\/1\/bin\/gllore\/c55_file\.bin c66_file=\/home\/gllore\/demos\/seismics\/data\/Synthetic\/Finite_Difference\/Suea2df\/Xdemo1\/1\/bin\/gllore\/c66_file\.bin dddx=0\.0\,0\.0 dddz=0\.0\,0\.0 dedx=0\.0\,0\.0 dedz=0\.0\,0\.0 delta00=0\,0 dgdx=0\.0\,0\.0 dgdz=0\.0\,0\.0 dqdx=0\.0\,0\.0 dqdz=0\.0\,0\.0 drdx=0\.0\,0\.0 drdz=0\.0\,0\.0 dvpdx=0\.0\,0\.0 dvpdz=0\.0\,0\.0 dvsdx=0\.0\,0\.0 dvsdz=0\.0\,0\.0 dx=6 dz=6 eps00=0\,0 fx=0 fz=0 gamma00=0\,0 method=linear n1=100 ninf=1 npmax=201 nx=255 nz=294 paramtype=1 phi00=0\,0 q00=110\,120 q_file=\/home\/gllore\/demos\/seismics\/data\/Synthetic\/Finite_Difference\/Suea2df\/Xdemo1\/1\/bin\/gllore\/q_file\.bin rho00=2250\.\,2250\. rho_file=\/home\/gllore\/demos\/seismics\/data\/Synthetic\/Finite_Difference\/Suea2df\/Xdemo1\/1\/bin\/gllore\/rho_file\.bin tfile=\/home\/gllore\/demos\/seismics\/data\/Synthetic\/Finite_Difference\/Suea2df\/Xdemo1\/1\/bin\/gllore\/testfilename\.bin vp00=2898\.0\,3320\.0 vs00=1398\.0\,1498\.0 x0=0\.0\,0\.0\,0\.0 < /home/gllore/demos/seismics/data/Synthetic/Finite_Difference/Suea2df/Xdemo1/1/txt/gllore/model_unif.txt & 
+
+unif2aniso c11_file=\/home\/gllore\/demos\/seismics\/data\/Synthetic\/Finite_Difference\/Suea2df\/Xdemo1\/1\/bin\/gllore\/c11_file\.bin c13_file=\/home\/gllore\/demos\/seismics\/data\/Synthetic\/Finite_Difference\/Suea2df\/Xdemo1\/1\/bin\/gllore\/c13_file\.bin c15_file=\/home\/gllore\/demos\/seismics\/data\/Synthetic\/Finite_Difference\/Suea2df\/Xdemo1\/1\/bin\/gllore\/c15_file\.bin c33_file=\/home\/gllore\/demos\/seismics\/data\/Synthetic\/Finite_Difference\/Suea2df\/Xdemo1\/1\/bin\/gllore\/c33_file\.bin c35_file=\/home\/gllore\/demos\/seismics\/data\/Synthetic\/Finite_Difference\/Suea2df\/Xdemo1\/1\/bin\/gllore\/c35_file\.bin c44_file=\/home\/gllore\/demos\/seismics\/data\/Synthetic\/Finite_Difference\/Suea2df\/Xdemo1\/1\/bin\/gllore\/c44_file\.bin c55_file=\/home\/gllore\/demos\/seismics\/data\/Synthetic\/Finite_Difference\/Suea2df\/Xdemo1\/1\/bin\/gllore\/c55_file\.bin c66_file=\/home\/gllore\/demos\/seismics\/data\/Synthetic\/Finite_Difference\/Suea2df\/Xdemo1\/1\/bin\/gllore\/c66_file\.bin dddx=0\.0\,0\.0 dddz=0\.0\,0\.0 dedx=0\.0\,0\.0 dedz=0\.0\,0\.0 delta00=0\,0 dgdx=0\.0\,0\.0 dgdz=0\.0\,0\.0 dqdx=0\.0\,0\.0 dqdz=0\.0\,0\.0 drdx=0\.0\,0\.0 drdz=0\.0\,0\.0 dvpdx=0\.0\,0\.0 dvpdz=0\.0\,0\.0 dvsdx=0\.0\,0\.0 dvsdz=0\.0\,0\.0 dx=6 dz=6 eps00=0\,0 fx=0 fz=0 gamma00=0\,0 method=linear n1=100 ninf=1 npmax=201 nx=255 nz=294 paramtype=1 phi00=0\,0 q00=110\,120 q_file=\/home\/gllore\/demos\/seismics\/data\/Synthetic\/Finite_Difference\/Suea2df\/Xdemo1\/1\/bin\/gllore\/q_file\.bin rho00=2250\.\,2250\. rho_file=\/home\/gllore\/demos\/seismics\/data\/Synthetic\/Finite_Difference\/Suea2df\/Xdemo1\/1\/bin\/gllore\/rho_file\.bin tfile=\/home\/gllore\/demos\/seismics\/data\/Synthetic\/Finite_Difference\/Suea2df\/Xdemo1\/1\/bin\/gllore\/testfilename\.bin vp00=2898\.0\,3320\.0 vs00=1398\.0\,1498\.0 x0=0\.0\,0\.0 z0=0\.0\,150\.0 < /home/gllore/demos/seismics/data/Synthetic/Finite_Difference/Suea2df/Xdemo1/1/txt/gllore/model_unif.txt & 
+
+unif2aniso c11_file=\/home\/gllore\/demos\/seismics\/data\/Synthetic\/Finite_Difference\/Suea2df\/Xdemo1\/1\/bin\/gllore\/c11_file\.bin c13_file=\/home\/gllore\/demos\/seismics\/data\/Synthetic\/Finite_Difference\/Suea2df\/Xdemo1\/1\/bin\/gllore\/c13_file\.bin c15_file=\/home\/gllore\/demos\/seismics\/data\/Synthetic\/Finite_Difference\/Suea2df\/Xdemo1\/1\/bin\/gllore\/c15_file\.bin c33_file=\/home\/gllore\/demos\/seismics\/data\/Synthetic\/Finite_Difference\/Suea2df\/Xdemo1\/1\/bin\/gllore\/c33_file\.bin c35_file=\/home\/gllore\/demos\/seismics\/data\/Synthetic\/Finite_Difference\/Suea2df\/Xdemo1\/1\/bin\/gllore\/c35_file\.bin c44_file=\/home\/gllore\/demos\/seismics\/data\/Synthetic\/Finite_Difference\/Suea2df\/Xdemo1\/1\/bin\/gllore\/c44_file\.bin c55_file=\/home\/gllore\/demos\/seismics\/data\/Synthetic\/Finite_Difference\/Suea2df\/Xdemo1\/1\/bin\/gllore\/c55_file\.bin c66_file=\/home\/gllore\/demos\/seismics\/data\/Synthetic\/Finite_Difference\/Suea2df\/Xdemo1\/1\/bin\/gllore\/c66_file\.bin dddx=0\.0\,0\.0 dddz=0\.0\,0\.0 dedx=0\.0\,0\.0 dedz=0\.0\,0\.0 delta00=0\,0 dgdx=0\.0\,0\.0 dgdz=0\.0\,0\.0 dqdx=0\.0\,0\.0 dqdz=0\.0\,0\.0 drdx=0\.0\,0\.0 drdz=0\.0\,0\.0 dvpdx=0\.0\,0\.0 dvpdz=0\.0\,0\.0 dvsdx=0\.0\,0\.0 dvsdz=0\.0\,0\.0 dx=6 dz=6 eps00=0\,0 fx=0 fz=0 gamma00=0\,0 method=linear n1=100 ninf=1 npmax=201 nx=255 nz=294 paramtype=1 phi00=0\,0 q00=110\,120 q_file=\/home\/gllore\/demos\/seismics\/data\/Synthetic\/Finite_Difference\/Suea2df\/Xdemo1\/1\/bin\/gllore\/q_file\.bin rho00=2250\.\,2250\. rho_file=\/home\/gllore\/demos\/seismics\/data\/Synthetic\/Finite_Difference\/Suea2df\/Xdemo1\/1\/bin\/gllore\/rho_file\.bin tfile=\/home\/gllore\/demos\/seismics\/data\/Synthetic\/Finite_Difference\/Suea2df\/Xdemo1\/1\/bin\/gllore\/testfilename\.bin vp00=2898\.0\,3320\.0 vs00=1398\.0\,1498\.0 x0=0\.0\,0\.0\,0\.0 < /home/gllore/demos/seismics/data/Synthetic/Finite_Difference/Suea2df/Xdemo1/1/txt/gllore/model_unif.txt & 
+
+ximage balance=1 blank=0 blockinterp=0 cmap=hsv1 d1=1 d1num=0 d2=1 d2num=0 f1=0 f2=0 hbox=294 label2=label labelcolor=blue labelfont=Erg14 legend=0 legendfont=times_roman10 mpicks=\/dev\/tty n1tic=1 n2tic=1 plotfile=plotfile\.ps style=seismic title=c11\ parameter\ file titlecolor=red titlefont=Rom22 units=unit verbose=0 wbox=255 windowtitle=ximage xbox=0 ybox=100 < /home/gllore/demos/seismics/data/Synthetic/Finite_Difference/Suea2df/Xdemo1/1/bin/gllore/c11_file.bin & 
+
+unif2aniso dddx=0\.0\,0\.0 dddz=0\.0\,0\.0 dedx=0\.0\,0\.0 dedz=0\.0\,0\.0 delta00=0\,0 dgdx=0\.0\,0\.0 dgdz=0\.0\,0\.0 dqdx=0\.0\,0\.0 dqdz=0\.0\,0\.0 drdx=0\.0\,0\.0 drdz=0\.0\,0\.0 dvpdx=0\.0\,0\.0 dvpdz=0\.0\,0\.0 dvsdx=0\.0\,0\.0 dvsdz=0\.0\,0\.0 dx=6 dz=6 eps00=0\,0 fx=0 fz=0 gamma00=0\,0 method=linear n1=100 ninf=1 npmax=201 nx=255 nz=294 paramtype=1 phi00=0\,0 q00=110\,120 rho00=2250\.\,2250\. tfile=\/home\/gllore\/demos\/seismics\/data\/Synthetic\/Finite_Difference\/Suea2df\/Xdemo1\/1\/bin\/gllore\/testfilename\.bin vp00=2898\.0\,3320\.0 vs00=1398\.0\,1498\.0 x0=0\.0\,0\.0 < /home/gllore/demos/seismics/data/Synthetic/Finite_Difference/Suea2df/Xdemo1/1/txt/gllore/model_unif.txt & 
+
+unif2aniso dddx=\/home\/gllore\/demos\/seismics\/data\/Synthetic\/Finite_Difference\/Suea2df\/Xdemo1\/1\/bin\/gllore\/0\.0\,0\.0\.bin dddz=0\.0\,0\.0 dedx=0\.0\,0\.0 dedz=0\.0\,0\.0 delta00=0\,0 dgdx=0\.0\,0\.0 dgdz=0\.0\,0\.0 dqdx=0\.0\,0\.0 dqdz=0\.0\,0\.0 drdx=0\.0\,0\.0 drdz=0\.0\,0\.0 dvpdx=0\.0\,0\.0 dvpdz=0\.0\,0\.0 dvsdx=0\.0\,0\.0 dvsdz=0\.0\,0\.0 dx=6 dz=6 eps00=0\,0 fx=0 fz=0 gamma00=0\,0 method=linear n1=100 ninf=1 npmax=201 nx=255 nz=294 paramtype=1 phi00=0\,0 q00=110\,120 rho00=2250\.\,2250\. tfile=testfilename vp00=2898\.0\,3320\.0 vs00=1398\.0\,1498\.0 x0=0\.0\,0\.0 z0=0\.0\,150\.0 < 1 & 
+
+unif2aniso dddx=\/home\/gllore\/demos\/seismics\/data\/Synthetic\/Finite_Difference\/Suea2df\/Xdemo1\/1\/bin\/gllore\/0\.0\,0\.0\.bin dddz=0\.0\,0\.0 dedx=0\.0\,0\.0 dedz=0\.0\,0\.0 delta00=0\,0 dgdx=0\.0\,0\.0 dgdz=0\.0\,0\.0 dqdx=0\.0\,0\.0 dqdz=0\.0\,0\.0 drdx=0\.0\,0\.0 drdz=0\.0\,0\.0 dvpdx=0\.0\,0\.0 dvpdz=0\.0\,0\.0 dvsdx=0\.0\,0\.0 dvsdz=0\.0\,0\.0 dx=6 dz=6 eps00=0\,0 fx=0 fz=0 gamma00=0\,0 method=linear n1=100 ninf=1 npmax=201 nx=255 nz=294 paramtype=1 phi00=0\,0 q00=110\,120 rho00=2250\.\,2250\. tfile=testfilename vp00=2898\.0\,3320\.0 vs00=1398\.0\,1498\.0 x0=0\.0\,0\.0 z0=0\.0\,150\.0 < /home/gllore/demos/seismics/data/Synthetic/Finite_Difference/Suea2df/Xdemo1/1/txt/gllore/model_unif.txt & 
+
+unif2aniso dddx=\/home\/gllore\/demos\/seismics\/data\/Synthetic\/Finite_Difference\/Suea2df\/Xdemo1\/1\/bin\/gllore\/0\.0\,0\.0\.bin dddz=0\.0\,0\.0 dedx=0\.0\,0\.0 dedz=0\.0\,0\.0 delta00=0\,0 dgdx=0\.0\,0\.0 dgdz=0\.0\,0\.0 dqdx=0\.0\,0\.0 dqdz=0\.0\,0\.0 drdx=0\.0\,0\.0 drdz=0\.0\,0\.0 dvpdx=0\.0\,0\.0 dvpdz=0\.0\,0\.0 dvsdx=0\.0\,0\.0 dvsdz=0\.0\,0\.0 dx=6 dz=6 eps00=0\,0 fx=0 fz=0 gamma00=0\,0 method=linear n1=100 ninf=1 npmax=201 nx=255 nz=294 paramtype=1 phi00=0\,0 q00=110\,120 rho00=2250\.\,2250\. tfile=testfilename vp00=2898\.0\,3320\.0 vs00=1398\.0\,1498\.0 x0=0\.0\,0\.0 z0=0\.0\,150\.0 < /home/gllore/demos/seismics/data/Synthetic/Finite_Difference/Suea2df/Xdemo1/1/txt/gllore/model_unif.txt & 
+
+unif2aniso dddz=0\.0\,0\.0 dedx=0\.0\,0\.0 dedz=0\.0\,0\.0 delta00=0\,0 dgdx=0\.0\,0\.0 dgdz=0\.0\,0\.0 dqdx=0\.0\,0\.0 dqdz=0\.0\,0\.0 drdx=0\.0\,0\.0 drdz=0\.0\,0\.0 dvpdx=0\.0\,0\.0 dvpdz=0\.0\,0\.0 dvsdx=0\.0\,0\.0 dvsdz=0\.0\,0\.0 dx=6 dz=6 eps00=0\,0 fx=0 fz=0 gamma00=0\,0 method=linear n1=100 ninf=1 npmax=201 nx=255 nz=294 paramtype=1 phi00=0\,0 q00=110\,120 rho00=2250\.\,2250\. vp00=2898\.0\,3320\.0 vs00=1398\.0\,1498\.0 x0=0\.0\,0\.0 < /home/gllore/demos/seismics/data/Synthetic/Finite_Difference/Suea2df/Xdemo1/1/txt/gllore/model_unif.txt & 
+
+unif2aniso dddz=0\.0\,0\.0 dedx=0\.0\,0\.0 dedz=0\.0\,0\.0 delta00=0\,0 dgdx=0\.0\,0\.0 dgdz=0\.0\,0\.0 dqdx=0\.0\,0\.0 dqdz=0\.0\,0\.0 drdx=0\.0\,0\.0 drdz=0\.0\,0\.0 dvpdx=0\.0\,0\.0 dvpdz=0\.0\,0\.0 dvsdx=0\.0\,0\.0 dvsdz=0\.0\,0\.0 dx=6 dz=6 eps00=0\,0 fx=0 fz=0 gamma00=0\,0 method=linear n1=100 ninf=1 npmax=201 nx=255 nz=294 paramtype=1 phi00=0\,0 q00=110\,120 rho00=2250\.\,2250\. tfile=\/home\/gllore\/demos\/seismics\/data\/Synthetic\/Finite_Difference\/Suea2df\/Xdemo1\/1\/bin\/gllore\/testfilename\.txt vp00=2898\.0\,3320\.0 vs00=1398\.0\,1498\.0 x0=0\.0\,0\.0 < /home/gllore/demos/seismics/data/Synthetic/Finite_Difference/Suea2df/Xdemo1/1/txt/gllore/model_unif.txt & 
+
+unif2aniso dddz=0\.0\,0\.0 dedx=0\.0\,0\.0 dedz=0\.0\,0\.0 delta00=0\,0 dgdx=0\.0\,0\.0 dgdz=0\.0\,0\.0 dqdx=0\.0\,0\.0 dqdz=0\.0\,0\.0 drdx=0\.0\,0\.0 drdz=0\.0\,0\.0 dvpdx=0\.0\,0\.0 dvpdz=0\.0\,0\.0 dvsdx=0\.0\,0\.0 dvsdz=0\.0\,0\.0 dx=6 dz=6 eps00=0\,0 fx=0 fz=0 gamma00=0\,0 method=linear n1=100 ninf=1 npmax=201 nx=255 nz=294 paramtype=1 phi00=0\,0 q00=110\,120 rho00=2250\.\,2250\. tfile=\/home\/gllore\/demos\/seismics\/data\/Synthetic\/Finite_Difference\/Suea2df\/Xdemo1\/1\/bin\/gllore\/testfilename\.txt vp00=2898\.0\,3320\.0 vs00=1398\.0\,1498\.0 x0=0\.0\,0\.0 < /home/gllore/demos/seismics/data/Synthetic/Finite_Difference/Suea2df/Xdemo1/1/txt/gllore/model_unif.txt & 
+
+unif2aniso dddx=0\.0\,0\.0 dddz=0\.0\,0\.0 dedx=0\.0\,0\.0 dedz=0\.0\,0\.0 delta00=0\,0 dgdx=0\.0\,0\.0 dgdz=0\.0\,0\.0 dqdx=0\.0\,0\.0 dqdz=0\.0\,0\.0 drdx=0\.0\,0\.0 drdz=0\.0\,0\.0 dvpdx=0\.0\,0\.0 dvpdz=0\.0\,0\.0 dvsdx=0\.0\,0\.0 dvsdz=0\.0\,0\.0 dx=6 dz=6 eps00=0\,0 fx=0 fz=0 gamma00=0\,0 method=linear n1=100 ninf=1 npmax=201 nx=255 nz=294 paramtype=1 phi00=0\,0 q00=110\,120 rho00=2250\.\,2250\. tfile=\/home\/gllore\/demos\/seismics\/data\/Synthetic\/Finite_Difference\/Suea2df\/Xdemo1\/1\/bin\/gllore\/testfilename\.bin vp00=2898\.0\,3320\.0 vs00=1398\.0\,1498\.0 x0=0\.0\,0\.0 < /home/gllore/demos/seismics/data/Synthetic/Finite_Difference/Suea2df/Xdemo1/1/txt/gllore/model_unif.txt & 
+
+ximage balance=1 blank=0 blockinterp=0 cmap=hsv1 d1=1 d1num=0 d2=1 d2num=0 f1=0 f2=0 hbox=294 label2=label labelcolor=blue labelfont=Erg14 legend=0 legendfont=times_roman10 mpicks=\/dev\/tty n1tic=1 n2tic=1 plotfile=plotfile\.ps style=seismic title=c11\ parameter\ file titlecolor=red titlefont=Rom22 units=unit verbose=0 wbox=255 windowtitle=ximage xbox=0 < /home/gllore/demos/seismics/data/Synthetic/Finite_Difference/Suea2df/Xdemo1/1/bin/gllore/c11_file.bin & 
+
+ximage balance=1\. blank=0 blockinterp=0 cmap=hsv1 d1=1 d1num=0 d2=1 d2num=0 f1=0 f2=0 hbox=294 label2=label labelcolor=blue labelfont=Erg14 legend=0 legendfont=times_roman10 mpicks=\/dev\/tty n1tic=1 n2tic=1 plotfile=plotfile\.ps style=seismic title=c11\ parameter\ file titlecolor=red titlefont=Rom22 units=unit verbose=0 wbox=255 windowtitle=ximage xbox=0 < 1 & 
+
+ximage balance=1 blank=0 blockinterp=0 cmap=hsv1 d1=1 d1num=0 d2=1 d2num=0 f1=0 f2=0 hbox=294 label2=label labelcolor=blue labelfont=Erg14 legend=0 legendfont=times_roman10 mpicks=\/dev\/tty n1=294 n1tic=1 n2=255 n2tic=1 plotfile=plotfile\.ps style=seismic title=c11\ parameter\ file titlecolor=red titlefont=Rom22 units=unit verbose=0 wbox=255 windowtitle=ximage xbox=0 < 1 & 
+
+unif2aniso dddx=0\.0\,0\.0 dddz=0\.0\,0\.0 dedx=0\.0\,0\.0 dedz=0\.0\,0\.0 delta00=0\,0 dgdx=0\.0\,0\.0 dgdz=0\.0\,0\.0 dqdx=0\.0\,0\.0 dqdz=0\.0\,0\.0 drdx=0\.0\,0\.0 drdz=0\.0\,0\.0 dvpdx=0\.0\,0\.0 dvpdz=0\.0\,0\.0 dvsdx=0\.0\,0\.0 dvsdz=0\.0\,0\.0 dx=6 dz=6 eps00=0\,0 fx=0 fz=0 gamma00=0\,0 method=linear n1=100 ninf=1 npmax=201 nx=255 nz=294 paramtype=1 phi00=0\,0 q00=110\,120 rho00=2250\.\,2250\. tfile=\/home\/gllore\/demos\/seismics\/data\/Synthetic\/Finite_Difference\/Suea2df\/Xdemo1\/1\/bin\/gllore\/testfilename\.bin vp00=2898\.0\,3320\.0 vs00=1398\.0\,1498\.0 x0=0\.0\,0\.0 < /home/gllore/demos/seismics/data/Synthetic/Finite_Difference/Suea2df/Xdemo1/1/txt/gllore/model_unif.txt & 
+
+ximage balance=1\. blank=0 blockinterp=0 cmap=hsv1 d1=1 d1num=0 d2=1 d2num=0 f1=0 f2=0 hbox=294 label2=label labelcolor=blue labelfont=Erg14 legend=0 legendfont=times_roman10 mpicks=\/dev\/tty n1=294 n1tic=1 n2=255 n2tic=1 plotfile=plotfile\.ps style=seismic title=c11\ parameter\ file titlecolor=red titlefont=Rom22 units=unit verbose=0 wbox=255 windowtitle=ximage xbox=0 < /home/gllore/demos/seismics/pl/Synthetic/Finite_Difference/Suea2df/Xdemo1/1/gllore & 
+
+unif2aniso dddx=0\.0\,0\.0 dddz=0\.0\,0\.0 dedx=0\.0\,0\.0 dedz=0\.0\,0\.0 delta00=0\,0 dgdx=0\.0\,0\.0 dgdz=0\.0\,0\.0 dqdx=0\.0\,0\.0 dqdz=0\.0\,0\.0 drdx=0\.0\,0\.0 drdz=0\.0\,0\.0 dvpdx=0\.0\,0\.0 dvpdz=0\.0\,0\.0 dvsdx=0\.0\,0\.0 dvsdz=0\.0\,0\.0 dx=6 dz=6 eps00=0\,0 fx=0 fz=0 gamma00=0\,0 method=linear n1=100 ninf=1 npmax=201 nx=255 nz=294 paramtype=1 phi00=0\,0 q00=110\,120 rho00=2250\.\,2250\. tfile=\/home\/gllore\/demos\/seismics\/data\/Synthetic\/Finite_Difference\/Suea2df\/Xdemo1\/1\/bin\/gllore\/testfilename\.bin vp00=2898\.0\,3320\.0 vs00=1398\.0\,1498\.0 x0=0\.0\,0\.0 < /home/gllore/demos/seismics/data/Synthetic/Finite_Difference/Suea2df/Xdemo1/1/txt/gllore/model_unif.txt & 
+
+ximage balance=1\. blank=0 blockinterp=0 cmap=hsv1 d1=1 d1num=0 d2=1 d2num=0 f1=0 f2=0 hbox=294 label2=label labelcolor=blue labelfont=Erg14 legend=0 legendfont=times_roman10 mpicks=\/dev\/tty n1=294 n1tic=1 n2=255 n2tic=1 plotfile=plotfile\.ps style=seismic title=c11\ parameter\ file titlecolor=red titlefont=Rom22 units=unit verbose=0 wbox=255 windowtitle=ximage xbox=0 < /home/gllore/demos/seismics/pl/Synthetic/Finite_Difference/Suea2df/Xdemo1/1/gllore & 
+
+unif2aniso dddx=0\.0\,0\.0 dddz=0\.0\,0\.0 dedx=0\.0\,0\.0 dedz=0\.0\,0\.0 delta00=0\,0 dgdx=0\.0\,0\.0 dgdz=0\.0\,0\.0 dqdx=0\.0\,0\.0 dqdz=0\.0\,0\.0 drdx=0\.0\,0\.0 drdz=0\.0\,0\.0 dvpdx=0\.0\,0\.0 dvpdz=0\.0\,0\.0 dvsdx=0\.0\,0\.0 dvsdz=0\.0\,0\.0 dx=6 dz=6 eps00=0\,0 fx=0 fz=0 gamma00=0\,0 method=linear n1=100 ninf=1 npmax=201 nx=255 nz=294 paramtype=1 phi00=0\,0 q00=110\,120 rho00=2250\.\,2250\. tfile=\/home\/gllore\/demos\/seismics\/data\/Synthetic\/Finite_Difference\/Suea2df\/Xdemo1\/1\/bin\/gllore\/testfilename\.bin vp00=2898\.0\,3320\.0 vs00=1398\.0\,1498\.0 x0=0\.0\,0\.0 < /home/gllore/demos/seismics/data/Synthetic/Finite_Difference/Suea2df/Xdemo1/1/txt/gllore/model_unif.txt & 
+
+ximage balance=1 blank=0 blockinterp=0 cmap=hsv1 d1=1 d1num=0 d2=1 d2num=0 f1=0 f2=0 hbox=294 label2=label labelcolor=blue labelfont=Erg14 legend=0 legendfont=times_roman10 mpicks=\/dev\/tty n1=294 n1tic=1 n2=255 n2tic=1 plotfile=plotfile\.ps style=seismic title=c11\ parameter\ file titlecolor=red titlefont=Rom22 units=unit verbose=0 wbox=255 windowtitle=ximage xbox=0 < 1 & 
+
+unif2aniso dddx=0\.0\,0\.0 dddz=0\.0\,0\.0 dedx=0\.0\,0\.0 dedz=0\.0\,0\.0 delta00=0\,0 dgdx=0\.0\,0\.0 dgdz=0\.0\,0\.0 dqdx=0\.0\,0\.0 dqdz=0\.0\,0\.0 drdx=0\.0\,0\.0 drdz=0\.0\,0\.0 dvpdx=0\.0\,0\.0 dvpdz=0\.0\,0\.0 dvsdx=0\.0\,0\.0 dvsdz=0\.0\,0\.0 dx=6 dz=6 eps00=0\,0 fx=0 fz=0 gamma00=0\,0 method=linear n1=100 ninf=1 npmax=201 nx=255 nz=294 paramtype=1 phi00=0\,0 q00=110\,120 rho00=2250\.\,2250\. tfile=\/home\/gllore\/demos\/seismics\/data\/Synthetic\/Finite_Difference\/Suea2df\/Xdemo1\/1\/bin\/gllore\/testfilename\.bin vp00=2898\.0\,3320\.0 vs00=1398\.0\,1498\.0 x0=0\.0\,0\.0 < /home/gllore/demos/seismics/data/Synthetic/Finite_Difference/Suea2df/Xdemo1/1/txt/gllore/model_unif.txt & 
+
+ximage balance=1 blank=0 blockinterp=0 cmap=hsv1 d1=1 d1num=0 d2=1 d2num=0 f1=0 f2=0 hbox=294 label2=label labelcolor=blue labelfont=Erg14 legend=0 legendfont=times_roman10 mpicks=\/dev\/tty n1=294 n1tic=1 n2=255 n2tic=1 plotfile=plotfile\.ps style=seismic title=c11\ parameter\ file titlecolor=red titlefont=Rom22 units=unit verbose=0 wbox=255 windowtitle=ximage xbox=0 < /home/gllore/demos/seismics/pl/Synthetic/Finite_Difference/Suea2df/Xdemo1/1/gllore/c11_file & 
+
+unif2aniso dddx=0\.0\,0\.0 dddz=0\.0\,0\.0 dedx=0\.0\,0\.0 dedz=0\.0\,0\.0 delta00=0\,0 dgdx=0\.0\,0\.0 dgdz=0\.0\,0\.0 dqdx=0\.0\,0\.0 dqdz=0\.0\,0\.0 drdx=0\.0\,0\.0 drdz=0\.0\,0\.0 dvpdx=0\.0\,0\.0 dvpdz=0\.0\,0\.0 dvsdx=0\.0\,0\.0 dvsdz=0\.0\,0\.0 dx=6 dz=6 eps00=0\,0 fx=0 fz=0 gamma00=0\,0 method=linear n1=100 ninf=1 npmax=201 nx=255 nz=294 paramtype=1 phi00=0\,0 q00=110\,120 rho00=2250\.\,2250\. vp00=2898\.0\,3320\.0 vs00=1398\.0\,1498\.0 x0=0\.0\,0\.0\,0\.0 z0=0\.0\,150\.\,156\.0 < /home/gllore/demos/seismics/data/Synthetic/Finite_Difference/Suea2df/Xdemo1/1/txt/gllore/model_unif.txt & 
+
+unif2aniso dddx=0\.0\,0\.0 dddz=0\.0\,0\.0 dedx=0\.0\,0\.0 dedz=0\.0\,0\.0 delta00=0\,0 dgdx=0\.0\,0\.0 dgdz=0\.0\,0\.0 dqdx=0\.0\,0\.0 dqdz=0\.0\,0\.0 drdx=0\.0\,0\.0 drdz=0\.0\,0\.0 dvpdx=0\.0\,0\.0 dvpdz=0\.0\,0\.0 dvsdx=0\.0\,0\.0 dvsdz=0\.0\,0\.0 dx=6 dz=6 eps00=0\,0 fx=0 fz=0 gamma00=0\,0 method=linear n1=100 ninf=1 npmax=201 nx=255 nz=294 paramtype=1 phi00=0\,0 q00=110\,120 rho00=2250\.\,2250\. vp00=2898\.0\,3320\.0 vs00=1398\.0\,1498\.0 x0=0\.0\,0\.0\,0\.0 z0=0\.0\,150\.\,156\.0 < /home/gllore/demos/seismics/data/Synthetic/Finite_Difference/Suea2df/Xdemo1/1/txt/gllore/model_unif.txt & 
+
+ximage balance=1 blank=0 blockinterp=0 cmap=hsv1 d1=1 d1num=0 d2=1 d2num=0 f1=0 f2=0 hbox=294 label2=label labelcolor=blue labelfont=Erg14 legend=0 legendfont=times_roman10 mpicks=\/dev\/tty n1=294 n1tic=1 n2=255 n2tic=1 plotfile=plotfile\.ps style=seismic title=c11\ parameter\ file titlecolor=red titlefont=Rom22 units=unit verbose=0 wbox=255 windowtitle=ximage xbox=0 < /home/gllore/demos/seismics/pl/Synthetic/Finite_Difference/Suea2df/Xdemo1/1/gllore/c11_file & 
+
+unif2aniso dddx=0\.0\,0\.0 dddz=0\.0\,0\.0 dedx=0\.0\,0\.0 dedz=0\.0\,0\.0 delta00=0\,0 dgdx=0\.0\,0\.0 dgdz=0\.0\,0\.0 dqdx=0\.0\,0\.0 dqdz=0\.0\,0\.0 drdx=0\.0\,0\.0 drdz=0\.0\,0\.0 dvpdx=0\.0\,0\.0 dvpdz=0\.0\,0\.0 dvsdx=0\.0\,0\.0 dvsdz=0\.0\,0\.0 dx=6 dz=6 eps00=0\,0 fx=0 fz=0 gamma00=0\,0 method=linear n1=100 ninf=1 npmax=201 nx=255 nz=294 paramtype=1 phi00=0\,0 q00=110\,120 rho00=2250\.\,2250\. vp00=2898\.0\,3320\.0 vs00=1398\.0\,1498\.0 x0=0\.0\,0\.0\,0\.0 z0=0\.0\,150\.\,156\.0 < /home/gllore/demos/seismics/data/Synthetic/Finite_Difference/Suea2df/Xdemo1/1/txt/gllore/model_unif.txt & 
+
+ximage balance=1 blank=0 blockinterp=0 cmap=hsv1 d1=1 d1num=0 d2=1 d2num=0 f1=0 f2=0 hbox=294 label2=label labelcolor=blue labelfont=Erg14 legend=0 legendfont=times_roman10 mpicks=\/dev\/tty n1=294 n1tic=1 n2=255 n2tic=1 plotfile=plotfile\.ps style=seismic title=c11\ parameter\ file titlecolor=red titlefont=Rom22 units=unit verbose=0 wbox=255 windowtitle=ximage xbox=0 < /home/gllore/demos/seismics/pl/Synthetic/Finite_Difference/Suea2df/Xdemo1/1/gllore/c11_file & 
+
+unif2aniso dddx=0\.0\,0\.0 dddz=0\.0\,0\.0 dedx=0\.0\,0\.0 dedz=0\.0\,0\.0 delta00=0\,0 dgdx=0\.0\,0\.0 dgdz=0\.0\,0\.0 dqdx=0\.0\,0\.0 dqdz=0\.0\,0\.0 drdx=0\.0\,0\.0 drdz=0\.0\,0\.0 dvpdx=0\.0\,0\.0 dvpdz=0\.0\,0\.0 dvsdx=0\.0\,0\.0 dvsdz=0\.0\,0\.0 dx=6 dz=6 eps00=0\,0 fx=0 fz=0 gamma00=0\,0 method=linear n1=100 ninf=1 npmax=201 nx=255 nz=294 paramtype=1 phi00=0\,0 q00=110\,120 rho00=2250\.\,2250\. vp00=2898\.0\,3320\.0 vs00=1398\.0\,1498\.0 x0=0\.0\,0\.0\,0\.0 z0=0\.0\,150\.\,156\.0 < /home/gllore/demos/seismics/data/Synthetic/Finite_Difference/Suea2df/Xdemo1/1/txt/gllore/model_unif.txt & 
+
+unif2aniso dddx=0\.0\,0\.0 dddz=0\.0\,0\.0 dedx=0\.0\,0\.0 dedz=0\.0\,0\.0 delta00=0\,0 dgdx=0\.0\,0\.0 dgdz=0\.0\,0\.0 dqdx=0\.0\,0\.0 dqdz=0\.0\,0\.0 drdx=0\.0\,0\.0 drdz=0\.0\,0\.0 dvpdx=0\.0\,0\.0 dvpdz=0\.0\,0\.0 dvsdx=0\.0\,0\.0 dvsdz=0\.0\,0\.0 dx=6 dz=6 eps00=0\,0 fx=0 fz=0 gamma00=0\,0 method=linear n1=100 ninf=1 npmax=201 nx=255 nz=294 paramtype=1 phi00=0\,0 q00=110\,120 rho00=2250\.\,2250\. vp00=2898\.0\,3320\.0 vs00=1398\.0\,1498\.0 x0=0\.0\,0\.0\,0\.0 z0=0\.0\,150\.\,156\.0 < /home/gllore/demos/seismics/data/Synthetic/Finite_Difference/Suea2df/Xdemo1/1/txt/gllore/model_unif.txt & 
+
+unif2aniso dddx=0\.0\,0\.0 dddz=0\.0\,0\.0 dedx=0\.0\,0\.0 dedz=0\.0\,0\.0 delta00=0\,0 dgdx=0\.0\,0\.0 dgdz=0\.0\,0\.0 dqdx=0\.0\,0\.0 dqdz=0\.0\,0\.0 drdx=0\.0\,0\.0 drdz=0\.0\,0\.0 dvpdx=0\.0\,0\.0 dvpdz=0\.0\,0\.0 dvsdx=0\.0\,0\.0 dvsdz=0\.0\,0\.0 dx=6 dz=6 eps00=0\,0 fx=0 fz=0 gamma00=0\,0 method=linear n1=100 ninf=1 npmax=201 nx=255 nz=294 paramtype=1 phi00=0\,0 q00=110\,120 rho00=2250\.\,2250\. vp00=2898\.0\,3320\.0 vs00=1398\.0\,1498\.0 x0=0\.0\,0\.0\,0\.0 z0=0\.0\,150\.\,156\.0 < /home/gllore/demos/seismics/data/Synthetic/Finite_Difference/Suea2df/Xdemo1/1/txt/gllore/model_unif.txt & 
+
+unif2aniso dddx=0\.0\,0\.0 dddz=0\.0\,0\.0 dedx=0\.0\,0\.0 dedz=0\.0\,0\.0 delta00=0\,0 dgdx=0\.0\,0\.0 dgdz=0\.0\,0\.0 dqdx=0\.0\,0\.0 dqdz=0\.0\,0\.0 drdx=0\.0\,0\.0 drdz=0\.0\,0\.0 dvpdx=0\.0\,0\.0 dvpdz=0\.0\,0\.0 dvsdx=0\.0\,0\.0 dvsdz=0\.0\,0\.0 dx=6 dz=6 eps00=0\,0 fx=0 fz=0 gamma00=0\,0 method=linear n1=100 ninf=1 npmax=201 nx=255 nz=294 paramtype=1 phi00=0\,0 q00=110\,120 rho00=2250\.\,2250\. vp00=2898\.0\,3320\.0 vs00=1398\.0\,1498\.0 x0=0\.0\,0\.0\,0\.0 z0=0\.0\,150\.\,156\.0 < /home/gllore/demos/seismics/data/Synthetic/Finite_Difference/Suea2df/Xdemo1/1/txt/gllore/model_unif.txt & 
+
+unif2aniso dddx=0\.0\,0\.0 dddz=0\.0\,0\.0 dedx=0\.0\,0\.0 dedz=0\.0\,0\.0 delta00=0\,0 dgdx=0\.0\,0\.0 dgdz=0\.0\,0\.0 dqdx=0\.0\,0\.0 dqdz=0\.0\,0\.0 drdx=0\.0\,0\.0 drdz=0\.0\,0\.0 dvpdx=0\.0\,0\.0 dvpdz=0\.0\,0\.0 dvsdx=0\.0\,0\.0 dvsdz=0\.0\,0\.0 dx=6 dz=6 eps00=0\,0 fx=0 fz=0 gamma00=0\,0 method=linear n1=100 ninf=1 npmax=201 nx=255 nz=294 paramtype=1 phi00=0\,0 q00=110\,120 rho00=2250\.\,2250\. vp00=2898\.0\,3320\.0 vs00=1398\.0\,1498\.0 x0=0\.0\,0\.0\,0\.0 z0=0\.0\,150\.\,156\.0 < /home/gllore/demos/seismics/data/Synthetic/Finite_Difference/Suea2df/Xdemo1/1/txt/gllore/model_unif.txt & 
+
+ximage balance=1 blank=0 blockinterp=0 cmap=hsv1 d1=1 d1num=0 d2=1 d2num=0 f1=0 f2=0 hbox=294 label2=label labelcolor=blue labelfont=Erg14 legend=0 legendfont=times_roman10 mpicks=\/dev\/tty n1=294 n1tic=1 n2=255 n2tic=1 plotfile=plotfile\.ps style=seismic title=c11\ parameter\ file titlecolor=red titlefont=Rom22 units=unit verbose=0 wbox=255 windowtitle=ximage xbox=0 < /home/gllore/demos/seismics/pl/Synthetic/Finite_Difference/Suea2df/Xdemo1/1/gllore/c11_file & 
+
+ximage balance=1\. blank=0 blockinterp=0 cmap=hsv1 d1=1 d1num=0 d2=1 d2num=0 f1=0 f2=0 hbox=294 label2=label labelcolor=blue labelfont=Erg14 legend=0 legendfont=times_roman10 mpicks=\/dev\/tty n1=294 n1tic=1 n2=255 n2tic=1 plotfile=plotfile\.ps style=seismic title=c11\ parameter\ file titlecolor=red titlefont=Rom22 units=unit verbose=0 wbox=255 windowtitle=ximage xbox=0 < /home/gllore/demos/seismics/pl/Synthetic/Finite_Difference/Suea2df/Xdemo1/1/gllore/c13_file & 
+
+ximage balance=1 blank=0 blockinterp=0 cmap=hsv1 d1=1 d1num=0 d2=1 d2num=0 f1=0 f2=0 hbox=294 label2=label labelcolor=blue labelfont=Erg14 legend=0 legendfont=times_roman10 mpicks=\/dev\/tty n1=294 n1tic=1 n2=255 n2tic=1 plotfile=plotfile\.ps style=seismic title=c13\ parameter\ file titlecolor=red titlefont=Rom22 units=unit verbose=0 wbox=255 windowtitle=ximage xbox=0 < /home/gllore/demos/seismics/pl/Synthetic/Finite_Difference/Suea2df/Xdemo1/1/gllore/c13_file & 
+
+unif2aniso dddx=0\.0\,0\.0 dddz=0\.0\,0\.0 dedx=0\.0\,0\.0 dedz=0\.0\,0\.0 delta00=0\,0 dgdx=0\.0\,0\.0 dgdz=0\.0\,0\.0 dqdx=0\.0\,0\.0 dqdz=0\.0\,0\.0 drdx=0\.0\,0\.0 drdz=0\.0\,0\.0 dvpdx=0\.0\,0\.0 dvpdz=0\.0\,0\.0 dvsdx=0\.0\,0\.0 dvsdz=0\.0\,0\.0 dx=6 dz=6 eps00=0\,0 fx=0 fz=0 gamma00=0\,0 method=linear n1=100 ninf=1 npmax=201 nx=255 nz=294 paramtype=1 phi00=0\,0 q00=110\,120 rho00=2250\.\,2250\. vp00=2898\.0\,3320\.0 vs00=1398\.0\,1498\.0 x0=0\.0\,0\.0\,0\.0 z0=0\.0\,150\.\,156\.0 < /home/gllore/demos/seismics/data/Synthetic/Finite_Difference/Suea2df/Xdemo1/1/txt/gllore/model_unif.txt & 
+
+ximage balance=1 blank=0 blockinterp=0 cmap=hsv1 d1=1 d1num=0 d2=1 d2num=0 f1=0 f2=0 hbox=294 label2=label labelcolor=blue labelfont=Erg14 legend=0 legendfont=times_roman10 mpicks=\/dev\/tty n1=294 n1tic=1 n2=255 n2tic=1 plotfile=plotfile\.ps style=seismic title=c15\ parameter\ file titlecolor=red titlefont=Rom22 units=unit verbose=0 wbox=255 windowtitle=ximage xbox=0 < /home/gllore/demos/seismics/pl/Synthetic/Finite_Difference/Suea2df/Xdemo1/1/gllore/c15_file & 
+
+ximage balance=1 blank=0 blockinterp=0 cmap=hsv1 d1=1 d1num=0 d2=1 d2num=0 f1=0 f2=0 hbox=294 label2=label labelcolor=blue labelfont=Erg14 legend=0 legendfont=times_roman10 mpicks=\/dev\/tty n1=294 n1tic=1 n2=255 n2tic=1 plotfile=plotfile\.ps style=seismic title=c33\ parameter\ file titlecolor=red titlefont=Rom22 units=unit verbose=0 wbox=255 windowtitle=ximage xbox=0 < /home/gllore/demos/seismics/pl/Synthetic/Finite_Difference/Suea2df/Xdemo1/1/gllore/c33_file & 
+
+ximage balance=1 blank=0 blockinterp=0 cmap=hsv1 d1=1 d1num=0 d2=1 d2num=0 f1=0 f2=0 hbox=294 label2=label labelcolor=blue labelfont=Erg14 legend=0 legendfont=times_roman10 mpicks=\/dev\/tty n1=294 n1tic=1 n2=255 n2tic=1 plotfile=plotfile\.ps style=seismic title=c35\ parameter\ file titlecolor=red titlefont=Rom22 units=unit verbose=0 wbox=255 windowtitle=ximage xbox=0 < /home/gllore/demos/seismics/pl/Synthetic/Finite_Difference/Suea2df/Xdemo1/1/gllore/c35_file & 
+
+ximage balance=1 blank=0 blockinterp=0 cmap=hsv1 d1=1 d1num=0 d2=1 d2num=0 f1=0 f2=0 hbox=294 label2=label labelcolor=blue labelfont=Erg14 legend=0 legendfont=times_roman10 mpicks=\/dev\/tty n1=294 n1tic=1 n2=255 n2tic=1 plotfile=plotfile\.ps style=seismic title=c44\ parameter\ file titlecolor=red titlefont=Rom22 units=unit verbose=0 wbox=255 windowtitle=ximage xbox=0 < /home/gllore/demos/seismics/pl/Synthetic/Finite_Difference/Suea2df/Xdemo1/1/gllore/c44_file & 
+
+ximage balance=1 blank=0 blockinterp=0 cmap=hsv1 d1=1 d1num=0 d2=1 d2num=0 f1=0 f2=0 hbox=294 label2=label labelcolor=blue labelfont=Erg14 legend=0 legendfont=times_roman10 mpicks=\/dev\/tty n1=294 n1tic=1 n2=255 n2tic=1 plotfile=plotfile\.ps style=seismic title=c55\ parameter\ file titlecolor=red titlefont=Rom22 units=unit verbose=0 wbox=255 windowtitle=ximage xbox=0 < /home/gllore/demos/seismics/pl/Synthetic/Finite_Difference/Suea2df/Xdemo1/1/gllore/c55_file & 
+
+ximage balance=1 blank=0 blockinterp=0 cmap=hsv1 d1=1 d1num=0 d2=1 d2num=0 f1=0 f2=0 hbox=294 label2=label labelcolor=blue labelfont=Erg14 legend=0 legendfont=times_roman10 mpicks=\/dev\/tty n1=294 n1tic=1 n2=255 n2tic=1 plotfile=plotfile\.ps style=seismic title=c66\ parameter\ file titlecolor=red titlefont=Rom22 units=unit verbose=0 wbox=255 windowtitle=ximage xbox=0 < /home/gllore/demos/seismics/pl/Synthetic/Finite_Difference/Suea2df/Xdemo1/1/gllore/c66_file & 
+
+ximage balance=1 blank=0 blockinterp=0 cmap=hsv1 d1=1 d1num=0 d2=1 d2num=0 f1=0 f2=0 hbox=294 label2=label labelcolor=blue labelfont=Erg14 legend=0 legendfont=times_roman10 mpicks=\/dev\/tty n1=294 n1tic=1 n2=255 n2tic=1 plotfile=plotfile\.ps style=seismic title=c11\ parameter\ file titlecolor=red titlefont=Rom22 units=unit verbose=0 wbox=255 windowtitle=ximage xbox=0 < /home/gllore/demos/seismics/pl/Synthetic/Finite_Difference/Suea2df/Xdemo1/1/gllore/c11_file & 
+
+ximage balance=1 blank=0 blockinterp=0 cmap=hsv1 d1=1 d1num=0 d2=1 d2num=0 f1=0 f2=0 hbox=294 label2=label labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 mpicks=\/dev\/tty n1=294 n1tic=1 n2=255 n2tic=1 perc=99 style=seismic title=c11\ parameter\ file titlecolor=red titlefont=Rom22 units=unit verbose=0 wbox=255 windowtitle=ximage xbox=0 < /home/gllore/demos/seismics/pl/Synthetic/Finite_Difference/Suea2df/Xdemo1/1/gllore/c11_file & 
+
+unif2aniso dddx=0\.0\,0\.0 dddz=0\.0\,0\.0 dedx=0\.0\,0\.0 dedz=0\.0\,0\.0 delta00=0\,0 dgdx=0\.0\,0\.0 dgdz=0\.0\,0\.0 dqdx=0\.0\,0\.0 dqdz=0\.0\,0\.0 drdx=0\.0\,0\.0 drdz=0\.0\,0\.0 dvpdx=0\.0\,0\.0 dvpdz=0\.0\,0\.0 dvsdx=0\.0\,0\.0 dvsdz=0\.0\,0\.0 dx=6 dz=6 eps00=0\,0 fx=0 fz=0 gamma00=0\,0 method=linear n1=100 ninf=1 npmax=201 nx=255 nz=294 paramtype=1 phi00=0\,0 q00=110\,120 rho00=2250\.\,2250\. vp00=2898\.0\,3320\.0 vs00=1398\.0\,1498\.0 x0=0\.0\,0\.0\,0\.0 z0=0\.0\,150\.\,156\.0 < /home/gllore/demos/seismics/data/Synthetic/Finite_Difference/Suea2df/Xdemo1/1/txt/gllore/model_unif.txt & 
+
+ximage balance=1 blank=0 blockinterp=0 cmap=hsv1 d1=1 d1num=0 d2=1 d2num=0 f1=0 f2=0 hbox=294 label2=label labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 mpicks=\/dev\/tty n1=294 n1tic=1 n2=255 n2tic=1 perc=99 style=seismic title=c11\ parameter\ file titlecolor=red titlefont=Rom22 units=unit verbose=0 wbox=255 windowtitle=ximage xbox=0 < /home/gllore/demos/seismics/pl/Synthetic/Finite_Difference/Suea2df/Xdemo1/1/gllore/c11_file & 
+
+ximage balance=1 hbox=294 legend=1 n1=294 n2=255 perc=99 title=c11\ parameter\ file wbox=255 xbox=0 ybox=100 < /home/gllore/demos/seismics/pl/Synthetic/Finite_Difference/Suea2df/Xdemo1/1/gllore/c11_file & 
+
+unif2aniso dddx=0\.0\,0\.0 dddz=0\.0\,0\.0 dedx=0\.0\,0\.0 dedz=0\.0\,0\.0 delta00=0\,0 dgdx=0\.0\,0\.0 dgdz=0\.0\,0\.0 dqdx=0\.0\,0\.0 dqdz=0\.0\,0\.0 drdx=0\.0\,0\.0 drdz=0\.0\,0\.0 dvpdx=0\.0\,0\.0 dvpdz=0\.0\,0\.0 dvsdx=0\.0\,0\.0 dvsdz=0\.0\,0\.0 dx=6 dz=6 eps00=0\,0 fx=0 fz=0 gamma00=0\,0 method=linear n1=100 ninf=1 npmax=201 nx=255 nz=294 paramtype=1 phi00=0\,0 q00=110\,120 rho00=2250\.\,2250\. vp00=2898\.0\,3320\.0 vs00=1398\.0\,1498\.0 x0=0\.0\,0\.0\,0\.0 z0=0\.0\,150\.\,156\.0 < /home/gllore/demos/seismics/data/Synthetic/Finite_Difference/Suea2df/Xdemo1/1/txt/gllore/model_unif.txt & 
+
+ximage balance=1 hbox=294 legend=1 n1=294 n2=255 perc=99 title=c11\ parameter\ file wbox=255 xbox=0 ybox=100 < /home/gllore/demos/seismics/pl/Synthetic/Finite_Difference/Suea2df/Xdemo1/1/gllore/c11_file & 
+
+ximage balance=1\. hbox=294 legend=1 n1=294 n2=255 perc=99 title=c11\ parameter\ file wbox=255 xbox=0 ybox=100 < /home/gllore/demos/seismics/pl/Synthetic/Finite_Difference/Suea2df/Xdemo1/1/gllore/c11_file & 
+
+ximage hbox=294 legend=1 n1=294 n2=255 perc=99 title=c11\ parameter\ file wbox=255 xbox=0 ybox=100 < /home/gllore/demos/seismics/pl/Synthetic/Finite_Difference/Suea2df/Xdemo1/1/gllore/c11_file & 
+
+ximage hbox=294 legend=1 n1=294 n2=255 perc=99 title=c11\ parameter\ file wbox=255 xbox=0 ybox=100 < /home/gllore/demos/seismics/pl/Synthetic/Finite_Difference/Suea2df/Xdemo1/1/gllore/c13_file & 
+
+ximage hbox=294 legend=1 n1=294 n2=255 perc=99 title=c13\ parameter\ file wbox=255 xbox=0 ybox=100 < /home/gllore/demos/seismics/pl/Synthetic/Finite_Difference/Suea2df/Xdemo1/1/gllore/c13_file & 
+
+ximage blank=0 blockinterp=0 cmap=hsv1 d1=1 d1num=0 d2=1 d2num=0 f1=0 f2=0 hbox=294 label2=label labelcolor=blue labelfont=Erg14 legend=0 legendfont=times_roman10 mpicks=\/dev\/tty n1=294 n1tic=1 n2=255 n2tic=1 plotfile=plotfile\.ps style=seismic title=c15\ parameter\ file titlecolor=red titlefont=Rom22 units=unit verbose=0 wbox=255 windowtitle=ximage xbox=0 < /home/gllore/demos/seismics/pl/Synthetic/Finite_Difference/Suea2df/Xdemo1/1/gllore/c15_file & 
+
+ximage blank=0 blockinterp=0 cmap=hsv1 d1=1 d1num=0 d2=1 d2num=0 f1=0 f2=0 hbox=294 labelcolor=blue legend=1 legendfont=times_roman10 mpicks=\/dev\/tty n1=294 n1tic=1 n2=255 n2tic=1 plotfile=plotfile\.ps style=seismic title=c15\ parameter\ file titlecolor=red titlefont=Rom22 units=unit verbose=0 wbox=255 windowtitle=ximage xbox=0 < /home/gllore/demos/seismics/pl/Synthetic/Finite_Difference/Suea2df/Xdemo1/1/gllore/c15_file & 
+
+ximage blank=0 blockinterp=0 cmap=hsv0 d1=1 d1num=0 d2=1 d2num=0 f1=0 f2=0 hbox=294 labelcolor=blue legend=1 legendfont=times_roman10 mpicks=\/dev\/tty n1=294 n1tic=1 n2=255 n2tic=1 plotfile=plotfile\.ps style=seismic title=c15\ parameter\ file titlecolor=red titlefont=Rom22 units=unit verbose=0 wbox=255 windowtitle=ximage xbox=0 < /home/gllore/demos/seismics/pl/Synthetic/Finite_Difference/Suea2df/Xdemo1/1/gllore/c15_file & 
+
+ximage blank=0 blockinterp=0 cmap=hsv0 d1=1 d1num=0 d2=1 d2num=0 f1=0 f2=0 hbox=294 labelcolor=blue legend=1 legendfont=times_roman10 mpicks=\/dev\/tty n1=294 n1tic=1 n2=255 n2tic=1 plotfile=plotfile\.ps style=seismic title=c15\ parameter\ file titlecolor=red titlefont=Rom22 units=unit verbose=0 wbox=255 windowtitle=ximage xbox=110 ybox=5 < /home/gllore/demos/seismics/pl/Synthetic/Finite_Difference/Suea2df/Xdemo1/1/gllore/c15_file & 
+
+ximage cmap=hsv0 d1=1 d1num=0 d2=1 d2num=0 f1=0 f2=0 hbox=294 labelcolor=blue legend=1 legendfont=times_roman10 mpicks=\/dev\/tty n1=294 n1tic=1 n2=255 n2tic=1 plotfile=plotfile\.ps style=seismic title=c15\ parameter\ file titlecolor=red titlefont=Rom22 units=unit verbose=0 wbox=255 windowtitle=ximage xbox=110 ybox=5 < /home/gllore/demos/seismics/pl/Synthetic/Finite_Difference/Suea2df/Xdemo1/1/gllore/c15_file & 
+
+ximage d1=1 d1num=0 d2=1 d2num=0 f1=0 f2=0 hbox=294 labelcolor=blue legend=1 legendfont=times_roman10 mpicks=\/dev\/tty n1=294 n1tic=1 n2=255 n2tic=1 plotfile=plotfile\.ps style=seismic title=c15\ parameter\ file titlecolor=red titlefont=Rom22 units=unit verbose=0 wbox=255 windowtitle=ximage xbox=110 ybox=5 < /home/gllore/demos/seismics/pl/Synthetic/Finite_Difference/Suea2df/Xdemo1/1/gllore/c15_file & 
+
+ximage hbox=294 labelcolor=blue legend=1 legendfont=times_roman10 mpicks=\/dev\/tty n1=294 n1tic=1 n2=255 n2tic=1 plotfile=plotfile\.ps style=seismic title=c15\ parameter\ file titlecolor=red titlefont=Rom22 units=unit verbose=0 wbox=255 windowtitle=ximage xbox=110 ybox=5 < /home/gllore/demos/seismics/pl/Synthetic/Finite_Difference/Suea2df/Xdemo1/1/gllore/c15_file & 
+
+ximage hbox=294 legend=1 n1=29 n1tic=1 n2=255 n2tic=1 plotfile=plotfile\.ps style=seismic title=c15\ parameter\ file titlecolor=red titlefont=Rom22 units=unit verbose=0 wbox=255 windowtitle=ximage xbox=110 ybox=5 < /home/gllore/demos/seismics/pl/Synthetic/Finite_Difference/Suea2df/Xdemo1/1/gllore/c15_file & 
+
+ximage hbox=294 legend=1 n1=29 n1tic=1 n2=255 n2tic=1 plotfile=plotfile\.ps style=seismic title=c15\ parameter\ file titlecolor=red titlefont=Rom22 units=unit verbose=0 wbox=255 windowtitle=ximage xbox=110 ybox=5 < /home/gllore/demos/seismics/pl/Synthetic/Finite_Difference/Suea2df/Xdemo1/1/gllore/c15_file & 
+
+ximage hbox=294 legend=1 n1=294 n2=255 perc=99 title=c13\ parameter\ file wbox=255 xbox=0 ybox=100 < /home/gllore/demos/seismics/pl/Synthetic/Finite_Difference/Suea2df/Xdemo1/1/gllore/c13_file & 
+
+ximage hbox=294 legend=1 n1=294 n2=255 perc=99 title=c11\ parameter\ file wbox=255 xbox=0 ybox=100 < /home/gllore/demos/seismics/pl/Synthetic/Finite_Difference/Suea2df/Xdemo1/1/gllore/c11_file & 
+
+ximage hbox=294 legend=1 n1=294 n2=255 perc=99 title=c13\ parameter\ file wbox=255 xbox=0 ybox=100 < /home/gllore/demos/seismics/pl/Synthetic/Finite_Difference/Suea2df/Xdemo1/1/gllore/c13_file & 
+
+ximage hbox=294 legend=1 n1=294 n2=255 perc=99 title=c11\ parameter\ file wbox=255 xbox=0 ybox=100 < /home/gllore/demos/seismics/pl/Synthetic/Finite_Difference/Suea2df/Xdemo1/1/gllore/c11_file & 
+
+ximage blank=0 blockinterp=0 cmap=hsv0 d1=1 d1num=0 d2=1 d2num=0 f1=0 f2=0 hbox=294 labelcolor=blue legend=1 legendfont=times_roman10 mpicks=\/dev\/tty n1=294 n1tic=1 n2=255 n2tic=1 plotfile=plotfile\.ps style=seismic title=c15\ parameter\ file titlecolor=red titlefont=Rom22 units=unit verbose=0 wbox=255 windowtitle=ximage xbox=0 < /home/gllore/demos/seismics/pl/Synthetic/Finite_Difference/Suea2df/Xdemo1/1/gllore/c15_file & 
+
+ximage blank=0 blockinterp=0 d1=1 d1num=0 d2=1 d2num=0 f1=0 f2=0 hbox=294 labelcolor=blue legend=1 legendfont=times_roman10 mpicks=\/dev\/tty n1=294 n1tic=1 n2=255 n2tic=1 plotfile=plotfile\.ps style=seismic title=c15\ parameter\ file titlecolor=red titlefont=Rom22 units=unit verbose=0 wbox=255 windowtitle=ximage xbox=0 < /home/gllore/demos/seismics/pl/Synthetic/Finite_Difference/Suea2df/Xdemo1/1/gllore/c15_file & 
+
+ximage balance=1 blank=0 blockinterp=0 cmap=hsv1 d1=1 d1num=0 d2=1 d2num=0 f1=0 f2=0 hbox=294 label2=label labelcolor=blue labelfont=Erg14 legend=0 legendfont=times_roman10 mpicks=\/dev\/tty n1=294 n1tic=1 n2=255 n2tic=1 plotfile=plotfile\.ps style=seismic title=c33\ parameter\ file titlecolor=red titlefont=Rom22 units=unit verbose=0 wbox=255 windowtitle=ximage xbox=0 < /home/gllore/demos/seismics/pl/Synthetic/Finite_Difference/Suea2df/Xdemo1/1/gllore/c33_file & 
+
+ximage balance=1 blank=0 blockinterp=0 cmap=hsv1 hbox=294 label2=label labelcolor=blue labelfont=Erg14 legend=0 legendfont=times_roman10 mpicks=\/dev\/tty n1=294 n1tic=1 n2=255 n2tic=1 plotfile=plotfile\.ps style=seismic title=c33\ parameter\ file titlecolor=red titlefont=Rom22 units=unit verbose=0 wbox=255 windowtitle=ximage xbox=0 < /home/gllore/demos/seismics/pl/Synthetic/Finite_Difference/Suea2df/Xdemo1/1/gllore/c33_file & 
+
+ximage blank=0 blockinterp=0 cmap=hsv1 hbox=294 label2=label labelcolor=blue labelfont=Erg14 legend=0 legendfont=times_roman10 mpicks=\/dev\/tty n1=294 n1tic=1 n2=255 n2tic=1 plotfile=plotfile\.ps style=seismic title=c33\ parameter\ file titlecolor=red titlefont=Rom22 units=unit verbose=0 wbox=255 windowtitle=ximage xbox=0 < /home/gllore/demos/seismics/pl/Synthetic/Finite_Difference/Suea2df/Xdemo1/1/gllore/c33_file & 
+
+ximage cmap=hsv0 hbox=294 label2=label labelcolor=blue labelfont=Erg14 legend=0 legendfont=times_roman10 mpicks=\/dev\/tty n1=294 n1tic=1 n2=255 n2tic=1 plotfile=plotfile\.ps style=seismic title=c33\ parameter\ file titlecolor=red titlefont=Rom22 units=unit verbose=0 wbox=255 windowtitle=ximage xbox=0 < /home/gllore/demos/seismics/pl/Synthetic/Finite_Difference/Suea2df/Xdemo1/1/gllore/c33_file & 
+
+ximage cmap=hsv0 hbox=294 label2=label labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 mpicks=\/dev\/tty n1=294 n1tic=1 n2=255 n2tic=1 plotfile=plotfile\.ps style=seismic title=c33\ parameter\ file titlecolor=red titlefont=Rom22 units=unit verbose=0 wbox=255 windowtitle=ximage xbox=0 < /home/gllore/demos/seismics/pl/Synthetic/Finite_Difference/Suea2df/Xdemo1/1/gllore/c33_file & 
+
+ximage cmap=hsv0 hbox=294 legend=1 n1=294 n2=255 perc=99 title=c11\ parameter\ file wbox=255 xbox=0 ybox=100 < /home/gllore/demos/seismics/pl/Synthetic/Finite_Difference/Suea2df/Xdemo1/1/gllore/c11_file & 
+
+ximage cmap=hsv0 hbox=294 label2=label labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 mpicks=\/dev\/tty n1=294 n1tic=1 n2=255 n2tic=1 perc=99 plotfile=plotfile\.ps style=seismic title=c33\ parameter\ file titlecolor=red titlefont=Rom22 units=unit verbose=0 wbox=255 windowtitle=ximage xbox=0 < /home/gllore/demos/seismics/pl/Synthetic/Finite_Difference/Suea2df/Xdemo1/1/gllore/c33_file & 
+
+ximage cmap=hsv0 hbox=294 legend=1 mpicks=\/dev\/tty n1=294 n1tic=1 n2=255 n2tic=1 perc=99 plotfile=plotfile\.ps style=seismic title=c33\ parameter\ file titlecolor=red titlefont=Rom22 units=unit verbose=0 wbox=255 windowtitle=ximage xbox=0 < /home/gllore/demos/seismics/pl/Synthetic/Finite_Difference/Suea2df/Xdemo1/1/gllore/c33_file & 
+
+ximage cmap=hsv0 hbox=294 legend=1 n1=294 n2=255 perc=99 title=c11\ parameter\ file wbox=255 xbox=0 ybox=100 < /home/gllore/demos/seismics/pl/Synthetic/Finite_Difference/Suea2df/Xdemo1/1/gllore/c11_file & 
+
+ximage cmap=hsv0 hbox=294 legend=1 mpicks=\/dev\/tty n1=294 n1tic=1 n2=255 n2tic=1 perc=99 plotfile=plotfile\.ps style=seismic title=c33\ parameter\ file titlecolor=red titlefont=Rom22 units=unit verbose=0 wbox=255 windowtitle=ximage xbox=0 < /home/gllore/demos/seismics/pl/Synthetic/Finite_Difference/Suea2df/Xdemo1/1/gllore/c33_file & 
+
+ximage hbox=294 legend=1 n1=294 n2=255 perc=99 title=c11\ parameter\ file wbox=255 xbox=0 ybox=100 < /home/gllore/demos/seismics/pl/Synthetic/Finite_Difference/Suea2df/Xdemo1/1/gllore/c11_file & 
+
+ximage hbox=294 legend=1 n1=29 n1tic=1 n2=255 n2tic=1 plotfile=plotfile\.ps style=seismic title=c15\ parameter\ file titlecolor=red titlefont=Rom22 units=unit verbose=0 wbox=255 windowtitle=ximage xbox=110 ybox=5 < /home/gllore/demos/seismics/pl/Synthetic/Finite_Difference/Suea2df/Xdemo1/1/gllore/c15_file & 
+
+ximage hbox=294 legend=1 n1=29 n1tic=1 n2=255 n2tic=1 plotfile=plotfile\.ps style=seismic title=c11\ parameter\ file titlecolor=red titlefont=Rom22 units=unit verbose=0 wbox=255 windowtitle=ximage xbox=110 ybox=5 < /home/gllore/demos/seismics/pl/Synthetic/Finite_Difference/Suea2df/Xdemo1/1/gllore/c11_file & 
+
+ximage hbox=294 legend=1 n1=29 n1tic=1 n2=255 n2tic=1 perc=99 plotfile=plotfile\.ps title=c11\ parameter\ file titlecolor=red titlefont=Rom22 units=unit verbose=0 wbox=255 windowtitle=ximage xbox=110 ybox=5 < /home/gllore/demos/seismics/pl/Synthetic/Finite_Difference/Suea2df/Xdemo1/1/gllore/c11_file & 
+
+ximage hbox=294 legend=1 mpicks=1 n1=294 n1tic=1 n2=255 n2tic=1 perc=99 plotfile=plotfile\.ps title=c11\ parameter\ file titlecolor=red titlefont=Rom22 units=unit verbose=0 wbox=255 windowtitle=ximage xbox=110 ybox=5 < /home/gllore/demos/seismics/pl/Synthetic/Finite_Difference/Suea2df/Xdemo1/1/gllore/c11_file & 
+
+ximage hbox=294 legend=1 n1=294 n1tic=1 n2=255 n2tic=1 perc=99 plotfile=plotfile\.ps title=c11\ parameter\ file titlecolor=red titlefont=Rom22 units=unit verbose=0 wbox=255 windowtitle=ximage xbox=110 ybox=5 < /home/gllore/demos/seismics/pl/Synthetic/Finite_Difference/Suea2df/Xdemo1/1/gllore/c11_file & 
+
+ximage hbox=294 legend=1 n1=294 n2=255 perc=99 title=c11\ parameter\ file wbox=255 xbox=0 ybox=100 < /home/gllore/demos/seismics/pl/Synthetic/Finite_Difference/Suea2df/Xdemo1/1/gllore/c11_file & 
+
+ximage blank=0 blockinterp=0 d1=1 d1num=0 d2=1 d2num=0 f1=0 f2=0 hbox=294 labelcolor=blue legend=1 legendfont=times_roman10 mpicks=\/dev\/tty n1=294 n1tic=1 n2=255 n2tic=1 plotfile=plotfile\.ps style=seismic title=c15\ parameter\ file titlecolor=red titlefont=Rom22 units=unit verbose=0 wbox=255 windowtitle=ximage xbox=0 < /home/gllore/demos/seismics/pl/Synthetic/Finite_Difference/Suea2df/Xdemo1/1/gllore/c15_file & 
+
+ximage blank=0 blockinterp=0 hbox=294 labelcolor=blue legend=1 legendfont=times_roman10 mpicks=\/dev\/tty n1=294 n1tic=1 n2=255 n2tic=1 plotfile=plotfile\.ps style=seismic title=c15\ parameter\ file titlecolor=red titlefont=Rom22 units=unit verbose=0 wbox=255 windowtitle=ximage xbox=0 < /home/gllore/demos/seismics/pl/Synthetic/Finite_Difference/Suea2df/Xdemo1/1/gllore/c15_file & 
+
+ximage cmap=hsv0 hbox=294 legend=1 mpicks=\/dev\/tty n1=294 n1tic=1 n2=255 n2tic=1 perc=99 plotfile=plotfile\.ps style=seismic title=c33\ parameter\ file titlecolor=red titlefont=Rom22 units=unit verbose=0 wbox=255 windowtitle=ximage xbox=0 < /home/gllore/demos/seismics/pl/Synthetic/Finite_Difference/Suea2df/Xdemo1/1/gllore/c33_file & 
+
+ximage hbox=294 legend=1 n1=294 n1tic=1 n2=255 n2tic=1 perc=99 title=c33\ parameter\ file verbose=0 wbox=255 xbox=0 < /home/gllore/demos/seismics/pl/Synthetic/Finite_Difference/Suea2df/Xdemo1/1/gllore/c33_file & 
+
+ximage balance=1 blank=0 blockinterp=0 cmap=hsv1 d1=1 d1num=0 d2=1 d2num=0 f1=0 f2=0 hbox=294 label2=label labelcolor=blue labelfont=Erg14 legend=0 legendfont=times_roman10 mpicks=\/dev\/tty n1=294 n1tic=1 n2=255 n2tic=1 plotfile=plotfile\.ps style=seismic title=c35\ parameter\ file titlecolor=red titlefont=Rom22 units=unit verbose=0 wbox=255 windowtitle=ximage xbox=0 < /home/gllore/demos/seismics/pl/Synthetic/Finite_Difference/Suea2df/Xdemo1/1/gllore/c35_file & 
+
+ximage balance=1 blank=0 blockinterp=0 cmap=hsv1 d1=1 d1num=0 d2=1 d2num=0 f1=0 f2=0 hbox=294 label2=label labelcolor=blue labelfont=Erg14 legend=0 legendfont=times_roman10 mpicks=\/dev\/tty n1=294 n1tic=1 n2=255 n2tic=1 plotfile=plotfile\.ps style=seismic title=c35\ parameter\ file titlecolor=red titlefont=Rom22 units=unit verbose=0 wbox=255 windowtitle=ximage xbox=0 < /home/gllore/demos/seismics/pl/Synthetic/Finite_Difference/Suea2df/Xdemo1/1/gllore/c35_file & 
+
+ximage balance=1 blank=0 blockinterp=0 cmap=hsv0 d1=1 d1num=0 d2=1 d2num=0 f1=0 f2=0 hbox=294 label2=label labelcolor=blue labelfont=Erg14 legend=0 legendfont=times_roman10 mpicks=\/dev\/tty n1=294 n1tic=1 n2=255 n2tic=1 plotfile=plotfile\.ps style=seismic title=c35\ parameter\ file titlecolor=red titlefont=Rom22 units=unit verbose=0 wbox=255 windowtitle=ximage xbox=0 < /home/gllore/demos/seismics/pl/Synthetic/Finite_Difference/Suea2df/Xdemo1/1/gllore/c35_file & 
+
+ximage blank=0 blockinterp=0 cmap=hsv0 d1=1 d1num=0 d2=1 d2num=0 f1=0 f2=0 hbox=294 label2=label labelcolor=blue labelfont=Erg14 legend=0 legendfont=times_roman10 mpicks=\/dev\/tty n1=294 n1tic=1 n2=255 n2tic=1 plotfile=plotfile\.ps style=seismic title=c35\ parameter\ file titlecolor=red titlefont=Rom22 units=unit verbose=0 wbox=255 windowtitle=ximage xbox=0 < /home/gllore/demos/seismics/pl/Synthetic/Finite_Difference/Suea2df/Xdemo1/1/gllore/c35_file & 
+
+ximage cmap=hsv0 hbox=294 label2=label labelcolor=blue labelfont=Erg14 legend=0 legendfont=times_roman10 mpicks=\/dev\/tty n1=294 n1tic=1 n2=255 n2tic=1 plotfile=plotfile\.ps style=seismic title=c35\ parameter\ file titlecolor=red titlefont=Rom22 units=unit verbose=0 wbox=255 windowtitle=ximage xbox=0 < /home/gllore/demos/seismics/pl/Synthetic/Finite_Difference/Suea2df/Xdemo1/1/gllore/c35_file & 
+
+ximage cmap=hsv0 hbox=294 legend=1 n1=294 n2=255 title=c35\ parameter\ file verbose=0 wbox=255 xbox=0 < /home/gllore/demos/seismics/pl/Synthetic/Finite_Difference/Suea2df/Xdemo1/1/gllore/c35_file & 
+
+ximage cmap=hsv0 hbox=294 legend=1 n1=294 n2=255 title=c35\ parameter\ file verbose=0 wbox=255 xbox=0 < /home/gllore/demos/seismics/pl/Synthetic/Finite_Difference/Suea2df/Xdemo1/1/gllore/c35_file & 
+
+ximage hbox=294 legend=1 n1=294 n2=255 perc=99 title=c35\ parameter\ file verbose=0 wbox=255 xbox=0 < /home/gllore/demos/seismics/pl/Synthetic/Finite_Difference/Suea2df/Xdemo1/1/gllore/c35_file & 
+
+ximage blank=0 blockinterp=0 cmap=hsv1 d1=1 d1num=0 d2=1 d2num=0 f1=0 f2=0 hbox=294 label2=label labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 mpicks=\/dev\/tty n1=294 n1tic=1 n2=255 n2tic=1 perc=99 plotfile=plotfile\.ps style=seismic title=c44\ parameter\ file titlecolor=red titlefont=Rom22 units=unit verbose=0 wbox=255 windowtitle=ximage xbox=0 < /home/gllore/demos/seismics/pl/Synthetic/Finite_Difference/Suea2df/Xdemo1/1/gllore/c44_file & 
+
+ximage blank=0 blockinterp=0 cmap=hsv0 d1=1 d1num=0 d2=1 d2num=0 f1=0 f2=0 hbox=294 label2=label labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 mpicks=\/dev\/tty n1=294 n1tic=1 n2=255 n2tic=1 perc=99 plotfile=plotfile\.ps style=seismic title=c44\ parameter\ file titlecolor=red titlefont=Rom22 units=unit verbose=0 wbox=255 windowtitle=ximage xbox=0 < /home/gllore/demos/seismics/pl/Synthetic/Finite_Difference/Suea2df/Xdemo1/1/gllore/c44_file & 
+
+ximage blank=0 blockinterp=0 d1=1 d1num=0 d2=1 d2num=0 f1=0 f2=0 hbox=294 label2=label labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 mpicks=\/dev\/tty n1=294 n1tic=1 n2=255 n2tic=1 perc=99 plotfile=plotfile\.ps style=seismic title=c44\ parameter\ file titlecolor=red titlefont=Rom22 units=unit verbose=0 wbox=255 windowtitle=ximage xbox=0 < /home/gllore/demos/seismics/pl/Synthetic/Finite_Difference/Suea2df/Xdemo1/1/gllore/c44_file & 
+
+ximage balance=1 blank=0 blockinterp=0 d1=1 d1num=0 d2=1 d2num=0 f1=0 f2=0 hbox=294 label2=label labelcolor=blue labelfont=Erg14 legend=0 legendfont=times_roman10 mpicks=\/dev\/tty n1=294 n1tic=1 n2=255 n2tic=1 plotfile=plotfile\.ps style=seismic title=c55\ parameter\ file titlecolor=red titlefont=Rom22 units=unit verbose=0 wbox=255 windowtitle=ximage xbox=0 < /home/gllore/demos/seismics/pl/Synthetic/Finite_Difference/Suea2df/Xdemo1/1/gllore/c55_file & 
+
+ximage balance=1 blank=0 blockinterp=0 d1=1 d1num=0 d2=1 d2num=0 f1=0 f2=0 hbox=294 label2=label labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 mpicks=\/dev\/tty n1=294 n1tic=1 n2=255 n2tic=1 perc=99 plotfile=plotfile\.ps style=seismic title=c55\ parameter\ file titlecolor=red titlefont=Rom22 units=unit verbose=0 wbox=255 windowtitle=ximage xbox=0 < /home/gllore/demos/seismics/pl/Synthetic/Finite_Difference/Suea2df/Xdemo1/1/gllore/c55_file & 
+
+ximage blank=0 blockinterp=0 d1=1 d1num=0 d2=1 d2num=0 f1=0 f2=0 hbox=294 label2=label labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 mpicks=\/dev\/tty n1=294 n1tic=1 n2=255 n2tic=1 perc=99 plotfile=plotfile\.ps style=seismic title=c55\ parameter\ file titlecolor=red titlefont=Rom22 units=unit verbose=0 wbox=255 windowtitle=ximage xbox=0 < /home/gllore/demos/seismics/pl/Synthetic/Finite_Difference/Suea2df/Xdemo1/1/gllore/c55_file & 
+
+ximage blank=0 blockinterp=0 d1=1 d1num=0 d2=1 d2num=0 f1=0 f2=0 hbox=294 label2=label labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 mpicks=\/dev\/tty n1=294 n1tic=1 n2=255 n2tic=1 perc=99 plotfile=plotfile\.ps style=seismic title=c66\ parameter\ file titlecolor=red titlefont=Rom22 units=unit verbose=0 wbox=255 windowtitle=ximage xbox=0 < /home/gllore/demos/seismics/pl/Synthetic/Finite_Difference/Suea2df/Xdemo1/1/gllore/c66_file & 
+
+ximage hbox=294 legend=1 n1=294 n2=255 perc=99 title=c11\ parameter\ file wbox=255 xbox=0 ybox=100 < /home/gllore/demos/seismics/data/Synthetic/Finite_Difference/Suea2df/Xdemo1/1/su/gllore/c12.su & 
+
+ximage hbox=294 legend=1 n1=294 n2=255 perc=99 title=c11\ parameter\ file wbox=255 xbox=0 < /home/gllore/demos/seismics/data/Synthetic/Finite_Difference/Suea2df/Xdemo1/1/su/gllore/c122.su & 
+
+ximage hbox=294 legend=1 n1=294 n2=255 perc=99 title=c11\ parameter\ file wbox=255 xbox=0 < /home/gllore/demos/seismics/data/Synthetic/Finite_Difference/Suea2df/Xdemo1/1/su/gllore/c122.su & 
+
+ximage hbox=294 legend=1 n1=294 n2=255 perc=99 title=c11\ parameter\ file wbox=255 xbox=0 < /home/gllore/demos/seismics/pl/Synthetic/Finite_Difference/Suea2df/Xdemo1/1/gllore/c122 & 
+
+ximage hbox=294 legend=1 n1=294 n2=255 perc=99 title=c11\ parameter\ file wbox=255 xbox=0 < /home/gllore/demos/seismics/pl/Synthetic/Finite_Difference/Suea2df/Xdemo1/1/gllore/c122 & 
+
+ximage hbox=294 legend=1 n1=294 n2=255 perc=99 title=c11\ parameter\ file wbox=255 xbox=0 < /home/gllore/demos/seismics/pl/Synthetic/Finite_Difference/Suea2df/Xdemo1/1/gllore/c33 & 
+
+ximage hbox=294 legend=1 n1=294 n2=255 perc=99 title=c11\ parameter\ file wbox=255 xbox=0 < /home/gllore/demos/seismics/pl/Synthetic/Finite_Difference/Suea2df/Xdemo1/1/gllore/c33_file & 
+
+ximage hbox=294 legend=1 n1=294 n2=255 perc=99 title=c11\ parameter\ file wbox=255 xbox=0 < /home/gllore/demos/seismics/pl/Synthetic/Finite_Difference/Suea2df/Xdemo1/1/gllore/c33_file & 
+
+ximage hbox=294 legend=1 n1=294 n2=255 perc=99 title=c11\ parameter\ file wbox=255 xbox=0 < /home/gllore/demos/seismics/pl/Synthetic/Finite_Difference/Suea2df/Xdemo1/1/gllore/c33_file & 
+
+ximage hbox=294 legend=1 n1=294 n2=255 perc=99 title=c11\ parameter\ file wbox=255 xbox=0 < /home/gllore/demos/seismics/pl/Synthetic/Finite_Difference/Suea2df/Xdemo1/1/gllore/c33_file & 
+
+ximage hbox=294 legend=1 n1=294 n2=255 perc=99 title=c11\ parameter\ file wbox=255 xbox=0 < /home/gllore/demos/seismics/pl/Synthetic/Finite_Difference/Suea2df/Xdemo1/1/gllore/c33_file & 
+
+ximage hbox=294 legend=1 n1=294 n2=255 perc=99 title=c11\ parameter\ file wbox=255 xbox=0 < /home/gllore/demos/seismics/pl/Synthetic/Finite_Difference/Suea2df/Xdemo1/1/gllore/c33_file & 
+
+ximage hbox=294 legend=1 n1=294 n2=255 perc=99 title=c11\ parameter\ file wbox=255 xbox=0 < /home/gllore/demos/seismics/pl/Synthetic/Finite_Difference/Suea2df/Xdemo1/1/gllore/c33_file & 
+
+ximage hbox=294 legend=1 n1=294 n2=255 perc=99 title=c11\ parameter\ file wbox=255 xbox=0 < /home/gllore/demos/seismics/pl/Synthetic/Finite_Difference/Suea2df/Xdemo1/1/gllore/c33_files & 
+
+ximage hbox=294 legend=1 n1=294 n2=255 perc=99 title=c11\ parameter\ file wbox=255 xbox=0 < /home/gllore/demos/seismics/pl/Synthetic/Finite_Difference/Suea2df/Xdemo1/1/gllore/c33_file & 
+
+unif2aniso dddx=0\.0\,0\.0 dddz=0\.0\,0\.0 dedx=0\.0\,0\.0 dedz=0\.0\,0\.0 delta00=0\,0 dgdx=0\.0\,0\.0 dgdz=0\.0\,0\.0 dqdx=0\.0\,0\.0 dqdz=0\.0\,0\.0 drdx=0\.0\,0\.0 drdz=0\.0\,0\.0 dvpdx=0\.0\,0\.0 dvpdz=0\.0\,0\.0 dvsdx=0\.0\,0\.0 dvsdz=0\.0\,0\.0 dx=6 dz=6 eps00=0\,0 fx=0 fz=0 gamma00=0\,0 method=linear n1=100 ninf=1 npmax=201 nx=255 nz=294 paramtype=1 phi00=0\,0 q00=110\,120 rho00=2250\.\,2250\. vp00=2898\.0\,3320\.0 vs00=1398\.0\,1498\.0 x0=0\.0\,0\.0\,0\.0 < /home/gllore/demos/seismics/data/Synthetic/Finite_Difference/Suea2df/Xdemo1/1/txt/gllore/model_unif.txt & 
+
+ximage blank=0 blockinterp=0 d1=1 d1num=0 d2=1 d2num=0 f1=0 f2=0 hbox=294 label2=label labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 mpicks=\/dev\/tty n1=294 n1tic=1 n2=255 n2tic=1 perc=99 plotfile=plotfile\.ps style=seismic title=c44\ parameter\ file titlecolor=red titlefont=Rom22 units=unit verbose=0 wbox=255 windowtitle=ximage xbox=0 < /home/gllore/demos/seismics/pl/Synthetic/Finite_Difference/Suea2df/Xdemo1/1/gllore/c44_file & 
+
+ximage hbox=294 legend=1 n1=294 n2=255 perc=99 title=c35\ parameter\ file verbose=0 wbox=255 xbox=0 < /home/gllore/demos/seismics/pl/Synthetic/Finite_Difference/Suea2df/Xdemo1/1/gllore/c35_file & 
+
+transp verbose=0 < /home/gllore/demos/seismics/pl/Synthetic/Finite_Difference/Suea2df/Xdemo1/1/gllore/c11_file > 1 & 
+
+transp verbose=1 < /home/gllore/demos/seismics/pl/Synthetic/Finite_Difference/Suea2df/Xdemo1/1/gllore/c11_file > 1 & 
+
+transp n1=294 verbose=1 < /home/gllore/demos/seismics/pl/Synthetic/Finite_Difference/Suea2df/Xdemo1/1/gllore/c11_file > 1 & 
+
+transp n1=294 verbose=1 < /home/gllore/demos/seismics/pl/Synthetic/Finite_Difference/Suea2df/Xdemo1/1/gllore/c11_file > 1 & 
+
+transp n1=294 verbose=1 < /home/gllore/demos/seismics/pl/Synthetic/Finite_Difference/Suea2df/Xdemo1/1/gllore/c13_file > 1 & 
+
+transp n1=294 verbose=1 < /home/gllore/demos/seismics/pl/Synthetic/Finite_Difference/Suea2df/Xdemo1/1/gllore/c15_file > 1 & 
+
+transp n1=294 verbose=1 < /home/gllore/demos/seismics/pl/Synthetic/Finite_Difference/Suea2df/Xdemo1/1/gllore/c15_file > 1 & 
+
+transp n1=294 verbose=1 < /home/gllore/demos/seismics/pl/Synthetic/Finite_Difference/Suea2df/Xdemo1/1/gllore/c33_file > 1 & 
+
+transp n1=294 verbose=1 < /home/gllore/demos/seismics/pl/Synthetic/Finite_Difference/Suea2df/Xdemo1/1/gllore/c35_file > 1 & 
+
+transp n1=294 verbose=1 < /home/gllore/demos/seismics/pl/Synthetic/Finite_Difference/Suea2df/Xdemo1/1/gllore/c35_file > 1 & 
+
+transp n1=294 verbose=1 < /home/gllore/demos/seismics/pl/Synthetic/Finite_Difference/Suea2df/Xdemo1/1/gllore/c44_file > 1 & 
+
+transp n1=294 verbose=1 < /home/gllore/demos/seismics/pl/Synthetic/Finite_Difference/Suea2df/Xdemo1/1/gllore/c55_file > 1 & 
+
+transp n1=294 verbose=1 < /home/gllore/demos/seismics/pl/Synthetic/Finite_Difference/Suea2df/Xdemo1/1/gllore/c55_file > 1 & 
+
+transp n1=294 verbose=1 < /home/gllore/demos/seismics/pl/Synthetic/Finite_Difference/Suea2df/Xdemo1/1/gllore/c11_file > 1 & 
+
+transp n1=294 verbose=1 < /home/gllore/demos/seismics/pl/Synthetic/Finite_Difference/Suea2df/Xdemo1/1/gllore/c13_file > 1 & 
+
+transp n1=294 verbose=1 < /home/gllore/demos/seismics/pl/Synthetic/Finite_Difference/Suea2df/Xdemo1/1/gllore/c15_file > 1 & 
+
+transp n1=294 verbose=1 < /home/gllore/demos/seismics/pl/Synthetic/Finite_Difference/Suea2df/Xdemo1/1/gllore/c35_file > 1 & 
+
+transp n1=294 verbose=1 < /home/gllore/demos/seismics/pl/Synthetic/Finite_Difference/Suea2df/Xdemo1/1/gllore/c35_file > 1 & 
+
+transp n1=294 verbose=1 < /home/gllore/demos/seismics/pl/Synthetic/Finite_Difference/Suea2df/Xdemo1/1/gllore/c44_file > 1 & 
+
+transp n1=294 verbose=1 < /home/gllore/demos/seismics/pl/Synthetic/Finite_Difference/Suea2df/Xdemo1/1/gllore/c55_file > 1 & 
+
+transp n1=294 verbose=1 < /home/gllore/demos/seismics/pl/Synthetic/Finite_Difference/Suea2df/Xdemo1/1/gllore/c55_file > 1 & 
+
+suea2df aniso=1 bc=10\,10\,10\,10 bc_a=0\.95\; bc_r=0\.\; c11file=c11_file c13file=c13_file c15file=c15_file c33file=c33_file c35file=c35_file c55file=c55_file dt=0\.001 dx=10 favg=50 ft=0 fx=\-1000 fz=0 hsfile=hs\.su lt=1 mode=0 nx=200 nz=100 qfile=Q_file qsw=1 rho=1000 rhofile=rho_file sang=0 snaptime=0\.1\,0\.2\,0\.3 snfile=snap_file_name sofile=source_file_name stype=pw sx=0 sz=500 ts=0\.05 tsw=1 verbose=0 vrslfile=vsp\.su wtype=dg > /home/gllore/demos/seismics/data/Synthetic/Finite_Difference/Suea2df/Xdemo1/1/bin/gllore/suead2f_model.bin & 
+
+transp n1=294 verbose=1 < /home/gllore/demos/seismics/pl/Synthetic/Finite_Difference/Suea2df/Xdemo1/1/gllore/rho_file > 1 & 
+
+transp n1=294 verbose=1 < /home/gllore/demos/seismics/pl/Synthetic/Finite_Difference/Suea2df/Xdemo1/1/gllore/q_file > 1 & 
+
+suea2df aniso=1 bc=10\,10\,10\,10 bc_a=0\.95\; bc_r=0\.\; c11file=c11_file c13file=c13_file c15file=c15_file c33file=c33_file c35file=c35_file c55file=c55_file dt=0\.001 dx=10 favg=50 ft=0 fx=\-1000 fz=0 hsfile=hs\.su lt=1 mode=0 nx=200 nz=100 qfile=Q_file qsw=1 rho=1000 rhofile=rho_file sang=0 snaptime=0\.1\,0\.2\,0\.3 snfile=snap_file_name sofile=source_file_name stype=pw sx=0 sz=500 ts=0\.05 tsw=1 verbose=0 vrslfile=vsp\.su wtype=dg > /home/gllore/demos/seismics/data/Synthetic/Finite_Difference/Suea2df/Xdemo1/1/bin/gllore/suead2f_model.bin & 
+
+segyread bfile=binary buff=1 conv=1 ebcdic=1 errmax=0 tape=/home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/segy/gllore/sp1.sgy hfile=header over=0 trcwt=1 trmin=1 vblock=50 verbose=0 > /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/junk.su & 
+
+segyread bfile=binary buff=1 conv=1 ebcdic=1 errmax=0 format=5 tape=/home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/segy/gllore/sp1.sgy hfile=header over=0 trcwt=1 trmin=1 vblock=50 verbose=0 > /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/junk.su & 
+
+suximage clip=1 cmap=hsv0 d2=1 f1=0 gridcolor=blue labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 lwidth=16 lx=3 mpicks=\/dev\/tty n1tic=1 n2tic=1 perc=100 plotfile=plotfile\.ps style=seismic title=suximage titlecolor=red titlefont=Rom22 units=unit verbose=1 windowtitle=suximage xbox=500 ybox=500 wbox=550 hbox=550 < /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/junk.su & 
+
+segyread bfile=binary buff=1 conv=0 ebcdic=1 errmax=0 format=5 tape=/home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/segy/gllore/sp1.sgy hfile=header over=0 trcwt=1 trmin=1 vblock=50 verbose=0 > /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/junk.su & 
+
+suximage clip=1 cmap=hsv0 d2=1 f1=0 gridcolor=blue labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 lwidth=16 lx=3 mpicks=\/dev\/tty n1tic=1 n2tic=1 perc=100 plotfile=plotfile\.ps style=seismic title=suximage titlecolor=red titlefont=Rom22 units=unit verbose=1 windowtitle=suximage xbox=500 ybox=500 wbox=550 hbox=550 < /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/junk.su & 
+
+suximage clip=1 cmap=hsv0 d2=1 f1=0 gridcolor=blue labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 lwidth=16 lx=3 mpicks=\/dev\/tty n1tic=1 n2tic=1 perc=100 plotfile=plotfile\.ps style=seismic title=suximage titlecolor=red titlefont=Rom22 units=unit verbose=1 windowtitle=suximage xbox=500 ybox=500 wbox=550 hbox=550 < /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/junk.su & 
+
+segyread bfile=binary buff=1 conv=0 ebcdic=1 endian=0 errmax=0 format=5 tape=/home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/segy/gllore/sp1.sgy hfile=header verbose=1 > /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/junk.su & 
+
+segyread bfile=binary buff=1 conv=0 ebcdic=1 endian=0 errmax=0 format=5 tape=/home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/segy/gllore/sp1.sgy hfile=header verbose=1 > /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/junk.su & 
+
+suximage clip=1 cmap=hsv0 d2=1 f1=0 gridcolor=blue labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 lwidth=16 lx=3 mpicks=\/dev\/tty n1tic=1 n2tic=1 perc=100 plotfile=plotfile\.ps style=seismic title=suximage titlecolor=red titlefont=Rom22 units=unit verbose=1 windowtitle=suximage xbox=500 ybox=500 wbox=550 hbox=550 < /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/junk.su & 
+
+segyclean trmax=200 < /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/junk.su | suximage clip=1 cmap=hsv0 d2=1 f1=0 gridcolor=blue labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 lwidth=16 lx=3 mpicks=\/dev\/tty n1tic=1 n2tic=1 perc=100 plotfile=plotfile\.ps style=seismic title=suximage titlecolor=red titlefont=Rom22 units=unit verbose=1 windowtitle=suximage xbox=500 ybox=500 wbox=550 hbox=550 & 
+
+segyclean trmax=200 < /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/junk.su | suximage clip=0\.1 cmap=hsv0 d2=1 f1=0 gridcolor=blue labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 lwidth=16 lx=3 mpicks=\/dev\/tty n1tic=1 n2tic=1 perc=100 plotfile=plotfile\.ps style=seismic title=suximage titlecolor=red titlefont=Rom22 units=unit verbose=1 windowtitle=suximage xbox=500 ybox=500 wbox=550 hbox=550 & 
+
+segyclean trmax=200 < /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/junk.su | sugain agc=1 wagc=0\.1 tmpdir=\/tmp | suximage clip=0\.1 cmap=hsv0 d2=1 f1=0 gridcolor=blue labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 lwidth=16 lx=3 mpicks=\/dev\/tty n1tic=1 n2tic=1 perc=100 plotfile=plotfile\.ps style=seismic title=suximage titlecolor=red titlefont=Rom22 units=unit verbose=1 windowtitle=suximage xbox=500 ybox=500 wbox=550 hbox=550 & 
+
+segyclean trmax=200 < /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/junk.su | sugain agc=1 wagc=0\.1 tmpdir=\/tmp | suxwigb clip=1 wbox=600 hbox=800 xbox=600 ybox=800 style=seismic & 
+
+segyclean trmax=200 < /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/junk.su | sugain agc=1 wagc=0\.05 tmpdir=\/tmp | suxwigb clip=1 wbox=600 hbox=800 xbox=600 ybox=800 style=seismic & 
+
+segyclean trmax=200 < /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/junk.su | sugain agc=1 wagc=0\.05 tmpdir=\/tmp | suxwigb clip=10 wbox=600 hbox=800 xbox=600 ybox=800 style=seismic & 
+
+segyclean trmax=200 < /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/junk.su | sugain agc=1 wagc=0\.05 tmpdir=\/tmp | suxwigb clip=10 wbox=600 hbox=800 xbox=600 ybox=800 style=seismic d2=ieee\,\ little\ endian & 
+
+segyclean trmax=200 < /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/junk.su | sugain agc=1 wagc=0\.05 tmpdir=\/tmp | suxwigb clip=10 wbox=600 hbox=800 xbox=600 ybox=800 style=seismic windowtitle=ieee\,endian\=little & 
+
+segyread bfile=binary buff=1 conv=0 ebcdic=1 endian=0 errmax=0 format=5 tape=/home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/segy/gllore/sp1_ieee_little_endian.sgy hfile=header verbose=1 > /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/junk.su & 
+
+segyclean trmax=200 < /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/junk.su | sugain agc=1 wagc=0\.05 tmpdir=\/tmp | suxwigb clip=10 wbox=600 hbox=800 xbox=600 ybox=800 style=seismic windowtitle=ieee\,endian\=little & 
+
+segyclean trmax=200 < /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/junk.su | sugain agc=1 wagc=0\.05 tmpdir=\/tmp | suxwigb clip=10 wbox=600 hbox=800 xbox=600 ybox=800 style=seismic windowtitle=SP1\,ieee\,endian\=little & 
+
+segyread bfile=binary buff=1 conv=0 ebcdic=1 endian=0 errmax=0 format=1 hfile=header verbose=1 > /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/junk.su & 
+
+segyclean trmax=200 < /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/junk.su | sugain agc=1 wagc=0\.05 tmpdir=\/tmp | suxwigb clip=10 wbox=600 hbox=800 xbox=600 ybox=800 style=seismic windowtitle=SP1\,ieee\,endian\=little & 
+
+segyread bfile=binary buff=1 conv=0 ebcdic=1 endian=0 errmax=0 format=1 hfile=header verbose=1 > /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/junk.su & 
+
+segyclean trmax=200 < /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/junk.su | sugain agc=1 wagc=0\.05 tmpdir=\/tmp | suxwigb clip=10 wbox=600 hbox=800 xbox=600 ybox=800 style=seismic windowtitle=SP1\,ieee\,endian\=little & 
+
+segyread bfile=binary buff=1 conv=0 ebcdic=1 endian=0 errmax=0 format=1 tape=/home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/segy/gllore/sp1_ibmfp_little_endian.sgy hfile=header verbose=1 > /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/junk.su & 
+
+segyclean trmax=200 < /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/junk.su | sugain agc=1 wagc=0\.05 tmpdir=\/tmp | suxwigb clip=10 wbox=600 hbox=800 xbox=600 ybox=800 style=seismic windowtitle=SP1\,ieee\,endian\=little & 
+
+segyclean trmax=200 < /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/junk.su | sugain agc=1 wagc=0\.05 tmpdir=\/tmp | suxwigb clip=10 wbox=600 hbox=800 xbox=600 ybox=800 style=seismic windowtitle=SP1\,ibmfp\,endian\=little & 
+
+segyread bfile=binary buff=1 conv=0 ebcdic=1 endian=0 errmax=0 format=2 tape=/home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/segy/gllore/sp1_ibmfp_little_endian.sgy hfile=header verbose=1 > /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/junk.su & 
+
+segyclean trmax=200 < /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/junk.su | sugain agc=1 wagc=0\.05 tmpdir=\/tmp | suxwigb clip=10 wbox=600 hbox=800 xbox=600 ybox=800 style=seismic windowtitle=SP1\,ibmfp\,endian\=little & 
+
+segyread bfile=binary buff=1 conv=0 ebcdic=1 endian=1 errmax=0 format=2 tape=/home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/segy/gllore/sp1_ibmfp_little_endian.sgy hfile=header verbose=1 > /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/junk.su & 
+
+segyclean trmax=200 < /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/junk.su | sugain agc=1 wagc=0\.05 tmpdir=\/tmp | suxwigb clip=10 wbox=600 hbox=800 xbox=600 ybox=800 style=seismic windowtitle=SP1\,ibmfp\,endian\=little & 
+
+segyread bfile=binary buff=1 conv=0 ebcdic=1 endian=1 errmax=0 format=2 tape=/home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/segy/gllore/sp1_ibmfp_little_endian.sgy hfile=header verbose=1 > /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/junk.su & 
+
+segyread bfile=binary buff=1 conv=0 ebcdic=1 endian=0 errmax=0 format=2 tape=/home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/segy/gllore/sp1_ibmfp_little_endian.sgy hfile=header verbose=1 > /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/junk.su & 
+
+segyclean trmax=200 < /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/junk.su | sugain agc=1 wagc=0\.05 tmpdir=\/tmp | suxwigb clip=10 wbox=600 hbox=800 xbox=600 ybox=800 style=seismic windowtitle=SP1\,ibmfp\,endian\=little & 
+
+segyread bfile=binary buff=1 conv=0 ebcdic=1 endian=0 errmax=0 format=1 tape=/home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/segy/gllore/sp1_ibmfp_little_endian.sgy hfile=header verbose=1 > /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/junk.su & 
+
+segyclean trmax=200 < /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/junk.su | sugain agc=1 wagc=0\.05 tmpdir=\/tmp | suxwigb clip=10 wbox=600 hbox=800 xbox=600 ybox=800 style=seismic windowtitle=SP1\,ibmfp\,endian\=little & 
+
+segyclean trmax=200 < /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/junk.su | suxwigb clip=10 wbox=600 hbox=800 xbox=600 ybox=800 style=seismic windowtitle=SP1\,ibmfp\,endian\=little & 
+
+segyclean trmax=200 < /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/junk.su | sugain mbal=1 tmpdir=\/tmp | suxwigb clip=10 wbox=600 hbox=800 xbox=600 ybox=800 style=seismic windowtitle=SP1\,ibmfp\,endian\=little & 
+
+segyclean trmax=200 < /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/junk.su | sugain mbal=1 tmpdir=\/tmp | suxwigb clip=1 wbox=600 hbox=800 xbox=600 ybox=800 style=seismic windowtitle=SP1\,ibmfp\,endian\=little & 
+
+segyclean trmax=200 < /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/junk.su | sugain mbal=1 tmpdir=\/tmp | sugain agc=1 wagc=0\.05 tmpdir=\/tmp | suxwigb clip=1 wbox=600 hbox=800 xbox=600 ybox=800 style=seismic windowtitle=SP1\,ibmfp\,endian\=little & 
+
+segyread bfile=binary buff=1 conv=0 ebcdic=1 endian=0 errmax=0 format=5 tape=/home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/segy/gllore/sp1_ieee_little_endian.sgy hfile=header verbose=1 > /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/junk.su & 
+
+segyclean trmax=200 < /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/junk.su | sugain agc=1 wagc=0\.05 tmpdir=\/tmp | suxwigb clip=10 wbox=600 hbox=800 xbox=600 ybox=800 style=seismic windowtitle=SP1\,ieee\,endian\=little & 
+
+segyread bfile=binary buff=1 conv=0 ebcdic=1 endian=1 errmax=0 format=5 tape=/home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/segy/gllore/sp1_ieee_little_endian.sgy hfile=header verbose=1 > /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/junk.su & 
+
+segyclean trmax=200 < /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/junk.su | sugain agc=1 wagc=0\.05 tmpdir=\/tmp | suxwigb clip=10 wbox=600 hbox=800 xbox=600 ybox=800 style=seismic windowtitle=SP1\,ieee\,endian\=little & 
+
+segyread bfile=binary buff=1 conv=0 ebcdic=1 endian=0 errmax=0 format=5 tape=/home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/segy/gllore/sp1_ieee_little_endian.sgy hfile=header verbose=1 > /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/junk.su & 
+
+segyclean trmax=200 < /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/junk.su | sugain agc=1 wagc=0\.05 tmpdir=\/tmp | suxwigb clip=10 wbox=600 hbox=800 xbox=600 ybox=800 style=seismic windowtitle=SP1\,ieee\,endian\=little & 
+
+sugain mbal=1 tmpdir=\/tmp < /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/junk.su | sugain agc=1 wagc=0\.05 tmpdir=\/tmp | suxwigb clip=1 wbox=600 hbox=800 xbox=600 ybox=800 style=seismic windowtitle=SP1\,ibmfp\,endian\=little & 
+
+segyclean trmax=200 < /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/junk.su | sugain mbal=1 tmpdir=\/tmp | sugain agc=1 wagc=0\.05 tmpdir=\/tmp | suxwigb clip=1 wbox=600 hbox=800 xbox=600 ybox=800 style=seismic windowtitle=SP1\,ibmfp\,endian\=little & 
+
+segyread bfile=binary buff=1 conv=0 ebcdic=1 endian=0 errmax=0 format=1 tape=/home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/segy/gllore/sp1_ibmfp_little_endian.sgy hfile=header verbose=1 > /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/junk.su & 
+
+segyclean trmax=200 < /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/junk.su | sugain mbal=1 tmpdir=\/tmp | sugain agc=1 wagc=0\.05 tmpdir=\/tmp | suxwigb clip=1 wbox=600 hbox=800 xbox=600 ybox=800 style=seismic windowtitle=SP1\,ibmfp\,endian\=little & 
+
+segyread bfile=binary buff=1 conv=0 ebcdic=1 endian=1 errmax=0 format=5 tape=/home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/segy/gllore/sp1_ieee_little_endian.sgy hfile=header verbose=1 > 1 & 
+
+segyclean trmax=200 < /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/junk.su | sugain agc=1 wagc=0\.05 tmpdir=\/tmp | suxwigb clip=10 wbox=600 hbox=800 xbox=600 ybox=800 style=seismic windowtitle=SP1\,ieee\,endian\=little & 
+
+segyread bfile=binary buff=1 conv=1 ebcdic=1 endian=1 errmax=0 format=5 tape=/home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/segy/gllore/sp1_ieee_little_endian.sgy hfile=header verbose=1 > 1 & 
+
+segyclean trmax=200 < /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/junk.su | sugain agc=1 wagc=0\.05 tmpdir=\/tmp | suxwigb clip=10 wbox=600 hbox=800 xbox=600 ybox=800 style=seismic windowtitle=SP1\,ieee\,endian\=little & 
+
+segyread bfile=binary buff=1 conv=0 ebcdic=1 endian=1 errmax=0 format=5 tape=/home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/segy/gllore/sp1_ieee_little_endian.sgy hfile=header verbose=1 > 1 & 
+
+segyclean trmax=200 < /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/junk.su | sugain agc=1 wagc=0\.05 tmpdir=\/tmp | suxwigb clip=10 wbox=600 hbox=800 xbox=600 ybox=800 style=seismic windowtitle=SP1\,ieee\,endian\=little & 
+
+segyread bfile=binary buff=1 conv=1 ebcdic=1 endian=1 errmax=0 format=5 tape=/home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/segy/gllore/sp1_ieee_little_endian.sgy hfile=header verbose=1 > 1 & 
+
+segyclean trmax=200 < /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/junk.su | sugain agc=1 wagc=0\.05 tmpdir=\/tmp | suxwigb clip=10 wbox=600 hbox=800 xbox=600 ybox=800 style=seismic windowtitle=SP1\,ieee\,endian\=little & 
+
+segyread bfile=binary buff=1 conv=0 ebcdic=1 endian=1 errmax=0 format=5 tape=/home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/segy/gllore/sp1_ieee_little_endian.sgy hfile=header verbose=1 > 1 & 
+
+segyclean trmax=200 < /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/junk.su | sugain agc=1 wagc=0\.05 tmpdir=\/tmp | suxwigb clip=10 wbox=600 hbox=800 xbox=600 ybox=800 style=seismic windowtitle=SP1\,ieee\,endian\=little & 
+
+segyread bfile=binary buff=1 conv=0 ebcdic=1 endian=0 errmax=0 format=5 tape=/home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/segy/gllore/sp1_ieee_little_endian.sgy hfile=header verbose=1 > 1 & 
+
+segyclean trmax=200 < /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/junk.su | sugain agc=1 wagc=0\.05 tmpdir=\/tmp | suxwigb clip=10 wbox=600 hbox=800 xbox=600 ybox=800 style=seismic windowtitle=SP1\,ieee\,endian\=little & 
+
+segyread bfile=binary buff=1 conv=1 ebcdic=1 endian=0 errmax=0 format=5 tape=/home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/segy/gllore/sp1_ieee_little_endian.sgy hfile=header verbose=1 > 1 & 
+
+segyclean trmax=200 < /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/junk.su | sugain agc=1 wagc=0\.05 tmpdir=\/tmp | suxwigb clip=10 wbox=600 hbox=800 xbox=600 ybox=800 style=seismic windowtitle=SP1\,ieee\,endian\=little & 
+
+segyread bfile=binary buff=1 conv=0 ebcdic=1 endian=0 errmax=0 format=5 tape=/home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/segy/gllore/sp1_ieee_little_endian.sgy hfile=header verbose=1 > 1 & 
+
+segyclean trmax=200 < /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/junk.su | sugain agc=1 wagc=0\.05 tmpdir=\/tmp | suxwigb clip=10 wbox=600 hbox=800 xbox=600 ybox=800 style=seismic windowtitle=SP1\,ieee\,endian\=little & 
+
+segyread bfile=binary buff=1 conv=0 ebcdic=1 endian=0 errmax=0 format=5 tape=/home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/segy/gllore/sp1_ieee_little_endian.sgy hfile=header verbose=1 > /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/junk.su & 
+
+segyclean trmax=200 < /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/junk.su | sugain agc=1 wagc=0\.05 tmpdir=\/tmp | suxwigb clip=10 wbox=600 hbox=800 xbox=600 ybox=800 style=seismic windowtitle=SP1\,ieee\,endian\=little & 
+
+segyclean trmax=200 < /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/junk.su | sufilter f=0\,5\,100\,200 verbose=0 | sugain agc=1 wagc=0\.05 tmpdir=\/tmp | suxwigb clip=10 wbox=600 hbox=800 xbox=600 ybox=800 style=seismic windowtitle=SP1\,ieee\,endian\=little & 
+
+segyread bfile=binary buff=1 conv=0 ebcdic=1 endian=0 errmax=0 format=1 tape=/home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/segy/gllore/sp1_ibmfp_little_endian.sgy hfile=header verbose=1 > /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/junk.su & 
+
+segyclean trmax=200 < /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/junk.su | sufilter f=0\,5\,100\,200 verbose=0 | sugain agc=1 wagc=0\.05 tmpdir=\/tmp | suxwigb clip=10 wbox=600 hbox=800 xbox=600 ybox=800 style=seismic windowtitle=SP1\,ieee\,endian\=little & 
+
+segyclean trmax=200 < /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/junk.su | sufilter f=0\,5\,100\,200 | sugain agc=1 wagc=0\.05 tmpdir=\/tmp | suxwigb clip=1 wbox=600 hbox=800 xbox=600 ybox=800 style=seismic windowtitle=SP1\,ibmfp\,endian\=little & 
+
+segyclean trmax=200 < /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/junk.su | sufilter f=0\,5\,100\,200 | sugain agc=1 wagc=0\.05 tmpdir=\/tmp | suxwigb clip=10 wbox=600 hbox=800 xbox=600 ybox=800 style=seismic windowtitle=SP1\,ibmfp\,endian\=little & 
+
+segyread bfile=binary buff=1 conv=0 ebcdic=1 endian=0 errmax=0 format=2 tape=/home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/segy/gllore/sp1_ibmfp_little_endian.sgy hfile=header verbose=1 > /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/junk.su & 
+
+segyclean trmax=200 < /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/junk.su | sufilter f=0\,5\,100\,200 | sugain agc=1 wagc=0\.05 tmpdir=\/tmp | suxwigb clip=10 wbox=600 hbox=800 xbox=600 ybox=800 style=seismic windowtitle=SP1\,ibmfp\,endian\=little & 
+
+segyread bfile=binary buff=1 conv=1 ebcdic=1 endian=0 errmax=0 format=2 tape=/home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/segy/gllore/sp1_ibmfp_little_endian.sgy hfile=header verbose=1 > /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/junk.su & 
+
+segyclean trmax=200 < /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/junk.su | sufilter f=0\,5\,100\,200 | sugain agc=1 wagc=0\.05 tmpdir=\/tmp | suxwigb clip=10 wbox=600 hbox=800 xbox=600 ybox=800 style=seismic windowtitle=SP1\,ibmfp\,endian\=little & 
+
+segyread bfile=binary buff=1 conv=0 ebcdic=1 endian=0 errmax=0 format=5 tape=/home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/segy/gllore/sp1_ieee_little_endian.sgy hfile=header verbose=1 > /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/junk.su & 
+
+segyclean trmax=200 < /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/junk.su | sufilter f=0\,5\,100\,200 verbose=0 | sugain agc=1 wagc=0\.05 tmpdir=\/tmp | suxwigb clip=10 wbox=600 hbox=800 xbox=600 ybox=800 style=seismic windowtitle=SP1\,ieee\,endian\=little & 
+
+segyread bfile=binary buff=1 conv=0 ebcdic=1 endian=1 errmax=0 format=5 tape=/home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/segy/gllore/sp1_ieee_little_endian.sgy hfile=header verbose=1 > /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/junk.su & 
+
+segyclean trmax=200 < /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/junk.su | sufilter f=0\,5\,100\,200 verbose=0 | sugain agc=1 wagc=0\.05 tmpdir=\/tmp | suxwigb clip=10 wbox=600 hbox=800 xbox=600 ybox=800 style=seismic windowtitle=SP1\,ieee\,endian\=little & 
+
+segyread bfile=binary buff=1 conv=0 ebcdic=1 endian=0 errmax=0 format=5 tape=/home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/segy/gllore/sp1_ieee_little_endian.sgy hfile=header verbose=1 > /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/junk.su & 
+
+segyclean trmax=200 < /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/junk.su | sufilter f=0\,5\,100\,200 verbose=0 | sugain agc=1 wagc=0\.05 tmpdir=\/tmp | suxwigb clip=10 wbox=600 hbox=800 xbox=600 ybox=800 style=seismic windowtitle=SP1\,ieee\,endian\=little & 
+
+sufilter f=0\,5\,100\,200 verbose=0 < /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/1000_clean.su | sugain agc=1 wagc=0\.05 tmpdir=\/tmp | suxwigb clip=10 wbox=600 hbox=800 xbox=600 ybox=800 style=seismic windowtitle=SP1\,ieee\,endian\=little & 
+
+sufilter f=0\,5\,100\,200 verbose=0 < /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/sp1_from_sg2_ieee.su | sugain agc=1 wagc=0\.05 tmpdir=\/tmp | suxwigb clip=10 wbox=600 hbox=800 xbox=600 ybox=800 style=seismic windowtitle=SP1\,ieee\,endian\=little & 
+
+sufilter f=0\,5\,100\,200 verbose=0 < /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/1000_clean.su | sugain agc=1 wagc=0\.05 tmpdir=\/tmp | suxwigb clip=10 wbox=600 hbox=800 xbox=600 ybox=800 style=seismic windowtitle=SP1\,ieee\,endian\=little & 
+
+segyread bfile=binary buff=1 conv=0 ebcdic=1 endian=0 errmax=0 format=5 tape=/home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/segy/gllore/sp1_ieee_little_endian.sgy hfile=header verbose=1 > /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/junk.su & 
+
+segyclean trmax=200 < /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/junk.su | sufilter f=0\,5\,100\,200 verbose=0 | sugain agc=1 wagc=0\.05 tmpdir=\/tmp | suxwigb clip=10 wbox=600 hbox=800 xbox=600 ybox=800 style=seismic windowtitle=SP1\,ieee\,endian\=little & 
+
+sufilter f=0\,5\,100\,200 verbose=0 < /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/sp1_from_sg2_ieee.su | sugain agc=1 wagc=0\.05 tmpdir=\/tmp | suxwigb clip=10 wbox=600 hbox=800 xbox=600 ybox=800 style=seismic windowtitle=SP1\,ieee\,endian\=little & 
+
+segyclean trmax=200 < /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/junk.su | sufilter f=0\,5\,1000\,3000 verbose=0 | sugain agc=1 wagc=0\.05 tmpdir=\/tmp | suxwigb clip=10 wbox=600 hbox=800 xbox=600 ybox=800 style=seismic windowtitle=SP1\,ieee\,endian\=little & 
+
+segyclean trmax=200 < /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/junk.su | sufilter f=0\,5\,1000\,2000 verbose=0 | sugain agc=1 wagc=0\.05 tmpdir=\/tmp | suxwigb clip=10 wbox=600 hbox=800 xbox=600 ybox=800 style=seismic windowtitle=SP1\,ieee\,endian\=little & 
+
+segyread bfile=binary buff=1 conv=0 ebcdic=1 endian=0 errmax=0 format=5 tape=/home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/segy/gllore/sp1_15cmoffset_piezo.sgy hfile=header verbose=1 > /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/sp1_15cmoffset_piezo.su & 
+
+segyread bfile=binary buff=1 conv=0 ebcdic=1 endian=0 errmax=0 format=5 tape=/home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/segy/gllore/sp1_15cmoffset_piezo.sgy hfile=header verbose=1 > /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/sp1_15cmoffset_piezo.su & 
+
+sufilter f=0\,5\,100\,200 verbose=0 < /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/sp1_15cmoffset_piezo.su | sugain agc=1 wagc=0\.05 tmpdir=\/tmp | suxwigb clip=10 wbox=600 hbox=800 xbox=600 ybox=800 style=seismic windowtitle=SP1\,ieee\,endian\=little & 
+
+segyread bfile=binary buff=1 conv=0 ebcdic=1 endian=0 errmax=0 format=5 tape=/home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/segy/gllore/sp1_15cmoffset_piezo.sgy hfile=header verbose=1 > /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/sp1_15cmoffset_piezo.su & 
+
+sufilter f=0\,5\,100\,200 verbose=0 < /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/sp1_15cmoffset_piezo.su | sugain agc=1 wagc=0\.05 tmpdir=\/tmp | suxwigb clip=10 wbox=600 hbox=800 xbox=600 ybox=800 style=seismic windowtitle=SP1\,ieee\,endian\=little & 
+
+sufilter f=0\,5\,100\,200 verbose=0 < /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/sp1_15cmoffset_piezo.su | suxwigb clip=10 wbox=600 hbox=800 xbox=600 ybox=800 style=seismic windowtitle=SP1\,ieee\,endian\=little & 
+
+sufilter f=0\,5\,100\,200 verbose=0 < /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/sp1_15cmoffset_piezo.su | suxwigb clip=10 wbox=600 hbox=800 xbox=600 ybox=800 style=seismic windowtitle=SP1\,ieee\,endian\=little & 
+
+segyread bfile=binary buff=1 conv=0 ebcdic=1 endian=0 errmax=0 format=5 tape=/home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/segy/gllore/sp1_ieee_little_endian.sgy hfile=header verbose=1 > /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/sp1\.su.su & 
+
+segyread bfile=binary buff=1 conv=0 ebcdic=1 endian=0 errmax=0 format=5 tape=/home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/segy/gllore/sp1_ieee_little_endian.sgy hfile=header verbose=1 > /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/sp1.su & 
+
+segyclean trmax=200 < /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/sp1.su | sufilter f=0\,5\,1000\,2000 verbose=0 | sugain agc=1 wagc=0\.05 tmpdir=\/tmp | suxwigb clip=10 wbox=600 hbox=800 xbox=600 ybox=800 style=seismic windowtitle=SP1\,ieee\,endian\=little & 
+
+segyclean trmax=200 < /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/sp1_15cmoffset_piezo.su | sufilter f=0\,5\,100\,200 verbose=0 | suxwigb clip=10 wbox=600 hbox=800 xbox=600 ybox=800 style=seismic windowtitle=SP1\,ieee\,endian\=little & 
+
+segyclean trmax=200 < /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/sp1_15cmoffset_piezo.su | sugain agc=1 wagc=0\.05 tmpdir=\/tmp | sufilter f=0\,5\,100\,200 verbose=0 | suxwigb clip=10 wbox=600 hbox=800 xbox=600 ybox=800 style=seismic windowtitle=SP1\,ieee\,endian\=little & 
+
+segyclean trmax=200 < /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/sp1_15cmoffset_piezo.su | sugain agc=1 wagc=0\.05 tmpdir=\/tmp | sufilter f=0\,5\,100\,200 verbose=0 | suxwigb clip=10 wbox=600 hbox=800 xbox=600 ybox=800 style=seismic windowtitle=SP1\,15cm\ offset\,\ piezo\ source & 
+
+segyread bfile=binary buff=1 conv=0 ebcdic=1 endian=0 errmax=0 format=5 tape=/home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/segy/gllore/bigballbearing_15cm.sgy hfile=header verbose=1 > /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/sp1_15cm_offset_big_ball_bearing.su & 
+
+segyclean trmax=200 < /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/sp1_15cm_offset_big_ball_bearing.su | sugain agc=1 wagc=0\.05 tmpdir=\/tmp | sufilter f=0\,5\,100\,200 verbose=0 | suxwigb clip=10 wbox=600 hbox=800 xbox=600 ybox=800 style=seismic windowtitle=SP1\,15cm\ offset\,\ piezo\ source & 
+
+segyread bfile=binary buff=1 conv=0 ebcdic=1 endian=0 errmax=0 format=5 tape=/home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/segy/gllore/bigballbearing_15cm.sgy hfile=header verbose=1 > /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/sp1_15cm_offset_big_ball_bearing.su & 
+
+segyclean trmax=200 < /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/sp1_15cm_offset_big_ball_bearing.su | sugain agc=1 wagc=0\.05 tmpdir=\/tmp | sufilter f=0\,5\,100\,200 verbose=0 | suxwigb clip=10 wbox=600 hbox=800 xbox=600 ybox=800 style=seismic windowtitle=SP1\,15cm\ offset\,\ piezo\ source & 
+
+segyread bfile=binary buff=1 conv=0 ebcdic=1 endian=0 errmax=0 format=5 tape=/home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/segy/gllore/bigballbearing_15cm.sgy hfile=header verbose=1 > /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/sp1_15cm_offset_big_ball_bearing.su & 
+
+segyclean trmax=200 < /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/sp1_15cm_offset_big_ball_bearing.su | sugain agc=1 wagc=0\.05 tmpdir=\/tmp | sufilter f=0\,5\,100\,200 verbose=0 | suxwigb clip=10 wbox=600 hbox=800 xbox=600 ybox=800 style=seismic windowtitle=SP1\,15cm\ offset\,\ piezo\ source & 
+
+segyclean trmax=200 < /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/sp1_15cm_offset_big_ball_bearing.su | sugain agc=1 wagc=0\.05 tmpdir=\/tmp | sufilter f=0\,5\,100\,200 verbose=0 | suxwigb clip=10 wbox=600 hbox=800 xbox=600 ybox=800 style=seismic windowtitle=SP1\,15cm\ offset\,\ piezo\ source & 
+
+segyread bfile=binary buff=1 conv=0 ebcdic=1 endian=0 errmax=0 format=5 tape=/home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/segy/gllore/sp1_ieee_little_endian.sgy hfile=header verbose=1 > /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/sp1.su & 
+
+segyclean trmax=200 < /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/sp1.su | sufilter f=0\,5\,1000\,2000 verbose=0 | sugain agc=1 wagc=0\.05 tmpdir=\/tmp | suxwigb clip=10 wbox=600 hbox=800 xbox=600 ybox=800 style=seismic windowtitle=SP1\,ieee\,endian\=little & 
+
+segyread bfile=binary buff=1 conv=1 ebcdic=1 endian=0 errmax=0 format=2 tape=/home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/segy/gllore/bigballbearing_15cm.sgy hfile=header verbose=1 > /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/sp1_15cm_offset_big_ball_bearing.su & 
+
+segyclean trmax=200 < /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/sp1_15cm_offset_big_ball_bearing.su | sugain agc=1 wagc=0\.05 tmpdir=\/tmp | sufilter f=0\,5\,100\,200 verbose=0 | suxwigb clip=10 wbox=600 hbox=800 xbox=600 ybox=800 style=seismic windowtitle=SP1\,15cm\ offset\,\ piezo\ source & 
+
+segyclean trmax=200 < /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/sp1_15cm_offset_big_ball_bearing.su | sugain agc=1 wagc=0\.05 tmpdir=\/tmp | sufilter f=0\,5\,100\,200 verbose=0 | suxwigb clip=10 wbox=600 hbox=800 xbox=600 ybox=800 style=seismic windowtitle=SP1\,15cm\ offset\,\ piezo\ source & 
+
+segyclean trmax=200 < /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/sp1_15cm_offset_big_ball_bearing.su | sugain agc=1 wagc=0\.05 tmpdir=\/tmp | sufilter f=0\,5\,100\,200 verbose=0 | suxwigb clip=10 wbox=600 hbox=800 xbox=600 ybox=800 style=seismic windowtitle=SP1\,15cm\ offset\,\ big\ ball\ bearing & 
+
+sugain agc=1 wagc=0\.05 tmpdir=\/tmp < /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/1000_clean.su | sufilter f=0\,5\,100\,200 verbose=0 | suxwigb clip=10 wbox=600 hbox=800 xbox=600 ybox=800 style=seismic windowtitle=SP1\,15cm\ offset\,\ big\ ball\ bearing & 
+
+sugain agc=1 wagc=0\.05 tmpdir=\/tmp < /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/sp1_15cm_offset_big_ball_bearing.su | sufilter f=0\,5\,100\,200 verbose=0 | suxwigb clip=10 wbox=600 hbox=800 xbox=600 ybox=800 style=seismic windowtitle=SP1\,15cm\ offset\,\ big\ ball\ bearing & 
+
+segyclean trmax=200 < /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/sp1_15cmoffset_piezo.su | sugain agc=1 wagc=0\.05 tmpdir=\/tmp | sufilter f=0\,5\,100\,200 verbose=0 | suxwigb clip=10 wbox=600 hbox=800 xbox=600 ybox=800 style=seismic windowtitle=SP1\,15cm\ offset\,\ piezo\ source & 
+
+segyread bfile=binary buff=1 conv=0 ebcdic=1 endian=0 errmax=0 format=5 tape=/home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/segy/gllore/bigballbearing_15cm.sgy hfile=header verbose=1 > /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/sp1_15cm_offset_big_ball_bearing.su & 
+
+sugain agc=1 wagc=0\.05 tmpdir=\/tmp < /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/sp1_15cm_offset_big_ball_bearing.su | sufilter f=0\,5\,100\,200 verbose=0 | suxwigb clip=10 wbox=600 hbox=800 xbox=600 ybox=800 style=seismic windowtitle=SP1\,15cm\ offset\,\ big\ ball\ bearing & 
+
+segyclean trmax=200 < /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/sp1_15cm_offset_big_ball_bearing.su | sugain agc=1 wagc=0\.05 tmpdir=\/tmp | sufilter f=0\,5\,100\,200 verbose=0 | suxwigb clip=10 wbox=600 hbox=800 xbox=600 ybox=800 style=seismic windowtitle=SP1\,15cm\ offset\,\ big\ ball\ bearing & 
+
+segyread bfile=binary buff=1 conv=1 ebcdic=1 endian=0 errmax=0 format=2 tape=/home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/segy/gllore/bigballbearing_15cm.sgy hfile=header verbose=1 > /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/sp1_15cm_offset_big_ball_bearing.su & 
+
+segyclean trmax=200 < /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/sp1_15cm_offset_big_ball_bearing.su | sugain agc=1 wagc=0\.05 tmpdir=\/tmp | sufilter f=0\,5\,100\,200 verbose=0 | suxwigb clip=10 wbox=600 hbox=800 xbox=600 ybox=800 style=seismic windowtitle=SP1\,15cm\ offset\,\ big\ ball\ bearing & 
+
+segyread bfile=binary buff=1 conv=1 ebcdic=1 endian=0 errmax=0 format=2 tape=/home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/segy/gllore/sp1_ibmfp_little_endian.sgy hfile=header verbose=1 > /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/failed.su & 
+
+segyclean trmax=200 < /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/failed.su | sugain agc=1 wagc=0\.05 tmpdir=\/tmp | sufilter f=0\,5\,100\,200 verbose=0 | suxwigb clip=10 wbox=600 hbox=800 xbox=600 ybox=800 style=seismic windowtitle=SP1\,15cm\ offset\,\ big\ ball\ bearing & 
+
+segyclean trmax=200 < /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/sp1_15cm_offset_big_ball_bearing.su | sugain agc=1 wagc=0\.05 tmpdir=\/tmp | sufilter f=0\,5\,100\,200 verbose=0 | suxwigb clip=10 wbox=600 hbox=800 xbox=600 ybox=800 style=seismic windowtitle=SP1\,15cm\ offset\,\ big\ ball\ bearing & 
+
+segyread bfile=binary buff=1 conv=0 ebcdic=1 endian=0 errmax=0 format=5 tape=/home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/segy/gllore/bigballbearing_15cm.sgy hfile=header verbose=1 > /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/sp1_15cm_offset_big_ball_bearing.su & 
+
+segyclean trmax=200 < /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/sp1_15cm_offset_big_ball_bearing.su | sugain agc=1 wagc=0\.05 tmpdir=\/tmp | sufilter f=0\,5\,100\,200 verbose=0 | suxwigb clip=10 wbox=600 hbox=800 xbox=600 ybox=800 style=seismic windowtitle=SP1\,15cm\ offset\,\ big\ ball\ bearing & 
+
+segyread bfile=binary buff=1 conv=0 ebcdic=1 endian=0 errmax=0 format=5 tape=/home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/segy/gllore/bigballbearing_15cm.sgy hfile=header verbose=1 > /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/sp1_15cm_offset_big_ball_bearing.su & 
+
+segyclean trmax=200 < /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/sp1_15cm_offset_big_ball_bearing.su | sugain agc=1 wagc=0\.05 tmpdir=\/tmp | sufilter f=0\,5\,100\,200 verbose=0 | suxwigb clip=10 wbox=600 hbox=800 xbox=600 ybox=800 style=seismic windowtitle=SP1\,15cm\ offset\,\ big\ ball\ bearing & 
+
+segyread bfile=binary buff=1 conv=0 ebcdic=1 endian=0 errmax=0 format=2 tape=/home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/segy/gllore/bigballbearing_15cm.sgy hfile=header verbose=1 > /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/sp1_15cm_offset_big_ball_bearing.su & 
+
+segyclean trmax=200 < /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/sp1_15cm_offset_big_ball_bearing.su | sugain agc=1 wagc=0\.05 tmpdir=\/tmp | sufilter f=0\,5\,100\,200 verbose=0 | suxwigb clip=10 wbox=600 hbox=800 xbox=600 ybox=800 style=seismic windowtitle=SP1\,15cm\ offset\,\ big\ ball\ bearing & 
+
+segyread bfile=binary buff=1 conv=0 ebcdic=1 endian=1 errmax=0 format=5 tape=/home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/segy/gllore/bigballbearing_15cm.sgy hfile=header verbose=1 > /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/sp1_15cm_offset_big_ball_bearing.su & 
+
+segyclean trmax=200 < /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/sp1_15cm_offset_big_ball_bearing.su | sugain agc=1 wagc=0\.05 tmpdir=\/tmp | sufilter f=0\,5\,100\,200 verbose=0 | suxwigb clip=10 wbox=600 hbox=800 xbox=600 ybox=800 style=seismic windowtitle=SP1\,15cm\ offset\,\ big\ ball\ bearing & 
+
+segyread bfile=binary buff=1 conv=0 ebcdic=1 endian=1 errmax=0 format=5 tape=/home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/segy/gllore/bigballbearing_15cm.sgy hfile=header verbose=1 > /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/sp1_15cm_offset_big_ball_bearing.su & 
+
+segyclean trmax=200 < /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/sp1_15cm_offset_big_ball_bearing.su | sugain agc=1 wagc=0\.05 tmpdir=\/tmp | sufilter f=0\,5\,100\,200 verbose=0 | suxwigb clip=10 wbox=600 hbox=800 xbox=600 ybox=800 style=seismic windowtitle=SP1\,15cm\ offset\,\ big\ ball\ bearing & 
+
+segyread bfile=binary buff=1 conv=0 ebcdic=1 endian=0 errmax=0 format=5 tape=/home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/segy/gllore/bigballbearing_15cm.sgy hfile=header verbose=1 > /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/sp1_15cm_offset_big_ball_bearing.su & 
+
+segyclean trmax=200 < /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/sp1_15cm_offset_big_ball_bearing.su | sugain agc=1 wagc=0\.05 tmpdir=\/tmp | sufilter f=0\,5\,100\,200 verbose=0 | suxwigb clip=10 wbox=600 hbox=800 xbox=600 ybox=800 style=seismic windowtitle=SP1\,15cm\ offset\,\ big\ ball\ bearing & 
+
+segyclean trmax=200 < /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/sp1_15cm_offset_big_ball_bearing.su | sugain agc=1 wagc=0\.05 tmpdir=\/tmp | sufilter f=0\,5\,1000\,2000 verbose=0 | suxwigb clip=10 wbox=600 hbox=800 xbox=600 ybox=800 style=seismic windowtitle=SP1\,15cm\ offset\,\ big\ ball\ bearing & 
+
+segyclean trmax=200 < /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/sp1.su | sufilter f=0\,5\,1000\,2000 verbose=0 | sugain agc=1 wagc=0\.05 tmpdir=\/tmp | suxwigb clip=10 wbox=600 hbox=800 xbox=600 ybox=800 style=seismic windowtitle=SP1\,ieee\,endian\=little & 
+
+segyclean trmax=200 < /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/sp1.su | sufilter f=0\,5\,1000\,2000 verbose=0 | suxwigb clip=10 wbox=600 hbox=800 xbox=600 ybox=800 style=seismic windowtitle=SP1\,ieee\,endian\=littlesugain agc=1 wagc=0\.05 tmpdir=\/tmp & 
+
+segyclean trmax=200 < /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/sp1.su | sufilter f=0\,5\,1000\,2000 verbose=0 | suxwigb clip=10 wbox=600 hbox=800 xbox=600 ybox=800 style=seismic windowtitle=SP1\,ieee\,endian\=little & 
+
+segyclean trmax=200 < /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/sp1.su | sufilter f=0\,5\,1000\,2000 verbose=0 | suxwigb clip=1 wbox=600 hbox=800 xbox=600 ybox=800 style=seismic windowtitle=SP1\,ieee\,endian\=little & 
+
+segyclean trmax=200 < /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/sp1.su | sufilter f=0\,5\,1000\,2000 verbose=0 | suxwigb verbose=0\.01 clip=1 wbox=600 hbox=800 xbox=600 ybox=800 style=seismic windowtitle=SP1\,ieee\,endian\=little & 
+
+segyclean trmax=200 < /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/sp1.su | sufilter f=0\,5\,1000\,2000 verbose=0 | suxwigb verbose=0\.001 clip=1 wbox=600 hbox=800 xbox=600 ybox=800 style=seismic windowtitle=SP1\,ieee\,endian\=little & 
+
+segyclean trmax=200 < /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/sp1.su | sufilter f=0\,5\,1000\,2000 verbose=0 | suxwigb clip=0\.0001 wbox=600 hbox=800 xbox=600 ybox=800 style=seismic windowtitle=SP1\,ieee\,endian\=little & 
+
+segyclean trmax=200 < /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/sp1.su | sufilter f=0\,5\,1000\,2000 verbose=0 | suxwigb clip=0\.001 wbox=600 hbox=800 xbox=600 ybox=800 style=seismic windowtitle=SP1\,ieee\,endian\=little & 
+
+segyclean trmax=200 < /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/sp1.su | sufilter f=0\,5\,1000\,2000 verbose=0 | suxwigb clip=0\.01 wbox=600 hbox=800 xbox=600 ybox=800 style=seismic windowtitle=SP1\,ieee\,endian\=little & 
+
+segyclean trmax=200 < /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/sp1_15cm_offset_big_ball_bearing.su | sufilter f=0\,5\,1000\,2000 verbose=0 | suxwigb clip=0\.001 wbox=600 hbox=800 xbox=600 ybox=800 style=seismic windowtitle=SP1\,15cm\ offset\,\ big\ ball\ bearing & 
+
+segyclean trmax=200 < /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/sp1_15cm_offset_big_ball_bearing.su | sufilter f=0\,5\,1000\,2000 verbose=0 | suxwigb clip=0\.01 wbox=600 hbox=800 xbox=600 ybox=800 style=seismic windowtitle=SP1\,15cm\ offset\,\ big\ ball\ bearing & 
+
+segyclean trmax=200 < /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/sp1_15cm_offset_big_ball_bearing.su | sufilter f=5\,20\,1000\,2000 verbose=0 | suxwigb clip=0\.01 wbox=600 hbox=800 xbox=600 ybox=800 style=seismic windowtitle=SP1\,15cm\ offset\,\ big\ ball\ bearing & 
+
+segyclean trmax=200 < /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/sp1_15cm_offset_big_ball_bearing.su | sufilter f=5\,20\,1000\,2000 verbose=0 | suxwigb clip=0\.1 wbox=600 hbox=800 xbox=600 ybox=800 style=seismic windowtitle=SP1\,15cm\ offset\,\ big\ ball\ bearing & 
+
+segyclean trmax=200 < /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/sp1_15cmoffset_piezo.su | sugain agc=1 wagc=0\.05 tmpdir=\/tmp | sufilter f=0\,5\,100\,200 verbose=0 | suxwigb clip=10 wbox=600 hbox=800 xbox=600 ybox=800 style=seismic windowtitle=SP1\,15cm\ offset\,\ piezo\ source & 
+
+segyclean trmax=200 < /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/sp1_15cmoffset_piezo.su | sufilter f=0\,5\,1000\,200o verbose=0 | suxwigb clip=0\.01 wbox=600 hbox=800 xbox=600 ybox=800 style=seismic windowtitle=SP1\,15cm\ offset\,\ piezo\ source & 
+
+segyclean trmax=200 < /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/sp1_15cmoffset_piezo.su | sufilter f=0\,5\,1000\,2000 verbose=0 | suxwigb clip=0\.01 wbox=600 hbox=800 xbox=600 ybox=800 style=seismic windowtitle=SP1\,15cm\ offset\,\ piezo\ source & 
+
+suxgraph width=200 style=seismic title=suxgraph windowtitle=suxgraph < /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/1000_clean.su & 
+
+suplane dip1=0 dip2=4 dip3=0 dt=0\.004 liner=0 npl=1 nt=32 ntr=4 offset=400 taper=0 & 
+
+suplane dip1=0 dip2=4 dip3=0 dt=0\.004 liner=0 npl=1 nt=32 ntr=4 offset=400 taper=0 | suxwigb clip=1 wbox=600 hbox=800 xbox=600 ybox=800 style=seismic & 
+
+suplane dip1=4 dip2=0 dip3=0 dt=0\.004 npl=1 nt=32 ntr=4 offset=400 taper=0 | suxwigb clip=1 wbox=600 hbox=800 xbox=600 ybox=800 style=seismic & 
+
+suplane dip1=4 dip2=0 dip3=0 dt=0\.004 npl=1 nt=16 ntr=4 offset=400 taper=0 | suxwigb clip=1 wbox=600 hbox=800 xbox=600 ybox=800 style=seismic & 
+
+suplane dip1=4 dip2=0 dip3=0 dt=0\.004 npl=1 nt=8 ntr=4 offset=400 taper=0 | suxwigb clip=1 wbox=600 hbox=800 xbox=600 ybox=800 style=seismic & 
+
+suplane dip1=4 dip2=0 dip3=0 dt=0\.004 npl=1 nt=8 ntr=4 offset=400 taper=0 | suxwigb clip=1 wbox=600 hbox=800 xbox=600 ybox=800 style=seismic & 
+
+suplane dip1=4 dip2=0 dip3=0 dt=0\.004 npl=1 nt=8 ntr=4 offset=400 taper=0 > /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/model.su & 
+
+suplane dip1=4 dip2=0 dip3=0 dt=0\.004 npl=1 nt=8 ntr=4 offset=400 taper=0 > /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/model.su & 
+
+suxwigb clip=1 wbox=600 hbox=800 xbox=600 ybox=800 style=seismic < /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/model.su & 
+
+suxwigb clip=1 wbox=600 hbox=800 xbox=600 ybox=800 style=seismic title=model < /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/model.su & 
+
+suxwigb clip=1 wbox=600 hbox=800 xbox=600 ybox=800 style=seismic title=model windowtitle=model < /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/model.su & 
+
+suxwigb clip=1 wbox=600 hbox=800 xbox=600 ybox=800 style=seismic title=model windowtitle=model < /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/model.su & 
+
+suwind  < /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/model.su > /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/model_tr1.su & 
+
+suwind  < /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/model.su > /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/model_tr1.su & 
+
+suwind  max=3 min=3 key=tracl < /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/model.su > /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/model_tr3.su & 
+
+suwind  max=1 min=1 key=tracl < /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/model.su > /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/model_tr1.su & 
+
+suxwigb clip=1 wbox=600 hbox=800 xbox=600 ybox=800 style=seismic < /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/model_tr1.su & 
+
+suxwigb clip=1 wbox=600 hbox=800 xbox=600 ybox=800 style=seismic < /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/model_tr3.su & 
+
+suop2 \/home\/gllore\/mars\/seismics\/data\/hrk_e122\/wheel\/071621\/rad_tangent_axial\/1\/su\/gllore\/model_tr1\.su \/home\/gllore\/mars\/seismics\/data\/hrk_e122\/wheel\/071621\/rad_tangent_axial\/1\/su\/gllore\/model_tr3\.su op=zipper > /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/tr1_tr3_interleaved.su & 
+
+suxwigb clip=1 wbox=600 hbox=800 xbox=600 ybox=800 style=seismic < /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/tr1_tr3_interleaved.su & 
+
+suxwigb clip=1 wbox=600 hbox=800 xbox=600 ybox=800 style=seismic < /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/model.su & 
+
+suxwigb clip=1 wbox=600 hbox=800 xbox=600 ybox=800 style=seismic < /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/model_tr1.su & 
+
+suxwigb clip=1 wbox=600 hbox=800 xbox=600 ybox=800 style=seismic < /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/model_tr3.su & 
+
+suxwigb clip=1 wbox=600 hbox=800 xbox=600 ybox=800 style=seismic va=0 < /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/tr1_tr3_interleaved.su & 
+
+suwind  max=2 min=2 key=tracl < /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/model.su > /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/model_tr2.su & 
+
+suop2 \/home\/gllore\/mars\/seismics\/data\/hrk_e122\/wheel\/071621\/rad_tangent_axial\/1\/su\/gllore\/model_tr1\.su \/home\/gllore\/mars\/seismics\/data\/hrk_e122\/wheel\/071621\/rad_tangent_axial\/1\/su\/gllore\/model_tr2\.su op=zipper > /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/tr1_tr2_interleaved.su & 
+
+suxwigb clip=1 wbox=600 hbox=800 xbox=600 ybox=800 style=seismic va=0 < /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/tr1_tr2_interleaved.su & 
+
+suxwigb clip=1 wbox=600 hbox=800 xbox=600 ybox=800 style=seismic va=0 < /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/model.su & 
+
+suop2 \/home\/gllore\/mars\/seismics\/data\/hrk_e122\/wheel\/071621\/rad_tangent_axial\/1\/su\/gllore\/model_tr1\.su \/home\/gllore\/mars\/seismics\/data\/hrk_e122\/wheel\/071621\/rad_tangent_axial\/1\/su\/gllore\/model_tr1\.su op=zipper > /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/tr1_tr1_interleaved.su & 
+
+suxwigb clip=1 wbox=600 hbox=800 xbox=600 ybox=800 style=seismic va=0 < /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/tr1_tr1_interleaved.su & 
+
+sustrip head=\/dev\/null outpar=\/dev\/tty ftn=0 < /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/tr1_tr3_interleaved.su > /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/bin/gllore/tr1_tr3_interleaved.bin & 
+
+suxgraph width=200 style=seismic title=suxgraph windowtitle=suxgraph < /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/tr1_tr3_interleaved.su & 
+
+suxgraph width=200 style=seismic pairs=2 title=suxgraph windowtitle=suxgraph < /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/tr1_tr3_interleaved.su & 
+
+suxgraph width=200 n=8 nplot=1 style=seismic pairs=1 title=suxgraph windowtitle=suxgraph < /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/tr1_tr3_interleaved.su & 
+
+suxgraph width=200 n=8 nplot=1 style=seismic pairs=1 title=suxgraph windowtitle=suxgraph < /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/tr1_tr2_interleaved.su & 
+
+suxgraph width=200 n=8 nplot=1 style=seismic pairs=1 title=suxgraph windowtitle=suxgraph < /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/tr1_tr3_interleaved.su & 
+
+suxgraph width=200 gridColor=blue n=8 nplot=1 style=seismic pairs=1 title=suxgraph windowtitle=suxgraph < /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/tr1_tr3_interleaved.su & 
+
+suxgraph width=200 gridColor=2 n=8 nplot=1 style=seismic pairs=1 title=suxgraph windowtitle=suxgraph < /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/tr1_tr3_interleaved.su & 
+
+suxgraph width=200 n=8 nplot=1 style=seismic pairs=1 title=suxgraph windowtitle=suxgraph < /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/tr1_tr3_interleaved.su & 
+
+suxgraph width=200 n=8 nplot=1 style=seismic title=suxgraph windowtitle=suxgraph < /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/tr1_tr3_interleaved.su & 
+
+suxgraph width=200 n=8 nplot=1 style=seismic title=suxgraph windowtitle=suxgraph < /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/tr1_tr3_interleaved.su & 
+
+suxgraph width=200 d1=1 n=8 nplot=1 style=seismic title=suxgraph windowtitle=suxgraph < /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/tr1_tr3_interleaved.su & 
+
+suxgraph width=200 d1=1 n=8 nplot=1 style=seismic title=suxgraph windowtitle=suxgraph < /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/tr1_tr3_interleaved.su & 
+
+suxgraph width=200 d1=1 d1=1 n=8 nplot=1 style=seismic title=suxgraph windowtitle=suxgraph < /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/tr1_tr3_interleaved.su & 
+
+suxgraph width=200 d1=1 d1=1 n=8 nplot=1 style=seismic title=suxgraph verbose=1 windowtitle=suxgraph < /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/tr1_tr3_interleaved.su & 
+
+suxgraph width=200 d1=0 n=8 nplot=1 style=seismic title=suxgraph verbose=1 windowtitle=suxgraph < /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/tr1_tr3_interleaved.su & 
+
+suxgraph width=200 d1=0 n=8 nplot=1 style=seismic pairs=1 title=suxgraph verbose=1 windowtitle=suxgraph < /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/tr1_tr3_interleaved.su & 
+
+suxgraph width=200 d1=0 n=8 nplot=1 style=seismic pairs=1 title=suxgraph verbose=1 windowtitle=suxgraph < /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/tr1_tr3_interleaved.su & 
+
+suxgraph width=200 d1=0 linewidth=1 n=8 nplot=1 style=seismic pairs=1 title=suxgraph verbose=1 windowtitle=suxgraph < /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/tr1_tr3_interleaved.su & 
+
+suxgraph width=200 d1=1 d1=1 linewidth=1 n=8 nplot=1 style=seismic pairs=1 title=suxgraph verbose=1 windowtitle=suxgraph < /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/tr1_tr3_interleaved.su & 
+
+suxgraph width=200 d1=1 d1=1 linewidth=3 n=8 nplot=1 style=seismic pairs=1 title=suxgraph verbose=1 windowtitle=suxgraph < /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/tr1_tr3_interleaved.su & 
+
+suxgraph width=200 d1=1 d1=1 linewidth=3 n=8 nplot=1 style=seismic pairs=1 title=suxgraph verbose=1 windowtitle=suxgraph < /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/tr1_tr3_interleaved.su & 
+
+suxgraph width=200 d1=1 d1=1 linewidth=3 n=8 nplot=1 style=seismic pairs=8 title=suxgraph verbose=1 windowtitle=suxgraph < /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/tr1_tr3_interleaved.su & 
+
+suxgraph width=200 d1=1 d1=1 linewidth=3 n=8 nplot=1 style=seismic pairs=1 title=suxgraph verbose=1 windowtitle=suxgraph < /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/tr1_tr3_interleaved.su & 
+
+xgraph grid1=dot grid2=dash gridColor=4 nplot=1 pairs=8 reverse=0 style=normal title=blue windowtitle=windowtitle -geometry 400x600+0+0 < /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/bin/gllore/tr1_tr3_interleaved.bin & 
+
+xgraph grid1=dot grid2=dash gridColor=4 n=8 nplot=1 pairs=8 reverse=0 style=normal title=blue windowtitle=windowtitle -geometry 400x600+0+0 < /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/bin/gllore/tr1_tr3_interleaved.bin & 
+
+xgraph grid1=dot grid2=dash gridColor=4 marksize=1 n=8 nplot=1 pairs=8 reverse=0 style=normal title=blue windowtitle=windowtitle -geometry 400x600+0+0 < /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/bin/gllore/tr1_tr3_interleaved.bin & 
+
+xgraph grid1=dot grid2=dash gridColor=4 linewidth=1 marksize=1 n=8 nplot=1 pairs=8 reverse=0 style=normal title=blue windowtitle=windowtitle -geometry 400x600+0+0 < /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/bin/gllore/tr1_tr3_interleaved.bin & 
+
+xgraph grid1=dot grid2=dash gridColor=4 linecolor=blue linewidth=1 marksize=1 n=8 nplot=1 pairs=8 reverse=0 style=normal title=blue windowtitle=windowtitle -geometry 400x600+0+0 < /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/bin/gllore/tr1_tr3_interleaved.bin & 
+
+xgraph grid1=dot grid2=dash gridColor=1 linecolor=blue linewidth=1 marksize=1 n=8 nplot=1 pairs=8 reverse=0 style=normal title=blue windowtitle=windowtitle -geometry 400x600+0+0 < /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/bin/gllore/tr1_tr3_interleaved.bin & 
+
+xgraph grid1=dot grid2=dash linecolor=blue linewidth=1 marksize=1 n=8 nplot=1 pairs=8 reverse=0 style=normal title=blue windowtitle=windowtitle -geometry 400x600+0+0 < /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/bin/gllore/tr1_tr3_interleaved.bin & 
+
+xgraph grid1=dot grid2=dash linecolor=blue linewidth=1 marksize=1 n=8 nplot=1 pairs=1 reverse=0 style=normal title=blue windowtitle=windowtitle -geometry 400x600+0+0 < /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/bin/gllore/tr1_tr3_interleaved.bin & 
+
+xgraph grid1=dot grid2=dash linecolor=blue linewidth=1 mark=1 marksize=1 n=8 nplot=1 pairs=1 reverse=0 style=normal title=blue windowtitle=windowtitle -geometry 400x600+0+0 < /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/bin/gllore/tr1_tr3_interleaved.bin & 
+
+xgraph grid1=dot grid2=dash linecolor=blue linewidth=1 mark=1 marksize=1 n=8 nplot=1 pairs=1 reverse=0 style=normal title=blue windowtitle=windowtitle x1beg=\-1 x1end=2 x2beg=\-2 x2end=3 label2=x label1=y -geometry 400x600+0+0 < /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/bin/gllore/tr1_tr3_interleaved.bin & 
+
+suxgraph width=200 d1=1 d1=1 linewidth=3 n=8 nplot=1 style=seismic pairs=1 title=suxgraph verbose=1 windowtitle=suxgraph < /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/tr1_tr3_interleaved.su & 
+
+suxgraph width=200 d1=1 d1=1 -geometry normal linewidth=3 mark=1 marksize=1 n=8 nplot=1 style=seismic pairs=1 title=suxgraph verbose=1 windowtitle=suxgraph < /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/tr1_tr3_interleaved.su & 
+
+suxgraph width=200 d1=1 d1=1 -geometry normal linewidth=3 mark=1 marksize=1 n=8 nplot=1 style=seismic pairs=1 title=suxgraph verbose=1 windowtitle=suxgraph x2end=5 label1=x x1end=10 x2beg=\-5 label1=y x1beg=\-10 < /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/tr1_tr3_interleaved.su & 
+
+xgraph grid1=dot grid2=dash gridColor=red linecolor=blue linewidth=1 mark=1 marksize=1 n=8 nplot=1 pairs=1 reverse=0 style=normal title=blue windowtitle=windowtitle x1beg=\-1 x1end=2 x2beg=\-2 x2end=3 label2=x label1=y -geometry 400x600+0+0 < /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/bin/gllore/tr1_tr3_interleaved.bin & 
+
+xgraph grid1=dot grid2=dash gridColor=red linecolor=blue linewidth=2 mark=1 marksize=1 n=8 nplot=1 pairs=1 reverse=0 style=normal title=blue windowtitle=windowtitle x1beg=\-1 x1end=2 x2beg=\-2 x2end=3 label2=x label1=y -geometry 400x600+0+0 < /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/bin/gllore/tr1_tr3_interleaved.bin & 
+
+xgraph grid1=dot grid2=dash gridColor=red linecolor=red linewidth=2 mark=1 marksize=1 n=8 nplot=1 pairs=1 reverse=0 style=normal title=blue windowtitle=windowtitle x1beg=\-1 x1end=2 x2beg=\-2 x2end=3 label2=x label1=y -geometry 400x600+0+0 < /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/bin/gllore/tr1_tr3_interleaved.bin & 
+
+xgraph grid1=dot grid2=dash gridColor=blue linecolor=red linewidth=2 mark=1 marksize=1 n=8 nplot=1 pairs=1 reverse=0 style=normal title=blue windowtitle=windowtitle x1beg=\-1 x1end=2 x2beg=\-2 x2end=3 label2=x label1=y -geometry 400x600+0+0 < /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/bin/gllore/tr1_tr3_interleaved.bin & 
+
+xgraph grid1=dot grid2=dash gridColor=1 linecolor=red linewidth=2 mark=1 marksize=1 n=8 nplot=1 pairs=1 reverse=0 style=normal title=blue windowtitle=windowtitle x1beg=\-1 x1end=2 x2beg=\-2 x2end=3 label2=x label1=y -geometry 400x600+0+0 < /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/bin/gllore/tr1_tr3_interleaved.bin & 
+
+xgraph grid1=dot grid2=dash gridColor=0 linecolor=red linewidth=2 mark=1 marksize=1 n=8 nplot=1 pairs=1 reverse=0 style=normal title=blue windowtitle=windowtitle x1beg=\-1 x1end=2 x2beg=\-2 x2end=3 label2=x label1=y -geometry 400x600+0+0 < /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/bin/gllore/tr1_tr3_interleaved.bin & 
+
+xgraph grid1=dot grid2=dash gridColor=green linecolor=red linewidth=2 mark=1 marksize=1 n=8 nplot=1 pairs=1 reverse=0 style=normal title=blue windowtitle=windowtitle x1beg=\-1 x1end=2 x2beg=\-2 x2end=3 label2=x label1=y -geometry 400x600+0+0 < /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/bin/gllore/tr1_tr3_interleaved.bin & 
+
+xgraph grid1=dot grid2=dash gridColor=green linecolor=2 linewidth=2 mark=1 marksize=1 n=8 nplot=1 pairs=1 reverse=0 style=normal title=blue windowtitle=windowtitle x1beg=\-1 x1end=2 x2beg=\-2 x2end=3 label2=x label1=y -geometry 400x600+0+0 < /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/bin/gllore/tr1_tr3_interleaved.bin & 
+
+xgraph grid1=dot grid2=dash gridColor=green linecolor=1 linewidth=2 mark=1 marksize=1 n=8 nplot=1 pairs=1 reverse=0 style=normal title=blue windowtitle=windowtitle x1beg=\-1 x1end=2 x2beg=\-2 x2end=3 label2=x label1=y -geometry 400x600+0+0 < /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/bin/gllore/tr1_tr3_interleaved.bin & 
+
+xgraph grid1=dot grid2=dash gridColor=green linecolor=3 linewidth=2 mark=1 marksize=1 n=8 nplot=1 pairs=1 reverse=0 style=normal title=blue windowtitle=windowtitle x1beg=\-1 x1end=2 x2beg=\-2 x2end=3 label2=x label1=y -geometry 400x600+0+0 < /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/bin/gllore/tr1_tr3_interleaved.bin & 
+
+xgraph grid1=dot grid2=dash gridColor=3 linecolor=3 linewidth=2 mark=1 marksize=1 n=8 nplot=1 pairs=1 reverse=0 style=normal title=blue windowtitle=windowtitle x1beg=\-1 x1end=2 x2beg=\-2 x2end=3 label2=x label1=y -geometry 400x600+0+0 < /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/bin/gllore/tr1_tr3_interleaved.bin & 
+
+xgraph grid1=dot grid2=dash gridColor=3 linecolor=5 linewidth=2 mark=1 marksize=1 n=8 nplot=1 pairs=1 reverse=0 style=normal title=blue windowtitle=windowtitle x1beg=\-1 x1end=2 x2beg=\-2 x2end=3 label2=x label1=y -geometry 400x600+0+0 < /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/bin/gllore/tr1_tr3_interleaved.bin & 
+
+xgraph grid1=dot grid2=dash gridColor=3 linecolor=2 linewidth=2 mark=1 marksize=1 n=8 nplot=1 pairs=1 reverse=0 style=normal title=blue windowtitle=windowtitle x1beg=\-1 x1end=2 x2beg=\-2 x2end=3 label2=x label1=y -geometry 400x600+0+0 < /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/bin/gllore/tr1_tr3_interleaved.bin & 
+
+sustrip head=\/dev\/null outpar=\/dev\/tty ftn=0 < /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/tr1_tr2_interleaved.su > /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/bin/gllore/tr1_tr2_interleaved.bin & 
+
+xgraph grid1=dot grid2=dash gridColor=3 linecolor=2 linewidth=2 mark=1 marksize=1 n=8 nplot=1 pairs=1 reverse=0 style=normal title=blue windowtitle=windowtitle x1beg=\-1 x1end=2 x2beg=\-2 x2end=3 label2=x label1=y -geometry 400x600+0+0 < /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/bin/gllore/tr1_tr3_interleaved.bin & 
+
+xgraph grid1=dot grid2=dash gridColor=3 linecolor=2 linewidth=2 mark=1 marksize=1 n=8 nplot=1 pairs=1 reverse=0 style=normal title=blue windowtitle=windowtitle x1beg=\-1 x1end=2 x2beg=\-2 x2end=3 label2=x label1=y -geometry 400x600+0+0 < /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/bin/gllore/tr1_tr3_interleaved.bin & 
+
+xgraph grid1=dot grid2=dash gridColor=3 linecolor=2 linewidth=2 mark=1 marksize=1 n=8 nplot=1 pairs=1 reverse=0 style=normal title=blue windowtitle=windowtitle x1beg=\-1 x1end=2 x2beg=\-2 x2end=3 label2=x label1=y -geometry 400x600+0+0 < /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/bin/gllore/tr1_tr2_interleaved.bin & 
+
+suwind  max=3 min=3 key=tracl < /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/sp1_15cmoffset_piezo_clean.su > /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/sp1_15cm_offset_piezo_tr3.su & 
+
+suwind  max=1 min=1 key=tracl < /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/sp1_15cmoffset_piezo_clean.su > /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/sp1_15cm_offset_piezo_tr1.su & 
+
+suxwigb clip=1 wbox=600 hbox=800 xbox=600 ybox=800 style=seismic va=0 < /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/sp1_15cm_offset_piezo_tr3.su & 
+
+sugain agc=1 wagc=0\.05 tmpdir=\/tmp < /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/sp1_15cm_offset_piezo_tr3.su | suxwigb clip=1 wbox=600 hbox=800 xbox=600 ybox=800 style=seismic va=0 & 
+
+sugain agc=1 wagc=0\.05 tmpdir=\/tmp < /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/sp1_15cm_offset_piezo_tr3.su | suxwigb clip=10 wbox=600 hbox=800 xbox=600 ybox=800 style=seismic va=0 & 
+
+sugain agc=1 wagc=0\.05 tmpdir=\/tmp < /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/sp1_15cm_offset_piezo_tr1.su | suxwigb clip=10 wbox=600 hbox=800 xbox=600 ybox=800 style=seismic va=0 & 
+
+sugain agc=1 wagc=0\.05 tmpdir=\/tmp < /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/sp1_15cm_offset_piezo_tr3.su | suxwigb clip=10 wbox=600 hbox=800 xbox=600 ybox=800 style=seismic va=0 & 
+
+suop2 \/home\/gllore\/mars\/seismics\/data\/hrk_e122\/wheel\/071621\/rad_tangent_axial\/1\/su\/gllore\/sp1_15cm_offset_piezo_tr3\.su \/home\/gllore\/mars\/seismics\/data\/hrk_e122\/wheel\/071621\/rad_tangent_axial\/1\/su\/gllore\/sp1_15cm_offset_piezo_tr1\.su op=zipper > /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/sp1_15cm_offset_tr3_tr1_interleaved.su & 
+
+sugain agc=1 wagc=0\.05 tmpdir=\/tmp < /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/sp1_15cm_offset_tr3_tr1_interleaved.su | suxwigb clip=10 wbox=600 hbox=800 xbox=600 ybox=800 style=seismic va=0 & 
+
+suplane dip1=4 dip2=0 dip3=0 dt=0\.004 npl=1 nt=8 ntr=4 offset=400 taper=0 > /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/model.su & 
+
+sugain agc=1 wagc=0\.05 tmpdir=\/tmp < /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/model.su | suxwigb clip=10 wbox=600 hbox=800 xbox=600 ybox=800 style=seismic va=0 & 
+
+suxwigb clip=10 wbox=600 hbox=800 xbox=600 ybox=800 style=seismic va=0 < /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/model.su & 
+
+suxwigb clip=10 wbox=600 hbox=800 xbox=600 ybox=800 style=seismic va=1 < /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/model.su & 
+
+suxwigb clip=1 wbox=600 hbox=800 xbox=600 ybox=800 style=seismic va=1 < /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/model.su & 
+
+suxwigb clip=1 wbox=600 hbox=800 xbox=600 ybox=800 style=seismic va=1 < /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/model.su & 
+
+suplane dip1=4 dip2=0 dip3=0 dt=0\.004 npl=1 nt=8 ntr=4 offset=400 taper=0 > /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/model.su & 
+
+suxwigb clip=1 wbox=600 hbox=800 xbox=600 ybox=800 style=seismic va=1 < /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/model.su & 
+
+suxwigb clip=1 wbox=600 hbox=800 xbox=600 ybox=800 style=seismic va=1 < /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/sp1_15cm_offset_tr3_tr1_interleaved.su & 
+
+sugain agc=1 wagc=0\.1 tmpdir=\/tmp < /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/sp1_15cm_offset_tr3_tr1_interleaved.su | suxwigb clip=1 wbox=600 hbox=800 xbox=600 ybox=800 style=seismic va=1 & 
+
+sugain agc=1 wagc=0\.1 tmpdir=\/tmp < /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/sp1_15cm_offset_tr3_tr1_interleaved.su | suxwigb clip=10 wbox=600 hbox=800 xbox=600 ybox=800 style=seismic va=1 & 
+
+sugain agc=1 wagc=0\.1 tmpdir=\/tmp < /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/sp1_15cm_offset_tr3_tr1_interleaved.su | suxwigb clip=10 wbox=600 hbox=800 xbox=600 ybox=800 style=seismic va=0 & 
+
+sugain agc=1 wagc=0\.1 tmpdir=\/tmp < /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/sp1_15cm_offset_tr3_tr1_interleaved.su | suxwigb clip=10 wbox=600 hbox=800 xbox=600 ybox=800 style=seismic va=0 & 
+
+sustrip head=\/dev\/null outpar=\/dev\/tty ftn=0 < /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/sp1_15cm_offset_tr3_tr1_interleaved.su > /sp1_15cm_offset_piezo_tr1_tr1_interleaved & 
+
+sustrip head=\/dev\/null outpar=\/dev\/tty ftn=0 < /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/sp1_15cm_offset_tr3_tr1_interleaved.su > /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/bin/gllore/sp1_15cm_offset_piezo_tr3_tr1_interleaved.bin & 
+
+xgraph grid1=dot grid2=dash gridColor=3 linecolor=2 linewidth=2 mark=1 marksize=1 n=8 nplot=1 pairs=1 reverse=0 style=normal title=blue windowtitle=windowtitle x1beg=\-1 x1end=2 x2beg=\-2 x2end=3 label2=x label1=y -geometry 400x600+0+0 < /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/bin/gllore/sp1_15cm_offset_piezo_tr3_tr1_interleaved.bin & 
+
+xgraph grid1=dot grid2=dash linecolor=2 linewidth=2 mark=1 marksize=1 n=8 nplot=1 pairs=1 reverse=0 style=normal title=blue windowtitle=windowtitle x1beg=\-1 x1end=2 x2beg=\-2 x2end=3 label2=x label1=y -geometry 400x600+0+0 < /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/bin/gllore/sp1_15cm_offset_piezo_tr3_tr1_interleaved.bin & 
+
+surange key=dt < /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/sp1_15cm_offset_tr3_tr1_interleaved.su & 
+
+surange key=dt < /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/sp1_15cm_offset_tr3_tr1_interleaved.su & 
+
+sumax mode=rms output=ascii outpar=/dev/tty verbose=1 < /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/sp1_15cm_offset_tr3_tr1_interleaved.su & 
+
+sumax mode=rms outpar=/dev/tty verbose=1 < /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/sp1_15cm_offset_tr3_tr1_interleaved.su & 
+
+sumax mode=rms output=ascii outpar=/dev/tty verbose=1 < /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/sp1_15cm_offset_tr3_tr1_interleaved.su & 
+
+sumax mode=rms output=ascii outpar=/dev/tty verbose=1 < /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/sp1_15cm_offset_tr3_tr1_interleaved.su & 
+
+sumax mode=maxmin output=ascii outpar=/dev/tty verbose=1 < /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/sp1_15cm_offset_tr3_tr1_interleaved.su & 
+
+xgraph grid1=dot grid2=dash linecolor=2 linewidth=2 mark=1 marksize=1 n=80 nplot=1 pairs=1 reverse=0 style=normal title=blue windowtitle=windowtitle x1beg=\-1 x1end=2 x2beg=\-2 x2end=3 label2=x label1=y -geometry 400x600+0+0 < /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/bin/gllore/sp1_15cm_offset_piezo_tr3_tr1_interleaved.bin & 
+
+xgraph grid1=dot grid2=dash linecolor=2 linewidth=2 mark=1 marksize=5 n=80 nplot=1 pairs=1 reverse=0 style=normal title=blue windowtitle=windowtitle x1beg=\-1 x1end=2 x2beg=\-2 x2end=3 label2=x label1=y -geometry 400x600+0+0 < /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/bin/gllore/sp1_15cm_offset_piezo_tr3_tr1_interleaved.bin & 
+
+xgraph grid1=dot grid2=dash linecolor=2 linewidth=2 mark=1 marksize=5 n=80 nplot=1 pairs=1 reverse=0 style=normal title=blue windowtitle=windowtitle x1beg=\-0\.001 x1end=0\.001 x2beg=\-0\.001 x2end=0\.001 label2=x label1=y -geometry 400x600+0+0 < /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/bin/gllore/sp1_15cm_offset_piezo_tr3_tr1_interleaved.bin & 
+
+suwind  max=3 min=3 key=tracl tmin=0\.1 tmax=0\.15 < /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/sp1_15cmoffset_piezo_clean.su > /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/sp1_15cm_offset_piezo_tr3.su & 
+
+sugain agc=1 wagc=0\.05 tmpdir=\/tmp < /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/sp1_15cm_offset_piezo_tr3.su | suxwigb clip=10 wbox=600 hbox=800 xbox=600 ybox=800 style=seismic va=0 & 
+
+suwind  max=1 min=1 key=tracl tmin=0\.1 tmax=0\.15 < /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/sp1_15cmoffset_piezo_clean.su > /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/sp1_15cm_offset_piezo_tr1.su & 
+
+suop2 \/home\/gllore\/mars\/seismics\/data\/hrk_e122\/wheel\/071621\/rad_tangent_axial\/1\/su\/gllore\/sp1_15cm_offset_piezo_tr3\.su \/home\/gllore\/mars\/seismics\/data\/hrk_e122\/wheel\/071621\/rad_tangent_axial\/1\/su\/gllore\/sp1_15cm_offset_piezo_tr1\.su op=zipper > /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/sp1_15cm_offset_tr3_tr1_interleaved.su & 
+
+xgraph grid1=dot grid2=dash linecolor=2 linewidth=2 mark=1 marksize=5 n=80 nplot=1 pairs=1 reverse=0 style=normal title=blue windowtitle=windowtitle x1beg=\-0\.002 x1end=0\.002 x2beg=\-0\.002 x2end=0\.002 label2=x label1=y -geometry 400x600+0+0 < /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/bin/gllore/sp1_15cm_offset_piezo_tr3_tr1_interleaved.bin & 
+
+xgraph grid1=dot grid2=dash linecolor=2 linewidth=2 mark=1 marksize=5 n=80 nplot=1 pairs=1 reverse=0 style=normal title=blue windowtitle=windowtitle x1beg=\-0\.004 x1end=0\.004 x2beg=\-0\.004 x2end=0\.004 label2=x label1=y -geometry 400x600+0+0 < /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/bin/gllore/sp1_15cm_offset_piezo_tr3_tr1_interleaved.bin & 
+

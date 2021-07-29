@@ -153,11 +153,6 @@ my $no_color            = 'no_color';
 
 my $main_href = $gui_history->get_defaults();
 
-=head2 Set gui_history conditions for debugging
-
-=cut
-
-# $gui_history->set_log_view($true);
 
 =head2  Create Main Window 
 
@@ -1365,8 +1360,7 @@ sunix_frame_I (bottom row )
 	);
 
 =head2 message area 
-
-      to notify user of important events 
+to notify user of important events 
 
 =cut
 
@@ -1772,7 +1766,6 @@ Lower frame contains ok button.
 		-fill => "x",
 	);
 
-	# my $add2flow_button_grey = ($main_href->{_add2flow_button_grey});
 	( $main_href->{_add2flow_button_grey} )->pack( -side => "left", );
 	( $main_href->{_add2flow_button_pink} )->pack( -side => "left", );
 	( $main_href->{_add2flow_button_green} )->pack( -side => "left", );
@@ -2259,7 +2252,7 @@ in L_SU
 	sub _L_SU {
 		my ( $set_method, $value ) = @_;
 
-		# print("1. main,_L_SU,method:$set_method, ref scalar value:$$value\n");
+#	 print("1. main,_L_SU,method:$set_method, ref scalar value:$$value\n");
 
 		if ( $set_method && $value ) {
 
@@ -2281,7 +2274,7 @@ in L_SU
 #			print("2 main,_L_SU,method:$set_method, deref scalar value:$$value\n");
 			$L_SU->set_hash_ref($main_href);
 
-			# print(" main,_L_SU , button=$button, print gui_history.txt\n");
+#			print(" main,_L_SU , button=$button, print gui_history.txt\n");
 			# $gui_history->view();
 
 			$L_SU->$set_method($value);
@@ -2317,7 +2310,6 @@ in L_SU
 
 			# print(" main,_L_SU_add2flows, button=$button, print gui_history.txt\n");
 			# $gui_history->view();
-
 			# print("2 main,_L_SU,method:$method, scalar value:$value, method: $method\n");
 
 		} else {

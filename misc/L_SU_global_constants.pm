@@ -245,6 +245,7 @@ my $var = {
 	_45_characters  => '45',
 	_base_file_name => 'base_file_name',
 	_clear_text                    => '',
+	_color_default    => 'grey', # first color listbox to select
 	_config_file_format            => '%-35s%1s%-20s',
 	_eight_characters              => '8',
 	_empty_string                  => '',
@@ -308,6 +309,7 @@ my $var = {
 	_project_selector_title        => 'Project Selector',
 	_project_selector_box_position => '600x600+100+100',
 	_null_sunix_value              => '',
+	_reservation_color_default => 'grey',  # first choice for reserving a color listbox 
 	_superflow                     => 'menubutton',
 	_small_width                   => '50',
 	_string2startFlowSetUp         => '->clear\(\);',                              # for regex in perl_flow
@@ -441,7 +443,7 @@ my @sunix_shell_programs     = ( "evince", "sugetgthr", "suputgthr" );
 
 =cut
 
-my @sunix_model_programs = ( "suplane", "susynlv", "unif2", "suea2df", "sufctanismod","sufdmod1", "sufdmod2" );
+my @sunix_model_programs = ( "suplane", "susynlv", "suea2df", "sufctanismod","sufdmod1", "sufdmod2" );
 
 =pod
 
@@ -494,7 +496,7 @@ uni2trielacheck
 
 my @sunix_NMO_Vel_Stk_programs = ( "sunmo", "sustack", "suttoz", "suvelan", );
 
-my @sunix_par_programs = ( "a2b", "b2a", "mkparfile", "makevel", "unisam", "vel2stiff" );
+my @sunix_par_programs = ( "a2b", "b2a", "mkparfile", "makevel", "transp", "unif2", "unif2aniso", "unisam", "vel2stiff" );
 
 =pod
 a2i

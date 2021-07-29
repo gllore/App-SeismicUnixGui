@@ -70,7 +70,7 @@ sub binding_index_aref {
 
     # first binding index (0)
     # connects to second item (1)
-    # in the paramter list
+    # in the parameter list
     $index[0] = 1;
 
     $a2b_spec->{_binding_index_aref} = \@index;
