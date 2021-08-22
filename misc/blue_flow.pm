@@ -97,16 +97,12 @@ my $this_color           = 'blue';
 my $color_flow_href      = $gui_history->get_defaults();
 my $number_from_color    = $get->number_from_color_href();
 
-#my $_is_last_flow_index_touched_color =
-#	'_is_last_flow_index_touched_' . $this_color;
 my $_is_last_parameter_index_touched_color = '_is_last_parameter_index_touched_' . $this_color;
 my $_flow_listbox_color_w                  = '_flow_listbox_' . $this_color . '_w';
 my $_flow_name_color_w                     = '_flow_name_' . $this_color . '_w';
 my $_number_from_color                     = $number_from_color->{ ( '_' . $this_color ) };
 my $_flow_name_in_color                       = '_flow_name_in_'.$this_color;
 my $_flow_name_out_color                       = '_flow_name_out_'.$this_color;
-
-#my ($save1,$save2,$save3);
 
 =head2
 
@@ -288,7 +284,7 @@ e.g., sunix programs displayed in the parameter boxes during
 flow construction.
 sub binding is responsible
 Other cases that select the GUI file buttons directly (user click) use: FileDialog_button instead.
-Once the file name is selected the parameter value is upadate in the GUI
+Once the file name is selected the parameter value is updated in the GUI
 
 	 	 foreach my $key (sort keys %$color_flow) {
    			print (" color_flowkey is $key, value is $color_flow->{$key}\n");
@@ -1076,8 +1072,10 @@ sub _perl_flow {
 			# flow_select which will detect any parameter changes
 			# and will store
 			# upload variables into the param_flow for each program
+			
 			_add2flow();
 		}
+		
 		_flow_select_director('_perl_flow');
 		return ();
 
@@ -1826,6 +1824,8 @@ sub FileDialog_button {
 			# 2. Write name to the file name in the appropriate flow
 			# 3. populate GUI
 			# 4. populate hashes (color_flow)and memory spaces (param_flow)
+			# 5. Make sure to clean prior information from the FileDialog Button such as file names.
+			
 			$file_dialog->set_flow_color( $color_flow_href->{_flow_color} );
 			$file_dialog->set_hash_ref($color_flow_href);    # uses values_aref
 			$file_dialog->set_flow_type('user_built');
@@ -1833,8 +1833,9 @@ sub FileDialog_button {
 			$file_dialog->FileDialog_director();
 			
 			$color_flow_href->{$_flow_name_in_color}          = $file_dialog->get_perl_flow_name_in();
+#			print("color_flow, flow_name_in = $color_flow_href->{$_flow_name_in_color}\n");
 			$color_flow_href->{$_flow_name_out_color}        = $color_flow_href->{$_flow_name_in_color};
-			$color_flow_href->{_has_used_open_perl_file_button} = $true;
+#			print("color_flow,color_flow_href->{_has_used_open_perl_file_button}=$color_flow_href->{_has_used_open_perl_file_button}\n");
 
 			_set_flow_name_color_w($flow_color);
 
@@ -1844,7 +1845,7 @@ sub FileDialog_button {
 
 			if ($file_exists) {
 
-				# Place names of the programs at the head of the color listbox
+				# Place names of the programs at the top of the color listbox
 				$flow_name_color_w->configure( -text => $color_flow_href->{$_flow_name_in_color} );
 
 				# Place names of the programs at the head of the GUI
@@ -1854,13 +1855,12 @@ sub FileDialog_button {
 				_perl_flow();
 
 			} else {
-				print("3 color_flow,FileDialog_button, Warning: missing file NADA \n");
+#				print("3 color_flow,FileDialog_button, Warning: missing file. \"Cancel\" clicked by user? NADA\n");
 			}
 
 		} elsif ( $topic eq $file_dialog_type->{_Data} ) {
 
-			#			print("color_flow, FileDialog_button,option_sref $topic\n");
-
+			#	print("color_flow, FileDialog_button,option_sref $topic\n");
 			# assume that after selection to open of a data file in file-dialog the
 			# GUI has been updated
 			# See if the last parameter index has been touched (>= 0)
@@ -2860,7 +2860,6 @@ sub get_hash_ref {
 }
 
 =head2 sub get_flow_color
-
 	exports private hash value
  
 =cut

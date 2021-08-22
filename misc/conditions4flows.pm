@@ -1052,6 +1052,26 @@ sub set4FileDialog_open_perl_file_end {
 	return ();
 }
 
+=head2 sub  set4FileDialog_open_perl_file_fail
+
+
+=cut
+
+sub set4FileDialog_open_perl_file_fail {
+	my ($self) = @_;
+
+	$conditions4flows->{_is_open_file_button}            = $false;
+	$conditions4flows->{_has_used_open_perl_file_button} = $false;
+
+	# for potential export via get_hash_ref
+	$is_open_file_button            = $false;
+	$has_used_open_perl_file_button = $false;
+
+	# print("conditions4flows,set4FileDialog_open_perl_file_fail  $conditions4flows->{_is_open_file_button}\n");
+
+	return ();
+}
+
 =head2 sub  set4FileDialog_open_start
 
 

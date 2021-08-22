@@ -30,6 +30,9 @@ package file_dialog;
  V 0.0.4 incldue PL_SEISMIC as a file_dialog_type
  This new file dialog type automatically opens
  PL_SEISMIC path.
+ 
+ August 2021
+ initialize default values
 
 =cut 
 
@@ -74,6 +77,9 @@ my $file_dialog = $gui_history->get_defaults();
 $file_dialog = {
 
 	_check_buttons_settings_aref => '',
+	_flow_name_in                => '',
+	_selected_file_name          => '',
+	_last_path_touched           => '',
 
 };
 
@@ -87,6 +93,7 @@ my $user_built_flow_open_data_parameter_value_index;
 
 =head2 sub _FileDialog
 	Collects name of file to be opened
+	Mega-widget
 	
      print ("my file is $file_dialog->{_selected_file_name}\n");
      will NOT:
@@ -105,7 +112,7 @@ my $user_built_flow_open_data_parameter_value_index;
    Assume that file name in labels is always first
    print ("1. Full path is  $file_dialog->{_selected_file_name}\n");
 
-	Cancel returns undefined file name
+	'Cancel' returns undefined file name
 
 =cut
 
@@ -114,8 +121,6 @@ sub _FileDialog {
 	my ($self) = @_;
 
 	use Tk::JFileDialog;
-
-	#    use JFileDialog;
 
 	my $my_title        = _get_dialog_type();    # e.g., 'SaveAs' or 'Save' or 'Flow'
 	my $FileDialog_path = _get_path();           # e.g., $PL or $DATA_SEISMIC_SU
@@ -141,6 +146,7 @@ sub _FileDialog {
 	);
 
 	# results from interactive file selection
+	# If cancel is selected, an undefined value for the file name is returned
 	$file_dialog->{_selected_file_name} = $fileDialog_w->Show();
 	$file_dialog->{_last_path_touched}  = $fileDialog_w->cget('-Path');
 
@@ -149,8 +155,8 @@ sub _FileDialog {
 	#	$file_dialog->{_last_path_touched} \n"
 	#	);
 	#	print(
-	#		"file_dialog,_FileDialog,selected_file_name
-	#	is $file_dialog->{_selected_file_name} \n"
+	#			"file_dialog,_FileDialog,selected_file_name
+	#	  is $file_dialog->{_selected_file_name} \n"
 	#	);
 
 	return ($empty_string);
@@ -236,7 +242,7 @@ sub _big_stream_last_dir_in_path {
 
 			# print("1.file_dialog,ig_stream_last_dir_in_path, _values_aref: @{$file_dialog->{_values_aref}}[0]\n");
 
-			_FileDialog();    # open file dialog widget
+			_FileDialog();    # open file dialog mega-widget
 
 			#			print("2.file_dialog,_pre-built_superflow_path, last_path_touched:  $file_dialog->{_last_path_touched} \n");
 
@@ -299,7 +305,7 @@ sub _big_stream_last_dir_in_path_close {
 	$decisions->set4FileDialog_select($file_dialog);
 	my $pre_req_ok = $decisions->get4FileDialog_select();
 
-#	print("1. file_dialog,_big_stream_last_dir_in_path_close, pre_req_ok= $pre_req_ok \n");
+	#	print("1. file_dialog,_big_stream_last_dir_in_path_close, pre_req_ok= $pre_req_ok \n");
 
 	if ($pre_req_ok) {
 
@@ -755,29 +761,31 @@ sub _pre_built_superflow_open_data_file {
 		$param_widgets->set_first_idx($first_idx);
 		$param_widgets->set_length($length);
 
-#	    print("2. file_dialog, _pre_built_superflow_open_data_file, selected_Entry_widget: $selected_Entry_widget\n");
+		#	    print("2. file_dialog, _pre_built_superflow_open_data_file, selected_Entry_widget: $selected_Entry_widget\n");
 
 		$file_dialog->{_parameter_value_index} = $param_widgets->get_entry_button_chosen_index();
 
 		# print("file_dialog,_pre_built_superflow_open_data_file,selection_Entry_widget HASH = $selected_Entry_widget\n");
-#		print("file_dialog,_pre_built_superflow_open_data_file, parameter_value_index= $file_dialog->{_parameter_value_index}\n");
+		#		print("file_dialog,_pre_built_superflow_open_data_file, parameter_value_index= $file_dialog->{_parameter_value_index}\n");
 
 		if ( $file_dialog->{_parameter_value_index} >= 0 ) {    # for additional certainty; but is it needed?
 
 			# e.g. Data_Pl_SEISMIC, Data, Path, Flow etc.
 			my $topic = _get_dialog_type();
 
-			print("4. file_dialog,_pre_built_flow_open_data_file, parameter_value_index= $file_dialog->{_parameter_value_index}\n");
+			print(
+				"4. file_dialog,_pre_built_flow_open_data_file, parameter_value_index= $file_dialog->{_parameter_value_index}\n"
+			);
 			$file_dialog->{_entry_button_label} = $param_widgets->get_label4entry_button_chosen();
 
-#			print(
-#				"5. file_dialog,_pre_built_superflow_open_data_file,entry_button_label = $file_dialog->{_entry_button_label}\n"
-#			 );
+			#			print(
+			#				"5. file_dialog,_pre_built_superflow_open_data_file,entry_button_label = $file_dialog->{_entry_button_label}\n"
+			#			 );
 
 			# use iFile to determine the correct data path (directory)
-			$iFile->set_entry($file_dialog);                # first entry label should be base_file_name
+			$iFile->set_entry($file_dialog);          # first entry label should be base_file_name
 			$iFile->set_flow_type_h($file_dialog);    # pre-built superflow will determine the DIR to find data
-			$iFile->set_values_aref($file_dialog);     # may not be needed ( only for user-built_flows) TODO
+			$iFile->set_values_aref($file_dialog);    # may not be needed ( only for user-built_flows) TODO
 			$iFile->set_prog_name_sref($file_dialog);
 			$iFile->set_dialog_type($topic);
 			$iFile->set_parameter_value_index($file_dialog);
@@ -901,7 +909,7 @@ sub _pre_built_superflow_open_path {
 
 			# print("1.file_dialog,_pre-built_superflow_path, _values_aref: @{$file_dialog->{_values_aref}}[0]\n");
 
-			_FileDialog();    # open file dialog widget
+			_FileDialog();    # open file dialog mega-widget
 
 			# print("2.file_dialog,_pre-built_superflow_path, last_path_touched:  $file_dialog->{_last_path_touched} \n");
 
@@ -1101,7 +1109,7 @@ sub _user_built_flow_SaveAs_perl_file {
 		_set_file_path();
 
 		# collects the name of the data file to be opened
-		_FileDialog();
+		_FileDialog();    # file dialog mega-widget
 
 		my $topic = $file_dialog->{_dialog_type};
 
@@ -1196,6 +1204,7 @@ sub _user_built_flow_close_data_file {
 		$file_dialog->{_is_selected_file_name} = $true;
 
 	} else {
+
 		# print("file_dialog,_user_built_flow_close_data_file, Cancelled. No output flow name selected NADA\n");
 	}
 
@@ -1254,9 +1263,11 @@ sub _user_built_flow_close_data_file {
 				$control->remove_su_suffix4sref();
 				$file_dialog->{_selected_file_name} = $control->get_w_single_quotes();
 				_set_selected_file_name( $file_dialog->{_selected_file_name} );
+
 				# print("2. file_dialog,_user_built_flow_close_data_file, name after control = $file_dialog->{_selected_file_name}\n");
 
 			} else {
+
 				# print("file_dialog,user_built_flow_close_data_file No file was selected\n");
 				# print("file_dialog,user_built_flow_close_data_file ,last path touched was
 				# $file_dialog->{_last_path_touched}\n") ;
@@ -1303,7 +1314,7 @@ sub _user_built_flow_close_data_file {
 				# highlight the last flow index touched
 				# requires that we define the last_lisbtox_color_w in color_flow every time we call this Data
 				# for now is too complitacted
-				# $iFile->close($file_dialog); 
+				# $iFile->close($file_dialog);
 
 			}
 
@@ -1382,8 +1393,8 @@ sub _user_built_flow_close_path {
 		$file_dialog = $gui_history->get_hash_ref();
 
 	}    # if prereq_OK
-	
-	return($empty_string);
+
+	return ($empty_string);
 }
 
 =head2 sub _user_built_flow_close_perl_file 
@@ -1408,16 +1419,16 @@ sub _user_built_flow_close_perl_file {
 	my $topic = $file_dialog->{_dialog_type};
 
 	$full_path_name = $file_dialog->{_selected_file_name};
-	print("file_dialog,_user_built_flow_close_perl_file, full_path_name: $full_path_name\n");
+	#	print("file_dialog,_user_built_flow_close_perl_file, full_path_name: $full_path_name\n");
 
 	if ( length $full_path_name ) {
 
 		my $last_path_touched = $file_dialog->{_last_path_touched};
-		print("file_dialog,_user_built_flow_close_perl_file, last_path_touched: $last_path_touched\n");
+#		print("file_dialog,_user_built_flow_close_perl_file, last_path_touched: $last_path_touched\n");
 
-		@fields                                = split( /\//, $full_path_name );
+		@fields                                						= split( /\//, $full_path_name );
 		$file_dialog->{_is_selected_file_name} = $true;
-		$file_dialog->{_flow_name_in}          = $fields[-1];
+		$file_dialog->{_flow_name_in}          	= $fields[-1];
 
 		if ( length $last_path_touched ) {
 
@@ -1425,12 +1436,12 @@ sub _user_built_flow_close_perl_file {
 			$file_dialog->{_is_selected_path} = $false;
 
 		} else {
-			#	=true for data paths 
+			#	=true for data paths
 			$file_dialog->{_is_selected_path} = $true;
 			print("file_dialog,  No last path touched\n");
 		}
 
-#		print("file_dialog,_user_built_flow_close_perl_file,fields= $fields[-1]\n");
+		#		print("file_dialog,_user_built_flow_close_perl_file,fields= $fields[-1]\n");
 #		print("file_dialog,_user_built_flow_close_perl_file, flow_name_in: $file_dialog->{_flow_name_in}\n");
 
 		$decisions->set4FileDialog_open_perl($file_dialog);
@@ -1438,20 +1449,20 @@ sub _user_built_flow_close_perl_file {
 
 		if ($pre_req_ok) {
 
-#			print("2. file_dialog,_user_built_flow_close_perl_file,Open,pre_req_ok= $pre_req_ok \n");
+			#			print("2. file_dialog,_user_built_flow_close_perl_file,Open,pre_req_ok= $pre_req_ok \n");
 			$file_dialog->{_path} = $iFile->get_Open_perl_flow_path();
 			return ($true);
 
 		} else {
-			print(
-				"file_dialog,_user_built_flow_close_perl_file, User selected Cancel
-			No output flow name selected NADA\n"
-			);
+#			print(
+#				"file_dialog,_user_built_flow_close_perl_file, User selected Cancel
+#			No output flow name selected NADA\n"
+#			);
 			return ($false);
 		}
 
 	} else {
-		print("file_dialog,_user_built_flow_close_perl_file, flow_name_in: full path name missing\n");
+#		print("file_dialog,_user_built_flow_close_perl_file, flow_name_in: full path name missing\n");
 		return ($empty_string);
 	}
 }
@@ -1669,7 +1680,7 @@ sub _user_built_flow_open_path {
 			#			print("1.file_dialog,_user_built_open_flow_path, PATH:  $file_dialog->{_path} \n");
 			#			print("1.file_dialog,_user_built_open_flow_path, _values_aref: @{$file_dialog->{_values_aref}}[0]\n");
 
-			# open file dialog widget
+			# open file dialog mega-widget
 			_FileDialog();
 
 			# updates the gui
@@ -1739,34 +1750,41 @@ sub _user_built_flow_open_perl_file {
 
 	# set path to flows
 	$file_dialog->{_path} = $iFile->get_Open_perl_flow_path();
-
 #	print("file_dialog,_user_built_flow_open_perl_file, path = $file_dialog->{_path}\n");
 
 	# collects the name of the perl file to be opened
-	_FileDialog();    # directory mega widget
+	_FileDialog();    # directory mega-widget
 
 	my $successful = _user_built_flow_close_perl_file();
-	
+
+	#	print("file_dialog,_user_built_flow_open_perl_file,  success= $successful \n");
+
 	if ( $successful eq $true ) {
 
-	print("file_dialog,_user_built_flow_open_perl_file, success\n");
+#		print("file_dialog,_user_built_flow_open_perl_file, success\n");
+		$gui_history->set_hash_ref($file_dialog);
+		$gui_history->set4FileDialog_open_perl_file_end();
 
 	} elsif ( $successful eq $false ) {
 
-		print("file_dialog,_user_built_flow_open_perl_file, unsuccessful\n");
+#		print("file_dialog,_user_built_flow_open_perl_file, unsuccessful\n");
+		$gui_history->set_hash_ref($file_dialog);
+		$gui_history->set4FileDialog_open_perl_file_fail();
+
+	} elsif ( $successful eq $empty_string ) {
+
+#		print("file_dialog,_user_built_flow_open_perl_file, no file name is available\n");
+		$gui_history->set_hash_ref($file_dialog);
+		$gui_history->set4FileDialog_open_perl_file_fail();
 
 	} else {
 		print("file_dialog,_user_built_flow_open_perl_file, unexpected\n");
 	}
 
-	$gui_history->set_hash_ref($file_dialog);
-	$gui_history->set4FileDialog_open_perl_file_end();
-
 	$file_dialog = $gui_history->get_hash_ref();
 
 	# print (" file_dialog,_user_built_flow_open_perl_file, print gui_history.txt\n");
 	# $gui_history->view();
-
 	#	print("1. file_dialog,_user_built_flow_open_perl_file,_flowNsuperflow_name_w:$file_dialog->{_flowNsuperflow_name_w} \n");
 
 }
@@ -1860,6 +1878,17 @@ sub get_hash_ref {
 	}
 
 	# print("file_dialog,_update_hash_ref: $gui_history->get_defaults()\n");
+}
+
+=head2 sub _clear_perl_flow_name_in
+
+=cut 
+
+sub _clear_perl_flow_name_in {
+	my ($self) = @_;
+	
+	$file_dialog->{_flow_name_in} = $empty_string;
+	return ();
 }
 
 =head2 sub get_perl_flow_name_in
@@ -2083,8 +2112,20 @@ sub set_hash_ref {
 	return ($empty_string);
 }
 
+=head2 sub FileDialog_director
+Associates the type of file-opening process
+with the correct module
+
+Cleans previously used variables such as file names
+and file paths
+
+=cut
+
 sub FileDialog_director {
 	my ($self) = @_;
+
+	# clear prior stored file names
+	_clear_perl_flow_name_in();
 
 	# print("1. file_dialog, FileDialog_director, flowNsuperflow_name_w:$file_dialog->{_flowNsuperflow_name_w} \n");
 	my $file_dialog_flow_type = _get_flow_type();
