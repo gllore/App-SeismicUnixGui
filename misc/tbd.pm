@@ -512,28 +512,24 @@ sub FileDialog_button {
 										   # mark the neutral-colored flow as unused
 										   # helps bind flow parameters to the opening files
 
+				#	print("CASE 3A L_SU, FileDialog_button, color is $color\n");
 				$color_listbox->set_next_available_flow_listbox_color($color);
 				my $which_color = $color_listbox->get_next_available_flow_listbox_color();
+				# print("CASE 3A 1.L_SU,FileDialog_button, $which_color will be occupied\n");
 
-				print("CASE 3A L_SU, FileDialog_button, color is $color\n");
-				#	print("1.  L_SU,FileDialog_button, color is $L_SU_href->{_flow_color}\n");
-				print("CASE 3A 1.L_SU, FileDialog_button, $which_color will be occupied\n");
-
-				# opens file and populates GUI
 				$grey_flow->set_hash_ref($L_SU_href);
 				$grey_flow->FileDialog_button($dialog_type_sref);
 				$L_SU_href->{_flow_color} = $grey_flow->get_flow_color();
 				my $Flow_file_exists = $grey_flow->get_Flow_file_exists();
 
 				if ($Flow_file_exists) {
-
-					# only confirm occupation/vacancy AFTER  file is read into GUI
-					# update any newly added listboxes for all case 3A
+					
+				    # only confirm occupation/vacancy AFTER  file is read into GUI
+					# update any newly added listboxes for all cases 3A-3D
 					$color_listbox->set_flow_listbox_color($color);
 
 					$L_SU_gui->{_occupied_listbox_aref} = $color_listbox->get_flow_listbox_occupancy_aref();
-					$L_SU_gui->{_vacant_listbox_aref}     = $color_listbox->get_flow_listbox_vacancy_aref();
-					
+					$L_SU_gui->{_vacant_listbox_aref}   = $color_listbox->get_flow_listbox_vacancy_aref();
 					print(
 						"Case 3A L_SU,FileDialog_button, L_SU_gui->{_occupied_listbox_aref},@{$L_SU_gui->{_occupied_listbox_aref}}\n"
 					);
@@ -542,24 +538,24 @@ sub FileDialog_button {
 					);
 					print("CASES 3A L_SU,FileDialog_button, Before a file is opened\n");
 
-				} else {
-					# if flow is not successful, occupied and vacant listbox need not be set
-					$color_listbox->set_flow_listbox_color( _get_flow_color() );
-					$color_listbox->set_prior_available_flow_listbox_color( _get_flow_color() );					
+					else {
+						$color_listbox->set_flow_listbox_color( _get_flow_color() );
+					}
 				}
+
+				# if flow is not successful, then unset which colors are occupied and vacant
 
 			} elsif ( $L_SU_href->{_is_flow_listbox_pink_w}
 				&& $color eq 'pink' ) {    # for added certainty
-										   # CASE 3B - pink flow box
-										   # mark the neutral-colored flow as unused
-										   # helps bind flow parameters to the opening files
-
-				$color_listbox->set_next_available_flow_listbox_color($color);
+										# CASE 3B - pink flow box
+										# mark the neutral-colored flow as unused
+				 						# helps bind flow parameters to the opening files
+				
+	            $color_listbox->set_next_available_flow_listbox_color($color);
 				my $which_color = $color_listbox->get_next_available_flow_listbox_color();
-
-				print("CASE 3B L_SU, FileDialog_button, color is $color\n");
+				#	print("CASE 3B L_SU, FileDialog_button, color is $color\n");
 				#	print("1.  L_SU,FileDialog_button, color is $L_SU_href->{_flow_color}\n");
-				print("CASE 3B 1.L_SU,FileDialog_button, $which_color will be occupied\n");
+				# print("CASE 3B 1.L_SU,FileDialog_button, $which_color will be occupied\n");
 
 				# opens file and populates GUI
 				$pink_flow->set_hash_ref($L_SU_href);
@@ -568,8 +564,7 @@ sub FileDialog_button {
 				my $Flow_file_exists = $pink_flow->get_Flow_file_exists();
 
 				if ($Flow_file_exists) {
-
-					# only confirm occupation/vacancy AFTER  file is read into GUI
+				    # only confirm occupation/vacancy AFTER  file is read into GUI
 					# update any newly added listboxes for all case 3B
 					$color_listbox->set_flow_listbox_color($color);
 
@@ -583,24 +578,23 @@ sub FileDialog_button {
 					);
 					print("CASE 3B L_SU,FileDialog_button, Before a file is opened\n");
 
-				} else {
-					# if flow is not successful, occupied and vacant listbox need not be set
-					$color_listbox->set_flow_listbox_color( _get_flow_color() );
-					$color_listbox->set_prior_available_flow_listbox_color( _get_flow_color() );	
-				}
+					else {
+						# if flow is not successful, occupied and vacant listbox need not be set
+						$color_listbox->set_flow_listbox_color( _get_flow_color() );
+					}
+				}			
 
 			} elsif ( $L_SU_href->{_is_flow_listbox_green_w}
 				&& $color eq 'green' ) {    # more certainty
-											# CASE 3C - green flow box
-											# mark the neutral-colored flow as unused
-											# helps bind flow parameters to the opening files
-
-				$color_listbox->set_next_available_flow_listbox_color($color);
+										# CASE 3C - green flow box
+										# mark the neutral-colored flow as unused
+				 						# helps bind flow parameters to the opening files
+				
+	            $color_listbox->set_next_available_flow_listbox_color($color);
 				my $which_color = $color_listbox->get_next_available_flow_listbox_color();
-
-				print("CASE 3C L_SU, FileDialog_button, color is $color\n");
+				#	print("CASE 3C L_SU, FileDialog_button, color is $color\n");
 				#	print("1.  L_SU,FileDialog_button, color is $L_SU_href->{_flow_color}\n");
-				print("CASE 3C 1.L_SU,FileDialog_button, $which_color will be occupied\n");
+				# print("CASE 3C 1.L_SU,FileDialog_button, $which_color will be occupied\n");
 
 				# opens file and populates GUI
 				$green_flow->set_hash_ref($L_SU_href);
@@ -609,8 +603,7 @@ sub FileDialog_button {
 				my $Flow_file_exists = $green_flow->get_Flow_file_exists();
 
 				if ($Flow_file_exists) {
-
-					# only confirm occupation/vacancy AFTER  file is read into GUI
+				    # only confirm occupation/vacancy AFTER  file is read into GUI
 					# update any newly added listboxes for all case 3C
 					$color_listbox->set_flow_listbox_color($color);
 
@@ -624,21 +617,18 @@ sub FileDialog_button {
 					);
 					print("CASE 3C L_SU,FileDialog_button, Before a file is opened\n");
 
-				} else {
-					# if flow is not successful, occupied and vacant listbox need not be set
-					$color_listbox->set_flow_listbox_color( _get_flow_color() );
-					$color_listbox->set_prior_available_flow_listbox_color( _get_flow_color() );					
-				}
-
+					else {
+						# if flow is not successful, occupied and vacant listbox need not be set
+						$color_listbox->set_flow_listbox_color( _get_flow_color() );
+					}
 			} elsif ( $L_SU_href->{_is_flow_listbox_blue_w}
 				&& $color eq 'blue' ) {    # more certainty
-										   # CASE 3D - blue flow box
-										   # mark the neutral-colored flow as unused
-										   # helps bind flow parameters to the opening files
-
-				$color_listbox->set_next_available_flow_listbox_color($color);
+										# CASE 3D - blue flow box
+										# mark the neutral-colored flow as unused
+				 						# helps bind flow parameters to the opening files
+				
+	            $color_listbox->set_next_available_flow_listbox_color($color);
 				my $which_color = $color_listbox->get_next_available_flow_listbox_color();
-
 				#	print("CASE 3D L_SU, FileDialog_button, color is $color\n");
 				#	print("1.  L_SU,FileDialog_button, color is $L_SU_href->{_flow_color}\n");
 				# print("CASE 3D 1.L_SU,FileDialog_button, $which_color will be occupied\n");
@@ -650,9 +640,8 @@ sub FileDialog_button {
 				my $Flow_file_exists = $blue_flow->get_Flow_file_exists();
 
 				if ($Flow_file_exists) {
-
-					#	only confirm occupation / vacancy AFTER file is read into GUI update any newly added listboxes
-					#	for all case 3 D
+				    # only confirm occupation/vacancy AFTER  file is read into GUI
+					# update any newly added listboxes for all case 3D
 					$color_listbox->set_flow_listbox_color($color);
 
 					$L_SU_gui->{_occupied_listbox_aref} = $color_listbox->get_flow_listbox_occupancy_aref();
@@ -665,18 +654,19 @@ sub FileDialog_button {
 					);
 					print("CASE 3D L_SU,FileDialog_button, Before a file is opened\n");
 
-				} else {
-					# if flow is not successful, occupied and vacant listbox need not be set
-					$color_listbox->set_flow_listbox_color( _get_flow_color() );
-					$color_listbox->set_prior_available_flow_listbox_color( _get_flow_color() );						
-				}
+					else {
+						# if flow is not successful, occupied and vacant listbox need not be set
+						$color_listbox->set_flow_listbox_color( _get_flow_color() );
+					}
+
 			} else {
 				print("L_SU, FileDialog_button, missing settings \n");
 			}
+		}
 
-			# CASE 4
-			# when GUI opens Data for a superflow
-		} elsif ( $L_SU_href->{_flow_type} eq 'pre_built_superflow' ) {
+		# CASE 4
+		# when GUI opens Data for a superflow
+		elsif ( $L_SU_href->{_flow_type} eq 'pre_built_superflow' ) {
 
 			#			print("CASE 4, L_SU,FileDialog_button,dialog type=  $$dialog_type_sref");
 			$L_SU_href->{_dialog_type} = $$dialog_type_sref;
