@@ -878,3 +878,113 @@ xgraph grid1=dot grid2=dash linecolor=2 linewidth=2 mark=1 marksize=5 n=80 nplot
 
 xgraph grid1=dot grid2=dash linecolor=2 linewidth=2 mark=1 marksize=5 n=80 nplot=1 pairs=1 reverse=0 style=normal title=blue windowtitle=windowtitle x1beg=\-0\.004 x1end=0\.004 x2beg=\-0\.004 x2end=0\.004 label2=x label1=y -geometry 400x600+0+0 < /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/bin/gllore/sp1_15cm_offset_piezo_tr3_tr1_interleaved.bin & 
 
+sugain agc=1 wagc=0\.05 tmpdir=\/tmp < /home/gllore/mars/seismics/data/hrk_e122/wheel/071621/rad_tangent_axial/1/su/gllore/sp1_15cm_offset_piezo_tr3.su | suxwigb clip=10 wbox=600 hbox=800 xbox=600 ybox=800 style=seismic va=0 & 
+
+5
+
+suop op=avg < /home/gllore/mars/seismics/data/hrk_e122/ACH01_3axes_big_sand_tank/072821/rad_tangent_axial/1/su/gllore/pseudo_walk_piezo_cylind_buried_in_sand.su | suwind  max=7 min=7 key=tracl | sufilter f=150\,300\,1000\,2000 verbose=0 | sugain agc=1 wagc=0\.05 tmpdir=\/tmp | suxwigb clip=2 wbox=600 hbox=800 xbox=600 ybox=800 style=seismic xcur=2 & 
+
+18
+
+suop op=avg < /home/gllore/mars/seismics/data/hrk_e122/ACH01_3axes_big_sand_tank/072821/rad_tangent_axial/1/su/gllore/pseudo_walk_piezo_cylind_buried_in_sand.su | suwind  max=7 min=7 key=tracl | sufilter f=150\,300\,1000\,2000 verbose=0 | sugain agc=1 wagc=0\.05 tmpdir=\/tmp | suxwigb clip=2 wbox=600 hbox=800 xbox=600 ybox=800 style=seismic xcur=2 & 
+
+38
+
+suop op=avg < 1 | suwind  max=7 min=7 key=tracl | sufilter f=150\,300\,1000\,2000 verbose=0 | sugain agc=1 wagc=0\.05 tmpdir=\/tmp | suxwigb clip=2 wbox=600 hbox=800 xbox=600 ybox=800 style=seismic xcur=2 & 
+
+11
+
+suop op=avg < /home/gllore/mars/seismics/data/hrk_e122/ACH01_3axes_big_sand_tank/072821/rad_tangent_axial/1/su/gllore/pseudo_walk_piezo_cylind_wheelA1.su | suwind  max=7 min=7 key=tracl | sufilter f=150\,300\,1000\,2000 verbose=0 | sugain agc=1 wagc=0\.05 tmpdir=\/tmp | suxwigb clip=2 wbox=600 hbox=800 xbox=600 ybox=800 style=seismic xcur=2 & 
+
+1
+
+suop op=avg < /home/gllore/mars/seismics/data/hrk_e122/ACH01_3axes_big_sand_tank/072821/rad_tangent_axial/1/su/gllore/pseudo_walk_piezo_cylind_wheelA1.su | suwind  max=8 min=8 key=tracl | sufilter f=150\,300\,1000\,2000 verbose=0 | sugain agc=1 wagc=0\.05 tmpdir=\/tmp | suxwigb clip=2 wbox=600 hbox=800 xbox=600 ybox=800 f2=1 f2num=1 style=seismic xcur=2 x2beg=1 & 
+
+31
+
+suop op=avg < /home/gllore/mars/seismics/data/hrk_e122/ACH01_3axes_big_sand_tank/072821/rad_tangent_axial/1/su/gllore/pseudo_walk_piezo_cylind_wheelA1.su | suwind  max=6 min=6 key=tracl | sufilter f=150\,300\,1000\,2000 verbose=0 | sugain agc=1 wagc=0\.05 tmpdir=\/tmp | suxwigb clip=2 wbox=600 hbox=800 xbox=600 ybox=800 style=seismic xcur=2 & 
+
+3
+
+suop op=avg < /home/gllore/mars/seismics/data/hrk_e122/ACH01_3axes_big_sand_tank/072821/rad_tangent_axial/1/su/gllore/pseudo_walk_piezo_cylind_wheelA1.su | suwind  max=6 min=6 key=tracl | sufilter f=150\,300\,1000\,2000 verbose=0 | sugain agc=1 wagc=0\.05 tmpdir=\/tmp | suxwigb clip=2 wbox=600 hbox=800 xbox=600 ybox=800 style=seismic windowtitle=tangential\ component xcur=2 & 
+
+22
+
+suop op=avg < /home/gllore/mars/seismics/data/hrk_e122/ACH01_3axes_big_sand_tank/072821/rad_tangent_axial/1/su/gllore/pseudo_walk_piezo_cylind_wheelA1.su | suwind  max=8 min=8 key=tracl | sufilter f=150\,300\,1000\,2000 verbose=0 | sugain agc=1 wagc=0\.05 tmpdir=\/tmp | suxwigb clip=2 wbox=600 hbox=800 xbox=600 ybox=800 f2=1 f2num=1 style=seismic windowtitle=radial\ component xcur=2 x2beg=1 & 
+
+43
+
+suop op=avg < /home/gllore/mars/seismics/data/hrk_e122/ACH01_3axes_big_sand_tank/072821/rad_tangent_axial/1/su/gllore/pseudo_walk_piezo_cylind_wheelA1.su | suwind  max=7 min=7 key=tracl | sufilter f=150\,300\,1000\,2000 verbose=0 | sugain agc=1 wagc=0\.05 tmpdir=\/tmp | suxwigb clip=2 wbox=600 hbox=800 xbox=600 ybox=800 style=seismic windowtitle=axial\ component xcur=2 & 
+
+41
+
+suop op=avg < /home/gllore/mars/seismics/data/hrk_e122/ACH01_3axes_big_sand_tank/072821/rad_tangent_axial/1/su/gllore/pseudo_walk_piezo_cylind_buried_in_sand.su | suwind  max=8 min=8 key=tracl | sufilter f=150\,300\,1000\,2000 verbose=0 | sugain agc=1 wagc=0\.05 tmpdir=\/tmp | suxwigb clip=2 wbox=600 hbox=800 xbox=600 ybox=800 style=seismic xcur=2 & 
+
+32
+
+suop op=avg < /home/gllore/mars/seismics/data/hrk_e122/ACH01_3axes_big_sand_tank/072821/rad_tangent_axial/1/su/gllore/pseudo_walk_piezo_cylind_buried_in_sand.su | suwind  max=6 min=6 key=tracl | sufilter f=150\,300\,1000\,2000 verbose=0 | sugain agc=1 wagc=0\.05 tmpdir=\/tmp | suxwigb clip=2 wbox=600 hbox=800 xbox=600 ybox=800 style=seismic xcur=2 & 
+
+54
+
+suop op=avg < /home/gllore/mars/seismics/data/hrk_e122/ACH01_3axes_big_sand_tank/072821/rad_tangent_axial/1/su/gllore/pseudo_walk_piezo_cylind_wheelA1.su | suwind  max=8 min=8 key=tracl | sufilter f=150\,300\,1000\,2000 verbose=0 | sugain agc=1 wagc=0\.05 tmpdir=\/tmp | suxwigb clip=2 wbox=600 hbox=800 xbox=600 ybox=800 f2=1 f2num=1 style=seismic windowtitle=radial\ component xcur=2 x2beg=1 & 
+
+1
+
+suop op=avg < /home/gllore/mars/seismics/data/hrk_e122/ACH01_3axes_big_sand_tank/072821/rad_tangent_axial/1/su/gllore/pseudo_walk_piezo_cylind_buried_in_sand.su | suwind  max=8 min=8 key=tracl | sufilter f=150\,300\,1000\,2000 verbose=0 | sugain agc=1 wagc=0\.05 tmpdir=\/tmp | suxwigb clip=2 wbox=600 hbox=800 xbox=600 ybox=800 style=seismic xcur=2 & 
+
+3
+
+suop op=avg < /home/gllore/mars/seismics/data/hrk_e122/ACH01_3axes_big_sand_tank/072821/rad_tangent_axial/1/su/gllore/pseudo_walk_piezo_cylind_wheelA1.su | suwind  max=8 min=8 key=tracl | sufilter f=150\,300\,1000\,2000 verbose=0 | sugain agc=1 wagc=0\.05 tmpdir=\/tmp | suxwigb clip=2 wbox=600 hbox=800 xbox=600 ybox=800 f2=1 f2num=1 style=seismic windowtitle=radial\ component\ on\ wheel\ \-A1 xcur=2 x2beg=1 & 
+
+14
+
+suop op=avg < /home/gllore/mars/seismics/data/hrk_e122/ACH01_3axes_big_sand_tank/072821/rad_tangent_axial/1/su/gllore/pseudo_walk_piezo_cylind_buried_in_sand.su | suwind  max=8 min=8 key=tracl | sufilter f=150\,300\,1000\,2000 verbose=0 | sugain agc=1 wagc=0\.05 tmpdir=\/tmp | suxwigb clip=2 wbox=600 hbox=800 xbox=600 ybox=800 style=seismic windowtitle=radial\ component\ buried\ in\ sand xcur=2 & 
+
+51
+
+suop op=avg < /home/gllore/mars/seismics/data/hrk_e122/ACH01_3axes_big_sand_tank/072821/rad_tangent_axial/1/su/gllore/pseudo_walk_piezo_cylind_buried_in_sand.su | suwind  max=8 min=8 key=tracl | sufilter f=150\,300\,1000\,2000 verbose=0 | sugain agc=1 wagc=0\.05 tmpdir=\/tmp | suxwigb clip=2 wbox=600 hbox=800 xbox=600 ybox=800 style=seismic windowtitle=radial\ component\ buried\ in\ sand xcur=2 & 
+
+59
+
+suop op=avg < /home/gllore/mars/seismics/data/hrk_e122/ACH01_3axes_big_sand_tank/072821/rad_tangent_axial/1/su/gllore/pseudo_walk_piezo_cylind_wheelA1.su | suwind  max=8 min=8 key=tracl | sufilter f=150\,300\,1000\,2000 verbose=0 | sugain agc=1 wagc=0\.05 tmpdir=\/tmp | suxwigb clip=2 wbox=600 hbox=800 xbox=600 ybox=800 f2=1 f2num=1 style=seismic windowtitle=radial\ component\ on\ wheel\ \-A1 xcur=2 x2beg=1 & 
+
+2
+
+suop op=avg < /home/gllore/mars/seismics/data/hrk_e122/ACH01_3axes_big_sand_tank/072821/rad_tangent_axial/1/su/gllore/pseudo_walk_piezo_cylind_buried_in_sand.su | suwind  max=7 min=7 key=tracl | sufilter f=150\,300\,1000\,2000 verbose=0 | sugain agc=1 wagc=0\.05 tmpdir=\/tmp | suxwigb clip=2 wbox=600 hbox=800 xbox=600 ybox=800 style=seismic windowtitle=axial\ component\ in\ sand xcur=2 & 
+
+9
+
+suop op=avg < /home/gllore/mars/seismics/data/hrk_e122/ACH01_3axes_big_sand_tank/072821/rad_tangent_axial/1/su/gllore/pseudo_walk_piezo_cylind_wheelA1.su | suwind  max=7 min=7 key=tracl | sufilter f=150\,300\,1000\,2000 verbose=0 | sugain agc=1 wagc=0\.05 tmpdir=\/tmp | suxwigb clip=2 wbox=600 hbox=800 xbox=600 ybox=800 style=seismic windowtitle=axial\ component\ on\ wheel\ at\ A1 xcur=2 & 
+
+58
+
+suop op=avg < /home/gllore/mars/seismics/data/hrk_e122/ACH01_3axes_big_sand_tank/072821/rad_tangent_axial/1/su/gllore/pseudo_walk_piezo_cylind_buried_in_sand.su | suwind  max=6 min=6 key=tracl | sufilter f=150\,300\,1000\,2000 verbose=0 | sugain agc=1 wagc=0\.05 tmpdir=\/tmp | suxwigb clip=2 wbox=600 hbox=800 xbox=600 ybox=800 style=seismic windowtitle=tangential\ component\ in\ sand xcur=2 & 
+
+7
+
+suop op=avg < /home/gllore/mars/seismics/data/hrk_e122/ACH01_3axes_big_sand_tank/072821/rad_tangent_axial/1/su/gllore/pseudo_walk_piezo_cylind_wheelA1.su | suwind  max=6 min=6 key=tracl | sufilter f=150\,300\,1000\,2000 verbose=0 | sugain agc=1 wagc=0\.05 tmpdir=\/tmp | suxwigb clip=2 wbox=600 hbox=800 xbox=600 ybox=800 style=seismic windowtitle=tangential\ component\ on\ wheel\ at\ A1 xcur=2 & 
+
+38
+
+suop op=avg < /home/gllore/mars/seismics/data/hrk_e122/ACH01_3axes_big_sand_tank/072821/rad_tangent_axial/1/su/gllore/pseudo_walk_piezo_cylind_wheelA1_geom1.su | suwind  max=8 min=8 key=tracl tmin=0 tmax=0\.06 | sugain mbal=1 tmpdir=\/tmp | sufilter f=3\,6\,1000\,2000 verbose=0 | suphasevel dv=2000 fmax=1000 fv=1 norm=1 nv=100 verbose=0 | suamp mode=amp | sugain mbal=1 tmpdir=\/tmp | suximage wclip=15 bclip=\-10 cmap=hsv8 d2=1 gridcolor=blue label1=Hz label2=Vs\ \(m\/s\) labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 lwidth=16 lx=3 mpicks=\/dev\/tty n1tic=1 n2tic=1 perc=100 plotfile=plotfile\.ps title=ACH01\-3C\ cube titlecolor=red titlefont=Rom22 tmpdir=\.\/ x1beg=1000 x1end=0 units=unit verbose=1 windowtitle=Dispersion\ for\ radial\ component\ on\ wheel\ at\ position\ A1 wperc=99 xbox=500 ybox=500 wbox=550 & 
+
+11
+
+suop op=avg < /home/gllore/mars/seismics/data/hrk_e122/ACH01_3axes_big_sand_tank/072821/rad_tangent_axial/1/su/gllore/pseudo_walk_piezo_cylind_wheelA1_geom1.su | suwind  max=8 min=8 key=tracl tmin=0 tmax=0\.06 | sugain mbal=1 tmpdir=\/tmp | sufilter f=3\,6\,1000\,2000 verbose=0 | suphasevel dv=2000 fmax=1000 fv=1 norm=1 nv=100 verbose=0 | suamp mode=amp | sugain mbal=1 tmpdir=\/tmp | suximage wclip=15 bclip=\-10 cmap=hsv8 d2=1 gridcolor=blue label1=Hz label2=Vs\ \(m\/s\) labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 lwidth=16 lx=3 mpicks=\/dev\/tty n1tic=1 n2tic=1 perc=100 plotfile=plotfile\.ps title=ACH01\-3C\ cube titlecolor=red titlefont=Rom22 tmpdir=\.\/ x1beg=1000 x1end=0 units=unit verbose=1 windowtitle=Dispersion\ for\ radial\ component\ on\ wheel\ at\ position\ A1 wperc=99 xbox=500 ybox=500 wbox=550 & 
+
+25
+
+suop op=avg < /home/gllore/mars/seismics/data/hrk_e122/ACH01_3axes_big_sand_tank/072821/rad_tangent_axial/1/su/gllore/pseudo_walk_piezo_cylind_wheelA1_geom1.su | suwind  max=8 min=8 key=tracl tmin=0 tmax=0\.06 | sugain mbal=1 tmpdir=\/tmp | sufilter f=3\,6\,1000\,2000 verbose=0 | suphasevel dv=2000 fmax=1000 fv=1 norm=1 nv=100 verbose=0 | suamp mode=amp | sugain mbal=1 tmpdir=\/tmp | suximage wclip=15 bclip=\-10 cmap=hsv8 d2=1 gridcolor=blue label1=Hz label2=Vs\ \(m\/s\) labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 lwidth=16 lx=3 mpicks=\/dev\/tty n1tic=1 n2tic=1 perc=100 plotfile=plotfile\.ps title=ACH01\-3C\ cube titlecolor=red titlefont=Rom22 tmpdir=\.\/ x1beg=1000 x1end=0 units=unit verbose=1 windowtitle=Dispersion\ for\ radial\ component\ on\ wheel\ at\ position\ A1 wperc=99 xbox=500 ybox=500 wbox=550 & 
+
+34
+
+suop op=avg < /home/gllore/mars/seismics/data/hrk_e122/ACH01_3axes_big_sand_tank/072821/rad_tangent_axial/1/su/gllore/pseudo_walk_piezo_cylind_wheelA1_geom1.su | suwind  max=8 min=8 key=tracl tmin=0 tmax=0\.06 | sugain mbal=1 tmpdir=\/tmp | sufilter f=3\,6\,1000\,2000 verbose=0 | suphasevel dv=2000 fmax=1000 fv=1 norm=1 nv=100 verbose=0 | suamp mode=amp | sugain mbal=1 tmpdir=\/tmp | suximage wclip=15 bclip=\-10 cmap=hsv8 d2=1 gridcolor=blue label1=Hz label2=Vs\ \(m\/s\) labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 lwidth=16 lx=3 mpicks=\/dev\/tty n1tic=1 n2tic=1 perc=100 plotfile=plotfile\.ps title=ACH01\-3C\ cube titlecolor=red titlefont=Rom22 tmpdir=\.\/ x1beg=1000 x1end=0 units=unit verbose=1 windowtitle=Dispersion\ for\ radial\ component\ on\ wheel\ at\ position\ A1 wperc=99 xbox=500 ybox=500 wbox=550 & 
+
+21
+
+suop op=avg < /home/gllore/mars/seismics/data/hrk_e122/ACH01_3axes_big_sand_tank/072821/rad_tangent_axial/1/su/gllore/pseudo_walk_piezo_cylind_wheelA1_geom1.su | suwind  max=8 min=8 key=tracl tmin=0 tmax=0\.06 | sugain mbal=1 tmpdir=\/tmp | sufilter f=3\,6\,1000\,2000 verbose=0 | suphasevel dv=2000 fmax=1000 fv=1 norm=1 nv=100 verbose=0 | suamp mode=amp | sugain mbal=1 tmpdir=\/tmp | suximage wclip=15 bclip=\-10 cmap=hsv8 d2=1 gridcolor=blue label1=Hz label2=Vs\ \(m\/s\) labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 lwidth=16 lx=3 mpicks=\/dev\/tty n1tic=1 n2tic=1 perc=100 plotfile=plotfile\.ps title=ACH01\-3C\ cube titlecolor=red titlefont=Rom22 tmpdir=\.\/ x1beg=1000 x1end=0 units=unit verbose=1 windowtitle=Dispersion\ for\ radial\ component\ on\ wheel\ at\ position\ A1 wperc=99 xbox=500 ybox=500 wbox=550 & 
+
+51
+
+suop op=avg < /home/gllore/mars/seismics/data/hrk_e122/ACH01_3axes_big_sand_tank/072821/rad_tangent_axial/1/su/gllore/pseudo_walk_piezo_cylind_wheelA1_geom1.su | suwind  max=8 min=8 key=tracl tmin=0 tmax=0\.06 | sugain mbal=1 tmpdir=\/tmp | sufilter f=3\,6\,1000\,2000 verbose=0 | suphasevel dv=2000 fmax=1000 fv=1 norm=1 nv=100 verbose=0 | suamp mode=amp | sugain mbal=1 tmpdir=\/tmp | suximage wclip=15 bclip=\-10 cmap=hsv8 d2=1 gridcolor=blue label1=Hz label2=Vs\ \(m\/s\) labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 lwidth=16 lx=3 mpicks=\/dev\/tty n1tic=1 n2tic=1 perc=100 plotfile=plotfile\.ps title=ACH01\-3C\ cube titlecolor=red titlefont=Rom22 tmpdir=\.\/ x1beg=1000 x1end=0 units=unit verbose=1 windowtitle=Dispersion\ for\ radial\ component\ on\ wheel\ at\ position\ A1 wperc=99 xbox=500 ybox=500 wbox=550 & 
+

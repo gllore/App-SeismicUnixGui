@@ -86,7 +86,8 @@ my $user_built_flow_open_data_selected_Entry_widget;
 my $user_built_flow_open_data_parameter_value_index;
 
 =head2 sub _FileDialog
-
+	Collects name of file to be opened
+	
      print ("my file is $file_dialog->{_selected_file_name}\n");
      will NOT:
         print ("1. label is @{$file_dialog->{_ref_labels_w}}[$first]->cget('-text') \n");
@@ -1407,12 +1408,12 @@ sub _user_built_flow_close_perl_file {
 	my $topic = $file_dialog->{_dialog_type};
 
 	$full_path_name = $file_dialog->{_selected_file_name};
-#	print("file_dialog,_user_built_flow_close_perl_file, full_path_name: $full_path_name\n");
+	print("file_dialog,_user_built_flow_close_perl_file, full_path_name: $full_path_name\n");
 
 	if ( length $full_path_name ) {
 
 		my $last_path_touched = $file_dialog->{_last_path_touched};
-#		print("file_dialog,_user_built_flow_close_perl_file, last_path_touched: $last_path_touched\n");
+		print("file_dialog,_user_built_flow_close_perl_file, last_path_touched: $last_path_touched\n");
 
 		@fields                                = split( /\//, $full_path_name );
 		$file_dialog->{_is_selected_file_name} = $true;
@@ -1442,10 +1443,10 @@ sub _user_built_flow_close_perl_file {
 			return ($true);
 
 		} else {
-#			print(
-#				"file_dialog,_user_built_flow_close_perl_file, User selected Cancel
-#			No output flow name selected NADA\n"
-#			);
+			print(
+				"file_dialog,_user_built_flow_close_perl_file, User selected Cancel
+			No output flow name selected NADA\n"
+			);
 			return ($false);
 		}
 
@@ -1741,13 +1742,14 @@ sub _user_built_flow_open_perl_file {
 
 #	print("file_dialog,_user_built_flow_open_perl_file, path = $file_dialog->{_path}\n");
 
-	# collects the name of the data file to be opened
+	# collects the name of the perl file to be opened
 	_FileDialog();    # directory mega widget
 
 	my $successful = _user_built_flow_close_perl_file();
+	
 	if ( $successful eq $true ) {
 
-#		print("file_dialog,_user_built_flow_open_perl_file, success\n");
+	print("file_dialog,_user_built_flow_open_perl_file, success\n");
 
 	} elsif ( $successful eq $false ) {
 

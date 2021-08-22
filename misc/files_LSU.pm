@@ -1399,6 +1399,9 @@ sub save {
 
 	#	print("1. files_LSU_ save, declaring packages\n");
 	$oop_text->declare_pkg();
+	
+	# insert a macro start here
+	# $oop_text->set_macro_head(pkg);
 
 	# DECLARE DATA
 	for ( my $j = 0; $j < $num_progs4flow; $j++ ) {
@@ -1414,10 +1417,9 @@ sub save {
 				my $file_name = $params[0];
 				$oop_text->set_file_name_in($file_name);
 
-				print("1. files_LSU_ save, prog_name=$prog_name\n");
+#				print("1. files_LSU_ save, prog_name=$prog_name\n");
 
 			} else {
-
 				#				print("2. files_LSU, save, missing,files_LSU->{_is_data_in}=$files_LSU->{_is_data_in}\n ");
 				#				print("2. files_LSU, save, missing, we have data\n ");
 			}    # we have data
@@ -1483,6 +1485,9 @@ sub save {
 	$oop_text->pod_log_flows();
 	$oop_text->print_flows();
 	$oop_text->log_flows();
+	
+	# insert a macro end here
+	# $oop_text->set_macro_tail()
 
 	_close();
 }

@@ -647,6 +647,16 @@ sub set_filehandle {
 	return ();
 }
 
+=head2 sub set_macro_head
+
+=cut
+
+
+=head2 sub set_macro_tail
+
+=cut
+
+
 =head2 sub set_prog_name
 
 =cut

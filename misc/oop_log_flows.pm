@@ -4,14 +4,19 @@ use Moose;
 =head2 Default  lines for   
 
  logging flows 
+ Time::Piece is a core module that
+ provides localtime
 
 =cut
 
 my @log_flows;
+my $time = localtime;
 
 $log_flows[0] =
 
-  "\t" . '$log->file($flow[1]);' . "\n\n";
+			
+ ( "\t" . '	$log->file(localtime);'. "\n".
+  "\t" . '$log->file($flow[1]);' . "\n\n") ;
 
 sub section {
     my ($self) = @_;

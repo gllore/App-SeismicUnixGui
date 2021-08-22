@@ -75,9 +75,9 @@ my $my_dialog_cancel_click_start         = $no;
 my $my_dialog_ok_click_start             = $no;
 my $flow_listbox_color_start             = $color_default;
 my $flow_listbox_color2check_start       = $color_default;
-my $future_occupied_start                = $false;
-my $future_vacancy_start                 = $false;
-my $future_flow_listbox_color_start      = $color_default;
+my $next_available_occupied_start                = $false;
+my $next_available_vacancy_start                 = $false;
+my $next_available_flow_listbox_color_start      = $color_default;
 my $occupied_start                       = $false;
 my $flow_listbox_color_reservation_start = $reservation_color_default;
 my $vacant_start                         = $true;
@@ -97,11 +97,11 @@ my $color_listbox = {
 	_is_flow_listbox_green_w         => '',
 	_is_flow_listbox_grey_w          => '',
 	_is_flow_listbox_pink_w          => '',
-	_is_future_flow_listbox_blue     => '',
-	_is_future_flow_listbox_color    => '',
-	_is_future_flow_listbox_green    => '',
-	_is_future_flow_listbox_grey     => '',
-	_is_future_flow_listbox_pink     => '',
+#	_is_next_available_flow_listbox_blue     => '',
+	_is_next_available_flow_listbox_color    => '',
+#	_is_next_available_flow_listbox_green    => '',
+#	_is_next_available_flow_listbox_grey     => '',
+#	_is_next_available_flow_listbox_pink     => '',
 	_my_dialog_cancel_click          => $my_dialog_box_cancel_default,
 	_my_dialog_box_click             => $my_dialog_box_click_default,
 	_my_dialog_ok_click              => $my_dialog_box_ok_default,
@@ -150,27 +150,27 @@ sub _default_flow_listbox_color_availability_aref {
 
 }
 
-=head2 sub default_future_occupied_listbox_aref
+=head2 sub default_next_available_occupied_listbox_aref
 
-Initialize array of future occupied-flow-listbox-array
+Initialize array of next_available occupied-flow-listbox-array
 indicators that indicate which listbox will next be
 used
 
 =cut
 
-sub _default_future_occupied_listbox_aref {
+sub _default_next_available_occupied_listbox_aref {
 
 	my ($self) = @_;
 
-	my @future_occupied_listbox = (
-		$future_occupied_start,
-		$future_occupied_start,
-		$future_occupied_start,
-		$future_occupied_start
+	my @next_available_occupied_listbox = (
+		$next_available_occupied_start,
+		$next_available_occupied_start,
+		$next_available_occupied_start,
+		$next_available_occupied_start
 	);
 
-	my $flow_listbox_future_occupancy_aref = \@future_occupied_listbox;
-	return ($flow_listbox_future_occupancy_aref);
+	my $flow_listbox_next_available_occupancy_aref = \@next_available_occupied_listbox;
+	return ($flow_listbox_next_available_occupancy_aref);
 
 }
 
@@ -197,27 +197,27 @@ sub _default_occupied_listbox_aref {
 
 }
 
-=head2 sub default_future_vacancy_listbox_aref
+=head2 sub default_next_available_vacancy_listbox_aref
 
-Initialize array of future vacant-flow-listbox-array
+Initialize array of next_available vacant-flow-listbox-array
 indicators that indicate which listbox will next be
 used
 
 =cut
 
-sub _default_future_vacancy_listbox_aref {
+sub _default_next_available_vacancy_listbox_aref {
 
 	my ($self) = @_;
 
-	my @future_vacancy_listbox = (
-		$future_vacancy_start,
-		$future_vacancy_start,
-		$future_vacancy_start,
-		$future_vacancy_start
+	my @next_available_vacancy_listbox = (
+		$next_available_vacancy_start,
+		$next_available_vacancy_start,
+		$next_available_vacancy_start,
+		$next_available_vacancy_start
 	);
 
-	my $flow_listbox_future_vacancy_aref = \@future_vacancy_listbox;
-	return ($flow_listbox_future_vacancy_aref);
+	my $flow_listbox_next_available_vacancy_aref = \@next_available_vacancy_listbox;
+	return ($flow_listbox_next_available_vacancy_aref);
 
 }
 
@@ -279,14 +279,14 @@ has 'flow_listbox_color' => (
 	trigger   => \&_update_flow_listbox_color,
 );
 
-has 'flow_listbox_future_occupancyNvacancy_aref' => (
-	default   => \&_default_future_occupied_listbox_aref,
+has 'flow_listbox_next_available_occupancyNvacancy_aref' => (
+	default   => \&_default_next_available_occupied_listbox_aref,
 	is        => 'ro',
 	isa       => 'ArrayRef',
-	reader    => 'get_flow_listbox_future_occupancyNvacancy_aref',
-	writer    => 'set_flow_listbox_future_occupancyNvacancy_aref',
-	predicate => 'has_flow_listbox_future_occupancyNvacancy_aref',
-	trigger   => \&_update_flow_listbox_future_occupancyNvacancy_aref,
+	reader    => 'get_flow_listbox_next_available_occupancyNvacancy_aref',
+	writer    => 'set_flow_listbox_next_available_occupancyNvacancy_aref',
+	predicate => 'has_flow_listbox_next_available_occupancyNvacancy_aref',
+	trigger   => \&_update_flow_listbox_next_available_occupancyNvacancy_aref,
 );
 
 has 'flow_listbox_occupancy_aref' => (
@@ -305,8 +305,8 @@ has 'flow_listbox_vacancy_color' => (
 	is        => 'ro',
 	isa       => 'Str',
 	reader    => 'get_flow_listbox_vacancy_color',
-	writer    => 'set_flow_listbox_vacancy_color',
-	predicate => 'has_flow_listbox_vacancy_color',
+#	writer    => 'set_flow_listbox_vacancy_color',
+#	predicate => 'has_flow_listbox_vacancy_color',
 
 );
 
@@ -320,13 +320,13 @@ has 'flow_listbox_vacancy_aref' => (
 	# trigger method is not in use
 );
 
-has 'future_flow_listbox_color' => (
-	default => $future_flow_listbox_color_start,
+has 'next_available_flow_listbox_color' => (
+	default => $next_available_flow_listbox_color_start,
 	is      => 'rw',
 	isa     => 'Str',
-	reader  => 'get_future_flow_listbox_color',
-	writer  => 'set_future_flow_listbox_color',
-	trigger => \&_update_future_flow_listbox_color,
+	reader  => 'get_next_available_flow_listbox_color',
+	writer  => 'set_next_available_flow_listbox_color',
+	trigger => \&_update_next_available_flow_listbox_color,
 );
 has my_dialog_cancel_click => (
 	default => $my_dialog_cancel_click_start,
@@ -679,8 +679,8 @@ sub set_flow_listbox_availability {
 	$listbox_color_w[2] = $color_listbox_href->{_flow_listbox_green_w};
 	$listbox_color_w[3] = $color_listbox_href->{_flow_listbox_blue_w};
 	
-#	print("color_listbox,listbox_color_w= @listbox_color_w\n"); #widgets
-print("color_listbox, number_of_listboxes = $number_of_listboxes\n"); #widgets
+#	print("color_listbox,listbox_color_w= @listbox_color_w\n"); # widgets
+print("color_listbox, number_of_listboxes = $number_of_listboxes\n"); # widgets
 
 	for ( my $i = 0; $i < $number_of_listboxes; $i++ ) {
 
@@ -809,23 +809,23 @@ sub _update_flow_listbox_color {
 	return ();
 }
 
-=head2 sub _update_flow_listbox_future_occupancyNvacancy_aref
+=head2 sub _update_flow_listbox_next_available_occupancyNvacancy_aref
 
 Update which listboxes (colors)  are in use (occupancy)
 and which are not (vacancies)
 
 =cut
 
-sub _update_flow_listbox_future_occupancyNvacancy_aref {
+sub _update_flow_listbox_next_available_occupancyNvacancy_aref {
 
 	my (
-		$color_listbox, $new_current_flow_listbox_future_occupancy_aref,
-		$new_prior_flow_listbox_future_occupancy_aref
+		$color_listbox, $new_current_flow_listbox_next_available_occupancy_aref,
+		$new_prior_flow_listbox_next_available_occupancy_aref
 	) = @_;
 
 	my @vacant_listbox;
 
-	$color_listbox->{flow_listbox_occupancy_aref} = $new_current_flow_listbox_future_occupancy_aref;
+	$color_listbox->{flow_listbox_occupancy_aref} = $new_current_flow_listbox_next_available_occupancy_aref;
 	@vacant_listbox = @{ $color_listbox->get_flow_listbox_vacancy_aref() };
 	my $length = scalar @vacant_listbox;
 
@@ -833,14 +833,14 @@ sub _update_flow_listbox_future_occupancyNvacancy_aref {
 
 		for ( my $i = 0; $i < $length; $i++ ) {
 
-			$vacant_listbox[$i] = abs( @{$new_current_flow_listbox_future_occupancy_aref}[$i] - 1 );
+			$vacant_listbox[$i] = abs( @{$new_current_flow_listbox_next_available_occupancy_aref}[$i] - 1 );
 
 		}
 
 		_update_flow_listbox_vacancy_color($color_listbox);
 
-		#		print("color_listbox,_update_flow_listbox_future_occupancyNvacancy_aref vacant_listbox=@vacant_listbox\n");
-		#	    print("color_listbox,_update_flow_listbox_future_occupancyNvacancy_aref vacant_listbox, new_current_flow_listbox_future_occupancy_aref =@{$new_current_flow_listbox_future_occupancy_aref}\n");
+		#		print("color_listbox,_update_flow_listbox_next_available_occupancyNvacancy_aref vacant_listbox=@vacant_listbox\n");
+		#	    print("color_listbox,_update_flow_listbox_next_available_occupancyNvacancy_aref vacant_listbox, new_current_flow_listbox_next_available_occupancy_aref =@{$new_current_flow_listbox_next_available_occupancy_aref}\n");
 
 	} else {
 		print("color_listbox,_update_flow_listbox_occupancyNvacancy_aref, missing vacant listbox,\n");
@@ -1057,70 +1057,70 @@ sub _update_flow_listbox_vacancy_aref {
 
 }
 
-=head2 sub _update_future_flow_listbox_color
+=head2 sub _update_next_available_flow_listbox_color
 
-Mark the future listbox color to use
+Mark the next_available listbox color to use
 Mark next available color listbox vacant
-Give preference to the future listbox
+Give preference to the next_available listbox
 
 =cut
 
-sub _update_future_flow_listbox_color {
+sub _update_next_available_flow_listbox_color {
 
-	my ( $color_listbox, $new_current_future_flow_listbox_color, $new_prior_future_flow_listbox_color ) = @_;
+	my ( $color_listbox, $new_current_next_available_flow_listbox_color, $new_prior_next_available_flow_listbox_color ) = @_;
 
-	#	print( "color_listbox,_update_future_flow_listbox_color,new_current_future_flow_listbox_color=$new_current_future_flow_listbox_color, new_prior_future_flow_listbox_color=$new_prior_future_flow_listbox_color\n" );
+	#	print( "color_listbox,_update_next_available_flow_listbox_color,new_current_next_available_flow_listbox_color=$new_current_next_available_flow_listbox_color, new_prior_next_available_flow_listbox_color=$new_prior_next_available_flow_listbox_color\n" );
 
 	my $color;
 
-	if ( $new_current_future_flow_listbox_color eq 'grey' ) {
+	if ( $new_current_next_available_flow_listbox_color eq 'grey' ) {
 
-		$color_listbox->{_is_future_flow_listbox_grey}  = $true;
-		$color_listbox->{_is_future_flow_listbox_pink}  = $false;
-		$color_listbox->{_is_future_flow_listbox_green} = $false;
-		$color_listbox->{_is_future_flow_listbox_blue}  = $false;
+#		$color_listbox->{_is_next_available_flow_listbox_grey}  = $true;
+#		$color_listbox->{_is_next_available_flow_listbox_pink}  = $false;
+#		$color_listbox->{_is_next_available_flow_listbox_green} = $false;
+#		$color_listbox->{_is_next_available_flow_listbox_blue}  = $false;
 		$color                                          = 'grey';
-		$color_listbox->{future_flow_listbox_color}     = $color;
-		$color_listbox->{_is_future_flow_listbox_grey}  = $false;    #clean
+		$color_listbox->{next_available_flow_listbox_color}     = $color;
+#		$color_listbox->{_is_next_available_flow_listbox_grey}  = $false;    #clean
 
-		#		print("1. color_listbox,_update_future_flow_listbox_color, color:$color \n");
+		#		print("1. color_listbox,_update_next_available_flow_listbox_color, color:$color \n");
 
-	} elsif ( $new_current_future_flow_listbox_color eq 'pink' ) {
+	} elsif ( $new_current_next_available_flow_listbox_color eq 'pink' ) {
 
-		$color_listbox->{_is_future_flow_listbox_grey}  = $false;
-		$color_listbox->{_is_future_flow_listbox_pink}  = $true;
-		$color_listbox->{_is_future_flow_listbox_green} = $false;
-		$color_listbox->{_is_future_flow_listbox_blue}  = $false;
+#		$color_listbox->{_is_next_available_flow_listbox_grey}  = $false;
+#		$color_listbox->{_is_next_available_flow_listbox_pink}  = $true;
+#		$color_listbox->{_is_next_available_flow_listbox_green} = $false;
+#		$color_listbox->{_is_next_available_flow_listbox_blue}  = $false;
 		$color                                          = 'pink';
-		$color_listbox->{future_flow_listbox_color}     = $color;
-		$color_listbox->{_is_future_flow_listbox_pink}  = $false;    #clean
+		$color_listbox->{next_available_flow_listbox_color}     = $color;
+#		$color_listbox->{_is_next_available_flow_listbox_pink}  = $false;    #clean
 
-		#		print("2. color_listbox,_update_future_flow_listbox_color, color:$color\n");
+		#		print("2. color_listbox,_update_next_available_flow_listbox_color, color:$color\n");
 
-	} elsif ( $new_current_future_flow_listbox_color eq 'green' ) {
+	} elsif ( $new_current_next_available_flow_listbox_color eq 'green' ) {
 
-		#		print("3. color_listbox,_update_future_flow_listbox_color, color: green\n");
-		$color_listbox->{_is_future_flow_listbox_grey}  = $false;
-		$color_listbox->{_is_future_flow_listbox_pink}  = $false;
-		$color_listbox->{_is_future_flow_listbox_green} = $true;
-		$color_listbox->{_is_future_flow_listbox_blue}  = $false;
+		#		print("3. color_listbox,_update_next_available_flow_listbox_color, color: green\n");
+#		$color_listbox->{_is_next_available_flow_listbox_grey}  = $false;
+#		$color_listbox->{_is_next_available_flow_listbox_pink}  = $false;
+#		$color_listbox->{_is_next_available_flow_listbox_green} = $true;
+#		$color_listbox->{_is_next_available_flow_listbox_blue}  = $false;
 		$color                                          = 'green';
-		$color_listbox->{future_flow_listbox_color}     = $color;
-		$color_listbox->{_is_future_flow_listbox_green} = $false;    #clean
+		$color_listbox->{next_available_flow_listbox_color}     = $color;
+#		$color_listbox->{_is_next_available_flow_listbox_green} = $false;    #clean
 
-	} elsif ( $new_current_future_flow_listbox_color eq 'blue' ) {
+	} elsif ( $new_current_next_available_flow_listbox_color eq 'blue' ) {
 
-		#		print("4. color_listbox,_update_future_flow_listbox_color, color:blue\n");
-		$color_listbox->{_is_future_flow_listbox_grey}  = $false;
-		$color_listbox->{_is_future_flow_listbox_pink}  = $false;
-		$color_listbox->{_is_future_flow_listbox_green} = $false;
-		$color_listbox->{_is_future_flow_listbox_blue}  = $true;
+		#		print("4. color_listbox,_update_next_available_flow_listbox_color, color:blue\n");
+#		$color_listbox->{_is_next_available_flow_listbox_grey}  = $false;
+#		$color_listbox->{_is_next_available_flow_listbox_pink}  = $false;
+#		$color_listbox->{_is_next_available_flow_listbox_green} = $false;
+#		$color_listbox->{_is_next_available_flow_listbox_blue}  = $true;
 		$color                                          = 'blue';
-		$color_listbox->{future_flow_listbox_color}     = $color;
-		$color_listbox->{_is_future_flow_listbox_blue}  = $false;    #clean
+		$color_listbox->{next_available_flow_listbox_color}     = $color;
+#		$color_listbox->{_is_next_available_flow_listbox_blue}  = $false;    #clean
 
 	} else {
-		print("color_listbox,_update_future_flow_listbox_color, missing color \n");
+		print("color_listbox,_update_next_available_flow_listbox_color, missing color \n");
 	}
 
 	return ();
@@ -1322,7 +1322,7 @@ sub is_vacant_listbox {
 		}
 
 	} else {
-		print("color_listbox, _is_vacant_listbox, difficult to say\n");
+		print("color_listbox, is_vacant_listbox, difficult to say\n");
 		return ();
 	}
 }

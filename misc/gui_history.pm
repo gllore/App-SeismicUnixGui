@@ -1696,7 +1696,7 @@ sub _update_parameter_index_on_exit {
 
 		( $gui_history->get_defaults() )->{_parameter_index_on_exit} = $new_most_recent_parameter_index_on_exit;
 
-		print("gui_history,updated parameter_index_on_exit :$new_most_recent_parameter_index_on_exit\n");
+#		print("gui_history,updated parameter_index_on_exit :$new_most_recent_parameter_index_on_exit\n");
 
 		if ( defined $parameter_index_on_exit_click_seq_href ) {
 

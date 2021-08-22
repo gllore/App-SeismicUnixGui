@@ -81,17 +81,18 @@ sub clear_empty_files {
 	my ($self) = @_;
 
 	if ( length( $manage_files_by2->{_directory} ) ) {
-		
+
 		my $dir = $manage_files_by2->{_directory};
 
 		my ( @size,      @file_name, @inode );
 		my ( $i,         $junk,      $cmd_file_name, $num_file_names );
 		my ( $cmd_inode, $cmd_size,  $index_node_number );
-			  #		print("manage_files_by2, clear_empty_files, dir=$manage_files_by2->{_directory} \n");
 
-#		print("\n manage_files_by2, clear_empty_files in dir=$dir\n");
+		#		print("manage_files_by2, clear_empty_files, dir=$manage_files_by2->{_directory} \n");
+
+		#		print("\n manage_files_by2, clear_empty_files in dir=$dir\n");
 		chomp $dir;
-		
+
 		$cmd_file_name  = "ls -1 $dir";
 		$cmd_size       = "ls -s1 $dir";
 		$cmd_inode      = "ls -i1 $dir";
@@ -106,7 +107,7 @@ sub clear_empty_files {
 
 			$inode[$i] =~ s/^\s+//g;    # trim spaces at start
 			( $inode[$i], $junk ) = split( / /, $inode[$i] );
-			
+
 			$file_name[$i] =~ s/^\s+//g;    # trim spaces at start
 			( $file_name[$i], $junk ) = split( / /, $file_name[$i] );
 		}
@@ -114,21 +115,21 @@ sub clear_empty_files {
 		for ( my $i = 1; $i <= $num_file_names; $i++ ) {
 
 			chomp $size[$i];
-			$size[$i] =~ s/^\s+//g;     # trim spaces at start
+			$size[$i] =~ s/^\s+//g;         # trim spaces at start
 			( $size[$i], $junk ) = split( / /, $size[$i] );
 
 		}
 
 		for ( my $i = 0, my $j = 1; $i < $num_file_names; $i++, $j++ ) {
-			
-			my $test = (-d $dir.'/'.$file_name[$i] );
-			if ( $size[$j] == 0 &&
-				not ($test) ) {
-						my $ans = ($test );
-						
-#				print("CASE of not a directory and file =0\n");				
-#				print("CASE name inode size = $file_name[$i] $inode[$i] $size[$j]\n");
-				
+
+			my $test = ( -d $dir . '/' . $file_name[$i] );
+			if ( $size[$j] == 0
+				&& not($test) ) {
+				my $ans = ($test);
+
+				#				print("CASE of not a directory and file =0\n");
+				#				print("CASE name inode size = $file_name[$i] $inode[$i] $size[$j]\n");
+
 				$index_node_number = $inode[$i];
 				my $flow = (
 					"cd $dir
@@ -231,41 +232,44 @@ sub unique_elements {
 		my $true                 = 1;
 		my $num_unique_progs     = 1;
 
-		my $seen = $true;
+		my $repeated = $false;
+
+		# the first program is always unique
 		$unique_progs[0] = @{$array_ref}[0];
 
-		# print("manage_files_by2, program in flow: @{$array_ref}[0]\n");
+#		print("1. manage_files_by2, first program in flow: @{$array_ref}[0]\n");
+#		print("2. manage_files_by2, num_unique_progs=$num_unique_progs\n\n");
 
 		for ( my $i = 1; $i < $total_num_progs4flow; $i++ ) {
 
-			# print("manage_files_by2, program in flow: @{$array_ref}[$i]\n");
-			# print ("1. manage_files_by2, num_unique_progs=$num_unique_progs\n\n");
 			for ( my $j = 0; $j < $num_unique_progs; $j++ ) {
 
 				if ( $unique_progs[$j] eq @{$array_ref}[$i] ) {
 
-					# print("program index in flow=$i\n");
-					# print(" 1. manage_files_by2,repeated program detected \n");
-					# print("manage_files_by2, prog_ repeated: @{$array_ref}[]$i]\n\n");
-					$seen = $true;
+#					print("3. manage_files_by2, program index #$i in flow: @{$array_ref}[$i]\n");
+#					print("4. manage_files_by2, repeated program detected \n");
+#					print("5. manage_files_by2, prog repeated: @{$array_ref}[$i]\n\n");
+					$repeated = $true;
 
 					# exit if-loop and increment $j
 				} else {
-
-					# print("program index in flow=$i\n");
-					# print("manage_files_by2, prog @{array_ref}[]$i] is unique\n\n");
-					# print ("2. manage_files_by2,unique_prog detected=@{$array_ref}[$i] \n");
-					$seen = $false;
+#					print("6. manage_files_by2, program index #$i in flow: @{$array_ref}[$i]\n");
+					#	print("7. manage_files_by2, prog @{array_ref}[$i] is unique\n\n");
+#					print("8. manage_files_by2,unique_prog detected=@{$array_ref}[$i] \n");
 				}
+
 			}
 
-			if ($seen) {
-				$seen = $false;    #reset for next check
+			if ($repeated) {
+
+				$repeated = $false;    #reset for next check
+
 			} else {
 				push @unique_progs, @{$array_ref}[$i];
 
-				# print(" 1. manage_files_by2,unique new program found for output \n");
+#				print("9. manage_files_by2,unique new program found for output \n");
 				$num_unique_progs++;
+#				print("10. manage_files_by2, num_unique_progs=$num_unique_progs\n\n");
 			}
 
 		}    # end all programs
@@ -292,18 +296,19 @@ sub unique_elements {
 sub read_1col_aref {
 
 	# open and read and input file
-	my ($caller,$ref_file_name) = @_;
+	my ( $caller, $ref_file_name ) = @_;
 
 	#declare locally scoped variables
-	my ($j,$num_rows);
-	my ($i,$x);
+	my ( $j, $num_rows );
+	my ( $i, $x );
 	my @X;
- 	my $line;
+	my $line;
+
 	# print("manage_files_by2,read_1col_aref,The output file name = $$ref_file_name\n");
 	# set the counter
-	
+
 	$i = 0;
-	open( IN, "<$$ref_file_name")  or die "Could not open file '$$ref_file_name'. $!";
+	open( IN, "<$$ref_file_name" ) or die "Could not open file '$$ref_file_name'. $!";
 
 	# read contents of file
 	while ( $line = <IN> ) {
@@ -321,9 +326,10 @@ sub read_1col_aref {
 	close(FILE);
 
 	$num_rows = $i;
+
 	# print ("\nThis file contains $num_rows row(s) of data\n");
 
-	return (\@X);
+	return ( \@X );
 
 }
 
@@ -342,6 +348,7 @@ sub read_2cols {
 	#declare locally scoped variables
 	my ( $i, $line, $t, $x, $num_rows );
 	my ( @TIME, @TIME_OUT, @OFFSET, @OFFSET_OUT );
+
 	# print("In this subroutine $$ref_origin\n");
 
 	# open the file of interest
@@ -386,22 +393,24 @@ sub read_2cols {
 
 sub get_3cols_aref {
 
-	my ($reference, $file_name, $skip_lines) = @_;
-	my (@X, @Y, @Z);
+	my ( $reference, $file_name, $skip_lines ) = @_;
+	my ( @X, @Y, @Z );
 	my $lines;
 
-	print ("\nThe input file is called $file_name\n");
+	print("\nThe input file is called $file_name\n");
+
 	# open the file of interest
 	open( FILE, "$file_name" ) || print("Can't open file name, $!\n");
-    
-    # skip lines
-    for (my $i=0; $i< $skip_lines; $i ++ ) {
-    	$lines = <FILE>;
-    	print("line $i = $lines\n");
-    }
-    
+
+	# skip lines
+	for ( my $i = 0; $i < $skip_lines; $i++ ) {
+		$lines = <FILE>;
+		print("line $i = $lines\n");
+	}
+
 	#set the counter
 	my $i = 0;
+
 	# read contents of file
 	while ( my $lines = <FILE> ) {
 
@@ -427,7 +436,7 @@ sub get_3cols_aref {
 
 	# make sure arrays do not contaminate outside
 
-	return ( \@X, \@Y, \@Z);
+	return ( \@X, \@Y, \@Z );
 
 }
 
@@ -444,7 +453,7 @@ sub read_par {
 
 	my ( $self, $ref_file_name ) = @_;
 
-	print ("\nmanage_files_by2,read_par, The input file is called $$ref_file_name\n");
+	print("\nmanage_files_by2,read_par, The input file is called $$ref_file_name\n");
 
 =pod Steps
 
@@ -518,9 +527,9 @@ sub write_1col_aref {
 
 	# $variable is an unused hash
 
-#	print("\n manage_files_by2,write_1col_aref,The output file name = $$ref_file_name\n");
-#	print("\n manage_files_by2,write_1col_aref,The output file contains $num_rows rows\n");
-#	print("\n manage_files_by2,write_1col_aref,The output file uses the following format: $$ref_fmt\n");
+	#	print("\n manage_files_by2,write_1col_aref,The output file name = $$ref_file_name\n");
+	#	print("\n manage_files_by2,write_1col_aref,The output file contains $num_rows rows\n");
+	#	print("\n manage_files_by2,write_1col_aref,The output file uses the following format: $$ref_fmt\n");
 
 	open( OUT, ">$$ref_file_name" );
 

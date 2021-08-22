@@ -1828,6 +1828,8 @@ sub FileDialog_button {
 			# 2. Write name to the file name in the appropriate flow
 			# 3. populate GUI
 			# 4. populate hashes (color_flow)and memory spaces (param_flow)
+			# 5. Make sure to clean all the information in the FileDialog Button after it is used.
+			
 			$file_dialog->set_flow_color( $color_flow_href->{_flow_color} );
 			$file_dialog->set_hash_ref($color_flow_href);    # uses values_aref
 			$file_dialog->set_flow_type('user_built');
@@ -1835,6 +1837,8 @@ sub FileDialog_button {
 			$file_dialog->FileDialog_director();
 			
 			$color_flow_href->{$_flow_name_in_color}          = $file_dialog->get_perl_flow_name_in();
+			
+			# Clean Filebutton of names and paths
 			$color_flow_href->{$_flow_name_out_color}        = $color_flow_href->{$_flow_name_in_color};
 			$color_flow_href->{_has_used_open_perl_file_button} = $true;
 
@@ -1909,6 +1913,8 @@ sub FileDialog_button {
 
 			# update to parameter values occurs in file_dialog
 			$color_flow_href->{_values_aref} = $file_dialog->get_values_aref();
+			
+			 # 5. Make sure to clean all the information in the FileDialog Button after it is used.
 
 			# set up this flow listbox item as the last item touched
 			my $_flow_listbox_color_w = _get_flow_listbox_color_w();    # user-built_flow in current use
