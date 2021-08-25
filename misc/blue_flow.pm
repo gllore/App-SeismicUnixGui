@@ -134,6 +134,7 @@ to share variable values easily
 my $color_flow = {
 
 	_Flow_file_exists => $false,
+	_perl_flow_errors => $true,	
 
 };
 
@@ -992,8 +993,51 @@ sub _SaveAs_button {
 	}
 }
 
-=head2 sub _perl_flow
+=head2 sub _perl_flow_errors
+Based on _perl_flow
+Parse (while reading) perl flows
 
+=cut
+
+sub _perl_flow_errors {
+
+	my ($self) = @_;
+
+	my $result;
+
+	# import modules
+	use perl_flow;
+	use message_director;
+	use param_sunix;
+	use control 0.0.3;
+
+	# instantiate modules
+	my $perl_flow           = perl_flow->new();
+	my $param_sunix         = param_sunix->new();
+	my $color_flow_messages = message_director->new();
+	my $control             = control->new();
+
+	# messages
+	my $message = $color_flow_messages->null_button(0);
+	$message_w->delete( "1.0", 'end' );
+	$message_w->insert( 'end', $message );
+
+	# should be at start of color_flow
+	$color_flow_href->{_flow_type} = $flow_type->{_user_built};
+	my $flow_name_in_color = $color_flow_href->{$_flow_name_in_color};
+
+	my $flow_color = $color_flow_href->{_flow_color};
+
+	# read in variables from the perl flow file
+	$perl_flow->set_perl_file_in($flow_name_in_color);
+	my $is_error = $perl_flow->get_parse_errors();
+
+	$result = $is_error;
+
+	return ($result);
+}
+
+=head2 sub _perl_flow
   Parse (while reading) perl flows
 
   foreach my $key (sort keys %$color_flow_href) {
@@ -1854,8 +1898,12 @@ sub FileDialog_button {
 			# Is $flow_name_in empty?
 			my $file2query = $PL_SEISMIC . '/' . $color_flow_href->{$_flow_name_in_color};
 			$color_flow->{_Flow_file_exists} = manage_files_by2::does_file_exist_sref( \$file2query );
+			
+			# Are there any errors when reading the perl flow file
+			$color_flow->{_perl_flow_errors} = _perl_flow_errors();
 
-			if ( $color_flow->{_Flow_file_exists} ) {
+			if ( $color_flow->{_Flow_file_exists}
+				&&  $color_flow->{_perl_flow_errors} eq $false ) {
 
 				_set_flow_name_color_w($flow_color);
 
@@ -1870,8 +1918,8 @@ sub FileDialog_button {
 				_perl_flow();
 
 			} else {
-
-				#				print("3 color_flow,FileDialog_button, Warning: missing file. \"Cancel\" clicked by user? NADA\n");
+				#		print("  color_flow,FileDialog_button, perl flow parse errors\n");
+				#	    print("3 color_flow,FileDialog_button, Warning: missing file. \"Cancel\" clicked by user? NADA\n");
 			}
 
 		} elsif ( $topic eq $file_dialog_type->{_Data} ) {
@@ -2331,7 +2379,6 @@ sub delete_from_flow_button {
 }
 
 =head2 sub delete_whole_flow_button
-
 if flow_select was last clicked then 
 $gui_history has already recorded the chosen flow color
  	 	
@@ -2398,7 +2445,6 @@ sub delete_whole_flow_button {
 				# Blank out all the stored parameter values and names within param_flow
 				$param_flow_color_pkg->clear();
 
-				# print("3. last item deleted Shut down delete button\n");
 				$gui_history->set_hash_ref($color_flow_href);
 				$gui_history->set_defaults4end_of_delete_whole_flow_button();
 				$color_flow_href = $gui_history->get_hash_ref();
@@ -2406,7 +2452,7 @@ sub delete_whole_flow_button {
 				# Blank out all the stored parameter values and names within param_flow
 				$param_flow_color_pkg->clear();
 
-				# print("5. last item deleted Shut down delete button\n");
+				# print("5. whole flow deleted Shut down delete button\n");
 				# clear the parameter values and labels from the gui
 				# strange memory leak inside param_widgets
 				my $save = clone( $color_flow_href->{_check_buttons_settings_aref} );
@@ -2415,11 +2461,6 @@ sub delete_whole_flow_button {
 
 				# reinitialize flow_select_count
 				$gui_history->set_clear('delete_whole_flow_button');
-
-				# TODO test?
-				#				@{ $color_flow_href->{_occupied_listbox_aref} }[$_number_from_color] = $false;
-				#				@{ $color_flow_href->{_vacant_listbox_aref} }[$_number_from_color]   = $true;
-				#				print("6. color_flow,delete_whole_flow_button, last item deleted. Shut down delete button\n");
 
 			} else {
 				print("color_flow, delete_whole_flow_button unexpected result\n");
@@ -2963,6 +3004,25 @@ sub get_flow_type {
 #
 #	return ();
 #}
+
+=head2 sub get_perl_flow_errors
+
+=cut
+
+sub get_perl_flow_errors {
+	my ($self) = @_;
+	my $result = $empty_string;
+
+	if ( length $color_flow->{_perl_flow_errors} ) {
+
+		$result = $color_flow->{_perl_flow_errors};
+		return ($result);
+
+	} else {
+		print(" color_flow, get_perl_flow_errors, missing variable value\n");
+		return ($result);
+	}
+}
 
 =head2 sub get_prog_name_sref 
 

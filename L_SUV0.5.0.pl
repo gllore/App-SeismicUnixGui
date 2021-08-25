@@ -144,10 +144,7 @@ my $user_built          = $flow_type->{_user_built};
 my $pre_built_superflow = $flow_type->{_pre_built_superflow};
 my $no_color            = 'no_color';
 
-=head2 Default Tk settings{
-
- Create scoped hash 
- 43 off
+=head2 Default Tk settings
 
 =cut
 

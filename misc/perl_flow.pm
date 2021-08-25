@@ -47,6 +47,8 @@ my $var      = $get->var();
 my $nu                    = $var->{_nu};
 my $on                    = $var->{_on};
 my $off                   = $var->{_off};
+my $true        			= $var->{_true};
+my $false      			= $var->{_false};
 my $null_sunix_value      = $var->{_null_sunix_value};
 my $string2startFlowSetUp = $var->{_string2startFlowSetUp};
 my $string2endFlowSetUp   = $var->{_string2endFlowSetUp};
@@ -247,6 +249,55 @@ sub get_prog_name_sref {
 
 }
 
+=head2 sub get_parse_errors
+
+ read perl file line by line to find errors
+ Based on  parse
+ 
+=cut
+
+sub get_parse_errors {
+	
+	my ($self) = @_;
+	
+	my $result;
+
+	use param_sunix;
+	use Project_config;
+
+	my $param_sunix = param_sunix->new();
+	my $Project     = Project_config->new();
+
+	my $PL_SEISMIC = $Project->PL_SEISMIC();
+
+	my ( @all_labels_aref2, @all_values_aref2, @check_buttons_settings_aref2 );    # array of arrays
+
+	$sunix_pl->set_perl_path($PL_SEISMIC);
+	$sunix_pl->whole();
+	$sunix_pl->set_progs_start_with( $var->{_string2startFlowSetUp} );             # 1st identifier
+	$sunix_pl->set_progs_end_with( $var->{_string2endFlowSetUp} );                 # last identifier
+	$sunix_pl->set_num_progs();
+
+	$perl_flow->{_all_prog_names_aref}    = $sunix_pl->get_all_sunix_names();
+	$perl_flow->{_all_prog_versions_aref} = $sunix_pl->get_all_versions();
+
+	my $length = $sunix_pl->get_num_progs;
+	my $num_progs = $sunix_pl->get_num_progs;
+
+	#print("perl_flow,o/p num_progs: $length\n");
+
+	if ($num_progs <= 1 ) {
+		
+		$result = $true;
+		
+	} else{
+		$result = $false;
+	}
+	
+	return($result);
+	
+}
+
 =head2 sub parse
 
  read perl file line by line
@@ -291,7 +342,7 @@ sub parse {
 	my $length = $sunix_pl->get_num_progs;
 	$perl_flow->{_num_progs} = $sunix_pl->get_num_progs;
 
-	# print("perl_flow,o/p num_progs: $length\n");
+	#print("perl_flow,o/p num_progs: $length\n");
 
 	my $hash_ref = $sunix_pl->get_good_sunix_params();
 	$perl_flow->{_good_prog_names_aref}    = $sunix_pl->get_good_sunix_names();
