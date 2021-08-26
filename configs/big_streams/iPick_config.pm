@@ -6,9 +6,9 @@ package iPick_config;
 
  PERL PACKAGE NAME: iPick_config.pm 
  AUTHOR: Juan Lorenzo
- DATE: June 16 2019
+ DATE: June 16, 2019
  DESCRIPTION: Reads a seismic unix-formatted file
- 	outputs a text file of the picks
+ outputs a text file of the picks
 
  USED 
 
@@ -94,13 +94,13 @@ sub get_values {
     my $gather_type    = @{ $iPick_config->{_values_aref} }[7];
     my $min_amplitude  = @{ $iPick_config->{_values_aref} }[8];
     my $max_amplitude  = @{ $iPick_config->{_values_aref} }[9];
-    my $min_time_s     = @{ $iPick_config->{_values_aref} }[10];
-    my $max_time_s     = @{ $iPick_config->{_values_aref} }[11];
+    my $min_x1     = @{ $iPick_config->{_values_aref} }[10];
+    my $max_x1     = @{ $iPick_config->{_values_aref} }[11];
     my $purpose        = @{ $iPick_config->{_values_aref} }[12];
 
     $base_file_name = $control->su_data_name( \$base_file_name );
 
-    # print ("iPick_config, min_time_s: $min_time_s\n");
+    # print ("iPick_config, min_x1: $min_x1\n");
 
 =head2 Example LOCAL VARIABLES FOR THIS PROJECT
 
@@ -118,8 +118,8 @@ sub get_values {
                 gather_type   => $gather_type,
                 min_amplitude => $min_amplitude,
                 max_amplitude => $max_amplitude,
-                min_time_s    => $min_time_s,
-                max_time_s    => $max_time_s,
+                min_x1    => $min_x1,
+                max_x1    => $max_x1,
                 purpose       => $purpose,
             },
         },

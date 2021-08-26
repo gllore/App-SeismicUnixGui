@@ -84,9 +84,9 @@ my $purpose           = $get->purpose();
 
 =cut
 
-my ( @parfile_in, @file_in, @suffix, @inbound );
-my ( @suwind_min, @suwind_max );
-my ( @items, @flow, @sugain, @sufilter, @suwind );
+my ( @parfile_in,  @file_in, @suffix, @inbound );
+my ( @suwind_min,  @suwind_max );
+my ( @items,       @flow, @sugain, @sufilter, @suwind );
 my ( @suximage,    @suxwigb );
 my ( @windowtitle, @base_caption );
 
@@ -107,9 +107,9 @@ my $iSelect_xt = {
 	_freq            => '',
 	_inbound         => '',
 	_max_amplitude   => '',
-	_max_time_s      => '',
+	_max_x1          => '',
 	_min_amplitude   => '',
-	_min_time_s      => '',
+	_min_x1          => '',
 	_message_type    => '',
 	_number_of_tries => '',
 	_offset_type     => '',
@@ -135,9 +135,9 @@ sub clear {
 	$iSelect_xt->{_gather_num}      = '';
 	$iSelect_xt->{_inbound}         = '';
 	$iSelect_xt->{_max_amplitude}   = '';
-	$iSelect_xt->{_max_time_s}      = '';
+	$iSelect_xt->{_max_x1}          = '';
 	$iSelect_xt->{_min_amplitude}   = '';
-	$iSelect_xt->{_min_time_s}      = '';
+	$iSelect_xt->{_min_x1}          = '';
 	$iSelect_xt->{_message_type}    = '';
 	$iSelect_xt->{_number_of_tries} = '';
 	$iSelect_xt->{_offset_type}     = '';
@@ -189,25 +189,21 @@ sub calcNdisplay {
 =cut
 
 	if ( defined $iSelect_xt->{_freq}
-		&& $iSelect_xt->{_freq} ne $empty_string )
-	{
+		&& $iSelect_xt->{_freq} ne $empty_string ) {
+
 		# print("iSelect_xt, sufilter frequencies:  $iSelect_xt->{_freq}\n");
 		$sufilter->clear();
 		$sufilter->freq( $iSelect_xt->{_freq} );
 		$sufilter[1] = $sufilter->Step();
 
-	}
-	elsif ( not defined $iSelect_xt->{_freq}
-		or $iSelect_xt->{_freq} eq $empty_string )
-	{
+	} elsif ( not defined $iSelect_xt->{_freq}
+		or $iSelect_xt->{_freq} eq $empty_string ) {
 
 		$iSelect_xt->{_error_freq} = $true;
+		print("iSelect_xt, missing frequencies -- warning\n");
 
-		print("iSelect_xt, missing frequencies-- error\n");
-
-	}
-	else {
-		print("iSelect_xt, missing frequencies NADA \n");
+	} else {
+		print("iSelect_xt, missing frequencies -- warning \n");
 	}
 
 =head2 WINDOW  DATA 
@@ -225,9 +221,10 @@ sub calcNdisplay {
 	$suwind[1] = $suwind->Step();
 
 	$suwind->clear();
-	$suwind->tmin( $iSelect_xt->{_min_time_s} );
-	$suwind->tmax( $iSelect_xt->{_max_time_s} );
+	$suwind->tmin( $iSelect_xt->{_min_x1} );
+	$suwind->tmax( $iSelect_xt->{_max_x1} );
 	$suwind[2] = $suwind->Step();
+
 
 =head2 DISPLAY Suximage
 
@@ -251,6 +248,22 @@ sub calcNdisplay {
 	$suximage->cmap('rgb0');
 	$suximage->loclip( $iSelect_xt->{_min_amplitude} );
 	$suximage->hiclip( $iSelect_xt->{_max_amplitude} );
+
+	# purposes can refine the style of plots
+	# geopsy plot preference for JML
+	if (    length $iSelect_xt->{_purpose}
+		and $iSelect_xt->{_purpose} eq 'geopsy'
+		and $iSelect_xt->{_max_x1} > $iSelect_xt->{_min_x1} ) {
+
+		$suximage->x1beg( $iSelect_xt->{_max_x1} );
+		$suximage->x1end( $iSelect_xt->{_min_x1} );
+#		print("iSelect_xt, \n");
+		
+	} else {
+		$suximage->x1beg( $iSelect_xt->{_min_x1} );
+		$suximage->x1end( $iSelect_xt->{_max_x1} );
+	}
+
 	$suximage->verbose($off);
 
 =item
@@ -290,6 +303,21 @@ sub calcNdisplay {
 	$suxwigb->xlabel( $iSelect_xt->{_offset_type} );
 	$suxwigb->loclip( $iSelect_xt->{_min_amplitude} );
 	$suxwigb->hiclip( $iSelect_xt->{_max_amplitude} );
+	
+		# purposes can refine the style of plots
+	# geopsy plot preference for JML
+	if (    length $iSelect_xt->{_purpose}
+		and $iSelect_xt->{_purpose} eq 'geopsy'
+		and $iSelect_xt->{_max_x1} > $iSelect_xt->{_min_x1} ) {
+
+		$suxwigb->x1beg( $iSelect_xt->{_max_x1} );
+		$suxwigb->x1end( $iSelect_xt->{_min_x1} );
+		print("iSelect_xt, suxwigb with \'geopsy\' purpose\n");
+		
+	} else {
+		$suxwigb->x1beg( $iSelect_xt->{_min_x1} );
+		$suxwigb->x1end( $iSelect_xt->{_max_x1} );
+	}
 	$suxwigb->verbose($off);
 
 =item choose to save picks
@@ -317,62 +345,73 @@ The pick file can be saved
 =cut
 
 	if ( defined $iSelect_xt->{_purpose}
-		and $iSelect_xt->{_purpose} ne $empty_string )
-	{
-		# CASE 1: With purpose
+		and $iSelect_xt->{_purpose} ne $empty_string ) {
+		# CASE 1: With GEOPSY purpose
 
 		if (   $iSelect_xt->{_purpose} eq $purpose->{_geopsy}
-			&& $iSelect_xt->{_error_freq} eq $true )
-		{
+			&& $iSelect_xt->{_error_freq} eq $true ) {
+
 			# CASE 1A: With geopsy and no filter
-			@items = ( $suwind[1], $in, $iSelect_xt->{_inbound}, $to, $suwind[2], $to, $sugain[1], $to, $suxwigb[1], $go );
+			@items
+				= ( $suwind[1], $in, $iSelect_xt->{_inbound}, $to, $suwind[2], $to, $sugain[1], $to, $suxwigb[1], $go );
 			$flow[1] = $run->modules( \@items );
 
-			# print  ("iSelect_xt,  CASE1: $flow[1]\n");
-			@items = ( $suwind[1], $in, $iSelect_xt->{_inbound}, $to, $suwind[2], $to, $sugain[1], $to, $suximage[1], $go );
+#			print("iSelect_xt,  CASE1: \n $flow[1]\n");
+			@items = (
+				$suwind[1], $in, $iSelect_xt->{_inbound}, $to, $suwind[2], $to, $sugain[1], $to, $suximage[1],
+				$go
+			);
 			$flow[2] = $run->modules( \@items );
 
-		}
-		elsif ($iSelect_xt->{_purpose} eq $purpose->{_geopsy}
-			&& $iSelect_xt->{_error_freq} eq $false )
-		{
+		} elsif ( $iSelect_xt->{_purpose} eq $purpose->{_geopsy}
+			&& $iSelect_xt->{_error_freq} eq $false ) {
 
 			# CASE 1B: With geopsy and  filter
-			@items = ( $suwind[1], $in, $iSelect_xt->{_inbound}, $to, $suwind[2], $to, $sufilter[1], $to, $sugain[1], $to, $suxwigb[1], $go );
+			@items = (
+				$suwind[1],  $in, $iSelect_xt->{_inbound}, $to, $suwind[2], $to, $sufilter[1], $to, $sugain[1], $to,
+				$suxwigb[1], $go
+			);
 			$flow[1] = $run->modules( \@items );
+#			print("iSelect_xt,  CASE2: \n $flow[1]\n");
 
-			# print("iSelect_xt,  CASE2: $flow[1]\n");
-
-			@items = ( $suwind[1], $in, $iSelect_xt->{_inbound}, $to, $suwind[2], $to, $sufilter[1], $to, $sugain[1], $to, $suximage[1], $go );
+			@items = (
+				$suwind[1],   $in, $iSelect_xt->{_inbound}, $to, $suwind[2], $to, $sufilter[1], $to, $sugain[1], $to,
+				$suximage[1], $go
+			);
 			$flow[2] = $run->modules( \@items );
-		}
-		else {
+
+		} else {
 			# CASE 1 Error catch
-			# print("CASE 1 iSelect_xt, purpose:$iSelect_xt->{_purpose}\n");
-			# my $ans = $iSelect_xt->{_error_freq};
-			# print("CASE 1 iSelect_xt, _error: $ans\n");
-			print("CASE 1 iSelect_xt, missing purpose and/or error_freq\n");
+#			print("CASE 1 iSelect_xt, purpose:$iSelect_xt->{_purpose}\n");
+			my $ans = $iSelect_xt->{_error_freq};
+			#	print("CASE 1 iSelect_xt, _error: $ans\n");
+			#	print("CASE 1 iSelect_xt, missing purpose and/or error_freq\n");		
 		}
+		
 	}
 
 	# CASE 2A: No purpose, with filter
 	elsif ( ( not( defined $iSelect_xt->{_purpose} ) || $iSelect_xt->{_purpose} eq $empty_string )
-		&& $iSelect_xt->{_error_freq} eq $false )
-	{
+		&& $iSelect_xt->{_error_freq} eq $false ) {
 
-		@items = ( $suwind[1], $in, $iSelect_xt->{_inbound}, $to, $suwind[2], $to, $sufilter[1], $to, $sugain[1], $to, $suxwigb[1], $go );
+		@items = (
+			$suwind[1],  $in, $iSelect_xt->{_inbound}, $to, $suwind[2], $to, $sufilter[1], $to, $sugain[1], $to,
+			$suxwigb[1], $go
+		);
 		$flow[1] = $run->modules( \@items );
-
 		# print("iSelect_xt,  CASE 2: $flow[1]\n");
 
-		@items = ( $suwind[1], $in, $iSelect_xt->{_inbound}, $to, $suwind[2], $to, $sufilter[1], $to, $sugain[1], $to, $suximage[1], $go );
+		@items = (
+			$suwind[1],   $in, $iSelect_xt->{_inbound}, $to, $suwind[2], $to, $sufilter[1], $to, $sugain[1], $to,
+			$suximage[1], $go
+		);
+		
 		$flow[2] = $run->modules( \@items );
 
-	}
-	else {
+	} else {
 		# print("2. iSelect_xt, purpose:---$iSelect_xt->{_purpose}---\n");
 		# print("2. iSelect_xt, error_freq:---$iSelect_xt->{_error_freq}---\n");
-		print("2. iSelect_xt, missing purpose and/or error in filter frequencies");
+#		print("2. iSelect_xt, missing purpose and/or error in filter frequencies");
 	}
 
 =head2 RUN FLOW(S)
@@ -424,8 +463,7 @@ sub gather_header {
 
 		# print("2. iSelect_xt, gather_header: $iSelect_xt->{_gather_header} \n");
 
-	}
-	else {
+	} else {
 		print("iSelect_xt, gather_header: unexpected value \n\n");
 	}
 }
@@ -443,8 +481,7 @@ sub file_in {
 	my ( $self, $file_in ) = @_;
 
 	if ( defined $file_in
-		&& $file_in ne $empty_string )
-	{
+		&& $file_in ne $empty_string ) {
 
 		# e.g. 'sp1' becomes sp1
 		$control->set_infection($file_in);
@@ -454,8 +491,7 @@ sub file_in {
 
 		# print("iSelect_xt, file_in: $iSelect_xt->{_file_in} \n");
 
-	}
-	else {
+	} else {
 		print("iSelect_xt, file_in: unexpected file_in \n");
 	}
 }
@@ -506,8 +542,7 @@ sub gather_type {
 
 		# print("1. iSelect_xt,gather_type, $iSelect_xt->{_gather_type}\n");
 
-	}
-	else {
+	} else {
 		print("iSelect_xt,gather_type,missing gather_type\n");
 	}
 	return ();
@@ -526,17 +561,25 @@ sub max_amplitude {
 	# print("max_amplitude is $iSelect_xt->{_max_amplitude}\n\n");
 }
 
-=head2  sub max_time_s
+=head2  sub max_x1
 
- maximum amplitude to plot 
+ maximum time/Hz to plot 
 
 =cut
 
-sub max_time_s {
-	my ( $self, $max_time_s ) = @_;
-	$iSelect_xt->{_max_time_s} = $max_time_s if defined($max_time_s);
+sub max_x1 {
+	my ( $self, $max_x1 ) = @_;
 
-	# print("max_time_s is $iSelect_xt->{_max_time_s}\n\n");
+	if ( length $max_x1 ) {
+
+		$iSelect_xt->{_max_x1} = $max_x1;
+
+		# print("max_x1 is $iSelect_xt->{_max_x1}\n\n");
+
+	} else {
+		print("iSelect_xt, max_x1, value missing\n");
+	}
+	return ();
 }
 
 =head3  sub min_amplitude
@@ -553,18 +596,24 @@ sub min_amplitude {
 	# print("min_amplitude is $iSelect_xt->{_min_amplitude}\n\n");
 }
 
-=head3  sub min_time_s
+=head3  sub min_x1
 
- minumum amplitude to plot 
+ minumum time/ Hz to plot 
 
 =cut
 
-sub min_time_s {
+sub min_x1 {
+	my ( $self, $min_x1 ) = @_;
 
-	my ( $self, $min_time_s ) = @_;
-	$iSelect_xt->{_min_time_s} = $min_time_s if defined($min_time_s);
+	if ( length $min_x1 ) {
 
-	# print("min_time_s is $iSelect_xt->{_min_time_s}\n\n");
+		$iSelect_xt->{_min_x1} = $min_x1;
+
+		# print("min_x1 is $iSelect_xt->{_min_x1}\n\n");
+
+	} else {
+		print("iSelect_xt,min_x1, unexpected min time-s\n");
+	}
 }
 
 =head2  sub number_of_tries
@@ -611,8 +660,7 @@ sub set_purpose {
 	my ( $self, $type ) = @_;
 
 	if ( defined $type
-		&& $type ne $empty_string )
-	{
+		&& $type ne $empty_string ) {
 
 		use control 0.0.3;
 		my $control = control->new();
@@ -628,13 +676,13 @@ sub set_purpose {
 
 			# print("iSelect_xt,set_purpose: $iSelect_xt->{_purpose}\n");
 
-		}
-		else {
+		} else {
+
 			# print("iSelect_xt,set_purpose is unavailable, NADA\n");
 		}
 
-	}
-	else {
+	} else {
+
 		# print("iSelect_xt,set_purpose value is empty NADA\n");
 	}
 }

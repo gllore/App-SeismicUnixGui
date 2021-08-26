@@ -2017,7 +2017,7 @@ Modify the main program, i.e. immodpg.config.pm
 
 	 Q. How to add a unix command to the GUI?
 	 
-	 e.g. 1.create_evince_doc.pl to create the documentation in a file  o/p is evince.par
+	 e.g. 1.create_evince_doc.pl to create the documentation in a file;  o/p is evince.par
 	 	  2. evince_doc.pm parses out the important switches using regex 
 	 	  3. evince_doc2pm.pl creates the .config, _spec.pm and .pm files
 	 N.B. evince_package, write_pm organizes text sequences for output

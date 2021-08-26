@@ -44,7 +44,6 @@ use xk;
 
 my $iPick_Tk = {_prompt => ''};
 
-
 =head2 Instantiate classes:
 
  Create a new version of the package 
@@ -71,17 +70,16 @@ my $base_file_name = $CFG_h->{base_file_name};
 my $first_gather   = $CFG_h->{suximage}{1}{first_gather};
 my $last_gather    = $CFG_h->{suximage}{1}{last_gather};
 my $gather_inc     = $CFG_h->{suximage}{1}{gather_inc};
-my $freq           = $CFG_h->{sugain}{1}{freq};
+my $freq                  = $CFG_h->{sugain}{1}{freq};
 my $gather_type    = $CFG_h->{suximage}{1}{gather_type};
 my $min_amplitude  = $CFG_h->{suximage}{1}{min_amplitude};
 my $max_amplitude  = $CFG_h->{suximage}{1}{max_amplitude};
-my $min_time_s     = $CFG_h->{suximage}{1}{min_time_s};
-my $max_time_s     = $CFG_h->{suximage}{1}{max_time_s};
+my $min_x1     = $CFG_h->{suximage}{1}{min_x1};
+my $max_x1     = $CFG_h->{suximage}{1}{max_x1};
 my $purpose        = $CFG_h->{suximage}{1}{purpose};
 
 =head2 Declare variables 
-
-    in local memory space
+ in local memory space
 
 =cut
 
@@ -101,8 +99,8 @@ $iPick->offset_type($offset_type);
 $iPick->freq($freq);
 $iPick->min_amplitude($min_amplitude);
 $iPick->max_amplitude($max_amplitude);
-$iPick->min_time_s($min_time_s);
-$iPick->max_time_s($max_time_s);
+$iPick->min_x1($min_x1);
+$iPick->max_x1($max_x1);
 $iPick->gather_num($gather);
 $iPick->set_purpose($purpose);
 $iPick->set_message_type('iPick_xt');

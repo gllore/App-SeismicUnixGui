@@ -17,16 +17,39 @@ package iPick;
 
 =head3 NOTES 
 
- "purpose" is now exclusively 'geopsy', in which case the processing is slightly different and
+ "purpose" is now exclusively 'geopsy', in which case the processing
+  is slightly different and
  the output directories and files have a unique format
  
- ep is an appropriated gather header. If you do not have it
- defined as a gather header variables, then you can have ep=0
- and allow the ep max=0 and ep min=0  
+ ep is an appropriated gather header. 
+ If you do not want to have ep
+ defined as a gather header variable, then the following is allowed:
+ p=0
+ep max=0 a
+ep min=0  
  
 
 =head4 
- Examples
+ Examples:
+
+     base_file_name  	= 30Hz_All_geom_geom;
+     gather_header  	= fldr;
+     offset_type  		= tracl;  ( or e.g., offset but only affects the label *)
+     first_gather   	    = 1;
+     gather_inc    		= 1;
+     last_gather    	    = 100;
+     freq    		            = 0,3,100,200;  or freq = (can be left empty without any values as well)
+     gather_type    	    = fldr;
+     min_amplitude    = .0;
+     max_amplitude    = .75;
+     min_x1          = 15.873015           (= Hz for geopsy purpose)
+     max_x1         = 999.999                (= Hz for geopsy purpose)
+      purpose                  = geopsy
+      
+      * if you want offset to be considered when plotting data
+      then modify the d2 and f2 values prior to picking.
+      
+  
 
 =head3 SEISMIC UNIX NOTES  
 
@@ -67,8 +90,8 @@ use old_data;
 
 use SuMessages;
 use SeismicUnix qw ($on $off $in $to $go $ipicks_par_
-  $ipick_check_pickfile_ $false $true
-  $itemp_picks_ $itemp_picks_sorted_);
+	$ipick_check_pickfile_ $false $true
+	$itemp_picks_ $itemp_picks_sorted_);
 
 my $Project            = new Project_config;
 my ($PL_SEISMIC)       = $Project->PL_SEISMIC();
@@ -110,25 +133,25 @@ my $empty_string    = $var->{_empty_string};
 =cut
 
 my $iPick = {
-    _gather_header     => '',
-    _offset_type       => '',
-    _gather_num        => '',
-    _gather_num_suffix => '',
-    _exists            => '',
-    _file_in           => '',
-    _freq              => '',
-    _gather_type       => '',
-    _inbound           => '',
-    _inbound_curve     => '',
-    _max_amplitude     => '',
-    _max_time_s        => '',
-    _min_amplitude     => '',
-    _min_time_s        => '',
-    _next_step         => '',
-    _number_of_tries   => '',
-    _purpose           => '',
-    _textfile_in       => '',
-    _textfile_out      => ''
+	_gather_header     => '',
+	_offset_type       => '',
+	_gather_num        => '',
+	_gather_num_suffix => '',
+	_exists            => '',
+	_file_in           => '',
+	_freq              => '',
+	_gather_type       => '',
+	_inbound           => '',
+	_inbound_curve     => '',
+	_max_amplitude     => '',
+	_max_x1        => '',
+	_min_amplitude     => '',
+	_min_x1        => '',
+	_next_step         => '',
+	_number_of_tries   => '',
+	_purpose           => '',
+	_textfile_in       => '',
+	_textfile_out      => ''
 };
 
 =head2
@@ -147,37 +170,37 @@ my ( @flow, @cp, @items );
 =cut
 
 sub clear {
-    $iPick->{_gather_num}        = '';
-    $iPick->{_gather_type}       = '';
-    $iPick->{_gather_header}     = '';
-    $iPick->{_offset_type}       = '';
-    $iPick->{_gather_num_suffix} = '';
-    $iPick->{_exists}            = '';
-    $iPick->{_file_in}           = '';
-    $iPick->{_freq}              = '';
-    $iPick->{_inbound}           = '';
-    $iPick->{_inbound_curve}     = '';
-    $iPick->{_max_amplitude}     = '';
-    $iPick->{_max_time_s}        = '';
-    $iPick->{_min_amplitude}     = '';
-    $iPick->{_min_time_s}        = '';
-    $iPick->{_next_step}         = '';
-    $iPick->{_number_of_tries}   = '';
-    $iPick->{_purpose}           = '';
-    $iPick->{_textfile_in}       = '';
-    $iPick->{_textfile_out}      = '';
+	$iPick->{_gather_num}        = '';
+	$iPick->{_gather_type}       = '';
+	$iPick->{_gather_header}     = '';
+	$iPick->{_offset_type}       = '';
+	$iPick->{_gather_num_suffix} = '';
+	$iPick->{_exists}            = '';
+	$iPick->{_file_in}           = '';
+	$iPick->{_freq}              = '';
+	$iPick->{_inbound}           = '';
+	$iPick->{_inbound_curve}     = '';
+	$iPick->{_max_amplitude}     = '';
+	$iPick->{_max_x1}        = '';
+	$iPick->{_min_amplitude}     = '';
+	$iPick->{_min_x1}        = '';
+	$iPick->{_next_step}         = '';
+	$iPick->{_number_of_tries}   = '';
+	$iPick->{_purpose}           = '';
+	$iPick->{_textfile_in}       = '';
+	$iPick->{_textfile_out}      = '';
 
 }
 
 =head2 sub icp_sorted_2_old_picks
 
- When user wants to recheck the data 
- this sub will allow the user to 
- recheck  using an old sorted file
+ When user wants to rreview old data 
+ this sub allows the user to 
+use a prior sorted file
  Juan M. Lorenzo
  Jan 10 2010
 
-    ted_inbound	= $DATA_DIR_OUT.'/'.$iPick->{_inbound_curve_file};
+  ted_inbound	= $DATA_DIR_OUT.'/'.$iPick->{_inbound_curve_file};
   my $outbound			= $DATA_DIR_OUT.'/'.$itemp_picks_.$iPick->{_file_in};
 
  	$cp    ->from($inbound);
@@ -192,20 +215,20 @@ sub clear {
 
 sub _icp_sorted2temp_picks {
 
-    my ( $inbound_sorted, $outbound );
-    my ($writefile_out);
-    my ($flow);
-    my ( $XTpicks_out, $XTpicks_in );
+	my ( $inbound_sorted, $outbound );
+	my ($writefile_out);
+	my ($flow);
+	my ( $XTpicks_out, $XTpicks_in );
 
-    &_inbound_curve();
+	&_inbound_curve();
 
-    $inbound_sorted = $iPick->{_inbound_curve};
-    $outbound       = $DATA_DIR_OUT . '/' . $itemp_picks_ . $iPick->{_file_in};
+	$inbound_sorted = $iPick->{_inbound_curve};
+	$outbound       = $DATA_DIR_OUT . '/' . $itemp_picks_ . $iPick->{_file_in};
 
-    $cp->clear();
-    $cp->from($inbound_sorted);
-    $cp->to($outbound);
-    $cp[1] = $cp->Step();
+	$cp->clear();
+	$cp->from($inbound_sorted);
+	$cp->to($outbound);
+	$cp[1] = $cp->Step();
 
 =head2
 
@@ -213,8 +236,8 @@ sub _icp_sorted2temp_picks {
 
 =cut 
 
-    @items = ( $cp[1] );
-    $flow[1] = $run->modules( \@items );
+	@items = ( $cp[1] );
+	$flow[1] = $run->modules( \@items );
 
 =head2
 
@@ -222,7 +245,7 @@ sub _icp_sorted2temp_picks {
 
 =cut 
 
-    $run->flow( \$flow[1] );
+	$run->flow( \$flow[1] );
 
 =head2
 
@@ -230,10 +253,10 @@ sub _icp_sorted2temp_picks {
 
 =cut
 
-    # print  "$flow[1]\n";
-    # $log->file($flow[1]);
+	# print  "$flow[1]\n";
+	# $log->file($flow[1]);
 
-    #end of copy of XT old picks sorted to iXTpicks_old
+	#end of copy of XT old picks sorted to iXTpicks_old
 }
 
 =head2  sub _inbound_curve
@@ -244,20 +267,18 @@ sub _icp_sorted2temp_picks {
 
 sub _inbound_curve {
 
-    my ($self) = @_;
+	my ($self) = @_;
 
-    if ( defined $iPick->{_file_in} ) {
+	if ( defined $iPick->{_file_in} ) {
 
-        my $file_in = $iPick->{_file_in};
-        $iPick->{_inbound_curve} =
-          $DATA_DIR_OUT . '/' . $itemp_picks_sorted_ . $file_in;
+		my $file_in = $iPick->{_file_in};
+		$iPick->{_inbound_curve} = $DATA_DIR_OUT . '/' . $itemp_picks_sorted_ . $file_in;
 
-        # print("iPick, _inbound_curve: $iPick->{_inbound_curve} \n\n");
+		# print("iPick, _inbound_curve: $iPick->{_inbound_curve} \n\n");
 
-    }
-    else {
-        print("iPick, _inbound_curve: unexpected file_in \n\n");
-    }
+	} else {
+		print("iPick, _inbound_curve: unexpected file_in \n\n");
+	}
 }
 
 =head2 sub gather_header
@@ -271,19 +292,17 @@ sub _inbound_curve {
 =cut
 
 sub gather_header {
-    my ( $self, $gather_header ) = @_;
+	my ( $self, $gather_header ) = @_;
 
-    if ( defined($gather_header)
-        || $gather_header eq $empty_string )
-    {
+	if ( defined($gather_header)
+		|| $gather_header eq $empty_string ) {
 
-        $iPick->{_gather_header} = $gather_header;
+		$iPick->{_gather_header} = $gather_header;
 
-    }
-    else {
-        print("iPick,gather_header, unexpected gather_header");
-    }
-    return ();
+	} else {
+		print("iPick,gather_header, unexpected gather_header");
+	}
+	return ();
 }
 
 =head2 sub data_scale
@@ -293,19 +312,17 @@ sub gather_header {
 =cut
 
 sub data_scale {
-    my ( $self, $data_scale ) = @_;
+	my ( $self, $data_scale ) = @_;
 
-    if ( defined($data_scale)
-        || $data_scale eq $empty_string )
-    {
+	if ( defined($data_scale)
+		|| $data_scale eq $empty_string ) {
 
-        $iPick->{_data_scale} = $data_scale;
+		$iPick->{_data_scale} = $data_scale;
 
-    }
-    else {
-        print("iPick,data_scale, unexpected data_scale");
-    }
-    return ();
+	} else {
+		print("iPick,data_scale, unexpected data_scale");
+	}
+	return ();
 }
 
 =head2  sub file_in
@@ -316,37 +333,36 @@ sub data_scale {
 =cut
 
 sub file_in {
-    my ( $self, $file_in ) = @_;
+	my ( $self, $file_in ) = @_;
 
-    if ( $file_in && $file_in ne $empty_string ) {
+	if ( $file_in && $file_in ne $empty_string ) {
 
-        # e.g. 'sp1' becomes sp1
-        $control->set_infection($file_in);
-        $file_in = $control->get_ticksBgone();
-        $iPick->{_file_in} = $file_in;
+		# e.g. 'sp1' becomes sp1
+		$control->set_infection($file_in);
+		$file_in = $control->get_ticksBgone();
+		$iPick->{_file_in} = $file_in;
 
-        # print("iPick,file_in,file is $iPick->{_file_in} \n");
+		# print("iPick,file_in,file is $iPick->{_file_in} \n");
 
-    }
-    else {
-        print("iPick,file_in,file does not exist\n");
-    }
-    return ();
+	} else {
+		print("iPick,file_in,file does not exist\n");
+	}
+	return ();
 }
 
 =head2 sub freq
-
-  creates the bandpass frequencies to filter data before
-  conducting amplitude analysis
-  e.g., "3,6,40,50"
+Bandpass filter frequencies before
+ conducting amplitude analysis
+ e.g., "3,6,40,50"
  
 =cut
 
 sub freq {
-    my ( $self, $freq ) = @_;
-    $iPick->{_freq} = $freq if defined($freq);
+	my ( $self, $freq ) = @_;
 
-    # print("iPick,freq,freq is$iPick->{_freq}\n\n");
+	$iPick->{_freq} = $freq if defined($freq);
+
+	# print("iPick,freq,freq is$iPick->{_freq}\n\n");
 }
 
 =head2 sub gather_num
@@ -356,45 +372,41 @@ sub freq {
 =cut
 
 sub gather_num {
-    my ( $self, $gather_num ) = @_;
+	my ( $self, $gather_num ) = @_;
 
-    if ( defined $gather_num && $gather_num ne $empty_string ) {
-        $iPick->{_gather_num}        = $gather_num;
-        $iPick->{_gather_num_suffix} = '_gather' . $iPick->{_gather_num};
+	if ( defined $gather_num && $gather_num ne $empty_string ) {
+		$iPick->{_gather_num}        = $gather_num;
+		$iPick->{_gather_num_suffix} = '_gather' . $iPick->{_gather_num};
 
-        # print("iPick,gather_num: $gather_num\n");
+		# print("iPick,gather_num: $gather_num\n");
 
-    }
-    else {
-        print("iPick,gather_num, unexpected gather_num\n");
-    }
+	} else {
+		print("iPick,gather_num, unexpected gather_num\n");
+	}
 
 }
 
 =head2 sub  gather_type
-
-  define which family of messages to use
-  
-  e.g., SP or CDP
+Define which family of 
+interactive usermessages to use
+SP or CDP
 
 =cut
 
 sub gather_type {
-    my ( $self, $gather_type ) = @_;
+	my ( $self, $gather_type ) = @_;
 
-    if ( defined($gather_type)
-        || $gather_type eq $empty_string )
-    {
+	if ( defined($gather_type)
+		|| $gather_type eq $empty_string ) {
 
-        $iPick->{_gather_type} = $gather_type;
+		$iPick->{_gather_type} = $gather_type;
 
-        # print("iPick,gather_type: $gather_type\n");
+		# print("iPick,gather_type: $gather_type\n");
 
-    }
-    else {
-        print("iPick,gather_type, unexpected gather_type");
-    }
-    return ();
+	} else {
+		print("iPick,gather_type, unexpected gather_type");
+	}
+	return ();
 }
 
 =head2 sub  get4data_type
@@ -411,65 +423,59 @@ look for old data
 
 sub get4data_type {
 
-    my ($self) = @_;
+	my ($self) = @_;
 
-    if (   defined( $iPick->{_type} )
-        && defined( $iPick->{_gather_num} )
-        && defined( $iPick->{_file_in} )
-        && $iPick->{_file_in} ne $empty_string
-        && $iPick->{_type} ne $empty_string
-        && $iPick->{_gather_num} ne $empty_string )
-    {
+	if (   defined( $iPick->{_type} )
+		&& defined( $iPick->{_gather_num} )
+		&& defined( $iPick->{_file_in} )
+		&& $iPick->{_file_in} ne $empty_string
+		&& $iPick->{_type} ne $empty_string
+		&& $iPick->{_gather_num} ne $empty_string ) {
 
-        $check4old_data->gather_num( $iPick->{_gather_num} );
-        $check4old_data->file_in( $iPick->{_file_in} );
-        $iPick->{_exists} = $check4old_data->type( $iPick->{_type} );
-        my $result = $iPick->{_exists};
+		$check4old_data->gather_num( $iPick->{_gather_num} );
+		$check4old_data->file_in( $iPick->{_file_in} );
+		$iPick->{_exists} = $check4old_data->type( $iPick->{_type} );
+		my $result = $iPick->{_exists};
 
-        return ($result);
+		return ($result);
 
-    }
-    else {
-        print("iPick,type,missing type or gather_num\n");
-    }
+	} else {
+		print("iPick,type,missing type or gather_num\n");
+	}
 
 }
 
 =head2 sub iPicks2par
-
- convert format of pick files for use later
+Convert format of pick files for use later
  into "par" format 
  
 =cut
 
 sub iPicks2par {
 
-    my ($self) = @_;
-    my $ans;
+	my ($self) = @_;
+	my $ans;
 
-    if ( defined $iPick->{_file_in}
-        && $iPick->{_file_in} ne $empty_string )
-    {
+	if ( defined $iPick->{_file_in}
+		&& $iPick->{_file_in} ne $empty_string ) {
 
-        $iPick->{_inbound} =
-          $DATA_DIR_IN . '/' . $iPick->{_file_in} . $data_suffix_in;
-        $ans = $test->does_file_exist( \$iPick->{_inbound} );
+		$iPick->{_inbound} = $DATA_DIR_IN . '/' . $iPick->{_file_in} . $data_suffix_in;
+		$ans = $test->does_file_exist( \$iPick->{_inbound} );
 
-        # print("iPick, iPicks2par, Does file exist? $ans \n");
-        # print("iPick, iPicks2par, file: $iPick->{_inbound}\n");
-    }
+		# print("iPick, iPicks2par, Does file exist? $ans \n");
+		# print("iPick, iPicks2par, file: $iPick->{_inbound}\n");
+	}
 
-    if ($ans) {
+	if ($ans) {
 
-        $iPicks2par->file_in( $iPick->{_file_in} );
-        $iPicks2par->calc();
+		$iPicks2par->file_in( $iPick->{_file_in} );
+		$iPicks2par->calc();
 
-    }
-    else {
-        print("iPick, iPicks2par, file does not exist\n");
-    }
+	} else {
+		print("iPick, iPicks2par, file does not exist\n");
+	}
 
-    return ();
+	return ();
 }
 
 =head2 sub iPicks2sort
@@ -481,40 +487,37 @@ sub iPicks2par {
 
 sub iPicks2sort {
 
-    my ($self) = @_;
-    my $ans;
+	my ($self) = @_;
+	my $ans;
 
-    if ( defined $iPick->{_file_in}
-        && $iPick->{_file_in} ne $empty_string )
-    {
+	if ( defined $iPick->{_file_in}
+		&& $iPick->{_file_in} ne $empty_string ) {
 
-        # print("iPick, iPicks2sort, file :$iPick->{_file_in}\n");
-        $iPick->{_inbound} =
-          $DATA_DIR_OUT . '/' . $itemp_picks_ . $iPick->{_file_in};
+		# print("iPick, iPicks2sort, file :$iPick->{_file_in}\n");
+		$iPick->{_inbound} = $DATA_DIR_OUT . '/' . $itemp_picks_ . $iPick->{_file_in};
 
-        # print("iPick, iPicks2sort, file :$iPick->{_inbound}\n");
-        $ans = $test->does_file_exist( \$iPick->{_inbound} );
-    }
+		# print("iPick, iPicks2sort, file :$iPick->{_inbound}\n");
+		$ans = $test->does_file_exist( \$iPick->{_inbound} );
+	}
 
-    if ($ans) {
+	if ($ans) {
 
-        if ( $iPick->{_number_of_tries} > 0 ) {
+		if ( $iPick->{_number_of_tries} > 0 ) {
 
-            # print("iPick,iPicks2sort,file, file_in: $iPick->{_file_in}\n");
-            $iPicks2sort->file_in( $iPick->{_file_in} );
-            $iPicks2sort->calc();
+			# print("iPick,iPicks2sort,file, file_in: $iPick->{_file_in}\n");
+			$iPicks2sort->file_in( $iPick->{_file_in} );
+			$iPicks2sort->calc();
 
-        }
-        else {
-            # print("iPick,iPicks2sort,NADA\n");
-        }
+		} else {
 
-    }
-    else {
-        print("iPick, iPicks2sort, file does not exist\n");
-    }
+			# print("iPick,iPicks2sort,NADA\n");
+		}
 
-    return ();
+	} else {
+		print("iPick, iPicks2sort, file does not exist\n");
+	}
+
+	return ();
 }
 
 =head2 sub iSave_picks
@@ -524,14 +527,14 @@ sub iPicks2sort {
 =cut
 
 sub iSave_picks {
-    my ($self) = @_;
-    $iSave_picks->gather_num( $iPick->{_gather_num} );
-    $iSave_picks->gather_header( $iPick->{_gather_header} );
-    $iSave_picks->gather_type( $iPick->{_gather_type} );
-    $iSave_picks->file_in( $iPick->{_file_in} );
-    $iSave_picks->set_purpose( $iPick->{_purpose} );
-    $iSave_picks->calc();
-    return ();
+	my ($self) = @_;
+	$iSave_picks->gather_num( $iPick->{_gather_num} );
+	$iSave_picks->gather_header( $iPick->{_gather_header} );
+	$iSave_picks->gather_type( $iPick->{_gather_type} );
+	$iSave_picks->file_in( $iPick->{_file_in} );
+	$iSave_picks->set_purpose( $iPick->{_purpose} );
+	$iSave_picks->calc();
+	return ();
 }
 
 =head2 sub  iSelect_xt
@@ -543,53 +546,51 @@ sub iSave_picks {
 
 sub iSelect_xt {
 
-    my ($self) = @_;
+	my ($self) = @_;
 
-    if ( defined $iPick->{_file_in}
-        && $iPick->{_file_in} ne $empty_string )
-    {
+	if ( defined $iPick->{_file_in}
+		&& $iPick->{_file_in} ne $empty_string ) {
 
-        $iPick->{_inbound} =
-          $DATA_DIR_IN . '/' . $iPick->{_file_in} . $data_suffix_in;
-        my $ans = $test->does_file_exist( \$iPick->{_inbound} );
+		$iPick->{_inbound} = $DATA_DIR_IN . '/' . $iPick->{_file_in} . $data_suffix_in;
+		my $ans = $test->does_file_exist( \$iPick->{_inbound} );
 
-        # print("iPick,iSelect_xt, file: $iPick->{_file_in} exists?:$ans\n");
+		# print("iPick,iSelect_xt, file: $iPick->{_file_in} exists?:$ans\n");
 
-        if ($ans) {
+		if ($ans) {
 
-            # update a possible previous pick and save to a new file name for
-            # later use in ShowNselect
-            if ( $iPick->{_number_of_tries} >= 2 ) {
+			# update a possible previous pick and save to a new file name for
+			# later use in ShowNselect
+			if ( $iPick->{_number_of_tries} >= 2 ) {
 
-                &iPicks2sort()
-                  ; # will not wait for sunix programs to stop so must be done here
-                    # and at the start of picking
+				&iPicks2sort();
 
-            }
-            else {
-                # print("iPick, iSelect_xt, NADA\n");
-            }
+				# will not wait for sunix programs to stop so must be done here
+				# and at the start of picking
 
-            $iSelect_xt->gather_type( $iPick->{_gather_type} );
-            $iSelect_xt->offset_type( $iPick->{_offset_type} );
-            $iSelect_xt->gather_header( $iPick->{_gather_header} );
-            $iSelect_xt->file_in( $iPick->{_file_in} );
-            $iSelect_xt->freq( $iPick->{_freq} );
-            $iSelect_xt->gather_num( $iPick->{_gather_num} );
-            $iSelect_xt->max_amplitude( $iPick->{_max_amplitude} );
-            $iSelect_xt->max_time_s( $iPick->{_max_time_s} );
-            $iSelect_xt->min_amplitude( $iPick->{_min_amplitude} );
-            $iSelect_xt->min_time_s( $iPick->{_min_time_s} );
-            $iSelect_xt->number_of_tries( $iPick->{_number_of_tries} );
-            $iSelect_xt->set_purpose( $iPick->{_purpose} );
-            $iSelect_xt->calcNdisplay();
+			} else {
 
-        }
-        else {
-            print("iPick,iSelect_xt, file does not exist. ans=$ans\n");
-        }
+				# print("iPick, iSelect_xt, NADA\n");
+			}
 
-    }
+			$iSelect_xt->gather_type( $iPick->{_gather_type} );
+			$iSelect_xt->offset_type( $iPick->{_offset_type} );
+			$iSelect_xt->gather_header( $iPick->{_gather_header} );
+			$iSelect_xt->file_in( $iPick->{_file_in} );
+			$iSelect_xt->freq( $iPick->{_freq} );
+			$iSelect_xt->gather_num( $iPick->{_gather_num} );
+			$iSelect_xt->max_amplitude( $iPick->{_max_amplitude} );
+			$iSelect_xt->max_x1( $iPick->{_max_x1} );
+			$iSelect_xt->min_amplitude( $iPick->{_min_amplitude} );
+			$iSelect_xt->min_x1( $iPick->{_min_x1} );
+			$iSelect_xt->number_of_tries( $iPick->{_number_of_tries} );
+			$iSelect_xt->set_purpose( $iPick->{_purpose} );
+			$iSelect_xt->calcNdisplay();
+
+		} else {
+			print("iPick,iSelect_xt, file does not exist. ans=$ans\n");
+		}
+
+	}
 
 }
 
@@ -602,22 +603,22 @@ sub iSelect_xt {
 =cut
 
 sub iShowNselect_picks {
-    my (@self) = @_;
+	my (@self) = @_;
 
-    &_icp_sorted2temp_picks;
-    $iShowNselect_picks->file_in( $iPick->{_file_in} );
-    $iShowNselect_picks->gather_header( $iPick->{_gather_header} );
-    $iShowNselect_picks->offset_type( $iPick->{_offset_type} );
-    $iShowNselect_picks->freq( $iPick->{_freq} );
-    $iShowNselect_picks->gather_num( $iPick->{_gather_num} );
-    $iShowNselect_picks->max_amplitude( $iPick->{_max_amplitude} );
-    $iShowNselect_picks->min_time_s( $iPick->{_min_time_s} );
-    $iShowNselect_picks->max_time_s( $iPick->{_max_time_s} );
-    $iShowNselect_picks->min_amplitude( $iPick->{_min_amplitude} );
-    $iShowNselect_picks->number_of_tries( $iPick->{_number_of_tries} );
-    $iShowNselect_picks->set_purpose( $iPick->{_purpose} );
-    $iShowNselect_picks->calcNdisplay();
-    return ();
+	&_icp_sorted2temp_picks;
+	$iShowNselect_picks->file_in( $iPick->{_file_in} );
+	$iShowNselect_picks->gather_header( $iPick->{_gather_header} );
+	$iShowNselect_picks->offset_type( $iPick->{_offset_type} );
+	$iShowNselect_picks->freq( $iPick->{_freq} );
+	$iShowNselect_picks->gather_num( $iPick->{_gather_num} );
+	$iShowNselect_picks->max_amplitude( $iPick->{_max_amplitude} );
+	$iShowNselect_picks->min_x1( $iPick->{_min_x1} );
+	$iShowNselect_picks->max_x1( $iPick->{_max_x1} );
+	$iShowNselect_picks->min_amplitude( $iPick->{_min_amplitude} );
+	$iShowNselect_picks->number_of_tries( $iPick->{_number_of_tries} );
+	$iShowNselect_picks->set_purpose( $iPick->{_purpose} );
+	$iShowNselect_picks->calcNdisplay();
+	return ();
 }
 
 =head2
@@ -628,39 +629,37 @@ sub iShowNselect_picks {
 
 sub max_amplitude {
 
-    my ( $self, $max_amplitude ) = @_;
+	my ( $self, $max_amplitude ) = @_;
 
-    if ( defined($max_amplitude) ) {
+	if ( defined($max_amplitude) ) {
 
-        $iPick->{_max_amplitude} = $max_amplitude;
+		$iPick->{_max_amplitude} = $max_amplitude;
 
-        # print("max_amplitude is $iPick->{_max_amplitude}\n\n");
+		# print("max_amplitude is $iPick->{_max_amplitude}\n\n");
 
-    }
-    else {
-        print("iPick,max_amplitude, unexpected max amplitude\n");
-    }
+	} else {
+		print("iPick,max_amplitude, unexpected max amplitude\n");
+	}
 }
 
 =head2
 
- sub maximum time to plot 
+ sub maximum time/Hz to plot 
 
 =cut
 
-sub max_time_s {
-    my ( $self, $max_time_s ) = @_;
+sub max_x1 {
+	my ( $self, $max_x1 ) = @_;
 
-    if ( defined($max_time_s) ) {
+	if ( length $max_x1 ) {
 
-        $iPick->{_max_time_s} = $max_time_s;
+		$iPick->{_max_x1} = $max_x1;
 
-        # print("max_time_s is $iPick->{_max_time_s}\n\n");
+		# print("max_x1 is $iPick->{_max_x1}\n\n");
 
-    }
-    else {
-        print("iPick,max_time_s, unexpected max time-s\n");
-    }
+	} else {
+		print("iPick,max_x1, unexpected max time-s\n");
+	}
 }
 
 =head2 sub  message
@@ -671,17 +670,16 @@ sub max_time_s {
 
 sub message {
 
-    my ( $self, $message ) = @_;
+	my ( $self, $message ) = @_;
 
-    if ( defined($message) ) {
-        $iPick->{_message} = $message;
+	if ( defined($message) ) {
+		$iPick->{_message} = $message;
 
-        # print("message is $iPick->{_message}\n\n");
+		# print("message is $iPick->{_message}\n\n");
 
-    }
-    else {
-        print("iPick,message, unexpected message\n");
-    }
+	} else {
+		print("iPick,message, unexpected message\n");
+	}
 }
 
 =head2
@@ -691,35 +689,35 @@ sub message {
 =cut
 
 sub min_amplitude {
-    my ( $self, $min_amplitude ) = @_;
+	my ( $self, $min_amplitude ) = @_;
 
-    if ( defined $min_amplitude && $min_amplitude ne $empty_string ) {
-        $iPick->{_min_amplitude} = $min_amplitude;
+	if ( defined $min_amplitude && $min_amplitude ne $empty_string ) {
+		$iPick->{_min_amplitude} = $min_amplitude;
 
-        # print("min_amplitude is $iPick->{_min_amplitude}\n\n");
-    }
-    else {
-        print("iPick,min_amplitude, unexpected min amplitude\n");
-    }
+		# print("min_amplitude is $iPick->{_min_amplitude}\n\n");
+	} else {
+		print("iPick,min_amplitude, unexpected min amplitude\n");
+	}
 }
 
 =head2
 
- sub minimum time to plot 
+ sub minimum time/Hzto plot 
 
 =cut
 
-sub min_time_s {
-    my ( $self, $min_time_s ) = @_;
+sub min_x1 {
+	my ( $self, $min_x1 ) = @_;
 
-    if ( defined($min_time_s) ) {
-        $iPick->{_min_time_s} = $min_time_s;
+	if ( length $min_x1 ) {
 
-        # print("min_time_s is $iPick->{_min_time_s}\n\n");
-    }
-    else {
-        print("iPick,min_time_s, unexpected min time-s\n");
-    }
+		$iPick->{_min_x1} = $min_x1;
+
+		# print("min_x1 is $iPick->{_min_x1}\n\n");
+
+	} else {
+		print("iPick,min_x1, unexpected min time-s\n");
+	}
 }
 
 =head2
@@ -732,19 +730,18 @@ sub min_time_s {
 
 sub number_of_tries {
 
-    my ( $self, $number_of_tries ) = @_;
+	my ( $self, $number_of_tries ) = @_;
 
-    if ( $number_of_tries ne $empty_string ) {
+	if ( $number_of_tries ne $empty_string ) {
 
-        $iPick->{_number_of_tries} = $number_of_tries
-          if defined($number_of_tries);
+		$iPick->{_number_of_tries} = $number_of_tries
+			if defined($number_of_tries);
 
-        # print("iPick, number_of_tries,$iPick->{_number_of_tries} \n\n");
+		# print("iPick, number_of_tries,$iPick->{_number_of_tries} \n\n");
 
-    }
-    else {
-        print("iPick, number_of_tries, unexpected number_of_tries} \n\n");
-    }
+	} else {
+		print("iPick, number_of_tries, unexpected number_of_tries} \n\n");
+	}
 }
 
 =head2 sub  offset_type
@@ -755,10 +752,10 @@ sub number_of_tries {
 
 sub offset_type {
 
-    my ( $self, $offset_type ) = @_;
-    $iPick->{_offset_type} = $offset_type if defined($offset_type);
+	my ( $self, $offset_type ) = @_;
+	$iPick->{_offset_type} = $offset_type if defined($offset_type);
 
-    # print("offset type -2 $offset_type\n\n");
+	# print("offset type -2 $offset_type\n\n");
 }
 
 =head2 sub  set_message
@@ -770,30 +767,29 @@ sub offset_type {
 
 sub set_message_type {
 
-    my ( $self, $type ) = @_;
+	my ( $self, $type ) = @_;
 
-    if ( $type ne $empty_string ) {
+	if ( $type ne $empty_string ) {
 
-        $iPick->{_message_type} = $type;
-        $SuMessages->set( $iPick->{_message_type} );
+		$iPick->{_message_type} = $type;
+		$SuMessages->set( $iPick->{_message_type} );
 
-        # print("iPick, type,$iPick->{_type} \n\n");
+		# print("iPick, type,$iPick->{_type} \n\n");
 
-        #=head3
-        #
-        #    update gather number for messages
-        #
-        #=cut
+		#=head3
+		#
+		#    update gather number for messages
+		#
+		#=cut
 
-        #		$SuMessages->gather_num($iPick->{_gather_num});
-        #		$SuMessages->instructions($iPick->{_instructions});
-        #		$SuMessages->gather_header($iPick->{_gather_header});
-        #		$SuMessages->gather_type($iPick->{_gather_type});
+		#		$SuMessages->gather_num($iPick->{_gather_num});
+		#		$SuMessages->instructions($iPick->{_instructions});
+		#		$SuMessages->gather_header($iPick->{_gather_header});
+		#		$SuMessages->gather_type($iPick->{_gather_type});
 
-    }
-    else {
-        print("iPick, type, unexpected type} \n\n");
-    }
+	} else {
+		print("iPick, type, unexpected type} \n\n");
+	}
 }
 
 =head2 sub  set_data_type
@@ -807,17 +803,16 @@ sub set_message_type {
 =cut
 
 sub set_data_type {
-    my ( $self, $type ) = @_;
+	my ( $self, $type ) = @_;
 
-    if ( $type && $type ne $empty_string ) {
+	if ( $type && $type ne $empty_string ) {
 
-        $iPick->{_type} = $type;
+		$iPick->{_type} = $type;
 
-    }
-    else {
-        print("iPick,set_data_type,missing data type\n");
-    }
-    return ();
+	} else {
+		print("iPick,set_data_type,missing data type\n");
+	}
+	return ();
 }
 
 =head2  sub set_purpose 
@@ -829,20 +824,19 @@ sub set_data_type {
 
 sub set_purpose {
 
-    my ( $self, $type ) = @_;
+	my ( $self, $type ) = @_;
 
-    if ( defined $type
-        && $type ne $empty_string )
-    {
+	if ( defined $type
+		&& $type ne $empty_string ) {
 
-        $iPick->{_purpose} = $type;
+		$iPick->{_purpose} = $type;
 
-        # print("iPick,set_purpose: $iPick->{_purpose}\n");
+		# print("iPick,set_purpose: $iPick->{_purpose}\n");
 
-    }
-    else {
-        # print("iPick,set_purpose is unavailable, NADA\n");
-    }
+	} else {
+
+		# print("iPick,set_purpose is unavailable, NADA\n");
+	}
 }
 
 1;

@@ -1,3 +1,5 @@
+/home/gllore/mars/seismics/pl/hrk_e122/ACH01_3axes_big_sand_tank/072821/rad_tangent_axial/1/gllore/suphasvel1_op.pl
+/home/gllore/mars/seismics/pl/hrk_e122/ACH01_3axes_big_sand_tank/072821/rad_tangent_axial/1/gllore/suphasvel1_op_tbd.pl
 /home/gllore/mars/seismics/pl/hrk_e122/ACH01_3axes_big_sand_tank/072821/rad_tangent_axial/1/gllore/suphasvel1.pl
 /home/gllore/mars/seismics/pl/hrk_e122/ACH01_3axes_big_sand_tank/072821/rad_tangent_axial/1/gllore/notes.pl
 /home/gllore/mars/seismics/pl/hrk_e122/ACH01_3axes_big_sand_tank/072821/rad_tangent_axial/1/gllore/log.txt
@@ -8,5 +10,3 @@
 /home/gllore/mars/seismics/pl/hrk_e122/wheel/071621/rad_tangent_axial/1/gllore/5.xgraph_sp1_15cm_offset_piezo_tr3_tr1_interleaved.pl
 /home/gllore/mars/seismics/pl/hrk_e122/wheel/071621/rad_tangent_axial/1/gllore/3.interleave_sp1_15cm_offset_tr3_tr1.pl
 /home/gllore/mars/seismics/pl/hrk_e122/wheel/071621/rad_tangent_axial/1/gllore/2.suwind_sp1_15cm_offset_piezo_tr1.pl
-/home/gllore/mars/seismics/pl/hrk_e122/wheel/071621/rad_tangent_axial/1/gllore/1b.plot_sp1_15cm_offset_tr3.pl
-/home/gllore/mars/seismics/pl/hrk_e122/wheel/071621/rad_tangent_axial/1/gllore/1.suwind_sp1_15cm_offset_piezo_tr3.pl

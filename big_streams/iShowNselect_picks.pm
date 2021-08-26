@@ -117,9 +117,9 @@ my $iShowNselect_picks = {
 	_inbound_curve_file => '',
 	_message_type       => '',
 	_max_amplitude      => '',
-	_max_time_s         => '',
+	_max_x1         => '',
 	_min_amplitude      => '',
-	_min_time_s         => '',
+	_min_x1         => '',
 	_ntaper             => '',
 	_number_of_tries    => '',
 	_offset_type        => '',
@@ -144,9 +144,9 @@ sub clear {
 	$iShowNselect_picks->{_inbound}            = '';
 	$iShowNselect_picks->{_inbound_curve_file} = '', $iShowNselect_picks->{_message_type} = '';
 	$iShowNselect_picks->{_max_amplitude}      = '';
-	$iShowNselect_picks->{_max_time_s}         = '';
+	$iShowNselect_picks->{_max_x1}         = '';
 	$iShowNselect_picks->{_min_amplitude}      = '';
-	$iShowNselect_picks->{_min_time_s}         = '';
+	$iShowNselect_picks->{_min_x1}         = '';
 	$iShowNselect_picks->{_ntaper}             = '';
 	$iShowNselect_picks->{_number_of_tries}    = '';
 	$iShowNselect_picks->{_offset_type}        = '';
@@ -192,7 +192,7 @@ sub gather_header {
 	$iShowNselect_picks->{_gather_header} = $gather_header
 		if defined($gather_header);
 
-	# print(" header type is $iShowNselect_picks->{_gather_header}\n\n");
+	print(" header type is $iShowNselect_picks->{_gather_header}\n\n");
 }
 
 =head2 subroutine calcNdisplay
@@ -221,9 +221,10 @@ sub calcNdisplay {
 	$suwind[1] = $suwind->Step();
 
 	$suwind->clear();
-	$suwind->tmin( $iShowNselect_picks->{_min_time_s} );
-	$suwind->tmax( $iShowNselect_picks->{_max_time_s} );
+	$suwind->tmin( $iShowNselect_picks->{_min_x1} );
+	$suwind->tmax( $iShowNselect_picks->{_max_x1} );
 	$suwind[2] = $suwind->Step();
+
 
 =head2 Filter parameters
 
@@ -268,7 +269,7 @@ sub calcNdisplay {
 	$sugain->agc($on);
 
 	# nominal agc width
-	my $wagc = ( $iShowNselect_picks->{_max_time_s} - $iShowNselect_picks->{_min_time_s} ) / 10;
+	my $wagc = ( $iShowNselect_picks->{_max_x1} - $iShowNselect_picks->{_min_x1} ) / 10;
 
 	# print("iShowNselect_picks,calcNdisplay,wagc=$wagc\n");
 	$sugain->width($wagc);
@@ -548,31 +549,45 @@ sub min_amplitude {
 
 }
 
-=head2  sub max_time_s
+=head2  sub max_x1
 
- maximum time to plot 
+ maximum time/Hz  to plot 
 
 =cut
 
-sub max_time_s {
-	my ( $self, $max_time_s ) = @_;
-	$iShowNselect_picks->{_max_time_s} = $max_time_s if defined($max_time_s);
+sub max_x1 {
+	my ( $self, $max_x1 ) = @_;
 
-	# print("max_time_s is $iShowNselect_picks->{_max_time_s}\n\n");
+	if ( length $max_x1 ) {
+
+		$iShowNselect_picks->{_max_x1} = $max_x1;
+
+		# print("max_x1 is $iShowNselect_picks->{_max_x1}\n\n");
+
+	} else {
+		print("iShowNselect_picks, max_x1, value missing\n");
+	}
+	return ();
 }
 
-=head3  sub min_time_s
+=head3  sub min_x1
 
- minumum amplitude to plot 
+ minumum time/Hz to plot 
 
 =cut
 
-sub min_time_s {
+sub min_x1 {
+	my ( $self, $min_x1 ) = @_;
 
-	my ( $self, $min_time_s ) = @_;
-	$iShowNselect_picks->{_min_time_s} = $min_time_s if defined($min_time_s);
+	if ( length $min_x1 ) {
 
-	# print("min_time_s is $iShowNselect_picks->{_min_time_s}\n\n");
+		$iShowNselect_picks->{_min_x1} = $min_x1;
+
+		# print("min_x1 is $iShowNselect_picks->{_min_x1}\n\n");
+
+	} else {
+		print("iShowNselect_picks,min_x1, unexpected min time-s\n");
+	}
 }
 
 =head2  sub number_of_tries
@@ -601,10 +616,11 @@ sub number_of_tries {
 
 sub offset_type {
 	my ( $self, $offset_type ) = @_;
+	
 	$iShowNselect_picks->{_offset_type} = $offset_type
 		if defined($offset_type);
 
-	# print(" header type is $iShowNselect_picks->{_offset_type}\n\n");
+	print(" offset type is $iShowNselect_picks->{_offset_type}\n\n");
 }
 
 =head2  sub set_purpose 
