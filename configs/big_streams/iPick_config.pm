@@ -75,14 +75,14 @@ sub get_values {
     # Warning: set using a scalar reference
     $iPick_config->{_prog_name} = \@{$superflow_config_names}[11];
 
-    # print("iPick_config, prog_name : @{$superflow_config_names}[11]\n");
+#    print("iPick_config, prog_name : @{$superflow_config_names}[11]\n");
 
     $config_superflows->set_program_name( $iPick_config->{_prog_name} );
 
     # parameter values from superflow configuration file
     $iPick_config->{_values_aref} = $config_superflows->get_values();
 
-    # print("iPick_config,values=@{$iPick_config->{_values_aref}}\n");
+#    print("iPick_config,values=@{$iPick_config->{_values_aref}}\n");
 
     my $base_file_name = @{ $iPick_config->{_values_aref} }[0];
     my $gather_header  = @{ $iPick_config->{_values_aref} }[1];

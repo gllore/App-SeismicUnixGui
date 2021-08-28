@@ -249,7 +249,7 @@ sub _get_program_config {
 =cut
 
 sub get {
-	
+
 	my ( $self, $program_sref ) = @_;
 	if (   defined $program_sref
 		&& ( defined $su_param->{_flow_type} )
@@ -274,8 +274,9 @@ sub get {
 		my $local_config_exists             = _check4local_config($program_sref);
 		my $user_active_project_path_exists = _check4user_config($program_sref);
 
-#		print("B. su_param, get, local_config_exists: $local_config_exists\n");
-#		print("C. su_param, get,user_active_project_path_exists: $user_active_project_path_exists\n");
+		print("B. su_param, get, local_config_exists: $local_config_exists\n");
+
+		#		print("C. su_param, get,user_active_project_path_exists: $user_active_project_path_exists\n");
 
 		if ( $su_param->{_flow_type} eq $flow_type_href->{_pre_built_superflow} ) {
 
@@ -288,22 +289,22 @@ sub get {
 				my $module_spec_pm = $module_spec . '.pm';
 
 				require $module_spec_pm;
-				my $package 		= $module_spec->new;
+				my $package = $module_spec->new;
 
 				# collect specifications of output directory
 				# from a program_spec.pm module
-				my $specs_h 		= $package->variables();
-				my $CONFIG  		= $specs_h->{_CONFIG};
+				my $specs_h = $package->variables();
+				my $CONFIG  = $specs_h->{_CONFIG};
 
 				$su_param->{_local_path} = $CONFIG;
-				$path                   = $su_param->{_local_path};
-				$sub_category_directory = '.';
+				$path                    = $su_param->{_local_path};
+				$sub_category_directory  = '.';
 				my $local_path             = $su_param->{_local_path};
 				my $sub_category_directory = $developer->get_program_sub_category();
 
-#				print("1.1 su_param,get,local configuration files exists\n");
-#				print("1.2 su_param,get,local_path:$CONFIG \n");
-#				print("1.3 su_param,get,sub_category_directory=$sub_category_directory\n");
+				#				print("1.1 su_param,get,local configuration files exists\n");
+				#				print("1.2 su_param,get,local_path:$CONFIG \n");
+				#				print("1.3 su_param,get,sub_category_directory=$sub_category_directory\n");
 
 			} elsif ($user_active_project_path_exists) {
 
@@ -313,8 +314,8 @@ sub get {
 				$path                   = $su_param->{_user_active_project_path};
 				$sub_category_directory = '.';
 
-#				print("CASE 1B su_param,get,user_active_project_path_exists= $user_active_project_path_exists\n");
-#				print("1B su_param,get,active path is now $su_param->{_user_active_project_path} \n");
+				#				print("CASE 1B su_param,get,user_active_project_path_exists= $user_active_project_path_exists\n");
+				#				print("1B su_param,get,active path is now $su_param->{_user_active_project_path} \n");
 
 			} elsif ( not $local_config_exists ) {
 
@@ -322,7 +323,7 @@ sub get {
 				$path                   = _get_global_lib();
 				$sub_category_directory = $developer->get_program_sub_category();
 
-#				print("1C su_param,get,using global lib: path is $path\n");
+				#				print("1C su_param,get,using global lib: path is $path\n");
 			}
 
 		} elsif ( $su_param->{_flow_type} eq $flow_type_href->{_user_built} ) {
@@ -330,10 +331,10 @@ sub get {
 			# CASE 2A: for use of sunix programs in user_built_flows
 			$path = _get_global_lib();
 
-#			print("CASE 2.A su_param,get,using global lib: path for sunix programs is $path\n");
+			#			print("CASE 2.A su_param,get,using global lib: path for sunix programs is $path\n");
 			$sub_category_directory = $developer->get_program_sub_category();
 
-#			print("2.A su_param,get,using sub_category_directory:  for sunix programs is $sub_category_directory\n");
+			#			print("2.A su_param,get,using sub_category_directory:  for sunix programs is $sub_category_directory\n");
 
 		} else {
 			print("su_param,get,unexpected\n");
@@ -346,24 +347,24 @@ sub get {
 
 		$program_config = _get_program_config();
 
-#         print("su_param, get,configuration file to read=$program_config\n");
+		#         print("su_param, get,configuration file to read=$program_config\n");
 
 		( $names_aref, $values_aref ) = $read->configs($program_config);
-		$su_param->{_names_aref} 	= $names_aref;
-		$length 					= scalar @$names_aref;
+		$su_param->{_names_aref} = $names_aref;
+		$length = scalar @$names_aref;
 
-#		print("su_param,get:we have $length pairs\n\n");
+		#		print("su_param,get:we have $length pairs\n\n");
 		for ( $i = 0, $j = 0; $i < $length; $i++, $j = $j + 2 ) {
 
 			$CFG[$j] = $$names_aref[$i];
 			$CFG[ ( $j + 1 ) ] = $$values_aref[$i];
 
-#			print("su_param,get,values:--$CFG[$j+1]--\n");
+			#			print("su_param,get,values:--$CFG[$j+1]--\n");
 		}
 
 		return ( \@CFG );
 
-} else {
+	} else {
 		print("su_param, missing either program_sref or flow type\n");
 		print("program_sref: $program_sref\n");
 		print("su_param->{_flow_type}: $su_param->{_flow_type}\n");
@@ -380,41 +381,45 @@ or sunix programs in user-built flows
 Check for local versions of the configuration files in PL_SEISMIC
 and also look in specified _CONFIG folder
  _CONFIG folder is defined as PL_SEISMIC for all but 
- pre-built big streams
-or superflows (e.g., immodpg)
-For the latter look at program_spec to find the definition for _CONFIG
+ pre-built big streams/superflows (e.g., immodpg)
+ 
+(For pre-built big streams, look at  program_spec to find 
+the definition for _CONFIG)
+
+		#		my $a       = $package->variables();
+		#		foreach my $key (sort keys %$a) {
+		#      	print (" su_param,_check4local_config, , key is $key, value is $a->{$key}\n");
+		#	}
+		#		my $ans= $a->{_CONFIG};
+		#		print("2. su_param,_check4local_config,package=$ans\n");
 
 =cut
 
 sub _check4local_config {
 	my ($name_sref) = @_;
-	
-	my $ans        = $false;
+
+	use Module::Refresh; # reload updated module
+	my $ans = $false;
 
 	if ( defined $name_sref
 		&& $name_sref ne $empty_string ) {
 
 		my $module_spec    = $$name_sref . '_spec';
 		my $module_spec_pm = $module_spec . '.pm';
-#		print("1. su_param,_check4local_config, module_spec_pm = $module_spec_pm \n");
-# my $prog_spec_pm = "iVA_spec";
-# eval  "use $prog_spec_pm;";
-		require $module_spec_pm;
-		my $package = $module_spec->new;
-		my $a = $package->variables();
-#		foreach my $key (sort keys %$a) {
-#      	print (" su_param,_check4local_config, , key is $key, value is $a->{$key}\n");
-#	}
-#		my $ans= $a->{_CONFIG};
-#		print("2. su_param,_check4local_config,package=$ans\n");
+		#		print("1. su_param,_check4local_config, module_spec_pm = $module_spec_pm \n");
+		my $refresher = Module::Refresh->new;
+		$refresher->refresh_module("$module_spec_pm");
+		my $package = $module_spec->new();
+
 		# collect specifications of output directory
 		# from a program_spec.pm module
-		my $specs_h  = $package->variables();
+		my $specs_h = $package->variables();
 		my $CONFIG  = $specs_h->{_CONFIG};
 
-#		print("3. su_param,_check4local_config, CONFIG=$CONFIG \n");
+		#		print("3. su_param,_check4local_config, CONFIG=$CONFIG \n");
 		my $prog_name_config = $CONFIG . '/' . $$name_sref . '.config';
-		# print("su_param,_check4local_config,prog_name_config =$prog_name_config\n");
+
+		#		print("su_param,_check4local_config,prog_name_config =$prog_name_config\n");
 		if ( -e ($prog_name_config) ) {
 			$ans = $true;
 
@@ -423,6 +428,7 @@ sub _check4local_config {
 
 		} else {
 			$ans = $false;
+
 			# print("su_param,_check4local_config, $prog_name_config not found\n")
 		}
 	} else {

@@ -24,7 +24,7 @@
 
 =head2 NOTES 
 
- We are using Moose.iPick
+ We are using Moose
  Moose already declares that you need debuggers turned on
  so you don't need a line like the following:
  use warnings;

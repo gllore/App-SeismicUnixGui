@@ -641,19 +641,17 @@ sub set_prog_name_config {
 sub inbound {
 	my ($self) = @_;
 
-	# print("config_superflows, inbound,_program_name_sref: $config_superflows->{_program_name_sref}\n");
 	if ( $config_superflows->{_program_name_sref} ) {
+		
 		use Project_config;
-
 		my $Project = Project_config->new();
-
 		my $PL_SEISMIC = $Project->PL_SEISMIC();
 
 		my $prog_name = ${ $config_superflows->{_program_name_sref} };
-
 		$config_superflows->{_program_name_config} = $prog_name . '.config';
-
 		$config_superflows->{_inbound} = $PL_SEISMIC . '/' . $config_superflows->{_program_name_config};
+		
+#	    print("config_superflows, inbound:: $config_superflows->{_inbound}\n");
 
 		return ();
 

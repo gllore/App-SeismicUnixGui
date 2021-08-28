@@ -46,8 +46,8 @@ use param_widgets4pre_built_streams;
 =cut
 
 # my $conditions4big_streams = conditions4big_streams->new();
-my $get 					= L_SU_global_constants->new();
-my $param_widgets 			= param_widgets4pre_built_streams->new();
+my $get 					        = L_SU_global_constants->new();
+my $param_widgets 	= param_widgets4pre_built_streams->new();
 my $whereami      			= whereami->new();
 my $gui_history  			= gui_history->new();
 my $pre_built_big_stream_href = $gui_history->get_defaults();
@@ -124,11 +124,10 @@ sub set_flowNsuperflow_name_w {
 }
 
 
-
 =head2 sub select
 
- chosen big stream
- displays the parameter names and their values
+ Chosen big stream
+ isplays the parameter names and their values
  but does not write them to a file
    	
  foreach my $key (sort keys %$pre_built_big_stream_href) {
@@ -147,7 +146,7 @@ sub select {
     my $binding            				= binding->new();
     my $name               				= name->new();
     my $pre_built_big_stream_messages 	= message_director->new();
-    my $config_superflows  				= config_superflows->new();
+    my $config_superflows  		= config_superflows->new();
     my $Project            				= 'Project';
 
     my $prog_name_sref = $pre_built_big_stream_href->{_prog_name_sref};
@@ -172,9 +171,9 @@ sub select {
     $whereami->set4superflow_select_button();
 
     # print("1. pre_built_superflow,_is_superflow_select_button,$pre_built_big_stream_href->{_is_superflow_select_button}\n");
-    $config_superflows->set_program_name($prog_name_sref);        # gets 1
-    $config_superflows->set_prog_name_config($prog_name_sref);    # gets 1
-    my $prog_name_config = $config_superflows->get_prog_name_config();    # gets 1
+    $config_superflows->set_program_name($prog_name_sref); 
+    $config_superflows->set_prog_name_config($prog_name_sref); 
+    my $prog_name_config = $config_superflows->get_prog_name_config(); 
 
     # case for Project.config
     if ( $prog_name_config eq $Project . '.config' ) {
@@ -199,10 +198,9 @@ sub select {
         else {
             print("pre_built_big_stream,superflow_select, bad file name\n");
         }
-
-        # Case for any OTHER superflow
     }
     else {
+    	 # Case for any OTHER big stream
         $config_superflows->inbound();
         $config_superflows->check2read();
     }
@@ -231,10 +229,8 @@ sub select {
     # print("3. pre_built_superflow,length,values=@{$pre_built_big_stream_href->{_values_aref}}\n");
     # print("pre_built_big_stream,length = maximum default! $pre_built_big_stream_href->{_superflow_length}\n");
     my $here = $whereami->get4superflow_select_button();
-
-    # $param_widgets->set_location_in_gui($here);
-
-    # widgets initialized in a super class
+    
+    # widgets were initialized in a super class
     #$param_widgets		->set_labels_w_aref($pre_built_big_stream_href->{_labels_w_aref} );
     #$param_widgets		->set_values_w_aref($pre_built_big_stream_href->{_values_w_aref} );
     #$param_widgets		->set_check_buttons_w_aref($pre_built_big_stream_href->{_check_buttons_w_aref} );

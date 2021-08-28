@@ -34,7 +34,7 @@ L_SU, FileDialog_button
 
 If there are superflow bindings for opening data files, then these use 
 	L_SU, pre_built_superflows,
- 			pre_built_superflow->select() ( is it now pre_built_big_stream?) and 
+ 			pre_built_big_stream->select( )
  			_FileDialog_button,
  			pre_built_superflow,select,binding->set() (where actual binding takes place!)
 
@@ -2648,4 +2648,21 @@ color_listbox
                _set_outbound2pl
                      $files_LSU->{_flow_name_out}
             files_LSU,save
+           
+           
+           Q. How do I read a configuration file for a Tool that is not Project, e.g. iPick
+           iPick
+              iPick.pl
+                 iPick_config
+                       get_values 
+                             config_superflows
+                             		get_values
+                             		_local_or_defaults
+                             		      big_streams_param (extends su_param)
+                             		          get
+                             		             _check4local_config
+                             		                   iPick_spec
+                             		                       uses Project_config->PL_SEISMIC
+                             		
+                                          
            

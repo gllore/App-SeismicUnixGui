@@ -850,36 +850,28 @@ sub initialize_messages {
 }
 
 =head2 sub pre_built_superflows
- 
- 
-    scalar reference:
-      print("LSU_Tk,superflow_select,prog_name: ${$L_SU_href->{_prog_name_sref}}\n");
+   
+   scalar reference:
+     print("LSU_Tk,superflow_select,prog_name: ${$L_SU_href->{_prog_name_sref}}\n");
     array reference:
       print("LSU_Tk,superflow_select: _names_aref @{$L_SU_href->{_names_aref}}\n");
-      
       sets flow type = pre-built superflow
       
-       		 		# print complete hash
+      # print complete hash
  		while (my ( $key,$value ) = each %{$L_SU_href} ){
  			print ("$key \t\t=> $value\n");
  		}
 
- 		 
  		 binding needs:
  		  	$pre_built_big_stream	->select(); 
 			$pre_built_big_stream	->set_sub_ref
-			
 		$pre_built_big_stream	->set_flowNsuperflow_name_w  displays superflow name at top of gui 
 			
 	);
-	
-	  print("11. L_SU,pre_built_superflows,: $$superflow_name_sref \n");	
-  	 print("11. L_SU,pre_built_superflows,flowNsuperflow_name_w: $flowNsuperflow_name_w\n");
-  	
-  	 				foreach my $key (sort keys %$L_SU_href) {
- 					print (" file_dialog,key is $key, value is $L_SU_href->{$key}\n");
-    			
 
+  	 	foreach my $key (sort keys %$L_SU_href) {
+ 		print (" file_dialog,key is $key, value is $L_SU_href->{$key}\n");
+    			
 =cut
 
 sub pre_built_superflows {
@@ -914,8 +906,8 @@ sub pre_built_superflows {
 		# print("41 L_SU,pre_built_superflows, parameter_values_frame: $parameter_values_frame\n");
 
 		# return changes to $L_SU_href without altering other original values
-		$L_SU_href = $pre_built_big_stream->get_hash_ref();    # 96 returned
-			# print("41 L_SU,pre_built_superflows, values_aref: @{$L_SU_href->{_values_aref}}\n");
+		$L_SU_href = $pre_built_big_stream->get_hash_ref(); 
+		# print("41 L_SU,pre_built_superflows, values_aref: @{$L_SU_href->{_values_aref}}\n");
 
 	} else {
 		print("L_SU,pre_built_superflow, missing name \n");
