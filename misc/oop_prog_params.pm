@@ -78,6 +78,9 @@ sub _get_prefix_aref {
 
 	if ( $oop_prog_params->{_prog_name} ) {
 
+#	    use Module::Refresh; # reload updated module
+#		my $refresher = Module::Refresh->new;
+
 		my $prog_name = $oop_prog_params->{_prog_name};
 		# print("oop_prog_params,_get_prefix_aref, prog_name=$prog_name \n");
 
@@ -85,6 +88,7 @@ sub _get_prefix_aref {
 		my $module_spec_pm = $module_spec . '.pm';
 
 		require $module_spec_pm;
+#		$refresher->refresh_module("$module_spec_pm");
 
 		# INSTANTIATE
 		my $package = $module_spec->new;
@@ -122,6 +126,9 @@ sub _get_suffix_aref {
 	my ($self) = @_;
 
 	if ( $oop_prog_params->{_prog_name} ) {
+		
+#	    use Module::Refresh; # reload updated module
+#		my $refresher = Module::Refresh->new;
 
 		my $prog_name = $oop_prog_params->{_prog_name};
 
@@ -129,6 +136,7 @@ sub _get_suffix_aref {
 		my $module_spec_pm = $module_spec . '.pm';
 
 		require $module_spec_pm;
+#		$refresher->refresh_module("$module_spec_pm");
 
 		# INSTANTIATE
 		my $package = $module_spec->new;

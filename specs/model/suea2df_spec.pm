@@ -63,23 +63,21 @@ sub binding_index_aref {
     my ($self) = @_;
 
     my @index;
+    
+     $index[0] = 0;
 
-	# first binding index (0)
-	# connects to 4th item (index=3)
-	# in the parameter list
-	
-	$index[0]  = 4;     # item is  bound to _DATA_DIR_IN
-	$index[1]  =5;     # item is  bound to _DATA_DIR_IN
-	$index[2] = 6;    # item is  bound to _DATA_DIR_IN
-	$index[3] = 7;    # item is  bound to _DATA_DIR_IN
-	$index[4] = 8;    # item is  bound to _DATA_DIR_IN
-	$index[5] = 9;    # item is  bound to _DATA_DIR_IN
-	$index[6] = 17;    # item is  bound to prefix
-	$index[7] = 23;    # item is  bound to prefix
-	$index[8] = 26;    # item is  bound to prefix
-	$index[9] = 29;    # item is  bound to _DATA_DIR_IN
-	$index[67] = 30;    # item is  bound to _DATA_DIR_IN
-	$index[68] = 37;    # item is  bound to _DATA_DIR_IN
+#	# first binding index (0)
+#	# connects to 4th item (index=3)
+#	# in the parameter list
+#	
+	$index[0]  = 4;     # item is  bound to 
+	$index[1]  =5;     # item is  bound to 
+	$index[2] = 6;    # item is  bound to 
+	$index[3] = 7;    # item is  bound to 
+	$index[4] = 8;    # item is  bound to 
+	$index[5] = 9;    # item is  bound to  
+	$index[6]= 23;   
+	$index[7]= 26;   
 	
     $suea2df_spec->{_binding_index_aref} = \@index;
     return ();
@@ -98,9 +96,17 @@ sub file_dialog_type_aref {
     my ($self) = @_;
 
     my @type;
-
     $type[0] = '';
-
+    
+	$type[0]  = $file_dialog_type->{_Data};
+	$type[1]  =$file_dialog_type->{_Data};
+	$type[2] = $file_dialog_type->{_Data};
+	$type[3] = $file_dialog_type->{_Data};
+	$type[4] = $file_dialog_type->{_Data};
+	$type[5] = $file_dialog_type->{_Data};
+	$type[6] = $file_dialog_type->{_Data};
+	$type[7] = $file_dialog_type->{_Data};
+	
     $suea2df_spec->{_file_dialog_type_aref} = \@type;
     return ();
 
@@ -329,6 +335,34 @@ sub prefix_aref {
         $prefix[$i] = $empty_string;
 
     }
+    
+   my $index_aref = get_binding_index_aref();
+	my @index      = @$index_aref;
+
+	# label 5 in GUI is input c11_file and needs a home directory
+	$prefix[ $index[0] ] = '$DATA_SEISMIC_BIN' . ".'/'.";
+
+	# label 6 in GUI is input c13_file and needs a home directory
+	$prefix[ $index[1] ] = '$DATA_SEISMIC_BIN' . ".'/'.";
+
+	# label 7 in GUI is input c15_file and needs a home directory
+	$prefix[ $index[2] ] = '$DATA_SEISMIC_BIN' . ".'/'.";
+
+	# label 8 in GUI is input c33_file and needs a home directory
+	$prefix[ $index[3] ] = '$DATA_SEISMIC_BIN' . ".'/'.";
+
+	# label 9 in GUI is input c35_file and needs a home directory
+	$prefix[ $index[4] ] = '$DATA_SEISMIC_BIN' . ".'/'.";
+
+	# label 10 in GUI is input c55_file and needs a home directory
+	$prefix[ $index[5] ] = '$DATA_SEISMIC_BIN' . ".'/'.";
+	
+	# label 24 in GUI is input q_file and needs a home directory
+	$prefix[ $index[6] ] = '$DATA_SEISMIC_BIN' . ".'/'.";
+
+	# label 27 in GUI is input rho_file and needs a home directory
+	$prefix[ $index[7] ] = '$DATA_SEISMIC_BIN' . ".'/'.";
+    
     $suea2df_spec->{_prefix_aref} = \@prefix;
     return ();
 
@@ -353,6 +387,34 @@ sub suffix_aref {
         $suffix[$i] = $empty_string;
 
     }
+ 
+	my $index_aref = get_binding_index_aref();
+	my @index      = @$index_aref;
+
+	# label 5 in GUI is input c11_file and needs a home directory
+	$suffix[ $index[0] ] = "." . '$suffix_bin';
+
+	# label 6 in GUI is input c13_file and needs a home directory
+	$suffix[ $index[1] ] = "." . '$suffix_bin';
+
+	# label 7 in GUI is input 15_file and needs a home directory
+	$suffix[ $index[2] ] = "." . '$suffix_bin';
+
+	# label 8 in GUI is input c33_file and needs a home directory
+	$suffix[ $index[3] ] = "." . '$suffix_bin';
+
+	# label 9 in GUI is input c35_file and needs a home directory
+	$suffix[ $index[4] ] = "." . '$suffix_bin';
+
+	# label 10 in GUI is input c55_file and needs a home directory
+	$suffix[ $index[5] ] = "." . '$suffix_bin';
+  
+	# label 24 in GUI is input q_file and needs a home directory
+	$suffix[ $index[6] ] = "." . '$suffix_bin';  
+
+	# label 27 in GUI is input rho_file and needs a home directory
+	$suffix[ $index[7] ] = "." . '$suffix_bin';  
+    
     $suea2df_spec->{_suffix_aref} = \@suffix;
     return ();
 

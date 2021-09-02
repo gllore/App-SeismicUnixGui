@@ -16,6 +16,8 @@ package data_in;
  Version 0.0.1 June 22 2017
 
  Version 0.0.2 July 22 2018
+ 
+ Version 0.0.3 August 30 2021
 
 
 =cut
@@ -32,6 +34,10 @@ package data_in;
   Version 0.02 July 22 2018 added subs: 
   	suffix_type, inbound  _get_inbound
   	_get_suffix, _get_DIR
+  	
+   Version 0.03  All file without a suffix
+  in which case the default PATH is the
+  path of PL_SEISMI	C
 
 =cut 
 
@@ -40,11 +46,13 @@ package data_in;
 =cut 
 
 use Moose;
-our $VERSION = '0.0.2';
+our $VERSION = '0.0.3';
 
 =head2 Instantiation
 
 =cut
+
+use L_SU_global_constants;
 
 my $get = L_SU_global_constants->new();
 
@@ -201,8 +209,13 @@ sub _get_suffix {
 
 			$suffix = $suffix_txt;
 
-		} else {
+		} elsif ( $suffix_type eq $empty_string ) {
+
 			print("data_in, suffix_type=($suffix_type) is not $ps, $su, $bin, $segy, $sgy or $txt\n");
+			$suffix = $empty_string;
+
+		} else {
+			print("data_in, unexpected suffix_type\n");
 		}
 
 		return ($suffix);
@@ -250,18 +263,17 @@ my $newline = '
 
 sub _get_inbound {
 	my ($self) = @_;
-
-	if ( length $data_in->{_base_file_name} ) {
-
+	
 		my $inbound;
 		my $suffix_type;
 		my $DIR;
 		my $file;
 		my $suffix;
 
-		$file = $data_in->{_base_file_name};
+	if ( length $data_in->{_suffix_type}
+	&& length $data_in->{_base_file_name} ) {
 
-		if ( length $data_in->{_suffix_type} ) {
+		$file = $data_in->{_base_file_name};
 
 			$DIR     = _get_DIR();
 			$suffix  = _get_suffix();
@@ -270,14 +282,16 @@ sub _get_inbound {
 			# print ("data_in,get_inbound inbound: $inbound\n");
 			return ($inbound);
 
-		} else {
-			$DIR = _get_DIR();
-			$suffix  = _get_suffix();
-			$inbound = $DIR . '/' . $file . $suffix;
-#			print("data_in, _get_inbound, missing suffix_type assume that the local directory is wanted  \n");
-#			print("data_in,  _get_inbound, inbound=$inbound\n");
+		} elsif ( length $data_in->{_base_file_name}
+			&& not( $data_in->{_suffix_type} ) ) {
+
+			$file = $data_in->{_base_file_name};
+
+			$DIR      = _get_DIR();
+			$inbound = $DIR . '/' . $file;
+
+			# print ("2. data_in,_get_outbound outbound: $outbound\n");
 			return ($inbound);
-		}
 
 	} else {
 		print("data_in, missing base file name  \n");
@@ -368,14 +382,15 @@ sub full_file_name {
 
 sub get_inbound {
 	my ($self) = @_;
-
-	if ( $data_in->{_suffix_type} && $data_in->{_base_file_name} ) {
-
+	
 		my $inbound;
 		my $suffix_type;
 		my $DIR;
 		my $file;
 		my $suffix;
+
+	if ( length $data_in->{_suffix_type} 
+	&& $data_in->{_base_file_name} ) {
 
 		$file = $data_in->{_base_file_name};
 
@@ -385,8 +400,22 @@ sub get_inbound {
 
 		# print ("data_in,get_inbound inbound: $inbound\n");
 		return ($inbound);
-	} else {
-		print("data_in, missing: suffix_type, base file name  \n");
+		
+		} elsif ( length $data_in->{_base_file_name}
+			&& not( $data_in->{_suffix_type} ) ) {
+
+			print(
+				"data_in, missing: suffix_type, base file name . 
+		Assume that the expected output is PL_SEISMIC-- as default\n"
+			);
+			$DIR     = _get_DIR();
+			$suffix  = _get_suffix();
+			$inbound = $DIR . '/' . $file . $suffix;
+			return ($inbound);
+
+		} else {
+			print("data_in, missing: suffix_type, base file name . Assume that is what the user wants NADA\n");
+			return ($empty_string);
 	}
 }
 

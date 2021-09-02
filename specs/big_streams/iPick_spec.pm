@@ -20,8 +20,6 @@ my $DATA_SEISMIC_SU  = $Project->DATA_SEISMIC_SU();     # input data directory
 my $DATA_SEISMIC_TXT = $Project->DATA_SEISMIC_TXT();    # output data directory
 my $PL_SEISMIC		 = $Project->PL_SEISMIC();
 
-print("iPick_spec, PL_SEISMIC=$PL_SEISMIC\n");
-
 my $iPick_config = new iPick_config;
 my $max_index    = $iPick_config->get_max_index();
 

@@ -87,7 +87,7 @@ my $superflow_names = $get->superflow_names_h();
 my $global_libs     = $get->global_libs();
 my $run_button     = $gui_history->get_defaults();
 
-# print("L_SU,run_button,flow_name_out: $run_button->{_flow_name_out}\n");
+# print("run_button,flow_name_out: $run_button->{_flow_name_out}\n");
 
 =head2 declare variables
 
@@ -281,8 +281,11 @@ sub _Run_user_built_flow {
 			my $Project    = Project_config->new();
 			my $PL_SEISMIC = $Project->PL_SEISMIC();
 
-			# print("L_SU,run_button, running: $run_name\n");
+			print("run_button, running: perl $PL_SEISMIC/$run_name\n");
 			system("perl $PL_SEISMIC/$run_name");
+			
+		} else {
+			print("run_button,_Run_user_built_flow, not ok to run\n");
 		}
 
 		$gui_history->set4run_button();

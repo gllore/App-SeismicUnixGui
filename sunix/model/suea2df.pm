@@ -262,11 +262,19 @@ my $suea2df = {
 collects switches and assembles bash instructions
 by adding the program name
 
+suea2df reads anisotropy files locally wherever the executable
+is run
+
 =cut
 
 sub Step {
-
-    $suea2df->{_Step} = 'suea2df' . $suea2df->{_Step};
+	use Project_config;
+	
+	my $Project          = new Project_config();
+	
+	my $PL_SEISMIC  = $Project->PL_SEISMIC();
+	
+    $suea2df->{_Step} ="cd $PL_SEISMIC \n".'suea2df' . $suea2df->{_Step};
     return ( $suea2df->{_Step} );
 
 }

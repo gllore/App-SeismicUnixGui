@@ -421,9 +421,39 @@ References:
 
 	Journal of Computational Physics, vol. 11, p. 38-69.
 
+=head2 User's notes
+
+dx	
+
+Use dx to convert gridpoints to distances:
+	
+e.g. ,dx=3 nx =100
+	
+The maximim lateral reach of the model is 300 units ( i.e., m or ft)
 
 
-/
+nx
+
+Changes the lateral reach of the model (in gridpoints)
+
+
+nt
+
+If nt is large enough, the seismograms will more clearly include later reflections 
+	
+
+from the vertical edges of the model
+
+Possible sources of error: Inconsistent value of variables betwen flows:
+e.g.,
+ nx =100 in ALL the files
+ 
+ suhead
+ 
+ If you want to manipulate the seismograms using Seismic Unix modules,
+ remember to set suhead=1
+
+
 
 =head2 CHANGES and their DATES
 

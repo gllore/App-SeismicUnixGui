@@ -1283,7 +1283,7 @@ sub hiclip {
 
 =head2 sub label1 
 
-subs xlabel or label2  ylabel or labe1
+subs xlabel or label2  ylabel or label1
 
 =cut
 
@@ -1304,7 +1304,7 @@ sub label1 {
 
 =head2 sub label2 
 
-subs xlabel or label2  ylabel or labe1
+subs xlabel or label2  ylabel or label1
 
 =cut
 
@@ -2192,7 +2192,7 @@ sub xend_m {
 
 =head2 sub xlabel 
 
-subs xlabel or label2  ylabel or labe1
+subs xlabel or label2  ylabel or label1
 
 =cut
 
@@ -2273,6 +2273,27 @@ sub ybox {
     }
     else {
         print("ximage, ybox, missing ybox,\n");
+    }
+}
+
+=head2 sub ylabel
+
+subs xlabel or label2  ylabel or label1
+
+=cut
+
+sub ylabel {
+
+    my ( $self, $label1 ) = @_;
+    if ( $label1 ne $empty_string ) {
+
+        $ximage->{_label1} = $label1;
+        $ximage->{_note}   = $ximage->{_note} . ' label1=' . $ximage->{_label1};
+        $ximage->{_Step}   = $ximage->{_Step} . ' label1=' . $ximage->{_label1};
+
+    }
+    else {
+        print("ximage, ylabel, missing ylabel,\n");
     }
 }
 

@@ -46,8 +46,6 @@ use L_SU_local_user_constants;
 my $get        = L_SU_global_constants->new();
 my $usr_config = L_SU_local_user_constants->new();
 
-# my $global_libs              = $get->global_libs();
-# my $local_path               = $global_libs->{_default_path};
 my $ACTIVE_PROJECT           = $usr_config->get_ACTIVE_PROJECT();
 my $user_active_project_path = $ACTIVE_PROJECT;
 my $var                      = $get->var();
@@ -274,13 +272,16 @@ sub get {
 		my $local_config_exists             = _check4local_config($program_sref);
 		my $user_active_project_path_exists = _check4user_config($program_sref);
 
-		print("B. su_param, get, local_config_exists: $local_config_exists\n");
+#		print("B. su_param, get, local_config_exists: $local_config_exists\n");
 
 		#		print("C. su_param, get,user_active_project_path_exists: $user_active_project_path_exists\n");
 
 		if ( $su_param->{_flow_type} eq $flow_type_href->{_pre_built_superflow} ) {
 
 			if ($local_config_exists) {
+				
+			  use Module::Refresh; # reload updated module
+		       my $refresher = Module::Refresh->new;
 
 				# CASE 1A: If progam_sref = a pre-built superflow
 				# e.g., tools like Sseg2su.config
@@ -288,7 +289,8 @@ sub get {
 				my $module_spec    = $$program_sref . '_spec';
 				my $module_spec_pm = $module_spec . '.pm';
 
-				require $module_spec_pm;
+#				require $module_spec_pm;
+				$refresher->refresh_module("$module_spec_pm");
 				my $package = $module_spec->new;
 
 				# collect specifications of output directory
@@ -398,17 +400,20 @@ the definition for _CONFIG)
 sub _check4local_config {
 	my ($name_sref) = @_;
 
-	use Module::Refresh; # reload updated module
 	my $ans = $false;
 
 	if ( defined $name_sref
 		&& $name_sref ne $empty_string ) {
+	
+#	    use Module::Refresh; # reload updated module
+#		my $refresher = Module::Refresh->new;
 
 		my $module_spec    = $$name_sref . '_spec';
 		my $module_spec_pm = $module_spec . '.pm';
+		
 		#		print("1. su_param,_check4local_config, module_spec_pm = $module_spec_pm \n");
-		my $refresher = Module::Refresh->new;
-		$refresher->refresh_module("$module_spec_pm");
+#		$refresher->refresh_module("$module_spec_pm");
+		require $module_spec_pm;
 		my $package = $module_spec->new();
 
 		# collect specifications of output directory

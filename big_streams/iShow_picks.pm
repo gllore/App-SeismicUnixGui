@@ -307,6 +307,21 @@ sub calcNdisplay {
     $suximage->cmap('rgb0');
     $suximage->loclip( $iShow_picks->{_min_amplitude} );
     $suximage->hiclip( $iShow_picks->{_max_amplitude} );
+    
+    # geopsy plot preference for JML
+	if (    length $iShow_picks->{_purpose}
+		and $iShow_picks->{_purpose} eq 'geopsy'
+		and $iShow_picks->{_max_x1} > $iShow_picks->{_min_x1} ) {
+
+		$suxwigb->x1beg( $iShow_picks->{_max_x1} );
+		$suxwigb->x1end( $iShow_picks->{_min_x1} );
+#		print("iShow_picks, suximage with \'geopsy\' purpose\n");
+		
+	} else {
+		$suxwigb->x1beg( $iShow_picks->{_min_x1} );
+		$suxwigb->x1end( $iShow_picks->{_max_x1} );
+	}
+    
 
     $suximage->verbose($off);
 
@@ -365,7 +380,7 @@ sub calcNdisplay {
     $suxwigb->loclip( $iShow_picks->{_min_amplitude} );
     $suxwigb->hiclip( $iShow_picks->{_max_amplitude} );
     
-    	# geopsy plot preference for JML
+    # geopsy plot preference for JML
 	if (    length $iShow_picks->{_purpose}
 		and $iShow_picks->{_purpose} eq 'geopsy'
 		and $iShow_picks->{_max_x1} > $iShow_picks->{_min_x1} ) {
@@ -378,7 +393,6 @@ sub calcNdisplay {
 		$suxwigb->x1beg( $iShow_picks->{_min_x1} );
 		$suxwigb->x1end( $iShow_picks->{_max_x1} );
 	}
-    
     
     $suxwigb->verbose($off);
 

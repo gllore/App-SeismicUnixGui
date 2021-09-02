@@ -2661,6 +2661,7 @@ color_listbox
                              		      big_streams_param (extends su_param)
                              		          get
                              		             _check4local_config
+                             		                  via Module::Refresher
                              		                   iPick_spec
                              		                       uses Project_config->PL_SEISMIC
                              		

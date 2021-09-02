@@ -551,6 +551,7 @@ sub get_first_name {
 
 sub get_max_index {
 	my ( $self, $program_name ) = @_;
+	
 	my $max_index;
 
 	my $alias_program_name = $alias_superflow_names_h->{$program_name};
@@ -567,10 +568,14 @@ sub get_max_index {
 	}
 
 	if ($program_name) {
+		
+#		use Module::Refresh; # reload updated module
 
 		my $module_spec    = $program_name . '_spec';
 		my $module_spec_pm = $program_name . '_spec.pm';
 
+#		my $refresher = Module::Refresh->new;
+#		$refresher->refresh_module("$module_spec_pm");
 		require $module_spec_pm;
 
 		# print ("control,get_max_index, require $module_spec_pm\n");

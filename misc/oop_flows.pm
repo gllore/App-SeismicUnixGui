@@ -181,6 +181,10 @@ sub set_prog_version_aref {
 
 sub set_specs {
 	my ($self) = @_;
+	
+#    use Module::Refresh; # reload updated module
+#	my $refresher = Module::Refresh->new;	  
+		  
 	my ( @specs, @prog, @symbols );
 	my (@module_spec);
 	my ( $message_w, $message, $second_last_idx );
@@ -279,6 +283,7 @@ sub set_specs {
 
 		# dynamically used modules need require
 		require $module_spec_pm;
+#		$refresher->refresh_module("$module_spec_pm");
 
 		# print ("flows,set_specs, require $module_spec_pm\n");
 

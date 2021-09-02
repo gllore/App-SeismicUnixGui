@@ -1918,8 +1918,8 @@ sub FileDialog_button {
 				_perl_flow();
 
 			} else {
-				#		print("  color_flow,FileDialog_button, perl flow parse errors\n");
-				#	    print("3 color_flow,FileDialog_button, Warning: missing file. \"Cancel\" clicked by user? NADA\n");
+				print("  color_flow,FileDialog_button, perl flow parse errors\n");
+				#	 print("3 color_flow,FileDialog_button, Warning: missing file. \"Cancel\" clicked by user? NADA\n");
 			}
 
 		} elsif ( $topic eq $file_dialog_type->{_Data} ) {
@@ -2976,35 +2976,6 @@ sub get_flow_type {
 
 }
 
-#=head2 sub get_last_flow_color
-#
-#		returns current color ($this_color) as the last fow color
-# 	    get_hash_ref is intentionally not used
-# 	    and a specific method is used for simplicity
-#
-#=cut
-#
-#sub get_last_flow_color {
-#
-#	my ($self) = @_;
-#
-#	if ( $color_flow_href->{_flow_color} ) {
-#
-#		$color_flow_href->{_last_flow_color} = $color_flow_href->{_flow_color};
-#
-#		# for export
-#		$last_flow_color = $color_flow_href->{_last_flow_color};
-#
-#		return ($last_flow_color);
-#
-#	}
-#	else {
-#		print("color_flow, set_last_flow_color,  flow_color missing \n");
-#	}
-#
-#	return ();
-#}
-
 =head2 sub get_perl_flow_errors
 
 =cut
@@ -3151,7 +3122,7 @@ sub save_button {
 			&& $last_flow_index >= 1
 			&& $flow_listbox_color_w ) {
 
-			#			print("CASE 1A color_flow, save_button, last_flow_index=$last_flow_index\n");
+#			print("CASE 1A color_flow, save_button, last_flow_index=$last_flow_index\n");
 
 			# One parameter index (=0) has been previously selected
 			# Assume that recent selection is valid for this current save
@@ -3162,7 +3133,7 @@ sub save_button {
 			$gui_history->set_button('flow_select');
 
 		} else {
-			print("color_flow, save_button , unexpected missing variables NADA\n");
+#			print("color_flow, save_button , unexpected missing variables NADA\n");
 		}
 
 =pod

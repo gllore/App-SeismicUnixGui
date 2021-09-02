@@ -173,16 +173,20 @@ use _FileDialog_button inside each grey_flow, pink_flow etc.
 sub set {
 	my ($self) = @_;
 	use L_SU_global_constants;
+#	use Module::Refresh;
 
 	my $prog_name = ${ $binding->{_prog_name_sref} };
 
 	# print("1. binding,set, prog_name: $prog_name \n");
 
-	my $module    = $prog_name . '_spec';
-	my $module_pm = $module . '.pm';
+	my $module_spec    = $prog_name . '_spec';
+	my $module_spec_pm = $module_spec. '.pm';
+	
+#	my $refresher = Module::Refresh->new;
+#	$refresher->refresh_module("$module_spec_pm");
 
-	require $module_pm;
-	my $package = $module->new;
+	require $module_spec_pm;
+	my $package = $module_spec->new;
 	my $get     = L_SU_global_constants->new;
 
 	my $file_dialog_type = $get->file_dialog_type_href();

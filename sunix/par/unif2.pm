@@ -34,6 +34,9 @@ package unif2;
  dz=10		z sampling interval					
 
  npmax=201	maximum number of points on interfaces			
+ Is relatively independent of nx: 
+ e.g.,
+	nx =100 and npmax= 10 is OK
 
  fx=0.0	first x sample						
  fz=0.0	first z sample						

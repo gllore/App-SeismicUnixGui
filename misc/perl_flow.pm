@@ -284,9 +284,9 @@ sub get_parse_errors {
 	my $length = $sunix_pl->get_num_progs;
 	my $num_progs = $sunix_pl->get_num_progs;
 
-	#print("perl_flow,o/p num_progs: $length\n");
+	# print("perl_flow,o/p num_progs: $length\n");
 
-	if ($num_progs <= 1 ) {
+	if ($num_progs < 1 ) {
 		
 		$result = $true;
 		

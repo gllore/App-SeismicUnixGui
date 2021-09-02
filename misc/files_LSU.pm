@@ -342,8 +342,8 @@ sub _set_outbound2pl {
 
 	my ($self) = @_;
 
-	if ( length $files_LSU->{_is_pl} 
-	&& length $files_LSU->{_flow_name_out}) {
+	if (   length $files_LSU->{_is_pl}
+		&& length $files_LSU->{_flow_name_out} ) {
 
 		# update PL_SEISMIC in case of change
 		my $PL_SEISMIC = _get_PL_SEISMIC();
@@ -525,11 +525,16 @@ sub outbound {
 
 		} elsif ( $files_LSU->{_is_config} ) {    # double check
 
+#			use Module::Refresh;                  # reload updated module
+
 			my $DATA_PATH_IN;
 
 			# CASE 2 for superflows
 			my $module_spec    = $program_name . '_spec';
 			my $module_spec_pm = $module_spec . '.pm';
+
+#			my $refresher = Module::Refresh->new;
+#			$refresher->refresh_module("$module_spec_pm");
 
 			require $module_spec_pm;
 			my $package = $module_spec->new;
@@ -726,7 +731,8 @@ sub set_data {
 			}
 
 		} else {
-#			print("1. files_LSU,set_data, acceptable second program detected NADA\n");
+
+			#			print("1. files_LSU,set_data, acceptable second program detected NADA\n");
 		}
 
 		if ( $prog_names[$i] eq 'data_out' ) {
@@ -775,7 +781,7 @@ sub set_flow_color {
 
 		$files_LSU->{_flow_color} = $flow_color;
 
-#		print("files_LSU, set_flow_color:$files_LSU->{_flow_color}\n");
+		#		print("files_LSU, set_flow_color:$files_LSU->{_flow_color}\n");
 
 	} else {
 		print("files_LSU, set_flow_color, missing color\n");
@@ -812,24 +818,25 @@ sub set2pl {
 	my ( $self, $hash_ref ) = @_;
 	$files_LSU->{_is_pl} = $true;
 
-	if ( length $files_LSU->{_flow_color} 
-		&& length $hash_ref) {
-		
-		my $this_color = $files_LSU->{_flow_color};
-		my $_flow_name_out_color = '_flow_name_out_'.$this_color;
-#		print("files_LSU,set2pl, _flow_name_out_color =$_flow_name_out_color \n");
+	if (   length $files_LSU->{_flow_color}
+		&& length $hash_ref ) {
+
+		my $this_color           = $files_LSU->{_flow_color};
+		my $_flow_name_out_color = '_flow_name_out_' . $this_color;
+
+		#		print("files_LSU,set2pl, _flow_name_out_color =$_flow_name_out_color \n");
 		$files_LSU->{_flow_name_out} = $hash_ref->{$_flow_name_out_color};
-		
+
 		#		print(
 		#			"files_LSU,set2pl, is $files_LSU->{_is_pl} \n
 		#		self,hash_ref: $self,$hash_ref\n"
 		#		);
-#		print("files_LSU,set2pl, _flow_name_out =$hash_ref->{$_flow_name_out_color} \n");
+		#		print("files_LSU,set2pl, _flow_name_out =$hash_ref->{$_flow_name_out_color} \n");
 
 		_set_outbound2pl();
-		
+
 	} else {
-			print("files_LSU,set2pl, missing flow color assignment/hash ref \n");
+		print("files_LSU,set2pl, missing flow color assignment/hash ref \n");
 	}
 
 	return ($empty_string);
@@ -1082,7 +1089,10 @@ sub set_superflow_specs {
 	if ( $hash_ref && $files_LSU->{_prog_name_sref} ) {
 
 		use name;
+#	    use Module::Refresh; # reload updated module
+	    
 		my $name = new name();
+#		my $refresher = Module::Refresh->new;
 
 		my ( @CFG, @info );
 		my $length;
@@ -1091,6 +1101,8 @@ sub set_superflow_specs {
 		my $alias_program_name = $alias_superflow_spec_names_h->{$base_program_name};
 		my $module_spec        = $alias_program_name . '_spec';                         #conveniently shorter
 		my $module_spec_pm     = $module_spec . '.pm';
+		
+#		$refresher->refresh_module("$module_spec_pm");
 		require $module_spec_pm;
 
 		# print ("1. files_LSU,set_superflow_specs, require superflow module $module_spec_pm\n");
@@ -1383,7 +1395,7 @@ sub save {
 	$oop_text->set_num_progs4flow( $files_LSU->{_prog_names_aref} );
 	my $num_progs4flow = scalar @{ $files_LSU->{_prog_names_aref} };
 
-#	print("\nfiles_LSU,save,num_progs4flow: $num_progs4flow\n");
+	#	print("\nfiles_LSU,save,num_progs4flow: $num_progs4flow\n");
 
 	# principal documentation for the program
 	$oop_text->pod_header();
@@ -1399,7 +1411,7 @@ sub save {
 
 	#	print("1. files_LSU_ save, declaring packages\n");
 	$oop_text->declare_pkg();
-	
+
 	# insert a macro start here
 	# $oop_text->set_macro_head(pkg);
 
@@ -1417,9 +1429,10 @@ sub save {
 				my $file_name = $params[0];
 				$oop_text->set_file_name_in($file_name);
 
-#				print("1. files_LSU_ save, prog_name=$prog_name\n");
+				#				print("1. files_LSU_ save, prog_name=$prog_name\n");
 
 			} else {
+
 				#				print("2. files_LSU, save, missing,files_LSU->{_is_data_in}=$files_LSU->{_is_data_in}\n ");
 				#				print("2. files_LSU, save, missing, we have data\n ");
 			}    # we have data
@@ -1433,7 +1446,8 @@ sub save {
 				my @params    = @{ @{ $files_LSU->{_prog_param_values_aref2} }[$j] };
 				my $file_name = $params[0];
 				$oop_text->set_file_name_out($file_name);
-#				print("2. files_LSU_ save, prog_name=$prog_name\n");
+
+				#				print("2. files_LSU_ save, prog_name=$prog_name\n");
 
 			}
 		}
@@ -1485,7 +1499,7 @@ sub save {
 	$oop_text->pod_log_flows();
 	$oop_text->print_flows();
 	$oop_text->log_flows();
-	
+
 	# insert a macro end here
 	# $oop_text->set_macro_tail()
 
