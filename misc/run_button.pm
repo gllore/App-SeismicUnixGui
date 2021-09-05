@@ -281,7 +281,7 @@ sub _Run_user_built_flow {
 			my $Project    = Project_config->new();
 			my $PL_SEISMIC = $Project->PL_SEISMIC();
 
-			print("run_button, running: perl $PL_SEISMIC/$run_name\n");
+#			print("run_button, running: perl $PL_SEISMIC/$run_name\n");
 			system("perl $PL_SEISMIC/$run_name");
 			
 		} else {

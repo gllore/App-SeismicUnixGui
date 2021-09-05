@@ -15,7 +15,10 @@ my $sunix_package = {
 	_length          => '',
 	_package_name    => '',
 	_num_lines       => '',
-	_path_out        => '',
+	_path_out4configs        => '',
+	_path_out4developer        => '',
+	_path_out4specs        => '',
+	_path_out4sunix       => '',
 	_sudoc           => '',
 	_outbound_pm     => '',
 };
@@ -86,18 +89,60 @@ sub set_package_name {
 
 }
 
-=head2 sub set_path_out
+=head2 sub set_path_out4configs
 
   
 =cut
 
-sub set_path_out {
+sub set_path_out4configs {
 	my ( $self, $file_aref ) = @_;
 
-	$sunix_package->{_path_out} = @$file_aref[0];
+	$sunix_package->{_path_out4configs} = @$file_aref[0];
 
-	print("sunix_package,set_path_out,path_out is $sunix_package->{_path_out}\n");
+	print("sunix_package,set_path_out4configs,path_out is $sunix_package->{_path_out4configs}\n");
 }
+
+=head2 sub set_path_out4developer
+
+  
+=cut
+
+sub set_path_out4developer {
+	my ( $self, $file_aref ) = @_;
+
+	$sunix_package->{_path_out4developer} = @$file_aref[0];
+
+#	print("sunix_package,set_path_out4developer,path_out is $sunix_package->{_path_out4developer}\n");
+}
+
+
+=head2 sub set_path_out4specs
+
+  
+=cut
+
+sub set_path_out4specs {
+	my ( $self, $file_aref ) = @_;
+
+	$sunix_package->{_path_out4specs} = @$file_aref[0];
+
+	print("sunix_package,set_path_out4specs,path_out is $sunix_package->{_path_out4specs}\n");
+}
+
+
+=head2 sub set_path_out4sunix
+
+  
+=cut
+
+sub set_path_out4sunix {
+	my ( $self, $file_aref ) = @_;
+
+	$sunix_package->{_path_out4sunix} = @$file_aref[0];
+
+	print("sunix_package,set_path_out4sunix,path_out is $sunix_package->{_path_out4sunix}\n");
+}
+
 
 =head2 sub set_param_names
 
@@ -201,7 +246,7 @@ sub write_config {
 	if ( $sunix_package->{_config_file_out} && $sunix_package->{_length} ) {    # avoids errors
 
 		my $OUT;
-		my $outbound = $sunix_package->{_path_out} . '/' . $sunix_package->{_config_file_out};
+		my $outbound = $sunix_package->{_path_out4configs} . '/' . $sunix_package->{_config_file_out};
 
 		# print ("sunix_package,write_config $outbound\n");
 
@@ -295,7 +340,7 @@ sub write_pm {
 		$subroutine->set_name($name);
 
 		# HERE starts THE output PRODUCT!!!!!!!!!!!!
-		$sunix_package->{_outbound_pm} = $sunix_package->{_path_out} . '/' . $sunix_package->{_file_out};
+		$sunix_package->{_outbound_pm} = $sunix_package->{_path_out4sunix} . '/' . $sunix_package->{_file_out};
 		# print("sunix_package,write_pm, outbound=$sunix_package->{_outbound_pm}\n");
 		open $OUT, '>', $sunix_package->{_outbound_pm} or die;
 
@@ -402,7 +447,7 @@ sub write_spec {
 
 	if ( $sunix_package->{_spec_file_out} ) {    # avoids errors
 
-		my $outbound_spec = $sunix_package->{_path_out} . '/' . $sunix_package->{_spec_file_out};
+		my $outbound_spec = $sunix_package->{_path_out4specs} . '/' . $sunix_package->{_spec_file_out};
 
 #		print ("sunix_package,write_spec outbound_spec= $outbound_spec \n");
 		# print ("sunix_package,write_spec, header=\n @{$header}\n");

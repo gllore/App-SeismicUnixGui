@@ -22,23 +22,23 @@ PROGRAM NAME:  sudoc2pm.pl
 
  	Program group array and the directory names:
  		
- 	$program_group[0]   	= 'data';
- 	$program_group[1]   	= 'datuming';
- 	$program_group[2]   	= 'display';
-  	$program_group[3]   	= 'filter';
-  	$program_group[4]   	= 'inversion';
- 	$program_group[5]   	= 'metadata';
- 	$program_group[6]   	= 'migration';	  	
- 	$program_group[7]   	= 'misc';
- 	$program_group[8]   	= 'model';
-  	$program_group[9]   	= 'NMO_Vel_Stk';
-  	$program_group[10]   	= 'par';
-  	$program_group[11]   	= 'picking';
-  	$program_group[12]   	= 'shapeNcut';
-  	$program_group[13]   	= 'shell';  	
-  	$program_group[14]   	= 'statsMath';
-  	$program_group[15]   	= 'transform';
-  	$program_group[16]   	= 'well';
+$developer_sunix_categories[0]  = 'data';
+$developer_sunix_categories[1]  = 'datum';
+$developer_sunix_categories[2]  = 'plot';
+$developer_sunix_categories[3]  = 'filter';
+$developer_sunix_categories[4]  = 'header';
+$developer_sunix_categories[5]  = 'inversion';
+$developer_sunix_categories[6]  = 'migration';
+$developer_sunix_categories[7]  = 'model';
+$developer_sunix_categories[8]  = 'NMO_Vel_Stk';
+$developer_sunix_categories[9]  = 'par';
+$developer_sunix_categories[10] = 'picks';
+$developer_sunix_categories[11] = 'shapeNcut';
+$developer_sunix_categories[12] = 'shell';
+$developer_sunix_categories[13] = 'statsMath';
+$developer_sunix_categories[14] = 'transform';
+$developer_sunix_categories[15] = 'well';
+$developer_sunix_categories[16] = '';
   	
  	QUESTION 1:
 Which group number do you want to use to create
@@ -69,7 +69,10 @@ my (@spec_file_out);
 my (@path_out);
 my ($i);
 my @file;
-my @package_path_out;
+my @package_path_out4configs;
+my @package_path_out4developer;
+my @package_path_out4specs;
+my @package_path_out4sunix;
 
 my $sudoc2pm = {
 	_names         => '',
@@ -88,7 +91,7 @@ Which group number do you want ?
 
 =cut
 
-my $group_no = 10;
+my $group_no = 4;
 $prog_doc2pm->set_group_directory($group_no);
 
 =head2 QUESTION 2:
@@ -103,33 +106,34 @@ For example=
 'vel2stiff
 'unif2aniso'
 'transp'
+'suflip'
 
 =cut
 
-my $selected_program_name = 'transp';
+my $selected_program_name = 'suascii';
 
 =head2 private values
 
 =cut
 
 my $path_in         = $prog_doc2pm->get_path_in();
-my $config_path_out = $prog_doc2pm->get_config_path_out();
-my $spec_path_out   = $prog_doc2pm->get_spec_path_out();
-my $sunix_path_out  = $prog_doc2pm->get_sunix_path_out();
 my $list_length     = $prog_doc2pm->get_list_length();
-my $path_out        = $prog_doc2pm->get_path_out();
+my $path_out4configs        = $prog_doc2pm->get_path_out4configs();
+my $path_out4developer        = $prog_doc2pm->get_path_out4developer();
+my $path_out4specs        = $prog_doc2pm->get_path_out4specs();
+my $path_out4sunix       = $prog_doc2pm->get_path_out4sunix();
 my @long_file_name  = @{ $prog_doc2pm->get_list_aref() };
 
-# print("sudoc2pm.pl,long_file_name: @long_file_name\n");
-# print("sudoc2pm.pl,path_out: $path_out\n");
+#print("sudoc2pm.pl,long_file_name: @long_file_name\n");
+# print("sudoc2pm.pl,path_out: $path_out4developer\n");
 
 my @program_name = @{ $prog_doc2pm->get_program_aref() };
 my $package_name;
 
 for ( my $i = 0; $i < $list_length; $i++ ) {
 	
-#	print("sudoc2pm.pl,program_name, num=$i, program_name=$program_name[$i]\n"); 
-#	print("sudoc2pm.pl,program_name, selected_program_name=$selected_program_name, \n");
+#print("sudoc2pm.pl,program_name, num=$i, program_name=$program_name[$i]\n"); 
+#print("sudoc2pm.pl,program_name, selected_program_name=$selected_program_name, \n");
 	
 	$package_name    = $program_name[$i];
 	$pm_file_out[0]     = $package_name . '.pm';
@@ -138,7 +142,7 @@ for ( my $i = 0; $i < $list_length; $i++ ) {
 
 	if ( $selected_program_name eq $package_name) {
 		
-		print("sudoc2pm.pl, I am in group=$group_no \n");
+#		print("sudoc2pm.pl, I am in group=$group_no \n");
 #		print("sudoc2pm.pl, I am working on package =$package_name \n");
 #		print("sudoc2pm.pl, writing $pm_file_out[0] in scratch\n");
 #		print("sudoc2pm.pl, writing $config_file_out[0] in scratch\\n");
@@ -171,9 +175,16 @@ for ( my $i = 0; $i < $list_length; $i++ ) {
 		#	  				print("@{$sudoc_namVal->{_values}}[$i]\n");
 		#					}
 
-		$package_path_out[0] = $path_out;
+		$package_path_out4configs[0] = $path_out4configs;
+		$package_path_out4developer[0] = $path_out4developer;
+		$package_path_out4specs[0] = $path_out4specs;
+		$package_path_out4sunix[0] = $path_out4sunix;
+		
 		$package->set_file_out( \@pm_file_out );
-		$package->set_path_out( \@package_path_out );
+		$package->set_path_out4configs( \@package_path_out4configs);
+#		$package->set_path_out4developer( \@package_path_out4developer );
+		$package->set_path_out4specs( \@package_path_out4specs );
+		$package->set_path_out4sunix( \@package_path_out4sunix );
 		$package->set_config_file_out( \@config_file_out );
 		$package->set_spec_file_out( \@spec_file_out );
 		my @package_name_array;

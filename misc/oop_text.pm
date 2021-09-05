@@ -59,28 +59,28 @@ use oop_prog_params;
 use oop_run_flows;
 use L_SU_global_constants;
 
-my $get              		= new L_SU_global_constants();
-my $declare_data_in  		= oop_declare_data_in->new();
-my $declare_data_out 		= oop_declare_data_out->new();
+my $get              = new L_SU_global_constants();
+my $declare_data_in  = oop_declare_data_in->new();
+my $declare_data_out = oop_declare_data_out->new();
 my $file_out;
 my $file_in;
-my $oop_flows                = oop_flows->new();
-my $get_declare_pkg          = oop_declare_pkg->new();
-my $get_pod_header           = oop_pod_header->new();
-my $get_inbound              = oop_inbound->new();
+my $oop_flows                  = oop_flows->new();
+my $get_declare_pkg            = oop_declare_pkg->new();
+my $get_pod_header             = oop_pod_header->new();
+my $get_inbound                = oop_inbound->new();
 my $oop_declaration_defaults   = oop_declaration_defaults->new();
 my $oop_instantiation_defaults = oop_instantiation_defaults->new();
-my $get_run_flows            = oop_run_flows->new();
-my $get_log_flows            = oop_log_flows->new();
-my $get_pod_declare          = pod_declare->new();
-my $get_pod_flows            = pod_flows->new();
-my $get_pod_log_flows        = pod_log_flows->new();
-my $get_pod_run_flows        = pod_run_flows->new();
-my $get_pod_prog_param_setup = pod_prog_param_setup->new();
-my $get_print_flows          = oop_print_flows->new();
-my $prog_params              = oop_prog_params->new();
-my $get_use_pkg              = oop_use_pkg->new();
-my @lines                    = ();
+my $get_run_flows              = oop_run_flows->new();
+my $get_log_flows              = oop_log_flows->new();
+my $get_pod_declare            = pod_declare->new();
+my $get_pod_flows              = pod_flows->new();
+my $get_pod_log_flows          = pod_log_flows->new();
+my $get_pod_run_flows          = pod_run_flows->new();
+my $get_pod_prog_param_setup   = pod_prog_param_setup->new();
+my $get_print_flows            = oop_print_flows->new();
+my $prog_params                = oop_prog_params->new();
+my $get_use_pkg                = oop_use_pkg->new();
+my @lines                      = ();
 my $self;
 
 my $var = $get->var();
@@ -124,7 +124,7 @@ $oop_text->{_filehandle} = undef;    # for future use perhaps
 sub set_data_io_L_SU {
 
 	my ( $self, $hash_ref ) = @_;
-	use SeismicUnix qw ($segy $sgy $su $txt $text $bin);
+	use SeismicUnix qw ($segb $segy $sgy $su $txt $text $bin);
 
 	$oop_text->{_suffix_type_in}  = $hash_ref->{_suffix_type_in};
 	$oop_text->{_suffix_type_out} = $hash_ref->{_suffix_type_out};
@@ -143,35 +143,41 @@ sub set_data_io_L_SU {
 
 	if ($is_data_in) {
 
-		if ( $suffix_type_in eq $segy or $suffix_type_in eq $sgy ) {
+		if ( $suffix_type_in eq $segb ) {
+
+			print("oop_text,set_data_io_L_SU, is data_in suffix_type eq $segb\n");
+			$declare_data_in->set_suffix_type_in($segb);
+			$declare_data_in->set_su_in();
+
+		} elsif ( $suffix_type_in eq $segy or $suffix_type_in eq $sgy ) {
+
 			print("oop_text,set_data_io_L_SU, is data_in suffix_type eq $su\n");
 			$declare_data_in->set_suffix_type_in($sgy);
 			$declare_data_in->set_su_in();
-		}
 
-		if ( $suffix_type_in eq $su ) {
+		} elsif ( $suffix_type_in eq $su ) {
 
-		  # print("oop_text,set_data_io_L_SU, is data_in suffix_type eq $su\n");
+			# print("oop_text,set_data_io_L_SU, is data_in suffix_type eq $su\n");
 			$declare_data_in->set_suffix_type_in($su);
 			$declare_data_in->set_su_in();
-		}
 
-		if ( $suffix_type_in eq $bin ) {
+		} elsif ( $suffix_type_in eq $bin ) {
 
 			# print("oop_text,set_data_io_L_SU_in type eq $suffix_bin\n");
 			$declare_data_in->set_suffix_type_in($bin);
 			$declare_data_in->set_bin_in();
-		}
 
-		if ( $suffix_type_in eq $txt || $suffix_type_in eq $text ) {
+		} elsif ( $suffix_type_in eq $txt || $suffix_type_in eq $text ) {
 
 			# print("oop_text,set_data_io_L_SU_in suffix_type eq $txt\n");
 			$declare_data_in->set_suffix_type_in($txt);
 			$declare_data_in->set_text_in();
-		}
 
-	}
-	elsif ($is_data_out) {
+		} else {
+			print("oope_text,set_data_io_L_SU, unexpected suffix type \n");
+		}
+		
+	} elsif ($is_data_out) {
 
 		# print("oop_text,set_data_io_L_SU out\n");
 		# print("oop_text,set_data_io_L_SU suffix_type_out=$suffix_type_out\n");
@@ -180,68 +186,82 @@ sub set_data_io_L_SU {
 
 			# print("oop_text,in and out data different suffix_types\n");
 
+			if ( $suffix_type_out eq $segb ) {
+
+				# print("oop_text,set_data_io_L_SU,out suffix_type eq $segb\n");
+				$declare_data_out->set_suffix_type_out($segb);
+				$declare_data_out->set_segb_out();
+			}
+
 			if ( $suffix_type_out eq $su ) {
 
 				# print("oop_text,set_data_io_L_SU,out suffix_type eq $su\n");
 				$declare_data_out->set_suffix_type_out($su);
 				$declare_data_out->set_su_out();
-			}
 
-			elsif ( $suffix_type_out eq $bin ) {
+			} elsif ( $suffix_type_out eq $bin ) {
 
 				# print("oop_text,set_data_io_L_SU out type eq $bin\n");
 				$declare_data_out->set_suffix_type_out($bin);
 				$declare_data_out->set_bin_out();
-			}
 
-			elsif ( $suffix_type_out eq $text || $suffix_type_out eq $txt ) {
+			} elsif ( $suffix_type_out eq $text || $suffix_type_out eq $txt ) {
 
 				# print("oop_text,set_data_io_L_SU out suffix_type eq 'txt'\n");
 				$declare_data_out->set_suffix_type_out($txt);
 				$declare_data_out->set_text_out();
-			}
-			elsif ( $suffix_type_out eq $sgy ) {
+
+			} elsif ( $suffix_type_out eq $sgy ) {
+
 				print("oop_text,set_data_io_L_SU out suffix_type eq $sgy\n");
 				$declare_data_out->set_suffix_type_out($sgy);
 				$declare_data_out->set_segy_out();
-			}
-			else {
+
+			} else {
 				print("oop_text,set_data_io_L_SU out suffix_type missing \n");
 			}
 
 			# when input and output formats are the same
-		}
-		elsif ( $suffix_type_in eq $suffix_type_out ) {
+		} elsif ( $suffix_type_in eq $suffix_type_out ) {
 
-			# print("oop_text,in and out data same suffix_types\n");
-			if ( $suffix_type_out eq $su ) {
-				$declare_data_out->empty();
-				$declare_data_out->set_su_out();
-			}
+			if ( $suffix_type_out eq $segy ) {
 
-			elsif ( $suffix_type_out eq $bin ) {
 				$declare_data_out->empty();
 				$declare_data_out->set_bin_out();
-			}
 
-			elsif ( $suffix_type_out eq $text || $suffix_type_out eq $txt ) {
+			} elsif ( $suffix_type_out eq $segb ) {
+
+				$declare_data_out->empty();
+				$declare_data_out->set_segb_out();
+
+				# print("oop_text,in and out data same suffix_types\n");
+			} elsif ( $suffix_type_out eq $su ) {
+
+				$declare_data_out->empty();
+				$declare_data_out->set_su_out();
+
+			} elsif ( $suffix_type_out eq $bin ) {
+
+				$declare_data_out->empty();
+				$declare_data_out->set_bin_out();
+
+			} elsif ( $suffix_type_out eq $text
+				|| $suffix_type_out eq $txt ) {
+
 				$declare_data_out->empty();
 				$declare_data_out->set_text_out();
-			}
-			else {
+
+			} else {
 				print(
 					"oop_text,in and out data same suffix_types, missing suffix_type_out\n"
 				);
 
 			}
+			
+		} else {
+			print("oop_text,in and out data suffix_types are neight the same or different\n");
 		}
-		else {
-			print(
-				"oop_text,in and out data suffix_types are neight the same or different\n"
-			);
-		}
-	}
-	else {
+	} else {
 		# print("oop_text,neither data_in nor data_out\n");
 	}
 
@@ -293,9 +313,7 @@ sub declare_data_in {
 	print $filehandle $array[0] . "\n";
 	print $filehandle $array[1] . "\n";
 
-	print $filehandle "\t"
-		. '$file_in[1]' . "\t" . '= ' . "'"
-		. $oop_text->{_file_name_in} . "'" . ';' . "\n";
+	print $filehandle "\t" . '$file_in[1]' . "\t" . '= ' . "'" . $oop_text->{_file_name_in} . "'" . ';' . "\n";
 
 	for ( my $i = 2; $i < $length; $i++ ) {
 		print $filehandle $array[$i] . "\n";
@@ -345,17 +363,18 @@ sub declare_pkg {
 	}
 
 	# print("1. oop_text,declare_pkg: prog_names= @{$oop_text->{_prog_names_aref}}\n");
-	$oop_declaration_defaults->set_prog_names_aref($oop_text);	
-	my $non_duplicate_aref 	= $oop_declaration_defaults->section();
-	my $num_progs4flow 		= scalar @$non_duplicate_aref;
+	$oop_declaration_defaults->set_prog_names_aref($oop_text);
+	my $non_duplicate_aref = $oop_declaration_defaults->section();
+	my $num_progs4flow     = scalar @$non_duplicate_aref;
 
 	for ( my $j = 0; $j < $num_progs4flow; $j++ ) {
 
 		# exclude declaring data files here
 		# data file declarations are handled by declare_data
-		my $prog_name = @{ $non_duplicate_aref }[$j];
+		my $prog_name = @{$non_duplicate_aref}[$j];
 
 		print $filehandle "\t" . 'my (@' . $prog_name . ');' . "\n";
+
 		# print "\t" . 'my (@' . $prog_name . ');' . "\n";
 
 	}
@@ -384,6 +403,7 @@ sub define_flows {
 
 	foreach (@$ref_array) {
 		print $filehandle "$_\n";
+
 		# print "oop_text, define_flows$_\n";
 	}
 
@@ -413,7 +433,6 @@ sub pod_header {
 	return ();
 }
 
-
 =head2 sub instantiation
 
  oop_instantiation_defaults removes duplicate file names
@@ -432,6 +451,7 @@ sub instantiation {
 
 	foreach (@$ref_array) {
 		print $filehandle "$_\n";
+
 		# print "oop_text,instantiation, $_\n";
 	}
 
@@ -588,8 +608,7 @@ sub program_params {
 		foreach (@$ref_array) {
 			print $filehandle "$_\n";    # NOT FORMATTED
 		}
-	}
-	else {
+	} else {
 		print("Warning: oop_text,prog_params, no flow item detected\n");
 	}
 	return ();
@@ -642,7 +661,7 @@ sub set_filehandle {
 	if ($filehandle) {
 		$oop_text->{_filehandle} = $filehandle;
 
-	  # print("oop_text,set_filehandle, filehandle=$oop_text->{_filehandle}\n");
+		# print("oop_text,set_filehandle, filehandle=$oop_text->{_filehandle}\n");
 	}
 	return ();
 }
@@ -651,11 +670,9 @@ sub set_filehandle {
 
 =cut
 
-
 =head2 sub set_macro_tail
 
 =cut
-
 
 =head2 sub set_prog_name
 
@@ -667,7 +684,7 @@ sub set_prog_name {
 	if ($prog_name) {
 		$oop_text->{_prog_name} = $prog_name;
 
-#		 print("oop_text,set_prog_name,prog_name=$oop_text->{_prog_name}\n");
+		#		 print("oop_text,set_prog_name,prog_name=$oop_text->{_prog_name}\n");
 	}
 	return ();
 }
@@ -682,7 +699,7 @@ sub set_prog_version {
 	if ($prog_version) {
 		$oop_text->{_prog_version} = $prog_version;
 
- # print("oop_text,set_prog_version,prog_version=$oop_text->{_prog_version}\n");
+		# print("oop_text,set_prog_version,prog_version=$oop_text->{_prog_version}\n");
 	}
 	return ();
 }
@@ -713,7 +730,7 @@ sub set_num_progs4flow {
 	if ($prog_names_aref) {
 		$oop_text->{_num_progs4flow} = scalar @$prog_names_aref;
 
-# print("oop_text,set_num_progs4flow,num_progs4flow =$oop_text->{_num_progs4flow}\n");
+		# print("oop_text,set_num_progs4flow,num_progs4flow =$oop_text->{_num_progs4flow}\n");
 	}
 	return ();
 }
@@ -728,7 +745,7 @@ sub set_prog_names_aref {
 	if ($prog_names_aref) {
 		$oop_text->{_prog_names_aref} = $prog_names_aref;
 
-# print("oop_text,set_prog_names_aref, prog_names=@{$oop_text->{_prog_names_aref}}\n");
+		# print("oop_text,set_prog_names_aref, prog_names=@{$oop_text->{_prog_names_aref}}\n");
 	}
 	return ();
 }
@@ -740,12 +757,12 @@ sub set_prog_names_aref {
 sub set_prog_param_values_aref {
 	my ( $self, $prog_param_values_aref ) = @_;
 
-# print("oop_text,set_prog_param_values_aref, prog_param_values=@{$prog_param_values_aref}\n");
+	# print("oop_text,set_prog_param_values_aref, prog_param_values=@{$prog_param_values_aref}\n");
 
 	if ($prog_param_values_aref) {
 		$oop_text->{_prog_param_values_aref} = $prog_param_values_aref;
 
-# print("oop_text,set_prog_param_values_aref, prog_param_values=@{$oop_text->{_prog_param_values_aref}}\n");
+		# print("oop_text,set_prog_param_values_aref, prog_param_values=@{$oop_text->{_prog_param_values_aref}}\n");
 	}
 	return ();
 }
@@ -760,7 +777,7 @@ sub set_prog_param_labels_aref {
 	if ($prog_param_labels_aref) {
 		$oop_text->{_prog_param_labels_aref} = $prog_param_labels_aref;
 
-# print("oop_text,set_prog_param_labels_aref, prog_param_labels=@{$oop_text->{_prog_param_labels_aref}}\n");
+		# print("oop_text,set_prog_param_labels_aref, prog_param_labels=@{$oop_text->{_prog_param_labels_aref}}\n");
 	}
 	return ();
 }
@@ -807,44 +824,43 @@ sub use_pkg {
 	}
 
 	# remove repeated programs from the list
-	$unique_progs_ref =
-		$filter->unique_elements( $oop_text->{_prog_names_aref} );
+	$unique_progs_ref = $filter->unique_elements( $oop_text->{_prog_names_aref} );
 	@unique_progs     = @{$unique_progs_ref};
 	$num_unique_progs = scalar @unique_progs;
 
 	for ( my $j = 0; $j < $num_unique_progs; $j++ ) {
 		my $prog_name = $unique_progs[$j];
-#		if ( $prog_name ne 'data_in' && $prog_name ne 'data_out' ) {
 
-# commented out Nov 6 2019 JML
-#			use developer;
-#
-#			my $developer 	= developer->new();
-#			$developer		->set_program_name($prog_name); 
-#
-#			my $perl_category_directory =
-#				$developer->get_program_category($prog_name);
-#				
-#
-#				print $filehandle "\t"
-#				. 'use sunix::' . $perl_category_directory.'::'
-#				. $prog_name . ';' . "\n";
-# replaced by
+		#		if ( $prog_name ne 'data_in' && $prog_name ne 'data_out' ) {
+
+		# commented out Nov 6 2019 JML
+		#			use developer;
+		#
+		#			my $developer 	= developer->new();
+		#			$developer		->set_program_name($prog_name);
+		#
+		#			my $perl_category_directory =
+		#				$developer->get_program_category($prog_name);
+		#
+		#
+		#				print $filehandle "\t"
+		#				. 'use sunix::' . $perl_category_directory.'::'
+		#				. $prog_name . ';' . "\n";
+		# replaced by
 
 		print $filehandle "\t" . 'use ' . $prog_name . ';' . "\n";
 
-
-#		}
-#		elsif ( $prog_name ne 'data_in' or $prog_name ne 'data_out' )
-#		{    # added  in V 0.0.2
-#
-#			print $filehandle "\t" . 'use ' . $prog_name . ';' . "\n";
-#
-#			# print "\t".'use '.$prog_name.';'."\n";
-#		}
-#		else {
-#			print("oop_text,use_pkg, missing prog name \n");
-#		}
+		#		}
+		#		elsif ( $prog_name ne 'data_in' or $prog_name ne 'data_out' )
+		#		{    # added  in V 0.0.2
+		#
+		#			print $filehandle "\t" . 'use ' . $prog_name . ';' . "\n";
+		#
+		#			# print "\t".'use '.$prog_name.';'."\n";
+		#		}
+		#		else {
+		#			print("oop_text,use_pkg, missing prog name \n");
+		#		}
 	}
 	return ();
 }

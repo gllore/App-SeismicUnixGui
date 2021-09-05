@@ -74,7 +74,7 @@ my $iFile = {
 
 works for both user-built and pre-built superflows
 JML Nov-14-2018
-Now allows mutiple file  formats (bin,su,txt) within a single program: 6.4.21 
+Allows mutiple file  formats (bin,su,txt) within a single program: 6.4.21 
 
 =cut
 
@@ -84,10 +84,11 @@ sub _get_DATA_DIR_IN {
 	use Project_config;
 	my $Project = Project_config->new();
 
-	my $DATA_SEISMIC_BIN = $Project->DATA_SEISMIC_BIN();
-	my $DATA_SEISMIC_SU  = $Project->DATA_SEISMIC_SU();
-	my $PL_SEISMIC       = $Project->PL_SEISMIC();
-	my $DATA_SEISMIC_TXT = $Project->DATA_SEISMIC_TXT();
+	my $DATA_SEISMIC_BIN  = $Project->DATA_SEISMIC_BIN();
+	my $DATA_SEISMIC_SEGB = $Project->DATA_SEISMIC_SEGB();
+	my $DATA_SEISMIC_SU   = $Project->DATA_SEISMIC_SU();
+	my $PL_SEISMIC        = $Project->PL_SEISMIC();
+	my $DATA_SEISMIC_TXT  = $Project->DATA_SEISMIC_TXT();
 	my $prog_name;
 	my $result;
 
@@ -114,8 +115,6 @@ sub _get_DATA_DIR_IN {
 		#		use Module::Refresh; # reload updated module
 		#		my $refresher = Module::Refresh->new;
 
-		my $DATA_PATH_IN;
-
 		my $module_spec    = $prog_name . '_spec';
 		my $module_spec_pm = $module_spec . '.pm';
 
@@ -125,9 +124,9 @@ sub _get_DATA_DIR_IN {
 		my $package = $module_spec->new;
 
 		# collect specifications of input and output directories
-		# from a program_spec.pm module
-		my $specs_h = $package->variables();
-		$DATA_PATH_IN = $specs_h->{_DATA_DIR_IN};
+		# from a "program_spec".pm module
+		my $specs_h      = $package->variables();
+		my $DATA_PATH_IN = $specs_h->{_DATA_DIR_IN};
 
 		$package->prefix_aref();
 		my @prefix = @{ $package->get_prefix_aref() };
@@ -138,28 +137,47 @@ sub _get_DATA_DIR_IN {
 
 			if ( $prefix[$index] ne $empty_string ) {
 
-				if ( $prefix[$index] eq '$DATA_SEISMIC_SU' . ".'/'." ) {
+				# Case 1.A: Many possible defined prefixes
+
+				if ( $prefix[$index] eq ( '$DATA_SEISMIC_SU' . ".'/'." ) ) {
 
 					$result = $DATA_SEISMIC_SU;
 
-				} elsif ( $prefix[$index] eq '$DATA_SEISMIC_BIN' . ".'/'." ) {
+				} elsif ( $prefix[$index] eq ( '$DATA_SEISMIC_BIN' . ".'/'." ) ) {
 
 					$result = $DATA_SEISMIC_BIN;
 
-				} elsif ( $prefix[$index] eq '$DATA_SEISMIC_TXT' . ".'/'." ) {
+					#					print("iFile, _get_DATA_DIR_IN,for BIN; prefix[$index] =$prefix[$index]\n");
 
+				} elsif ( $prefix[$index] eq ( '$DATA_SEISMIC_SEGB' . ".'/'." ) ) {
+
+					$result = $DATA_SEISMIC_SEGB;
+
+					#					print("iFile, _get_DATA_DIR_IN,for SEGB; prefix[$index] =$prefix[$index]\n");
+
+				} elsif ( $prefix[$index] eq ( '$DATA_SEISMIC_TXT' . ".'/'." ) ) {
+
+					#					print("iFile, _get_DATA_DIR_IN for TXT; prefix[$index] =$prefix[$index]\n");
 					$result = $DATA_SEISMIC_TXT;
 
-				} elsif ( $prefix[$index] eq '$PL_SEISMIC' . ".'/'." ) {
+				} elsif ( $prefix[$index] eq '$PL_SEISMIC/' ) {
 
 					$result = $PL_SEISMIC;
 
 				} else {
 					print("iFile, _get_DATA_DIR_IN, unexpected result \n");
+#					print("iFile, _get_DATA_DIR_IN,  DATA_PATH_IN= $DATA_PATH_IN \n");
+#					print("2. iFile, _get_DATA_DIR_IN,prefix[$index] ='$prefix[$index]'\n");
+#					print( "3. iFile, _get_DATA_DIR_IN, 'DATA_SEISMIC_BIN' ='$DATA_SEISMIC_BIN' . " . '/' . "\n" );
+#					print( "4. iFile, _get_DATA_DIR_IN, 'DATA_SEISMIC_TXT' ='$DATA_SEISMIC_TXT' . " . '/' . "\n" );
 				}
 
 			} elsif ( $prefix[$index] eq $empty_string ) {
 
+				# Case 2.
+				# No defined prefix
+				# Skips ancillary prefix definitions and only
+				# uses the first key value of _DATA_DIR_IN
 				$result = $DATA_PATH_IN;
 
 			} else {
@@ -168,8 +186,9 @@ sub _get_DATA_DIR_IN {
 
 		} else {
 			print("iFile, _get_DATA_DIR_IN, mising values \n");
-			print("iFile, $DATA_PATH_IN=$DATA_PATH_IN \n");
-			print("iFile, index=$index\n");
+
+			#			print("iFile, $DATA_PATH_IN=$DATA_PATH_IN \n");
+			#			print("iFile, index=$index\n");
 		}
 
 	} else {
@@ -305,6 +324,7 @@ sub get_Data_path {
 	my $DATA_SEISMIC_BIN          = $Project->DATA_SEISMIC_BIN();
 	my $DATA_SEISMIC_SU           = $Project->DATA_SEISMIC_SU();
 	my $PL_SEISMIC                = $Project->PL_SEISMIC();
+	my $DATA_SEISMIC_SEGB         = $Project->DATA_SEISMIC_SEGB();
 	my $DATA_SEISMIC_SEGY         = $Project->DATA_SEISMIC_SEGY();
 	my $DATA_SEISMIC_TXT          = $Project->DATA_SEISMIC_TXT();
 	my $DATA_SEISMIC_WELL_SYNSEIS = $Project->DATA_SEISMIC_WELL_SYNSEIS();
@@ -317,12 +337,12 @@ sub get_Data_path {
 
 			# CASE 1 user-built flows
 			# CASE 1A first label/name is base_file_name
-			#			print("CASE 1 iFile,get_Data_path,flow_type = $iFile->{_flow_type}\n");
+			#	print("CASE 1 iFile,get_Data_path,flow_type = $iFile->{_flow_type}\n");
 			# FOR A VERY SPECIFIC CASE (TODO: move all cases to the _spec files)
 
 			my $suffix_type = @{ $iFile->{_values_aref} }[1];
 
-			#			print("CASE 1 iFile,get_Data_path,suffix_type = $suffix_type\n");
+			#	print("CASE 1 iFile,get_Data_path,suffix_type = $suffix_type\n");
 
 			if ( $suffix_type eq 'su' or $suffix_type eq "'su'" ) {
 
@@ -333,6 +353,23 @@ sub get_Data_path {
 				# print("CASE 1A.1 iFile,get_Data_path=$DATA_SEISMIC_SU\n");
 				$iFile->{_path} = $DATA_SEISMIC_SU;
 
+			} elsif ( $suffix_type eq 'segb'
+				or $suffix_type eq "'segb'"
+				or $suffix_type eq 'SEGB'
+				or $suffix_type eq "'SEGB'"
+				or $suffix_type eq 'sgb'
+				or $suffix_type eq "'sgb'"
+				or $suffix_type eq 'SGB'
+				or $suffix_type eq "'SGB'" ) {
+
+				# CASE 1A.2
+				# and second (index=1) 'segy\b'
+				# if second label/name = 'type' &&  value = 'segb'
+
+				#				print("iFile,get_path,entry_button_label= $entry_label\n");
+				#				print("CASE 1A.2 iFile,get_Data_path,$DATA_SEISMIC_SEGB\n");
+				$iFile->{_path} = $DATA_SEISMIC_SEGB;
+
 			} elsif ( $suffix_type eq 'segy'
 				or $suffix_type eq "'segy'"
 				or $suffix_type eq 'SEGY'
@@ -342,12 +379,12 @@ sub get_Data_path {
 				or $suffix_type eq 'SGY'
 				or $suffix_type eq "'SGY'" ) {
 
-				# CASE 1A.2
+				# CASE 1A.3
 				# and second (index=1) 'segy'
 				# if second label/name = 'type' &&  value = 'segy'
 
 				#				print("iFile,get_path,entry_button_label= $entry_label\n");
-				#				print("CASE 1A.2 iFile,get_Data_path,$DATA_SEISMIC_SEGY\n");
+				#				print("CASE 1A.3 iFile,get_Data_path,$DATA_SEISMIC_SEGY\n");
 				$iFile->{_path} = $DATA_SEISMIC_SEGY;
 
 			} elsif ( $suffix_type eq 'txt'
@@ -363,12 +400,12 @@ sub get_Data_path {
 				or $suffix_type eq "'ascii'"
 				or $suffix_type eq "'ASCII'" ) {
 
-				# CASE 1A.3
+				# CASE 1A.4
 				# and second (index=1) text
 				# if second label/name = 'type' &&  value is text
 
 				# print("iFile,get_path,entry_button_label= $entry_label\n");
-				# print("CASE 1A.3. iFile,get_Data_path,$DATA_SEISMIC_TXT\n");
+				# print("CASE 1A.4. iFile,get_Data_path,$DATA_SEISMIC_TXT\n");
 				$iFile->{_path} = $DATA_SEISMIC_TXT;
 
 			} elsif ( $suffix_type eq 'bin'
@@ -376,12 +413,12 @@ sub get_Data_path {
 				or $suffix_type eq "'bin'"
 				or $suffix_type eq "'BIN'" ) {
 
-				# CASE 1A.4
+				# CASE 1A.5
 				# and second (index=1) entry value = binary data
 				# if second label/name = 'type' &&  value = bin
 
 				# print("iFile,get_path,entry_button_label= $entry_label\n");
-				#				print("CASE 1A.4 iFile,get_Data_path,$DATA_SEISMIC_BIN\n");
+				#				print("CASE 1A.5 iFile,get_Data_path,$DATA_SEISMIC_BIN\n");
 				$iFile->{_path} = $DATA_SEISMIC_BIN;
 
 			} elsif ( $suffix_type eq 'ps'
@@ -398,11 +435,11 @@ sub get_Data_path {
 				$iFile->{_path} = $PS_SEISMIC;
 
 			} elsif ( $suffix_type eq $empty_string ) {
-				
+
 				# CASE 1A.7
 				$iFile->{_path} = $PL_SEISMIC;
 				print("iFile,get_path,path=$iFile->{_path}\n");
-					
+
 			} else {
 				$iFile->{_path} = $default_path;
 
@@ -414,6 +451,7 @@ sub get_Data_path {
 			or $entry_label eq 'file2' ) {
 
 			# FOR ANOTHER VERY SPECIFIC CASE
+			# TODO remove?? becuaseit is updated by prefix values inthe *_spec file?
 			# CASE 1B.1 : suop2
 			# first label/name   = 'file1'
 			# second label/name  = 'file2'

@@ -1520,7 +1520,7 @@ sub hbox {
 
 =head2 sub hiclip
 
- subs hiclip wclip
+ subs hiclip or wclip
 
 =cut
 

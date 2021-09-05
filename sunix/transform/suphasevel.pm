@@ -44,7 +44,6 @@ package suphasevel;
   5. For later processing outtrace.dt=domega			
   6. works for 2D or 3D shots in any offset order		
 
-
  Using this program:						
 
  First: use 							
@@ -93,6 +92,18 @@ package suphasevel;
   Before this can be run, the trace offset must be set
  This is done by using the command 'sushw' to adjust
 # the headers
+
+=head2 User's notes
+
+In the following case where shotpoint lies inthe middle of the data set
+Change from:
+sx=100
+offset= -100 to 99 
+
+Change to
+gx=-100 to 99
+sx=0
+offset=-100 to 99
 
 =head2 CHANGES and their DATES
 

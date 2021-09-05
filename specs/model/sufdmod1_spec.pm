@@ -53,6 +53,8 @@ my $sufdmod1_spec =  {
 	_is_suprog             => $true,
 	_is_superflow          => $false,
 	_max_index             => $max_index,
+	 _prefix_aref               => '',
+     _suffix_aref               => '',	
 };
 
 =head2  sub binding_index_aref
@@ -73,28 +75,6 @@ sub binding_index_aref {
 	$index[2] = 14;
 
 	$sufdmod1_spec->{_binding_index_aref} = \@index;
-	return ();
-
-}
-
-=head2  sub file_dialog_type_aref
-
-type of dialog (Data, Flow, SaveAs) is needed by binding
-one type of dialog for each index
-
-=cut
-
-sub file_dialog_type_aref {
-
-	my ($self) = @_;
-
-	my @type;
-
-	$type[0] = $file_dialog_type->{_Data};
-	$type[1] = $file_dialog_type->{_Data};
-	$type[2] = $file_dialog_type->{_Data};
-
-	$sufdmod1_spec->{_file_dialog_type_aref} = \@type;
 	return ();
 
 }
@@ -139,6 +119,31 @@ sub get_binding_index_aref {
 	}
 
 	my $index_aref = $sufdmod1_spec->{_binding_index_aref};
+}
+
+=head2  sub file_dialog_type_aref
+
+type of dialog (Data, Flow, SaveAs) is needed by binding
+one type of dialog for each index
+
+=cut
+
+sub file_dialog_type_aref {
+
+	my ($self) = @_;
+
+	my @type;
+	
+    my $index_aref = get_binding_index_aref();
+	my @index      = @$index_aref;
+
+	$type[$index[0]] = $file_dialog_type->{_Data};
+	$type[$index[1]] = $file_dialog_type->{_Data};
+	$type[$index[2]] = $file_dialog_type->{_Data};
+
+	$sufdmod1_spec->{_file_dialog_type_aref} = \@type;
+	return ();
+
 }
 
 =head2 sub get_binding_length
@@ -305,11 +310,11 @@ sub get_suffix_aref {
 
 =head2  sub prefix_aref
 
-Include in the Set up
+Include in the set-up
 sections of an output Poop flow.
 
-prefixes and suffixes to parameter labels
-are filtered by sunix_pl
+Prefixes and suffixes to parameter labels
+are filtered by sunix_pl on writing out.
 
 =cut
 
@@ -327,9 +332,9 @@ sub prefix_aref {
 
 	my $index_aref = get_binding_index_aref();
 	my @index      = @$index_aref;
-	$prefix[ $index[0] ] = '$DATA_SEISMIC_BIN' . ".'/'.";
-	$prefix[ $index[1] ] = '$DATA_SEISMIC_SU' . ".'/'.";
-	$prefix[ $index[2] ] = '$DATA_SEISMIC_BIN' . ".'/'.";
+	$prefix[ $index[0] ] =  '$DATA_SEISMIC_BIN' . ".'/'.";
+	$prefix[ $index[1] ] =  '$DATA_SEISMIC_SU' . ".'/'.";
+	$prefix[ $index[2] ] =  '$DATA_SEISMIC_BIN' . ".'/'.";
 
 	$sufdmod1_spec->{_prefix_aref} = \@prefix;
 	return ();
@@ -344,6 +349,7 @@ values
 
 set data type in to binary
 set data type out to su
+for writing out to perl script
 
 =cut
 

@@ -279,6 +279,7 @@ sub axesColor {
 
 =head2 sub bclip 
 
+subs bclip or loclip or low_clip
 
 =cut
 
@@ -599,6 +600,48 @@ sub height {
 	}
 }
 
+=head2 sub hiclip 
+
+subs hiclip or wclip or high_clip
+
+=cut
+
+sub hiclip {
+
+	my ( $self, $wclip ) = @_;
+	if ( $wclip ne $empty_string ) {
+
+		$xmovie->{_wclip} = $wclip;
+		$xmovie->{_note}  = $xmovie->{_note} . ' wclip=' . $xmovie->{_wclip};
+		$xmovie->{_Step}  = $xmovie->{_Step} . ' wclip=' . $xmovie->{_wclip};
+
+	}
+	else {
+		print("xmovie, hiclip, missing wclip,\n");
+	}
+}
+
+=head2 sub high_clip 
+
+subs hiclip or wclip or high_clip
+
+=cut
+
+sub high_clip {
+
+	my ( $self, $wclip ) = @_;
+	if ( $wclip ne $empty_string ) {
+
+		$xmovie->{_wclip} = $wclip;
+		$xmovie->{_note}  = $xmovie->{_note} . ' wclip=' . $xmovie->{_wclip};
+		$xmovie->{_Step}  = $xmovie->{_Step} . ' wclip=' . $xmovie->{_wclip};
+
+	}
+	else {
+		print("xmovie, high_clip, missing wclip,\n");
+	}
+}
+
 =head2 sub idm 
 
 
@@ -641,6 +684,7 @@ sub interp {
 
 =head2 sub label1 
 
+ylabel or label1
 
 =cut
 
@@ -660,6 +704,8 @@ sub label1 {
 }
 
 =head2 sub label2 
+
+xlabel or label2
 
 
 =cut
@@ -700,6 +746,51 @@ sub labelFont {
 		print("xmovie, labelFont, missing labelFont,\n");
 	}
 }
+
+
+=head2 sub loclip 
+
+subs bclip or loclip or low_clip
+
+=cut
+
+sub loclip {
+
+	my ( $self, $bclip) = @_;
+	if ( $bclip ne $empty_string ) {
+
+		$xmovie->{_bclip} = $bclip;
+		$xmovie->{_note}  = $xmovie->{_note} . ' bclip=' . $xmovie->{_bclip};
+		$xmovie->{_Step}  = $xmovie->{_Step} . ' bclip=' . $xmovie->{_bclip};
+
+	}
+	else {
+		print("xmovie, loclip, missing bclip,\n");
+	}
+}
+
+
+=head2 sub low_clip 
+
+subs bclip or loclip or low_clip
+
+=cut
+
+sub low_clip {
+
+	my ( $self, $bclip) = @_;
+	if ( $bclip ne $empty_string ) {
+
+		$xmovie->{_bclip} = $bclip;
+		$xmovie->{_note}  = $xmovie->{_note} . ' bclip=' . $xmovie->{_bclip};
+		$xmovie->{_Step}  = $xmovie->{_Step} . ' bclip=' . $xmovie->{_bclip};
+
+	}
+	else {
+		print("xmovie, low_clip, missing bclip,\n");
+	}
+}
+
 
 =head2 sub loop 
 
@@ -967,6 +1058,7 @@ sub verbose {
 
 =head2 sub wclip 
 
+subs hiclip or wclip or high_clip
 
 =cut
 
@@ -1166,6 +1258,51 @@ sub x2end {
 		print("xmovie, x2end, missing x2end,\n");
 	}
 }
+
+=head2 sub xlabel 
+
+xlabel or label2
+
+
+=cut
+
+sub xlabel {
+
+	my ( $self, $label2 ) = @_;
+	if ( $label2 ne $empty_string ) {
+
+		$xmovie->{_label2} = $label2;
+		$xmovie->{_note}   = $xmovie->{_note} . ' label2=' . $xmovie->{_label2};
+		$xmovie->{_Step}   = $xmovie->{_Step} . ' label2=' . $xmovie->{_label2};
+
+	}
+	else {
+		print("xmovie, xlabel, missing label2,\n");
+	}
+}
+
+=head2 sub label1 
+
+
+ylabel or label1
+
+=cut
+
+sub ylabel {
+
+	my ( $self, $label1 ) = @_;
+	if ( $label1 ne $empty_string ) {
+
+		$xmovie->{_label1} = $label1;
+		$xmovie->{_note}   = $xmovie->{_note} . ' label1=' . $xmovie->{_label1};
+		$xmovie->{_Step}   = $xmovie->{_Step} . ' label1=' . $xmovie->{_label1};
+
+	}
+	else {
+		print("xmovie, ylabel, missing label1,\n");
+	}
+}
+
 
 =head2 sub get_max_index
 

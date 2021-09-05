@@ -131,6 +131,23 @@ sub set_text_out {
 
 }
 
+sub set_segb_out {
+
+	$outbound_notes[1] = "\t" . 'my (@file_out);' . "\n\t" . 'my (@segbdata_out,@outbound);';
+	$outbound_notes[2] = "\t" . '$segbdata_out[1]' . "\t" . '= $file_out[1].$suffix_segb;';
+	$outbound_notes[3] = "\t" . '$outbound[1]' . "\t" . '= $DATA_SEISMIC_SEGB.' . "'/'" . '.$segbdata_out[1];';
+
+}
+
+sub set_segy_out {
+
+	$outbound_notes[1] = "\t" . 'my (@file_out);' . "\n\t" . 'my (@segydata_out,@outbound);';
+	$outbound_notes[2] = "\t" . '$segydata_out[1]' . "\t" . '= $file_out[1].$suffix_segy;';
+	$outbound_notes[3] = "\t" . '$outbound[1]' . "\t" . '= $DATA_SEISMIC_SEGY.' . "'/'" . '.$segydata_out[1];';
+
+}
+
+
 sub set_su_in {
     $inbound_notes[1] =
       "\t" . 'my (@file_in);' . "\n\t" . 'my (@sudata_in,@inbound);';
@@ -154,6 +171,32 @@ sub set_su_out {
       . '$outbound[1]' . "\t"
       . '= $DATA_SEISMIC_SU.' . "'/'"
       . '.$sudata_out[1];';
+
+}
+
+
+
+=head2 sub _set_segb_out   
+
+prepare to use segb files
+
+=cut
+
+sub _set_segb_out {
+	my ($self) = @_;
+	$outbound_notes[0] = "\n\t" . 'my ($DATA_SEISMIC_SEGB) = $Project->DATA_SEISMIC_SEGB();';
+
+}
+
+=head2 sub _set_segy_out   
+
+prepare to use segy files
+
+=cut
+
+sub _set_segy_out {
+	my ($self) = @_;
+	$outbound_notes[0] = "\n\t" . 'my ($DATA_SEISMIC_SEGY) = $Project->DATA_SEISMIC_SEGY();';
 
 }
 
@@ -196,6 +239,27 @@ sub _set_bin_out {
 
 }
 
+=head2 sub _set_segb_in   
+
+prepare to use segb files
+
+=cut
+
+sub _set_segb_in {
+	my ($self) = @_;
+	$inbound_notes[0] = "\n\t" . 'my ($DATA_SEISMIC_SEGB) = $Project->DATA_SEISMIC_SEGB();';
+}
+
+=head2 sub _set_segy_in   
+
+prepare to use segy files
+
+=cut
+
+sub _set_segy_in {
+	my ($self) = @_;
+	$inbound_notes[0] = "\n\t" . 'my ($DATA_SEISMIC_SEGY) = $Project->DATA_SEISMIC_SEGY();';
+}
 =head2 sub _set_su_in   
 
 prepare to use su files
@@ -236,6 +300,8 @@ sub _set_bin_in {
 
 =pod
 
+=pod
+
 =head2 subroutine  set_suffix_type_in
 
   you need to know how many numbers per line
@@ -244,20 +310,38 @@ sub _set_bin_in {
 =cut
 
 sub set_suffix_type_in {
-    my ( $variable, $suffix_type_in ) = @_;
-    if ($suffix_type_in) {
+	my ( $variable, $suffix_type_in ) = @_;
 
-        if ( $suffix_type_in eq 'su' ) {
+	if ($suffix_type_in) {
 
-    # print("declare-data,set_suffix_type_in,suffix_type_in:$suffix_type_in\n");
-            _set_su_in();
-        }
-        if ( $suffix_type_in eq 'text' ) { _set_text_in(); }
-        if ( $suffix_type_in eq 'bin' )  { _set_bin_in(); }
-    }
+		if ( $suffix_type_in eq 'segb' ) {
+
+			_set_segb_in();
+
+		} elsif ( $suffix_type_in eq 'segy' ) {
+
+			_set_segy_in();
+
+		} elsif ( $suffix_type_in eq 'su' ) {
+
+			# print("oop_declare_data_out,set_suffix_type_in,suffix_type_in:$suffix_type_in\n");
+			_set_su_in();
+
+		} elsif ( $suffix_type_in eq 'text' ) {
+
+			_set_text_in();
+
+		} elsif ( $suffix_type_in eq 'bin' ) {
+
+			_set_bin_in();
+
+		} else {
+			print("\n");
+		}
+	}
 }
 
-=head2 subroutine  set_suffix_typeout_
+=head2 subroutine  set_suffix_type_out
 
   you need to know how many numbers per line
   will be in the output file 
@@ -265,17 +349,36 @@ sub set_suffix_type_in {
 =cut
 
 sub set_suffix_type_out {
-    my ( $variable, $suffix_type_out ) = @_;
-    if ($suffix_type_out) {
+	my ( $variable, $suffix_type_out ) = @_;
 
-        if ( $suffix_type_out eq 'su' ) {
+	if ($suffix_type_out) {
 
- # print("declare-data,set_suffix_type_out,suffix_type_out:$suffix_type_out\n");
-            _set_su_out();
-        }
-        if ( $suffix_type_out eq 'text' ) { _set_text_out(); }
-        if ( $suffix_type_out eq 'bin' )  { _set_bin_out(); }
-    }
+		if ( $suffix_type_out eq 'segb' ) {
+
+			_set_segb_out();
+
+		} elsif ( $suffix_type_out eq 'segy' ) {
+
+			# print("oop_declare_data_out,set_suffix_type_out,suffix_type_out:$suffix_type_out\n");
+			_set_segy_out();
+
+		} elsif ( $suffix_type_out eq 'su' ) {
+
+			# print("oop_declare_data_out,set_suffix_type_out,suffix_type_out:$suffix_type_out\n");
+			_set_su_out();
+
+		} elsif ( $suffix_type_out eq 'text' ) {
+
+			_set_text_out();
+
+		} elsif ( $suffix_type_out eq 'bin' ) {
+
+			_set_bin_out();
+
+		} else {
+			print("oop_declare_data_out,set_suffix_type_out,suffix_type_out:$suffix_type_out\n");
+		}
+	}
 }
 
 1;

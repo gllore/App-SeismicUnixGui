@@ -34,12 +34,12 @@ our $VERSION = '1.0.0';
   $ivpicks_sorted_par_
   $ms2s $us2s
   $ps
-  $DAT $dat $seg2 $segy $sgy $su $par $none
+  $DAT $dat $seg2 $segb $segy $sgy $su $par $empty
   $start_time
-  $suffix_DAT $suffix_dat $suffix_ascii $suffix_none $suffix_par $suffix_text $suffix_bin $suffix_bot_mute $suffix_top_mute $suffix_fft $suffix_fp
+  $suffix_DAT $suffix_dat $suffix_ascii $suffix_empty $suffix_par $suffix_text $suffix_bin $suffix_bot_mute $suffix_top_mute $suffix_fft $suffix_fp
   $suffix_geom $suffix_hyphen $suffix_isurf $suffix_lsu $suffix_mute $suffix_null 
   $suffix_ps $suffix_rev
-  $suffix_segd $suffix_segy $suffix_sgy $suffix_su $suffix_seg2 $suffix_taup $suffix_top_mute $suffix_usp $suffix_itop_mute
+  $suffix_segb $suffix_segd $suffix_segy $suffix_sgy $suffix_su $suffix_seg2 $suffix_taup $suffix_top_mute $suffix_usp $suffix_itop_mute
   $suffix_sac $suffix_txt $prefix_taup_picks_ $prefix_taup_picks $out
   $suffix_target $suffix_param $suffix_env $suffix_report $to $txt $text $tracf $tracl $trid $year
   $tmute $xmute );
@@ -49,10 +49,11 @@ our $DAT  = 'DAT;';
 our $dat  = 'dat';
 our $seg2 = 'seg2';
 our $su   = 'su';
+our $segb = 'segb';
 our $segy = 'segy';
 our $sgy  = 'sgy';
 our $bin  = 'bin';
-our	$none = '';
+our	$empty = '';
 our $par  = 'par';
 
 #	our $txt							= 'txt';   ALSO in SEGY HEADERS- below
@@ -179,7 +180,7 @@ our $suffix_ascii = '.asc';
 
 our $suffix_bin = '.bin';
 
-our $suffix_none=	'';
+our $suffix_empty=	'';
 
 our $suffix_par = '.par';
 
@@ -218,6 +219,8 @@ our $suffix_sac = '.sac';
 our $suffix_segd = '.segd';
 
 our $suffix_seg2 = '.seg2';
+
+our $suffix_segb = '.segb';
 
 our $suffix_DAT = '.DAT';
 

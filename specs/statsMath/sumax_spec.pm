@@ -21,7 +21,7 @@ my $flow_type        = $get->flow_type_href();
 
 my $DATA_SEISMIC_SU = $Project->DATA_SEISMIC_SU();    # input data directory
 my $PL_SEISMIC				= $Project->PL_SEISMIC();
-my $max_index       = $sumax->get_max_index();
+my $max_index       = 8; #$sumax->get_max_index();
 
 my $sumax_spec =  {
     _CONFIG	 				=> $PL_SEISMIC,

@@ -203,11 +203,13 @@ my $suxmovie = {
 	_grid2       => '',
 	_gridColor   => '',
 	_height      => '',
+	_high_clip     => '',
 	_idm         => '',
 	_interp      => '',
 	_label1      => '',
 	_label2      => '',
 	_labelFont   => '',
+	_low_clip        => '',
 	_loop        => '',
 	_mode        => '',
 	_n1          => '',
@@ -353,6 +355,7 @@ sub axesColor {
 
 =head2 sub bclip 
 
+subs bclip or loclip or low_clip
 
 =cut
 
@@ -729,6 +732,53 @@ sub height {
 	}
 }
 
+=head2 sub hiclip 
+
+subs wclip or hiclip or high_clip
+
+=cut
+
+sub hiclip {
+
+	my ( $self, $wclip ) = @_;
+	if ( $wclip ne $empty_string ) {
+
+		$suxmovie->{_wclip} = $wclip;
+		$suxmovie->{_note} =
+			$suxmovie->{_note} . ' wclip=' . $suxmovie->{_wclip};
+		$suxmovie->{_Step} =
+			$suxmovie->{_Step} . ' wclip=' . $suxmovie->{_wclip};
+
+	}
+	else {
+		print("xmovie, hiclip, missing wclip,\n");
+	}
+}
+
+=head2 sub high_clip 
+
+subs wclip or hiclip or high_clip
+
+=cut
+
+sub high_clip {
+
+	my ( $self, $wclip ) = @_;
+	if ( $wclip ne $empty_string ) {
+
+		$suxmovie->{_wclip} = $wclip;
+		$suxmovie->{_note} =
+			$suxmovie->{_note} . ' wclip=' . $suxmovie->{_wclip};
+		$suxmovie->{_Step} =
+			$suxmovie->{_Step} . ' wclip=' . $suxmovie->{_wclip};
+
+	}
+	else {
+		print("xmovie, high_clip, missing wclip,\n");
+	}
+}
+
+
 =head2 sub idm 
 
 
@@ -795,6 +845,7 @@ sub label1 {
 
 =head2 sub label2 
 
+subs label2 or xlabel
 
 =cut
 
@@ -834,6 +885,53 @@ sub labelFont {
 	}
 	else {
 		print("xmovie, labelFont, missing labelFont,\n");
+	}
+}
+
+=head2 sub loclip 
+
+subs bclip or loclip or low_clip
+
+=cut
+
+sub loclip {
+
+	my ( $self, $bclip ) = @_;
+	if ( $bclip ne $empty_string ) {
+
+		$suxmovie->{_bclip} = $bclip;
+		$suxmovie->{_note} =
+			$suxmovie->{_note} . ' bclip=' . $suxmovie->{_bclip};
+		$suxmovie->{_Step} =
+			$suxmovie->{_Step} . ' bclip=' . $suxmovie->{_bclip};
+
+	}
+	else {
+		print("xmovie, loclip, missing bclip,\n");
+	}
+}
+
+
+=head2 sub low_clip 
+
+subs bclip or loclip or low_clip
+
+=cut
+
+sub low_clip {
+
+	my ( $self, $bclip ) = @_;
+	if ( $bclip ne $empty_string ) {
+
+		$suxmovie->{_bclip} = $bclip;
+		$suxmovie->{_note} =
+			$suxmovie->{_note} . ' bclip=' . $suxmovie->{_bclip};
+		$suxmovie->{_Step} =
+			$suxmovie->{_Step} . ' bclip=' . $suxmovie->{_bclip};
+
+	}
+	else {
+		print("xmovie, low_clip, missing bclip,\n");
 	}
 }
 
@@ -1197,6 +1295,7 @@ sub verbose {
 
 =head2 sub wclip 
 
+subs wclip or high_clip
 
 =cut
 

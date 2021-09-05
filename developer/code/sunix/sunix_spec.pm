@@ -161,10 +161,13 @@ sub _get_version_section {
 	' sub file_dialog_type_aref {'."\n\n".
 	"\t".'my $self 	= @_;'."\n\n".
 	"\t".'my @type;'."\n\n".
+	 "\t".'my $index_aref = get_binding_index_aref();'."\n".
+	"\t".'my @index      = @$index_aref;'."\n\n".
 	"\t".'	# bound index will look for data'."\n".
-	"\t".'$type[0]	=  $file_dialog_type->{_Data};'."\n".
-	"\t".'$type[1]	=  $file_dialog_type->{_Data};'."\n".
-	"\t".'$type[2]	=  $file_dialog_type->{_Data};'."\n\n".
+	"\t".'$type[0]	= \'\';'."\n".
+	"\t".'$type[$index[0]] = $file_dialog_type->{_Data};'."\n".
+	"\t".'$type[$index[1]]	=  $file_dialog_type->{_Data};'."\n".
+	"\t".'$type[$index[0]]	=  $file_dialog_type->{_Data};'."\n\n".
 	"\t".'$'.$package_name.'_spec ->{_file_dialog_type_aref} = \@type;'."\n".	
 	"\t".'return();'."\n\n".
  	' }'."\n\n\n";
@@ -442,11 +445,11 @@ sub _get_version_section {
 	"\t".'my $index_aref = get_binding_index_aref();'."\n".	
 	"\t".'my @index       = @$index_aref;'."\n\n".
 	"\t".'# label 2 in GUI is input xx_file and needs a home directory'."\n".
-	"\t".'$prefix[ $index[0] ] = \'$DATA_SEISMIC_BIN\' . \'\'.\'/\'.\'\';'."\n\n".
+	"\t".'$prefix[ $index[0] ] = \'$DATA_SEISMIC_BIN\' . ".\'/\'.";' ."\n\n".
 	"\t".'# label 3 in GUI is input yy_file and needs a home directory'."\n".
-	"\t".'$prefix[ $index[1] ] = \'$DATA_SEISMIC_BIN\' . \'\'.\'/\'.\'\';'."\n\n".
+	"\t".'$prefix[ $index[1] ] = \'$DATA_SEISMIC_TXT\' . ".\'/\'.";' ."\n\n".	
 	"\t".'# label 9 in GUI is input zz_file and needs a home directory'."\n".
-	"\t".'$prefix[ $index[2] ] = \'$DATA_SEISMIC_SU\' . \'\'.\'/\'.\'\';'."\n\n".
+	"\t".'$prefix[ $index[1] ] = \'$DATA_SEISMIC_SU\' . ".\'/\'.";' ."\n\n".	
 	"\t".'$'.$package_name.'_spec ->{_prefix_aref} = \@prefix;'."\n".	
 	"\t".'return();'."\n\n".
  	' }'."\n\n\n";

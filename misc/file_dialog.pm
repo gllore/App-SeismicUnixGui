@@ -1368,19 +1368,19 @@ sub _user_built_flow_close_path {
 	$decisions->set4FileDialog_select($file_dialog);
 	my $pre_req_ok = $decisions->get4FileDialog_select();
 
-	print("1. file_dialog,_user_built_flow_close_path,pre_req_ok= $pre_req_ok \n");
+#	print("1. file_dialog,_user_built_flow_close_path,pre_req_ok= $pre_req_ok \n");
 
 	if ($pre_req_ok) {
 
 		my $widget_type = $whereami->widget_type( $file_dialog->{_parameter_values_frame} );
 
-		print("file_dialog  _user_built_flow_close_path selected widget type is = $widget_type	\n");
+#		print("file_dialog  _user_built_flow_close_path selected widget type is = $widget_type	\n");
 
 		if ( defined( $file_dialog->{_last_path_touched} )
 			and $file_dialog->{_last_path_touched} ne $empty_string ) {
 
 			$result = $file_dialog->{_last_path_touched};    # no abbreviation
-			print("4. file_dialog,_user_built_flow_close_path,value that will be saved: $result\n");
+#			print("4. file_dialog,_user_built_flow_close_path,value that will be saved: $result\n");
 
 		} else {
 			print("file_dialog,_user_built_flow_close_path No path was selected\n");
@@ -1624,7 +1624,7 @@ sub _user_built_flow_open_path {
 	# Confirm that it IS the file button
 
 	# print("file_dialog,_user_built_flow_open_path,_FileDialog_button pressed, \n");
-	print("file_dialog, _user_built_flow_open_path selected  _values_aref=@{$file_dialog->{_values_aref}}\n");
+#	print("file_dialog, _user_built_flow_open_path selected  _values_aref=@{$file_dialog->{_values_aref}}\n");
 
 	# print("file_dialog, _user_built_flow_open_path selected  _values_aref=@{$file_dialog->{_names_aref}}\n");
 	# print("file_dialog  _user_built_flow_open_path selected  parameter_values_frame = $file_dialog->{_parameter_values_frame} \n");

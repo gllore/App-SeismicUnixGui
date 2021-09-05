@@ -13,7 +13,7 @@
 
 	auxf=0		1 output auxiliary channels			
 	ntro=0		Number of traces per record.This overrides the	
-			computed value (usefull for some DFS-V		
+			computed value (useful for some DFS-V		
 			instruments) if specified.			
 
  ONLY READS DISK SEGB FILES! I tested it on files created by		

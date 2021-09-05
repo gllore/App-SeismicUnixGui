@@ -64,7 +64,7 @@ Instantiate packages
 
 use L_SU_global_constants;
 
-my $get          = L_SU_global_constants->new();
+my $get = L_SU_global_constants->new();
 
 my $var          = $get->var();
 my $empty_string = $var->{_empty_string};
@@ -89,7 +89,7 @@ sub _get_DIR {
 
 	if ( length $data_out->{_suffix_type} ) {
 
-		use SeismicUnix qw ($segy $sgy $su $txt $bin $ps);
+		use SeismicUnix qw ($seg2 $segb $segy $sgy $su $txt $bin $ps);
 
 		my $suffix_type = $data_out->{_suffix_type};
 
@@ -112,6 +112,16 @@ sub _get_DIR {
 
 			my ($DATA_SEISMIC_TXT) = $Project->DATA_SEISMIC_TXT();
 			$DIR = $DATA_SEISMIC_TXT;
+
+		} elsif ( $suffix_type eq $seg2 ) {
+
+			my ($DATA_SEISMIC_SEG2) = $Project->DATA_SEISMIC_SEG2();
+			$DIR = $DATA_SEISMIC_SEG2;
+
+		} elsif ( $suffix_type eq $segb ) {
+
+			my ($DATA_SEISMIC_SEGB) = $Project->DATA_SEISMIC_SEGB();
+			$DIR = $DATA_SEISMIC_SEGB;
 
 		} elsif ( $suffix_type eq $sgy ) {
 
@@ -136,8 +146,8 @@ sub _get_DIR {
 
 		#		print("data_out, _get_DIR, suffix_type default is PL_SEISMIC \n");
 		return ($DIR);
-		}
 	}
+}
 
 =head2 subroutine _get_suffix
 	
@@ -147,63 +157,71 @@ sub _get_DIR {
 
 =cut
 
-	sub _get_suffix {
-		my ($self) = @_;
+sub _get_suffix {
+	my ($self) = @_;
 
-		if ( $data_out->{_suffix_type} ) {
+	if ( $data_out->{_suffix_type} ) {
 
-			my $suffix;
-			my $suffix_type = $data_out->{_suffix_type};
+		my $suffix;
+		my $suffix_type = $data_out->{_suffix_type};
 
-			use SeismicUnix
-				qw ($suffix_sgy $suffix_segy $suffix_su $suffix_bin $suffix_ps $suffix_txt $segy $sgy $su $txt $bin);
+		use SeismicUnix
+			qw ($suffix_seg2 $suffix_segb $suffix_sgy $suffix_segy $suffix_su $suffix_bin $suffix_ps $suffix_txt $segy $sgy $su $txt $bin);
 
-			if ( $suffix_type eq $ps ) {
+		if ( $suffix_type eq $ps ) {
 
-				$suffix = $suffix_ps;
+			$suffix = $suffix_ps;
 
-			} elsif ( $suffix_type eq $su ) {
+		} elsif ( $suffix_type eq $su ) {
 
-				$suffix = $suffix_su;
+			$suffix = $suffix_su;
 
-			} elsif ( $suffix_type eq $sgy ) {
+		} elsif ( $suffix_type eq $seg2 ) {
 
-				$suffix = $suffix_sgy;
+			$suffix = $suffix_seg2;
 
-			} elsif ( $suffix_type eq $segy ) {
+		} elsif ( $suffix_type eq $segb ) {
 
-				$suffix = $suffix_segy;
+			$suffix = $suffix_segb;
 
-			} elsif ( $suffix_type eq $bin ) {
+		} elsif ( $suffix_type eq $sgy ) {
 
-				$suffix = $suffix_bin;
+			$suffix = $suffix_sgy;
 
-			} elsif ( $suffix_type eq $txt ) {
+		} elsif ( $suffix_type eq $segy ) {
 
-				$suffix = $suffix_txt;
+			$suffix = $suffix_segy;
 
-			} elsif ( $suffix_type eq $empty_string ) {
+		} elsif ( $suffix_type eq $bin ) {
 
-				print("data_out, suffix_type is not su, bin, segy or txt\n");
-				$suffix = $empty_string;
+			$suffix = $suffix_bin;
 
-			} else {
-				print("data_out, unexpected suffix_type\n");
-			}
+		} elsif ( $suffix_type eq $txt ) {
 
-			return ($suffix);
-			
-		} elsif ( not( length $data_out->{_suffix_type} ) ) {
+			$suffix = $suffix_txt;
 
-			#		print("data_out _get_sufix, suffix_type is blank so assume that it means there is non\n");
-			my $suffix = $empty_string;
-			return ($suffix);
+		} elsif ( $suffix_type eq $empty_string ) {
+
+			print("data_out, suffix_type is not su, bin, seg2, segb, segy or txt\n");
+			$suffix = $empty_string;
 
 		} else {
-			print("data_out, _get_suffix, suffix_type unexpected  \n");
-			return ();
+			print("data_out, unexpected suffix_type\n");
 		}
+
+		return ($suffix);
+
+	} elsif ( not( length $data_out->{_suffix_type} ) ) {
+
+		#		print("data_out _get_sufix, suffix_type is blank so assume that it means there is non\n");
+		my $suffix = $empty_string;
+		return ($suffix);
+
+	} else {
+		print("data_out, _get_suffix, suffix_type unexpected  \n");
+		return ();
 	}
+}
 
 =head2 subroutine Step
  
@@ -211,16 +229,16 @@ sub _get_DIR {
 
 =cut
 
-	sub Step {
-		my ($self) = @_;
-		my $note;
+sub Step {
+	my ($self) = @_;
+	my $note;
 
-		$data_out->{_note} = _get_outbound();
-		$note = $data_out->{_note};
+	$data_out->{_note} = _get_outbound();
+	$note = $data_out->{_note};
 
-		return $note;
+	return $note;
 
-	}
+}
 
 =head2 subroutine _get_outbound
 
@@ -228,42 +246,42 @@ sub _get_DIR {
 
 =cut
 
-	sub _get_outbound {
-		my ($self) = @_;
+sub _get_outbound {
+	my ($self) = @_;
 
-		my $outbound;
-		my $suffix_type;
-		my $DIR;
-		my $file;
-		my $suffix;
+	my $outbound;
+	my $suffix_type;
+	my $DIR;
+	my $file;
+	my $suffix;
 
-		if ( length $data_out->{_suffix_type}
-			&& $data_out->{_base_file_name} ) {
+	if ( length $data_out->{_suffix_type}
+		&& $data_out->{_base_file_name} ) {
 
-			$file = $data_out->{_base_file_name};
+		$file = $data_out->{_base_file_name};
 
-			$DIR      = _get_DIR();
-			$suffix   = _get_suffix();
-			$outbound = $DIR . '/' . $file . $suffix;
+		$DIR      = _get_DIR();
+		$suffix   = _get_suffix();
+		$outbound = $DIR . '/' . $file . $suffix;
 
-			# print ("1. data_out,_get_outbound outbound: $outbound\n");
-			return ($outbound);
+		# print ("1. data_out,_get_outbound outbound: $outbound\n");
+		return ($outbound);
 
-		} elsif ( length $data_out->{_base_file_name}
-			&& not( $data_out->{_suffix_type} ) ) {
+	} elsif ( length $data_out->{_base_file_name}
+		&& not( $data_out->{_suffix_type} ) ) {
 
-			$file = $data_out->{_base_file_name};
+		$file = $data_out->{_base_file_name};
 
-			$DIR      = _get_DIR();
-			$outbound = $DIR . '/' . $file;
+		$DIR      = _get_DIR();
+		$outbound = $DIR . '/' . $file;
 
-			# print ("2. data_out,_get_outbound outbound: $outbound\n");
-			return ($outbound);
+		# print ("2. data_out,_get_outbound outbound: $outbound\n");
+		return ($outbound);
 
-		} else {
-			print("data_out, missing: suffix_type, base file name  \n");
-		}
+	} else {
+		print("data_out, missing: suffix_type, base file name  \n");
 	}
+}
 
 =head2 sub  base_file_name 
 
@@ -271,19 +289,19 @@ sub _get_DIR {
   
 =cut
 
-	sub base_file_name {
-		my ( $variable, $base_file_name ) = @_;
+sub base_file_name {
+	my ( $variable, $base_file_name ) = @_;
 
-		if ($base_file_name) {
+	if ($base_file_name) {
 
-			$data_out->{_base_file_name} = $base_file_name;
+		$data_out->{_base_file_name} = $base_file_name;
 
-			#		print ("data_out, base_file_name $data_out->{_base_file_name}\n");
+		#		print ("data_out, base_file_name $data_out->{_base_file_name}\n");
 
-		} else {
-			print("data_out, base_file_name, name missing \n");
-		}
+	} else {
+		print("data_out, base_file_name, name missing \n");
 	}
+}
 
 =head2 sub  base_file_name_sref  
 
@@ -291,20 +309,20 @@ sub _get_DIR {
   
 =cut
 
-	sub base_file_name_sref {
-		my ( $variable, $base_file_name_sref ) = @_;
+sub base_file_name_sref {
+	my ( $variable, $base_file_name_sref ) = @_;
 
-		if ($base_file_name_sref) {
+	if ($base_file_name_sref) {
 
-			$data_out->{_base_file_name} = $$base_file_name_sref;
+		$data_out->{_base_file_name} = $$base_file_name_sref;
 
-			# print ("data_out, base_file_name $data_out->{_base_file_name}\n");
+		# print ("data_out, base_file_name $data_out->{_base_file_name}\n");
 
-		} else {
-			print("data_out, base_file_name_sref, name missing \n");
+	} else {
+		print("data_out, base_file_name_sref, name missing \n");
 
-		}
 	}
+}
 
 =head2 subroutine clear
 
@@ -312,18 +330,18 @@ sub _get_DIR {
 
 =cut
 
-	sub clear {
-		$data_out->{_Step}           = '';
-		$data_out->{_base_file_name} = '';
-		$data_out->{_note}           = '';
-		$data_out->{_notes_aref}     = '';
-		$data_out->{_suffix_type}    = '';
-	}
+sub clear {
+	$data_out->{_Step}           = '';
+	$data_out->{_base_file_name} = '';
+	$data_out->{_note}           = '';
+	$data_out->{_notes_aref}     = '';
+	$data_out->{_suffix_type}    = '';
+}
 
-	my @notes;
+my @notes;
 
-	# define a value
-	my $newline = '
+# define a value
+my $newline = '
 ';
 
 =head2 sub  full_file_name  
@@ -332,17 +350,17 @@ sub _get_DIR {
   
 =cut
 
-	sub full_file_name {
-		my ( $self, $full_file_name ) = @_;
+sub full_file_name {
+	my ( $self, $full_file_name ) = @_;
 
-		if ($full_file_name) {
+	if ($full_file_name) {
 
-			$data_out->{_full_file_name} = $full_file_name;
+		$data_out->{_full_file_name} = $full_file_name;
 
-		} else {
-			print("data_out, full_file_name, name missing \n");
-		}
+	} else {
+		print("data_out, full_file_name, name missing \n");
 	}
+}
 
 =head2 subroutine get_inbound
 
@@ -350,58 +368,58 @@ sub _get_DIR {
 
 =cut
 
-	sub get_inbound {
-		my ($self) = @_;
+sub get_inbound {
+	my ($self) = @_;
 
-		my $inbound;
-		my $suffix_type;
-		my $DIR;
-		my $file;
-		my $suffix;
+	my $inbound;
+	my $suffix_type;
+	my $DIR;
+	my $file;
+	my $suffix;
 
-		if ( length $data_out->{_suffix_type}
-			&& $data_out->{_base_file_name} ) {
+	if ( length $data_out->{_suffix_type}
+		&& $data_out->{_base_file_name} ) {
 
-			$file = $data_out->{_base_file_name};
+		$file = $data_out->{_base_file_name};
 
-			$DIR     = _get_DIR();
-			$suffix  = _get_suffix();
-			$inbound = $DIR . '/' . $file . $suffix;
+		$DIR     = _get_DIR();
+		$suffix  = _get_suffix();
+		$inbound = $DIR . '/' . $file . $suffix;
 
-			# print ("data_out,get_inbound inbound: $inbound\n");
-			return ($inbound);
+		# print ("data_out,get_inbound inbound: $inbound\n");
+		return ($inbound);
 
-		} elsif ( length $data_out->{_base_file_name}
-			&& not( $data_out->{_suffix_type} ) ) {
+	} elsif ( length $data_out->{_base_file_name}
+		&& not( $data_out->{_suffix_type} ) ) {
 
-			print(
-				"data_out, missing: suffix_type, base file name . 
+		print(
+			"data_out, missing: suffix_type, base file name . 
 		Assume that the expected output is PL_SEISMIC-- as default\n"
-			);
-			$DIR     = _get_DIR();
-			$suffix  = _get_suffix();
-			$inbound = $DIR . '/' . $file . $suffix;
-			return ($inbound);
+		);
+		$DIR     = _get_DIR();
+		$suffix  = _get_suffix();
+		$inbound = $DIR . '/' . $file . $suffix;
+		return ($inbound);
 
-		} else {
-			print("data_out, missing: suffix_type, base file name . Assume that is what the user wants NADA\n");
-			return ($empty_string);
-		}
+	} else {
+		print("data_out, missing: suffix_type, base file name . Assume that is what the user wants NADA\n");
+		return ($empty_string);
 	}
+}
 
 =head2 sub  file_name  you need to know how many numbers per line
   will be in the output file 
 
 =cut
 
-	sub file_name {
-		my ( $variable, $file_name ) = @_;
-		if ($file_name) {
-			$data_out->{_file_name} = $file_name;
-			$data_out->{_note}      = $data_out->{_note} . ' data_out=' . $data_out->{_file_name};
-			$data_out->{_Step}      = $data_out->{_Step} . ' data_out=' . $data_out->{_file_name};
-		}
+sub file_name {
+	my ( $variable, $file_name ) = @_;
+	if ($file_name) {
+		$data_out->{_file_name} = $file_name;
+		$data_out->{_note}      = $data_out->{_note} . ' data_out=' . $data_out->{_file_name};
+		$data_out->{_Step}      = $data_out->{_Step} . ' data_out=' . $data_out->{_file_name};
 	}
+}
 
 =head2 sub get_max_index
 
@@ -409,15 +427,15 @@ max index = number of input variables -1
 
 =cut
 
-	sub get_max_index {
-		my ($self) = @_;
+sub get_max_index {
+	my ($self) = @_;
 
-		# base_file_name : index=0
-		# suffix_type      : index=1
-		my $max_index = 1;
+	# base_file_name : index=0
+	# suffix_type      : index=1
+	my $max_index = 1;
 
-		return ($max_index);
-	}
+	return ($max_index);
+}
 
 =pod
 
@@ -426,15 +444,15 @@ max index = number of input variables -1
 
 =cut
 
-	sub notes_aref {
-		my ($self) = @_;
+sub notes_aref {
+	my ($self) = @_;
 
-		$notes[1] = "\t" . '$data_out[1] 	= ' . $data_out->{_note};
+	$notes[1] = "\t" . '$data_out[1] 	= ' . $data_out->{_note};
 
-		$data_out->{_notes_aref} = \@notes;
+	$data_out->{_notes_aref} = \@notes;
 
-		return $data_out->{_notes_aref};
-	}
+	return $data_out->{_notes_aref};
+}
 
 =head2 subroutine suffix_type
 
@@ -442,17 +460,17 @@ max index = number of input variables -1
 
 =cut
 
-	sub suffix_type {
-		my ( $self, $suffix_type ) = @_;
+sub suffix_type {
+	my ( $self, $suffix_type ) = @_;
 
-		if ($suffix_type) {
+	if ($suffix_type) {
 
-			$data_out->{_suffix_type} = $suffix_type;
+		$data_out->{_suffix_type} = $suffix_type;
 
-		} else {
-			print("data_out, suffix_type missing \n");
-		}
+	} else {
+		print("data_out, suffix_type missing \n");
 	}
+}
 
 =head2 subroutine type
 
@@ -465,16 +483,16 @@ max index = number of input variables -1
 
 =cut
 
-	sub type {
-		my ( $self, $suffix_type ) = @_;
+sub type {
+	my ( $self, $suffix_type ) = @_;
 
-		if ($suffix_type) {
+	if ($suffix_type) {
 
-			$data_out->{_suffix_type} = $suffix_type;
+		$data_out->{_suffix_type} = $suffix_type;
 
-		} else {
-			print("data_out, type missing \n");
-		}
+	} else {
+		print("data_out, type missing \n");
 	}
+}
 
-	1;
+1;

@@ -51,7 +51,9 @@ my $vel2stiff_spec = {
 	_is_last_of_4or_more   => $false,
 	_is_suprog             => $true,
 	_is_superflow          => $false,
-	_max_index             => $max_index,
+	_max_index              => $max_index,
+	 _prefix_aref               => '',
+     _suffix_aref               => '',
 };
 
 =head2  sub binding_index_aref

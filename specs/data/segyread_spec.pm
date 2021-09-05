@@ -19,7 +19,7 @@ my $false            = $var->{_false};
 my $file_dialog_type = $get->file_dialog_type_href();
 my $flow_type        = $get->flow_type_href();
 
-my $DATA_SEISMIC_SEGY = $Project->DATA_SEISMIC_SEGY();   # output data directory
+my $DATA_SEISMIC_SEGY = $Project->DATA_SEISMIC_SEGY();   # input data directory
 my $DATA_SEISMIC_SU   = $Project->DATA_SEISMIC_SU();     # output data directory
 my $PL_SEISMIC        = $Project->PL_SEISMIC();
 
@@ -53,6 +53,8 @@ my $segyread_spec =  {
     _is_suprog             => $true,
     _is_superflow          => $false,
     _max_index             => $max_index,
+    _prefix_aref               => '',
+	 _suffix_aref               => '',
 };
 
 =head2  sub binding_index_aref

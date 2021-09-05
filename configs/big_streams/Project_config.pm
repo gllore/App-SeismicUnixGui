@@ -97,6 +97,7 @@ my $Project = {
 	_DATA_SEISMIC_RSEIS           => '',
 	_DATA_SEISMIC_SAC             => '',
 	_DATA_SEISMIC_SEG2            => '',
+	_DATA_SEISMIC_SEGB            => '',
 	_DATA_SEISMIC_SEGD            => '',
 	_DATA_SEISMIC_SEGY            => '',
 	_DATA_SEISMIC_SEGY_RAW        => '',
@@ -705,6 +706,9 @@ sub _system_dirs {
 	# SEG2 DIRECTORY
 	my $DATA_SEISMIC_SEG2 = $DATA_SEISMIC . '/' . $DATE_LINE_COMPONENT_STAGE_PROCESS . '/seg2' . '/' . $subUser;
 
+   # SEGB DIRECTORY
+	my $DATA_SEISMIC_SEGB = $DATA_SEISMIC . '/' . $DATE_LINE_COMPONENT_STAGE_PROCESS . '/segb' . '/' . $subUser;
+
 	# SEGD DIRECTORY
 	my $DATA_SEISMIC_SEGD = $DATA_SEISMIC . '/' . $DATE_LINE_COMPONENT_STAGE_PROCESS . '/segd' . '/' . $subUser;
 
@@ -815,6 +819,7 @@ sub _system_dirs {
 	$Project->{_DATA_SEISMIC_RSEIS}        = $DATA_SEISMIC_RSEIS;
 	$Project->{_DATA_SEISMIC_SAC}          = $DATA_SEISMIC_SAC;
 	$Project->{_DATA_SEISMIC_SEG2}         = $DATA_SEISMIC_SEG2;
+	$Project->{_DATA_SEISMIC_SEGB}         = $DATA_SEISMIC_SEGB;
 	$Project->{_DATA_SEISMIC_SEGD}         = $DATA_SEISMIC_SEGD;
 	$Project->{_DATA_SEISMIC_SEGY}         = $DATA_SEISMIC_SEGY;
 	$Project->{_DATA_SEISMIC_SEGY_RAW}     = $DATA_SEISMIC_SEGY_RAW;
@@ -1065,6 +1070,9 @@ sub system_dirs {
 	# SEG2 DIRECTORY
 	my $DATA_SEISMIC_SEG2 = $DATA_SEISMIC . '/' . $DATE_LINE_COMPONENT_STAGE_PROCESS . '/seg2' . '/' . $subUser;
 
+	# SEGB DIRECTORY
+	my $DATA_SEISMIC_SEGB = $DATA_SEISMIC . '/' . $DATE_LINE_COMPONENT_STAGE_PROCESS . '/segb' . '/' . $subUser;
+
 	# SEGD DIRECTORY
 	my $DATA_SEISMIC_SEGD = $DATA_SEISMIC . '/' . $DATE_LINE_COMPONENT_STAGE_PROCESS . '/segd' . '/' . $subUser;
 
@@ -1169,6 +1177,7 @@ sub system_dirs {
 	$Project->{_DATA_SEISMIC_RSEIS}           = $DATA_SEISMIC_RSEIS;
 	$Project->{_DATA_SEISMIC_SAC}             = $DATA_SEISMIC_SAC;
 	$Project->{_DATA_SEISMIC_SEG2}            = $DATA_SEISMIC_SEG2;
+	$Project->{_DATA_SEISMIC_SEGB}            = $DATA_SEISMIC_SEGB;	
 	$Project->{_DATA_SEISMIC_SEGD}            = $DATA_SEISMIC_SEGD;
 	$Project->{_DATA_SEISMIC_SEGY}            = $DATA_SEISMIC_SEGY;
 	$Project->{_DATA_SEISMIC_SEGY_RAW}        = $DATA_SEISMIC_SEGY_RAW;
@@ -1488,6 +1497,14 @@ sub DATA_SEISMIC_SEG2 {
 
 	my $DATA_SEISMIC_SEG2 = $Project->{_DATA_SEISMIC_SEG2};
 	return ($DATA_SEISMIC_SEG2);
+}
+
+sub DATA_SEISMIC_SEGB {
+	_basic_dirs();
+	_system_dirs();
+
+	my $DATA_SEISMIC_SEGB = $Project->{_DATA_SEISMIC_SEGB};
+	return ($DATA_SEISMIC_SEGB);
 }
 
 sub DATA_SEISMIC_SEGD {
@@ -2049,10 +2066,12 @@ sub make_local_dirs {
 
 	my $DATA_SEISMIC_DAT  = $Project->{_DATA_SEISMIC_DAT};
 	my $DATA_SEISMIC_SEG2 = $Project->{_DATA_SEISMIC_SEG2};
+	my $DATA_SEISMIC_SEGB = $Project->{_DATA_SEISMIC_SEGB};
 
 	# Always create
 	# manage_dirs_by::make_dir($DATA_SEISMIC_DAT);
 	manage_dirs_by::make_dir($DATA_SEISMIC_SEG2);
+	manage_dirs_by::make_dir($DATA_SEISMIC_SEGB);
 
 	# Format nint and seismic data
 	my $DATA_SEISMIC_ININT = $Project->{_DATA_SEISMIC_ININT};

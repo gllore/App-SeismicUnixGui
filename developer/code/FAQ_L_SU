@@ -912,18 +912,21 @@ Q. How does LSU_project_selector create new Project directories?
 	 	In some situations the key _DATA_DIR_IN can have two or more values within the same program
 	 	e.g. sufctanismod:
 	 	DATA_SEISMIC_BIN and DATA_SEISMIC_SU
-	 	For this cases the defaulted $prefix (in *_specs nodule) that is defined for that particualr index will override
-	 	We solve this by requiring that if a prefix for that index exists, it should be equal to
-	 	the value for the key _DATA_DIR_IN and that if it is not the $prefix should be substituted
-	 	and that if there is no $prefix, a warning should be issued.
+	 	For these cases , the defaulted $prefix (in *_specs nodule) variable will override the key value 
+	 	at that particualar index.
+	 	
+	 	We accomplish this by requiring that the default prefix equal
+	 	the value assigned to the key: _DATA_DIR_IN. in the "program"_spec.pm file
+	 	
+	 	But if it is not, the $prefix should be substituted
+	 	Also if there is no $prefix, a warning should be issued.
 	 	Otherwise,
 	 	_DATA_DIR_IN = $prefix value for the index
 	 	
-	 	These changes are considered when iFile (_get_DATA_DIR_IN) selects the opening directory
+	 	These changes are considered twice. FIrst, when iFile (_get_DATA_DIR_IN) selects the opening directory
 	 	for File_Dialog,
 	 	 and  a second time, when the perl script  is being prepared to be written out: oop_prog_params
 	 	
-	 	L
 	 	See oop_
 	 	
 	 	
@@ -1098,7 +1101,7 @@ followed by
 				iFile				
 		
 	If we are using file_type_dialog = Path
-	then for a superlow we use file_dialog and iFile and dirs
+	then for a superflow we use file_dialog and iFile and dirs
 	
 10-1-2018
 
@@ -1499,7 +1502,7 @@ sunix_pl reading perl flows
 	
 	iFile is used for most user-built flow problems
 	
-	iFile is not used for _user_built_flow_SaveAs_perl_file, which instead uses only
+	iFile is NOT used for _user_built_flow_SaveAs_perl_file, which instead uses only
 		file_dialog, _set_file_path
  
   JBrowse
@@ -2665,5 +2668,15 @@ color_listbox
                              		                   iPick_spec
                              		                       uses Project_config->PL_SEISMIC
                              		
-                                          
+     Q. How are directories found?   9-4-21
+     By using *_spec files
+     CASE A:. There is a "back=-door" default definition that the first parameter values (index=0)  alway  searches the default
+     value of _DATA_DIR_IN
+     CASE B: For stdin and stdout also use only _DATA_DIR_IN and _DATA_DIR_OUT
+     CASE C: For additional directories when there are "internal" files required by the programs, override directory names
+     using $prefix values.        
+     Nots: flow_type from the *_spec files is not being used in L_SU ... TODO... ??     
+     
+     
+     TODO: oop_declare_data_out and oop_declare_data_in have a lot of unneeded subs?      
            

@@ -352,14 +352,6 @@ my $param = {
 # Locate environment variables automatically
 my $L_SU = '/usr/local/pl/L_SU';    # default
 
-#my $global_libs = {
-#	_configs_big_streams 	=> $L_SU . '/configs/big_streams',
-#    _param        			=> $L_SU . '/configs/',
-#    _superflows   			=> $L_SU . '/big_streams/',
-#    _images       			=> $L_SU . '/images/',
-#    _default_path 			=> './',
-#};
-
 $L_SU = $ENV{'L_SU'};
 my $global_libs;
 
@@ -367,8 +359,12 @@ my $global_libs;
 if ( $L_SU ne $var->{_empty_string} ) {
 
 	$global_libs = {
+		_configs             => $L_SU . '/configs',
 		_configs_big_streams => $L_SU . '/configs/big_streams',
+		_developer                   => $L_SU . '/developer/Stripped',
 		_param               => $L_SU . '/configs/',
+		_specs              => $L_SU .'/specs',
+		_sunix              => $L_SU . '/sunix',
 		_superflows          => $L_SU . '/big_streams/',
 		_images              => $L_SU . '/images/',
 		_default_path        => './',
@@ -401,14 +397,10 @@ $developer_sunix_categories[16] = '';
 my @sunix_data_programs = (
 	"data_in",
 	"data_out",
+	"dt1tosu",
+	"segbread",
 	"segyread",
 	"segywrite",
-
-	#            "swapbytes",
-	#            "segyhdrs",
-	#            "segyclean",
-	#            "supaste",
-	#            "suchw",
 );
 
 my @sunix_datum_programs = ( "sudatumk2dr", );
@@ -418,7 +410,9 @@ my @sunix_filter_programs = ( "sufilter", "sudipfilt", "supef" );
 my @sunix_header_programs = (
 	"segyhdrs",
 	"segyclean",
+	"setbhed",
 	"suaddhead",
+	"suascii",
 	"suchw",
 	"sugethw",
 	"sushw",
@@ -573,8 +567,8 @@ xpsp
 =cut
 
 my @sunix_shapeNcut_programs = (
-	"sukill", "sumute", "sugain", "sugprfb", "susplit",
-	"susort", "suwind"
+"suflip","sugain", "sugprfb","sukill", "sumute", "susort",
+"susplit","suwind"
 );
 
 my @sunix_statsMath_programs = (
@@ -598,6 +592,7 @@ my @sunix_statsMath_programs = (
 );
 
 my @sunix_transform_programs = (
+    "dctcomp",
 	"suamp",
 	"succepstrum",
 	"sucepstrum",
