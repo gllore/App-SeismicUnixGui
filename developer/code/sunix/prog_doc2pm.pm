@@ -37,8 +37,8 @@ my $var          = $get->var();
 my $empty_string = $var->{_empty_string};
 my $global_libs  = $get->global_libs();
 
-my $developer_sunix_categories_aref   = $get->developer_sunix_categories_aref ();
-my @developer_sunix_categories = @$developer_sunix_categories_aref;
+my $developer_sunix_categories_aref = $get->developer_sunix_categories_aref();
+my @developer_sunix_categories      = @$developer_sunix_categories_aref;
 
 my $prog_doc2pm = {
 	_list_length     => '',
@@ -54,8 +54,7 @@ my $prog_doc2pm = {
 my ( @file_in, @pm_file_out, @package_name, @program_name );
 my (@config_file_out);
 my ( @spec_file_out, $group_no );
-my ( @inbound,       @path_out,      $path );
-
+my ( @inbound, @path_out, $path );
 
 =head2 sub _get_list_aref 
 List of file names from within a directory
@@ -77,24 +76,27 @@ sub _get_list_aref {
 		# print("prog_doc2pm,_get_list_aref, PATH:$prog_doc2pm->{_path}\n");
 
 		opendir my $dh, $path or die "Could not open '$path' for reading: $!\n";
-		
+
 		my @file_name;
 		my $thing;
 		my @name;
-		
-		while ( defined( $thing = readdir $dh) ) {
+
+		while ( defined( $thing = readdir $dh ) ) {
 
 			$thing =~ s/\///;
-#			print("prog_doc2pm,count=$count; file_name=$thing\___\n");
 
-			 if (not($thing =~ /^\.\.?$/)) { 
-				
-			    (@name) = split( /\./, $thing);
+			#			print("prog_doc2pm,count=$count; file_name=$thing\___\n");
+
+			if ( not( $thing =~ /^\.\.?$/ ) ) {
+
+				(@name) = split( /\./, $thing );
 				push @file_name, $name[0];
-#				print("prog_doc2pm,file_name=$name[0]\___\n");
-				
-			} else { # skip . and ..
-#				print("prog_doc2pm, skipping\___\n");
+
+				#				print("prog_doc2pm,file_name=$name[0]\___\n");
+
+			} else {    # skip . and ..
+
+				#				print("prog_doc2pm, skipping\___\n");
 			}
 
 			$list_aref = \@file_name;
@@ -174,6 +176,7 @@ sub get_list_aref {
 		my $directory = $prog_doc2pm->{_group_directory};
 		$prog_doc2pm->{_path} = $path_in . '/Stripped/' . $directory;
 		my $path = $prog_doc2pm->{_path};
+
 		# print("prog_doc2pm,get_list_aref, PATH:$prog_doc2pm->{_path}\n");
 
 		opendir my $dh, $path or die "Could not open '$path' for reading: $!\n";
@@ -181,18 +184,20 @@ sub get_list_aref {
 		my @file_name;
 		my @name;
 		my $thing;
-		
-		while ( defined( $thing = readdir $dh) ) {
+
+		while ( defined( $thing = readdir $dh ) ) {
 
 			$thing =~ s/\///;
 
-			 if ( not($thing =~ /^\.\.?$/)) {
-				
+			if ( not( $thing =~ /^\.\.?$/ ) ) {
+
 				push @file_name, $thing;
-#				print("prog_doc2pm,ile_name=$thing\___\n");
-				
-			} else { # skip . and ..
-#				print("prog_doc2pm, skipping\___\n");
+
+				#				print("prog_doc2pm,ile_name=$thing\___\n");
+
+			} else {    # skip . and ..
+
+				#				print("prog_doc2pm, skipping\___\n");
 			}
 			$list_aref = \@file_name;
 		}
@@ -219,7 +224,7 @@ sub get_list_length {
 
 		my $length = ( scalar @{ _get_list_aref() } );
 
-#		print("prog_doc2pm,get_list_length,length= $length \n");
+		#		print("prog_doc2pm,get_list_length,length= $length \n");
 		return ($length);
 
 	} else {
@@ -268,7 +273,7 @@ sub get_path_out4configs {
 	if ( $prog_doc2pm->{_group_directory} ne $empty_string ) {
 
 		# my $path 	= '/usr/local/pl/L_SU/configs';
-		my $dir      = $prog_doc2pm->{_group_directory};
+		my $dir = $prog_doc2pm->{_group_directory};
 
 		my $PATH_OUT = $global_libs->{_configs} . '/' . $dir;
 
@@ -292,9 +297,9 @@ sub get_path_out4developer {
 
 	if ( $prog_doc2pm->{_group_directory} ne $empty_string ) {
 
-		my $dir      = $prog_doc2pm->{_group_directory};
+		my $dir = $prog_doc2pm->{_group_directory};
 
-		my $PATH_OUT = $global_libs->{_developer}. '/' . $dir;
+		my $PATH_OUT = $global_libs->{_developer} . '/' . $dir;
 
 		# print("prog_doc2pm,get_path_out4developer = $PATH_OUT\n");
 		return ($PATH_OUT);
@@ -305,6 +310,30 @@ sub get_path_out4developer {
 	}
 }
 
+=head2 sub get_path_out4global_constants
+
+
+=cut
+
+sub get_path_out4global_constants {
+
+	my ($self) = @_;
+
+	if ( $prog_doc2pm->{_group_directory} ne $empty_string ) {
+
+		# my $path 	= '/usr/local/pl/L_SU/misc';
+
+		my $PATH_OUT = $global_libs->{_misc};
+
+#		print("prog_doc2pm, get_path_out4global_constants= $PATH_OUT\n");
+		return ($PATH_OUT);
+
+	} else {
+		print("prog_doc2pm, get_path_out4global_constants missing directory,\n");
+		return ();
+	}
+
+}
 
 =head2 sub get_path_out4specs
 
@@ -318,11 +347,11 @@ sub get_path_out4specs {
 	if ( $prog_doc2pm->{_group_directory} ne $empty_string ) {
 
 		# my $path 	= '/usr/local/pl/L_SU/specs';
-		my $dir      = $prog_doc2pm->{_group_directory};
+		my $dir = $prog_doc2pm->{_group_directory};
 
 		my $PATH_OUT = $global_libs->{_specs} . '/' . $dir;
 
-#		print("prog_doc2pm, get_path_out4specs= $PATH_OUT\n");
+		#		print("prog_doc2pm, get_path_out4specs= $PATH_OUT\n");
 		return ($PATH_OUT);
 
 	} else {
@@ -344,9 +373,9 @@ sub get_path_out4sunix {
 	if ( $prog_doc2pm->{_group_directory} ne $empty_string ) {
 
 		# my $path 	= '/usr/local/pl/L_SU/sunix';
-		my $dir      = $prog_doc2pm->{_group_directory};
+		my $dir = $prog_doc2pm->{_group_directory};
 
-		my $PATH_OUT = $global_libs->{_sunix}. '/' . $dir;
+		my $PATH_OUT = $global_libs->{_sunix} . '/' . $dir;
 
 		# print("prog_doc2pm,get_path_out4sunix = $PATH_OUT\n");
 		return ($PATH_OUT);
@@ -376,24 +405,26 @@ sub get_program_aref {
 		#		print("prog_doc2pm,get_program_aref, PATH:$prog_doc2pm->{_path}\n");
 
 		opendir my $dh, $path or die "Could not open '$path' for reading: $!\n";
-        
+
 		#		print("prog_doc2pm,_get_program_aref, DIR=$path\n");
 		my @file_name;
 		my $thing;
 		my @name;
-		
-		while ( defined( $thing = readdir $dh) ) {
+
+		while ( defined( $thing = readdir $dh ) ) {
 
 			$thing =~ s/\///;
 
-			 if (not($thing =~ /^\.\.?$/)) { 
-				
-	           (@name) = split( /\./, $thing);
+			if ( not( $thing =~ /^\.\.?$/ ) ) {
+
+				(@name) = split( /\./, $thing );
 				push @file_name, $name[0];
-#				print("prog_doc2pm,file_name=$name[0] \___\n");
-				
-			} else { # skip . and ..
-#				print("prog_doc2pm, skipping $thing\n");
+
+				#				print("prog_doc2pm,file_name=$name[0] \___\n");
+
+			} else {    # skip . and ..
+
+				#				print("prog_doc2pm, skipping $thing\n");
 			}
 
 			$list_aref = \@file_name;
@@ -410,6 +441,7 @@ sub get_program_aref {
 	}
 
 }
+
 =head2 sub set_group_directory 
 
 

@@ -132,9 +132,9 @@ sub _get_version_section {
 	"\t".'# first binding index (0)'."\n".
     "\t".'# connects to second item (1)'."\n".
     "\t".'# in the parameter list'."\n".
-    "\t".'$index[0] = 1; # inbound item is  bound to _DATA_DIR_IN'."\n".
-	"\t".'$index[1]	= 2; # inbound item is  bound to _DATA_DIR_IN'."\n".
-	"\t".'$index[2]	= 8; # outbound item is  bound to _DATA_DIR_OUT'."\n\n".		
+    "\t".'$index[0] = 1; # inbound item is  bound '."\n".
+	"\t".'$index[1]	= 2; # inbound item is  bound to '."\n".
+	"\t".'$index[2]	= 8; # outbound item is  bound to '."\n\n".		
 	"\t".'$'.$package_name.'_spec ->{_binding_index_aref} = \@index;'."\n".	
 	"\t".'return();'."\n\n".
  	' }'."\n\n\n";
@@ -167,7 +167,7 @@ sub _get_version_section {
 	"\t".'$type[0]	= \'\';'."\n".
 	"\t".'$type[$index[0]] = $file_dialog_type->{_Data};'."\n".
 	"\t".'$type[$index[1]]	=  $file_dialog_type->{_Data};'."\n".
-	"\t".'$type[$index[0]]	=  $file_dialog_type->{_Data};'."\n\n".
+	"\t".'$type[$index[2]]	=  $file_dialog_type->{_Data};'."\n\n".
 	"\t".'$'.$package_name.'_spec ->{_file_dialog_type_aref} = \@type;'."\n".	
 	"\t".'return();'."\n\n".
  	' }'."\n\n\n";
@@ -449,7 +449,7 @@ sub _get_version_section {
 	"\t".'# label 3 in GUI is input yy_file and needs a home directory'."\n".
 	"\t".'$prefix[ $index[1] ] = \'$DATA_SEISMIC_TXT\' . ".\'/\'.";' ."\n\n".	
 	"\t".'# label 9 in GUI is input zz_file and needs a home directory'."\n".
-	"\t".'$prefix[ $index[1] ] = \'$DATA_SEISMIC_SU\' . ".\'/\'.";' ."\n\n".	
+	"\t".'$prefix[ $index[2] ] = \'$DATA_SEISMIC_SU\' . ".\'/\'.";' ."\n\n".	
 	"\t".'$'.$package_name.'_spec ->{_prefix_aref} = \@prefix;'."\n".	
 	"\t".'return();'."\n\n".
  	' }'."\n\n\n";

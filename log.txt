@@ -4598,3 +4598,7 @@ sufdmod1 abs=1\,1 dfile=\/home\/gllore\/demos\/seismics\/data\/Synthetic\/Finite
 
 sufdmod1 abs=1\,1 dfile=\/home\/gllore\/demos\/seismics\/data\/Synthetic\/Finite_Difference\/Sufdmod1\/Xdemo1\/1\/bin\/gllore\/density\.bin dz=1 freq=15 nz=2001 rz=1 styp=1 sz=1 tmax=1\.5 verbose=0 vfile<\/home\/gllore\/demos\/seismics\/data\/Synthetic\/Finite_Difference\/Sufdmod1\/Xdemo1\/1\/bin\/gllore\/velocity\.bin > /home/gllore/demos/seismics/pl/Synthetic/Finite_Difference/Sufdmod1/Xdemo1/1/gllore/seismogram & 
 
+16
+
+suhistogram n1=2 < 1 > /home/gllore/demos/seismics/data/Synthetic/Finite_Difference/Sufdmod1/Xdemo1/1/su/gllore/junk.su & 
+

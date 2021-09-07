@@ -25,6 +25,7 @@ foreach my $thing (@directory_list) {
 
 	} else {
 		push @directories, $MAIN_DIR . '/' . $thing;
+
 		# print("DIR= $thing\n");
 	}
 }
@@ -88,7 +89,7 @@ foreach my $subdir (@directories) {
 		}    # inside a file
 		close(FH);
 
-	# write out the corrected file
+		# write out the corrected file
 		$number_of_lines = $i;
 		print("number of lines= $i\n");
 		open( OUT, ">$inbound_prog_spec" ) or die("File $inbound_prog_spec not found");

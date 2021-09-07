@@ -1,30 +1,34 @@
 package suhrot_spec;
 	use Moose;
-	our $VERSION = '0.0.1';
+our $VERSION = '0.0.1';
 
-	use Project_config;
-	use SeismicUnix qw ($su $suffix_su);
-	use L_SU_global_constants;
-	use suhrot;
+use Project_config;
+use SeismicUnix qw ($bin $su $suffix_bin $suffix_su $suffix_txt $txt);
+use L_SU_global_constants;
+use suhrot;
+my $get					= new L_SU_global_constants();
+my $Project 				= new Project_config;
+my $suhrot		= new suhrot;
 
-	my $get					= new L_SU_global_constants();
-	my $Project 			= new Project_config;
-	my $suhrot			    = new suhrot;
+my $var					= $get->var();
 
-	my $var					= $get->var();
+my $empty_string			= $var->{_empty_string};
+my $true					= $var->{_true};
+my $false      			= $var->{_false};
+my $file_dialog_type		= $get->file_dialog_type_href();
+my $flow_type				= $get->flow_type_href();
 
-	my $empty_string      	= $var->{_empty_string};
-	my $true      			= $var->{_true};
-	my $false      			= $var->{_false};
-	my $file_dialog_type	= $get->file_dialog_type_href();
-	my $flow_type			= $get->flow_type_href();
-
+	my $DATA_SEISMIC_BIN  	= $Project->DATA_SEISMIC_BIN();
 	my $DATA_SEISMIC_SU  	= $Project->DATA_SEISMIC_SU();   # output data directory
-	my $max_index           = $suhrot->get_max_index();
+	my $DATA_SEISMIC_TXT  	= $Project->DATA_SEISMIC_TXT();   # output data directory
+  my $PL_SEISMIC		    = $Project->PL_SEISMIC();
+	my $max_index           = 8;# Insert a number here
 
 	my $suhrot_spec = {
+		_CONFIG		            => $PL_SEISMIC,
 		_DATA_DIR_IN		    => $DATA_SEISMIC_SU,
-		_DATA_DIR_OUT          => $DATA_SEISMIC_SU,
+	 	_DATA_DIR_OUT		    => $DATA_SEISMIC_SU,
+		_binding_index_aref	    => '',
 	 	_suffix_type_in			=> $su,
 		_data_suffix_in			=> $suffix_su,
 		_suffix_type_out		=> $su,
@@ -32,6 +36,7 @@ package suhrot_spec;
 		_file_dialog_type_aref	=> '',
 		_flow_type_aref			=> '',
 	 	_has_infile				=> $true,
+	 	_has_outpar				=> $false,
 	 	_has_pipe_in			=> $true,	
 	 	_has_pipe_out           => $true,
 	 	_has_redirect_in		=> $true,
@@ -48,6 +53,8 @@ package suhrot_spec;
 		_is_suprog				=> $true,
 	 	_is_superflow			=> $false,
 	 	_max_index              => $max_index,
+	 	_prefix_aref               => '',
+	 	_suffix_aref               => '',
 	};
 
 
@@ -61,7 +68,11 @@ package suhrot_spec;
 
 	my @index;
 
-	$index[0]	= 0;
+	# first binding index (0)
+	# connects to second item (1)
+	# in the parameter list
+	$index[0] = 1;
+	$index[1] = 8;
 
 	$suhrot_spec ->{_binding_index_aref} = \@index;
 	return();
@@ -73,7 +84,6 @@ package suhrot_spec;
 
 type of dialog (Data, Flow, SaveAs) is needed by binding
 one type of dialog for each index
-
 =cut
 
  sub file_dialog_type_aref {
@@ -82,7 +92,14 @@ one type of dialog for each index
 
 	my @type;
 
+	my $index_aref = get_binding_index_aref();
+	my @index      = @$index_aref;
+
+		# bound index will look for data
 	$type[0]	= '';
+	$type[$index[0]] = $file_dialog_type->{_Data};
+	$type[$index[1]]	=  $file_dialog_type->{_Data};
+	$type[$index[0]]	=  $file_dialog_type->{_Data};
 
 	$suhrot_spec ->{_file_dialog_type_aref} = \@type;
 	return();
@@ -308,6 +325,17 @@ are filtered by sunix_pl
 		$prefix[$i]	= $empty_string;
 
 	}
+
+	my $index_aref = get_binding_index_aref();
+	my @index       = @$index_aref;
+
+	# label 2 in GUI is input xx_file and needs a home directory
+	$prefix[ $index[0] ] = '$DATA_SEISMIC_BIN' . ".'/'.";
+
+	# label 9 in GUI is input yy_file and needs a home directory
+	$prefix[ $index[1] ] = '$DATA_SEISMIC_BIN' . ".'/'.";
+
+
 	$suhrot_spec ->{_prefix_aref} = \@prefix;
 	return();
 
@@ -317,7 +345,6 @@ are filtered by sunix_pl
 =head2  sub suffix_aref
 
 Initialize suffixes as empty
-Assign specific suffixes to parameter
 values
 
 =cut
@@ -333,6 +360,19 @@ values
 		$suffix[$i]	= $empty_string;
 
 	}
+
+	my $index_aref = get_binding_index_aref();
+	my @index       = @$index_aref;
+
+	# label 2 in GUI is input xx_file and needs a home directory
+	$suffix[ $index[0] ] = ''.'' . '$suffix_bin';
+
+	# label 3 in GUI is input yy_file and needs a home directory
+	$suffix[ $index[1] ] = ''.'' . '$suffix_bin';
+
+	# label 9 in GUI is output zz_file and needs a home directory
+	$suffix[ $index[2] ] = ''.'' . '$suffix_su';
+
 	$suhrot_spec ->{_suffix_aref} = \@suffix;
 	return();
 
@@ -341,15 +381,17 @@ values
 
 =head2 sub variables
 
+
 return a hash array 
 with definitions
  
 =cut
  
- sub variables {
- 	my ($self) = @_;
- 	my $hash_ref = $suhrot_spec;
- 	return ($hash_ref);
- }
+sub variables {
+
+	my ($self) = @_;
+	my $hash_ref = $suhrot_spec;
+	return ($hash_ref);
+}
 
 1;

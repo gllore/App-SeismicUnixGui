@@ -91,7 +91,7 @@ Which group number do you want ?
 
 =cut
 
-my $group_no = 4;
+my $group_no = 13;
 $prog_doc2pm->set_group_directory($group_no);
 
 =head2 QUESTION 2:
@@ -110,7 +110,7 @@ For example=
 
 =cut
 
-my $selected_program_name = 'suascii';
+my $selected_program_name = 'suhistogram';
 
 =head2 private values
 

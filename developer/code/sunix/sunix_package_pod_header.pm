@@ -96,7 +96,12 @@ Version:
 		# print("sunix_package_pod_header,prog_docs,line#0 : $head[0]");
 		$head[0] = $head[0] .
 		
-'=head2 CHANGES and their DATES
+'=head2 User\'s notes (Juan Lorenzo)
+
+=cut
+
+
+=head2 CHANGES and their DATES
 
 =cut' . "\n\n";
 

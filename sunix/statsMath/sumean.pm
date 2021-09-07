@@ -1,15 +1,16 @@
- package sumean;
-
-
-=head1 DOCUMENTATION
+package sumean;
 
 =head2 SYNOPSIS
 
- PACKAGE NAME:  SUMEAN - get the mean values of data traces				",	
- AUTHOR: Juan Lorenzo
- DATE:   
- DESCRIPTION:
- Version: 
+PACKAGE NAME: 
+
+AUTHOR:  
+
+DATE:
+
+DESCRIPTION:
+
+Version:
 
 =head2 USE
 
@@ -17,58 +18,117 @@
 
 =head4 Examples
 
-=head3 SEISMIC UNIX NOTES
+=head2 SYNOPSIS
 
+=head3 SEISMIC UNIX NOTES
  SUMEAN - get the mean values of data traces				",	
+
+
 
  sumean < stdin > stdout [optional parameters] 			
 
+
+
  Required parameters:							
+
    power = 2.0		mean to the power				
+
 			(e.g. = 1.0 mean amplitude, = 2.0 mean energy)	
 
+
+
  Optional parameters: 							
+
    verbose = 0		writes mean value of section to outpar	   	
+
 			= 1 writes mean value of each trace / section to
+
 				outpar					
+
    outpar=/dev/tty   output parameter file				
+
    abs = 1             average absolute value 
+
                        = 0 preserve sign if power=1.0
 
+
+
  Notes:			 					
+
  Each sample is raised to the requested power, and the sum of all those
+
  values is averaged for each trace (verbose=1) and the section.	
+
  The values power=1.0 and power=2.0 are physical, however other powers	
+
  represent other mathematical L-p norms and may be of use, as well.	
 
 
+
+
+
  Credits:
+
   Bjoern E. Rommel, IKU, Petroleumsforskning / October 1997
+
 		    bjorn.rommel@iku.sintef.no
+
+
+=head2 User's notes (Juan Lorenzo)
+
+
+=cut
 
 
 =head2 CHANGES and their DATES
 
 =cut
- use Moose;
- our $VERSION = '0.0.1';
-	use L_SU_global_constants();
 
-	my $get					= new L_SU_global_constants();
-
-	my $var				= $get->var();
-	my $empty_string    	= $var->{_empty_string};
+use Moose;
+our $VERSION = '0.0.1';
 
 
-	my $sumean		= {
-		_abs					=> '',
-		_outpar					=> '',
-		_power					=> '',
-		_verbose					=> '',
-		_Step					=> '',
-		_note					=> '',
-    };
+=head2 Import packages
 
+=cut
+
+use L_SU_global_constants();
+
+use SeismicUnix qw ($in $out $on $go $to $suffix_ascii $off $suffix_su $suffix_bin);
+use Project_config;
+
+
+=head2 instantiation of packages
+
+=cut
+
+my $get					= new L_SU_global_constants();
+my $Project				= new Project_config();
+my $DATA_SEISMIC_SU		= $Project->DATA_SEISMIC_SU();
+my $DATA_SEISMIC_BIN	= $Project->DATA_SEISMIC_BIN();
+my $DATA_SEISMIC_TXT	= $Project->DATA_SEISMIC_TXT();
+
+my $var				= $get->var();
+my $on				= $var->{_on};
+my $off				= $var->{_off};
+my $true			= $var->{_true};
+my $false			= $var->{_false};
+my $empty_string	= $var->{_empty_string};
+
+=head2 Encapsulated
+hash of private variables
+
+=cut
+
+my $sumean			= {
+	_abs					=> '',
+	_outpar					=> '',
+	_power					=> '',
+	_verbose					=> '',
+	_Step					=> '',
+	_note					=> '',
+
+};
 
 =head2 sub Step
 
@@ -98,6 +158,7 @@ by adding the program name
 	return ( $sumean->{_note} );
 
  }
+
 
 
 =head2 sub clear
@@ -196,18 +257,17 @@ by adding the program name
 
 
 =head2 sub get_max_index
- 
+
 max index = number of input variables -1
  
 =cut
  
-  sub get_max_index {
- 	my ($self) = @_;
-	# only file_name : index=36
- 	my $max_index = 36;
-	
- 	return($max_index);
- }
+sub get_max_index {
+ 	  my ($self) = @_;
+    my $max_index = 3;
+
+    return($max_index);
+}
  
  
 1; 

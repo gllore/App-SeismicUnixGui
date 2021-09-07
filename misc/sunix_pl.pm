@@ -156,8 +156,7 @@ sub _good_sunix_params {
 				# print("sunix_pl,_good_sunix_params, lines for each program: $extract[$count]\n")
 			}
 			push @prog_lines_aref_holder, \@extract;
-		}
-		else {
+		} else {
 
 			# print("sunix_pl, _good_sunix_params,Warning: bad line numbers for $all_prog_names[$prog_count]\n");
 		}
@@ -173,9 +172,9 @@ sub _good_sunix_params {
 		my $label_index = 0;
 
 		my ( @labels_holder, @values_holder );    # holds one array of values and labels per program
-		                                          # print("sunix_pl,_good_sunix_params,prog_lines: @$ref_prog_lines\n");
-		                                          # print("sunix_pl,_good_sunix_params,prog#: $prog_count\n");
-		                                          # print("\n sunix_pl,_good_sunix_params,prog_name: $sunix_pl->{_prog_names}[$prog_count]\n");
+												  # print("sunix_pl,_good_sunix_params,prog_lines: @$ref_prog_lines\n");
+												  # print("sunix_pl,_good_sunix_params,prog#: $prog_count\n");
+			# print("\n sunix_pl,_good_sunix_params,prog_name: $sunix_pl->{_prog_names}[$prog_count]\n");
 
 		# extract labels and parameter values from lines
 		foreach my $line (@$ref_prog_lines) {
@@ -252,13 +251,11 @@ sub _good_sunix_params {
 			if ( $value_length > 0 ) {
 
 				# ** this one never works: print("1. sunix_pl,_good_sunix_params,prog: $prog_count values:---@values---\n");
-				print( "sunix_pl,_good_sunix_params, value[0] =-- $values[0]---\n\n" );
-			}
-			elsif ( !$values[0] ) {
-				print( "sunix_pl,_good_sunix_params, values[0] is empty: =-----\n\n" );
-			}
-			else {
-				print( "sunix_pl,_good_sunix_params, value[0] =---$values[0]--\n\n" );
+				print("sunix_pl,_good_sunix_params, value[0] =-- $values[0]---\n\n");
+			} elsif ( !$values[0] ) {
+				print("sunix_pl,_good_sunix_params, values[0] is empty: =-----\n\n");
+			} else {
+				print("sunix_pl,_good_sunix_params, value[0] =---$values[0]--\n\n");
 			}
 
 			# assume label and value lengths are always 1
@@ -272,8 +269,8 @@ sub _good_sunix_params {
 				# print("1. sunix_pl,_good_sunix_params,labels[0]:--$labels[0]\n");
 				# print("1. sunix_pl,_good_sunix_params,values_holder:--@values_holder\n");
 				# print("1. sunix_pl,_good_sunix_params,values_holder:--@values_holder----prog_count:$prog_count\n");
-			}
-			else {
+			} else {
+
 				# print("sunix_pl,_good_sunix_params_values, either no label or value exists\n");
 			}
 
@@ -287,15 +284,15 @@ sub _good_sunix_params {
 			@temp_labels                        = @labels_holder[ 0 .. $long ];
 			$values_aref_holder[$op_prog_count] = \@temp_values;
 			$labels_aref_holder[$op_prog_count] = \@temp_labels;
-			$good_prog_index[$op_prog_count]    = $prog_count;                    # remember which prgrams are useful for later
+			$good_prog_index[$op_prog_count]    = $prog_count;    # remember which prgrams are useful for later
 			$op_prog_count++;
 
 			# print(" sunix_pl,_good_sunix_params,prog: $prog_count---temp values:---@temp_values\n\n");
 			# print(" sunix_pl,_good_sunix_params,prog: $prog_count---values:---@{$values_aref_holder[$prog_count]}\n\n");
 			# print(" sunix_pl,_good_sunix_params,prog: $prog_count---temp labels:---@temp_labels\n\n");
 			# print(" sunix_pl,g_good_sunix_params,prog: $prog_count---labels:---@{$labels_aref_holder[$prog_count]}\n\n");
-		}
-		else {
+		} else {
+
 			# label and values are not assigned to array elements
 			# BUT array continues to increment
 			# print("warning: sunix_pl,_good_sunix_params, no value found: long = $long\n");
@@ -418,8 +415,7 @@ sub get_error_messages {
 
 		return ($results);
 
-	}
-	else {
+	} else {
 
 		return ();
 		print("sunix_pl, get_error_messages, none to return\n");
@@ -477,8 +473,7 @@ sub get_lines_progs_contain {
 		$sunix_pl->{_contain_line_contents} = \@line_contents;
 		return ( \@line_nums );
 
-	}
-	else {
+	} else {
 		print("sunix_pl, get_lines_progs_contain, missing string\n");
 	}
 
@@ -782,10 +777,9 @@ sub get_good_sunix_names {
 		# print("sunix_pl, get_good_sunix_names, @{$sunix_pl->{_good_prog_names}}\n");
 		return ( \@good_prog_names );
 
-	}
-	else {
+	} else {
 
-		print( "suix_pl,warning: get_good_sunix_names: must run sunix_params first\n" );
+		print("suix_pl,warning: get_good_sunix_names: must run sunix_params first\n");
 
 		_get_good_sunix_params();
 		@good_prog_indices = @{ $sunix_pl->{_good_prog_indices_ref} };
@@ -865,9 +859,8 @@ sub get_good_sunix_params {
 			}
 			push @prog_lines_aref_holder, \@extract;
 
-		}
-		else {
-			print( "sunix_pl, get_good_sunix_params,Warning: bad line numbers for $all_prog_names[$prog_count]\n" );
+		} else {
+			print("sunix_pl, get_good_sunix_params,Warning: bad line numbers for $all_prog_names[$prog_count]\n");
 		}
 	}    # for each progam
 
@@ -978,14 +971,12 @@ sub get_good_sunix_params {
 
 				# ** this one never works: print("1. sunix_pl,get_good_sunix_params,prog: $prog_count values:---@values---\n");
 				# print ("sunix_pl,get_good_sunix_params, value[0] =-- $values[0]---\n\n");
-			}
-			elsif ( !$values[0] ) {
+			} elsif ( !$values[0] ) {
 
 				# print ("sunix_pl,get_good_sunix_params, values[0]
 				# is empty: =-----\n\n");
-			}
-			else {
-				print( "sunix_pl,get_good_sunix_params, unexpected value[0] =---$values[0]--\n\n" );
+			} else {
+				print("sunix_pl,get_good_sunix_params, unexpected value[0] =---$values[0]--\n\n");
 			}
 
 			# number of labels and values are always >= 1
@@ -1000,17 +991,15 @@ sub get_good_sunix_params {
 				#
 				# print("1. sunix_pl,get_good_sunix_params,values_holder:--@values_holder\n");
 				# print("1. sunix_pl,get_good_sunix_params,values_holder:--@values_holder----prog_count:$prog_count\n");
-			}
-			else {
-				print( "sunix_pl,get_good_sunix_params_values, either no value or label exists\n" );
+			} else {
+				print("sunix_pl,get_good_sunix_params_values, either no value or label exists\n");
 			}
 
 			# USER ERRORS
 			# CASE 1 : label that is not 'clear' and  is empty
 			# print("1. sunix_pl,get_good_sunix_params,labels[0]:--$labels[0]--\n");
 			if ( $labels[0] ne 'clear'
-				and ( !$labels[0] or $labels[0] eq $empty_string ) )
-			{
+				and ( !$labels[0] or $labels[0] eq $empty_string ) ) {
 
 				# print(
 				# 	"1 USER ERROR: edit your flow; Cannot continue; A program is missing all its values\n"
@@ -1020,10 +1009,8 @@ sub get_good_sunix_params {
 				$sunix_pl->{_message1} = $true;
 
 				# CASE 2: label exists and is not 'clear'
-			}
-			elsif ( $labels[0] ne 'clear'
-				and ( $labels[0] or $labels[0] ne $empty_string ) )
-			{
+			} elsif ( $labels[0] ne 'clear'
+				and ( $labels[0] or $labels[0] ne $empty_string ) ) {
 
 				# Case 2A: value is empty
 				if ( !$values[0] or $values[0] eq $empty_string ) {
@@ -1033,14 +1020,14 @@ sub get_good_sunix_params {
 					# $sunix_pl->{_message1} = $true;
 					# exit;
 
-				}
-				else {
+				} else {
+
 					# Case 2B: value is  not empty
 					# print("sunix_pl,get_good_sunix_params_values,a good value NADA\n")
 				}
 
-			}
-			else {
+			} else {
+
 				# print("sunix_pl,get_good_sunix_params_values,unexpected or 'clear' NADA\n")
 			}
 
@@ -1054,18 +1041,18 @@ sub get_good_sunix_params {
 			@temp_labels                        = @labels_holder[ 0 .. $long ];
 			$values_aref_holder[$op_prog_count] = \@temp_values;
 			$labels_aref_holder[$op_prog_count] = \@temp_labels;
-			$good_prog_index[$op_prog_count]    = $prog_count;                    # remember which programs are useful for later
+			$good_prog_index[$op_prog_count]    = $prog_count;    # remember which programs are useful for later
 			$op_prog_count++;
 
 			# print(" sunix_pl,get_good_sunix_params,prog: $prog_count---temp values:---@temp_values\n\n");
 			# print(" sunix_pl,get_good_sunix_params,prog: $prog_count---values:---@{$values_aref_holder[$prog_count]}\n\n");
 			# print(" sunix_pl,get_good_sunix_params,prog: $prog_count---temp labels:---@temp_labels\n\n");
 			# print(" sunix_pl,gget_good_sunix_params,prog: $prog_count---labels:---@{$labels_aref_holder[$prog_count]}\n\n");
-		}
-		else {
+		} else {
+
 			# label and values are not assigned to array elements
 			# BUT array continues to increment
-			print( "warning: sunix_pl,get_good_sunix_params, no value found: long = $long\n" );
+			print("warning: sunix_pl,get_good_sunix_params, no value found: long = $long\n");
 		}
 
 	}    # over each program
@@ -1149,8 +1136,7 @@ sub get_whole {
 
 		return ($all_lines_aref);
 
-	}
-	else {
+	} else {
 		print(" sunix_pl, get_whole, missing: sunix_pl->{_all_lines_aref}\n");
 	}
 
@@ -1233,8 +1219,7 @@ sub lines_with {
 
 		return ($sunix_pl);
 
-	}
-	else {
+	} else {
 		print("sunix_pl,lines_with, missing: all_lines_aref\n");
 	}
 
@@ -1293,8 +1278,7 @@ sub set_file_in {
 
 		$sunix_pl->{_file_in} = @$file_aref[0];
 
-	}
-	else {
+	} else {
 		print("sunix_pl,set_file_in, missing file-aref\n");
 	}
 }
@@ -1314,8 +1298,7 @@ sub set_file_in_sref {
 
 		$sunix_pl->{_file_in} = $$file_sref;
 
-	}
-	else {
+	} else {
 		print("sunix_pl,set_file_in_sref, missing file_sref\n");
 	}
 }
@@ -1360,9 +1343,8 @@ sub set_num_progs {
 
 		# print("sunix_pl, set_num_progs: $sunix_pl->{_num_progs}\n");
 
-	}
-	else {
-		print( "sunix_pl, set_num_progs: missing $sunix_pl->{_start_line_contents}\n" );
+	} else {
+		print("sunix_pl, set_num_progs: missing $sunix_pl->{_start_line_contents}\n");
 	}
 	return ();
 }
@@ -1373,18 +1355,16 @@ sub set_num_progs {
 =cut
 
 sub set_path_in_sref {
-	
-	my ($self, $path_in_sref ) = @_;
+
+	my ( $self, $path_in_sref ) = @_;
 
 	if ($path_in_sref) {
 
-		
-		$sunix_pl->{_path}= $$path_in_sref;
-		
+		$sunix_pl->{_path} = $$path_in_sref;
+
 		# print("sunix_pl,set_path_in_sref, $sunix_pl->{_path}\n");
 
-	}
-	else {
+	} else {
 		print("sunix_pl,set_path_in_sref,missing path_in\n");
 	}
 
@@ -1407,8 +1387,7 @@ sub set_perl_file_in {
 
 		# print("sunix_pl,set_perl_file_in, $file_in\n");
 
-	}
-	else {
+	} else {
 		print("sunix_pl,set_perl_file_in,missing file_in\n");
 	}
 
@@ -1430,8 +1409,7 @@ sub set_perl_path {
 		# print("sunix_pl,set_perl_path, $path\n");
 		$sunix_pl->{_path} = $path;
 
-	}
-	else {
+	} else {
 		print("perl_flow,missing path\n");
 	}
 	return ();
@@ -1449,11 +1427,10 @@ sub set_perl_path_in {
 
 	if ($path) {
 
-#		print("sunix_pl,set_perl_path_in, $path\n");
+		#		print("sunix_pl,set_perl_path_in, $path\n");
 		$sunix_pl->{_path} = $path;
 
-	}
-	else {
+	} else {
 		print("perl_flow,missing path\n");
 	}
 	return ();
@@ -1476,8 +1453,7 @@ sub set_progs_contain {
 
 		# print("sunix_pl,set_progs_contain, string:[$string]\n");
 
-	}
-	else {
+	} else {
 		print("sunix_pl,set_progs_contain, missing string\n");
 	}
 
@@ -1525,8 +1501,7 @@ sub set_progs_end_with {
 
 		# print("sunix_pl,set_progs_end_with, end lines: @{$sunix_pl->{_end_prog_lines}}\n");
 
-	}
-	else {
+	} else {
 		print("sunix_pl,set_progs_end_with, missing word\n");
 	}
 
@@ -1575,8 +1550,7 @@ sub set_progs_start_with {
 
 		# print("sunix_pl,set_progs_start_with, start lines: @{$sunix_pl->{_start_prog_lines}}\n");
 
-	}
-	else {
+	} else {
 		print("sunix_pl,set_progs_start_with, missing word\n");
 	}
 
@@ -1613,8 +1587,7 @@ sub whole {
 
 		# full directory path plus file name
 		my $inbound = $sunix_pl->{_path} . '/' . $sunix_pl->{_file_in};
-
-		# print ("sunix_pl, whole, $inbound\n");
+		print("sunix_pl, whole, $inbound\n");
 
 		my $i = 0;
 		open( my $fh, '<', $inbound )
@@ -1623,7 +1596,7 @@ sub whole {
 			chomp $row;
 			$all_lines[$i] = $row;
 
-			# print "I read: " . $all_lines[$i] . "from the file, i=".$i."\n";
+#			print "I read: " . $all_lines[$i] . "from the file, i=" . $i . "\n";
 			$i++;
 		}
 
@@ -1638,8 +1611,7 @@ sub whole {
 		# 	print("sunix_pl, whole, all_lines_aref: @{$sunix_pl->{_all_lines_aref}}[$i] \n");
 		#}
 		# print("sunix_pl, whole, all_lines_aref: @{$sunix_pl->{_all_lines_aref}} \n");
-	}
-	else {
+	} else {
 		print("sunix_pl, whole, missing path or file name \n");
 	}
 

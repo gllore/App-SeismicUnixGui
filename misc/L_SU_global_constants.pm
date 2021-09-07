@@ -51,12 +51,12 @@ my $alias_superflow_spec_names_h = {
   
 =cut
 
-my $number_from_color =  {
-	_grey => 0,
-	_pink => 1,
+my $number_from_color = {
+	_grey  => 0,
+	_pink  => 1,
 	_green => 2,
-	_blue   => 3,
-}; 
+	_blue  => 3,
+};
 
 #print("my constants, alias for fk: $alias_h->{fk}\n");
 
@@ -194,21 +194,21 @@ my @file_dialog_type;
 # in spec files Data_PL_SEISMIC, is not necessarily informed by DATA_DIR_IN and DATA_DIR_OUT
 $file_dialog_type[0] = 'Data_PL_SEISMIC',
 
-# in spec files Data, is informed by DATA_DIR_IN and DATA_DIR_OUT
-$file_dialog_type[1] = 'Data';
+	# in spec files Data, is informed by DATA_DIR_IN and DATA_DIR_OUT
+	$file_dialog_type[1] = 'Data';
 $file_dialog_type[2] = 'Path';
 $file_dialog_type[3] = 'Flow';
 $file_dialog_type[4] = 'SaveAs';
-$file_dialog_type[5] ='last_dir_in_path';
+$file_dialog_type[5] = 'last_dir_in_path';
 
 my $file_dialog_type_h = {
-	_Data_PL_SEISMIC => 'Data_PL_SEISMIC',
-	_Data            => 'Data',
-	_Path            => 'Path',
+	_Data_PL_SEISMIC  => 'Data_PL_SEISMIC',
+	_Data             => 'Data',
+	_Path             => 'Path',
 	_last_dir_in_path => 'last_dir_in_path',
-	_Flow            => 'Flow',
-	_SaveAs          => 'SaveAs',
-	_Save            => 'Save',
+	_Flow             => 'Flow',
+	_SaveAs           => 'SaveAs',
+	_Save             => 'Save',
 };
 
 my @flow_type;
@@ -223,29 +223,29 @@ my $flow_type_h = {
 my $purpose = { _geopsy => 'geopsy', };
 
 my $var = {
-	_1_character    => '1',
-	_14_characters  => '14',
-	_13_characters  => '13',
-	_12_characters  => '12',
-	_11_characters  => '11',
-	_2_characters   => '2',
-	_3_characters   => '3',
-	_4_characters   => '4',
-	_5_characters   => '5',
-	_6_characters   => '6',
-	_7_characters   => '7',
-	_8_characters   => '8',
-	_10_characters  => '10',
-	_15_characters  => '15',
-	_20_characters  => '20',
-	_30_characters  => '30',
-	_32_characters  => '32',
-	_35_characters  => '35',
-	_40_characters  => '40',
-	_45_characters  => '45',
-	_base_file_name => 'base_file_name',
+	_1_character                   => '1',
+	_14_characters                 => '14',
+	_13_characters                 => '13',
+	_12_characters                 => '12',
+	_11_characters                 => '11',
+	_2_characters                  => '2',
+	_3_characters                  => '3',
+	_4_characters                  => '4',
+	_5_characters                  => '5',
+	_6_characters                  => '6',
+	_7_characters                  => '7',
+	_8_characters                  => '8',
+	_10_characters                 => '10',
+	_15_characters                 => '15',
+	_20_characters                 => '20',
+	_30_characters                 => '30',
+	_32_characters                 => '32',
+	_35_characters                 => '35',
+	_40_characters                 => '40',
+	_45_characters                 => '45',
+	_base_file_name                => 'base_file_name',
 	_clear_text                    => '',
-	_color_default    => 'grey', # first color listbox to select
+	_color_default                 => 'grey',                                      # first color listbox to select
 	_config_file_format            => '%-35s%1s%-20s',
 	_eight_characters              => '8',
 	_empty_string                  => '',
@@ -279,10 +279,10 @@ my $var = {
 	_l_suplot_box_positionNsize    => '600x800+1000+1000',
 	_l_suplot_width                => '500',
 	_l_suplot_height               => '300',
-	_log_file_txt                     => 'log.txt',
-	_main_window_geometry   => '1100x750+12+5',
+	_log_file_txt                  => 'log.txt',
+	_main_window_geometry          => '1100x750+12+5',
 	_medium_width                  => '100',
-	_message_box_geometry  => '400x250+400+400',
+	_message_box_geometry          => '400x250+400+400',
 	_my_arial                      => "-*-arial-normal-r-*-*-*-120-*-*-*-*-*-*",
 	_my_purple                     => 'MediumPurple1',
 	_my_white                      => 'white',
@@ -293,9 +293,9 @@ my $var = {
 	_my_light_grey                 => 'LightGrey',
 	_my_pink                       => 'pink',
 	_my_light_blue                 => 'LightBlue',
-	_my_dialog_box_geometry  => '400x250+400+400',
+	_my_dialog_box_geometry        => '400x250+400+400',
 	_no_pixel                      => '0',
-	_no_dir 						 => '/',
+	_no_dir                        => '/',
 	_no_borderwidth                => '0',
 	_nu                            => 'nu',
 	_no                            => 'no',
@@ -309,24 +309,24 @@ my $var = {
 	_project_selector_title        => 'Project Selector',
 	_project_selector_box_position => '600x600+100+100',
 	_null_sunix_value              => '',
-	_reservation_color_default => 'grey',  # first choice for reserving a color listbox 
+	_reservation_color_default     => 'grey',            # first choice for reserving a color listbox
 	_superflow                     => 'menubutton',
 	_small_width                   => '50',
-	_string2startFlowSetUp         => '->clear\(\);',                              # for regex in perl_flow
-	_string2endFlowSetUp           => '->Step\(\);',                               # for regex in perl_flow
+	_string2startFlowSetUp         => '->clear\(\);',    # for regex in perl_flow
+	_string2endFlowSetUp           => '->Step\(\);',     # for regex in perl_flow
 	_standard_width                => '20',
 	_ten_characters                => '10',
 	_test_dir_name                 => 't',
 	_eleven_characters             => '11',
 	_five_characters               => '5',
 	_thirty_characters             => '30',
-	_18_characters					=> '18',
+	_18_characters                 => '18',
 	_thirty_five_characters        => '35',
 	_tiny_width                    => '12',
 	_true                          => 1,
 	_us_per_s                      => 1000000,
 	_twenty_characters             => '20',
-	_username                            => 'tester',
+	_username                      => 'tester',
 	_very_small_width              => '25',
 	_very_large_width              => '500',
 	_yes                           => 'yes',
@@ -361,10 +361,11 @@ if ( $L_SU ne $var->{_empty_string} ) {
 	$global_libs = {
 		_configs             => $L_SU . '/configs',
 		_configs_big_streams => $L_SU . '/configs/big_streams',
-		_developer                   => $L_SU . '/developer/Stripped',
+		_developer           => $L_SU . '/developer/Stripped',
+		_misc                => $L_SU . '/misc',
 		_param               => $L_SU . '/configs/',
-		_specs              => $L_SU .'/specs',
-		_sunix              => $L_SU . '/sunix',
+		_specs               => $L_SU . '/specs',
+		_sunix               => $L_SU . '/sunix',
 		_superflows          => $L_SU . '/big_streams/',
 		_images              => $L_SU . '/images/',
 		_default_path        => './',
@@ -403,9 +404,16 @@ my @sunix_data_programs = (
 	"segywrite",
 );
 
-my @sunix_datum_programs = ( "sudatumk2dr", );
+my @sunix_datum_programs = ( 
+"sudatumk2dr",
+ );
 
-my @sunix_filter_programs = ( "sufilter", "sudipfilt", "supef" );
+my @sunix_filter_programs = (
+	"sufilter",
+	"sudipfilt",
+	"supef",
+	"supolar"
+);
 
 my @sunix_header_programs = (
 	"segyhdrs",
@@ -416,19 +424,23 @@ my @sunix_header_programs = (
 	"suchw",
 	"sugethw",
 	"sushw",
-
-	#            "sucountkey",
 	"surange",
-
-	#            "supaste",
 	"sustatic",
 	"sustrip",
 );
 
-my @sunix_inversion_programs = ();
+my @sunix_inversion_programs = (
+);
 
-my @sunix_migration_programs = ( "sustolt", );
-my @sunix_shell_programs     = ( "evince", "sugetgthr", "suputgthr" );
+my @sunix_migration_programs = (
+ "sustolt", 
+ );
+ 
+my @sunix_shell_programs     = ( 
+"evince",
+ "sugetgthr",
+  "suputgthr" 
+);
 
 =pod
 
@@ -437,153 +449,72 @@ my @sunix_shell_programs     = ( "evince", "sugetgthr", "suputgthr" );
 
 =cut
 
-my @sunix_model_programs = ( "suplane", "susynlv", "suea2df", "sufctanismod","sufdmod1", "sufdmod2" );
+my @sunix_model_programs = (
+	"suplane",
+	"susynlv",
+	"suea2df",
+	"sufctanismod",
+	"sufdmod1",
+	"sufdmod2",
+);
 
-=pod
+my @sunix_NMO_Vel_Stk_programs = ( 
+"sunmo",
+ "sustack",
+  "suttoz", 
+  "suvelan", 
+  );
 
-elamodel
-elaray
-elasyn
-elatriuni
-gbbeam
-normray
-raydata
-suaddevent
-suaddnoise
-sudgwaveform
-
-sufdmod2l.pm
-sugoupillaud
-sugoupillaudpo
-suimp2d
-suimp3d
-suimpedance
-sujitter
-sukdsyn2d
-sunhmospike
-sunull
-surandspike
-surandstat
-suremac2d
-suremel2dan
-suspike
-susyncz
-susynlvcw
-susynlvfti
-susynlv
-susynvxzcs
-susynvxz
-sutetraray
-suvibro
-suwaveform
-sxplot
-sxplot.xtri
-tetramod
-tri2uni
-trimodel
-trip
-triray
-triseis
-uni2trielacheck
-
-=cut
-
-my @sunix_NMO_Vel_Stk_programs = ( "sunmo", "sustack", "suttoz", "suvelan", );
-
-my @sunix_par_programs = ( "a2b", "b2a", "mkparfile", "makevel", "transp", "unif2", "unif2aniso", "unisam", "vel2stiff" );
-
-=pod
-a2i
-addrvl3d
-bhedtopar
-cellauto
-cpftrend
-cshotplot
-dzdv
-farith
-float2ibm
-ftnunstrip
-grm
-h2b
-hti2stiff
-hudson
-i2a
-ibm2float
-kaperture
-linrort
-list
-lorenz
-
-=cut
+my @sunix_par_programs = (
+	"a2b",
+	"b2a",
+	"mkparfile",
+	"makevel",
+	"transp",
+	"unif2",
+	"unif2aniso",
+	"unisam",
+	"vel2stiff",
+);
 
 my @sunix_picks_programs = (
 
 );
 
 my @sunix_plot_programs = (
-	"pswigb", "pswigp", "supswigb", "supswigp", "suximage", "suxgraph", "suxwigb", "suxmovie",
-	"xgraph", "ximage", "xmovie",   "xwigb",
+	"pswigb",
+	"pswigp",
+	"supswigb",
+	"supswigp",
+	"suximage",
+	"suxgraph",
+	"suxwigb",
+	"suxmovie",
+	"xgraph",
+	"ximage",
+	"xmovie",
+	"xwigb",
 );
 
-=head2 Remaining to incorporate into L_SU
-elaps
-lcmap
-lprop
-psbbox
-pscontour
-pscubecontour
-pscube
-psepsi
-psgraph
-psimage
-pslabel
-psmanager
-psmerge
-psmovie
-pswigb
-pswigp
-scmap
-spsplot
-supscontour
-supscubecontour
-supscube
-supsgraph
-supsimage
-supsmax
-supsmovie
-supswigb
-supswigp
-suxcontour
-suxmovie
-suxpicker
-suxwigb
-viewer3
-xcontour
-xepsb
-xepsp
-xmovie
-xpicker
-xpsp
-=cut
-
 my @sunix_shapeNcut_programs = (
-"suflip","sugain", "sugprfb","sukill", "sumute", "susort",
-"susplit","suwind"
+	"suflip",
+	"sugain",
+	"sugprfb",
+	"sukill",
+	"sumute",
+	"susort",
+	"susplit",
+	"suwind",
 );
 
 my @sunix_statsMath_programs = (
-
-	#			"smooth2",
-	# 			"suconv"
 	"suacor",
 	"suattributes",
+	"suhrot",
+	"suhistogram",
 	"suinterp",
 	"sumax",
-	#			"sunormalize",
-	#			"sumean",
-	#			"suhistogram",
-	#			"supolar",
-	#			"sumath",
+	"sumean",
 	"sumix",
 	"suop",
 	"suop2",
@@ -592,7 +523,7 @@ my @sunix_statsMath_programs = (
 );
 
 my @sunix_transform_programs = (
-    "dctcomp",
+	"dctcomp",
 	"suamp",
 	"succepstrum",
 	"sucepstrum",
@@ -601,10 +532,16 @@ my @sunix_transform_programs = (
 	"sufft",
 	"sugabor",
 	"suicepstrum",
-	"suifft", "suphasevel", "suspecfk", "suspecfx", "sutaup"
+	"suifft",
+	"suphasevel",
+	"suspecfk",
+	"suspecfx",
+	"sutaup",
 );
 
-my @sunix_well_programs = ( "las2su", );
+my @sunix_well_programs = (
+ "las2su", 
+ );
 
 $var->{_sunix_data_programs}        = \@sunix_data_programs;
 $var->{_sunix_datum_programs}       = \@sunix_datum_programs;
@@ -677,10 +614,10 @@ sub flow_type_href {
 }
 
 sub number_from_color_href {
-	
+
 	my ($self) = @_;
-	return($number_from_color);
-	
+	return ($number_from_color);
+
 }
 
 sub alias_superflow_config_names_aref {

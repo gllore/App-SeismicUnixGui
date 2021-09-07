@@ -1,15 +1,16 @@
- package suhistogram;
-
-
-=head1 DOCUMENTATION
+package suhistogram;
 
 =head2 SYNOPSIS
 
- PACKAGE NAME:  SUHISTOGRAM - create histogram of input amplitudes		
- AUTHOR: Juan Lorenzo
- DATE:   
- DESCRIPTION:
- Version: 
+PACKAGE NAME: 
+
+AUTHOR:  
+
+DATE:
+
+DESCRIPTION:
+
+Version:
 
 =head2 USE
 
@@ -17,77 +18,153 @@
 
 =head4 Examples
 
-=head3 SEISMIC UNIX NOTES
+=head2 SYNOPSIS
 
+=head3 SEISMIC UNIX NOTES
  SUHISTOGRAM - create histogram of input amplitudes		
+
+
 
     suhistogram <in.su >out.dat				
 
+
+
  Required parameters:						
+
  min=		minimum bin 					
+
  max=		maximum bin 					
+
  bins=		number of bins					
 
+
+
  Optional parameters						
+
  trend=0	=0 1-D histogram				
+
 	   =1 2-D histogram picks on cumulate			
+
 	   =2 2-D histogram in trace format			
+
+
 
  clip=     threshold value to drop outliers			
 
+
+
  dt=	sample rate in feet or milliseconds.  Defaults  to	
+
     	tr.dt*1e-3					  	
+
  datum=  header key to get datum shift if desired (e.g. to	
+
 	 hang from water bottom)			    	
 
+
+
  Notes:							
+
  trend=0 produces a two column ASCII output for use w/ gnuplot.
+
  Extreme values are counted in the end bins.			
 
+
+
  trend=1 produces a 6 column ASCII output for use w/ gnuplot   
+
  The columns are time/depth and picks on the cumulate		
+
  at 2.28%, 15.87%, 50%, 84.13% & 97.72% of the total points    
+
  corresponding to the median and +- 1 or 2 standard deviations 
+
  for a Gaussian distribution.					
 
+
+
  trend=2 produces an SU trace panel w/ one trace per bin that  
+
  can be displayed w/ suximage, etc.				
 
+
+
  Example for plotting with xgraph:				
+
  suhistogram < data.su min=MIN max=MAX bins=BINS |		
+
  a2b n1=2 | xgraph n=BINS nplot=1			 	
 
 
+
+
+
  Author: Reginald H. Beardsley  2006   rhb@acm.org
+
  
+
+
+
+
+
+=head2 User's notes (Juan Lorenzo)
+
+=cut
 
 
 =head2 CHANGES and their DATES
 
 =cut
- use Moose;
- our $VERSION = '0.0.1';
-	use L_SU_global_constants();
 
-	my $get					= new L_SU_global_constants();
-
-	my $var				= $get->var();
-	my $empty_string    	= $var->{_empty_string};
+use Moose;
+our $VERSION = '0.0.1';
 
 
-	my $suhistogram		= {
-		_bins					=> '',
-		_clip					=> '',
-		_datum					=> '',
-		_dt					=> '',
-		_max					=> '',
-		_min					=> '',
-		_n1					=> '',
-		_trend					=> '',
-		_Step					=> '',
-		_note					=> '',
-    };
+=head2 Import packages
 
+=cut
+
+use L_SU_global_constants();
+
+use SeismicUnix qw ($in $out $on $go $to $suffix_ascii $off $suffix_su $suffix_bin);
+use Project_config;
+
+
+=head2 instantiation of packages
+
+=cut
+
+my $get					= new L_SU_global_constants();
+my $Project				= new Project_config();
+my $DATA_SEISMIC_SU		= $Project->DATA_SEISMIC_SU();
+my $DATA_SEISMIC_BIN	= $Project->DATA_SEISMIC_BIN();
+my $DATA_SEISMIC_TXT	= $Project->DATA_SEISMIC_TXT();
+
+my $var				= $get->var();
+my $on				= $var->{_on};
+my $off				= $var->{_off};
+my $true			= $var->{_true};
+my $false			= $var->{_false};
+my $empty_string	= $var->{_empty_string};
+
+=head2 Encapsulated
+hash of private variables
+
+=cut
+
+my $suhistogram			= {
+	_bins					=> '',
+	_clip					=> '',
+	_datum					=> '',
+	_dt					=> '',
+	_max					=> '',
+	_min					=> '',
+	_n1					=> '',
+	_trend					=> '',
+	_Step					=> '',
+	_note					=> '',
+
+};
 
 =head2 sub Step
 
@@ -117,6 +194,7 @@ by adding the program name
 	return ( $suhistogram->{_note} );
 
  }
+
 
 
 =head2 sub clear
@@ -299,18 +377,17 @@ by adding the program name
 
 
 =head2 sub get_max_index
- 
+
 max index = number of input variables -1
  
 =cut
  
-  sub get_max_index {
- 	my ($self) = @_;
-	# only file_name : index=36
- 	my $max_index = 36;
-	
- 	return($max_index);
- }
+sub get_max_index {
+ 	  my ($self) = @_;
+	my $max_index = 36;
+
+    return($max_index);
+}
  
  
 1; 

@@ -1,15 +1,16 @@
- package suhrot;
-
-
-=head1 DOCUMENTATION
+package suhrot;
 
 =head2 SYNOPSIS
 
- PACKAGE NAME:  SUHROT - Horizontal ROTation of three-component data			
- AUTHOR: Juan Lorenzo
- DATE:   
- DESCRIPTION:
- Version: 
+PACKAGE NAME: 
+
+AUTHOR:  
+
+DATE:
+
+DESCRIPTION:
+
+Version:
 
 =head2 USE
 
@@ -17,78 +18,152 @@
 
 =head4 Examples
 
-=head3 SEISMIC UNIX NOTES
+=head2 SYNOPSIS
 
+=head3 SEISMIC UNIX NOTES
  SUHROT - Horizontal ROTation of three-component data			
+
+
 
  suhrot <stdin >stdout [optional parameters]				
 
+
+
  Required parameters:							
+
  none									
 
+
+
  Optional parameters:							
+
  angle=rad	unit of angles, choose "rad", "deg", or "gon
+
  inv=0		1 = inverse rotation (counter-clockwise)		
+
  verbose=0	1 = echo angle for each 3-C station			
 
+
+
  a=...		array of user-supplied rotation angles			
+
  x=0.0,...	array of corresponding header value(s)			
+
  key=tracf	header word defining 3-C station ("x")		
 
+
+
  ... or input angles from files:					
+
  n=0		 number of x and a values in input files		
+
  xfile=...   file containing the x values as specified by the		
+
  				"key" parameter			
+
  afile=...   file containing the a values				
 
+
+
  Notes:								
+
  Three adjacent traces are considered as one three-component		
+
  dataset.								
+
  By default, the data will be rotated from the Z-North-East (Z,N,E)	
+
  coordinate system into Z-Radial-Transverse (Z,R,T).			
 
+
+
 	If one of the parameters "a=" or "afile=" is set, the data	
+
 	are rotated by these user-supplied angles. Specified x values	
+
 	must be monotonically increasing or decreasing, and afile and	
+
 	xfile are files of binary (C-style) floats.			
 
 
+
+
+
  
+
  Author: Nils Maercklin,
+
 		 Geophysics, Kiel University, Germany, 1999.
 
 
+
+
+
  Trace header fields accessed: ns, sx, sy, gx, gy, key=keyword
+
  Trace header fields modified: trid
  
+
+ =head2 User's notes (Juan Lorenzo)
+ 
+ Untested
+
+
 
 =head2 CHANGES and their DATES
 
 =cut
- use Moose;
- our $VERSION = '0.0.1';
-	use L_SU_global_constants();
 
-	my $get					= new L_SU_global_constants();
-
-	my $var				= $get->var();
-	my $empty_string    	= $var->{_empty_string};
+use Moose;
+our $VERSION = '0.0.1';
 
 
-	my $suhrot		= {
-		_a					=> '',
-		_afile					=> '',
-		_angle					=> '',
-		_inv					=> '',
-		_key					=> '',
-		_n					=> '',
-		_verbose					=> '',
-		_x					=> '',
-		_xfile					=> '',
-		_Step					=> '',
-		_note					=> '',
-    };
+=head2 Import packages
 
+=cut
+
+use L_SU_global_constants();
+
+use SeismicUnix qw ($in $out $on $go $to $suffix_ascii $off $suffix_su $suffix_bin);
+use Project_config;
+
+
+=head2 instantiation of packages
+
+=cut
+
+my $get					= new L_SU_global_constants();
+my $Project				= new Project_config();
+my $DATA_SEISMIC_SU		= $Project->DATA_SEISMIC_SU();
+my $DATA_SEISMIC_BIN	= $Project->DATA_SEISMIC_BIN();
+my $DATA_SEISMIC_TXT	= $Project->DATA_SEISMIC_TXT();
+
+my $var				= $get->var();
+my $on				= $var->{_on};
+my $off				= $var->{_off};
+my $true			= $var->{_true};
+my $false			= $var->{_false};
+my $empty_string	= $var->{_empty_string};
+
+=head2 Encapsulated
+hash of private variables
+
+=cut
+
+my $suhrot			= {
+	_a					=> '',
+	_afile					=> '',
+	_angle					=> '',
+	_inv					=> '',
+	_key					=> '',
+	_n					=> '',
+	_verbose					=> '',
+	_x					=> '',
+	_xfile					=> '',
+	_Step					=> '',
+	_note					=> '',
+
+};
 
 =head2 sub Step
 
@@ -120,6 +195,7 @@ by adding the program name
  }
 
 
+
 =head2 sub clear
 
 =cut
@@ -138,7 +214,6 @@ by adding the program name
 		$suhrot->{_Step}			= '';
 		$suhrot->{_note}			= '';
  }
-
 
 =head2 sub a 
 
@@ -321,18 +396,17 @@ by adding the program name
 
 
 =head2 sub get_max_index
- 
+
 max index = number of input variables -1
  
 =cut
  
-  sub get_max_index {
- 	my ($self) = @_;
-	# only file_name : index=36
- 	my $max_index = 36;
-	
- 	return($max_index);
- }
+sub get_max_index {
+ 	  my ($self) = @_;
+    my $max_index = 8;
+
+    return($max_index);
+}
  
  
 1; 
