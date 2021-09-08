@@ -21,7 +21,7 @@ my $flow_type        = $get->flow_type_href();
 my $DATA_SEISMIC_SU  = $Project->DATA_SEISMIC_SU();     # output data directory
 my $DATA_SEISMIC_BIN = $Project->DATA_SEISMIC_BIN();    # input data directory
 my $PL_SEISMIC       = $Project->PL_SEISMIC();
-my $max_index        = 70;                              #$sufctanismod->get_max_index();
+my $max_index        = 70;
 
 my $sufctanismod_spec = {
 	_CONFIG                => $PL_SEISMIC,
@@ -66,19 +66,19 @@ sub binding_index_aref {
 
 	my @index;
 
-	$index[1]  = 1;     # item is  bound to _DATA_DIR_IN
-	$index[3]  = 3;     # item is  bound to _DATA_DIR_IN
-	$index[14] = 14;    # item is  bound to _DATA_DIR_IN
-	$index[32] = 32;    # item is  bound to _DATA_DIR_IN
-	$index[40] = 40;    # item is  bound to _DATA_DIR_IN
-	$index[48] = 48;    # item is  bound to _DATA_DIR_IN
-	$index[55] = 55;    # item is  bound to prefix
-	$index[56] = 56;    # item is  bound to prefix
-	$index[57] = 57;    # item is  bound to prefix
-	$index[59] = 59;    # item is  bound to _DATA_DIR_IN
-	$index[67] = 67;    # item is  bound to _DATA_DIR_IN
-	$index[68] = 68;    # item is  bound to _DATA_DIR_IN
-	$index[69] = 69;    # item is  bound to _DATA_DIR_IN
+	$index[0]  = 1;     # item is  bound to _DATA_DIR_IN
+	$index[1]  = 3;     # item is  bound to _DATA_DIR_IN
+	$index[2] = 14;    # item is  bound to _DATA_DIR_IN
+	$index[3] = 32;    # item is  bound to _DATA_DIR_IN
+	$index[4] = 40;    # item is  bound to _DATA_DIR_IN
+	$index[5] = 48;    # item is  bound to _DATA_DIR_IN
+	$index[6] = 55;    # item is  bound to prefix
+	$index[7] = 56;    # item is  bound to prefix
+	$index[8] = 57;    # item is  bound to prefix
+	$index[9] = 59;    # item is  bound to _DATA_DIR_IN
+	$index[10] = 67;    # item is  bound to _DATA_DIR_IN
+	$index[11] = 68;    # item is  bound to _DATA_DIR_IN
+	$index[12] = 69;    # item is  bound to _DATA_DIR_IN
 
 	$sufctanismod_spec->{_binding_index_aref} = \@index;
 	return ();
@@ -96,20 +96,26 @@ sub file_dialog_type_aref {
 	my $self = @_;
 
 	my @type;
+	
+		my $index_aref = get_binding_index_aref();
+	my @index      = @$index_aref;
 
-	$type[1]  = $file_dialog_type->{_Data};
-	$type[3]  = $file_dialog_type->{_Data};
-	$type[14] = $file_dialog_type->{_Data};
-	$type[32] = $file_dialog_type->{_Data};
-	$type[40] = $file_dialog_type->{_Data};
-	$type[48] = $file_dialog_type->{_Data};
-	$type[55] = $file_dialog_type->{_Data};
-	$type[56] = $file_dialog_type->{_Data};
-	$type[57] = $file_dialog_type->{_Data};
-	$type[59] = $file_dialog_type->{_Data};
-	$type[67] = $file_dialog_type->{_Data};
-	$type[68] = $file_dialog_type->{_Data};
-	$type[69] = $file_dialog_type->{_Data};
+	# bound index will look for data
+	$type[0]           = '';
+
+	$type[$index[0]]  = $file_dialog_type->{_Data};
+	$type[$index[1]]  = $file_dialog_type->{_Data};
+	$type[$index[2]] = $file_dialog_type->{_Data};
+	$type[$index[3]] = $file_dialog_type->{_Data};
+	$type[$index[4]] = $file_dialog_type->{_Data};
+	$type[$index[5]] = $file_dialog_type->{_Data};
+	$type[$index[6]] = $file_dialog_type->{_Data};
+	$type[$index[7]] = $file_dialog_type->{_Data};
+	$type[$index[8]] = $file_dialog_type->{_Data};
+	$type[$index[9]] = $file_dialog_type->{_Data};
+	$type[$index[10]] = $file_dialog_type->{_Data};
+	$type[$index[11]] = $file_dialog_type->{_Data};
+	$type[$index[12]] = $file_dialog_type->{_Data};
 
 	$sufctanismod_spec->{_file_dialog_type_aref} = \@type;
 	return ();
@@ -332,43 +338,43 @@ sub prefix_aref {
 	my @index      = @$index_aref;
 
 	# label 2 in GUI is input c11_file and needs a home directory
-	$prefix[ $index[1] ] = '$DATA_SEISMIC_BIN' . ".'/'.";
+	$prefix[ $index[0] ] = '$DATA_SEISMIC_BIN' . ".'/'.";
 
 	# label 4 in GUI is input c33_file and needs a home directory
-	$prefix[ $index[3] ] = '$DATA_SEISMIC_BIN' . ".'/'.";
+	$prefix[ $index[1] ] = '$DATA_SEISMIC_BIN' . ".'/'.";
 
 	# label 15 in GUI is input rho_file and needs a home directory
-	$prefix[ $index[14] ] = '$DATA_SEISMIC_BIN' . ".'/'.";
+	$prefix[ $index[2] ] = '$DATA_SEISMIC_BIN' . ".'/'.";
 
 	# label 33 in GUI is input c13_file and needs a home directory
-	$prefix[ $index[32] ] = '$DATA_SEISMIC_BIN' . ".'/'.";
+	$prefix[ $index[3] ] = '$DATA_SEISMIC_BIN' . ".'/'.";
 
 	# label 41 in GUI is input c44_file and needs a home directory
-	$prefix[ $index[40] ] = '$DATA_SEISMIC_BIN' . ".'/'.";
+	$prefix[ $index[4] ] = '$DATA_SEISMIC_BIN' . ".'/'.";
 
 	# label 49 in GUI is input c66_file and needs a home directory
-	$prefix[ $index[48] ] = '$DATA_SEISMIC_BIN' . ".'/'.";
+	$prefix[ $index[5] ] = '$DATA_SEISMIC_BIN' . ".'/'.";
 
 	# label 56 in GUI is input reflxfile and needs a home directory
-	$prefix[ $index[55] ] = '$DATA_SEISMIC_SU' . ".'/'.";
+	$prefix[ $index[6] ] = '$DATA_SEISMIC_SU' . ".'/'.";
 
 	# label 57  in GUI is input reflyfile and needs a home directory
-	$prefix[ $index[56] ] = '$DATA_SEISMIC_SU' . ".'/'.";
+	$prefix[ $index[7] ] = '$DATA_SEISMIC_SU' . ".'/'.";
 
 	# label 58 in GUI is input reflz_file and needs a home directory
-	$prefix[ $index[57] ] = '$DATA_SEISMIC_SU' . ".'/'.";
+	$prefix[ $index[8] ] = '$DATA_SEISMIC_SU' . ".'/'.";
 
 	# label 61 in GUI is input source_file and needs a home directory
-	$prefix[ $index[59] ] = '$DATA_SEISMIC_BIN' . ".'/'.";
+	$prefix[ $index[9] ] = '$DATA_SEISMIC_BIN' . ".'/'.";
 
 	# label 68 in GUI is input vspx_file and needs a home directory
-	$prefix[ $index[67] ] = '$DATA_SEISMIC_BIN' . ".'/'.";
+	$prefix[ $index[10] ] = '$DATA_SEISMIC_BIN' . ".'/'.";
 
 	# label 69 in GUI is input vspy_file and needs a home directory
-	$prefix[ $index[68] ] = '$DATA_SEISMIC_BIN' . ".'/'.";
+	$prefix[ $index[11] ] = '$DATA_SEISMIC_BIN' . ".'/'.";
 
 	# label 70 in GUI is input vspz_file and needs a home directory
-	$prefix[ $index[69] ] = '$DATA_SEISMIC_BIN' . ".'/'.";
+	$prefix[ $index[12] ] = '$DATA_SEISMIC_BIN' . ".'/'.";
 
 	$sufctanismod_spec->{_prefix_aref} = \@prefix;
 	return ();

@@ -1,5 +1,6 @@
-/home/gllore/demos/seismics/pl/Synthetic/Finite_Difference/Sufdmod1/Xdemo1/1/gllore/tbd
+/home/gllore/demos/seismics/pl/Synthetic/Finite_Difference/Sufdmod1/Xdemo1/1/gllore/6.show_seismogram.pl
 /home/gllore/demos/seismics/pl/Synthetic/Finite_Difference/Sufdmod1/Xdemo1/1/gllore/5.finite_difference_calc.pl
+/home/gllore/demos/seismics/pl/Synthetic/Finite_Difference/Sufdmod1/Xdemo1/1/gllore/tbd
 /home/gllore/demos/seismics/data/Synthetic/Finite_Difference/Sufdmod1/Xdemo1/1/bin/gllore/velocity.bin
 /home/gllore/demos/seismics/data/Synthetic/Finite_Difference/Sufdmod1/Xdemo1/1/bin/gllore/density.bin
 /home/gllore/demos/seismics/pl/Synthetic/Finite_Difference/Sufdmod1/Xdemo1/1/gllore/1.create_velocity_model.pl
@@ -9,4 +10,3 @@
 /home/gllore/mars/seismics/pl/hrk_e122/ACH01_3axes_big_sand_tank/072821/rad_tangent_axial/1/gllore/1.make_vp_model.pl
 /home/gllore/mars/seismics/data/hrk_e122/ACH01_3axes_big_sand_tank/072821/rad_tangent_axial/1/txt/gllore/boundaries_model1.txt
 /home/gllore/mars/seismics/pl/hrk_e122/ACH01_3axes_big_sand_tank/072821/rad_tangent_axial/1/gllore/7.make_delta_model
-/home/gllore/mars/seismics/pl/hrk_e122/ACH01_3axes_big_sand_tank/072821/rad_tangent_axial/1/gllore/5.make_rho_model.pl

@@ -1918,7 +1918,7 @@ sub FileDialog_button {
 				_perl_flow();
 
 			} else {
-				print("  color_flow,FileDialog_button, perl flow parse errors\n");
+#				print("  color_flow,FileDialog_button, perl flow parse errors\n");
 				#	 print("3 color_flow,FileDialog_button, Warning: missing file. \"Cancel\" clicked by user? NADA\n");
 			}
 

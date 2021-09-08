@@ -825,7 +825,7 @@ Q. How does LSU_project_selector create new Project directories?
 		
 	    (both flows and superflows require the following entry updates
 		collect parameter widget values)
-		$file_dialog->{_values_aref} 	= $param_widgets->get_values_aref(); # gets 61 because 61 are initialized
+		$file_dialog->{_values_aref} 	= $param_widgets->get_values_aref();
 			
 	
 	 Q how are values written/updated to the viewing area in the main GUI?
@@ -1292,9 +1292,8 @@ Q. Q. How does a superflow run?:
     iVA,icp_sorted2oldpicks
     iVpicks2par
     
-    
-    TODO:
-    additional bindings are activated when a flow has more than one program .... at index=0 e.g.. sumute.pl
+    for user-built flows:
+    Additional bindings are activated when a flow has more than one program .... at index=0 e.g.. sumute.pl
     mutiple flows cause programs parameters to repeat 
     
     Q In what sequence are the listboxes filled, starting from a completely empty listboxes?
@@ -1998,7 +1997,7 @@ Modify the main program, i.e. immodpg.config.pm
 	  	oop_text
 	  	    oop_prog_params
 	  	    
-	Q How to use the spec files  	    
+	Q How to use the spec files for user-built flows and pre-built big streams 
 	 NOTE Filedialog uses iFile for opening directories based on second entry label (ps, bin, segy txt etc)
 	  	  
 	 For bound indices in programs (e.g. curve in suximage, or mpicks in suximage),
@@ -2013,8 +2012,7 @@ Modify the main program, i.e. immodpg.config.pm
 	 Non-standard uses:	
 	 But, file_dialog_type= Data_PL_SEISMIC, is NOT informed by DATA_DIR_IN and DATA_DIR_OUT
 		$file_dialog_type[0] = 'Data_PL_SEISMIC',
-		
-	_pre_built_superflow_open_data_file uses iFile->get_data_path  is used to determine the correct data path (directory)
+
 	
 		
 
@@ -2458,7 +2456,9 @@ color_listbox
 	 Q. How does L_SU know on which line to put a selected file name in the parameter list?
 	  
 	  (1) _spec files bind the index of the appropriate line in the list to a directory which will be openened.
-	  TODO: A click in the first line always will take the user to a data directory TODO: make all links via bindings
+	  TODO: A click in the first line always will take the user to a data directory 
+	  
+	  TODO: make ALL links via bindings
 	  defined in *_spec files.
 	  
 	  (2) 
@@ -2625,10 +2625,10 @@ color_listbox
      A.      	TODO
      
       For bindings in the *_spec files
-      note that the values within the @index array bear the same
+      The values within the @index array do not need to bear the same
       number as the index sequence itself, e.g.
-      $index[22] = 22;
-      $index[40] = 40;
+      $index[22] = 24;
+      $index[40] = 61;
       
      
       Q. Where does binding take place for parameters of sunix programs within user-built flows
@@ -2669,6 +2669,7 @@ color_listbox
                              		                       uses Project_config->PL_SEISMIC
                              		
      Q. How are directories found?   9-4-21
+     A1. For user-built flows:
      By using *_spec files
      CASE A:. There is a "back=-door" default definition that the first parameter values (index=0)  alway  searches the default
      value of _DATA_DIR_IN
@@ -2677,6 +2678,23 @@ color_listbox
      using $prefix values.        
      Nots: flow_type from the *_spec files is not being used in L_SU ... TODO... ??     
      
-     
      TODO: oop_declare_data_out and oop_declare_data_in have a lot of unneeded subs?      
+     
+     A2.For pre-built super flows
+     If there are superflow bindings for opening data files, then these use 
+	L_SU, pre_built_superflows,
+ 			pre_built_big_stream->select( )
+ 			_FileDialog_button,
+ 			pre_built_superflow,select,binding->set() (where actual binding takes place!)
+ 			
+ 			_pre_built_superflow_open_data_file uses iFile->get_data_path  is used to determine the correct data path (directory)
+ 			
+ 			[	 binding to the dialog types for each MB3 click takes place within:
+L_SU	 
+	 pre_built_superflows
+   		# for binding to file dialog options
+		my $sub_ref = \&_FileDialog_button;
+		   $pre_built_big_stream->set_sub_ref($sub_ref);
+		   $pre_built_big_stream->select();
+		        binding->set (where binding actually takes place)  ]
            

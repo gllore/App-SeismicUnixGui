@@ -1612,7 +1612,7 @@ sub whole {
 		#}
 		# print("sunix_pl, whole, all_lines_aref: @{$sunix_pl->{_all_lines_aref}} \n");
 	} else {
-		print("sunix_pl, whole, missing path or file name \n");
+#		print("sunix_pl, whole, missing path or file name \n");
 	}
 
 	return ();

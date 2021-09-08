@@ -162,11 +162,12 @@ each module has its own rules through *_spec.pm
 as a program gets used.
 
 superflow bindings for dial_type e.g., = Data
-use _FileDialog_button, which lives in: L_SU
+use _FileDialog_button, a method within L_SU
 
 User-built programs (e.g., sunix programs)
 which use dial_type = Data
-use _FileDialog_button inside each grey_flow, pink_flow etc.
+use _FileDialog_button, a method within 
+each grey_flow, pink_flow etc.
 
 =cut
 
@@ -177,7 +178,7 @@ sub set {
 
 	my $prog_name = ${ $binding->{_prog_name_sref} };
 
-	# print("1. binding,set, prog_name: $prog_name \n");
+#	print("1. binding,set, prog_name: $prog_name \n");
 
 	my $module_spec    = $prog_name . '_spec';
 	my $module_spec_pm = $module_spec. '.pm';
@@ -208,7 +209,7 @@ sub set {
 	my $file_dialog_type_aref = $package->get_file_dialog_type_aref();
 	my @file_dialog_type      = @$file_dialog_type_aref;
 
-	# from *_spec.pm file, e.g., from a pre_built_superflow,
+	# from *_spec.pm file,  belongint to either a pre_built_superflow,
 	# or a user_built_flow
 
 	my $length = $package->get_binding_length();
