@@ -21,7 +21,7 @@ $lines[10] = '}' . "\n";
 $lines[11] = ' ' . "\n";
 $lines[12] = ' ' . "\n";
 
-$lines[13] = ("1; ");
+$lines[13] = ("1;");
 
 sub section {
 	my ($self) = @_;
