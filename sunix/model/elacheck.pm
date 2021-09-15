@@ -1,15 +1,16 @@
- package elacheck;
-
-
-=head1 DOCUMENTATION
+package elacheck;
 
 =head2 SYNOPSIS
 
- PACKAGE NAME:  ELACHECK - get elastic coefficients of model  	   		
- AUTHOR: Juan Lorenzo
- DATE:   
- DESCRIPTION:
- Version: 
+PACKAGE NAME: 
+
+AUTHOR:  
+
+DATE:
+
+DESCRIPTION:
+
+Version:
 
 =head2 USE
 
@@ -17,40 +18,87 @@
 
 =head4 Examples
 
-=head3 SEISMIC UNIX NOTES
+=head2 SYNOPSIS
 
+=head3 SEISMIC UNIX NOTES
  ELACHECK - get elastic coefficients of model  	   		
 
+
+
  elacheck file= (required modelfile)					
+
+
 
  ____ interactive program _____________                                
 
 
 
 
+
+
+
+
+
  AUTHOR:: Andreas Rueger, Colorado School of Mines, 01/20/94
+
  get stiffness information for anisotropic model (interactive)
+
+
+
+
+
+=head2 User's notes (Juan Lorenzo)
+untested
+
+=cut
 
 
 =head2 CHANGES and their DATES
 
 =cut
- use Moose;
- our $VERSION = '0.0.1';
-	use L_SU_global_constants();
 
-	my $get					= new L_SU_global_constants();
-
-	my $var				= $get->var();
-	my $empty_string    	= $var->{_empty_string};
+use Moose;
+our $VERSION = '0.0.1';
 
 
-	my $elacheck		= {
-		_file					=> '',
-		_Step					=> '',
-		_note					=> '',
-    };
+=head2 Import packages
 
+=cut
+
+use L_SU_global_constants();
+
+use SeismicUnix qw ($in $out $on $go $to $suffix_ascii $off $suffix_su $suffix_bin);
+use Project_config;
+
+
+=head2 instantiation of packages
+
+=cut
+
+my $get					= new L_SU_global_constants();
+my $Project				= new Project_config();
+my $DATA_SEISMIC_SU		= $Project->DATA_SEISMIC_SU();
+my $DATA_SEISMIC_BIN	= $Project->DATA_SEISMIC_BIN();
+my $DATA_SEISMIC_TXT	= $Project->DATA_SEISMIC_TXT();
+
+my $var				= $get->var();
+my $on				= $var->{_on};
+my $off				= $var->{_off};
+my $true			= $var->{_true};
+my $false			= $var->{_false};
+my $empty_string	= $var->{_empty_string};
+
+=head2 Encapsulated
+hash of private variables
+
+=cut
+
+my $elacheck			= {
+	_file					=> '',
+	_Step					=> '',
+	_note					=> '',
+
+};
 
 =head2 sub Step
 
@@ -80,6 +128,7 @@ by adding the program name
 	return ( $elacheck->{_note} );
 
  }
+
 
 
 =head2 sub clear
@@ -115,18 +164,17 @@ by adding the program name
 
 
 =head2 sub get_max_index
- 
+
 max index = number of input variables -1
  
 =cut
  
-  sub get_max_index {
- 	my ($self) = @_;
-	# only file_name : index=36
- 	my $max_index = 36;
-	
- 	return($max_index);
- }
+sub get_max_index {
+ 	  my ($self) = @_;
+	my $max_index = 0;
+
+    return($max_index);
+}
  
  
-1; 
+1;

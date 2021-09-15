@@ -97,6 +97,7 @@ Version:
 		$head[0] = $head[0] .
 		
 '=head2 User\'s notes (Juan Lorenzo)
+untested
 
 =cut
 

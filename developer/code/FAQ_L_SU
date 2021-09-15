@@ -835,7 +835,7 @@ Q. How does LSU_project_selector create new Project directories?
 	 
 	 (Note that param_widgets4pre_built_streams.pm is for superflows
 	            param_widgets_'color'.pm is for user-built flows
-	            param_widgets_neutral is for first-time seismic unix program
+	            param_widgets_neutral is for first time a seismic unix program is called
 	            param_widgets is for L_SU_project_selector, file_dialog, L_SU, project_selector
 	 
 	 In pre-built Superflows:	 			

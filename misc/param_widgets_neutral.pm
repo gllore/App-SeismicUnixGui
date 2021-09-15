@@ -541,7 +541,7 @@ sub _update_check_button_setting {
 		}
 		else {
 
-			# print("param_widgets_neutral,_update_check_button_setting; unexpected cases\n");
+			print("param_widgets_neutral,_update_check_button_setting; unexpected cases\n");
 			$on_off[$idx] = $off;
 		}
 

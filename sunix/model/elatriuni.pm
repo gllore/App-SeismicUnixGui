@@ -1,15 +1,16 @@
- package elatriuni;
-
-
-=head1 DOCUMENTATION
+package elatriuni;
 
 =head2 SYNOPSIS
 
- PACKAGE NAME:  ELATRIUNI - convert TRIangulated ELAstic models to UNIformly sampled models
- AUTHOR: Juan Lorenzo
- DATE:   
- DESCRIPTION:
- Version: 
+PACKAGE NAME: 
+
+AUTHOR:  
+
+DATE:
+
+DESCRIPTION:
+
+Version:
 
 =head2 USE
 
@@ -17,72 +18,137 @@
 
 =head4 Examples
 
-=head3 SEISMIC UNIX NOTES
+=head2 SYNOPSIS
 
+=head3 SEISMIC UNIX NOTES
  ELATRIUNI - convert TRIangulated ELAstic models to UNIformly sampled models
+
+
 
   elatriuni <modelfile nx= nz= [optional parameters]			
 
+
+
 Required Parameters:							
+
 nx                     number of x samples				
+
 nz                     number of z samples				
 
+
+
 Optional Parameters:							
+
 dx=1.0                 x sampling interval    			    	
+
 dz=1.0                 z sampling interval				
+
 fx=0.0                 first x sampled					
+
 fz=0.0                 first z sampled					
+
 a1111file=a1111.bin    bin-file to store a1111 components 		
+
 a3333file=a3333.bin    bin-file to store a3333 components 		
+
 a1133file=a1133.bin    bin-file to store a1133 components 		
+
 a1313file=a1313.bin    bin-file to store a1313 components 		
+
 a1113file=a1113.bin    bin-file to store a1113 components 		
+
 a3313file=a3313.bin    bin-file to store a3313 components 		
+
 a1212file=a1212.bin    bin-file to store a1212 components 		
+
 a1223file=a1212.bin    bin-file to store a1223 components 		
+
 a2323file=a2323.bin    bin-file to store a2323 components 		
+
 rhofile=rho.bin        bin-file to store rho components 		
 
 
 
+
+
+
+
  AUTHORS:  Andreas Rueger, Colorado School of Mines, 01/02/95
+
 		  Dave Hale, Colorado School of Mines, 04/23/91
+
  	       	
+
+
+
+
+
+=head2 User's notes (Juan Lorenzo)
+untested
+
+=cut
 
 
 =head2 CHANGES and their DATES
 
 =cut
- use Moose;
- our $VERSION = '0.0.1';
-	use L_SU_global_constants();
 
-	my $get					= new L_SU_global_constants();
-
-	my $var				= $get->var();
-	my $empty_string    	= $var->{_empty_string};
+use Moose;
+our $VERSION = '0.0.1';
 
 
-	my $elatriuni		= {
-		_a1111file					=> '',
-		_a1113file					=> '',
-		_a1133file					=> '',
-		_a1212file					=> '',
-		_a1223file					=> '',
-		_a1313file					=> '',
-		_a2323file					=> '',
-		_a3313file					=> '',
-		_a3333file					=> '',
-		_dx					=> '',
-		_dz					=> '',
-		_fx					=> '',
-		_fz					=> '',
-		_nx					=> '',
-		_rhofile					=> '',
-		_Step					=> '',
-		_note					=> '',
-    };
+=head2 Import packages
 
+=cut
+
+use L_SU_global_constants();
+
+use SeismicUnix qw ($in $out $on $go $to $suffix_ascii $off $suffix_su $suffix_bin);
+use Project_config;
+
+
+=head2 instantiation of packages
+
+=cut
+
+my $get					= new L_SU_global_constants();
+my $Project				= new Project_config();
+my $DATA_SEISMIC_SU		= $Project->DATA_SEISMIC_SU();
+my $DATA_SEISMIC_BIN	= $Project->DATA_SEISMIC_BIN();
+my $DATA_SEISMIC_TXT	= $Project->DATA_SEISMIC_TXT();
+
+my $var				= $get->var();
+my $on				= $var->{_on};
+my $off				= $var->{_off};
+my $true			= $var->{_true};
+my $false			= $var->{_false};
+my $empty_string	= $var->{_empty_string};
+
+=head2 Encapsulated
+hash of private variables
+
+=cut
+
+my $elatriuni			= {
+	_a1111file					=> '',
+	_a1113file					=> '',
+	_a1133file					=> '',
+	_a1212file					=> '',
+	_a1223file					=> '',
+	_a1313file					=> '',
+	_a2323file					=> '',
+	_a3313file					=> '',
+	_a3333file					=> '',
+	_dx					=> '',
+	_dz					=> '',
+	_fx					=> '',
+	_fz					=> '',
+	_nx					=> '',
+	_rhofile					=> '',
+	_Step					=> '',
+	_note					=> '',
+
+};
 
 =head2 sub Step
 
@@ -112,6 +178,7 @@ by adding the program name
 	return ( $elatriuni->{_note} );
 
  }
+
 
 
 =head2 sub clear
@@ -441,18 +508,17 @@ by adding the program name
 
 
 =head2 sub get_max_index
- 
+
 max index = number of input variables -1
  
 =cut
  
-  sub get_max_index {
- 	my ($self) = @_;
-	# only file_name : index=36
- 	my $max_index = 36;
-	
- 	return($max_index);
- }
+sub get_max_index {
+ 	  my ($self) = @_;
+	my $max_index = 15;
+
+    return($max_index);
+}
  
  
-1; 
+1;

@@ -129,12 +129,12 @@ sub _get_version_section {
 	' sub binding_index_aref {'."\n\n".
 	"\t".'my $self 	= @_;'."\n\n".
 	"\t".'my @index;'."\n\n".	
-	"\t".'# first binding index (0)'."\n".
-    "\t".'# connects to second item (1)'."\n".
+	"\t".'# first binding index (index=0)'."\n".
+    "\t".'# connects to second item (index=1)'."\n".
     "\t".'# in the parameter list'."\n".
     "\t".'$index[0] = 1; # inbound item is  bound '."\n".
-	"\t".'$index[1]	= 2; # inbound item is  bound to '."\n".
-	"\t".'$index[2]	= 8; # outbound item is  bound to '."\n\n".		
+	"\t".'$index[1]	= 2; # inbound item is  bound'."\n".
+	"\t".'$index[2]	= 8; # outbound item is  bound'."\n\n".		
 	"\t".'$'.$package_name.'_spec ->{_binding_index_aref} = \@index;'."\n".	
 	"\t".'return();'."\n\n".
  	' }'."\n\n\n";
@@ -694,7 +694,7 @@ sub get_header_section {
 	$head[7]   = '	my $DATA_SEISMIC_SU  	= $Project->DATA_SEISMIC_SU();   # output data directory'."\n";
 	$head[8]   = '	my $DATA_SEISMIC_TXT  	= $Project->DATA_SEISMIC_TXT();   # output data directory'."\n";	
 	$head[9]   = '  my $PL_SEISMIC		    = $Project->PL_SEISMIC();'."\n";
-	$head[10]   = '	my $max_index           = # Insert a number here'."\n";
+	$head[10]   = ' my $max_index = # Insert a number here'."\n";
 	#$'.$package_name.'->get_max_index();'."\n"; 7.14.21
 	$head[11]   = ''."\n";	
     

@@ -22,11 +22,11 @@ my $flow_type				= $get->flow_type_href();
 	my $DATA_SEISMIC_SU  	= $Project->DATA_SEISMIC_SU();   # output data directory
 	my $DATA_SEISMIC_TXT  	= $Project->DATA_SEISMIC_TXT();   # output data directory
   my $PL_SEISMIC		    = $Project->PL_SEISMIC();
-	my $max_index           = # Insert a number here
+ my $max_index           = 0;
 
 	my $ctrlstrip_spec = {
 		_CONFIG		            => $PL_SEISMIC,
-		_DATA_DIR_IN		    => $DATA_SEISMIC_BIN,
+		_DATA_DIR_IN		    => $DATA_SEISMIC_SU,
 	 	_DATA_DIR_OUT		    => $DATA_SEISMIC_SU,
 		_binding_index_aref	    => '',
 	 	_suffix_type_in			=> $su,
@@ -68,12 +68,12 @@ my $flow_type				= $get->flow_type_href();
 
 	my @index;
 
-	# first binding index (0)
-	# connects to second item (1)
+	# first binding index (index=0)
+	# connects to second item (index=1)
 	# in the parameter list
-	$index[0] = 1; # inbound item is  bound to _DATA_DIR_IN
-	$index[1]	= 2; # inbound item is  bound to _DATA_DIR_IN
-	$index[2]	= 8; # outbound item is  bound to _DATA_DIR_OUT
+#	$index[0] = 1; # inbound item is  bound 
+#	$index[1]	= 2; # inbound item is  bound
+#	$index[2]	= 8; # outbound item is  bound
 
 	$ctrlstrip_spec ->{_binding_index_aref} = \@index;
 	return();
@@ -98,9 +98,9 @@ one type of dialog for each index
 
 		# bound index will look for data
 	$type[0]	= '';
-	$type[$index[0]] = $file_dialog_type->{_Data};
-	$type[$index[1]]	=  $file_dialog_type->{_Data};
-	$type[$index[0]]	=  $file_dialog_type->{_Data};
+#	$type[$index[0]] = $file_dialog_type->{_Data};
+#	$type[$index[1]]	=  $file_dialog_type->{_Data};
+#	$type[$index[2]]	=  $file_dialog_type->{_Data};
 
 	$ctrlstrip_spec ->{_file_dialog_type_aref} = \@type;
 	return();
@@ -327,17 +327,17 @@ are filtered by sunix_pl
 
 	}
 
-	my $index_aref = get_binding_index_aref();
-	my @index       = @$index_aref;
-
-	# label 2 in GUI is input xx_file and needs a home directory
-	$prefix[ $index[0] ] = '$DATA_SEISMIC_BIN' . ".'/'.";
-
-	# label 3 in GUI is input yy_file and needs a home directory
-	$prefix[ $index[1] ] = '$DATA_SEISMIC_TXT' . ".'/'.";
-
-	# label 9 in GUI is input zz_file and needs a home directory
-	$prefix[ $index[1] ] = '$DATA_SEISMIC_SU' . ".'/'.";
+#	my $index_aref = get_binding_index_aref();
+#	my @index       = @$index_aref;
+#
+#	# label 2 in GUI is input xx_file and needs a home directory
+#	$prefix[ $index[0] ] = '$DATA_SEISMIC_BIN' . ".'/'.";
+#
+#	# label 3 in GUI is input yy_file and needs a home directory
+#	$prefix[ $index[1] ] = '$DATA_SEISMIC_TXT' . ".'/'.";
+#
+#	# label 9 in GUI is input zz_file and needs a home directory
+#	$prefix[ $index[2] ] = '$DATA_SEISMIC_SU' . ".'/'.";
 
 	$ctrlstrip_spec ->{_prefix_aref} = \@prefix;
 	return();
@@ -364,17 +364,17 @@ values
 
 	}
 
-	my $index_aref = get_binding_index_aref();
-	my @index       = @$index_aref;
-
-	# label 2 in GUI is input xx_file and needs a home directory
-	$suffix[ $index[0] ] = ''.'' . '$suffix_bin';
-
-	# label 3 in GUI is input yy_file and needs a home directory
-	$suffix[ $index[1] ] = ''.'' . '$suffix_bin';
-
-	# label 9 in GUI is output zz_file and needs a home directory
-	$suffix[ $index[2] ] = ''.'' . '$suffix_su';
+#	my $index_aref = get_binding_index_aref();
+#	my @index       = @$index_aref;
+#
+#	# label 2 in GUI is input xx_file and needs a home directory
+#	$suffix[ $index[0] ] = ''.'' . '$suffix_bin';
+#
+#	# label 3 in GUI is input yy_file and needs a home directory
+#	$suffix[ $index[1] ] = ''.'' . '$suffix_bin';
+#
+#	# label 9 in GUI is output zz_file and needs a home directory
+#	$suffix[ $index[2] ] = ''.'' . '$suffix_su';
 
 	$ctrlstrip_spec ->{_suffix_aref} = \@suffix;
 	return();

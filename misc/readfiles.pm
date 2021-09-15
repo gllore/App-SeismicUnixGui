@@ -840,6 +840,85 @@ sub configs {
 	}    # end program
 }    # end sub
 
+
+=head2 sub get_cols_3 
+
+ reads cols 1 through 3 in a text file
+ 
+=cut
+
+sub get_cols_3 {
+
+	my ($self) = @_;
+
+	if (   $readfiles->{_skip_lines} ne $empty_string
+		&& $readfiles->{_file_name} ne $empty_string
+		&& $readfiles->{_path} ne $empty_string )
+	{
+
+		my $num_lines2skip = $readfiles->{_skip_lines};
+		my $inbound_fh;
+		my $inbound = $readfiles->{_path} . '/' . $readfiles->{_file_name};
+
+		print("readfiles,get_cols_3 inbound = $inbound\n");
+
+		open( $inbound_fh, '<', $inbound )
+			|| print(
+			"readfiles,cols_8,Can't open $readfiles->{_file_name}, $!\n");
+
+		# set the counter
+		my $ip_counter = 1;
+		my $op_counter = 0;
+		my $lines;
+		my ( @A, @B, @C);
+
+		# read contents of file
+		while ( $lines = <$inbound_fh> ) {
+
+			if ( $ip_counter > $num_lines2skip ) {
+
+				#print("$lines");
+				chomp($lines);
+				my ( $a, $b, $c) = split( " ", $lines );
+
+				# print("\n $a $b, $c \n");
+
+				$A[$op_counter] = $a;
+				$B[$op_counter] = $b;
+				$C[$op_counter] = $c;
+
+				$op_counter++;
+
+			}
+
+			$ip_counter++;
+		}
+
+		# number of geophones stations in file
+		my $num_rows = $op_counter;
+
+		print(
+			"readfiles, cols_3, The input file contains $num_rows row(s)\n\n");
+
+		# close the file of interest
+		close($inbound_fh);
+
+		my @array_refs = ( \@A, \@B, \@C);
+
+		return ( \@array_refs );
+
+	}
+	else {
+		print(
+			"readfiles,cols_3,missing either #skip_lines, path or file_name\n");
+		print("file_name 				= $readfiles->{_file_name}\n");
+		print("path 					= $readfiles->{_path}\n");
+		print("number of skipped lines	= $readfiles->{_skip_lines}\n");
+		return ();
+	}
+
+}
+
 =head2 sub get_cols_8 
 
  reads cols 1 through 7 in a text file

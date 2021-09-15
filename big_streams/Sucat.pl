@@ -26,20 +26,18 @@
  GUI will generate a new one if needed one, but will
  prefer to use the contents of an existant configuration file. 
 
-=head2 TWO CASES 
+=head2 Example Cases
 
 CASE 1
 Use a list, for concatenating iVelan pick files ( Vrms,time pairs)
 into the correct format
 
-Use a list WITHOUT values for first 7 parameters. 
-Only include the output
-name. The alternative directories are optional.
+Use a list (file name) WITHOUT values for first 7 parameters (GUI). 
+Only include the output name. The alternative directories are optional.
 That is, a list can only be used when the values of the prior
 7 parameters are blank
 
 Example:
-    .
     first_file_number_in               =               
     last_file_number_in                =                
     number_of_files_in                 =                  
@@ -52,36 +50,33 @@ Example:
     alternative_inbound_directory      =  [$PL_SEISMIC]             
     alternative_outbound_directory     =  [$PL_SEISMIC]  
     
-    
     The list is expected to be found in $PL_SEISMIC
+    
     Internally, the data_type will be determined from the file names in the list
     that will contain "velan" etc." 
     If data_type = velan then the concatenated output file
     will automatically be reformatted for input into
     sunmo.
 
-OR
+---------------------------------------------------------------------------
 
 CASE 2
 General concatenation of files with patterns in their names
 
 DO NOT use a list. Instead, include values for at least the first 3 
 parameters and up to and including values for all the remaining parameters,
-except the list. An output name is possible.
+except the list. An output name is possible but not required.
  
-Examples:
- 
- Sucat_config
-  Builds a hash of the configuration parameters
+Example:
+  
     first_file_number_in               = 1000                
     last_file_number_in                = 1001                
-    number_of_files_in                 = 2                  
-    output_file_name                   = 1000_01            
-    input_suffix                       = su                  
-    input_name_prefix                  = cdp                 
-    input_name_extension               = _clean              
-    list                               =                
-    output_file_name				   = 
+    number_of_files_in                 = 2                           
+    input_suffix                       		 = su                  
+    input_name_prefix                   = cdp                 
+    input_name_extension             = _clean              
+    list                               					=                
+    output_file_name                   	= 1000_01 
     alternative_inbound_directory      =                   
     alternative_outbound_directory     =  
     
@@ -96,44 +91,57 @@ Examples:
     first_file_number_in                  = 1000                
     last_file_number_in                   = 1010                
     number_of_files_in                    = 11                               
-    input_suffix                          = su           
+    input_suffix                          		= su           
     input_name_prefix                     = cdp                 
     input_name_extension                  = _clean
     
+CASE 3
+  
+	A. If you want to use a list, the list
+	is a file that contains one-
+	or multiple nemes of files without an ex
 
+
+	first_file_number_in  	= 
+	last_file_number_in  		= 
+	number_of_files_in		= 
+	input_suffix  					= 
+	input_name_prefix     	= 
+	input_name_extension       = 
+	list                 									= cat_list_good_sp;
+	output_file_name     					= 'All_good_sp';
+	alternative_inbound_directory   = 
+	alternative_outbound_directory =
+
+ CASE 4:
+ 
+  first_file_number_in   = 1000
+  last_file_number_in    = 1010
+  number_of_files_in     = 11
+   input_suffix  					=  _clean.su
+  input_name_prefix     = 
+  input_name_extension       = 
+  output_file_name    = 1000_10 
+ alternative_inbound_directory   = 
+ alternative_outbound_directory =
 
 =head2 NOTES 
 
-    Defaults are to have DIR1=DIR2 but these can be overridden by the alternatives
-    The input and output default directories is $PL_SEISMIC
-
-
- We are using Moose.
- Moose already declares that you need debuggers turned on
- so you don't need a line like the following:
- use warnings;
- 
- TODO: other formats, and other default output directories
- e.g., perhaps in future velan picks should be in the 
- 'txt' directories or in their own 'velan' directories
- 
- USES the following classes:
- flow
- message
- sucat
- and packages of subroutines
- #System_Variables
+   The input and output default directories is $PL_SEISMIC
+    but these can be overridden by the alternatives
+    
  
  =head2 CHANGES
  
   V 0.1.2 considers empty file_names May 30, 2019; NM
   V 0.1.3 includes additional concatenation for:
   (1) sorted ivpicks
+  V 0.1.4 update NOTES 9.9.21
 
 =cut
 
 use Moose;
-our $VERSION = '0.1.3';
+our $VERSION = '0.1.4';
 use control 0.0.3;
 use Project_config;
 use readfiles;
@@ -224,16 +232,14 @@ my $input_suffix         = $CFG_h->{sucat}{1}{input_suffix};
 my $input_name_prefix    = $CFG_h->{sucat}{1}{input_name_prefix};
 my $input_name_extension = $CFG_h->{sucat}{1}{input_name_extension};
 my $list                 = $CFG_h->{sucat}{1}{list};
-$alternative_inbound_directory =
-	$CFG_h->{sucat}{1}{alternative_inbound_directory};
-$alternative_outbound_directory =
-	$CFG_h->{sucat}{1}{alternative_outbound_directory};
+$alternative_inbound_directory  = $CFG_h->{sucat}{1}{alternative_inbound_directory};
+$alternative_outbound_directory = $CFG_h->{sucat}{1}{alternative_outbound_directory};
 
 =head2 correct input format values
 
 =cut
 
-$list      = $control->get_no_quotes($list);
+$list = $control->get_no_quotes($list);
 
 # print("Sucat.pl, list: $list\n\n");
 # print("Sucat.pl, list: $data_type\n\n");
@@ -246,26 +252,26 @@ parameter inputs
 # CASE 1: new inbound and or/outbound directories replace defaults
 if ( $alternative_outbound_directory ne $empty_string ) {
 	$outbound_directory = $alternative_outbound_directory;
+
 	# print("1. Sucat.pl, selected alternative_outbound_directory  $outbound_directory\n");
 
-}
-elsif ( $alternative_outbound_directory eq $empty_string ) {
+} elsif ( $alternative_outbound_directory eq $empty_string ) {
 	$outbound_directory = $DATA_DIR_OUT;
+
 	# print("2. Sucat.pl, selected outbound_directory $outbound_directory  \n");
-}
-else {
+} else {
 	print("Sucat.pl, unexpected alternative_outbound_directory  \n");
 }
 
 if ( $alternative_inbound_directory ne $empty_string ) {
 	$inbound_directory = $alternative_inbound_directory;
+
 	# print("1. Sucat.pl, selected alternative inbound_directory=$inbound_directory  \n");
-}
-elsif ( $alternative_inbound_directory eq $empty_string ) {
+} elsif ( $alternative_inbound_directory eq $empty_string ) {
 	$inbound_directory = $DATA_DIR_IN;
+
 	# print("2. Sucat.pl, selected inbound_directory=$inbound_directory  \n");
-}
-else {
+} else {
 	print("Sucat.pl, unexpected alternative_inbound_directory  \n");
 }
 
@@ -283,16 +289,13 @@ $file_out[1] = $output_file_name;
 
 if ( $input_suffix ne $empty_string ) {
 
-	$outbound[1] =
-		$outbound_directory . '/' . $file_out[1] . '.' . $input_suffix;
+	$outbound[1] = $outbound_directory . '/' . $file_out[1] . '.' . $input_suffix;
 
-}
-elsif ( $input_suffix eq $empty_string ) {
+} elsif ( $input_suffix eq $empty_string ) {
 
 	$outbound[1] = $outbound_directory . '/' . $file_out[1];
 
-}
-else {
+} else {
 	print("Sucat.pl,unexpected empty string\n");
 }
 
@@ -329,17 +332,16 @@ if (    $list ne $empty_string
 	and $number_of_files_in eq $empty_string
 	and $input_suffix eq $empty_string
 	and $input_name_prefix eq $empty_string
-	and $input_name_extension eq $empty_string )
-{
+	and $input_name_extension eq $empty_string ) {
 
-		# print("2. Sucat.pl, list:---$list---\n");
-		# print("2. Sucat.pl, list:---0:@$ref_array[0], 1:@$ref_array[1]\n");
-		# my $ans =scalar @$ref_array;
-		# print("2. Sucat.pl, num_rows---$ans, $num_rows\n");
-		my $inbound_list = $list_directory . '/' . $list;
-		( $ref_array, $num_cdps ) = $read->cols_1p($inbound_list);
-		$sucat->set_list_aref($ref_array);
-		$sucat->data_type();
+	# print("2. Sucat.pl, list:---$list---\n");
+	# print("2. Sucat.pl, list:---0:@$ref_array[0], 1:@$ref_array[1]\n");
+	# my $ans =scalar @$ref_array;
+	# print("2. Sucat.pl, num_rows---$ans, $num_rows\n");
+	my $inbound_list = $list_directory . '/' . $list;
+	( $ref_array, $num_cdps ) = $read->cols_1p($inbound_list);
+	$sucat->set_list_aref($ref_array);
+	$sucat->data_type();
 
 	# print("ref_array is num_cdps is $num_cdps\n\n");
 }
@@ -348,13 +350,11 @@ if (    $list ne $empty_string
 elsif ( $list eq $empty_string
 	and $first_file_number_in ne $empty_string
 	and $last_file_number_in ne $empty_string
-	and $number_of_files_in ne $empty_string )
-{
+	and $number_of_files_in ne $empty_string ) {
 
 	# print("3. Sucat.pl, OK, NADA\n");
 
-}
-else {
+} else {
 	print(
 		"Warning: Incorrect settings. Either: 
 \t 1) Use a list without values for first 6 parameters. Include the output

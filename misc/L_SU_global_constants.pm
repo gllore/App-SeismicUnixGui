@@ -304,7 +304,7 @@ my $var = {
 	_one_character                 => '1',
 	_one_pixel                     => '1',
 	_one_pixel_borderwidth         => '1',
-	_program_title                 => 'L_SU V0.5.0',
+	_program_title                 => 'L_SU V0.6.6',
 	_l_suplot_title                => 'L_suplot',
 	_project_selector_title        => 'Project Selector',
 	_project_selector_box_position => '600x600+100+100',
@@ -396,16 +396,19 @@ $developer_sunix_categories[15] = 'well';
 $developer_sunix_categories[16] = '';
 
 my @sunix_data_programs = (
+	"ctrlstrip",
 	"data_in",
 	"data_out",
 	"dt1tosu",
 	"segbread",
 	"segyread",
 	"segywrite",
+	"supack1",
+	"supack2",
 );
 
 my @sunix_datum_programs = ( 
-"sudatumk2dr",
+	"sudatumk2dr",
  );
 
 my @sunix_filter_programs = (
@@ -423,8 +426,8 @@ my @sunix_header_programs = (
 	"suascii",
 	"suchw",
 	"sugethw",
-	"sushw",
 	"surange",
+	"sushw",
 	"sustatic",
 	"sustrip",
 );
@@ -437,9 +440,9 @@ my @sunix_migration_programs = (
  );
  
 my @sunix_shell_programs     = ( 
-"evince",
- "sugetgthr",
-  "suputgthr" 
+	"evince",
+	"sugetgthr",
+	"suputgthr" 
 );
 
 =pod
@@ -450,12 +453,18 @@ my @sunix_shell_programs     = (
 =cut
 
 my @sunix_model_programs = (
-	"suplane",
-	"susynlv",
+	"elacheck",
+	"elamodel",
+	"elaray",
+	"elasyn",
+	"elatriuni",
 	"suea2df",
 	"sufctanismod",
 	"sufdmod1",
 	"sufdmod2",
+	"suplane",
+	"suspike",
+	"susynlv",
 );
 
 my @sunix_NMO_Vel_Stk_programs = ( 
@@ -508,10 +517,15 @@ my @sunix_shapeNcut_programs = (
 );
 
 my @sunix_statsMath_programs = (
+	"entropy",
 	"suacor",
+	"suacorfrac",
+	"sualford",
 	"suattributes",
-	"suhrot",
+	"suconv",
+	"sufwmix",
 	"suhistogram",
+	"suhrot",
 	"suinterp",
 	"sumax",
 	"sumean",
@@ -540,7 +554,12 @@ my @sunix_transform_programs = (
 );
 
 my @sunix_well_programs = (
- "las2su", 
+	"las2su",
+	"subackus",
+	"subackush",
+	"sugassman",
+	"sulprime",
+	"suwellrf",
  );
 
 $var->{_sunix_data_programs}        = \@sunix_data_programs;
@@ -659,3 +678,24 @@ sub param {
 }
 
 1;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -13,7 +13,7 @@
  Notes:								
  The calculation is performed in the frequency domain.			
  The fractional autocorrelation/convolution is obtained by raising	
- Fourier coefficients to seperate real powers 				
+ Fourier coefficients to separate real powers 				
 		(a,b) for amp and phase:				
 		     Aout exp[-i Pout] = Ain Ain^a exp[-i (1+b) Pin] 	
 		where A=amplitude  P=phase.				

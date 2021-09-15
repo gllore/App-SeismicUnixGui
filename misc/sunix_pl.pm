@@ -1587,7 +1587,7 @@ sub whole {
 
 		# full directory path plus file name
 		my $inbound = $sunix_pl->{_path} . '/' . $sunix_pl->{_file_in};
-		print("sunix_pl, whole, $inbound\n");
+#		print("sunix_pl, whole, $inbound\n");
 
 		my $i = 0;
 		open( my $fh, '<', $inbound )

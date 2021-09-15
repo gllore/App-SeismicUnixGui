@@ -22,37 +22,39 @@ my $flow_type        = $get->flow_type_href();
 my $DATA_SEISMIC_SU  = $Project->DATA_SEISMIC_SU();
 my $DATA_SEISMIC_BIN = $Project->DATA_SEISMIC_BIN();
 my $PL_SEISMIC       = $Project->PL_SEISMIC();
-my $max_index        = $sushw->get_max_index();
+my $max_index        = 6;
 
-my $sushw_spec =  {
-    _CONFIG	 			   => $PL_SEISMIC,
-    _DATA_DIR_IN           => $DATA_SEISMIC_SU,
+my $sushw_spec = {
+	_CONFIG                => $PL_SEISMIC,
+	_DATA_DIR_IN           => $DATA_SEISMIC_SU,
 	_DATA_DIR_OUT          => $DATA_SEISMIC_SU,
 	_binding_index_aref    => '',
-    _suffix_type_in        => $su,
-    _data_suffix_in        => $suffix_su,
-    _suffix_type_out       => $su,
-    _data_suffix_out       => $suffix_su,
-    _file_dialog_type_aref => '',
-    _flow_type_aref        => '',
-    _has_infile            => $true,
-    _has_outpar          => $false,
-    _has_pipe_in           => $true,
-    _has_pipe_out          => $true,
-    _has_redirect_in       => $true,
-    _has_redirect_out      => $true,
-    _has_subin_in          => $false,
-    _has_subin_out         => $false,
-    _is_data               => $false,
-    _is_first_of_2         => $true,
-    _is_first_of_3or_more  => $true,
-    _is_first_of_4or_more  => $true,
-    _is_last_of_2          => $false,
-    _is_last_of_3or_more   => $false,
-    _is_last_of_4or_more   => $false,
-    _is_suprog             => $true,
-    _is_superflow          => $false,
-    _max_index             => $max_index,
+	_suffix_type_in        => $su,
+	_data_suffix_in        => $suffix_su,
+	_suffix_type_out       => $su,
+	_data_suffix_out       => $suffix_su,
+	_file_dialog_type_aref => '',
+	_flow_type_aref        => '',
+	_has_infile            => $true,
+	_has_outpar            => $false,
+	_has_pipe_in           => $true,
+	_has_pipe_out          => $true,
+	_has_redirect_in       => $true,
+	_has_redirect_out      => $true,
+	_has_subin_in          => $false,
+	_has_subin_out         => $false,
+	_is_data               => $false,
+	_is_first_of_2         => $true,
+	_is_first_of_3or_more  => $true,
+	_is_first_of_4or_more  => $true,
+	_is_last_of_2          => $false,
+	_is_last_of_3or_more   => $false,
+	_is_last_of_4or_more   => $false,
+	_is_suprog             => $true,
+	_is_superflow          => $false,
+	_max_index             => $max_index,
+	_prefix_aref           => '',
+	_suffix_aref           => '',
 };
 
 =head2  sub binding_index_aref
@@ -61,14 +63,14 @@ my $sushw_spec =  {
 
 sub binding_index_aref {
 
-    my ($self) = @_;
+	my ($self) = @_;
 
-    my @index;
+	my @index;
 
-    $index[0] = 6;    # for binary infile
+	$index[0] = 6;    # for  inbound binary infile
 
-    $sushw_spec->{_binding_index_aref} = \@index;
-    return ();
+	$sushw_spec->{_binding_index_aref} = \@index;
+	return ();
 
 }
 
@@ -77,15 +79,20 @@ sub binding_index_aref {
 =cut 
 
 sub file_dialog_type_aref {
-    my ($self) = @_;
+	my ($self) = @_;
 
-    my @type;
+	my @type;
 
-    $type[0] = $file_dialog_type->{_Data};
+	my $index_aref = get_binding_index_aref();
+	my @index      = @$index_aref;
 
-    $sushw_spec->{_file_dialog_type_aref} = \@type;
+	# bound index will look for data
+	$type[0] = '';
+	$type[ $index[0] ] = $file_dialog_type->{_Data};
 
-    return ();
+	$sushw_spec->{_file_dialog_type_aref} = \@type;
+
+	return ();
 
 }
 
@@ -95,23 +102,20 @@ sub file_dialog_type_aref {
 
 sub get_binding_index_aref {
 
-    my ($self) = @_;
-    my @index;
+	my ($self) = @_;
+	my @index;
 
-    if ( $sushw_spec->{_binding_index_aref} ) {
+	if ( $sushw_spec->{_binding_index_aref} ) {
 
-        my $index_aref = $sushw_spec->{_binding_index_aref};
-        return ($index_aref);
+		my $index_aref = $sushw_spec->{_binding_index_aref};
+		return ($index_aref);
 
-    }
-    else {
-        print(
-            "sushw_spec, get_binding_index_aref, missing binding_index_aref\n"
-        );
-        return ();
-    }
+	} else {
+		print("sushw_spec, get_binding_index_aref, missing binding_index_aref\n");
+		return ();
+	}
 
-    my $index_aref = $sushw_spec->{_binding_index_aref};
+	my $index_aref = $sushw_spec->{_binding_index_aref};
 
 }
 
@@ -120,15 +124,15 @@ sub get_binding_index_aref {
 =cut 
 
 sub flow_type_aref {
-    my ($self) = @_;
+	my ($self) = @_;
 
-    my @type;
+	my @type;
 
-    $type[0] = $flow_type->{_user_built};
+	$type[0] = $flow_type->{_user_built};
 
-    $sushw_spec->{_flow_type_aref} = \@type;
+	$sushw_spec->{_flow_type_aref} = \@type;
 
-    return ();
+	return ();
 
 }
 
@@ -137,19 +141,18 @@ sub flow_type_aref {
 =cut 
 
 sub get_binding_length {
-    my ($self) = @_;
+	my ($self) = @_;
 
-    if ( $sushw_spec->{_binding_index_aref} ) {
-        my $length;
-        $length = scalar @{ $sushw_spec->{_binding_index_aref} };
-        return ($length);
+	if ( $sushw_spec->{_binding_index_aref} ) {
+		my $length;
+		$length = scalar @{ $sushw_spec->{_binding_index_aref} };
+		return ($length);
 
-    }
-    else {
+	} else {
 
-        print("sushw_spec, get_binding_length, missing length \n");
-        return ();
-    }
+		print("sushw_spec, get_binding_length, missing length \n");
+		return ();
+	}
 
 }
 
@@ -158,18 +161,15 @@ sub get_binding_length {
 =cut 
 
 sub get_file_dialog_type_aref {
-    my ($self) = @_;
+	my ($self) = @_;
 
-    if ( $sushw_spec->{_file_dialog_type_aref} ) {
-        my @type = @{ $sushw_spec->{_file_dialog_type_aref} };
-        return ( \@type );
-    }
-    else {
-        print(
-"sushw_spec,get_file_dialog_type_aref, missing file_dialog_type_aref\n"
-        );
-        return ();
-    }
+	if ( $sushw_spec->{_file_dialog_type_aref} ) {
+		my @type = @{ $sushw_spec->{_file_dialog_type_aref} };
+		return ( \@type );
+	} else {
+		print("sushw_spec,get_file_dialog_type_aref, missing file_dialog_type_aref\n");
+		return ();
+	}
 }
 
 =head2 sub get_flow_type_aref
@@ -177,17 +177,16 @@ sub get_file_dialog_type_aref {
 =cut 
 
 sub get_flow_type_aref {
-    my ($self) = @_;
+	my ($self) = @_;
 
-    if ( $sushw_spec->{_flow_type_aref} ) {
-        my $type_aref = $sushw_spec->{_flow_type_aref};
-        return ($type_aref);
-    }
-    else {
+	if ( $sushw_spec->{_flow_type_aref} ) {
+		my $type_aref = $sushw_spec->{_flow_type_aref};
+		return ($type_aref);
+	} else {
 
-        print("sushw_spec, get_flow_type_aref, missing flow_type_aref \n");
-        return ();
-    }
+		print("sushw_spec, get_flow_type_aref, missing flow_type_aref \n");
+		return ();
+	}
 }
 
 =head2 sub get_incompatibles
@@ -196,47 +195,44 @@ sub get_flow_type_aref {
 
 sub get_incompatibles {
 
-    my ($self) = @_;
-    my @needed;
+	my ($self) = @_;
+	my @needed;
 
-    my @_need_both;
+	my @_need_both;
 
-    my @_need_only_1;
+	my @_need_only_1;
 
-    my @_none_needed;
+	my @_none_needed;
 
-    my @_all_needed;
+	my @_all_needed;
 
-    my $params = {
+	my $params = {
 
-        _need_both   => \@_need_both,
-        _need_only_1 => \@_need_only_1,
-        _none_needed => \@_none_needed,
-        _all_needed  => \@_all_needed,
+		_need_both   => \@_need_both,
+		_need_only_1 => \@_need_only_1,
+		_none_needed => \@_none_needed,
+		_all_needed  => \@_all_needed,
 
-    };
+	};
 
-    my @of_two = ( 'xx', 'yy' );
-    push @{ $params->{_need_only_1} }, \@of_two;
+	my @of_two = ( 'xx', 'yy' );
+	push @{ $params->{_need_only_1} }, \@of_two;
 
-    my $len_1_needed = scalar @{ $params->{_need_only_1} };
+	my $len_1_needed = scalar @{ $params->{_need_only_1} };
 
-    if ( $len_1_needed >= 1 ) {
+	if ( $len_1_needed >= 1 ) {
 
-        for ( my $i = 0 ; $i < $len_1_needed ; $i++ ) {
+		for ( my $i = 0; $i < $len_1_needed; $i++ ) {
 
-            print(
-"sushw, get_incompatibles,need_only_1:  @{@{$params->{_need_only_1}}[$i]}\n"
-            );
+			print("sushw, get_incompatibles,need_only_1:  @{@{$params->{_need_only_1}}[$i]}\n");
 
-        }
+		}
 
-    }
-    else {
-        print("get_incompatibles, no incompatibles\n");
-    }
+	} else {
+		print("get_incompatibles, no incompatibles\n");
+	}
 
-    return ($params);
+	return ($params);
 
 }
 
@@ -246,20 +242,19 @@ sub get_incompatibles {
 
 sub get_prefix_aref {
 
-    my ($self) = @_;
+	my ($self) = @_;
 
-    if ( $sushw_spec->{_prefix_aref} ) {
+	if ( $sushw_spec->{_prefix_aref} ) {
 
-        my $prefix_aref = $sushw_spec->{_prefix_aref};
-        return ($prefix_aref);
+		my $prefix_aref = $sushw_spec->{_prefix_aref};
+		return ($prefix_aref);
 
-    }
-    else {
-        print("sushw_spec, get_prefix_aref, missing prefix_aref\n");
-        return ();
-    }
+	} else {
+		print("sushw_spec, get_prefix_aref, missing prefix_aref\n");
+		return ();
+	}
 
-    return ();
+	return ();
 }
 
 =head2 sub get_suffix_aref
@@ -268,20 +263,19 @@ sub get_prefix_aref {
 
 sub get_suffix_aref {
 
-    my ($self) = @_;
+	my ($self) = @_;
 
-    if ( $sushw_spec->{_suffix_aref} ) {
+	if ( $sushw_spec->{_suffix_aref} ) {
 
-        my $suffix_aref = $sushw_spec->{_suffix_aref};
-        return ($suffix_aref);
+		my $suffix_aref = $sushw_spec->{_suffix_aref};
+		return ($suffix_aref);
 
-    }
-    else {
-        print("sushw_spec, get_suffix_aref, missing suffix_aref\n");
-        return ();
-    }
+	} else {
+		print("sushw_spec, get_suffix_aref, missing suffix_aref\n");
+		return ();
+	}
 
-    return ();
+	return ();
 }
 
 =head2  sub prefix_aref
@@ -296,17 +290,24 @@ are filtered by sunix_pl
 
 sub prefix_aref {
 
-    my ($self) = @_;
+	my ($self) = @_;
 
-    my @prefix;
+	my @prefix;
 
-    for ( my $i = 0 ; $i < $max_index ; $i++ ) {
+	for ( my $i = 0; $i < $max_index; $i++ ) {
 
-        $prefix[$i] = $empty_string;
+		$prefix[$i] = $empty_string;
 
-    }
-    $sushw_spec->{_prefix_aref} = \@prefix;
-    return ();
+	}
+
+	my $index_aref = get_binding_index_aref();
+	my @index      = @$index_aref;
+
+	# label 7 in GUI is input xx_file and needs a home directory
+	$prefix[ $index[0] ] = '$DATA_SEISMIC_BIN' . ".'/'.";
+
+	$sushw_spec->{_prefix_aref} = \@prefix;
+	return ();
 
 }
 
@@ -320,17 +321,24 @@ values
 
 sub suffix_aref {
 
-    my ($self) = @_;
+	my ($self) = @_;
 
-    my @suffix;
+	my @suffix;
 
-    for ( my $i = 0 ; $i < $max_index ; $i++ ) {
+	for ( my $i = 0; $i < $max_index; $i++ ) {
 
-        $suffix[$i] = $empty_string;
+		$suffix[$i] = $empty_string;
 
-    }
-    $sushw_spec->{_suffix_aref} = \@suffix;
-    return ();
+	}
+
+	my $index_aref = get_binding_index_aref();
+	my @index      = @$index_aref;
+
+	# label 7 in GUI is input xx_file and needs a home directory
+	$suffix[ $index[0] ] = "." . '$suffix_bin';
+
+	$sushw_spec->{_suffix_aref} = \@suffix;
+	return ();
 
 }
 
@@ -342,9 +350,9 @@ with definitions
 =cut
 
 sub variables {
-    my $self     = @_;
-    my $hash_ref = $sushw_spec;
-    return ($hash_ref);
+	my $self     = @_;
+	my $hash_ref = $sushw_spec;
+	return ($hash_ref);
 }
 
 1;

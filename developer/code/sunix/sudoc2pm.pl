@@ -45,7 +45,7 @@ Which group number do you want to use to create
 for *.pm, *.config, and *_spec.pm files ?
 
 e.g., for transforms use:
-$group_no = 15
+$group_number = 15
 	
 
 =head2 CHANGES and their DATES
@@ -91,26 +91,21 @@ Which group number do you want ?
 
 =cut
 
-my $group_no = 13;
-$prog_doc2pm->set_group_directory($group_no);
+my $group_number = 7;
+$prog_doc2pm->set_group_directory($group_number);
 
 =head2 QUESTION 2:
 Which program do you want to work on?
 
-For example=
+For example: 
 'sugetgthr';
-'sugain';
-'suputgthr';
-'suifft';
-'sufctanismod'
-'vel2stiff
-'unif2aniso'
-'transp'
-'suflip'
+'sugain'; 'suputgthr'; 'suifft';
+'sufctanismod' 'vel2stiff
+'unif2aniso' 'transp' 'suflip'
 
 =cut
 
-my $selected_program_name = 'suhistogram';
+my $selected_program_name = 'elatriuni';
 
 =head2 private values
 
@@ -125,7 +120,8 @@ my $path_out4sunix       = $prog_doc2pm->get_path_out4sunix();
 my @long_file_name  = @{ $prog_doc2pm->get_list_aref() };
 
 #print("sudoc2pm.pl,long_file_name: @long_file_name\n");
-# print("sudoc2pm.pl,path_out: $path_out4developer\n");
+#print("sudoc2pm.pl,path_out: $path_out4developer\n");
+#print("sudoc2pm.pl,list_length: $list_length\n");
 
 my @program_name = @{ $prog_doc2pm->get_program_aref() };
 my $package_name;
@@ -133,16 +129,19 @@ my $package_name;
 for ( my $i = 0; $i < $list_length; $i++ ) {
 	
 #print("sudoc2pm.pl,program_name, num=$i, program_name=$program_name[$i]\n"); 
-#print("sudoc2pm.pl,program_name, selected_program_name=$selected_program_name, \n");
+
 	
 	$package_name    = $program_name[$i];
 	$pm_file_out[0]     = $package_name . '.pm';
 	$config_file_out[0] = $package_name . '.config';
 	$spec_file_out[0]   = $package_name . '_spec.pm';
+	
+#print("sudoc2pm.pl,program_name, selected_program_name=$selected_program_name, \n");
+#print("sudoc2pm.pl, package_name =$package_name, \n");
 
 	if ( $selected_program_name eq $package_name) {
 		
-#		print("sudoc2pm.pl, I am in group=$group_no \n");
+#		print("sudoc2pm.pl, I am in group=$group_number \n");
 #		print("sudoc2pm.pl, I am working on package =$package_name \n");
 #		print("sudoc2pm.pl, writing $pm_file_out[0] in scratch\n");
 #		print("sudoc2pm.pl, writing $config_file_out[0] in scratch\\n");

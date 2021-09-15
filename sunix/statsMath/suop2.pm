@@ -11,13 +11,6 @@ package suop2;
  Version:  0.0.1
 
 =head2 USE
-  $file[1] = 'fileA'
-  $file[2]= 'fileB'
-  suop2->clear();
-  suop2->AminusB();
-  suop2->fileA(\$file[1]);
-  suop2->fileB(\$file[2]);
-  $suop[1] = suop2->Step();
   
 =head3 NOTES
 
@@ -103,6 +96,19 @@ package suop2;
  Notes:
 	If efficiency becomes important consider inverting main loop
 	and repeating operation code within the branches of the switch.
+	
+=head2 User's notes (Juan Lorenzo)
+
+(old)
+  $file[1] = fileA
+  $file[2]= fileB
+  suop2->clear();
+  suop2->AminusB();
+  suop2->fileA(\$file[1]);
+  suop2->fileB(\$file[2]);
+  $suop[1] = suop2->Step();
+
+=cut
 
 =head2 CHANGES and their DATES
 

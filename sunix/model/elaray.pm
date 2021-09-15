@@ -1,15 +1,16 @@
- package elaray;
-
-
-=head1 DOCUMENTATION
+package elaray;
 
 =head2 SYNOPSIS
 
- PACKAGE NAME:  ELARAY - ray tracing for elastic anisotropic models
- AUTHOR: Juan Lorenzo
- DATE:   
- DESCRIPTION:
- Version: 
+PACKAGE NAME: 
+
+AUTHOR:  
+
+DATE:
+
+DESCRIPTION:
+
+Version:
 
 =head2 USE
 
@@ -17,100 +18,193 @@
 
 =head4 Examples
 
-=head3 SEISMIC UNIX NOTES
+=head2 SYNOPSIS
 
+=head3 SEISMIC UNIX NOTES
  ELARAY - ray tracing for elastic anisotropic models
+
+
 
  elaray <modelfile >rayends [optional parameters]			
 
+
+
  Optional Parameters:							
+
  xs=(max-min)/2 x coordinate of source (default is halfway across model)
+
  zs=min         z coordinate of source (default is at top of model)	
+
  nangle=101     number of takeoff angles				
+
  fangle=-45     first takeoff angle (in degrees)			
+
  langle=45      last takeoff angle (in degrees)			
+
  nxz=101        number of (x,z) in optional rayfile (see notes below)	
+
  mode=0         shoot P-rays						
+
 	      =1 shoot SV-rays						
+
 	      =2 shoot SH-rays						
+
  prim        =1 only reflected rays are plotted 		",     
+
              =0 only direct hits are displayed  			
+
  refseq=1,0,0   index of reflector followed by sequence of:		
+
 		 transmission(0)					
+
 		 reflection (1)						
+
 		 transmission with mode conversion (2)			",					
+
 		 reflection with mode conversion (3)			",					
+
                 ray stops(-1).						
+
  krecord        if specified, only rays incident at interface with index
+
                 krecord are displayed and stored			
+
  f0=1	         force impact strenght					
+
  fdip=0         force dip with respect to vertical			
+
  fazi=0         force azimuth with respect to positive x-axis 		
+
  reftrans=0	 =1 include reflec/transm coeff(currently only for P)	
+
  rayfile        file of ray x,z coordinates of ray-edge intersections	
+
  wavefile       file of ray x,z coordinates uniformly sampled in time	
+
  nt=		 number of (x,z) in optional wavefile (see notes below)	
+
  tw=		 traveltime associated with wavefront (alternative to nt)",	
+
  infofile       ASCII-file to store useful information 		
+
  outparfile     contains parameters for the plotting software. 	
+
                 default is <outpar> 					
+
  NOTES:								
+
  The rayends file contains ray parameters for the locations at which	
+
  the rays terminate.  							
 
+
+
  The rayfile is useful for making plots of ray paths.			
+
  nxz should be larger than twice the number of triangles intersected	
+
  by the rays.								
 
+
+
  The wavefile is useful for making plots of wavefronts.		
+
  The time sampling interval in the wavefile is tmax/(nt-1),		
+
  where tmax is the maximum time for all rays. Alternatively, 
+
  one wavefront at time tw is plotted.	
 
+
+
  The infofile is useful for collecting information along the		
+
  individual rays. 							
+
  The outparfile stores information used for the plotting software	
 
 
 
+
+
+
+
  AUTHORS:  Andreas Rueger, Colorado School of Mines, 01/02/95
+
   The program is based on :
+
  	        gbray.c, AUTHOR: Andreas Rueger, 08/12/93
+
  	       	sdray.c, AUTHOR Dave Hale, CSM, 02/26/91
+
+
+
+=head2 User's notes (Juan Lorenzo)
+untested
+
+=cut
+
 
 =head2 CHANGES and their DATES
 
 =cut
- use Moose;
- our $VERSION = '0.0.1';
-	use L_SU_global_constants();
 
-	my $get					= new L_SU_global_constants();
-
-	my $var				= $get->var();
-	my $empty_string    	= $var->{_empty_string};
+use Moose;
+our $VERSION = '0.0.1';
 
 
-	my $elaray		= {
-		_f0					=> '',
-		_fangle					=> '',
-		_fazi					=> '',
-		_fdip					=> '',
-		_langle					=> '',
-		_mode					=> '',
-		_nangle					=> '',
-		_nt					=> '',
-		_nxz					=> '',
-		_prim					=> '',
-		_refseq					=> '',
-		_reftrans					=> '',
-		_tw					=> '',
-		_xs					=> '',
-		_zs					=> '',
-		_Step					=> '',
-		_note					=> '',
-    };
+=head2 Import packages
 
+=cut
+
+use L_SU_global_constants();
+
+use SeismicUnix qw ($in $out $on $go $to $suffix_ascii $off $suffix_su $suffix_bin);
+use Project_config;
+
+
+=head2 instantiation of packages
+
+=cut
+
+my $get					= new L_SU_global_constants();
+my $Project				= new Project_config();
+my $DATA_SEISMIC_SU		= $Project->DATA_SEISMIC_SU();
+my $DATA_SEISMIC_BIN	= $Project->DATA_SEISMIC_BIN();
+my $DATA_SEISMIC_TXT	= $Project->DATA_SEISMIC_TXT();
+
+my $var				= $get->var();
+my $on				= $var->{_on};
+my $off				= $var->{_off};
+my $true			= $var->{_true};
+my $false			= $var->{_false};
+my $empty_string	= $var->{_empty_string};
+
+=head2 Encapsulated
+hash of private variables
+
+=cut
+
+my $elaray			= {
+	_f0					=> '',
+	_fangle					=> '',
+	_fazi					=> '',
+	_fdip					=> '',
+	_langle					=> '',
+	_mode					=> '',
+	_nangle					=> '',
+	_nt					=> '',
+	_nxz					=> '',
+	_prim					=> '',
+	_refseq					=> '',
+	_reftrans					=> '',
+	_tw					=> '',
+	_xs					=> '',
+	_zs					=> '',
+	_Step					=> '',
+	_note					=> '',
+
+};
 
 =head2 sub Step
 
@@ -140,6 +234,7 @@ by adding the program name
 	return ( $elaray->{_note} );
 
  }
+
 
 
 =head2 sub clear
@@ -469,18 +564,17 @@ by adding the program name
 
 
 =head2 sub get_max_index
- 
+
 max index = number of input variables -1
  
 =cut
  
-  sub get_max_index {
- 	my ($self) = @_;
-	# only file_name : index=36
- 	my $max_index = 36;
-	
- 	return($max_index);
- }
+sub get_max_index {
+ 	  my ($self) = @_;
+	my $max_index = 14;
+
+    return($max_index);
+}
  
  
-1; 
+1;

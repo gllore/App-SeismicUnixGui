@@ -1,15 +1,16 @@
- package elamodel;
-
-
-=head1 DOCUMENTATION
+package elamodel;
 
 =head2 SYNOPSIS
 
- PACKAGE NAME:  ELAMODEL - make piecewise homogeneous anisotropic model    		
- AUTHOR: Juan Lorenzo
- DATE:   
- DESCRIPTION:
- Version: 
+PACKAGE NAME: 
+
+AUTHOR:  
+
+DATE:
+
+DESCRIPTION:
+
+Version:
 
 =head2 USE
 
@@ -17,91 +18,181 @@
 
 =head4 Examples
 
-=head3 SEISMIC UNIX NOTES
+=head2 SYNOPSIS
 
+=head3 SEISMIC UNIX NOTES
  ELAMODEL - make piecewise homogeneous anisotropic model    		
+
+
 
  elamodel >modelfile fill= [optional parameters]   			
 
+
+
  Input Parameters: 							
+
  xmin=0.0               minimum horizontal coordinate (x) 		
+
  xmax=1.0               maximum horizontal coordinate (x) 		
+
  zmin=0.0               minimum vertical coordinate (z) 		
+
  zmax=1.0               maximum vertical coordinate (z) 		
+
  xedge=                 x coordinates of an edge 			
+
  zedge=                 z coordinates of an edge 			
+
  kedge=                 array of indices used to identify edges 	
+
  fill=    iso      	 x,z,v_p,v_s,rho   				
+
           tiso      	 x,z,v_p,v_s,epsilon,delta,gamma,phi,rho	
+
           ani           x,z,a1111,a3333,a1133,a1313,a1113,a3313        
+
                             a1212,a2323,a1223,rho                      
+
  maxangle=5.0           maximum angle (deg) between adjacent edge segments 
 
+
+
  Notes: 								
+
  More than set of xedge and zedge parameters may be 		        
+
  specified, but the numbers of these parameters must be equal. 	
+
+
 
  Within each set, vertices will be connected by fixed edges. 		
 
+
+
  Edge indices in the k array are used to identify edges 		
+
  specified by the x and z parameters.  The first k index 		
+
  corresponds to the first set of x and z parameters, the 		
+
  second k index corresponds to the second set, and so on. 		
 
+
+
  After all vertices have been inserted into the model,	the fill        
+
  parameters is used to fill closed regions bounded by fixed edges.     
+
  Three input modes are available:                                      
+
  Isotropic blocks:     x,z,v_p,v_s,rho                                 
+
  Transversely iso:     x,z,v_p,v_s,epsilon,delta,gamma,phi,rho         
+
  General 2D aniso:     x,z,a1111,a3333,a1133,a1313,a1113,a3313         
+
                        a1212,a2323,a1223,rho                           
+
  Hereby:  
+
  x,z			   coordinates of one point in a bounded region 
+
  v_p,v_s		   P, S-wave velocity along symmetry axis       
+
  epsilon, delta, gammma   Thomsen's parameters              
+
  rho 			   density 			     
+
  phi			   angle of symmetry axes with vertical 
+
  aijkl			   density normalized stiffness coefficients 
 
+
+
  Each block can be defined by different input modes. The number of     
+
  input parameters defines the input type. Incorrect number of input    
+
  parameters result in an Error-message					
 
 
 
 
+
+
+
+
+
  AUTHOR:  Dave Hale, Colorado School of Mines, 02/12/91
+
  modified : Andreas Rueger, Colorado School of Mines, 01/18/94
+
  built anisotropic models
+
+
+
+
+
+=head2 User's notes (Juan Lorenzo)
+untested
+
+=cut
 
 
 =head2 CHANGES and their DATES
 
 =cut
- use Moose;
- our $VERSION = '0.0.1';
-	use L_SU_global_constants();
 
-	my $get					= new L_SU_global_constants();
-
-	my $var				= $get->var();
-	my $empty_string    	= $var->{_empty_string};
+use Moose;
+our $VERSION = '0.0.1';
 
 
-	my $elamodel		= {
-		_fill					=> '',
-		_kedge					=> '',
-		_maxangle					=> '',
-		_xedge					=> '',
-		_xmax					=> '',
-		_xmin					=> '',
-		_zedge					=> '',
-		_zmax					=> '',
-		_zmin					=> '',
-		_Step					=> '',
-		_note					=> '',
-    };
+=head2 Import packages
 
+=cut
+
+use L_SU_global_constants();
+
+use SeismicUnix qw ($in $out $on $go $to $suffix_ascii $off $suffix_su $suffix_bin);
+use Project_config;
+
+
+=head2 instantiation of packages
+
+=cut
+
+my $get					= new L_SU_global_constants();
+my $Project				= new Project_config();
+my $DATA_SEISMIC_SU		= $Project->DATA_SEISMIC_SU();
+my $DATA_SEISMIC_BIN	= $Project->DATA_SEISMIC_BIN();
+my $DATA_SEISMIC_TXT	= $Project->DATA_SEISMIC_TXT();
+
+my $var				= $get->var();
+my $on				= $var->{_on};
+my $off				= $var->{_off};
+my $true			= $var->{_true};
+my $false			= $var->{_false};
+my $empty_string	= $var->{_empty_string};
+
+=head2 Encapsulated
+hash of private variables
+
+=cut
+
+my $elamodel			= {
+	_fill					=> '',
+	_kedge					=> '',
+	_maxangle					=> '',
+	_xedge					=> '',
+	_xmax					=> '',
+	_xmin					=> '',
+	_zedge					=> '',
+	_zmax					=> '',
+	_zmin					=> '',
+	_Step					=> '',
+	_note					=> '',
+
+};
 
 =head2 sub Step
 
@@ -131,6 +222,7 @@ by adding the program name
 	return ( $elamodel->{_note} );
 
  }
+
 
 
 =head2 sub clear
@@ -334,18 +426,17 @@ by adding the program name
 
 
 =head2 sub get_max_index
- 
+
 max index = number of input variables -1
  
 =cut
  
-  sub get_max_index {
- 	my ($self) = @_;
-	# only file_name : index=36
- 	my $max_index = 36;
-	
- 	return($max_index);
- }
+sub get_max_index {
+ 	  my ($self) = @_;
+	my $max_index = 8;
+
+    return($max_index);
+}
  
  
-1; 
+1;

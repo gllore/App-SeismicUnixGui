@@ -1,15 +1,16 @@
- package elasyn;
-
-
-=head1 DOCUMENTATION
+package elasyn;
 
 =head2 SYNOPSIS
 
- PACKAGE NAME:  ELASYN - SYNthetic seismograms for triangulated elastic media		
- AUTHOR: Juan Lorenzo
- DATE:   
- DESCRIPTION:
- Version: 
+PACKAGE NAME: 
+
+AUTHOR:  
+
+DATE:
+
+DESCRIPTION:
+
+Version:
 
 =head2 USE
 
@@ -17,91 +18,175 @@
 
 =head4 Examples
 
-=head3 SEISMIC UNIX NOTES
+=head2 SYNOPSIS
 
+=head3 SEISMIC UNIX NOTES
  ELASYN - SYNthetic seismograms for triangulated elastic media		
+
+
 
   elasyn <rayends xg= zg= [optional parameters]			
 
+
+
 Required Parameters:							
+
 xg=            x coordinates of receiver surface			
+
 zg=            z coordinates of receiver surface			
 
+
+
 Optional Parameters:							
+
 compon=0         horizontal and vertical component seismograms         
+
 		  =3 vertical component (positive downwards)		
+
 		  =1 horizontal component				
+
 ng=101           number of receivers (uniform distributed along surface)
+
 krecord=1        integer index of receiver surface (see notes below)	
+
 nt=251           number of time samples				
+
 dt=0.004         time sampling interval				
+
 ft=0.0           first time sample					
+
 inter=0          linear interpolation					
+
 inter=1 (default) cross parabolic interpolation 			
+
 reftrans=0       =1 complex refl/transm. coefficients considered 	
+
 nameref=-1       all rays recorded at interface <krecord> considered 	",     
+
                  =0, only direct hits are considered  			
+
                  >0, only rays reflected from interface <nameref>      
+
 lscale=          if defined restricts range of extrapolation		
+
 fpeak=0.1/dt     peak frequency of ricker wavelet 			
+
 infofile         ASCII-file to store useful information 		
+
 xfile=x_compon.bin     bin-file to store x_component traces 		
+
 zfile=z_compon.bin     bin-file to store z_component traces 		
 
+
+
 NOTES:									
+
 Only rays that terminate with index krecord will contribute to the	
+
 synthetic seismograms at the receiver (xg,zg) locations.  The		
+
 receiver locations are determined by cubic spline interpolation	
+
 of the specified (xg,zg) coordinates.					
 
+
+
  Warning!!-- This version is not quite complete. There is a bug in the 
+
  interpolation routines that causes a segmentation violation on the last
+
  couple  of traces.							
 
 
 
+
+
+
+
  AUTHORS:  Andreas Rueger, Colorado School of Mines, 02/02/94
+
             Tariq Alkalifah, Colorado School of Mines, 02/02/94
+
 	     (interpolation routines)
+
 	     
+
  The program is based on :
+
 	        gbbeam.c, AUTHOR: Andreas Rueger, 08/12/93
+
 	       	sdbeam.c, AUTHOR Dave Hale, CSM, 02/26/91
+
+
+
+
+
+=head2 User's notes (Juan Lorenzo)
+untested
+
+=cut
 
 
 =head2 CHANGES and their DATES
 
 =cut
- use Moose;
- our $VERSION = '0.0.1';
-	use L_SU_global_constants();
 
-	my $get					= new L_SU_global_constants();
-
-	my $var				= $get->var();
-	my $empty_string    	= $var->{_empty_string};
+use Moose;
+our $VERSION = '0.0.1';
 
 
-	my $elasyn		= {
-		_compon					=> '',
-		_dt					=> '',
-		_fpeak					=> '',
-		_ft					=> '',
-		_inter					=> '',
-		_krecord					=> '',
-		_lscale					=> '',
-		_nameref					=> '',
-		_ng					=> '',
-		_nt					=> '',
-		_reftrans					=> '',
-		_xfile					=> '',
-		_xg					=> '',
-		_zfile					=> '',
-		_zg					=> '',
-		_Step					=> '',
-		_note					=> '',
-    };
+=head2 Import packages
 
+=cut
+
+use L_SU_global_constants();
+
+use SeismicUnix qw ($in $out $on $go $to $suffix_ascii $off $suffix_su $suffix_bin);
+use Project_config;
+
+
+=head2 instantiation of packages
+
+=cut
+
+my $get					= new L_SU_global_constants();
+my $Project				= new Project_config();
+my $DATA_SEISMIC_SU		= $Project->DATA_SEISMIC_SU();
+my $DATA_SEISMIC_BIN	= $Project->DATA_SEISMIC_BIN();
+my $DATA_SEISMIC_TXT	= $Project->DATA_SEISMIC_TXT();
+
+my $var				= $get->var();
+my $on				= $var->{_on};
+my $off				= $var->{_off};
+my $true			= $var->{_true};
+my $false			= $var->{_false};
+my $empty_string	= $var->{_empty_string};
+
+=head2 Encapsulated
+hash of private variables
+
+=cut
+
+my $elasyn			= {
+	_compon					=> '',
+	_dt					=> '',
+	_fpeak					=> '',
+	_ft					=> '',
+	_inter					=> '',
+	_krecord					=> '',
+	_lscale					=> '',
+	_nameref					=> '',
+	_ng					=> '',
+	_nt					=> '',
+	_reftrans					=> '',
+	_xfile					=> '',
+	_xg					=> '',
+	_zfile					=> '',
+	_zg					=> '',
+	_Step					=> '',
+	_note					=> '',
+
+};
 
 =head2 sub Step
 
@@ -131,6 +216,7 @@ by adding the program name
 	return ( $elasyn->{_note} );
 
  }
+
 
 
 =head2 sub clear
@@ -460,18 +546,17 @@ by adding the program name
 
 
 =head2 sub get_max_index
- 
+
 max index = number of input variables -1
  
 =cut
  
-  sub get_max_index {
- 	my ($self) = @_;
-	# only file_name : index=36
- 	my $max_index = 36;
-	
- 	return($max_index);
- }
+sub get_max_index {
+ 	  my ($self) = @_;
+	my $max_index = 14;
+
+    return($max_index);
+}
  
  
-1; 
+1;
