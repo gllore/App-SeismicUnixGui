@@ -1,15 +1,16 @@
- package susyncz;
-
-
-=head1 DOCUMENTATION
+package susyncz;
 
 =head2 SYNOPSIS
 
- PACKAGE NAME:  SUSYNCZ - SYNthetic seismograms for piecewise constant V(Z) function	
- AUTHOR: Juan Lorenzo
- DATE:   
- DESCRIPTION:
- Version: 
+PACKAGE NAME: 
+
+AUTHOR:  
+
+DATE:
+
+DESCRIPTION:
+
+Version:
 
 =head2 USE
 
@@ -17,82 +18,160 @@
 
 =head4 Examples
 
-=head3 SEISMIC UNIX NOTES
+=head2 SYNOPSIS
 
+=head3 SEISMIC UNIX NOTES
  SUSYNCZ - SYNthetic seismograms for piecewise constant V(Z) function	
+
 	   True amplitude (primaries only) modeling for 2.5D		
+
+
 
   susyncz > outfile [parameters]					
 
+
+
  Required parameters:							
+
  none									
 
+
+
  Optional Parameters:							
+
  ninf=4        number of interfaces (not including upper surface)	
+
  dip=5*i       dips of interfaces in degrees (i=1,2,3,4)		
+
  zint=100*i    z-intercepts of interfaces at x=0 (i=1,2,3,4)		
+
  v=1500+ 500*i velocities below surface & interfaces (i=0,1,2,3,4)	
+
  rho=1,1,1,1,1 densities below surface & interfaces (i=0,1,2,3,4)	
+
  nline=1	number of (identical) lines				
+
  ntr=32        number of traces					
+
  dx=10         trace interval						
+
  tdelay=0      delay in recording time after source initiation		
+
  dt=0.004      time interval						
+
  nt=128        number of time samples					
 
+
+
  Notes:								
+
  The original purpose of this code was to create some nontrivial	
+
  data for Brian Sumner's CZ suite.					
+
+
 
  The program produces zero-offset data over dipping reflectors.	
 
+
+
  In the original fortran code, some arrays had the index		
+
  interval 1:ninf, as a natural way to index over the subsurface	
+
  reflectors.  This indexing was preserved in this C translation.	
+
  Consequently, some arrays in the code do not use the 0 "slot".	
 
+
+
  Example:								
+
 	susyncz | sufilter | sugain tpow=1 | display_program		
+
+
 
  Trace header fields set: tracl, ns, dt, delrt, ntr, sx, gx		
 
 
+
+
+
  Credits:
+
  	CWP: Brian Sumner, 1983, 1985, Fortran design and code 
+
       CWP: Stockwell & Cohen, 1995, translation to C 
 
+
+
+
+
+
+
+=head2 User's notes (Juan Lorenzo)
+untested
+
+=cut
 
 
 =head2 CHANGES and their DATES
 
 =cut
- use Moose;
- our $VERSION = '0.0.1';
-	use L_SU_global_constants();
 
-	my $get					= new L_SU_global_constants();
-
-	my $var				= $get->var();
-	my $empty_string    	= $var->{_empty_string};
+use Moose;
+our $VERSION = '0.0.1';
 
 
-	my $susyncz		= {
-		_dip					=> '',
-		_dt					=> '',
-		_dx					=> '',
-		_ninf					=> '',
-		_nline					=> '',
-		_nt					=> '',
-		_ntr					=> '',
-		_rho					=> '',
-		_tdelay					=> '',
-		_tpow					=> '',
-		_v					=> '',
-		_zint					=> '',
-		_Step					=> '',
-		_note					=> '',
-    };
+=head2 Import packages
 
+=cut
+
+use L_SU_global_constants();
+
+use SeismicUnix qw ($in $out $on $go $to $suffix_ascii $off $suffix_su $suffix_bin);
+use Project_config;
+
+
+=head2 instantiation of packages
+
+=cut
+
+my $get					= new L_SU_global_constants();
+my $Project				= new Project_config();
+my $DATA_SEISMIC_SU		= $Project->DATA_SEISMIC_SU();
+my $DATA_SEISMIC_BIN	= $Project->DATA_SEISMIC_BIN();
+my $DATA_SEISMIC_TXT	= $Project->DATA_SEISMIC_TXT();
+
+my $var				= $get->var();
+my $on				= $var->{_on};
+my $off				= $var->{_off};
+my $true			= $var->{_true};
+my $false			= $var->{_false};
+my $empty_string	= $var->{_empty_string};
+
+=head2 Encapsulated
+hash of private variables
+
+=cut
+
+my $susyncz			= {
+	_dip					=> '',
+	_dt					=> '',
+	_dx					=> '',
+	_ninf					=> '',
+	_nline					=> '',
+	_nt					=> '',
+	_ntr					=> '',
+	_rho					=> '',
+	_tdelay					=> '',
+	_tpow					=> '',
+	_v					=> '',
+	_zint					=> '',
+	_Step					=> '',
+	_note					=> '',
+
+};
 
 =head2 sub Step
 
@@ -122,6 +201,7 @@ by adding the program name
 	return ( $susyncz->{_note} );
 
  }
+
 
 
 =head2 sub clear
@@ -388,18 +468,17 @@ by adding the program name
 
 
 =head2 sub get_max_index
- 
+
 max index = number of input variables -1
  
 =cut
  
-  sub get_max_index {
- 	my ($self) = @_;
-	# only file_name : index=36
- 	my $max_index = 36;
-	
- 	return($max_index);
- }
+sub get_max_index {
+ 	  my ($self) = @_;
+    my $max_index = 36;
+
+    return($max_index);
+}
  
  
-1; 
+1;

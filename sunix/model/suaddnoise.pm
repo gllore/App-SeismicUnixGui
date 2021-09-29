@@ -1,15 +1,16 @@
- package suaddnoise;
-
-
-=head1 DOCUMENTATION
+package suaddnoise;
 
 =head2 SYNOPSIS
 
- PACKAGE NAME:  SUADDNOISE - add noise to traces					
- AUTHOR: Juan Lorenzo
- DATE:   
- DESCRIPTION:
- Version: 
+PACKAGE NAME: 
+
+AUTHOR:  
+
+DATE:
+
+DESCRIPTION:
+
+Version:
 
 =head2 USE
 
@@ -17,89 +18,175 @@
 
 =head4 Examples
 
-=head3 SEISMIC UNIX NOTES
+=head2 SYNOPSIS
 
+=head3 SEISMIC UNIX NOTES
  SUADDNOISE - add noise to traces					
+
+
 
  suaddnoise <stdin >stdout  sn=20  noise=gauss  seed=from_clock	
 
+
+
  Required parameters:							
+
  	if any of f=f1,f2,... and amp=a1,a2,... are specified by the user
+
 	and if dt is not set in header, then dt is mandatory		
 
+
+
  Optional parameters:							
+
  	sn=20			signal to noise ratio			
+
  	noise=gauss		noise probability distribution		
+
  				=flat for uniform; default Gaussian	
+
  	seed=from_clock		random number seed (integer)		
+
 	f=f1,f2,...		array of filter frequencies (as in sufilter)
+
 	amps=a1,a2,...		array of filter amplitudes		
+
  	dt= (from header)	time sampling interval (sec)		
+
 	verbose=0		=1 for echoing useful information	
 
+
+
  	tmpdir=	 if non-empty, use the value as a directory path	
+
 		 prefix for storing temporary files; else if the	
+
 	         the CWP_TMPDIR environment variable is set use		
+
 	         its value for the path; else use tmpfile()		
 
+
+
  Notes:								
+
  Output = Signal +  scale * Noise					
+
+
 
  scale = (1/sn) * (absmax_signal/sqrt(2))/sqrt(energy_per_sample)	
 
+
+
  If the signal is already band-limited, f=f1,f2,... and amps=a1,a2,...	
+
  can be used, as in sufilter, to bandlimit the noise traces to match	
+
  the signal band prior to computing the scale defined above.		
 
+
+
  Examples of noise bandlimiting:					
+
  low freqency:    suaddnoise < data f=40,50 amps=1,0 | ...		
+
  high freqency:   suaddnoise < data f=40,50 amps=0,1 | ...		
+
  near monochromatic: suaddnoise < data f=30,40,50 amps=0,1,0 | ...	
+
  with a notch:    suaddnoise < data f=30,40,50 amps=1,0,1 | ...	
+
  bandlimited:     suaddnoise < data f=20,30,40,50 amps=0,1,1,0 | ...	
 
 
+
+
+
  Credits:
+
 	CWP: Jack Cohen, Brian Sumner, Ken Larner
+
 		John Stockwell (fixed filtered noise option)
 
+
+
  Notes:
+
 	At S/N = 2, the strongest reflector is well delineated, so to
+
 	see something 1/nth as strong as this dominant reflector
+
 	requires S/N = 2*n.
 
+
+
  Trace header field accessed: ns
+
+
+
+
+
+=head2 User's notes (Juan Lorenzo)
+untested
+
+=cut
 
 
 =head2 CHANGES and their DATES
 
 =cut
- use Moose;
- our $VERSION = '0.0.1';
-	use L_SU_global_constants();
 
-	my $get					= new L_SU_global_constants();
-
-	my $var				= $get->var();
-	my $empty_string    	= $var->{_empty_string};
+use Moose;
+our $VERSION = '0.0.1';
 
 
-	my $suaddnoise		= {
-		_N					=> '',
-		_Output					=> '',
-		_amps					=> '',
-		_dt					=> '',
-		_f					=> '',
-		_noise					=> '',
-		_scale					=> '',
-		_seed					=> '',
-		_sn					=> '',
-		_tmpdir					=> '',
-		_verbose					=> '',
-		_Step					=> '',
-		_note					=> '',
-    };
+=head2 Import packages
 
+=cut
+
+use L_SU_global_constants();
+
+use SeismicUnix qw ($in $out $on $go $to $suffix_ascii $off $suffix_su $suffix_bin);
+use Project_config;
+
+
+=head2 instantiation of packages
+
+=cut
+
+my $get					= new L_SU_global_constants();
+my $Project				= new Project_config();
+my $DATA_SEISMIC_SU		= $Project->DATA_SEISMIC_SU();
+my $DATA_SEISMIC_BIN	= $Project->DATA_SEISMIC_BIN();
+my $DATA_SEISMIC_TXT	= $Project->DATA_SEISMIC_TXT();
+
+my $var				= $get->var();
+my $on				= $var->{_on};
+my $off				= $var->{_off};
+my $true			= $var->{_true};
+my $false			= $var->{_false};
+my $empty_string	= $var->{_empty_string};
+
+=head2 Encapsulated
+hash of private variables
+
+=cut
+
+my $suaddnoise			= {
+	_N					=> '',
+	_Output					=> '',
+	_amps					=> '',
+	_dt					=> '',
+	_f					=> '',
+	_noise					=> '',
+	_scale					=> '',
+	_seed					=> '',
+	_sn					=> '',
+	_tmpdir					=> '',
+	_verbose					=> '',
+	_Step					=> '',
+	_note					=> '',
+
+};
 
 =head2 sub Step
 
@@ -129,6 +216,7 @@ by adding the program name
 	return ( $suaddnoise->{_note} );
 
  }
+
 
 
 =head2 sub clear
@@ -374,18 +462,17 @@ by adding the program name
 
 
 =head2 sub get_max_index
- 
+
 max index = number of input variables -1
  
 =cut
  
-  sub get_max_index {
- 	my ($self) = @_;
-	# only file_name : index=36
- 	my $max_index = 36;
-	
- 	return($max_index);
- }
+sub get_max_index {
+ 	  my ($self) = @_;
+	my $max_index = 7;
+
+    return($max_index);
+}
  
  
-1; 
+1;

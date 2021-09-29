@@ -1,15 +1,16 @@
- package raydata;
-
-
-=head1 DOCUMENTATION
+package raydata;
 
 =head2 SYNOPSIS
 
- PACKAGE NAME:  RAYDATA - simple program to display ray data from elaray		
- AUTHOR: Juan Lorenzo
- DATE:   
- DESCRIPTION:
- Version: 
+PACKAGE NAME: 
+
+AUTHOR:  
+
+DATE:
+
+DESCRIPTION:
+
+Version:
 
 =head2 USE
 
@@ -17,26 +18,49 @@
 
 =head4 Examples
 
-=head3 SEISMIC UNIX NOTES
+=head2 SYNOPSIS
 
+=head3 SEISMIC UNIX NOTES
  RAYDATA - simple program to display ray data from elaray		
+
+
 
 raydata <rayends   [optional parameters]				
 
+
+
 Optional Parameters: 							
+
 kend=      Index of interest						
+
 t=0    =1 output of x_t requested 					
+
 px=0   =1 output of x_px requested 					
+
 pz=0   =1 output of x_pz requested 					
+
 vgx=0  =1 output of x_vgx requested 					
+
 vgz=0  =1 output of x_vgz requested 					
+
 pxvx=0 =1 output of px_vgx requested 					
+
 pol=0  =1 output of x_polangle requested 				
+
 ascci=0    binary output						
+
 	=1  ascci output						
 
+
+
 Simple program to display some of the computed raydata.                
+
 Output is written into files <*.data>                                  
+
+
+
+
+
 
 
 
@@ -45,277 +69,526 @@ AUTHOR:  Andreas Rueger, Colorado School of Mines, 02/15/94
 
 
 
+
+
+
+
  the main program
+
 int main (int argc, char **argv)
+
 {
+
 	int ir,nre,nrealloc,nri,iri,tout,ascci;
+
 	int pxout,pzout,vgxout,vgzout,pxvxout;
+
 	int polout;
+
 	float *tdata=NULL,*xdata=NULL,*pxdata=NULL,*pzdata=NULL;
+
 	float *vgxdata=NULL,*vgzdata=NULL,*pxvxdata=NULL;
+
 	float *poldata=NULL,*g11data=NULL,*g33data=NULL,*g13data=NULL;
+
 	/* float g11,g33,g13;*/
+
         int kend;
+
 	RayEnd *re;	
+
         FILE *txfp=NULL,*pxfp=NULL,*pzfp=NULL,*vgxfp=NULL,*vgzfp=NULL; 
+
         FILE *outparfp=NULL,*polfp=NULL,*pxvxfp=NULL;
 
+
+
 	/* hook up getpar to handle the parameters
+
 	initargs(argc,argv);
+
 	requestdoc(0);
+
 	
+
 	/* get parameters
+
 	if (!getparint("kend",&kend)) kend = INT_MAX;
+
 	if (!getparint("t",&tout))  tout  = 0; 
+
 	if (!getparint("px",&pxout))  pxout  = 0; 
+
 	if (!getparint("pz",&pzout))  pzout  = 0; 
+
 	if (!getparint("vgx",&vgxout))  vgxout  = 0; 
+
 	if (!getparint("vgz",&vgzout))  vgzout  = 0; 
+
 	if (!getparint("pxvx",&pxvxout))  pxvxout  = 0; 
+
 	if (!getparint("pol",&polout))  polout  = 0; 
+
+
 
 	if (!getparint("ascci",&ascci)) ascci = 0;
 
+
+
         checkpars();
 
+
+
         /* output file control
+
         if(tout>0) txfp= fopen("x_t.data","w");
+
         if(pxout) pxfp= fopen("x_px.data","w");
+
         if(pzout) pzfp= fopen("x_pz.data","w");
+
         if(vgxout) vgxfp= fopen("x_vgx.data","w");
+
         if(vgzout) vgzfp= fopen("x_vgz.data","w");
+
         if(pxvxout) pxvxfp= fopen("px_vgx.data","w");
+
         if(polout) polfp= fopen("x_pol.data","w");
+
         if(!ascci) outparfp = efopen("outpar","w");
 
+
+
 	/* read rayends
+
 	nre = nri = 0;
+
 	nrealloc = 301;
+
 	re = ealloc1(nrealloc,sizeof(RayEnd));
 
 
+
+
+
 	while (fread(&re[nre],sizeof(RayEnd),1,stdin)==1) {
+
 		nre++;
 
+
+
 		if (nre==nrealloc) {
+
 			nrealloc += 100;
+
 			re = erealloc1(re,nrealloc,sizeof(RayEnd));
+
 		}
+
 	}
+
 	if(kend == INT_MAX){
+
             nri=nre;
+
         } else {    
+
             /* how many rayends are of interest
+
             for(ir = 0; ir < nre;ir +=1 )
+
 		        if(re[ir].kend == kend) nri++;
+
         }
 
+
+
 	/* allocate space for data files
+
         if(tout>0) tdata = ealloc1(nri,sizeof(float));
+
         if(pxout|| pxvxout) pxdata = ealloc1(nri,sizeof(float));
+
         if(pzout) pzdata = ealloc1(nri,sizeof(float));
+
         if(vgxout|| pxvxout) vgxdata = ealloc1(nri,sizeof(float));
+
         if(vgzout) vgzdata = ealloc1(nri,sizeof(float));
+
         if(pxvxout) pxvxdata = ealloc1(nri,sizeof(float));
+
         if(polout){
+
 	  poldata = ealloc1(nri,sizeof(float));
+
 	  g11data = ealloc1(nri,sizeof(float));
+
 	  g13data = ealloc1(nri,sizeof(float));
+
 	  g33data = ealloc1(nri,sizeof(float));
+
 	}
+
+
 
         xdata = ealloc1(nri,sizeof(float));
 
+
+
         iri = 0;
 
+
+
         /* read in data into files
+
         for(ir = 0; ir < nre;ir +=1 ){
+
 	  /*fprintf(stderr,"ir=%i \t kend=%i\n",ir,re[ir].kend);*/
+
 		if(re[ir].kend == kend || kend == INT_MAX) {
+
                    if(tout>0) tdata[iri]  = re[ir].t;
+
 		   if(pxout|| pxvxout) pxdata[iri]  = re[ir].px;
+
                    if(pzout) pzdata[iri]  = re[ir].pz;
+
                    if(vgxout|| pxvxout) vgxdata[iri]  = re[ir].vgx;
+
                    if(vgzout) vgzdata[iri]  = re[ir].vgz;
+
 		   if(polout){
+
 			      g11data[iri] = re[ir].g11;
+
 			      g33data[iri] = re[ir].g33;
+
 			      g13data[iri] = re[ir].g13;
+
 		   }
+
                    xdata[iri] = re[ir].x;
+
                    iri++;
 
+
+
                 }
+
          }
 
+
+
      /* compute polarization
+
      if(polout){
+
 	for(ir = 0; ir < nre;ir +=1 ){
 
+
+
 		if(g13data[ir] > 0){
+
 			poldata[ir]=atan(sqrt(g11data[ir]/g33data[ir]));
+
 		} else if(g13data[ir] < 0){
+
 			poldata[ir]=PI/2+atan(sqrt(g33data[ir]/g11data[ir]));
+
 		} else if(g13data[ir] == 0 && g33data[ir]>0){
+
 			poldata[ir]=0.0;
+
 		} else if(g13data[ir] == 0 && g33data[ir]<0){
+
 			poldata[ir]=PI/2;
+
 		}
+
 		/*fprintf(stderr,"pol=%g\n",poldata[ir]);*/
+
 	}
+
       }
 
+
+
      /* ASCII output for x_t
+
      if(ascci ==1 && tout ==1){
+
         for(ir=0;ir<nri;ir+=1)
+
 	    fprintf(txfp,"%f	%f\n",xdata[ir],tdata[ir]);
+
      /* Binary output for x_t
+
      } else if(ascci ==0 && tout ==1){
+
         for(ir=0;ir<nri;ir+=1){
+
 	    fwrite(&tdata[ir],sizeof(float),1,txfp);
+
 	    fwrite(&xdata[ir],sizeof(float),1,txfp);
+
         }
+
      }
+
+
+
 
 
      /* ASCII output for x_px
+
      if(ascci ==1 && pxout ==1){
+
         for(ir=0;ir<nri;ir+=1)
+
 	    fprintf(pxfp,"%f	%f\n",xdata[ir],pxdata[ir]);
+
      /* Binary output for x_px
+
      } else if(ascci ==0 && pxout ==1){
+
         for(ir=0;ir<nri;ir+=1){
+
 	    fwrite(&pxdata[ir],sizeof(float),1,pxfp);
+
 	    fwrite(&xdata[ir],sizeof(float),1,pxfp);
+
         }
+
      }
+
+
+
 
 
      /* ASCII output for x_pz
+
      if(ascci ==1 && pzout ==1){
+
         for(ir=0;ir<nri;ir+=1)
+
 	    fprintf(pzfp,"%f	%f\n",xdata[ir],pzdata[ir]);
+
      /* Binary output for x_pz
+
      } else if(ascci ==0 && pzout ==1){
+
         for(ir=0;ir<nri;ir+=1){
+
 	    fwrite(&pzdata[ir],sizeof(float),1,pzfp);
+
 	    fwrite(&xdata[ir],sizeof(float),1,pzfp);
+
         }
+
      }
+
+
+
 
 
      /* ASCII output for x_vgx
+
      if(ascci ==1 && vgxout ==1){
+
         for(ir=0;ir<nri;ir+=1)
+
 	    fprintf(vgxfp,"%f	%f\n",xdata[ir],vgxdata[ir]);
+
      /* Binary output for x_vgx
+
      } else if(ascci ==0 && vgxout ==1){
+
         for(ir=0;ir<nri;ir+=1){
+
 	    fwrite(&vgxdata[ir],sizeof(float),1,vgxfp);
+
 	    fwrite(&xdata[ir],sizeof(float),1,vgxfp);
+
         }
+
      }
+
+
+
 
 
      /* ASCII output for x_vgz
+
      if(ascci ==1 && vgzout ==1){
+
         for(ir=0;ir<nri;ir+=1)
+
 	    fprintf(vgzfp,"%f	%f\n",xdata[ir],vgzdata[ir]);
+
      /* Binary output for x_vgz
+
      } else if(ascci ==0 && vgzout ==1){
+
         for(ir=0;ir<nri;ir+=1){
+
 	    fwrite(&vgzdata[ir],sizeof(float),1,vgzfp);
+
 	    fwrite(&xdata[ir],sizeof(float),1,vgzfp);
+
         }
-     }
-     /* ASCII output for px_vgx
-     if(ascci == 1 && pxvxout != 0){
-        for(ir=0;ir<nri;ir+=1)
-	    fprintf(pxvxfp,"%f	%f\n",pxdata[ir],vgxdata[ir]);
-     /* Binary output for px_vgx
-     } else if(ascci ==0 && pxvxout != 0){
-        for(ir=0;ir<nri;ir+=1){
-	    fwrite(&pxdata[ir],sizeof(float),1,pxvxfp);
-	    fwrite(&vgxdata[ir],sizeof(float),1,pxvxfp);
-        }
+
      }
 
      /* ASCII output for px_vgx
-     if(ascci == 1 && polout != 0){
+
+     if(ascci == 1 && pxvxout != 0){
+
         for(ir=0;ir<nri;ir+=1)
-	    fprintf(polfp,"%f	%f\n",xdata[ir],poldata[ir]);
+
+	    fprintf(pxvxfp,"%f	%f\n",pxdata[ir],vgxdata[ir]);
+
      /* Binary output for px_vgx
-     } else if(ascci ==0 && polout != 0){
+
+     } else if(ascci ==0 && pxvxout != 0){
+
         for(ir=0;ir<nri;ir+=1){
-	    fwrite(&xdata[ir],sizeof(float),1,polfp);
-	    fwrite(&poldata[ir],sizeof(float),1,polfp);
+
+	    fwrite(&pxdata[ir],sizeof(float),1,pxvxfp);
+
+	    fwrite(&vgxdata[ir],sizeof(float),1,pxvxfp);
+
         }
+
      }
+
+
+
+     /* ASCII output for px_vgx
+
+     if(ascci == 1 && polout != 0){
+
+        for(ir=0;ir<nri;ir+=1)
+
+	    fprintf(polfp,"%f	%f\n",xdata[ir],poldata[ir]);
+
+     /* Binary output for px_vgx
+
+     } else if(ascci ==0 && polout != 0){
+
+        for(ir=0;ir<nri;ir+=1){
+
+	    fwrite(&xdata[ir],sizeof(float),1,polfp);
+
+	    fwrite(&poldata[ir],sizeof(float),1,polfp);
+
+        }
+
+     }
+
+
+
 
 
      if(!ascci) fprintf(outparfp,"%i\n",nri);
+
 	return EXIT_FAILURE;
+
 	
+
 }
+
+=head2 User's notes (Juan Lorenzo)
+untested
+
+=cut
+
+
 =head2 CHANGES and their DATES
 
 =cut
- use Moose;
- our $VERSION = '0.0.1';
-	use L_SU_global_constants();
 
-	my $get					= new L_SU_global_constants();
-
-	my $var				= $get->var();
-	my $empty_string    	= $var->{_empty_string};
+use Moose;
+our $VERSION = '0.0.1';
 
 
-	my $raydata		= {
-		_ascci					=> '',
-		_g11data					=> '',
-		_g13data					=> '',
-		_g33data					=> '',
-		_ir					=> '',
-		_iri					=> '',
-		_kend					=> '',
-		_nre					=> '',
-		_nrealloc					=> '',
-		_nri					=> '',
-		_outparfp					=> '',
-		_pol					=> '',
-		_poldata					=> '',
-		_polfp					=> '',
-		_polout					=> '',
-		_px					=> '',
-		_pxdata					=> '',
-		_pxfp					=> '',
-		_pxout					=> '',
-		_pxvx					=> '',
-		_pxvxdata					=> '',
-		_pxvxfp					=> '',
-		_pxvxout					=> '',
-		_pz					=> '',
-		_pzdata					=> '',
-		_pzfp					=> '',
-		_pzout					=> '',
-		_re					=> '',
-		_t					=> '',
-		_tdata					=> '',
-		_tout					=> '',
-		_txfp					=> '',
-		_vgx					=> '',
-		_vgxdata					=> '',
-		_vgxfp					=> '',
-		_vgxout					=> '',
-		_vgz					=> '',
-		_vgzdata					=> '',
-		_vgzfp					=> '',
-		_vgzout					=> '',
-		_xdata					=> '',
-		_Step					=> '',
-		_note					=> '',
-    };
+=head2 Import packages
 
+=cut
+
+use L_SU_global_constants();
+
+use SeismicUnix qw ($in $out $on $go $to $suffix_ascii $off $suffix_su $suffix_bin);
+use Project_config;
+
+
+=head2 instantiation of packages
+
+=cut
+
+my $get					= new L_SU_global_constants();
+my $Project				= new Project_config();
+my $DATA_SEISMIC_SU		= $Project->DATA_SEISMIC_SU();
+my $DATA_SEISMIC_BIN	= $Project->DATA_SEISMIC_BIN();
+my $DATA_SEISMIC_TXT	= $Project->DATA_SEISMIC_TXT();
+
+my $var				= $get->var();
+my $on				= $var->{_on};
+my $off				= $var->{_off};
+my $true			= $var->{_true};
+my $false			= $var->{_false};
+my $empty_string	= $var->{_empty_string};
+
+=head2 Encapsulated
+hash of private variables
+
+=cut
+
+my $raydata			= {
+	_ascci					=> '',
+	_g11data					=> '',
+	_g13data					=> '',
+	_g33data					=> '',
+	_ir					=> '',
+	_iri					=> '',
+	_kend					=> '',
+	_nre					=> '',
+	_nrealloc					=> '',
+	_nri					=> '',
+	_outparfp					=> '',
+	_pol					=> '',
+	_poldata					=> '',
+	_polfp					=> '',
+	_polout					=> '',
+	_px					=> '',
+	_pxdata					=> '',
+	_pxfp					=> '',
+	_pxout					=> '',
+	_pxvx					=> '',
+	_pxvxdata					=> '',
+	_pxvxfp					=> '',
+	_pxvxout					=> '',
+	_pz					=> '',
+	_pzdata					=> '',
+	_pzfp					=> '',
+	_pzout					=> '',
+	_re					=> '',
+	_t					=> '',
+	_tdata					=> '',
+	_tout					=> '',
+	_txfp					=> '',
+	_vgx					=> '',
+	_vgxdata					=> '',
+	_vgxfp					=> '',
+	_vgxout					=> '',
+	_vgz					=> '',
+	_vgzdata					=> '',
+	_vgzfp					=> '',
+	_vgzout					=> '',
+	_xdata					=> '',
+	_Step					=> '',
+	_note					=> '',
+
+};
 
 =head2 sub Step
 
@@ -345,6 +618,7 @@ by adding the program name
 	return ( $raydata->{_note} );
 
  }
+
 
 
 =head2 sub clear
@@ -1220,18 +1494,17 @@ by adding the program name
 
 
 =head2 sub get_max_index
- 
+
 max index = number of input variables -1
  
 =cut
  
-  sub get_max_index {
- 	my ($self) = @_;
-	# only file_name : index=36
- 	my $max_index = 36;
-	
- 	return($max_index);
- }
+sub get_max_index {
+ 	  my ($self) = @_;
+	my $max_index = 8;
+
+    return($max_index);
+}
  
  
-1; 
+1;

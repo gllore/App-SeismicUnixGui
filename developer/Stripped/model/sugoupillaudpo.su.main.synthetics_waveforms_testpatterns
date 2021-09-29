@@ -11,7 +11,7 @@
 		      Source is located at the top of layer l.		     
 	k=1	   receiver layer number; 1 <= k			 
 		      Receiver is located at the top of layer k.	    
-	tmax	  number of output time-samples;			
+	tmax=	  number of output time-samples;			
 		      default: long enough to capture all primaries	 
 	pV=1	  flag for vector field seismogram		      
 		      (displacement, velocity, acceleration);	       

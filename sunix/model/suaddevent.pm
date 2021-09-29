@@ -1,15 +1,16 @@
- package suaddevent;
-
-
-=head1 DOCUMENTATION
+package suaddevent;
 
 =head2 SYNOPSIS
 
- PACKAGE NAME: 
- AUTHOR: Juan Lorenzo
- DATE:   
- DESCRIPTION:
- Version: 
+PACKAGE NAME: 
+
+AUTHOR:  
+
+DATE:
+
+DESCRIPTION:
+
+Version:
 
 =head2 USE
 
@@ -17,65 +18,130 @@
 
 =head4 Examples
 
+=head2 SYNOPSIS
+
 =head3 SEISMIC UNIX NOTES
 
 
  SUADDEVENT - add a linear or hyperbolic moveout event to seismic data 
 
+
+
  suaddevent <stdin >stdout [optional parameters]		       
 
+
+
  Required parameters:						  
+
        none								
 
+
+
  Optional parameters:						  
+
      type=nmo    =lmo for linear event 				
+
      t0=1.0      zero-offset intercept time IN SECONDS			
+
      vel=3000.   moveout velocity in m/s				
+
      amp=1.      amplitude						
+
      dt=	 must provide if 0 in headers (seconds)		
 
+
+
  Typical usage: 
+
      sunull nt=500 dt=0.004 ntr=100 | sushw key=offset a=-1000 b=20 \\ 
+
      | suaddevent v=1000 t0=0.05 type=lmo | suaddevent v=1800 t0=0.8 \
+
      | sufilter f=8,12,75,90 | suxwigb clip=1 &	     		
 
 
 
+
+
+
+
  Credits:
+
       Gary Billings, Talisman Energy, May 1996, Apr 2000, June 2001
 
+
+
  Note:  code is inefficient in that to add a single "spike", with sinc
+
 	interpolation, an entire trace is generated and added to 
+
 	the input trace.  In fact, only a few points needed be created
+
 	and added, but the current coding avoids the bookkeeping re
+
 	which are the relevant points!
+
+
+
+=head2 User's notes (Juan Lorenzo)
+untested
+
+=cut
+
 
 =head2 CHANGES and their DATES
 
 =cut
- use Moose;
- our $VERSION = '0.0.1';
-	use L_SU_global_constants();
 
-	my $get					= new L_SU_global_constants();
-
-	my $var				= $get->var();
-	my $empty_string    	= $var->{_empty_string};
+use Moose;
+our $VERSION = '0.0.1';
 
 
-	my $suaddevent		= {
-		_amp					=> '',
-		_dt					=> '',
-		_f					=> '',
-		_nt					=> '',
-		_t0					=> '',
-		_type					=> '',
-		_v					=> '',
-		_vel					=> '',
-		_Step					=> '',
-		_note					=> '',
-    };
+=head2 Import packages
 
+=cut
+
+use L_SU_global_constants();
+
+use SeismicUnix qw ($in $out $on $go $to $suffix_ascii $off $suffix_su $suffix_bin);
+use Project_config;
+
+
+=head2 instantiation of packages
+
+=cut
+
+my $get					= new L_SU_global_constants();
+my $Project				= new Project_config();
+my $DATA_SEISMIC_SU		= $Project->DATA_SEISMIC_SU();
+my $DATA_SEISMIC_BIN	= $Project->DATA_SEISMIC_BIN();
+my $DATA_SEISMIC_TXT	= $Project->DATA_SEISMIC_TXT();
+
+my $var				= $get->var();
+my $on				= $var->{_on};
+my $off				= $var->{_off};
+my $true			= $var->{_true};
+my $false			= $var->{_false};
+my $empty_string	= $var->{_empty_string};
+
+=head2 Encapsulated
+hash of private variables
+
+=cut
+
+my $suaddevent			= {
+	_amp					=> '',
+	_dt					=> '',
+	_f					=> '',
+	_nt					=> '',
+	_t0					=> '',
+	_type					=> '',
+	_v					=> '',
+	_vel					=> '',
+	_Step					=> '',
+	_note					=> '',
+
+};
 
 =head2 sub Step
 
@@ -105,6 +171,7 @@ by adding the program name
 	return ( $suaddevent->{_note} );
 
  }
+
 
 
 =head2 sub clear
@@ -287,18 +354,17 @@ by adding the program name
 
 
 =head2 sub get_max_index
- 
+
 max index = number of input variables -1
  
 =cut
  
-  sub get_max_index {
- 	my ($self) = @_;
-	# only file_name : index=36
- 	my $max_index = 36;
-	
- 	return($max_index);
- }
+sub get_max_index {
+ 	  my ($self) = @_;
+	my $max_index = 7;
+
+    return($max_index);
+}
  
  
-1; 
+1;

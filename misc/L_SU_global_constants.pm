@@ -458,10 +458,24 @@ my @sunix_model_programs = (
 	"elaray",
 	"elasyn",
 	"elatriuni",
+	"gbbeam",
+	"normray",
+	"raydata",
+	"suaddevent",
+	"suaddnoise",
+	"sudgwaveform",
 	"suea2df",
 	"sufctanismod",
 	"sufdmod1",
 	"sufdmod2",
+	"sufdmod2_pml",
+	"sugoupillaud",
+	"sugoupillaudpo",
+	"suimp2d",
+	"suimp3d",
+	"suimpedance",
+	"sujitter",
+	"sunull",
 	"suplane",
 	"suspike",
 	"susynlv",
@@ -678,6 +692,21 @@ sub param {
 }
 
 1;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

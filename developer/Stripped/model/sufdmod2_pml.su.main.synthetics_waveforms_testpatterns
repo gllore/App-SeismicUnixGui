@@ -30,8 +30,11 @@ may be buggy!
  vsx=			x coordinate of vertical line of seismograms	
  hsz=			z coordinate of horizontal line of seismograms	
  vsfile=		output file for vertical line of seismograms[nz][nt]
+ vsfile_out=
  hsfile=		output file for horizontal line of seismograms[nx][nt]
+ hsfile_out=
  ssfile=		output file for source point seismograms[nt]	
+ source_seismogram_out=
  verbose=0		=1 for diagnostic messages, =2 for more		
 
  abs=1,1,1,1		Absorbing boundary conditions on top,left,bottom,right

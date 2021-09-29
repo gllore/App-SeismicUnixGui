@@ -1,15 +1,16 @@
- package gbbeam;
-
-
-=head1 DOCUMENTATION
+package gbbeam;
 
 =head2 SYNOPSIS
 
- PACKAGE NAME:  GBBEAM - Gaussian beam synthetic seismograms for a sloth model 	
- AUTHOR: Juan Lorenzo
- DATE:   
- DESCRIPTION:
- Version: 
+PACKAGE NAME: 
+
+AUTHOR
+
+DATE:
+
+DESCRIPTION:
+
+Version:
 
 =head2 USE
 
@@ -17,82 +18,156 @@
 
 =head4 Examples
 
-=head3 SEISMIC UNIX NOTES
+=head2 SYNOPSIS
 
+=head3 SEISMIC UNIX NOTES
  GBBEAM - Gaussian beam synthetic seismograms for a sloth model 	
+
+
 
  gbbeam <rayends >syntraces xg= zg= [optional parameters]		
 
+
+
  Required Parameters:							
+
  xg=              x coordinates of receiver surface			
+
  zg=              z coordinates of receiver surface			
 
+
+
  Optional Parameters:							
+
  ng=101           number of receivers (uniform distributed along surface)
+
  krecord=1        integer index of receiver surface (see notes below)	
+
  ang=0.0          array of angles corresponding to amplitudes in amp	
+
  amp=1.0          array of amplitudes corresponding to angles in ang	
+
  bw=0             beamwidth at peak frequency				
+
  nt=251           number of time samples				
+
  dt=0.004         time sampling interval				
+
  ft=0.0           first time sample					
+
  reftrans=0       =1 complex refl/transm. coefficients considered	
+
  prim             =1, only single-reflected rays are considered	",     
+
                   =0, only direct hits are considered			
+
  atten=0          =1 add noncausal attenuation				
+
                   =2 add causal attenuation				
+
  lscale=          if defined restricts range of extrapolation		
+
  aperture=        maximum angle of receiver aperture			
+
  fpeak=0.1/dt     peak frequency of ricker wavelet			
+
  infofile         ASCII-file to store useful information		
+
  NOTES:								
+
  Only rays that terminate with index krecord will contribute to the	
+
  synthetic seismograms at the receiver (xg,zg) locations.  The		
+
  receiver locations are determined by cubic spline interpolation	
+
  of the specified (xg,zg) coordinates.					
 
 
 
+
+
+
+
  AUTHOR:  Dave Hale, Colorado School of Mines, 02/09/91
+
  MODIFIED:  Andreas Rueger, Colorado School of Mines, 08/18/93
+
 	Modifications include: 2.5-D amplitudes, computation of reflection/
+
 			transmission losses, attenuation,
+
 			timewindow, lscale, aperture, beam width, etc.
+
+
+
+=head2 User's notes (Juan Lorenzo)
+untested
+
+=cut
+
 
 =head2 CHANGES and their DATES
 
 =cut
- use Moose;
- our $VERSION = '0.0.1';
-	use L_SU_global_constants();
 
-	my $get					= new L_SU_global_constants();
-
-	my $var				= $get->var();
-	my $empty_string    	= $var->{_empty_string};
+use Moose;
+our $VERSION = '0.0.1';
 
 
-	my $gbbeam		= {
-		_amp					=> '',
-		_ang					=> '',
-		_aperture					=> '',
-		_atten					=> '',
-		_bw					=> '',
-		_dt					=> '',
-		_fpeak					=> '',
-		_ft					=> '',
-		_krecord					=> '',
-		_lscale					=> '',
-		_ng					=> '',
-		_nt					=> '',
-		_prim					=> '',
-		_reftrans					=> '',
-		_xg					=> '',
-		_zg					=> '',
-		_Step					=> '',
-		_note					=> '',
-    };
+=head2 Import packages
 
+=cut
+
+use L_SU_global_constants();
+
+use SeismicUnix qw ($in $out $on $go $to $suffix_ascii $off $suffix_su $suffix_bin);
+use Project_config;
+
+
+=head2 instantiation of packages
+
+=cut
+
+my $get					= new L_SU_global_constants();
+my $Project				= new Project_config();
+my $DATA_SEISMIC_SU		= $Project->DATA_SEISMIC_SU();
+my $DATA_SEISMIC_BIN	= $Project->DATA_SEISMIC_BIN();
+my $DATA_SEISMIC_TXT	= $Project->DATA_SEISMIC_TXT();
+
+my $var				= $get->var();
+my $on				= $var->{_on};
+my $off				= $var->{_off};
+my $true			= $var->{_true};
+my $false			= $var->{_false};
+my $empty_string	= $var->{_empty_string};
+
+=head2 Encapsulated
+hash of private variables
+
+=cut
+
+my $gbbeam			= {
+	_amp					=> '',
+	_ang					=> '',
+	_aperture					=> '',
+	_atten					=> '',
+	_bw					=> '',
+	_dt					=> '',
+	_fpeak					=> '',
+	_ft					=> '',
+	_krecord					=> '',
+	_lscale					=> '',
+	_ng					=> '',
+	_nt					=> '',
+	_prim					=> '',
+	_reftrans					=> '',
+	_xg					=> '',
+	_zg					=> '',
+	_Step					=> '',
+	_note					=> '',
+
+};
 
 =head2 sub Step
 
@@ -122,6 +197,7 @@ by adding the program name
 	return ( $gbbeam->{_note} );
 
  }
+
 
 
 =head2 sub clear
@@ -472,18 +548,17 @@ by adding the program name
 
 
 =head2 sub get_max_index
- 
+
 max index = number of input variables -1
  
 =cut
  
-  sub get_max_index {
- 	my ($self) = @_;
-	# only file_name : index=36
- 	my $max_index = 36;
-	
- 	return($max_index);
- }
+sub get_max_index {
+ 	  my ($self) = @_;
+	my $max_index = 15;
+
+    return($max_index);
+}
  
  
-1; 
+1;

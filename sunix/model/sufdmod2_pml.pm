@@ -1,15 +1,16 @@
- package sufdmod2_pml;
-
-
-=head1 DOCUMENTATION
+package sufdmod2_pml;
 
 =head2 SYNOPSIS
 
- PACKAGE NAME:  SUFDMOD2_PML - Finite-Difference MODeling (2nd order) for acoustic wave
- AUTHOR: Juan Lorenzo
- DATE:   
- DESCRIPTION:
- Version: 
+PACKAGE NAME: 
+
+AUTHOR:  
+
+DATE:
+
+DESCRIPTION:
+
+Version:
 
 =head2 USE
 
@@ -17,152 +18,295 @@
 
 =head4 Examples
 
-=head3 SEISMIC UNIX NOTES
+=head2 SYNOPSIS
 
+=head3 SEISMIC UNIX NOTES
  SUFDMOD2_PML - Finite-Difference MODeling (2nd order) for acoustic wave
+
     equation with PML absorbing boundary conditions.			
+
  Caveat: experimental PML absorbing boundary condition version,	
+
 may be buggy!								
+
+
 
  sufdmod2_pml <vfile >wfile nx= nz= tmax= xs= zs= [optional parameters]
 
+
+
  Required Parameters:							
+
  <vfile		file containing velocity[nx][nz]		
+
  >wfile		file containing waves[nx][nz] for time steps	
+
  nx=			number of x samples (2nd dimension)		
+
  nz=			number of z samples (1st dimension)		
+
  xs=			x coordinates of source				
+
  zs=			z coordinates of source				
+
  tmax=			maximum time					
 
+
+
  Optional Parameters:							
+
  nt=1+tmax/dt		number of time samples (dt determined for stability)
+
  mt=1			number of time steps (dt) per output time step	
 
+
+
  dx=1.0		x sampling interval				
+
  fx=0.0		first x sample					
+
  dz=1.0		z sampling interval				
+
  fz=0.0		first z sample					
 
+
+
  fmax = vmin/(10.0*h)	maximum frequency in source wavelet		
+
  fpeak=0.5*fmax	peak frequency in ricker wavelet		
 
+
+
  dfile=		input file containing density[nx][nz]		
+
  vsx=			x coordinate of vertical line of seismograms	
+
  hsz=			z coordinate of horizontal line of seismograms	
+
  vsfile=		output file for vertical line of seismograms[nz][nt]
+
+ vsfile_out=
+
  hsfile=		output file for horizontal line of seismograms[nx][nt]
+
+ hsfile_out=
+
  ssfile=		output file for source point seismograms[nt]	
+
+ source_seismogram_out=
+
  verbose=0		=1 for diagnostic messages, =2 for more		
 
+
+
  abs=1,1,1,1		Absorbing boundary conditions on top,left,bottom,right
+
  			sides of the model. 				
+
  		=0,1,1,1 for free surface condition on the top		
 
+
+
  ...PML parameters....                                                 
+
  pml_max=1000.0        PML absorption parameter                        
+
  pml_thick=0           half-thickness of pml layer (0 = do not use PML)
 
+
+
  Notes:								
+
  This program uses the traditional explicit second order differencing	
+
  method. 								
 
+
+
  Two different absorbing boundary condition schemes are available. The 
+
  first is a traditional absorbing boundary condition scheme created by 
+
  Hale, 1990. The second is based on the perfectly matched layer (PML)	
+
  method of Berenger, 1995.						
 
 
 
+
+
+
+
  Authors:  CWP:Dave Hale
+
            CWP:modified for SU by John Stockwell, 1993.
+
            CWP:added frequency specification of wavelet: Craig Artley, 1993
+
            TAMU:added PML absorbing boundary condition: 
+
                Michael Holzrichter, 1998
+
            CWP/WesternGeco:corrected PML code to handle density variations:
+
                Greg Wimpey, 2006
 
+
+
  References: (Hale's absobing boundary conditions)
+
  Clayton, R. W., and Engquist, B., 1977, Absorbing boundary conditions
+
  for acoustic and elastic wave equations, Bull. Seism. Soc. Am., 6,
+
 	1529-1540. 
 
+
+
  Clayton, R. W., and Engquist, B., 1980, Absorbing boundary conditions
+
  for wave equation migration, Geophysics, 45, 895-904.
 
+
+
  Hale, D.,  1990, Adaptive absorbing boundaries for finite-difference
+
  modeling of the wave equation migration, unpublished report from the
+
  Center for Wave Phenomena, Colorado School of Mines.
 
+
+
  Richtmyer, R. D., and Morton, K. W., 1967, Difference methods for
+
  initial-value problems, John Wiley & Sons, Inc, New York.
 
+
+
  Thomee, V., 1962, A stable difference scheme for the mixed boundary problem
+
  for a hyperbolic, first-order system in two dimensions, J. Soc. Indust.
+
  Appl. Math., 10, 229-245.
 
+
+
  Toldi, J. L., and Hale, D., 1982, Data-dependent absorbing side boundaries,
+
  Stanford Exploration Project Report SEP-30, 111-121.
 
+
+
  References: (PML boundary conditions)
+
  Jean-Pierre Berenger, ``A Perfectly Matched Layer for the Absorption of
+
  Electromagnetic Waves,''  Journal of Computational Physics, vol. 114,
+
  pp. 185-200.
 
+
+
  Hastings, Schneider, and Broschat, ``Application of the perfectly
+
  matched layer (PML) absorbing boundary condition to elastic wave
+
  propogation,''  Journal of the Accoustical Society of America,
+
  November, 1996.
 
+
+
  Allen Taflove, ``Electromagnetic Modeling:  Finite Difference Time
+
  Domain Methods'', Baltimore, Maryland: Johns Hopkins University Press,
+
  1995, chap. 7, pp. 181-195.
 
 
+
+
+
  Trace header fields set: ns, delrt, tracl, tracr, offset, d1, d2,
+
                           sdepth, trid
+
+
+
+=head2 User's notes (Juan Lorenzo)
+untested
+
+=cut
+
 
 =head2 CHANGES and their DATES
 
 =cut
- use Moose;
- our $VERSION = '0.0.1';
-	use L_SU_global_constants();
 
-	my $get					= new L_SU_global_constants();
-
-	my $var				= $get->var();
-	my $empty_string    	= $var->{_empty_string};
+use Moose;
+our $VERSION = '0.0.1';
 
 
-	my $sufdmod2_pml		= {
-		_abs					=> '',
-		_dfile					=> '',
-		_dx					=> '',
-		_dz					=> '',
-		_fmax					=> '',
-		_fpeak					=> '',
-		_fx					=> '',
-		_fz					=> '',
-		_hsfile					=> '',
-		_hsz					=> '',
-		_mt					=> '',
-		_nt					=> '',
-		_nx					=> '',
-		_nz					=> '',
-		_pml_max					=> '',
-		_pml_thick					=> '',
-		_ssfile					=> '',
-		_tmax					=> '',
-		_verbose					=> '',
-		_vsfile					=> '',
-		_vsx					=> '',
-		_xs					=> '',
-		_zs					=> '',
-		_Step					=> '',
-		_note					=> '',
-    };
+=head2 Import packages
 
+=cut
+
+use L_SU_global_constants();
+
+use SeismicUnix qw ($in $out $on $go $to $suffix_ascii $off $suffix_su $suffix_bin);
+use Project_config;
+
+
+=head2 instantiation of packages
+
+=cut
+
+my $get					= new L_SU_global_constants();
+my $Project				= new Project_config();
+my $DATA_SEISMIC_SU		= $Project->DATA_SEISMIC_SU();
+my $DATA_SEISMIC_BIN	= $Project->DATA_SEISMIC_BIN();
+my $DATA_SEISMIC_TXT	= $Project->DATA_SEISMIC_TXT();
+
+my $var				= $get->var();
+my $on				= $var->{_on};
+my $off				= $var->{_off};
+my $true			= $var->{_true};
+my $false			= $var->{_false};
+my $empty_string	= $var->{_empty_string};
+
+=head2 Encapsulated
+hash of private variables
+
+=cut
+
+my $sufdmod2_pml			= {
+	_abs					=> '',
+	_dfile					=> '',
+	_dx					=> '',
+	_dz					=> '',
+	_fmax					=> '',
+	_fpeak					=> '',
+	_fx					=> '',
+	_fz					=> '',
+	_hsfile					=> '',
+	_hsz					=> '',
+	_mt					=> '',
+	_nt					=> '',
+	_nx					=> '',
+	_nz					=> '',
+	_pml_max					=> '',
+	_pml_thick					=> '',
+	_ssfile					=> '',
+	_tmax					=> '',
+	_verbose					=> '',
+	_vsfile					=> '',
+	_vsx					=> '',
+	_xs					=> '',
+	_zs					=> '',
+	_Step					=> '',
+	_note					=> '',
+
+};
 
 =head2 sub Step
 
@@ -192,6 +336,7 @@ by adding the program name
 	return ( $sufdmod2_pml->{_note} );
 
  }
+
 
 
 =head2 sub clear
@@ -689,18 +834,17 @@ by adding the program name
 
 
 =head2 sub get_max_index
- 
+
 max index = number of input variables -1
  
 =cut
  
-  sub get_max_index {
- 	my ($self) = @_;
-	# only file_name : index=36
- 	my $max_index = 36;
-	
- 	return($max_index);
- }
+sub get_max_index {
+ 	  my ($self) = @_;
+	my $max_index = 22;
+
+    return($max_index);
+}
  
  
-1; 
+1;

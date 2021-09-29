@@ -64,9 +64,9 @@ sub binding_index_aref {
 
 	my @index;
 
-	$index[0] = 9;
-	$index[1] = 18;
-	$index[2] = 22;
+	$index[0] = 8;
+	$index[1] = 17;
+	$index[2] = 21;
 
 	$sufdmod2_spec->{_binding_index_aref} = \@index;
 	# print("sufdmod2_spec,binding_index_aref index: @index\n");

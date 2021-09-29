@@ -104,9 +104,11 @@ Version:
  Trace header fields modified: trid
  
 
- =head2 User's notes (Juan Lorenzo)
+=head2 User's notes (Juan Lorenzo)
  
- Untested
+Clockwise rotation for a left-handed system (ZNE): inv=0 and negative angles or inv=1 and positive angles
+
+Two simple demos exist for suhrot -- 9.15.21
 
 =cut
 

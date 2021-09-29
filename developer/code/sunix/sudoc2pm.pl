@@ -105,7 +105,9 @@ For example:
 
 =cut
 
-my $selected_program_name = 'elatriuni';
+my $selected_program_name = 'sufdmod2_pml';
+
+$selected_program_name =~ s/\ //g;
 
 =head2 private values
 
@@ -119,7 +121,7 @@ my $path_out4specs        = $prog_doc2pm->get_path_out4specs();
 my $path_out4sunix       = $prog_doc2pm->get_path_out4sunix();
 my @long_file_name  = @{ $prog_doc2pm->get_list_aref() };
 
-#print("sudoc2pm.pl,long_file_name: @long_file_name\n");
+# print("sudoc2pm.pl,long_file_name: @long_file_name\n");
 #print("sudoc2pm.pl,path_out: $path_out4developer\n");
 #print("sudoc2pm.pl,list_length: $list_length\n");
 
@@ -128,21 +130,20 @@ my $package_name;
 
 for ( my $i = 0; $i < $list_length; $i++ ) {
 	
-#print("sudoc2pm.pl,program_name, num=$i, program_name=$program_name[$i]\n"); 
+ #print("sudoc2pm.pl,program_name, num=$i, program_name=$program_name[$i]\n"); 
 
-	
 	$package_name    = $program_name[$i];
 	$pm_file_out[0]     = $package_name . '.pm';
 	$config_file_out[0] = $package_name . '.config';
 	$spec_file_out[0]   = $package_name . '_spec.pm';
 	
-#print("sudoc2pm.pl,program_name, selected_program_name=$selected_program_name, \n");
-#print("sudoc2pm.pl, package_name =$package_name, \n");
+print("sudoc2pm.pl,program_name, selected_program_name=$selected_program_name, \n");
+print("sudoc2pm.pl, package_name =$package_name, \n");
 
 	if ( $selected_program_name eq $package_name) {
 		
-#		print("sudoc2pm.pl, I am in group=$group_number \n");
-#		print("sudoc2pm.pl, I am working on package =$package_name \n");
+		print("sudoc2pm.pl, I am in group=$group_number \n");
+		print("sudoc2pm.pl, I am working on package =$package_name \n");
 #		print("sudoc2pm.pl, writing $pm_file_out[0] in scratch\n");
 #		print("sudoc2pm.pl, writing $config_file_out[0] in scratch\\n");
 #		print("sudoc2pm.pl, writing $spec_file_out[0]in scratch\ \n");
