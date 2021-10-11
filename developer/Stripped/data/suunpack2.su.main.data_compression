@@ -2,7 +2,9 @@
 
     suunpack2 <packed_file >unpacked_file			
 
- suunpack2 is the approximate inverse of supack2		
+ suunpack2 is the approximate inverse of supack2	
+ 
+ opt=null	
 
 
  Credits:

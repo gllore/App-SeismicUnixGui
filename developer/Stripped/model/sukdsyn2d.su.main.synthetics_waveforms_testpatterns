@@ -4,9 +4,9 @@
    sukdsyn2d  infile  outfile [parameters] 				
 
  Required parameters: 							
- infile=stdin		input migrated section				
- outfile=stdout	file for output seismic traces  		
- ttfile		file for input traveltime tables		
+ infile is stdin		input migrated section				
+ outfile is stdout	file for output seismic traces  		
+ ttfile=file for input traveltime tables		
 
  The following 9 parameters describe traveltime tables:		
  fzt= 			first depth sample 				

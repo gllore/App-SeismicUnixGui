@@ -86,6 +86,7 @@ sub _get_DATA_DIR_IN {
 
 	my $DATA_SEISMIC_BIN  = $Project->DATA_SEISMIC_BIN();
 	my $DATA_SEISMIC_SEGB = $Project->DATA_SEISMIC_SEGB();
+	my $DATA_SEISMIC_SEGY = $Project->DATA_SEISMIC_SEGY();
 	my $DATA_SEISMIC_SU   = $Project->DATA_SEISMIC_SU();
 	my $PL_SEISMIC        = $Project->PL_SEISMIC();
 	my $DATA_SEISMIC_TXT  = $Project->DATA_SEISMIC_TXT();
@@ -138,7 +139,8 @@ sub _get_DATA_DIR_IN {
 			if ( $prefix[$index] ne $empty_string ) {
 
 				# Case 1.A: Many possible defined prefixes
-
+				# print("iFile, _get_DATA_DIR_IN, Case 1.A: Many possible defined prefixes\n");
+				
 				if ( $prefix[$index] eq ( '$DATA_SEISMIC_SU' . ".'/'." ) ) {
 
 					$result = $DATA_SEISMIC_SU;
@@ -155,6 +157,12 @@ sub _get_DATA_DIR_IN {
 
 					#					print("iFile, _get_DATA_DIR_IN,for SEGB; prefix[$index] =$prefix[$index]\n");
 
+				} elsif ( $prefix[$index] eq ( '$DATA_SEISMIC_SEGY' . ".'/'." ) ) {
+
+					$result = $DATA_SEISMIC_SEGY;
+
+					#					print("iFile, _get_DATA_DIR_IN,for SEGB; prefix[$index] =$prefix[$index]\n");
+
 				} elsif ( $prefix[$index] eq ( '$DATA_SEISMIC_TXT' . ".'/'." ) ) {
 
 					#					print("iFile, _get_DATA_DIR_IN for TXT; prefix[$index] =$prefix[$index]\n");
@@ -166,10 +174,11 @@ sub _get_DATA_DIR_IN {
 
 				} else {
 					print("iFile, _get_DATA_DIR_IN, unexpected result \n");
-#					print("iFile, _get_DATA_DIR_IN,  DATA_PATH_IN= $DATA_PATH_IN \n");
-#					print("2. iFile, _get_DATA_DIR_IN,prefix[$index] ='$prefix[$index]'\n");
-#					print( "3. iFile, _get_DATA_DIR_IN, 'DATA_SEISMIC_BIN' ='$DATA_SEISMIC_BIN' . " . '/' . "\n" );
-#					print( "4. iFile, _get_DATA_DIR_IN, 'DATA_SEISMIC_TXT' ='$DATA_SEISMIC_TXT' . " . '/' . "\n" );
+
+					#					print("iFile, _get_DATA_DIR_IN,  DATA_PATH_IN= $DATA_PATH_IN \n");
+					#					print("2. iFile, _get_DATA_DIR_IN,prefix[$index] ='$prefix[$index]'\n");
+					#					print( "3. iFile, _get_DATA_DIR_IN, 'DATA_SEISMIC_BIN' ='$DATA_SEISMIC_BIN' . " . '/' . "\n" );
+					#					print( "4. iFile, _get_DATA_DIR_IN, 'DATA_SEISMIC_TXT' ='$DATA_SEISMIC_TXT' . " . '/' . "\n" );
 				}
 
 			} elsif ( $prefix[$index] eq $empty_string ) {
@@ -438,7 +447,7 @@ sub get_Data_path {
 
 				# CASE 1A.7
 				$iFile->{_path} = $PL_SEISMIC;
-				print("iFile,get_path,path=$iFile->{_path}\n");
+#				print("iFile,get_path,path=$iFile->{_path}\n");
 
 			} else {
 				$iFile->{_path} = $default_path;

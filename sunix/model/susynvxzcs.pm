@@ -1,15 +1,16 @@
- package susynvxzcs;
-
-
-=head1 DOCUMENTATION
+package susynvxzcs;
 
 =head2 SYNOPSIS
 
- PACKAGE NAME:  SUSYNVXZCS - SYNthetic seismograms of common shot in V(X,Z) media via	
- AUTHOR: Juan Lorenzo
- DATE:   
- DESCRIPTION:
- Version: 
+PACKAGE NAME: 
+
+AUTHOR:  
+
+DATE:
+
+DESCRIPTION:
+
+Version:
 
 =head2 USE
 
@@ -17,132 +18,245 @@
 
 =head4 Examples
 
-=head3 SEISMIC UNIX NOTES
+=head2 SYNOPSIS
 
+=head3 SEISMIC UNIX NOTES
  SUSYNVXZCS - SYNthetic seismograms of common shot in V(X,Z) media via	
+
  		Kirchhoff-style modeling				
+
+
 
  susynvxzcs<vfile >outfile  nx= nz= [optional parameters]		
 
+
+
  Required Parameters:							
+
  <vfile        file containing velocities v[nx][nz]			
+
  >outfile      file containing seismograms of common ofset		
+
  nx=           number of x samples (2nd dimension) in velocity 
+
  nz=           number of z samples (1st dimension) in velocity 
 
+
+
  Optional Parameters:							
+
  nt=501        	number of time samples				
+
  dt=0.004      	time sampling interval (sec)			
+
  ft=0.0        	first time (sec)				
+
  fpeak=0.2/dt		peak frequency of symmetric Ricker wavelet (Hz)	
+
  nxg=			number of receivers of input traces		
+
  dxg=15		receiver sampling interval (m)			
+
  fxg=0.0		first receiver (m)				
+
  nxd=5         	skipped number of receivers			
+
  nxs=1			number of offsets				
+
  dxs=50		shot sampling interval (m)			
+
  fxs=0.0		first shot (m)				
+
  dx=50         	x sampling interval (m)				
+
  fx=0.         	first x sample (m)				
+
  dz=50         	z sampling interval (m)				
+
  nxb=nx/2    	band width centered at midpoint (see note)	
+
  nxc=0         hozizontal range in which velocity is changed	
+
  nzc=0         vertical range in which velocity is changed	
+
  pert=0        =1 calculate time correction from v_p[nx][nz]	
+
  vpfile        file containing slowness perturbation array v_p[nx][nz]	
+
  ref="1:1,2;4,2"	reflector(s):  "amplitude:x1,z1;x2,z2;x3,z3;...
+
  smooth=0		=1 for smooth (piecewise cubic spline) reflectors
+
  ls=0			=1 for line source; =0 for point source		
+
  tmin=10.0*dt		minimum time of interest (sec)			
+
  ndpfz=5		number of diffractors per Fresnel zone		
+
  cable=1		roll reciever spread with shot			
+
  			=0 static reciever spread			
+
  verbose=0		=1 to print some useful information		
 
+
+
  Notes:								
+
  This algorithm is based on formula (58) in Geo. Pros. 34, 686-703,	
+
  by N. Bleistein.							
 
+
+
  Traveltime and amplitude are calculated by finite difference which	
+
  is done only in one of every NXD receivers; in skipped receivers, 	
+
  interpolation is used to calculate traveltime and amplitude.		", 
+
  For each receiver, traveltime and amplitude are calculated in the 	
+
  horizontal range of (xg-nxb*dx, xg+nxb*dx). Velocity is changed by 	
+
  constant extropolation in two upper trianglar corners whose width is 	
+
  nxc*dx and height is nzc*dz.						
 
+
+
  Eikonal equation will fail to solve if there is a polar turned ray.	
+
  In this case, the program shows the related geometric information. 	
+
  There are three ways to remove the turned rays: smoothing velocity, 	
+
  reducing nxb, and increaing nxc and nzc (if the turned ray occurs  	
+
  in shallow areas). To prevent traveltime distortion from an over-	
+
  smoothed velocity, traveltime is corrected based on the slowness 	
+
  perturbation.								
 
+
+
  More than one ref (reflector) may be specified.			
+
  Note that reflectors are encoded as quoted strings, with an optional	
+
  reflector amplitude: preceding the x,z coordinates of each reflector.	
+
  Default amplitude is 1.0 if amplitude: part of the string is omitted.	
 
 
 
+
+
+
+
 	Author: Zhenyue Liu, 07/20/92, Center for Wave Phenomena
+
 		Many subroutines borrowed from Dave Hale's program: SUSYNLV
 
+
+
 		Trino Salinas, 07/30/96, fixed a bug in the geometry
+
 		setting to allow the spread move with the shots.
+
+
 
 		Chris Liner 12/10/08  added cable option, set fldr header word
 
+
+
  Trace header fields set: trid, counit, ns, dt, delrt,
+
 				tracl. tracr, fldr, tracf,
+
 				sx, gx
+
+
+
+=head2 User's notes (Juan Lorenzo)
+untested
+
+=cut
+
 
 =head2 CHANGES and their DATES
 
 =cut
- use Moose;
- our $VERSION = '0.0.1';
-	use L_SU_global_constants();
 
-	my $get					= new L_SU_global_constants();
-
-	my $var				= $get->var();
-	my $empty_string    	= $var->{_empty_string};
+use Moose;
+our $VERSION = '0.0.1';
 
 
-	my $susynvxzcs		= {
-		_cable					=> '',
-		_dt					=> '',
-		_dx					=> '',
-		_dxg					=> '',
-		_dxs					=> '',
-		_dz					=> '',
-		_fpeak					=> '',
-		_ft					=> '',
-		_fx					=> '',
-		_fxg					=> '',
-		_fxs					=> '',
-		_ls					=> '',
-		_ndpfz					=> '',
-		_nt					=> '',
-		_nx					=> '',
-		_nxb					=> '',
-		_nxc					=> '',
-		_nxd					=> '',
-		_nxg					=> '',
-		_nxs					=> '',
-		_nz					=> '',
-		_nzc					=> '',
-		_pert					=> '',
-		_ref					=> '',
-		_smooth					=> '',
-		_tmin					=> '',
-		_verbose					=> '',
-		_Step					=> '',
-		_note					=> '',
-    };
+=head2 Import packages
 
+=cut
+
+use L_SU_global_constants();
+
+use SeismicUnix qw ($in $out $on $go $to $suffix_ascii $off $suffix_su $suffix_bin);
+use Project_config;
+
+
+=head2 instantiation of packages
+
+=cut
+
+my $get					= new L_SU_global_constants();
+my $Project				= new Project_config();
+my $DATA_SEISMIC_SU		= $Project->DATA_SEISMIC_SU();
+my $DATA_SEISMIC_BIN	= $Project->DATA_SEISMIC_BIN();
+my $DATA_SEISMIC_TXT	= $Project->DATA_SEISMIC_TXT();
+
+my $var				= $get->var();
+my $on				= $var->{_on};
+my $off				= $var->{_off};
+my $true			= $var->{_true};
+my $false			= $var->{_false};
+my $empty_string	= $var->{_empty_string};
+
+=head2 Encapsulated
+hash of private variables
+
+=cut
+
+my $susynvxzcs			= {
+	_cable					=> '',
+	_dt					=> '',
+	_dx					=> '',
+	_dxg					=> '',
+	_dxs					=> '',
+	_dz					=> '',
+	_fpeak					=> '',
+	_ft					=> '',
+	_fx					=> '',
+	_fxg					=> '',
+	_fxs					=> '',
+	_ls					=> '',
+	_ndpfz					=> '',
+	_nt					=> '',
+	_nx					=> '',
+	_nxb					=> '',
+	_nxc					=> '',
+	_nxd					=> '',
+	_nxg					=> '',
+	_nxs					=> '',
+	_nz					=> '',
+	_nzc					=> '',
+	_pert					=> '',
+	_ref					=> '',
+	_smooth					=> '',
+	_tmin					=> '',
+	_verbose					=> '',
+	_Step					=> '',
+	_note					=> '',
+
+};
 
 =head2 sub Step
 
@@ -172,6 +286,7 @@ by adding the program name
 	return ( $susynvxzcs->{_note} );
 
  }
+
 
 
 =head2 sub clear
@@ -753,18 +868,17 @@ by adding the program name
 
 
 =head2 sub get_max_index
- 
+
 max index = number of input variables -1
  
 =cut
  
-  sub get_max_index {
- 	my ($self) = @_;
-	# only file_name : index=36
- 	my $max_index = 36;
-	
- 	return($max_index);
- }
+sub get_max_index {
+ 	  my ($self) = @_;
+	my $max_index = 26;
+
+    return($max_index);
+}
  
  
-1; 
+1;

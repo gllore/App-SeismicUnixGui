@@ -7,7 +7,8 @@
 
  Optional parameters:						
 	none							
-
+    opt=null
+  
  Notes:							
  This program is used to convert native machine datasets to	
  xdr-based, system-independent format.				

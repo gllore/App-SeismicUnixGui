@@ -7,25 +7,25 @@
  Required parameters:							
  infile=stdin		file for input seismic traces			
  outfile=stdout	file for output  	                        
- ttfile		file for input traveltime tables		
+ ttfile=file for input traveltime tables		
 
  Required parameters describing the traveltime tables:	         	
- fzt 			first depth sample in traveltime table		
- nzt 			number of depth samples in traveltime table	
+ fzt= 			first depth sample in traveltime table		
+ nzt= 			number of depth samples in traveltime table	
  dzt			depth interval in traveltime table		
- fxt			first lateral sample in traveltime table	
- nxt			number of lateral samples in traveltime table	
- dxt			lateral interval in traveltime table		
- fs 			x-coordinate of first source in table		
- ns 			number of sources in table			
- ds 			x-coordinate increment of sources in table	
+ fxt=			first lateral sample in traveltime table	
+ nxt=			number of lateral samples in traveltime table	
+ dxt=			lateral interval in traveltime table		
+ fs= 			x-coordinate of first source in table		
+ ns =			number of sources in table			
+ ds= 			x-coordinate increment of sources in table	
 
  Parameters describing the input data:                                 
- nxso                  number of shots                                 
- dxso                  shot interval                                   
+ nxso=                  number of shots                                 
+ dxso=                  shot interval                                   
  fxso=0                x-coordinate of first shot                      
- nxgo                  number of receiver offsets per shot             
- dxgo                  receiver offset interval                        
+ nxgo=                  number of receiver offsets per shot             
+ dxgo=                  receiver offset interval                        
  fxgo=0                first receiver offset                           
  dt= or from header (dt)       time sampling interval of input data    
  ft= or from header (ft)       first time sample of input data         
@@ -39,10 +39,10 @@
 
  Parameters describing the recording and datuming surfaces:            
  recsurf=0             recording surface (horizontal=0, topographic=1) 
- zrec                  defines recording surface when recsurf=0        
+ zrec=                  defines recording surface when recsurf=0        
  recfile=              defines recording surface when recsurf=1        
  datsurf=0             datuming surface (horizontal=0, irregular=1)    
- zdat                  defines datuming surface when datsurf=0         
+ zdat=                  defines datuming surface when datsurf=0         
  datfile=              defines datuming surface when datsurf=1         
 
  Parameters describing the extrapolation:                              

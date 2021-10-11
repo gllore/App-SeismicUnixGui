@@ -1,7 +1,9 @@
  SEGYSCAN -- SCANs SEGY file trace headers for min-max in  several	
      possible formats.							
 
-   segyscan < segyfile							
+   segyscan < segyfile
+   
+   opt=null							
 
  Notes:								
  The SEGY file trace headers are scanned assuming short, ushort, int,  

@@ -2,4 +2,4 @@
 
  ctrlstrip <dirtyfile >cleanfile
  
- null=todo
+opt=null

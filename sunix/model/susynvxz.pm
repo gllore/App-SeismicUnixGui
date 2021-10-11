@@ -1,15 +1,16 @@
- package susynvxz;
-
-
-=head1 DOCUMENTATION
+package susynvxz;
 
 =head2 SYNOPSIS
 
- PACKAGE NAME:  SUSYNVXZ - SYNthetic seismograms of common offset V(X,Z) media via	
- AUTHOR: Juan Lorenzo
- DATE:   
- DESCRIPTION:
- Version: 
+PACKAGE NAME: 
+
+AUTHOR:  
+
+DATE:
+
+DESCRIPTION:
+
+Version:
 
 =head2 USE
 
@@ -17,104 +18,193 @@
 
 =head4 Examples
 
-=head3 SEISMIC UNIX NOTES
+=head2 SYNOPSIS
 
+=head3 SEISMIC UNIX NOTES
  SUSYNVXZ - SYNthetic seismograms of common offset V(X,Z) media via	
+
  		Kirchhoff-style modeling				
+
+
 
  susynvxz >outfile [optional parameters]				
 
+
+
  Required Parameters:							
+
  <vfile		file containing velocities v[nx][nz]		
+
  nx=			number of x samples (2nd dimension)		
+
  nz=			number of z samples (1st dimension)		
+
  Optional Parameters:							
+
  nxb=nx		band centered at midpoint			
+
  nxd=1			skipped number of midponits			
+
  dx=100		x sampling interval (m)				
+
  fx=0.0		first x sample					
+
  dz=100		z sampling interval (m)				
+
  nt=101		number of time samples				
+
  dt=0.04		time sampling interval (sec)			
+
  ft=0.0		first time (sec)				
+
  nxo=1		 	number of offsets				
+
  dxo=50		offset sampling interval (m)			
+
  fxo=0.0		first offset (m)				
+
  nxm=101		number of midpoints				
+
  dxm=50		midpoint sampling interval (m)			
+
  fxm=0.0		first midpoint (m)				
+
  fpeak=0.2/dt		peak frequency of symmetric Ricker wavelet (Hz)	
+
  ref="1:1,2;4,2"	reflector(s):  "amplitude:x1,z1;x2,z2;x3,z3;...
+
  smooth=0		=1 for smooth (piecewise cubic spline) reflectors
+
  ls=0			=1 for line source; default is point source	
+
  tmin=10.0*dt		minimum time of interest (sec)			
+
  ndpfz=5		number of diffractors per Fresnel zone		
+
  verbose=0		=1 to print some useful information		
 
+
+
  Notes:								
+
  This algorithm is based on formula (58) in Geo. Pros. 34, 686-703,	
+
  by N. Bleistein.							
 
+
+
  Offsets are signed - may be positive or negative.			", 
+
  Traveltime and amplitude are calculated by finite differences which	
+
  is done only in part of midpoints; in the skiped midpoint, interpolation
+
  is used to calculate traveltime and amplitude.			", 
 
+
+
  More than one ref (reflector) may be specified.			
+
  Note that reflectors are encoded as quoted strings, with an optional	
+
  reflector amplitude: preceding the x,z coordinates of each reflector.	
+
  Default amplitude is 1.0 if amplitude: part of the string is omitted.	
 
 
 
+
+
+
+
    CWP:  Zhenyue Liu, 07/20/92
+
 	Many subroutines borrowed from Dave Hale's program: SUSYNLV
 
+
+
  Trace header fields set: trid, counit, ns, dt, delrt,
+
 				tracl. tracr,
+
 				cdp, cdpt, d2, f2, offset, sx, gx
+
+
+
+=head2 User's notes (Juan Lorenzo)
+untested
+
+=cut
+
 
 =head2 CHANGES and their DATES
 
 =cut
- use Moose;
- our $VERSION = '0.0.1';
-	use L_SU_global_constants();
 
-	my $get					= new L_SU_global_constants();
-
-	my $var				= $get->var();
-	my $empty_string    	= $var->{_empty_string};
+use Moose;
+our $VERSION = '0.0.1';
 
 
-	my $susynvxz		= {
-		_dt					=> '',
-		_dx					=> '',
-		_dxm					=> '',
-		_dxo					=> '',
-		_dz					=> '',
-		_fpeak					=> '',
-		_ft					=> '',
-		_fx					=> '',
-		_fxm					=> '',
-		_fxo					=> '',
-		_ls					=> '',
-		_ndpfz					=> '',
-		_nt					=> '',
-		_nx					=> '',
-		_nxb					=> '',
-		_nxd					=> '',
-		_nxm					=> '',
-		_nxo					=> '',
-		_nz					=> '',
-		_ref					=> '',
-		_smooth					=> '',
-		_tmin					=> '',
-		_verbose					=> '',
-		_Step					=> '',
-		_note					=> '',
-    };
+=head2 Import packages
 
+=cut
+
+use L_SU_global_constants();
+
+use SeismicUnix qw ($in $out $on $go $to $suffix_ascii $off $suffix_su $suffix_bin);
+use Project_config;
+
+
+=head2 instantiation of packages
+
+=cut
+
+my $get					= new L_SU_global_constants();
+my $Project				= new Project_config();
+my $DATA_SEISMIC_SU		= $Project->DATA_SEISMIC_SU();
+my $DATA_SEISMIC_BIN	= $Project->DATA_SEISMIC_BIN();
+my $DATA_SEISMIC_TXT	= $Project->DATA_SEISMIC_TXT();
+
+my $var				= $get->var();
+my $on				= $var->{_on};
+my $off				= $var->{_off};
+my $true			= $var->{_true};
+my $false			= $var->{_false};
+my $empty_string	= $var->{_empty_string};
+
+=head2 Encapsulated
+hash of private variables
+
+=cut
+
+my $susynvxz			= {
+	_dt					=> '',
+	_dx					=> '',
+	_dxm					=> '',
+	_dxo					=> '',
+	_dz					=> '',
+	_fpeak					=> '',
+	_ft					=> '',
+	_fx					=> '',
+	_fxm					=> '',
+	_fxo					=> '',
+	_ls					=> '',
+	_ndpfz					=> '',
+	_nt					=> '',
+	_nx					=> '',
+	_nxb					=> '',
+	_nxd					=> '',
+	_nxm					=> '',
+	_nxo					=> '',
+	_nz					=> '',
+	_ref					=> '',
+	_smooth					=> '',
+	_tmin					=> '',
+	_verbose					=> '',
+	_Step					=> '',
+	_note					=> '',
+
+};
 
 =head2 sub Step
 
@@ -144,6 +234,7 @@ by adding the program name
 	return ( $susynvxz->{_note} );
 
  }
+
 
 
 =head2 sub clear
@@ -641,18 +732,17 @@ by adding the program name
 
 
 =head2 sub get_max_index
- 
+
 max index = number of input variables -1
  
 =cut
  
-  sub get_max_index {
- 	my ($self) = @_;
-	# only file_name : index=36
- 	my $max_index = 36;
-	
- 	return($max_index);
- }
+sub get_max_index {
+ 	  my ($self) = @_;
+    my $max_index = 22;
+
+    return($max_index);
+}
  
  
-1; 
+1;

@@ -123,7 +123,7 @@ Version:
 
  jpfile=stderr        diagnostic output                                 
 
-
+m is  bound 
 
  Notes:                                                                 
 
@@ -1069,7 +1069,7 @@ max index = number of input variables -1
  
 sub get_max_index {
  	  my ($self) = @_;
-    my $max_index = 36;
+    my $max_index = 33;
 
     return($max_index);
 }

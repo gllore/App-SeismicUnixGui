@@ -24,6 +24,17 @@ package data_out;
 
 =head2 USE
 
+Use abbreviations such as 
+bin sgy txt and su to automatically access directories
+that contain the types of files represented by these suffixes.
+
+For example, all segy-type files are placed in the same directory
+If you want to find one of these files, place the parameter=
+sgy on the second line (suffix_type)
+
+To automatically go to the segy-type directory, click on MB-3 while
+over the first parameter input (base_file_name)
+
 =head3 NOTES
 
 =head4 Examples

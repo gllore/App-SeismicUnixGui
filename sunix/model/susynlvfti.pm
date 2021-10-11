@@ -1,15 +1,16 @@
- package susynlvfti;
-
-
-=head1 DOCUMENTATION
+package susynlvfti;
 
 =head2 SYNOPSIS
 
- PACKAGE NAME:  SUSYNLVFTI - SYNthetic seismograms for Linear Velocity function in a  
- AUTHOR: Juan Lorenzo
- DATE:   
- DESCRIPTION:
- Version: 
+PACKAGE NAME: 
+
+AUTHOR:  
+
+DATE:
+
+DESCRIPTION:
+
+Version:
 
 =head2 USE
 
@@ -17,135 +18,240 @@
 
 =head4 Examples
 
-=head3 SEISMIC UNIX NOTES
+=head2 SYNOPSIS
 
+=head3 SEISMIC UNIX NOTES
  SUSYNLVFTI - SYNthetic seismograms for Linear Velocity function in a  
+
               Factorized Transversely Isotropic medium			
+
+
 
  susynlvfti >outfile [optional parameters]				
 
+
+
  Optional Parameters:							
+
  nt=101		number of time samples				
+
  dt=0.04		time sampling interval (sec)			
+
  ft=0.0		first time (sec)				
+
  kilounits=1            input length units are km or kilo-feet         
+
                         =0 for m or ft                                 
+
                         Note: Output (sx,gx,offset) are always m or ft 
+
  nxo=1			number of source-receiver offsets		
+
  dxo=0.05		offset sampling interval (kilounits)		
+
  fxo=0.0		first offset (kilounits, see notes below)	
+
  xo=fxo,fxo+dxo,...    array of offsets (use only for non-uniform offsets)
+
  nxm=101		number of midpoints (see notes below)		
+
  dxm=0.05		midpoint sampling interval (kilounits)		
+
  fxm=0.0		first midpoint (kilounits)			
+
  nxs=101		number of shotpoints (see notes below)		
+
  dxs=0.05		shotpoint sampling interval (kilounits)		
+
  fxs=0.0		first shotpoint (kilounits)			
+
  x0=0.0		distance x at which v00 is specified		
+
  z0=0.0		depth z at which v00 is specified		
+
  v00=2.0		velocity at x0,z0 (kilounits/sec)		
+
  dvdx=0.0		derivative of velocity with distance x (dv/dx)	
+
  dvdz=0.0		derivative of velocity with depth z (dv/dz)	
+
  fpeak=0.2/dt		peak frequency of symmetric Ricker wavelet (Hz)	
+
  ref=1:1,2;4,2		reflector(s):  "amplitude:x1,z1;x2,z2;x3,z3;...
+
  smooth=0		=1 for smooth (piecewise cubic spline) reflectors
+
  er=0			=1 for exploding reflector amplitudes		
+
  ls=0			=1 for line source; default is point source	
+
  ob=0			=1 to include obliquity factors			
+
  tmin=10.0*dt		minimum time of interest (sec)			
+
  ndpfz=5		number of diffractors per Fresnel zone		
+
  verbose=1		=1 to print some useful information		
 
+
+
  For transversely isotropic media:					
+
  angxs=0.0		angle of symmetry axis with the vertical (degrees)
+
  define the media using either						
+
  a=1.0		corresponding to the ratio of elastic coef.(c1111/c3333)
+
  f=0.4		corresponding to the ratio of elastic coef. (c1133/c3333)
+
  l=0.3		corresponding to the ratio of elastic coef. (c1313/c3333)
+
  Alternately use Tompson\'s parameters:				
+
  delta=0	Thomsen's 1986 defined parameter			
+
  epsilon=0	Thomsen's 1986 defined parameter			
+
  ntries=40	number of iterations in Snell's law and offset searches 
+
  epsx=.001	lateral offset tolerance				
+
  epst=.0001	reflection time tolerance				
+
  nitmax=12	max number of iterations in travel time integrations	
+
+
 
  Notes:								
 
+
+
  Offsets are signed - may be positive or negative.  Receiver locations	
+
  are computed by adding the signed offset to the source location.	
 
+
+
  Specify either midpoint sampling or shotpoint sampling, but not both.	
+
  If neither is specified, the default is the midpoint sampling above.	
 
+
+
  More than one ref (reflector) may be specified.  When obliquity factors
+
  are included, then only the left side of each reflector (as the x,z	
+
  reflector coordinates are traversed) is reflecting.  For example, if x
+
  coordinates increase, then the top side of a reflector is reflecting.	
+
  Note that reflectors are encoded as quoted strings, with an optional	
+
  reflector amplitude: preceding the x,z coordinates of each reflector.	
+
  Default amplitude is 1.0 if amplitude: part of the string is omitted.	
 
+
+
  Concerning the choice of delta and epsilon. The difference between delta", 
+
  and epsilon should not exceed one. A possible break down of the program
+
  is the result. This is caused primarly by the break down in the two point", 
+
  ray-tracing. Also keep the values of delta and epsilon between 2 and -2.
+
+=head2 User's notes (Juan Lorenzo)
+untested
+
+=cut
+
+
 =head2 CHANGES and their DATES
 
 =cut
- use Moose;
- our $VERSION = '0.0.1';
-	use L_SU_global_constants();
 
-	my $get					= new L_SU_global_constants();
-
-	my $var				= $get->var();
-	my $empty_string    	= $var->{_empty_string};
+use Moose;
+our $VERSION = '0.0.1';
 
 
-	my $susynlvfti		= {
-		_a					=> '',
-		_angxs					=> '',
-		_delta					=> '',
-		_dt					=> '',
-		_dvdx					=> '',
-		_dvdz					=> '',
-		_dxm					=> '',
-		_dxo					=> '',
-		_dxs					=> '',
-		_epsilon					=> '',
-		_epst					=> '',
-		_epsx					=> '',
-		_er					=> '',
-		_f					=> '',
-		_fpeak					=> '',
-		_ft					=> '',
-		_fxm					=> '',
-		_fxo					=> '',
-		_fxs					=> '',
-		_kilounits					=> '',
-		_l					=> '',
-		_ls					=> '',
-		_ndpfz					=> '',
-		_nitmax					=> '',
-		_nt					=> '',
-		_ntries					=> '',
-		_nxm					=> '',
-		_nxo					=> '',
-		_nxs					=> '',
-		_ob					=> '',
-		_ref					=> '',
-		_smooth					=> '',
-		_tmin					=> '',
-		_v00					=> '',
-		_verbose					=> '',
-		_x0					=> '',
-		_xo					=> '',
-		_z0					=> '',
-		_Step					=> '',
-		_note					=> '',
-    };
+=head2 Import packages
 
+=cut
+
+use L_SU_global_constants();
+
+use SeismicUnix qw ($in $out $on $go $to $suffix_ascii $off $suffix_su $suffix_bin);
+use Project_config;
+
+
+=head2 instantiation of packages
+
+=cut
+
+my $get					= new L_SU_global_constants();
+my $Project				= new Project_config();
+my $DATA_SEISMIC_SU		= $Project->DATA_SEISMIC_SU();
+my $DATA_SEISMIC_BIN	= $Project->DATA_SEISMIC_BIN();
+my $DATA_SEISMIC_TXT	= $Project->DATA_SEISMIC_TXT();
+
+my $var				= $get->var();
+my $on				= $var->{_on};
+my $off				= $var->{_off};
+my $true			= $var->{_true};
+my $false			= $var->{_false};
+my $empty_string	= $var->{_empty_string};
+
+=head2 Encapsulated
+hash of private variables
+
+=cut
+
+my $susynlvfti			= {
+	_a					=> '',
+	_angxs					=> '',
+	_delta					=> '',
+	_dt					=> '',
+	_dvdx					=> '',
+	_dvdz					=> '',
+	_dxm					=> '',
+	_dxo					=> '',
+	_dxs					=> '',
+	_epsilon					=> '',
+	_epst					=> '',
+	_epsx					=> '',
+	_er					=> '',
+	_f					=> '',
+	_fpeak					=> '',
+	_ft					=> '',
+	_fxm					=> '',
+	_fxo					=> '',
+	_fxs					=> '',
+	_kilounits					=> '',
+	_l					=> '',
+	_ls					=> '',
+	_ndpfz					=> '',
+	_nitmax					=> '',
+	_nt					=> '',
+	_ntries					=> '',
+	_nxm					=> '',
+	_nxo					=> '',
+	_nxs					=> '',
+	_ob					=> '',
+	_ref					=> '',
+	_smooth					=> '',
+	_tmin					=> '',
+	_v00					=> '',
+	_verbose					=> '',
+	_x0					=> '',
+	_xo					=> '',
+	_z0					=> '',
+	_Step					=> '',
+	_note					=> '',
+
+};
 
 =head2 sub Step
 
@@ -175,6 +281,7 @@ by adding the program name
 	return ( $susynlvfti->{_note} );
 
  }
+
 
 
 =head2 sub clear
@@ -987,18 +1094,17 @@ by adding the program name
 
 
 =head2 sub get_max_index
- 
+
 max index = number of input variables -1
  
 =cut
  
-  sub get_max_index {
- 	my ($self) = @_;
-	# only file_name : index=36
- 	my $max_index = 36;
-	
- 	return($max_index);
- }
+sub get_max_index {
+ 	  my ($self) = @_;
+	my $max_index = 37;
+
+    return($max_index);
+}
  
  
-1; 
+1;

@@ -1,3 +1,6 @@
+/home/gllore/mars/seismics/data/hrk_e122/two_wheels/100621/ACH01_cube/first_time/segy/gllore/sp1.sgy
+/home/gllore/mars/seismics/pl/hrk_e122/two_wheels/100621/ACH01_cube/first_time/gllore/segyscan.pl
+/home/gllore/mars/seismics/data/hrk_e122/two_wheels/100621/ACH01_cube/first_time/segy/gllore/sp0.sgy
 /home/gllore/mars/seismics/data/hrk_e122/ACH01_3axes_big_sand_tank/091021/rad_tangent_axial/rotation_test_in_situ/su/gllore/rotation_1_18_geom_sort_hrot.su
 /home/gllore/mars/seismics/pl/hrk_e122/ACH01_3axes_big_sand_tank/091021/rad_tangent_axial/rotation_test_in_situ/gllore/view_radial_rotated.pl
 /home/gllore/mars/seismics/pl/hrk_e122/ACH01_3axes_big_sand_tank/091021/rad_tangent_axial/rotation_test_in_situ/gllore/view_tangential_rotated.pl
@@ -7,6 +10,3 @@
 /home/gllore/mars/seismics/pl/hrk_e122/ACH01_3axes_big_sand_tank/091021/rad_tangent_axial/rotation_test_in_situ/gllore/view_axial_unrotated.pl
 /home/gllore/mars/seismics/pl/hrk_e122/ACH01_3axes_big_sand_tank/091021/rad_tangent_axial/rotation_test_in_situ/gllore/5d.view_sort.pl
 /home/gllore/mars/seismics/pl/hrk_e122/ACH01_3axes_big_sand_tank/091021/rad_tangent_axial/rotation_test_in_situ/gllore/suxwigb_wheel_All_sp_tan.pl
-/home/gllore/mars/seismics/pl/hrk_e122/ACH01_3axes_big_sand_tank/091021/rad_tangent_axial/rotation_test_in_situ/gllore/suxwigb_wheel_All_sp_rad.pl
-/home/gllore/mars/seismics/pl/hrk_e122/ACH01_3axes_big_sand_tank/091021/rad_tangent_axial/rotation_test_in_situ/gllore/6b.rotate_op.pl
-/home/gllore/mars/seismics/pl/hrk_e122/ACH01_3axes_big_sand_tank/091021/rad_tangent_axial/rotation_test_in_situ/gllore/6a.view_rotate.pl

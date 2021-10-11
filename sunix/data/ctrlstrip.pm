@@ -29,7 +29,7 @@ Version:
 
  
 
- null=todo
+ opt=null
 
 =head2 User's notes (Juan Lorenzo)
 untested
@@ -78,7 +78,7 @@ hash of private variables
 =cut
 
 my $ctrlstrip			= {
-	_null					=> '',
+	_opt					=> '',
 	_Step					=> '',
 	_note					=> '',
 
@@ -121,29 +121,29 @@ by adding the program name
 
  sub clear {
 
-		$ctrlstrip->{_null}			= '';
+		$ctrlstrip->{_opt}			= '';
 		$ctrlstrip->{_Step}			= '';
 		$ctrlstrip->{_note}			= '';
  }
 
 
-=head2 sub null 
+=head2 sub opt 
 
 
 =cut
 
- sub null {
+ sub opt {
 
-	my ( $self,$null )		= @_;
-	if ( $null ne $empty_string ) {
-
-		$ctrlstrip->{_null}		= $null;
-		$ctrlstrip->{_note}		= $ctrlstrip->{_note}.' null='.$ctrlstrip->{_null};
-		$ctrlstrip->{_Step}		= $ctrlstrip->{_Step}.' null='.$ctrlstrip->{_null};
-
-	} else { 
-		print("ctrlstrip, null, missing null,\n");
-	 }
+	my ( $self,$opt )		= @_;
+#	if ( $opt ne $empty_string ) {
+#
+#		$ctrlstrip->{_opt}		= $opt;
+#		$ctrlstrip->{_note}		= $ctrlstrip->{_note}.' opt='.$ctrlstrip->{_opt};
+#		$ctrlstrip->{_Step}		= $ctrlstrip->{_Step}.' opt='.$ctrlstrip->{_opt};
+#
+#	} else { 
+#		print("ctrlstrip, opt, missing opt,\n");
+#	 }
  }
 
 

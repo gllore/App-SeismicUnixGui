@@ -402,13 +402,26 @@ my @sunix_data_programs = (
 	"dt1tosu",
 	"segbread",
 	"segyread",
+	"segyscan",
 	"segywrite",
+	"suoldtonew",
 	"supack1",
 	"supack2",
+	"suswapbytes",
+	"suunpack1",
+	"suunpack2",
+	"wpc1uncomp2",
+	"wpccompress",
+	"wpcuncompress",
+	"wptcomp",
+	"wptuncomp",
+	"wtcomp",
+	"wtuncomp",
 );
 
 my @sunix_datum_programs = ( 
 	"sudatumk2dr",
+	"sudatumk2ds",
  );
 
 my @sunix_filter_programs = (
@@ -475,10 +488,20 @@ my @sunix_model_programs = (
 	"suimp3d",
 	"suimpedance",
 	"sujitter",
+	"sukdsyn2d",
 	"sunull",
 	"suplane",
+	"surandspike",
+	"surandstat",
+	"suremac2d",
+	"suremel2dan",
 	"suspike",
+	"susyncz",
 	"susynlv",
+	"susynlvcw",
+	"susynlvfti",
+	"susynvxz",
+	"susynvxzcs",
 );
 
 my @sunix_NMO_Vel_Stk_programs = ( 
@@ -692,6 +715,29 @@ sub param {
 }
 
 1;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

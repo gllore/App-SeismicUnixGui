@@ -91,7 +91,7 @@ Which group number do you want ?
 
 =cut
 
-my $group_number = 7;
+my $group_number = 1;
 $prog_doc2pm->set_group_directory($group_number);
 
 =head2 QUESTION 2:
@@ -105,7 +105,7 @@ For example:
 
 =cut
 
-my $selected_program_name = 'sufdmod2_pml';
+my $selected_program_name = 'sudatumk2ds';
 
 $selected_program_name =~ s/\ //g;
 
@@ -137,8 +137,8 @@ for ( my $i = 0; $i < $list_length; $i++ ) {
 	$config_file_out[0] = $package_name . '.config';
 	$spec_file_out[0]   = $package_name . '_spec.pm';
 	
-print("sudoc2pm.pl,program_name, selected_program_name=$selected_program_name, \n");
-print("sudoc2pm.pl, package_name =$package_name, \n");
+#print("sudoc2pm.pl,program_name, selected_program_name=$selected_program_name, \n");
+#print("sudoc2pm.pl, package_name =$package_name, \n");
 
 	if ( $selected_program_name eq $package_name) {
 		

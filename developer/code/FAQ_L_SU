@@ -6,6 +6,8 @@ Abbreviations in this file:
 ';' separates entire modules/packages
 .pm is left out in reference to module names in what follows
 
+use sgy txt bin su as extensions to data in
+
 
 INDEX to this file
 
@@ -574,7 +576,48 @@ N.B., Historically, some conditions are repeated using different variable names,
 is_pre_built_superflow, is_superflow and is_superflow_select_button
 
 
-Q: How do we add another seismic unix module or seismic unix program to L_SU?
+10.06.21 Q: How do we add another seismic unix module or seismic unix program to L_SU?
+run (1) sudoc2pm.pl followed by (2) sudoc2pm_updates.pl 
+
+Details:
+(1) include group and program number in
+      sudoc2pm.pl 
+      
+      e.g., L ~94       
+      			my $group_number = 7; 
+      e.g.,  L ~108 
+      			my $selected_program_name = 'susynvxzcs'; 
+      			
+ You will need access to the self-instructions of the
+ seismic unix module, which I find in:
+  /usr/local/cwp_su_all_48/src/doc/Stripped			
+      
+      run  sudoc2pm.pl 
+      
+      uncomment and correctly change 
+      	indices, 
+      	data types
+      	prefixes,
+      	and suffixes
+      	in the *_spec.pm file
+
+(2) include group and program number in
+      sudoc2pm_updates.pl
+      
+      e.g., L ~80-81
+      		my $selected_program_name = 'susynlvfti';
+            my $group_number                   = 7;
+      
+      run sudoc2pm_updates.pl
+      
+      Confirm that the max_index value in *_spec.pm file is OK and format
+      Confirm that the max_index value in *.pm file is OK and format
+      Confirm that the program appears under the  menus within L_SU gui
+
+Q: (NOW DEPRECATED and AUTOMATED-- See immediately above) 
+How do we add another seismic unix module or seismic unix program to L_SU?
+10.06.21 This method is deprecated by using sudoc2pm.pl and sudoc2pm_update.pl
+What follows below has been automated largely.
 
 =head2 Instructions
 
@@ -661,7 +704,7 @@ sub file_dialog_type_aref {
  11. also modify segyread_.pm by adding a Data Path explictly
  involving a couple of steps:
  e.g. 	
- 	include this call to a library anear the start (line 174)  of the program
+ 	include this call to a library near the start (line 174)  of the program
  	use Project_config;   AND
  	
  	my $Project				= new Project_config();
@@ -673,6 +716,7 @@ sub file_dialog_type_aref {
 		my ($DATA_SEISMIC_SEGY) = $Project->DATA_SEISMIC_SEGY();
 		my $new_file_name = $file;
 	
+		# deprecated on 10.06.21
 		# force correct suffix
 	    $new_file_name = basename($file).$suffix_segy;
 	    # print("1. segyread,file, new_file_name= $new_file_name\n");
@@ -1998,7 +2042,7 @@ Modify the main program, i.e. immodpg.config.pm
 	  	    oop_prog_params
 	  	    
 	Q How to use the spec files for user-built flows and pre-built big streams 
-	 NOTE Filedialog uses iFile for opening directories based on second entry label (ps, bin, segy txt etc)
+	 NOTE Filedialog uses iFile for opening directories based on second entry label (ps, bin, segy, txt etc)
 	  	  
 	 For bound indices in programs (e.g. curve in suximage, or mpicks in suximage),
 	 FileDialog also uses DATA_DIR_IN from the "spec" files for locating input files = DATA_SEISMIC_TXT
@@ -2435,7 +2479,7 @@ color_listbox
 	      conditions4flows, set_defaults4delete_whole_flow_button 
 	      gui_history
 	      conditions4big_streams
-	      conditions_gui (deprecated? Should be!7.15.21)
+	      conditions_gui (deprecated? Should be! 7.15.21)
 	      
 	 Q. Which module keeps track of which colored listbox is occupied?
     

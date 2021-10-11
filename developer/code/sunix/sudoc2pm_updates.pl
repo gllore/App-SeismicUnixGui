@@ -77,7 +77,7 @@ For example=
 
 =cut
 
-my $selected_program_name = 'sunull';
-my $group_number                   = 7;
+my $selected_program_name = 'sudatumk2ds';
+my $group_number                   = 1;
 $update->set_program($selected_program_name, $group_number);
 $update->get_changes();

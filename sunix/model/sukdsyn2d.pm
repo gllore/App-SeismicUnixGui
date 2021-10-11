@@ -33,11 +33,11 @@ Version:
 
  Required parameters: 							
 
- infile=stdin		input migrated section				
+ infile is stdin		input migrated section				
 
- outfile=stdout	file for output seismic traces  		
+ outfile is stdout	file for output seismic traces  		
 
- ttfile		file for input traveltime tables		
+ ttfile=		file for input traveltime tables		
 
 
 
@@ -282,6 +282,7 @@ my $sukdsyn2d			= {
 	_nz					=> '',
 	_nzt					=> '',
 	_outfile					=> '',
+	_ttfile				=> '',
 	_v0					=> '',
 	_Step					=> '',
 	_note					=> '',
@@ -359,6 +360,7 @@ by adding the program name
 		$sukdsyn2d->{_nz}			= '';
 		$sukdsyn2d->{_nzt}			= '';
 		$sukdsyn2d->{_outfile}			= '';
+		$sukdsyn2d->{_ttfile}			= '';
 		$sukdsyn2d->{_v0}			= '';
 		$sukdsyn2d->{_Step}			= '';
 		$sukdsyn2d->{_note}			= '';
@@ -1043,6 +1045,25 @@ by adding the program name
 		print("sukdsyn2d, outfile, missing outfile,\n");
 	 }
  }
+ 
+=head2 sub ttfile 
+
+
+=cut
+
+ sub ttfile {
+
+	my ( $self,$ttfile )		= @_;
+	if ( $ttfile ne $empty_string ) {
+
+		$sukdsyn2d->{_ttfile}		= $ttfile;
+		$sukdsyn2d->{_note}		= $sukdsyn2d->{_note}.' ttfile='.$sukdsyn2d->{_ttfile};
+		$sukdsyn2d->{_Step}		= $sukdsyn2d->{_Step}.' ttfile='.$sukdsyn2d->{_ttfile};
+
+	} else { 
+		print("sukdsyn2d, ttfile, missing ttfile,\n");
+	 }
+ }
 
 
 =head2 sub v0 
@@ -1073,7 +1094,7 @@ max index = number of input variables -1
  
 sub get_max_index {
  	  my ($self) = @_;
-    my $max_index = 36;
+	my $max_index = 32;
 
     return($max_index);
 }

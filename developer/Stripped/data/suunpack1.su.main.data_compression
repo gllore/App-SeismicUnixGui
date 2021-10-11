@@ -4,6 +4,7 @@ SUUNPACK1 - unpack segy trace data from chars to floats
 
 suunpack1 is the approximate inverse of supack1		
 
+opt=null
 
  Credits:
 	CWP: Jack K. Cohen, Shuki Ronen, Brian Sumner
@@ -14,7 +15,7 @@ suunpack1 is the approximate inverse of supack1
 
  Notes:
 	ungpow and unscale are defined in segy.h
-	trid = CHARPACK is defined in su.h and segy.h
+	trid  =  CHARPACK is defined in su.h and segy.h
 
 
  Trace header fields accessed: ns, trid, ungpow, unscale

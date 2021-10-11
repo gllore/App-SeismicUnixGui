@@ -166,10 +166,13 @@ package segyread;
 
 =head2 CHANGES and their DATES
 
+10.06.21 V0.0.2
+    forcing correct suffix deprecated and is now handled in segyread_spec.pm
+
 =cut
 
 use Moose;
-our $VERSION = '0.0.1';
+our $VERSION = '0.0.2';
 use L_SU_global_constants();
 use Project_config;
 
@@ -424,6 +427,7 @@ sub errmax {
 
 	nowadays is usually a segyfile on disk
 	same as tape
+    forcing correct suffix deprecated 10.06.21
 
 =cut
 
@@ -437,8 +441,8 @@ sub file {
         my ($DATA_SEISMIC_SEGY) = $Project->DATA_SEISMIC_SEGY();
         my $new_file_name = $file;
 
-        # force correct suffix
-        $new_file_name = basename($file) . $suffix_sgy;
+        # forcing correct suffix deprecated 10.06.21
+        $new_file_name = basename($file);
         # print("1. segyread,file, new_file_name= $new_file_name\n");
 
         $segyread->{_tape} = $DATA_SEISMIC_SEGY . '/' . $new_file_name;

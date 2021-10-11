@@ -90,8 +90,11 @@ sub file_dialog_type_aref {
     my ($self) = @_;
 
     my @type;
-
-    $type[0] = $file_dialog_type->{_Data};
+    
+    my $index_aref = get_binding_index_aref();
+	my @index      = @$index_aref;
+	
+	$type[$index[0]] = $file_dialog_type->{_Data};
 
     $segyread_spec->{_file_dialog_type_aref} = \@type;
     return ();
@@ -321,6 +324,10 @@ sub prefix_aref {
         $prefix[$i] = $empty_string;
 
     }
+    
+    my $index_aref = get_binding_index_aref();
+	my @index      = @$index_aref;
+	$prefix[ $index[0] ] =  '$DATA_SEISMIC_SEGY' . ".'/'.";
     $segyread_spec->{_prefix_aref} = \@prefix;
     return ();
 
@@ -345,6 +352,11 @@ sub suffix_aref {
         $suffix[$i] = $empty_string;
 
     }
+    
+    my $index_aref = get_binding_index_aref();
+	my @index      = @$index_aref;
+	$suffix[ $index[0] ] = "." . '$suffix_sgy';
+    
     $segyread_spec->{_suffix_aref} = \@suffix;
     return ();
 
