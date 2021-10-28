@@ -42,11 +42,11 @@ use Moose;
 =cut
 
 my $oop_declare_data_in = {
-    _suffix_type       => '',
-    _suffix_type_in    => '',
-    _suffix_type_out   => '',
-    _param_labels_aref => '',
-    _param_values_aref => '',
+	_suffix_type       => '',
+	_suffix_type_in    => '',
+	_suffix_type_out   => '',
+	_param_labels_aref => '',
+	_param_values_aref => '',
 };
 
 my ( @data_in, @data_out, @inbound_notes, @outbound_notes );
@@ -57,124 +57,144 @@ my ( @data_in, @data_out, @inbound_notes, @outbound_notes );
 =cut
 
 sub empty {
-    my ($self) = @_;
+	my ($self) = @_;
 
-    $outbound_notes[0] = "";
+	$outbound_notes[0] = "";
 
-    return ();
+	return ();
 }
 
 sub inbound_section {
-    my ($self) = @_;
+	my ($self) = @_;
 
-    # print("oop_declare_data_in,inbound_section,notes:\n @inbound_notes\n");
+	# print("oop_declare_data_in,inbound_section,notes:\n @inbound_notes\n");
 
-    return ( \@inbound_notes );
+	return ( \@inbound_notes );
 
 }
 
 sub outbound_section {
-    my ($self) = @_;
+	my ($self) = @_;
 
-    # print("oop_declare_data_in,outbound_section,notes:\n @outbound_notes\n");
-    return ( \@outbound_notes );
+	# print("oop_declare_data_in,outbound_section,notes:\n @outbound_notes\n");
+	return ( \@outbound_notes );
 
 }
 
 sub set_bin_in {
 
-    $inbound_notes[1] =
-      "\t" . 'my (@file_in);' . "\n\t" . 'my (@bin_file_in,@inbound);';
-    $inbound_notes[2] =
-      "\t" . '$bin_file_in[1]' . "\t" . '= $file_in[1].$suffix_bin;';
-    $inbound_notes[3] = "\t"
-      . '$inbound[1]' . "\t"
-      . '= $DATA_SEISMIC_BIN.' . "'/'"
-      . '.$bin_file_in[1];';
+	$inbound_notes[1] =
+	  "\t" . 'my (@file_in);' . "\n\t" . 'my (@bin_file_in,@inbound);';
+	$inbound_notes[2] =
+	  "\t" . '$bin_file_in[1]' . "\t" . '= $file_in[1].$suffix_bin;';
+	$inbound_notes[3] = "\t"
+	  . '$inbound[1]' . "\t"
+	  . '= $DATA_SEISMIC_BIN.' . "'/'"
+	  . '.$bin_file_in[1];';
 }
 
 sub set_bin_out {
-    $outbound_notes[1] =
-      "\t" . 'my (@file_out);' . "\n\t" . 'my (@bin_file_out,@outbound);';
+	$outbound_notes[1] =
+	  "\t" . 'my (@file_out);' . "\n\t" . 'my (@bin_file_out,@outbound);';
 
-    $outbound_notes[2] =
-      "\t" . '$bin_file_out[1]' . "\t" . '= $file_out[1].$suffix_bin;';
-    $outbound_notes[3] = "\t"
-      . '$outbound[1]' . "\t"
-      . '= $DATA_SEISMIC_BIN.' . "'/'"
-      . '.$bin_file_out[1];';
+	$outbound_notes[2] =
+	  "\t" . '$bin_file_out[1]' . "\t" . '= $file_out[1].$suffix_bin;';
+	$outbound_notes[3] = "\t"
+	  . '$outbound[1]' . "\t"
+	  . '= $DATA_SEISMIC_BIN.' . "'/'"
+	  . '.$bin_file_out[1];';
 }
 
 sub set_text_in {
 
-    $inbound_notes[1] =
-      "\t" . 'my (@file_in);' . "\n\t" . 'my (@text_file_in,@inbound);';
-    $inbound_notes[2] =
-      "\t" . '$text_data_in[1]' . "\t" . '= $file_in[1].$suffix_text;';
-    $inbound_notes[3] = "\t"
-      . '$inbound[1]' . "\t"
-      . '= $DATA_SEISMIC_TXT.' . "'/'"
-      . '.$text_data_in[1];';
+	$inbound_notes[1] =
+	  "\t" . 'my (@file_in);' . "\n\t" . 'my (@text_file_in,@inbound);';
+	$inbound_notes[2] =
+	  "\t" . '$text_data_in[1]' . "\t" . '= $file_in[1].$suffix_text;';
+	$inbound_notes[3] = "\t"
+	  . '$inbound[1]' . "\t"
+	  . '= $DATA_SEISMIC_TXT.' . "'/'"
+	  . '.$text_data_in[1];';
 
 }
 
 sub set_text_out {
-    $outbound_notes[1] =
-      "\t" . 'my (@file_out);' . "\n\t" . 'my (@text_file_out,@outbound);';
+	$outbound_notes[1] =
+	  "\t" . 'my (@file_out);' . "\n\t" . 'my (@text_file_out,@outbound);';
 
-    $outbound_notes[2] =
-      "\t" . '$text_data_out[1]' . "\t" . '= $file_out[1].$suffix_text;';
-    $outbound_notes[3] = "\t"
-      . '$outbound[1]' . "\t"
-      . '= $DATA_SEISMIC_TXT.' . "'/'"
-      . '.$text_data_out[1];';
+	$outbound_notes[2] =
+	  "\t" . '$text_data_out[1]' . "\t" . '= $file_out[1].$suffix_text;';
+	$outbound_notes[3] = "\t"
+	  . '$outbound[1]' . "\t"
+	  . '= $DATA_SEISMIC_TXT.' . "'/'"
+	  . '.$text_data_out[1];';
 
 }
 
 sub set_segb_out {
 
-	$outbound_notes[1] = "\t" . 'my (@file_out);' . "\n\t" . 'my (@segbdata_out,@outbound);';
-	$outbound_notes[2] = "\t" . '$segbdata_out[1]' . "\t" . '= $file_out[1].$suffix_segb;';
-	$outbound_notes[3] = "\t" . '$outbound[1]' . "\t" . '= $DATA_SEISMIC_SEGB.' . "'/'" . '.$segbdata_out[1];';
+	$outbound_notes[1] =
+	  "\t" . 'my (@file_out);' . "\n\t" . 'my (@segbdata_out,@outbound);';
+	$outbound_notes[2] =
+	  "\t" . '$segbdata_out[1]' . "\t" . '= $file_out[1].$suffix_segb;';
+	$outbound_notes[3] = "\t"
+	  . '$outbound[1]' . "\t"
+	  . '= $DATA_SEISMIC_SEGB.' . "'/'"
+	  . '.$segbdata_out[1];';
+
+}
+
+sub set_segd_out {
+
+	$outbound_notes[1] =
+	  "\t" . 'my (@file_out);' . "\n\t" . 'my (@segddata_out,@outbound);';
+	$outbound_notes[2] =
+	  "\t" . '$segddata_out[1]' . "\t" . '= $file_out[1].$suffix_segd;';
+	$outbound_notes[3] = "\t"
+	  . '$outbound[1]' . "\t"
+	  . '= $DATA_SEISMIC_SEGD.' . "'/'"
+	  . '.$segddata_out[1];';
 
 }
 
 sub set_segy_out {
 
-	$outbound_notes[1] = "\t" . 'my (@file_out);' . "\n\t" . 'my (@segydata_out,@outbound);';
-	$outbound_notes[2] = "\t" . '$segydata_out[1]' . "\t" . '= $file_out[1].$suffix_segy;';
-	$outbound_notes[3] = "\t" . '$outbound[1]' . "\t" . '= $DATA_SEISMIC_SEGY.' . "'/'" . '.$segydata_out[1];';
+	$outbound_notes[1] =
+	  "\t" . 'my (@file_out);' . "\n\t" . 'my (@segydata_out,@outbound);';
+	$outbound_notes[2] =
+	  "\t" . '$segydata_out[1]' . "\t" . '= $file_out[1].$suffix_segy;';
+	$outbound_notes[3] = "\t"
+	  . '$outbound[1]' . "\t"
+	  . '= $DATA_SEISMIC_SEGY.' . "'/'"
+	  . '.$segydata_out[1];';
 
 }
 
-
 sub set_su_in {
-    $inbound_notes[1] =
-      "\t" . 'my (@file_in);' . "\n\t" . 'my (@sudata_in,@inbound);';
+	$inbound_notes[1] =
+	  "\t" . 'my (@file_in);' . "\n\t" . 'my (@sudata_in,@inbound);';
 
-    $inbound_notes[2] =
-      "\t" . '$sudata_in[1]' . "\t" . '= $file_in[1].$suffix_su;';
-    $inbound_notes[3] = "\t"
-      . '$inbound[1]' . "\t"
-      . '= $DATA_SEISMIC_SU.' . "'/'"
-      . '.$sudata_in[1];';
+	$inbound_notes[2] =
+	  "\t" . '$sudata_in[1]' . "\t" . '= $file_in[1].$suffix_su;';
+	$inbound_notes[3] = "\t"
+	  . '$inbound[1]' . "\t"
+	  . '= $DATA_SEISMIC_SU.' . "'/'"
+	  . '.$sudata_in[1];';
 
 }
 
 sub set_su_out {
 
-    $outbound_notes[1] =
-      "\t" . 'my (@file_out);' . "\n\t" . 'my (@sudata_out,@outbound);';
-    $outbound_notes[2] =
-      "\t" . '$sudata_out[1]' . "\t" . '= $file_out[1].$suffix_su;';
-    $outbound_notes[3] = "\t"
-      . '$outbound[1]' . "\t"
-      . '= $DATA_SEISMIC_SU.' . "'/'"
-      . '.$sudata_out[1];';
+	$outbound_notes[1] =
+	  "\t" . 'my (@file_out);' . "\n\t" . 'my (@sudata_out,@outbound);';
+	$outbound_notes[2] =
+	  "\t" . '$sudata_out[1]' . "\t" . '= $file_out[1].$suffix_su;';
+	$outbound_notes[3] = "\t"
+	  . '$outbound[1]' . "\t"
+	  . '= $DATA_SEISMIC_SU.' . "'/'"
+	  . '.$sudata_out[1];';
 
 }
-
-
 
 =head2 sub _set_segb_out   
 
@@ -184,7 +204,21 @@ prepare to use segb files
 
 sub _set_segb_out {
 	my ($self) = @_;
-	$outbound_notes[0] = "\n\t" . 'my ($DATA_SEISMIC_SEGB) = $Project->DATA_SEISMIC_SEGB();';
+	$outbound_notes[0] =
+	  "\n\t" . 'my ($DATA_SEISMIC_SEGB) = $Project->DATA_SEISMIC_SEGB();';
+
+}
+
+=head2 sub _set_segd_out   
+
+prepare to use segd files
+
+=cut
+
+sub _set_segd_out {
+	my ($self) = @_;
+	$outbound_notes[0] =
+	  "\n\t" . 'my ($DATA_SEISMIC_SEGD) = $Project->DATA_SEISMIC_SEGD();';
 
 }
 
@@ -196,7 +230,8 @@ prepare to use segy files
 
 sub _set_segy_out {
 	my ($self) = @_;
-	$outbound_notes[0] = "\n\t" . 'my ($DATA_SEISMIC_SEGY) = $Project->DATA_SEISMIC_SEGY();';
+	$outbound_notes[0] =
+	  "\n\t" . 'my ($DATA_SEISMIC_SEGY) = $Project->DATA_SEISMIC_SEGY();';
 
 }
 
@@ -207,9 +242,9 @@ prepare to use su files
 =cut
 
 sub _set_su_out {
-    my ($self) = @_;
-    $outbound_notes[0] =
-      "\n\t" . 'my ($DATA_SEISMIC_SU) = $Project->DATA_SEISMIC_SU();';
+	my ($self) = @_;
+	$outbound_notes[0] =
+	  "\n\t" . 'my ($DATA_SEISMIC_SU) = $Project->DATA_SEISMIC_SU();';
 
 }
 
@@ -220,9 +255,9 @@ prepare to use su files
 =cut
 
 sub _set_text_out {
-    my ($self) = @_;
-    $outbound_notes[0] =
-      "\n\t" . 'my ($DATA_SEISMIC_TXT) = $Project->DATA_SEISMIC_TXT();';
+	my ($self) = @_;
+	$outbound_notes[0] =
+	  "\n\t" . 'my ($DATA_SEISMIC_TXT) = $Project->DATA_SEISMIC_TXT();';
 
 }
 
@@ -233,9 +268,9 @@ prepare to use su files
 =cut
 
 sub _set_bin_out {
-    my ($variable) = @_;
-    $outbound_notes[0] =
-      "\n\t" . 'my ($DATA_SEISMIC_BIN) = $Project->DATA_SEISMIC_BIN();';
+	my ($variable) = @_;
+	$outbound_notes[0] =
+	  "\n\t" . 'my ($DATA_SEISMIC_BIN) = $Project->DATA_SEISMIC_BIN();';
 
 }
 
@@ -247,7 +282,20 @@ prepare to use segb files
 
 sub _set_segb_in {
 	my ($self) = @_;
-	$inbound_notes[0] = "\n\t" . 'my ($DATA_SEISMIC_SEGB) = $Project->DATA_SEISMIC_SEGB();';
+	$inbound_notes[0] =
+	  "\n\t" . 'my ($DATA_SEISMIC_SEGB) = $Project->DATA_SEISMIC_SEGB();';
+}
+
+=head2 sub _set_segd_in   
+
+prepare to use segd files
+
+=cut
+
+sub _set_segd_in {
+	my ($self) = @_;
+	$inbound_notes[0] =
+	  "\n\t" . 'my ($DATA_SEISMIC_SEGD) = $Project->DATA_SEISMIC_SEGD();';
 }
 
 =head2 sub _set_segy_in   
@@ -258,8 +306,10 @@ prepare to use segy files
 
 sub _set_segy_in {
 	my ($self) = @_;
-	$inbound_notes[0] = "\n\t" . 'my ($DATA_SEISMIC_SEGY) = $Project->DATA_SEISMIC_SEGY();';
+	$inbound_notes[0] =
+	  "\n\t" . 'my ($DATA_SEISMIC_SEGY) = $Project->DATA_SEISMIC_SEGY();';
 }
+
 =head2 sub _set_su_in   
 
 prepare to use su files
@@ -267,9 +317,9 @@ prepare to use su files
 =cut
 
 sub _set_su_in {
-    my ($self) = @_;
-    $inbound_notes[0] =
-      "\n\t" . 'my ($DATA_SEISMIC_SU) = $Project->DATA_SEISMIC_SU();';
+	my ($self) = @_;
+	$inbound_notes[0] =
+	  "\n\t" . 'my ($DATA_SEISMIC_SU) = $Project->DATA_SEISMIC_SU();';
 }
 
 =head2 sub _set_text_in   
@@ -279,9 +329,9 @@ prepare to use su files
 =cut
 
 sub _set_text_in {
-    my ($self) = @_;
-    $inbound_notes[0] =
-      "\n\t" . 'my ($DATA_SEISMIC_TXT) = $Project->DATA_SEISMIC_TXT();';
+	my ($self) = @_;
+	$inbound_notes[0] =
+	  "\n\t" . 'my ($DATA_SEISMIC_TXT) = $Project->DATA_SEISMIC_TXT();';
 
 }
 
@@ -292,9 +342,9 @@ prepare to use su files
 =cut
 
 sub _set_bin_in {
-    my ($variable) = @_;
-    $inbound_notes[0] =
-      "\n\t" . 'my ($DATA_SEISMIC_BIN) = $Project->DATA_SEISMIC_BIN();';
+	my ($variable) = @_;
+	$inbound_notes[0] =
+	  "\n\t" . 'my ($DATA_SEISMIC_BIN) = $Project->DATA_SEISMIC_BIN();';
 
 }
 
@@ -317,25 +367,33 @@ sub set_suffix_type_in {
 		if ( $suffix_type_in eq 'segb' ) {
 
 			_set_segb_in();
+		}
+		elsif ( $suffix_type_in eq 'segd' ) {
 
-		} elsif ( $suffix_type_in eq 'segy' ) {
+			_set_segd_in();
+
+		}
+		elsif ( $suffix_type_in eq 'segy' ) {
 
 			_set_segy_in();
 
-		} elsif ( $suffix_type_in eq 'su' ) {
+		}
+		elsif ( $suffix_type_in eq 'su' ) {
 
-			# print("oop_declare_data_out,set_suffix_type_in,suffix_type_in:$suffix_type_in\n");
+# print("oop_declare_data_out,set_suffix_type_in,suffix_type_in:$suffix_type_in\n");
 			_set_su_in();
 
-		} elsif ( $suffix_type_in eq 'text' ) {
+		}
+		elsif ( $suffix_type_in eq 'text' ) {
 
 			_set_text_in();
 
-		} elsif ( $suffix_type_in eq 'bin' ) {
+		}
+		elsif ( $suffix_type_in eq 'bin' ) {
 
 			_set_bin_in();
-
-		} else {
+		}
+		else {
 			print("\n");
 		}
 	}
@@ -344,41 +402,53 @@ sub set_suffix_type_in {
 =head2 subroutine  set_suffix_type_out
 
   you need to know how many numbers per line
-  will be in the output file 
+  will be in the output file
 
 =cut
 
-sub set_suffix_type_out {
-	my ( $variable, $suffix_type_out ) = @_;
+	sub set_suffix_type_out {
+		my ( $variable, $suffix_type_out ) = @_;
 
-	if ($suffix_type_out) {
+		if ($suffix_type_out) {
 
-		if ( $suffix_type_out eq 'segb' ) {
+			if ( $suffix_type_out eq 'segb' ) {
 
-			_set_segb_out();
+				_set_segb_out();
 
-		} elsif ( $suffix_type_out eq 'segy' ) {
+			}
 
-			# print("oop_declare_data_out,set_suffix_type_out,suffix_type_out:$suffix_type_out\n");
-			_set_segy_out();
+			elsif ( $suffix_type_out eq 'segd' ) {
 
-		} elsif ( $suffix_type_out eq 'su' ) {
+				_set_segd_out();
 
-			# print("oop_declare_data_out,set_suffix_type_out,suffix_type_out:$suffix_type_out\n");
-			_set_su_out();
+			}
+			elsif ( $suffix_type_out eq 'segy' ) {
 
-		} elsif ( $suffix_type_out eq 'text' ) {
+# print("oop_declare_data_out,set_suffix_type_out,suffix_type_out:$suffix_type_out\n");
+				_set_segy_out();
 
-			_set_text_out();
+			}
+			elsif ( $suffix_type_out eq 'su' ) {
 
-		} elsif ( $suffix_type_out eq 'bin' ) {
+# print("oop_declare_data_out,set_suffix_type_out,suffix_type_out:$suffix_type_out\n");
+				_set_su_out();
+			}
+			elsif ( $suffix_type_out eq 'text' ) {
 
-			_set_bin_out();
+				_set_text_out();
 
-		} else {
-			print("oop_declare_data_out,set_suffix_type_out,suffix_type_out:$suffix_type_out\n");
+			}
+			elsif ( $suffix_type_out eq 'bin' ) {
+
+				_set_bin_out();
+
+			}
+			else {
+				print(
+"oop_declare_data_out,set_suffix_type_out,suffix_type_out:$suffix_type_out\n"
+				);
+			}
 		}
 	}
-}
 
 1;

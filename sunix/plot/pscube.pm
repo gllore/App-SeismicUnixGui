@@ -1,15 +1,16 @@
- package pscube;
-
-
-=head1 DOCUMENTATION
+package pscube;
 
 =head2 SYNOPSIS
 
-PACKAGE NAME:  PSCUBE - PostScript image plot with Legend of a data CUBE       
-AUTHOR: Juan Lorenzo
-DATE:   
+PACKAGE NAME: 
+
+AUTHOR:  
+
+DATE:
+
 DESCRIPTION:
-Version: 
+
+Version:
 
 =head2 USE
 
@@ -17,210 +18,381 @@ Version:
 
 =head4 Examples
 
-=head3 SEISMIC UNIX NOTES
+=head2 SYNOPSIS
 
+=head3 SEISMIC UNIX NOTES
  PSCUBE - PostScript image plot with Legend of a data CUBE       
 
- pscube n1= n2= n3= [optional parameters] <binaryfile >postscriptfile	
-    or									
- pscube n1= n2= n3= front= side= top= [optional parameters] >postscriptfile
+
+
+ pscube n1= 
+
+	 n2= 
+
+	 n3= [optional parameters] <binaryfile >postscriptfile
+
+	 
+
+ 
+
+ 	or
+
+    									
+
+ pscube n1= 
+
+	 n2= 
+
+	 n3= 
+
+	 front= 
+
+	 side= 
+
+	 top= [optional parameters] >postscriptfile
+
+
 
  Data formats supported:						
+
 	1. Entire cube read from stdin (n1*n2*n3 floats) [default format]
+
 	2. Faces read from stdin (n1*n2 floats for front, followed by n1*n3
+
 	   floats for side, and n2*n3 floats for top) [specify faces=1]	
+
 	3. Faces read from separate data files [specify filenames]	
 
+
+
  Required Parameters:							
- n1                     number of samples in 1st (fastest) dimension	
- n2                     number of samples in 2nd dimension		
- n3                     number of samples in 3rd (slowest) dimension	
+
+ n1=                     number of samples in 1st (fastest) dimension	
+
+ n2=                     number of samples in 2nd dimension		
+
+ n3=                     number of samples in 3rd (slowest) dimension	
+
+
 
  Optional Parameters:							
- front                  name of file containing front panel		
- side                   name of file containing side panel		
- top                    name of file containing top panel		
+
+ front=                  name of file containing front panel		
+
+ side=                   name of file containing side panel		
+
+ top=                    name of file containing top panel		
+
  faces=0                =1 to read faces from stdin (data format 2)	
+
  d1=1.0                 sampling interval in 1st dimension		
+
  f1=0.0                 first sample in 1st dimension			
+
  d2=1.0                 sampling interval in 2nd dimension		
+
  f2=0.0                 first sample in 2nd dimension			
+
  d3=1.0                 sampling interval in 3rd dimension		
+
  f3=0.0                 first sample in 3rd dimension			
+
  perc=100.0             percentile used to determine clip		
+
  clip=(perc percentile) clip used to determine bclip and wclip		
+
  bperc=perc             percentile for determining black clip value	
+
  wperc=100.0-perc       percentile for determining white clip value	
+
  bclip=clip             data values outside of [bclip,wclip] are clipped
+
  wclip=-clip            data values outside of [bclip,wclip] are clipped
+
  brgb=0.0,0.0,0.0       red, green, blue values corresponding to black	
+
  wrgb=1.0,1.0,1.0       red, green, blue values corresponding to white	
+
  bhls=0.0,0.0,0.0       hue, lightness, saturation corresponding to black
+
  whls=0.0,1.0,0.0       hue, lightness, saturation corresponding to white
+
  bps=12                 bits per sample for color plots, either 12 or 24
+
  d1s=1.0                factor by which to scale d1 before imaging	
+
  d2s=1.0                factor by which to scale d2 before imaging	
+
  d3s=1.0                factor by which to scale d3 before imaging	
+
  verbose=1              =1 for info printed on stderr (0 for no info)	
+
  xbox=1.5               offset in inches of left side of axes box	
+
  ybox=1.5               offset in inches of bottom side of axes box	
+
  size1=4.0              size in inches of 1st axes (vertical)		
+
  size2=4.0              size in inches of 2nd axes (horizontal)	
+
  size3=3.0              size in inches of 3rd axes (projected)		
+
  angle=45               projection angle of cube in degrees (0<angle<90)
+
                         (angle between 2nd axis and projected 3rd axis)
+
  x1end=x1max            value at which axis 1 ends			
+
  d1num=0.0              numbered tic interval on axis 1 (0.0 for automatic)
+
  f1num=x1min            first numbered tic on axis 1 (used if d1num not 0.0)
+
  n1tic=1                number of tics per numbered tic on axis 1	
+
  grid1=none             grid lines on axis 1 - none, dot, dash, or solid
+
  label1=                label on axis 1				
+
  x2beg=x2min            value at which axis 2 begins			
+
  d2num=0.0              numbered tic interval on axis 2 (0.0 for automatic)
+
  f2num=x2min            first numbered tic on axis 2 (used if d2num not 0.0)
+
  n2tic=1                number of tics per numbered tic on axis 2	
+
  grid2=none             grid lines on axis 2 - none, dot, dash, or solid
+
  label2=                label on axis 2				
+
  x3end=x3max            value at which axis 3 ends			
+
  d3num=0.0              numbered tic interval on axis 3 (0.0 for automatic)
+
  f3num=x3min            first numbered tic on axis 3 (used if d3num not 0.0)
+
  n3tic=1                number of tics per numbered tic on axis 3	
+
  grid3=none             grid lines on axis 3 - none, dot, dash, or solid
+
  label3=                label on axis 3				
+
  labelfont=Helvetica    font name for axes labels			
+
  labelsize=18           font size for axes labels			
+
  title=                 title of plot					
+
  titlefont=Helvetica-Bold font name for title				
+
  titlesize=24           font size for title				
+
  titlecolor=black       color of title					
+
  axescolor=black        color of axes					
+
  gridcolor=black        color of grid					
+
  legend=0               =1 display the color scale                     
-                        if ==1, resize xbox,ybox,width,height          
+
+                        if equals 1, resize xbox,ybox,width,height          
+
  lstyle=vertleft       Vertical, axis label on left side               
+
                         =vertright (Vertical, axis label on right side)
+
                         =horibottom (Horizontal, axis label on bottom) 
+
  units=                 unit label for legend                          
+
  legendfont=times_roman10    font name for title                       
+
  following are defaults for lstyle=0. They are changed for other lstyles
+
  lwidth=1.2             colorscale (legend) width in inches            
+
  lheight=height/3       colorscale (legend) height in inches           
+
  lx=1.0                 colorscale (legend) x-position in inches       
+
  ly=(height-lheight)/2+xybox    colorscale (legend) y-position in pixels
+
  lbeg= lmin or wclip-5*perc    value at which legend axis begins       
+
  lend= lmax or bclip+5*perc    value at which legend axis ends         
+
  ldnum=0.0      numbered tic interval on legend axis (0.0 for automatic)
+
  lfnum=lmin     first numbered tic on legend axis (used if d1num not 0.0)
+
  lntic=1        number of tics per numbered tic on legend axis 
+
  lgrid=none     grid lines on legend axis - none, dot, dash, or solid
 
+
+
  All color specifications may also be made in X Window style Hex format
+
  example:   axescolor=#255						
 
+
+
  Legal font names are:							
+
  AvantGarde-Book AvantGarde-BookOblique AvantGarde-Demi AvantGarde-DemiOblique"
+
  Bookman-Demi Bookman-DemiItalic Bookman-Light Bookman-LightItalic 
+
  Courier Courier-Bold Courier-BoldOblique Courier-Oblique 
+
  Helvetica Helvetica-Bold Helvetica-BoldOblique Helvetica-Oblique 
+
  Helvetica-Narrow Helvetica-Narrow-Bold Helvetica-Narrow-BoldOblique 
+
  Helvetica-Narrow-Oblique NewCentrySchlbk-Bold"
+
  NewCenturySchlbk-BoldItalic NewCenturySchlbk-Roman Palatino-Bold  
+
  Palatino-BoldItalic Palatino-Italics Palatino-Roman 
+
  SanSerif-Bold SanSerif-BoldItalic SanSerif-Roman 
+
  Symbol Times-Bold Times-BoldItalic 
+
  Times-Roman Times-Italic ZapfChancery-MediumItalic 
+
  Note: The values of x1beg=x1min, x2end=x2max and x3beg=x3min cannot   
+
  be changed.								
+
+
+
+=head2 User's notes (Juan Lorenzo)
+untested
+
+=cut
+
 
 =head2 CHANGES and their DATES
 
 =cut
- use Moose;
+
+use Moose;
 our $VERSION = '0.0.1';
+
+
+=head2 Import packages
+
+=cut
+
 use L_SU_global_constants();
 
-	my $get					= new L_SU_global_constants();
-
-	my $var				= $get->var();
-	my $empty_string    	= $var->{_empty_string};
+use SeismicUnix qw ($in $out $on $go $to $suffix_ascii $off $suffix_su $suffix_bin);
+use Project_config;
 
 
-	my $pscube		= {
-		_angle					=> '',
-		_axescolor					=> '',
-		_bclip					=> '',
-		_bhls					=> '',
-		_bperc					=> '',
-		_bps					=> '',
-		_brgb					=> '',
-		_clip					=> '',
-		_d1					=> '',
-		_d1num					=> '',
-		_d1s					=> '',
-		_d2					=> '',
-		_d2num					=> '',
-		_d2s					=> '',
-		_d3					=> '',
-		_d3num					=> '',
-		_d3s					=> '',
-		_f1					=> '',
-		_f1num					=> '',
-		_f2					=> '',
-		_f2num					=> '',
-		_f3					=> '',
-		_f3num					=> '',
-		_faces					=> '',
-		_grid1					=> '',
-		_grid2					=> '',
-		_grid3					=> '',
-		_gridcolor					=> '',
-		_if					=> '',
-		_label1					=> '',
-		_label2					=> '',
-		_label3					=> '',
-		_labelfont					=> '',
-		_labelsize					=> '',
-		_lbeg					=> '',
-		_ldnum					=> '',
-		_legend					=> '',
-		_legendfont					=> '',
-		_lend					=> '',
-		_lfnum					=> '',
-		_lgrid					=> '',
-		_lheight					=> '',
-		_lntic					=> '',
-		_lstyle					=> '',
-		_lwidth					=> '',
-		_lx					=> '',
-		_ly					=> '',
-		_n1					=> '',
-		_n1tic					=> '',
-		_n2tic					=> '',
-		_n3tic					=> '',
-		_perc					=> '',
-		_size1					=> '',
-		_size2					=> '',
-		_size3					=> '',
-		_title					=> '',
-		_titlecolor					=> '',
-		_titlefont					=> '',
-		_titlesize					=> '',
-		_units					=> '',
-		_verbose					=> '',
-		_wclip					=> '',
-		_whls					=> '',
-		_wperc					=> '',
-		_wrgb					=> '',
-		_x1beg					=> '',
-		_x1end					=> '',
-		_x2beg					=> '',
-		_x3end					=> '',
-		_xbox					=> '',
-		_ybox					=> '',
-		_Step					=> '',
-		_note					=> '',
-    };
+=head2 instantiation of packages
 
+=cut
+
+my $get					= new L_SU_global_constants();
+my $Project				= new Project_config();
+my $DATA_SEISMIC_SU		= $Project->DATA_SEISMIC_SU();
+my $DATA_SEISMIC_BIN	= $Project->DATA_SEISMIC_BIN();
+my $DATA_SEISMIC_TXT	= $Project->DATA_SEISMIC_TXT();
+
+my $var				= $get->var();
+my $on				= $var->{_on};
+my $off				= $var->{_off};
+my $true			= $var->{_true};
+my $false			= $var->{_false};
+my $empty_string	= $var->{_empty_string};
+
+=head2 Encapsulated
+hash of private variables
+
+=cut
+
+my $pscube			= {
+	_angle					=> '',
+	_axescolor					=> '',
+	_bclip					=> '',
+	_bhls					=> '',
+	_bperc					=> '',
+	_bps					=> '',
+	_brgb					=> '',
+	_clip					=> '',
+	_d1					=> '',
+	_d1num					=> '',
+	_d1s					=> '',
+	_d2					=> '',
+	_d2num					=> '',
+	_d2s					=> '',
+	_d3					=> '',
+	_d3num					=> '',
+	_d3s					=> '',
+	_f1					=> '',
+	_f1num					=> '',
+	_f2					=> '',
+	_f2num					=> '',
+	_f3					=> '',
+	_f3num					=> '',
+	_faces					=> '',
+	_front					=> '',
+	_grid1					=> '',
+	_grid2					=> '',
+	_grid3					=> '',
+	_gridcolor					=> '',
+	_label1					=> '',
+	_label2					=> '',
+	_label3					=> '',
+	_labelfont					=> '',
+	_labelsize					=> '',
+	_lbeg					=> '',
+	_ldnum					=> '',
+	_legend					=> '',
+	_legendfont					=> '',
+	_lend					=> '',
+	_lfnum					=> '',
+	_lgrid					=> '',
+	_lheight					=> '',
+	_lntic					=> '',
+	_lstyle					=> '',
+	_lwidth					=> '',
+	_lx					=> '',
+	_ly					=> '',
+	_n1					=> '',
+	_n1tic					=> '',
+	_n2					=> '',
+	_n2tic					=> '',
+	_n3					=> '',
+	_n3tic					=> '',
+	_perc					=> '',
+	_side					=> '',
+	_size1					=> '',
+	_size2					=> '',
+	_size3					=> '',
+	_title					=> '',
+	_titlecolor					=> '',
+	_titlefont					=> '',
+	_titlesize					=> '',
+	_top					=> '',
+	_units					=> '',
+	_verbose					=> '',
+	_wclip					=> '',
+	_whls					=> '',
+	_wperc					=> '',
+	_wrgb					=> '',
+	_x1beg					=> '',
+	_x1end					=> '',
+	_x2beg					=> '',
+	_x3end					=> '',
+	_xbox					=> '',
+	_ybox					=> '',
+	_Step					=> '',
+	_note					=> '',
+
+};
 
 =head2 sub Step
 
@@ -250,6 +422,7 @@ by adding the program name
 	return ( $pscube->{_note} );
 
  }
+
 
 
 =head2 sub clear
@@ -282,11 +455,11 @@ by adding the program name
 		$pscube->{_f3}			= '';
 		$pscube->{_f3num}			= '';
 		$pscube->{_faces}			= '';
+		$pscube->{_front}			= '';
 		$pscube->{_grid1}			= '';
 		$pscube->{_grid2}			= '';
 		$pscube->{_grid3}			= '';
 		$pscube->{_gridcolor}			= '';
-		$pscube->{_if}			= '';
 		$pscube->{_label1}			= '';
 		$pscube->{_label2}			= '';
 		$pscube->{_label3}			= '';
@@ -307,9 +480,12 @@ by adding the program name
 		$pscube->{_ly}			= '';
 		$pscube->{_n1}			= '';
 		$pscube->{_n1tic}			= '';
+		$pscube->{_n2}			= '';
 		$pscube->{_n2tic}			= '';
+		$pscube->{_n3}			= '';
 		$pscube->{_n3tic}			= '';
 		$pscube->{_perc}			= '';
+		$pscube->{_side}			= '';
 		$pscube->{_size1}			= '';
 		$pscube->{_size2}			= '';
 		$pscube->{_size3}			= '';
@@ -317,6 +493,7 @@ by adding the program name
 		$pscube->{_titlecolor}			= '';
 		$pscube->{_titlefont}			= '';
 		$pscube->{_titlesize}			= '';
+		$pscube->{_top}			= '';
 		$pscube->{_units}			= '';
 		$pscube->{_verbose}			= '';
 		$pscube->{_wclip}			= '';
@@ -814,6 +991,26 @@ by adding the program name
  }
 
 
+=head2 sub front 
+
+
+=cut
+
+ sub front {
+
+	my ( $self,$front )		= @_;
+	if ( $front ne $empty_string ) {
+
+		$pscube->{_front}		= $front;
+		$pscube->{_note}		= $pscube->{_note}.' front='.$pscube->{_front};
+		$pscube->{_Step}		= $pscube->{_Step}.' front='.$pscube->{_front};
+
+	} else { 
+		print("pscube, front, missing front,\n");
+	 }
+ }
+
+
 =head2 sub grid1 
 
 
@@ -890,26 +1087,6 @@ by adding the program name
 
 	} else { 
 		print("pscube, gridcolor, missing gridcolor,\n");
-	 }
- }
-
-
-=head2 sub if 
-
-
-=cut
-
- sub if {
-
-	my ( $self,$if )		= @_;
-	if ( $if ne $empty_string ) {
-
-		$pscube->{_if}		= $if;
-		$pscube->{_note}		= $pscube->{_note}.' if='.$pscube->{_if};
-		$pscube->{_Step}		= $pscube->{_Step}.' if='.$pscube->{_if};
-
-	} else { 
-		print("pscube, if, missing if,\n");
 	 }
  }
 
@@ -1314,6 +1491,26 @@ by adding the program name
  }
 
 
+=head2 sub n2 
+
+
+=cut
+
+ sub n2 {
+
+	my ( $self,$n2 )		= @_;
+	if ( $n2 ne $empty_string ) {
+
+		$pscube->{_n2}		= $n2;
+		$pscube->{_note}		= $pscube->{_note}.' n2='.$pscube->{_n2};
+		$pscube->{_Step}		= $pscube->{_Step}.' n2='.$pscube->{_n2};
+
+	} else { 
+		print("pscube, n2, missing n2,\n");
+	 }
+ }
+
+
 =head2 sub n2tic 
 
 
@@ -1330,6 +1527,26 @@ by adding the program name
 
 	} else { 
 		print("pscube, n2tic, missing n2tic,\n");
+	 }
+ }
+
+
+=head2 sub n3 
+
+
+=cut
+
+ sub n3 {
+
+	my ( $self,$n3 )		= @_;
+	if ( $n3 ne $empty_string ) {
+
+		$pscube->{_n3}		= $n3;
+		$pscube->{_note}		= $pscube->{_note}.' n3='.$pscube->{_n3};
+		$pscube->{_Step}		= $pscube->{_Step}.' n3='.$pscube->{_n3};
+
+	} else { 
+		print("pscube, n3, missing n3,\n");
 	 }
  }
 
@@ -1370,6 +1587,26 @@ by adding the program name
 
 	} else { 
 		print("pscube, perc, missing perc,\n");
+	 }
+ }
+
+
+=head2 sub side 
+
+
+=cut
+
+ sub side {
+
+	my ( $self,$side )		= @_;
+	if ( $side ne $empty_string ) {
+
+		$pscube->{_side}		= $side;
+		$pscube->{_note}		= $pscube->{_note}.' side='.$pscube->{_side};
+		$pscube->{_Step}		= $pscube->{_Step}.' side='.$pscube->{_side};
+
+	} else { 
+		print("pscube, side, missing side,\n");
 	 }
  }
 
@@ -1510,6 +1747,26 @@ by adding the program name
 
 	} else { 
 		print("pscube, titlesize, missing titlesize,\n");
+	 }
+ }
+
+
+=head2 sub top 
+
+
+=cut
+
+ sub top {
+
+	my ( $self,$top )		= @_;
+	if ( $top ne $empty_string ) {
+
+		$pscube->{_top}		= $top;
+		$pscube->{_note}		= $pscube->{_note}.' top='.$pscube->{_top};
+		$pscube->{_Step}		= $pscube->{_Step}.' top='.$pscube->{_top};
+
+	} else { 
+		print("pscube, top, missing top,\n");
 	 }
  }
 
@@ -1762,10 +2019,10 @@ max index = number of input variables -1
  
 sub get_max_index {
  	  my ($self) = @_;
-    my $max_index = 36;
+	my $max_index = 74;
 
     return($max_index);
 }
  
  
-1; 
+1;

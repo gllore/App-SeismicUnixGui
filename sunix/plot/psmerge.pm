@@ -1,15 +1,16 @@
- package psmerge;
-
-
-=head1 DOCUMENTATION
+package psmerge;
 
 =head2 SYNOPSIS
 
-PACKAGE NAME:  PSMERGE - MERGE PostScript files					
-AUTHOR: Juan Lorenzo
-DATE:   
+PACKAGE NAME: 
+
+AUTHOR:  
+
+DATE:
+
 DESCRIPTION:
-Version: 
+
+Version:
 
 =head2 USE
 
@@ -17,60 +18,121 @@ Version:
 
 =head4 Examples
 
-=head3 SEISMIC UNIX NOTES
+=head2 SYNOPSIS
 
+=head3 SEISMIC UNIX NOTES
  PSMERGE - MERGE PostScript files					
+
+
 
  psmerge in= [optional parameters] >postscriptfile			
 
+
+
  Required Parameters:							
+
  in=                    postscript file to merge			
 
+
+
  Optional Parameters:							
+
  origin=0.0,0.0         x,y origin in inches				
+
  scale=1.0,1.0          x,y scale factors				
+
  rotate=0.0             rotation angle in degrees			
+
  translate=0.0,0.0      x,y translation in inches			
 
+
+
  Notes:								
+
  More than one set of in, origin, scale, rotate, and translate		
+
  parameters may be specified.  Output x and y coordinates are		
+
  determined by:							
+
           x = tx + (x-ox)*sx*cos(d) - (y-oy)*sy*sin(d)			
+
           y = ty + (x-ox)*sx*sin(d) + (y-oy)*sy*cos(d)			
+
  where tx,ty are translate coordinates, ox,oy are origin coordinates,	
+
  sx,sy are scale factors, and d is the rotation angle.  Note that the	
+
  order of operations is shift (origin), scale, rotate, and translate.	
 
+
+
  If the number of occurrences of a given parameter is less than the number
+
  of input files, then the last occurrence of that parameter will apply to
+
  all subsequent files.							
+
+
+
+=head2 User's notes (Juan Lorenzo)
+untested
+
+=cut
+
 
 =head2 CHANGES and their DATES
 
 =cut
- use Moose;
+
+use Moose;
 our $VERSION = '0.0.1';
+
+
+=head2 Import packages
+
+=cut
+
 use L_SU_global_constants();
 
-	my $get					= new L_SU_global_constants();
-
-	my $var				= $get->var();
-	my $empty_string    	= $var->{_empty_string};
+use SeismicUnix qw ($in $out $on $go $to $suffix_ascii $off $suffix_su $suffix_bin);
+use Project_config;
 
 
-	my $psmerge		= {
-		_in					=> '',
-		_origin					=> '',
-		_rotate					=> '',
-		_scale					=> '',
-		_translate					=> '',
-		_x					=> '',
-		_y					=> '',
-		_Step					=> '',
-		_note					=> '',
-    };
+=head2 instantiation of packages
 
+=cut
+
+my $get					= new L_SU_global_constants();
+my $Project				= new Project_config();
+my $DATA_SEISMIC_SU		= $Project->DATA_SEISMIC_SU();
+my $DATA_SEISMIC_BIN	= $Project->DATA_SEISMIC_BIN();
+my $DATA_SEISMIC_TXT	= $Project->DATA_SEISMIC_TXT();
+
+my $var				= $get->var();
+my $on				= $var->{_on};
+my $off				= $var->{_off};
+my $true			= $var->{_true};
+my $false			= $var->{_false};
+my $empty_string	= $var->{_empty_string};
+
+=head2 Encapsulated
+hash of private variables
+
+=cut
+
+my $psmerge			= {
+	_in					=> '',
+	_origin					=> '',
+	_rotate					=> '',
+	_scale					=> '',
+	_translate					=> '',
+	_x					=> '',
+	_y					=> '',
+	_Step					=> '',
+	_note					=> '',
+
+};
 
 =head2 sub Step
 
@@ -100,6 +162,7 @@ by adding the program name
 	return ( $psmerge->{_note} );
 
  }
+
 
 
 =head2 sub clear
@@ -274,4 +337,4 @@ sub get_max_index {
 }
  
  
-1; 
+1;

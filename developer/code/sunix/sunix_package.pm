@@ -339,7 +339,7 @@ sub write_pm {
 		# set up subroutine package_name
 		$subroutine->set_name($name);
 
-		# HERE starts THE output PRODUCT!!!!!!!!!!!!
+		# HERE starts THE output PRODUCT!
 		$sunix_package->{_outbound_pm} = $sunix_package->{_path_out4sunix} . '/' . $sunix_package->{_file_out};
 		# print("sunix_package,write_pm, outbound=$sunix_package->{_outbound_pm}\n");
 		open $OUT, '>', $sunix_package->{_outbound_pm} or die;

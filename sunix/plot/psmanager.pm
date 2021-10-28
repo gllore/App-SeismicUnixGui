@@ -1,15 +1,16 @@
- package psmanager;
-
-
-=head1 DOCUMENTATION
+package psmanager;
 
 =head2 SYNOPSIS
 
-PACKAGE NAME:  PSMANAGER - printer MANAGER for HP 4MV and HP 5Si Mx Laserjet 
-AUTHOR: Juan Lorenzo
-DATE:   
+PACKAGE NAME: 
+
+AUTHOR:  
+
+DATE:
+
 DESCRIPTION:
-Version: 
+
+Version:
 
 =head2 USE
 
@@ -17,86 +18,175 @@ Version:
 
 =head4 Examples
 
-=head3 SEISMIC UNIX NOTES
+=head2 SYNOPSIS
 
+=head3 SEISMIC UNIX NOTES
  PSMANAGER - printer MANAGER for HP 4MV and HP 5Si Mx Laserjet 
+
                 PostScript printing				
+
+
 
    psmanager < stdin  [optional parameters] > stdout 		
 
+
+
  Required Parameters:						
+
   none 							
+
  Optional Parameters:						
+
  papersize=0	paper size  (US Letter default)			
+
  		=1       US Legal				
+
  		=2	 A4					
+
  		=3     	 11x17					
 
+
+
  orient=0	paper orientation (Portrait default)		
+
   		=1   	Landscape				
 
+
+
  tray=3        printing tray (Bottom tray default)		
+
   		=1	tray 1 (multipurpose slot)		
+
   		=2	tray 2 					
 
+
+
  manual=0	no manual feed 					
+
   		=1     (Manual Feed)				
 
+
+
  media=0	regular paper					
+
   		=1     Transparency				
+
   		=2     Letterhead				
+
   		=3     Card Stock				
+
   		=4     Bond					
+
   		=5     Labels					
+
   		=6     Prepunched				
+
   		=7     Recyled					
+
   		=8     Preprinted				
+
   		=9     Color (printing on colored paper)	
 
+
+
  Notes: 							
+
  The option manual=1 implies tray=1. The media options apply	
+
  only to the HP LaserJet 5Si MX model printer.			
 
+
+
  Examples: 							
+
    overheads:							
+
     psmanager <  postscript_file manual=1 media=1 | lpr	
+
    labels:							
+
     psmanager <  postscript_file manual=1 media=5 | lpr	
 
 
 
+
+
+
+
  Notes:  This code was reverse engineered using output from
+
          the NeXTStep  printer manager.
+
  
+
  Author:  John Stockwell, June 1995, October 1997
+
  
+
  Reference:   
+
 		PostScript Printer Description File Format Specification,
+
 		version 4.2, Adobe Systems Incorporated
+
+
+
+=head2 User's notes (Juan Lorenzo)
+untested
+
+=cut
+
 
 =head2 CHANGES and their DATES
 
 =cut
- use Moose;
+
+use Moose;
 our $VERSION = '0.0.1';
+
+
+=head2 Import packages
+
+=cut
+
 use L_SU_global_constants();
 
-	my $get					= new L_SU_global_constants();
-
-	my $var				= $get->var();
-	my $empty_string    	= $var->{_empty_string};
+use SeismicUnix qw ($in $out $on $go $to $suffix_ascii $off $suffix_su $suffix_bin);
+use Project_config;
 
 
-	my $psmanager		= {
-		_manual					=> '',
-		_media					=> '',
-		_orient					=> '',
-		_papersize					=> '',
-		_tray					=> '',
-		_Step					=> '',
-		_note					=> '',
-    };
+=head2 instantiation of packages
 
+=cut
+
+my $get					= new L_SU_global_constants();
+my $Project				= new Project_config();
+my $DATA_SEISMIC_SU		= $Project->DATA_SEISMIC_SU();
+my $DATA_SEISMIC_BIN	= $Project->DATA_SEISMIC_BIN();
+my $DATA_SEISMIC_TXT	= $Project->DATA_SEISMIC_TXT();
+
+my $var				= $get->var();
+my $on				= $var->{_on};
+my $off				= $var->{_off};
+my $true			= $var->{_true};
+my $false			= $var->{_false};
+my $empty_string	= $var->{_empty_string};
+
+=head2 Encapsulated
+hash of private variables
+
+=cut
+
+my $psmanager			= {
+	_manual					=> '',
+	_media					=> '',
+	_orient					=> '',
+	_papersize					=> '',
+	_tray					=> '',
+	_Step					=> '',
+	_note					=> '',
+
+};
 
 =head2 sub Step
 
@@ -126,6 +216,7 @@ by adding the program name
 	return ( $psmanager->{_note} );
 
  }
+
 
 
 =head2 sub clear
@@ -258,4 +349,4 @@ sub get_max_index {
 }
  
  
-1; 
+1;

@@ -1,14 +1,14 @@
-package supsgraph_spec;
+package psepsi_spec;
 	use Moose;
 our $VERSION = '0.0.1';
 
 use Project_config;
-use SeismicUnix qw ($su $suffix_su);
+use SeismicUnix qw ($bin $su $suffix_bin $suffix_su $suffix_txt $txt);
 use L_SU_global_constants;
-use supsgraph;
+use psepsi;
 my $get					= new L_SU_global_constants();
 my $Project 				= new Project_config;
-my $supsgraph		= new supsgraph;
+my $psepsi		= new psepsi;
 
 my $var					= $get->var();
 
@@ -18,14 +18,17 @@ my $false      			= $var->{_false};
 my $file_dialog_type		= $get->file_dialog_type_href();
 my $flow_type				= $get->flow_type_href();
 
+	my $DATA_SEISMIC_BIN  	= $Project->DATA_SEISMIC_BIN();
 	my $DATA_SEISMIC_SU  	= $Project->DATA_SEISMIC_SU();   # output data directory
-my $PL_SEISMIC        = $Project->PL_SEISMIC();
-	my $max_index           = $supsgraph->get_max_index();
+	my $DATA_SEISMIC_TXT  	= $Project->DATA_SEISMIC_TXT();   # output data directory
+  my $PL_SEISMIC		    = $Project->PL_SEISMIC();
+ my $max_index = # Insert a number here
 
-	my $supsgraph_spec= {
-		_CONFIG	   => $PL_SEISMIC,
-		_DATA_DIR_IN		    => $DATA_SEISMIC_SU,
-		_DATA_DIR_OUT          => $DATA_SEISMIC_SU,
+	my $psepsi_spec = {
+		_CONFIG		            => $PL_SEISMIC,
+		_DATA_DIR_IN		    => $DATA_SEISMIC_BIN,
+	 	_DATA_DIR_OUT		    => $DATA_SEISMIC_SU,
+		_binding_index_aref	    => '',
 	 	_suffix_type_in			=> $su,
 		_data_suffix_in			=> $suffix_su,
 		_suffix_type_out		=> $su,
@@ -33,6 +36,7 @@ my $PL_SEISMIC        = $Project->PL_SEISMIC();
 		_file_dialog_type_aref	=> '',
 		_flow_type_aref			=> '',
 	 	_has_infile				=> $true,
+	 	_has_outpar				=> $false,
 	 	_has_pipe_in			=> $true,	
 	 	_has_pipe_out           => $true,
 	 	_has_redirect_in		=> $true,
@@ -49,6 +53,8 @@ my $PL_SEISMIC        = $Project->PL_SEISMIC();
 		_is_suprog				=> $true,
 	 	_is_superflow			=> $false,
 	 	_max_index              => $max_index,
+	 	_prefix_aref               => '',
+	 	_suffix_aref               => '',
 	};
 
 
@@ -62,9 +68,14 @@ my $PL_SEISMIC        = $Project->PL_SEISMIC();
 
 	my @index;
 
-	$index[0]	= 0;
+	# first binding index (index=0)
+	# connects to second item (index=1)
+	# in the parameter list
+#	$index[0] = 1; # inbound item is  bound 
+#	$index[1]	= 2; # inbound item is  bound
+#	$index[2]	= 8; # outbound item is  bound
 
-	$supsgraph_spec ->{_binding_index_aref} = \@index;
+	$psepsi_spec ->{_binding_index_aref} = \@index;
 	return();
 
  }
@@ -82,9 +93,16 @@ one type of dialog for each index
 
 	my @type;
 
-	$type[0]	= '';
+	my $index_aref = get_binding_index_aref();
+	my @index      = @$index_aref;
 
-	$supsgraph_spec ->{_file_dialog_type_aref} = \@type;
+		# bound index will look for data
+	$type[0]	= '';
+#	$type[$index[0]] = $file_dialog_type->{_Data};
+#	$type[$index[1]]	=  $file_dialog_type->{_Data};
+#	$type[$index[2]]	=  $file_dialog_type->{_Data};
+
+	$psepsi_spec ->{_file_dialog_type_aref} = \@type;
 	return();
 
  }
@@ -102,7 +120,7 @@ one type of dialog for each index
 
 	$type[0]	= $flow_type->{_user_built};
 
-	$supsgraph_spec ->{_flow_type_aref} = \@type;
+	$psepsi_spec ->{_flow_type_aref} = \@type;
 	return();
 
  }
@@ -117,17 +135,17 @@ one type of dialog for each index
 	my $self 	= @_;
 	my @index;
 
-	if ($supsgraph_spec->{_binding_index_aref} ) {
+	if ($psepsi_spec->{_binding_index_aref} ) {
 
-		my $index_aref = $supsgraph_spec->{_binding_index_aref};
+		my $index_aref = $psepsi_spec->{_binding_index_aref};
 		return($index_aref);
 
 	} else {
-		print("supsgraph_spec, get_binding_index_aref, missing binding_index_aref\n");
+		print("psepsi_spec, get_binding_index_aref, missing binding_index_aref\n");
 		return();
 	}
 
-	my $index_aref = $supsgraph_spec->{_binding_index_aref};
+	my $index_aref = $psepsi_spec->{_binding_index_aref};
  }
 
 
@@ -139,13 +157,13 @@ one type of dialog for each index
 
 	my $self 	= @_;
 
-	if ($supsgraph_spec->{_binding_index_aref} ) {
+	if ($psepsi_spec->{_binding_index_aref} ) {
 
-		my $binding_length= scalar @{$supsgraph_spec->{_binding_index_aref}};
+		my $binding_length= scalar @{$psepsi_spec->{_binding_index_aref}};
 		return($binding_length);
 
 	} else {
-		print("supsgraph_spec, get_binding_length, missing binding_length\n");
+		print("psepsi_spec, get_binding_length, missing binding_length\n");
 		return();
 	}
 
@@ -160,13 +178,13 @@ one type of dialog for each index
  sub get_file_dialog_type_aref{
 
 	my $self 	= @_;
-	if ($supsgraph_spec->{_file_dialog_type_aref} ) {
+	if ($psepsi_spec->{_file_dialog_type_aref} ) {
 
-		my $index_aref = $supsgraph_spec->{_file_dialog_type_aref};
+		my $index_aref = $psepsi_spec->{_file_dialog_type_aref};
 		return($index_aref);
 
 	} else {
-		print("supsgraph_spec, get_file_dialog_type_aref, missing get_file_dialog_type_aref\n");
+		print("psepsi_spec, get_file_dialog_type_aref, missing get_file_dialog_type_aref\n");
 		return();
 	}
 
@@ -182,13 +200,13 @@ one type of dialog for each index
 
 	my $self 	= @_;
 
-	if ($supsgraph_spec->{_flow_type_aref} ) {
+	if ($psepsi_spec->{_flow_type_aref} ) {
 
-			my $index_aref = $supsgraph_spec->{_flow_type_aref};
+			my $index_aref = $psepsi_spec->{_flow_type_aref};
 			return($index_aref);
 
 	} else {
-		print("supsgraph_spec, get_flow_type_aref, missing flow_type_aref\n");
+		print("psepsi_spec, get_flow_type_aref, missing flow_type_aref\n");
 		return();
 	}
 
@@ -230,7 +248,7 @@ one type of dialog for each index
 
 		for (my $i=0; $i < $len_1_needed; $i++) {
 
-			print("supsgraph, get_incompatibles,need_only_1:  @{@{$params->{_need_only_1}}[$i]}\n");
+			print("psepsi, get_incompatibles,need_only_1:  @{@{$params->{_need_only_1}}[$i]}\n");
 
 		}
 
@@ -251,13 +269,13 @@ one type of dialog for each index
 
 	my $self 	= @_;
 
-	if ($supsgraph_spec->{_prefix_aref} ) {
+	if ($psepsi_spec->{_prefix_aref} ) {
 
-		my $prefix_aref= $supsgraph_spec->{_prefix_aref};
+		my $prefix_aref= $psepsi_spec->{_prefix_aref};
 		return($prefix_aref);
 
 	} else {
-		print("supsgraph_spec, get_prefix_aref, missing prefix_aref\n");
+		print("psepsi_spec, get_prefix_aref, missing prefix_aref\n");
 		return();
 	}
 
@@ -273,13 +291,13 @@ one type of dialog for each index
 
 	my $self 	= @_;
 
-	if ($supsgraph_spec->{_suffix_aref} ) {
+	if ($psepsi_spec->{_suffix_aref} ) {
 
-			my $suffix_aref= $supsgraph_spec->{_suffix_aref};
+			my $suffix_aref= $psepsi_spec->{_suffix_aref};
 			return($suffix_aref);
 
 	} else {
-			print("$supsgraph_spec, get_suffix_aref, missing suffix_aref\n");
+			print("$psepsi_spec, get_suffix_aref, missing suffix_aref\n");
 			return();
 	}
 
@@ -308,7 +326,20 @@ are filtered by sunix_pl
 		$prefix[$i]	= $empty_string;
 
 	}
-	$supsgraph_spec ->{_prefix_aref} = \@prefix;
+
+#	my $index_aref = get_binding_index_aref();
+#	my @index       = @$index_aref;
+
+	# label 2 in GUI is input xx_file and needs a home directory
+#	$prefix[ $index[0] ] = '$DATA_SEISMIC_BIN' . ".'/'.";
+
+	# label 3 in GUI is input yy_file and needs a home directory
+#	$prefix[ $index[1] ] = '$DATA_SEISMIC_TXT' . ".'/'.";
+
+	# label 9 in GUI is input zz_file and needs a home directory
+#	$prefix[ $index[2] ] = '$DATA_SEISMIC_SU' . ".'/'.";
+
+	$psepsi_spec ->{_prefix_aref} = \@prefix;
 	return();
 
  }
@@ -332,7 +363,20 @@ values
 		$suffix[$i]	= $empty_string;
 
 	}
-	$supsgraph_spec ->{_suffix_aref} = \@suffix;
+
+#	my $index_aref = get_binding_index_aref();
+#	my @index       = @$index_aref;
+
+	# label 2 in GUI is input xx_file and needs a home directory
+#	$suffix[ $index[0] ] = ''.'' . '$suffix_bin';
+
+	# label 3 in GUI is input yy_file and needs a home directory
+#	$suffix[ $index[1] ] = ''.'' . '$suffix_bin';
+
+	# label 9 in GUI is output zz_file and needs a home directory
+#	$suffix[ $index[2] ] = ''.'' . '$suffix_su';
+
+	$psepsi_spec ->{_suffix_aref} = \@suffix;
 	return();
 
  }
@@ -349,7 +393,7 @@ with definitions
 sub variables {
 
 	my ($self) = @_;
-	my $hash_ref = $supsgraph_spec;
+	my $hash_ref = $psepsi_spec;
 	return ($hash_ref);
 }
 

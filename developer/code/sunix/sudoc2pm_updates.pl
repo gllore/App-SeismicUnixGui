@@ -28,7 +28,8 @@ $developer_sunix_categories[2]  = 'plot';
 $developer_sunix_categories[3]  = 'filter';
 $developer_sunix_categories[4]  = 'header';
 $developer_sunix_categories[5]  = 'inversion';
-$developer_sunix_categories[6]  = 'migration';
+$developer_sunix_categories[6]  = 'migrati	$index[1]	= 2; # inbound item is  bound
+	$index[2]	= 8; # outbound item is  boundon';
 $developer_sunix_categories[7]  = 'model';
 $developer_sunix_categories[8]  = 'NMO_Vel_Stk';
 $developer_sunix_categories[9]  = 'par';
@@ -77,7 +78,17 @@ For example=
 
 =cut
 
+<<<<<<< Updated upstream
 my $selected_program_name = 'sudatumk2ds';
 my $group_number                   = 1;
+=======
+<<<<<<< HEAD
+my $selected_program_name = 'pscube';
+my $group_number                   = 2;
+=======
+my $selected_program_name = 'sudatumk2ds';
+my $group_number                   = 1;
+>>>>>>> V0.6.6
+>>>>>>> Stashed changes
 $update->set_program($selected_program_name, $group_number);
 $update->get_changes();

@@ -401,6 +401,7 @@ my @sunix_data_programs = (
 	"data_out",
 	"dt1tosu",
 	"segbread",
+	"segdread",
 	"segyread",
 	"segyscan",
 	"segywrite",
@@ -422,6 +423,13 @@ my @sunix_data_programs = (
 my @sunix_datum_programs = ( 
 	"sudatumk2dr",
 	"sudatumk2ds",
+<<<<<<< Updated upstream
+=======
+<<<<<<< HEAD
+	"sukdmdcr",
+=======
+>>>>>>> V0.6.6
+>>>>>>> Stashed changes
  );
 
 my @sunix_filter_programs = (
@@ -528,14 +536,21 @@ my @sunix_picks_programs = (
 );
 
 my @sunix_plot_programs = (
+	"elaps",
+	"lcmap",
+	"lprop",
+	"psbbox",
+	"pscontour",
+	"pscube",
+	"pscubecontour",
 	"pswigb",
 	"pswigp",
 	"supswigb",
 	"supswigp",
-	"suximage",
 	"suxgraph",
-	"suxwigb",
+	"suximage",
 	"suxmovie",
+	"suxwigb",
 	"xgraph",
 	"ximage",
 	"xmovie",
@@ -774,3 +789,20 @@ sub param {
 
 
 
+<<<<<<< Updated upstream
+=======
+<<<<<<< HEAD
+
+
+
+
+
+
+
+
+
+
+
+=======
+>>>>>>> V0.6.6
+>>>>>>> Stashed changes

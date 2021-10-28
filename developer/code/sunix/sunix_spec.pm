@@ -168,7 +168,15 @@ sub _get_version_section {
 	"#\t".'$type[$index[0]] = $file_dialog_type->{_Data};'."\n".
 	"#\t".'$type[$index[1]]	=  $file_dialog_type->{_Data};'."\n".
 	"#\t".'$type[$index[2]]	=  $file_dialog_type->{_Data};'."\n\n".
+<<<<<<< Updated upstream
 	"#\t".'$'.$package_name.'_spec ->{_file_dialog_type_aref} = \@type;'."\n".	
+=======
+<<<<<<< HEAD
+	"\t".'$'.$package_name.'_spec ->{_file_dialog_type_aref} = \@type;'."\n".	
+=======
+	"#\t".'$'.$package_name.'_spec ->{_file_dialog_type_aref} = \@type;'."\n".	
+>>>>>>> V0.6.6
+>>>>>>> Stashed changes
 	"\t".'return();'."\n\n".
  	' }'."\n\n\n";
  

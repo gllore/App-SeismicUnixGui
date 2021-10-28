@@ -1,15 +1,16 @@
- package psmovie;
-
-
-=head1 DOCUMENTATION
+package psmovie;
 
 =head2 SYNOPSIS
 
-PACKAGE NAME:  PSMOVIE - PostScript MOVIE plot of a uniformly-sampled function f(x1,x2,x3)
-AUTHOR: Juan Lorenzo
-DATE:   
+PACKAGE NAME: 
+
+AUTHOR:  
+
+DATE:
+
 DESCRIPTION:
-Version: 
+
+Version:
 
 =head2 USE
 
@@ -17,146 +18,254 @@ Version:
 
 =head4 Examples
 
-=head3 SEISMIC UNIX NOTES
+=head2 SYNOPSIS
 
+=head3 SEISMIC UNIX NOTES
  PSMOVIE - PostScript MOVIE plot of a uniformly-sampled function f(x1,x2,x3)
+
+
 
  psmovie n1= [optional parameters] <binaryfile >postscriptfile		
 
+
+
  Required Parameters:							
+
  n1                     number of samples in 1st (fast) dimension	
 
+
+
  Optional Parameters:							
+
  d1=1.0                 sampling interval in 1st dimension		
+
  f1=0.0                 first sample in 1st dimension			
+
  n2=all                 number of samples in 2nd (slow) dimension	
+
  d2=1.0                 sampling interval in 2nd dimension		
+
  f2=0.0                 first sample in 2nd dimension			
+
  perc=100.0             percentile used to determine clip		
+
  clip=(perc percentile) clip used to determine bclip and wclip		
+
  bperc=perc             percentile for determining black clip value	
+
  wperc=100.0-perc       percentile for determining white clip value	
+
  bclip=clip             data values outside of [bclip,wclip] are clipped
+
  wclip=-clip            data values outside of [bclip,wclip] are clipped
+
  d1s=1.0                factor by which to scale d1 before imaging	
+
  d2s=1.0                factor by which to scale d2 before imaging	
+
  verbose=1              =1 for info printed on stderr (0 for no info)	
+
  xbox=1.0               offset in inches of left side of axes box	
+
  ybox=1.5               offset in inches of bottom side of axes box	
+
  wbox=6.0               width in inches of axes box			
+
  hbox=8.0               height in inches of axes box			
+
  x1beg=x1min            value at which axis 1 begins			
+
  x1end=x1max            value at which axis 1 ends			
+
  d1num=0.0              numbered tic interval on axis 1 (0.0 for automatic)
+
  f1num=x1min            first numbered tic on axis 1 (used if d1num not 0.0)
+
  n1tic=1                number of tics per numbered tic on axis 1	
+
  grid1=none             grid lines on axis 1 - none, dot, dash, or solid
+
  label1=                label on axis 1				
+
  x2beg=x2min            value at which axis 2 begins			
+
  x2end=x2max            value at which axis 2 ends			
+
  d2num=0.0              numbered tic interval on axis 2 (0.0 for automatic)
+
  f2num=x2min            first numbered tic on axis 2 (used if d2num not 0.0)
+
  n2tic=1                number of tics per numbered tic on axis 2	
+
  grid2=none             grid lines on axis 2 - none, dot, dash, or solid
+
  label2=                label on axis 2				
+
  labelfont=Helvetica    font name for axes labels			
+
  labelsize=18           font size for axes labels			
+
  title=                 title of plot					
+
  titlefont=Helvetica-Bold font name for title				
+
  titlesize=24           font size for title				
+
  style=seismic          normal (axis 1 horizontal, axis 2 vertical) or	
+
                         seismic (axis 1 vertical, axis 2 horizontal)	
+
  n3=1                   number of samples in third dimension		
+
  title2=                second title to annotate different frames	
+
  loopdsp=3              display loop type (1=loop over n1; 2=loop over n2;
+
                                            3=loop over n3)		
+
  d3=1.0                 sampling interval in 3rd dimension		
+
  f3=d3                  first sample in 3rd dimension			
 
+
+
  NeXT: view movie via:   psmovie < infile n1= [optional params...] | open
+
  Note: currently only the Preview Application can handle the multipage  
+
        PostScript output by this program.				
 
+
+
  All color specifications may also be made in X Window style Hex format
+
  example:   axescolor=#255						
 
+
+
  Legal font names are:							
+
  AvantGarde-Book AvantGarde-BookOblique AvantGarde-Demi AvantGarde-DemiOblique"
+
  Bookman-Demi Bookman-DemiItalic Bookman-Light Bookman-LightItalic 
+
  Courier Courier-Bold Courier-BoldOblique Courier-Oblique 
+
  Helvetica Helvetica-Bold Helvetica-BoldOblique Helvetica-Oblique 
+
  Helvetica-Narrow Helvetica-Narrow-Bold Helvetica-Narrow-BoldOblique 
+
  Helvetica-Narrow-Oblique NewCentrySchlbk-Bold"
+
  NewCenturySchlbk-BoldItalic NewCenturySchlbk-Roman Palatino-Bold  
+
  Palatino-BoldItalic Palatino-Italics Palatino-Roman 
+
  SanSerif-Bold SanSerif-BoldItalic SanSerif-Roman 
+
  Symbol Times-Bold Times-BoldItalic 
+
  Times-Roman Times-Italic ZapfChancery-MediumItalic 
+
+
+
+=head2 User's notes (Juan Lorenzo)
+untested
+
+=cut
+
 
 =head2 CHANGES and their DATES
 
 =cut
- use Moose;
+
+use Moose;
 our $VERSION = '0.0.1';
+
+
+=head2 Import packages
+
+=cut
+
 use L_SU_global_constants();
 
-	my $get					= new L_SU_global_constants();
-
-	my $var				= $get->var();
-	my $empty_string    	= $var->{_empty_string};
+use SeismicUnix qw ($in $out $on $go $to $suffix_ascii $off $suffix_su $suffix_bin);
+use Project_config;
 
 
-	my $psmovie		= {
-		_3					=> '',
-		_axescolor					=> '',
-		_bclip					=> '',
-		_bperc					=> '',
-		_clip					=> '',
-		_d1					=> '',
-		_d1num					=> '',
-		_d1s					=> '',
-		_d2					=> '',
-		_d2num					=> '',
-		_d2s					=> '',
-		_d3					=> '',
-		_f1					=> '',
-		_f1num					=> '',
-		_f2					=> '',
-		_f2num					=> '',
-		_f3					=> '',
-		_grid1					=> '',
-		_grid2					=> '',
-		_hbox					=> '',
-		_label1					=> '',
-		_label2					=> '',
-		_labelfont					=> '',
-		_labelsize					=> '',
-		_loopdsp					=> '',
-		_n1					=> '',
-		_n1tic					=> '',
-		_n2					=> '',
-		_n2tic					=> '',
-		_n3					=> '',
-		_perc					=> '',
-		_style					=> '',
-		_title					=> '',
-		_title2					=> '',
-		_titlefont					=> '',
-		_titlesize					=> '',
-		_verbose					=> '',
-		_wbox					=> '',
-		_wclip					=> '',
-		_wperc					=> '',
-		_x1beg					=> '',
-		_x1end					=> '',
-		_x2beg					=> '',
-		_x2end					=> '',
-		_xbox					=> '',
-		_ybox					=> '',
-		_Step					=> '',
-		_note					=> '',
-    };
+=head2 instantiation of packages
 
+=cut
+
+my $get					= new L_SU_global_constants();
+my $Project				= new Project_config();
+my $DATA_SEISMIC_SU		= $Project->DATA_SEISMIC_SU();
+my $DATA_SEISMIC_BIN	= $Project->DATA_SEISMIC_BIN();
+my $DATA_SEISMIC_TXT	= $Project->DATA_SEISMIC_TXT();
+
+my $var				= $get->var();
+my $on				= $var->{_on};
+my $off				= $var->{_off};
+my $true			= $var->{_true};
+my $false			= $var->{_false};
+my $empty_string	= $var->{_empty_string};
+
+=head2 Encapsulated
+hash of private variables
+
+=cut
+
+my $psmovie			= {
+	_3					=> '',
+	_axescolor					=> '',
+	_bclip					=> '',
+	_bperc					=> '',
+	_clip					=> '',
+	_d1					=> '',
+	_d1num					=> '',
+	_d1s					=> '',
+	_d2					=> '',
+	_d2num					=> '',
+	_d2s					=> '',
+	_d3					=> '',
+	_f1					=> '',
+	_f1num					=> '',
+	_f2					=> '',
+	_f2num					=> '',
+	_f3					=> '',
+	_grid1					=> '',
+	_grid2					=> '',
+	_hbox					=> '',
+	_label1					=> '',
+	_label2					=> '',
+	_labelfont					=> '',
+	_labelsize					=> '',
+	_loopdsp					=> '',
+	_n1					=> '',
+	_n1tic					=> '',
+	_n2					=> '',
+	_n2tic					=> '',
+	_n3					=> '',
+	_perc					=> '',
+	_style					=> '',
+	_title					=> '',
+	_title2					=> '',
+	_titlefont					=> '',
+	_titlesize					=> '',
+	_verbose					=> '',
+	_wbox					=> '',
+	_wclip					=> '',
+	_wperc					=> '',
+	_x1beg					=> '',
+	_x1end					=> '',
+	_x2beg					=> '',
+	_x2end					=> '',
+	_xbox					=> '',
+	_ybox					=> '',
+	_Step					=> '',
+	_note					=> '',
+
+};
 
 =head2 sub Step
 
@@ -186,6 +295,7 @@ by adding the program name
 	return ( $psmovie->{_note} );
 
  }
+
 
 
 =head2 sub clear
@@ -1179,4 +1289,4 @@ sub get_max_index {
 }
  
  
-1; 
+1;

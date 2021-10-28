@@ -1,6 +1,8 @@
  PSEPSI - add an EPSI formatted preview bitmap to an EPS file		
 
- psepsi <epsfile >epsifile						
+ psepsi <epsfile >epsifile		
+ 
+ opt=null				
 
  Note:									
  This application requires						

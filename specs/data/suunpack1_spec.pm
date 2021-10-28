@@ -101,7 +101,15 @@ sub file_dialog_type_aref {
 	#	$type[$index[1]]	=  $file_dialog_type->{_Data};
 	#	$type[$index[2]]	=  $file_dialog_type->{_Data};
 
+<<<<<<< Updated upstream
 	#	$suunpack1_spec ->{_file_dialog_type_aref} = \@type;
+=======
+<<<<<<< HEAD
+		$suunpack1_spec ->{_file_dialog_type_aref} = \@type;
+=======
+	#	$suunpack1_spec ->{_file_dialog_type_aref} = \@type;
+>>>>>>> V0.6.6
+>>>>>>> Stashed changes
 	return ();
 
 }

@@ -1,13 +1,15 @@
-package wptcomp_spec;
+package lprop_spec;
 use Moose;
 our $VERSION = '0.0.1';
+
 use Project_config;
 use SeismicUnix qw ($bin $su $suffix_bin $suffix_su $suffix_txt $txt);
 use L_SU_global_constants;
-use wptcomp;
+use lprop;
+
 my $get     = new L_SU_global_constants();
 my $Project = new Project_config;
-my $wptcomp = new wptcomp;
+my $lprop   = new lprop;
 
 my $var = $get->var();
 
@@ -21,9 +23,9 @@ my $DATA_SEISMIC_BIN = $Project->DATA_SEISMIC_BIN();
 my $DATA_SEISMIC_SU  = $Project->DATA_SEISMIC_SU();     # output data directory
 my $DATA_SEISMIC_TXT = $Project->DATA_SEISMIC_TXT();    # output data directory
 my $PL_SEISMIC       = $Project->PL_SEISMIC();
-my $max_index        = 6;
+my $max_index        = 0;
 
-my $wptcomp_spec = {
+my $lprop_spec = {
 	_CONFIG                => $PL_SEISMIC,
 	_DATA_DIR_IN           => $DATA_SEISMIC_BIN,
 	_DATA_DIR_OUT          => $DATA_SEISMIC_SU,
@@ -73,7 +75,7 @@ sub binding_index_aref {
 	#	$index[1]	= 2; # inbound item is  bound
 	#	$index[2]	= 8; # outbound item is  bound
 
-	$wptcomp_spec->{_binding_index_aref} = \@index;
+	$lprop_spec->{_binding_index_aref} = \@index;
 	return ();
 
 }
@@ -100,15 +102,7 @@ sub file_dialog_type_aref {
 	#	$type[$index[1]]	=  $file_dialog_type->{_Data};
 	#	$type[$index[2]]	=  $file_dialog_type->{_Data};
 
-<<<<<<< Updated upstream
-	#	$wptcomp_spec ->{_file_dialog_type_aref} = \@type;
-=======
-<<<<<<< HEAD
-		$wptcomp_spec ->{_file_dialog_type_aref} = \@type;
-=======
-	#	$wptcomp_spec ->{_file_dialog_type_aref} = \@type;
->>>>>>> V0.6.6
->>>>>>> Stashed changes
+	$lprop_spec->{_file_dialog_type_aref} = \@type;
 	return ();
 
 }
@@ -125,7 +119,7 @@ sub flow_type_aref {
 
 	$type[0] = $flow_type->{_user_built};
 
-	$wptcomp_spec->{_flow_type_aref} = \@type;
+	$lprop_spec->{_flow_type_aref} = \@type;
 	return ();
 
 }
@@ -139,17 +133,19 @@ sub get_binding_index_aref {
 	my $self = @_;
 	my @index;
 
-	if ( $wptcomp_spec->{_binding_index_aref} ) {
+	if ( $lprop_spec->{_binding_index_aref} ) {
 
-		my $index_aref = $wptcomp_spec->{_binding_index_aref};
+		my $index_aref = $lprop_spec->{_binding_index_aref};
 		return ($index_aref);
 
-	} else {
-		print("wptcomp_spec, get_binding_index_aref, missing binding_index_aref\n");
+	}
+	else {
+		print(
+			"lprop_spec, get_binding_index_aref, missing binding_index_aref\n");
 		return ();
 	}
 
-	my $index_aref = $wptcomp_spec->{_binding_index_aref};
+	my $index_aref = $lprop_spec->{_binding_index_aref};
 }
 
 =head2 sub get_binding_length
@@ -160,13 +156,14 @@ sub get_binding_length {
 
 	my $self = @_;
 
-	if ( $wptcomp_spec->{_binding_index_aref} ) {
+	if ( $lprop_spec->{_binding_index_aref} ) {
 
-		my $binding_length = scalar @{ $wptcomp_spec->{_binding_index_aref} };
+		my $binding_length = scalar @{ $lprop_spec->{_binding_index_aref} };
 		return ($binding_length);
 
-	} else {
-		print("wptcomp_spec, get_binding_length, missing binding_length\n");
+	}
+	else {
+		print("lprop_spec, get_binding_length, missing binding_length\n");
 		return ();
 	}
 
@@ -180,13 +177,16 @@ sub get_binding_length {
 sub get_file_dialog_type_aref {
 
 	my $self = @_;
-	if ( $wptcomp_spec->{_file_dialog_type_aref} ) {
+	if ( $lprop_spec->{_file_dialog_type_aref} ) {
 
-		my $index_aref = $wptcomp_spec->{_file_dialog_type_aref};
+		my $index_aref = $lprop_spec->{_file_dialog_type_aref};
 		return ($index_aref);
 
-	} else {
-		print("wptcomp_spec, get_file_dialog_type_aref, missing get_file_dialog_type_aref\n");
+	}
+	else {
+		print(
+"lprop_spec, get_file_dialog_type_aref, missing get_file_dialog_type_aref\n"
+		);
 		return ();
 	}
 
@@ -201,13 +201,14 @@ sub get_flow_type_aref {
 
 	my $self = @_;
 
-	if ( $wptcomp_spec->{_flow_type_aref} ) {
+	if ( $lprop_spec->{_flow_type_aref} ) {
 
-		my $index_aref = $wptcomp_spec->{_flow_type_aref};
+		my $index_aref = $lprop_spec->{_flow_type_aref};
 		return ($index_aref);
 
-	} else {
-		print("wptcomp_spec, get_flow_type_aref, missing flow_type_aref\n");
+	}
+	else {
+		print("lprop_spec, get_flow_type_aref, missing flow_type_aref\n");
 		return ();
 	}
 
@@ -246,13 +247,16 @@ sub get_incompatibles {
 
 	if ( $len_1_needed >= 1 ) {
 
-		for ( my $i = 0; $i < $len_1_needed; $i++ ) {
+		for ( my $i = 0 ; $i < $len_1_needed ; $i++ ) {
 
-			print("wptcomp, get_incompatibles,need_only_1:  @{@{$params->{_need_only_1}}[$i]}\n");
+			print(
+"lprop, get_incompatibles,need_only_1:  @{@{$params->{_need_only_1}}[$i]}\n"
+			);
 
 		}
 
-	} else {
+	}
+	else {
 		print("get_incompatibles, no incompatibles\n");
 	}
 
@@ -268,13 +272,14 @@ sub get_prefix_aref {
 
 	my $self = @_;
 
-	if ( $wptcomp_spec->{_prefix_aref} ) {
+	if ( $lprop_spec->{_prefix_aref} ) {
 
-		my $prefix_aref = $wptcomp_spec->{_prefix_aref};
+		my $prefix_aref = $lprop_spec->{_prefix_aref};
 		return ($prefix_aref);
 
-	} else {
-		print("wptcomp_spec, get_prefix_aref, missing prefix_aref\n");
+	}
+	else {
+		print("lprop_spec, get_prefix_aref, missing prefix_aref\n");
 		return ();
 	}
 
@@ -289,13 +294,14 @@ sub get_suffix_aref {
 
 	my $self = @_;
 
-	if ( $wptcomp_spec->{_suffix_aref} ) {
+	if ( $lprop_spec->{_suffix_aref} ) {
 
-		my $suffix_aref = $wptcomp_spec->{_suffix_aref};
+		my $suffix_aref = $lprop_spec->{_suffix_aref};
 		return ($suffix_aref);
 
-	} else {
-		print("$wptcomp_spec, get_suffix_aref, missing suffix_aref\n");
+	}
+	else {
+		print("$lprop_spec, get_suffix_aref, missing suffix_aref\n");
 		return ();
 	}
 
@@ -318,7 +324,7 @@ sub prefix_aref {
 
 	my @prefix;
 
-	for ( my $i = 0; $i < $max_index; $i++ ) {
+	for ( my $i = 0 ; $i < $max_index ; $i++ ) {
 
 		$prefix[$i] = $empty_string;
 
@@ -336,7 +342,7 @@ sub prefix_aref {
 	# label 9 in GUI is input zz_file and needs a home directory
 	#	$prefix[ $index[2] ] = '$DATA_SEISMIC_SU' . ".'/'.";
 
-	$wptcomp_spec->{_prefix_aref} = \@prefix;
+	$lprop_spec->{_prefix_aref} = \@prefix;
 	return ();
 
 }
@@ -354,7 +360,7 @@ sub suffix_aref {
 
 	my @suffix;
 
-	for ( my $i = 0; $i < $max_index; $i++ ) {
+	for ( my $i = 0 ; $i < $max_index ; $i++ ) {
 
 		$suffix[$i] = $empty_string;
 
@@ -372,7 +378,7 @@ sub suffix_aref {
 	# label 9 in GUI is output zz_file and needs a home directory
 	#	$suffix[ $index[2] ] = ''.'' . '$suffix_su';
 
-	$wptcomp_spec->{_suffix_aref} = \@suffix;
+	$lprop_spec->{_suffix_aref} = \@suffix;
 	return ();
 
 }
@@ -388,7 +394,7 @@ with definitions
 sub variables {
 
 	my ($self) = @_;
-	my $hash_ref = $wptcomp_spec;
+	my $hash_ref = $lprop_spec;
 	return ($hash_ref);
 }
 

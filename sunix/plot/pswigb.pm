@@ -1,15 +1,16 @@
- package pswigb;
-
-
-=head1 DOCUMENTATION
+package pswigb;
 
 =head2 SYNOPSIS
 
-PACKAGE NAME:  PSWIGB - PostScript WIGgle-trace plot of f(x1,x2) via Bitmap		
-AUTHOR: Juan Lorenzo
-DATE:   
+PACKAGE NAME: 
+
+AUTHOR:  
+
+DATE:
+
 DESCRIPTION:
-Version: 
+
+Version:
 
 =head2 USE
 
@@ -17,170 +18,296 @@ Version:
 
 =head4 Examples
 
-=head3 SEISMIC UNIX NOTES
+=head2 SYNOPSIS
 
+=head3 SEISMIC UNIX NOTES
  PSWIGB - PostScript WIGgle-trace plot of f(x1,x2) via Bitmap		
+
  Best for many traces.  Use PSWIGP (Polygon version) for few traces.	
+
+
 
  pswigb n1= [optional parameters] <binaryfile >postscriptfile		
 
+
+
  Required Parameters:							
+
  n1                     number of samples in 1st (fast) dimension	
 
+
+
  Optional Parameters:							
+
  d1=1.0                 sampling interval in 1st dimension		
+
  f1=0.0                 first sample in 1st dimension			
+
  n2=all                 number of samples in 2nd (slow) dimension	
+
  d2=1.0                 sampling interval in 2nd dimension		
+
  f2=0.0                 first sample in 2nd dimension			
+
  x2=f2,f2+d2,...        array of sampled values in 2nd dimension	
+
  bias=0.0               data value corresponding to location along axis 2
+
  perc=100.0             percentile for determining clip		
+
  clip=(perc percentile) data values < bias+clip and > bias-clip are clipped
+
  xcur=1.0               wiggle excursion in traces corresponding to clip
+
  wt=1                   =0 for no wiggle-trace; =1 for wiggle-trace	
+
  va=1                   =0 for no variable-area; =1 for variable-area fill
+
                         =2 for variable area, solid/grey fill          
+
                         SHADING: 2<= va <=5  va=2 lightgrey, va=5 black", 
+
  nbpi=72                number of bits per inch at which to rasterize	
+
  verbose=1              =1 for info printed on stderr (0 for no info)	
+
  xbox=1.5               offset in inches of left side of axes box	
+
  ybox=1.5               offset in inches of bottom side of axes box	
+
  wbox=6.0               width in inches of axes box			
+
  hbox=8.0               height in inches of axes box			
+
  x1beg=x1min            value at which axis 1 begins			
+
  x1end=x1max            value at which axis 1 ends			
+
  d1num=0.0              numbered tic interval on axis 1 (0.0 for automatic)
+
  f1num=x1min            first numbered tic on axis 1 (used if d1num not 0.0)
+
  n1tic=1                number of tics per numbered tic on axis 1	
+
  grid1=none             grid lines on axis 1 - none, dot, dash, or solid
+
  label1=                label on axis 1				
+
  x2beg=x2min            value at which axis 2 begins			
+
  x2end=x2max            value at which axis 2 ends			
+
  d2num=0.0              numbered tic interval on axis 2 (0.0 for automatic)
+
  f2num=x2min            first numbered tic on axis 2 (used if d2num not 0.0)
+
  n2tic=1                number of tics per numbered tic on axis 2	
+
  grid2=none             grid lines on axis 2 - none, dot, dash, or solid
+
  label2=                label on axis 2				
+
  labelfont=Helvetica    font name for axes labels			
+
  labelsize=18           font size for axes labels			
+
  title=                 title of plot					
+
  titlefont=Helvetica-Bold font name for title				
+
  titlesize=24           font size for title				
+
  titlecolor=black       color of title					
+
  axescolor=black        color of axes					
+
  gridcolor=black        color of grid					
+
  axeswidth=1            width (in points) of axes			
+
  ticwidth=axeswidth     width (in points) of tic marks		
+
  gridwidth=axeswidth    width (in points) of grid lines		
+
  style=seismic          normal (axis 1 horizontal, axis 2 vertical) or	
+
                         seismic (axis 1 vertical, axis 2 horizontal)	
+
  interp=0		 no display interpolation			
+
 			 =1 use 8 point sinc interpolation		
+
  curve=curve1,curve2,...  file(s) containing points to draw curve(s)   
+
  npair=n1,n2,n2,...            number(s) of pairs in each file         
+
  curvecolor=black,..    color of curve(s)                              
+
  curvewidth=axeswidth   width (in points) of curve(s)                  
+
  curvedash=0            solid curve(s), dash indices 1,...,11 produce  
+
                         curve(s) with various dash styles              
 
+
+
  Notes: 								
+
  The interp option may be useful for high nbpi values, however, it	
+
  tacitly assumes that the data are purely oscillatory.	Non-oscillatory	
+
  data will not be represented correctly when this option is set.	
 
+
+
  The curve file is an ascii file with the points specified as x1 x2	
+
  pairs, one pair to a line.  A "vector" of curve files and curve	
+
  colors may be specified as curvefile=file1,file2,etc. and 		
+
  curvecolor=color1,color2,etc, and the number of pairs of values in each
+
  file as npair=npair1,npair2,... .					
 
+
+
  All color specifications may also be made in X Window style Hex format
+
  example:   axescolor=#255						
 
+
+
  Legal font names are:							
+
  AvantGarde-Book AvantGarde-BookOblique AvantGarde-Demi AvantGarde-DemiOblique"
+
  Bookman-Demi Bookman-DemiItalic Bookman-Light Bookman-LightItalic 
+
  Courier Courier-Bold Courier-BoldOblique Courier-Oblique 
+
  Helvetica Helvetica-Bold Helvetica-BoldOblique Helvetica-Oblique 
+
  Helvetica-Narrow Helvetica-Narrow-Bold Helvetica-Narrow-BoldOblique 
+
  Helvetica-Narrow-Oblique NewCentrySchlbk-Bold"
+
  NewCenturySchlbk-BoldItalic NewCenturySchlbk-Roman Palatino-Bold  
+
  Palatino-BoldItalic Palatino-Italics Palatino-Roman 
+
  SanSerif-Bold SanSerif-BoldItalic SanSerif-Roman 
+
  Symbol Times-Bold Times-BoldItalic 
+
  Times-Roman Times-Italic ZapfChancery-MediumItalic 
+
+
+
+=head2 User's notes (Juan Lorenzo)
+untested
+
+=cut
+
 
 =head2 CHANGES and their DATES
 
 =cut
- use Moose;
+
+use Moose;
 our $VERSION = '0.0.1';
+
+
+=head2 Import packages
+
+=cut
+
 use L_SU_global_constants();
 
-	my $get					= new L_SU_global_constants();
-
-	my $var				= $get->var();
-	my $empty_string    	= $var->{_empty_string};
+use SeismicUnix qw ($in $out $on $go $to $suffix_ascii $off $suffix_su $suffix_bin);
+use Project_config;
 
 
-	my $pswigb		= {
-		_axescolor					=> '',
-		_axeswidth					=> '',
-		_bias					=> '',
-		_clip					=> '',
-		_curve					=> '',
-		_curvecolor					=> '',
-		_curvedash					=> '',
-		_curvefile					=> '',
-		_curvewidth					=> '',
-		_d1					=> '',
-		_d1num					=> '',
-		_d2					=> '',
-		_d2num					=> '',
-		_f1					=> '',
-		_f1num					=> '',
-		_f2					=> '',
-		_f2num					=> '',
-		_grid1					=> '',
-		_grid2					=> '',
-		_gridcolor					=> '',
-		_gridwidth					=> '',
-		_hbox					=> '',
-		_interp					=> '',
-		_label1					=> '',
-		_label2					=> '',
-		_labelfont					=> '',
-		_labelsize					=> '',
-		_n1					=> '',
-		_n1tic					=> '',
-		_n2					=> '',
-		_n2tic					=> '',
-		_nbpi					=> '',
-		_npair					=> '',
-		_perc					=> '',
-		_style					=> '',
-		_ticwidth					=> '',
-		_title					=> '',
-		_titlecolor					=> '',
-		_titlefont					=> '',
-		_titlesize					=> '',
-		_va					=> '',
-		_verbose					=> '',
-		_wbox					=> '',
-		_wt					=> '',
-		_x1beg					=> '',
-		_x1end					=> '',
-		_x2					=> '',
-		_x2beg					=> '',
-		_x2end					=> '',
-		_xbox					=> '',
-		_xcur					=> '',
-		_ybox					=> '',
-		_Step					=> '',
-		_note					=> '',
-    };
+=head2 instantiation of packages
 
+=cut
+
+my $get					= new L_SU_global_constants();
+my $Project				= new Project_config();
+my $DATA_SEISMIC_SU		= $Project->DATA_SEISMIC_SU();
+my $DATA_SEISMIC_BIN	= $Project->DATA_SEISMIC_BIN();
+my $DATA_SEISMIC_TXT	= $Project->DATA_SEISMIC_TXT();
+
+my $var				= $get->var();
+my $on				= $var->{_on};
+my $off				= $var->{_off};
+my $true			= $var->{_true};
+my $false			= $var->{_false};
+my $empty_string	= $var->{_empty_string};
+
+=head2 Encapsulated
+hash of private variables
+
+=cut
+
+my $pswigb			= {
+	_axescolor					=> '',
+	_axeswidth					=> '',
+	_bias					=> '',
+	_clip					=> '',
+	_curve					=> '',
+	_curvecolor					=> '',
+	_curvedash					=> '',
+	_curvefile					=> '',
+	_curvewidth					=> '',
+	_d1					=> '',
+	_d1num					=> '',
+	_d2					=> '',
+	_d2num					=> '',
+	_f1					=> '',
+	_f1num					=> '',
+	_f2					=> '',
+	_f2num					=> '',
+	_grid1					=> '',
+	_grid2					=> '',
+	_gridcolor					=> '',
+	_gridwidth					=> '',
+	_hbox					=> '',
+	_interp					=> '',
+	_label1					=> '',
+	_label2					=> '',
+	_labelfont					=> '',
+	_labelsize					=> '',
+	_n1					=> '',
+	_n1tic					=> '',
+	_n2					=> '',
+	_n2tic					=> '',
+	_nbpi					=> '',
+	_npair					=> '',
+	_perc					=> '',
+	_style					=> '',
+	_ticwidth					=> '',
+	_title					=> '',
+	_titlecolor					=> '',
+	_titlefont					=> '',
+	_titlesize					=> '',
+	_va					=> '',
+	_verbose					=> '',
+	_wbox					=> '',
+	_wt					=> '',
+	_x1beg					=> '',
+	_x1end					=> '',
+	_x2					=> '',
+	_x2beg					=> '',
+	_x2end					=> '',
+	_xbox					=> '',
+	_xcur					=> '',
+	_ybox					=> '',
+	_Step					=> '',
+	_note					=> '',
+
+};
 
 =head2 sub Step
 
@@ -210,6 +337,7 @@ by adding the program name
 	return ( $pswigb->{_note} );
 
  }
+
 
 
 =head2 sub clear
@@ -1323,10 +1451,10 @@ max index = number of input variables -1
  
 sub get_max_index {
  	  my ($self) = @_;
-    my $max_index = 51;
+	my $max_index = 51;
 
     return($max_index);
 }
  
  
-1; 
+1;

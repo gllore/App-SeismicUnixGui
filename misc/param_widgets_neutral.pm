@@ -540,8 +540,8 @@ sub _update_check_button_setting {
 
 		}
 		else {
-
-			print("param_widgets_neutral,_update_check_button_setting; unexpected cases\n");
+#			print("param_widgets_neutral,_update_check_button_setting; values not defined\n");
+#			print("param_widgets_neutral, = $values[$idx]\n");
 			$on_off[$idx] = $off;
 		}
 
@@ -646,7 +646,7 @@ sub set_check_buttons {
 	if ($check_buttons_settings_aref) {
 		$param_widgets_color_href->{_check_buttons_settings_aref} = $check_buttons_settings_aref;
 
-		# print("param_widgets_neutral,set_check_buttons, settings are @{$param_widgets_color_href->{_check_buttons_settings_aref}}\n");
+#		print("param_widgets_neutral,set_check_buttons, settings are @{$param_widgets_color_href->{_check_buttons_settings_aref}}\n");
 	}
 	return ();
 }
@@ -1667,7 +1667,7 @@ sub set_values {
 
 		$param_widgets_color_href->{_values_aref} = $values_aref;
 
-		# print("param_widgets_neutral,set_values,@{$param_widgets_color_href->{_values_aref}}\n");
+#		print("param_widgets_neutral,set_values,@{$param_widgets_color_href->{_values_aref}}\n");
 
 	}
 	else {

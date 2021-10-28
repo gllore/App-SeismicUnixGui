@@ -42,7 +42,7 @@ sub parameters{
  
     # print ("line $line_num comprises: @{$parse_names_ref->{_line_contents}}[$i] ");   	
     	
-     	$line_text   		=  @{$parse_names_ref->{_line_contents}}[$line_num];
+     	$line_text =  @{$parse_names_ref->{_line_contents}}[$line_num];
 
 					#  match regex (m//) to string ($line_text) 
 					#  and assign (=~) to array @fields 
@@ -55,17 +55,58 @@ sub parameters{
 		my $length = scalar @fields;
 			
 		# filtered results
-		 for (my $i=0; $i<$length; $i++) {
-     		print ("line:$line_num, field $i:----$fields[$i]----\n");
-		 }
+#		 for (my $i=0; $i<$length; $i++) {
+#     		print ("line:$line_num, field $i:----$fields[$i]----\n");
+#		 }
 
      	if( $fields[0] ) {
 
        		$default_names[$op_line_num]           = $fields[0]; 
-       		$default_values[$op_line_num]   	   = $fields[1]; 
-
+       		
 			# print("sudoc, $line_num param_name: $default_names[$op_line_num]\n");
-			# print("sudoc, $line_num default param_value: $default_values[$op_line_num]\n");
+			# only allow to pass those fields that are default useful values of the program
+			# replace the following fields with blanks
+			# replace any character .
+			# greedy replacement *
+			
+			$fields[1] =~ s/0.0,\.\.\..*//;
+			$fields[1] =~ s/1,\.\.\..*//;
+			$fields[1] =~ s/1.0,\.\.\..*//;
+			$fields[1] =~ s/0.0,0.0,\.\.\..*//;
+			$fields[1] =~ s/\(.*//;
+			$fields[1] =~ s/clip//;
+			$fields[1] =~ s/\-clip//;
+			$fields[1] =~ s/fc.*//;
+						
+			$fields[1] =~ s/height.*//;
+			$fields[1] =~ s/lmin//;
+			$fields[1] =~ s/lmax//;
+			$fields[1] =~ s/lwidth//;
+			
+			$fields[1] =~ s/min.*//;
+			$fields[1] =~ s/name.*//;
+			$fields[1] =~ s/nc.*//;			
+						
+			$fields[1] =~ s/number//;
+			$fields[1] =~ s/perc.*//;
+			$fields[1] =~ s/\-perc.*//;
+			$fields[1] =~ s/red,yellow,blue,\.\.\..*//;	
+					
+			$fields[1] =~ s/x1min.*//;
+			$fields[1] =~ s/x2min.*//;
+			$fields[1] =~ s/x3min.*//;
+			$fields[1] =~ s/x1max.*//;
+			$fields[1] =~ s/x2max.*//;
+			$fields[1] =~ s/x3max.*//;
+			
+			$fields[1] =~ s/x1.*//;
+			$fields[1] =~ s/x2.*//;
+			$fields[1] =~ s/x3.*//;	
+			
+			$fields[1] =~ s/-wperc//;						
+			$default_values[$op_line_num]   = $fields[1]; 
+			print("sudoc, $line_num default param_value: $default_values[$op_line_num]\n");
+			
 			$op_line_num++;           
      	}
 
@@ -84,13 +125,13 @@ sub parameters{
 	# place names and their values into a hash key/value pairs
 	for ( my $i=0; $i<= $#key_names; $i++) {
     	$old_hash{$key_names[$i]} = $values[$i];
-    		# print("key=$key_names[$i]; values=$old_hash{$key_names[$i]}\n");
+    	# print("key=$key_names[$i]; values=$old_hash{$key_names[$i]}\n");
 	}
 	
 	# remove duplicate names/keys and their attached values
 	my @unique_keys  		= sort keys %old_hash;
 	my $length_unique_keys 	= scalar @unique_keys;
-			# print ("#unique_keys=$length_unique_keys, alphabetical and unique_keys: @unique_keys,\n");
+	# print ("#unique_keys=$length_unique_keys, alphabetical and unique_keys: @unique_keys,\n");
 
 	my ($key, $value);
 	

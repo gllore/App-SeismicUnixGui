@@ -91,7 +91,15 @@ Which group number do you want ?
 
 =cut
 
+<<<<<<< Updated upstream
 my $group_number = 1;
+=======
+<<<<<<< HEAD
+my $group_number = 2;
+=======
+my $group_number = 1;
+>>>>>>> V0.6.6
+>>>>>>> Stashed changes
 $prog_doc2pm->set_group_directory($group_number);
 
 =head2 QUESTION 2:
@@ -103,9 +111,19 @@ For example:
 'sufctanismod' 'vel2stiff
 'unif2aniso' 'transp' 'suflip'
 
+psgraph thru psmovie
+
 =cut
 
+<<<<<<< Updated upstream
 my $selected_program_name = 'sudatumk2ds';
+=======
+<<<<<<< HEAD
+my $selected_program_name = 'psmovie';
+=======
+my $selected_program_name = 'sudatumk2ds';
+>>>>>>> V0.6.6
+>>>>>>> Stashed changes
 
 $selected_program_name =~ s/\ //g;
 

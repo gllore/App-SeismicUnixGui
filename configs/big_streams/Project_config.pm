@@ -2067,11 +2067,14 @@ sub make_local_dirs {
 	my $DATA_SEISMIC_DAT  = $Project->{_DATA_SEISMIC_DAT};
 	my $DATA_SEISMIC_SEG2 = $Project->{_DATA_SEISMIC_SEG2};
 	my $DATA_SEISMIC_SEGB = $Project->{_DATA_SEISMIC_SEGB};
+	my $DATA_SEISMIC_SEGD = $Project->{_DATA_SEISMIC_SEGD};
 
 	# Always create
 	# manage_dirs_by::make_dir($DATA_SEISMIC_DAT);
 	manage_dirs_by::make_dir($DATA_SEISMIC_SEG2);
 	manage_dirs_by::make_dir($DATA_SEISMIC_SEGB);
+	#  Format segd and seismic data
+	manage_dirs_by::make_dir($DATA_SEISMIC_SEGD);
 
 	# Format nint and seismic data
 	my $DATA_SEISMIC_ININT = $Project->{_DATA_SEISMIC_ININT};
@@ -2171,9 +2174,6 @@ sub make_local_dirs {
 	my $DATA_SEISMIC_SIERRA_SEGY = $Project->{_DATA_SEISMIC_SIERRA_SEGY};
 
 	# manage_dirs_by::make_dir($DATA_SEISMIC_SIERRA_SEGY);
-
-	# Format segd and seismic data
-	my $DATA_SEISMIC_SEGD = $Project->{_DATA_SEISMIC_SEGD};
 
 	# manage_dirs_by::make_dir($DATA_SEISMIC_SEGD);
 

@@ -246,7 +246,14 @@ untested
 
 =cut
 
+<<<<<<< Updated upstream
 
+=======
+<<<<<<< HEAD
+=======
+
+>>>>>>> V0.6.6
+>>>>>>> Stashed changes
 =head2 CHANGES and their DATES
 
 =cut
@@ -254,21 +261,58 @@ untested
 use Moose;
 our $VERSION = '0.0.1';
 
+<<<<<<< Updated upstream
 
+=======
+<<<<<<< HEAD
+=======
+
+>>>>>>> V0.6.6
+>>>>>>> Stashed changes
 =head2 Import packages
 
 =cut
 
 use L_SU_global_constants();
 
+<<<<<<< Updated upstream
+=======
+<<<<<<< HEAD
+use SeismicUnix
+  qw ($in $out $on $go $to $suffix_ascii $off $suffix_su $suffix_bin);
+use Project_config;
+
+=======
+>>>>>>> Stashed changes
 use SeismicUnix qw ($in $out $on $go $to $suffix_ascii $off $suffix_su $suffix_bin);
 use Project_config;
 
 
+<<<<<<< Updated upstream
+=======
+>>>>>>> V0.6.6
+>>>>>>> Stashed changes
 =head2 instantiation of packages
 
 =cut
 
+<<<<<<< Updated upstream
+=======
+<<<<<<< HEAD
+my $get              = new L_SU_global_constants();
+my $Project          = new Project_config();
+my $DATA_SEISMIC_SU  = $Project->DATA_SEISMIC_SU();
+my $DATA_SEISMIC_BIN = $Project->DATA_SEISMIC_BIN();
+my $DATA_SEISMIC_TXT = $Project->DATA_SEISMIC_TXT();
+
+my $var          = $get->var();
+my $on           = $var->{_on};
+my $off          = $var->{_off};
+my $true         = $var->{_true};
+my $false        = $var->{_false};
+my $empty_string = $var->{_empty_string};
+=======
+>>>>>>> Stashed changes
 my $get					= new L_SU_global_constants();
 my $Project				= new Project_config();
 my $DATA_SEISMIC_SU		= $Project->DATA_SEISMIC_SU();
@@ -281,12 +325,59 @@ my $off				= $var->{_off};
 my $true			= $var->{_true};
 my $false			= $var->{_false};
 my $empty_string	= $var->{_empty_string};
+<<<<<<< Updated upstream
+=======
+>>>>>>> V0.6.6
+>>>>>>> Stashed changes
 
 =head2 Encapsulated
 hash of private variables
 
 =cut
 
+<<<<<<< Updated upstream
+=======
+<<<<<<< HEAD
+my $sukdmdcs = {
+	_aperx   => '',
+	_datfile => '',
+	_datsurf => '',
+	_dc      => '',
+	_ds      => '',
+	_dt      => '',
+	_dxgo    => '',
+	_dxso    => '',
+	_dxt     => '',
+	_dzo     => '',
+	_freq    => '',
+	_fs      => '',
+	_ft      => '',
+	_fxgo    => '',
+	_fxso    => '',
+	_fxt     => '',
+	_fzt     => '',
+	_infile  => '',
+	_jpfile  => '',
+	_mtr     => '',
+	_ns      => '',
+	_ntr     => '',
+	_nxgo    => '',
+	_nxso    => '',
+	_nxt     => '',
+	_nzt     => '',
+	_offmax  => '',
+	_outfile => '',
+	_recfile => '',
+	_recsurf => '',
+	_scale   => '',
+	_ttfile  => '',
+	_v0      => '',
+	_zdat    => '',
+	_zrec    => '',
+	_Step    => '',
+	_note    => '',
+=======
+>>>>>>> Stashed changes
 my $sukdmdcs			= {
 	_aperx					=> '',
 	_datfile					=> '',
@@ -325,6 +416,10 @@ my $sukdmdcs			= {
 	_zrec					=> '',
 	_Step					=> '',
 	_note					=> '',
+<<<<<<< Updated upstream
+=======
+>>>>>>> V0.6.6
+>>>>>>> Stashed changes
 
 };
 
@@ -335,6 +430,17 @@ by adding the program name
 
 =cut
 
+<<<<<<< Updated upstream
+=======
+<<<<<<< HEAD
+sub Step {
+
+	$sukdmdcs->{_Step} = 'sukdmdcs' . $sukdmdcs->{_Step};
+	return ( $sukdmdcs->{_Step} );
+
+}
+=======
+>>>>>>> Stashed changes
  sub  Step {
 
 	$sukdmdcs->{_Step}     = 'sukdmdcs'.$sukdmdcs->{_Step};
@@ -342,6 +448,10 @@ by adding the program name
 
  }
 
+<<<<<<< Updated upstream
+=======
+>>>>>>> V0.6.6
+>>>>>>> Stashed changes
 
 =head2 sub note
 
@@ -350,6 +460,17 @@ by adding the program name
 
 =cut
 
+<<<<<<< Updated upstream
+=======
+<<<<<<< HEAD
+sub note {
+
+	$sukdmdcs->{_note} = 'sukdmdcs' . $sukdmdcs->{_note};
+	return ( $sukdmdcs->{_note} );
+
+}
+=======
+>>>>>>> Stashed changes
  sub  note {
 
 	$sukdmdcs->{_note}     = 'sukdmdcs'.$sukdmdcs->{_note};
@@ -358,11 +479,60 @@ by adding the program name
  }
 
 
+<<<<<<< Updated upstream
+=======
+>>>>>>> V0.6.6
+>>>>>>> Stashed changes
 
 =head2 sub clear
 
 =cut
 
+<<<<<<< Updated upstream
+=======
+<<<<<<< HEAD
+sub clear {
+
+	$sukdmdcs->{_aperx}   = '';
+	$sukdmdcs->{_datfile} = '';
+	$sukdmdcs->{_datsurf} = '';
+	$sukdmdcs->{_dc}      = '';
+	$sukdmdcs->{_ds}      = '';
+	$sukdmdcs->{_dt}      = '';
+	$sukdmdcs->{_dxgo}    = '';
+	$sukdmdcs->{_dxso}    = '';
+	$sukdmdcs->{_dxt}     = '';
+	$sukdmdcs->{_dzo}     = '';
+	$sukdmdcs->{_freq}    = '';
+	$sukdmdcs->{_fs}      = '';
+	$sukdmdcs->{_ft}      = '';
+	$sukdmdcs->{_fxgo}    = '';
+	$sukdmdcs->{_fxso}    = '';
+	$sukdmdcs->{_fxt}     = '';
+	$sukdmdcs->{_fzt}     = '';
+	$sukdmdcs->{_infile}  = '';
+	$sukdmdcs->{_jpfile}  = '';
+	$sukdmdcs->{_mtr}     = '';
+	$sukdmdcs->{_ns}      = '';
+	$sukdmdcs->{_ntr}     = '';
+	$sukdmdcs->{_nxgo}    = '';
+	$sukdmdcs->{_nxso}    = '';
+	$sukdmdcs->{_nxt}     = '';
+	$sukdmdcs->{_nzt}     = '';
+	$sukdmdcs->{_offmax}  = '';
+	$sukdmdcs->{_outfile} = '';
+	$sukdmdcs->{_recfile} = '';
+	$sukdmdcs->{_recsurf} = '';
+	$sukdmdcs->{_scale}   = '';
+	$sukdmdcs->{_ttfile}  = '';
+	$sukdmdcs->{_v0}      = '';
+	$sukdmdcs->{_zdat}    = '';
+	$sukdmdcs->{_zrec}    = '';
+	$sukdmdcs->{_Step}    = '';
+	$sukdmdcs->{_note}    = '';
+}
+=======
+>>>>>>> Stashed changes
  sub clear {
 
 		$sukdmdcs->{_aperx}			= '';
@@ -404,12 +574,37 @@ by adding the program name
 		$sukdmdcs->{_note}			= '';
  }
 
+<<<<<<< Updated upstream
+=======
+>>>>>>> V0.6.6
+>>>>>>> Stashed changes
 
 =head2 sub aperx 
 
 
 =cut
 
+<<<<<<< Updated upstream
+=======
+<<<<<<< HEAD
+sub aperx {
+
+	my ( $self, $aperx ) = @_;
+	if ( $aperx ne $empty_string ) {
+
+		$sukdmdcs->{_aperx} = $aperx;
+		$sukdmdcs->{_note} =
+		  $sukdmdcs->{_note} . ' aperx=' . $sukdmdcs->{_aperx};
+		$sukdmdcs->{_Step} =
+		  $sukdmdcs->{_Step} . ' aperx=' . $sukdmdcs->{_aperx};
+
+	}
+	else {
+		print("sukdmdcs, aperx, missing aperx,\n");
+	}
+}
+=======
+>>>>>>> Stashed changes
  sub aperx {
 
 	my ( $self,$aperx )		= @_;
@@ -424,12 +619,37 @@ by adding the program name
 	 }
  }
 
+<<<<<<< Updated upstream
+=======
+>>>>>>> V0.6.6
+>>>>>>> Stashed changes
 
 =head2 sub datfile 
 
 
 =cut
 
+<<<<<<< Updated upstream
+=======
+<<<<<<< HEAD
+sub datfile {
+
+	my ( $self, $datfile ) = @_;
+	if ( $datfile ne $empty_string ) {
+
+		$sukdmdcs->{_datfile} = $datfile;
+		$sukdmdcs->{_note} =
+		  $sukdmdcs->{_note} . ' datfile=' . $sukdmdcs->{_datfile};
+		$sukdmdcs->{_Step} =
+		  $sukdmdcs->{_Step} . ' datfile=' . $sukdmdcs->{_datfile};
+
+	}
+	else {
+		print("sukdmdcs, datfile, missing datfile,\n");
+	}
+}
+=======
+>>>>>>> Stashed changes
  sub datfile {
 
 	my ( $self,$datfile )		= @_;
@@ -444,12 +664,37 @@ by adding the program name
 	 }
  }
 
+<<<<<<< Updated upstream
+=======
+>>>>>>> V0.6.6
+>>>>>>> Stashed changes
 
 =head2 sub datsurf 
 
 
 =cut
 
+<<<<<<< Updated upstream
+=======
+<<<<<<< HEAD
+sub datsurf {
+
+	my ( $self, $datsurf ) = @_;
+	if ( $datsurf ne $empty_string ) {
+
+		$sukdmdcs->{_datsurf} = $datsurf;
+		$sukdmdcs->{_note} =
+		  $sukdmdcs->{_note} . ' datsurf=' . $sukdmdcs->{_datsurf};
+		$sukdmdcs->{_Step} =
+		  $sukdmdcs->{_Step} . ' datsurf=' . $sukdmdcs->{_datsurf};
+
+	}
+	else {
+		print("sukdmdcs, datsurf, missing datsurf,\n");
+	}
+}
+=======
+>>>>>>> Stashed changes
  sub datsurf {
 
 	my ( $self,$datsurf )		= @_;
@@ -464,12 +709,35 @@ by adding the program name
 	 }
  }
 
+<<<<<<< Updated upstream
+=======
+>>>>>>> V0.6.6
+>>>>>>> Stashed changes
 
 =head2 sub dc 
 
 
 =cut
 
+<<<<<<< Updated upstream
+=======
+<<<<<<< HEAD
+sub dc {
+
+	my ( $self, $dc ) = @_;
+	if ( $dc ne $empty_string ) {
+
+		$sukdmdcs->{_dc}   = $dc;
+		$sukdmdcs->{_note} = $sukdmdcs->{_note} . ' dc=' . $sukdmdcs->{_dc};
+		$sukdmdcs->{_Step} = $sukdmdcs->{_Step} . ' dc=' . $sukdmdcs->{_dc};
+
+	}
+	else {
+		print("sukdmdcs, dc, missing dc,\n");
+	}
+}
+=======
+>>>>>>> Stashed changes
  sub dc {
 
 	my ( $self,$dc )		= @_;
@@ -484,12 +752,35 @@ by adding the program name
 	 }
  }
 
+<<<<<<< Updated upstream
+=======
+>>>>>>> V0.6.6
+>>>>>>> Stashed changes
 
 =head2 sub ds 
 
 
 =cut
 
+<<<<<<< Updated upstream
+=======
+<<<<<<< HEAD
+sub ds {
+
+	my ( $self, $ds ) = @_;
+	if ( $ds ne $empty_string ) {
+
+		$sukdmdcs->{_ds}   = $ds;
+		$sukdmdcs->{_note} = $sukdmdcs->{_note} . ' ds=' . $sukdmdcs->{_ds};
+		$sukdmdcs->{_Step} = $sukdmdcs->{_Step} . ' ds=' . $sukdmdcs->{_ds};
+
+	}
+	else {
+		print("sukdmdcs, ds, missing ds,\n");
+	}
+}
+=======
+>>>>>>> Stashed changes
  sub ds {
 
 	my ( $self,$ds )		= @_;
@@ -504,12 +795,35 @@ by adding the program name
 	 }
  }
 
+<<<<<<< Updated upstream
+=======
+>>>>>>> V0.6.6
+>>>>>>> Stashed changes
 
 =head2 sub dt 
 
 
 =cut
 
+<<<<<<< Updated upstream
+=======
+<<<<<<< HEAD
+sub dt {
+
+	my ( $self, $dt ) = @_;
+	if ( $dt ne $empty_string ) {
+
+		$sukdmdcs->{_dt}   = $dt;
+		$sukdmdcs->{_note} = $sukdmdcs->{_note} . ' dt=' . $sukdmdcs->{_dt};
+		$sukdmdcs->{_Step} = $sukdmdcs->{_Step} . ' dt=' . $sukdmdcs->{_dt};
+
+	}
+	else {
+		print("sukdmdcs, dt, missing dt,\n");
+	}
+}
+=======
+>>>>>>> Stashed changes
  sub dt {
 
 	my ( $self,$dt )		= @_;
@@ -524,12 +838,35 @@ by adding the program name
 	 }
  }
 
+<<<<<<< Updated upstream
+=======
+>>>>>>> V0.6.6
+>>>>>>> Stashed changes
 
 =head2 sub dxgo 
 
 
 =cut
 
+<<<<<<< Updated upstream
+=======
+<<<<<<< HEAD
+sub dxgo {
+
+	my ( $self, $dxgo ) = @_;
+	if ( $dxgo ne $empty_string ) {
+
+		$sukdmdcs->{_dxgo} = $dxgo;
+		$sukdmdcs->{_note} = $sukdmdcs->{_note} . ' dxgo=' . $sukdmdcs->{_dxgo};
+		$sukdmdcs->{_Step} = $sukdmdcs->{_Step} . ' dxgo=' . $sukdmdcs->{_dxgo};
+
+	}
+	else {
+		print("sukdmdcs, dxgo, missing dxgo,\n");
+	}
+}
+=======
+>>>>>>> Stashed changes
  sub dxgo {
 
 	my ( $self,$dxgo )		= @_;
@@ -544,12 +881,35 @@ by adding the program name
 	 }
  }
 
+<<<<<<< Updated upstream
+=======
+>>>>>>> V0.6.6
+>>>>>>> Stashed changes
 
 =head2 sub dxso 
 
 
 =cut
 
+<<<<<<< Updated upstream
+=======
+<<<<<<< HEAD
+sub dxso {
+
+	my ( $self, $dxso ) = @_;
+	if ( $dxso ne $empty_string ) {
+
+		$sukdmdcs->{_dxso} = $dxso;
+		$sukdmdcs->{_note} = $sukdmdcs->{_note} . ' dxso=' . $sukdmdcs->{_dxso};
+		$sukdmdcs->{_Step} = $sukdmdcs->{_Step} . ' dxso=' . $sukdmdcs->{_dxso};
+
+	}
+	else {
+		print("sukdmdcs, dxso, missing dxso,\n");
+	}
+}
+=======
+>>>>>>> Stashed changes
  sub dxso {
 
 	my ( $self,$dxso )		= @_;
@@ -564,12 +924,35 @@ by adding the program name
 	 }
  }
 
+<<<<<<< Updated upstream
+=======
+>>>>>>> V0.6.6
+>>>>>>> Stashed changes
 
 =head2 sub dxt 
 
 
 =cut
 
+<<<<<<< Updated upstream
+=======
+<<<<<<< HEAD
+sub dxt {
+
+	my ( $self, $dxt ) = @_;
+	if ( $dxt ne $empty_string ) {
+
+		$sukdmdcs->{_dxt}  = $dxt;
+		$sukdmdcs->{_note} = $sukdmdcs->{_note} . ' dxt=' . $sukdmdcs->{_dxt};
+		$sukdmdcs->{_Step} = $sukdmdcs->{_Step} . ' dxt=' . $sukdmdcs->{_dxt};
+
+	}
+	else {
+		print("sukdmdcs, dxt, missing dxt,\n");
+	}
+}
+=======
+>>>>>>> Stashed changes
  sub dxt {
 
 	my ( $self,$dxt )		= @_;
@@ -584,12 +967,35 @@ by adding the program name
 	 }
  }
 
+<<<<<<< Updated upstream
+=======
+>>>>>>> V0.6.6
+>>>>>>> Stashed changes
 
 =head2 sub dzo 
 
 
 =cut
 
+<<<<<<< Updated upstream
+=======
+<<<<<<< HEAD
+sub dzo {
+
+	my ( $self, $dzo ) = @_;
+	if ( $dzo ne $empty_string ) {
+
+		$sukdmdcs->{_dzo}  = $dzo;
+		$sukdmdcs->{_note} = $sukdmdcs->{_note} . ' dzo=' . $sukdmdcs->{_dzo};
+		$sukdmdcs->{_Step} = $sukdmdcs->{_Step} . ' dzo=' . $sukdmdcs->{_dzo};
+
+	}
+	else {
+		print("sukdmdcs, dzo, missing dzo,\n");
+	}
+}
+=======
+>>>>>>> Stashed changes
  sub dzo {
 
 	my ( $self,$dzo )		= @_;
@@ -604,12 +1010,35 @@ by adding the program name
 	 }
  }
 
+<<<<<<< Updated upstream
+=======
+>>>>>>> V0.6.6
+>>>>>>> Stashed changes
 
 =head2 sub freq 
 
 
 =cut
 
+<<<<<<< Updated upstream
+=======
+<<<<<<< HEAD
+sub freq {
+
+	my ( $self, $freq ) = @_;
+	if ( $freq ne $empty_string ) {
+
+		$sukdmdcs->{_freq} = $freq;
+		$sukdmdcs->{_note} = $sukdmdcs->{_note} . ' freq=' . $sukdmdcs->{_freq};
+		$sukdmdcs->{_Step} = $sukdmdcs->{_Step} . ' freq=' . $sukdmdcs->{_freq};
+
+	}
+	else {
+		print("sukdmdcs, freq, missing freq,\n");
+	}
+}
+=======
+>>>>>>> Stashed changes
  sub freq {
 
 	my ( $self,$freq )		= @_;
@@ -624,12 +1053,35 @@ by adding the program name
 	 }
  }
 
+<<<<<<< Updated upstream
+=======
+>>>>>>> V0.6.6
+>>>>>>> Stashed changes
 
 =head2 sub fs 
 
 
 =cut
 
+<<<<<<< Updated upstream
+=======
+<<<<<<< HEAD
+sub fs {
+
+	my ( $self, $fs ) = @_;
+	if ( $fs ne $empty_string ) {
+
+		$sukdmdcs->{_fs}   = $fs;
+		$sukdmdcs->{_note} = $sukdmdcs->{_note} . ' fs=' . $sukdmdcs->{_fs};
+		$sukdmdcs->{_Step} = $sukdmdcs->{_Step} . ' fs=' . $sukdmdcs->{_fs};
+
+	}
+	else {
+		print("sukdmdcs, fs, missing fs,\n");
+	}
+}
+=======
+>>>>>>> Stashed changes
  sub fs {
 
 	my ( $self,$fs )		= @_;
@@ -644,12 +1096,35 @@ by adding the program name
 	 }
  }
 
+<<<<<<< Updated upstream
+=======
+>>>>>>> V0.6.6
+>>>>>>> Stashed changes
 
 =head2 sub ft 
 
 
 =cut
 
+<<<<<<< Updated upstream
+=======
+<<<<<<< HEAD
+sub ft {
+
+	my ( $self, $ft ) = @_;
+	if ( $ft ne $empty_string ) {
+
+		$sukdmdcs->{_ft}   = $ft;
+		$sukdmdcs->{_note} = $sukdmdcs->{_note} . ' ft=' . $sukdmdcs->{_ft};
+		$sukdmdcs->{_Step} = $sukdmdcs->{_Step} . ' ft=' . $sukdmdcs->{_ft};
+
+	}
+	else {
+		print("sukdmdcs, ft, missing ft,\n");
+	}
+}
+=======
+>>>>>>> Stashed changes
  sub ft {
 
 	my ( $self,$ft )		= @_;
@@ -664,12 +1139,35 @@ by adding the program name
 	 }
  }
 
+<<<<<<< Updated upstream
+=======
+>>>>>>> V0.6.6
+>>>>>>> Stashed changes
 
 =head2 sub fxgo 
 
 
 =cut
 
+<<<<<<< Updated upstream
+=======
+<<<<<<< HEAD
+sub fxgo {
+
+	my ( $self, $fxgo ) = @_;
+	if ( $fxgo ne $empty_string ) {
+
+		$sukdmdcs->{_fxgo} = $fxgo;
+		$sukdmdcs->{_note} = $sukdmdcs->{_note} . ' fxgo=' . $sukdmdcs->{_fxgo};
+		$sukdmdcs->{_Step} = $sukdmdcs->{_Step} . ' fxgo=' . $sukdmdcs->{_fxgo};
+
+	}
+	else {
+		print("sukdmdcs, fxgo, missing fxgo,\n");
+	}
+}
+=======
+>>>>>>> Stashed changes
  sub fxgo {
 
 	my ( $self,$fxgo )		= @_;
@@ -684,12 +1182,35 @@ by adding the program name
 	 }
  }
 
+<<<<<<< Updated upstream
+=======
+>>>>>>> V0.6.6
+>>>>>>> Stashed changes
 
 =head2 sub fxso 
 
 
 =cut
 
+<<<<<<< Updated upstream
+=======
+<<<<<<< HEAD
+sub fxso {
+
+	my ( $self, $fxso ) = @_;
+	if ( $fxso ne $empty_string ) {
+
+		$sukdmdcs->{_fxso} = $fxso;
+		$sukdmdcs->{_note} = $sukdmdcs->{_note} . ' fxso=' . $sukdmdcs->{_fxso};
+		$sukdmdcs->{_Step} = $sukdmdcs->{_Step} . ' fxso=' . $sukdmdcs->{_fxso};
+
+	}
+	else {
+		print("sukdmdcs, fxso, missing fxso,\n");
+	}
+}
+=======
+>>>>>>> Stashed changes
  sub fxso {
 
 	my ( $self,$fxso )		= @_;
@@ -704,12 +1225,35 @@ by adding the program name
 	 }
  }
 
+<<<<<<< Updated upstream
+=======
+>>>>>>> V0.6.6
+>>>>>>> Stashed changes
 
 =head2 sub fxt 
 
 
 =cut
 
+<<<<<<< Updated upstream
+=======
+<<<<<<< HEAD
+sub fxt {
+
+	my ( $self, $fxt ) = @_;
+	if ( $fxt ne $empty_string ) {
+
+		$sukdmdcs->{_fxt}  = $fxt;
+		$sukdmdcs->{_note} = $sukdmdcs->{_note} . ' fxt=' . $sukdmdcs->{_fxt};
+		$sukdmdcs->{_Step} = $sukdmdcs->{_Step} . ' fxt=' . $sukdmdcs->{_fxt};
+
+	}
+	else {
+		print("sukdmdcs, fxt, missing fxt,\n");
+	}
+}
+=======
+>>>>>>> Stashed changes
  sub fxt {
 
 	my ( $self,$fxt )		= @_;
@@ -724,12 +1268,35 @@ by adding the program name
 	 }
  }
 
+<<<<<<< Updated upstream
+=======
+>>>>>>> V0.6.6
+>>>>>>> Stashed changes
 
 =head2 sub fzt 
 
 
 =cut
 
+<<<<<<< Updated upstream
+=======
+<<<<<<< HEAD
+sub fzt {
+
+	my ( $self, $fzt ) = @_;
+	if ( $fzt ne $empty_string ) {
+
+		$sukdmdcs->{_fzt}  = $fzt;
+		$sukdmdcs->{_note} = $sukdmdcs->{_note} . ' fzt=' . $sukdmdcs->{_fzt};
+		$sukdmdcs->{_Step} = $sukdmdcs->{_Step} . ' fzt=' . $sukdmdcs->{_fzt};
+
+	}
+	else {
+		print("sukdmdcs, fzt, missing fzt,\n");
+	}
+}
+=======
+>>>>>>> Stashed changes
  sub fzt {
 
 	my ( $self,$fzt )		= @_;
@@ -744,12 +1311,37 @@ by adding the program name
 	 }
  }
 
+<<<<<<< Updated upstream
+=======
+>>>>>>> V0.6.6
+>>>>>>> Stashed changes
 
 =head2 sub infile 
 
 
 =cut
 
+<<<<<<< Updated upstream
+=======
+<<<<<<< HEAD
+sub infile {
+
+	my ( $self, $infile ) = @_;
+	if ( $infile ne $empty_string ) {
+
+		$sukdmdcs->{_infile} = $infile;
+		$sukdmdcs->{_note} =
+		  $sukdmdcs->{_note} . ' infile=' . $sukdmdcs->{_infile};
+		$sukdmdcs->{_Step} =
+		  $sukdmdcs->{_Step} . ' infile=' . $sukdmdcs->{_infile};
+
+	}
+	else {
+		print("sukdmdcs, infile, missing infile,\n");
+	}
+}
+=======
+>>>>>>> Stashed changes
  sub infile {
 
 	my ( $self,$infile )		= @_;
@@ -764,12 +1356,37 @@ by adding the program name
 	 }
  }
 
+<<<<<<< Updated upstream
+=======
+>>>>>>> V0.6.6
+>>>>>>> Stashed changes
 
 =head2 sub jpfile 
 
 
 =cut
 
+<<<<<<< Updated upstream
+=======
+<<<<<<< HEAD
+sub jpfile {
+
+	my ( $self, $jpfile ) = @_;
+	if ( $jpfile ne $empty_string ) {
+
+		$sukdmdcs->{_jpfile} = $jpfile;
+		$sukdmdcs->{_note} =
+		  $sukdmdcs->{_note} . ' jpfile=' . $sukdmdcs->{_jpfile};
+		$sukdmdcs->{_Step} =
+		  $sukdmdcs->{_Step} . ' jpfile=' . $sukdmdcs->{_jpfile};
+
+	}
+	else {
+		print("sukdmdcs, jpfile, missing jpfile,\n");
+	}
+}
+=======
+>>>>>>> Stashed changes
  sub jpfile {
 
 	my ( $self,$jpfile )		= @_;
@@ -784,12 +1401,35 @@ by adding the program name
 	 }
  }
 
+<<<<<<< Updated upstream
+=======
+>>>>>>> V0.6.6
+>>>>>>> Stashed changes
 
 =head2 sub mtr 
 
 
 =cut
 
+<<<<<<< Updated upstream
+=======
+<<<<<<< HEAD
+sub mtr {
+
+	my ( $self, $mtr ) = @_;
+	if ( $mtr ne $empty_string ) {
+
+		$sukdmdcs->{_mtr}  = $mtr;
+		$sukdmdcs->{_note} = $sukdmdcs->{_note} . ' mtr=' . $sukdmdcs->{_mtr};
+		$sukdmdcs->{_Step} = $sukdmdcs->{_Step} . ' mtr=' . $sukdmdcs->{_mtr};
+
+	}
+	else {
+		print("sukdmdcs, mtr, missing mtr,\n");
+	}
+}
+=======
+>>>>>>> Stashed changes
  sub mtr {
 
 	my ( $self,$mtr )		= @_;
@@ -804,12 +1444,35 @@ by adding the program name
 	 }
  }
 
+<<<<<<< Updated upstream
+=======
+>>>>>>> V0.6.6
+>>>>>>> Stashed changes
 
 =head2 sub ns 
 
 
 =cut
 
+<<<<<<< Updated upstream
+=======
+<<<<<<< HEAD
+sub ns {
+
+	my ( $self, $ns ) = @_;
+	if ( $ns ne $empty_string ) {
+
+		$sukdmdcs->{_ns}   = $ns;
+		$sukdmdcs->{_note} = $sukdmdcs->{_note} . ' ns=' . $sukdmdcs->{_ns};
+		$sukdmdcs->{_Step} = $sukdmdcs->{_Step} . ' ns=' . $sukdmdcs->{_ns};
+
+	}
+	else {
+		print("sukdmdcs, ns, missing ns,\n");
+	}
+}
+=======
+>>>>>>> Stashed changes
  sub ns {
 
 	my ( $self,$ns )		= @_;
@@ -824,12 +1487,35 @@ by adding the program name
 	 }
  }
 
+<<<<<<< Updated upstream
+=======
+>>>>>>> V0.6.6
+>>>>>>> Stashed changes
 
 =head2 sub ntr 
 
 
 =cut
 
+<<<<<<< Updated upstream
+=======
+<<<<<<< HEAD
+sub ntr {
+
+	my ( $self, $ntr ) = @_;
+	if ( $ntr ne $empty_string ) {
+
+		$sukdmdcs->{_ntr}  = $ntr;
+		$sukdmdcs->{_note} = $sukdmdcs->{_note} . ' ntr=' . $sukdmdcs->{_ntr};
+		$sukdmdcs->{_Step} = $sukdmdcs->{_Step} . ' ntr=' . $sukdmdcs->{_ntr};
+
+	}
+	else {
+		print("sukdmdcs, ntr, missing ntr,\n");
+	}
+}
+=======
+>>>>>>> Stashed changes
  sub ntr {
 
 	my ( $self,$ntr )		= @_;
@@ -844,12 +1530,35 @@ by adding the program name
 	 }
  }
 
+<<<<<<< Updated upstream
+=======
+>>>>>>> V0.6.6
+>>>>>>> Stashed changes
 
 =head2 sub nxgo 
 
 
 =cut
 
+<<<<<<< Updated upstream
+=======
+<<<<<<< HEAD
+sub nxgo {
+
+	my ( $self, $nxgo ) = @_;
+	if ( $nxgo ne $empty_string ) {
+
+		$sukdmdcs->{_nxgo} = $nxgo;
+		$sukdmdcs->{_note} = $sukdmdcs->{_note} . ' nxgo=' . $sukdmdcs->{_nxgo};
+		$sukdmdcs->{_Step} = $sukdmdcs->{_Step} . ' nxgo=' . $sukdmdcs->{_nxgo};
+
+	}
+	else {
+		print("sukdmdcs, nxgo, missing nxgo,\n");
+	}
+}
+=======
+>>>>>>> Stashed changes
  sub nxgo {
 
 	my ( $self,$nxgo )		= @_;
@@ -864,12 +1573,35 @@ by adding the program name
 	 }
  }
 
+<<<<<<< Updated upstream
+=======
+>>>>>>> V0.6.6
+>>>>>>> Stashed changes
 
 =head2 sub nxso 
 
 
 =cut
 
+<<<<<<< Updated upstream
+=======
+<<<<<<< HEAD
+sub nxso {
+
+	my ( $self, $nxso ) = @_;
+	if ( $nxso ne $empty_string ) {
+
+		$sukdmdcs->{_nxso} = $nxso;
+		$sukdmdcs->{_note} = $sukdmdcs->{_note} . ' nxso=' . $sukdmdcs->{_nxso};
+		$sukdmdcs->{_Step} = $sukdmdcs->{_Step} . ' nxso=' . $sukdmdcs->{_nxso};
+
+	}
+	else {
+		print("sukdmdcs, nxso, missing nxso,\n");
+	}
+}
+=======
+>>>>>>> Stashed changes
  sub nxso {
 
 	my ( $self,$nxso )		= @_;
@@ -884,12 +1616,35 @@ by adding the program name
 	 }
  }
 
+<<<<<<< Updated upstream
+=======
+>>>>>>> V0.6.6
+>>>>>>> Stashed changes
 
 =head2 sub nxt 
 
 
 =cut
 
+<<<<<<< Updated upstream
+=======
+<<<<<<< HEAD
+sub nxt {
+
+	my ( $self, $nxt ) = @_;
+	if ( $nxt ne $empty_string ) {
+
+		$sukdmdcs->{_nxt}  = $nxt;
+		$sukdmdcs->{_note} = $sukdmdcs->{_note} . ' nxt=' . $sukdmdcs->{_nxt};
+		$sukdmdcs->{_Step} = $sukdmdcs->{_Step} . ' nxt=' . $sukdmdcs->{_nxt};
+
+	}
+	else {
+		print("sukdmdcs, nxt, missing nxt,\n");
+	}
+}
+=======
+>>>>>>> Stashed changes
  sub nxt {
 
 	my ( $self,$nxt )		= @_;
@@ -904,12 +1659,35 @@ by adding the program name
 	 }
  }
 
+<<<<<<< Updated upstream
+=======
+>>>>>>> V0.6.6
+>>>>>>> Stashed changes
 
 =head2 sub nzt 
 
 
 =cut
 
+<<<<<<< Updated upstream
+=======
+<<<<<<< HEAD
+sub nzt {
+
+	my ( $self, $nzt ) = @_;
+	if ( $nzt ne $empty_string ) {
+
+		$sukdmdcs->{_nzt}  = $nzt;
+		$sukdmdcs->{_note} = $sukdmdcs->{_note} . ' nzt=' . $sukdmdcs->{_nzt};
+		$sukdmdcs->{_Step} = $sukdmdcs->{_Step} . ' nzt=' . $sukdmdcs->{_nzt};
+
+	}
+	else {
+		print("sukdmdcs, nzt, missing nzt,\n");
+	}
+}
+=======
+>>>>>>> Stashed changes
  sub nzt {
 
 	my ( $self,$nzt )		= @_;
@@ -924,12 +1702,37 @@ by adding the program name
 	 }
  }
 
+<<<<<<< Updated upstream
+=======
+>>>>>>> V0.6.6
+>>>>>>> Stashed changes
 
 =head2 sub offmax 
 
 
 =cut
 
+<<<<<<< Updated upstream
+=======
+<<<<<<< HEAD
+sub offmax {
+
+	my ( $self, $offmax ) = @_;
+	if ( $offmax ne $empty_string ) {
+
+		$sukdmdcs->{_offmax} = $offmax;
+		$sukdmdcs->{_note} =
+		  $sukdmdcs->{_note} . ' offmax=' . $sukdmdcs->{_offmax};
+		$sukdmdcs->{_Step} =
+		  $sukdmdcs->{_Step} . ' offmax=' . $sukdmdcs->{_offmax};
+
+	}
+	else {
+		print("sukdmdcs, offmax, missing offmax,\n");
+	}
+}
+=======
+>>>>>>> Stashed changes
  sub offmax {
 
 	my ( $self,$offmax )		= @_;
@@ -944,12 +1747,37 @@ by adding the program name
 	 }
  }
 
+<<<<<<< Updated upstream
+=======
+>>>>>>> V0.6.6
+>>>>>>> Stashed changes
 
 =head2 sub outfile 
 
 
 =cut
 
+<<<<<<< Updated upstream
+=======
+<<<<<<< HEAD
+sub outfile {
+
+	my ( $self, $outfile ) = @_;
+	if ( $outfile ne $empty_string ) {
+
+		$sukdmdcs->{_outfile} = $outfile;
+		$sukdmdcs->{_note} =
+		  $sukdmdcs->{_note} . ' outfile=' . $sukdmdcs->{_outfile};
+		$sukdmdcs->{_Step} =
+		  $sukdmdcs->{_Step} . ' outfile=' . $sukdmdcs->{_outfile};
+
+	}
+	else {
+		print("sukdmdcs, outfile, missing outfile,\n");
+	}
+}
+=======
+>>>>>>> Stashed changes
  sub outfile {
 
 	my ( $self,$outfile )		= @_;
@@ -964,12 +1792,37 @@ by adding the program name
 	 }
  }
 
+<<<<<<< Updated upstream
+=======
+>>>>>>> V0.6.6
+>>>>>>> Stashed changes
 
 =head2 sub recfile 
 
 
 =cut
 
+<<<<<<< Updated upstream
+=======
+<<<<<<< HEAD
+sub recfile {
+
+	my ( $self, $recfile ) = @_;
+	if ( $recfile ne $empty_string ) {
+
+		$sukdmdcs->{_recfile} = $recfile;
+		$sukdmdcs->{_note} =
+		  $sukdmdcs->{_note} . ' recfile=' . $sukdmdcs->{_recfile};
+		$sukdmdcs->{_Step} =
+		  $sukdmdcs->{_Step} . ' recfile=' . $sukdmdcs->{_recfile};
+
+	}
+	else {
+		print("sukdmdcs, recfile, missing recfile,\n");
+	}
+}
+=======
+>>>>>>> Stashed changes
  sub recfile {
 
 	my ( $self,$recfile )		= @_;
@@ -984,12 +1837,37 @@ by adding the program name
 	 }
  }
 
+<<<<<<< Updated upstream
+=======
+>>>>>>> V0.6.6
+>>>>>>> Stashed changes
 
 =head2 sub recsurf 
 
 
 =cut
 
+<<<<<<< Updated upstream
+=======
+<<<<<<< HEAD
+sub recsurf {
+
+	my ( $self, $recsurf ) = @_;
+	if ( $recsurf ne $empty_string ) {
+
+		$sukdmdcs->{_recsurf} = $recsurf;
+		$sukdmdcs->{_note} =
+		  $sukdmdcs->{_note} . ' recsurf=' . $sukdmdcs->{_recsurf};
+		$sukdmdcs->{_Step} =
+		  $sukdmdcs->{_Step} . ' recsurf=' . $sukdmdcs->{_recsurf};
+
+	}
+	else {
+		print("sukdmdcs, recsurf, missing recsurf,\n");
+	}
+}
+=======
+>>>>>>> Stashed changes
  sub recsurf {
 
 	my ( $self,$recsurf )		= @_;
@@ -1004,12 +1882,37 @@ by adding the program name
 	 }
  }
 
+<<<<<<< Updated upstream
+=======
+>>>>>>> V0.6.6
+>>>>>>> Stashed changes
 
 =head2 sub scale 
 
 
 =cut
 
+<<<<<<< Updated upstream
+=======
+<<<<<<< HEAD
+sub scale {
+
+	my ( $self, $scale ) = @_;
+	if ( $scale ne $empty_string ) {
+
+		$sukdmdcs->{_scale} = $scale;
+		$sukdmdcs->{_note} =
+		  $sukdmdcs->{_note} . ' scale=' . $sukdmdcs->{_scale};
+		$sukdmdcs->{_Step} =
+		  $sukdmdcs->{_Step} . ' scale=' . $sukdmdcs->{_scale};
+
+	}
+	else {
+		print("sukdmdcs, scale, missing scale,\n");
+	}
+}
+=======
+>>>>>>> Stashed changes
  sub scale {
 
 	my ( $self,$scale )		= @_;
@@ -1024,12 +1927,37 @@ by adding the program name
 	 }
  }
 
+<<<<<<< Updated upstream
+=======
+>>>>>>> V0.6.6
+>>>>>>> Stashed changes
 
 =head2 sub ttfile 
 
 
 =cut
 
+<<<<<<< Updated upstream
+=======
+<<<<<<< HEAD
+sub ttfile {
+
+	my ( $self, $ttfile ) = @_;
+	if ( $ttfile ne $empty_string ) {
+
+		$sukdmdcs->{_ttfile} = $ttfile;
+		$sukdmdcs->{_note} =
+		  $sukdmdcs->{_note} . ' ttfile=' . $sukdmdcs->{_ttfile};
+		$sukdmdcs->{_Step} =
+		  $sukdmdcs->{_Step} . ' ttfile=' . $sukdmdcs->{_ttfile};
+
+	}
+	else {
+		print("sukdmdcs, ttfile, missing ttfile,\n");
+	}
+}
+=======
+>>>>>>> Stashed changes
  sub ttfile {
 
 	my ( $self,$ttfile )		= @_;
@@ -1044,12 +1972,35 @@ by adding the program name
 	 }
  }
 
+<<<<<<< Updated upstream
+=======
+>>>>>>> V0.6.6
+>>>>>>> Stashed changes
 
 =head2 sub v0 
 
 
 =cut
 
+<<<<<<< Updated upstream
+=======
+<<<<<<< HEAD
+sub v0 {
+
+	my ( $self, $v0 ) = @_;
+	if ( $v0 ne $empty_string ) {
+
+		$sukdmdcs->{_v0}   = $v0;
+		$sukdmdcs->{_note} = $sukdmdcs->{_note} . ' v0=' . $sukdmdcs->{_v0};
+		$sukdmdcs->{_Step} = $sukdmdcs->{_Step} . ' v0=' . $sukdmdcs->{_v0};
+
+	}
+	else {
+		print("sukdmdcs, v0, missing v0,\n");
+	}
+}
+=======
+>>>>>>> Stashed changes
  sub v0 {
 
 	my ( $self,$v0 )		= @_;
@@ -1064,12 +2015,35 @@ by adding the program name
 	 }
  }
 
+<<<<<<< Updated upstream
+=======
+>>>>>>> V0.6.6
+>>>>>>> Stashed changes
 
 =head2 sub zdat 
 
 
 =cut
 
+<<<<<<< Updated upstream
+=======
+<<<<<<< HEAD
+sub zdat {
+
+	my ( $self, $zdat ) = @_;
+	if ( $zdat ne $empty_string ) {
+
+		$sukdmdcs->{_zdat} = $zdat;
+		$sukdmdcs->{_note} = $sukdmdcs->{_note} . ' zdat=' . $sukdmdcs->{_zdat};
+		$sukdmdcs->{_Step} = $sukdmdcs->{_Step} . ' zdat=' . $sukdmdcs->{_zdat};
+
+	}
+	else {
+		print("sukdmdcs, zdat, missing zdat,\n");
+	}
+}
+=======
+>>>>>>> Stashed changes
  sub zdat {
 
 	my ( $self,$zdat )		= @_;
@@ -1084,12 +2058,35 @@ by adding the program name
 	 }
  }
 
+<<<<<<< Updated upstream
+=======
+>>>>>>> V0.6.6
+>>>>>>> Stashed changes
 
 =head2 sub zrec 
 
 
 =cut
 
+<<<<<<< Updated upstream
+=======
+<<<<<<< HEAD
+sub zrec {
+
+	my ( $self, $zrec ) = @_;
+	if ( $zrec ne $empty_string ) {
+
+		$sukdmdcs->{_zrec} = $zrec;
+		$sukdmdcs->{_note} = $sukdmdcs->{_note} . ' zrec=' . $sukdmdcs->{_zrec};
+		$sukdmdcs->{_Step} = $sukdmdcs->{_Step} . ' zrec=' . $sukdmdcs->{_zrec};
+
+	}
+	else {
+		print("sukdmdcs, zrec, missing zrec,\n");
+	}
+}
+=======
+>>>>>>> Stashed changes
  sub zrec {
 
 	my ( $self,$zrec )		= @_;
@@ -1104,12 +2101,30 @@ by adding the program name
 	 }
  }
 
+<<<<<<< Updated upstream
+=======
+>>>>>>> V0.6.6
+>>>>>>> Stashed changes
 
 =head2 sub get_max_index
 
 max index = number of input variables -1
  
 =cut
+<<<<<<< Updated upstream
+=======
+<<<<<<< HEAD
+
+sub get_max_index {
+	my ($self) = @_;
+	my $max_index = 34;
+
+	return ($max_index);
+}
+
+1;
+=======
+>>>>>>> Stashed changes
  
 sub get_max_index {
  	  my ($self) = @_;
@@ -1119,4 +2134,9 @@ sub get_max_index {
 }
  
  
+<<<<<<< Updated upstream
 1;
+=======
+1;
+>>>>>>> V0.6.6
+>>>>>>> Stashed changes

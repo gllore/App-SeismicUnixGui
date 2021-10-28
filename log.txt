@@ -13,4 +13,42 @@ segyscan opt=null < /home/gllore/mars/seismics/data/hrk_e122/two_wheels/100621/A
 14
 
 segyscan opt=null < /home/gllore/mars/seismics/data/hrk_e122/two_wheels/100621/ACH01_cube/first_time/segy/gllore/sp1.sgy & 
+<<<<<<< Updated upstream
+=======
+<<<<<<< HEAD
+
+42
+
+sufft sign=1 verbose=1 < /home/gllore/DuncanPoint/seismics/data/VetSchool/S/092421/Z/2HzVs4.5Hz_SW_test/su/gllore/2Hz.su | suamp mode=amp | suxwigb clip=0\.8 wbox=600 hbox=800 xbox=600 ybox=800 style=seismic windowtitle=amplitude\ spectra\-\-\ 2\ Hz\-geophones & 
+
+49
+
+sufft sign=1 verbose=1 < /home/gllore/DuncanPoint/seismics/data/VetSchool/S/092421/Z/2HzVs4.5Hz_SW_test/su/gllore/4\.5HzN4\.5Hz.su | suamp mode=amp | suxwigb clip=0\.3 wbox=1200 hbox=300 xbox=600 ybox=800 style=seismic x1end=80 x1beg=0 windowtitle=fft\ Two\ 4\.5\ Hz\ geophones xcur=1 label2=clip\=\.3 & 
+
+13
+
+/home/gllore/DuncanPoint/seismics/images/ps/VetSchool/S/092421/Z/2HzVs4.5Hz_SW_test/gllore/junk.ps & 
+
+5
+
+lcmap opt=null & 
+
+24
+
+lprop opt=null & 
+
+47
+
+lprop opt=nulllcmap opt=null & 
+
+0
+
+lcmap opt=null & 
+
+10
+
+lprop opt=null & 
+=======
+>>>>>>> V0.6.6
+>>>>>>> Stashed changes
 

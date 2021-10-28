@@ -100,7 +100,8 @@ sub _get_DIR {
 
 	if ( length $data_out->{_suffix_type} ) {
 
-		use SeismicUnix qw ($seg2 $segb $segy $sgy $su $txt $bin $ps);
+		use SeismicUnix
+		  qw ($bin $ps $seg2 $segb $segd $sgd $segy $sgy $su $txt );
 
 		my $suffix_type = $data_out->{_suffix_type};
 
@@ -109,49 +110,71 @@ sub _get_DIR {
 			my ($PS_SEISMIC) = $Project->PS_SEISMIC();
 			$DIR = $PS_SEISMIC;
 
-		} elsif ( $suffix_type eq $su ) {
+		}
+		elsif ( $suffix_type eq $su ) {
 
 			my ($DATA_SEISMIC_SU) = $Project->DATA_SEISMIC_SU();
 			$DIR = $DATA_SEISMIC_SU;
 
-		} elsif ( $suffix_type eq $bin ) {
+		}
+		elsif ( $suffix_type eq $bin ) {
 
 			my ($DATA_SEISMIC_BIN) = $Project->DATA_SEISMIC_BIN();
 			$DIR = $DATA_SEISMIC_BIN;
 
-		} elsif ( $suffix_type eq $txt ) {
+		}
+		elsif ( $suffix_type eq $txt ) {
 
 			my ($DATA_SEISMIC_TXT) = $Project->DATA_SEISMIC_TXT();
 			$DIR = $DATA_SEISMIC_TXT;
 
-		} elsif ( $suffix_type eq $seg2 ) {
+		}
+		elsif ( $suffix_type eq $seg2 ) {
 
 			my ($DATA_SEISMIC_SEG2) = $Project->DATA_SEISMIC_SEG2();
 			$DIR = $DATA_SEISMIC_SEG2;
 
-		} elsif ( $suffix_type eq $segb ) {
+		}
+		elsif ( $suffix_type eq $segb ) {
 
 			my ($DATA_SEISMIC_SEGB) = $Project->DATA_SEISMIC_SEGB();
 			$DIR = $DATA_SEISMIC_SEGB;
 
-		} elsif ( $suffix_type eq $sgy ) {
+		}
+		elsif ( $suffix_type eq $segd ) {
+
+			my ($DATA_SEISMIC_SEGD) = $Project->DATA_SEISMIC_SEGD();
+			$DIR = $DATA_SEISMIC_SEGD;
+
+		}
+
+		elsif ( $suffix_type eq $sgd ) {
+
+			my ($DATA_SEISMIC_SEGD) = $Project->DATA_SEISMIC_SEGD();
+			$DIR = $DATA_SEISMIC_SEGD;
+
+		}
+		elsif ( $suffix_type eq $sgy ) {
 
 			my ($DATA_SEISMIC_SEGY) = $Project->DATA_SEISMIC_SEGY();
 			$DIR = $DATA_SEISMIC_SEGY;
 
-		} elsif ( $suffix_type eq $segy ) {
+		}
+		elsif ( $suffix_type eq $segy ) {
 
 			my ($DATA_SEISMIC_SEGY) = $Project->DATA_SEISMIC_SEGY();
 			$DIR = $DATA_SEISMIC_SEGY;
 
-		} else {
+		}
+		else {
 			print("data_out, _get_DIR, unexpected suffix_type\n");
 			return ($empty_string);
 		}
 
 		return ($DIR);
 
-	} else {
+	}
+	else {
 		my ($PL_SEISMIC) = $Project->PL_SEISMIC();
 		$DIR = $PL_SEISMIC;
 
@@ -177,58 +200,80 @@ sub _get_suffix {
 		my $suffix_type = $data_out->{_suffix_type};
 
 		use SeismicUnix
-			qw ($suffix_seg2 $suffix_segb $suffix_sgy $suffix_segy $suffix_su $suffix_bin $suffix_ps $suffix_txt $segy $sgy $su $txt $bin);
+		  qw ($suffix_seg2 $suffix_segb $suffix_segd $suffix_sgd $suffix_sgy $suffix_segy $suffix_su $suffix_bin $suffix_ps $suffix_txt $segy $sgy $su $txt $bin);
 
 		if ( $suffix_type eq $ps ) {
 
 			$suffix = $suffix_ps;
 
-		} elsif ( $suffix_type eq $su ) {
+		}
+		elsif ( $suffix_type eq $su ) {
 
 			$suffix = $suffix_su;
 
-		} elsif ( $suffix_type eq $seg2 ) {
+		}
+		elsif ( $suffix_type eq $seg2 ) {
 
 			$suffix = $suffix_seg2;
 
-		} elsif ( $suffix_type eq $segb ) {
+		}
+		elsif ( $suffix_type eq $segb ) {
 
 			$suffix = $suffix_segb;
 
-		} elsif ( $suffix_type eq $sgy ) {
+		}
+		elsif ( $suffix_type eq $segd ) {
+
+			$suffix = $suffix_segd;
+
+		}
+		elsif ( $suffix_type eq $sgd ) {
+
+			$suffix = $suffix_sgd;
+		}
+		elsif ( $suffix_type eq $sgy ) {
 
 			$suffix = $suffix_sgy;
 
-		} elsif ( $suffix_type eq $segy ) {
+		}
+		elsif ( $suffix_type eq $segy ) {
 
 			$suffix = $suffix_segy;
 
-		} elsif ( $suffix_type eq $bin ) {
+		}
+		elsif ( $suffix_type eq $bin ) {
 
 			$suffix = $suffix_bin;
 
-		} elsif ( $suffix_type eq $txt ) {
+		}
+		elsif ( $suffix_type eq $txt ) {
 
 			$suffix = $suffix_txt;
 
-		} elsif ( $suffix_type eq $empty_string ) {
+		}
+		elsif ( $suffix_type eq $empty_string ) {
 
-			print("data_out, suffix_type is not su, bin, seg2, segb, segy or txt\n");
+			print(
+"data_out, suffix_type is not su, bin, seg2, segb, segd, segy or txt\n"
+			);
 			$suffix = $empty_string;
 
-		} else {
+		}
+		else {
 			print("data_out, unexpected suffix_type\n");
 		}
 
 		return ($suffix);
 
-	} elsif ( not( length $data_out->{_suffix_type} ) ) {
+	}
+	elsif ( not( length $data_out->{_suffix_type} ) ) {
 
-		#		print("data_out _get_sufix, suffix_type is blank so assume that it means there is non\n");
+#		print("data_out _get_sufix, suffix_type is blank so assume that it means there is non\n");
 		my $suffix = $empty_string;
 		return ($suffix);
 
-	} else {
+	}
+	else {
 		print("data_out, _get_suffix, suffix_type unexpected  \n");
 		return ();
 	}
@@ -267,7 +312,8 @@ sub _get_outbound {
 	my $suffix;
 
 	if ( length $data_out->{_suffix_type}
-		&& $data_out->{_base_file_name} ) {
+		&& $data_out->{_base_file_name} )
+	{
 
 		$file = $data_out->{_base_file_name};
 
@@ -278,8 +324,10 @@ sub _get_outbound {
 		# print ("1. data_out,_get_outbound outbound: $outbound\n");
 		return ($outbound);
 
-	} elsif ( length $data_out->{_base_file_name}
-		&& not( $data_out->{_suffix_type} ) ) {
+	}
+	elsif ( length $data_out->{_base_file_name}
+		&& not( $data_out->{_suffix_type} ) )
+	{
 
 		$file = $data_out->{_base_file_name};
 
@@ -289,7 +337,8 @@ sub _get_outbound {
 		# print ("2. data_out,_get_outbound outbound: $outbound\n");
 		return ($outbound);
 
-	} else {
+	}
+	else {
 		print("data_out, missing: suffix_type, base file name  \n");
 	}
 }
@@ -309,7 +358,8 @@ sub base_file_name {
 
 		#		print ("data_out, base_file_name $data_out->{_base_file_name}\n");
 
-	} else {
+	}
+	else {
 		print("data_out, base_file_name, name missing \n");
 	}
 }
@@ -329,7 +379,8 @@ sub base_file_name_sref {
 
 		# print ("data_out, base_file_name $data_out->{_base_file_name}\n");
 
-	} else {
+	}
+	else {
 		print("data_out, base_file_name_sref, name missing \n");
 
 	}
@@ -368,7 +419,8 @@ sub full_file_name {
 
 		$data_out->{_full_file_name} = $full_file_name;
 
-	} else {
+	}
+	else {
 		print("data_out, full_file_name, name missing \n");
 	}
 }
@@ -389,7 +441,8 @@ sub get_inbound {
 	my $suffix;
 
 	if ( length $data_out->{_suffix_type}
-		&& $data_out->{_base_file_name} ) {
+		&& $data_out->{_base_file_name} )
+	{
 
 		$file = $data_out->{_base_file_name};
 
@@ -400,8 +453,10 @@ sub get_inbound {
 		# print ("data_out,get_inbound inbound: $inbound\n");
 		return ($inbound);
 
-	} elsif ( length $data_out->{_base_file_name}
-		&& not( $data_out->{_suffix_type} ) ) {
+	}
+	elsif ( length $data_out->{_base_file_name}
+		&& not( $data_out->{_suffix_type} ) )
+	{
 
 		print(
 			"data_out, missing: suffix_type, base file name . 
@@ -412,8 +467,11 @@ sub get_inbound {
 		$inbound = $DIR . '/' . $file . $suffix;
 		return ($inbound);
 
-	} else {
-		print("data_out, missing: suffix_type, base file name . Assume that is what the user wants NADA\n");
+	}
+	else {
+		print(
+"data_out, missing: suffix_type, base file name . Assume that is what the user wants NADA\n"
+		);
 		return ($empty_string);
 	}
 }
@@ -427,8 +485,10 @@ sub file_name {
 	my ( $variable, $file_name ) = @_;
 	if ($file_name) {
 		$data_out->{_file_name} = $file_name;
-		$data_out->{_note}      = $data_out->{_note} . ' data_out=' . $data_out->{_file_name};
-		$data_out->{_Step}      = $data_out->{_Step} . ' data_out=' . $data_out->{_file_name};
+		$data_out->{_note} =
+		  $data_out->{_note} . ' data_out=' . $data_out->{_file_name};
+		$data_out->{_Step} =
+		  $data_out->{_Step} . ' data_out=' . $data_out->{_file_name};
 	}
 }
 
@@ -478,7 +538,8 @@ sub suffix_type {
 
 		$data_out->{_suffix_type} = $suffix_type;
 
-	} else {
+	}
+	else {
 		print("data_out, suffix_type missing \n");
 	}
 }
@@ -501,7 +562,8 @@ sub type {
 
 		$data_out->{_suffix_type} = $suffix_type;
 
-	} else {
+	}
+	else {
 		print("data_out, type missing \n");
 	}
 }

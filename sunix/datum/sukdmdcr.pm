@@ -1107,10 +1107,26 @@ max index = number of input variables -1
  
 sub get_max_index {
  	  my ($self) = @_;
+<<<<<<< Updated upstream
     my $max_index = 36;
+=======
+<<<<<<< HEAD
+	my $max_index = 34;
+=======
+    my $max_index = 36;
+>>>>>>> V0.6.6
+>>>>>>> Stashed changes
 
     return($max_index);
 }
  
  
+<<<<<<< Updated upstream
 1;
+=======
+<<<<<<< HEAD
+1;
+=======
+1;
+>>>>>>> V0.6.6
+>>>>>>> Stashed changes
