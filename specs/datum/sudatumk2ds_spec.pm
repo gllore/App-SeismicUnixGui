@@ -319,8 +319,8 @@ sub prefix_aref {
 
 	}
 
-	#	my $index_aref = get_binding_index_aref();
-	#	my @index       = @$index_aref;
+	my $index_aref = get_binding_index_aref();
+	my @index       = @$index_aref;
 
 	# label 23 in GUI is input xx_file and needs a home directory
 	$prefix[ $index[0] ] = '$DATA_SEISMIC_SU' . ".'/'.";
@@ -358,8 +358,8 @@ sub suffix_aref {
 
 	}
 
-	#	my $index_aref = get_binding_index_aref();
-	#	my @index       = @$index_aref;
+	my $index_aref = get_binding_index_aref();
+	my @index       = @$index_aref;
 
 	# label 23 in GUI is input xx_file and needs a home directory
 	$suffix[ $index[0] ] = '' . '' . '$suffix_su';

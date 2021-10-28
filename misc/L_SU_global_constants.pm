@@ -423,13 +423,7 @@ my @sunix_data_programs = (
 my @sunix_datum_programs = ( 
 	"sudatumk2dr",
 	"sudatumk2ds",
-<<<<<<< Updated upstream
-=======
-<<<<<<< HEAD
 	"sukdmdcr",
-=======
->>>>>>> V0.6.6
->>>>>>> Stashed changes
  );
 
 my @sunix_filter_programs = (
@@ -730,79 +724,3 @@ sub param {
 }
 
 1;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<<<<<<< Updated upstream
-=======
-<<<<<<< HEAD
-
-
-
-
-
-
-
-
-
-
-
-=======
->>>>>>> V0.6.6
->>>>>>> Stashed changes

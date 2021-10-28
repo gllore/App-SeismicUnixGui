@@ -52,3 +52,19 @@ lprop opt=null &
 >>>>>>> V0.6.6
 >>>>>>> Stashed changes
 
+24
+
+sufft sign=1 verbose=1 < /home/gllore/DuncanPoint/seismics/data/VetSchool/S/092421/Z/2HzVs4.5Hz_SW_test/su/gllore/2Hz.su | suamp mode=amp | suxwigb clip=0\.8 wbox=600 hbox=800 xbox=600 ybox=800 style=seismic windowtitle=amplitude\ spectra\-\-\ 2\ Hz\-geophones & 
+
+31
+
+sufft sign=1 verbose=1 < /home/gllore/DuncanPoint/seismics/data/VetSchool/S/092421/Z/2HzVs4.5Hz_SW_test/su/gllore/2HzN4\.5Hz.su | suamp mode=amp | suxwigb clip=0\.3 wbox=1200 hbox=300 xbox=600 ybox=800 style=seismic x1end=80 x1beg=0 windowtitle=fft\ 2Hz\ and\ 4\.5\ Hz\ geophones xcur=1 label2=clip\=\.3 & 
+
+45
+
+sufft sign=1 verbose=1 < /home/gllore/DuncanPoint/seismics/data/VetSchool/S/092421/Z/2HzVs4.5Hz_SW_test/su/gllore/2HzN4\.5Hz.su | suamp mode=amp | suxwigb clip=0\.3 wbox=1200 hbox=300 xbox=600 ybox=800 style=seismic x1end=80 x1beg=0 windowtitle=fft\ 2Hz\ and\ 4\.5\ Hz\ geophones xcur=1 label2=clip\=\.3 & 
+
+51
+
+sufft sign=1 verbose=1 < /home/gllore/DuncanPoint/seismics/data/VetSchool/S/092421/Z/2HzVs4.5Hz_SW_test/su/gllore/2Hz.su | suamp mode=amp | suxwigb clip=0\.8 wbox=600 hbox=800 xbox=600 ybox=800 style=seismic windowtitle=amplitude\ spectra\-\-\ 2\ Hz\-geophones & 
+

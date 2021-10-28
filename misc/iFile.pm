@@ -87,13 +87,7 @@ sub _get_DATA_DIR_IN {
 
 	my $DATA_SEISMIC_BIN  = $Project->DATA_SEISMIC_BIN();
 	my $DATA_SEISMIC_SEGB = $Project->DATA_SEISMIC_SEGB();
-<<<<<<< Updated upstream
-=======
-<<<<<<< HEAD
 	my $DATA_SEISMIC_SEGD = $Project->DATA_SEISMIC_SEGD();
-=======
->>>>>>> V0.6.6
->>>>>>> Stashed changes
 	my $DATA_SEISMIC_SEGY = $Project->DATA_SEISMIC_SEGY();
 	my $DATA_SEISMIC_SU   = $Project->DATA_SEISMIC_SU();
 	my $PL_SEISMIC        = $Project->PL_SEISMIC();
@@ -150,21 +144,12 @@ sub _get_DATA_DIR_IN {
 
 			if ( $prefix[$index] ne $empty_string ) {
 
-<<<<<<< Updated upstream
-				# Case 1.A: Many possible defined prefixes
-				# print("iFile, _get_DATA_DIR_IN, Case 1.A: Many possible defined prefixes\n");
-				
-=======
-<<<<<<< HEAD
  # Case 1.A: Many possible defined prefixes
  # print("iFile, _get_DATA_DIR_IN, Case 1.A: Many possible defined prefixes\n");
 
-=======
-				# Case 1.A: Many possible defined prefixes
-				# print("iFile, _get_DATA_DIR_IN, Case 1.A: Many possible defined prefixes\n");
-				
->>>>>>> V0.6.6
->>>>>>> Stashed changes
+ # Case 1.A: Many possible defined prefixes
+ # print("iFile, _get_DATA_DIR_IN, Case 1.A: Many possible defined prefixes\n");
+
 				if ( $prefix[$index] eq ( '$DATA_SEISMIC_SU' . ".'/'." ) ) {
 
 					$result = $DATA_SEISMIC_SU;
@@ -198,23 +183,7 @@ sub _get_DATA_DIR_IN {
 
 					$result = $DATA_SEISMIC_SEGY;
 
-<<<<<<< HEAD
 #					print("iFile, _get_DATA_DIR_IN,for SEGY; prefix[$index] =$prefix[$index]\n");
-=======
-				} elsif ( $prefix[$index] eq ( '$DATA_SEISMIC_SEGY' . ".'/'." ) ) {
-
-					$result = $DATA_SEISMIC_SEGY;
-
-					#					print("iFile, _get_DATA_DIR_IN,for SEGB; prefix[$index] =$prefix[$index]\n");
-
-				} elsif ( $prefix[$index] eq ( '$DATA_SEISMIC_SEGY' . ".'/'." ) ) {
-
-					$result = $DATA_SEISMIC_SEGY;
-
-					#					print("iFile, _get_DATA_DIR_IN,for SEGB; prefix[$index] =$prefix[$index]\n");
-
-				} elsif ( $prefix[$index] eq ( '$DATA_SEISMIC_TXT' . ".'/'." ) ) {
->>>>>>> V0.6.6
 
 				}
 				elsif ( $prefix[$index] eq ( '$DATA_SEISMIC_TXT' . ".'/'." ) ) {
@@ -231,23 +200,10 @@ sub _get_DATA_DIR_IN {
 				else {
 					print("iFile, _get_DATA_DIR_IN, unexpected result \n");
 
-<<<<<<< Updated upstream
-=======
-<<<<<<< HEAD
 #					print("iFile, _get_DATA_DIR_IN,  DATA_PATH_IN= $DATA_PATH_IN \n");
 #					print("2. iFile, _get_DATA_DIR_IN,prefix[$index] ='$prefix[$index]'\n");
 #					print( "3. iFile, _get_DATA_DIR_IN, 'DATA_SEISMIC_BIN' ='$DATA_SEISMIC_BIN' . " . '/' . "\n" );
 #					print( "4. iFile, _get_DATA_DIR_IN, 'DATA_SEISMIC_TXT' ='$DATA_SEISMIC_TXT' . " . '/' . "\n" );
-=======
->>>>>>> Stashed changes
-					#					print("iFile, _get_DATA_DIR_IN,  DATA_PATH_IN= $DATA_PATH_IN \n");
-					#					print("2. iFile, _get_DATA_DIR_IN,prefix[$index] ='$prefix[$index]'\n");
-					#					print( "3. iFile, _get_DATA_DIR_IN, 'DATA_SEISMIC_BIN' ='$DATA_SEISMIC_BIN' . " . '/' . "\n" );
-					#					print( "4. iFile, _get_DATA_DIR_IN, 'DATA_SEISMIC_TXT' ='$DATA_SEISMIC_TXT' . " . '/' . "\n" );
-<<<<<<< Updated upstream
-=======
->>>>>>> V0.6.6
->>>>>>> Stashed changes
 				}
 
 			}
@@ -554,16 +510,8 @@ sub get_Data_path {
 
 				# CASE 1A.7
 				$iFile->{_path} = $PL_SEISMIC;
-<<<<<<< Updated upstream
-#				print("iFile,get_path,path=$iFile->{_path}\n");
-=======
-<<<<<<< HEAD
-=======
-#				print("iFile,get_path,path=$iFile->{_path}\n");
->>>>>>> V0.6.6
 
-				#				print("iFile,get_path,path=$iFile->{_path}\n");
->>>>>>> Stashed changes
+				#print("iFile,get_path,path=$iFile->{_path}\n");
 
 			}
 			else {

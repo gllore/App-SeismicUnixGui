@@ -1,3 +1,5 @@
+/home/gllore/DuncanPoint/seismics/pl/VetSchool/S/092421/Z/2HzVs4.5Hz_SW_test/gllore/plot_fft_2HzN4.5Hz.pl
+/home/gllore/DuncanPoint/seismics/pl/VetSchool/S/092421/Z/2HzVs4.5Hz_SW_test/gllore/plot_2Hz.pl
 <<<<<<< Updated upstream
 =======
 <<<<<<< HEAD
@@ -5,27 +7,6 @@
 /home/gllore/DuncanPoint/seismics/pl/VetSchool/S/092421/Z/2HzVs4.5Hz_SW_test/gllore/lcmap.pl
 /home/gllore/DuncanPoint/seismics/pl/VetSchool/S/092421/Z/2HzVs4.5Hz_SW_test/gllore/tbd.pl
 /home/gllore/DuncanPoint/seismics/pl/VetSchool/S/092421/Z/2HzVs4.5Hz_SW_test/gllore/plot_fft_4.5HzN4.5Hz.pl
-/home/gllore/DuncanPoint/seismics/pl/VetSchool/S/092421/Z/2HzVs4.5Hz_SW_test/gllore/plot_2Hz.pl
-/home/gllore/DuncanPoint/seismics/pl/VetSchool/S/092421/Z/2HzVs4.5Hz_SW_test/gllore/plot_fft_2HzN4.5Hz.pl
 /home/gllore/DuncanPoint/seismics/pl/VetSchool/S/092421/Z/2HzVs4.5Hz_SW_test/gllore/plot_4.5Hz.pl
 =======
 >>>>>>> V0.6.6
->>>>>>> Stashed changes
-/home/gllore/mars/seismics/data/hrk_e122/two_wheels/100621/ACH01_cube/first_time/segy/gllore/sp1.sgy
-/home/gllore/mars/seismics/pl/hrk_e122/two_wheels/100621/ACH01_cube/first_time/gllore/segyscan.pl
-/home/gllore/mars/seismics/data/hrk_e122/two_wheels/100621/ACH01_cube/first_time/segy/gllore/sp0.sgy
-/home/gllore/mars/seismics/data/hrk_e122/ACH01_3axes_big_sand_tank/091021/rad_tangent_axial/rotation_test_in_situ/su/gllore/rotation_1_18_geom_sort_hrot.su
-/home/gllore/mars/seismics/pl/hrk_e122/ACH01_3axes_big_sand_tank/091021/rad_tangent_axial/rotation_test_in_situ/gllore/view_radial_rotated.pl
-<<<<<<< HEAD
-=======
-/home/gllore/mars/seismics/pl/hrk_e122/ACH01_3axes_big_sand_tank/091021/rad_tangent_axial/rotation_test_in_situ/gllore/view_tangential_rotated.pl
-/home/gllore/mars/seismics/pl/hrk_e122/ACH01_3axes_big_sand_tank/091021/rad_tangent_axial/rotation_test_in_situ/gllore/view_axial_rotated.pl
-/home/gllore/mars/seismics/pl/hrk_e122/ACH01_3axes_big_sand_tank/091021/rad_tangent_axial/rotation_test_in_situ/gllore/view_tangential_unrotated.pl
-/home/gllore/mars/seismics/pl/hrk_e122/ACH01_3axes_big_sand_tank/091021/rad_tangent_axial/rotation_test_in_situ/gllore/view_radial_unrotated.pl
-/home/gllore/mars/seismics/pl/hrk_e122/ACH01_3axes_big_sand_tank/091021/rad_tangent_axial/rotation_test_in_situ/gllore/view_axial_unrotated.pl
-/home/gllore/mars/seismics/pl/hrk_e122/ACH01_3axes_big_sand_tank/091021/rad_tangent_axial/rotation_test_in_situ/gllore/5d.view_sort.pl
-/home/gllore/mars/seismics/pl/hrk_e122/ACH01_3axes_big_sand_tank/091021/rad_tangent_axial/rotation_test_in_situ/gllore/suxwigb_wheel_All_sp_tan.pl
-<<<<<<< Updated upstream
-=======
->>>>>>> V0.6.6
->>>>>>> Stashed changes
