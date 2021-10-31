@@ -8,7 +8,6 @@
  infile=stdin		file for input seismic traces			
  outfile=stdout	file for output  	                        
  ttfile=file for input traveltime tables		
-
  Required parameters describing the traveltime tables:	         	
  fzt= 			first depth sample in traveltime table		
  nzt= 			number of depth samples in traveltime table	

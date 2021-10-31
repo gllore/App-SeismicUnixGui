@@ -67,7 +67,7 @@ sub _get_instantiation_section {
 	my $package_name = $sunix_spec->{_package_name}; 
 		
 	$instantiate[0] = "\n".'use Project_config;'."\n".
-		                'use SeismicUnix qw ($bin $su $suffix_bin $suffix_su $suffix_txt $txt);' . "\n".
+		                'use SeismicUnix qw ($bin $ps $segy $su $suffix_bin $suffix_ps $suffix_segy $suffix_su $suffix_txt $txt);' . "\n".
 						'use L_SU_global_constants;'."\n".					
 						'use '.$package_name.';'."\n".					
 						'my $get					= new L_SU_global_constants();'."\n".
@@ -168,15 +168,7 @@ sub _get_version_section {
 	"#\t".'$type[$index[0]] = $file_dialog_type->{_Data};'."\n".
 	"#\t".'$type[$index[1]]	=  $file_dialog_type->{_Data};'."\n".
 	"#\t".'$type[$index[2]]	=  $file_dialog_type->{_Data};'."\n\n".
-<<<<<<< Updated upstream
-	"#\t".'$'.$package_name.'_spec ->{_file_dialog_type_aref} = \@type;'."\n".	
-=======
-<<<<<<< HEAD
 	"\t".'$'.$package_name.'_spec ->{_file_dialog_type_aref} = \@type;'."\n".	
-=======
-	"#\t".'$'.$package_name.'_spec ->{_file_dialog_type_aref} = \@type;'."\n".	
->>>>>>> V0.6.6
->>>>>>> Stashed changes
 	"\t".'return();'."\n\n".
  	' }'."\n\n\n";
  
@@ -699,12 +691,14 @@ sub get_header_section {
     $head[4]    = $declare[0];
 	$head[5]    = ''."\n";
 	$head[6]   = '	my $DATA_SEISMIC_BIN  	= $Project->DATA_SEISMIC_BIN();'."\n";
-	$head[7]   = '	my $DATA_SEISMIC_SU  	= $Project->DATA_SEISMIC_SU();   # output data directory'."\n";
-	$head[8]   = '	my $DATA_SEISMIC_TXT  	= $Project->DATA_SEISMIC_TXT();   # output data directory'."\n";	
-	$head[9]   = '  my $PL_SEISMIC		    = $Project->PL_SEISMIC();'."\n";
-	$head[10]   = ' my $max_index = # Insert a number here'."\n";
+	$head[7]   = '	my $DATA_SEISMIC_SEGY  	= $Project->DATA_SEISMIC_SEGY();'."\n";
+	$head[8]   = '	my $DATA_SEISMIC_SU  	= $Project->DATA_SEISMIC_SU();   # output data directory'."\n";
+	$head[9]   = '	my $DATA_SEISMIC_TXT  	= $Project->DATA_SEISMIC_TXT();   # output data directory'."\n";	
+	$head[10]  = '  my $PL_SEISMIC		    = $Project->PL_SEISMIC();'."\n";
+	$head[11]  = '	my $PS_SEISMIC  		= $Project->PS_SEISMIC();'."\n";
+	$head[12]   = ' my $max_index = # Insert a number here'."\n";
 	#$'.$package_name.'->get_max_index();'."\n"; 7.14.21
-	$head[11]   = ''."\n";	
+	$head[13]   = ''."\n";	
     
     # print ("sunix_spec, get_header_section:\n @head\n");
  	return (\@head);

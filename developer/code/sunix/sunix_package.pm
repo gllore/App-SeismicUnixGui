@@ -249,11 +249,17 @@ sub write_config {
 		my $outbound = $sunix_package->{_path_out4configs} . '/' . $sunix_package->{_config_file_out};
 
 		# print ("sunix_package,write_config $outbound\n");
-
+		print ("sunix_package,write_config length=$sunix_package->{_length}\n");
+		my $i;
 		open $OUT, '>', $outbound or die;
-		for ( my $i = 0; $i < $sunix_package->{_length}; $i++ ) {
+		for ( $i = 0; $i < ($sunix_package->{_length} -1); $i++ ) {
 			printf $OUT "    %-35s%1s%-20s\n", @{ $sunix_package->{_param_names} }[$i], '= ', @{ $sunix_package->{_param_values} }[$i];
 		}
+		
+# make last line not include a "return" which produces an annoying final empty line 
+# in the configuration file
+#		print("sunix_package,write_config length, last line=$i\n");
+		printf $OUT "    %-35s%1s%-20s", @{ $sunix_package->{_param_names} }[$i], '= ', @{ $sunix_package->{_param_values} }[$i] ;
 		close($OUT);
 	}
 }
@@ -271,10 +277,10 @@ sub write_pm {
 	print("sunix_package, write_pm: sunix_package->{_file_out}= $sunix_package->{_file_out}\n");
 	print("sunix_package, write_pm: sunix_package->{_length}= $sunix_package->{_length}\n");
 
-	if ( $sunix_package->{_file_out} && $sunix_package->{_length} ) {    # avoids errors
+	if ( $sunix_package->{_file_out} && $sunix_package->{_length} >=0) {    # avoids errors
 
 		my $name = $sunix_package->{_package_name};
-		my $OUT;
+		my $OUT; 
 		use sunix_package_header;
 		use sunix_package_pod_header;
 #		use sunix_package_instantiation;
@@ -341,7 +347,7 @@ sub write_pm {
 
 		# HERE starts THE output PRODUCT!
 		$sunix_package->{_outbound_pm} = $sunix_package->{_path_out4sunix} . '/' . $sunix_package->{_file_out};
-		# print("sunix_package,write_pm, outbound=$sunix_package->{_outbound_pm}\n");
+		print("sunix_package,write_pm, outbound=$sunix_package->{_outbound_pm}\n");
 		open $OUT, '>', $sunix_package->{_outbound_pm} or die;
 
 		# prints out to file: package name
@@ -420,7 +426,7 @@ sub write_pm {
 
 	}
 	else {
-		print("sunix_package,write_pm, misssing:  sunix_package->{_file_out} and sunix_package->{_length}\n");
+		print("sunix_package,write_pm, missing:  sunix_package->{_file_out} and sunix_package->{_length}\n");
 	}
 
 }

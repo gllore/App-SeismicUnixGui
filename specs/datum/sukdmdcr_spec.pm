@@ -58,56 +58,6 @@ my $sukdmdcr_spec = {
 	_suffix_aref           => '',
 };
 
-my $get					= new L_SU_global_constants();
-my $Project 				= new Project_config;
-my $sukdmdcr		= new sukdmdcr;
-
-my $var					= $get->var();
-
-my $empty_string			= $var->{_empty_string};
-my $true					= $var->{_true};
-my $false      			= $var->{_false};
-my $file_dialog_type		= $get->file_dialog_type_href();
-my $flow_type				= $get->flow_type_href();
-
-	my $DATA_SEISMIC_BIN  	= $Project->DATA_SEISMIC_BIN();
-	my $DATA_SEISMIC_SU  	= $Project->DATA_SEISMIC_SU();   # output data directory
-	my $DATA_SEISMIC_TXT  	= $Project->DATA_SEISMIC_TXT();   # output data directory
-  my $PL_SEISMIC		    = $Project->PL_SEISMIC();
- my $max_index = # Insert a number here
-
-	my $sukdmdcr_spec = {
-		_CONFIG		            => $PL_SEISMIC,
-		_DATA_DIR_IN		    => $DATA_SEISMIC_BIN,
-	 	_DATA_DIR_OUT		    => $DATA_SEISMIC_SU,
-		_binding_index_aref	    => '',
-	 	_suffix_type_in			=> $su,
-		_data_suffix_in			=> $suffix_su,
-		_suffix_type_out		=> $su,
-	 	_data_suffix_out		=> $suffix_su,
-		_file_dialog_type_aref	=> '',
-		_flow_type_aref			=> '',
-	 	_has_infile				=> $true,
-	 	_has_outpar				=> $false,
-	 	_has_pipe_in			=> $true,	
-	 	_has_pipe_out           => $true,
-	 	_has_redirect_in		=> $true,
-	 	_has_redirect_out		=> $true,
-	 	_has_subin_in			=> $false,
-	 	_has_subin_out			=> $false,
-	 	_is_data				=> $false,
-		_is_first_of_2			=> $true,
-		_is_first_of_3or_more	=> $true,
-		_is_first_of_4or_more	=> $true,
-	 	_is_last_of_2			=> $false,
-	 	_is_last_of_3or_more	=> $false,
-		_is_last_of_4or_more	=> $false,
-		_is_suprog				=> $true,
-	 	_is_superflow			=> $false,
-	 	_max_index              => $max_index,
-	 	_prefix_aref               => '',
-	 	_suffix_aref               => '',
-	};
 
 
 =head2  sub binding_index_aref
@@ -278,7 +228,6 @@ sub get_flow_type_aref {
 	}
 
 }
-=
 
 
 =head2 sub get_incompatibles
@@ -334,9 +283,6 @@ sub get_flow_type_aref {
 }
 
 
-
-<
-
 =head2 sub get_prefix_aref
 
 =cut
@@ -358,9 +304,8 @@ sub get_prefix_aref {
 
 	return ();
 }
-=
 
-<
+
 =head2 sub get_suffix_aref
 
 =cut

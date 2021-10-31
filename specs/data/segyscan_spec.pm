@@ -100,16 +100,8 @@ sub file_dialog_type_aref {
 	#	$type[$index[0]] = $file_dialog_type->{_Data};
 	#	$type[$index[1]]	=  $file_dialog_type->{_Data};
 	#	$type[$index[2]]	=  $file_dialog_type->{_Data};
+	$segyscan_spec->{_file_dialog_type_aref} = \@type;
 
-<<<<<<< Updated upstream
-	#	$segyscan_spec ->{_file_dialog_type_aref} = \@type;
-=======
-<<<<<<< HEAD
-		$segyscan_spec ->{_file_dialog_type_aref} = \@type;
-=======
-	#	$segyscan_spec ->{_file_dialog_type_aref} = \@type;
->>>>>>> V0.6.6
->>>>>>> Stashed changes
 	return ();
 
 }
@@ -145,8 +137,11 @@ sub get_binding_index_aref {
 		my $index_aref = $segyscan_spec->{_binding_index_aref};
 		return ($index_aref);
 
-	} else {
-		print("segyscan_spec, get_binding_index_aref, missing binding_index_aref\n");
+	}
+	else {
+		print(
+"segyscan_spec, get_binding_index_aref, missing binding_index_aref\n"
+		);
 		return ();
 	}
 
@@ -166,7 +161,8 @@ sub get_binding_length {
 		my $binding_length = scalar @{ $segyscan_spec->{_binding_index_aref} };
 		return ($binding_length);
 
-	} else {
+	}
+	else {
 		print("segyscan_spec, get_binding_length, missing binding_length\n");
 		return ();
 	}
@@ -186,8 +182,11 @@ sub get_file_dialog_type_aref {
 		my $index_aref = $segyscan_spec->{_file_dialog_type_aref};
 		return ($index_aref);
 
-	} else {
-		print("segyscan_spec, get_file_dialog_type_aref, missing get_file_dialog_type_aref\n");
+	}
+	else {
+		print(
+"segyscan_spec, get_file_dialog_type_aref, missing get_file_dialog_type_aref\n"
+		);
 		return ();
 	}
 
@@ -207,7 +206,8 @@ sub get_flow_type_aref {
 		my $index_aref = $segyscan_spec->{_flow_type_aref};
 		return ($index_aref);
 
-	} else {
+	}
+	else {
 		print("segyscan_spec, get_flow_type_aref, missing flow_type_aref\n");
 		return ();
 	}
@@ -247,13 +247,16 @@ sub get_incompatibles {
 
 	if ( $len_1_needed >= 1 ) {
 
-		for ( my $i = 0; $i < $len_1_needed; $i++ ) {
+		for ( my $i = 0 ; $i < $len_1_needed ; $i++ ) {
 
-			print("segyscan, get_incompatibles,need_only_1:  @{@{$params->{_need_only_1}}[$i]}\n");
+			print(
+"segyscan, get_incompatibles,need_only_1:  @{@{$params->{_need_only_1}}[$i]}\n"
+			);
 
 		}
 
-	} else {
+	}
+	else {
 		print("get_incompatibles, no incompatibles\n");
 	}
 
@@ -274,7 +277,8 @@ sub get_prefix_aref {
 		my $prefix_aref = $segyscan_spec->{_prefix_aref};
 		return ($prefix_aref);
 
-	} else {
+	}
+	else {
 		print("segyscan_spec, get_prefix_aref, missing prefix_aref\n");
 		return ();
 	}
@@ -295,7 +299,8 @@ sub get_suffix_aref {
 		my $suffix_aref = $segyscan_spec->{_suffix_aref};
 		return ($suffix_aref);
 
-	} else {
+	}
+	else {
 		print("$segyscan_spec, get_suffix_aref, missing suffix_aref\n");
 		return ();
 	}
@@ -319,7 +324,7 @@ sub prefix_aref {
 
 	my @prefix;
 
-	for ( my $i = 0; $i < $max_index; $i++ ) {
+	for ( my $i = 0 ; $i < $max_index ; $i++ ) {
 
 		$prefix[$i] = $empty_string;
 
@@ -355,7 +360,7 @@ sub suffix_aref {
 
 	my @suffix;
 
-	for ( my $i = 0; $i < $max_index; $i++ ) {
+	for ( my $i = 0 ; $i < $max_index ; $i++ ) {
 
 		$suffix[$i] = $empty_string;
 

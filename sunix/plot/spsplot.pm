@@ -1,15 +1,16 @@
- package spsplot;
-
-
-=head1 DOCUMENTATION
+package spsplot;
 
 =head2 SYNOPSIS
 
-PACKAGE NAME:  SPSPLOT - plot a triangulated sloth function s(x,z) via PostScript	
-AUTHOR: Juan Lorenzo
-DATE:   
+PACKAGE NAME: 
+
+AUTHOR:  
+
+DATE:
+
 DESCRIPTION:
-Version: 
+
+Version:
 
 =head2 USE
 
@@ -17,114 +18,205 @@ Version:
 
 =head4 Examples
 
-=head3 SEISMIC UNIX NOTES
+=head2 SYNOPSIS
 
+=head3 SEISMIC UNIX NOTES
  SPSPLOT - plot a triangulated sloth function s(x,z) via PostScript	
+
+
 
  spsplot <modelfile >postscriptfile [optional parameters]		
 
+
+
  Optional Parameters:							
+
  gedge=0.0             gray to draw fixed edges (in interval [0.0,1.0])
+
  gtri=1.0              gray to draw non-fixed edges of triangles 	
+
  gmin=0.0              min gray to shade triangles (in interval [0.0,1.0])
+
  gmax=1.0              max gray to shade triangles (in interval [0.0,1.0])
+
  sgmin=minimum s(x,z)  s(x,y) corresponding to gmin 			
+
  sgmax=maximum s(x,z)  s(x,y) corresponding to gmax 			
+
  xbox=1.5              offset in inches of left side of axes box 	
+
  ybox=1.5              offset in inches of bottom side of axes box	
+
  wbox=6.0              width in inches of axes box			
+
  hbox=8.0              height in inches of axes box			
+
  xbeg=xmin             value at which x axis begins			
+
  xend=xmax             value at which x axis ends			
+
  dxnum=0.0             numbered tic interval on x axis (0.0 for automatic)
+
  fxnum=xmin            first numbered tic on x axis (used if dxnum not 0.0)
+
  nxtic=1               number of tics per numbered tic on x axis	
+
  gridx=none            grid lines on x axis - none, dot, dash, or solid
+
  labelx=               label on x axis					
+
  zbeg=zmin             value at which z axis begins			
+
  zend=zmax             value at which z axis ends			
+
  dznum=0.0             numbered tic interval on z axis (0.0 for automatic)
+
  fznum=zmin            first numbered tic on z axis (used if dynum not 0.0)
+
  nztic=1               number of tics per numbered tic on z axis	
+
  gridz=none            grid lines on z axis - none, dot, dash, or solid
+
  labelz=               label on z axis					
+
  labelfont=Helvetica   font name for axes labels			
+
  labelsize=12          font size for axes labels			
+
  title=                title of plot					
+
  titlefont=Helvetica-Bold  font name for title				
+
  titlesize=24          font size for title				
+
  titlecolor=black      color of title					
+
  axescolor=black       color of axes					
+
  gridcolor=black       color of grid					
+
  style=seismic         normal (z axis horizontal, x axis vertical) or	
+
                        seismic (z axis vertical, x axis horizontal)	
 
+
+
  Note:  A value of gedge or gtri outside the interval [0.0,1.0]	
+
  results in that class of edge not being drawn.			
 
 
 
+
+
+
+
  AUTHOR:  Dave Hale, Colorado School of Mines, 10/18/90
+
  MODIFIED: Craig Artley, Colorado School of Mines, 03/27/94
+
     Tweaks to improve PostScript header, add basic color support.
 
+
+
  NOTE:  Have observed errors in output when compiled with optimization
+
     under NEXTSTEP 3.1.  Caveat Emptor.
 
+
+
  Modified: Morten Wendell Pedersen, Aarhus University, 23/3-97
+
            Added ticwidth,axeswidth, gridwidth parameters 
+
+
+
+=head2 User's notes (Juan Lorenzo)
+untested
+
+=cut
+
 
 =head2 CHANGES and their DATES
 
 =cut
- use Moose;
+
+use Moose;
 our $VERSION = '0.0.1';
+
+
+=head2 Import packages
+
+=cut
+
 use L_SU_global_constants();
 
-	my $get					= new L_SU_global_constants();
-
-	my $var				= $get->var();
-	my $empty_string    	= $var->{_empty_string};
+use SeismicUnix qw ($go $in $off $on $out $ps $to $suffix_ascii $suffix_bin $suffix_ps $suffix_segy $suffix_su);
+use Project_config;
 
 
-	my $spsplot		= {
-		_axescolor					=> '',
-		_dxnum					=> '',
-		_dznum					=> '',
-		_fxnum					=> '',
-		_fznum					=> '',
-		_gedge					=> '',
-		_gmax					=> '',
-		_gmin					=> '',
-		_gridcolor					=> '',
-		_gridx					=> '',
-		_gridz					=> '',
-		_gtri					=> '',
-		_hbox					=> '',
-		_labelfont					=> '',
-		_labelsize					=> '',
-		_labelx					=> '',
-		_labelz					=> '',
-		_nxtic					=> '',
-		_nztic					=> '',
-		_sgmax					=> '',
-		_sgmin					=> '',
-		_style					=> '',
-		_title					=> '',
-		_titlecolor					=> '',
-		_titlefont					=> '',
-		_titlesize					=> '',
-		_wbox					=> '',
-		_xbeg					=> '',
-		_xbox					=> '',
-		_xend					=> '',
-		_ybox					=> '',
-		_zbeg					=> '',
-		_zend					=> '',
-		_Step					=> '',
-		_note					=> '',
-    };
+=head2 instantiation of packages
 
+=cut
+
+my $get					= new L_SU_global_constants();
+my $Project				= new Project_config();
+my $DATA_SEISMIC_SU		= $Project->DATA_SEISMIC_SU();
+my $DATA_SEISMIC_BIN	= $Project->DATA_SEISMIC_BIN();
+my $DATA_SEISMIC_TXT	= $Project->DATA_SEISMIC_TXT();
+
+my $PS_SEISMIC      	= $Project->PS_SEISMIC();
+
+my $var				= $get->var();
+my $on				= $var->{_on};
+my $off				= $var->{_off};
+my $true			= $var->{_true};
+my $false			= $var->{_false};
+my $empty_string	= $var->{_empty_string};
+
+=head2 Encapsulated
+hash of private variables
+
+=cut
+
+my $spsplot			= {
+	_axescolor					=> '',
+	_dxnum					=> '',
+	_dznum					=> '',
+	_fxnum					=> '',
+	_fznum					=> '',
+	_gedge					=> '',
+	_gmax					=> '',
+	_gmin					=> '',
+	_gridcolor					=> '',
+	_gridx					=> '',
+	_gridz					=> '',
+	_gtri					=> '',
+	_hbox					=> '',
+	_labelfont					=> '',
+	_labelsize					=> '',
+	_labelx					=> '',
+	_labelz					=> '',
+	_nxtic					=> '',
+	_nztic					=> '',
+	_sgmax					=> '',
+	_sgmin					=> '',
+	_style					=> '',
+	_title					=> '',
+	_titlecolor					=> '',
+	_titlefont					=> '',
+	_titlesize					=> '',
+	_wbox					=> '',
+	_xbeg					=> '',
+	_xbox					=> '',
+	_xend					=> '',
+	_ybox					=> '',
+	_zbeg					=> '',
+	_zend					=> '',
+	_Step					=> '',
+	_note					=> '',
+
+};
 
 =head2 sub Step
 
@@ -154,6 +246,7 @@ by adding the program name
 	return ( $spsplot->{_note} );
 
  }
+
 
 
 =head2 sub clear
@@ -868,10 +961,10 @@ max index = number of input variables -1
  
 sub get_max_index {
  	  my ($self) = @_;
-    my $max_index = 36;
+	my $max_index = 32;
 
     return($max_index);
 }
  
  
-1; 
+1;

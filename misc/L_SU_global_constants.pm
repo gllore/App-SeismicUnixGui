@@ -424,6 +424,7 @@ my @sunix_datum_programs = (
 	"sudatumk2dr",
 	"sudatumk2ds",
 	"sukdmdcr",
+	"sukdmdcs",
  );
 
 my @sunix_filter_programs = (
@@ -537,13 +538,32 @@ my @sunix_plot_programs = (
 	"pscontour",
 	"pscube",
 	"pscubecontour",
+	"psepsi",
+	"psgraph",
+	"psimage",
+	"pslabel",
+	"psmanager",
+	"psmerge",
+	"psmovie",
 	"pswigb",
 	"pswigp",
+	"scmap",
+	"spsplot",
+	"supscontour",
+	"supscube",
+	"supscubecontour",
+	"supsgraph",
+	"supsimage",
+	"supsmax",
+	"supsmovie",
 	"supswigb",
 	"supswigp",
+	"suxcontour",
 	"suxgraph",
 	"suximage",
+	"suxmax",
 	"suxmovie",
+	"suxpicker",
 	"suxwigb",
 	"xgraph",
 	"ximage",
@@ -724,3 +744,24 @@ sub param {
 }
 
 1;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -48,7 +48,7 @@
  n3=1                   number of samples in third dimension		
  title2=                second title to annotate different frames	
  loopdsp=3              display loop type (1=loop over n1; 2=loop over n2;
-                                           3=loop over n3)		
+                                           3 =l oop over n3)		
  d3=1.0                 sampling interval in 3rd dimension		
  f3=d3                  first sample in 3rd dimension			
 

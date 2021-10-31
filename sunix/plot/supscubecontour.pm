@@ -1,15 +1,16 @@
- package supscubecontour;
-
-
-=head1 DOCUMENTATION
+package supscubecontour;
 
 =head2 SYNOPSIS
 
-PACKAGE NAME:  SUPSCUBECONTOUR - PostScript CUBE plot of a segy data set		
-AUTHOR: Juan Lorenzo
-DATE:   
+PACKAGE NAME: 
+
+AUTHOR:  
+
+DATE:
+
 DESCRIPTION:
-Version: 
+
+Version:
 
 =head2 USE
 
@@ -17,89 +18,182 @@ Version:
 
 =head4 Examples
 
-=head3 SEISMIC UNIX NOTES
+=head2 SYNOPSIS
 
+=head3 SEISMIC UNIX NOTES
  SUPSCUBECONTOUR - PostScript CUBE plot of a segy data set		
+
+
 
  supscubecontour <stdin [optional parameters] | ...			
 
+
+
  Optional parameters: 							
 
+
+
  n2 is the number of traces per frame.  If not getparred then it	
+
  is the total number of traces in the data set.  			
 
+
+
  n3 is the number of frames.  If not getparred then it			
+
  is the total number of frames in the data set measured by ntr/n2	
 
+
+
  d1=tr.d1 or tr.dt/10^6	sampling interval in the fast dimension	
+
    =.004 for seismic 		(if not set)				
+
    =1.0 for nonseismic		(if not set)				
 
+
+
  d2=tr.d2			sampling interval in the slow dimension	
+
    =1.0 			(if not set)				
+
+
 
  f1=tr.f1 or tr.delrt/10^3 or 0.0  first sample in the fast dimension	
 
+
+
  f2=tr.f2 or tr.tracr or tr.tracl  first sample in the slow dimension	
+
    =1.0 for seismic		    (if not set)			
+
    =d2 for nonseismic		    (if not set)			
+
+
 
  verbose=0              =1 to print some useful information		
 
+
+
  tmpdir=	 	if non-empty, use the value as a directory path	
+
 		 	prefix for storing temporary files; else if the	
+
 	         	the CWP_TMPDIR environment variable is set use	
+
 	         	its value for the path; else use tmpfile()	
 
+
+
  Note that for seismic time domain data, the "fast dimension" is	
+
  time and the "slow dimension" is usually trace number or range.	
+
  Also note that "foreign" data tapes may have something unexpected	
+
  in the d2,f2 fields, use segyclean to clear these if you can afford	
+
  the processing time or use d2= f2= to over-ride the header values if	
+
  not.									
+
+
 
  See the pscubecontour selfdoc for the remaining parameters.		
 
+
+
  example:   supscubecontour < infile [optional parameters]  | gv -	
+
+
 
  Credits:
 
+
+
 	CWP: Dave Hale and Zhiming Li (pscube)
+
 	     Jack K. Cohen  (suxmovie)
+
 	     John Stockwell (supscubecontour)
 
+
+
  Notes:
+
 	When n2 isn't getparred, we need to count the traces
+
 	for pscube. Although we compute ntr, we don't allocate a 2-d array
+
 	and content ourselves with copying trace by trace from
+
 	the data "file" to the pipe into the plotting program.
+
 	Although we could use tr.data, we allocate a trace buffer
+
 	for code clarity.
+
+
+
+=head2 User's notes (Juan Lorenzo)
+untested
+
+=cut
+
 
 =head2 CHANGES and their DATES
 
 =cut
- use Moose;
+
+use Moose;
 our $VERSION = '0.0.1';
+
+
+=head2 Import packages
+
+=cut
+
 use L_SU_global_constants();
 
-	my $get					= new L_SU_global_constants();
-
-	my $var				= $get->var();
-	my $empty_string    	= $var->{_empty_string};
+use SeismicUnix qw ($go $in $off $on $out $ps $to $suffix_ascii $suffix_bin $suffix_ps $suffix_segy $suffix_su);
+use Project_config;
 
 
-	my $supscubecontour		= {
-		_d1					=> '',
-		_d2					=> '',
-		_f1					=> '',
-		_f2					=> '',
-		_tmpdir					=> '',
-		_verbose					=> '',
-		_Step					=> '',
-		_note					=> '',
-    };
+=head2 instantiation of packages
 
+=cut
+
+my $get					= new L_SU_global_constants();
+my $Project				= new Project_config();
+my $DATA_SEISMIC_SU		= $Project->DATA_SEISMIC_SU();
+my $DATA_SEISMIC_BIN	= $Project->DATA_SEISMIC_BIN();
+my $DATA_SEISMIC_TXT	= $Project->DATA_SEISMIC_TXT();
+
+my $PS_SEISMIC      	= $Project->PS_SEISMIC();
+
+my $var				= $get->var();
+my $on				= $var->{_on};
+my $off				= $var->{_off};
+my $true			= $var->{_true};
+my $false			= $var->{_false};
+my $empty_string	= $var->{_empty_string};
+
+=head2 Encapsulated
+hash of private variables
+
+=cut
+
+my $supscubecontour			= {
+	_d1					=> '',
+	_d2					=> '',
+	_f1					=> '',
+	_f2					=> '',
+	_tmpdir					=> '',
+	_verbose					=> '',
+	_Step					=> '',
+	_note					=> '',
+
+};
 
 =head2 sub Step
 
@@ -129,6 +223,7 @@ by adding the program name
 	return ( $supscubecontour->{_note} );
 
  }
+
 
 
 =head2 sub clear
@@ -276,10 +371,10 @@ max index = number of input variables -1
  
 sub get_max_index {
  	  my ($self) = @_;
-    my $max_index = 36;
+	my $max_index = 5;
 
     return($max_index);
 }
  
  
-1; 
+1;

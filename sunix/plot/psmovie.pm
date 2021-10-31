@@ -121,7 +121,7 @@ Version:
 
  loopdsp=3              display loop type (1=loop over n1; 2=loop over n2;
 
-                                           3=loop over n3)		
+                                           3 = loop over n3)		
 
  d3=1.0                 sampling interval in 3rd dimension		
 
@@ -216,7 +216,6 @@ hash of private variables
 =cut
 
 my $psmovie			= {
-	_3					=> '',
 	_axescolor					=> '',
 	_bclip					=> '',
 	_bperc					=> '',
@@ -304,7 +303,6 @@ by adding the program name
 
  sub clear {
 
-		$psmovie->{_3}			= '';
 		$psmovie->{_axescolor}			= '';
 		$psmovie->{_bclip}			= '';
 		$psmovie->{_bperc}			= '';
@@ -354,25 +352,6 @@ by adding the program name
 		$psmovie->{_note}			= '';
  }
 
-
-=head2 sub 3 
-
-
-=cut
-
- sub 3 {
-
-	my ( $self,$3 )		= @_;
-	if ( $3 ne $empty_string ) {
-
-		$psmovie->{_3}		= $3;
-		$psmovie->{_note}		= $psmovie->{_note}.' 3='.$psmovie->{_3};
-		$psmovie->{_Step}		= $psmovie->{_Step}.' 3='.$psmovie->{_3};
-
-	} else { 
-		print("psmovie, 3, missing 3,\n");
-	 }
- }
 
 
 =head2 sub axescolor 
@@ -1283,7 +1262,7 @@ max index = number of input variables -1
  
 sub get_max_index {
  	  my ($self) = @_;
-    my $max_index = 36;
+	my $max_index = 44;
 
     return($max_index);
 }

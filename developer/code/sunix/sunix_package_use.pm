@@ -26,7 +26,7 @@ sub make_section {
 	my ($self) = @_;
 
 	$use[0] = 'use L_SU_global_constants();' . "\n\n";	
-	$use[1] = 'use SeismicUnix qw ($in $out $on $go $to $suffix_ascii $off $suffix_su $suffix_bin);' . "\n";
+	$use[1] = 'use SeismicUnix qw ($go $in $off $on $out $ps $to $suffix_ascii $suffix_bin $suffix_ps $suffix_segy $suffix_su);' . "\n";
 	$use[2] = 'use Project_config;' . "\n\n";
 	return ( \@use );
 }

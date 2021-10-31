@@ -3,7 +3,7 @@ package psimage_spec;
 our $VERSION = '0.0.1';
 
 use Project_config;
-use SeismicUnix qw ($bin $su $suffix_bin $suffix_su $suffix_txt $txt);
+use SeismicUnix qw ($bin $ps $su $suffix_bin $suffix_ps $suffix_su $suffix_txt $txt);
 use L_SU_global_constants;
 use psimage;
 my $get					= new L_SU_global_constants();
@@ -19,20 +19,20 @@ my $file_dialog_type		= $get->file_dialog_type_href();
 my $flow_type				= $get->flow_type_href();
 
 	my $DATA_SEISMIC_BIN  	= $Project->DATA_SEISMIC_BIN();
-	my $DATA_SEISMIC_SU  	= $Project->DATA_SEISMIC_SU();   # output data directory
+	my $PS_SEISMIC  	= $Project->PS_SEISMIC();   # output data directory
 	my $DATA_SEISMIC_TXT  	= $Project->DATA_SEISMIC_TXT();   # output data directory
   my $PL_SEISMIC		    = $Project->PL_SEISMIC();
- my $max_index = # Insert a number here
+ my $max_index           = 75;
 
 	my $psimage_spec = {
 		_CONFIG		            => $PL_SEISMIC,
 		_DATA_DIR_IN		    => $DATA_SEISMIC_BIN,
-	 	_DATA_DIR_OUT		    => $DATA_SEISMIC_SU,
+	 	_DATA_DIR_OUT		    => $PS_SEISMIC,
 		_binding_index_aref	    => '',
-	 	_suffix_type_in			=> $su,
-		_data_suffix_in			=> $suffix_su,
-		_suffix_type_out		=> $su,
-	 	_data_suffix_out		=> $suffix_su,
+	 	_suffix_type_in			=> $bin,
+		_data_suffix_in			=> $suffix_bin,
+		_suffix_type_out		=> $ps,
+	 	_data_suffix_out		=> $suffix_ps,
 		_file_dialog_type_aref	=> '',
 		_flow_type_aref			=> '',
 	 	_has_infile				=> $true,
@@ -337,7 +337,7 @@ are filtered by sunix_pl
 #	$prefix[ $index[1] ] = '$DATA_SEISMIC_TXT' . ".'/'.";
 
 	# label 9 in GUI is input zz_file and needs a home directory
-#	$prefix[ $index[2] ] = '$DATA_SEISMIC_SU' . ".'/'.";
+#	$prefix[ $index[2] ] = '$PS_SEISMIC' . ".'/'.";
 
 	$psimage_spec ->{_prefix_aref} = \@prefix;
 	return();

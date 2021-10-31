@@ -46,7 +46,7 @@ Which group number do you want to use to create
 for *.pm, *.config, and *_spec.pm files ?
 
 e.g., for transforms use:
-$group_number = 15
+$sunix_category_number = 15
 	
 
 =head2 CHANGES and their DATES
@@ -78,17 +78,8 @@ For example=
 
 =cut
 
-<<<<<<< Updated upstream
-my $selected_program_name = 'sudatumk2ds';
-my $group_number                   = 1;
-=======
-<<<<<<< HEAD
-my $selected_program_name = 'pscube';
-my $group_number                   = 2;
-=======
-my $selected_program_name = 'sudatumk2ds';
-my $group_number                   = 1;
->>>>>>> V0.6.6
->>>>>>> Stashed changes
-$update->set_program($selected_program_name, $group_number);
+my $selected_program_name = 'suxpicker';
+my $sunix_category_number = 2;
+
+$update->set_program($selected_program_name, $sunix_category_number);
 $update->get_changes();

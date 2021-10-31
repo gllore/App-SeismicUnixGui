@@ -1,15 +1,16 @@
- package supsmax;
-
-
-=head1 DOCUMENTATION
+package supsmax;
 
 =head2 SYNOPSIS
 
-PACKAGE NAME:  SUPSMAX - PostScript of the MAX, min, or absolute max value on each trace
-AUTHOR: Juan Lorenzo
-DATE:   
+PACKAGE NAME: 
+
+AUTHOR:  
+
+DATE:
+
 DESCRIPTION:
-Version: 
+
+Version:
 
 =head2 USE
 
@@ -17,92 +18,186 @@ Version:
 
 =head4 Examples
 
-=head3 SEISMIC UNIX NOTES
+=head2 SYNOPSIS
 
+=head3 SEISMIC UNIX NOTES
  SUPSMAX - PostScript of the MAX, min, or absolute max value on each trace
+
  	   of a SEGY (SU) data	set					
+
+
 
    supsmax <stdin >postscript file [optional parameters]		
 
+
+
  Optional parameters: 							
+
  mode=max		max value					
+
  			=min min value					
+
  			=abs absolute max value				
+
+
 
  n2=tr.ntr or number of traces in the data set (ntr is an alias for n2)
 
+
+
  d1=tr.d1 or tr.dt/10^6	sampling interval in the fast dimension	
+
    =.004 for seismic 		(if not set)				
+
    =1.0 for nonseismic		(if not set)				
 
+
+
  d2=tr.d2			sampling interval in the slow dimension	
+
    =1.0 			(if not set)				
+
+
 
  f1=tr.f1 or tr.delrt/10^3 or 0.0  first sample in the fast dimension	
 
+
+
  f2=tr.f2 or tr.tracr or tr.tracl  first sample in the slow dimension	
+
    =1.0 for seismic		    (if not set)			
+
    =d2 for nonseismic		    (if not set)			
+
+
 
  verbose=0              =1 to print some useful information		
 
+
+
  tmpdir=	 	if non-empty, use the value as a directory path	
+
 		 	prefix for storing temporary files; else if the	
+
 	         	the CWP_TMPDIR environment variable is set use	
+
 	         	its value for the path; else use tmpfile()	
 
+
+
  Note that for seismic time domain data, the "fast dimension" is	
+
  time and the "slow dimension" is usually trace number or range.	
+
  Also note that "foreign" data tapes may have something unexpected	
+
  in the d2,f2 fields, use segyclean to clear these if you can afford	
+
  the processing time or use d2= f2= to over-ride the header values if	
+
  not.									
 
+
+
  See the sumax selfdoc for additional parameter.			
+
  See the psgraph selfdoc for the remaining parameters.			
+
+
+
 
 
  Credits:
 
+
+
 	CWP: John Stockwell, based on Jack Cohen's SU JACKet 
 
+
+
  Notes:
+
 	When the number of traces isn't known, we need to count
+
 	the traces for psgraph.  You can make this value "known"
+
 	either by getparring n2 or by having the ntr field set
+
 	in the trace header.  A getparred value takes precedence
+
 	over the value in the trace header.
 
+
+
 	When we do have to count the traces, we use the "tmpfile"
+
 	routine because on many machines it is implemented
+
 	as a memory area instead of a disk file.
+
+
+
+=head2 User's notes (Juan Lorenzo)
+untested
+
+=cut
+
 
 =head2 CHANGES and their DATES
 
 =cut
- use Moose;
+
+use Moose;
 our $VERSION = '0.0.1';
+
+
+=head2 Import packages
+
+=cut
+
 use L_SU_global_constants();
 
-	my $get					= new L_SU_global_constants();
-
-	my $var				= $get->var();
-	my $empty_string    	= $var->{_empty_string};
+use SeismicUnix qw ($go $in $off $on $out $ps $to $suffix_ascii $suffix_bin $suffix_ps $suffix_segy $suffix_su);
+use Project_config;
 
 
-	my $supsmax		= {
-		_d1					=> '',
-		_d2					=> '',
-		_f1					=> '',
-		_f2					=> '',
-		_mode					=> '',
-		_n2					=> '',
-		_tmpdir					=> '',
-		_verbose					=> '',
-		_Step					=> '',
-		_note					=> '',
-    };
+=head2 instantiation of packages
 
+=cut
+
+my $get					= new L_SU_global_constants();
+my $Project				= new Project_config();
+my $DATA_SEISMIC_SU		= $Project->DATA_SEISMIC_SU();
+my $DATA_SEISMIC_BIN	= $Project->DATA_SEISMIC_BIN();
+my $DATA_SEISMIC_TXT	= $Project->DATA_SEISMIC_TXT();
+
+my $PS_SEISMIC      	= $Project->PS_SEISMIC();
+
+my $var				= $get->var();
+my $on				= $var->{_on};
+my $off				= $var->{_off};
+my $true			= $var->{_true};
+my $false			= $var->{_false};
+my $empty_string	= $var->{_empty_string};
+
+=head2 Encapsulated
+hash of private variables
+
+=cut
+
+my $supsmax			= {
+	_d1					=> '',
+	_d2					=> '',
+	_f1					=> '',
+	_f2					=> '',
+	_mode					=> '',
+	_n2					=> '',
+	_tmpdir					=> '',
+	_verbose					=> '',
+	_Step					=> '',
+	_note					=> '',
+
+};
 
 =head2 sub Step
 
@@ -132,6 +227,7 @@ by adding the program name
 	return ( $supsmax->{_note} );
 
  }
+
 
 
 =head2 sub clear
@@ -321,10 +417,10 @@ max index = number of input variables -1
  
 sub get_max_index {
  	  my ($self) = @_;
-    my $max_index = 36;
+	my $max_index = 7;
 
     return($max_index);
 }
  
  
-1; 
+1;
