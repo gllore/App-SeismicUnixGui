@@ -6,9 +6,9 @@
       integer*4  ntr,ns,idtusec
       integer :: err_message, ready
 
-!      print *, 'read_parmmod_file, inbound is:',trim(inbound),'--'
+      print *, 'read_parmmod_file, inbound is:',trim(inbound),'--'
 !      in case inbound is of a different, but shorter length in main
-!      inbound=inbound
+      inbound=inbound
       inbound_locked=trim(inbound)//"_locked"
 
 10     open(status='new',unit=25,file=inbound_locked,iostat=ready)
@@ -22,7 +22,7 @@
 
           read (26,*) ntr,ns,idtusec
 !       print *, 'read_parmmod_file, results',ntr,ns,idtusec
-!          print *, 'read_parmmod_file.f, result',result
+!          print *, 'read_parmmod_file.f, result',ntr
           close (unit=26)
 
          else

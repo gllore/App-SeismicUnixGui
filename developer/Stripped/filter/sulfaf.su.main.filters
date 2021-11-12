@@ -18,7 +18,7 @@
  Notes:		  						
  The traces transformed into the freqiency domain			
  where a trace mix is performed in the specifed frequency range	
- as Mix=vel/(freq*dx)							
+ as Mix = ve l/(freq*dx)							
 
  This program uses "get_gather" and "put_gather" so requires that  
  the  data be sorted into ensembles designated by "key", with the ntr

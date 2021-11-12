@@ -27,7 +27,7 @@
 !       data_traces = 'no'
 !       previous_model = 'no'
 !       new_model = 'no'
-!      sum of firs two character strings= 35
+!      sum of first two character strings= 35
       inbound_locked=trim(inbound)//"_locked"
       format0= "(A14,21X,A1,1X,A)"
       format1= "(A22,13X,A1,1X,A)"

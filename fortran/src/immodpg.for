@@ -3,7 +3,7 @@
 ! velocidad constante. Fuente y receptor en 1ra capa; default
 ! es que ambos esten en superficie.
 !
-       integer*4  nlmax,npmax,npamax,ntrmax,nsmax,ntr,ns
+       integer*4  nlmax,npmax,npamax,ntrmax,nsmax,ntr,ns,idtusec
        integer*2  how_many
        parameter (nlmax=25,npmax=960000,npamax=4000000)
        parameter (ntrmax=1000,nsmax=32768)
@@ -41,8 +41,8 @@
        character*40 model_file_bin, model_file_bin_bck
        character*40 Vbot_file,Vbot_upper_file,Vtop_file,Vtop_lower_file
        character*40 Vincrement_file, VbotNtop_factor_file
-       character*40 par_file, moveNzoom_file
-       logical   flag, is_change, base_file,ans
+       character*40 par_file, moveNzoom_file, base_file
+       logical   flag, is_change, ans
        integer   upper_layer_number,lower_layer_number
        integer   option,layer,option_default
        integer   VtopNVot_upper_layer_opt
@@ -71,6 +71,7 @@
        integer   current_moveNzoom
        integer   prior_moveNzoom
        integer   new_moveNzoom
+       real*4   datadt
        real     new_thickness_m, current_thickness_m,prior_thickness_m
        real      Vtop_mps,Vbot_mps,Vtop_lower_mps,Vbot_upper_mps
        real      Vtop_kmps,Vbot_kmps,Vtop_lower_kmps,Vbot_upper_kmps
@@ -158,7 +159,7 @@
        option                             = option_default
 !       datax1          nearest offset (km)
 !       datadx          trace offset increment (km)
-!       datadt
+!       datadt          sample interval (s)
 !       datat1          time value of first sample (s)
 !       inbound_bin    full path to stripped su file
 !       inbound_par     path to the parameter file
@@ -168,7 +169,7 @@
 !       npamax          maximum number of  allowded
 !       ns              number of samples per trace
 !       ntp             total number of computed points
-!       ntr             numer of traces in file
+!       ntr             number of traces in file
 !       ntrmax          maximum number of traces allowed
 !       nsmax           maximum number of samples allowed
 !       par_file        contains no. traces, no. samples, SI (usec)
@@ -301,7 +302,7 @@
 ! i/p inbound_config
 ! o/p base_file, result,
        call read_immodpg_config(base_file, result, inbound_config)
-!       print*, 'L 260, base_file=',base_file
+!       print*, 'L 305, base_file=',base_file
  ! Read digitized X-T pairs, 0- No',idrxy
        idrxy=int(result(1))
  !  Read data traces, 0- No',idrdtr
@@ -335,11 +336,10 @@
 !      print*, 'immodpg.for,RDEPTH (KM)=',RDEPTH
 !
 !      print*, 'immodpg.for,PLOTTING LAYOUT'new_clip
-!      print*, 'immodpg.for,rv (KM/S)=',rv
 !      print*, 'immodpg.for,MINIMUN DISTANCE (KM)xmin=',xmin
 !      print*, 'L300 immodpg.for,MAXIMUN DISTANCE (KM)=',xmax
 !      print*, 'immodpg.for,tmin (s)=',tmin
-!      print*, 'immodpg.for,tmax (s)=',tmax
+      print*, 'immodpg.for,tmax (s)=',tmax
 !      print *, "immodpg.for,starting layer:", current_layer_number
 !      print*, 'immodpg.for,VbotNtop_factor=',VbotNtop_factor
 !      print*, 'immodpg.for,Vincrement_kmps=',Vincrement_kmps
@@ -361,10 +361,11 @@
        inbound_par    = trim(get_DIR)//"/"//par_file
 !       print*,'immodpg.for,inbound_par:',trim(inbound_par),'--'
        call read_parmmod_file(inbound_par,ntr,ns,idtusec)
+!        write(*,*) 'immodpg.for,inbound_par:idtusec',idtusec     
        datadt = float(idtusec) * 1e-6
-!       print*,'immodpg.for,inbound_par:datadt',datadt,'--'
+!      write(*,*) 'immodpg.for,inbound_par:datadt',datadt
 	call rdata(Amp,ntrmax,nsmax,ntr,ns,Amp_min,Amp_max)
-!
+!       print*,'immodpg.for,rdata:ns,ntr',ns,'--',ntr
 ! Clips for gray scale (pggray)
          current_clip   = Amp_max/100
 

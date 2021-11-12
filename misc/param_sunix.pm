@@ -79,7 +79,7 @@ sub set_program_name {
 		&& $param_sunix->{_flow_type} ne $empty_string
 	) {
 
-		# print("2. param_sunix, set_program_name,is $$program_name_sref\n");
+#		print("2. param_sunix, set_program_name,is $$program_name_sref\n");
 		$param_sunix->{_program_name} = $program_name_sref;
 
 		_defaults( $param_sunix->{_program_name} );
@@ -145,8 +145,8 @@ sub defaults {
 sub _defaults {
 	my ($program_name_sref) = @_;
 
-	# print("param_sunix,_defaults,program_name is $$program_name_sref\n");
-	# print("param_sunix,_defaults,param_sunix->{_flow_type} is $param_sunix->{_flow_type}\n");
+#	print("param_sunix,_defaults,program_name is $$program_name_sref\n");
+#	print("param_sunix,_defaults,param_sunix->{_flow_type} is $param_sunix->{_flow_type}\n");
 
 	if ( defined $program_name_sref
 		&& $param_sunix->{_flow_type} ne $empty_string ) {
@@ -158,6 +158,7 @@ sub _defaults {
 		$su_param->set_flow_type( $param_sunix->{_flow_type} );
 
 		$cfg_aref                 = $su_param->get($program_name_sref);
+#		print("param_sunix,_defaults,cfg_aref = @{$cfg_aref}\n");
 		$param_sunix->{_all_aref} = $cfg_aref;
 		$param_sunix->{_length}   = $su_param->length($program_name_sref);
 

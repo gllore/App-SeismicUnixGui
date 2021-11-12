@@ -23,11 +23,11 @@ my $DATA_SEISMIC_SU  = $Project->DATA_SEISMIC_SU();     # output data directory
 my $PL_SEISMIC        = $Project->PL_SEISMIC();
 my $DATA_SEISMIC_BIN = $Project->DATA_SEISMIC_BIN();    # input data directory
 
-my $max_index = $suaddhead->get_max_index();
+my $max_index = 4;
 
 my $suaddhead_spec =  {
     _CONFIG	 				=> $PL_SEISMIC,
-    _DATA_DIR_IN           => $DATA_SEISMIC_BIN,
+    _DATA_DIR_IN           => $DATA_SEISMIC_SU,
 	_DATA_DIR_OUT          => $DATA_SEISMIC_SU,
 	_binding_index_aref    => '',
     _suffix_type_in        => $su,
@@ -86,8 +86,11 @@ sub file_dialog_type_aref {
     my ($self) = @_;
 
     my @type;
+    
+    my $index_aref = get_binding_index_aref();
+	my @index      = @$index_aref;
 
-    $type[0] = $file_dialog_type->{_Data};
+    $type[$index[0]] = $file_dialog_type->{_Data};
 
     $suaddhead_spec->{_file_dialog_type_aref} = \@type;
     return ();
@@ -317,6 +320,14 @@ sub prefix_aref {
         $prefix[$i] = $empty_string;
 
     }
+    
+    	my $index_aref = get_binding_index_aref();
+		my @index       = @$index_aref;
+    
+ 	# label 2 in GUI is input xx_file and needs a home directory
+		$prefix[ $index[0] ] = '$DATA_SEISMIC_BIN' . ".'/'.";
+ 
+    
     $suaddhead_spec->{_prefix_aref} = \@prefix;
     return ();
 
@@ -341,6 +352,13 @@ sub suffix_aref {
         $suffix[$i] = $empty_string;
 
     }
+    
+		my $index_aref = get_binding_index_aref();
+		my @index       = @$index_aref;
+
+	# label 2 in GUI is input xx_file and needs a home directory
+		$suffix[ $index[0] ] = ''.'' . '$suffix_bin';
+    
     $suaddhead_spec->{_suffix_aref} = \@suffix;
     return ();
 

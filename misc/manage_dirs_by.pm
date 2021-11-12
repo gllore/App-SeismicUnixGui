@@ -49,7 +49,7 @@ sub make_dir {
     # get directory names
     my ($directory) = shift @_;
 
-   # print ("\nmanage_dirs_by, make_dir, Making directories----$directory---\n");
+#    print ("\nmanage_dirs_by, make_dir, Making directories----$directory---\n");
 
     system(
         "                       	\\

@@ -93,7 +93,6 @@ sub file_dialog_type_aref {
 	my @index      = @$index_aref;
 
 	# bound index will look for data
-	$type[0] = '';
 	$type[ $index[0] ] = $file_dialog_type->{_Data};
 
 	$segbread_spec->{_file_dialog_type_aref} = \@type;

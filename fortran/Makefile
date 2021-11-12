@@ -1,9 +1,9 @@
 # ============================================================================
 # Name        : Makefile
-# Author      : 
-# Version     :
-# Copyright   : Your copyright notice
-# Description : Makefile for read
+# Author      : Juan Lorenzo 
+# Version     : 0.1
+# Copyright   : Please copy
+# Description : Makefile for immodpg
 # ============================================================================
 
 .PHONY: all clean
@@ -16,7 +16,6 @@ FORTRAN_95_FLAGS    = -O2 -g $(F95)
 FORTRAN_77_FLAGS    = -O2 -g $(F95)
 
 # where is your working directory
-#L_SU_FORTRAN = /home/gllore/local_itokawa/pl_work/STUDIES/study_fortran/
 L_SU_FORTRAN = .
 
 # location of code

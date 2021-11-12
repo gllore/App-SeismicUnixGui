@@ -11,6 +11,31 @@ loop_limit:			for searching for a locked_file
 
 =cut
 
+
+
+my @format;
+
+$format[0] = '%-35s%1s%-20s';
+$format[1] = '%-35s%1s%-20s';
+$format[2] = '%-35s%1s%-20s';
+$format[3] = '%-35s%1s%-20s';
+$format[4] = '%-35s%1s%-20s';
+$format[5] = '%-35s%1s%-20s';
+$format[6] = '%-35s%1s%-20s';
+$format[7] = '%-35s%1s%-20s';
+$format[8] = '%-35s%1s%-20s';
+$format[9] = $format[8];
+$format[10] = '%-35s%2s%-10.3f';
+$format[11] = $format[10];
+$format[12] = $format[10];
+$format[13] = $format[10];
+$format[14] = '%-35s%1s%-20s';
+$format[15] = '%-35s%1s%-20s';
+$format[16] = '%-35s%1s%-20s';
+$format[17] = '%-35s%1s%-20s';
+$format[18] = '%-35s%1s%-20s';
+$format[19] = '%-35s%1s%-20s';
+
 my $var = {
 	_Vbot_file							=> 'Vbot', 
 	_Vbot_minus_opt						=> 21,
@@ -47,6 +72,7 @@ my $var = {
     _config_file_format_clip			=> '%-35s%1s%-5.1f',
     _config_file_format_real			=> '%-35s%1s%-10.3f', 
     _config_file_format_signed_integer	=> '%-35s%1s%-2d', 
+    _format_aref                        => \@format,
     _format_integer							=>'%i',
      _format_real							   =>'%7.1f',  
      _format_string							=>'%s',      

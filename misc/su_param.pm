@@ -187,9 +187,9 @@ sub _get_program_config {
 	$sub_category_directory = $su_param->{_sub_category_directory};
 	$program_sref           = $su_param->{_program_sref};
 
-	# print("su_param, get_program_config, path = $path\n");
-	# print("su_param, get_program_config, sub_category_directory = $sub_category_directory\n");
-	# print("su_param, get_program_config, program_sref= $$program_sref\n");
+#	print("su_param, get_program_config, path = $path\n");
+#	print("su_param, get_program_config, sub_category_directory = $sub_category_directory\n");
+#	print("su_param, get_program_config, program_sref= $$program_sref\n");
 
 	if (   defined $path
 		&& $path ne $empty_string
@@ -349,7 +349,7 @@ sub get {
 
 		$program_config = _get_program_config();
 
-		#         print("su_param, get,configuration file to read=$program_config\n");
+#		print("su_param, get,configuration file to read=$program_config\n");
 
 		( $names_aref, $values_aref ) = $read->configs($program_config);
 		$su_param->{_names_aref} = $names_aref;

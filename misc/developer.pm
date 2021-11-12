@@ -124,8 +124,9 @@ sub _program_category {
 				for ( my $j = 0; $j < $num_progs; $j++ ) {
 
 					my $test = @{ $sunix_programs_category_ref[$i] }[$j];
-
-					if ( $test =~ m/$program_name/ ) {
+					
+					#an exact match so that suphasevel and suphase will not be confused
+					if ( $test =~ m/^$program_name$/ ) {
 
 						my $category = @$developer_sunix_categories_aref[$i];
 
@@ -156,7 +157,7 @@ sub _program_category {
 
 				my $test = @{ $Tools_aref }[$j];
 
-				if ( $test =~ m/$program_name/ ) {
+				if ( $test =~ m/^$program_name$/ ) {
 
 					# print("1. developer, _program_category sucess, superflow program= $test\n");
 					$developer->{_program_category} = @$Tools_category_aref[$j];

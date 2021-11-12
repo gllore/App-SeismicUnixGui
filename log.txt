@@ -68,3 +68,679 @@ sufft sign=1 verbose=1 < /home/gllore/DuncanPoint/seismics/data/VetSchool/S/0924
 
 sufft sign=1 verbose=1 < /home/gllore/DuncanPoint/seismics/data/VetSchool/S/092421/Z/2HzVs4.5Hz_SW_test/su/gllore/2Hz.su | suamp mode=amp | suxwigb clip=0\.8 wbox=600 hbox=800 xbox=600 ybox=800 style=seismic windowtitle=amplitude\ spectra\-\-\ 2\ Hz\-geophones & 
 
+0
+
+segyread bfile=binary buff=1 conv=1 ebcdic=1 errmax=0 format=3 tape=/home/gllore/Fairbanks/seismics/data/permafrost_tunnel/gpr/110221/standard/1/segy/gllore/LINE01\.sgy hfile=header over=0 trcwt=1 trmin=1 vblock=50 verbose=0 | segyclean trmax=200 | suximage clip=1 cmap=hsv0 d2=1 f1=0 gridcolor=blue labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 lwidth=16 lx=3 mpicks=\/dev\/tty n1tic=1 n2tic=1 perc=100 plotfile=plotfile\.ps style=seismic title=suximage titlecolor=red titlefont=Rom22 units=unit verbose=1 windowtitle=suximage xbox=500 ybox=500 wbox=550 & 
+
+40
+
+segyread bfile=binary buff=1 conv=1 ebcdic=1 errmax=0 format=3 tape=/home/gllore/Fairbanks/seismics/data/permafrost_tunnel/gpr/110221/standard/1/segy/gllore/LINE01\.sgy hfile=header over=0 trcwt=1 trmin=1 vblock=50 verbose=0 | segyclean trmax=600 | suximage clip=1 cmap=hsv0 d2=1 f1=0 gridcolor=blue labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 lwidth=16 lx=3 mpicks=\/dev\/tty n1tic=1 n2tic=1 perc=100 plotfile=plotfile\.ps style=seismic title=suximage titlecolor=red titlefont=Rom22 units=unit verbose=1 windowtitle=suximage xbox=500 ybox=500 wbox=550 & 
+
+13
+
+segyread bfile=binary tape=/home/gllore/Fairbanks/seismics/data/permafrost_tunnel/gpr/110221/standard/1/segy/gllore/LINE01\.sgy verbose=1 | segyclean trmax=600 | suximage clip=1 cmap=hsv0 d2=1 f1=0 gridcolor=blue labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 lwidth=16 lx=3 mpicks=\/dev\/tty n1tic=1 n2tic=1 perc=100 plotfile=plotfile\.ps style=seismic title=suximage titlecolor=red titlefont=Rom22 units=unit verbose=1 windowtitle=suximage xbox=500 ybox=500 wbox=550 & 
+
+37
+
+segyread bfile=binary format=3 tape=/home/gllore/Fairbanks/seismics/data/permafrost_tunnel/gpr/110221/standard/1/segy/gllore/LINE01\.sgy verbose=1 | segyclean trmax=600 | suximage clip=1 cmap=hsv0 d2=1 f1=0 gridcolor=blue labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 lwidth=16 lx=3 mpicks=\/dev\/tty n1tic=1 n2tic=1 perc=100 plotfile=plotfile\.ps style=seismic title=suximage titlecolor=red titlefont=Rom22 units=unit verbose=1 windowtitle=suximage xbox=500 ybox=500 wbox=550 & 
+
+2
+
+segyread bfile=binary format=3 tape=/home/gllore/Fairbanks/seismics/data/permafrost_tunnel/gpr/110221/standard/1/segy/gllore/LINE01\.sgy verbose=1 | segyclean trmax=600 > /home/gllore/Fairbanks/seismics/data/permafrost_tunnel/gpr/110221/standard/1/su/gllore/junk.su & 
+
+40
+
+segyread bfile=binary buff=1 endian=1 format=3 tape=/home/gllore/Fairbanks/seismics/data/permafrost_tunnel/gpr/110221/standard/1/segy/gllore/LINE01\.sgy hfile=header over=0 trcwt=1 trmin=1 vblock=50 verbose=1 | segyclean trmax=600 > /home/gllore/Fairbanks/seismics/data/permafrost_tunnel/gpr/110221/standard/1/su/gllore/junk.su & 
+
+29
+
+segyread bfile=binary buff=1 endian=1 format=3 tape=/home/gllore/Fairbanks/seismics/data/permafrost_tunnel/gpr/110221/standard/1/segy/gllore/LINE01\.sgy hfile=header over=0 trcwt=1 trmin=1 vblock=50 verbose=1 | segyclean trmax=600 > /home/gllore/Fairbanks/seismics/data/permafrost_tunnel/gpr/110221/standard/1/su/gllore/line01.su & 
+
+9
+
+suximage clip=1 cmap=hsv0 d2=1 f1=0 gridcolor=blue labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 lwidth=16 lx=3 mpicks=\/dev\/tty n1tic=1 n2tic=1 perc=100 plotfile=plotfile\.ps style=seismic title=suximage titlecolor=red titlefont=Rom22 units=unit verbose=1 windowtitle=suximage xbox=500 ybox=500 wbox=550 hbox=550 < /home/gllore/Fairbanks/seismics/data/permafrost_tunnel/gpr/110221/standard/1/su/gllore/line01.su & 
+
+22
+
+suximage clip=0\.1 cmap=hsv0 d2=1 f1=0 gridcolor=blue labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 lwidth=16 lx=3 mpicks=\/dev\/tty n1tic=1 n2tic=1 perc=100 plotfile=plotfile\.ps style=seismic title=suximage titlecolor=red titlefont=Rom22 units=unit verbose=1 windowtitle=suximage xbox=500 ybox=500 wbox=550 hbox=550 < /home/gllore/Fairbanks/seismics/data/permafrost_tunnel/gpr/110221/standard/1/su/gllore/line01.su & 
+
+43
+
+surange key=dt < /home/gllore/Fairbanks/seismics/data/permafrost_tunnel/gpr/110221/standard/1/su/gllore/line01.su & 
+
+25
+
+sumax mode=rms output=ascii outpar=/dev/tty verbose=1 < /home/gllore/Fairbanks/seismics/data/permafrost_tunnel/gpr/110221/standard/1/su/gllore/line01.su & 
+
+17
+
+surange key=all < /home/gllore/Fairbanks/seismics/data/permafrost_tunnel/gpr/110221/standard/1/su/gllore/line01.su & 
+
+29
+
+surange < /home/gllore/Fairbanks/seismics/data/permafrost_tunnel/gpr/110221/standard/1/su/gllore/line01.su & 
+
+57
+
+sumax mode=rms output=ascii outpar=/dev/tty verbose=1 < /home/gllore/Fairbanks/seismics/data/permafrost_tunnel/gpr/110221/standard/1/su/gllore/line01.su & 
+
+3
+
+sumax mode=max output=ascii outpar=/dev/tty verbose=1 < /home/gllore/Fairbanks/seismics/data/permafrost_tunnel/gpr/110221/standard/1/su/gllore/line01.su & 
+
+47
+
+suximage clip=1000 cmap=hsv0 d2=1 f1=0 gridcolor=blue labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 lwidth=16 lx=3 mpicks=\/dev\/tty n1tic=1 n2tic=1 perc=100 plotfile=plotfile\.ps style=seismic title=suximage titlecolor=red titlefont=Rom22 units=unit verbose=1 windowtitle=suximage xbox=500 ybox=500 wbox=550 hbox=550 < /home/gllore/Fairbanks/seismics/data/permafrost_tunnel/gpr/110221/standard/1/su/gllore/line01.su & 
+
+31
+
+sugain mbal=1 tmpdir=\/tmp < /home/gllore/Fairbanks/seismics/data/permafrost_tunnel/gpr/110221/standard/1/su/gllore/line01.su | suximage clip=1000 cmap=hsv0 d2=1 f1=0 gridcolor=blue labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 lwidth=16 lx=3 mpicks=\/dev\/tty n1tic=1 n2tic=1 perc=100 plotfile=plotfile\.ps style=seismic title=suximage titlecolor=red titlefont=Rom22 units=unit verbose=1 windowtitle=suximage xbox=500 ybox=500 wbox=550 hbox=550 & 
+
+31
+
+sugain mbal=1 tmpdir=\/tmp < /home/gllore/Fairbanks/seismics/data/permafrost_tunnel/gpr/110221/standard/1/su/gllore/line01.su | sugain agc=1 wagc=0\.005 tmpdir=\/tmp | suximage clip=1000 cmap=hsv0 d2=1 f1=0 gridcolor=blue labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 lwidth=16 lx=3 mpicks=\/dev\/tty n1tic=1 n2tic=1 perc=100 plotfile=plotfile\.ps style=seismic title=suximage titlecolor=red titlefont=Rom22 units=unit verbose=1 windowtitle=suximage xbox=500 ybox=500 wbox=550 hbox=550 & 
+
+59
+
+sugain mbal=1 tmpdir=\/tmp < /home/gllore/Fairbanks/seismics/data/permafrost_tunnel/gpr/110221/standard/1/su/gllore/line01.su | sugain agc=1 wagc=0\.005 tmpdir=\/tmp | suximage clip=1 cmap=hsv0 d2=1 f1=0 gridcolor=blue labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 lwidth=16 lx=3 mpicks=\/dev\/tty n1tic=1 n2tic=1 perc=100 plotfile=plotfile\.ps style=seismic title=suximage titlecolor=red titlefont=Rom22 units=unit verbose=1 windowtitle=suximage xbox=500 ybox=500 wbox=550 hbox=550 & 
+
+29
+
+sugain mbal=1 tmpdir=\/tmp < /home/gllore/Fairbanks/seismics/data/permafrost_tunnel/gpr/110221/standard/1/su/gllore/line01.su | sugain agc=1 wagc=0\.05 tmpdir=\/tmp | suximage clip=1 cmap=hsv0 d2=1 f1=0 gridcolor=blue labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 lwidth=16 lx=3 mpicks=\/dev\/tty n1tic=1 n2tic=1 perc=100 plotfile=plotfile\.ps style=seismic title=suximage titlecolor=red titlefont=Rom22 units=unit verbose=1 windowtitle=suximage xbox=500 ybox=500 wbox=550 hbox=550 & 
+
+40
+
+sugain mbal=1 tmpdir=\/tmp < /home/gllore/Fairbanks/seismics/data/permafrost_tunnel/gpr/110221/standard/1/su/gllore/line01.su | sugain agc=1 wagc=0\.05 tmpdir=\/tmp | suximage clip=1 cmap=hsv0 d2=1 f1=0 gridcolor=blue labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 lwidth=16 lx=3 mpicks=\/dev\/tty n1tic=1 n2tic=1 perc=100 plotfile=plotfile\.ps style=seismic title=suximage titlecolor=red titlefont=Rom22 units=unit verbose=1 windowtitle=suximage xbox=500 ybox=500 wbox=550 hbox=550 & 
+
+57
+
+sugain mbal=1 tmpdir=\/tmp < /home/gllore/Fairbanks/seismics/data/permafrost_tunnel/gpr/110221/standard/1/su/gllore/line01.su | sugain agc=1 wagc=0\.001 tmpdir=\/tmp | suximage clip=1 cmap=hsv0 d2=1 f1=0 gridcolor=blue labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 lwidth=16 lx=3 mpicks=\/dev\/tty n1tic=1 n2tic=1 perc=100 plotfile=plotfile\.ps style=seismic title=suximage titlecolor=red titlefont=Rom22 units=unit verbose=1 windowtitle=suximage xbox=500 ybox=500 wbox=550 hbox=550 & 
+
+17
+
+sugain mbal=1 tmpdir=\/tmp < /home/gllore/Fairbanks/seismics/data/permafrost_tunnel/gpr/110221/standard/1/su/gllore/line01.su | sugain agc=1 wagc=0\.002 tmpdir=\/tmp | suximage clip=1 cmap=hsv0 d2=1 f1=0 gridcolor=blue labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 lwidth=16 lx=3 mpicks=\/dev\/tty n1tic=1 n2tic=1 perc=100 plotfile=plotfile\.ps style=seismic title=suximage titlecolor=red titlefont=Rom22 units=unit verbose=1 windowtitle=suximage xbox=500 ybox=500 wbox=550 hbox=550 & 
+
+34
+
+sugain mbal=1 tmpdir=\/tmp < /home/gllore/Fairbanks/seismics/data/permafrost_tunnel/gpr/110221/standard/1/su/gllore/line01.su | sugain gagc=1 wagc=0\.003 tmpdir=\/tmp | suximage clip=1 cmap=hsv0 d2=1 f1=0 gridcolor=blue labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 lwidth=16 lx=3 mpicks=\/dev\/tty n1tic=1 n2tic=1 perc=100 plotfile=plotfile\.ps style=seismic title=suximage titlecolor=red titlefont=Rom22 units=unit verbose=1 windowtitle=suximage xbox=500 ybox=500 wbox=550 hbox=550 & 
+
+53
+
+sugain mbal=1 tmpdir=\/tmp < /home/gllore/Fairbanks/seismics/data/permafrost_tunnel/gpr/110221/standard/1/su/gllore/line01.su | sugain gagc=1 wagc=0\.004 tmpdir=\/tmp | suximage clip=1 cmap=hsv0 d2=1 f1=0 gridcolor=blue labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 lwidth=16 lx=3 mpicks=\/dev\/tty n1tic=1 n2tic=1 perc=100 plotfile=plotfile\.ps style=seismic title=suximage titlecolor=red titlefont=Rom22 units=unit verbose=1 windowtitle=suximage xbox=500 ybox=500 wbox=550 hbox=550 & 
+
+4
+
+sugain mbal=1 tmpdir=\/tmp < /home/gllore/Fairbanks/seismics/data/permafrost_tunnel/gpr/110221/standard/1/su/gllore/line01.su | sugain gagc=1 wagc=0\.01 tmpdir=\/tmp | suximage clip=1 cmap=hsv0 d2=1 f1=0 gridcolor=blue labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 lwidth=16 lx=3 mpicks=\/dev\/tty n1tic=1 n2tic=1 perc=100 plotfile=plotfile\.ps style=seismic title=suximage titlecolor=red titlefont=Rom22 units=unit verbose=1 windowtitle=suximage xbox=500 ybox=500 wbox=550 hbox=550 & 
+
+29
+
+sugain mbal=1 tmpdir=\/tmp < /home/gllore/Fairbanks/seismics/data/permafrost_tunnel/gpr/110221/standard/1/su/gllore/line01.su | sugain agc=1 wagc=0\.002 tmpdir=\/tmp | suximage clip=1 cmap=hsv0 d2=1 f1=0 gridcolor=blue labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 lwidth=16 lx=3 mpicks=\/dev\/tty n1tic=1 n2tic=1 perc=100 plotfile=plotfile\.ps style=seismic title=suximage titlecolor=red titlefont=Rom22 units=unit verbose=1 windowtitle=suximage xbox=500 ybox=500 wbox=550 hbox=550 & 
+
+21
+
+sugain mbal=1 tmpdir=\/tmp < /home/gllore/Fairbanks/seismics/data/permafrost_tunnel/gpr/110221/standard/1/su/gllore/line01.su | sumedian median=1 nmed=5 subtract=1 verbose=0 | suximage clip=1 cmap=hsv0 d2=1 f1=0 gridcolor=blue labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 lwidth=16 lx=3 mpicks=\/dev\/tty n1tic=1 n2tic=1 perc=100 plotfile=plotfile\.ps style=seismic title=suximage titlecolor=red titlefont=Rom22 units=unit verbose=1 windowtitle=suximage xbox=500 ybox=500 wbox=550 hbox=550 & 
+
+24
+
+sugain mbal=1 tmpdir=\/tmp < /home/gllore/Fairbanks/seismics/data/permafrost_tunnel/gpr/110221/standard/1/su/gllore/line01.su | sumedian key=tracl median=1 nmed=5 subtract=1 verbose=0 | suximage clip=1 cmap=hsv0 d2=1 f1=0 gridcolor=blue labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 lwidth=16 lx=3 mpicks=\/dev\/tty n1tic=1 n2tic=1 perc=100 plotfile=plotfile\.ps style=seismic title=suximage titlecolor=red titlefont=Rom22 units=unit verbose=1 windowtitle=suximage xbox=500 ybox=500 wbox=550 hbox=550 & 
+
+42
+
+sugain mbal=1 tmpdir=\/tmp < /home/gllore/Fairbanks/seismics/data/permafrost_tunnel/gpr/110221/standard/1/su/gllore/line01.su | sumedian key=tracl median=1 nmed=5 subtract=1 verbose=0 xshift=1 | suximage clip=1 cmap=hsv0 d2=1 f1=0 gridcolor=blue labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 lwidth=16 lx=3 mpicks=\/dev\/tty n1tic=1 n2tic=1 perc=100 plotfile=plotfile\.ps style=seismic title=suximage titlecolor=red titlefont=Rom22 units=unit verbose=1 windowtitle=suximage xbox=500 ybox=500 wbox=550 hbox=550 & 
+
+48
+
+sugain mbal=1 tmpdir=\/tmp < /home/gllore/Fairbanks/seismics/data/permafrost_tunnel/gpr/110221/standard/1/su/gllore/line01.su | sumedian key=tracl median=1 nmed=5 subtract=1 verbose=0 xshift=5 | suximage clip=1 cmap=hsv0 d2=1 f1=0 gridcolor=blue labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 lwidth=16 lx=3 mpicks=\/dev\/tty n1tic=1 n2tic=1 perc=100 plotfile=plotfile\.ps style=seismic title=suximage titlecolor=red titlefont=Rom22 units=unit verbose=1 windowtitle=suximage xbox=500 ybox=500 wbox=550 hbox=550 & 
+
+26
+
+sugain mbal=1 tmpdir=\/tmp < /home/gllore/Fairbanks/seismics/data/permafrost_tunnel/gpr/110221/standard/1/su/gllore/line01.su | sugprfb fbt=60 nx=51 | suximage clip=1 cmap=hsv0 d2=1 f1=0 gridcolor=blue labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 lwidth=16 lx=3 mpicks=\/dev\/tty n1tic=1 n2tic=1 perc=100 plotfile=plotfile\.ps style=seismic title=suximage titlecolor=red titlefont=Rom22 units=unit verbose=1 windowtitle=suximage xbox=500 ybox=500 wbox=550 hbox=550 & 
+
+39
+
+sugain mbal=1 tmpdir=\/tmp < /home/gllore/Fairbanks/seismics/data/permafrost_tunnel/gpr/110221/standard/1/su/gllore/line01.su | sugprfb fbt=60 nx=51 | suximage clip=1000 cmap=hsv0 d2=1 f1=0 gridcolor=blue labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 lwidth=16 lx=3 mpicks=\/dev\/tty n1tic=1 n2tic=1 perc=100 plotfile=plotfile\.ps style=seismic title=suximage titlecolor=red titlefont=Rom22 units=unit verbose=1 windowtitle=suximage xbox=500 ybox=500 wbox=550 hbox=550 & 
+
+35
+
+sugain mbal=1 tmpdir=\/tmp < /home/gllore/Fairbanks/seismics/data/permafrost_tunnel/gpr/110221/standard/1/su/gllore/line01.su | sugprfb fbt=60 nx=11 | suximage clip=1000 cmap=hsv0 d2=1 f1=0 gridcolor=blue labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 lwidth=16 lx=3 mpicks=\/dev\/tty n1tic=1 n2tic=1 perc=100 plotfile=plotfile\.ps style=seismic title=suximage titlecolor=red titlefont=Rom22 units=unit verbose=1 windowtitle=suximage xbox=500 ybox=500 wbox=550 hbox=550 & 
+
+4
+
+sugain mbal=1 tmpdir=\/tmp < /home/gllore/Fairbanks/seismics/data/permafrost_tunnel/gpr/110221/standard/1/su/gllore/line01.su | sugprfb fbt=30 nx=110 | suximage clip=1000 cmap=hsv0 d2=1 f1=0 gridcolor=blue labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 lwidth=16 lx=3 mpicks=\/dev\/tty n1tic=1 n2tic=1 perc=100 plotfile=plotfile\.ps style=seismic title=suximage titlecolor=red titlefont=Rom22 units=unit verbose=1 windowtitle=suximage xbox=500 ybox=500 wbox=550 hbox=550 & 
+
+39
+
+sugain mbal=1 tmpdir=\/tmp < /home/gllore/Fairbanks/seismics/data/permafrost_tunnel/gpr/110221/standard/1/su/gllore/line01.su | sugprfb fbt=50 nx=5 | suximage clip=1000 cmap=hsv0 d2=1 f1=0 gridcolor=blue labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 lwidth=16 lx=3 mpicks=\/dev\/tty n1tic=1 n2tic=1 perc=100 plotfile=plotfile\.ps style=seismic title=suximage titlecolor=red titlefont=Rom22 units=unit verbose=1 windowtitle=suximage xbox=500 ybox=500 wbox=550 hbox=550 & 
+
+51
+
+sugain mbal=1 tmpdir=\/tmp < /home/gllore/Fairbanks/seismics/data/permafrost_tunnel/gpr/110221/standard/1/su/gllore/line01.su | sugprfb fbt=100 nx=5 | suximage clip=1000 cmap=hsv0 d2=1 f1=0 gridcolor=blue labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 lwidth=16 lx=3 mpicks=\/dev\/tty n1tic=1 n2tic=1 perc=100 plotfile=plotfile\.ps style=seismic title=suximage titlecolor=red titlefont=Rom22 units=unit verbose=1 windowtitle=suximage xbox=500 ybox=500 wbox=550 hbox=550 & 
+
+12
+
+sugain mbal=1 tmpdir=\/tmp < /home/gllore/Fairbanks/seismics/data/permafrost_tunnel/gpr/110221/standard/1/su/gllore/line01.su | sugprfb fbt=50 nx=5 | suximage clip=1000 cmap=hsv0 d2=1 f1=0 gridcolor=blue labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 lwidth=16 lx=3 mpicks=\/dev\/tty n1tic=1 n2tic=1 perc=100 plotfile=plotfile\.ps style=seismic title=suximage titlecolor=red titlefont=Rom22 units=unit verbose=1 windowtitle=suximage xbox=500 ybox=500 wbox=550 hbox=550 & 
+
+18
+
+sugain mbal=1 tmpdir=\/tmp < /home/gllore/Fairbanks/seismics/data/permafrost_tunnel/gpr/110221/standard/1/su/gllore/line01.su | sugprfb fbt=50 nx=11 | suximage clip=1000 cmap=hsv0 d2=1 f1=0 gridcolor=blue labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 lwidth=16 lx=3 mpicks=\/dev\/tty n1tic=1 n2tic=1 perc=100 plotfile=plotfile\.ps style=seismic title=suximage titlecolor=red titlefont=Rom22 units=unit verbose=1 windowtitle=suximage xbox=500 ybox=500 wbox=550 hbox=550 & 
+
+31
+
+sugain mbal=1 tmpdir=\/tmp < /home/gllore/Fairbanks/seismics/data/permafrost_tunnel/gpr/110221/standard/1/su/gllore/line01.su | sugprfb fbt=25 nx=11 | suximage clip=1000 cmap=hsv0 d2=1 f1=0 gridcolor=blue labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 lwidth=16 lx=3 mpicks=\/dev\/tty n1tic=1 n2tic=1 perc=100 plotfile=plotfile\.ps style=seismic title=suximage titlecolor=red titlefont=Rom22 units=unit verbose=1 windowtitle=suximage xbox=500 ybox=500 wbox=550 hbox=550 & 
+
+17
+
+sugain mbal=1 tmpdir=\/tmp < /home/gllore/Fairbanks/seismics/data/permafrost_tunnel/gpr/110221/standard/1/su/gllore/line01.su | sugprfb fbt=12 nx=11 | suximage clip=1000 cmap=hsv0 d2=1 f1=0 gridcolor=blue labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 lwidth=16 lx=3 mpicks=\/dev\/tty n1tic=1 n2tic=1 perc=100 plotfile=plotfile\.ps style=seismic title=suximage titlecolor=red titlefont=Rom22 units=unit verbose=1 windowtitle=suximage xbox=500 ybox=500 wbox=550 hbox=550 & 
+
+37
+
+sugain mbal=1 tmpdir=\/tmp < /home/gllore/Fairbanks/seismics/data/permafrost_tunnel/gpr/110221/standard/1/su/gllore/line01.su | sugprfb fbt=12 nx=25 | suximage clip=1000 cmap=hsv0 d2=1 f1=0 gridcolor=blue labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 lwidth=16 lx=3 mpicks=\/dev\/tty n1tic=1 n2tic=1 perc=100 plotfile=plotfile\.ps style=seismic title=suximage titlecolor=red titlefont=Rom22 units=unit verbose=1 windowtitle=suximage xbox=500 ybox=500 wbox=550 hbox=550 & 
+
+10
+
+sugain mbal=1 tmpdir=\/tmp < /home/gllore/Fairbanks/seismics/data/permafrost_tunnel/gpr/110221/standard/1/su/gllore/line01.su | sugain agc=1 wagc=0\.1 tmpdir=\/tmp | sugprfb fbt=12 nx=25 | suximage clip=1000 cmap=hsv0 d2=1 f1=0 gridcolor=blue labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 lwidth=16 lx=3 mpicks=\/dev\/tty n1tic=1 n2tic=1 perc=100 plotfile=plotfile\.ps style=seismic title=suximage titlecolor=red titlefont=Rom22 units=unit verbose=1 windowtitle=suximage xbox=500 ybox=500 wbox=550 hbox=550 & 
+
+20
+
+sugain mbal=1 tmpdir=\/tmp < /home/gllore/Fairbanks/seismics/data/permafrost_tunnel/gpr/110221/standard/1/su/gllore/line01.su | sugain agc=1 wagc=0\.002 tmpdir=\/tmp | sugprfb fbt=12 nx=25 | suximage clip=1000 cmap=hsv0 d2=1 f1=0 gridcolor=blue labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 lwidth=16 lx=3 mpicks=\/dev\/tty n1tic=1 n2tic=1 perc=100 plotfile=plotfile\.ps style=seismic title=suximage titlecolor=red titlefont=Rom22 units=unit verbose=1 windowtitle=suximage xbox=500 ybox=500 wbox=550 hbox=550 & 
+
+29
+
+sugain mbal=1 tmpdir=\/tmp < /home/gllore/Fairbanks/seismics/data/permafrost_tunnel/gpr/110221/standard/1/su/gllore/line01.su | sugain agc=1 wagc=0\.002 tmpdir=\/tmp | sugprfb fbt=12 nx=25 | suximage clip=10 cmap=hsv0 d2=1 f1=0 gridcolor=blue labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 lwidth=16 lx=3 mpicks=\/dev\/tty n1tic=1 n2tic=1 perc=100 plotfile=plotfile\.ps style=seismic title=suximage titlecolor=red titlefont=Rom22 units=unit verbose=1 windowtitle=suximage xbox=500 ybox=500 wbox=550 hbox=550 & 
+
+3
+
+sugain mbal=1 tmpdir=\/tmp < /home/gllore/Fairbanks/seismics/data/permafrost_tunnel/gpr/110221/standard/1/su/gllore/line01.su | sugain agc=1 wagc=0\.002 tmpdir=\/tmp | sugprfb fbt=12 nx=25 | suximage clip=5 cmap=hsv0 d2=1 f1=0 gridcolor=blue labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 lwidth=16 lx=3 mpicks=\/dev\/tty n1tic=1 n2tic=1 perc=100 plotfile=plotfile\.ps style=seismic title=suximage titlecolor=red titlefont=Rom22 units=unit verbose=1 windowtitle=suximage xbox=500 ybox=500 wbox=550 hbox=550 & 
+
+42
+
+sugain mbal=1 tmpdir=\/tmp < /home/gllore/Fairbanks/seismics/data/permafrost_tunnel/gpr/110221/standard/1/su/gllore/line01.su | sugain agc=1 wagc=0\.002 tmpdir=\/tmp | sugain epow=1 tmpdir=\/tmp | sugprfb fbt=12 nx=25 | suximage clip=5 cmap=hsv0 d2=1 f1=0 gridcolor=blue labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 lwidth=16 lx=3 mpicks=\/dev\/tty n1tic=1 n2tic=1 perc=100 plotfile=plotfile\.ps style=seismic title=suximage titlecolor=red titlefont=Rom22 units=unit verbose=1 windowtitle=suximage xbox=500 ybox=500 wbox=550 hbox=550 & 
+
+51
+
+sugain mbal=1 tmpdir=\/tmp < /home/gllore/Fairbanks/seismics/data/permafrost_tunnel/gpr/110221/standard/1/su/gllore/line01.su | sugain agc=1 wagc=0\.002 tmpdir=\/tmp | sugain epow=2 tmpdir=\/tmp | sugprfb fbt=12 nx=25 | suximage clip=5 cmap=hsv0 d2=1 f1=0 gridcolor=blue labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 lwidth=16 lx=3 mpicks=\/dev\/tty n1tic=1 n2tic=1 perc=100 plotfile=plotfile\.ps style=seismic title=suximage titlecolor=red titlefont=Rom22 units=unit verbose=1 windowtitle=suximage xbox=500 ybox=500 wbox=550 hbox=550 & 
+
+1
+
+sugain mbal=1 tmpdir=\/tmp < /home/gllore/Fairbanks/seismics/data/permafrost_tunnel/gpr/110221/standard/1/su/gllore/line01.su | sugain agc=1 wagc=0\.002 tmpdir=\/tmp | sugain epow=10 tmpdir=\/tmp | sugprfb fbt=12 nx=25 | suximage clip=5 cmap=hsv0 d2=1 f1=0 gridcolor=blue labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 lwidth=16 lx=3 mpicks=\/dev\/tty n1tic=1 n2tic=1 perc=100 plotfile=plotfile\.ps style=seismic title=suximage titlecolor=red titlefont=Rom22 units=unit verbose=1 windowtitle=suximage xbox=500 ybox=500 wbox=550 hbox=550 & 
+
+5
+
+sugain mbal=1 tmpdir=\/tmp < /home/gllore/Fairbanks/seismics/data/permafrost_tunnel/gpr/110221/standard/1/su/gllore/line01.su | sugain agc=1 wagc=0\.002 tmpdir=\/tmp | sugain epow=100 tmpdir=\/tmp | sugprfb fbt=12 nx=25 | suximage clip=5 cmap=hsv0 d2=1 f1=0 gridcolor=blue labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 lwidth=16 lx=3 mpicks=\/dev\/tty n1tic=1 n2tic=1 perc=100 plotfile=plotfile\.ps style=seismic title=suximage titlecolor=red titlefont=Rom22 units=unit verbose=1 windowtitle=suximage xbox=500 ybox=500 wbox=550 hbox=550 & 
+
+16
+
+sugain mbal=1 tmpdir=\/tmp < /home/gllore/Fairbanks/seismics/data/permafrost_tunnel/gpr/110221/standard/1/su/gllore/line01.su | sugain agc=1 wagc=0\.002 tmpdir=\/tmp | sugain epow=20 tmpdir=\/tmp | sugprfb fbt=12 nx=25 | suximage clip=5 cmap=hsv0 d2=1 f1=0 gridcolor=blue labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 lwidth=16 lx=3 mpicks=\/dev\/tty n1tic=1 n2tic=1 perc=100 plotfile=plotfile\.ps style=seismic title=suximage titlecolor=red titlefont=Rom22 units=unit verbose=1 windowtitle=suximage xbox=500 ybox=500 wbox=550 hbox=550 & 
+
+57
+
+sugain mbal=1 tmpdir=\/tmp < /home/gllore/Fairbanks/seismics/data/permafrost_tunnel/gpr/110221/standard/1/su/gllore/line01.su | sufilter f=10\,12\.5\,35\,50 verbose=0 | sugain agc=1 wagc=0\.002 tmpdir=\/tmp | sugain epow=20 tmpdir=\/tmp | sugprfb fbt=12 nx=25 | suximage clip=5 cmap=hsv0 d2=1 f1=0 gridcolor=blue labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 lwidth=16 lx=3 mpicks=\/dev\/tty n1tic=1 n2tic=1 perc=100 plotfile=plotfile\.ps style=seismic title=suximage titlecolor=red titlefont=Rom22 units=unit verbose=1 windowtitle=suximage xbox=500 ybox=500 wbox=550 hbox=550 & 
+
+45
+
+sugain mbal=1 tmpdir=\/tmp < /home/gllore/Fairbanks/seismics/data/permafrost_tunnel/gpr/110221/standard/1/su/gllore/line01.su | sufilter verbose=0 | sugain agc=1 wagc=0\.002 tmpdir=\/tmp | sugain epow=20 tmpdir=\/tmp | sugprfb fbt=12 nx=25 | sufft sign=1 verbose=1 | suamp mode=amp | suximage clip=1 cmap=hsv0 d2=1 f1=0 gridcolor=blue labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 lwidth=16 lx=3 mpicks=\/dev\/tty n1tic=1 n2tic=1 perc=100 plotfile=plotfile\.ps style=seismic title=suximage titlecolor=red titlefont=Rom22 units=unit verbose=1 windowtitle=suximage xbox=500 ybox=500 wbox=550 hbox=550 & 
+
+8
+
+sugain mbal=1 tmpdir=\/tmp < /home/gllore/Fairbanks/seismics/data/permafrost_tunnel/gpr/110221/standard/1/su/gllore/line01.su | sufilter f=0\,0\,2000\,5000 verbose=0 | sugain agc=1 wagc=0\.002 tmpdir=\/tmp | sugain epow=20 tmpdir=\/tmp | sugprfb fbt=12 nx=25 | sufft sign=1 verbose=1 | suamp mode=amp | suximage clip=1 cmap=hsv0 d2=1 f1=0 gridcolor=blue labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 lwidth=16 lx=3 mpicks=\/dev\/tty n1tic=1 n2tic=1 perc=100 plotfile=plotfile\.ps style=seismic title=suximage titlecolor=red titlefont=Rom22 units=unit verbose=1 windowtitle=suximage xbox=500 ybox=500 wbox=550 hbox=550 & 
+
+35
+
+sugain mbal=1 tmpdir=\/tmp < /home/gllore/Fairbanks/seismics/data/permafrost_tunnel/gpr/110221/standard/1/su/gllore/line01.su | sufilter f=0\,0\,2000\,5000 verbose=0 | sugain agc=1 wagc=0\.002 tmpdir=\/tmp | sugain epow=20 tmpdir=\/tmp | sugprfb fbt=12 nx=25 | sufft sign=1 verbose=1 | suamp mode=amp | suximage clip=0\.1 cmap=hsv0 d2=1 f1=0 gridcolor=blue labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 lwidth=16 lx=3 mpicks=\/dev\/tty n1tic=1 n2tic=1 perc=100 plotfile=plotfile\.ps style=seismic title=suximage titlecolor=red titlefont=Rom22 units=unit verbose=1 windowtitle=suximage xbox=500 ybox=500 wbox=550 hbox=550 & 
+
+43
+
+sugain mbal=1 tmpdir=\/tmp < /home/gllore/Fairbanks/seismics/data/permafrost_tunnel/gpr/110221/standard/1/su/gllore/line01.su | sufilter f=0\,0\,2000\,5000 verbose=0 | sugain agc=1 wagc=0\.002 tmpdir=\/tmp | sugain epow=20 tmpdir=\/tmp | sugprfb fbt=12 nx=25 | sufft sign=1 verbose=1 | suamp mode=amp | suximage clip=20 cmap=hsv0 d2=1 f1=0 gridcolor=blue labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 lwidth=16 lx=3 mpicks=\/dev\/tty n1tic=1 n2tic=1 perc=100 plotfile=plotfile\.ps style=seismic title=suximage titlecolor=red titlefont=Rom22 units=unit verbose=1 windowtitle=suximage xbox=500 ybox=500 wbox=550 hbox=550 & 
+
+55
+
+sugain mbal=1 tmpdir=\/tmp < /home/gllore/Fairbanks/seismics/data/permafrost_tunnel/gpr/110221/standard/1/su/gllore/line01.su | sufilter f=0\,0\,2000\,5000 verbose=0 | sugain agc=1 wagc=0\.002 tmpdir=\/tmp | sugain epow=20 tmpdir=\/tmp | sugprfb fbt=12 nx=25 | sufft sign=1 verbose=1 | suamp mode=amp zeromean=1 | suximage clip=200 cmap=hsv0 d2=1 f1=0 gridcolor=blue labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 lwidth=16 lx=3 mpicks=\/dev\/tty n1tic=1 n2tic=1 perc=100 plotfile=plotfile\.ps style=seismic title=suximage titlecolor=red titlefont=Rom22 units=unit verbose=1 windowtitle=suximage xbox=500 ybox=500 wbox=550 hbox=550 & 
+
+12
+
+sugain mbal=1 tmpdir=\/tmp < /home/gllore/Fairbanks/seismics/data/permafrost_tunnel/gpr/110221/standard/1/su/gllore/line01.su | sufilter f=0\,0\,2000\,5000 verbose=0 | sugain agc=1 wagc=0\.002 tmpdir=\/tmp | sugain epow=20 tmpdir=\/tmp | sugprfb fbt=12 nx=25 | sufft sign=1 verbose=1 | suamp mode=amp zeromean=1 | suximage clip=100 cmap=hsv0 d2=1 f1=0 gridcolor=blue labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 lwidth=16 lx=3 mpicks=\/dev\/tty n1tic=1 n2tic=1 perc=100 plotfile=plotfile\.ps style=seismic title=suximage titlecolor=red titlefont=Rom22 units=unit verbose=1 windowtitle=suximage xbox=500 ybox=500 wbox=550 hbox=550 & 
+
+18
+
+sugain mbal=1 tmpdir=\/tmp < /home/gllore/Fairbanks/seismics/data/permafrost_tunnel/gpr/110221/standard/1/su/gllore/line01.su | sufilter f=0\,0\,2000\,5000 verbose=0 | sugain agc=1 wagc=0\.002 tmpdir=\/tmp | sugain epow=20 tmpdir=\/tmp | sugprfb fbt=12 nx=25 | sufft sign=1 verbose=1 | suamp mode=amp zeromean=1 | suximage clip=1 cmap=hsv0 d2=1 f1=0 gridcolor=blue labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 lwidth=16 lx=3 mpicks=\/dev\/tty n1tic=1 n2tic=1 perc=100 plotfile=plotfile\.ps style=seismic title=suximage titlecolor=red titlefont=Rom22 units=unit verbose=1 windowtitle=suximage xbox=500 ybox=500 wbox=550 hbox=550 & 
+
+35
+
+sugain mbal=1 tmpdir=\/tmp < /home/gllore/Fairbanks/seismics/data/permafrost_tunnel/gpr/110221/standard/1/su/gllore/line01.su | sufilter f=0\,0\,2000\,5000 verbose=0 | sugain agc=1 wagc=0\.002 tmpdir=\/tmp | sugain epow=20 tmpdir=\/tmp | sugprfb fbt=12 nx=25 | sufft sign=1 verbose=1 | suamp mode=amp zeromean=1 | suximage clip=400 cmap=hsv0 d2=1 f1=0 gridcolor=blue labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 lwidth=16 lx=3 mpicks=\/dev\/tty n1tic=1 n2tic=1 perc=100 plotfile=plotfile\.ps style=seismic title=suximage titlecolor=red titlefont=Rom22 units=unit verbose=1 windowtitle=suximage xbox=500 ybox=500 wbox=550 hbox=550 & 
+
+44
+
+sugain mbal=1 tmpdir=\/tmp < /home/gllore/Fairbanks/seismics/data/permafrost_tunnel/gpr/110221/standard/1/su/gllore/line01.su | sufilter f=0\,0\,2000\,5000 verbose=0 | sugain agc=1 wagc=0\.002 tmpdir=\/tmp | sugain epow=20 tmpdir=\/tmp | sugprfb fbt=12 nx=25 | sufft sign=1 verbose=1 | suamp mode=amp zeromean=1 | suximage clip=200 cmap=hsv0 d2=1 f1=0 gridcolor=blue labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 lwidth=16 lx=3 mpicks=\/dev\/tty n1tic=1 n2tic=1 perc=100 plotfile=plotfile\.ps style=seismic title=suximage titlecolor=red titlefont=Rom22 units=unit verbose=1 windowtitle=suximage xbox=500 ybox=500 wbox=550 hbox=550 & 
+
+51
+
+sugain mbal=1 tmpdir=\/tmp < /home/gllore/Fairbanks/seismics/data/permafrost_tunnel/gpr/110221/standard/1/su/gllore/line01.su | sufilter f=0\,0\,2000\,5000 verbose=0 | sugain agc=1 wagc=0\.002 tmpdir=\/tmp | sugain epow=20 tmpdir=\/tmp | sugprfb fbt=12 nx=25 | sufft sign=1 verbose=1 | suamp mode=amp zeromean=1 | suximage clip=100 cmap=hsv0 d2=1 f1=0 gridcolor=blue labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 lwidth=16 lx=3 mpicks=\/dev\/tty n1tic=1 n2tic=1 perc=100 plotfile=plotfile\.ps style=seismic title=suximage titlecolor=red titlefont=Rom22 units=unit verbose=1 windowtitle=suximage xbox=500 ybox=500 wbox=550 hbox=550 & 
+
+34
+
+sugain mbal=1 tmpdir=\/tmp < /home/gllore/Fairbanks/seismics/data/permafrost_tunnel/gpr/110221/standard/1/su/gllore/line01.su | sufilter f=0\,0\,2000\,5000 verbose=0 | sugain agc=1 wagc=0\.002 tmpdir=\/tmp | sugain epow=20 tmpdir=\/tmp | sufft sign=1 verbose=1 | suamp mode=amp zeromean=1 | suximage clip=100 cmap=hsv0 d2=1 f1=0 gridcolor=blue labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 lwidth=16 lx=3 mpicks=\/dev\/tty n1tic=1 n2tic=1 perc=100 plotfile=plotfile\.ps style=seismic title=suximage titlecolor=red titlefont=Rom22 units=unit verbose=1 windowtitle=suximage xbox=500 ybox=500 wbox=550 hbox=550 & 
+
+15
+
+sugain mbal=1 tmpdir=\/tmp < /home/gllore/Fairbanks/seismics/data/permafrost_tunnel/gpr/110221/standard/1/su/gllore/line01.su | sufilter f=0\,0\,10000\,1500 verbose=0 | sugain agc=1 wagc=0\.002 tmpdir=\/tmp | sugain epow=20 tmpdir=\/tmp | sufft sign=1 verbose=1 | suamp mode=amp zeromean=1 | suximage clip=100 cmap=hsv0 d2=1 f1=0 gridcolor=blue labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 lwidth=16 lx=3 mpicks=\/dev\/tty n1tic=1 n2tic=1 perc=100 plotfile=plotfile\.ps style=seismic title=suximage titlecolor=red titlefont=Rom22 units=unit verbose=1 windowtitle=suximage xbox=500 ybox=500 wbox=550 hbox=550 & 
+
+22
+
+sugain mbal=1 tmpdir=\/tmp < /home/gllore/Fairbanks/seismics/data/permafrost_tunnel/gpr/110221/standard/1/su/gllore/line01.su | sufilter f=0\,0\,10000\,1500 verbose=0 | sugain agc=1 wagc=0\.002 tmpdir=\/tmp | sugain epow=20 tmpdir=\/tmp | suximage clip=100 cmap=hsv0 d2=1 f1=0 gridcolor=blue labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 lwidth=16 lx=3 mpicks=\/dev\/tty n1tic=1 n2tic=1 perc=100 plotfile=plotfile\.ps style=seismic title=suximage titlecolor=red titlefont=Rom22 units=unit verbose=1 windowtitle=suximage xbox=500 ybox=500 wbox=550 hbox=550 & 
+
+36
+
+sugain mbal=1 tmpdir=\/tmp < /home/gllore/Fairbanks/seismics/data/permafrost_tunnel/gpr/110221/standard/1/su/gllore/line01.su | sufilter f=0\,0\,1000\,1500 verbose=0 | sugain agc=1 wagc=0\.002 tmpdir=\/tmp | sugain epow=20 tmpdir=\/tmp | suximage clip=100 cmap=hsv0 d2=1 f1=0 gridcolor=blue labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 lwidth=16 lx=3 mpicks=\/dev\/tty n1tic=1 n2tic=1 perc=100 plotfile=plotfile\.ps style=seismic title=suximage titlecolor=red titlefont=Rom22 units=unit verbose=1 windowtitle=suximage xbox=500 ybox=500 wbox=550 hbox=550 & 
+
+44
+
+sugain mbal=1 tmpdir=\/tmp < /home/gllore/Fairbanks/seismics/data/permafrost_tunnel/gpr/110221/standard/1/su/gllore/line01.su | sufilter f=0\,0\,1000\,1500 verbose=0 | sugain agc=1 wagc=0\.002 tmpdir=\/tmp | sugain epow=20 tmpdir=\/tmp | suximage clip=10 cmap=hsv0 d2=1 f1=0 gridcolor=blue labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 lwidth=16 lx=3 mpicks=\/dev\/tty n1tic=1 n2tic=1 perc=100 plotfile=plotfile\.ps style=seismic title=suximage titlecolor=red titlefont=Rom22 units=unit verbose=1 windowtitle=suximage xbox=500 ybox=500 wbox=550 hbox=550 & 
+
+4
+
+sugain mbal=1 tmpdir=\/tmp < /home/gllore/Fairbanks/seismics/data/permafrost_tunnel/gpr/110221/standard/1/su/gllore/line01.su | sufilter f=0\,0\,1000\,1500 verbose=0 | sugain agc=1 wagc=0\.002 tmpdir=\/tmp | sugain epow=20 tmpdir=\/tmp | suximage clip=1 cmap=hsv0 d2=1 f1=0 gridcolor=blue labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 lwidth=16 lx=3 mpicks=\/dev\/tty n1tic=1 n2tic=1 perc=100 plotfile=plotfile\.ps style=seismic title=suximage titlecolor=red titlefont=Rom22 units=unit verbose=1 windowtitle=suximage xbox=500 ybox=500 wbox=550 hbox=550 & 
+
+11
+
+sugain mbal=1 tmpdir=\/tmp < /home/gllore/Fairbanks/seismics/data/permafrost_tunnel/gpr/110221/standard/1/su/gllore/line01.su | sufilter f=0\,0\,1000\,1500 verbose=0 | sugain agc=1 wagc=0\.002 tmpdir=\/tmp | sugain epow=20 tmpdir=\/tmp | suximage clip=5 cmap=hsv0 d2=1 f1=0 gridcolor=blue labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 lwidth=16 lx=3 mpicks=\/dev\/tty n1tic=1 n2tic=1 perc=100 plotfile=plotfile\.ps style=seismic title=suximage titlecolor=red titlefont=Rom22 units=unit verbose=1 windowtitle=suximage xbox=500 ybox=500 wbox=550 hbox=550 & 
+
+41
+
+sugain mbal=1 tmpdir=\/tmp < /home/gllore/Fairbanks/seismics/data/permafrost_tunnel/gpr/110221/standard/1/su/gllore/line01.su | sufilter f=0\,0\,1000\,1500 verbose=0 | sugain agc=1 wagc=0\.002 tmpdir=\/tmp | sugain epow=2 tmpdir=\/tmp | suximage clip=5 cmap=hsv0 d2=1 f1=0 gridcolor=blue labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 lwidth=16 lx=3 mpicks=\/dev\/tty n1tic=1 n2tic=1 perc=100 plotfile=plotfile\.ps style=seismic title=suximage titlecolor=red titlefont=Rom22 units=unit verbose=1 windowtitle=suximage xbox=500 ybox=500 wbox=550 hbox=550 & 
+
+50
+
+sugain mbal=1 tmpdir=\/tmp < /home/gllore/Fairbanks/seismics/data/permafrost_tunnel/gpr/110221/standard/1/su/gllore/line01.su | sufilter f=0\,0\,1000\,1500 verbose=0 | sugain agc=1 wagc=0\.002 tmpdir=\/tmp | sugain etpow=2 tmpdir=\/tmp | suximage clip=5 cmap=hsv0 d2=1 f1=0 gridcolor=blue labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 lwidth=16 lx=3 mpicks=\/dev\/tty n1tic=1 n2tic=1 perc=100 plotfile=plotfile\.ps style=seismic title=suximage titlecolor=red titlefont=Rom22 units=unit verbose=1 windowtitle=suximage xbox=500 ybox=500 wbox=550 hbox=550 & 
+
+1
+
+sugain mbal=1 tmpdir=\/tmp < /home/gllore/Fairbanks/seismics/data/permafrost_tunnel/gpr/110221/standard/1/su/gllore/line01.su | sufilter f=0\,0\,1000\,1500 verbose=0 | sugain agc=1 wagc=0\.002 tmpdir=\/tmp | sugain gpow=2 tmpdir=\/tmp | suximage clip=5 cmap=hsv0 d2=1 f1=0 gridcolor=blue labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 lwidth=16 lx=3 mpicks=\/dev\/tty n1tic=1 n2tic=1 perc=100 plotfile=plotfile\.ps style=seismic title=suximage titlecolor=red titlefont=Rom22 units=unit verbose=1 windowtitle=suximage xbox=500 ybox=500 wbox=550 hbox=550 & 
+
+30
+
+sugain mbal=1 tmpdir=\/tmp < /home/gllore/Fairbanks/seismics/data/permafrost_tunnel/gpr/110221/standard/1/su/gllore/line01.su | sufilter f=0\,0\,800\,1000 verbose=0 | sugain agc=1 wagc=0\.002 tmpdir=\/tmp | sugain gpow=2 tmpdir=\/tmp | suximage clip=5 cmap=hsv0 d2=1 f1=0 gridcolor=blue labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 lwidth=16 lx=3 mpicks=\/dev\/tty n1tic=1 n2tic=1 perc=100 plotfile=plotfile\.ps style=seismic title=suximage titlecolor=red titlefont=Rom22 units=unit verbose=1 windowtitle=suximage xbox=500 ybox=500 wbox=550 hbox=550 & 
+
+16
+
+sugain mbal=1 tmpdir=\/tmp < /home/gllore/Fairbanks/seismics/data/permafrost_tunnel/gpr/110221/standard/1/su/gllore/line01.su | sufilter f=0\,0\,1000\,1500 verbose=0 | sugain agc=1 wagc=0\.002 tmpdir=\/tmp | sugain gpow=2 tmpdir=\/tmp | suximage clip=5 cmap=hsv0 d2=1 f1=0 gridcolor=blue labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 lwidth=16 lx=3 mpicks=\/dev\/tty n1tic=1 n2tic=1 perc=100 plotfile=plotfile\.ps style=seismic title=suximage titlecolor=red titlefont=Rom22 units=unit verbose=1 windowtitle=suximage xbox=500 ybox=500 wbox=550 hbox=550 & 
+
+43
+
+sugain mbal=1 tmpdir=\/tmp < /home/gllore/Fairbanks/seismics/data/permafrost_tunnel/gpr/110221/standard/1/su/gllore/line01.su | sufilter f=0\,0\,1000\,1500 verbose=0 | sugain agc=1 wagc=0\.002 tmpdir=\/tmp | suximage clip=5 cmap=hsv0 d2=1 f1=0 gridcolor=blue labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 lwidth=16 lx=3 mpicks=\/dev\/tty n1tic=1 n2tic=1 perc=100 plotfile=plotfile\.ps style=seismic title=suximage titlecolor=red titlefont=Rom22 units=unit verbose=1 windowtitle=suximage xbox=500 ybox=500 wbox=550 hbox=550 & 
+
+24
+
+sugain mbal=1 tmpdir=\/tmp < /home/gllore/Fairbanks/seismics/data/permafrost_tunnel/gpr/110221/standard/1/su/gllore/line01.su | sufilter f=0\,0\,1000\,1500 verbose=0 | sugain agc=1 wagc=0\.002 tmpdir=\/tmp | sumix mix=1\,1\,1 | suximage clip=5 cmap=hsv0 d2=1 f1=0 gridcolor=blue labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 lwidth=16 lx=3 mpicks=\/dev\/tty n1tic=1 n2tic=1 perc=100 plotfile=plotfile\.ps style=seismic title=suximage titlecolor=red titlefont=Rom22 units=unit verbose=1 windowtitle=suximage xbox=500 ybox=500 wbox=550 hbox=550 & 
+
+50
+
+sugain mbal=1 tmpdir=\/tmp < /home/gllore/Fairbanks/seismics/data/permafrost_tunnel/gpr/110221/standard/1/su/gllore/line01.su | sufilter f=0\,0\,1000\,1500 verbose=0 | sugain agc=1 wagc=0\.002 tmpdir=\/tmp | sumix mix=1\,1\,1\,1\,1\,1\,1 | suximage clip=5 cmap=hsv0 d2=1 f1=0 gridcolor=blue labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 lwidth=16 lx=3 mpicks=\/dev\/tty n1tic=1 n2tic=1 perc=100 plotfile=plotfile\.ps style=seismic title=suximage titlecolor=red titlefont=Rom22 units=unit verbose=1 windowtitle=suximage xbox=500 ybox=500 wbox=550 hbox=550 & 
+
+15
+
+sugain mbal=1 tmpdir=\/tmp < /home/gllore/Fairbanks/seismics/data/permafrost_tunnel/gpr/110221/standard/1/su/gllore/line01.su | sufilter f=0\,0\,1000\,1500 verbose=0 | sugain agc=1 wagc=0\.002 tmpdir=\/tmp | sumix mix=1\,1\,1\,1\,1\,1\,1 | suximage clip=4 cmap=hsv0 d2=1 f1=0 gridcolor=blue labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 lwidth=16 lx=3 mpicks=\/dev\/tty n1tic=1 n2tic=1 perc=100 plotfile=plotfile\.ps style=seismic title=suximage titlecolor=red titlefont=Rom22 units=unit verbose=1 windowtitle=suximage xbox=500 ybox=500 wbox=550 hbox=550 & 
+
+1
+
+sugain mbal=1 tmpdir=\/tmp < /home/gllore/Fairbanks/seismics/data/permafrost_tunnel/gpr/110221/standard/1/su/gllore/line01.su | sufilter f=0\,0\,1000\,1500 verbose=0 | sugain agc=1 wagc=0\.002 tmpdir=\/tmp | sumix mix=1\,5\,1 | suximage clip=4 cmap=hsv0 d2=1 f1=0 gridcolor=blue labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 lwidth=16 lx=3 mpicks=\/dev\/tty n1tic=1 n2tic=1 perc=100 plotfile=plotfile\.ps style=seismic title=suximage titlecolor=red titlefont=Rom22 units=unit verbose=1 windowtitle=suximage xbox=500 ybox=500 wbox=550 hbox=550 & 
+
+3
+
+sugain mbal=1 tmpdir=\/tmp < /home/gllore/Fairbanks/seismics/data/permafrost_tunnel/gpr/110221/standard/1/su/gllore/line01.su | sufilter f=0\,0\,1000\,1500 verbose=0 | sugain tpow=1 tmpdir=\/tmp | sumix mix=1\,5\,1 | suximage clip=4 cmap=hsv0 d2=1 f1=0 gridcolor=blue labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 lwidth=16 lx=3 mpicks=\/dev\/tty n1tic=1 n2tic=1 perc=100 plotfile=plotfile\.ps style=seismic title=suximage titlecolor=red titlefont=Rom22 units=unit verbose=1 windowtitle=suximage xbox=500 ybox=500 wbox=550 hbox=550 & 
+
+35
+
+sugain mbal=1 tmpdir=\/tmp < /home/gllore/Fairbanks/seismics/data/permafrost_tunnel/gpr/110221/standard/1/su/gllore/line01.su | sufilter f=0\,0\,1000\,1500 verbose=0 | sugain tpow=2 tmpdir=\/tmp | sumix mix=1\,5\,1 | suximage clip=4 cmap=hsv0 d2=1 f1=0 gridcolor=blue labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 lwidth=16 lx=3 mpicks=\/dev\/tty n1tic=1 n2tic=1 perc=100 plotfile=plotfile\.ps style=seismic title=suximage titlecolor=red titlefont=Rom22 units=unit verbose=1 windowtitle=suximage xbox=500 ybox=500 wbox=550 hbox=550 & 
+
+42
+
+sugain mbal=1 tmpdir=\/tmp < /home/gllore/Fairbanks/seismics/data/permafrost_tunnel/gpr/110221/standard/1/su/gllore/line01.su | sufilter f=0\,0\,1000\,1500 verbose=0 | sugain tpow=1 tmpdir=\/tmp | sumix mix=1\,5\,1 | suximage clip=4 cmap=hsv0 d2=1 f1=0 gridcolor=blue labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 lwidth=16 lx=3 mpicks=\/dev\/tty n1tic=1 n2tic=1 perc=100 plotfile=plotfile\.ps style=seismic title=suximage titlecolor=red titlefont=Rom22 units=unit verbose=1 windowtitle=suximage xbox=500 ybox=500 wbox=550 hbox=550 & 
+
+53
+
+sugain mbal=1 tmpdir=\/tmp < /home/gllore/Fairbanks/seismics/data/permafrost_tunnel/gpr/110221/standard/1/su/gllore/line01.su | sufilter f=0\,0\,1000\,1500 verbose=0 | sugain tpow=1\.1 tmpdir=\/tmp | sumix mix=1\,5\,1 | suximage clip=4 cmap=hsv0 d2=1 f1=0 gridcolor=blue labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 lwidth=16 lx=3 mpicks=\/dev\/tty n1tic=1 n2tic=1 perc=100 plotfile=plotfile\.ps style=seismic title=suximage titlecolor=red titlefont=Rom22 units=unit verbose=1 windowtitle=suximage xbox=500 ybox=500 wbox=550 hbox=550 & 
+
+1
+
+sugain mbal=1 tmpdir=\/tmp < /home/gllore/Fairbanks/seismics/data/permafrost_tunnel/gpr/110221/standard/1/su/gllore/line01.su | sufilter f=0\,0\,1000\,1500 verbose=0 | sugain tpow=0\.5 tmpdir=\/tmp | sumix mix=1\,5\,1 | suximage clip=4 cmap=hsv0 d2=1 f1=0 gridcolor=blue labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 lwidth=16 lx=3 mpicks=\/dev\/tty n1tic=1 n2tic=1 perc=100 plotfile=plotfile\.ps style=seismic title=suximage titlecolor=red titlefont=Rom22 units=unit verbose=1 windowtitle=suximage xbox=500 ybox=500 wbox=550 hbox=550 & 
+
+12
+
+sugain mbal=1 tmpdir=\/tmp < /home/gllore/Fairbanks/seismics/data/permafrost_tunnel/gpr/110221/standard/1/su/gllore/line01.su | sufilter f=0\,0\,1000\,1500 verbose=0 | sugain tpow=1\.5 tmpdir=\/tmp | sumix mix=1\,5\,1 | suximage clip=4 cmap=hsv0 d2=1 f1=0 gridcolor=blue labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 lwidth=16 lx=3 mpicks=\/dev\/tty n1tic=1 n2tic=1 perc=100 plotfile=plotfile\.ps style=seismic title=suximage titlecolor=red titlefont=Rom22 units=unit verbose=1 windowtitle=suximage xbox=500 ybox=500 wbox=550 hbox=550 & 
+
+28
+
+sugain mbal=1 tmpdir=\/tmp < /home/gllore/Fairbanks/seismics/data/permafrost_tunnel/gpr/110221/standard/1/su/gllore/line01.su | sufilter f=0\,0\,1000\,1500 verbose=0 | sugain tpow=1\.5 tmpdir=\/tmp | sumix mix=1\,5\,1 | suximage clip=2 cmap=hsv0 d2=1 f1=0 gridcolor=blue labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 lwidth=16 lx=3 mpicks=\/dev\/tty n1tic=1 n2tic=1 perc=100 plotfile=plotfile\.ps style=seismic title=suximage titlecolor=red titlefont=Rom22 units=unit verbose=1 windowtitle=suximage xbox=500 ybox=500 wbox=550 hbox=550 & 
+
+6
+
+sugain mbal=1 tmpdir=\/tmp < /home/gllore/Fairbanks/seismics/data/permafrost_tunnel/gpr/110221/standard/1/su/gllore/line01.su | sufilter f=0\,0\,1000\,1500 verbose=0 | sugain tpow=1\.6 tmpdir=\/tmp | sumix mix=1\,5\,1 | suximage clip=2 cmap=hsv0 d2=1 f1=0 gridcolor=blue labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 lwidth=16 lx=3 mpicks=\/dev\/tty n1tic=1 n2tic=1 perc=100 plotfile=plotfile\.ps style=seismic title=suximage titlecolor=red titlefont=Rom22 units=unit verbose=1 windowtitle=suximage xbox=500 ybox=500 wbox=550 hbox=550 & 
+
+16
+
+sugain mbal=1 tmpdir=\/tmp < /home/gllore/Fairbanks/seismics/data/permafrost_tunnel/gpr/110221/standard/1/su/gllore/line01.su | sufilter f=0\,0\,1000\,1500 verbose=0 | sugain tpow=1\.7 tmpdir=\/tmp | sumix mix=1\,5\,1 | suximage clip=2 cmap=hsv0 d2=1 f1=0 gridcolor=blue labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 lwidth=16 lx=3 mpicks=\/dev\/tty n1tic=1 n2tic=1 perc=100 plotfile=plotfile\.ps style=seismic title=suximage titlecolor=red titlefont=Rom22 units=unit verbose=1 windowtitle=suximage xbox=500 ybox=500 wbox=550 hbox=550 & 
+
+25
+
+sugain mbal=1 tmpdir=\/tmp < /home/gllore/Fairbanks/seismics/data/permafrost_tunnel/gpr/110221/standard/1/su/gllore/line01.su | sufilter f=0\,0\,1000\,1500 verbose=0 | sugain tpow=1\.7 tmpdir=\/tmp | sumix mix=1\,5\,1 | suximage clip=1 cmap=hsv0 d2=1 f1=0 gridcolor=blue labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 lwidth=16 lx=3 mpicks=\/dev\/tty n1tic=1 n2tic=1 perc=100 plotfile=plotfile\.ps style=seismic title=suximage titlecolor=red titlefont=Rom22 units=unit verbose=1 windowtitle=suximage xbox=500 ybox=500 wbox=550 hbox=550 & 
+
+12
+
+sugain mbal=1 tmpdir=\/tmp < /home/gllore/Fairbanks/seismics/data/permafrost_tunnel/gpr/110221/standard/1/su/gllore/line01.su | sufilter f=0\,0\,1000\,1500 verbose=0 | sugain tpow=1\.7 tmpdir=\/tmp | sumix mix=1\,1\,1\,1\,1\,1\,1\,1\,1\,1\, | suximage clip=1 cmap=hsv0 d2=1 f1=0 gridcolor=blue labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 lwidth=16 lx=3 mpicks=\/dev\/tty n1tic=1 n2tic=1 perc=100 plotfile=plotfile\.ps style=seismic title=suximage titlecolor=red titlefont=Rom22 units=unit verbose=1 windowtitle=suximage xbox=500 ybox=500 wbox=550 hbox=550 & 
+
+24
+
+sugain mbal=1 tmpdir=\/tmp < /home/gllore/Fairbanks/seismics/data/permafrost_tunnel/gpr/110221/standard/1/su/gllore/line01.su | sufilter f=0\,0\,1000\,1500 verbose=0 | sugain tpow=1\.7 tmpdir=\/tmp | sumix mix=1\,1\,1\,1\,0\,1\,1\,1\,1\,1\, | suximage clip=1 cmap=hsv0 d2=1 f1=0 gridcolor=blue labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 lwidth=16 lx=3 mpicks=\/dev\/tty n1tic=1 n2tic=1 perc=100 plotfile=plotfile\.ps style=seismic title=suximage titlecolor=red titlefont=Rom22 units=unit verbose=1 windowtitle=suximage xbox=500 ybox=500 wbox=550 hbox=550 & 
+
+6
+
+sugain mbal=1 tmpdir=\/tmp < /home/gllore/Fairbanks/seismics/data/permafrost_tunnel/gpr/110221/standard/1/su/gllore/line01.su | sufilter f=0\,0\,1000\,1500 verbose=0 | sugain tpow=1\.7 tmpdir=\/tmp | sumix mix=1\,1\,1\,1\,1\,1\,1 | suximage clip=1 cmap=hsv0 d2=1 f1=0 gridcolor=blue labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 lwidth=16 lx=3 mpicks=\/dev\/tty n1tic=1 n2tic=1 perc=100 plotfile=plotfile\.ps style=seismic title=suximage titlecolor=red titlefont=Rom22 units=unit verbose=1 windowtitle=suximage xbox=500 ybox=500 wbox=550 hbox=550 & 
+
+38
+
+sugain mbal=1 tmpdir=\/tmp < /home/gllore/Fairbanks/seismics/data/permafrost_tunnel/gpr/110221/standard/1/su/gllore/line01.su | sufilter f=0\,0\,1000\,1500 verbose=0 | sumix mix=1\,1\,1\,1\,1\,1\,1 | suximage clip=1 cmap=hsv0 d2=1 f1=0 gridcolor=blue labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 lwidth=16 lx=3 mpicks=\/dev\/tty n1tic=1 n2tic=1 perc=100 plotfile=plotfile\.ps style=seismic title=suximage titlecolor=red titlefont=Rom22 units=unit verbose=1 windowtitle=suximage xbox=500 ybox=500 wbox=550 hbox=550 & 
+
+49
+
+sugain mbal=1 tmpdir=\/tmp < /home/gllore/Fairbanks/seismics/data/permafrost_tunnel/gpr/110221/standard/1/su/gllore/line01.su | sufilter f=0\,0\,1000\,1500 verbose=0 | sumix mix=1\,1\,1\,1\,1\,1\,1 | suximage clip=1000 cmap=hsv0 d2=1 f1=0 gridcolor=blue labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 lwidth=16 lx=3 mpicks=\/dev\/tty n1tic=1 n2tic=1 perc=100 plotfile=plotfile\.ps style=seismic title=suximage titlecolor=red titlefont=Rom22 units=unit verbose=1 windowtitle=suximage xbox=500 ybox=500 wbox=550 hbox=550 & 
+
+20
+
+sufilter f=0\,0\,1000\,1500 verbose=0 < /home/gllore/Fairbanks/seismics/data/permafrost_tunnel/gpr/110221/standard/1/su/gllore/line01.su | sugain mbal=1 tmpdir=\/tmp | sugain agc=1 wagc=0\.1 tmpdir=\/tmp | sumix mix=1\,1\,1\,1\,1\,1\,1 | suximage clip=1000 cmap=hsv0 d2=1 f1=0 gridcolor=blue labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 lwidth=16 lx=3 mpicks=\/dev\/tty n1tic=1 n2tic=1 perc=100 plotfile=plotfile\.ps style=seismic title=suximage titlecolor=red titlefont=Rom22 units=unit verbose=1 windowtitle=suximage xbox=500 ybox=500 wbox=550 hbox=550 & 
+
+30
+
+sufilter f=0\,0\,1000\,1500 verbose=0 < /home/gllore/Fairbanks/seismics/data/permafrost_tunnel/gpr/110221/standard/1/su/gllore/line01.su | sugain mbal=1 tmpdir=\/tmp | sugain agc=1 wagc=0\.002 tmpdir=\/tmp | sumix mix=1\,1\,1\,1\,1\,1\,1 | suximage clip=1000 cmap=hsv0 d2=1 f1=0 gridcolor=blue labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 lwidth=16 lx=3 mpicks=\/dev\/tty n1tic=1 n2tic=1 perc=100 plotfile=plotfile\.ps style=seismic title=suximage titlecolor=red titlefont=Rom22 units=unit verbose=1 windowtitle=suximage xbox=500 ybox=500 wbox=550 hbox=550 & 
+
+39
+
+sufilter f=0\,0\,1000\,1500 verbose=0 < /home/gllore/Fairbanks/seismics/data/permafrost_tunnel/gpr/110221/standard/1/su/gllore/line01.su | sugain mbal=1 tmpdir=\/tmp | sugain agc=1 wagc=0\.002 tmpdir=\/tmp | sumix mix=1\,1\,1\,1\,1\,1\,1 | suximage clip=1 cmap=hsv0 d2=1 f1=0 gridcolor=blue labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 lwidth=16 lx=3 mpicks=\/dev\/tty n1tic=1 n2tic=1 perc=100 plotfile=plotfile\.ps style=seismic title=suximage titlecolor=red titlefont=Rom22 units=unit verbose=1 windowtitle=suximage xbox=500 ybox=500 wbox=550 hbox=550 & 
+
+29
+
+sufilter f=0\,0\,1000\,1500 verbose=0 < /home/gllore/Fairbanks/seismics/data/permafrost_tunnel/gpr/110221/standard/1/su/gllore/line01.su | sugain mbal=1 tmpdir=\/tmp | sugain pbal=1 tmpdir=\/tmp | sugain agc=1 wagc=0\.002 tmpdir=\/tmp | sumix mix=1\,1\,1\,1\,1\,1\,1 | suximage clip=1 cmap=hsv0 d2=1 f1=0 gridcolor=blue labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 lwidth=16 lx=3 mpicks=\/dev\/tty n1tic=1 n2tic=1 perc=100 plotfile=plotfile\.ps style=seismic title=suximage titlecolor=red titlefont=Rom22 units=unit verbose=1 windowtitle=suximage xbox=500 ybox=500 wbox=550 hbox=550 & 
+
+42
+
+sufilter f=0\,0\,1000\,1500 verbose=0 < /home/gllore/Fairbanks/seismics/data/permafrost_tunnel/gpr/110221/standard/1/su/gllore/line01.su | sugain mbal=1 tmpdir=\/tmp | sugain qbal=1 tmpdir=\/tmp | sugain agc=1 wagc=0\.002 tmpdir=\/tmp | sumix mix=1\,1\,1\,1\,1\,1\,1 | suximage clip=1 cmap=hsv0 d2=1 f1=0 gridcolor=blue labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 lwidth=16 lx=3 mpicks=\/dev\/tty n1tic=1 n2tic=1 perc=100 plotfile=plotfile\.ps style=seismic title=suximage titlecolor=red titlefont=Rom22 units=unit verbose=1 windowtitle=suximage xbox=500 ybox=500 wbox=550 hbox=550 & 
+
+51
+
+sufilter f=0\,0\,1000\,1500 verbose=0 < /home/gllore/Fairbanks/seismics/data/permafrost_tunnel/gpr/110221/standard/1/su/gllore/line01.su | sugain mbal=1 tmpdir=\/tmp | sugain qbal=1 norm=1 tmpdir=\/tmp | sugain agc=1 wagc=0\.002 tmpdir=\/tmp | sumix mix=1\,1\,1\,1\,1\,1\,1 | suximage clip=1 cmap=hsv0 d2=1 f1=0 gridcolor=blue labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 lwidth=16 lx=3 mpicks=\/dev\/tty n1tic=1 n2tic=1 perc=100 plotfile=plotfile\.ps style=seismic title=suximage titlecolor=red titlefont=Rom22 units=unit verbose=1 windowtitle=suximage xbox=500 ybox=500 wbox=550 hbox=550 & 
+
+27
+
+sufilter f=0\,0\,1000\,1500 verbose=0 < /home/gllore/Fairbanks/seismics/data/permafrost_tunnel/gpr/110221/standard/1/su/gllore/line01.su | sugain mbal=1 tmpdir=\/tmp | sugain tpow=1\.1 norm=1 tmpdir=\/tmp | sugain agc=1 wagc=0\.002 tmpdir=\/tmp | sumix mix=1\,1\,1\,1\,1\,1\,1 | suximage clip=1 cmap=hsv0 d2=1 f1=0 gridcolor=blue labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 lwidth=16 lx=3 mpicks=\/dev\/tty n1tic=1 n2tic=1 perc=100 plotfile=plotfile\.ps style=seismic title=suximage titlecolor=red titlefont=Rom22 units=unit verbose=1 windowtitle=suximage xbox=500 ybox=500 wbox=550 hbox=550 & 
+
+34
+
+sufilter f=0\,0\,1000\,1500 verbose=0 < /home/gllore/Fairbanks/seismics/data/permafrost_tunnel/gpr/110221/standard/1/su/gllore/line01.su | sugain mbal=1 tmpdir=\/tmp | sugain tpow=2 norm=1 tmpdir=\/tmp | sugain agc=1 wagc=0\.002 tmpdir=\/tmp | sumix mix=1\,1\,1\,1\,1\,1\,1 | suximage clip=1 cmap=hsv0 d2=1 f1=0 gridcolor=blue labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 lwidth=16 lx=3 mpicks=\/dev\/tty n1tic=1 n2tic=1 perc=100 plotfile=plotfile\.ps style=seismic title=suximage titlecolor=red titlefont=Rom22 units=unit verbose=1 windowtitle=suximage xbox=500 ybox=500 wbox=550 hbox=550 & 
+
+3
+
+sufilter f=0\,0\,1000\,1500 verbose=0 < /home/gllore/Fairbanks/seismics/data/permafrost_tunnel/gpr/110221/standard/1/su/gllore/line01.su | sugain mbal=1 tmpdir=\/tmp | sugain norm=1 bias=100 tmpdir=\/tmp | sugain agc=1 wagc=0\.002 tmpdir=\/tmp | sumix mix=1\,1\,1\,1\,1\,1\,1 | suximage clip=1 cmap=hsv0 d2=1 f1=0 gridcolor=blue labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 lwidth=16 lx=3 mpicks=\/dev\/tty n1tic=1 n2tic=1 perc=100 plotfile=plotfile\.ps style=seismic title=suximage titlecolor=red titlefont=Rom22 units=unit verbose=1 windowtitle=suximage xbox=500 ybox=500 wbox=550 hbox=550 & 
+
+10
+
+sufilter f=0\,0\,1000\,1500 verbose=0 < /home/gllore/Fairbanks/seismics/data/permafrost_tunnel/gpr/110221/standard/1/su/gllore/line01.su | sugain mbal=1 tmpdir=\/tmp | sugain norm=1 bias=1000 tmpdir=\/tmp | sugain agc=1 wagc=0\.002 tmpdir=\/tmp | sumix mix=1\,1\,1\,1\,1\,1\,1 | suximage clip=1 cmap=hsv0 d2=1 f1=0 gridcolor=blue labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 lwidth=16 lx=3 mpicks=\/dev\/tty n1tic=1 n2tic=1 perc=100 plotfile=plotfile\.ps style=seismic title=suximage titlecolor=red titlefont=Rom22 units=unit verbose=1 windowtitle=suximage xbox=500 ybox=500 wbox=550 hbox=550 & 
+
+18
+
+sufilter f=0\,0\,1000\,1500 verbose=0 < /home/gllore/Fairbanks/seismics/data/permafrost_tunnel/gpr/110221/standard/1/su/gllore/line01.su | sugain mbal=1 tmpdir=\/tmp | sugain norm=1 bias=500 tmpdir=\/tmp | sugain agc=1 wagc=0\.002 tmpdir=\/tmp | sumix mix=1\,1\,1\,1\,1\,1\,1 | suximage clip=1 cmap=hsv0 d2=1 f1=0 gridcolor=blue labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 lwidth=16 lx=3 mpicks=\/dev\/tty n1tic=1 n2tic=1 perc=100 plotfile=plotfile\.ps style=seismic title=suximage titlecolor=red titlefont=Rom22 units=unit verbose=1 windowtitle=suximage xbox=500 ybox=500 wbox=550 hbox=550 & 
+
+28
+
+sufilter f=0\,0\,1000\,1500 verbose=0 < /home/gllore/Fairbanks/seismics/data/permafrost_tunnel/gpr/110221/standard/1/su/gllore/line01.su | sugain mbal=1 tmpdir=\/tmp | sugain norm=1 bias=50 tmpdir=\/tmp | sugain agc=1 wagc=0\.002 tmpdir=\/tmp | sumix mix=1\,1\,1\,1\,1\,1\,1 | suximage clip=1 cmap=hsv0 d2=1 f1=0 gridcolor=blue labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 lwidth=16 lx=3 mpicks=\/dev\/tty n1tic=1 n2tic=1 perc=100 plotfile=plotfile\.ps style=seismic title=suximage titlecolor=red titlefont=Rom22 units=unit verbose=1 windowtitle=suximage xbox=500 ybox=500 wbox=550 hbox=550 & 
+
+50
+
+sufilter f=0\,0\,1000\,1500 verbose=0 < /home/gllore/Fairbanks/seismics/data/permafrost_tunnel/gpr/110221/standard/1/su/gllore/line01.su | sugain mbal=1 tmpdir=\/tmp | sugain norm=1 tmpdir=\/tmp | sugain agc=1 wagc=0\.002 tmpdir=\/tmp | sumix mix=1\,1\,1\,1\,1\,1\,1 | suximage clip=1 cmap=hsv0 d2=1 f1=0 gridcolor=blue labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 lwidth=16 lx=3 mpicks=\/dev\/tty n1tic=1 n2tic=1 perc=100 plotfile=plotfile\.ps style=seismic title=suximage titlecolor=red titlefont=Rom22 units=unit verbose=1 windowtitle=suximage xbox=500 ybox=500 wbox=550 hbox=550 & 
+
+57
+
+sugain norm=1 tmpdir=\/tmp < /home/gllore/Fairbanks/seismics/data/permafrost_tunnel/gpr/110221/standard/1/su/gllore/line01.su | sufilter f=0\,0\,1000\,1500 verbose=0 | sugain mbal=1 tmpdir=\/tmp | sugain agc=1 wagc=0\.002 tmpdir=\/tmp | sumix mix=1\,1\,1\,1\,1\,1\,1 | suximage clip=1 cmap=hsv0 d2=1 f1=0 gridcolor=blue labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 lwidth=16 lx=3 mpicks=\/dev\/tty n1tic=1 n2tic=1 perc=100 plotfile=plotfile\.ps style=seismic title=suximage titlecolor=red titlefont=Rom22 units=unit verbose=1 windowtitle=suximage xbox=500 ybox=500 wbox=550 hbox=550 & 
+
+55
+
+sugain norm=1 tmpdir=\/tmp < /home/gllore/Fairbanks/seismics/data/permafrost_tunnel/gpr/110221/standard/1/su/gllore/line01.su | sufilter f=0\,0\,1000\,1500 verbose=0 | sugain mbal=1 tmpdir=\/tmp | suop nw=50 op=mean | sugain agc=1 wagc=0\.002 tmpdir=\/tmp | sumix mix=1\,1\,1\,1\,1\,1\,1 | suximage clip=1 cmap=hsv0 d2=1 f1=0 gridcolor=blue labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 lwidth=16 lx=3 mpicks=\/dev\/tty n1tic=1 n2tic=1 perc=100 plotfile=plotfile\.ps style=seismic title=suximage titlecolor=red titlefont=Rom22 units=unit verbose=1 windowtitle=suximage xbox=500 ybox=500 wbox=550 hbox=550 & 
+
+3
+
+sugain norm=1 tmpdir=\/tmp < /home/gllore/Fairbanks/seismics/data/permafrost_tunnel/gpr/110221/standard/1/su/gllore/line01.su | sufilter f=0\,0\,1000\,1500 verbose=0 | sugain mbal=1 tmpdir=\/tmp | suop nw=5 op=mean | sugain agc=1 wagc=0\.002 tmpdir=\/tmp | sumix mix=1\,1\,1\,1\,1\,1\,1 | suximage clip=1 cmap=hsv0 d2=1 f1=0 gridcolor=blue labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 lwidth=16 lx=3 mpicks=\/dev\/tty n1tic=1 n2tic=1 perc=100 plotfile=plotfile\.ps style=seismic title=suximage titlecolor=red titlefont=Rom22 units=unit verbose=1 windowtitle=suximage xbox=500 ybox=500 wbox=550 hbox=550 & 
+
+30
+
+sugain norm=1 tmpdir=\/tmp < /home/gllore/Fairbanks/seismics/data/permafrost_tunnel/gpr/110221/standard/1/su/gllore/line01.su | sufilter f=0\,0\,1000\,1500 verbose=0 | sugain mbal=1 tmpdir=\/tmp | sugain mbal=1 tmpdir=\/tmp | sumix mix=1\,1\,1\,1\,1\,1\,1 | suximage clip=1 cmap=hsv0 d2=1 f1=0 gridcolor=blue labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 lwidth=16 lx=3 mpicks=\/dev\/tty n1tic=1 n2tic=1 perc=100 plotfile=plotfile\.ps style=seismic title=suximage titlecolor=red titlefont=Rom22 units=unit verbose=1 windowtitle=suximage xbox=500 ybox=500 wbox=550 hbox=550 & 
+
+35
+
+sugain norm=1 tmpdir=\/tmp < /home/gllore/Fairbanks/seismics/data/permafrost_tunnel/gpr/110221/standard/1/su/gllore/line01.su | sufilter f=0\,0\,1000\,1500 verbose=0 | sugain mbal=1 tmpdir=\/tmp | sugain tpow=2 epow=2 etpow=2 tmpdir=\/tmp | sumix mix=1\,1\,1\,1\,1\,1\,1 | suximage clip=1 cmap=hsv0 d2=1 f1=0 gridcolor=blue labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 lwidth=16 lx=3 mpicks=\/dev\/tty n1tic=1 n2tic=1 perc=100 plotfile=plotfile\.ps style=seismic title=suximage titlecolor=red titlefont=Rom22 units=unit verbose=1 windowtitle=suximage xbox=500 ybox=500 wbox=550 hbox=550 & 
+
+46
+
+sugain norm=1 tmpdir=\/tmp < /home/gllore/Fairbanks/seismics/data/permafrost_tunnel/gpr/110221/standard/1/su/gllore/line01.su | sufilter f=0\,0\,1000\,1500 verbose=0 | sugain mbal=1 tmpdir=\/tmp | sugain tpow=2 epow=2 etpow=2 tmpdir=\/tmp | sumix mix=1\,1\,1\,1\,1\,1\,1 | suximage clip=0\.1 cmap=hsv0 d2=1 f1=0 gridcolor=blue labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 lwidth=16 lx=3 mpicks=\/dev\/tty n1tic=1 n2tic=1 perc=100 plotfile=plotfile\.ps style=seismic title=suximage titlecolor=red titlefont=Rom22 units=unit verbose=1 windowtitle=suximage xbox=500 ybox=500 wbox=550 hbox=550 & 
+
+19
+
+sugain norm=1 tmpdir=\/tmp < /home/gllore/Fairbanks/seismics/data/permafrost_tunnel/gpr/110221/standard/1/su/gllore/line01.su | sufilter f=0\,0\,1000\,1500 verbose=0 | sugain mbal=1 tmpdir=\/tmp | sugain tpow=2 tmpdir=\/tmp | sumix mix=1\,1\,1\,1\,1\,1\,1 | suximage clip=0\.1 cmap=hsv0 d2=1 f1=0 gridcolor=blue labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 lwidth=16 lx=3 mpicks=\/dev\/tty n1tic=1 n2tic=1 perc=100 plotfile=plotfile\.ps style=seismic title=suximage titlecolor=red titlefont=Rom22 units=unit verbose=1 windowtitle=suximage xbox=500 ybox=500 wbox=550 hbox=550 & 
+
+8
+
+sugain norm=1 tmpdir=\/tmp < /home/gllore/Fairbanks/seismics/data/permafrost_tunnel/gpr/110221/standard/1/su/gllore/line01.su | sufilter f=0\,0\,1000\,1500 verbose=0 | sugain mbal=1 tmpdir=\/tmp | sugain tpow=2 tmpdir=\/tmp | sumix mix=1\,1\,1\,1\,1\,1\,1 | suximage clip=0\.1 cmap=hsv0 d2=1 f1=0 gridcolor=blue labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 lwidth=16 lx=3 mpicks=\/dev\/tty n1tic=1 n2tic=1 perc=100 plotfile=plotfile\.ps style=seismic title=suximage titlecolor=red titlefont=Rom22 units=unit verbose=1 windowtitle=suximage xbox=500 ybox=500 wbox=550 hbox=550 & 
+
+19
+
+sugain norm=1 tmpdir=\/tmp < /home/gllore/Fairbanks/seismics/data/permafrost_tunnel/gpr/110221/standard/1/su/gllore/line01.su | sufilter f=0\,0\,1000\,1500 verbose=0 | sugain mbal=1 tmpdir=\/tmp | sugain tpow=2 tmpdir=\/tmp | sumix mix=1\,1\,1\,1\,1\,1\,1\,1\,1\,1\,1 | suximage clip=0\.1 cmap=hsv0 d2=1 f1=0 gridcolor=blue labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 lwidth=16 lx=3 mpicks=\/dev\/tty n1tic=1 n2tic=1 perc=100 plotfile=plotfile\.ps style=seismic title=suximage titlecolor=red titlefont=Rom22 units=unit verbose=1 windowtitle=suximage xbox=500 ybox=500 wbox=550 hbox=550 & 
+
+40
+
+sugain norm=1 tmpdir=\/tmp < /home/gllore/Fairbanks/seismics/data/permafrost_tunnel/gpr/110221/standard/1/su/gllore/line01.su | sufilter f=0\,0\,1000\,1500 verbose=0 | sugain mbal=1 tmpdir=\/tmp | sugain tpow=2 tmpdir=\/tmp | sumix mix=1\,1\,1\,1\,1\,1\,1\,1\,1\,1\,1\,1\,1\,1\,1\,1 | suximage clip=0\.1 cmap=hsv0 d2=1 f1=0 gridcolor=blue labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 lwidth=16 lx=3 mpicks=\/dev\/tty n1tic=1 n2tic=1 perc=100 plotfile=plotfile\.ps style=seismic title=suximage titlecolor=red titlefont=Rom22 units=unit verbose=1 windowtitle=suximage xbox=500 ybox=500 wbox=550 hbox=550 & 
+
+53
+
+sugain norm=1 tmpdir=\/tmp < /home/gllore/Fairbanks/seismics/data/permafrost_tunnel/gpr/110221/standard/1/su/gllore/line01.su | sufilter f=0\,0\,1000\,1500 verbose=0 | sugain mbal=1 tmpdir=\/tmp | sugain tpow=2 tmpdir=\/tmp | sumix mix=1\,1\,1\,1\,1\,1\,1\,1\,1\,1\,1\,1\,1\,1\,1\,1\,1\,1\,1\,1\,1\,1\,1\,1 | suximage clip=0\.1 cmap=hsv0 d2=1 f1=0 gridcolor=blue labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 lwidth=16 lx=3 mpicks=\/dev\/tty n1tic=1 n2tic=1 perc=100 plotfile=plotfile\.ps style=seismic title=suximage titlecolor=red titlefont=Rom22 units=unit verbose=1 windowtitle=suximage xbox=500 ybox=500 wbox=550 hbox=550 & 
+
+48
+
+sugain norm=1 tmpdir=\/tmp < /home/gllore/Fairbanks/seismics/data/permafrost_tunnel/gpr/110221/standard/1/su/gllore/line01.su | sufilter f=0\,0\,1000\,1500 verbose=0 | sugain mbal=1 tmpdir=\/tmp | sugain tpow=2 tmpdir=\/tmp | sumix mix=1\,1\,1\,1\,1\,1\,1\,1\,1\,1\,1\,1\,1\,1\,1\,1\,1\,1\,1\,1\,1\,1 | suximage clip=0\.1 cmap=hsv0 d2=1 f1=0 gridcolor=blue labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 lwidth=16 lx=3 mpicks=\/dev\/tty n1tic=1 n2tic=1 perc=100 plotfile=plotfile\.ps style=seismic title=suximage titlecolor=red titlefont=Rom22 units=unit verbose=1 windowtitle=suximage xbox=500 ybox=500 wbox=550 hbox=550 & 
+
+58
+
+sugain norm=1 tmpdir=\/tmp < /home/gllore/Fairbanks/seismics/data/permafrost_tunnel/gpr/110221/standard/1/su/gllore/line01.su | sufilter f=0\,0\,1000\,1500 verbose=0 | sugain mbal=1 tmpdir=\/tmp | sugain tpow=2 tmpdir=\/tmp | sumix mix=1\,1\,1\,1\,1\,1\,1\,1\,1\,1\,1\,1\,1\,1\,1\,1\,1\,1\,1\,1\,1\,1\,1\,1\,1\,1\,1\,1\,1\,1\,1\,1 | suximage clip=0\.1 cmap=hsv0 d2=1 f1=0 gridcolor=blue labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 lwidth=16 lx=3 mpicks=\/dev\/tty n1tic=1 n2tic=1 perc=100 plotfile=plotfile\.ps style=seismic title=suximage titlecolor=red titlefont=Rom22 units=unit verbose=1 windowtitle=suximage xbox=500 ybox=500 wbox=550 hbox=550 & 
+
+11
+
+sugain norm=1 tmpdir=\/tmp < /home/gllore/Fairbanks/seismics/data/permafrost_tunnel/gpr/110221/standard/1/su/gllore/line01.su | sufilter f=0\,0\,1000\,1500 verbose=0 | sugain mbal=1 tmpdir=\/tmp | sugain tpow=2 tmpdir=\/tmp | sumix mix=1\,1\,1\,1\,1\,1\,1\,1\,1\,1\,1\,1\,1\,1\,1\,1\,1\,1\,1\,1\,1\,1\,1\,1\,1\,1\,1\,1\,1\,1\,1\,1\,1\,1\,1\,1 | suximage clip=0\.1 cmap=hsv0 d2=1 f1=0 gridcolor=blue labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 lwidth=16 lx=3 mpicks=\/dev\/tty n1tic=1 n2tic=1 perc=100 plotfile=plotfile\.ps style=seismic title=suximage titlecolor=red titlefont=Rom22 units=unit verbose=1 windowtitle=suximage xbox=500 ybox=500 wbox=550 hbox=550 & 
+
+6
+
+sugain norm=1 tmpdir=\/tmp < /home/gllore/Fairbanks/seismics/data/permafrost_tunnel/gpr/110221/standard/1/su/gllore/line01.su | sufilter f=0\,0\,1000\,1500 verbose=0 | sugain mbal=1 tmpdir=\/tmp | sugain tpow=2 tmpdir=\/tmp | sumix mix=1\,\.5\,1 | suximage clip=0\.1 cmap=hsv0 d2=1 f1=0 gridcolor=blue labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 lwidth=16 lx=3 mpicks=\/dev\/tty n1tic=1 n2tic=1 perc=100 plotfile=plotfile\.ps style=seismic title=suximage titlecolor=red titlefont=Rom22 units=unit verbose=1 windowtitle=suximage xbox=500 ybox=500 wbox=550 hbox=550 & 
+
+20
+
+sugain norm=1 tmpdir=\/tmp < /home/gllore/Fairbanks/seismics/data/permafrost_tunnel/gpr/110221/standard/1/su/gllore/line01.su | sufilter f=0\,0\,1000\,1500 verbose=0 | sugain mbal=1 tmpdir=\/tmp | sugain tpow=2 tmpdir=\/tmp | sumix mix=1\,1\,1 | suximage clip=0\.1 cmap=hsv0 d2=1 f1=0 gridcolor=blue labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 lwidth=16 lx=3 mpicks=\/dev\/tty n1tic=1 n2tic=1 perc=100 plotfile=plotfile\.ps style=seismic title=suximage titlecolor=red titlefont=Rom22 units=unit verbose=1 windowtitle=suximage xbox=500 ybox=500 wbox=550 hbox=550 & 
+
+29
+
+sugain norm=1 tmpdir=\/tmp < /home/gllore/Fairbanks/seismics/data/permafrost_tunnel/gpr/110221/standard/1/su/gllore/line01.su | sufilter f=0\,0\,1000\,1500 verbose=0 | sugain mbal=1 tmpdir=\/tmp | sugain tpow=2 tmpdir=\/tmp | sumix mix=1\,\.5\,1 | suximage clip=0\.1 cmap=hsv0 d2=1 f1=0 gridcolor=blue labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 lwidth=16 lx=3 mpicks=\/dev\/tty n1tic=1 n2tic=1 perc=100 plotfile=plotfile\.ps style=seismic title=suximage titlecolor=red titlefont=Rom22 units=unit verbose=1 windowtitle=suximage xbox=500 ybox=500 wbox=550 hbox=550 & 
+
+3
+
+sufilter f=0\,0\,1000\,1500 verbose=0 < /home/gllore/Fairbanks/seismics/data/permafrost_tunnel/gpr/110221/standard/1/su/gllore/line01.su | sugain mbal=1 tmpdir=\/tmp | sugain tpow=2 tmpdir=\/tmp | sumix mix=1\,\.5\,1 | suximage clip=0\.1 cmap=hsv0 d2=1 f1=0 gridcolor=blue labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 lwidth=16 lx=3 mpicks=\/dev\/tty n1tic=1 n2tic=1 perc=100 plotfile=plotfile\.ps style=seismic title=suximage titlecolor=red titlefont=Rom22 units=unit verbose=1 windowtitle=suximage xbox=500 ybox=500 wbox=550 hbox=550 & 
+
+25
+
+sufilter f=0\,0\,1000\,1500 verbose=0 < /home/gllore/Fairbanks/seismics/data/permafrost_tunnel/gpr/110221/standard/1/su/gllore/line01.su | sugain mbal=1 tmpdir=\/tmp | sugain tpow=2 scale=10 tmpdir=\/tmp | sumix mix=1\,\.5\,1 | suximage clip=0\.1 cmap=hsv0 d2=1 f1=0 gridcolor=blue labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 lwidth=16 lx=3 mpicks=\/dev\/tty n1tic=1 n2tic=1 perc=100 plotfile=plotfile\.ps style=seismic title=suximage titlecolor=red titlefont=Rom22 units=unit verbose=1 windowtitle=suximage xbox=500 ybox=500 wbox=550 hbox=550 & 
+
+54
+
+sufilter f=0\,0\,1000\,1500 verbose=0 < /home/gllore/Fairbanks/seismics/data/permafrost_tunnel/gpr/110221/standard/1/su/gllore/line01.su | sugain mbal=1 tmpdir=\/tmp | sugain tpow=2 scale=1 tmpdir=\/tmp | sumix mix=1\,\.5\,1 | suximage clip=0\.1 cmap=hsv0 d2=1 f1=0 gridcolor=blue labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 lwidth=16 lx=3 mpicks=\/dev\/tty n1tic=1 n2tic=1 perc=100 plotfile=plotfile\.ps style=seismic title=suximage titlecolor=red titlefont=Rom22 units=unit verbose=1 windowtitle=suximage xbox=500 ybox=500 wbox=550 hbox=550 & 
+
+5
+
+sufilter f=0\,0\,1000\,1500 verbose=0 < /home/gllore/Fairbanks/seismics/data/permafrost_tunnel/gpr/110221/standard/1/su/gllore/line01.su | sugain mbal=1 tmpdir=\/tmp | sugain tpow=2 bias=10 tmpdir=\/tmp | sumix mix=1\,\.5\,1 | suximage clip=0\.1 cmap=hsv0 d2=1 f1=0 gridcolor=blue labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 lwidth=16 lx=3 mpicks=\/dev\/tty n1tic=1 n2tic=1 perc=100 plotfile=plotfile\.ps style=seismic title=suximage titlecolor=red titlefont=Rom22 units=unit verbose=1 windowtitle=suximage xbox=500 ybox=500 wbox=550 hbox=550 & 
+
+43
+
+sufilter f=0\,0\,1000\,1500 verbose=0 < /home/gllore/Fairbanks/seismics/data/permafrost_tunnel/gpr/110221/standard/1/su/gllore/line01.su | sugain mbal=1 tmpdir=\/tmp | sugain agc=1 wagc=0\.02 tmpdir=\/tmp | sumix mix=1\,\.5\,1 | suximage clip=0\.1 cmap=hsv0 d2=1 f1=0 gridcolor=blue labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 lwidth=16 lx=3 mpicks=\/dev\/tty n1tic=1 n2tic=1 perc=100 plotfile=plotfile\.ps style=seismic title=suximage titlecolor=red titlefont=Rom22 units=unit verbose=1 windowtitle=suximage xbox=500 ybox=500 wbox=550 hbox=550 & 
+
+13
+
+sufilter f=0\,0\,1000\,1500 verbose=0 < /home/gllore/Fairbanks/seismics/data/permafrost_tunnel/gpr/110221/standard/1/su/gllore/line01.su | sugain mbal=1 tmpdir=\/tmp | sugain agc=1 wagc=0\.02 tmpdir=\/tmp | sumix mix=1\,\.5\,1 | suximage clip=10 cmap=hsv0 d2=1 f1=0 gridcolor=blue labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 lwidth=16 lx=3 mpicks=\/dev\/tty n1tic=1 n2tic=1 perc=100 plotfile=plotfile\.ps style=seismic title=suximage titlecolor=red titlefont=Rom22 units=unit verbose=1 windowtitle=suximage xbox=500 ybox=500 wbox=550 hbox=550 & 
+
+19
+
+sufilter f=0\,0\,1000\,1500 verbose=0 < /home/gllore/Fairbanks/seismics/data/permafrost_tunnel/gpr/110221/standard/1/su/gllore/line01.su | sugain mbal=1 tmpdir=\/tmp | sugain agc=1 wagc=0\.02 tmpdir=\/tmp | sumix mix=1\,\.5\,1 | suximage clip=5 cmap=hsv0 d2=1 f1=0 gridcolor=blue labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 lwidth=16 lx=3 mpicks=\/dev\/tty n1tic=1 n2tic=1 perc=100 plotfile=plotfile\.ps style=seismic title=suximage titlecolor=red titlefont=Rom22 units=unit verbose=1 windowtitle=suximage xbox=500 ybox=500 wbox=550 hbox=550 & 
+
+28
+
+sufilter f=0\,0\,1000\,1500 verbose=0 < /home/gllore/Fairbanks/seismics/data/permafrost_tunnel/gpr/110221/standard/1/su/gllore/line01.su | sugain mbal=1 tmpdir=\/tmp | sugain agc=1 wagc=0\.02 tmpdir=\/tmp | sumix mix=1\,\.5\,1 | suximage clip=4 cmap=hsv0 d2=1 f1=0 gridcolor=blue labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 lwidth=16 lx=3 mpicks=\/dev\/tty n1tic=1 n2tic=1 perc=100 plotfile=plotfile\.ps style=seismic title=suximage titlecolor=red titlefont=Rom22 units=unit verbose=1 windowtitle=suximage xbox=500 ybox=500 wbox=550 hbox=550 & 
+
+44
+
+sufilter f=0\,0\,1500\,2000 verbose=0 < /home/gllore/Fairbanks/seismics/data/permafrost_tunnel/gpr/110221/standard/1/su/gllore/line01.su | sugain mbal=1 tmpdir=\/tmp | sugain agc=1 wagc=0\.02 tmpdir=\/tmp | sumix mix=1\,\.5\,1 | suximage clip=4 cmap=hsv0 d2=1 f1=0 gridcolor=blue labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 lwidth=16 lx=3 mpicks=\/dev\/tty n1tic=1 n2tic=1 perc=100 plotfile=plotfile\.ps style=seismic title=suximage titlecolor=red titlefont=Rom22 units=unit verbose=1 windowtitle=suximage xbox=500 ybox=500 wbox=550 hbox=550 & 
+
+5
+
+sufilter f=0\,0\,1500\,2000 verbose=0 < /home/gllore/Fairbanks/seismics/data/permafrost_tunnel/gpr/110221/standard/1/su/gllore/line01.su | sugain mbal=1 tmpdir=\/tmp | sugain agc=1 wagc=0\.005 tmpdir=\/tmp | sumix mix=1\,\.5\,1 | suximage clip=4 cmap=hsv0 d2=1 f1=0 gridcolor=blue labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 lwidth=16 lx=3 mpicks=\/dev\/tty n1tic=1 n2tic=1 perc=100 plotfile=plotfile\.ps style=seismic title=suximage titlecolor=red titlefont=Rom22 units=unit verbose=1 windowtitle=suximage xbox=500 ybox=500 wbox=550 hbox=550 & 
+
+14
+
+sufilter f=0\,0\,1500\,2000 verbose=0 < /home/gllore/Fairbanks/seismics/data/permafrost_tunnel/gpr/110221/standard/1/su/gllore/line01.su | sugain mbal=1 tmpdir=\/tmp | sugain agc=1 wagc=0\.001 tmpdir=\/tmp | sumix mix=1\,\.5\,1 | suximage clip=4 cmap=hsv0 d2=1 f1=0 gridcolor=blue labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 lwidth=16 lx=3 mpicks=\/dev\/tty n1tic=1 n2tic=1 perc=100 plotfile=plotfile\.ps style=seismic title=suximage titlecolor=red titlefont=Rom22 units=unit verbose=1 windowtitle=suximage xbox=500 ybox=500 wbox=550 hbox=550 & 
+
+33
+
+sufilter f=0\,0\,1500\,2000 verbose=0 < /home/gllore/Fairbanks/seismics/data/permafrost_tunnel/gpr/110221/standard/1/su/gllore/line01.su | sugain mbal=1 tmpdir=\/tmp | sugain agc=1 wagc=0\.003 tmpdir=\/tmp | sumix mix=1\,\.5\,1 | suximage clip=4 cmap=hsv0 d2=1 f1=0 gridcolor=blue labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 lwidth=16 lx=3 mpicks=\/dev\/tty n1tic=1 n2tic=1 perc=100 plotfile=plotfile\.ps style=seismic title=suximage titlecolor=red titlefont=Rom22 units=unit verbose=1 windowtitle=suximage xbox=500 ybox=500 wbox=550 hbox=550 & 
+
+42
+
+sufilter f=0\,0\,1500\,2000 verbose=0 < /home/gllore/Fairbanks/seismics/data/permafrost_tunnel/gpr/110221/standard/1/su/gllore/line01.su | sugain mbal=1 tmpdir=\/tmp | sugain agc=1 wagc=0\.004 tmpdir=\/tmp | sumix mix=1\,\.5\,1 | suximage clip=4 cmap=hsv0 d2=1 f1=0 gridcolor=blue labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 lwidth=16 lx=3 mpicks=\/dev\/tty n1tic=1 n2tic=1 perc=100 plotfile=plotfile\.ps style=seismic title=suximage titlecolor=red titlefont=Rom22 units=unit verbose=1 windowtitle=suximage xbox=500 ybox=500 wbox=550 hbox=550 & 
+
+50
+
+sufilter f=0\,0\,1500\,2000 verbose=0 < /home/gllore/Fairbanks/seismics/data/permafrost_tunnel/gpr/110221/standard/1/su/gllore/line01.su | sugain mbal=1 tmpdir=\/tmp | sugain agc=1 wagc=0\.003 tmpdir=\/tmp | sumix mix=1\,\.5\,1 | suximage clip=4 cmap=hsv0 d2=1 f1=0 gridcolor=blue labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 lwidth=16 lx=3 mpicks=\/dev\/tty n1tic=1 n2tic=1 perc=100 plotfile=plotfile\.ps style=seismic title=suximage titlecolor=red titlefont=Rom22 units=unit verbose=1 windowtitle=suximage xbox=500 ybox=500 wbox=550 hbox=550 & 
+
+19
+
+sufilter f=0\,0\,1500\,2000 verbose=0 < /home/gllore/Fairbanks/seismics/data/permafrost_tunnel/gpr/110221/standard/1/su/gllore/line01.su | sugain mbal=1 tmpdir=\/tmp | sugain agc=1 wagc=0\.003 tmpdir=\/tmp | sumix mix=1\,\.5\,1 | sugain tpow=2 tmpdir=\/tmp | suximage clip=4 cmap=hsv0 d2=1 f1=0 gridcolor=blue labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 lwidth=16 lx=3 mpicks=\/dev\/tty n1tic=1 n2tic=1 perc=100 plotfile=plotfile\.ps style=seismic title=suximage titlecolor=red titlefont=Rom22 units=unit verbose=1 windowtitle=suximage xbox=500 ybox=500 wbox=550 hbox=550 & 
+
+30
+
+sufilter f=0\,0\,1500\,2000 verbose=0 < /home/gllore/Fairbanks/seismics/data/permafrost_tunnel/gpr/110221/standard/1/su/gllore/line01.su | sugain mbal=1 tmpdir=\/tmp | sugain agc=1 wagc=0\.003 tmpdir=\/tmp | sumix mix=1\,\.5\,1 | sugain tpow=2 tmpdir=\/tmp | suximage clip=0\.1 cmap=hsv0 d2=1 f1=0 gridcolor=blue labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 lwidth=16 lx=3 mpicks=\/dev\/tty n1tic=1 n2tic=1 perc=100 plotfile=plotfile\.ps style=seismic title=suximage titlecolor=red titlefont=Rom22 units=unit verbose=1 windowtitle=suximage xbox=500 ybox=500 wbox=550 hbox=550 & 
+
+36
+
+sufilter f=0\,0\,1500\,2000 verbose=0 < /home/gllore/Fairbanks/seismics/data/permafrost_tunnel/gpr/110221/standard/1/su/gllore/line01.su | sugain mbal=1 tmpdir=\/tmp | sugain agc=1 wagc=0\.003 tmpdir=\/tmp | sumix mix=1\,\.5\,1 | sugain tpow=2 tmpdir=\/tmp | suximage clip=10 cmap=hsv0 d2=1 f1=0 gridcolor=blue labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 lwidth=16 lx=3 mpicks=\/dev\/tty n1tic=1 n2tic=1 perc=100 plotfile=plotfile\.ps style=seismic title=suximage titlecolor=red titlefont=Rom22 units=unit verbose=1 windowtitle=suximage xbox=500 ybox=500 wbox=550 hbox=550 & 
+
+42
+
+sufilter f=0\,0\,1500\,2000 verbose=0 < /home/gllore/Fairbanks/seismics/data/permafrost_tunnel/gpr/110221/standard/1/su/gllore/line01.su | sugain mbal=1 tmpdir=\/tmp | sugain agc=1 wagc=0\.003 tmpdir=\/tmp | sumix mix=1\,\.5\,1 | sugain tpow=2 tmpdir=\/tmp | suximage clip=100 cmap=hsv0 d2=1 f1=0 gridcolor=blue labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 lwidth=16 lx=3 mpicks=\/dev\/tty n1tic=1 n2tic=1 perc=100 plotfile=plotfile\.ps style=seismic title=suximage titlecolor=red titlefont=Rom22 units=unit verbose=1 windowtitle=suximage xbox=500 ybox=500 wbox=550 hbox=550 & 
+
+52
+
+sufilter f=0\,0\,1500\,2000 verbose=0 < /home/gllore/Fairbanks/seismics/data/permafrost_tunnel/gpr/110221/standard/1/su/gllore/line01.su | sugain mbal=1 tmpdir=\/tmp | sugain agc=1 wagc=0\.003 tmpdir=\/tmp | sumix mix=1\,\.5\,1 | sugain tpow=1 tmpdir=\/tmp | suximage clip=100 cmap=hsv0 d2=1 f1=0 gridcolor=blue labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 lwidth=16 lx=3 mpicks=\/dev\/tty n1tic=1 n2tic=1 perc=100 plotfile=plotfile\.ps style=seismic title=suximage titlecolor=red titlefont=Rom22 units=unit verbose=1 windowtitle=suximage xbox=500 ybox=500 wbox=550 hbox=550 & 
+
+57
+
+sufilter f=0\,0\,1500\,2000 verbose=0 < /home/gllore/Fairbanks/seismics/data/permafrost_tunnel/gpr/110221/standard/1/su/gllore/line01.su | sugain mbal=1 tmpdir=\/tmp | sugain agc=1 wagc=0\.003 tmpdir=\/tmp | sumix mix=1\,\.5\,1 | sugain tpow=0\.1 tmpdir=\/tmp | suximage clip=100 cmap=hsv0 d2=1 f1=0 gridcolor=blue labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 lwidth=16 lx=3 mpicks=\/dev\/tty n1tic=1 n2tic=1 perc=100 plotfile=plotfile\.ps style=seismic title=suximage titlecolor=red titlefont=Rom22 units=unit verbose=1 windowtitle=suximage xbox=500 ybox=500 wbox=550 hbox=550 & 
+
+4
+
+sufilter f=0\,0\,1500\,2000 verbose=0 < /home/gllore/Fairbanks/seismics/data/permafrost_tunnel/gpr/110221/standard/1/su/gllore/line01.su | sugain mbal=1 tmpdir=\/tmp | sugain agc=1 wagc=0\.003 tmpdir=\/tmp | sumix mix=1\,\.5\,1 | sugain tpow=0\.01 tmpdir=\/tmp | suximage clip=100 cmap=hsv0 d2=1 f1=0 gridcolor=blue labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 lwidth=16 lx=3 mpicks=\/dev\/tty n1tic=1 n2tic=1 perc=100 plotfile=plotfile\.ps style=seismic title=suximage titlecolor=red titlefont=Rom22 units=unit verbose=1 windowtitle=suximage xbox=500 ybox=500 wbox=550 hbox=550 & 
+
+15
+
+sufilter f=0\,0\,1500\,2000 verbose=0 < /home/gllore/Fairbanks/seismics/data/permafrost_tunnel/gpr/110221/standard/1/su/gllore/line01.su | sugain mbal=1 tmpdir=\/tmp | sugain agc=1 wagc=0\.003 tmpdir=\/tmp | sumix mix=1\,\.5\,1 | sugain epow=0\.1 tmpdir=\/tmp | suximage clip=100 cmap=hsv0 d2=1 f1=0 gridcolor=blue labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 lwidth=16 lx=3 mpicks=\/dev\/tty n1tic=1 n2tic=1 perc=100 plotfile=plotfile\.ps style=seismic title=suximage titlecolor=red titlefont=Rom22 units=unit verbose=1 windowtitle=suximage xbox=500 ybox=500 wbox=550 hbox=550 & 
+
+22
+
+sufilter f=0\,0\,1500\,2000 verbose=0 < /home/gllore/Fairbanks/seismics/data/permafrost_tunnel/gpr/110221/standard/1/su/gllore/line01.su | sugain mbal=1 tmpdir=\/tmp | sugain agc=1 wagc=0\.003 tmpdir=\/tmp | sumix mix=1\,\.5\,1 | sugain epow=1 tmpdir=\/tmp | suximage clip=100 cmap=hsv0 d2=1 f1=0 gridcolor=blue labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 lwidth=16 lx=3 mpicks=\/dev\/tty n1tic=1 n2tic=1 perc=100 plotfile=plotfile\.ps style=seismic title=suximage titlecolor=red titlefont=Rom22 units=unit verbose=1 windowtitle=suximage xbox=500 ybox=500 wbox=550 hbox=550 & 
+
+29
+
+sufilter f=0\,0\,1500\,2000 verbose=0 < /home/gllore/Fairbanks/seismics/data/permafrost_tunnel/gpr/110221/standard/1/su/gllore/line01.su | sugain mbal=1 tmpdir=\/tmp | sugain agc=1 wagc=0\.003 tmpdir=\/tmp | sumix mix=1\,\.5\,1 | sugain epow=1 tmpdir=\/tmp | suximage clip=1 cmap=hsv0 d2=1 f1=0 gridcolor=blue labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 lwidth=16 lx=3 mpicks=\/dev\/tty n1tic=1 n2tic=1 perc=100 plotfile=plotfile\.ps style=seismic title=suximage titlecolor=red titlefont=Rom22 units=unit verbose=1 windowtitle=suximage xbox=500 ybox=500 wbox=550 hbox=550 & 
+
+55
+
+sufilter f=0\,0\,1500\,2000 verbose=0 < /home/gllore/Fairbanks/seismics/data/permafrost_tunnel/gpr/110221/standard/1/su/gllore/line01.su | sugain mbal=1 tmpdir=\/tmp | sugain agc=1 wagc=0\.003 tmpdir=\/tmp | sumix mix=1\,\.5\,1 | sugain epow=1 etpow=1 tmpdir=\/tmp | suximage clip=1 cmap=hsv0 d2=1 f1=0 gridcolor=blue labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 lwidth=16 lx=3 mpicks=\/dev\/tty n1tic=1 n2tic=1 perc=100 plotfile=plotfile\.ps style=seismic title=suximage titlecolor=red titlefont=Rom22 units=unit verbose=1 windowtitle=suximage xbox=500 ybox=500 wbox=550 hbox=550 & 
+
+8
+
+sufilter f=0\,0\,1500\,2000 verbose=0 < /home/gllore/Fairbanks/seismics/data/permafrost_tunnel/gpr/110221/standard/1/su/gllore/line01.su | sugain mbal=1 tmpdir=\/tmp | sugain agc=1 wagc=0\.003 tmpdir=\/tmp | sumix mix=1\,\.5\,1 | sugain tpow=1 epow=1 etpow=1 tmpdir=\/tmp | suximage clip=1 cmap=hsv0 d2=1 f1=0 gridcolor=blue labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 lwidth=16 lx=3 mpicks=\/dev\/tty n1tic=1 n2tic=1 perc=100 plotfile=plotfile\.ps style=seismic title=suximage titlecolor=red titlefont=Rom22 units=unit verbose=1 windowtitle=suximage xbox=500 ybox=500 wbox=550 hbox=550 & 
+
+17
+
+sufilter f=0\,0\,1500\,2000 verbose=0 < /home/gllore/Fairbanks/seismics/data/permafrost_tunnel/gpr/110221/standard/1/su/gllore/line01.su | sugain mbal=1 tmpdir=\/tmp | sugain agc=1 wagc=0\.003 tmpdir=\/tmp | sumix mix=1\,\.5\,1 | sugain tpow=1 epow=1 etpow=1 tmpdir=\/tmp | suximage clip=0\.01 cmap=hsv0 d2=1 f1=0 gridcolor=blue labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 lwidth=16 lx=3 mpicks=\/dev\/tty n1tic=1 n2tic=1 perc=100 plotfile=plotfile\.ps style=seismic title=suximage titlecolor=red titlefont=Rom22 units=unit verbose=1 windowtitle=suximage xbox=500 ybox=500 wbox=550 hbox=550 & 
+
+35
+
+sufilter f=0\,0\,1500\,2000 verbose=0 < /home/gllore/Fairbanks/seismics/data/permafrost_tunnel/gpr/110221/standard/1/su/gllore/line01.su | sugain mbal=1 tmpdir=\/tmp | sugain agc=1 wagc=0\.003 tmpdir=\/tmp | sumix mix=1\,\.5\,1 | sugain tpow=1 tmpdir=\/tmp | suximage clip=0\.01 cmap=hsv0 d2=1 f1=0 gridcolor=blue labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 lwidth=16 lx=3 mpicks=\/dev\/tty n1tic=1 n2tic=1 perc=100 plotfile=plotfile\.ps style=seismic title=suximage titlecolor=red titlefont=Rom22 units=unit verbose=1 windowtitle=suximage xbox=500 ybox=500 wbox=550 hbox=550 & 
+
+45
+
+sufilter f=0\,0\,1500\,2000 verbose=0 < /home/gllore/Fairbanks/seismics/data/permafrost_tunnel/gpr/110221/standard/1/su/gllore/line01.su | sugain mbal=1 tmpdir=\/tmp | sugain agc=1 wagc=0\.003 tmpdir=\/tmp | sumix mix=1\,\.5\,1 | sugain tpow=0\.1 tmpdir=\/tmp | suximage clip=0\.01 cmap=hsv0 d2=1 f1=0 gridcolor=blue labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 lwidth=16 lx=3 mpicks=\/dev\/tty n1tic=1 n2tic=1 perc=100 plotfile=plotfile\.ps style=seismic title=suximage titlecolor=red titlefont=Rom22 units=unit verbose=1 windowtitle=suximage xbox=500 ybox=500 wbox=550 hbox=550 & 
+
+59
+
+sufilter f=0\,0\,1500\,2000 verbose=0 < /home/gllore/Fairbanks/seismics/data/permafrost_tunnel/gpr/110221/standard/1/su/gllore/line01.su | sugain mbal=1 tmpdir=\/tmp | sugain agc=1 wagc=0\.003 tmpdir=\/tmp | sumix mix=1\,\.5\,1 | sugain tpow=\-0\.1 tmpdir=\/tmp | suximage clip=0\.01 cmap=hsv0 d2=1 f1=0 gridcolor=blue labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 lwidth=16 lx=3 mpicks=\/dev\/tty n1tic=1 n2tic=1 perc=100 plotfile=plotfile\.ps style=seismic title=suximage titlecolor=red titlefont=Rom22 units=unit verbose=1 windowtitle=suximage xbox=500 ybox=500 wbox=550 hbox=550 & 
+
+6
+
+sufilter f=0\,0\,1500\,2000 verbose=0 < /home/gllore/Fairbanks/seismics/data/permafrost_tunnel/gpr/110221/standard/1/su/gllore/line01.su | sugain mbal=1 tmpdir=\/tmp | sugain agc=1 wagc=0\.003 tmpdir=\/tmp | sumix mix=1\,\.5\,1 | sugain tpow=\-1 tmpdir=\/tmp | suximage clip=0\.01 cmap=hsv0 d2=1 f1=0 gridcolor=blue labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 lwidth=16 lx=3 mpicks=\/dev\/tty n1tic=1 n2tic=1 perc=100 plotfile=plotfile\.ps style=seismic title=suximage titlecolor=red titlefont=Rom22 units=unit verbose=1 windowtitle=suximage xbox=500 ybox=500 wbox=550 hbox=550 & 
+
+16
+
+sufilter f=0\,0\,1500\,2000 verbose=0 < /home/gllore/Fairbanks/seismics/data/permafrost_tunnel/gpr/110221/standard/1/su/gllore/line01.su | sugain mbal=1 tmpdir=\/tmp | sugain agc=1 wagc=0\.003 tmpdir=\/tmp | sumix mix=1\,\.5\,1 | sugain tpow=\-1 tmpdir=\/tmp | suximage clip=1 cmap=hsv0 d2=1 f1=0 gridcolor=blue labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 lwidth=16 lx=3 mpicks=\/dev\/tty n1tic=1 n2tic=1 perc=100 plotfile=plotfile\.ps style=seismic title=suximage titlecolor=red titlefont=Rom22 units=unit verbose=1 windowtitle=suximage xbox=500 ybox=500 wbox=550 hbox=550 & 
+
+22
+
+sufilter f=0\,0\,1500\,2000 verbose=0 < /home/gllore/Fairbanks/seismics/data/permafrost_tunnel/gpr/110221/standard/1/su/gllore/line01.su | sugain mbal=1 tmpdir=\/tmp | sugain agc=1 wagc=0\.003 tmpdir=\/tmp | sumix mix=1\,\.5\,1 | sugain tpow=\-1 tmpdir=\/tmp | suximage clip=100 cmap=hsv0 d2=1 f1=0 gridcolor=blue labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 lwidth=16 lx=3 mpicks=\/dev\/tty n1tic=1 n2tic=1 perc=100 plotfile=plotfile\.ps style=seismic title=suximage titlecolor=red titlefont=Rom22 units=unit verbose=1 windowtitle=suximage xbox=500 ybox=500 wbox=550 hbox=550 & 
+
+4
+
+sufilter f=100\,200\,1500\,2000 verbose=0 < /home/gllore/Fairbanks/seismics/data/permafrost_tunnel/gpr/110221/standard/1/su/gllore/line01.su | sugain mbal=1 tmpdir=\/tmp | sugain agc=1 wagc=0\.003 tmpdir=\/tmp | sumix mix=1\,\.5\,1 | sugain tpow=\-1 tmpdir=\/tmp | suximage clip=100 cmap=hsv0 d2=1 f1=0 gridcolor=blue labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 lwidth=16 lx=3 mpicks=\/dev\/tty n1tic=1 n2tic=1 perc=100 plotfile=plotfile\.ps style=seismic title=suximage titlecolor=red titlefont=Rom22 units=unit verbose=1 windowtitle=suximage xbox=500 ybox=500 wbox=550 hbox=550 & 
+
+45
+
+sugprfb fbt=60 nx=51 < /home/gllore/Fairbanks/seismics/data/permafrost_tunnel/gpr/110221/standard/1/su/gllore/line01.su | sufilter f=100\,200\,1500\,2000 verbose=0 | sugain mbal=1 tmpdir=\/tmp | sugain agc=1 wagc=0\.003 tmpdir=\/tmp | sumix mix=1\,\.5\,1 | sugain tpow=\-1 tmpdir=\/tmp | suximage clip=100 cmap=hsv0 d2=1 f1=0 gridcolor=blue labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 lwidth=16 lx=3 mpicks=\/dev\/tty n1tic=1 n2tic=1 perc=100 plotfile=plotfile\.ps style=seismic title=suximage titlecolor=red titlefont=Rom22 units=unit verbose=1 windowtitle=suximage xbox=500 ybox=500 wbox=550 hbox=550 & 
+
+7
+
+sugprfb fbt=60 nx=25 < /home/gllore/Fairbanks/seismics/data/permafrost_tunnel/gpr/110221/standard/1/su/gllore/line01.su | sufilter f=100\,200\,1500\,2000 verbose=0 | sugain mbal=1 tmpdir=\/tmp | sugain agc=1 wagc=0\.003 tmpdir=\/tmp | sumix mix=1\,\.5\,1 | sugain tpow=\-1 tmpdir=\/tmp | suximage clip=100 cmap=hsv0 d2=1 f1=0 gridcolor=blue labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 lwidth=16 lx=3 mpicks=\/dev\/tty n1tic=1 n2tic=1 perc=100 plotfile=plotfile\.ps style=seismic title=suximage titlecolor=red titlefont=Rom22 units=unit verbose=1 windowtitle=suximage xbox=500 ybox=500 wbox=550 hbox=550 & 
+
+15
+
+sugprfb fbt=15 nx=25 < /home/gllore/Fairbanks/seismics/data/permafrost_tunnel/gpr/110221/standard/1/su/gllore/line01.su | sufilter f=100\,200\,1500\,2000 verbose=0 | sugain mbal=1 tmpdir=\/tmp | sugain agc=1 wagc=0\.003 tmpdir=\/tmp | sumix mix=1\,\.5\,1 | sugain tpow=\-1 tmpdir=\/tmp | suximage clip=100 cmap=hsv0 d2=1 f1=0 gridcolor=blue labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 lwidth=16 lx=3 mpicks=\/dev\/tty n1tic=1 n2tic=1 perc=100 plotfile=plotfile\.ps style=seismic title=suximage titlecolor=red titlefont=Rom22 units=unit verbose=1 windowtitle=suximage xbox=500 ybox=500 wbox=550 hbox=550 & 
+
+39
+
+sugprfb fbt=15 nx=25 < /home/gllore/Fairbanks/seismics/data/permafrost_tunnel/gpr/110221/standard/1/su/gllore/line01.su | sufilter f=300\,500\,1500\,2000 verbose=0 | sugain mbal=1 tmpdir=\/tmp | sugain agc=1 wagc=0\.003 tmpdir=\/tmp | sumix mix=1\,\.5\,1 | sugain tpow=\-1 tmpdir=\/tmp | suximage clip=100 cmap=hsv0 d2=1 f1=0 gridcolor=blue labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 lwidth=16 lx=3 mpicks=\/dev\/tty n1tic=1 n2tic=1 perc=100 plotfile=plotfile\.ps style=seismic title=suximage titlecolor=red titlefont=Rom22 units=unit verbose=1 windowtitle=suximage xbox=500 ybox=500 wbox=550 hbox=550 & 
+
+3
+
+sugprfb fbt=30 nx=25 < /home/gllore/Fairbanks/seismics/data/permafrost_tunnel/gpr/110221/standard/1/su/gllore/line01.su | sufilter f=300\,500\,1500\,2000 verbose=0 | sugain mbal=1 tmpdir=\/tmp | sugain agc=1 wagc=0\.003 tmpdir=\/tmp | sumix mix=1\,\.5\,1 | sugain tpow=\-1 tmpdir=\/tmp | suximage clip=100 cmap=hsv0 d2=1 f1=0 gridcolor=blue labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 lwidth=16 lx=3 mpicks=\/dev\/tty n1tic=1 n2tic=1 perc=100 plotfile=plotfile\.ps style=seismic title=suximage titlecolor=red titlefont=Rom22 units=unit verbose=1 windowtitle=suximage xbox=500 ybox=500 wbox=550 hbox=550 & 
+
+40
+
+sugprfb fbt=30 nx=25 < /home/gllore/Fairbanks/seismics/data/permafrost_tunnel/gpr/110221/standard/1/su/gllore/line01.su | sufilter f=300\,500\,1500\,2000 verbose=0 | sugain mbal=1 tmpdir=\/tmp | sugain agc=1 wagc=0\.003 tmpdir=\/tmp | sumix mix=1\,\.5\,1 | sugain tpow=\-1 tmpdir=\/tmp | suximage clip=200 cmap=hsv0 d2=1 f1=0 gridcolor=blue labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 lwidth=16 lx=3 mpicks=\/dev\/tty n1tic=1 n2tic=1 perc=100 plotfile=plotfile\.ps style=seismic title=suximage titlecolor=red titlefont=Rom22 units=unit verbose=1 windowtitle=suximage xbox=500 ybox=500 wbox=550 hbox=550 & 
+
+42
+
+sugprfb fbt=30 nx=25 < /home/gllore/Fairbanks/seismics/data/permafrost_tunnel/gpr/110221/standard/1/su/gllore/line01.su | sufilter f=300\,500\,1500\,2000 verbose=0 | sugain mbal=1 tmpdir=\/tmp | sugain tpow=1 tmpdir=\/tmp | sumix mix=1\,\.5\,1 | sugain tpow=\-1 tmpdir=\/tmp | suximage clip=200 cmap=hsv0 d2=1 f1=0 gridcolor=blue labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 lwidth=16 lx=3 mpicks=\/dev\/tty n1tic=1 n2tic=1 perc=100 plotfile=plotfile\.ps style=seismic title=suximage titlecolor=red titlefont=Rom22 units=unit verbose=1 windowtitle=suximage xbox=500 ybox=500 wbox=550 hbox=550 & 
+
+51
+
+sugprfb fbt=30 nx=25 < /home/gllore/Fairbanks/seismics/data/permafrost_tunnel/gpr/110221/standard/1/su/gllore/line01.su | sufilter f=300\,500\,1500\,2000 verbose=0 | sugain mbal=1 tmpdir=\/tmp | sugain tpow=1\.2 tmpdir=\/tmp | sumix mix=1\,\.5\,1 | sugain tpow=\-1 tmpdir=\/tmp | suximage clip=200 cmap=hsv0 d2=1 f1=0 gridcolor=blue labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 lwidth=16 lx=3 mpicks=\/dev\/tty n1tic=1 n2tic=1 perc=100 plotfile=plotfile\.ps style=seismic title=suximage titlecolor=red titlefont=Rom22 units=unit verbose=1 windowtitle=suximage xbox=500 ybox=500 wbox=550 hbox=550 & 
+
+sustrip ftn=1 head=\/dev\/null outpar=\/dev\/null < /home/gllore/Fairbanks/seismics/data/permafrost_tunnel/gpr/110221/standard/cmp/su/gllore/stack_line6_19_geom1_immodpg.su > /home/gllore/Fairbanks/seismics/data/permafrost_tunnel/gpr/110221/standard/cmp/bin/gllore/stack_line6_19_geom1_immodpg.bin & 
+
+sustrip ftn=1 head=\/dev\/null outpar=\/dev\/null < /home/gllore/Fairbanks/seismics/data/permafrost_tunnel/gpr/110221/standard/cmp/su/gllore/stack_line6_19_geom1_immodpg.su > /home/gllore/Fairbanks/seismics/data/permafrost_tunnel/gpr/110221/standard/cmp/bin/gllore/stack_line6_19_geom1_immodpg.bin & 
+
+49
+
+surange < /home/gllore/Fairbanks/seismics/data/permafrost_tunnel/gpr/110221/standard/cmp/su/gllore/stack_line6_19_geom1_immodpg.su & 
+
+sustrip ftn=1 head=\/dev\/null outpar=\/dev\/null < /home/gllore/Fairbanks/seismics/data/permafrost_tunnel/gpr/110221/standard/cmp/su/gllore/stack_line6_19_geom1_immodpg.su > /home/gllore/Fairbanks/seismics/data/permafrost_tunnel/gpr/110221/standard/cmp/bin/gllore/stack_line6_19_geom1_immodpg.bin & 
+
+sustrip ftn=1 head=\/dev\/null outpar=\/dev\/null < /home/gllore/Fairbanks/seismics/data/permafrost_tunnel/gpr/110221/standard/cmp/su/gllore/stack_line6_19_geom1_immodpg.su > /home/gllore/Fairbanks/seismics/data/permafrost_tunnel/gpr/110221/standard/cmp/bin/gllore/stack_line6_19_geom1_immodpg.bin & 
+

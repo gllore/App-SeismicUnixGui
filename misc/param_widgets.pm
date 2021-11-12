@@ -303,7 +303,7 @@ project_selector does not yet have a max_index defined in a separate module
 sub _update_value_changes {
 
 	my ($self) = @_;
-   print(" start param_widgets, _update_value_changes\n");
+#   print(" start param_widgets, _update_value_changes\n");
   
 	if ( $param_widgets->{_entry_in_switch} eq $off ) {
 		

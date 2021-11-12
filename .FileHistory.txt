@@ -1,12 +1,12 @@
+/home/gllore/Fairbanks/seismics/data/permafrost_tunnel/gpr/110221/standard/cmp/su/gllore/stack_line6_19_geom1_immodpg.su
+/home/gllore/Fairbanks/seismics/pl/permafrost_tunnel/gpr/110221/standard/cmp/gllore/surange.pl
+/home/gllore/Fairbanks/seismics/pl/permafrost_tunnel/gpr/110221/standard/1/gllore/suxmax.pl
+/home/gllore/Fairbanks/seismics/pl/permafrost_tunnel/gpr/110221/standard/1/gllore/surange.pl
+/home/gllore/Fairbanks/seismics/pl/permafrost_tunnel/gpr/110221/standard/1/gllore/sumax.pl
+/home/gllore/Fairbanks/seismics/data/permafrost_tunnel/gpr/110221/standard/1/su/gllore/line01.su
+/home/gllore/Fairbanks/seismics/pl/permafrost_tunnel/gpr/110221/standard/1/gllore/view_raw_data.pl
+/home/gllore/Fairbanks/seismics/data/permafrost_tunnel/gpr/110221/standard/1/segy/gllore/LINE01.sgy
+/home/gllore/Fairbanks/seismics/pl/permafrost_tunnel/gpr/110221/standard/1/gllore/segy2su.pl
+/home/gllore/Fairbanks/seismics/pl/permafrost_tunnel/gpr/110221/standard/cmp/gllore/segy2su.pl
 /home/gllore/DuncanPoint/seismics/pl/VetSchool/S/092421/Z/2HzVs4.5Hz_SW_test/gllore/plot_fft_2HzN4.5Hz.pl
 /home/gllore/DuncanPoint/seismics/pl/VetSchool/S/092421/Z/2HzVs4.5Hz_SW_test/gllore/plot_2Hz.pl
-<<<<<<< Updated upstream
-=======
-<<<<<<< HEAD
-/a
-/home/gllore/DuncanPoint/seismics/pl/VetSchool/S/092421/Z/2HzVs4.5Hz_SW_test/gllore/lcmap.pl
-/home/gllore/DuncanPoint/seismics/pl/VetSchool/S/092421/Z/2HzVs4.5Hz_SW_test/gllore/tbd.pl
-/home/gllore/DuncanPoint/seismics/pl/VetSchool/S/092421/Z/2HzVs4.5Hz_SW_test/gllore/plot_fft_4.5HzN4.5Hz.pl
-/home/gllore/DuncanPoint/seismics/pl/VetSchool/S/092421/Z/2HzVs4.5Hz_SW_test/gllore/plot_4.5Hz.pl
-=======
->>>>>>> V0.6.6

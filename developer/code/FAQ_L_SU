@@ -137,7 +137,7 @@ Example 1: parameter "geopsy" in "Project"
    	  		
  	Add new line ~ 499: _geopsy_is_selected	=>  $geopsy_logic,	
  
- 	Add "if" clause at line ~ 1913 : 	if ( $Project->{_geopsy_is_selected} ) {
+ 	Add "if" clause at line ~ 2244 : 	if ( $Project->{_geopsy_is_selected} ) {
  							manage_dirs_by::make_dir($GEOPSY);
 							manage_dirs_by::make_dir($GEOPSY_PARAMS);
  							manage_dirs_by::make_dir($GEOPSY_PICKS); 
@@ -2741,4 +2741,9 @@ L_SU
 		   $pre_built_big_stream->set_sub_ref($sub_ref);
 		   $pre_built_big_stream->select();
 		        binding->set (where binding actually takes place)  ]
+		        
+		        
+sumedian filter for VSP (filters)
+sueipol- eignevalue based polar filter (filters)
+pahse inversion deconvolution
            

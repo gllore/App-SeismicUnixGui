@@ -68,6 +68,19 @@ sub parameters {
  # replace any character .
  # greedy replacement *
 
+			$fields[1] =~ s/\w+//;
+			$fields[1] =~ s/\*\w+//;
+			$fields[1] =~ s/\.\w+//;
+			$fields[1] =~ s/\-\w+//;
+			$fields[1] =~ s/\/\w+//;				
+#			$fields[1] =~ s/^\w+\-\w+$//;
+#			$fields[1] =~ s/^\w*\/\w*$//;
+#			$fields[1] =~ s/\w+\/\w+$//;
+			$fields[1] =~ s/;//;
+			$fields[1] =~ s/\*//;			
+			$fields[1] =~ s/\s+\w+//;
+			$fields[1] =~ s/=//;		
+			
 			$fields[1] =~ s/0.0,\.\.\..*//;
 			$fields[1] =~ s/1,\.\.\..*//;
 			$fields[1] =~ s/1.0,\.\.\..*//;
@@ -75,6 +88,7 @@ sub parameters {
 			$fields[1] =~ s/\(.*//;
 			$fields[1] =~ s/clip//;
 			$fields[1] =~ s/\-clip//;
+#			$fields[1] =~ s/^\w+\*\w+//;
 			$fields[1] =~ s/fc.*//;
 
 			$fields[1] =~ s/all.*//;	
@@ -93,12 +107,15 @@ sub parameters {
 			$fields[1] =~ s/lmax//;
 			$fields[1] =~ s/lwidth//;
 
+			$fields[1] =~ s/maximum.*//;
 			$fields[1] =~ s/min.*//;
+			$fields[1] =~ s/minimum.*//;
 			$fields[1] =~ s/name.*//;
 			$fields[1] =~ s/nc.*//;
 
 			$fields[1] =~ s/npair1.*//;
 			$fields[1] =~ s/number//;
+			$fields[1] =~ s/offset.*//;
 			
 			$fields[1] =~ s/\[optional.*//;
 

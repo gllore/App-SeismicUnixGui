@@ -56,6 +56,7 @@ use Moose;
 our $VERSION = '1.1.0';
 
 use sudoc;
+
 use sunix_package;
 use prog_doc2pm;
 
@@ -91,7 +92,7 @@ Which group number do you want ?
 
 =cut
 
-my $sunix_category_number = 2;
+my $sunix_category_number = 6;
 
 $prog_doc2pm->set_group_directory($sunix_category_number);
 
@@ -108,11 +109,12 @@ psgraph thru psmovie
 
 =cut
 
-my $selected_program_name = 'suxpicker';
+my $selected_program_name = 'sukdmig3d';
 
 $selected_program_name =~ s/\ //g;
 
 =head2 private values
+
 
 =cut
 
@@ -124,7 +126,7 @@ my $path_out4specs     = $prog_doc2pm->get_path_out4specs();
 my $path_out4sunix     = $prog_doc2pm->get_path_out4sunix();
 my @long_file_name     = @{ $prog_doc2pm->get_list_aref() };
 
-#print("sudoc2pm.pl,long_file_name: @long_file_name\n");
+print("sudoc2pm.pl,long_file_name: @long_file_name\n");
 #print("sudoc2pm.pl,path_out: $path_out4developer\n");
 #print("sudoc2pm.pl,list_length: $list_length\n");
 
@@ -141,7 +143,7 @@ for ( my $i = 0 ; $i < $list_length ; $i++ ) {
 	$spec_file_out[0]   = $package_name . '_spec.pm';
 
 #print("sudoc2pm.pl,program_name, selected_program_name=$selected_program_name \n");
-#print("sudoc2pm.pl, package_name =$package_name \n");
+print("sudoc2pm.pl, package_name =$package_name \n");
 
 	if ( $selected_program_name eq $package_name ) {
 

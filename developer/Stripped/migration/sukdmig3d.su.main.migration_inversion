@@ -3,7 +3,7 @@ SUKDMIG3D - Kirchhoff Depth Migration of 3D poststack/prestack data
  	sukdmig3d datain= dataout= [parameters] 			
 
  Required parameters:							
- ttfile	 file for input tttables			       	
+ ttfile=file for input tttables			       	
 
  Optional Parameters:							
 

@@ -428,31 +428,77 @@ my @sunix_datum_programs = (
  );
 
 my @sunix_filter_programs = (
-	"sufilter",
+	"subfilt",
+	"succfilt",
+	"sucddecon",
 	"sudipfilt",
+	"sueipofi",
+	"sufilter",
+	"sufrac",
+	"sufxdecon",
+	"suk1k2filter",
+	"sukfilter",
+	"sulfaf",
+	"sumedian",
 	"supef",
-	"supolar"
+	"suphase",
+	"suphidecon",
+	"supofilt",
+	"supolar",
+	"susmgauss2",
+	"sutvband",
 );
 
 my @sunix_header_programs = (
-	"segyhdrs",
 	"segyclean",
+	"segyhdrmod",
+	"segyhdrs",
 	"setbhed",
+	"su3dchart",
+	"suabshw",
 	"suaddhead",
+	"suaddstatics",
+	"suahw",
 	"suascii",
+	"suazimuth",
+	"sucdpbin",
+	"suchart",
 	"suchw",
+	"sucliphead",
+	"sucountkey",
+	"sudumptrace",
+	"suedit",
 	"sugethw",
+	"suhtmath",
+	"sukeycount",
+	"sulcthw",
+	"sulhead",
+	"supaste",
+	"surandhw",
 	"surange",
+	"susehw",
 	"sushw",
 	"sustatic",
 	"sustrip",
+	"sutrcount",
+	"suutm",
+	"suxedit",
+	"swapbhed",
 );
 
 my @sunix_inversion_programs = (
+	"suinvco3d",
+	"suinvvxzco",
+	"suinvzco3d",
 );
 
 my @sunix_migration_programs = (
- "sustolt", 
+	"sudatumfd",
+	"sugazmig",
+	"sukdmig2d",
+	"suktmig2d",
+	"sumigfd",
+	"sustolt",
  );
  
 my @sunix_shell_programs     = ( 
@@ -463,8 +509,6 @@ my @sunix_shell_programs     = (
 
 =pod
 
-"cpall"
-"xk"
 
 =cut
 
@@ -508,10 +552,10 @@ my @sunix_model_programs = (
 );
 
 my @sunix_NMO_Vel_Stk_programs = ( 
-"sunmo",
- "sustack",
-  "suttoz", 
-  "suvelan", 
+	"sunmo",
+ 	"sustack",
+  	"suttoz", 
+  	"suvelan", 
   );
 
 my @sunix_par_programs = (
@@ -744,6 +788,65 @@ sub param {
 }
 
 1;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

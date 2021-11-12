@@ -16,20 +16,20 @@
 			1 ---- only needs traveltime,	   weight=1.0		
 			2 ---- traveltime, propagation angles,  weight=ctheta	
 			3 ---- traveltime, angle and amplitude,			
-						  weight=det/as/ag/(1+ctheta)	
+						  weight = det/as/ag/(1+ctheta)	
  nzt=		   number of z samples (1st dimension) in traveltime		
  nxt=		   number of x samples (2nd dimension) in traveltime		
  nyt=		   number of y samples (3rd dimension) in traveltime		
- tfile		  file containing traveltime array t[nyt][nxt][nzt]		
+ tfile=		  file containing traveltime array t[nyt][nxt][nzt]		
  ampfile		file containing amplitude array amp[nyt][nxt][nzt]	
- d21file		file containing Beylkin determinant component array	
- d22file		file containing Beylkin determinant component array	
- d23file		file containing Beylkin determinant component array	
- d31file		file containing Beylkin determinant component array	
- d32file		file containing Beylkin determinant component array	
- d33file		file containing Beylkin determinant component array	
- a1file		 file containing ray propagation angle (polar) array	
- b1file		 file containing ray propagation angle (azimuth) array	
+ d21file=		file containing Beylkin determinant component array	
+ d22file=		file containing Beylkin determinant component array	
+ d23file=		file containing Beylkin determinant component array	
+ d31file=		file containing Beylkin determinant component array	
+ d32file=		file containing Beylkin determinant component array	
+ d33file=		file containing Beylkin determinant component array	
+ a1file=		 file containing ray propagation angle (polar) array	
+ b1file=		 file containing ray propagation angle (azimuth) array	
 
  Optional Parameters:								
  dt= or from header (dt) 	time sampling interval of input data		

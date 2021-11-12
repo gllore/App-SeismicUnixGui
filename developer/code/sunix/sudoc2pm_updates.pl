@@ -59,7 +59,6 @@ use update;
 
 my $update = update->new();
 
-
 =head2 QUESTION 1:
 Which group number do you want ?
 QUESTION 2:
@@ -78,8 +77,9 @@ For example=
 
 =cut
 
-my $selected_program_name = 'suxpicker';
-my $sunix_category_number = 2;
+my $selected_program_name = 'sumigfd';
+my $sunix_category_number = 6;
+;
 
-$update->set_program($selected_program_name, $sunix_category_number);
+$update->set_program( $selected_program_name, $sunix_category_number );
 $update->get_changes();

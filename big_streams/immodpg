@@ -23,7 +23,7 @@
 # Check if mmodpg1.1 (fortran program) exists before running
   	  if [ -f /usr/local/pl/L_SU/fortran/bin/immodpg1.1 ] ; then
 
-	 echo " immodpg, Found the file you need (immodpg1.1)"
+	 # echo " immodpg, Found the file you need (immodpg1.1)"
 	  immodpg1.1
 
  	else
