@@ -147,7 +147,7 @@ sub get_number() {
 =cut
 
 		$data_in[1] =
-		    $DATA_SEISMIC_SU . '/'
+			$DATA_SEISMIC_SU . '/'
 		  . $header_values->{_base_file_name}
 		  . $suffix_su;
 
@@ -170,8 +170,9 @@ sub get_number() {
 =head2 RUN FLOW(s) and Capture output (with backticks) from the system
 
 =cut
+
 		my @values = `@items`;
-		# print("header_values, @values \n");
+#		print("get_number, header_values, @values \n");
 
 =head2 LOG FLOW(s)
 
@@ -179,68 +180,128 @@ sub get_number() {
 
 =cut
 
-		# print ("@items \n");
+#		print("header_values,get_number,@items \n");
 
 =head2 parse output to obtain header value
 
 =cut 		
 
 		my $result;
-		my $scale = $values[1];
+		my $number = $values[1];
 
-#		print ("header_values, get_number,values[0]:$values[0]...\n");
-#		print ("header_values, get_number,values[1]:$values[1]\n");
+#		print("header_values, get_number,values[0]:$values[0]...\n");
+#		print("header_values, get_number,values[1]:$values[1]\n");
 		my $length = scalar @values;
 
-#		print ("header_values, get_number,length=$length\n");
+#		print("header_values, get_number,length=$length\n");
 
-		if ( defined $scale ) {
+		if ( defined $number ) {
+
 			# print("header_values,get_number, values[1]:$values[1]\n");
 
-			if (   $scale eq 0
-				or $scale eq $empty_string )
+			if (   $number eq 0
+				or $number eq $empty_string )
 			{
-				$result = 1;
+				if ( $header_values->{_header_name} eq 'scalel' ) {
+
+					$result = 1;
+
+				}
+				elsif ( $header_values->{_header_name} ne 'scalel' ) {
+					
+					my $key = quotemeta($header_values->{_header_name});
+					print("header_values, get_number, key = $key\n");
+					$number =~ s/$key\s*//;
+					chomp($number);
+					
+					$result = $number;
+					print("1 header_values, get_number, result = $number\n");
+					print(
+"header_values, get_number, header_name = $header_values->{_header_name}\n"
+					);
+
+				}
+				else {
+					print("header_values, get_number, unknown parameter\n");
+					$result = $empty_string;
+				}
+
 				# print("header_values, get_number, scale=$result... \n");
 				return ($result);
 
 			}
+#			$number != 0
+			elsif ( 
+				$number ne $empty_string )
+			{
+
+				if ( $header_values->{_header_name} eq 'scalel' ) {
+					$number =~ s/scalel\s*//;
+					chomp($number);
+
+					print("scale:$number....\n");
+
+					if ( $number > 0 ) {
+
+						# 10, 100 stays as 10, 100
+						$result = $number;
+
+					  # print("header_values, get_number, scale=$result... \n");
+						return ($result);
+
+					}
+					elsif ( ( $number < 0 ) ) {
+
+						# -10, -100 becomes .1, .01
+						$result = -1 / $number;
+
+					  # print("header_values, get_number, scale=$result... \n");
+						return ($result);
+
+					}
+					else {
+						print("header_values, get_number, incorrect value \n");
+						return ($empty_string);
+					}
+
+				}
+				elsif ( $header_values->{_header_name} ne 'scalel' ) {
+					
+					my $key = quotemeta($header_values->{_header_name});
+#					print("header_values, get_number, key = $key\n");
+					$number =~ s/$key\s*//;
+					chomp($number);
+					
+					$result = $number;
+#					print("2 header_values, get_number, result = $number\n");
+#					print("header_values,get_number,header_name= $key\n");
+					
+				}
+				else {
+					print("header_values, get_number, unexpected\n");
+					return ($empty_string);
+				}
+
+			}
 			else {
-
-				$scale =~ s/scalel\s*//;
-				chomp($scale);
-
-				# print("scale:$scale....\n");
-
-				if ( $scale > 0 ) {
-
-					# 10, 100 stays as 10, 100
-					$result = $scale;
-					# print("header_values, get_number, scale=$result... \n");
-					return ($result);
-
-				}
-				elsif ( ( $scale < 0 ) ) {
-
-					# -10, -100 becomes .1, .01
-					$result = -1 / $scale;
-					# print("header_values, get_number, scale=$result... \n");
-					return ($result);
-
-				}
-
+				print("header_values, get_number, unexpected result\n");
+				return ($empty_string);
 			}
 
 		}
 		else {
 			$result = 1;
+
 			# print("header_values, get_number, data_scale = 1:1\n");
 			return ($result);
 		}
 		return ($result);
 
-	} else {
-		print("header_values, get_number, missing base file name and/or header name\n");
-}
-	} # end sub get_number
+	}
+	else {
+		print(
+"header_values, get_number, missing base file name and/or header name\n"
+		);
+	}
+}    # end sub get_number
 1;

@@ -455,7 +455,7 @@ sub set_group_directory {
 
 		$prog_doc2pm->{_group_directory} = $developer_sunix_categories[$group_no];
 
-		#print("prog_doc2pm, set_group_directory,$prog_doc2pm->{_group_directory}\n");
+#		print("prog_doc2pm, set_group_directory,$prog_doc2pm->{_group_directory}\n");
 
 	} else {
 		print("prog_doc2pm, set_group_directory, missing group no,\n");

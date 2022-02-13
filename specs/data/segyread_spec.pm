@@ -355,8 +355,8 @@ sub suffix_aref {
     
     my $index_aref = get_binding_index_aref();
 	my @index      = @$index_aref;
-	$suffix[ $index[0] ] = "." . '$suffix_sgy';
-    
+#	$suffix[ $index[0] ] = "." . '$suffix_sgy';
+ 	$suffix[ $index[0] ] = "." . '$suffix_sgy';   
     $segyread_spec->{_suffix_aref} = \@suffix;
     return ();
 

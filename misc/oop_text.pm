@@ -639,6 +639,7 @@ sub print_flows {
 
 sub program_params {
 	my ($self) = @_;
+	
 	my $filehandle = $oop_text->{_filehandle};
 
 	$prog_params->set_a_prog_name($oop_text);

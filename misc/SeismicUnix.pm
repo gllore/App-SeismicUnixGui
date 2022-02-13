@@ -7,9 +7,9 @@ our $VERSION = '1.0.0';
 @EXPORT = ();
 
 # export all; import at will
-@EXPORT_OK = qw($ascii $ascii_stdout $bin
+@EXPORT_OK = qw($append $ascii $ascii_stdout $bin $cdp
   $_cdp $_mute $_stkvel
-  $day $go $hour $in $max_amp $minute $rms_amp $to_outpar_file
+  $day $ep $go $gx $hour $in $max_amp $minute $rms_amp 
   $gather_num_suffix $rms $max $second $surms_ notes $sumax_notes $on $off $true $false $isurf
   $_isurf $isurf_par_ $itemp_surf_picks_ $itemp_surf_num_points_ $itemp_surf_picks_sorted_
   $itemp_surf_picks_sorted_par_ $isurf_check_pickfile_ $isurf_pf_picks_ $isurf_pfile_picks
@@ -33,6 +33,7 @@ our $VERSION = '1.0.0';
   $temp_single_gather_par_file_mute  
   $ivpicks_sorted_par_
   $ms2s $us2s
+  $offset 
   $ps
   $DAT $dat $seg2 $segb $segd $sgd $segy $sgy $su $par $empty
   $start_time
@@ -41,7 +42,9 @@ our $VERSION = '1.0.0';
   $suffix_ps $suffix_rev
   $suffix_segb $suffix_segd $suffix_sgd $suffix_segy $suffix_sgy $suffix_su $suffix_seg2 $suffix_taup $suffix_top_mute $suffix_usp $suffix_itop_mute
   $suffix_sac $suffix_txt $prefix_taup_picks_ $prefix_taup_picks $out
-  $suffix_target $suffix_param $suffix_env $suffix_report $to $txt $text $tracf $tracl $trid $year
+  $suffix_target $suffix_param $suffix_env $suffix_report $sx 
+  $to_outpar_file
+  $to $txt $text $tracf $tracl $tracr $trid $year
   $tmute $xmute );
 
 # suffix_types
@@ -143,6 +146,7 @@ our $itemp_picks_sorted_par_ = '.itemp_picks_sorted_par_';
 
 our $iSpectralAnalysisPickFile = 'waveform';
 
+our $append 		= ' >> ';
 # used in sumax
 our $ascii          = 'ascii';
 our $ascii_stdout   = 'geom';
@@ -275,15 +279,21 @@ my ($sugethw);
 my ( @sugethw, @sugethw_sufile, @sugethw_outbound, @sugethw_inbound );
 
 # SEGY HEADERS
+our $cdp    = 'cdp';
+our $ep     = 'ep';
 our $day    = 'day';
+our $gx     = 'gx';
 our $hour   = 'hour';
 our $minute = 'minute';
 our $second = 'sec';
+our $sx     = 'sx';
 our $year   = 'year';
 our $to     = ' | ';
+our $offset = 'offset';
 our $txt    = 'txt';
 our $tracf  = 'tracf';
 our $tracl  = 'tracl';
+our $tracr  = 'tracr';
 our $trid   = 'trid';
 
 #sub start_time_s {

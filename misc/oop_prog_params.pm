@@ -138,7 +138,7 @@ sub _get_suffix_aref {
 
 		require $module_spec_pm;
 
-		#		$refresher->refresh_module("$module_spec_pm");
+		#$refresher->refresh_module("$module_spec_pm");
 
 		# INSTANTIATE
 		my $package = $module_spec->new;
@@ -283,7 +283,7 @@ sub _get_suffix_for_a_label {
 			# e.g., boundary_conditions|abs becomes abs
 			my $clean_config_label = $control->ors( $all_program_labels[$i] );
 
-			my @suffixes = @{ _get_suffix_aref() };
+			my @suffixes = @{_get_suffix_aref() };
 
 			# a match locates the index to read from the program_spec.pm file
 			if ( $label eq $clean_config_label ) {
@@ -292,12 +292,7 @@ sub _get_suffix_for_a_label {
 
 #				print(
 #					"oop_prog_params,_get_suffix_for_label, match i=$i,
-#						this label = $label other label =
-#						$all_program_labels[$i] \n "
-#				);
-#				print(
-#					"oop_prog_params,_get_suffix_for_label, match i=$i,
-#						this label = $label this suffix=$suffix\n "
+#						this label = $label, this suffix=$suffix\n "
 #				);
 
 			} else {
@@ -320,7 +315,7 @@ sub _set_label_for_a_suffix {
 
 		$oop_prog_params->{_label} = $label;
 
-		# print(" oop_prog_params, _set_label_for_a_suffix, label = $label \n ");
+#		print(" oop_prog_params, _set_label_for_a_suffix, label = $label \n ");
 
 	} else {
 		print(" oop_prog_params, _set_label_for_a_suffix, missing label and /or program name\n");
@@ -362,7 +357,7 @@ In order to write the following:
     $suop2			    ->file1(quotemeta($SEISMIC_PL_SU.'/'.'100_clean');   
     $suop2			    ->op('diff')
     
-  JML 9-1-19 e.g.
+  JML 9-1-19 e.g.,
    $suximage 	 	 	 ->curvefile(quotemeta($DATA_SEISMIC_TXT.'/'.'curve1,curve2'));
     
 =cut
@@ -403,16 +398,21 @@ sub get_a_section {
 			_set_label_for_a_suffix($label);
 			my $suffix = _get_suffix_for_a_label;
 
-			#			print(" 3. oop_prog_params, get_a_section suffix =$suffix \n ");
+#			print(" 3. oop_prog_params, get_a_section, suffix=$suffix....\n ");
 
 			_set_label_for_a_prefix($label);
 			my $prefix = _get_prefix_for_a_label;
 
-			#			print(" 4. oop_prog_params, get_a_section suffix =$prefix \n ");
-
+#			print(" 4. oop_prog_params, get_a_section suffix =$prefix \n ");
+#            $control->set_value($value);
+#            $control->reset_suffix4loop();
+#            $control->set_suffix4oop($suffix);
+#            $value = $control->get_value4oop();
+            
+#            print(" 4. oop_prog_params, get_a_section value =$value\n ");
 			if ( length $prefix && length $suffix ) {
 
-				#				print(" 1. oop_prog_params, get_a_section CASE #1 Both suffix and prefix are present\n ");
+#			print(" 1. oop_prog_params, get_a_section CASE #1 Both suffix and prefix are present\n ");
 				# OUTPUT TEXT is set here
 				$oop_prog_params[$j]
 					= " \t " . '$'
@@ -422,12 +422,15 @@ sub get_a_section {
 					. '(quotemeta('
 					. $prefix
 					. $value
-					. $suffix . '));';
-#				print(" 1. oop_prog_params, get_a_section CASE #1 OUTPUT TEXT: $oop_prog_params[$j] \n ");
-
+ 					. ')'
+ 					.$suffix
+ 					.');';
+#				print(" 1. oop_prog_params, get_a_section CASE #1 OUTPUT TEXT: $oop_prog_params[$j] \n");
+				print(" 1. oop_prog_params, get_a_section CASE #1 suffix=$suffix---prefix=$prefix---value=$value---\n");
+#				 					. '.'
 			} elsif ( !( length($prefix) ) && length($suffix) ) {
 
-				#				print(" oop_prog_params, get_a_section CASE #2  No prefix bu there is a suffix \n ");
+				# print(" oop_prog_params, get_a_section CASE #2  No prefix but there is a suffix \n ");
 				# OUTPUT TEXT is set here
 				$oop_prog_params[$j]
 					= " \t " . '$'
@@ -541,7 +544,7 @@ sub get_a_section {
 			} elsif ( !($suffix) && !($prefix) ) {
 
 				# CASE 5
-				#			   print(" oop_prog_params, get_a_section = CASE 5; no suffix or prefix\n ");
+#				print(" oop_prog_params, get_a_section = CASE 5; no suffix or prefix\n ");
 				# OUTPUT TEXT is set here
 				$oop_prog_params[$j]
 					= " \t " . '$' . $prog_name . " \t \t \t \t " . '->' . $label . '(quotemeta(' . $value . '));';
@@ -589,8 +592,8 @@ sub set_many_param_values {
 	if ($param_values_href) {
 		$oop_prog_params->{_param_values_aref} = $param_values_href->{_prog_param_values_aref};
 
-		# print(" oop_prog_params, set_param_values, param_values,
-		#  @{ $oop_prog_params->{_param_values_aref} } \n ");
+#		print(" oop_prog_params, set_param_values, param_values,
+#		@{ $oop_prog_params->{_param_values_aref} } \n ");
 	}
 	return ();
 }

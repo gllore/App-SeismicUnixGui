@@ -70,12 +70,12 @@ my $base_file_name = $CFG_h->{base_file_name};
 my $first_gather   = $CFG_h->{suximage}{1}{first_gather};
 my $last_gather    = $CFG_h->{suximage}{1}{last_gather};
 my $gather_inc     = $CFG_h->{suximage}{1}{gather_inc};
-my $freq                  = $CFG_h->{sugain}{1}{freq};
+my $freq           = $CFG_h->{sugain}{1}{freq};
 my $gather_type    = $CFG_h->{suximage}{1}{gather_type};
 my $min_amplitude  = $CFG_h->{suximage}{1}{min_amplitude};
 my $max_amplitude  = $CFG_h->{suximage}{1}{max_amplitude};
-my $min_x1     = $CFG_h->{suximage}{1}{min_x1};
-my $max_x1     = $CFG_h->{suximage}{1}{max_x1};
+my $min_x1         = $CFG_h->{suximage}{1}{min_x1};
+my $max_x1         = $CFG_h->{suximage}{1}{max_x1};
 my $purpose        = $CFG_h->{suximage}{1}{purpose};
 
 =head2 Declare variables 

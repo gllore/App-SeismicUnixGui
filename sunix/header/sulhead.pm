@@ -71,11 +71,11 @@ Notes:
 
 
 
- if tr.cdp = 1 then tr.ep and tr.sx will be set to 2 and 3		
+ if tr.cdp equals 1 then tr.ep and tr.sx will be set to 2 and 3		
 
- if tr.cdp = 2 then tr.ep and tr.sx will be set to 3 and 4		
+ if tr.cdp equals 2 then tr.ep and tr.sx will be set to 3 and 4		
 
- if tr.cdp=other than tr.trid=3					
+ if tr.cdp equals other than tr.trid equals 3					
 
 
 
@@ -150,7 +150,6 @@ hash of private variables
 =cut
 
 my $sulhead			= {
-	_cdp					=> '',
 	_cf					=> '',
 	_key					=> '',
 	_mc					=> '',
@@ -196,32 +195,11 @@ by adding the program name
 
  sub clear {
 
-		$sulhead->{_cdp}			= '';
 		$sulhead->{_cf}			= '';
 		$sulhead->{_key}			= '';
 		$sulhead->{_mc}			= '';
 		$sulhead->{_Step}			= '';
 		$sulhead->{_note}			= '';
- }
-
-
-=head2 sub cdp 
-
-
-=cut
-
- sub cdp {
-
-	my ( $self,$cdp )		= @_;
-	if ( $cdp ne $empty_string ) {
-
-		$sulhead->{_cdp}		= $cdp;
-		$sulhead->{_note}		= $sulhead->{_note}.' cdp='.$sulhead->{_cdp};
-		$sulhead->{_Step}		= $sulhead->{_Step}.' cdp='.$sulhead->{_cdp};
-
-	} else { 
-		print("sulhead, cdp, missing cdp,\n");
-	 }
  }
 
 
@@ -293,7 +271,7 @@ max index = number of input variables -1
  
 sub get_max_index {
  	  my ($self) = @_;
-	my $max_index = 3;
+	my $max_index = 2;
 
     return($max_index);
 }

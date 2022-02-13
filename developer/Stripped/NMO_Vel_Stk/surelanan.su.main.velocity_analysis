@@ -3,8 +3,8 @@
  surelan refl= npicks=    [optional parameters]			
 
  Required parameters:							
- reflector file: reflec =						
- number of points in the reflector file =				
+ reflector file: reflec=						
+ number of points in the reflector file=				
 
  Optional Parameters:							
  nr1=51		number of r1-parameter samples   		

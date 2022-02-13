@@ -342,7 +342,7 @@ sub parse {
 	my $length = $sunix_pl->get_num_progs;
 	$perl_flow->{_num_progs} = $sunix_pl->get_num_progs;
 
-	#print("perl_flow,o/p num_progs: $length\n");
+#	print("perl_flow,o/p num_progs: $length\n");
 
 	my $hash_ref = $sunix_pl->get_good_sunix_params();
 	$perl_flow->{_good_prog_names_aref}    = $sunix_pl->get_good_sunix_names();
@@ -356,11 +356,11 @@ sub parse {
 
 	# print("perl_flow,all prog versions: @{$perl_flow->{_all_prog_versions_aref}}\n");
 	# print("perl_flow,all program names: @{$perl_flow->{_all_prog_names_aref}}\n");
-	# print("perl_flow,good program names: @{$perl_flow->{_good_prog_names_aref}}\n");
+#	print("perl_flow,good program names: @{$perl_flow->{_good_prog_names_aref}}\n");
 	# print("perl_flow,good program versions: @{$perl_flow->{_good_prog_versions_aref}}\n");
 	# print("perl_flow,o/p new_num_progs: $new_num_progs\n");
 	# print("perl_flow,parse:good_labels for program 2 @{@{$perl_flow->{_good_labels_aref2}}[1]}\n");
-	# print("perl_flow,parse: good_values for program 2 @{@{$perl_flow->{_good_values_aref2}}[1]}\n");
+#	print("perl_flow,parse: good_values for program 2 @{@{$perl_flow->{_good_values_aref2}}[1]}\n");
 
 	# incorporate good labels/names and their values read from a script into a full set of labels
 	# and values belonging to each program for use in the GUI

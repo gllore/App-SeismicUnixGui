@@ -33,23 +33,24 @@ ep min=0
  Examples:
 
      base_file_name  	= 30Hz_All_geom_geom;
-     gather_header  	= fldr;
-     offset_type  		= tracl;  ( or e.g., offset but only affects the label *)
-     first_gather   	    = 1;
+     gather_header  	= fldr;   (single gather type for picking)
+     offset_type  		= tracl;  (or, e.g., offset but only affects the label *)
+     first_gather   	= 1;
      gather_inc    		= 1;
-     last_gather    	    = 100;
-     freq    		            = 0,3,100,200;  or freq = (can be left empty without any values as well)
-     gather_type    	    = fldr;
-     min_amplitude    = .0;
-     max_amplitude    = .75;
-     min_x1          = 15.873015           (= Hz for geopsy purpose)
-     max_x1         = 999.999                (= Hz for geopsy purpose)
-      purpose                  = geopsy
+     last_gather    	= 100;
+     freq    		    = 0,3,100,200;  or freq = (can be left empty without any values as well)
+     **gather_type    	= fldr;
+     min_amplitude      = .0;
+     max_amplitude      = .75;
+     min_x1             = 15.873015           (Hz, for geopsy)
+     max_x1             = 999.999             (Hz, for geopsy)
+     purpose            = geopsy
       
       * if you want offset to be considered when plotting data
       then modify the d2 and f2 values prior to picking.
       
-  
+      ** Define family of interactive user messages to use
+          SP or CDP
 
 =head3 SEISMIC UNIX NOTES  
 
@@ -388,7 +389,7 @@ sub gather_num {
 
 =head2 sub  gather_type
 Define which family of 
-interactive usermessages to use
+interactive user messages to use
 SP or CDP
 
 =cut

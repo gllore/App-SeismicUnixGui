@@ -3194,6 +3194,8 @@ for first time but no listboxes have been occupied previously
 		# and for case where file name are numeric e.g., '1000.txt'
 		$color_flow_href->{_prog_names_aref} = $param_flow_color_pkg->get_flow_prog_names_aref();
 		$control->set_flow_prog_names_aref( $color_flow_href->{_prog_names_aref} );
+		#TODO TODO TODO
+		#$color_flow_href->{_good_values_aref2} = 
 		$control->get_string_or_number_aref2( $color_flow_href->{_good_values_aref2} );
 
 		$files_LSU->set_prog_param_labels_aref2($color_flow_href);

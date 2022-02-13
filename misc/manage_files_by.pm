@@ -1,6 +1,5 @@
 package manage_files_by;
 
-
 # manage_files_by  class
 # Contains methods/subroutines/functions to operate on directories
 # V 1. March 3 2008
@@ -51,6 +50,7 @@ sub count_lines {
 
 	return ($num_lines);
 }
+
 
 sub delete_file {
 
@@ -149,6 +149,9 @@ sub is_one {
 	return ($answer);
 }
 
+
+
+
 sub is_zero {
 
 	# find out if a special file's content ==0
@@ -234,12 +237,12 @@ sub read_mute_par {
 	}
 	close(FILE);
 
-	     print("\n number of rows is $row\n\n");
+	print("\n number of rows is $row\n\n");
 
-	     for ($i=0; $i<$row;$i++) {
-	          print("\n row $i contains $Items[$i]");
-	         print(" i.e., $numberOfValues[$i] values\n");
-	     }
+	for ( $i = 0 ; $i < $row ; $i++ ) {
+		print("\n row $i contains $Items[$i]");
+		print(" i.e., $numberOfValues[$i] values\n");
+	}
 
 	return ( \@Items, \@numberOfValues );
 
@@ -279,7 +282,7 @@ sub read_par {
 
 	while ( $line = <FILE> ) {
 
-	# print("manage_files_by,read_par, $line");
+		# print("manage_files_by,read_par, $line");
 
 =pod
 
@@ -290,7 +293,7 @@ sub read_par {
 =cut
 
 		chomp($line);
-		@things = split /=/, $line;
+		@things             = split /=/, $line;
 		$ValuesPerRow[$row] = scalar(@things) + 1;
 		$Items[$row]        = pop @things;
 		$row                = $row + 1;
@@ -300,7 +303,6 @@ sub read_par {
 	return ( \@Items, \@ValuesPerRow );
 
 }
-
 
 sub read_2cols_sugethw {
 
@@ -731,7 +733,7 @@ sub write_1col {
 
 	open( OUT, ">$$ref_file_name" );
 
-	for ( $j = 0; $j < $num_rows; $j++ ) {
+	for ( $j = 0 ; $j < $num_rows ; $j++ ) {
 
 		printf OUT "$fmt\n", $$ref_X[$j];
 
@@ -1008,7 +1010,7 @@ sub write_2cols {
 
 	open( OUT, ">$$ref_file_name" );
 
-	for ( $j = 1; $j <= $num_rows; $j++ ) {
+	for ( $j = 1 ; $j <= $num_rows ; $j++ ) {
 
 		#print OUT  ("$$ref_X[$j] $$ref_Y[$j]\n");
 		printf OUT "$fmt\n", $$ref_X[$j], $$ref_Y[$j];
@@ -1034,7 +1036,7 @@ sub write_2cols_p {
 
 	open( OUT, ">$$ref_file_name" );
 
-	for ( $j = 0; $j < $num_rows; $j++ ) {
+	for ( $j = 0 ; $j < $num_rows ; $j++ ) {
 
 		#print OUT  ("$$ref_X[$j] $$ref_Y[$j]\n");
 		printf OUT "$fmt\n", $$ref_X[$j], $$ref_Y[$j];
@@ -1060,7 +1062,7 @@ sub write_2cols_2 {
 
 	open( OUT, ">$$ref_file_name" );
 
-	for ( $j = 1; $j <= $num_rows; $j++ ) {
+	for ( $j = 1 ; $j <= $num_rows ; $j++ ) {
 
 		#print OUT  ("$$ref_X[$j] $$ref_Y[$j]\n");
 		printf OUT "$$ref_fmt\n", $$ref_X[$j], $$ref_Y[$j];
@@ -1082,7 +1084,7 @@ sub write_3cols {
 
 	open( OUT, ">$$ref_file_name" );
 
-	for ( $j = 1; $j <= $num_rows; $j++ ) {
+	for ( $j = 1 ; $j <= $num_rows ; $j++ ) {
 
 		printf OUT "$fmt\n", $$ref_X[$j], $$ref_Y[$j], $$ref_Z[$j];
 
@@ -1103,7 +1105,7 @@ sub write_3colsp {
 
 	open( OUT, ">$$ref_file_name" );
 
-	for ( $j = 0; $j < $num_rows; $j++ ) {
+	for ( $j = 0 ; $j < $num_rows ; $j++ ) {
 
 		printf OUT "$fmt\n", $$ref_X[$j], $$ref_Y[$j], $$ref_Z[$j];
 		print("$$ref_X[$j] $$ref_Y[$j] $$ref_Z[$j]\n");
@@ -1118,16 +1120,16 @@ sub write_4cols {
 
 	# open and write to output filec
 	my ( $ref_ID, $ref_X, $ref_Y, $ref_Z, $num_rows, $ref_file_name, $fmt ) =
-		@_;
+	  @_;
 
 	print("\nThe output file is called $$ref_file_name\n");
 
 	open( OUT, ">$$ref_file_name" );
 
-	for ( $j = 1; $j <= $num_rows; $j++ ) {
+	for ( $j = 1 ; $j <= $num_rows ; $j++ ) {
 
 		printf OUT "$fmt\n", $$ref_ID[$j], $$ref_X[$j], $$ref_Y[$j],
-			$$ref_Z[$j];
+		  $$ref_Z[$j];
 
 		#print ("$$ref_ID[$j] $$ref_X[$j] $$ref_Y[$j] $$ref_Z[$j]\n");
 	}
@@ -1142,16 +1144,16 @@ sub write_4cols_2 {
 	# open and write to output file
 	my ( $ref_A, $ref_X, $ref_Y, $ref_Z, $num_rows, $num_cols, $ref_file_name,
 		$fmt )
-		= @_;
+	  = @_;
 
 	print("\nThe output file is called $$ref_file_name\n");
 
 	open( OUT, ">$$ref_file_name" );
 
-	for ( $j = 1; $j <= $num_rows; $j++ ) {
-		for ( $i = 1; $i <= $num_cols; $i++ ) {
+	for ( $j = 1 ; $j <= $num_rows ; $j++ ) {
+		for ( $i = 1 ; $i <= $num_cols ; $i++ ) {
 			printf OUT "$fmt\n", $$ref_A[$j][$i], $$ref_X[$j][$i],
-				$$ref_Y[$j][$i], $$ref_Z[$j][$i];
+			  $$ref_Y[$j][$i], $$ref_Z[$j][$i];
 		}
 	}
 	close(OUT);
@@ -1163,16 +1165,16 @@ sub write_5cols {
 	# open and write to output file
 	my ( $ref_X, $ref_Y, $ref_Z, $ref_A, $ref_B, $num_rows, $ref_file_name,
 		$fmt )
-		= @_;
+	  = @_;
 
 	print("\nThe output file is called $$ref_file_name\n");
 
 	open( OUT, ">$$ref_file_name" );
 
-	for ( $j = 1; $j <= $num_rows; $j++ ) {
+	for ( $j = 1 ; $j <= $num_rows ; $j++ ) {
 
 		printf OUT "$fmt\n", $$ref_X[$j], $$ref_Y[$j], $$ref_Z[$j],
-			$$ref_A[$j], $$ref_B[$j];
+		  $$ref_A[$j], $$ref_B[$j];
 	}
 	close(OUT);
 }
@@ -1182,7 +1184,8 @@ sub write_5cols_2 {
 	# WRITE OUT FILE
 	# using two-dimensional arrays
 	# open and write to output file
-	my ($ref_A,    $ref_X,    $ref_Y,         $ref_Z, $ref_B,
+	my (
+		$ref_A,    $ref_X,    $ref_Y,         $ref_Z, $ref_B,
 		$num_rows, $num_cols, $ref_file_name, $fmt
 	) = @_;
 
@@ -1190,10 +1193,10 @@ sub write_5cols_2 {
 
 	open( OUT, ">$$ref_file_name" );
 
-	for ( $j = 1; $j <= $num_rows; $j++ ) {
-		for ( $i = 1; $i <= $num_cols; $i++ ) {
+	for ( $j = 1 ; $j <= $num_rows ; $j++ ) {
+		for ( $i = 1 ; $i <= $num_cols ; $i++ ) {
 			printf OUT "$fmt\n", $$ref_A[$j][$i], $$ref_X[$j][$i],
-				$$ref_Y[$j][$i], $$ref_Z[$j][$i], $$ref_B[$j][$i];
+			  $$ref_Y[$j][$i], $$ref_Z[$j][$i], $$ref_B[$j][$i];
 		}
 	}
 	close(OUT);
@@ -1204,7 +1207,8 @@ sub write_6cols {
 	# WRITE OUT FILE
 
 	# open and write to output file
-	my ($ref_X,    $ref_Y,         $ref_Z,
+	my (
+		$ref_X,    $ref_Y,         $ref_Z,
 		$ref_R,    $ref_uncert,    $ref_arrival,
 		$num_rows, $ref_file_name, $fmt
 	) = @_;
@@ -1213,10 +1217,10 @@ sub write_6cols {
 
 	open( OUT, ">$$ref_file_name" );
 
-	for ( $j = 1; $j <= $num_rows; $j++ ) {
+	for ( $j = 1 ; $j <= $num_rows ; $j++ ) {
 
 		printf OUT "$fmt\n", $$ref_X[$j], $$ref_Y[$j], $$ref_Z[$j],
-			$$ref_R[$j], $$ref_uncert[$j], $$ref_arrival[$j];
+		  $$ref_R[$j], $$ref_uncert[$j], $$ref_arrival[$j];
 	}
 
 	close(OUT);
@@ -1249,19 +1253,18 @@ sub write_mute_par {
 	print OUT ("$gather_header=");
 	print OUT ("$$ref_trace[1]");
 
-	for ( $i = 2; $i <= $number_of_traces; $i++ ) {
+	for ( $i = 2 ; $i <= $number_of_traces ; $i++ ) {
 		print OUT (",$$ref_trace[$i]");
 	}
 	print OUT ("\n");
 
-	for ( my $i = 1; $i < $number_of_lines; $i = $i + 2 ) {
+	for ( my $i = 1 ; $i < $number_of_lines ; $i = $i + 2 ) {
 		print OUT ("tmute=$$ref_values[$i]\n");
 		print OUT ("xmute=$$ref_values[($i+1)]\n");
 	}
 
 	close(OUT);
 }
-
 
 =head2 write_cdp
 
@@ -1279,7 +1282,7 @@ sub write_cdp {
 	# WRITE OUT FILE
 
 	# open and write to output file
-	my ( $cdp_aref,$DIR_OUT) = @_;
+	my ( $cdp_aref, $DIR_OUT ) = @_;
 
 	my ( $i, $number_of_cdps, $number_of_lines );
 
@@ -1294,14 +1297,13 @@ sub write_cdp {
 	print OUT ("cdp=");
 	print OUT ("@$cdp_aref[0]");
 
-	for ( $i = 1; $i < $number_of_cdps; $i++ ) {
+	for ( $i = 1 ; $i < $number_of_cdps ; $i++ ) {
 		print OUT (",@$cdp_aref[$i]");
 	}
 	print OUT ("\n");
 
 	close(OUT);
 }
-
 
 =head2 write_gather
 
@@ -1319,7 +1321,7 @@ sub write_gather {
 	# WRITE OUT FILE
 
 	# open and write to output file
-	my ( $gather_aref,$DIR_OUT) = @_;
+	my ( $gather_aref, $DIR_OUT ) = @_;
 
 	my ( $i, $number_of_gathers, $number_of_lines );
 
@@ -1334,14 +1336,14 @@ sub write_gather {
 	print OUT ("gather=");
 	print OUT ("@$gather_aref[0]");
 
-	for ( $i = 1; $i < $number_of_gathers; $i++ ) {
+	for ( $i = 1 ; $i < $number_of_gathers ; $i++ ) {
 		print OUT (",@$gather_aref[$i]");
 	}
 	print OUT ("\n");
 
 	close(OUT);
 }
-	
+
 =head2 write_tmute_xmute
 
 	write out only 
@@ -1360,17 +1362,16 @@ sub write_tmute_xmute {
 	# WRITE OUT FILE
 
 	# open and write to output file
-	my ( $gather_aref, $tmute_aref, $xmute_aref, $DIR_OUT) = @_;
+	my ( $gather_aref, $tmute_aref, $xmute_aref, $DIR_OUT ) = @_;
 
-	my ( $i, $number_of_gathers);
-	$number_of_gathers = scalar @$gather_aref;	
+	my ( $i, $number_of_gathers );
+	$number_of_gathers = scalar @$gather_aref;
 
 	my $temp = '.tx';
 	open( OUT, ">$DIR_OUT/$temp" );
 
 	# print out subsequent lines
-	for ( my $i = 0; $i < $number_of_gathers; $i++ )
-	{
+	for ( my $i = 0 ; $i < $number_of_gathers ; $i++ ) {
 
 		# for each CDP
 		print OUT ("tmute=@$tmute_aref[$i]\n");
@@ -1380,7 +1381,6 @@ sub write_tmute_xmute {
 
 	close(OUT);
 }
-
 
 =head2 write_tnmo_vnmo
 
@@ -1400,17 +1400,16 @@ sub write_tnmo_vnmo {
 	# WRITE OUT FILE
 
 	# open and write to output file
-	my ( $cdp_aref, $tnmo_aref, $vnmo_aref, $DIR_OUT) = @_;
+	my ( $cdp_aref, $tnmo_aref, $vnmo_aref, $DIR_OUT ) = @_;
 
-	my ( $i, $number_of_cdps);
-	$number_of_cdps = scalar @$cdp_aref;	
+	my ( $i, $number_of_cdps );
+	$number_of_cdps = scalar @$cdp_aref;
 
 	my $temp = '.tv';
 	open( OUT, ">$DIR_OUT/$temp" );
 
 	# print out subsequent lines
-	for ( my $i = 0; $i < $number_of_cdps; $i++ )
-	{
+	for ( my $i = 0 ; $i < $number_of_cdps ; $i++ ) {
 
 		# for each CDP
 		print OUT ("tnmo=@{$tnmo_aref}[$i]\n");

@@ -3,10 +3,10 @@
  sudmovz <stdin >stdout cdpmin= cdpmax= dxcdp= noffmix= [...]		
 
  Required Parameters:							
- cdpmin         minimum cdp (integer number) for which to apply DMO	
- cdpmax         maximum cdp (integer number) for which to apply DMO	
- dxcdp          distance between adjacent cdp bins (m)			
- noffmix        number of offsets to mix (see notes)			
+ cdpmin=         minimum cdp (integer number) for which to apply DMO	
+ cdpmax=         maximum cdp (integer number) for which to apply DMO	
+ dxcdp=          distance between adjacent cdp bins (m)			
+ noffmix=        number of offsets to mix (see notes)			
 
  Optional Parameters:							
  vfile=         binary (non-ascii) file containing interval velocities (m/s)

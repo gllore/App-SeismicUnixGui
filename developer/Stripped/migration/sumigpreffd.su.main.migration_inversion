@@ -13,8 +13,12 @@ SUMIGPREFFD - The 2-D prestack common-shot Fourier finite-difference
   
  Optional Parameters:							
  fmax=25	the peak frequency of Ricker wavelet used as source wavelet
- f1=5,f2=10,f3=40,f4=50	frequencies to build a Hamming window	
- lpad=9999,rpad=9999		number of zero traces padded on both	
+ f1=5
+ f2=10
+ f3=40
+ f4=50	frequencies to build a Hamming window	
+ lpad=9999
+ rpad=9999		number of zero traces padded on both	
 				sides of depth section to determine the 
 				migration aperature, the default	
 				values are using the full aperature.	

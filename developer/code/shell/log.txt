@@ -1,0 +1,24 @@
+7
+
+suxwigb clip=0\.0001 wbox=600 hbox=800 xbox=600 ybox=800 style=seismic < /home/gllore/DuncanPoint/seismics/data/VetSchool/S/092521/Z/1/su/gllore/hi.su & 
+
+50
+
+suxwigb clip=0\.0001 wbox=600 hbox=800 xbox=600 ybox=800 style=seismic < /home/gllore/DuncanPoint/seismics/data/VetSchool/S/092521/Z/1/su/gllore/data_out.su & 
+
+11
+
+surange < /home/gllore/DuncanPoint/seismics/data/VetSchool/S/092521/Z/1/su/gllore/data_out.su & 
+
+9
+
+suxwigb clip=0\.0001 wbox=600 hbox=800 xbox=600 ybox=800 style=seismic < /home/gllore/DuncanPoint/seismics/data/VetSchool/S/092521/Z/1/su/gllore/hi.su & 
+
+12
+
+suxwigb clip=0\.0001 wbox=600 hbox=800 xbox=600 ybox=800 style=seismic < /home/gllore/DuncanPoint/seismics/data/VetSchool/S/092521/Z/1/su/gllore/hi.su & 
+
+29
+
+suxwigb clip=0\.0001 wbox=600 hbox=800 xbox=600 ybox=800 style=seismic < /home/gllore/DuncanPoint/seismics/data/VetSchool/S/092521/Z/1/su/gllore/hi.su & 
+

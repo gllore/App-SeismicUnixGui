@@ -3162,7 +3162,7 @@ sub save_button {
 			$gui_history->set_button('flow_select');
 
 		} else {
-			print("color_flow, save_button , unexpected missing variables NADA\n");
+#			print("color_flow, save_button , unexpected missing variables NADA\n");
 		}
 
 =pod

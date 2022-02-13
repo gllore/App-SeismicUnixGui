@@ -1,0 +1,4 @@
+/home/gllore/DuncanPoint/seismics/data/VetSchool/S/092521/Z/1/su/gllore/data_out.su
+/home/gllore/DuncanPoint/seismics/pl/VetSchool/S/092521/Z/1/gllore/surange.pl
+/home/gllore/DuncanPoint/seismics/pl/VetSchool/S/092521/Z/1/gllore/view_data_out.pl
+/home/gllore/DuncanPoint/seismics/pl/VetSchool/S/092521/Z/1/gllore/view_catted_out.pl

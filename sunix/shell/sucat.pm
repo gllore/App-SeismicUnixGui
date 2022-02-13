@@ -177,7 +177,7 @@ sub _get_data_type {
 				$data_type[$i] = 'velan';
 
 			} else {
-				print("sucat,_get_data_type, mismatch\n");
+#				print("sucat,_get_data_type, mismatch\n");
 				$data_type[$i] = $empty_string;
 			}
 		}

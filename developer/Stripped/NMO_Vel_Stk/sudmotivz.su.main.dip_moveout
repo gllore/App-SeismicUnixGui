@@ -4,9 +4,9 @@
  sudmotivz <stdin >stdout cdpmin= cdpmax= dxcdp= noffmix= [...]	
 
  Required Parameters:							
- cdpmin         minimum cdp (integer number) for which to apply DMO	
- cdpmax         maximum cdp (integer number) for which to apply DMO	
- dxcdp          distance between adjacent cdp bins (m)			
+ cdpmin=         minimum cdp (integer number) for which to apply DMO	
+ cdpmax=         maximum cdp (integer number) for which to apply DMO	
+ dxcdp=          distance between adjacent cdp bins (m)			
  noffmix        number of offsets to mix (see notes)			
 
  Optional Parameters:							

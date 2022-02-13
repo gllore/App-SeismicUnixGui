@@ -20,13 +20,14 @@ my $flow_type        = $get->flow_type_href();
 
 my $DATA_SEISMIC_SU = $Project->DATA_SEISMIC_SU();    # output data directory
 my $PL_SEISMIC      = $Project->PL_SEISMIC();
-my $max_index       = $suop2->get_max_index();
+my $max_index        = 5;                               # Insert a number here
+
 
 my $suop2_spec =  {
 	_CONFIG	 				=> $PL_SEISMIC,
 	_DATA_DIR_IN           => $DATA_SEISMIC_SU,
-#	_DATA_DIR_OUT          => $DATA_SEISMIC_SU,
-	_DATA_DIR_OUT          => $PL_SEISMIC,
+	_DATA_DIR_OUT          => $DATA_SEISMIC_SU,
+#	_DATA_DIR_OUT          => $PL_SEISMIC,
 	_binding_index_aref    => '',
 	_suffix_type_in        => $su,
 	_data_suffix_in        => $suffix_su,
@@ -51,6 +52,8 @@ my $suop2_spec =  {
 	_is_suprog             => $true,
 	_is_superflow          => $false,
 	_max_index             => $max_index,
+	_prefix_aref           => '',
+	_suffix_aref           => '',
 };
 
 =head2  sub _sub_binding_index_aref
@@ -85,8 +88,11 @@ sub file_dialog_type_aref {
 
 	my @type;
 
-	$type[0] = $file_dialog_type->{_Data};
-	$type[1] = $file_dialog_type->{_Data};
+	my $index_aref = get_binding_index_aref();
+	my @index      = @$index_aref;
+	
+	$type[ $index[0]]  = $file_dialog_type->{_Data};
+	$type[ $index[1] ] = $file_dialog_type->{_Data};
 
 	$suop2_spec->{_file_dialog_type_aref} = \@type;
 	return ();

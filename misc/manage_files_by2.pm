@@ -1,9 +1,5 @@
 package manage_files_by2;
 
-use Moose;
-
-=pod
-
 =head1 DOCUMENTATION
 
 =head2 SYNOPSIS 
@@ -31,25 +27,116 @@ use Moose;
 
 =head4 CHANGES and their DATES
 
+=cut
+
+use Moose;
+my $VERSION = '0.0.1';
+use L_SU_global_constants;
+use Project_config;
+use SeismicUnix
+  qw ($cdp $gx $in $out $on $go $to $txt $suffix_ascii $off $offset $su $sx $suffix_su $suffix_txt $tracl);
+
+=head2 define private hash
+to share
 
 =cut
 
-=pod
-
- head3= sub does_file_exist
- returns a 1 if the file does exist
- and returns a 0 if the file does not
-
-=cut
-
-=head2 Private anonymous hash 
-sharable by methods
-
-=cut
+my @array1;
+my @array2;
 
 my $manage_files_by2 = {
-	_directory => ' ',
+	_appendix               => '',
+	_cat_base_file_name_out => '',
+	_delete_base_file_name  => '',
+	_directory              => '',
+	_suffix_type            => '',
 };
+
+=head2 sub clear
+all memory
+
+=cut
+
+sub clear {
+	my $self = @_;
+	$manage_files_by2->{_appendix}               = '';
+	$manage_files_by2->{_cat_base_file_name_out} = '';
+	$manage_files_by2->{_delete_base_file_name}  = '';
+	$manage_files_by2->{_directory}              = ' ';
+	$manage_files_by2->{_suffix_type}            = '';
+
+}
+
+=head2 sub clean
+
+delete a pre-existing file
+directory of a file
+
+=cut
+
+sub clean {
+	my ($self) = @_;
+
+	if (    length $manage_files_by2->{_delete_base_file_name}
+		and length $manage_files_by2->{_suffix_type} )
+	{
+
+		use manage_files_by2;
+		use Project_config;
+
+		my $Project = Project_config->new();
+		my $file    = manage_files_by2->new();
+
+		my $DATA_SEISMIC_BIN  = $Project->DATA_SEISMIC_BIN;
+		my $DATA_SEISMIC_SEGY = $Project->DATA_SEISMIC_SEGY;
+		my $DATA_SEISMIC_SU   = $Project->DATA_SEISMIC_SU;
+		my $DATA_SEISMIC_TXT  = $Project->DATA_SEISMIC_TXT;
+		my $file_name         = $manage_files_by2->{_delete_base_file_name};
+		my $suffix_type       = $manage_files_by2->{_suffix_type};
+		my $outbound;
+
+		if ( $suffix_type eq $txt ) {
+
+			$outbound = $DATA_SEISMIC_TXT . '/' . $file_name . $suffix_txt;
+
+		}
+		elsif ( $suffix_type eq $su ) {
+
+			$outbound = $DATA_SEISMIC_SU . '/' . $file_name . $suffix_su;
+
+		}
+		else {
+			print("manage_files_by2, clean, unexpected\n");
+		}
+
+		my $ans = $file->exists($outbound);
+
+		#			print(
+		#				"manage_files_by2, clean, file_name= $file_name does exist\n"
+		#			);
+
+		if ($ans) {
+
+			$file->delete($outbound);
+			print(
+"manage_files_by2, clean, Cleaning for pre-existing $file_name \n"
+			);
+
+		}
+		else {
+			#			print("manage_files_by2, clean, file does not exist NADA\n");
+		}
+
+	}
+	else {
+		print("manage_files_by2, set_geom4calc, missing values\n");
+		print(
+"manage_files_by2, clean, delete_base_file_name=$manage_files_by2->{_delete_base_file_name}\n"
+		);
+
+	}
+
+}
 
 =head2 sub set_directory
 
@@ -63,9 +150,10 @@ sub set_directory {
 
 		$manage_files_by2->{_directory} = $dir;
 
-		#		print("manage_files_by2, set_directory, dir=$manage_files_by2->{_directory} \n");
+#		print("manage_files_by2, set_directory, dir=$manage_files_by2->{_directory} \n");
 
-	} else {
+	}
+	else {
 		print("manage_fiels_by2, set_directory, missing value\n");
 	}
 
@@ -88,7 +176,7 @@ sub clear_empty_files {
 		my ( $i,         $junk,      $cmd_file_name, $num_file_names );
 		my ( $cmd_inode, $cmd_size,  $index_node_number );
 
-		#		print("manage_files_by2, clear_empty_files, dir=$manage_files_by2->{_directory} \n");
+#		print("manage_files_by2, clear_empty_files, dir=$manage_files_by2->{_directory} \n");
 
 		#		print("\n manage_files_by2, clear_empty_files in dir=$dir\n");
 		chomp $dir;
@@ -101,7 +189,7 @@ sub clear_empty_files {
 		@inode          = `$cmd_inode`;
 		$num_file_names = scalar @file_name;
 
-		for ( my $i = 0; $i < $num_file_names; $i++ ) {
+		for ( my $i = 0 ; $i < $num_file_names ; $i++ ) {
 			chomp $file_name[$i];
 			chomp $inode[$i];
 
@@ -112,7 +200,7 @@ sub clear_empty_files {
 			( $file_name[$i], $junk ) = split( / /, $file_name[$i] );
 		}
 
-		for ( my $i = 1; $i <= $num_file_names; $i++ ) {
+		for ( my $i = 1 ; $i <= $num_file_names ; $i++ ) {
 
 			chomp $size[$i];
 			$size[$i] =~ s/^\s+//g;         # trim spaces at start
@@ -120,15 +208,16 @@ sub clear_empty_files {
 
 		}
 
-		for ( my $i = 0, my $j = 1; $i < $num_file_names; $i++, $j++ ) {
+		for ( my $i = 0, my $j = 1 ; $i < $num_file_names ; $i++, $j++ ) {
 
 			my $test = ( -d $dir . '/' . $file_name[$i] );
 			if ( $size[$j] == 0
-				&& not($test) ) {
+				&& not($test) )
+			{
 				my $ans = ($test);
 
-				#				print("CASE of not a directory and file =0\n");
-				#				print("CASE name inode size = $file_name[$i] $inode[$i] $size[$j]\n");
+	 #				print("CASE of not a directory and file =0\n");
+	 #				print("CASE name inode size = $file_name[$i] $inode[$i] $size[$j]\n");
 
 				$index_node_number = $inode[$i];
 				my $flow = (
@@ -139,17 +228,40 @@ sub clear_empty_files {
 				#		    print $flow;
 				system $flow;
 
-			} else {
+			}
+			else {
 
 				#			print("immodpg,clean_trash,size>0,line=$i, NADA\n");
 			}
 		}
 
-	} else {
+	}
+	else {
 
 	}
 
 	return ();
+}
+
+=head2 sub delete
+
+This function/method deletes files
+
+=cut 
+
+sub delete {
+
+	my ( $self, $outbound ) = @_;
+
+	#   get directory names
+	#	print("\n manage_files_by2, delete, Deleting $outbound \n");
+
+	system(
+		"                       	\\
+                rm  $outbound      	\\
+        "
+	);
+
 }
 
 =head2 sub does_file_exist
@@ -162,7 +274,7 @@ sub does_file_exist {
 
 	$does_file_exist->{ref_file} = $$ref_file if defined($ref_file);
 
-#	print("manage_files_by2,does_file_exist,file name is, $$ref_file\n");
+	#	print("manage_files_by2,does_file_exist,file name is, $$ref_file\n");
 
 	# default situation is to have a file non-existent
 	my $answer = 0;
@@ -172,7 +284,7 @@ sub does_file_exist {
 	# print("plain file for test is $$ref_file\n\n");
 	if ( -f $does_file_exist->{ref_file} ) {
 
-		# print  ("manage_files_by2,does_file_exist,file existence verified\n\n") ;
+	 # print  ("manage_files_by2,does_file_exist,file existence verified\n\n") ;
 		$answer = 1;
 	}
 
@@ -189,7 +301,7 @@ sub does_file_exist_sref {
 
 		my $file = $$ref_file;
 
-		# print("manage_files_by2,does_file_exist_sref,file name is, $$ref_file\n");
+	# print("manage_files_by2,does_file_exist_sref,file name is, $$ref_file\n");
 
 		# default situation is to have a file non-existent
 		my $answer = 0;
@@ -207,8 +319,46 @@ sub does_file_exist_sref {
 		#	answer=1 if existent and =0 if non-existent
 		#verified by JL
 		return ($answer);
-	} else {
+	}
+	else {
 		print("does_file_exist_sref, ref_file is missing\n");
+	}
+
+}
+
+=head2 sub exists
+
+Another way to see if a file exists
+input is a scalar
+
+
+=cut
+
+sub exists {
+
+	my ( $self, $file ) = @_;
+
+	if ($file) {
+
+		# default situation is to have a file non-existent
+		my $answer = 0;
+
+		# -e returns 1 or ''
+		# verified by JL
+		#		print("existence test for $file\n\n");
+		if ( -e $file ) {
+
+			#			print("file existence verified; answer=$answer\n\n");
+			$answer = 1;
+		}
+
+		#	answer=1 if existent and =0 if non-existent
+		#		print  ("file non-existence verified; answer=$answer\n\n") ;
+		#verified by JL
+		return ($answer);
+	}
+	else {
+		print("\n");
 	}
 
 }
@@ -237,12 +387,12 @@ sub unique_elements {
 		# the first program is always unique
 		$unique_progs[0] = @{$array_ref}[0];
 
-#		print("1. manage_files_by2, first program in flow: @{$array_ref}[0]\n");
-#		print("2. manage_files_by2, num_unique_progs=$num_unique_progs\n\n");
+	 #		print("1. manage_files_by2, first program in flow: @{$array_ref}[0]\n");
+	 #		print("2. manage_files_by2, num_unique_progs=$num_unique_progs\n\n");
 
-		for ( my $i = 1; $i < $total_num_progs4flow; $i++ ) {
+		for ( my $i = 1 ; $i < $total_num_progs4flow ; $i++ ) {
 
-			for ( my $j = 0; $j < $num_unique_progs; $j++ ) {
+			for ( my $j = 0 ; $j < $num_unique_progs ; $j++ ) {
 
 				if ( $unique_progs[$j] eq @{$array_ref}[$i] ) {
 
@@ -252,9 +402,10 @@ sub unique_elements {
 					$repeated = $true;
 
 					# exit if-loop and increment $j
-				} else {
+				}
+				else {
 #					print("6. manage_files_by2, program index #$i in flow: @{$array_ref}[$i]\n");
-					#	print("7. manage_files_by2, prog @{array_ref}[$i] is unique\n\n");
+#	print("7. manage_files_by2, prog @{array_ref}[$i] is unique\n\n");
 #					print("8. manage_files_by2,unique_prog detected=@{$array_ref}[$i] \n");
 				}
 
@@ -264,12 +415,14 @@ sub unique_elements {
 
 				$repeated = $false;    #reset for next check
 
-			} else {
+			}
+			else {
 				push @unique_progs, @{$array_ref}[$i];
 
-#				print("9. manage_files_by2,unique new program found for output \n");
+	   #				print("9. manage_files_by2,unique new program found for output \n");
 				$num_unique_progs++;
-#				print("10. manage_files_by2, num_unique_progs=$num_unique_progs\n\n");
+
+	 #				print("10. manage_files_by2, num_unique_progs=$num_unique_progs\n\n");
 			}
 
 		}    # end all programs
@@ -280,7 +433,8 @@ sub unique_elements {
 		$results_ref = \@unique_progs;
 		return ($results_ref);
 
-	} else {
+	}
+	else {
 		print("manage_files_by2,unique_elements, missing array\n");
 		return ();
 
@@ -304,11 +458,15 @@ sub read_1col_aref {
 	my @X;
 	my $line;
 
-	# print("manage_files_by2,read_1col_aref,The output file name = $$ref_file_name\n");
+	print(
+"manage_files_by2,read_1col_aref,The output file name = $$ref_file_name\n"
+	);
+
 	# set the counter
 
 	$i = 0;
-	open( IN, "<$$ref_file_name" ) or die "Could not open file '$$ref_file_name'. $!";
+	open( IN, "<$$ref_file_name" )
+	  or die "Could not open file '$$ref_file_name'. $!";
 
 	# read contents of file
 	while ( $line = <IN> ) {
@@ -341,6 +499,66 @@ sub read_1col_aref {
 
 =cut
 
+sub read_2cols_aref {
+
+	my ( $variable, $inbound, $spacer ) = @_;
+
+	if ( length $inbound
+		and $spacer )
+	{
+
+		#declare locally scoped variables
+		my ( $i, $line, $t, $x, $num_rows );
+		my ( @TIME, @OFFSET );
+
+		# open the file of interest
+		open( FILE, $inbound ) || print("Can't open $inbound \n");
+
+		#set the counter
+		$i = 0;
+
+		# read contents of shotpoint geometry file
+		while ( $line = <FILE> ) {
+
+#			print("\n$line");
+			chomp($line);
+			( $t, $x )  = split( $spacer, $line );
+			$TIME[$i]   = $t;
+			$OFFSET[$i] = $x;
+
+#			print("\n $TIME[$i] $OFFSET[$i]\n");
+			$i = $i + 1;
+
+		}
+
+		close(FILE);
+
+		$num_rows = $i - 1;
+
+		# print out the number of lines of data for the user
+		#print ("\nThis file contains $num_rows row(s) of data\n");
+
+		my @array_out = ( \@TIME, \@OFFSET );
+		my $result    = \@array_out;
+
+		return ($result);
+
+	}
+	else {
+		print("manage_files_by2, read_2cols_ref, missing variables\n");
+		return ();
+	}
+
+}
+
+=pod
+
+ read in a 2-columned file
+ reads cols 1 and 2 in a text file
+
+
+=cut
+
 sub read_2cols {
 
 	my ( $variable, $ref_origin ) = @_;
@@ -352,7 +570,7 @@ sub read_2cols {
 	# print("In this subroutine $$ref_origin\n");
 
 	# open the file of interest
-	open( FILE, $$ref_origin ) || print("Can't open. $$ref_origin \n");
+	open( FILE, $$ref_origin ) || print("Can't open $$ref_origin \n");
 
 	#set the counter
 	$i = 1;
@@ -385,6 +603,68 @@ sub read_2cols {
 	return ( \@TIME_OUT, \@OFFSET_OUT, $num_rows );
 }
 
+=head2 sub get_5cols_aref
+
+this function reads 5 cols in a text file
+
+=cut
+
+sub get_5cols_aref {
+
+	my ( $self, $file_name ) = @_;
+
+	if ( length $file_name ) {
+
+		my @ID;
+		my @X;
+		my @Y;
+		my @Z;
+		my @W;
+		my ($lines);
+		my $i = 0;
+
+#		print(
+#"\n manage_files_by2, get_5cols_aref, The input file with 5 cols is called $file_name\n"
+#		);
+
+		# open the file of interest
+		open( FILE, $file_name ) || print("Can't open $!\n");
+
+		# read contents of file
+		while ( $lines = <FILE> ) {
+
+			#print("$lines");
+			chomp($lines);
+			my ( $ident, $x, $y, $z, $w ) = split( " ", $lines );
+
+			#print("\n $ident \n");
+			$ID[$i] = $ident;
+			$X[$i]  = $x;
+			$Y[$i]  = $y;
+			$Z[$i]  = $z;
+			$W[$i]  = $w;
+
+			$i++;
+
+		}
+		$i = $i - 1;
+
+		#	 		print ("This file contains number of indices: $i\n\n\n");
+		# close the file of interest
+		close(FILE);
+
+		my @output_array = ( \@ID, \@X, \@Y, \@Z, \@W );
+		return ( \@output_array );
+
+	}
+	else {
+		print("\n, manage_files_by2, get_5cols_aref, missing a value\n");
+	}
+
+	print("\nThe input file with 5 cols is called $file_name\n");
+
+}
+
 =head2 sub get_3cols_aref
   
   This function reads 3 cols in a text file
@@ -400,10 +680,10 @@ sub get_3cols_aref {
 	print("\nThe input file is called $file_name\n");
 
 	# open the file of interest
-	open( FILE, "$file_name" ) || print("Can't open file name, $!\n");
+	open( FILE, "$file_name" ) || print("Can't open $file_name, $!\n");
 
 	# skip lines
-	for ( my $i = 0; $i < $skip_lines; $i++ ) {
+	for ( my $i = 0 ; $i < $skip_lines ; $i++ ) {
 		$lines = <FILE>;
 		print("line $i = $lines\n");
 	}
@@ -440,6 +720,47 @@ sub get_3cols_aref {
 
 }
 
+sub read_1col {
+
+	# this function reads 1 col from  a text file
+
+	my ( $self, $origin ) = @_;
+	my @OFFSET;
+
+	#	print ("\nThe input file is called $origin\n");
+
+	# open the file of interest
+	open( FILE, $origin ) || print("Can't open $origin, $!\n");
+
+	#set the counter
+	my $i = 0;
+
+	# read contents of shotpoint geometry file
+	while ( my $line = <FILE> ) {
+
+		#print("\n$line");
+		chomp($line);
+		my ($x) = $line;
+		$OFFSET[$i] = $x;
+
+		#		print("\n Reading 1 col file:$OFFSET[$i]\n");
+		$i = $i + 1;
+
+	}
+
+	close(FILE);
+
+	my $num_rows = scalar @OFFSET;
+
+	# print out the number of lines of data for the user
+	#	print ("This file contains $num_rows rows of data\n\n\n");
+	# make sure arrays do not contaminate outside
+	my $result = \@OFFSET;
+
+	return ( $result, $num_rows );
+
+}
+
 =head2 sub read_par
 
  read parameter file
@@ -453,7 +774,7 @@ sub read_par {
 
 	my ( $self, $ref_file_name ) = @_;
 
-	print("\nmanage_files_by2,read_par, The input file is called $$ref_file_name\n");
+#	print("\nmanage_files_by2,read_par, The input file is called $$ref_file_name\n");
 
 =pod Steps
 
@@ -468,7 +789,7 @@ sub read_par {
 
 =cut
 
-	open( FILE, $$ref_file_name ) || print("Can't open file_name, $!\n");
+	open( FILE, $$ref_file_name ) || print("Can't open $$ref_file_name, $!\n");
 
 	my $row = -1;
 	my (@Items);
@@ -498,15 +819,397 @@ sub read_par {
 		$Items[$row]        = \@things;
 		$ValuesPerRow[$row] = scalar(@things);
 
-		# print("manage_files_by2,read_par, ValuesPerRow=$ValuesPerRow[$row], row=$row\n");
+# print("manage_files_by2,read_par, ValuesPerRow=$ValuesPerRow[$row], row=$row\n");
 
 	}
 	close(FILE);
 
-	# print("manage_files_by2,read_par, ROW 0 @{$Items[0]} \n");
-	# print("manage_files_by2,read_par, ROW 1 @{$Items[1]} \n");
-	# print("manage_files_by2,read_par, ROW 0,1 Values per rows: @ValuesPerRow\n");
+ # print("manage_files_by2,read_par, ROW 0 @{$Items[0]} \n");
+ # print("manage_files_by2,read_par, ROW 1 @{$Items[1]} \n");
+ # print("manage_files_by2,read_par, ROW 0,1 Values per rows: @ValuesPerRow\n");
 	return ( \@Items, \@ValuesPerRow );
+}
+
+=head2 sub set_appendix
+
+set file for catting
+
+=cut
+
+sub set_appendix {
+	my ( $self, $appendix ) = @_;
+
+	if ( length $appendix ) {
+
+		$manage_files_by2->{_appendix} = $appendix;
+
+   #		print("manage_files_by2, set_appendix, base_file_name_out = $appendix\n");
+	}
+	else {
+		print("manage_files_by2, set_appendix, missing variable\n");
+	}
+
+	my $result;
+
+	return ($result);
+
+}
+
+=head2 sub set_cat_base_file_name_out
+
+=cut
+
+sub set_cat_base_file_name_out {
+	my ( $self, $base_file_name_out ) = @_;
+
+	if ( length $base_file_name_out ) {
+
+#		print(
+#"manage_files_by2, set_cat_base_file_name_out, base_file_name_out = $base_file_name_out\n"
+#		);
+
+		$manage_files_by2->{_cat_base_file_name_out} = $base_file_name_out;
+	}
+	else {
+		print(
+			"manage_files_by2, set_cat_base_file_name_out, missing variable\n");
+	}
+
+	my $result;
+
+	return ($result);
+
+}
+
+=head2 sub set_cat_su
+
+append individual output files to 
+a major product file
+
+=cut
+
+sub set_cat_su {
+
+	my ($self) = @_;
+
+	if (    length $manage_files_by2->{_cat_base_file_name_out}
+		and length $manage_files_by2->{_appendix} )
+	{
+
+=head2 SYNOPSIS
+
+PACKAGE NAME: 
+
+AUTHOR:  
+
+DATE:
+
+DESCRIPTION:
+
+Version:
+
+=head2 USE
+
+=head3 NOTES
+
+=head4 Examples
+
+=head2 SYNOPSIS
+
+=head3 SEISMIC UNIX NOTES
+
+=head2 CHANGES and their DATES
+
+=cut
+
+		use Moose;
+		use SeismicUnix
+		  qw($append $in $out $on $go $to $suffix_ascii $off $suffix_segd $suffix_segy $suffix_sgy $suffix_su $suffix_segd $suffix_txt $suffix_bin);
+		use Project_config;
+
+		my $Project           = new Project_config();
+		my $DATA_SEISMIC_BIN  = $Project->DATA_SEISMIC_BIN;
+		my $DATA_SEISMIC_SEGY = $Project->DATA_SEISMIC_SEGY;
+		my $DATA_SEISMIC_SU   = $Project->DATA_SEISMIC_SU;
+		my $DATA_SEISMIC_TXT  = $Project->DATA_SEISMIC_TXT;
+
+		use message;
+		use flow;
+		use cat_su;
+		use data_out;
+
+		my $log      = new message();
+		my $run      = new flow();
+		my $cat_su   = new cat_su();
+		my $data_out = new data_out();
+
+=head2 Declare
+
+	local variables
+
+=cut
+
+		my (@flow);
+		my (@items);
+		my (@cat_su);
+		my (@data_out);
+
+=head2 Set up
+
+	cat_su parameter values
+
+=cut
+
+		$cat_su->clear();
+		$cat_su->base_file_name1(
+			quotemeta(
+				$DATA_SEISMIC_SU . '/' . $manage_files_by2->{_appendix}
+			  )
+			  . $suffix_su
+		);
+
+		#	$cat_su->base_file_name2(
+		#		quotemeta( $DATA_SEISMIC_SU . '/' . '00000004' ) . $suffix_su );
+		$cat_su[1] = $cat_su->Step();
+
+=head2 Set up
+
+	data_out parameter values
+
+=cut
+
+		$data_out->clear();
+		$data_out->base_file_name(
+			quotemeta( $manage_files_by2->{_cat_base_file_name_out} ) );
+		$data_out->suffix_type($su);
+		$data_out[1] = $data_out->Step();
+
+=head2 DEFINE FLOW(s) 
+
+
+=cut
+
+		@items = ( $cat_su[1], $append, $data_out[1], $go );
+		$flow[1] = $run->modules( \@items );
+
+=head2 RUN FLOW(s) 
+
+
+=cut
+
+		$run->flow( \$flow[1] );
+
+=head2 LOG FLOW(s)
+
+	to screen and FILE
+
+=cut
+
+		$log->screen( $flow[1] );
+
+		$log->file(localtime);
+		$log->file( $flow[1] );
+
+	}
+	else {
+		print(",manage_files_by2, cat_su, missing variables \n");
+		print(
+",manage_files_by2, cat_su, manage_files_by2->{_cat_base_file_name_out}=$manage_files_by2->{_cat_base_file_name_out} \n"
+		);
+		print(
+",manage_files_by2, cat_su, manage_files_by2->{_appendix}=$manage_files_by2->{_appendix} \n"
+		);
+	}
+
+}    # end set_cat_su
+
+=head2 sub set_cat_txt
+
+append individual output files to 
+a major product file
+
+=cut
+
+sub set_cat_txt {
+
+	my ($self) = @_;
+
+	if (    length $manage_files_by2->{_cat_base_file_name_out}
+		and length $manage_files_by2->{_appendix} )
+	{
+
+=head2 SYNOPSIS
+
+PACKAGE NAME: 
+
+AUTHOR:  
+
+DATE:
+
+DESCRIPTION:
+
+Version:
+
+=head2 USE
+
+=head3 NOTES
+
+=head4 Examples
+
+=head2 SYNOPSIS
+
+=head3 SEISMIC UNIX NOTES
+
+=head2 CHANGES and their DATES
+
+=cut
+
+		use Moose;
+		use SeismicUnix
+		  qw($append $in $out $on $go $to $suffix_ascii $off $suffix_segd $suffix_segy $suffix_sgy $suffix_su $suffix_segd $suffix_txt $suffix_bin);
+		use Project_config;
+
+		my $Project           = new Project_config();
+		my $DATA_SEISMIC_BIN  = $Project->DATA_SEISMIC_BIN;
+		my $DATA_SEISMIC_SEGY = $Project->DATA_SEISMIC_SEGY;
+		my $DATA_SEISMIC_SU   = $Project->DATA_SEISMIC_SU;
+		my $DATA_SEISMIC_TXT  = $Project->DATA_SEISMIC_TXT;
+
+		use message;
+		use flow;
+		use cat_txt;
+		use data_out;
+
+		my $log      = new message();
+		my $run      = new flow();
+		my $cat_txt  = new cat_txt();
+		my $data_out = new data_out();
+
+=head2 Declare
+
+	local variables
+
+=cut
+
+		my (@flow);
+		my (@items);
+		my (@cat_txt);
+		my (@data_out);
+
+=head2 Set up
+
+	cat_txt parameter values
+
+=cut
+
+		$cat_txt->clear();
+		$cat_txt->base_file_name1(
+			quotemeta(
+				$DATA_SEISMIC_TXT . '/' . $manage_files_by2->{_appendix}
+			  )
+			  . $suffix_txt
+		);
+
+		$cat_txt[1] = $cat_txt->Step();
+
+=head2 Set up
+
+	data_out parameter values
+
+=cut
+
+		$data_out->clear();
+		$data_out->base_file_name(
+			quotemeta( $manage_files_by2->{_cat_base_file_name_out} ) );
+		$data_out->suffix_type( quotemeta('txt') );
+		$data_out[1] = $data_out->Step();
+
+=head2 DEFINE FLOW(s) 
+
+
+=cut
+
+		@items = ( $cat_txt[1], $append, $data_out[1], $go );
+		$flow[1] = $run->modules( \@items );
+
+=head2 RUN FLOW(s) 
+
+
+=cut
+
+		$run->flow( \$flow[1] );
+
+=head2 LOG FLOW(s)
+
+	to screen and FILE
+
+=cut
+
+		$log->screen( $flow[1] );
+
+		$log->file(localtime);
+		$log->file( $flow[1] );
+
+	}
+	else {
+		print(",manage_files_by2, cat_txt, missing variables \n");
+		print(
+",manage_files_by2, cat_txt, manage_files_by2->{_cat_base_file_name_out}=$manage_files_by2->{_cat_base_file_name_out} \n"
+		);
+		print(
+",manage_files_by2, cat_txt, manage_files_by2->{_appendix}=$manage_files_by2->{_appendix} \n"
+		);
+	}
+
+}    # end set_cat_txt
+
+=head2 sub set_delete_base_file_name
+
+=cut
+
+sub set_delete_base_file_name {
+	my ( $self, $base_file_name ) = @_;
+
+	if ( length $base_file_name ) {
+
+#	print(
+#   "manage_files_by2, set_delete_base_file_name, base_file_name_sx = $base_file_name_sx\n"
+#	);
+
+		$manage_files_by2->{_delete_base_file_name} = $base_file_name;
+
+	}
+	else {
+		print(
+			"manage_files_by2, set_delete_base_file_name, missing variable\n");
+	}
+
+	my $result;
+	return ($result);
+
+}
+
+=head2 sub suffix_type
+
+geometry values
+
+=cut
+
+sub set_suffix_type {
+	my ( $self, $suffix_type ) = @_;
+
+	my $result;
+
+	if ( length $suffix_type ) {
+
+		$manage_files_by2->{_suffix_type} = $suffix_type;
+
+	}
+	else {
+		print("manage_files_by2, missing suffix_type=$suffix_type\n");
+	}
+
+	return ($result);
 }
 
 =pod
@@ -527,13 +1230,13 @@ sub write_1col_aref {
 
 	# $variable is an unused hash
 
-	#	print("\n manage_files_by2,write_1col_aref,The output file name = $$ref_file_name\n");
-	#	print("\n manage_files_by2,write_1col_aref,The output file contains $num_rows rows\n");
-	#	print("\n manage_files_by2,write_1col_aref,The output file uses the following format: $$ref_fmt\n");
+#	print("\n manage_files_by2,write_1col_aref,The output file name = $$ref_file_name\n");
+#	print("\n manage_files_by2,write_1col_aref,The output file contains $num_rows rows\n");
+#	print("\n manage_files_by2,write_1col_aref,The output file uses the following format: $$ref_fmt\n");
 
 	open( OUT, ">$$ref_file_name" );
 
-	for ( $j = 0; $j < $num_rows; $j++ ) {
+	for ( $j = 0 ; $j < $num_rows ; $j++ ) {
 
 		printf OUT "$$ref_fmt\n", @$ref_X[$j];
 
@@ -567,7 +1270,7 @@ sub write_1col1 {
 	#print("\nThe output file uses the following format: $$ref_fmt\n");
 	open( OUT, ">$$ref_file_name" );
 
-	for ( $j = 1; $j <= $num_rows; $j++ ) {
+	for ( $j = 1 ; $j <= $num_rows ; $j++ ) {
 
 		#print OUT  ("$$ref_X[$j] $$ref_Y[$j]\n");
 		printf OUT "$$ref_fmt\n", $$ref_X[$j];
@@ -601,7 +1304,7 @@ sub write_2cols {
 	#print("\nThe output file uses the following format: $$ref_fmt\n");
 	open( OUT, ">$$ref_file_name" );
 
-	for ( $j = 1; $j <= $num_rows; $j++ ) {
+	for ( $j = 1 ; $j <= $num_rows ; $j++ ) {
 
 		#print OUT  ("$$ref_X[$j] $$ref_Y[$j]\n");
 		printf OUT "$$ref_fmt\n", $$ref_X[$j], $$ref_Y[$j];
@@ -611,6 +1314,35 @@ sub write_2cols {
 
 	close(OUT);
 	return ();
+
+}
+
+=head2 sub write_5cols 
+
+WRITE OUT FILE
+open and write to output file
+	
+=cut 
+
+sub write_5cols {
+
+	my ( $self, $ref_X, $ref_Y, $ref_Z, $ref_A, $ref_B, $file_name, $fmt ) = @_;
+
+	my $num_rows = scalar @$ref_X;
+
+	open( OUT, ">$file_name" );
+
+	for ( my $j = 0 ; $j < $num_rows ; $j++ ) {
+
+		printf OUT "$fmt", @$ref_X[$j], @$ref_Y[$j], @$ref_Z[$j],
+		  @$ref_A[$j], @$ref_B[$j];
+	}
+
+	close(OUT);
+
+	#	print(
+	#		"\nmanage_files_by2,write_5cols,The output file is called $file_name\n"
+	#	);
 
 }
 
@@ -624,9 +1356,11 @@ sub write_2cols {
 
 sub write_par {
 
-	my ( $self, $ref_outbound, $ref_array_tnmo_row, $ref_array_vnmo_row, $first_name, $second_name ) = @_;
+	my ( $self, $ref_outbound, $ref_array_tnmo_row, $ref_array_vnmo_row,
+		$first_name, $second_name )
+	  = @_;
 
-	# print("\nmanage_files_by2,write_par,The input file is called $$ref_outbound\n");
+# print("\nmanage_files_by2,write_par,The input file is called $$ref_outbound\n");
 
 =head2 local definitions
 
@@ -653,7 +1387,7 @@ sub write_par {
 
 	print $fh ("$first_name=$tnmo_array[1]");
 
-	for ( my $i = 2; $i < $number_of_values_per_row; $i++ ) {
+	for ( my $i = 2 ; $i < $number_of_values_per_row ; $i++ ) {
 
 		print $fh (",$tnmo_array[$i]");
 
@@ -663,7 +1397,7 @@ sub write_par {
 
 	print $fh ("$second_name=$vnmo_array[1]");
 
-	for ( my $i = 2; $i < $number_of_values_per_row; $i++ ) {
+	for ( my $i = 2 ; $i < $number_of_values_per_row ; $i++ ) {
 
 		print $fh (",$vnmo_array[$i]");
 
@@ -683,11 +1417,9 @@ sub write_par {
 
 sub write_multipar {
 
-	my (
-		$self,               $ref_outbound, $ref_array_cdp_row,
-		$ref_array_tnmo_row, $ref_array_vnmo_row,
-		$first_name,         $second_name
-	) = @_;
+	my ( $self, $ref_outbound, $ref_array_cdp_row,
+		$ref_array_tnmo_row, $ref_array_vnmo_row, $first_name, $second_name )
+	  = @_;
 
 	#	print(
 	#		"\nmanage_files_by2,write_par,The input file is called $$ref_outbound\n"
@@ -728,7 +1460,7 @@ sub write_multipar {
 
 	print $fh ("$first_name=$tnmo_array[1]");
 
-	for ( my $i = 2; $i < $number_of_values_per_row; $i++ ) {
+	for ( my $i = 2 ; $i < $number_of_values_per_row ; $i++ ) {
 
 		print $fh (",$tnmo_array[$i]");
 
@@ -738,7 +1470,7 @@ sub write_multipar {
 
 	print $fh ("second_name=$vnmo_array[1]");
 
-	for ( my $i = 2; $i < $number_of_values_per_row; $i++ ) {
+	for ( my $i = 2 ; $i < $number_of_values_per_row ; $i++ ) {
 
 		print $fh (",$vnmo_array[$i]");
 

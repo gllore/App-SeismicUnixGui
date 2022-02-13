@@ -23,9 +23,9 @@ Notes:
 	1  2  3								
 	2  3  4								
 
- if tr.cdp = 1 then tr.ep and tr.sx will be set to 2 and 3		
- if tr.cdp = 2 then tr.ep and tr.sx will be set to 3 and 4		
- if tr.cdp=other than tr.trid=3					
+ if tr.cdp equals 1 then tr.ep and tr.sx will be set to 2 and 3		
+ if tr.cdp equals 2 then tr.ep and tr.sx will be set to 3 and 4		
+ if tr.cdp equals other than tr.trid equals 3					
 
  Caveat: the user has to make it sure that number of entires in key=	
 	 is equal the number of columns stored in the file.		

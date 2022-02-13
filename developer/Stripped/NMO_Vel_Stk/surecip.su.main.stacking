@@ -2,6 +2,7 @@
 
  surecip <stdin >stdout	 		               	
 
+opt=null
  Sum traces with equal positive and negative offsets (i.e. assume
  reciprocity holds). 						
 

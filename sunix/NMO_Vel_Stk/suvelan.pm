@@ -14,6 +14,12 @@ package suvelan;
 
 =head3 NOTES
 
+ Distances (and velocities) need to be scaled by the user
+ a scaling factor is needed to match 
+ scalel found in data headers
+ suvelan DOES not take scaleco or scalel into consdieration
+ automatically
+
 =head4 Examples
 
 =head3 SEISMIC UNIX NOTES
@@ -88,6 +94,8 @@ package suvelan;
  Trace header fields modified:  ns, dt, offset, cdp
 
 =head2 CHANGES and their DATES
+
+
 
 =cut
 

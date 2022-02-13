@@ -398,8 +398,8 @@ sub sufile {
         my ($DATA_SEISMIC_SU) = $Project->DATA_SEISMIC_SU();
         my $new_file_name = $sufile;
 
-        # force correct suffix
-        $new_file_name = basename($sufile) . $suffix_su;
+        # deprecate forcing a suffix  12.8.21
+        $new_file_name = basename($sufile);
 
         # print("1. suxcor sufile, new_file_name= $new_file_name\n");
 

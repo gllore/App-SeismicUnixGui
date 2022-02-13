@@ -89,6 +89,7 @@ my $iVA = {
 # Warning: set using a scalar reference
 
 sub get_values {
+	my ($self)  = @_;
     $iVA->{_prog_name} = \@{$superflow_config_names}[4];
 
     $config_superflows->set_program_name( $iVA->{_prog_name} );
@@ -120,6 +121,12 @@ sub get_values {
     my $velocity_increment   = @{ $iVA->{_values_aref} }[9];
     my $min_semblance        = @{ $iVA->{_values_aref} }[10];
     my $max_semblance        = @{ $iVA->{_values_aref} }[11];
+	my $anis1        		 = @{ $iVA->{_values_aref} }[12];
+	my $anis2        		 = @{ $iVA->{_values_aref} }[13];
+	my $dtratio        		 = @{ $iVA->{_values_aref} }[14];
+	my $nsmooth        		 = @{ $iVA->{_values_aref} }[15];
+	my $pwr       		     = @{ $iVA->{_values_aref} }[16];
+	my $smute        		 = @{ $iVA->{_values_aref} }[17];
 
     # check on formats
     $freq = $control->commas( \$freq );    # needed?
@@ -137,14 +144,20 @@ sub get_values {
                 cdp_first            => $cdp_first,
                 cdp_inc              => $cdp_inc,
                 cdp_last             => $cdp_last,
-                tmax_s               => $tmax_s,
                 dt_s                 => $dt_s,
+                tmax_s               => $tmax_s,
                 freq                 => $freq,
+                number_of_velocities => $number_of_velocities,
                 first_velocity       => $first_velocity,
+                velocity_increment   => $velocity_increment,
                 min_semblance        => $min_semblance,
                 max_semblance        => $max_semblance,
-                number_of_velocities => $number_of_velocities,
-                velocity_increment   => $velocity_increment,
+  				anis1        		 => $anis1,
+  				anis2        		 => $anis2,
+  				dtratio        		 => $dtratio,
+  				nsmooth        		 => $nsmooth,
+  				pwr       		     => $pwr,
+  				smute        		 => $smute,        
             }
         }
     };
@@ -161,8 +174,7 @@ max index = number of input variables -1
 sub get_max_index {
     my ($self) = @_;
 
-    # only file_name : index=11
-    my $max_index = 11;
+    my $max_index = 17;
 
     return ($max_index);
 }

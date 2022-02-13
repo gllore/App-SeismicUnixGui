@@ -11,7 +11,7 @@ use seismics;
 use Project_config;
 
 =head1 DOCUMENTATION
-
+$Time[$i] = $$ref_T[$i];
 =head2 SYNOPSIS 
 
  PACKAGE NAME
@@ -39,7 +39,7 @@ use Project_config;
 
  1. define the types of variables you are using
     these would be the values you enter into 
-    each of the Seismic Unix programs  each of the 
+    each of the Seismic Unix programs  each of the$Time[$i] = $$ref_T[$i]; 
     Seismic Unix programs
 
  2. build a list or hash with all the possible variable
@@ -83,6 +83,7 @@ my $iVrms2Vint = {
 =cut
 
 sub clear {
+	my ( $variable) = @_;
     $iVrms2Vint->{_cdp_num}              = '';
     $iVrms2Vint->{_first_velocity}       = '';
     $iVrms2Vint->{_number_of_velocities} = '';
@@ -136,7 +137,7 @@ sub calcNdisplay {
 
     my ($PL_SEISMIC) = $Project->PL_SEISMIC();
     my ($date)       = $Project->date();
-    use SeismicUnix qw ($on $off $in $out $to $go);
+    use SeismicUnix qw($on $off $in $out $to $go);
 
 =head2  some SUB-STEPS in Vrms2Vint:
 
@@ -226,7 +227,7 @@ sub calcNdisplay {
 
 =cut
 
-    # print  "$flow[1]\n";
+#    print  "$flow[1]\n";
     #$log->file($flow[1]);
 
 =head2 TEXT to BINARY CONVERSION
@@ -263,7 +264,7 @@ sub calcNdisplay {
     ( $ref_Vint, $ref_Tnew, $num_points_Vint ) =
       $seismics->Vrms2Vint( $ref_T, $ref_Vrms, $num_points_Vrms );
 
-    #print("Vint num points out is $num_points_Vint\n");
+    print("Vint num points out is $num_points_Vint\n");
     #for ($i=1; $i<=$num_points_Vint; $i++) {
     #	print("\n$$ref_Vint[$i]\n");
     #	print("\n$$ref_Tnew[$i]\n");
@@ -309,7 +310,7 @@ sub calcNdisplay {
 
     $format[1] = '%10.3f  %10.3f';
 
-    #print("num points in Vint plot are/is $num_points_Vint_plot\n\n");
+    print("num points in Vint plot are/is $num_points_Vint_plot\n\n");
     $files->write_2cols( \@Time_plot, \@Vint_plot, $num_points_Vint_plot,
         \$Vint_plot_outbound[1],
         \$format[1] );
@@ -326,7 +327,7 @@ sub calcNdisplay {
 
     $geometry[1] = $wbox . 'x' . $hbox . '+' . $xbox . '+' . $ybox;
 
-    #print(" geometry is $geometry[1])\n\n");
+#    print(" geometry is $geometry[1])\n\n");
 
     $xgraph_first_vel = $iVrms2Vint->{_first_velocity};
     $xgraph_last_vel =
@@ -335,16 +336,21 @@ sub calcNdisplay {
 
     my $num_points_per_plot = $num_points_Vrms . ',' . $num_points_Vint_plot;
     $xgraph->clear();
+#    $xgraph->d1(quotemeta (.05));
+    $xgraph->geometry( quotemeta( $geometry[1] ) );
+#    $xgraph->grid1_type( quotemeta('dash') );
+#    $xgraph->grid2_type( quotemeta('dash') );
+    $xgraph->num_points( quotemeta($num_points_per_plot) );
     $xgraph->num_points( quotemeta($num_points_per_plot) );
     $xgraph->x1_min( quotemeta(0) );
     $xgraph->x1_max( quotemeta( $iVrms2Vint->{_tmax_s} ) );
     $xgraph->x2_min( quotemeta($xgraph_first_vel) );
+    $xgraph->x2_min(0);
     $xgraph->x2_max( quotemeta($xgraph_last_vel) );
     $xgraph->windowtitle(
         quotemeta( $sufile_in[1] . ' ' . $date . ' ' . $suffix[3] ) );
     $xgraph->title( quotemeta( $Vrmsfile_in[1] . ' Vrms(green) Vint(red)' ) );
-    $xgraph->grid1_type( quotemeta('solid') );
-    $xgraph->grid2_type( quotemeta('solid') );
+    $xgraph->format( quotemeta('2,2') );
     $xgraph->mark_indices( quotemeta('0,8') );
     $xgraph->mark_size_pix( quotemeta('12,8') );
     $xgraph->box_width( quotemeta($wbox) );
@@ -355,6 +361,7 @@ sub calcNdisplay {
     $xgraph->line_widths( quotemeta('2,2') );
     $xgraph->line_color( quotemeta('3,2') );
     $xgraph->axes_style( quotemeta('seismic') );
+
     $xgraph[1] = $xgraph->Step();
 
 =head2 DEFINE FLOW(S)
@@ -382,7 +389,7 @@ sub calcNdisplay {
 
 =cut
 
-    # print  "$flow[2]\n";
+    print  "$flow[2]\n";
     #$log->file($flow[2]);
 
 =head2 WRITE OUTPUT FILE

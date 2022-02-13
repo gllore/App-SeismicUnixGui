@@ -443,10 +443,10 @@ sub file {
 
         # forcing correct suffix deprecated 10.06.21
         $new_file_name = basename($file);
-        # print("1. segyread,file, new_file_name= $new_file_name\n");
-
-        $segyread->{_tape} = $DATA_SEISMIC_SEGY . '/' . $new_file_name;
-
+#        print("1. segyread,file, new_file_name= $new_file_name\n");
+        $segyread->{_tape} = $DATA_SEISMIC_SEGY . '/' . "'".$new_file_name."'";
+#        $segyread->{_tape} = $DATA_SEISMIC_SEGY . '/' .$new_file_name;
+#		print("1. segyread,file, new_file_name=$segyread->{_tape}\n");
         $segyread->{_note} =
           $segyread->{_note} . ' tape=' . $segyread->{_tape};
         $segyread->{_Step} =

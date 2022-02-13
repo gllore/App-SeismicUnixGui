@@ -283,6 +283,7 @@ my $var = {
 	_main_window_geometry          => '1100x750+12+5',
 	_medium_width                  => '100',
 	_message_box_geometry          => '400x250+400+400',
+	_ms2s						   => 0.001,
 	_my_arial                      => "-*-arial-normal-r-*-*-*-120-*-*-*-*-*-*",
 	_my_purple                     => 'MediumPurple1',
 	_my_white                      => 'white',
@@ -326,6 +327,7 @@ my $var = {
 	_true                          => 1,
 	_us_per_s                      => 1000000,
 	_twenty_characters             => '20',
+	_us2s						   => 0.000001,
 	_username                      => 'tester',
 	_very_small_width              => '25',
 	_very_large_width              => '500',
@@ -394,6 +396,7 @@ $developer_sunix_categories[13] = 'statsMath';
 $developer_sunix_categories[14] = 'transform';
 $developer_sunix_categories[15] = 'well';
 $developer_sunix_categories[16] = '';
+$developer_sunix_categories[17] = '';
 
 my @sunix_data_programs = (
 	"ctrlstrip",
@@ -479,6 +482,8 @@ my @sunix_header_programs = (
 	"susehw",
 	"sushw",
 	"sustatic",
+	"sustaticB",
+	"sustaticrrs",
 	"sustrip",
 	"sutrcount",
 	"suutm",
@@ -498,13 +503,27 @@ my @sunix_migration_programs = (
 	"sukdmig2d",
 	"suktmig2d",
 	"sumigfd",
+	"sumigffd",
+	"sumiggbzo",
+	"sumiggbzoan",
+	"sumigprefd",
+	"sumigpreffd",
+	"sumigprepspi",
+	"sumigpresp",
+	"sumigpspi",
+	"sumigpsti",
+	"sumigsplit",
+	"sumigtk",
+	"sumigtopo2d",
 	"sustolt",
+	"sutifowler",
  );
  
 my @sunix_shell_programs     = ( 
+	"catsu",
 	"evince",
 	"sugetgthr",
-	"suputgthr" 
+	"suputgthr",
 );
 
 =pod
@@ -552,10 +571,29 @@ my @sunix_model_programs = (
 );
 
 my @sunix_NMO_Vel_Stk_programs = ( 
+	"sucvs4fowler",
+	"sudivstack",
+	"sudmofk",
+	"sudmofkcw",
+	"sudmotivz",
+	"sudmotx",
+	"sudmovz",
+	"suilog",
+	"suintvel",
+	"sulog",
 	"sunmo",
- 	"sustack",
-  	"suttoz", 
-  	"suvelan", 
+	"sunmo_a",
+	"supws",
+	"surecip",
+	"sureduce",
+	"surelan",
+	"surelanan",
+	"suresamp",
+	"sushift",
+	"sustack",
+	"sustkvel",
+	"suttoz",
+	"suvelan",
   );
 
 my @sunix_par_programs = (
@@ -788,6 +826,135 @@ sub param {
 }
 
 1;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

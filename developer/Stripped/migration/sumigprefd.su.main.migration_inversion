@@ -14,11 +14,15 @@
  Optional Parameters:							
  dip=79	the maximum dip to migrate, possible values are:	
 		45,65,79,80,87,89,90 degrees				
-		The computation cost is 45=65=79<80<87<89<90		
+		The computation cost is 45 equals 65equals 79<80<87<89<90		
  fmax=25	peak frequency of Ricker wavelet used as source wavelet	
- f1=5,f2=10,f3=40,f4=50	 frequencies to build a Hamming window	
+ f1=5
+ f2=10
+ f3=40
+ f4=50	 frequencies to build a Hamming window	
 
- lpad=9999,rpad=9999	number of zero traces padded on both		
+ lpad=9999
+ rpad=9999	number of zero traces padded on both		
 			sides of depth section to determine the		
 			migration aperature, the default values 	
 			are using the full aperature.			

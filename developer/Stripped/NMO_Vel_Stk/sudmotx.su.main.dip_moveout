@@ -3,10 +3,10 @@
  sudmotx <stdin >stdout cdpmin= cdpmax= dxcdp= noffmix= [optional parms]
 
  Required Parameters:							
- cdpmin                  minimum cdp (integer number) for which to apply DMO
- cdpmax                  maximum cdp (integer number) for which to apply DMO
- dxcdp                   distance between successive cdps		
- noffmix                 number of offsets to mix (see notes)		
+ cdpmin=                  minimum cdp (integer number) for which to apply DMO
+ cdpmax=                  maximum cdp (integer number) for which to apply DMO
+ dxcdp=                   distance between successive cdps		
+ noffmix=                 number of offsets to mix (see notes)		
 
  Optional Parameters:							
  offmax=3000.0           maximum offset				

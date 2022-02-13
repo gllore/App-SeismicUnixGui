@@ -206,7 +206,7 @@ sub _get_data_scale {
 
 		my $result = $data_scale;
 
-		# print("sunmo, _get_data_scale, data_scale = $data_scale\n");
+		print("sunmo, _get_data_scale, data_scale = $data_scale\n");
 		return ($result);
 
 	} else {
@@ -526,7 +526,7 @@ sub par {
 	my ( $self, $par ) = @_;
 	if ( $par ne $empty_string ) {
       
-      print("sunmo,  par file name in =$par\n");
+#      print("sunmo,  par file name in =$par\n");
       
 		use manage_files_by2;
 		use Project_config;
@@ -570,27 +570,27 @@ sub par {
 
 		my $ref_file_name = \$inbound;
 		
-		print("sunmo $inbound\n");
+#		print("sunmo $inbound\n");
 
 		my ( $items_aref2, $numberOfItems_aref ) = $files->read_par($ref_file_name);
 
 		my $no_rows = scalar @$items_aref2;
 
-		print("sunmo,par, no_rows=$no_rows\n");
+#		print("sunmo,par, no_rows=$no_rows\n");
 
 		my $row0_aref = @$items_aref2[0];
 
-		print("sunmo,par, ARRAY ref inside ROW 0 $row0_aref\n");
+#		print("sunmo,par, ARRAY ref inside ROW 0 $row0_aref\n");
 		my $row1_aref = @$items_aref2[1];
 
-		print("sunmo,par, ARRAY ref inside ROW 1 $row1_aref\n");
+#		print("sunmo,par, ARRAY ref inside ROW 1 $row1_aref\n");
 
 		my @array_tnmo_row = @$row0_aref;
 
-		print("sunmo,par, complete array values in row 0 @array_tnmo_row\n");
+#		print("sunmo,par, complete array values in row 0 @array_tnmo_row\n");
 		my @array_vnmo_row = @$row1_aref;
 
-		print("sunmo,par, complete array values in row 1 @array_vnmo_row\n");
+#		print("sunmo,par, complete array values in row 1 @array_vnmo_row\n");
 
 		my $length_tnmo_row = scalar @array_tnmo_row;
 		my $length_vnmo_row = scalar @array_vnmo_row;
@@ -609,7 +609,7 @@ sub par {
 
 		}
 
-		print("sunmo,par,par, data_scale=$data_scale\n");
+#		print("sunmo,par,par, data_scale=$data_scale\n");
 
 =head2 write new par file
 
@@ -619,7 +619,7 @@ sub par {
 		my $second_name='vnmo';
 		$files->write_par( \$outbound, \@array_tnmo_row, \@array_vnmo_row,
 				$first_name,$second_name);
-		print("sunmo,par,first_name:$first_name,second_name:$second_name\n");
+#		print("sunmo,par,first_name:$first_name,second_name:$second_name\n");
 =head2 send to sunmo
 
 =cut
@@ -680,10 +680,10 @@ sub set_base_file_name {
 	if ( $base_file_name ne $empty_string ) {
 
 		$sunmo->{_base_file_name} = $base_file_name;
-		print("header_values,set_base_file_name,$sunmo->{_base_file_name}\n");
+		print("sunmo, set_base_file_name,$sunmo->{_base_file_name}\n");
 		
 	} else {
-		print("header_values,set_base_file_name, missing base file name\n");
+		print("sunmo , set_base_file_name, missing base file name\n");
 	}
 
 	return ();

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<projectDescription>
+	<name>epic_links</name>
+	<comment></comment>
+	<projects>
+	</projects>
+	<buildSpec>
+	</buildSpec>
+	<natures>
+		<nature>org.epic.perleditor.perlinkexternalfilesnature</nature>
+	</natures>
+	<linkedResources>
+		<link>
+			<name>1636746999302</name>
+			<type>2</type>
+			<location>/home/gllore/Fairbanks/seismics/pl/permafrost_tunnel/gpr/110221/standard/cmp/gllore</location>
+		</link>
+		<link>
+			<name>1637027481278</name>
+			<type>2</type>
+			<location>/home/gllore/Fairbanks/seismics/pl/permafrost_tunnel/ACH01/110221/XYZ/1/gllore</location>
+		</link>
+		<link>
+			<name>1637599414734</name>
+			<type>2</type>
+			<location>/usr/local/share/perl/5.30.0/Tk</location>
+		</link>
+	</linkedResources>
+</projectDescription>

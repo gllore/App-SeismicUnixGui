@@ -1320,7 +1320,7 @@ sub _write {
 	} elsif ( $num_formats > 1 ) {
 		
 		@format   = @$config_file_format_aref;
-		print("files_LSU, _write,@format\n");
+#		print("files_LSU, _write,@format\n");
 		
 	} else{
 		print("files_LSU, _write, unexpected result\n");

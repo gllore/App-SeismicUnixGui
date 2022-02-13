@@ -1357,6 +1357,7 @@ sunix_frame_I (bottom row )
 		-relief      => 'flat',
 	);
 
+
 =head2 message area 
 to notify user of important events 
 

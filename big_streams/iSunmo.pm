@@ -351,7 +351,7 @@ sub calcNdisplay {
 
 =cut
 
-    print  "$flow[1]\n";
+#    print  "$flow[1]\n";
     #$log->file($flow[1]);
 }
 

@@ -312,7 +312,7 @@ sub calcNdisplay {
 
 		$suxwigb->x1beg( $iSelect_xt->{_max_x1} );
 		$suxwigb->x1end( $iSelect_xt->{_min_x1} );
-		print("iSelect_xt, suxwigb with \'geopsy\' purpose\n");
+#		print("iSelect_xt, suxwigb with \'geopsy\' purpose\n");
 		
 	} else {
 		$suxwigb->x1beg( $iSelect_xt->{_min_x1} );
@@ -337,6 +337,7 @@ sub calcNdisplay {
 	$suxwigb[1] = $suxwigb->Step();
 
 =head2 DEFINE FLOW(S)
+
 In interactive mode:
 First time you see the image, number_of_tries =0
 For second, third ... times, number_of_tries >0
@@ -366,13 +367,13 @@ The pick file can be saved
 		} elsif ( $iSelect_xt->{_purpose} eq $purpose->{_geopsy}
 			&& $iSelect_xt->{_error_freq} eq $false ) {
 
-			# CASE 1B: With geopsy and  filter
+			# CASE 2: With geopsy and  filter
 			@items = (
-				$suwind[1],  $in, $iSelect_xt->{_inbound}, $to, $suwind[2], $to, $sufilter[1], $to, $sugain[1], $to,
+				$suwind[1],  $in, $iSelect_xt->{_inbound}, $to, $suwind[2], $to, $sufilter[1], $to,
 				$suxwigb[1], $go
 			);
 			$flow[1] = $run->modules( \@items );
-#			print("iSelect_xt,  CASE2: \n $flow[1]\n");
+			print("iSelect_xt, CASE2: \n $flow[1]\n");
 
 			@items = (
 				$suwind[1],   $in, $iSelect_xt->{_inbound}, $to, $suwind[2], $to, $sufilter[1], $to, $sugain[1], $to,

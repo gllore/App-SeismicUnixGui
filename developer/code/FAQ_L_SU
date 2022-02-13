@@ -282,6 +282,10 @@ Example 2: parameter "purpose" in "iPick".  One parameter value can be "geopsy"
  	
  		by adding new methods that accept the parameter value for "purpose"
  		and with modifications to those modules that employ "purpose"
+ 		
+ (4) change sub "get_max_index" in iPick_config.pm
+ 
+ 	       my $max_index = 12;
 
 
 #################################################################
@@ -805,6 +809,7 @@ Q. How does LSU_project_selector create new Project directories?
 	   save_button
 	   which invokes save_button to call:
 	       files_LSU
+	    
 	            set_prog_param_values_aref2
 	            save
 	                oop_text, set_data_io_L_SU($files_LSU)
@@ -1556,16 +1561,69 @@ sunix_pl reading perl flows
    TOPIC Ticks and strings:
    
        Q Where are quotes for a string or strings (needed by Seismic Unix programs) handled?
+       
+       TODO: where does control adjust ticks.
+       There is one step that alternatively removes or adds ticks from segyread and suopt2
+       
+       It is not because ofthe spec file (sufficiently similar for both) (END)
+       It is not because of the oop_prog_params->get_a_section (identical process for both)  (END)
+       It is not when the Perl file is being read in (sunix_pl)
+       But somewhere in between it sometimes changes the ticks and other times does not.
+       On one occasion the correct if statement (segyread, suopt2,data_in,data_2)
+        is skipped inside control->_get_string_or_number
      
-     VIA: control->get_string_or_number4array which is used many times  inside each color_flow
+     VIA: control->get_string_or_number4array which is used MANY times inside each color_flow
       
       		_FileDialog_button
       		_check4flow_changes
+      		
+      		WHEN the Perl FILE is being read
       		_perl_flow, 
+      		   perl_flow
+      		     sunix_pl
+      		        get_good_sunix_params
+      		          ( parses values/params from the perl files) 		             
       		
       		_stack_flow
       		FileDialog_button (twice: once for _Data and once for 'SaveAs' options
       		save_button
+      		
+      		Q When I output Perl files, which program assembles the parameter Setup	
+	 
+	 Following, ticks may also added
+	  Now (12.21) all segy,suop2,data_in,data_out files are written
+	  as follows, e.g.,:
+	  
+	 N.B. suop2, segyread show prefixes and suffixes in the perl file
+	 $suop2->file1(quotemeta($DATA_SEISMIC_SU.'/'.'A')..$suffix_su);
+ 	 $suop2->file2(quotemeta($DATA_SEISMIC_SU.'/'.22)..$suffix_su);
+ 	 $segyread ->file(quotemeta($DATA_SEISMIC_SEGY.'/'.$file_name).$suffix_sgy);
+	
+	 N.B. data_in and data_out add their own prefixes elsewhere
+	 i.e., suffixes and directory prefixes are not shown in the perl file
+ 	 $data_in 	 	 	 	 ->base_file_name(quotemeta('00000003'));
+	 $data_out 	 	 	 	 ->base_file_name(quotemeta($file_name));
+	  
+	  When writing out a perl file:
+      color_flow
+        param_flow_color_pkg
+             get_good_values_aref2
+	  	control->get_string_or_number_aref2 
+	  		_get_string_or_number
+	  i/p: gen no.  gen string  data no  data string
+	  
+	
+	  
+	  o/p: gen no.  gen str.  data no  data str 
+		files_LSU->set_prog_param_values_aref2
+		  		oop_text
+		  	    	oop_prog_params
+		  	    		 get_a_section
+		  	    		 
+    
+    Also remember that ticks provided by the *_spec files for
+    suop2 and segyread
+		  	    	
     
     Q. Are ticks needed in the GUI for parameters that are strings
     No.
@@ -1579,7 +1637,8 @@ sunix_pl reading perl flows
          module control.pm handles these types of objects
     Note that there is a case where file names are numerical e.g., '00001.sgy'
     these are internally recognized as strings for the special cases when they 
-    are used such as in data_in and data_out via control.pm. For this situation
+    are used such as in data_in, data_out, segyread and suopt2, via control.pm. 
+    For this situation
     control.pm must be given a lsit of the program names. If no program names
     are given then control will revert to internal default values.
     In the GUI all displays are however kept quoteless in the GUI.
@@ -2032,15 +2091,6 @@ Modify the main program, i.e. immodpg.config.pm
 	  	pre_built_superflow
 	  
 	  			
-	  			
-	  			
-	  			
-	Q I output of Perl files, which program assembles the parameter Setup	
-	  			  			
-	 files_LSU
-	  	oop_text
-	  	    oop_prog_params
-	  	    
 	Q How to use the spec files for user-built flows and pre-built big streams 
 	 NOTE Filedialog uses iFile for opening directories based on second entry label (ps, bin, segy, txt etc)
 	  	  

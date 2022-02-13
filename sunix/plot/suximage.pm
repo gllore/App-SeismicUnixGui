@@ -12,7 +12,7 @@ SUXIMAGE also inherits parameters from XIMAGE (See below)
  DESCRIPTION:
  Version: 
 
-=head2 USE
+=head2 USE$new_dt_s
 
 =head3 NOTES
 
@@ -879,7 +879,7 @@ sub curvewidth {
 
 =head2 sub d1 
 
- subs d1 and dt and dz
+ subs d1 and dt and dz and dt_s
 
  increment in fast dimension
  usually time and equal to dt
@@ -1050,7 +1050,7 @@ sub d2num {
 
 =head2 sub dt 
 
- subs d1 and dt and dz
+ subs d1 and dt and dz and dt_s
 
  increment in fast dimension
  usually time and equal to dt
@@ -1069,6 +1069,30 @@ sub dt {
     }
     else {
         print("suximage, dt, missing dt,\n");
+    }
+}
+
+=head2 sub dt_s 
+
+ subs d1 and dt and dz and dt_s
+
+ increment in fast dimension
+ usually time and equal to dt
+
+=cut
+
+sub dt_s {
+
+    my ( $self, $d1 ) = @_;
+    if ( $d1 ne $empty_string ) {
+
+        $suximage->{_d1}   = $d1;
+        $suximage->{_note} = $suximage->{_note} . ' d1=' . $suximage->{_d1};
+        $suximage->{_Step} = $suximage->{_Step} . ' d1=' . $suximage->{_d1};
+
+    }
+    else {
+        print("suximage, dt_s, missing dt_s,\n");
     }
 }
 
@@ -1125,7 +1149,7 @@ sub dy_minor_divisions {
 
 =head2 sub dz 
 
- subs d1 and dt and dz
+ subs d1 and dt and dz and dt_s
 
  increment in fast dimension
  usually time and equal to dt

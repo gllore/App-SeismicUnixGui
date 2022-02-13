@@ -2717,6 +2717,7 @@ sub make_local_dirs {
 #	my $DATA_GPR_SU       = $Project->{_DATA_GPR_SU};
 #	my $DATA_GPR_SU_RAW   = $Project->{_DATA_GPR_SU_RAW};
 #	my $DATA_GPR_TXT      = $Project->{_DATA_GPR_TXT};
+	my $DATA_SEISMIC_MATLAB = $Project->{_DATA_SEISMIC_MATLAB};
 
 	my $GEOMAPS_IMAGES      = $Project->{_GEOMAPS_IMAGES};
 	my $GEOMAPS_BIN         = $Project->{_GEOMAPS_BIN};
@@ -2830,6 +2831,7 @@ sub make_local_dirs {
 
 	if ( $Project->{_matlab_is_selected} ) {
 		manage_dirs_by::make_dir($MATLAB_SEISMIC);
+		manage_dirs_by::make_dir($DATA_SEISMIC_MATLAB);
 	}
 
 	if ( $Project->{_matlab_is_selected} && $Project->{_geomaps_is_selected} ) {

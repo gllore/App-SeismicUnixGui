@@ -95,7 +95,7 @@ sub file_dialog_type_aref {
 	my @index      = @$index_aref;
 
 	# bound index will look for data
-	$type[0]           = '';
+#	$type[0]           = '';
 	$type[ $index[0] ] = $file_dialog_type->{_Data};
 	$type[ $index[1] ] = $file_dialog_type->{_Data};
 	$type[ $index[2] ] = $file_dialog_type->{_Data};

@@ -194,7 +194,7 @@ sub _good_sunix_params {
 			# extract () only the text
 
 			@labels = $line =~ m/(?<=>)\s*(\w+)/g;
-			print("sunix_pl,_good_sunix_params,labels:---@labels\n");
+#			print("sunix_pl,_good_sunix_params,labels:---@labels\n");
 			my $label_length = scalar @labels;
 
 			#print("sunix_pl,_good_sunix_params,label length:---$label_length\n");
@@ -216,7 +216,7 @@ sub _good_sunix_params {
 			#  substitute  .'/'.              \.'\/'\.
 
 			$line =~ s/quotemeta\(\$\w+\.'\/'\./quotemeta\(/;
-			print("1. sunix_pl,_good_sunix_params, line=$line \n");
+#			print("1. sunix_pl,_good_sunix_params, line=$line \n");
 
 			# Step 2
 			# substitute quotemeta with nothing
@@ -240,7 +240,7 @@ sub _good_sunix_params {
 			# group anyhting which lies within parentheses \( \)
 			@values = $line =~ m/\((\'\w+\'|.+|(\(.+\))|\w+|\$\w+|-?(.|\d+)\.\d+)\)/g;
 
-			# print("4. sunix_pl,_good_sunix_params, values = @values, values[0]=$values[0]\n");
+			print("4. sunix_pl,_good_sunix_params, values = @values, values[0]=$values[0]\n");
 
 			#   TBD  		@values = $line=~m/\((\'\w+\'|.+|(quotemeta\(.+\))|\w+|\$\w+|-?(.|\d+)\.\d+)\)/g;
 
@@ -827,7 +827,7 @@ sub get_good_sunix_params {
 
 	my $size = $sunix_pl->{_num_progs};
 
-	# print("sunix_pl, get_good_sunix_params,num_progs: $size \n");
+#	print("sunix_pl, get_good_sunix_params,num_progs: $size \n");
 	my @all_prog_names = @{ $sunix_pl->{_prog_names} };
 
 	my $prog_number = 0;
@@ -890,7 +890,7 @@ sub get_good_sunix_params {
 			my @labels = ();
 			my ( $line1, $line2 );
 
-			# print(" 935: sunix_pl,get_good_sunix_params_values,line:--$line\n");
+#			print(" 893: sunix_pl,get_good_sunix_params_values,line:--$line\n");
 
 			# from start ^ to end $ of the string
 			# matches label names, e.g., ->(agc) with
@@ -901,7 +901,7 @@ sub get_good_sunix_params {
 
 			@labels = $line =~ m/(?<=>)\s*(\w+)/g;
 
-			# print("sunix_pl,get_good_sunix_params,labels:---@labels\n");
+#			print("sunix_pl,get_good_sunix_params,labels:---@labels\n");
 			my $label_length = scalar @labels;
 
 			# print("sunix_pl,get_good_sunix_params,label length:---$label_length\n");
@@ -913,7 +913,7 @@ sub get_good_sunix_params {
 			# '1,2,3', or quotemeta(ANYTHING)
 			# or $sufile[1]
 
-			# print("1. sunix_pl,get_good_sunix_params, line=$line \n");
+#			print("1. sunix_pl,get_good_sunix_params, line=$line \n");
 			# In order to get the useful value
 			# Step 1
 
@@ -924,7 +924,7 @@ sub get_good_sunix_params {
 
 			$line =~ s/quotemeta\(\$\w+\.'\/'\./quotemeta\(/;
 
-			# print("1. sunix_pl,get_good_sunix_params, line=$line \n");
+#			print("1. sunix_pl,get_good_sunix_params, line=$line \n");
 
 			# Step 2
 			# substitute quotemeta with nothing
@@ -944,14 +944,14 @@ sub get_good_sunix_params {
 			# substitute
 			$line =~ s/\.\$\w+\);/\)/;
 
-			# print("Step 4 sunix_pl,get_good_sunix_params, line=$line \n");
+#			print("Step 4 sunix_pl,get_good_sunix_params, line=$line \n");
 			#Step 5
 			# substitute regular extensions )
 			# e.g. .bin .txt .SGY .sgy .SEGY .segy)
 			$line =~ s/\.[a-z]+\);/\)/;
 			$line =~ s/\.[A-Z]+\);/\)/;
 
-			# print("Step 5 sunix_pl,get_good_sunix_params, line=$line \n");
+#			print("Step 5 sunix_pl,get_good_sunix_params, line=$line \n");
 
 			# group anything which lies within parentheses \( \)
 			@values = $line =~ m/\((\'\w+\'|.+|(\(.+\))|\w+|\$\w+|-?(.|\d+)\.\d+)\)/g;

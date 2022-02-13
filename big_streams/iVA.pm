@@ -79,12 +79,15 @@ use xk;
 =cut 
 
 my $iVA = {
+	_anis1  			  => '',
+	_anis2  			  => '',	
 	_cdp_last             => '',
 	_cdp_first            => '',
 	_cdp_num              => '',
 	_cdp_num_suffix       => '',
 	_cdp_inc              => '',
 	_data_scale           => '',
+	_dtratio      		  => '',
 	_dt_s                 => '',
 	_base_file_name       => '',
 	_freq                 => '',
@@ -93,9 +96,12 @@ my $iVA = {
 	_max_semblance        => '',
 	_message_type         => 'iva',
 	_next_step            => '',
+	_nsmooth  			  => '',
 	_number_of_tries      => '',
 	_number_of_velocities => '',
 	_old_data             => '',
+	_pwr				  => '',
+	_smute  			  => '',
 	_tmax_s               => '',
 	_Tvel_inbound         => '',
 	_Tvel_outbound        => '',
@@ -138,6 +144,7 @@ my $xk                 = new xk;
 my $var          = $get->var();
 my $empty_string = $var->{_empty_string};
 
+
 =head2 Get configuration information
 from gui
 
@@ -151,13 +158,19 @@ $iVA->{_cdp_inc}        = $CFG_h->{iva}{1}{cdp_inc};
 $iVA->{_cdp_last}       = $CFG_h->{iva}{1}{cdp_last};
 $iVA->{_tmax_s}         = $CFG_h->{iva}{1}{tmax_s};
 
-$iVA->{_dt_s}                 = $CFG_h->{iva}{1}{dt_s};
-$iVA->{_freq}                 = $CFG_h->{iva}{1}{freq};
-$iVA->{_first_velocity}       = $CFG_h->{iva}{1}{first_velocity};
-$iVA->{_min_semblance}        = $CFG_h->{iva}{1}{min_semblance};
-$iVA->{_max_semblance}        = $CFG_h->{iva}{1}{max_semblance};
-$iVA->{_number_of_velocities} = $CFG_h->{iva}{1}{number_of_velocities};
-$iVA->{_velocity_increment}   = $CFG_h->{iva}{1}{velocity_increment};
+$iVA->{_dt_s}                 	= $CFG_h->{iva}{1}{dt_s};
+$iVA->{_freq}                 	= $CFG_h->{iva}{1}{freq};
+$iVA->{_first_velocity}       	= $CFG_h->{iva}{1}{first_velocity};
+$iVA->{_min_semblance}        	= $CFG_h->{iva}{1}{min_semblance};
+$iVA->{_max_semblance}        	= $CFG_h->{iva}{1}{max_semblance};
+$iVA->{_number_of_velocities} 	= $CFG_h->{iva}{1}{number_of_velocities};
+$iVA->{_velocity_increment}   	= $CFG_h->{iva}{1}{velocity_increment};
+$iVA->{_anis1}   				= $CFG_h->{iva}{1}{anis1};
+$iVA->{_anis2}   				= $CFG_h->{iva}{1}{anis2};
+$iVA->{_dtratio}   				= $CFG_h->{iva}{1}{dtratio};
+$iVA->{_nsmooth}   				= $CFG_h->{iva}{1}{nsmooth};
+$iVA->{_smute}   				= $CFG_h->{iva}{1}{smute};
+$iVA->{_pwr}   					= $CFG_h->{iva}{1}{pwr};
 
 # remove ticks at the start and end of base_file_names
 $control->set_infection( $iVA->{_base_file_name} );
@@ -199,11 +212,14 @@ my ($PL_SEISMIC) = $Project->PL_SEISMIC();
 =cut
 
 sub clear {
+	$iVA->{_anis1}                = '';
+	$iVA->{_anis2}                = '';
 	$iVA->{_cdp_num}              = '';
 	$iVA->{_cdp_first}            = '';
 	$iVA->{_cdp_last}             = '';
 	$iVA->{_cdp_inc}              = '';
 	$iVA->{_data_scale}           = '';
+	$iVA->{_dtratio}              = '';
 	$iVA->{_dt_s}                 = '';
 	$iVA->{_base_file_name}       = '';
 	$iVA->{_freq}                 = '';
@@ -212,9 +228,12 @@ sub clear {
 	$iVA->{_max_semblance}        = '';
 	$iVA->{_message_type}         = '';
 	$iVA->{_next_step}            = '';
+	$iVA->{_nsmooth}              = '';
 	$iVA->{_number_of_tries}      = '';
 	$iVA->{_number_of_velocities} = '';
 	$iVA->{_old_data}             = '';
+	$iVA->{_smute}                = '';
+	$iVA->{_pwr}              	   = '';
 	$iVA->{_test}                 = '';
 	$iVA->{_tmax_s}               = '';
 	$iVA->{_Tvel_inbound}         = '';
@@ -602,7 +621,7 @@ sub exit {
 
 sub calc {
 
-	# print("iVA, calc, Calculating...\n");
+#	 print("iVA, calc, Calculating...\n");
 
 	#$xk->kill_this('suximage');
 	#$xk->kill_this('suxwigb');
@@ -763,6 +782,13 @@ sub semblance {
 	$semblance->min_semblance( $iVA->{_min_semblance} );
 	$semblance->number_of_tries( $iVA->{_number_of_tries} );
 	$semblance->number_of_velocities( $iVA->{_number_of_velocities} );
+	$semblance->set_anis1($iVA->{_anis1} );
+	$semblance->set_anis2($iVA->{_anis2} );
+	$semblance->set_smute($iVA->{_smute} );
+	$semblance->set_dtratio($iVA->{_dtratio} );
+	$semblance->set_nsmooth($iVA->{_nsmooth} );
+	$semblance->set_pwr($iVA->{_pwr} );
+#	$semblance->set_verbose(} );;
 	$semblance->velocity_increment( $iVA->{_velocity_increment} );
 	$semblance->Tvel_inbound( $iVA->{_Tvel_inbound} );
 	$semblance->Tvel_outbound( $iVA->{_Tvel_outbound} );
