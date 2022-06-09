@@ -3074,7 +3074,7 @@ max index = number of input variables -1
 sub get_max_index {
 	my ($self) = @_;
 
-	my $max_index = 15;
+	my $max_index = 14;
 
 	return ($max_index);
 }

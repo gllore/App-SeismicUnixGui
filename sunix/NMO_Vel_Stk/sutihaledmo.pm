@@ -41,15 +41,15 @@ Version:
 
  option=1		1 = traditional Hale DMO (from PhD thesis)	
 
-			2 = Bleistein's true amplitude DMO		
+			option=2 : Bleistein's true amplitude DMO		
 
-			3 = Bleistein's cos*cos weighted DMO		
+			option=3 : Bleistein's cos*cos weighted DMO		
 
-			4 = Zhang's DMO					
+			option=4 : Zhang's DMO					
 
-			5 = Tsvankin's anisotropic DMO			
+			option=5 : Tsvankin's anisotropic DMO			
 
-			6 = Tsvankin's VTI DMO weak anisotropy approximation
+			option=6 : Tsvankin's VTI DMO weak anisotropy approximation
 
  dx=50.		 midpoint sampling interval between traces	
 
@@ -170,11 +170,6 @@ hash of private variables
 =cut
 
 my $sutihaledmo			= {
-	_2					=> '',
-	_3					=> '',
-	_4					=> '',
-	_5					=> '',
-	_6					=> '',
 	_d					=> '',
 	_dx					=> '',
 	_e					=> '',
@@ -227,11 +222,6 @@ by adding the program name
 
  sub clear {
 
-		$sutihaledmo->{_2}			= '';
-		$sutihaledmo->{_3}			= '';
-		$sutihaledmo->{_4}			= '';
-		$sutihaledmo->{_5}			= '';
-		$sutihaledmo->{_6}			= '';
 		$sutihaledmo->{_d}			= '';
 		$sutihaledmo->{_dx}			= '';
 		$sutihaledmo->{_e}			= '';
@@ -244,106 +234,6 @@ by adding the program name
 		$sutihaledmo->{_v}			= '';
 		$sutihaledmo->{_Step}			= '';
 		$sutihaledmo->{_note}			= '';
- }
-
-
-=head2 sub 2 
-
-
-=cut
-
- sub 2 {
-
-	my ( $self,$2 )		= @_;
-	if ( $2 ne $empty_string ) {
-
-		$sutihaledmo->{_2}		= $2;
-		$sutihaledmo->{_note}		= $sutihaledmo->{_note}.' 2='.$sutihaledmo->{_2};
-		$sutihaledmo->{_Step}		= $sutihaledmo->{_Step}.' 2='.$sutihaledmo->{_2};
-
-	} else { 
-		print("sutihaledmo, 2, missing 2,\n");
-	 }
- }
-
-
-=head2 sub 3 
-
-
-=cut
-
- sub 3 {
-
-	my ( $self,$3 )		= @_;
-	if ( $3 ne $empty_string ) {
-
-		$sutihaledmo->{_3}		= $3;
-		$sutihaledmo->{_note}		= $sutihaledmo->{_note}.' 3='.$sutihaledmo->{_3};
-		$sutihaledmo->{_Step}		= $sutihaledmo->{_Step}.' 3='.$sutihaledmo->{_3};
-
-	} else { 
-		print("sutihaledmo, 3, missing 3,\n");
-	 }
- }
-
-
-=head2 sub 4 
-
-
-=cut
-
- sub 4 {
-
-	my ( $self,$4 )		= @_;
-	if ( $4 ne $empty_string ) {
-
-		$sutihaledmo->{_4}		= $4;
-		$sutihaledmo->{_note}		= $sutihaledmo->{_note}.' 4='.$sutihaledmo->{_4};
-		$sutihaledmo->{_Step}		= $sutihaledmo->{_Step}.' 4='.$sutihaledmo->{_4};
-
-	} else { 
-		print("sutihaledmo, 4, missing 4,\n");
-	 }
- }
-
-
-=head2 sub 5 
-
-
-=cut
-
- sub 5 {
-
-	my ( $self,$5 )		= @_;
-	if ( $5 ne $empty_string ) {
-
-		$sutihaledmo->{_5}		= $5;
-		$sutihaledmo->{_note}		= $sutihaledmo->{_note}.' 5='.$sutihaledmo->{_5};
-		$sutihaledmo->{_Step}		= $sutihaledmo->{_Step}.' 5='.$sutihaledmo->{_5};
-
-	} else { 
-		print("sutihaledmo, 5, missing 5,\n");
-	 }
- }
-
-
-=head2 sub 6 
-
-
-=cut
-
- sub 6 {
-
-	my ( $self,$6 )		= @_;
-	if ( $6 ne $empty_string ) {
-
-		$sutihaledmo->{_6}		= $6;
-		$sutihaledmo->{_note}		= $sutihaledmo->{_note}.' 6='.$sutihaledmo->{_6};
-		$sutihaledmo->{_Step}		= $sutihaledmo->{_Step}.' 6='.$sutihaledmo->{_6};
-
-	} else { 
-		print("sutihaledmo, 6, missing 6,\n");
-	 }
  }
 
 
@@ -555,7 +445,7 @@ max index = number of input variables -1
  
 sub get_max_index {
  	  my ($self) = @_;
-    my $max_index = 36;
+	my $max_index = 9;
 
     return($max_index);
 }

@@ -35,7 +35,7 @@ Version:
 
  tn			zero-offset time of reflection			
 
- offsetm		Maximum offset considerd			
+ offsetm		Maximum offset considered			
 
 
 
@@ -47,7 +47,7 @@ Version:
 
  fv=1500.0		first velocity					
 
- nvh=50		number of horizotal velocities			
+ nvh=50		number of horizontal velocities			
 
  dvh=50.0		horizontal velocity sampling interval		
 
@@ -483,7 +483,7 @@ max index = number of input variables -1
  
 sub get_max_index {
  	  my ($self) = @_;
-    my $max_index = 36;
+	my $max_index = 11;
 
     return($max_index);
 }

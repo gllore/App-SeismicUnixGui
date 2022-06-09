@@ -194,8 +194,8 @@ my @file_dialog_type;
 # in spec files Data_PL_SEISMIC, is not necessarily informed by DATA_DIR_IN and DATA_DIR_OUT
 $file_dialog_type[0] = 'Data_PL_SEISMIC',
 
-	# in spec files Data, is informed by DATA_DIR_IN and DATA_DIR_OUT
-	$file_dialog_type[1] = 'Data';
+# in spec files, Data is informed by DATA_DIR_IN and DATA_DIR_OUT
+$file_dialog_type[1] = 'Data';
 $file_dialog_type[2] = 'Path';
 $file_dialog_type[3] = 'Flow';
 $file_dialog_type[4] = 'SaveAs';
@@ -245,7 +245,7 @@ my $var = {
 	_45_characters                 => '45',
 	_base_file_name                => 'base_file_name',
 	_clear_text                    => '',
-	_color_default                 => 'grey',                                      # first color listbox to select
+	_color_default                 => 'grey',  # first color listbox to select
 	_config_file_format            => '%-35s%1s%-20s',
 	_eight_characters              => '8',
 	_empty_string                  => '',
@@ -532,12 +532,15 @@ my @sunix_shell_programs     = (
 =cut
 
 my @sunix_model_programs = (
+	"addrvl3d",
+	"cellauto",
 	"elacheck",
 	"elamodel",
 	"elaray",
 	"elasyn",
 	"elatriuni",
 	"gbbeam",
+	"grm",
 	"normray",
 	"raydata",
 	"suaddevent",
@@ -571,6 +574,7 @@ my @sunix_model_programs = (
 );
 
 my @sunix_NMO_Vel_Stk_programs = ( 
+	"dzdv",
 	"sucvs4fowler",
 	"sudivstack",
 	"sudmofk",
@@ -592,15 +596,29 @@ my @sunix_NMO_Vel_Stk_programs = (
 	"sushift",
 	"sustack",
 	"sustkvel",
+	"sutaupnmo",
+	"sutihaledmo",
+	"sutivel",
+	"sutsq",
 	"suttoz",
+	"suvel2df",
 	"suvelan",
+	"suvelan_nccs",
+	"suvelan_nsel",
+	"suztot",
   );
 
 my @sunix_par_programs = (
 	"a2b",
+	"a2i",
 	"b2a",
-	"mkparfile",
+	"bhedtopar",
+	"cshotplot",
+	"float2ibm",
+	"ftnstrip",
+	"ftnunstrip",
 	"makevel",
+	"mkparfile",
 	"transp",
 	"unif2",
 	"unif2aniso",
@@ -665,7 +683,9 @@ my @sunix_shapeNcut_programs = (
 );
 
 my @sunix_statsMath_programs = (
+	"cpftrend",
 	"entropy",
+	"farith",
 	"suacor",
 	"suacorfrac",
 	"sualford",
@@ -826,6 +846,88 @@ sub param {
 }
 
 1;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

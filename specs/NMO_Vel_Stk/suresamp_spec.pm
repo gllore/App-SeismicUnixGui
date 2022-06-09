@@ -3,8 +3,7 @@ use Moose;
 our $VERSION = '0.0.1';
 
 use Project_config;
-use SeismicUnix
-  qw ($bin $ps $segy $su $suffix_bin $suffix_ps $suffix_segy $suffix_su $suffix_txt $txt);
+use SeismicUnix qw ($bin $ps $segy $su $suffix_bin $suffix_ps $suffix_segy $suffix_su $suffix_txt $txt);
 use L_SU_global_constants;
 use suresamp;
 my $get      = new L_SU_global_constants();
@@ -321,7 +320,7 @@ are filtered by sunix_pl
 
 =cut
 
-sub prefix_aref {
+ sub prefix_aref {
 
 	my $self = @_;
 

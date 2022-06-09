@@ -24,7 +24,7 @@ my $flow_type				= $get->flow_type_href();
 	my $DATA_SEISMIC_TXT  	= $Project->DATA_SEISMIC_TXT();   # output data directory
   my $PL_SEISMIC		    = $Project->PL_SEISMIC();
 	my $PS_SEISMIC  		= $Project->PS_SEISMIC();
- my $max_index = # Insert a number here
+ my $max_index           = 9;
 
 	my $sutivel_spec = {
 		_CONFIG		            => $PL_SEISMIC,
@@ -98,7 +98,7 @@ one type of dialog for each index
 	my $index_aref = get_binding_index_aref();
 	my @index      = @$index_aref;
 
-		# bound index will look for data
+	# bound index will look for data
 	$type[0]	= '';
 #	$type[$index[0]] = $file_dialog_type->{_Data};
 #	$type[$index[1]]	=  $file_dialog_type->{_Data};
@@ -329,8 +329,8 @@ are filtered by sunix_pl
 
 	}
 
-#	my $index_aref = get_binding_index_aref();
-#	my @index       = @$index_aref;
+	my $index_aref = get_binding_index_aref();
+	my @index       = @$index_aref;
 
 	# label 2 in GUI is input xx_file and needs a home directory
 #	$prefix[ $index[0] ] = '$DATA_SEISMIC_BIN' . ".'/'.";
@@ -366,8 +366,8 @@ values
 
 	}
 
-#	my $index_aref = get_binding_index_aref();
-#	my @index       = @$index_aref;
+	my $index_aref = get_binding_index_aref();
+	my @index       = @$index_aref;
 
 	# label 2 in GUI is input xx_file and needs a home directory
 #	$suffix[ $index[0] ] = ''.'' . '$suffix_bin';

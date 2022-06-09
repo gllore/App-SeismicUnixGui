@@ -1,9 +1,10 @@
+package sudoc2pm_pt1;
 
 =head1 DOCUMENTATION
 
 =head2 SYNOPSIS
 
-PROGRAM NAME:  sudoc2pm_pt1.pl							
+PROGRAM NAME:  sudoc2pm_pt1.pm							
 
  AUTHOR: Juan Lorenzo
  DATE:   Jan 25 2018 
@@ -14,14 +15,25 @@ PROGRAM NAME:  sudoc2pm_pt1.pl
 
 =head2 USE
 
+Build new files: ~/configs/"program_group_name"/"module".config
+                 ~/sunix/"program_group_name"/"module".pm and 
+                 ~specs/"program_group_name"/"module"_spec
+ and modify old files: 
+                 ~/misc/L_SU_global_constants.pm
+
 =head3 NOTES
 
-=head4 Examplessudoc2pm
+Modify "module".config file after running this script
+and before running sudoc2pm_pt2.pl
+
+=head4 Examples:
+
+perl sudoc2pm_pt1.pl
 
 =head3 NOTES
 
- 	Program group array and the directory names:
- 		
+ Program group array and the directory names:
+
 $developer_sunix_categories[0]  = 'data';
 $developer_sunix_categories[1]  = 'datum';
 $developer_sunix_categories[2]  = 'plot';
@@ -60,10 +72,12 @@ use sudoc;
 
 use sunix_package;
 use prog_doc2pm;
+use sudoc2pm_nameNnumber;
 
-my $sudoc       = sudoc->new();
-my $package     = sunix_package->new();
-my $prog_doc2pm = prog_doc2pm->new();
+my $sudoc       			= sudoc->new();
+my $package     			= sunix_package->new();
+my $prog_doc2pm 			= prog_doc2pm->new();
+my $sudoc2pm_nameNnumber    = sudoc2pm_nameNnumber->new();
 
 my ( @file_in, @pm_file_out );
 my (@config_file_out);
@@ -100,10 +114,13 @@ psgraph thru psmovie
 
 =cut
 
-my $sunix_category_number = 8;
-$prog_doc2pm->set_group_directory($sunix_category_number);
+my $selected_program_name = $sudoc2pm_nameNnumber->get_selected_program_name();
+my $sunix_category_number = $sudoc2pm_nameNnumber->get_category_number();
 
-my $selected_program_name = 'sustkvel';
+#print("sudoc2pm_pt1,selected_program_name=$selected_program_name\n");
+#print("sudoc2pm_pt1,sunix_category_number=$sunix_category_number\n");
+
+$prog_doc2pm->set_group_directory($sunix_category_number);
 $selected_program_name =~ s/\ //g;
 
 =head2 private values
@@ -200,3 +217,5 @@ for ( my $i = 0 ; $i < $list_length ; $i++ ) {
 		$package->write_spec();
 	}
 }    # for a selected program name in the group
+
+1;

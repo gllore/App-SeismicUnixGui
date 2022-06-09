@@ -163,7 +163,7 @@ sub _get_version_section {
 	"\t".'my @type;'."\n\n".
 	 "\t".'my $index_aref = get_binding_index_aref();'."\n".
 	"\t".'my @index      = @$index_aref;'."\n\n".
-	"\t".'	# bound index will look for data'."\n".
+	"\t".'# bound index will look for data'."\n".
 	"\t".'$type[0]	= \'\';'."\n".
 	"#\t".'$type[$index[0]] = $file_dialog_type->{_Data};'."\n".
 	"#\t".'$type[$index[1]]	=  $file_dialog_type->{_Data};'."\n".

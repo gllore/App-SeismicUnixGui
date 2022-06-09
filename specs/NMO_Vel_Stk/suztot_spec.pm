@@ -24,7 +24,7 @@ my $flow_type				= $get->flow_type_href();
 	my $DATA_SEISMIC_TXT  	= $Project->DATA_SEISMIC_TXT();   # output data directory
   my $PL_SEISMIC		    = $Project->PL_SEISMIC();
 	my $PS_SEISMIC  		= $Project->PS_SEISMIC();
- my $max_index = # Insert a number here
+ my $max_index           = 6;
 
 	my $suztot_spec = {
 		_CONFIG		            => $PL_SEISMIC,

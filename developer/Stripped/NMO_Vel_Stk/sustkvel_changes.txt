@@ -1,3 +1,2 @@
-1 bin
-2 dat
-5 txt
+3 txt
+4 txt

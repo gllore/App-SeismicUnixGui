@@ -49,33 +49,33 @@ Version:
 
  option=1		1=output vnmo(p) (result used for TI DMO)	
 
-			2=output vnmo(theta) in degrees			
+			option=2:output vnmo(theta) in degrees			
 
-			3=output vnmo(theta) in radians			
+			option=3:output vnmo(theta) in radians			
 
-			4=output vphase(p)				
+			option=4:output vphase(p)				
 
-			5=output vphase(theta) in degrees		
+			option=5:output vphase(theta) in degrees		
 
-			6=output vphase(theta) in radians		
+			option=6:output vphase(theta) in radians		
 
-			7=output first derivative vphase(p)		
+			option=7:output first derivative vphase(p)		
 
-			8=output first derivative vphase(theta) in degrees
+			option=8:output first derivative vphase(theta) in degrees
 
-			9=output first derivative vphase(theta) in radians
+			option=9:output first derivative vphase(theta) in radians
 
-			10=output second derivative vphase(p)		
+			option=10:output second derivative vphase(p)		
 
-			11=output second derivative vphase(theta) in degrees
+			option=11:output second derivative vphase(theta) in degrees
 
-			12=output second derivative vphase(theta) in radians
+			option=12:output second derivative vphase(theta) in radians
 
-			13=( 1/vnmo(0)^2 -1/vnmo(theta)^2 )/p^2 test vs theta
+			option=13:( 1/vnmo(0)^2 -1/vnmo(theta)^2 )/p^2 test vs theta
 
 			   (result should be zero for all theta for d=e)
 
-			14=return vnmo(p) for weak anisotropy		
+			option=14:return vnmo(p) for weak anisotropy		
 
  normalize=0		=1 means scale vnmo by cosine and scale vphase by
 
@@ -156,19 +156,6 @@ hash of private variables
 =cut
 
 my $sutivel			= {
-	_10					=> '',
-	_11					=> '',
-	_12					=> '',
-	_13					=> '',
-	_14					=> '',
-	_2					=> '',
-	_3					=> '',
-	_4					=> '',
-	_5					=> '',
-	_6					=> '',
-	_7					=> '',
-	_8					=> '',
-	_9					=> '',
 	_a					=> '',
 	_b					=> '',
 	_d					=> '',
@@ -221,19 +208,6 @@ by adding the program name
 
  sub clear {
 
-		$sutivel->{_10}			= '';
-		$sutivel->{_11}			= '';
-		$sutivel->{_12}			= '';
-		$sutivel->{_13}			= '';
-		$sutivel->{_14}			= '';
-		$sutivel->{_2}			= '';
-		$sutivel->{_3}			= '';
-		$sutivel->{_4}			= '';
-		$sutivel->{_5}			= '';
-		$sutivel->{_6}			= '';
-		$sutivel->{_7}			= '';
-		$sutivel->{_8}			= '';
-		$sutivel->{_9}			= '';
 		$sutivel->{_a}			= '';
 		$sutivel->{_b}			= '';
 		$sutivel->{_d}			= '';
@@ -246,266 +220,6 @@ by adding the program name
 		$sutivel->{_verbose}			= '';
 		$sutivel->{_Step}			= '';
 		$sutivel->{_note}			= '';
- }
-
-
-=head2 sub 10 
-
-
-=cut
-
- sub 10 {
-
-	my ( $self,$10 )		= @_;
-	if ( $10 ne $empty_string ) {
-
-		$sutivel->{_10}		= $10;
-		$sutivel->{_note}		= $sutivel->{_note}.' 10='.$sutivel->{_10};
-		$sutivel->{_Step}		= $sutivel->{_Step}.' 10='.$sutivel->{_10};
-
-	} else { 
-		print("sutivel, 10, missing 10,\n");
-	 }
- }
-
-
-=head2 sub 11 
-
-
-=cut
-
- sub 11 {
-
-	my ( $self,$11 )		= @_;
-	if ( $11 ne $empty_string ) {
-
-		$sutivel->{_11}		= $11;
-		$sutivel->{_note}		= $sutivel->{_note}.' 11='.$sutivel->{_11};
-		$sutivel->{_Step}		= $sutivel->{_Step}.' 11='.$sutivel->{_11};
-
-	} else { 
-		print("sutivel, 11, missing 11,\n");
-	 }
- }
-
-
-=head2 sub 12 
-
-
-=cut
-
- sub 12 {
-
-	my ( $self,$12 )		= @_;
-	if ( $12 ne $empty_string ) {
-
-		$sutivel->{_12}		= $12;
-		$sutivel->{_note}		= $sutivel->{_note}.' 12='.$sutivel->{_12};
-		$sutivel->{_Step}		= $sutivel->{_Step}.' 12='.$sutivel->{_12};
-
-	} else { 
-		print("sutivel, 12, missing 12,\n");
-	 }
- }
-
-
-=head2 sub 13 
-
-
-=cut
-
- sub 13 {
-
-	my ( $self,$13 )		= @_;
-	if ( $13 ne $empty_string ) {
-
-		$sutivel->{_13}		= $13;
-		$sutivel->{_note}		= $sutivel->{_note}.' 13='.$sutivel->{_13};
-		$sutivel->{_Step}		= $sutivel->{_Step}.' 13='.$sutivel->{_13};
-
-	} else { 
-		print("sutivel, 13, missing 13,\n");
-	 }
- }
-
-
-=head2 sub 14 
-
-
-=cut
-
- sub 14 {
-
-	my ( $self,$14 )		= @_;
-	if ( $14 ne $empty_string ) {
-
-		$sutivel->{_14}		= $14;
-		$sutivel->{_note}		= $sutivel->{_note}.' 14='.$sutivel->{_14};
-		$sutivel->{_Step}		= $sutivel->{_Step}.' 14='.$sutivel->{_14};
-
-	} else { 
-		print("sutivel, 14, missing 14,\n");
-	 }
- }
-
-
-=head2 sub 2 
-
-
-=cut
-
- sub 2 {
-
-	my ( $self,$2 )		= @_;
-	if ( $2 ne $empty_string ) {
-
-		$sutivel->{_2}		= $2;
-		$sutivel->{_note}		= $sutivel->{_note}.' 2='.$sutivel->{_2};
-		$sutivel->{_Step}		= $sutivel->{_Step}.' 2='.$sutivel->{_2};
-
-	} else { 
-		print("sutivel, 2, missing 2,\n");
-	 }
- }
-
-
-=head2 sub 3 
-
-
-=cut
-
- sub 3 {
-
-	my ( $self,$3 )		= @_;
-	if ( $3 ne $empty_string ) {
-
-		$sutivel->{_3}		= $3;
-		$sutivel->{_note}		= $sutivel->{_note}.' 3='.$sutivel->{_3};
-		$sutivel->{_Step}		= $sutivel->{_Step}.' 3='.$sutivel->{_3};
-
-	} else { 
-		print("sutivel, 3, missing 3,\n");
-	 }
- }
-
-
-=head2 sub 4 
-
-
-=cut
-
- sub 4 {
-
-	my ( $self,$4 )		= @_;
-	if ( $4 ne $empty_string ) {
-
-		$sutivel->{_4}		= $4;
-		$sutivel->{_note}		= $sutivel->{_note}.' 4='.$sutivel->{_4};
-		$sutivel->{_Step}		= $sutivel->{_Step}.' 4='.$sutivel->{_4};
-
-	} else { 
-		print("sutivel, 4, missing 4,\n");
-	 }
- }
-
-
-=head2 sub 5 
-
-
-=cut
-
- sub 5 {
-
-	my ( $self,$5 )		= @_;
-	if ( $5 ne $empty_string ) {
-
-		$sutivel->{_5}		= $5;
-		$sutivel->{_note}		= $sutivel->{_note}.' 5='.$sutivel->{_5};
-		$sutivel->{_Step}		= $sutivel->{_Step}.' 5='.$sutivel->{_5};
-
-	} else { 
-		print("sutivel, 5, missing 5,\n");
-	 }
- }
-
-
-=head2 sub 6 
-
-
-=cut
-
- sub 6 {
-
-	my ( $self,$6 )		= @_;
-	if ( $6 ne $empty_string ) {
-
-		$sutivel->{_6}		= $6;
-		$sutivel->{_note}		= $sutivel->{_note}.' 6='.$sutivel->{_6};
-		$sutivel->{_Step}		= $sutivel->{_Step}.' 6='.$sutivel->{_6};
-
-	} else { 
-		print("sutivel, 6, missing 6,\n");
-	 }
- }
-
-
-=head2 sub 7 
-
-
-=cut
-
- sub 7 {
-
-	my ( $self,$7 )		= @_;
-	if ( $7 ne $empty_string ) {
-
-		$sutivel->{_7}		= $7;
-		$sutivel->{_note}		= $sutivel->{_note}.' 7='.$sutivel->{_7};
-		$sutivel->{_Step}		= $sutivel->{_Step}.' 7='.$sutivel->{_7};
-
-	} else { 
-		print("sutivel, 7, missing 7,\n");
-	 }
- }
-
-
-=head2 sub 8 
-
-
-=cut
-
- sub 8 {
-
-	my ( $self,$8 )		= @_;
-	if ( $8 ne $empty_string ) {
-
-		$sutivel->{_8}		= $8;
-		$sutivel->{_note}		= $sutivel->{_note}.' 8='.$sutivel->{_8};
-		$sutivel->{_Step}		= $sutivel->{_Step}.' 8='.$sutivel->{_8};
-
-	} else { 
-		print("sutivel, 8, missing 8,\n");
-	 }
- }
-
-
-=head2 sub 9 
-
-
-=cut
-
- sub 9 {
-
-	my ( $self,$9 )		= @_;
-	if ( $9 ne $empty_string ) {
-
-		$sutivel->{_9}		= $9;
-		$sutivel->{_note}		= $sutivel->{_note}.' 9='.$sutivel->{_9};
-		$sutivel->{_Step}		= $sutivel->{_Step}.' 9='.$sutivel->{_9};
-
-	} else { 
-		print("sutivel, 9, missing 9,\n");
-	 }
  }
 
 
@@ -717,7 +431,7 @@ max index = number of input variables -1
  
 sub get_max_index {
  	  my ($self) = @_;
-    my $max_index = 36;
+	my $max_index = 9;
 
     return($max_index);
 }

@@ -34,7 +34,9 @@ my $VERSION = '0.0.1';
 use L_SU_global_constants;
 use Project_config;
 use SeismicUnix
-  qw ($cdp $gx $in $out $on $go $to $txt $suffix_ascii $off $offset $su $sx $suffix_su $suffix_txt $tracl);
+  qw ($cdp $gx $in $out $on $go $to $txt $suffix_ascii $off $offset 
+  $pick $profile $report $su $suffix_profile $sx $suffix_su $suffix_target
+  $suffix_pick $suffix_report $suffix_target_tilde $suffix_txt $target $target_tilde $tracl);
 
 =head2 define private hash
 to share
@@ -91,6 +93,10 @@ sub clean {
 		my $DATA_SEISMIC_SEGY = $Project->DATA_SEISMIC_SEGY;
 		my $DATA_SEISMIC_SU   = $Project->DATA_SEISMIC_SU;
 		my $DATA_SEISMIC_TXT  = $Project->DATA_SEISMIC_TXT;
+		my $GEOPSY_PICKS      = $Project->GEOPSY_PICKS;
+		my $GEOPSY_PROFILES   = $Project->GEOPSY_PROFILES;
+		my $GEOPSY_REPORTS    = $Project->GEOPSY_REPORTS;
+		my $GEOPSY_TARGETS    = $Project->GEOPSY_TARGETS;
 		my $file_name         = $manage_files_by2->{_delete_base_file_name};
 		my $suffix_type       = $manage_files_by2->{_suffix_type};
 		my $outbound;
@@ -105,22 +111,56 @@ sub clean {
 			$outbound = $DATA_SEISMIC_SU . '/' . $file_name . $suffix_su;
 
 		}
+		
+		elsif ( $suffix_type eq $pick ) {
+
+			$outbound = $GEOPSY_PICKS . '/' . $file_name . $suffix_pick;
+#             print("manage_files_by2, clean, outbound=$outbound\n");
+            
+		}
+		
+		elsif ( $suffix_type eq $profile ) {
+
+			$outbound = $GEOPSY_PROFILES . '/' . $file_name . $suffix_profile;
+#           print("manage_files_by2, clean, outbound=$outbound\n");
+            
+		}
+		
+		elsif ( $suffix_type eq $report ) {
+			
+			$outbound = $GEOPSY_REPORTS . '/' . $file_name . $suffix_report;
+#           print("manage_files_by2, clean, outbound=$outbound\n");
+            
+		}
+		
+		elsif ( $suffix_type eq $target ) {
+			
+			$outbound = $GEOPSY_TARGETS . '/' . $file_name . $suffix_target;
+#           print("manage_files_by2, clean, outbound=$outbound\n");
+            
+		}
+		
+		elsif ( $suffix_type eq $target_tilde ) {
+			
+			$outbound = $GEOPSY_TARGETS . '/' . $file_name . $suffix_target_tilde;
+           print("manage_files_by2, clean, outbound=$outbound\n");
+            
+		}
+		
 		else {
-			print("manage_files_by2, clean, unexpected\n");
+			print("manage_files_by2, clean, unexpected value\n");
 		}
 
 		my $ans = $file->exists($outbound);
 
-		#			print(
-		#				"manage_files_by2, clean, file_name= $file_name does exist\n"
-		#			);
+#		print("manage_files_by2, clean, ans = $ans\n");
 
 		if ($ans) {
 
 			$file->delete($outbound);
-			print(
-"manage_files_by2, clean, Cleaning for pre-existing $file_name \n"
-			);
+#			print(
+#"manage_files_by2, clean, Cleaning for pre-existing $outbound \n"
+#			);
 
 		}
 		else {
@@ -1173,7 +1213,7 @@ sub set_delete_base_file_name {
 	if ( length $base_file_name ) {
 
 #	print(
-#   "manage_files_by2, set_delete_base_file_name, base_file_name_sx = $base_file_name_sx\n"
+#   "manage_files_by2, set_delete_base_file_name, base_file_name = $base_file_name\n"
 #	);
 
 		$manage_files_by2->{_delete_base_file_name} = $base_file_name;
@@ -1299,17 +1339,19 @@ sub write_2cols {
 
 	# $variable is an unused hash
 
-	#print("\nThe subroutine has is called $variable\n");
-	#print("\nThe output file contains $num_rows rows\n");
-	#print("\nThe output file uses the following format: $$ref_fmt\n");
+#	print("\nThe subroutine has is called $variable\n");
+#	print("\nThe output file contains $num_rows rows\n");
+#	print("\nThe output file uses the following format: $$ref_fmt\n");
+#	print("\nThe output file name is $$ref_file_name\n");
+
 	open( OUT, ">$$ref_file_name" );
 
-	for ( $j = 1 ; $j <= $num_rows ; $j++ ) {
+	for ( $j = 0 ; $j < $num_rows ; $j++ ) {
 
-		#print OUT  ("$$ref_X[$j] $$ref_Y[$j]\n");
+#		print OUT  ("$$ref_X[$j] $$ref_Y[$j]\n");
 		printf OUT "$$ref_fmt\n", $$ref_X[$j], $$ref_Y[$j];
 
-		#print("$$ref_X[$j] $$ref_Y[$j]\n");
+#		print("index=$j;$$ref_X[$j] $$ref_Y[$j]\n");
 	}
 
 	close(OUT);

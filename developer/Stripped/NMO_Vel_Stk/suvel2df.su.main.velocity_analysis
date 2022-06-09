@@ -5,13 +5,13 @@
 
  Required Parameters:							
  tn			zero-offset time of reflection			
- offsetm		Maximum offset considerd			
+ offsetm		Maximum offset considered			
 
  Optional Parameters:							
  nv=50			number of velocities				
  dv=50.0		velocity sampling interval			
  fv=1500.0		first velocity					
- nvh=50		number of horizotal velocities			
+ nvh=50		number of horizontal velocities			
  dvh=50.0		horizontal velocity sampling interval		
  fvh=1500.0		first horizontal velocity			
  xod=1.5		maximum offset-to-depth ratio to resolve	

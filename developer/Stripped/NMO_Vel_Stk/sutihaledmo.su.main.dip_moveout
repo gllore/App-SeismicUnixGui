@@ -8,11 +8,11 @@
 
  Optional Parameters:							
  option=1		1 = traditional Hale DMO (from PhD thesis)	
-			2 = Bleistein's true amplitude DMO		
-			3 = Bleistein's cos*cos weighted DMO		
-			4 = Zhang's DMO					
-			5 = Tsvankin's anisotropic DMO			
-			6 = Tsvankin's VTI DMO weak anisotropy approximation
+			option=2 : Bleistein's true amplitude DMO		
+			option=3 : Bleistein's cos*cos weighted DMO		
+			option=4 : Zhang's DMO					
+			option=5 : Tsvankin's anisotropic DMO			
+			option=6 : Tsvankin's VTI DMO weak anisotropy approximation
  dx=50.		 midpoint sampling interval between traces	
 			in a common offset gather.  (usually shot	
 			interval in meters)				

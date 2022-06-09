@@ -7,7 +7,7 @@ our $VERSION = '1.0.0';
 @EXPORT = ();
 
 # export all; import at will
-@EXPORT_OK = qw($append $ascii $ascii_stdout $bin $cdp
+@EXPORT_OK = qw($append $ascii $ascii_stdout $bin $cdp $CDP $SP
   $_cdp $_mute $_stkvel
   $day $ep $go $gx $hour $in $max_amp $minute $rms_amp 
   $gather_num_suffix $rms $max $second $surms_ notes $sumax_notes $on $off $true $false $isurf
@@ -31,18 +31,20 @@ our $VERSION = '1.0.0';
   $itemp_bot_mute_picks_sorted_ $itemp_bot_mute_picks_sorted_par $itemp_bot_mute_picks_sorted_par_
   $ibot_mute_check_pickfile $ibot_mute_check_pickfile_ $ibot_mute_xfile_picks $ibot_mute_tfile_picks
   $temp_single_gather_par_file_mute  
+  $temp 
   $ivpicks_sorted_par_
   $ms2s $us2s
   $offset 
-  $ps
+  $profile 
+  $ps $pick $report $target $target_tilde
   $DAT $dat $seg2 $segb $segd $sgd $segy $sgy $su $par $empty
   $start_time
   $suffix_DAT $suffix_dat $suffix_ascii $suffix_empty $suffix_par $suffix_text $suffix_bin $suffix_bot_mute $suffix_top_mute $suffix_fft $suffix_fp
   $suffix_geom $suffix_hyphen $suffix_isurf $suffix_lsu $suffix_mute $suffix_null 
   $suffix_ps $suffix_rev
   $suffix_segb $suffix_segd $suffix_sgd $suffix_segy $suffix_sgy $suffix_su $suffix_seg2 $suffix_taup $suffix_top_mute $suffix_usp $suffix_itop_mute
-  $suffix_sac $suffix_txt $prefix_taup_picks_ $prefix_taup_picks $out
-  $suffix_target $suffix_param $suffix_env $suffix_report $sx 
+  $suffix_sac $suffix_txt $prefix_taup_picks_ $prefix_taup_picks $out 
+  $suffix_target  $suffix_target_tilde $suffix_param $suffix_pick $suffix_profile $suffix_env $suffix_report $sx 
   $to_outpar_file
   $to $txt $text $tracf $tracl $tracr $trid $year
   $tmute $xmute );
@@ -108,6 +110,7 @@ our $ibot_mute_check_pickfile         = '.ibotmute_pickfile_exists_';
 our $ibot_mute_xfile_picks            = 'bot_mute_xfile_picks';
 our $ibot_mute_tfile_picks            = 'bot_mute_tfile_picks';
 our $temp_single_gather_par_file_mute = '.temp_single_gather_par_file_mute';
+our $temp                             = 'temp';
 our $tmute							  = 'tmute';
 our $xmute							  = 'xmute';
 
@@ -178,7 +181,13 @@ our $_cdp = '_cdp';
 
 our $_mute = '_mute';
 
+our $pick  = 'pick';
+
+our $profile = 'profile';
+
 our $ps		= 'ps';
+
+our $report		= 'report';
 
 our $_stkvel = '_stkvel';
 
@@ -236,9 +245,15 @@ our $suffix_dat = '.dat';
 
 our $suffix_param = '.param';
 
+our $suffix_pick = '.pick';
+
+our $suffix_profile = '.profile';
+
 our $suffix_report = '.report';
 
 our $suffix_target = '.target';
+
+our $suffix_target_tilde = '.target~';
 
 our $suffix_segy = '.segy';
 
@@ -261,6 +276,10 @@ our $suffix_txt = '.txt';
 
 our $suffix_text = '.text';
 
+our $target      	= 'target';
+
+our $target_tilde	= 'target~';
+
 # for unit conversion
 our $ms2s = 1000;
 our $us2s = 1000000;
@@ -280,6 +299,8 @@ my ( @sugethw, @sugethw_sufile, @sugethw_outbound, @sugethw_inbound );
 
 # SEGY HEADERS
 our $cdp    = 'cdp';
+our $CDP   = 'CDP';
+our $SP     = 'SP';
 our $ep     = 'ep';
 our $day    = 'day';
 our $gx     = 'gx';

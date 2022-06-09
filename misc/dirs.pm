@@ -50,15 +50,17 @@ my $dirs = {
 
 =head2 sub get_ls 
 
-i/p directgry
+i/p directory
 o/p array ref of list of file names
 
 =cut
 
 sub get_ls {
-    my @self      = @_;
+    my (@self)      = @_;
+    
     my $directory = $dirs->{_DIR};
     my @list;
+    
     if ($directory) {
         opendir( DIR, $directory ) or die $!;
         my $i = 0;
@@ -125,6 +127,7 @@ sub set_path {
     {
 
         $dirs->{_path} = $path;
+        $dirs->{_DIR} = $path;
 
     } else {
     	print("dirs,set_path, missing value\n");

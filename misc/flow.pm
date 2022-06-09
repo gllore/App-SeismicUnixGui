@@ -185,7 +185,7 @@ sub modules {
 	if ( defined $ref_list
 		and ( scalar @$ref_list ) > 0 ) {    # N.B. at least '&' exists
 
-		# print("flow so far is @$ref_list\n\n");
+#		print("flow so far is @$ref_list\n\n");
 		my $list_length = $#$ref_list;
 		my $word        = $$ref_list[0];
 

@@ -1294,7 +1294,7 @@ sub set_file_in_sref {
 
 	if ($file_sref) {
 
-		print("sunix_pl,set_file_in, $$file_sref\n");
+#		print("sunix_pl,set_file_in, $$file_sref\n");
 
 		$sunix_pl->{_file_in} = $$file_sref;
 

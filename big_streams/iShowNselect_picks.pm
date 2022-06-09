@@ -38,8 +38,9 @@ use suximage;
 use Project_config;
 use SuMessages;
 
-use SeismicUnix qw ($false $true $go $in $on $off $ipicks $itemp_picks_ $itemp_num_points
-	$itemp_picks_sorted_  $suffix_su $suffix_hyphen $to);
+use SeismicUnix
+  qw ($false $true $go $in $on $off $ipicks $itemp_picks_ $itemp_num_points
+  $itemp_picks_sorted_  $suffix_su $suffix_hyphen $to);
 
 my $iPick_spec = iPick_spec->new();
 
@@ -141,16 +142,17 @@ sub clear {
 	$iShowNselect_picks->{_freq}               = '';
 	$iShowNselect_picks->{_gather_num}         = '';
 	$iShowNselect_picks->{_inbound}            = '';
-	$iShowNselect_picks->{_inbound_curve_file} = '', $iShowNselect_picks->{_message_type} = '';
-	$iShowNselect_picks->{_max_amplitude}      = '';
-	$iShowNselect_picks->{_max_x1}             = '';
-	$iShowNselect_picks->{_min_amplitude}      = '';
-	$iShowNselect_picks->{_min_x1}             = '';
-	$iShowNselect_picks->{_ntaper}             = '';
-	$iShowNselect_picks->{_number_of_tries}    = '';
-	$iShowNselect_picks->{_offset_type}        = '';
-	$iShowNselect_picks->{_purpose}            = '';
-	$iShowNselect_picks->{_textfile_in}        = '';
+	$iShowNselect_picks->{_inbound_curve_file} = '',
+	  $iShowNselect_picks->{_message_type} = '';
+	$iShowNselect_picks->{_max_amplitude}   = '';
+	$iShowNselect_picks->{_max_x1}          = '';
+	$iShowNselect_picks->{_min_amplitude}   = '';
+	$iShowNselect_picks->{_min_x1}          = '';
+	$iShowNselect_picks->{_ntaper}          = '';
+	$iShowNselect_picks->{_number_of_tries} = '';
+	$iShowNselect_picks->{_offset_type}     = '';
+	$iShowNselect_picks->{_purpose}         = '';
+	$iShowNselect_picks->{_textfile_in}     = '';
 }
 
 =head2  sub _inbound_curve_file
@@ -167,11 +169,13 @@ sub _inbound_curve_file {
 
 		my $file_in = $iShowNselect_picks->{_file_in};
 
-		$iShowNselect_picks->{_inbound_curve_file} = $DATA_DIR_OUT . '/' . $itemp_picks_sorted_ . $file_in;
+		$iShowNselect_picks->{_inbound_curve_file} =
+		  $DATA_DIR_OUT . '/' . $itemp_picks_sorted_ . $file_in;
 
-		# print("iShowNselect_picks, _inbound_curve_file: $iShowNselect_picks->{_inbound_curve_file} \n\n");
+# print("iShowNselect_picks, _inbound_curve_file: $iShowNselect_picks->{_inbound_curve_file} \n\n");
 
-	} else {
+	}
+	else {
 		print("iShowNselect_picks, file_in: unexpected file_in \n\n");
 	}
 }
@@ -188,7 +192,7 @@ sub _inbound_curve_file {
 sub gather_header {
 	my ( $self, $gather_header ) = @_;
 	$iShowNselect_picks->{_gather_header} = $gather_header
-		if defined($gather_header);
+	  if defined($gather_header);
 
 	print(" header type is $iShowNselect_picks->{_gather_header}\n\n");
 }
@@ -229,23 +233,27 @@ sub calcNdisplay {
 =cut
 
 	if ( defined $iShowNselect_picks->{_freq}
-		&& $iShowNselect_picks->{_freq} ne $empty_string ) {
+		&& $iShowNselect_picks->{_freq} ne $empty_string )
+	{
 
-		#		print(
-		#			"iShowNselect_picks, sufilter frequencies:  $iShowNselect_picks->{_freq}\n"
-		#		);
+ #		print(
+ #			"iShowNselect_picks, sufilter frequencies:  $iShowNselect_picks->{_freq}\n"
+ #		);
 		$sufilter->clear();
 		$sufilter->freq( $iShowNselect_picks->{_freq} );
 		$sufilter[1] = $sufilter->Step();
 
-	} elsif ( not defined $iShowNselect_picks->{_freq}
-		or $iShowNselect_picks->{_freq} eq $empty_string ) {
+	}
+	elsif ( not defined $iShowNselect_picks->{_freq}
+		or $iShowNselect_picks->{_freq} eq $empty_string )
+	{
 
 		$iShowNselect_picks->{_error_freq} = $true;
 
 		# print("iShowNselect_picks, missing frequencies-- error NADA\n");
 
-	} else {
+	}
+	else {
 
 		# print("iShowNselect_picks, missing frequencies NADA \n");
 	}
@@ -264,7 +272,8 @@ sub calcNdisplay {
 	$sugain->agc($on);
 
 	# nominal agc width
-	my $wagc = ( $iShowNselect_picks->{_max_x1} - $iShowNselect_picks->{_min_x1} ) / 10;
+	my $wagc =
+	  ( $iShowNselect_picks->{_max_x1} - $iShowNselect_picks->{_min_x1} ) / 10;
 
 	# print("iShowNselect_picks,calcNdisplay,wagc=$wagc\n");
 	$sugain->width($wagc);
@@ -280,9 +289,15 @@ sub calcNdisplay {
 
 =cut
 
-	$base_caption[1]
-		= $iShowNselect_picks->{_file_in} . quotemeta(' ') . quotemeta(' f=') . $iShowNselect_picks->{_freq};
-	$windowtitle[1] = $iShowNselect_picks->{_gather_header} . quotemeta(' = ') . $iShowNselect_picks->{_gather_num};
+	$base_caption[1] =
+		$iShowNselect_picks->{_file_in}
+	  . quotemeta(' ')
+	  . quotemeta(' f=')
+	  . $iShowNselect_picks->{_freq};
+	$windowtitle[1] =
+		$iShowNselect_picks->{_gather_header}
+	  . quotemeta(' = ')
+	  . $iShowNselect_picks->{_gather_num};
 
 	$suximage->clear();
 	$suximage->box_width(400);
@@ -297,17 +312,20 @@ sub calcNdisplay {
 	$suximage->cmap('rgb0');
 	$suximage->loclip( $iShowNselect_picks->{_min_amplitude} );
 	$suximage->hiclip( $iShowNselect_picks->{_max_amplitude} );
-	
+
 	# geopsy plot preference for JML
 	if (    length $iShowNselect_picks->{_purpose}
 		and $iShowNselect_picks->{_purpose} eq 'geopsy'
-		and $iShowNselect_picks->{_max_x1} > $iShowNselect_picks->{_min_x1} ) {
+		and $iShowNselect_picks->{_max_x1} > $iShowNselect_picks->{_min_x1} )
+	{
 
 		$suximage->x1beg( $iShowNselect_picks->{_max_x1} );
 		$suximage->x1end( $iShowNselect_picks->{_min_x1} );
-#		print("iShowNselect_picks, suximage with \'geopsy\' purpose\n");
-		
-	} else {
+
+		#		print("iShowNselect_picks, suximage with \'geopsy\' purpose\n");
+
+	}
+	else {
 		$suximage->x1beg( $iShowNselect_picks->{_min_x1} );
 		$suximage->x1end( $iShowNselect_picks->{_max_x1} );
 	}
@@ -320,7 +338,8 @@ sub calcNdisplay {
 	print("\t$iShowNselect_picks->{_inbound_curve_file}\n\n");
 
 	$suximage->curve( quotemeta( $iShowNselect_picks->{_inbound_curve_file} ) );
-	my ( $ref_T, $ref_X, $num_tx_pairs ) = manage_files_by::read_2cols( \$iShowNselect_picks->{_inbound_curve_file} );
+	my ( $ref_T, $ref_X, $num_tx_pairs ) = manage_files_by::read_2cols(
+		\$iShowNselect_picks->{_inbound_curve_file} );
 	$suximage->npair( quotemeta($num_tx_pairs) );
 	$suximage->curvecolor( quotemeta(2) );
 
@@ -330,12 +349,14 @@ sub calcNdisplay {
 
 	if ( $iShowNselect_picks->{_number_of_tries} >= 2 ) {
 
-		$iShowNselect_picks->{_TX_outbound} = $itemp_picks_ . $iShowNselect_picks->{_file_in};
-		$suximage->picks( $DATA_DIR_OUT . '/' . $iShowNselect_picks->{_TX_outbound} );
+		$iShowNselect_picks->{_TX_outbound} =
+		  $itemp_picks_ . $iShowNselect_picks->{_file_in};
+		$suximage->picks(
+			$DATA_DIR_OUT . '/' . $iShowNselect_picks->{_TX_outbound} );
 
-		# print("iShowNselect_picks, suximage, writing picks to $itemp_picks_$iShowNselect_picks->{_file_in} \n");
-		# print("iShowNselect_picks, suximage, PATH: $DATA_DIR_OUT \n\n");
-		# print("number of tries is $iShowNselect_picks->{_number_of_tries} \n\n");
+# print("iShowNselect_picks, suximage, writing picks to $itemp_picks_$iShowNselect_picks->{_file_in} \n");
+# print("iShowNselect_picks, suximage, PATH: $DATA_DIR_OUT \n\n");
+# print("number of tries is $iShowNselect_picks->{_number_of_tries} \n\n");
 	}
 
 	$suximage[1] = $suximage->Step();
@@ -346,8 +367,14 @@ sub calcNdisplay {
 
 =cut
 
-	$base_caption[2] = $iShowNselect_picks->{_file_in} . quotemeta(' f=') . $iShowNselect_picks->{_freq};
-	$windowtitle[2]  = $iShowNselect_picks->{_gather_header} . quotemeta(' = ') . $iShowNselect_picks->{_gather_num};
+	$base_caption[2] =
+		$iShowNselect_picks->{_file_in}
+	  . quotemeta(' f=')
+	  . $iShowNselect_picks->{_freq};
+	$windowtitle[2] =
+		$iShowNselect_picks->{_gather_header}
+	  . quotemeta(' = ')
+	  . $iShowNselect_picks->{_gather_num};
 
 	$suxwigb->clear();
 	$suxwigb->box_width(400);
@@ -360,21 +387,24 @@ sub calcNdisplay {
 	$suxwigb->xlabel( $iShowNselect_picks->{_offset_type} );
 	$suxwigb->loclip( $iShowNselect_picks->{_min_amplitude} );
 	$suxwigb->hiclip( $iShowNselect_picks->{_max_amplitude} );
-	    
-    # geopsy plot preference for JML
+
+	# geopsy plot preference for JML
 	if (    length $iShowNselect_picks->{_purpose}
 		and $iShowNselect_picks->{_purpose} eq 'geopsy'
-		and $iShowNselect_picks->{_max_x1} > $iShowNselect_picks->{_min_x1} ) {
+		and $iShowNselect_picks->{_max_x1} > $iShowNselect_picks->{_min_x1} )
+	{
 
 		$suxwigb->x1beg( $iShowNselect_picks->{_max_x1} );
 		$suxwigb->x1end( $iShowNselect_picks->{_min_x1} );
-#		print("iShowNselect_picks, suxwigb with \'geopsy\' purpose\n");
-		
-	} else {
+
+		#		print("iShowNselect_picks, suxwigb with \'geopsy\' purpose\n");
+
+	}
+	else {
 		$suxwigb->x1beg( $iShowNselect_picks->{_min_x1} );
 		$suxwigb->x1end( $iShowNselect_picks->{_max_x1} );
 	}
-    
+
 	$suxwigb->verbose($off);
 
 =head2 conditions
@@ -391,7 +421,8 @@ sub calcNdisplay {
 	# print("\t$iShowNselect_picks->{_inbound_curve_file}\n\n");
 
 	$suxwigb->curve( quotemeta( $iShowNselect_picks->{_inbound_curve_file} ) );
-	( $ref_T, $ref_X, $num_tx_pairs ) = manage_files_by::read_2cols( \$iShowNselect_picks->{_inbound_curve_file} );
+	( $ref_T, $ref_X, $num_tx_pairs ) = manage_files_by::read_2cols(
+		\$iShowNselect_picks->{_inbound_curve_file} );
 	$suxwigb->npair( quotemeta($num_tx_pairs) );
 	$suxwigb->curvecolor( quotemeta(2) );
 
@@ -401,12 +432,14 @@ sub calcNdisplay {
 
 	if ( $iShowNselect_picks->{_number_of_tries} > 0 ) {
 
-		$iShowNselect_picks->{_TX_outbound} = $itemp_picks_ . $iShowNselect_picks->{_file_in};
-		$suxwigb->picks( $DATA_DIR_OUT . '/' . $iShowNselect_picks->{_TX_outbound} );
+		$iShowNselect_picks->{_TX_outbound} =
+		  $itemp_picks_ . $iShowNselect_picks->{_file_in};
+		$suxwigb->picks(
+			$DATA_DIR_OUT . '/' . $iShowNselect_picks->{_TX_outbound} );
 
-		# print("iShowNselect_picks, suxwigb, writing picks to $itemp_picks_$iShowNselect_picks->{_file_in} \n");
-		# print("iShowNselect_picks, suxwigb, PATH: $DATA_DIR_OUT \n\n");
-		# print("number of tries is $iShowNselect_picks->{_number_of_tries} \n\n");
+# print("iShowNselect_picks, suxwigb, writing picks to $itemp_picks_$iShowNselect_picks->{_file_in} \n");
+# print("iShowNselect_picks, suxwigb, PATH: $DATA_DIR_OUT \n\n");
+# print("number of tries is $iShowNselect_picks->{_number_of_tries} \n\n");
 	}
 
 	$suxwigb[1] = $suxwigb->Step();
@@ -414,61 +447,72 @@ sub calcNdisplay {
 =head2
  
   DEFINE FLOW(S) - for both suximage AND suxwigb 
-
+  remove gain		$to,        $sugain[1],
 =cut
 
-	# CASE 1
+	# CASE 1: With GEOPSY purpose
 	if ( defined $iShowNselect_picks->{_purpose}
-		and $iShowNselect_picks->{_purpose} ne $empty_string ) {
+		and $iShowNselect_picks->{_purpose} ne $empty_string )
+	{
 
 		if (   $iShowNselect_picks->{_purpose} eq $purpose->{_geopsy}
-			&& $iShowNselect_picks->{_error_freq} eq $true ) {
+			&& $iShowNselect_picks->{_error_freq} eq $true )
+		{
 
 			@items = (
 				$suwind[1], $in, $iShowNselect_picks->{_inbound},
 				$to,        $suwind[2],
-				$to,        $sugain[1],
-				$to,        $suxwigb[1], $go
+				$to,        $suxwigb[1],
+				$go
 			);
 			$flow[1] = $run->modules( \@items );
 
 			# print  ("iShowNselect_picks,  CASE1: $flow[1]\n");
 			@items = (
-				$suwind[1],   $in, $iShowNselect_picks->{_inbound}, $to, $suwind[2], $to, $sugain[1], $to,
-				$suximage[1], $go
+				$suwind[1], $in, $iShowNselect_picks->{_inbound},
+				$to, $suwind[2], $to, $suximage[1], $go
 			);
 			$flow[2] = $run->modules( \@items );
 
-		} else {
+		}
+		else {
 
-			# print("1. iShowNselect_picks, purpose:$iShowNselect_picks->{_purpose}\n");
-			# print("1. iShowNselect_picks, error_freq: $iShowNselect_picks->{_error_freq}\n");
-			# print("1. iShowNselect_picks, unconstrained purpose\n");
+# print("1. iShowNselect_picks, purpose:$iShowNselect_picks->{_purpose}\n");
+# print("1. iShowNselect_picks, error_freq: $iShowNselect_picks->{_error_freq}\n");
+# print("1. iShowNselect_picks, unconstrained purpose\n");
 		}
 
 		# CASE 2
-	} elsif ( ( not( defined $iShowNselect_picks->{_purpose} ) || $iShowNselect_picks->{_purpose} eq $empty_string )
-		&& $iShowNselect_picks->{_error_freq} eq $false ) {
+	}
+	elsif (
+		(
+			not( defined $iShowNselect_picks->{_purpose} )
+			|| $iShowNselect_picks->{_purpose} eq $empty_string
+		)
+		&& $iShowNselect_picks->{_error_freq} eq $false
+	  )
+	{
 
 		@items = (
-			$suwind[1], $in, $iShowNselect_picks->{_inbound}, $to, $suwind[2], $to, $sufilter[1], $to, $sugain[1],
-			$to,        $suxwigb[1], $go
+			$suwind[1], $in, $iShowNselect_picks->{_inbound},
+			$to, $suwind[2], $to, $sufilter[1], $to, $suxwigb[1], $go
 		);
 		$flow[1] = $run->modules( \@items );
 
 		# print  ("iShowNselect_picks,  CASE2: $flow[1]\n");
 
 		@items = (
-			$suwind[1], $in, $iShowNselect_picks->{_inbound}, $to, $suwind[2], $to, $sufilter[1], $to, $sugain[1],
-			$to,        $suximage[1], $go
+			$suwind[1], $in, $iShowNselect_picks->{_inbound},
+			$to, $suwind[2], $to, $sufilter[1], $to, $suximage[1], $go
 		);
 		$flow[2] = $run->modules( \@items );
 
-	} else {
+	}
+	else {
 
-		# print("2. iShowNselect_picks, purpose:---$iShowNselect_picks->{_purpose}---\n");
-		# print("2. iShowNselect_picks, error_freq:---$iShowNselect_picks->{_error_freq}---\n");
-		# print("2. iShowNselect_picks, unexpected purpose\n");
+# print("2. iShowNselect_picks, purpose:---$iShowNselect_picks->{_purpose}---\n");
+# print("2. iShowNselect_picks, error_freq:---$iShowNselect_picks->{_error_freq}---\n");
+# print("2. iShowNselect_picks, unexpected purpose\n");
 	}
 
 =head2
@@ -494,11 +538,11 @@ sub calcNdisplay {
 =cut
 
 	# for suxwigb
-	# print  "$flow[1]\n";
+	#	print  "$flow[1]\n";
 	#$log->file($flow[1]);
 
 	#for suximage
-	# print  "$flow[2]\n";
+	#	print  "$flow[2]\n";
 
 }    # end calcNdisplay subroutine
 
@@ -518,12 +562,14 @@ sub file_in {
 
 		# e.g. 'sp1' becomes sp1
 		$control->set_infection($file_in);
-		$file_in                        = control->get_ticksBgone();
+		$file_in = control->get_ticksBgone();
 		$iShowNselect_picks->{_file_in} = $file_in;
-		$iShowNselect_picks->{_inbound} = $DATA_DIR_IN . '/' . $file_in . $data_suffix_in;
+		$iShowNselect_picks->{_inbound} =
+		  $DATA_DIR_IN . '/' . $file_in . $data_suffix_in;
 
-		# print("iShowNselect_picks, file_in: $iShowNselect_picks->{_file_in} \n\n");
-	} else {
+   # print("iShowNselect_picks, file_in: $iShowNselect_picks->{_file_in} \n\n");
+	}
+	else {
 		print("iShowNselect_picks, file_in: unexpected file_in \n\n");
 	}
 }
@@ -563,7 +609,7 @@ sub gather_num {
 sub max_amplitude {
 	my ( $self, $max_amplitude ) = @_;
 	$iShowNselect_picks->{_max_amplitude} = $max_amplitude
-		if defined($max_amplitude);
+	  if defined($max_amplitude);
 
 	# print("max_amplitude is $iShowNselect_picks->{_max_amplitude}\n\n");
 }
@@ -577,7 +623,7 @@ sub max_amplitude {
 sub min_amplitude {
 	my ( $self, $min_amplitude ) = @_;
 	$iShowNselect_picks->{_min_amplitude} = $min_amplitude
-		if defined($min_amplitude);
+	  if defined($min_amplitude);
 
 	# print("min_amplitude is $iShowNselect_picks->{_min_amplitude}\n\n");
 
@@ -598,7 +644,8 @@ sub max_x1 {
 
 		# print("max_x1 is $iShowNselect_picks->{_max_x1}\n\n");
 
-	} else {
+	}
+	else {
 		print("iShowNselect_picks, max_x1, value missing\n");
 	}
 	return ();
@@ -619,7 +666,8 @@ sub min_x1 {
 
 		# print("min_x1 is $iShowNselect_picks->{_min_x1}\n\n");
 
-	} else {
+	}
+	else {
 		print("iShowNselect_picks,min_x1, unexpected min time-s\n");
 	}
 }
@@ -634,7 +682,7 @@ sub min_x1 {
 sub number_of_tries {
 	my ( $self, $number_of_tries ) = @_;
 	$iShowNselect_picks->{_number_of_tries} = $number_of_tries
-		if defined($number_of_tries);
+	  if defined($number_of_tries);
 
 	# print("num of tries is $iShowNselect_picks->{_number_of_tries}\n\n");
 }
@@ -652,7 +700,7 @@ sub offset_type {
 	my ( $self, $offset_type ) = @_;
 
 	$iShowNselect_picks->{_offset_type} = $offset_type
-		if defined($offset_type);
+	  if defined($offset_type);
 
 	print(" offset type is $iShowNselect_picks->{_offset_type}\n\n");
 }
@@ -669,7 +717,8 @@ sub set_purpose {
 	my ( $self, $type ) = @_;
 
 	if ( defined $type
-		&& $type ne $empty_string ) {
+		&& $type ne $empty_string )
+	{
 
 		use control 0.0.3;
 		my $control = control->new();
@@ -683,14 +732,16 @@ sub set_purpose {
 
 			$iShowNselect_picks->{_purpose} = $type;
 
-			# print("iShowNselect,set_purpose: $iShowNselect_picks->{_purpose}\n");
+		 # print("iShowNselect,set_purpose: $iShowNselect_picks->{_purpose}\n");
 
-		} else {
+		}
+		else {
 
 			# print("iShowNselect_picks,set_purpose is unavailable, NADA\n");
 		}
 
-	} else {
+	}
+	else {
 
 		# print("iShowNselect_picks,set_purpose value is empty NADA\n");
 	}

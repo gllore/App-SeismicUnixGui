@@ -3,18 +3,21 @@
 
 =head2 SYNOPSIS
 
-PROGRAM NAME:  sudoc2pm_updates.pl							
+PROGRAM NAME:  sudoc2pm_pt2.pl							
 
  AUTHOR: Juan Lorenzo
  DATE:   Septmber 11, 2021 
- DESCRIPTION: update  sunix module
- 			  and its spec-file
+ DESCRIPTION: update 
+ 			  spec-file to include correct
+ 			  bindings of the screen parameters 
  			  
  Version: 0.0.1
 
 =head2 USE
 
 =head3 NOTES
+
+A *changes file in required
 
 =head4 Examples
 
@@ -54,8 +57,10 @@ $sunix_category_number = 15
 
 use Moose;
 our $VERSION = '0.0.1';
+use sudoc2pm_nameNnumber;
 use update;
 
+my $sudoc2pm_nameNnumber    = sudoc2pm_nameNnumber->new();
 my $update = update->new();
 
 =head2 QUESTION 1:
@@ -76,11 +81,14 @@ For example=
 
 =cut
 
-my $sunix_category_number = 8;
-my $selected_program_name = 'sustkvel';
+my $selected_program_name = $sudoc2pm_nameNnumber->get_selected_program_name();
+my $sunix_category_number = $sudoc2pm_nameNnumber->get_category_number();
+
 my $spec_changes_base_file_name = $selected_program_name.'_changes';
 
 $update->set_program( $selected_program_name, $sunix_category_number );
 $update->set_spec_changes_base_file_name($spec_changes_base_file_name);
 $update->set_spec_changes();
+$update->spec_changes();
 $update->set_changes();
+
