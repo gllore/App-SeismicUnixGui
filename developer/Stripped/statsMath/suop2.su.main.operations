@@ -3,7 +3,10 @@
  suop2 data1 data2 op=diff [trid=111] >stdout				
 
  Required parameters:							
- 	none								
+ 	none	
+ 	
+ 	file1=data1
+ 	fild2=data2							
 
  Optional parameter:							
  	op=diff		difference of two panels of seismic data	

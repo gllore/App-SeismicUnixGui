@@ -99,7 +99,7 @@ Version:
 
  Notes:							       	
 
-      Uses average refactor velocity along interface.			
+      Uses average refractor velocity along interface.			
 
 
 

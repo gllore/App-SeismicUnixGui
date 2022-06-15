@@ -33,6 +33,7 @@ perl sudoc2pm_pt1.pl
 =head3 NOTES
 
  Program group array and the directory names:
+ 
 
 $developer_sunix_categories[0]  = 'data';
 $developer_sunix_categories[1]  = 'datum';
@@ -157,6 +158,7 @@ for ( my $i = 0 ; $i < $list_length ; $i++ ) {
 
 	if ( $selected_program_name eq $package_name ) {
 
+
 		print("sudoc2pm_pt1.pl, I am in group=$sunix_category_number \n");
 		#		print("sudoc2pm_pt1.pl, I am working on package =$package_name \n");
 		#		print("sudoc2pm_pt1.pl, writing $pm_file_out[0] in scratch\n");
@@ -197,6 +199,7 @@ for ( my $i = 0 ; $i < $list_length ; $i++ ) {
 		$package_path_out4developer[0] = $path_out4developer;
 		$package_path_out4specs[0]     = $path_out4specs;
 		$package_path_out4sunix[0]     = $path_out4sunix;
+
 
 		$package->set_file_out( \@pm_file_out );
 		$package->set_path_out4configs( \@package_path_out4configs );

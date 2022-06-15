@@ -21,16 +21,15 @@ my $flow_type        = $get->flow_type_href();
 
 my $DATA_SEISMIC_BIN  = $Project->DATA_SEISMIC_BIN();
 my $DATA_SEISMIC_SEGY = $Project->DATA_SEISMIC_SEGY();
-my $DATA_SEISMIC_SU =
-  $Project->DATA_SEISMIC_SU();    # output data directory
-my $DATA_SEISMIC_TXT = $Project->DATA_SEISMIC_TXT();    # output data directory
-my $PL_SEISMIC       = $Project->PL_SEISMIC();
-my $PS_SEISMIC       = $Project->PS_SEISMIC();
-my $max_index        = 39;
+my $DATA_SEISMIC_SU   = $Project->DATA_SEISMIC_SU();     # output data directory
+my $DATA_SEISMIC_TXT  = $Project->DATA_SEISMIC_TXT();    # output data directory
+my $PL_SEISMIC        = $Project->PL_SEISMIC();
+my $PS_SEISMIC        = $Project->PS_SEISMIC();
+my $max_index         = 40;
 
 my $sulfaf_spec = {
 	_CONFIG                => $PL_SEISMIC,
-	_DATA_DIR_IN           => $DATA_SEISMIC_SU,
+	_DATA_DIR_IN           => $DATA_SEISMIC_BIN,
 	_DATA_DIR_OUT          => $DATA_SEISMIC_SU,
 	_binding_index_aref    => '',
 	_suffix_type_in        => $su,
@@ -334,8 +333,8 @@ sub prefix_aref {
 
 	}
 
-	#	my $index_aref = get_binding_index_aref();
-	#	my @index       = @$index_aref;
+	my $index_aref = get_binding_index_aref();
+	my @index      = @$index_aref;
 
 	# label 2 in GUI is input xx_file and needs a home directory
 	#	$prefix[ $index[0] ] = '$DATA_SEISMIC_BIN' . ".'/'.";
@@ -370,8 +369,8 @@ sub suffix_aref {
 
 	}
 
-	#	my $index_aref = get_binding_index_aref();
-	#	my @index       = @$index_aref;
+	my $index_aref = get_binding_index_aref();
+	my @index      = @$index_aref;
 
 	# label 2 in GUI is input xx_file and needs a home directory
 	#	$suffix[ $index[0] ] = ''.'' . '$suffix_bin';

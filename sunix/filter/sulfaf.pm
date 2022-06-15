@@ -61,7 +61,7 @@ Version:
 
  where a trace mix is performed in the specifed frequency range	
 
- as Mix=vel/(freq*dx)							
+ as Mix = ve l/(freq*dx)							
 
 
 
@@ -504,6 +504,7 @@ hash of private variables
 =cut
 
 my $sulfaf			= {
+	_Mix					=> '',
 	_adb					=> '',
 	_ct					=> '',
 	_d1					=> '',
@@ -586,6 +587,7 @@ by adding the program name
 
  sub clear {
 
+		$sulfaf->{_Mix}			= '';
 		$sulfaf->{_adb}			= '';
 		$sulfaf->{_ct}			= '';
 		$sulfaf->{_d1}			= '';
@@ -630,6 +632,25 @@ by adding the program name
 		$sulfaf->{_note}			= '';
  }
 
+
+=head2 sub Mix 
+
+
+=cut
+
+ sub Mix {
+
+	my ( $self,$Mix )		= @_;
+	if ( $Mix ne $empty_string ) {
+
+		$sulfaf->{_Mix}		= $Mix;
+		$sulfaf->{_note}		= $sulfaf->{_note}.' Mix='.$sulfaf->{_Mix};
+		$sulfaf->{_Step}		= $sulfaf->{_Step}.' Mix='.$sulfaf->{_Mix};
+
+	} else { 
+		print("sulfaf, Mix, missing Mix,\n");
+	 }
+ }
 
 
 =head2 sub adb 
@@ -1440,7 +1461,7 @@ max index = number of input variables -1
  
 sub get_max_index {
  	  my ($self) = @_;
-	my $max_index = 39;
+	my $max_index = 40;
 
     return($max_index);
 }

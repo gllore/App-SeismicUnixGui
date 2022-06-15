@@ -34,7 +34,7 @@ my $VERSION = '0.0.1';
 use L_SU_global_constants;
 use Project_config;
 use SeismicUnix
-  qw ($cdp $gx $in $out $on $go $to $txt $suffix_ascii $off $offset 
+  qw ($cdp $gx $in $out $on $go $to $txt $suffix_ascii $off $offset
   $pick $profile $report $su $suffix_profile $sx $suffix_su $suffix_target
   $suffix_pick $suffix_report $suffix_target_tilde $suffix_txt $target $target_tilde $tracl);
 
@@ -111,56 +111,62 @@ sub clean {
 			$outbound = $DATA_SEISMIC_SU . '/' . $file_name . $suffix_su;
 
 		}
-		
+
 		elsif ( $suffix_type eq $pick ) {
 
 			$outbound = $GEOPSY_PICKS . '/' . $file_name . $suffix_pick;
-#             print("manage_files_by2, clean, outbound=$outbound\n");
-            
+
+		   #             print("manage_files_by2, clean, outbound=$outbound\n");
+
 		}
-		
+
 		elsif ( $suffix_type eq $profile ) {
 
 			$outbound = $GEOPSY_PROFILES . '/' . $file_name . $suffix_profile;
-#           print("manage_files_by2, clean, outbound=$outbound\n");
-            
+
+			#           print("manage_files_by2, clean, outbound=$outbound\n");
+
 		}
-		
+
 		elsif ( $suffix_type eq $report ) {
-			
+
 			$outbound = $GEOPSY_REPORTS . '/' . $file_name . $suffix_report;
-#           print("manage_files_by2, clean, outbound=$outbound\n");
-            
+
+			#           print("manage_files_by2, clean, outbound=$outbound\n");
+
 		}
-		
+
 		elsif ( $suffix_type eq $target ) {
-			
+
 			$outbound = $GEOPSY_TARGETS . '/' . $file_name . $suffix_target;
-#           print("manage_files_by2, clean, outbound=$outbound\n");
-            
+
+			#           print("manage_files_by2, clean, outbound=$outbound\n");
+
 		}
-		
+
 		elsif ( $suffix_type eq $target_tilde ) {
-			
-			$outbound = $GEOPSY_TARGETS . '/' . $file_name . $suffix_target_tilde;
-           print("manage_files_by2, clean, outbound=$outbound\n");
-            
+
+			$outbound =
+			  $GEOPSY_TARGETS . '/' . $file_name . $suffix_target_tilde;
+			print("manage_files_by2, clean, outbound=$outbound\n");
+
 		}
-		
+
 		else {
 			print("manage_files_by2, clean, unexpected value\n");
 		}
 
 		my $ans = $file->exists($outbound);
 
-#		print("manage_files_by2, clean, ans = $ans\n");
+		#		print("manage_files_by2, clean, ans = $ans\n");
 
 		if ($ans) {
 
 			$file->delete($outbound);
-#			print(
-#"manage_files_by2, clean, Cleaning for pre-existing $outbound \n"
-#			);
+
+			#			print(
+			#"manage_files_by2, clean, Cleaning for pre-existing $outbound \n"
+			#			);
 
 		}
 		else {
@@ -403,6 +409,44 @@ sub exists {
 
 }
 
+#=head2 find_file
+#
+#=cut
+#
+#sub find_file {
+#
+#	my ( $self, $filename, $dir_ref ) = @_;
+#	
+#	my @DIR = @$dir_ref;
+#
+#	find(
+#		{
+#			wanted => \&findfiles,
+#			@DIR
+#		}
+#	);
+#
+#
+#
+#	sub findfiles {
+#		if (/^$filename\z/) {
+#
+#			#To search only the directory
+#			print "found it\n";
+#		}
+#
+#	}
+#
+##print("L_SU_global_constants, there are $number_of_INC_dirs directories in INC\n");
+##
+##for (my $i=0; $i< $number_of_INC_dirs; $i++) {
+##
+##	print("$INC[$i]\n");
+##
+##}
+#
+#}
+
 =pod sub unique_elements
 
 	filter out only unique elements from an array
@@ -560,13 +604,13 @@ sub read_2cols_aref {
 		# read contents of shotpoint geometry file
 		while ( $line = <FILE> ) {
 
-#			print("\n$line");
+			#			print("\n$line");
 			chomp($line);
-			( $t, $x )  = split( $spacer, $line );
+			( $t, $x ) = split( $spacer, $line );
 			$TIME[$i]   = $t;
 			$OFFSET[$i] = $x;
 
-#			print("\n $TIME[$i] $OFFSET[$i]\n");
+			#			print("\n $TIME[$i] $OFFSET[$i]\n");
 			$i = $i + 1;
 
 		}
@@ -1339,19 +1383,19 @@ sub write_2cols {
 
 	# $variable is an unused hash
 
-#	print("\nThe subroutine has is called $variable\n");
-#	print("\nThe output file contains $num_rows rows\n");
-#	print("\nThe output file uses the following format: $$ref_fmt\n");
-#	print("\nThe output file name is $$ref_file_name\n");
+	#	print("\nThe subroutine has is called $variable\n");
+	#	print("\nThe output file contains $num_rows rows\n");
+	#	print("\nThe output file uses the following format: $$ref_fmt\n");
+	#	print("\nThe output file name is $$ref_file_name\n");
 
 	open( OUT, ">$$ref_file_name" );
 
 	for ( $j = 0 ; $j < $num_rows ; $j++ ) {
 
-#		print OUT  ("$$ref_X[$j] $$ref_Y[$j]\n");
+		#		print OUT  ("$$ref_X[$j] $$ref_Y[$j]\n");
 		printf OUT "$$ref_fmt\n", $$ref_X[$j], $$ref_Y[$j];
 
-#		print("index=$j;$$ref_X[$j] $$ref_Y[$j]\n");
+		#		print("index=$j;$$ref_X[$j] $$ref_Y[$j]\n");
 	}
 
 	close(OUT);

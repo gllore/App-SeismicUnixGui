@@ -4,11 +4,11 @@
  verpert <dfile dzfile=dzfile >outfile [parameters]			
 
  Required Parameters:							
- dfile			input of imaged depths in CIGs			
- dzfile=dzfile		input of dz/dv at the imaged depths in CIGs	
- outfile		output of the estimated parameter 		
- noff			number of offsets 				
- ncip			number of common image gathers 			
+ dfile=			input of imaged depths in CIGs			
+ dzfile=dzfile	input of dz/dv at the imaged depths in CIGs	
+ outfile=		output of the estimated parameter 		
+ noff=			number of offsets 				
+ ncip=			number of common image gathers 			
 
  Optional Parameters:							
  moff=noff	number of first offsets used in velocity estimation  	

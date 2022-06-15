@@ -1,3 +1,4 @@
+/home/gllore/MagdalenaNM/seismics/pl/TrujilloWell//060122/H/1/gllore/test_rossler.pl
 /home/gllore/MagdalenaNM/seismics/data/TrujilloWell//060122/H/1/su/gllore/All_cmp.su
 /home/gllore/MagdalenaNM/seismics/data/TrujilloWell//060122/H/1/su/gllore/sp_30asCDP.su
 /home/gllore/MagdalenaNM/seismics/pl/TrujilloWell//060122/H/1/gllore/test_migration.pl
@@ -9,4 +10,3 @@
 /home/gllore/MagdalenaNM/seismics/pl/TrujilloWell//060122/H/1/gllore/4B.suwind_view.pl
 /home/gllore/MagdalenaNM/seismics/pl/TrujilloWell//060122/H/1/gllore/4A.suwind_op.pl
 /home/gllore/MagdalenaNM/seismics/pl/TrujilloWell//060122/H/1/gllore/4_suwind_op.pl
-/home/gllore/MagdalenaNM/seismics/pl/TrujilloWell//060122/H/1/gllore/3_clean_header.pl
