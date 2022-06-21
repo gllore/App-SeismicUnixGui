@@ -64,10 +64,10 @@ Added model values to namespace of immodpg.pm
 
 use Moose;
 our $VERSION = '0.2';
-use L_SU_global_constants();
-use Project_config;
-use immodpg_config;
-use immodpg_global_constants();
+use LSeismicUnix::misc::L_SU_global_constants;
+use LSeismicUnix::configs::big_streams::Project_config;
+use LSeismicUnix::configs::big_streams::immodpg_config;
+use LSeismicUnix::big_streams::immodpg_global_constants;
 use Scalar::Util qw(looks_like_number);
 
 my $Project        = Project_config->new();
@@ -1325,7 +1325,7 @@ get scalco or scalel from file header
 
 sub _get_data_scale {
 	my ($self) = @_;
-	use header_values;
+	use LSeismicUnix::sunix::header::header_values;
 
 =head2 instantiate class
 
@@ -1409,10 +1409,10 @@ sub _get_initial_model {
 
 	my ($self) = @_;
 
-	use Project_config;
+	use LSeismicUnix::configs::big_streams::Project_config;
 	use PDL::Core;
 	use PDL::IO::FlexRaw;
-	use immodpg_global_constants;
+	use LSeismicUnix::big_streams::immodpg_global_constants;
 
 	my $Project = Project_config->new();
 	my $IMMODPG = $Project->IMMODPG();
@@ -1461,19 +1461,19 @@ sub _get_initial_model {
 
 			# pdl 2 perl
 			@VP                  = ( $model_pdl->slice($full_indices) )->list;
-			$VPtop[$layer_index] = sprintf( "%.2f", ( $VP[0] * $km2m ) );
-			$VPbot[$layer_index] = sprintf( "%.2f", ( $VP[1] * $km2m ) );
+			$VPtop[$layer_index] = sprintf( "0.00", ( $VP[0] * $km2m ) );
+			$VPbot[$layer_index] = sprintf( "0.00", ( $VP[1] * $km2m ) );
 
 			$value_indices = '2:6';
 			$full_indices  = $value_indices . ',' . $layer_index;
 
 			# pdl 2 perl
 			@model                     = ( $model_pdl->slice($full_indices) )->list;
-			$dz[$layer_index]          = sprintf( "%.3f", ( $model[0] * $km2m ) );
-			$VStop[$layer_index]       = sprintf( "%.3f", ( $model[1] * $km2m ) );
-			$VSbot[$layer_index]       = sprintf( "%.3f", ( $model[2] * $km2m ) );
-			$density_top[$layer_index] = sprintf( "%.3f", ( $model[3] * $gcc2MKS ) );
-			$density_bot[$layer_index] = sprintf( "%.3f", ( $model[4] * $gcc2MKS ) );
+			$dz[$layer_index]          = sprintf( "0.000", ( $model[0] * $km2m ) );
+			$VStop[$layer_index]       = sprintf( "0.000", ( $model[1] * $km2m ) );
+			$VSbot[$layer_index]       = sprintf( "0.000", ( $model[2] * $km2m ) );
+			$density_top[$layer_index] = sprintf( "0.000", ( $model[3] * $gcc2MKS ) );
+			$density_bot[$layer_index] = sprintf( "0.000", ( $model[4] * $gcc2MKS ) );
 
 			#				print(
 			#					"immodpg,_get_initial_model,V,layer_index=$layer_index\n"
@@ -1586,7 +1586,7 @@ sub _get_initial_model4gui {
 
 	my ($self) = @_;
 
-	use Project_config;
+	use LSeismicUnix::configs::big_streams::Project_config;
 	use PDL::Core;
 	use PDL::IO::FlexRaw;
 	use immodpg_global_constants;
@@ -1642,19 +1642,19 @@ sub _get_initial_model4gui {
 
 				# pdl 2 perl
 				@VP                  = ( $model_pdl->slice($full_indices) )->list;
-				$VPtop[$layer_index] = sprintf( "%.2f", ( $VP[0] * $km2m ) );
-				$VPbot[$layer_index] = sprintf( "%.2f", ( $VP[1] * $km2m ) );
+				$VPtop[$layer_index] = sprintf( "0.00", ( $VP[0] * $km2m ) );
+				$VPbot[$layer_index] = sprintf( "0.00", ( $VP[1] * $km2m ) );
 
 				$value_indices = '2:6';
 				$full_indices  = $value_indices . ',' . $layer_index;
 
 				# pdl 2 perl
 				@model                     = ( $model_pdl->slice($full_indices) )->list;
-				$dz[$layer_index]          = sprintf( "%.3f", ( $model[0] * $km2m ) );
-				$VStop[$layer_index]       = sprintf( "%.3f", ( $model[1] * $km2m ) );
-				$VSbot[$layer_index]       = sprintf( "%.3f", ( $model[2] * $km2m ) );
-				$density_top[$layer_index] = sprintf( "%.3f", ( $model[3] * $gcc2MKS ) );
-				$density_bot[$layer_index] = sprintf( "%.3f", ( $model[4] * $gcc2MKS ) );
+				$dz[$layer_index]          = sprintf( "0.000", ( $model[0] * $km2m ) );
+				$VStop[$layer_index]       = sprintf( "0.000", ( $model[1] * $km2m ) );
+				$VSbot[$layer_index]       = sprintf( "0.000", ( $model[2] * $km2m ) );
+				$density_top[$layer_index] = sprintf( "0.000", ( $model[3] * $gcc2MKS ) );
+				$density_bot[$layer_index] = sprintf( "0.000", ( $model[4] * $gcc2MKS ) );
 
 				# print(
 				# 	"immodpg,_get_initial_model4gui,VPtop = $VPtop[$layer_index], VPbot=$VPbot[$layer_index],layer_index=$layer_index\n"
@@ -1987,7 +1987,7 @@ sub _messages {
 
 	my ( $run_name, $number ) = @_;
 
-	use message_director;
+	use LSeismicUnix::messages::message_director;
 	my $run_name_message = message_director->new();
 	my $message          = $run_name_message->immodpg($number);
 
@@ -2031,8 +2031,8 @@ sub _setVbot {
 	if ( looks_like_number($Vbot)
 		&& $immodpg->{_isVbot_changed_in_gui} eq $yes ) {
 
-		use manage_files_by2;
-		use control 0.0.3;
+		use LSeismicUnix::misc::manage_files_by2;
+		use LSeismicUnix::misc::control '0.0.3';
 
 =head2 instantiate classes
 
@@ -2103,8 +2103,8 @@ sub _setVbot_upper_layer {
 	if (   $Vbot_upper_layer ne $empty_string
 		&& $immodpg->{_isVbot_upper_layer_changed_in_gui} eq $yes ) {
 
-		use manage_files_by2;
-		use control 0.0.3;
+		use LSeismicUnix::misc::manage_files_by2;
+		use LSeismicUnix::misc::control '0.0.3';
 
 =head2 instantiate classes
 
@@ -2175,8 +2175,8 @@ sub _setVbotNtop_factor {
 	if (   $VbotNtop_factor ne $empty_string
 		&& $immodpg->{_isVbotNtop_factor_changed_in_gui} eq $yes ) {
 
-		use manage_files_by2;
-		use control 0.0.3;
+		use LSeismicUnix::misc::manage_files_by2;
+		use LSeismicUnix::misc::control '0.0.3';
 
 =head2 instantiate classes
 
@@ -2205,7 +2205,7 @@ variables
 				$files->write_1col_aref( \@X, \$outbound_locked, \$format );
 
 				$X[0] = $VbotNtop_factor;
-				$format = '%5.1f';
+				$format = '  0.0';
 				$files->write_1col_aref( \@X, \$outbound, \$format );
 
 				unlink($outbound_locked);
@@ -2247,8 +2247,8 @@ sub _setVbotNtop_multiply {
 		&& looks_like_number( $immodpg->{_Vbot_current} )
 		&& looks_like_number( $immodpg->{_Vtop_current} ) ) {
 
-		use manage_files_by2;
-		use control 0.0.3;
+		use LSeismicUnix::misc::manage_files_by2;
+		use LSeismicUnix::misc::control '0.0.3';
 
 =head2 instantiate classes
 
@@ -2315,8 +2315,8 @@ sub _setVincrement {
 	if (   $Vincrement ne $empty_string
 		&& $immodpg->{_isVincrement_changed_in_gui} eq $yes ) {
 
-		use manage_files_by2;
-		use control 0.0.3;
+		use LSeismicUnix::misc::manage_files_by2;
+		use LSeismicUnix::misc::control '0.0.3';
 
 =head2 instantiate classes
 
@@ -2345,7 +2345,7 @@ variables
 				$files->write_1col_aref( \@X, \$outbound_locked, \$format );
 
 				$X[0] = $Vincrement;
-				$format = '%5.1f';
+				$format = '  0.0';
 				$files->write_1col_aref( \@X, \$outbound, \$format );
 
 				unlink($outbound_locked);
@@ -2640,8 +2640,8 @@ sub _setVtop {
 
 		# print("immodpg,_setVtop,write out fortran value of Vtop\n");
 
-		use manage_files_by2;
-		use control 0.0.3;
+		use LSeismicUnix::misc::manage_files_by2;
+		use LSeismicUnix::misc::control '0.0.3';
 
 =head2 instantiate classes
 
@@ -2712,8 +2712,8 @@ sub _setVtop_lower_layer {
 	if ( looks_like_number($Vtop_lower_layer)
 		&& $immodpg->{_isVtop_lower_layer_changed_in_gui} eq $yes ) {
 
-		use manage_files_by2;
-		use control 0.0.3;
+		use LSeismicUnix::misc::manage_files_by2;
+		use LSeismicUnix::misc::control '0.0.3';
 
 =head2 instantiate classes
 
@@ -2786,8 +2786,8 @@ sub _set_change {
 
 		# print("immodpg, _set_change, yes_or_no:$yes_or_no\n");
 
-		use manage_files_by2;
-		use control 0.0.3;
+		use LSeismicUnix::misc::manage_files_by2;
+		use LSeismicUnix::misc::control '0.0.3';
 
 =head2 instantiate classes
 
@@ -2894,8 +2894,8 @@ sub _set_clip {
 	if (   $clip ne $empty_string
 		&& $immodpg->{_is_clip_changed_in_gui} eq $yes ) {
 
-		use manage_files_by2;
-		use control 0.0.3;
+		use LSeismicUnix::misc::manage_files_by2;
+		use LSeismicUnix::misc::control '0.0.3';
 
 =head2 instantiate classes
 
@@ -2924,7 +2924,7 @@ variables
 				$files->write_1col_aref( \@X, \$outbound_locked, \$format );
 
 				$X[0] = $clip;
-				$format = '%5.1f';
+				$format = '  0.0';
 				$files->write_1col_aref( \@X, \$outbound, \$format );
 
 				# print("immodpg, _set_clip, output clip = $clip\n");
@@ -2966,8 +2966,8 @@ sub _set_thickness_m {
 	if (   $thickness_m ne $empty_string
 		&& $immodpg->{_is_thickness_m_changed_in_gui} eq $yes ) {
 
-		use manage_files_by2;
-		use control 0.0.3;
+		use LSeismicUnix::misc::manage_files_by2;
+		use LSeismicUnix::misc::control '0.0.3';
 
 =head2 instantiate classes
 
@@ -2996,7 +2996,7 @@ variables
 				$files->write_1col_aref( \@X, \$outbound_locked, \$format );
 
 				$X[0] = $thickness_m;
-				$format = '%5.1f';
+				$format = '  0.0';
 				$files->write_1col_aref( \@X, \$outbound, \$format );
 
 				unlink($outbound_locked);
@@ -3037,8 +3037,8 @@ sub _set_thickness_increment_m {
 	if (   $thickness_increment_m ne $empty_string
 		&& $immodpg->{_is_layer_changed_in_gui} eq $yes ) {
 
-		use manage_files_by2;
-		use control 0.0.3;
+		use LSeismicUnix::misc::manage_files_by2;
+		use LSeismicUnix::misc::control '0.0.3';
 
 =head2 instantiate classes
 
@@ -3067,7 +3067,7 @@ variables
 				$files->write_1col_aref( \@X, \$outbound_locked, \$format );
 
 				$X[0] = $thickness_increment_m;
-				$format = '%5.1f';
+				$format = '  0.0';
 				$files->write_1col_aref( \@X, \$outbound, \$format );
 
 				unlink($outbound_locked);
@@ -3110,8 +3110,8 @@ sub _fortran_layer {
 	if (   $layer ne $empty_string
 		&& $immodpg->{_is_layer_changed_in_gui} eq $yes ) {
 
-		use manage_files_by2;
-		use control 0.0.3;
+		use LSeismicUnix::misc::manage_files_by2;
+		use LSeismicUnix::misc::control '0.0.3';
 
 =head2 instantiate classes
 
@@ -3142,7 +3142,7 @@ variables
 				$files->write_1col_aref( \@X, \$outbound_locked, \$format );
 
 				$X[0] = $layer;
-				$format = '%i';
+				$format = '0';
 				$files->write_1col_aref( \@X, \$outbound, \$format );
 				unlink($outbound_locked);
 
@@ -3393,8 +3393,8 @@ sub _set_option {
 	if ( defined($option)
 		&& $immodpg->{_option_file} ne $empty_string ) {
 
-		use manage_files_by2;
-		use control 0.0.3;
+		use LSeismicUnix::misc::manage_files_by2;
+		use LSeismicUnix::misc::control '0.0.3';
 
 =head2 instantiate classes
 
@@ -3425,7 +3425,7 @@ variables
 				$files->write_1col_aref( \@X, \$outbound_locked, \$format );
 
 				$X[0] = $option;
-				$format = '%2i';
+				$format = ' 0';
 
 				#				print("immodpg,_set_option,option=$option\n");
 				$files->write_1col_aref( \@X, \$outbound, \$format );
@@ -3454,7 +3454,7 @@ GUI
 Also updates an shared copy
 of the model properties
 
-use control 0.0.3 method to check for bad values
+use LSeismicUnix::misc::control '0.0.3' method to check for bad values;
 
 =cut
 
@@ -4147,7 +4147,7 @@ instantiate modules
 	my $immodpg_spec = immodpg_spec->new();
 
 =pod import private variables
-_config_file_format			        => '%-35s%1s%-20s',
+_config_file_format			        => '                                                        ',
 
 =cut	
 
@@ -4209,7 +4209,7 @@ sub _set_simple_model_text {
 
 	my ($self) = @_;
 
-	use immodpg_spec;
+	use LSeismicUnix::specs::big_streams::immodpg_spec;
 
 =pod 
 instantiate modules
@@ -4815,8 +4815,8 @@ reset default files as well
 sub clean_trash {
 	my ($self) = @_;
 	use File::stat;
-	use manage_files_by2;
-	use xk;
+	use LSeismicUnix::misc::manage_files_by2;
+	use LSeismicUnix::sunix::shell::xk;
 
 	my $xk    = xk->new();
 	my $files = manage_files_by2->new();
@@ -4930,7 +4930,7 @@ sub clear {
 
 sub exit {
 
-	use xk;
+	use LSeismicUnix::sunix::shell::xk;
 	my $xk = xk->new();
 
 	$xk->set_process('pgxwin_server');
@@ -6813,8 +6813,8 @@ sub set_change {
 	if ( defined($yes_or_no)
 		&& $immodpg->{_change_file} ne $empty_string ) {
 
-		use manage_files_by2;
-		use control 0.0.3;
+		use LSeismicUnix::misc::manage_files_by2;
+		use LSeismicUnix::misc::control '0.0.3';
 
 =head2 instantiate classes
 
@@ -6953,8 +6953,8 @@ sub set_option {
 	if ( looks_like_number($option)
 		&& $immodpg->{_option_file} ne $empty_string ) {
 
-		use manage_files_by2;
-		use control 0.0.3;
+		use LSeismicUnix::misc::manage_files_by2;
+		use LSeismicUnix::misc::control '0.0.3';
 
 =head2 instantiate classes
 
@@ -6983,7 +6983,7 @@ variables
 				$files->write_1col_aref( \@X, \$outbound_locked, \$format );
 
 				$X[0] = $option;
-				$format = '%i';
+				$format = '0';
 
 				#				print("immodpg,set_option,option=$option\n");
 				$files->write_1col_aref( \@X, \$outbound, \$format );

@@ -68,15 +68,15 @@ April 2021, removed commented lines
 use Moose;
 use Time::HiRes qw (gettimeofday tv_interval);
 use Tk;
-use L_SU_global_constants;
-use Project_config;
+use LSeismicUnix::misc::L_SU_global_constants;
+use LSeismicUnix::configs::big_streams::Project_config;
 
 use immodpg 0.2;
 
-use immodpg_config;
-use immodpg_global_constants;
-use premmod;
-use xk;
+use LSeismicUnix::configs::big_streams::immodpg_config;
+use LSeismicUnix::big_streams::immodpg_global_constants;
+use LSeismicUnix::misc::premmod;
+use LSeismicUnix::sunix::shell::xk;
 
 =head2 private anonymous hash 
 used to hand off variables for external printing

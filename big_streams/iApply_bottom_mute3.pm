@@ -21,18 +21,18 @@ package iApply_bottom_mute3;
 =cut
 
 use Moose;
-use message;
-use flow;
-use sufilter;
-use sugain;
-use sumute;
-use suwind;
-use suxwigb;
-use suximage;
-use SuMessages;
-use Project_config;
+use LSeismicUnix::misc::message;
+use LSeismicUnix::misc::flow;
+use LSeismicUnix::sunix::filter::sufilter;
+use LSeismicUnix::sunix::shapeNcut::sugain;
+use LSeismicUnix::sunix::shapeNcut::sumute;
+use LSeismicUnix::sunix::shapeNcut::suwind;
+use LSeismicUnix::sunix::plot::suxwigb;
+use LSeismicUnix::sunix::plot::suximage;
+use LSeismicUnix::messages::SuMessages;
+use LSeismicUnix::configs::big_streams::Project_config;
 
-use SeismicUnix
+use LSeismicUnix::misc::SeismicUnix
   qw ($go $in $on $off $ibot_mute $itemp_bot_mute_picks_ $itemp_bot_mute_num_points $itemp_bot_mute_picks_sorted_par_ $ibot_mute_par_ $suffix_su $suffix_hyphen $to);
 
 =head2

@@ -173,8 +173,8 @@ package segyread;
 
 use Moose;
 our $VERSION = '0.0.2';
-use L_SU_global_constants();
-use Project_config;
+use LSeismicUnix::misc::L_SU_global_constants;
+use LSeismicUnix::configs::big_streams::Project_config;
 
 my $Project = new Project_config();
 my $get     = new L_SU_global_constants();
@@ -436,7 +436,7 @@ sub file {
     my ( $self, $file ) = @_;
     if ( $file ne $empty_string ) {
 
-        use SeismicUnix qw($suffix_sgy);
+        use LSeismicUnix::misc::SeismicUnix qw($suffix_sgy);
         use File::Basename;
         my ($DATA_SEISMIC_SEGY) = $Project->DATA_SEISMIC_SEGY();
         my $new_file_name = $file;
@@ -643,7 +643,7 @@ sub tape {
     my ( $self, $tape ) = @_;
     if ( $tape ne $empty_string ) {
 
-        use SeismicUnix qw($suffix_sgy);
+        use LSeismicUnix::misc::SeismicUnix qw($suffix_sgy);
         use File::Basename;
         my ($DATA_SEISMIC_SEGY) = $Project->DATA_SEISMIC_SEGY();
         my $new_file_name = $tape;

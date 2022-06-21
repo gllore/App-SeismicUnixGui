@@ -107,7 +107,7 @@ Version:
 
  The title string may contain a C printf format string containing a	
    conversion character for the frame number.  The frame number is	
-   computed from dframe and fframe.  E.g., try setting title="Frame %g".
+   computed from dframe and fframe.  E.g., try setting title="Frame 0".
 
 =head2 CHANGES and their DATES
 
@@ -115,7 +115,7 @@ Version:
 
 use Moose;
 our $VERSION = '0.0.1';
-use L_SU_global_constants();
+use LSeismicUnix::misc::L_SU_global_constants;
 
 my $get = new L_SU_global_constants();
 

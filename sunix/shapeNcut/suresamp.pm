@@ -69,7 +69,7 @@ SURESAMP - Resample in time
 
 =cut
 
-use SeismicUnix qw ($on);
+use LSeismicUnix::misc::SeismicUnix qw ($on);
 
 my $suresamp = {
     _nt      => '',

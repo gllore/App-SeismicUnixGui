@@ -43,18 +43,18 @@ local variables
 use Moose;
 our $VERSION = '0.0.3';
 
-use L_SU_global_constants;
-use Project_config;
-use immodpg_config;
-use message;
-use flow;
-use sustrip;
+use LSeismicUnix::misc::L_SU_global_constants;
+use LSeismicUnix::configs::big_streams::Project_config;
+use LSeismicUnix::configs::big_streams::immodpg_config;
+use LSeismicUnix::misc::message;
+use LSeismicUnix::misc::flow;
+use LSeismicUnix::sunix::header::sustrip;
 
 =head2 import variables 
 
 =cut
 
-use SeismicUnix qw ($in $out $on $go $to $suffix_bin $off $suffix_su);
+use LSeismicUnix::misc::SeismicUnix qw ($in $out $on $go $to $suffix_bin $off $suffix_su);
 
 my $Project        = new Project_config();
 my $immodpg_config = immodpg_config->new();
@@ -163,7 +163,7 @@ sub out_header_values {
 		# 		print("premmod,out_header_values, size=$size \n\n");
 
 		open( OUTFILE, '>', $premmod->{_outbound_par} ) or die $!;
-		printf OUTFILE "%d %d %d\n", $ntr, $ns, $dt;
+		printf OUTFILE "0 0 0\n", $ntr, $ns, $dt;
 		close(OUTFILE);
 
 	} else {

@@ -2,10 +2,10 @@ package segyread_spec;
 use Moose;
 our $VERSION = '0.0.1';
 
-use Project_config;
-use SeismicUnix qw ($segy $sgy $su $suffix_sgy $suffix_su);
-use L_SU_global_constants;
-use segyread;
+use LSeismicUnix::configs::big_streams::Project_config;
+use LSeismicUnix::misc::SeismicUnix qw ($segy $sgy $su $suffix_sgy $suffix_su);
+use LSeismicUnix::misc::L_SU_global_constants;
+use LSeismicUnix::sunix::data::segyread;
 
 my $get      = new L_SU_global_constants();
 my $Project  = new Project_config;

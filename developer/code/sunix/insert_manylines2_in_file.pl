@@ -24,7 +24,7 @@ PROGRAM NAME:  insert_manylines2_in_file.pl
 =cut
  	
  	use Moose;
- 	use sunix_pl;
+ 	use LSeismicUnix::misc::sunix_pl;
  	
  	my $sunix_pl = sunix_pl -> new();
 	my ($find_line, $shift);

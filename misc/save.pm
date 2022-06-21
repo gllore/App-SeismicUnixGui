@@ -17,9 +17,11 @@ use Moose;
 
 sub superflow {
     my ( $self, $hash_ref ) = @_;
-    use files_LSU;;
+    
+    use LSeismicUnix::misc::files_LSU;
     my $files_LSU = new files_LSU();
     $files_LSU->tool_specs($hash_ref);
+    
     return ();
 }
 

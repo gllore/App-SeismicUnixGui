@@ -2,10 +2,10 @@ package sureduce_spec;
 	use Moose;
 our $VERSION = '0.0.1';
 
-use Project_config;
-use SeismicUnix qw ($bin $ps $segy $su $suffix_bin $suffix_ps $suffix_segy $suffix_su $suffix_txt $txt);
-use L_SU_global_constants;
-use sureduce;
+use LSeismicUnix::configs::big_streams::Project_config;
+use LSeismicUnix::misc::SeismicUnix qw ($bin $ps $segy $su $suffix_bin $suffix_ps $suffix_segy $suffix_su $suffix_txt $txt);
+use LSeismicUnix::misc::L_SU_global_constants;
+use LSeismicUnix::sunix::NMO_Vel_Stk::sureduce;
 my $get					= new L_SU_global_constants();
 my $Project 				= new Project_config;
 my $sureduce		= new sureduce;

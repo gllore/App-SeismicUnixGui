@@ -63,7 +63,7 @@ package conditions4big_streams;
 
 use Moose;
 our $VERSION = '0.0.2';
-use L_SU_global_constants;
+use LSeismicUnix::misc::L_SU_global_constants;
 
 my $get = new L_SU_global_constants();
 
@@ -1372,7 +1372,7 @@ sub set4FileDialog_open_perl_file_start {
 sub set4FileDialog_SaveAs_start {
 	my ($self) = @_;
 
-	use L_SU_global_constants;
+	use LSeismicUnix::misc::L_SU_global_constants;
 	my $get         = L_SU_global_constants->new();
 	my $flow_type_h = $get->flow_type_href();
 
@@ -2633,7 +2633,7 @@ sub set4start_of_superflow_Save {
 	my ($self) = @_;
 
 	#		# print("conditions4big_streams, set4superflow_Save OK \n");
-	#	use L_SU_global_constants;
+	#	use LSeismicUnix::misc::L_SU_global_constants;
 	#	my $get											= L_SU_global_constants->new();
 	#	my $flow_type_h									= $get->flow_type_href();
 	#	my $alias_FileDialog_button_label				= $get->alias_FileDialog_button_label_aref;
@@ -2683,7 +2683,7 @@ sub set4start_of_superflow_select {
 	my ($self) = @_;
 
 	# print("conditions4big_streams, set4superflow_open_data_file_start OK \n");
-	use L_SU_global_constants;
+	use LSeismicUnix::misc::L_SU_global_constants;
 	my $get         = L_SU_global_constants->new();
 	my $flow_type_h = $get->flow_type_href();
 
@@ -2799,7 +2799,7 @@ sub set4superflow_open_data_file_start {
 	my ($self) = @_;
 
 	# print("conditions4big_streams, set4superflow_open_data_file_start OK \n");
-	use L_SU_global_constants;
+	use LSeismicUnix::misc::L_SU_global_constants;
 	my $get         = L_SU_global_constants->new();
 	my $flow_type_h = $get->flow_type_href();
 
@@ -2872,7 +2872,7 @@ sub set4superflow_open_path_start {
 	my ($self) = @_;
 
 	# print("conditions4big_streams, set4superflow_open_path_start OK \n");
-	use L_SU_global_constants;
+	use LSeismicUnix::misc::L_SU_global_constants;
 	my $get         = L_SU_global_constants->new();
 	my $flow_type_h = $get->flow_type_href();
 

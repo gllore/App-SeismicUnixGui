@@ -55,7 +55,7 @@ Version:
 
  grs=100	pure shale gamma ray value (API units)		
 
- grc=10	0% shale gamma ray value (API units)		
+ grc=10	0hale gamma ray value (API units)		
 
  smode=1	include shale anis params prop to shale volume 	
 
@@ -171,10 +171,10 @@ our $VERSION = '0.0.1';
 
 =cut
 
-use L_SU_global_constants();
+use LSeismicUnix::misc::L_SU_global_constants;
 
-use SeismicUnix qw ($in $out $on $go $to $suffix_ascii $off $suffix_su $suffix_bin);
-use Project_config;
+use LSeismicUnix::misc::SeismicUnix qw ($in $out $on $go $to $suffix_ascii $off $suffix_su $suffix_bin);
+use LSeismicUnix::configs::big_streams::Project_config;
 
 
 =head2 instantiation of packages

@@ -2,10 +2,10 @@ package segywrite_spec;
 use Moose;
 our $VERSION = '0.0.1';
 
-use Project_config;
-use SeismicUnix qw ($su $suffix_sgy $bin $suffix_bin);
-use L_SU_global_constants;
-use segywrite;
+use LSeismicUnix::configs::big_streams::Project_config;
+use LSeismicUnix::misc::SeismicUnix qw ($su $suffix_sgy $bin $suffix_bin);
+use LSeismicUnix::misc::L_SU_global_constants;
+use LSeismicUnix::sunix::data::segywrite;
 
 my $get       = new L_SU_global_constants();
 my $Project   = new Project_config;

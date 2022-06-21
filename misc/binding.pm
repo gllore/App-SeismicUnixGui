@@ -56,7 +56,6 @@ Make a binding based on the paramters
 
 =cut
 
-
 =head2 Modules in use
 
 =cut
@@ -64,21 +63,20 @@ Make a binding based on the paramters
 use Moose;
 our $VERSION = '0.0.2';
 use Tk;
-use L_SU_global_constants;
+use LSeismicUnix::misc::L_SU_global_constants;
 
 =head2 Instantiation
 
 =cut
 
-my $get = new L_SU_global_constants();
-my $var = $get->var();
-
+my $L_SU_global_constants = new L_SU_global_constants();
+my $var                   = $L_SU_global_constants->var();
 
 =head2 Declare local variables
 
 =cut
 
-my $empty_string         = $var->{_empty_string};
+my $empty_string = $var->{_empty_string};
 
 =head2 private hash
 
@@ -173,25 +171,24 @@ each grey_flow, pink_flow etc.
 
 sub set {
 	my ($self) = @_;
-	use L_SU_global_constants;
-#	use Module::Refresh;
 
 	my $prog_name = ${ $binding->{_prog_name_sref} };
 
-#	print("1. binding,set, prog_name: $prog_name \n");
+	#	print("1. binding,set, prog_name: $prog_name \n");
 
 	my $module_spec    = $prog_name . '_spec';
-	my $module_spec_pm = $module_spec. '.pm';
-	
-#	my $refresher = Module::Refresh->new;
-#	$refresher->refresh_module("$module_spec_pm");
+	my $module_spec_pm = $module_spec . '.pm';
 
-	require $module_spec_pm;
-	my $package = $module_spec->new;
-	my $get     = L_SU_global_constants->new;
+	$L_SU_global_constants->set_file_name($module_spec_pm);
+	my $path           = $L_SU_global_constants->get_path4spec_file();
+	my $pathNmodule_pm = $path . '/' . $module_spec_pm;
 
-	my $file_dialog_type = $get->file_dialog_type_href();
-	my $flow_type        = $get->flow_type_href();
+	require $pathNmodule_pm;
+	my $package               = $module_spec->new;
+	my $L_SU_global_constants = L_SU_global_constants->new;
+
+	my $file_dialog_type = $L_SU_global_constants->file_dialog_type_href();
+	my $flow_type        = $L_SU_global_constants->flow_type_href();
 
 	$package->binding_index_aref();
 	$package->flow_type_aref();
@@ -213,27 +210,29 @@ sub set {
 	# or a user_built_flow
 
 	my $length = $package->get_binding_length();
-#     print("binding,set,file_dialog_type,length : $length\n");
-	for ( my $i = 0; $i < $length; $i++ ) {
 
-		my $dial_type = $file_dialog_type[$index[$i]];
+	#     print("binding,set,file_dialog_type,length : $length\n");
+	for ( my $i = 0 ; $i < $length ; $i++ ) {
 
-#		print("3A. binding,set,prog_name: ${$binding->{_prog_name_sref}}\n");
-#	    print("3B. binding,set,file_dialog_type: $dial_type\n");
-#	    print("3B. binding,set,file_dialog_type: i=$i\n");
-	    	    
+		my $dial_type = $file_dialog_type[ $index[$i] ];
+
+		#		print("3A. binding,set,prog_name: ${$binding->{_prog_name_sref}}\n");
+		#	    print("3B. binding,set,file_dialog_type: $dial_type\n");
+		#	    print("3B. binding,set,file_dialog_type: i=$i\n");
+
 		# ACTUAL binding takes place here...
 		# TODO dynamic binding as a function of input from user in flow
 		if ( length $dial_type ) {
-				
+
 			# print("binding,set,file_dialog_type: $dial_type at index=$i \n");
 			# print("2. binding,set, no. bound items=$length\n");
 
-			$values_w[ $index[$i] ]->bind( '<ButtonRelease-3>' => [ $sub_ref, \$dial_type ], );
+			$values_w[ $index[$i] ]
+			  ->bind( '<ButtonRelease-3>' => [ $sub_ref, \$dial_type ], );
 
-			# sub_ref can be: "L_SU, _FileDialog_button" for superflows
-			# sub_ref can be: "grey_flow, _FileDialog_button" for  a user-built flow that 
-			# lies in the grey list box
+   # sub_ref can be: "L_SU, _FileDialog_button" for superflows
+   # sub_ref can be: "grey_flow, _FileDialog_button" for  a user-built flow that
+   # lies in the grey list box
 
 		}
 		else {

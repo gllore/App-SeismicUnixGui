@@ -1,6 +1,6 @@
  package sunix_spec;
  use Moose;
- use L_SU_global_constants;
+ use LSeismicUnix::misc::L_SU_global_constants;
  
  my $get 				= L_SU_global_constants -> new();
  my $flow_type			= $get->flow_type_href();
@@ -66,9 +66,9 @@ sub _get_instantiation_section {
 	my @instantiate;
 	my $package_name = $sunix_spec->{_package_name}; 
 		
-	$instantiate[0] = "\n".'use Project_config;'."\n".
+	$instantiate[0] = "\n".'use LSeismicUnix::configs::big_streams::Project_config;'."\n".
 		                'use SeismicUnix qw ($bin $ps $segy $su $suffix_bin $suffix_ps $suffix_segy $suffix_su $suffix_txt $txt);' . "\n".
-						'use L_SU_global_constants;'."\n".					
+						'use LSeismicUnix::misc::L_SU_global_constants;'."\n".					
 						'use '.$package_name.';'."\n".					
 						'my $get					= new L_SU_global_constants();'."\n".
 						'my $Project 				= new Project_config;'."\n".

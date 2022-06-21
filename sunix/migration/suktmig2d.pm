@@ -363,7 +363,7 @@ main(int argc, char **argv)
 
 			warn("cdp interval changed in data");	
 
-			warn("ntr=%d olddeltacdp=%d deltacdp=%d"
+			warn("ntr=0 olddeltacdp=0 deltacdp=0"
 
 				,ntr,olddeltacdp,deltacdp);
 
@@ -431,7 +431,7 @@ main(int argc, char **argv)
 
 	if(nfft>= SU_NFLTS || nfft >= PFA_MAX)
 
-	  err("Padded nt=%d -- too big",nfft);
+	  err("Padded nt=0 -- too big",nfft);
 
 	nf = nfft/2 + 1;
 
@@ -445,7 +445,7 @@ main(int argc, char **argv)
 
 	if (verbose)
 
-		warn(" The number of filters for antialiasing is nc= %d",nc);
+		warn(" The number of filters for antialiasing is nc= 0",nc);
 
 
 
@@ -531,7 +531,7 @@ main(int argc, char **argv)
 
 		if(fmod(imp*100,ntr-1)==0 && verbose)
 
-			warn("migrated %g\n ",perc);
+			warn("migrated 0\n ",perc);
 
 
 
@@ -965,10 +965,10 @@ our $VERSION = '0.0.1';
 
 =cut
 
-use L_SU_global_constants();
+use LSeismicUnix::misc::L_SU_global_constants;
 
-use SeismicUnix qw ($go $in $off $on $out $ps $to $suffix_ascii $suffix_bin $suffix_ps $suffix_segy $suffix_su);
-use Project_config;
+use LSeismicUnix::misc::SeismicUnix qw ($go $in $off $on $out $ps $to $suffix_ascii $suffix_bin $suffix_ps $suffix_segy $suffix_su);
+use LSeismicUnix::configs::big_streams::Project_config;
 
 
 =head2 instantiation of packages

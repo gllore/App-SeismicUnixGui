@@ -21,7 +21,7 @@
      (for variable definitions)
      SeismicUnix (Seismic Unix modules)
 
- use SeismicUnix qw ($in $out $on $go $to $suffix_ascii $off $suffix_su); 
+ use LSeismicUnix::misc::SeismicUnix qw ($in $out $on $go $to $suffix_ascii $off $suffix_su) ;
 
 =head2 USAGE
  
@@ -48,21 +48,21 @@
 use Moose;
 our $VERSION = '1.0.2';
 
-use Sudipfilt_config;
-use flow;
-use message;
-use sudipfilt;
-use suinterp;
-use suspecfk;
-use suxwigb;
-use suximage;
-use sugain;
-use sufilter;
-use suwind;
-use readfiles;
-use L_SU_global_constants;
+use LSeismicUnix::configs::big_streams::Sudipfilt_config;
+use LSeismicUnix::misc::flow;
+use LSeismicUnix::misc::message;
+use LSeismicUnix::sunix::filter::sudipfilt;
+use LSeismicUnix::sunix::statsMath::suinterp;
+use LSeismicUnix::sunix::transform::suspecfk;
+use LSeismicUnix::sunix::plot::suxwigb;
+use LSeismicUnix::sunix::plot::suximage;
+use LSeismicUnix::sunix::shapeNcut::sugain;
+use LSeismicUnix::sunix::filter::sufilter;
+use LSeismicUnix::sunix::shapeNcut::suwind;
+use LSeismicUnix::misc::readfiles;
+use LSeismicUnix::misc::L_SU_global_constants;
 
-use SeismicUnix qw ($in $out $on $go $to $suffix_ascii $off $suffix_su);
+use LSeismicUnix::misc::SeismicUnix qw ($in $out $on $go $to $suffix_ascii $off $suffix_su);
 
 =head2 Instantiate classes
 

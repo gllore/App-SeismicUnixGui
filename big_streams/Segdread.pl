@@ -40,7 +40,7 @@ print("number of files is $number_of_files\n\n");
 use SU;
 my ($DATA_SEISMIC_SU)   = $Project->DATA_SEISMIC_SU();
 my ($DATA_SEISMIC_SEGD) = $Project->DATA_SEISMIC_SEGD();
-use SeismicUnix
+use LSeismicUnix::misc::SeismicUnix
      qw ($suffix_geom $suffix_segd $suffix_su $go $in $on $to $out);
 
 =head2 Instantiate classes
@@ -89,7 +89,7 @@ if ($first_file_number) { $ffn = $first_file_number }
 
 
 for ( $i = 1, $j = $ffn; $i <= $nf; $i += 1, $j += 1 ) {
-    $j_char = sprintf( "%u", $j );
+    $j_char = sprintf( "0", $j );
     $file_in[$i] = $j_char;
 }
 

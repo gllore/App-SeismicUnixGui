@@ -66,7 +66,7 @@ package sumax;
 
  Credits:
 	CWP : John Stockwell (total rewrite)
-	Geocon : Garry Perratt (all ASCII output changed from %e to %e)
+	Geocon : Garry Perratt (all ASCII output changed from 0.000000e+00 to 0.000000e+00)
 	                       (added mode=rms).
       ESCI: Reginald Beardsley (added header key option)
 	based on an original program by:
@@ -83,7 +83,7 @@ package sumax;
 
 use Moose;
 our $VERSION = '0.0.1';
-use L_SU_global_constants();
+use LSeismicUnix::misc::L_SU_global_constants;
 
 my $get = new L_SU_global_constants();
 
@@ -221,7 +221,7 @@ sub outpar {
         && $outpar ne $empty_string )
     {
 
-        use control 0.0.3;
+        use LSeismicUnix::misc::control '0.0.3';
         use Scalar::Util qw(looks_like_number);
 
         my $control = control->new();
@@ -253,7 +253,7 @@ sub outpar {
             && $sumax->{_outpar} ne '/dev/tty' )
         {
 
-            use Project_config;
+            use LSeismicUnix::configs::big_streams::Project_config;
             my $Project = Project_config->new();
 
             my $base_file_name = $outpar;

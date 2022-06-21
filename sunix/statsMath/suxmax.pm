@@ -125,7 +125,7 @@ Version:
 
  Credits:
 	CWP : John Stockwell (total rewrite)
-	Geocon : Garry Perratt (all ASCII output changed from %e to %e)
+	Geocon : Garry Perratt (all ASCII output changed from 0.000000e+00 to 0.000000e+00)
 	                       (added mode=rms).
       ESCI: Reginald Beardsley (added header key option)
 	based on an original program by:
@@ -148,7 +148,7 @@ Use may try to add other options from xgraph. At present I include
 =cut
  use Moose;
 our $VERSION = '0.0.1';
-use L_SU_global_constants();
+use LSeismicUnix::misc::L_SU_global_constants;
 
 	my $get					= new L_SU_global_constants();
 

@@ -28,8 +28,8 @@ package iSelect_tr_Sumute_bottom;
 
 use Moose;
 my $VERSION = '1.0.3';
-use Project_config;
-use SeismicUnix
+use LSeismicUnix::configs::big_streams::Project_config;
+use LSeismicUnix::misc::SeismicUnix
   qw ($on $off $go $in $true $false $itemp_bot_mute_picks_ $itemp_bot_mute_picks_sorted_par_ $itop_mute_par_ $itop_mute_check_pickfile_ $suffix_su $to);
 
 =head2 Instantiate 

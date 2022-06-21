@@ -45,17 +45,17 @@ package iSpectralAnalysis;
 
 use Moose;
 my $VERSION = '1.0.0';
-use iSpectralAnalysis_config;
-use Project_config;
-use L_SU_global_constants;
-use SeismicUnix
+use LSeismicUnix::configs::big_streams::iSpectralAnalysis_config;
+use LSeismicUnix::configs::big_streams::Project_config;
+use LSeismicUnix::misc::L_SU_global_constants;
+use LSeismicUnix::misc::SeismicUnix
   qw ($in $out $on $go $to $off $suffix_su $iSpectralAnalysisPickFile);
-use flow;
-use message;
-use readfiles;
-use su_xtract_waveform;
-use su_select_waveform;
-use su_spectral_analysis;
+use LSeismicUnix::misc::flow;
+use LSeismicUnix::misc::message;
+use LSeismicUnix::misc::readfiles;
+use LSeismicUnix::misc::su_xtract_waveform;
+use LSeismicUnix::misc::su_select_waveform;
+use LSeismicUnix::misc::su_spectral_analysis;
 
 =head2
 

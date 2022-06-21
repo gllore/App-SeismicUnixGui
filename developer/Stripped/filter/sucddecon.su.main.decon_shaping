@@ -4,9 +4,9 @@
  sucddecon <stdin >stdout [optional parameters]			
 
  Required parameters:							
- filter=value1,value2, 		ascii filter values separated by commas		
+ filter= 		ascii filter values separated by commas		
  		...or...						
- sufile=file		file containing SU traces to use as filter	
+ sufile=		file containing SU traces to use as filter	
                        (must have same number of traces as input data	
  			 for panel=1)					
  Optional parameters:							
@@ -14,7 +14,7 @@
  			=1 decon trace by trace an entire gather	
  pnoise=0.001		white noise factor for stabilizing results	
 	 				(see below)		 	
- sym=0		    not centered, =1 center the output on each trace
+ sym=0		not centered, =1 center the output on each trace
  verbose=0		silent, =1 chatty				
 
  Notes:								

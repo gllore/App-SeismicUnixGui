@@ -73,24 +73,24 @@ ep min=0
 
 use Moose;
 my $VERSION = '0.0.1';
-use L_SU_global_constants;
-use Project_config;
-use control 0.0.3;
-use message;
-use cp;
-use flow;
-use iPick_spec;
-use iPicks2par;
-use iPicks2sort;
-use iSave_picks;
-use iShowNselect_picks;
-use iSelect_xt;
+use LSeismicUnix::misc::L_SU_global_constants;
+use LSeismicUnix::configs::big_streams::Project_config;
+use LSeismicUnix::misc::control '0.0.3';
+use LSeismicUnix::misc::message;
+use LSeismicUnix::sunix::shell::cp;
+use LSeismicUnix::misc::flow;
+use LSeismicUnix::specs::big_streams::iPick_spec;
+use LSeismicUnix::big_streams::iPicks2par;
+use LSeismicUnix::big_streams::iPicks2sort;
+use LSeismicUnix::big_streams::iSave_picks;
+use LSeismicUnix::big_streams::iShowNselect_picks;
+use LSeismicUnix::big_streams::iSelect_xt;
 
-use manage_files_by2;
-use old_data;
+use LSeismicUnix::misc::manage_files_by2;
+use LSeismicUnix::misc::old_data;
 
-use SuMessages;
-use SeismicUnix qw ($on $off $in $to $go $ipicks_par_
+use LSeismicUnix::messages::SuMessages;
+use LSeismicUnix::misc::SeismicUnix qw ($on $off $in $to $go $ipicks_par_;
 	$ipick_check_pickfile_ $false $true
 	$itemp_picks_ $itemp_picks_sorted_);
 

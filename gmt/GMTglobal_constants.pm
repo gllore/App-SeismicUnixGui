@@ -1,6 +1,20 @@
 package GMTglobal_constants;
 
 use Moose;
+
+my $path;
+my $LSeismicUnix;
+use Shell qw(echo);
+
+BEGIN {
+
+$LSeismicUnix = ` echo \$LSeismicUnix`;
+chomp $LSeismicUnix;
+$path = $LSeismicUnix.'/'.'misc';
+
+}
+use lib "$path";
+
 extends 'L_SU_global_constants';
 
 my $gmt_var = {

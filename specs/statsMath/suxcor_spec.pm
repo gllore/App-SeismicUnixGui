@@ -2,10 +2,10 @@ package suxcor_spec;
 use Moose;
 our $VERSION = '0.0.1';
 
-use Project_config;
-use SeismicUnix qw ($su $suffix_su $suffix_txt);
-use L_SU_global_constants;
-use suxcor;
+use LSeismicUnix::configs::big_streams::Project_config;
+use LSeismicUnix::misc::SeismicUnix qw ($su $suffix_su $suffix_txt);
+use LSeismicUnix::misc::L_SU_global_constants;
+use LSeismicUnix::sunix::statsMath::suxcor;
 
 my $get     = new L_SU_global_constants();
 my $Project = new Project_config;

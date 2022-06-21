@@ -30,26 +30,38 @@ package pre_built_big_stream;
 
 use Moose;
 our $VERSION = '0.1.0';
+my $path;
+my $LSeismicUnix;
+use Shell qw(echo);
+
+BEGIN {
+
+$LSeismicUnix = ` echo \$LSeismicUnix`;
+chomp $LSeismicUnix;
+$path = $LSeismicUnix.'/'.'misc';
+
+}
+use lib "$path";
 
 extends 'gui_history' => { -version => 0.0.2 };
 
 my $pre_built_big_stream_href_sub_ref;    # $pre_built_big_stream_href->{_sub_ref} does not transfer in namespace between subs
 
 # potentially in all packages
-use L_SU_global_constants;
-use message_director;
-use whereami;
-use param_widgets4pre_built_streams;
+use LSeismicUnix::misc::L_SU_global_constants;
+use LSeismicUnix::messages::message_director;
+use LSeismicUnix::misc::whereami;
+use LSeismicUnix::misc::param_widgets4pre_built_streams;
 
 =head2 Instantiation
 
 =cut
 
 # my $conditions4big_streams = conditions4big_streams->new();
-my $get 					        = L_SU_global_constants->new();
-my $param_widgets 	= param_widgets4pre_built_streams->new();
-my $whereami      			= whereami->new();
-my $gui_history  			= gui_history->new();
+my $get 					  = L_SU_global_constants->new();
+my $param_widgets 	          = param_widgets4pre_built_streams->new();
+my $whereami      			  = whereami->new();
+my $gui_history  			  = gui_history->new();
 my $pre_built_big_stream_href = $gui_history->get_defaults();
 
 
@@ -139,14 +151,14 @@ sub set_flowNsuperflow_name_w {
 sub select {
     my ($self) = @_;
 
-    use binding;
-    use name;
-    use config_superflows;
+    use LSeismicUnix::misc::binding;
+    use LSeismicUnix::misc::name;
+    use LSeismicUnix::misc::config_superflows;
 
     my $binding            				= binding->new();
     my $name               				= name->new();
     my $pre_built_big_stream_messages 	= message_director->new();
-    my $config_superflows  		= config_superflows->new();
+    my $config_superflows  				= config_superflows->new();
     my $Project            				= 'Project';
 
     my $prog_name_sref = $pre_built_big_stream_href->{_prog_name_sref};
@@ -178,7 +190,7 @@ sub select {
     # case for Project.config
     if ( $prog_name_config eq $Project . '.config' ) {
 
-        use L_SU_local_user_constants;
+        use LSeismicUnix::misc::L_SU_local_user_constants;
         my $user_constants = L_SU_local_user_constants->new();
 
         if ( $user_constants->user_configuration_Project_config_exists() ) {

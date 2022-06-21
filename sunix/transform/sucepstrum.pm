@@ -79,7 +79,7 @@ package sucepstrum;
 
 use Moose;
 our $VERSION = '0.0.1';
-use L_SU_global_constants();
+use LSeismicUnix::misc::L_SU_global_constants;
 
 my $get = new L_SU_global_constants();
 
@@ -248,7 +248,7 @@ sub sign2 {
     print("sucepstrum,sign2: $sign2\n");
     if ( defined $sign2 && $sign2 ne $empty_string ) {
 
-        use control 0.0.3;
+        use LSeismicUnix::misc::control '0.0.3';
         my $control = control->new();
         $control->set_back_slashBgone($sign2);
         $sign2 = $control->get_back_slashBgone();

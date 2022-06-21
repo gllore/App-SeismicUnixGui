@@ -48,14 +48,14 @@ layer		= 1
 
 use Moose;
 my $VERSION = '0.0.1';
-use L_SU_global_constants;
-use Project_config;
-use SeismicUnix qw ($in $out $on $go $to $suffix_ascii $off $suffix_su);
-use config_superflows;
-use control 0.0.3;
-use immodpg_spec;
-use immodpg_global_constants;
-use manage_files_by2;
+use LSeismicUnix::misc::L_SU_global_constants;
+use LSeismicUnix::configs::big_streams::Project_config;
+use LSeismicUnix::misc::SeismicUnix qw ($in $out $on $go $to $suffix_ascii $off $suffix_su);
+use LSeismicUnix::misc::config_superflows;
+use LSeismicUnix::misc::control '0.0.3';
+use LSeismicUnix::specs::big_streams::immodpg_spec;
+use LSeismicUnix::big_streams::immodpg_global_constants;
+use LSeismicUnix::misc::manage_files_by2;
 
 my $Project                = new Project_config();
 my $control                = new control;
@@ -112,7 +112,7 @@ if ( $manage_files_by2->does_file_exist( \$inbound_config ) ) {
 } elsif ( not $manage_files_by2->does_file_exist( \$inbound_config ) ) {
 
 	# print("immodpg_config, missing immodpg config file\n");
-	use files_LSU;;
+	use LSeismicUnix::misc::files_LSU;;
 	my $files_LSU = files_LSU->new();
 
 	$files_LSU->set_config();
@@ -213,7 +213,7 @@ sub get_values {
 
 	my ($self) = @_;
 
-	use control 0.0.3;
+	use LSeismicUnix::misc::control '0.0.3';
 	my $control = control->new();
 
 	# Warning: set using a scalar reference

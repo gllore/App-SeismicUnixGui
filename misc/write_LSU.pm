@@ -86,7 +86,7 @@ DB
 sub tool_specs {
     my ( $self, $hash_ref ) = @_;
 
-    use name;
+    use LSeismicUnix::misc::name;
     my $name = new name();
 
     my $program_name = $hash_ref->{_prog_name};

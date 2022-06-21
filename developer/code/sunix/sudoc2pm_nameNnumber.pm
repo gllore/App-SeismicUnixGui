@@ -68,7 +68,7 @@ $developer_sunix_categories[17] = '';
 use Moose;
 our $VERSION = '0.1.0';
 
-use manage_files_by2;		
+use LSeismicUnix::misc::manage_files_by2		;
 my $file        = manage_files_by2->new();
 
 #my $sunix_category_number = 8;

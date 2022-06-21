@@ -1,11 +1,11 @@
 package data_out_spec;
 our $VERSION = '1.00';
 use Moose;
-use data_out;
-use L_SU_global_constants;
+use LSeismicUnix::sunix::data::data_out;
+use LSeismicUnix::misc::L_SU_global_constants;
 
-use data_out;
-use SeismicUnix qw ($su $suffix_su);
+use LSeismicUnix::sunix::data::data_out;
+use LSeismicUnix::misc::SeismicUnix qw ($su $suffix_su);
 
 my $get              = new L_SU_global_constants();
 my $var              = $get->var();

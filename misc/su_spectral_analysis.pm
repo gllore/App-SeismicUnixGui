@@ -41,7 +41,7 @@ use Moose;
      SeismicUnix (Seismic Unix modules)
 
 
- use SeismicUnix qw ($in $out $on $go $to $suffix_ascii $off $suffix_su); 
+ use LSeismicUnix::misc::SeismicUnix qw ($in $out $on $go $to $suffix_ascii $off $suffix_su) ;
   
 =head3 STEPS IN THE PROGRAM 
 
@@ -212,17 +212,17 @@ sub inbound {
 
 sub Step {
 
-    use SeismicUnix qw ($in $out $on $go $to $suffix_ascii $off $suffix_su);
+    use LSeismicUnix::misc::SeismicUnix qw ($in $out $on $go $to $suffix_ascii $off $suffix_su);
 
-    use message;
-    use flow;
-    use suxwigb;
-    use sufilter;
-    use sugain;
-    use sufft;
-    use suamp;
-    use Project_config;
-    use suwind;
+    use LSeismicUnix::misc::message;
+    use LSeismicUnix::misc::flow;
+    use LSeismicUnix::sunix::plot::suxwigb;
+    use LSeismicUnix::sunix::filter::sufilter;
+    use LSeismicUnix::sunix::shapeNcut::sugain;
+    use LSeismicUnix::sunix::transform::sufft;
+    use LSeismicUnix::sunix::transform::suamp;
+    use LSeismicUnix::configs::big_streams::Project_config;
+    use LSeismicUnix::sunix::shapeNcut::suwind;
 
 =pod
 

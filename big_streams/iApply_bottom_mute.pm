@@ -9,7 +9,7 @@ package iApply_bottom_mute;
 
  DESCRIPTION:
  Purpose: Linear Top Mute of Data 
-         V3 Sept. 23, 2015: added oop functinality
+         V3 Sept. 23, 2015: added oop functionality
 
 =head2 USE
 
@@ -22,17 +22,17 @@ package iApply_bottom_mute;
 
 use Moose;
 my $VERSION = '1.0.3';
-use message;
-use flow;
-use sufilter;
-use sugain;
-use sumute;
-use suwind;
-use suxwigb;
-use suximage;
-use Project_config;
-use SuMessages;
-use SeismicUnix
+use LSeismicUnix::misc::message;
+use LSeismicUnix::misc::flow;
+use LSeismicUnix::sunix::filter::sufilter;
+use LSeismicUnix::sunix::shapeNcut::sugain;
+use LSeismicUnix::sunix::shapeNcut::sumute;
+use LSeismicUnix::sunix::shapeNcut::suwind;
+use LSeismicUnix::sunix::plot::suxwigb;
+use LSeismicUnix::sunix::plot::suximage;
+use LSeismicUnix::configs::big_streams::Project_config;
+use LSeismicUnix::messages::SuMessages;
+use LSeismicUnix::misc::SeismicUnix
   qw ($go $in $on $off $ibot_mute $itemp_bot_mute_picks_ $itemp_bot_mute_num_points $itemp_bot_mute_picks_sorted_par_ $ibot_mute_par_ $suffix_su $suffix_hyphen $to);
 
 =head2
@@ -62,7 +62,7 @@ my $SuMessages = new SuMessages();
 
 =cut 
 
-use SeismicUnix qw($itemp_bot_mute_picks_sorted_par_);
+use LSeismicUnix::misc::SeismicUnix qw($itemp_bot_mute_picks_sorted_par_);
 my ($PL_SEISMIC)      = $Project->PL_SEISMIC();
 my ($DATA_SEISMIC_SU) = $Project->DATA_SEISMIC_SU();
 

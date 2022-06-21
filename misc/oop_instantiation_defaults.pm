@@ -38,7 +38,7 @@ sub _get_instantiation {
 
     if ( $oop_instantiation_defaults->{_prog_names_aref} ) {
 
-        use manage_files_by2;
+        use LSeismicUnix::misc::manage_files_by2;
 
         my @unique_progs;
         my $unique_progs_ref;

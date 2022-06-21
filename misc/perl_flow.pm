@@ -33,8 +33,8 @@ package perl_flow;
 
 use Moose;
 our $VERSION = '0.0.2';
-use sunix_pl;
-use L_SU_global_constants;
+use LSeismicUnix::misc::sunix_pl;
+use LSeismicUnix::misc::L_SU_global_constants;
 
 my $sunix_pl = sunix_pl->new();
 my $get      = new L_SU_global_constants();
@@ -262,8 +262,8 @@ sub get_parse_errors {
 	
 	my $result;
 
-	use param_sunix;
-	use Project_config;
+	use LSeismicUnix::misc::su_param '0.0.2';
+	use LSeismicUnix::configs::big_streams::Project_config;
 
 	my $param_sunix = param_sunix->new();
 	my $Project     = Project_config->new();
@@ -320,8 +320,8 @@ sub get_parse_errors {
 sub parse {
 	my ($self) = @_;
 
-	use param_sunix;
-	use Project_config;
+	use LSeismicUnix::misc::param_sunix;
+	use LSeismicUnix::configs::big_streams::Project_config;
 
 	my $param_sunix = param_sunix->new();
 	my $Project     = Project_config->new();

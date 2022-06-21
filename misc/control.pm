@@ -42,10 +42,10 @@ use Moose;
 
 our $VERSION = '0.0.3';
 
-use L_SU_global_constants;
-my $get                     = new L_SU_global_constants();
-my $alias_superflow_names_h = $get->alias_superflow_names_h();
-my $var                     = $get->var();
+use LSeismicUnix::misc::L_SU_global_constants;
+my $L_SU_global_constants   = new L_SU_global_constants();
+my $alias_superflow_names_h = $L_SU_global_constants->alias_superflow_names_h();
+my $var                     = $L_SU_global_constants->var();
 my $empty_string            = $var->{_empty_string};
 
 my $no  = $var->{_no};
@@ -136,9 +136,9 @@ sub _get_string_or_number {
 
 	if ( length $entry_value ) {
 
-#		print(
-#"1. control, _get_string_or_number, entering value to test = $entry_value\n"
-#		);
+   #		print(
+   #"1. control, _get_string_or_number, entering value to test = $entry_value\n"
+   #		);
 
 		use Scalar::Util qw(looks_like_number);
 
@@ -220,12 +220,9 @@ sub _get_string_or_number {
 
 #   			print("CASE 1B control, _get_string_or_number,value = $exit_value_as_string\n");
 
-
 			}
-			elsif (
-				length $program
-				and $program eq 'suop2'
-			  )
+			elsif ( length $program
+				and $program eq 'suop2' )
 			{
 				# CASE 1C ALWAYS exists as a string within quotes
 				my $exit_value_as_string = '\'' . $entry_value . '\'';
@@ -261,9 +258,9 @@ sub _get_string_or_number {
 
 				}
 				else {
-#					print(
-#"control, _get_string_or_number, exit_value does not look like a number \n"
-#					);
+	#					print(
+	#"control, _get_string_or_number, exit_value does not look like a number \n"
+	#					);
 					my $exit_value_as_string = '\'' . $entry_value . '\'';
 
 #					print(
@@ -671,14 +668,16 @@ sub get_max_index {
 
 	if ($program_name) {
 
-		#		use Module::Refresh; # reload updated module
+		my $L_SU_global_constants = L_SU_global_constants->new();
 
 		my $module_spec    = $program_name . '_spec';
 		my $module_spec_pm = $program_name . '_spec.pm';
 
-		#		my $refresher = Module::Refresh->new;
-		#		$refresher->refresh_module("$module_spec_pm");
-		require $module_spec_pm;
+		$L_SU_global_constants->set_file_name($module_spec_pm);
+		my $path           = $L_SU_global_constants->get_path4spec_file();
+		my $pathNmodule_pm = $path . '/' . $module_spec_pm;
+
+		require $pathNmodule_pm;
 
 		# print ("control,get_max_index, require $module_spec_pm\n");
 
@@ -865,8 +864,8 @@ Put quotes on strings
 sub get_string_or_number_aref2 {
 
 	my ( $self, $array_aref2 ) = @_;
-	
-#	print("control,get_string_or_number_aref2, self=$self\n");
+
+	#	print("control,get_string_or_number_aref2, self=$self\n");
 
 	if ( length $array_aref2 ) {
 

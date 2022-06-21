@@ -26,16 +26,16 @@ package iSelect_tr_Sumute;
 =cut
 
 use Moose;
-use message;
-use flow;
-use sufilter;
-use suwind;
-use suxwigb;
-use suximage;
-use SuMessages;
-use Project_config;
+use LSeismicUnix::misc::message;
+use LSeismicUnix::misc::flow;
+use LSeismicUnix::sunix::filter::sufilter;
+use LSeismicUnix::sunix::shapeNcut::suwind;
+use LSeismicUnix::sunix::plot::suxwigb;
+use LSeismicUnix::sunix::plot::suximage;
+use LSeismicUnix::messages::SuMessages;
+use LSeismicUnix::configs::big_streams::Project_config;
 
-use SeismicUnix qw ($on $off $go $in $true
+use LSeismicUnix::misc::SeismicUnix qw ($on $off $go $in $true;
   $false $itemp_top_mute_picks_
   $itemp_top_mute_picks_sorted_par_
   $itop_mute_par_ $itop_mute_check_pickfile_

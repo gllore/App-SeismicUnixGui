@@ -53,13 +53,13 @@
 
 use Moose;
 my $VERSION = '1.0.4';
-use L_SU_global_constants;
-use iBottomMute;
-use iBottomMute_config;
-use readfiles;
+use LSeismicUnix::misc::L_SU_global_constants;
+use LSeismicUnix::big_streams::iBottomMute;
+use LSeismicUnix::big_streams::iBottomMute_config;
+use LSeismicUnix::misc::readfiles;
 use Tk;
-use SeismicUnix qw ($true $false );
-use xk;
+use LSeismicUnix::misc::SeismicUnix qw ($true $false );
+use LSeismicUnix::sunix::shell::xk;
 
 my $iBM_Tk = {_prompt => ''};
 

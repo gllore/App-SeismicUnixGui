@@ -101,7 +101,7 @@ package surface;
 
 use Moose;
 our $VERSION = '1.0.1';
-use L_SU_global_constants;    ##
+use LSeismicUnix::misc::L_SU_global_constants;    ##
 
 =head2 instantiation##
 

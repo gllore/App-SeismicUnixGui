@@ -1,6 +1,7 @@
 package manage_dirs_by;
 
 use Moose;
+our $VERSION = '0.0.1';
 
 # manage_dirs_by  class
 # Contains methods/subroutines/functions to operate on directories
@@ -29,25 +30,76 @@ sub clear {
 
 }
 
+=head2 sub _get_contents_AREF
 
+Reference of array with contents of 
+the search directory
+
+=cut
+
+sub _get_contents_aref {
+
+	my ($self) = @_;
+
+	my $result_aref;
+
+	if ( length $manage_dirs_by->{_directory} ) {
+
+		my $SEARCH_DIR = $manage_dirs_by->{_directory};
+		
+#		print("manage_dirs_by, SEARCH_DIR=$SEARCH_DIR\n");
+#die "Error in opening dir $dirname\n";
+
+		opendir( DIR, $SEARCH_DIR ) or next $!;
+		
+		my @directory_list = readdir(DIR);
+		
+		$result_aref = \@directory_list;
+		close(DIR);
+
+	}
+	else {
+		print("manage_dirs_by, _get_contents,missing directory\n");
+	}
+	return ($result_aref);
+}
 
 sub get_list_aref {
 
 	my ($self) = @_;
-	
-	my @list;
+
+	my $list_ref;
+	my @filtered_directory;
 
 	if ( $manage_dirs_by->{_directory} ) {
 
+		$list_ref = _get_contents_aref;
+		my @directory_list = @$list_ref;
+		
+		foreach my $thing (@directory_list) {
 
+				
+			if (   $thing eq '.'
+				or $thing eq '..' )
+			{
+
+				next;
+
+			}
+			else {
+				push @filtered_directory,$thing;
+#				print("DIR= $thing\n");
+			}
+		}
+		
 	}
 	else {
 		print("manage_dirs_by,$self,get_list_aref missing variable\n");
 	}
 
-	my $result = \@list;
+	my $result_aref = \@filtered_directory;
 
-	return ($result);
+	return ($result_aref);
 
 }
 
@@ -121,27 +173,30 @@ sub rm_dir {
 	);
 }
 
-
 sub set_directory {
 
 	my ( $self, $dir ) = @_;
-	
-	if (length $dir) {
-		
-	} else {
+
+	if ( length $dir ) {
+
+		$manage_dirs_by->{_directory} = $dir;
+
+	}
+	else {
 		print("manage_dirs_by,self=$self, set_directory, missing variable\n");
 	}
 	return ();
-	
+
 }
 
 sub set_suffix_type {
 
-	my ( $self, $suffix_type) = @_;
-	
-	if (length $suffix_type) {
-		
-	} else {
+	my ( $self, $suffix_type ) = @_;
+
+	if ( length $suffix_type ) {
+
+	}
+	else {
 		print("manage_dirs_by,$self, set_suffix_type, missing variable\n");
 	}
 

@@ -1,7 +1,7 @@
 package sunix_package_pod_header;
 use Moose;
 
-use L_SU_global_constants();
+use LSeismicUnix::misc::L_SU_global_constants;
 
 my $get = new L_SU_global_constants();
 

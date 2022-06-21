@@ -43,10 +43,10 @@ Examples
 =cut
 
 use Moose;
-use message;
-use flow;
-use Project_config;
-use mkparfile;
+use LSeismicUnix::misc::message;
+use LSeismicUnix::misc::flow;
+use LSeismicUnix::configs::big_streams::Project_config;
+use LSeismicUnix::misc::mkparfile;
 
 =head2
 
@@ -95,7 +95,7 @@ my $iMutePicks2par = {
 
 =cut 
 
-use SeismicUnix qw ($true $false $in $out $to
+use LSeismicUnix::misc::SeismicUnix qw ($true $false $in $out $to;
   $itop_mute_par_ $itemp_top_mute_picks_
   $itemp_top_mute_picks_sorted_par_
   $out $suffix_su);

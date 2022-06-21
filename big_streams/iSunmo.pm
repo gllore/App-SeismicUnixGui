@@ -23,17 +23,17 @@ package iSunmo;
 =cut
 
 use Moose;
-use L_SU_global_constants;
-use Project_config;
-use SeismicUnix qw ($on $off $in $to $go);
-use flow;
-use sufilter;
-use sugain;
-use susort;
-use sunmo;
-use suwind;
-use suxwigb;
-use suximage;
+use LSeismicUnix::misc::L_SU_global_constants;
+use LSeismicUnix::configs::big_streams::Project_config;
+use LSeismicUnix::misc::SeismicUnix qw ($on $off $in $to $go);
+use LSeismicUnix::misc::flow;
+use LSeismicUnix::sunix::filter::sufilter;
+use LSeismicUnix::sunix::shapeNcut::sugain;
+use LSeismicUnix::sunix::shapeNcut::susort;
+use LSeismicUnix::sunix::NMO_Vel_Stk::sunmo;
+use LSeismicUnix::sunix::shapeNcut::suwind;
+use LSeismicUnix::sunix::plot::suxwigb;
+use LSeismicUnix::sunix::plot::suximage;
 
 =head2
 

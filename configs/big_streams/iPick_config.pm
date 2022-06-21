@@ -43,11 +43,11 @@ package iPick_config;
 
 use Moose;
 my $VERSION = '0.0.1';
-use Project_config;
-use control 0.0.3;
-use config_superflows;
-use L_SU_global_constants;
-use SeismicUnix qw ($in $out $on $go $to $suffix_ascii $off $suffix_su);
+use LSeismicUnix::configs::big_streams::Project_config;
+use LSeismicUnix::misc::control '0.0.3';
+use LSeismicUnix::misc::config_superflows;
+use LSeismicUnix::misc::L_SU_global_constants;
+use LSeismicUnix::misc::SeismicUnix qw ($in $out $on $go $to $suffix_ascii $off $suffix_su);
 
 my $Project                = new Project_config();
 my $control                = new control;

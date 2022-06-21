@@ -53,16 +53,29 @@ untested
 
 use Moose;
 our $VERSION = '0.0.1';
+
+my $path;
+my $LSeismicUnix;
+use Shell qw(echo);
+
+BEGIN {
+
+$LSeismicUnix = ` echo \$LSeismicUnix`;
+chomp $LSeismicUnix;
+$path = $LSeismicUnix.'/'.'sunix/shell';
+
+}
+use lib "$path";
 extends 'cat_su';
 
 #=head2 Import packages
 #
 #=cut
 #
-#use L_SU_global_constants();
+#use LSeismicUnix::misc::L_SU_global_constants();
 #
 #use SeismicUnix qw ($go $in $off $on $out $ps $to $suffix_ascii $suffix_bin $suffix_ps $suffix_segy $suffix_su);
-#use Project_config;
+#use LSeismicUnix::configs::big_streams::Project_config;
 #
 #
 #=head2 instantiation of packages

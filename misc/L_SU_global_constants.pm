@@ -2,10 +2,66 @@ package L_SU_global_constants;
 
 use Moose;
 
-=head2 Default Tk settings 
+# searching for directory: LSeismicUnix
+use Shell qw(echo);
 
- _first_entry_num is normally 1
- _max_entry_num is defaulted to 
+my $LSeismicUnix = ` echo \$LSeismicUnix`;
+chomp $LSeismicUnix;
+my $L_SU = $LSeismicUnix;
+
+=head2 private hash
+
+=cut
+
+my $L_SU_global_constants = {
+
+	_file_name      => '',
+	_PARENT_DIR_GUI => '',
+	_PARENT_DIR_SU  => '',
+	_PARENT_DIR_GEN => '',
+	_CHILD_DIR_GUI  => '',
+	_CHILD_DIR_SU   => '',
+
+};
+
+#my @DIR;
+#$DIR[0] = '/usr/local/pl';
+#my $start_search_directory = $DIR[0];
+#
+##my $dir_name               = 'L_SU';
+#
+#foreach my $directory (@INC) {
+#
+#	#	print("Searching for directory $directory\n");
+#
+#	if ( -d $directory ) {    # if it is a directory and exists
+#
+#		opendir( my $dir_fh, $directory )
+#		  or die "Can't open dir $directory: $!";
+#		my @subdir =
+#		  grep { /^[^.]/ && -d "$directory/$_" } readdir($dir_fh);
+#		closedir $dir_fh;
+#
+#		foreach my $item (@subdir) {
+#
+#			if ( $item =~ m/\bLSUcpan\b/ ) {
+#
+#				#				print "$item\n";
+#				print("L_SU_global_constants, found $directory/$item\n");
+#
+#				#			$L_SU =$directory/$item;
+#				#			print $L_SU."\n";
+#			}
+#		}
+#	}
+#	else {
+#	#		print("L_SU_global_constants, may not be a directory or exist at all\n");
+#	}
+#}
+
+=head2 Default Tk settings
+
+ _first_entry_num is normally 1 _max_entry_num is defaulted to
 
 =cut
 
@@ -179,7 +235,7 @@ $alias_superflow_config_names[9]  = 'Sseg2su';
 $alias_superflow_config_names[10] = 'Sucat';
 $alias_superflow_config_names[11] = 'iPick';
 $alias_superflow_config_names[12] = 'immodpg';
-$alias_superflow_config_names[13] = 'temp';                           # make last
+$alias_superflow_config_names[13] = 'temp';                          # make last
 
 # for the visible buttons in the GUI only
 # e.g., Path and PL_SEISMIC are not visible to the user
@@ -194,8 +250,8 @@ my @file_dialog_type;
 # in spec files Data_PL_SEISMIC, is not necessarily informed by DATA_DIR_IN and DATA_DIR_OUT
 $file_dialog_type[0] = 'Data_PL_SEISMIC',
 
-# in spec files, Data is informed by DATA_DIR_IN and DATA_DIR_OUT
-$file_dialog_type[1] = 'Data';
+  # in spec files, Data is informed by DATA_DIR_IN and DATA_DIR_OUT
+  $file_dialog_type[1] = 'Data';
 $file_dialog_type[2] = 'Path';
 $file_dialog_type[3] = 'Flow';
 $file_dialog_type[4] = 'SaveAs';
@@ -210,7 +266,6 @@ my $file_dialog_type_h = {
 	_SaveAs           => 'SaveAs',
 	_Save             => 'Save',
 };
-
 my @flow_type;
 $flow_type[0] = 'user_built';
 $flow_type[1] = 'pre_built_superflow';
@@ -223,59 +278,59 @@ my $flow_type_h = {
 my $purpose = { _geopsy => 'geopsy', };
 
 my $var = {
-	_1_character                   => '1',
-	_14_characters                 => '14',
-	_13_characters                 => '13',
-	_12_characters                 => '12',
-	_11_characters                 => '11',
-	_2_characters                  => '2',
-	_3_characters                  => '3',
-	_4_characters                  => '4',
-	_5_characters                  => '5',
-	_6_characters                  => '6',
-	_7_characters                  => '7',
-	_8_characters                  => '8',
-	_10_characters                 => '10',
-	_15_characters                 => '15',
-	_20_characters                 => '20',
-	_30_characters                 => '30',
-	_32_characters                 => '32',
-	_35_characters                 => '35',
-	_40_characters                 => '40',
-	_45_characters                 => '45',
-	_base_file_name                => 'base_file_name',
-	_clear_text                    => '',
-	_color_default                 => 'grey',  # first color listbox to select
-	_config_file_format            => '%-35s%1s%-20s',
-	_eight_characters              => '8',
-	_empty_string                  => '',
-	_failure                       => -1,
-	_false                         => 0,
-	_data_name                     => 'data_name',
-	_base_file_name                => 'base_file_name',
-	_five_pixels                   => '5',
-	_five_pixel_borderwidth        => 5,
-	_five_lines                    => '5',
-	_1_line                        => '1',
-	_2_lines                       => '2',
-	_3_lines                       => '3',
-	_4_lines                       => '4',
-	_8_lines                       => '8',
-	_7_lines                       => '7',
-	_1_pixel                       => '1',
-	_3_pixels                      => '3',
-	_6_pixels                      => '6',
-	_24_pixels                     => '24',
-	_12_pixels                     => '12',
-	_18_pixels                     => '18',
-	_NaN                           => 'NaN',
-	_five_characters               => '5',
-	_flow                          => 'frame',
-	_half_tiny_width               => '6',
-	_hundred_characters            => '100',
-	_large__width                  => '200',
-	_light_gray                    => 'gray90',
-	_literal_empty_string          => '\'\'',
+	_1_character            => '1',
+	_14_characters          => '14',
+	_13_characters          => '13',
+	_12_characters          => '12',
+	_11_characters          => '11',
+	_2_characters           => '2',
+	_3_characters           => '3',
+	_4_characters           => '4',
+	_5_characters           => '5',
+	_6_characters           => '6',
+	_7_characters           => '7',
+	_8_characters           => '8',
+	_10_characters          => '10',
+	_15_characters          => '15',
+	_20_characters          => '20',
+	_30_characters          => '30',
+	_32_characters          => '32',
+	_35_characters          => '35',
+	_40_characters          => '40',
+	_45_characters          => '45',
+	_base_file_name         => 'base_file_name',
+	_clear_text             => '',
+	_color_default          => 'grey',           # first color listbox to select
+	_config_file_format     => '',
+	_eight_characters       => '8',
+	_empty_string           => '',
+	_failure                => -1,
+	_false                  => 0,
+	_data_name              => 'data_name',
+	_base_file_name         => 'base_file_name',
+	_five_pixels            => '5',
+	_five_pixel_borderwidth => 5,
+	_five_lines             => '5',
+	_1_line                 => '1',
+	_2_lines                => '2',
+	_3_lines                => '3',
+	_4_lines                => '4',
+	_8_lines                => '8',
+	_7_lines                => '7',
+	_1_pixel                => '1',
+	_3_pixels               => '3',
+	_6_pixels               => '6',
+	_24_pixels              => '24',
+	_12_pixels              => '12',
+	_18_pixels              => '18',
+	_NaN                    => 'NaN',
+	_five_characters        => '5',
+	_flow                   => 'frame',
+	_half_tiny_width        => '6',
+	_hundred_characters     => '100',
+	_large__width           => '200',
+	_light_gray             => 'gray90',
+	_literal_empty_string   => '\'\'',
 	_l_suplot_box_positionNsize    => '600x800+1000+1000',
 	_l_suplot_width                => '500',
 	_l_suplot_height               => '300',
@@ -283,7 +338,7 @@ my $var = {
 	_main_window_geometry          => '1100x750+12+5',
 	_medium_width                  => '100',
 	_message_box_geometry          => '400x250+400+400',
-	_ms2s						   => 0.001,
+	_ms2s                          => 0.001,
 	_my_arial                      => "-*-arial-normal-r-*-*-*-120-*-*-*-*-*-*",
 	_my_purple                     => 'MediumPurple1',
 	_my_white                      => 'white',
@@ -310,29 +365,30 @@ my $var = {
 	_project_selector_title        => 'Project Selector',
 	_project_selector_box_position => '600x600+100+100',
 	_null_sunix_value              => '',
-	_reservation_color_default     => 'grey',            # first choice for reserving a color listbox
-	_superflow                     => 'menubutton',
-	_small_width                   => '50',
-	_string2startFlowSetUp         => '->clear\(\);',    # for regex in perl_flow
-	_string2endFlowSetUp           => '->Step\(\);',     # for regex in perl_flow
-	_standard_width                => '20',
-	_ten_characters                => '10',
-	_test_dir_name                 => 't',
-	_eleven_characters             => '11',
-	_five_characters               => '5',
-	_thirty_characters             => '30',
-	_18_characters                 => '18',
-	_thirty_five_characters        => '35',
-	_tiny_width                    => '12',
-	_true                          => 1,
-	_us_per_s                      => 1000000,
-	_twenty_characters             => '20',
-	_us2s						   => 0.000001,
-	_username                      => 'tester',
-	_very_small_width              => '25',
-	_very_large_width              => '500',
-	_yes                           => 'yes',
-	_white                         => 'white',
+	_reservation_color_default     =>
+	  'grey',    # first choice for reserving a color listbox
+	_superflow              => 'menubutton',
+	_small_width            => '50',
+	_string2startFlowSetUp  => '->clear\(\);',    # for regex in perl_flow
+	_string2endFlowSetUp    => '->Step\(\);',     # for regex in perl_flow
+	_standard_width         => '20',
+	_ten_characters         => '10',
+	_test_dir_name          => 't',
+	_eleven_characters      => '11',
+	_five_characters        => '5',
+	_thirty_characters      => '30',
+	_18_characters          => '18',
+	_thirty_five_characters => '35',
+	_tiny_width             => '12',
+	_true                   => 1,
+	_us_per_s               => 1000000,
+	_twenty_characters      => '20',
+	_us2s                   => 0.000001,
+	_username               => 'tester',
+	_very_small_width       => '25',
+	_very_large_width       => '500',
+	_yes                    => 'yes',
+	_white                  => 'white',
 
 };
 
@@ -351,31 +407,35 @@ my $param = {
 	_length          => 90,    # max number of allowable parameters in GUI
 };
 
-my $L_SU = $ENV{'L_SU'};
-my $global_libs;
+# Locate environment variables automatically
 
-# empty string is predefined herein
-if ( $L_SU ne $var->{_empty_string} ) {
+my @PARENT_DIR_GUI = ( "configs", "specs" );
+my @PARENT_DIR_SU  = ("sunix");
+my @PARENT_DIR_GEN = (
+	"big_streams", "geopsy", "gmt", "messages", "main", "misc",
+	"main",        "developer/code/sunix", "sqlite", "t"
+);
+my @CHILD_DIR_GUI = (
+	"big_streams", "data",      "datum",     "filter",
+	"header",      "inversion", "migration", "model",
+	"NMO_Vel_Stk", "par",       "plot",      "shapeNcut",
+	"shell",       "statsMath", "transform", "well"
+);
 
-	$global_libs = {
-		_configs             => $L_SU . '/configs',
-		_configs_big_streams => $L_SU . '/configs/big_streams',
-		_developer           => $L_SU . '/developer/Stripped',
-		_misc                => $L_SU . '/misc',
-		_param               => $L_SU . '/configs/',
-		_specs               => $L_SU . '/specs',
-		_sunix               => $L_SU . '/sunix',
-		_superflows          => $L_SU . '/big_streams/',
-		_images              => $L_SU . '/images/',
-		_default_path        => './',
-	};
+my @CHILD_DIR_SU = (
+	"data",      "datum",     "filter",    "header",
+	"inversion", "migration", "model",     "NMO_Vel_Stk",
+	"par",       "plot",      "shapeNcut", "shell",
+	"statsMath", "transform", "well"
+);
 
-} else {
-	print("L_SU_global_constants, L_SU is missing\n");
-}
+$L_SU_global_constants->{_PARENT_DIR_GUI} = \@PARENT_DIR_GUI;
+$L_SU_global_constants->{_PARENT_DIR_SU}  = \@PARENT_DIR_SU;
+$L_SU_global_constants->{_PARENT_DIR_GEN} = \@PARENT_DIR_GEN;
+$L_SU_global_constants->{_CHILD_DIR_GUI}  = \@CHILD_DIR_GUI;
+$L_SU_global_constants->{_CHILD_DIR_SU}   = \@CHILD_DIR_SU;
 
 my @developer_sunix_categories;
-
 $developer_sunix_categories[0]  = 'data';
 $developer_sunix_categories[1]  = 'datum';
 $developer_sunix_categories[2]  = 'plot';
@@ -396,137 +456,48 @@ $developer_sunix_categories[16] = '';
 $developer_sunix_categories[17] = '';
 
 my @sunix_data_programs = (
-	"ctrlstrip",
-	"data_in",
-	"data_out",
-	"dt1tosu",
-	"segbread",
-	"segdread",
-	"segyread",
-	"segyscan",
-	"segywrite",
-	"suoldtonew",
-	"supack1",
-	"supack2",
-	"suswapbytes",
-	"suunpack1",
-	"suunpack2",
-	"wpc1uncomp2",
-	"wpccompress",
-	"wpcuncompress",
-	"wptcomp",
-	"wptuncomp",
-	"wtcomp",
-	"wtuncomp",
+	"ctrlstrip",   "data_in",       "data_out",  "dt1tosu",
+	"segbread",    "segdread",      "segyread",  "segyscan",
+	"segywrite",   "suoldtonew",    "supack1",   "supack2",
+	"suswapbytes", "suunpack1",     "suunpack2", "wpc1uncomp2",
+	"wpccompress", "wpcuncompress", "wptcomp",   "wptuncomp",
+	"wtcomp",      "wtuncomp",
 );
 
-my @sunix_datum_programs = ( 
-	"sudatumk2dr",
-	"sudatumk2ds",
-	"sukdmdcr",
-	"sukdmdcs",
- );
+my @sunix_datum_programs =
+  ( "sudatumk2dr", "sudatumk2ds", "sukdmdcr", "sukdmdcs", );
 
 my @sunix_filter_programs = (
-	"subfilt",
-	"succfilt",
-	"sucddecon",
-	"sudipfilt",
-	"sueipofi",
-	"sufilter",
-	"sufrac",
-	"sufwatrim",
-	"sufxdecon",
-	"suk1k2filter",
-	"sukfilter",
-	"sukfrac",
-	"sulfaf",
-	"sumedian",
-	"supef",
-	"suphase",
-	"suphidecon",
-	"supofilt",
-	"supolar",
-	"sushape",
-	"susmgauss2",
-	"sutvband",
+	"subfilt",      "succfilt",   "sucddecon",  "sudipfilt",
+	"sueipofi",     "sufilter",   "sufrac",     "sufxdecon",
+	"suk1k2filter", "sukfilter",  "sulfaf",     "sumedian",
+	"supef",        "suphase",    "suphidecon", "supofilt",
+	"supolar",      "susmgauss2", "sutvband",
 );
 
 my @sunix_header_programs = (
-	"segyclean",
-	"segyhdrmod",
-	"segyhdrs",
-	"setbhed",
-	"su3dchart",
-	"suabshw",
-	"suaddhead",
-	"suaddstatics",
-	"suahw",
-	"suascii",
-	"suazimuth",
-	"sucdpbin",
-	"suchart",
-	"suchw",
-	"sucliphead",
-	"sucommand",
-	"sucountkey",
-	"sudumptrace",
-	"suedit",
-	"sugethw",
-	"suhtmath",
-	"sukeycount",
-	"sulcthw",
-	"sulhead",
-	"supaste",
-	"surandhw",
-	"surange",
-	"suresstat",
-	"susehw",
-	"sushw",
-	"sustatic",
-	"sustaticB",
-	"sustaticrrs",
-	"sustrip",
-	"sutrcount",
-	"suutm",
-	"suxedit",
-	"swapbhed",
+	"segyclean",   "segyhdrmod", "segyhdrs",    "setbhed",
+	"su3dchart",   "suabshw",    "suaddhead",   "suaddstatics",
+	"suahw",       "suascii",    "suazimuth",   "sucdpbin",
+	"suchart",     "suchw",      "sucliphead",  "sucountkey",
+	"sudumptrace", "suedit",     "sugethw",     "suhtmath",
+	"sukeycount",  "sulcthw",    "sulhead",     "supaste",
+	"surandhw",    "surange",    "susehw",      "sushw",
+	"sustatic",    "sustaticB",  "sustaticrrs", "sustrip",
+	"sutrcount",   "suutm",      "suxedit",     "swapbhed",
 );
 
-my @sunix_inversion_programs = (
-	"suinvco3d",
-	"suinvvxzco",
-	"suinvzco3d",
-);
+my @sunix_inversion_programs = ( "suinvco3d", "suinvvxzco", "suinvzco3d", );
 
 my @sunix_migration_programs = (
-	"sudatumfd",
-	"sugazmig",
-	"sukdmig2d",
-	"suktmig2d",
-	"sumigfd",
-	"sumigffd",
-	"sumiggbzo",
-	"sumiggbzoan",
-	"sumigprefd",
-	"sumigpreffd",
-	"sumigprepspi",
-	"sumigpresp",
-	"sumigpspi",
-	"sumigpsti",
-	"sumigsplit",
-	"sumigtk",
-	"sumigtopo2d",
-	"sustolt",
-	"sutifowler",
- );
- 
-my @sunix_shell_programs     = ( 
-	"catsu",
-	"evince",
-	"sugetgthr",
-	"suputgthr",
+	"sudatumfd",   "sugazmig",    "sukdmig2d",    "suktmig2d",
+	"sumigfd",     "sumigffd",    "sumiggbzo",    "sumiggbzoan",
+	"sumigprefd",  "sumigpreffd", "sumigprepspi", "sumigpresp",
+	"sumigpspi",   "sumigpsti",   "sumigsplit",   "sumigtk",
+	"sumigtopo2d", "sustolt",     "sutifowler",
 );
+
+my @sunix_shell_programs = ( "catsu", "evince", "sugetgthr", "suputgthr", );
 
 =pod
 
@@ -534,293 +505,75 @@ my @sunix_shell_programs     = (
 =cut
 
 my @sunix_model_programs = (
-	"addrvl3d",
-	"cellauto",
-	"elacheck",
-	"elamodel",
-	"elaray",
-	"elasyn",
-	"elatriuni",
-	"gbbeam",
-	"grm",
-	"normray",
-	"randvel3d",
-	"raydata",
-	"rayt2d",
-	"rayt2dan",
-	"regrid3",
-	"resamp",
-	"smooth2",
-	"smooth3d",
-	"smoothint2",
-	"stiff2vel",
-	"suaddevent",
-	"suaddnoise",
-	"sudgwaveform",
-	"suea2df",
-	"sufctanismod",
-	"sufdmod1",
-	"sufdmod2",
-	"sufdmod2_pml",
-	"sugoupillaud",
-	"sugoupillaudpo",
-	"suimp2d",
-	"suimp3d",
-	"suimpedance",
-	"sujitter",
-	"sukdsyn2d",
-	"sunull",
-	"suplane",
-	"surandspike",
-	"surandstat",
-	"suremac2d",
-	"suremel2dan",
-	"suspike",
-	"susyncz",
-	"susynlv",
-	"susynlvcw",
-	"susynlvfti",
-	"susynvxz",
-	"susynvxzcs",
-	"sutetraray",
-	"suvibro",
-	"suwaveform",
-	"sxplot",
-	"tetramod",
-	"thom2hti",
-	"thom2stiff",
-	"tri2uni",
-	"trimodel",
-	"trip",
-	"triray",
-	"triseis",
-	"uni2tri",
-	"unif2",
-	"unif2aniso",
-	"unif2ti2",
-	"vel2stiff",
-	"wkbj",
+	"addrvl3d",       "cellauto",     "elacheck",     "elamodel",
+	"elaray",         "elasyn",       "elatriuni",    "gbbeam",
+	"grm",            "normray",      "raydata",      "suaddevent",
+	"suaddnoise",     "sudgwaveform", "suea2df",      "sufctanismod",
+	"sufdmod1",       "sufdmod2",     "sufdmod2_pml", "sugoupillaud",
+	"sugoupillaudpo", "suimp2d",      "suimp3d",      "suimpedance",
+	"sujitter",       "sukdsyn2d",    "sunull",       "suplane",
+	"surandspike",    "surandstat",   "suremac2d",    "suremel2dan",
+	"suspike",        "susyncz",      "susynlv",      "susynlvcw",
+	"susynlvfti",     "susynvxz",     "susynvxzcs",
 );
 
-my @sunix_NMO_Vel_Stk_programs = ( 
-	"dzdv",
-	"sucvs4fowler",
-	"sudivstack",
-	"sudmofk",
-	"sudmofkcw",
-	"sudmotivz",
-	"sudmotx",
-	"sudmovz",
-	"suilog",
-	"suintvel",
-	"sulog",
-	"sunmo",
-	"sunmo_a",
-	"supws",
-	"surecip",
-	"sureduce",
-	"surelan",
-	"surelanan",
-	"suresamp",
-	"sushift",
-	"sustack",
-	"sustkvel",
-	"sutaupnmo",
-	"sutihaledmo",
-	"sutivel",
-	"sutsq",
-	"suttoz",
-	"suvel2df",
-	"suvelan",
-	"suvelan_nccs",
-	"suvelan_nsel",
-	"suztot",
-	"tvnmoqc",
-  );
+my @sunix_NMO_Vel_Stk_programs = (
+	"dzdv",      "sucvs4fowler", "sudivstack",   "sudmofk",
+	"sudmofkcw", "sudmotivz",    "sudmotx",      "sudmovz",
+	"suilog",    "suintvel",     "sulog",        "sunmo",
+	"sunmo_a",   "supws",        "surecip",      "sureduce",
+	"surelan",   "surelanan",    "suresamp",     "sushift",
+	"sustack",   "sustkvel",     "sutaupnmo",    "sutihaledmo",
+	"sutivel",   "sutsq",        "suttoz",       "suvel2df",
+	"suvelan",   "suvelan_nccs", "suvelan_nsel", "suztot",
+);
 
 my @sunix_par_programs = (
-	"a2b",
-	"a2i",
-	"b2a",
-	"bhedtopar",
-	"cshotplot",
-	"float2ibm",
-	"ftnstrip",
-	"ftnunstrip",
-	"h2b",
-	"hti2stiff",
-	"hudson",
-	"i2a",
-	"ibm2float",
-	"kaperture",
-	"linrort",
-	"lorenz",
-	"makevel",
-	"mkparfile",
-	"mrafxzwt",
-	"pdfhistogram",
-	"prplot",
-	"recast",
-	"refRealAziHTI",
-	"refRealVTI",
-	"rossler",
-	"subset",
-	"transp",
-	"transp3d",
-	"unisam",
-	"unisam2",
-	"utmconv",
-	"velpert",
-	"verhulst",
-	"vtlvz",
-	"xy2z",
-	"z2xyz",
+	"a2b",        "a2i",       "b2a",      "bhedtopar",
+	"cshotplot",  "float2ibm", "ftnstrip", "ftnunstrip",
+	"makevel",    "mkparfile", "transp",   "unif2",
+	"unif2aniso", "unisam",    "vel2stiff",
 );
 
 my @sunix_picks_programs = (
-	"",
-	"sufbpickw",
-	"sufnzero",
-	"supickamp",
+
 );
 
 my @sunix_plot_programs = (
-	"elaps",
-	"lcmap",
-	"lprop",
-	"psbbox",
-	"pscontour",
-	"pscube",
-	"pscubecontour",
-	"psepsi",
-	"psgraph",
-	"psimage",
-	"pslabel",
-	"psmanager",
-	"psmerge",
-	"psmovie",
-	"pswigb",
-	"pswigp",
-	"scmap",
-	"spsplot",
-	"supscontour",
-	"supscube",
-	"supscubecontour",
-	"supsgraph",
-	"supsimage",
-	"supsmax",
-	"supsmovie",
-	"supswigb",
-	"supswigp",
-	"suxcontour",
-	"suxgraph",
-	"suximage",
-	"suxmax",
-	"suxmovie",
-	"suxpicker",
-	"suxwigb",
-	"viewer3",
-	"xcontour",
-	"xepsb",
-	"xepsp",
-	"xgraph",
-	"ximage",
-	"xmovie",
-	"xpicker",
-	"xpsp",
-	"xwigb",
+	"elaps",           "lcmap",     "lprop",         "psbbox",
+	"pscontour",       "pscube",    "pscubecontour", "psepsi",
+	"psgraph",         "psimage",   "pslabel",       "psmanager",
+	"psmerge",         "psmovie",   "pswigb",        "pswigp",
+	"scmap",           "spsplot",   "supscontour",   "supscube",
+	"supscubecontour", "supsgraph", "supsimage",     "supsmax",
+	"supsmovie",       "supswigb",  "supswigp",      "suxcontour",
+	"suxgraph",        "suximage",  "suxmax",        "suxmovie",
+	"suxpicker",       "suxwigb",   "xgraph",        "ximage",
+	"xmovie",          "xwigb",
 );
 
 my @sunix_shapeNcut_programs = (
-	"sucentsamp",
-	"sudipdivcor",
-	"suflip",
-	"sugain",
-	"sugausstaper",
-	"sugprfb",
-	"sukill",
-	"sumute",
-	"supad",
-	"supgc",
-	"suramp",
-	"susort",
-	"susorty",
-	"susplit",
-	"sutxtaper",
-	"suvcat",
-	"suvlength",
-	"suwind",
-	"suwindpoly",
-	"suzero",
+	"suflip", "sugain", "sugprfb", "sukill",
+	"sumute", "susort", "susplit", "suwind",
 );
 
 my @sunix_statsMath_programs = (
-	"cpftrend",
-	"entropy",
-	"farith",
-	"suacor",
-	"suacorfrac",
-	"sualford",
-	"suattributes",
-	"suconv",
-	"sufwmix",
-	"suharlan",
-	"suhistogram",
-	"suhrot",
-	"suinterp",
-	"suinterpfowler",
-	"sultt",
-	"sumath",
-	"sumax",
-	"sumean",
-	"sumix",
-	"sumixgathers",
-	"sunan",
-	"sunormalize",
-	"suocext",
-	"suop",
-	"suop2",
-	"supermute",
-	"suquantile",
-	"surefcon",
-	"sutaper",
-	"suweight",
-	"suxcor",
-	"suxmax",
+	"cpftrend",   "entropy",     "farith",       "suacor",
+	"suacorfrac", "sualford",    "suattributes", "suconv",
+	"sufwmix",    "suhistogram", "suhrot",       "suinterp",
+	"sumax",      "sumean",      "sumix",        "suop",
+	"suop2",      "suxcor",      "suxmax",
 );
 
 my @sunix_transform_programs = (
-	"dctcomp",
-	"dctuncomp",
-	"suamp",
-	"suanalytic",
-	"succepstrum",
-	"succwt",
-	"sucepstrum",
-	"suclogfft",
-	"sucwt",
-	"sufft",
-	"sugabor",
-	"suhilb",
-	"suicepstrum",
-	"suiclogfft",
-	"suifft",
-	"suminphase",
-	"suphasevel",
-	"suradon",
-	"suspecfk",
-	"suspecfx",
-	"sutaup",
+	"dctcomp",     "suamp",  "succepstrum", "sucepstrum",
+	"sucwt",       "succwt", "sufft",       "sugabor",
+	"suicepstrum", "suifft", "suphasevel",  "suspecfk",
+	"suspecfx",    "sutaup",
 );
 
-my @sunix_well_programs = (
-	"las2su",
-	"subackus",
-	"subackush",
-	"sugassman",
-	"sulprime",
-	"suwellrf",
- );
+my @sunix_well_programs =
+  ( "las2su", "subackus", "subackush", "sugassman", "sulprime", "suwellrf", );
 
 $var->{_sunix_data_programs}        = \@sunix_data_programs;
 $var->{_sunix_datum_programs}       = \@sunix_datum_programs;
@@ -892,6 +645,229 @@ sub flow_type_href {
 	return ($flow_type_h);
 }
 
+=head2 sub _get_pathNfile2search 
+
+Useful directories to search
+
+=cut
+
+sub _get_pathNfile2search {
+
+	my ($self) = @_;
+
+=head2 import modules
+
+=cut
+
+	use LSeismicUnix::misc::manage_dirs_by;
+
+=head2 Instantiate modules
+
+=cut
+
+	my $manage_dirs_by = manage_dirs_by->new();
+
+=head2 Define
+
+ variables
+ 
+=cut	
+
+	my @result_aref2;
+	my @directory_contents_gui;
+	my @dimensions;
+
+=head2 Define
+
+ directory search arrays
+ 
+=cut 
+
+	my $GRANDPARENT_DIR = $LSeismicUnix;
+
+	my @PARENT_DIR_GUI = @{ $L_SU_global_constants->{_PARENT_DIR_GUI} };
+	my @CHILD_DIR_GUI  = @{ $L_SU_global_constants->{_CHILD_DIR_GUI} };
+	my @PARENT_DIR_SU  = @{ $L_SU_global_constants->{_PARENT_DIR_SU} };
+	my @CHILD_DIR_SU   = @{ $L_SU_global_constants->{_CHILD_DIR_SU} };
+	my @PARENT_DIR_GEN = @{ $L_SU_global_constants->{_PARENT_DIR_GEN} };
+
+	#	print("PARENT_DIR_GUI=@PARENT_DIR_GUI\n");
+
+	my $parent_directory_gui_number_of = scalar @PARENT_DIR_GUI;
+	my $child_directory_gui_number_of  = scalar @CHILD_DIR_GUI;
+	my $parent_directory_su_number_of  = scalar @PARENT_DIR_SU;
+	my $child_directory_su_number_of   = scalar @CHILD_DIR_SU;
+	my $parent_directory_gen_number_of = scalar @PARENT_DIR_GEN;
+
+	@dimensions = (
+		$parent_directory_gui_number_of, $child_directory_gui_number_of,
+		$parent_directory_su_number_of,  $child_directory_su_number_of,
+		$parent_directory_gen_number_of
+	);
+
+=head2 GUI-related matters first
+
+=cut
+
+	for (
+		my $parent = 0 ;
+		$parent < $parent_directory_gui_number_of ;
+		$parent++
+	  )
+	{
+
+		for (
+			my $child = 0 ;
+			$child < $child_directory_gui_number_of ;
+			$child++
+		  )
+		{
+
+			my $SEARCH_DIR =
+				$GRANDPARENT_DIR . '/'
+			  . $PARENT_DIR_GUI[$parent] . '/'
+			  . $CHILD_DIR_GUI[$child];
+
+		#			print(
+		#"L_SU_global_constants, _get_pathNfile2search,SEARCH_DIR=$SEARCH_DIR\n"
+		#			);
+			$manage_dirs_by->set_directory($SEARCH_DIR);
+			my $directory_list_aref = $manage_dirs_by->get_list_aref();
+			my @directory_list      = @$directory_list_aref;
+
+			$directory_contents_gui[$parent][$child] = $directory_list_aref;
+
+			#			print("@{$directory_contents_gui[$parent][$child]}\n");
+
+		}
+
+	}
+
+#	my $parent_gui = 1;
+#	my $child_gui  = 1;
+#	print(
+#"\nL_SU_global_constants, get_pathNfile2search, For gui directory paths: $PARENT_DIR_GUI[$parent_gui]::$CHILD_DIR_GUI[$child_gui]::\n"
+#	);
+#	print("@{$directory_contents_gui[$parent_gui][$child_gui]}\n");
+
+	$result_aref2[0] = \@directory_contents_gui;
+
+	return ( \@result_aref2, \@dimensions );
+
+}
+
+=head2 Find a path for
+
+a given spec file
+
+=cut
+
+sub get_path4spec_file {
+
+	my (@self) = @_;
+
+	if ( length $L_SU_global_constants->{_file_name} ) {
+
+		my $file_name = $L_SU_global_constants->{_file_name};
+		my $result;
+
+=head2 Collect parameters from local hash
+
+=cut
+
+		my $GRANDPARENT_DIR = $LSeismicUnix;
+		my @PARENT_DIR_GUI  = @{ $L_SU_global_constants->{_PARENT_DIR_GUI} };
+		my @CHILD_DIR_GUI   = @{ $L_SU_global_constants->{_CHILD_DIR_GUI} };
+		my @PARENT_DIR_SU   = @{ $L_SU_global_constants->{_PARENT_DIR_SU} };
+		my @CHILD_DIR_SU    = @{ $L_SU_global_constants->{_CHILD_DIR_SU} };
+		my @PARENT_DIR_GEN  = @{ $L_SU_global_constants->{_PARENT_DIR_GEN} };
+
+=head2 Collect relevant "spec"
+
+ project paths and files
+
+=cut
+
+		my ( $result_aref3, $dimensions_aref ) = _get_pathNfile2search();
+		my @result_aref2                   = @$result_aref3;
+		my @directory_contents_gui         = @{ $result_aref2[0] };
+		my @dimension                      = @$dimensions_aref;
+		my $parent_directory_gui_number_of = $dimension[0];
+		my $child_directory_gui_number_of  = $dimension[1];
+
+# test
+#		my $parent_gui = 1;
+#		my $child_gui  = 1;
+#		print(
+#"\nFor gui directory paths: $PARENT_DIR_GUI[$parent_gui]::$CHILD_DIR_GUI[$child_gui]::\n"
+#		);
+#		print("@{$directory_contents_gui[$parent_gui][$child_gui]}\n");
+
+=head2 Search all "spec"-relevant 
+
+directories start with 
+gui drectory listing
+
+=cut
+
+		for (
+			my $parent = 0 ;
+			$parent < $parent_directory_gui_number_of ;
+			$parent++
+		  )
+		{
+
+			for (
+				my $child = 0 ;
+				$child < $child_directory_gui_number_of ;
+				$child++
+			  )
+			{
+
+				my $directory_list_aref =
+				  $directory_contents_gui[$parent][$child];
+				my @directory_list = @$directory_list_aref;
+
+				my $length_directory_list = scalar @directory_list;
+
+				#				print("@{$directory_contents_gui[$parent][$child]}\n");
+				#				print("file_name=$file_name\n");
+				for ( my $i = 0 ; $i < $length_directory_list ; $i++ ) {
+
+					if ( not $file_name eq $directory_list[$i] ) {
+
+						next;
+
+					}
+					elsif ( $file_name eq $directory_list[$i] ) {
+
+		 #						print(
+		 #"L_SU_global_constants,get_path4spec_file,found the file $file_name in
+		 #				  			  $PARENT_DIR_GUI[$parent]::$CHILD_DIR_GUI[$child]\n"
+		 #						);
+						$result =
+							$LSeismicUnix . '/'
+						  . $PARENT_DIR_GUI[$parent] . '/'
+						  . $CHILD_DIR_GUI[$child];
+
+						return ($result);
+					}
+					else {
+						print("change_a_line, unexpected value\n");
+						return ();
+					}
+				}
+
+			}
+		}
+
+	}
+	else {
+		print("L_SU_global_constants,_get_path_for_file,file_name_missing\n");
+		return ();
+	}
+}
+
 sub number_from_color_href {
 
 	my ($self) = @_;
@@ -901,6 +877,23 @@ sub number_from_color_href {
 
 sub alias_superflow_config_names_aref {
 	return ( \@alias_superflow_config_names );
+}
+
+sub set_file_name {
+
+	my ( $self, $file_name ) = @_;
+
+	if ( length $file_name ) {
+
+		$L_SU_global_constants->{_file_name} = $file_name;
+
+#		print("L_SU_global_constants,set_file_name,set_file_name = $L_SU_global_constants->{_file_name}\n");
+
+	}
+	else {
+		print("L_SU_global_constants,set_file_name,missing variable");
+	}
+
 }
 
 sub superflow_config_names_aref {
@@ -918,7 +911,34 @@ sub superflow_names_gui_aref {
 }
 
 sub global_libs {
-	return ($global_libs);
+	my (@self) = @_;
+
+	# empty string is predefined herein
+	if ( length $L_SU ) {
+
+#		print("L_SU_global_constants my L_SU = $L_SU\n");
+
+		my $global_libs = {
+			_configs             => $L_SU . '/configs',
+			_configs_big_streams => $L_SU . '/configs/big_streams',
+			_developer           => $L_SU . '/developer/Stripped',
+			_misc                => $L_SU . '/misc',
+			_param               => $L_SU . '/configs/',
+			_specs               => $L_SU . '/specs',
+			_sunix               => $L_SU . '/sunix',
+			_superflows          => $L_SU . '/big_streams/',
+			_images              => $L_SU . '/images/',
+			_default_path        => './',
+		};
+		
+		return($global_libs);
+
+	}
+	else {
+		print("L_SU_global_constants, global_libs, L_SU is missing\n");
+		return ();
+	}
+
 }
 
 sub purpose {
@@ -938,294 +958,3 @@ sub param {
 }
 
 1;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

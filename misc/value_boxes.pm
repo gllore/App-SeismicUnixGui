@@ -2,7 +2,7 @@ package value_boxes;
 
 use Moose;
 use Tk;
-use L_SU_global_constants;
+use LSeismicUnix::misc::L_SU_global_constants;
 my $get = new L_SU_global_constants();
 my $var = $get->var();
 

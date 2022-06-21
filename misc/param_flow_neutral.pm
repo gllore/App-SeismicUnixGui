@@ -78,7 +78,7 @@ my $param_flow_neutral = {
 	_values_aref2            => '',
 };
 
-use L_SU_global_constants;
+use LSeismicUnix::misc::L_SU_global_constants;
 
 my $get = new L_SU_global_constants();
 

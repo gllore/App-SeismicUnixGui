@@ -2,10 +2,10 @@ package Sseg2su_spec;
 
 our $VERSION = '1.00';
 use Moose;
-use Project_config;
-use Sseg2su_config;
-use L_SU_global_constants;
-use SeismicUnix qw ($seg2 $su $suffix_DAT $suffix_su);
+use LSeismicUnix::configs::big_streams::Project_config;
+use LSeismicUnix::configs::big_streams::Sseg2su_config;
+use LSeismicUnix::misc::L_SU_global_constants;
+use LSeismicUnix::misc::SeismicUnix qw ($seg2 $su $suffix_DAT $suffix_su);
 
 my $get              = new L_SU_global_constants();
 my $Project        = new Project_config;

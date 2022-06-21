@@ -42,7 +42,7 @@ package canvas_graph;
 =cut
 
 use Moose;
-use L_SU_global_constants;
+use LSeismicUnix::misc::L_SU_global_constants;
 my $get          = new L_SU_global_constants();
 my $var          = $get->var();
 my $empty_string = $var->{_empty_string};

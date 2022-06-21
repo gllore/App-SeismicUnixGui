@@ -44,6 +44,9 @@ by importing the conditions set in each 'program_spec.pm module
 use Moose;
 our $VERSION = '0.0.1';
 
+use LSeismicUnix::misc::L_SU_global_constants;
+my $L_SU_global_constants = new L_SU_global_constants();
+
 =head2 program parameters
 	 
   private hash
@@ -88,7 +91,11 @@ sub _get_prefix_aref {
 		my $module_spec    = $prog_name . '_spec';
 		my $module_spec_pm = $module_spec . '.pm';
 
-		require $module_spec_pm;
+		$L_SU_global_constants->set_file_name($module_spec_pm);
+		my $path           = $L_SU_global_constants->get_path4spec_file();
+		my $pathNmodule_pm = $path . '/' . $module_spec_pm;
+
+		require $pathNmodule_pm;
 
 		#		$refresher->refresh_module("$module_spec_pm");
 
@@ -99,11 +106,12 @@ sub _get_prefix_aref {
 		$package->prefix_aref();
 		my $prefix_aref = $package->get_prefix_aref();
 
-		# print("oop_prog_params,_get_prefix_aref, prefix_aref=@{$prefix_aref} \n");
+	# print("oop_prog_params,_get_prefix_aref, prefix_aref=@{$prefix_aref} \n");
 
 		return ($prefix_aref);
 
-	} else {
+	}
+	else {
 		print("oop_prog_params,_get_prefix, missing program name\n");
 	}
 
@@ -136,7 +144,11 @@ sub _get_suffix_aref {
 		my $module_spec    = $prog_name . '_spec';
 		my $module_spec_pm = $module_spec . '.pm';
 
-		require $module_spec_pm;
+		$L_SU_global_constants->set_file_name($module_spec_pm);
+		my $path           = $L_SU_global_constants->get_path4spec_file();
+		my $pathNmodule_pm = $path . '/' . $module_spec_pm;
+
+		require $pathNmodule_pm;
 
 		#$refresher->refresh_module("$module_spec_pm");
 
@@ -148,10 +160,11 @@ sub _get_suffix_aref {
 		$package->suffix_aref();
 		my $suffix_aref = $package->get_suffix_aref();
 
-#		print("oop_prog_params,_get_suffix_aref, suffixes are: @{$suffix_aref}\n");
+  #		print("oop_prog_params,_get_suffix_aref, suffixes are: @{$suffix_aref}\n");
 		return ($suffix_aref);
 
-	} else {
+	}
+	else {
 		print("oop_prog_params,_get_suffix, missing program name\n");
 	}
 
@@ -170,8 +183,8 @@ sub _get_prefix_for_a_label {
 
 	my ($self) = @_;
 
-	use param_sunix;
-	use control 0.0.3;
+	use LSeismicUnix::misc::param_sunix;
+	use LSeismicUnix::misc::control '0.0.3';
 
 	my $param_sunix = param_sunix->new();
 	my $control     = control->new();
@@ -194,15 +207,15 @@ sub _get_prefix_for_a_label {
 	# number of all possible labels
 	my $length = $param_sunix->get_length4perl_flow();
 
-	# print("2. oop_prog_params,_get_prefix_for_label, prefix length: $length\n");
-	# print(
-	# 	"2. oop_prog_params,_get_prefix_for_label, prefix labels: @all_program_labels\n"
-	# );
+# print("2. oop_prog_params,_get_prefix_for_label, prefix length: $length\n");
+# print(
+# 	"2. oop_prog_params,_get_prefix_for_label, prefix labels: @all_program_labels\n"
+# );
 
 	# what's the index in the configuration file
 	# (not the o/p perl script)
 	# when label names match?
-	for ( my $i = 0; $i < $length; $i++ ) {
+	for ( my $i = 0 ; $i < $length ; $i++ ) {
 
 		# both labels should contain SOMETHING
 		if ( $label && $all_program_labels[$i] ) {
@@ -211,11 +224,11 @@ sub _get_prefix_for_a_label {
 			# e.g., boundary_conditions|abs becomes abs
 			my $clean_config_label = $control->ors( $all_program_labels[$i] );
 
-			# print(
-			# "oop_prog_params,_get_prefix_for_label, program_name =$program_name\n"
-			# );
-			# print("2. oop_prog_params,_get_prefix_for_label, label: $label\n");
-			# print("1. oop_prog_params,_get_prefix_for_label, clean_config_label = $clean_config_label\n");
+# print(
+# "oop_prog_params,_get_prefix_for_label, program_name =$program_name\n"
+# );
+# print("2. oop_prog_params,_get_prefix_for_label, label: $label\n");
+# print("1. oop_prog_params,_get_prefix_for_label, clean_config_label = $clean_config_label\n");
 
 			@prefixes = @{ _get_prefix_aref() };
 
@@ -226,20 +239,22 @@ sub _get_prefix_for_a_label {
 				# pick correct prefix
 				$prefix = $prefixes[$i];
 
-				# print(
-				# "oop_prog_params,_get_prefix_for_label, match i=$i, this label=$label MATCHES $all_program_labels[$i]\n"
-				# );
-				# print(
-				# "oop_prog_params,_get_prefix_for_label, prefix = $prefix\n" );
+# print(
+# "oop_prog_params,_get_prefix_for_label, match i=$i, this label=$label MATCHES $all_program_labels[$i]\n"
+# );
+# print(
+# "oop_prog_params,_get_prefix_for_label, prefix = $prefix\n" );
 
-			} else {
-
-				# print("2. oop_prog_params,_get_prefix_for_label: no match NADA \n\n");
-				# );
 			}
-		} else {
+			else {
 
-			# print("2. oop_prog_params,_get_prefix_for_label, this or the other label are empty NADA \n");
+		# print("2. oop_prog_params,_get_prefix_for_label: no match NADA \n\n");
+		# );
+			}
+		}
+		else {
+
+# print("2. oop_prog_params,_get_prefix_for_label, this or the other label are empty NADA \n");
 		}
 	}
 	return ($prefix);
@@ -248,8 +263,8 @@ sub _get_prefix_for_a_label {
 sub _get_suffix_for_a_label {
 	my ($self) = @_;
 
-	use param_sunix;
-	use control 0.0.3;
+	use LSeismicUnix::misc::param_sunix;
+	use LSeismicUnix::misc::control '0.0.3';
 
 	my $param_sunix = param_sunix->new();
 	my $control     = control->new();
@@ -270,11 +285,11 @@ sub _get_suffix_for_a_label {
 	# number of all possible labels
 	my $length = $param_sunix->get_length4perl_flow();
 
-	# print("2. oop_prog_params,_get_suffix_for_label, suffix length: $length\n");
-	# print("2. oop_prog_params, _get_suffix_for_label,suffix labels: @all_program_labels\n");
+# print("2. oop_prog_params,_get_suffix_for_label, suffix length: $length\n");
+# print("2. oop_prog_params, _get_suffix_for_label,suffix labels: @all_program_labels\n");
 
-	# find index in the configuration file (not the perl script) when label names match
-	for ( my $i = 0; $i < $length; $i++ ) {
+# find index in the configuration file (not the perl script) when label names match
+	for ( my $i = 0 ; $i < $length ; $i++ ) {
 
 		# both labels should contain SOMETHING
 		if ( $label && $all_program_labels[$i] ) {
@@ -283,22 +298,24 @@ sub _get_suffix_for_a_label {
 			# e.g., boundary_conditions|abs becomes abs
 			my $clean_config_label = $control->ors( $all_program_labels[$i] );
 
-			my @suffixes = @{_get_suffix_aref() };
+			my @suffixes = @{ _get_suffix_aref() };
 
 			# a match locates the index to read from the program_spec.pm file
 			if ( $label eq $clean_config_label ) {
 
 				$suffix = $suffixes[$i];
 
-#				print(
-#					"oop_prog_params,_get_suffix_for_label, match i=$i,
-#						this label = $label, this suffix=$suffix\n "
-#				);
+				#				print(
+				#					"oop_prog_params,_get_suffix_for_label, match i=$i,
+				#						this label = $label, this suffix=$suffix\n "
+				#				);
 
-			} else {
-				#NADA print(" 2. oop_prog_params, _get_suffix_for_label, no match \n ");
 			}
-		} else {
+			else {
+		#NADA print(" 2. oop_prog_params, _get_suffix_for_label, no match \n ");
+			}
+		}
+		else {
 			# print(" 2. oop_prog_params, _get_suffix_for_label this
 			# or the other label are empty \n ");
 		}
@@ -315,10 +332,13 @@ sub _set_label_for_a_suffix {
 
 		$oop_prog_params->{_label} = $label;
 
-#		print(" oop_prog_params, _set_label_for_a_suffix, label = $label \n ");
+	  #		print(" oop_prog_params, _set_label_for_a_suffix, label = $label \n ");
 
-	} else {
-		print(" oop_prog_params, _set_label_for_a_suffix, missing label and /or program name\n");
+	}
+	else {
+		print(
+" oop_prog_params, _set_label_for_a_suffix, missing label and /or program name\n"
+		);
 	}
 
 	return ();
@@ -336,8 +356,11 @@ sub _set_label_for_a_prefix {
 
 		$oop_prog_params->{_label} = $label;
 
-	} else {
-		print("oop_prog_params,_set_label_for_prefix, missing label and/or program name \n ");
+	}
+	else {
+		print(
+"oop_prog_params,_set_label_for_prefix, missing label and/or program name \n "
+		);
 	}
 
 	return ();
@@ -365,7 +388,7 @@ In order to write the following:
 sub get_a_section {
 	my ($self) = @_;
 
-	use control 0.0.3;
+	use LSeismicUnix::misc::control '0.0.3';
 	my $control = new control();
 
 	my $prog_name = $oop_prog_params->{_prog_name};
@@ -376,13 +399,19 @@ sub get_a_section {
 
 	if ($ok) {
 
-		$oop_prog_params[$j] = " \t " . '$' . $prog_name . " \t \t \t \t " . "->clear();";
+		$oop_prog_params[$j] =
+		  " \t " . '$' . $prog_name . " \t \t \t \t " . "->clear();";
 
 		# same as for values
 		my $length  = scalar @{ $oop_prog_params->{_param_labels_aref} };
 		my $version = $oop_prog_params->{_prog_version};
 
-		for ( my $param_idx = 0, $j = 1; $param_idx < $length; $j++, $param_idx++ ) {
+		for (
+			my $param_idx = 0, $j = 1 ;
+			$param_idx < $length ;
+			$j++, $param_idx++
+		  )
+		{
 
 			my $label = @{ $oop_prog_params->{_param_labels_aref} }[$param_idx];
 
@@ -398,56 +427,65 @@ sub get_a_section {
 			_set_label_for_a_suffix($label);
 			my $suffix = _get_suffix_for_a_label;
 
-#			print(" 3. oop_prog_params, get_a_section, suffix=$suffix....\n ");
+		 #			print(" 3. oop_prog_params, get_a_section, suffix=$suffix....\n ");
 
 			_set_label_for_a_prefix($label);
 			my $prefix = _get_prefix_for_a_label;
 
-#			print(" 4. oop_prog_params, get_a_section suffix =$prefix \n ");
-#            $control->set_value($value);
-#            $control->reset_suffix4loop();
-#            $control->set_suffix4oop($suffix);
-#            $value = $control->get_value4oop();
-            
-#            print(" 4. oop_prog_params, get_a_section value =$value\n ");
+			#			print(" 4. oop_prog_params, get_a_section suffix =$prefix \n ");
+			#            $control->set_value($value);
+			#            $control->reset_suffix4loop();
+			#            $control->set_suffix4oop($suffix);
+			#            $value = $control->get_value4oop();
+
+	  #            print(" 4. oop_prog_params, get_a_section value =$value\n ");
 			if ( length $prefix && length $suffix ) {
 
 #			print(" 1. oop_prog_params, get_a_section CASE #1 Both suffix and prefix are present\n ");
-				# OUTPUT TEXT is set here
-				$oop_prog_params[$j]
-					= " \t " . '$'
-					. $prog_name
-					. " \t \t \t \t " . '->'
-					. $label
-					. '(quotemeta('
-					. $prefix
-					. $value
- 					. ')'
- 					.$suffix
- 					.');';
+# OUTPUT TEXT is set here
+				$oop_prog_params[$j] =
+					" \t " . '$'
+				  . $prog_name
+				  . " \t \t \t \t " . '->'
+				  . $label
+				  . '(quotemeta('
+				  . $prefix
+				  . $value . ')'
+				  . $suffix . ');';
+
 #				print(" 1. oop_prog_params, get_a_section CASE #1 OUTPUT TEXT: $oop_prog_params[$j] \n");
-				print(" 1. oop_prog_params, get_a_section CASE #1 suffix=$suffix---prefix=$prefix---value=$value---\n");
-#				 					. '.'
-			} elsif ( !( length($prefix) ) && length($suffix) ) {
+				print(
+" 1. oop_prog_params, get_a_section CASE #1 suffix=$suffix---prefix=$prefix---value=$value---\n"
+				);
 
-				# print(" oop_prog_params, get_a_section CASE #2  No prefix but there is a suffix \n ");
-				# OUTPUT TEXT is set here
-				$oop_prog_params[$j]
-					= " \t " . '$'
-					. $prog_name
-					. " \t \t \t \t " . '->'
-					. $label
-					. '(quotemeta('
-					. $value
-					. $suffix . '));';
+				#				 					. '.'
+			}
+			elsif ( !( length($prefix) ) && length($suffix) ) {
 
-			} elsif ( $prefix && !($suffix) ) {
+# print(" oop_prog_params, get_a_section CASE #2  No prefix but there is a suffix \n ");
+# OUTPUT TEXT is set here
+				$oop_prog_params[$j] =
+					" \t " . '$'
+				  . $prog_name
+				  . " \t \t \t \t " . '->'
+				  . $label
+				  . '(quotemeta('
+				  . $value
+				  . $suffix . '));';
+
+			}
+			elsif ( $prefix && !($suffix) ) {
 
 				# CASE 3
 				#				print("CASE #3 : oop_prog_params,prefix but no suffix \n");
 				# OUTPUT TEXT is set here first
 				# First part is:
-				$oop_prog_params[$j] = " \t " . '$' . $prog_name . " \t \t \t \t " . '->' . $label . '(quotemeta(';
+				$oop_prog_params[$j] =
+					" \t " . '$'
+				  . $prog_name
+				  . " \t \t \t \t " . '->'
+				  . $label
+				  . '(quotemeta(';
 
 				# check for multiple values
 				my $length = scalar $value;
@@ -457,18 +495,19 @@ sub get_a_section {
 				#  detect multiple values, if split by comma
 				my @sub_values = split( /,/, $value );
 
-				# print("oop_prog_params,get_a,section,sub_values:@sub_values\n");
+			  # print("oop_prog_params,get_a,section,sub_values:@sub_values\n");
 				my $num_values = scalar @sub_values;
 				my $last_index = $num_values - 1;
 
-				# print("oop_prog_params,get_a,section,num_values:$num_values\n");
+			  # print("oop_prog_params,get_a,section,num_values:$num_values\n");
 
 				if ( defined $num_values
-					&& $num_values > 0 ) {    # one value must exist
+					&& $num_values > 0 )
+				{    # one value must exist
 
 					if ( $num_values >= 2 ) {
 
-						use control 0.0.3;
+						use LSeismicUnix::misc::control '0.0.3';
 						my $control = control->new();
 
 						# de-tick sub-values for initial case
@@ -476,26 +515,31 @@ sub get_a_section {
 						$control->set_infection( $sub_values[$i] );
 						$sub_values[$i] = $control->get_ticksBgone();
 
-						# print("CASE #3A-1: oop_prog_params,get_a,section,de-ticked value:$sub_values[$i]\n");
+# print("CASE #3A-1: oop_prog_params,get_a,section,de-ticked value:$sub_values[$i]\n");
 
 						# PREFIX set here
 						# Second part is for initial case:
-						$oop_prog_params[$j] = $oop_prog_params[$j] . $prefix . "'" . $sub_values[$i] . "'" . ".','.";
+						$oop_prog_params[$j] =
+							$oop_prog_params[$j]
+						  . $prefix . "'"
+						  . $sub_values[$i] . "'" . ".','.";
 
-						# print("CASE #3A-1: oop_prog_params,get_a,section, parts 1-2 is $oop_prog_params[$j]\n");
+# print("CASE #3A-1: oop_prog_params,get_a,section, parts 1-2 is $oop_prog_params[$j]\n");
 
 						# de-tick sub-values for up-to penultimate case
-						for ( $i = 1; $i < ( $num_values - 1 ); $i++ ) {
+						for ( $i = 1 ; $i < ( $num_values - 1 ) ; $i++ ) {
 
 							$control->set_infection( $sub_values[$i] );
 							$sub_values[$i] = $control->get_ticksBgone();
 
 							# PREFIX set here
 							# Third part is:
-							$oop_prog_params[$j]
-								= $oop_prog_params[$j] . $prefix . "'" . $sub_values[$i] . "'" . ".','.";
+							$oop_prog_params[$j] =
+								$oop_prog_params[$j]
+							  . $prefix . "'"
+							  . $sub_values[$i] . "'" . ".','.";
 
-							# print("CASE #3A-2: oop_prog_params,get_a,section, parts 1-r is $oop_prog_params[$j]\n");
+# print("CASE #3A-2: oop_prog_params,get_a,section, parts 1-r is $oop_prog_params[$j]\n");
 
 						}
 
@@ -504,66 +548,91 @@ sub get_a_section {
 						$sub_values[$last_index] = $control->get_ticksBgone();
 
 						# Final part has no comma
-						$oop_prog_params[$j] = $oop_prog_params[$j] . $prefix . "'" . $sub_values[$i] . "'" . '));';
+						$oop_prog_params[$j] =
+							$oop_prog_params[$j]
+						  . $prefix . "'"
+						  . $sub_values[$i] . "'" . '));';
 
-						# print("CASE #3A-3: oop_prog_params,get_a,section,Final part is $oop_prog_params[$j]\n");
+# print("CASE #3A-3: oop_prog_params,get_a,section,Final part is $oop_prog_params[$j]\n");
 
-					} elsif ( $num_values == 1 ) {
+					}
+					elsif ( $num_values == 1 ) {
 
-						# print(" oop_prog_params, get_a_section CASE #3B, single-value case\n ");
+	  # print(" oop_prog_params, get_a_section CASE #3B, single-value case\n ");
 
 						# OUTPUT TEXT is set here
 						# otherwise the prefix is set here , only ONCE
-						$oop_prog_params[$j] = $oop_prog_params[$j] . $prefix . $value . '));';
+						$oop_prog_params[$j] =
+						  $oop_prog_params[$j] . $prefix . $value . '));';
 
-						# print("CASE #3B: oop_prog_params,get_a,section,Complete:$oop_prog_params[$j]\n");
+# print("CASE #3B: oop_prog_params,get_a,section,Complete:$oop_prog_params[$j]\n");
 
-					} else {
+					}
+					else {
 
 						#						print("oop_prog_params,get_a,section,NADA\n");
 					}
 
-				} else {
-					print("oop_prog_params,get_a,section,strange values, WARNING\n");
+				}
+				else {
+					print(
+"oop_prog_params,get_a,section,strange values, WARNING\n"
+					);
 				}
 
 				# CASE _for_
-			} elsif ( $suffix && !($prefix) ) {
+			}
+			elsif ( $suffix && !($prefix) ) {
 
-				#				print(" Case 4 oop_prog_params, get_a_section = suffix but no prefix\n ");
-				# OUTPUT TEXT is set here
-				$oop_prog_params[$j]
-					= " \t " . '$'
-					. $prog_name
-					. " \t \t \t \t " . '->'
-					. $label
-					. '(quotemeta('
-					. $value
-					. $suffix . '));';
+ #				print(" Case 4 oop_prog_params, get_a_section = suffix but no prefix\n ");
+ # OUTPUT TEXT is set here
+				$oop_prog_params[$j] =
+					" \t " . '$'
+				  . $prog_name
+				  . " \t \t \t \t " . '->'
+				  . $label
+				  . '(quotemeta('
+				  . $value
+				  . $suffix . '));';
 
-			} elsif ( !($suffix) && !($prefix) ) {
+			}
+			elsif ( !($suffix) && !($prefix) ) {
 
-				# CASE 5
-#				print(" oop_prog_params, get_a_section = CASE 5; no suffix or prefix\n ");
-				# OUTPUT TEXT is set here
-				$oop_prog_params[$j]
-					= " \t " . '$' . $prog_name . " \t \t \t \t " . '->' . $label . '(quotemeta(' . $value . '));';
+ # CASE 5
+ #				print(" oop_prog_params, get_a_section = CASE 5; no suffix or prefix\n ");
+ # OUTPUT TEXT is set here
+				$oop_prog_params[$j] =
+					" \t " . '$'
+				  . $prog_name
+				  . " \t \t \t \t " . '->'
+				  . $label
+				  . '(quotemeta('
+				  . $value . '));';
 
-				#			    print(" oop_prog_params, get_a_section = CASE 5:  $oop_prog_params[$j]  \n ");
-			} else {
+#			    print(" oop_prog_params, get_a_section = CASE 5:  $oop_prog_params[$j]  \n ");
+			}
+			else {
 
 				# CASE 6
-				print(" oop_prog_params, get_a_section prefix and suffixes are weird \n ");
+				print(
+" oop_prog_params, get_a_section prefix and suffixes are weird \n "
+				);
 			}
 
-			# print(" 2. oop_prog_params, get_a_section, label, value = $oop_prog_params[$j] \n ");
+# print(" 2. oop_prog_params, get_a_section, label, value = $oop_prog_params[$j] \n ");
 		}
 
-		$oop_prog_params[$j]
-			= " \t " . '$' . "$prog_name " . '[' . $version . '] ' . " \t \t \t " . '= $' . "$prog_name " . '->Step();';
+		$oop_prog_params[$j] =
+			" \t " . '$'
+		  . "$prog_name " . '['
+		  . $version . '] '
+		  . " \t \t \t " . '= $'
+		  . "$prog_name "
+		  . '->Step();';
 		return ( \@oop_prog_params );
 
-	} else {
+	}
+	else {
 
 		# print(" oop_prog_params, get_a_section, data detected \n ");
 		$oop_prog_params[0] = " \t " . 'place data here' . " \n ";
@@ -577,7 +646,8 @@ sub set_many_param_labels {
 	my ( $self, $param_labels_href ) = @_;
 
 	if ($param_labels_href) {
-		$oop_prog_params->{_param_labels_aref} = $param_labels_href->{_prog_param_labels_aref};
+		$oop_prog_params->{_param_labels_aref} =
+		  $param_labels_href->{_prog_param_labels_aref};
 
 		#		print(" oop_prog_params, set_param_labels, param_labels,
 		#		@{ $oop_prog_params->{_param_labels_aref} } \n ");
@@ -590,10 +660,11 @@ sub set_many_param_values {
 	my ( $self, $param_values_href ) = @_;
 
 	if ($param_values_href) {
-		$oop_prog_params->{_param_values_aref} = $param_values_href->{_prog_param_values_aref};
+		$oop_prog_params->{_param_values_aref} =
+		  $param_values_href->{_prog_param_values_aref};
 
-#		print(" oop_prog_params, set_param_values, param_values,
-#		@{ $oop_prog_params->{_param_values_aref} } \n ");
+		#		print(" oop_prog_params, set_param_values, param_values,
+		#		@{ $oop_prog_params->{_param_values_aref} } \n ");
 	}
 	return ();
 }

@@ -31,10 +31,10 @@ our $VERSION = '0.0.1';
 
 =cut
 
-use L_SU_global_constants();
-use SeismicUnix qw ($bin $ps $segy $su $suffix_bin $suffix_ps 
+use LSeismicUnix::misc::L_SU_global_constants;
+use LSeismicUnix::misc::SeismicUnix qw ($bin $ps $segy $su $suffix_bin $suffix_ps ;
 $suffix_segy $suffix_su $suffix_txt $txt);
-use Project_config;
+use LSeismicUnix::configs::big_streams::Project_config;
 
 =head2 instantiation of packages
 

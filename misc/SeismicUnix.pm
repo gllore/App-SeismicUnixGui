@@ -1,10 +1,54 @@
-package SeismicUnix;
+package LSeismicUnix::misc::SeismicUnix;
+
+=head1 DOCUMENTATION
+
+=head2 SYNOPSIS 
+
+ PERL PACKAGE NAME: SeismicUnix.pm 
+ AUTHOR: 	Juan Lorenzo
+ DATE: 		earlier than 2018 
+
+ DESCRIPTION 
+     
+
+ BASED ON:
+
+
+
+=cut
+
+=head2 USE
+
+=head3 NOTES
+
+=head4 Examples
+
+=head3 
+
+=head2 CHANGES and their DATES
+
+@ISA    = qw(Exporter); to our @ISA    = qw(Exporter);
+@EXPORT_OK to our @EXPORT_OK
+also commented @EXPORT=();
+@EXPORT_OK to @EXPORT
+
+    
+=cut 
+
 use strict;
-use Exporter;
-use vars qw(@ISA @EXPORT @EXPORT_OK );    # pacify strict
+use warnings;
+use Exporter;  # Gain export capability
+#use vars qw(@ISA @EXPORT @EXPORT_OK );    # pacify strict
 our $VERSION = '1.0.0';
-@ISA    = qw(Exporter);
-@EXPORT = ();
+
+=head2 declare
+
+Global variables
+
+=cut
+
+our (@EXPORT_OK, @ISA); #Global variables
+@ISA    = 'Exporter';  # Take advantage of Exporter's capabilities
 
 # export all; import at will
 @EXPORT_OK = qw($append $ascii $ascii_stdout $bin $cdp $CDP $SP
@@ -321,7 +365,7 @@ our $trid   = 'trid';
 ## extract start times from su files
 ## output is in seconds since the start of the year
 #
-#  use Project_config;
+#  use LSeismicUnix::configs::big_streams::Project_config;
 #  my $Project 					= new Project_config();
 #  my $DATA_SEISMIC_SU			= $Project->DATA_SEISMIC_SU();
 #  my $TEMP_DATA_SEISMIC_SU		= $Project->TEMP_DATA_SEISMIC_SU();

@@ -89,10 +89,10 @@ package Sucat_config;
 
 use Moose;
 our $VERSION = '2.2';
-use control 0.0.3;
-use config_superflows;
-use Project_config;
-use L_SU_global_constants;
+use LSeismicUnix::misc::control '0.0.3';
+use LSeismicUnix::misc::config_superflows;
+use LSeismicUnix::configs::big_streams::Project_config;
+use LSeismicUnix::misc::L_SU_global_constants;
 
 my $get               = new L_SU_global_constants();
 my $config_superflows = new config_superflows;

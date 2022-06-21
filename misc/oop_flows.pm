@@ -1,9 +1,11 @@
 package oop_flows;
 use Moose;
 our $VERSION = '0.0.3';
-use message_director;
+use LSeismicUnix::messages::message_director;
+use LSeismicUnix::misc::L_SU_global_constants;
 
 my $L_SU_messages = message_director->new();
+my $L_SU_global_constants = new L_SU_global_constants();
 
 =head2 initialize shared anonymous hash 
 
@@ -282,9 +284,13 @@ sub set_specs {
 		my $module_spec_pm;
 		$module_spec[$i] = $corrected_prog_names[$i] . '_spec';
 		$module_spec_pm = $module_spec[$i] . '.pm';
+		
+		$L_SU_global_constants->set_file_name($module_spec_pm);
+		my $path           = $L_SU_global_constants->get_path4spec_file();
+		my $pathNmodule_pm = $path . '/' . $module_spec_pm;	
 
 		# dynamically used modules need require
-		require $module_spec_pm;
+		require $pathNmodule_pm;
 
 		#		$refresher->refresh_module("$module_spec_pm");
 

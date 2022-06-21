@@ -10,3 +10,4 @@
  d2=1.0                 sampling interval in 2nd dimension		
  f2=d2                  first sample in 2nd dimension			
  label2=Trace           label for 2nd dimension			
+

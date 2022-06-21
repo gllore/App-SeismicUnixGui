@@ -48,8 +48,8 @@
 
 use Moose;
 use Tk;
-use iVA;
-use SeismicUnix qw ($true $false );
+use LSeismicUnix::big_streams::iVA;
+use LSeismicUnix::misc::SeismicUnix qw ($true $false );
 
 =head2 instantiate methods
 

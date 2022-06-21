@@ -34,9 +34,21 @@ package param_widgets_neutral;
 use Moose;
 our $VERSION = '0.0.2';
 use Tk;
-use L_SU_global_constants;
-use check_buttons;
+use LSeismicUnix::misc::L_SU_global_constants;
+use LSeismicUnix::misc::check_buttons;
 
+my $path;
+my $LSeismicUnix;
+use Shell qw(echo);
+
+BEGIN {
+
+$LSeismicUnix = ` echo \$LSeismicUnix`;
+chomp $LSeismicUnix;
+$path = $LSeismicUnix.'/'.'misc';
+
+}
+use lib "$path";
 extends 'gui_history' => { -version => 0.0.2 };
 
 my $check_buttons = new check_buttons();
@@ -163,7 +175,7 @@ sub _reset {
 sub _changes {
 	my ( $self, $index ) = @_;
 	my $idx = $index;    # individual parameter line
-	use control 0.0.3;
+	use LSeismicUnix::misc::control '0.0.3';
 	my $control = new control;
 
 	# two cases possible
@@ -384,7 +396,7 @@ sub get_values_w_aref {
 sub gui_clean {
 	my ($self) = @_;
 
-	use wipe;
+	use LSeismicUnix::misc::wipe;
 	my $wipe = new wipe();
 
 	# print("param_widgets_neutral, gui_clean, _values_w_aref, $param_widgets_color_href->{_values_w_aref} \n");
@@ -405,7 +417,7 @@ sub gui_clean {
 sub _max_length_in_gui {
 	my ($self) = @_;
 
-	use L_SU_global_constants;
+	use LSeismicUnix::misc::L_SU_global_constants;
 	my $get = L_SU_global_constants->new();
 
 	my $param             = $get->param();
@@ -446,7 +458,7 @@ clear the gui completely of 61 parameter values
 sub gui_full_clear {
 	my ($self) = @_;
 
-	use wipe;
+	use LSeismicUnix::misc::wipe;
 	my $wipe = new wipe();
 
 	# print("param_widgets_neutral, gui_full_clear, length used for cleaning $param_widgets_color_href->{_length} \n");
@@ -956,7 +968,7 @@ sub initialize_labels {
 	my ( $labels, $first, $length );
 	my (@blank_labels);
 
-	use label_boxes;
+	use LSeismicUnix::misc::label_boxes;
 
 	$labels = label_boxes->new();
 	$first  = $param_widgets_color_href->{_first_idx};
@@ -985,7 +997,7 @@ sub initialize_values {
 	my ($self) = @_;
 	my ( $values, $first, $length );
 	my @blank_values = ();
-	use value_boxes;
+	use LSeismicUnix::misc::value_boxes;
 	$values = value_boxes->new();
 
 	$first  = $param_widgets_color_href->{_first_idx};
@@ -1187,7 +1199,7 @@ sub redisplay_values {
 	if (   $values_w_aref
 		&& $values_aref )
 	{
-		use control 0.0.3;
+		use LSeismicUnix::misc::control '0.0.3';
 
 		for ( my $i = $first; $i < $length; $i++ ) {
 

@@ -1,11 +1,8 @@
- SUVCAT -  append one data set to another, with or without an 
+ SUVCAT -  append one data set to another, with or without an  ", 
            overlapping	region.  Data in the overlap may be     
            determined by one of several methods.               
 
- suvcat data1 data2 >stdout	
- 
- file1=data1				
- file2=data2
+ suvcat data1 data2 >stdout					
 
  Required parameters:						
         none							

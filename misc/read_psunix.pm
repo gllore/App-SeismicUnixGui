@@ -31,7 +31,7 @@ package read_psunix;
 
 use Moose;
 our $VERSION = '0.0.1';
-use sunix_pl;
+use LSeismicUnix::misc::sunix_pl;
 
 #use write_psunix;
 

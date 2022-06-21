@@ -53,14 +53,25 @@ our $VERSION = '1.0.0';
 
 =cut
 
-extends 'gui_history' => { -version => 0.0.2 };
+my $path;
+my $LSeismicUnix;
+use Shell qw(echo);
 
+BEGIN {
+
+$LSeismicUnix = ` echo \$LSeismicUnix`;
+chomp $LSeismicUnix;
+$path = $LSeismicUnix.'/'.'misc';
+
+}
+use lib "$path";
+extends 'gui_history' => { -version => 0.0.2 };
 
 =head2 Import modules
 
 =cut
 
-use L_SU_global_constants;
+use LSeismicUnix::misc::L_SU_global_constants;
 
 =head2 Instantiation
 
@@ -876,4 +887,3 @@ sub set4run_select {
 }
 
 1;
-

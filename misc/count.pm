@@ -41,9 +41,9 @@ count
 
 use Moose;
 my $VERSION = '0.0.1';
-use L_SU_global_constants;
-use Project_config;
-use SeismicUnix
+use LSeismicUnix::misc::L_SU_global_constants;
+use LSeismicUnix::configs::big_streams::Project_config;
+use LSeismicUnix::misc::SeismicUnix
   qw ($cdp $gx $in $out $on $go $to $txt $suffix_ascii $off $offset $su $sx $suffix_su $suffix_txt $tracl);
 
 =head2

@@ -2,10 +2,10 @@ package suop_spec;
 use Moose;
 our $VERSION = '1.0.1';
 
-use Project_config;
-use SeismicUnix qw ($su $suffix_su);
-use L_SU_global_constants;
-use suop;
+use LSeismicUnix::configs::big_streams::Project_config;
+use LSeismicUnix::misc::SeismicUnix qw ($su $suffix_su);
+use LSeismicUnix::misc::L_SU_global_constants;
+use LSeismicUnix::sunix::statsMath::suop;
 
 my $get     = new L_SU_global_constants();
 my $Project = new Project_config;

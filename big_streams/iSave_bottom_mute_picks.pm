@@ -1,10 +1,10 @@
 package iSave_bottom_mute_picks;
 
 use Moose;
-use message;
-use flow;
-use cp;
-use Project_config;
+use LSeismicUnix::misc::message;
+use LSeismicUnix::misc::flow;
+use LSeismicUnix::sunix::shell::cp;
+use LSeismicUnix::configs::big_streams::Project_config;
 
 =head1 DOCUMENTATION
 
@@ -85,7 +85,7 @@ my $iSave_bot_mute_picks = {
 
 =cut 
 
-use SeismicUnix qw ($itemp_bot_mute_picks_sorted_par_ $ibot_mute_par_);
+use LSeismicUnix::misc::SeismicUnix qw ($itemp_bot_mute_picks_sorted_par_ $ibot_mute_par_);
 my ($PL_SEISMIC) = $Project->PL_SEISMIC();
 
 =head2 subroutine clear

@@ -26,9 +26,23 @@ our $VERSION = '0.0.1';
 
 =head2 Import modules
 =cut
+my $path;
+my $LSeismicUnix;
+use Shell qw(echo);
+
+BEGIN {
+
+$LSeismicUnix = ` echo \$LSeismicUnix`;
+chomp $LSeismicUnix;
+$path = $LSeismicUnix.'/'.'misc';
+
+}
+use lib "$path";
 
 extends 'gui_history' => { -version => 0.0.2 };
-use L_SU_global_constants;
+
+#use LSeismicUnix::misc::gui_history '0.0.2';
+use LSeismicUnix::misc::L_SU_global_constants;
 
 =head2 Instantiation
 =cut
@@ -1486,7 +1500,7 @@ sub messages {
 
 	my ( $self, $run_name, $number ) = @_;
 
-	use message_director;
+	use LSeismicUnix::messages::message_director;
 	my $run_name_message = message_director->new();
 	my $message          = $run_name_message->color_listbox($number);
 
@@ -1519,7 +1533,7 @@ sub my_dialogs {
 
 	my ( $self, $run_name, $number ) = @_;
 
-	use message_director;
+	use LSeismicUnix::messages::message_director;
 	my $run_name_message = message_director->new();
 	my $message          = $run_name_message->color_listbox($number);
 

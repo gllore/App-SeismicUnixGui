@@ -71,13 +71,25 @@ sub sunix_select (subroutine is only active in neutral_flow.pm)
 use Moose;
 our $VERSION = '0.0.4';
 
+my $path;
+my $LSeismicUnix;
+use Shell qw(echo);
+
+BEGIN {
+
+$LSeismicUnix = ` echo \$LSeismicUnix`;
+chomp $LSeismicUnix;
+$path = $LSeismicUnix.'/'.'misc';
+
+}
+use lib "$path";
 extends 'gui_history' => { -version => 0.0.2 };
 
-use param_widgets_grey 0.0.2;
-use param_flow_grey 0.0.5;
+use LSeismicUnix::misc::param_widgets_grey '0.0.2';
+use LSeismicUnix::misc::param_flow_grey '0.0.5';
 
-use flow_widgets;
-use L_SU_global_constants;
+use LSeismicUnix::misc::flow_widgets;
+use LSeismicUnix::misc::L_SU_global_constants;
 
 =head2 Instantiation
 
@@ -156,7 +168,7 @@ sub _add2flow {
 
 	my ( $self, $value ) = @_;
 
-	use message_director;
+	use LSeismicUnix::messages::message_director;
 	use Clone 'clone';
 
 	my $color_flow_messages = message_director->new();
@@ -308,8 +320,8 @@ Once the file name is selected the parameter value is updated in the GUI
 sub _FileDialog_button {
 
 	my ( $self, $flow_dialog_type_sref ) = @_;
-	use file_dialog;
-	use control 0.0.3;
+	use LSUcpan::misc::file_dialog;
+	use LSeismicUnix::misc::control '0.0.3';
 
 	my $file_dialog = file_dialog->new();
 	my $control     = control->new();
@@ -494,7 +506,7 @@ sub _flow_select_director {
 sub flow_select2save_most_recent_param_flow {
 	my ($self) = @_;
 
-	use message_director;
+	use LSeismicUnix::messages::message_director;
 	use decisions;
 
 	$color_flow_href->{_flow_type} = $flow_type->{_user_built};
@@ -657,7 +669,7 @@ sub flow_select2save_most_recent_param_flow {
 sub _flow_select2save_most_recent_param_flow {
 	my ($self) = @_;
 
-	use message_director;
+	use LSeismicUnix::messages::message_director;
 	use decisions;
 
 	$color_flow_href->{_flow_type} = $flow_type->{_user_built};
@@ -913,8 +925,8 @@ sub _SaveAs_button {
 
 	if ( $topic eq 'SaveAs' ) {
 
-		use files_LSU;
-		use control 0.0.3;
+		use LSeismicUnix::misc::files_LSU;
+		use LSeismicUnix::misc::control '0.0.3';
 
 		my $files_LSU = new files_LSU();
 		my $control   = new control();
@@ -1007,9 +1019,9 @@ sub _perl_flow_errors {
 
 	# import modules
 	use perl_flow;
-	use message_director;
+	use LSeismicUnix::messages::message_director;
 	use param_sunix;
-	use control 0.0.3;
+	use LSeismicUnix::misc::control '0.0.3';
 
 	# instantiate modules
 	my $perl_flow           = perl_flow->new();
@@ -1058,9 +1070,9 @@ sub _perl_flow {
 
 	# import modules
 	use perl_flow;
-	use message_director;
+	use LSeismicUnix::messages::message_director;
 	use param_sunix;
-	use control 0.0.3;
+	use LSeismicUnix::misc::control '0.0.3';
 
 	# instantiate modules
 	my $perl_flow           = perl_flow->new();
@@ -1274,7 +1286,7 @@ sub _set_user_built_flow_name_w {
 
 sub _stack_flow {
 	my ($self) = @_;
-	use control 0.0.3;
+	use LSeismicUnix::misc::control '0.0.3';
 
 	my $control = control->new();
 
@@ -1350,7 +1362,7 @@ program in the flow
 sub _updateNsave_most_recent_param_flow {
 
 	my ($self) = @_;
-	use control 0.0.3;
+	use LSeismicUnix::misc::control '0.0.3';
 	my $control = control->new();
 
 	my $last_parameter_index_on_entry;
@@ -1535,7 +1547,7 @@ hash remains partially undefined in gui_history.pm
 sub _update_prior_param_flow {
 
 	my ($self) = @_;
-	use control 0.0.3;
+	use LSeismicUnix::misc::control '0.0.3';
 
 	my $control               = control->new();
 	my $prior_item_exists     = $false;
@@ -1659,7 +1671,7 @@ sub _update_prior_param_flow {
 sub _save_most_recent_param_flow {
 
 	my ($self) = @_;
-	use control 0.0.3;
+	use LSeismicUnix::misc::control '0.0.3';
 	my $control = control->new();
 
 	my $prior_flow_index_touched       = ( $color_flow_href->{_flow_select_index_href} )->{_prior};
@@ -1775,12 +1787,12 @@ Can also be (1) a previous pre-built superflow that is already in the GUI
 sub FileDialog_button {
 
 	my ( $self, $dialog_type_sref ) = @_;
-	use file_dialog;
-	use L_SU_global_constants;
+	use LSUcpan::misc::file_dialog;
+	use LSeismicUnix::misc::L_SU_global_constants;
 
 	use manage_files_by2;
-	use Project_config;
-	use control 0.0.3;
+	use LSeismicUnix::configs::big_streams::Project_config;
+	use LSeismicUnix::misc::control '0.0.3';
 
 	my $file_dialog = file_dialog->new();
 	my $get         = L_SU_global_constants->new();
@@ -1801,7 +1813,7 @@ sub FileDialog_button {
 			# i.e., in this module, dialog_type_sref can only be SaveAs
 			# Save for 'user-built flows' is accessible via L_SU.pm
 
-			use message_director;
+			use LSeismicUnix::messages::message_director;
 			my $color_flow_messages = message_director->new();
 
 			my $most_recent_flow_index_touched = ( $color_flow_href->{_flow_select_index_href} )->{_most_recent};
@@ -2043,7 +2055,7 @@ sub add2flow_button {
 
 	$color_flow_href->{_flow_type} = $flow_type->{_user_built};
 
-	use message_director;
+	use LSeismicUnix::messages::message_director;
 	use param_sunix;
 
 	my $param_sunix         = param_sunix->new();
@@ -2173,8 +2185,8 @@ sub delete_from_flow_button {
 
 		_set_flow_color($flow_color);
 
-		use message_director;
-		use decisions 1.00;
+		use LSeismicUnix::messages::message_director;
+		use LSeismicUnix::misc::decisions '1.0.0';
 
 		my $color_flow_messages = message_director->new();
 		my $decisions           = decisions->new();
@@ -2398,8 +2410,8 @@ sub delete_whole_flow_button {
 
 		_set_flow_color($flow_color);
 
-		use message_director;
-		use decisions 1.00;
+		use LSeismicUnix::messages::message_director;
+		use LSeismicUnix::misc::decisions '1.0.0';
 
 		my $color_flow_messages = message_director->new();
 		my $decisions           = decisions->new();
@@ -2491,8 +2503,8 @@ sub flow_item_down_arrow_button {
 
 		# $conditions_gui->set4start_of_flow_item_down_arrow_button($color_flow_href);
 
-		use message_director;
-		use decisions 1.00;
+		use LSeismicUnix::messages::message_director;
+		use LSeismicUnix::misc::decisions '1.0.0';
 
 		my $color_flow_messages = message_director->new();
 		my $decisions           = decisions->new();
@@ -2591,8 +2603,8 @@ sub flow_item_up_arrow_button {
 
 		# $conditions_gui->set4start_of_flow_item_up_arrow_button($color_flow_href);
 
-		use message_director;
-		use decisions 1.00;
+		use LSeismicUnix::messages::message_director;
+		use LSeismicUnix::misc::decisions '1.0.0';
 
 		my $color_flow_messages = message_director->new();
 		my $decisions           = decisions->new();
@@ -2692,7 +2704,7 @@ my $ans = @{$color_flow_href->{_values_w_aref}}[0]->get;
 sub flow_select {
 	my ($self) = @_;
 	my $ans;
-	use message_director;
+	use LSeismicUnix::messages::message_director;
 	use decisions;
 	$color_flow_href->{_flow_type} = $flow_type->{_user_built};
 
@@ -3096,8 +3108,8 @@ sub save_button {
 		#		print("color_flow, save_button writing gui_history.txt\n");
 		#	    $gui_history->view();
 
-		use files_LSU;
-		use control 0.0.3;
+		use LSeismicUnix::misc::files_LSU;
+		use LSeismicUnix::misc::control '0.0.3';
 
 		my $files_LSU = new files_LSU();
 		my $control   = new control();

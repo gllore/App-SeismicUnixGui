@@ -73,7 +73,7 @@ package blockmean;
 
 use Moose;
 our $VERSION = '1.0.1';
-use GMTglobal_constants;
+use LSeismicUnix::gmt::GMTglobal_constants;
 
 =head2 instantiation
 

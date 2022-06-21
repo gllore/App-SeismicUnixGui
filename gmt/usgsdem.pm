@@ -193,7 +193,7 @@ sub get_quarter_sheet_utms {
 #
 ##set gmt defaults
 #        system("gmtset ELLIPSOID GRS-80");
-#        system("gmtset D_FORMAT %lf");
+#        system("gmtset D_FORMAT 0.000000");
 #        system("gmtset MEASURE_UNIT m");
 #
 ## get filename and region limits from passed array
@@ -217,7 +217,7 @@ sub get_quarter_sheet_utms {
 #        $cost    =  cos($rad);
 #        $sint    =  sin($rad);
 #
-## scale from 75% to 150% of original length
+## scale from 750 1500f original length
 #for ( $yscale =0.75 ; $yscale < 1.1 ; $yscale = ($yscale + .005) ) {
 #
 ##  shift, CCW rotate and scale  x-y values before transforming
@@ -306,7 +306,7 @@ sub get_quarter_sheet_utms {
 #
 ##set gmt defaults
 #        system("gmtset ELLIPSOID GRS-80");
-#        system("gmtset D_FORMAT %lf");
+#        system("gmtset D_FORMAT 0.000000");
 #        system("gmtset MEASURE_UNIT m");
 #
 ## get filename ad region limits from passed array
@@ -419,7 +419,7 @@ sub get_quarter_sheet_utms {
 #
 ##set gmt defaults
 #        system("gmtset ELLIPSOID GRS-80");
-#	system("gmtset D_FORMAT %lf");
+#	system("gmtset D_FORMAT 0.000000");
 #        system("gmtset MEASURE_UNIT m");
 #
 #
@@ -542,7 +542,7 @@ sub get_quarter_sheet_utms {
 #
 ##set gmt defaults
 #	system("gmtset ELLIPSOID GRS-80");
-# 	system("gmtset D_FORMAT %lf");
+# 	system("gmtset D_FORMAT 0.000000");
 # 	system("gmtset MEASURE_UNIT m");
 #
 #

@@ -2,10 +2,10 @@ package b2a_spec;
 use Moose;
 our $VERSION = '0.0.1';
 
-use Project_config;
-use SeismicUnix qw ($bin $txt $su $suffix_txt $suffix_bin);
-use L_SU_global_constants;
-use b2a;
+use LSeismicUnix::configs::big_streams::Project_config;
+use LSeismicUnix::misc::SeismicUnix qw ($bin $txt $su $suffix_txt $suffix_bin);
+use LSeismicUnix::misc::L_SU_global_constants;
+use LSeismicUnix::sunix::par::b2a;
 
 my $get     = new L_SU_global_constants();
 my $Project = new Project_config;

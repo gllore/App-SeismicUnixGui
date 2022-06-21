@@ -1,17 +1,17 @@
 #!/bin/sh
 
 # see if global variable is set
-# global variable L_SU locates main folder
+# global variable PL_LOCAL locates main folder
 
- if [ -z "${L_SU}" ]; then
+ if [ -z "${PL_LOCAL}" ]; then
 
- 	echo "global variable L_SU must first be set"
+ 	echo "global variable PL_LOCAL must first be set"
  	echo "e.g. in .bashrc: "
- 	echo " export L_SU=/usr/local/pl/L_SU "
+ 	echo " export PL_LOCAL=/usr/local/pl/ "
 
  else
 
 	# run Segdread.pl
-	# echo "perl" $L_SU"/big_streams/Segdread.pl"
-	perl $L_SU/big_streams/Segdread.pl
+	# echo "perl" $PL_LOCAL"/LSeismicUnix/big_streams/Segdread.pl"
+	perl $PL_LOCAL/LSeismicUnix/big_streams/Segdread.pl
 fi

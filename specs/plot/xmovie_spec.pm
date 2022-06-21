@@ -2,10 +2,10 @@ package xmovie_spec;
 use Moose;
 our $VERSION = '0.0.1';
 
-use Project_config;
-use SeismicUnix qw ($su $bin $suffix_bin $suffix_su);
-use L_SU_global_constants;
-use xmovie;
+use LSeismicUnix::configs::big_streams::Project_config;
+use LSeismicUnix::misc::SeismicUnix qw ($su $bin $suffix_bin $suffix_su);
+use LSeismicUnix::misc::L_SU_global_constants;
+use LSeismicUnix::sunix::plot::xmovie;
 my $get     = new L_SU_global_constants();
 my $Project = new Project_config;
 my $xmovie  = new xmovie;

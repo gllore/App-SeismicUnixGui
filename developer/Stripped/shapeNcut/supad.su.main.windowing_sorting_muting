@@ -8,7 +8,7 @@
 
  Optional parameters:							
   key1=ep		panel key 					
-  key2=tracf	trace key 					
+  key2=tracf		trace key 					
   key3=trid		flag key					
   val3=2		value assigned to padded traces			
   d=1			trace key spacing				

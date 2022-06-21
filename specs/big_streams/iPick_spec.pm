@@ -1,10 +1,10 @@
 package iPick_spec;
 our $VERSION = '0.0.1';
 use Moose;
-use Project_config;
-use L_SU_global_constants;
-use iPick_config;
-use SeismicUnix qw ($su $suffix_su $txt $suffix_txt);
+use LSeismicUnix::configs::big_streams::Project_config;
+use LSeismicUnix::misc::L_SU_global_constants;
+use LSeismicUnix::configs::big_streams::iPick_config;
+use LSeismicUnix::misc::SeismicUnix qw ($su $suffix_su $txt $suffix_txt);
 
 my $get              = new L_SU_global_constants();
 my $var              = $get->var();

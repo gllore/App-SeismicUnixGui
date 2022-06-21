@@ -53,20 +53,31 @@ use Moose;
 our $VERSION = '0.0.1';
 
 use Tk;
-#use conditions_gui;
 # TODO Do I need decisions???
-use decisions 1.00;
+use LSeismicUnix::misc::decisions '1.0.0';
 
 # uses conditions_flows which derives
 # from conditions_gui
+my $path;
+my $LSeismicUnix;
+use Shell qw(echo);
+
+BEGIN {
+
+$LSeismicUnix = ` echo \$LSeismicUnix`;
+chomp $LSeismicUnix;
+$path = $LSeismicUnix.'/'.'misc';
+
+}
+use lib "$path";
 extends 'gui_history' => { -version => 0.0.2 };
 
 # potentially used in all packages
-use L_SU_global_constants;
-use name;
+use LSeismicUnix::misc::L_SU_global_constants;
+use LSeismicUnix::misc::name;
 
-# use control 0.0.3;
-use whereami;
+# use LSeismicUnix::misc::control '0.0.3';
+use LSeismicUnix::misc::whereami;
 
 my $gui_history = gui_history->new();
 my $decisions           = decisions->new();
@@ -119,7 +130,7 @@ sub _messages {
 	
 	my ($run_name)    = @_;
 	
-	use message_director;
+	use LSeismicUnix::messages::message_director;
     my $run_name_message = message_director->new();
     my $message       = $run_name_message->immodpg(0);
 	
@@ -277,7 +288,7 @@ sub _Run_user_built_flow {
 		if ($ok2run) {
 			
 			my $run_name = $run_button->{_flow_name_out};
-			use Project_config;
+			use LSeismicUnix::configs::big_streams::Project_config;
 			my $Project    = Project_config->new();
 			my $PL_SEISMIC = $Project->PL_SEISMIC();
 

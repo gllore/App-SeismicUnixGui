@@ -39,25 +39,30 @@ package oop_text;
 
 use Moose;
 our $VERSION = '0.0.4';
-use oop_declare_data_in;
-use oop_declare_data_out;
-use oop_declare_pkg;
-use oop_declaration_defaults;
-use oop_flows;    # corrects data-program order for seismic unix
-use oop_pod_header;
-use oop_inbound;
-use oop_instantiation_defaults;
-use oop_log_flows;
-use oop_use_pkg;
-use pod_declare;
-use pod_flows;
-use pod_log_flows;
-use pod_prog_param_setup;
-use pod_run_flows;
-use oop_print_flows;
-use oop_prog_params;
-use oop_run_flows;
-use L_SU_global_constants;
+use LSeismicUnix::misc::oop_declare_data_in;
+use LSeismicUnix::misc::oop_declare_data_out;
+use LSeismicUnix::misc::oop_declare_pkg;
+use LSeismicUnix::misc::oop_declaration_defaults;
+use LSeismicUnix::misc::oop_flows;    # corrects data-program order for seismic unix;
+use LSeismicUnix::misc::oop_pod_header;
+use LSeismicUnix::misc::oop_inbound;
+use LSeismicUnix::misc::oop_instantiation_defaults;
+use LSeismicUnix::misc::oop_log_flows;
+use LSeismicUnix::misc::oop_use_pkg;
+use LSeismicUnix::misc::pod_declare;
+use LSeismicUnix::misc::pod_flows;
+use LSeismicUnix::misc::pod_log_flows;
+use LSeismicUnix::misc::pod_prog_param_setup;
+use LSeismicUnix::misc::pod_run_flows;
+use LSeismicUnix::misc::oop_print_flows;
+
+
+use LSeismicUnix::misc::oop_prog_params;
+
+
+
+use LSeismicUnix::misc::oop_run_flows;
+use LSeismicUnix::misc::L_SU_global_constants;
 
 my $get              = new L_SU_global_constants();
 my $declare_data_in  = oop_declare_data_in->new();
@@ -124,7 +129,7 @@ $oop_text->{_filehandle} = undef;    # for future use perhaps
 sub set_data_io_L_SU {
 
 	my ( $self, $hash_ref ) = @_;
-	use SeismicUnix qw ($segb $segd $segy $sgd $sgy $su $txt $text $bin);
+	use LSeismicUnix::misc::SeismicUnix qw ($segb $segd $segy $sgd $sgy $su $txt $text $bin);
 
 	$oop_text->{_suffix_type_in}  = $hash_ref->{_suffix_type_in};
 	$oop_text->{_suffix_type_out} = $hash_ref->{_suffix_type_out};
@@ -853,7 +858,7 @@ output in the text file should look something like
 sub use_pkg {
 
 	my ($self) = @_;
-	use manage_files_by2;
+	use LSeismicUnix::misc::manage_files_by2;
 
 	my @unique_progs;
 	my $unique_progs_ref;
@@ -897,7 +902,7 @@ sub use_pkg {
 		#				. $prog_name . ';' . "\n";
 		# replaced by
 
-		print $filehandle "\t" . 'use ' . $prog_name . ';' . "\n";
+		print $filehandle "\t" . 'use LSeismicUnix::' . $prog_name . ';' . "\n";
 
 		#		}
 		#		elsif ( $prog_name ne 'data_in' or $prog_name ne 'data_out' )

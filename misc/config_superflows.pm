@@ -23,12 +23,12 @@ package config_superflows;
 
 use Moose;
 my $VERSION = '1.0.0';
-extends 'param_sunix';
+
 
 =pod
 
  private hash_ref
- w  for widgets
+ for widgets
 
 =cut
 
@@ -38,15 +38,15 @@ my $config_superflows = {
 	_entry_boxes_w       => '',
 	_check_buttons_w     => '',
 	_all_aref            => '',
-	_first_superflow_idx => 0,
+	_first_idx           => '',
 	_length              => '',
 	_inbound             => '',
 	_program_name_config => '',
 	_size                => '',
 };
 
-use L_SU_global_constants;
-use immodpg_global_constants;
+use LSeismicUnix::misc::L_SU_global_constants;
+use LSeismicUnix::big_streams::immodpg_global_constants;
 
 my $get             = new L_SU_global_constants();
 my $get_immodpg     = new immodpg_global_constants();
@@ -350,7 +350,8 @@ sub _local_or_defaults {
 
 # print("config_superflows, _local_or_defaults, program name=$name_sref\n");
 # print("config_superflows, _local_or_defaults,SCALAR program name=$name_sref\n");
-	use big_streams_param;
+
+	use LSeismicUnix::misc::big_streams_param;
 
 	my $big_streams_param   = new big_streams_param();
 	my $flow_type           = $get->flow_type_href();
@@ -359,9 +360,9 @@ sub _local_or_defaults {
 #	print("config_superflows, _local_or_defaults,pre_built_superflow=$pre_built_superflow\n");
 # set flow type before big_streams_param->get
 	$big_streams_param->set_flow_type($pre_built_superflow);
-	my $cfg_aref = $big_streams_param->get($name_sref);
+	my $cfg_aref 					= $big_streams_param->get($name_sref);
 	$config_superflows->{_all_aref} = $cfg_aref;
-	$config_superflows->{_length}   = $big_streams_param->length();
+	$config_superflows->{_length}   = $big_streams_param->my_length();
 
 # print("config_superflows, _local_or_defaults,length=$config_superflows->{_length}\n");
 	return ();
@@ -396,11 +397,10 @@ sub get_local_or_defaults {
 
 # print("config_superflows, get_local_or_defaults,program name=$config_base_name\n");
 
-	use L_SU_local_user_constants;
-	my $user_constants = L_SU_local_user_constants->new();
+
 
 	if ( $config_superflows->{_program_name_sref} ) {
-		use big_streams_param;
+		use LSeismicUnix::misc::big_streams_param;
 		my $big_streams_param = new big_streams_param();
 		my ( $cfg_aref, $size );
 
@@ -446,7 +446,7 @@ sub save {
 		_prog_name_sref => '',
 	};
 
-	use files_LSU;
+	use LSeismicUnix::misc::files_LSU;
 	my $files_LSU = new files_LSU();
 
 	$out_hash_ref->{_ref_labels} = $in_hash_ref->{_names_aref};
@@ -687,6 +687,24 @@ sub _get_prog_name_config {
 	}
 }
 
+=head2 sub first_idx
+
+ first usable index is set to 0
+
+=cut 
+
+sub first_idx {
+
+	my ($self) = @_;
+
+	$config_superflows->{_first_idx} = 0;
+
+	my $result = $config_superflows->{_first_idx};
+	return ($result);
+
+}
+
+
 =head2 sub set_prog_name_config
 
 needs $config_superflows->{_program_name_sref}
@@ -723,7 +741,7 @@ sub inbound {
 
 	if ( $config_superflows->{_program_name_sref} ) {
 
-		use Project_config;
+		use LSeismicUnix::configs::big_streams::Project_config;
 		my $Project    = Project_config->new();
 		my $PL_SEISMIC = $Project->PL_SEISMIC();
 
@@ -757,7 +775,7 @@ sub inbound {
 #	my ($self,$PATH)  = @_;
 #				print("config_superflows, set_outbound,_program_name_sref: $config_superflows->{_program_name_sref}\n");
 #	if ( $PATH ) {
-#		use Project_config;
+#		use LSeismicUnix::configs::big_streams::Project_config;
 #
 #		my $Project 		= Project_config->new();
 #

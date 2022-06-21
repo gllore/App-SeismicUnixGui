@@ -38,7 +38,7 @@ use Config::Simple;
 my $cfg = new Config::Simple('SuLoadHeaders.config');
 
 use lib '/usr/local/pl/libAll';
-use Project_config;
+use LSeismicUnix::configs::big_streams::Project_config;
 my $Project = new Project_config();
 use SeismicUnix qw ($in $out $on $go $to $suffix_ascii $off $suffix_su);
 my $DATA_SEISMIC_SU = $Project->DATA_SEISMIC_SU();

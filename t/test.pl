@@ -62,15 +62,15 @@ V 0.0.3 Add switches on 7.13.21
 
 use Moose;
 our $VERSION = '0.0.3';
-use L_SU_global_constants;
+use LSeismicUnix::misc::L_SU_global_constants;
 
 use lib '.';
-use check 0.0.1;
-use clean 0.0.1;
-use configuration 0.0.2;
-use flow;
-use message;
-use user 0.0.1;
+use LSeismicUnix::t::check '0.0.1';
+use LSeismicUnix::t::clean '0.0.1';
+use LSeismicUnix::t::configuration '0.0.2';
+use LSeismicUnix::misc::flow;
+use LSeismicUnix::misc::message;
+use LSeismicUnix::t::user '0.0.1';
 
 =head2 Instantiation
 

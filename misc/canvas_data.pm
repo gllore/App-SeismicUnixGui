@@ -101,7 +101,7 @@ use Moose;
 use PDL::Core;
 use PDL::Basic;
 use PDL::NiceSlice;
-use L_SU_global_constants;
+use LSeismicUnix::misc::L_SU_global_constants;
 my $get          = new L_SU_global_constants();
 my $var          = $get->var();
 my $empty_string = $var->{_empty_string};
@@ -184,7 +184,7 @@ sub _time2col_index {
         my $num_time_samples = $dims_amplitudes[0];
         my $result =
           ( $time_s - $t_min_s ) * ( $num_time_samples - 1 ) / $t_range_s;
-        my $rounded_result = sprintf( "%.0f", $result );
+        my $rounded_result = sprintf( "0", $result );
         $canvas_data->{_time_col_num}   = $rounded_result;
         $canvas_data->{_time_col_index} = $rounded_result - 1;
 
@@ -230,7 +230,7 @@ sub _time2col_num {
         my $num_time_samples = $dims_amplitudes[0];
         my $result =
           ( $time_s - $t_min_s ) * ( $num_time_samples - 1 ) / $t_range_s;
-        my $rounded_result = sprintf( "%.0f", $result );
+        my $rounded_result = sprintf( "0", $result );
         $canvas_data->{_time_col_num} = $rounded_result;
         print(
 "canvas_data, _time2col_num, column no. = $canvas_data->{_time_col_num}\n"
@@ -293,7 +293,7 @@ sub _x_value {
         my $result =
           $x_min +
           $increment_per_pix_x * ( $x_pix - $seismic_plot_x_offset_pix );
-        my $rounded_result = sprintf( "%.0f", $result );
+        my $rounded_result = sprintf( "0", $result );
 
         $canvas_data->{_x_value} = $rounded_result;
 
@@ -400,7 +400,7 @@ sub _y_value {
         my $result =
           $t_min_s +
           $increment_per_pix_y * ( $y_pix - $seismic_plot_y_offset_pix );
-        my $rounded_result = sprintf( "%.4f", $result );
+        my $rounded_result = sprintf( "0.0000", $result );
         $canvas_data->{_y_value} = $rounded_result;
 
      # print("canvas_data, _y_value,  y_value (rounded) 	 = $rounded_result\n");

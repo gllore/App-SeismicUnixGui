@@ -45,10 +45,10 @@ use Moose;
 
 =cut
 
-use message;
-use flow;
-use cp;
-use Project_config;
+use LSeismicUnix::misc::message;
+use LSeismicUnix::misc::flow;
+use LSeismicUnix::sunix::shell::cp;
+use LSeismicUnix::configs::big_streams::Project_config;
 
 =head2
 
@@ -91,7 +91,7 @@ my $iSave_top_mute_picks = {
 
 =cut 
 
-use SeismicUnix qw ($itemp_top_mute_picks_sorted_par_ $itop_mute_par_);
+use LSeismicUnix::misc::SeismicUnix qw ($itemp_top_mute_picks_sorted_par_ $itop_mute_par_);
 my ($PL_SEISMIC) = $Project->PL_SEISMIC();
 
 =head2 subroutine clear

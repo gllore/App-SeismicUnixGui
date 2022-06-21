@@ -33,9 +33,21 @@ package param_widgets4pre_built_streams;
 use Moose;
 our $VERSION = '0.0.2';
 use Tk;
-use L_SU_global_constants;
-use check_buttons;
+use LSeismicUnix::misc::L_SU_global_constants;
+use LSeismicUnix::misc::check_buttons;
 
+my $path;
+my $LSeismicUnix;
+use Shell qw(echo);
+
+BEGIN {
+
+$LSeismicUnix = ` echo \$LSeismicUnix`;
+chomp $LSeismicUnix;
+$path = $LSeismicUnix.'/'.'misc';
+
+}
+use lib "$path";
 extends 'gui_history' => { -version => 0.0.2 };
 
 my $gui_history   = gui_history->new();
@@ -60,81 +72,8 @@ my $empty_string        = $var->{_empty_string};
 my $param_widgets       = $gui_history->get_defaults();
 
 # print("param_widgets, default_param_specs,first entry num=$default_param_specs->{_first_entry_num}\n");
-
 # print("param_widgets_grey, default_param_specs,first entry num=$default_param_specs->{_first_entry_num}\n");
 
-#=head2 private hash references
-#
-#32 off
-#
-#=cut
-#
-#my $param_widgets = {
-#
-#    _changed_entry               => 0,
-#    _check_buttons_settings_aref => '',
-#    _check_buttons_frame_href    => '',
-#    _check_buttons_w_aref        => '',
-#    _current_program_name        => '',
-#    _entry_button_chosen_index   => '',
-#    _entry_button_chosen_widget  => '',
-#    _location_in_gui             => '',
-#    _first_idx                   => $default_param_specs->{_first_entry_idx},
-#    _index                      => '',    # for current program in a listbox
-#    _is_delete_from_flow_button => '',
-#    _is_flow_listbox_grey_w     => '',
-#    _is_flow_listbox_pink_w     => '',
-#    _is_flow_listbox_green_w    => '',
-#    _is_flow_listbox_blue_w     => '',
-#    _is_flow_listbox_color_w    => '',
-#    _is_moveNdrop_in_flow       => '',
-#    _is_new_listbox_selection   => '',
-#    _is_sunix_listbox           => '',
-#    _is_superflow_select_button => '',
-#    _labels_aref                => '',
-#    _labels_frame_href          => '',
-#    _labels_w_aref              => '',
-#
-#    #_last_changed_program_index => '',
-#    _last_changed_entry_index => '',
-#    _last                     => '',
-#    _length                   => $default_param_specs->{_length},
-#    _prog_name                => '',
-#    _prog_name_sref           => '',
-#    _values_aref              => '',
-#    _values_frame_href        => '',
-#    _values_w_aref            => '',
-#
-#};
-
-#
-#=head2 sub _reset
-#
-#	private reset of "condition" variables
-#	do not reset incoming widgets
-#
-#=cut
-#
-#sub _reset {
-#    my ($self) = @_;
-#
-#    $param_widgets->{_is_flow_listbox_grey_w}  = $false;
-#    $param_widgets->{_is_flow_listbox_pink_w}  = $false;
-#    $param_widgets->{_is_flow_listbox_green_w} = $false;
-#    $param_widgets->{_is_flow_listbox_blue_w}  = $false;
-#    $param_widgets->{_is_flow_listbox_color_w} = $false;
-#    $param_widgets->{_is_add2flow} = $false;    # needed? double confirmation?
-#    $param_widgets->{_is_add2flow_button} =
-#      $false;                                   # needed? double confirmation?
-#    $param_widgets->{_is_delete_from_flow_button} = $false;
-#    $param_widgets->{_is_new_listbox_selection}   = $false;
-#    $param_widgets->{_is_superflow_select_button} = $false;
-#    $param_widgets->{_is_delete_from_flow_button} = $false;
-#    $param_widgets->{_is_moveNdrop_in_flow}       = $false;
-#    $param_widgets->{_is_sunix_listbox}           = $false;
-#
-#    return ();
-#}
 
 =head2 _changes
 
@@ -161,7 +100,7 @@ my $param_widgets       = $gui_history->get_defaults();
 sub _changes {
 	my ($index) = @_;
 	my $idx = $index;    # individual parameter line
-	use control 0.0.3;
+	use LSeismicUnix::misc::control '0.0.3';
 	my $control = new control;
 
 	# two cases possible
@@ -344,22 +283,6 @@ sub get_values_w_aref {
 		return ();
 	}
 }
-#
-#sub gui_clean {
-#    my ($self) = @_;
-#
-#    use wipe;
-#    my $wipe = new wipe();
-#
-## print("param_widgets, gui_clean, _values_w_aref, $param_widgets->{_values_w_aref} \n");
-## print("param_widgets, gui_clean, _labels_w_aref, $param_widgets->{_labels_w_aref} \n");
-#    $wipe->range($param_widgets);
-#    $wipe->values();
-#    $wipe->labels();
-#    $wipe->check_buttons();
-#
-#    return ();
-#}
 
 =head2 sub _max_length_in_gui
 
@@ -369,7 +292,7 @@ sub get_values_w_aref {
 sub _max_length_in_gui {
 	my ($self) = @_;
 
-	use L_SU_global_constants;
+	use LSeismicUnix::misc::L_SU_global_constants;
 	my $get = L_SU_global_constants->new();
 
 	my $param             = $get->param();
@@ -410,7 +333,7 @@ clear the gui completely of 61 parameter values
 sub gui_full_clear {
 	my ($self) = @_;
 
-	use wipe;
+	use LSeismicUnix::misc::wipe;
 	my $wipe = new wipe();
 
 	my $safe = $param_widgets->{_length};
@@ -666,18 +589,6 @@ sub get_check_buttons_settings_aref {
 
 }
 
-#=head2 sub get_check_buttons_settings_aref
-#
-#=cut
-#
-#sub get_check_buttons_settings_aref {
-#	my ($self)                      = @_;
-#	my $check_buttons_settings_aref = \@{ $param_widgets->{_check_buttons_settings_aref} };
-#	my $check_buttons_aref          = $check_buttons_settings_aref;
-#
-#	# print("param_widgets,get_check_buttons_settings_aref: @{$param_widgets->{_check_buttons_settings_aref}}\n");
-#	return ($check_buttons_aref);
-#}
 
 sub set_entry_button_chosen_index {
 
@@ -919,7 +830,7 @@ sub initialize_labels {
 	my ( $labels, $first, $length );
 	my (@blank_labels);
 
-	use label_boxes;
+	use LSeismicUnix::misc::label_boxes;
 
 	$labels = label_boxes->new();
 	$first  = $param_widgets->{_first_idx};
@@ -948,7 +859,7 @@ sub initialize_values {
 	my ($self) = @_;
 	my ( $values, $first, $length );
 	my @blank_values = ();
-	use value_boxes;
+	use LSeismicUnix::misc::value_boxes;
 	$values = value_boxes->new();
 
 	$first  = $param_widgets->{_first_idx};
@@ -965,98 +876,6 @@ sub initialize_values {
 	$param_widgets->{_values_w_aref} = $values->get_w_aref();
 
 }
-
-# find out what the label is and if it is datain then go ahead
-# default is to do nothing
-# if (not $datain) {
-# 	# do nothing
-# } else {
-#
-# 	# proceed to find the data
-
-# $$option_sref == 'Select'
-# in main you should then go ahead and activate the File Dialog to open a file
-# }
-#print("TODO: value_boxes,_callback from MB_3 on index= $index entry that has as label datain\n");
-#return();
-
-#}
-
-=head2 sub local_checks 
- When original value of Entry widget (package create, sub valuesc) 
- is modified:
-  test the new value
-  a true response means changes are actually happening
-  a false response means there is no reall change
-  occurring.
-
-  E.g., A  test for integers or decimal values as follows:
-  if (($test =~ /^-?\d+/) || ($test =~ /^-?\d+\.\d+/)) {
-  print ("Error: Entered an integer (First check)\n");
-  print ("or a decimal (2nd check)\n");
-
- TODO multiple values
-
- NB.
-  Dereference one scalar reference 
-  within an array of references 
-  First ascertain values are not blank
-  as during initialization of GUI. 
-
- DB
-
-=cut
-
-=head2 sub local_checks 
-
-  the first time a flow is added (add2flow) or just looked at
-  by clicking the sunix-listbox item no changes can be made
-
-
-=cut
-
-# sub local_checks {
-#   my ($index) = @_;
-#
-#   # changed entry updates automatically
-#   my $first 		= $param_widgets->{_first_idx};
-#   my $length  		= $param_widgets->{_length};
-#		     # print("1. param_widgets,local_checks,number of items in program: $length\n");
-#		     # print("1. param_widgets,local_checks,recently current entry was index: $index\n");
-#		    # print("1. param_widgets,local_checks,is new listbox selected? : $param_widgets->{_is_new_listbox_selection}\n\n");
-#		   # print("1. param_widgets,local_checks,result of add2flow_button selected? : $param_widgets->{_is_add2flow_button}\n\n");
-#
-#					# first-time selection program but program has not been modified or just added to flow iwhtout modification
-# # or a drag and drop has just occurred in which case we assume
-# # that changes were implemented fully (i.e. no effective change on this round
-# # or that a flow prgram has just been moved and inserted in the flow
-#   if ($param_widgets->{_is_new_listbox_selection} || $param_widgets->{_is_add2flow_button} || $param_widgets->{_is_moveNdrop_in_flow}) {
-#
-#					# work through a program's entries
-#	 if( $index == ($length-1) ) {      				# at last  entry (via local subs: redisplay or gui_update)
-#	    $param_widgets->{_is_new_listbox_selection} = $false;
-#	    $param_widgets->{_is_add2flow_button} 		= $false;
-#										  # print("2. param_widgets,local_checks, at last item#; # $length\n\n");
-#   	    return($false);  # false change detected
-#     } elsif( $index < ($length-2) ) {  #unlikely case but answer is still false
-#	     $param_widgets->{_is_new_listbox_selection} = $true;
-#	      $param_widgets->{_is_add2flow_button} 	 = $true;
-#										   # print("3. param_widgets,local_checks,new flow selection, idx=$index\n\n");
-#   	    return($false);  # false change detected
-#     }
-#   } elsif ($param_widgets->{_is_delete_from_flow_button} || $param_widgets->{_is_sunix_listbox} ) {
-#   	    return($false);	# do nothing, false change detected
-#
-#   } else {  # By exclusion of everything we can ONLY be but truly CHANGING entries
-#	    								   print("4. param_widgets,local_checks,leaving index:  $index\n\n");
-#   	    								  print("4. param_widgets,local_checks, value just changed to: @{$param_widgets->{_values_aref}}[$index]\n");
-#   	    if( $index < $length) { # not beyond parameter range
-#             return($true);    # true change detected
-#        }
-#   }
-# }
-
-#
 
 =head2 sub range 
 
@@ -1239,7 +1058,7 @@ sub redisplay_values {
 	# print("param_widgets, redisplay_values, length is $length\n");
 	# print("param_widgets, redisplay_values, first is $first\n");
 	if ( $values_w_aref && $values_aref ) {
-		use control 0.0.3;
+		use LSeismicUnix::misc::control '0.0.3';
 
 		for ( my $i = $first; $i < $length; $i++ ) {
 

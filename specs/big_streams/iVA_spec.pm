@@ -37,11 +37,11 @@ uses CONFIG
 
 our $VERSION = '1.1';
 use Moose;
-use Project_config;
-use L_SU_global_constants;
+use LSeismicUnix::configs::big_streams::Project_config;
+use LSeismicUnix::misc::L_SU_global_constants;
 
-use iVA_config;
-use SeismicUnix qw ($su $suffix_su);
+use LSeismicUnix::configs::big_streams::iVA_config;
+use LSeismicUnix::misc::SeismicUnix qw ($su $suffix_su);
 
 my $Project = new Project_config;
 my $get              = new L_SU_global_constants();

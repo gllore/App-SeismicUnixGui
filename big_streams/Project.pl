@@ -24,7 +24,7 @@
 
 use Moose;
 
-use Project_config;
+use LSeismicUnix::configs::big_streams::Project_config;
 my $Project = new Project_config();
 
 $Project->basic_dirs();

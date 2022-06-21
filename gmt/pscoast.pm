@@ -89,7 +89,7 @@ usage: pscoast -J<args> [-A<min_area>[/<min_level>/<max_level>][+ag|i|s|S][+r|l]
 	   Append +ag to use shelf ice grounding line for Antarctica coastline.
 	   Append +ai to use ice/water front for Antarctica coastline [Default].
 	   Append +r to only get riverlakes from level 2, or +l to only get lakes [both].
-	   Append +p<percent> to exclude features whose size is < <percent>% of the full-resolution feature [use all].
+	   Append +p<percent> to exclude features whose size is < <percent>0f the full-resolution feature [use all].
 	-B Specify both (1) basemap frame settings and (2) axes parameters.
 	   (1) Frame settings are modified via an optional single invocation of
 	     -B[<axes>][+g<fill>][+n][+o<lon>/<lat>][+t<title>]
@@ -328,7 +328,7 @@ usage: pscoast -J<args> [-A<min_area>[/<min_level>/<max_level>][+ag|i|s|S][+r|l]
 
 use Moose;
 our $VERSION = '1.0.1';
-use GMTglobal_constants;
+use LSeismicUnix::gmt::GMTglobal_constants;
 
 =head2 instantiation of packages
 

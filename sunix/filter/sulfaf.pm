@@ -61,7 +61,7 @@ Version:
 
  where a trace mix is performed in the specifed frequency range	
 
- as Mix = ve l/(freq*dx)							
+ as Mix=vel/(freq*dx)							
 
 
 
@@ -221,7 +221,7 @@ main( int argc, char *argv[] )
 
 	 if (nfft >= SU_NFLTS || nfft >= PFA_MAX)
 
-		 	err("Padded nt=%d--too big", nfft);
+		 	err("Padded nt=0--too big", nfft);
 
 	 nf = nfft/2 + 1;
 
@@ -315,7 +315,7 @@ main( int argc, char *argv[] )
 
 				if(!ISODD(mix)) mix -=1;
 
-				if (verbose) warn(" %f %d",iw*d1,mix);
+				if (verbose) warn(" 0.000000 0",iw*d1,mix);
 
 				
 
@@ -445,7 +445,7 @@ main( int argc, char *argv[] )
 
 
 
-	warn("Number of gathers %10d\n",ng);
+	warn("Number of gathers          0\n",ng);
 
 	 
 
@@ -473,10 +473,10 @@ our $VERSION = '0.0.1';
 
 =cut
 
-use L_SU_global_constants();
+use LSeismicUnix::misc::L_SU_global_constants;
 
-use SeismicUnix qw ($go $in $off $on $out $ps $to $suffix_ascii $suffix_bin $suffix_ps $suffix_segy $suffix_su);
-use Project_config;
+use LSeismicUnix::misc::SeismicUnix qw ($go $in $off $on $out $ps $to $suffix_ascii $suffix_bin $suffix_ps $suffix_segy $suffix_su);
+use LSeismicUnix::configs::big_streams::Project_config;
 
 
 =head2 instantiation of packages
@@ -504,7 +504,6 @@ hash of private variables
 =cut
 
 my $sulfaf			= {
-	_Mix					=> '',
 	_adb					=> '',
 	_ct					=> '',
 	_d1					=> '',
@@ -587,7 +586,6 @@ by adding the program name
 
  sub clear {
 
-		$sulfaf->{_Mix}			= '';
 		$sulfaf->{_adb}			= '';
 		$sulfaf->{_ct}			= '';
 		$sulfaf->{_d1}			= '';
@@ -632,25 +630,6 @@ by adding the program name
 		$sulfaf->{_note}			= '';
  }
 
-
-=head2 sub Mix 
-
-
-=cut
-
- sub Mix {
-
-	my ( $self,$Mix )		= @_;
-	if ( $Mix ne $empty_string ) {
-
-		$sulfaf->{_Mix}		= $Mix;
-		$sulfaf->{_note}		= $sulfaf->{_note}.' Mix='.$sulfaf->{_Mix};
-		$sulfaf->{_Step}		= $sulfaf->{_Step}.' Mix='.$sulfaf->{_Mix};
-
-	} else { 
-		print("sulfaf, Mix, missing Mix,\n");
-	 }
- }
 
 
 =head2 sub adb 
@@ -1461,7 +1440,7 @@ max index = number of input variables -1
  
 sub get_max_index {
  	  my ($self) = @_;
-	my $max_index = 40;
+	my $max_index = 39;
 
     return($max_index);
 }

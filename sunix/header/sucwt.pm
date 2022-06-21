@@ -98,7 +98,7 @@ package sucwt;
 
 use Moose;
 our $VERSION = '0.0.1';
-use L_SU_global_constants();
+use LSeismicUnix::misc::L_SU_global_constants;
 
 my $get = new L_SU_global_constants();
 

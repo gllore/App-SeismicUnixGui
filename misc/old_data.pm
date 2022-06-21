@@ -1,7 +1,7 @@
 package old_data;
 
 use Moose;
-use L_SU_global_constants;
+use LSeismicUnix::misc::L_SU_global_constants;
 
 =pod
 
@@ -71,7 +71,7 @@ my $old_data = {
 
 =cut 
 
-use SeismicUnix qw ($on $off $in $to $go
+use LSeismicUnix::misc::SeismicUnix qw ($on $off $in $to $go
   $itemp_top_mute_picks_ $itop_mute_par_ $itemp_top_mute_picks_sorted_par_
   $itop_mute_check_pickfile_
   $itemp_bot_mute_picks_ $ibot_mute_par_ $itemp_bot_mute_picks_sorted_par_
@@ -86,9 +86,9 @@ use SeismicUnix qw ($on $off $in $to $go
 
 =cut
 
-use Project_config;
+use LSeismicUnix::configs::big_streams::Project_config;
 my $Project = new Project_config();
-use manage_files_by2;
+use LSeismicUnix::misc::manage_files_by2;
 
 my ($PL_SEISMIC)       = $Project->PL_SEISMIC();
 my ($DATA_SEISMIC_TXT) = $Project->DATA_SEISMIC_TXT;

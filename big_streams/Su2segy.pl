@@ -31,11 +31,11 @@ file names and locations are automatically found
 =cut
 
 # define library of system subroutines
-use manage_files_by;
-use Project_config;
+use LSeismicUnix::misc::manage_files_by;
+use LSeismicUnix::configs::big_streams::Project_config;
 
 # import system variables
-use SeismicUnix qw ($suffix_sgy $suffix_su $suffix_usp);
+use LSeismicUnix::misc::SeismicUnix qw ($suffix_sgy $suffix_su $suffix_usp);
 
 # instantiation new local package
 my $Project = new Project_config();

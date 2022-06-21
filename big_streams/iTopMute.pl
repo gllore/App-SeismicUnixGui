@@ -51,13 +51,13 @@
 
 use Moose;
 my $VERSION = '1.0.3';
-use L_SU_global_constants;
-use readfiles;
+use LSeismicUnix::misc::L_SU_global_constants;
+use LSeismicUnix::misc::readfiles;
 use Tk;
-use iTopMute;
-use iTopMute_config;
-use SeismicUnix qw ($true $false );
-use xk;
+use LSeismicUnix::big_streams::iTopMute;
+use LSeismicUnix::configs::big_streams::iTopMute_config;
+use LSeismicUnix::misc::SeismicUnix qw ($true $false );
+use LSeismicUnix::sunix::shell::xk;
 
 my $iTM_Tk = {_prompt => ''};
 

@@ -49,22 +49,36 @@ package L_SU;
 use Moose;
 our $VERSION = '0.1.7';
 
+my $path;
+my $LSeismicUnix;
+use Shell qw(echo);
+
+BEGIN {
+
+$LSeismicUnix = ` echo \$LSeismicUnix`;
+chomp $LSeismicUnix;
+$path = $LSeismicUnix.'/'.'misc';
+
+}
+use lib "$path";
 extends 'gui_history' => { -version => 0.0.2 };
 
 # potentially, in all packages
-use L_SU_global_constants;
-use color_listbox;
-use flow_widgets;
-use file_dialog;
-use save_button;
-use run_button;
-use pre_built_big_stream;
+use LSeismicUnix::misc::L_SU_global_constants;
+use LSeismicUnix::misc::color_listbox;
+use LSeismicUnix::misc::flow_widgets;
 
-use grey_flow 0.0.4;
-use blue_flow 0.0.4;
-use pink_flow 0.0.4;
-use green_flow 0.0.4;
-use neutral_flow 0.0.3;
+use LSeismicUnix::misc::file_dialog;
+
+use LSeismicUnix::misc::save_button;
+use LSeismicUnix::misc::run_button;
+use LSeismicUnix::big_streams::pre_built_big_stream;
+
+use LSeismicUnix::misc::grey_flow '0.0.4';
+use LSeismicUnix::misc::blue_flow '0.0.4';
+use LSeismicUnix::misc::pink_flow '0.0.4';
+use LSeismicUnix::misc::green_flow '0.0.4';
+use LSeismicUnix::misc::neutral_flow '0.0.3';
 
 my $color_listbox = color_listbox->new();
 my $gui_history   = gui_history->new();
@@ -1001,7 +1015,7 @@ sub run_button {
 
 					} else {
 						print("L_SU,run_button, missing conditions\n");
-						use message_director;
+						use LSeismicUnix::messages::message_director;
 						my $run_button_messages = message_director->new();
 						my $message             = $run_button_messages->run_button(1);
 
@@ -1079,7 +1093,7 @@ sub save_button {
 
 	# rint("L_SU,save_button, topic: $$topic_sref\n");
 
-	use message_director;
+	use LSeismicUnix::messages::message_director;
 	my $save_button_messages = message_director->new();
 	my $message              = $save_button_messages->null_button(0);
 
@@ -1234,7 +1248,7 @@ sub set_hash_ref {
 sub set_param_widgets {
 	my ($self) = @_;
 
-	use param_widgets;
+	use LSeismicUnix::misc::param_widgets;
 	my $param_widgets = param_widgets->new();
 
 	# print("L_SU,set_param_widgets, parameter_names_frame: $parameter_names_frame\n");

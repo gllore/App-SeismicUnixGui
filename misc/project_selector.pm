@@ -36,7 +36,7 @@ use Moose;
 our $VERSION = '1.0.1';
 use Tk;
 
-use param_widgets;
+use LSeismicUnix::misc::param_widgets;
 my $param_widgets = param_widgets->new();
 my $false         = 0;
 my $true          = 1;
@@ -122,9 +122,9 @@ sub cancel {
 sub _create_new {
 	my ($self) = @_;
 
-	use Moose;
-	use message_director;
-	use config_superflows;
+
+	use LSeismicUnix::messages::message_director;
+	use LSeismicUnix::misc::config_superflows;
 	my $config_superflows = config_superflows->new();
 
 	if (    length( $project_selector->{_current_program_name} )
@@ -224,7 +224,7 @@ sub _get_message_box_w {
 sub _get_project_names_aref {
 
 	my ($self) = @_;
-	use L_SU_local_user_constants;
+	use LSeismicUnix::misc::L_SU_local_user_constants;
 
 	my $user_constants = L_SU_local_user_constants->new();
 	my @ls_ref;
@@ -274,14 +274,14 @@ sub _ok {
 #		print("project_select,_ok, missing widget \n");
 #	}
 
-	use L_SU_local_user_constants;
-	use L_SU_global_constants;
+	use LSeismicUnix::misc::L_SU_local_user_constants;
+	use LSeismicUnix::misc::L_SU_global_constants;
 
 	my $user_constants = L_SU_local_user_constants->new();
 	my $get            = L_SU_global_constants->new();
 
 	# expect messaging
-	use message_director;
+	use LSeismicUnix::messages::message_director;
 	my $message_director = message_director->new();
 	my $message_box_w    = _get_message_box_w();
 	my $global_libs      = $get->global_libs();
@@ -379,9 +379,9 @@ sub _ok {
 		# save the new .Project configure to
 		# /home/username/configuration/active
 
-		use manage_dirs_by;
-		use config_superflows;
-		use L_SU_local_user_constants;
+		use LSeismicUnix::misc::manage_dirs_by;
+		use LSeismicUnix::misc::config_superflows;
+		use LSeismicUnix::misc::L_SU_local_user_constants;
 
 		my $user_constants    = L_SU_local_user_constants->new();
 		my $config_superflows = config_superflows->new();
@@ -512,7 +512,7 @@ sub _set_gui {
 
 			# find out which is the most recently active by interpreting
 			# second line of L_SU/configuration/active/Project.config
-			use L_SU_local_user_constants;
+			use LSeismicUnix::misc::L_SU_local_user_constants;
 
 			my $user_constants      = L_SU_local_user_constants->new();
 			my $active_project_name = $user_constants->get_active_project_name();
@@ -598,7 +598,7 @@ estimate the number of projects available
 sub _set_length {
 
 	my ($self) = @_;
-	use L_SU_local_user_constants;
+	use LSeismicUnix::misc::L_SU_local_user_constants;
 
 	my $user_constants = L_SU_local_user_constants->new();
 	my @ls_ref;
@@ -623,7 +623,7 @@ sub _set_length {
 sub _set_PROJECT_HOMES_aref {
 
 	my ($self) = @_;
-	use L_SU_local_user_constants;
+	use LSeismicUnix::misc::L_SU_local_user_constants;
 
 	my $user_constants = L_SU_local_user_constants->new();
 	my @ls_aref;
@@ -643,7 +643,7 @@ sub _set_PROJECT_HOMES_aref {
 # sub get_project_names_aref {
 #
 # 	my $self	= @_;
-# 	use L_SU_local_user_constants;
+# 	use LSeismicUnix::misc::L_SU_local_user_constants;
 #
 #	my $user_constants   = L_SU_local_user_constants->new();
 #	my @ls_ref;
@@ -663,7 +663,7 @@ sub _set_PROJECT_HOMES_aref {
 # sub get_PROJECT_HOMES_aref {
 #
 # 	my $self	= @_;
-# 	use L_SU_local_user_constants;
+# 	use LSeismicUnix::misc::L_SU_local_user_constants;
 #
 #	my $user_constants   = L_SU_local_user_constants->new();
 #	my @ls_ref;
@@ -681,7 +681,7 @@ sub _set_PROJECT_HOMES_aref {
 #
 # sub get_length {
 # 	my $self			= @_;
-# 	use L_SU_local_user_constants;
+# 	use LSeismicUnix::misc::L_SU_local_user_constants;
 #
 #	my $user_constants   = L_SU_local_user_constants->new();
 #	my @ls_ref;
@@ -852,7 +852,7 @@ sub set_labels_w_aref {
 sub set_length {
 
 	my ($self) = @_;
-	use L_SU_local_user_constants;
+	use LSeismicUnix::misc::L_SU_local_user_constants;
 
 	my $user_constants = L_SU_local_user_constants->new();
 	my @ls_ref;

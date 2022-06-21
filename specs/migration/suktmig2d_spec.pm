@@ -2,11 +2,11 @@ package suktmig2d_spec;
 use Moose;
 our $VERSION = '0.0.1';
 
-use Project_config;
-use SeismicUnix
+use LSeismicUnix::configs::big_streams::Project_config;
+use LSeismicUnix::misc::SeismicUnix
   qw ($bin $ps $segy $su $suffix_bin $suffix_ps $suffix_segy $suffix_su $suffix_txt $txt);
-use L_SU_global_constants;
-use suktmig2d;
+use LSeismicUnix::misc::L_SU_global_constants;
+use LSeismicUnix::sunix::migration::suktmig2d;
 my $get       = new L_SU_global_constants();
 my $Project   = new Project_config;
 my $suktmig2d = new suktmig2d;

@@ -21,20 +21,20 @@ package iApply_mute;
 =cut
 
 use Moose;
-use flow;
-use manage_files_by;
-use message;
-use readfiles;
-use sufilter;
-use sugain;
-use sumute;
-use suwind;
-use suxwigb;
-use suximage;
-use Project_config;
-use SuMessages;
+use LSeismicUnix::misc::flow;
+use LSeismicUnix::misc::manage_files_by;
+use LSeismicUnix::misc::message;
+use LSeismicUnix::misc::readfiles;
+use LSeismicUnix::sunix::filter::sufilter;
+use LSeismicUnix::sunix::shapeNcut::sugain;
+use LSeismicUnix::sunix::shapeNcut::sumute;
+use LSeismicUnix::sunix::shapeNcut::suwind;
+use LSeismicUnix::sunix::plot::suxwigb;
+use LSeismicUnix::sunix::plot::suximage;
+use LSeismicUnix::configs::big_streams::Project_config;
+use LSeismicUnix::messages::SuMessages;
 
-use SeismicUnix
+use LSeismicUnix::misc::SeismicUnix
   qw ($go $in $out $on $off $itop_mute $itemp_top_mute_picks_ $itemp_top_mute_num_points $itemp_top_mute_picks_sorted_par_ $itop_mute_par_ $suffix_su $suffix_hyphen $to);
 
 =head2

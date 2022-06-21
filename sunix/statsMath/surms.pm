@@ -7,7 +7,7 @@ package surms;
 =cut
 
 @ISA = ("sumax");
-use sumax;
+use LSeismicUnix::sunix::statsMath::sumax;
 my $surms = new sumax();
 
 =pod
@@ -16,9 +16,9 @@ my $surms = new sumax();
 
 =cut
 
-use Project_config;
+use LSeismicUnix::configs::big_streams::Project_config;
 my $Project = new Project_config();
-use SeismicUnix qw ($rms_amp $rms $ascii $to_outpar_file $suffix_hyphen $suffix_ascii $surms_notes $suffix_su);
+use LSeismicUnix::misc::SeismicUnix qw ($rms_amp $rms $ascii $to_outpar_file $suffix_hyphen $suffix_ascii $surms_notes $suffix_su);
 my ($TEMP_DATA_SEISMIC_SU) = $Project->TEMP_DATA_SEISMIC_SU();
 
 sub note {

@@ -1,10 +1,10 @@
 package iBottomMutePicks2par;
 
 use Moose;
-use message;
-use flow;
-use Project_config;
-use mkparfile;
+use LSeismicUnix::misc::message;
+use LSeismicUnix::misc::flow;
+#use LSeismicUnix::configs::big_streams;
+use LSeismicUnix::misc::mkparfile;
 
 =head1 DOCUMENTATION
 
@@ -95,7 +95,7 @@ my $iBottomMutePicks2par = {
 
 =cut 
 
-use SeismicUnix
+use LSeismicUnix::misc::SeismicUnix
   qw ($true $false $in $out $to $ibot_mute_par_ $itemp_bot_mute_picks_ $itemp_bot_mute_picks_sorted_par_  $out $suffix_su);
 my ($PL_SEISMIC) = $Project->PL_SEISMIC();
 

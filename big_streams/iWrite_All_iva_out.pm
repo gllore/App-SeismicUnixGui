@@ -70,8 +70,8 @@ my $iWrite_All_iva_out = {
 
 =cut 
 
-use SeismicUnix qw ($on $off $in $to $go);
-use Project_config;
+use LSeismicUnix::misc::SeismicUnix qw ($on $off $in $to $go);
+use LSeismicUnix::configs::big_streams::Project_config;
 my $Project = new Project_config();
 my ($PL_SEISMIC) = $Project->PL_SEISMIC();
 

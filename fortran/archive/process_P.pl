@@ -40,7 +40,7 @@
 
 	use Moose;
 	use SeismicUnix qw ($in $out $on $go $to $suffix_ascii $off $suffix_su);
-	use Project_config;
+	use LSeismicUnix::configs::big_streams::Project_config;
 
 	my $Project = new Project_config();
 

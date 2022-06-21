@@ -71,7 +71,7 @@ V0.0.2 Add documentation 7.12.21
 
 use Moose;
 our $VERSION = '0.0.2';
-use L_SU_global_constants;
+use LSeismicUnix::misc::L_SU_global_constants;
 
 use lib '.';
 use check 0.0.1;

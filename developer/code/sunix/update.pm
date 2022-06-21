@@ -144,13 +144,12 @@ sub _get_spec_changes {
 
 =cut
 
-		use L_SU_global_constants();
-		use SeismicUnix
-		  qw ($bin $dat $ps $segb $segd $segy $sgy $su $suffix_bin $suffix_ps
+		use LSeismicUnix::misc::L_SU_global_constants();
+		use LSeismicUnix::misc::SeismicUnix qw ($bin $dat $ps $segb $segd $segy $sgy $su $suffix_bin $suffix_ps
 		  $suffix_segy $suffix_sgy $suffix_su $suffix_txt $txt);
-		use Project_config;
-		use manage_files_by2;
-		use prog_doc2pm;
+		use LSeismicUnix::configs::big_streams::Project_config;
+		use LSeismicUnix::misc::manage_files_by2;
+		use LSeismicUnix::developer::code::sunix::prog_doc2pm;
 
 =head2 instantiation of packages
 
@@ -318,8 +317,8 @@ sub set_spec_changes {
 		and length $update->{_spec_changes_base_file_name} )
 	{
 
-		use sudoc;
-		use prog_doc2pm;
+		use LSeismicUnix::developer::code::sunix::sudoc;
+		use LSeismicUnix::developer::code::sunix::prog_doc2pm;
 
 		my $sudoc       = sudoc->new();
 		my $prog_doc2pm = prog_doc2pm->new();
@@ -555,10 +554,10 @@ sub set_changes {
 		&& length $update->{_group_number} )
 	{
 
-		use L_SU_global_constants;
-		use sudoc;
-		use sunix_package;
-		use prog_doc2pm;
+		use LSeismicUnix::misc::L_SU_global_constants;
+		use LSeismicUnix::developer::code::sunix::sudoc;
+		use LSeismicUnix::misc::sunix_package;
+		use LSeismicUnix::developer::code::sunix::prog_doc2pm;
 
 		my $get         = L_SU_global_constants->new();
 		my $sudoc       = sudoc->new();
@@ -1061,7 +1060,7 @@ where "max_index" line" is found
 
 			# prevent duplicates
 			my @unique = ();
-			my %seen   = ();
+			my een   = ();
 
 			foreach my $elem (@program_list) {
 				next if $seen{$elem}++;
@@ -1143,7 +1142,7 @@ sub spec_changes {
 
 	{
 
-		use prog_doc2pm;
+		use LSeismicUnix::developer::code::sunix::prog_doc2pm;
 
 		my $sudoc       = sudoc->new();
 		my $prog_doc2pm = prog_doc2pm->new();

@@ -49,10 +49,10 @@ use Moose;
 our $VERSION = '1.1';
 use Tk;
 use Tk::Pretty;
-use iSpectralAnalysis;
-use xk;
-use SuMessages;
-use L_SU_global_constants;
+use LSeismicUnix::big_streams::iSpectralAnalysis;
+use LSeismicUnix::sunix::shell::xk;
+use LSeismicUnix::messages::SuMessages;
+use LSeismicUnix::misc::L_SU_global_constants;
 
 my $iSA_Tk = {_prompt => ''};
 

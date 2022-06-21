@@ -42,12 +42,12 @@ use Moose;
 
 =cut
 
-use message;
-use flow;
-use cp;
-use SeismicUnix qw ($go $in $on $to);
-use Project_config;
-use L_SU_global_constants;
+use LSeismicUnix::misc::message;
+use LSeismicUnix::misc::flow;
+use LSeismicUnix::sunix::shell::cp;
+use LSeismicUnix::misc::SeismicUnix qw ($go $in $on $to);
+use LSeismicUnix::configs::big_streams::Project_config;
+use LSeismicUnix::misc::L_SU_global_constants;
 
 my $control = control->new();
 my $get     = L_SU_global_constants->new();
@@ -66,7 +66,7 @@ my $empty_string = $var->{_empty_string};
 
 =cut 
 
-use SeismicUnix qw ($itemp_picks_sorted_par_ $ipicks_par_);
+use LSeismicUnix::misc::SeismicUnix qw ($itemp_picks_sorted_par_ $ipicks_par_);
 my ($DATA_SEISMIC_TXT) = $Project->DATA_SEISMIC_TXT();
 
 =head2
@@ -164,7 +164,7 @@ sub calc {
 
             use Tk;
             use strict;
-            use L_SU_global_constants;
+            use LSeismicUnix::misc::L_SU_global_constants;
 
             my $get = L_SU_global_constants->new();
             my $var = $get->var();
@@ -181,7 +181,7 @@ sub calc {
 
             $mw->configure( -background => $var->{_my_purple} );
 
-            use message_director;
+            use LSeismicUnix::messages::message_director;
             my $iPick_message = message_director->new();
             my $message       = $iPick_message->iPick(0);
 
@@ -328,7 +328,7 @@ sub gather_type {
 #	my $HOME 			= $home_directory;
 #
 #	use File::Copy;
-#	use control 0.0.3;
+#	use LSeismicUnix::misc::control '0.0.3';
 #	use dirs;
 #	use readfiles;
 #
@@ -383,7 +383,7 @@ sub set_purpose {
         && $type ne $empty_string )
     {
 
-        use control 0.0.3;
+        use LSeismicUnix::misc::control '0.0.3';
         my $control = control->new();
         $control->set_infection($type);
         $type = control->get_ticksBgone();

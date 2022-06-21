@@ -77,7 +77,7 @@ foreach my $subdir (@directories) {
 
 				print "found $line[($i-1)]  and $line[$i]\n";
 
-				# exhange lines
+				# exchange lines
 				my $temp = $line[ ( $i - 1 ) ];
 				$line[ ( $i - 1 ) ] = $line[$i];
 				$line[$i] = $temp;

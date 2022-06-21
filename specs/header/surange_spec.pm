@@ -2,10 +2,10 @@ package surange_spec;
 use Moose;
 our $VERSION = '0.0.1';
 
-use Project_config;
-use SeismicUnix qw ($su $suffix_su $suffix_txt $txt);
-use L_SU_global_constants;
-use surange;
+use LSeismicUnix::configs::big_streams::Project_config;
+use LSeismicUnix::misc::SeismicUnix qw ($su $suffix_su $suffix_txt $txt);
+use LSeismicUnix::misc::L_SU_global_constants;
+use LSeismicUnix::sunix::header::surange;
 
 my $get     = new L_SU_global_constants();
 my $Project = new Project_config;

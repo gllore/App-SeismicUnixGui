@@ -75,7 +75,7 @@ Version:
 
  The columns are time/depth and picks on the cumulate		
 
- at 2.28%, 15.87%, 50%, 84.13% & 97.72% of the total points    
+ at 2.28%, 15.87%, 50%, 84.13% & 97.720f the total points    
 
  corresponding to the median and +- 1 or 2 standard deviations 
 
@@ -125,10 +125,10 @@ our $VERSION = '0.0.1';
 
 =cut
 
-use L_SU_global_constants();
+use LSeismicUnix::misc::L_SU_global_constants;
 
-use SeismicUnix qw ($in $out $on $go $to $suffix_ascii $off $suffix_su $suffix_bin);
-use Project_config;
+use LSeismicUnix::misc::SeismicUnix qw ($in $out $on $go $to $suffix_ascii $off $suffix_su $suffix_bin);
+use LSeismicUnix::configs::big_streams::Project_config;
 
 
 =head2 instantiation of packages

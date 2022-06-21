@@ -709,7 +709,7 @@ sub file_dialog_type_aref {
  involving a couple of steps:
  e.g. 	
  	include this call to a library near the start (line 174)  of the program
- 	use Project_config;   AND
+ 	use LSeismicUnix::configs::big_streams::Project_config;   AND
  	
  	my $Project				= new Project_config();
  	

@@ -32,7 +32,7 @@ USAGE 1
         $readfiles-Step();
 =cut
 
-use L_SU_global_constants;
+use LSeismicUnix::misc::L_SU_global_constants;
 
 my $get                  = new L_SU_global_constants();
 # my $alias_superflow_name = $get->alias_superflow_names_h;
@@ -367,7 +367,7 @@ sub cols_2 {
 #	use Moose;
 #	# use Config::Simple;
 #	use name;
-#	use control 0.0.3;
+#	use LSeismicUnix::misc::control '0.0.3';
 #	my $name    = new name();
 #	my $control = new control;
 #
@@ -679,7 +679,7 @@ sub cfg {
 
 sub configs {
 	my ( $self, $program ) = @_;
-	use control 0.0.3;
+	use LSeismicUnix::misc::control '0.0.3';
 
 	if ($program) {
 		

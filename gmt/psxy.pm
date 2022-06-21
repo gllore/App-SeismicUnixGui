@@ -104,13 +104,13 @@ usage: psxy [<table>] -J<args> -R<west>/<east>/<south>/<north>[/<zmin>/<zmax>][+
 	-E Draw (symmetrical) standard error bars for x and/or y.  Append +a for
 	   asymmetrical errors (reads two columns) [symmetrical reads one column].
 	   If X or Y are specified instead then a box-and-whisker diagram is drawn,
-	   requiring four extra columns with the 0%, 25%, 75%, and 100% quantiles.
-	   (The x or y coordinate is expected to represent the 50% quantile.)
+	   requiring four extra columns with the 0%, 25%, 75%, and 1000antiles.
+	   (The x or y coordinate is expected to represent the 500antile.)
 	   Add cap-width with +w [7p] and error pen attributes with +p<pen>
 	   Given -C, use +cl to apply cpt color to error pen and +cf for error fill [both].
 	   Append +n for a notched box-and whisker (notch width represents uncertainty.
 	   in the median.  A 5th extra column with the sample size is required.
-	   The settings of -W, -G affect the appearance of the 25-75% box.
+	   The settings of -W, -G affect the appearance of the 25-750ox.
 	-F Alter the way points are connected and the data are segmented.
 	    Append one of three line connection schemes:
 	     c: Draw continuous line segments for each group [Default].
@@ -215,7 +215,7 @@ usage: psxy [<table>] -J<args> -R<west>/<east>/<south>/<north>[/<zmin>/<zmax>][+
 	     For linear projection we scale dimensions by the map scale.
 	   Fronts: Give <tickgap>[/<ticklen>][+l|+r][+<type>][+o<offset>][+p[<pen>]].
 	     If <tickgap> is negative it means the number of gaps instead.
-	     The <ticklen> defaults to 15% of <tickgap> if not given.  Append
+	     The <ticklen> defaults to 150f <tickgap> if not given.  Append
 	     +l or +r   : Plot symbol to left or right of front [centered]
 	     +<type>    : +b(ox), +c(ircle), +f(ault), +s|S(lip), +t(riangle) [f]
 	     	      +s optionally accepts the arrow angle [20].
@@ -513,7 +513,7 @@ usage: psxy [<table>] -J<args> -R<west>/<east>/<south>/<north>[/<zmin>/<zmax>][+
 
 use Moose;
 our $VERSION = '1.0.1';
-use GMTglobal_constants;
+use LSeismicUnix::gmt::GMTglobal_constants;
 
 =head2 instantiation of packages
 

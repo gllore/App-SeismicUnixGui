@@ -3,8 +3,6 @@
 
 =head2 SYNOPSIS
 
-
-
 PROGRAM NAME:  sudoc2pm_pt2.pl							
 
  AUTHOR: Juan Lorenzo
@@ -59,11 +57,11 @@ $sunix_category_number = 15
 
 use Moose;
 our $VERSION = '0.0.1';
-use sudoc2pm_nameNnumber;
-use update;
+use LSeismicUnix::developer::code::sunix::sudoc2pm_nameNnumber;
+use LSeismicUnix::developer::code::sunix::update;
 
-my $sudoc2pm_nameNnumber = sudoc2pm_nameNnumber->new();
-my $update               = update->new();
+my $sudoc2pm_nameNnumber    = sudoc2pm_nameNnumber->new();
+my $update = update->new();
 
 =head2 QUESTION 1:
 Which group number do you want ?
@@ -86,10 +84,11 @@ For example=
 my $selected_program_name = $sudoc2pm_nameNnumber->get_selected_program_name();
 my $sunix_category_number = $sudoc2pm_nameNnumber->get_category_number();
 
-my $spec_changes_base_file_name = $selected_program_name . '_changes';
+my $spec_changes_base_file_name = $selected_program_name.'_changes';
 
 $update->set_program( $selected_program_name, $sunix_category_number );
 $update->set_spec_changes_base_file_name($spec_changes_base_file_name);
 $update->set_spec_changes();
 $update->spec_changes();
 $update->set_changes();
+

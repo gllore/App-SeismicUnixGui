@@ -1,17 +1,17 @@
 package message_director;
 
 use Moose;
-use FileDialog_button_messages;
-use FileDialog_close_messages;
-use color_listbox_messages;
-use save_button_messages;
-use flows_messages;
-use immodpg_messages;
-use iPick_messages;
-use run_button_messages;
-use null_messages;
-use project_selector_messages;
-use superflow_messages;
+use LSeismicUnix::messages::FileDialog_button_messages;
+use LSeismicUnix::messages::FileDialog_close_messages;
+use LSeismicUnix::messages::color_listbox_messages;
+use LSeismicUnix::misc::save_button_messages;
+use LSeismicUnix::messages::flows_messages;
+use LSeismicUnix::messages::immodpg_messages;
+use LSeismicUnix::messages::iPick_messages;
+use LSeismicUnix::messages::run_button_messages;
+use LSeismicUnix::messages::null_messages;
+use LSeismicUnix::messages::project_selector_messages;
+use LSeismicUnix::messages::superflow_messages;
 
 my $flows             = new flows_messages;
 my $FileDialog_button = new FileDialog_button_messages;

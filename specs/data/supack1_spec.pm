@@ -2,10 +2,10 @@ package supack1_spec;
 	use Moose;
 our $VERSION = '0.0.1';
 
-use Project_config;
-use SeismicUnix qw ($bin $segy $su $suffix_bin $suffix_segy $suffix_su $suffix_txt $txt);
-use L_SU_global_constants;
-use supack1;
+use LSeismicUnix::configs::big_streams::Project_config;
+use LSeismicUnix::misc::SeismicUnix qw ($bin $segy $su $suffix_bin $suffix_segy $suffix_su $suffix_txt $txt);
+use LSeismicUnix::misc::L_SU_global_constants;
+use LSeismicUnix::sunix::data::supack1;
 my $get					= new L_SU_global_constants();
 my $Project 				= new Project_config;
 my $supack1		= new supack1;

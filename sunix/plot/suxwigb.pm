@@ -225,7 +225,7 @@ XWIGB - X WIGgle-trace plot of f(x1,x2) via Bitmap
 use Moose;
 our $VERSION = '0.0.2';
 
-use L_SU_global_constants();
+use LSeismicUnix::misc::L_SU_global_constants;
 
 my $get = new L_SU_global_constants();
 

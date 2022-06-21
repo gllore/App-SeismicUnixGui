@@ -35,7 +35,7 @@ package pdl_su;
 
 use Moose;
 use PDL::Core;
-use L_SU_global_constants;
+use LSeismicUnix::misc::L_SU_global_constants;
 our $VERSION = '0.0.2';
 
 =head2 Assign Global Variables
@@ -112,7 +112,7 @@ sub _set_inbound_file_path {
 
     if ( $pdl_su->{_inbound_suffix_type} ne $empty_string ) {
 
-        use Project_config;
+        use LSeismicUnix::configs::big_streams::Project_config;
         my $Project = new Project_config();
 
         my $inbound_suffix_type = $pdl_su->{_inbound_suffix_type};
@@ -349,7 +349,7 @@ sub read_bytes {
         while ( ( $nbytes = read $fh, $sample, $Bite_size ) ) {
 
             #		while (<$fh>) {
-            #			($a) = sscanf("%d+%d %f-%s", $input);
+            #			($a) = sscanf("0+0 0.000000-", $input);
 
             # ...and unpack() them as a single float
             $ampl = unpack( "c", $sample );

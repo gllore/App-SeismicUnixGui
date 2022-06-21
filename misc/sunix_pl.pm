@@ -37,13 +37,13 @@ package sunix_pl;
 our $VERSION = '0.0.2';
 use Moose;
 use Text::ParseWords;
-use perl_header;
-use perl_use_pkg;
-use perl_instantiate;
-use pod_declare;
-use perl_declare;
-use perl_inbound;
-use L_SU_global_constants;
+use LSeismicUnix::misc::perl_header;
+use LSeismicUnix::misc::perl_use_pkg;
+use LSeismicUnix::misc::perl_instantiate;
+use LSeismicUnix::misc::pod_declare;
+use LSeismicUnix::misc::perl_declare;
+use LSeismicUnix::misc::perl_inbound;
+use LSeismicUnix::misc::L_SU_global_constants;
 
 =head2 instantiate modules
 

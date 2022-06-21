@@ -286,18 +286,19 @@ within the active-project dirctory:
 
 sub get_active_project_name {
     my ($self) = @_;
-    use config_superflows;
-    my $config_superflows = config_superflows->new();
+    
+#    use LSeismicUnix::misc::L_SU_local_user_constants_fix;
+#    my $L_SU_local_user_constants = L_SU_local_user_constants_fix->new();
 
     # default config file is 'Project'
     my $project_name = $L_SU->{_config_base_name};
-    config_superflows->set_program_name( \$project_name );
+#    L_SU_local_user_constants->set_program_name( \$project_name );
 
     my $namesNvalues_aref =
-      $config_superflows->get_local_or_defaults($project_name);
+      _get_local_or_defaults($project_name);
     my @namesNvalues_aref = @$namesNvalues_aref;
 
-# print("L_SU_local_user_constants,get_active_project,namesNvalues_aref: @$namesNvalues_aref\n");
+print("L_SU_local_user_constants,get_active_project,namesNvalues_aref: @$namesNvalues_aref\n");
 
     my $ACTIVE_PROJECT_name = $namesNvalues_aref[3];
 
@@ -315,6 +316,60 @@ sub get_active_project_name {
     return ($active_project_name);
 }
 
+=head2 sub _get_local_or_defaults
+
+ via big_streams_param:
+ 
+ Read a default specification file 
+ 1) If default specification file# does not exist locally (PL_SEISMIC)
+ 2) then check the user's configuration area: .LSU/configuration/active/Project.config
+ and if not,
+ 3) then use the default one defined under global libs
+
+
+ Debug with
+    print ("self is $self,program is $program_name\n");
+ print("params are @$ref_CFG\n");
+ program name is a hash
+    print("params are @$ref_cfg\n");
+    print ("self is $self,program is $program_name\n");
+       print("L_SU_local_user_constants,_get_local_or_defaults,program_name:$$program_name_sref\n"); 
+       print("L_SU_local_user_constants,_get_local_or_defaults,program_name:$$name_sref\n"); 
+       print("L_SU_local_user_constants,_get_local_or_defaults,program_name:$$program_name_sref\n"); 
+    print("L_SU_local_user_constants,_get_local_or_defaults, length:$L_SU_local_user_constants->{_length}\n");
+
+=cut
+
+sub _get_local_or_defaults {
+	my ( $config_base_name ) = @_;
+
+#	print("L_SU_local_user_constants, _get_local_or_defaults,program name=$config_base_name\n");
+
+	if ( length $config_base_name  ) {
+		use LSeismicUnix::misc::big_streams_param;
+		my $big_streams_param = new big_streams_param();
+		my ( $cfg_aref, $size );
+
+		my $name_sref = \$config_base_name;
+
+#	print("L_SU_local_user_constants, _get_local_or_defaults,program name=$$name_sref\n");
+#	print("L_SU_local_user_constants, _get_local_or_defaults,SCALAR program name=$name_sref\n");
+
+		$cfg_aref = $big_streams_param->get($name_sref);
+
+  print("L_SU_local_user_constants, _get_local_or_defaults,cfg_aref = @{$cfg_aref}\n");
+		return ($cfg_aref);
+
+		#		}
+	}
+	else {
+		print(
+"L_SU_local_user_constants, L_SU_local_user_constants,missing program_name_sref\n"
+		);
+	}
+
+}
+
 =head2 sub _get_active_project_name 
 
 lower case active project is the project name
@@ -330,15 +385,16 @@ within the active-project dirctory:
 
 sub _get_active_project_name {
     my ($self) = @_;
-    use config_superflows;
-    my $config_superflows = config_superflows->new();
+    
+#    use LSeismicUnix::misc::L_SU_local_user_constants_fix;
+#    my $L_SU_local_user_constants = L_SU_local_user_constants_Fix->new();
 
     # default config file is 'Project'
     my $project_name = $L_SU->{_config_base_name};
-    config_superflows->set_program_name( \$project_name );
+#    L_SU_local_user_constants->set_program_name( \$project_name );
 
     my $namesNvalues_aref =
-      $config_superflows->get_local_or_defaults($project_name);
+      _get_local_or_defaults($project_name);
     my @namesNvalues_aref = @$namesNvalues_aref;
 
 # print("L_SU_local_user_constants,get_active_project,namesNvalues_aref: @$namesNvalues_aref\n");
@@ -412,7 +468,7 @@ o/p array ref of list names
 
 sub _get_project_names {
     my ($self) = @_;
-    use dirs;
+    use LSeismicUnix::misc::dirs;
     my @filtered;
     my $i    = 0;
     my $dirs = dirs->new();
@@ -446,7 +502,7 @@ o/p array ref of list names
 
 sub get_project_names {
     my ($self) = @_;
-    use dirs;
+    use LSeismicUnix::misc::dirs;
     my @filtered;
     my $i    = 0;
     my $dirs = dirs->new();
@@ -568,7 +624,7 @@ sub _set_user_configuration_Project_config2 {
 sub makconfig {
 
     my ($self) = @_;
-    use manage_dirs_by;
+    use LSeismicUnix::misc::manage_dirs_by;
     use File::Copy;
 
     my $ACTIVE_PROJECT;

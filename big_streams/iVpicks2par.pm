@@ -1,9 +1,9 @@
 package iVpicks2par;
 
 use Moose;
-use L_SU_global_constants;
-use iWrite_All_iva_out;
-use manage_files_by2;
+use LSeismicUnix::misc::L_SU_global_constants;
+use LSeismicUnix::big_streams::iWrite_All_iva_out;
+use LSeismicUnix::misc::manage_files_by2;
 
 =head1 DOCUMENTATION
 
@@ -70,8 +70,8 @@ my $iVpicks2par = {
 
 =cut 
 
-use SeismicUnix qw ($on $off $in $to $go);
-use Project_config;
+use LSeismicUnix::misc::SeismicUnix qw ($on $off $in $to $go);
+use LSeismicUnix::configs::big_streams::Project_config;
 my $Project = new Project_config();
 my ($PL_SEISMIC) = $Project->PL_SEISMIC();
 

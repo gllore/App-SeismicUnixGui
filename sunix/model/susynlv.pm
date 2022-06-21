@@ -84,7 +84,7 @@ Default amplitude is 1.0 if amplitude: part of the string is omitted.
 =cut
  use Moose;
  our $VERSION = '0.0.1';
-	use L_SU_global_constants();
+	use LSeismicUnix::misc::L_SU_global_constants();
 
 	my $get					= new L_SU_global_constants();
 

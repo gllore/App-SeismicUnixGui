@@ -73,7 +73,7 @@ Instantiate packages
 
 =cut
 
-use L_SU_global_constants;
+use LSeismicUnix::misc::L_SU_global_constants;
 
 my $get = L_SU_global_constants->new();
 
@@ -94,13 +94,13 @@ my $empty_string = $var->{_empty_string};
 sub _get_DIR {
 	my ($self) = @_;
 
-	use Project_config;
+	use LSeismicUnix::configs::big_streams::Project_config;
 	my $Project = new Project_config();
 	my $DIR;
 
 	if ( length $data_out->{_suffix_type} ) {
 
-		use SeismicUnix
+		use LSeismicUnix::misc::SeismicUnix
 		  qw ($bin $ps $seg2 $segb $segd $sgd $segy $sgy $su $txt );
 
 		my $suffix_type = $data_out->{_suffix_type};
@@ -199,7 +199,7 @@ sub _get_suffix {
 		my $suffix;
 		my $suffix_type = $data_out->{_suffix_type};
 
-		use SeismicUnix
+		use LSeismicUnix::misc::SeismicUnix
 		  qw ($suffix_seg2 $suffix_segb $suffix_segd $suffix_sgd $suffix_sgy $suffix_segy $suffix_su $suffix_bin $suffix_ps $suffix_txt $segy $sgy $su $txt $bin);
 
 		if ( $suffix_type eq $ps ) {

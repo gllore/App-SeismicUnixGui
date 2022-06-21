@@ -38,7 +38,7 @@ package developer;
 use Moose;
 our $VERSION = '0.0.1';
 
-use L_SU_global_constants;
+use LSeismicUnix::misc::L_SU_global_constants;
 
 my $get       = L_SU_global_constants->new();
 
@@ -75,7 +75,7 @@ sub _program_category {
 		&&  $developer->{_program_name} ne $empty_string 
 		&& $developer->{_flow_type} ne $empty_string ) {
 
-		use L_SU_global_constants;
+		use LSeismicUnix::misc::L_SU_global_constants;
 
 		my $flow_type             = $get->flow_type_href();
 		my $program_name          = $developer->{_program_name};

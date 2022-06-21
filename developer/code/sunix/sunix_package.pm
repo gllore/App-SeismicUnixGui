@@ -253,13 +253,13 @@ sub write_config {
 		my $i;
 		open $OUT, '>', $outbound or die;
 		for ( $i = 0; $i < ($sunix_package->{_length} -1); $i++ ) {
-			printf $OUT "    %-35s%1s%-20s\n", @{ $sunix_package->{_param_names} }[$i], '= ', @{ $sunix_package->{_param_values} }[$i];
+			printf $OUT "                                                            \n", @{ $sunix_package->{_param_names} }[$i], '= ', @{ $sunix_package->{_param_values} }[$i];
 		}
 		
 # make last line not include a "return" which produces an annoying final empty line 
 # in the configuration file
 #		print("sunix_package,write_config length, last line=$i\n");
-		printf $OUT "    %-35s%1s%-20s", @{ $sunix_package->{_param_names} }[$i], '= ', @{ $sunix_package->{_param_values} }[$i] ;
+		printf $OUT "                                                            ", @{ $sunix_package->{_param_names} }[$i], '= ', @{ $sunix_package->{_param_values} }[$i] ;
 		close($OUT);
 	}
 }
@@ -281,18 +281,18 @@ sub write_pm {
 
 		my $name = $sunix_package->{_package_name};
 		my $OUT; 
-		use sunix_package_header;
-		use sunix_package_pod_header;
-#		use sunix_package_instantiation;
-		use sunix_package_declaration;
-		use sunix_package_pod;
-		use sunix_package_encapsulated;
-		use sunix_package_subroutine;
-		use sunix_package_use;
-		use sunix_package_Step;
-		use sunix_package_note;
-		use sunix_package_clear;
-		use sunix_package_tail;
+		use LSeismicUnix::developer::code::sunix::sunix_package_header;
+		use LSeismicUnix::developer::code::sunix::sunix_package_pod_header;
+#		use LSeismicUnix::developer::code::sunix::sunix_package_instantiation;
+		use LSeismicUnix::developer::code::sunix::sunix_package_declaration;
+		use LSeismicUnix::developer::code::sunix::sunix_package_pod;
+		use LSeismicUnix::developer::code::sunix::sunix_package_encapsulated;
+		use LSeismicUnix::developer::code::sunix::sunix_package_subroutine;
+		use LSeismicUnix::developer::code::sunix::sunix_package_use;
+		use LSeismicUnix::developer::code::sunix::sunix_package_Step;
+		use LSeismicUnix::developer::code::sunix::sunix_package_note;
+		use LSeismicUnix::developer::code::sunix::sunix_package_clear;
+		use LSeismicUnix::developer::code::sunix::sunix_package_tail;
 
 		my $header        = sunix_package_header->new();
 		my $pod_header  = sunix_package_pod_header->new();
@@ -442,7 +442,7 @@ sub write_pm {
 
 sub write_spec {
 	my ($self) = shift;
-	use sunix_spec;
+	use LSeismicUnix::developer::code::sunix::sunix_spec;
 	my $sunix_spec = sunix_spec->new();
 	my $name       = $sunix_package->{_package_name};
 	$sunix_spec->set_package_name($name);

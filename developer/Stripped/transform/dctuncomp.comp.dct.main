@@ -1,8 +1,6 @@
  DCTUNCOMP - Discrete Cosine Transform Uncompression 			
 
-   dctuncomp < stdin >stdout
-   
-   option=null					
+   dctuncomp < stdin >stdout 						
 
  Required Parameters:							
  none									
@@ -15,3 +13,5 @@
 
 
  Author:  CWP:  Tong Chen  Dec 1995
+
+

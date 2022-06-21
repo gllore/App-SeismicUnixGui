@@ -1,9 +1,9 @@
 package Project_spec;
 our $VERSION = '1.00';
 use Moose;
-use L_SU_global_constants;
-use Project_config;
-use SeismicUnix qw ($su $suffix_su);
+use LSeismicUnix::misc::L_SU_global_constants;
+use LSeismicUnix::configs::big_streams::Project_config;
+use LSeismicUnix::misc::SeismicUnix qw ($su $suffix_su);
 
 my $get              = new L_SU_global_constants();
 my $var              = $get->var();

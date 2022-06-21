@@ -1,16 +1,15 @@
-package unisam2;
+ package unisam2;
+
+
+=head1 DOCUMENTATION
 
 =head2 SYNOPSIS
 
-PACKAGE NAME: 
-
-AUTHOR:  
-
-DATE:
-
-DESCRIPTION:
-
-Version:
+ PACKAGE NAME:  UNISAM2 - UNIformly SAMple a 2-D function f(x1,x2)			
+ AUTHOR: Juan Lorenzo
+ DATE:   
+ DESCRIPTION:
+ Version: 
 
 =head2 USE
 
@@ -18,178 +17,92 @@ Version:
 
 =head4 Examples
 
-=head2 SYNOPSIS
-
 =head3 SEISMIC UNIX NOTES
+
  UNISAM2 - UNIformly SAMple a 2-D function f(x1,x2)			
-
-
 
  unisam2 [optional parameters] <inputfile >outputfile			
 
-
-
  Required Parameters:							
-
  none									
-
  Optional Parameters:							
-
  x1=             array of x1 values at which input f(x1,x2) is sampled	
-
  ... Or specify a unform linear set of values for x1 via:		
-
  nx1=1           number of input samples in 1st dimension		
-
  dx1=1           input sampling interval in 1st dimension		
-
  fx1=0           first input sample in 1st dimension			
-
  ...									
-
  n1=1            number of output samples in 1st dimension		
-
  d1=             output sampling interval in 1st dimension		
-
  f1=             first output sample in 1st dimension			
-
  x2=             array of x2 values at which input f(x1,x2) is sampled	
-
  ... Or specify a unform linear set of values for x2 via:		
-
  nx2=1           number of input samples in 2nd dimension		
-
  dx2=1           input sampling interval in 2nd dimension		
-
  fx2=0           first input sample in 2nd dimension			
-
  ...									
-
  n2=1            number of output samples in 2nd dimension		
-
  d2=             output sampling interval in 2nd dimension		
-
  f2=             first output sample in 2nd dimension			
-
  ... 									
-
  method1=linear  =linear for linear interpolation			
-
                  =mono for monotonic bicubic interpolation		
-
                  =akima for Akima bicubic interpolation		
-
                  =spline for bicubic spline interpolation		
-
  method2=linear  =linear for linear interpolation			
-
                  =mono for monotonic bicubic interpolation		
-
                  =akima for Akima bicubic interpolation		
-
                  =spline for bicubic spline interpolation		
-
-
 
  NOTES:								
-
  The number of input samples is the number of x1 values times the	
-
  number of x2 values.  The number of output samples is n1 times n2.	
-
  The output sampling intervals (d1 and d2) and first samples (f1 and f2)
-
  default to span the range of input x1 and x2 values.  In other words,	
-
  d1=(x1max-x1min)/(n1-1) and f1=x1min; likewise for d2 and f2.		
 
-
-
  Interpolation is first performed along the 2nd dimension for each	
-
  value of x1 specified.  Interpolation is then performed along the	
-
  1st dimension.							
-
-
-
-
 
 
 
  AUTHOR:  Dave Hale, Colorado School of Mines, 01/12/91\n"
 
-
-
-=head2 User's notes (Juan Lorenzo)
-untested
-
-=cut
-
-
 =head2 CHANGES and their DATES
 
 =cut
+ use Moose;
+ our $VERSION = '0.0.1';
+	use LSeismicUnix::misc::L_SU_global_constants();
 
-use Moose;
-our $VERSION = '0.0.1';
+	my $get					= new L_SU_global_constants();
 
-
-=head2 Import packages
-
-=cut
-
-use L_SU_global_constants();
-
-use SeismicUnix qw ($go $in $off $on $out $ps $to $suffix_ascii $suffix_bin $suffix_ps $suffix_segy $suffix_su);
-use Project_config;
+	my $var				= $get->var();
+	my $empty_string    	= $var->{_empty_string};
 
 
-=head2 instantiation of packages
+	my $unisam2		= {
+		_d1					=> '',
+		_d2					=> '',
+		_dx1					=> '',
+		_dx2					=> '',
+		_f1					=> '',
+		_f2					=> '',
+		_fx1					=> '',
+		_fx2					=> '',
+		_method1					=> '',
+		_method2					=> '',
+		_n1					=> '',
+		_n2					=> '',
+		_nx1					=> '',
+		_nx2					=> '',
+		_x1					=> '',
+		_x2					=> '',
+		_Step					=> '',
+		_note					=> '',
+    };
 
-=cut
-
-my $get					= new L_SU_global_constants();
-my $Project				= new Project_config();
-my $DATA_SEISMIC_SU		= $Project->DATA_SEISMIC_SU();
-my $DATA_SEISMIC_BIN	= $Project->DATA_SEISMIC_BIN();
-my $DATA_SEISMIC_TXT	= $Project->DATA_SEISMIC_TXT();
-
-my $PS_SEISMIC      	= $Project->PS_SEISMIC();
-
-my $var				= $get->var();
-my $on				= $var->{_on};
-my $off				= $var->{_off};
-my $true			= $var->{_true};
-my $false			= $var->{_false};
-my $empty_string	= $var->{_empty_string};
-
-=head2 Encapsulated
-hash of private variables
-
-=cut
-
-my $unisam2			= {
-	_d1					=> '',
-	_d2					=> '',
-	_dx1					=> '',
-	_dx2					=> '',
-	_f1					=> '',
-	_f2					=> '',
-	_fx1					=> '',
-	_fx2					=> '',
-	_method1					=> '',
-	_method2					=> '',
-	_n1					=> '',
-	_n2					=> '',
-	_nx1					=> '',
-	_nx2					=> '',
-	_x1					=> '',
-	_x2					=> '',
-	_Step					=> '',
-	_note					=> '',
-
-};
 
 =head2 sub Step
 
@@ -219,7 +132,6 @@ by adding the program name
 	return ( $unisam2->{_note} );
 
  }
-
 
 
 =head2 sub clear
@@ -570,17 +482,18 @@ by adding the program name
 
 
 =head2 sub get_max_index
-
+ 
 max index = number of input variables -1
  
 =cut
  
-sub get_max_index {
- 	  my ($self) = @_;
-	my $max_index = 15;
-
-    return($max_index);
-}
+  sub get_max_index {
+ 	my ($self) = @_;
+	# only file_name : index=36
+ 	my $max_index = 36;
+	
+ 	return($max_index);
+ }
  
  
-1;
+1; 

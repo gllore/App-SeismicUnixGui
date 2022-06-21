@@ -2,10 +2,10 @@ package makevel_spec;
 use Moose;
 our $VERSION = '0.0.1';
 
-use Project_config;
-use SeismicUnix qw ($su $bin $suffix_su $suffix_bin);
-use L_SU_global_constants;
-use makevel;
+use LSeismicUnix::configs::big_streams::Project_config;
+use LSeismicUnix::misc::SeismicUnix qw ($su $bin $suffix_su $suffix_bin);
+use LSeismicUnix::misc::L_SU_global_constants;
+use LSeismicUnix::sunix::par::makevel;
 
 my $get     = new L_SU_global_constants();
 my $Project = new Project_config;

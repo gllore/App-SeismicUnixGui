@@ -59,11 +59,23 @@ package neutral_flow;
 use Moose;
 our $VERSION = '0.0.3';
 
+my $path;
+my $LSeismicUnix;
+use Shell qw(echo);
+
+BEGIN {
+
+$LSeismicUnix = ` echo \$LSeismicUnix`;
+chomp $LSeismicUnix;
+$path = $LSeismicUnix.'/'.'misc';
+
+}
+use lib "$path";
 extends 'gui_history' => { -version => 0.0.2 };
 
-use param_widgets_neutral 0.0.2;
-use param_flow_neutral 0.0.3;
-use flow_widgets;
+use LSeismicUnix::misc::param_widgets_neutral '0.0.2';
+use LSeismicUnix::misc::param_flow_neutral '0.0.3';
+use LSeismicUnix::misc::flow_widgets;
 
 my $flow_widgets = flow_widgets->new();
 my $get          = L_SU_global_constants->new();
@@ -164,7 +176,7 @@ program name is a scalar reference
 
 sub help {
 	my ($self) = @_;
-	use help;
+	use LSeismicUnix::misc::help;
 	my $help = new help();
 	$help->set_name( $color_flow_href->{_prog_name_sref} );
 	$help->tkpod();
@@ -232,8 +244,8 @@ sub sunix_select {
 
 	$color_flow_href->{_flow_type} = $flow_type->{_user_built};    # should be at start of neutral_flow
 		 # print("neutral_flow, sunix_select,parameter_values_frame: $parameter_values_frame\n");
-	use message_director;
-	use param_sunix;
+	use LSeismicUnix::messages::message_director;
+	use LSeismicUnix::misc::param_sunix;
 	use Clone 'clone';
 
 	my $neutral_flow_messages = message_director->new();

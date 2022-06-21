@@ -2,10 +2,11 @@ package sugprfb_spec;
 use Moose;
 our $VERSION = '0.0.1';
 
-use Project_config;
-use SeismicUnix qw ($su $suffix_su);
-use L_SU_global_constants;
-use sugprfb;
+use LSeismicUnix::configs::big_streams::Project_config;
+use LSeismicUnix::misc::SeismicUnix qw ($su $suffix_su);
+use LSeismicUnix::misc::L_SU_global_constants;
+use LSeismicUnix::sunix::shapeNcut::sugprfb;
+
 my $get     = new L_SU_global_constants();
 my $Project = new Project_config;
 my $sugprfb = new sugprfb;
@@ -18,11 +19,14 @@ my $false            = $var->{_false};
 my $file_dialog_type = $get->file_dialog_type_href();
 my $flow_type        = $get->flow_type_href();
 
-my $DATA_SEISMIC_SU = $Project->DATA_SEISMIC_SU();      # output data directory
+my $DATA_SEISMIC_BIN = $Project->DATA_SEISMIC_BIN();
+my $DATA_SEISMIC_SU  = $Project->DATA_SEISMIC_SU();     # output data directory
+my $DATA_SEISMIC_TXT = $Project->DATA_SEISMIC_TXT();    # output data directory
 my $PL_SEISMIC       = $Project->PL_SEISMIC();
-my $max_index       = $sugprfb->get_max_index();
+my $max_index        = 1; 
 
 my $sugprfb_spec = {
+	_CONFIG		            => $PL_SEISMIC,
 	_DATA_DIR_OUT          => $DATA_SEISMIC_SU,
 	_DATA_DIR_IN           => $DATA_SEISMIC_SU,
 	_DATA_DIR_OUT          => $DATA_SEISMIC_SU,
@@ -51,6 +55,8 @@ my $sugprfb_spec = {
 	_is_suprog             => $true,
 	_is_superflow          => $false,
 	_max_index             => $max_index,
+	_prefix_aref           => '',
+	_suffix_aref           => '',
 };
 
 =head2  sub binding_index_aref

@@ -205,7 +205,7 @@ Output files (always generated)
 
 use Moose;
 our $VERSION = '0.0.1';
-use L_SU_global_constants();
+use LSeismicUnix::misc::L_SU_global_constants;
 
 my $get = new L_SU_global_constants();
 
@@ -268,7 +268,7 @@ is run
 =cut
 
 sub Step {
-	use Project_config;
+	use LSeismicUnix::configs::big_streams::Project_config;
 	
 	my $Project          = new Project_config();
 	

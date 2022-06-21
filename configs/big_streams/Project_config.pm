@@ -32,10 +32,10 @@ package Project_config;
 use Moose;
 our $VERSION = '1.0.2';
 
-use manage_dirs_by;
-use control 0.0.3;
-use readfiles;
-use L_SU_global_constants;
+use LSeismicUnix::misc::manage_dirs_by;
+use LSeismicUnix::misc::control '0.0.3';
+use LSeismicUnix::misc::readfiles;
+use LSeismicUnix::misc::L_SU_global_constants;
 my $read              = new readfiles;
 my $control           = control->new;
 my $get               = new L_SU_global_constants();
@@ -418,7 +418,7 @@ sub basic_dirs {
 
 sub _change_basic_dirs {
 	my ($self) = @_;
-	use control 0.0.3;
+	use LSeismicUnix::misc::control '0.0.3';
 	my $control = control->new();
 
 	my @CFG;
@@ -504,7 +504,7 @@ sub _change_basic_dirs {
 		# print ("Looking for old-style configuration file\n\n");
 		# print("Using old-style configuration file\n\n");
 
-		use Project_Variables;
+		use LSeismicUnix::misc::Project_Variables;
 
 		($date)         = Project_Variables::date();
 		($line)         = Project_Variables::line();
@@ -3101,9 +3101,9 @@ sub update_configuration_files {
 	my $HOME = $home_directory;
 
 	use File::Copy;
-	use control 0.0.3;
-	use dirs;
-	use readfiles;
+	use LSeismicUnix::misc::control '0.0.3';
+	use LSeismicUnix::misc::dirs;
+	use LSeismicUnix::misc::readfiles;
 
 	my $ACTIVE_CONFIGURATION = $HOME . '/.L_SU/configuration/active';
 	my $inbound              = $ACTIVE_CONFIGURATION . '/Project.config';

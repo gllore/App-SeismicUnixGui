@@ -123,7 +123,7 @@ Version:
 
  4. Default case is a random velocity (+/-30%) near surface layer whose
 
-    thickness is 20% of the total 2D model thickness.			
+    thickness is 200f the total 2D model thickness.			
 
  5. Each layer vel is a random perturbation on input model at that level.
 
@@ -177,10 +177,10 @@ our $VERSION = '0.0.1';
 
 =cut
 
-use L_SU_global_constants();
+use LSeismicUnix::misc::L_SU_global_constants;
 
-use SeismicUnix qw ($go $in $off $on $out $ps $to $suffix_ascii $suffix_bin $suffix_ps $suffix_segy $suffix_su);
-use Project_config;
+use LSeismicUnix::misc::SeismicUnix qw ($go $in $off $on $out $ps $to $suffix_ascii $suffix_bin $suffix_ps $suffix_segy $suffix_su);
+use LSeismicUnix::configs::big_streams::Project_config;
 
 
 =head2 instantiation of packages

@@ -24,16 +24,18 @@ package iFile;
 
 use Moose;
 
-use L_SU_global_constants;
-my $get         = new L_SU_global_constants();
-my $global_libs = $get->global_libs();
+use LSeismicUnix::misc::L_SU_global_constants;
+my $L_SU_global_constants = new L_SU_global_constants();
+my $global_libs           = $L_SU_global_constants->global_libs();
 my $alias_superflow_config_names_aref =
-  $get->alias_superflow_config_names_aref();
-my $alias_superflow_spec_names_h = $get->alias_superflow_spec_names_h();
-my $superflow_config_names_aref  = $get->superflow_config_names_aref();
+  $L_SU_global_constants->alias_superflow_config_names_aref();
+my $alias_superflow_spec_names_h =
+  $L_SU_global_constants->alias_superflow_spec_names_h();
+my $superflow_config_names_aref =
+  $L_SU_global_constants->superflow_config_names_aref();
 
 my $default_path   = $global_libs->{_default_path};
-my $var            = $get->var();
+my $var            = $L_SU_global_constants->var();
 my $base_file_name = $var->{_base_file_name};
 
 # my $data_name			= $var->{_data_name};
@@ -42,8 +44,8 @@ my $off                = $var->{_off};
 my $nu                 = $var->{_nu};
 my $true               = $var->{_on};
 my $false              = $var->{_off};
-my $flow_type_href     = $get->flow_type_href();
-my $file_dialog_type_h = $get->file_dialog_type_href();
+my $flow_type_href     = $L_SU_global_constants->flow_type_href();
+my $file_dialog_type_h = $L_SU_global_constants->file_dialog_type_href();
 my $empty_string       = $var->{_empty_string};
 
 =head2 private hash
@@ -82,7 +84,7 @@ Allows mutiple file  formats (bin,su,txt) within a single program: 6.4.21
 sub _get_DATA_DIR_IN {
 	my ($self) = @_;
 
-	use Project_config;
+	use LSeismicUnix::configs::big_streams::Project_config;
 	my $Project = Project_config->new();
 
 	my $DATA_SEISMIC_BIN  = $Project->DATA_SEISMIC_BIN();
@@ -118,13 +120,14 @@ sub _get_DATA_DIR_IN {
 		&& length( $iFile->{_parameter_value_index} ) )
 	{
 
-		#		use Module::Refresh; # reload updated module
-		#		my $refresher = Module::Refresh->new;
-
 		my $module_spec    = $prog_name . '_spec';
 		my $module_spec_pm = $module_spec . '.pm';
 
-		require $module_spec_pm;
+		$L_SU_global_constants->set_file_name($module_spec_pm);
+		my $path           = $L_SU_global_constants->get_path4spec_file();
+		my $pathNmodule_pm = $path . '/' . $module_spec_pm;
+
+		require $pathNmodule_pm;
 
 		#		$refresher->refresh_module("$module_spec_pm");
 		my $package = $module_spec->new;
@@ -260,7 +263,11 @@ sub _get_DATA_DIR_OUT {
 		my $module_spec    = $prog_name . '_spec';
 		my $module_spec_pm = $module_spec . '.pm';
 
-		require $module_spec_pm;
+		$L_SU_global_constants->set_file_name($module_spec_pm);
+		my $path           = $L_SU_global_constants->get_path4spec_file();
+		my $pathNmodule_pm = $path . '/' . $module_spec_pm;
+
+		require $pathNmodule_pm;
 
 		#		$refresher->refresh_module("$module_spec_pm");
 		my $package = $module_spec->new;
@@ -287,7 +294,7 @@ sub _get_DATA_DIR_OUT {
 sub get_Open_perl_flow_path {
 
 	my ($self) = @_;
-	use Project_config;
+	use LSeismicUnix::configs::big_streams::Project_config;
 	my $Project    = new Project_config();
 	my $PL_SEISMIC = $Project->PL_SEISMIC();
 
@@ -305,7 +312,7 @@ sub get_Open_perl_flow_path {
 sub get_Open_path {
 
 	my ($self) = @_;
-	use Project_config;
+	use LSeismicUnix::configs::big_streams::Project_config;
 	my $Project    = new Project_config();
 	my $PL_SEISMIC = $Project->PL_SEISMIC();
 
@@ -322,7 +329,7 @@ sub get_Open_path {
 sub get_SaveAs_path {
 
 	my ($self) = @_;
-	use Project_config;
+	use LSeismicUnix::configs::big_streams::Project_config;
 	my $Project    = new Project_config();
 	my $PL_SEISMIC = $Project->PL_SEISMIC();
 
@@ -352,8 +359,8 @@ sub get_Data_path {
 
 	my ($self) = @_;
 
-	use L_SU_global_constants;
-	use Project_config;
+	use LSeismicUnix::misc::L_SU_global_constants;
+	use LSeismicUnix::configs::big_streams::Project_config;
 	my $entry_label = $iFile->{_entry_button_label};
 	my $dialog_type = $iFile->{_dialog_type};
 
@@ -666,7 +673,7 @@ sub get_Path {
 
 	if ( $iFile->{_flow_type} ne $empty_string ) {
 
-		use Project_config;
+		use LSeismicUnix::configs::big_streams::Project_config;
 
 		my $Project      = Project_config->new();
 		my $program_name = _get_prog_name();

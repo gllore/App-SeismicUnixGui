@@ -63,7 +63,7 @@ our $VERSION = '0.0.3';
 
 =cut
 
-use L_SU_global_constants;
+use LSeismicUnix::misc::L_SU_global_constants;
 
 my $get = L_SU_global_constants->new();
 
@@ -101,15 +101,15 @@ my $data_in = {
 sub _get_DIR {
 	my ($self) = @_;
 
-	use Project_config;
+	use LSeismicUnix::configs::big_streams::Project_config;
 	my $Project = new Project_config();
 
 	if ( length $data_in->{_suffix_type} ) {
 
-		use control 0.0.3;
+		use LSeismicUnix::misc::control '0.0.3';
 
 		my $control = control->new();
-		use SeismicUnix qw ($seg2 $segb $segd $segy $sgy $ps $su $txt $bin);
+		use LSeismicUnix::misc::SeismicUnix qw ($seg2 $segb $segd $segy $sgy $ps $su $txt $bin);
 
 		my $DIR;
 
@@ -208,9 +208,9 @@ sub _get_suffix {
 
 	if ( length $data_in->{_suffix_type} ) {
 
-		use control 0.0.3;
-		use SeismicUnix
-		  qw ($suffix_segb $suffix_seg2 $suffix_segd $suffix_sgd $suffix_segy $suffix_sgy $suffix_ps $suffix_su $suffix_bin $suffix_txt $sgy $ps $su $txt $bin);
+		use LSeismicUnix::misc::control '0.0.3';
+		use LSeismicUnix::misc::SeismicUnix
+		  qw ($suffix_bin $suffix_segb $suffix_seg2 $suffix_segd $suffix_sgd $suffix_segy $suffix_sgy $suffix_ps $suffix_su $suffix_txt $sgy $ps $su $txt $bin);
 
 		my $suffix;
 		my $suffix_type = $data_in->{_suffix_type};
@@ -566,7 +566,7 @@ sub suffix_type {
 	my ( $self, $suffix_type ) = @_;
 
 	if ($suffix_type) {
-		use control 0.0.3;
+		use LSeismicUnix::misc::control '0.0.3';
 
 		my $control = control->new();
 

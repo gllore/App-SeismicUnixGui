@@ -39,7 +39,7 @@ package sunmo;
  Notes:								     
  For constant-velocity NMO, specify only one vnmo=constant and omit tnmo.   
 
- NMO interpolation error is less than 1% for frequencies less than 60% of   
+ NMO interpolation error is less than 1 0.000000or frequencies less than 600f   
  the Nyquist frequency.						     
 
  Exact inverse NMO is impossible, particularly for early times at large     
@@ -106,7 +106,7 @@ package sunmo;
 
 use Moose;
 our $VERSION = '0.0.3';
-use L_SU_global_constants();
+use LSeismicUnix::misc::L_SU_global_constants;
 
 my $get = new L_SU_global_constants();
 
@@ -296,8 +296,8 @@ sub multi_gather_parfile {
 	if ( $par ne $empty_string ) {
 
 		use manage_files_by2;
-		use Project_config;
-		use control 0.0.3;
+		use LSeismicUnix::configs::big_streams::Project_config;
+		use LSeismicUnix::misc::control '0.0.3';
 
 =head2 instantiate classes
 
@@ -529,8 +529,8 @@ sub par {
       print("sunmo,  par file name in =$par\n");
       
 		use manage_files_by2;
-		use Project_config;
-		use control 0.0.3;
+		use LSeismicUnix::configs::big_streams::Project_config;
+		use LSeismicUnix::misc::control '0.0.3';
 
 =head2 instantiate classes
 

@@ -33,7 +33,7 @@ package gui_history;
 =head2 Notes from bash
  
 =cut 
-
+#use namespace::autoclean; for later
 use Moose;
 our $VERSION = '0.0.2';
 
@@ -42,10 +42,22 @@ potentially, all packages contain L_SU_global_constants
 
 =cut
 
+my $path;
+my $LSeismicUnix;
+use Shell qw(echo);
+
+BEGIN {
+
+$LSeismicUnix = ` echo \$LSeismicUnix`;
+chomp $LSeismicUnix;
+$path = $LSeismicUnix.'/'.'misc';
+
+}
+use lib "$path";
 extends 'conditions4flows' => { -version => 0.0.2 };
 
-use L_SU_global_constants;
-use flow_widgets;
+use LSeismicUnix::misc::L_SU_global_constants;
+use LSeismicUnix::misc::flow_widgets;
 
 =head2 Instantiation
 
@@ -1992,6 +2004,11 @@ sub _subtract {
 		print("gui_history, _subtract, most_recent = $flow_select_index_href->{_most_recent}\n");
 	}
 
+}
+
+sub test{
+	
+	print("made it to gui_history\n");
 }
 
 =head2 sub view

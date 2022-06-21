@@ -43,7 +43,7 @@ package su_select_waveform;
      SeismicUnix (Seismic Unix modules)
 
 
- use SeismicUnix qw ($in $out $on $go $to $suffix_ascii $off $suffix_su); 
+ use LSeismicUnix::misc::SeismicUnix qw ($in $out $on $go $to $suffix_ascii $off $suffix_su) ;
   
 =head3 STEPS IN THE PROGRAM 
 
@@ -51,7 +51,7 @@ package su_select_waveform;
 
 use Moose;
 
-use SeismicUnix qw ($on $off);
+use LSeismicUnix::misc::SeismicUnix qw ($on $off);
 
 =head2 declare common variables
 
@@ -204,13 +204,13 @@ sub Step {
 
 =cut
 
-    use message;
-    use sufilter;
-    use sugain;
-    use suxwigb;
-    use suximage;
-    use Project_config;
-    use SeismicUnix qw ($in $out $on $go $to $suffix_ascii $off $suffix_su);
+    use LSeismicUnix::misc::message;
+    use LSeismicUnix::sunix::filter::sufilter;
+    use LSeismicUnix::sunix::shapeNcut::sugain;
+    use LSeismicUnix::sunix::plot::suxwigb;
+    use LSeismicUnix::sunix::plot::suximage;
+    use LSeismicUnix::configs::big_streams::Project_config;
+    use LSeismicUnix::misc::SeismicUnix qw ($in $out $on $go $to $suffix_ascii $off $suffix_su);
 
 =pod
 

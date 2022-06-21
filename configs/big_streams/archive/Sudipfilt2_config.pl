@@ -37,7 +37,7 @@ use Config::Simple;
 use control 0.0.3;
 use System_Variables;
 use SeismicUnix qw ($in $out $on $go $to $suffix_ascii $off $suffix_su);
-use L_SU_global_constants;
+use LSeismicUnix::misc::L_SU_global_constants;
 my $get                         = new L_SU_global_constants();
 my $alias_superflow_config_name = $get->alias_superflow_config_names_aref();
 

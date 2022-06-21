@@ -25,7 +25,7 @@ package header_values;
 
 use Moose;
 our $VERSION = '0.0.1';
-use L_SU_global_constants();
+use LSeismicUnix::misc::L_SU_global_constants;
 
 my $get = new L_SU_global_constants();
 
@@ -116,11 +116,11 @@ sub get_number() {
 
 =cut
 
-		use Project_config;
-		use message;
-		use flow;
-		use surange;
-		use SeismicUnix
+		use LSeismicUnix::configs::big_streams::Project_config;
+		use LSeismicUnix::misc::message;
+		use LSeismicUnix::misc::flow;
+		use LSeismicUnix::sunix::header::surange;
+		use LSeismicUnix::misc::SeismicUnix
 		  qw ($in $out $on $go $to $suffix_ascii $off $suffix_su $suffix_bin);
 
 		my $log     = new message;

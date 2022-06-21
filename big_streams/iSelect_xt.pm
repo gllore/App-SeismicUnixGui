@@ -25,21 +25,21 @@ package iSelect_xt;
 =cut
 
 use Moose;
-use L_SU_global_constants;
+use LSeismicUnix::misc::L_SU_global_constants;
 my $VERSION = '0.0.1';
-use control 0.0.3;
-use message;
-use flow;
-use iPick_spec;
-use sufilter;
-use sugain;
-use suwind;
-use suxwigb;
-use suximage;
-use SuMessages;
-use Project_config;
+use LSeismicUnix::misc::control '0.0.3';
+use LSeismicUnix::misc::message;
+use LSeismicUnix::misc::flow;
+use LSeismicUnix::specs::big_streams::iPick_spec;
+use LSeismicUnix::sunix::filter::sufilter;
+use LSeismicUnix::sunix::shapeNcut::sugain;
+use LSeismicUnix::sunix::shapeNcut::suwind;
+use LSeismicUnix::sunix::plot::suxwigb;
+use LSeismicUnix::sunix::plot::suximage;
+use LSeismicUnix::messages::SuMessages;
+use LSeismicUnix::configs::big_streams::Project_config;
 
-use SeismicUnix qw ($on $off $go $in $true
+use LSeismicUnix::misc::SeismicUnix qw ($on $off $go $in $true;
   $false $itemp_picks_
   $suffix_su $to);
 
@@ -718,7 +718,7 @@ sub set_purpose {
 		&& $type ne $empty_string )
 	{
 
-		use control 0.0.3;
+		use LSeismicUnix::misc::control '0.0.3';
 		my $control = control->new();
 		$control->set_infection($type);
 		$type = control->get_ticksBgone();

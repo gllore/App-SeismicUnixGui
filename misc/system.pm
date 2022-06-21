@@ -38,7 +38,7 @@ our $VERSION = '0.0.1';
 
 =cut
 
-use L_SU_global_constants;
+use LSeismicUnix::misc::L_SU_global_constants;
 
 =head2 Instantiation
 

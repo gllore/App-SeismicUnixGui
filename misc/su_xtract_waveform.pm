@@ -43,7 +43,7 @@ use Moose;
      SeismicUnix (Seismic Unix modules)
 
 
- use SeismicUnix qw ($in $out $on $go $to $suffix_ascii $off $suffix_su); 
+ use LSeismicUnix::misc::SeismicUnix qw ($in $out $on $go $to $suffix_ascii $off $suffix_su) ;
   
 =head2 STEPS IN THE PROGRAM 
 
@@ -154,8 +154,8 @@ sub file_out {
 
     if ( $ref_picks_file && $inbound ) {
         use lib '/usr/local/pl/libAll';
-        use SeismicUnix qw ($suffix_su);
-        use readfiles;
+        use LSeismicUnix::misc::SeismicUnix qw ($suffix_su);
+        use LSeismicUnix::misc::readfiles;
 
         my $read = new readfiles();
         my ( $ref_time, $ref_key, $max_index ) =
@@ -264,13 +264,13 @@ sub window_title {
 sub Step {
 
     use lib '/usr/local/pl/libAll';
-    use SeismicUnix qw ($in $out $on $go $to $suffix_ascii $off $suffix_su);
-    use Project_config;
+    use LSeismicUnix::misc::SeismicUnix qw ($in $out $on $go $to $suffix_ascii $off $suffix_su);
+    use LSeismicUnix::configs::big_streams::Project_config;
     my $Project = new Project_config();
-    use message;
-    use flow;
-    use suxwigb;
-    use suwind;
+    use LSeismicUnix::misc::message;
+    use LSeismicUnix::misc::flow;
+    use LSeismicUnix::sunix::plot::suxwigb;
+    use LSeismicUnix::sunix::shapeNcut::suwind;
 
 =head2 Instantiate classes
 

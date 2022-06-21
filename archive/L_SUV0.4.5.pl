@@ -72,13 +72,13 @@
 use Moose;
 our $VERSION = '0.3.9';
 
-extends 'gui_history' => { -version => 0.0.2 };
+extends 'LSeismicUnix::misc::gui_history' => { -version => 0.0.2 };
 
 use Tk;
 use Tk::Pane;
 use Tk::NoteBook;
 use L_SU 0.1.5;
-use L_SU_global_constants;
+use LSeismicUnix::misc::L_SU_global_constants;
 
 =head2 Instantiation
 

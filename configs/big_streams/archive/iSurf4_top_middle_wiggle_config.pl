@@ -28,7 +28,7 @@ use Moose;
 use Config::Simple;
 
 my $cfg = new Config::Simple('/usr/local/pl/iSurf4_top_middle_wiggle.config');
-use Project_config;
+use LSeismicUnix::configs::big_streams::Project_config;
 my $Project = new Project_config();
 use SeismicUnix qw ($in $out $on $go $to $suffix_ascii $off $suffix_su);
 my ($DATA_SEISMIC_SU) = $Project->DATA_SEISMIC_SU();

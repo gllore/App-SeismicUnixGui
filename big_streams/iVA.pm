@@ -58,21 +58,21 @@ VELAN DATA
 =cut
 
 use Moose;
-use control 0.0.3;
+use LSeismicUnix::misc::control '0.0.3';
 our $VERSION = '1.0.3';
-use L_SU_global_constants;
-use iSunmo;
-use iVA_config;
-use suxwigb;
-use iSuvelan;
-use iWrite_All_iva_out;
-use iVpicks2par;
-use iVrms2Vint;
-use manage_files_by2;
-use Project_config;
+use LSeismicUnix::misc::L_SU_global_constants;
+use LSeismicUnix::big_streams::iSunmo;
+use LSeismicUnix::configs::big_streams::iVA_config;
+use LSeismicUnix::sunix::plot::suxwigb;
+use LSeismicUnix::big_streams::iSuvelan;
+use LSeismicUnix::big_streams::iWrite_All_iva_out;
+use LSeismicUnix::big_streams::iVpicks2par;
+use LSeismicUnix::big_streams::iVrms2Vint;
+use LSeismicUnix::misc::manage_files_by2;
+use LSeismicUnix::configs::big_streams::Project_config;
 
-use SuMessages;
-use xk;
+use LSeismicUnix::messages::SuMessages;
+use LSeismicUnix::sunix::shell::xk;
 
 =head2 establish hash of shared variables
 
@@ -395,7 +395,7 @@ sub old_data {
 			if ($ans) {
 				
 # TODO put a message into the gui
-#				use message_director;
+#				use LSeismicUnix::messages::message_director;
 #				
 #=head2 sub set_hash_ref
 #

@@ -44,9 +44,9 @@ headers... TODO ... don't understand why yet.
 
 use Moose;
 my $VERSION = '0.0.1';
-use L_SU_global_constants;
-use Project_config;
-use SeismicUnix
+use LSeismicUnix::misc::L_SU_global_constants;
+use LSeismicUnix::configs::big_streams::Project_config;
+use LSeismicUnix::misc::SeismicUnix
   qw ($cdp $gx $in $out $on $go $to $txt $suffix_ascii $off $offset $su $sx $suffix_su $suffix_txt $tracl);
 
 =head2
@@ -156,7 +156,7 @@ sub clean {
 		and length $cmpcc->{_suffix_type} ) {
 		
 		use manage_files_by2;
-		use Project_config;
+		use LSeismicUnix::configs::big_streams::Project_config;
 		
 		my $Project           = Project_config->new();
 		my $file              = manage_files_by2->new();
@@ -663,7 +663,7 @@ sub set_sp_gather_geom_out {
 		}
 
 		my $file_name = $cmpcc->{_shove_sp_gather_geom_outbound};
-		my $format    = "%d\t%f\t%d\t%d\t%f\n";
+		my $format    = "0\t0.000000\t0\t0\t0.000000\n";
 
 		#		print("@{$cmpcc->{_vector_pt1_aref}}\n");
 
@@ -851,7 +851,7 @@ Version:
 		use Moose;
 		use SeismicUnix
 		  qw($append $in $out $on $go $to $suffix_ascii $off $suffix_segd $suffix_segy $suffix_sgy $suffix_su $suffix_segd $suffix_txt $suffix_bin);
-		use Project_config;
+		use LSeismicUnix::configs::big_streams::Project_config;
 
 		my $Project           = new Project_config();
 		my $DATA_SEISMIC_BIN  = $Project->DATA_SEISMIC_BIN;
@@ -988,7 +988,7 @@ Version:
 		use Moose;
 		use SeismicUnix
 		  qw($append $in $out $on $go $to $suffix_ascii $off $suffix_segd $suffix_segy $suffix_sgy $suffix_su $suffix_segd $suffix_txt $suffix_bin);
-		use Project_config;
+		use LSeismicUnix::configs::big_streams::Project_config;
 
 		my $Project           = new Project_config();
 		my $DATA_SEISMIC_BIN  = $Project->DATA_SEISMIC_BIN;
@@ -1183,7 +1183,7 @@ Version:
 
 		use SeismicUnix
 		  qw ($in $out $on $go $to $suffix_ascii $off $suffix_segd $suffix_segy $suffix_sgy $suffix_su $suffix_segd $suffix_txt $suffix_bin);
-		use Project_config;
+		use LSeismicUnix::configs::big_streams::Project_config;
 
 		my $Project           = new Project_config();
 		my $DATA_SEISMIC_BIN  = $Project->DATA_SEISMIC_BIN;
@@ -1415,7 +1415,7 @@ Version:
 
 		use SeismicUnix
 		  qw ($in $out $on $go $to $suffix_ascii $off $suffix_segd $suffix_segy $suffix_sgy $suffix_su $suffix_segd $suffix_txt $suffix_bin);
-		use Project_config;
+		use LSeismicUnix::configs::big_streams::Project_config;
 
 		my $Project           = new Project_config();
 		my $DATA_SEISMIC_BIN  = $Project->DATA_SEISMIC_BIN;
@@ -1752,7 +1752,7 @@ Version:
 		use Moose;
 		use SeismicUnix
 		  qw ($in $out $on $go $to $suffix_ascii $off $suffix_segd $suffix_segy $suffix_sgy $suffix_su $suffix_segd $suffix_txt $suffix_bin);
-		use Project_config;
+		use LSeismicUnix::configs::big_streams::Project_config;
 
 		my $Project           = new Project_config();
 		my $DATA_SEISMIC_BIN  = $Project->DATA_SEISMIC_BIN;
@@ -2303,7 +2303,7 @@ Version:
 		use Moose;
 		use SeismicUnix
 		  qw ($in $out $on $go $to $suffix_ascii $off $suffix_segd $suffix_segy $suffix_sgy $suffix_su $suffix_segd $suffix_txt $suffix_bin);
-		use Project_config;
+		use LSeismicUnix::configs::big_streams::Project_config;
 
 		my $Project           = new Project_config();
 		my $DATA_SEISMIC_BIN  = $Project->DATA_SEISMIC_BIN;
@@ -2502,7 +2502,7 @@ Version:
 
 		use SeismicUnix
 		  qw ($in $out $on $go $to $suffix_ascii $off $suffix_segd $suffix_segy $suffix_sgy $suffix_su $suffix_segd $suffix_txt $suffix_bin);
-		use Project_config;
+		use LSeismicUnix::configs::big_streams::Project_config;
 
 		my $Project           = new Project_config();
 		my $DATA_SEISMIC_BIN  = $Project->DATA_SEISMIC_BIN;

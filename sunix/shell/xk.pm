@@ -1,7 +1,7 @@
 package xk;
 
 use Moose;
-use L_SU_global_constants;
+use LSeismicUnix::misc::L_SU_global_constants;
 
 my $constants    = new L_SU_global_constants;
 my $var          = $constants->var();

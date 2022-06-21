@@ -1,9 +1,9 @@
  XEPSP - X windows display of Encapsulated PostScript
 
  Usage:   xepsp < stdin
- 
- option=null
 
  Caveat: your system must have Display PostScript Graphics
  Note:  
  this program is a more advanced version of   xepsb. See also:  xepsp
+
+

@@ -128,16 +128,16 @@ Synseis \
 =cut 
 
 use Moose;
-use a2b;
-use flow;
-use manage_files_by;
-use message;
-use Synseis;
-use Synseis_config;
-use SeismicUnix
+use LSeismicUnix::sunix::par::a2b;
+use LSeismicUnix::misc::flow;
+use LSeismicUnix::misc::manage_files_by;
+use LSeismicUnix::misc::message;
+use LSeismicUnix::big_streams::Synseis;
+use LSeismicUnix::configs::big_streams::Synseis_config;
+use LSeismicUnix::misc::SeismicUnix
      qw ($in $out $on $go $to $suffix_ascii $suffix_bin $off $suffix_su);
-use xgraph;
-use Project_config;
+use LSeismicUnix::sunix::plot::xgraph;
+use LSeismicUnix::configs::big_streams::Project_config;
 my $Project = new Project_config();
 
 my ($DATA_SEISMIC_SU)           = $Project->DATA_SEISMIC_SU();

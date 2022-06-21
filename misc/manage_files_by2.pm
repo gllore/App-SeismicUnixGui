@@ -31,12 +31,6 @@ package manage_files_by2;
 
 use Moose;
 my $VERSION = '0.0.1';
-use L_SU_global_constants;
-use Project_config;
-use SeismicUnix
-  qw ($cdp $gx $in $out $on $go $to $txt $suffix_ascii $off $offset
-  $pick $profile $report $su $suffix_profile $sx $suffix_su $suffix_target
-  $suffix_pick $suffix_report $suffix_target_tilde $suffix_txt $target $target_tilde $tracl);
 
 =head2 define private hash
 to share
@@ -47,10 +41,13 @@ my @array1;
 my @array2;
 
 my $manage_files_by2 = {
+	_all_lines_aref         => '',
 	_appendix               => '',
 	_cat_base_file_name_out => '',
 	_delete_base_file_name  => '',
 	_directory              => '',
+	_file_in                => '',
+	_pathNfile              => '',
 	_suffix_type            => '',
 };
 
@@ -61,11 +58,51 @@ all memory
 
 sub clear {
 	my $self = @_;
+	$manage_files_by2->{_all_lines_aref}         = '';
 	$manage_files_by2->{_appendix}               = '';
 	$manage_files_by2->{_cat_base_file_name_out} = '';
 	$manage_files_by2->{_delete_base_file_name}  = '';
-	$manage_files_by2->{_directory}              = ' ';
+	$manage_files_by2->{_directory}              = '';
+	$manage_files_by2->{_file_in}                = '';
+	$manage_files_by2->{_pathNfile}              = '';
 	$manage_files_by2->{_suffix_type}            = '';
+
+}
+
+=head2 sub _exists
+
+Another (private) way to see if a file exists
+input is a scalar
+
+
+=cut
+
+sub _exists {
+
+	my ($file) = @_;
+
+	if ($file) {
+
+		# default situation is to have a file non-existent
+		my $answer = 0;
+
+		# -e returns 1 or ''
+		# verified by JL
+		#		print("existence test for $file\n\n");
+		if ( -e $file ) {
+
+			#			print("file existence verified; answer=$answer\n\n");
+			$answer = 1;
+		}
+
+		#	answer=1 if existent and =0 if non-existent
+		#		print  ("file non-existence verified; answer=$answer\n\n") ;
+		# verified by JL
+		return ($answer);
+	}
+	else {
+		print("\n");
+	}
 
 }
 
@@ -83,8 +120,12 @@ sub clean {
 		and length $manage_files_by2->{_suffix_type} )
 	{
 
-		use manage_files_by2;
-		use Project_config;
+		use LSeismicUnix::configs::big_streams::Project_config;
+		use LSeismicUnix::misc::SeismicUnix qw($gx $in $out $on $go $to $txt
+		  $suffix_ascii $off $offset $pick $profile $report
+		  $su $suffix_profile $sx $suffix_su $suffix_target
+		  $suffix_pick $suffix_report $suffix_target_tilde
+		  $suffix_txt $target $target_tilde $tracl);
 
 		my $Project = Project_config->new();
 		my $file    = manage_files_by2->new();
@@ -116,7 +157,7 @@ sub clean {
 
 			$outbound = $GEOPSY_PICKS . '/' . $file_name . $suffix_pick;
 
-		   #             print("manage_files_by2, clean, outbound=$outbound\n");
+			print("manage_files_by2, clean, outbound=$outbound\n");
 
 		}
 
@@ -124,7 +165,7 @@ sub clean {
 
 			$outbound = $GEOPSY_PROFILES . '/' . $file_name . $suffix_profile;
 
-			#           print("manage_files_by2, clean, outbound=$outbound\n");
+			print("manage_files_by2, clean, outbound=$outbound\n");
 
 		}
 
@@ -132,7 +173,7 @@ sub clean {
 
 			$outbound = $GEOPSY_REPORTS . '/' . $file_name . $suffix_report;
 
-			#           print("manage_files_by2, clean, outbound=$outbound\n");
+			print("manage_files_by2, clean, outbound=$outbound\n");
 
 		}
 
@@ -140,7 +181,7 @@ sub clean {
 
 			$outbound = $GEOPSY_TARGETS . '/' . $file_name . $suffix_target;
 
-			#           print("manage_files_by2, clean, outbound=$outbound\n");
+			print("manage_files_by2, clean, outbound=$outbound\n");
 
 		}
 
@@ -156,13 +197,13 @@ sub clean {
 			print("manage_files_by2, clean, unexpected value\n");
 		}
 
-		my $ans = $file->exists($outbound);
+		my $ans = _exists($outbound);
 
 		#		print("manage_files_by2, clean, ans = $ans\n");
 
 		if ($ans) {
 
-			$file->delete($outbound);
+			_delete($outbound);
 
 			#			print(
 			#"manage_files_by2, clean, Cleaning for pre-existing $outbound \n"
@@ -184,6 +225,105 @@ sub clean {
 
 }
 
+=head2 sub _delete
+
+This (provate) function/method deletes files
+
+=cut 
+
+sub _delete {
+
+	my ($outbound) = @_;
+
+	#   get directory names
+	#	print("\n manage_files_by2, delete, Deleting $outbound \n");
+
+	system(
+		"                       	\\
+                rm  $outbound      	\\
+        "
+	);
+
+}
+
+=pod sub get_whole 
+
+ open and read
+ the complete file
+ line by line
+    #print ("lines are @{$manage_files_by2->{_all_lines_aref}}\n"); 
+    print ("We seem to have $manage_files_by2->{_num_lines} lines total\n");
+
+=cut
+
+sub get_whole {
+	my ($self) = @_;
+	my @all_lines;
+
+	if (   length $manage_files_by2->{_directory}
+		&& length $manage_files_by2->{_file_in}
+		or length $manage_files_by2->{_pathNfile} )
+	{
+		my $inbound;
+		my $i = 0;
+
+		# full directory directory plus file name
+		if (   length $manage_files_by2->{_directory}
+			&& length $manage_files_by2->{_file_in} )
+		{
+			$inbound =
+				$manage_files_by2->{_directory} . '/'
+			  . $manage_files_by2->{_file_in};
+
+#			print("manage_files_by2, get_whole, $inbound\n");
+			
+		}
+		elsif (length $manage_files_by2->{_pathNfile}) {
+			
+				$inbound =
+				$manage_files_by2->{_pathNfile};
+#				print("manage_files_by2, get_whole, $inbound\n");		
+						
+		}
+		else {
+			print("manage_files_by2_get_whole, unexpected variable\n");
+		}
+
+		open( my $fh, '<', $inbound )
+		  or die "Could not open file '$manage_files_by2->{_file_in}' $!";
+		while ( my $row = <$fh> ) {
+			
+			chomp $row;
+			$all_lines[$i] = $row;
+
+		#			print "I read: " . $all_lines[$i] . "from the file, i=" . $i . "\n";
+			$i++;
+		}
+
+		$manage_files_by2->{_all_lines_aref} = \@all_lines;
+		close($fh);
+		
+		$manage_files_by2->{_num_lines} =
+		  scalar @{ $manage_files_by2->{_all_lines_aref} };
+
+		# $manage_files_by2->{_num_lines} = 16;
+
+# print("manage_files_by2, get_whole, num_lines: $manage_files_by2->{_num_lines}\n");
+#for (my $i=14; $i < $manage_files_by2->{_num_lines}; $i++ ) {
+# 	print("manage_files_by2, get_whole, all_lines_aref: @{$manage_files_by2->{_all_lines_aref}}[$i] \n");
+#}
+# print("manage_files_by2, get_whole, all_lines_aref: @{$manage_files_by2->{_all_lines_aref}} \n");
+	}
+	else {
+		print(
+"manage_files_by2, get_whole, missing either directory or file name, or both \n"
+		);
+	}
+
+	my $result_ref = \@all_lines;
+	return ($result_ref);
+}
+
 =head2 sub set_directory
 
 =cut
@@ -200,10 +340,33 @@ sub set_directory {
 
 	}
 	else {
-		print("manage_fiels_by2, set_directory, missing value\n");
+		print("manage_files_by2, set_directory, missing value\n");
 	}
 
 	return ();
+}
+
+=head2 sub set_file_in
+
+=cut
+
+sub set_file_in {
+
+	my ( $self, $file_in ) = @_;
+
+	if ( length($file_in) ) {
+
+		$manage_files_by2->{_file_in} = $file_in;
+
+#		print("manage_files_by2, set_file_in, file=$manage_files_by2->{_file_in} \n");
+
+	}
+	else {
+		print("manage_fiels_by2, set_file_in, missing value\n");
+	}
+
+	return ();
+	
 }
 
 =head2 sub clear_empty_files
@@ -409,43 +572,27 @@ sub exists {
 
 }
 
-#=head2 find_file
-#
-#=cut
-#
-#sub find_file {
-#
-#	my ( $self, $filename, $dir_ref ) = @_;
-#	
-#	my @DIR = @$dir_ref;
-#
-#	find(
-#		{
-#			wanted => \&findfiles,
-#			@DIR
-#		}
-#	);
-#
-#
-#
-#	sub findfiles {
-#		if (/^$filename\z/) {
-#
-#			#To search only the directory
-#			print "found it\n";
-#		}
-#
-#	}
-#
-##print("L_SU_global_constants, there are $number_of_INC_dirs directories in INC\n");
-##
-##for (my $i=0; $i< $number_of_INC_dirs; $i++) {
-##
-##	print("$INC[$i]\n");
-##
-##}
-#
-#}
+=head2 sub set_pathNfile
+
+=cut
+
+sub set_pathNfile {
+
+	my ( $self, $pathNfile ) = @_;
+
+	if ( length($pathNfile) ) {
+
+		$manage_files_by2->{_pathNfile} = $pathNfile;
+
+#		print("manage_files_by2, set_pathNfile, pathNfile=$manage_files_by2->{_pathNfile} \n");
+
+	}
+	else {
+		print("manage_fiels_by2, set_pathNfile, missing value\n");
+	}
+
+	return ();
+}
 
 =pod sub unique_elements
 
@@ -1007,20 +1154,20 @@ Version:
 =cut
 
 		use Moose;
-		use SeismicUnix
-		  qw($append $in $out $on $go $to $suffix_ascii $off $suffix_segd $suffix_segy $suffix_sgy $suffix_su $suffix_segd $suffix_txt $suffix_bin);
-		use Project_config;
-
+		use LSeismicUnix::misc::SeismicUnix qw($append $in $out $on $go $to $suffix_ascii $off
+		  $suffix_segd $su $suffix_segy $suffix_sgy $suffix_su
+		  $suffix_segd $suffix_txt $suffix_bin);
+		use LSeismicUnix::configs::big_streams::Project_config;
 		my $Project           = new Project_config();
 		my $DATA_SEISMIC_BIN  = $Project->DATA_SEISMIC_BIN;
 		my $DATA_SEISMIC_SEGY = $Project->DATA_SEISMIC_SEGY;
 		my $DATA_SEISMIC_SU   = $Project->DATA_SEISMIC_SU;
 		my $DATA_SEISMIC_TXT  = $Project->DATA_SEISMIC_TXT;
 
-		use message;
-		use flow;
-		use cat_su;
-		use data_out;
+		use LSeismicUnix::misc::message;
+		use LSeismicUnix::misc::flow;
+		use LSeismicUnix::sunix::shell::cat_su;
+		use LSeismicUnix::sunix::data::data_out;
 
 		my $log      = new message();
 		my $run      = new flow();
@@ -1149,9 +1296,9 @@ Version:
 =cut
 
 		use Moose;
-		use SeismicUnix
+		use LSeismicUnix::misc::SeismicUnix
 		  qw($append $in $out $on $go $to $suffix_ascii $off $suffix_segd $suffix_segy $suffix_sgy $suffix_su $suffix_segd $suffix_txt $suffix_bin);
-		use Project_config;
+		use LSeismicUnix::configs::big_streams::Project_config;
 
 		my $Project           = new Project_config();
 		my $DATA_SEISMIC_BIN  = $Project->DATA_SEISMIC_BIN;
@@ -1159,10 +1306,10 @@ Version:
 		my $DATA_SEISMIC_SU   = $Project->DATA_SEISMIC_SU;
 		my $DATA_SEISMIC_TXT  = $Project->DATA_SEISMIC_TXT;
 
-		use message;
-		use flow;
-		use cat_txt;
-		use data_out;
+		use LSeismicUnix::misc::message;
+		use LSeismicUnix::misc::flow;
+		use LSeismicUnix::sunix::shell::cat_txt;
+		use LSeismicUnix::sunix::data::data_out;
 
 		my $log      = new message();
 		my $run      = new flow();

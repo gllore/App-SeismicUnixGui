@@ -4,7 +4,7 @@
 
 =head2 SYNOPSIS 
 
- PERL PROGRAM NAME: L_SU.pl 
+ PERL PROGRAM NAME: L_SUV0.6.6.pl 
  AUTHOR: 	Juan Lorenzo
  DATE: 		June 22 2017 
 
@@ -74,13 +74,27 @@
 use Moose;
 our $VERSION = '0.5.0';
 
+my $path;
+my $LSeismicUnix;
+use Shell qw(echo);
+
+BEGIN {
+
+$LSeismicUnix = ` echo \$LSeismicUnix`;
+chomp $LSeismicUnix;
+$path = $LSeismicUnix.'/'.'misc';
+
+}
+use lib "$path";
+
 extends 'gui_history' => { -version => 0.0.2 };
 
 use Tk;
 use Tk::Pane;
 use Tk::NoteBook;
-use L_SU 0.1.7;
-use L_SU_global_constants;
+use LSeismicUnix::misc::L_SU '0.1.7';
+use LSeismicUnix::misc::L_SU_global_constants;
+print ("$LSeismicUnix\n");
 
 =head2 Instantiation
 
@@ -94,6 +108,7 @@ my $gui_history = gui_history->new();
 
 =cut
 
+my $global_libs                   = $get->global_libs();
 my $var                           = $get->var();
 my $on                            = $var->{_on};
 my $true                          = $var->{_true};
@@ -103,9 +118,14 @@ my $flow_type                     = $get->flow_type_href();
 my $alias_FileDialog_button_label = $get->alias_FileDialog_button_label_aref;
 my $superflow_names_gui_aref      = $get->superflow_names_gui_aref();
 my $file_dialog_type              = $get->file_dialog_type_href();
-my $global_libs                   = $get->global_libs();
+
+print("main,global_libs=$global_libs->{_images}\n");
+print("on = $on\n");
+print("Hit Enter to continue\n");
+<STDIN>;
 
 my @sunix_data_programs        = @{ $var->{_sunix_data_programs} };
+
 my @sunix_datum_programs       = @{ $var->{_sunix_datum_programs} };
 my @sunix_plot_programs        = @{ $var->{_sunix_plot_programs} };
 my @sunix_filter_programs      = @{ $var->{_sunix_filter_programs} };

@@ -11,7 +11,9 @@ package param_sunix;
  DESCRIPTION: 
  V 0.1 June 22 2017
  V 0.2 June 23 2017
-   change class name from sunix.pm     
+   change class name from sunix.pm  
+   
+  V 0.0.2 made in June 2022   
 
  USED FOR: 
 
@@ -20,7 +22,7 @@ package param_sunix;
 =cut
 
 use Moose;
-my $VERSION = '1.0.0';
+my $VERSION = '0.0.2';
 
 =pod
 
@@ -52,7 +54,7 @@ my $param_sunix = {
 #	trigger   => \&set_program_name,
 #);
 
-use L_SU_global_constants;
+use LSeismicUnix::misc::L_SU_global_constants;
 my $get          = new L_SU_global_constants();
 my $var          = $get->var();
 my $on           = $var->{_on};
@@ -122,13 +124,13 @@ sub defaults {
 
 	if ( defined $program_name_sref ) {
 
-		use su_param;
+		use LSeismicUnix::misc::su_param '0.0.3';
 		my $su_param = new su_param();
 		my ( $cfg_aref, $size );
 
 		$cfg_aref                 = $su_param->get($program_name_sref);
 		$param_sunix->{_all_aref} = $cfg_aref;
-		$param_sunix->{_length}   = $su_param->length($program_name_sref);
+		$param_sunix->{_length}   = $su_param->my_length($program_name_sref);
 
 		print("param_sunix,defaults, length:$param_sunix->{_length}\n");
 		return ();
@@ -151,7 +153,7 @@ sub _defaults {
 	if ( defined $program_name_sref
 		&& $param_sunix->{_flow_type} ne $empty_string ) {
 
-		use su_param;
+		use LSeismicUnix::misc::su_param;
 		my $su_param = new su_param();
 		my ( $cfg_aref, $size );
 
@@ -160,7 +162,7 @@ sub _defaults {
 		$cfg_aref                 = $su_param->get($program_name_sref);
 #		print("param_sunix,_defaults,cfg_aref = @{$cfg_aref}\n");
 		$param_sunix->{_all_aref} = $cfg_aref;
-		$param_sunix->{_length}   = $su_param->length($program_name_sref);
+		$param_sunix->{_length}   = $su_param->my_length($program_name_sref);
 
 		# print("param_sunix,_defaults, length:$param_sunix->{_length}\n");
 		return ();

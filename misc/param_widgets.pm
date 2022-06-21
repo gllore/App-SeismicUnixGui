@@ -33,8 +33,8 @@ package param_widgets;
 use Moose;
 our $VERSION = '1.0.1';
 use Tk;
-use L_SU_global_constants;
-use check_buttons;
+use LSeismicUnix::misc::L_SU_global_constants;
+use LSeismicUnix::misc::check_buttons;
 my $check_buttons = new check_buttons();
 
 my $get                 = new L_SU_global_constants();
@@ -114,7 +114,7 @@ my $false = 0;
 sub _max_length_in_gui {
 	my ($self) = @_;
 
-	use L_SU_global_constants;
+	use LSeismicUnix::misc::L_SU_global_constants;
 	my $get = L_SU_global_constants->new();
 
 	my $param             = $get->param();
@@ -197,7 +197,7 @@ sub _changes {
 	my ( $self, $index ) = @_;
 
 	my $idx = $index;    # individual parameter line
-	use control 0.0.3;
+	use LSeismicUnix::misc::control '0.0.3';
 	my $control = new control;
 
 	# two cases possible
@@ -481,7 +481,7 @@ sub get_values_w_aref {
 sub gui_clean {
 	my ($self) = @_;
 
-	use wipe;
+	use LSeismicUnix::misc::wipe;
 	my $wipe = new wipe();
 
 	# print("param_widgets, gui_clean, _values_w_aref, $param_widgets->{_values_w_aref} \n");
@@ -505,7 +505,7 @@ sub gui_full_clear {
 	my ($self) = @_;
    print("param_widgets,guifull_clear, start\n");
    
-	use wipe;
+	use LSeismicUnix::misc::wipe;
 	my $wipe = new wipe();
 
 	my $safe = $param_widgets->{_length};
@@ -986,7 +986,7 @@ sub initialize_labels {
 	my ( $labels, $first, $length );
 	my (@blank_labels);
 
-	use label_boxes;
+	use LSeismicUnix::misc::label_boxes;
 
 	$labels = label_boxes->new();
 	$first  = $param_widgets->{_first_idx};
@@ -1015,7 +1015,7 @@ sub initialize_values {
 	my ($self) = @_;
 	my ( $values, $first, $length );
 	my @blank_values = ();
-	use value_boxes;
+	use LSeismicUnix::misc::value_boxes;
 	$values = value_boxes->new();
 
 	$first  = $param_widgets->{_first_idx};
@@ -1208,7 +1208,7 @@ For the Entry widget do not alter the
   widget. That means the _changes will be invoked at every
   shift of the mouse to a new widget.
   
-  use control 0.0.3 to remove terminal quotes for values, only for display purposes
+  use LSeismicUnix::misc::control '0.0.3' to remove terminal quotes for values, only for display purposes;
   when later read again the values will be given quotes if they
   do not look like a number-- this occurs in a superclass
   
@@ -1227,7 +1227,7 @@ sub redisplay_values {
 	# print("param_widgets, redisplay_values, length is $length\n");
 	if (    length($values_w_aref)
 		and length($values_aref) ) {
-		use control 0.0.3;
+		use LSeismicUnix::misc::control '0.0.3';
 
 		for ( my $i = $first; $i < $length; $i++ ) {
 

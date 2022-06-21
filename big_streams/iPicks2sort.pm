@@ -1,12 +1,12 @@
 package iPicks2sort;
 
 use Moose;
-use L_SU_global_constants;
+use LSeismicUnix::misc::L_SU_global_constants;
 my $VERSION = '0.0.1';
-use control 0.0.3;
-use message;
-use flow;
-use Project_config;
+use LSeismicUnix::misc::control '0.0.3';
+use LSeismicUnix::misc::message;
+use LSeismicUnix::misc::flow;
+use LSeismicUnix::configs::big_streams::Project_config;
 
 =head1 DOCUMENTATION
 
@@ -93,7 +93,7 @@ my $iPicks2sort = {
 
 =cut 
 
-use SeismicUnix qw ($true $false $in $out $to
+use LSeismicUnix::misc::SeismicUnix qw ($true $false $in $out $to;
   $itemp_picks_ $itemp_picks_sorted_
   $out $suffix_su);
 

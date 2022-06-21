@@ -34,19 +34,20 @@ package files_LSU;
 use Moose;
 our $VERSION = '0.0.4';
 
-use L_SU_global_constants;
-use Project_config;
-my $Project = new Project_config();
-use oop_text;
-use SeismicUnix qw ($su $suffix_su $txt $suffix_txt);
+use LSeismicUnix::misc::L_SU_global_constants;
+use LSeismicUnix::configs::big_streams::Project_config;
+use LSeismicUnix::misc::oop_text;
+use LSeismicUnix::misc::SeismicUnix qw ($su $suffix_su $txt $suffix_txt);
 
-my $get                          = new L_SU_global_constants();
-my $oop_text                     = new oop_text;
-my $alias_superflow_name         = $get->alias_superflow_names_h();
-my $alias_superflow_spec_names_h = $get->alias_superflow_spec_names_h();
-my $var                          = $get->var();
-my $global_lib                   = $get->global_libs();
-my $GLOBAL_CONFIG_LIB            = $global_lib->{_configs_big_streams};
+my $Project               = new Project_config();
+my $L_SU_global_constants = new L_SU_global_constants();
+my $oop_text              = new oop_text;
+my $alias_superflow_name  = $L_SU_global_constants->alias_superflow_names_h();
+my $alias_superflow_spec_names_h =
+  $L_SU_global_constants->alias_superflow_spec_names_h();
+my $var               = $L_SU_global_constants->var();
+my $global_lib        = $L_SU_global_constants->global_libs();
+my $GLOBAL_CONFIG_LIB = $global_lib->{_configs_big_streams};
 
 #WARNING---- watch out for missing underscore!!
 # print("files_LSU,alias_superflow_name : $alias_superflow_name->{ProjectVariables}\n");
@@ -66,7 +67,7 @@ my ( $i, $j, $k, $size, $ref_cfg );
 my @format;
 
 # set default
-$format[0]    = $var->{_config_file_format};
+$format[0] = $var->{_config_file_format};
 
 my $files_LSU = {
 	_CFG                     => '',
@@ -76,7 +77,7 @@ my $files_LSU = {
 	_flow_color              => '',
 	_flow_name_out           => '',
 	_filehandle              => '',
-	_format_aref             =>\@format,
+	_format_aref             => \@format,
 	_is_config               => $false,
 	_is_Project_config       => $false,
 	_is_data                 => $false,
@@ -106,7 +107,8 @@ $files_LSU->{_filehandle} = undef;
 
 # will be called again internally by other software
 # in case there are changes
-_set_PL_SEISMIC();
+# _set_PL_SEISMIC();
+$files_LSU->{_PL_SEISMIC} = $Project->PL_SEISMIC();
 
 =head2 sub _close 
 
@@ -131,13 +133,14 @@ sub _get_superflow_config_file_format_aref {
 	my ($self) = @_;
 
 	if ( length $files_LSU->{_format_aref} ) {
-		
+
 		my $ref_format = $files_LSU->{_format_aref};
-#		print("files_LSU, _get_config_format,formats=@$ref_format\n");
+
+		#		print("files_LSU, _get_config_format,formats=@$ref_format\n");
 		return ($ref_format);
 	}
 	else {
-#		print("files_LSU, _get_config_format, missing formats\n");
+		#		print("files_LSU, _get_config_format, missing formats\n");
 		return ($empty_string);
 	}
 
@@ -222,7 +225,7 @@ suffix_type_set_suffix_suffix_type	TODO: suffix_type out may not
 sub _set_PL_SEISMIC {
 
 	my ($self) = @_;
-	use Project_config;
+	use LSeismicUnix::configs::big_streams::Project_config;
 	my $Project = Project_config->new();
 
 	$files_LSU->{_PL_SEISMIC} = $Project->PL_SEISMIC();
@@ -507,7 +510,7 @@ needs prog_name_sref and
 is_Project_config or
 or _is_config
 
-Why use name module?
+Why use LSeismicUnix::misc::name module?;
  To modify input names--
  adapt them to infer
  which spec and parameter
@@ -526,7 +529,7 @@ sub outbound {
 
 	if ( $files_LSU->{_prog_name_sref} ) {
 
-		use name;
+		use LSeismicUnix::misc::name;
 		my $name = new name();
 
 		$files_LSU->{_program_name} = ${ $files_LSU->{_prog_name_sref} };
@@ -540,7 +543,7 @@ sub outbound {
 			$files_LSU->{_program_name_config} =
 			  $name->change_config($program_name);
 
-			use L_SU_local_user_constants;
+			use LSeismicUnix::misc::L_SU_local_user_constants;
 
 			# Find out HOME directory and configuration path for user
 			my $user_constants = L_SU_local_user_constants->new();
@@ -569,18 +572,17 @@ sub outbound {
 		}
 		elsif ( $files_LSU->{_is_config} ) {    # double check
 
-			#			use Module::Refresh;                  # reload updated module
-
 			my $DATA_PATH_IN;
 
 			# CASE 2 for superflows
 			my $module_spec    = $program_name . '_spec';
 			my $module_spec_pm = $module_spec . '.pm';
 
-			#			my $refresher = Module::Refresh->new;
-			#			$refresher->refresh_module("$module_spec_pm");
+			$L_SU_global_constants->set_file_name($module_spec_pm);
+			my $path = $L_SU_global_constants->get_path4spec_file();
+			my $pathNmodule_pm = $path . '/' . $module_spec_pm;
 
-			require $module_spec_pm;
+			require $pathNmodule_pm;
 			my $package = $module_spec->new;
 
 			# collect specifications of output directory
@@ -634,7 +636,7 @@ sub outbound2 {
 
 	if ( $files_LSU->{_prog_name_sref} ) {
 
-		use name;
+		use LSeismicUnix::misc::name;
 		my $name = new name();
 
 		$files_LSU->{_program_name} = ${ $files_LSU->{_prog_name_sref} };
@@ -644,7 +646,7 @@ sub outbound2 {
 			$files_LSU->{_program_name_config} =
 			  $name->change_config($program_name);
 
-			use L_SU_local_user_constants;
+			use LSeismicUnix::misc::L_SU_local_user_constants;
 
 			# Find out HOME directory and configuration path for user
 			my $user_constants = L_SU_local_user_constants->new();
@@ -697,7 +699,7 @@ sub outbound2 {
 sub set_PL_SEISMIC {
 
 	my ($self) = @_;
-	use Project_config;
+	use LSeismicUnix::configs::big_streams::Project_config;
 
 	my $Project = Project_config->new();
 	$files_LSU->{_PL_SEISMIC} = $Project->PL_SEISMIC();
@@ -943,7 +945,7 @@ sub set_outbound {
 
 	if ($out_scalar_ref) {
 
-		use name;
+		use LSeismicUnix::misc::name;
 		my $name = new name();
 
 		$files_LSU->{_program_name} = $$out_scalar_ref;
@@ -952,7 +954,7 @@ sub set_outbound {
 			$files_LSU->{_program_name_config} =
 			  $name->change_config($program_name);
 
-			use L_SU_local_user_constants;
+			use LSeismicUnix::misc::L_SU_local_user_constants;
 
 			# Find out HOME directory and configuration path for user
 			my $user_constants = L_SU_local_user_constants->new();
@@ -1015,7 +1017,7 @@ sub set_outbound2 {
 
 	if ($out_scalar_ref) {
 
-		use name;
+		use LSeismicUnix::misc::name;
 		my $name = new name();
 
 		$files_LSU->{_program_name} = $$out_scalar_ref;
@@ -1024,7 +1026,7 @@ sub set_outbound2 {
 			$files_LSU->{_program_name_config} =
 			  $name->change_config($program_name);
 
-			use L_SU_local_user_constants;
+			use LSeismicUnix::misc::L_SU_local_user_constants;
 
 			# Find out HOME directory and configuration path for user
 			my $user_constants = L_SU_local_user_constants->new();
@@ -1198,7 +1200,7 @@ sub set_superflow_specs {
 
 	if ( $hash_ref && $files_LSU->{_prog_name_sref} ) {
 
-		use name;
+		use LSeismicUnix::misc::name;
 
 		#	    use Module::Refresh; # reload updated module
 
@@ -1215,8 +1217,12 @@ sub set_superflow_specs {
 		my $module_spec = $alias_program_name . '_spec';   #conveniently shorter
 		my $module_spec_pm = $module_spec . '.pm';
 
+		$L_SU_global_constants->set_file_name($module_spec_pm);
+		my $path 			= $L_SU_global_constants->get_path4spec_file();
+		my $pathNmodule_pm  = $path.'/'.$module_spec_pm;
+
 		#		$refresher->refresh_module("$module_spec_pm");
-		require $module_spec_pm;
+		require $pathNmodule_pm;
 
 # print ("1. files_LSU,set_superflow_specs, require superflow module $module_spec_pm\n");
 
@@ -1297,35 +1303,37 @@ sub _write {
 
 	my ($self) = @_;
 
-	use control 0.0.3;
+	use LSeismicUnix::misc::control '0.0.3';
 	my $control = control->new();
 	my @format;
-	my $length      = ( scalar @{ $files_LSU->{_CFG} } ) / 2;
-	my $length_info = scalar @{ $files_LSU->{_info} };
-	my @info        = @{ $files_LSU->{_info} };
-	my @CFG         = @{ $files_LSU->{_CFG} };
-	my $config_file_format_aref =_get_superflow_config_file_format_aref();
-	my $num_formats 			= scalar @$config_file_format_aref;
-	
-#	print("files_LSU, _write,num_formats=$num_formats\n");
-	
+	my $length                  = ( scalar @{ $files_LSU->{_CFG} } ) / 2;
+	my $length_info             = scalar @{ $files_LSU->{_info} };
+	my @info                    = @{ $files_LSU->{_info} };
+	my @CFG                     = @{ $files_LSU->{_CFG} };
+	my $config_file_format_aref = _get_superflow_config_file_format_aref();
+	my $num_formats             = scalar @$config_file_format_aref;
+
+	#	print("files_LSU, _write,num_formats=$num_formats\n");
+
 	if ( $num_formats == 1 ) {
-		
-		for (my $i=0; $i< $length; $i++) {
-			
+
+		for ( my $i = 0 ; $i < $length ; $i++ ) {
+
 			$format[$i] = @{$config_file_format_aref}[0];
-			
-		}		
-		
-	} elsif ( $num_formats > 1 ) {
-		
-		@format   = @$config_file_format_aref;
-#		print("files_LSU, _write,@format\n");
-		
-	} else{
+
+		}
+
+	}
+	elsif ( $num_formats > 1 ) {
+
+		@format = @$config_file_format_aref;
+
+		#		print("files_LSU, _write,@format\n");
+
+	}
+	else {
 		print("files_LSU, _write, unexpected result\n");
 	}
-	
 
 #	print("files_LSU,_write,files_LSU->{_outbound} is $files_LSU->{_outbound}\n");
 
@@ -1378,7 +1386,9 @@ sub write {
 		if ( defined $CFG[$j] && defined $CFG[ $j + 1 ] ) {
 
 			# printf ("    $CFG[$j],= ,$CFG[($j+1)]\n");;
-			printf $fh "%-35s%1s%-20s\n", $CFG[$j], "= ", $CFG[ ( $j + 1 ) ];
+			printf $fh
+			  "                                                        \n",
+			  $CFG[$j], "= ", $CFG[ ( $j + 1 ) ];
 
 		}
 		else {
@@ -1397,10 +1407,10 @@ sub write {
 
 sub write2 {
 	my ($self) = @_;
-	use manage_dirs_by;
-	use L_SU_local_user_constants;
+	use LSeismicUnix::misc::manage_dirs_by;
+	use LSeismicUnix::misc::L_SU_local_user_constants;
 	use File::Copy;
-	use control 0.0.3;
+	use LSeismicUnix::misc::control '0.0.3';
 
 	my $user_constants = L_SU_local_user_constants->new();
 	my $control        = control->new();
@@ -1458,21 +1468,23 @@ sub write2 {
 				if ( defined $cfg )
 				{    # because removing quotes from an empty string does this
 
-					printf $fh "%-35s%1s%-20s\n", $CFG[$j], "= ", $cfg;
+					printf $fh
+"                                                        \n",
+					  $CFG[$j], "= ", $cfg;
 
 				}
 				else {
 
-					# print("1 files_LSU,write2, cfg is not defined NADA\n");
-					# printf $fh "%-35s%1s%-20s\n", $CFG[$j], "= ",
-					#	$empty_string;
+# print("1 files_LSU,write2, cfg is not defined NADA\n");
+# printf $fh "                                                        \n", $CFG[$j], "= ",
+#	$empty_string;
 				}
 
 			}
 			else {
 
-				# print("2 files_LSU,write2, cfg is not defined NADA\n");
-				# printf $fh "%-35s%1s%-20s\n", $CFG[$j], "= ", $empty_string;
+# print("2 files_LSU,write2, cfg is not defined NADA\n");
+# printf $fh "                                                        \n", $CFG[$j], "= ", $empty_string;
 			}
 		}
 
@@ -1504,7 +1516,7 @@ sub write_config {
 	}
 
 	for ( my $i = 0, my $j = 0 ; $i < $length ; $i++, $j = $j + 2 ) {
-		printf $OUT "    %-SET_OU35s%1s%-20s\n", $CFG[$j], "= ",
+		printf $OUT "    %-SET_OU35s                     \n", $CFG[$j], "= ",
 		  $CFG[ ( $j + 1 ) ];
 	}
 	close($OUT);
@@ -1515,7 +1527,7 @@ sub write_config {
 	write out user-built *.pl flow files
 
 	for (my $i=0, my $j=0;  $i<$length; $i++, $j=$j+2){
-    	printf  $OUT "%-35s%1s%-20s\n",$CFG[$j],"= ",$CFG[($j+1)];
+    	printf  $OUT "                                                        \n",$CFG[$j],"= ",$CFG[($j+1)];
     }
 
 =cut 

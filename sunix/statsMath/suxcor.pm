@@ -112,8 +112,8 @@ package suxcor;
 
 use Moose;
 our $VERSION = '0.0.1';
-use L_SU_global_constants();
-use Project_config;
+use LSeismicUnix::misc::L_SU_global_constants;
+use LSeismicUnix::configs::big_streams::Project_config;
 
 my $get     = new L_SU_global_constants();
 my $Project = new Project_config();
@@ -392,7 +392,7 @@ sub sufile {
     my ( $self, $sufile ) = @_;
     if ( $sufile ne $empty_string ) {
 
-        use SeismicUnix qw($suffix_su);
+        use LSeismicUnix::misc::SeismicUnix qw($suffix_su);
         use File::Basename;
 
         my ($DATA_SEISMIC_SU) = $Project->DATA_SEISMIC_SU();

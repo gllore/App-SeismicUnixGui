@@ -49,18 +49,18 @@ package iBottomMute;
 
 use Moose;
 my $VERSION = '1.0.3';
-use cp;
-use flow;
-use iApply_bottom_mute;
-use iSave_bottom_mute_picks;
-use iSelect_tr_Sumute_bottom;
-use iBottomMutePicks2par;
-use message;
-use old_data;
-use Project_config;
-use SeismicUnix
+use LSeismicUnix::sunix::shell::cp;
+use LSeismicUnix::misc::flow;
+use LSeismicUnix::big_streams::iApply_bottom_mute;
+use LSeismicUnix::big_streams::iSave_bottom_mute_picks;
+use LSeismicUnix::big_streams::iSelect_tr_Sumute_bottom;
+use LSeismicUnix::big_streams::iBottomMutePicks2par;
+use LSeismicUnix::misc::message;
+use LSeismicUnix::misc::old_data;
+use LSeismicUnix::configs::big_streams::Project_config;
+use LSeismicUnix::misc::SeismicUnix
   qw ($on $off $in $to $go $ibot_mute_par_ $ibot_mute_check_pickfile_ $false $true );
-use SuMessages;
+use LSeismicUnix::messages::SuMessages;
 
 =head2 establish private hash of shared variables
 

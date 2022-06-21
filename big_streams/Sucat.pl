@@ -142,18 +142,18 @@ CASE 3
 
 use Moose;
 our $VERSION = '0.1.4';
-use control 0.0.3;
-use Project_config;
-use readfiles;
-use flow;
-use message;
-use sucat;
-use manage_files_by;
-use SeismicUnix
+use LSeismicUnix::misc::control '0.0.3';
+use LSeismicUnix::configs::big_streams::Project_config;
+use LSeismicUnix::misc::readfiles;
+use LSeismicUnix::misc::flow;
+use LSeismicUnix::misc::message;
+use LSeismicUnix::sunix::shell::sucat;
+use LSeismicUnix::misc::manage_files_by;
+use LSeismicUnix::misc::SeismicUnix
 	qw ($_cdp $_mute $in $itop_mute_par_ $ivpicks_sorted_par_ $out $on $go $to $suffix_ascii $off $suffix_su);
-use L_SU_global_constants;
-use Sucat_config;
-use Sucat_spec;
+use LSeismicUnix::misc::L_SU_global_constants;
+use LSeismicUnix::configs::big_streams::Sucat_config;
+use LSeismicUnix::specs::big_streams::Sucat_spec;
 
 =head2 Declare variables 
 

@@ -42,7 +42,7 @@ files
 
 =cut
 
-use L_SU_global_constants;
+use LSeismicUnix::misc::L_SU_global_constants;
 
 =head2 instatntiate new variables
 
@@ -135,7 +135,7 @@ sub _get_data_type {
 		and $sucat->{_list} ne $empty_string ) {
 
 		use readfiles;
-		use SeismicUnix qw($itop_mute $ibot_mute $ivpicks_sorted_par_);
+		use LSeismicUnix::misc::SeismicUnix qw($itop_mute $ibot_mute $ivpicks_sorted_par_);
 
 		# my $velan = $ivpicks_sorted_par_;
 
@@ -250,7 +250,7 @@ sub data_type {
 
 		use readfiles;
 		use manage_files_by;
-		use control 0.0.3;
+		use LSeismicUnix::misc::control '0.0.3';
 
 =head2 instantiate packages
 

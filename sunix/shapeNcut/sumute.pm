@@ -108,9 +108,9 @@ package sumute;
 use Moose;
 our $VERSION = '0.0.1';
 
-use L_SU_global_constants();
-use SeismicUnix qw($itop_mute_par_ $ibot_mute_par_);
-use Project_config;
+use LSeismicUnix::misc::L_SU_global_constants;
+use LSeismicUnix::misc::SeismicUnix qw($itop_mute_par_ $ibot_mute_par_);
+use LSeismicUnix::configs::big_streams::Project_config;
 
 my $get     = new L_SU_global_constants();
 my $Project = new Project_config;
@@ -122,7 +122,7 @@ my ( @tmute, @xmute, @output, @Steps, @gather_number, @par_file );
 my $PL_SEISMIC      = $Project->PL_SEISMIC();
 my $DATA_SEISMIC_SU = $Project->DATA_SEISMIC_SU();
 
-use SeismicUnix
+use LSeismicUnix::misc::SeismicUnix
 	qw ($in $out $on $go $to $tmute $xmute $suffix_ascii $off $suffix_su $suffix_bin $temp_single_gather_par_file_mute );
 
 my $sumute = {
@@ -160,14 +160,14 @@ sub _get_par_sets {
 	if (    $sumute->{_multi_gather_par_file} ne $empty_string
 		and $sumute->{_gather_type} ne $empty_string ) {
 
-		use manage_files_by2;
-		use control 0.0.3;
+		use LSeismicUnix::misc::manage_files_by2;
+		use LSeismicUnix::misc::control '0.0.3';
 
 =head2 instantiate classes
 
 =cut
 
-		my $files   = new manage_files_by2();
+		my $files   = new manage_files_by2;
 		my $control = new control;
 
 =head2 private definitions
@@ -340,9 +340,9 @@ with multi_gather_su_file
 
 =cut
 
-		use susplit;
-		use flow;
-		use control 0.0.3;
+		use LSeismicUnix::sunix::shapeNcut::susplit;
+		use LSeismicUnix::misc::flow;
+		use LSeismicUnix::misc::control '0.0.3';
 
 =head2 instantiate modules
 
@@ -695,10 +695,8 @@ create concatenated output file name
 
 sub Steps {
 
-	# use Project_config;
-	# my $Project = new Project_config();
-	use SeismicUnix qw ($in $out $to $suffix_su);
-	use flow;
+	use LSeismicUnix::misc::SeismicUnix qw ($in $out $to $suffix_su);
+	use LSeismicUnix::misc::flow;
 
 	my ($DATA_SEISMIC_SU) = $Project->DATA_SEISMIC_SU();
 	my $run = new flow();
@@ -968,7 +966,7 @@ sub linvel {
 #=cut
 #
 #	use manage_files_by;
-#	use Project_config;
+#	use LSeismicUnix::configs::big_streams::Project_config;
 #	my $Project = new Project_config();
 #
 #=head2 Load
@@ -1126,7 +1124,7 @@ sub multi_gather_par_file {
 
 	if ( $multi_gather_par_file ne $empty_string ) {
 
-		use manage_files_by2;
+		use LSeismicUnix::misc::manage_files_by2;
 
 =head2 instantiate classes
 

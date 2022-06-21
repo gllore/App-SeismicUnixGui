@@ -1,18 +1,18 @@
 #!/bin/bash
 
 # see if global variable is set
-# global variable L_SU locates main folder
+# global variable LSeismicUnix locates main folder
 
- if [ -z "${L_SU}" ]; then
+ if [ -z "${PL_LOCAL}" ]; then
 
- 	echo "global variable L_SU must first be set"
+ 	echo "global variable PL_LOCAL must first be set"
  	echo "e.g. in .bashrc: "
- 	echo " export L_SU=/usr/local/pl/L_SU "
+ 	echo " export PL_LOCAL=/usr/local/pl "
 
  else
 	# run immodpg.pl -- a gui
-	# echo "perl" $L_SU"/big_streams/immodpg.pl"
-     	perl $L_SU/big_streams/immodpg.pl &
+	# echo "perl" $PL_LOCAL"/LSeismicUnix/big_streams/immodpg.pl"
+     	perl $PL_LOCAL/LSeismicUnix/big_streams/immodpg.pl &
     
     # Wait a second or two before starting 
     # immodpg1.1, a fortran program
@@ -21,7 +21,7 @@
      	sleep 2
     
 # Check if mmodpg1.1 (fortran program) exists before running
-  	  if [ -f /usr/local/pl/L_SU/fortran/bin/immodpg1.1 ] ; then
+  	  if [ -f /usr/local/pl/LSeismicUnix/fortran/bin/immodpg1.1 ] ; then
 
 	 # echo " immodpg, Found the file you need (immodpg1.1)"
 	  immodpg1.1

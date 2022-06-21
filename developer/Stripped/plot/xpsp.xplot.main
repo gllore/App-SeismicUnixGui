@@ -1,8 +1,8 @@
  XPSP - Display conforming PostScript in an X-window
 
  xpsp < stdin
- 
- opt=null
 
  Note: this is the most advanced version of xepsb and xepsp. 
  Caveat: your  system must have Display PostScript Graphics
+
+

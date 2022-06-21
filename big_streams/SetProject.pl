@@ -19,9 +19,9 @@
 
 =cut
 
-use Project_config;
+use LSeismicUnix::configs::big_streams::Project_config;
 my $Project = new Project_config();
-use manage_dirs_by;
+use LSeismicUnix::misc::manage_dirs_by;
 
 my ($DATA_SEISMIC)      = $Project->DATA_SEISMIC();
 my ($DATA_SEISMIC_DAT)  = $Project->DATA_SEISMIC_DAT();

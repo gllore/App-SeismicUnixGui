@@ -107,7 +107,7 @@ Version:
 
  0.2 and 0.6, producing approximated percentages of crosscorrelations summed
 
- between 60% and 20%. The higher the value of tau the lower the percentage
+ between 60 0x0p+0nd 20%. The higher the value of tau the lower the percentage
 
  and higher the increase in the resolving power of velocity spectra.        
 
@@ -175,10 +175,10 @@ our $VERSION = '0.0.1';
 
 =cut
 
-use L_SU_global_constants();
+use LSeismicUnix::misc::L_SU_global_constants;
 
-use SeismicUnix qw ($go $in $off $on $out $ps $to $suffix_ascii $suffix_bin $suffix_ps $suffix_segy $suffix_su);
-use Project_config;
+use LSeismicUnix::misc::SeismicUnix qw ($go $in $off $on $out $ps $to $suffix_ascii $suffix_bin $suffix_ps $suffix_segy $suffix_su);
+use LSeismicUnix::configs::big_streams::Project_config;
 
 
 =head2 instantiation of packages

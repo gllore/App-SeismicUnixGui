@@ -6,7 +6,7 @@ package gmt_package_subroutine;
 
  	our $VERSION = '1.20';
  	use Moose;
-	use L_SU_global_constants;
+	use LSeismicUnix::misc::L_SU_global_constants;
 	my $get				= new L_SU_global_constants();
 
  	my $var				= $get->var();

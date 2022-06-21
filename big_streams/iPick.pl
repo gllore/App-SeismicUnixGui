@@ -33,14 +33,14 @@
 
 use Moose;
 my $VERSION = '0.0.1';
-use L_SU_global_constants;
-use readfiles;
+use LSeismicUnix::misc::L_SU_global_constants;
+use LSeismicUnix::misc::readfiles;
 use Tk;
-use iPick;
-use iPick_config;
-use SeismicUnix qw ($true $false );
-use SuMessages;
-use xk;
+use LSeismicUnix::big_streams::iPick;
+use LSeismicUnix::configs::big_streams::iPick_config;
+use LSeismicUnix::misc::SeismicUnix qw ($true $false );
+use LSeismicUnix::messages::SuMessages;
+use LSeismicUnix::sunix::shell::xk;
 
 my $iPick_Tk = {_prompt => ''};
 

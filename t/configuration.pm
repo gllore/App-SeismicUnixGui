@@ -43,7 +43,7 @@ demos and Servilleta_demos
 use Moose;
 our $VERSION = '0.0.2';
 use File::Slurp;
-use L_SU_global_constants;
+use LSeismicUnix::misc::L_SU_global_constants;
 
 
 =head2 Instantiation

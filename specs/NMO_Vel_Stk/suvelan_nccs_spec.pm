@@ -2,11 +2,11 @@ package suvelan_nccs_spec;
 use Moose;
 our $VERSION = '0.0.1';
 
-use Project_config;
-use SeismicUnix
+use LSeismicUnix::configs::big_streams::Project_config;
+use LSeismicUnix::misc::SeismicUnix
   qw ($bin $ps $segy $su $suffix_bin $suffix_ps $suffix_segy $suffix_su $suffix_txt $txt);
-use L_SU_global_constants;
-use suvelan_nccs;
+use LSeismicUnix::misc::L_SU_global_constants;
+use LSeismicUnix::sunix::NMO_Vel_Stk::suvelan_nccs;
 my $get          = new L_SU_global_constants();
 my $Project      = new Project_config;
 my $suvelan_nccs = new suvelan_nccs;

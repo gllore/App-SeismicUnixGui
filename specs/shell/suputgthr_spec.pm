@@ -2,10 +2,10 @@ package suputgthr_spec;
 use Moose;
 our $VERSION = '0.0.1';
 
-use Project_config;
-use SeismicUnix qw ($su $suffix_su);
-use L_SU_global_constants;
-use suputgthr;
+use LSeismicUnix::configs::big_streams::Project_config;
+use LSeismicUnix::misc::SeismicUnix qw ($su $suffix_su);
+use LSeismicUnix::misc::L_SU_global_constants;
+use LSeismicUnix::sunix::shell::suputgthr;
 my $get       = new L_SU_global_constants();
 my $Project   = new Project_config;
 my $suputgthr = new suputgthr;

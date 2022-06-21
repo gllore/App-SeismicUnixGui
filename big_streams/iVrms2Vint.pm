@@ -2,13 +2,13 @@ package iVrms2Vint;
 
 use Moose;
 our $VERSION = '1.0.0';
-use message;
-use flow;
-use a2b;
-use xgraph;
-use manage_files_by2;
-use seismics;
-use Project_config;
+use LSeismicUnix::misc::message;
+use LSeismicUnix::misc::flow;
+use LSeismicUnix::sunix::par::a2b;
+use LSeismicUnix::sunix::plot::xgraph;
+use LSeismicUnix::misc::manage_files_by2;
+use LSeismicUnix::misc::seismics;
+use LSeismicUnix::configs::big_streams::Project_config;
 
 =head1 DOCUMENTATION
 $Time[$i] = $$ref_T[$i];
@@ -137,7 +137,7 @@ sub calcNdisplay {
 
     my ($PL_SEISMIC) = $Project->PL_SEISMIC();
     my ($date)       = $Project->date();
-    use SeismicUnix qw($on $off $in $out $to $go);
+    use LSeismicUnix::misc::SeismicUnix qw($on $off $in $out $to $go);
 
 =head2  some SUB-STEPS in Vrms2Vint:
 
@@ -308,7 +308,7 @@ sub calcNdisplay {
 
 =cut
 
-    $format[1] = '%10.3f  %10.3f';
+    $format[1] = '     0.000       0.000';
 
     print("num points in Vint plot are/is $num_points_Vint_plot\n\n");
     $files->write_2cols( \@Time_plot, \@Vint_plot, $num_points_Vint_plot,

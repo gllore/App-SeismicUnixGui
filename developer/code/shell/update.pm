@@ -77,7 +77,7 @@ of documentation.
 use Moose;
 our $VERSION = '0.0.2';
 
-use L_SU_global_constants;
+use LSeismicUnix::misc::L_SU_global_constants;
 use sudoc;
 use sunix_package;
 use prog_doc2pm;

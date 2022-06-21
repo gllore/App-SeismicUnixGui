@@ -81,7 +81,7 @@ vmax=2
 
 use Moose;
 our $VERSION = '0.0.1';
-use L_SU_global_constants();
+use LSeismicUnix::misc::L_SU_global_constants;
 
 my $get = new L_SU_global_constants();
 
@@ -514,11 +514,11 @@ Use directory navigation system
 
 sub outbound_pickfile {
   my ($variable,$file_in) = @_;
-		use Project_config;
+		use LSeismicUnix::configs::big_streams::Project_config;
 		my $Project = new Project_config;
         my ($DATA_SEISMIC_SU) = $Project->DATA_SEISMIC_SU();
         my ($PL_SEISMIC)      = $Project->PL_SEISMIC();
-        use SeismicUnix qw ($suffix_fp $suffix_su); 
+        use LSeismicUnix::misc::SeismicUnix qw ($suffix_fp $suffix_su) ;
 
         my $sufile_in			= $file_in.$suffix_su;
   	my $inbound			= $DATA_SEISMIC_SU.'/'.$sufile_in;
@@ -544,11 +544,11 @@ sub outbound_pickfile {
 
 =cut
 
-        use Project_config;
+        use LSeismicUnix::configs::big_streams::Project_config;
         my $Project           = new Project_config;
         my ($DATA_SEISMIC_SU) = $Project->DATA_SEISMIC_SU();
         my ($PL_SEISMIC)      = $Project->PL_SEISMIC();
-        use SeismicUnix qw ($suffix_fp $suffix_su);
+        use LSeismicUnix::misc::SeismicUnix qw ($suffix_fp $suffix_su);
 
         my $sufile_in = $outbound_pickfile . $suffix_su;
         my $inbound   = $DATA_SEISMIC_SU . '/' . $sufile_in;
@@ -692,7 +692,7 @@ sub vmin {
 
     my ( $self, $vmin ) = @_;
     if ( $vmin ne $empty_string ) {
-    	use control 0.0.3;
+    	use LSeismicUnix::misc::control '0.0.3';
     	my $control = control->new();
     	
     	$control->set_back_slashBgone($vmin );

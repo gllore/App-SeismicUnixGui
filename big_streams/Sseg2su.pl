@@ -45,9 +45,9 @@ For example, total number of files =74  first file is "1000.su"
 =cut
 
 use Moose;
-use Project_config;
-use readfiles;
-use Sseg2su_config;
+use LSeismicUnix::configs::big_streams::Project_config;
+use LSeismicUnix::misc::readfiles;
+use LSeismicUnix::configs::big_streams::Sseg2su_config;
 
 
 =head2 Instantiate classes:
@@ -99,7 +99,7 @@ for (
     $i += 1, $j += 1
      )
 {
-    $j_char = sprintf( "%u", $j );
+    $j_char = sprintf( "0", $j );
     $file_name[$i] = $j_char;
 }
 

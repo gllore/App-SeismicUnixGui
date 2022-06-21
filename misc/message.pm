@@ -32,9 +32,9 @@ Modules
 
 use Moose;
 our $VERSION = '0.0.2';
-use L_SU_global_constants;
+use LSeismicUnix::misc::L_SU_global_constants;
 use namespace::autoclean;    # best-practices hygiene
-use Project_config;
+use LSeismicUnix::configs::big_streams::Project_config;
 
 =head2 Instantiation
 
@@ -49,18 +49,18 @@ local variables
 
 =cut
 
-my $var                     = $get->var();
+my $var                 = $get->var();
 my $log_file_txt        = $var->{_log_file_txt};
-my $test_dir_name = $var->{_test_dir_name};
+my $test_dir_name 		= $var->{_test_dir_name};
 
-my $L_SU = $ENV{'L_SU'};
+my $L_SU = $ENV{'LSeismicUnix'};
 
 if ( not length($L_SU) ) {
 	
-    print "message.pm, L53\n";
+    print "message.pm, L60\n";
 	print "global variable L_SU must be set\n";
 	print "e.g., in .bashrc: ";
-	print " export L_SU=/usr/local/pl/L_SU ";
+	print " export L_SU=/usr/local/pl/LSeismicUnix ";
 
 } else {
 	#	print("test.pl: \$L_SU = $L_SU; NADA \n");

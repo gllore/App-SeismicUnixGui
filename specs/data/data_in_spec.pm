@@ -36,10 +36,10 @@ package data_in_spec;
 
 our $VERSION = '0.0.2';
 use Moose;
-use data_in;
-use L_SU_global_constants;
+use LSeismicUnix::sunix::data::data_in;
+use LSeismicUnix::misc::L_SU_global_constants;
 
-use SeismicUnix qw ($su $suffix_su);
+use LSeismicUnix::misc::SeismicUnix qw ($su $suffix_su);
 
 my $get              = new L_SU_global_constants();
 my $var              = $get->var();
