@@ -58,18 +58,18 @@ $path = $LSeismicUnix.'/'.'misc';
 use lib "$path";
 extends 'gui_history' => { -version => 0.0.2 };
 
-my $decisions   = decisions->new();
-my $get         = L_SU_global_constants->new();
-my $gui_history = gui_history->new();
+my $decisions   			= decisions->new();
+my $L_SU_global_constants   = L_SU_global_constants->new();
+my $gui_history 			= gui_history->new();
 
-my $file_dialog_type = $get->file_dialog_type_href();
-my $flow_type_h      = $get->flow_type_href();
-my $var              = $get->var();
+my $file_dialog_type = $L_SU_global_constants->file_dialog_type_href();
+my $flow_type_h      = $L_SU_global_constants->flow_type_href();
+my $var              = $L_SU_global_constants->var();
 my $empty_string     = $var->{_empty_string};
 my $on               = $var->{_on};
 my $true             = $var->{_true};
 my $false            = $var->{_false};
-my $superflow_names  = $get->superflow_names_h();
+my $superflow_names  = $L_SU_global_constants->superflow_names_h();
 
 =head2 Declare 
 local variables
@@ -183,14 +183,13 @@ sub _big_stream_last_dir_in_path {
 	#	print("file_dialog, _big_stream_last_dir_in_path\n ");
 	use LSeismicUnix::misc::iFile;
 	use LSeismicUnix::misc::whereami;
-	use LSeismicUnix::misc::L_SU_global_constants;
+	use LSeismicUnix::misc::param_widgets4pre_built_streams;
 
 	my $param_widgets = param_widgets4pre_built_streams->new();
-	my $get           = L_SU_global_constants->new();
 	my $whereami      = whereami->new();
 	my $iFile         = iFile->new();
 
-	my $default_param_specs = $get->param();
+	my $default_param_specs = $L_SU_global_constants->param();
 	my $first_idx           = $default_param_specs->{_first_entry_idx};
 	my $length              = $default_param_specs->{_length};
 
@@ -294,6 +293,7 @@ sub _big_stream_last_dir_in_path_close {
 	use LSeismicUnix::misc::iFile;
 	use LSeismicUnix::misc::decisions '1.0.0';
 	use LSeismicUnix::misc::control '0.0.3';
+	use LSeismicUnix::misc::param_widgets4pre_built_streams;
 
 	my $iFile         = new iFile;
 	my $control       = new control;
@@ -530,6 +530,7 @@ sub _pre_built_superflow_close_data_file {
 	use LSeismicUnix::misc::iFile;
 	use LSeismicUnix::misc::decisions '1.0.0';
 	use LSeismicUnix::misc::control '0.0.3';
+	use LSeismicUnix::misc::param_widgets4pre_built_streams;
 
 	my $iFile         = new iFile;
 	my $control       = new control;
@@ -641,6 +642,7 @@ sub _pre_built_superflow_close_path {
 	use LSeismicUnix::misc::iFile;
 	use LSeismicUnix::misc::decisions '1.0.0';
 	use LSeismicUnix::misc::control '0.0.3';
+	use LSeismicUnix::misc::param_widgets4pre_built_streams;
 
 	my $iFile         = new iFile;
 	my $control       = new control;
@@ -724,18 +726,14 @@ sub _pre_built_superflow_open_data_file {
 
 	# print("file_dialog, _pre_built_superflow_open_data_file\n ");
 	use LSeismicUnix::misc::iFile;
-	
-	use LSUcpan::misc::whereami;
-
-	use param_widgets4pre_built_streams;
-	use LSeismicUnix::misc::L_SU_global_constants;
+	use LSeismicUnix::misc::whereami;
+	use LSeismicUnix::misc::param_widgets4pre_built_streams;
 
 	my $param_widgets = param_widgets4pre_built_streams->new();
-	my $get           = L_SU_global_constants->new();
 	my $whereami      = whereami->new();
 	my $iFile         = iFile->new();
 
-	my $default_param_specs = $get->param();
+	my $default_param_specs = $L_SU_global_constants->param();
 	my $first_idx           = $default_param_specs->{_first_entry_idx};
 	my $length              = $default_param_specs->{_length};
 
@@ -847,17 +845,16 @@ sub _pre_built_superflow_open_path {
 
 	# print ("file_dialog, _pre_built_superflow_open_path\n ");
 	use LSeismicUnix::misc::iFile;
-	use LSUcpan::misc::whereami;
-	use LSeismicUnix::misc::L_SU_global_constants;
+	use LSeismicUnix::misc::whereami;
 	use LSeismicUnix::misc::control '0.0.3';
+	use LSeismicUnix::misc::param_widgets4pre_built_streams;	
 
 	my $param_widgets = param_widgets4pre_built_streams->new();
-	my $get           = L_SU_global_constants->new();
 	my $whereami      = whereami->new();
 	my $iFile         = iFile->new();
 	my $control       = control->new();
 
-	my $default_param_specs = $get->param();
+	my $default_param_specs = $L_SU_global_constants->param();
 	my $first_idx           = $default_param_specs->{_first_entry_idx};
 	my $length              = $default_param_specs->{_length};
 
@@ -1099,17 +1096,15 @@ sub _user_built_flow_SaveAs_perl_file {
 		# print("3. file_dialog, _user_built_flow_SaveAs_perl_file ,SaveAs, pre_r_set_file_patheq_ok= $pre_req_ok \n");
 		# print("2. file_dialog, _user_built_flow_SaveAs_perl_file _is_user_built_flow: $file_dialog->{_is_user_built_flow}\n");
 
-		use LSeismicUnix::misc::L_SU_global_constants;
 		use LSeismicUnix::misc::iFile;
 		use LSeismicUnix::misc::control '0.0.3';
-		use LSUcpan::misc::whereami;
+		use LSeismicUnix::misc::whereami;
 
 		my $iFile   = iFile->new();
 		my $control = control->new();
-		my $get     = L_SU_global_constants->new();
 
 		my $whereami            = whereami->new();
-		my $default_param_specs = $get->param();
+		my $default_param_specs = $L_SU_global_constants->param();
 
 		my @fields;
 		my $full_path_name;
@@ -1193,11 +1188,9 @@ sub _user_built_flow_close_data_file {
 	use LSeismicUnix::misc::decisions '1.0.0';
 	use LSeismicUnix::misc::control '0.0.3';
 	use LSeismicUnix::misc::param_widgets;
-	use LSeismicUnix::misc::L_SU_global_constants;
 
 	my $control       = control->new();
 	my $param_widgets = param_widgets->new();
-	my $get           = L_SU_global_constants->new();
 	my $iFile         = iFile->new();
 
 	my @fields;
@@ -1205,7 +1198,7 @@ sub _user_built_flow_close_data_file {
 	my $topic = $file_dialog->{_dialog_type};
 	$full_path_name = $file_dialog->{_selected_file_name};
 
-	my $default_param_specs = $get->param();
+	my $default_param_specs = $L_SU_global_constants->param();
 	my $first_idx           = $default_param_specs->{_first_entry_idx};
 	my $length              = $default_param_specs->{_length};
 
@@ -1353,10 +1346,8 @@ sub _user_built_flow_close_path {
 	use LSeismicUnix::misc::decisions '1.0.0';
 	use LSeismicUnix::misc::control '0.0.3';
 	use whereami2;
-	use LSeismicUnix::misc::L_SU_global_constants;
 
 	my $control  = control->new();
-	my $get      = L_SU_global_constants->new();
 	my $whereami = whereami2->new();
 
 	my @fields;
@@ -1501,18 +1492,14 @@ sub _user_built_flow_open_data_file {
 
 	#	print("1. file_dialog,_user_built_flow_open_data_file\n ");
 	use LSeismicUnix::misc::iFile;
-	use LSUcpan::misc::whereami;
-
-	# use LSeismicUnix::misc::param_widgets;
-	use LSeismicUnix::misc::L_SU_global_constants;
+	use LSeismicUnix::misc::whereami;
 	use LSeismicUnix::misc::param_widgets;
 
 	my $param_widgets = param_widgets->new();
-	my $get           = L_SU_global_constants->new();
 	my $whereami      = whereami->new();
 	my $iFile         = iFile->new();
 
-	my $default_param_specs = $get->param();
+	my $default_param_specs = $L_SU_global_constants->param();
 	my $first_idx           = $default_param_specs->{_first_entry_idx};
 	my $length              = $default_param_specs->{_length};
 
@@ -1611,16 +1598,14 @@ sub _user_built_flow_open_path {
 
 	#	print("file_dialog, _user_built_flow_open_path\n ");
 	use LSeismicUnix::misc::iFile;
-	use LSUcpan::misc::whereami;
-	use LSeismicUnix::misc::L_SU_global_constants;
+	use LSeismicUnix::misc::whereami;
 	use LSeismicUnix::misc::param_widgets;
 
 	my $param_widgets = param_widgets->new();
-	my $get           = L_SU_global_constants->new();
 	my $whereami      = whereami->new();
 	my $iFile         = iFile->new();
 
-	my $default_param_specs = $get->param();
+	my $default_param_specs = $L_SU_global_constants->param();
 	my $first_idx           = $default_param_specs->{_first_entry_idx};
 	my $length              = $default_param_specs->{_length};
 
@@ -1725,19 +1710,17 @@ sub _user_built_flow_open_perl_file {
 
 	# print("file_dialog,_user_built_flow_open_perl_file\n ");
 	use LSeismicUnix::misc::iFile;
-	use LSUcpan::misc::whereami;
+	use LSeismicUnix::misc::whereami;
 
-	use LSeismicUnix::misc::L_SU_global_constants;
 	use LSeismicUnix::messages::message_director;
 	use LSeismicUnix::misc::param_widgets;
 
 	my $param_widgets           = param_widgets->new();
-	my $get                     = L_SU_global_constants->new();
 	my $whereami                = whereami->new();
 	my $iFile                   = iFile->new();
 	my $open_perl_file_messages = message_director->new();
 
-	my $default_param_specs = $get->param();
+	my $default_param_specs = $L_SU_global_constants->param();
 	my $first_idx           = $default_param_specs->{_first_entry_idx};
 	my $length              = $default_param_specs->{_length};
 

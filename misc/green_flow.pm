@@ -320,7 +320,7 @@ Once the file name is selected the parameter value is updated in the GUI
 sub _FileDialog_button {
 
 	my ( $self, $flow_dialog_type_sref ) = @_;
-	use LSUcpan::misc::file_dialog;
+	use LSeismicUnix::misc::file_dialog;
 	use LSeismicUnix::misc::control '0.0.3';
 
 	my $file_dialog = file_dialog->new();
@@ -507,7 +507,7 @@ sub flow_select2save_most_recent_param_flow {
 	my ($self) = @_;
 
 	use LSeismicUnix::messages::message_director;
-	use decisions;
+	use LSeismicUnix::misc::decisions '1.0.0';
 
 	$color_flow_href->{_flow_type} = $flow_type->{_user_built};
 
@@ -538,7 +538,7 @@ sub flow_select2save_most_recent_param_flow {
 
 	if ($pre_req_ok) {
 
-		use binding;
+		use LSeismicUnix::misc::binding;
 		my $binding = binding->new();
 		my $here;
 		use Clone 'clone';
@@ -670,7 +670,7 @@ sub _flow_select2save_most_recent_param_flow {
 	my ($self) = @_;
 
 	use LSeismicUnix::messages::message_director;
-	use decisions;
+	use LSeismicUnix::misc::decisions '1.0.0';
 
 	$color_flow_href->{_flow_type} = $flow_type->{_user_built};
 
@@ -713,7 +713,7 @@ sub _flow_select2save_most_recent_param_flow {
 
 	if ($pre_req_ok) {
 
-		use binding;
+		use LSeismicUnix::misc::binding;
 		my $binding = binding->new();
 		my $here;
 		use Clone 'clone';
@@ -1018,9 +1018,9 @@ sub _perl_flow_errors {
 	my $result;
 
 	# import modules
-	use perl_flow;
+	use LSeismicUnix::misc::perl_flow;
 	use LSeismicUnix::messages::message_director;
-	use param_sunix;
+	use LSeismicUnix::misc::param_sunix;
 	use LSeismicUnix::misc::control '0.0.3';
 
 	# instantiate modules
@@ -1069,9 +1069,9 @@ sub _perl_flow {
 	my ($self) = @_;
 
 	# import modules
-	use perl_flow;
+	use LSeismicUnix::misc::perl_flow;
 	use LSeismicUnix::messages::message_director;
-	use param_sunix;
+	use LSeismicUnix::misc::param_sunix;
 	use LSeismicUnix::misc::control '0.0.3';
 
 	# instantiate modules
@@ -1787,7 +1787,7 @@ Can also be (1) a previous pre-built superflow that is already in the GUI
 sub FileDialog_button {
 
 	my ( $self, $dialog_type_sref ) = @_;
-	use LSUcpan::misc::file_dialog;
+	use LSeismicUnix::misc::file_dialog;
 	use LSeismicUnix::misc::L_SU_global_constants;
 
 	use manage_files_by2;
@@ -2056,7 +2056,7 @@ sub add2flow_button {
 	$color_flow_href->{_flow_type} = $flow_type->{_user_built};
 
 	use LSeismicUnix::messages::message_director;
-	use param_sunix;
+	use LSeismicUnix::misc::param_sunix;
 
 	my $param_sunix         = param_sunix->new();
 	my $color_flow_messages = message_director->new();
@@ -2705,7 +2705,7 @@ sub flow_select {
 	my ($self) = @_;
 	my $ans;
 	use LSeismicUnix::messages::message_director;
-	use decisions;
+	use LSeismicUnix::misc::decisions '1.0.0';
 	$color_flow_href->{_flow_type} = $flow_type->{_user_built};
 
 	#	print("color_flow,flow_select, START\n");
@@ -2757,7 +2757,7 @@ sub flow_select {
 
 	if ($pre_req_ok) {
 
-		use binding;
+		use LSeismicUnix::misc::binding;
 		my $binding = binding->new();
 		my ( $ans, $ans1 );
 		use Clone 'clone';
@@ -3088,8 +3088,8 @@ sub increase_vigil_on_delete_counter {
 
 sub help {
 	my ($self) = @_;
-	use help;
-	use decisions;
+	use LSeismicUnix::misc::help;
+	use LSeismicUnix::misc::decisions '1.0.0';
 
 	my $decisions = decisions->new();
 	my $help      = new help();

@@ -781,8 +781,8 @@ or a user-created flow
 
 sub help {
 	my ($self) = @_;
-	use help;
-	use decisions;
+	use LSeismicUnix::misc::help;
+	use LSeismicUnix::misc::decisions '1.0.0';
 
 	my $help      = new help();
 	my $decisions = decisions->new();

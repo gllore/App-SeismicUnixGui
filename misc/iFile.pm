@@ -359,7 +359,6 @@ sub get_Data_path {
 
 	my ($self) = @_;
 
-	use LSeismicUnix::misc::L_SU_global_constants;
 	use LSeismicUnix::configs::big_streams::Project_config;
 	my $entry_label = $iFile->{_entry_button_label};
 	my $dialog_type = $iFile->{_dialog_type};

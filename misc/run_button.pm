@@ -74,15 +74,12 @@ extends 'gui_history' => { -version => 0.0.2 };
 
 # potentially used in all packages
 use LSeismicUnix::misc::L_SU_global_constants;
-use LSeismicUnix::misc::name;
-
-# use LSeismicUnix::misc::control '0.0.3';
+use LSeismicUnix::misc::name;;
 use LSeismicUnix::misc::whereami;
 
-my $gui_history = gui_history->new();
+my $gui_history 		= gui_history->new();
 my $decisions           = decisions->new();
 my $get                 = L_SU_global_constants->new();
-#my $conditions_gui      = conditions_gui->new();
 my $name                = name->new();
 my $run_button_messages = message_director->new();
 my $whereami            = whereami->new();
@@ -137,10 +134,10 @@ sub _messages {
     # print("1. run_button,_messages,writing gui_history.txt\n");
     # $gui_history->view();
     
-    my $message_box   =  $run_button->{_message_box_w};
-    my $message_label =  $run_button->{_message_label_w};
-    my $message_box_wait=  $run_button->{_message_box_wait};
-    my $message_ok_button= $run_button->{_message_ok_button};
+    my $message_box   		=  $run_button->{_message_box_w};
+    my $message_label 		=  $run_button->{_message_label_w};
+    my $message_box_wait	=  $run_button->{_message_box_wait};
+    my $message_ok_button	= $run_button->{_message_ok_button};
     # print("1 run_button,_messages, message_box_wait=$message_box_wait\n");   
   
     $message_box->title( "immodpg" );
@@ -232,9 +229,7 @@ sub _Run_pre_built_superflow {
 		$message_w->insert( 'end', $message );
 	}
 
-#	$conditions_gui->set4end_of_superflow_run_button();
     $gui_history->set4end_of_superflow_run_button();
-#	$run_button = $conditions_gui->get_hash_ref();    # return 89
 	$run_button = $gui_history->get_hash_ref();
 	return ();
 }
@@ -460,7 +455,7 @@ sub set_hash_ref {
 		
 		$gui_history->set_defaults($hash_ref);
 		$run_button = $gui_history->get_defaults();
-		$message_w              = $run_button->{_message_w};
+		$message_w  = $run_button->{_message_w};
         
 	}else {
 		 print("run_button, set_hash_ref, missing hash_ref\n");

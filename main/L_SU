@@ -5,7 +5,7 @@
 
  if [ -z "${PL_LOCAL}" ]; then
 
- 	echo "global variable LSUcpan_main must be set"
+ 	echo "global variable LSeismicUnix_main must be set"
  	echo "e.g. in .bashrc: "
  	echo " export LSeismicUnix=/usr/local/pl "
  	

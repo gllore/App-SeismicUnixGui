@@ -94,7 +94,6 @@ use Tk::Pane;
 use Tk::NoteBook;
 use LSeismicUnix::misc::L_SU '0.1.7';
 use LSeismicUnix::misc::L_SU_global_constants;
-print ("$LSeismicUnix\n");
 
 =head2 Instantiation
 
@@ -119,13 +118,7 @@ my $alias_FileDialog_button_label = $get->alias_FileDialog_button_label_aref;
 my $superflow_names_gui_aref      = $get->superflow_names_gui_aref();
 my $file_dialog_type              = $get->file_dialog_type_href();
 
-print("main,global_libs=$global_libs->{_images}\n");
-print("on = $on\n");
-print("Hit Enter to continue\n");
-<STDIN>;
-
 my @sunix_data_programs        = @{ $var->{_sunix_data_programs} };
-
 my @sunix_datum_programs       = @{ $var->{_sunix_datum_programs} };
 my @sunix_plot_programs        = @{ $var->{_sunix_plot_programs} };
 my @sunix_filter_programs      = @{ $var->{_sunix_filter_programs} };

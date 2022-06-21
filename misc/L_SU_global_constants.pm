@@ -44,7 +44,7 @@ my $L_SU_global_constants = {
 #
 #		foreach my $item (@subdir) {
 #
-#			if ( $item =~ m/\bLSUcpan\b/ ) {
+#			if ( $item =~ m/\bLSeismicUnix\b/ ) {
 #
 #				#				print "$item\n";
 #				print("L_SU_global_constants, found $directory/$item\n");
@@ -360,7 +360,7 @@ my $var = {
 	_one_character                 => '1',
 	_one_pixel                     => '1',
 	_one_pixel_borderwidth         => '1',
-	_program_title                 => 'LSeismicUnix V0.6.6',
+	_program_title                 => 'LSeismicUnix V0.7.0',
 	_l_suplot_title                => 'L_suplot',
 	_project_selector_title        => 'Project Selector',
 	_project_selector_box_position => '600x600+100+100',

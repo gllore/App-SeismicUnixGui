@@ -52,16 +52,15 @@ extends 'gui_history' => { -version => 0.0.2 };
 
 my $gui_history   = gui_history->new();
 my $check_buttons = new check_buttons();
-
-my $get = new L_SU_global_constants();
+my $L_SU_global_constants = new L_SU_global_constants();
 
 =head2 Declare 
 local variables
 
 =cut
 
-my $default_param_specs = $get->param();
-my $var                 = $get->var();
+my $default_param_specs = $L_SU_global_constants->param();
+my $var                 = $L_SU_global_constants->var();
 my $on                  = $var->{_on};
 my $off                 = $var->{_off};
 my $nu                  = $var->{_nu};
@@ -292,7 +291,7 @@ sub get_values_w_aref {
 sub _max_length_in_gui {
 	my ($self) = @_;
 
-	use LSeismicUnix::misc::L_SU_global_constants;
+#	use LSeismicUnix::misc::L_SU_global_constants;
 	my $get = L_SU_global_constants->new();
 
 	my $param             = $get->param();
@@ -1058,6 +1057,7 @@ sub redisplay_values {
 	# print("param_widgets, redisplay_values, length is $length\n");
 	# print("param_widgets, redisplay_values, first is $first\n");
 	if ( $values_w_aref && $values_aref ) {
+		
 		use LSeismicUnix::misc::control '0.0.3';
 
 		for ( my $i = $first; $i < $length; $i++ ) {
