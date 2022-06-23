@@ -15,49 +15,18 @@ my $L_SU = $LSeismicUnix;
 
 my $L_SU_global_constants = {
 
-	_file_name      => '',
-	_PARENT_DIR_GUI => '',
-	_PARENT_DIR_SU  => '',
-	_PARENT_DIR_GEN => '',
-	_CHILD_DIR_GUI  => '',
-	_CHILD_DIR_SU   => '',
+	_CHILD_DIR_GUI    => '',
+	_CHILD_DIR_TOOLS   => '',
+	_CHILD_DIR_SPECS  => '',
+	_CHILD_DIR_SU     => '',
+	_PARENT_DIR_GEN   => '',
+	_PARENT_DIR_GUI   => '',
+	_PARENT_DIR_TOOLS  => '',
+	_PARENT_DIR_SPECS => '',
+	_PARENT_DIR_SU    => '',
+	_file_name        => '',
 
 };
-
-#my @DIR;
-#$DIR[0] = '/usr/local/pl';
-#my $start_search_directory = $DIR[0];
-#
-##my $dir_name               = 'L_SU';
-#
-#foreach my $directory (@INC) {
-#
-#	#	print("Searching for directory $directory\n");
-#
-#	if ( -d $directory ) {    # if it is a directory and exists
-#
-#		opendir( my $dir_fh, $directory )
-#		  or die "Can't open dir $directory: $!";
-#		my @subdir =
-#		  grep { /^[^.]/ && -d "$directory/$_" } readdir($dir_fh);
-#		closedir $dir_fh;
-#
-#		foreach my $item (@subdir) {
-#
-#			if ( $item =~ m/\bLSeismicUnix\b/ ) {
-#
-#				#				print "$item\n";
-#				print("L_SU_global_constants, found $directory/$item\n");
-#
-#				#			$L_SU =$directory/$item;
-#				#			print $L_SU."\n";
-#			}
-#		}
-#	}
-#	else {
-#	#		print("L_SU_global_constants, may not be a directory or exist at all\n");
-#	}
-#}
 
 =head2 Default Tk settings
 
@@ -298,6 +267,8 @@ my $var = {
 	_35_characters          => '35',
 	_40_characters          => '40',
 	_45_characters          => '45',
+	_ACTIVE_PROJECT         => '/.L_SU/configuration/active',
+	_Project_config         => 'Project.config',
 	_base_file_name         => 'base_file_name',
 	_clear_text             => '',
 	_color_default          => 'grey',           # first color listbox to select
@@ -361,6 +332,7 @@ my $var = {
 	_one_pixel                     => '1',
 	_one_pixel_borderwidth         => '1',
 	_program_title                 => 'LSeismicUnix V0.7.0',
+	_project_selector_title        => 'Project Selector',
 	_l_suplot_title                => 'L_suplot',
 	_project_selector_title        => 'Project Selector',
 	_project_selector_box_position => '600x600+100+100',
@@ -409,13 +381,28 @@ my $param = {
 
 # Locate environment variables automatically
 
-my @PARENT_DIR_GUI = ( "configs", "specs" );
-my @PARENT_DIR_SU  = ("sunix");
+my @PARENT_DIR_GUI   = ( "configs", "specs" );
+my @PARENT_DIR_TOOLS = ( "big_streams" );
+
+my @PARENT_DIR_SPECS = ("specs");
+my @PARENT_DIR_SU    = ("sunix");
+
 my @PARENT_DIR_GEN = (
 	"big_streams", "geopsy", "gmt", "messages", "main", "misc",
 	"main",        "developer/code/sunix", "sqlite", "t"
 );
 my @CHILD_DIR_GUI = (
+	"big_streams", "data",      "datum",     "filter",
+	"header",      "inversion", "migration", "model",
+	"NMO_Vel_Stk", "par",       "plot",      "shapeNcut",
+	"shell",       "statsMath", "transform", "well"
+);
+
+my @CHILD_DIR_TOOLS = (
+	"big_streams"
+);
+
+my @CHILD_DIR_SPECS = (
 	"big_streams", "data",      "datum",     "filter",
 	"header",      "inversion", "migration", "model",
 	"NMO_Vel_Stk", "par",       "plot",      "shapeNcut",
@@ -429,11 +416,15 @@ my @CHILD_DIR_SU = (
 	"statsMath", "transform", "well"
 );
 
-$L_SU_global_constants->{_PARENT_DIR_GUI} = \@PARENT_DIR_GUI;
-$L_SU_global_constants->{_PARENT_DIR_SU}  = \@PARENT_DIR_SU;
-$L_SU_global_constants->{_PARENT_DIR_GEN} = \@PARENT_DIR_GEN;
-$L_SU_global_constants->{_CHILD_DIR_GUI}  = \@CHILD_DIR_GUI;
-$L_SU_global_constants->{_CHILD_DIR_SU}   = \@CHILD_DIR_SU;
+$L_SU_global_constants->{_PARENT_DIR_GUI}   = \@PARENT_DIR_GUI;
+$L_SU_global_constants->{_PARENT_DIR_TOOLS}  = \@PARENT_DIR_TOOLS;
+$L_SU_global_constants->{_PARENT_DIR_SPECS} = \@PARENT_DIR_SPECS;
+$L_SU_global_constants->{_PARENT_DIR_SU}    = \@PARENT_DIR_SU;
+$L_SU_global_constants->{_PARENT_DIR_GEN}   = \@PARENT_DIR_GEN;
+$L_SU_global_constants->{_CHILD_DIR_GUI}    = \@CHILD_DIR_GUI;
+$L_SU_global_constants->{_CHILD_DIR_TOOLS}   = \@CHILD_DIR__TOOLS
+$L_SU_global_constants->{_CHILD_DIR_SPECS}  = \@CHILD_DIR_SPECS;
+$L_SU_global_constants->{_CHILD_DIR_SU}     = \@CHILD_DIR_SU;
 
 my @developer_sunix_categories;
 $developer_sunix_categories[0]  = 'data';
@@ -645,13 +636,14 @@ sub flow_type_href {
 	return ($flow_type_h);
 }
 
-=head2 sub _get_pathNfile2search 
+
+=head2 sub _get_specs_pathNfile2search 
 
 Useful directories to search
 
 =cut
 
-sub _get_pathNfile2search {
+sub _get_specs_pathNfile2search {
 
 	my ($self) = @_;
 
@@ -674,7 +666,7 @@ sub _get_pathNfile2search {
 =cut	
 
 	my @result_aref2;
-	my @directory_contents_gui;
+	my @directory_contents_specs;
 	my @dimensions;
 
 =head2 Define
@@ -685,72 +677,198 @@ sub _get_pathNfile2search {
 
 	my $GRANDPARENT_DIR = $LSeismicUnix;
 
-	my @PARENT_DIR_GUI = @{ $L_SU_global_constants->{_PARENT_DIR_GUI} };
-	my @CHILD_DIR_GUI  = @{ $L_SU_global_constants->{_CHILD_DIR_GUI} };
-	my @PARENT_DIR_SU  = @{ $L_SU_global_constants->{_PARENT_DIR_SU} };
-	my @CHILD_DIR_SU   = @{ $L_SU_global_constants->{_CHILD_DIR_SU} };
-	my @PARENT_DIR_GEN = @{ $L_SU_global_constants->{_PARENT_DIR_GEN} };
+	#	my @PARENT_DIR_GUI = @{ $L_SU_global_constants->{_PARENT_DIR_GUI} };
+	#	my @CHILD_DIR_GUI  = @{ $L_SU_global_constants->{_CHILD_DIR_GUI} };
+	my @PARENT_DIR_SPECS = @{ $L_SU_global_constants->{_PARENT_DIR_SPECS} };
+	my @CHILD_DIR_SPECS  = @{ $L_SU_global_constants->{_CHILD_DIR_SPECS} };
+
+	#	my @PARENT_DIR_SU  = @{ $L_SU_global_constants->{_PARENT_DIR_SU} };
+	#	my @CHILD_DIR_SU   = @{ $L_SU_global_constants->{_CHILD_DIR_SU} };
+	#	my @PARENT_DIR_GEN = @{ $L_SU_global_constants->{_PARENT_DIR_GEN} };
 
 	#	print("PARENT_DIR_GUI=@PARENT_DIR_GUI\n");
 
-	my $parent_directory_gui_number_of = scalar @PARENT_DIR_GUI;
-	my $child_directory_gui_number_of  = scalar @CHILD_DIR_GUI;
-	my $parent_directory_su_number_of  = scalar @PARENT_DIR_SU;
-	my $child_directory_su_number_of   = scalar @CHILD_DIR_SU;
-	my $parent_directory_gen_number_of = scalar @PARENT_DIR_GEN;
+	#	my $parent_directory_gui_number_of = scalar @PARENT_DIR_GUI;
+	#	my $child_directory_gui_number_of  = scalar @CHILD_DIR_GUI;
+	my $parent_directory_specs_number_of = scalar @PARENT_DIR_SPECS;
+	my $child_directory_specs_number_of  = scalar @CHILD_DIR_SPECS;
 
-	@dimensions = (
-		$parent_directory_gui_number_of, $child_directory_gui_number_of,
-		$parent_directory_su_number_of,  $child_directory_su_number_of,
-		$parent_directory_gen_number_of
-	);
+	#	my $parent_directory_su_number_of  = scalar @PARENT_DIR_SU;
+	#	my $child_directory_su_number_of   = scalar @CHILD_DIR_SU;
+	#	my $parent_directory_gen_number_of = scalar @PARENT_DIR_GEN;
 
-=head2 GUI-related matters first
+	@dimensions =
+	  ( $parent_directory_specs_number_of, $child_directory_specs_number_of );
+
+	#	$parent_directory_su_number_of, $child_directory_su_number_of,
+	#	  $parent_directory_gen_number_of $parent_directory_gui_number_of,
+	#	  $child_directory_gui_number_of,
+
+=head2 SPECS-related matters first
 
 =cut
 
 	for (
 		my $parent = 0 ;
-		$parent < $parent_directory_gui_number_of ;
+		$parent < $parent_directory_specs_number_of ;
 		$parent++
 	  )
 	{
 
 		for (
 			my $child = 0 ;
-			$child < $child_directory_gui_number_of ;
+			$child < $child_directory_specs_number_of ;
 			$child++
 		  )
 		{
 
 			my $SEARCH_DIR =
 				$GRANDPARENT_DIR . '/'
-			  . $PARENT_DIR_GUI[$parent] . '/'
-			  . $CHILD_DIR_GUI[$child];
+			  . $PARENT_DIR_SPECS[$parent] . '/'
+			  . $CHILD_DIR_SPECS[$child];
 
-		#			print(
-		#"L_SU_global_constants, _get_pathNfile2search,SEARCH_DIR=$SEARCH_DIR\n"
-		#			);
+#  			print(
+#  "L_SU_global_constants, _get_specs_pathNfile2search,SEARCH_DIR=$SEARCH_DIR\n"
+#  			);
 			$manage_dirs_by->set_directory($SEARCH_DIR);
 			my $directory_list_aref = $manage_dirs_by->get_list_aref();
 			my @directory_list      = @$directory_list_aref;
 
-			$directory_contents_gui[$parent][$child] = $directory_list_aref;
+			$directory_contents_specs[$parent][$child] = $directory_list_aref;
 
-			#			print("@{$directory_contents_gui[$parent][$child]}\n");
+			#			print("@{$directory_contents_specs[$parent][$child]}\n");
 
 		}
 
 	}
 
-#	my $parent_gui = 1;
-#	my $child_gui  = 1;
+#	my $parent_specs = 1;
+#	my $child_specs  = 1;
 #	print(
-#"\nL_SU_global_constants, get_pathNfile2search, For gui directory paths: $PARENT_DIR_GUI[$parent_gui]::$CHILD_DIR_GUI[$child_gui]::\n"
+#"\nL_SU_global_constants, get_pathNfile2search, For specs directory paths: $PARENT_DIR_GUI[$parent_specs]::$CHILD_DIR_GUI[$child_gui]::\n"
 #	);
-#	print("@{$directory_contents_gui[$parent_gui][$child_gui]}\n");
+#	print("@{$directory_contents_specs[$parent_specs][$child_specs]}\n");
 
-	$result_aref2[0] = \@directory_contents_gui;
+	$result_aref2[0] = \@directory_contents_specs;
+
+	return ( \@result_aref2, \@dimensions );
+
+}
+
+
+=head2 sub _get_tools_pathNfile2search 
+
+Useful directories to search
+
+=cut
+
+sub _get_tools_pathNfile2search {
+
+	my ($self) = @_;
+
+=head2 import modules
+
+=cut
+
+	use LSeismicUnix::misc::manage_dirs_by;
+
+=head2 Instantiate modules
+
+=cut
+
+	my $manage_dirs_by = manage_dirs_by->new();
+
+=head2 Define
+
+ variables
+ 
+=cut	
+
+	my @result_aref2;
+	my @directory_contents_tools;
+	my @dimensions;
+
+=head2 Define
+
+ directory search arrays
+ 
+=cut 
+
+	my $GRANDPARENT_DIR = $LSeismicUnix;
+
+	#	my @PARENT_DIR_GUI = @{ $L_SU_global_constants->{_PARENT_DIR_GUI} };
+	#	my @CHILD_DIR_GUI  = @{ $L_SU_global_constants->{_CHILD_DIR_GUI} };
+	my @PARENT_DIR_TOOLS = @{ $L_SU_global_constants->{_PARENT_DIR_TOOLS} };
+	my @CHILD_DIR_TOOLS  = @{ $L_SU_global_constants->{_CHILD_DIR_TOOLS} };
+
+	#	my @PARENT_DIR_SU  = @{ $L_SU_global_constants->{_PARENT_DIR_SU} };
+	#	my @CHILD_DIR_SU   = @{ $L_SU_global_constants->{_CHILD_DIR_SU} };
+	#	my @PARENT_DIR_GEN = @{ $L_SU_global_constants->{_PARENT_DIR_GEN} };
+
+	#	print("PARENT_DIR_GUI=@PARENT_DIR_GUI\n");
+
+	#	my $parent_directory_gui_number_of = scalar @PARENT_DIR_GUI;
+	#	my $child_directory_gui_number_of  = scalar @CHILD_DIR_GUI;
+	my $parent_directory_tools_number_of = scalar @PARENT_DIR_TOOLS;
+	my $child_directory_tools_number_of = scalar @CHILD_DIR_TOOLS;
+
+	#	my $parent_directory_su_number_of  = scalar @PARENT_DIR_SU;
+	#	my $child_directory_su_number_of   = scalar @CHILD_DIR_SU;
+	#	my $parent_directory_gen_number_of = scalar @PARENT_DIR_GEN;
+
+	@dimensions =
+	  ( $parent_directory_tools_number_of, $child_directory_tools_number_of );
+
+	#	$parent_directory_su_number_of, $child_directory_su_number_of,
+	#	  $parent_directory_gen_number_of $parent_directory_gui_number_of,
+	#	  $child_directory_gui_number_of,
+
+=head2 TOOLS-related matters first
+
+=cut
+
+	for (
+		my $parent = 0 ;
+		$parent < $parent_directory_tools_number_of ;
+		$parent++
+	  )
+	{
+
+		for (
+			my $child = 0 ;
+			$child < $child_directory_tools_number_of ;
+			$child++
+		  )
+		{
+
+			my $SEARCH_DIR =
+				$GRANDPARENT_DIR . '/'
+			  . $PARENT_DIR_TOOLS[$parent] . '/'
+			  . $CHILD_DIR_TOOLS[$child];
+
+ #  			print(
+ #  "L_SU_global_constants, _get_tools_pathNfile2search,SEARCH_DIR=$SEARCH_DIR\n"
+ #  			);
+			$manage_dirs_by->set_directory($SEARCH_DIR);
+			my $directory_list_aref = $manage_dirs_by->get_list_aref();
+			my @directory_list      = @$directory_list_aref;
+
+			$directory_contents_TOOLS[$parent][$child] = $directory_list_aref;
+
+			#			print("@{$directory_contents_TOOLS[$parent][$child]}\n");
+
+		}
+
+	}
+
+#	my $parent_TOOLS = 1;
+#	my $child_TOOLS  = 1;
+#	print(
+#"\nL_SU_global_constants, get_tools_pathNfile2search, For TOOLS directory paths: $PARENT_DIR_TOOLS[$parent_TOOLS]::$CHILD_DIR_TOOLS[$child_tools]::\n"
+#	);
+#	print("@{$directory_contents_tools[$parent_tools][$child_tools]}\n");
+
+	$result_aref2[0] = \@directory_contents_tools;
 
 	return ( \@result_aref2, \@dimensions );
 
@@ -758,11 +876,11 @@ sub _get_pathNfile2search {
 
 =head2 Find a path for
 
-a given spec file
+a given gui file
 
 =cut
 
-sub get_path4spec_file {
+sub get_path4gui_file {
 
 	my (@self) = @_;
 
@@ -778,17 +896,14 @@ sub get_path4spec_file {
 		my $GRANDPARENT_DIR = $LSeismicUnix;
 		my @PARENT_DIR_GUI  = @{ $L_SU_global_constants->{_PARENT_DIR_GUI} };
 		my @CHILD_DIR_GUI   = @{ $L_SU_global_constants->{_CHILD_DIR_GUI} };
-		my @PARENT_DIR_SU   = @{ $L_SU_global_constants->{_PARENT_DIR_SU} };
-		my @CHILD_DIR_SU    = @{ $L_SU_global_constants->{_CHILD_DIR_SU} };
-		my @PARENT_DIR_GEN  = @{ $L_SU_global_constants->{_PARENT_DIR_GEN} };
 
-=head2 Collect relevant "spec"
+=head2 Collect relevant "gui"
 
  project paths and files
 
 =cut
 
-		my ( $result_aref3, $dimensions_aref ) = _get_pathNfile2search();
+		my ( $result_aref3, $dimensions_aref ) = _get_specs_pathNfile2search();
 		my @result_aref2                   = @$result_aref3;
 		my @directory_contents_gui         = @{ $result_aref2[0] };
 		my @dimension                      = @$dimensions_aref;
@@ -803,7 +918,7 @@ sub get_path4spec_file {
 #		);
 #		print("@{$directory_contents_gui[$parent_gui][$child_gui]}\n");
 
-=head2 Search all "spec"-relevant 
+=head2 Search all "gui"-relevant 
 
 directories start with 
 gui drectory listing
@@ -841,10 +956,10 @@ gui drectory listing
 					}
 					elsif ( $file_name eq $directory_list[$i] ) {
 
-		 #						print(
-		 #"L_SU_global_constants,get_path4spec_file,found the file $file_name in
-		 #				  			  $PARENT_DIR_GUI[$parent]::$CHILD_DIR_GUI[$child]\n"
-		 #						);
+		  #						print(
+		  #"L_SU_global_constants,get_path4gui_file,found the file $file_name in
+		  #				  			  $PARENT_DIR_GUI[$parent]::$CHILD_DIR_GUI[$child]\n"
+		  #						);
 						$result =
 							$LSeismicUnix . '/'
 						  . $PARENT_DIR_GUI[$parent] . '/'
@@ -867,6 +982,226 @@ gui drectory listing
 		return ();
 	}
 }
+
+=head2 Find a path for
+
+a given spec file
+
+=cut
+
+sub get_path4spec_file {
+
+	my (@self) = @_;
+
+	if ( length $L_SU_global_constants->{_file_name} ) {
+
+		my $file_name = $L_SU_global_constants->{_file_name};
+		my $result;
+
+=head2 Collect parameters from local hash
+
+=cut
+
+		my $GRANDPARENT_DIR  = $LSeismicUnix;
+		my @PARENT_DIR_SPECS = @{ $L_SU_global_constants->{_PARENT_DIR_SPECS} };
+		my @CHILD_DIR_SPECS  = @{ $L_SU_global_constants->{_CHILD_DIR_SPECS} };
+
+=head2 Collect relevant "spec"
+
+ project paths and files
+
+=cut
+
+		my ( $result_aref3, $dimensions_aref ) = _get_specs_pathNfile2search();
+		my @result_aref2                     = @$result_aref3;
+		my @directory_contents_specs         = @{ $result_aref2[0] };
+		my @dimension                        = @$dimensions_aref;
+		my $parent_directory_specs_number_of = $dimension[0];
+		my $child_directory_specs_number_of  = $dimension[1];
+
+# test
+#		my $parent_specs = 1;
+#		my $child_specs  = 1;
+#		print(
+#"\nFor specs directory paths: $PARENT_DIR_SPECS[$parent_specs]::$CHILD_DIR_SPECS[$child_specs]::\n"
+#		);
+#		print("@{$directory_contents_specs[$parent_specs][$child_specs]}\n");
+
+=head2 Search all "spec"-relevant 
+
+directories start with 
+gui drectory listing
+
+=cut
+
+		for (
+			my $parent = 0 ;
+			$parent < $parent_directory_specs_number_of ;
+			$parent++
+		  )
+		{
+
+			for (
+				my $child = 0 ;
+				$child < $child_directory_specs_number_of ;
+				$child++
+			  )
+			{
+
+				my $directory_list_aref =
+				  $directory_contents_specs[$parent][$child];
+				my @directory_list = @$directory_list_aref;
+
+				my $length_directory_list = scalar @directory_list;
+
+				#				print("@{$directory_contents_specs[$parent][$child]}\n");
+				#				print("file_name=$file_name\n");
+				for ( my $i = 0 ; $i < $length_directory_list ; $i++ ) {
+
+					if ( not $file_name eq $directory_list[$i] ) {
+
+						next;
+
+					}
+					elsif ( $file_name eq $directory_list[$i] ) {
+
+		 #						print(
+		 #"L_SU_global_constants,get_path4spec_file,found the file $file_name in
+		 #				  			  $PARENT_DIR_SPECS[$parent]::$CHILD_DIR_SPECS[$child]\n"
+		 #						);
+						$result =
+							$LSeismicUnix . '/'
+						  . $PARENT_DIR_SPECS[$parent] . '/'
+						  . $CHILD_DIR_SPECS[$child];
+
+						return ($result);
+					}
+					else {
+						print("change_a_line, unexpected value\n");
+						return ();
+					}
+				}
+
+			}
+		}
+
+	}
+	else {
+		print("L_SU_global_constants,_get_path4spec_file,file_name_missing\n");
+		return ();
+	}
+}
+
+
+=head2 Find a path for
+
+a given tools file
+
+=cut
+
+sub get_path4tools_file {
+
+	my (@self) = @_;
+
+	if ( length $L_SU_global_constants->{_file_name} ) {
+
+		my $file_name = $L_SU_global_constants->{_file_name};
+		my $result;
+
+=head2 Collect parameters from local hash
+
+=cut
+
+		my $GRANDPARENT_DIR  = $LSeismicUnix;
+		my @PARENT_DIR_TOOLS = @{ $L_SU_global_constants->{_PARENT_DIR_TOOLS} };
+		my @CHILD_DIR_TOOLS  = @{ $L_SU_global_constants->{_CHILD_DIR_TOOLS} };
+
+=head2 Collect relevant "tools"
+
+ project paths and files
+
+=cut
+
+		my ( $result_aref3, $dimensions_aref ) = _get_tools_pathNfile2search();
+		my @result_aref2                     = @$result_aref3;
+		my @directory_contents_tools         = @{ $result_aref2[0] };
+		my @dimension                        = @$dimensions_aref;
+		my $parent_directory_tools_number_of = $dimension[0];
+		my $child_directory_tools_number_of  = $dimension[1];
+
+# test
+#		my $parent_tools = 1;
+#		my $child_tools  = 1;
+#		print(
+#"\nFor tools directory paths: $PARENT_DIR_TOOLS[$parent_tools]::$CHILD_DIR_TOOLS[$child_tools]::\n"
+#		);
+#		print("@{$directory_contents_tools[$parent_tools][$child_tools]}\n");
+
+=head2 Search all "spec"-relevant 
+
+directories start with 
+gui drectory listing
+
+=cut
+
+		for (
+			my $parent = 0 ;
+			$parent < $parent_directory_tools_number_of ;
+			$parent++
+		  )
+		{
+
+			for (
+				my $child = 0 ;
+				$child < $child_directory_tools_number_of ;
+				$child++
+			  )
+			{
+
+				my $directory_list_aref =
+				  $directory_contents_tools[$parent][$child];
+				my @directory_list = @$directory_list_aref;
+
+				my $length_directory_list = scalar @directory_list;
+
+				#				print("@{$directory_contents_tools[$parent][$child]}\n");
+				#				print("file_name=$file_name\n");
+				for ( my $i = 0 ; $i < $length_directory_list ; $i++ ) {
+
+					if ( not $file_name eq $directory_list[$i] ) {
+
+						next;
+
+					}
+					elsif ( $file_name eq $directory_list[$i] ) {
+
+		 #						print(
+		 #"L_SU_global_constants,get_path4tools_file,found the file $file_name in
+		 #				  			  $PARENT_DIR_TOOLS[$parent]::$CHILD_DIR_TOOLS[$child]\n"
+		 #						);
+						$result =
+							$LSeismicUnix . '/'
+						  . $PARENT_DIR_TOOLS[$parent] . '/'
+						  . $CHILD_DIR_TOOLS[$child];
+
+						return ($result);
+					}
+					else {
+						print("change_a_line, unexpected value\n");
+						return ();
+					}
+				}
+
+			}
+		}
+
+	}
+	else {
+		print("L_SU_global_constants,_get_path4tools_file,file_name_missing\n");
+		return ();
+	}
+}
+
 
 sub number_from_color_href {
 
@@ -916,7 +1251,7 @@ sub global_libs {
 	# empty string is predefined herein
 	if ( length $L_SU ) {
 
-#		print("L_SU_global_constants my L_SU = $L_SU\n");
+		#		print("L_SU_global_constants my L_SU = $L_SU\n");
 
 		my $global_libs = {
 			_configs             => $L_SU . '/configs',
@@ -930,8 +1265,8 @@ sub global_libs {
 			_images              => $L_SU . '/images/',
 			_default_path        => './',
 		};
-		
-		return($global_libs);
+
+		return ($global_libs);
 
 	}
 	else {

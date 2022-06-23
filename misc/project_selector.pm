@@ -125,6 +125,7 @@ sub _create_new {
 
 	use LSeismicUnix::messages::message_director;
 	use LSeismicUnix::misc::config_superflows;
+	
 	my $config_superflows = config_superflows->new();
 
 	if (    length( $project_selector->{_current_program_name} )
@@ -166,17 +167,17 @@ sub _create_new {
 		# default the Project.config file
 
 		$config_superflows->set_program_name( $project->{_prog_name_sref} );    # really sref
-			# parameter names from superflow configuration file
+		# parameter names from superflow configuration file
 		$project->{_names_aref} = $config_superflows->get_names();
 
 		# parameter values from superflow configuration file
 		$project->{_values_aref} = $config_superflows->get_values();
 
-		# print("project_selector,_create_new,values=@{$project->{_values_aref}}\n");
+		print("project_selector,_create_new,values=@{$project->{_values_aref}}\n");
 
 		$project->{_check_buttons_settings_aref} = $config_superflows->get_check_buttons_settings();
 
-		# print("project_selector,_create_new,chkb=@{$project->{_check_buttons_settings_aref}}\n");
+		print("project_selector,_create_new,chkb=@{$project->{_check_buttons_settings_aref}}\n");
 
 		$project->{_superflow_first_idx} = $config_superflows->first_idx();
 		$project->{_superflow_length}    = $config_superflows->length();
@@ -265,28 +266,19 @@ For the case that a new project is created:
 sub _ok {
 	my ($self) = @_;
 
-#	# take focus to force update of Entry widgets
-#	if ( length( $project_selector->{_mw} ) ) {
-#		
-#		( $project_selector->{_mw})->focusNext;
-#
-#	} else {
-#		print("project_select,_ok, missing widget \n");
-#	}
-
 	use LSeismicUnix::misc::L_SU_local_user_constants;
 	use LSeismicUnix::misc::L_SU_global_constants;
+	use LSeismicUnix::messages::message_director;
 
 	my $user_constants = L_SU_local_user_constants->new();
 	my $get            = L_SU_global_constants->new();
 
 	# expect messaging
-	use LSeismicUnix::messages::message_director;
 	my $message_director = message_director->new();
 	my $message_box_w    = _get_message_box_w();
 	my $global_libs      = $get->global_libs();
-	my $run_name         = 'Project';                 # todo make project_selector
-
+	my $run_name         = $get->var->{_project_selector_title}; 
+	
 	# 1. CASES when an existing project is selected
 	if ( $project_selector->{_active_project} ) {
 
@@ -634,64 +626,6 @@ sub _set_PROJECT_HOMES_aref {
 	return ();
 }
 
-#=head2 sub get_project_names_aref
-#
-# Find simple Project names from configuration path for user
-#
-#=cut
-#
-# sub get_project_names_aref {
-#
-# 	my $self	= @_;
-# 	use LSeismicUnix::misc::L_SU_local_user_constants;
-#
-#	my $user_constants   = L_SU_local_user_constants->new();
-#	my @ls_ref;
-#	my $ls_ref           = $user_constants->get_project_names;
-#		# print("project_selector, project names: @$ls_ref\n");
-#	my $length 			= scalar @$ls_ref;
-# 	return($ls_ref);
-# }
-#
-#
-#=head2 sub get_PROJECT_HOMES_aref
-#
-# Find out HOME directory from configurationdirectories of user
-#
-#=cut
-#
-# sub get_PROJECT_HOMES_aref {
-#
-# 	my $self	= @_;
-# 	use LSeismicUnix::misc::L_SU_local_user_constants;
-#
-#	my $user_constants   = L_SU_local_user_constants->new();
-#	my @ls_ref;
-#	my $ls_ref           = $user_constants->get_PROJECT_HOMES;
-#		# print("project_selector, get_PROJECT_HOMES_aref: @$ls_ref\n");
-#	my $length 			= scalar @$ls_ref;
-# 	return($ls_ref);
-# }
-#
-#=head2 sub get_length
-#
-#Find out HOME directory and configuration path for user
-#
-#=cut
-#
-# sub get_length {
-# 	my $self			= @_;
-# 	use LSeismicUnix::misc::L_SU_local_user_constants;
-#
-#	my $user_constants   = L_SU_local_user_constants->new();
-#	my @ls_ref;
-#	my $ls_ref           = $user_constants	->get_project_names;
-#	my $length 			= scalar @$ls_ref;
-#		# print("project_selector, get_length,no. projects: $length\n");
-# 	return($length);
-# }
-#
-#
 
 =head2 sub create_new
 
@@ -914,7 +848,8 @@ user configuration directory
 sub set_param_widgets_pkg {
 	my ( $self, $pkg_ref ) = @_;
 
-	if ($pkg_ref) {
+	if (length $pkg_ref) {
+		
 		$project_selector->{_param_widgets_pkg} = $pkg_ref;
 
 		#		print("project_selector, set_param_widgets_pkg: $project_selector->{_param_widgets_pkg}\n");
@@ -940,6 +875,7 @@ sub set_current_program_name {
 
 		$project_selector->{_current_program_name} = $current_program_name;
 		( $project_selector->{_param_widgets_pkg} )->set_current_program_name($current_program_name);
+#		 print("project_selector, set_current_program_name: $current_program_name\n");
 
 	} else {
 		print("project_selector, set_current_program_name: missing name or package \n");

@@ -2796,4 +2796,22 @@ L_SU
 sumedian filter for VSP (filters)
 sueipol- eignevalue based polar filter (filters)
 pahse inversion deconvolution
+
+
+Q. How does project-selector run in general terms"?
+
+	L_SU_project_selector.pl
+		(program name is defined as 'Project')
+		
+		project_selector
+		    ->set_current program
+		    
+		L_SU_local_user_constants
+		    get_active_project_name
+		      _get_local_or_defaults
+		    
+			    big_streams_param
+			    get
+	   
+	
            

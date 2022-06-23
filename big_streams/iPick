@@ -13,6 +13,5 @@
 
 	# run iPick.pl
 	# echo "perl" $PL_LOCAL"/LSeismicUnix/big_streams/iPick.pl"
-	
      perl $PL_LOCAL/LSeismicUnix/big_streams/iPick.pl
 fi

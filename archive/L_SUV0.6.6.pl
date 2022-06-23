@@ -86,7 +86,6 @@ $path = $LSeismicUnix.'/'.'misc';
 
 }
 use lib "$path";
-
 extends 'gui_history' => { -version => 0.0.2 };
 
 use Tk;
@@ -118,22 +117,22 @@ my $alias_FileDialog_button_label = $get->alias_FileDialog_button_label_aref;
 my $superflow_names_gui_aref      = $get->superflow_names_gui_aref();
 my $file_dialog_type              = $get->file_dialog_type_href();
 
-my @sunix_data_programs        = @{ $var->{_sunix_data_programs} };
-my @sunix_datum_programs       = @{ $var->{_sunix_datum_programs} };
-my @sunix_plot_programs        = @{ $var->{_sunix_plot_programs} };
-my @sunix_filter_programs      = @{ $var->{_sunix_filter_programs} };
-my @sunix_header_programs      = @{ $var->{_sunix_header_programs} };
-my @sunix_inversion_programs   = @{ $var->{_sunix_inversion_programs} };
-my @sunix_migration_programs   = @{ $var->{_sunix_migration_programs} };
-my @sunix_shell_programs       = @{ $var->{_sunix_shell_programs} };
-my @sunix_model_programs       = @{ $var->{_sunix_model_programs} };
-my @sunix_NMO_Vel_Stk_programs = @{ $var->{_sunix_NMO_Vel_Stk_programs} };
-my @sunix_par_programs         = @{ $var->{_sunix_par_programs} };
-my @sunix_picks_programs       = @{ $var->{_sunix_picks_programs} };
-my @sunix_shapeNcut_programs   = @{ $var->{_sunix_shapeNcut_programs} };
-my @sunix_statsMath_programs   = @{ $var->{_sunix_statsMath_programs} };
-my @sunix_transform_programs   = @{ $var->{_sunix_transform_programs} };
-my @sunix_well_programs        = @{ $var->{_sunix_well_programs} };
+my @sunix_data_programs        	 = @{ $var->{_sunix_data_programs} };
+my @sunix_datum_programs       	 = @{ $var->{_sunix_datum_programs} };
+my @sunix_plot_programs        	 = @{ $var->{_sunix_plot_programs} };
+my @sunix_filter_programs      	 = @{ $var->{_sunix_filter_programs} };
+my @sunix_header_programs      	 = @{ $var->{_sunix_header_programs} };
+my @sunix_inversion_programs   	 = @{ $var->{_sunix_inversion_programs} };
+my @sunix_migration_programs   	 = @{ $var->{_sunix_migration_programs} };
+my @sunix_shell_programs       	 = @{ $var->{_sunix_shell_programs} };
+my @sunix_model_programs       	 = @{ $var->{_sunix_model_programs} };
+my @sunix_NMO_Vel_Stk_programs 	 = @{ $var->{_sunix_NMO_Vel_Stk_programs} };
+my @sunix_par_programs         	 = @{ $var->{_sunix_par_programs} };
+my @sunix_picks_programs       	 = @{ $var->{_sunix_picks_programs} };
+my @sunix_shapeNcut_programs   	 = @{ $var->{_sunix_shapeNcut_programs} };
+my @sunix_statsMath_programs   	 = @{ $var->{_sunix_statsMath_programs} };
+my @sunix_transform_programs   	 = @{ $var->{_sunix_transform_programs} };
+my @sunix_well_programs        	 = @{ $var->{_sunix_well_programs} };
 
 =head2 Declare private variables
 

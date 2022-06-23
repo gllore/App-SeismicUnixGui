@@ -32,7 +32,6 @@ DESCRIPTION
 use Moose;
 our $VERSION = '1.0.1';
 
-# used only in 3. PerlTk.pm
 use Tk;
 use Tk::Pane;
 use Tk::Font;
@@ -42,6 +41,7 @@ use LSeismicUnix::misc::L_SU_global_constants;
 use LSeismicUnix::misc::param_widgets;
 use LSeismicUnix::misc::project_selector;
 use LSeismicUnix::messages::message_director;
+
 my $project_selector = project_selector->new();
 my $get              = new L_SU_global_constants();
 my $param_widgets    = param_widgets->new();

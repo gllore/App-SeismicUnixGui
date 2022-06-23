@@ -275,15 +275,15 @@ sub get_whole {
 				$manage_files_by2->{_directory} . '/'
 			  . $manage_files_by2->{_file_in};
 
-#			print("manage_files_by2, get_whole, $inbound\n");
-			
+			#			print("manage_files_by2, get_whole, $inbound\n");
+
 		}
-		elsif (length $manage_files_by2->{_pathNfile}) {
-			
-				$inbound =
-				$manage_files_by2->{_pathNfile};
-#				print("manage_files_by2, get_whole, $inbound\n");		
-						
+		elsif ( length $manage_files_by2->{_pathNfile} ) {
+
+			$inbound = $manage_files_by2->{_pathNfile};
+
+			#				print("manage_files_by2, get_whole, $inbound\n");
+
 		}
 		else {
 			print("manage_files_by2_get_whole, unexpected variable\n");
@@ -292,7 +292,7 @@ sub get_whole {
 		open( my $fh, '<', $inbound )
 		  or die "Could not open file '$manage_files_by2->{_file_in}' $!";
 		while ( my $row = <$fh> ) {
-			
+
 			chomp $row;
 			$all_lines[$i] = $row;
 
@@ -302,7 +302,7 @@ sub get_whole {
 
 		$manage_files_by2->{_all_lines_aref} = \@all_lines;
 		close($fh);
-		
+
 		$manage_files_by2->{_num_lines} =
 		  scalar @{ $manage_files_by2->{_all_lines_aref} };
 
@@ -366,7 +366,7 @@ sub set_file_in {
 	}
 
 	return ();
-	
+
 }
 
 =head2 sub clear_empty_files
@@ -1154,7 +1154,8 @@ Version:
 =cut
 
 		use Moose;
-		use LSeismicUnix::misc::SeismicUnix qw($append $in $out $on $go $to $suffix_ascii $off
+		use LSeismicUnix::misc::SeismicUnix
+		  qw($append $in $out $on $go $to $suffix_ascii $off
 		  $suffix_segd $su $suffix_segy $suffix_sgy $suffix_su
 		  $suffix_segd $suffix_txt $suffix_bin);
 		use LSeismicUnix::configs::big_streams::Project_config;

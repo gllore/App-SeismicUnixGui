@@ -24,6 +24,9 @@ package config_superflows;
 use Moose;
 my $VERSION = '1.0.0';
 
+use LSeismicUnix::misc::L_SU_global_constants;
+use LSeismicUnix::big_streams::immodpg_global_constants;
+
 
 =pod
 
@@ -45,8 +48,6 @@ my $config_superflows = {
 	_size                => '',
 };
 
-use LSeismicUnix::misc::L_SU_global_constants;
-use LSeismicUnix::big_streams::immodpg_global_constants;
 
 my $get             = new L_SU_global_constants();
 my $get_immodpg     = new immodpg_global_constants();
@@ -60,11 +61,9 @@ my $no              = $var->{_no};
 my $empty_string    = $var->{_empty_string};
 my $superflow_names = $get->superflow_names_h();
 
-my $set   = new L_SU_global_constants();
-my $alias = $set->alias_superflow_names_h;
-
-my $global_lib        = $get->global_libs();
-my $GLOBAL_CONFIG_LIB = $global_lib->{_param};
+my $alias 				= $get->alias_superflow_names_h;
+my $global_lib        	= $get->global_libs();
+my $GLOBAL_CONFIG_LIB 	= $global_lib->{_param};
 
 =head2 sub  _get_program_name
 
@@ -400,7 +399,9 @@ sub get_local_or_defaults {
 
 
 	if ( $config_superflows->{_program_name_sref} ) {
+		
 		use LSeismicUnix::misc::big_streams_param;
+		
 		my $big_streams_param = new big_streams_param();
 		my ( $cfg_aref, $size );
 

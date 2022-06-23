@@ -32,7 +32,6 @@ package su_param;
 	
 	V 0.0.3 June 2022 reference to L_SU_local_user_constants
 	removed
-	
 	L_SU_local_user_constants may create cirularity
 
 =cut 
@@ -55,9 +54,9 @@ my $HOME                  = ` echo \$HOME`;
 chomp $HOME;
 
 # magic number TODO
-my $ACTIVE_PROJECT           = $HOME . '/.L_SU/configuration/active';
-my $user_active_project_path = $ACTIVE_PROJECT;
 my $var                      = $L_SU_global_constants->var();
+my $ACTIVE_PROJECT           = $HOME . $var->{_ACTIVE_PROJECT};
+my $user_active_project_path = $ACTIVE_PROJECT;
 
 my $true         = $var->{_true};
 my $false        = $var->{_false};
@@ -497,7 +496,7 @@ sub _check4local_config {
 		}    # module is found
 	}
 	else {
-#		print("su_param,_check4local_config, missing name_sref \n");
+		print("su_param,_check4local_config, missing name_sref \n");
 		$ans = $false;
 	}
 	return ($ans);
@@ -528,9 +527,9 @@ sub _check4user_config {
 		}
 		else {
 			$ans = $false;
-#			print(
-#				"su_param,_check4user_config, ACTIVE_PROJECT=$ACTIVE_PROJECT\n"
-#			);
+			print(
+				"su_param,_check4user_config, ACTIVE_PROJECT=$ACTIVE_PROJECT\n"
+			);
 #			print("su_param,_check4user_config, name =$$name_sref\n");
 #			print(
 #				"su_param,_check4user_config,$$name_sref not found. \n
@@ -577,7 +576,7 @@ sub check4user_config {
 	return ($ans);
 }
 
-=head2 sumy_length 
+=head2 sub my_length 
 not found
  This length is twice the number of parameter
   names

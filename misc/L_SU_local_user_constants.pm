@@ -2,6 +2,10 @@ package L_SU_local_user_constants;
 
 use Moose;
 
+use LSeismicUnix::misc::L_SU_global_constants;
+
+my $L_SU_global_constants = L_SU_global_constants->new();
+
 =head2 private hash
 
 =cut
@@ -292,13 +296,14 @@ sub get_active_project_name {
 
     # default config file is 'Project'
     my $project_name = $L_SU->{_config_base_name};
+#    print("L295 L_SU_local_user_constants,get_active_project,project_name=$project_name\n");
 #    L_SU_local_user_constants->set_program_name( \$project_name );
 
     my $namesNvalues_aref =
       _get_local_or_defaults($project_name);
     my @namesNvalues_aref = @$namesNvalues_aref;
 
-print("L_SU_local_user_constants,get_active_project,namesNvalues_aref: @$namesNvalues_aref\n");
+#print("L_SU_local_user_constants,get_active_project,namesNvalues_aref: @$namesNvalues_aref\n");
 
     my $ACTIVE_PROJECT_name = $namesNvalues_aref[3];
 
@@ -346,26 +351,31 @@ sub _get_local_or_defaults {
 #	print("L_SU_local_user_constants, _get_local_or_defaults,program name=$config_base_name\n");
 
 	if ( length $config_base_name  ) {
+		
 		use LSeismicUnix::misc::big_streams_param;
 		my $big_streams_param = new big_streams_param();
+		
+		my $flow_type = $L_SU_global_constants->flow_type_href->{_pre_built_superflow};
+		$big_streams_param->set_flow_type($flow_type);
+		
 		my ( $cfg_aref, $size );
-
+		
 		my $name_sref = \$config_base_name;
 
-#	print("L_SU_local_user_constants, _get_local_or_defaults,program name=$$name_sref\n");
+#	print("L359 L_SU_local_user_constants, _get_local_or_defaults,program name=$$name_sref\n");
+#	print("L359 L_SU_local_user_constants, _get_local_or_defaults,flow_type=$flow_type\n");
 #	print("L_SU_local_user_constants, _get_local_or_defaults,SCALAR program name=$name_sref\n");
 
 		$cfg_aref = $big_streams_param->get($name_sref);
 
-  print("L_SU_local_user_constants, _get_local_or_defaults,cfg_aref = @{$cfg_aref}\n");
+#  		print("L_SU_local_user_constants, _get_local_or_defaults,cfg_aref = @{$cfg_aref}\n");
 		return ($cfg_aref);
-
-		#		}
 	}
 	else {
 		print(
 "L_SU_local_user_constants, L_SU_local_user_constants,missing program_name_sref\n"
 		);
+		return();
 	}
 
 }
@@ -397,7 +407,7 @@ sub _get_active_project_name {
       _get_local_or_defaults($project_name);
     my @namesNvalues_aref = @$namesNvalues_aref;
 
-# print("L_SU_local_user_constants,get_active_project,namesNvalues_aref: @$namesNvalues_aref\n");
+ print("L_SU_local_user_constants,get_active_project,namesNvalues_aref: @$namesNvalues_aref\n");
 
     my $ACTIVE_PROJECT_name = $namesNvalues_aref[3];
 
@@ -417,15 +427,17 @@ sub _get_active_project_name {
 
 sub _set_default_Project_config {
     my ($self) = @_;
+    
     my $ACTIVE_PROJECT;
-    my $get               = new L_SU_global_constants();
-    my $global_lib        = $get->global_libs();
+    my $global_lib        = $L_SU_global_constants->global_libs();
     my $GLOBAL_CONFIG_LIB = $global_lib->{_param};
+    my $get    			  = $L_SU_global_constants->var();
+    my $Project_config    = $get->{_Project_config};
 
     my $HOME = _get_home;
 
-    my $Project_config = $GLOBAL_CONFIG_LIB . 'Project.config';
-    $L_SU->{_default_Project_config} = $Project_config;
+    my $inbound_Project_config = $GLOBAL_CONFIG_LIB . $Project_config;
+    $L_SU->{_default_Project_config} = $inbound_Project_config;
 
 # print("  L_SU_local_user_constants,_set_default_Project_config,default_Project_config: $L_SU->{_default_Project_config} \n");
 
@@ -533,8 +545,8 @@ sub get_project_names {
 
 sub set_user_configuration_Project_config {
     my $self              = @_;
-    my $get               = new L_SU_global_constants();
-    my $global_lib        = $get->global_libs();
+
+    my $global_lib        = $L_SU_global_constants->global_libs();
     my $GLOBAL_CONFIG_LIB = $global_lib->{_param};
 
     my $HOME           = _get_home;
@@ -553,8 +565,8 @@ sub set_user_configuration_Project_config {
 
 sub set_user_configuration_Project_config2 {
     my $self              = @_;
-    my $get               = new L_SU_global_constants();
-    my $global_lib        = $get->global_libs();
+
+    my $global_lib        = $L_SU_global_constants->global_libs();
     my $GLOBAL_CONFIG_LIB = $global_lib->{_param};
 
     my $HOME          = _get_home;
@@ -575,8 +587,8 @@ sub set_user_configuration_Project_config2 {
 
 sub _set_user_configuration_Project_config {
     my $self              = @_;
-    my $get               = new L_SU_global_constants();
-    my $global_lib        = $get->global_libs();
+
+    my $global_lib        = $L_SU_global_constants->global_libs();
     my $GLOBAL_CONFIG_LIB = $global_lib->{_param};
 
     my $HOME           = _get_home;
@@ -595,8 +607,8 @@ sub _set_user_configuration_Project_config {
 
 sub _set_user_configuration_Project_config2 {
     my $self              = @_;
-    my $get               = new L_SU_global_constants();
-    my $global_lib        = $get->global_libs();
+
+    my $global_lib        = $L_SU_global_constants->global_libs();
     my $GLOBAL_CONFIG_LIB = $global_lib->{_param};
 
     my $HOME           = _get_home;
@@ -628,8 +640,7 @@ sub makconfig {
     use File::Copy;
 
     my $ACTIVE_PROJECT;
-    my $get               = new L_SU_global_constants();
-    my $global_lib        = $get->global_libs();
+    my $global_lib        = $L_SU_global_constants->global_libs();
     my $GLOBAL_CONFIG_LIB = $global_lib->{_param};
 
     $ACTIVE_PROJECT = _get_ACTIVE_PROJECT();
