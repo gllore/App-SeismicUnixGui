@@ -46,20 +46,25 @@ sub _get_contents_aref {
 	if ( length $manage_dirs_by->{_directory} ) {
 
 		my $SEARCH_DIR = $manage_dirs_by->{_directory};
-		
-#		print("manage_dirs_by, SEARCH_DIR=$SEARCH_DIR\n");
-#die "Error in opening dir $dirname\n";
 
-		opendir( DIR, $SEARCH_DIR ) or next $!;
-		
-		my @directory_list = readdir(DIR);
-		
-		$result_aref = \@directory_list;
-		close(DIR);
+		#		print("manage_dirs_by, SEARCH_DIR=$SEARCH_DIR\n");
+		#           die "Error in opening dir $dirname\n";
+
+		if ( opendir( DIR, $SEARCH_DIR ) ) {
+
+			my @directory_list = readdir(DIR);
+
+			$result_aref = \@directory_list;
+			close(DIR);
+
+		}
+		else {
+#			print("manage_dirs_by, _get_contents_aref,directory not found; NADA\n");
+		}
 
 	}
 	else {
-		print("manage_dirs_by, _get_contents,missing directory\n");
+#		print("manage_dirs_by, _get_contents_aref, missing directory; NADA\n");
 	}
 	return ($result_aref);
 }
@@ -68,38 +73,46 @@ sub get_list_aref {
 
 	my ($self) = @_;
 
-	my $list_ref;
+	my $list_aref;
 	my @filtered_directory;
 
-	if ( $manage_dirs_by->{_directory} ) {
+	if ( length $manage_dirs_by->{_directory} ) {
 
-		$list_ref = _get_contents_aref;
-		my @directory_list = @$list_ref;
-		
-		foreach my $thing (@directory_list) {
+		$list_aref = _get_contents_aref;
 
-				
-			if (   $thing eq '.'
-				or $thing eq '..' )
-			{
+		if ( length $list_aref ) {
 
-				next;
+			my @directory_list = @$list_aref;
 
+			foreach my $thing (@directory_list) {
+
+				if (   $thing eq '.'
+					or $thing eq '..' )
+				{
+
+					next;
+
+				}
+				else {
+					push @filtered_directory, $thing;
+
+					#				print("DIR= $thing\n");
+				}
 			}
-			else {
-				push @filtered_directory,$thing;
-#				print("DIR= $thing\n");
-			}
+
+			my $result_aref = \@filtered_directory;
+			return ($result_aref);
+
 		}
-		
+		else {
+			#			print("empty directory list NADA\n");
+		}
+
 	}
 	else {
 		print("manage_dirs_by,$self,get_list_aref missing variable\n");
+		return ();
 	}
-
-	my $result_aref = \@filtered_directory;
-
-	return ($result_aref);
 
 }
 

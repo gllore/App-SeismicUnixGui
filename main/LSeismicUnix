@@ -1,0 +1,15 @@
+#!/bin/bash
+
+# see if global variable is set
+# LSeismicUnix_main is a global variable for locating the  main folder
+
+ if [ -z "${PL_LOCAL}" ]; then
+
+ 	echo "global variable LSeismicUnix must be set"
+ 	echo "e.g. in .bashrc: "
+ 	echo " export LSeismicnUnix_main=/usr/local/pl/LSeismicUnix_main "
+ 	
+ else
+	perl $LSeismicUnix_main/L_SU_project_selector.pl
+	perl $LSeismicUnix_main/L_SUV0.6.6.pl
+ fi

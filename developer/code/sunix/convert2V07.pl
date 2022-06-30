@@ -17,7 +17,7 @@ Version: 0.1
 =head3 NOTES
 
 Before conversion: use L_SU_global_constants:
-After conversion:   use LSeismicUnix:misc:L_SU_global_constants;
+After conversion:  use LSeismicUnix:misc:L_SU_global_constants;
 
 =head4 Examples
 
@@ -39,10 +39,9 @@ oop_run_flows
 use Moose;
 our $VERSION = '0.0.1';
 
-#use LSeismicUnix::misc::manage_dirs_by;
 use LSeismicUnix::misc::manage_files_by2;
+use Carp;
 
-#my $manage_dirs_by   = manage_dirs_by->new();
 my $manage_files_by2 = manage_files_by2->new();
 
 =head2 Define
@@ -62,8 +61,32 @@ my @path4gen;
 my @file4gen;
 
 my $line2find_use = '\s*use\s';
-my $file_name     = 'test_file.pl';
 
+my $ans = 'n';
+
+print("Enter file name to convert\n");
+my $file_name = <>;
+chomp $file_name;
+
+print("You entered $file_name. Correct? y/n\n");
+$ans = <>;
+chomp $ans;
+
+while ( ($ans eq 'N') or ($ans eq 'n') ) {
+
+	print("Enter file name again\n");
+	$file_name = <>;
+	chomp $file_name;
+	
+	print("You entered $file_name. Correct? y/n\n");
+	$ans = <>;
+	chomp $ans;
+
+}
+
+print "OK, correct file name is $file_name\n";
+
+#my $file_name = 'test_file.pl';
 #print("parent_directory_gui_number_of=$parent_directory_gui_number_of\n");
 #print("child_directory_gui_number_of=$child_directory_gui_number_of\n");
 
@@ -90,15 +113,15 @@ my $length_of_slurp = scalar @slurp;
 
 for ( my $j = 0 ; $j < $length_of_slurp ; $j++ ) {
 
-	my $string = $slurp[$j];
-	chomp $string;    # remove all newlines
-	my @next_string;
-	my @raw_string;
+	my $raw_string = $slurp[$j];
+	chomp $raw_string;    # remove all newlines
 	my @temp_string;
 
-	if ( $string =~ m/$line2find_use/ ) {
+	if ( $raw_string =~ m/$line2find_use/ ) {
 
 		my $module_name;
+		my $string = $raw_string;
+
 		$string =~ s/;//;
 		$string =~ s/\(\)//;
 		@temp_string = split( /\s+/, $string );
@@ -108,35 +131,62 @@ for ( my $j = 0 ; $j < $length_of_slurp ; $j++ ) {
 
 			$module_name = $temp_string[2];
 
-			#			print("Fixed: module name within $file_name=$module_name...\n");
+	   #			print("convert2V07,module name within $file_name=$module_name...\n");
 
-			# Bad module names to avoid
-			if (   $module_name ne 'Moose'
-				or length $module_name
-				or $module_name ne ''
-				or $module_name ne 'null' )
+			if (    $module_name ne 'Moose'
+				and length $module_name
+				and $module_name ne ''
+				and $module_name ne 'null' )
 			{
 
-				print("substitute line=$slurp[$j]\n");
+				# When bad module names are avoided
+				#				print("line to substitute=$slurp[$j]\n");
 				use LSeismicUnix::misc::L_SU_global_constants;
-				my $L_SU_global_constants = L_SU_global_constants->new();
 
-				my $module_name_pm = $module_name . '_spec.pm';
-				#	print("module name_pm = $module_name_pm\n");
-				
+				my $L_SU_global_constants = L_SU_global_constants->new();
+				my $var                   = $L_SU_global_constants->var();
+				my $separation            = $var->{_LSeismicUnix};
+
+				my $module_name_pm = $module_name . '.pm';
+
+				# print("module name_pm=$module_name_pm\n");
+
 				$L_SU_global_constants->set_file_name($module_name_pm);
-				my $path = $L_SU_global_constants->get_path4spec_file();
-				
-				my $pathNmodule_pm = $path . '/' . $module_name_pm;
-				print("pathNmodule_pm = $pathNmodule_pm\n");
+				my $path = $L_SU_global_constants->get_path4convert_file();
+
+				if ( length $path ) {
+
+					my $pathNmodule_pm = $path . '/' . $module_name_pm;
+					my @next_string    = split( $separation, $pathNmodule_pm );
+
+					#				warn 'b4:' . $next_string[0];
+					#				warn 'After:' . $next_string[1];
+					#				warn $next_string[2];
+
+					# substitute "/" with ":"
+					$next_string[1] =~ s/(\/)+/::/g;
+					$next_string[1] =~ s/.pm//g;
+					$next_string[1] = $var->{_LSeismicUnix} . $next_string[1];
+
+					#	warn 'After...' . $next_string[1];
+					$raw_string =~ s/$module_name/$next_string[1]/;
+					$slurp[$j] = $raw_string;
+
+					#					print("substituted line=$slurp[$j]\n");
+				}
+				else {
+					warn 'Warning: variable missing';
+				}
 
 			}
 			else {
-				print("convert2V07, bad module\n");
+				print("convert2V07, bad module: $module_name avoided\n");
 			}
 
-		}    # catches good modules
+		}
 		elsif ( $temp_string[0] eq 'use' ) {
+
+			# Catches cases of strange modules
 
 			#		$module_name = $temp_string[1];
 			#		print("module name within $file_name=$module_name...\n");
@@ -179,21 +229,20 @@ if ( $length_of_slurp == 0 ) {
 }
 elsif ( $length_of_slurp > 0 ) {
 
-	print "Press Writing a new file with a changed line";
+	#	print "Press Writing a new file with a changed line";
 
 	#			<STDIN>;
 
-	#	open( OUT, ">$outbound" )
-	#	  or die("File $file_name not found");
+	open( OUT, ">$outbound" )
+	  or die("File $file_name not found");
 
 	# add \n!!!!
 	for ( my $i = 0 ; $i < $length_of_slurp ; $i++ ) {
 
-		#		print $slurp[$i] . "\n";
-
+		printf OUT $slurp[$i] . "\n";
 	}
 
-	#	close(OUT);
+	close(OUT);
 }
 
 #sub _set_file_name {

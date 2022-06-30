@@ -26,8 +26,8 @@ Version:
 
 
 	use Moose;
-	use LSeismicUnix::misc::SeismicUnix qw ($in $out $on $go $to $suffix_ascii $off $suffix_segd $suffix_segy $suffix_sgy $suffix_su $suffix_segd $suffix_txt $suffix_bin);
-	use LSeismicUnix::configs::big_streams::Project_config;
+	use SeismicUnix qw ($in $out $on $go $to $suffix_ascii $off $suffix_segd $suffix_segy $suffix_sgy $suffix_su $suffix_segd $suffix_txt $suffix_bin);
+	use Project_config;
 
 	my $Project		= new Project_config();
 	my $DATA_SEISMIC_BIN	= $Project->DATA_SEISMIC_BIN;
@@ -35,11 +35,11 @@ Version:
 	my $DATA_SEISMIC_SU	= $Project->DATA_SEISMIC_SU;
 	my $DATA_SEISMIC_TXT	= $Project->DATA_SEISMIC_TXT;
 
-	use LSeismicUnix::misc::message;
-	use LSeismicUnix::misc::flow;
-	use LSeismicUnix::sunix::data::data_in;
-	use LSeismicUnix::sunix::shapeNcut::sugain;
-	use LSeismicUnix::sunix::plot::suximage;
+	use message;
+	use flow;
+	use data_in;
+	use sugain;
+	use suximage;
 
 	my $log					= new message();
 	my $run					= new flow();
