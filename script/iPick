@@ -1,0 +1,17 @@
+#!/bin/bash
+
+# see if global variable is set
+# global variable LSeismicUnix_script locates main folder
+
+ if [ -z "${LSeismicUnix_script}" ]; then
+
+ 	echo "global variable LSeismicUnix_script must first be set"
+ 	echo "e.g. in .bashrc: "
+ 	echo " export LSeismicUnix_script=/Location/of/script/folder"
+
+ else
+
+	# run iPick.pl
+	# echo "perl" $LSeismicUnix_script"/iPick.pl"
+     perl $LSeismicUnix_script/iPick.pl
+fi

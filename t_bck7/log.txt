@@ -1,4 +1,0 @@
-   
-clean.pm
-    Clean any pre-existing account information and files belonging to 'tester'
-

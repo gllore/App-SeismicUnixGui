@@ -965,7 +965,7 @@ sub linvel {
 #
 #=cut
 #
-#	use manage_files_by;
+#	use LSeismicUnix::misc::manage_files_by;
 #	use LSeismicUnix::configs::big_streams::Project_config;
 #	my $Project = new Project_config();
 #

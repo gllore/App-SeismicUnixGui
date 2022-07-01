@@ -134,7 +134,7 @@ sub _get_data_type {
 	if (    $sucat->{_list_directory} ne $empty_string
 		and $sucat->{_list} ne $empty_string ) {
 
-		use readfiles;
+		use LSeismicUnix::misc::readfiles;
 		use LSeismicUnix::misc::SeismicUnix qw($itop_mute $ibot_mute $ivpicks_sorted_par_);
 
 		# my $velan = $ivpicks_sorted_par_;
@@ -248,8 +248,8 @@ sub data_type {
 
 =cut
 
-		use readfiles;
-		use manage_files_by;
+		use LSeismicUnix::misc::readfiles;
+		use LSeismicUnix::misc::manage_files_by;
 		use LSeismicUnix::misc::control '0.0.3';
 
 =head2 instantiate packages

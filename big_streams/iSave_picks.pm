@@ -330,7 +330,7 @@ sub gather_type {
 #	use File::Copy;
 #	use LSeismicUnix::misc::control '0.0.3';
 #	use dirs;
-#	use readfiles;
+#	use LSeismicUnix::misc::readfiles;
 #
 #	my $ACTIVE_CONFIGURATION 		= $HOME.'/.L_SU/configuration/active';
 #	my $inbound						= $ACTIVE_CONFIGURATION.'/Project.config';

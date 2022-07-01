@@ -206,7 +206,7 @@ sub gather_header {
 
 sub calcNdisplay {
 
-	use manage_files_by;
+	use LSeismicUnix::misc::manage_files_by;
 
 =head2
 

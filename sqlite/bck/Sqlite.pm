@@ -148,7 +148,7 @@ use strict;
 
 use lib '/usr/local/pl/libAll';
 
-use manage_files_by;
+use LSeismicUnix::misc::manage_files_by;
 
 # declare local arrays
 
