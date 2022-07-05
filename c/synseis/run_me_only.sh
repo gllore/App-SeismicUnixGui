@@ -1,16 +1,16 @@
 #!/bin/bash
 
 # see if global variable is set
-# global variable L_SU locates main folder
+# global variable LSeismicUnix locates main folder
 
- if [ -z "${L_SU}" ]; then
+ if [ -z "${LSeismicUnix}" ]; then
 
  	echo "global variable L_SU must first be set"
  	echo "e.g. in .bashrc: "
- 	echo " export L_SU=/usr/local/pl/L_SU "
+ 	echo " export LSeismicUnix_script=/Location/of/script/folder "
 
 fi
 
-cd ${L_SU}/c/synseis
+cd ${LSeismicUnix}/c/synseis
 sh set_env_variables.sh
 make synseis

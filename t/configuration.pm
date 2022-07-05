@@ -73,7 +73,7 @@ sub get_instructions {
 
 		print "global variable L_SU must be set";
 		print "e.g. in .bashrc: ";
-		print " export L_SU=/usr/local/pl/L_SU ";
+		print " export LSeismicUnix=/usr/local/pl/LSeismicUnix ";
 
 	} else {
 
@@ -150,7 +150,7 @@ sub set_preparations {
 
 		print "global variable L_SU must be set";
 		print "e.g. in .bashrc: ";
-		print " export L_SU=/usr/local/pl/L_SU ";
+		print " export LSeismicUnix=/usr/local/pl/LSeismicUnix ";
 
 	} else {
 

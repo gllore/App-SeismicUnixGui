@@ -12,7 +12,7 @@ if ( not length($L_SU) ) {
 
 	print "global variable L_SU must be set";
 	print "e.g. in .bashrc: ";
-	print " export L_SU=/usr/local/pl/L_SU ";
+	print " export LSeismicUnix=/usr/local/pl/LSeismicUnix ";
 
 } else {
 	print("\$L_SU = $L_SU \n");
