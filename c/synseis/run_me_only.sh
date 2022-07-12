@@ -9,8 +9,11 @@
  	echo "e.g. in .bashrc: "
  	echo " export LSeismicUnix_script=/Location/of/script/folder "
 
+ else
+	echo "LSeismicUnix =" ${LSeismicUnix}
 fi
 
 cd ${LSeismicUnix}/c/synseis
-sh set_env_variables.sh
+pwd
+# sh set_env_variables.sh
 make synseis

@@ -20,14 +20,14 @@
 #define TSTART 0.0/*o/p for first t value in resampling */
 #define Z_INCREMENT 0.25 /*default resampling increment in m*/
 #define ZSTART 0.0 /*0/p for first z value in resampling */
-#define Vp_water_mps 1500.// velocity of sound in salt water at 0 deg C
+#define Vp_water_mps 1500./* velocity of sound in salt water at 0 deg C
 
-// internal functions at the end of this source file
+/* internal functions at the end of this source file
 double ricker();
 void regular();
 void convolve();
 
-// reads in switches
+/* reads in switches
 int main (int argc, char **argv)
 {
   /* Varibale pre-definitions*/
@@ -39,7 +39,7 @@ int main (int argc, char **argv)
     winA_reg [SIZE], wint_reg, /* regularized i/p wavelet Amplitude*/
     Refl_coef_reg_depth[SIZE], /*regularized reflection coefficient series in depth*/
     Refl_coef_reg_time[SIZE], /* regularized reflection coefficients in time*/
-//    RC [SIZE],	/* regularized reflection coefficient*/
+/*    RC [SIZE],	/* regularized reflection coefficient*/
     depth[SIZE], depth_reg [SIZE], /* depth measurements*/
     rho [SIZE], rho_reg [SIZE], /*density in g/cc*/
     threshold,  /* threshold value below which RC are = 0 */
@@ -122,7 +122,7 @@ int main (int argc, char **argv)
 
   threshold = (float)THRESHOLD;
   t_increment = (float)T_INCREMENT; /*default of 0.001 s*/
-//   printf ("tincrement= %f\n",t_increment);
+/*   printf ("tincrement= %f\n",t_increment);
 
   xstart = (float)XSTART; /*default of 0.0 */
   tstart  = (float)TSTART;/*default of 0.0 */
@@ -231,9 +231,9 @@ int main (int argc, char **argv)
 			case 'Z': /*-Zdepth-density-velocityfile name*/
 					zrhov_filename = &argv[i][2];
 			break;
-		 }	//switch
-    } // end '-'
-  } // end for
+		 }	/*switch
+    } /* end '-'
+  } /* end for
 
   if( verbose == TRUE ) printf("%s\n",zrhov_filename);
   if( verbose == TRUE ) printf("t_increment= %f\n",t_increment);
@@ -241,24 +241,24 @@ int main (int argc, char **argv)
   if( verbose == TRUE ) printf("water_depth =%f\n",water_depth);
   if( verbose == TRUE ) printf("source_filname =%s\n",source_filename);
 
-//  if (argc == 1 || error ) {
-//    fprintf (stderr, " -AFfrequency of Ricker wavelet(Hz)\n");
-//    fprintf (stderr, " -AElength of ricker wavelet in secs\n");
-//    fprintf (stderr, " -Aoname of output ricker wavelet file if wanted\n");
-//    fprintf (stderr, " -CZoutput file with depth, refle. coef. pairs*\n");
-//    fprintf (stderr, " -CToutput file with time, reflec. coef. pairs*\n");
-//    fprintf (stderr, " -Isampling interval (s)*\n");
-//    fprintf (stderr, " -IZsampling interval in depth (m)*\n");
-//    fprintf (stderr, " -LDresampled log density filename*\n");
-//    fprintf (stderr, " -LVresampled velocity filename*\n");
-//    fprintf (stderr, " -Roresampled output source filename*\n");
-//    fprintf (stderr, " -Rresample source=TRUE, otherwise don't resample\n");
-//    fprintf (stderr, " -Ssource_file_name (resampling=FALSE)\n");
-//    fprintf (stderr, " -Vspill all the details of the modelin\n");
-//    fprintf (stderr, " -Zname of file with depth(mbsf),density(g/cc),velocity(m/s)*\n");
-//    fprintf (stderr, "\n\n\n\n\n * ALWAYS USE\n");
-//
-//  }
+/*  if (argc == 1 || error ) {
+/*    fprintf (stderr, " -AFfrequency of Ricker wavelet(Hz)\n");
+/*    fprintf (stderr, " -AElength of ricker wavelet in secs\n");
+/*    fprintf (stderr, " -Aoname of output ricker wavelet file if wanted\n");
+/*    fprintf (stderr, " -CZoutput file with depth, refle. coef. pairs*\n");
+/*    fprintf (stderr, " -CToutput file with time, reflec. coef. pairs*\n");
+/*    fprintf (stderr, " -Isampling interval (s)*\n");
+/*    fprintf (stderr, " -IZsampling interval in depth (m)*\n");
+/*    fprintf (stderr, " -LDresampled log density filename*\n");
+/*    fprintf (stderr, " -LVresampled velocity filename*\n");
+/*    fprintf (stderr, " -Roresampled output source filename*\n");
+/*    fprintf (stderr, " -Rresample source=TRUE, otherwise don't resample\n");
+/*    fprintf (stderr, " -Ssource_file_name (resampling=FALSE)\n");
+/*    fprintf (stderr, " -Vspill all the details of the modelin\n");
+/*    fprintf (stderr, " -Zname of file with depth(mbsf),density(g/cc),velocity(m/s)*\n");
+/*    fprintf (stderr, "\n\n\n\n\n * ALWAYS USE\n");
+/*
+/*  }
 
   /*DATA INPUT */
 
@@ -271,7 +271,7 @@ if(read_source == TRUE) {
 		exit(0);
 	}
 
-     //RESAMPLE SOURCE
+     /*RESAMPLE SOURCE
 	if(resample_source == TRUE) {
 		for(i=0, num_pts_src=0; (!feof(fpin));  i++, num_pts_src++) {
 			fscanf (fpin, "%d %f", &t, &A);
@@ -282,7 +282,7 @@ if(read_source == TRUE) {
 		fclose(fpin);
 	}
 
-    // DO NOT RESAMPLE SOURCE
+    /* DO NOT RESAMPLE SOURCE
     if(resample_source == FALSE) {
     	for(i=0, num_pts_src=0; (!feof(fpin));  i++, num_pts_src++) {
     		fscanf (fpin, "%f\n", &A); /* N.B. only amplitudes */
@@ -306,9 +306,9 @@ if(read_source == TRUE) {
     	/*      t_increment = wint[1] - wint[0]; only amplitudes here
 	      if(verbose == TRUE) printf("t_increment=%f\n",t_increment);
 	      if(T_INCREMENT != t_increment) printf("t_increment warning\n");*/
-	} // END of DO NOT RESAMPLE SOURCE
+	} /* END of DO NOT RESAMPLE SOURCE
 
-//resample source
+/*resample source
     if(resample_source == TRUE) {
     	/*regularize source here*/
     	if(verbose == TRUE) printf("    time,      Amplitude\n");
@@ -339,9 +339,9 @@ if(read_source == TRUE) {
       }
       fclose(fpout);
     }
-} // END of SOURCE IN A FILE
+} /* END of SOURCE IN A FILE
 
-//RICKER WAVELET -------------------START-----------------*/
+/*RICKER WAVELET -------------------START-----------------*/
 if(ricker_wavelet == TRUE) {
 
     if( verbose == TRUE) printf("Calculating with a Ricker source\n");
@@ -360,9 +360,9 @@ if(ricker_wavelet == TRUE) {
 
     if(verbose == TRUE) {
 		  printf("    L357 Ricker\ntime,      Amplitude\n");
-//		  for (i=0;  i< num_samples_Ricker;  i++) {
-//				  printf("%f,      %f\n",Ricker_time[i], Ricker_Amplitude[i]);
-//		  }
+/*		  for (i=0;  i< num_samples_Ricker;  i++) {
+/*				  printf("%f,      %f\n",Ricker_time[i], Ricker_Amplitude[i]);
+/*		  }
     }
 
     if(ricker_out == TRUE) {
@@ -376,9 +376,9 @@ if(ricker_wavelet == TRUE) {
 		  if(verbose == TRUE) printf("num_samples_Ricker=%d\n",  num_samples_Ricker);
 		  fclose(fpout);
     }
-  } // END of RICKER WAVELET
+  } /* END of RICKER WAVELET
 
-//  START to READ LOG FILE
+/*  START to READ LOG FILE
  if(  (fpin = fopen(zrhov_filename,"r") ) == NULL) {
     printf("Can't open file2 %s, try again\n", zrhov_filename);
     exit(0);
@@ -394,9 +394,9 @@ if(ricker_wavelet == TRUE) {
 
  }
   fclose(fpin);
-// END of reading log file
+/* END of reading log file
 
-//  REGULARIZE LOG FILE
+/*  REGULARIZE LOG FILE
   zstart = depth[0]; /* first depth for resampling */
   if(verbose == TRUE) printf("L396 Regularizing log file\n");
   if(verbose == TRUE) printf("zstart= %f z_increment= %f num_pts_log= %d \n\n",zstart, z_increment, num_pts_log);
@@ -410,9 +410,9 @@ if(ricker_wavelet == TRUE) {
   for (i=0;  i< num_pts_Vp_reg;  i++) {
       depth_reg[i] =  zstart + z_increment * (float)i;
    }
-//  END of REGULARIZING LOG FILE
+/*  END of REGULARIZING LOG FILE
 
-  // write out regularized densities
+  /* write out regularized densities
 if(reg_rho_out == TRUE) {
 
     if(verbose == TRUE) {
@@ -430,15 +430,15 @@ if(reg_rho_out == TRUE) {
     fclose(fpout);
 
     num_pts_log_reg = num_pts_rho_reg;
-} // end of writing regularized densities
+} /* end of writing regularized densities
 
-// write out regularized velocity values to a file
+/* write out regularized velocity values to a file
 if(reg_Vp_out == TRUE) {
     if(verbose == TRUE) {
     	printf("Putting resampled velocities into a file\n");
-//    	for (i=0;  i< num_pts_Vp_reg;  i++) {
-//    		printf("depth_reg=%f\tVp_reg=%f\n",depth_reg[i], Vp_reg[i]);
-//    	}
+/*    	for (i=0;  i< num_pts_Vp_reg;  i++) {
+/*    		printf("depth_reg=%f\tVp_reg=%f\n",depth_reg[i], Vp_reg[i]);
+/*    	}
     }
     fpout= fopen(Reg_Vp_filnam,"w");
     for (i=0;  i< num_pts_Vp_reg;  i++) {
@@ -446,10 +446,10 @@ if(reg_Vp_out == TRUE) {
     }
     fclose(fpout);
     num_pts_log_reg = num_pts_Vp_reg;
-} // end of writing out regularized velocity values to a file
-//  overall end of REGULARIZING LOG FILE contents (density, velocities)
+} /* end of writing out regularized velocity values to a file
+/*  overall end of REGULARIZING LOG FILE contents (density, velocities)
 
-// CALCULATE TWO-WAY TRAVELTIME TO THE TOP OF LAYER
+/* CALCULATE TWO-WAY TRAVELTIME TO THE TOP OF LAYER
 if(verbose == TRUE) {
     printf("Calculating traveltime to the top of each assumed layer\n");
 }
@@ -461,12 +461,12 @@ if(verbose == TRUE) printf("\ndepth[0]=%f, time[0]=%f",depth[0],time[0]);
 
 for(i=1; i< num_pts_Vp_reg; i++) {
 	time[i] = time[i-1] + 2. * ( depth_reg[i] - depth_reg[i-1])/ Vp_reg[i-1];
-//	 if(verbose == TRUE) {
-//		 printf("\n%d,depth[%d]=%f, time[%d]=%f",i,depth_reg[i],i,time[i]);
-//	 }
-}// End CALCULATion of TWO-WAY TRAVELTIME TO THE TOP OF each LAYER*/
+/*	 if(verbose == TRUE) {
+/*		 printf("\n%d,depth[%d]=%f, time[%d]=%f",i,depth_reg[i],i,time[i]);
+/*	 }
+}/* End CALCULATion of TWO-WAY TRAVELTIME TO THE TOP OF each LAYER*/
 
-//  CALCULATE REFLECTION COEFFICIENTS
+/*  CALCULATE REFLECTION COEFFICIENTS
 if(verbose == TRUE) printf("\n Calculating reflection coefficients in depth!\n");
 
 bottom_imp = Vp_reg[0] * rho_reg[0];
@@ -479,10 +479,10 @@ for( i=1; i < num_pts_Vp_reg; i++){
 	Refl_coef_reg_depth[i] = (bottom_imp - top_imp) / (bottom_imp + top_imp);
 		  /* if( labs(Refl_coef_reg_depth[i]) < Refl_coef_reg_depth[0]/threshold) Refl_coef_reg_depth[i]=0.;*/
 
-//	 if( verbose == TRUE) {
-//			printf("\n i = %d, reflection coefficient =%f\n", i, Refl_coef_reg_depth[i]);
-//			printf("\n i = %d, bottom_imp = %f  top_imp= %f\n", i, bottom_imp,top_imp);
-//	  }
+/*	 if( verbose == TRUE) {
+/*			printf("\n i = %d, reflection coefficient =%f\n", i, Refl_coef_reg_depth[i]);
+/*			printf("\n i = %d, bottom_imp = %f  top_imp= %f\n", i, bottom_imp,top_imp);
+/*	  }
 }
 
   if(verbose == TRUE) {
@@ -507,9 +507,9 @@ for( i=1; i < num_pts_Vp_reg; i++){
 	 printf("xstart= %f\n", xstart);
 	 printf("t_increment, = %f\n", t_increment);
 
-//		for (i=0;  i< num_pts_log_reg;  i++){
-//			printf("%f\t%f\n",depth_reg[i], Refl_coef_reg_depth[i]);
-//		}
+/*		for (i=0;  i< num_pts_log_reg;  i++){
+/*			printf("%f\t%f\n",depth_reg[i], Refl_coef_reg_depth[i]);
+/*		}
  }
 
 regular(tstart, t_increment, num_pts_log_reg,
@@ -519,10 +519,10 @@ regular(tstart, t_increment, num_pts_log_reg,
 	 printf("L517 time,      Amplitude\n");
 		printf("num_pts_log_reg = %d\n", num_pts_log_reg);
 
-//		for (i=0;  i< num_pts_log_reg;  i++) {
-//			  time_reg =  xstart + t_increment * (float)i;
-//			  printf("time_reg=%f,     RC(t)= %f\n", time_reg, Refl_coef_reg_time[i]);
-//		}
+/*		for (i=0;  i< num_pts_log_reg;  i++) {
+/*			  time_reg =  xstart + t_increment * (float)i;
+/*			  printf("time_reg=%f,     RC(t)= %f\n", time_reg, Refl_coef_reg_time[i]);
+/*		}
  }
 
  if(reflec_coef_reg_time_out == TRUE) {
@@ -538,12 +538,12 @@ regular(tstart, t_increment, num_pts_log_reg,
 
     fclose(fpout);
   }
-// END of REGULARIZE REFLECTION COEFFICIENTS
+/* END of REGULARIZE REFLECTION COEFFICIENTS
 
-// CONVOLVE SOURCE AND DATA
+/* CONVOLVE SOURCE AND DATA
  if(verbose == TRUE) printf(" Convolving data \n");
 
-//  -----------------  My own source ----------------------------------
+/*  -----------------  My own source ----------------------------------
 if(read_source == TRUE && resample_source == TRUE) {
 	  for (i=num_pts_reg; i < num_pts_log_reg; i++){
 		  winA_reg[i]=0.;
@@ -565,7 +565,7 @@ if(verbose == TRUE) {
     	  printf("%f\t%f\n", Convolve_time, Convolve_Amplitude[i]);
       }
     }
-} // end convolution
+} /* end convolution
   /*----------------------- my source already resampled ---------------*/
 
 /*read my own source but didn't resample,as it had been already resampled*/
@@ -602,13 +602,13 @@ if (ricker_wavelet == TRUE) { /*calculated ricker source*/
 	       t_increment, Ricker_Amplitude,Convolve_Amplitude);
       num_pts_conv = num_pts_log_reg + num_samples_Ricker;
 
-//	if(verbose == TRUE ) {
-//		printf(" convolving  Ricker Source with reflection coefficient\n");
-//		for (i=0; i< num_pts_conv;  i++){
-//			Convolve_time = (t_increment * (float)i  ) + xstart;
-//			printf("%f\t%f\n", Convolve_time, Convolve_Amplitude[i]);
-//		}
-//    }
+/*	if(verbose == TRUE ) {
+/*		printf(" convolving  Ricker Source with reflection coefficient\n");
+/*		for (i=0; i< num_pts_conv;  i++){
+/*			Convolve_time = (t_increment * (float)i  ) + xstart;
+/*			printf("%f\t%f\n", Convolve_time, Convolve_Amplitude[i]);
+/*		}
+/*    }
 
  }
   
@@ -673,14 +673,14 @@ double ricker(td, freq, rick_long)
   int i; /*local variable*/
   float xint;
   xint =xstart;
-//  printf("made it to subroutine\n");
+/*  printf("made it to subroutine\n");
   while(xint < wint[0])  xint = xint +  t_increment;
-//  printf("regular, xint=%f\n",xint);
+/*  printf("regular, xint=%f\n",xint);
   for  (i=0; i < num_pts_src; i++) {
     while(wint[i+1] >= xint) {
     	winA_reg[*num_pts_reg] = (winA[i+1]  -  winA[i])/
     		  (wint[i+1] - wint[i]) * ( xint  -  wint[i]) +  winA[i];
-//        	printf("regular, A_reg=%f\n",winA_reg[*num_pts_reg]);
+/*        	printf("regular, A_reg=%f\n",winA_reg[*num_pts_reg]);
 			*num_pts_reg=*num_pts_reg +1, xint=xint+t_increment;
 		}
   }

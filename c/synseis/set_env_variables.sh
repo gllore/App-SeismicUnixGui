@@ -10,5 +10,5 @@
  	echo " export LSeismicUnix_script=/Location/of/script/folder"
 
  else
-	echo "L_SU =" ${LSeismicUnix}
+	echo "LSeismicUnix =" ${LSeismicUnix}
 fi
