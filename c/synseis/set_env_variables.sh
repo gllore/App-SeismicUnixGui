@@ -1,14 +1,14 @@
 #!/bin/bash
 
 # see if global variable is set
-# global variable L_SU locates main folder
+# global variable SeismicUnixGui locates main folder
 
- if [ -z "${LSeismicUnix}" ]; then
+ if [ -z "${SeismicUnixGui}" ]; then
 
- 	echo "global variable LSeismicUnix must first be set"
+ 	echo "global variable SeismicUnixGui must first be set"
  	echo "e.g. in .bashrc: "
- 	echo " export LSeismicUnix_script=/Location/of/script/folder"
+ 	echo " export SeismicUnixGui_script=/Location/of/script/folder"
 
  else
-	echo "LSeismicUnix =" ${LSeismicUnix}
+	echo "SeismicUnixGui =" ${SeismicUnixGui}
 fi
