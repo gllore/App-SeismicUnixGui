@@ -406,6 +406,9 @@ lib/App/SeismicUnixGui/developer/code/gmt/gmt_package_pod.pm
 lib/App/SeismicUnixGui/developer/code/gmt/gmt_package_subroutine.pm
 lib/App/SeismicUnixGui/developer/code/gmt/gmt_package_tail.pm
 lib/App/SeismicUnixGui/developer/code/immodpg/kill4mmodpg_development.pl
+lib/App/SeismicUnixGui/developer/code/plotting_project/L_su_plot.pl
+lib/App/SeismicUnixGui/developer/code/plotting_project/l_suplot
+lib/App/SeismicUnixGui/developer/code/plotting_project/PerlTk_plot.pm
 lib/App/SeismicUnixGui/developer/code/shell/.FileHistory.txt
 lib/App/SeismicUnixGui/developer/code/shell/create_evince_doc.pl
 lib/App/SeismicUnixGui/developer/code/shell/evince.config
@@ -422,6 +425,7 @@ lib/App/SeismicUnixGui/developer/code/shell/sudoc2pm_updates.pl
 lib/App/SeismicUnixGui/developer/code/shell/sunix_package.pm
 lib/App/SeismicUnixGui/developer/code/shell/update.pm
 lib/App/SeismicUnixGui/developer/code/sunix/change_a_line.pl
+lib/App/SeismicUnixGui/developer/code/sunix/change_a_line_everywhere.pl
 lib/App/SeismicUnixGui/developer/code/sunix/convert2V07.pl
 lib/App/SeismicUnixGui/developer/code/sunix/insert_line_in_file.pl
 lib/App/SeismicUnixGui/developer/code/sunix/insert_manylines2_in_file.pl
@@ -429,6 +433,7 @@ lib/App/SeismicUnixGui/developer/code/sunix/insert_manylines3_in_file.pl
 lib/App/SeismicUnixGui/developer/code/sunix/insert_manylines_in_file.pl
 lib/App/SeismicUnixGui/developer/code/sunix/insert_two_lines_in_file.pl
 lib/App/SeismicUnixGui/developer/code/sunix/nameNnumber.txt
+'lib/App/SeismicUnixGui/developer/code/sunix/older versions/change_a_line.pl'
 lib/App/SeismicUnixGui/developer/code/sunix/prog_doc2pm.pm
 lib/App/SeismicUnixGui/developer/code/sunix/replacelines.pl
 lib/App/SeismicUnixGui/developer/code/sunix/sudoc.pm
@@ -1175,6 +1180,7 @@ lib/App/SeismicUnixGui/misc/sudata_in.pm
 lib/App/SeismicUnixGui/misc/sunix_pl.pm
 lib/App/SeismicUnixGui/misc/superflows_config.pm
 lib/App/SeismicUnixGui/misc/system.pm
+lib/App/SeismicUnixGui/misc/test.pl
 lib/App/SeismicUnixGui/misc/unif2.pm
 lib/App/SeismicUnixGui/misc/use_pkg.pm
 lib/App/SeismicUnixGui/misc/value_boxes.pm
@@ -1840,5 +1846,6 @@ META.yml
 MYMETA.json
 MYMETA.yml
 pm_to_blib
+README.md
 README_to_INSTALL
 tbd
