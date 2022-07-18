@@ -1,0 +1,44 @@
+57
+
+suplane dip1=0 dip2=4 dip3=8 dt=0\.004 liner=0 npl=3 nt=64 ntr=32 offset=400 taper=0 | suximage clip=1 cmap=hsv0 d2=1 f1=0 gridcolor=blue labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 lwidth=16 lx=3 mpicks=\/dev\/tty n1tic=1 n2tic=1 perc=100 plotfile=plotfile\.ps style=seismic title=suximage titlecolor=red titlefont=Rom22 units=unit verbose=1 windowtitle=suximage xbox=500 ybox=500 wbox=550 hbox=550 & 
+
+33
+
+suplane dip1=0 dip2=4 dip3=8 dt=0\.004 liner=0 npl=3 nt=64 ntr=32 offset=400 taper=0 | suximage clip=1 cmap=hsv0 d2=1 f1=0 gridcolor=blue labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 lwidth=16 lx=3 mpicks=\/dev\/tty n1tic=1 n2tic=1 perc=100 plotfile=plotfile\.ps style=seismic title=suximage titlecolor=red titlefont=Rom22 units=unit verbose=1 windowtitle=suximage xbox=500 ybox=500 wbox=550 & 
+
+2
+
+suplane dip1=0 dip2=4 dip3=8 dt=0\.004 liner=0 npl=3 nt=64 ntr=32 offset=400 taper=0 | suximage clip=1 cmap=hsv0 d2=1 f1=0 gridcolor=blue labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 lwidth=16 lx=3 mpicks=\/dev\/tty n1tic=1 n2tic=1 perc=100 plotfile=plotfile\.ps style=seismic title=suximage titlecolor=red titlefont=Rom22 units=unit verbose=1 windowtitle=suximage xbox=500 ybox=500 wbox=550 & 
+
+10
+
+suplane dip1=0 dip2=4 dip3=8 dt=0\.004 liner=0 npl=3 nt=64 ntr=32 offset=400 taper=0 | suximage clip=1 cmap=hsv0 d2=1 f1=0 gridcolor=blue labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 lwidth=16 lx=3 mpicks=\/dev\/tty n1tic=1 n2tic=1 perc=100 plotfile=plotfile\.ps style=seismic title=suximage titlecolor=red titlefont=Rom22 units=unit verbose=1 windowtitle=suximage xbox=500 ybox=500 wbox=550 & 
+
+26
+
+suplane dip1=0 dip2=4 dip3=8 dt=0\.004 liner=0 npl=3 nt=64 ntr=32 offset=400 taper=0 | suximage clip=1 cmap=hsv0 d2=1 f1=0 gridcolor=blue labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 lwidth=16 lx=3 mpicks=\/dev\/tty n1tic=1 n2tic=1 perc=100 plotfile=plotfile\.ps style=seismic title=suximage titlecolor=red titlefont=Rom22 units=unit verbose=1 windowtitle=suximage xbox=500 ybox=500 wbox=550 & 
+
+55
+
+suplane dip1=0 dip2=4 dip3=8 dt=0\.004 liner=0 npl=3 nt=64 ntr=32 offset=400 taper=0 | suximage clip=1 cmap=hsv0 d2=1 f1=0 gridcolor=blue labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 lwidth=16 lx=3 mpicks=\/dev\/tty n1tic=1 n2tic=1 perc=100 plotfile=plotfile\.ps style=seismic title=suximage titlecolor=red titlefont=Rom22 units=unit verbose=1 windowtitle=suximage xbox=500 ybox=500 wbox=550 & 
+
+8
+
+suplane dip1=0 dip2=4 dip3=8 dt=0\.004 liner=0 npl=3 nt=64 ntr=32 offset=400 taper=0 | suximage clip=1 cmap=hsv0 d2=1 f1=0 gridcolor=blue labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 lwidth=16 lx=3 mpicks=\/dev\/tty n1tic=1 n2tic=1 perc=100 plotfile=plotfile\.ps style=seismic title=suximage titlecolor=red titlefont=Rom22 units=unit verbose=1 windowtitle=suximage xbox=500 ybox=500 wbox=550 & 
+
+51
+
+suplane dip1=0 dip2=4 dip3=8 dt=0\.004 liner=0 npl=3 nt=64 ntr=32 offset=400 taper=0 | suximage clip=1 cmap=hsv0 d2=1 f1=0 gridcolor=blue labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 lwidth=16 lx=3 mpicks=\/dev\/tty n1tic=1 n2tic=1 perc=100 plotfile=plotfile\.ps style=seismic title=suximage titlecolor=red titlefont=Rom22 units=unit verbose=1 windowtitle=suximage xbox=500 ybox=500 wbox=550 & 
+
+10
+
+suplane dip1=0 dip2=4 dip3=8 dt=0\.004 liner=0 npl=3 nt=64 ntr=32 offset=400 taper=0 | suximage clip=1 cmap=hsv0 d2=1 f1=0 gridcolor=blue labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 lwidth=16 lx=3 mpicks=\/dev\/tty n1tic=1 n2tic=1 perc=100 plotfile=plotfile\.ps style=seismic title=suximage titlecolor=red titlefont=Rom22 units=unit verbose=1 windowtitle=suximage xbox=500 ybox=500 wbox=550 & 
+
+41
+
+suplane dip1=0 dip2=4 dip3=8 dt=0\.004 liner=0 npl=3 nt=64 ntr=32 offset=400 taper=0 | suximage clip=1 cmap=hsv0 d2=1 f1=0 gridcolor=blue labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 lwidth=16 lx=3 mpicks=\/dev\/tty n1tic=1 n2tic=1 perc=100 plotfile=plotfile\.ps style=seismic title=suximage titlecolor=red titlefont=Rom22 units=unit verbose=1 windowtitle=suximage xbox=500 ybox=500 wbox=550 & 
+
+10
+
+suplane dip1=0 dip2=4 dip3=8 dt=0\.004 liner=0 npl=3 nt=64 ntr=32 offset=400 taper=0 | suximage clip=1 cmap=hsv0 d2=1 f1=0 gridcolor=blue labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 lwidth=16 lx=3 mpicks=\/dev\/tty n1tic=1 n2tic=1 perc=100 plotfile=plotfile\.ps style=seismic title=suximage titlecolor=red titlefont=Rom22 units=unit verbose=1 windowtitle=suximage xbox=500 ybox=500 wbox=550 & 
+

@@ -1,0 +1,17 @@
+\.git$
+\.metadata
+\.project
+
+# Skip temporary and backup files.
+\.itemp_
+\.tbd
+\.num_samples
+\/archive
+\/tbd
+\/bck
+
+# Skip git-related files
+\.git
+
+# Skip Makemaker generated and utility files.
+blib\/
