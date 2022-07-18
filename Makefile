@@ -1229,6 +1229,7 @@ TO_INST_PM = lib/App/SeismicUnixGui.pm \
 	lib/App/SeismicUnixGui/developer/code/tests/change_a_line.pl \
 	lib/App/SeismicUnixGui/developer/code/tests/gui_history.txt \
 	lib/App/SeismicUnixGui/developer/code/tests/log.txt \
+	lib/App/SeismicUnixGui/developer/code/tests/map.pl \
 	lib/App/SeismicUnixGui/developer/code/tests/test_Exporter.pl \
 	lib/App/SeismicUnixGui/developer/code/tests/test_INC.pl \
 	lib/App/SeismicUnixGui/developer/code/tests/test_L_SU_project_selector.pl \
@@ -4024,6 +4025,7 @@ pm_to_blib : $(FIRST_MAKEFILE) $(TO_INST_PM)
 	  'lib/App/SeismicUnixGui/developer/code/tests/change_a_line.pl' 'blib/lib/App/SeismicUnixGui/developer/code/tests/change_a_line.pl' \
 	  'lib/App/SeismicUnixGui/developer/code/tests/gui_history.txt' 'blib/lib/App/SeismicUnixGui/developer/code/tests/gui_history.txt' \
 	  'lib/App/SeismicUnixGui/developer/code/tests/log.txt' 'blib/lib/App/SeismicUnixGui/developer/code/tests/log.txt' \
+	  'lib/App/SeismicUnixGui/developer/code/tests/map.pl' 'blib/lib/App/SeismicUnixGui/developer/code/tests/map.pl' \
 	  'lib/App/SeismicUnixGui/developer/code/tests/test_Exporter.pl' 'blib/lib/App/SeismicUnixGui/developer/code/tests/test_Exporter.pl' \
 	  'lib/App/SeismicUnixGui/developer/code/tests/test_INC.pl' 'blib/lib/App/SeismicUnixGui/developer/code/tests/test_INC.pl' \
 	  'lib/App/SeismicUnixGui/developer/code/tests/test_L_SU_project_selector.pl' 'blib/lib/App/SeismicUnixGui/developer/code/tests/test_L_SU_project_selector.pl' \
@@ -4031,9 +4033,9 @@ pm_to_blib : $(FIRST_MAKEFILE) $(TO_INST_PM)
 	  'lib/App/SeismicUnixGui/developer/code/tests/test_config_superflows.pm' 'blib/lib/App/SeismicUnixGui/developer/code/tests/test_config_superflows.pm' \
 	  'lib/App/SeismicUnixGui/developer/code/tests/test_extends.pl' 'blib/lib/App/SeismicUnixGui/developer/code/tests/test_extends.pl' \
 	  'lib/App/SeismicUnixGui/developer/code/tests/test_extends_v2.pl' 'blib/lib/App/SeismicUnixGui/developer/code/tests/test_extends_v2.pl' \
-	  'lib/App/SeismicUnixGui/developer/code/tests/test_extends_v3.pl' 'blib/lib/App/SeismicUnixGui/developer/code/tests/test_extends_v3.pl' \
-	  'lib/App/SeismicUnixGui/developer/code/tests/test_file.pl' 'blib/lib/App/SeismicUnixGui/developer/code/tests/test_file.pl' 
+	  'lib/App/SeismicUnixGui/developer/code/tests/test_extends_v3.pl' 'blib/lib/App/SeismicUnixGui/developer/code/tests/test_extends_v3.pl' 
 	$(NOECHO) $(ABSPERLRUN) -MExtUtils::Install -e 'pm_to_blib({@ARGV}, '\''$(INST_LIB)/auto'\'', q[$(PM_FILTER)], '\''$(PERM_DIR)'\'')' -- \
+	  'lib/App/SeismicUnixGui/developer/code/tests/test_file.pl' 'blib/lib/App/SeismicUnixGui/developer/code/tests/test_file.pl' \
 	  'lib/App/SeismicUnixGui/developer/code/tests/test_file_orig.pl' 'blib/lib/App/SeismicUnixGui/developer/code/tests/test_file_orig.pl' \
 	  'lib/App/SeismicUnixGui/developer/code/tests/test_global_libs.pl' 'blib/lib/App/SeismicUnixGui/developer/code/tests/test_global_libs.pl' \
 	  'lib/App/SeismicUnixGui/developer/code/tests/test_project_selector.pm' 'blib/lib/App/SeismicUnixGui/developer/code/tests/test_project_selector.pm' \
@@ -4052,9 +4054,9 @@ pm_to_blib : $(FIRST_MAKEFILE) $(TO_INST_PM)
 	  'lib/App/SeismicUnixGui/developer/tidy_perl/perltidy_geopsy.sh' 'blib/lib/App/SeismicUnixGui/developer/tidy_perl/perltidy_geopsy.sh' \
 	  'lib/App/SeismicUnixGui/developer/tidy_perl/perltidy_gmt.sh' 'blib/lib/App/SeismicUnixGui/developer/tidy_perl/perltidy_gmt.sh' \
 	  'lib/App/SeismicUnixGui/developer/tidy_perl/perltidy_main.sh' 'blib/lib/App/SeismicUnixGui/developer/tidy_perl/perltidy_main.sh' \
-	  'lib/App/SeismicUnixGui/developer/tidy_perl/perltidy_messages.sh' 'blib/lib/App/SeismicUnixGui/developer/tidy_perl/perltidy_messages.sh' \
-	  'lib/App/SeismicUnixGui/developer/tidy_perl/perltidy_misc.sh' 'blib/lib/App/SeismicUnixGui/developer/tidy_perl/perltidy_misc.sh' 
+	  'lib/App/SeismicUnixGui/developer/tidy_perl/perltidy_messages.sh' 'blib/lib/App/SeismicUnixGui/developer/tidy_perl/perltidy_messages.sh' 
 	$(NOECHO) $(ABSPERLRUN) -MExtUtils::Install -e 'pm_to_blib({@ARGV}, '\''$(INST_LIB)/auto'\'', q[$(PM_FILTER)], '\''$(PERM_DIR)'\'')' -- \
+	  'lib/App/SeismicUnixGui/developer/tidy_perl/perltidy_misc.sh' 'blib/lib/App/SeismicUnixGui/developer/tidy_perl/perltidy_misc.sh' \
 	  'lib/App/SeismicUnixGui/developer/tidy_perl/perltidy_specs.sh' 'blib/lib/App/SeismicUnixGui/developer/tidy_perl/perltidy_specs.sh' \
 	  'lib/App/SeismicUnixGui/developer/tidy_perl/perltidy_sqlite.sh' 'blib/lib/App/SeismicUnixGui/developer/tidy_perl/perltidy_sqlite.sh' \
 	  'lib/App/SeismicUnixGui/developer/tidy_perl/perltidy_sunix.sh' 'blib/lib/App/SeismicUnixGui/developer/tidy_perl/perltidy_sunix.sh' \
@@ -4074,9 +4076,9 @@ pm_to_blib : $(FIRST_MAKEFILE) $(TO_INST_PM)
 	  'lib/App/SeismicUnixGui/doc/L_SU_Installation Guide 0.4.5.0.pdf' 'blib/lib/App/SeismicUnixGui/doc/L_SU_Installation Guide 0.4.5.0.pdf' \
 	  'lib/App/SeismicUnixGui/doc/L_SU_Installation and Developer Guide_0.3.7-1.pdf' 'blib/lib/App/SeismicUnixGui/doc/L_SU_Installation and Developer Guide_0.3.7-1.pdf' \
 	  'lib/App/SeismicUnixGui/doc/L_SU_Installation_Guide_0.6.6.3.docx' 'blib/lib/App/SeismicUnixGui/doc/L_SU_Installation_Guide_0.6.6.3.docx' \
-	  'lib/App/SeismicUnixGui/doc/L_SU_Installation_Guide_0.7.0.0.docx' 'blib/lib/App/SeismicUnixGui/doc/L_SU_Installation_Guide_0.7.0.0.docx' \
-	  'lib/App/SeismicUnixGui/doc/L_SU_Installation_Guide_0.7.0.0.pdf' 'blib/lib/App/SeismicUnixGui/doc/L_SU_Installation_Guide_0.7.0.0.pdf' 
+	  'lib/App/SeismicUnixGui/doc/L_SU_Installation_Guide_0.7.0.0.docx' 'blib/lib/App/SeismicUnixGui/doc/L_SU_Installation_Guide_0.7.0.0.docx' 
 	$(NOECHO) $(ABSPERLRUN) -MExtUtils::Install -e 'pm_to_blib({@ARGV}, '\''$(INST_LIB)/auto'\'', q[$(PM_FILTER)], '\''$(PERM_DIR)'\'')' -- \
+	  'lib/App/SeismicUnixGui/doc/L_SU_Installation_Guide_0.7.0.0.pdf' 'blib/lib/App/SeismicUnixGui/doc/L_SU_Installation_Guide_0.7.0.0.pdf' \
 	  'lib/App/SeismicUnixGui/doc/Notes_V0' 'blib/lib/App/SeismicUnixGui/doc/Notes_V0' \
 	  'lib/App/SeismicUnixGui/doc/Notes_V1' 'blib/lib/App/SeismicUnixGui/doc/Notes_V1' \
 	  'lib/App/SeismicUnixGui/doc/README' 'blib/lib/App/SeismicUnixGui/doc/README' \
@@ -4099,9 +4101,9 @@ pm_to_blib : $(FIRST_MAKEFILE) $(TO_INST_PM)
 	  'lib/App/SeismicUnixGui/fortran/archive/src/bck/read_1col.f' 'blib/lib/App/SeismicUnixGui/fortran/archive/src/bck/read_1col.f' \
 	  'lib/App/SeismicUnixGui/fortran/archive/src/bck/run.sh' 'blib/lib/App/SeismicUnixGui/fortran/archive/src/bck/run.sh' \
 	  'lib/App/SeismicUnixGui/fortran/archive/src/bck/write_1col.f' 'blib/lib/App/SeismicUnixGui/fortran/archive/src/bck/write_1col.f' \
-	  'lib/App/SeismicUnixGui/fortran/archive/src/data1.dat' 'blib/lib/App/SeismicUnixGui/fortran/archive/src/data1.dat' \
-	  'lib/App/SeismicUnixGui/fortran/archive/src/denfvp.for' 'blib/lib/App/SeismicUnixGui/fortran/archive/src/denfvp.for' 
+	  'lib/App/SeismicUnixGui/fortran/archive/src/data1.dat' 'blib/lib/App/SeismicUnixGui/fortran/archive/src/data1.dat' 
 	$(NOECHO) $(ABSPERLRUN) -MExtUtils::Install -e 'pm_to_blib({@ARGV}, '\''$(INST_LIB)/auto'\'', q[$(PM_FILTER)], '\''$(PERM_DIR)'\'')' -- \
+	  'lib/App/SeismicUnixGui/fortran/archive/src/denfvp.for' 'blib/lib/App/SeismicUnixGui/fortran/archive/src/denfvp.for' \
 	  'lib/App/SeismicUnixGui/fortran/archive/src/main.f' 'blib/lib/App/SeismicUnixGui/fortran/archive/src/main.f' \
 	  'lib/App/SeismicUnixGui/fortran/archive/src/main_read_from_fifo.f' 'blib/lib/App/SeismicUnixGui/fortran/archive/src/main_read_from_fifo.f' \
 	  'lib/App/SeismicUnixGui/fortran/archive/src/messa.for' 'blib/lib/App/SeismicUnixGui/fortran/archive/src/messa.for' \
@@ -4122,9 +4124,9 @@ pm_to_blib : $(FIRST_MAKEFILE) $(TO_INST_PM)
 	  'lib/App/SeismicUnixGui/fortran/archive/src/write_1col.f' 'blib/lib/App/SeismicUnixGui/fortran/archive/src/write_1col.f' \
 	  'lib/App/SeismicUnixGui/fortran/archive/sw' 'blib/lib/App/SeismicUnixGui/fortran/archive/sw' \
 	  'lib/App/SeismicUnixGui/fortran/archive/write_2fifo.pl' 'blib/lib/App/SeismicUnixGui/fortran/archive/write_2fifo.pl' \
-	  'lib/App/SeismicUnixGui/fortran/archive/write_test.pl' 'blib/lib/App/SeismicUnixGui/fortran/archive/write_test.pl' \
-	  'lib/App/SeismicUnixGui/fortran/archive/xtra_code/read.f' 'blib/lib/App/SeismicUnixGui/fortran/archive/xtra_code/read.f' 
+	  'lib/App/SeismicUnixGui/fortran/archive/write_test.pl' 'blib/lib/App/SeismicUnixGui/fortran/archive/write_test.pl' 
 	$(NOECHO) $(ABSPERLRUN) -MExtUtils::Install -e 'pm_to_blib({@ARGV}, '\''$(INST_LIB)/auto'\'', q[$(PM_FILTER)], '\''$(PERM_DIR)'\'')' -- \
+	  'lib/App/SeismicUnixGui/fortran/archive/xtra_code/read.f' 'blib/lib/App/SeismicUnixGui/fortran/archive/xtra_code/read.f' \
 	  'lib/App/SeismicUnixGui/fortran/bin/immodpg1.1' 'blib/lib/App/SeismicUnixGui/fortran/bin/immodpg1.1' \
 	  'lib/App/SeismicUnixGui/fortran/log.txt' 'blib/lib/App/SeismicUnixGui/fortran/log.txt' \
 	  'lib/App/SeismicUnixGui/fortran/obj/Project_config.o' 'blib/lib/App/SeismicUnixGui/fortran/obj/Project_config.o' \
@@ -4146,9 +4148,9 @@ pm_to_blib : $(FIRST_MAKEFILE) $(TO_INST_PM)
 	  'lib/App/SeismicUnixGui/fortran/obj/read_parmmod_file.o' 'blib/lib/App/SeismicUnixGui/fortran/obj/read_parmmod_file.o' \
 	  'lib/App/SeismicUnixGui/fortran/obj/read_thickness_increment_m_file.o' 'blib/lib/App/SeismicUnixGui/fortran/obj/read_thickness_increment_m_file.o' \
 	  'lib/App/SeismicUnixGui/fortran/obj/read_thickness_m_file.o' 'blib/lib/App/SeismicUnixGui/fortran/obj/read_thickness_m_file.o' \
-	  'lib/App/SeismicUnixGui/fortran/obj/read_yes_no_file.o' 'blib/lib/App/SeismicUnixGui/fortran/obj/read_yes_no_file.o' \
-	  'lib/App/SeismicUnixGui/fortran/obj/readmmod.o' 'blib/lib/App/SeismicUnixGui/fortran/obj/readmmod.o' 
+	  'lib/App/SeismicUnixGui/fortran/obj/read_yes_no_file.o' 'blib/lib/App/SeismicUnixGui/fortran/obj/read_yes_no_file.o' 
 	$(NOECHO) $(ABSPERLRUN) -MExtUtils::Install -e 'pm_to_blib({@ARGV}, '\''$(INST_LIB)/auto'\'', q[$(PM_FILTER)], '\''$(PERM_DIR)'\'')' -- \
+	  'lib/App/SeismicUnixGui/fortran/obj/readmmod.o' 'blib/lib/App/SeismicUnixGui/fortran/obj/readmmod.o' \
 	  'lib/App/SeismicUnixGui/fortran/obj/readpar.o' 'blib/lib/App/SeismicUnixGui/fortran/obj/readpar.o' \
 	  'lib/App/SeismicUnixGui/fortran/obj/thi.o' 'blib/lib/App/SeismicUnixGui/fortran/obj/thi.o' \
 	  'lib/App/SeismicUnixGui/fortran/obj/txgrd.o' 'blib/lib/App/SeismicUnixGui/fortran/obj/txgrd.o' \

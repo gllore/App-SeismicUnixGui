@@ -1,6 +1,9 @@
-/.metadata/
-/chain.sh/
-tbd/
-Makefile.OLD/
-MANIFEST/
-MANIFEST.SKIP/
+.metadata
+.project
+chain.sh
+tbd
+Makefile.old
+MANIFEST
+MANIFEST.SKIP
+MYMETA.json
+MYMETA.yaml
