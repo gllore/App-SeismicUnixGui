@@ -22,7 +22,7 @@ WriteMakefile(
 		'File::Slurp'     => '9999.32',
 		'MIME::Base64'    => '3.16',
 		'Moose'           => '2.2015',
-		'PDL::Core'       => '2.028',
+		'PDL'       	  => '2.028',
 		'Module::Refresh' => '0.17',
 		'Shell'           => '0.73.1',
 		'Time::HiRes'     => '1.9764',
@@ -47,7 +47,7 @@ WriteMakefile(
 	},
 
 	# Documentation accessible within the GUI with Mouse-button-3 click
-	# So separate file files are not used
+	# So man files are not used currently
 	MAN3PODS => {},
 
 	dist => {

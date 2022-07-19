@@ -31,25 +31,28 @@ Based on change_a_line V0.1
 Look at every file with a .pm and .pl extension
 Requires looking at all files within the 
 following categories (See L_SU_global_constants) 
-SU, GEN, SPEC, GUI
+SU, GEN, SPECS, GUI
 
 1. for each of 4 categories get
-CATEGORY[ABS_PATHs][FILE_NAMEs] = 'full path and file name'
+CATEGORY[ABS_PATHs][FILmy $line2find_use = '\s*use\s';E_NAMEs] = 'full path and file name'
 (from L_SU_global_constants)
 
 2. Search every file for the lines of interest (loi)
-CATEGORY_lines_of_interest[ABS_PATHs][FILE_NAMES] = array_ref e.g. \(1,2)
+CATEGORY_lines_of_interest[ABS_PATHs][FILE_NAMES] = array_ref 
+e.g.: lines 1 and 2
 	slurp file
 	test every line
 	write loi to array
 
 3. For each CATEGORY[ABS_PATHs][FILE_NAMEs],look at loi
 	slurp file again
-
-	  Replace the line with proper hierarchy
+	
+	  Review conditions
+	   Replace the line with proper hierarchy
 	    relative_path::file_name
-      Add other special lines
-      write the file
+       Add other special lines
+       
+     replace old with new file
     
 =head2 CHANGES and their DATES
 
@@ -67,7 +70,13 @@ my $manage_files_by2 		= manage_files_by2->new();
 my $L_SU_global_constants 	= L_SU_global_constants->new();
 
 
-=head2 definitions 
+=head2 Important definitions
+
+=cut
+
+my $line2find_use = '\s*use\s';
+
+=head2 Important definitions 
 
 of directory structure
 
@@ -78,29 +87,84 @@ my $PL_DIR 			= '/usr/local/pl';
 my $GRANDPARENT_DIR = $PL_DIR . '/' . $SeismicUnixGui;
 
 
-=head2 Get all the files from the SU category
+=head2 Get all the files and their paths
+
+from the SU category
 
 =cut
 
+$L_SU_global_constants->set_CHILD_DIR_type('SU');
+$L_SU_global_constants->set_PARENT_DIR_type('SU');
 $L_SU_global_constants->set_GRANDPARENT_DIR($GRANDPARENT_DIR);
-my ($su_pathNfile_aref, $dimension_aref ) = $L_SU_global_constants->get_su_pathNfile2search();
+my ($su_pathNfile_aref, $su_dimension_aref ) = $L_SU_global_constants->get_pathNfile2search();
 
-my @dimension_su 				  = @$dimension_aref;
+
+=head2 Get all the files and their full paths
+
+from the GEN category
+
+=cut
+
+$L_SU_global_constants->set_CHILD_DIR_type('GEN');
+$L_SU_global_constants->set_PARENT_DIR_type('GEN');
+$L_SU_global_constants->set_GRANDPARENT_DIR($GRANDPARENT_DIR);
+my ($gen_pathNfile_aref, $gen_dimension_aref ) = $L_SU_global_constants->get_pathNfile2search();
+
+
+=head2 Get all the files and their full paths
+
+from the SPECS category
+
+=cut
+
+$L_SU_global_constants->set_CHILD_DIR_type('SPECS');
+$L_SU_global_constants->set_PARENT_DIR_type('SPECS');
+$L_SU_global_constants->set_GRANDPARENT_DIR($GRANDPARENT_DIR);
+my ($specs_pathNfile_aref, $specs_dimension_aref ) = $L_SU_global_constants->get_pathNfile2search();
+
+
+=head2 Get all the files and their full paths
+
+from the GUI category
+
+=cut
+
+$L_SU_global_constants->set_CHILD_DIR_type('GUI');
+$L_SU_global_constants->set_PARENT_DIR_type('GUI');
+$L_SU_global_constants->set_GRANDPARENT_DIR($GRANDPARENT_DIR);
+my ($gui_pathNfile_aref, $gui_dimension_aref ) = $L_SU_global_constants->get_pathNfile2search();
+
+
+=head2 search for lines of interest
+
+in SU-type files
+
+=cut 
+
+my @dimension_su 				  = @$su_dimension_aref;
 my $parent_directory_su_number_of = $dimension_su[0];
 my $child_directory_su_number_of  = $dimension_su[1];
 
-#print("parent_directory_su_number_of=$parent_directory_su_number_of\n");
-#print("child_directory_su_number_of=$child_directory_su_number_of\n");
+print("parent_directory_su_number_of=$parent_directory_su_number_of\n");
+print("child_directory_su_number_of=$child_directory_su_number_of\n");
+
+my @su_pathNfile              = @$su_pathNfile_aref;
+my $parent_dir                = 0;
+my $child_dir				  = 0;
+my @array                     = @{$su_pathNfile[$parent_dir][$child_dir]};
+
+foreach my $pathNfile (@array) {
+	print("pathNfile, SU-type pathNfile=$pathNfile\n");
+}
 
 
-=head2 Get all the files from the GEN category
+=head2 search for lines of interest
 
-=cut
+in GEN-type files
 
-$L_SU_global_constants->set_GRANDPARENT_DIR($GRANDPARENT_DIR);
-my ($gen_pathNfile_aref, $dimension_aref ) = $L_SU_global_constants->get_gen_pathNfile2search();
+=cut 
 
-my @dimension_gen 				   = @$dimension_aref;
+my @dimension_gen 				   = @$gen_dimension_aref;
 my $parent_directory_gen_number_of = $dimension_gen[0];
 my $child_directory_gen_number_of  = $dimension_gen[1];
 
@@ -108,9 +172,32 @@ my $child_directory_gen_number_of  = $dimension_gen[1];
 #print("child_directory_gen_number_of=$child_directory_gen_number_of\n");
 
 
+=head2 search for lines of interest
+
+in SPECS-type files
+
+=cut 
+
+my @dimension_specs 				 = @$specs_dimension_aref;
+my $parent_directory_specs_number_of = $dimension_specs[0];
+my $child_directory_specs_number_of  = $dimension_specs[1];
+
+#print("parent_directory_specs_number_of=$parent_directory_specs_number_of\n");
+#print("child_directory_specs_number_of=$child_directory_specs_number_of\n");
 
 
-my $line2find_use = '\s*use\s';
+=head2 search for lines of interest
+
+in GUI-type files
+
+=cut 
+
+my @dimension_gui 				   = @$gui_dimension_aref;
+my $parent_directory_gui_number_of = $dimension_gui[0];
+my $child_directory_gui_number_of  = $dimension_gui[1];
+#print("parent_directory_gui_number_of=$parent_directory_gui_number_of\n");
+#print("child_directory_gui_number_of=$child_directory_gui_number_of\n");
+
 
 =head2 private shared hash
 
@@ -139,9 +226,9 @@ with gui-related directories
 #}    # for each file in one subdirectory
 
 
-=head2 Step2
+=head2 Step1
 
-SU-based directories
+Search SU-based directories
 
 =cut
 

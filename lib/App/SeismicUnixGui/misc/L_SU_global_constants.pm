@@ -1,7 +1,6 @@
 package App::SeismicUnixGui::misc::L_SU_global_constants;
 
 use Moose;
-use App::SeismicUnixGui::misc::manage_dirs_by;
 use aliased 'App::SeismicUnixGui::misc::manage_dirs_by';
 my $manage_dirs_by = manage_dirs_by->new();
 
@@ -35,12 +34,14 @@ BEGIN {
 
 my $L_SU_global_constants = {
 
+	_CHILD_DIR          => '',
 	_CHILD_DIR_CONVERT  => '',
 	_CHILD_DIR_GUI      => '',
 	_CHILD_DIR_TOOLS    => '',
 	_CHILD_DIR_SPECS    => '',
 	_CHILD_DIR_SU       => '',
 	_GRANDPARENT_DIR    => '',
+	_PARENT_DIR         => '',
 	_PARENT_DIR_CONVERT => '',
 	_PARENT_DIR_GEN     => '',
 	_PARENT_DIR_GUI     => '',
@@ -124,7 +125,7 @@ my $superflow_names_h = {
 	_Sseg2su           => 'Sseg2su',
 	_Sucat             => 'Sucat',
 	_immodpg           => 'immodpg',
-	_temp              => 'temp',                # make last
+	_temp              => 'temp',   # make last
 };
 
 =head2
@@ -145,7 +146,7 @@ $superflow_names_gui[7]  = 'fk';
 $superflow_names_gui[8]  = 'Synseis';
 $superflow_names_gui[9]  = 'iPick';
 $superflow_names_gui[10] = 'immodpg';
-$superflow_names_gui[11] = 'temp';                # make last
+$superflow_names_gui[11] = 'temp';  # make last
 
 my @superflow_names;
 $superflow_names[0]  = 'fk';
@@ -425,7 +426,7 @@ my @PARENT_DIR_SU      = ("sunix");
 my @PARENT_DIR_GEN = (
 	"misc",                 "geopsy",             "gmt", "messages",
 	"developer/code/sunix", "developer/code/gmt", "script",
-	"sqlite",               "t",                  "unix_Backup"
+	"sqlite",               "t",
 );
 
 my @CHILD_DIR_CONVERT = (
@@ -702,19 +703,25 @@ sub help_menubutton_type_href {
 }
 
 
-=head2 sub get_su_pathNfile2search 
+=head2 sub get_pathNfile2search 
 
 Useful directories to search
 
 =cut
 
-sub get_su_pathNfile2search {
+sub get_pathNfile2search {
 
 	my ($self) = @_;
 
-	if ( length $L_SU_global_constants->{_GRANDPARENT_DIR} ) {
-		
-		my $GRANDPARENT_DIR= $L_SU_global_constants->{_GRANDPARENT_DIR};
+	if (
+		length $L_SU_global_constants->{_CHILD_DIR}
+		and length $L_SU_global_constants->{_GRANDPARENT_DIR}
+		and length $L_SU_global_constants->{_PARENT_DIR} )
+	{
+
+		my $CHILD_DIR       = $L_SU_global_constants->{_CHILD_DIR};
+		my $GRANDPARENT_DIR = $L_SU_global_constants->{_GRANDPARENT_DIR};
+		my $PARENT_DIR      = $L_SU_global_constants->{_PARENT_DIR};
 
 =head2 Instantiate modules
 
@@ -728,8 +735,8 @@ sub get_su_pathNfile2search {
  
 =cut	
 
-		my @result_aref2;
-		my @directory_contents_su;
+#		my @result_aref2;
+		my @directory_contents;
 		my @dimensions;
 
 =head2 Define
@@ -738,14 +745,14 @@ sub get_su_pathNfile2search {
  
 =cut
 
-		my @PARENT_DIR_SU   = @{ $L_SU_global_constants->{_PARENT_DIR_SU} };
-		my @CHILD_DIR_SU    = @{ $L_SU_global_constants->{_CHILD_DIR_SU} };
-#		print("GRANDPARENT_DIR=$GRANDPARENT_DIR\n");
-		my $parent_directory_su_number_of = scalar @PARENT_DIR_SU;
-		my $child_directory_su_number_of  = scalar @CHILD_DIR_SU;
+		my @PARENT_DIR = @{ $L_SU_global_constants->{_PARENT_DIR} };
+		my @CHILD_DIR  = @{ $L_SU_global_constants->{_CHILD_DIR} };
+
+		my $parent_directory_number_of = scalar @PARENT_DIR;
+		my $child_directory_number_of  = scalar @CHILD_DIR;
 
 		@dimensions =
-		  ( $parent_directory_su_number_of, $child_directory_su_number_of );
+		  ( $parent_directory_number_of, $child_directory_number_of );
 
 =head2 SU-related matters
 
@@ -753,51 +760,54 @@ sub get_su_pathNfile2search {
 
 		for (
 			my $parent = 0 ;
-			$parent < $parent_directory_su_number_of ;
+			$parent < $parent_directory_number_of ;
 			$parent++
 		  )
 		{
 
 			for (
 				my $child = 0 ;
-				$child < $child_directory_su_number_of ;
+				$child < $child_directory_number_of ;
 				$child++
 			  )
 			{
 
 				my $SEARCH_DIR =
 					$GRANDPARENT_DIR . '/'
-				  . $PARENT_DIR_SU[$parent] . '/'
-				  . $CHILD_DIR_SU[$child];
+				  . $PARENT_DIR[$parent] . '/'
+				  . $CHILD_DIR[$child];
 
-	#  			print(
-	#  "L_SU_global_constants, get_su_pathNfile2search,SEARCH_DIR=$SEARCH_DIR\n"
-	#  			);
+#	  			print(
+#	  "L_SU_global_constants, get_pathNfile2search,SEARCH_DIR=$SEARCH_DIR\n"
+#	  			);
 				$manage_dirs_by->set_directory($SEARCH_DIR);
 				my $directory_list_aref = $manage_dirs_by->get_list_aref();
 				my @directory_list      = @$directory_list_aref;
+				my $files_number_of     = scalar @directory_list;
+				my @pathNfile;
+				
+				for ( my $i=0; $i<$files_number_of; $i++) {
+					
+				 $pathNfile[$i] = $SEARCH_DIR.'/'.$directory_list[$i];
+				 	
+				}
 
-				$directory_contents_su[$parent][$child] = $directory_list_aref;
+				$directory_contents[$parent][$child] = \@pathNfile;
 
-#				print("@{$directory_contents_su[$parent][$child]}\n");
+				# print("@{$directory_contents[$parent][$child]}\n");
 
 			}
-
 		}
 
-#	my $parent_specs = 1;
-#	my $child_specs  = 1;
-#	print(
-#"\nL_SU_global_constants, get_pathNfile2search, For specs directory paths: $PARENT_DIR_GUI[$parent_specs]::$CHILD_DIR_GUI[$child_gui]::\n"
-#	);
-#	print("@{$directory_contents_specs[$parent_specs][$child_specs]}\n");
+		my $result_aref2 = \@directory_contents;
 
-		$result_aref2[0] = \@directory_contents_su;
-
-		return ( \@result_aref2, \@dimensions );
+		return ( $result_aref2, \@dimensions );
 	}
 	else {
-		print("get_su_pathNfile2search,missing variable\n");
+		print("get_pathNfile2search, missing variable(s)\n");
+		print("CHILD_DIR=$L_SU_global_constants->{_CHILD_DIR}\n");
+		print("GRANDPARENT_DIR=$L_SU_global_constants->{_GRANDPARENT_DIR}\n");
+		print("PARENT_DIR=$L_SU_global_constants->{_PARENT_DIR}\n");				
 	}
 
 }
@@ -1509,6 +1519,32 @@ sub set_file_name {
 }
 
 
+=head2 sub set_CHILD_DIR_type
+
+=cut
+
+sub set_CHILD_DIR_type {
+
+	my ( $self, $type ) = @_;
+
+	if ( length $type ) {
+		
+		my $CHILD_DIR = '_CHILD_DIR_'.$type;
+		$L_SU_global_constants->{_CHILD_DIR} = $L_SU_global_constants->{$CHILD_DIR};
+
+#		print("L_SU_global_constants,set_CHILD_DIR,set_CHILD_DIR_type = $L_SU_global_constants->{_CHILD_DIR}\n");
+
+	}
+	else {
+		print("L_SU_global_constants,set_CHILD_DIR_type, type=$type is missing variable");
+	}
+
+}
+
+=head2 sub set_GRANDPARENT_DIR
+
+=cut
+
 sub set_GRANDPARENT_DIR {
 
 	my ( $self, $GRANDPARENT_DIR ) = @_;
@@ -1522,6 +1558,28 @@ sub set_GRANDPARENT_DIR {
 	}
 	else {
 		print("L_SU_global_constants,set_GRANDPARENT_DIR,missing variable");
+	}
+
+}
+
+=head2 sub set_PARENT_DIR_type
+
+=cut
+
+sub set_PARENT_DIR_type {
+
+	my ( $self, $type ) = @_;
+
+	if ( length $type ) {
+		
+		my $PARENT_DIR = '_PARENT_DIR_'.$type;
+		$L_SU_global_constants->{_PARENT_DIR} = $L_SU_global_constants->{$PARENT_DIR};
+
+#		print("L_SU_global_constants,set_PARENT_DIR,set_PARENT_DIR_type = $L_SU_global_constants->{_PARENT_DIR}\n");
+
+	}
+	else {
+		print("L_SU_global_constants,set_PARENT_DIR_type, type=$type is missing variable");
 	}
 
 }

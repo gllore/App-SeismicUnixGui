@@ -3,7 +3,6 @@
 chain.sh
 tbd
 Makefile.old
-MANIFEST
-MANIFEST.SKIP
 MYMETA.json
 MYMETA.yaml
+blib/
