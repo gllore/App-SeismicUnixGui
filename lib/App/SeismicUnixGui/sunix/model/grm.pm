@@ -1,4 +1,4 @@
-package grm;
+package App::SeismicUnixGui::sunix::model::grm;
 
 =head2 SYNOPSIS
 

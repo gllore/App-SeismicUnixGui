@@ -1,4 +1,4 @@
-package L_SU;
+package App::SeismicUnixGui::misc::L_SU;
 
 =head1 DOCUMENTATION
 

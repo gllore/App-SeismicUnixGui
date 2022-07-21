@@ -1,4 +1,4 @@
-package suwind_spec;
+package App::SeismicUnixGui::specs::shapeNcut::suwind_spec;
 our $VERSION = '1.00';
 use Moose;
 use App::SeismicUnixGui::misc::L_SU_global_constants;

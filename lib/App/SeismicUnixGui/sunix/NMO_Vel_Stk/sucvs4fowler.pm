@@ -1,4 +1,4 @@
-package sucvs4fowler;
+package App::SeismicUnixGui::sunix::NMO_Vel_Stk::sucvs4fowler;
 
 =head2 SYNOPSIS
 

@@ -1,4 +1,4 @@
-package message_director;
+package App::SeismicUnixGui::messages::message_director;
 
 use Moose;
 use App::SeismicUnixGui::messages::FileDialog_button_messages;

@@ -1,4 +1,4 @@
-package pscube;
+package App::SeismicUnixGui::sunix::plot::pscube;
 
 =head2 SYNOPSIS
 

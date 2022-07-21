@@ -1,4 +1,4 @@
-package Sucat_config;
+package App::SeismicUnixGui::configs::big_streams::Sucat_config;
 
 =head1 DOCUMENTATION
 

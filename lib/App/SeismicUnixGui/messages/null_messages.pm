@@ -1,4 +1,4 @@
-package null_messages;
+package App::SeismicUnixGui::messages::null_messages;
 
 use Moose;
 

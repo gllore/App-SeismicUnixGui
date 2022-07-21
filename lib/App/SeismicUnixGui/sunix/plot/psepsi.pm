@@ -1,4 +1,4 @@
-package psepsi;
+package App::SeismicUnixGui::sunix::plot::psepsi;
 
 =head2 SYNOPSIS
 

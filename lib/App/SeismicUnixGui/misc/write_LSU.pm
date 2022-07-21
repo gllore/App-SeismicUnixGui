@@ -1,4 +1,4 @@
-package files_LSU;
+package App::SeismicUnixGui::misc::write_LSU;
 
 use Moose;
 

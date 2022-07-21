@@ -1,4 +1,4 @@
-package vel2stiff;
+package App::SeismicUnixGui::sunix::par::vel2stiff;
 
 =head2 SYNOPSIS
 

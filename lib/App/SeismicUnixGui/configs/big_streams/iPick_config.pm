@@ -1,4 +1,4 @@
-package iPick_config;
+package App::SeismicUnixGui::configs::big_streams::iPick_config;
 
 =head1 DOCUMENTATION
 

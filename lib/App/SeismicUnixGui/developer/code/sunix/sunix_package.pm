@@ -1,4 +1,4 @@
-package sunix_package;
+package App::SeismicUnixGui::developer::code::sunix::sunix_package;
 use Moose;
 
 =head2 initialize shared anonymous hash 

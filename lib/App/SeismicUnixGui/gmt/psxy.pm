@@ -1,4 +1,4 @@
-package psxy;
+package App::SeismicUnixGui::gmt::psxy;
 
 =head1 DOCUMENTATION
 

@@ -1,4 +1,4 @@
-package grdimage;
+package App::SeismicUnixGui::gmt::grdimage;
 
 =head1 DOCUMENTATION
 

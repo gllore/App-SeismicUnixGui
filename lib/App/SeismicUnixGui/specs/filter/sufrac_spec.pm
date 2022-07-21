@@ -1,4 +1,4 @@
-package sufrac_spec;
+package App::SeismicUnixGui::specs::filter::sufrac_spec;
 use Moose;
 our $VERSION = '0.0.1';
 

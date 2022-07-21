@@ -1,4 +1,4 @@
-package sutrcount;
+package App::SeismicUnixGui::sunix::header::sutrcount;
 
 =head2 SYNOPSIS
 

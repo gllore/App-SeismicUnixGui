@@ -1,4 +1,4 @@
-package susmgauss2;
+package App::SeismicUnixGui::sunix::filter::susmgauss2;
 
 =head2 SYNOPSIS
 

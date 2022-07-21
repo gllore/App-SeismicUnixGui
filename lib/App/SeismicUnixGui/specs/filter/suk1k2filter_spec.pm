@@ -1,4 +1,4 @@
-package suk1k2filter_spec;
+package App::SeismicUnixGui::specs::filter::suk1k2filter_spec;
 use Moose;
 our $VERSION = '0.0.1';
 

@@ -1,4 +1,4 @@
-package iPick_spec;
+package App::SeismicUnixGui::specs::big_streams::iPick_spec;
 our $VERSION = '0.0.1';
 use Moose;
 use App::SeismicUnixGui::configs::big_streams::Project_config;

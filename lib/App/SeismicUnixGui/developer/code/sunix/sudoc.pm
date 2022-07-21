@@ -1,4 +1,4 @@
-package sudoc;
+package App::SeismicUnixGui::developer::code::sunix::sudoc;
 use Moose;
 
 =head2 sunix_pl
@@ -173,38 +173,3 @@ sub parameters {
 	my @values    = @default_values;
 
 	my ( @export_names, @export_values );
-	my ( %old_hash,     %new_hash );
-
-	# place names and their values into a hash key/value pairs
-	for ( my $i = 0 ; $i <= $#key_names ; $i++ ) {
-		$old_hash{ $key_names[$i] } = $values[$i];
-
-		# print("key=$key_names[$i]; values=$old_hash{$key_names[$i]}\n");
-	}
-
-	# remove duplicate names/keys and their attached values
-	my @unique_keys        = sort keys %old_hash;
-	my $length_unique_keys = scalar @unique_keys;
-
-# print ("#unique_keys=$length_unique_keys, alphabetical and unique_keys: @unique_keys,\n");
-
-	my ( $key, $value );
-
-	for ( my $i = 0 ; $i < $length_unique_keys ; $i++ ) {
-
-		$key   = $unique_keys[$i];
-		$value = $old_hash{$key};
-
-		print
-		  "#=$i: unique and alphabetical key: $key, and its value: $value\n";
-
-		$export_names[$i]  = $unique_keys[$i];
-		$export_values[$i] = $value;
-	}
-
-	$sudoc->{_names}  = \@export_names;
-	$sudoc->{_values} = \@export_values;
-	return ($sudoc);
-
-}
-1;

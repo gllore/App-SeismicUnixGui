@@ -1,4 +1,4 @@
-package sufxdecon;
+package App::SeismicUnixGui::sunix::filter::sufxdecon;
 
 =head2 SYNOPSIS
 

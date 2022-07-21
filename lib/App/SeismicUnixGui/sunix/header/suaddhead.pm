@@ -1,4 +1,4 @@
-package suaddhead;
+package App::SeismicUnixGui::sunix::header::suaddhead;
 
 =head1 DOCUMENTATION
 

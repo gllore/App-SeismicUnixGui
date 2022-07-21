@@ -1,4 +1,4 @@
-package psmanager_spec;
+package App::SeismicUnixGui::specs::plot::psmanager_spec;
 use Moose;
 our $VERSION = '0.0.1';
 

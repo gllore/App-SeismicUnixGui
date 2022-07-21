@@ -1,4 +1,4 @@
-package susort;
+package App::SeismicUnixGui::sunix::shapeNcut::susort;
 
 =head1 DOCUMENTATION
 

@@ -1,4 +1,4 @@
-package susynvxz;
+package App::SeismicUnixGui::sunix::model::susynvxz;
 
 =head2 SYNOPSIS
 

@@ -1,4 +1,4 @@
-package suimpedance_spec;
+package App::SeismicUnixGui::specs::model::suimpedance_spec;
 use Moose;
 our $VERSION = '0.0.1';
 

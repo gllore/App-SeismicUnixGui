@@ -1,4 +1,4 @@
-package canvas_data;
+package App::SeismicUnixGui::misc::canvas_data;
 
 =head1 DOCUMENTATION
 

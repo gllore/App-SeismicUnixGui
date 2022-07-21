@@ -1,4 +1,4 @@
-package clean;
+package App::SeismicUnixGui::t::clean;
 
 =head1 DOCUMENTATION
 

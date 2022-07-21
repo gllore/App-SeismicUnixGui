@@ -1,4 +1,4 @@
-package sudipfilt_spec;
+package App::SeismicUnixGui::specs::filter::sudipfilt_spec;
 use Moose;
 our $VERSION = '0.0.1';
 

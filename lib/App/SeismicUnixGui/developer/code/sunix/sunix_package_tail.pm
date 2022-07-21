@@ -1,4 +1,4 @@
-package sunix_package_tail;
+package App::SeismicUnixGui::developer::code::sunix::sunix_package_tail;
 use Moose;
 
 =head2 Default perl lines for the end of a package 

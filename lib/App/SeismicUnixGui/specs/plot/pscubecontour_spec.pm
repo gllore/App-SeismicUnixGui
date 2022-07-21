@@ -1,4 +1,4 @@
-package pscubecontour_spec;
+package App::SeismicUnixGui::specs::plot::pscubecontour_spec;
 use Moose;
 our $VERSION = '0.0.1';
 

@@ -1,4 +1,4 @@
-package psgraph;
+package App::SeismicUnixGui::sunix::plot::psgraph;
 
 =head2 SYNOPSIS
 

@@ -1,4 +1,4 @@
-package suxgraph;
+package App::SeismicUnixGui::sunix::plot::suxgraph;
 
 =head1 DOCUMENTATION
 

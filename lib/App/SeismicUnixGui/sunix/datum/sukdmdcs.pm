@@ -1,4 +1,4 @@
-package sukdmdcs;
+package App::SeismicUnixGui::sunix::datum::sukdmdcs;
 
 =head2 SYNOPSIS
 

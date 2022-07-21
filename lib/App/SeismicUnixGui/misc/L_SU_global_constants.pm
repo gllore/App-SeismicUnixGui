@@ -305,6 +305,7 @@ my $var = {
 	_App                    => 'App',
 	_SeismicUnixGui         => 'SeismicUnixGui',
 	_Project_config         => 'Project.config',
+	_skip_directory         => 'archive',
 	_base_file_name         => 'base_file_name',
 	_clear_text             => '',
 	_color_default          => 'grey',           # first color listbox to select
@@ -781,7 +782,7 @@ sub get_pathNfile2search {
 #	  "L_SU_global_constants, get_pathNfile2search,SEARCH_DIR=$SEARCH_DIR\n"
 #	  			);
 				$manage_dirs_by->set_directory($SEARCH_DIR);
-				my $directory_list_aref = $manage_dirs_by->get_list_aref();
+				my $directory_list_aref = $manage_dirs_by->get_file_list_aref();
 				my @directory_list      = @$directory_list_aref;
 				my $files_number_of     = scalar @directory_list;
 				my @pathNfile;
@@ -891,7 +892,7 @@ sub _get_convert_pathNfile2search {
 			  . $CHILD_DIR_CONVERT[$child];
 
 			$manage_dirs_by->set_directory($SEARCH_DIR);
-			my $directory_list_aref = $manage_dirs_by->get_list_aref();
+			my $directory_list_aref = $manage_dirs_by->get_file_list_aref();
 
 			if ( length $directory_list_aref ) {
 
@@ -1013,7 +1014,7 @@ sub _get_specs_pathNfile2search {
 #  "L_SU_global_constants, _get_specs_pathNfile2search,SEARCH_DIR=$SEARCH_DIR\n"
 #  			);
 			$manage_dirs_by->set_directory($SEARCH_DIR);
-			my $directory_list_aref = $manage_dirs_by->get_list_aref();
+			my $directory_list_aref = $manage_dirs_by->get_file_list_aref();
 			my @directory_list      = @$directory_list_aref;
 
 			$directory_contents_specs[$parent][$child] = $directory_list_aref;
@@ -1119,7 +1120,7 @@ sub _get_tools_pathNfile2search {
 #  "L_SU_global_constants, _get_tools_pathNfile2search,SEARCH_DIR=$SEARCH_DIR\n"
 #  			);
 			$manage_dirs_by->set_directory($SEARCH_DIR);
-			my $directory_list_aref = $manage_dirs_by->get_list_aref();
+			my $directory_list_aref = $manage_dirs_by->get_file_list_aref();
 			my @directory_list      = @$directory_list_aref;
 
 			$directory_contents_tools[$parent][$child] = $directory_list_aref;

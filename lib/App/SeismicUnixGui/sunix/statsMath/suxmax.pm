@@ -1,4 +1,4 @@
- package suxmax;
+package App::SeismicUnixGui::sunix::statsMath::suxmax;
 
 
 =head1 DOCUMENTATION

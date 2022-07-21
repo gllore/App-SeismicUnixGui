@@ -1,4 +1,4 @@
-package sufilter;
+package App::SeismicUnixGui::sunix::filter::sufilter;
 
 =head1 DOCUMENTATION
 

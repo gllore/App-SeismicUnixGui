@@ -1,4 +1,4 @@
-package sumigtk_spec;
+package App::SeismicUnixGui::specs::migration::sumigtk_spec;
 use Moose;
 our $VERSION = '0.0.1';
 

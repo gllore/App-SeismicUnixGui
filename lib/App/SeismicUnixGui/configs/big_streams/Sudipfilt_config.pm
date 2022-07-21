@@ -1,4 +1,4 @@
-package Sudipfilt_config;
+package App::SeismicUnixGui::configs::big_streams::Sudipfilt_config;
 
 =head1 DOCUMENTATION
 

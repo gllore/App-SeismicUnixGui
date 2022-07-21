@@ -1,4 +1,4 @@
-package suktmig2d_spec;
+package App::SeismicUnixGui::specs::migration::suktmig2d_spec;
 use Moose;
 our $VERSION = '0.0.1';
 

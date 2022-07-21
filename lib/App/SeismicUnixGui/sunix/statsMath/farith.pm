@@ -1,4 +1,4 @@
-package farith;
+package App::SeismicUnixGui::sunix::statsMath::farith;
 
 =head2 SYNOPSIS
 

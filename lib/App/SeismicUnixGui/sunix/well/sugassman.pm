@@ -1,4 +1,4 @@
-package sugassman;
+package App::SeismicUnixGui::sunix::well::sugassman;
 
 =head2 SYNOPSIS
 

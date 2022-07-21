@@ -1,4 +1,4 @@
-package sustolt_spec;
+package App::SeismicUnixGui::specs::migration::sustolt_spec;
 use Moose;
 our $VERSION = '0.0.1';
 

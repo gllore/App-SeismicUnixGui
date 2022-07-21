@@ -1,4 +1,4 @@
-package xk_spec;
+package App::SeismicUnixGui::specs::shell::xk_spec;
 our $VERSION = '0.0.1';
 use Moose;
 use App::SeismicUnixGui::misc::L_SU_global_constants;

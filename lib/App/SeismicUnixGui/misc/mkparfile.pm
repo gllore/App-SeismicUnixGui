@@ -1,4 +1,4 @@
-package mkparfile;
+package App::SeismicUnixGui::misc::mkparfile;
 
 use Moose;
 

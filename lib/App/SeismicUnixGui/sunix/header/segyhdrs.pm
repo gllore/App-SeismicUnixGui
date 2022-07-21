@@ -1,4 +1,4 @@
-package segyhdrs;
+package App::SeismicUnixGui::sunix::header::segyhdrs;
 
 =head1 DOCUMENTATION
 

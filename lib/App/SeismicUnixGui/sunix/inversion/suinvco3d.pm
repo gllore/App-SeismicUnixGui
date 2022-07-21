@@ -1,4 +1,4 @@
-package suinvco3d;
+package App::SeismicUnixGui::sunix::inversion::suinvco3d;
 
 =head2 SYNOPSIS
 

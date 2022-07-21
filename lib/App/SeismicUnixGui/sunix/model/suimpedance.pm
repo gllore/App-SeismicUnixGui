@@ -1,4 +1,4 @@
-package suimpedance;
+package App::SeismicUnixGui::sunix::model::suimpedance;
 
 =head2 SYNOPSIS
 

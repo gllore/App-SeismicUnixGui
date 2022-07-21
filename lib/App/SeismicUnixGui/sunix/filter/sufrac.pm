@@ -1,4 +1,4 @@
-package sufrac;
+package App::SeismicUnixGui::sunix::filter::sufrac;
 
 =head2 SYNOPSIS
 

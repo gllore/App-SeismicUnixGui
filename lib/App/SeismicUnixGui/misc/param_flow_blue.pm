@@ -1,4 +1,4 @@
-package param_flow_blue;
+package App::SeismicUnixGui::misc::param_flow_blue;
 
 =head1 DOCUMENTATION
 

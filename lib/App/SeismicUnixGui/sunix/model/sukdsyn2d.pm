@@ -1,4 +1,4 @@
-package sukdsyn2d;
+package App::SeismicUnixGui::sunix::model::sukdsyn2d;
 
 =head2 SYNOPSIS
 

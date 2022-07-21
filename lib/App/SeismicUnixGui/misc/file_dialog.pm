@@ -1,4 +1,4 @@
-package file_dialog;
+package App::SeismicUnixGui::misc::file_dialog;
 
 =head1 DOCUMENTATION
 

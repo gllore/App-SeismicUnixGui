@@ -366,7 +366,7 @@ sub set_file_in {
 
 	}
 	else {
-		print("manage_fiels_by2, set_file_in, missing value\n");
+		print("manage_files_by2, set_file_in, missing value\n");
 	}
 
 	return ();
@@ -592,7 +592,7 @@ sub set_pathNfile {
 
 	}
 	else {
-		print("manage_fiels_by2, set_pathNfile, missing value\n");
+		print("manage_files_by2, set_pathNfile, missing value\n");
 	}
 
 	return ();

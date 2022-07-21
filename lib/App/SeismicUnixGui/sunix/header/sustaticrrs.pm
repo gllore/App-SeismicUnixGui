@@ -1,4 +1,4 @@
-package sustaticrrs;
+package App::SeismicUnixGui::sunix::header::sustaticrrs;
 
 =head2 SYNOPSIS
 

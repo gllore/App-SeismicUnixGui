@@ -1,4 +1,4 @@
-package message;
+package App::SeismicUnixGui::misc::message;
 
 =head1 DOCUMENTATION
 

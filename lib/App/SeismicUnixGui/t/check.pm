@@ -1,4 +1,4 @@
-package check;
+package App::SeismicUnixGui::t::check;
 
 =head1 DOCUMENTATION
 

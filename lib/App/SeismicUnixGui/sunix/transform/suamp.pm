@@ -1,4 +1,4 @@
-package suamp;
+package App::SeismicUnixGui::sunix::transform::suamp;
 
 =head1 DOCUMENTATION
 

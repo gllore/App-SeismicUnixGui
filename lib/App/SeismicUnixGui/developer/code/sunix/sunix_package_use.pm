@@ -1,4 +1,4 @@
-package sunix_package_use;
+package App::SeismicUnixGui::developer::code::sunix::sunix_package_use;
 use Moose;
 
 my @use;

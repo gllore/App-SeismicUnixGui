@@ -1,4 +1,4 @@
-package pscubecontour;
+package App::SeismicUnixGui::sunix::plot::pscubecontour;
 
 =head2 SYNOPSIS
 

@@ -1,4 +1,4 @@
-package susplit;
+package App::SeismicUnixGui::sunix::shapeNcut::susplit;
 
 =head2 SYNOPSIS
 

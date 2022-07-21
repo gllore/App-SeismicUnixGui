@@ -1,4 +1,4 @@
-package suphasevel_spec;
+package App::SeismicUnixGui::specs::transform::suphasevel_spec;
 use Moose;
 our $VERSION = '0.0.1';
 

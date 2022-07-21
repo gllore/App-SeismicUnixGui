@@ -1,4 +1,4 @@
-package supef;
+package App::SeismicUnixGui::sunix::filter::supef;
 
 =head1 DOCUMENTATION
 

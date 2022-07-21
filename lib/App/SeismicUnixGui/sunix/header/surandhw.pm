@@ -1,4 +1,4 @@
-package surandhw;
+package App::SeismicUnixGui::sunix::header::surandhw;
 
 =head2 SYNOPSIS
 

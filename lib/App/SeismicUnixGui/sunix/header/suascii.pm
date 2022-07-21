@@ -1,4 +1,4 @@
-package suascii;
+package App::SeismicUnixGui::sunix::header::suascii;
 
 =head2 SYNOPSIS
 

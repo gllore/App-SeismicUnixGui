@@ -1,4 +1,4 @@
-package suacorfrac_spec;
+package App::SeismicUnixGui::specs::statsMath::suacorfrac_spec;
 use Moose;
 our $VERSION = '0.0.1';
 

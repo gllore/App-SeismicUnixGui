@@ -1,4 +1,4 @@
-package unif2aniso;
+package App::SeismicUnixGui::sunix::par::unif2aniso;
 
 =head2 SYNOPSIS
 

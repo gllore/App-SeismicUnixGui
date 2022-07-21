@@ -1,4 +1,4 @@
-package cellauto_spec;
+package App::SeismicUnixGui::specs::model::cellauto_spec;
 	use Moose;
 our $VERSION = '0.0.1';
 

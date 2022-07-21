@@ -1,4 +1,4 @@
-package wpcuncompress;
+package App::SeismicUnixGui::sunix::data::wpcuncompress;
 
 =head2 SYNOPSIS
 

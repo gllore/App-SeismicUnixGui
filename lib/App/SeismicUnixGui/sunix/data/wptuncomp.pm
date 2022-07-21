@@ -1,4 +1,4 @@
-package wptuncomp;
+package App::SeismicUnixGui::sunix::data::wptuncomp;
 
 =head2 SYNOPSIS
 

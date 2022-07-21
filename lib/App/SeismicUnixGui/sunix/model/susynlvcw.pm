@@ -1,4 +1,4 @@
-package susynlvcw;
+package App::SeismicUnixGui::sunix::model::susynlvcw;
 
 =head2 SYNOPSIS
 

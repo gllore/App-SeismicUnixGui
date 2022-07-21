@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 
-package smooth2;
+package App::SeismicUnixGui::misc::smooth2;
 use Moose;
 
 =head1 DOCUMENTATION

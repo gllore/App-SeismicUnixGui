@@ -1,4 +1,4 @@
-package oop_instantiation_defaults;
+package App::SeismicUnixGui::misc::oop_instantiation_defaults;
 
 use Moose;
 our $VERSION = '0.0.2';

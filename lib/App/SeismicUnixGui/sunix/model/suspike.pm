@@ -1,4 +1,4 @@
-package suspike;
+package App::SeismicUnixGui::sunix::model::suspike;
 
 =head2 SYNOPSIS
 

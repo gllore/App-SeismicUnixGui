@@ -65,16 +65,15 @@ use aliased 'App::SeismicUnixGui::misc::manage_dirs_by';
 use aliased 'App::SeismicUnixGui::misc::manage_files_by2';
 use aliased 'App::SeismicUnixGui::misc::L_SU_global_constants';
 
-my $manage_dirs_by   		= manage_dirs_by->new();
-my $manage_files_by2 		= manage_files_by2->new();
-my $L_SU_global_constants 	= L_SU_global_constants->new();
-
+my $manage_dirs_by        = manage_dirs_by->new();
+my $manage_files_by2      = manage_files_by2->new();
+my $L_SU_global_constants = L_SU_global_constants->new();
 
 =head2 Important definitions
 
 =cut
 
-my $line2find_use = '\s*use\s';
+my $line2find    = '^package\s\w+\;';
 
 =head2 Important definitions 
 
@@ -82,10 +81,21 @@ of directory structure
 
 =cut 
 
-my $SeismicUnixGui 	= 'App-SeismicUnixGui/lib/App/SeismicUnixGui';
-my $PL_DIR 			= '/usr/local/pl';
+my $SeismicUnixGui  = 'App-SeismicUnixGui/lib/App/SeismicUnixGui';
+my $PL_DIR          = '/usr/local/pl';
 my $GRANDPARENT_DIR = $PL_DIR . '/' . $SeismicUnixGui;
 
+=head2 privately shared hash
+
+=cut
+
+my $change_a_line = {
+	_child_directory_su_number_of  => '',
+	_file_name                     => '',
+	_line_of_interest_aref         => '',	
+	_parent_directory_su_number_of => '',
+	_pathNfile_aref                => '',
+};
 
 =head2 Get all the files and their paths
 
@@ -96,19 +106,69 @@ from the SU category
 $L_SU_global_constants->set_CHILD_DIR_type('SU');
 $L_SU_global_constants->set_PARENT_DIR_type('SU');
 $L_SU_global_constants->set_GRANDPARENT_DIR($GRANDPARENT_DIR);
-my ($su_pathNfile_aref, $su_dimension_aref ) = $L_SU_global_constants->get_pathNfile2search();
+my ( $su_pathNfile_aref, $su_dimension_aref ) =
+  $L_SU_global_constants->get_pathNfile2search();
+  
+  
+=head2 search for lines of interest
 
+in SU-type files and replace them
+
+=cut 
+
+my @dimension_su                  = @$su_dimension_aref;
+my $parent_directory_su_number_of = $dimension_su[0];
+my $child_directory_su_number_of  = $dimension_su[1];
+
+#print("parent_directory_su_number_of=$parent_directory_su_number_of\n");
+#print("child_directory_su_number_of=$child_directory_su_number_of\n");
+
+
+my @su_pathNfile = @$su_pathNfile_aref;
+
+_set_parent_directory_number_of($parent_directory_su_number_of);
+_set_child_directory_number_of($child_directory_su_number_of);
+_set_pathNfile_aref($su_pathNfile_aref);
+my $su_aref = _get_line_of_interest_aref();
+my @line_of_interest_su_aref =@$su_aref;
+_set_line_of_interest_aref($su_aref);
+_set_replacement_type1();
 
 =head2 Get all the files and their full paths
 
-from the GEN category
+from the GEN category and replace them
 
 =cut
 
 $L_SU_global_constants->set_CHILD_DIR_type('GEN');
 $L_SU_global_constants->set_PARENT_DIR_type('GEN');
 $L_SU_global_constants->set_GRANDPARENT_DIR($GRANDPARENT_DIR);
-my ($gen_pathNfile_aref, $gen_dimension_aref ) = $L_SU_global_constants->get_pathNfile2search();
+my ( $gen_pathNfile_aref, $gen_dimension_aref ) =
+  $L_SU_global_constants->get_pathNfile2search();
+
+=head2 search for lines of interest
+
+in GEN-type files and replace them
+
+=cut 
+
+my @dimension_gen                  = @$gen_dimension_aref;
+my $parent_directory_gen_number_of = $dimension_gen[0];
+my $child_directory_gen_number_of  = $dimension_gen[1];
+
+#print("parent_directory_gen_number_of=$parent_directory_gen_number_of\n");
+#print("child_directory_gen_number_of=$child_directory_gen_number_of\n");
+
+my @gen_pathNfile = @$gen_pathNfile_aref;
+
+_set_parent_directory_number_of($parent_directory_gen_number_of);
+_set_child_directory_number_of($child_directory_gen_number_of);
+_set_pathNfile_aref($gen_pathNfile_aref);
+my $gen_aref = _get_line_of_interest_aref();
+my @line_of_interest_gen_aref =@$gen_aref;
+_set_line_of_interest_aref($gen_aref);
+_set_replacement_type1();
+
 
 
 =head2 Get all the files and their full paths
@@ -120,8 +180,32 @@ from the SPECS category
 $L_SU_global_constants->set_CHILD_DIR_type('SPECS');
 $L_SU_global_constants->set_PARENT_DIR_type('SPECS');
 $L_SU_global_constants->set_GRANDPARENT_DIR($GRANDPARENT_DIR);
-my ($specs_pathNfile_aref, $specs_dimension_aref ) = $L_SU_global_constants->get_pathNfile2search();
+my ( $specs_pathNfile_aref, $specs_dimension_aref ) =
+  $L_SU_global_constants->get_pathNfile2search();
+  
+=head2 search for lines of interest
 
+in SPECS-type files and replace them
+
+=cut 
+
+my @dimension_specs                  = @$specs_dimension_aref;
+my $parent_directory_specs_number_of = $dimension_specs[0];
+my $child_directory_specs_number_of  = $dimension_specs[1];
+
+#print("parent_directory_specs_number_of=$parent_directory_specs_number_of\n");
+#print("child_directory_specs_number_of=$child_directory_specs_number_of\n"); 
+  
+ my @gspecs_pathNfile = @$specs_pathNfile_aref;
+
+_set_parent_directory_number_of($parent_directory_specs_number_of);
+_set_child_directory_number_of($child_directory_specs_number_of);
+_set_pathNfile_aref($specs_pathNfile_aref);
+my $specs_aref = _get_line_of_interest_aref();
+my @line_of_interest_specs_aref =@$specs_aref;
+_set_line_of_interest_aref($specs_aref);
+_set_replacement_type1(); 
+  
 
 =head2 Get all the files and their full paths
 
@@ -132,708 +216,251 @@ from the GUI category
 $L_SU_global_constants->set_CHILD_DIR_type('GUI');
 $L_SU_global_constants->set_PARENT_DIR_type('GUI');
 $L_SU_global_constants->set_GRANDPARENT_DIR($GRANDPARENT_DIR);
-my ($gui_pathNfile_aref, $gui_dimension_aref ) = $L_SU_global_constants->get_pathNfile2search();
+my ( $gui_pathNfile_aref, $gui_dimension_aref ) =
+  $L_SU_global_constants->get_pathNfile2search();
 
 
 =head2 search for lines of interest
 
-in SU-type files
+in GUI-type files and replace them
 
 =cut 
 
-my @dimension_su 				  = @$su_dimension_aref;
-my $parent_directory_su_number_of = $dimension_su[0];
-my $child_directory_su_number_of  = $dimension_su[1];
+my @dimension_gui                  = @$gui_dimension_aref;
+my $parent_directory_gui_number_of = $dimension_gui[0];
+my $child_directory_gui_number_of  = $dimension_gui[1];
 
-print("parent_directory_su_number_of=$parent_directory_su_number_of\n");
-print("child_directory_su_number_of=$child_directory_su_number_of\n");
+print("parent_directory_gui_number_of=$parent_directory_gui_number_of\n");
+print("child_directory_gui_number_of=$child_directory_gui_number_of\n");
 
-my @su_pathNfile              = @$su_pathNfile_aref;
-my $parent_dir                = 0;
-my $child_dir				  = 0;
-my @array                     = @{$su_pathNfile[$parent_dir][$child_dir]};
+_set_parent_directory_number_of($parent_directory_gui_number_of);
+_set_child_directory_number_of($child_directory_gui_number_of);
+_set_pathNfile_aref($gui_pathNfile_aref);
+my $gui_aref = _get_line_of_interest_aref();
+my @line_of_interest_gui_aref =@$gui_aref;
+_set_line_of_interest_aref($gui_aref);
+_set_replacement_type1(); 
 
-foreach my $pathNfile (@array) {
-	print("pathNfile, SU-type pathNfile=$pathNfile\n");
+
+=head2 _get_line_of_interest_aref
+
+=cut
+
+sub _get_line_of_interest_aref {
+
+	my ($self) = @_;
+
+	my $child_directory_number_of =
+	  $change_a_line->{_child_directory_number_of};
+	my $parent_directory_number_of =
+	  $change_a_line->{_parent_directory_number_of};
+	my @pathNfile = @{ $change_a_line->{_pathNfile_aref} };
+
+	my @line_of_interest_aref;
+
+	for (
+		my $parent = 0, my $count_idx = 0 ;
+		$parent < $parent_directory_number_of ;
+		$parent++
+	  )
+	{
+		for ( my $child = 0 ; $child < $child_directory_number_of ; $child++ ) {
+
+			# print("starting inner count=$count; parent=$parent\n");
+			my @pathNfile_list        = @{ $pathNfile[$parent][$child] };
+			my $pathNfile_list_length = scalar @pathNfile_list;
+
+			#		$pathNfile_list_length = 1;
+
+			for (
+				my $i = 0, my $j = $count_idx ;
+				$i < $pathNfile_list_length ;
+				$i++, $j++
+			  )
+			{
+				$count_idx = $j;
+
+				my @line_of_interest4file;
+
+#			print("total count index =$count_idx\n");
+#	  			print ("parent=$parent;child=$child;numer=$i;pathNfile:$pathNfile_list[$i]\n");
+
+				# slurp every file
+				$manage_files_by2->set_pathNfile( $pathNfile_list[$i] );
+				my $slurp_ref =
+				  manage_files_by2->get_whole( $pathNfile_list[$i] );
+				my @slurp           = @$slurp_ref;
+				my $length_of_slurp = scalar @slurp;
+
+				for ( my $j = 0 ; $j < $length_of_slurp ; $j++ ) {
+
+					# CASE within each *.pm file
+					my $string = $slurp[$j];
+					chomp $string;    # remove all newlines
+
+					if ( $string =~ m/$line2find/ ) {
+
+						push @line_of_interest4file, $j;
+
+						# print("loi=$j at $pathNfile_list[$i]\n");
+
+					}
+				}    # lines in a file
+
+				$line_of_interest_aref[$parent][$child][$i] =
+				  \@line_of_interest4file;
+
+			}    #for files in a list
+
+		}    # for each child directory
+
+	}    #for each parent directory
+
+	my $result = \@line_of_interest_aref;
+	return ($result);
+}
+
+=head2 set_replacement_type1
+
+replace line of interest
+
+=cut
+
+sub _set_replacement_type1 {
+
+	my ($self) = @_;
+
+	my $child_directory_number_of =
+	  $change_a_line->{_child_directory_number_of};
+	my $parent_directory_number_of =
+	  $change_a_line->{_parent_directory_number_of};
+	my @pathNfile 	= @{ $change_a_line->{_pathNfile_aref} };
+	my @line_of_interest_aref = @{ $change_a_line->{_line_of_interest_aref} };
+
+
+for ( my $parent = 0 ; $parent < $parent_directory_number_of ; $parent++ ) {
+
+	for ( my $child = 0 ; $child < $child_directory_number_of ; $child++ ) {
+
+		my @pathNfile_list        = @{ $pathNfile[$parent][$child] };
+		my $pathNfile_list_length = scalar @pathNfile_list;
+
+		for ( my $i = 0 ; $i < $pathNfile_list_length ; $i++ ) {
+
+			# slurp every file
+			$manage_files_by2->set_pathNfile( $pathNfile_list[$i] );
+			my $slurp_ref = manage_files_by2->get_whole( $pathNfile_list[$i] );
+			my @slurp     = @$slurp_ref;
+
+			my @line_number =
+			  @{ $line_of_interest_aref[$parent][$child][$i] };
+			my $line_number_of = scalar @line_number;
+
+			#			print("child directory=$child\n");
+			#			print $pathNfile_list[$i]." file number =$i\n";
+			#			print("line_number_of=$line_number_of\n");
+
+			if ( $line_number_of > 0 ) {
+
+				#				print("line_number=@line_number\n");
+				#				print("line_number_of=$line_number_of\n");
+
+				foreach my $line (@line_number) {
+
+					chomp $slurp[$line];
+					my $path = $pathNfile_list[$i];
+					$path =~ s/\/usr\/local\/pl\/App-SeismicUnixGui\/lib\///;
+
+					# substitute "/" with ":"
+					$path =~ s/(\/)+/::/g;
+					$path =~ s/.pm//g;
+					$slurp[$line] = 'package' . ' ' . $path . ';';
+					print("hierarchical path =$slurp[$line]\n");
+
+				}
+
+				print("Hit Enter to continue\n");
+				<STDIN>;
+
+				open( OUT, ">$pathNfile_list[$i]" )
+				  or die("File $pathNfile_list[$i] not found");
+
+				foreach my $text (@slurp) {
+					printf OUT $text . "\n";    # add \n!!!!
+												# print("$text \n");
+				}
+
+				close(OUT);
+
+			}
+			else {
+				#				print("\npathNfile_list=$pathNfile_list[$i]\n");
+				#				print("main,no matching lines detected\n");
+			}
+
+		}    # for files in a list
+
+	}    # for each child directory
+
+}    #for each parent directory
+
+
+} # sub relace line of interest
+
+
+
+=head2 sub _set_child_directory_number_of 
+
+=cut
+
+sub _set_child_directory_number_of {
+	
+	my ($self) = @_;
+
+	$change_a_line->{_child_directory_number_of} = $self;
+	
+#	print ("_set_child_directory_number_of=$self\n");
+	
+	return();
+}
+
+=head2 sub _set_line_of_interest_aref 
+
+=cut
+
+sub _set_line_of_interest_aref {
+	
+	my ($self) = @_;
+
+	$change_a_line->{_line_of_interest_aref} = $self;
+	
+#	print ("_set_line_of_interest_aref=$self\n");
+		return();
+}
+
+=head2 sub _set_parent_directory_number_of 
+
+=cut
+
+sub _set_parent_directory_number_of {
+
+	my ($self) = @_;
+
+	$change_a_line->{_parent_directory_number_of} = $self;
+
+#    print ("_set_parent_directory_number_of=$self\n");
+	return();
 }
 
 
-=head2 search for lines of interest
 
-in GEN-type files
-
-=cut 
-
-my @dimension_gen 				   = @$gen_dimension_aref;
-my $parent_directory_gen_number_of = $dimension_gen[0];
-my $child_directory_gen_number_of  = $dimension_gen[1];
-
-#print("parent_directory_gen_number_of=$parent_directory_gen_number_of\n");
-#print("child_directory_gen_number_of=$child_directory_gen_number_of\n");
-
-
-=head2 search for lines of interest
-
-in SPECS-type files
-
-=cut 
-
-my @dimension_specs 				 = @$specs_dimension_aref;
-my $parent_directory_specs_number_of = $dimension_specs[0];
-my $child_directory_specs_number_of  = $dimension_specs[1];
-
-#print("parent_directory_specs_number_of=$parent_directory_specs_number_of\n");
-#print("child_directory_specs_number_of=$child_directory_specs_number_of\n");
-
-
-=head2 search for lines of interest
-
-in GUI-type files
-
-=cut 
-
-my @dimension_gui 				   = @$gui_dimension_aref;
-my $parent_directory_gui_number_of = $dimension_gui[0];
-my $child_directory_gui_number_of  = $dimension_gui[1];
-#print("parent_directory_gui_number_of=$parent_directory_gui_number_of\n");
-#print("child_directory_gui_number_of=$child_directory_gui_number_of\n");
-
-
-=head2 private shared hash
+=head2 sub _set_pathNfile_aref 
 
 =cut
 
-my $change_a_line = {
+sub _set_pathNfile_aref {
+	my ($self) = @_;
 
-	_file_name => '',
-
-};
-#
-## Files in 3 subdirectories
-#my $result_aref3           = _get_files4directories();
-#my @result_aref2           = @$result_aref3;
-#my @directory_contents_gui = @{ $result_aref2[0] };
-#my @directory_contents_su  = @{ $result_aref2[1] };
-#my @directory_contents_gen = @{ $result_aref2[2] };
-
-=head2 Start
-
-with gui-related directories
-
-=cut
-
-
-#}    # for each file in one subdirectory
-
-
-=head2 Step1
-
-Search SU-based directories
-
-=cut
-
-
-=head2 Step3
-
-GEN-based directories
-
-No children. Only grandparent and parent
-
-=cut
-
-#for (
-#	my $parent = 0, my $count = 0 ;
-#	$parent < $parent_directory_gen_number_of ;
-#	$parent++
-#  )
-#{
-#	# print("starting inner count=$count; parent=$parent\n");
-#	my $directory_list_aref = $directory_contents_gen[$parent];
-#	my @directory_list      = @$directory_list_aref;
-#	my $list_length         = scalar @directory_list;
-#
-#	my $path = $GRANDPARENT_DIR . '/' . $PARENT_DIR_GEN[$parent] . '/';
-#
-#	for ( my $i = 0, my $j = $count ; $i < $list_length ; $i++, $j++ ) {
-#
-#		$file4gen[$j] = $directory_list[$i];
-#		$path4gen[$j] = $path;
-#		$count        = $j;
-#
-#		# print ("count=$count\n");
-#
-#	}
-#
-#	# print("@{$directory_contents_gen[$parent][$child]}\n");
-#
-#	#		print("file4gen[count]=$file4gen[$count]\n");
-#
-#}
-#
-#my $path4gen_number_of = scalar @path4gen;
-#my $file4gen_number_of = scalar @file4gen;    # should be the same
-#
-## $path4gen_number_of
-## fix this number to a low value when testing
-#
-#for ( my $i = 0 ; $i < $path4gen_number_of ; $i++ ) {
-#
-#	#CASES: *.pm files, *.pl files
-#	# immodpg is fortran binary
-#	# su_param.pm is weird
-#	print("\n######## WORKING on $path4gen[$i]/$file4gen[$i] ######## \n");
-#
-#	if (
-#		$file4gen[$i] ne 'immodpg.out'
-#		and $file4gen[$i] ne 'su_param.pm'		
-#		and (  $file4gen[$i] =~ m/\.pm/
-#			or $file4gen[$i] =~ m/\.pl/ )
-#	  )
-#	{
-#		# SKIP files fortran binary file
-#
-#		$manage_files_by2->set_file_in( $file4gen[$i] );
-#		$manage_files_by2->set_directory( $path4gen[$i] );
-#		my $inbound         = $path4gen[$i] . '/' . $file4gen[$i];
-#		my $slurp_ref       = manage_files_by2->get_whole($inbound);
-#		my @slurp           = @$slurp_ref;
-#		my $length_of_slurp = scalar @slurp;
-#
-#		print("length of slurp = $length_of_slurp\n");
-#		print("inbound=$inbound\n");
-#
-#		for ( my $j = 0 ; $j < $length_of_slurp ; $j++ ) {
-#
-#			#CASE within each *.pm file
-#
-#			# print("change_a_line, slurp=slurp[$j]\n");
-#			my $string = $slurp[$j];
-#			chomp $string;    # remove all newlines
-#			my @next_string;
-#			my @raw_string;
-#			my $module_name;
-#
-#			if ( $string =~ m/$line2find_use/ ) {
-#
-#				my $version;
-#				$string =~ s/;//;
-#				$string =~ s/\(\)//;
-#				my @temp_string = split( /\s+/, $string );
-#				my $line        = $j + 1;
-#
-#				if ( $temp_string[1] eq 'use' ) {
-#
-#					$module_name = $temp_string[2];
-#					print(
-#"Fixed: module name within $file4gen[$i]=$module_name...\n"
-#					);
-#
-#				}
-#				elsif ( $temp_string[0] eq 'use' ) {
-#
-#					$module_name = $temp_string[1];
-#					print("module name within $file4gen[$i]=$module_name...\n");
-#
-#				}
-#				else {
-#					# CATCH the UNUSUAL
-#					my $string_number_of = scalar @temp_string;
-#					print("change_a_line, unexpected module name\n");
-#					print("\nchange_a_line, string=$string \n");
-#					print(
-#						"change_a_line, string_number_of=$string_number_of\n");
-#					print("change_a_line, temp_string=@temp_string \n");
-#					print("change_a_line, temp_string[0]=$temp_string[0] \n");
-#					print("change_a_line, temp_string[1]=$temp_string[1] \n");
-#					$module_name = 'null';
-#				}
-#
-#				my $string_number_of = scalar @temp_string;
-#
-#				# exceptions to the search for am module name
-#				if (   $module_name eq 'Moose'
-#					or $module_name eq ' #'
-#					or $module_name eq 'null' )
-#				{
-#
-#					print("$module_name will be skipped\n");
-#
-#				}
-#
-#				#			print(
-#				#							"change_a_line,found\n $string at line# $line \n
-#				#								 in $path4gen[$i]/$file4gen[$i]\n"
-#				#						);
-#
-#				else {
-#
-#					print("module name = $module_name\n");
-#					my $full_module_name = $module_name . '.pm';
-#					_set_file_name($full_module_name);
-#					my $module_path = _get_path4file();
-#
-#					if ( length $module_path ) {
-#
-#						# CASE with version numbers; e.g. use module version
-#						if ( $string_number_of == 3 ) {
-#
-#							$version = $temp_string[2];
-#
-#							# print(" version=$version\n");
-#
-#							if ( $version =~ m/\d+\.\d+.\d+/ ) {
-#
-#								my $new_version = ("'$version'");
-#
-#								#prepare output
-#								$string =~ s/;//;
-#								$string =~ s/use\s/use $module_path/g;
-#								$string =~ s/$version/$new_version/g;
-#
-#					 #							print("change_a_line, new version=$new_version\n");
-#								$slurp[$j] = $string . ';';
-#
-#								#							print("substitute line=$slurp[$j]\n");
-#
-#							}
-#
-#						}
-#						elsif ( $string_number_of <= 2 ) {
-#
-#							# CASE: No version number
-#
-#					   #	print(
-#					   #	"change_a_line,found $file4gen[$i] in $module_path\n");
-#
-#							#prepare output
-#							$string =~ s/;//;
-#							$string =~ s/use\s/use $module_path/g;
-#
-#							# print("substitute line=$string;\n");
-#							$slurp[$j] = $string . ';';
-#
-#							# print("substitute line=$slurp[$j]\n");
-#
-#						}
-#						elsif ( $string_number_of > 3 ) {
-#
-#							# CASE: SeismicUnix imports many variables
-#
-#							#prepare output
-#							$string =~ s/;//;
-#							$string =~ s/use\s/use $module_path/g;
-#
-#							# print("substitute line=$string;\n");
-#							$slurp[$j] = $string . ';';
-#
-#							# print("substitute line=$slurp[$j]\n");
-#
-#						}
-#						else {
-#							print("change_a_line, unexpected\n");
-#						}
-#
-#					}    # module path exists
-#
-#					else {
-#						print(
-#"change_a_line, did not find a match for module name\n"
-#						);
-#					}
-#				}
-#			}
-#			else {    # for each line in a slurp
-#					  #print("change_a_line, skip line\n");
-#			}
-#		}    # for each line in a slurped file
-#
-#		# write out the corrected or uncorrected file
-#		my $number_of_lines = $length_of_slurp;
-#
-#		my $outbound = $path4gen[$i] . '/' . $file4gen[$i];
-#
-#		print("writing to $outbound\n");
-#		print("number of lines in output file = $number_of_lines\n");
-#		if ( $number_of_lines == 0 ) {
-#
-#			print("change_a_line, unexpected empty file\n");
-#			print("Hit Enter to continue\n");
-#			<STDIN>;
-#
-#		}
-#		elsif ( $number_of_lines > 0 ) {
-#
-##			print "Press ENTER to write a new file with a changed line";
-##			<STDIN>;
-#
-#			open( OUT, ">$outbound" )
-#			  or die("File $file4gen[$i] not found");
-#
-#			# add \n!!!!
-#			for ( my $i = 0 ; $i < $number_of_lines ; $i++ ) {
-#
-#				printf OUT $slurp[$i] . "\n";
-#
-#			}
-#			close(OUT);
-#		}
-#		else {
-#			print("change_a_line, unexpected empty file\n");
-#		}
-#
-#	}
-#	else {
-#		print(" skipping an unwanted file\n");
-#	}
-#
-#}    # for each file in one subdirectory
-#
-##########################################################################
-#
-#sub _get_files4directories {
-#
-#	my ($self) = @_;
-#
-#	my @result_aref2;
-#
-#=head2 SEARCH GUI-related matters first
-#
-#=cut
-#
-#	my $parent_directory_gui_number_of = scalar @PARENT_DIR_GUI;
-#	my $child_directory_gui_number_of  = scalar @CHILD_DIR_GUI;
-#
-#	my @directory_contents_gui;
-#
-#	for (
-#		my $parent = 0 ;
-#		$parent < $parent_directory_gui_number_of ;
-#		$parent++
-#	  )
-#	{
-#
-#		for (
-#			my $child = 0 ;
-#			$child < $child_directory_gui_number_of ;
-#			$child++
-#		  )
-#		{
-#
-#			my $SEARCH_DIR =
-#				$GRANDPARENT_DIR . '/'
-#			  . $PARENT_DIR_GUI[$parent] . '/'
-#			  . $CHILD_DIR_GUI[$child];
-#
-#			$manage_dirs_by->set_directory($SEARCH_DIR);
-#			my $directory_list_aref = $manage_dirs_by->get_list_aref();
-#			my @directory_list      = @$directory_list_aref;
-#
-#			$directory_contents_gui[$parent][$child] = $directory_list_aref;
-#
-#			#		print("@{$directory_contents_gui[$parent][$child]}\n");
-#
-#		}
-#	}
-#
-##	my $parent_gui = 1;
-##	my $child_gui  = 1;
-##	print(
-##"\nFor gui directory paths: $PARENT_DIR_GUI[$parent_gui]::$CHILD_DIR_GUI[$child_gui]::\n"
-##	);
-##	print("@{$directory_contents_gui[$parent_gui][$child_gui]}\n");
-#
-#	$result_aref2[0] = \@directory_contents_gui;
-#
-#=head2 SEARCH SU-related matters first
-#
-#=cut
-#
-#	my $parent_directory_su_number_of = scalar @PARENT_DIR_SU;
-#	my $child_directory_su_number_of  = scalar @CHILD_DIR_SU;
-#
-#	my @directory_contents_su;
-#
-#	for (
-#		my $parent = 0 ;
-#		$parent < $parent_directory_su_number_of ;
-#		$parent++
-#	  )
-#	{
-#
-#		for (
-#			my $child = 0 ;
-#			$child < $child_directory_su_number_of ;
-#			$child++
-#		  )
-#		{
-#
-#			my $SEARCH_DIR =
-#				$GRANDPARENT_DIR . '/'
-#			  . $PARENT_DIR_SU[$parent] . '/'
-#			  . $CHILD_DIR_SU[$child];
-#
-#			$manage_dirs_by->set_directory($SEARCH_DIR);
-#			my $directory_list_aref = $manage_dirs_by->get_list_aref();
-#			my @directory_list      = @$directory_list_aref;
-#
-#			$directory_contents_su[$parent][$child] = $directory_list_aref;
-#
-#			#		print("@{$directory_contents_gui[$parent][$child]}\n");
-#
-#		}
-#	}
-#
-## test
-##	my $parent_su = 0;
-##	my $child_su  = 1;
-##	print(
-##"\nFor su directory paths: $PARENT_DIR_SU[$parent_su]::$CHILD_DIR_SU[$child_su]::\n"
-##	);
-##	print("@{$directory_contents_su[$parent_su][$child_su]}\n");
-#
-#	$result_aref2[1] = \@directory_contents_su;
-#
-#=head2 SEARCH general matters last
-#
-#=cut
-#
-#	my $parent_directory_gen_number_of = scalar @PARENT_DIR_GEN;
-#	my @directory_contents_gen;
-#
-#	for (
-#		my $parent = 0 ;
-#		$parent < $parent_directory_gen_number_of ;
-#		$parent++
-#	  )
-#	{
-#
-#		my $SEARCH_DIR = $GRANDPARENT_DIR . '/' . $PARENT_DIR_GEN[$parent];
-#
-#		$manage_dirs_by->set_directory($SEARCH_DIR);
-#		my $directory_list_aref = $manage_dirs_by->get_list_aref();
-#		my @directory_list      = @$directory_list_aref;
-#
-#		$directory_contents_gen[$parent] = $directory_list_aref;
-#
-#	}
-#
-#	#	my $parent_gen = 5;
-#	#	print("\nFor general directory paths: $PARENT_DIR_GEN[$parent_gen]::\n");
-#	#	print("@{$directory_contents_gen[$parent_gen]}\n");
-#
-#	$result_aref2[2] = \@directory_contents_gen;
-#
-#	return ( \@result_aref2 );
-#
-#}
-#
-#=head2 Find a path given a file
-#
-#=cut
-#
-#sub _get_path4file {
-#
-#	my (@self) = @_;
-#
-#	if ( length $change_a_line->{_file_name} ) {
-#
-#		my $file_name = $change_a_line->{_file_name};
-#		my $result;
-#
-#		my $result_aref3 = _get_files4directories();
-#
-#		my @result_aref2           = @$result_aref3;
-#		my @directory_contents_gui = @{ $result_aref2[0] };
-#		my @directory_contents_su  = @{ $result_aref2[1] };
-#		my @directory_contents_gen = @{ $result_aref2[2] };
-#
-## test  For @directory_contents_gui
-##	my $parent = 0;
-##	my $child  = 0;
-##	print @{ $directory_contents_gui[$parent][$child] };
-##	print(
-##"\nFull path is $GRANDPARENT_DIR . '/' . $PARENT_DIR_GUI[$parent] . '/'. $CHILD_DIR_GUI[$child]"
-##	);
-#
-### test For @directory_contents_su
-##	my $parent_su = 0;
-##	my $child_su  = 0;
-##	print @{ $directory_contents_su[$parent_su][$child_su] };
-##	print(
-##"\nFull path is $GRANDPARENT_DIR . '/' . $PARENT_DIR_GUI[$parent_su] . '/'. $CHILD_DIR_GUI[$child_su]"
-##	);
-##
-## test For @directory_contents_general
-##	my $parent_gen= 0;
-##	print @{ $directory_contents_gen[$parent_gen] };
-##	print(
-##"\nFull path is $GRANDPARENT_DIR . '/' . $PARENT_DIR_GUI[$parent_gen] "
-##	);
-#
-#		my $parent_directory_gui_number_of = scalar @PARENT_DIR_GUI;
-#		my $child_directory_gui_number_of  = scalar @CHILD_DIR_GUI;
-#		my $parent_directory_su_number_of  = scalar @PARENT_DIR_SU;
-#		my $child_directory_su_number_of   = scalar @CHILD_DIR_SU;
-#		my $parent_directory_gen_number_of = scalar @PARENT_DIR_GEN;
-#
-#=head2 Search all directory listings
-#
-#start with gui drectory listings
-#
-#=cut
-#
-#		for (
-#			my $parent = 0 ;
-#			$parent < $parent_directory_gui_number_of ;
-#			$parent++
-#		  )
-#		{
-#
-#			for (
-#				my $child = 0 ;
-#				$child < $child_directory_gui_number_of ;
-#				$child++
-#			  )
-#			{
-#
-#				my $directory_list_aref =
-#				  $directory_contents_gui[$parent][$child];
-#				my @directory_list = @$directory_list_aref;
-#
-#				my $length_directory_list = scalar @directory_list;
-#
-#				for ( my $i = 0 ; $i < $length_directory_list ; $i++ ) {
-#
-#					if ( not $file_name eq $directory_list[$i] ) {
-#
-#						next;
-#
-#					}
-#					elsif ( $file_name eq $directory_list[$i] ) {
-#
-#				  #						print(
-#				  #"change_a_line,_get_path4file,found the file $file_name in
-#				  #			  					$PARENT_DIR_GUI[$parent]::$CHILD_DIR_GUI[$child]\n"
-#				  #						);
-#						$result =
-#							$SeismicUnixGui . '::'
-#						  . $PARENT_DIR_GUI[$parent] . '::'
-#						  . $CHILD_DIR_GUI[$child] . '::';
-#					}
-#					else { print("change_a_line, unexpected value\n") }
-#				}
-#
-#			}
-#		}
-#
-#		# next su directory listings
-#		for (
-#			my $parent = 0 ;
-#			$parent < $parent_directory_su_number_of ;
-#			$parent++
-#		  )
-#		{
-#
-#			for (
-#				my $child = 0 ;
-#				$child < $child_directory_su_number_of ;
-#				$child++
-#			  )
-#			{
-#
-#				my $directory_list_aref =
-#				  $directory_contents_su[$parent][$child];
-#				my @directory_list = @$directory_list_aref;
-#
-#				my $length_directory_list = scalar @directory_list;
-#
-#				for ( my $i = 0 ; $i < $length_directory_list ; $i++ ) {
-#
-#					if ( not $file_name eq $directory_list[$i] ) {
-#
-#						next;
-#
-#					}
-#					elsif ( $file_name eq $directory_list[$i] ) {
-#
-#					 #						print(
-#					 #"change_a_line,_get_path4file,found the file $file_name in
-#					 #					$PARENT_DIR_SU[$parent]::$CHILD_DIR_SU[$child]::\n"
-#					 #						);
-#						$result =
-#							$SeismicUnixGui . '::'
-#						  . $PARENT_DIR_SU[$parent] . '::'
-#						  . $CHILD_DIR_SU[$child] . '::';
-#					}
-#					else { print("change_a_line, unexpected value\n") }
-#				}
-#
-#			}
-#		}
-#
-#		# finally general directory listings
-#
-#		for (
-#			my $parent = 0 ;
-#			$parent < $parent_directory_gen_number_of ;
-#			$parent++
-#		  )
-#		{
-#
-#			my $directory_list_aref = $directory_contents_gen[$parent];
-#			my @directory_list      = @$directory_list_aref;
-#
-#			my $length_directory_list = scalar @directory_list;
-#
-#			for ( my $i = 0 ; $i < $length_directory_list ; $i++ ) {
-#
-#				if ( not $file_name eq $directory_list[$i] ) {
-#
-#					next;
-#
-#				}
-#				elsif ( $file_name eq $directory_list[$i] ) {
-#
-#					#					print(
-#					#"change_a_line,_get_path4file,found the file $file_name in
-#					#					$PARENT_DIR_GEN[$parent]::\n"
-#					#					);
-#					$result = $SeismicUnixGui . '::' . $PARENT_DIR_GEN[$parent] . '::';
-#				}
-#				else { print("change_a_line, unexpected value\n") }
-#			}
-#
-#		}
-#
-#		if ( length $result ) {
-#
-#			return ($result);
-#
-#		}
-#		else {
-#			print("change_a_line,_get_path4file, file not found\n");
-#		}
-#		return ();
-#	}
-#	else {
-#		print("change_a_line,_get_path_for_file,file_name_missing\n");
-#		return ();
-#	}
-#
-#}
-#
-#sub _set_file_name {
-#	my ($file_name) = @_;
-#
-#	if ( length $file_name ) {
-#
-#		$change_a_line->{_file_name} = $file_name;
-#
-#		#		print("_set_file_name = $change_a_line->{_file_name}\n");
-#
-#	}
-#	else {
-#		print("change_a_line,_set_file_name,missing variable");
-#	}
-#
-#}
+	$change_a_line->{_pathNfile_aref} = $self;
+		return();
+}

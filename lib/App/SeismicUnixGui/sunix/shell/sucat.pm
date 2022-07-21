@@ -1,4 +1,4 @@
-package sucat;
+package App::SeismicUnixGui::sunix::shell::sucat;
 use Moose;
 
 =head1 DOCUMENTATION

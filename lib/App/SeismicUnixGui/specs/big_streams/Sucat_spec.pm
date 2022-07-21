@@ -1,4 +1,4 @@
-package Sucat_spec;
+package App::SeismicUnixGui::specs::big_streams::Sucat_spec;
 
 our $VERSION = '1.00';
 use Moose;

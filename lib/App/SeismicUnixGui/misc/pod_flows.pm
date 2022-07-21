@@ -1,4 +1,4 @@
-package pod_flows;
+package App::SeismicUnixGui::misc::pod_flows;
 
 =head1 DOCUMENTATION
 

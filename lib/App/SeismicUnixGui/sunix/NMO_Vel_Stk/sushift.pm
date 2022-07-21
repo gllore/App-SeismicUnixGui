@@ -1,4 +1,4 @@
-package sushift;
+package App::SeismicUnixGui::sunix::NMO_Vel_Stk::sushift;
 
 =head2 SYNOPSIS
 

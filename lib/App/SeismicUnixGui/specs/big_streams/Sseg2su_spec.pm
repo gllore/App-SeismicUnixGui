@@ -1,4 +1,4 @@
-package Sseg2su_spec;
+package App::SeismicUnixGui::specs::big_streams::Sseg2su_spec;
 
 our $VERSION = '1.00';
 use Moose;

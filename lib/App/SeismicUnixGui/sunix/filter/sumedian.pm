@@ -1,4 +1,4 @@
-package sumedian;
+package App::SeismicUnixGui::sunix::filter::sumedian;
 
 =head2 SYNOPSIS
 

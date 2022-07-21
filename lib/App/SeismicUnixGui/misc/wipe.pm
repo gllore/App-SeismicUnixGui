@@ -1,4 +1,4 @@
-package wipe;
+package App::SeismicUnixGui::misc::wipe;
 
 =head1 DOCUMENTATION
 

@@ -1,4 +1,4 @@
-package conditions4flows;
+package App::SeismicUnixGui::misc::conditions4flows;
 
 =head1 DOCUMENTATION
 

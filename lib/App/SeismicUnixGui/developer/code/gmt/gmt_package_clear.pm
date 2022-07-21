@@ -1,4 +1,4 @@
-package gmt_package_clear;
+package App::SeismicUnixGui::developer::code::gmt::gmt_package_clear;
 use Moose;
 
 my $path;

@@ -1,4 +1,4 @@
-package supsgraph;
+package App::SeismicUnixGui::sunix::plot::supsgraph;
 
 =head2 SYNOPSIS
 

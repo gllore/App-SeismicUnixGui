@@ -1,4 +1,4 @@
-package supack2_spec;
+package App::SeismicUnixGui::specs::data::supack2_spec;
 use Moose;
 our $VERSION = '0.0.1';
 

@@ -1,4 +1,4 @@
-package usgsdem_constants;
+package App::SeismicUnixGui::gmt::usgsdem_constants;
 
 use Moose;
 

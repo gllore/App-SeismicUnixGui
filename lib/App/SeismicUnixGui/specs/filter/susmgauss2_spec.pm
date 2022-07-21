@@ -1,4 +1,4 @@
-package susmgauss2_spec;
+package App::SeismicUnixGui::specs::filter::susmgauss2_spec;
 use Moose;
 our $VERSION = '0.0.1';
 

@@ -1,4 +1,4 @@
-package plot;
+package App::SeismicUnixGui::misc::plot;
 
 # Contains methods/subroutines/functions to  plot data
 # V 1. Dec 10  2010

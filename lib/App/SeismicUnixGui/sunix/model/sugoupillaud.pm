@@ -1,4 +1,4 @@
-package sugoupillaud;
+package App::SeismicUnixGui::sunix::model::sugoupillaud;
 
 =head2 SYNOPSIS
 

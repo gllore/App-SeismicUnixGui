@@ -1,4 +1,4 @@
-package count;
+package App::SeismicUnixGui::misc::count;
 
 =head1 DOCUMENTATION
 

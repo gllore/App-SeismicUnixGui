@@ -1,4 +1,4 @@
-package pswigp;
+package App::SeismicUnixGui::sunix::plot::pswigp;
 
 =head2 SYNOPSIS
 

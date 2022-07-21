@@ -1,4 +1,4 @@
-package sulhead;
+package App::SeismicUnixGui::sunix::header::sulhead;
 
 =head2 SYNOPSIS
 

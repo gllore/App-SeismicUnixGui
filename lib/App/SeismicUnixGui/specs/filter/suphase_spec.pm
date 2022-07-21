@@ -1,4 +1,4 @@
-package suphase_spec;
+package App::SeismicUnixGui::specs::filter::suphase_spec;
 use Moose;
 our $VERSION = '0.0.1';
 

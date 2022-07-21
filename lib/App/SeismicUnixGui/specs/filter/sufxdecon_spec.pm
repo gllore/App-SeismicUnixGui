@@ -1,4 +1,4 @@
-package sufxdecon_spec;
+package App::SeismicUnixGui::specs::filter::sufxdecon_spec;
 use Moose;
 our $VERSION = '0.0.1';
 

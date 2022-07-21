@@ -1,4 +1,4 @@
-package psepsi_spec;
+package App::SeismicUnixGui::specs::plot::psepsi_spec;
 use Moose;
 our $VERSION = '0.0.1';
 

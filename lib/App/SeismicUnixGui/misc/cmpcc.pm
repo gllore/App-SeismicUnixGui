@@ -1,4 +1,4 @@
-package cmpcc;
+package App::SeismicUnixGui::misc::cmpcc;
 
 =head1 DOCUMENTATION
 

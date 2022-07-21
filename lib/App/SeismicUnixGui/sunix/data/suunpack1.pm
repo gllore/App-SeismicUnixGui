@@ -1,4 +1,4 @@
-package suunpack1;
+package App::SeismicUnixGui::sunix::data::suunpack1;
 
 =head2 SYNOPSIS
 

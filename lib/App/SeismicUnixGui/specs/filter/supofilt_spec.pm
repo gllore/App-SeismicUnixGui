@@ -1,4 +1,4 @@
-package supofilt_spec;
+package App::SeismicUnixGui::specs::filter::supofilt_spec;
 use Moose;
 our $VERSION = '0.0.1';
 

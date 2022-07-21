@@ -1,4 +1,4 @@
-package suaddevent_spec;
+package App::SeismicUnixGui::specs::model::suaddevent_spec;
 use Moose;
 our $VERSION = '0.0.1';
 

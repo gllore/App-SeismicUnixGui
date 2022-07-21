@@ -1,4 +1,4 @@
-package seismics;
+package App::SeismicUnixGui::misc::seismics;
 use Moose;
 
 =pod

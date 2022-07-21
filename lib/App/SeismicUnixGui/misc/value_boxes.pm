@@ -1,4 +1,4 @@
-package value_boxes;
+package App::SeismicUnixGui::misc::value_boxes;
 
 use Moose;
 use Tk;

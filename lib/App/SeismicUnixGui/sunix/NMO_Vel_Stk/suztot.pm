@@ -1,4 +1,4 @@
-package suztot;
+package App::SeismicUnixGui::sunix::NMO_Vel_Stk::suztot;
 
 =head2 SYNOPSIS
 

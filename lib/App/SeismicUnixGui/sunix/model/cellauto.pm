@@ -1,4 +1,4 @@
-package cellauto;
+package App::SeismicUnixGui::sunix::model::cellauto;
 
 =head2 SYNOPSIS
 

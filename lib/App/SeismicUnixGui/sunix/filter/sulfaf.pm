@@ -1,4 +1,4 @@
-package sulfaf;
+package App::SeismicUnixGui::sunix::filter::sulfaf;
 
 =head2 SYNOPSIS
 

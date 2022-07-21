@@ -1,4 +1,4 @@
-package cshotplot_spec;
+package App::SeismicUnixGui::specs::par::cshotplot_spec;
 use Moose;
 our $VERSION = '0.0.1';
 

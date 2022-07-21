@@ -1,4 +1,4 @@
-package surandhw_spec;
+package App::SeismicUnixGui::specs::header::surandhw_spec;
 use Moose;
 our $VERSION = '0.0.1';
 

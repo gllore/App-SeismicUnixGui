@@ -1,4 +1,4 @@
-package project_selector;
+package App::SeismicUnixGui::misc::project_selector;
 
 =head1 DOCUMENTATION
 

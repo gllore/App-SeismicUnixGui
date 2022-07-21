@@ -1,4 +1,4 @@
-package binding;
+package App::SeismicUnixGui::misc::binding;
 
 =head1 DOCUMENTATION
 

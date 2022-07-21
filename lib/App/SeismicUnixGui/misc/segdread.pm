@@ -1,4 +1,4 @@
-package segdread;
+package App::SeismicUnixGui::misc::segdread;
 use Moose;
 
 =head1 DOCUMENTATION

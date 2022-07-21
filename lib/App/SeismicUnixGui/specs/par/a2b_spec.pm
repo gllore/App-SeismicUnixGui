@@ -1,4 +1,4 @@
-package a2b_spec;
+package App::SeismicUnixGui::specs::par::a2b_spec;
 use Moose;
 our $VERSION = '0.0.1';
 

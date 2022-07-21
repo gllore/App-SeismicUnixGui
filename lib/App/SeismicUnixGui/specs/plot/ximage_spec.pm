@@ -1,4 +1,4 @@
-package ximage_spec;
+package App::SeismicUnixGui::specs::plot::ximage_spec;
 use Moose;
 our $VERSION = '0.0.1';
 

@@ -1,4 +1,4 @@
-package array;
+package App::SeismicUnixGui::misc::array;
 
 =head1 DOCUMENTATION
 

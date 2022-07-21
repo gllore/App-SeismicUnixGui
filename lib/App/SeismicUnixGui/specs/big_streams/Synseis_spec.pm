@@ -1,4 +1,4 @@
-package Synseis_spec;
+package App::SeismicUnixGui::specs::big_streams::Synseis_spec;
 
 our $VERSION = '1.00';
 use Moose;

@@ -1,4 +1,4 @@
-package suconv;
+package App::SeismicUnixGui::sunix::statsMath::suconv;
 
 =head2 SYNOPSIS
 

@@ -1,4 +1,4 @@
-package las2su;
+package App::SeismicUnixGui::sunix::well::las2su;
 
 =head1 DOCUMENTATION
 

@@ -1,4 +1,4 @@
-package premmod;
+package App::SeismicUnixGui::misc::premmod;
 
 =head1 DOCUMENTATION
 

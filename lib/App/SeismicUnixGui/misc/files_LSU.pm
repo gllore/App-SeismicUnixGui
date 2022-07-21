@@ -1,4 +1,4 @@
-package files_LSU;
+package App::SeismicUnixGui::misc::files_LSU;
 
 =head1 DOCUMENTATION
 

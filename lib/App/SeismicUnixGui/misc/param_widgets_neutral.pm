@@ -1,4 +1,4 @@
-package param_widgets_neutral;
+package App::SeismicUnixGui::misc::param_widgets_neutral;
 
 =head1 DOCUMENTATION
 

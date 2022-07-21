@@ -1,4 +1,4 @@
-package oop_flows;
+package App::SeismicUnixGui::misc::oop_flows;
 use Moose;
 our $VERSION = '0.0.3';
 use App::SeismicUnixGui::messages::message_director;

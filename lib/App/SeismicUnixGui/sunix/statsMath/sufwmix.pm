@@ -1,4 +1,4 @@
-package sufwmix;
+package App::SeismicUnixGui::sunix::statsMath::sufwmix;
 
 =head2 SYNOPSIS
 

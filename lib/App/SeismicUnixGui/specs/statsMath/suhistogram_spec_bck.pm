@@ -1,4 +1,4 @@
-package suhistogram_spec;
+package App::SeismicUnixGui::specs::statsMath::suhistogram_spec_bck;
 use Moose;
 our $VERSION = '0.0.1';
 

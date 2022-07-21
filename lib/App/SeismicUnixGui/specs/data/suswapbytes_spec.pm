@@ -1,4 +1,4 @@
-package suswapbytes_spec;
+package App::SeismicUnixGui::specs::data::suswapbytes_spec;
 use Moose;
 our $VERSION = '0.0.1';
 

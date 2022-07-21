@@ -1,4 +1,4 @@
-package segdread;
+package App::SeismicUnixGui::sunix::data::segdread;
 
 =head2 SYNOPSIS
 

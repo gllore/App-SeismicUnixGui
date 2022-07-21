@@ -1,4 +1,4 @@
-package surelan;
+package App::SeismicUnixGui::sunix::NMO_Vel_Stk::surelan;
 
 =head2 SYNOPSIS
 

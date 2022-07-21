@@ -1,4 +1,4 @@
-package L_SU_local_user_constants;
+package App::SeismicUnixGui::misc::L_SU_local_user_constants;
 
 use Moose;
 

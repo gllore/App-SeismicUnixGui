@@ -1,4 +1,4 @@
-package sufctanismod;
+package App::SeismicUnixGui::sunix::model::sufctanismod;
 
 =head2 SYNOPSIS
 

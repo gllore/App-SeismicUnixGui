@@ -1,4 +1,4 @@
-package xgraph_spec;
+package App::SeismicUnixGui::specs::plot::xgraph_spec;
 use Moose;
 our $VERSION = '0.0.1';
 

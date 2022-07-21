@@ -1,4 +1,4 @@
-package flow_widgets;
+package App::SeismicUnixGui::misc::flow_widgets;
 
 =head1 DOCUMENTATION
 

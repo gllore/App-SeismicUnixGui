@@ -1,4 +1,4 @@
-package sufctanismod_spec;
+package App::SeismicUnixGui::specs::model::sufctanismod_spec;
 use Moose;
 our $VERSION = '0.0.1';
 

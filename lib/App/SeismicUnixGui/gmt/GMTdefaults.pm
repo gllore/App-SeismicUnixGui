@@ -1,4 +1,4 @@
-package GMTdefaults;
+package App::SeismicUnixGui::gmt::GMTdefaults;
 use Moose;
 
 sub set {

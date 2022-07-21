@@ -1,4 +1,4 @@
-package suresamp;
+package App::SeismicUnixGui::sunix::NMO_Vel_Stk::suresamp;
 
 =head2 SYNOPSIS
 

@@ -1,4 +1,4 @@
-package sucddecon;
+package App::SeismicUnixGui::sunix::filter::sucddecon;
 
 =head2 SYNOPSIS
 

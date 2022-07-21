@@ -1,4 +1,4 @@
-package save_button_messages;
+package App::SeismicUnixGui::messages::save_button_messages;
 
 use Moose;
 

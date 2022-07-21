@@ -1,4 +1,4 @@
-package sufft;
+package App::SeismicUnixGui::sunix::transform::sufft;
 
 =head1 DOCUMENTATION
 

@@ -1,4 +1,4 @@
-package sustrip;
+package App::SeismicUnixGui::sunix::header::sustrip;
 
 =head1 DOCUMENTATION
 

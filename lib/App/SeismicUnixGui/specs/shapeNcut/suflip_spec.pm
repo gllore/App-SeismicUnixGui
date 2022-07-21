@@ -1,4 +1,4 @@
-package suflip_spec;
+package App::SeismicUnixGui::specs::shapeNcut::suflip_spec;
 use Moose;
 our $VERSION = '0.0.1';
 

@@ -1,4 +1,4 @@
-package normray;
+package App::SeismicUnixGui::sunix::model::normray;
 
 =head2 SYNOPSIS
 

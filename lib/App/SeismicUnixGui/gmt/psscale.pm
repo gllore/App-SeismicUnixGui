@@ -1,4 +1,4 @@
-package psscale;
+package App::SeismicUnixGui::gmt::psscale;
 
 =head1 DOCUMENTATION
 

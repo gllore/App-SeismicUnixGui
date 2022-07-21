@@ -1,4 +1,4 @@
-package usgsdem;
+package App::SeismicUnixGui::gmt::usgsdem;
 
 =head1 DOCUMENTATION
 

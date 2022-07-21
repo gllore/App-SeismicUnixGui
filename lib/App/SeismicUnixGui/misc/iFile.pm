@@ -1,4 +1,4 @@
-package iFile;
+package App::SeismicUnixGui::misc::iFile;
 
 =head1 DOCUMENTATION
 

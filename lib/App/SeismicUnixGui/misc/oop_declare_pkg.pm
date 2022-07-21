@@ -1,4 +1,4 @@
-package oop_declare_pkg;
+package App::SeismicUnixGui::misc::oop_declare_pkg;
 
 =head1 DOCUMENTATION
 

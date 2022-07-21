@@ -1,4 +1,4 @@
-package sucwt_spec;
+package App::SeismicUnixGui::specs::transform::sucwt_spec;
 use Moose;
 our $VERSION = '0.0.1';
 

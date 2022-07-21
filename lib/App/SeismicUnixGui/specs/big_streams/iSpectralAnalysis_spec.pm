@@ -1,4 +1,4 @@
-package iSpectralAnalysis_spec;
+package App::SeismicUnixGui::specs::big_streams::iSpectralAnalysis_spec;
 
 our $VERSION = '1.00';
 use Moose;

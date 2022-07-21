@@ -1,4 +1,4 @@
-package sudivstack;
+package App::SeismicUnixGui::sunix::NMO_Vel_Stk::sudivstack;
 
 =head2 SYNOPSIS
 

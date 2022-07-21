@@ -1,4 +1,4 @@
-package algebra_by;
+package App::SeismicUnixGui::misc::algebra_by;
 
 # perform matrix math on arrays by  class
 # Contains methods/subroutines/functions to operate on directories

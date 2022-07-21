@@ -1,4 +1,4 @@
-package suhtmath_spec;
+package App::SeismicUnixGui::specs::header::suhtmath_spec;
 	use Moose;
 our $VERSION = '0.0.1';
 

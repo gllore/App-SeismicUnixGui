@@ -1,4 +1,4 @@
-package wpccompress_spec;
+package App::SeismicUnixGui::specs::data::wpccompress_spec;
 use Moose;
 our $VERSION = '0.0.1';
 

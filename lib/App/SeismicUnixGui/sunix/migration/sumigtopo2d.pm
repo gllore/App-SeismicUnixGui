@@ -1,4 +1,4 @@
-package sumigtopo2d;
+package App::SeismicUnixGui::sunix::migration::sumigtopo2d;
 
 =head2 SYNOPSIS
 

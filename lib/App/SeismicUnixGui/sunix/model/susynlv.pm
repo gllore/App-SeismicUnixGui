@@ -1,4 +1,4 @@
- package susynlv;
+package App::SeismicUnixGui::sunix::model::susynlv;
 
 
 =head1 DOCUMENTATION

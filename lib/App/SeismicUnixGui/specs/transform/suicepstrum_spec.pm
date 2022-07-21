@@ -1,4 +1,4 @@
-package suicepstrum_spec;
+package App::SeismicUnixGui::specs::transform::suicepstrum_spec;
 use Moose;
 our $VERSION = '0.0.1';
 

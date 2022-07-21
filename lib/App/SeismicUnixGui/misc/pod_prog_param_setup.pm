@@ -1,4 +1,4 @@
-package pod_prog_param_setup;
+package App::SeismicUnixGui::misc::pod_prog_param_setup;
 use Moose;
 
 =head2 Default pod lines for   

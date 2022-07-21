@@ -1,4 +1,4 @@
-package oop_prog_params;
+package App::SeismicUnixGui::misc::oop_prog_params;
 
 =head1 DOCUMENTATION
 

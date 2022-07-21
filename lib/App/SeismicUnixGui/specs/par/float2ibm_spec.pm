@@ -1,4 +1,4 @@
-package float2ibm_spec;
+package App::SeismicUnixGui::specs::par::float2ibm_spec;
 use Moose;
 our $VERSION = '0.0.1';
 

@@ -1,4 +1,4 @@
-package GMTglobal_constants;
+package App::SeismicUnixGui::gmt::GMTglobal_constants;
 
 use Moose;
 

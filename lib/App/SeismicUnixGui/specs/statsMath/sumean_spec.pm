@@ -1,4 +1,4 @@
-package sumean_spec;
+package App::SeismicUnixGui::specs::statsMath::sumean_spec;
 use Moose;
 our $VERSION = '0.0.1';
 

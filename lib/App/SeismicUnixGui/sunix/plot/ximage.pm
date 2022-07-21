@@ -1,4 +1,4 @@
-package ximage;
+package App::SeismicUnixGui::sunix::plot::ximage;
 
 =head1 DOCUMENTATION
 

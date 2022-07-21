@@ -1,4 +1,4 @@
-package sumax;
+package App::SeismicUnixGui::sunix::statsMath::sumax;
 
 =head1 DOCUMENTATION
 

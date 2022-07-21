@@ -1,4 +1,4 @@
-package scmap;
+package App::SeismicUnixGui::sunix::plot::scmap;
 
 =head2 SYNOPSIS
 

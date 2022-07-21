@@ -1,4 +1,4 @@
-package configuration;
+package App::SeismicUnixGui::t::configuration;
 
 =head1 DOCUMENTATION
 

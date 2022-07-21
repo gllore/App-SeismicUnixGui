@@ -1,6 +1,6 @@
 #!/bin/perl
 
-package gpprofile;
+package App::SeismicUnixGui::geopsy::gpprofile;
 use Moose;
 
 =pod

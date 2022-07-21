@@ -1,4 +1,4 @@
-package sustatic;
+package App::SeismicUnixGui::sunix::header::sustatic;
 
 =head2 SYNOPSIS
 

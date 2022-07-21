@@ -1,4 +1,4 @@
-package sudata_in;
+package App::SeismicUnixGui::misc::sudata_in;
 
 use Moose;
 

@@ -1,4 +1,4 @@
-package config_superflows;
+package App::SeismicUnixGui::misc::config_superflows;
 
 =head1 DOCUMENTATION
 

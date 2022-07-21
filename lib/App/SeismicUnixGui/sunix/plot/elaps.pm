@@ -1,4 +1,4 @@
-package elaps;
+package App::SeismicUnixGui::sunix::plot::elaps;
 
 =head2 SYNOPSIS
 

@@ -1,4 +1,4 @@
-package xwigb;
+package App::SeismicUnixGui::sunix::plot::xwigb;
 
 =head1 DOCUMENTATION
 

@@ -1,4 +1,4 @@
-package sulcthw_spec;
+package App::SeismicUnixGui::specs::header::sulcthw_spec;
 use Moose;
 our $VERSION = '0.0.1';
 

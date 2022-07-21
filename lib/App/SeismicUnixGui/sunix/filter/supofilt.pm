@@ -1,4 +1,4 @@
-package supofilt;
+package App::SeismicUnixGui::sunix::filter::supofilt;
 
 =head2 SYNOPSIS
 

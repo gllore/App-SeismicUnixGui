@@ -1,4 +1,4 @@
-package surandspike;
+package App::SeismicUnixGui::sunix::model::surandspike;
 
 =head2 SYNOPSIS
 

@@ -1,4 +1,4 @@
-package sueipofi_spec;
+package App::SeismicUnixGui::specs::filter::sueipofi_spec;
 use Moose;
 our $VERSION = '0.0.1';
 

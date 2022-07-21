@@ -1,4 +1,4 @@
-package xk;
+package App::SeismicUnixGui::sunix::shell::xk;
 
 use Moose;
 use App::SeismicUnixGui::misc::L_SU_global_constants;

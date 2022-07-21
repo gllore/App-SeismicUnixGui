@@ -1,4 +1,4 @@
-package surms;
+package App::SeismicUnixGui::sunix::statsMath::surms;
 
 =pod 
 
@@ -6,9 +6,9 @@ package surms;
 
 =cut
 
-@ISA = ("sumax");
-use App::SeismicUnixGui::sunix::statsMath::sumax;
-my $surms = new sumax();
+#@ISA = ("sumax");
+use aliased 'App::SeismicUnixGui::sunix::statsMath::sumax';
+my $surms = sumax->new();
 
 =pod
 

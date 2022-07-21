@@ -1,4 +1,4 @@
-package oop_run_flows;
+package App::SeismicUnixGui::misc::oop_run_flows;
 use Moose;
 
 =head2 Default 

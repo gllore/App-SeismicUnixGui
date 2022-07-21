@@ -1,4 +1,4 @@
-package segyread;
+package App::SeismicUnixGui::sunix::data::segyread;
 
 =head1 DOCUMENTATION
 

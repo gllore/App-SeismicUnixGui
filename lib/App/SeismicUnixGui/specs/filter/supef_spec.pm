@@ -1,4 +1,4 @@
-package supef_spec;
+package App::SeismicUnixGui::specs::filter::supef_spec;
 use Moose;
 our $VERSION = '0.0.1';
 

@@ -1,4 +1,4 @@
-package mkparfile;
+package App::SeismicUnixGui::sunix::par::mkparfile;
 
 =head1 DOCUMENTATION
 

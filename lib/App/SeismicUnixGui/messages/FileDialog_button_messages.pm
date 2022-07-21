@@ -1,4 +1,4 @@
-package FileDialog_button_messages;
+package App::SeismicUnixGui::messages::FileDialog_button_messages;
 
 use Moose;
 

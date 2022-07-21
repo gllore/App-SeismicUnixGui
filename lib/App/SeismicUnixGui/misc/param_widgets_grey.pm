@@ -1,4 +1,4 @@
-package param_widgets_grey;
+package App::SeismicUnixGui::misc::param_widgets_grey;
 
 =head1 DOCUMENTATION
 

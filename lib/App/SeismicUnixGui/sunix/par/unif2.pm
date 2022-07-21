@@ -1,4 +1,4 @@
-package unif2;
+package App::SeismicUnixGui::sunix::par::unif2;
 
 =head1 DOCUMENTATION
 

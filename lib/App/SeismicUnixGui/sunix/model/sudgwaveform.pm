@@ -1,4 +1,4 @@
-package sudgwaveform;
+package App::SeismicUnixGui::sunix::model::sudgwaveform;
 
 =head2 SYNOPSIS
 

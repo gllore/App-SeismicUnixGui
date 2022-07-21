@@ -1,4 +1,4 @@
-package sunix_package_encapsulated;
+package App::SeismicUnixGui::developer::code::sunix::sunix_package_encapsulated;
 use Moose;
 
 	my @lines;

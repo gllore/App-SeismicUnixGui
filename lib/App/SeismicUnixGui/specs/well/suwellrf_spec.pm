@@ -1,4 +1,4 @@
-package suwellrf_spec;
+package App::SeismicUnixGui::specs::well::suwellrf_spec;
 use Moose;
 our $VERSION = '0.0.1';
 

@@ -1,4 +1,4 @@
-package sumix;
+package App::SeismicUnixGui::sunix::statsMath::sumix;
 
 =head1 DOCUMENTATION
 

@@ -1,4 +1,4 @@
-package wtcomp;
+package App::SeismicUnixGui::sunix::data::wtcomp;
 
 =head2 SYNOPSIS
 

@@ -1,4 +1,4 @@
-package supscontour;
+package App::SeismicUnixGui::sunix::plot::supscontour;
 
 =head2 SYNOPSIS
 

@@ -1,4 +1,4 @@
-package sukdmig2d;
+package App::SeismicUnixGui::sunix::migration::sukdmig2d;
 
 =head2 SYNOPSIS
 

@@ -1,4 +1,4 @@
-package grm_spec;
+package App::SeismicUnixGui::specs::model::grm_spec;
 use Moose;
 our $VERSION = '0.0.1';
 

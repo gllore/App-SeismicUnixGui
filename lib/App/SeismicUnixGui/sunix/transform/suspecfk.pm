@@ -1,4 +1,4 @@
-package suspecfk;
+package App::SeismicUnixGui::sunix::transform::suspecfk;
 use Moose;
 
 =head1 DOCUMENTATION

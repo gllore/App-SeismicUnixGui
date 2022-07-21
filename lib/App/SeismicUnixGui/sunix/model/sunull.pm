@@ -1,4 +1,4 @@
-package sunull;
+package App::SeismicUnixGui::sunix::model::sunull;
 
 =head2 SYNOPSIS
 

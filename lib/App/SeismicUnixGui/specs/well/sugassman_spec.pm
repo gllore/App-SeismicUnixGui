@@ -1,4 +1,4 @@
-package sugassman_spec;
+package App::SeismicUnixGui::specs::well::sugassman_spec;
 use Moose;
 our $VERSION = '0.0.1';
 

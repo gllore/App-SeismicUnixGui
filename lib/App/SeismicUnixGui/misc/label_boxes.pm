@@ -1,4 +1,4 @@
-package label_boxes;
+package App::SeismicUnixGui::misc::label_boxes;
 
 use Moose;
 use Tk;

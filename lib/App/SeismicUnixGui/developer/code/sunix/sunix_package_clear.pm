@@ -1,4 +1,4 @@
-package sunix_package_clear;
+package App::SeismicUnixGui::developer::code::sunix::sunix_package_clear;
 use Moose;
 
 our $VERSION = '0.0.1';

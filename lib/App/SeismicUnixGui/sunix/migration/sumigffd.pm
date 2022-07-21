@@ -1,4 +1,4 @@
-package sumigffd;
+package App::SeismicUnixGui::sunix::migration::sumigffd;
 
 =head2 SYNOPSIS
 

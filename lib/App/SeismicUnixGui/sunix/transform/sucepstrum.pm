@@ -1,4 +1,4 @@
-package sucepstrum;
+package App::SeismicUnixGui::sunix::transform::sucepstrum;
 
 =head1 DOCUMENTATION
 

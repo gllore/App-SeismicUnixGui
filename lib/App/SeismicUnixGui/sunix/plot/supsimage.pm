@@ -1,4 +1,4 @@
-package supsimage;
+package App::SeismicUnixGui::sunix::plot::supsimage;
 
 =head2 SYNOPSIS
 

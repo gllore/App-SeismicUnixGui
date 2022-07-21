@@ -1,4 +1,4 @@
-package read_psunix;
+package App::SeismicUnixGui::misc::read_psunix;
 
 =head1 DOCUMENTATION
 

@@ -1,4 +1,4 @@
-package Sseg2su_config;
+package App::SeismicUnixGui::configs::big_streams::Sseg2su_config;
 
 =head1 DOCUMENTATION
 

@@ -1,4 +1,4 @@
-package help;
+package App::SeismicUnixGui::misc::help;
 
 use Moose;
 

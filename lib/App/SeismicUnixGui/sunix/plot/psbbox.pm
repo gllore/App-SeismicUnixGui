@@ -1,4 +1,4 @@
-package psbbox;
+package App::SeismicUnixGui::sunix::plot::psbbox;
 
 =head2 SYNOPSIS
 

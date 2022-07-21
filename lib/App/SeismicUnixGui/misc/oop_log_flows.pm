@@ -1,4 +1,4 @@
-package oop_log_flows;
+package App::SeismicUnixGui::misc::oop_log_flows;
 use Moose;
 
 =head2 Default  lines for   

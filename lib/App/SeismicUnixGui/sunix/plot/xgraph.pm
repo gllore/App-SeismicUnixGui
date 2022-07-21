@@ -1,4 +1,4 @@
-package xgraph;
+package App::SeismicUnixGui::sunix::plot::xgraph;
 
 =head1 DOCUMENTATION
 

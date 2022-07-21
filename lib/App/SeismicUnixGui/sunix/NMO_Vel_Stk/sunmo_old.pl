@@ -1,4 +1,4 @@
-package sunmo;
+package App::SeismicUnixGui::sunix::NMO_Vel_Stk::sunmo_old.pl;
 
 =head1 DOCUMENTATION
 

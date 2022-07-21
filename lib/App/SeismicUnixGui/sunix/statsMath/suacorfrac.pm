@@ -1,4 +1,4 @@
-package suacorfrac;
+package App::SeismicUnixGui::sunix::statsMath::suacorfrac;
 
 =head2 SYNOPSIS
 

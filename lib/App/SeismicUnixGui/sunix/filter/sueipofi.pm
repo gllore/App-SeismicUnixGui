@@ -1,4 +1,4 @@
-package sueipofi;
+package App::SeismicUnixGui::sunix::filter::sueipofi;
 
 =head2 SYNOPSIS
 

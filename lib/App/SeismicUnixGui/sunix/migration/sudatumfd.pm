@@ -1,4 +1,4 @@
-package sudatumfd;
+package App::SeismicUnixGui::sunix::migration::sudatumfd;
 
 =head2 SYNOPSIS
 

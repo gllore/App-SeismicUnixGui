@@ -1,4 +1,4 @@
-package sutivel;
+package App::SeismicUnixGui::sunix::NMO_Vel_Stk::sutivel;
 
 =head2 SYNOPSIS
 

@@ -1,4 +1,4 @@
-package project_selector_messages;
+package App::SeismicUnixGui::messages::project_selector_messages;
 
 use Moose;
 

@@ -1,4 +1,4 @@
-package sucliphead;
+package App::SeismicUnixGui::sunix::header::sucliphead;
 
 =head2 SYNOPSIS
 

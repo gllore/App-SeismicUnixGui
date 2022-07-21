@@ -1,4 +1,4 @@
-package supolar;
+package App::SeismicUnixGui::sunix::filter::supolar;
 
 =head2 SYNOPSIS
 

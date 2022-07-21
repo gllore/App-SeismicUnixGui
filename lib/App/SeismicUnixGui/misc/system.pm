@@ -1,4 +1,4 @@
-package system;
+package App::SeismicUnixGui::misc::system;
 
 =head1 DOCUMENTATION
 

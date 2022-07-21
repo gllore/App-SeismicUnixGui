@@ -1,4 +1,4 @@
-package suphasevel;
+package App::SeismicUnixGui::sunix::transform::suphasevel;
 
 =head1 DOCUMENTATION
 

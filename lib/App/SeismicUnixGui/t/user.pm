@@ -1,4 +1,4 @@
-package user;
+package App::SeismicUnixGui::t::user;
 
 =head1 DOCUMENTATION
 

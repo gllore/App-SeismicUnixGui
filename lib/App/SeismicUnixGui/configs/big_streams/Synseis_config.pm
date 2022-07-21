@@ -1,4 +1,4 @@
-package Synseis_config;
+package App::SeismicUnixGui::configs::big_streams::Synseis_config;
 
 =head1 DOCUMENTATION
 

@@ -1,4 +1,4 @@
-package suchw;
+package App::SeismicUnixGui::sunix::header::suchw;
 
 =head1 DOCUMENTATION
 

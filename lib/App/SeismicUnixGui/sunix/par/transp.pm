@@ -1,4 +1,4 @@
-package transp;
+package App::SeismicUnixGui::sunix::par::transp;
 
 =head2 SYNOPSIS
 

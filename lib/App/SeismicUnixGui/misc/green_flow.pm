@@ -1,4 +1,4 @@
-package green_flow;
+package App::SeismicUnixGui::misc::green_flow;
 
 =head1 DOCUMENTATION
 

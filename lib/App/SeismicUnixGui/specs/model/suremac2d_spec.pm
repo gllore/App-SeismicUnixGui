@@ -1,4 +1,4 @@
-package suremac2d_spec;
+package App::SeismicUnixGui::specs::model::suremac2d_spec;
 use Moose;
 our $VERSION = '0.0.1';
 

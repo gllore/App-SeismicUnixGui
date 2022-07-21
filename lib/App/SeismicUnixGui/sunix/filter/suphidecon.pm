@@ -1,4 +1,4 @@
-package suphidecon;
+package App::SeismicUnixGui::sunix::filter::suphidecon;
 
 =head2 SYNOPSIS
 

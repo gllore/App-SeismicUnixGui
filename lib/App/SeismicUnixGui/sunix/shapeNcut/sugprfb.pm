@@ -1,4 +1,4 @@
-package sugprfb;
+package App::SeismicUnixGui::sunix::shapeNcut::sugprfb;
 
 =head1 DOCUMENTATION
 

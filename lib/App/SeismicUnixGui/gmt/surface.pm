@@ -1,4 +1,4 @@
-package surface;
+package App::SeismicUnixGui::gmt::surface;
 
 =head1 DOCUMENTATION
 

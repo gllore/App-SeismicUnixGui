@@ -1,4 +1,4 @@
-package sutsq_spec;
+package App::SeismicUnixGui::specs::NMO_Vel_Stk::sutsq_spec;
 use Moose;
 our $VERSION = '0.0.1';
 

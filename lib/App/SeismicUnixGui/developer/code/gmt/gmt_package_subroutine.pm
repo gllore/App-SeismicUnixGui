@@ -1,4 +1,4 @@
-package gmt_package_subroutine;
+package App::SeismicUnixGui::developer::code::gmt::gmt_package_subroutine;
 
 =head2 encapsualted variables
 

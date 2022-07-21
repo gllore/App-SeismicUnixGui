@@ -1,4 +1,4 @@
-package save_button;
+package App::SeismicUnixGui::misc::save_button;
 
 =head1 DOCUMENTATION
 

@@ -1,4 +1,4 @@
-package spsplot;
+package App::SeismicUnixGui::sunix::plot::spsplot;
 
 =head2 SYNOPSIS
 

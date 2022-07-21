@@ -1,4 +1,4 @@
-package iPick_messages;
+package App::SeismicUnixGui::messages::iPick_messages;
 
 use Moose;
 

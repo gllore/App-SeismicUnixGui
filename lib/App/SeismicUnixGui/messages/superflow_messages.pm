@@ -1,4 +1,4 @@
-package superflow_messages;
+package App::SeismicUnixGui::messages::superflow_messages;
 
 use Moose;
 

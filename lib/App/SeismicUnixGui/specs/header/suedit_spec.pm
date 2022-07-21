@@ -1,4 +1,4 @@
-package suedit_spec;
+package App::SeismicUnixGui::specs::header::suedit_spec;
 use Moose;
 our $VERSION = '0.0.1';
 

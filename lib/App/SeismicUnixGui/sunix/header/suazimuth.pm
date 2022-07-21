@@ -1,4 +1,4 @@
-package suazimuth;
+package App::SeismicUnixGui::sunix::header::suazimuth;
 
 =head2 SYNOPSIS
 

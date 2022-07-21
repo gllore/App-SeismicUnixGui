@@ -1,4 +1,4 @@
-package sunmo_a_spec;
+package App::SeismicUnixGui::specs::NMO_Vel_Stk::sunmo_a_spec;
 use Moose;
 our $VERSION = '0.0.1';
 

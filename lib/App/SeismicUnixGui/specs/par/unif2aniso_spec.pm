@@ -1,4 +1,4 @@
-package unif2aniso_spec;
+package App::SeismicUnixGui::specs::par::unif2aniso_spec;
 	use Moose;
 our $VERSION = '0.0.1';
 

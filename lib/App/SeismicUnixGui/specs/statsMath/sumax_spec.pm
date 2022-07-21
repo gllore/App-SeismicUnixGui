@@ -1,4 +1,4 @@
-package sumax_spec;
+package App::SeismicUnixGui::specs::statsMath::sumax_spec;
 use Moose;
 our $VERSION = '0.0.1';
 

@@ -1,4 +1,4 @@
-package perl_flow;
+package App::SeismicUnixGui::misc::perl_flow;
 
 =head1 DOCUMENTATION
 

@@ -1,4 +1,4 @@
-package suphase;
+package App::SeismicUnixGui::sunix::filter::suphase;
 
 =head2 SYNOPSIS
 

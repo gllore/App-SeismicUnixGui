@@ -1,4 +1,4 @@
-package suvelan;
+package App::SeismicUnixGui::sunix::NMO_Vel_Stk::suvelan;
 
 =head1 DOCUMENTATION
 

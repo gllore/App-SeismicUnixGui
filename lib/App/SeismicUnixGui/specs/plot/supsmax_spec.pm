@@ -1,4 +1,4 @@
-package supsmax_spec;
+package App::SeismicUnixGui::specs::plot::supsmax_spec;
 use Moose;
 our $VERSION = '0.0.1';
 

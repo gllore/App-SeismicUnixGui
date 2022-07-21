@@ -1,4 +1,4 @@
-package developer;
+package App::SeismicUnixGui::misc::developer;
 
 =head1 DOCUMENTATION
 

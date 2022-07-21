@@ -1,4 +1,4 @@
-package suaddevent;
+package App::SeismicUnixGui::sunix::model::suaddevent;
 
 =head2 SYNOPSIS
 

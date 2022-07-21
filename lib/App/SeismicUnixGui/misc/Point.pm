@@ -1,4 +1,4 @@
-package Point;
+package App::SeismicUnixGui::misc::Point;
 use Moose;
 use Carp;
 

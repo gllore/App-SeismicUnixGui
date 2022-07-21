@@ -1,4 +1,4 @@
-package FileDialog_close_messages;
+package App::SeismicUnixGui::messages::FileDialog_close_messages;
 
 use Moose;
 

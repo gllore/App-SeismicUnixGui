@@ -1,4 +1,4 @@
-package sudipfilt;
+package App::SeismicUnixGui::sunix::filter::sudipfilt;
 
 =head1 DOCUMENTATION
 

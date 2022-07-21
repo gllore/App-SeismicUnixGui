@@ -1,4 +1,4 @@
-package sutihaledmo;
+package App::SeismicUnixGui::sunix::NMO_Vel_Stk::sutihaledmo;
 
 =head2 SYNOPSIS
 

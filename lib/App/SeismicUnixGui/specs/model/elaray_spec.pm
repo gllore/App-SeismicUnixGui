@@ -1,4 +1,4 @@
-package elaray_spec;
+package App::SeismicUnixGui::specs::model::elaray_spec;
 	use Moose;
 our $VERSION = '0.0.1';
 

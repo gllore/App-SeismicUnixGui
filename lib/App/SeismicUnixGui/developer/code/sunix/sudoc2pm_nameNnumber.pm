@@ -1,4 +1,4 @@
-package sudoc2pm_nameNnumber;
+package App::SeismicUnixGui::developer::code::sunix::sudoc_nameNnumber;
 
 =head1 DOCUMENTATION
 

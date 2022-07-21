@@ -1,6 +1,6 @@
 #!/bin/perl
 
-package gpdcreport;
+package App::SeismicUnixGui::geopsy::gpdcreport;
 use Moose;
 
 =pod

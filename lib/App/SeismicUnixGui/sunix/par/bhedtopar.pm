@@ -1,4 +1,4 @@
-package bhedtopar;
+package App::SeismicUnixGui::sunix::par::bhedtopar;
 
 =head2 SYNOPSIS
 

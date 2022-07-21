@@ -1,4 +1,4 @@
-package gbbeam;
+package App::SeismicUnixGui::sunix::model::gbbeam;
 
 =head2 SYNOPSIS
 

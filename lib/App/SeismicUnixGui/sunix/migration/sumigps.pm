@@ -1,4 +1,4 @@
-package sumigps;
+package App::SeismicUnixGui::sunix::migration::sumigps;
 
 =head2 SYNOPSIS
 

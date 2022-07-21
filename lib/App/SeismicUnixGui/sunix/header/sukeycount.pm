@@ -1,4 +1,4 @@
-package sukeycount;
+package App::SeismicUnixGui::sunix::header::sukeycount;
 
 =head2 SYNOPSIS
 

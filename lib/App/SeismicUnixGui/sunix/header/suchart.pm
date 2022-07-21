@@ -1,4 +1,4 @@
-package suchart;
+package App::SeismicUnixGui::sunix::header::suchart;
 
 =head2 SYNOPSIS
 

@@ -1,4 +1,4 @@
-package evince;
+package App::SeismicUnixGui::sunix::shell::evince;
 
 =head2 SYNOPSIS
 

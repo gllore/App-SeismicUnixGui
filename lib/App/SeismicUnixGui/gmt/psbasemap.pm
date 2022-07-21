@@ -1,4 +1,4 @@
-package psbasemap;
+package App::SeismicUnixGui::gmt::psbasemap;
 
 =head1 DOCUMENTATION
 

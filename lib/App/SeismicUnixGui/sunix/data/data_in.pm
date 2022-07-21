@@ -1,4 +1,4 @@
-package data_in;
+package App::SeismicUnixGui::sunix::data::data_in;
 
 =head1 DOCUMENTATION
 

@@ -1,4 +1,4 @@
-package sutvband;
+package App::SeismicUnixGui::sunix::filter::sutvband;
 
 =head2 SYNOPSIS
 

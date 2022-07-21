@@ -1,4 +1,4 @@
-package sugetgthr;
+package App::SeismicUnixGui::sunix::shell::sugetgthr;
 
 =head2 SYNOPSIS
 

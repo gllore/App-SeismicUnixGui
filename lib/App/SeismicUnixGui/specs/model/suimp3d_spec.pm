@@ -1,4 +1,4 @@
-package suimp3d_spec;
+package App::SeismicUnixGui::specs::model::suimp3d_spec;
 use Moose;
 our $VERSION = '0.0.1';
 

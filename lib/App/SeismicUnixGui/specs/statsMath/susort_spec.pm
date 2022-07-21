@@ -1,4 +1,4 @@
-package susort_spec;
+package App::SeismicUnixGui::specs::statsMath::susort_spec;
 use Moose;
 our $VERSION = '0.0.1';
 

@@ -1,5 +1,4 @@
 package App::SeismicUnixGui::misc::control;
-use Moose;
 
 =head1 DOCUMENTATION
 
@@ -40,6 +39,7 @@ use Moose;
     
 =cut  
 
+use Moose;
 our $VERSION = '0.0.3';
 
 use App::SeismicUnixGui::misc::L_SU_global_constants;

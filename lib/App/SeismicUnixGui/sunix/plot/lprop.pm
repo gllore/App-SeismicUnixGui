@@ -1,4 +1,4 @@
-package lprop;
+package App::SeismicUnixGui::sunix::plot::lprop;
 
 =head2 SYNOPSIS
 true

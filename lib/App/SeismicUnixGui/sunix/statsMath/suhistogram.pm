@@ -1,4 +1,4 @@
-package suhistogram;
+package App::SeismicUnixGui::sunix::statsMath::suhistogram;
 
 =head2 SYNOPSIS
 
@@ -75,7 +75,7 @@ Version:
 
  The columns are time/depth and picks on the cumulate		
 
- at 2.28%, 15.87%, 50%, 84.13% & 97.720f the total points    
+ at 2.28%, 15.87%, 50%, 84.13% & 97.72 of the total points    
 
  corresponding to the median and +- 1 or 2 standard deviations 
 

@@ -1,4 +1,4 @@
-package supaste;
+package App::SeismicUnixGui::sunix::header::supaste;
 
 =head2 SYNOPSIS
 

@@ -1,4 +1,4 @@
-package sukill;
+package App::SeismicUnixGui::sunix::shapeNcut::sukill;
 
 =head2 SYNOPSIS
 

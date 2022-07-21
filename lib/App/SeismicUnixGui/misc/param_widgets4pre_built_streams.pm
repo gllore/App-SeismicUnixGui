@@ -1,4 +1,4 @@
-package param_widgets4pre_built_streams;
+package App::SeismicUnixGui::misc::param_widgets4pre_built_streams;
 
 =head1 DOCUMENTATION
 

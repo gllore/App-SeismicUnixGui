@@ -1,4 +1,4 @@
-package sulprime;
+package App::SeismicUnixGui::sunix::well::sulprime;
 
 =head2 SYNOPSIS
 

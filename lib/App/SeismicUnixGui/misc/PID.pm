@@ -1,4 +1,4 @@
-package PID;
+package App::SeismicUnixGui::misc::PID;
 
 use Moose;
 

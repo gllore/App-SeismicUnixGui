@@ -1,4 +1,4 @@
-package surecip;
+package App::SeismicUnixGui::sunix::NMO_Vel_Stk::surecip;
 
 =head2 SYNOPSIS
 

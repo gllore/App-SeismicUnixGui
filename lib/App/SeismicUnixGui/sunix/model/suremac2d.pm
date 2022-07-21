@@ -1,4 +1,4 @@
-package suremac2d;
+package App::SeismicUnixGui::sunix::model::suremac2d;
 
 =head2 SYNOPSIS
 

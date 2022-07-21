@@ -1,4 +1,4 @@
-package param_flow;
+package App::SeismicUnixGui::misc::param_flow;
 
 =head1 DOCUMENTATION
 

@@ -1,4 +1,4 @@
-package sugethw;
+package App::SeismicUnixGui::sunix::header::sugethw;
 
 =head1 DOCUMENTATION
 

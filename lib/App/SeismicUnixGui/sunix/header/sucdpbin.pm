@@ -1,4 +1,4 @@
-package sucdpbin;
+package App::SeismicUnixGui::sunix::header::sucdpbin;
 
 =head2 SYNOPSIS
 

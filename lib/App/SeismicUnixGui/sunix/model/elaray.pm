@@ -1,4 +1,4 @@
-package elaray;
+package App::SeismicUnixGui::sunix::model::elaray;
 
 =head2 SYNOPSIS
 

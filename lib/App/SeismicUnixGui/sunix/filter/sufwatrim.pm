@@ -1,4 +1,4 @@
-package sufwatrim;
+package App::SeismicUnixGui::sunix::filter::sufwatrim;
 
 =head2 SYNOPSIS
 

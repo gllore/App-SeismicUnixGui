@@ -1,4 +1,4 @@
-package makevel;
+package App::SeismicUnixGui::sunix::par::makevel;
 
 =head1 DOCUMENTATION
 

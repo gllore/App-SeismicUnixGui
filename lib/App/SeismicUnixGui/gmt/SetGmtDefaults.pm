@@ -1,4 +1,4 @@
-package SetGmtDefaults;
+package App::SeismicUnixGui::gmt::SetGmtDefaults;
 
 sub system {
 

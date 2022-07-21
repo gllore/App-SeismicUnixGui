@@ -3,6 +3,11 @@ package App::SeismicUnixGui::misc::manage_dirs_by;
 use Moose;
 our $VERSION = '0.0.1';
 
+use aliased 'App::SeismicUnixGui::misc::L_SU_global_constants';
+
+my $L_SU_global_constants = L_SU_global_constants->new();
+my $var                   = $L_SU_global_constants->var();
+
 # manage_dirs_by  class
 # Contains methods/subroutines/functions to operate on directories
 # V 1. March 3 2008
@@ -59,14 +64,62 @@ sub _get_contents_aref {
 
 		}
 		else {
-#			print("manage_dirs_by, _get_contents_aref,directory not found; NADA\n");
+	#			print("manage_dirs_by, _get_contents_aref,directory not found; NADA\n");
 		}
 
 	}
 	else {
-#		print("manage_dirs_by, _get_contents_aref, missing directory; NADA\n");
+	  #		print("manage_dirs_by, _get_contents_aref, missing directory; NADA\n");
 	}
 	return ($result_aref);
+}
+
+sub get_file_list_aref {
+
+	my ($self) = @_;
+
+	my $list_aref;
+	my @filtered_directory;
+
+	if ( length $manage_dirs_by->{_directory} ) {
+
+		$list_aref = _get_contents_aref;
+
+		if ( length $list_aref ) {
+
+			my @directory_list = @$list_aref;
+
+			foreach my $thing (@directory_list) {
+
+				if (   $thing eq '.'
+					or $thing eq '..'
+					or $thing eq $var->{_skip_directory} )
+				{
+#					print(
+#						"manage_dirs_by, get_file_list_aref,skip directory\n");
+#					print("manage_dirs_by, get_file_list_aref,thing:$thing\n");
+					next;
+
+				}
+				else {
+					push @filtered_directory, $thing;
+				}
+			}
+
+			my $result_aref = \@filtered_directory;
+			return ($result_aref);
+
+		}
+		else {
+			print("empty directory list NADA\n");
+		}
+
+	}
+	else {
+		print("manage_dirs_by,$self,get_list_aref missing variable\n");
+		return ();
+	}
+
 }
 
 sub get_list_aref {

@@ -1,4 +1,4 @@
-package lcmap;
+package App::SeismicUnixGui::sunix::plot::lcmap;
 
 =head2 SYNOPSIS
 

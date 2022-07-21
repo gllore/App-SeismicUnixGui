@@ -1,4 +1,4 @@
-package pscoast;
+package App::SeismicUnixGui::gmt::pscoast;
 
 =head1 DOCUMENTATION
 

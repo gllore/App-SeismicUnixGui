@@ -1,4 +1,4 @@
-package sumedian_spec;
+package App::SeismicUnixGui::specs::filter::sumedian_spec;
 	use Moose;
 our $VERSION = '0.0.1';
 

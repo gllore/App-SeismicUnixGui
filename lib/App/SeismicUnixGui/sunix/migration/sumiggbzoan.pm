@@ -1,4 +1,4 @@
-package sumiggbzoan;
+package App::SeismicUnixGui::sunix::migration::sumiggbzoan;
 
 =head2 SYNOPSIS
 

@@ -1,4 +1,4 @@
-package sugazmig;
+package App::SeismicUnixGui::sunix::migration::sugazmig;
 
 =head2 SYNOPSIS
 

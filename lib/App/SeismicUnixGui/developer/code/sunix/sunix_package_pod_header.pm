@@ -1,4 +1,4 @@
-package sunix_package_pod_header;
+package App::SeismicUnixGui::developer::code::sunix::sunix_package_pod_header;
 use Moose;
 
 use App::SeismicUnixGui::misc::L_SU_global_constants;

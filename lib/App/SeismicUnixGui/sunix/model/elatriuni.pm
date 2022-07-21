@@ -1,4 +1,4 @@
-package elatriuni;
+package App::SeismicUnixGui::sunix::model::elatriuni;
 
 =head2 SYNOPSIS
 

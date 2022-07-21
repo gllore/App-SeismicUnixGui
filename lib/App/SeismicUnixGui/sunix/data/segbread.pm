@@ -1,4 +1,4 @@
-package segbread;
+package App::SeismicUnixGui::sunix::data::segbread;
 
 =head2 SYNOPSIS
 

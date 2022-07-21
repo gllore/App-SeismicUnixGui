@@ -1,4 +1,4 @@
-package supscubecontour;
+package App::SeismicUnixGui::sunix::plot::supscubecontour;
 
 =head2 SYNOPSIS
 

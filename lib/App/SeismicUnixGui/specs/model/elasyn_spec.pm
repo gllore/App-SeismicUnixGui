@@ -1,4 +1,4 @@
-package elasyn_spec;
+package App::SeismicUnixGui::specs::model::elasyn_spec;
 use Moose;
 our $VERSION = '0.0.1';
 

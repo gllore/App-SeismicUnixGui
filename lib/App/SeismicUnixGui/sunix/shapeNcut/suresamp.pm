@@ -1,4 +1,4 @@
-package suresamp;
+package App::SeismicUnixGui::sunix::shapeNcut::suresamp;
 use Moose;
 
 =pod

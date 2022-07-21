@@ -1,4 +1,4 @@
-package suhtmath;
+package App::SeismicUnixGui::sunix::header::suhtmath;
 
 =head2 SYNOPSIS
 

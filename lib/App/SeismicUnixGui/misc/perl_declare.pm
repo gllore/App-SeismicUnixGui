@@ -1,4 +1,4 @@
-package perl_declare;
+package App::SeismicUnixGui::misc::perl_declare;
 use Moose;
 
 =head2 Default perl lines for

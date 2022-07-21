@@ -1,4 +1,4 @@
-package grey_flow;
+package App::SeismicUnixGui::misc::grey_flow;
 
 =head1 DOCUMENTATION
 

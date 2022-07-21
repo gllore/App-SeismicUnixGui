@@ -1,4 +1,4 @@
-package blockmean;
+package App::SeismicUnixGui::gmt::blockmean;
 
 =head1 DOCUMENTATION
 

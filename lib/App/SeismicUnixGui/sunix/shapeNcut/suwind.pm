@@ -1,4 +1,4 @@
-package suwind;
+package App::SeismicUnixGui::sunix::shapeNcut::suwind;
 
 =head1 DOCUMENTATION
 

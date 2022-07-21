@@ -1,4 +1,4 @@
-package cat_su;
+package App::SeismicUnixGui::sunix::shell::cat_su;
 
 =head2 SYNOPSIS
 

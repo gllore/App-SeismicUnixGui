@@ -1,4 +1,4 @@
-package conditions4big_streams;
+package App::SeismicUnixGui::misc::conditions4big_streams;
 
 =head1 DOCUMENTATION
 

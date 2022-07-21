@@ -1,4 +1,4 @@
-package wtuncomp_spec;
+package App::SeismicUnixGui::specs::data::wtuncomp_spec;
 use Moose;
 our $VERSION = '0.0.1';
 

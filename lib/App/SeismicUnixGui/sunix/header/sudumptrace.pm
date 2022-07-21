@@ -1,4 +1,4 @@
-package sudumptrace;
+package App::SeismicUnixGui::sunix::header::sudumptrace;
 
 =head2 SYNOPSIS
 

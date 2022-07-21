@@ -1,4 +1,4 @@
-package supsgraph_spec;
+package App::SeismicUnixGui::specs::plot::supsgraph_spec;
 use Moose;
 our $VERSION = '0.0.1';
 

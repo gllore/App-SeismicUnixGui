@@ -1,4 +1,4 @@
-package sufwatrim_spec;
+package App::SeismicUnixGui::specs::filter::sufwatrim_spec;
 	use Moose;
 our $VERSION = '0.0.1';
 

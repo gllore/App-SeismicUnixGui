@@ -1,4 +1,4 @@
-package whereami;
+package App::SeismicUnixGui::misc::whereami;
 
 =head1 DOCUMENTATION
 

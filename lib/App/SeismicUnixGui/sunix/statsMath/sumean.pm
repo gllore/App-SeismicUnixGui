@@ -1,4 +1,4 @@
-package sumean;
+package App::SeismicUnixGui::sunix::statsMath::sumean;
 
 =head2 SYNOPSIS
 

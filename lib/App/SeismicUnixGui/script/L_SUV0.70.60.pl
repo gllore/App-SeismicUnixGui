@@ -93,6 +93,7 @@ use Tk;
 use Tk::Pane;
 use Tk::NoteBook;
 use App::SeismicUnixGui::misc::L_SU '0.1.7';
+use aliased ' App::SeismicUnixGui::misc::L_SU';
 use App::SeismicUnixGui::misc::L_SU_global_constants;
 
 =head2 Instantiation

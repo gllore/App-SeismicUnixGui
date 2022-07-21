@@ -1,4 +1,4 @@
-package suoldtonew;
+package App::SeismicUnixGui::sunix::data::suoldtonew;
 
 =head2 SYNOPSIS
 

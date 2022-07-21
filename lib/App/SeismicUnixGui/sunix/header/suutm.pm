@@ -1,4 +1,4 @@
-package suutm;
+package App::SeismicUnixGui::sunix::header::suutm;
 
 =head2 SYNOPSIS
 

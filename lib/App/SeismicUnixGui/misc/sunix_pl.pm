@@ -1,4 +1,4 @@
-package sunix_pl;
+package App::SeismicUnixGui::misc::sunix_pl;
 
 =head1 DOCUMENTATION
 

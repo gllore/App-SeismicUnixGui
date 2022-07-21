@@ -1,4 +1,4 @@
-package suttoz;
+package App::SeismicUnixGui::sunix::NMO_Vel_Stk::suttoz;
 
 =head2 SYNOPSIS
 

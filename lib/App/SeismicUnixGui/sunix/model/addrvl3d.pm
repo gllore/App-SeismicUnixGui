@@ -1,4 +1,4 @@
-package addrvl3d;
+package App::SeismicUnixGui::sunix::model::addrvl3d;
 
 =head2 SYNOPSIS
 

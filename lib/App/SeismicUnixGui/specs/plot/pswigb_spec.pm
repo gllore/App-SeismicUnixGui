@@ -1,4 +1,4 @@
-package pswigb_spec;
+package App::SeismicUnixGui::specs::plot::pswigb_spec;
 use Moose;
 our $VERSION = '0.0.1';
 

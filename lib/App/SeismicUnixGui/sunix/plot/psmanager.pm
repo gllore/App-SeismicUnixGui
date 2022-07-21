@@ -1,4 +1,4 @@
-package psmanager;
+package App::SeismicUnixGui::sunix::plot::psmanager;
 
 =head2 SYNOPSIS
 

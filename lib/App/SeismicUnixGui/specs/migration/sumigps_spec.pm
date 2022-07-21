@@ -1,4 +1,4 @@
-package sumigps_spec;
+package App::SeismicUnixGui::specs::migration::sumigps_spec;
 use Moose;
 our $VERSION = '0.0.1';
 

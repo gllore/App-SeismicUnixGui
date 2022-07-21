@@ -1,4 +1,4 @@
-package suamp_spec;
+package App::SeismicUnixGui::specs::transform::suamp_spec;
 use Moose;
 our $VERSION = '0.0.1';
 

@@ -1,4 +1,4 @@
-package oop_declare_data_in;
+package App::SeismicUnixGui::misc::oop_declare_data_in;
 use Moose;
 
 =pod

@@ -1,4 +1,4 @@
-package writefiles;
+package App::SeismicUnixGui::misc::writefiles;
 
 use Moose;
 

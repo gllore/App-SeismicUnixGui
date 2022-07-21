@@ -1,4 +1,4 @@
-package elamodel;
+package App::SeismicUnixGui::sunix::model::elamodel;
 
 =head2 SYNOPSIS
 

@@ -1,4 +1,4 @@
-package suxmax;
+package App::SeismicUnixGui::sunix::plot::suxmax;
 
 =head2 SYNOPSIS
 

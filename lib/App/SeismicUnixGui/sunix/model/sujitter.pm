@@ -1,4 +1,4 @@
-package sujitter;
+package App::SeismicUnixGui::sunix::model::sujitter;
 
 =head2 SYNOPSIS
 

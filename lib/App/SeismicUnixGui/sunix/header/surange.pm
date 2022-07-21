@@ -1,4 +1,4 @@
-package surange;
+package App::SeismicUnixGui::sunix::header::surange;
 
 =head1 DOCUMENTATION
 

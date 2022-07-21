@@ -1,4 +1,4 @@
-package suimp3d;
+package App::SeismicUnixGui::sunix::model::suimp3d;
 
 =head2 SYNOPSIS
 

@@ -1,4 +1,4 @@
-package setbhed_spec;
+package App::SeismicUnixGui::specs::header::setbhed_spec;
 use Moose;
 our $VERSION = '0.0.1';
 

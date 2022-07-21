@@ -1,4 +1,4 @@
-package suxmovie;
+package App::SeismicUnixGui::sunix::plot::suxmovie;
 
 =head1 DOCUMENTATION
 

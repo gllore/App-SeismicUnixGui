@@ -1,4 +1,4 @@
-package run_button;
+package App::SeismicUnixGui::misc::run_button;
 
 =head1 DOCUMENTATION
 

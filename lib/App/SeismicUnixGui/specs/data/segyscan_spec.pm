@@ -1,4 +1,4 @@
-package segyscan_spec;
+package App::SeismicUnixGui::specs::data::segyscan_spec;
 use Moose;
 our $VERSION = '0.0.1';
 

@@ -1,4 +1,4 @@
-package elacheck;
+package App::SeismicUnixGui::sunix::model::elacheck;
 
 =head2 SYNOPSIS
 

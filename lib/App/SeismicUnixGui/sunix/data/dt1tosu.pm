@@ -1,4 +1,4 @@
-package dt1tosu;
+package App::SeismicUnixGui::sunix::data::dt1tosu;
 
 =head2 SYNOPSIS
 

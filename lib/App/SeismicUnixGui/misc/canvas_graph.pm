@@ -1,4 +1,4 @@
-package canvas_graph;
+package App::SeismicUnixGui::misc::canvas_graph;
 
 =head1 DOCUMENTATION
 

@@ -1,4 +1,4 @@
-package neutral_flow;
+package App::SeismicUnixGui::misc::neutral_flow;
 
 =head1 DOCUMENTATION
 

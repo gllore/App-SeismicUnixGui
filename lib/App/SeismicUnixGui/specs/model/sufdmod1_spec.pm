@@ -1,4 +1,4 @@
-package sufdmod1_spec;
+package App::SeismicUnixGui::specs::model::sufdmod1_spec;
 use Moose;
 our $VERSION = '0.0.1';
 

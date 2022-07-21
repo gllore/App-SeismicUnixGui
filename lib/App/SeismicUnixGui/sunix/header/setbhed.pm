@@ -1,4 +1,4 @@
-package setbhed;
+package App::SeismicUnixGui::sunix::header::setbhed;
 
 =head2 SYNOPSIS
 

@@ -1,4 +1,4 @@
-package sugabor;
+package App::SeismicUnixGui::sunix::transform::sugabor;
 
 =head1 DOCUMENTATION
 

@@ -1,4 +1,4 @@
-package suxpicker;
+package App::SeismicUnixGui::sunix::plot::suxpicker;
 
 =head2 SYNOPSIS
 

@@ -1,4 +1,4 @@
-package surandstat_spec;
+package App::SeismicUnixGui::specs::model::surandstat_spec;
 use Moose;
 our $VERSION = '0.0.1';
 

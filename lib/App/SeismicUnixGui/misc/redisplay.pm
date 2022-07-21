@@ -1,4 +1,4 @@
-package redisplay;
+package App::SeismicUnixGui::misc::redisplay;
 
 use Moose;
 my ( $first, $last, $all );

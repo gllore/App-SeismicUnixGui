@@ -1,4 +1,4 @@
-package sumigsplit;
+package App::SeismicUnixGui::sunix::migration::sumigsplit;
 
 =head2 SYNOPSIS
 

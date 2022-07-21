@@ -1,4 +1,4 @@
-package param;
+package App::SeismicUnixGui::misc::param;
 use Moose;
 
 =head2 initialize shared anonymous hash 

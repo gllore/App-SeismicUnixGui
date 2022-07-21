@@ -1,4 +1,4 @@
-package param_flow_grey;
+package App::SeismicUnixGui::misc::param_flow_grey;
 
 =head1 DOCUMENTATION
 

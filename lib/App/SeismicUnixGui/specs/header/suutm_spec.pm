@@ -1,4 +1,4 @@
-package suutm_spec;
+package App::SeismicUnixGui::specs::header::suutm_spec;
 use Moose;
 our $VERSION = '0.0.1';
 

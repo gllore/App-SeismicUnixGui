@@ -1,4 +1,4 @@
-package supswigp_spec;
+package App::SeismicUnixGui::specs::plot::supswigp_spec;
 use Moose;
 our $VERSION = '0.0.1';
 

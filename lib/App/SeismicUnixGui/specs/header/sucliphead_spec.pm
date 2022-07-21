@@ -1,4 +1,4 @@
-package sucliphead_spec;
+package App::SeismicUnixGui::specs::header::sucliphead_spec;
 use Moose;
 our $VERSION = '0.0.1';
 

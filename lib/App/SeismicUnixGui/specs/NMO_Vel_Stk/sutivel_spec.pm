@@ -1,4 +1,4 @@
-package sutivel_spec;
+package App::SeismicUnixGui::specs::NMO_Vel_Stk::sutivel_spec;
 	use Moose;
 our $VERSION = '0.0.1';
 

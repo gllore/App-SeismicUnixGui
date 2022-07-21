@@ -1,4 +1,4 @@
-package swapbhed;
+package App::SeismicUnixGui::sunix::header::swapbhed;
 
 =head2 SYNOPSIS
 

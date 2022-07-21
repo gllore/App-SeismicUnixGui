@@ -1,4 +1,4 @@
-package segyclean;
+package App::SeismicUnixGui::sunix::header::segyclean;
 
 =head1 DOCUMENTATION
 

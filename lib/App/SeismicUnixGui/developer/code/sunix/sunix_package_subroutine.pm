@@ -1,4 +1,4 @@
-package sunix_package_subroutine;
+package App::SeismicUnixGui::developer::code::sunix::sunix_package_subroutine;
 use Moose;
 
 

@@ -1,4 +1,4 @@
-package subfilt;
+package App::SeismicUnixGui::sunix::filter::subfilt;
 
 =head2 SYNOPSIS
 

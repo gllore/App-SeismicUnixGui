@@ -1,4 +1,4 @@
-package save;
+package App::SeismicUnixGui::misc::save;
 use Moose;
 
 =head2 sub superflow 

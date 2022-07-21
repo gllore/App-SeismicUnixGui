@@ -1,4 +1,4 @@
-package old_data;
+package App::SeismicUnixGui::misc::old_data;
 
 use Moose;
 use App::SeismicUnixGui::misc::L_SU_global_constants;

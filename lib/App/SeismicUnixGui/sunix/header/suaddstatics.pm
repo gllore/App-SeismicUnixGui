@@ -1,4 +1,4 @@
-package suaddstatics;
+package App::SeismicUnixGui::sunix::header::suaddstatics;
 
 =head2 SYNOPSIS
 

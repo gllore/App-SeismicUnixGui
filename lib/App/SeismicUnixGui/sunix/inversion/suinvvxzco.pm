@@ -1,4 +1,4 @@
-package suinvvxzco;
+package App::SeismicUnixGui::sunix::inversion::suinvvxzco;
 
 =head2 SYNOPSIS
 

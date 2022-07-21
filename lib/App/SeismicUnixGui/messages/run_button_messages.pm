@@ -1,4 +1,4 @@
-package run_button_messages;
+package App::SeismicUnixGui::messages::run_button_messages;
 
 use Moose;
 

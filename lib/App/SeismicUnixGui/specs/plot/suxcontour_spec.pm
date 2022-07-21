@@ -1,4 +1,4 @@
-package suxcontour_spec;
+package App::SeismicUnixGui::specs::plot::suxcontour_spec;
 use Moose;
 our $VERSION = '0.0.1';
 

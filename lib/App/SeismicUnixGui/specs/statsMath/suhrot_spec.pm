@@ -1,4 +1,4 @@
-package suhrot_spec;
+package App::SeismicUnixGui::specs::statsMath::suhrot_spec;
 use Moose;
 our $VERSION = '0.0.1';
 

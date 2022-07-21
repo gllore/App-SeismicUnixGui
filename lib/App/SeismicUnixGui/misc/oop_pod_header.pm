@@ -1,4 +1,4 @@
-package oop_pod_header;
+package App::SeismicUnixGui::misc::oop_pod_header;
 use Moose;
 
 =head2 Default perl lines for the pod_headers of the file

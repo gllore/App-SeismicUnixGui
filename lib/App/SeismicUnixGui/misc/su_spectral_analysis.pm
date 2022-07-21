@@ -1,4 +1,4 @@
-package su_spectral_analysis;
+package App::SeismicUnixGui::misc::su_spectral_analysis;
 use Moose;
 
 =head1 DOCUMENTATION

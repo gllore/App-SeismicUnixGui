@@ -1,4 +1,4 @@
-package succfilt;
+package App::SeismicUnixGui::sunix::filter::succfilt;
 
 =head2 SYNOPSIS
 

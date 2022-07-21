@@ -1,4 +1,4 @@
-package suputgthr_spec;
+package App::SeismicUnixGui::specs::shell::suputgthr_spec;
 use Moose;
 our $VERSION = '0.0.1';
 

@@ -1,4 +1,4 @@
-package psmerge_spec;
+package App::SeismicUnixGui::specs::plot::psmerge_spec;
 use Moose;
 our $VERSION = '0.0.1';
 

@@ -1,4 +1,4 @@
-package immodpg_messages;
+package App::SeismicUnixGui::messages::immodpg_messages;
 
 use Moose;
 

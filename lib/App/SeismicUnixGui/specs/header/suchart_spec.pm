@@ -1,4 +1,4 @@
-package suchart_spec;
+package App::SeismicUnixGui::specs::header::suchart_spec;
 use Moose;
 our $VERSION = '0.0.1';
 

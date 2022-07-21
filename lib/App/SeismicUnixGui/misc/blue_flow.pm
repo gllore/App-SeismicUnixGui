@@ -1,4 +1,4 @@
-package blue_flow;
+package App::SeismicUnixGui::misc::blue_flow;
 
 =head1 DOCUMENTATION
 

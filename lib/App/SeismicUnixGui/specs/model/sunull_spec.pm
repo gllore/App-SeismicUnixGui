@@ -1,4 +1,4 @@
-package sunull_spec;
+package App::SeismicUnixGui::specs::model::sunull_spec;
 use Moose;
 our $VERSION = '0.0.1';
 

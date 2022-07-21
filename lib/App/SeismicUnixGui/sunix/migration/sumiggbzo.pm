@@ -1,4 +1,4 @@
-package sumiggbzo;
+package App::SeismicUnixGui::sunix::migration::sumiggbzo;
 
 =head2 SYNOPSIS
 

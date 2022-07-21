@@ -1,4 +1,4 @@
-package suremel2dan;
+package App::SeismicUnixGui::sunix::model::suremel2dan;
 
 =head2 SYNOPSIS
 

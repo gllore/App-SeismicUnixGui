@@ -1,4 +1,4 @@
-package grdgradient;
+package App::SeismicUnixGui::gmt::grdgradient;
 
 =head1 DOCUMENTATION
 

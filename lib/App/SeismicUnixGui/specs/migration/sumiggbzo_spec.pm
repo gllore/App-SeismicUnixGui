@@ -1,4 +1,4 @@
-package sumiggbzo_spec;
+package App::SeismicUnixGui::specs::migration::sumiggbzo_spec;
 use Moose;
 our $VERSION = '0.0.1';
 

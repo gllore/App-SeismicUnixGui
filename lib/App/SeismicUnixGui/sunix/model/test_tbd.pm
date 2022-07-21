@@ -1,4 +1,4 @@
-#use App::SeismicUnixGui::specs::model::suplane_spec;
+package App::SeismicUnixGui::sunix::model::test_tbd;
 #lib  "/usr/local/pl/App-SeismicUnixGui/lib/App/SeismicUnixGui/sunix/model";
 
 foreach my $path (@INC) {

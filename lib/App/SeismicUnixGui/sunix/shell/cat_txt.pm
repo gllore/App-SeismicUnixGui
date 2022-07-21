@@ -1,4 +1,4 @@
-package cat_txt;
+package App::SeismicUnixGui::sunix::shell::cat_txt;
 
 =head2 SYNOPSIS
 
@@ -65,8 +65,8 @@ chomp $SeismicUnixGui;
 $path = $SeismicUnixGui.'/'.'sunix/shell';
 
 }
-use lib "$path";
-extends 'cat_su';
+#use lib "$path";
+extends 'App::SeismicUnixGui::sunix::shell::cat_su';
 
 #=head2 Import packages
 #

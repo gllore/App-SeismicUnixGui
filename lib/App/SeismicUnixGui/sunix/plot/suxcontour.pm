@@ -1,4 +1,4 @@
-package suxcontour;
+package App::SeismicUnixGui::sunix::plot::suxcontour;
 
 =head2 SYNOPSIS
 

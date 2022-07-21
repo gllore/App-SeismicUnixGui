@@ -1,4 +1,4 @@
-package sutaup;
+package App::SeismicUnixGui::sunix::transform::sutaup;
 
 =head1 DOCUMENTATION
 

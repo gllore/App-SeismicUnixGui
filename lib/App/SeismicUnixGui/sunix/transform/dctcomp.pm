@@ -1,4 +1,4 @@
-package dctcomp;
+package App::SeismicUnixGui::sunix::transform::dctcomp;
 
 =head2 SYNOPSIS
 

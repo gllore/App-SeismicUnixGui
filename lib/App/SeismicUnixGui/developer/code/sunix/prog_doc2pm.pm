@@ -1,4 +1,4 @@
-package prog_doc2pm;
+package App::SeismicUnixGui::developer::code::sunix::prog_doc;
 
 =head1 DOCUMENTATION
 

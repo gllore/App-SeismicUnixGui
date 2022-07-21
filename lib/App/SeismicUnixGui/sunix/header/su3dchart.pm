@@ -1,4 +1,4 @@
-package su3dchart;
+package App::SeismicUnixGui::sunix::header::su3dchart;
 
 =head2 SYNOPSIS
 

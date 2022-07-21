@@ -1,4 +1,4 @@
-package oop_text;
+package App::SeismicUnixGui::misc::oop_text;
 
 =head2 for writing object-oriented perl lines of text
 		2018 V 0.0.2

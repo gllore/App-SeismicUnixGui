@@ -1,4 +1,4 @@
-package pscontour;
+package App::SeismicUnixGui::sunix::plot::pscontour;
 
 =head2 SYNOPSIS
 

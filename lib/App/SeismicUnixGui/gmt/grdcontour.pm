@@ -1,4 +1,4 @@
-package grdcontour;
+package App::SeismicUnixGui::gmt::grdcontour;
 
 =head1 DOCUMENTATION
 

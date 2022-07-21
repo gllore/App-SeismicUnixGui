@@ -1,4 +1,4 @@
-package oop_print_flows;
+package App::SeismicUnixGui::misc::oop_print_flows;
 use Moose;
 
 =head2 Default 

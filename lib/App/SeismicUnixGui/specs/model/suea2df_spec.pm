@@ -1,4 +1,4 @@
-package suea2df_spec;
+package App::SeismicUnixGui::specs::model::suea2df_spec;
 use Moose;
 our $VERSION = '0.0.1';
 

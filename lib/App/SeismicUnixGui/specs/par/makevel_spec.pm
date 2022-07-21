@@ -1,4 +1,4 @@
-package makevel_spec;
+package App::SeismicUnixGui::specs::par::makevel_spec;
 use Moose;
 our $VERSION = '0.0.1';
 

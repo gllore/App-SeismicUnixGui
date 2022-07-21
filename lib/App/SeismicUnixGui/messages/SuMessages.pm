@@ -1,4 +1,4 @@
-package SuMessages;
+package App::SeismicUnixGui::messages::SuMessages;
 
 use Moose;
 my $VERSION = '0.0.1';

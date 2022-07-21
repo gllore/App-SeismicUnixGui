@@ -1,4 +1,4 @@
-package sushw_spec;
+package App::SeismicUnixGui::specs::header::sushw_spec;
 use Moose;
 our $VERSION = '1.0.1';
 

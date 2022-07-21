@@ -1,4 +1,4 @@
-package sumute;
+package App::SeismicUnixGui::sunix::shapeNcut::sumute;
 
 =head1 DOCUMENTATION
 

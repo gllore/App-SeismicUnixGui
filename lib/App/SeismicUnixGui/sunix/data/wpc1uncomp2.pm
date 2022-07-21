@@ -1,4 +1,4 @@
-package wpc1uncomp2;
+package App::SeismicUnixGui::sunix::data::wpc1uncomp2;
 
 =head2 SYNOPSIS
 

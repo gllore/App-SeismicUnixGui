@@ -1,4 +1,4 @@
-package decisions;
+package App::SeismicUnixGui::misc::decisions;
 
 =head1 DOCUMENTATION
 

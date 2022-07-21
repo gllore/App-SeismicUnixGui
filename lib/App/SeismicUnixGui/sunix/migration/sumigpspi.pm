@@ -1,4 +1,4 @@
-package sumigpspi;
+package App::SeismicUnixGui::sunix::migration::sumigpspi;
 
 =head2 SYNOPSIS
 

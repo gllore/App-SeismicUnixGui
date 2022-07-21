@@ -1,4 +1,4 @@
-package succwt;
+package App::SeismicUnixGui::sunix::transform::succwt;
 
 =head1 DOCUMENTATION
 

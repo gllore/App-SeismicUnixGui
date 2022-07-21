@@ -1,4 +1,4 @@
-package perl_header;
+package App::SeismicUnixGui::misc::perl_header;
 use Moose;
 
 =head2 Default perl lines for the headers of the file

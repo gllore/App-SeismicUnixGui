@@ -1,4 +1,4 @@
-package su_select_waveform;
+package App::SeismicUnixGui::misc::su_select_waveform;
 
 =pod
 

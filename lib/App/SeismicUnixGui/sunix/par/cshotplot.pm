@@ -1,4 +1,4 @@
-package cshotplot;
+package App::SeismicUnixGui::sunix::par::cshotplot;
 
 =head2 SYNOPSIS
 

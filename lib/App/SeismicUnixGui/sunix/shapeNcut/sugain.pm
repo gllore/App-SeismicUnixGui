@@ -1,4 +1,4 @@
-package sugain;
+package App::SeismicUnixGui::sunix::shapeNcut::sugain;
 
 =head1 DOCUMENTATION
 

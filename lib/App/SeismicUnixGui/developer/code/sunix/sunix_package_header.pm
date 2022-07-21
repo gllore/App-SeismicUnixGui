@@ -1,4 +1,4 @@
-package sunix_package_header;
+package App::SeismicUnixGui::developer::code::sunix::sunix_package_header;
 use Moose;
 
 =head2 private hash

@@ -1,4 +1,4 @@
-package sustkvel_changes;
+package App::SeismicUnixGui::developer::code::sunix::sustkvel_changes;
 
 =head2 SYNOPSIS
 

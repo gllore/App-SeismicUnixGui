@@ -1,4 +1,4 @@
-package suspecfx;
+package App::SeismicUnixGui::sunix::transform::suspecfx;
 
 =head1 DOCUMENTATION
 

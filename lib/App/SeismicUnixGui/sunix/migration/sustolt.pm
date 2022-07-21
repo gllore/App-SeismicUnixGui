@@ -1,4 +1,4 @@
-package sustolt;
+package App::SeismicUnixGui::sunix::migration::sustolt;
 
 =head1 DOCUMENTATION
 

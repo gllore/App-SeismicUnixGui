@@ -1,4 +1,4 @@
-package sureduce;
+package App::SeismicUnixGui::sunix::NMO_Vel_Stk::sureduce;
 
 =head2 SYNOPSIS
 

@@ -1,4 +1,4 @@
-package param_widgets_green;
+package App::SeismicUnixGui::misc::param_widgets_green;
 
 =head1 DOCUMENTATION
 

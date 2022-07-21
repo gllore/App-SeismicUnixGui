@@ -1,4 +1,4 @@
-package suinterp;
+package App::SeismicUnixGui::sunix::statsMath::suinterp;
 
 =head1 DOCUMENTATION
 

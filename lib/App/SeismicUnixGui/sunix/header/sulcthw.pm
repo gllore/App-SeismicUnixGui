@@ -1,4 +1,4 @@
-package sulcthw;
+package App::SeismicUnixGui::sunix::header::sulcthw;
 
 =head2 SYNOPSIS
 

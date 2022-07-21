@@ -1,4 +1,4 @@
-package sukfilter;
+package App::SeismicUnixGui::sunix::filter::sukfilter;
 
 =head2 SYNOPSIS
 

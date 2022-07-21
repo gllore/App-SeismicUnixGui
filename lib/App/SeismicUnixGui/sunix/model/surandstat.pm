@@ -1,4 +1,4 @@
-package surandstat;
+package App::SeismicUnixGui::sunix::model::surandstat;
 
 =head2 SYNOPSIS
 

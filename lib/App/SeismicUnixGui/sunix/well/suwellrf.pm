@@ -1,4 +1,4 @@
-package suwellrf;
+package App::SeismicUnixGui::sunix::well::suwellrf;
 
 =head2 SYNOPSIS
 

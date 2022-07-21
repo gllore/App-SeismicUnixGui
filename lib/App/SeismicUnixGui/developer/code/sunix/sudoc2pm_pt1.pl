@@ -1,4 +1,4 @@
-package sudoc2pm_pt1;
+package App::SeismicUnixGui::developer::code::sunix::sudoc_pt1.pl;
 
 =head1 DOCUMENTATION
 

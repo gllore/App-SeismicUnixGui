@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 
-package gphistogram;
+package App::SeismicUnixGui::geopsy::gphistogram;
 use Moose;
 
 =pod

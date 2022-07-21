@@ -1,4 +1,4 @@
-package sudmotivz;
+package App::SeismicUnixGui::sunix::NMO_Vel_Stk::sudmotivz;
 
 =head2 SYNOPSIS
 

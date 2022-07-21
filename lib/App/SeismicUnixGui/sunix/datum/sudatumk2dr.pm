@@ -1,4 +1,4 @@
-package sudatumk2dr;
+package App::SeismicUnixGui::sunix::datum::sudatumk2dr;
 
 =head1 DOCUMENTATION
 

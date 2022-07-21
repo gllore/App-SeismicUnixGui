@@ -1,4 +1,4 @@
-package cp;
+package App::SeismicUnixGui::sunix::shell::cp;
 
 use Moose;
 

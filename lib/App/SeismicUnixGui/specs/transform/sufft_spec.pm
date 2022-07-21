@@ -1,4 +1,4 @@
-package sufft_spec;
+package App::SeismicUnixGui::specs::transform::sufft_spec;
 use Moose;
 our $VERSION = '0.0.1';
 

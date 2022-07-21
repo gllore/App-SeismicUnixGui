@@ -1,4 +1,4 @@
-package param_widgets_pink;
+package App::SeismicUnixGui::misc::param_widgets_pink;
 
 =head1 DOCUMENTATION
 

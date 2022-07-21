@@ -1,4 +1,4 @@
-package elatriuni_spec;
+package App::SeismicUnixGui::specs::model::elatriuni_spec;
 use Moose;
 our $VERSION = '0.0.1';
 

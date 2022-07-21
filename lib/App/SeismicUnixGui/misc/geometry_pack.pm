@@ -1,4 +1,4 @@
-package geometry_pack;
+package App::SeismicUnixGui::misc::geometry_pack;
 
 # geometry  package
 # Contains functions to do math with text

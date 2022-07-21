@@ -1,4 +1,4 @@
-package sustack;
+package App::SeismicUnixGui::sunix::NMO_Vel_Stk::sustack;
 
 =head1 DOCUMENTATION
 

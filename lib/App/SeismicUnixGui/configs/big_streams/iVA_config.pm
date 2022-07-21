@@ -1,4 +1,4 @@
-package iVA_config;
+package App::SeismicUnixGui::configs::big_streams::iVA_config;
 
 =head1 DOCUMENTATION
 

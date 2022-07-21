@@ -1,4 +1,4 @@
-package header_values;
+package App::SeismicUnixGui::sunix::header::header_values;
 
 =head1 DOCUMENTATION
 

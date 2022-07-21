@@ -1,4 +1,4 @@
-package susplit_spec;
+package App::SeismicUnixGui::specs::shapeNcut::susplit_spec;
 	use Moose;
 our $VERSION = '0.0.1';
 

@@ -1,4 +1,4 @@
-package psmovie;
+package App::SeismicUnixGui::sunix::plot::psmovie;
 
 =head2 SYNOPSIS
 

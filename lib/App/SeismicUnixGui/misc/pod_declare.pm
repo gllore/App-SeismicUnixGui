@@ -1,4 +1,4 @@
-package pod_declare;
+package App::SeismicUnixGui::misc::pod_declare;
 
 =head1 DOCUMENTATION
 

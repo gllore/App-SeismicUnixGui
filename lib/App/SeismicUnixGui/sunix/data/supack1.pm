@@ -1,4 +1,4 @@
-package supack1;
+package App::SeismicUnixGui::sunix::data::supack1;
 
 =head2 SYNOPSIS
 

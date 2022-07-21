@@ -1,4 +1,4 @@
-package perl_inbound;
+package App::SeismicUnixGui::misc::perl_inbound;
 use Moose;
 
 =head2 Default perl lines for the inbound files

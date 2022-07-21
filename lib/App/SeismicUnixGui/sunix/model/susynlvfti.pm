@@ -1,4 +1,4 @@
-package susynlvfti;
+package App::SeismicUnixGui::sunix::model::susynlvfti;
 
 =head2 SYNOPSIS
 

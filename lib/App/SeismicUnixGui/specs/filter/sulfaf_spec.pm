@@ -1,4 +1,4 @@
-package sulfaf_spec;
+package App::SeismicUnixGui::specs::filter::sulfaf_spec;
 use Moose;
 our $VERSION = '0.0.1';
 

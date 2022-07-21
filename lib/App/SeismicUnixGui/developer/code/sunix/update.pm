@@ -1,4 +1,4 @@
-package update;
+package App::SeismicUnixGui::developer::code::sunix::update;
 
 =head1 DOCUMENTATION
 

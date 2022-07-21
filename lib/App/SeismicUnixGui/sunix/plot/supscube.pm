@@ -1,4 +1,4 @@
-package supscube;
+package App::SeismicUnixGui::sunix::plot::supscube;
 
 =head2 SYNOPSIS
 

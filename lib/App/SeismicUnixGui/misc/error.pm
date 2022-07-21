@@ -1,4 +1,4 @@
-package error;
+package App::SeismicUnixGui::misc::error;
 use Moose;
 
 =head2 sub run_flow 

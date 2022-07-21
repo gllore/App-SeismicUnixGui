@@ -1,4 +1,4 @@
-package suvel2df;
+package App::SeismicUnixGui::sunix::NMO_Vel_Stk::suvel2df;
 
 =head2 SYNOPSIS
 

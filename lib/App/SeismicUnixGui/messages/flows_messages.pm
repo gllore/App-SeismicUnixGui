@@ -1,4 +1,4 @@
-package flows_messages;
+package App::SeismicUnixGui::messages::flows_messages;
 
 use Moose;
 

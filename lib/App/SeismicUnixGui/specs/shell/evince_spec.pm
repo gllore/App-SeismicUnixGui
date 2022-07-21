@@ -1,4 +1,4 @@
-package evince_spec;
+package App::SeismicUnixGui::specs::shell::evince_spec;
 use Moose;
 our $VERSION = '0.0.1';
 

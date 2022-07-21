@@ -1,4 +1,4 @@
-package suvelan_nsel;
+package App::SeismicUnixGui::sunix::NMO_Vel_Stk::suvelan_nsel;
 
 =head2 SYNOPSIS
 

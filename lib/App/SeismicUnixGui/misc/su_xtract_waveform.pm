@@ -1,5 +1,5 @@
 #!/usr/bin/perl
-package su_xtract_waveform;
+package App::SeismicUnixGui::misc::su_xtract_waveform;
 
 use Moose;
 

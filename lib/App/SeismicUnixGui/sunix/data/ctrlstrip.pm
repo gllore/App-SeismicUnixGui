@@ -1,4 +1,4 @@
-package ctrlstrip;
+package App::SeismicUnixGui::sunix::data::ctrlstrip;
 
 =head2 SYNOPSIS
 

@@ -1,4 +1,4 @@
-package psbbox_spec;
+package App::SeismicUnixGui::specs::plot::psbbox_spec;
 use Moose;
 our $VERSION = '0.0.1';
 

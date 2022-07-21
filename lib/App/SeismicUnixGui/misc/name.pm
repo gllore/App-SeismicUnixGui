@@ -1,4 +1,4 @@
-package name;
+package App::SeismicUnixGui::misc::name;
 
 use Moose;
 use App::SeismicUnixGui::misc::L_SU_global_constants;

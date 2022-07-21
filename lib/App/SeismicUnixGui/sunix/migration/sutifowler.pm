@@ -1,4 +1,4 @@
-package sutifowler;
+package App::SeismicUnixGui::sunix::migration::sutifowler;
 
 =head2 SYNOPSIS
 

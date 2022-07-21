@@ -1,4 +1,4 @@
-package segyscan;
+package App::SeismicUnixGui::sunix::data::segyscan;
 
 =head2 SYNOPSIS
 

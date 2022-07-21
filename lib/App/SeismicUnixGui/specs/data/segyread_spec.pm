@@ -1,4 +1,4 @@
-package segyread_spec;
+package App::SeismicUnixGui::specs::data::segyread_spec;
 use Moose;
 our $VERSION = '0.0.1';
 

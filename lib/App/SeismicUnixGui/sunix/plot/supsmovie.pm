@@ -1,4 +1,4 @@
-package supsmovie;
+package App::SeismicUnixGui::sunix::plot::supsmovie;
 
 =head2 SYNOPSIS
 

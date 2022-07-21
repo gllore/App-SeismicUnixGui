@@ -1,4 +1,4 @@
-package sukdmdcs_spec;
+package App::SeismicUnixGui::specs::datum::sukdmdcs_spec;
 use Moose;
 our $VERSION = '0.0.1';
 

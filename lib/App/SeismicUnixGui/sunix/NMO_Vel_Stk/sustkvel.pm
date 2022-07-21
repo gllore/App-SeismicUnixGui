@@ -1,4 +1,4 @@
-package sustkvel;
+package App::SeismicUnixGui::sunix::NMO_Vel_Stk::sustkvel;
 
 =head2 SYNOPSIS
 

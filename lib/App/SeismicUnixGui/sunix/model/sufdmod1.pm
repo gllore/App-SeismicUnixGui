@@ -1,4 +1,4 @@
-package sufdmod1;
+package App::SeismicUnixGui::sunix::model::sufdmod1;
 
 =head1 DOCUMENTATION
 

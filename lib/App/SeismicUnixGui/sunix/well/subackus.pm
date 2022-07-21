@@ -1,4 +1,4 @@
-package subackus;
+package App::SeismicUnixGui::sunix::well::subackus;
 
 =head2 SYNOPSIS
 

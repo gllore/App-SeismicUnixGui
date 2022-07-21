@@ -1,4 +1,4 @@
-package sumigpspi_spec;
+package App::SeismicUnixGui::specs::migration::sumigpspi_spec;
 use Moose;
 our $VERSION = '0.0.1';
 

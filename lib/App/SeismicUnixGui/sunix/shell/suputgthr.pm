@@ -1,4 +1,4 @@
-package suputgthr;
+package App::SeismicUnixGui::sunix::shell::suputgthr;
 
 =head2 SYNOPSIS
 

@@ -1,4 +1,4 @@
-package sushift_spec;
+package App::SeismicUnixGui::specs::NMO_Vel_Stk::sushift_spec;
 use Moose;
 our $VERSION = '0.0.1';
 

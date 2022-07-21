@@ -1,4 +1,4 @@
-package supscontour_spec;
+package App::SeismicUnixGui::specs::plot::supscontour_spec;
 use Moose;
 our $VERSION = '0.0.1';
 

@@ -1,4 +1,4 @@
-package suxwigb;
+package App::SeismicUnixGui::sunix::plot::suxwigb;
 
 =head1 DOCUMENTATION
 

@@ -1,4 +1,4 @@
-package suresstat;
+package App::SeismicUnixGui::sunix::header::suresstat;
 use Moose;
 
 =head1 DOCUMENTATION

@@ -1,4 +1,4 @@
-package gmt_package_instantiation;
+package App::SeismicUnixGui::developer::code::gmt::gmt_package_instantiation;
 use Moose;
 
 

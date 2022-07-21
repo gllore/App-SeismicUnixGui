@@ -1,4 +1,4 @@
-package color_listbox_messages;
+package App::SeismicUnixGui::messages::color_listbox_messages;
 
 use Moose;
 

@@ -1,4 +1,4 @@
-package elasyn;
+package App::SeismicUnixGui::sunix::model::elasyn;
 
 =head2 SYNOPSIS
 

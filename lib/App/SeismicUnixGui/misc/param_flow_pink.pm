@@ -1,4 +1,4 @@
-package param_flow_pink;
+package App::SeismicUnixGui::misc::param_flow_pink;
 
 =head1 DOCUMENTATION
 

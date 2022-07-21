@@ -1,4 +1,4 @@
-package suremel2dan_spec;
+package App::SeismicUnixGui::specs::model::suremel2dan_spec;
 use Moose;
 our $VERSION = '0.0.1';
 

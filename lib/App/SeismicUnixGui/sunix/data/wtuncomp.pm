@@ -1,4 +1,4 @@
-package wtuncomp;
+package App::SeismicUnixGui::sunix::data::wtuncomp;
 
 =head2 SYNOPSIS
 

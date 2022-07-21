@@ -1,4 +1,4 @@
-package sustatic;
+package App::SeismicUnixGui::sunix::header::sustatic_old;
 use Moose;
 
 =head1 DOCUMENTATION

@@ -1,4 +1,4 @@
-package raydata;
+package App::SeismicUnixGui::sunix::model::raydata;
 
 =head2 SYNOPSIS
 

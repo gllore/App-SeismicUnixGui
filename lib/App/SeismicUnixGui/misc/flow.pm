@@ -1,4 +1,4 @@
-package flow;
+package App::SeismicUnixGui::misc::flow;
 
 =head1 DOCUMENTATION
 

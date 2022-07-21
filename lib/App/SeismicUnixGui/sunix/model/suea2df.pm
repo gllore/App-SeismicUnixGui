@@ -1,4 +1,4 @@
-package suea2df;
+package App::SeismicUnixGui::sunix::model::suea2df;
 
 =head1 DOCUMENTATION
 

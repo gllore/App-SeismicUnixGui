@@ -1,4 +1,4 @@
-package suconv_spec;
+package App::SeismicUnixGui::specs::statsMath::suconv_spec;
 use Moose;
 our $VERSION = '0.0.1';
 

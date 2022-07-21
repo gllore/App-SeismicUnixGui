@@ -1,4 +1,4 @@
-package sumigtk;
+package App::SeismicUnixGui::sunix::migration::sumigtk;
 
 =head2 SYNOPSIS
 

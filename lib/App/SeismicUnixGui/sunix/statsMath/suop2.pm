@@ -1,4 +1,4 @@
-package suop2;
+package App::SeismicUnixGui::sunix::statsMath::suop2;
 
 =head1 DOCUMENTATION
 

@@ -1,4 +1,4 @@
-package psmerge;
+package App::SeismicUnixGui::sunix::plot::psmerge;
 
 =head2 SYNOPSIS
 

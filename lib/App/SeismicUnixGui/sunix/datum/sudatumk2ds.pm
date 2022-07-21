@@ -1,4 +1,4 @@
-package sudatumk2ds;
+package App::SeismicUnixGui::sunix::datum::sudatumk2ds;
 
 =head2 SYNOPSIS
 

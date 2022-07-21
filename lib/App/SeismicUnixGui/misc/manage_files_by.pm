@@ -1,4 +1,4 @@
-package manage_files_by;
+package App::SeismicUnixGui::misc::manage_files_by;
 
 # manage_files_by  class
 # Contains methods/subroutines/functions to operate on directories

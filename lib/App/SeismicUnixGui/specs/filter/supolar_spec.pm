@@ -1,4 +1,4 @@
-package supolar_spec;
+package App::SeismicUnixGui::specs::filter::supolar_spec;
 	use Moose;
 our $VERSION = '0.0.1';
 

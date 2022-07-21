@@ -1,4 +1,4 @@
-package big_streams_param;
+package App::SeismicUnixGui::misc::big_streams_param;
 
 =head1 DOCUMENTATION
 

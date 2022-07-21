@@ -1,4 +1,4 @@
-package pod_run_flows;
+package App::SeismicUnixGui::misc::pod_run_flows;
 use Moose;
 
 =head2 Default pod lines for   

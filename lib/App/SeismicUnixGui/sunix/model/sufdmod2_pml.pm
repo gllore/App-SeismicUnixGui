@@ -1,4 +1,4 @@
-package sufdmod2_pml;
+package App::SeismicUnixGui::sunix::model::sufdmod2l;
 
 =head2 SYNOPSIS
 

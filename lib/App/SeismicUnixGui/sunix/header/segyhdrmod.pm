@@ -1,4 +1,4 @@
-package segyhdrmod;
+package App::SeismicUnixGui::sunix::header::segyhdrmod;
 
 =head2 SYNOPSIS
 

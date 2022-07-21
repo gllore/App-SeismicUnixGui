@@ -1,4 +1,4 @@
-package param_sunix;
+package App::SeismicUnixGui::misc::param_sunix;
 
 =head1 DOCUMENTATION
 

@@ -1,4 +1,4 @@
-package suop_spec;
+package App::SeismicUnixGui::specs::statsMath::suop_spec;
 use Moose;
 our $VERSION = '1.0.1';
 

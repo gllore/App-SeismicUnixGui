@@ -1,4 +1,4 @@
-package oop_declaration_defaults;
+package App::SeismicUnixGui::misc::oop_declaration_defaults;
 
 use Moose;
 our $VERSION = '0.0.2';

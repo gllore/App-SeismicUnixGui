@@ -1,4 +1,4 @@
-package susyncz;
+package App::SeismicUnixGui::sunix::model::susyncz;
 
 =head2 SYNOPSIS
 

@@ -1,4 +1,4 @@
-package gui_history;
+package App::SeismicUnixGui::misc::gui_history;
 
 =head1 DOCUMENTATION
 

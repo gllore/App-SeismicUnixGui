@@ -1,4 +1,4 @@
-package las2su_spec;
+package App::SeismicUnixGui::specs::well::las2su_spec;
 use Moose;
 our $VERSION = '0.0.1';
 

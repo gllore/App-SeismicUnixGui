@@ -1,4 +1,4 @@
-package ftnstrip;
+package App::SeismicUnixGui::sunix::par::ftnstrip;
 
 =head2 SYNOPSIS
 

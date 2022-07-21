@@ -1,4 +1,4 @@
-package suattributes;
+package App::SeismicUnixGui::sunix::statsMath::suattributes;
 
 =head1 DOCUMENTATION
 

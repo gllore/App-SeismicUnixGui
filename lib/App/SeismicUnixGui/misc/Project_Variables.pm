@@ -1,4 +1,4 @@
-package Project_Variables;
+package App::SeismicUnixGui::misc::Project_Variables;
 
 # DATE      format is DAY MONTH YEAR
 # ENVIRONMENT VARIABLES FOR THIS PROJECT

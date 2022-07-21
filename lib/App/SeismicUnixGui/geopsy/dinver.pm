@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 
-package dinver;
+package App::SeismicUnixGui::geopsy::dinver;
 use Moose;
 
 =pod

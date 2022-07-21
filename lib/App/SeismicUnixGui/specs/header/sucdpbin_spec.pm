@@ -1,4 +1,4 @@
-package sucdpbin_spec;
+package App::SeismicUnixGui::specs::header::sucdpbin_spec;
 use Moose;
 our $VERSION = '0.0.1';
 

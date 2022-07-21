@@ -1,4 +1,4 @@
-package unif2;
+package App::SeismicUnixGui::misc::unif2;
 use Moose;
 
 =head1 DOCUMENTATION

@@ -1,4 +1,4 @@
-package suaddhead_spec;
+package App::SeismicUnixGui::specs::header::suaddhead_spec;
 use Moose;
 our $VERSION = '0.0.1';
 

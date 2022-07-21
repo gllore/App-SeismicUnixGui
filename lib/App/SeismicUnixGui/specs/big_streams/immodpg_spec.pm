@@ -1,4 +1,4 @@
-package immodpg_spec;
+package App::SeismicUnixGui::specs::big_streams::immodpg_spec;
 our $VERSION = '0.0.1';
 use Moose;
 use App::SeismicUnixGui::configs::big_streams::Project_config;

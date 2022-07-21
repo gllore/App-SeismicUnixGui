@@ -1,4 +1,4 @@
-package segywrite;
+package App::SeismicUnixGui::sunix::data::segywrite;
 
 =head1 DOCUMENTATION
 

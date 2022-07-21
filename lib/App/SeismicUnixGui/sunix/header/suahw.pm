@@ -1,4 +1,4 @@
-package suahw;
+package App::SeismicUnixGui::sunix::header::suahw;
 
 =head2 SYNOPSIS
 

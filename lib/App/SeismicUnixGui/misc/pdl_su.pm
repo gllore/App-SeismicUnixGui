@@ -1,4 +1,4 @@
-package pdl_su;
+package App::SeismicUnixGui::misc::pdl_su;
 
 =head1 DOCUMENTATION
 

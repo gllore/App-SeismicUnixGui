@@ -1,4 +1,4 @@
- package unisam2;
+package App::SeismicUnixGui::sunix::par::unisam2;
 
 
 =head1 DOCUMENTATION

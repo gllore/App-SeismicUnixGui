@@ -1,4 +1,4 @@
-package a2i;
+package App::SeismicUnixGui::sunix::par::a2i;
 
 =head2 SYNOPSIS
 

@@ -1,4 +1,4 @@
-package sunix_package_pod;
+package App::SeismicUnixGui::developer::code::sunix::sunix_package_pod;
 use Moose;
 
 =head2 encapsualted variables

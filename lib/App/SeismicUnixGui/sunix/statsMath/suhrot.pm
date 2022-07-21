@@ -1,4 +1,4 @@
-package suhrot;
+package App::SeismicUnixGui::sunix::statsMath::suhrot;
 
 =head2 SYNOPSIS
 

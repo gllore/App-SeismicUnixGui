@@ -1,4 +1,4 @@
-package check_buttons;
+package App::SeismicUnixGui::misc::check_buttons;
 
 use Moose;
 use Tk;

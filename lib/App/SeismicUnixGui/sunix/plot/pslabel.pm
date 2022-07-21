@@ -1,4 +1,4 @@
-package pslabel;
+package App::SeismicUnixGui::sunix::plot::pslabel;
 
 =head2 SYNOPSIS
 

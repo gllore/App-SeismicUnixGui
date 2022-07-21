@@ -1,4 +1,4 @@
-package superflows_config;
+package App::SeismicUnixGui::misc::superflows_config;
 use Moose;
 
 my $path;

@@ -1,4 +1,4 @@
-package a2b;
+package App::SeismicUnixGui::sunix::par::a2b;
 
 =head1 DOCUMENTATION
 

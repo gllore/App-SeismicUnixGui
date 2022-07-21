@@ -1,4 +1,4 @@
-package sutaupnmo;
+package App::SeismicUnixGui::sunix::NMO_Vel_Stk::sutaupnmo;
 
 =head2 SYNOPSIS
 

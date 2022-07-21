@@ -1,4 +1,4 @@
-package suflip;
+package App::SeismicUnixGui::sunix::shapeNcut::suflip;
 
 =head2 SYNOPSIS
 

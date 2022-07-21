@@ -1,4 +1,4 @@
-package perl_use_pkg;
+package App::SeismicUnixGui::misc::perl_use_pkg;
 use Moose;
 
 =head2 Default perl lines for instantiation

@@ -1,4 +1,4 @@
-package color_listbox;
+package App::SeismicUnixGui::misc::color_listbox;
 
 =head1 DOCUMENTATION
 =head2 SYNOPSIS 

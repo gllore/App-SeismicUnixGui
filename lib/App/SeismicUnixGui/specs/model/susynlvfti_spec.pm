@@ -1,4 +1,4 @@
-package susynlvfti_spec;
+package App::SeismicUnixGui::specs::model::susynlvfti_spec;
 use Moose;
 our $VERSION = '0.0.1';
 

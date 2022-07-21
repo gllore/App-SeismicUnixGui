@@ -1,4 +1,4 @@
-package suxcor;
+package App::SeismicUnixGui::sunix::statsMath::suxcor;
 
 =head1 DOCUMENTATION
 

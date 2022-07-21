@@ -1,4 +1,4 @@
-package makecpt;
+package App::SeismicUnixGui::gmt::makecpt;
 
 =head1 DOCUMENTATION
 

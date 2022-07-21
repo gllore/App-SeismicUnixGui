@@ -1,4 +1,4 @@
-package sulog;
+package App::SeismicUnixGui::sunix::NMO_Vel_Stk::sulog;
 
 =head2 SYNOPSIS
 

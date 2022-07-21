@@ -1,4 +1,4 @@
-package sukdsyn2d_spec;
+package App::SeismicUnixGui::specs::model::sukdsyn2d_spec;
 use Moose;
 our $VERSION = '0.0.1';
 

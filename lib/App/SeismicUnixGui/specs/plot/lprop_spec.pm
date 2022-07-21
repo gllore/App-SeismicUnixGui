@@ -1,4 +1,4 @@
-package lprop_spec;
+package App::SeismicUnixGui::specs::plot::lprop_spec;
 use Moose;
 our $VERSION = '0.0.1';
 
