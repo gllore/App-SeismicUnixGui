@@ -1,4 +1,4 @@
-package iSelect_xt;
+package App::SeismicUnixGui::big_streams::iSelect_xt;
 
 =head1 DOCUMENTATION
 

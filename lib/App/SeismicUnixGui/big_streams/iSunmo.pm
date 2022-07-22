@@ -1,4 +1,4 @@
-package iSunmo;
+package App::SeismicUnixGui::big_streams::iSunmo;
 
 =head1 DOCUMENTATION
 

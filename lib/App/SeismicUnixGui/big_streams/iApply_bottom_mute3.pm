@@ -1,4 +1,4 @@
-package iApply_bottom_mute3;
+package App::SeismicUnixGui::big_streams::iApply_bottom_mute3;
 
 =head1 DOCUMENTATION
 

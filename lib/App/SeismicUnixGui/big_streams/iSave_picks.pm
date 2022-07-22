@@ -1,4 +1,4 @@
-package iSave_picks;
+package App::SeismicUnixGui::big_streams::iSave_picks;
 
 use Moose;
 

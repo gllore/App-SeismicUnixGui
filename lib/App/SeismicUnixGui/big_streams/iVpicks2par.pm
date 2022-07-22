@@ -1,4 +1,4 @@
-package iVpicks2par;
+package App::SeismicUnixGui::big_streams::iVpicks2par;
 
 use Moose;
 use App::SeismicUnixGui::misc::L_SU_global_constants;

@@ -1,4 +1,4 @@
-package iPicks2sort;
+package App::SeismicUnixGui::big_streams::iPicks2sort;
 
 use Moose;
 use App::SeismicUnixGui::misc::L_SU_global_constants;

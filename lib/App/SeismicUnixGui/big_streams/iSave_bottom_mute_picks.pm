@@ -1,4 +1,4 @@
-package iSave_bottom_mute_picks;
+package App::SeismicUnixGui::big_streams::iSave_bottom_mute_picks;
 
 use Moose;
 use App::SeismicUnixGui::misc::message;

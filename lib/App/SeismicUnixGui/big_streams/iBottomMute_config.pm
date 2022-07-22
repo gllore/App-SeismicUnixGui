@@ -1,4 +1,4 @@
-package iBottomMute_config;
+package App::SeismicUnixGui::big_streams::iBottomMute_config;
 
 =head1 DOCUMENTATION
 

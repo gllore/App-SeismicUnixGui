@@ -1,4 +1,4 @@
-package iShowNselect_picks;
+package App::SeismicUnixGui::big_streams::iShowNselect_picks;
 
 =head1 DOCUMENTATION
 

@@ -1,4 +1,4 @@
-package iSave_mute_picks;
+package App::SeismicUnixGui::big_streams::iSave_mute_picks;
 
 use Moose;
 

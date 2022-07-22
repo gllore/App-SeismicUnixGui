@@ -1,4 +1,4 @@
-package iApply_mute;
+package App::SeismicUnixGui::big_streams::iApply_mute;
 
 =head1 DOCUMENTATION
 

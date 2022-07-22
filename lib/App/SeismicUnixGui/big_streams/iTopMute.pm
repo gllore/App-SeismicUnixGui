@@ -1,4 +1,4 @@
-package iTopMute;
+package App::SeismicUnixGui::big_streams::iTopMute;
 
 =head1 DOCUMENTATION
 

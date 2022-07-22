@@ -1,4 +1,4 @@
-package iPick;
+package App::SeismicUnixGui::big_streams::iPick;
 
 =head1 DOCUMENTATION
 

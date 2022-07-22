@@ -1,4 +1,4 @@
-package iWrite_All_iva_out;
+package App::SeismicUnixGui::big_streams::iWrite_All_iva_out;
 
 # CLASSES
 use Moose;

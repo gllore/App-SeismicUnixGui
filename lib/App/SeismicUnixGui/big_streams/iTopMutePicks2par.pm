@@ -1,4 +1,4 @@
-package iTopMutePicks2par;
+package App::SeismicUnixGui::big_streams::iTopMutePicks2par;
 
 use Moose;
 use App::SeismicUnixGui::misc::message;

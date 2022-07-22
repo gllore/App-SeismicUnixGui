@@ -1,4 +1,4 @@
-package immodpg_global_constants;
+package App::SeismicUnixGui::big_streams::immodpg_global_constants;
 
 use Moose;
 

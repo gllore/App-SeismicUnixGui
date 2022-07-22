@@ -1,4 +1,4 @@
-package iSuvelan;
+package App::SeismicUnixGui::big_streams::iSuvelan;
 
 =head1 DOCUMENTATION
 

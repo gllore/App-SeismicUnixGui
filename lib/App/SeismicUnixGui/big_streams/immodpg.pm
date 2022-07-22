@@ -1,4 +1,4 @@
-package immodpg;
+package App::SeismicUnixGui::big_streams::immodpg;
 
 =head1 DOCUMENTATION
 

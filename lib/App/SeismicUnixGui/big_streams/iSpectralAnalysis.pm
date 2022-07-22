@@ -1,4 +1,4 @@
-package iSpectralAnalysis;
+package App::SeismicUnixGui::big_streams::iSpectralAnalysis;
 
 =head1 DOCUMENTATION
 

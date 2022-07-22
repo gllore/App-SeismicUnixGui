@@ -1,4 +1,4 @@
-package Synseis;
+package App::SeismicUnixGui::big_streams::Synseis;
 
 =pod
 

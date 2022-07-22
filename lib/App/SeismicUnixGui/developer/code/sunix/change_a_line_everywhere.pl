@@ -31,7 +31,7 @@ Based on change_a_line V0.1
 Look at every file with a .pm and .pl extension
 Requires looking at all files within the 
 following categories (See L_SU_global_constants) 
-SU, GEN, SPECS, GUI
+SU, GEN, SPECS, GUI, TOOLS
 
 1. for each of 4 categories get
 CATEGORY[ABS_PATHs][FILmy $line2find_use = '\s*use\s';E_NAMEs] = 'full path and file name'
@@ -73,7 +73,12 @@ my $L_SU_global_constants = L_SU_global_constants->new();
 
 =cut
 
-my $line2find    = '^package\s\w+\;';
+#type1
+#my $line2find    = '^package\s\w+\;';
+
+#type2
+my $line2find       = '^use\sApp::SeismicUnixGui(.+\w)+::(?!SeismicUnix)';
+
 
 =head2 Important definitions 
 
@@ -126,17 +131,17 @@ my $child_directory_su_number_of  = $dimension_su[1];
 
 my @su_pathNfile = @$su_pathNfile_aref;
 
-_set_parent_directory_number_of($parent_directory_su_number_of);
-_set_child_directory_number_of($child_directory_su_number_of);
-_set_pathNfile_aref($su_pathNfile_aref);
-my $su_aref = _get_line_of_interest_aref();
-my @line_of_interest_su_aref =@$su_aref;
-_set_line_of_interest_aref($su_aref);
-_set_replacement_type1();
+#_set_parent_directory_number_of($parent_directory_su_number_of);
+#_set_child_directory_number_of($child_directory_su_number_of);
+#_set_pathNfile_aref($su_pathNfile_aref);
+#my $su_aref = _get_line_of_interest_aref();
+#my @line_of_interest_su_aref =@$su_aref;
+#_set_line_of_interest_aref($su_aref);
+#_set_replacement_type1();
 
 =head2 Get all the files and their full paths
 
-from the GEN category and replace them
+from the GEN category and replace them(
 
 =cut
 
@@ -161,14 +166,13 @@ my $child_directory_gen_number_of  = $dimension_gen[1];
 
 my @gen_pathNfile = @$gen_pathNfile_aref;
 
-_set_parent_directory_number_of($parent_directory_gen_number_of);
-_set_child_directory_number_of($child_directory_gen_number_of);
-_set_pathNfile_aref($gen_pathNfile_aref);
-my $gen_aref = _get_line_of_interest_aref();
-my @line_of_interest_gen_aref =@$gen_aref;
-_set_line_of_interest_aref($gen_aref);
-_set_replacement_type1();
-
+#_set_parent_directory_number_of($parent_directory_gen_number_of);
+#_set_child_directory_number_of($child_directory_gen_number_of);
+#_set_pathNfile_aref($gen_pathNfile_aref);
+#my $gen_aref = _get_line_of_interest_aref();
+#my @line_of_interest_gen_aref =@$gen_aref;
+#_set_line_of_interest_aref($gen_aref);
+#_set_replacement_type2();
 
 
 =head2 Get all the files and their full paths
@@ -198,13 +202,13 @@ my $child_directory_specs_number_of  = $dimension_specs[1];
   
  my @gspecs_pathNfile = @$specs_pathNfile_aref;
 
-_set_parent_directory_number_of($parent_directory_specs_number_of);
-_set_child_directory_number_of($child_directory_specs_number_of);
-_set_pathNfile_aref($specs_pathNfile_aref);
-my $specs_aref = _get_line_of_interest_aref();
-my @line_of_interest_specs_aref =@$specs_aref;
-_set_line_of_interest_aref($specs_aref);
-_set_replacement_type1(); 
+#_set_parent_directory_number_of($parent_directory_specs_number_of);
+#_set_child_directory_number_of($child_directory_specs_number_of);
+#_set_pathNfile_aref($specs_pathNfile_aref);
+#my $specs_aref = _get_line_of_interest_aref();
+#my @line_of_interest_specs_aref =@$specs_aref;
+#_set_line_of_interest_aref($specs_aref);
+#_set_replacement_type1(); 
   
 
 =head2 Get all the files and their full paths
@@ -230,17 +234,51 @@ my @dimension_gui                  = @$gui_dimension_aref;
 my $parent_directory_gui_number_of = $dimension_gui[0];
 my $child_directory_gui_number_of  = $dimension_gui[1];
 
-print("parent_directory_gui_number_of=$parent_directory_gui_number_of\n");
-print("child_directory_gui_number_of=$child_directory_gui_number_of\n");
+#print("parent_directory_gui_number_of=$parent_directory_gui_number_of\n");
+#print("child_directory_gui_number_of=$child_directory_gui_number_of\n");
 
-_set_parent_directory_number_of($parent_directory_gui_number_of);
-_set_child_directory_number_of($child_directory_gui_number_of);
-_set_pathNfile_aref($gui_pathNfile_aref);
-my $gui_aref = _get_line_of_interest_aref();
-my @line_of_interest_gui_aref =@$gui_aref;
-_set_line_of_interest_aref($gui_aref);
-_set_replacement_type1(); 
+#_set_parent_directory_number_of($parent_directory_gui_number_of);
+#_set_child_directory_number_of($child_directory_gui_number_of);
+#_set_pathNfile_aref($gui_pathNfile_aref);
+#my $gui_aref = _get_line_of_interest_aref();
+#my @line_of_interest_gui_aref =@$gui_aref;
+#_set_line_of_interest_aref($gui_aref);
+#_set_replacement_type1(); 
 
+
+=head2 Get all the files and their full paths
+
+from the TOOLS category
+
+=cut
+
+$L_SU_global_constants->set_CHILD_DIR_type('TOOLS');
+$L_SU_global_constants->set_PARENT_DIR_type('TOOLS');
+$L_SU_global_constants->set_GRANDPARENT_DIR($GRANDPARENT_DIR);
+my ( $tools_pathNfile_aref, $tools_dimension_aref ) =
+  $L_SU_global_constants->get_pathNfile2search();
+
+
+=head2 search for lines of interest
+
+in TOOLS-type files and replace them
+
+=cut 
+
+my @dimension_tools                  = @$tools_dimension_aref;
+my $parent_directory_tools_number_of = $dimension_tools[0];
+my $child_directory_tools_number_of  = $dimension_tools[1];
+
+print("parent_directory_tools_number_of=$parent_directory_tools_number_of\n");
+print("child_directory_tools_number_of=$child_directory_tools_number_of\n");
+
+_set_parent_directory_number_of($parent_directory_tools_number_of);
+_set_child_directory_number_of($child_directory_tools_number_of);
+_set_pathNfile_aref($tools_pathNfile_aref);
+my $tools_aref = _get_line_of_interest_aref();
+my @line_of_interest_tools_aref =@$tools_aref;
+_set_line_of_interest_aref($tools_aref);
+_set_replacement_type2(); 
 
 =head2 _get_line_of_interest_aref
 
@@ -269,8 +307,6 @@ sub _get_line_of_interest_aref {
 			# print("starting inner count=$count; parent=$parent\n");
 			my @pathNfile_list        = @{ $pathNfile[$parent][$child] };
 			my $pathNfile_list_length = scalar @pathNfile_list;
-
-			#		$pathNfile_list_length = 1;
 
 			for (
 				my $i = 0, my $j = $count_idx ;
@@ -302,7 +338,7 @@ sub _get_line_of_interest_aref {
 
 						push @line_of_interest4file, $j;
 
-						# print("loi=$j at $pathNfile_list[$i]\n");
+						print("string=$string loi=$j at $pathNfile_list[$i]\n");
 
 					}
 				}    # lines in a file
@@ -407,6 +443,90 @@ for ( my $parent = 0 ; $parent < $parent_directory_number_of ; $parent++ ) {
 
 } # sub relace line of interest
 
+
+
+=head2 set_replacement_type2
+
+replace line of interest
+
+=cut
+
+sub _set_replacement_type2 {
+
+	my ($self) = @_;
+
+	my $child_directory_number_of =
+	  $change_a_line->{_child_directory_number_of};
+	my $parent_directory_number_of =
+	  $change_a_line->{_parent_directory_number_of};
+	my @pathNfile 	= @{ $change_a_line->{_pathNfile_aref} };
+	my @line_of_interest_aref = @{ $change_a_line->{_line_of_interest_aref} };
+
+
+for ( my $parent = 0 ; $parent < $parent_directory_number_of ; $parent++ ) {
+
+	for ( my $child = 0 ; $child < $child_directory_number_of ; $child++ ) {
+
+		my @pathNfile_list        = @{ $pathNfile[$parent][$child] };
+		my $pathNfile_list_length = scalar @pathNfile_list;
+
+		for ( my $i = 0 ; $i < $pathNfile_list_length ; $i++ ) {
+
+			# slurp every file
+			$manage_files_by2->set_pathNfile( $pathNfile_list[$i] );
+			my $slurp_ref = manage_files_by2->get_whole( $pathNfile_list[$i] );
+			my @slurp     = @$slurp_ref;
+
+			my @line_number =
+			  @{ $line_of_interest_aref[$parent][$child][$i] };
+			my $line_number_of = scalar @line_number;
+
+			if ( $line_number_of > 0 ) {
+
+				foreach my $line (@line_number) {
+
+					chomp $slurp[$line];
+					print $slurp[$line]."\n";
+					
+					if(  not ($slurp[$line] =~ m/\'/) )  {  #skip version cases
+					
+					# substitute "use App" with "use aliased 'App"
+					$slurp[$line] =~ s/use\sApp/use aliased 'App/g;
+					$slurp[$line] =~ s/;/\';/;
+					print("new line =$slurp[$line]\n");
+						
+					}
+
+
+				}
+
+				print("Hit Enter to continue\n");
+				<STDIN>;
+
+#				open( OUT, ">$pathNfile_list[$i]" )
+#				  or die("File $pathNfile_list[$i] not found");
+
+				foreach my $text (@slurp) {
+#					printf OUT $text . "\n";    # add \n!!!!
+#					print("$text \n");
+				}
+
+				close(OUT);
+
+			}
+			else {
+				#				print("\npathNfile_list=$pathNfile_list[$i]\n");
+				#				print("main,no matching lines detected\n");
+			}
+
+		}    # for files in a list
+
+	}    # for each child directory
+
+}    #for each parent directory
+
+
+} # sub relace line of interest
 
 
 =head2 sub _set_child_directory_number_of 

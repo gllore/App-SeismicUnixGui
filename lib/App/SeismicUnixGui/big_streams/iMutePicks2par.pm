@@ -1,4 +1,4 @@
-package iMutePicks2par;
+package App::SeismicUnixGui::big_streams::iMutePicks2par;
 
 =head1 DOCUMENTATION
 

@@ -1,4 +1,4 @@
-package iBottomMute;
+package App::SeismicUnixGui::big_streams::iBottomMute;
 
 =head1 DOCUMENTATION
 =head2 SYNOPSIS 

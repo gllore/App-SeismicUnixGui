@@ -1,4 +1,4 @@
-package iVrms2Vint;
+package App::SeismicUnixGui::big_streams::iVrms2Vint;
 
 use Moose;
 our $VERSION = '1.0.0';

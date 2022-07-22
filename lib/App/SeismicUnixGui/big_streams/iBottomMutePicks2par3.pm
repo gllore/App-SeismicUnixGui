@@ -1,4 +1,4 @@
-package iBottomMutePicks2par3;
+package App::SeismicUnixGui::big_streams::iBottomMutePicks2par3;
 
 use Moose;
 use App::SeismicUnixGui::misc::message;

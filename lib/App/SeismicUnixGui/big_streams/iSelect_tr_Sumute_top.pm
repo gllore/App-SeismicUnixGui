@@ -1,4 +1,4 @@
-package iSelect_tr_Sumute_top;
+package App::SeismicUnixGui::big_streams::iSelect_tr_Sumute_top;
 
 =head1 DOCUMENTATION
 

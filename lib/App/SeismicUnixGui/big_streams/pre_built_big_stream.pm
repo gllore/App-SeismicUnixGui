@@ -1,4 +1,4 @@
-package pre_built_big_stream;
+package App::SeismicUnixGui::big_streams::pre_built_big_stream;
 
 =head1 DOCUMENTATION
 
