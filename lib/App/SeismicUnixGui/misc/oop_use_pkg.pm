@@ -8,9 +8,9 @@ use Moose;
 
 my @use;
 $use[0] = "\t" . 'use Moose;' . "\n";
-$use[1] = "\t" . 'use App::SeismicUnixGui::misc::SeismicUnix qw ($in $out $on $go $to $suffix_ascii $off $suffix_segd $suffix_segy $suffix_sgy $suffix_su $suffix_segd $suffix_txt $suffix_bin);' . "\n";
+$use[1] = "\t" . 'use App::SeismicUnixGui::misc::SeismicUnix qw($in $out $on $go $to $suffix_ascii $off $suffix_segd $suffix_segy $suffix_sgy $suffix_su $suffix_segd $suffix_txt $suffix_bin);' . "\n";
 $use[2] = "\t" . 'use App::SeismicUnixGui::configs::big_streams::Project_config;' . "\n\n";
-$use[3] = "\t" . 'my $Project' . "\t\t" . '= new Project_config();' . "\n";
+$use[3] = "\t" . 'my $Project' . "\t\t" . '= Project_config->new();' . "\n";
 $use[4] = "\t" . 'my $DATA_SEISMIC_BIN' . "\t". '= $Project->DATA_SEISMIC_BIN;' . "\n";
 $use[5] = "\t" . 'my $DATA_SEISMIC_SEGD' . "\t" . '= $Project->DATA_SEISMIC_SEGD;' . "\n";
 $use[5] = "\t" . 'my $DATA_SEISMIC_SEGY' . "\t" . '= $Project->DATA_SEISMIC_SEGY;' . "\n";

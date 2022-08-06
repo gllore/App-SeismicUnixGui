@@ -53,19 +53,19 @@ VELAN DATA
 
 use Moose;
 my $VERSION = '1.0.3';
-use App::SeismicUnixGui::configs::big_streams::Project_config;
-use App::SeismicUnixGui::misc::message;
-use App::SeismicUnixGui::sunix::shell::cp;
-use App::SeismicUnixGui::misc::flow;
-use App::SeismicUnixGui::big_streams::iApply_top_mute;
-use App::SeismicUnixGui::big_streams::iSelect_tr_Sumute_top;
-use App::SeismicUnixGui::big_streams::iTopMutePicks2par;
-use App::SeismicUnixGui::misc::old_data;
-use App::SeismicUnixGui::big_streams::iSave_top_mute_picks;
-use App::SeismicUnixGui::messages::SuMessages;
+use aliased 'App::SeismicUnixGui::configs::big_streams::Project_config';
+use aliased 'App::SeismicUnixGui::misc::message';
+use aliased 'App::SeismicUnixGui::sunix::shell::cp';
+use aliased 'App::SeismicUnixGui::misc::flow';
+use aliased 'App::SeismicUnixGui::big_streams::iApply_top_mute';
+use aliased 'App::SeismicUnixGui::big_streams::iSelect_tr_Sumute_top';
+use aliased 'App::SeismicUnixGui::big_streams::iTopMutePicks2par';
+use aliased 'App::SeismicUnixGui::misc::old_data';
+use aliased 'App::SeismicUnixGui::big_streams::iSave_top_mute_picks';
+use aliased 'App::SeismicUnixGui::messages::SuMessages';
 use App::SeismicUnixGui::misc::SeismicUnix
-  qw ($on $off $in $to $go $itop_mute_par_ $itop_mute_check_pickfile_ $false $true );
-my $Project           = new Project_config;
+  qw($on $off $in $to $go $itop_mute_par_ $itop_mute_check_pickfile_ $false $true );
+my $Project           = Project_config->new();
 my ($PL_SEISMIC)      = $Project->PL_SEISMIC();
 my ($DATA_SEISMIC_SU) = $Project->DATA_SEISMIC_SU();
 my ($date)            = $Project->date();
@@ -76,15 +76,15 @@ my ($date)            = $Project->date();
 
 =cut
 
-my $cp                    = new cp();
-my $log                   = new message();
-my $run                   = new flow();
-my $iApply_top_mute       = new iApply_top_mute();
-my $iSelect_tr_Sumute_top = new iSelect_tr_Sumute_top();
-my $iPicks2par            = new iTopMutePicks2par();
-my $check4old_data        = new old_data;
-my $iSave_top_mute_picks  = new iSave_top_mute_picks();
-my $SuMessages            = new SuMessages();
+my $cp                    = cp->new();
+my $log                   = message->new();
+my $run                   = flow->new();
+my $iApply_top_mute       = iApply_top_mute->new();
+my $iSelect_tr_Sumute_top = iSelect_tr_Sumute_top->new();
+my $iPicks2par            = iTopMutePicks2par->new();
+my $check4old_data        = old_data->new();
+my $iSave_top_mute_picks  = iSave_top_mute_picks->new();
+my $SuMessages            = SuMessages->new();
 
 =head2 private hash
  

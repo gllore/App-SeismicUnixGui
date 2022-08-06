@@ -34,7 +34,7 @@
 use Moose;
 use Config::Simple;
 use System_Variables;
-use SeismicUnix qw ($in $out $on $go $to $suffix_ascii $off $suffix_su);
+use App:SeismicUnixGui::misc::SeismicUnix qw($in $out $on $go $to $suffix_ascii $off $suffix_su);
 
 my $cfg = new Config::Simple('iSpectralAnalysis.config');
 

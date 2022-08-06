@@ -29,8 +29,8 @@ use Config::Simple;
 
 my $cfg = new Config::Simple('/usr/local/pl/iSurf4_top_middle_wiggle.config');
 use App::SeismicUnixGui::configs::big_streams::Project_config;
-my $Project = new Project_config();
-use SeismicUnix qw ($in $out $on $go $to $suffix_ascii $off $suffix_su);
+my $Project = Project_config->new();
+use App:SeismicUnixGui::misc::SeismicUnix qw($in $out $on $go $to $suffix_ascii $off $suffix_su);
 my ($DATA_SEISMIC_SU) = $Project->DATA_SEISMIC_SU();
 our $CFG;
 

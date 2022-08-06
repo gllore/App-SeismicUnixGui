@@ -68,10 +68,10 @@ $sunix_category_number = 15
 use Moose;
 our $VERSION = '1.1.0';
 
-use App::SeismicUnixGui::developer::code::sunix::sudoc;
-use App::SeismicUnixGui::misc::sunix_package;
-use App::SeismicUnixGui::developer::code::sunix::prog_doc2pm;
-use App::SeismicUnixGui::developer::code::sunix::sudoc2pm_nameNnumber;
+use aliased 'App::SeismicUnixGui::developer::code::sunix::sudoc';
+use aliased 'App::SeismicUnixGui::misc::sunix_package';
+use aliased 'App::SeismicUnixGui::developer::code::sunix::prog_doc2pm';
+use aliased 'App::SeismicUnixGui::developer::code::sunix::sudoc2pm_nameNnumber';
 
 my $sudoc       			= sudoc->new();
 my $package     			= sunix_package->new();

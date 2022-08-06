@@ -44,8 +44,12 @@ by importing the conditions set in each 'program_spec.pm module
 use Moose;
 our $VERSION = '0.0.1';
 
-use App::SeismicUnixGui::misc::L_SU_global_constants;
-my $L_SU_global_constants = new L_SU_global_constants();
+use aliased 'App::SeismicUnixGui::misc::L_SU_global_constants';
+use aliased 'App::SeismicUnixGui::misc::param_sunix';
+use App::SeismicUnixGui::misc::control '0.0.3';
+use aliased 'App::SeismicUnixGui::misc::control';
+
+my $L_SU_global_constants = L_SU_global_constants->new();
 
 =head2 program parameters
 	 
@@ -183,9 +187,6 @@ sub _get_prefix_for_a_label {
 
 	my ($self) = @_;
 
-	use App::SeismicUnixGui::misc::param_sunix;
-	use App::SeismicUnixGui::misc::control '0.0.3';
-
 	my $param_sunix = param_sunix->new();
 	my $control     = control->new();
 
@@ -262,9 +263,6 @@ sub _get_prefix_for_a_label {
 
 sub _get_suffix_for_a_label {
 	my ($self) = @_;
-
-	use App::SeismicUnixGui::misc::param_sunix;
-	use App::SeismicUnixGui::misc::control '0.0.3';
 
 	my $param_sunix = param_sunix->new();
 	my $control     = control->new();
@@ -388,8 +386,7 @@ In order to write the following:
 sub get_a_section {
 	my ($self) = @_;
 
-	use App::SeismicUnixGui::misc::control '0.0.3';
-	my $control = new control();
+	my $control = control->new();
 
 	my $prog_name = $oop_prog_params->{_prog_name};
 	my $j         = 0;
@@ -507,7 +504,6 @@ sub get_a_section {
 
 					if ( $num_values >= 2 ) {
 
-						use App::SeismicUnixGui::misc::control '0.0.3';
 						my $control = control->new();
 
 						# de-tick sub-values for initial case

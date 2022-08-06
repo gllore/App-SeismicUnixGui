@@ -69,10 +69,10 @@ package App::SeismicUnixGui::sunix::model::sufdmod1;
 
 use Moose;
 our $VERSION = '0.0.1';
-use App::SeismicUnixGui::misc::L_SU_global_constants;
-use App::SeismicUnixGui::specs::model::sufdmod1_spec;
+use aliased 'App::SeismicUnixGui::misc::L_SU_global_constants';
+use aliased 'App::SeismicUnixGui::specs::model::sufdmod1_spec';
 
-my $get           = new L_SU_global_constants();
+my $get           = L_SU_global_constants->new();
 my $sufdmod1_spec = sufdmod1_spec->new();
 
 my $specs 		= $sufdmod1_spec->variables();

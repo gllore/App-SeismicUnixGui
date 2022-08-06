@@ -59,23 +59,26 @@ package App::SeismicUnixGui::misc::neutral_flow;
 use Moose;
 our $VERSION = '0.0.3';
 
-my $path;
-my $SeismicUnixGui;
-use Shell qw(echo);
-
-BEGIN {
-
-$SeismicUnixGui = ` echo \$SeismicUnixGui`;
-chomp $SeismicUnixGui;
-$path = $SeismicUnixGui.'/'.'misc';
-
-}
-use lib "$path";
-extends 'gui_history' => { -version => 0.0.2 };
+#my $path;
+#my $SeismicUnixGui;
+#use Shell qw(echo);
+#
+#BEGIN {
+#
+#$SeismicUnixGui = ` echo \$SeismicUnixGui`;
+#chomp $SeismicUnixGui;
+#$path = $SeismicUnixGui.'/'.'misc';
+#
+#}
+#use lib "$path";
+extends 'App::SeismicUnixGui::misc::gui_history' => { -version => 0.0.2 };
+use aliased 'App::SeismicUnixGui::misc::gui_history';
 
 use App::SeismicUnixGui::misc::param_widgets_neutral '0.0.2';
+use aliased 'App::SeismicUnixGui::misc::param_widgets_neutral';
 use App::SeismicUnixGui::misc::param_flow_neutral '0.0.3';
-use App::SeismicUnixGui::misc::flow_widgets;
+use aliased 'App::SeismicUnixGui::misc::param_flow_neutral';
+use aliased 'App::SeismicUnixGui::misc::flow_widgets';
 
 my $flow_widgets = flow_widgets->new();
 my $get          = L_SU_global_constants->new();
@@ -177,7 +180,7 @@ program name is a scalar reference
 sub help {
 	my ($self) = @_;
 	use App::SeismicUnixGui::misc::help;
-	my $help = new help();
+	my $help = help->new();
 	$help->set_name( $color_flow_href->{_prog_name_sref} );
 	$help->tkpod();
 	return ();

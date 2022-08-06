@@ -2,13 +2,13 @@ package App::SeismicUnixGui::specs::big_streams::iSpectralAnalysis_spec;
 
 our $VERSION = '1.00';
 use Moose;
-use App::SeismicUnixGui::configs::big_streams::Project_config;
-use App::SeismicUnixGui::misc::L_SU_global_constants;
-use App::SeismicUnixGui::configs::big_streams::iSpectralAnalysis_config;
-use App::SeismicUnixGui::misc::SeismicUnix qw ($su $suffix_su);
+package App::SeismicUnixGui::specs::big_streams::iSpectralAnalysis_spec;
+package App::SeismicUnixGui::specs::big_streams::iSpectralAnalysis_spec;
+package App::SeismicUnixGui::specs::big_streams::iSpectralAnalysis_spec;
+use App::SeismicUnixGui::misc::SeismicUnix qw($su $suffix_su);
 
-my $Project 	= new Project_config;
-my $get              = new L_SU_global_constants();
+my $Project 	= Project_config->new();
+my $get              = L_SU_global_constants->new();
 my $var              = $get->var();
 
 my $empty_string     = $var->{_empty_string};
@@ -20,7 +20,7 @@ my $flow_type        = $get->flow_type_href();
 my $DATA_SEISMIC_SU = $Project->DATA_SEISMIC_SU();    # output data directory
 my $PL_SEISMIC      = $Project->PL_SEISMIC();
 
-my $iSpectralAnalysis_config = new iSpectralAnalysis_config;
+my $iSpectralAnalysis_config = iSpectralAnalysis_config->new();
 my $max_index                = $iSpectralAnalysis_config->get_max_index();
 
 #print("iSpectralAnalysis_spec, max_index= $max_index\n");

@@ -2,14 +2,14 @@ package App::SeismicUnixGui::specs::par::unif2_spec;
 use Moose;
 our $VERSION = '0.0.1';
 
-use App::SeismicUnixGui::configs::big_streams::Project_config;
-use App::SeismicUnixGui::misc::SeismicUnix qw ($su $bin $suffix_su $suffix_bin);
-use App::SeismicUnixGui::misc::L_SU_global_constants;
-use App::SeismicUnixGui::misc::unif2;
+use aliased 'App::SeismicUnixGui::configs::big_streams::Project_config';
+use App::SeismicUnixGui::misc::SeismicUnix qw($su $bin $suffix_su $suffix_bin);
+use aliased 'App::SeismicUnixGui::misc::L_SU_global_constants';
+use aliased 'App::SeismicUnixGui::misc::unif2';
 
-my $get     = new L_SU_global_constants();
-my $Project = new Project_config;
-my $unif2   = new unif2;
+my $get     = L_SU_global_constants->new();
+my $Project = Project_config->new();
+my $unif2   = unif2->new();
 
 my $var              = $get->var();
 my $empty_string     = $var->{_empty_string};

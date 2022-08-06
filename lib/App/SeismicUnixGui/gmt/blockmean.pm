@@ -73,13 +73,13 @@ package App::SeismicUnixGui::gmt::blockmean;
 
 use Moose;
 our $VERSION = '1.0.1';
-use App::SeismicUnixGui::gmt::GMTglobal_constants;
+use aliased 'App::SeismicUnixGui::gmt::GMTglobal_constants';
 
 =head2 instantiation
 
 =cut
 
-my $get = new GMTglobal_constants();
+my $get = GMTglobal_constants->new();
 
 =head2 declare variables
 

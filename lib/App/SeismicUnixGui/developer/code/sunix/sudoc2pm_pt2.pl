@@ -57,8 +57,8 @@ $sunix_category_number = 15
 
 use Moose;
 our $VERSION = '0.0.1';
-use App::SeismicUnixGui::developer::code::sunix::sudoc2pm_nameNnumber;
-use App::SeismicUnixGui::developer::code::sunix::update;
+use aliased 'App::SeismicUnixGui::developer::code::sunix::sudoc2pm_nameNnumber';
+use aliased 'App::SeismicUnixGui::developer::code::sunix::update';
 
 my $sudoc2pm_nameNnumber    = sudoc2pm_nameNnumber->new();
 my $update = update->new();

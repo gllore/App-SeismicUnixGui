@@ -26,23 +26,22 @@ our $VERSION = '0.0.1';
 
 =head2 Import modules
 =cut
-my $path;
-my $SeismicUnixGui;
-use Shell qw(echo);
+#my $path;
+#my $SeismicUnixGui;
+#use Shell qw(echo);
+#
+#BEGIN {
+#
+#$SeismicUnixGui = ` echo \$SeismicUnixGui`;
+#chomp $SeismicUnixGui;
+#$path = $SeismicUnixGui.'/'.'misc';
+#
+#}
+#use lib "$path";
 
-BEGIN {
-
-$SeismicUnixGui = ` echo \$SeismicUnixGui`;
-chomp $SeismicUnixGui;
-$path = $SeismicUnixGui.'/'.'misc';
-
-}
-use lib "$path";
-
-extends 'gui_history' => { -version => 0.0.2 };
-
-#use App::SeismicUnixGui::misc::gui_history '0.0.2';
-use App::SeismicUnixGui::misc::L_SU_global_constants;
+extends 'App::SeismicUnixGui::misc::gui_history' => { -version => 0.0.2 };
+use aliased 'App::SeismicUnixGui::misc::L_SU_global_constants';
+use aliased 'App::SeismicUnixGui::misc::gui_history';
 
 =head2 Instantiation
 =cut

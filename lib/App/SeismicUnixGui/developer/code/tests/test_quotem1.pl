@@ -1,7 +1,7 @@
 use Moose;
 
 use App::SeismicUnixGui::configs::big_streams::Project_config;
-	my $Project		= new Project_config();
+	my $Project		= Project_config->new();
 	my $DATA_SEISMIC_BIN	= $Project->DATA_SEISMIC_BIN;
 	my $DATA_SEISMIC_SEGY	= $Project->DATA_SEISMIC_SEGY;
 	my $DATA_SEISMIC_SU	= $Project->DATA_SEISMIC_SU;

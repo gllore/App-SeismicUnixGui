@@ -44,7 +44,7 @@ use App::SeismicUnixGui::misc::project_selector;
 #use App::SeismicUnixGui::messages::message_director;
 
 #my $project_selector = project_selector->new();
-#my $get              = new L_SU_global_constants();
+#my $get              = L_SU_global_constants->new();
 #my $param_widgets    = param_widgets->new();
 #my $message_director = message_director->new();
 

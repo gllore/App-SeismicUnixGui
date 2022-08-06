@@ -2,13 +2,13 @@ package App::SeismicUnixGui::specs::big_streams::Synseis_spec;
 
 our $VERSION = '1.00';
 use Moose;
-use App::SeismicUnixGui::misc::L_SU_global_constants;
-use App::SeismicUnixGui::configs::big_streams::Project_config;
-use App::SeismicUnixGui::configs::big_streams::Sudipfilt_config;
-use App::SeismicUnixGui::misc::SeismicUnix qw ($su $suffix_su);
-use App::SeismicUnixGui::configs::big_streams::Synseis_config;
+package App::SeismicUnixGui::specs::big_streams::Synseis_spec;
+package App::SeismicUnixGui::specs::big_streams::Synseis_spec;
+package App::SeismicUnixGui::specs::big_streams::Synseis_spec;
+use App::SeismicUnixGui::misc::SeismicUnix qw($su $suffix_su);
+package App::SeismicUnixGui::specs::big_streams::Synseis_spec;
 
-my $get              = new L_SU_global_constants();
+my $get              = L_SU_global_constants->new();
 my $var              = $get->var();
 
 my $empty_string     = $var->{_empty_string};
@@ -18,8 +18,8 @@ my $flow_type        = $get->flow_type_href();
 my $true  = $var->{_true};
 my $false = $var->{_false};
 
-my $Project        = new Project_config;
-my $Synseis_config = new Synseis_config;
+my $Project        = Project_config->new();
+my $Synseis_config = Synseis_config->new();
 
 my $DATA_SEISMIC_WELL_SYNSEIS = $Project->DATA_SEISMIC_WELL_SYNSEIS();    #  data directories
 my $PL_SEISMIC		 = $Project->PL_SEISMIC();

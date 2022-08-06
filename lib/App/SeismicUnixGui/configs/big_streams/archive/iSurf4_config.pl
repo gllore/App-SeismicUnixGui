@@ -37,8 +37,8 @@ use Config::Simple;
 use lib '/usr/local/pl/libAll';
 my $cfg = new Config::Simple('iSurf4.config');
 use App::SeismicUnixGui::configs::big_streams::Project_config;
-my $Project = new Project_config();
-use SeismicUnix qw ($in $out $on $go $to $suffix_ascii $off $suffix_su);
+my $Project = Project_config->new();
+use App:SeismicUnixGui::misc::SeismicUnix qw($in $out $on $go $to $suffix_ascii $off $suffix_su);
 my ($DATA_SEISMIC_SU) = $Project->DATA_SEISMIC_SU();
 
 =head2 anonymous array reference is CFG

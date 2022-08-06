@@ -2,14 +2,14 @@ package App::SeismicUnixGui::specs::par::a2b_spec;
 use Moose;
 our $VERSION = '0.0.1';
 
-use App::SeismicUnixGui::configs::big_streams::Project_config;
-use App::SeismicUnixGui::misc::SeismicUnix qw ($bin $txt $su $suffix_txt $suffix_bin);
-use App::SeismicUnixGui::misc::L_SU_global_constants;
-use App::SeismicUnixGui::sunix::par::a2b;
+use aliased 'App::SeismicUnixGui::configs::big_streams::Project_config';
+use App::SeismicUnixGui::misc::SeismicUnix qw($bin $txt $su $suffix_txt $suffix_bin);
+use aliased 'App::SeismicUnixGui::misc::L_SU_global_constants';
+use aliased 'App::SeismicUnixGui::sunix::par::a2b';
 
-my $get     = new L_SU_global_constants();
-my $Project = new Project_config;
-my $a2b     = new a2b;
+my $get     = L_SU_global_constants->new();
+my $Project = Project_config->new();
+my $a2b     = a2b->new();
 
 my $var = $get->var();
 

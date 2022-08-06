@@ -16,7 +16,7 @@ my $sunix_package_declaration = {
 =head2 sub make_section 
 
  print("sunix_package_declaration,get_section,@lines\n");
-	    "\t".'my $get					= new L_SU_global_constants();'."\n\n".
+	    "\t".'my $get					= L_SU_global_constants->new();'."\n\n".
 =cut
 
 sub make_section {
@@ -24,8 +24,8 @@ sub make_section {
 	my ($self) = @_;
 
 	$lines[0] =
-	  'my $get' . "\t\t\t\t\t" . '= new L_SU_global_constants();' . "\n";
-	$lines[1] = 'my $Project' . "\t\t\t\t" . '= new Project_config();' . "\n";
+	  'my $get' . "\t\t\t\t\t" . '= L_SU_global_constants->new();' . "\n";
+	$lines[1] = 'my $Project' . "\t\t\t\t" . '= Project_config->new();' . "\n";
 	$lines[2] =
 	  'my $DATA_SEISMIC_SU' . "\t\t" . '= $Project->DATA_SEISMIC_SU();' . "\n";
 	$lines[3] =

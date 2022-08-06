@@ -52,14 +52,14 @@ package App::SeismicUnixGui::configs::big_streams::iBottomMute_config;
 
 use Moose;
 my $VERSION = '1.0.3';
-use App::SeismicUnixGui::configs::big_streams::Project_config;
-use App::SeismicUnixGui::misc::config_superflows;
-use App::SeismicUnixGui::misc::L_SU_global_constants;
-use App::SeismicUnixGui::misc::SeismicUnix qw ($in $out $on $go $to $suffix_ascii $off $suffix_su);
+use aliased 'App::SeismicUnixGui::configs::big_streams::Project_config';
+use aliased 'App::SeismicUnixGui::misc::config_superflows';
+use aliased 'App::SeismicUnixGui::misc::L_SU_global_constants';
+use App::SeismicUnixGui::misc::SeismicUnix qw($in $out $on $go $to $suffix_ascii $off $suffix_su);
 
-my $Project                = new Project_config;
+my $Project                = Project_config->new();
 my $config_superflows      = new config_superflows;
-my $get                    = new L_SU_global_constants();
+my $get                    = L_SU_global_constants->new();
 my $DATA_SEISMIC_SU        = $Project->DATA_SEISMIC_SU();
 my $superflow_config_names = $get->superflow_config_names_aref();
 

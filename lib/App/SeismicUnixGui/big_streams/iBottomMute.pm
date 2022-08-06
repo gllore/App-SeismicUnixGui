@@ -49,18 +49,18 @@ package App::SeismicUnixGui::big_streams::iBottomMute;
 
 use Moose;
 my $VERSION = '1.0.3';
-use App::SeismicUnixGui::sunix::shell::cp;
-use App::SeismicUnixGui::misc::flow;
-use App::SeismicUnixGui::big_streams::iApply_bottom_mute;
-use App::SeismicUnixGui::big_streams::iSave_bottom_mute_picks;
-use App::SeismicUnixGui::big_streams::iSelect_tr_Sumute_bottom;
-use App::SeismicUnixGui::big_streams::iBottomMutePicks2par;
-use App::SeismicUnixGui::misc::message;
-use App::SeismicUnixGui::misc::old_data;
-use App::SeismicUnixGui::configs::big_streams::Project_config;
+use aliased 'App::SeismicUnixGui::sunix::shell::cp';
+use aliased 'App::SeismicUnixGui::misc::flow';
+use aliased 'App::SeismicUnixGui::big_streams::iApply_bottom_mute';
+use aliased 'App::SeismicUnixGui::big_streams::iSave_bottom_mute_picks';
+use aliased 'App::SeismicUnixGui::big_streams::iSelect_tr_Sumute_bottom';
+use aliased 'App::SeismicUnixGui::big_streams::iBottomMutePicks2par';
+use aliased 'App::SeismicUnixGui::misc::message';
+use aliased 'App::SeismicUnixGui::misc::old_data';
+use aliased 'App::SeismicUnixGui::configs::big_streams::Project_config';
 use App::SeismicUnixGui::misc::SeismicUnix
-  qw ($on $off $in $to $go $ibot_mute_par_ $ibot_mute_check_pickfile_ $false $true );
-use App::SeismicUnixGui::messages::SuMessages;
+  qw($on $off $in $to $go $ibot_mute_par_ $ibot_mute_check_pickfile_ $false $true );
+use aliased 'App::SeismicUnixGui::messages::SuMessages';
 
 =head2 establish private hash of shared variables
 
@@ -92,16 +92,16 @@ my $iBottomMute = {
 
 =cut
 
-my $cp                       = new cp();
-my $log                      = new message();
-my $run                      = new flow();
-my $iApply_bottom_mute       = new iApply_bottom_mute();
-my $iSelect_tr_Sumute_bottom = new iSelect_tr_Sumute_bottom();
-my $iPicks2par               = new iBottomMutePicks2par();
-my $check4old_data           = new old_data;
-my $Project                  = new Project_config;
-my $iSave_bottom_mute_picks  = new iSave_bottom_mute_picks();
-my $SuMessages               = new SuMessages();
+my $cp                       = cp->new();
+my $log                      = message->new();
+my $run                      = flow->new();
+my $iApply_bottom_mute       = iApply_bottom_mute->new();
+my $iSelect_tr_Sumute_bottom = iSelect_tr_Sumute_bottom->new();
+my $iPicks2par               = iBottomMutePicks2par->new();
+my $check4old_data           = old_data->new();
+my $Project                  = Project_config->new();
+my $iSave_bottom_mute_picks  = iSave_bottom_mute_picks->new();
+my $SuMessages               = SuMessages->new();
 
 my ($PL_SEISMIC)      = $Project->PL_SEISMIC();
 my ($DATA_SEISMIC_SU) = $Project->DATA_SEISMIC_SU();

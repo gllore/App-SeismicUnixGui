@@ -1,9 +1,9 @@
 package App::SeismicUnixGui::misc::name;
 
 use Moose;
-use App::SeismicUnixGui::misc::L_SU_global_constants;
+use aliased 'App::SeismicUnixGui::misc::L_SU_global_constants';
 
-my $get = new L_SU_global_constants();
+my $get = L_SU_global_constants->new();
 
 my $superflow_names_aref = $get->superflow_names_aref();
 my @superflow_names_aref = @$superflow_names_aref;

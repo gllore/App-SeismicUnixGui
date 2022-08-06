@@ -43,7 +43,7 @@ use Config::Simple;
 my $cfg = new Config::Simple('iBottom_Mute3.config');
 
 use System_Variables;
-use SeismicUnix qw ($in $out $on $go $to $suffix_ascii $off $suffix_su);
+use App:SeismicUnixGui::misc::SeismicUnix qw($in $out $on $go $to $suffix_ascii $off $suffix_su);
 my $DATA_SEISMIC_SU = System_Variables::DATA_SEISMIC_SU();
 
 =head2 anonymous array reference $CFG

@@ -48,14 +48,14 @@
 
 use Moose;
 use Tk;
-use App::SeismicUnixGui::big_streams::iVA;
-use App::SeismicUnixGui::misc::SeismicUnix qw ($true $false );
+use aliased 'App::SeismicUnixGui::big_streams::iVA';
+use App::SeismicUnixGui::misc::SeismicUnix qw($true $false );
 
 =head2 instantiate methods
 
 =cut
 
-my $iVA = new iVA();
+my $iVA = iVA->new();
 
 =head2 Declare variables 
 

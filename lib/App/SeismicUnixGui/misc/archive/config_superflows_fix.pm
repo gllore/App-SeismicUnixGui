@@ -56,7 +56,7 @@ my $config_superflows = {
 use App::SeismicUnixGui::misc::L_SU_global_constants;
 use App::SeismicUnixGui::big_streams::immodpg_global_constants;
 
-my $get             = new L_SU_global_constants();
+my $get             = L_SU_global_constants->new();
 my $get_immodpg     = new immodpg_global_constants();
 my $var             = $get->var();
 my $var_immodpg     = $get_immodpg->var();
@@ -68,7 +68,7 @@ my $no              = $var->{_no};
 my $empty_string    = $var->{_empty_string};
 my $superflow_names = $get->superflow_names_h();
 
-my $set   = new L_SU_global_constants();
+my $set   = L_SU_global_constants->new();
 my $alias = $set->alias_superflow_names_h;
 
 my $global_lib        = $get->global_libs();

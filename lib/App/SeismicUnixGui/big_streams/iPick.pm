@@ -73,28 +73,29 @@ ep min=0
 
 use Moose;
 my $VERSION = '0.0.1';
-use App::SeismicUnixGui::misc::L_SU_global_constants;
-use App::SeismicUnixGui::configs::big_streams::Project_config;
+use aliased 'App::SeismicUnixGui::misc::L_SU_global_constants';
+use aliased 'App::SeismicUnixGui::configs::big_streams::Project_config';
 use App::SeismicUnixGui::misc::control '0.0.3';
-use App::SeismicUnixGui::misc::message;
-use App::SeismicUnixGui::sunix::shell::cp;
-use App::SeismicUnixGui::misc::flow;
-use App::SeismicUnixGui::specs::big_streams::iPick_spec;
-use App::SeismicUnixGui::big_streams::iPicks2par;
-use App::SeismicUnixGui::big_streams::iPicks2sort;
-use App::SeismicUnixGui::big_streams::iSave_picks;
-use App::SeismicUnixGui::big_streams::iShowNselect_picks;
-use App::SeismicUnixGui::big_streams::iSelect_xt;
+use aliased 'App::SeismicUnixGui::misc::control';
+use aliased 'App::SeismicUnixGui::misc::message';
+use aliased 'App::SeismicUnixGui::sunix::shell::cp';
+use aliased 'App::SeismicUnixGui::misc::flow';
+use aliased 'App::SeismicUnixGui::specs::big_streams::iPick_spec';
+use aliased 'App::SeismicUnixGui::big_streams::iPicks2par';
+use aliased 'App::SeismicUnixGui::big_streams::iPicks2sort';
+use aliased 'App::SeismicUnixGui::big_streams::iSave_picks';
+use aliased 'App::SeismicUnixGui::big_streams::iShowNselect_picks';
+use aliased 'App::SeismicUnixGui::big_streams::iSelect_xt';
 
-use App::SeismicUnixGui::misc::manage_files_by2;
-use App::SeismicUnixGui::misc::old_data;
+use aliased 'App::SeismicUnixGui::misc::manage_files_by2';
+use aliased 'App::SeismicUnixGui::misc::old_data';
 
-use App::SeismicUnixGui::messages::SuMessages;
-use App::SeismicUnixGui::misc::SeismicUnix qw ($on $off $in $to $go $ipicks_par_;
+use aliased 'App::SeismicUnixGui::messages::SuMessages';
+use App::SeismicUnixGui::misc::SeismicUnix qw($on $off $in $to $go $ipicks_par_;
 	$ipick_check_pickfile_ $false $true
 	$itemp_picks_ $itemp_picks_sorted_);
 
-my $Project            = new Project_config;
+my $Project            = Project_config->new();
 my ($PL_SEISMIC)       = $Project->PL_SEISMIC();
 my ($DATA_SEISMIC_SU)  = $Project->DATA_SEISMIC_SU();
 my ($DATA_SEISMIC_TXT) = $Project->DATA_SEISMIC_TXT();
@@ -107,7 +108,7 @@ my ($date)             = $Project->date();
 =cut
 
 my $control            = control->new();
-my $cp                 = new cp();
+my $cp                 = cp->new();
 my $test               = manage_files_by2->new();
 my $log                = message->new();
 my $run                = flow->new();

@@ -9,29 +9,34 @@ package App::SeismicUnixGui::misc::Project_Variables;
 # 3. the directory hierarchy is
 # $PROJECT_HOME/$date/$line
 # Warning: Do not modify $HOME
+use Moose;
+
+my $home_directory;
+my $HOME;
 
 BEGIN {
     use Shell qw(echo);
 
-    $home_directory = ` echo \$HOME`;
+    my $home_directory = ` echo \$HOME`;
     chomp $home_directory;
+    $HOME = $home_directory;
 }
-$HOME = $home_directory;
+
 
 # default values are required
 
-$PROJECT_HOME = $HOME . '/FalseRiver';
-$site         = 'core_1';
+my $PROJECT_HOME = $HOME . '/FalseRiver';
+my $site         = 'core_1';
 
 #
-$monitoring_well  = '';
-$preparation_well = '041914';
-$stage            = 'H';
-$process          = '1';
+my $monitoring_well  = '';
+my $preparation_well = '041914';
+my $stage            = 'H';
+my $process          = '1';
 #
 sub date {
 
-    $date = $site;
+    my $date = $site;
     return ($date);
 }
 
@@ -44,12 +49,12 @@ sub PROJECT_HOME {
 }
 
 sub line {
-    $line = $monitoring_well;
+    my $line = $monitoring_well;
     return ($line);
 }
 
 sub component {
-    $component = $preparation_well;
+    my $component = $preparation_well;
     return ($component);
 }
 

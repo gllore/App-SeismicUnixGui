@@ -31,7 +31,7 @@ package App::SeismicUnixGui::misc::read_psunix;
 
 use Moose;
 our $VERSION = '0.0.1';
-use App::SeismicUnixGui::misc::sunix_pl;
+use aliased 'App::SeismicUnixGui::misc::sunix_pl';
 
 #use write_psunix;
 

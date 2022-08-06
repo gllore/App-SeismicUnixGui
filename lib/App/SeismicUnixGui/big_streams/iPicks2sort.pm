@@ -1,12 +1,13 @@
 package App::SeismicUnixGui::big_streams::iPicks2sort;
 
 use Moose;
-use App::SeismicUnixGui::misc::L_SU_global_constants;
+use aliased 'App::SeismicUnixGui::misc::L_SU_global_constants';
 my $VERSION = '0.0.1';
 use App::SeismicUnixGui::misc::control '0.0.3';
-use App::SeismicUnixGui::misc::message;
-use App::SeismicUnixGui::misc::flow;
-use App::SeismicUnixGui::configs::big_streams::Project_config;
+use aliased 'App::SeismicUnixGui::misc::control';
+use aliased 'App::SeismicUnixGui::misc::message';
+use aliased 'App::SeismicUnixGui::misc::flow';
+use aliased 'App::SeismicUnixGui::configs::big_streams::Project_config';
 
 =head1 DOCUMENTATION
 
@@ -54,8 +55,8 @@ Examples
 
 my $control = control->new();
 my $get     = L_SU_global_constants->new();
-my $log     = new message();
-my $run     = new flow();
+my $log     = message->new();
+my $run     = flow->new();
 my $Project = Project_config->new();
 
 my $var          = $get->var();
@@ -93,7 +94,7 @@ my $iPicks2sort = {
 
 =cut 
 
-use App::SeismicUnixGui::misc::SeismicUnix qw ($true $false $in $out $to;
+use App::SeismicUnixGui::misc::SeismicUnix qw($true $false $in $out $to;
   $itemp_picks_ $itemp_picks_sorted_
   $out $suffix_su);
 

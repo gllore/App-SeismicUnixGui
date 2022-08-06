@@ -2,13 +2,13 @@ package App::SeismicUnixGui::specs::migration::sukdmig3d_spec;
 	use Moose;
 our $VERSION = '0.0.1';
 
-use App::SeismicUnixGui::configs::big_streams::Project_config;
-use App::SeismicUnixGui::misc::SeismicUnix qw ($bin $ps $segy $su $suffix_bin $suffix_ps $suffix_segy $suffix_su $suffix_txt $txt);
-use App::SeismicUnixGui::misc::L_SU_global_constants;
-use App::SeismicUnixGui::sunix::migration::sukdmig3d;
-my $get					= new L_SU_global_constants();
-my $Project 				= new Project_config;
-my $sukdmig3d		= new sukdmig3d;
+use aliased 'App::SeismicUnixGui::configs::big_streams::Project_config';
+use App::SeismicUnixGui::misc::SeismicUnix qw($bin $ps $segy $su $suffix_bin $suffix_ps $suffix_segy $suffix_su $suffix_txt $txt);
+use aliased 'App::SeismicUnixGui::misc::L_SU_global_constants';
+use aliased 'App::SeismicUnixGui::sunix::migration::sukdmig3d';
+my $get					= L_SU_global_constants->new();
+my $Project 				= Project_config->new();
+my $sukdmig3d		= sukdmig3d->new();
 
 my $var					= $get->var();
 

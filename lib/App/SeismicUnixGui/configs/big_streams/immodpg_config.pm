@@ -48,20 +48,21 @@ layer		= 1
 
 use Moose;
 my $VERSION = '0.0.1';
-use App::SeismicUnixGui::misc::L_SU_global_constants;
-use App::SeismicUnixGui::configs::big_streams::Project_config;
-use App::SeismicUnixGui::misc::SeismicUnix qw ($in $out $on $go $to $suffix_ascii $off $suffix_su);
-use App::SeismicUnixGui::misc::config_superflows;
+use aliased 'App::SeismicUnixGui::misc::L_SU_global_constants';
+use aliased 'App::SeismicUnixGui::configs::big_streams::Project_config';
+use App::SeismicUnixGui::misc::SeismicUnix qw($in $out $on $go $to $suffix_ascii $off $suffix_su);
+use aliased 'App::SeismicUnixGui::misc::config_superflows';
 use App::SeismicUnixGui::misc::control '0.0.3';
-use App::SeismicUnixGui::specs::big_streams::immodpg_spec;
-use App::SeismicUnixGui::big_streams::immodpg_global_constants;
-use App::SeismicUnixGui::misc::manage_files_by2;
+use aliased 'App::SeismicUnixGui::misc::control';
+use aliased 'App::SeismicUnixGui::specs::big_streams::immodpg_spec';
+use aliased 'App::SeismicUnixGui::big_streams::immodpg_global_constants';
+use aliased 'App::SeismicUnixGui::misc::manage_files_by2';
 
-my $Project                = new Project_config();
-my $control                = new control;
+my $Project                = Project_config->new();
+my $control                = control->new();
 my $DATA_SEISMIC_SU        = $Project->DATA_SEISMIC_SU();
 my $config_superflows      = new config_superflows;
-my $get                    = new L_SU_global_constants();
+my $get                    = L_SU_global_constants->new();
 my $immodpg_spec           = immodpg_spec->new();
 my $manage_files_by2       = manage_files_by2->new();
 my $superflow_config_names = $get->superflow_config_names_aref();
@@ -214,6 +215,7 @@ sub get_values {
 	my ($self) = @_;
 
 	use App::SeismicUnixGui::misc::control '0.0.3';
+use aliased 'App::SeismicUnixGui::misc::control';
 	my $control = control->new();
 
 	# Warning: set using a scalar reference

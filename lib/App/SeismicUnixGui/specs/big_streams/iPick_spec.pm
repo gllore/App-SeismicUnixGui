@@ -1,12 +1,12 @@
 package App::SeismicUnixGui::specs::big_streams::iPick_spec;
 our $VERSION = '0.0.1';
 use Moose;
-use App::SeismicUnixGui::configs::big_streams::Project_config;
-use App::SeismicUnixGui::misc::L_SU_global_constants;
-use App::SeismicUnixGui::configs::big_streams::iPick_config;
-use App::SeismicUnixGui::misc::SeismicUnix qw ($su $suffix_su $txt $suffix_txt);
+package App::SeismicUnixGui::specs::big_streams::iPick_spec;
+package App::SeismicUnixGui::specs::big_streams::iPick_spec;
+package App::SeismicUnixGui::specs::big_streams::iPick_spec;
+use App::SeismicUnixGui::misc::SeismicUnix qw($su $suffix_su $txt $suffix_txt);
 
-my $get              = new L_SU_global_constants();
+my $get              = L_SU_global_constants->new();
 my $var              = $get->var();
 my $empty_string     = $var->{_empty_string};
 my $file_dialog_type = $get->file_dialog_type_href();
@@ -15,12 +15,12 @@ my $flow_type        = $get->flow_type_href();
 my $true  = $var->{_true};
 my $false = $var->{_false};
 
-my $Project          = new Project_config;
+my $Project          = Project_config->new();
 my $DATA_SEISMIC_SU  = $Project->DATA_SEISMIC_SU();     # input data directory
 my $DATA_SEISMIC_TXT = $Project->DATA_SEISMIC_TXT();    # output data directory
 my $PL_SEISMIC		 = $Project->PL_SEISMIC();
 
-my $iPick_config = new iPick_config;
+my $iPick_config = iPick_config->new();
 my $max_index    = $iPick_config->get_max_index();
 
 my $iPick_spec =  {

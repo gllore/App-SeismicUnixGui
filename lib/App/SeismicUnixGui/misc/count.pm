@@ -41,10 +41,10 @@ count
 
 use Moose;
 my $VERSION = '0.0.1';
-use App::SeismicUnixGui::misc::L_SU_global_constants;
-use App::SeismicUnixGui::configs::big_streams::Project_config;
+use aliased 'App::SeismicUnixGui::misc::L_SU_global_constants';
+use aliased 'App::SeismicUnixGui::configs::big_streams::Project_config';
 use App::SeismicUnixGui::misc::SeismicUnix
-  qw ($cdp $gx $in $out $on $go $to $txt $suffix_ascii $off $offset $su $sx $suffix_su $suffix_txt $tracl);
+  qw($cdp $gx $in $out $on $go $to $txt $suffix_ascii $off $offset $su $sx $suffix_su $suffix_txt $tracl);
 
 =head2
 
@@ -52,8 +52,8 @@ instantiate modules
 
 =cut
 
-my $Project = new Project_config();
-my $get     = new L_SU_global_constants();
+my $Project = Project_config->new();
+my $get     = L_SU_global_constants->new();
 
 =head2
 

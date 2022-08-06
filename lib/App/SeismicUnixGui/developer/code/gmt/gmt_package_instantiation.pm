@@ -17,7 +17,7 @@ sub get_all {
   $i  		= $first;
 
   $lines[$i] 		= ("\n");
-  $lines[++$i] 		=  ' my $get    '."\t\t".'= new GMTglobal_constants();'."\n";
+  $lines[++$i] 		=  ' my $get    '."\t\t".'= GMTglobal_constants->new();'."\n";
   $lines[++$i] 		=  ' my $gmt_var'."\t\t".'= $get->gmt_var();'."\n";
   $lines[++$i] 		= ("\n");
 

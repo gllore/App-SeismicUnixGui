@@ -2,13 +2,13 @@ package App::SeismicUnixGui::specs::plot::xmovie_spec;
 use Moose;
 our $VERSION = '0.0.1';
 
-use App::SeismicUnixGui::configs::big_streams::Project_config;
-use App::SeismicUnixGui::misc::SeismicUnix qw ($su $bin $suffix_bin $suffix_su);
-use App::SeismicUnixGui::misc::L_SU_global_constants;
-use App::SeismicUnixGui::sunix::plot::xmovie;
-my $get     = new L_SU_global_constants();
-my $Project = new Project_config;
-my $xmovie  = new xmovie;
+use aliased 'App::SeismicUnixGui::configs::big_streams::Project_config';
+use App::SeismicUnixGui::misc::SeismicUnix qw($su $bin $suffix_bin $suffix_su);
+use aliased 'App::SeismicUnixGui::misc::L_SU_global_constants';
+use aliased 'App::SeismicUnixGui::sunix::plot::xmovie';
+my $get     = L_SU_global_constants->new();
+my $Project = Project_config->new();
+my $xmovie  = xmovie->new();
 
 my $var = $get->var();
 

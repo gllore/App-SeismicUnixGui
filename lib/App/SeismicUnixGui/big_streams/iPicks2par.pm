@@ -1,13 +1,14 @@
 package App::SeismicUnixGui::big_streams::iPicks2par;
 
 use Moose;
-use App::SeismicUnixGui::misc::L_SU_global_constants;
+use aliased 'App::SeismicUnixGui::misc::L_SU_global_constants';
 my $VERSION = '0.0.1';
 use App::SeismicUnixGui::misc::control '0.0.3';
-use App::SeismicUnixGui::misc::message;
-use App::SeismicUnixGui::misc::flow;
-use App::SeismicUnixGui::misc::mkparfile;
-use App::SeismicUnixGui::configs::big_streams::Project_config;
+use aliased 'App::SeismicUnixGui::misc::control';
+use aliased 'App::SeismicUnixGui::misc::message';
+use aliased 'App::SeismicUnixGui::misc::flow';
+use aliased 'App::SeismicUnixGui::misc::mkparfile';
+use aliased 'App::SeismicUnixGui::configs::big_streams::Project_config';
 
 =head1 DOCUMENTATION
 
@@ -56,9 +57,9 @@ Examples
 
 my $control   = control->new();
 my $get       = L_SU_global_constants->new();
-my $log       = new message();
-my $run       = new flow();
-my $mkparfile = new mkparfile();
+my $log       = message->new();
+my $run       = flow->new();
+my $mkparfile = mkparfile->new();
 my $Project   = Project_config->new();
 
 my $var          = $get->var();
@@ -100,7 +101,7 @@ my $iPicks2par = {
 
 =cut 
 
-use App::SeismicUnixGui::misc::SeismicUnix qw ($true $false $in $out $to $ipicks_par_;
+use App::SeismicUnixGui::misc::SeismicUnix qw($true $false $in $out $to $ipicks_par_;
   $itemp_picks_ $itemp_picks_sorted_par_
   $out $suffix_su);
 

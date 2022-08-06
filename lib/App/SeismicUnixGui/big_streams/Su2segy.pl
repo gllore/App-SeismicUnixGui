@@ -31,14 +31,14 @@ file names and locations are automatically found
 =cut
 
 # define library of system subroutines
-use App::SeismicUnixGui::misc::manage_files_by;
-use App::SeismicUnixGui::configs::big_streams::Project_config;
+use aliased 'App::SeismicUnixGui::misc::manage_files_by';
+use aliased 'App::SeismicUnixGui::configs::big_streams::Project_config';
 
 # import system variables
-use App::SeismicUnixGui::misc::SeismicUnix qw ($suffix_sgy $suffix_su $suffix_usp);
+use App::SeismicUnixGui::misc::SeismicUnix qw($suffix_sgy $suffix_su $suffix_usp);
 
 # instantiation new local package
-my $Project = new Project_config();
+my $Project = Project_config->new();
 
 # import system variables
 my ($DATA_SEISMIC_SEGY) = $Project->DATA_SEISMIC_SEGY();

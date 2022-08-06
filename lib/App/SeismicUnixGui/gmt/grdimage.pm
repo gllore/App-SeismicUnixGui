@@ -131,7 +131,7 @@ use GMTglobal_constants;
 
 =cut
 
-my $get     = new GMTglobal_constants();
+my $get     = GMTglobal_constants->new();
 my $gmt_var = $get->gmt_var();
 
 =head2 declare variables##

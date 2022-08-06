@@ -54,8 +54,8 @@ my $param_sunix = {
 #	trigger   => \&set_program_name,
 #);
 
-use App::SeismicUnixGui::misc::L_SU_global_constants;
-my $get          = new L_SU_global_constants();
+use aliased 'App::SeismicUnixGui::misc::L_SU_global_constants';
+my $get          = L_SU_global_constants->new();
 my $var          = $get->var();
 my $on           = $var->{_on};
 my $off          = $var->{_off};
@@ -125,7 +125,7 @@ sub defaults {
 	if ( defined $program_name_sref ) {
 
 		use App::SeismicUnixGui::misc::su_param '0.0.3';
-		my $su_param = new su_param();
+		my $su_param = su_param->new();
 		my ( $cfg_aref, $size );
 
 		$cfg_aref                 = $su_param->get($program_name_sref);
@@ -154,7 +154,7 @@ sub _defaults {
 		&& $param_sunix->{_flow_type} ne $empty_string ) {
 
 		use App::SeismicUnixGui::misc::su_param;
-		my $su_param = new su_param();
+		my $su_param = su_param->new();
 		my ( $cfg_aref, $size );
 
 		$su_param->set_flow_type( $param_sunix->{_flow_type} );

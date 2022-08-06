@@ -366,7 +366,7 @@ our $trid   = 'trid';
 ## output is in seconds since the start of the year
 #
 #  use App::SeismicUnixGui::configs::big_streams::Project_config;
-#  my $Project 					= new Project_config();
+#  my $Project 					= Project_config->new();
 #  my $DATA_SEISMIC_SU			= $Project->DATA_SEISMIC_SU();
 #  my $TEMP_DATA_SEISMIC_SU		= $Project->TEMP_DATA_SEISMIC_SU();
 #  my (@flow,@rm,@touch,$sugethw_sufile);

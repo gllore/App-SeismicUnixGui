@@ -55,27 +55,30 @@ our $VERSION = '0.0.1';
 use Tk;
 # TODO Do I need decisions???
 use App::SeismicUnixGui::misc::decisions '1.0.0';
+use aliased 'App::SeismicUnixGui::misc::decisions';
 
 # uses conditions_flows which derives
 # from conditions_gui
-my $path;
-my $SeismicUnixGui;
-use Shell qw(echo);
-
-BEGIN {
-
-$SeismicUnixGui = ` echo \$SeismicUnixGui`;
-chomp $SeismicUnixGui;
-$path = $SeismicUnixGui.'/'.'misc';
-
-}
-use lib "$path";
-extends 'gui_history' => { -version => 0.0.2 };
+#my $path;
+#my $SeismicUnixGui;
+#use Shell qw(echo);
+#
+#BEGIN {
+#
+#$SeismicUnixGui = ` echo \$SeismicUnixGui`;
+#chomp $SeismicUnixGui;
+#$path = $SeismicUnixGui.'/'.'misc';
+#
+#}
+#use lib "$path";
+extends 'App::SeismicUnixGui::misc::gui_history' => { -version => 0.0.2 };
+use aliased 'App::SeismicUnixGui::misc::gui_history';
 
 # potentially used in all packages
-use App::SeismicUnixGui::misc::L_SU_global_constants;
-use App::SeismicUnixGui::misc::name;;
-use App::SeismicUnixGui::misc::whereami;
+use aliased 'App::SeismicUnixGui::misc::L_SU_global_constants';
+use aliased 'App::SeismicUnixGui::misc::name';;
+use aliased 'App::SeismicUnixGui::misc::whereami';
+use aliased 'App::SeismicUnixGui::messages::message_director';
 
 my $gui_history 		= gui_history->new();
 my $decisions           = decisions->new();
@@ -127,7 +130,6 @@ sub _messages {
 	
 	my ($run_name)    = @_;
 	
-	use App::SeismicUnixGui::messages::message_director;
     my $run_name_message = message_director->new();
     my $message       = $run_name_message->immodpg(0);
 	
@@ -283,7 +285,7 @@ sub _Run_user_built_flow {
 		if ($ok2run) {
 			
 			my $run_name = $run_button->{_flow_name_out};
-			use App::SeismicUnixGui::configs::big_streams::Project_config;
+			use aliased 'App::SeismicUnixGui::configs::big_streams::Project_config';
 			my $Project    = Project_config->new();
 			my $PL_SEISMIC = $Project->PL_SEISMIC();
 

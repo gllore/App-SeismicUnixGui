@@ -76,13 +76,13 @@ usage: psscale -D<xpos/ypos/length/width>[h] [-A[a|l|c]] [-C<cpt_file>] [-E[b|f]
 
 use Moose;
 our $VERSION = '1.0.1';
-use App::SeismicUnixGui::gmt::GMTglobal_constants;
+use aliased 'App::SeismicUnixGui::gmt::GMTglobal_constants';
 
 =head2 instantiation of packages
 
 =cut
 
-my $get     = new GMTglobal_constants();
+my $get     = GMTglobal_constants->new();
 my $gmt_var = $get->gmt_var();
 
 =head2 declare variables

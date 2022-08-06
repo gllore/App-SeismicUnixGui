@@ -44,10 +44,10 @@ headers... TODO ... don't understand why yet.
 
 use Moose;
 my $VERSION = '0.0.1';
-use App::SeismicUnixGui::misc::L_SU_global_constants;
-use App::SeismicUnixGui::configs::big_streams::Project_config;
+use aliased 'App::SeismicUnixGui::misc::L_SU_global_constants';
+use aliased 'App::SeismicUnixGui::configs::big_streams::Project_config';
 use App::SeismicUnixGui::misc::SeismicUnix
-  qw ($cdp $gx $in $out $on $go $to $txt $suffix_ascii $off $offset $su $sx $suffix_su $suffix_txt $tracl);
+  qw($cdp $gx $in $out $on $go $to $txt $suffix_ascii $off $offset $su $sx $suffix_su $suffix_txt $tracl);
 
 =head2
 
@@ -55,9 +55,9 @@ instantiate modules
 
 =cut
 
-my $Project = new Project_config();
-my $control = new control;
-my $get     = new L_SU_global_constants();
+my $Project = Project_config->new();
+my $control = control->new();
+my $get     = L_SU_global_constants->new();
 
 =head2
 
@@ -849,11 +849,11 @@ Version:
 =cut
 
 		use Moose;
-		use SeismicUnix
+		use App:SeismicUnixGui::misc::SeismicUnix
 		  qw($append $in $out $on $go $to $suffix_ascii $off $suffix_segd $suffix_segy $suffix_sgy $suffix_su $suffix_segd $suffix_txt $suffix_bin);
 		use App::SeismicUnixGui::configs::big_streams::Project_config;
 
-		my $Project           = new Project_config();
+		my $Project           = Project_config->new();
 		my $DATA_SEISMIC_BIN  = $Project->DATA_SEISMIC_BIN;
 		my $DATA_SEISMIC_SEGY = $Project->DATA_SEISMIC_SEGY;
 		my $DATA_SEISMIC_SU   = $Project->DATA_SEISMIC_SU;
@@ -864,10 +864,10 @@ Version:
 		use cat_su;
 		use data_out;
 
-		my $log      = new message();
-		my $run      = new flow();
-		my $cat_su   = new cat_su();
-		my $data_out = new data_out();
+		my $log      = message->new();
+		my $run      = flow->new();
+		my $cat_su   = cat_su->new();
+		my $data_out = data_out->new();
 
 =head2 Declare
 
@@ -986,11 +986,11 @@ Version:
 =cut
 
 		use Moose;
-		use SeismicUnix
+		use App:SeismicUnixGui::misc::SeismicUnix
 		  qw($append $in $out $on $go $to $suffix_ascii $off $suffix_segd $suffix_segy $suffix_sgy $suffix_su $suffix_segd $suffix_txt $suffix_bin);
 		use App::SeismicUnixGui::configs::big_streams::Project_config;
 
-		my $Project           = new Project_config();
+		my $Project           = Project_config->new();
 		my $DATA_SEISMIC_BIN  = $Project->DATA_SEISMIC_BIN;
 		my $DATA_SEISMIC_SEGY = $Project->DATA_SEISMIC_SEGY;
 		my $DATA_SEISMIC_SU   = $Project->DATA_SEISMIC_SU;
@@ -1001,10 +1001,10 @@ Version:
 		use cat_txt;
 		use data_out;
 
-		my $log      = new message();
-		my $run      = new flow();
-		my $cat_txt  = new cat_txt();
-		my $data_out = new data_out();
+		my $log      = message->new();
+		my $run      = flow->new();
+		my $cat_txt  = cat_txt->new();
+		my $data_out = data_out->new();
 
 =head2 Declare
 
@@ -1181,11 +1181,11 @@ Version:
 
 =cut
 
-		use SeismicUnix
-		  qw ($in $out $on $go $to $suffix_ascii $off $suffix_segd $suffix_segy $suffix_sgy $suffix_su $suffix_segd $suffix_txt $suffix_bin);
+		use App:SeismicUnixGui::misc::SeismicUnix
+		  qw($in $out $on $go $to $suffix_ascii $off $suffix_segd $suffix_segy $suffix_sgy $suffix_su $suffix_segd $suffix_txt $suffix_bin);
 		use App::SeismicUnixGui::configs::big_streams::Project_config;
 
-		my $Project           = new Project_config();
+		my $Project           = Project_config->new();
 		my $DATA_SEISMIC_BIN  = $Project->DATA_SEISMIC_BIN;
 		my $DATA_SEISMIC_SEGY = $Project->DATA_SEISMIC_SEGY;
 		my $DATA_SEISMIC_SU   = $Project->DATA_SEISMIC_SU;
@@ -1197,11 +1197,11 @@ Version:
 		use suwind;
 		use data_out;
 
-		my $log      = new message();
-		my $run      = new flow();
-		my $data_in  = new data_in();
-		my $suwind   = new suwind();
-		my $data_out = new data_out();
+		my $log      = message->new();
+		my $run      = flow->new();
+		my $data_in  = data_in->new();
+		my $suwind   = suwind->new();
+		my $data_out = data_out->new();
 
 =head2 Declare
 
@@ -1413,11 +1413,11 @@ Version:
 
 =cut
 
-		use SeismicUnix
-		  qw ($in $out $on $go $to $suffix_ascii $off $suffix_segd $suffix_segy $suffix_sgy $suffix_su $suffix_segd $suffix_txt $suffix_bin);
+		use App:SeismicUnixGui::misc::SeismicUnix
+		  qw($in $out $on $go $to $suffix_ascii $off $suffix_segd $suffix_segy $suffix_sgy $suffix_su $suffix_segd $suffix_txt $suffix_bin);
 		use App::SeismicUnixGui::configs::big_streams::Project_config;
 
-		my $Project           = new Project_config();
+		my $Project           = Project_config->new();
 		my $DATA_SEISMIC_BIN  = $Project->DATA_SEISMIC_BIN;
 		my $DATA_SEISMIC_SEGY = $Project->DATA_SEISMIC_SEGY;
 		my $DATA_SEISMIC_SU   = $Project->DATA_SEISMIC_SU;
@@ -1429,11 +1429,11 @@ Version:
 		use suwind;
 		use data_out;
 
-		my $log      = new message();
-		my $run      = new flow();
-		my $data_in  = new data_in();
-		my $suwind   = new suwind();
-		my $data_out = new data_out();
+		my $log      = message->new();
+		my $run      = flow->new();
+		my $data_in  = data_in->new();
+		my $suwind   = suwind->new();
+		my $data_out = data_out->new();
 
 =head2 Declare
 
@@ -1750,11 +1750,11 @@ Version:
 =cut
 
 		use Moose;
-		use SeismicUnix
-		  qw ($in $out $on $go $to $suffix_ascii $off $suffix_segd $suffix_segy $suffix_sgy $suffix_su $suffix_segd $suffix_txt $suffix_bin);
+		use App:SeismicUnixGui::misc::SeismicUnix
+		  qw($in $out $on $go $to $suffix_ascii $off $suffix_segd $suffix_segy $suffix_sgy $suffix_su $suffix_segd $suffix_txt $suffix_bin);
 		use App::SeismicUnixGui::configs::big_streams::Project_config;
 
-		my $Project           = new Project_config();
+		my $Project           = Project_config->new();
 		my $DATA_SEISMIC_BIN  = $Project->DATA_SEISMIC_BIN;
 		my $DATA_SEISMIC_SEGY = $Project->DATA_SEISMIC_SEGY;
 		my $DATA_SEISMIC_SU   = $Project->DATA_SEISMIC_SU;
@@ -1766,11 +1766,11 @@ Version:
 		use sulhead;
 		use data_out;
 
-		my $log      = new message();
-		my $run      = new flow();
-		my $data_in  = new data_in();
-		my $sulhead  = new sulhead();
-		my $data_out = new data_out();
+		my $log      = message->new();
+		my $run      = flow->new();
+		my $data_in  = data_in->new();
+		my $sulhead  = sulhead->new();
+		my $data_out = data_out->new();
 
 =head2 Declare
 
@@ -2301,11 +2301,11 @@ Version:
 =cut
 
 		use Moose;
-		use SeismicUnix
-		  qw ($in $out $on $go $to $suffix_ascii $off $suffix_segd $suffix_segy $suffix_sgy $suffix_su $suffix_segd $suffix_txt $suffix_bin);
+		use App:SeismicUnixGui::misc::SeismicUnix
+		  qw($in $out $on $go $to $suffix_ascii $off $suffix_segd $suffix_segy $suffix_sgy $suffix_su $suffix_segd $suffix_txt $suffix_bin);
 		use App::SeismicUnixGui::configs::big_streams::Project_config;
 
-		my $Project           = new Project_config();
+		my $Project           = Project_config->new();
 		my $DATA_SEISMIC_BIN  = $Project->DATA_SEISMIC_BIN;
 		my $DATA_SEISMIC_SEGY = $Project->DATA_SEISMIC_SEGY;
 		my $DATA_SEISMIC_SU   = $Project->DATA_SEISMIC_SU;
@@ -2317,11 +2317,11 @@ Version:
 		use sushw;
 		use data_out;
 
-		my $log      = new message();
-		my $run      = new flow();
-		my $data_in  = new data_in();
-		my $sushw    = new sushw();
-		my $data_out = new data_out();
+		my $log      = message->new();
+		my $run      = flow->new();
+		my $data_in  = data_in->new();
+		my $sushw    = sushw->new();
+		my $data_out = data_out->new();
 
 =head2 Declare
 
@@ -2500,11 +2500,11 @@ Version:
 
 =cut
 
-		use SeismicUnix
-		  qw ($in $out $on $go $to $suffix_ascii $off $suffix_segd $suffix_segy $suffix_sgy $suffix_su $suffix_segd $suffix_txt $suffix_bin);
+		use App:SeismicUnixGui::misc::SeismicUnix
+		  qw($in $out $on $go $to $suffix_ascii $off $suffix_segd $suffix_segy $suffix_sgy $suffix_su $suffix_segd $suffix_txt $suffix_bin);
 		use App::SeismicUnixGui::configs::big_streams::Project_config;
 
-		my $Project           = new Project_config();
+		my $Project           = Project_config->new();
 		my $DATA_SEISMIC_BIN  = $Project->DATA_SEISMIC_BIN;
 		my $DATA_SEISMIC_SEGY = $Project->DATA_SEISMIC_SEGY;
 		my $DATA_SEISMIC_SU   = $Project->DATA_SEISMIC_SU;
@@ -2516,11 +2516,11 @@ Version:
 		use suxcor;
 		use data_out;
 
-		my $log      = new message();
-		my $run      = new flow();
-		my $data_in  = new data_in();
-		my $suxcor   = new suxcor();
-		my $data_out = new data_out();
+		my $log      = message->new();
+		my $run      = flow->new();
+		my $data_in  = data_in->new();
+		my $suxcor   = suxcor->new();
+		my $data_out = data_out->new();
 
 =head2 Declare
 

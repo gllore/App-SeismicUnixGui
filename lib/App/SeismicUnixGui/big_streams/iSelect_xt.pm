@@ -25,21 +25,22 @@ package App::SeismicUnixGui::big_streams::iSelect_xt;
 =cut
 
 use Moose;
-use App::SeismicUnixGui::misc::L_SU_global_constants;
+use aliased 'App::SeismicUnixGui::misc::L_SU_global_constants';
 my $VERSION = '0.0.1';
 use App::SeismicUnixGui::misc::control '0.0.3';
-use App::SeismicUnixGui::misc::message;
-use App::SeismicUnixGui::misc::flow;
-use App::SeismicUnixGui::specs::big_streams::iPick_spec;
-use App::SeismicUnixGui::sunix::filter::sufilter;
-use App::SeismicUnixGui::sunix::shapeNcut::sugain;
-use App::SeismicUnixGui::sunix::shapeNcut::suwind;
-use App::SeismicUnixGui::sunix::plot::suxwigb;
-use App::SeismicUnixGui::sunix::plot::suximage;
-use App::SeismicUnixGui::messages::SuMessages;
-use App::SeismicUnixGui::configs::big_streams::Project_config;
+use aliased 'App::SeismicUnixGui::misc::control';
+use aliased 'App::SeismicUnixGui::misc::message';
+use aliased 'App::SeismicUnixGui::misc::flow';
+use aliased 'App::SeismicUnixGui::specs::big_streams::iPick_spec';
+use aliased 'App::SeismicUnixGui::sunix::filter::sufilter';
+use aliased 'App::SeismicUnixGui::sunix::shapeNcut::sugain';
+use aliased 'App::SeismicUnixGui::sunix::shapeNcut::suwind';
+use aliased 'App::SeismicUnixGui::sunix::plot::suxwigb';
+use aliased 'App::SeismicUnixGui::sunix::plot::suximage';
+use aliased 'App::SeismicUnixGui::messages::SuMessages';
+use aliased 'App::SeismicUnixGui::configs::big_streams::Project_config';
 
-use App::SeismicUnixGui::misc::SeismicUnix qw ($on $off $go $in $true;
+use App::SeismicUnixGui::misc::SeismicUnix qw($on $off $go $in $true;
   $false $itemp_picks_
   $suffix_su $to);
 
@@ -54,15 +55,15 @@ use App::SeismicUnixGui::misc::SeismicUnix qw ($on $off $go $in $true;
 =cut
 
 my $control    = control->new();
-my $log        = new message();
-my $run        = new flow();
-my $sufilter   = new sufilter();
-my $sugain     = new sugain();
-my $suwind     = new suwind;
-my $suxwigb    = new suxwigb();
-my $suximage   = new suximage();
-my $SuMessages = new SuMessages();
-my $Project    = new Project_config();
+my $log        = message->new();
+my $run        = flow->new();
+my $sufilter   = sufilter->new();
+my $sugain     = sugain->new();
+my $suwind     = suwind->new();
+my $suxwigb    = suxwigb->new();
+my $suximage   = suximage->new();
+my $SuMessages = SuMessages->new();
+my $Project    = Project_config->new();
 
 my $get        = L_SU_global_constants->new();
 my $iPick_spec = iPick_spec->new();
@@ -719,6 +720,7 @@ sub set_purpose {
 	{
 
 		use App::SeismicUnixGui::misc::control '0.0.3';
+		use aliased 'App::SeismicUnixGui::misc::control';
 		my $control = control->new();
 		$control->set_infection($type);
 		$type = control->get_ticksBgone();

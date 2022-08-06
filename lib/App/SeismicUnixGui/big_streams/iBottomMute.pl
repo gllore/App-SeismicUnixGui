@@ -53,13 +53,13 @@
 
 use Moose;
 my $VERSION = '1.0.4';
-use App::SeismicUnixGui::misc::L_SU_global_constants;
-use App::SeismicUnixGui::big_streams::iBottomMute;
-use App::SeismicUnixGui::big_streams::iBottomMute_config;
-use App::SeismicUnixGui::misc::readfiles;
+use aliased 'App::SeismicUnixGui::misc::L_SU_global_constants';
+use aliased 'App::SeismicUnixGui::big_streams::iBottomMute';
+use aliased 'App::SeismicUnixGui::big_streams::iBottomMute_config';
+use aliased 'App::SeismicUnixGui::misc::readfiles';
 use Tk;
-use App::SeismicUnixGui::misc::SeismicUnix qw ($true $false );
-use App::SeismicUnixGui::sunix::shell::xk;
+use App::SeismicUnixGui::misc::SeismicUnix qw($true $false );
+use aliased 'App::SeismicUnixGui::sunix::shell::xk';
 
 my $iBM_Tk = {_prompt => ''};
 
@@ -71,11 +71,11 @@ my $iBM_Tk = {_prompt => ''};
 
 =cut
 
-my $iBM                	= new iBottomMute();
-my $iBottomMute_config 	= new iBottomMute_config();
-my $xk				 	= new xk;
-my $read               	= new readfiles();
-my $get                	= new L_SU_global_constants();
+my $iBM                	= iBottomMute->new();
+my $iBottomMute_config 	= iBottomMute_config->new();
+my $xk				 	= xk->new();
+my $read               	= readfiles->new();
+my $get                	= L_SU_global_constants->new();
 my $var                	= $get->var();
 
 

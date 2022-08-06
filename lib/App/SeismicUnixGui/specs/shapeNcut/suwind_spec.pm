@@ -1,12 +1,12 @@
 package App::SeismicUnixGui::specs::shapeNcut::suwind_spec;
 our $VERSION = '1.00';
 use Moose;
-use App::SeismicUnixGui::misc::L_SU_global_constants;
-use App::SeismicUnixGui::configs::big_streams::Project_config;
-use App::SeismicUnixGui::sunix::shapeNcut::suwind;
-use App::SeismicUnixGui::misc::SeismicUnix qw ($su $suffix_su);
+use aliased 'App::SeismicUnixGui::misc::L_SU_global_constants';
+use aliased 'App::SeismicUnixGui::configs::big_streams::Project_config';
+use aliased 'App::SeismicUnixGui::sunix::shapeNcut::suwind';
+use App::SeismicUnixGui::misc::SeismicUnix qw($su $suffix_su);
 
-my $get              = new L_SU_global_constants();
+my $get              = L_SU_global_constants->new();
 my $var              = $get->var();
 my $file_dialog_type = $get->file_dialog_type_href();
 my $flow_type        = $get->flow_type_href();
@@ -15,8 +15,8 @@ my $empty_string = $var->{_empty_string};
 my $true         = $var->{_true};
 my $false        = $var->{_false};
 
-my $Project = new Project_config;
-my $suwind  = new suwind;
+my $Project = Project_config->new();
+my $suwind  = suwind->new();
 
 my $DATA_SEISMIC_SU = $Project->DATA_SEISMIC_SU();    # output data directory
 my $PL_SEISMIC        = $Project->PL_SEISMIC();

@@ -65,8 +65,8 @@ package App::SeismicUnixGui::misc::conditions4flows;
 use Moose;
 our $VERSION = '0.0.2';
 
-use App::SeismicUnixGui::misc::L_SU_global_constants;
-my $get = new L_SU_global_constants();
+use aliased 'App::SeismicUnixGui::misc::L_SU_global_constants';
+my $get = L_SU_global_constants->new();
 
 my $var          = $get->var();
 my $false        = $var->{_false};

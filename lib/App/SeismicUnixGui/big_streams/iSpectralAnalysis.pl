@@ -49,10 +49,10 @@ use Moose;
 our $VERSION = '1.1';
 use Tk;
 use Tk::Pretty;
-use App::SeismicUnixGui::big_streams::iSpectralAnalysis;
-use App::SeismicUnixGui::sunix::shell::xk;
-use App::SeismicUnixGui::messages::SuMessages;
-use App::SeismicUnixGui::misc::L_SU_global_constants;
+use aliased 'App::SeismicUnixGui::big_streams::iSpectralAnalysis';
+use aliased 'App::SeismicUnixGui::sunix::shell::xk';
+use aliased 'App::SeismicUnixGui::messages::SuMessages';
+use aliased 'App::SeismicUnixGui::misc::L_SU_global_constants';
 
 my $iSA_Tk = {_prompt => ''};
 
@@ -64,10 +64,10 @@ my $iSA_Tk = {_prompt => ''};
 
 =cut
 
-my $iSA     = new iSpectralAnalysis();
-my $xk      = new xk;
-my $message = new SuMessages;
-my $get     = new L_SU_global_constants();
+my $iSA     = iSpectralAnalysis->new();
+my $xk      = xk->new();
+my $message = SuMessages->new();
+my $get     = L_SU_global_constants->new();
 my $var     = $get->var();
 
 =head2 Declare variables 

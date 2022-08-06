@@ -25,6 +25,7 @@ sub  set_param_names{
  	my ($first,$last,$i,$package_name);
  	
  	use App::SeismicUnixGui::misc::control '0.0.3';
+use aliased 'App::SeismicUnixGui::misc::control';
  	
  	# my $control 	= control->new();
  	

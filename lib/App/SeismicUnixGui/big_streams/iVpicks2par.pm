@@ -1,9 +1,9 @@
 package App::SeismicUnixGui::big_streams::iVpicks2par;
 
 use Moose;
-use App::SeismicUnixGui::misc::L_SU_global_constants;
-use App::SeismicUnixGui::big_streams::iWrite_All_iva_out;
-use App::SeismicUnixGui::misc::manage_files_by2;
+use aliased 'App::SeismicUnixGui::misc::L_SU_global_constants';
+use aliased 'App::SeismicUnixGui::big_streams::iWrite_All_iva_out';
+use aliased 'App::SeismicUnixGui::misc::manage_files_by2';
 
 =head1 DOCUMENTATION
 
@@ -70,13 +70,13 @@ my $iVpicks2par = {
 
 =cut 
 
-use App::SeismicUnixGui::misc::SeismicUnix qw ($on $off $in $to $go);
-use App::SeismicUnixGui::configs::big_streams::Project_config;
-my $Project = new Project_config();
+use App::SeismicUnixGui::misc::SeismicUnix qw($on $off $in $to $go);
+use aliased 'App::SeismicUnixGui::configs::big_streams::Project_config';
+my $Project = Project_config->new();
 my ($PL_SEISMIC) = $Project->PL_SEISMIC();
 
 
-my $get = new L_SU_global_constants();
+my $get = L_SU_global_constants->new();
 my $var          = $get->var();
 my $empty_string = $var->{_empty_string};
 
@@ -86,8 +86,8 @@ my $empty_string = $var->{_empty_string};
 
 =cut
 
-my $iWrite_All_iva_out = new iWrite_All_iva_out();
-my $test               = new manage_files_by2();
+my $iWrite_All_iva_out = iWrite_All_iva_out->new();
+my $test               = manage_files_by2->new();
 
 =head2 subroutine clear
 

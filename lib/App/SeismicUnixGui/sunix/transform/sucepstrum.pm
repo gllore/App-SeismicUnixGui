@@ -79,9 +79,9 @@ package App::SeismicUnixGui::sunix::transform::sucepstrum;
 
 use Moose;
 our $VERSION = '0.0.1';
-use App::SeismicUnixGui::misc::L_SU_global_constants;
+use aliased 'App::SeismicUnixGui::misc::L_SU_global_constants';
 
-my $get = new L_SU_global_constants();
+my $get = L_SU_global_constants->new();
 
 my $var          = $get->var();
 my $empty_string = $var->{_empty_string};
@@ -249,6 +249,7 @@ sub sign2 {
     if ( defined $sign2 && $sign2 ne $empty_string ) {
 
         use App::SeismicUnixGui::misc::control '0.0.3';
+use aliased 'App::SeismicUnixGui::misc::control';
         my $control = control->new();
         $control->set_back_slashBgone($sign2);
         $sign2 = $control->get_back_slashBgone();

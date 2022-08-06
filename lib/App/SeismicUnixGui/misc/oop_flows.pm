@@ -1,11 +1,11 @@
 package App::SeismicUnixGui::misc::oop_flows;
 use Moose;
 our $VERSION = '0.0.3';
-use App::SeismicUnixGui::messages::message_director;
-use App::SeismicUnixGui::misc::L_SU_global_constants;
+use aliased 'App::SeismicUnixGui::messages::message_director';
+use aliased 'App::SeismicUnixGui::misc::L_SU_global_constants';
 
 my $L_SU_messages = message_director->new();
-my $L_SU_global_constants = new L_SU_global_constants();
+my $L_SU_global_constants = L_SU_global_constants->new();
 
 =head2 initialize shared anonymous hash 
 

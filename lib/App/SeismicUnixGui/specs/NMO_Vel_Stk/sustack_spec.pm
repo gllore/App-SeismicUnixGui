@@ -2,14 +2,14 @@ package App::SeismicUnixGui::specs::NMO_Vel_Stk::sustack_spec;
 use Moose;
 our $VERSION = '0.0.1';
 
-use App::SeismicUnixGui::configs::big_streams::Project_config;
-use App::SeismicUnixGui::misc::SeismicUnix qw ($su $suffix_su);
-use App::SeismicUnixGui::misc::L_SU_global_constants;
-use App::SeismicUnixGui::sunix::NMO_Vel_Stk::sustack;
+use aliased 'App::SeismicUnixGui::configs::big_streams::Project_config';
+use App::SeismicUnixGui::misc::SeismicUnix qw($su $suffix_su);
+use aliased 'App::SeismicUnixGui::misc::L_SU_global_constants';
+use aliased 'App::SeismicUnixGui::sunix::NMO_Vel_Stk::sustack';
 
-my $get     = new L_SU_global_constants();
-my $Project = new Project_config;
-my $sustack = new sustack;
+my $get     = L_SU_global_constants->new();
+my $Project = Project_config->new();
+my $sustack = sustack->new();
 
 my $var = $get->var();
 

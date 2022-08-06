@@ -1,9 +1,9 @@
 package App::SeismicUnixGui::big_streams::iTopMutePicks2par;
 
 use Moose;
-use App::SeismicUnixGui::misc::message;
-use App::SeismicUnixGui::misc::flow;
-use App::SeismicUnixGui::misc::mkparfile;
+use aliased 'App::SeismicUnixGui::misc::message';
+use aliased 'App::SeismicUnixGui::misc::flow';
+use aliased 'App::SeismicUnixGui::misc::mkparfile';
 
 =head1 DOCUMENTATION
 
@@ -52,9 +52,9 @@ Examples
 
 =cut
 
-my $log       = new message();
-my $run       = new flow();
-my $mkparfile = new mkparfile();
+my $log       = message->new();
+my $run       = flow->new();
+my $mkparfile = mkparfile->new();
 
 =pod
  
@@ -93,9 +93,9 @@ my $iTopMutePicks2par = {
 =cut 
 
 use App::SeismicUnixGui::misc::SeismicUnix
-  qw ($true $false $in $out $to $itop_mute_par_ $itemp_top_mute_picks_ $itemp_top_mute_picks_sorted_par_ $out $suffix_su);
-use App::SeismicUnixGui::configs::big_streams::Project_config;
-my $Project = new Project_config();
+  qw($true $false $in $out $to $itop_mute_par_ $itemp_top_mute_picks_ $itemp_top_mute_picks_sorted_par_ $out $suffix_su);
+use aliased 'App::SeismicUnixGui::configs::big_streams::Project_config';
+my $Project = Project_config->new();
 my ($PL_SEISMIC) = $Project->PL_SEISMIC();
 
 =head2 subroutine clear

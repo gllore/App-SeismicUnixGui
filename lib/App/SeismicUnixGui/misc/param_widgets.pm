@@ -33,11 +33,14 @@ package App::SeismicUnixGui::misc::param_widgets;
 use Moose;
 our $VERSION = '1.0.1';
 use Tk;
-use App::SeismicUnixGui::misc::L_SU_global_constants;
-use App::SeismicUnixGui::misc::check_buttons;
-my $check_buttons = new check_buttons();
+use aliased 'App::SeismicUnixGui::misc::L_SU_global_constants';
+use aliased 'App::SeismicUnixGui::misc::check_buttons';
+use App::SeismicUnixGui::misc::control '0.0.3';
+use aliased 'App::SeismicUnixGui::misc::control'; #note
+use aliased 'App::SeismicUnixGui::misc::wipe';
 
-my $get                 = new L_SU_global_constants();
+my $check_buttons 		= check_buttons->new();
+my $get                 = L_SU_global_constants->new();
 my $default_param_specs = $get->param();
 my $var                 = $get->var();
 my $on                  = $var->{_on};
@@ -114,11 +117,11 @@ my $false = 0;
 sub _max_length_in_gui {
 	my ($self) = @_;
 
-	use App::SeismicUnixGui::misc::L_SU_global_constants;
-	my $get = L_SU_global_constants->new();
+#	use aliased 'App::SeismicUnixGui::misc::L_SU_global_constants';
+#	my $get = L_SU_global_constants->new();
 
-	my $param             = $get->param();
-	my $max_length_in_gui = $param->{_length};
+#	my $param             = $get->param();
+	my $max_length_in_gui = $default_param_specs->{_length};
 
 	$param_widgets->{_length} = $max_length_in_gui;
 
@@ -197,8 +200,7 @@ sub _changes {
 	my ( $self, $index ) = @_;
 
 	my $idx = $index;    # individual parameter line
-	use App::SeismicUnixGui::misc::control '0.0.3';
-	my $control = new control;
+	my $control = control->new();
 
 	# two cases possible
 	# in general L_SU
@@ -481,8 +483,7 @@ sub get_values_w_aref {
 sub gui_clean {
 	my ($self) = @_;
 
-	use App::SeismicUnixGui::misc::wipe;
-	my $wipe = new wipe();
+	my $wipe = wipe->new();
 
 	# print("param_widgets, gui_clean, _values_w_aref, $param_widgets->{_values_w_aref} \n");
 	# print("param_widgets, gui_clean, _labels_w_aref, $param_widgets->{_labels_w_aref} \n");
@@ -505,8 +506,8 @@ sub gui_full_clear {
 	my ($self) = @_;
    print("param_widgets,guifull_clear, start\n");
    
-	use App::SeismicUnixGui::misc::wipe;
-	my $wipe = new wipe();
+#	use aliased 'App::SeismicUnixGui::misc::wipe';
+	my $wipe = wipe->new();
 
 	my $safe = $param_widgets->{_length};
 	_max_length_in_gui();
@@ -986,7 +987,7 @@ sub initialize_labels {
 	my ( $labels, $first, $length );
 	my (@blank_labels);
 
-	use App::SeismicUnixGui::misc::label_boxes;
+	use aliased 'App::SeismicUnixGui::misc::label_boxes';
 
 	$labels = label_boxes->new();
 	$first  = $param_widgets->{_first_idx};
@@ -1015,7 +1016,7 @@ sub initialize_values {
 	my ($self) = @_;
 	my ( $values, $first, $length );
 	my @blank_values = ();
-	use App::SeismicUnixGui::misc::value_boxes;
+	use aliased 'App::SeismicUnixGui::misc::value_boxes';
 	$values = value_boxes->new();
 
 	$first  = $param_widgets->{_first_idx};
@@ -1227,7 +1228,7 @@ sub redisplay_values {
 	# print("param_widgets, redisplay_values, length is $length\n");
 	if (    length($values_w_aref)
 		and length($values_aref) ) {
-		use App::SeismicUnixGui::misc::control '0.0.3';
+#		use aliased 'App::SeismicUnixGui::misc::control';# '0.0.3';
 
 		for ( my $i = $first; $i < $length; $i++ ) {
 

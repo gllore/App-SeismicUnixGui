@@ -21,7 +21,7 @@
      (for variable definitions)
      SeismicUnix (Seismic Unix modules)
 
- use App::SeismicUnixGui::misc::SeismicUnix qw ($in $out $on $go $to $suffix_ascii $off $suffix_su) ;
+ use App::SeismicUnixGui::misc::SeismicUnix qw($in $out $on $go $to $suffix_ascii $off $suffix_su) ;
 
 =head2 USAGE
  
@@ -48,21 +48,21 @@
 use Moose;
 our $VERSION = '1.0.2';
 
-use App::SeismicUnixGui::configs::big_streams::Sudipfilt_config;
-use App::SeismicUnixGui::misc::flow;
-use App::SeismicUnixGui::misc::message;
-use App::SeismicUnixGui::sunix::filter::sudipfilt;
-use App::SeismicUnixGui::sunix::statsMath::suinterp;
-use App::SeismicUnixGui::sunix::transform::suspecfk;
-use App::SeismicUnixGui::sunix::plot::suxwigb;
-use App::SeismicUnixGui::sunix::plot::suximage;
-use App::SeismicUnixGui::sunix::shapeNcut::sugain;
-use App::SeismicUnixGui::sunix::filter::sufilter;
-use App::SeismicUnixGui::sunix::shapeNcut::suwind;
-use App::SeismicUnixGui::misc::readfiles;
-use App::SeismicUnixGui::misc::L_SU_global_constants;
+use aliased 'App::SeismicUnixGui::configs::big_streams::Sudipfilt_config';
+use aliased 'App::SeismicUnixGui::misc::flow';
+use aliased 'App::SeismicUnixGui::misc::message';
+use aliased 'App::SeismicUnixGui::sunix::filter::sudipfilt';
+use aliased 'App::SeismicUnixGui::sunix::statsMath::suinterp';
+use aliased 'App::SeismicUnixGui::sunix::transform::suspecfk';
+use aliased 'App::SeismicUnixGui::sunix::plot::suxwigb';
+use aliased 'App::SeismicUnixGui::sunix::plot::suximage';
+use aliased 'App::SeismicUnixGui::sunix::shapeNcut::sugain';
+use aliased 'App::SeismicUnixGui::sunix::filter::sufilter';
+use aliased 'App::SeismicUnixGui::sunix::shapeNcut::suwind';
+use aliased 'App::SeismicUnixGui::misc::readfiles';
+use aliased 'App::SeismicUnixGui::misc::L_SU_global_constants';
 
-use App::SeismicUnixGui::misc::SeismicUnix qw ($in $out $on $go $to $suffix_ascii $off $suffix_su);
+use App::SeismicUnixGui::misc::SeismicUnix qw($in $out $on $go $to $suffix_ascii $off $suffix_su);
 
 =head2 Instantiate classes
 
@@ -83,19 +83,19 @@ use App::SeismicUnixGui::misc::SeismicUnix qw ($in $out $on $go $to $suffix_asci
 
 =cut
 
-my $get              = new L_SU_global_constants();
-my $log              = new message();
-my $run              = new flow();
-my $sudipfilter      = new sudipfilt();
-my $Sudipfilt_config = new Sudipfilt_config();
-my $suspecfk         = new suspecfk();
-my $suxwigb          = new suxwigb();
-my $suximage         = new suximage();
-my $sufilter         = new sufilter();
-my $suinterp         = new suinterp();
-my $sugain           = new sugain();
-my $suwind           = new suwind();
-my $read             = new readfiles();
+my $get              = L_SU_global_constants->new();
+my $log              = message->new();
+my $run              = flow->new();
+my $sudipfilter      = sudipfilt->new();
+my $Sudipfilt_config = Sudipfilt_config->new();
+my $suspecfk         = suspecfk->new();
+my $suxwigb          = suxwigb->new();
+my $suximage         = suximage->new();
+my $sufilter         = sufilter->new();
+my $suinterp         = suinterp->new();
+my $sugain           = sugain->new();
+my $suwind           = suwind->new();
+my $read             = readfiles->new();
 
 =head2 notes
 

@@ -350,7 +350,7 @@ sub cols_2 {
 #  print(" program name is $choice \n\n");
 #else {  # all other normal programs whose configuration
 #       #file resides locally
-#       #$cfg = new Config::Simple($readfiles->{_program_name_config});
+#       #$cfg = Config::Simple($readfiles->{_program_name_config});
 #    } #test for iVA2.config
 #
 #
@@ -367,9 +367,10 @@ sub cols_2 {
 #	use Moose;
 #	# use Config::Simple;
 #	use name;
-#	use App::SeismicUnixGui::misc::control '0.0.3';
-#	my $name    = new name();
-#	my $control = new control;
+use App::SeismicUnixGui::misc::control '0.0.3';
+use aliased 'App::SeismicUnixGui::misc::control';
+#	my $name    = name->new();
+#	my $control = control->new();
 #
 #	if ( defined $program_name ) {
 #		$readfiles->{_program_name_config} =
@@ -399,7 +400,7 @@ sub cols_2 {
 #=cut
 #
 #			if ( $readfiles->{_program_name_config} eq 'iVA2.config' ) {
-#				$cfg = new Config::Simple( $readfiles->{_program_name_config} );
+#				$cfg = Config::Simple( $readfiles->{_program_name_config} );
 #				$CFG[0]  = "file_name";
 #				$CFG[1]  = $cfg->param("file_name");
 #				$CFG[2]  = "cdp_first";
@@ -445,7 +446,7 @@ sub cols_2 {
 #			{
 #
 ## print("readfiles,fk alias_superflow_config_name : $$alias_superflow_config_name[0]\n");
-#				$cfg = new Config::Simple( $readfiles->{_program_name_config} );
+#				$cfg = Config::Simple( $readfiles->{_program_name_config} );
 #				$CFG[0]  = "file_name";
 #				$CFG[1]  = $cfg->param("file_name");
 #				$CFG[2]  = "sudipfilter_1_dt";
@@ -517,7 +518,7 @@ sub cols_2 {
 #
 #			if ( $readfiles->{_program_name_config} eq $alias_PV . '.config' ) {
 #
-#				$cfg = new Config::Simple( $readfiles->{_program_name_config} );
+#				$cfg = Config::Simple( $readfiles->{_program_name_config} );
 #
 #=head2
 #
@@ -570,7 +571,7 @@ sub cols_2 {
 #			}
 #			else {    # all other normal programs whose configuration
 #				 #file resides locally
-#				 #$cfg = new Config::Simple($readfiles->{_program_name_config});
+#				 #$cfg = Config::Simple($readfiles->{_program_name_config});
 #			}    #test for Project_Variables.config
 #		}
 #		else {
@@ -604,7 +605,7 @@ sub cols_2 {
 #  my ($self,$program_name) = @_ ;
 #  my ($ref_cfg,$size);
 #  use su_param;
-#  my $su_param  = new su_param();
+#  my $su_param  = su_param->new();
 #   if (defined $program_name) {
 #    ($ref_cfg) =  $su_param->get($program_name);
 #    $size      =  $su_param->size($program_name);
@@ -679,8 +680,9 @@ sub cfg {
 
 sub configs {
 	my ( $self, $program ) = @_;
-	use App::SeismicUnixGui::misc::control '0.0.3';
-	use aliased 'App::SeismicUnixGui::misc::control';
+#	use App::SeismicUnixGui::misc::control '0.0.3';
+#use aliased 'App::SeismicUnixGui::misc::control';
+#	use aliased 'App::SeismicUnixGui::misc::control';
 
 	if ($program) {
 		

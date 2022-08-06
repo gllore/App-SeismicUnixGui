@@ -106,9 +106,9 @@ package App::SeismicUnixGui::sunix::NMO_Vel_Stk::sunmo;
 
 use Moose;
 our $VERSION = '0.0.3';
-use App::SeismicUnixGui::misc::L_SU_global_constants;
+use aliased 'App::SeismicUnixGui::misc::L_SU_global_constants';
 
-my $get = new L_SU_global_constants();
+my $get = L_SU_global_constants->new();
 
 my $var          = $get->var();
 my $empty_string = $var->{_empty_string};
@@ -298,14 +298,15 @@ sub multi_gather_parfile {
 		use manage_files_by2;
 		use App::SeismicUnixGui::configs::big_streams::Project_config;
 		use App::SeismicUnixGui::misc::control '0.0.3';
+		use aliased 'App::SeismicUnixGui::misc::control';
 
 =head2 instantiate classes
 
 =cut
 
 		my $files   = new manage_files_by2();
-		my $Project = new Project_config();
-		my $control = new control;
+		my $Project = Project_config->new();
+		my $control = control->new();
 
 =head2 declare local variables
 
@@ -531,14 +532,15 @@ sub par {
 		use manage_files_by2;
 		use App::SeismicUnixGui::configs::big_streams::Project_config;
 		use App::SeismicUnixGui::misc::control '0.0.3';
+		use aliased 'App::SeismicUnixGui::misc::control';
 
 =head2 instantiate classes
 
 =cut
 
 		my $files   = new manage_files_by2();
-		my $Project = new Project_config();
-		my $control = new control;
+		my $Project = Project_config->new();
+		my $control = control->new();
 
 =head2 declare local variables
 

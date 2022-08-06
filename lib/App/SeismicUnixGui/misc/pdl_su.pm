@@ -35,7 +35,7 @@ package App::SeismicUnixGui::misc::pdl_su;
 
 use Moose;
 use PDL::Core;
-use App::SeismicUnixGui::misc::L_SU_global_constants;
+use aliased 'App::SeismicUnixGui::misc::L_SU_global_constants';
 our $VERSION = '0.0.2';
 
 =head2 Assign Global Variables
@@ -43,7 +43,7 @@ our $VERSION = '0.0.2';
 		instantiate packages
 =cut
 
-my $get          = new L_SU_global_constants();
+my $get          = L_SU_global_constants->new();
 my $var          = $get->var();
 my $empty_string = $var->{_empty_string};
 
@@ -113,7 +113,7 @@ sub _set_inbound_file_path {
     if ( $pdl_su->{_inbound_suffix_type} ne $empty_string ) {
 
         use App::SeismicUnixGui::configs::big_streams::Project_config;
-        my $Project = new Project_config();
+        my $Project = Project_config->new();
 
         my $inbound_suffix_type = $pdl_su->{_inbound_suffix_type};
 

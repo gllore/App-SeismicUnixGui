@@ -95,13 +95,13 @@ sub _get_DIR {
 	my ($self) = @_;
 
 	use App::SeismicUnixGui::configs::big_streams::Project_config;
-	my $Project = new Project_config();
+	my $Project = Project_config->new();
 	my $DIR;
 
 	if ( length $data_out->{_suffix_type} ) {
 
 		use App::SeismicUnixGui::misc::SeismicUnix
-		  qw ($bin $ps $seg2 $segb $segd $sgd $segy $sgy $su $txt );
+		  qw($bin $ps $seg2 $segb $segd $sgd $segy $sgy $su $txt );
 
 		my $suffix_type = $data_out->{_suffix_type};
 
@@ -200,7 +200,7 @@ sub _get_suffix {
 		my $suffix_type = $data_out->{_suffix_type};
 
 		use App::SeismicUnixGui::misc::SeismicUnix
-		  qw ($suffix_seg2 $suffix_segb $suffix_segd $suffix_sgd $suffix_sgy $suffix_segy $suffix_su $suffix_bin $suffix_ps $suffix_txt $segy $sgy $su $txt $bin);
+		  qw($suffix_seg2 $suffix_segb $suffix_segd $suffix_sgd $suffix_sgy $suffix_segy $suffix_su $suffix_bin $suffix_ps $suffix_txt $segy $sgy $su $txt $bin);
 
 		if ( $suffix_type eq $ps ) {
 

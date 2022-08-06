@@ -48,7 +48,7 @@ our $VERSION = '0.0.2';
 		instantiate packages
 =cut
 
-my $get          = new L_SU_global_constants();
+my $get          = L_SU_global_constants->new();
 my $var          = $get->var();
 my $empty_string = $var->{_empty_string};
 my $us_per_s     = $var->{_us_per_s};

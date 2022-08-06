@@ -15,11 +15,12 @@ use Moose;
 
 =cut
 
+   use aliased 'App::SeismicUnixGui::misc::files_LSU';
+
 sub superflow {
     my ( $self, $hash_ref ) = @_;
     
-    use App::SeismicUnixGui::misc::files_LSU;
-    my $files_LSU = new files_LSU();
+    my $files_LSU = files_LSU->new();
     $files_LSU->tool_specs($hash_ref);
     
     return ();

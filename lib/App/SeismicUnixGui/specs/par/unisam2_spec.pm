@@ -3,13 +3,13 @@ package App::SeismicUnixGui::specs::par::unisam2_spec;
 	our $VERSION = '0.0.1';
 
 	use App::SeismicUnixGui::configs::big_streams::Project_config;
-	use App::SeismicUnixGui::misc::SeismicUnix qw ($su $suffix_su);
+	use App::SeismicUnixGui::misc::SeismicUnix qw($su $suffix_su);
 	use App::SeismicUnixGui::misc::L_SU_global_constants;
 	use unisam2;
 
-	my $get					= new L_SU_global_constants();
-	my $Project 			= new Project_config;
-	my $unisam2			    = new unisam2;
+	my $get					= L_SU_global_constants->new();
+	my $Project 			= Project_config->new();
+	my $unisam2			    = unisam2->new();
 
 	my $var					= $get->var();
 

@@ -19,9 +19,9 @@
 
 =cut
 
-use App::SeismicUnixGui::configs::big_streams::Project_config;
-my $Project = new Project_config();
-use App::SeismicUnixGui::misc::manage_dirs_by;
+use aliased 'App::SeismicUnixGui::configs::big_streams::Project_config';
+my $Project = Project_config->new();
+use aliased 'App::SeismicUnixGui::misc::manage_dirs_by';
 
 my ($DATA_SEISMIC)      = $Project->DATA_SEISMIC();
 my ($DATA_SEISMIC_DAT)  = $Project->DATA_SEISMIC_DAT();

@@ -26,10 +26,10 @@ Version:
 
 
 	use Moose;
-	use App::SeismicUnixGui::misc::SeismicUnix qw ($in $out $on $go $to $suffix_ascii $off $suffix_segd $suffix_segy $suffix_sgy $suffix_su $suffix_segd $suffix_txt $suffix_bin);
+	use App::SeismicUnixGui::misc::SeismicUnix qw($in $out $on $go $to $suffix_ascii $off $suffix_segd $suffix_segy $suffix_sgy $suffix_su $suffix_segd $suffix_txt $suffix_bin);
 	use App::SeismicUnixGui::configs::big_streams::Project_config;
 
-	my $Project		= new Project_config();
+	my $Project		= Project_config->new();
 	my $DATA_SEISMIC_BIN	= $Project->DATA_SEISMIC_BIN;
 	my $DATA_SEISMIC_SEGY	= $Project->DATA_SEISMIC_SEGY;
 	my $DATA_SEISMIC_SU	= $Project->DATA_SEISMIC_SU;

@@ -50,7 +50,7 @@ my $config_superflows = {
 };
 
 
-my $get             = new L_SU_global_constants();
+my $get             = L_SU_global_constants->new();
 my $get_immodpg     = new immodpg_global_constants();
 my $var             = $get->var();
 my $var_immodpg     = $get_immodpg->var();

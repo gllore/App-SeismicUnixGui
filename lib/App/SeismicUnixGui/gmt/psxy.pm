@@ -513,13 +513,13 @@ usage: psxy [<table>] -J<args> -R<west>/<east>/<south>/<north>[/<zmin>/<zmax>][+
 
 use Moose;
 our $VERSION = '1.0.1';
-use App::SeismicUnixGui::gmt::GMTglobal_constants;
+use aliased 'App::SeismicUnixGui::gmt::GMTglobal_constants';
 
 =head2 instantiation of packages
 
 =cut
 
-my $get     = new GMTglobal_constants();
+my $get     = GMTglobal_constants->new();
 my $gmt_var = $get->gmt_var();
 
 =head2 declare variables

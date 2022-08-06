@@ -37,13 +37,13 @@ use Tk::Pane;
 use Tk::Font;
 
 # potentially in all packages
-use App::SeismicUnixGui::misc::L_SU_global_constants;
-use App::SeismicUnixGui::misc::param_widgets;
-use App::SeismicUnixGui::misc::project_selector;
-use App::SeismicUnixGui::messages::message_director;
+use aliased 'App::SeismicUnixGui::misc::L_SU_global_constants';
+use aliased 'App::SeismicUnixGui::misc::param_widgets';
+use aliased 'App::SeismicUnixGui::misc::project_selector';
+use aliased 'App::SeismicUnixGui::messages::message_director';
 
 my $project_selector = project_selector->new();
-my $get              = new L_SU_global_constants();
+my $get              = L_SU_global_constants->new();
 my $param_widgets    = param_widgets->new();
 my $message_director = message_director->new();
 

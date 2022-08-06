@@ -83,12 +83,12 @@ $path = $SeismicUnixGui.'/'.'misc';
 }
 use lib "$path";
 
-extends 'gui_history' => { -version => 0.0.2 };
+extends 'App::SeismicUnixGui::misc::gui_history' => { -version => 0.0.2 };
 
 use App::SeismicUnixGui::misc::param_widgets_blue '0.0.2';
 use App::SeismicUnixGui::misc::param_flow_blue '0.0.5';
-use App::SeismicUnixGui::misc::flow_widgets;
-use App::SeismicUnixGui::misc::L_SU_global_constants;
+use aliased 'App::SeismicUnixGui::misc::flow_widgets';
+use aliased 'App::SeismicUnixGui::misc::L_SU_global_constants';
 
 =head2 Instantiation
 
@@ -321,6 +321,7 @@ sub _FileDialog_button {
 	my ( $self, $flow_dialog_type_sref ) = @_;
 	use App::SeismicUnixGui::misc::file_dialog;
 	use App::SeismicUnixGui::misc::control '0.0.3';
+	use aliased 'App::SeismicUnixGui::misc::control';
 
 	my $file_dialog = file_dialog->new();
 	my $control     = control->new();
@@ -926,9 +927,10 @@ sub _SaveAs_button {
 
 		use App::SeismicUnixGui::misc::files_LSU;
 		use App::SeismicUnixGui::misc::control '0.0.3';
+		use aliased 'App::SeismicUnixGui::misc::control';
 
-		my $files_LSU = new files_LSU();
-		my $control   = new control();
+		my $files_LSU = files_LSU->new();
+		my $control   = control->new();
 
 		# Start refocus index in flow, in case focus has been removed
 		# e.g., by double-clicking in parameter values window
@@ -1021,6 +1023,7 @@ sub _perl_flow_errors {
 	use App::SeismicUnixGui::messages::message_director;
 	use App::SeismicUnixGui::misc::param_sunix;
 	use App::SeismicUnixGui::misc::control '0.0.3';
+	use aliased 'App::SeismicUnixGui::misc::control';
 
 	# instantiate modules
 	my $perl_flow           = perl_flow->new();
@@ -1072,6 +1075,7 @@ sub _perl_flow {
 	use App::SeismicUnixGui::messages::message_director;
 	use App::SeismicUnixGui::misc::param_sunix;
 	use App::SeismicUnixGui::misc::control '0.0.3';
+	use aliased 'App::SeismicUnixGui::misc::control';
 
 	# instantiate modules
 	my $perl_flow           = perl_flow->new();
@@ -1286,6 +1290,7 @@ sub _set_user_built_flow_name_w {
 sub _stack_flow {
 	my ($self) = @_;
 	use App::SeismicUnixGui::misc::control '0.0.3';
+	use aliased 'App::SeismicUnixGui::misc::control';
 
 	my $control = control->new();
 
@@ -1362,6 +1367,7 @@ sub _updateNsave_most_recent_param_flow {
 
 	my ($self) = @_;
 	use App::SeismicUnixGui::misc::control '0.0.3';
+	use aliased 'App::SeismicUnixGui::misc::control';
 	my $control = control->new();
 
 	my $last_parameter_index_on_entry;
@@ -1547,6 +1553,7 @@ sub _update_prior_param_flow {
 
 	my ($self) = @_;
 	use App::SeismicUnixGui::misc::control '0.0.3';
+	use aliased 'App::SeismicUnixGui::misc::control';
 
 	my $control               = control->new();
 	my $prior_item_exists     = $false;
@@ -1671,6 +1678,7 @@ sub _save_most_recent_param_flow {
 
 	my ($self) = @_;
 	use App::SeismicUnixGui::misc::control '0.0.3';
+	use aliased 'App::SeismicUnixGui::misc::control';
 	my $control = control->new();
 
 	my $prior_flow_index_touched       = ( $color_flow_href->{_flow_select_index_href} )->{_prior};
@@ -1792,6 +1800,7 @@ sub FileDialog_button {
 	use manage_files_by2;
 	use App::SeismicUnixGui::configs::big_streams::Project_config;
 	use App::SeismicUnixGui::misc::control '0.0.3';
+	use aliased 'App::SeismicUnixGui::misc::control';
 
 	my $file_dialog = file_dialog->new();
 	my $get         = L_SU_global_constants->new();
@@ -3092,7 +3101,7 @@ sub help {
 	use App::SeismicUnixGui::misc::decisions '1.0.0';
 
 	my $decisions = decisions->new();
-	my $help      = new help();
+	my $help      = help->new();
 	my $pre_req_ok;
 
 	$decisions->set4help($color_flow_href);
@@ -3139,9 +3148,10 @@ sub save_button {
 
 		use App::SeismicUnixGui::misc::files_LSU;
 		use App::SeismicUnixGui::misc::control '0.0.3';
+		use aliased 'App::SeismicUnixGui::misc::control';
 
-		my $files_LSU = new files_LSU();
-		my $control   = new control();
+		my $files_LSU = files_LSU->new();
+		my $control   = control->new();
 
 		# user-built_flow in current use
 		my $flow_listbox_color_w = _get_flow_listbox_color_w();

@@ -41,7 +41,7 @@ use Moose;
      SeismicUnix (Seismic Unix modules)
 
 
- use App::SeismicUnixGui::misc::SeismicUnix qw ($in $out $on $go $to $suffix_ascii $off $suffix_su) ;
+ use App::SeismicUnixGui::misc::SeismicUnix qw($in $out $on $go $to $suffix_ascii $off $suffix_su) ;
   
 =head3 STEPS IN THE PROGRAM 
 
@@ -212,7 +212,7 @@ sub inbound {
 
 sub Step {
 
-    use App::SeismicUnixGui::misc::SeismicUnix qw ($in $out $on $go $to $suffix_ascii $off $suffix_su);
+    use App::SeismicUnixGui::misc::SeismicUnix qw($in $out $on $go $to $suffix_ascii $off $suffix_su);
 
     use App::SeismicUnixGui::misc::message;
     use App::SeismicUnixGui::misc::flow;
@@ -244,16 +244,16 @@ sub Step {
 
 =cut
 
-    my $log      = new message();
-    my $run      = new flow();
-    my $suxwigb  = new suxwigb();
-    my $suximage = new suximage();
-    my $suwind   = new suwind();
-    my $sufft    = new sufft();
-    my $suamp    = new suamp();
-    my $sufilter = new sufilter();
-    my $sugain   = new sugain();
-    my $Project  = new Project_config();
+    my $log      = message->new();
+    my $run      = flow->new();
+    my $suxwigb  = suxwigb->new();
+    my $suximage = suximage->new();
+    my $suwind   = suwind->new();
+    my $sufft    = sufft->new();
+    my $suamp    = suamp->new();
+    my $sufilter = sufilter->new();
+    my $sugain   = sugain->new();
+    my $Project  = Project_config->new();
 
     my ($DATA_SEISMIC_SU) = $Project->DATA_SEISMIC_SU();
 

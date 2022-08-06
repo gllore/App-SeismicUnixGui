@@ -43,7 +43,7 @@ use Moose;
      SeismicUnix (Seismic Unix modules)
 
 
- use App::SeismicUnixGui::misc::SeismicUnix qw ($in $out $on $go $to $suffix_ascii $off $suffix_su) ;
+ use App::SeismicUnixGui::misc::SeismicUnix qw($in $out $on $go $to $suffix_ascii $off $suffix_su) ;
   
 =head2 STEPS IN THE PROGRAM 
 
@@ -154,10 +154,10 @@ sub file_out {
 
     if ( $ref_picks_file && $inbound ) {
         use lib '/usr/local/pl/libAll';
-        use App::SeismicUnixGui::misc::SeismicUnix qw ($suffix_su);
-        use App::SeismicUnixGui::misc::readfiles;
+        use App::SeismicUnixGui::misc::SeismicUnix qw($suffix_su);
+        use aliased 'App::SeismicUnixGui::misc::readfiles';
 
-        my $read = new readfiles();
+        my $read = readfiles->new();
         my ( $ref_time, $ref_key, $max_index ) =
           $read->cols_2p($ref_picks_file);
 
@@ -264,9 +264,9 @@ sub window_title {
 sub Step {
 
     use lib '/usr/local/pl/libAll';
-    use App::SeismicUnixGui::misc::SeismicUnix qw ($in $out $on $go $to $suffix_ascii $off $suffix_su);
+    use App::SeismicUnixGui::misc::SeismicUnix qw($in $out $on $go $to $suffix_ascii $off $suffix_su);
     use App::SeismicUnixGui::configs::big_streams::Project_config;
-    my $Project = new Project_config();
+    my $Project = Project_config->new();
     use App::SeismicUnixGui::misc::message;
     use App::SeismicUnixGui::misc::flow;
     use App::SeismicUnixGui::sunix::plot::suxwigb;
@@ -286,10 +286,10 @@ sub Step {
 
 =cut
 
-    my $log     = new message();
-    my $run     = new flow();
-    my $suxwigb = new suxwigb();
-    my $suwind  = new suwind();
+    my $log     = message->new();
+    my $run     = flow->new();
+    my $suxwigb = suxwigb->new();
+    my $suwind  = suwind->new();
 
 =head2 Declare
 

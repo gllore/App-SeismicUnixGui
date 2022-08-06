@@ -41,9 +41,14 @@ package App::SeismicUnixGui::misc::big_streams_param;
 =cut
 
 use Moose;
+
+
 our $VERSION = '0.0.3';
 
-use App::SeismicUnixGui::misc::L_SU_global_constants;
+use aliased 'App::SeismicUnixGui::misc::L_SU_global_constants';
+use aliased 'App::SeismicUnixGui::misc::developer';
+use aliased 'App::SeismicUnixGui::misc::readfiles';
+
 use Shell qw(echo);
 
 my $L_SU_global_constants = L_SU_global_constants->new();
@@ -55,12 +60,12 @@ my $var                      = $L_SU_global_constants->var();
 my $ACTIVE_PROJECT           = $HOME . $var->{_ACTIVE_PROJECT};
 my $user_active_project_path = $ACTIVE_PROJECT;
 
-my $true         	= $var->{_true};
-my $false        	= $var->{_false};
-my $empty_string 	= $var->{_empty_string};
+my $true         = $var->{_true};
+my $false        = $var->{_false};
+my $empty_string = $var->{_empty_string};
 
 # imports 2 different flow type definisions
-my $flow_type_href 	= $L_SU_global_constants->flow_type_href();
+my $flow_type_href = $L_SU_global_constants->flow_type_href();
 
 my $big_streams_param = {
 	_flow_type                => '',
@@ -84,7 +89,7 @@ sub set_flow_type {
 
 		$big_streams_param->{_flow_type} = $flow_type;
 
-	   # print("big_streams_param,  set_flow_type ,flow_type=$big_streams_param->{_flow_type}\n");
+# print("big_streams_param,  set_flow_type ,flow_type=$big_streams_param->{_flow_type}\n");
 
 	}
 	else {
@@ -107,22 +112,24 @@ sub _get_global_lib {
 
 		my $result;
 
-		if (
-			$big_streams_param->{_flow_type} eq $flow_type_href->{_pre_built_superflow} )
+		if ( $big_streams_param->{_flow_type} eq
+			$flow_type_href->{_pre_built_superflow} )
 		{
 
 			$big_streams_param->{_lib_path} = $global_libs_href->{_param};
 
-		# print("big_streams_param, _get_global_lib,lib_path= $big_streams_param->{_lib_path}\n");
+# print("big_streams_param, _get_global_lib,lib_path= $big_streams_param->{_lib_path}\n");
 			$result = $big_streams_param->{_lib_path};
 			return ($result);
 
 		}
-		elsif ( $big_streams_param->{_flow_type} eq $flow_type_href->{_user_built} ) {
+		elsif (
+			$big_streams_param->{_flow_type} eq $flow_type_href->{_user_built} )
+		{
 
 			$big_streams_param->{_lib_path} = $global_libs_href->{_param};
 
-	   # print("big_streams_param, _get_global_lib, lib_path: $big_streams_param->{_lib_path}\n");
+# print("big_streams_param, _get_global_lib, lib_path: $big_streams_param->{_lib_path}\n");
 			$result = $big_streams_param->{_lib_path};
 			return ($result);
 
@@ -153,9 +160,11 @@ sub _set_sub_category_directory {
 
 	}
 	else {
-		print("big_streams_param, _set_sub_category_directory, missing value\n");
 		print(
-			"big_streams_param, _set_sub_category_directory, $sub_category_directory\n");
+			"big_streams_param, _set_sub_category_directory, missing value\n");
+		print(
+"big_streams_param, _set_sub_category_directory, $sub_category_directory\n"
+		);
 	}
 
 	return ();
@@ -170,7 +179,8 @@ sub _set_path {
 	{
 
 		$big_streams_param->{_path} = $path;
-#		print("big_streams_param, _set_path, path=$path\n");
+
+		#		print("big_streams_param, _set_path, path=$path\n");
 
 	}
 	else {
@@ -278,7 +288,7 @@ sub _get_program_config {
 sub get {
 
 	my ( $self, $program_sref ) = @_;
-	
+
 	if (   defined $program_sref
 		&& ( defined $big_streams_param->{_flow_type} )
 		&& ( $big_streams_param->{_flow_type} ne $empty_string ) )
@@ -288,9 +298,6 @@ sub get {
 		my ( $length, $names_aref, $values_aref );
 		my ( $i, $j, $program_config, $path );
 		my $sub_category_directory;
-
-		use App::SeismicUnixGui::misc::developer;
-		use App::SeismicUnixGui::misc::readfiles;
 
 		my $read      = readfiles->new();
 		my $developer = developer->new();
@@ -308,8 +315,8 @@ sub get {
 #"C. big_streams_param, get,user_active_project_path_exists: $user_active_project_path_exists\n"
 #		);
 
-		if (
-			$big_streams_param->{_flow_type} eq $flow_type_href->{_pre_built_superflow} )
+		if ( $big_streams_param->{_flow_type} eq
+			$flow_type_href->{_pre_built_superflow} )
 		{
 
 			if ($local_config_exists) {
@@ -336,15 +343,15 @@ sub get {
 				my $CONFIG  = $specs_h->{_CONFIG};
 
 				$big_streams_param->{_local_path} = $CONFIG;
-				$path                    = $big_streams_param->{_local_path};
-				$sub_category_directory  = '.';
+				$path                   = $big_streams_param->{_local_path};
+				$sub_category_directory = '.';
 				my $local_path = $big_streams_param->{_local_path};
 				my $sub_category_directory =
 				  $developer->get_program_sub_category();
 
-   # print("1.1 big_streams_param,get,local configuration files exists\n");
-   # print("1.2 big_streams_param,get,local_path:$CONFIG \n");
-   # print("1.3 big_streams_param,get,sub_category_directory=$sub_category_directory\n");
+# print("1.1 big_streams_param,get,local configuration files exists\n");
+# print("1.2 big_streams_param,get,local_path:$CONFIG \n");
+# print("1.3 big_streams_param,get,sub_category_directory=$sub_category_directory\n");
 
 			}
 			elsif ($user_active_project_path_exists) {
@@ -366,18 +373,24 @@ sub get {
 				$sub_category_directory =
 				  $developer->get_program_sub_category();
 
-				#				print("1C big_streams_param,get,using global lib: path is $path\n");
+	   #				print("1C big_streams_param,get,using global lib: path is $path\n");
 			}
 
 		}
-		elsif ( $big_streams_param->{_flow_type} eq $flow_type_href->{_user_built} ) {
+		elsif (
+			$big_streams_param->{_flow_type} eq $flow_type_href->{_user_built} )
+		{
 
 			# CASE 2A: for use of sunix programs in user_built_flows
 			$path = _get_global_lib();
 
-			print("CASE 2.A big_streams_param,get,using global lib: path for sunix programs is $path\n");
+			print(
+"CASE 2.A big_streams_param,get,using global lib: path for sunix programs is $path\n"
+			);
 			$sub_category_directory = $developer->get_program_sub_category();
-			print("2.A big_streams_param,get,using sub_category_directory:  for sunix programs is $sub_category_directory\n");
+			print(
+"2.A big_streams_param,get,using sub_category_directory:  for sunix programs is $sub_category_directory\n"
+			);
 
 		}
 		else {
@@ -409,9 +422,13 @@ sub get {
 
 	}
 	else {
-		print("big_streams_param, get, missing either program_sref or flow type\n");
+		print(
+			"big_streams_param, get, missing either program_sref or flow type\n"
+		);
 		print("big_streams_param,get, program_sref: $$program_sref\n");
-		print("big_streams_param,get, big_streams_param->{_flow_type}: $big_streams_param->{_flow_type}\n");
+		print(
+"big_streams_param,get, big_streams_param->{_flow_type}: $big_streams_param->{_flow_type}\n"
+		);
 	}
 }
 
@@ -449,34 +466,44 @@ sub _check4local_config {
 		&& $name_sref ne $empty_string )
 	{
 
+		
 		my $module_spec    = $$name_sref . '_spec';
 		my $module_spec_pm = $module_spec . '.pm';
 
 		$L_SU_global_constants->set_file_name($module_spec_pm);
-		my $path = $L_SU_global_constants->get_path4spec_file();
+		my $path4spec 			= $L_SU_global_constants->get_path4spec_file();
+		my $path4SeismicUnixGui  = $L_SU_global_constants->get_path4SeismicUnixGui;
 
-		# print("big_streams_param,_check4local_config, module path=$path \n");
+#		print("big_streams_param,_check4local_config, module path=$path4spec \n");
+#		print("big_streams_param,_check4local_config, path4SeismicUnixGui=$path4SeismicUnixGui\n");		
 
-		if ( length $path ) {
+		if ( length $path4spec ) {
 
-			my $pathNmodule_pm = $path . '/' . $module_spec_pm;
+			my $pathNmodule_pm   = $path4spec . '/' . $module_spec_pm;
+			my $pathNmodule_spec = $path4spec . '/' . $module_spec;
+			
+			$pathNmodule_spec =~ s/$path4SeismicUnixGui//g;
+			$pathNmodule_spec =~ s/\//::/g;
+			my $new_pathNmodule_spec = 'App::SeismicUnixGui'.$pathNmodule_spec;
+#			print("big_streams_param,_check4local_config,pathNmnodule_spec = $new_pathNmodule_spec\n");
 
 			require $pathNmodule_pm;
-
-			# print("pathNmnodule_pm = $pathNmnodule_pm\n");
-			my $package = $module_spec->new();
+			
+#			print("pathNmnodule_pm = $pathNmodule_pm\n");
+			
+			my $package = $new_pathNmodule_spec->new();
 
 			# collect specifications of output directory
 			# from a program_spec.pm module
 			my $specs_h = $package->variables();
 			my $CONFIG  = $specs_h->{_CONFIG};
 
-#			print("3. big_streams_param,_check4local_config, CONFIG=$CONFIG \n");
+	   #	print("3. big_streams_param,_check4local_config, CONFIG=$CONFIG \n");
 			my $prog_name_config = $CONFIG . '/' . $$name_sref . '.config';
 
-#			print(
-#"big_streams_param,_check4local_config,prog_name_config =$prog_name_config\n"
-#			);
+  #			print(
+  #"big_streams_param,_check4local_config,prog_name_config =$prog_name_config\n"
+  #			);
 			if ( -e ($prog_name_config) ) {
 
 #				print(
@@ -488,7 +515,7 @@ sub _check4local_config {
 			else {
 				$ans = $false;
 
-		  # print("big_streams_param,_check4local_config, $prog_name_config not found\n")
+ # print("big_streams_param,_check4local_config, $prog_name_config not found\n")
 			}
 		}    # module is found
 	}
@@ -525,8 +552,9 @@ sub _check4user_config {
 		else {
 			$ans = $false;
 			print(
-				"big_streams_param,_check4user_config, ACTIVE_PROJECT=$ACTIVE_PROJECT\n"
+"big_streams_param,_check4user_config, ACTIVE_PROJECT=$ACTIVE_PROJECT\n"
 			);
+
 #			print("big_streams_param,_check4user_config, name =$$name_sref\n");
 #			print(
 #				"big_streams_param,_check4user_config,$$name_sref not found. \n

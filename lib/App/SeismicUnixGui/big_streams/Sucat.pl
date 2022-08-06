@@ -143,17 +143,18 @@ CASE 3
 use Moose;
 our $VERSION = '0.1.4';
 use App::SeismicUnixGui::misc::control '0.0.3';
-use App::SeismicUnixGui::configs::big_streams::Project_config;
-use App::SeismicUnixGui::misc::readfiles;
-use App::SeismicUnixGui::misc::flow;
-use App::SeismicUnixGui::misc::message;
-use App::SeismicUnixGui::sunix::shell::sucat;
-use App::SeismicUnixGui::misc::manage_files_by;
+use aliased 'App::SeismicUnixGui::misc::control';
+use aliased 'App::SeismicUnixGui::configs::big_streams::Project_config';
+use aliased 'App::SeismicUnixGui::misc::readfiles';
+use aliased 'App::SeismicUnixGui::misc::flow';
+use aliased 'App::SeismicUnixGui::misc::message';
+use aliased 'App::SeismicUnixGui::sunix::shell::sucat';
+use aliased 'App::SeismicUnixGui::misc::manage_files_by';
 use App::SeismicUnixGui::misc::SeismicUnix
-	qw ($_cdp $_mute $in $itop_mute_par_ $ivpicks_sorted_par_ $out $on $go $to $suffix_ascii $off $suffix_su);
-use App::SeismicUnixGui::misc::L_SU_global_constants;
-use App::SeismicUnixGui::configs::big_streams::Sucat_config;
-use App::SeismicUnixGui::specs::big_streams::Sucat_spec;
+	qw($_cdp $_mute $in $itop_mute_par_ $ivpicks_sorted_par_ $out $on $go $to $suffix_ascii $off $suffix_su);
+use aliased 'App::SeismicUnixGui::misc::L_SU_global_constants';
+use aliased 'App::SeismicUnixGui::configs::big_streams::Sucat_config';
+use aliased 'App::SeismicUnixGui::specs::big_streams::Sucat_spec';
 
 =head2 Declare variables 
 
@@ -176,13 +177,13 @@ my $num_cdps;
 
 my $Project    = Project_config->new();
 my $control    = control->new();
-my $log        = new message();
-my $run        = new flow();
-my $sucat      = new sucat();
-my $read       = new readfiles();
-my $Sucat_spec = new Sucat_spec;
+my $log        = message->new();
+my $run        = flow->new();
+my $sucat      = sucat->new();
+my $read       = readfiles->new();
+my $Sucat_spec = Sucat_spec->new();
 
-my $get          = new L_SU_global_constants->new();
+my $get          = L_SU_global_constants->new->new();
 my $Sucat_config = Sucat_config->new();
 
 =head2 Get configuration information

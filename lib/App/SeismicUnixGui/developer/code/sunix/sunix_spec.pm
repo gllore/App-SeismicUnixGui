@@ -67,11 +67,11 @@ sub _get_instantiation_section {
 	my $package_name = $sunix_spec->{_package_name}; 
 		
 	$instantiate[0] = "\n".'use App::SeismicUnixGui::configs::big_streams::Project_config;'."\n".
-		                'use SeismicUnix qw ($bin $ps $segy $su $suffix_bin $suffix_ps $suffix_segy $suffix_su $suffix_txt $txt);' . "\n".
+		                'use App:SeismicUnixGui::misc::SeismicUnix qw($bin $ps $segy $su $suffix_bin $suffix_ps $suffix_segy $suffix_su $suffix_txt $txt);' . "\n".
 						'use App::SeismicUnixGui::misc::L_SU_global_constants;'."\n".					
 						'use '.$package_name.';'."\n".					
-						'my $get					= new L_SU_global_constants();'."\n".
-						'my $Project 				= new Project_config;'."\n".
+						'my $get					= L_SU_global_constants->new();'."\n".
+						'my $Project 				= Project_config;'."\n".
 						'my $'.$package_name.'		= new '.$package_name.';'."\n";
 											
 	return (\@instantiate);	

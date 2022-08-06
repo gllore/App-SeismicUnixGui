@@ -2,7 +2,9 @@ package App::SeismicUnixGui::misc::L_SU_local_user_constants;
 
 use Moose;
 
-use App::SeismicUnixGui::misc::L_SU_global_constants;
+use aliased 'App::SeismicUnixGui::misc::L_SU_global_constants';
+use aliased 'App::SeismicUnixGui::misc::dirs';
+use aliased 'App::SeismicUnixGui::misc::big_streams_param';
 
 my $L_SU_global_constants = L_SU_global_constants->new();
 
@@ -125,6 +127,7 @@ sub get_PROJECT_HOMES_aref {
     my $project_names_aref = _get_project_names();
     my @project_names      = @$project_names_aref;
     my $length             = scalar @project_names;
+    
 
     for ( my $i = 0 ; $i < $length ; $i++ ) {
         $PROJECT_HOMES[$i] = $HOME . '/' . $project_names[$i];
@@ -352,8 +355,7 @@ sub _get_local_or_defaults {
 
 	if ( length $config_base_name  ) {
 		
-		use App::SeismicUnixGui::misc::big_streams_param;
-		my $big_streams_param = new big_streams_param();
+		my $big_streams_param = big_streams_param->new();
 		
 		my $flow_type = $L_SU_global_constants->flow_type_href->{_pre_built_superflow};
 		$big_streams_param->set_flow_type($flow_type);
@@ -396,7 +398,7 @@ within the active-project dirctory:
 sub _get_active_project_name {
     my ($self) = @_;
     
-#    use App::SeismicUnixGui::misc::L_SU_local_user_constants_fix;
+##    use App::SeismicUnixGui::misc::L_SU_local_user_constants_fix;
 #    my $L_SU_local_user_constants = L_SU_local_user_constants_Fix->new();
 
     # default config file is 'Project'
@@ -407,7 +409,7 @@ sub _get_active_project_name {
       _get_local_or_defaults($project_name);
     my @namesNvalues_aref = @$namesNvalues_aref;
 
- print("L_SU_local_user_constants,get_active_project,namesNvalues_aref: @$namesNvalues_aref\n");
+# print("L_SU_local_user_constants,get_active_project,namesNvalues_aref: @$namesNvalues_aref\n");
 
     my $ACTIVE_PROJECT_name = $namesNvalues_aref[3];
 
@@ -480,7 +482,7 @@ o/p array ref of list names
 
 sub _get_project_names {
     my ($self) = @_;
-    use App::SeismicUnixGui::misc::dirs;
+
     my @filtered;
     my $i    = 0;
     my $dirs = dirs->new();
@@ -514,7 +516,6 @@ o/p array ref of list names
 
 sub get_project_names {
     my ($self) = @_;
-    use App::SeismicUnixGui::misc::dirs;
     my @filtered;
     my $i    = 0;
     my $dirs = dirs->new();
@@ -636,7 +637,6 @@ sub _set_user_configuration_Project_config2 {
 sub makconfig {
 
     my ($self) = @_;
-    use App::SeismicUnixGui::misc::manage_dirs_by;
     use File::Copy;
 
     my $ACTIVE_PROJECT;

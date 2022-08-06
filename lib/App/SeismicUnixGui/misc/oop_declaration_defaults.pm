@@ -11,6 +11,8 @@ our $VERSION = '0.0.2';
 
 =cut
 
+use aliased 'App::SeismicUnixGui::misc::manage_files_by2';
+
 =head2 program parameters
 	 
   private hash
@@ -38,7 +40,6 @@ sub _get_declaration {
 
 	if ( $oop_declaration_defaults->{_prog_names_aref} ) {
 
-		use App::SeismicUnixGui::misc::manage_files_by2;
 
 		my @unique_progs;
 		my $unique_progs_ref;

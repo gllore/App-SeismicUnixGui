@@ -2,18 +2,18 @@ package App::SeismicUnixGui::specs::big_streams::Sucat_spec;
 
 our $VERSION = '1.00';
 use Moose;
-use App::SeismicUnixGui::misc::L_SU_global_constants;
-use App::SeismicUnixGui::configs::big_streams::Project_config;
-use App::SeismicUnixGui::configs::big_streams::Sucat_config;
-use App::SeismicUnixGui::misc::SeismicUnix qw ($su $suffix_su);
+package App::SeismicUnixGui::specs::big_streams::Sucat_spec;
+package App::SeismicUnixGui::specs::big_streams::Sucat_spec;
+package App::SeismicUnixGui::specs::big_streams::Sucat_spec;
+use App::SeismicUnixGui::misc::SeismicUnix qw($su $suffix_su);
 
-use App::SeismicUnixGui::configs::big_streams::Project_config;
-use App::SeismicUnixGui::configs::big_streams::Sucat_config;
-use App::SeismicUnixGui::misc::SeismicUnix qw ($su $suffix_su);
+package App::SeismicUnixGui::specs::big_streams::Sucat_spec;
+package App::SeismicUnixGui::specs::big_streams::Sucat_spec;
+use App::SeismicUnixGui::misc::SeismicUnix qw($su $suffix_su);
 
-my $get              = new L_SU_global_constants();
-my $Project      = new Project_config;
-my $Sucat_config = new Sucat_config;
+my $get              = L_SU_global_constants->new();
+my $Project      = Project_config->new();
+my $Sucat_config = Sucat_config->new();
 
 my $var              = $get->var();
 

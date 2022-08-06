@@ -711,11 +711,11 @@ sub file_dialog_type_aref {
  	include this call to a library near the start (line 174)  of the program
  	use App::SeismicUnixGui::configs::big_streams::Project_config;   AND
  	
- 	my $Project				= new Project_config();
+ 	my $Project				= Project_config->new();
  	
  	modify a subroutine called file:
  		
- 		use SeismicUnix qw($suffix_segy);
+ 		use App:SeismicUnixGui::misc::SeismicUnix qw($suffix_segy);
 		use File::Basename;
 		my ($DATA_SEISMIC_SEGY) = $Project->DATA_SEISMIC_SEGY();
 		my $new_file_name = $file;
@@ -2667,7 +2667,7 @@ color_listbox
 	 I also had to ALSO import new variables into the module:
 	 
 	~ L 6
-	 use SeismicUnix qw ($su $suffix_su $bin $suffix_bin);
+	 use App:SeismicUnixGui::misc::SeismicUnix qw($su $suffix_su $bin $suffix_bin);
 	  
 	 ~L 21
 	  my $DATA_SEISMIC_BIN= $Project->DATA_SEISMIC_BIN();    # output data directory

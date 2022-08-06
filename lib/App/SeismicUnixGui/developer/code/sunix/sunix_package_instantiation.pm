@@ -24,7 +24,7 @@ use Moose;
 	my ($self) = @_;
 	
 	    $lines[0] =
-	    "\t".'my $get					= new L_SU_global_constants();'."\n\n";
+	    "\t".'my $get					= L_SU_global_constants->new();'."\n\n";
 		
 		return (\@lines);
  }

@@ -1,12 +1,12 @@
 package App::SeismicUnixGui::specs::big_streams::iBottomMute_spec;
 our $VERSION = '1.00';
 use Moose;
-use App::SeismicUnixGui::configs::big_streams::Project_config;
-use App::SeismicUnixGui::misc::L_SU_global_constants;
-use App::SeismicUnixGui::big_streams::iBottomMute_config;
-use App::SeismicUnixGui::misc::SeismicUnix qw ($su $suffix_su);
+package App::SeismicUnixGui::specs::big_streams::iBottomMute_spec;
+package App::SeismicUnixGui::specs::big_streams::iBottomMute_spec;
+package App::SeismicUnixGui::specs::big_streams::iBottomMute_spec;
+use App::SeismicUnixGui::misc::SeismicUnix qw($su $suffix_su);
 
-my $get              = new L_SU_global_constants();
+my $get              = L_SU_global_constants->new();
 my $var              = $get->var();
 my $empty_string     = $var->{_empty_string};
 my $file_dialog_type = $get->file_dialog_type_href();
@@ -14,8 +14,8 @@ my $flow_type        = $get->flow_type_href();
 
 my $true  = $var->{_true};
 my $false = $var->{_false};
-my $Project            = new Project_config;
-my $iBottomMute_config = new iBottomMute_config;
+my $Project            = Project_config->new();
+my $iBottomMute_config = iBottomMute_config->new();
 
 my $DATA_SEISMIC_SU = $Project->DATA_SEISMIC_SU();            # output data directory
 my $PL_SEISMIC		= $Project->PL_SEISMIC();

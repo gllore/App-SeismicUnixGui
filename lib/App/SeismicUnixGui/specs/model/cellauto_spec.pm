@@ -2,13 +2,13 @@ package App::SeismicUnixGui::specs::model::cellauto_spec;
 	use Moose;
 our $VERSION = '0.0.1';
 
-use App::SeismicUnixGui::configs::big_streams::Project_config;
-use App::SeismicUnixGui::misc::SeismicUnix qw ($bin $ps $segy $su $suffix_bin $suffix_ps $suffix_segy $suffix_su $suffix_txt $txt);
-use App::SeismicUnixGui::misc::L_SU_global_constants;
-use App::SeismicUnixGui::sunix::model::cellauto;
-my $get					= new L_SU_global_constants();
-my $Project 				= new Project_config;
-my $cellauto		= new cellauto;
+use aliased 'App::SeismicUnixGui::configs::big_streams::Project_config';
+use App::SeismicUnixGui::misc::SeismicUnix qw($bin $ps $segy $su $suffix_bin $suffix_ps $suffix_segy $suffix_su $suffix_txt $txt);
+use aliased 'App::SeismicUnixGui::misc::L_SU_global_constants';
+use aliased 'App::SeismicUnixGui::sunix::model::cellauto';
+my $get					= L_SU_global_constants->new();
+my $Project 				= Project_config->new();
+my $cellauto		= cellauto->new();
 
 my $var					= $get->var();
 

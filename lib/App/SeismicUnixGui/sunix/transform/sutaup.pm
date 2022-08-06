@@ -81,9 +81,9 @@ vmax=2
 
 use Moose;
 our $VERSION = '0.0.1';
-use App::SeismicUnixGui::misc::L_SU_global_constants;
+use aliased 'App::SeismicUnixGui::misc::L_SU_global_constants';
 
-my $get = new L_SU_global_constants();
+my $get = L_SU_global_constants->new();
 
 my $var          = $get->var();
 my $empty_string = $var->{_empty_string};
@@ -515,10 +515,10 @@ Use directory navigation system
 sub outbound_pickfile {
   my ($variable,$file_in) = @_;
 		use App::SeismicUnixGui::configs::big_streams::Project_config;
-		my $Project = new Project_config;
+		my $Project = Project_config->new();
         my ($DATA_SEISMIC_SU) = $Project->DATA_SEISMIC_SU();
         my ($PL_SEISMIC)      = $Project->PL_SEISMIC();
-        use App::SeismicUnixGui::misc::SeismicUnix qw ($suffix_fp $suffix_su) ;
+        use App::SeismicUnixGui::misc::SeismicUnix qw($suffix_fp $suffix_su) ;
 
         my $sufile_in			= $file_in.$suffix_su;
   	my $inbound			= $DATA_SEISMIC_SU.'/'.$sufile_in;
@@ -545,10 +545,10 @@ sub outbound_pickfile {
 =cut
 
         use App::SeismicUnixGui::configs::big_streams::Project_config;
-        my $Project           = new Project_config;
+        my $Project           = Project_config->new();
         my ($DATA_SEISMIC_SU) = $Project->DATA_SEISMIC_SU();
         my ($PL_SEISMIC)      = $Project->PL_SEISMIC();
-        use App::SeismicUnixGui::misc::SeismicUnix qw ($suffix_fp $suffix_su);
+        use App::SeismicUnixGui::misc::SeismicUnix qw($suffix_fp $suffix_su);
 
         my $sufile_in = $outbound_pickfile . $suffix_su;
         my $inbound   = $DATA_SEISMIC_SU . '/' . $sufile_in;
@@ -693,6 +693,7 @@ sub vmin {
     my ( $self, $vmin ) = @_;
     if ( $vmin ne $empty_string ) {
     	use App::SeismicUnixGui::misc::control '0.0.3';
+use aliased 'App::SeismicUnixGui::misc::control';
     	my $control = control->new();
     	
     	$control->set_back_slashBgone($vmin );

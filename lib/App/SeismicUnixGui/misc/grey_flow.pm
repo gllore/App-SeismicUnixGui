@@ -71,32 +71,53 @@ sub sunix_select (subroutine is only active in neutral_flow.pm)
 use Moose;
 our $VERSION = '0.0.4';
 
-my $path;
-my $SeismicUnixGui;
-use Shell qw(echo);
+#my $path;
+#my $SeismicUnixGui;
+#use Shell qw(echo);
+#
+#BEGIN {
+#
+#$SeismicUnixGui = ` echo \$SeismicUnixGui`;
+#chomp $SeismicUnixGui;
+#$path = $SeismicUnixGui.'/'.'misc';
+#
+#}
+#use lib "$path";
 
-BEGIN {
+use aliased 'App::SeismicUnixGui::misc::L_SU_global_constants';
+use aliased 'App::SeismicUnixGui::configs::big_streams::Project_config';
 
-$SeismicUnixGui = ` echo \$SeismicUnixGui`;
-chomp $SeismicUnixGui;
-$path = $SeismicUnixGui.'/'.'misc';
-
-}
-use lib "$path";
-extends 'gui_history' => { -version => 0.0.2 };
+extends 'App::SeismicUnixGui::misc::gui_history' => { -version => 0.0.2 };
+use aliased 'App::SeismicUnixGui::misc::gui_history';
 
 use App::SeismicUnixGui::misc::param_widgets_grey '0.0.2';
-use App::SeismicUnixGui::misc::param_flow_grey '0.0.5';
+use aliased 'App::SeismicUnixGui::misc::param_widgets_grey';
 
-use App::SeismicUnixGui::misc::flow_widgets;
-use App::SeismicUnixGui::misc::L_SU_global_constants;
+use App::SeismicUnixGui::misc::param_flow_grey '0.0.5';
+use aliased 'App::SeismicUnixGui::misc::param_flow_grey';
+
+use aliased 'App::SeismicUnixGui::misc::binding';
+
+use App::SeismicUnixGui::misc::control '0.0.3';
+use aliased 'App::SeismicUnixGui::misc::control';
+
+use App::SeismicUnixGui::misc::decisions '1.0.0';
+use aliased 'App::SeismicUnixGui::misc::decisions';
+
+use aliased 'App::SeismicUnixGui::misc::file_dialog';
+use aliased 'App::SeismicUnixGui::misc::files_LSU';
+use aliased 'App::SeismicUnixGui::misc::flow_widgets';
+use aliased 'App::SeismicUnixGui::misc::help';
+use aliased 'App::SeismicUnixGui::misc::manage_files_by2';
+use aliased 'App::SeismicUnixGui::messages::message_director';
+use aliased 'App::SeismicUnixGui::misc::perl_flow';
+use aliased 'App::SeismicUnixGui::misc::param_sunix';
 
 =head2 Instantiation
 
 =cut
 
-my $get = L_SU_global_constants->new();
-
+my $get 		 = L_SU_global_constants->new();
 my $flow_widgets = flow_widgets->new();
 my $gui_history  = gui_history->new();
 
@@ -168,7 +189,6 @@ sub _add2flow {
 
 	my ( $self, $value ) = @_;
 
-	use App::SeismicUnixGui::messages::message_director;
 	use Clone 'clone';
 
 	my $color_flow_messages = message_director->new();
@@ -320,8 +340,6 @@ Once the file name is selected the parameter value is updated in the GUI
 sub _FileDialog_button {
 
 	my ( $self, $flow_dialog_type_sref ) = @_;
-	use App::SeismicUnixGui::misc::file_dialog;
-	use App::SeismicUnixGui::misc::control '0.0.3';
 
 	my $file_dialog = file_dialog->new();
 	my $control     = control->new();
@@ -506,9 +524,6 @@ sub _flow_select_director {
 sub flow_select2save_most_recent_param_flow {
 	my ($self) = @_;
 
-	use App::SeismicUnixGui::messages::message_director;
-	use App::SeismicUnixGui::misc::decisions '1.0.0';
-
 	$color_flow_href->{_flow_type} = $flow_type->{_user_built};
 
 	_local_set_flow_listbox_color_w($flow_color);
@@ -538,7 +553,6 @@ sub flow_select2save_most_recent_param_flow {
 
 	if ($pre_req_ok) {
 
-		use App::SeismicUnixGui::misc::binding;
 		my $binding = binding->new();
 		my $here;
 		use Clone 'clone';
@@ -669,9 +683,6 @@ sub flow_select2save_most_recent_param_flow {
 sub _flow_select2save_most_recent_param_flow {
 	my ($self) = @_;
 
-	use App::SeismicUnixGui::messages::message_director;
-	use App::SeismicUnixGui::misc::decisions '1.0.0';
-
 	$color_flow_href->{_flow_type} = $flow_type->{_user_built};
 
 	# print("1. color_flow,_flow_select2save_most_recent_param_flow, last_flow_index_touched:$color_flow_href->{_last_flow_index_touched}\n");
@@ -713,7 +724,6 @@ sub _flow_select2save_most_recent_param_flow {
 
 	if ($pre_req_ok) {
 
-		use App::SeismicUnixGui::misc::binding;
 		my $binding = binding->new();
 		my $here;
 		use Clone 'clone';
@@ -925,11 +935,8 @@ sub _SaveAs_button {
 
 	if ( $topic eq 'SaveAs' ) {
 
-		use App::SeismicUnixGui::misc::files_LSU;
-		use App::SeismicUnixGui::misc::control '0.0.3';
-
-		my $files_LSU = new files_LSU();
-		my $control   = new control();
+		my $files_LSU = files_LSU->new();
+		my $control   = control->new();
 
 		# Start refocus index in flow, in case focus has been removed
 		# e.g., by double-clicking in parameter values window
@@ -1017,12 +1024,6 @@ sub _perl_flow_errors {
 
 	my $result;
 
-	# import modules
-	use App::SeismicUnixGui::misc::perl_flow;
-	use App::SeismicUnixGui::messages::message_director;
-	use App::SeismicUnixGui::misc::param_sunix;
-	use App::SeismicUnixGui::misc::control '0.0.3';
-
 	# instantiate modules
 	my $perl_flow           = perl_flow->new();
 	my $param_sunix         = param_sunix->new();
@@ -1069,10 +1070,6 @@ sub _perl_flow {
 	my ($self) = @_;
 
 	# import modules
-	use App::SeismicUnixGui::misc::perl_flow;
-	use App::SeismicUnixGui::messages::message_director;
-	use App::SeismicUnixGui::misc::param_sunix;
-	use App::SeismicUnixGui::misc::control '0.0.3';
 
 	# instantiate modules
 	my $perl_flow           = perl_flow->new();
@@ -1286,7 +1283,6 @@ sub _set_user_built_flow_name_w {
 
 sub _stack_flow {
 	my ($self) = @_;
-	use App::SeismicUnixGui::misc::control '0.0.3';
 
 	my $control = control->new();
 
@@ -1362,7 +1358,6 @@ program in the flow
 sub _updateNsave_most_recent_param_flow {
 
 	my ($self) = @_;
-	use App::SeismicUnixGui::misc::control '0.0.3';
 	my $control = control->new();
 
 	my $last_parameter_index_on_entry;
@@ -1547,7 +1542,6 @@ hash remains partially undefined in gui_history.pm
 sub _update_prior_param_flow {
 
 	my ($self) = @_;
-	use App::SeismicUnixGui::misc::control '0.0.3';
 
 	my $control               = control->new();
 	my $prior_item_exists     = $false;
@@ -1671,7 +1665,7 @@ sub _update_prior_param_flow {
 sub _save_most_recent_param_flow {
 
 	my ($self) = @_;
-	use App::SeismicUnixGui::misc::control '0.0.3';
+
 	my $control = control->new();
 
 	my $prior_flow_index_touched       = ( $color_flow_href->{_flow_select_index_href} )->{_prior};
@@ -1787,11 +1781,6 @@ Can also be (1) a previous pre-built superflow that is already in the GUI
 sub FileDialog_button {
 
 	my ( $self, $dialog_type_sref ) = @_;
-	use App::SeismicUnixGui::misc::file_dialog;
-	use App::SeismicUnixGui::misc::L_SU_global_constants;
-	use manage_files_by2;
-	use App::SeismicUnixGui::configs::big_streams::Project_config;
-	use App::SeismicUnixGui::misc::control '0.0.3';
 
 	my $file_dialog = file_dialog->new();
 	my $get         = L_SU_global_constants->new();
@@ -1812,7 +1801,6 @@ sub FileDialog_button {
 			# i.e., in this module, dialog_type_sref can only be SaveAs
 			# Save for 'user-built flows' is accessible via L_SU.pm
 
-			use App::SeismicUnixGui::messages::message_director;
 			my $color_flow_messages = message_director->new();
 
 			my $most_recent_flow_index_touched = ( $color_flow_href->{_flow_select_index_href} )->{_most_recent};
@@ -2054,9 +2042,6 @@ sub add2flow_button {
 
 	$color_flow_href->{_flow_type} = $flow_type->{_user_built};
 
-	use App::SeismicUnixGui::messages::message_director;
-	use App::SeismicUnixGui::misc::param_sunix;
-
 	my $param_sunix         = param_sunix->new();
 	my $color_flow_messages = message_director->new();
 	my $message             = $color_flow_messages->null_button(0);
@@ -2183,9 +2168,6 @@ sub delete_from_flow_button {
 	if ($flow_color) {
 
 		_set_flow_color($flow_color);
-
-		use App::SeismicUnixGui::messages::message_director;
-		use App::SeismicUnixGui::misc::decisions '1.0.0';
 
 		my $color_flow_messages = message_director->new();
 		my $decisions           = decisions->new();
@@ -2409,9 +2391,6 @@ sub delete_whole_flow_button {
 
 		_set_flow_color($flow_color);
 
-		use App::SeismicUnixGui::messages::message_director;
-		use App::SeismicUnixGui::misc::decisions '1.0.0';
-
 		my $color_flow_messages = message_director->new();
 		my $decisions           = decisions->new();
 
@@ -2501,9 +2480,6 @@ sub flow_item_down_arrow_button {
 		_set_flow_color($flow_color);
 
 		# $conditions_gui->set4start_of_flow_item_down_arrow_button($color_flow_href);
-
-		use App::SeismicUnixGui::messages::message_director;
-		use App::SeismicUnixGui::misc::decisions '1.0.0';
 
 		my $color_flow_messages = message_director->new();
 		my $decisions           = decisions->new();
@@ -2601,9 +2577,6 @@ sub flow_item_up_arrow_button {
 		_set_flow_color($flow_color);
 
 		# $conditions_gui->set4start_of_flow_item_up_arrow_button($color_flow_href);
-
-		use App::SeismicUnixGui::messages::message_director;
-		use App::SeismicUnixGui::misc::decisions '1.0.0';
 
 		my $color_flow_messages = message_director->new();
 		my $decisions           = decisions->new();
@@ -2703,8 +2676,6 @@ my $ans = @{$color_flow_href->{_values_w_aref}}[0]->get;
 sub flow_select {
 	my ($self) = @_;
 	my $ans;
-	use App::SeismicUnixGui::messages::message_director;
-	use App::SeismicUnixGui::misc::decisions '1.0.0';
 	$color_flow_href->{_flow_type} = $flow_type->{_user_built};
 
 	#	print("color_flow,flow_select, START\n");
@@ -2756,7 +2727,6 @@ sub flow_select {
 
 	if ($pre_req_ok) {
 
-		use App::SeismicUnixGui::misc::binding;
 		my $binding = binding->new();
 		my ( $ans, $ans1 );
 		use Clone 'clone';
@@ -3042,43 +3012,41 @@ sub increase_vigil_on_delete_counter {
 	return ();
 }
 
-=head2 sub help
-
- Callback sequence following MB3 click 
- activation of a sunix (Listbox) item
- program name is a scalar reference
- 
- Let help decide whether it is a superflow
- or a user-created flow
- 
- Show a window with the perldoc to the user
- 
-
-=cut 
-
-sub help {
-	my ($self) = @_;
-	use App::SeismicUnixGui::misc::help;
-	use App::SeismicUnixGui::misc::decisions '1.0.0';
-
-	my $decisions = decisions->new();
-	my $help      = new help();
-	my $pre_req_ok;
-
-	$decisions->set4help($color_flow_href);
-	$pre_req_ok = $decisions->get4help();
-
-	if ($pre_req_ok) {
-
-		$help->set_name( $color_flow_href->{_prog_name_sref} );
-		$help->tkpod();
-
-	} else {
-
-		# print("NADA\n");
-	}
-	return ();
-}
+#=head2 sub help
+#
+# Callback sequence following MB3 click 
+# activation of a sunix (Listbox) item
+# program name is a scalar reference
+# 
+# Let help decide whether it is a superflow
+# or a user-created flow
+# 
+# Show a window with the perldoc to the user
+# 
+#
+#=cut 
+#
+#sub help {
+#	
+#	my ($self) = @_;
+#
+#	my $decisions = decisions->new();
+#	my $help      = help->new();
+#	my $pre_req_ok;
+#
+#	$decisions->set4help($color_flow_href);
+#	$pre_req_ok = $decisions->get4help();
+#
+#	if ($pre_req_ok) {
+#
+#		$help->set_name( $color_flow_href->{_prog_name_sref} );
+#		$help->tkpod();
+#
+#	} else {
+#		# print("NADA\n");
+#	}
+#	return ();
+#}
 
 =head2 sub save_button
 
@@ -3107,11 +3075,8 @@ sub save_button {
 		#		print("color_flow, save_button writing gui_history.txt\n");
 		#	    $gui_history->view();
 
-		use App::SeismicUnixGui::misc::files_LSU;
-		use App::SeismicUnixGui::misc::control '0.0.3';
-
-		my $files_LSU = new files_LSU();
-		my $control   = new control();
+		my $files_LSU = files_LSU->new();
+		my $control   = control->new();
 
 		# user-built_flow in current use
 		my $flow_listbox_color_w = _get_flow_listbox_color_w();

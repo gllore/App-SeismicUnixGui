@@ -14,7 +14,7 @@ $path = $SeismicUnixGui.'/'.'misc';
 }
 use lib "$path";
 
-#extends 'gui_history' => { -version => 0.0.2 };
+#extends 'App::SeismicUnixGui::misc::gui_history' => { -version => 0.0.2 };
 
 #use Tk;
 #use Tk::Pane;

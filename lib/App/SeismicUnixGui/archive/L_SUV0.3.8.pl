@@ -69,7 +69,7 @@ use Tk::NoteBook;
 use L_SU 0.1.4;
 use App::SeismicUnixGui::misc::L_SU_global_constants;
 
-my $get  			= new L_SU_global_constants();
+my $get  			= L_SU_global_constants->new();
 my $L_SU 			= L_SU->new();
 
 =head2

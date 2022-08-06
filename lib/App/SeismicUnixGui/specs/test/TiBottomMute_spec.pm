@@ -4,16 +4,16 @@ use Moose;
 use App::SeismicUnixGui::configs::big_streams::Project_config;
 use App::SeismicUnixGui::misc::L_SU_global_constants;
 use iBottomMute_config;
-use SeismicUnix qw ($su $suffix_su);
+use App:SeismicUnixGui::misc::SeismicUnix qw($su $suffix_su);
 
-my $get              = new L_SU_global_constants();
+my $get              = L_SU_global_constants->new();
 my $var              = $get->var();
 my $file_dialog_type = $get->file_dialog_type_href();
 my $flow_type        = $get->flow_type_href();
 
 my $true  = $var->{_true};
 my $false = $var->{_false};
-my $Project            = new Project_config;
+my $Project            = Project_config->new();
 my $iBottomMute_config = new iBottomMute_config;
 
 my $DATA_SEISMIC_SU = $Project->DATA_SEISMIC_SU();            # output data directory

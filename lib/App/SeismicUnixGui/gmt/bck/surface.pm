@@ -107,7 +107,7 @@ use App::SeismicUnixGui::misc::L_SU_global_constants;    ##
 
 =cut##
 
-my $get = new L_SU_global_constants();    ##
+my $get = L_SU_global_constants->new();    ##
 
 =head2 declare variables##
 ####

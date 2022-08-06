@@ -1,29 +1,29 @@
 package App::SeismicUnixGui::messages::message_director;
 
 use Moose;
-use App::SeismicUnixGui::messages::FileDialog_button_messages;
-use App::SeismicUnixGui::messages::FileDialog_close_messages;
-use App::SeismicUnixGui::messages::color_listbox_messages;
-use App::SeismicUnixGui::misc::save_button_messages;
-use App::SeismicUnixGui::messages::flows_messages;
-use App::SeismicUnixGui::messages::immodpg_messages;
-use App::SeismicUnixGui::messages::iPick_messages;
-use App::SeismicUnixGui::messages::run_button_messages;
-use App::SeismicUnixGui::messages::null_messages;
-use App::SeismicUnixGui::messages::project_selector_messages;
-use App::SeismicUnixGui::messages::superflow_messages;
+use aliased 'App::SeismicUnixGui::messages::FileDialog_button_messages';
+use aliased 'App::SeismicUnixGui::messages::FileDialog_close_messages';
+use aliased 'App::SeismicUnixGui::messages::color_listbox_messages';
+use aliased 'App::SeismicUnixGui::misc::save_button_messages';
+use aliased 'App::SeismicUnixGui::messages::flows_messages';
+use aliased 'App::SeismicUnixGui::messages::immodpg_messages';
+use aliased 'App::SeismicUnixGui::messages::iPick_messages';
+use aliased 'App::SeismicUnixGui::messages::run_button_messages';
+use aliased 'App::SeismicUnixGui::messages::null_messages';
+use aliased 'App::SeismicUnixGui::messages::project_selector_messages';
+use aliased 'App::SeismicUnixGui::messages::superflow_messages';
 
-my $flows             = new flows_messages;
-my $FileDialog_button = new FileDialog_button_messages;
-my $FileDialog_close  = new FileDialog_button_messages;
-my $run_button        = new run_button_messages;
-my $save_button       = new save_button_messages;
-my $superflow         = new superflow_messages;
-my $null              = new null_messages;
-my $project_selector  = new project_selector_messages;
-my $iPick             = new iPick_messages;
-my $immodpg			  = new immodpg_messages;
-my $color_listbox		  = new color_listbox_messages;
+my $flows             = flows_messages->new();
+my $FileDialog_button = FileDialog_button_messages->new();
+my $FileDialog_close  = FileDialog_button_messages->new();
+my $run_button        = run_button_messages->new();
+my $save_button       = save_button_messages->new();
+my $superflow         = superflow_messages->new();
+my $null              = null_messages->new();
+my $project_selector  = project_selector_messages->new();
+my $iPick             = iPick_messages->new();
+my $immodpg			  = immodpg_messages->new();
+my $color_listbox	  = color_listbox_messages->new();
 
 =head1 DOCUMENTATION
 

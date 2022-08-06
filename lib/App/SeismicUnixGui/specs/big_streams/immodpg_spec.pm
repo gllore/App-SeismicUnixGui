@@ -1,11 +1,11 @@
 package App::SeismicUnixGui::specs::big_streams::immodpg_spec;
 our $VERSION = '0.0.1';
 use Moose;
-use App::SeismicUnixGui::configs::big_streams::Project_config;
-use App::SeismicUnixGui::misc::L_SU_global_constants;
-use App::SeismicUnixGui::misc::SeismicUnix qw ($su $suffix_su $txt $suffix_txt);
+package App::SeismicUnixGui::specs::big_streams::immodpg_spec;
+package App::SeismicUnixGui::specs::big_streams::immodpg_spec;
+use App::SeismicUnixGui::misc::SeismicUnix qw($su $suffix_su $txt $suffix_txt);
 
-my $get              = new L_SU_global_constants();
+my $get              = L_SU_global_constants->new();
 my $var              = $get->var();
 
 my $empty_string     = $var->{_empty_string};
@@ -15,7 +15,7 @@ my $flow_type        = $get->flow_type_href();
 my $true  			= $var->{_true};
 my $false 			= $var->{_false};
 
-my $Project          	= new Project_config;
+my $Project          	= Project_config->new();
 my $DATA_SEISMIC_SU  	= $Project->DATA_SEISMIC_SU();   # output data directory
 my $IMMODPG  			= $Project->IMMODPG();
 

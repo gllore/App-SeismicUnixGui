@@ -145,7 +145,7 @@ sub _get_spec_changes {
 =cut
 
 		use App::SeismicUnixGui::misc::L_SU_global_constants();
-		use App::SeismicUnixGui::misc::SeismicUnix qw ($bin $dat $ps $segb $segd $segy $sgy $su $suffix_bin $suffix_ps
+		use App::SeismicUnixGui::misc::SeismicUnix qw($bin $dat $ps $segb $segd $segy $sgy $su $suffix_bin $suffix_ps
 		  $suffix_segy $suffix_sgy $suffix_su $suffix_txt $txt);
 		use App::SeismicUnixGui::configs::big_streams::Project_config;
 		use App::SeismicUnixGui::misc::manage_files_by2;
@@ -157,7 +157,7 @@ sub _get_spec_changes {
 
 		my $file        = manage_files_by2->new();
 		my $prog_doc2pm = prog_doc2pm->new();
-		my $get         = new L_SU_global_constants();
+		my $get         = L_SU_global_constants->new();
 
 		my $var          = $get->var();
 		my $on           = $var->{_on};

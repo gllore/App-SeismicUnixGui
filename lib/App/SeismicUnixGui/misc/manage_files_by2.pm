@@ -31,7 +31,7 @@ package App::SeismicUnixGui::misc::manage_files_by2;
 
 use Moose;
 my $VERSION = '0.0.1';
-
+use aliased 'App::SeismicUnixGui::sunix::shell::cat_su';
 use aliased 'App::SeismicUnixGui::configs::big_streams::Project_config';
 use aliased 'App::SeismicUnixGui::misc::message';
 use aliased 'App::SeismicUnixGui::sunix::data::data_out';
@@ -1168,8 +1168,6 @@ Version:
 		my $DATA_SEISMIC_SEGY = $Project->DATA_SEISMIC_SEGY;
 		my $DATA_SEISMIC_SU   = $Project->DATA_SEISMIC_SU;
 		my $DATA_SEISMIC_TXT  = $Project->DATA_SEISMIC_TXT;
-
-		use aliased 'App::SeismicUnixGui::sunix::shell::cat_su';
 
 		my $log      = message->new();
 		my $run      = flow->new();

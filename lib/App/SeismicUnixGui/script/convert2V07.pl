@@ -17,7 +17,7 @@ Version: 0.1
 =head3 NOTES
 
 Before conversion: use L_SU_global_constants:
-After conversion:  use SeismicUnixGui:misc:L_SU_global_constants;
+After conversion:  use App:SeismicUnixGui::misc::SeismicUnixGui:misc:L_SU_global_constants;
 
 =head4 Examples
 
@@ -39,7 +39,7 @@ oop_run_flows
 use Moose;
 our $VERSION = '0.0.1';
 
-use App::SeismicUnixGui::misc::manage_files_by2;
+use aliased 'App::SeismicUnixGui::misc::manage_files_by2';
 use Carp;
 
 my $manage_files_by2 = manage_files_by2->new();

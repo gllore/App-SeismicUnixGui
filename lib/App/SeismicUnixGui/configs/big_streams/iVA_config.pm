@@ -55,12 +55,13 @@ package App::SeismicUnixGui::configs::big_streams::iVA_config;
 
 use Moose;
 our $VERSION = '1.0.1';
-use App::SeismicUnixGui::misc::config_superflows;
+use aliased 'App::SeismicUnixGui::misc::config_superflows';
 use App::SeismicUnixGui::misc::control '0.0.3';
-use App::SeismicUnixGui::misc::L_SU_global_constants;
+use aliased 'App::SeismicUnixGui::misc::control';
+use aliased 'App::SeismicUnixGui::misc::L_SU_global_constants';
 
-my $get                    = new L_SU_global_constants();
-my $control                = new control;
+my $get                    = L_SU_global_constants->new();
+my $control                = control->new();
 my $config_superflows      = new config_superflows;
 my $superflow_config_names = $get->superflow_config_names_aref();
 

@@ -43,7 +43,7 @@
 use Moose;
 use Config::Simple;
 use control 0.0.3;
-my $control = new control;
+my $control = control->new();
 my $cfg     = new Config::Simple('Project_Variables.config');
 
 =head2 anonymous hash array reference $CFG

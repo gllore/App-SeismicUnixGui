@@ -53,32 +53,33 @@ our $VERSION = '1.0.0';
 
 =cut
 
-my $path;
-my $SeismicUnixGui;
-use Shell qw(echo);
-
-BEGIN {
-
-$SeismicUnixGui = ` echo \$SeismicUnixGui`;
-chomp $SeismicUnixGui;
-$path = $SeismicUnixGui.'/'.'misc';
-
-}
-use lib "$path";
-extends 'gui_history' => { -version => 0.0.2 };
+#my $path;
+#my $SeismicUnixGui;
+#use Shell qw(echo);
+#
+#BEGIN {
+#
+#$SeismicUnixGui = ` echo \$SeismicUnixGui`;
+#chomp $SeismicUnixGui;
+#$path = $SeismicUnixGui.'/'.'misc';
+#
+#}
+#use lib "$path";
+extends 'App::SeismicUnixGui::misc::gui_history' => { -version => 0.0.2 };
+use aliased 'App::SeismicUnixGui::misc::gui_history';
 
 =head2 Import modules
 
 =cut
 
-use App::SeismicUnixGui::misc::L_SU_global_constants;
+use aliased 'App::SeismicUnixGui::misc::L_SU_global_constants';
 
 =head2 Instantiation
 
 =cut
 
 my $get            = L_SU_global_constants->new();
-my $gui_history = gui_history->new();
+my $gui_history    = gui_history->new();
 
 =head Local variables
 

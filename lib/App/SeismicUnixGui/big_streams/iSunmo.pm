@@ -23,17 +23,17 @@ package App::SeismicUnixGui::big_streams::iSunmo;
 =cut
 
 use Moose;
-use App::SeismicUnixGui::misc::L_SU_global_constants;
-use App::SeismicUnixGui::configs::big_streams::Project_config;
-use App::SeismicUnixGui::misc::SeismicUnix qw ($on $off $in $to $go);
-use App::SeismicUnixGui::misc::flow;
-use App::SeismicUnixGui::sunix::filter::sufilter;
-use App::SeismicUnixGui::sunix::shapeNcut::sugain;
-use App::SeismicUnixGui::sunix::shapeNcut::susort;
-use App::SeismicUnixGui::sunix::NMO_Vel_Stk::sunmo;
-use App::SeismicUnixGui::sunix::shapeNcut::suwind;
-use App::SeismicUnixGui::sunix::plot::suxwigb;
-use App::SeismicUnixGui::sunix::plot::suximage;
+use aliased 'App::SeismicUnixGui::misc::L_SU_global_constants';
+use aliased 'App::SeismicUnixGui::configs::big_streams::Project_config';
+use App::SeismicUnixGui::misc::SeismicUnix qw($on $off $in $to $go);
+use aliased 'App::SeismicUnixGui::misc::flow';
+use aliased 'App::SeismicUnixGui::sunix::filter::sufilter';
+use aliased 'App::SeismicUnixGui::sunix::shapeNcut::sugain';
+use aliased 'App::SeismicUnixGui::sunix::shapeNcut::susort';
+use aliased 'App::SeismicUnixGui::sunix::NMO_Vel_Stk::sunmo';
+use aliased 'App::SeismicUnixGui::sunix::shapeNcut::suwind';
+use aliased 'App::SeismicUnixGui::sunix::plot::suxwigb';
+use aliased 'App::SeismicUnixGui::sunix::plot::suximage';
 
 =head2
 
@@ -45,20 +45,20 @@ use App::SeismicUnixGui::sunix::plot::suximage;
 
 =cut
 
-my $run               = new flow();
-my $sufilter          = new sufilter();
-my $sugain            = new sugain();
-my $susort            = new susort();
-my $sunmo             = new sunmo;
-my $suwind            = new suwind;
-my $suxwigb           = new suxwigb();
-my $suximage          = new suximage();
-my $Project           = new Project_config();
+my $run               = flow->new();
+my $sufilter          = sufilter->new();
+my $sugain            = sugain->new();
+my $susort            = susort->new();
+my $sunmo             = sunmo->new();
+my $suwind            = suwind->new();
+my $suxwigb           = suxwigb->new();
+my $suximage          = suximage->new();
+my $Project           = Project_config->new();
 my ($DATA_SEISMIC_SU) = $Project->DATA_SEISMIC_SU();
 my ($PL_SEISMIC)      = $Project->PL_SEISMIC();
 
 
-my $get = new L_SU_global_constants();
+my $get = L_SU_global_constants->new();
 my $var          = $get->var();
 my $empty_string = $var->{_empty_string};
 

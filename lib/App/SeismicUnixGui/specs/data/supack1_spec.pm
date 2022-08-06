@@ -2,13 +2,13 @@ package App::SeismicUnixGui::specs::data::supack1_spec;
 	use Moose;
 our $VERSION = '0.0.1';
 
-use App::SeismicUnixGui::configs::big_streams::Project_config;
-use App::SeismicUnixGui::misc::SeismicUnix qw ($bin $segy $su $suffix_bin $suffix_segy $suffix_su $suffix_txt $txt);
-use App::SeismicUnixGui::misc::L_SU_global_constants;
-use App::SeismicUnixGui::sunix::data::supack1;
-my $get					= new L_SU_global_constants();
-my $Project 				= new Project_config;
-my $supack1		= new supack1;
+package App::SeismicUnixGui::specs::data::supack1_spec;
+use App::SeismicUnixGui::misc::SeismicUnix qw($bin $segy $su $suffix_bin $suffix_segy $suffix_su $suffix_txt $txt);
+package App::SeismicUnixGui::specs::data::supack1_spec;
+package App::SeismicUnixGui::specs::data::supack1_spec;
+my $get					= L_SU_global_constants->new();
+my $Project 				= Project_config->new();
+my $supack1		= supack1->new();
 
 my $var					= $get->var();
 

@@ -22,11 +22,11 @@ our $VERSION = '0.0.1';
 
 =cut
 
-use App::SeismicUnixGui::misc::L_SU_global_constants;
-my $set   = new L_SU_global_constants();
+use aliased 'App::SeismicUnixGui::misc::L_SU_global_constants';
+my $set   = L_SU_global_constants->new();
 my $alias = $set->alias_superflow_names_h;
 
-my $get             = new L_SU_global_constants();
+my $get             = L_SU_global_constants->new();
 my $var             = $get->var();
 my $superflow_names = $get->superflow_names_h();
 

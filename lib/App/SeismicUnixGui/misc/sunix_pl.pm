@@ -37,19 +37,19 @@ package App::SeismicUnixGui::misc::sunix_pl;
 our $VERSION = '0.0.2';
 use Moose;
 use Text::ParseWords;
-use App::SeismicUnixGui::misc::perl_header;
-use App::SeismicUnixGui::misc::perl_use_pkg;
-use App::SeismicUnixGui::misc::perl_instantiate;
-use App::SeismicUnixGui::misc::pod_declare;
-use App::SeismicUnixGui::misc::perl_declare;
-use App::SeismicUnixGui::misc::perl_inbound;
-use App::SeismicUnixGui::misc::L_SU_global_constants;
+use aliased 'App::SeismicUnixGui::misc::perl_header';
+use aliased 'App::SeismicUnixGui::misc::perl_use_pkg';
+use aliased 'App::SeismicUnixGui::misc::perl_instantiate';
+use aliased 'App::SeismicUnixGui::misc::pod_declare';
+use aliased 'App::SeismicUnixGui::misc::perl_declare';
+use aliased 'App::SeismicUnixGui::misc::perl_inbound';
+use aliased 'App::SeismicUnixGui::misc::L_SU_global_constants';
 
 =head2 instantiate modules
 
 =cut
 
-my $get               = new L_SU_global_constants();
+my $get               = L_SU_global_constants->new();
 my $get_header        = perl_header->new();
 my $get_use_pkg       = perl_use_pkg->new();
 my $pod_declare       = pod_declare->new();
@@ -1242,17 +1242,17 @@ sub need {
 
 }
 
-=head2 sub pod_declare
-
-=cut
-
-sub pod_declare {
-
-	my $ref_array = $pod_declare->section();
-	foreach (@$ref_array) {
-		print $file_out "$_\n";
-	}
-}
+#=head2 sub get_pod_declare
+#
+#=cut
+#
+#sub get_pod_declare {
+#
+#	my $ref_array = $pod_declare->section();
+#	foreach (@$ref_array) {
+#		print $file_out "$_\n";
+#	}
+#}
 
 =head2 sub run
 

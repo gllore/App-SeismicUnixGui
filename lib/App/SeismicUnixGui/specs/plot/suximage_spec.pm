@@ -1,13 +1,13 @@
 package App::SeismicUnixGui::specs::plot::suximage_spec;
 our $VERSION = '1.00';
 use Moose;
-use App::SeismicUnixGui::misc::L_SU_global_constants;
+use aliased 'App::SeismicUnixGui::misc::L_SU_global_constants';
 
-use App::SeismicUnixGui::configs::big_streams::Project_config;
-use App::SeismicUnixGui::sunix::plot::suximage;
-use App::SeismicUnixGui::misc::SeismicUnix qw ($su $suffix_su);
+use aliased 'App::SeismicUnixGui::configs::big_streams::Project_config';
+use aliased 'App::SeismicUnixGui::sunix::plot::suximage';
+use App::SeismicUnixGui::misc::SeismicUnix qw($su $suffix_su);
 
-my $get = new L_SU_global_constants();
+my $get = L_SU_global_constants->new();
 my $var = $get->var();
 
 my $empty_string     = $var->{_empty_string};
@@ -16,8 +16,8 @@ my $false            = $var->{_false};
 my $file_dialog_type = $get->file_dialog_type_href();
 my $flow_type        = $get->flow_type_href();
 
-my $Project  = new Project_config;
-my $suximage = new suximage;
+my $Project  = Project_config->new();
+my $suximage = suximage->new();
 
 my $DATA_SEISMIC_SU = $Project->DATA_SEISMIC_SU();    # output data directory
 my $PL_SEISMIC      = $Project->PL_SEISMIC(); # default

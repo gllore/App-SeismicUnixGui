@@ -75,7 +75,7 @@ DB
   print(" save_button,save,configure,write_LSU,tool_specs $files_LSU->{_program_name_config}\n");
   print("save,superflow,write_LSU, key/value pairs:$CFG[$i], $CFG[$j]\n");
   #use Config::Simple;
-  #my $cfg 		= new Config::Simple(syntax=>'ini');
+  #my $cfg 		= Config::Simple(syntax=>'ini');
   #$cfg->write($files_LSU->{_program_name_config});   
   # print "@CFGpa\n";
      #$cfg->ram($CFG[$i] ,$CFG[$j]); 
@@ -87,7 +87,7 @@ sub tool_specs {
     my ( $self, $hash_ref ) = @_;
 
     use App::SeismicUnixGui::misc::name;
-    my $name = new name();
+    my $name = name->new();
 
     my $program_name = $hash_ref->{_prog_name};
     my $length;

@@ -30,28 +30,26 @@ package App::SeismicUnixGui::big_streams::pre_built_big_stream;
 
 use Moose;
 our $VERSION = '0.1.0';
-my $path;
-my $SeismicUnixGui;
-use Shell qw(echo);
+#my $path;
+#my $SeismicUnixGui;
+#use Shell qw(echo);
+#
+#BEGIN {
+#
+#$SeismicUnixGui = ` echo \$SeismicUnixGui`;
+#chomp $SeismicUnixGui;
+#$path = $SeismicUnixGui.'/'.'misc';
+#
+#}
+#use lib "$path";
 
-BEGIN {
-
-$SeismicUnixGui = ` echo \$SeismicUnixGui`;
-chomp $SeismicUnixGui;
-$path = $SeismicUnixGui.'/'.'misc';
-
-}
-use lib "$path";
-
-extends 'gui_history' => { -version => 0.0.2 };
-
+extends 'App::SeismicUnixGui::misc::gui_history' => { -version => 0.0.2 };
+use aliased 'App::SeismicUnixGui::misc::gui_history';
 my $pre_built_big_stream_href_sub_ref;    # $pre_built_big_stream_href->{_sub_ref} does not transfer in namespace between subs
-
-# potentially in all packages
-use App::SeismicUnixGui::misc::L_SU_global_constants;
-use App::SeismicUnixGui::messages::message_director;
-use App::SeismicUnixGui::misc::whereami;
-use App::SeismicUnixGui::misc::param_widgets4pre_built_streams;
+use aliased 'App::SeismicUnixGui::misc::L_SU_global_constants';
+use aliased 'App::SeismicUnixGui::messages::message_director';
+use aliased 'App::SeismicUnixGui::misc::whereami';
+use aliased 'App::SeismicUnixGui::misc::param_widgets4pre_built_streams';
 
 =head2 Instantiation
 

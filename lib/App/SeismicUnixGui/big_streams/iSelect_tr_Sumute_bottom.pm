@@ -28,9 +28,9 @@ package App::SeismicUnixGui::big_streams::iSelect_tr_Sumute_bottom;
 
 use Moose;
 my $VERSION = '1.0.3';
-use App::SeismicUnixGui::configs::big_streams::Project_config;
+use aliased 'App::SeismicUnixGui::configs::big_streams::Project_config';
 use App::SeismicUnixGui::misc::SeismicUnix
-  qw ($on $off $go $in $true $false $itemp_bot_mute_picks_ $itemp_bot_mute_picks_sorted_par_ $itop_mute_par_ $itop_mute_check_pickfile_ $suffix_su $to);
+  qw($on $off $go $in $true $false $itemp_bot_mute_picks_ $itemp_bot_mute_picks_sorted_par_ $itop_mute_par_ $itop_mute_check_pickfile_ $suffix_su $to);
 
 =head2 Instantiate 
 
@@ -41,15 +41,15 @@ use App::SeismicUnixGui::misc::SeismicUnix
 
 =cut
 
-my $log               = new message();
-my $run               = new flow();
-my $sufilter          = new sufilter();
-my $sugain            = new sugain();
-my $suwind            = new suwind;
-my $suxwigb           = new suxwigb();
-my $suximage          = new suximage();
-my $SuMessages        = new SuMessages();
-my $Project           = new Project_config();
+my $log               = message->new();
+my $run               = flow->new();
+my $sufilter          = sufilter->new();
+my $sugain            = sugain->new();
+my $suwind            = suwind->new();
+my $suxwigb           = suxwigb->new();
+my $suximage          = suximage->new();
+my $SuMessages        = SuMessages->new();
+my $Project           = Project_config->new();
 my ($DATA_SEISMIC_SU) = $Project->DATA_SEISMIC_SU();
 my ($PL_SEISMIC)      = $Project->PL_SEISMIC();
 
@@ -285,12 +285,12 @@ sub calcNdisplay {
  filtering parameters 
 
   use lib "./libAll";
-  use iTop_Mute_config qw ( $href_sufilter);
+  use iTop_Mute_config qw( $href_sufilter);
   
 
 =cut
 
-    #use iTop_Mute_config qw ($href_sufilter);
+    #use iTop_Mute_config qw($href_sufilter);
 
 =head2
   print has reference value

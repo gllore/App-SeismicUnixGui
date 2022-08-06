@@ -108,12 +108,12 @@ package App::SeismicUnixGui::sunix::shapeNcut::sumute;
 use Moose;
 our $VERSION = '0.0.1';
 
-use App::SeismicUnixGui::misc::L_SU_global_constants;
+use aliased 'App::SeismicUnixGui::misc::L_SU_global_constants';
 use App::SeismicUnixGui::misc::SeismicUnix qw($itop_mute_par_ $ibot_mute_par_);
-use App::SeismicUnixGui::configs::big_streams::Project_config;
+use aliased 'App::SeismicUnixGui::configs::big_streams::Project_config';
 
-my $get     = new L_SU_global_constants();
-my $Project = new Project_config;
+my $get     = L_SU_global_constants->new();
+my $Project = Project_config->new();
 
 my $var          = $get->var();
 my $empty_string = $var->{_empty_string};
@@ -123,7 +123,7 @@ my $PL_SEISMIC      = $Project->PL_SEISMIC();
 my $DATA_SEISMIC_SU = $Project->DATA_SEISMIC_SU();
 
 use App::SeismicUnixGui::misc::SeismicUnix
-	qw ($in $out $on $go $to $tmute $xmute $suffix_ascii $off $suffix_su $suffix_bin $temp_single_gather_par_file_mute );
+	qw($in $out $on $go $to $tmute $xmute $suffix_ascii $off $suffix_su $suffix_bin $temp_single_gather_par_file_mute );
 
 my $sumute = {
 	_par_gather_number_aref => '',
@@ -162,13 +162,14 @@ sub _get_par_sets {
 
 		use App::SeismicUnixGui::misc::manage_files_by2;
 		use App::SeismicUnixGui::misc::control '0.0.3';
+		use aliased 'App::SeismicUnixGui::misc::control';
 
 =head2 instantiate classes
 
 =cut
 
 		my $files   = new manage_files_by2;
-		my $control = new control;
+		my $control = control->new();
 
 =head2 private definitions
 
@@ -343,6 +344,7 @@ with multi_gather_su_file
 		use App::SeismicUnixGui::sunix::shapeNcut::susplit;
 		use App::SeismicUnixGui::misc::flow;
 		use App::SeismicUnixGui::misc::control '0.0.3';
+		use aliased 'App::SeismicUnixGui::misc::control';
 
 =head2 instantiate modules
 
@@ -695,7 +697,7 @@ create concatenated output file name
 
 sub Steps {
 
-	use App::SeismicUnixGui::misc::SeismicUnix qw ($in $out $to $suffix_su);
+	use App::SeismicUnixGui::misc::SeismicUnix qw($in $out $to $suffix_su);
 	use App::SeismicUnixGui::misc::flow;
 
 	my ($DATA_SEISMIC_SU) = $Project->DATA_SEISMIC_SU();
@@ -967,7 +969,7 @@ sub linvel {
 #
 #	use App::SeismicUnixGui::misc::manage_files_by;
 #	use App::SeismicUnixGui::configs::big_streams::Project_config;
-#	my $Project = new Project_config();
+#	my $Project = Project_config->new();
 #
 #=head2 Load
 #

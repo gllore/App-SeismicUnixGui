@@ -33,14 +33,14 @@
 
 use Moose;
 my $VERSION = '0.0.1';
-use App::SeismicUnixGui::misc::L_SU_global_constants;
-use App::SeismicUnixGui::misc::readfiles;
+use aliased 'App::SeismicUnixGui::misc::L_SU_global_constants';
+use aliased 'App::SeismicUnixGui::misc::readfiles';
 use Tk;
-use App::SeismicUnixGui::big_streams::iPick;
-use App::SeismicUnixGui::configs::big_streams::iPick_config;
-use App::SeismicUnixGui::misc::SeismicUnix qw ($true $false );
-use App::SeismicUnixGui::messages::SuMessages;
-use App::SeismicUnixGui::sunix::shell::xk;
+use aliased 'App::SeismicUnixGui::big_streams::iPick';
+use aliased 'App::SeismicUnixGui::configs::big_streams::iPick_config';
+use App::SeismicUnixGui::misc::SeismicUnix qw($true $false );
+use aliased 'App::SeismicUnixGui::messages::SuMessages';
+use aliased 'App::SeismicUnixGui::sunix::shell::xk';
 
 my $iPick_Tk = {_prompt => ''};
 

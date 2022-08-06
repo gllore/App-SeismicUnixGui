@@ -128,17 +128,17 @@ Synseis \
 =cut 
 
 use Moose;
-use App::SeismicUnixGui::sunix::par::a2b;
-use App::SeismicUnixGui::misc::flow;
-use App::SeismicUnixGui::misc::manage_files_by;
-use App::SeismicUnixGui::misc::message;
-use App::SeismicUnixGui::big_streams::Synseis;
-use App::SeismicUnixGui::configs::big_streams::Synseis_config;
+use aliased 'App::SeismicUnixGui::sunix::par::a2b';
+use aliased 'App::SeismicUnixGui::misc::flow';
+use aliased 'App::SeismicUnixGui::misc::manage_files_by';
+use aliased 'App::SeismicUnixGui::misc::message';
+use aliased 'App::SeismicUnixGui::big_streams::Synseis';
+use aliased 'App::SeismicUnixGui::configs::big_streams::Synseis_config';
 use App::SeismicUnixGui::misc::SeismicUnix
-     qw ($in $out $on $go $to $suffix_ascii $suffix_bin $off $suffix_su);
-use App::SeismicUnixGui::sunix::plot::xgraph;
-use App::SeismicUnixGui::configs::big_streams::Project_config;
-my $Project = new Project_config();
+     qw($in $out $on $go $to $suffix_ascii $suffix_bin $off $suffix_su);
+use aliased 'App::SeismicUnixGui::sunix::plot::xgraph';
+use aliased 'App::SeismicUnixGui::configs::big_streams::Project_config';
+my $Project = Project_config->new();
 
 my ($DATA_SEISMIC_SU)           = $Project->DATA_SEISMIC_SU();
 my ($PL_SEISMIC)                = $Project->PL_SEISMIC();
@@ -153,12 +153,12 @@ my ($DATA_RESISTIVITY_WELL_TXT) =
 
 =cut
 
-my $log            = new message();
-my $a2b            = new a2b();
-my $run            = new flow();
-my $Synseis        = new Synseis();
-my $Synseis_config = new Synseis_config();
-my $xgraph         = new xgraph();
+my $log            = message->new();
+my $a2b            = a2b->new();
+my $run            = flow->new();
+my $Synseis        = Synseis->new();
+my $Synseis_config = Synseis_config->new();
+my $xgraph         = xgraph->new();
 
 =head2 Declare
 

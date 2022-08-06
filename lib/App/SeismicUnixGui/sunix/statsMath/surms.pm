@@ -16,9 +16,9 @@ my $surms = sumax->new();
 
 =cut
 
-use App::SeismicUnixGui::configs::big_streams::Project_config;
-my $Project = new Project_config();
-use App::SeismicUnixGui::misc::SeismicUnix qw ($rms_amp $rms $ascii $to_outpar_file $suffix_hyphen $suffix_ascii $surms_notes $suffix_su);
+use aliased 'App::SeismicUnixGui::configs::big_streams::Project_config';
+my $Project = Project_config->new();
+use App::SeismicUnixGui::misc::SeismicUnix qw($rms_amp $rms $ascii $to_outpar_file $suffix_hyphen $suffix_ascii $surms_notes $suffix_su);
 my ($TEMP_DATA_SEISMIC_SU) = $Project->TEMP_DATA_SEISMIC_SU();
 
 sub note {

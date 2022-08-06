@@ -63,16 +63,17 @@ Added model values to namespace of immodpg.pm
 =cut
 
 use Moose;
+
 our $VERSION = '0.2';
-use App::SeismicUnixGui::misc::L_SU_global_constants;
-use App::SeismicUnixGui::configs::big_streams::Project_config;
-use App::SeismicUnixGui::configs::big_streams::immodpg_config;
-use App::SeismicUnixGui::big_streams::immodpg_global_constants;
+use aliased 'App::SeismicUnixGui::misc::L_SU_global_constants';
+use aliased 'App::SeismicUnixGui::configs::big_streams::Project_config';
+use aliased 'App::SeismicUnixGui::configs::big_streams::immodpg_config';
+use aliased 'App::SeismicUnixGui::big_streams::immodpg_global_constants';
 use Scalar::Util qw(looks_like_number);
 
 my $Project        = Project_config->new();
-my $get_L_SU       = new L_SU_global_constants();
-my $get_immodpg    = new immodpg_global_constants;
+my $get_L_SU       = L_SU_global_constants->new();
+my $get_immodpg    = immodpg_global_constants->new();
 my $immodpg_config = immodpg_config->new();
 
 my $var_L_SU          = $get_L_SU->var();
@@ -2033,13 +2034,16 @@ sub _setVbot {
 
 		use App::SeismicUnixGui::misc::manage_files_by2;
 		use App::SeismicUnixGui::misc::control '0.0.3';
+		use aliased 'App::SeismicUnixGui::misc::control';
+
+
 
 =head2 instantiate classes
 
 =cut
 
-		my $files   = new manage_files_by2();
-		my $control = new control;
+		my $files   = manage_files_by2->new();
+		my $control = control->new();
 
 =head2 Define local
 variables
@@ -2105,13 +2109,14 @@ sub _setVbot_upper_layer {
 
 		use App::SeismicUnixGui::misc::manage_files_by2;
 		use App::SeismicUnixGui::misc::control '0.0.3';
+		use aliased 'App::SeismicUnixGui::misc::control';
 
 =head2 instantiate classes
 
 =cut
 
-		my $files   = new manage_files_by2();
-		my $control = new control;
+		my $files   = manage_files_by2->new();
+		my $control = control->new();
 
 =head2 Define local
 variables
@@ -2177,13 +2182,14 @@ sub _setVbotNtop_factor {
 
 		use App::SeismicUnixGui::misc::manage_files_by2;
 		use App::SeismicUnixGui::misc::control '0.0.3';
+		use aliased 'App::SeismicUnixGui::misc::control';
 
 =head2 instantiate classes
 
 =cut
 
-		my $files   = new manage_files_by2();
-		my $control = new control;
+		my $files   = manage_files_by2->new();
+		my $control = control->new();
 
 =head2 Define local
 variables
@@ -2249,13 +2255,14 @@ sub _setVbotNtop_multiply {
 
 		use App::SeismicUnixGui::misc::manage_files_by2;
 		use App::SeismicUnixGui::misc::control '0.0.3';
+		use aliased 'App::SeismicUnixGui::misc::control';
 
 =head2 instantiate classes
 
 =cut
 
-		my $files   = new manage_files_by2();
-		my $control = new control;
+		my $files   = manage_files_by2->new();
+		my $control = control->new();
 
 =head2 Define local
 variables
@@ -2317,13 +2324,14 @@ sub _setVincrement {
 
 		use App::SeismicUnixGui::misc::manage_files_by2;
 		use App::SeismicUnixGui::misc::control '0.0.3';
+		use aliased 'App::SeismicUnixGui::misc::control';
 
 =head2 instantiate classes
 
 =cut
 
-		my $files   = new manage_files_by2();
-		my $control = new control;
+		my $files   = manage_files_by2->new();
+		my $control = control->new();
 
 =head2 Define local
 variables
@@ -2642,13 +2650,14 @@ sub _setVtop {
 
 		use App::SeismicUnixGui::misc::manage_files_by2;
 		use App::SeismicUnixGui::misc::control '0.0.3';
+		use aliased 'App::SeismicUnixGui::misc::control';
 
 =head2 instantiate classes
 
 =cut
 
-		my $files   = new manage_files_by2();
-		my $control = new control;
+		my $files   = manage_files_by2->new();
+		my $control = control->new();
 
 =head2 Define local
 variables
@@ -2714,13 +2723,14 @@ sub _setVtop_lower_layer {
 
 		use App::SeismicUnixGui::misc::manage_files_by2;
 		use App::SeismicUnixGui::misc::control '0.0.3';
+		use aliased 'App::SeismicUnixGui::misc::control';
 
 =head2 instantiate classes
 
 =cut
 
-		my $files   = new manage_files_by2();
-		my $control = new control;
+		my $files   = manage_files_by2->new();
+		my $control = control->new();
 
 =head2 Define local
 variables
@@ -2788,13 +2798,14 @@ sub _set_change {
 
 		use App::SeismicUnixGui::misc::manage_files_by2;
 		use App::SeismicUnixGui::misc::control '0.0.3';
+		use aliased 'App::SeismicUnixGui::misc::control';
 
 =head2 instantiate classes
 
 =cut
 
-		my $files   = new manage_files_by2();
-		my $control = new control;
+		my $files   = manage_files_by2->new();
+		my $control = control->new();
 
 =head2 Define local
 variables
@@ -2896,13 +2907,14 @@ sub _set_clip {
 
 		use App::SeismicUnixGui::misc::manage_files_by2;
 		use App::SeismicUnixGui::misc::control '0.0.3';
+		use aliased 'App::SeismicUnixGui::misc::control';
 
 =head2 instantiate classes
 
 =cut
 
-		my $files   = new manage_files_by2();
-		my $control = new control;
+		my $files   = manage_files_by2->new();
+		my $control = control->new();
 
 =head2 Define local
 variables
@@ -2968,13 +2980,14 @@ sub _set_thickness_m {
 
 		use App::SeismicUnixGui::misc::manage_files_by2;
 		use App::SeismicUnixGui::misc::control '0.0.3';
+		use aliased 'App::SeismicUnixGui::misc::control';
 
 =head2 instantiate classes
 
 =cut
 
-		my $files   = new manage_files_by2();
-		my $control = new control;
+		my $files   = manage_files_by2->new();
+		my $control = control->new();
 
 =head2 Define local
 variables
@@ -3039,13 +3052,14 @@ sub _set_thickness_increment_m {
 
 		use App::SeismicUnixGui::misc::manage_files_by2;
 		use App::SeismicUnixGui::misc::control '0.0.3';
+		use aliased 'App::SeismicUnixGui::misc::control';
 
 =head2 instantiate classes
 
 =cut
 
-		my $files   = new manage_files_by2();
-		my $control = new control;
+		my $files   = manage_files_by2->new();
+		my $control = control->new();
 
 =head2 Define local
 variables
@@ -3112,13 +3126,14 @@ sub _fortran_layer {
 
 		use App::SeismicUnixGui::misc::manage_files_by2;
 		use App::SeismicUnixGui::misc::control '0.0.3';
+		use aliased 'App::SeismicUnixGui::misc::control';
 
 =head2 instantiate classes
 
 =cut
 
-		my $files   = new manage_files_by2();
-		my $control = new control;
+		my $files   = manage_files_by2->new();
+		my $control = control->new();
 
 =head2 Define local
 variables
@@ -3395,13 +3410,14 @@ sub _set_option {
 
 		use App::SeismicUnixGui::misc::manage_files_by2;
 		use App::SeismicUnixGui::misc::control '0.0.3';
+		use aliased 'App::SeismicUnixGui::misc::control';
 
 =head2 instantiate classes
 
 =cut
 
-		my $files   = new manage_files_by2();
-		my $control = new control;
+		my $files   = manage_files_by2->new();
+		my $control = control->new();
 
 =head2 Define local
 variables
@@ -6815,13 +6831,14 @@ sub set_change {
 
 		use App::SeismicUnixGui::misc::manage_files_by2;
 		use App::SeismicUnixGui::misc::control '0.0.3';
+		use aliased 'App::SeismicUnixGui::misc::control';
 
 =head2 instantiate classes
 
 =cut
 
-		my $files   = new manage_files_by2();
-		my $control = new control;
+		my $files   = manage_files_by2->new();
+		my $control = control->new();
 
 =head2 Define local
 variables
@@ -6955,13 +6972,14 @@ sub set_option {
 
 		use App::SeismicUnixGui::misc::manage_files_by2;
 		use App::SeismicUnixGui::misc::control '0.0.3';
+		use aliased 'App::SeismicUnixGui::misc::control';
 
 =head2 instantiate classes
 
 =cut
 
-		my $files   = new manage_files_by2();
-		my $control = new control;
+		my $files   = manage_files_by2->new();
+		my $control = control->new();
 
 =head2 Define local
 variables

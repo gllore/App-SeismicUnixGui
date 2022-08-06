@@ -42,19 +42,19 @@ use Moose;
 
 =cut
 
-use App::SeismicUnixGui::misc::message;
-use App::SeismicUnixGui::misc::flow;
-use App::SeismicUnixGui::sunix::shell::cp;
-use App::SeismicUnixGui::misc::SeismicUnix qw ($go $in $on $to);
-use App::SeismicUnixGui::configs::big_streams::Project_config;
-use App::SeismicUnixGui::misc::L_SU_global_constants;
+use aliased 'App::SeismicUnixGui::misc::message';
+use aliased 'App::SeismicUnixGui::misc::flow';
+use aliased 'App::SeismicUnixGui::sunix::shell::cp';
+use App::SeismicUnixGui::misc::SeismicUnix qw($go $in $on $to);
+use aliased 'App::SeismicUnixGui::configs::big_streams::Project_config';
+use aliased 'App::SeismicUnixGui::misc::L_SU_global_constants';
 
 my $control = control->new();
 my $get     = L_SU_global_constants->new();
-my $log     = new message();
-my $run     = new flow();
-my $cp      = new cp();
-my $Project = new Project_config();
+my $log     = message->new();
+my $run     = flow->new();
+my $cp      = cp->new();
+my $Project = Project_config->new();
 
 my $purpose      = $get->purpose();
 my $var          = $get->var();
@@ -66,7 +66,7 @@ my $empty_string = $var->{_empty_string};
 
 =cut 
 
-use App::SeismicUnixGui::misc::SeismicUnix qw ($itemp_picks_sorted_par_ $ipicks_par_);
+use App::SeismicUnixGui::misc::SeismicUnix qw($itemp_picks_sorted_par_ $ipicks_par_);
 my ($DATA_SEISMIC_TXT) = $Project->DATA_SEISMIC_TXT();
 
 =head2
@@ -170,7 +170,7 @@ sub calc {
             my $var = $get->var();
 
             # Main Window
-            my $mw = new MainWindow;
+            my $mw = MainWindow->new();
 
             my $arial_14 = $mw->fontCreate(
                 'arial_14',
@@ -329,6 +329,7 @@ sub gather_type {
 #
 #	use File::Copy;
 #	use App::SeismicUnixGui::misc::control '0.0.3';
+use aliased 'App::SeismicUnixGui::misc::control';
 #	use dirs;
 #	use App::SeismicUnixGui::misc::readfiles;
 #
@@ -384,6 +385,7 @@ sub set_purpose {
     {
 
         use App::SeismicUnixGui::misc::control '0.0.3';
+use aliased 'App::SeismicUnixGui::misc::control';
         my $control = control->new();
         $control->set_infection($type);
         $type = control->get_ticksBgone();

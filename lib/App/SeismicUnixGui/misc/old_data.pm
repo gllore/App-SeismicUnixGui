@@ -1,7 +1,7 @@
 package App::SeismicUnixGui::misc::old_data;
 
 use Moose;
-use App::SeismicUnixGui::misc::L_SU_global_constants;
+use aliased 'App::SeismicUnixGui::misc::L_SU_global_constants';
 
 =pod
 
@@ -71,7 +71,7 @@ my $old_data = {
 
 =cut 
 
-use App::SeismicUnixGui::misc::SeismicUnix qw ($on $off $in $to $go
+use App::SeismicUnixGui::misc::SeismicUnix qw($on $off $in $to $go
   $itemp_top_mute_picks_ $itop_mute_par_ $itemp_top_mute_picks_sorted_par_
   $itop_mute_check_pickfile_
   $itemp_bot_mute_picks_ $ibot_mute_par_ $itemp_bot_mute_picks_sorted_par_
@@ -86,9 +86,9 @@ use App::SeismicUnixGui::misc::SeismicUnix qw ($on $off $in $to $go
 
 =cut
 
-use App::SeismicUnixGui::configs::big_streams::Project_config;
-my $Project = new Project_config();
-use App::SeismicUnixGui::misc::manage_files_by2;
+use aliased 'App::SeismicUnixGui::configs::big_streams::Project_config';
+my $Project = Project_config->new();
+use aliased 'App::SeismicUnixGui::misc::manage_files_by2';
 
 my ($PL_SEISMIC)       = $Project->PL_SEISMIC();
 my ($DATA_SEISMIC_TXT) = $Project->DATA_SEISMIC_TXT;
@@ -99,7 +99,7 @@ my ($DATA_SEISMIC_TXT) = $Project->DATA_SEISMIC_TXT;
   
 =cut
 
-my $test = new manage_files_by2();
+my $test = manage_files_by2->new();
 
 =head2 subroutine clear
 

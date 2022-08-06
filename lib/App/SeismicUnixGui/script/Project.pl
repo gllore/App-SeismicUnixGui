@@ -24,8 +24,8 @@
 
 use Moose;
 
-use App::SeismicUnixGui::configs::big_streams::Project_config;
-my $Project = new Project_config();
+use aliased 'App::SeismicUnixGui::configs::big_streams::Project_config';
+my $Project = Project_config->new();
 
 $Project->basic_dirs();
 $Project->system_dirs();

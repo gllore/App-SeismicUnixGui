@@ -2,13 +2,13 @@ package App::SeismicUnixGui::specs::shapeNcut::sukill_spec;
 use Moose;
 our $VERSION = '0.0.1';
 
-use App::SeismicUnixGui::configs::big_streams::Project_config;
-use App::SeismicUnixGui::misc::SeismicUnix qw ($su $suffix_su);
-use App::SeismicUnixGui::misc::L_SU_global_constants;
-use App::SeismicUnixGui::sunix::shapeNcut::sukill;
-my $get     = new L_SU_global_constants();
-my $Project = new Project_config;
-my $sukill  = new sukill;
+use aliased 'App::SeismicUnixGui::configs::big_streams::Project_config';
+use App::SeismicUnixGui::misc::SeismicUnix qw($su $suffix_su);
+use aliased 'App::SeismicUnixGui::misc::L_SU_global_constants';
+use aliased 'App::SeismicUnixGui::sunix::shapeNcut::sukill';
+my $get     = L_SU_global_constants->new();
+my $Project = Project_config->new();
+my $sukill  = sukill->new();
 
 my $var = $get->var();
 

@@ -1,11 +1,13 @@
 package App::SeismicUnixGui::specs::big_streams::Project_spec;
+
 our $VERSION = '1.00';
 use Moose;
-use App::SeismicUnixGui::misc::L_SU_global_constants;
-use App::SeismicUnixGui::configs::big_streams::Project_config;
-use App::SeismicUnixGui::misc::SeismicUnix qw ($su $suffix_su);
 
-my $get              = new L_SU_global_constants();
+use App::SeismicUnixGui::misc::SeismicUnix qw($su $suffix_su);
+use aliased 'App::SeismicUnixGui::misc::L_SU_global_constants';
+use aliased 'App::SeismicUnixGui::configs::big_streams::Project_config';
+
+my $get              = L_SU_global_constants->new();
 my $var              = $get->var();
 my $file_dialog_type = $get->file_dialog_type_href();
 my $flow_type        = $get->flow_type_href();

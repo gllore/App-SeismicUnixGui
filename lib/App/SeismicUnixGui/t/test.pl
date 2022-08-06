@@ -62,14 +62,14 @@ V 0.0.3 Add switches on 7.13.21
 
 use Moose;
 our $VERSION = '0.0.3';
-use App::SeismicUnixGui::misc::L_SU_global_constants;
+use aliased 'App::SeismicUnixGui::misc::L_SU_global_constants';
 
 use lib '.';
 use App::SeismicUnixGui::t::check '0.0.1';
 use App::SeismicUnixGui::t::clean '0.0.1';
 use App::SeismicUnixGui::t::configuration '0.0.2';
-use App::SeismicUnixGui::misc::flow;
-use App::SeismicUnixGui::misc::message;
+use aliased 'App::SeismicUnixGui::misc::flow';
+use aliased 'App::SeismicUnixGui::misc::message';
 use App::SeismicUnixGui::t::user '0.0.1';
 
 =head2 Instantiation
@@ -81,7 +81,7 @@ my $check         = check->new();
 my $clean         = clean->new();
 my $configuration = configuration->new();
 my $log           = message->new();
-my $run           = new flow();
+my $run           = flow->new();
 my $user          = user->new();
 
 =head2 Private variables

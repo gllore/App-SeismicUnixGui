@@ -2,7 +2,7 @@ package App::SeismicUnixGui::messages::SuMessages;
 
 use Moose;
 my $VERSION = '0.0.1';
-use App::SeismicUnixGui::misc::L_SU_global_constants;
+use aliased 'App::SeismicUnixGui::misc::L_SU_global_constants';
 
 =head1 DOCUMENTATION
 

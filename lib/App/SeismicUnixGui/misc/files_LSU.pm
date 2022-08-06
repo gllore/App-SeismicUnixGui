@@ -34,14 +34,18 @@ package App::SeismicUnixGui::misc::files_LSU;
 use Moose;
 our $VERSION = '0.0.4';
 
-use App::SeismicUnixGui::misc::L_SU_global_constants;
-use App::SeismicUnixGui::configs::big_streams::Project_config;
-use App::SeismicUnixGui::misc::oop_text;
-use App::SeismicUnixGui::misc::SeismicUnix qw ($su $suffix_su $txt $suffix_txt);
+use aliased 'App::SeismicUnixGui::misc::L_SU_global_constants';
+use aliased 'App::SeismicUnixGui::configs::big_streams::Project_config';
+use aliased 'App::SeismicUnixGui::misc::oop_text';
+use App::SeismicUnixGui::misc::SeismicUnix qw($su $suffix_su $txt $suffix_txt);
+use App::SeismicUnixGui::misc::control '0.0.3';
+use aliased 'App::SeismicUnixGui::misc::control';
+use aliased 'App::SeismicUnixGui::misc::L_SU_local_user_constants';
+use aliased 'App::SeismicUnixGui::misc::name';
 
-my $Project               = new Project_config();
-my $L_SU_global_constants = new L_SU_global_constants();
-my $oop_text              = new oop_text;
+my $Project               = Project_config->new();
+my $L_SU_global_constants = L_SU_global_constants->new();
+my $oop_text              = oop_text->new();
 my $alias_superflow_name  = $L_SU_global_constants->alias_superflow_names_h();
 my $alias_superflow_spec_names_h =
   $L_SU_global_constants->alias_superflow_spec_names_h();
@@ -225,7 +229,7 @@ suffix_type_set_suffix_suffix_type	TODO: suffix_type out may not
 sub _set_PL_SEISMIC {
 
 	my ($self) = @_;
-	use App::SeismicUnixGui::configs::big_streams::Project_config;
+
 	my $Project = Project_config->new();
 
 	$files_LSU->{_PL_SEISMIC} = $Project->PL_SEISMIC();
@@ -529,8 +533,7 @@ sub outbound {
 
 	if ( $files_LSU->{_prog_name_sref} ) {
 
-		use App::SeismicUnixGui::misc::name;
-		my $name = new name();
+		my $name = name->new();
 
 		$files_LSU->{_program_name} = ${ $files_LSU->{_prog_name_sref} };
 
@@ -542,8 +545,6 @@ sub outbound {
 			# CASE 1 for Project_config
 			$files_LSU->{_program_name_config} =
 			  $name->change_config($program_name);
-
-			use App::SeismicUnixGui::misc::L_SU_local_user_constants;
 
 			# Find out HOME directory and configuration path for user
 			my $user_constants = L_SU_local_user_constants->new();
@@ -579,7 +580,7 @@ sub outbound {
 			my $module_spec_pm = $module_spec . '.pm';
 
 			$L_SU_global_constants->set_file_name($module_spec_pm);
-			my $path = $L_SU_global_constants->get_path4spec_file();
+			my $path           = $L_SU_global_constants->get_path4spec_file();
 			my $pathNmodule_pm = $path . '/' . $module_spec_pm;
 
 			require $pathNmodule_pm;
@@ -636,8 +637,7 @@ sub outbound2 {
 
 	if ( $files_LSU->{_prog_name_sref} ) {
 
-		use App::SeismicUnixGui::misc::name;
-		my $name = new name();
+		my $name = name->new();
 
 		$files_LSU->{_program_name} = ${ $files_LSU->{_prog_name_sref} };
 		my $program_name = $files_LSU->{_program_name};    #conveniently shorter
@@ -645,8 +645,6 @@ sub outbound2 {
 		if ( $files_LSU->{_is_Project_config} ) {
 			$files_LSU->{_program_name_config} =
 			  $name->change_config($program_name);
-
-			use App::SeismicUnixGui::misc::L_SU_local_user_constants;
 
 			# Find out HOME directory and configuration path for user
 			my $user_constants = L_SU_local_user_constants->new();
@@ -699,7 +697,6 @@ sub outbound2 {
 sub set_PL_SEISMIC {
 
 	my ($self) = @_;
-	use App::SeismicUnixGui::configs::big_streams::Project_config;
 
 	my $Project = Project_config->new();
 	$files_LSU->{_PL_SEISMIC} = $Project->PL_SEISMIC();
@@ -945,16 +942,13 @@ sub set_outbound {
 
 	if ($out_scalar_ref) {
 
-		use App::SeismicUnixGui::misc::name;
-		my $name = new name();
+		my $name = name->new();
 
 		$files_LSU->{_program_name} = $$out_scalar_ref;
 
 		if ( $files_LSU->{_is_Project_config} ) {
 			$files_LSU->{_program_name_config} =
 			  $name->change_config($program_name);
-
-			use App::SeismicUnixGui::misc::L_SU_local_user_constants;
 
 			# Find out HOME directory and configuration path for user
 			my $user_constants = L_SU_local_user_constants->new();
@@ -1017,16 +1011,13 @@ sub set_outbound2 {
 
 	if ($out_scalar_ref) {
 
-		use App::SeismicUnixGui::misc::name;
-		my $name = new name();
+		my $name = name->new();
 
 		$files_LSU->{_program_name} = $$out_scalar_ref;
 
 		if ( $files_LSU->{_is_Project_config} ) {
 			$files_LSU->{_program_name_config} =
 			  $name->change_config($program_name);
-
-			use App::SeismicUnixGui::misc::L_SU_local_user_constants;
 
 			# Find out HOME directory and configuration path for user
 			my $user_constants = L_SU_local_user_constants->new();
@@ -1174,7 +1165,7 @@ DB
   print(" save_button,save,configure,write_LSU,tool_specs $files_LSU->{_program_name_config}\n");
   print("save,superflow,write_LSU, key/value pairs:$CFG[$i], $CFG[$j]\n");
   #use Config::Simple;
-  #my $cfg 		= new Config::Simple(syntax=>'ini');
+  #my $cfg 		= Config::Simple(syntax=>'ini');
   #$cfg->write($files_LSU->{_program_name_config});   
   # print "@CFGpa\n";
      #$cfg->ram($CFG[$i] ,$CFG[$j]); 
@@ -1200,11 +1191,9 @@ sub set_superflow_specs {
 
 	if ( $hash_ref && $files_LSU->{_prog_name_sref} ) {
 
-		use App::SeismicUnixGui::misc::name;
-
 		#	    use Module::Refresh; # reload updated module
 
-		my $name = new name();
+		my $name = name->new();
 
 		#		my $refresher = Module::Refresh->new;
 
@@ -1218,8 +1207,8 @@ sub set_superflow_specs {
 		my $module_spec_pm = $module_spec . '.pm';
 
 		$L_SU_global_constants->set_file_name($module_spec_pm);
-		my $path 			= $L_SU_global_constants->get_path4spec_file();
-		my $pathNmodule_pm  = $path.'/'.$module_spec_pm;
+		my $path           = $L_SU_global_constants->get_path4spec_file();
+		my $pathNmodule_pm = $path . '/' . $module_spec_pm;
 
 		#		$refresher->refresh_module("$module_spec_pm");
 		require $pathNmodule_pm;
@@ -1303,7 +1292,6 @@ sub _write {
 
 	my ($self) = @_;
 
-	use App::SeismicUnixGui::misc::control '0.0.3';
 	my $control = control->new();
 	my @format;
 	my $length                  = ( scalar @{ $files_LSU->{_CFG} } ) / 2;
@@ -1407,10 +1395,8 @@ sub write {
 
 sub write2 {
 	my ($self) = @_;
-	use App::SeismicUnixGui::misc::manage_dirs_by;
-	use App::SeismicUnixGui::misc::L_SU_local_user_constants;
+	use aliased 'App::SeismicUnixGui::misc::manage_dirs_by';
 	use File::Copy;
-	use App::SeismicUnixGui::misc::control '0.0.3';
 
 	my $user_constants = L_SU_local_user_constants->new();
 	my $control        = control->new();

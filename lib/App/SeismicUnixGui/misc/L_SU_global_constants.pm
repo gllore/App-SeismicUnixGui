@@ -2,28 +2,30 @@ package App::SeismicUnixGui::misc::L_SU_global_constants;
 
 use Moose;
 use aliased 'App::SeismicUnixGui::misc::manage_dirs_by';
-my $manage_dirs_by = manage_dirs_by->new();
 
-my $SeismicUnixGui_lib;
-my $SeismicUnixGui;
+#my $manage_dirs_by = manage_dirs_by->new();
+
+my $path4SeismicUnixGui_lib;
+my $path4SeismicUnixGui;
 my $L_SU;
 
 BEGIN {
 	# searching for directory: SeismicUnixGui
 	use Shell qw(echo);
 	use Carp;
-	my $SeismicUnixGui = ` echo \$SeismicUnixGui`;
-	chomp $SeismicUnixGui;
+	$path4SeismicUnixGui = ` echo \$SeismicUnixGui`;
+	chomp $path4SeismicUnixGui;
 
-	if ( length $SeismicUnixGui ) {
+	if ( length $path4SeismicUnixGui ) {
 
-		$L_SU               = $SeismicUnixGui;
-		$SeismicUnixGui_lib = $SeismicUnixGui;
+		$L_SU               		= $path4SeismicUnixGui;
+		$path4SeismicUnixGui_lib 	= $path4SeismicUnixGui;
 
-   # print ("L_SU_global_constants,SeismicUnixGui_lib = $SeismicUnixGui_lib\n");
+ #   print ("L_SU_global_constants,SeismicUnixGui_lib = $path4SeismicUnixGui_lib\n");
+#		print("L_SU_global_constants,SeismicUnixGui = $path4SeismicUnixGui\n");
 	}
 	else {
-		print("SeismicUnixGui=$SeismicUnixGui\n");
+		print("SeismicUnixGui=$path4SeismicUnixGui\n");
 		print("L_SU_global_constants, Missing value unexpected\n");
 	}
 }
@@ -125,7 +127,7 @@ my $superflow_names_h = {
 	_Sseg2su           => 'Sseg2su',
 	_Sucat             => 'Sucat',
 	_immodpg           => 'immodpg',
-	_temp              => 'temp',   # make last
+	_temp              => 'temp',                # make last
 };
 
 =head2
@@ -146,7 +148,7 @@ $superflow_names_gui[7]  = 'fk';
 $superflow_names_gui[8]  = 'Synseis';
 $superflow_names_gui[9]  = 'iPick';
 $superflow_names_gui[10] = 'immodpg';
-$superflow_names_gui[11] = 'temp';  # make last
+$superflow_names_gui[11] = 'temp';                # make last
 
 my @superflow_names;
 $superflow_names[0]  = 'fk';
@@ -425,9 +427,8 @@ my @PARENT_DIR_SPECS   = ("specs");
 my @PARENT_DIR_SU      = ("sunix");
 
 my @PARENT_DIR_GEN = (
-	"misc",                 "geopsy",             "gmt", "messages",
-	"developer/code/sunix", "developer/code/gmt", "script",
-	"sqlite",               "t",
+	"misc", "geopsy", "gmt", "messages",
+	"developer/code/sunix", "developer/code/gmt", "script", "sqlite", "t",
 );
 
 my @CHILD_DIR_CONVERT = (
@@ -633,6 +634,10 @@ $var->{_sunix_statsMath_programs}   = \@sunix_statsMath_programs;
 $var->{_sunix_transform_programs}   = \@sunix_transform_programs;
 $var->{_sunix_well_programs}        = \@sunix_well_programs;
 
+
+
+
+
 sub alias_superflow_names_h {
 
 	my ($self) = @_;
@@ -698,11 +703,24 @@ sub flow_type_href {
 	return ($flow_type_h);
 }
 
+sub get_path4SeismicUnixGui {
+	my ($self) = @_;
+	
+	if(length $path4SeismicUnixGui ){
+		
+		my $result = $path4SeismicUnixGui;
+		return($result);
+		
+	} else {
+		print ("L_SU_global_constants, get_path4SeismicUnixGui,missing variable\n");
+	}
+	return();	
+}
+
 sub help_menubutton_type_href {
 
 	return ($help_menubutton_type_h);
 }
-
 
 =head2 sub get_pathNfile2search 
 
@@ -714,8 +732,7 @@ sub get_pathNfile2search {
 
 	my ($self) = @_;
 
-	if (
-		length $L_SU_global_constants->{_CHILD_DIR}
+	if (    length $L_SU_global_constants->{_CHILD_DIR}
 		and length $L_SU_global_constants->{_GRANDPARENT_DIR}
 		and length $L_SU_global_constants->{_PARENT_DIR} )
 	{
@@ -736,7 +753,7 @@ sub get_pathNfile2search {
  
 =cut	
 
-#		my @result_aref2;
+		#		my @result_aref2;
 		my @directory_contents;
 		my @dimensions;
 
@@ -778,19 +795,19 @@ sub get_pathNfile2search {
 				  . $PARENT_DIR[$parent] . '/'
 				  . $CHILD_DIR[$child];
 
-#	  			print(
-#	  "L_SU_global_constants, get_pathNfile2search,SEARCH_DIR=$SEARCH_DIR\n"
-#	  			);
+	  #	  			print(
+	  #	  "L_SU_global_constants, get_pathNfile2search,SEARCH_DIR=$SEARCH_DIR\n"
+	  #	  			);
 				$manage_dirs_by->set_directory($SEARCH_DIR);
 				my $directory_list_aref = $manage_dirs_by->get_file_list_aref();
 				my @directory_list      = @$directory_list_aref;
 				my $files_number_of     = scalar @directory_list;
 				my @pathNfile;
-				
-				for ( my $i=0; $i<$files_number_of; $i++) {
-					
-				 $pathNfile[$i] = $SEARCH_DIR.'/'.$directory_list[$i];
-				 	
+
+				for ( my $i = 0 ; $i < $files_number_of ; $i++ ) {
+
+					$pathNfile[$i] = $SEARCH_DIR . '/' . $directory_list[$i];
+
 				}
 
 				$directory_contents[$parent][$child] = \@pathNfile;
@@ -808,7 +825,7 @@ sub get_pathNfile2search {
 		print("get_pathNfile2search, missing variable(s)\n");
 		print("CHILD_DIR=$L_SU_global_constants->{_CHILD_DIR}\n");
 		print("GRANDPARENT_DIR=$L_SU_global_constants->{_GRANDPARENT_DIR}\n");
-		print("PARENT_DIR=$L_SU_global_constants->{_PARENT_DIR}\n");				
+		print("PARENT_DIR=$L_SU_global_constants->{_PARENT_DIR}\n");
 	}
 
 }
@@ -853,13 +870,16 @@ sub _get_convert_pathNfile2search {
  
 =cut 
 
-	my $GRANDPARENT_DIR = $SeismicUnixGui;
+	my $GRANDPARENT_DIR = $path4SeismicUnixGui;
+
+#	print ("L_SU_global_constants,_get_convert_pathNfile2search,SeismicUnixGui = $path4SeismicUnixGui\n");
 
 	my @PARENT_DIR_CONVERT = @{ $L_SU_global_constants->{_PARENT_DIR_CONVERT} };
 	my @CHILD_DIR_CONVERT  = @{ $L_SU_global_constants->{_CHILD_DIR_CONVERT} };
 
 	#	print("L_SU_global_constants,PARENT_DIR_CONVERT=@PARENT_DIR_CONVERT\n");
-	#    print("L_SU_global_constants,CHILD_DIR_CONVERT=@CHILD_DIR_CONVERT\n");
+	#	print("L_SU_global_constants,CHILD_DIR_CONVERT=@CHILD_DIR_CONVERT\n");
+
 	my $parent_directory_convert_number_of = scalar @PARENT_DIR_CONVERT;
 	my $child_directory_convert_number_of  = scalar @CHILD_DIR_CONVERT;
 
@@ -867,6 +887,12 @@ sub _get_convert_pathNfile2search {
 		$parent_directory_convert_number_of,
 		$child_directory_convert_number_of
 	);
+
+#	$parent_directory_convert_number_of = 2;
+#	$child_directory_convert_number_of  = 2;
+
+		print("L_SU_global_constants,parent_directory_convert_number_of=$parent_directory_convert_number_of\n");
+	    print("L_SU_global_constants,child_directory_convert_number_of=$child_directory_convert_number_of\n");
 
 =head2 CONVERT-related matters first
 
@@ -896,28 +922,31 @@ sub _get_convert_pathNfile2search {
 
 			if ( length $directory_list_aref ) {
 
-				my @directory_list = @$directory_list_aref;
-
 				$directory_contents_convert[$parent][$child] =
 				  $directory_list_aref;
+#				  print("L_SU_global_constants,print search_dir = $SEARCH_DIR\n");
+#				  print("L_SU_global_constants,directory_list_aref=@{$directory_list_aref}\n");
+
 
 			}
 			else {
-	 #				print(
-	 #"L_SU_global_constants, _get_convert_pathNfile2search,missing directory\n"
-	 #				);
+				print(
+"L_SU_global_constants, _get_convert_pathNfile2search,missing directory\n"
+				);
+				print("print search_dir = $SEARCH_DIR\n");
 			}
 
 		}
 
 	}
 
-	my $parent_convert = 0;
-	my $child_convert  = 1;
-
+#	my $parent_convert = 0;
+#	my $child_convert  = 0;
+#
 #	print(
 #"\nL_SU_global_constants, get_pathNfile2search, For convert directory paths: $PARENT_DIR_CONVERT[$parent_convert]::$CHILD_DIR_CONVERT[$child_convert]::\n"
 #	);
+#
 #	print("@{$directory_contents_convert[$parent_convert][$child_convert]}\n");
 
 	$result_aref2[0] = \@directory_contents_convert;
@@ -958,34 +987,20 @@ sub _get_specs_pathNfile2search {
  
 =cut 
 
-	my $GRANDPARENT_DIR = $SeismicUnixGui;
+	my $GRANDPARENT_DIR = $path4SeismicUnixGui;
 
-	#	my @PARENT_DIR_GUI = @{ $L_SU_global_constants->{_PARENT_DIR_GUI} };
-	#	my @CHILD_DIR_GUI  = @{ $L_SU_global_constants->{_CHILD_DIR_GUI} };
 	my @PARENT_DIR_SPECS = @{ $L_SU_global_constants->{_PARENT_DIR_SPECS} };
 	my @CHILD_DIR_SPECS  = @{ $L_SU_global_constants->{_CHILD_DIR_SPECS} };
 
-	#	my @PARENT_DIR_SU  = @{ $L_SU_global_constants->{_PARENT_DIR_SU} };
-	#	my @CHILD_DIR_SU   = @{ $L_SU_global_constants->{_CHILD_DIR_SU} };
-	#	my @PARENT_DIR_GEN = @{ $L_SU_global_constants->{_PARENT_DIR_GEN} };
-
-	#	print("PARENT_DIR_GUI=@PARENT_DIR_GUI\n");
-
-	#	my $parent_directory_gui_number_of = scalar @PARENT_DIR_GUI;
-	#	my $child_directory_gui_number_of  = scalar @CHILD_DIR_GUI;
 	my $parent_directory_specs_number_of = scalar @PARENT_DIR_SPECS;
 	my $child_directory_specs_number_of  = scalar @CHILD_DIR_SPECS;
-
-	#	my $parent_directory_su_number_of  = scalar @PARENT_DIR_SU;
-	#	my $child_directory_su_number_of   = scalar @CHILD_DIR_SU;
-	#	my $parent_directory_gen_number_of = scalar @PARENT_DIR_GEN;
 
 	@dimensions =
 	  ( $parent_directory_specs_number_of, $child_directory_specs_number_of );
 
-	#	$parent_directory_su_number_of, $child_directory_su_number_of,
-	#	  $parent_directory_gen_number_of $parent_directory_gui_number_of,
-	#	  $child_directory_gui_number_of,
+	print(
+		"$parent_directory_specs_number_of, $child_directory_specs_number_of\n"
+	);
 
 =head2 SPECS-related matters
 
@@ -1048,6 +1063,12 @@ sub _get_tools_pathNfile2search {
 
 	my ($self) = @_;
 
+=head2 Instantiate modules
+
+=cut
+
+	my $manage_dirs_by = manage_dirs_by->new();
+
 =head2 Define
 
  variables
@@ -1064,7 +1085,7 @@ sub _get_tools_pathNfile2search {
  
 =cut 
 
-	my $GRANDPARENT_DIR = $SeismicUnixGui;
+	my $GRANDPARENT_DIR = $path4SeismicUnixGui;
 
 	#	my @PARENT_DIR_GUI = @{ $L_SU_global_constants->{_PARENT_DIR_GUI} };
 	#	my @CHILD_DIR_GUI  = @{ $L_SU_global_constants->{_CHILD_DIR_GUI} };
@@ -1164,7 +1185,7 @@ sub get_path4convert_file {
 
 =cut
 
-		my $GRANDPARENT_DIR = $SeismicUnixGui;
+		my $GRANDPARENT_DIR = $path4SeismicUnixGui;
 		my @PARENT_DIR_CONVERT =
 		  @{ $L_SU_global_constants->{_PARENT_DIR_CONVERT} };
 		my @CHILD_DIR_CONVERT =
@@ -1185,13 +1206,13 @@ sub get_path4convert_file {
 		my $child_directory_convert_number_of  = $dimension[1];
 
 # test
-#		my $parent_convert = 1;
-#		my $child_convert  = 1;
+#		my $parent_convert = 0;
+#		my $child_convert  = 0;
 #		print(
-#"\nFor convert directory paths: $PARENT_DIR_CONVERT[$parent_convert]::$CHILD_DIR_CONVERT[$child_convert]::\n"
+#"\nL_SU_global_constants,get_path4convert_file, For convert directory paths: App::SeismicUnixGui::$PARENT_DIR_CONVERT[$parent_convert]::$CHILD_DIR_CONVERT[$child_convert]\n"
 #		);
 #		print(
-#			"@{$directory_contents_convert[$parent_convert][$child_convert]}\n"
+#			"_SU_global_constants,get_path4convert_file,@{$directory_contents_convert[$parent_convert][$child_convert]}\n"
 #		);
 
 =head2 Search all "convert"-relevant 
@@ -1223,11 +1244,15 @@ convert derectory listing
 					my @directory_list        = @$directory_list_aref;
 					my $length_directory_list = scalar @directory_list;
 
-			 #				   print("@{$directory_contents_convert[$parent][$child]}\n");
-			 #				   print("file_name=$file_name\n");
+#					print(
+#"L_SU_global_contents,@{$directory_contents_convert[$parent][$child]}\n"
+#					);
+#					print("L_SU_global_contents,file_name=$file_name\n");
 
 					for ( my $i = 0 ; $i < $length_directory_list ; $i++ ) {
 
+	#						print("L_SU_global_constants, directory list=$directory_list[$i]\n");
+						;
 						if ( not $file_name eq $directory_list[$i] ) {
 
 							next;
@@ -1235,12 +1260,12 @@ convert derectory listing
 						}
 						elsif ( $file_name eq $directory_list[$i] ) {
 
-#	  						print(
-#	  					"L_SU_global_constants,get_path4convert_file,found the file $file_name in
-#	   					$PARENT_DIR_CONVERT[$parent]::$CHILD_DIR_CONVERT[$child]\n"
-#	  						);
+							print(
+"L_SU_global_constants,get_path4convert_file,found the file $file_name in
+	   					$PARENT_DIR_CONVERT[$parent]::$CHILD_DIR_CONVERT[$child]\n"
+							);
 							$result =
-								$SeismicUnixGui . '/'
+								$path4SeismicUnixGui . '/'
 							  . $PARENT_DIR_CONVERT[$parent] . '/'
 							  . $CHILD_DIR_CONVERT[$child];
 
@@ -1290,7 +1315,7 @@ sub get_path4spec_file {
 
 =cut
 
-		my $GRANDPARENT_DIR  = $SeismicUnixGui;
+		my $GRANDPARENT_DIR  = $path4SeismicUnixGui;
 		my @PARENT_DIR_SPECS = @{ $L_SU_global_constants->{_PARENT_DIR_SPECS} };
 		my @CHILD_DIR_SPECS  = @{ $L_SU_global_constants->{_CHILD_DIR_SPECS} };
 
@@ -1358,7 +1383,7 @@ gui drectory listing
 		 #				  			  $PARENT_DIR_SPECS[$parent]::$CHILD_DIR_SPECS[$child]\n"
 		 #						);
 						$result =
-							$SeismicUnixGui . '/'
+							$path4SeismicUnixGui . '/'
 						  . $PARENT_DIR_SPECS[$parent] . '/'
 						  . $CHILD_DIR_SPECS[$child];
 
@@ -1401,7 +1426,7 @@ sub get_path4tools_file {
 
 =cut
 
-		my $GRANDPARENT_DIR  = $SeismicUnixGui;
+		my $GRANDPARENT_DIR  = $path4SeismicUnixGui;
 		my @PARENT_DIR_TOOLS = @{ $L_SU_global_constants->{_PARENT_DIR_TOOLS} };
 		my @CHILD_DIR_TOOLS  = @{ $L_SU_global_constants->{_CHILD_DIR_TOOLS} };
 
@@ -1469,7 +1494,7 @@ gui drectory listing
 		#				  			  $PARENT_DIR_TOOLS[$parent]::$CHILD_DIR_TOOLS[$child]\n"
 		#						);
 						$result =
-							$SeismicUnixGui . '/'
+							$path4SeismicUnixGui . '/'
 						  . $PARENT_DIR_TOOLS[$parent] . '/'
 						  . $CHILD_DIR_TOOLS[$child];
 
@@ -1519,7 +1544,6 @@ sub set_file_name {
 
 }
 
-
 =head2 sub set_CHILD_DIR_type
 
 =cut
@@ -1529,15 +1553,18 @@ sub set_CHILD_DIR_type {
 	my ( $self, $type ) = @_;
 
 	if ( length $type ) {
-		
-		my $CHILD_DIR = '_CHILD_DIR_'.$type;
-		$L_SU_global_constants->{_CHILD_DIR} = $L_SU_global_constants->{$CHILD_DIR};
+
+		my $CHILD_DIR = '_CHILD_DIR_' . $type;
+		$L_SU_global_constants->{_CHILD_DIR} =
+		  $L_SU_global_constants->{$CHILD_DIR};
 
 #		print("L_SU_global_constants,set_CHILD_DIR,set_CHILD_DIR_type = $L_SU_global_constants->{_CHILD_DIR}\n");
 
 	}
 	else {
-		print("L_SU_global_constants,set_CHILD_DIR_type, type=$type is missing variable");
+		print(
+"L_SU_global_constants,set_CHILD_DIR_type, type=$type is missing variable"
+		);
 	}
 
 }
@@ -1572,15 +1599,18 @@ sub set_PARENT_DIR_type {
 	my ( $self, $type ) = @_;
 
 	if ( length $type ) {
-		
-		my $PARENT_DIR = '_PARENT_DIR_'.$type;
-		$L_SU_global_constants->{_PARENT_DIR} = $L_SU_global_constants->{$PARENT_DIR};
+
+		my $PARENT_DIR = '_PARENT_DIR_' . $type;
+		$L_SU_global_constants->{_PARENT_DIR} =
+		  $L_SU_global_constants->{$PARENT_DIR};
 
 #		print("L_SU_global_constants,set_PARENT_DIR,set_PARENT_DIR_type = $L_SU_global_constants->{_PARENT_DIR}\n");
 
 	}
 	else {
-		print("L_SU_global_constants,set_PARENT_DIR_type, type=$type is missing variable");
+		print(
+"L_SU_global_constants,set_PARENT_DIR_type, type=$type is missing variable"
+		);
 	}
 
 }
@@ -1639,6 +1669,9 @@ sub superflow_names_h {
 }
 
 sub var {
+	my ($self) = @_;
+
+	#	print "got to var\n";
 	return ($var);
 }
 

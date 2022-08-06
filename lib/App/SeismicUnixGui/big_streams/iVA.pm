@@ -59,20 +59,21 @@ VELAN DATA
 
 use Moose;
 use App::SeismicUnixGui::misc::control '0.0.3';
+use aliased 'App::SeismicUnixGui::misc::control';
 our $VERSION = '1.0.3';
-use App::SeismicUnixGui::misc::L_SU_global_constants;
-use App::SeismicUnixGui::big_streams::iSunmo;
-use App::SeismicUnixGui::configs::big_streams::iVA_config;
-use App::SeismicUnixGui::sunix::plot::suxwigb;
-use App::SeismicUnixGui::big_streams::iSuvelan;
-use App::SeismicUnixGui::big_streams::iWrite_All_iva_out;
-use App::SeismicUnixGui::big_streams::iVpicks2par;
-use App::SeismicUnixGui::big_streams::iVrms2Vint;
-use App::SeismicUnixGui::misc::manage_files_by2;
-use App::SeismicUnixGui::configs::big_streams::Project_config;
+use aliased 'App::SeismicUnixGui::misc::L_SU_global_constants';
+use aliased 'App::SeismicUnixGui::big_streams::iSunmo';
+use aliased 'App::SeismicUnixGui::configs::big_streams::iVA_config';
+use aliased 'App::SeismicUnixGui::sunix::plot::suxwigb';
+use aliased 'App::SeismicUnixGui::big_streams::iSuvelan';
+use aliased 'App::SeismicUnixGui::big_streams::iWrite_All_iva_out';
+use aliased 'App::SeismicUnixGui::big_streams::iVpicks2par';
+use aliased 'App::SeismicUnixGui::big_streams::iVrms2Vint';
+use aliased 'App::SeismicUnixGui::misc::manage_files_by2';
+use aliased 'App::SeismicUnixGui::configs::big_streams::Project_config';
 
-use App::SeismicUnixGui::messages::SuMessages;
-use App::SeismicUnixGui::sunix::shell::xk;
+use aliased 'App::SeismicUnixGui::messages::SuMessages';
+use aliased 'App::SeismicUnixGui::sunix::shell::xk';
 
 =head2 establish hash of shared variables
 
@@ -120,22 +121,22 @@ my $iVA = {
 
 =cut
 
-my $read    = new readfiles();
-my $control = new control();
+my $read    = readfiles->new();
+my $control = control->new();
 
-my $suxwigb            = new suxwigb();
-my $semblance          = new iSuvelan();
-my $iWrite_All_iva_out = new iWrite_All_iva_out();
-my $iVpicks2par        = new iVpicks2par();
-my $iVrms2Vint         = new iVrms2Vint();
-my $test               = new manage_files_by2();
-my $SuMessages         = new SuMessages();
-my $iSunmo             = new iSunmo();
-my $get                = new L_SU_global_constants();
+my $suxwigb            = suxwigb->new();
+my $semblance          = iSuvelan->new();
+my $iWrite_All_iva_out = iWrite_All_iva_out->new();
+my $iVpicks2par        = iVpicks2par->new();
+my $iVrms2Vint         = iVrms2Vint->new();
+my $test               = manage_files_by2->new();
+my $SuMessages         = SuMessages->new();
+my $iSunmo             = iSunmo->new();
+my $get                = L_SU_global_constants->new();
 #my $global_libs        = $get->global_libs();
-my $Project            = new Project_config();
-my $iVA_config         = new iVA_config();
-my $xk                 = new xk;
+my $Project            = Project_config->new();
+my $iVA_config         = iVA_config->new();
+my $xk                 = xk->new();
 
 =head2 Import Special Variables
 

@@ -36,12 +36,12 @@ package App::SeismicUnixGui::specs::data::data_in_spec;
 
 our $VERSION = '0.0.2';
 use Moose;
-use App::SeismicUnixGui::sunix::data::data_in;
-use App::SeismicUnixGui::misc::L_SU_global_constants;
+package App::SeismicUnixGui::specs::data::data_in_spec;
+package App::SeismicUnixGui::specs::data::data_in_spec;
 
-use App::SeismicUnixGui::misc::SeismicUnix qw ($su $suffix_su);
+use App::SeismicUnixGui::misc::SeismicUnix qw($su $suffix_su);
 
-my $get              = new L_SU_global_constants();
+my $get              = L_SU_global_constants->new();
 my $var              = $get->var();
 my $file_dialog_type = $get->file_dialog_type_href();
 my $flow_type        = $get->flow_type_href();
@@ -49,12 +49,12 @@ my $flow_type        = $get->flow_type_href();
 my $empty_string 	= $var->{_empty_string};
 my $true         	= $var->{_true};
 my $false        	= $var->{_false};
-my $Project      	= new Project_config;
+my $Project      	= Project_config->new();
 
 my $DATA_SEISMIC_SU = $Project->DATA_SEISMIC_SU();    # output data directory
 my $PL_SEISMIC      = $Project->PL_SEISMIC();
 
-my $data_in   = new data_in;
+my $data_in   = data_in->new();
 my $max_index = $data_in->get_max_index();
 
 my $data_in_spec =  {

@@ -24,8 +24,8 @@ package App::SeismicUnixGui::misc::config_superflows;
 use Moose;
 my $VERSION = '1.0.0';
 
-use App::SeismicUnixGui::misc::L_SU_global_constants;
-use App::SeismicUnixGui::big_streams::immodpg_global_constants;
+use aliased 'App::SeismicUnixGui::misc::L_SU_global_constants';
+use aliased 'App::SeismicUnixGui::big_streams::immodpg_global_constants';
 
 
 =pod
@@ -49,8 +49,8 @@ my $config_superflows = {
 };
 
 
-my $get             = new L_SU_global_constants();
-my $get_immodpg     = new immodpg_global_constants();
+my $get             = L_SU_global_constants->new();
+my $get_immodpg     = immodpg_global_constants->new();
 my $var             = $get->var();
 my $var_immodpg     = $get_immodpg->var();
 my $on              = $var->{_on};
@@ -352,7 +352,7 @@ sub _local_or_defaults {
 
 	use App::SeismicUnixGui::misc::big_streams_param;
 
-	my $big_streams_param   = new big_streams_param();
+	my $big_streams_param   = big_streams_param->new();
 	my $flow_type           = $get->flow_type_href();
 	my $pre_built_superflow = $flow_type->{_pre_built_superflow};
 
@@ -402,7 +402,7 @@ sub get_local_or_defaults {
 		
 		use App::SeismicUnixGui::misc::big_streams_param;
 		
-		my $big_streams_param = new big_streams_param();
+		my $big_streams_param = big_streams_param->new();
 		my ( $cfg_aref, $size );
 
 		my $name_sref = $config_superflows->{_program_name_sref};
@@ -448,7 +448,7 @@ sub save {
 	};
 
 	use App::SeismicUnixGui::misc::files_LSU;
-	my $files_LSU = new files_LSU();
+	my $files_LSU = files_LSU->new();
 
 	$out_hash_ref->{_ref_labels} = $in_hash_ref->{_names_aref};
 	$out_hash_ref->{_ref_values} = $in_hash_ref->{_values_aref};

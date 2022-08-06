@@ -33,17 +33,21 @@ use Moose;
 our $VERSION = '1.0.2';
 
 use aliased 'App::SeismicUnixGui::misc::manage_dirs_by';
-use App::SeismicUnixGui::misc::control '0.0.3';
+#use App::SeismicUnixGui::misc::control '0.0.3';
 use aliased 'App::SeismicUnixGui::misc::control';
 
 use aliased 'App::SeismicUnixGui::misc::readfiles';
 use aliased 'App::SeismicUnixGui::misc::L_SU_global_constants';
+use aliased 'App::SeismicUnixGui::misc::dirs';
+use aliased 'App::SeismicUnixGui::misc::Project_Variables';
 
 my $read              = readfiles->new();
 my $control           = control->new;
 my $get               = L_SU_global_constants->new();
 my $global_lib        = $get->global_libs();
 my $GLOBAL_CONFIG_LIB = $global_lib->{_configs_big_streams};
+
+my $manage_dirs_by = manage_dirs_by->new();
 
 =head2 set local vaiables
 
@@ -294,7 +298,7 @@ sub _basic_dirs {
 		my $default_Project_config = $GLOBAL_CONFIG_LIB . '/Project.config';
 
 		# make the default configuration directory for the user
-		manage_dirs_by::make_dir($ACTIVE_PROJECT);
+		$manage_dirs_by->make_dir($ACTIVE_PROJECT);
 		copy( $default_Project_config, $PATH_N_file );
 		print(
 "Project_config, _basic_dirs, Project.config in ~user/.L_SU/configuration/active dir. created\n"
@@ -322,7 +326,7 @@ sub _basic_dirs {
 			  # L_SU_global_constants.pm
 		 # print ("Project_config, _basic_dirs, no configuration files exist\n");
 
-		use App::SeismicUnixGui::misc::manage_dirs_by;
+
 		use File::Copy;
 		my $ACTIVE_PROJECT = _get_ACTIVE_PROJECT();
 
@@ -333,7 +337,7 @@ sub _basic_dirs {
 		my $default_Project_config = $GLOBAL_CONFIG_LIB . '/Project.config';
 
 		# make the default configuration directory for the user
-		manage_dirs_by::make_dir($ACTIVE_PROJECT);
+		$manage_dirs_by->make_dir($ACTIVE_PROJECT);
 		copy( $default_Project_config, $PATH_N_file );
 
 # print ("Project_config, _basic_dirs, Project.config in user configuration dir. created\n");
@@ -421,7 +425,8 @@ sub basic_dirs {
 
 sub _change_basic_dirs {
 	my ($self) = @_;
-	use App::SeismicUnixGui::misc::control '0.0.3';
+#	use App::SeismicUnixGui::misc::control '0.0.3';
+#use aliased 'App::SeismicUnixGui::misc::control';
 	my $control = control->new();
 
 	my @CFG;
@@ -507,14 +512,13 @@ sub _change_basic_dirs {
 		# print ("Looking for old-style configuration file\n\n");
 		# print("Using old-style configuration file\n\n");
 
-		use App::SeismicUnixGui::misc::Project_Variables;
-
-		($date)         = Project_Variables::date();
-		($line)         = Project_Variables::line();
-		($component)    = Project_Variables::component();
-		($stage)        = Project_Variables::stage();
-		($process)      = Project_Variables::process();
-		($PROJECT_HOME) = Project_Variables::PROJECT_HOME();
+		my $Project_Variables = Project_Variables->new();
+		($date)         = $Project_Variables->date();
+		($line)         = $Project_Variables->line();
+		($component)    = $Project_Variables->component();
+		($stage)        = $Project_Variables->stage();
+		($process)      = $Project_Variables->process();
+		($PROJECT_HOME) = $Project_Variables->PROJECT_HOME();
 		$subUser = '';    #only in  new configuration files;
 
 	}
@@ -2703,10 +2707,7 @@ sub make_local_dirs {
 	# Always create basic types
 	my $PROJECT_HOME = $Project->{_PROJECT_HOME};
 
-	# my $HOME         = $Project->{_HOME};
-	# manage_dirs_by::make_dir($HOME);
-
-	manage_dirs_by::make_dir($PROJECT_HOME);
+	$manage_dirs_by->make_dir($PROJECT_HOME);
 
 	# BY data type
 	# CATEGORY GEOMAPS images and data
@@ -2748,11 +2749,11 @@ sub make_local_dirs {
 #	my $PL_GPR   = $Project->{_PL_GPR};
 #	my $PS_GPR   = $Project->{_PS_GPR};
 
-	#manage_dirs_by::make_dir($GEOMAPS_BIN);
-	#manage_dirs_by::make_dir($GEOMAPS_IMAGES_TIF);
+	#$manage_dirs_by->make_dir($GEOMAPS_BIN);
+	#$manage_dirs_by->make_dir($GEOMAPS_IMAGES_TIF);
 	# print("1. Project_configDATA_GEOMAPS_TEXT=$DATA_GEOMAPS_TEXT\n");
-	# manage_dirs_by::make_dir($DATA_GEOMAPS_TOPO);
-	#manage_dirs_by::make_dir($TEMP_DATA_GEOMAPS);
+	# $manage_dirs_by->make_dir($DATA_GEOMAPS_TOPO);
+	#$manage_dirs_by->make_dir($TEMP_DATA_GEOMAPS);
 
 	# pl programs and geomaps
 	my $PL_GEOMAPS        = $Project->{_PL_GEOMAPS};
@@ -2781,68 +2782,68 @@ sub make_local_dirs {
 	my $DATA_SEISMIC_R = $Project->{_DATA_SEISMIC_R};
 
 	if ( $Project->{_geomaps_is_selected} ) {
-		manage_dirs_by::make_dir($DATA_GEOMAPS);
-		manage_dirs_by::make_dir($GEOMAPS_IMAGES);
-		manage_dirs_by::make_dir($GEOMAPS_IMAGES_JPEG);
-		manage_dirs_by::make_dir($GEOMAPS_IMAGES_PNG);
-		manage_dirs_by::make_dir($GEOMAPS_IMAGES_PS);
-		manage_dirs_by::make_dir($DATA_GEOMAPS_TEXT);
-		manage_dirs_by::make_dir($PL_GEOMAPS);
+		$manage_dirs_by->make_dir($DATA_GEOMAPS);
+		$manage_dirs_by->make_dir($GEOMAPS_IMAGES);
+		$manage_dirs_by->make_dir($GEOMAPS_IMAGES_JPEG);
+		$manage_dirs_by->make_dir($GEOMAPS_IMAGES_PNG);
+		$manage_dirs_by->make_dir($GEOMAPS_IMAGES_PS);
+		$manage_dirs_by->make_dir($DATA_GEOMAPS_TEXT);
+		$manage_dirs_by->make_dir($PL_GEOMAPS);
 	}
 
 	if ( $Project->{_geopsy_is_selected} ) {
-		manage_dirs_by::make_dir($GEOPSY);
-		manage_dirs_by::make_dir($GEOPSY_PARAMS);
-		manage_dirs_by::make_dir($GEOPSY_PICKS);
-		manage_dirs_by::make_dir($GEOPSY_PICKS_RAW);
-		manage_dirs_by::make_dir($GEOPSY_PROFILES);
-		manage_dirs_by::make_dir($GEOPSY_REPORTS);
-		manage_dirs_by::make_dir($GEOPSY_TARGETS);
+		$manage_dirs_by->make_dir($GEOPSY);
+		$manage_dirs_by->make_dir($GEOPSY_PARAMS);
+		$manage_dirs_by->make_dir($GEOPSY_PICKS);
+		$manage_dirs_by->make_dir($GEOPSY_PICKS_RAW);
+		$manage_dirs_by->make_dir($GEOPSY_PROFILES);
+		$manage_dirs_by->make_dir($GEOPSY_REPORTS);
+		$manage_dirs_by->make_dir($GEOPSY_TARGETS);
 	}
 
 #	# gpr data
 #	if ( $Project->{_gpr_is_selected} ) {
 #
-#		manage_dirs_by::make_dir($GPR);
-#		manage_dirs_by::make_dir($DATA_GPR_SEGY_RAW);
-#		manage_dirs_by::make_dir($DATA_GPR_SEGY);
-#		manage_dirs_by::make_dir($DATA_GPR_SU);
-#		manage_dirs_by::make_dir($DATA_GPR_SU_RAW);
-#		manage_dirs_by::make_dir($DATA_GPR_TXT);
-#		manage_dirs_by::make_dir($PS_GPR);
-#		manage_dirs_by::make_dir($GIF_GPR);
+#		$manage_dirs_by->make_dir($GPR);
+#		$manage_dirs_by->make_dir($DATA_GPR_SEGY_RAW);
+#		$manage_dirs_by->make_dir($DATA_GPR_SEGY);
+#		$manage_dirs_by->make_dir($DATA_GPR_SU);
+#		$manage_dirs_by->make_dir($DATA_GPR_SU_RAW);
+#		$manage_dirs_by->make_dir($DATA_GPR_TXT);
+#		$manage_dirs_by->make_dir($PS_GPR);
+#		$manage_dirs_by->make_dir($GIF_GPR);
 #		print("manage_dirs_by, make_local_dirs: DATA_GPR_SEGY_RAW =$DATA_GPR_SEGY_RAW\n");
 ##		print("manage_dirs_by, make_local_dirs: GIF_GPR=$GIF_GPR\n");
-#		manage_dirs_by::make_dir($JPEG_GPR);
+#		$manage_dirs_by->make_dir($JPEG_GPR);
 ##		print("manage_dirs_by, make_local_dirs: JPEG_GPR=$JPEG_GPR\n");	
-#		manage_dirs_by::make_dir($PNG_GPR);
-#		manage_dirs_by::make_dir($PL_GPR);
+#		$manage_dirs_by->make_dir($PNG_GPR);
+#		$manage_dirs_by->make_dir($PL_GPR);
 #	}
 
 	if ( $Project->{_grass_is_selected} ) {
-		manage_dirs_by::make_dir($GEOMAPS_IMAGES);
-		manage_dirs_by::make_dir($GEOMAPS_IMAGES_JPEG);
-		manage_dirs_by::make_dir($GEOMAPS_IMAGES_PNG);
-		manage_dirs_by::make_dir($GEOMAPS_IMAGES_PS);
-		manage_dirs_by::make_dir($PL_GEOMAPS);
+		$manage_dirs_by->make_dir($GEOMAPS_IMAGES);
+		$manage_dirs_by->make_dir($GEOMAPS_IMAGES_JPEG);
+		$manage_dirs_by->make_dir($GEOMAPS_IMAGES_PNG);
+		$manage_dirs_by->make_dir($GEOMAPS_IMAGES_PS);
+		$manage_dirs_by->make_dir($PL_GEOMAPS);
 	}
 
 	if ( $Project->{_r_is_selected} ) {
-		manage_dirs_by::make_dir($R_SEISMIC);
-		manage_dirs_by::make_dir($DATA_SEISMIC_R);
+		$manage_dirs_by->make_dir($R_SEISMIC);
+		$manage_dirs_by->make_dir($DATA_SEISMIC_R);
 	}
 
 	if ( $Project->{_matlab_is_selected} ) {
-		manage_dirs_by::make_dir($MATLAB_SEISMIC);
-		manage_dirs_by::make_dir($DATA_SEISMIC_MATLAB);
+		$manage_dirs_by->make_dir($MATLAB_SEISMIC);
+		$manage_dirs_by->make_dir($DATA_SEISMIC_MATLAB);
 	}
 
 	if ( $Project->{_matlab_is_selected} && $Project->{_geomaps_is_selected} ) {
-		manage_dirs_by::make_dir($MATLAB_GEOMAPS);
+		$manage_dirs_by->make_dir($MATLAB_GEOMAPS);
 	}
 
 	# Always create
-	manage_dirs_by::make_dir($SH_SEISMIC);
+	$manage_dirs_by->make_dir($SH_SEISMIC);
 
 	# CATEGORY well data and R and Perl and Matlab
 	my $R_WELL  = $Project->{_R_WELL};
@@ -2850,17 +2851,17 @@ sub make_local_dirs {
 	my $PL_WELL = $Project->{_PL_WELL};
 
 	# my $MATLAB_WELL       			= $Project->{_MATLAB_WELL};
-	# manage_dirs_by::make_dir($R_WELL)
-	# manage_dirs_by::make_dir($WELL);
+	# $manage_dirs_by->make_dir($R_WELL)
+	# $manage_dirs_by->make_dir($WELL);
 	# pl programs and wells
-	# manage_dirs_by::make_dir($PL_WELL);
+	# $manage_dirs_by->make_dir($PL_WELL);
 	# matlab programs and wells
-	# manage_dirs_by::make_dir($MATLAB_WELL);
+	# $manage_dirs_by->make_dir($MATLAB_WELL);
 
 	# CATEGORY well and images
 	my $PS_WELL = $Project->{_PS_WELL};
 
-	# manage_dirs_by::make_dir($PS_WELL);
+	# $manage_dirs_by->make_dir($PS_WELL);
 
 	# CATEGORY seismic data
 	my $DATA_SEISMIC = $Project->{_DATA_SEISMIC};
@@ -2872,14 +2873,14 @@ sub make_local_dirs {
 	my $PNG_SEISMIC  = $Project->{_PNG_SEISMIC};
 	my $PL_SEISMIC   = $Project->{_PL_SEISMIC};
 
-	# manage_dirs_by::make_dir($GIF_SEISMIC);
+	# $manage_dirs_by->make_dir($GIF_SEISMIC);
 
 	# Always create imag efiles
-	manage_dirs_by::make_dir($JPEG_SEISMIC);
-	manage_dirs_by::make_dir($PNG_SEISMIC);
-	manage_dirs_by::make_dir($PS_SEISMIC);
+	$manage_dirs_by->make_dir($JPEG_SEISMIC);
+	$manage_dirs_by->make_dir($PNG_SEISMIC);
+	$manage_dirs_by->make_dir($PS_SEISMIC);
 
-	# manage_dirs_by::make_dir($TEMP_DATA_SEISMIC);
+	# $manage_dirs_by->make_dir($TEMP_DATA_SEISMIC);
 
 	my $DATA_SEISMIC_DAT  = $Project->{_DATA_SEISMIC_DAT};
 	my $DATA_SEISMIC_SEG2 = $Project->{_DATA_SEISMIC_SEG2};
@@ -2887,29 +2888,29 @@ sub make_local_dirs {
 	my $DATA_SEISMIC_SEGD = $Project->{_DATA_SEISMIC_SEGD};
 
 	# Always create
-	# manage_dirs_by::make_dir($DATA_SEISMIC_DAT);
-	manage_dirs_by::make_dir($DATA_SEISMIC_SEG2);
-	manage_dirs_by::make_dir($DATA_SEISMIC_SEGB);
+	# $manage_dirs_by->make_dir($DATA_SEISMIC_DAT);
+	$manage_dirs_by->make_dir($DATA_SEISMIC_SEG2);
+	$manage_dirs_by->make_dir($DATA_SEISMIC_SEGB);
 
 	#  Format segd and seismic data
-	manage_dirs_by::make_dir($DATA_SEISMIC_SEGD);
+	$manage_dirs_by->make_dir($DATA_SEISMIC_SEGD);
 
 	# Format nint and seismic data
 	my $DATA_SEISMIC_ININT = $Project->{_DATA_SEISMIC_ININT};
 
-	# manage_dirs_by::make_dir($DATA_SEISMIC_ININT);
+	# $manage_dirs_by->make_dir($DATA_SEISMIC_ININT);
 
 	# Format matlab and seismic data
-	# manage_dirs_by::make_dir($DATA_SEISMIC_MATLAB);
+	# $manage_dirs_by->make_dir($DATA_SEISMIC_MATLAB);
 
 	# gmt programs with map and seismic data
 	if ( $Project->{_gmt_is_selected} ) {
-		manage_dirs_by::make_dir($GMT_GEOMAPS);
+		$manage_dirs_by->make_dir($GMT_GEOMAPS);
 	}
 
 	# grass programs with map  data
 	if ( $Project->{_grass_is_selected} ) {
-		manage_dirs_by::make_dir($GRASS_GEOMAPS);
+		$manage_dirs_by->make_dir($GRASS_GEOMAPS);
 	}
 
 	# By programs
@@ -2917,7 +2918,7 @@ sub make_local_dirs {
 	my $DATABASE_SEISMIC_SQLITE = $Project->{_DATABASE_SEISMIC_SQLITE};
 
 	if ( $Project->{_sqlite_is_selected} ) {
-		manage_dirs_by::make_dir($DATABASE_SEISMIC_SQLITE);
+		$manage_dirs_by->make_dir($DATABASE_SEISMIC_SQLITE);
 	}
 
 	# sioseis
@@ -2929,8 +2930,8 @@ sub make_local_dirs {
 	if ( $Project->{_mmodpg_is_selected} ) {
 
 		print("Project_config,IMMODPG= $MMODPG\n");
-		manage_dirs_by::make_dir($MMODPG);
-		manage_dirs_by::make_dir($IMMODPG_INVISIBLE);
+		$manage_dirs_by->make_dir($MMODPG);
+		$manage_dirs_by->make_dir($IMMODPG_INVISIBLE);
 
 	}
 
@@ -2941,62 +2942,62 @@ sub make_local_dirs {
 
 		#		("Project_config,IMMODPG= $IMMODPG\n");
 		#		print("Project_config,IMMODPG_INVISIBLE= $IMMODPG_INVISIBLE\n");
-		manage_dirs_by::make_dir($IMMODPG);
-		manage_dirs_by::make_dir($IMMODPG_INVISIBLE);
+		$manage_dirs_by->make_dir($IMMODPG);
+		$manage_dirs_by->make_dir($IMMODPG_INVISIBLE);
 
 	}
 
 	# fast tomography
 	my $TEMP_FAST_TOMO = $Project->{_TEMP_FAST_TOMO};
 
-	# manage_dirs_by::make_dir($TEMP_FAST_TOMO);
+	# $manage_dirs_by->make_dir($TEMP_FAST_TOMO);
 
 	# isola
 	my $ISOLA = $Project->{_ISOLA};
 
-	# manage_dirs_by::make_dir($ISOLA);
+	# $manage_dirs_by->make_dir($ISOLA);
 
 	# antelope
 	#	my $ANTELOPE = $Project->{_ANTELOPE};
 
-	# manage_dirs_by::make_dir($ANTELOPE);
+	# $manage_dirs_by->make_dir($ANTELOPE);
 
 	# pl programs and surface resistitivy data
 	# Always create
-	manage_dirs_by::make_dir($PL_RESISTIVITY_SURFACE);
+	$manage_dirs_by->make_dir($PL_RESISTIVITY_SURFACE);
 
 	# pl programs and seismic data
 	# Always create
-	manage_dirs_by::make_dir($PL_SEISMIC);
+	$manage_dirs_by->make_dir($PL_SEISMIC);
 
 	# Format segy and seismic data
 	my $DATA_SEISMIC_SEGY     = $Project->{_DATA_SEISMIC_SEGY};
 	my $DATA_SEISMIC_SEGY_RAW = $Project->{_DATA_SEISMIC_SEGY_RAW};
 
 	# Always create
-	manage_dirs_by::make_dir($DATA_SEISMIC_SEGY);
+	$manage_dirs_by->make_dir($DATA_SEISMIC_SEGY);
 
-	# manage_dirs_by::make_dir($DATA_SEISMIC_RSEIS);
-	# manage_dirs_by::make_dir($DATA_SEISMIC_R);
+	# $manage_dirs_by->make_dir($DATA_SEISMIC_RSEIS);
+	# $manage_dirs_by->make_dir($DATA_SEISMIC_R);
 
-	# manage_dirs_by::make_dir($R_SEISMIC);
+	# $manage_dirs_by->make_dir($R_SEISMIC);
 
 	# Format passcal segy and seismic data
 	my $DATA_SEISMIC_PASSCAL_SEGY = $Project->{_DATA_SEISMIC_PASSCAL_SEGY};
 
-	# manage_dirs_by::make_dir($DATA_SEISMIC_PASSCAL_SEGY);
+	# $manage_dirs_by->make_dir($DATA_SEISMIC_PASSCAL_SEGY);
 
 	# Format sierra segy and seismic data
 	my $DATA_SEISMIC_SIERRA_SEGY = $Project->{_DATA_SEISMIC_SIERRA_SEGY};
 
-	# manage_dirs_by::make_dir($DATA_SEISMIC_SIERRA_SEGY);
+	# $manage_dirs_by->make_dir($DATA_SEISMIC_SIERRA_SEGY);
 
-	# manage_dirs_by::make_dir($DATA_SEISMIC_SEGD);
+	# $manage_dirs_by->make_dir($DATA_SEISMIC_SEGD);
 
 	# Format sac and seismic data
 	my $DATA_SEISMIC_SAC = $Project->{_DATA_SEISMIC_SAC};
 
-	# manage_dirs_by::make_dir($DATA_SEISMIC_SAC);
+	# $manage_dirs_by->make_dir($DATA_SEISMIC_SAC);
 
 	# Format su and seismic data
 	my $DATA_SEISMIC_SU      = $Project->{_DATA_SEISMIC_SU};
@@ -3004,20 +3005,20 @@ sub make_local_dirs {
 	my $TEMP_DATA_SEISMIC_SU = $Project->{_TEMP_DATA_SEISMIC_SU};
 
 	# Always create
-	manage_dirs_by::make_dir($DATA_SEISMIC_SU);
-	manage_dirs_by::make_dir($DATA_SEISMIC_SEGY_RAW);
+	$manage_dirs_by->make_dir($DATA_SEISMIC_SU);
+	$manage_dirs_by->make_dir($DATA_SEISMIC_SEGY_RAW);
 
 	# Format txt and seismic data
 	my $DATA_SEISMIC_TXT = $Project->{_DATA_SEISMIC_TXT};
 
 	# Always create
-	manage_dirs_by::make_dir($DATA_SEISMIC_TXT);
+	$manage_dirs_by->make_dir($DATA_SEISMIC_TXT);
 
 	#Format bin	 and seismic data
 	my $DATA_SEISMIC_BIN = $Project->{_DATA_SEISMIC_BIN};
 
 	# Always create
-	manage_dirs_by::make_dir($DATA_SEISMIC_BIN);
+	$manage_dirs_by->make_dir($DATA_SEISMIC_BIN);
 
 	# CATEGORY resistivity data
 	# location surface
@@ -3029,9 +3030,9 @@ sub make_local_dirs {
 
 # print("9. DATA_RESISTIVITY_SURFACE_TXT = $Project->{_DATA_RESISTIVITY_SURFACE_TXT}\n");
 
-	# manage_dirs_by::make_dir($R_RESISTIVITY_SURFACE);
-	manage_dirs_by::make_dir($DATA_RESISTIVITY_SURFACE);
-	manage_dirs_by::make_dir($DATA_RESISTIVITY_SURFACE_TXT);
+	# $manage_dirs_by->make_dir($R_RESISTIVITY_SURFACE);
+	$manage_dirs_by->make_dir($DATA_RESISTIVITY_SURFACE);
+	$manage_dirs_by->make_dir($DATA_RESISTIVITY_SURFACE_TXT);
 
 	# CATEGORY resistivity data
 	# location well
@@ -3043,27 +3044,27 @@ sub make_local_dirs {
 	# CATEGORY resistivity data
 	# location surface
 	# and program PL
-	manage_dirs_by::make_dir($PL_RESISTIVITY_SURFACE);
+	$manage_dirs_by->make_dir($PL_RESISTIVITY_SURFACE);
 
 	#CATEGORY GAMMA data
 	# location well
 	# and program R
 	# my $R_GAMMA_WELL  		 = $Project->{_R_GAMMA_WELL};
 	# my $DATA_GAMMA_WELL_TXT  = $Project->{_DATA_GAMMA_WELL_TXT};
-	# manage_dirs_by::make_dir($R_GAMMA_WELL);
-	# manage_dirs_by::make_dir($DATA_GAMMA_WELL_TXT);
+	# $manage_dirs_by->make_dir($R_GAMMA_WELL);
+	# $manage_dirs_by->make_dir($DATA_GAMMA_WELL_TXT);
 
-	# manage_dirs_by::make_dir($DATA_WELL);
+	# $manage_dirs_by->make_dir($DATA_WELL);
 
 	# Always create new wells and their data
 	my $DATA_SEISMIC_WELL_SYNSEIS = $Project->{_DATA_SEISMIC_WELL_SYNSEIS};
-	manage_dirs_by::make_dir($DATA_SEISMIC_WELL_SYNSEIS);
+	$manage_dirs_by->make_dir($DATA_SEISMIC_WELL_SYNSEIS);
 
 	# c PROGRAMS
-	# manage_dirs_by::make_dir($C_SEISMIC);
+	# $manage_dirs_by->make_dir($C_SEISMIC);
 
 	# C ++ PROGRAMS
-	# manage_dirs_by::make_dir($CPP_SEISMIC);
+	# $manage_dirs_by->make_dir($CPP_SEISMIC);
 
 	return ();
 }
@@ -3104,9 +3105,10 @@ sub update_configuration_files {
 	my $HOME = $home_directory;
 
 	use File::Copy;
-	use App::SeismicUnixGui::misc::control '0.0.3';
-	use App::SeismicUnixGui::misc::dirs;
-	use App::SeismicUnixGui::misc::readfiles;
+#	use App::SeismicUnixGui::misc::control '0.0.3';
+#use aliased 'App::SeismicUnixGui::misc::control';
+#	use App::SeismicUnixGui::misc::dirs;
+#	use App::SeismicUnixGui::misc::readfiles;
 
 	my $ACTIVE_CONFIGURATION = $HOME . '/.L_SU/configuration/active';
 	my $inbound              = $ACTIVE_CONFIGURATION . '/Project.config';

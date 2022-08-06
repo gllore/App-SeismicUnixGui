@@ -328,13 +328,13 @@ usage: pscoast -J<args> [-A<min_area>[/<min_level>/<max_level>][+ag|i|s|S][+r|l]
 
 use Moose;
 our $VERSION = '1.0.1';
-use App::SeismicUnixGui::gmt::GMTglobal_constants;
+use aliased 'App::SeismicUnixGui::gmt::GMTglobal_constants';
 
 =head2 instantiation of packages
 
 =cut
 
-my $get     = new GMTglobal_constants();
+my $get     = GMTglobal_constants->new();
 my $gmt_var = $get->gmt_var();
 
 =head2 declare variables

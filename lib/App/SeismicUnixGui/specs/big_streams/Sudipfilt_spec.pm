@@ -2,20 +2,20 @@ package App::SeismicUnixGui::specs::big_streams::Sudipfilt_spec;
 
 our $VERSION = '1.00';
 use Moose;
-use App::SeismicUnixGui::misc::L_SU_global_constants;
-use App::SeismicUnixGui::configs::big_streams::Project_config;
-use App::SeismicUnixGui::configs::big_streams::Sudipfilt_config;
-use App::SeismicUnixGui::misc::SeismicUnix qw ($su $suffix_su);
+package App::SeismicUnixGui::specs::big_streams::Sudipfilt_spec;
+package App::SeismicUnixGui::specs::big_streams::Sudipfilt_spec;
+package App::SeismicUnixGui::specs::big_streams::Sudipfilt_spec;
+use App::SeismicUnixGui::misc::SeismicUnix qw($su $suffix_su);
 
-use App::SeismicUnixGui::configs::big_streams::Project_config;
-use App::SeismicUnixGui::configs::big_streams::Sudipfilt_config;
-use App::SeismicUnixGui::misc::SeismicUnix qw ($su $suffix_su);
+package App::SeismicUnixGui::specs::big_streams::Sudipfilt_spec;
+package App::SeismicUnixGui::specs::big_streams::Sudipfilt_spec;
+use App::SeismicUnixGui::misc::SeismicUnix qw($su $suffix_su);
 
-my $get              = new L_SU_global_constants();
+my $get              = L_SU_global_constants->new();
 my $var              = $get->var();
 
-my $Project          = new Project_config;
-my $Sudipfilt_config = new Sudipfilt_config;
+my $Project          = Project_config->new();
+my $Sudipfilt_config = Sudipfilt_config->new();
 
 my $empty_string     = $var->{_empty_string};
 

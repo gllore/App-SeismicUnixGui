@@ -40,22 +40,21 @@ our $VERSION = '0.0.2';
 
 use Tk;
 
-my $path;
-my $SeismicUnixGui;
-use Shell qw(echo);
-
-BEGIN {
-
-$SeismicUnixGui = ` echo \$SeismicUnixGui`;
-chomp $SeismicUnixGui;
-$path = $SeismicUnixGui.'/'.'misc';
-
-}
-use lib "$path";
-extends 'gui_history' => { -version => 0.0.2 };
-
-# potentially used in all packages
-use App::SeismicUnixGui::misc::L_SU_global_constants;
+##my $path;
+#my $SeismicUnixGui;
+#use Shell qw(echo);
+#
+#BEGIN {
+#
+#$SeismicUnixGui = ` echo \$SeismicUnixGui`;
+#chomp $SeismicUnixGui;
+#$path = $SeismicUnixGui.'/'.'misc';
+#
+#}
+#use lib "$path";
+extends 'App::SeismicUnixGui::misc::gui_history' => { -version => 0.0.2 };
+use aliased 'App::SeismicUnixGui::misc::gui_history';
+use aliased 'App::SeismicUnixGui::misc::L_SU_global_constants';
 
 my $gui_history = gui_history->new();
 my $get         = L_SU_global_constants->new();
@@ -173,15 +172,14 @@ sub set_param_flow {
 sub _Save_pre_built_superflow {
 	my ($self) = @_;
 
-	use App::SeismicUnixGui::misc::save;
-	use App::SeismicUnixGui::misc::files_LSU;;
-	use App::SeismicUnixGui::messages::message_director;
-	
-	use App::SeismicUnixGui::misc::config_superflows;
+	use aliased 'App::SeismicUnixGui::misc::save';
+	use aliased 'App::SeismicUnixGui::misc::files_LSU';
+	use aliased 'App::SeismicUnixGui::messages::message_director';
+	use aliased 'App::SeismicUnixGui::misc::config_superflows';
 
 	my $save_button_messages = message_director->new();
-	my $save                 = new save();
-	my $files_LSU            = new files_LSU();
+	my $save                 = save->new();
+	my $files_LSU            = files_LSU->new();
 	my $config_superflows    = config_superflows->new();
 
 	my $message = $save_button_messages->null_button(0);

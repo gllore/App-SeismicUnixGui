@@ -70,9 +70,9 @@ my $iWrite_All_iva_out = {
 
 =cut 
 
-use App::SeismicUnixGui::misc::SeismicUnix qw ($on $off $in $to $go);
-use App::SeismicUnixGui::configs::big_streams::Project_config;
-my $Project = new Project_config();
+use App::SeismicUnixGui::misc::SeismicUnix qw($on $off $in $to $go);
+use aliased 'App::SeismicUnixGui::configs::big_streams::Project_config';
+my $Project = Project_config->new();
 my ($PL_SEISMIC) = $Project->PL_SEISMIC();
 
 =head2 subroutine clear

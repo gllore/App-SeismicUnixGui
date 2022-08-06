@@ -45,9 +45,9 @@ For example, total number of files =74  first file is "1000.su"
 =cut
 
 use Moose;
-use App::SeismicUnixGui::configs::big_streams::Project_config;
-use App::SeismicUnixGui::misc::readfiles;
-use App::SeismicUnixGui::configs::big_streams::Sseg2su_config;
+use aliased 'App::SeismicUnixGui::configs::big_streams::Project_config';
+use aliased 'App::SeismicUnixGui::misc::readfiles';
+use aliased 'App::SeismicUnixGui::configs::big_streams::Sseg2su_config';
 
 
 =head2 Instantiate classes:
@@ -57,9 +57,9 @@ use App::SeismicUnixGui::configs::big_streams::Sseg2su_config;
 
 =cut
 
-my $read           = new readfiles();
-my $Project        = new Project_config();
-my $Sseg2su_config = new Sseg2su_config();
+my $read           = readfiles->new();
+my $Project        = Project_config->new();
+my $Sseg2su_config = Sseg2su_config->new();
 
 =head2 Get directory definitions
 

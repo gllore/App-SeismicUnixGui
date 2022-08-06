@@ -36,7 +36,14 @@ use Moose;
 our $VERSION = '1.0.1';
 use Tk;
 
-use App::SeismicUnixGui::misc::param_widgets;
+use aliased 'App::SeismicUnixGui::misc::param_widgets';
+use aliased 'App::SeismicUnixGui::misc::L_SU_local_user_constants';
+use aliased 'App::SeismicUnixGui::messages::message_director';
+use aliased 'App::SeismicUnixGui::misc::config_superflows';
+use aliased 'App::SeismicUnixGui::misc::L_SU_global_constants';
+use aliased 'App::SeismicUnixGui::misc::manage_dirs_by';
+use aliased 'App::SeismicUnixGui::misc::config_superflows';
+	
 my $param_widgets = param_widgets->new();
 my $false         = 0;
 my $true          = 1;
@@ -70,7 +77,7 @@ my $project_selector = {
 sub _continue {
 	my ($self) = @_;
 
-#	print("project_selector, _continue\n");
+	#	print("project_selector, _continue\n");
 	my $mw = $project_selector->{_mw};
 	$mw->destroy() if Tk::Exists($mw);
 	exit(1);
@@ -97,8 +104,10 @@ sub cancel {
 	my ( $self, $value ) = @_;
 	if ($value) {
 		_cancel();
-#		print("project_select,cancel,value: $value\n");
-	} else {
+
+		#		print("project_select,cancel,value: $value\n");
+	}
+	else {
 		print("project_select,cancel,error, value: $value\n");
 	}
 	return ();
@@ -122,18 +131,16 @@ sub cancel {
 sub _create_new {
 	my ($self) = @_;
 
-
-	use App::SeismicUnixGui::messages::message_director;
-	use App::SeismicUnixGui::misc::config_superflows;
-	
 	my $config_superflows = config_superflows->new();
 
 	if (    length( $project_selector->{_current_program_name} )
-		and length( $project_selector->{_param_widgets_pkg} ) ) {
+		and length( $project_selector->{_param_widgets_pkg} ) )
+	{
 
 		my $name              = $project_selector->{_current_program_name};
 		my $param_widgets_pkg = $project_selector->{_param_widgets_pkg};
-#		print("project_selector,_create_new, name =$name \n");
+
+		#		print("project_selector,_create_new, name =$name \n");
 
 =pod private hash
  	
@@ -149,7 +156,7 @@ sub _create_new {
 			_names_aref                  => '',
 			_values_aref                 => '',
 			_check_buttons_settings_aref => '',
-			_is_superflow                => $true,    # needed for param_widgets.pm
+			_is_superflow                => $true, # needed for param_widgets.pm
 			_superflow_first_idx         => '',
 			_superflow_length            => '',
 		};
@@ -166,18 +173,24 @@ sub _create_new {
 		# get values names and checkbuttons from a
 		# default the Project.config file
 
-		$config_superflows->set_program_name( $project->{_prog_name_sref} );    # really sref
-		# parameter names from superflow configuration file
+		$config_superflows->set_program_name( $project->{_prog_name_sref} )
+		  ;    # really sref
+			   # parameter names from superflow configuration file
 		$project->{_names_aref} = $config_superflows->get_names();
 
 		# parameter values from superflow configuration file
 		$project->{_values_aref} = $config_superflows->get_values();
 
-		print("project_selector,_create_new,values=@{$project->{_values_aref}}\n");
+		print(
+			"project_selector,_create_new,values=@{$project->{_values_aref}}\n"
+		);
 
-		$project->{_check_buttons_settings_aref} = $config_superflows->get_check_buttons_settings();
+		$project->{_check_buttons_settings_aref} =
+		  $config_superflows->get_check_buttons_settings();
 
-		print("project_selector,_create_new,chkb=@{$project->{_check_buttons_settings_aref}}\n");
+		print(
+"project_selector,_create_new,chkb=@{$project->{_check_buttons_settings_aref}}\n"
+		);
 
 		$project->{_superflow_first_idx} = $config_superflows->first_idx();
 		$project->{_superflow_length}    = $config_superflows->length();
@@ -186,7 +199,8 @@ sub _create_new {
 		$param_widgets_pkg->range($project);
 		$param_widgets_pkg->set_labels( $project->{_names_aref} );
 		$param_widgets_pkg->set_values( $project->{_values_aref} );
-		$param_widgets_pkg->set_check_buttons( $project->{_check_buttons_settings_aref} );
+		$param_widgets_pkg->set_check_buttons(
+			$project->{_check_buttons_settings_aref} );
 
 		# update the length
 		$param_widgets_pkg->set_length( $project->{_superflows_length} );
@@ -194,7 +208,8 @@ sub _create_new {
 		$param_widgets_pkg->redisplay_values();
 		$param_widgets_pkg->redisplay_check_buttons();
 
-	} else {
+	}
+	else {
 		print("project_select,_create_new, variables are missing n");
 	}
 	return ();
@@ -211,7 +226,8 @@ sub _get_message_box_w {
 
 		return ( $project_selector->{_message_box_w} );
 
-	} else {
+	}
+	else {
 		print("project_select,_get_message_box_w missing \n");
 	}
 
@@ -225,7 +241,6 @@ sub _get_message_box_w {
 sub _get_project_names_aref {
 
 	my ($self) = @_;
-	use App::SeismicUnixGui::misc::L_SU_local_user_constants;
 
 	my $user_constants = L_SU_local_user_constants->new();
 	my @ls_ref;
@@ -266,10 +281,6 @@ For the case that a new project is created:
 sub _ok {
 	my ($self) = @_;
 
-	use App::SeismicUnixGui::misc::L_SU_local_user_constants;
-	use App::SeismicUnixGui::misc::L_SU_global_constants;
-	use App::SeismicUnixGui::messages::message_director;
-
 	my $user_constants = L_SU_local_user_constants->new();
 	my $get            = L_SU_global_constants->new();
 
@@ -277,16 +288,17 @@ sub _ok {
 	my $message_director = message_director->new();
 	my $message_box_w    = _get_message_box_w();
 	my $global_libs      = $get->global_libs();
-	my $run_name         = $get->var->{_project_selector_title}; 
-	
+	my $run_name         = $get->var->{_project_selector_title};
+
 	# 1. CASES when an existing project is selected
 	if ( $project_selector->{_active_project} ) {
 
 		# extra security
 		# print("project_select,_ok, active project already exists-Good\n");
 
-		my $param_widgets_pkg       = $project_selector->{_param_widgets_pkg};
-		my $length_check_buttons_on = $param_widgets_pkg->get_length_check_buttons_on();
+		my $param_widgets_pkg = $project_selector->{_param_widgets_pkg};
+		my $length_check_buttons_on =
+		  $param_widgets_pkg->get_length_check_buttons_on();
 
 #		print("project_selector,_ok, length_check_buttons_on: $length_check_buttons_on\n");
 
@@ -296,24 +308,27 @@ sub _ok {
 #			print("CASE 1A: project_selector,_ok, >1 length_check_buttons_on: $length_check_buttons_on\n");
 #			print("project_selector,_ok, length_check_buttons_on: $length_check_buttons_on\n");
 			$message_box_w->delete( "1.0", 'end' );
-			my $message = $message_director->project_selector(0);    # only one button can be chosen
+			my $message = $message_director->project_selector(0)
+			  ;    # only one button can be chosen
 			$message_box_w->insert( 'end', $message );
 
 		}
 
 		# CASE 1.B no buttons are selected ('on')
-		elsif ( $length_check_buttons_on == 0 ) {                    # implies that no projects exist
+		elsif ( $length_check_buttons_on == 0 )
+		{    # implies that no projects exist
 
 			my $list_ref = $user_constants->get_project_names();
 			my $length   = scalar @$list_ref;
 
 			if ( $length == 0 ) {
 
-				# i.e. no project names exist is confirmed
-#				print("CASE 1.B :project_selector,_ok, length_project names $length\n");
+   # i.e. no project names exist is confirmed
+   #				print("CASE 1.B :project_selector,_ok, length_project names $length\n");
 
 				$message_box_w->delete( "1.0", 'end' );
-				my $message = $message_director->project_selector(2);    # Create New or select old project
+				my $message = $message_director->project_selector(2)
+				  ;    # Create New or select old project
 				$message_box_w->insert( 'end', $message );
 
 			}
@@ -324,11 +339,12 @@ sub _ok {
 
 #			print("CASE 1.C: project_selector,_ok, length_check_buttons_on: $length_check_buttons_on\n");
 			use File::Copy;
-			my $CONFIGURATION       = $user_constants->get_CONFIGURATION;
-			my $ACTIVE_PROJECT      = $user_constants->get_ACTIVE_PROJECT;
-			my $active_indices_aref = $param_widgets_pkg->get_index_check_buttons_on();
+			my $CONFIGURATION  = $user_constants->get_CONFIGURATION;
+			my $ACTIVE_PROJECT = $user_constants->get_ACTIVE_PROJECT;
+			my $active_indices_aref =
+			  $param_widgets_pkg->get_index_check_buttons_on();
 
-			# print(" project_selector,_ok,active_index: @$active_indices_aref\n");
+		 # print(" project_selector,_ok,active_index: @$active_indices_aref\n");
 
 			my @active_indices = @$active_indices_aref;
 			my $active_index   = $active_indices[0];
@@ -337,43 +353,45 @@ sub _ok {
 			# print(" project_selector,_ok,message widget: $message_box_w\n");
 
 			# get the label of the active index
-			my @labels                  = @{ $param_widgets_pkg->get_labels_aref() };
+			my @labels = @{ $param_widgets_pkg->get_labels_aref() };
 			my $new_active_Project_name = $labels[$active_index];
 
-			# print(" project_selector,_ok,active label/project name is: $labels[$active_index]\n");
+# print(" project_selector,_ok,active label/project name is: $labels[$active_index]\n");
 
 			# copy the .Project.config file to the active directory
-			my $from = $CONFIGURATION . '/' . $new_active_Project_name . '/Project.config';
-			my $to   = $ACTIVE_PROJECT . '/Project.config';
+			my $from =
+				$CONFIGURATION . '/'
+			  . $new_active_Project_name
+			  . '/Project.config';
+			my $to = $ACTIVE_PROJECT . '/Project.config';
 
 			copy( $from, $to );
 
-			# Instruction to create the new directories runs in system
-#			print("project_selector,_ok,create new Project and its directories \n");
+	# Instruction to create the new directories runs in system
+	#			print("project_selector,_ok,create new Project and its directories \n");
 
 #		     print("project_selector,_ok, sh $global_libs->{_superflows}$run_name \n");
 			system("sh $global_libs->{_superflows}$run_name");
 
-			# print("project_selector,_ok,copying new active project configuration file \n FROM:$from TO:$to");
-			# kill LSU_project_selector exit with 1
+# print("project_selector,_ok,copying new active project configuration file \n FROM:$from TO:$to");
+# kill LSU_project_selector exit with 1
 			_continue();
 
-		} else {
-			print("project_selector,_ok,length_check_buttons_on, unexpected $length_check_buttons_on\n");
+		}
+		else {
+			print(
+"project_selector,_ok,length_check_buttons_on, unexpected $length_check_buttons_on\n"
+			);
 		}
 	}
 
 	# 2. CASES for NEWLY created Project Configuration File and New Project
 	elsif ( $project_selector->{_create_new} ) {
 
-#	print("CASE 2 project_select,_ok, project newly created \n");
+		#	print("CASE 2 project_select,_ok, project newly created \n");
 
 		# save the new .Project configure to
 		# /home/username/configuration/active
-
-		use App::SeismicUnixGui::misc::manage_dirs_by;
-		use App::SeismicUnixGui::misc::config_superflows;
-		use App::SeismicUnixGui::misc::L_SU_local_user_constants;
 
 		my $user_constants    = L_SU_local_user_constants->new();
 		my $config_superflows = config_superflows->new();
@@ -391,17 +409,17 @@ sub _ok {
 		my $name = $project_selector->{_current_program_name};
 		$project->{_prog_name_sref} = \$name;
 
-		#		print("project_selector,_ok, labels @{$project->{_names_aref}}\n");
-		#		print("project_selector,_ok, values @{$project->{_values_aref}}\n");
-		#		print("project_selector,_ok, prog_name ${$project->{_prog_name_sref}} \n");
+  #		print("project_selector,_ok, labels @{$project->{_names_aref}}\n");
+  #		print("project_selector,_ok, values @{$project->{_values_aref}}\n");
+  #		print("project_selector,_ok, prog_name ${$project->{_prog_name_sref}} \n");
 
-		# saves the configuration file ONLY to ./L_SU/configuration/active/Project.config
+# saves the configuration file ONLY to ./L_SU/configuration/active/Project.config
 		$config_superflows->save($project);
 
 		# only after previous save
 		my $active_project_name = $user_constants->get_active_project_name();
 
-		# print("project_selector,_ok, active_project_name $active_project_name \n");
+   # print("project_selector,_ok, active_project_name $active_project_name \n");
 		my $CONFIGURATION  = $user_constants->get_CONFIGURATION();
 		my $NEW_PROJECT    = $CONFIGURATION . '/' . $active_project_name;
 		my $ACTIVE_PROJECT = $user_constants->get_ACTIVE_PROJECT();
@@ -418,18 +436,18 @@ sub _ok {
 			use File::Copy;
 			manage_dirs_by::make_dir($NEW_PROJECT);
 
-			# uipdate active project to lates changed Entry widget values in the project_selector GUI
+# uipdate active project to lates changed Entry widget values in the project_selector GUI
 
 			my $FROM_project_config = $ACTIVE_PROJECT . '/' . $name . '.config';
 			$user_constants->set_user_configuration_Project_config();
 
 			my $TO_project_config = $NEW_PROJECT . '/' . $name . '.config';
 
-			#			print("project_selector,_ok, CASE 2A of new project copying from $FROM_project_config to $TO_project_config\n");
+#			print("project_selector,_ok, CASE 2A of new project copying from $FROM_project_config to $TO_project_config\n");
 			copy( $FROM_project_config, $TO_project_config );
 
-			# Instruction to create the new directories runs in system
-			#			print("project_selector,_ok,create new Project and its directories \n");
+	# Instruction to create the new directories runs in system
+	#			print("project_selector,_ok,create new Project and its directories \n");
 			system("sh $global_libs->{_superflows}$run_name");
 
 			# kill windows but exit with 1
@@ -437,12 +455,14 @@ sub _ok {
 
 			# print("project_selector,_ok, kill windows but exit with 1 \n");
 
-		} else {
+		}
+		else {
 
 			# CASE 2B new project already exists
 
 			$message_box_w->delete( "1.0", 'end' );
-			my $message = $message_director->project_selector(1);    # project already exists
+			my $message =
+			  $message_director->project_selector(1);   # project already exists
 			$message_box_w->insert( 'end', $message );
 
 #			print("project_selector,_ok, CASE 2B A project with that name exists already. Try again \n");
@@ -480,41 +500,44 @@ sub _set_gui {
 		$param_widgets_pkg->set_labels($project_names_aref);
 		$param_widgets_pkg->redisplay_labels();
 
-		# print("labels are @{$project_names_aref}\n"); # only part of array is full
+	# print("labels are @{$project_names_aref}\n"); # only part of array is full
 
 		$param_widgets_pkg->set_values($PROJECT_HOMES_aref);
 		$param_widgets_pkg->redisplay_values();
 
-		# print("project_selector,PROJECT HOMES are @$PROJECT_HOMES_aref\n");# only part of array is full
+# print("project_selector,PROJECT HOMES are @$PROJECT_HOMES_aref\n");# only part of array is full
 
 		if ( $project_selector->{_length} == 0 ) {    # no project name
 			my @check_buttons = ('off');
 			$param_widgets_pkg->set_check_buttons( \@check_buttons );
 			$param_widgets_pkg->redisplay_check_buttons;
 
-		} elsif ( $project_selector->{_length} == 1 ) {    # only one project name
+		}
+		elsif ( $project_selector->{_length} == 1 ) {    # only one project name
 			my @check_buttons = ('on');
 			$param_widgets_pkg->set_check_buttons( \@check_buttons );
 			$param_widgets_pkg->redisplay_check_buttons;
 
-		} elsif ( $project_selector->{_length} > 1 ) {     # more than one project name
+		}
+		elsif ( $project_selector->{_length} > 1 )
+		{    # more than one project name
 
 			my $length = $project_selector->{_length};
 			my @check_buttons;
 
 			# find out which is the most recently active by interpreting
 			# second line of L_SU/configuration/active/Project.config
-			use App::SeismicUnixGui::misc::L_SU_local_user_constants;
 
-			my $user_constants      = L_SU_local_user_constants->new();
-			my $active_project_name = $user_constants->get_active_project_name();
+			my $user_constants = L_SU_local_user_constants->new();
+			my $active_project_name =
+			  $user_constants->get_active_project_name();
 
-			# print("project_selector,_set_gui,active_project_name = $active_project_name\n");
+# print("project_selector,_set_gui,active_project_name = $active_project_name\n");
 
 			# TODO turn on the currently active project
 			# turn off all buttons
 
-			for ( my $i = 0; $i < $length; $i++ ) {
+			for ( my $i = 0 ; $i < $length ; $i++ ) {
 				$check_buttons[$i] = 'off';
 			}
 
@@ -522,31 +545,37 @@ sub _set_gui {
 			my $labels_aref = $param_widgets_pkg->get_labels_aref();
 			my @labels      = @$labels_aref;
 
-			for ( my $i = 0; $i < $length; $i++ ) {
+			for ( my $i = 0 ; $i < $length ; $i++ ) {
 
 				if ( $labels[$i] eq $active_project_name ) {
 					$check_buttons[$i] = 'on';
 
-					# print("project_selector,_set_gui i=$i,active project match chkn ON \n");
-					
-				} else {
+	  # print("project_selector,_set_gui i=$i,active project match chkn ON \n");
+
+				}
+				else {
 					$check_buttons[$i] = 'off';
-					# print("project_selector,_set_gui,i=$i, NO active project match chkn OFF \n");
+
+ # print("project_selector,_set_gui,i=$i, NO active project match chkn OFF \n");
 				}
 			}
 
-			# print("project_selector,_set_gui,labels: @$labels_aref n");  # most label spaces are empty
+# print("project_selector,_set_gui,labels: @$labels_aref n");  # most label spaces are empty
 
 			$param_widgets_pkg->set_check_buttons( \@check_buttons );
 			$param_widgets_pkg->redisplay_check_buttons;
 
-		} else {
+		}
+		else {
 			print("project_selector, _set_gui, lost logic\n");
 			return ();
 		}
-		
-	} else {
-		print("project_selector,_set_gui, param_widgets_pkg must be first created\n");
+
+	}
+	else {
+		print(
+"project_selector,_set_gui, param_widgets_pkg must be first created\n"
+		);
 		return ();
 	}
 }
@@ -576,7 +605,7 @@ sub _set_first_idx {
 	my ($self) = @_;
 	$project_selector->{_first_idx} = 0;
 
-	# print("project_selector, _set_first_idx: $project_selector->{_first_idx}\n");
+ # print("project_selector, _set_first_idx: $project_selector->{_first_idx}\n");
 	return ();
 }
 
@@ -590,7 +619,6 @@ estimate the number of projects available
 sub _set_length {
 
 	my ($self) = @_;
-	use App::SeismicUnixGui::misc::L_SU_local_user_constants;
 
 	my $user_constants = L_SU_local_user_constants->new();
 	my @ls_ref;
@@ -615,7 +643,6 @@ sub _set_length {
 sub _set_PROJECT_HOMES_aref {
 
 	my ($self) = @_;
-	use App::SeismicUnixGui::misc::L_SU_local_user_constants;
 
 	my $user_constants = L_SU_local_user_constants->new();
 	my @ls_aref;
@@ -626,7 +653,6 @@ sub _set_PROJECT_HOMES_aref {
 	return ();
 }
 
-
 =head2 sub create_new
 
 new current settings
@@ -636,13 +662,14 @@ new current settings
 sub create_new {
 	my ( $self, $value ) = @_;
 
-#	print("project_selector,create_new,value: $value\n");
+	#	print("project_selector,create_new,value: $value\n");
 
 	if ($value) {
 		_create_new();
 		_set_start_of_create_new();
 
-	} else {
+	}
+	else {
 		# print("project_selector,save,error, value: $value\n");
 	}
 	return ();
@@ -665,7 +692,8 @@ sub ok {
 
 		# print("project_selector,ok,value: $value\n");
 
-	} else {
+	}
+	else {
 		print("project_selector,ok,error, value: $value\n");
 	}
 
@@ -684,8 +712,11 @@ sub set_check_buttons_w_aref {
 
 		$project_selector->{_check_buttons_w_aref} = my $check_buttons_w_aref;
 
-	} else {
-		print("project_selector, set_check_buttons_w_aref,missing check_buttons_w_aref \n");
+	}
+	else {
+		print(
+"project_selector, set_check_buttons_w_aref,missing check_buttons_w_aref \n"
+		);
 	}
 	return ();
 }
@@ -703,7 +734,8 @@ sub set_create_new_button_w {
 
 		$project_selector->{_create_new_button_w} = $create_new_button_w;
 
-	} else {
+	}
+	else {
 		print("project_selector, set_,missing  create_new_button_w \n");
 	}
 	return ();
@@ -735,13 +767,14 @@ sub set_hash_ref {
 
 	if ($hash_ref) {
 
-		# print("project_selector,set_hash_ref, hash-ref detected\n");
-		#$L_SU_project_selector->{_values_w_aref} 			= $param_widgets	-> get_values_w_aref();
-		#$L_SU_project_selector->{_labels_w_aref} 			= $param_widgets	-> get_labels_w_aref();
-		#$L_SU_project_selector->{_check_buttons_w_aref} 	= $param_widgets	-> get_check_buttons_w_aref();
-		#print($hash-ref->{_});
+# print("project_selector,set_hash_ref, hash-ref detected\n");
+#$L_SU_project_selector->{_values_w_aref} 			= $param_widgets	-> get_values_w_aref();
+#$L_SU_project_selector->{_labels_w_aref} 			= $param_widgets	-> get_labels_w_aref();
+#$L_SU_project_selector->{_check_buttons_w_aref} 	= $param_widgets	-> get_check_buttons_w_aref();
+#print($hash-ref->{_});
 
-	} else {
+	}
+	else {
 		print("project_selector,set_hash_ref, no hash-ref deteced\n");
 	}
 	return ();
@@ -755,7 +788,7 @@ sub set_hash_ref {
 
 sub set_labels_frame {
 	my ( $self, $label ) = @_;
-	
+
 	print("my label-$label\n");
 
 }
@@ -771,7 +804,8 @@ sub set_labels_w_aref {
 
 		$project_selector->{_labels_w_aref} = my $labels_w_aref;
 
-	} else {
+	}
+	else {
 		print("project_selector,set_labels_w_aref, missing labels_w_aref \n");
 	}
 	return ();
@@ -786,7 +820,6 @@ sub set_labels_w_aref {
 sub set_length {
 
 	my ($self) = @_;
-	use App::SeismicUnixGui::misc::L_SU_local_user_constants;
 
 	my $user_constants = L_SU_local_user_constants->new();
 	my @ls_ref;
@@ -812,7 +845,8 @@ sub set_message_box_w {
 
 		$project_selector->{_message_box_w} = $widget_ref;
 
-	} else {
+	}
+	else {
 		print("project_selector, set_message_box_w, no message box widget\n");
 	}
 
@@ -832,7 +866,8 @@ sub set_mw {
 
 		$project_selector->{_mw} = my $mw;
 
-	} else {
+	}
+	else {
 		# print("project_selector, set_mw,missing check_buttons_w_aref \n");
 	}
 	return ();
@@ -848,13 +883,14 @@ user configuration directory
 sub set_param_widgets_pkg {
 	my ( $self, $pkg_ref ) = @_;
 
-	if (length $pkg_ref) {
-		
+	if ( length $pkg_ref ) {
+
 		$project_selector->{_param_widgets_pkg} = $pkg_ref;
 
-		#		print("project_selector, set_param_widgets_pkg: $project_selector->{_param_widgets_pkg}\n");
+#		print("project_selector, set_param_widgets_pkg: $project_selector->{_param_widgets_pkg}\n");
 
-	} else {
+	}
+	else {
 		print("project_selector, no package reference\n");
 	}
 	return ();
@@ -871,14 +907,20 @@ sub set_current_program_name {
 	my ( $self, $current_program_name ) = @_;
 
 	if (    length($current_program_name)
-		and length( $project_selector->{_param_widgets_pkg} ) ) {
+		and length( $project_selector->{_param_widgets_pkg} ) )
+	{
 
 		$project_selector->{_current_program_name} = $current_program_name;
-		( $project_selector->{_param_widgets_pkg} )->set_current_program_name($current_program_name);
+		( $project_selector->{_param_widgets_pkg} )
+		  ->set_current_program_name($current_program_name);
+
 #		 print("project_selector, set_current_program_name: $current_program_name\n");
 
-	} else {
-		print("project_selector, set_current_program_name: missing name or package \n");
+	}
+	else {
+		print(
+"project_selector, set_current_program_name: missing name or package \n"
+		);
 	}
 	return ();
 }
@@ -896,7 +938,7 @@ sub _set_project_names_aref {
 	my $project_names_aref = _get_project_names_aref();
 	$project_selector->{_project_names_aref} = $project_names_aref;
 
-	# print("project_selector, _set_project_names_aref: @{$project_names_aref}\n");
+ # print("project_selector, _set_project_names_aref: @{$project_names_aref}\n");
 	return ();
 }
 
@@ -911,7 +953,8 @@ sub set_values_w_aref {
 
 		my $project_selector->{_values_w_aref} = $values_w_aref;
 
-	} else {
+	}
+	else {
 		print("project_selector,set_values_w_aref, missing values_w_aref \n");
 	}
 	return ();
@@ -931,7 +974,8 @@ sub set_widget {
 
 		#		print("project_selector, set_widget=$widget\n");
 
-	} else {
+	}
+	else {
 		print("project_selector, set_widget,missing widget \n");
 	}
 	return ();

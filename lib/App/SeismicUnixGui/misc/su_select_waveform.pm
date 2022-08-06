@@ -43,7 +43,7 @@ package App::SeismicUnixGui::misc::su_select_waveform;
      SeismicUnix (Seismic Unix modules)
 
 
- use App::SeismicUnixGui::misc::SeismicUnix qw ($in $out $on $go $to $suffix_ascii $off $suffix_su) ;
+ use App::SeismicUnixGui::misc::SeismicUnix qw($in $out $on $go $to $suffix_ascii $off $suffix_su) ;
   
 =head3 STEPS IN THE PROGRAM 
 
@@ -51,7 +51,7 @@ package App::SeismicUnixGui::misc::su_select_waveform;
 
 use Moose;
 
-use App::SeismicUnixGui::misc::SeismicUnix qw ($on $off);
+use App::SeismicUnixGui::misc::SeismicUnix qw($on $off);
 
 =head2 declare common variables
 
@@ -210,7 +210,7 @@ sub Step {
     use App::SeismicUnixGui::sunix::plot::suxwigb;
     use App::SeismicUnixGui::sunix::plot::suximage;
     use App::SeismicUnixGui::configs::big_streams::Project_config;
-    use App::SeismicUnixGui::misc::SeismicUnix qw ($in $out $on $go $to $suffix_ascii $off $suffix_su);
+    use App::SeismicUnixGui::misc::SeismicUnix qw($in $out $on $go $to $suffix_ascii $off $suffix_su);
 
 =pod
 
@@ -229,13 +229,13 @@ sub Step {
 
 =cut
 
-    my $run      = new flow();
-    my $log      = new message();
-    my $sufilter = new sufilter();
-    my $sugain   = new sugain();
-    my $suxwigb  = new suxwigb();
-    my $suximage = new suximage();
-    my $Project  = new Project_config();
+    my $run      = flow->new();
+    my $log      = message->new();
+    my $sufilter = sufilter->new();
+    my $sugain   = sugain->new();
+    my $suxwigb  = suxwigb->new();
+    my $suximage = suximage->new();
+    my $Project  = Project_config->new();
 
     my ($DATA_SEISMIC_SU) = $Project->DATA_SEISMIC_SU();
 

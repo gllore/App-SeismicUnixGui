@@ -2,14 +2,14 @@ package App::SeismicUnixGui::specs::plot::psgraph_spec;
 use Moose;
 our $VERSION = '0.0.1';
 
-use App::SeismicUnixGui::configs::big_streams::Project_config;
+use aliased 'App::SeismicUnixGui::configs::big_streams::Project_config';
 use App::SeismicUnixGui::misc::SeismicUnix
-  qw ($bin $ps $su $suffix_bin $suffix_ps $suffix_su $suffix_txt $txt);
-use App::SeismicUnixGui::misc::L_SU_global_constants;
-use App::SeismicUnixGui::sunix::plot::psgraph;
-my $get     = new L_SU_global_constants();
-my $Project = new Project_config;
-my $psgraph = new psgraph;
+  qw($bin $ps $su $suffix_bin $suffix_ps $suffix_su $suffix_txt $txt);
+use aliased 'App::SeismicUnixGui::misc::L_SU_global_constants';
+use aliased 'App::SeismicUnixGui::sunix::plot::psgraph';
+my $get     = L_SU_global_constants->new();
+my $Project = Project_config->new();
+my $psgraph = psgraph->new();
 
 my $var = $get->var();
 

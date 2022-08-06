@@ -74,7 +74,7 @@ extends 'App::SeismicUnixGui::sunix::shell::cat_su';
 #
 #use App::SeismicUnixGui::misc::L_SU_global_constants();
 #
-#use SeismicUnix qw ($go $in $off $on $out $ps $to $suffix_ascii $suffix_bin $suffix_ps $suffix_segy $suffix_su);
+#use App:SeismicUnixGui::misc::SeismicUnix qw($go $in $off $on $out $ps $to $suffix_ascii $suffix_bin $suffix_ps $suffix_segy $suffix_su);
 #use App::SeismicUnixGui::configs::big_streams::Project_config;
 #
 #
@@ -82,8 +82,8 @@ extends 'App::SeismicUnixGui::sunix::shell::cat_su';
 #
 #=cut
 #
-#my $get					= new L_SU_global_constants();
-#my $Project				= new Project_config();
+#my $get					= L_SU_global_constants->new();
+#my $Project				= Project_config->new();
 #my $DATA_SEISMIC_SU		= $Project->DATA_SEISMIC_SU();
 #my $DATA_SEISMIC_BIN	= $Project->DATA_SEISMIC_BIN();
 #my $DATA_SEISMIC_TXT	= $Project->DATA_SEISMIC_TXT();

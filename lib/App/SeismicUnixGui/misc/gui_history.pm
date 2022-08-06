@@ -44,20 +44,19 @@ potentially, all packages contain L_SU_global_constants
 
 my $path;
 my $SeismicUnixGui;
-use Shell qw(echo);
+#use Shell qw(echo);
 
-BEGIN {
-
-$SeismicUnixGui = ` echo \$SeismicUnixGui`;
-chomp $SeismicUnixGui;
-$path = $SeismicUnixGui.'/'.'misc';
-
-}
-use lib "$path";
-extends 'conditions4flows' => { -version => 0.0.2 };
-
-use App::SeismicUnixGui::misc::L_SU_global_constants;
-use App::SeismicUnixGui::misc::flow_widgets;
+#BEGIN {
+#
+#$SeismicUnixGui = ` echo \$SeismicUnixGui`;
+#chomp $SeismicUnixGui;
+#$path = $SeismicUnixGui.'/'.'misc';
+#
+#}
+#use lib "$path";
+extends 'App::SeismicUnixGui::misc::conditions4flows' => { -version => 0.0.2 };
+use aliased 'App::SeismicUnixGui::misc::L_SU_global_constants';
+use aliased 'App::SeismicUnixGui::misc::flow_widgets';
 
 =head2 Instantiation
 

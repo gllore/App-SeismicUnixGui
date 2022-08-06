@@ -9,8 +9,8 @@ use Moose;
 my @instantiate;
 
 $instantiate[0] = ' 
- my $log 				= new message();
- my $run    			= new flow();
+ my $log 				= message->new();
+ my $run    			= flow->new();
 ';
 
 sub section {

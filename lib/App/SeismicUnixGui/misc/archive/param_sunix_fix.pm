@@ -56,7 +56,7 @@ my $param_sunix = {
 #);
 
 use App::SeismicUnixGui::misc::L_SU_global_constants;
-my $get          = new L_SU_global_constants();
+my $get          = L_SU_global_constants->new();
 my $var          = $get->var();
 my $on           = $var->{_on};
 my $off          = $var->{_off};

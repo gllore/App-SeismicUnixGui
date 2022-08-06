@@ -33,11 +33,11 @@ package App::SeismicUnixGui::misc::perl_flow;
 
 use Moose;
 our $VERSION = '0.0.2';
-use App::SeismicUnixGui::misc::sunix_pl;
-use App::SeismicUnixGui::misc::L_SU_global_constants;
+use aliased 'App::SeismicUnixGui::misc::sunix_pl';
+use aliased 'App::SeismicUnixGui::misc::L_SU_global_constants';
 
 my $sunix_pl = sunix_pl->new();
-my $get      = new L_SU_global_constants();
+my $get      = L_SU_global_constants->new();
 my $var      = $get->var();
 
 =head2 declare variables

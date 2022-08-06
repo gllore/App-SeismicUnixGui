@@ -40,23 +40,34 @@ use Moose;
 our $VERSION = '0.0.4';
 
 use Tk;
+
+use aliased 'App::SeismicUnixGui::misc::L_SU_global_constants';
+use aliased 'App::SeismicUnixGui::misc::iFile';
 use App::SeismicUnixGui::misc::decisions '1.0.0';
-# potentially used in all packages
-use App::SeismicUnixGui::misc::L_SU_global_constants;
+use aliased 'App::SeismicUnixGui::misc::decisions';
+use aliased 'App::SeismicUnixGui::messages::message_director';
+use App::SeismicUnixGui::misc::control '0.0.3';
+use aliased 'App::SeismicUnixGui::misc::control';
+use aliased 'App::SeismicUnixGui::misc::param_widgets';
+use aliased 'App::SeismicUnixGui::misc::whereami';
+use aliased 'App::SeismicUnixGui::misc::param_widgets4pre_built_streams';
+use aliased 'App::SeismicUnixGui::misc::dirs';
+use aliased 'App::SeismicUnixGui::configs::big_streams::Project_config';
 
-my $path;
-my $SeismicUnixGui;
-use Shell qw(echo);
-
-BEGIN {
-
-$SeismicUnixGui = ` echo \$SeismicUnixGui`;
-chomp $SeismicUnixGui;
-$path = $SeismicUnixGui.'/'.'misc';
-
-}
-use lib "$path";
-extends 'gui_history' => { -version => 0.0.2 };
+#my $path;
+#my $SeismicUnixGui;
+#use Shell qw(echo);
+#
+#BEGIN {
+#
+#$SeismicUnixGui = ` echo \$SeismicUnixGui`;
+#chomp $SeismicUnixGui;
+#$path = $SeismicUnixGui.'/'.'misc';
+#
+#}
+#use lib "$path";
+extends 'App::SeismicUnixGui::misc::gui_history' => { -version => 0.0.2 };
+use aliased 'App::SeismicUnixGui::misc::gui_history';
 
 my $decisions   			= decisions->new();
 my $L_SU_global_constants   = L_SU_global_constants->new();
@@ -181,9 +192,9 @@ sub _big_stream_last_dir_in_path {
 	my ($self) = @_;
 
 	#	print("file_dialog, _big_stream_last_dir_in_path\n ");
-	use App::SeismicUnixGui::misc::iFile;
-	use App::SeismicUnixGui::misc::whereami;
-	use App::SeismicUnixGui::misc::param_widgets4pre_built_streams;
+#	use aliased 'App::SeismicUnixGui::misc::iFile';
+	#use aliased 'App::SeismicUnixGui::misc::whereami';
+	#use aliased 'App::SeismicUnixGui::misc::param_widgets4pre_built_streams';
 
 	my $param_widgets = param_widgets4pre_built_streams->new();
 	my $whereami      = whereami->new();
@@ -238,7 +249,7 @@ sub _big_stream_last_dir_in_path {
 
 			# print("5. file_dialog,_big_stream_last_dir_in_path,entry_button_label = $file_dialog->{_entry_button_label}\n");
 
-			# use iFile to determine the Path stored in the current configuration file
+			# use iFileuse aliased 'determine the Path stored in the current configuration file
 			$iFile->set_entry($file_dialog);                    # selected entry label
 			$iFile->set_flow_type_h($file_dialog);              # a pre-built superflow
 			$iFile->set_parameter_value_index($file_dialog);    # e.g., 0
@@ -290,13 +301,13 @@ sub _big_stream_last_dir_in_path {
 sub _big_stream_last_dir_in_path_close {
 	my ($self) = @_;
 
-	use App::SeismicUnixGui::misc::iFile;
-	use App::SeismicUnixGui::misc::decisions '1.0.0';
-	use App::SeismicUnixGui::misc::control '0.0.3';
-	use App::SeismicUnixGui::misc::param_widgets4pre_built_streams;
+#	use aliased 'App::SeismicUnixGui::misc::iFile';
+	#use aliased 'App::SeismicUnixGui::misc::decisions'; #'1.0.0';
+	#use aliased 'App::SeismicUnixGui::misc::control'; #'0.0.3';
+	#use aliased 'App::SeismicUnixGui::misc::param_widgets4pre_built_streams';
 
-	my $iFile         = new iFile;
-	my $control       = new control;
+	my $iFile         = iFile->new();
+	my $control       = control->new();
 	my $param_widgets = param_widgets4pre_built_streams->new();
 
 	my $topic             = $file_dialog->{_dialog_type};
@@ -329,7 +340,7 @@ sub _big_stream_last_dir_in_path_close {
 			and ${ $file_dialog->{_prog_name_sref} } ne $empty_string ) {
 
 			#			print("file_dialog,_big_stream_last_dir_in_path_close, for $file_dialog->{_prog_name_sref} \n");
-			use App::SeismicUnixGui::misc::dirs;
+			#use App::SeismicUnixGui::misc::dirs;
 			my $dirs = dirs->new();
 			$dirs->set_path( $file_dialog->{_last_path_touched} );
 			$result = dirs->get_last_dirInpath();    # only keep the last directory name
@@ -440,7 +451,7 @@ sub _set_file_path {
 	my $topic = _get_dialog_type();
 
 	if ($topic) {
-		use App::SeismicUnixGui::configs::big_streams::Project_config;
+#		use App::SeismicUnixGui::configs::big_streams::Project_config;
 
 		my $Project = Project_config->new();
 
@@ -527,13 +538,14 @@ sub _get_flow_type {
 sub _pre_built_superflow_close_data_file {
 	my ($self) = @_;
 
-	use App::SeismicUnixGui::misc::iFile;
-	use App::SeismicUnixGui::misc::decisions '1.0.0';
-	use App::SeismicUnixGui::misc::control '0.0.3';
-	use App::SeismicUnixGui::misc::param_widgets4pre_built_streams;
+#	use App::SeismicUnixGui::misc::iFile;
+	#use App::SeismicUnixGui::misc::decisions '1.0.0';
+	#use App::SeismicUnixGui::misc::control '0.0.3';
+#use aliased 'App::SeismicUnixGui::misc::control';
+	#use App::SeismicUnixGui::misc::param_widgets4pre_built_streams;
 
-	my $iFile         = new iFile;
-	my $control       = new control;
+	my $iFile         = iFile;
+	my $control       = control->new;
 	my $param_widgets = param_widgets4pre_built_streams->new();
 
 	my @fields;
@@ -639,13 +651,14 @@ sub _pre_built_superflow_close_data_file {
 sub _pre_built_superflow_close_path {
 	my ($self) = @_;
 
-	use App::SeismicUnixGui::misc::iFile;
-	use App::SeismicUnixGui::misc::decisions '1.0.0';
-	use App::SeismicUnixGui::misc::control '0.0.3';
-	use App::SeismicUnixGui::misc::param_widgets4pre_built_streams;
+#	use App::SeismicUnixGui::misc::iFile;
+	#use App::SeismicUnixGui::misc::decisions '1.0.0';
+	#use App::SeismicUnixGui::misc::control '0.0.3';
+#use aliased 'App::SeismicUnixGui::misc::control';
+	#use App::SeismicUnixGui::misc::param_widgets4pre_built_streams;
 
-	my $iFile         = new iFile;
-	my $control       = new control;
+	my $iFile         = iFile;
+	my $control       = control->new();
 	my $param_widgets = param_widgets4pre_built_streams->new();
 
 	my $topic             = $file_dialog->{_dialog_type};
@@ -725,9 +738,9 @@ sub _pre_built_superflow_open_data_file {
 	my ($self) = @_;
 
 	# print("file_dialog, _pre_built_superflow_open_data_file\n ");
-	use App::SeismicUnixGui::misc::iFile;
-	use App::SeismicUnixGui::misc::whereami;
-	use App::SeismicUnixGui::misc::param_widgets4pre_built_streams;
+#	use App::SeismicUnixGui::misc::iFile;
+	#use App::SeismicUnixGui::misc::whereami;
+	#use App::SeismicUnixGui::misc::param_widgets4pre_built_streams;
 
 	my $param_widgets = param_widgets4pre_built_streams->new();
 	my $whereami      = whereami->new();
@@ -844,10 +857,11 @@ sub _pre_built_superflow_open_path {
 	my ($self) = @_;
 
 	# print ("file_dialog, _pre_built_superflow_open_path\n ");
-	use App::SeismicUnixGui::misc::iFile;
-	use App::SeismicUnixGui::misc::whereami;
-	use App::SeismicUnixGui::misc::control '0.0.3';
-	use App::SeismicUnixGui::misc::param_widgets4pre_built_streams;	
+#	use App::SeismicUnixGui::misc::iFile;
+	#use App::SeismicUnixGui::misc::whereami;
+	#use App::SeismicUnixGui::misc::control '0.0.3';
+#use aliased 'App::SeismicUnixGui::misc::control';
+	#use App::SeismicUnixGui::misc::param_widgets4pre_built_streams;	
 
 	my $param_widgets = param_widgets4pre_built_streams->new();
 	my $whereami      = whereami->new();
@@ -1077,7 +1091,7 @@ sub _user_built_flow_SaveAs_perl_file {
 
 	my ($self) = @_;
 
-	use App::SeismicUnixGui::misc::decisions '1.0.0';
+	#use App::SeismicUnixGui::misc::decisions '1.0.0';
 
 	# local location within GUI
 	# and for file dialog
@@ -1096,9 +1110,10 @@ sub _user_built_flow_SaveAs_perl_file {
 		# print("3. file_dialog, _user_built_flow_SaveAs_perl_file ,SaveAs, pre_r_set_file_patheq_ok= $pre_req_ok \n");
 		# print("2. file_dialog, _user_built_flow_SaveAs_perl_file _is_user_built_flow: $file_dialog->{_is_user_built_flow}\n");
 
-		use App::SeismicUnixGui::misc::iFile;
-		use App::SeismicUnixGui::misc::control '0.0.3';
-		use App::SeismicUnixGui::misc::whereami;
+#		use App::SeismicUnixGui::misc::iFile;
+		#use App::SeismicUnixGui::misc::control '0.0.3';
+#use aliased 'App::SeismicUnixGui::misc::control';
+		#use App::SeismicUnixGui::misc::whereami;
 
 		my $iFile   = iFile->new();
 		my $control = control->new();
@@ -1183,11 +1198,6 @@ sub _user_built_flow_SaveAs_perl_file {
 
 sub _user_built_flow_close_data_file {
 	my ($self) = @_;
-
-	use App::SeismicUnixGui::misc::iFile;
-	use App::SeismicUnixGui::misc::decisions '1.0.0';
-	use App::SeismicUnixGui::misc::control '0.0.3';
-	use App::SeismicUnixGui::misc::param_widgets;
 
 	my $control       = control->new();
 	my $param_widgets = param_widgets->new();
@@ -1343,9 +1353,10 @@ sub _user_built_flow_close_data_file {
 sub _user_built_flow_close_path {
 	my ($self) = @_;
 
-	use App::SeismicUnixGui::misc::decisions '1.0.0';
-	use App::SeismicUnixGui::misc::control '0.0.3';
-	use whereami2;
+	#use App::SeismicUnixGui::misc::decisions '1.0.0';
+	#use App::SeismicUnixGui::misc::control '0.0.3';
+#use aliased 'App::SeismicUnixGui::misc::control';
+	#use whereami2;
 
 	my $control  = control->new();
 	my $whereami = whereami2->new();
@@ -1406,13 +1417,14 @@ sub _user_built_flow_close_path {
 sub _user_built_flow_close_perl_file {
 	my ($self) = @_;
 
-	use App::SeismicUnixGui::misc::iFile;
-	use App::SeismicUnixGui::misc::decisions '1.0.0';
-	use App::SeismicUnixGui::misc::control '0.0.3';
-	use App::SeismicUnixGui::messages::message_director;
+#	use App::SeismicUnixGui::misc::iFile;
+	#use App::SeismicUnixGui::misc::decisions '1.0.0';
+	#use App::SeismicUnixGui::misc::control '0.0.3';
+#use aliased 'App::SeismicUnixGui::misc::control';
+#	use App::SeismicUnixGui::messages::message_director;
 
 	my $file_dialog_messages = message_director->new();
-	my $iFile                = new iFile;
+	my $iFile                = iFile;
 
 	my @fields;
 	my $full_path_name;
@@ -1491,9 +1503,9 @@ sub _user_built_flow_open_data_file {
 	my ($self) = @_;
 
 	#	print("1. file_dialog,_user_built_flow_open_data_file\n ");
-	use App::SeismicUnixGui::misc::iFile;
-	use App::SeismicUnixGui::misc::whereami;
-	use App::SeismicUnixGui::misc::param_widgets;
+#	use App::SeismicUnixGui::misc::iFile;
+#	use App::SeismicUnixGui::misc::whereami;
+	#use App::SeismicUnixGui::misc::param_widgets;
 
 	my $param_widgets = param_widgets->new();
 	my $whereami      = whereami->new();
@@ -1597,9 +1609,9 @@ sub _user_built_flow_open_path {
 	my ($self) = @_;
 
 	#	print("file_dialog, _user_built_flow_open_path\n ");
-	use App::SeismicUnixGui::misc::iFile;
-	use App::SeismicUnixGui::misc::whereami;
-	use App::SeismicUnixGui::misc::param_widgets;
+#	use App::SeismicUnixGui::misc::iFile;
+	#use App::SeismicUnixGui::misc::whereami;
+	#use App::SeismicUnixGui::misc::param_widgets;
 
 	my $param_widgets = param_widgets->new();
 	my $whereami      = whereami->new();
@@ -1709,11 +1721,11 @@ sub _user_built_flow_open_perl_file {
 	my ($self) = @_;
 
 	# print("file_dialog,_user_built_flow_open_perl_file\n ");
-	use App::SeismicUnixGui::misc::iFile;
-	use App::SeismicUnixGui::misc::whereami;
+#	use App::SeismicUnixGui::misc::iFile;
+	#use App::SeismicUnixGui::misc::whereami;
 
-	use App::SeismicUnixGui::messages::message_director;
-	use App::SeismicUnixGui::misc::param_widgets;
+	#use App::SeismicUnixGui::messages::message_director;
+	#use App::SeismicUnixGui::misc::param_widgets;
 
 	my $param_widgets           = param_widgets->new();
 	my $whereami                = whereami->new();

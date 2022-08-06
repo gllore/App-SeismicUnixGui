@@ -43,24 +43,24 @@ local variables
 use Moose;
 our $VERSION = '0.0.3';
 
-use App::SeismicUnixGui::misc::L_SU_global_constants;
-use App::SeismicUnixGui::configs::big_streams::Project_config;
-use App::SeismicUnixGui::configs::big_streams::immodpg_config;
-use App::SeismicUnixGui::misc::message;
-use App::SeismicUnixGui::misc::flow;
-use App::SeismicUnixGui::sunix::header::sustrip;
+use aliased 'App::SeismicUnixGui::misc::L_SU_global_constants';
+use aliased 'App::SeismicUnixGui::configs::big_streams::Project_config';
+use aliased 'App::SeismicUnixGui::configs::big_streams::immodpg_config';
+use aliased 'App::SeismicUnixGui::misc::message';
+use aliased 'App::SeismicUnixGui::misc::flow';
+use aliased 'App::SeismicUnixGui::sunix::header::sustrip';
 
 =head2 import variables 
 
 =cut
 
-use App::SeismicUnixGui::misc::SeismicUnix qw ($in $out $on $go $to $suffix_bin $off $suffix_su);
+use App::SeismicUnixGui::misc::SeismicUnix qw($in $out $on $go $to $suffix_bin $off $suffix_su);
 
-my $Project        = new Project_config();
+my $Project        = Project_config->new();
 my $immodpg_config = immodpg_config->new();
 my $get            = L_SU_global_constants->new();
-my $log            = new message();
-my $run            = new flow();
+my $log            = message->new();
+my $run            = flow->new();
 my $sustrip        = sustrip->new();
 
 =head2 Declare

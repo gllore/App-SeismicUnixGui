@@ -34,14 +34,14 @@ use Moose;
 =cut
 
 use lib './libAll';
-use Segdread qw ($number_of_files $first_file_number);
+use Segdread qw($number_of_files $first_file_number);
 print("number of files is $number_of_files\n\n");
 
 use SU;
 my ($DATA_SEISMIC_SU)   = $Project->DATA_SEISMIC_SU();
 my ($DATA_SEISMIC_SEGD) = $Project->DATA_SEISMIC_SEGD();
 use App::SeismicUnixGui::misc::SeismicUnix
-     qw ($suffix_geom $suffix_segd $suffix_su $go $in $on $to $out);
+     qw($suffix_geom $suffix_segd $suffix_su $go $in $on $to $out);
 
 =head2 Instantiate classes
 

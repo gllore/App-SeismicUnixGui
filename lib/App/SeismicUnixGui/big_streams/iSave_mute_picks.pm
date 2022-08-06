@@ -42,16 +42,16 @@ use Moose;
 
 =cut
 
-use App::SeismicUnixGui::misc::message;
-use App::SeismicUnixGui::misc::flow;
-use App::SeismicUnixGui::sunix::shell::cp;
-use App::SeismicUnixGui::misc::SeismicUnix qw ($go $in $on $to);
-use App::SeismicUnixGui::configs::big_streams::Project_config;
+use aliased 'App::SeismicUnixGui::misc::message';
+use aliased 'App::SeismicUnixGui::misc::flow';
+use aliased 'App::SeismicUnixGui::sunix::shell::cp';
+use App::SeismicUnixGui::misc::SeismicUnix qw($go $in $on $to);
+use aliased 'App::SeismicUnixGui::configs::big_streams::Project_config';
 
-my $log     = new message();
-my $run     = new flow();
-my $cp      = new cp();
-my $Project = new Project_config();
+my $log     = message->new();
+my $run     = flow->new();
+my $cp      = cp->new();
+my $Project = Project_config->new();
 
 =head2
  
@@ -84,7 +84,7 @@ my $iSave_mute_picks = {
 
 =cut 
 
-use App::SeismicUnixGui::misc::SeismicUnix qw ($itemp_top_mute_picks_sorted_par_ $itop_mute_par_);
+use App::SeismicUnixGui::misc::SeismicUnix qw($itemp_top_mute_picks_sorted_par_ $itop_mute_par_);
 my ($PL_SEISMIC) = $Project->PL_SEISMIC();
 
 =head2 subroutine clear

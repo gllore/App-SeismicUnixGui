@@ -2,13 +2,13 @@ package App::SeismicUnixGui::specs::par::vel2stiff_spec;
 use Moose;
 our $VERSION = '0.0.1';
 
-use App::SeismicUnixGui::configs::big_streams::Project_config;
-use App::SeismicUnixGui::misc::SeismicUnix qw ($su $suffix_su $bin $suffix_bin);
-use App::SeismicUnixGui::misc::L_SU_global_constants;
-use App::SeismicUnixGui::sunix::par::vel2stiff;
-my $get       = new L_SU_global_constants();
-my $Project   = new Project_config;
-my $vel2stiff = new vel2stiff;
+use aliased 'App::SeismicUnixGui::configs::big_streams::Project_config';
+use App::SeismicUnixGui::misc::SeismicUnix qw($su $suffix_su $bin $suffix_bin);
+use aliased 'App::SeismicUnixGui::misc::L_SU_global_constants';
+use aliased 'App::SeismicUnixGui::sunix::par::vel2stiff';
+my $get       = L_SU_global_constants->new();
+my $Project   = Project_config->new();
+my $vel2stiff = vel2stiff->new();
 
 my $var = $get->var();
 

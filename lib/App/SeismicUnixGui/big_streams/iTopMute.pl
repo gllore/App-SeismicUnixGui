@@ -51,13 +51,13 @@
 
 use Moose;
 my $VERSION = '1.0.3';
-use App::SeismicUnixGui::misc::L_SU_global_constants;
-use App::SeismicUnixGui::misc::readfiles;
+use aliased 'App::SeismicUnixGui::misc::L_SU_global_constants';
+use aliased 'App::SeismicUnixGui::misc::readfiles';
 use Tk;
-use App::SeismicUnixGui::big_streams::iTopMute;
-use App::SeismicUnixGui::configs::big_streams::iTopMute_config;
-use App::SeismicUnixGui::misc::SeismicUnix qw ($true $false );
-use App::SeismicUnixGui::sunix::shell::xk;
+use aliased 'App::SeismicUnixGui::big_streams::iTopMute';
+use aliased 'App::SeismicUnixGui::configs::big_streams::iTopMute_config';
+use App::SeismicUnixGui::misc::SeismicUnix qw($true $false );
+use aliased 'App::SeismicUnixGui::sunix::shell::xk';
 
 my $iTM_Tk = {_prompt => ''};
 
@@ -69,12 +69,12 @@ my $iTM_Tk = {_prompt => ''};
 
 =cut
 
-my $iTM             = new iTopMute();
-my $iTopMute_config = new iTopMute_config();
-my $read            = new readfiles();
-my $get             = new L_SU_global_constants();
+my $iTM             = iTopMute->new();
+my $iTopMute_config = iTopMute_config->new();
+my $read            = readfiles->new();
+my $get             = L_SU_global_constants->new();
 my $var             = $get->var();
-my $xk      		= new xk;
+my $xk      		= xk->new();
 
 =head2 Get configuration information
 

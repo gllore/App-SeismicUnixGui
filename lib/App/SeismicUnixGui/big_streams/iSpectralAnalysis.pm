@@ -45,17 +45,17 @@ package App::SeismicUnixGui::big_streams::iSpectralAnalysis;
 
 use Moose;
 my $VERSION = '1.0.0';
-use App::SeismicUnixGui::configs::big_streams::iSpectralAnalysis_config;
-use App::SeismicUnixGui::configs::big_streams::Project_config;
-use App::SeismicUnixGui::misc::L_SU_global_constants;
+use aliased 'App::SeismicUnixGui::configs::big_streams::iSpectralAnalysis_config';
+use aliased 'App::SeismicUnixGui::configs::big_streams::Project_config';
+use aliased 'App::SeismicUnixGui::misc::L_SU_global_constants';
 use App::SeismicUnixGui::misc::SeismicUnix
-  qw ($in $out $on $go $to $off $suffix_su $iSpectralAnalysisPickFile);
-use App::SeismicUnixGui::misc::flow;
-use App::SeismicUnixGui::misc::message;
-use App::SeismicUnixGui::misc::readfiles;
-use App::SeismicUnixGui::misc::su_xtract_waveform;
-use App::SeismicUnixGui::misc::su_select_waveform;
-use App::SeismicUnixGui::misc::su_spectral_analysis;
+  qw($in $out $on $go $to $off $suffix_su $iSpectralAnalysisPickFile);
+use aliased 'App::SeismicUnixGui::misc::flow';
+use aliased 'App::SeismicUnixGui::misc::message';
+use aliased 'App::SeismicUnixGui::misc::readfiles';
+use aliased 'App::SeismicUnixGui::misc::su_xtract_waveform';
+use aliased 'App::SeismicUnixGui::misc::su_select_waveform';
+use aliased 'App::SeismicUnixGui::misc::su_spectral_analysis';
 
 =head2
 
@@ -74,15 +74,15 @@ use App::SeismicUnixGui::misc::su_spectral_analysis;
      
 =cut
 
-my $iSpectralAnalysis_config = new iSpectralAnalysis_config();
-my $log                      = new message();
-my $Project                  = new Project_config();
-my $run                      = new flow();
-my $read                     = new readfiles();
-my $xtract                   = new su_xtract_waveform();
-my $select                   = new su_select_waveform();
-my $analyze                  = new su_spectral_analysis();
-my $get                      = new L_SU_global_constants();
+my $iSpectralAnalysis_config = iSpectralAnalysis_config->new();
+my $log                      = message->new();
+my $Project                  = Project_config->new();
+my $run                      = flow->new();
+my $read                     = readfiles->new();
+my $xtract                   = su_xtract_waveform->new();
+my $select                   = su_select_waveform->new();
+my $analyze                  = su_spectral_analysis->new();
+my $get                      = L_SU_global_constants->new();
 my $var                      = $get->var();
 my ($DATA_SEISMIC_SU)        = $Project->DATA_SEISMIC_SU();
 

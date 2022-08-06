@@ -1,13 +1,13 @@
 package App::SeismicUnixGui::specs::data::data_out_spec;
 our $VERSION = '1.00';
 use Moose;
-use App::SeismicUnixGui::sunix::data::data_out;
-use App::SeismicUnixGui::misc::L_SU_global_constants;
+package App::SeismicUnixGui::specs::data::data_out_spec;
+package App::SeismicUnixGui::specs::data::data_out_spec;
 
-use App::SeismicUnixGui::sunix::data::data_out;
-use App::SeismicUnixGui::misc::SeismicUnix qw ($su $suffix_su);
+package App::SeismicUnixGui::specs::data::data_out_spec;
+use App::SeismicUnixGui::misc::SeismicUnix qw($su $suffix_su);
 
-my $get              = new L_SU_global_constants();
+my $get              = L_SU_global_constants->new();
 my $var              = $get->var();
 my $file_dialog_type = $get->file_dialog_type_href();
 my $flow_type        = $get->flow_type_href();
@@ -15,12 +15,12 @@ my $flow_type        = $get->flow_type_href();
 my $empty_string = $var->{_empty_string};
 my $true         = $var->{_true};
 my $false        = $var->{_false};
-my $Project      = new Project_config;
+my $Project      = Project_config->new();
 
 my $DATA_SEISMIC_SU = $Project->DATA_SEISMIC_SU();    # output data directory
 my $PL_SEISMIC        = $Project->PL_SEISMIC();
 
-my $data_out  = new data_out;
+my $data_out  = data_out->new();
 my $max_index = $data_out->get_max_index();
 
 my $data_out_spec =  {

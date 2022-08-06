@@ -1,0 +1,8 @@
+3
+
+suop op=avg < /home/gllore/mars/seismics/data/hrk_e122/ACH01_3axes_big_sand_tank/072821/rad_tangent_axial/1/su/gllore/pseudo_walk_piezo_cylind_wheelA1_geom1.su | suwind  max=8 min=8 key=tracl tmin=0 tmax=0\.06 | sugain mbal=1 tmpdir=\/tmp | sufilter f=3\,6\,1000\,2000 verbose=0 | suphasevel dv=2000 fmax=1000 fv=1 norm=1 nv=100 verbose=0 | suamp mode=amp | sugain mbal=1 tmpdir=\/tmp | suximage wclip=15 bclip=\-30 cmap=hsv12 d1=15\.873015 d2=2 f1=0 gridcolor=blue label1=Hz label2=Vs\ \(m\/s\) labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 lwidth=16 lx=3 mpicks=\/dev\/tty n1tic=1 n2tic=1 perc=99 plotfile=plotfile\.ps style=seismic title=suximage titlecolor=red titlefont=Rom22 x1beg=100000 x1end=0 units=unit verbose=1 windowtitle=Dispersion\ for\ A1\ on\ wheel xbox=500 ybox=500 wbox=550 & 
+
+10
+
+suop op=avg < /home/gllore/mars/seismics/data/hrk_e122/ACH01_3axes_big_sand_tank/072821/rad_tangent_axial/1/su/gllore/pseudo_walk_piezo_cylind_wheelA1_geom1.su | suwind  max=8 min=8 key=tracl tmin=0 tmax=0\.06 | sugain mbal=1 tmpdir=\/tmp | sufilter f=3\,6\,1000\,2000 verbose=0 | suphasevel dv=2000 fmax=1000 fv=1 norm=1 nv=100 verbose=0 | suamp mode=amp | sugain mbal=1 tmpdir=\/tmp | suximage wclip=15 bclip=\-30 cmap=hsv12 d1=15\.873015 d2=2 f1=0 gridcolor=blue label1=Hz label2=Vs\ \(m\/s\) labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 lwidth=16 lx=3 mpicks=\/dev\/tty n1tic=1 n2tic=1 perc=99 plotfile=plotfile\.ps style=seismic title=suximage titlecolor=red titlefont=Rom22 x1beg=100000 x1end=0 units=unit verbose=1 windowtitle=Dispersion\ for\ A1\ on\ wheel xbox=500 ybox=500 wbox=550 & 
+

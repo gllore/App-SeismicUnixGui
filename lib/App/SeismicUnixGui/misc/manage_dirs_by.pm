@@ -6,7 +6,8 @@ our $VERSION = '0.0.1';
 use aliased 'App::SeismicUnixGui::misc::L_SU_global_constants';
 
 my $L_SU_global_constants = L_SU_global_constants->new();
-my $var                   = $L_SU_global_constants->var();
+#my $var                   = $L_SU_global_constants->var();
+my $var = {_skip_directory         => 'archive',};
 
 # manage_dirs_by  class
 # Contains methods/subroutines/functions to operate on directories
@@ -52,7 +53,7 @@ sub _get_contents_aref {
 
 		my $SEARCH_DIR = $manage_dirs_by->{_directory};
 
-		#		print("manage_dirs_by, SEARCH_DIR=$SEARCH_DIR\n");
+		#print("manage_dirs_by, _get_contents_aref, SEARCH_DIR=$SEARCH_DIR\n");
 		#           die "Error in opening dir $dirname\n";
 
 		if ( opendir( DIR, $SEARCH_DIR ) ) {
@@ -60,6 +61,7 @@ sub _get_contents_aref {
 			my @directory_list = readdir(DIR);
 
 			$result_aref = \@directory_list;
+#			print("manage_dirs_by, _get_contents_aref, directory_list=@directory_list\n");
 			close(DIR);
 
 		}
@@ -107,11 +109,13 @@ sub get_file_list_aref {
 			}
 
 			my $result_aref = \@filtered_directory;
+#			print ("filtered directory = @filtered_directory\n");
 			return ($result_aref);
 
 		}
 		else {
-			print("empty directory list NADA\n");
+			print("manage_dirs_by,get_file_list_aref, empty directory list NADA\n");
+			return();
 		}
 
 	}
@@ -119,7 +123,7 @@ sub get_file_list_aref {
 		print("manage_dirs_by,$self,get_list_aref missing variable\n");
 		return ();
 	}
-
+	
 }
 
 sub get_list_aref {
@@ -135,7 +139,8 @@ sub get_list_aref {
 
 		if ( length $list_aref ) {
 
-			my @directory_list = @$list_aref;
+			my @directory_list  = @$list_aref;
+			@filtered_directory = @directory_list;
 
 			foreach my $thing (@directory_list) {
 
@@ -148,8 +153,7 @@ sub get_list_aref {
 				}
 				else {
 					push @filtered_directory, $thing;
-
-					#				print("DIR= $thing\n");
+					print("manage_dirs_by, get_list_aref,filtered_directory= $thing\n");
 				}
 			}
 
@@ -158,7 +162,7 @@ sub get_list_aref {
 
 		}
 		else {
-			#			print("empty directory list NADA\n");
+			print("empty directory list NADA\n");
 		}
 
 	}
@@ -246,6 +250,7 @@ sub set_directory {
 	if ( length $dir ) {
 
 		$manage_dirs_by->{_directory} = $dir;
+#		print("manage_dirs_by, set_directory, manage_dirs_by->{_directory}=$manage_dirs_by->{_directory}\n");
 
 	}
 	else {

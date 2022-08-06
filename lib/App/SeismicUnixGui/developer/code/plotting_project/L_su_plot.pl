@@ -69,7 +69,7 @@ use suinfo;
 use canvas_graph;
 use canvas_data;
 
-my $get          = new L_SU_global_constants();
+my $get          = L_SU_global_constants->new();
 my $canvas_data  = new canvas_data();
 my $canvas_graph = new canvas_graph();
 

@@ -33,26 +33,29 @@ package App::SeismicUnixGui::misc::param_widgets4pre_built_streams;
 use Moose;
 our $VERSION = '0.0.2';
 use Tk;
-use App::SeismicUnixGui::misc::L_SU_global_constants;
-use App::SeismicUnixGui::misc::check_buttons;
+use aliased 'App::SeismicUnixGui::misc::L_SU_global_constants';
+use aliased 'App::SeismicUnixGui::misc::check_buttons';
+use App::SeismicUnixGui::misc::control '0.0.3';
+use aliased 'App::SeismicUnixGui::misc::control';
 
-my $path;
-my $SeismicUnixGui;
-use Shell qw(echo);
-
-BEGIN {
-
-$SeismicUnixGui = ` echo \$SeismicUnixGui`;
-chomp $SeismicUnixGui;
-$path = $SeismicUnixGui.'/'.'misc';
-
-}
-use lib "$path";
-extends 'gui_history' => { -version => 0.0.2 };
+#my $path;
+#my $SeismicUnixGui;
+#use Shell qw(echo);
+#
+#BEGIN {
+#
+#$SeismicUnixGui = ` echo \$SeismicUnixGui`;
+#chomp $SeismicUnixGui;
+#$path = $SeismicUnixGui.'/'.'misc';
+#
+#}
+#use lib "$path";
+extends 'App::SeismicUnixGui::misc::gui_history' => { -version => 0.0.2 };
+use aliased 'App::SeismicUnixGui::misc::gui_history';
 
 my $gui_history   = gui_history->new();
-my $check_buttons = new check_buttons();
-my $L_SU_global_constants = new L_SU_global_constants();
+my $check_buttons = check_buttons->new();
+my $L_SU_global_constants = L_SU_global_constants->new();
 
 =head2 Declare 
 local variables
@@ -99,8 +102,9 @@ my $param_widgets       = $gui_history->get_defaults();
 sub _changes {
 	my ($index) = @_;
 	my $idx = $index;    # individual parameter line
-	use App::SeismicUnixGui::misc::control '0.0.3';
-	my $control = new control;
+
+
+	my $control = control->new();
 
 	# two cases possible
 	# in general L_SU
@@ -333,7 +337,7 @@ sub gui_full_clear {
 	my ($self) = @_;
 
 	use App::SeismicUnixGui::misc::wipe;
-	my $wipe = new wipe();
+	my $wipe = wipe->new();
 
 	my $safe = $param_widgets->{_length};
 
@@ -1058,7 +1062,8 @@ sub redisplay_values {
 	# print("param_widgets, redisplay_values, first is $first\n");
 	if ( $values_w_aref && $values_aref ) {
 		
-		use App::SeismicUnixGui::misc::control '0.0.3';
+#		use App::SeismicUnixGui::misc::control '0.0.3';
+#use aliased 'App::SeismicUnixGui::misc::control';
 
 		for ( my $i = $first; $i < $length; $i++ ) {
 

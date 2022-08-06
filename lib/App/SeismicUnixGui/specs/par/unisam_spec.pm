@@ -2,14 +2,14 @@ package App::SeismicUnixGui::specs::par::unisam_spec;
 use Moose;
 our $VERSION = '0.0.1';
 
-use App::SeismicUnixGui::configs::big_streams::Project_config;
-use App::SeismicUnixGui::misc::SeismicUnix qw ($su $bin $suffix_su $suffix_bin);
-use App::SeismicUnixGui::misc::L_SU_global_constants;
-use App::SeismicUnixGui::sunix::par::unisam;
+use aliased 'App::SeismicUnixGui::configs::big_streams::Project_config';
+use App::SeismicUnixGui::misc::SeismicUnix qw($su $bin $suffix_su $suffix_bin);
+use aliased 'App::SeismicUnixGui::misc::L_SU_global_constants';
+use aliased 'App::SeismicUnixGui::sunix::par::unisam';
 
-my $get     = new L_SU_global_constants();
-my $Project = new Project_config;
-my $unisam  = new unisam;
+my $get     = L_SU_global_constants->new();
+my $Project = Project_config->new();
+my $unisam  = unisam->new();
 
 my $var = $get->var();
 

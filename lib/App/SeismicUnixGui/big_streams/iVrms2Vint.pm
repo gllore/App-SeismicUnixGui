@@ -2,13 +2,13 @@ package App::SeismicUnixGui::big_streams::iVrms2Vint;
 
 use Moose;
 our $VERSION = '1.0.0';
-use App::SeismicUnixGui::misc::message;
-use App::SeismicUnixGui::misc::flow;
-use App::SeismicUnixGui::sunix::par::a2b;
-use App::SeismicUnixGui::sunix::plot::xgraph;
-use App::SeismicUnixGui::misc::manage_files_by2;
-use App::SeismicUnixGui::misc::seismics;
-use App::SeismicUnixGui::configs::big_streams::Project_config;
+use aliased 'App::SeismicUnixGui::misc::message';
+use aliased 'App::SeismicUnixGui::misc::flow';
+use aliased 'App::SeismicUnixGui::sunix::par::a2b';
+use aliased 'App::SeismicUnixGui::sunix::plot::xgraph';
+use aliased 'App::SeismicUnixGui::misc::manage_files_by2';
+use aliased 'App::SeismicUnixGui::misc::seismics';
+use aliased 'App::SeismicUnixGui::configs::big_streams::Project_config';
 
 =head1 DOCUMENTATION
 $Time[$i] = $$ref_T[$i];
@@ -52,13 +52,13 @@ $Time[$i] = $$ref_T[$i];
 
 =cut
 
-my $log      = new message();
-my $run      = new flow();
-my $a2b      = new a2b();
-my $xgraph   = new xgraph();
-my $files    = new manage_files_by2();
-my $seismics = new seismics();
-my $Project  = new Project_config;
+my $log      = message->new();
+my $run      = flow->new();
+my $a2b      = a2b->new();
+my $xgraph   = xgraph->new();
+my $files    = manage_files_by2->new();
+my $seismics = seismics->new();
+my $Project  = Project_config->new();
 
 =head2 set defaults
 

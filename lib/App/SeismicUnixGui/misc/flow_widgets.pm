@@ -36,9 +36,9 @@ our $VERSION = '0.1.3';
 use Tk;
 use Tk::DragDrop;
 use Tk::DropSite;
-use App::SeismicUnixGui::misc::L_SU_global_constants;
+use aliased 'App::SeismicUnixGui::misc::L_SU_global_constants';
 
-my $get                 = new L_SU_global_constants();
+my $get                 = L_SU_global_constants->new();
 my $default_param_specs = $get->param();
 
 my $var          = $get->var();

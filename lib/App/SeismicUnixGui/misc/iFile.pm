@@ -24,8 +24,8 @@ package App::SeismicUnixGui::misc::iFile;
 
 use Moose;
 
-use App::SeismicUnixGui::misc::L_SU_global_constants;
-my $L_SU_global_constants = new L_SU_global_constants();
+use aliased 'App::SeismicUnixGui::misc::L_SU_global_constants';
+my $L_SU_global_constants = L_SU_global_constants->new();
 my $global_libs           = $L_SU_global_constants->global_libs();
 my $alias_superflow_config_names_aref =
   $L_SU_global_constants->alias_superflow_config_names_aref();
@@ -295,7 +295,7 @@ sub get_Open_perl_flow_path {
 
 	my ($self) = @_;
 	use App::SeismicUnixGui::configs::big_streams::Project_config;
-	my $Project    = new Project_config();
+	my $Project    = Project_config->new();
 	my $PL_SEISMIC = $Project->PL_SEISMIC();
 
 	$iFile->{_path} = $PL_SEISMIC;
@@ -313,7 +313,7 @@ sub get_Open_path {
 
 	my ($self) = @_;
 	use App::SeismicUnixGui::configs::big_streams::Project_config;
-	my $Project    = new Project_config();
+	my $Project    = Project_config->new();
 	my $PL_SEISMIC = $Project->PL_SEISMIC();
 
 	$iFile->{_path} = $PL_SEISMIC;
@@ -330,7 +330,7 @@ sub get_SaveAs_path {
 
 	my ($self) = @_;
 	use App::SeismicUnixGui::configs::big_streams::Project_config;
-	my $Project    = new Project_config();
+	my $Project    = Project_config->new();
 	my $PL_SEISMIC = $Project->PL_SEISMIC();
 
 	$iFile->{_path} = $PL_SEISMIC;
@@ -367,7 +367,7 @@ sub get_Data_path {
  #	print("iFile, Data_File,get_Data_path, base_file_name  = $base_file_name\n");
  #	print("iFile,get_Data_path,flow_type =$iFile->{_flow_type}\n");
 
-	my $Project                   = new Project_config();
+	my $Project                   = Project_config->new();
 	my $DATA_SEISMIC_BIN          = $Project->DATA_SEISMIC_BIN();
 	my $DATA_SEISMIC_SU           = $Project->DATA_SEISMIC_SU();
 	my $PL_SEISMIC                = $Project->PL_SEISMIC();

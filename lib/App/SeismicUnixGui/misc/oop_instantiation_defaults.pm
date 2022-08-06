@@ -50,10 +50,10 @@ sub _get_instantiation {
 
         # default programs
         $oop_instantiation_defaults[0] =
-          "\n\t" . 'my $log' . "\t\t\t\t\t" . '= new message();';
+          "\n\t" . 'my $log' . "\t\t\t\t\t" . '= message->new();';
 
         $oop_instantiation_defaults[1] =
-          "\t" . 'my $run' . "\t\t\t\t\t" . '= new flow();';
+          "\t" . 'my $run' . "\t\t\t\t\t" . '= flow->new();';
         print("\n");
 
         # user-defined programs

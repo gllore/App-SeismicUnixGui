@@ -46,7 +46,7 @@ package App::SeismicUnixGui::misc::su_param;
 use Moose;
 our $VERSION = '0.0.3';
 
-use App::SeismicUnixGui::misc::L_SU_global_constants;
+use aliased 'App::SeismicUnixGui::misc::L_SU_global_constants';
 use Shell qw(echo);
 
 my $L_SU_global_constants = L_SU_global_constants->new();

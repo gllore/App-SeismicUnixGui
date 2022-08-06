@@ -63,13 +63,13 @@ Make a binding based on the paramters
 use Moose;
 our $VERSION = '0.0.2';
 use Tk;
-use App::SeismicUnixGui::misc::L_SU_global_constants;
+use aliased 'App::SeismicUnixGui::misc::L_SU_global_constants';
 
 =head2 Instantiation
 
 =cut
 
-my $L_SU_global_constants = new L_SU_global_constants();
+my $L_SU_global_constants = L_SU_global_constants->new();
 my $var                   = $L_SU_global_constants->var();
 
 =head2 Declare local variables

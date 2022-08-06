@@ -2,14 +2,14 @@ package App::SeismicUnixGui::specs::filter::sufilter_spec;
 use Moose;
 our $VERSION = '0.0.1';
 
-use App::SeismicUnixGui::configs::big_streams::Project_config;
-use App::SeismicUnixGui::misc::SeismicUnix qw ($su $suffix_su);
-use App::SeismicUnixGui::misc::L_SU_global_constants;
-use App::SeismicUnixGui::sunix::filter::sufilter;
+use aliased 'App::SeismicUnixGui::configs::big_streams::Project_config';
+use App::SeismicUnixGui::misc::SeismicUnix qw($su $suffix_su);
+use aliased 'App::SeismicUnixGui::misc::L_SU_global_constants';
+use aliased 'App::SeismicUnixGui::sunix::filter::sufilter';
 
-my $get      = new L_SU_global_constants();
-my $Project  = new Project_config;
-my $sufilter = new sufilter;
+my $get      = L_SU_global_constants->new();
+my $Project  = Project_config->new();
+my $sufilter = sufilter->new();
 
 my $var = $get->var();
 

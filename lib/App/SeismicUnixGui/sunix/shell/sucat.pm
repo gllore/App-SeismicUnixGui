@@ -42,13 +42,13 @@ files
 
 =cut
 
-use App::SeismicUnixGui::misc::L_SU_global_constants;
+use aliased 'App::SeismicUnixGui::misc::L_SU_global_constants';
 
 =head2 instatntiate new variables
 
 =cut
 
-my $get = new L_SU_global_constants();
+my $get = L_SU_global_constants->new();
 
 =head2 declare local variables
 
@@ -251,6 +251,7 @@ sub data_type {
 		use App::SeismicUnixGui::misc::readfiles;
 		use App::SeismicUnixGui::misc::manage_files_by;
 		use App::SeismicUnixGui::misc::control '0.0.3';
+		use aliased 'App::SeismicUnixGui::misc::control';
 
 =head2 instantiate packages
 

@@ -42,8 +42,8 @@ package App::SeismicUnixGui::misc::control;
 use Moose;
 our $VERSION = '0.0.3';
 
-use App::SeismicUnixGui::misc::L_SU_global_constants;
-use aliased  'App::SeismicUnixGui::misc::L_SU_global_constants';
+use aliased 'App::SeismicUnixGui::misc::L_SU_global_constants';
+#use aliased 'App::SeismicUnixGui::misc::L_SU_global_constants';
 
 my $L_SU_global_constants   = L_SU_global_constants->new();
 my $alias_superflow_names_h = $L_SU_global_constants->alias_superflow_names_h();

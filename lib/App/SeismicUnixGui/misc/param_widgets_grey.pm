@@ -34,27 +34,28 @@ package App::SeismicUnixGui::misc::param_widgets_grey;
 use Moose;
 our $VERSION = '0.0.2';
 use Tk;
-use App::SeismicUnixGui::misc::L_SU_global_constants;
-use App::SeismicUnixGui::misc::check_buttons;
+use aliased 'App::SeismicUnixGui::misc::L_SU_global_constants';
+use aliased 'App::SeismicUnixGui::misc::check_buttons';
 
-my $path;
-my $SeismicUnixGui;
-use Shell qw(echo);
+#my $path;
+#my $SeismicUnixGui;
+#use Shell qw(echo);
+#
+#BEGIN {
+#
+#$SeismicUnixGui = ` echo \$SeismicUnixGui`;
+#chomp $SeismicUnixGui;
+#$path = $SeismicUnixGui.'/'.'misc';
+#
+#}
+#use lib "$path";
+extends 'App::SeismicUnixGui::misc::gui_history' => { -version => 0.0.2 };
+use aliased 'App::SeismicUnixGui::misc::gui_history';
 
-BEGIN {
-
-$SeismicUnixGui = ` echo \$SeismicUnixGui`;
-chomp $SeismicUnixGui;
-$path = $SeismicUnixGui.'/'.'misc';
-
-}
-use lib "$path";
-extends 'gui_history' => { -version => 0.0.2 };
-
-my $check_buttons = new check_buttons();
+my $check_buttons = check_buttons->new();
 my $gui_history   = gui_history->new();
 
-my $get                 = new L_SU_global_constants();
+my $get                 = L_SU_global_constants->new();
 my $default_param_specs = $get->param();
 my $var                 = $get->var();
 my $on                  = $var->{_on};
@@ -154,8 +155,9 @@ param_widgets_pink, changes,
 sub _changes {
 	my ( $self, $index ) = @_;
 
-	use App::SeismicUnixGui::misc::control '0.0.3';    # =0;
-	my $control = new control;
+	use App::SeismicUnixGui::misc::control '0.0.3';
+use aliased 'App::SeismicUnixGui::misc::control';    # =0;
+	my $control = control->new();
 	
 #	print("param_widgets_color, changes, index=$index\n");
 
@@ -496,7 +498,7 @@ sub gui_full_clear {
 	my ($self) = @_;
 
 	use App::SeismicUnixGui::misc::wipe;
-	my $wipe = new wipe();
+	my $wipe = wipe->new();
 
 	my $safe = $param_widgets_color_href->{_length};
 
@@ -1251,6 +1253,7 @@ sub redisplay_values {
 	if (   length($values_w_aref)
 		&& length($values_aref) ) {
 		use App::SeismicUnixGui::misc::control '0.0.3';
+		use aliased 'App::SeismicUnixGui::misc::control';
 
 		for ( my $i = $first; $i < $length; $i++ ) {
 
