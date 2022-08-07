@@ -71,14 +71,23 @@ our $VERSION = '0.0.3';
 #
 #}
 #use lib "$path";
+use aliased 'App::SeismicUnixGui::misc::L_SU_global_constants';
+
 extends 'App::SeismicUnixGui::misc::gui_history' => { -version => 0.0.2 };
 use aliased 'App::SeismicUnixGui::misc::gui_history';
 
 use App::SeismicUnixGui::misc::param_widgets_neutral '0.0.2';
 use aliased 'App::SeismicUnixGui::misc::param_widgets_neutral';
+
 use App::SeismicUnixGui::misc::param_flow_neutral '0.0.3';
 use aliased 'App::SeismicUnixGui::misc::param_flow_neutral';
+
 use aliased 'App::SeismicUnixGui::misc::flow_widgets';
+
+use aliased 'App::SeismicUnixGui::misc::help';
+
+use aliased 'App::SeismicUnixGui::messages::message_director';
+use aliased 'App::SeismicUnixGui::misc::param_sunix';
 
 my $flow_widgets = flow_widgets->new();
 my $get          = L_SU_global_constants->new();
@@ -165,7 +174,7 @@ sub get_prog_name_sref {
 
 }
 
-=head2 sub help
+=head2 sub get_help
 Callback sequence following MB3 click 
 activation of a sunix (Listbox) item
 program name is a scalar reference
@@ -177,9 +186,9 @@ program name is a scalar reference
  
 =cut 
 
-sub help {
+sub get_help {
 	my ($self) = @_;
-	use App::SeismicUnixGui::misc::help;
+
 	my $help = help->new();
 	$help->set_name( $color_flow_href->{_prog_name_sref} );
 	$help->tkpod();
@@ -247,8 +256,6 @@ sub sunix_select {
 
 	$color_flow_href->{_flow_type} = $flow_type->{_user_built};    # should be at start of neutral_flow
 		 # print("neutral_flow, sunix_select,parameter_values_frame: $parameter_values_frame\n");
-	use App::SeismicUnixGui::messages::message_director;
-	use App::SeismicUnixGui::misc::param_sunix;
 	use Clone 'clone';
 
 	my $neutral_flow_messages = message_director->new();

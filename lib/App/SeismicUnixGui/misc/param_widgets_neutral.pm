@@ -52,6 +52,14 @@ use aliased 'App::SeismicUnixGui::misc::check_buttons';
 extends 'App::SeismicUnixGui::misc::gui_history' => { -version => 0.0.2 };
 use aliased 'App::SeismicUnixGui::misc::gui_history';
 
+use App::SeismicUnixGui::misc::control '0.0.3';
+use aliased 'App::SeismicUnixGui::misc::control';
+
+use aliased 'App::SeismicUnixGui::misc::label_boxes';
+use aliased 'App::SeismicUnixGui::misc::value_boxes';
+
+use aliased 'App::SeismicUnixGui::misc::wipe';
+
 my $check_buttons = check_buttons->new();
 my $gui_history   = gui_history->new();
 
@@ -176,8 +184,7 @@ sub _reset {
 sub _changes {
 	my ( $self, $index ) = @_;
 	my $idx = $index;    # individual parameter line
-	use App::SeismicUnixGui::misc::control '0.0.3';
-use aliased 'App::SeismicUnixGui::misc::control';
+
 	my $control = control->new();
 
 	# two cases possible
@@ -397,8 +404,7 @@ sub get_values_w_aref {
 
 sub gui_clean {
 	my ($self) = @_;
-
-	use App::SeismicUnixGui::misc::wipe;
+	
 	my $wipe = wipe->new();
 
 	# print("param_widgets_neutral, gui_clean, _values_w_aref, $param_widgets_color_href->{_values_w_aref} \n");
@@ -419,7 +425,6 @@ sub gui_clean {
 sub _max_length_in_gui {
 	my ($self) = @_;
 
-	use App::SeismicUnixGui::misc::L_SU_global_constants;
 	my $get = L_SU_global_constants->new();
 
 	my $param             = $get->param();
@@ -460,7 +465,6 @@ clear the gui completely of 61 parameter values
 sub gui_full_clear {
 	my ($self) = @_;
 
-	use App::SeismicUnixGui::misc::wipe;
 	my $wipe = wipe->new();
 
 	# print("param_widgets_neutral, gui_full_clear, length used for cleaning $param_widgets_color_href->{_length} \n");
@@ -970,8 +974,6 @@ sub initialize_labels {
 	my ( $labels, $first, $length );
 	my (@blank_labels);
 
-	use App::SeismicUnixGui::misc::label_boxes;
-
 	$labels = label_boxes->new();
 	$first  = $param_widgets_color_href->{_first_idx};
 	$length = $param_widgets_color_href->{_length};
@@ -999,7 +1001,7 @@ sub initialize_values {
 	my ($self) = @_;
 	my ( $values, $first, $length );
 	my @blank_values = ();
-	use App::SeismicUnixGui::misc::value_boxes;
+
 	$values = value_boxes->new();
 
 	$first  = $param_widgets_color_href->{_first_idx};
@@ -1201,8 +1203,6 @@ sub redisplay_values {
 	if (   $values_w_aref
 		&& $values_aref )
 	{
-		use App::SeismicUnixGui::misc::control '0.0.3';
-		use aliased 'App::SeismicUnixGui::misc::control';
 
 		for ( my $i = $first; $i < $length; $i++ ) {
 

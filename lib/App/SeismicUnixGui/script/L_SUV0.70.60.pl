@@ -458,7 +458,7 @@ MB3 goes to superflow bindings
 
 	my $top_menu_bar = ( $main_href->{_superflow_select} )->Menu( -font => $arial_16 );
 
-	$top_menu_bar->bind( '<ButtonRelease-3>' => [ \&_L_SU_superflow_bindings, 'help' ], );
+	$top_menu_bar->bind( '<ButtonRelease-3>' => [ \&_L_SU_superflow_bindings, 'get_help' ], );
 
 =head2 Top menu frame icon
 wipe background plots
@@ -607,7 +607,7 @@ Advice for installation of software
 =pod tied button widgets
 to a tool_array
 for easier management
-bind MB3 to help
+bind MB3 to get_help
 my @who;
 my $this=0;
 
@@ -1306,54 +1306,54 @@ sunix_frame_I (bottom row )
 	$sunix_well_programs_listbox->bind( '<1>' => [ \&_L_SU_sunix_bindings, 'sunix_select', 'neutral', 'well' ] );
 
 	$sunix_data_programs_listbox->bind(
-		'<3>' => [ \&_L_SU_sunix_bindings, 'help', 'neutral', 'data' ]    #TODO return to 'neutral'
+		'<3>' => [ \&_L_SU_sunix_bindings, 'get_help', 'neutral', 'data' ]    #TODO return to 'neutral'
 	);
 	$sunix_datum_programs_listbox->bind(
-		'<3>' => [ \&_L_SU_sunix_bindings, 'help', 'neutral', 'datum' ]    #TODo return to 'neutral'
+		'<3>' => [ \&_L_SU_sunix_bindings, 'get_help', 'neutral', 'datum' ]    #TODo return to 'neutral'
 	);
 	$sunix_plot_programs_listbox->bind(
-		'<3>' => [ \&_L_SU_sunix_bindings, 'help', 'neutral', 'plot' ]     #TODo return to 'neutral'
+		'<3>' => [ \&_L_SU_sunix_bindings, 'get_help', 'neutral', 'plot' ]     #TODo return to 'neutral'
 	);
 	$sunix_filter_programs_listbox->bind(
-		'<3>' => [ \&_L_SU_sunix_bindings, 'help', 'neutral', 'filter' ]    #TODo return to 'neutral'
+		'<3>' => [ \&_L_SU_sunix_bindings, 'get_help', 'neutral', 'filter' ]    #TODo return to 'neutral'
 	);
 
 	$sunix_header_programs_listbox->bind(
-		'<3>' => [ \&_L_SU_sunix_bindings, 'help', 'neutral', 'header' ]    #TODo return to 'neutral'
+		'<3>' => [ \&_L_SU_sunix_bindings, 'get_help', 'neutral', 'header' ]    #TODo return to 'neutral'
 	);
 	$sunix_inversion_programs_listbox->bind(
-		'<3>' => [ \&_L_SU_sunix_bindings, 'help', 'neutral', 'inversion' ]    #TODo return to 'neutral'
+		'<3>' => [ \&_L_SU_sunix_bindings, 'get_help', 'neutral', 'inversion' ]    #TODo return to 'neutral'
 	);
 	$sunix_migration_programs_listbox->bind(
-		'<3>' => [ \&_L_SU_sunix_bindings, 'help', 'neutral', 'migration' ]    #TODo return to 'neutral'
+		'<3>' => [ \&_L_SU_sunix_bindings, 'get_help', 'neutral', 'migration' ]    #TODo return to 'neutral'
 	);
 	$sunix_model_programs_listbox->bind(
-		'<3>' => [ \&_L_SU_sunix_bindings, 'help', 'neutral', 'model' ]        #TODo return to 'neutral'
+		'<3>' => [ \&_L_SU_sunix_bindings, 'get_help', 'neutral', 'model' ]        #TODo return to 'neutral'
 	);
 	$sunix_NMO_Vel_Stk_programs_listbox->bind(
-		'<3>' => [ \&_L_SU_sunix_bindings, 'help', 'neutral', 'NMO_Vel_Stk' ]    #TODo return to 'neutral'
+		'<3>' => [ \&_L_SU_sunix_bindings, 'get_help', 'neutral', 'NMO_Vel_Stk' ]    #TODo return to 'neutral'
 	);
 	$sunix_par_programs_listbox->bind(
-		'<3>' => [ \&_L_SU_sunix_bindings, 'help', 'neutral', 'par' ]            #TODo return to 'neutral'
+		'<3>' => [ \&_L_SU_sunix_bindings, 'get_help', 'neutral', 'par' ]            #TODo return to 'neutral'
 	);
 	$sunix_picks_programs_listbox->bind(
-		'<3>' => [ \&_L_SU_sunix_bindings, 'help', 'neutral', 'picks' ]          #TODo return to 'neutral'
+		'<3>' => [ \&_L_SU_sunix_bindings, 'get_help', 'neutral', 'picks' ]          #TODo return to 'neutral'
 	);
 
 	$sunix_shapeNcut_programs_listbox->bind(
-		'<3>' => [ \&_L_SU_sunix_bindings, 'help', 'neutral', 'shapeNcut' ]      #TODo return to 'neutral'
+		'<3>' => [ \&_L_SU_sunix_bindings, 'get_help', 'neutral', 'shapeNcut' ]      #TODo return to 'neutral'
 	);
 	$sunix_shell_programs_listbox->bind(
-		'<3>' => [ \&_L_SU_sunix_bindings, 'help', 'neutral', 'shell' ]          #TODo return to 'neutral'
+		'<3>' => [ \&_L_SU_sunix_bindings, 'get_help', 'neutral', 'shell' ]          #TODo return to 'neutral'
 	);
 	$sunix_statsMath_programs_listbox->bind(
-		'<3>' => [ \&_L_SU_sunix_bindings, 'help', 'neutral', 'statsMath' ]      #TODo return to 'neutral'
+		'<3>' => [ \&_L_SU_sunix_bindings, 'get_help', 'neutral', 'statsMath' ]      #TODo return to 'neutral'
 	);
 	$sunix_transform_programs_listbox->bind(
-		'<3>' => [ \&_L_SU_sunix_bindings, 'help', 'neutral', 'transform' ]      #TODo return to 'neutral'
+		'<3>' => [ \&_L_SU_sunix_bindings, 'get_help', 'neutral', 'transform' ]      #TODo return to 'neutral'
 	);
 	$sunix_well_programs_listbox->bind(
-		'<3>' => [ \&_L_SU_sunix_bindings, 'help', 'neutral', 'well' ]           #TODo return to 'neutral'
+		'<3>' => [ \&_L_SU_sunix_bindings, 'get_help', 'neutral', 'well' ]           #TODo return to 'neutral'
 	);
 
 =head2 parameter_titles label
@@ -1647,16 +1647,16 @@ to notify user of important events
 =cut
 
 	( $main_href->{_flow_listbox_grey_w} )->bind( '<1>' => [ \&_L_SU_flow_bindings, 'flow_select', 'grey' ], );
-	( $main_href->{_flow_listbox_grey_w} )->bind( '<3>' => [ \&_L_SU_flow_bindings, 'help',        'grey' ] );
+	( $main_href->{_flow_listbox_grey_w} )->bind( '<3>' => [ \&_L_SU_flow_bindings, 'get_help',        'grey' ] );
 
 	( $main_href->{_flow_listbox_pink_w} )->bind( '<1>' => [ \&_L_SU_flow_bindings, 'flow_select', 'pink' ], );
-	( $main_href->{_flow_listbox_pink_w} )->bind( '<3>' => [ \&_L_SU_flow_bindings, 'help',        'pink' ] );
+	( $main_href->{_flow_listbox_pink_w} )->bind( '<3>' => [ \&_L_SU_flow_bindings, 'get_help',        'pink' ] );
 
 	( $main_href->{_flow_listbox_green_w} )->bind( '<1>' => [ \&_L_SU_flow_bindings, 'flow_select', 'green' ], );
-	( $main_href->{_flow_listbox_green_w} )->bind( '<3>' => [ \&_L_SU_flow_bindings, 'help',        'green' ] );
+	( $main_href->{_flow_listbox_green_w} )->bind( '<3>' => [ \&_L_SU_flow_bindings, 'get_help',        'green' ] );
 
 	( $main_href->{_flow_listbox_blue_w} )->bind( '<1>' => [ \&_L_SU_flow_bindings, 'flow_select', 'blue' ], );
-	( $main_href->{_flow_listbox_blue_w} )->bind( '<3>' => [ \&_L_SU_flow_bindings, 'help',        'blue' ] );
+	( $main_href->{_flow_listbox_blue_w} )->bind( '<3>' => [ \&_L_SU_flow_bindings, 'get_help',        'blue' ] );
 
 =head2 Pack my dialog box
 Upper frame contains my message.
@@ -2110,7 +2110,7 @@ Lower frame contains ok button.
 
 =head2 sub _L_SU_bindings
 For help in pre-built superflows and 
-for help in user-built listbox flows
+for get_help in user-built listbox flows
 
 color not needed but $self is needed
 
@@ -2171,7 +2171,7 @@ color not needed but $self is needed
 
 =head2 sub _L_SU_sunix_bindings
 used for 
-	sunix_listbox help (MB3)
+	sunix_listbox get_help (MB3)
 	sunix_select		(MB1) 
 method='sunix_select'
 color='neutral'
@@ -2208,7 +2208,7 @@ color='neutral'
 
 =head2 sub _L_SU_flow_bindings
 used for:
-	sunix_listbox help (MB3)
+	sunix_listbox get_help (MB3)
 	flow-item selection ('flow_select') (MB1)
 
 Main
