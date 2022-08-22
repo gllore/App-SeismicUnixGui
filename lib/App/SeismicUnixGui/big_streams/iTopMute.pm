@@ -65,6 +65,7 @@ use aliased 'App::SeismicUnixGui::big_streams::iSave_top_mute_picks';
 use aliased 'App::SeismicUnixGui::messages::SuMessages';
 use App::SeismicUnixGui::misc::SeismicUnix
   qw($on $off $in $to $go $itop_mute_par_ $itop_mute_check_pickfile_ $false $true );
+  
 my $Project           = Project_config->new();
 my ($PL_SEISMIC)      = $Project->PL_SEISMIC();
 my ($DATA_SEISMIC_SU) = $Project->DATA_SEISMIC_SU();
@@ -178,14 +179,17 @@ sub gather_type {
     $iTopMute->{_gather_type} = $gather_type if defined($gather_type);
 }
 
-=head2 sub iSelect_tr_Sumute_top
+=head2 sub iTM_Select_tr_Sumute_top
 
  Select mute points in traces
  provide file name
  
 =cut
 
-sub iSelect_tr_Sumute_top {
+sub iTM_Select_tr_Sumute_top {
+	
+	my ($self) = @_;
+	
     $iSelect_tr_Sumute_top->gather_type( $iTopMute->{_gather_type} );
     $iSelect_tr_Sumute_top->offset_type( $iTopMute->{_offset_type} );
     $iSelect_tr_Sumute_top->gather_header( $iTopMute->{_gather_header} );
@@ -196,15 +200,16 @@ sub iSelect_tr_Sumute_top {
     $iSelect_tr_Sumute_top->max_amplitude( $iTopMute->{_max_amplitude} );
     $iSelect_tr_Sumute_top->number_of_tries( $iTopMute->{_number_of_tries} );
     $iSelect_tr_Sumute_top->calcNdisplay();
+    
 }
 
-=head2 sub iApply_top_mute
+=head2 sub iTM_Apply_top_mute
 
   Mute the data using selected parameters 
  
 =cut
 
-sub iApply_top_mute {
+sub iTM_Apply_top_mute {
     $iApply_top_mute->file_in( $iTopMute->{_file_in} );
     $iApply_top_mute->gather_header( $iTopMute->{_gather_header} );
     $iApply_top_mute->offset_type( $iTopMute->{_offset_type} );
@@ -227,13 +232,13 @@ sub iPicks2par {
     $iPicks2par->calc();
 }
 
-=head2 subroutine iSave_top_mute_picks
+=head2 subroutine iTM_Save_top_mute_picks
 
  save pick files for later use
  
 =cut
 
-sub iSave_top_mute_picks {
+sub iTM_Save_top_mute_picks {
     $iSave_top_mute_picks->gather_num( $iTopMute->{_gather_num} );
     $iSave_top_mute_picks->gather_header( $iTopMute->{_gather_header} );
     $iSave_top_mute_picks->gather_type( $iTopMute->{_gather_type} );
@@ -241,7 +246,7 @@ sub iSave_top_mute_picks {
     $iSave_top_mute_picks->calc();
 }
 
-=head2 sub set_message
+=head2 sub set_iTM_message
 
   define the message family (type) to use
   also set the gather nuimber (TODO: move option elsewhere)
@@ -264,13 +269,13 @@ sub set_message {
     $SuMessages->gather_type( $iTopMute->{_gather_type} );
 }
 
-=head2 sub message
+=head2 sub iTM_message
 
   instructions 
 
 =cut
 
-sub message {
+sub iTM_message {
     my ( $variable, $instructions ) = @_;
     $iTopMute->{_instructions} = $instructions if defined($instructions);
 

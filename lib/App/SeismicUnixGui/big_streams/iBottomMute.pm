@@ -177,13 +177,13 @@ sub gather_type {
     $iBottomMute->{_gather_type} = $gather_type if defined($gather_type);
 }
 
-=head2 subroutine iSelect_tr_Sumute_bottom_
+=head2 subroutine iBM_Select_tr_Sumute_bottom_
  Select mute points in traces
   provide file name
  
 =cut
 
-sub iSelect_tr_Sumute_bottom {
+sub iBM_Select_tr_Sumute_bottom {
     $iSelect_tr_Sumute_bottom->gather_type( $iBottomMute->{_gather_type} );
     $iSelect_tr_Sumute_bottom->offset_type( $iBottomMute->{_offset_type} );
     $iSelect_tr_Sumute_bottom->gather_header( $iBottomMute->{_gather_header} );
@@ -197,13 +197,13 @@ sub iSelect_tr_Sumute_bottom {
     $iSelect_tr_Sumute_bottom->calcNdisplay();
 }
 
-=head2 subroutine iApply_bottom_mute
+=head2 subroutine iBM_Apply_bottom_mute
 
   Mute the data using selected parameters 
  
 =cut
 
-sub iApply_bottom_mute {
+sub iBM_Apply_bottom_mute {
     $iApply_bottom_mute->file_in( $iBottomMute->{_file_in} );
     $iApply_bottom_mute->gather_header( $iBottomMute->{_gather_header} );
     $iApply_bottom_mute->offset_type( $iBottomMute->{_offset_type} );
@@ -226,13 +226,13 @@ sub iPicks2par {
     $iPicks2par->calc();
 }
 
-=head2 subroutine iSave_bottom_mute_picks
+=head2 subroutine iBM_iSave_bottom_mute_picks
 
  save pick files for later use
  
 =cut
 
-sub iSave_bottom_mute_picks {
+sub iBM_iSave_bottom_mute_picks {
     $iSave_bottom_mute_picks->gather_num( $iBottomMute->{_gather_num} );
     $iSave_bottom_mute_picks->gather_header( $iBottomMute->{_gather_header} );
     $iSave_bottom_mute_picks->gather_type( $iBottomMute->{_gather_type} );
@@ -263,13 +263,13 @@ sub set_message {
     $SuMessages->gather_type( $iBottomMute->{_gather_type} );
 }
 
-=head2 subroutine  message
+=head2 subroutine  iBM_message
 
   instructions 
 
 =cut
 
-sub message {
+sub iBM_message {
     my ( $variable, $instructions ) = @_;
     $iBottomMute->{_instructions} = $instructions if defined($instructions);
 

@@ -65,7 +65,7 @@ my $Project    = Project_config->new();
 
 =cut 
 
-use App:SeismicUnixGui::misc::SeismicUnix qw($itemp_top_mute_picks_sorted_par_);
+use App::SeismicUnixGui::misc::SeismicUnix qw($itemp_top_mute_picks_sorted_par_);
 my ($PL_SEISMIC)      = $Project->PL_SEISMIC();
 my ($DATA_SEISMIC_SU) = $Project->DATA_SEISMIC_SU();
 

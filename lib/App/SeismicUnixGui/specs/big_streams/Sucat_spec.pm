@@ -1,19 +1,14 @@
 package App::SeismicUnixGui::specs::big_streams::Sucat_spec;
 
 our $VERSION = '1.00';
+
 use Moose;
-package App::SeismicUnixGui::specs::big_streams::Sucat_spec;
-package App::SeismicUnixGui::specs::big_streams::Sucat_spec;
-package App::SeismicUnixGui::specs::big_streams::Sucat_spec;
 use App::SeismicUnixGui::misc::SeismicUnix qw($su $suffix_su);
+use App::SeismicUnixGui::misc::L_SU_global_constants;
+use App::SeismicUnixGui::configs::big_streams::Project_config;
 
-package App::SeismicUnixGui::specs::big_streams::Sucat_spec;
-package App::SeismicUnixGui::specs::big_streams::Sucat_spec;
-use App::SeismicUnixGui::misc::SeismicUnix qw($su $suffix_su);
-
-my $get              = L_SU_global_constants->new();
-my $Project      = Project_config->new();
-my $Sucat_config = Sucat_config->new();
+my $get             = App::SeismicUnixGui::misc::L_SU_global_constants->new();
+my $Project      	= App::SeismicUnixGui::configs::big_streams::Project_config->new();
 
 my $var              = $get->var();
 
@@ -27,7 +22,7 @@ my $false = $var->{_false};
 my $DATA_SEISMIC_SU = $Project->DATA_SEISMIC_SU();    # output data directory
 my $PL_SEISMIC		 = $Project->PL_SEISMIC();
 
-my $max_index = $Sucat_config->get_max_index();
+my $max_index = 9;
 
 my $Sucat_spec =  {
     _CONFIG	 				=> $PL_SEISMIC,
@@ -112,7 +107,7 @@ sub get_max_index {
 
     if ( $Sucat_spec->{_max_index} ) {
 
-        my $max_idx = $Sucat_config->get_max_index();
+        my $max_idx = $max_index;
         return ($max_idx);
 
     }

@@ -2,10 +2,10 @@ package App::SeismicUnixGui::specs::data::segyread_spec;
 use Moose;
 our $VERSION = '0.0.1';
 
-package App::SeismicUnixGui::specs::data::segyread_spec;
+use aliased 'App::SeismicUnixGui::specs::data::segyread_spec;
 use App::SeismicUnixGui::misc::SeismicUnix qw($segy $sgy $su $suffix_sgy $suffix_su);
-package App::SeismicUnixGui::specs::data::segyread_spec;
-package App::SeismicUnixGui::specs::data::segyread_spec;
+use aliased 'App::SeismicUnixGui::specs::data::segyread_spec;
+use aliased 'App::SeismicUnixGui::specs::data::segyread_spec;
 
 my $get      = L_SU_global_constants->new();
 my $Project  = Project_config->new();

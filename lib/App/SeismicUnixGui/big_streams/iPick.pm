@@ -75,15 +75,19 @@ use Moose;
 my $VERSION = '0.0.1';
 use aliased 'App::SeismicUnixGui::misc::L_SU_global_constants';
 use aliased 'App::SeismicUnixGui::configs::big_streams::Project_config';
+
 use App::SeismicUnixGui::misc::control '0.0.3';
 use aliased 'App::SeismicUnixGui::misc::control';
+
 use aliased 'App::SeismicUnixGui::misc::message';
 use aliased 'App::SeismicUnixGui::sunix::shell::cp';
 use aliased 'App::SeismicUnixGui::misc::flow';
-use aliased 'App::SeismicUnixGui::specs::big_streams::iPick_spec';
+
 use aliased 'App::SeismicUnixGui::big_streams::iPicks2par';
 use aliased 'App::SeismicUnixGui::big_streams::iPicks2sort';
 use aliased 'App::SeismicUnixGui::big_streams::iSave_picks';
+
+use aliased 'App::SeismicUnixGui::specs::big_streams::iPick_specB';
 use aliased 'App::SeismicUnixGui::big_streams::iShowNselect_picks';
 use aliased 'App::SeismicUnixGui::big_streams::iSelect_xt';
 
@@ -91,7 +95,7 @@ use aliased 'App::SeismicUnixGui::misc::manage_files_by2';
 use aliased 'App::SeismicUnixGui::misc::old_data';
 
 use aliased 'App::SeismicUnixGui::messages::SuMessages';
-use App::SeismicUnixGui::misc::SeismicUnix qw($on $off $in $to $go $ipicks_par_;
+use App::SeismicUnixGui::misc::SeismicUnix qw($on $off $in $to $go $ipicks_par_
 	$ipick_check_pickfile_ $false $true
 	$itemp_picks_ $itemp_picks_sorted_);
 
@@ -112,7 +116,7 @@ my $cp                 = cp->new();
 my $test               = manage_files_by2->new();
 my $log                = message->new();
 my $run                = flow->new();
-my $iPick_spec         = iPick_spec->new();
+my $iPick_specB        = iPick_specB->new();
 my $iShowNselect_picks = iShowNselect_picks->new();
 my $iSelect_xt         = iSelect_xt->new();
 my $iPicks2par         = iPicks2par->new();
@@ -122,7 +126,7 @@ my $iSave_picks        = iSave_picks->new();
 my $SuMessages         = SuMessages->new();
 my $get                = L_SU_global_constants->new();
 
-my $variables       = $iPick_spec->variables();
+my $variables       = $iPick_specB->variables();
 my $DATA_DIR_IN     = $variables->{_DATA_DIR_IN};
 my $DATA_DIR_OUT    = $variables->{_DATA_DIR_OUT};
 my $data_suffix_in  = $variables->{_data_suffix_in};
@@ -447,13 +451,13 @@ sub get4data_type {
 
 }
 
-=head2 sub iPicks2par
+=head2 sub iPicks_par
 Convert format of pick files for use later
  into "par" format 
  
 =cut
 
-sub iPicks2par {
+sub iPicks_par {
 
 	my ($self) = @_;
 	my $ans;
@@ -464,8 +468,8 @@ sub iPicks2par {
 		$iPick->{_inbound} = $DATA_DIR_IN . '/' . $iPick->{_file_in} . $data_suffix_in;
 		$ans = $test->does_file_exist( \$iPick->{_inbound} );
 
-		# print("iPick, iPicks2par, Does file exist? $ans \n");
-		# print("iPick, iPicks2par, file: $iPick->{_inbound}\n");
+		# print("iPick, iPicks_par, Does file exist? $ans \n");
+		# print("iPick, iPicks_par, file: $iPick->{_inbound}\n");
 	}
 
 	if ($ans) {
@@ -474,20 +478,20 @@ sub iPicks2par {
 		$iPicks2par->calc();
 
 	} else {
-		print("iPick, iPicks2par, file does not exist\n");
+		print("iPick, iPicks_par, file does not exist\n");
 	}
 
 	return ();
 }
 
-=head2 sub iPicks2sort
+=head2 sub iPicks_sort
 
  convert format of pick files for use later
  into "par" format 
  
 =cut
 
-sub iPicks2sort {
+sub iPicks_sort {
 
 	my ($self) = @_;
 	my $ans;
@@ -495,10 +499,10 @@ sub iPicks2sort {
 	if ( defined $iPick->{_file_in}
 		&& $iPick->{_file_in} ne $empty_string ) {
 
-		# print("iPick, iPicks2sort, file :$iPick->{_file_in}\n");
+		# print("iPick, iPicks_sort, file :$iPick->{_file_in}\n");
 		$iPick->{_inbound} = $DATA_DIR_OUT . '/' . $itemp_picks_ . $iPick->{_file_in};
 
-		# print("iPick, iPicks2sort, file :$iPick->{_inbound}\n");
+		# print("iPick, iPicks_sort, file :$iPick->{_inbound}\n");
 		$ans = $test->does_file_exist( \$iPick->{_inbound} );
 	}
 
@@ -506,29 +510,29 @@ sub iPicks2sort {
 
 		if ( $iPick->{_number_of_tries} > 0 ) {
 
-			# print("iPick,iPicks2sort,file, file_in: $iPick->{_file_in}\n");
+			# print("iPick,iPicks_sort,file, file_in: $iPick->{_file_in}\n");
 			$iPicks2sort->file_in( $iPick->{_file_in} );
 			$iPicks2sort->calc();
 
 		} else {
 
-			# print("iPick,iPicks2sort,NADA\n");
+			# print("iPick,iPicks_sort,NADA\n");
 		}
 
 	} else {
-		print("iPick, iPicks2sort, file does not exist\n");
+		print("iPick, iPicks_sort, file does not exist\n");
 	}
 
 	return ();
 }
 
-=head2 sub iSave_picks
+=head2 sub iPicks_save
 
  save pick files for later use
  
 =cut
 
-sub iSave_picks {
+sub iPicks_save {
 	my ($self) = @_;
 	$iSave_picks->gather_num( $iPick->{_gather_num} );
 	$iSave_picks->gather_header( $iPick->{_gather_header} );
@@ -539,14 +543,14 @@ sub iSave_picks {
 	return ();
 }
 
-=head2 sub  iSelect_xt
+=head2 sub  iPicks_select_xt
 
  Select point co-ordinates from traces
  provide file name
  
 =cut
 
-sub iSelect_xt {
+sub iPicks_select_xt {
 
 	my ($self) = @_;
 
@@ -556,7 +560,7 @@ sub iSelect_xt {
 		$iPick->{_inbound} = $DATA_DIR_IN . '/' . $iPick->{_file_in} . $data_suffix_in;
 		my $ans = $test->does_file_exist( \$iPick->{_inbound} );
 
-		# print("iPick,iSelect_xt, file: $iPick->{_file_in} exists?:$ans\n");
+		# print("iPick,iPicks_select_xt, file: $iPick->{_file_in} exists?:$ans\n");
 
 		if ($ans) {
 
@@ -564,14 +568,14 @@ sub iSelect_xt {
 			# later use in ShowNselect
 			if ( $iPick->{_number_of_tries} >= 2 ) {
 
-				&iPicks2sort();
+				&iPicks_sort();
 
 				# will not wait for sunix programs to stop so must be done here
 				# and at the start of picking
 
 			} else {
 
-				# print("iPick, iSelect_xt, NADA\n");
+				# print("iPick, iPicks_select_xt, NADA\n");
 			}
 
 			$iSelect_xt->gather_type( $iPick->{_gather_type} );
@@ -589,14 +593,14 @@ sub iSelect_xt {
 			$iSelect_xt->calcNdisplay();
 
 		} else {
-			print("iPick,iSelect_xt, file does not exist. ans=$ans\n");
+			print("iPick,iPicks_select_xt, file does not exist. ans=$ans\n");
 		}
 
 	}
 
 }
 
-=head2 sub  iShowNselect_picks
+=head2 sub  iPicks_shownNselect
 
 	Update a possible previous pick and save to a new file name for	
 	later use in ShowNselect
@@ -604,7 +608,7 @@ sub iSelect_xt {
  
 =cut
 
-sub iShowNselect_picks {
+sub iPicks_shownNselect {
 	my (@self) = @_;
 
 	&_icp_sorted2temp_picks;
@@ -664,13 +668,13 @@ sub max_x1 {
 	}
 }
 
-=head2 sub  message
+=head2 sub  iPicks_message
 
   instructions 
 
 =cut
 
-sub message {
+sub iPicks_message {
 
 	my ( $self, $message ) = @_;
 
@@ -680,7 +684,7 @@ sub message {
 		# print("message is $iPick->{_message}\n\n");
 
 	} else {
-		print("iPick,message, unexpected message\n");
+		print("iPick,iPicks_message, unexpected message\n");
 	}
 }
 

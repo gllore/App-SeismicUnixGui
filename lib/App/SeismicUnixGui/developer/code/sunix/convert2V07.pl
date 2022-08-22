@@ -67,6 +67,7 @@ my @file4gen;
 
 my $line2find_use = '\s*use\s';
 my $line2find_new = '\s=\snew\s';
+my $line2find_App = 'use\ App::';
 
 my $ans = 'n';
 
@@ -78,12 +79,12 @@ print("You entered $file_name. Correct? y/n\n");
 $ans = <>;
 chomp $ans;
 
-while ( ($ans eq 'N') or ($ans eq 'n') ) {
+while ( ( $ans eq 'N' ) or ( $ans eq 'n' ) ) {
 
 	print("Enter file name again\n");
 	$file_name = <>;
 	chomp $file_name;
-	
+
 	print("You entered $file_name. Correct? y/n\n");
 	$ans = <>;
 	chomp $ans;
@@ -106,7 +107,12 @@ my $convert2V07 = {
 
 };
 
-=head2 
+=head2 CASE # 1A 1B
+
+when only use module;
+ is present
+ 
+ use SeismicUnix qw ()
 
 =cut
 
@@ -137,52 +143,118 @@ for ( my $j = 0 ; $j < $length_of_slurp ; $j++ ) {
 
 			$module_name = $temp_string[2];
 
-	   		print("convert2V07,module name within $module_name...\n");
+			print(
+				"Cases 1A or 1B for:use, convert2V07, module name with $module_name...\n"
+			);
 
 			if (    $module_name ne 'Moose'
 				and $module_name ne 'SeismicUnix'
+				and $module_name ne 'aliased'
 				and length $module_name
 				and $module_name ne ''
 				and $module_name ne 'null' )
 			{
 
-				# When bad module names are avoided
+				# CASE 1B looking for use model
 				print("line to substitute=$slurp[$j]\n");
-				
+
 				my $L_SU_global_constants = L_SU_global_constants->new();
 				my $var                   = $L_SU_global_constants->var();
 				my $separation            = $var->{_SeismicUnixGui};
 
 				my $module_name_pm = $module_name . '.pm';
 
-				print("module name_pm=$module_name_pm\n");
+				# print("module name_pm=$module_name_pm\n");
 
 				$L_SU_global_constants->set_file_name($module_name_pm);
 				my $path = $L_SU_global_constants->get_path4convert_file();
-				print 'path='.$path."\n";
 
 				if ( length $path ) {
 
 					my $pathNmodule_pm = $path . '/' . $module_name_pm;
 					my @next_string    = split( $separation, $pathNmodule_pm );
 
-#					print ("convert2V07, 'b4:' . $next_string[0]\n");
-#					print ("'After:' . $next_string[1]\n");
-#					print ("$next_string[2]\n");
+					print ("Case 1A: convert2V07, 'b4:' . $next_string[0]\n");
+					print ("'After:' . $next_string[1]\n");
+					print ("segment3: $next_string[2]\n");
 
 					# substitute "/" with ":"
 					$next_string[2] =~ s/(\/)+/::/g;
 					$next_string[2] =~ s/.pm//g;
-					$next_string[2] = "\t".'use aliased \'App::'.$var->{_SeismicUnixGui} . $next_string[2].'\';';
+					$next_string[2] = "\t"
+					  . 'use aliased \'App::'
+					  . $var->{_SeismicUnixGui}
+					  . $next_string[2] . '\';';
 
 					#	warn 'After...' . $next_string[1];
 					$raw_string = $next_string[2];
 					$slurp[$j] = $raw_string;
 
 					print("substituted line=$slurp[$j]\n");
+
 				}
 				else {
 					warn 'Warning: variable missing';
+					print 'path=' . $path . "\n";
+					print("module name_pm=$module_name_pm\n\n");
+				}
+			}
+			elsif (
+				$module_name eq 'SeismicUnix'
+				and $module_name ne 'Moose'
+				and length $module_name
+				and $module_name ne ''
+				and $module_name ne 'null'
+			  )
+			{
+				# CASE 1B looking for use SeismicUnix qw ( ...)
+				# When bad module names are avoided
+				print("line to substitute=$slurp[$j]\n");
+				my $separation_qw = 'qw';
+				my @for_variables_only    = split( $separation_qw, $slurp[$j] );
+				print ("Case 1B, convert2V07,for_variables_only 'b4:'$for_variables_only[0]\n");
+				print ("Case 1B, convert2V07,for_variables_only 'After4:'$for_variables_only[1]\n");
+								
+				my $L_SU_global_constants = L_SU_global_constants->new();
+				my $var                   = $L_SU_global_constants->var();
+				my $separation            = $var->{_SeismicUnixGui};
+
+				my $module_name_pm = $module_name . '.pm';
+				# print("module name_pm=$module_name_pm\n");
+
+				$L_SU_global_constants->set_file_name($module_name_pm);
+				my $slash_path = $L_SU_global_constants->get_path4convert_file();
+
+				if ( length $slash_path ) {
+
+					my $slash_pathNmodule_pm = $slash_path . '/' . $module_name_pm;
+					my @next_string    = split( $separation, $slash_pathNmodule_pm );
+
+					print ("Case 1B, convert2V07, 'b4:' . $next_string[0]\n");
+					print ("'After:' . $next_string[1]\n");
+					print ("next_string[3]: $next_string[2]\n");
+
+					# substitute "/" with ":"
+					$next_string[2] =~ s/(\/)+/::/g;
+					$next_string[2] =~ s/.pm//g;
+					$next_string[2] = "\t"
+					  . 'use App::'
+					  . $var->{_SeismicUnixGui}
+					  . $next_string[2] 
+					  . ' qw'
+					  . $for_variables_only[1];
+
+					warn 'After...' . $next_string[1];
+					$raw_string = $next_string[2];
+					$slurp[$j] = $raw_string;
+
+					print("substituted line=$slurp[$j]\n");
+
+				}
+				else {
+					warn 'Warning: variable missing';
+					print 'slash_path=' . $slash_path . "\n";
+					print("module name_pm=$module_name_pm\n\n");
 				}
 
 			}
@@ -219,12 +291,16 @@ for ( my $j = 0 ; $j < $length_of_slurp ; $j++ ) {
 
 }    # for each line in a slurped file
 
-# write out the corrected or uncorrected file
+=head2 Write out 
+
+the corrected or uncorrected file
+
+=cut
 
 my $outbound = $file_name;
 
-print("writing to $outbound\n");
-print("number of lines in output file = $length_of_slurp\n");
+print("Case 1 for use only, writing to $outbound\n");
+print("Case 1 number of lines in output file = $length_of_slurp\n");
 
 if ( $length_of_slurp == 0 ) {
 
@@ -235,23 +311,27 @@ if ( $length_of_slurp == 0 ) {
 }
 elsif ( $length_of_slurp > 0 ) {
 
-		print "Press Writing a new file with a changed line";
-	    <STDIN>;
+	print "Press Writing a new file with a changed line";
+	<STDIN>;
 
 	open( OUT, ">$outbound" )
 	  or die("File $file_name not found");
 
 	# add \n!!!!
 	for ( my $i = 0 ; $i < $length_of_slurp ; $i++ ) {
-	
 
 		printf OUT $slurp[$i] . "\n";
+#		print $slurp[$i] . "\n";		
 	}
 
 	close(OUT);
 }
 
-# re-arrange new
+=head2 CASE #2
+
+re-arrange new
+
+=cut
 
 $manage_files_by2->set_file_in($file_name);
 $manage_files_by2->set_directory('./');
@@ -270,13 +350,91 @@ for ( my $j = 0 ; $j < $length_of_slurp ; $j++ ) {
 
 		my $module_name;
 		my $string = $raw_string;
-		print ("B4:$raw_string\n");
+		print("Case 2, B4:$raw_string\n");
 		$string =~ s/\(\);//;
 		@temp_string = split( new, $string );
-		
-#		my $line = $j + 1;
-		my $new_line = $temp_string[0].$temp_string[1].'->new();';
-		print ("After:$new_line\n");
+
+		#		my $line = $j + 1;
+		my $new_line = $temp_string[0] . $temp_string[1] . '->new();';
+		print("After:$new_line\n");
+		$slurp[$j] = $new_line;
+
+	}
+	else {    # for each line containing "new"
+
+
+		print print("convert2V07, skip line\n");
+	}
+
+}    # for each line in a slurped file
+
+# write out the corrected or uncorrected file
+
+$outbound = $file_name;
+
+print("writing to $outbound\n");
+print("number of lines in output file = $length_of_slurp\n");
+
+if ( $length_of_slurp == 0 ) {
+
+	print("convert2V07, unexpected empty file\n");
+	print("Hit Enter to continue\n");
+	<STDIN>;
+
+}
+elsif ( $length_of_slurp > 0 ) {
+
+	print "Press Writing a new file with a changed line\n";
+
+	#	    <STDIN>;
+
+	open( OUT, ">$outbound" )
+	  or die("File $file_name not found");
+
+	# add \n!!!!
+	for ( my $i = 0 ; $i < $length_of_slurp ; $i++ ) {
+
+		printf OUT $slurp[$i] . "\n";
+	}
+
+	close(OUT);
+}
+
+=head3 CASE#3
+
+convert use App:: to
+use aliased 'App::
+
+except for the case of SeismicUnix
+
+=cut
+
+$manage_files_by2->set_file_in($file_name);
+$manage_files_by2->set_directory('./');
+$slurp_ref = manage_files_by2->get_whole($file_name);
+
+@slurp           = @$slurp_ref;
+$length_of_slurp = scalar @slurp;
+
+for ( my $j = 0 ; $j < $length_of_slurp ; $j++ ) {
+
+	my $raw_string = $slurp[$j];
+	chomp $raw_string;    # remove all newlines
+	my @temp_string;
+
+	if (    $raw_string =~ m/$line2find_App/
+		and $raw_string !~ m/SeismicUnix\ qw/ )
+	{
+
+		my $module_name;
+		my $string = $raw_string;
+		print("Case3, B4:$raw_string\n");
+		$string =~ s/use\ App/use\ aliased\ 'App/;
+		$string =~ s/;/';/;
+
+		#		my $line = $j + 1;
+		my $new_line = $string;
+		print("After:$new_line\n\n");
 		$slurp[$j] = $new_line;
 
 	}
@@ -302,15 +460,16 @@ if ( $length_of_slurp == 0 ) {
 }
 elsif ( $length_of_slurp > 0 ) {
 
-		print "Press Writing a new file with a changed line";
-#	    <STDIN>;
+	print "Press Writing a new file with a changed line";
+
+	#	    <STDIN>;
 
 	open( OUT, ">$outbound" )
 	  or die("File $file_name not found");
 
 	# add \n!!!!
 	for ( my $i = 0 ; $i < $length_of_slurp ; $i++ ) {
-	
+
 		printf OUT $slurp[$i] . "\n";
 	}
 

@@ -114,8 +114,8 @@ sub out_1_col {
             print OUT ("$$ref_X[$j]\n");
 
             # printf OUT "$$ref_fmt\n", $$ref_X[$j];
-            print("$$ref_X[$j]\n");
-
+#            print("$$ref_X[$j]\n");
+#
         }
 
         # close the file of interest
@@ -146,7 +146,7 @@ sub config_LSU {
     #foreach (@$array_ref) {
     #  print "$_\n";
     ##}
-    print("$self\n");
+    print("$self writefiles,config_LSU\n");
 
     return ();
 }

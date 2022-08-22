@@ -18,6 +18,7 @@ our $VERSION = '0.0.2';
 =cut
 
 my $oop_instantiation_defaults = { _prog_names_aref => '', };
+use aliased 'App::SeismicUnixGui::misc::manage_files_by2';
 
 sub section {
     my ($self) = @_;
@@ -37,8 +38,6 @@ sub _get_instantiation {
     my ($self) = @_;
 
     if ( $oop_instantiation_defaults->{_prog_names_aref} ) {
-
-        use App::SeismicUnixGui::misc::manage_files_by2;
 
         my @unique_progs;
         my $unique_progs_ref;
@@ -70,8 +69,8 @@ sub _get_instantiation {
                 "\t" . 'my $'
               . $unique_progs[$i]
               . "\t\t\t\t"
-              . '= new '
-              . $unique_progs[$i] . '();';
+              .'= '
+              . $unique_progs[$i] . '->new();';
 
             # print 	$oop_instantiation_defaults[$j];
             $j++;

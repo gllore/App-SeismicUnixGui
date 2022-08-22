@@ -1228,7 +1228,6 @@ sub redisplay_values {
 	# print("param_widgets, redisplay_values, length is $length\n");
 	if (    length($values_w_aref)
 		and length($values_aref) ) {
-#		use aliased 'App::SeismicUnixGui::misc::control';# '0.0.3';
 
 		for ( my $i = $first; $i < $length; $i++ ) {
 

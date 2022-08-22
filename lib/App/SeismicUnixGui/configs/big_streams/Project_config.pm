@@ -33,9 +33,8 @@ use Moose;
 our $VERSION = '1.0.2';
 
 use aliased 'App::SeismicUnixGui::misc::manage_dirs_by';
-#use App::SeismicUnixGui::misc::control '0.0.3';
+use App::SeismicUnixGui::misc::control '0.0.3';
 use aliased 'App::SeismicUnixGui::misc::control';
-
 use aliased 'App::SeismicUnixGui::misc::readfiles';
 use aliased 'App::SeismicUnixGui::misc::L_SU_global_constants';
 use aliased 'App::SeismicUnixGui::misc::dirs';
@@ -75,7 +74,7 @@ my $Project = {
 	_process                      => '',
 	_PROJECT_HOME                 => '',
 	_subUser                      => '',
-	_ANTELOPE                     => '',
+#	_ANTELOPE                     => '',
 	_DATA_GEOMAPS                 => '',
 	_DATA_GEOMAPS_BIN             => '',
 	_DATA_GEOMAPS_TEXT            => '',
@@ -285,9 +284,8 @@ sub _basic_dirs {
 		# copy a default Project configuration file from
 		# the GLOBAL_LIBS directory defined in
 		# L_SU_global_constants.pm
-		print("Project_config, _basic_dirs, no configuration files exist\n");
+#		print("Project_config, _basic_dirs, no configuration files exist\n");
 
-		use App::SeismicUnixGui::misc::manage_dirs_by;
 		use File::Copy;
 		my $ACTIVE_PROJECT = _get_ACTIVE_PROJECT();
 
@@ -300,9 +298,9 @@ sub _basic_dirs {
 		# make the default configuration directory for the user
 		$manage_dirs_by->make_dir($ACTIVE_PROJECT);
 		copy( $default_Project_config, $PATH_N_file );
-		print(
-"Project_config, _basic_dirs, Project.config in ~user/.L_SU/configuration/active dir. created\n"
-		);
+#		print(
+#"Project_config, _basic_dirs, Project.config in ~user/.L_SU/configuration/active dir. created\n"
+#		);
 
 	}
 
@@ -359,7 +357,7 @@ sub basic_dirs {
 	# Find out HOME directory and configuration path for user
 	my $ACTIVE_PROJECT = _get_ACTIVE_PROJECT();
 
-	# print(" Project_config, _basic_dirs, ACTIVE_PROJECT: $ACTIVE_PROJECT\n");
+#	print(" Project_config, _basic_dirs, ACTIVE_PROJECT: $ACTIVE_PROJECT\n");
 
 	my $prog_name        = '';
 	my $prog_name_new    = 'Project';
@@ -370,14 +368,14 @@ sub basic_dirs {
 	if ( -e $prog_name_old . '.config' ) {
 
 		$prog_name = $prog_name_old;
-		print("Project_config,basic_dirs,using local $prog_name.config\n");
+#		print("Project_config,basic_dirs,using local $prog_name.config\n");
 		$prog_name_config = $prog_name_old . '.config';
 
 		my ( $ref_DIR_FUNCTION, $ref_DIR ) =
 		  $read->configs( ( $prog_name . '.config' ) );
 		$Project->{_ref_DIR} = $ref_DIR;
 
-	 # print(" 1. Project_config,basic_dirs,ref_DIR:@{$Project->{_ref_DIR}}\n");
+#	 print(" 1. Project_config,basic_dirs,ref_DIR:@{$Project->{_ref_DIR}}\n");
 		$Project->{_ref_DIR_FUNCTION} = $ref_DIR_FUNCTION;
 		_change_basic_dirs();
 
@@ -400,12 +398,12 @@ sub basic_dirs {
 
 		$prog_name = $prog_name_new;
 
- # print("Project_config,basic_dirs,using $ACTIVE_PROJECT/$prog_name.config\n");
+#        print("Project_config,basic_dirs,using $ACTIVE_PROJECT/$prog_name.config\n");
 		my ( $ref_DIR_FUNCTION, $ref_DIR ) = $read->configs(
 			( $ACTIVE_PROJECT . '/' . $prog_name_new . '.config' ) );
 		$Project->{_ref_DIR} = $ref_DIR;
 
-	 # print(" 2. Project_config,basic_dirs,ref_DIR:@{$Project->{_ref_DIR}}\n");
+#	 print(" L406 2.Project_config,basic_dirs,ref_DIR:@{$Project->{_ref_DIR}}\n");
 		$Project->{_ref_DIR_FUNCTION} = $ref_DIR_FUNCTION;
 		_change_basic_dirs();
 
@@ -425,8 +423,6 @@ sub basic_dirs {
 
 sub _change_basic_dirs {
 	my ($self) = @_;
-#	use App::SeismicUnixGui::misc::control '0.0.3';
-#use aliased 'App::SeismicUnixGui::misc::control';
 	my $control = control->new();
 
 	my @CFG;
@@ -438,8 +434,9 @@ sub _change_basic_dirs {
 	my ( $immodpg_logic, $r_logic,      $sqlite_logic, );
 
 # TODO my ()$matlab,$fast,$immodpg,gmt);
-# print(" 5. Project_config,_change_basic_dirs,ref_DIR:@{$Project->{_ref_DIR}}\n");
+
 	my $length = scalar @{ $Project->{_ref_DIR} };
+#print(" 5. Project_config,_change_basic_dirs,ref_DIR:@{$Project->{_ref_DIR}}\n");
 
 	for ( my $i = 0, my $j = 0 ; $i < $length ; $i++, $j = $j + 2 ) {
 
@@ -571,7 +568,7 @@ sub _system_dirs {
   # print(" Project_config, _system_dirs, Before PROJECT_HOME $PROJECT_HOME\n");
 	$PROJECT_HOME =~ s/\'//g;
 
-  #  print(" Project_config, _system_dirs, After PROJECT_HOME $PROJECT_HOME\n");
+#  print(" Project_config, _system_dirs, After PROJECT_HOME $PROJECT_HOME\n");
   # print(" Project_config, _system_dirs, Before subUser: $subUser \n");
 
 	if ($subUser) {
@@ -617,7 +614,7 @@ sub _system_dirs {
 	my $SQLITE_SEISMIC = $SEISMIC . '/sqlite';
 
 	# SOFTWARE ANTELOPE
-	my $ANTELOPE = $SEISMIC . '/antelope';
+#	my $ANTELOPE = $SEISMIC . '/antelope';
 
 	# DATABASES
 	my $DATABASE_SEISMIC_SQLITE =
@@ -1200,6 +1197,8 @@ sub _system_dirs {
 =cut
 
 sub system_dirs {
+	
+	my ($self) = @_;
 
 	my $HOME         = $Project->{_HOME};
 	my $date         = $Project->{_date};
@@ -2523,9 +2522,9 @@ sub PL_RESISTIVITY_SURFACE {
 	#	my $PL_RESISTIVITY_SURFACE = $control->get_ticksBgone;
 
 	# This subroutine returns the value of PL_RESISTIVITY_SURFACE
-	print(
-"\nProject_config, PL_RESISTIVITY_SURFACE,PL_RESISTIVITY_SURFACE: $PL_RESISTIVITY_SURFACE\n"
-	);
+#	print(
+#"\nProject_config, PL_RESISTIVITY_SURFACE,PL_RESISTIVITY_SURFACE: $PL_RESISTIVITY_SURFACE\n"
+#	);
 	return ($PL_RESISTIVITY_SURFACE);
 }
 
@@ -2706,7 +2705,8 @@ sub make_local_dirs {
 
 	# Always create basic types
 	my $PROJECT_HOME = $Project->{_PROJECT_HOME};
-
+#    print("Project_config, make_local_dirs\n");
+#    print("Project_config, PROJECT_HOME=$PROJECT_HOME\n");
 	$manage_dirs_by->make_dir($PROJECT_HOME);
 
 	# BY data type
@@ -3105,10 +3105,6 @@ sub update_configuration_files {
 	my $HOME = $home_directory;
 
 	use File::Copy;
-#	use App::SeismicUnixGui::misc::control '0.0.3';
-#use aliased 'App::SeismicUnixGui::misc::control';
-#	use App::SeismicUnixGui::misc::dirs;
-#	use App::SeismicUnixGui::misc::readfiles;
 
 	my $ACTIVE_CONFIGURATION = $HOME . '/.L_SU/configuration/active';
 	my $inbound              = $ACTIVE_CONFIGURATION . '/Project.config';

@@ -38,11 +38,10 @@ use Tk;
 
 use aliased 'App::SeismicUnixGui::misc::param_widgets';
 use aliased 'App::SeismicUnixGui::misc::L_SU_local_user_constants';
+use aliased 'App::SeismicUnixGui::misc::L_SU_global_constants';
 use aliased 'App::SeismicUnixGui::messages::message_director';
 use aliased 'App::SeismicUnixGui::misc::config_superflows';
-use aliased 'App::SeismicUnixGui::misc::L_SU_global_constants';
 use aliased 'App::SeismicUnixGui::misc::manage_dirs_by';
-use aliased 'App::SeismicUnixGui::misc::config_superflows';
 	
 my $param_widgets = param_widgets->new();
 my $false         = 0;
@@ -77,7 +76,7 @@ my $project_selector = {
 sub _continue {
 	my ($self) = @_;
 
-	#	print("project_selector, _continue\n");
+#	print("project_selector, _continue\n");
 	my $mw = $project_selector->{_mw};
 	$mw->destroy() if Tk::Exists($mw);
 	exit(1);
@@ -288,13 +287,13 @@ sub _ok {
 	my $message_director = message_director->new();
 	my $message_box_w    = _get_message_box_w();
 	my $global_libs      = $get->global_libs();
-	my $run_name         = $get->var->{_project_selector_title};
+	my $run_name         = $get->var->{_project_selector};
 
 	# 1. CASES when an existing project is selected
 	if ( $project_selector->{_active_project} ) {
 
 		# extra security
-		# print("project_select,_ok, active project already exists-Good\n");
+#		print("project_select,_ok, active project already exists-Good\n");
 
 		my $param_widgets_pkg = $project_selector->{_param_widgets_pkg};
 		my $length_check_buttons_on =
@@ -324,7 +323,7 @@ sub _ok {
 			if ( $length == 0 ) {
 
    # i.e. no project names exist is confirmed
-   #				print("CASE 1.B :project_selector,_ok, length_project names $length\n");
+#   print("CASE 1.B :project_selector,_ok, length_project names $length\n");
 
 				$message_box_w->delete( "1.0", 'end' );
 				my $message = $message_director->project_selector(2)
@@ -344,12 +343,12 @@ sub _ok {
 			my $active_indices_aref =
 			  $param_widgets_pkg->get_index_check_buttons_on();
 
-		 # print(" project_selector,_ok,active_index: @$active_indices_aref\n");
+#		 # print(" project_selector,_ok,active_index: @$active_indices_aref\n");
 
 			my @active_indices = @$active_indices_aref;
 			my $active_index   = $active_indices[0];
 
-			# print(" project_selector,_ok,active_index: $active_index\n");
+#			print(" project_selector,_ok,active_index: $active_index\n");
 			# print(" project_selector,_ok,message widget: $message_box_w\n");
 
 			# get the label of the active index
@@ -368,12 +367,13 @@ sub _ok {
 			copy( $from, $to );
 
 	# Instruction to create the new directories runs in system
-	#			print("project_selector,_ok,create new Project and its directories \n");
+#print("project_selector,_ok,create new Project and its directories \n");
+print("project_selector,_ok,copy FROM:$from TO:$to \n");
 
-#		     print("project_selector,_ok, sh $global_libs->{_superflows}$run_name \n");
+		    print("project_selector,_ok, sh $global_libs->{_superflows}$run_name \n");
 			system("sh $global_libs->{_superflows}$run_name");
 
-# print("project_selector,_ok,copying new active project configuration file \n FROM:$from TO:$to");
+#      print("project_selector,_ok,copying new active project configuration file \n FROM:$from TO:$to");
 # kill LSU_project_selector exit with 1
 			_continue();
 
@@ -434,7 +434,7 @@ sub _ok {
 		# file for the new project
 		if ( not $NEW_PROJECT_exists ) {
 			use File::Copy;
-			manage_dirs_by::make_dir($NEW_PROJECT);
+			manage_dirs_by->make_dir($NEW_PROJECT);
 
 # uipdate active project to lates changed Entry widget values in the project_selector GUI
 
@@ -684,13 +684,12 @@ continue
 sub ok {
 	my ( $self, $value ) = @_;
 
-	# print("project_selector,ok,value: $value\n");
+#	print("project_selector,ok,value: $value\n");
 
 	if ($value) {
-
+		
+#		print("project_selector,ok,value: $value\n");
 		_ok();
-
-		# print("project_selector,ok,value: $value\n");
 
 	}
 	else {

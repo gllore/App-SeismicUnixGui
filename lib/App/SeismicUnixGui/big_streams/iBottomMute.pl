@@ -162,7 +162,7 @@ if ($there_is_old_data) {
 if ( !$there_is_old_data ) {
 
     print("NEW PICKS\n");
-    $iBM->message('first_bottom_mute');
+    $iBM->iBM_message('first_bottom_mute');
     $iBM->number_of_tries($false);
     $iBM->gather_num($gather);
 
@@ -172,7 +172,7 @@ if ( !$there_is_old_data ) {
 
 =cut	
 
-    $iBM->iSelect_tr_Sumute_bottom();
+    $iBM->iBM_Select_tr_Sumute_bottom();
 
 =head2 Decide whether to 
 
@@ -284,10 +284,10 @@ sub set_pick {
 
 =cut
 
-    $iBM->message('pre_pick_mute');
+    $iBM->iBM_message('pre_pick_mute');
     $number_of_tries++;
     $iBM->number_of_tries($number_of_tries);
-    $iBM->iSelect_tr_Sumute_bottom();
+    $iBM->iBM_Select_tr_Sumute_bottom();
 }
 
 =head2 sub set_calc
@@ -315,8 +315,8 @@ sub set_calc {
     $xk->kill_this('suxwigb');
 
     $iBM->iPicks2par();
-    $iBM->iSave_bottom_mute_picks();
-    $iBM->iApply_bottom_mute();
+    $iBM->iBM_Save_bottom_mute_picks();
+    $iBM->iBM_iApply_bottom_mute();
     $number_of_tries++;
     $iBM->number_of_tries($number_of_tries);
 
@@ -327,7 +327,7 @@ sub set_calc {
 
 =cut
 
-    $iBM->message('post_pick_mute');
+    $iBM->iBM_message('post_pick_mute');
 }
 
 
@@ -392,8 +392,8 @@ sub set_next {
 =cut
 
     $iBM->gather_num($gather);
-    $iBM->message('first_bottom_mute');
-    $iBM->iSelect_tr_Sumute_bottom();
+    $iBM->iBM_message('first_bottom_mute');
+    $iBM->iBM_Select_tr_Sumute_bottom();
 
 }
 
@@ -422,7 +422,7 @@ sub set_exit {
 #			print ("Old top mute parameters MAY NOT exist\n\n") ;
 #			while ($response eq 'n') {
 #		  		print ("Select new top mute parameters \n\n") ;
-#		  		iBM->iSelect_tr_Sumute_bottom2");
+#		  		iBM->iBM_Select_tr_Sumute_bottom2");
 #				iBM->iBottomMutepicks2par2");
 #	               		iBM->itemp_Sumute_bottom2");
 #		  		print ("4. Are picks OK y/n or q-quit?\n");

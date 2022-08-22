@@ -31,11 +31,16 @@ package App::SeismicUnixGui::misc::manage_files_by2;
 
 use Moose;
 my $VERSION = '0.0.1';
+
+use aliased 'App::SeismicUnixGui::misc::L_SU_global_constants';
 use aliased 'App::SeismicUnixGui::sunix::shell::cat_su';
+use aliased 'App::SeismicUnixGui::sunix::shell::cat_txt';
 use aliased 'App::SeismicUnixGui::configs::big_streams::Project_config';
 use aliased 'App::SeismicUnixGui::misc::message';
 use aliased 'App::SeismicUnixGui::sunix::data::data_out';
 use aliased 'App::SeismicUnixGui::misc::flow';
+
+use Carp;
 
 =head2 define private hash
 to share
@@ -53,6 +58,7 @@ my $manage_files_by2 = {
 	_directory              => '',
 	_file_in                => '',
 	_pathNfile              => '',
+	_program_name           => '',
 	_suffix_type            => '',
 };
 
@@ -70,6 +76,7 @@ sub clear {
 	$manage_files_by2->{_directory}              = '';
 	$manage_files_by2->{_file_in}                = '';
 	$manage_files_by2->{_pathNfile}              = '';
+	$manage_files_by2->{_program_name}           = '';
 	$manage_files_by2->{_suffix_type}            = '';
 
 }
@@ -125,7 +132,8 @@ sub clean {
 		and length $manage_files_by2->{_suffix_type} )
 	{
 
-		use App::SeismicUnixGui::misc::SeismicUnix qw($gx $in $out $on $go $to $txt
+		use App::SeismicUnixGui::misc::SeismicUnix
+		  qw($gx $in $out $on $go $to $txt
 		  $suffix_ascii $off $offset $pick $profile $report
 		  $su $suffix_profile $sx $suffix_su $suffix_target
 		  $suffix_pick $suffix_report $suffix_target_tilde
@@ -508,7 +516,7 @@ sub does_file_exist {
 
 sub does_file_exist_sref {
 
-	my ($ref_file) = @_;
+	my ( $self, $ref_file ) = @_;
 
 	if ($ref_file) {
 
@@ -575,6 +583,79 @@ sub exists {
 	}
 
 }
+
+#=head2 sub get_pathNmodule_pm
+#
+#=cut
+#
+#sub get_pathNmodule_pm {
+#	my ($self) = @_;
+#
+#	if ( length $manage_files_by2->{_program_name} ) {
+#
+#		my $L_SU_global_constants = L_SU_global_constants->new();
+#
+#		my $program_name = $manage_files_by2->{_program_name};
+#		my $module_spec_pm = $program_name . '_spec.pm';
+#		
+#		$L_SU_global_constants->set_file_name($module_spec_pm);
+#		my $path4spec = $L_SU_global_constants->get_path4spec_file();
+#		
+#		my $pathNmodule_pm   = $path4spec . '/' . $module_spec_pm;
+#		# carp"pathNmodule_pm = $pathNmodule_pm";
+#		my $result = $pathNmodule_pm;
+#		return ($result);
+#
+#	}
+#	else {
+#		carp "missing prgram name";
+#		return ();
+#	}
+#
+#}
+#
+#=head2 sub get_pathNmodule_spec
+#
+#=cut
+#
+#sub get_pathNmodule_spec {
+#
+#	my ($self) = @_;
+#
+#	if ( length $manage_files_by2->{_program_name} ) {
+#
+#		my $L_SU_global_constants = L_SU_global_constants->new();
+#
+#		my $program_name = $manage_files_by2->{_program_name};
+#
+#		my $module_spec    = $program_name . '_spec';
+#		my $module_spec_pm = $program_name . '_spec.pm';
+#
+#		$L_SU_global_constants->set_file_name($module_spec_pm);
+#		my $path4spec = $L_SU_global_constants->get_path4spec_file();
+#		
+#		my $path4SeismicUnixGui =
+#		  $L_SU_global_constants->get_path4SeismicUnixGui;
+#
+#		my $pathNmodule_pm   = $path4spec . '/' . $module_spec_pm;
+#		my $pathNmodule_spec = $path4spec . '/' . $module_spec;
+#
+#		# carp"pathNmodule_pm = $pathNmodule_pm";
+#
+#		$pathNmodule_spec =~ s/$path4SeismicUnixGui//g;
+#		$pathNmodule_spec =~ s/\//::/g;
+#		my $new_pathNmodule_spec = 'App::SeismicUnixGui' . $pathNmodule_spec;
+#
+#		my $result = $new_pathNmodule_spec;
+#		return ($result);
+#
+#	}
+#	else {
+#		carp "missing program name";
+#		return ();
+#	}
+#
+#}
 
 =head2 sub set_pathNfile
 
@@ -1163,7 +1244,7 @@ Version:
 		  $suffix_segd $su $suffix_segy $suffix_sgy $suffix_su
 		  $suffix_segd $suffix_txt $suffix_bin);
 
-		my $Project           = Project_config->new ();
+		my $Project           = Project_config->new();
 		my $DATA_SEISMIC_BIN  = $Project->DATA_SEISMIC_BIN;
 		my $DATA_SEISMIC_SEGY = $Project->DATA_SEISMIC_SEGY;
 		my $DATA_SEISMIC_SU   = $Project->DATA_SEISMIC_SU;
@@ -1305,8 +1386,6 @@ Version:
 		my $DATA_SEISMIC_SU   = $Project->DATA_SEISMIC_SU;
 		my $DATA_SEISMIC_TXT  = $Project->DATA_SEISMIC_TXT;
 
-		use aliased 'App::SeismicUnixGui::sunix::shell::cat_txt';
-
 		my $log      = message->new();
 		my $run      = flow->new();
 		my $cat_txt  = cat_txt->new();
@@ -1415,6 +1494,26 @@ sub set_delete_base_file_name {
 	return ($result);
 
 }
+
+#=head2 sub set_porgram_name
+#
+#=cut
+#
+#sub set_program_name {
+#
+#	my ( $self, $program_name ) = @_;
+#
+#	if ( length $program_name ) {
+#
+#		$manage_files_by2->{_program_name} = $program_name;
+#
+#	}
+#	else {
+#		carp "missing program_name";
+#		print("manage_files_by2,set_program_name,missing program_name\n");
+#	}
+#
+#}
 
 =head2 sub suffix_type
 
@@ -1698,6 +1797,7 @@ sub write_multipar {
 	print $fh ("\n");
 
 	print $fh ("second_name=$vnmo_array[1]");
+
 
 	for ( my $i = 2 ; $i < $number_of_values_per_row ; $i++ ) {
 

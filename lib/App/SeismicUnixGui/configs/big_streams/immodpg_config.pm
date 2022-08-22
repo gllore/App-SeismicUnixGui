@@ -52,22 +52,26 @@ use aliased 'App::SeismicUnixGui::misc::L_SU_global_constants';
 use aliased 'App::SeismicUnixGui::configs::big_streams::Project_config';
 use App::SeismicUnixGui::misc::SeismicUnix qw($in $out $on $go $to $suffix_ascii $off $suffix_su);
 use aliased 'App::SeismicUnixGui::misc::config_superflows';
+
 use App::SeismicUnixGui::misc::control '0.0.3';
 use aliased 'App::SeismicUnixGui::misc::control';
-use aliased 'App::SeismicUnixGui::specs::big_streams::immodpg_spec';
+
 use aliased 'App::SeismicUnixGui::big_streams::immodpg_global_constants';
 use aliased 'App::SeismicUnixGui::misc::manage_files_by2';
 
+use aliased 'App::SeismicUnixGui::misc::files_LSU';
+
 my $Project                = Project_config->new();
 my $control                = control->new();
-my $DATA_SEISMIC_SU        = $Project->DATA_SEISMIC_SU();
-my $config_superflows      = new config_superflows;
+my $config_superflows      = config_superflows->new();
 my $get                    = L_SU_global_constants->new();
-my $immodpg_spec           = immodpg_spec->new();
 my $manage_files_by2       = manage_files_by2->new();
+my $immodpg_global_constants = immodpg_global_constants->new();
+
+my $DATA_SEISMIC_SU        = $Project->DATA_SEISMIC_SU();
+my $IMMODPG                = $Project->IMMODPG();
 my $superflow_config_names = $get->superflow_config_names_aref();
-my $var                    = ( immodpg_global_constants->new() )->var();
-my $variables              = $immodpg_spec->variables();
+my $var                    = $immodpg_global_constants->var();
 
 my $GLOBAL_CONFIG_LIB = ( $get->global_libs )->{_configs_big_streams};
 
@@ -90,7 +94,7 @@ my $immodpg_config = {
 
 my $program_name   = 'immodpg';
 my $config_file    = $program_name . '.config';
-my $inbound_config = $variables->{_CONFIG} . '/' . $config_file;
+my $inbound_config = $IMMODPG . '/' . $config_file;
 
 # my $outbound_config             		=  . '/' . $config_file;
 $immodpg_config->{_model_file_text}   = $var->{_immodpg_model_file_text};
@@ -113,7 +117,6 @@ if ( $manage_files_by2->does_file_exist( \$inbound_config ) ) {
 } elsif ( not $manage_files_by2->does_file_exist( \$inbound_config ) ) {
 
 	# print("immodpg_config, missing immodpg config file\n");
-	use App::SeismicUnixGui::misc::files_LSU;;
 	my $files_LSU = files_LSU->new();
 
 	$files_LSU->set_config();
@@ -214,14 +217,12 @@ sub get_values {
 
 	my ($self) = @_;
 
-	use App::SeismicUnixGui::misc::control '0.0.3';
-use aliased 'App::SeismicUnixGui::misc::control';
 	my $control = control->new();
 
 	# Warning: set using a scalar reference
 	$immodpg_config->{_prog_name} = \@{$superflow_config_names}[12];
 
-	# print("immodpg_config, prog_name : @{$superflow_config_names}[12]\n");
+#	print("immodpg_config, prog_name : @{$superflow_config_names}[12]\n");
 
 	$config_superflows->set_program_name( $immodpg_config->{_prog_name} );
 

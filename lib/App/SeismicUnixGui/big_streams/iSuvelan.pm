@@ -51,6 +51,7 @@ use aliased 'App::SeismicUnixGui::sunix::plot::suximage';
 use aliased 'App::SeismicUnixGui::sunix::plot::suxwigb';
 use aliased 'App::SeismicUnixGui::configs::big_streams::Project_config';
 use aliased 'App::SeismicUnixGui::misc::message';
+use aliased 'App::SeismicUnixGui::sunix::header::header_values';
 use App::SeismicUnixGui::misc::SeismicUnix qw($on $off $in $to $go);
 use aliased 'App::SeismicUnixGui::misc::L_SU_global_constants';
 
@@ -494,7 +495,6 @@ sub calcNdisplay {
 
 		# print(" iSuvelan, calcNdisplay\n\n");
 
-		use header_values;
 		my $header = header_values->new();
 		
 		my $new_dt_s;

@@ -39,11 +39,13 @@ package App::SeismicUnixGui::misc::oop_text;
 
 use Moose;
 our $VERSION = '0.0.4';
+use aliased 'App::SeismicUnixGui::misc::manage_files_by2';
 use aliased 'App::SeismicUnixGui::misc::oop_declare_data_in';
 use aliased 'App::SeismicUnixGui::misc::oop_declare_data_out';
 use aliased 'App::SeismicUnixGui::misc::oop_declare_pkg';
 use aliased 'App::SeismicUnixGui::misc::oop_declaration_defaults';
-use aliased 'App::SeismicUnixGui::misc::oop_flows';    # corrects data-program order for seismic unix;
+use aliased 'App::SeismicUnixGui::misc::oop_flows'
+  ;    # corrects data-program order for seismic unix;
 use aliased 'App::SeismicUnixGui::misc::oop_pod_header';
 use aliased 'App::SeismicUnixGui::misc::oop_instantiation_defaults';
 use aliased 'App::SeismicUnixGui::misc::oop_log_flows';
@@ -61,9 +63,9 @@ use Carp;
 
 my $file_out;
 my $file_in;
-my $get              			= L_SU_global_constants->new();
-my $declare_data_in  			= oop_declare_data_in->new();
-my $declare_data_out 			= oop_declare_data_out->new();
+my $get                        = L_SU_global_constants->new();
+my $declare_data_in            = oop_declare_data_in->new();
+my $declare_data_out           = oop_declare_data_out->new();
 my $oop_flows                  = oop_flows->new();
 my $oop_declare_pkg            = oop_declare_pkg->new();
 my $oop_pod_header             = oop_pod_header->new();
@@ -71,20 +73,20 @@ my $oop_declaration_defaults   = oop_declaration_defaults->new();
 my $oop_instantiation_defaults = oop_instantiation_defaults->new();
 my $oop_run_flows              = oop_run_flows->new();
 my $oop_log_flows              = oop_log_flows->new();
-my $pod_declare            	   = pod_declare->new();
-my $pod_flows              	   = pod_flows->new();
-my $pod_log_flows          	   = pod_log_flows->new();
-my $pod_run_flows          	   = pod_run_flows->new();
-my $pod_prog_param_setup   	   = pod_prog_param_setup->new();
+my $pod_declare                = pod_declare->new();
+my $pod_flows                  = pod_flows->new();
+my $pod_log_flows              = pod_log_flows->new();
+my $pod_run_flows              = pod_run_flows->new();
+my $pod_prog_param_setup       = pod_prog_param_setup->new();
 my $print_flows                = oop_print_flows->new();
 my $prog_params                = oop_prog_params->new();
 my $oop_use_pkg                = oop_use_pkg->new();
 my @lines                      = ();
 my $self;
 
-my $var 	= $get->var();
-my $true  	= $var->{_true};
-my $false 	= $var->{_false};
+my $var   = $get->var();
+my $true  = $var->{_true};
+my $false = $var->{_false};
 
 =head2 private hash
 
@@ -427,14 +429,14 @@ sub get_declare_pkg {
 	return ();
 }
 
-=pod sub define_flows 
+=pod sub get_define_flows 
 
   write built flows 
 		  print("oop_text,flows,prog_version_aref=@{$oop_text->{_prog_version_aref}}\n");
 
 =cut
 
-sub define_flows {
+sub get_define_flows {
 	my ($self) = @_;
 
 	$oop_flows->set_message($oop_text);
@@ -449,7 +451,7 @@ sub define_flows {
 	foreach (@$ref_array) {
 		print $filehandle "$_\n";
 
-		# print "oop_text, define_flows$_\n";
+		# print "oop_text, get_define_flows$_\n";
 	}
 
 	return ();
@@ -598,7 +600,7 @@ sub get_pod_prog_param_setup {
 =cut
 
 sub get_pod_run_flows {
-	
+
 	my ($self) = @_;
 
 	my $ref_array  = $pod_run_flows->section();
@@ -607,17 +609,15 @@ sub get_pod_run_flows {
 	foreach (@$ref_array) {
 		print $filehandle "$_\n";
 	}
-	
-#	return();
+
+	#	return();
 }
 
-
-
-=head2 sub print_flows
+=head2 sub get_print_flows
 
 =cut
 
-sub print_flows {
+sub get_print_flows {
 	my ($self) = @_;
 
 	my $ref_array  = $print_flows->section();
@@ -630,17 +630,17 @@ sub print_flows {
 
 }
 
-=head2 sub program_params
+=head2 sub get_program_params
 
 	Sets labels and their values
-	 	print("oop_text,prog_params,version=$oop_text->{_prog_version}\n");
-	 	print("oop_text,prog_params,labels=@{$oop_text->{_prog_param_labels_aref}}\n");
-	 	print("oop_text,prog_param,values=@{$oop_text->{_prog_param_values_aref}}\n");
-	 	print("oop_text,prog_params,prog_name=$oop_text->{_prog_name}\n");
+	 	print("oop_text,get_program_params,version=$oop_text->{_prog_version}\n");
+	 	print("oop_text,get_program_params,labels=@{$oop_text->{_prog_param_labels_aref}}\n");
+	 	print("oop_text,get_program_params,values=@{$oop_text->{_prog_param_values_aref}}\n");
+	 	print("oop_text,get_program_params,prog_name=$oop_text->{_prog_name}\n");
 
 =cut
 
-sub program_params {
+sub get_program_params {
 	my ($self) = @_;
 
 	my $filehandle = $oop_text->{_filehandle};
@@ -666,11 +666,11 @@ sub program_params {
 
 }
 
-=head2 sub run_flows
+=head2 sub get_run_flows
 
 =cut
 
-sub run_flows {
+sub get_run_flows {
 	my ($self) = @_;
 
 	my $ref_array  = $oop_run_flows->section();
@@ -840,12 +840,12 @@ sub set_prog_param_labels_aref {
 
 		N.B. @{$oop_text->{_prog_names_aref}}[$j] contains other programs
 		N.B. ref-array contains: 
-e.g., 	use message;
-		use flow;
+e.g., 	use aliased 'App::SeismicUnixGui::misc::message';
+		use aliased 'App::SeismicUnixGui::misc::flow';
 	
 output in the text file should look something like 
-	    use message;
-		use flow;
+	    use aliased 'App::SeismicUnixGui::misc::message';
+		use aliased 'App::SeismicUnixGui::misc::flow';
 		use  data_in	
 		use  suxwigb
 		
@@ -872,12 +872,15 @@ sub get_use_pkg {
 	my $var                   = $L_SU_global_constants->var();
 	my $filehandle            = $oop_text->{_filehandle};
 
-	# print("oop,text,get_use_pkg,length=$length\n");
-	# print("oop,text,get_use_pkg,total_num_progs4flow=$total_num_progs4flow\n");
+#	print("oop,text,get_use_pkg,length=$length\n");
+#	print("oop_text,get_use_pkg filehandle =$filehandle \n");
 
 	# print first two use lines
 	for ( my $i = 0 ; $i < $length ; $i++ ) {
+
 		print $filehandle @{$array_ref}[$i];
+#		print("oop_text,get_use_pkg i=$i, @{$array_ref}[$i]\n");
+
 	}
 
 	# remove repeated programs from the list
@@ -888,9 +891,9 @@ sub get_use_pkg {
 
 	for ( my $j = 0 ; $j < $num_unique_progs ; $j++ ) {
 		my $prog_name = $unique_progs[$j];
-		
+
 		my $module_name_pm = $prog_name . $var->{_suffix_pm};
-		my $separation     = $var->{_App}.'/'.$var->{_SeismicUnixGui};
+		my $separation     = $var->{_App} . '/' . $var->{_SeismicUnixGui};
 
 		$L_SU_global_constants->set_file_name($module_name_pm);
 		my $PATH = $L_SU_global_constants->get_path4convert_file();
@@ -899,7 +902,7 @@ sub get_use_pkg {
 
 			my $pathNmodule_pm = $PATH . '/' . $module_name_pm;
 			my @next_string    = split( $separation, $pathNmodule_pm );
-			
+
 			# warn 'b4:' . $next_string[0];
 			# warn 'After:' . $next_string[1];
 			# warn $next_string[2];
@@ -908,16 +911,15 @@ sub get_use_pkg {
 			$next_string[1] =~ s/(\/)+/::/g;
 			$next_string[1] =~ s/.pm//g;
 			$next_string[1] =
-				$var->{_App} . '::'
-			  . $var->{_SeismicUnixGui}
-			  . $next_string[1];
-			  
+			  $var->{_App} . '::' . $var->{_SeismicUnixGui} . $next_string[1];
+
 			print $filehandle "\t"
-			  . 'use '.$next_string[1] . ';'
-			  . "\n";
-#			print "\t"
-#			  . 'use '. $next_string[1] . ';'
-#			  . "\n";
+			  . 'use aliased \''
+			  . $next_string[1] . '\';' . "\n";
+
+			#			print "\t"
+			#			  . 'use aliased \''.$next_string[1] .'\';'
+			#			  . "\n";
 
 		}
 		else {

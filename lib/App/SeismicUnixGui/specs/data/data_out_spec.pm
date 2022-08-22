@@ -1,10 +1,10 @@
 package App::SeismicUnixGui::specs::data::data_out_spec;
 our $VERSION = '1.00';
 use Moose;
-package App::SeismicUnixGui::specs::data::data_out_spec;
-package App::SeismicUnixGui::specs::data::data_out_spec;
+use aliased 'App::SeismicUnixGui::specs::data::data_out_spec;
+use aliased 'App::SeismicUnixGui::specs::data::data_out_spec;
 
-package App::SeismicUnixGui::specs::data::data_out_spec;
+use aliased 'App::SeismicUnixGui::specs::data::data_out_spec;
 use App::SeismicUnixGui::misc::SeismicUnix qw($su $suffix_su);
 
 my $get              = L_SU_global_constants->new();

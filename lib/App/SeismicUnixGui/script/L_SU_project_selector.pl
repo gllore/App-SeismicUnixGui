@@ -378,6 +378,7 @@ $project_selector->set_gui();
 MainLoop;
 
 =head2 sub _project_selector
+
 controls the following actions: 
 -create a new project ( always possible: if projects >=0 )
 -reset the active project ( always possible but only meaningful if # projects >1)

@@ -40,8 +40,10 @@ use aliased 'App::SeismicUnixGui::sunix::plot::suximage';
 use aliased 'App::SeismicUnixGui::configs::big_streams::Project_config';
 use aliased 'App::SeismicUnixGui::messages::SuMessages';
 
-use App::SeismicUnixGui::misc::SeismicUnix qw($go $in $on $off $ipicks $itemp_picks_ $itemp_num_points;
-  $itemp_picks_sorted_par_ $ipicks_par_ $suffix_su $suffix_hyphen $to);
+use App::SeismicUnixGui::misc::SeismicUnix qw($go $in $on $off $ipicks 
+$itemp_picks_ $itemp_num_points
+  $itemp_picks_sorted_par_ $ipicks_par_ $suffix_su $suffix_hyphen $to
+  $itemp_picks_sorted_par_);
 
 my $iPick_spec = iPick_spec->new();
 
@@ -81,7 +83,6 @@ my $SuMessages = SuMessages->new();
 
 =cut 
 
-use App:SeismicUnixGui::misc::SeismicUnix qw($itemp_picks_sorted_par_);
 my ($PL_SEISMIC)       = $Project->PL_SEISMIC();
 my ($DATA_SEISMIC_SU)  = $Project->DATA_SEISMIC_SU();
 my ($DATA_SEISMIC_TXT) = $Project->DATA_SEISMIC_TXT();

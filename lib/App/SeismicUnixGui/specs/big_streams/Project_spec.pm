@@ -1,8 +1,8 @@
 package App::SeismicUnixGui::specs::big_streams::Project_spec;
 
 our $VERSION = '1.00';
-use Moose;
 
+use Moose;
 use App::SeismicUnixGui::misc::SeismicUnix qw($su $suffix_su);
 use aliased 'App::SeismicUnixGui::misc::L_SU_global_constants';
 use aliased 'App::SeismicUnixGui::configs::big_streams::Project_config';

@@ -37,13 +37,12 @@ uses CONFIG
 
 our $VERSION = '1.1';
 use Moose;
-package App::SeismicUnixGui::specs::big_streams::iVA_spec;
-package App::SeismicUnixGui::specs::big_streams::iVA_spec;
-
-package App::SeismicUnixGui::specs::big_streams::iVA_spec;
+use aliased 'App::SeismicUnixGui::misc::L_SU_global_constants';
+use aliased 'App::SeismicUnixGui::configs::big_streams::Project_config';
+use aliased 'App::SeismicUnixGui::configs::big_streams::iVA_config';
 use App::SeismicUnixGui::misc::SeismicUnix qw($su $suffix_su);
 
-my $Project = Project_config->new();
+my $Project 		 = Project_config->new();
 my $get              = L_SU_global_constants->new();
 my $var              = $get->var();
 

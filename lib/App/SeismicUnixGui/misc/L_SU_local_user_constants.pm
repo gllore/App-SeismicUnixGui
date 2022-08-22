@@ -5,6 +5,7 @@ use Moose;
 use aliased 'App::SeismicUnixGui::misc::L_SU_global_constants';
 use aliased 'App::SeismicUnixGui::misc::dirs';
 use aliased 'App::SeismicUnixGui::misc::big_streams_param';
+use aliased 'App::SeismicUnixGui::misc::manage_dirs_by';
 
 my $L_SU_global_constants = L_SU_global_constants->new();
 
@@ -293,9 +294,6 @@ within the active-project dirctory:
 
 sub get_active_project_name {
     my ($self) = @_;
-    
-#    use App::SeismicUnixGui::misc::L_SU_local_user_constants_fix;
-#    my $L_SU_local_user_constants = L_SU_local_user_constants_fix->new();
 
     # default config file is 'Project'
     my $project_name = $L_SU->{_config_base_name};
@@ -397,9 +395,6 @@ within the active-project dirctory:
 
 sub _get_active_project_name {
     my ($self) = @_;
-    
-##    use App::SeismicUnixGui::misc::L_SU_local_user_constants_fix;
-#    my $L_SU_local_user_constants = L_SU_local_user_constants_Fix->new();
 
     # default config file is 'Project'
     my $project_name = $L_SU->{_config_base_name};
@@ -651,7 +646,7 @@ sub makconfig {
     print(
 "L_SU_local_user_constants,makconfig, default_Project_config: $default_Project_config\n"
     );
-    manage_dirs_by::make_dir($ACTIVE_PROJECT);
+    manage_dirs_by->make_dir($ACTIVE_PROJECT);
     copy( $default_Project_config, $PATH_N_file );
     print("L_SU_local_user_constants,makconfig, created $PATH_N_file\n");
 
@@ -668,7 +663,7 @@ sub makconfig {
     my $active_project_name = _get_active_project_name();
     my $PATH                = $CONFIGURATION . '/' . $active_project_name;
     print("L_SU_local_user_constants,makconfig, created $PATH\n");
-    manage_dirs_by::make_dir($PATH);
+    manage_dirs_by->make_dir($PATH);
     copy( $default_Project_config, $PATH );
 }
 

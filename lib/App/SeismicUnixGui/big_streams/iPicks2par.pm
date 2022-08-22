@@ -101,7 +101,7 @@ my $iPicks2par = {
 
 =cut 
 
-use App::SeismicUnixGui::misc::SeismicUnix qw($true $false $in $out $to $ipicks_par_;
+use App::SeismicUnixGui::misc::SeismicUnix qw($true $false $in $out $to $ipicks_par_
   $itemp_picks_ $itemp_picks_sorted_par_
   $out $suffix_su);
 

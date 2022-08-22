@@ -42,7 +42,6 @@ package App::SeismicUnixGui::misc::big_streams_param;
 
 use Moose;
 
-
 our $VERSION = '0.0.3';
 
 use aliased 'App::SeismicUnixGui::misc::L_SU_global_constants';
@@ -162,9 +161,10 @@ sub _set_sub_category_directory {
 	else {
 		print(
 			"big_streams_param, _set_sub_category_directory, missing value\n");
-		print(
-"big_streams_param, _set_sub_category_directory, $sub_category_directory\n"
-		);
+
+	#		print(
+	#"big_streams_param, _set_sub_category_directory, $sub_category_directory\n"
+	#		);
 	}
 
 	return ();
@@ -203,6 +203,7 @@ sub _set_program_sref {
 	}
 	else {
 		print("big_streams_param, _set_program_config, missing value\n");
+		return ();
 	}
 
 	return ();
@@ -302,15 +303,25 @@ sub get {
 		my $read      = readfiles->new();
 		my $developer = developer->new();
 
+		#		print("A. big_streams_param, get, local_config_exists\n");
 		$developer->set_program_name($$program_sref);
+
+		#		print("A1. big_streams_param, get, local_config_exists\n");
 		$developer->set_flow_type( $big_streams_param->{_flow_type} );
 		_set_program_sref($program_sref);
 
+		#		print("A2. big_streams_param, get, local_config_exists\n");
+
 		# reset the following tests to 0 (false)
 		my $local_config_exists = _check4local_config($program_sref);
+
+		#		print("A3. big_streams_param, get, local_config_exists\n");
 		my $user_active_project_path_exists = _check4user_config($program_sref);
 
-#		print("B. big_streams_param, get, local_config_exists: $local_config_exists\n");
+	   #		print(
+	   #"B. big_streams_param, get, local_config_exists: $local_config_exists\n"
+	   #		);
+
 #		print(
 #"C. big_streams_param, get,user_active_project_path_exists: $user_active_project_path_exists\n"
 #		);
@@ -321,21 +332,65 @@ sub get {
 
 			if ($local_config_exists) {
 
-				use Module::Refresh;    # reload updated module
-				my $refresher = Module::Refresh->new;
+	 # print(
+	 #"big_streams_param, get,CASE 1A: If progam_sref = a pre-built superflow\n"
+	 # );
 
-				# CASE 1A: If progam_sref = a pre-built superflow
 				# e.g., tools like Sseg2su.config
 				# but not with Project.config
-				my $module_spec    = $$program_sref . '_spec';
-				my $module_spec_pm = $module_spec . '.pm';
 
+				use Module::Refresh;    # reload updated module
+				my $refresher = Module::Refresh->new();
+
+				my $program_name   = $$program_sref;
+				my $module_spec_pm = $program_name . '_spec.pm';
+
+				my $L_SU_global_constants = L_SU_global_constants->new();
 				$L_SU_global_constants->set_file_name($module_spec_pm);
-				my $spec_path = $L_SU_global_constants->get_path4spec_file();
-				my $pathNmodule_pm = $spec_path . '/' . $module_spec_pm;
+				my $slash_path4spec =
+				  $L_SU_global_constants->get_path4spec_file();
+				my $slash_pathNmodule_spec_pm =
+				  $slash_path4spec . '/' . $module_spec_pm;
 
-				$refresher->refresh_module($pathNmodule_pm);
-				my $package = $module_spec->new;
+				$L_SU_global_constants->set_program_name($program_name);
+				my $colon_pathNmodule_spec =
+				  $L_SU_global_constants->get_colon_pathNmodule_spec();
+#
+#			print(
+#"1. big_streams_param,_check4local_config, slash path: $slash_pathNmodule_spec_pm\n"
+#			);
+#
+##					require $slash_pathNmodule_spec_pm;
+#
+#			print(
+#"2. big_streams_param, _check4local_config, colon path: $colon_pathNmodule_spec\n"
+#			);
+#
+
+			  #				my $module_spec    = $$program_sref . '_spec';
+			  #				my $module_spec_pm = $module_spec . '.pm';
+			  #				$L_SU_global_constants->set_file_name($module_spec_pm);
+			  #				my $spec_path = $L_SU_global_constants->get_path4spec_file();
+			  #				my $pathNmodule_pm = $spec_path . '/' . $module_spec_pm;
+
+				$refresher->refresh_module($slash_pathNmodule_spec_pm);
+
+	 #				my $L_SU_global_constants = L_SU_global_constants->new();
+	 #				my $program_name          = $$program_sref;
+	 #							print("1. big_streams_param, get,program_name =$$program_sref \n");
+	 #				$L_SU_global_constants->set_program_name($program_name);
+	 #			print("2. big_streams_param, get,program_name =$$program_sref \n");
+	 #				my $pathNmodule_pm =
+	 #				  $L_SU_global_constants->get_pathNmodule_spec_pm();
+	 #
+	 #				my $pathNmodule_spec =
+	 #				  $L_SU_global_constants->get_pathNmodule_spec();
+	 #
+	 #				# INSTANTIATE
+	 #				my $package = $pathNmodule_spec->new();
+
+				#		INSTANTIATE
+				my $package = $colon_pathNmodule_spec->new();
 
 				# collect specifications of output directory
 				# from a program_spec.pm module
@@ -466,44 +521,46 @@ sub _check4local_config {
 		&& $name_sref ne $empty_string )
 	{
 
-		
-		my $module_spec    = $$name_sref . '_spec';
-		my $module_spec_pm = $module_spec . '.pm';
+		my $program_name   = $$name_sref;
+		my $module_spec_pm = $program_name . '_spec.pm';
 
+		my $L_SU_global_constants = L_SU_global_constants->new();
 		$L_SU_global_constants->set_file_name($module_spec_pm);
-		my $path4spec 			= $L_SU_global_constants->get_path4spec_file();
-		my $path4SeismicUnixGui  = $L_SU_global_constants->get_path4SeismicUnixGui;
+		my $slash_path4spec = $L_SU_global_constants->get_path4spec_file();
+		my $slash_pathNmodule_spec_pm =
+		  $slash_path4spec . '/' . $module_spec_pm;
 
-#		print("big_streams_param,_check4local_config, module path=$path4spec \n");
-#		print("big_streams_param,_check4local_config, path4SeismicUnixGui=$path4SeismicUnixGui\n");		
+		$L_SU_global_constants->set_program_name($program_name);
+		my $colon_pathNmodule_spec =
+		  $L_SU_global_constants->get_colon_pathNmodule_spec();
 
-		if ( length $path4spec ) {
+		if ( length $slash_path4spec ) {
 
-			my $pathNmodule_pm   = $path4spec . '/' . $module_spec_pm;
-			my $pathNmodule_spec = $path4spec . '/' . $module_spec;
-			
-			$pathNmodule_spec =~ s/$path4SeismicUnixGui//g;
-			$pathNmodule_spec =~ s/\//::/g;
-			my $new_pathNmodule_spec = 'App::SeismicUnixGui'.$pathNmodule_spec;
-#			print("big_streams_param,_check4local_config,pathNmnodule_spec = $new_pathNmodule_spec\n");
+#			print(
+#"1. big_streams_param,_check4local_config, slash path: $slash_pathNmodule_spec_pm\n"
+#			);
 
-			require $pathNmodule_pm;
-			
-#			print("pathNmnodule_pm = $pathNmodule_pm\n");
-			
-			my $package = $new_pathNmodule_spec->new();
+			require $slash_pathNmodule_spec_pm;
+
+#			print(
+#"2. big_streams_param, _check4local_config, colon path: $colon_pathNmodule_spec\n"
+#			);
+
+			#		INSTANTIATE
+			my $package = $colon_pathNmodule_spec->new();
 
 			# collect specifications of output directory
 			# from a program_spec.pm module
 			my $specs_h = $package->variables();
 			my $CONFIG  = $specs_h->{_CONFIG};
 
-	   #	print("3. big_streams_param,_check4local_config, CONFIG=$CONFIG \n");
+			#			print(
+			#				"3. big_streams_param,_check4local_config, CONFIG=$CONFIG \n");
 			my $prog_name_config = $CONFIG . '/' . $$name_sref . '.config';
 
-  #			print(
-  #"big_streams_param,_check4local_config,prog_name_config =$prog_name_config\n"
-  #			);
+#  			print(
+#  "big_streams_param,_check4local_config,prog_name_config =$prog_name_config\n"
+#  			);
 			if ( -e ($prog_name_config) ) {
 
 #				print(
@@ -515,7 +572,7 @@ sub _check4local_config {
 			else {
 				$ans = $false;
 
- # print("big_streams_param,_check4local_config, $prog_name_config not found\n")
+#  print("big_streams_param,_check4local_config, $prog_name_config not found\n")
 			}
 		}    # module is found
 	}
@@ -551,9 +608,9 @@ sub _check4user_config {
 		}
 		else {
 			$ans = $false;
-			print(
-"big_streams_param,_check4user_config, ACTIVE_PROJECT=$ACTIVE_PROJECT\n"
-			);
+#			print(
+#"big_streams_param,_check4user_config, ACTIVE_PROJECT=$ACTIVE_PROJECT\n"
+#			);
 
 #			print("big_streams_param,_check4user_config, name =$$name_sref\n");
 #			print(
@@ -613,7 +670,8 @@ sub my_length {
 
 	my ($self) = @_;
 	if ( $big_streams_param->{_names_aref} ) {
-		my $my_length = ( scalar @{ $big_streams_param->{_names_aref} } ) * 2;
+		my $my_length =
+		  ( scalar @{ $big_streams_param->{_names_aref} } ) * 2;
 		return ($my_length);
 	}
 	else {

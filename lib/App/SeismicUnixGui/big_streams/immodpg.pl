@@ -57,9 +57,8 @@
  The Entry widget is configured to recognize text value changes and
  a return(1) is needed to indicate a successful validation
  
-immodpg must precede immodpg_config
-immodpg_config contains immodpg_spec
-immodpg_spec uses get_max from immodpg
+immodpg must follow premmod to prevent logical circularity
+as a result of the use of the 'aliased' syntax
 
 April 2021, removed commented lines
 
@@ -71,11 +70,13 @@ use Tk;
 use aliased 'App::SeismicUnixGui::misc::L_SU_global_constants';
 use aliased 'App::SeismicUnixGui::configs::big_streams::Project_config';
 
-use App::SeismicUnixGui::big_streams::immodpg '0.2';
-use aliased 'App::SeismicUnixGui::big_streams::immodpg';
 use aliased 'App::SeismicUnixGui::configs::big_streams::immodpg_config';
 use aliased 'App::SeismicUnixGui::big_streams::immodpg_global_constants';
 use aliased 'App::SeismicUnixGui::misc::premmod';
+
+use App::SeismicUnixGui::big_streams::immodpg '0.2';
+use aliased 'App::SeismicUnixGui::big_streams::immodpg';
+
 use aliased 'App::SeismicUnixGui::sunix::shell::xk';
 
 =head2 private anonymous hash 
@@ -124,23 +125,25 @@ my $immodpg_Tk = {
 
 =cut
 
-my $get_L_SU       = L_SU_global_constants->new();
-my $get_immodpg    = immodpg_global_constants->new();
-my $immodpg   = immodpg->new();
-my $immodpg_config = immodpg_config->new();
+my $get_L_SU       	= L_SU_global_constants->new();
+my $get_immodpg    	= immodpg_global_constants->new();
+my $immodpg   		= immodpg->new();
+my $immodpg_config 	= immodpg_config->new();
 
-my $premmod = premmod->new();
-my $xk      = xk->new();
-my $Project        = Project_config->new();
+my $premmod 		= premmod->new();
+my $xk      		= xk->new();
+my $Project         = Project_config->new();
 
-my $IMMODPG           = $Project->IMMODPG();
+my $IMMODPG          	   = $Project->IMMODPG();
+
 my $var_L_SU               = $get_L_SU->var();
+my $global_libs 		   = $get_L_SU->global_libs();
+
 my $var_immodpg            = $get_immodpg->var();
 my $change_thickness_m_opt = $var_immodpg->{_thickness_m_opt};
 my $clip_opt               = $var_immodpg->{_clip_opt};
 my $exit_opt               = $var_immodpg->{_exit_opt};
-my $global_libs 			= $get_L_SU->global_libs();
-my $immodpg_model =  $var_immodpg ->{_immodpg_model};
+my $immodpg_model 		   = $var_immodpg ->{_immodpg_model};
 my $move_down_opt          = $var_immodpg->{_move_down_opt};
 my $move_left_opt          = $var_immodpg->{_move_left_opt};
 my $move_minus_opt         = $var_immodpg->{_move_minus_opt};

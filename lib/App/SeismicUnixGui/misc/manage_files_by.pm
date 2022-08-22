@@ -1108,7 +1108,7 @@ sub write_3colsp {
 	for ( $j = 0 ; $j < $num_rows ; $j++ ) {
 
 		printf OUT "$fmt\n", $$ref_X[$j], $$ref_Y[$j], $$ref_Z[$j];
-		print("$$ref_X[$j] $$ref_Y[$j] $$ref_Z[$j]\n");
+#		print("$$ref_X[$j] $$ref_Y[$j] $$ref_Z[$j]\n");
 	}
 
 	close(OUT);

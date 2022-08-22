@@ -304,7 +304,7 @@ sub multi_gather_parfile {
 
 =cut
 
-		my $files   = new manage_files_by2();
+		my $files   = manage_files_by2->new();
 		my $Project = Project_config->new();
 		my $control = control->new();
 
@@ -435,11 +435,11 @@ sub multi_gather_parfile {
 
 		my $DATA_SEISMIC_SU = $Project->DATA_SEISMIC_SU;
 
-		use message;
-		use flow;
+		use aliased 'App::SeismicUnixGui::misc::message';
+		use aliased 'App::SeismicUnixGui::misc::flow';
 
-		my $log = new message();
-		my $run = new flow();
+		my $log = message->new();
+		my $run = flow->new();
 
 =head2 Declare
 
@@ -538,7 +538,7 @@ sub par {
 
 =cut
 
-		my $files   = new manage_files_by2();
+		my $files   = manage_files_by2->new();
 		my $Project = Project_config->new();
 		my $control = control->new();
 

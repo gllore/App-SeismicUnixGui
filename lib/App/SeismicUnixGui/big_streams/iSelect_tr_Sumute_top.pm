@@ -37,7 +37,9 @@ package App::SeismicUnixGui::big_streams::iSelect_tr_Sumute_top;
 use Moose;
 
 use App::SeismicUnixGui::misc::SeismicUnix
-  qw($on $off $go $in $true $false $itemp_top_mute_picks_ $itemp_top_mute_picks_sorted_par_ $itop_mute_par_ $itop_mute_check_pickfile_ $suffix_su $to);
+  qw($on $off $go $in $true $false $itemp_top_mute_picks_ 
+  $itemp_top_mute_picks_sorted_par_ $itop_mute_par_ 
+  $itop_mute_check_pickfile_ $suffix_su $to);
 
 =head2 
 

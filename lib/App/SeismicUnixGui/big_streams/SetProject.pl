@@ -15,7 +15,7 @@
                   on/off with comment marks ("#")
 =head2 NEEDS
 
- manage_dirs_by package
+ App::SeismicUnixGui::misc::manage_dirs_by package
 
 =cut
 
@@ -27,7 +27,7 @@ my ($DATA_SEISMIC)      = $Project->DATA_SEISMIC();
 my ($DATA_SEISMIC_DAT)  = $Project->DATA_SEISMIC_DAT();
 my ($TEMP_DATA_GEOMAPS) = $Project->TEMP_DATA_GEOMAPS();
 
-my ($ANTELOPE)                     = $Project->ANTELOPE();
+#my ($ANTELOPE)                    = $Project->ANTELOPE();
 my ($ISOLA)                        = $Project->ISOLA();
 my ($PROJECT_HOME)                 = $Project->PROJECT_HOME();
 my ($DATA_GAMMA_WELL_TXT)          = $Project->DATA_GAMMA_WELL_TXT();
@@ -98,84 +98,84 @@ my ($DATA_WELL)                    = $Project->DATA_WELL();
 
 =cut
 
-#manage_dirs_by::make_dir($DATA_SEISMIC);
-#manage_dirs_by::make_dir($DATA_SEISMIC_DAT);
-#manage_dirs_by::make_dir($TEMP_DATA_GEOMAPS);
+#manage_dirs_by->make_dir($DATA_SEISMIC);
+#manage_dirs_by->make_dir($DATA_SEISMIC_DAT);
+#manage_dirs_by->make_dir($TEMP_DATA_GEOMAPS);
 
-# manage_dirs_by::make_dir($HOME);
-manage_dirs_by::make_dir($PROJECT_HOME);
+# manage_dirs_by->make_dir($HOME);
+manage_dirs_by->make_dir($PROJECT_HOME);
 
-# manage_dirs_by::make_dir($ANTELOPE);
-# manage_dirs_by::make_dir($DATA_GAMMA_WELL_TXT);
-manage_dirs_by::make_dir($DATA_GEOMAPS);
+# manage_dirs_by->make_dir($ANTELOPE);
+# manage_dirs_by->make_dir($DATA_GAMMA_WELL_TXT);
+manage_dirs_by->make_dir($DATA_GEOMAPS);
 
-#manage_dirs_by::make_dir($GEOMAPS_IMAGES);
-manage_dirs_by::make_dir($GEOMAPS_IMAGES_JPEG);
-manage_dirs_by::make_dir($GEOMAPS_IMAGES_PNG);
+#manage_dirs_by->make_dir($GEOMAPS_IMAGES);
+manage_dirs_by->make_dir($GEOMAPS_IMAGES_JPEG);
+manage_dirs_by->make_dir($GEOMAPS_IMAGES_PNG);
 
-#manage_dirs_by::make_dir($GEOMAPS_BIN);
-#manage_dirs_by::make_dir($GEOMAPS_IMAGES_TIF);
-manage_dirs_by::make_dir($GEOMAPS_IMAGES_PS);
+#manage_dirs_by->make_dir($GEOMAPS_BIN);
+#manage_dirs_by->make_dir($GEOMAPS_IMAGES_TIF);
+manage_dirs_by->make_dir($GEOMAPS_IMAGES_PS);
 
-# manage_dirs_by::make_dir($DATA_GEOMAPS_TEXT);
-manage_dirs_by::make_dir($DATA_GEOMAPS_TOPO);
+# manage_dirs_by->make_dir($DATA_GEOMAPS_TEXT);
+manage_dirs_by->make_dir($DATA_GEOMAPS_TOPO);
 
-manage_dirs_by::make_dir($DATA_RESISTIVITY_SURFACE);
-manage_dirs_by::make_dir($PL_RESISTIVITY_SURFACE);
-manage_dirs_by::make_dir($DATA_RESISTIVITY_SURFACE_TXT);
-#  manage_dirs_by::make_dir($DATA_RESISTIVITY_WELL);
-# manage_dirs_by::make_dir($DATA_RESISTIVITY_WELL_TXT);
-# manage_dirs_by::make_dir($DATA_SEISMIC_BIN);
-# manage_dirs_by::make_dir($DATA_SEISMIC_ININT);
-manage_dirs_by::make_dir($DATA_SEISMIC_MATLAB);
-manage_dirs_by::make_dir($DATA_SEISMIC_R);
+manage_dirs_by->make_dir($DATA_RESISTIVITY_SURFACE);
+manage_dirs_by->make_dir($PL_RESISTIVITY_SURFACE);
+manage_dirs_by->make_dir($DATA_RESISTIVITY_SURFACE_TXT);
+#  manage_dirs_by->make_dir($DATA_RESISTIVITY_WELL);
+# manage_dirs_by->make_dir($DATA_RESISTIVITY_WELL_TXT);
+# manage_dirs_by->make_dir($DATA_SEISMIC_BIN);
+# manage_dirs_by->make_dir($DATA_SEISMIC_ININT);
+manage_dirs_by->make_dir($DATA_SEISMIC_MATLAB);
+manage_dirs_by->make_dir($DATA_SEISMIC_R);
 
-# manage_dirs_by::make_dir($DATA_SEISMIC_RSEIS);
-# manage_dirs_by::make_dir($DATA_SEISMIC_SAC);
-# manage_dirs_by::make_dir($DATA_SEISMIC_PASSCAL_SEGY);
-# manage_dirs_by::make_dir($DATA_SEISMIC_SIERRA_SEGY);
-# manage_dirs_by::make_dir($DATA_SEISMIC_SEGD);
-# manage_dirs_by::make_dir($DATA_SEISMIC_SEG2);
-# manage_dirs_by::make_dir($DATA_SEISMIC_SEGB);
-# manage_dirs_by::make_dir($DATA_SEISMIC_SEGY);
-# manage_dirs_by::make_dir($DATA_SEISMIC_SU);
-# manage_dirs_by::make_dir($DATA_SEISMIC_SEGY_RAW);
-# manage_dirs_by::make_dir($DATA_SEISMIC_SU_RAW);
-# manage_dirs_by::make_dir($DATA_SEISMIC_TXT);
-manage_dirs_by::make_dir($DATA_WELL);
+# manage_dirs_by->make_dir($DATA_SEISMIC_RSEIS);
+# manage_dirs_by->make_dir($DATA_SEISMIC_SAC);
+# manage_dirs_by->make_dir($DATA_SEISMIC_PASSCAL_SEGY);
+# manage_dirs_by->make_dir($DATA_SEISMIC_SIERRA_SEGY);
+# manage_dirs_by->make_dir($DATA_SEISMIC_SEGD);
+# manage_dirs_by->make_dir($DATA_SEISMIC_SEG2);
+# manage_dirs_by->make_dir($DATA_SEISMIC_SEGB);
+# manage_dirs_by->make_dir($DATA_SEISMIC_SEGY);
+# manage_dirs_by->make_dir($DATA_SEISMIC_SU);
+# manage_dirs_by->make_dir($DATA_SEISMIC_SEGY_RAW);
+# manage_dirs_by->make_dir($DATA_SEISMIC_SU_RAW);
+# manage_dirs_by->make_dir($DATA_SEISMIC_TXT);
+manage_dirs_by->make_dir($DATA_WELL);
 
-# manage_dirs_by::make_dir($DATABASE_SEISMIC_SQLITE);
-# manage_dirs_by::make_dir($GEOPSY);
-# manage_dirs_by::make_dir($ISOLA);
-# manage_dirs_by::make_dir($GIF_SEISMIC);
-# manage_dirs_by::make_dir($GMT_SEISMIC);
-manage_dirs_by::make_dir($GMT_GEOMAPS);
-# manage_dirs_by::make_dir($JPEG_SEISMIC);
-# manage_dirs_by::make_dir($C_SEISMIC);
-# manage_dirs_by::make_dir($CPP_SEISMIC);
-# manage_dirs_by::make_dir($MATLAB_SEISMIC);
-manage_dirs_by::make_dir($MATLAB_GEOMAPS);
+# manage_dirs_by->make_dir($DATABASE_SEISMIC_SQLITE);
+# manage_dirs_by->make_dir($GEOPSY);
+# manage_dirs_by->make_dir($ISOLA);
+# manage_dirs_by->make_dir($GIF_SEISMIC);
+# manage_dirs_by->make_dir($GMT_SEISMIC);
+manage_dirs_by->make_dir($GMT_GEOMAPS);
+# manage_dirs_by->make_dir($JPEG_SEISMIC);
+# manage_dirs_by->make_dir($C_SEISMIC);
+# manage_dirs_by->make_dir($CPP_SEISMIC);
+# manage_dirs_by->make_dir($MATLAB_SEISMIC);
+manage_dirs_by->make_dir($MATLAB_GEOMAPS);
 
-# manage_dirs_by::make_dir($MATLAB_WELL);
-# manage_dirs_by::make_dir($MMODPG);
+# manage_dirs_by->make_dir($MATLAB_WELL);
+# manage_dirs_by->make_dir($MMODPG);
 # print("SetProject.pl,MMODPG_INVISIBLE=$MMODPG_INVISIBLE\n");
-# manage_dirs_by::make_dir($IMMODPG_INVISIBLE);
-manage_dirs_by::make_dir($PL_GEOMAPS);
-# manage_dirs_by::make_dir($PNG_SEISMIC);
-# manage_dirs_by::make_dir($PL_RESISTIVITY_SURFACE);
-# manage_dirs_by::make_dir($PL_SEISMIC);
+# manage_dirs_by->make_dir($IMMODPG_INVISIBLE);
+manage_dirs_by->make_dir($PL_GEOMAPS);
+# manage_dirs_by->make_dir($PNG_SEISMIC);
+# manage_dirs_by->make_dir($PL_RESISTIVITY_SURFACE);
+# manage_dirs_by->make_dir($PL_SEISMIC);
 
-# manage_dirs_by::make_dir($PL_WELL);
-# manage_dirs_by::make_dir($PS_SEISMIC);
-# manage_dirs_by::make_dir($PS_WELL);
-# manage_dirs_by::make_dir($R_RESISTIVITY_SURFACE);
-# manage_dirs_by::make_dir($R_RESISTIVITY_WELL);
-# manage_dirs_by::make_dir($R_GAMMA_WELL);
-manage_dirs_by::make_dir($R_SEISMIC);
+# manage_dirs_by->make_dir($PL_WELL);
+# manage_dirs_by->make_dir($PS_SEISMIC);
+# manage_dirs_by->make_dir($PS_WELL);
+# manage_dirs_by->make_dir($R_RESISTIVITY_SURFACE);
+# manage_dirs_by->make_dir($R_RESISTIVITY_WELL);
+# manage_dirs_by->make_dir($R_GAMMA_WELL);
+manage_dirs_by->make_dir($R_SEISMIC);
 
-# manage_dirs_by::make_dir($R_WELL);
-# manage_dirs_by::make_dir($SH_SEISMIC);
-# manage_dirs_by::make_dir($TEMP_DATA_SEISMIC);
-# manage_dirs_by::make_dir($TEMP_DATA_SEISMIC_SU);
-# manage_dirs_by::make_dir($TEMP_FAST_TOMO);
-manage_dirs_by::make_dir($WELL);
+# manage_dirs_by->make_dir($R_WELL);
+# manage_dirs_by->make_dir($SH_SEISMIC);
+# manage_dirs_by->make_dir($TEMP_DATA_SEISMIC);
+# manage_dirs_by->make_dir($TEMP_DATA_SEISMIC_SU);
+# manage_dirs_by->make_dir($TEMP_FAST_TOMO);
+manage_dirs_by->make_dir($WELL);

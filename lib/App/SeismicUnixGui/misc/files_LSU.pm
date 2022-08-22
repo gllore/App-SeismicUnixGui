@@ -40,8 +40,10 @@ use aliased 'App::SeismicUnixGui::misc::oop_text';
 use App::SeismicUnixGui::misc::SeismicUnix qw($su $suffix_su $txt $suffix_txt);
 use App::SeismicUnixGui::misc::control '0.0.3';
 use aliased 'App::SeismicUnixGui::misc::control';
+use aliased 'App::SeismicUnixGui::misc::manage_files_by2';
 use aliased 'App::SeismicUnixGui::misc::L_SU_local_user_constants';
 use aliased 'App::SeismicUnixGui::misc::name';
+use aliased 'App::SeismicUnixGui::misc::manage_dirs_by';
 
 my $Project               = Project_config->new();
 my $L_SU_global_constants = L_SU_global_constants->new();
@@ -576,15 +578,24 @@ sub outbound {
 			my $DATA_PATH_IN;
 
 			# CASE 2 for superflows
-			my $module_spec    = $program_name . '_spec';
-			my $module_spec_pm = $module_spec . '.pm';
+			my $L_SU_global_constants = L_SU_global_constants->new();
+			my $module_spec_pm        = $program_name . '_spec.pm';
 
 			$L_SU_global_constants->set_file_name($module_spec_pm);
-			my $path           = $L_SU_global_constants->get_path4spec_file();
-			my $pathNmodule_pm = $path . '/' . $module_spec_pm;
+			my $slash_path4spec = $L_SU_global_constants->get_path4spec_file();
+			my $slash_pathNmodule_spec_pm =
+			  $slash_path4spec . '/' . $module_spec_pm;
 
-			require $pathNmodule_pm;
-			my $package = $module_spec->new;
+			$L_SU_global_constants->set_program_name($program_name);
+			my $colon_pathNmodule_spec =
+			  $L_SU_global_constants->get_colon_pathNmodule_spec();
+
+	 	print("1. files_LSU,_get_suffix_aref, prog_name: $slash_pathNmodule_spec_pm\n");
+
+			require $slash_pathNmodule_spec_pm;
+
+			# INSTANTIATE
+			my $package = $colon_pathNmodule_spec->new();
 
 			# collect specifications of output directory
 			# from a program_spec.pm module
@@ -1203,20 +1214,29 @@ sub set_superflow_specs {
 		my $base_program_name = ${ $files_LSU->{_prog_name_sref} };
 		my $alias_program_name =
 		  $alias_superflow_spec_names_h->{$base_program_name};
+
 		my $module_spec = $alias_program_name . '_spec';   #conveniently shorter
 		my $module_spec_pm = $module_spec . '.pm';
 
+		my $L_SU_global_constants = L_SU_global_constants->new();
 		$L_SU_global_constants->set_file_name($module_spec_pm);
-		my $path           = $L_SU_global_constants->get_path4spec_file();
-		my $pathNmodule_pm = $path . '/' . $module_spec_pm;
+		my $slash_path4spec = $L_SU_global_constants->get_path4spec_file();
+		my $slash_pathNmodule_spec_pm =
+		  $slash_path4spec . '/' . $module_spec_pm;
 
-		#		$refresher->refresh_module("$module_spec_pm");
-		require $pathNmodule_pm;
+		$L_SU_global_constants->set_program_name($alias_program_name);
+		my $colon_pathNmodule_spec =
+		  $L_SU_global_constants->get_colon_pathNmodule_spec();
+
+	  print("1.files_LSU _get_suffix_aref, prog_name: $slash_pathNmodule_spec_pm\n");
+	  print("1. files_LSU _get_suffix_aref, prog_name: $colon_pathNmodule_spec\n");
+
+		require $slash_pathNmodule_spec_pm;
 
 # print ("1. files_LSU,set_superflow_specs, require superflow module $module_spec_pm\n");
 
 		# INSTANTIATE
-		my $program_name_spec = ($module_spec)->new();
+		my $program_name_spec = ($colon_pathNmodule_spec)->new();
 
  # print ("2. files_LSU,set_superflow_specs, instantiate $program_name_spec\n");
 
@@ -1353,6 +1373,7 @@ sub _write {
 =cut
 
 sub write {
+	
 	my ($self) = @_;
 
 	my $length      = ( scalar @{ $files_LSU->{_CFG} } ) / 2;
@@ -1360,42 +1381,42 @@ sub write {
 	my @info        = @{ $files_LSU->{_info} };
 	my @CFG         = @{ $files_LSU->{_CFG} };
 
-  # print("files_LSU, write, length:$length,length_info:$length_info \n");
-  # print("files_LSU,write,files_LSU->{_outbound}: $files_LSU->{_outbound} \n");
+  print("files_LSU, write, length:$length,length_info:$length_info \n");
+  print("files_LSU,write,files_LSU->{_outbound}: $files_LSU->{_outbound} \n");
 
-	open( my $fh, '>', $files_LSU->{_outbound} )
-	  or die "Can't open parameter file:$!";
+#	open( my $fh, '>', $files_LSU->{_outbound} )
+#	  or die "Can't open parameter file:$!";
 
 	for ( my $i = 0 ; $i < $length_info ; $i++ ) {
-		printf $fh $info[$i];
+#		printf $fh $info[$i];
 	}
 
 	for ( my $i = 0, my $j = 0 ; $i < $length ; $i++, $j = $j + 2 ) {
+		
 		if ( defined $CFG[$j] && defined $CFG[ $j + 1 ] ) {
 
-			# printf ("    $CFG[$j],= ,$CFG[($j+1)]\n");;
-			printf $fh
-			  "                                                        \n",
-			  $CFG[$j], "= ", $CFG[ ( $j + 1 ) ];
+			print ("    $CFG[$j],= ,$CFG[($j+1)]\n");;
+#			printf $fh
+#			  "                                                        \n",
+#			  $CFG[$j], "= ", $CFG[ ( $j + 1 ) ];
 
 		}
 		else {
-
-			# print("files_LSU, undefined value or name NADA\n");
+			print("files_LSU, undefined value or name NADA\n");
 		}
 
 	}
-	close($fh);
+#	close($fh);
 }
 
-=head2 sub write2 
+=head2 sub write2
+
  used for dealing with ONLY Project.config
 
 =cut 
 
 sub write2 {
 	my ($self) = @_;
-	use aliased 'App::SeismicUnixGui::misc::manage_dirs_by';
 	use File::Copy;
 
 	my $user_constants = L_SU_local_user_constants->new();
@@ -1417,20 +1438,20 @@ sub write2 {
 
 	my $PATH = $CONFIGURATION . '/' . $active_project_name;
 
-	# print("files_LSU,write2, active_project_name: $active_project_name\n");
-	# print("files_LSU,write2, CONFIGURATION: $CONFIGURATION\n");
-	# print("files_LSU,write2, Project_config: $Project_config\n");
-	manage_dirs_by::make_dir($PATH);
+	print("files_LSU,write2, active_project_name: $active_project_name\n");
+	print("files_LSU,write2, CONFIGURATION: $CONFIGURATION\n");
+	print("files_LSU,write2, Project_config: $Project_config\n");
+	manage_dirs_by->make_dir($PATH);
 	copy( $FROM, $TO );
 
-	# print("files_LSU,write2, copy $FROM $TO \n");
+	 print("files_LSU,write2, copy $FROM $TO \n");
 
 	if ( $files_LSU->{_outbound2} ) {
 
-# print("files_LSU,write2,files_LSU->{_outbound2}: $files_LSU->{_outbound2} \n");
+         print("files_LSU,write2,files_LSU->{_outbound2}: $files_LSU->{_outbound2} \n");
 
-		open( my $fh, '>', $files_LSU->{_outbound2} )
-		  or die "Can't open parameter file:$!";
+#		open( my $fh, '>', $files_LSU->{_outbound2} )
+#		  or die "Can't open parameter file:$!";
 
 		for ( my $i = 0 ; $i < $length_info ; $i++ ) {
 
@@ -1439,7 +1460,7 @@ sub write2 {
 			# remove terminal quotes
 			$a = $control->no_quotes($a);
 
-			printf $fh $a;
+#			printf $fh $a;
 		}
 
 		for ( my $i = 0, my $j = 0 ; $i < $length ; $i++, $j = $j + 2 ) {
@@ -1454,7 +1475,11 @@ sub write2 {
 				if ( defined $cfg )
 				{    # because removing quotes from an empty string does this
 
-					printf $fh
+#					printf $fh
+#"                                                        \n",
+#					  $CFG[$j], "= ", $cfg;
+
+					print
 "                                                        \n",
 					  $CFG[$j], "= ", $cfg;
 
@@ -1474,7 +1499,7 @@ sub write2 {
 			}
 		}
 
-		close($fh);
+#		close($fh);
 
 	}
 	else {
@@ -1539,19 +1564,19 @@ sub save {
 	#	print("\nfiles_LSU,save,num_progs4flow: $num_progs4flow\n");
 
 	# principal documentation for the program
-	$oop_text->pod_header();
+	$oop_text->get_pod_header();
 
 	# for message and flow
-	$oop_text->use_pkg();
+	$oop_text->get_use_pkg();
 
 	# for all programs in the flow
 	$oop_text->instantiation();
 
 	# establish local variables e.g., my @sugain
-	$oop_text->pod_declare();
+	$oop_text->get_pod_declare();
 
 	#	print("1. files_LSU_ save, declaring packages\n");
-	$oop_text->declare_pkg();
+	$oop_text->get_declare_pkg();
 
 	# insert a macro start here
 	# $oop_text->set_macro_head(pkg);
@@ -1631,19 +1656,19 @@ sub save {
 		$oop_text->set_prog_param_labels_aref( \@labels );
 
 		# printing to executable file
-		$oop_text->program_params();
+		$oop_text->get_program_params();
 
 	}
 
-	$oop_text->pod_flows();
-	$oop_text->define_flows();
+	$oop_text->get_pod_flows();
+	$oop_text->get_define_flows();
 
-	$oop_text->pod_run_flows();
-	$oop_text->run_flows();
+	$oop_text->get_pod_run_flows();
+	$oop_text->get_run_flows();
 
-	$oop_text->pod_log_flows();
-	$oop_text->print_flows();
-	$oop_text->log_flows();
+	$oop_text->get_pod_log_flows();
+	$oop_text->get_print_flows();
+	$oop_text->get_log_flows();
 
 	# insert a macro end here
 	# $oop_text->set_macro_tail()

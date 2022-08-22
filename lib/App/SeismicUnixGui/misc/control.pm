@@ -43,7 +43,8 @@ use Moose;
 our $VERSION = '0.0.3';
 
 use aliased 'App::SeismicUnixGui::misc::L_SU_global_constants';
-#use aliased 'App::SeismicUnixGui::misc::L_SU_global_constants';
+
+#use aliased 'App::SeismicUnixGui::misc::manage_files_by2';
 
 my $L_SU_global_constants   = L_SU_global_constants->new();
 my $alias_superflow_names_h = $L_SU_global_constants->alias_superflow_names_h();
@@ -668,23 +669,27 @@ sub get_max_index {
 		# do nothing for simple sunix-type programs
 	}
 
-	if ($program_name) {
+	if ( length $program_name ) {
 
 		my $L_SU_global_constants = L_SU_global_constants->new();
-
-		my $module_spec    = $program_name . '_spec';
-		my $module_spec_pm = $program_name . '_spec.pm';
+		my $module_spec_pm        = $program_name . '_spec.pm';
 
 		$L_SU_global_constants->set_file_name($module_spec_pm);
-		my $path           = $L_SU_global_constants->get_path4spec_file();
-		my $pathNmodule_pm = $path . '/' . $module_spec_pm;
+		my $slash_path4spec = $L_SU_global_constants->get_path4spec_file();
+		my $slash_pathNmodule_spec_pm =
+		  $slash_path4spec . '/' . $module_spec_pm;
 
-		require $pathNmodule_pm;
+		$L_SU_global_constants->set_program_name($program_name);
+		my $colon_pathNmodule_spec =
+		  $L_SU_global_constants->get_colon_pathNmodule_spec();
 
-		# print ("control,get_max_index, require $module_spec_pm\n");
+	  #	 	print("1. _get_suffix_aref, prog_name: $slash_pathNmodule_spec_pm\n");
+#	 	print("1. _get_suffix_aref, prog_name: $colon_pathNmodule_spec\n");
+
+		require $slash_pathNmodule_spec_pm;
 
 		# INSTANTIATE
-		my $package = $module_spec->new;
+		my $package = $colon_pathNmodule_spec->new();
 
 		#print ("control,get_max_index, instantiate $module_spec\n");
 

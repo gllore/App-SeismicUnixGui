@@ -8,8 +8,8 @@ use Moose;
 
 my @use;
 
-$use[0] = ' use message;
- use flow;
+$use[0] = ' use aliased \'App::SeismicUnixGui::misc::message\';
+ use aliased \'App::SeismicUnixGui::misc::flow\';
  ';
 
 sub section {

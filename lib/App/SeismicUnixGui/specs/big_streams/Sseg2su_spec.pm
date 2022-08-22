@@ -1,11 +1,12 @@
 package App::SeismicUnixGui::specs::big_streams::Sseg2su_spec;
 
 our $VERSION = '1.00';
+
 use Moose;
-package App::SeismicUnixGui::specs::big_streams::Sseg2su_spec;
-package App::SeismicUnixGui::specs::big_streams::Sseg2su_spec;
-package App::SeismicUnixGui::specs::big_streams::Sseg2su_spec;
-use App::SeismicUnixGui::misc::SeismicUnix qw($seg2 $su $suffix_DAT $suffix_su);
+use App::SeismicUnixGui::misc::SeismicUnix qw($seg2 $suffix_DAT $su $suffix_su);
+use aliased 'App::SeismicUnixGui::misc::L_SU_global_constants';
+use aliased 'App::SeismicUnixGui::configs::big_streams::Project_config';
+use aliased 'App::SeismicUnixGui::configs::big_streams::Sseg2su_config';
 
 my $get              = L_SU_global_constants->new();
 my $Project        = Project_config->new();

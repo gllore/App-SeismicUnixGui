@@ -48,7 +48,9 @@ package su_param_fix;
 use Moose;
 our $VERSION = '0.0.3';
 
-use App::SeismicUnixGui::misc::L_SU_global_constants;
+use aliased 'App::SeismicUnixGui::misc::L_SU_global_constants';
+use aliased 'App::SeismicUnixGui::misc::manage_files_by2';
+
 use Shell qw(echo);
 
 my $L_SU_global_constants        = L_SU_global_constants->new();
@@ -423,18 +425,18 @@ sub _check4local_config {
 #	    use Module::Refresh; # reload updated module
 #		my $refresher = Module::Refresh->new;
 
-		my $module_spec    = $$name_sref . '_spec';
-		my $module_spec_pm = $module_spec . '.pm';
+        my $program_name		 =  $$name_sref;
+		my $manage_files_by2      = manage_files_by2 ->new();
 		
-		#		print("1. su_param,_check4local_config, module_spec_pm = $module_spec_pm \n");
-#		$refresher->refresh_module("$module_spec_pm");
-
-		$L_SU_global_constants->set_file_name($module_spec_pm);
-		my $path           = $L_SU_global_constants->get_path4spec_file();
-		my $pathNmodule_pm = $path . '/' . $module_spec_pm;
+		$manage_files_by2->set_program_name($program_name);
+		my $pathNmodule_pm  = $manage_files_by2->get_pathNmodule_pm();
+		my $pathNmodule_spec = $manage_files_by2->get_pathNmodule_spec();
 		
 		require $pathNmodule_pm;
-		my $package = $module_spec->new();
+		#$refresher->refresh_module("$module_spec_pm");
+
+		# INSTANTIATE
+		my $package = $pathNmodule_spec->new();
 
 		# collect specifications of output directory
 		# from a program_spec.pm module

@@ -157,7 +157,7 @@ if ($there_is_old_data) {
 if ( !$there_is_old_data ) {
 
     print("NEW PICKS\n");
-    $iTM->message('first_top_mute');
+    $iTM->iTM_message('first_top_mute');
     $iTM->number_of_tries($false);
     $iTM->gather_num($gather);
 
@@ -167,7 +167,7 @@ if ( !$there_is_old_data ) {
 
 =cut	
 
-    $iTM->iSelect_tr_Sumute_top();
+    $iTM->iTM_Select_tr_Sumute_top();
 
 =head2 Decide whether to 
 
@@ -279,10 +279,10 @@ sub set_pick {
 
 =cut
 
-    $iTM->message('pre_pick_mute');
+    $iTM->iTM_message('pre_pick_mute');
     $number_of_tries++;
     $iTM->number_of_tries($number_of_tries);
-    $iTM->iSelect_tr_Sumute_top();
+    $iTM->iTM_Select_tr_Sumute_top();
 
 }
 
@@ -323,7 +323,7 @@ sub set_calc {
 
 =cut
 
-    $iTM->message('post_pick_mute');
+    $iTM->iTM_message('post_pick_mute');
 }
 
 
@@ -388,8 +388,8 @@ sub set_next {
 =cut
 
     $iTM->gather_num($gather);
-    $iTM->message('first_top_mute');
-    $iTM->iSelect_tr_Sumute_top();
+    $iTM->iTM_message('first_top_mute');
+    $iTM->iTM_Select_tr_Sumute_top();
 
 }
 
@@ -418,7 +418,7 @@ sub set_exit {
 #			print ("Old top mute parameters MAY NOT exist\n\n") ;
 #			while ($response eq 'n') {
 #		  		print ("Select new top mute parameters \n\n") ;
-#		  		iTM->iSelect_tr_Sumute_top2");
+#		  		iTM->iTM_Select_tr_Sumute_top2");
 #				iTM->iTopMutepicks2par2");
 #	               		iTM->itemp_Sumute_top2");
 #		  		print ("4. Are picks OK y/n or q-quit?\n");

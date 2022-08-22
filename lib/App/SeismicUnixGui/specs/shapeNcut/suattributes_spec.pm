@@ -1,4 +1,5 @@
 package App::SeismicUnixGui::specs::shapeNcut::suattributes_spec;
+
 use Moose;
 our $VERSION = '0.0.1';
 

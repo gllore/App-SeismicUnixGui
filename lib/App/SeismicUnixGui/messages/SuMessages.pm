@@ -168,7 +168,7 @@ sub set {
 
 		$SuMessages->{_type} = $message_type;
 
-		print("SuMessages, set, type is $SuMessages->{_type}\n\n");
+#		print("SuMessages, set, type is $SuMessages->{_type}\n\n");
 
 	}
 	else {

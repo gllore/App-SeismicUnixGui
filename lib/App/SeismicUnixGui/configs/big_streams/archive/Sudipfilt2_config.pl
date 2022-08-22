@@ -36,7 +36,7 @@ use Moose;
 use Config::Simple;
 use control 0.0.3;
 use System_Variables;
-use App:SeismicUnixGui::misc::SeismicUnix qw($in $out $on $go $to $suffix_ascii $off $suffix_su);
+use App::SeismicUnixGui::misc::SeismicUnix qw($in $out $on $go $to $suffix_ascii $off $suffix_su);
 use App::SeismicUnixGui::misc::L_SU_global_constants;
 my $get                         = L_SU_global_constants->new();
 my $alias_superflow_config_name = $get->alias_superflow_config_names_aref();
@@ -54,7 +54,7 @@ $cfg = new Config::Simple('Sudipfilt.config');
 $file_name = $cfg->param("file_name");
 
 # print("1. Sudipfilter2_config.pl,file_name: $file_name\n");
-$control         = new control();
+$control         = control->new();
 $DATA_SEISMIC_SU = System_Variables::DATA_SEISMIC_SU();
 
 =head2 anonymous array reference is CFG

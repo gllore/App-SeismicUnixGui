@@ -42,18 +42,22 @@ package App::SeismicUnixGui::configs::big_streams::iPick_config;
 =cut 
 
 use Moose;
+
+use aliased 'App::SeismicUnixGui::misc::L_SU_global_constants';
 my $VERSION = '0.0.1';
 use aliased 'App::SeismicUnixGui::configs::big_streams::Project_config';
+
 use App::SeismicUnixGui::misc::control '0.0.3';
 use aliased 'App::SeismicUnixGui::misc::control';
+
 use aliased 'App::SeismicUnixGui::misc::config_superflows';
-use aliased 'App::SeismicUnixGui::misc::L_SU_global_constants';
+
 use App::SeismicUnixGui::misc::SeismicUnix qw($in $out $on $go $to $suffix_ascii $off $suffix_su);
 
 my $Project                = Project_config->new();
 my $control                = control->new();
 my $DATA_SEISMIC_SU        = $Project->DATA_SEISMIC_SU();
-my $config_superflows      = new config_superflows;
+my $config_superflows      = config_superflows->new();
 my $get                    = L_SU_global_constants->new();
 my $superflow_config_names = $get->superflow_config_names_aref();
 
@@ -67,8 +71,8 @@ my $iPick_config = {
     _prog_name   => '',
     _values_aref => '',
 };
-
 # set the superflow name: 11 is for iPick
+
 sub get_values {
 
     my ($self) = @_;
@@ -129,6 +133,7 @@ sub get_values {
     };    # end of CFG hash
 
     return ( $CFG, $iPick_config->{_values_aref} );  # hash and arrary reference
+
 };    # end of sub get_values
 
 =head2 sub get_max_index

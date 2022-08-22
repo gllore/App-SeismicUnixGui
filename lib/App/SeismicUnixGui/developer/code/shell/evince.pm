@@ -71,7 +71,7 @@ our $VERSION = '0.0.1';
 
 use App::SeismicUnixGui::misc::L_SU_global_constants();
 
-use App:SeismicUnixGui::misc::SeismicUnix qw($in $out $on $go $to $suffix_ascii $off $suffix_su $suffix_bin);
+use App::SeismicUnixGui::misc::SeismicUnix qw($in $out $on $go $to $suffix_ascii $off $suffix_su $suffix_bin);
 use App::SeismicUnixGui::configs::big_streams::Project_config;
 
 

@@ -106,7 +106,7 @@ my $var = {
 };
 
 
-sub var {
+sub var{
 	my ($self) = @_;
 	
     return ($var);

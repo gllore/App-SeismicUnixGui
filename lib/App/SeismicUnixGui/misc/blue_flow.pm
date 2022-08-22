@@ -1789,6 +1789,7 @@ sub FileDialog_button {
 
 	my $file_dialog_type = $get->file_dialog_type_href();
 	my $PL_SEISMIC       = $Project->PL_SEISMIC();
+	my $manage_files_by2 = manage_files_by2->new();
 
 	if ($dialog_type_sref) {
 
@@ -1896,7 +1897,7 @@ sub FileDialog_button {
 
 			# Is $flow_name_in empty?
 			my $file2query = $PL_SEISMIC . '/' . $color_flow_href->{$_flow_name_in_color};
-			$color_flow->{_Flow_file_exists} = manage_files_by2::does_file_exist_sref( \$file2query );
+			$color_flow->{_Flow_file_exists} = $manage_files_by2->does_file_exist_sref( \$file2query );
 			
 			# Are there any errors when reading the perl flow file
 			$color_flow->{_perl_flow_errors} = _perl_flow_errors();

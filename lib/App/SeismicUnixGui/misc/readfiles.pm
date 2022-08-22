@@ -34,11 +34,16 @@ USAGE 1
 
 use aliased 'App::SeismicUnixGui::misc::L_SU_global_constants';
 
-my $get                  = L_SU_global_constants->new();
+use App::SeismicUnixGui::misc::control '0.0.3';
+use aliased 'App::SeismicUnixGui::misc::control';
+
+my $get = L_SU_global_constants->new();
+
 # my $alias_superflow_name = $get->alias_superflow_names_h;
 
 #print("readfiles, alias_superflow_name, fk is $alias_superflow_name->{fk}\n");
-my $global_libs          = $get->global_libs;
+my $global_libs = $get->global_libs;
+
 # my $alias_PV                    = $alias_superflow_name->{_ProjectVariables};
 # my $alias_superflow_config_name = $get->alias_superflow_config_names_aref();
 
@@ -110,7 +115,7 @@ sub cols_1 {
 
 	   # print ("\n readfiles, cols_1, The input file is called $ref_origin\n");
 		open( FILE, $readfiles->{_ref_file} )
-			|| print("Can't open file_name, $!\n");
+		  || print("Can't open file_name, $!\n");
 
 =pod 
 
@@ -177,7 +182,7 @@ sub cols_1p {
 
 	   # print ("\n readfiles, cols_1, The input file is called $ref_origin\n");
 		open( FILE, $readfiles->{_ref_file} )
-			|| print("Can't open file_name, $!\n");
+		  || print("Can't open file_name, $!\n");
 
 =pod 
 
@@ -191,7 +196,7 @@ sub cols_1p {
 			chomp($line);
 
 			if ( $line ne $empty_string ) {
-				
+
 				my ($x) = $line;
 				$OFFSET[$i] = $x;
 
@@ -367,8 +372,8 @@ sub cols_2 {
 #	use Moose;
 #	# use Config::Simple;
 #	use name;
-use App::SeismicUnixGui::misc::control '0.0.3';
-use aliased 'App::SeismicUnixGui::misc::control';
+#use App::SeismicUnixGui::misc::control '0.0.3';
+#use aliased 'App::SeismicUnixGui::misc::control';
 #	my $name    = name->new();
 #	my $control = control->new();
 #
@@ -639,7 +644,7 @@ sub cfg {
 		my $file = $file_char;
 		our $err;
 		{    # Put config file data into the namespace
-			    # of this package
+			 # of this package
 
 			package CFG;
 
@@ -680,22 +685,20 @@ sub cfg {
 
 sub configs {
 	my ( $self, $program ) = @_;
-#	use App::SeismicUnixGui::misc::control '0.0.3';
-#use aliased 'App::SeismicUnixGui::misc::control';
-#	use aliased 'App::SeismicUnixGui::misc::control';
 
 	if ($program) {
-		
+
 		my $control = control->new();
 		my ( @parameter, @value );
 		my ( $this,      $eq );
 
 		$this = $program;
 
-		# print("readfiles,configs,this program is:$this\n");
+#		print("readfiles,configs,this program is:$this\n");
 		my ( $i, $t, $t_whole, $x, $line, $max_index );
+		
 		open( my $IN, '<', $this )
-			or die "readfiles,configs: Can't open parameter file: '$this' $!";
+		  or die "readfiles,configs: Can't open parameter file: '$this' $!";
 
 =pod
 
@@ -738,27 +741,27 @@ sub configs {
 =cut
 
 		$i = 0;
-		while ( $line = <$IN> ) {
+		while ( $line = <$IN>) {
 
-			# print("1. readfiles,configs:raw line $i is $line\n");
+#			print("1. readfiles,configs:raw line $i is $line\n");
 			chomp($line);
 
    # skip lines starting where first non-white character is  #
    # modify 'm' starts ^ and ends $ as pertaining to each line and not each file
-   # print("2. readfiles,configs:chomped line $i is $line\n");
+#   print("2. readfiles,configs:chomped line $i is $line\n");
 			next if $line =~ /^\s*#/m;
 
-# print("3.0 readfiles,configs:these lines have no starting '#' $i is $line\n");
+#	print("3.0 readfiles,configs:these lines have no starting '#' $i is $line\n");
 
 			# trim white spaces from both ends
 			$line =~ s/^\s+|\s+$//g;
 
-# print("3-1. readfiles,configs white spaces removed from ends,line $i is $line\n");
+#	print("3-1. readfiles,configs white spaces removed from ends,line $i is $line\n");
 
 			# split line using =
 			( $t_whole, $x ) = split( /\s+=\s*/, $line );
-			$t = $t_whole;    # redundanct in long run unless the
-			                  # following changes
+			$t = $t_whole;    # redundant in long run unless the
+							  # following changes
 
 	#		  #  Only first of a composite set of labels e.g. boundary_conditions|abs
 	#			if ( defined $t_whole
@@ -775,18 +778,18 @@ sub configs {
 
 			# print("3-1a. readfiles,configs $t\t$x \n");
 
-			# print("3-1b. readfiles,configs $t\t$x \n");
+			#			print("3-1b. readfiles,configs $t\t$x \n");
 
 			$x = $control->get_no_quotes($x);
 
 			# print("3-1b. readfiles,configs $t\t$x \n");
 
-		# establish which program is active in the flow 7.10.21
+# establish which program is active in the flow 7.10.21
 #		$color_flow_href->{_prog_names_aref} = $param_flow_color_pkg->get_flow_prog_names_aref();
 #   	    $control->set_flow_prog_names_aref($color_flow_href->{_prog_names_aref});
 #   	    $control->set_flow_prog_name_index($most_recent_flow_index_touched);
-			# add single strings to the start and end if we do have a string
-			# but do nothing if it is a number
+# add single strings to the start and end if we do have a string
+# but do nothing if it is a number
 			$x = $control->get_string_or_number($x);
 
 			# print("3-1c. readfiles,configs $t\t$x \n");
@@ -826,7 +829,7 @@ sub configs {
 
 				# assume ALL bad x value shave been caught , including x=0
 
-			   # print("5-1. readfiles,configs:parameter name, value : $t,$x\n");
+			  # print("5-1. readfiles,configs:parameter name, value : $t,$x\n");
 				$parameter[$i] = $t;
 				$value[$i]     = $x;
 
@@ -842,7 +845,6 @@ sub configs {
 
 	}    # end program
 }    # end sub
-
 
 =head2 sub get_cols_3 
 
@@ -866,14 +868,14 @@ sub get_cols_3 {
 		print("readfiles,get_cols_3 inbound = $inbound\n");
 
 		open( $inbound_fh, '<', $inbound )
-			|| print(
+		  || print(
 			"readfiles,cols_8,Can't open $readfiles->{_file_name}, $!\n");
 
 		# set the counter
 		my $ip_counter = 1;
 		my $op_counter = 0;
 		my $lines;
-		my ( @A, @B, @C);
+		my ( @A, @B, @C );
 
 		# read contents of file
 		while ( $lines = <$inbound_fh> ) {
@@ -882,7 +884,7 @@ sub get_cols_3 {
 
 				#print("$lines");
 				chomp($lines);
-				my ( $a, $b, $c) = split( " ", $lines );
+				my ( $a, $b, $c ) = split( " ", $lines );
 
 				# print("\n $a $b, $c \n");
 
@@ -906,7 +908,7 @@ sub get_cols_3 {
 		# close the file of interest
 		close($inbound_fh);
 
-		my @array_refs = ( \@A, \@B, \@C);
+		my @array_refs = ( \@A, \@B, \@C );
 
 		return ( \@array_refs );
 
@@ -944,7 +946,7 @@ sub get_cols_8 {
 		print("readfiles,cols_8 inbound = $inbound\n");
 
 		open( $inbound_fh, '<', $inbound )
-			|| print(
+		  || print(
 			"readfiles,cols_8,Can't open $readfiles->{_file_name}, $!\n");
 
 		# set the counter

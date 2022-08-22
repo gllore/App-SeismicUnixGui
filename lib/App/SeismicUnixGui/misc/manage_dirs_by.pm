@@ -114,7 +114,7 @@ sub get_file_list_aref {
 
 		}
 		else {
-			print("manage_dirs_by,get_file_list_aref, empty directory list NADA\n");
+#			print("manage_dirs_by,get_file_list_aref, empty directory list NADA\n");
 			return();
 		}
 
@@ -215,9 +215,9 @@ sub make_dir {
 	# if it does not exist already
 
 	# get directory names
-	my ($directory) = shift @_;
+	my ($self, $directory) = @_;
 
-#    print ("\nmanage_dirs_by, make_dir, Making directories----$directory---\n");
+#    print ("\nmanage_dirs_by, make_dir, Making directories----$self, $directory---\n");
 
 	system(
 		"                       	\\

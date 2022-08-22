@@ -28,9 +28,18 @@ package App::SeismicUnixGui::big_streams::iSelect_tr_Sumute_bottom;
 
 use Moose;
 my $VERSION = '1.0.3';
+
 use aliased 'App::SeismicUnixGui::configs::big_streams::Project_config';
 use App::SeismicUnixGui::misc::SeismicUnix
   qw($on $off $go $in $true $false $itemp_bot_mute_picks_ $itemp_bot_mute_picks_sorted_par_ $itop_mute_par_ $itop_mute_check_pickfile_ $suffix_su $to);
+use aliased 'App::SeismicUnixGui::misc::message';
+use aliased 'App::SeismicUnixGui::misc::flow';
+use aliased 'App::SeismicUnixGui::sunix::filter::sufilter';
+use aliased 'App::SeismicUnixGui::sunix::shapeNcut::sugain';
+use aliased 'App::SeismicUnixGui::sunix::shapeNcut::suwind';
+use aliased 'App::SeismicUnixGui::sunix::plot::suximage';
+use aliased 'App::SeismicUnixGui::sunix::plot::suxwigb';
+use aliased 'App::SeismicUnixGui::messages::SuMessages';
 
 =head2 Instantiate 
 

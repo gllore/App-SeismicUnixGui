@@ -111,6 +111,17 @@ our $VERSION = '0.0.1';
 use aliased 'App::SeismicUnixGui::misc::L_SU_global_constants';
 use App::SeismicUnixGui::misc::SeismicUnix qw($itop_mute_par_ $ibot_mute_par_);
 use aliased 'App::SeismicUnixGui::configs::big_streams::Project_config';
+use aliased 'App::SeismicUnixGui::misc::manage_files_by2';
+		
+use App::SeismicUnixGui::misc::control '0.0.3';
+use aliased 'App::SeismicUnixGui::misc::control';
+
+use App::SeismicUnixGui::sunix::shapeNcut::susplit;
+use App::SeismicUnixGui::misc::flow;
+
+use App::SeismicUnixGui::misc::SeismicUnix
+	qw($in $out $on $go $to $tmute $xmute $suffix_ascii $off $suffix_su $suffix_bin $temp_single_gather_par_file_mute );
+
 
 my $get     = L_SU_global_constants->new();
 my $Project = Project_config->new();
@@ -121,9 +132,6 @@ my ($imute_par_);
 my ( @tmute, @xmute, @output, @Steps, @gather_number, @par_file );
 my $PL_SEISMIC      = $Project->PL_SEISMIC();
 my $DATA_SEISMIC_SU = $Project->DATA_SEISMIC_SU();
-
-use App::SeismicUnixGui::misc::SeismicUnix
-	qw($in $out $on $go $to $tmute $xmute $suffix_ascii $off $suffix_su $suffix_bin $temp_single_gather_par_file_mute );
 
 my $sumute = {
 	_par_gather_number_aref => '',
@@ -160,15 +168,11 @@ sub _get_par_sets {
 	if (    $sumute->{_multi_gather_par_file} ne $empty_string
 		and $sumute->{_gather_type} ne $empty_string ) {
 
-		use App::SeismicUnixGui::misc::manage_files_by2;
-		use App::SeismicUnixGui::misc::control '0.0.3';
-		use aliased 'App::SeismicUnixGui::misc::control';
-
 =head2 instantiate classes
 
 =cut
 
-		my $files   = new manage_files_by2;
+		my $files   = manage_files_by2->new();
 		my $control = control->new();
 
 =head2 private definitions
@@ -341,17 +345,12 @@ with multi_gather_su_file
 
 =cut
 
-		use App::SeismicUnixGui::sunix::shapeNcut::susplit;
-		use App::SeismicUnixGui::misc::flow;
-		use App::SeismicUnixGui::misc::control '0.0.3';
-		use aliased 'App::SeismicUnixGui::misc::control';
-
 =head2 instantiate modules
 
 =cut	
 
 		my $susplit = susplit->new();
-		my $run     = new flow();
+		my $run     = flow->new();
 		my $control = control->new();
 
 =head2 declare local variables
@@ -701,7 +700,7 @@ sub Steps {
 	use App::SeismicUnixGui::misc::flow;
 
 	my ($DATA_SEISMIC_SU) = $Project->DATA_SEISMIC_SU();
-	my $run = new flow();
+	my $run = flow->new();
 	my ( @items, @outbound );
 
 	for ( my $i = 1; $i <= $sumute->{_number_of_par_files}; $i++ ) {
@@ -1126,13 +1125,11 @@ sub multi_gather_par_file {
 
 	if ( $multi_gather_par_file ne $empty_string ) {
 
-		use App::SeismicUnixGui::misc::manage_files_by2;
-
 =head2 instantiate classes
 
 =cut
 
-		my $files = new manage_files_by2();
+		my $files = manage_files_by2->new();
 
 =head2 module definitions$sumute->{_par_gather_number_aref}
 

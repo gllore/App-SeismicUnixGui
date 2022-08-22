@@ -64,7 +64,7 @@ use App::SeismicUnixGui::misc::SeismicUnix qw($in $out $on $go $to $suffix_ascii
 my $Project                = Project_config->new();
 my $control                = control->new();
 my $DATA_SEISMIC_SU        = $Project->DATA_SEISMIC_SU();
-my $config_superflows      = new config_superflows;
+my $config_superflows      = config_superflows->new();
 my $get                    = L_SU_global_constants->new();
 my $superflow_config_names = $get->superflow_config_names_aref();
 

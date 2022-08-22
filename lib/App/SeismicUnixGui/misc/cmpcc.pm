@@ -859,8 +859,8 @@ Version:
 		my $DATA_SEISMIC_SU   = $Project->DATA_SEISMIC_SU;
 		my $DATA_SEISMIC_TXT  = $Project->DATA_SEISMIC_TXT;
 
-		use message;
-		use flow;
+		use aliased 'App::SeismicUnixGui::misc::message';
+		use aliased 'App::SeismicUnixGui::misc::flow';
 		use cat_su;
 		use data_out;
 
@@ -996,8 +996,8 @@ Version:
 		my $DATA_SEISMIC_SU   = $Project->DATA_SEISMIC_SU;
 		my $DATA_SEISMIC_TXT  = $Project->DATA_SEISMIC_TXT;
 
-		use message;
-		use flow;
+		use aliased 'App::SeismicUnixGui::misc::message';
+		use aliased 'App::SeismicUnixGui::misc::flow';
 		use cat_txt;
 		use data_out;
 
@@ -1191,8 +1191,8 @@ Version:
 		my $DATA_SEISMIC_SU   = $Project->DATA_SEISMIC_SU;
 		my $DATA_SEISMIC_TXT  = $Project->DATA_SEISMIC_TXT;
 
-		use message;
-		use flow;
+		use aliased 'App::SeismicUnixGui::misc::message';
+		use aliased 'App::SeismicUnixGui::misc::flow';
 		use data_in;
 		use suwind;
 		use data_out;
@@ -1423,8 +1423,8 @@ Version:
 		my $DATA_SEISMIC_SU   = $Project->DATA_SEISMIC_SU;
 		my $DATA_SEISMIC_TXT  = $Project->DATA_SEISMIC_TXT;
 
-		use message;
-		use flow;
+		use aliased 'App::SeismicUnixGui::misc::message';
+		use aliased 'App::SeismicUnixGui::misc::flow';
 		use data_in;
 		use suwind;
 		use data_out;
@@ -1760,8 +1760,8 @@ Version:
 		my $DATA_SEISMIC_SU   = $Project->DATA_SEISMIC_SU;
 		my $DATA_SEISMIC_TXT  = $Project->DATA_SEISMIC_TXT;
 
-		use message;
-		use flow;
+		use aliased 'App::SeismicUnixGui::misc::message';
+		use aliased 'App::SeismicUnixGui::misc::flow';
 		use data_in;
 		use sulhead;
 		use data_out;
@@ -2311,8 +2311,8 @@ Version:
 		my $DATA_SEISMIC_SU   = $Project->DATA_SEISMIC_SU;
 		my $DATA_SEISMIC_TXT  = $Project->DATA_SEISMIC_TXT;
 
-		use message;
-		use flow;
+		use aliased 'App::SeismicUnixGui::misc::message';
+		use aliased 'App::SeismicUnixGui::misc::flow';
 		use data_in;
 		use sushw;
 		use data_out;
@@ -2510,8 +2510,8 @@ Version:
 		my $DATA_SEISMIC_SU   = $Project->DATA_SEISMIC_SU;
 		my $DATA_SEISMIC_TXT  = $Project->DATA_SEISMIC_TXT;
 
-		use message;
-		use flow;
+		use aliased 'App::SeismicUnixGui::misc::message';
+		use aliased 'App::SeismicUnixGui::misc::flow';
 		use data_in;
 		use suxcor;
 		use data_out;

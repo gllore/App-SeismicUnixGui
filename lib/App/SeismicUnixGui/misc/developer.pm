@@ -75,7 +75,7 @@ sub _program_category {
 		&&  $developer->{_program_name} ne $empty_string 
 		&& $developer->{_flow_type} ne $empty_string ) {
 
-		use App::SeismicUnixGui::misc::L_SU_global_constants;
+#		use App::SeismicUnixGui::misc::L_SU_global_constants;
 
 		my $flow_type             = $get->flow_type_href();
 		my $program_name          = $developer->{_program_name};

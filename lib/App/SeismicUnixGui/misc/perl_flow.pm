@@ -34,7 +34,12 @@ package App::SeismicUnixGui::misc::perl_flow;
 use Moose;
 our $VERSION = '0.0.2';
 use aliased 'App::SeismicUnixGui::misc::sunix_pl';
+
 use aliased 'App::SeismicUnixGui::misc::L_SU_global_constants';
+use aliased 'App::SeismicUnixGui::configs::big_streams::Project_config';
+
+use App::SeismicUnixGui::misc::su_param '0.0.2';
+use aliased 'App::SeismicUnixGui::misc::param_sunix';
 
 my $sunix_pl = sunix_pl->new();
 my $get      = L_SU_global_constants->new();
@@ -262,9 +267,6 @@ sub get_parse_errors {
 	
 	my $result;
 
-	use App::SeismicUnixGui::misc::su_param '0.0.2';
-	use App::SeismicUnixGui::configs::big_streams::Project_config;
-
 	my $param_sunix = param_sunix->new();
 	my $Project     = Project_config->new();
 
@@ -319,9 +321,6 @@ sub get_parse_errors {
 
 sub parse {
 	my ($self) = @_;
-
-	use App::SeismicUnixGui::misc::param_sunix;
-	use App::SeismicUnixGui::configs::big_streams::Project_config;
 
 	my $param_sunix = param_sunix->new();
 	my $Project     = Project_config->new();

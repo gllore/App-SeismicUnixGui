@@ -3,8 +3,8 @@ package App::SeismicUnixGui::big_streams::iBottomMutePicks2par;
 use Moose;
 use aliased 'App::SeismicUnixGui::misc::message';
 use aliased 'App::SeismicUnixGui::misc::flow';
-#use App::SeismicUnixGui::configs::big_streams;
 use aliased 'App::SeismicUnixGui::misc::mkparfile';
+use aliased 'App::SeismicUnixGui::configs::big_streams::Project_config';
 
 =head1 DOCUMENTATION
 

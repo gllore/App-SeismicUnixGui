@@ -130,7 +130,7 @@ Synseis \
 use Moose;
 use aliased 'App::SeismicUnixGui::sunix::par::a2b';
 use aliased 'App::SeismicUnixGui::misc::flow';
-use aliased 'App::SeismicUnixGui::misc::manage_files_by';
+use App::SeismicUnixGui::misc::manage_files_by;
 use aliased 'App::SeismicUnixGui::misc::message';
 use aliased 'App::SeismicUnixGui::big_streams::Synseis';
 use aliased 'App::SeismicUnixGui::configs::big_streams::Synseis_config';
@@ -417,26 +417,26 @@ $run->flow( \$flow[2] );
 #print  "Synseis.pl,flow2: $flow[2]\n";
 
 #get meta-data from zrhoreg
-my $num_points_zrho_reg = manage_files_by::count_lines( \$zrho_reg );
+my $num_points_zrho_reg = App::SeismicUnixGui::misc::manage_files_by::count_lines( \$zrho_reg );
 #print("num_points_zrho_reg  $num_points_zrho_reg \n");
 
 #create zv_reg.bin
 $run->flow( \$flow[3] );
 #get meta-data from zvreg
-my $num_points_zv_reg = manage_files_by::count_lines( \$zv_reg );
+my $num_points_zv_reg = App::SeismicUnixGui::misc::manage_files_by::count_lines( \$zv_reg );
 #print("num_points_zv_reg  $num_points_zv_reg \n");
 
 #create reflection_coef_depth.bin
 $run->flow( \$flow[4] );
 # get meta-data from reflection_coef_depth
-my $num_points_depth = manage_files_by::count_lines( \$reflection_coef_depth );
+my $num_points_depth = App::SeismicUnixGui::misc::manage_files_by::count_lines( \$reflection_coef_depth );
 #print("num_points_depth  $num_points_depth \n");
 
 # create reflection_coef_time.bin
 $run->flow( \$flow[5] );
 #print  "Synseis.pl,flow5: $flow[5]\n";
 # get meta-data from reflection_coef_time
-my $num_points_time = manage_files_by::count_lines( \$reflection_coef_time );
+my $num_points_time = App::SeismicUnixGui::misc::manage_files_by::count_lines( \$reflection_coef_time );
 #print("num_points_time $num_points_time \n");
 
 # create ss.bin
@@ -444,7 +444,7 @@ $run->flow( \$flow[6] );
 
 ## get meta-data from ss
 my $num_points_synthetic_seismogram =
-     manage_files_by::count_lines( \$output_synthetic_seismogram );
+     App::SeismicUnixGui::misc::manage_files_by::count_lines( \$output_synthetic_seismogram );
 # print("num_points_synthetic_seismogram $num_points_synthetic_seismogram \n");
 
 =head2 plot zrho_reg.bin

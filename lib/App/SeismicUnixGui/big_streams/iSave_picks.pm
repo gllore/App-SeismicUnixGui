@@ -49,6 +49,9 @@ use App::SeismicUnixGui::misc::SeismicUnix qw($go $in $on $to);
 use aliased 'App::SeismicUnixGui::configs::big_streams::Project_config';
 use aliased 'App::SeismicUnixGui::misc::L_SU_global_constants';
 
+use App::SeismicUnixGui::misc::control '0.0.3';
+use aliased 'App::SeismicUnixGui::misc::control';
+
 my $control = control->new();
 my $get     = L_SU_global_constants->new();
 my $log     = message->new();
@@ -329,7 +332,7 @@ sub gather_type {
 #
 #	use File::Copy;
 #	use App::SeismicUnixGui::misc::control '0.0.3';
-use aliased 'App::SeismicUnixGui::misc::control';
+#use aliased 'App::SeismicUnixGui::misc::control';
 #	use dirs;
 #	use App::SeismicUnixGui::misc::readfiles;
 #
@@ -384,8 +387,6 @@ sub set_purpose {
         && $type ne $empty_string )
     {
 
-        use App::SeismicUnixGui::misc::control '0.0.3';
-use aliased 'App::SeismicUnixGui::misc::control';
         my $control = control->new();
         $control->set_infection($type);
         $type = control->get_ticksBgone();

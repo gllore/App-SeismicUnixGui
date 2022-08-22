@@ -715,7 +715,7 @@ sub file_dialog_type_aref {
  	
  	modify a subroutine called file:
  		
- 		use App:SeismicUnixGui::misc::SeismicUnix qw($suffix_segy);
+ 		use App::SeismicUnixGui::misc::SeismicUnix qw($suffix_segy);
 		use File::Basename;
 		my ($DATA_SEISMIC_SEGY) = $Project->DATA_SEISMIC_SEGY();
 		my $new_file_name = $file;
@@ -2667,7 +2667,7 @@ color_listbox
 	 I also had to ALSO import new variables into the module:
 	 
 	~ L 6
-	 use App:SeismicUnixGui::misc::SeismicUnix qw($su $suffix_su $bin $suffix_bin);
+	 use App::SeismicUnixGui::misc::SeismicUnix qw($su $suffix_su $bin $suffix_bin);
 	  
 	 ~L 21
 	  my $DATA_SEISMIC_BIN= $Project->DATA_SEISMIC_BIN();    # output data directory
@@ -2815,5 +2815,33 @@ Q. How does project-selector run in general terms"?
 			    big_streams_param
 			    get
 	   
-	
+
+Q How do you deal with redefined subroutines:
+
+A.1
+ Both of the following instantiate iPick_spec.pm
+ --iPick_config 
+ 			calls 
+ 		config_superflows 
+ 		    calls 
+ 		big_streams_param 
+ 			which requires and instantiates iPick_spec
+ --iPick.pm
+ 		uses and instantiates iPick_specB.pm
+ 		uses iShowNselect_picks
+ 		      which instantiates iPick_specC
+ 		uses iSelect_xt
+ 			  which instantiates iPick_specD
+ 			  
+ 			  
+ A.2 Similarly for : 
+ 				grey_flow, green_flow, pink_flow, blue_flow
+ 				param_widgets_neutral, param_widgets_pink,
+  				param_widgets_green, param_widgets_blue,	
+  				param_widgets_grey	
+  				
+  				param_flow_grey, param_flow_green,
+  				param_flow_blue, param_flow_pink
+  				
+  A.3 By removing the 'aliased' option
            

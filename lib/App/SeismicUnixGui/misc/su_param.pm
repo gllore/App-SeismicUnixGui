@@ -47,6 +47,10 @@ use Moose;
 our $VERSION = '0.0.3';
 
 use aliased 'App::SeismicUnixGui::misc::L_SU_global_constants';
+use aliased 'App::SeismicUnixGui::misc::developer';
+#use aliased 'App::SeismicUnixGui::misc::manage_files_by2';
+use aliased 'App::SeismicUnixGui::misc::readfiles';
+		
 use Shell qw(echo);
 
 my $L_SU_global_constants = L_SU_global_constants->new();
@@ -290,9 +294,6 @@ sub get {
 		my ( $i, $j, $program_config, $path );
 		my $sub_category_directory;
 
-		use App::SeismicUnixGui::misc::developer;
-		use App::SeismicUnixGui::misc::readfiles;
-
 		my $read      = readfiles->new();
 		my $developer = developer->new();
 
@@ -451,23 +452,27 @@ sub _check4local_config {
 	if ( length $name_sref
 		&& $name_sref ne $empty_string )
 	{
-
-		my $module_spec    = $$name_sref . '_spec';
-		my $module_spec_pm = $module_spec . '.pm';
+				
+		my $L_SU_global_constants 		= L_SU_global_constants->new();
+		my $program_name   				= $$name_sref;
+		my $module_spec_pm 				= $program_name . '_spec.pm';
 
 		$L_SU_global_constants->set_file_name($module_spec_pm);
-		my $path = $L_SU_global_constants->get_path4spec_file();
+		my $slash_path4spec 			= $L_SU_global_constants->get_path4spec_file();
+		my $slash_pathNmodule_spec_pm   = $slash_path4spec . '/' . $module_spec_pm;		
 
-#		print("su_param,_check4local_config, module path=$path \n");
+		$L_SU_global_constants->set_program_name($program_name);
+		my $colon_pathNmodule_spec 		= $L_SU_global_constants->get_colon_pathNmodule_spec();
 
-		if ( length $path ) {
-
-			my $pathNmodule_pm = $path . '/' . $module_spec_pm;
-			print("su_param, _check4local_config, pathNmodule_pm = $pathNmodule_pm\n");
+#	 	print("1. _get_suffix_aref, prog_name: $slash_pathNmodule_spec_pm\n");	 
+#	 	print("1. _get_suffix_aref, prog_name: $colon_pathNmodule_spec\n");
+	
+		if ( length $slash_pathNmodule_spec_pm) {
 			
-			require $pathNmodule_pm;
-
-			my $package = $module_spec->new();
+			require $slash_pathNmodule_spec_pm;
+		
+#		INSTANTIATE
+			my $package = $colon_pathNmodule_spec->new();
 
 			# collect specifications of output directory
 			# from a program_spec.pm module

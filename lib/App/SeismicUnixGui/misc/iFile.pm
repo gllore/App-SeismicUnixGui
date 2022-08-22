@@ -25,6 +25,8 @@ package App::SeismicUnixGui::misc::iFile;
 use Moose;
 
 use aliased 'App::SeismicUnixGui::misc::L_SU_global_constants';
+use aliased 'App::SeismicUnixGui::configs::big_streams::Project_config';
+
 my $L_SU_global_constants = L_SU_global_constants->new();
 my $global_libs           = $L_SU_global_constants->global_libs();
 my $alias_superflow_config_names_aref =
@@ -84,7 +86,6 @@ Allows mutiple file  formats (bin,su,txt) within a single program: 6.4.21
 sub _get_DATA_DIR_IN {
 	my ($self) = @_;
 
-	use App::SeismicUnixGui::configs::big_streams::Project_config;
 	my $Project = Project_config->new();
 
 	my $DATA_SEISMIC_BIN  = $Project->DATA_SEISMIC_BIN();
@@ -120,17 +121,24 @@ sub _get_DATA_DIR_IN {
 		&& length( $iFile->{_parameter_value_index} ) )
 	{
 
-		my $module_spec    = $prog_name . '_spec';
-		my $module_spec_pm = $module_spec . '.pm';
+		my $L_SU_global_constants = L_SU_global_constants->new();
+		my $module_spec_pm        = $prog_name . '_spec.pm';
 
 		$L_SU_global_constants->set_file_name($module_spec_pm);
-		my $path           = $L_SU_global_constants->get_path4spec_file();
-		my $pathNmodule_pm = $path . '/' . $module_spec_pm;
+		my $slash_path4spec = $L_SU_global_constants->get_path4spec_file();
+		my $slash_pathNmodule_spec_pm =
+		  $slash_path4spec . '/' . $module_spec_pm;
 
-		require $pathNmodule_pm;
+		$L_SU_global_constants->set_program_name($prog_name);
+		my $colon_pathNmodule_spec =
+		  $L_SU_global_constants->get_colon_pathNmodule_spec();
 
-		#		$refresher->refresh_module("$module_spec_pm");
-		my $package = $module_spec->new;
+#	 	print("1. iFile _get_suffix_aref, prog_name: $slash_pathNmodule_spec_pm\n");
+#	 	print("1.iFile, _get_suffix_aref, prog_name: $colon_pathNmodule_spec\n");
+		require $slash_pathNmodule_spec_pm;
+
+		# INSTANTIATE
+		my $package = $colon_pathNmodule_spec->new();
 
 		# collect specifications of input and output directories
 		# from a "program_spec".pm module
@@ -260,17 +268,32 @@ sub _get_DATA_DIR_OUT {
 		#		 use Module::Refresh; # reload updated module
 		#	    my $refresher = Module::Refresh->new;
 
-		my $module_spec    = $prog_name . '_spec';
-		my $module_spec_pm = $module_spec . '.pm';
+		my $manage_files_by2 = manage_files_by2->new();
 
-		$L_SU_global_constants->set_file_name($module_spec_pm);
-		my $path           = $L_SU_global_constants->get_path4spec_file();
-		my $pathNmodule_pm = $path . '/' . $module_spec_pm;
+		$manage_files_by2->set_program_name($prog_name);
+		my $pathNmodule_pm   = $manage_files_by2->get_pathNmodule_pm();
+		my $pathNmodule_spec = $manage_files_by2->get_pathNmodule_spec();
+
+	 #	print("1. _get_suffix_aref, prog_name: $program_name$pathNmodule_pm \n");
 
 		require $pathNmodule_pm;
 
-		#		$refresher->refresh_module("$module_spec_pm");
-		my $package = $module_spec->new;
+		#$refresher->refresh_module("$module_spec_pm");
+
+		# INSTANTIATE
+		my $package = $pathNmodule_spec->new();
+
+		#		my $module_spec    = $prog_name . '_spec';
+		#		my $module_spec_pm = $module_spec . '.pm';
+		#
+		#		$L_SU_global_constants->set_file_name($module_spec_pm);
+		#		my $path           = $L_SU_global_constants->get_path4spec_file();
+		#		my $pathNmodule_pm = $path . '/' . $module_spec_pm;
+		#
+		#		require $pathNmodule_pm;
+		#
+		#		#		$refresher->refresh_module("$module_spec_pm");
+		#		my $package = $module_spec->new;
 
 		# collect specifications of input and output directories
 		# fromt a program_spec.pm module
@@ -294,7 +317,7 @@ sub _get_DATA_DIR_OUT {
 sub get_Open_perl_flow_path {
 
 	my ($self) = @_;
-	use App::SeismicUnixGui::configs::big_streams::Project_config;
+
 	my $Project    = Project_config->new();
 	my $PL_SEISMIC = $Project->PL_SEISMIC();
 
@@ -312,7 +335,7 @@ sub get_Open_perl_flow_path {
 sub get_Open_path {
 
 	my ($self) = @_;
-	use App::SeismicUnixGui::configs::big_streams::Project_config;
+
 	my $Project    = Project_config->new();
 	my $PL_SEISMIC = $Project->PL_SEISMIC();
 
@@ -329,7 +352,7 @@ sub get_Open_path {
 sub get_SaveAs_path {
 
 	my ($self) = @_;
-	use App::SeismicUnixGui::configs::big_streams::Project_config;
+
 	my $Project    = Project_config->new();
 	my $PL_SEISMIC = $Project->PL_SEISMIC();
 
@@ -359,7 +382,6 @@ sub get_Data_path {
 
 	my ($self) = @_;
 
-	use App::SeismicUnixGui::configs::big_streams::Project_config;
 	my $entry_label = $iFile->{_entry_button_label};
 	my $dialog_type = $iFile->{_dialog_type};
 
@@ -671,8 +693,6 @@ sub get_Path {
 	my $Path;
 
 	if ( $iFile->{_flow_type} ne $empty_string ) {
-
-		use App::SeismicUnixGui::configs::big_streams::Project_config;
 
 		my $Project      = Project_config->new();
 		my $program_name = _get_prog_name();

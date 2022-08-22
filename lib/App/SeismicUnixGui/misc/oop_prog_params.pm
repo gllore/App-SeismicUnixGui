@@ -44,12 +44,11 @@ by importing the conditions set in each 'program_spec.pm module
 use Moose;
 our $VERSION = '0.0.1';
 
-use aliased 'App::SeismicUnixGui::misc::L_SU_global_constants';
 use aliased 'App::SeismicUnixGui::misc::param_sunix';
 use App::SeismicUnixGui::misc::control '0.0.3';
 use aliased 'App::SeismicUnixGui::misc::control';
 
-my $L_SU_global_constants = L_SU_global_constants->new();
+use aliased 'App::SeismicUnixGui::misc::L_SU_global_constants';
 
 =head2 program parameters
 	 
@@ -85,26 +84,28 @@ sub _get_prefix_aref {
 
 	if ( $oop_prog_params->{_prog_name} ) {
 
-		#	    use Module::Refresh; # reload updated module
-		#		my $refresher = Module::Refresh->new;
-
-		my $prog_name = $oop_prog_params->{_prog_name};
-
-		# print("oop_prog_params,_get_prefix_aref, prog_name=$prog_name \n");
-
-		my $module_spec    = $prog_name . '_spec';
-		my $module_spec_pm = $module_spec . '.pm';
+		my $L_SU_global_constants = L_SU_global_constants->new();
+		my $program_name          = $oop_prog_params->{_prog_name};
+		my $module_spec_pm        = $program_name . '_spec.pm';
 
 		$L_SU_global_constants->set_file_name($module_spec_pm);
-		my $path           = $L_SU_global_constants->get_path4spec_file();
-		my $pathNmodule_pm = $path . '/' . $module_spec_pm;
+		my $slash_path4spec = $L_SU_global_constants->get_path4spec_file();
+		my $slash_pathNmodule_spec_pm =
+		  $slash_path4spec . '/' . $module_spec_pm;
 
-		require $pathNmodule_pm;
+		$L_SU_global_constants->set_program_name($program_name);
+		my $colon_pathNmodule_spec =
+		  $L_SU_global_constants->get_colon_pathNmodule_spec();
 
-		#		$refresher->refresh_module("$module_spec_pm");
+	  #	 	print("1. oop_prog_params _get_suffix_aref, prog_name: $slash_pathNmodule_spec_pm\n");
+	  #	 	print("1. oop_prog_params , _get_suffix_aref, prog_name: $colon_pathNmodule_spec\n");
+
+		require $slash_pathNmodule_spec_pm;
+
+		#$refresher->refresh_module("$module_spec_pm");
 
 		# INSTANTIATE
-		my $package = $module_spec->new;
+		my $package = $colon_pathNmodule_spec->new();
 
 		$package->binding_index_aref();
 		$package->prefix_aref();
@@ -140,24 +141,29 @@ sub _get_suffix_aref {
 
 	if ( $oop_prog_params->{_prog_name} ) {
 
-		#	    use Module::Refresh; # reload updated module
-		#		my $refresher = Module::Refresh->new;
+		my $program_name = $oop_prog_params->{_prog_name};
 
-		my $prog_name = $oop_prog_params->{_prog_name};
-
-		my $module_spec    = $prog_name . '_spec';
-		my $module_spec_pm = $module_spec . '.pm';
+		my $L_SU_global_constants = L_SU_global_constants->new();
+		my $module_spec_pm        = $program_name . '_spec.pm';
 
 		$L_SU_global_constants->set_file_name($module_spec_pm);
-		my $path           = $L_SU_global_constants->get_path4spec_file();
-		my $pathNmodule_pm = $path . '/' . $module_spec_pm;
+		my $slash_path4spec = $L_SU_global_constants->get_path4spec_file();
+		my $slash_pathNmodule_spec_pm =
+		  $slash_path4spec . '/' . $module_spec_pm;
 
-		require $pathNmodule_pm;
+		$L_SU_global_constants->set_program_name($program_name);
+		my $colon_pathNmodule_spec =
+		  $L_SU_global_constants->get_colon_pathNmodule_spec();
+
+	  #	 	print("1. oop_prog_params _get_suffix_aref, prog_name: $slash_pathNmodule_spec_pm\n");
+	  #	 	print("1. oop_prog_params , _get_suffix_aref, prog_name: $colon_pathNmodule_spec\n");
+
+		require $slash_pathNmodule_spec_pm;
 
 		#$refresher->refresh_module("$module_spec_pm");
 
 		# INSTANTIATE
-		my $package = $module_spec->new;
+		my $package = $colon_pathNmodule_spec->new();
 
 		# set internally and get suffix values externally for the module
 		$package->binding_index_aref();

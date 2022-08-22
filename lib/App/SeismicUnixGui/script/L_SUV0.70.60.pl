@@ -713,7 +713,7 @@ contains side menus
 		-activebackground   => $var->{_my_dark_grey},
 		-relief             => 'flat',
 		-state              => 'disabled',
-		-command            => [ \&_L_SU, 'run_button', \$Run_option ],
+		-command            => [ \&_L_SU, 'set_run_button', \$Run_option ],
 	);
 
 	my $Save_option = 'Save';
@@ -728,7 +728,7 @@ contains side menus
 		-activebackground   => $var->{_my_dark_grey},
 		-relief             => 'flat',
 		-state              => 'disabled',
-		-command            => [ \&_L_SU, 'save_button', \$Save_option ],
+		-command            => [ \&_L_SU, 'set_save_button', \$Save_option ],
 	);
 
 #	my $Check_code_option = 'Check';

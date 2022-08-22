@@ -154,7 +154,7 @@ use App::SeismicUnixGui::misc::SeismicUnix
 	qw($_cdp $_mute $in $itop_mute_par_ $ivpicks_sorted_par_ $out $on $go $to $suffix_ascii $off $suffix_su);
 use aliased 'App::SeismicUnixGui::misc::L_SU_global_constants';
 use aliased 'App::SeismicUnixGui::configs::big_streams::Sucat_config';
-use aliased 'App::SeismicUnixGui::specs::big_streams::Sucat_spec';
+use aliased 'App::SeismicUnixGui::specs::big_streams::Sucat_specB';
 
 =head2 Declare variables 
 
@@ -181,7 +181,7 @@ my $log        = message->new();
 my $run        = flow->new();
 my $sucat      = sucat->new();
 my $read       = readfiles->new();
-my $Sucat_spec = Sucat_spec->new();
+my $Sucat_specB = Sucat_specB->new();
 
 my $get          = L_SU_global_constants->new->new();
 my $Sucat_config = Sucat_config->new();
@@ -194,7 +194,7 @@ in PL_SEISMIC
 =cut
 
 my ( $CFG_h, $CFG_aref ) = $Sucat_config->get_values();
-my $Sucat_spec_variables = $Sucat_spec->variables();
+my $Sucat_spec_variables = $Sucat_specB->variables();
 
 my $DATA_DIR_IN  = $Sucat_spec_variables->{_DATA_DIR_IN};
 my $DATA_DIR_OUT = $Sucat_spec_variables->{_DATA_DIR_OUT};

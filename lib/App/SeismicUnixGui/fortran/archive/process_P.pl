@@ -39,15 +39,15 @@
 =cut
 
 	use Moose;
-	use App:SeismicUnixGui::misc::SeismicUnix qw($in $out $on $go $to $suffix_ascii $off $suffix_su);
+	use App::SeismicUnixGui::misc::SeismicUnix qw($in $out $on $go $to $suffix_ascii $off $suffix_su);
 	use App::SeismicUnixGui::configs::big_streams::Project_config;
 
 	my $Project = Project_config->new();
 
 	my $DATA_SEISMIC_SU = $Project->DATA_SEISMIC_SU;
 
-	use message;
-	use flow;
+	use aliased 'App::SeismicUnixGui::misc::message';
+	use aliased 'App::SeismicUnixGui::misc::flow';
 	use  data_in;
 	use sunix::shapeNcut::suwind;
 	use  sufilter;

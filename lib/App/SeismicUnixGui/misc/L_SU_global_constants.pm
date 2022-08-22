@@ -51,8 +51,41 @@ my $L_SU_global_constants = {
 	_PARENT_DIR_SPECS   => '',
 	_PARENT_DIR_SU      => '',
 	_file_name          => '',
+	_program_name	    => '',
 
 };
+
+=head2 sub clear
+
+wipe clean private hash values
+
+=cut
+
+sub clear {
+	my ($self) = @_;
+	
+	$L_SU_global_constants->{_CHILD_DIR}  		 = '';
+	$L_SU_global_constants->{_CHILD_DIR_CONVERT} = '';
+	$L_SU_global_constants->{_CHILD_DIR_GUI}      = '';
+	$L_SU_global_constants->{_CHILD_DIR_TOOLS}    = '';
+	$L_SU_global_constants->{_CHILD_DIR_SPECS}    = '';
+	$L_SU_global_constants->{_CHILD_DIR_SU}       = '';
+	$L_SU_global_constants->{_GRANDPARENT_DIR}    = '';
+	$L_SU_global_constants->{_PARENT_DIR}         = '';
+	$L_SU_global_constants->{_PARENT_DIR_CONVERT} = '';
+	$L_SU_global_constants->{_PARENT_DIR_GEN}     = '';
+	$L_SU_global_constants->{_PARENT_DIR_GUI}     = '';
+	$L_SU_global_constants->{_PARENT_DIR_TOOLS}   = '';
+	$L_SU_global_constants->{_PARENT_DIR_SPECS}   = '';
+	$L_SU_global_constants->{_PARENT_DIR_SU}      = '';
+	$L_SU_global_constants->{_file_name}          = '',
+	$L_SU_global_constants->{_program_name}	      = '';
+	
+	return();
+	
+}
+
+
 
 =head2 Default Tk settings
 
@@ -374,6 +407,7 @@ my $var = {
 	_project_selector_title        => 'Project Selector',
 	_l_suplot_title                => 'L_suplot',
 	_project_selector_title        => 'Project Selector',
+	_project_selector              => 'Project',
 	_project_selector_box_position => '600x600+100+100',
 	_null_sunix_value              => '',
 	_reservation_color_default     =>
@@ -456,6 +490,10 @@ my @CHILD_DIR_SPECS = (
 	"NMO_Vel_Stk", "par",       "plot",      "shapeNcut",
 	"shell",       "statsMath", "transform", "well"
 );
+
+#my @CHILD_DIR_SPECS = (
+#	"big_streams"
+#);
 
 my @CHILD_DIR_SU = (
 	"data",      "datum",     "filter",    "header",
@@ -635,7 +673,148 @@ $var->{_sunix_transform_programs}   = \@sunix_transform_programs;
 $var->{_sunix_well_programs}        = \@sunix_well_programs;
 
 
+sub _get_path4SeismicUnixGui {
+	my ($self) = @_;
+	
+	if(length $path4SeismicUnixGui ){
+		
+		my $result = $path4SeismicUnixGui;
+		return($result);
+		
+	} else {
+		print ("L_SU_global_constants, _get_path4SeismicUnixGui,missing variable\n");
+	}
+	return();	
+}
 
+=head2 sub _get_path4spec_file
+
+Find a path for
+
+a given spec file
+
+=cut
+
+sub _get_path4spec_file {
+
+	my (@self) = @_;
+
+	if ( length $L_SU_global_constants->{_file_name} ) {
+
+		my $file_name = $L_SU_global_constants->{_file_name};
+		my $result;
+
+=head2 Collect parameters from local hash
+
+=cut
+
+		my $GRANDPARENT_DIR  = $path4SeismicUnixGui;
+		my @PARENT_DIR_SPECS = @{ $L_SU_global_constants->{_PARENT_DIR_SPECS} };
+		my @CHILD_DIR_SPECS  = @{ $L_SU_global_constants->{_CHILD_DIR_SPECS} };
+
+=head2 Collect relevant "spec"
+
+ project paths and files
+
+=cut
+
+		my ( $result_aref3, $dimensions_aref ) = _get_specs_pathNfile2search();
+		my @result_aref2                     = @$result_aref3;
+		my @directory_contents_specs         = @{ $result_aref2[0] };
+		my @dimension                        = @$dimensions_aref;
+		my $parent_directory_specs_number_of = $dimension[0];
+		my $child_directory_specs_number_of  = $dimension[1];
+
+# test
+#		my $parent_specs = 1;
+#		my $child_specs  = 1;
+#		print(
+#"\nFor specs directory paths: $PARENT_DIR_SPECS[$parent_specs]::$CHILD_DIR_SPECS[$child_specs]::\n"
+#		);
+#		print("@{$directory_contents_specs[$parent_specs][$child_specs]}\n");
+
+=head2 Search all "spec"-relevant 
+
+directories start with 
+gui drectory listing
+
+=cut
+
+		for (
+			my $parent = 0 ;
+			$parent < $parent_directory_specs_number_of ;
+			$parent++
+		  )
+		{
+
+			for (
+				my $child = 0 ;
+				$child < $child_directory_specs_number_of ;
+				$child++
+			  )
+			{
+
+				my $directory_list_aref =
+				  $directory_contents_specs[$parent][$child];
+				my @directory_list = @$directory_list_aref;
+
+				my $length_directory_list = scalar @directory_list;
+
+				#				print("@{$directory_contents_specs[$parent][$child]}\n");
+				#				print("file_name=$file_name\n");
+				for ( my $i = 0 ; $i < $length_directory_list ; $i++ ) {
+
+					if ( not $file_name eq $directory_list[$i] ) {
+
+						next;
+
+					}
+					elsif ( $file_name eq $directory_list[$i] ) {
+
+		 #						print(
+		 #"L_SU_global_constants,_get_path4spec_file,found the file $file_name in
+		 #				  			  $PARENT_DIR_SPECS[$parent]::$CHILD_DIR_SPECS[$child]\n"
+		 #						);
+						$result =
+							$path4SeismicUnixGui . '/'
+						  . $PARENT_DIR_SPECS[$parent] . '/'
+						  . $CHILD_DIR_SPECS[$child];
+
+						return ($result);
+					}
+					else {
+						print("change_a_line, unexpected value\n");
+						return ();
+					}
+				}
+
+			}
+		}
+
+	}
+	else {
+		print("L_SU_global_constants,__get_path4spec_file,file_name_missing\n");
+		return ();
+	}
+}
+
+
+sub _set_file_name {
+
+	my ( $self) = @_;
+
+	if ( length $self ) {
+
+		$L_SU_global_constants->{_file_name} = $self;
+
+#		print("L_SU_global_constants,set_file_name,_set_file_name = $L_SU_global_constants->{_file_name}\n");
+
+	}
+	else {
+		print("L_SU_global_constants,_set_file_name, missing variable");
+	}
+
+}
 
 
 sub alias_superflow_names_h {
@@ -703,6 +882,49 @@ sub flow_type_href {
 	return ($flow_type_h);
 }
 
+
+
+=head2 sub get_colon_pathNmodule_spec
+
+=cut
+
+sub get_colon_pathNmodule_spec {
+
+	my ($self) = @_;
+
+	if ( length $L_SU_global_constants->{_program_name} ) {
+
+
+		my $program_name = $L_SU_global_constants->{_program_name};
+
+		my $module_spec    = $program_name . '_spec';
+		my $module_spec_pm = $program_name . '_spec.pm';
+
+		_set_file_name($module_spec_pm);
+		my $path4spec = _get_path4spec_file();
+		
+		my $path4SeismicUnixGui = _get_path4SeismicUnixGui;
+
+#		my $pathNmodule_pm   = $path4spec . '/' . $module_spec_pm;
+		my $pathNmodule_spec = $path4spec . '/' . $module_spec;
+
+		# carp"pathNmodule_pm = $pathNmodule_pm";
+
+		$pathNmodule_spec =~ s/$path4SeismicUnixGui//g;
+		$pathNmodule_spec =~ s/\//::/g;
+		my $new_pathNmodule_spec = 'App::SeismicUnixGui' . $pathNmodule_spec;
+
+		my $result = $new_pathNmodule_spec;
+		return ($result);
+
+	}
+	else {
+		carp "missing program name";
+		return ();
+	}
+
+}
+
 sub get_path4SeismicUnixGui {
 	my ($self) = @_;
 	
@@ -716,6 +938,64 @@ sub get_path4SeismicUnixGui {
 	}
 	return();	
 }
+
+=head2 sub get_pathNmodule_spec
+
+=cut
+
+sub get_pathNmodule_spec {
+	my ($self) = @_;
+
+	if ( length $L_SU_global_constants->{_program_name} ) {
+
+		my $program_name = $L_SU_global_constants->{_program_name};
+		my $module_spec = $program_name . '_spec';	
+		my $module_spec_pm = $module_spec.'.pm';	
+		_set_file_name($module_spec_pm);
+		
+		my $path4spec = _get_path4spec_file();
+		
+		my $pathNmodule_spec   = $path4spec . '/' . $module_spec;
+		# carp "pathNmodule_pm = $pathNmodule_pm";
+		my $result = $pathNmodule_spec;
+		return ($result);
+
+	}
+	else {
+		carp "missing program name";
+		return ();
+	}
+
+}
+
+=head2 sub get_pathNmodule_spec_pm
+
+=cut
+
+sub get_pathNmodule_spec_pm {
+	my ($self) = @_;
+
+	if ( length $L_SU_global_constants->{_program_name} ) {
+
+		my $program_name = $L_SU_global_constants->{_program_name};
+		my $module_spec_pm = $program_name . '_spec.pm';		
+		_set_file_name($module_spec_pm);
+		
+		my $path4spec = _get_path4spec_file();
+		
+		my $pathNmodule_spec_pm   = $path4spec . '/' . $module_spec_pm;
+		# carp"pathNmodule_pm = $pathNmodule_pm";
+		my $result = $pathNmodule_spec_pm;
+		return ($result);
+
+	}
+	else {
+		carp "missing program name";
+		return ();
+	}
+
+}
+
 
 sub help_menubutton_type_href {
 
@@ -891,8 +1171,8 @@ sub _get_convert_pathNfile2search {
 #	$parent_directory_convert_number_of = 2;
 #	$child_directory_convert_number_of  = 2;
 
-		print("L_SU_global_constants,parent_directory_convert_number_of=$parent_directory_convert_number_of\n");
-	    print("L_SU_global_constants,child_directory_convert_number_of=$child_directory_convert_number_of\n");
+#		print("L_SU_global_constants,parent_directory_convert_number_of=$parent_directory_convert_number_of\n");
+#	    print("L_SU_global_constants,child_directory_convert_number_of=$child_directory_convert_number_of\n");
 
 =head2 CONVERT-related matters first
 
@@ -930,10 +1210,10 @@ sub _get_convert_pathNfile2search {
 
 			}
 			else {
-				print(
-"L_SU_global_constants, _get_convert_pathNfile2search,missing directory\n"
-				);
-				print("print search_dir = $SEARCH_DIR\n");
+#				print(
+#"L_SU_global_constants, _get_convert_pathNfile2search,missing directory\n"
+#				);
+#				print("print search_dir = $SEARCH_DIR\n");
 			}
 
 		}
@@ -998,9 +1278,9 @@ sub _get_specs_pathNfile2search {
 	@dimensions =
 	  ( $parent_directory_specs_number_of, $child_directory_specs_number_of );
 
-	print(
-		"$parent_directory_specs_number_of, $child_directory_specs_number_of\n"
-	);
+#	print(
+#		"L_SU_global_constants,$parent_directory_specs_number_of, $child_directory_specs_number_of\n"
+#	);
 
 =head2 SPECS-related matters
 
@@ -1260,10 +1540,10 @@ convert derectory listing
 						}
 						elsif ( $file_name eq $directory_list[$i] ) {
 
-							print(
-"L_SU_global_constants,get_path4convert_file,found the file $file_name in
-	   					$PARENT_DIR_CONVERT[$parent]::$CHILD_DIR_CONVERT[$child]\n"
-							);
+#							print(
+#"L_SU_global_constants,get_path4convert_file,found the file $file_name in
+#	   					$PARENT_DIR_CONVERT[$parent]::$CHILD_DIR_CONVERT[$child]\n"
+#							);
 							$result =
 								$path4SeismicUnixGui . '/'
 							  . $PARENT_DIR_CONVERT[$parent] . '/'
@@ -1296,7 +1576,9 @@ convert derectory listing
 	}
 }
 
-=head2 Find a path for
+=head2 sub get_path4spec_file
+
+Find a path for
 
 a given spec file
 
@@ -1614,6 +1896,27 @@ sub set_PARENT_DIR_type {
 	}
 
 }
+
+=head2 sub set_program_name
+
+=cut
+
+sub set_program_name {
+
+	my ( $self, $program_name ) = @_;
+
+	if ( length $program_name ) {
+
+		$L_SU_global_constants->{_program_name} = $program_name;
+
+	}
+	else {
+		carp "missing program_name";
+		print("L_SU_global_constants,set_program_name,missing program_name\n");
+	}
+
+}
+
 
 sub superflow_config_names_aref {
 	return ( \@superflow_config_names );

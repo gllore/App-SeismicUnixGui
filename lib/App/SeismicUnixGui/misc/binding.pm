@@ -63,7 +63,10 @@ Make a binding based on the paramters
 use Moose;
 our $VERSION = '0.0.2';
 use Tk;
+
 use aliased 'App::SeismicUnixGui::misc::L_SU_global_constants';
+
+#use aliased 'App::SeismicUnixGui::misc::manage_files_by2';
 
 =head2 Instantiation
 
@@ -172,20 +175,26 @@ each grey_flow, pink_flow etc.
 sub set {
 	my ($self) = @_;
 
-	my $prog_name = ${ $binding->{_prog_name_sref} };
+	my $program_name = ${ $binding->{_prog_name_sref} };
 
-	#	print("1. binding,set, prog_name: $prog_name \n");
-
-	my $module_spec    = $prog_name . '_spec';
-	my $module_spec_pm = $module_spec . '.pm';
+	my $L_SU_global_constants = L_SU_global_constants->new();
+	my $module_spec_pm        = $program_name . '_spec.pm';
 
 	$L_SU_global_constants->set_file_name($module_spec_pm);
-	my $path           = $L_SU_global_constants->get_path4spec_file();
-	my $pathNmodule_pm = $path . '/' . $module_spec_pm;
+	my $slash_path4spec = $L_SU_global_constants->get_path4spec_file();
+	my $slash_pathNmodule_spec_pm = $slash_path4spec . '/' . $module_spec_pm;
 
-	require $pathNmodule_pm;
-	my $package               = $module_spec->new;
-	my $L_SU_global_constants = L_SU_global_constants->new;
+	$L_SU_global_constants->set_program_name($program_name);
+	my $colon_pathNmodule_spec =
+	  $L_SU_global_constants->get_colon_pathNmodule_spec();
+
+#	 	print("1. _get_suffix_aref, prog_name: $slash_pathNmodule_spec_pm\n");
+#	 	print("1. _get_suffix_aref, prog_name: $colon_pathNmodule_spec\n");
+
+	require $slash_pathNmodule_spec_pm;
+
+	# INSTANTIATE
+	my $package = $colon_pathNmodule_spec->new();
 
 	my $file_dialog_type = $L_SU_global_constants->file_dialog_type_href();
 	my $flow_type        = $L_SU_global_constants->flow_type_href();

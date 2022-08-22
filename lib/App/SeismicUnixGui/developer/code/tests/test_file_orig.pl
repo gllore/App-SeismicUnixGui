@@ -26,7 +26,7 @@ Version:
 
 
 	use Moose;
-	use App:SeismicUnixGui::misc::SeismicUnix qw($in $out $on $go $to $suffix_ascii $off $suffix_segd $suffix_segy $suffix_sgy $suffix_su $suffix_segd $suffix_txt $suffix_bin);
+	use App::SeismicUnixGui::misc::SeismicUnix qw($in $out $on $go $to $suffix_ascii $off $suffix_segd $suffix_segy $suffix_sgy $suffix_su $suffix_segd $suffix_txt $suffix_bin);
 	use Project_config;
 
 	my $Project		= Project_config->new();
@@ -35,8 +35,8 @@ Version:
 	my $DATA_SEISMIC_SU	= $Project->DATA_SEISMIC_SU;
 	my $DATA_SEISMIC_TXT	= $Project->DATA_SEISMIC_TXT;
 
-	use message;
-	use flow;
+	use aliased 'App::SeismicUnixGui::misc::message';
+	use aliased 'App::SeismicUnixGui::misc::flow';
 	use data_in;
 	use sugain;
 	use suximage;

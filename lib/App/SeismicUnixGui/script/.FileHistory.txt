@@ -1,5 +1,5 @@
-/home/gllore/MagdalenaNM/seismics/pl/TrujilloWell//060122/H/1/gllore/a
-/home/gllore/MagdalenaNM/seismics/pl/TrujilloWell//060122/H/1/gllore/aa
-/home/gllore/MagdalenaNM/seismics/pl/TrujilloWell//060122/H/1/gllore/2.view_1_126_clean.pl
-/home/gllore/MagdalenaNM/seismics/pl/TrujilloWell//060122/H/1/gllore/11.brute_stack1.pl
-/home/gllore/MagdalenaNM/seismics/pl/TrujilloWell//060122/H/1/gllore/xamine_L28Hz_Ibeam.pl
+/home/gllore/mars/seismics/pl/hrk_e122/sand_tank/052222/Z/ACH01_piezo_cylinder/gllore/2.surange.pl
+/home/gllore/mars/seismics/pl/hrk_e122/sand_tank/052222/Z/ACH01_piezo_cylinder/gllore/a
+/home/gllore/mars/seismics/pl/hrk_e122/sand_tank/052222/Z/ACH01_piezo_cylinder/gllore/test.pl
+/home/gllore/mars/seismics/pl/hrk_e122/sand_tank/052222/Z/ACH01_piezo_cylinder/gllore/3B.view_sushw_buried_ACH01.pl
+/home/gllore/mars/seismics/pl/hrk_e122/sand_tank/052222/Z/ACH01_piezo_cylinder/gllore/temp.pl

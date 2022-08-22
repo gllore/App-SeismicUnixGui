@@ -281,18 +281,25 @@ sub set_specs {
 	# arrange programs and symbols (>,<,|) in order
 	for ( my $i = 0; $i < $length; $i++ ) {
 
-		my $module_spec_pm;
-		$module_spec[$i] = $corrected_prog_names[$i] . '_spec';
-		$module_spec_pm = $module_spec[$i] . '.pm';
-		
+		my $program_name       = $corrected_prog_names[$i];	
+		my $module_spec_pm     = $program_name . '_spec.pm';
+
 		$L_SU_global_constants->set_file_name($module_spec_pm);
-		my $path           = $L_SU_global_constants->get_path4spec_file();
-		my $pathNmodule_pm = $path . '/' . $module_spec_pm;	
+		my $slash_path4spec = $L_SU_global_constants->get_path4spec_file();
+		my $slash_pathNmodule_spec_pm =
+		  $slash_path4spec . '/' . $module_spec_pm;
+
+		$L_SU_global_constants->set_program_name($program_name);
+		my $colon_pathNmodule_spec =
+		  $L_SU_global_constants->get_colon_pathNmodule_spec();
+
+	  #	 	print("1. oop_flows, _get_suffix_aref, prog_name: $slash_pathNmodule_spec_pm\n");
+#	 	print("1. oop_flows, _get_suffix_aref, prog_name: $colon_pathNmodule_spec\n");
+		
+		$module_spec[$i]       = $colon_pathNmodule_spec;
 
 		# dynamically used modules need require
-		require $pathNmodule_pm;
-
-		#		$refresher->refresh_module("$module_spec_pm");
+		require $slash_pathNmodule_spec_pm;
 
 		# print ("oop_flows,set_specs, require $module_spec_pm\n");
 

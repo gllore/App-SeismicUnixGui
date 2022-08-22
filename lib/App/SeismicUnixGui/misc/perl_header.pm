@@ -12,7 +12,7 @@ my @head;
 
 $head[0] = ("use Moose;");
 $head[1] =
-  'use App:SeismicUnixGui::misc::SeismicUnix qw($in $out $on $go $to $suffix_ascii $off $suffix_su $suffix_bin);';
+  'use App::SeismicUnixGui::misc::SeismicUnix qw($in $out $on $go $to $suffix_ascii $off $suffix_su $suffix_bin);';
 $head[2] = 'use System_Variables;' . "\n";
 
 sub section {

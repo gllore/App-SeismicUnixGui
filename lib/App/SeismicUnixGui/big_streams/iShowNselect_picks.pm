@@ -24,12 +24,15 @@ package App::SeismicUnixGui::big_streams::iShowNselect_picks;
 =cut
 
 use Moose;
-use aliased 'App::SeismicUnixGui::misc::L_SU_global_constants';
 my $VERSION = '0.0.1';
+
+use aliased 'App::SeismicUnixGui::misc::L_SU_global_constants';
+
 use App::SeismicUnixGui::misc::control '0.0.3';
 use aliased 'App::SeismicUnixGui::misc::control';
-use aliased 'App::SeismicUnixGui::specs::big_streams::iPick_spec';
+
 use aliased 'App::SeismicUnixGui::misc::message';
+use App::SeismicUnixGui::misc::manage_files_by;
 use aliased 'App::SeismicUnixGui::misc::flow';
 use aliased 'App::SeismicUnixGui::sunix::filter::sufilter';
 use aliased 'App::SeismicUnixGui::sunix::shapeNcut::sugain';
@@ -38,16 +41,17 @@ use aliased 'App::SeismicUnixGui::sunix::plot::suxwigb';
 use aliased 'App::SeismicUnixGui::sunix::plot::suximage';
 use aliased 'App::SeismicUnixGui::configs::big_streams::Project_config';
 use aliased 'App::SeismicUnixGui::messages::SuMessages';
+use aliased 'App::SeismicUnixGui::specs::big_streams::iPick_specC';
 
 use App::SeismicUnixGui::misc::SeismicUnix
   qw($false $true $go $in $on $off $ipicks $itemp_picks_ $itemp_num_points
   $itemp_picks_sorted_  $suffix_su $suffix_hyphen $to);
 
-my $iPick_spec = iPick_spec->new();
+my $iPick_specC      = iPick_specC->new();
 
 my $get             = L_SU_global_constants->new();
 my $control         = control->new();
-my $variables       = $iPick_spec->variables();
+my $variables       = $iPick_specC->variables();
 my $DATA_DIR_IN     = $variables->{_DATA_DIR_IN};
 my $DATA_DIR_OUT    = $variables->{_DATA_DIR_OUT};
 my $data_suffix_in  = $variables->{_data_suffix_in};
@@ -207,7 +211,6 @@ sub gather_header {
 
 sub calcNdisplay {
 
-	use App::SeismicUnixGui::misc::manage_files_by;
 
 =head2
 
@@ -721,8 +724,6 @@ sub set_purpose {
 		&& $type ne $empty_string )
 	{
 
-		use App::SeismicUnixGui::misc::control '0.0.3';
-		use aliased 'App::SeismicUnixGui::misc::control';
 		my $control = control->new();
 		$control->set_infection($type);
 		$type = control->get_ticksBgone();

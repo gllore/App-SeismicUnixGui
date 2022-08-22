@@ -3,7 +3,7 @@ package App::SeismicUnixGui::sunix::shell::xk;
 use Moose;
 use aliased 'App::SeismicUnixGui::misc::L_SU_global_constants';
 
-my $constants    = new L_SU_global_constants;
+my $constants    = L_SU_global_constants->new;
 my $var          = $constants->var();
 my $empty_string = $var->{_empty_string};
 

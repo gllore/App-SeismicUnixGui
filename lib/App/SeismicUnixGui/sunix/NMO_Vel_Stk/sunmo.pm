@@ -107,6 +107,14 @@ package App::SeismicUnixGui::sunix::NMO_Vel_Stk::sunmo;
 use Moose;
 our $VERSION = '0.0.3';
 use aliased 'App::SeismicUnixGui::misc::L_SU_global_constants';
+use aliased 'App::SeismicUnixGui::misc::message';
+use aliased 'App::SeismicUnixGui::misc::flow';
+use aliased 'App::SeismicUnixGui::sunix::header::header_values';
+use aliased 'App::SeismicUnixGui::misc::manage_files_by2';
+use aliased 'App::SeismicUnixGui::configs::big_streams::Project_config';
+		
+use App::SeismicUnixGui::misc::control '0.0.3';
+use aliased 'App::SeismicUnixGui::misc::control';
 
 my $get = L_SU_global_constants->new();
 
@@ -188,7 +196,6 @@ get scalco or scalel from file header
 
 sub _get_data_scale {
 	my ($self) = @_;
-	use header_values;
 
 =head2 instantiate class
 
@@ -295,16 +302,12 @@ sub multi_gather_parfile {
 	my ( $self, $par ) = @_;
 	if ( $par ne $empty_string ) {
 
-		use manage_files_by2;
-		use App::SeismicUnixGui::configs::big_streams::Project_config;
-		use App::SeismicUnixGui::misc::control '0.0.3';
-		use aliased 'App::SeismicUnixGui::misc::control';
 
 =head2 instantiate classes
 
 =cut
 
-		my $files   = new manage_files_by2();
+		my $files   = manage_files_by2->new();
 		my $Project = Project_config->new();
 		my $control = control->new();
 
@@ -435,11 +438,8 @@ sub multi_gather_parfile {
 
 		my $DATA_SEISMIC_SU = $Project->DATA_SEISMIC_SU;
 
-		use message;
-		use flow;
-
-		my $log = new message();
-		my $run = new flow();
+		my $log = message->new();
+		my $run = flow->new();
 
 =head2 Declare
 
@@ -528,17 +528,12 @@ sub par {
 	if ( $par ne $empty_string ) {
       
       print("sunmo,  par file name in =$par\n");
-      
-		use manage_files_by2;
-		use App::SeismicUnixGui::configs::big_streams::Project_config;
-		use App::SeismicUnixGui::misc::control '0.0.3';
-		use aliased 'App::SeismicUnixGui::misc::control';
 
 =head2 instantiate classes
 
 =cut
 
-		my $files   = new manage_files_by2();
+		my $files   = manage_files_by2->new();
 		my $Project = Project_config->new();
 		my $control = control->new();
 

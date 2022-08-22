@@ -116,14 +116,14 @@ sub get_number() {
 
 =cut
 
-		use App::SeismicUnixGui::configs::big_streams::Project_config;
-		use App::SeismicUnixGui::misc::message;
-		use App::SeismicUnixGui::misc::flow;
-		use App::SeismicUnixGui::sunix::header::surange;
+		use aliased 'App::SeismicUnixGui::configs::big_streams::Project_config';
+		use aliased 'App::SeismicUnixGui::misc::message';
+		use aliased 'App::SeismicUnixGui::misc::flow';
+		use aliased 'App::SeismicUnixGui::sunix::header::surange';
 		use App::SeismicUnixGui::misc::SeismicUnix
 		  qw($in $out $on $go $to $suffix_ascii $off $suffix_su $suffix_bin);
 
-		my $log     = new message;
+		my $log     = message->new;
 		my $run     = flow->new();
 		my $surange = surange->new();
 

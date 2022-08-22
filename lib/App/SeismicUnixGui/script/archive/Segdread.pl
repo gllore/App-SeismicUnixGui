@@ -49,9 +49,9 @@ use App::SeismicUnixGui::misc::SeismicUnix
 
 =cut
 
-my $log      = new message();
-my $run      = new flow();
-my $segdread = new segdread();
+my $log      = message->new();
+my $run      = flow->new();
+my $segdread = segdread->new();
 
 =head2 Declare variables
 

@@ -4,7 +4,7 @@ use Moose;
 use App::SeismicUnixGui::configs::big_streams::Project_config;
 use App::SeismicUnixGui::misc::L_SU_global_constants;
 use iBottomMute_config;
-use App:SeismicUnixGui::misc::SeismicUnix qw($su $suffix_su);
+use App::SeismicUnixGui::misc::SeismicUnix qw($su $suffix_su);
 
 my $get              = L_SU_global_constants->new();
 my $var              = $get->var();

@@ -47,13 +47,14 @@ package App::SeismicUnixGui::configs::big_streams::Synseis_config;
 use Moose;
 our $VERSION = '1.0.0';
 use aliased 'App::SeismicUnixGui::misc::config_superflows';
+
 use App::SeismicUnixGui::misc::control '0.0.3';
 use aliased 'App::SeismicUnixGui::misc::control';
 use aliased 'App::SeismicUnixGui::misc::L_SU_global_constants';
 
 my $get                    = L_SU_global_constants->new();
 my $control                = control->new();
-my $config_superflows      = new config_superflows;
+my $config_superflows      = config_superflows->new();
 my $superflow_config_names = $get->superflow_config_names_aref();
 
 #WARNING---- watch out for missing underscore!!

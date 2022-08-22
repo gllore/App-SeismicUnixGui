@@ -58,9 +58,11 @@ VELAN DATA
 =cut
 
 use Moose;
+our $VERSION = '1.0.3';
+
 use App::SeismicUnixGui::misc::control '0.0.3';
 use aliased 'App::SeismicUnixGui::misc::control';
-our $VERSION = '1.0.3';
+
 use aliased 'App::SeismicUnixGui::misc::L_SU_global_constants';
 use aliased 'App::SeismicUnixGui::big_streams::iSunmo';
 use aliased 'App::SeismicUnixGui::configs::big_streams::iVA_config';
@@ -70,10 +72,11 @@ use aliased 'App::SeismicUnixGui::big_streams::iWrite_All_iva_out';
 use aliased 'App::SeismicUnixGui::big_streams::iVpicks2par';
 use aliased 'App::SeismicUnixGui::big_streams::iVrms2Vint';
 use aliased 'App::SeismicUnixGui::misc::manage_files_by2';
+use aliased 'App::SeismicUnixGui::misc::readfiles';
 use aliased 'App::SeismicUnixGui::configs::big_streams::Project_config';
-
 use aliased 'App::SeismicUnixGui::messages::SuMessages';
 use aliased 'App::SeismicUnixGui::sunix::shell::xk';
+use aliased 'App::SeismicUnixGui::sunix::header::header_values';
 
 =head2 establish hash of shared variables
 
@@ -252,7 +255,6 @@ get scalco or scalel from file header
 
 sub _get_data_scale {
 	my ($self) = @_;
-	use header_values;
 
 =head2 instantiate class
 
@@ -626,12 +628,12 @@ sub calc {
 
 	#$xk->kill_this('suximage');
 	#$xk->kill_this('suxwigb');
-	iWrite_All_iva_out();
-	iVrms2Vint();
-	icp_sorted2oldpicks();
-	iVpicks2par();
+	_iWrite_All_iva_out();
+	_iVrms2Vint();
+	_icp_sorted2oldpicks();
+	_iVpicks2par();
 	# print("iVA, calc, Calculating...\n");
-	iSunmo();
+	_iSunmo();
 	$iVA->{_number_of_tries}++;
 	_message('post_pick_velan');
 	semblance();
@@ -653,7 +655,7 @@ sub calc {
 
 =cut 
 
-sub icp_sorted2oldpicks {
+sub _icp_sorted2oldpicks {
 
 	my ( @cdp_num,     @sorted_suffix, @suffix );
 	my ( @sufile_in,   @vpicks_in,     @vpicks_out );
@@ -700,7 +702,7 @@ sub icp_sorted2oldpicks {
 	#end of copy of Vrms old picks sorted to ivpicks_old
 }
 
-=head2 sub iVrms2Vint
+=head2 sub _iVrms2Vint
 
  Purpose: Convert Vrms to Vinterval  
  Juan M. Lorenzo
@@ -709,7 +711,7 @@ sub icp_sorted2oldpicks {
 
 =cut
 
-sub iVrms2Vint {
+sub _iVrms2Vint {
 
 	$iVrms2Vint->first_velocity( $iVA->{_first_velocity} );
 	$iVrms2Vint->number_of_velocities( $iVA->{_number_of_velocities} );
@@ -733,7 +735,7 @@ sub iVrms2Vint {
 
 =cut
 
-sub iVpicks2par {
+sub _iVpicks2par {
 	
 	my ($self) = @_;
 
@@ -744,11 +746,11 @@ sub iVpicks2par {
 
 }
 
-sub iSunmo {
+sub _iSunmo {
 	
 	my ($self) = @_;
 	
-	print(" iVA, iSunmo base_file_name=$iVA->{_base_file_name}\n\n");
+	print(" iVA, _iSunmo base_file_name=$iVA->{_base_file_name}\n\n");
 	
 	$iSunmo->file_in( $iVA->{_base_file_name} );
 	$iSunmo->cdp_num( $iVA->{_cdp_num} );
@@ -804,7 +806,7 @@ sub semblance {
 
 =cut
 
-sub iWrite_All_iva_out {
+sub _iWrite_All_iva_out {
 
 	$iWrite_All_iva_out->file_in( $iVA->{_base_file_name} );
 	$iWrite_All_iva_out->cdp_num( $iVA->{_cdp_num} );

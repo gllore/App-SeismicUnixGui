@@ -44,7 +44,7 @@ package App::SeismicUnixGui::big_streams::immodpg;
 	   
 	  _setVtop( $immodpg->{_Vtop_current} );
 	  _set_option($changeVtop_opt);
-	 _set_change($yes);
+	  _set_change($yes);
 	   
 
 =head4 
@@ -69,12 +69,26 @@ use aliased 'App::SeismicUnixGui::misc::L_SU_global_constants';
 use aliased 'App::SeismicUnixGui::configs::big_streams::Project_config';
 use aliased 'App::SeismicUnixGui::configs::big_streams::immodpg_config';
 use aliased 'App::SeismicUnixGui::big_streams::immodpg_global_constants';
+use aliased 'App::SeismicUnixGui::sunix::header::header_values';
+use aliased 'App::SeismicUnixGui::misc::manage_files_by2';
+use App::SeismicUnixGui::misc::control '0.0.3';
+use aliased 'App::SeismicUnixGui::misc::control';
+use aliased 'App::SeismicUnixGui::messages::message_director';
+use aliased 'App::SeismicUnixGui::specs::big_streams::immodpg_spec';
+use aliased 'App::SeismicUnixGui::sunix::shell::xk';
+		
 use Scalar::Util qw(looks_like_number);
+
+=pod 
+instantiate modules
+
+=cut
 
 my $Project        = Project_config->new();
 my $get_L_SU       = L_SU_global_constants->new();
 my $get_immodpg    = immodpg_global_constants->new();
 my $immodpg_config = immodpg_config->new();
+my $immodpg_spec   = immodpg_spec->new();
 
 my $var_L_SU          = $get_L_SU->var();
 my $var_immodpg       = $get_immodpg->var();
@@ -1326,7 +1340,6 @@ get scalco or scalel from file header
 
 sub _get_data_scale {
 	my ($self) = @_;
-	use App::SeismicUnixGui::sunix::header::header_values;
 
 =head2 instantiate class
 
@@ -1410,10 +1423,8 @@ sub _get_initial_model {
 
 	my ($self) = @_;
 
-	use App::SeismicUnixGui::configs::big_streams::Project_config;
 	use PDL::Core;
 	use PDL::IO::FlexRaw;
-	use App::SeismicUnixGui::big_streams::immodpg_global_constants;
 
 	my $Project = Project_config->new();
 	my $IMMODPG = $Project->IMMODPG();
@@ -1587,10 +1598,8 @@ sub _get_initial_model4gui {
 
 	my ($self) = @_;
 
-	use App::SeismicUnixGui::configs::big_streams::Project_config;
 	use PDL::Core;
 	use PDL::IO::FlexRaw;
-	use immodpg_global_constants;
 
 	my $Project = Project_config->new();
 	my $IMMODPG = $Project->IMMODPG();
@@ -1988,7 +1997,6 @@ sub _messages {
 
 	my ( $run_name, $number ) = @_;
 
-	use App::SeismicUnixGui::messages::message_director;
 	my $run_name_message = message_director->new();
 	my $message          = $run_name_message->immodpg($number);
 
@@ -2031,12 +2039,6 @@ sub _setVbot {
 
 	if ( looks_like_number($Vbot)
 		&& $immodpg->{_isVbot_changed_in_gui} eq $yes ) {
-
-		use App::SeismicUnixGui::misc::manage_files_by2;
-		use App::SeismicUnixGui::misc::control '0.0.3';
-		use aliased 'App::SeismicUnixGui::misc::control';
-
-
 
 =head2 instantiate classes
 
@@ -2107,10 +2109,6 @@ sub _setVbot_upper_layer {
 	if (   $Vbot_upper_layer ne $empty_string
 		&& $immodpg->{_isVbot_upper_layer_changed_in_gui} eq $yes ) {
 
-		use App::SeismicUnixGui::misc::manage_files_by2;
-		use App::SeismicUnixGui::misc::control '0.0.3';
-		use aliased 'App::SeismicUnixGui::misc::control';
-
 =head2 instantiate classes
 
 =cut
@@ -2180,9 +2178,9 @@ sub _setVbotNtop_factor {
 	if (   $VbotNtop_factor ne $empty_string
 		&& $immodpg->{_isVbotNtop_factor_changed_in_gui} eq $yes ) {
 
-		use App::SeismicUnixGui::misc::manage_files_by2;
-		use App::SeismicUnixGui::misc::control '0.0.3';
-		use aliased 'App::SeismicUnixGui::misc::control';
+
+
+
 
 =head2 instantiate classes
 
@@ -2253,9 +2251,9 @@ sub _setVbotNtop_multiply {
 		&& looks_like_number( $immodpg->{_Vbot_current} )
 		&& looks_like_number( $immodpg->{_Vtop_current} ) ) {
 
-		use App::SeismicUnixGui::misc::manage_files_by2;
-		use App::SeismicUnixGui::misc::control '0.0.3';
-		use aliased 'App::SeismicUnixGui::misc::control';
+
+
+
 
 =head2 instantiate classes
 
@@ -2322,9 +2320,9 @@ sub _setVincrement {
 	if (   $Vincrement ne $empty_string
 		&& $immodpg->{_isVincrement_changed_in_gui} eq $yes ) {
 
-		use App::SeismicUnixGui::misc::manage_files_by2;
-		use App::SeismicUnixGui::misc::control '0.0.3';
-		use aliased 'App::SeismicUnixGui::misc::control';
+
+
+
 
 =head2 instantiate classes
 
@@ -2648,9 +2646,9 @@ sub _setVtop {
 
 		# print("immodpg,_setVtop,write out fortran value of Vtop\n");
 
-		use App::SeismicUnixGui::misc::manage_files_by2;
-		use App::SeismicUnixGui::misc::control '0.0.3';
-		use aliased 'App::SeismicUnixGui::misc::control';
+
+
+
 
 =head2 instantiate classes
 
@@ -2721,9 +2719,9 @@ sub _setVtop_lower_layer {
 	if ( looks_like_number($Vtop_lower_layer)
 		&& $immodpg->{_isVtop_lower_layer_changed_in_gui} eq $yes ) {
 
-		use App::SeismicUnixGui::misc::manage_files_by2;
-		use App::SeismicUnixGui::misc::control '0.0.3';
-		use aliased 'App::SeismicUnixGui::misc::control';
+
+
+
 
 =head2 instantiate classes
 
@@ -2796,9 +2794,9 @@ sub _set_change {
 
 		# print("immodpg, _set_change, yes_or_no:$yes_or_no\n");
 
-		use App::SeismicUnixGui::misc::manage_files_by2;
-		use App::SeismicUnixGui::misc::control '0.0.3';
-		use aliased 'App::SeismicUnixGui::misc::control';
+
+
+
 
 =head2 instantiate classes
 
@@ -2905,9 +2903,9 @@ sub _set_clip {
 	if (   $clip ne $empty_string
 		&& $immodpg->{_is_clip_changed_in_gui} eq $yes ) {
 
-		use App::SeismicUnixGui::misc::manage_files_by2;
-		use App::SeismicUnixGui::misc::control '0.0.3';
-		use aliased 'App::SeismicUnixGui::misc::control';
+
+
+
 
 =head2 instantiate classes
 
@@ -2978,9 +2976,9 @@ sub _set_thickness_m {
 	if (   $thickness_m ne $empty_string
 		&& $immodpg->{_is_thickness_m_changed_in_gui} eq $yes ) {
 
-		use App::SeismicUnixGui::misc::manage_files_by2;
-		use App::SeismicUnixGui::misc::control '0.0.3';
-		use aliased 'App::SeismicUnixGui::misc::control';
+
+
+
 
 =head2 instantiate classes
 
@@ -3050,9 +3048,9 @@ sub _set_thickness_increment_m {
 	if (   $thickness_increment_m ne $empty_string
 		&& $immodpg->{_is_layer_changed_in_gui} eq $yes ) {
 
-		use App::SeismicUnixGui::misc::manage_files_by2;
-		use App::SeismicUnixGui::misc::control '0.0.3';
-		use aliased 'App::SeismicUnixGui::misc::control';
+
+
+
 
 =head2 instantiate classes
 
@@ -3123,10 +3121,6 @@ sub _fortran_layer {
 
 	if (   $layer ne $empty_string
 		&& $immodpg->{_is_layer_changed_in_gui} eq $yes ) {
-
-		use App::SeismicUnixGui::misc::manage_files_by2;
-		use App::SeismicUnixGui::misc::control '0.0.3';
-		use aliased 'App::SeismicUnixGui::misc::control';
 
 =head2 instantiate classes
 
@@ -3408,9 +3402,9 @@ sub _set_option {
 	if ( defined($option)
 		&& $immodpg->{_option_file} ne $empty_string ) {
 
-		use App::SeismicUnixGui::misc::manage_files_by2;
-		use App::SeismicUnixGui::misc::control '0.0.3';
-		use aliased 'App::SeismicUnixGui::misc::control';
+
+
+
 
 =head2 instantiate classes
 
@@ -4153,14 +4147,6 @@ or   data_x_inc_m_m  versus thickness_increment_m
 sub _write_config {
 
 	my ($self) = @_;
-	use immodpg_spec;
-
-=pod 
-instantiate modules
-
-=cut	
-
-	my $immodpg_spec = immodpg_spec->new();
 
 =pod import private variables
 _config_file_format			        => '                                                        ',
@@ -4224,15 +4210,6 @@ format
 sub _set_simple_model_text {
 
 	my ($self) = @_;
-
-	use App::SeismicUnixGui::specs::big_streams::immodpg_spec;
-
-=pod 
-instantiate modules
-
-=cut	
-
-	my $immodpg_spec = immodpg_spec->new();
 
 =pod import private variables
 
@@ -4831,8 +4808,6 @@ reset default files as well
 sub clean_trash {
 	my ($self) = @_;
 	use File::stat;
-	use App::SeismicUnixGui::misc::manage_files_by2;
-	use App::SeismicUnixGui::sunix::shell::xk;
 
 	my $xk    = xk->new();
 	my $files = manage_files_by2->new();
@@ -4946,7 +4921,6 @@ sub clear {
 
 sub exit {
 
-	use App::SeismicUnixGui::sunix::shell::xk;
 	my $xk = xk->new();
 
 	$xk->set_process('pgxwin_server');
@@ -6829,9 +6803,9 @@ sub set_change {
 	if ( defined($yes_or_no)
 		&& $immodpg->{_change_file} ne $empty_string ) {
 
-		use App::SeismicUnixGui::misc::manage_files_by2;
-		use App::SeismicUnixGui::misc::control '0.0.3';
-		use aliased 'App::SeismicUnixGui::misc::control';
+
+		
+
 
 =head2 instantiate classes
 
@@ -6970,9 +6944,9 @@ sub set_option {
 	if ( looks_like_number($option)
 		&& $immodpg->{_option_file} ne $empty_string ) {
 
-		use App::SeismicUnixGui::misc::manage_files_by2;
-		use App::SeismicUnixGui::misc::control '0.0.3';
-		use aliased 'App::SeismicUnixGui::misc::control';
+
+		
+
 
 =head2 instantiate classes
 

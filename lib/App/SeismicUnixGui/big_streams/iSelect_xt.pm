@@ -31,7 +31,7 @@ use App::SeismicUnixGui::misc::control '0.0.3';
 use aliased 'App::SeismicUnixGui::misc::control';
 use aliased 'App::SeismicUnixGui::misc::message';
 use aliased 'App::SeismicUnixGui::misc::flow';
-use aliased 'App::SeismicUnixGui::specs::big_streams::iPick_spec';
+use aliased 'App::SeismicUnixGui::specs::big_streams::iPick_specD';
 use aliased 'App::SeismicUnixGui::sunix::filter::sufilter';
 use aliased 'App::SeismicUnixGui::sunix::shapeNcut::sugain';
 use aliased 'App::SeismicUnixGui::sunix::shapeNcut::suwind';
@@ -40,7 +40,7 @@ use aliased 'App::SeismicUnixGui::sunix::plot::suximage';
 use aliased 'App::SeismicUnixGui::messages::SuMessages';
 use aliased 'App::SeismicUnixGui::configs::big_streams::Project_config';
 
-use App::SeismicUnixGui::misc::SeismicUnix qw($on $off $go $in $true;
+use App::SeismicUnixGui::misc::SeismicUnix qw($on $off $go $in $true
   $false $itemp_picks_
   $suffix_su $to);
 
@@ -66,9 +66,9 @@ my $SuMessages = SuMessages->new();
 my $Project    = Project_config->new();
 
 my $get        = L_SU_global_constants->new();
-my $iPick_spec = iPick_spec->new();
+my $iPick_specD = iPick_specD->new();
 
-my $variables      = $iPick_spec->variables();
+my $variables      = $iPick_specD->variables();
 my $DATA_DIR_IN    = $variables->{_DATA_DIR_IN};
 my $DATA_DIR_OUT   = $variables->{_DATA_DIR_OUT};
 my $data_suffix_in = $variables->{_data_suffix_in};
@@ -719,8 +719,6 @@ sub set_purpose {
 		&& $type ne $empty_string )
 	{
 
-		use App::SeismicUnixGui::misc::control '0.0.3';
-		use aliased 'App::SeismicUnixGui::misc::control';
 		my $control = control->new();
 		$control->set_infection($type);
 		$type = control->get_ticksBgone();

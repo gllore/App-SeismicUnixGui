@@ -96,8 +96,8 @@ use aliased 'App::SeismicUnixGui::configs::big_streams::Project_config';
 use aliased 'App::SeismicUnixGui::misc::L_SU_global_constants';
 
 my $get               = L_SU_global_constants->new();
-my $config_superflows = new config_superflows;
-my $control           = new control();
+my $config_superflows = config_superflows->new();
+my $control           = control->new();
 my $Project           = Project_config->new();
 
 my $inbound_directory      = $Project->DATA_SEISMIC_SU(); #defaulted

@@ -1,10 +1,12 @@
 package App::SeismicUnixGui::specs::big_streams::iBottomMute_spec;
+
 our $VERSION = '1.00';
+
 use Moose;
-package App::SeismicUnixGui::specs::big_streams::iBottomMute_spec;
-package App::SeismicUnixGui::specs::big_streams::iBottomMute_spec;
-package App::SeismicUnixGui::specs::big_streams::iBottomMute_spec;
 use App::SeismicUnixGui::misc::SeismicUnix qw($su $suffix_su);
+use aliased 'App::SeismicUnixGui::misc::L_SU_global_constants';
+use aliased 'App::SeismicUnixGui::configs::big_streams::Project_config';
+use aliased 'App::SeismicUnixGui::configs::big_streams::iBottomMute_config';
 
 my $get              = L_SU_global_constants->new();
 my $var              = $get->var();

@@ -955,7 +955,7 @@ sub get_names_aref {
 	my ($self) = @_;
 	my $labels_aref = \@{ $param_widgets_color_href->{_labels_aref} };
 
-	print("param_widgets_color,get_labels_aref: @{$param_widgets_color_href->{_labels_aref}}\n")
+#	print("param-widgets_color,get_names_aref, param_widgets_color,get_labels_aref: @{$param_widgets_color_href->{_labels_aref}}\n")
 		;    # all labels in array may not be there
 	return ( $param_widgets_color_href->{_labels_aref} );
 }
@@ -1073,7 +1073,6 @@ sub range {
 		$param_widgets_color_href->{_length}                = $ref_hash->{_param_sunix_length};
 
 		# print("1.param_widgets_grey2,range,  (add2flow_button and add2flow)  first idx:$param_widgets_color_href->{_first_idx}, and length:$param_widgets_color_href->{_length}\n");
-
 		# print("1.param_widgets_grey2,range,  (add2flow_button and add2flow)  if length is empty that is Ok the first time through \n");
 	}
 
@@ -1360,7 +1359,7 @@ sub set_focus_on_Entry_w {
 	if (    defined $index
 		and defined $param_widgets_color_href->{_values_w_aref} ) {
 
-		# print("1. param_widgets,set_focus_on_entry: writing gui_history.txt\n");
+#		print("1. param_widgets,set_focus_on_entry: writing gui_history.txt\n");
 		# $gui_history->view();
 		# print("1. param_widgets,set_focus_on_entry: $param_widgets_color_href->{_values_w_aref}[0]\n");
 		# print("param-widgets,set_focus_on_entry,index:$index \n");
@@ -1369,8 +1368,8 @@ sub set_focus_on_Entry_w {
 		$Entry_widget[$index]->focus;
 
 		return ();
+		
 	} else {
-
 		print("param_widgets_color, set_focus_in, either missing widget or_values_w_aref\n");
 	}
 
@@ -1519,7 +1518,7 @@ sub set_entry_change_status {
 	my ( $self, $status ) = @_;
 	$param_widgets_color_href->{_changed_entry} = $status;
 
-	# print("param_widgets_color, set_entry_change_status: to $status\n");
+#	print("param_widgets_color, set_entry_change_status: to $status\n");
 	return ();
 }
 
@@ -1543,7 +1542,7 @@ sub set_labels {
 		# print("param_widgets_color,set_labels, length=$length\n");
 		# print("param_widgets_color,set_labels, llabels: @{$param_widgets_color_href->{_labels_aref}}\n");
 	} else {
-		print("param_widgets_green,set_labels, missinglabels\n");
+		print("param_widgets_green,set_labels, missing labels\n");
 	}
 	return ();
 }

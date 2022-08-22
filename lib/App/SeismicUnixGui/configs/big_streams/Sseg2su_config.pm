@@ -60,8 +60,8 @@ use aliased 'App::SeismicUnixGui::misc::L_SU_global_constants';
 use App::SeismicUnixGui::misc::SeismicUnix qw($in $out $on $go $to $suffix_ascii $off $suffix_su);
 
 my $get               = L_SU_global_constants->new();
-my $config_superflows = new config_superflows;
-my $control           = new control();
+my $config_superflows = config_superflows->new();
+my $control           = control->new();
 my $Project           = Project_config->new();
 
 my $DATA_SEISMIC_SU        = $Project->DATA_SEISMIC_SU();

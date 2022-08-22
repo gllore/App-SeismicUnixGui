@@ -26,7 +26,9 @@ my $VERSION = '1.0.0';
 
 use aliased 'App::SeismicUnixGui::misc::L_SU_global_constants';
 use aliased 'App::SeismicUnixGui::big_streams::immodpg_global_constants';
-
+use aliased 'App::SeismicUnixGui::misc::big_streams_param';
+use aliased 'App::SeismicUnixGui::misc::files_LSU';
+use aliased 'App::SeismicUnixGui::configs::big_streams::Project_config';
 
 =pod
 
@@ -102,7 +104,7 @@ sub _get_program_name {
 sub _set_program_name {
 	my ($program_name_sref) = @_;
 
-# print("config_superflows, _set_program_name, program_name=$$program_name_sref\n");
+#print("config_superflows, _set_program_name, program_name=$$program_name_sref\n");
 # print("config_superflows, _set_program_name, program_name=$superflow_names->{_fk}\n");
 	if ($program_name_sref) {
 		my $name_sref;
@@ -314,7 +316,7 @@ sub _get_all {
 
 	my ($self) = '';
 
-	#print("config_superflows,_get_all \n");
+#	print("config_superflows,_get_all \n");
 	_local_or_defaults( $config_superflows->{_program_name_sref} );
 	return ();
 }
@@ -347,19 +349,18 @@ sub _local_or_defaults {
 	my ($self) = @_;
 	my $name_sref = $config_superflows->{_program_name_sref};
 
-# print("config_superflows, _local_or_defaults, program name=$name_sref\n");
-# print("config_superflows, _local_or_defaults,SCALAR program name=$name_sref\n");
-
-	use App::SeismicUnixGui::misc::big_streams_param;
+# print("config_superflows, _local_or_defaults, program name=$$name_sref\n");
+# print("config_superflows, _local_or_defaults,SCALAR program name=$$name_sref\n");
 
 	my $big_streams_param   = big_streams_param->new();
 	my $flow_type           = $get->flow_type_href();
 	my $pre_built_superflow = $flow_type->{_pre_built_superflow};
 
-#	print("config_superflows, _local_or_defaults,pre_built_superflow=$pre_built_superflow\n");
 # set flow type before big_streams_param->get
 	$big_streams_param->set_flow_type($pre_built_superflow);
+#	print("1. config_superflows, _local_or_defaults,pre_built_superflow=$pre_built_superflow\n");
 	my $cfg_aref 					= $big_streams_param->get($name_sref);
+#	print("2. config_superflows, _local_or_defaults,pre_built_superflow=$pre_built_superflow\n");
 	$config_superflows->{_all_aref} = $cfg_aref;
 	$config_superflows->{_length}   = $big_streams_param->my_length();
 
@@ -398,9 +399,7 @@ sub get_local_or_defaults {
 
 
 
-	if ( $config_superflows->{_program_name_sref} ) {
-		
-		use App::SeismicUnixGui::misc::big_streams_param;
+	if ( $config_superflows->{_program_name_sref} ) {		
 		
 		my $big_streams_param = big_streams_param->new();
 		my ( $cfg_aref, $size );
@@ -447,7 +446,6 @@ sub save {
 		_prog_name_sref => '',
 	};
 
-	use App::SeismicUnixGui::misc::files_LSU;
 	my $files_LSU = files_LSU->new();
 
 	$out_hash_ref->{_ref_labels} = $in_hash_ref->{_names_aref};
@@ -573,7 +571,7 @@ sub set_program_name {
 		if ( $$program_name_sref eq $superflow_names->{_Project} ) {
 
 # warning: must omit underscore
-#print("config_superflows, set_program_name,superflow_names=$superflow_names->{_ProjectVariables}\n");
+# print("config_superflows, set_program_name,superflow_names=$superflow_names->{_ProjectVariables}\n");
 #print("config_superflows, set_program_name,alias superflow_names=$superflow_names->{_ProjectVariables}\n");
 			$name_sref = \$alias->{Project};
 		}
@@ -613,15 +611,16 @@ sub set_program_name {
 		if ( $$program_name_sref eq $superflow_names->{_iPick} ) {
 
 # warning: must omit underscore
-#print("config_superflows, set_program_name,superflow_names=$superflow_names->{_ProjectVariables}\n");
-#print("config_superflows, set_program_name,alias superflow_names=$superflow_names->{_ProjectVariables}\n");
+
+#print("1. config_superflows, set_program_name,alias superflow_names=$superflow_names->{_ProjectVariables}\n");
 			$name_sref = \$alias->{iPick};
+#			print("2.config_superflows, set_program_name,superflow_names=$superflow_names->{_ProjectVariables}\n");
 		}
 
 		if ( $$program_name_sref eq $superflow_names->{_immodpg} ) {
 
 # warning: must omit underscore
-# print("config_superflows, set_program_name,superflow_names=$superflow_names->{_immodpg}\n");
+#print("config_superflows, set_program_name,superflow_names=$superflow_names->{_immodpg}\n");
 # print("config_superflows, set_program_name,alias superflow_names=$superflow_names->{_immodpg}\n");
 
 			$name_sref = \$alias->{immodpg};
@@ -639,7 +638,7 @@ sub set_program_name {
 
 		$config_superflows->{_program_name_sref} = $name_sref;
 
-		# print("config_superflows,set_program_name alias = ${$name_sref}}\n");
+#		print("config_superflows,set_program_name alias = ${$name_sref}\n");
 		_get_all;
 
 	}
@@ -742,7 +741,6 @@ sub inbound {
 
 	if ( $config_superflows->{_program_name_sref} ) {
 
-		use App::SeismicUnixGui::configs::big_streams::Project_config;
 		my $Project    = Project_config->new();
 		my $PL_SEISMIC = $Project->PL_SEISMIC();
 

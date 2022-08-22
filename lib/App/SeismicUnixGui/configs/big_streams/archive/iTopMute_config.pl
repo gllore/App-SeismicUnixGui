@@ -44,7 +44,7 @@ use Moose;
 use Config::Simple;
 use control 0.0.3;
 use System_Variables;
-use App:SeismicUnixGui::misc::SeismicUnix qw($in $out $on $go $to $suffix_ascii $off $suffix_su);
+use App::SeismicUnixGui::misc::SeismicUnix qw($in $out $on $go $to $suffix_ascii $off $suffix_su);
 
 my $cfg             = new Config::Simple('iTop_Mute3.config');
 my $DATA_SEISMIC_SU = System_Variables::DATA_SEISMIC_SU();

@@ -47,9 +47,13 @@ extends 'App::SeismicUnixGui::misc::gui_history' => { -version => 0.0.2 };
 use aliased 'App::SeismicUnixGui::misc::gui_history';
 my $pre_built_big_stream_href_sub_ref;    # $pre_built_big_stream_href->{_sub_ref} does not transfer in namespace between subs
 use aliased 'App::SeismicUnixGui::misc::L_SU_global_constants';
+use aliased 'App::SeismicUnixGui::misc::L_SU_local_user_constants';
 use aliased 'App::SeismicUnixGui::messages::message_director';
 use aliased 'App::SeismicUnixGui::misc::whereami';
 use aliased 'App::SeismicUnixGui::misc::param_widgets4pre_built_streams';
+use aliased 'App::SeismicUnixGui::misc::binding';
+use aliased 'App::SeismicUnixGui::misc::name';
+use aliased 'App::SeismicUnixGui::misc::config_superflows';
 
 =head2 Instantiation
 
@@ -149,10 +153,6 @@ sub set_flowNsuperflow_name_w {
 sub select {
     my ($self) = @_;
 
-    use App::SeismicUnixGui::misc::binding;
-    use App::SeismicUnixGui::misc::name;
-    use App::SeismicUnixGui::misc::config_superflows;
-
     my $binding            				= binding->new();
     my $name               				= name->new();
     my $pre_built_big_stream_messages 	= message_director->new();
@@ -188,7 +188,6 @@ sub select {
     # case for Project.config
     if ( $prog_name_config eq $Project . '.config' ) {
 
-        use App::SeismicUnixGui::misc::L_SU_local_user_constants;
         my $user_constants = L_SU_local_user_constants->new();
 
         if ( $user_constants->user_configuration_Project_config_exists() ) {

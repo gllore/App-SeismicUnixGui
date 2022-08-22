@@ -94,7 +94,7 @@ my $iPicks2sort = {
 
 =cut 
 
-use App::SeismicUnixGui::misc::SeismicUnix qw($true $false $in $out $to;
+use App::SeismicUnixGui::misc::SeismicUnix qw($true $false $in $out $to
   $itemp_picks_ $itemp_picks_sorted_
   $out $suffix_su);
 

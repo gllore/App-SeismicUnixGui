@@ -28,17 +28,36 @@
  Moose already declares that you need debuggers turned on
  so you don't need a line like the following:
  use warnings;
+ 
+ For the iPick tool and in  order to prevent redefining subroutines
+ we implement new modulesB,C,D ...
+ 
+ Both of the following instantiate iPick_spec.pm
+ --iPick_config 
+ 			calls 
+ 		config_superflows 
+ 		    calls 
+ 		big_streams_param 
+ 			which requires and instantiates iPick_spec
+ --iPick.pm
+ 		uses and instantiates iPick_specB.pm
+ 		uses iShowNselect_picks
+ 		      which instantiates iPick_specC
+ 		uses iSelect_xt
+ 			  which instantiates iPick_specD
 
 =cut
 
 use Moose;
 my $VERSION = '0.0.1';
+
+use Tk;
 use aliased 'App::SeismicUnixGui::misc::L_SU_global_constants';
 use aliased 'App::SeismicUnixGui::misc::readfiles';
-use Tk;
-use aliased 'App::SeismicUnixGui::big_streams::iPick';
+
 use aliased 'App::SeismicUnixGui::configs::big_streams::iPick_config';
-use App::SeismicUnixGui::misc::SeismicUnix qw($true $false );
+use aliased 'App::SeismicUnixGui::big_streams::iPick';
+use App::SeismicUnixGui::misc::SeismicUnix qw($true $false);
 use aliased 'App::SeismicUnixGui::messages::SuMessages';
 use aliased 'App::SeismicUnixGui::sunix::shell::xk';
 
@@ -78,7 +97,9 @@ my $min_x1         = $CFG_h->{suximage}{1}{min_x1};
 my $max_x1         = $CFG_h->{suximage}{1}{max_x1};
 my $purpose        = $CFG_h->{suximage}{1}{purpose};
 
+
 =head2 Declare variables 
+
  in local memory space
 
 =cut
@@ -276,13 +297,13 @@ number_of_tries
     if ( $number_of_tries >= 2 ) {
 
         # print("2. iPick.pl,set_pick,number_of_tries: $number_of_tries\n");
-        $iPick->iShowNselect_picks();
+        $iPick->iPicks_shownNselect();
 
     }
     elsif ( $number_of_tries == 1 ) {
 
         # print("3. iPick.pl,set_pick,number_of_tries: $number_of_tries\n");
-        $iPick->iSelect_xt();
+        $iPick->iPicks_select_xt();
 
     }
     else {
@@ -317,12 +338,12 @@ sub set_calc {
     # $xk->kill_this('suximage');
     # $xk->kill_this('suxwigb');
 
-    $iPick->iPicks2par();
-    $iPick->iPicks2sort();
+    $iPick->iPicks_par();
+    $iPick->iPicks_sort();
     $number_of_tries++;
     $iPick->number_of_tries($number_of_tries);
-    $iPick->iShowNselect_picks();
-    $iPick->iSave_picks();
+    $iPick->iPicks_shownNselect();
+    $iPick->iPicks_save();
 
 =head2 Message 
 
@@ -404,8 +425,8 @@ sub set_next {
 =cut
 
         $iPick->gather_num($gather);
-        $iPick->message('first_pick_xt');
-        $iPick->iSelect_xt();
+        $iPick->iPicks_message('first_pick_xt');
+        $iPick->iPicks_select_xt();
 
     }
     else {

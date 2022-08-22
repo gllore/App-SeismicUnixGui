@@ -77,10 +77,13 @@ my $L_SU_global_constants = L_SU_global_constants->new();
 #my $line2find    = '^package\s\w+\;';
 
 #type2
-my $line2find       = '^use\sApp::SeismicUnixGui(.+\w)+::(?!SeismicUnix)';
+#my $line2find       = '^use\sApp::SeismicUnixGui(.+\w)+::(?!SeismicUnix)';
 
 #type 3
 #my $line2find       = '=\snew\s\w+';
+
+#type 4
+my $line2find = 'use\saliased\s\'App';
 
 =head2 Important definitions 
 
@@ -99,7 +102,7 @@ my $GRANDPARENT_DIR = $PL_DIR . '/' . $SeismicUnixGui;
 my $change_a_line = {
 	_child_directory_su_number_of  => '',
 	_file_name                     => '',
-	_line_of_interest_aref         => '',	
+	_line_of_interest_aref         => '',
 	_parent_directory_su_number_of => '',
 	_pathNfile_aref                => '',
 };
@@ -115,8 +118,7 @@ $L_SU_global_constants->set_PARENT_DIR_type('SU');
 $L_SU_global_constants->set_GRANDPARENT_DIR($GRANDPARENT_DIR);
 my ( $su_pathNfile_aref, $su_dimension_aref ) =
   $L_SU_global_constants->get_pathNfile2search();
-  
-  
+
 =head2 search for lines of interest
 
 in SU-type files and replace them
@@ -164,21 +166,20 @@ my @dimension_gen                  = @$gen_dimension_aref;
 my $parent_directory_gen_number_of = $dimension_gen[0];
 my $child_directory_gen_number_of  = $dimension_gen[1];
 
-print("parent_directory_gen_number_of=$parent_directory_gen_number_of\n");
-print("child_directory_gen_number_of=$child_directory_gen_number_of\n");
+#print("parent_directory_gen_number_of=$parent_directory_gen_number_of\n");
+#print("child_directory_gen_number_of=$child_directory_gen_number_of\n");
 
-my @gen_pathNfile = @$gen_pathNfile_aref;
-$parent_directory_gen_number_of=1;
-$child_directory_gen_number_of=1;
-_set_parent_directory_number_of($parent_directory_gen_number_of);
-_set_child_directory_number_of($child_directory_gen_number_of);
-_set_pathNfile_aref($gen_pathNfile_aref);
-my $gen_aref = _get_line_of_interest_aref();
-my @line_of_interest_gen_aref =@$gen_aref;
-_set_line_of_interest_aref($gen_aref);
-_set_replacement_type2();
+#my @gen_pathNfile = @$gen_pathNfile_aref;
+#$parent_directory_gen_number_of=1;
+#$child_directory_gen_number_of=1;
+#_set_parent_directory_number_of($parent_directory_gen_number_of);
+#_set_child_directory_number_of($child_directory_gen_number_of);
+#_set_pathNfile_aref($gen_pathNfile_aref);
+#my $gen_aref = _get_line_of_interest_aref();
+#my @line_of_interest_gen_aref =@$gen_aref;
+#_set_line_of_interest_aref($gen_aref);
+#_set_replacement_type2();
 #_set_replacement_type3();
-
 
 =head2 Get all the files and their full paths
 
@@ -191,7 +192,7 @@ $L_SU_global_constants->set_PARENT_DIR_type('SPECS');
 $L_SU_global_constants->set_GRANDPARENT_DIR($GRANDPARENT_DIR);
 my ( $specs_pathNfile_aref, $specs_dimension_aref ) =
   $L_SU_global_constants->get_pathNfile2search();
-  
+
 =head2 search for lines of interest
 
 in SPECS-type files and replace them
@@ -202,21 +203,22 @@ my @dimension_specs                  = @$specs_dimension_aref;
 my $parent_directory_specs_number_of = $dimension_specs[0];
 my $child_directory_specs_number_of  = $dimension_specs[1];
 
-#print("parent_directory_specs_number_of=$parent_directory_specs_number_of\n");
-#print("child_directory_specs_number_of=$child_directory_specs_number_of\n"); 
-#  
-# my @gspecs_pathNfile = @$specs_pathNfile_aref;
-#
-#_set_parent_directory_number_of($parent_directory_specs_number_of);
-#_set_child_directory_number_of($child_directory_specs_number_of);
-#_set_pathNfile_aref($specs_pathNfile_aref);
-#my $specs_aref = _get_line_of_interest_aref();
-#my @line_of_interest_specs_aref =@$specs_aref;
-#_set_line_of_interest_aref($specs_aref);
-#_set_replacement_type1(); 
-#_set_replacement_type3();
+print("parent_directory_specs_number_of=$parent_directory_specs_number_of\n");
+print("child_directory_specs_number_of=$child_directory_specs_number_of\n");
 
-  
+my @gspecs_pathNfile = @$specs_pathNfile_aref;
+
+_set_parent_directory_number_of($parent_directory_specs_number_of);
+_set_child_directory_number_of($child_directory_specs_number_of);
+_set_pathNfile_aref($specs_pathNfile_aref);
+my $specs_aref                  = _get_line_of_interest_aref();
+my @line_of_interest_specs_aref = @$specs_aref;
+_set_line_of_interest_aref($specs_aref);
+
+#_set_replacement_type1();
+#_set_replacement_type3();
+_set_replacement_type4();
+
 =head2 Get all the files and their full paths
 
 from the GUI category
@@ -228,7 +230,6 @@ $L_SU_global_constants->set_PARENT_DIR_type('GUI');
 $L_SU_global_constants->set_GRANDPARENT_DIR($GRANDPARENT_DIR);
 my ( $gui_pathNfile_aref, $gui_dimension_aref ) =
   $L_SU_global_constants->get_pathNfile2search();
-
 
 =head2 search for lines of interest
 
@@ -249,8 +250,8 @@ my $child_directory_gui_number_of  = $dimension_gui[1];
 #my $gui_aref = _get_line_of_interest_aref();
 #my @line_of_interest_gui_aref =@$gui_aref;
 #_set_line_of_interest_aref($gui_aref);
-##_set_replacement_type1(); 
-#_set_replacement_type2(); 
+##_set_replacement_type1();
+#_set_replacement_type2();
 
 =head2 Get all the files and their full paths
 
@@ -263,7 +264,6 @@ $L_SU_global_constants->set_PARENT_DIR_type('TOOLS');
 $L_SU_global_constants->set_GRANDPARENT_DIR($GRANDPARENT_DIR);
 my ( $tools_pathNfile_aref, $tools_dimension_aref ) =
   $L_SU_global_constants->get_pathNfile2search();
-
 
 =head2 search for lines of interest
 
@@ -363,22 +363,19 @@ sub _get_line_of_interest_aref {
 	return ($result);
 }
 
-
-
-
 =head2 sub _set_child_directory_number_of 
 
 =cut
 
 sub _set_child_directory_number_of {
-	
+
 	my ($self) = @_;
 
 	$change_a_line->{_child_directory_number_of} = $self;
-	
-#	print ("_set_child_directory_number_of=$self\n");
-	
-	return();
+
+	#	print ("_set_child_directory_number_of=$self\n");
+
+	return ();
 }
 
 =head2 sub _set_line_of_interest_aref 
@@ -386,13 +383,13 @@ sub _set_child_directory_number_of {
 =cut
 
 sub _set_line_of_interest_aref {
-	
+
 	my ($self) = @_;
 
 	$change_a_line->{_line_of_interest_aref} = $self;
-	
-#	print ("_set_line_of_interest_aref=$self\n");
-		return();
+
+	#	print ("_set_line_of_interest_aref=$self\n");
+	return ();
 }
 
 =head2 sub _set_parent_directory_number_of 
@@ -405,11 +402,9 @@ sub _set_parent_directory_number_of {
 
 	$change_a_line->{_parent_directory_number_of} = $self;
 
-#    print ("_set_parent_directory_number_of=$self\n");
-	return();
+	#    print ("_set_parent_directory_number_of=$self\n");
+	return ();
 }
-
-
 
 =head2 sub _set_pathNfile_aref 
 
@@ -419,7 +414,7 @@ sub _set_pathNfile_aref {
 	my ($self) = @_;
 
 	$change_a_line->{_pathNfile_aref} = $self;
-		return();
+	return ();
 }
 
 =head2 set_replacement_type1
@@ -436,80 +431,78 @@ sub _set_replacement_type1 {
 	  $change_a_line->{_child_directory_number_of};
 	my $parent_directory_number_of =
 	  $change_a_line->{_parent_directory_number_of};
-	my @pathNfile 	= @{ $change_a_line->{_pathNfile_aref} };
+	my @pathNfile             = @{ $change_a_line->{_pathNfile_aref} };
 	my @line_of_interest_aref = @{ $change_a_line->{_line_of_interest_aref} };
 
+	for ( my $parent = 0 ; $parent < $parent_directory_number_of ; $parent++ ) {
 
-for ( my $parent = 0 ; $parent < $parent_directory_number_of ; $parent++ ) {
+		for ( my $child = 0 ; $child < $child_directory_number_of ; $child++ ) {
 
-	for ( my $child = 0 ; $child < $child_directory_number_of ; $child++ ) {
+			my @pathNfile_list        = @{ $pathNfile[$parent][$child] };
+			my $pathNfile_list_length = scalar @pathNfile_list;
 
-		my @pathNfile_list        = @{ $pathNfile[$parent][$child] };
-		my $pathNfile_list_length = scalar @pathNfile_list;
+			for ( my $i = 0 ; $i < $pathNfile_list_length ; $i++ ) {
 
-		for ( my $i = 0 ; $i < $pathNfile_list_length ; $i++ ) {
+				# slurp every file
+				$manage_files_by2->set_pathNfile( $pathNfile_list[$i] );
+				my $slurp_ref =
+				  manage_files_by2->get_whole( $pathNfile_list[$i] );
+				my @slurp = @$slurp_ref;
 
-			# slurp every file
-			$manage_files_by2->set_pathNfile( $pathNfile_list[$i] );
-			my $slurp_ref = manage_files_by2->get_whole( $pathNfile_list[$i] );
-			my @slurp     = @$slurp_ref;
+				my @line_number =
+				  @{ $line_of_interest_aref[$parent][$child][$i] };
+				my $line_number_of = scalar @line_number;
 
-			my @line_number =
-			  @{ $line_of_interest_aref[$parent][$child][$i] };
-			my $line_number_of = scalar @line_number;
+				#			print("child directory=$child\n");
+				#			print $pathNfile_list[$i]." file number =$i\n";
+				#			print("line_number_of=$line_number_of\n");
 
-			#			print("child directory=$child\n");
-			#			print $pathNfile_list[$i]." file number =$i\n";
-			#			print("line_number_of=$line_number_of\n");
+				if ( $line_number_of > 0 ) {
 
-			if ( $line_number_of > 0 ) {
+					#				print("line_number=@line_number\n");
+					#				print("line_number_of=$line_number_of\n");
 
-				#				print("line_number=@line_number\n");
-				#				print("line_number_of=$line_number_of\n");
+					foreach my $line (@line_number) {
 
-				foreach my $line (@line_number) {
+						chomp $slurp[$line];
+						my $path = $pathNfile_list[$i];
+						$path =~
+						  s/\/usr\/local\/pl\/App-SeismicUnixGui\/lib\///;
 
-					chomp $slurp[$line];
-					my $path = $pathNfile_list[$i];
-					$path =~ s/\/usr\/local\/pl\/App-SeismicUnixGui\/lib\///;
+						# substitute "/" with ":"
+						$path =~ s/(\/)+/::/g;
+						$path =~ s/.pm//g;
+						$slurp[$line] = 'package' . ' ' . $path . ';';
+						print("hierarchical path =$slurp[$line]\n");
 
-					# substitute "/" with ":"
-					$path =~ s/(\/)+/::/g;
-					$path =~ s/.pm//g;
-					$slurp[$line] = 'package' . ' ' . $path . ';';
-					print("hierarchical path =$slurp[$line]\n");
+					}
+
+					print("Hit Enter to continue\n");
+					<STDIN>;
+
+					open( OUT, ">$pathNfile_list[$i]" )
+					  or die("File $pathNfile_list[$i] not found");
+
+					foreach my $text (@slurp) {
+						printf OUT $text . "\n";    # add \n!!!!
+													# print("$text \n");
+					}
+
+					close(OUT);
 
 				}
-
-				print("Hit Enter to continue\n");
-				<STDIN>;
-
-				open( OUT, ">$pathNfile_list[$i]" )
-				  or die("File $pathNfile_list[$i] not found");
-
-				foreach my $text (@slurp) {
-					printf OUT $text . "\n";    # add \n!!!!
-												# print("$text \n");
+				else {
+					#				print("\npathNfile_list=$pathNfile_list[$i]\n");
+					#				print("main,no matching lines detected\n");
 				}
 
-				close(OUT);
+			}    # for files in a list
 
-			}
-			else {
-				#				print("\npathNfile_list=$pathNfile_list[$i]\n");
-				#				print("main,no matching lines detected\n");
-			}
+		}    # for each child directory
 
-		}    # for files in a list
+	}    #for each parent directory
 
-	}    # for each child directory
-
-}    #for each parent directory
-
-
-} # sub replace line of interest
-
-
+}    # sub replace line of interest
 
 =head2 set_replacement_type2
 
@@ -525,74 +518,74 @@ sub _set_replacement_type2 {
 	  $change_a_line->{_child_directory_number_of};
 	my $parent_directory_number_of =
 	  $change_a_line->{_parent_directory_number_of};
-	my @pathNfile 	= @{ $change_a_line->{_pathNfile_aref} };
+	my @pathNfile             = @{ $change_a_line->{_pathNfile_aref} };
 	my @line_of_interest_aref = @{ $change_a_line->{_line_of_interest_aref} };
 
+	for ( my $parent = 0 ; $parent < $parent_directory_number_of ; $parent++ ) {
 
-for ( my $parent = 0 ; $parent < $parent_directory_number_of ; $parent++ ) {
+		for ( my $child = 0 ; $child < $child_directory_number_of ; $child++ ) {
 
-	for ( my $child = 0 ; $child < $child_directory_number_of ; $child++ ) {
+			my @pathNfile_list        = @{ $pathNfile[$parent][$child] };
+			my $pathNfile_list_length = scalar @pathNfile_list;
 
-		my @pathNfile_list        = @{ $pathNfile[$parent][$child] };
-		my $pathNfile_list_length = scalar @pathNfile_list;
+			for ( my $i = 0 ; $i < $pathNfile_list_length ; $i++ ) {
 
-		for ( my $i = 0 ; $i < $pathNfile_list_length ; $i++ ) {
+				# slurp every file
+				$manage_files_by2->set_pathNfile( $pathNfile_list[$i] );
+				my $slurp_ref =
+				  manage_files_by2->get_whole( $pathNfile_list[$i] );
+				my @slurp = @$slurp_ref;
 
-			# slurp every file
-			$manage_files_by2->set_pathNfile( $pathNfile_list[$i] );
-			my $slurp_ref = manage_files_by2->get_whole( $pathNfile_list[$i] );
-			my @slurp     = @$slurp_ref;
+				my @line_number =
+				  @{ $line_of_interest_aref[$parent][$child][$i] };
+				my $line_number_of = scalar @line_number;
 
-			my @line_number =
-			  @{ $line_of_interest_aref[$parent][$child][$i] };
-			my $line_number_of = scalar @line_number;
+				if ( $line_number_of > 0 ) {
 
-			if ( $line_number_of > 0 ) {
+					foreach my $line (@line_number) {
 
-				foreach my $line (@line_number) {
+						chomp $slurp[$line];
+						print $slurp[$line] . "\n";
 
-					chomp $slurp[$line];
-					print $slurp[$line]."\n";
-					
-					if(  not ($slurp[$line] =~ m/\'/) )  {  #skip version cases
-					
-					# substitute "use App ....;" with "use aliased 'App...';"
-					$slurp[$line] =~ s/use\sApp/use aliased 'App/g;
-					$slurp[$line] =~ s/;/\';/;
-					print("new line =$slurp[$line]\n");
-						
+						if ( not( $slurp[$line] =~ m/\'/ ) )
+						{    #skip version cases
+
+					   # substitute "use App ....;" with "use aliased 'App...';"
+							$slurp[$line] =~ s/use\sApp/use aliased 'App/g;
+							$slurp[$line] =~ s/;/\';/;
+							print("new line =$slurp[$line]\n");
+
+						}
+
 					}
 
+					print("Hit Enter to continue\n");
+					<STDIN>;
+
+					open( OUT, ">$pathNfile_list[$i]" )
+					  or die("File $pathNfile_list[$i] not found");
+
+					foreach my $text (@slurp) {
+						printf OUT $text . "\n";    # add \n!!!!
+
+						#					print("$text \n");
+					}
+
+					close(OUT);
+
+				}
+				else {
+					#				print("\npathNfile_list=$pathNfile_list[$i]\n");
+					#				print("main,no matching lines detected\n");
 				}
 
-				print("Hit Enter to continue\n");
-				<STDIN>;
+			}    # for files in a list
 
-				open( OUT, ">$pathNfile_list[$i]" )
-				  or die("File $pathNfile_list[$i] not found");
+		}    # for each child directory
 
-				foreach my $text (@slurp) {
-					printf OUT $text . "\n";    # add \n!!!!
-#					print("$text \n");
-				}
+	}    #for each parent directory
 
-				close(OUT);
-
-			}
-			else {
-				#				print("\npathNfile_list=$pathNfile_list[$i]\n");
-				#				print("main,no matching lines detected\n");
-			}
-
-		}    # for files in a list
-
-	}    # for each child directory
-
-}    #for each parent directory
-
-
-} # sub replace line of interest
-
+}    # sub replace line of interest
 
 =head2 set_replacement_type3
 
@@ -608,67 +601,164 @@ sub _set_replacement_type3 {
 	  $change_a_line->{_child_directory_number_of};
 	my $parent_directory_number_of =
 	  $change_a_line->{_parent_directory_number_of};
-	my @pathNfile 	= @{ $change_a_line->{_pathNfile_aref} };
+	my @pathNfile             = @{ $change_a_line->{_pathNfile_aref} };
 	my @line_of_interest_aref = @{ $change_a_line->{_line_of_interest_aref} };
 
+	for ( my $parent = 0 ; $parent < $parent_directory_number_of ; $parent++ ) {
 
-for ( my $parent = 0 ; $parent < $parent_directory_number_of ; $parent++ ) {
+		for ( my $child = 0 ; $child < $child_directory_number_of ; $child++ ) {
 
-	for ( my $child = 0 ; $child < $child_directory_number_of ; $child++ ) {
+			my @pathNfile_list        = @{ $pathNfile[$parent][$child] };
+			my $pathNfile_list_length = scalar @pathNfile_list;
 
-		my @pathNfile_list        = @{ $pathNfile[$parent][$child] };
-		my $pathNfile_list_length = scalar @pathNfile_list;
+			for ( my $i = 0 ; $i < $pathNfile_list_length ; $i++ ) {
 
-		for ( my $i = 0 ; $i < $pathNfile_list_length ; $i++ ) {
+				# slurp every file
+				$manage_files_by2->set_pathNfile( $pathNfile_list[$i] );
+				my $slurp_ref =
+				  manage_files_by2->get_whole( $pathNfile_list[$i] );
+				my @slurp = @$slurp_ref;
 
-			# slurp every file
-			$manage_files_by2->set_pathNfile( $pathNfile_list[$i] );
-			my $slurp_ref = manage_files_by2->get_whole( $pathNfile_list[$i] );
-			my @slurp     = @$slurp_ref;
+				my @line_number =
+				  @{ $line_of_interest_aref[$parent][$child][$i] };
+				my $line_number_of = scalar @line_number;
 
-			my @line_number =
-			  @{ $line_of_interest_aref[$parent][$child][$i] };
-			my $line_number_of = scalar @line_number;
+				if ( $line_number_of > 0 ) {
 
-			if ( $line_number_of > 0 ) {
+					foreach my $line (@line_number) {
 
-				foreach my $line (@line_number) {
+						chomp $slurp[$line];
 
-					chomp $slurp[$line];
-								
-					# substitute "= module" with "= module->new->new()"
-					print("found line $slurp[$line]\n");
-					$slurp[$line] =~ s/=\snew\s/=\ /g;
-					$slurp[$line] =~ s/\(\)//g;				
-					$slurp[$line] =~ s/;/->new\(\);/g;
-					print("new line =$slurp[$line]\n");
+						# substitute "= module" with "= module->new->new()"
+						print("3. found line $slurp[$line]\n");
+						$slurp[$line] =~ s/=\snew\s/=\ /g;
+						$slurp[$line] =~ s/\(\)//g;
+						$slurp[$line] =~ s/;/->new\(\);/g;
+						print("new line =$slurp[$line]\n");
+
+					}
+
+					print("Hit Enter to continue\n");
+					<STDIN>;
+
+					#				open( OUT, ">$pathNfile_list[$i]" )
+					#				  or die("File $pathNfile_list[$i] not found");
+					#
+					#				foreach my $text (@slurp) {
+					#					printf OUT $text . "\n";    # add \n!!!!
+					#					print("$text \n");
+					#				}
+					#
+					#				close(OUT);
 
 				}
+				else {
+					#				print("\npathNfile_list=$pathNfile_list[$i]\n");
+					#				print("main,no matching lines detected\n");
+				}
 
-				print("Hit Enter to continue\n");
-				<STDIN>;
+			}    # for files in a list
 
-#				open( OUT, ">$pathNfile_list[$i]" )
-#				  or die("File $pathNfile_list[$i] not found");
-#
-#				foreach my $text (@slurp) {
-#					printf OUT $text . "\n";    # add \n!!!!
-#					print("$text \n");
-#				}
-#
-#				close(OUT);
+		}    # for each child directory
 
-			}
-			else {
-				#				print("\npathNfile_list=$pathNfile_list[$i]\n");
-				#				print("main,no matching lines detected\n");
-			}
+	}    #for each parent directory
 
-		}    # for files in a list
+}    # sub replace line of interest
 
-	}    # for each child directory
+=head2 set_replacement_type4
 
-}    #for each parent directory
+replace line of interest
 
+=cut
 
-} # sub replace line of interest
+sub _set_replacement_type4 {
+
+	my ($self) = @_;
+
+	my $child_directory_number_of =
+	  $change_a_line->{_child_directory_number_of};
+	my $parent_directory_number_of =
+	  $change_a_line->{_parent_directory_number_of};
+	my @pathNfile             = @{ $change_a_line->{_pathNfile_aref} };
+	my @line_of_interest_aref = @{ $change_a_line->{_line_of_interest_aref} };
+
+	for ( my $parent = 0 ; $parent < $parent_directory_number_of ; $parent++ ) {
+
+		for ( my $child = 0 ; $child < $child_directory_number_of ; $child++ ) {
+
+			my @pathNfile_list        = @{ $pathNfile[$parent][$child] };
+			my $pathNfile_list_length = scalar @pathNfile_list;
+
+			for ( my $i = 0 ; $i < $pathNfile_list_length ; $i++ ) {
+
+				# slurp every file
+				$manage_files_by2->set_pathNfile( $pathNfile_list[$i] );
+				my $slurp_ref =
+				  manage_files_by2->get_whole( $pathNfile_list[$i] );
+				my @slurp = @$slurp_ref;
+
+				my @line_number =
+				  @{ $line_of_interest_aref[$parent][$child][$i] };
+				my $line_number_of = scalar @line_number;
+
+				if ( $line_number_of > 0 ) {
+
+					for ( my $line = 0 ; $line < $line_number_of ; $line++ ) {
+
+						# CASE only when the search item lies
+						# on first line
+						my @temp_string;
+
+						if ( $line == 0 ) {
+							chomp $slurp[$line];
+
+							# double check
+							@temp_string = split( /\s+/, $slurp[$line] );
+
+							if ( $temp_string[0] ne 'package' ) {
+
+								print("4.$temp_string[0],$temp_string[1]\n");
+								print(
+									"4. current file is $pathNfile_list[$i]\n");
+								print(
+									"4.found line $slurp[$line] on line=$line\n"
+								);
+
+								$slurp[$line] =~ s/use\ aliased\ \'/package\ /g;
+								print("new line =$slurp[$line]\n");
+
+								print("Hit Enter to continue\n");
+								<STDIN>;
+
+								open( OUT, ">$pathNfile_list[$i]" )
+								  or die("File $pathNfile_list[$i] not found");
+
+								foreach my $text (@slurp) {
+									printf OUT $text . "\n";    # add \n!!!!
+
+									# print("$text \n");
+								}
+
+								close(OUT);
+
+							}
+							else {
+								print(
+"exception to type4 search are: @temp_string\n"
+								);
+							}
+						}
+						else {
+							# NADA conditional line index=0
+						}
+
+					}    # for each line in the file
+				}
+				else {
+					# NADA conditional if search cases exist
+				}
+
+			}    # for each file in a list
+		}    # for each child direcroty
+	}    # for each parent directory
+}    # sub replace line of interest

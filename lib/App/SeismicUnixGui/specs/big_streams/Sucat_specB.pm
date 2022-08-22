@@ -1,14 +1,15 @@
-package App::SeismicUnixGui::specs::big_streams::iTopMute_spec;
+package App::SeismicUnixGui::specs::big_streams::Sucat_specB;
 
 our $VERSION = '1.00';
 
 use Moose;
 use App::SeismicUnixGui::misc::SeismicUnix qw($su $suffix_su);
-use aliased 'App::SeismicUnixGui::misc::L_SU_global_constants';
-use aliased 'App::SeismicUnixGui::configs::big_streams::Project_config';
-use aliased 'App::SeismicUnixGui::configs::big_streams::iTopMute_config';
+use App::SeismicUnixGui::misc::L_SU_global_constants;
+use App::SeismicUnixGui::configs::big_streams::Project_config;
 
-my $get              = L_SU_global_constants->new();
+my $get             = App::SeismicUnixGui::misc::L_SU_global_constants->new();
+my $Project      	= App::SeismicUnixGui::configs::big_streams::Project_config->new();
+
 my $var              = $get->var();
 
 my $empty_string     = $var->{_empty_string};
@@ -18,22 +19,20 @@ my $flow_type        = $get->flow_type_href();
 my $true  = $var->{_true};
 my $false = $var->{_false};
 
-my $Project         = Project_config->new();
 my $DATA_SEISMIC_SU = $Project->DATA_SEISMIC_SU();    # output data directory
 my $PL_SEISMIC		 = $Project->PL_SEISMIC();
 
-my $iTopMute_config = iTopMute_config->new();
-my $max_index       = $iTopMute_config->get_max_index();
+my $max_index = 9;
 
-my $iTopMute_spec =  {
+my $Sucat_specB =  {
     _CONFIG	 				=> $PL_SEISMIC,
-    _DATA_DIR_IN           => $DATA_SEISMIC_SU,
-	_DATA_DIR_OUT          => $DATA_SEISMIC_SU,
+    _DATA_DIR_IN           => $DATA_SEISMIC_SU, # input data directory default
+	_DATA_DIR_OUT          => $DATA_SEISMIC_SU, # input data directory default
 	_binding_index_aref    => '',
     _suffix_type_in        => $su,
-    _data_suffix_in        => $suffix_su,
+    _data_suffix_in        => $suffix_su,		# default
     _suffix_type_out       => $su,
-    _data_suffix_out       => $suffix_su,
+    _data_suffix_out       => $suffix_su,		# default
     _file_dialog_type_aref => '',
     _flow_type_aref        => '',
     _has_infile            => $false,
@@ -65,9 +64,12 @@ sub binding_index_aref {
     my ($self) = @_;
     my @index;
 
-    $index[0] = 0;
-
-    $iTopMute_spec->{_binding_index_aref} = \@index;
+    $index[0] = 6;  # file name for list   
+    $index[1] = 7;  # output file name    
+    $index[2] = 8;  # alternative inbound_directory 
+    $index[3] = 9;  # alterantive outbound_directory 
+        
+    $Sucat_specB->{_binding_index_aref} = \@index;
 
     return ();
 }
@@ -80,19 +82,19 @@ sub get_binding_index_aref {
     my ($self) = @_;
     my @index;
 
-    if ( $iTopMute_spec->{_binding_index_aref} ) {
-        my $index_aref = $iTopMute_spec->{_binding_index_aref};
+    if ( $Sucat_specB->{_binding_index_aref} ) {
+        my $index_aref = $Sucat_specB->{_binding_index_aref};
         return ($index_aref);
 
     }
     else {
         print(
-"iTopMute_spec, get_binding_index_aref, missing binding_index_aref\n"
+"Sucat_specB, get_binding_index_aref, missing binding_index_aref\n"
         );
         return ();
     }
 
-    my $index_aref = $iTopMute_spec->{_binding_index_aref};
+    my $index_aref = $Sucat_specB->{_binding_index_aref};
 
 }
 
@@ -103,19 +105,24 @@ sub get_binding_index_aref {
 sub get_max_index {
     my ($self) = @_;
 
-    if ( $iTopMute_spec->{_max_index} ) {
+    if ( $Sucat_specB->{_max_index} ) {
 
-        my $max_idx = $iTopMute_config->get_max_index();
+        my $max_idx = $max_index;
         return ($max_idx);
 
     }
     else {
-        print("iTopMute_spec, get_max_index, missing max_index\n");
+        print("Sucat_specB, get_max_index, missing max_index\n");
         return ();
     }
 }
 
 =head2 sub file_dialog_type_aref
+
+'Path' - can go to anywhere
+type of dialog (Data, Flow, SaveAs) is needed 
+for binding
+one type of dialog for each index
 
 =cut 
 
@@ -124,9 +131,12 @@ sub file_dialog_type_aref {
 
     my @type;
 
-    $type[0] = $file_dialog_type->{_Data};
+    $type[0] = $file_dialog_type->{_Data_PL_SEISMIC};
+	$type[1] = $file_dialog_type->{_Data_PL_SEISMIC};
+	$type[2] = $file_dialog_type->{_Path};
+	$type[3] = $file_dialog_type->{_Path};
 
-    $iTopMute_spec->{_file_dialog_type_aref} = \@type;
+    $Sucat_specB->{_file_dialog_type_aref} = \@type;
 
     return ();
 
@@ -139,13 +149,15 @@ sub file_dialog_type_aref {
 sub get_file_dialog_type_aref {
     my ($self) = @_;
 
-    if ( $iTopMute_spec->{_file_dialog_type_aref} ) {
-        my @type = @{ $iTopMute_spec->{_file_dialog_type_aref} };
+    if ( $Sucat_specB->{_file_dialog_type_aref} ) {
+    	
+        my @type = @{ $Sucat_specB->{_file_dialog_type_aref} };
+        # print("Sucat_specB,get_file_dialog_type_aref: types are: @type \n");
         return ( \@type );
     }
     else {
         print(
-"iTopMute_spec,get_file_dialog_type_aref, missing file_dialog_type_aref\n"
+"Sucat_specB,get_file_dialog_type_aref, missing file_dialog_type_aref\n"
         );
         return ();
     }
@@ -162,7 +174,7 @@ sub flow_type_aref {
 
     $type[0] = $flow_type->{_pre_built_superflow};
 
-    $iTopMute_spec->{_flow_type_aref} = \@type;
+    $Sucat_specB->{_flow_type_aref} = \@type;
 
     return ();
 
@@ -175,13 +187,13 @@ sub flow_type_aref {
 sub get_flow_type_aref {
     my ($self) = @_;
 
-    if ( $iTopMute_spec->{_flow_type_aref} ) {
-        my $type_aref = $iTopMute_spec->{_flow_type_aref};
+    if ( $Sucat_specB->{_flow_type_aref} ) {
+        my $type_aref = $Sucat_specB->{_flow_type_aref};
         return ($type_aref);
     }
     else {
 
-        print("iTopMute_spec, get_flow_type_aref, missing flow_type_aref \n");
+        print("Sucat_specB, get_flow_type_aref, missing flow_type_aref \n");
         return ();
     }
 }
@@ -194,13 +206,13 @@ sub get_flow_type_aref {
 
 	my $self 	= @_;
 
-	if ( defined $iTopMute_spec->{_prefix_aref} ) {
+	if ( defined $Sucat_specB->{_prefix_aref} ) {
 
-		my $prefix_aref= $iTopMute_spec->{_prefix_aref};
+		my $prefix_aref= $Sucat_specB->{_prefix_aref};
 		return($prefix_aref);
 
 	} else {
-		print("iTopMute_spec, get_prefix_aref, missing prefix_aref\n");
+		print("Sucat_specB, get_prefix_aref, missing prefix_aref\n");
 		return();
 	}
 
@@ -215,13 +227,13 @@ sub get_flow_type_aref {
 
 	my $self 	= @_;
 
-	if ($iTopMute_spec->{_suffix_aref} ) {
+	if ($Sucat_specB->{_suffix_aref} ) {
 
-			my $suffix_aref= $iTopMute_spec->{_suffix_aref};
+			my $suffix_aref= $Sucat_specB->{_suffix_aref};
 			return($suffix_aref);
 
 	} else {
-			print("iTopMute_spec, get_suffix_aref, missing suffix_aref\n");
+			print("Sucat_specB, get_suffix_aref, missing suffix_aref\n");
 			return();
 	}
 
@@ -244,7 +256,7 @@ sub get_flow_type_aref {
 		$prefix[$i]	= $empty_string;
 
 	}
-	$iTopMute_spec ->{_prefix_aref} = \@prefix;
+	$Sucat_specB ->{_prefix_aref} = \@prefix;
 	return();
 
  }
@@ -265,7 +277,7 @@ sub get_flow_type_aref {
 		$suffix[$i]	= $empty_string;
 
 	}
-	$iTopMute_spec ->{_suffix_aref} = \@suffix;
+	$Sucat_specB ->{_suffix_aref} = \@suffix;
 	return();
 
  }
@@ -278,15 +290,15 @@ sub get_flow_type_aref {
 sub get_binding_length {
     my ($self) = @_;
 
-    if ( $iTopMute_spec->{_binding_index_aref} ) {
+    if ( $Sucat_specB->{_binding_index_aref} ) {
         my $length;
-        $length = scalar @{ $iTopMute_spec->{_binding_index_aref} };
+        $length = scalar @{ $Sucat_specB->{_binding_index_aref} };
         return ($length);
 
     }
     else {
 
-        print("iTopMute_spec, get_binding_length, missing length \n");
+        print("Sucat_specB, get_binding_length, missing length \n");
         return ();
     }
 
@@ -302,9 +314,9 @@ sub get_binding_length {
 sub variables {
     my ($self) = @_;
 
-    # print("iTopMute_spec,variables,
-    # first_of_2,$iTopMute_spec->{_is_first_of_2}\n");
-    my $hash_ref = $iTopMute_spec;
+    # print("Sucat_specB,variables,
+    # first_of_2,$Sucat_specB->{_is_first_of_2}\n");
+    my $hash_ref = $Sucat_specB;
     return ($hash_ref);
 }
 
