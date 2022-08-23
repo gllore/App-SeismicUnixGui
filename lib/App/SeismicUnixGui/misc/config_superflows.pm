@@ -453,7 +453,7 @@ sub save {
 	_set_program_name( $in_hash_ref->{_prog_name_sref} );
 	$out_hash_ref->{_prog_name_sref} = $config_superflows->{_program_name_sref};
 
-# print("config_superflows,save,out_hash_ref, ${$out_hash_ref->{_prog_name_sref}}\n");
+#print("config_superflows,save,out_hash_ref, ${$out_hash_ref->{_prog_name_sref}}\n");
 #print("config_superflows,save,out_hash_ref,@{$out_hash_ref->{_ref_values}}[0]\n");
 # print("config_superflows,save,out_hash_ref,@{$out_hash_ref->{_ref_labels}}\n");
 # print("config_superflows,save,out_hash_ref,@{$out_hash_ref->{_ref_values}}\n");
@@ -461,7 +461,7 @@ sub save {
 	if ( ${ $out_hash_ref->{_prog_name_sref} } eq 'Project' ) {
 
 		# Single special case
-		# print("config_superflows,save, Project case\n");
+#		print("config_superflows,save, Project case\n");
 		$files_LSU->set_Project_config();
 		$files_LSU->set_prog_name_sref( $out_hash_ref->{_prog_name_sref} )
 		  ;    # scalar ref
@@ -480,8 +480,6 @@ sub save {
 
 	}
 	else {
-		#		my $format_aref = _get_format();
-		#		my @format      = @$format_aref;
 
 		my @format;
 
@@ -512,10 +510,13 @@ sub save {
 				$format[0] = $var->{_config_file_format};
 				$files_LSU->set_superflow_config_file_format( \@format );
 			}
+			
+		# Used to be just before return
+		$files_LSU->check2write();    # to $PL_SEISMIC/prog_name.config
+		
 		}
 	}
 
-	$files_LSU->check2write();    # to $PL_SEISMIC/prog_name.config
 
 	return ();
 

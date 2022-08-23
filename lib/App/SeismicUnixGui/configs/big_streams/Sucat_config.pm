@@ -92,13 +92,13 @@ our $VERSION = '2.2';
 use App::SeismicUnixGui::misc::control '0.0.3';
 use aliased 'App::SeismicUnixGui::misc::control';
 use aliased 'App::SeismicUnixGui::misc::config_superflows';
-use aliased 'App::SeismicUnixGui::configs::big_streams::Project_config';
+use App::SeismicUnixGui::configs::big_streams::Project_config;
 use aliased 'App::SeismicUnixGui::misc::L_SU_global_constants';
 
 my $get               = L_SU_global_constants->new();
 my $config_superflows = config_superflows->new();
 my $control           = control->new();
-my $Project           = Project_config->new();
+my $Project           = App::SeismicUnixGui::configs::big_streams::Project_config->new();
 
 my $inbound_directory      = $Project->DATA_SEISMIC_SU(); #defaulted
 my $outbound_directory     = $Project->DATA_SEISMIC_SU(); #defaulted

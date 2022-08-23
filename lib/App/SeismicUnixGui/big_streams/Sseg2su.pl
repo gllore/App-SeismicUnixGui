@@ -75,100 +75,100 @@ my ($DATA_SEISMIC_SEG2) = $Project->DATA_SEISMIC_SEG2();
 
 my ( $CFG_h, $CFG_aref ) = $Sseg2su_config->get_values();
 
-my $number_of_files   = $CFG_h->{seg2su}{1}{number_of_files};
-my $first_file_number = $CFG_h->{seg2su}{1}{first_file_number};
-
-# print("values are $number_of_files, $first_file_number\n\n");
-
-
-=head2  Convert *dat
-
-file names to DAT file names for
-conversion by sioseis
-
-=cut
-
-my ( $i,         $j,          $j_char );
-my ( @file_name, @cp_dat2DAT, @segyclean );
-my ( @sioseis,   @flow );
-
-
-for (
-    $i = 1, $j = $first_file_number;
-    $i <= $number_of_files;
-    $i += 1, $j += 1
-     )
-{
-    $j_char = sprintf( "0", $j );
-    $file_name[$i] = $j_char;
-}
-
-for ( $i = 1; $i <= $number_of_files; $i++ ) {
-
-    $cp_dat2DAT[$i] = (
-        " cp $DATA_SEISMIC_SEG2/$file_name[$i].dat \\
-	$DATA_SEISMIC_SEG2/$file_name[$i].DAT
-		"
-    );
-
-=pod INPUT FILE NAMES
-
-convert seg2 files to su files
-
-=cut
-
-    $sioseis[$i] = ("
-cd $DATA_SEISMIC_SEG2;
-echo 'moving to' `pwd`;
-sioseis << eof
-procs seg2in diskoa end
-seg2in
-    ffilen $file_name[$i] 	lfilen $file_name[$i]  end
-end
-diskoa
-opath $DATA_SEISMIC_SU/$file_name[$i].su
-ofmt 5
-format su end
-end
-end
-eof");
-
-=pod Clean 
-
-su output
-
-=cut
-
-    $segyclean[$i] = (
-        " segyclean					\\
-			<$DATA_SEISMIC_SU/$file_name[$i].su			\\
-			>$DATA_SEISMIC_SU/$file_name[$i]_clean.su	\\
-		"
-    );
-
-}   # END FOR LOOP
-
-
-=head2 DEFINE and Run
-
-	FLOW(S)
-
-=cut
-
-for ( $i = 1; $i <= $number_of_files; $i += 1 ) {
-
-    $flow[1][$i] = $cp_dat2DAT[$i];
-    $flow[2][$i] = $sioseis[$i];
-    $flow[3][$i] = $segyclean[$i];
-
-   system $flow[1][$i];
-   # system 'echo', $flow[1][$i];
-
-    system $flow[2][$i];
-    # system 'echo', $flow[2][$i];
-
-    system $flow[3][$i];
-    system 'echo', $flow[3][$i];
-
-}
+#my $number_of_files   = $CFG_h->{seg2su}{1}{number_of_files};
+#my $first_file_number = $CFG_h->{seg2su}{1}{first_file_number};
+#
+## print("values are $number_of_files, $first_file_number\n\n");
+#
+#
+#=head2  Convert *dat
+#
+#file names to DAT file names for
+#conversion by sioseis
+#
+#=cut
+#
+#my ( $i,         $j,          $j_char );
+#my ( @file_name, @cp_dat2DAT, @segyclean );
+#my ( @sioseis,   @flow );
+#
+#
+#for (
+#    $i = 1, $j = $first_file_number;
+#    $i <= $number_of_files;
+#    $i += 1, $j += 1
+#     )
+#{
+#    $j_char = sprintf( "0", $j );
+#    $file_name[$i] = $j_char;
+#}
+#
+#for ( $i = 1; $i <= $number_of_files; $i++ ) {
+#
+#    $cp_dat2DAT[$i] = (
+#        " cp $DATA_SEISMIC_SEG2/$file_name[$i].dat \\
+#	$DATA_SEISMIC_SEG2/$file_name[$i].DAT
+#		"
+#    );
+#
+#=pod INPUT FILE NAMES
+#
+#convert seg2 files to su files
+#
+#=cut
+#
+#    $sioseis[$i] = ("
+#cd $DATA_SEISMIC_SEG2;
+#echo 'moving to' `pwd`;
+#sioseis << eof
+#procs seg2in diskoa end
+#seg2in
+#    ffilen $file_name[$i] 	lfilen $file_name[$i]  end
+#end
+#diskoa
+#opath $DATA_SEISMIC_SU/$file_name[$i].su
+#ofmt 5
+#format su end
+#end
+#end
+#eof");
+#
+#=pod Clean 
+#
+#su output
+#
+#=cut
+#
+#    $segyclean[$i] = (
+#        " segyclean					\\
+#			<$DATA_SEISMIC_SU/$file_name[$i].su			\\
+#			>$DATA_SEISMIC_SU/$file_name[$i]_clean.su	\\
+#		"
+#    );
+#
+#}   # END FOR LOOP
+#
+#
+#=head2 DEFINE and Run
+#
+#	FLOW(S)
+#
+#=cut
+#
+#for ( $i = 1; $i <= $number_of_files; $i += 1 ) {
+#
+#    $flow[1][$i] = $cp_dat2DAT[$i];
+#    $flow[2][$i] = $sioseis[$i];
+#    $flow[3][$i] = $segyclean[$i];
+#
+#   system $flow[1][$i];
+#   # system 'echo', $flow[1][$i];
+#
+#    system $flow[2][$i];
+#    # system 'echo', $flow[2][$i];
+#
+#    system $flow[3][$i];
+#    system 'echo', $flow[3][$i];
+#
+#}
 

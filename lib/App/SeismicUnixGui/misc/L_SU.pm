@@ -1300,7 +1300,7 @@ sub set_save_button {
 
 	my ( $self, $topic_sref ) = @_;
 
-	# print("L_SU,set_save_button, topic: $$topic_sref\n");
+#	print("L_SU,set_save_button, topic: $$topic_sref\n");
 
 	my $save_button_messages = message_director->new();
 	my $message              = $save_button_messages->null_button(0);
@@ -1431,22 +1431,22 @@ sub set_save_button {
 			elsif ( $flow_type eq 'pre_built_superflow' ) {
 
 # collect latest values from a prior run of pre_built_superflow or FileDialog_button
-# print("2. L_SU, set_save_button, _values_aref[0]: @{$L_SU_href->{_values_aref}}\n");
+#print("2. L_SU, set_save_button, _values_aref[0]: @{$L_SU_href->{_values_aref}}\n");
 
 				$L_SU_href->{_dialog_type} = 'Save';
 
-# print("2. L_SU, set_save_button, _names_aref: @{$L_SU_href->{_names_aref}}\n");  # equi to labels_aref
+#print("2. L_SU, set_save_button, _names_aref: @{$L_SU_href->{_names_aref}}\n");  # equi to labels_aref
 				$save_button->set_hash_ref($L_SU_href);    #  uses 41  / 115 in
 				 # $save_button->set_gui_widgets($L_SU_href);                            #  uses 27 / 115 in
 
 			#				print("2. L_SU, set_save_button, print out gui_history.txt\n");
 			#				$gui_history->view();
-				$save_button->set_flow_type( $L_SU_href->{_flow_type} ); # set 1
+				$save_button->set_flow_type( $L_SU_href->{_flow_type} );
 				$save_button->set_prog_name_sref(
-					$L_SU_href->{_prog_name_sref} );                     # set 1
+					$L_SU_href->{_prog_name_sref} ); 
 
-# print("1. L_SU, set_save_button,last left listbox flow program touched had index = $L_SU_href->{_last_flow_index_touched}\n");
-# print("1. L_SU, set_save_button, flow_item_up_arrow_button= $L_SU_href->{_flow_item_up_arrow_button}\n");
+#print("1. L_SU, set_save_button,last left listbox flow program touched had index = $L_SU_href->{_last_flow_index_touched}\n");
+#print("1. L_SU, set_save_button, flow_item_up_arrow_button= $L_SU_href->{_flow_item_up_arrow_button}\n");
 				$save_button->set_dialog_type($topic);    # set 1 of 3
 				 # print("1. L_SU, set_save_buttonlast left listbox flow program touched had index = $L_SU_href->{_last_flow_index_touched}\n");
 				 # print("2. L_SU, set_save_button, for  pre-built stream, print out gui_history.txt\n");
@@ -1454,7 +1454,7 @@ sub set_save_button {
 
 				$save_button->director();
 
-				$L_SU_href = $save_button->get_all_hash_ref();    # returns 108
+				$L_SU_href = $save_button->get_all_hash_ref();
 				 # print("2. L_SU, set_save_button, flow_item_up_arrow_button= $L_SU_href->{_flow_item_up_arrow_button}\n");
 				 # print("L_SU, set_save_button,pre_built_flow,has_used_SaveAs_button $L_SU_href->{_has_used_SaveAs_button}\n");
 				 # print("L_SU, set_save_button,pre_built_flow,has_used_Save_superflow $L_SU_href->{_has_used_Save_superflow}\n");

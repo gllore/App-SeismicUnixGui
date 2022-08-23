@@ -4,13 +4,11 @@ our $VERSION = '1.00';
 
 use Moose;
 use App::SeismicUnixGui::misc::SeismicUnix qw($seg2 $suffix_DAT $su $suffix_su);
-use aliased 'App::SeismicUnixGui::misc::L_SU_global_constants';
-use aliased 'App::SeismicUnixGui::configs::big_streams::Project_config';
-use aliased 'App::SeismicUnixGui::configs::big_streams::Sseg2su_config';
+use App::SeismicUnixGui::misc::L_SU_global_constants;
+use App::SeismicUnixGui::configs::big_streams::Project_config;
 
-my $get              = L_SU_global_constants->new();
-my $Project        = Project_config->new();
-my $Sseg2su_config = Sseg2su_config->new();
+my $get              = App::SeismicUnixGui::misc::L_SU_global_constants->new();
+my $Project          = App::SeismicUnixGui::configs::big_streams::Project_config->new();
 
 my $var              = $get->var();
 
@@ -26,7 +24,7 @@ my $DATA_SEISMIC_SU   = $Project->DATA_SEISMIC_SU();     # output data directory
 my $DATA_SEISMIC_SEG2 = $Project->DATA_SEISMIC_SEG2();   # input data directory
 my $PL_SEISMIC		  = $Project->PL_SEISMIC();
 
-my $max_index         = $Sseg2su_config->get_max_index();
+my $max_index         = 1;
 
 =pod
 
@@ -115,7 +113,7 @@ sub get_max_index {
 
     if ( $Sseg2su_spec->{_max_index} ) {
 
-        my $max_idx = $Sseg2su_config->get_max_index();
+        my $max_idx = $max_index;
         return ($max_idx);
 
     }

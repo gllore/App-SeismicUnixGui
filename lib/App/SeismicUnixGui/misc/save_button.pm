@@ -55,6 +55,10 @@ use Tk;
 extends 'App::SeismicUnixGui::misc::gui_history' => { -version => 0.0.2 };
 use aliased 'App::SeismicUnixGui::misc::gui_history';
 use aliased 'App::SeismicUnixGui::misc::L_SU_global_constants';
+use aliased 'App::SeismicUnixGui::misc::save';
+use aliased 'App::SeismicUnixGui::misc::files_LSU';
+use aliased 'App::SeismicUnixGui::messages::message_director';
+use aliased 'App::SeismicUnixGui::misc::config_superflows';
 
 my $gui_history = gui_history->new();
 my $get         = L_SU_global_constants->new();
@@ -108,7 +112,7 @@ sub set_param_flow {
 
 }
 
-#=head2 sub _user_built_flow_SaveAs_perl_file 
+#=head2 sub _user_built_flow_SaveAs_perl_file
 #
 #
 #=cut
@@ -172,11 +176,6 @@ sub set_param_flow {
 sub _Save_pre_built_superflow {
 	my ($self) = @_;
 
-	use aliased 'App::SeismicUnixGui::misc::save';
-	use aliased 'App::SeismicUnixGui::misc::files_LSU';
-	use aliased 'App::SeismicUnixGui::messages::message_director';
-	use aliased 'App::SeismicUnixGui::misc::config_superflows';
-
 	my $save_button_messages = message_director->new();
 	my $save                 = save->new();
 	my $files_LSU            = files_LSU->new();
@@ -187,34 +186,36 @@ sub _Save_pre_built_superflow {
 	$message_w->delete( "1.0", 'end' );
 	$message_w->insert( 'end', $message );
 
-	$gui_history->set_hash_ref($save_button); 
+	$gui_history->set_hash_ref($save_button);
 	$gui_history->set4start_of_superflow_Save();
 	$save_button = $gui_history->get_hash_ref();
 
-	# print("1. save_button,_Save_pre_built_superflow,has_used_Save_superflow: $save_button->{_has_used_Save_superflow}\n");
-	# print("1. save_button,_Save_pre_built_superflow,has_used_SaveAs_button: $save_button->{_has_used_SaveAs_button}\n");
-	# print("1. save_button,_Save_pre_built_superflow, has_used_Save_button(only for user-built): $save_button->{_has_used_Save_button}\n");
+# print("1. save_button,_Save_pre_built_superflow,has_used_Save_superflow: $save_button->{_has_used_Save_superflow}\n");
+# print("1. save_button,_Save_pre_built_superflow,has_used_SaveAs_button: $save_button->{_has_used_SaveAs_button}\n");
+# print("1. save_button,_Save_pre_built_superflow, has_used_Save_button(only for user-built): $save_button->{_has_used_Save_button}\n");
 
-	# print("save_button,_Save_pre_built_superflow, values_aref :@{$save_button->{_values_aref}}[0]\n");
-	# print("2. save_button,_Save_pre_built_superflow,has_used_Save_superflow: $save_button->{_has_used_Save_superflow}\n");
-	# print("2. save_button,_Save_pre_built_superflow,has_used_SaveAs_button: $save_button->{_has_used_SaveAs_button}\n");
-	# print("2. save_button,_Save_pre_built_superflow, has_used_Save_button(only for user-built): $save_button->{_has_used_Save_button}\n");
-	#  print("2. save_button,_Save_pre_built_superflow,_is_Save_button: $save_button->{_is_Save_button}\n");
+# print("save_button,_Save_pre_built_superflow, values_aref :@{$save_button->{_values_aref}}[0]\n");
+# print("2. save_button,_Save_pre_built_superflow,has_used_Save_superflow: $save_button->{_has_used_Save_superflow}\n");
+# print("2. save_button,_Save_pre_built_superflow,has_used_SaveAs_button: $save_button->{_has_used_SaveAs_button}\n");
+# print("2. save_button,_Save_pre_built_superflow, has_used_Save_button(only for user-built): $save_button->{_has_used_Save_button}\n");
+#  print("2. save_button,_Save_pre_built_superflow,_is_Save_button: $save_button->{_is_Save_button}\n");
 
-	if ( $save_button->{_flow_type} eq 'pre_built_superflow' ) {    # from gui_history
+	if ( $save_button->{_flow_type} eq 'pre_built_superflow' )
+	{    # from gui_history
 
-		# print("2. save_button, Save_pre_built_superflow,_values_aref: @{$save_button->{_values_aref}}\n");
-		# print("2. save_button, Save_pre_built_superflow,_labels_aref: @{$save_button->{_labels_aref}}\n");
-		# my $ans = ${$save_button->{_prog_name_sref}};
-		# print("3. save_button, _Save_pre_built_superflow, prog_name=: $ans\n");
-		# consider aliases
-		$config_superflows->save($save_button);    # in 69
+#print("2. save_button, Save_pre_built_superflow,_values_aref: @{$save_button->{_values_aref}}\n");
+# print("2. save_button, Save_pre_built_superflow,_labels_aref: @{$save_button->{_labels_aref}}\n");
+# my $ans = ${$save_button->{_prog_name_sref}};
+# print("3. save_button, _Save_pre_built_superflow, prog_name=: $ans\n");
+# consider aliases
+		$config_superflows->save($save_button);
 		$gui_history->set4superflow_Save();
 		$save_button = $gui_history->get_hash_ref();
 
-	} else { # if flow first needs a change to activate
+	}
+	else {    # if flow first needs a change to activate
 		print(
-			"save_button,_Save_pre_built_superflow, _is_superflow_select_button = $save_button->{_is_superflow_select_button}\n"
+"save_button,_Save_pre_built_superflow, _is_superflow_select_button = $save_button->{_is_superflow_select_button}\n"
 		);
 		#
 		#		$message          	= $save_button_messages->save_button(0);
@@ -245,7 +246,8 @@ sub _get_dialog_type {
 	if ($topic) {
 		return ($topic);
 
-	} else {
+	}
+	else {
 		print("save_button, _get_dialog_type , missing topic\n");
 		return ();
 	}
@@ -268,7 +270,8 @@ sub _get_flow_type {
 	if ( $save_button->{_flow_type} ) {
 		return ($how_built);
 
-	} else {
+	}
+	else {
 		print("save_button, _get_flow_type , missing topic\n");
 		return ();
 	}
@@ -347,31 +350,41 @@ sub director {
 			# does not seem to do anything
 			_user_built_flow_Save_perl_file();
 
-		} elsif ( $save_dialog_type eq $file_dialog_type->{_SaveAs} ) {
+		}
+		elsif ( $save_dialog_type eq $file_dialog_type->{_SaveAs} ) {
 
 			# does not seem to be used
 			_user_built_flow_SaveAs_perl_file();
 
-		} else {
-			print("save_button, director has a user_built Save or SaveAs problem \n");
+		}
+		else {
+			print(
+"save_button, director has a user_built Save or SaveAs problem \n"
+			);
 		}
 
-	} elsif ( $flow_type eq $flow_type_h->{_pre_built_superflow} ) {
+	}
+	elsif ( $flow_type eq $flow_type_h->{_pre_built_superflow} ) {
 
-		# print("save_button, director, is superflow_type:$flow_type\n");
+#		print("save_button, director, is superflow_type:$flow_type\n");
+
 		# print("save_button, director, save_dialog_type: $save_dialog_type\n");
 
 		if ( $save_dialog_type eq $file_dialog_type->{_Save} ) {
 			_Save_pre_built_superflow();
 
-		} elsif ( $save_dialog_type eq $file_dialog_type->{_SaveAs} ) {
+		}
+		elsif ( $save_dialog_type eq $file_dialog_type->{_SaveAs} ) {
 
 			# do nothing ... superflows are not saved under a pseudonym
-		} else {
-			print("save_button, director has superflow Save or SaveAs problem\n");
+		}
+		else {
+			print(
+				"save_button, director has superflow Save or SaveAs problem\n");
 		}
 
-	} else {
+	}
+	else {
 		print("save_button, director has a flow-type problem\n");
 	}
 }
@@ -392,10 +405,11 @@ sub get_all_hash_ref {
 
 	if ($save_button) {
 
-		# print("save_button, get_hash_ref , save_button->{_flow_color}: $save_button->{_flow_color}\n");
+# print("save_button, get_hash_ref , save_button->{_flow_color}: $save_button->{_flow_color}\n");
 		return ($save_button);
 
-	} else {
+	}
+	else {
 		print("save_button, get_hash_ref , missing hsave_button hash_ref\n");
 	}
 }
@@ -411,12 +425,12 @@ sub set_save_button_sub_ref {
 		print("binding  set_save_button_sub_ref, $sub_ref\n");
 		$save_button->{_sub_ref} = $sub_ref;
 
-	} else {
+	}
+	else {
 		print("save_button, set_save_button_sub_ref, missing sub ref\n");
 	}
 	return ();
 }
-
 
 =head2 sub set_dialog_type
 
@@ -443,9 +457,10 @@ sub set_dialog_type {
 	if ($topic) {
 		$save_button->{_dialog_type} = $topic;
 
-		# print("save_button, set_dialog_type , $save_button->{_dialog_type} \n");
+	  # print("save_button, set_dialog_type , $save_button->{_dialog_type} \n");
 
-	} else {
+	}
+	else {
 		print("save_button, set_dialog_type , missing topic\n");
 	}
 	return ();
@@ -467,12 +482,12 @@ sub set_flow_type {
 
 		# print("save_button, set_flow_type : $save_button->{_flow_type}\n");
 
-	} else {
+	}
+	else {
 		print("save_button, set_flow_type , missing how_built\n");
 	}
 	return ();
 }
-
 
 =head2 sub set_hash_ref
 	bring in important widget addresses 
@@ -485,7 +500,8 @@ sub set_hash_ref {
 	if ($hash_ref) {
 		$gui_history->set_defaults($hash_ref);
 		$save_button = $gui_history->get_defaults();
-        # print("save_button, set_gui_widgets, missing hash_ref\n");
+
+		# print("save_button, set_gui_widgets, missing hash_ref\n");
 	}
 	return ();
 }
@@ -504,9 +520,10 @@ sub set_prog_name_sref {
 	if ($name_sref) {
 		$save_button->{_prog_name_sref} = $name_sref;
 
-		# print("save_button, set_prog_name_sref , ${$save_button->{_prog_name_sref}}\n");
+# print("save_button, set_prog_name_sref , ${$save_button->{_prog_name_sref}}\n");
 
-	} else {
+	}
+	else {
 		print("save_button, set_prog_name_sref , missing name\n");
 	}
 	return ();
