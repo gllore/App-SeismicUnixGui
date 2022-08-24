@@ -12,6 +12,6 @@
  else
 
 	# run Synseis
-	# echo "perl" $SeismicUnixGui_script"/Synseis.pl"
-	perl $SeismicUnixGui_script/Synseis.pl
+	 echo "perl" $SeismicUnixGui_script"/..big_streams/Synseis.pl"
+	perl $SeismicUnixGui_script/../big_streams/Synseis.pl
 fi

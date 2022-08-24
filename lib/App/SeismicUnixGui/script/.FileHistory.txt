@@ -1,3 +1,6 @@
+/home/gllore/mars/seismics/pl/hrk_e122/ACH01_3axes_big_sand_tank/072821/rad_tangent_axial/1/gllore/b
+/home/gllore/mars/seismics/pl/hrk_e122/ACH01_3axes_big_sand_tank/072821/rad_tangent_axial/1/gllore/a.pl
+/home/gllore/mars/seismics/pl/hrk_e122/ACH01_3axes_big_sand_tank/072821/rad_tangent_axial/1/gllore/temp.pl
 /home/gllore/mars/seismics/pl/hrk_e122/sand_tank/052222/Z/ACH01_piezo_cylinder/gllore/2.surange.pl
 /home/gllore/mars/seismics/pl/hrk_e122/sand_tank/052222/Z/ACH01_piezo_cylinder/gllore/a
 /home/gllore/mars/seismics/pl/hrk_e122/sand_tank/052222/Z/ACH01_piezo_cylinder/gllore/test.pl

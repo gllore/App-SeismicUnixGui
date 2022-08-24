@@ -6,7 +6,6 @@ our $VERSION = '0.0.1';
 use aliased 'App::SeismicUnixGui::misc::L_SU_global_constants';
 
 my $L_SU_global_constants = L_SU_global_constants->new();
-#my $var                   = $L_SU_global_constants->var();
 my $var = {_skip_directory         => 'archive',};
 
 # manage_dirs_by  class
@@ -36,7 +35,7 @@ sub clear {
 
 }
 
-=head2 sub _get_contents_AREF
+=head2 sub _get_contents_aref
 
 Reference of array with contents of 
 the search directory
@@ -53,20 +52,19 @@ sub _get_contents_aref {
 
 		my $SEARCH_DIR = $manage_dirs_by->{_directory};
 
-		#print("manage_dirs_by, _get_contents_aref, SEARCH_DIR=$SEARCH_DIR\n");
-		#           die "Error in opening dir $dirname\n";
+		print("manage_dirs_by, _get_contents_aref, SEARCH_DIR=$SEARCH_DIR\n");
 
 		if ( opendir( DIR, $SEARCH_DIR ) ) {
 
 			my @directory_list = readdir(DIR);
 
 			$result_aref = \@directory_list;
-#			print("manage_dirs_by, _get_contents_aref, directory_list=@directory_list\n");
+			print("manage_dirs_by, _get_contents_aref, directory_list=@directory_list\n");
 			close(DIR);
 
 		}
 		else {
-	#			print("manage_dirs_by, _get_contents_aref,directory not found; NADA\n");
+           print("manage_dirs_by, _get_contents_aref,directory not found; NADA\n");
 		}
 
 	}
@@ -85,7 +83,7 @@ sub get_file_list_aref {
 
 	if ( length $manage_dirs_by->{_directory} ) {
 
-		$list_aref = _get_contents_aref;
+		$list_aref = _get_contents_aref();
 
 		if ( length $list_aref ) {
 
@@ -97,9 +95,9 @@ sub get_file_list_aref {
 					or $thing eq '..'
 					or $thing eq $var->{_skip_directory} )
 				{
-#					print(
-#						"manage_dirs_by, get_file_list_aref,skip directory\n");
-#					print("manage_dirs_by, get_file_list_aref,thing:$thing\n");
+					print(
+						"manage_dirs_by, get_file_list_aref,skip directory\n");
+					print("manage_dirs_by, get_file_list_aref,thing:$thing\n");
 					next;
 
 				}
@@ -109,7 +107,7 @@ sub get_file_list_aref {
 			}
 
 			my $result_aref = \@filtered_directory;
-#			print ("filtered directory = @filtered_directory\n");
+			print ("filtered directory = @filtered_directory\n");
 			return ($result_aref);
 
 		}

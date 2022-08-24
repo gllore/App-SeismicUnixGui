@@ -20,7 +20,7 @@ my $xk  		= xk->new();
 
 my $DATA_SEISMIC_SU = $Project->DATA_SEISMIC_SU();    # output data directory
 my $PL_SEISMIC        = $Project->PL_SEISMIC();
-my $max_index       = $xk->get_max_index();
+my $max_index       = 0;
 
 my $xk_spec =  {
     _CONFIG	 				=> $PL_SEISMIC,
@@ -136,7 +136,7 @@ sub get_max_index {
 
     if ( $xk_spec->{_max_index} ) {
 
-        my $max_idx = $xk->get_max_index();
+        my $max_idx = $max_index;
         return ($max_idx);
 
     }

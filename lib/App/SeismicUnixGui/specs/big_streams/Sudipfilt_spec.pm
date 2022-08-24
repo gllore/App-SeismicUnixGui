@@ -4,15 +4,13 @@ our $VERSION = '1.00';
 
 use Moose;
 use App::SeismicUnixGui::misc::SeismicUnix qw($su $suffix_su);
-use aliased 'App::SeismicUnixGui::misc::L_SU_global_constants';
-use aliased 'App::SeismicUnixGui::configs::big_streams::Project_config';
-use aliased 'App::SeismicUnixGui::configs::big_streams::Sudipfilt_config';
+use App::SeismicUnixGui::misc::L_SU_global_constants;
+use App::SeismicUnixGui::configs::big_streams::Project_config;
 
-my $get              = L_SU_global_constants->new();
+my $get              = App::SeismicUnixGui::misc::L_SU_global_constants->new();
 my $var              = $get->var();
 
-my $Project          = Project_config->new();
-my $Sudipfilt_config = Sudipfilt_config->new();
+my $Project          = App::SeismicUnixGui::configs::big_streams::Project_config->new();
 
 my $empty_string     = $var->{_empty_string};
 
@@ -24,7 +22,7 @@ my $false = $var->{_false};
 
 my $DATA_SEISMIC_SU = $Project->DATA_SEISMIC_SU();    # output data directory
 my $PL_SEISMIC = $Project->PL_SEISMIC();    # output directory for configuration file
-my $max_index = $Sudipfilt_config->get_max_index();
+my $max_index = 24;
 
 my $Sudipfilt_spec = {
 	_CONFIG					=> $PL_SEISMIC,
@@ -106,7 +104,7 @@ sub get_max_index {
 
     if ( $Sudipfilt_spec->{_max_index} ) {
 
-        my $max_idx = $Sudipfilt_config->get_max_index();
+        my $max_idx = $max_index;
         return ($max_idx);
 
     }

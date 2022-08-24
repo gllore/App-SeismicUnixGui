@@ -4,11 +4,10 @@ our $VERSION = '1.00';
 
 use Moose;
 use App::SeismicUnixGui::misc::SeismicUnix qw($su $suffix_su);
-use aliased 'App::SeismicUnixGui::misc::L_SU_global_constants';
-use aliased 'App::SeismicUnixGui::configs::big_streams::Project_config';
-use aliased 'App::SeismicUnixGui::configs::big_streams::iBottomMute_config';
+use App::SeismicUnixGui::misc::L_SU_global_constants;
+use App::SeismicUnixGui::configs::big_streams::Project_config;
 
-my $get              = L_SU_global_constants->new();
+my $get              = App::SeismicUnixGui::misc::L_SU_global_constants->new();
 my $var              = $get->var();
 my $empty_string     = $var->{_empty_string};
 my $file_dialog_type = $get->file_dialog_type_href();
@@ -16,13 +15,12 @@ my $flow_type        = $get->flow_type_href();
 
 my $true  = $var->{_true};
 my $false = $var->{_false};
-my $Project            = Project_config->new();
-my $iBottomMute_config = iBottomMute_config->new();
+my $Project            = App::SeismicUnixGui::configs::big_streams::Project_config->new();
 
 my $DATA_SEISMIC_SU = $Project->DATA_SEISMIC_SU();            # output data directory
 my $PL_SEISMIC		= $Project->PL_SEISMIC();
 
-my $max_index       = $iBottomMute_config->get_max_index();
+my $max_index       = 9;
 
 my $iBottomMute_spec = {
 	_CONFIG					=> $PL_SEISMIC,
@@ -105,7 +103,7 @@ sub get_max_index {
 
 	if ( $iBottomMute_spec->{_max_index} ) {
 
-		my $max_idx = $iBottomMute_config->get_max_index();
+		my $max_idx = $max_index;
 		return ($max_idx);
 
 	}

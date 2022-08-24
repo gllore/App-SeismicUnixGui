@@ -12,7 +12,7 @@
  else
 
 	# run iTopMute.pl
-	# echo "perl" $SeismicUnixGui_script"/iTopMute.pl"
+	# echo "perl" $SeismicUnixGui_script"/..big_streams/iTopMute.pl"
 	
-     perl $SeismicUnixGui_script/iTopMute.pl
+     perl $SeismicUnixGui_script/../big_streams/iTopMute.pl
 fi

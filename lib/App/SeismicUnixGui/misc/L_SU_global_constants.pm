@@ -1075,9 +1075,9 @@ sub get_pathNfile2search {
 				  . $PARENT_DIR[$parent] . '/'
 				  . $CHILD_DIR[$child];
 
-	  #	  			print(
-	  #	  "L_SU_global_constants, get_pathNfile2search,SEARCH_DIR=$SEARCH_DIR\n"
-	  #	  			);
+#	  	  			print(
+#	  	  "L_SU_global_constants, get_pathNfile2search,SEARCH_DIR=$SEARCH_DIR\n"
+#	  	  			);
 				$manage_dirs_by->set_directory($SEARCH_DIR);
 				my $directory_list_aref = $manage_dirs_by->get_file_list_aref();
 				my @directory_list      = @$directory_list_aref;
@@ -1092,7 +1092,7 @@ sub get_pathNfile2search {
 
 				$directory_contents[$parent][$child] = \@pathNfile;
 
-				# print("@{$directory_contents[$parent][$child]}\n");
+				print("L_SU_global_constants,get_pathNfile2search,dir contents:@{$directory_contents[$parent][$child]}\n");
 
 			}
 		}

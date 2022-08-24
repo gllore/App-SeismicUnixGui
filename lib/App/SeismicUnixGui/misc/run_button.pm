@@ -217,14 +217,12 @@ sub _Run_pre_built_superflow {
 		}
 		# print("4. run_button,program name is ${$run_button->{_prog_name_sref}}\n");
 		# print("4. run_button,program RUN name is $run_name \n");
-		# print("4. run_button,program name is $global_libs->{_superflows}$run_name \n");
 
 		# Instruction runs in system
-#		print("4. run_button,running as sh $global_libs->{_superflows}$run_name \n");
+		print("4. run_button,running as sh $global_libs->{_superflows}$run_name \n");
 		system("sh $global_libs->{_superflows}$run_name");
 
 	} else {
-
 		# print("3. run_button,_Run_pre_built_superflow\n");
 		my $message = $run_button_messages->run_button(0);
 		$message_w->delete( "1.0", 'end' );

@@ -10,7 +10,7 @@
  	echo " export SeismicUnixGui_script=/Location/of/script/folder "
 
  else
-
 	# run Sudipfilt
-	perl $SeismicUnixGui_script/Sudipfilt.pl
+	echo "perl" $SeismicUnixGui_script"/../big_streams/Sudipfilt.pl"
+	perl $SeismicUnixGui_script/../big_streams/Sudipfilt.pl
 fi

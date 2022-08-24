@@ -2,10 +2,11 @@ package App::SeismicUnixGui::specs::data::supack1_spec;
 	use Moose;
 our $VERSION = '0.0.1';
 
-use aliased 'App::SeismicUnixGui::specs::data::supack1_spec;
+use aliased 'App::SeismicUnixGui::misc::L_SU_global_constants';
+use aliased 'App::SeismicUnixGui::configs::big_streams::Project_config';
+use aliased 'App::SeismicUnixGui::specs::data::supack1_spec';
 use App::SeismicUnixGui::misc::SeismicUnix qw($bin $segy $su $suffix_bin $suffix_segy $suffix_su $suffix_txt $txt);
-use aliased 'App::SeismicUnixGui::specs::data::supack1_spec;
-use aliased 'App::SeismicUnixGui::specs::data::supack1_spec;
+
 my $get					= L_SU_global_constants->new();
 my $Project 				= Project_config->new();
 my $supack1		= supack1->new();

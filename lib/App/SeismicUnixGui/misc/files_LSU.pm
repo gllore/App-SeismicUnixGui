@@ -1330,7 +1330,7 @@ sub _write {
 
 			$format[$i] = @{$config_file_format_aref}[0];
 			
-			print("files_LSU, _write,@format\n");
+#			print("files_LSU, _write,@format\n");
 
 		}
 
@@ -1346,7 +1346,7 @@ sub _write {
 		print("files_LSU, _write, unexpected result\n");
 	}
 
-	print("files_LSU,_write,files_LSU->{_outbound} is $files_LSU->{_outbound}\n");
+#	print("files_LSU,_write,files_LSU->{_outbound} is $files_LSU->{_outbound}\n");
 
 	open( my $fh, '>', $files_LSU->{_outbound} )
 	  or die "Can't open parameter file:$!";
@@ -1360,7 +1360,7 @@ sub _write {
 
 	for ( my $i = 0, my $j = 0 ; $i < $length ; $i++, $j = $j + 2 ) {
 
-		print("files_LSU,_write,$j, $CFG[$j]= $CFG[ ( $j + 1 ) ]\n");
+#		print("files_LSU,_write,$j, $CFG[$j]= $CFG[ ( $j + 1 ) ]\n");
 		
 		my $old_value = $CFG[ ( $j + 1 ) ];
 		my $new_value = $control->get_no_quotes($old_value);	

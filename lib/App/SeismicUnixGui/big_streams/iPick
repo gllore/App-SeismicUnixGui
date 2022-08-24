@@ -12,6 +12,6 @@
  else
 
 	# run iPick.pl
-	# echo "perl" $SeismicUnixGui_script"/iPick.pl"
-     perl $SeismicUnixGui_script/iPick.pl
+	# echo "perl" $SeismicUnixGui_script"/..big_streams/iPick.pl"
+     perl $SeismicUnixGui_script/../big_streams/iPick.pl
 fi

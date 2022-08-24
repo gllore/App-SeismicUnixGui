@@ -2,10 +2,8 @@ package App::SeismicUnixGui::specs::data::segywrite_spec;
 use Moose;
 our $VERSION = '0.0.1';
 
-use aliased 'App::SeismicUnixGui::specs::data::segywrite_spec;
+use aliased 'App::SeismicUnixGui::specs::data::segywrite_spec';
 use App::SeismicUnixGui::misc::SeismicUnix qw($su $suffix_sgy $bin $suffix_bin);
-use aliased 'App::SeismicUnixGui::specs::data::segywrite_spec;
-use aliased 'App::SeismicUnixGui::specs::data::segywrite_spec;
 
 my $get       = L_SU_global_constants->new();
 my $Project   = Project_config->new();

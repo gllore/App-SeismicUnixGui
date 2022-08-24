@@ -14,3 +14,23 @@ surange < /home/gllore/mars/seismics/data/hrk_e122/sand_tank/052222/Z/ACH01_piez
 
 surange < /home/gllore/mars/seismics/data/hrk_e122/sand_tank/052222/Z/ACH01_piezo_cylinder/su/gllore/pseudo_walk_piezo_cylind_buried_long.su & 
 
+57
+
+suop op=avg < /home/gllore/mars/seismics/data/hrk_e122/ACH01_3axes_big_sand_tank/072821/rad_tangent_axial/1/su/gllore/pseudo_walk_piezo_cylind_wheelA1_geom1.su | suwind  max=8 min=8 key=tracl | suwind  tmin=0 tmax=0\.2 | sugain mbal=1 tmpdir=\/tmp | sufilter f=3\,6\,2000\,3000 verbose=0 | suphasevel dv=200 fmax=3900 fv=1 norm=1 nv=100 verbose=0 | suamp mode=real | sugain mbal=1 tmpdir=\/tmp | suximage wclip=15 bclip=\-10 d2=2 legend=1 x1beg=1200 x1end=0 & 
+
+48
+
+suplane dip1=0 dip2=4 dip3=8 dt=0\.004 liner=0 npl=3 nt=64 ntr=32 offset=400 taper=0 | suximage clip=1 cmap=hsv0 d2=1 f1=0 gridcolor=blue labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 lwidth=16 lx=3 mpicks=\/dev\/tty n1tic=1 n2tic=1 perc=100 plotfile=plotfile\.ps style=seismic title=suximage titlecolor=red titlefont=Rom22 units=unit verbose=1 windowtitle=suximage xbox=500 ybox=500 wbox=550 hbox=550 & 
+
+0
+
+suplane dip1=0 dip2=4 dip3=8 dt=0\.004 liner=0 npl=3 nt=64 ntr=32 offset=400 taper=0 | suximage clip=1 cmap=hsv0 d2=1 f1=0 gridcolor=blue labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 lwidth=16 lx=3 mpicks=\/dev\/tty n1tic=1 n2tic=1 perc=100 plotfile=plotfile\.ps style=seismic title=suximage titlecolor=red titlefont=Rom22 units=unit verbose=1 windowtitle=suximage xbox=500 ybox=500 wbox=550 & 
+
+22
+
+suplane dip1=0 dip2=4 dip3=8 dt=0\.004 liner=0 npl=3 nt=64 ntr=32 offset=400 taper=0 | suximage clip=1 cmap=hsv0 d2=1 f1=0 gridcolor=blue labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 lwidth=16 lx=3 mpicks=\/dev\/tty n1tic=1 n2tic=1 perc=100 plotfile=plotfile\.ps style=seismic title=suximage titlecolor=red titlefont=Rom22 units=unit verbose=1 windowtitle=suximage xbox=500 ybox=500 wbox=550 & 
+
+30
+
+suplane dip1=0 dip2=4 dip3=8 dt=0\.004 liner=0 npl=3 nt=64 ntr=32 offset=400 taper=0 | suximage clip=1 cmap=hsv0 d2=1 f1=0 gridcolor=blue labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 lwidth=16 lx=3 mpicks=\/dev\/tty n1tic=1 n2tic=1 perc=100 plotfile=plotfile\.ps style=seismic title=suximage titlecolor=red titlefont=Rom22 units=unit verbose=1 windowtitle=suximage xbox=500 ybox=500 wbox=550 & 
+
