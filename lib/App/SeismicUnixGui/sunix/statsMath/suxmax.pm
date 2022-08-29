@@ -151,8 +151,7 @@ our $VERSION = '0.0.1';
 use aliased 'App::SeismicUnixGui::misc::L_SU_global_constants';
 
 	my $get					= L_SU_global_constants->new();
-
-	my $var				= $get->var();
+	my $var					= $get->var();
 	my $empty_string    	= $var->{_empty_string};
 
 

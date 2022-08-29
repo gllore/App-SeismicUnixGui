@@ -5,10 +5,9 @@ our $VERSION = '0.0.1';
 use aliased 'App::SeismicUnixGui::configs::big_streams::Project_config';
 use App::SeismicUnixGui::misc::SeismicUnix qw($su $suffix_su);
 use aliased 'App::SeismicUnixGui::misc::L_SU_global_constants';
-use aliased 'App::SeismicUnixGui::sunix::shapeNcut::susplit';
+
 my $get					= L_SU_global_constants->new();
 my $Project 			= Project_config->new();
-my $susplit				= susplit->new();
 
 my $var						= $get->var();
 
@@ -20,7 +19,7 @@ my $flow_type				= $get->flow_type_href();
 
 my $DATA_SEISMIC_SU  	= $Project->DATA_SEISMIC_SU();   # output data directory
 my $PL_SEISMIC        = $Project->PL_SEISMIC();
-my $max_index           = $susplit->get_max_index();
+my $max_index           = 3;
 
 my $susplit_spec= {
 		_CONFIG	   => $PL_SEISMIC,

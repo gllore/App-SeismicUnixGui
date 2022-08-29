@@ -46,9 +46,10 @@ files
 use aliased 'App::SeismicUnixGui::misc::L_SU_global_constants';
 use aliased 'App::SeismicUnixGui::misc::readfiles';
 use aliased 'App::SeismicUnixGui::misc::manage_files_by';
+
 use App::SeismicUnixGui::misc::control '0.0.3';
 use aliased 'App::SeismicUnixGui::misc::control';
-use App::SeismicUnixGui::misc::readfiles;
+
 use App::SeismicUnixGui::misc::SeismicUnix
 		  qw($itop_mute $ibot_mute $ivpicks_sorted_par_);
 
@@ -150,7 +151,7 @@ sub _get_data_type {
 
 =cut
 
-		my $read = App::SeismicUnixGui::misc::readfiles->new();
+		my $read = readfiles->new();
 
 =head2 declare local variables
 

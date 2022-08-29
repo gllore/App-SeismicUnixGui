@@ -11,7 +11,7 @@ package App::SeismicUnixGui::developer::code::sunix::sudoc_nameNnumber;
 
  DESCRIPTION 
  Name of the program
- and its program-group numberm
+ and its program-group number
  which will be used to incorporate this sunix module 
  into the L_SU GUIB
 
@@ -68,8 +68,8 @@ $developer_sunix_categories[17] = '';
 use Moose;
 our $VERSION = '0.1.0';
 
-use aliased 'App::SeismicUnixGui::misc::manage_files_by2		';
-my $file        = manage_files_by2->new();
+use aliased 'App::SeismicUnixGui::misc::manage_files_by2';
+my $file     = manage_files_by2->new();
 
 #my $sunix_category_number = 8;
 #my $selected_program_name = 'sustkvel';

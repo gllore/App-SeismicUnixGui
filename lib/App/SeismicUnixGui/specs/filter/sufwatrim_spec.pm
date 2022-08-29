@@ -5,10 +5,9 @@ our $VERSION = '0.0.1';
 use aliased 'App::SeismicUnixGui::configs::big_streams::Project_config';
 use App::SeismicUnixGui::misc::SeismicUnix qw($bin $ps $segy $su $suffix_bin $suffix_ps $suffix_segy $suffix_su $suffix_txt $txt);
 use aliased 'App::SeismicUnixGui::misc::L_SU_global_constants';
-use aliased 'App::SeismicUnixGui::sunix::filter::sufwatrim';
+
 my $get					= L_SU_global_constants->new();
 my $Project 				= Project_config->new();
-my $sufwatrim		= sufwatrim->new();
 
 my $var					= $get->var();
 
@@ -24,7 +23,8 @@ my $flow_type				= $get->flow_type_href();
 	my $DATA_SEISMIC_TXT  	= $Project->DATA_SEISMIC_TXT();   # output data directory
   my $PL_SEISMIC		    = $Project->PL_SEISMIC();
 	my $PS_SEISMIC  		= $Project->PS_SEISMIC();
- my $max_index = # Insert a number here
+	
+ my $max_index = 36;
 
 	my $sufwatrim_spec = {
 		_CONFIG		            => $PL_SEISMIC,

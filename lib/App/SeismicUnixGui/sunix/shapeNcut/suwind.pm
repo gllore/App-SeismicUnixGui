@@ -120,9 +120,8 @@ package App::SeismicUnixGui::sunix::shapeNcut::suwind;
 use Moose;
 our $VERSION = '0.0.2';
 
-use aliased 'App::SeismicUnixGui::misc::L_SU_global_constants';
-
-my $get = L_SU_global_constants->new();
+use App::SeismicUnixGui::misc::L_SU_global_constants;
+my $get = App::SeismicUnixGui::misc::L_SU_global_constants->new();
 
 my $var          = $get->var();
 my $empty_string = $var->{_empty_string};

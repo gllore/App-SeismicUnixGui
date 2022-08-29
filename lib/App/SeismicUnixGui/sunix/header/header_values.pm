@@ -26,6 +26,13 @@ package App::SeismicUnixGui::sunix::header::header_values;
 use Moose;
 our $VERSION = '0.0.1';
 use aliased 'App::SeismicUnixGui::misc::L_SU_global_constants';
+use aliased 'App::SeismicUnixGui::configs::big_streams::Project_config';
+use aliased 'App::SeismicUnixGui::misc::message';
+use aliased 'App::SeismicUnixGui::misc::flow';
+use aliased 'App::SeismicUnixGui::sunix::header::surange';
+
+use App::SeismicUnixGui::misc::SeismicUnix
+  qw($in $out $on $go $to $suffix_ascii $off $suffix_su $suffix_bin);
 
 my $get = L_SU_global_constants->new();
 
@@ -116,13 +123,6 @@ sub get_number() {
 
 =cut
 
-		use aliased 'App::SeismicUnixGui::configs::big_streams::Project_config';
-		use aliased 'App::SeismicUnixGui::misc::message';
-		use aliased 'App::SeismicUnixGui::misc::flow';
-		use aliased 'App::SeismicUnixGui::sunix::header::surange';
-		use App::SeismicUnixGui::misc::SeismicUnix
-		  qw($in $out $on $go $to $suffix_ascii $off $suffix_su $suffix_bin);
-
 		my $log     = message->new;
 		my $run     = flow->new();
 		my $surange = surange->new();
@@ -172,7 +172,8 @@ sub get_number() {
 =cut
 
 		my @values = `@items`;
-#		print("get_number, header_values, @values \n");
+
+		#		print("get_number, header_values, @values \n");
 
 =head2 LOG FLOW(s)
 
@@ -180,7 +181,7 @@ sub get_number() {
 
 =cut
 
-#		print("header_values,get_number,@items \n");
+		#		print("header_values,get_number,@items \n");
 
 =head2 parse output to obtain header value
 
@@ -189,11 +190,11 @@ sub get_number() {
 		my $result;
 		my $number = $values[1];
 
-#		print("header_values, get_number,values[0]:$values[0]...\n");
-#		print("header_values, get_number,values[1]:$values[1]\n");
+		#		print("header_values, get_number,values[0]:$values[0]...\n");
+		#		print("header_values, get_number,values[1]:$values[1]\n");
 		my $length = scalar @values;
 
-#		print("header_values, get_number,length=$length\n");
+		#		print("header_values, get_number,length=$length\n");
 
 		if ( defined $number ) {
 
@@ -208,12 +209,12 @@ sub get_number() {
 
 				}
 				elsif ( $header_values->{_header_name} ne 'scalel' ) {
-					
-					my $key = quotemeta($header_values->{_header_name});
+
+					my $key = quotemeta( $header_values->{_header_name} );
 					print("header_values, get_number, key = $key\n");
 					$number =~ s/$key\s*//;
 					chomp($number);
-					
+
 					$result = $number;
 					print("1 header_values, get_number, result = $number\n");
 					print(
@@ -230,10 +231,9 @@ sub get_number() {
 				return ($result);
 
 			}
-#			$number != 0
-			elsif ( 
-				$number ne $empty_string )
-			{
+
+			#			$number != 0
+			elsif ( $number ne $empty_string ) {
 
 				if ( $header_values->{_header_name} eq 'scalel' ) {
 					$number =~ s/scalel\s*//;
@@ -266,16 +266,18 @@ sub get_number() {
 
 				}
 				elsif ( $header_values->{_header_name} ne 'scalel' ) {
-					
-					my $key = quotemeta($header_values->{_header_name});
-#					print("header_values, get_number, key = $key\n");
+
+					my $key = quotemeta( $header_values->{_header_name} );
+
+					#					print("header_values, get_number, key = $key\n");
 					$number =~ s/$key\s*//;
 					chomp($number);
-					
+
 					$result = $number;
-#					print("2 header_values, get_number, result = $number\n");
-#					print("header_values,get_number,header_name= $key\n");
-					
+
+				 #					print("2 header_values, get_number, result = $number\n");
+				 #					print("header_values,get_number,header_name= $key\n");
+
 				}
 				else {
 					print("header_values, get_number, unexpected\n");

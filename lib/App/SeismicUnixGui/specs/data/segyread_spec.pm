@@ -2,14 +2,11 @@ package App::SeismicUnixGui::specs::data::segyread_spec;
 use Moose;
 our $VERSION = '0.0.1';
 
-use aliased 'App::SeismicUnixGui::specs::data::segyread_spec;
+use aliased 'App::SeismicUnixGui::configs::big_streams::Project_config';
 use App::SeismicUnixGui::misc::SeismicUnix qw($segy $sgy $su $suffix_sgy $suffix_su);
-use aliased 'App::SeismicUnixGui::specs::data::segyread_spec;
-use aliased 'App::SeismicUnixGui::specs::data::segyread_spec;
 
 my $get      = L_SU_global_constants->new();
 my $Project  = Project_config->new();
-my $segyread = segyread->new();
 
 my $var = $get->var();
 
@@ -23,7 +20,7 @@ my $DATA_SEISMIC_SEGY = $Project->DATA_SEISMIC_SEGY();   # input data directory
 my $DATA_SEISMIC_SU   = $Project->DATA_SEISMIC_SU();     # output data directory
 my $PL_SEISMIC        = $Project->PL_SEISMIC();
 
-my $max_index = $segyread->get_max_index();
+my $max_index = 21;
 
 my $segyread_spec =  {
     _CONFIG	 				=> $PL_SEISMIC,

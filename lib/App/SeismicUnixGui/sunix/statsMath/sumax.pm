@@ -83,9 +83,10 @@ package App::SeismicUnixGui::sunix::statsMath::sumax;
 
 use Moose;
 our $VERSION = '0.0.1';
-use aliased 'App::SeismicUnixGui::misc::L_SU_global_constants';
 
-my $get = L_SU_global_constants->new();
+use App::SeismicUnixGui::misc::L_SU_global_constants;
+use App::SeismicUnixGui::misc::control '0.0.3';
+my $get = App::SeismicUnixGui::misc::L_SU_global_constants->new();
 
 my $var          = $get->var();
 my $empty_string = $var->{_empty_string};
@@ -221,11 +222,9 @@ sub outpar {
         && $outpar ne $empty_string )
     {
 
-        use App::SeismicUnixGui::misc::control '0.0.3';
-use aliased 'App::SeismicUnixGui::misc::control';
         use Scalar::Util qw(looks_like_number);
 
-        my $control = control->new();
+        my $control = App::SeismicUnixGui::misc::control->new();
 
         # we should have a string and not a number
         my $fmt = 0;
@@ -254,7 +253,6 @@ use aliased 'App::SeismicUnixGui::misc::control';
             && $sumax->{_outpar} ne '/dev/tty' )
         {
 
-            use App::SeismicUnixGui::configs::big_streams::Project_config;
             my $Project = Project_config->new();
 
             my $base_file_name = $outpar;

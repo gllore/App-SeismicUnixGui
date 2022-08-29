@@ -683,8 +683,8 @@ sub get_max_index {
 		my $colon_pathNmodule_spec =
 		  $L_SU_global_constants->get_colon_pathNmodule_spec();
 
-	  #	 	print("1. _get_suffix_aref, prog_name: $slash_pathNmodule_spec_pm\n");
-#	 	print("1. _get_suffix_aref, prog_name: $colon_pathNmodule_spec\n");
+	  #	 	print("1.control, get_max_index , prog_name: $slash_pathNmodule_spec_pm\n");
+#	 	print("1. control, get_max_index, prog_name: $colon_pathNmodule_spec\n");
 
 		require $slash_pathNmodule_spec_pm;
 

@@ -116,8 +116,8 @@ psgraph thru psmovie
 my $selected_program_name = $sudoc2pm_nameNnumber->get_selected_program_name();
 my $sunix_category_number = $sudoc2pm_nameNnumber->get_category_number();
 
-#print("sudoc2pm_pt1,selected_program_name=$selected_program_name\n");
-#print("sudoc2pm_pt1,sunix_category_number=$sunix_category_number\n");
+print("sudoc2pm_pt1,selected_program_name=$selected_program_name\n");
+print("sudoc2pm_pt1,sunix_category_number=$sunix_category_number\n");
 
 $prog_doc2pm->set_group_directory($sunix_category_number);
 $selected_program_name =~ s/\ //g;

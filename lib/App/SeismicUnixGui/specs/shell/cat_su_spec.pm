@@ -1,14 +1,15 @@
-package App::SeismicUnixGui::specs::shell::catsu_spec;
+package App::SeismicUnixGui::specs::shell::cat_su_spec;
 use Moose;
 our $VERSION = '0.0.1';
 
-use aliased 'App::SeismicUnixGui::configs::big_streams::Project_config';
+use App::SeismicUnixGui::configs::big_streams::Project_config;
 use App::SeismicUnixGui::misc::SeismicUnix
-  qw($bin $ps $segy $su $suffix_bin $suffix_ps $suffix_segy $suffix_su $suffix_txt $txt);
-use aliased 'App::SeismicUnixGui::misc::L_SU_global_constants';
+  qw($bin $ps $segy $su $suffix_bin $suffix_ps $suffix_segy $suffix_su 
+  $suffix_txt $txt);
+use App::SeismicUnixGui::misc::L_SU_global_constants;
 
-my $get     = L_SU_global_constants->new();
-my $Project = Project_config->new();
+my $get     = App::SeismicUnixGui::misc::L_SU_global_constants->new();
+my $Project = App::SeismicUnixGui::configs::big_streams::Project_config->new();
 
 my $var = $get->var();
 
@@ -26,7 +27,7 @@ my $PL_SEISMIC        = $Project->PL_SEISMIC();
 my $PS_SEISMIC        = $Project->PS_SEISMIC();
 my $max_index         = 1;
 
-my $catsu_spec = {
+my $cat_su_spec = {
 	_CONFIG                => $PL_SEISMIC,
 	_DATA_DIR_IN           => $DATA_SEISMIC_SU,
 	_DATA_DIR_OUT          => $DATA_SEISMIC_SU,
@@ -77,7 +78,7 @@ sub binding_index_aref {
 
 	#	$index[2]	= 8; # outbound item is  bound
 
-	$catsu_spec->{_binding_index_aref} = \@index;
+	$cat_su_spec->{_binding_index_aref} = \@index;
 	return ();
 
 }
@@ -104,7 +105,7 @@ sub file_dialog_type_aref {
 
 	#	$type[$index[2]]	=  $file_dialog_type->{_Data};
 
-	$catsu_spec->{_file_dialog_type_aref} = \@type;
+	$cat_su_spec->{_file_dialog_type_aref} = \@type;
 	return ();
 
 }
@@ -121,7 +122,7 @@ sub flow_type_aref {
 
 	$type[0] = $flow_type->{_user_built};
 
-	$catsu_spec->{_flow_type_aref} = \@type;
+	$cat_su_spec->{_flow_type_aref} = \@type;
 	return ();
 
 }
@@ -135,19 +136,19 @@ sub get_binding_index_aref {
 	my $self = @_;
 	my @index;
 
-	if ( $catsu_spec->{_binding_index_aref} ) {
+	if ( $cat_su_spec->{_binding_index_aref} ) {
 
-		my $index_aref = $catsu_spec->{_binding_index_aref};
+		my $index_aref = $cat_su_spec->{_binding_index_aref};
 		return ($index_aref);
 
 	}
 	else {
 		print(
-			"catsu_spec, get_binding_index_aref, missing binding_index_aref\n");
+			"cat_su_spec, get_binding_index_aref, missing binding_index_aref\n");
 		return ();
 	}
 
-	my $index_aref = $catsu_spec->{_binding_index_aref};
+	my $index_aref = $cat_su_spec->{_binding_index_aref};
 }
 
 =head2 sub get_binding_length
@@ -158,14 +159,14 @@ sub get_binding_length {
 
 	my $self = @_;
 
-	if ( $catsu_spec->{_binding_index_aref} ) {
+	if ( $cat_su_spec->{_binding_index_aref} ) {
 
-		my $binding_length = scalar @{ $catsu_spec->{_binding_index_aref} };
+		my $binding_length = scalar @{ $cat_su_spec->{_binding_index_aref} };
 		return ($binding_length);
 
 	}
 	else {
-		print("catsu_spec, get_binding_length, missing binding_length\n");
+		print("cat_su_spec, get_binding_length, missing binding_length\n");
 		return ();
 	}
 
@@ -179,15 +180,15 @@ sub get_binding_length {
 sub get_file_dialog_type_aref {
 
 	my $self = @_;
-	if ( $catsu_spec->{_file_dialog_type_aref} ) {
+	if ( $cat_su_spec->{_file_dialog_type_aref} ) {
 
-		my $index_aref = $catsu_spec->{_file_dialog_type_aref};
+		my $index_aref = $cat_su_spec->{_file_dialog_type_aref};
 		return ($index_aref);
 
 	}
 	else {
 		print(
-"catsu_spec, get_file_dialog_type_aref, missing get_file_dialog_type_aref\n"
+"cat_su_spec, get_file_dialog_type_aref, missing get_file_dialog_type_aref\n"
 		);
 		return ();
 	}
@@ -203,14 +204,14 @@ sub get_flow_type_aref {
 
 	my $self = @_;
 
-	if ( $catsu_spec->{_flow_type_aref} ) {
+	if ( $cat_su_spec->{_flow_type_aref} ) {
 
-		my $index_aref = $catsu_spec->{_flow_type_aref};
+		my $index_aref = $cat_su_spec->{_flow_type_aref};
 		return ($index_aref);
 
 	}
 	else {
-		print("catsu_spec, get_flow_type_aref, missing flow_type_aref\n");
+		print("cat_su_spec, get_flow_type_aref, missing flow_type_aref\n");
 		return ();
 	}
 
@@ -252,7 +253,7 @@ sub get_incompatibles {
 		for ( my $i = 0 ; $i < $len_1_needed ; $i++ ) {
 
 			print(
-"catsu, get_incompatibles,need_only_1:  @{@{$params->{_need_only_1}}[$i]}\n"
+"cat_su, get_incompatibles,need_only_1:  @{@{$params->{_need_only_1}}[$i]}\n"
 			);
 
 		}
@@ -274,14 +275,14 @@ sub get_prefix_aref {
 
 	my $self = @_;
 
-	if ( $catsu_spec->{_prefix_aref} ) {
+	if ( $cat_su_spec->{_prefix_aref} ) {
 
-		my $prefix_aref = $catsu_spec->{_prefix_aref};
+		my $prefix_aref = $cat_su_spec->{_prefix_aref};
 		return ($prefix_aref);
 
 	}
 	else {
-		print("catsu_spec, get_prefix_aref, missing prefix_aref\n");
+		print("cat_su_spec, get_prefix_aref, missing prefix_aref\n");
 		return ();
 	}
 
@@ -296,14 +297,14 @@ sub get_suffix_aref {
 
 	my $self = @_;
 
-	if ( $catsu_spec->{_suffix_aref} ) {
+	if ( $cat_su_spec->{_suffix_aref} ) {
 
-		my $suffix_aref = $catsu_spec->{_suffix_aref};
+		my $suffix_aref = $cat_su_spec->{_suffix_aref};
 		return ($suffix_aref);
 
 	}
 	else {
-		print("$catsu_spec, get_suffix_aref, missing suffix_aref\n");
+		print("$cat_su_spec, get_suffix_aref, missing suffix_aref\n");
 		return ();
 	}
 
@@ -344,7 +345,7 @@ sub prefix_aref {
 	# label 9 in GUI is input zz_file and needs a home directory
 	#	$prefix[ $index[2] ] = '$DATA_SEISMIC_SU' . ".'/'.";
 
-	$catsu_spec->{_prefix_aref} = \@prefix;
+	$cat_su_spec->{_prefix_aref} = \@prefix;
 	return ();
 
 }
@@ -380,7 +381,7 @@ sub suffix_aref {
 	# label 9 in GUI is output zz_file and needs a home directory
 	#	$suffix[ $index[2] ] = ''.'' . '$suffix_su';
 
-	$catsu_spec->{_suffix_aref} = \@suffix;
+	$cat_su_spec->{_suffix_aref} = \@suffix;
 	return ();
 
 }
@@ -396,7 +397,7 @@ with definitions
 sub variables {
 
 	my ($self) = @_;
-	my $hash_ref = $catsu_spec;
+	my $hash_ref = $cat_su_spec;
 	return ($hash_ref);
 }
 

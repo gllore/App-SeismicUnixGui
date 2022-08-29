@@ -45,9 +45,9 @@ Version:
 
                        (only needed for inverse transform)	
 
-       flag= 1        1=forward transform: time to time squared
+       flag= 1        1 means forward transform: time to time squared
 
-                     -1=inverse transform: time squared to time
+                     -1 means inverse transform: time squared to time
 
 
 
@@ -95,7 +95,8 @@ our $VERSION = '0.0.1';
 
 use aliased 'App::SeismicUnixGui::misc::L_SU_global_constants';
 
-use App::SeismicUnixGui::misc::SeismicUnix qw($go $in $off $on $out $ps $to $suffix_ascii $suffix_bin $suffix_ps $suffix_segy $suffix_su);
+use App::SeismicUnixGui::misc::SeismicUnix qw($go $in $off $on $out 
+$ps $to $suffix_ascii $suffix_bin $suffix_ps $suffix_segy $suffix_su);
 use aliased 'App::SeismicUnixGui::configs::big_streams::Project_config';
 
 
@@ -124,7 +125,6 @@ hash of private variables
 =cut
 
 my $sutsq			= {
-	_1					=> '',
 	_dt					=> '',
 	_flag					=> '',
 	_tmin					=> '',
@@ -170,7 +170,6 @@ by adding the program name
 
  sub clear {
 
-		$sutsq->{_1}			= '';
 		$sutsq->{_dt}			= '';
 		$sutsq->{_flag}			= '';
 		$sutsq->{_tmin}			= '';
@@ -178,25 +177,6 @@ by adding the program name
 		$sutsq->{_note}			= '';
  }
 
-
-=head2 sub 1 
-
-
-=cut
-
- sub 1 {
-
-	my ( $self,$1 )		= @_;
-	if ( $1 ne $empty_string ) {
-
-		$sutsq->{_1}		= $1;
-		$sutsq->{_note}		= $sutsq->{_note}.' 1='.$sutsq->{_1};
-		$sutsq->{_Step}		= $sutsq->{_Step}.' 1='.$sutsq->{_1};
-
-	} else { 
-		print("sutsq, 1, missing 1,\n");
-	 }
- }
 
 
 =head2 sub dt 

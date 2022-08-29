@@ -5,11 +5,9 @@ our $VERSION = '0.0.1';
 use aliased 'App::SeismicUnixGui::configs::big_streams::Project_config';
 use App::SeismicUnixGui::misc::SeismicUnix qw($su $suffix_su);
 use aliased 'App::SeismicUnixGui::misc::L_SU_global_constants';
-use aliased 'App::SeismicUnixGui::sunix::statsMath::sumax';
 
 my $get     = L_SU_global_constants->new();
 my $Project = Project_config->new();
-my $sumax   = sumax->new();
 
 my $var = $get->var();
 
@@ -20,8 +18,8 @@ my $file_dialog_type = $get->file_dialog_type_href();
 my $flow_type        = $get->flow_type_href();
 
 my $DATA_SEISMIC_SU = $Project->DATA_SEISMIC_SU();    # input data directory
-my $PL_SEISMIC				= $Project->PL_SEISMIC();
-my $max_index       = 8; #$sumax->get_max_index();
+my $PL_SEISMIC		= $Project->PL_SEISMIC();
+my $max_index       = 7;
 
 my $sumax_spec =  {
     _CONFIG	 				=> $PL_SEISMIC,

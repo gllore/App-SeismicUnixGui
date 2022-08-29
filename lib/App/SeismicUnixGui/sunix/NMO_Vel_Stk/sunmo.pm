@@ -28,7 +28,7 @@ package App::SeismicUnixGui::sunix::NMO_Vel_Stk::sunmo;
  Optional Parameters:							     
  tnmo=0,...		NMO times corresponding to velocities in vnmo	     
  vnmo=1500,...		NMO velocities corresponding to times in tnmo	     
- cdp=			CDPs for which vnmo & tnmo are specified (see Notes) 
+ cdp=			CDPs for which vnmo & tnmo arApp::SeismicUnixGui::sunix::NMO_Vel_Stk::e specified (see Notes) 
  smute=1.5		samples with NMO stretch exceeding smute are zeroed  
  lmute=25		length (in samples) of linear ramp for stretch mute  
  sscale=1		=1 to divide output samples by NMO stretch factor    
@@ -43,7 +43,7 @@ package App::SeismicUnixGui::sunix::NMO_Vel_Stk::sunmo;
  the Nyquist frequency.						     
 
  Exact inverse NMO is impossible, particularly for early times at large     
- offsets and for frequencies near Nyquist with large interpolation errors.  
+ offsets and for frequencies near Nyquist witApp::SeismicUnixGui::sunix::NMO_Vel_Stk::h large interpolation errors.  
 
  The "offset" header field must be set.				     
  Use suazimuth to set offset header field when sx,sy,gx,gy are all	     
@@ -106,18 +106,18 @@ package App::SeismicUnixGui::sunix::NMO_Vel_Stk::sunmo;
 
 use Moose;
 our $VERSION = '0.0.3';
+
 use aliased 'App::SeismicUnixGui::misc::L_SU_global_constants';
-use aliased 'App::SeismicUnixGui::misc::message';
-use aliased 'App::SeismicUnixGui::misc::flow';
 use aliased 'App::SeismicUnixGui::sunix::header::header_values';
 use aliased 'App::SeismicUnixGui::misc::manage_files_by2';
 use aliased 'App::SeismicUnixGui::configs::big_streams::Project_config';
-		
+use aliased 'App::SeismicUnixGui::misc::message';
+use aliased 'App::SeismicUnixGui::misc::flow';
+
 use App::SeismicUnixGui::misc::control '0.0.3';
 use aliased 'App::SeismicUnixGui::misc::control';
 
-my $get = L_SU_global_constants->new();
-
+my $get          = L_SU_global_constants->new();
 my $var          = $get->var();
 my $empty_string = $var->{_empty_string};
 
@@ -201,12 +201,13 @@ sub _get_data_scale {
 
 =cut
 
-	#	print("sunmo, _get_data_scale, _base_file_name=$sunmo->{_base_file_name}\n");
+ #	print("sunmo, _get_data_scale, _base_file_name=$sunmo->{_base_file_name}\n");
 
 	my $sunmo = header_values->new();
 
 	if ( defined $sunmo->{_base_file_name}
-		&& $sunmo->{_base_file_name} ne $empty_string ) {
+		&& $sunmo->{_base_file_name} ne $empty_string )
+	{
 		$sunmo->set_base_file_name( $sunmo->{_base_file_name} );
 		$sunmo->set_header_name('scalel');
 		my $data_scale = $sunmo->get_number();
@@ -216,7 +217,8 @@ sub _get_data_scale {
 		# print("sunmo, _get_data_scale, data_scale = $data_scale\n");
 		return ($result);
 
-	} else {
+	}
+	else {
 
 		my $data_scale = 1;
 		my $result     = $data_scale;
@@ -241,7 +243,8 @@ sub cdp {
 		$sunmo->{_note} = $sunmo->{_note} . ' cdp=' . $sunmo->{_cdp};
 		$sunmo->{_Step} = $sunmo->{_Step} . ' cdp=' . $sunmo->{_cdp};
 
-	} else {
+	}
+	else {
 		print("sunmo, cdp, missing cdp,\n");
 	}
 }
@@ -260,7 +263,8 @@ sub invert {
 		$sunmo->{_note}   = $sunmo->{_note} . ' invert=' . $sunmo->{_invert};
 		$sunmo->{_Step}   = $sunmo->{_Step} . ' invert=' . $sunmo->{_invert};
 
-	} else {
+	}
+	else {
 		print("sunmo, invert, missing invert,\n");
 	}
 }
@@ -279,7 +283,8 @@ sub lmute {
 		$sunmo->{_note}  = $sunmo->{_note} . ' lmute=' . $sunmo->{_lmute};
 		$sunmo->{_Step}  = $sunmo->{_Step} . ' lmute=' . $sunmo->{_lmute};
 
-	} else {
+	}
+	else {
 		print("sunmo, lmute, missing lmute,\n");
 	}
 }
@@ -301,7 +306,6 @@ sub multi_gather_parfile {
 
 	my ( $self, $par ) = @_;
 	if ( $par ne $empty_string ) {
-
 
 =head2 instantiate classes
 
@@ -341,8 +345,9 @@ sub multi_gather_parfile {
 
 		my $ref_file_name = \$inbound;
 
-		my ( $items_aref2, $numberOfItems_aref ) = $files->read_par($ref_file_name);
-		my $row0_aref = @$items_aref2[0];
+		my ( $items_aref2, $numberOfItems_aref ) =
+		  $files->read_par($ref_file_name);
+		my $row0_aref     = @$items_aref2[0];
 		my @array_cdp_row = @$row0_aref;
 
 =head2 scale par file values
@@ -364,7 +369,7 @@ sub multi_gather_parfile {
 
 		print $fh ("cdp=$cdp_array[1]");
 
-		for ( my $i = 2; $i < $number_of_cdp_per_row; $i++ ) {
+		for ( my $i = 2 ; $i < $number_of_cdp_per_row ; $i++ ) {
 
 			print $fh (",$cdp_array[$i]");
 
@@ -386,7 +391,7 @@ sub multi_gather_parfile {
 
 		# print("sunmo,par, number of rows $array_columns\n");
 
-		for ( my $j = 1; $j < $array_columns; $j += 2 ) {
+		for ( my $j = 1 ; $j < $array_columns ; $j += 2 ) {
 
 			$parfile_out[1] = '.temp_row' . $j;
 
@@ -400,7 +405,7 @@ sub multi_gather_parfile {
 			my @array_tnmo_row = @$row_tnmo_aref;
 
 			# print("sunmo,par, tnmo_row @array_tnmo_row\n");
-			
+
 			my @array_vnmo_row = @$row_vnmo_aref;
 
 			# print("sunmo,par, vnmo_row @array_vnmo_row\n");
@@ -409,7 +414,7 @@ sub multi_gather_parfile {
 
 			# $data_scale = 100;
 
-			for ( my $i = 1; $i < $length_row1_sample; $i++ ) {
+			for ( my $i = 1 ; $i < $length_row1_sample ; $i++ ) {
 
 				$array_vnmo_row[$i] = $array_vnmo_row[$i] * $data_scale;
 
@@ -422,12 +427,12 @@ sub multi_gather_parfile {
 
 
 =cut
-			my $first_name 		='tnmo';
-			my $second_name 	='vnmo';
+
+			my $first_name  = 'tnmo';
+			my $second_name = 'vnmo';
 			$files->write_multipar(
-				\$rowoutbound,    \@array_cdp_row,
-				\@array_tnmo_row, \@array_vnmo_row,
-				$first_name, $second_name
+				\$rowoutbound,    \@array_cdp_row, \@array_tnmo_row,
+				\@array_vnmo_row, $first_name,     $second_name
 			);
 
 		}
@@ -467,7 +472,7 @@ sub multi_gather_parfile {
 		my $file_name_out = '.temp_scaled_multi_gather_parfile_iVA';
 		my $outboundcat   = $PL_SEISMIC . '/' . $file_name_out;
 
-		for ( my $i = $first_file_num; $i < $maxfile_num; $i = $i += 2 ) {
+		for ( my $i = $first_file_num ; $i < $maxfile_num ; $i = $i += 2 ) {
 
 			$list = $list . $PL_SEISMIC . '/' . '.temp_row' . $i . ' ';
 
@@ -504,7 +509,8 @@ sub multi_gather_parfile {
 		$sunmo->{_note} = $sunmo->{_note} . ' par=' . $sunmo->{_scaled_par};
 		$sunmo->{_Step} = $sunmo->{_Step} . ' par=' . $sunmo->{_scaled_par};
 
-	} else {
+	}
+	else {
 		print("sunmo, par, missing par,\n");
 	}
 }
@@ -526,8 +532,8 @@ sub par {
 
 	my ( $self, $par ) = @_;
 	if ( $par ne $empty_string ) {
-      
-      print("sunmo,  par file name in =$par\n");
+
+		print("sunmo,  par file name in =$par\n");
 
 =head2 instantiate classes
 
@@ -535,7 +541,7 @@ sub par {
 
 		my $files   = manage_files_by2->new();
 		my $Project = Project_config->new();
-		my $control = control->new();
+		my $control = control->new;
 
 =head2 declare local variables
 
@@ -558,7 +564,7 @@ sub par {
 		$inbound              = $PL_SEISMIC . '/' . $parfile_in[1];
 		$sunmo->{_scaled_par} = $PL_SEISMIC . '/' . $parfile_out[1];
 		$outbound             = $sunmo->{_scaled_par};
-      
+
 =head2 read i/p file
 =cut
 
@@ -566,10 +572,11 @@ sub par {
 		$inbound = $control->get_back_slashBgone();
 
 		my $ref_file_name = \$inbound;
-		
+
 		print("sunmo $inbound\n");
 
-		my ( $items_aref2, $numberOfItems_aref ) = $files->read_par($ref_file_name);
+		my ( $items_aref2, $numberOfItems_aref ) =
+		  $files->read_par($ref_file_name);
 
 		my $no_rows = scalar @$items_aref2;
 
@@ -600,7 +607,7 @@ sub par {
 
 		# $data_scale = 100;
 
-		for ( my $i = 1; $i < $length_vnmo_row; $i++ ) {
+		for ( my $i = 1 ; $i < $length_vnmo_row ; $i++ ) {
 
 			$array_vnmo_row[$i] = $array_vnmo_row[$i] * $data_scale;
 
@@ -612,11 +619,13 @@ sub par {
 
 
 =cut
-		my $first_name='tnmo';
-		my $second_name='vnmo';
+
+		my $first_name  = 'tnmo';
+		my $second_name = 'vnmo';
 		$files->write_par( \$outbound, \@array_tnmo_row, \@array_vnmo_row,
-				$first_name,$second_name);
+			$first_name, $second_name );
 		print("sunmo,par,first_name:$first_name,second_name:$second_name\n");
+
 =head2 send to sunmo
 
 =cut
@@ -624,7 +633,8 @@ sub par {
 		$sunmo->{_note} = $sunmo->{_note} . ' par=' . $sunmo->{_scaled_par};
 		$sunmo->{_Step} = $sunmo->{_Step} . ' par=' . $sunmo->{_scaled_par};
 
-	} else {
+	}
+	else {
 		print("sunmo, par, missing par,\n");
 	}
 }
@@ -643,7 +653,8 @@ sub smute {
 		$sunmo->{_note}  = $sunmo->{_note} . ' smute=' . $sunmo->{_smute};
 		$sunmo->{_Step}  = $sunmo->{_Step} . ' smute=' . $sunmo->{_smute};
 
-	} else {
+	}
+	else {
 		print("sunmo, smute, missing smute,\n");
 	}
 }
@@ -661,7 +672,8 @@ sub sscale {
 		$sunmo->{_note}   = $sunmo->{_note} . ' sscale=' . $sunmo->{_sscale};
 		$sunmo->{_Step}   = $sunmo->{_Step} . ' sscale=' . $sunmo->{_sscale};
 
-	} else {
+	}
+	else {
 		print("sunmo, sscale, missing sscale,\n");
 	}
 }
@@ -678,8 +690,9 @@ sub set_base_file_name {
 
 		$sunmo->{_base_file_name} = $base_file_name;
 		print("header_values,set_base_file_name,$sunmo->{_base_file_name}\n");
-		
-	} else {
+
+	}
+	else {
 		print("header_values,set_base_file_name, missing base file name\n");
 	}
 
@@ -701,7 +714,8 @@ sub tnmo {
 		$sunmo->{_note} = $sunmo->{_note} . ' tnmo=' . $sunmo->{_tnmo};
 		$sunmo->{_Step} = $sunmo->{_Step} . ' tnmo=' . $sunmo->{_tnmo};
 
-	} else {
+	}
+	else {
 		print("sunmo, tnmo, missing tnmo,\n");
 	}
 }
@@ -720,7 +734,8 @@ sub upward {
 		$sunmo->{_note}   = $sunmo->{_note} . ' upward=' . $sunmo->{_upward};
 		$sunmo->{_Step}   = $sunmo->{_Step} . ' upward=' . $sunmo->{_upward};
 
-	} else {
+	}
+	else {
 		print("sunmo, upward, missing upward,\n");
 	}
 }
@@ -739,7 +754,8 @@ sub vnmo {
 		$sunmo->{_note} = $sunmo->{_note} . ' vnmo=' . $sunmo->{_vnmo};
 		$sunmo->{_Step} = $sunmo->{_Step} . ' vnmo=' . $sunmo->{_vnmo};
 
-	} else {
+	}
+	else {
 		print("sunmo, vnmo, missing vnmo,\n");
 	}
 }
@@ -758,7 +774,8 @@ sub vnmo_mps {
 		$sunmo->{_note} = $sunmo->{_note} . ' vnmo=' . $sunmo->{_vnmo};
 		$sunmo->{_Step} = $sunmo->{_Step} . ' vnmo=' . $sunmo->{_vnmo};
 
-	} else {
+	}
+	else {
 		print("sunmo, vnmo, missing vnmo,\n");
 	}
 }
@@ -774,10 +791,11 @@ sub voutfile {
 	if ($voutfile) {
 
 		$sunmo->{_voutfile} = $voutfile;
-		$sunmo->{_note}     = $sunmo->{_note} . ' voutfile=' . $sunmo->{_voutfile};
-		$sunmo->{_Step}     = $sunmo->{_Step} . ' voutfile=' . $sunmo->{_voutfile};
+		$sunmo->{_note} = $sunmo->{_note} . ' voutfile=' . $sunmo->{_voutfile};
+		$sunmo->{_Step} = $sunmo->{_Step} . ' voutfile=' . $sunmo->{_voutfile};
 
-	} else {
+	}
+	else {
 		print("sunmo, voutfile, missing voutfile,\n");
 	}
 }

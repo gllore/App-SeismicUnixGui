@@ -86,9 +86,9 @@ my $sunix_category_number = $sudoc2pm_nameNnumber->get_category_number();
 
 my $spec_changes_base_file_name = $selected_program_name.'_changes';
 
-$update->set_program( $selected_program_name, $sunix_category_number );
-$update->set_spec_changes_base_file_name($spec_changes_base_file_name);
-$update->set_spec_changes();
-$update->spec_changes();
-$update->set_changes();
+#$update->set_program( $selected_program_name, $sunix_category_number );
+#$update->set_spec_changes_base_file_name($spec_changes_base_file_name);
+#$update->set_spec_changes();
+#$update->spec_changes();
+#$update->set_changes();
 

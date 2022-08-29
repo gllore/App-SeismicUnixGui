@@ -1092,7 +1092,7 @@ sub get_pathNfile2search {
 
 				$directory_contents[$parent][$child] = \@pathNfile;
 
-				print("L_SU_global_constants,get_pathNfile2search,dir contents:@{$directory_contents[$parent][$child]}\n");
+#				print("L_SU_global_constants,get_pathNfile2search,dir contents:@{$directory_contents[$parent][$child]}\n");
 
 			}
 		}

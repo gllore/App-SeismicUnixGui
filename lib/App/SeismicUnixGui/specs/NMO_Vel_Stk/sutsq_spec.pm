@@ -6,10 +6,9 @@ use aliased 'App::SeismicUnixGui::configs::big_streams::Project_config';
 use App::SeismicUnixGui::misc::SeismicUnix
   qw($bin $ps $segy $su $suffix_bin $suffix_ps $suffix_segy $suffix_su $suffix_txt $txt);
 use aliased 'App::SeismicUnixGui::misc::L_SU_global_constants';
-use aliased 'App::SeismicUnixGui::sunix::NMO_Vel_Stk::sutsq';
+
 my $get     = L_SU_global_constants->new();
 my $Project = Project_config->new();
-my $sutsq   = sutsq->new();
 
 my $var = $get->var();
 

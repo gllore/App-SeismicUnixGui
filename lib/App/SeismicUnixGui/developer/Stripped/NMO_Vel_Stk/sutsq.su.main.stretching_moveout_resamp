@@ -10,8 +10,8 @@
                        (only needed for forward transform)	
        dt= .004       output sample rate			
                        (only needed for inverse transform)	
-       flag= 1        1=forward transform: time to time squared
-                     -1=inverse transform: time squared to time
+       flag= 1        1 means forward transform: time to time squared
+                     -1 means inverse transform: time squared to time
 
  Note: The output of the forward transform always starts with	
  time squared equal to zero.  'tmin' is used to avoid aliasing	

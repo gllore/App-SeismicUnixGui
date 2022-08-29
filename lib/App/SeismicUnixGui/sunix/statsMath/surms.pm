@@ -6,8 +6,8 @@ package App::SeismicUnixGui::sunix::statsMath::surms;
 
 =cut
 
-#@ISA = ("sumax");
 use aliased 'App::SeismicUnixGui::sunix::statsMath::sumax';
+
 my $surms = sumax->new();
 
 =pod
@@ -18,7 +18,8 @@ my $surms = sumax->new();
 
 use aliased 'App::SeismicUnixGui::configs::big_streams::Project_config';
 my $Project = Project_config->new();
-use App::SeismicUnixGui::misc::SeismicUnix qw($rms_amp $rms $ascii $to_outpar_file $suffix_hyphen $suffix_ascii $surms_notes $suffix_su);
+use App::SeismicUnixGui::misc::SeismicUnix qw($rms_amp $rms $ascii $to_outpar_file 
+$suffix_hyphen $suffix_ascii $suffix_su);
 my ($TEMP_DATA_SEISMIC_SU) = $Project->TEMP_DATA_SEISMIC_SU();
 
 sub note {
@@ -37,9 +38,9 @@ sub note {
     my $output  = $ascii;
     my $verbose = $to_outpar_file;
 
-    surms->mode($rms);
-    surms->verbose($verbose);
-    $p = surms->note();
+    $surms->mode($rms);
+    $surms->verbose($verbose);
+    $p = $surms->note();
     print ' note=' . $p . "\n\n";
     $a = 1;
     return $a;

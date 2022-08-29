@@ -10,19 +10,19 @@ use Moose;
 
 =cut
 
-my $path;
-my $SeismicUnixGui;
-use Shell qw(echo);
-
-BEGIN {
-
-$SeismicUnixGui = ` echo \$SeismicUnixGui`;
-chomp $SeismicUnixGui;
-$path = $SeismicUnixGui.'/'.'misc';
-
-}
-use lib "$path";;
-extends 'sunix_pl';
+#my $path;
+#my $SeismicUnixGui;
+#use Shell qw(echo);
+#
+#BEGIN {
+#
+#$SeismicUnixGui = ` echo \$SeismicUnixGui`;
+#chomp $SeismicUnixGui;
+#$path = $SeismicUnixGui.'/'.'misc';
+#
+#}
+#use lib "$path";;
+extends 'App::SeismicUnixGui::misc::sunix_pl';
 
 =head2 hash of encapsuated variables
 
@@ -171,5 +171,4 @@ sub parameters {
 	# borrowed from web: AdrianHHH
 	my @key_names = @default_names;
 	my @values    = @default_values;
-
 	my ( @export_names, @export_values );
