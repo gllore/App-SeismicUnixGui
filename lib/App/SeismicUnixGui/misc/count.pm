@@ -42,6 +42,7 @@ count
 use Moose;
 my $VERSION = '0.0.1';
 use aliased 'App::SeismicUnixGui::misc::L_SU_global_constants';
+use aliased 'App::SeismicUnixGui::misc::manage_files_by2';
 use aliased 'App::SeismicUnixGui::configs::big_streams::Project_config';
 use App::SeismicUnixGui::misc::SeismicUnix
   qw($cdp $gx $in $out $on $go $to $txt $suffix_ascii $off $offset $su $sx $suffix_su $suffix_txt $tracl);
@@ -216,8 +217,6 @@ sub get_histogram_aref {
 		and length $count->{_suffix_type}
 		and length $count->{_column} )
 	{
-
-		use manage_files_by2;
 
 		my %hash;
 		my $inbound;

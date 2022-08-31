@@ -32,7 +32,7 @@ our $VERSION = '0.0.1';
 =cut
 
 use aliased 'App::SeismicUnixGui::misc::L_SU_global_constants';
-use App::SeismicUnixGui::misc::SeismicUnix qw($bin $ps $segy $su $suffix_bin $suffix_ps ;
+use App::SeismicUnixGui::misc::SeismicUnix qw($bin $ps $segy $su $suffix_bin $suffix_ps
 $suffix_segy $suffix_su $suffix_txt $txt);
 use aliased 'App::SeismicUnixGui::configs::big_streams::Project_config';
 

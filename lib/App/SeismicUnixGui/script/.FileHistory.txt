@@ -1,6 +1,6 @@
+/home/gllore/mars/seismics/pl/loading_dock_test_forDALI2022/gpr/041422/polarN-S/0/gllore/view_data.pl
 /home/gllore/mars/seismics/pl/loading_dock_test_forDALI2022/gpr/041422/polarN-S/0/gllore/segy2su.pl
 /home/gllore/mars/seismics/pl/loading_dock_test_forDALI2022/gpr/041422/polarN-S/0/gllore/view_raw_data.pl
-/home/gllore/mars/seismics/pl/loading_dock_test_forDALI2022/gpr/041422/polarN-S/0/gllore/view_data.pl
 /home/gllore/mars/seismics/data/loading_dock_test_forDALI2022/gpr/041422/polarN-S/0/su/gllore/line00.su
 /home/gllore/mars/seismics/pl/hrk_e122/ACH01_3axes_big_sand_tank/072821/rad_tangent_axial/1/gllore/a.pl
 /home/gllore/mars/seismics/pl/hrk_e122/ACH01_3axes_big_sand_tank/072821/rad_tangent_axial/1/gllore/b

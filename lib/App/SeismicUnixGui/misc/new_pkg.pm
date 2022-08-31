@@ -8,7 +8,9 @@ use Moose;
 
 my @use;
 
-$use[0] = "\n\t" . 'use aliased 'App::SeismicUnixGui::misc::message';' . "\n\t" . 'use aliased 'App::SeismicUnixGui::misc::flow';' . "\n";
+$use[0] = "\n\t" . 'use aliased \'App::SeismicUnixGui::misc::message\';' . 
+          "\n\t" . 'use aliased \'App::SeismicUnixGui::misc::flow\';' .
+           "\n";
 
 sub section {
     my ($self) = @_;

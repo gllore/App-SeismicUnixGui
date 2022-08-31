@@ -25,9 +25,9 @@ sub make_section {
 
 	my ($self) = @_;
 
-	$use[0] = 'use App::SeismicUnixGui::misc::L_SU_global_constants();' . "\n\n";	
+	$use[0] = 'use aliased \'App::SeismicUnixGui::misc::L_SU_global_constants\';' . "\n\n";	
 	$use[1] = 'use App::SeismicUnixGui::misc::SeismicUnix qw($go $in $off $on $out $ps $to $suffix_ascii $suffix_bin $suffix_ps $suffix_segy $suffix_su);' . "\n";
-	$use[2] = 'use App::SeismicUnixGui::configs::big_streams::Project_config;' . "\n\n";
+	$use[2] = 'use aliased \'App::SeismicUnixGui::configs::big_streams::Project_config\';' . "\n\n";
 	return ( \@use );
 }
 

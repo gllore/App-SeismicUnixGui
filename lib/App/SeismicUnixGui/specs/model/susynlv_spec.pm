@@ -1,32 +1,37 @@
 package App::SeismicUnixGui::specs::model::susynlv_spec;
-	use Moose;
-	our $VERSION = '0.0.1';
+use Moose;
+our $VERSION = '0.0.1';
 
-	use App::SeismicUnixGui::configs::big_streams::Project_config;
-	use App::SeismicUnixGui::misc::SeismicUnix qw($su $suffix_su);
-	use App::SeismicUnixGui::misc::L_SU_global_constants;
-	use susynlv;
+use aliased 'App::SeismicUnixGui::configs::big_streams::Project_config';
+use App::SeismicUnixGui::misc::SeismicUnix qw($bin $ps $segy $su $suffix_bin $suffix_ps $suffix_segy $suffix_su $suffix_txt $txt);
+use aliased 'App::SeismicUnixGui::misc::L_SU_global_constants';
 
-	my $get					= L_SU_global_constants->new();
-	my $Project 			= Project_config->new();
-	my $susynlv			    = susynlv->new();
+my $get                 = L_SU_global_constants->new();
+my $Project             = Project_config->new();
 
-	my $var					= $get->var();
 
-	my $empty_string      	= $var->{_empty_string};
-	my $true      			= $var->{_true};
-	my $false      			= $var->{_false};
-	my $file_dialog_type	= $get->file_dialog_type_href();
-	my $flow_type			= $get->flow_type_href();
+my $var                 = $get->var();
 
-	my $DATA_SEISMIC_SU  	= $Project->DATA_SEISMIC_SU();   # output data directory
-my $PL_SEISMIC        = $Project->PL_SEISMIC();
-	my $max_index           = $susynlv->get_max_index();
+my $empty_string        = $var->{_empty_string};
+my $true                = $var->{_true};
+my $false               = $var->{_false};
+my $file_dialog_type    = $get->file_dialog_type_href();
+my $flow_type           = $get->flow_type_href();
 
-	my $susynlv_spec= {
-		_CONFIG	   => $PL_SEISMIC,
-		_DATA_DIR_IN		    => $DATA_SEISMIC_SU,
-	_DATA_DIR_OUT          => $DATA_SEISMIC_SU,
+my $DATA_SEISMIC_BIN  	= $Project->DATA_SEISMIC_BIN();
+my $DATA_SEISMIC_SEGY  	= $Project->DATA_SEISMIC_SEGY();
+my $DATA_SEISMIC_SU  	= $Project->DATA_SEISMIC_SU();   # output data directory
+my $DATA_SEISMIC_TXT  	= $Project->DATA_SEISMIC_TXT();   # output data directory
+my $PL_SEISMIC		    = $Project->PL_SEISMIC();
+my $PS_SEISMIC  		= $Project->PS_SEISMIC();
+my $max_index           = 27;
+
+
+	my $susynlv_spec = {
+		_CONFIG		            => $PL_SEISMIC,
+		_DATA_DIR_IN		    => $DATA_SEISMIC_BIN,
+	 	_DATA_DIR_OUT		    => $DATA_SEISMIC_SU,
+		_binding_index_aref	    => '',
 	 	_suffix_type_in			=> $su,
 		_data_suffix_in			=> $suffix_su,
 		_suffix_type_out		=> $su,
@@ -34,6 +39,7 @@ my $PL_SEISMIC        = $Project->PL_SEISMIC();
 		_file_dialog_type_aref	=> '',
 		_flow_type_aref			=> '',
 	 	_has_infile				=> $true,
+	 	_has_outpar				=> $false,
 	 	_has_pipe_in			=> $true,	
 	 	_has_pipe_out           => $true,
 	 	_has_redirect_in		=> $true,
@@ -50,6 +56,8 @@ my $PL_SEISMIC        = $Project->PL_SEISMIC();
 		_is_suprog				=> $true,
 	 	_is_superflow			=> $false,
 	 	_max_index              => $max_index,
+	 	_prefix_aref               => '',
+	 	_suffix_aref               => '',
 	};
 
 
@@ -63,7 +71,12 @@ my $PL_SEISMIC        = $Project->PL_SEISMIC();
 
 	my @index;
 
-	$index[0]	= 0;
+	# first binding index (index=0)
+	# connects to second item (index=1)
+	# in the parameter list
+#	$index[0] = 1; # inbound item is  bound 
+#	$index[1]	= 2; # inbound item is  bound
+#	$index[2]	= 8; # outbound item is  bound
 
 	$susynlv_spec ->{_binding_index_aref} = \@index;
 	return();
@@ -75,7 +88,6 @@ my $PL_SEISMIC        = $Project->PL_SEISMIC();
 
 type of dialog (Data, Flow, SaveAs) is needed by binding
 one type of dialog for each index
-
 =cut
 
  sub file_dialog_type_aref {
@@ -84,7 +96,14 @@ one type of dialog for each index
 
 	my @type;
 
+	my $index_aref = get_binding_index_aref();
+	my @index      = @$index_aref;
+
+	# bound index will look for data
 	$type[0]	= '';
+#	$type[$index[0]] = $file_dialog_type->{_Data};
+#	$type[$index[1]]	=  $file_dialog_type->{_Data};
+#	$type[$index[2]]	=  $file_dialog_type->{_Data};
 
 	$susynlv_spec ->{_file_dialog_type_aref} = \@type;
 	return();
@@ -310,6 +329,19 @@ are filtered by sunix_pl
 		$prefix[$i]	= $empty_string;
 
 	}
+
+	my $index_aref = get_binding_index_aref();
+	my @index       = @$index_aref;
+
+	# label 2 in GUI is input xx_file and needs a home directory
+#	$prefix[ $index[0] ] = '$DATA_SEISMIC_BIN' . ".'/'.";
+
+	# label 3 in GUI is input yy_file and needs a home directory
+#	$prefix[ $index[1] ] = '$DATA_SEISMIC_TXT' . ".'/'.";
+
+	# label 9 in GUI is input zz_file and needs a home directory
+#	$prefix[ $index[2] ] = '$DATA_SEISMIC_SU' . ".'/'.";
+
 	$susynlv_spec ->{_prefix_aref} = \@prefix;
 	return();
 
@@ -319,7 +351,6 @@ are filtered by sunix_pl
 =head2  sub suffix_aref
 
 Initialize suffixes as empty
-Assign specific suffixes to parameter
 values
 
 =cut
@@ -335,6 +366,19 @@ values
 		$suffix[$i]	= $empty_string;
 
 	}
+
+	my $index_aref = get_binding_index_aref();
+	my @index       = @$index_aref;
+
+	# label 2 in GUI is input xx_file and needs a home directory
+#	$suffix[ $index[0] ] = ''.'' . '$suffix_bin';
+
+	# label 3 in GUI is input yy_file and needs a home directory
+#	$suffix[ $index[1] ] = ''.'' . '$suffix_bin';
+
+	# label 9 in GUI is output zz_file and needs a home directory
+#	$suffix[ $index[2] ] = ''.'' . '$suffix_su';
+
 	$susynlv_spec ->{_suffix_aref} = \@suffix;
 	return();
 
@@ -343,15 +387,17 @@ values
 
 =head2 sub variables
 
+
 return a hash array 
 with definitions
  
 =cut
  
- sub variables {
- 	my ($self) = @_;
- 	my $hash_ref = $susynlv_spec;
- 	return ($hash_ref);
- }
+sub variables {
+
+	my ($self) = @_;
+	my $hash_ref = $susynlv_spec;
+	return ($hash_ref);
+}
 
 1;

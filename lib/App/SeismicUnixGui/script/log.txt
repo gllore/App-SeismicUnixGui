@@ -46,3 +46,7 @@ sufilter f=150\,300\,1500\,2000 verbose=1 < /home/gllore/mars/seismics/data/load
 
 sufilter f=150\,300\,1500\,2000 verbose=1 < /home/gllore/mars/seismics/data/loading_dock_test_forDALI2022/gpr/041422/polarN-S/0/su/gllore/line00.su | sugain mbal=1 tmpdir=\/tmp | sugain gpow=2 tmpdir=\/tmp | sugain gagc=1 wagc=0\.002 tmpdir=\/tmp | sugain bias=0\.001 tmpdir=\/tmp | sumix mix=1\,1\,1 | suximage clip=1 cmap=hsv0 d2=1 f1=0 gridcolor=blue labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 lwidth=16 lx=3 mpicks=\/dev\/tty n1tic=1 n2tic=1 perc=95 plotfile=plotfile\.p style=seismic title=suximage titlecolor=red titlefont=Rom22 units=unit verbose=1 windowtitle=Line00_W_E xbox=500 ybox=500 wbox=550 hbox=550 & 
 
+55
+
+suximage clip=1 cmap=hsv0 d2=1 f1=0 gridcolor=blue labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 lwidth=16 lx=3 mpicks=\/dev\/tty n1tic=1 n2tic=1 perc=100 plotfile=plotfile\.ps style=seismic title=suximage titlecolor=red titlefont=Rom22 units=unit verbose=1 windowtitle=suximage xbox=500 ybox=500 wbox=550 < /home/gllore/mars/seismics/data/loading_dock_test_forDALI2022/gpr/041422/polarN-S/0/su/gllore/line00.su & 
+

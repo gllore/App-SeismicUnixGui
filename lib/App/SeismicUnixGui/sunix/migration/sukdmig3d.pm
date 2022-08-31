@@ -1,4 +1,4 @@
-package App::SeismicUnixGui::sunix::migration::sukdmig3d;
+package sukdmig3d;
 
 =head2 SYNOPSIS
 
@@ -1419,7 +1419,7 @@ max index = number of input variables -1
  
 sub get_max_index {
  	  my ($self) = @_;
-    my $max_index = 36;
+	my $max_index = 49;
 
     return($max_index);
 }

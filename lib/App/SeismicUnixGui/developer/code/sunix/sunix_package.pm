@@ -1,6 +1,46 @@
 package App::SeismicUnixGui::developer::code::sunix::sunix_package;
 use Moose;
 
+
+=head2 declare modules
+
+=cut
+
+use aliased 'App::SeismicUnixGui::developer::code::sunix::sunix_package_header';
+use aliased
+  'App::SeismicUnixGui::developer::code::sunix::sunix_package_pod_header';
+
+#		use App::SeismicUnixGui::developer::code::sunix::sunix_package_instantiation';
+use aliased
+  'App::SeismicUnixGui::developer::code::sunix::sunix_package_declaration';
+use aliased 'App::SeismicUnixGui::developer::code::sunix::sunix_package_pod';
+use aliased
+  'App::SeismicUnixGui::developer::code::sunix::sunix_package_encapsulated';
+use aliased
+  'App::SeismicUnixGui::developer::code::sunix::sunix_package_subroutine';
+use aliased 'App::SeismicUnixGui::developer::code::sunix::sunix_package_use';
+use aliased 'App::SeismicUnixGui::developer::code::sunix::sunix_package_Step';
+use aliased 'App::SeismicUnixGui::developer::code::sunix::sunix_package_note';
+use aliased 'App::SeismicUnixGui::developer::code::sunix::sunix_package_clear';
+use aliased 'App::SeismicUnixGui::developer::code::sunix::sunix_package_tail';
+use aliased 'App::SeismicUnixGui::developer::code::sunix::sunix_spec';
+use aliased 'App::SeismicUnixGui::misc::L_SU_global_constants';
+
+
+=head2 Instantiate modules
+
+=cut
+
+my $L_SU_global_constants = L_SU_global_constants->new();
+
+=head2 Extract values from
+modules
+
+=cut
+my $var               = $L_SU_global_constants->var();
+my $format            =  $var->{_config_file_format};
+
+
 =head2 initialize shared anonymous hash 
 
   key/value pairs
@@ -8,19 +48,19 @@ use Moose;
 =cut
 
 my $sunix_package = {
-	_config_file_out => '',
-	_spec_file_out   => '',
-	_file_in         => '',
-	_file_out        => '',
-	_length          => '',
-	_package_name    => '',
-	_num_lines       => '',
-	_path_out4configs        => '',
-	_path_out4developer        => '',
-	_path_out4specs        => '',
-	_path_out4sunix       => '',
-	_sudoc           => '',
-	_outbound_pm     => '',
+	_config_file_out    => '',
+	_spec_file_out      => '',
+	_file_in            => '',
+	_file_out           => '',
+	_length             => '',
+	_package_name       => '',
+	_num_lines          => '',
+	_path_out4configs   => '',
+	_path_out4developer => '',
+	_path_out4specs     => '',
+	_path_out4sunix     => '',
+	_sudoc              => '',
+	_outbound_pm        => '',
 };
 
 =head2 sub get_file_out
@@ -81,7 +121,9 @@ sub set_package_name {
 	if ($file_aref) {
 
 		$sunix_package->{_package_name} = @$file_aref[0];
-		print("sunix_package, set_package_name is $sunix_package->{_package_name}\n");
+		print(
+"sunix_package, set_package_name is $sunix_package->{_package_name}\n"
+		);
 	}
 	else {
 		print("sunix_package,set_package name, missing package name\n");
@@ -99,7 +141,9 @@ sub set_path_out4configs {
 
 	$sunix_package->{_path_out4configs} = @$file_aref[0];
 
-	print("sunix_package,set_path_out4configs,path_out is $sunix_package->{_path_out4configs}\n");
+	print(
+"sunix_package,set_path_out4configs,path_out is $sunix_package->{_path_out4configs}\n"
+	);
 }
 
 =head2 sub set_path_out4developer
@@ -115,7 +159,6 @@ sub set_path_out4developer {
 #	print("sunix_package,set_path_out4developer,path_out is $sunix_package->{_path_out4developer}\n");
 }
 
-
 =head2 sub set_path_out4specs
 
   
@@ -126,9 +169,10 @@ sub set_path_out4specs {
 
 	$sunix_package->{_path_out4specs} = @$file_aref[0];
 
-	print("sunix_package,set_path_out4specs,path_out is $sunix_package->{_path_out4specs}\n");
+#	print(
+#"sunix_package,set_path_out4specs,path_out is $sunix_package->{_path_out4specs}\n"
+#	);
 }
-
 
 =head2 sub set_path_out4sunix
 
@@ -140,9 +184,10 @@ sub set_path_out4sunix {
 
 	$sunix_package->{_path_out4sunix} = @$file_aref[0];
 
-	print("sunix_package,set_path_out4sunix,path_out is $sunix_package->{_path_out4sunix}\n");
+	print(
+"sunix_package,set_path_out4sunix,path_out is $sunix_package->{_path_out4sunix}\n"
+	);
 }
-
 
 =head2 sub set_param_names
 
@@ -156,10 +201,10 @@ sub set_param_names {
 	if ($names_aref) {
 
 		$sunix_package->{_param_names} = $names_aref;
-		$sunix_package->{_length}      = scalar @{ $sunix_package->{_param_names} };
+		$sunix_package->{_length} = scalar @{ $sunix_package->{_param_names} };
 
-		#  	print("sunix_package,set_param_names,names: @{$names_aref}\n");
-		#  print("sunix_package,set_param_names,length:$sunix_package->{_length} \n");
+  #  	print("sunix_package,set_param_names,names: @{$names_aref}\n");
+  #  print("sunix_package,set_param_names,length:$sunix_package->{_length} \n");
 
 	}
 	else {
@@ -183,8 +228,8 @@ sub set_param_values {
 		$sunix_package->{_param_values} = $values_aref;
 		$sunix_package->{_length}       = scalar @$values_aref;
 
-		#  	print("sunix_package,set_param_values,values: @{$values_aref}\n");
-		# 	print("sunix_package,set_param_values,length:$sunix_package->{_length} \n");
+ #  	print("sunix_package,set_param_values,values: @{$values_aref}\n");
+ # 	print("sunix_package,set_param_values,length:$sunix_package->{_length} \n");
 
 	}
 	else {
@@ -202,7 +247,7 @@ sub set_spec_file_out {
 	my ( $self, $file_aref ) = @_;
 	$sunix_package->{_spec_file_out} = @$file_aref[0];
 
-	#print("sunix_package,set_spec_file_out,_spec_file_out:  $sunix_package->{_spec_file_out}\n");
+#print("sunix_package,set_spec_file_out,_spec_file_out:  $sunix_package->{_spec_file_out}\n");
 }
 
 =head2 sub set_sudoc_aref
@@ -243,23 +288,31 @@ sub set_sudoc_aref {
 sub write_config {
 	my ($self) = shift;
 
-	if ( $sunix_package->{_config_file_out} && $sunix_package->{_length} ) {    # avoids errors
+	if ( $sunix_package->{_config_file_out} && $sunix_package->{_length} )
+	{    # avoids errors
 
 		my $OUT;
-		my $outbound = $sunix_package->{_path_out4configs} . '/' . $sunix_package->{_config_file_out};
+		my $outbound = $sunix_package->{_path_out4configs} . '/'
+		  . $sunix_package->{_config_file_out};
 
 		# print ("sunix_package,write_config $outbound\n");
-		print ("sunix_package,write_config length=$sunix_package->{_length}\n");
+		print("sunix_package,write_config length=$sunix_package->{_length}\n");
 		my $i;
 		open $OUT, '>', $outbound or die;
-		for ( $i = 0; $i < ($sunix_package->{_length} -1); $i++ ) {
-			printf $OUT "                                                            \n", @{ $sunix_package->{_param_names} }[$i], '= ', @{ $sunix_package->{_param_values} }[$i];
+		for ( $i = 0 ; $i < ( $sunix_package->{_length} - 1 ) ; $i++ ) {
+			printf $OUT
+			  $format."\n",
+			  @{ $sunix_package->{_param_names} }[$i], '= ',
+			  @{ $sunix_package->{_param_values} }[$i];
 		}
-		
-# make last line not include a "return" which produces an annoying final empty line 
+
+# make last line not include a "return" which produces an annoying final empty line
 # in the configuration file
 #		print("sunix_package,write_config length, last line=$i\n");
-		printf $OUT "                                                            ", @{ $sunix_package->{_param_names} }[$i], '= ', @{ $sunix_package->{_param_values} }[$i] ;
+		printf $OUT
+		  $format,
+		  @{ $sunix_package->{_param_names} }[$i], '= ',
+		  @{ $sunix_package->{_param_values} }[$i];
 		close($OUT);
 	}
 }
@@ -274,39 +327,34 @@ sub write_config {
 sub write_pm {
 	my ($self) = shift;
 
-	print("sunix_package, write_pm: sunix_package->{_file_out}= $sunix_package->{_file_out}\n");
-	print("sunix_package, write_pm: sunix_package->{_length}= $sunix_package->{_length}\n");
+	print(
+"sunix_package, write_pm: sunix_package->{_file_out}= $sunix_package->{_file_out}\n"
+	);
+	print(
+"sunix_package, write_pm: sunix_package->{_length}= $sunix_package->{_length}\n"
+	);
 
-	if ( $sunix_package->{_file_out} && $sunix_package->{_length} >=0) {    # avoids errors
+	if ( $sunix_package->{_file_out} && $sunix_package->{_length} >= 0 )
+	{    # avoids errors
 
 		my $name = $sunix_package->{_package_name};
-		my $OUT; 
-		use App::SeismicUnixGui::developer::code::sunix::sunix_package_header;
-		use App::SeismicUnixGui::developer::code::sunix::sunix_package_pod_header;
-#		use App::SeismicUnixGui::developer::code::sunix::sunix_package_instantiation;
-		use App::SeismicUnixGui::developer::code::sunix::sunix_package_declaration;
-		use App::SeismicUnixGui::developer::code::sunix::sunix_package_pod;
-		use App::SeismicUnixGui::developer::code::sunix::sunix_package_encapsulated;
-		use App::SeismicUnixGui::developer::code::sunix::sunix_package_subroutine;
-		use App::SeismicUnixGui::developer::code::sunix::sunix_package_use;
-		use App::SeismicUnixGui::developer::code::sunix::sunix_package_Step;
-		use App::SeismicUnixGui::developer::code::sunix::sunix_package_note;
-		use App::SeismicUnixGui::developer::code::sunix::sunix_package_clear;
-		use App::SeismicUnixGui::developer::code::sunix::sunix_package_tail;
+		my $OUT;
 
-		my $header        = sunix_package_header->new();
+		my $header      = sunix_package_header->new();
 		my $pod_header  = sunix_package_pod_header->new();
-		my $declaration   = sunix_package_declaration->new();
+		my $declaration = sunix_package_declaration->new();
+
 		# TODO following 2 are both instantiations
-		my $encapsulated  = sunix_package_encapsulated->new();
-#		my $instantiation = sunix_package_instantiation->new();
-		my $pod           = sunix_package_pod->new();
-		my $use           = sunix_package_use->new();								
-		my $Step          = sunix_package_Step->new();
-		my $note          = sunix_package_note->new();
-		my $clear         = sunix_package_clear->new();
-		my $subroutine    = sunix_package_subroutine->new();
-		my $tail          = sunix_package_tail->new();
+		my $encapsulated = sunix_package_encapsulated->new();
+
+		#		my $instantiation = sunix_package_instantiation->new();
+		my $pod        = sunix_package_pod->new();
+		my $use        = sunix_package_use->new();
+		my $Step       = sunix_package_Step->new();
+		my $note       = sunix_package_note->new();
+		my $clear      = sunix_package_clear->new();
+		my $subroutine = sunix_package_subroutine->new();
+		my $tail       = sunix_package_tail->new();
 
 		# set up header
 		$header->set_package_name($name);
@@ -337,7 +385,7 @@ sub write_pm {
 		# set up clear
 		$clear->set_package_name($name);
 		$clear->set_param_names( $sunix_package->{_param_names} );
-		
+
 		# set up pod
 		# $pod->sunix_package_name($name);
 		# $pod->sudoc( $sunix_package->{_sudoc_aref} );
@@ -346,8 +394,11 @@ sub write_pm {
 		$subroutine->set_name($name);
 
 		# HERE starts THE output PRODUCT!
-		$sunix_package->{_outbound_pm} = $sunix_package->{_path_out4sunix} . '/' . $sunix_package->{_file_out};
-		print("sunix_package,write_pm, outbound=$sunix_package->{_outbound_pm}\n");
+		$sunix_package->{_outbound_pm} =
+		  $sunix_package->{_path_out4sunix} . '/' . $sunix_package->{_file_out};
+		print(
+			"sunix_package,write_pm, outbound=$sunix_package->{_outbound_pm}\n"
+		);
 		open $OUT, '>', $sunix_package->{_outbound_pm} or die;
 
 		# prints out to file: package name
@@ -355,9 +406,10 @@ sub write_pm {
 
 		# prints out to file: Sunix documentation
 		print $OUT @{ $pod_header->get_section() };
-		# print @{ $pod_header->get_section() };
-		# # print $OUT @{ $pod->header( $sunix_package->{_sudoc_aref} ) };
-		# # print ("sunix_package, write_pm, su documentation: @{$sunix_package->{_sudoc_aref}}[0]\n");
+
+# print @{ $pod_header->get_section() };
+# # print $OUT @{ $pod->header( $sunix_package->{_sudoc_aref} ) };
+# # print ("sunix_package, write_pm, su documentation: @{$sunix_package->{_sudoc_aref}}[0]\n");
 
 		# prints out to file: call to Moose
 		print $OUT @{ $header->get_Moose_section() };
@@ -368,6 +420,7 @@ sub write_pm {
 		# prints out 'use...' (import packages)
 		print $OUT @{ $pod->get_use };
 		print $OUT @{ $use->get_section };
+
 		# print @{ $pod->get_use };
 		# print @{ $use->get_section };
 
@@ -378,6 +431,7 @@ sub write_pm {
 		# prints out declared variables  ("my ...")
 		print $OUT @{ $pod->get_instantiation };
 		print $OUT @{ $declaration->get_section };
+
 		# print @{ $pod->get_instantiation };
 		# print @{ $declaration->get_section };
 
@@ -387,38 +441,44 @@ sub write_pm {
 
 		# print @{ $pod->get_encapsulated() };
 		# print @{ $encapsulated->get_section() };
-			
+
 		# prints out a private hash
 		##		print $OUT @{ $pod->get_instantiation };
 		##		print $OUT @{ $declaration->get_section() };
 
 		# prints out Step subroutine and pod
 		print $OUT @{ $Step->get_section() };
+
 		# print @{ $Step->get_section() };
 
 		# prints out note subroutine and pod
 		print $OUT @{ $note->get_section() };
+
 		# print @{ $note->get_section() };
 
 		# prints out clear subroutine
 		print $OUT @{ $pod->get_clear() };
 		print $OUT @{ $clear->get_section() };
+
 		# print @{ $pod->get_clear() };
 		# print @{ $clear->get_section() };
 
-		for ( my $i = 0; $i < $sunix_package->{_length}; $i++ ) {
+		for ( my $i = 0 ; $i < $sunix_package->{_length} ; $i++ ) {
 
-			$subroutine->set_param_name_aref( \@{ $sunix_package->{_param_names} }[$i] );
+			$subroutine->set_param_name_aref(
+				\@{ $sunix_package->{_param_names} }[$i] );
 			$pod->subroutine_name( \@{ $sunix_package->{_param_names} }[$i] );
 
 			print $OUT @{ $pod->section };
 			print $OUT @{ $subroutine->section };
+
 			# print @{ $pod->section };
 			# print @{ $subroutine->section };
 		}
 
 		# prints out  sub get_max_index and '1;'
 		print $OUT @{ $tail->section };
+
 		# print @{ $tail->section };
 
 		# print ("sunix_package outbound $sunix_package->{_outbound_pm}\n");;
@@ -426,7 +486,9 @@ sub write_pm {
 
 	}
 	else {
-		print("sunix_package,write_pm, missing:  sunix_package->{_file_out} and sunix_package->{_length}\n");
+		print(
+"sunix_package,write_pm, missing:  sunix_package->{_file_out} and sunix_package->{_length}\n"
+		);
 	}
 
 }
@@ -441,9 +503,12 @@ sub write_pm {
 =cut
 
 sub write_spec {
-	my ($self) = shift;
-	use App::SeismicUnixGui::developer::code::sunix::sunix_spec;
+	my ($self)     = shift;
+	
 	my $sunix_spec = sunix_spec->new();
+	
+	$sunix_spec->set_path_out4specs($sunix_package->{_path_out4specs});
+	
 	my $name       = $sunix_package->{_package_name};
 	$sunix_spec->set_package_name($name);
 	my $header = $sunix_spec->get_header_section();
@@ -453,15 +518,21 @@ sub write_spec {
 
 	if ( $sunix_package->{_spec_file_out} ) {    # avoids errors
 
-		my $outbound_spec = $sunix_package->{_path_out4specs} . '/' . $sunix_package->{_spec_file_out};
+		my $outbound_spec = $sunix_package->{_path_out4specs} . '/'
+		  . $sunix_package->{_spec_file_out};
 
 #		print ("sunix_package,write_spec outbound_spec= $outbound_spec \n");
-		# print ("sunix_package,write_spec, header=\n @{$header}\n");
+#		print ("sunix_package,write_spec, header=\n @{$header}\n");
 		# print ("sunix_package,write_spec, body=\n @{$body}\n");
-		open( my $OUT, '>', $outbound_spec ) or die "Could not open file '$outbound_spec' $!";
+		
+		open( my $OUT, '>', $outbound_spec )
+		  or die "Could not open file '$outbound_spec' $!";
 
-		# print out the header
-		print $OUT @{$header};
+		my @header = @{$header};
+		for (my $j=0; $j < scalar @header; $j++ ){		
+			print $OUT ("$header[$j]");
+		}
+
 		print $OUT @{ $sunix_spec->get_body_section() };
 		print $OUT @{ $sunix_spec->get_subroutine_section() };
 		print $OUT @{$tail};

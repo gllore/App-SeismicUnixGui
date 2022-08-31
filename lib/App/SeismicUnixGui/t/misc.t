@@ -2,7 +2,7 @@ use Test::More;
 use Test::Compile;
 
 
-=head1 Test for specs modules
+=head1 Test for misc modules
 
 require_ok tests if a module or file loads successfully
 
@@ -11,7 +11,7 @@ require_ok tests if a module or file loads successfully
 
 =head2 Important definitions
 
-295 test for specs
+301 tests for misc
 
 =cut
 
@@ -41,8 +41,7 @@ use aliased 'App::SeismicUnixGui::misc::L_SU_global_constants';
 my $L_SU_global_constants = L_SU_global_constants->new();
 my $test = Test::Compile->new();
 
-
-my @dirs = ("$SeismicUnixGui/sunix");
+my @dirs = ("$SeismicUnixGui/misc");
 #print @dirs;
 $test->all_files_ok(@dirs);
 done_testing();

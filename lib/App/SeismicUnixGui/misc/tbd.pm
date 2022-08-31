@@ -565,12 +565,12 @@ my @sunix_header_programs = (
 my @sunix_inversion_programs = ( "suinvco3d", "suinvvxzco", "suinvzco3d", );
 
 my @sunix_migration_programs = (
-	"sudatumfd", "sugazmig", "sukdmig2d", "suktmig2d",
+	"sudatumfd",  "sugazmig",   "sukdmig2d",    "suktmig2d",
 	"sukdmig3d",
-	"sumigfd", "sumigffd", "sumiggbzo", "sumiggbzoan",
+	"sumigfd",   "sumigffd",    "sumiggbzo",    "sumiggbzoan",
 	"sumigprefd", "sumigpreffd", "sumigprepspi", "sumigpresp",
-	"sumigpspi", "sumigpsti", "sumigsplit", "sumigtk",
-	"sumigtopo2d", "sustolt", "sutifowler",
+	"sumigpspi", "sumigpsti",   "sumigsplit",   "sumigtk",
+	"sumigtopo2d", "sustolt",    "sutifowler",
 );
 
 my @sunix_shell_programs = ( "catsu", "evince", "sugetgthr", "suputgthr", );
@@ -581,16 +581,16 @@ my @sunix_shell_programs = ( "catsu", "evince", "sugetgthr", "suputgthr", );
 =cut
 
 my @sunix_model_programs = (
-	"addrvl3d", "cellauto", "elacheck", "elamodel",
-	"elaray", "elasyn", "elatriuni", "gbbeam",
-	"grm", "normray", "raydata", "suaddevent",
-	"suaddnoise", "sudgwaveform", "suea2df", "sufctanismod",
-	"sufdmod1", "sufdmod2", "sufdmod2_pml", "sugoupillaud",
-	"sugoupillaudpo", "suimp2d", "suimp3d", "suimpedance",
-	"sujitter", "sukdsyn2d", "sunull", "suplane",
-	"surandspike", "surandstat", "suremac2d", "suremel2dan",
-	"suspike", "susyncz", "susynlv", "susynlvcw",
-	"susynlvfti", "susynvxz", "susynvxzcs",
+	"addrvl3d",       "cellauto",     "elacheck",     "elamodel",
+	"elaray",         "elasyn",       "elatriuni",    "gbbeam",
+	"grm",            "normray",      "raydata",      "suaddevent",
+	"suaddnoise",     "sudgwaveform", "suea2df",      "sufctanismod",
+	"sufdmod1",       "sufdmod2",     "sufdmod2_pml", "sugoupillaud",
+	"sugoupillaudpo", "suimp2d",      "suimp3d",      "suimpedance",
+	"sujitter",       "sukdsyn2d",    "sunull",       "suplane",
+	"surandspike",    "surandstat",   "suremac2d",    "suremel2dan",
+	"suspike",        "susyncz",      "susynlv",      "susynlvcw",
+	"susynlvfti",     "susynvxz",     "susynvxzcs",
 );
 
 my @sunix_NMO_Vel_Stk_programs = (

@@ -1,8 +1,9 @@
- package sunix_spec;
+ package App::SeismicUnixGui::developer::code::sunix::sunix_spec;
  use Moose;
- use App::SeismicUnixGui::misc::L_SU_global_constants;
  
- my $get 				= L_SU_global_constants -> new();
+ use aliased 'App::SeismicUnixGui::misc::L_SU_global_constants';
+ 
+ my $get 				= L_SU_global_constants->new();
  my $flow_type			= $get->flow_type_href();
 
 =head2 initialize shared anonymous hash 
@@ -18,6 +19,7 @@
   	  _file_out			=> '',
   	  _length			=> '',
   	  _package_name		=> '',
+  	  _path_out4specs   => '', 
   	  _num_lines		=> '',
   	  _path_out			=> '',
   	  _sudoc			=> '',
@@ -31,7 +33,7 @@
 sub _get_Moose_section {
  	my ($self) = @_;
 	my @head;
- 	$head[0] = ("\tuse Moose;\n");
+ 	$head[0] = ("use Moose;\n");
 
  	
 =head2 sub _get_declare_section
@@ -44,12 +46,12 @@ sub _get_declare_section {
 	my @declare;
 	my $name = $sunix_spec->{_package_name}; 
 		
-	$declare[0] = "\n".'my $var					= $get->var();'."\n\n".
-					'my $empty_string			= $var->{_empty_string};'."\n".	
-					'my $true					= $var->{_true};'."\n".
-					'my $false      			= $var->{_false};'."\n".
-					'my $file_dialog_type		= $get->file_dialog_type_href();'."\n".
- 					'my $flow_type				= $get->flow_type_href();'."\n";										
+	$declare[0] = "\n".'my $var                 = $get->var();'."\n\n".
+					'my $empty_string        = $var->{_empty_string};'."\n".	
+					'my $true                = $var->{_true};'."\n".
+					'my $false               = $var->{_false};'."\n".
+					'my $file_dialog_type    = $get->file_dialog_type_href();'."\n".
+ 					'my $flow_type           = $get->flow_type_href();'."\n";										
 						
 	return (\@declare);
 	
@@ -66,13 +68,13 @@ sub _get_instantiation_section {
 	my @instantiate;
 	my $package_name = $sunix_spec->{_package_name}; 
 		
-	$instantiate[0] = "\n".'use App::SeismicUnixGui::configs::big_streams::Project_config;'."\n".
+	$instantiate[0] = "\n".'use aliased \'App::SeismicUnixGui::configs::big_streams::Project_config\';'."\n".
 		                'use App::SeismicUnixGui::misc::SeismicUnix qw($bin $ps $segy $su $suffix_bin $suffix_ps $suffix_segy $suffix_su $suffix_txt $txt);' . "\n".
-						'use App::SeismicUnixGui::misc::L_SU_global_constants;'."\n".					
-						'use '.$package_name.';'."\n".					
-						'my $get					= L_SU_global_constants->new();'."\n".
-						'my $Project 				= Project_config;'."\n".
-						'my $'.$package_name.'		= new '.$package_name.';'."\n";
+						'use aliased \'App::SeismicUnixGui::misc::L_SU_global_constants\';'."\n".					
+						"\n".					
+						'my $get                 = L_SU_global_constants->new();'."\n".
+						'my $Project             = Project_config->new();'."\n".
+						"\n";
 											
 	return (\@instantiate);	
 }
@@ -89,9 +91,24 @@ sub _get_package_section {
  	my ($self) = @_;
 	my @head;
 	my $name = $sunix_spec->{_package_name}; 
+	my $path_out4specs =  $sunix_spec->{_path_out4specs};
+
+	
+	my $path4SeismicUnixGui = $get->get_path4SeismicUnixGui();
+#		print("sunix_spec,_get_package_section,$path4SeismicUnixGui\n");
+		
+	$path_out4specs =~ s/$path4SeismicUnixGui//g;
+	$path_out4specs =~ s/\//::/g;
+	
+	my $colon_path2module_spec = 'App::SeismicUnixGui' .$path_out4specs;
+
 	if($name) {
-		$head[0] = 'package '.$name.'_spec;'."\n"; 
-		return \@head;
+		
+		$head[0] = 'package '.$colon_path2module_spec.'::'.$name.'_spec;'."\n"; 
+#		print("sunix_spec,_get_package_section,$head[0] \n");	
+		
+		return (\@head);
+		
 	} else {
 		print ("sunix_spec, get_package_section, package name missing");
 	}
@@ -690,15 +707,16 @@ sub get_header_section {
     $head[3]    = $instantiate[0];
     $head[4]    = $declare[0];
 	$head[5]    = ''."\n";
-	$head[6]   = '	my $DATA_SEISMIC_BIN  	= $Project->DATA_SEISMIC_BIN();'."\n";
-	$head[7]   = '	my $DATA_SEISMIC_SEGY  	= $Project->DATA_SEISMIC_SEGY();'."\n";
-	$head[8]   = '	my $DATA_SEISMIC_SU  	= $Project->DATA_SEISMIC_SU();   # output data directory'."\n";
-	$head[9]   = '	my $DATA_SEISMIC_TXT  	= $Project->DATA_SEISMIC_TXT();   # output data directory'."\n";	
-	$head[10]  = '  my $PL_SEISMIC		    = $Project->PL_SEISMIC();'."\n";
-	$head[11]  = '	my $PS_SEISMIC  		= $Project->PS_SEISMIC();'."\n";
-	$head[12]   = ' my $max_index = # Insert a number here'."\n";
+	$head[6]   = 'my $DATA_SEISMIC_BIN  	= $Project->DATA_SEISMIC_BIN();'."\n";
+	$head[7]   = 'my $DATA_SEISMIC_SEGY  	= $Project->DATA_SEISMIC_SEGY();'."\n";
+	$head[8]   = 'my $DATA_SEISMIC_SU  	= $Project->DATA_SEISMIC_SU();   # output data directory'."\n";
+	$head[9]   = 'my $DATA_SEISMIC_TXT  	= $Project->DATA_SEISMIC_TXT();   # output data directory'."\n";	
+	$head[10]  = 'my $PL_SEISMIC		    = $Project->PL_SEISMIC();'."\n";
+	$head[11]  = 'my $PS_SEISMIC  		= $Project->PS_SEISMIC();'."\n";
+	$head[12]  = 'my $max_index = # Insert a number here'."\n";
 	#$'.$package_name.'->get_max_index();'."\n"; 7.14.21
-	$head[13]   = ''."\n";	
+	$head[13]   = ''."\n";
+	$head[14]   = ''."\n";	
     
     # print ("sunix_spec, get_header_section:\n @head\n");
  	return (\@head);
@@ -804,5 +822,26 @@ sub get_tail_section {
  	return (\@head);
 }
 	
+=head2 sub set_path_out4specs
+
+ a small section of the file
+
+=cut
+
+sub set_path_out4specs {
+	
+	my ($self,$slash_path) = @_;
+	
+	if (length $slash_path) {
+		
+		$sunix_spec->{_path_out4specs} =  $slash_path;
+#		print("sunix_spec,set_path_out4specs, $slash_path\n");
+		
+	} else {
+		print("sunix_spec,set_path_out4specs,missing value\n");
+	}
+	
+	return();
+}
 
 1;

@@ -1,5 +1,3 @@
-package App::SeismicUnixGui::developer::code::sunix::sudoc_pt1.pl;
-
 =head1 DOCUMENTATION
 
 =head2 SYNOPSIS
@@ -69,12 +67,12 @@ use Moose;
 our $VERSION = '1.1.0';
 
 use aliased 'App::SeismicUnixGui::developer::code::sunix::sudoc';
-use aliased 'App::SeismicUnixGui::misc::sunix_package';
+use aliased 'App::SeismicUnixGui::developer::code::sunix::sunix_package';
 use aliased 'App::SeismicUnixGui::developer::code::sunix::prog_doc2pm';
 use aliased 'App::SeismicUnixGui::developer::code::sunix::sudoc2pm_nameNnumber';
 
 my $sudoc       			= sudoc->new();
-my $package     			= sunix_package->new();
+my $sunix_package     		= sunix_package->new();
 my $prog_doc2pm 			= prog_doc2pm->new();
 my $sudoc2pm_nameNnumber    = sudoc2pm_nameNnumber->new();
 
@@ -197,23 +195,28 @@ for ( my $i = 0 ; $i < $list_length ; $i++ ) {
 		$package_path_out4specs[0]     = $path_out4specs;
 		$package_path_out4sunix[0]     = $path_out4sunix;
 
-		$package->set_file_out( \@pm_file_out );
-		$package->set_path_out4configs( \@package_path_out4configs );
+		$sunix_package->set_file_out( \@pm_file_out );
+		$sunix_package->set_path_out4configs( \@package_path_out4configs );
 
-		#		$package->set_path_out4developer( \@package_path_out4developer );
-		$package->set_path_out4specs( \@package_path_out4specs );
-		$package->set_path_out4sunix( \@package_path_out4sunix );
-		$package->set_config_file_out( \@config_file_out );
-		$package->set_spec_file_out( \@spec_file_out );
+		#		$sunix_package->set_path_out4developer( \@package_path_out4developer );
+#	print(
+#"sudoc2pm_pt1,path_out4specs is $sunix_package->{@package_path_out4specs}\n"
+#	);		
+
+
+		$sunix_package->set_path_out4specs( \@package_path_out4specs );
+		$sunix_package->set_path_out4sunix( \@package_path_out4sunix );
+		$sunix_package->set_config_file_out( \@config_file_out );
+		$sunix_package->set_spec_file_out( \@spec_file_out );
 		my @package_name_array;
 		$package_name_array[0] = $package_name;
-		$package->set_package_name( \@package_name_array );
-		$package->set_param_names( $sudoc_namVal->{_names} );
-		$package->set_param_values( $sudoc_namVal->{_values} );
-		$package->set_sudoc_aref($whole_aref);
-		$package->write_pm();
-		$package->write_config();
-		$package->write_spec();
+		$sunix_package->set_package_name( \@package_name_array );
+		$sunix_package->set_param_names( $sudoc_namVal->{_names} );
+		$sunix_package->set_param_values( $sudoc_namVal->{_values} );
+		$sunix_package->set_sudoc_aref($whole_aref);
+		$sunix_package->write_pm();
+		$sunix_package->write_config();
+		$sunix_package->write_spec();
 	}
 }    # for a selected program name in the group
 

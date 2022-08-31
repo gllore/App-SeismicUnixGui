@@ -48,6 +48,16 @@ use aliased 'App::SeismicUnixGui::misc::L_SU_global_constants';
 use aliased 'App::SeismicUnixGui::configs::big_streams::Project_config';
 use App::SeismicUnixGui::misc::SeismicUnix
   qw($cdp $gx $in $out $on $go $to $txt $suffix_ascii $off $offset $su $sx $suffix_su $suffix_txt $tracl);
+use App::SeismicUnixGui::misc::SeismicUnix
+   qw($in $out $on $go $to $suffix_ascii $off $suffix_segd $suffix_segy $suffix_sgy $suffix_su 
+   $suffix_segd $suffix_txt $suffix_bin);
+
+
+use aliased 'App::SeismicUnixGui::misc::manage_files_by2';
+		use aliased 'App::SeismicUnixGui::misc::message';
+		use aliased 'App::SeismicUnixGui::misc::flow';
+				use cat_su;
+		use data_out;
 
 =head2
 
@@ -128,7 +138,7 @@ my $cmpcc = {
 	_shove_sp_gather_geom_outbound            => '',
 	_sp_x_m_aref                              => '',
 	_sp_x_m_aref4cc                           => \@array2,
-	_suffix_type							  => '',	
+	_suffix_type                              => '',
 	_suwind_max_header_value                  => '',
 	_suwind_min_header_value                  => '',
 	_suwind_skip                              => 1,
@@ -152,53 +162,49 @@ directory of a file
 sub clean {
 	my ($self) = @_;
 
-	if ( length $cmpcc->{_delete_base_file_name} 
-		and length $cmpcc->{_suffix_type} ) {
-		
-		use manage_files_by2;
-		use App::SeismicUnixGui::configs::big_streams::Project_config;
-		
-		my $Project           = Project_config->new();
-		my $file              = manage_files_by2->new();
-		
+	if (    length $cmpcc->{_delete_base_file_name}
+		and length $cmpcc->{_suffix_type} )
+	{
+
+		my $Project = Project_config->new();
+		my $file    = manage_files_by2->new();
+
 		my $DATA_SEISMIC_BIN  = $Project->DATA_SEISMIC_BIN;
 		my $DATA_SEISMIC_SEGY = $Project->DATA_SEISMIC_SEGY;
 		my $DATA_SEISMIC_SU   = $Project->DATA_SEISMIC_SU;
 		my $DATA_SEISMIC_TXT  = $Project->DATA_SEISMIC_TXT;
-		my $file_name 		  = $cmpcc->{_delete_base_file_name};
-		my $suffix_type 	  = $cmpcc->{_suffix_type};
+		my $file_name         = $cmpcc->{_delete_base_file_name};
+		my $suffix_type       = $cmpcc->{_suffix_type};
 		my $outbound;
-		
-		
-		if ($suffix_type eq $txt) {
-			
-			$outbound = $DATA_SEISMIC_TXT.'/'.$file_name.$suffix_txt;
-			
-		} elsif ($suffix_type eq $su) {
-			
-			$outbound = $DATA_SEISMIC_SU.'/'.$file_name.$suffix_su;
-			
-		} else {
-			print("cmpcc, clean, unexpected\n");
-		}
-		
-		
-		my $ans = $file->exists($outbound);	
-		
-#			print(
-#				"cmpcc, clean, file_name= $file_name does exist\n"
-#			);
-			
-		if ($ans) {
 
-			$file->delete($outbound);
-			print(
-				"cmpcc, clean, Cleaning for pre-existing $file_name \n"
-			);
+		if ( $suffix_type eq $txt ) {
+
+			$outbound = $DATA_SEISMIC_TXT . '/' . $file_name . $suffix_txt;
+
+		}
+		elsif ( $suffix_type eq $su ) {
+
+			$outbound = $DATA_SEISMIC_SU . '/' . $file_name . $suffix_su;
 
 		}
 		else {
-#			print("cmpcc, clean, file does not exist NADA\n");
+			print("cmpcc, clean, unexpected\n");
+		}
+
+		my $ans = $file->exists($outbound);
+
+		#			print(
+		#				"cmpcc, clean, file_name= $file_name does exist\n"
+		#			);
+
+		if ($ans) {
+
+			$file->delete($outbound);
+			print("cmpcc, clean, Cleaning for pre-existing $file_name \n");
+
+		}
+		else {
+			#			print("cmpcc, clean, file does not exist NADA\n");
 		}
 
 	}
@@ -267,7 +273,7 @@ sub clear {
 	$cmpcc->{_shove_sp_gather_geom_outbound}            = '';
 	$cmpcc->{_sp_x_m_aref}                              = '';
 	$cmpcc->{_sp_x_m_aref4cc}                           = '';
-	$cmpcc->{_suffix_type}                              = '';	
+	$cmpcc->{_suffix_type}                              = '';
 	$cmpcc->{_suwind_max_header_value}                  = '';
 	$cmpcc->{_suwind_min_header_value}                  = '';
 	$cmpcc->{_suwind_skip}                              = 1;
@@ -397,7 +403,6 @@ sub get_cmpcc_x_inc_m {
 
 	return ($result);
 }
-
 
 =head2 sub get_geo_number_of 
 
@@ -623,8 +628,6 @@ sub set_sp_gather_geom_out {
 
 	if ( length $cmpcc->{_shove_sp_gather_geom_outbound} ) {
 
-		use manage_files_by2;
-
 		my $file = manage_files_by2->new();
 
 		if ( length $cmpcc->{_vector_pt5_aref} ) {
@@ -848,21 +851,13 @@ Version:
 
 =cut
 
-		use Moose;
-		use App:SeismicUnixGui::misc::SeismicUnix
-		  qw($append $in $out $on $go $to $suffix_ascii $off $suffix_segd $suffix_segy $suffix_sgy $suffix_su $suffix_segd $suffix_txt $suffix_bin);
-		use App::SeismicUnixGui::configs::big_streams::Project_config;
-
 		my $Project           = Project_config->new();
 		my $DATA_SEISMIC_BIN  = $Project->DATA_SEISMIC_BIN;
 		my $DATA_SEISMIC_SEGY = $Project->DATA_SEISMIC_SEGY;
 		my $DATA_SEISMIC_SU   = $Project->DATA_SEISMIC_SU;
 		my $DATA_SEISMIC_TXT  = $Project->DATA_SEISMIC_TXT;
 
-		use aliased 'App::SeismicUnixGui::misc::message';
-		use aliased 'App::SeismicUnixGui::misc::flow';
-		use cat_su;
-		use data_out;
+
 
 		my $log      = message->new();
 		my $run      = flow->new();
@@ -928,7 +923,7 @@ Version:
 
 =cut
 
-                   $log->screen( $flow[1] );
+		$log->screen( $flow[1] );
 
 		$log->file(localtime);
 		$log->file( $flow[1] );
@@ -985,10 +980,9 @@ Version:
 
 =cut
 
-		use Moose;
-		use App:SeismicUnixGui::misc::SeismicUnix
-		  qw($append $in $out $on $go $to $suffix_ascii $off $suffix_segd $suffix_segy $suffix_sgy $suffix_su $suffix_segd $suffix_txt $suffix_bin);
-		use App::SeismicUnixGui::configs::big_streams::Project_config;
+		use App::SeismicUnixGui::misc::SeismicUnix
+		  qw($append $in $out $on $go $to $suffix_ascii $off $suffix_segd $suffix_segy \
+		  $suffix_sgy $suffix_su $suffix_segd $suffix_txt $suffix_bin);
 
 		my $Project           = Project_config->new();
 		my $DATA_SEISMIC_BIN  = $Project->DATA_SEISMIC_BIN;
@@ -996,8 +990,6 @@ Version:
 		my $DATA_SEISMIC_SU   = $Project->DATA_SEISMIC_SU;
 		my $DATA_SEISMIC_TXT  = $Project->DATA_SEISMIC_TXT;
 
-		use aliased 'App::SeismicUnixGui::misc::message';
-		use aliased 'App::SeismicUnixGui::misc::flow';
 		use cat_txt;
 		use data_out;
 
@@ -1063,7 +1055,7 @@ Version:
 
 =cut
 
-                   $log->screen( $flow[1] );
+		$log->screen( $flow[1] );
 
 		$log->file(localtime);
 		$log->file( $flow[1] );
@@ -1181,9 +1173,7 @@ Version:
 
 =cut
 
-		use App:SeismicUnixGui::misc::SeismicUnix
-		  qw($in $out $on $go $to $suffix_ascii $off $suffix_segd $suffix_segy $suffix_sgy $suffix_su $suffix_segd $suffix_txt $suffix_bin);
-		use App::SeismicUnixGui::configs::big_streams::Project_config;
+			use App::SeismicUnixGui::configs::big_streams::Project_config;
 
 		my $Project           = Project_config->new();
 		my $DATA_SEISMIC_BIN  = $Project->DATA_SEISMIC_BIN;
@@ -1270,7 +1260,7 @@ Version:
 
 =cut
 
-                   $log->screen( $flow[1] );
+		$log->screen( $flow[1] );
 
 		$log->file(localtime);
 		$log->file( $flow[1] );
@@ -1413,7 +1403,8 @@ Version:
 
 =cut
 
-		use App:SeismicUnixGui::misc::SeismicUnix
+		use App
+		  : SeismicUnixGui::misc::SeismicUnix
 		  qw($in $out $on $go $to $suffix_ascii $off $suffix_segd $suffix_segy $suffix_sgy $suffix_su $suffix_segd $suffix_txt $suffix_bin);
 		use App::SeismicUnixGui::configs::big_streams::Project_config;
 
@@ -1750,7 +1741,8 @@ Version:
 =cut
 
 		use Moose;
-		use App:SeismicUnixGui::misc::SeismicUnix
+		use App
+		  : SeismicUnixGui::misc::SeismicUnix
 		  qw($in $out $on $go $to $suffix_ascii $off $suffix_segd $suffix_segy $suffix_sgy $suffix_su $suffix_segd $suffix_txt $suffix_bin);
 		use App::SeismicUnixGui::configs::big_streams::Project_config;
 
@@ -1842,7 +1834,7 @@ Version:
 
 =cut
 
-                   $log->screen( $flow[1] );
+		$log->screen( $flow[1] );
 
 		$log->file(localtime);
 		$log->file( $flow[1] );
@@ -1928,7 +1920,6 @@ sub set_geom4data {
 		and length $cmpcc->{_base_file_name_sx} )
 	{
 
-		use manage_files_by2;
 		my $manage_files_by2 = manage_files_by2->new();
 
 		my $base_file_name_gx = $cmpcc->{_base_file_name_gx};
@@ -2164,7 +2155,6 @@ sub set_sp_x_m_aref4cc {
 
 }
 
-
 =head2 sub suffix_type
 
 geometry values
@@ -2179,7 +2169,7 @@ sub set_suffix_type {
 	if ( length $suffix_type ) {
 
 		$cmpcc->{_suffix_type} = $suffix_type;
-		
+
 	}
 	else {
 		print("cmpcc, missing suffix_type=$suffix_type\n");
@@ -2301,7 +2291,8 @@ Version:
 =cut
 
 		use Moose;
-		use App:SeismicUnixGui::misc::SeismicUnix
+		use App
+		  : SeismicUnixGui::misc::SeismicUnix
 		  qw($in $out $on $go $to $suffix_ascii $off $suffix_segd $suffix_segy $suffix_sgy $suffix_su $suffix_segd $suffix_txt $suffix_bin);
 		use App::SeismicUnixGui::configs::big_streams::Project_config;
 
@@ -2393,7 +2384,7 @@ Version:
 
 =cut
 
-                   $log->screen( $flow[1] );
+		$log->screen( $flow[1] );
 
 		$log->file(localtime);
 		$log->file( $flow[1] );
@@ -2500,7 +2491,8 @@ Version:
 
 =cut
 
-		use App:SeismicUnixGui::misc::SeismicUnix
+		use App
+		  : SeismicUnixGui::misc::SeismicUnix
 		  qw($in $out $on $go $to $suffix_ascii $off $suffix_segd $suffix_segy $suffix_sgy $suffix_su $suffix_segd $suffix_txt $suffix_bin);
 		use App::SeismicUnixGui::configs::big_streams::Project_config;
 
@@ -2590,7 +2582,7 @@ Version:
 
 =cut
 
-           $log->screen( $flow[1] );
+		$log->screen( $flow[1] );
 
 		$log->file(localtime);
 		$log->file( $flow[1] );
@@ -2856,7 +2848,7 @@ sub set4loading_base_file_name_line_in {
 
 		$cmpcc->{_for_loading_base_file_name_line_in} = $file;
 
-#		print("cmpcc,set4loading_base_file_name_line_in,file=$file\n");
+		#		print("cmpcc,set4loading_base_file_name_line_in,file=$file\n");
 
 	}
 	else {

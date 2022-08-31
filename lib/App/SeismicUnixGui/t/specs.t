@@ -11,7 +11,7 @@ require_ok tests if a module or file loads successfully
 
 =head2 Important definitions
 
-298 test for specs
+301 test for specs
 
 =cut
 
@@ -41,8 +41,7 @@ use aliased 'App::SeismicUnixGui::misc::L_SU_global_constants';
 my $L_SU_global_constants = L_SU_global_constants->new();
 my $test = Test::Compile->new();
 
-
 my @dirs = ("$SeismicUnixGui/specs");
-print @dirs;
+#print @dirs;
 $test->all_files_ok(@dirs);
 done_testing();

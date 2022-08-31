@@ -97,6 +97,20 @@ my $update = {
 	_end_suffix_line             => '',
 };
 
+=head2 Import packages
+
+=cut
+
+		use aliased 'App::SeismicUnixGui::misc::L_SU_global_constants';
+		use App::SeismicUnixGui::misc::SeismicUnix qw($bin $dat $ps $segb $segd $segy $sgy $su $suffix_bin $suffix_ps
+		  $suffix_segy $suffix_sgy $suffix_su $suffix_txt $txt);
+		use aliased 'App::SeismicUnixGui::configs::big_streams::Project_config';
+		use aliased 'App::SeismicUnixGui::misc::manage_files_by2';
+		use aliased 'App::SeismicUnixGui::developer::code::sunix::prog_doc2pm';	
+		use aliased 'App::SeismicUnixGui::developer::code::sunix::sudoc';
+		use aliased 'App::SeismicUnixGui::developer::code::sunix::sunix_package';
+		
+
 =head2 clean memory private hash
 
 =cut
@@ -139,17 +153,6 @@ sub _get_spec_changes {
 
 		my $spec_changes_base_file_name =
 		  $update->{_spec_changes_base_file_name};
-
-=head2 Import packages
-
-=cut
-
-		use App::SeismicUnixGui::misc::L_SU_global_constants();
-		use App::SeismicUnixGui::misc::SeismicUnix qw($bin $dat $ps $segb $segd $segy $sgy $su $suffix_bin $suffix_ps
-		  $suffix_segy $suffix_sgy $suffix_su $suffix_txt $txt);
-		use App::SeismicUnixGui::configs::big_streams::Project_config;
-		use App::SeismicUnixGui::misc::manage_files_by2;
-		use App::SeismicUnixGui::developer::code::sunix::prog_doc2pm;
 
 =head2 instantiation of packages
 
@@ -317,9 +320,6 @@ sub set_spec_changes {
 		and length $update->{_spec_changes_base_file_name} )
 	{
 
-		use App::SeismicUnixGui::developer::code::sunix::sudoc;
-		use App::SeismicUnixGui::developer::code::sunix::prog_doc2pm;
-
 		my $sudoc       = sudoc->new();
 		my $prog_doc2pm = prog_doc2pm->new();
 
@@ -419,36 +419,36 @@ my $additional_suffix_change  	=
 
 				$start_binding_index_line = $i + 4;
 
-		 		print("update,
-		 a spec success at start_binding_index_line: $start_binding_index_line \n"
-		 				);
+#		 		print("update,
+#		 a spec success at start_binding_index_line: $start_binding_index_line \n"
+#		 				);
 			}
 
 			if ( $string =~ /$end_binding_index_line2find/ ) {
 
 				$end_binding_index_line = $i + 3;
 
-	   		 				print("update,
-	   		 a spec success at end_binding_index_line: $end_binding_index_line \n"
-	   		 				);
+#	   		 				print("update,
+#	   		 a spec success at end_binding_index_line: $end_binding_index_line \n"
+#	   		 				);
 			}
 
 			if ( $string =~ /$start_file_dialog_type_line2find/ ) {
 
 				$start_file_dialog_type_line = $i + 2;
 
-				print(
-"update, a spec success at start_file_dialog_type_line:$start_file_dialog_type_line \n"
-				);
+#				print(
+#"update, a spec success at start_file_dialog_type_line:$start_file_dialog_type_line \n"
+#				);
 			}
 
 			if ( $string =~ /$end_file_dialog_type_line2find/ ) {
 
 				$end_file_dialog_type_line = $i + 3;
 
-				print(
-"update, a spec success at end_file_dialog_type_line:$end_file_dialog_type_line \n"
-				);
+#				print(
+#"update, a spec success at end_file_dialog_type_line:$end_file_dialog_type_line \n"
+#				);
 			}
 			if ( $string =~ /$start_prefix_line2find/ ) {
 
@@ -472,16 +472,16 @@ my $additional_suffix_change  	=
 
 				$start_suffix_line = $i + 13;
 
- 							print(
- 							   "update, a spec success at start_suffix_line: $start_suffix_line \n"
- 							);
+# 							print(
+# 							   "update, a spec success at start_suffix_line: $start_suffix_line \n"
+# 							);
 			}
 
 			if ( $string =~ /$end_suffix_line2find/ ) {
 
 				$end_suffix_line = $i + 3;
 
-#		  		   print("update, a spec success at end_suffix_line:$end_suffix_line \n");
+		  		   print("update, a spec success at end_suffix_line:$end_suffix_line \n");
 			}
 		}
 
@@ -553,11 +553,6 @@ sub set_changes {
 	if (   length $update->{_program_name}
 		&& length $update->{_group_number} )
 	{
-
-		use App::SeismicUnixGui::misc::L_SU_global_constants;
-		use App::SeismicUnixGui::developer::code::sunix::sudoc;
-		use App::SeismicUnixGui::misc::sunix_package;
-		use App::SeismicUnixGui::developer::code::sunix::prog_doc2pm;
 
 		my $get         = L_SU_global_constants->new();
 		my $sudoc       = sudoc->new();
@@ -703,7 +698,7 @@ where "max_index" line" is found
 
 		my $spec_string_to_find = 'my \$max_index = # Insert a number here';
 		my $spec_replacement_string =
-		  (" my \$max_index           = $max_index;");
+		  ("my \$max_index           = $max_index;");
 
 		my $sunix_string_to_find     = 'my \$max_index = 36;';
 		my $sunix_replacement_string = ("\tmy \$max_index = $max_index;");
@@ -752,7 +747,7 @@ where "max_index" line" is found
 
 				if ( $string =~ /$spec_string_to_find/ ) {
 
-					print("a spec success\n");
+#					print("a spec success\n");
 
 					$slurp[$i] = $spec_replacement_string;
 
@@ -978,8 +973,8 @@ where "max_index" line" is found
 							$minimum          = $differences[$i];
 							$index_of_minimum = $i;
 
-				  #					print("update, minimum = $differences[$i]\n");
-				  #					print("update, index_of_minimum = $index_of_minimum\n");
+#				  					print("update, minimum = $differences[$i]\n");
+#				  					print("update, index_of_minimum = $index_of_minimum\n");
 
 						}
 					}
@@ -989,12 +984,12 @@ where "max_index" line" is found
 				my $first_index_of_item = $line_global_constant_success[0];
 				my $last_index_of_item  = $first_index_of_item + $minimum;
 
-			   #		print("update,  first_index_of_item= $first_index_of_item\n");
-			   #		print("update,  last_index_of_item= $last_index_of_item\n");
+#			   		print("update,  first_index_of_item= $first_index_of_item\n");
+#			   		print("update,  last_index_of_item= $last_index_of_item\n");
 
-		  #		for (my $i=$first_index_of_item; $i <= $last_index_of_item; $i++) {
-		  #			print("update,  sought-after lines= $slurp[$i]\n");
-		  #		}
+#		  		for (my $i=$first_index_of_item; $i <= $last_index_of_item; $i++) {
+#		  			print("update,  sought-after lines=...$slurp[$i]\n");
+#		  	}
 
 				# extract the lines between the starting and
 				#  ending expressions
@@ -1003,74 +998,81 @@ where "max_index" line" is found
 				@program_list =
 				  @slurp[ $index_start_extraction .. $index_end_extraction ];
 
-			 #		print("update,  program_list= @program_list\n");
-			 #		print( @slurp[$index_start_extraction ..$index_end_extraction]);
+#			 #		print("update,  program_list= @program_list\n");
+#			 #		print( @slurp[$index_start_extraction ..$index_end_extraction]);
 
 			}
 			else {
 				print("sudoc2pm, unexpected values \n");
 			}
 
-			# remove the inverted commas around the list terms
+			# Remove the inverted commas around the list terms
 			$length = scalar @program_list;
 
 			for ( my $i = 0 ; $i < $length ; $i++ ) {
 
-				# remove last ""
-				$program_list[$i] =~ s/",//g;
+				# 1. replace: ",space with a space
+				$program_list[$i] =~ s/",\s*/\ /g;
+#	     		print("update,  item #$i in program_list=....$program_list[$i]\n");
+	     		
+				# remove white space and first "
+				$program_list[$i] =~ s/"//g;
+				
+				#remove first white space 
+				$program_list[$i] =~ s/^\s*//;
+				
+				#remove last white space
+				$program_list[$i] =~ s/\s*$//;
+				
+				# remove potential newlines
+				chomp $program_list[$i];
 
-				#remove white space and first "
-				$program_list[$i] =~ s/\s"//;
-
-	   #   		print("update,  item #$i in program_list=....$program_list[$i]\n");
+#	     		print("update,  item #$i in program_list=....$program_list[$i]\n");
 
 			}
 
-			# add a program name to the end
+			# add a program name to the end of list
 			push @program_list, $program_name;
 
-			#	print("2. update,  program_list= @program_list\n");
+#			print("2. update,  program_list= @program_list\n");
 
 			# sort alphabetically
 			@program_list = sort(@program_list);
 
-			#	print("3. update,  program_list= @program_list\n");
-
-			# add commas and inverted commas again
-			$length = scalar @program_list;
-			for ( my $i = 0 ; $i < $length ; $i++ ) {
-
-				# remove last ""
-				$program_list[$i] = '"' . $program_list[$i] . '",';
-
-				#remove white space and first "
-				$program_list[$i] =~ s/\s"//;
-
-				# remove any remaining ""
-				$program_list[$i] =~ s/"//;
-
-				#				print(
-				#"4. update,  item #$i in program_list=....$program_list[$i]\n"
-				#				);
-
-				# put a tab and " at ths tart of each line"
-				$program_list[$i] = "\t\"" . $program_list[$i];
-
-			}
+#			print("3. update,  program_list= @program_list\n");
 
 			# prevent duplicates
 			my @unique = ();
-			my een   = ();
+			my %seen   = ();
 
 			foreach my $elem (@program_list) {
+				
 				next if $seen{$elem}++;
 				push @unique, $elem;
 			}
+			
 			my @new_program_list = @unique;
 
-			#	print("5 update,  program_list=@program_list\n");
+			
+			$length = scalar @new_program_list;
+			for ( my $i = 0 ; $i < $length ; $i++ ) {
 
-			# put new array back into the slurp
+#				print(
+#				"4. update,  item #$i in program_list=....$program_list[$i]\n"
+#				);
+				# add commas and inverted commas again
+				$new_program_list[$i]  =~ s/\ /",\ "/g;
+				
+				# put a tab and " at the start of each line
+				$new_program_list[$i] = "\t\"" . $new_program_list[$i];
+				# put a  ", at the end of each line	
+				$new_program_list[$i] = $new_program_list[$i].'",';				
+
+			}
+#			print("5. update, new_program_list=$new_program_list[0]\n");
+#			print("5. update, new_program_list=$new_program_list[1]\n");
+
+			# reinsurt new array back into the slurp
 			# 1. split slurp into 2 arrays
 			# head array
 			my @slurp_b4_extraction =
@@ -1141,8 +1143,6 @@ sub spec_changes {
 		and length $update->{_end_prefix_line} )
 
 	{
-
-		use App::SeismicUnixGui::developer::code::sunix::prog_doc2pm;
 
 		my $sudoc       = sudoc->new();
 		my $prog_doc2pm = prog_doc2pm->new();

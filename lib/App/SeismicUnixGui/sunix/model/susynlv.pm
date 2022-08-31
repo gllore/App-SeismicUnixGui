@@ -1,15 +1,16 @@
-package App::SeismicUnixGui::sunix::model::susynlv;
-
-
-=head1 DOCUMENTATION
+package susynlv;
 
 =head2 SYNOPSIS
 
- PACKAGE NAME:  SUSYNLV - SYNthetic seismograms for Linear Velocity function		
- AUTHOR: Juan Lorenzo
- DATE:   
- DESCRIPTION:
- Version: 
+PACKAGE NAME: 
+
+AUTHOR:  
+
+DATE:
+
+DESCRIPTION:
+
+Version:
 
 =head2 USE
 
@@ -17,114 +18,210 @@ package App::SeismicUnixGui::sunix::model::susynlv;
 
 =head4 Examples
 
-=head3 SEISMIC UNIX NOTES
+=head2 SYNOPSIS
 
+=head3 SEISMIC UNIX NOTES
  SUSYNLV - SYNthetic seismograms for Linear Velocity function		
+
+
 
  susynlv >outfile [optional parameters]				
 
+
+
  Optional Parameters:							
+
  nt=101                 number of time samples				
+
  dt=0.04                time sampling interval (sec)			
+
  ft=0.0                 first time (sec)				
+
  kilounits=1            input length units are km or kilo-feet		
+
 			 =0 for m or ft					
+
                         Note: Output (sx,gx,offset) are always m or ft 
+
  nxo=1                  number of source-receiver offsets		
+
  dxo=0.05               offset sampling interval (kilounits)		
+
  fxo=0.0                first offset (kilounits, see notes below)	
+
  xo=fxo,fxo+dxo,...     array of offsets (use only for non-uniform offsets)
+
  nxm=101                number of midpoints (see notes below)		
+
  dxm=0.05               midpoint sampling interval (kilounits)		
+
  fxm=0.0                first midpoint (kilounits)			
+
  nxs=101                number of shotpoints (see notes below)		
+
  dxs=0.05               shotpoint sampling interval (kilounits)	
+
  fxs=0.0                first shotpoint (kilounits)			
+
  x0=0.0                 distance x at which v00 is specified		
+
  z0=0.0                 depth z at which v00 is specified		
+
  v00=2.0                velocity at x0,z0 (kilounits/sec)		
+
  dvdx=0.0               derivative of velocity with distance x (dv/dx)	
+
  dvdz=0.0               derivative of velocity with depth z (dv/dz)	
+
  fpeak=0.2/dt           peak frequency of symmetric Ricker wavelet (Hz)
+
  ref="1:1,2;4,2"        reflector(s):  "amplitude:x1,z1;x2,z2;x3,z3;...
+
  smooth=0               =1 for smooth (piecewise cubic spline) reflectors
+
  er=0                   =1 for exploding reflector amplitudes		
+
  ls=0                   =1 for line source; default is point source	
+
  ob=1                   =1 to include obliquity factors		
+
  tmin=10.0*dt           minimum time of interest (sec)			
+
  ndpfz=5                number of diffractors per Fresnel zone		
+
  verbose=0              =1 to print some useful information		
 
+
+
 Notes:								
+
 Offsets are signed - may be positive or negative.  Receiver locations	
+
 are computed by adding the signed offset to the source location.	
 
+
+
 Specify either midpoint sampling or shotpoint sampling, but not both.	
+
 If neither is specified, the default is the midpoint sampling above.	
 
+
+
 More than one ref (reflector) may be specified. Do this by putting	
+
 additional ref= entries on the commandline. When obliquity factors	
+
 are included, then only the left side of each reflector (as the x,z	
+
 reflector coordinates are traversed) is reflecting.  For example, if x	
+
 coordinates increase, then the top side of a reflector is reflecting.	
+
 Note that reflectors are encoded as quoted strings, with an optional	
+
 reflector amplitude: preceding the x,z coordinates of each reflector.	
+
 Default amplitude is 1.0 if amplitude: part of the string is omitted.	
 
 
+
+
+
  Credits: CWP Dave Hale, 09/17/91,  Colorado School of Mines
+
 	    UTulsa Chris Liner 5/22/03 added kilounits flag
 
+
+
  Trace header fields set: trid, counit, ns, dt, delrt,
+
 				tracl. tracr, fldr, tracf,
+
 				cdp, cdpt, d2, f2, offset, sx, gx
+
+
+
+=head2 User's notes (Juan Lorenzo)
+untested
+
+=cut
+
 
 =head2 CHANGES and their DATES
 
 =cut
- use Moose;
- our $VERSION = '0.0.1';
-	use App::SeismicUnixGui::misc::L_SU_global_constants();
 
-	my $get					= L_SU_global_constants->new();
-
-	my $var				= $get->var();
-	my $empty_string    	= $var->{_empty_string};
+use Moose;
+our $VERSION = '0.0.1';
 
 
-	my $susynlv		= {
-		_dt					=> '',
-		_dvdx					=> '',
-		_dvdz					=> '',
-		_dxm					=> '',
-		_dxo					=> '',
-		_dxs					=> '',
-		_er					=> '',
-		_fpeak					=> '',
-		_ft					=> '',
-		_fxm					=> '',
-		_fxo					=> '',
-		_fxs					=> '',
-		_kilounits					=> '',
-		_ls					=> '',
-		_ndpfz					=> '',
-		_nt					=> '',
-		_nxm					=> '',
-		_nxo					=> '',
-		_nxs					=> '',
-		_ob					=> '',
-		_ref					=> '',
-		_smooth					=> '',
-		_tmin					=> '',
-		_v00					=> '',
-		_verbose					=> '',
-		_x0					=> '',
-		_xo					=> '',
-		_z0					=> '',
-		_Step					=> '',
-		_note					=> '',
-    };
+=head2 Import packages
 
+=cut
+
+use aliased 'App::SeismicUnixGui::misc::L_SU_global_constants';
+
+use App::SeismicUnixGui::misc::SeismicUnix qw($go $in $off $on $out $ps $to $suffix_ascii $suffix_bin $suffix_ps $suffix_segy $suffix_su);
+use aliased 'App::SeismicUnixGui::configs::big_streams::Project_config';
+
+
+=head2 instantiation of packages
+
+=cut
+
+my $get					= L_SU_global_constants->new();
+my $Project				= Project_config->new();
+my $DATA_SEISMIC_SU		= $Project->DATA_SEISMIC_SU();
+my $DATA_SEISMIC_BIN	= $Project->DATA_SEISMIC_BIN();
+my $DATA_SEISMIC_TXT	= $Project->DATA_SEISMIC_TXT();
+
+my $PS_SEISMIC      	= $Project->PS_SEISMIC();
+
+my $var				= $get->var();
+my $on				= $var->{_on};
+my $off				= $var->{_off};
+my $true			= $var->{_true};
+my $false			= $var->{_false};
+my $empty_string	= $var->{_empty_string};
+
+=head2 Encapsulated
+hash of private variables
+
+=cut
+
+my $susynlv			= {
+	_dt					=> '',
+	_dvdx					=> '',
+	_dvdz					=> '',
+	_dxm					=> '',
+	_dxo					=> '',
+	_dxs					=> '',
+	_er					=> '',
+	_fpeak					=> '',
+	_ft					=> '',
+	_fxm					=> '',
+	_fxo					=> '',
+	_fxs					=> '',
+	_kilounits					=> '',
+	_ls					=> '',
+	_ndpfz					=> '',
+	_nt					=> '',
+	_nxm					=> '',
+	_nxo					=> '',
+	_nxs					=> '',
+	_ob					=> '',
+	_ref					=> '',
+	_smooth					=> '',
+	_tmin					=> '',
+	_v00					=> '',
+	_verbose					=> '',
+	_x0					=> '',
+	_xo					=> '',
+	_z0					=> '',
+	_Step					=> '',
+	_note					=> '',
+
+};
 
 =head2 sub Step
 
@@ -154,6 +251,7 @@ by adding the program name
 	return ( $susynlv->{_note} );
 
  }
+
 
 
 =head2 sub clear
@@ -756,18 +854,17 @@ by adding the program name
 
 
 =head2 sub get_max_index
- 
+
 max index = number of input variables -1
  
 =cut
  
-  sub get_max_index {
- 	my ($self) = @_;
-	# only file_name : index=36
- 	my $max_index = 36;
-	
- 	return($max_index);
- }
+sub get_max_index {
+ 	  my ($self) = @_;
+	my $max_index = 27;
+
+    return($max_index);
+}
  
  
-1; 
+1;

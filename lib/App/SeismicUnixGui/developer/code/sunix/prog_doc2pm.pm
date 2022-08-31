@@ -1,4 +1,4 @@
-package App::SeismicUnixGui::developer::code::sunix::prog_doc;
+package App::SeismicUnixGui::developer::code::sunix::prog_doc2pm;
 
 =head1 DOCUMENTATION
 
@@ -36,6 +36,7 @@ my $get = L_SU_global_constants->new();
 my $var          = $get->var();
 my $empty_string = $var->{_empty_string};
 my $global_libs  = $get->global_libs();
+my $SeismicUnixGui = $var->{_SeismicUnixGui};
 
 my $developer_sunix_categories_aref = $get->developer_sunix_categories_aref();
 my @developer_sunix_categories      = @$developer_sunix_categories_aref;
@@ -125,12 +126,12 @@ sub _get_path_in {
 	if ( $prog_doc2pm->{_group_directory} ne $empty_string ) {
 
 		# my $path 	= '/usr/local/cwp_su_all_48/src/doc/Stripped';
-		my $L_SU_env = $ENV{'L_SU'};
+		my $L_SU_env = $ENV{$SeismicUnixGui};
 
-		# print "prog_doc2pm, $L_SU_env\n";
-		my $path_in = $L_SU_env . '/developer';
+#		print "prog_doc2pm, _get_path_in, $L_SU_env\n";
+		my $path_in = $L_SU_env.'/developer';
 
-		# print("prog_doc2pm,_get_path_in = $path_in\n");
+#		print("prog_doc2pm,_get_path_in = $path_in\n");
 		return ($path_in);
 
 	} else {
@@ -247,12 +248,12 @@ sub get_path_in {
 		# my $path 	= '/usr/local/cwp_su_all_48/src/doc/Stripped';
 		my $dir = $prog_doc2pm->{_group_directory};
 
-		my $L_SU_env = $ENV{'L_SU'};
+		my $L_SU_env = $ENV{'SeismicUnixGui'};
 
-		# print "prog_doc2pm,get_path_in, $L_SU_env\n";
+#		print "prog_doc2pm,get_path_in, $L_SU_env\n";
 		my $path_in = $L_SU_env . '/developer/Stripped' . '/' . $dir;
 
-		# print("prog_doc2pm,get_path_in = $path_in\n");
+#		print("prog_doc2pm,get_path_in = $path_in\n");
 		return ($path_in);
 
 	} else {
