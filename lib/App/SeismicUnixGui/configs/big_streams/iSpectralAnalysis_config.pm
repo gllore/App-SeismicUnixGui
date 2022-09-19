@@ -1,3 +1,4 @@
+
 package App::SeismicUnixGui::configs::big_streams::iSpectralAnalysis_config;
 
 =head1 DOCUMENTATION

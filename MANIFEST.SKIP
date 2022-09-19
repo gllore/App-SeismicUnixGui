@@ -1,6 +1,9 @@
 \.git$
 \.metadata
 \.project
+\.FileHistory.txt
+\.Makefile.PL.swp
+\chain.sh
 
 # Skip temporary and backup files.
 \.itemp_

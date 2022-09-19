@@ -1945,7 +1945,5 @@ t/temp/script.t
 t/temp/specs.t
 t/temp/sunix.t
 t/temp/test_specs.t
-t/test
 t/test_specs.t
 tbd
-test

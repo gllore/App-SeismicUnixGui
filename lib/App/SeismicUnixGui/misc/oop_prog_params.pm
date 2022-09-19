@@ -457,9 +457,9 @@ sub get_a_section {
 				  . $suffix . ');';
 
 #				print(" 1. oop_prog_params, get_a_section CASE #1 OUTPUT TEXT: $oop_prog_params[$j] \n");
-				print(
-" 1. oop_prog_params, get_a_section CASE #1 suffix=$suffix---prefix=$prefix---value=$value---\n"
-				);
+#				print(
+#" 1. oop_prog_params, get_a_section CASE #1 suffix=$suffix---prefix=$prefix---value=$value---\n"
+#				);
 
 				#				 					. '.'
 			}

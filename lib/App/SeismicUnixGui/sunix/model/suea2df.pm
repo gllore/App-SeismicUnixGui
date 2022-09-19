@@ -268,7 +268,7 @@ is run
 =cut
 
 sub Step {
-	use App::SeismicUnixGui::configs::big_streams::Project_config;
+	use aliased 'App::SeismicUnixGui::configs::big_streams::Project_config';
 	
 	my $Project          = Project_config->new();
 	

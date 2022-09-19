@@ -15,16 +15,8 @@ require_ok tests if a module or file loads successfully
 
 =cut
 
-
-my $SeismicUnixGui;
-use Shell qw(echo);
-
-BEGIN {
-
-$SeismicUnixGui = ` echo \$SeismicUnixGui`;
-chomp $SeismicUnixGui;
-
-}
+my $SeismicUnixGui='./lib/App/SeismicUnixGui';
+print("configs.t,SeismicUnixGui=$SeismicUnixGui\n");
 
 =head2 import modules
 

@@ -514,7 +514,7 @@ Use directory navigation system
 
 sub outbound_pickfile {
   my ($variable,$file_in) = @_;
-		use App::SeismicUnixGui::configs::big_streams::Project_config;
+		use aliased 'App::SeismicUnixGui::configs::big_streams::Project_config';
 		my $Project = Project_config->new();
         my ($DATA_SEISMIC_SU) = $Project->DATA_SEISMIC_SU();
         my ($PL_SEISMIC)      = $Project->PL_SEISMIC();

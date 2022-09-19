@@ -32,7 +32,9 @@ WriteMakefile(
 	},
 
 	TEST_REQUIRES => {
-		#          'Test::More' => '0.47'
+		          'Test::More' => '1.30',
+		          'Test::Compile' => '3.1.0',
+		          'Test::Compile::Internal' => '3.1.0',
 	},
 
 	# only needed during build but not later
@@ -42,7 +44,7 @@ WriteMakefile(
 
 	# required scripts
 	PL_FILES => {
-		'./lib/App/SeismicUnixGui/script/post_install_env.pl' => 'SeismicUnixGui',
+#		'./lib/App/SeismicUnixGui/script/post_install_env.pl' => 'SeismicUnixGui',
 #		'./lib/SeismicUnixGui/script/post_installation_c_compile.pl' => 'SeismicUnixGui',
 	},
 
@@ -54,7 +56,11 @@ WriteMakefile(
 		COMPRESS => 'gzip -9f',
 		SUFFIX   => 'gz',
 
-	}
+	},
+
+	test => { TESTS => 't/*.t',
+
+	},
 
 );
  

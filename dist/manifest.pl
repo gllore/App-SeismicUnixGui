@@ -14,7 +14,7 @@ my $manifest = maniread();
 
 foreach my $key (keys %$manifest) {
 	
-   print (" key is $key, value is $manifest->{$key}\n");
+   print (" key is $key\n");
    
 }
 

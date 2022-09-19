@@ -967,7 +967,7 @@ sub linvel {
 #=cut
 #
 #	use App::SeismicUnixGui::misc::manage_files_by;
-#	use App::SeismicUnixGui::configs::big_streams::Project_config;
+#	use aliased 'App::SeismicUnixGui::configs::big_streams::Project_config';
 #	my $Project = Project_config->new();
 #
 #=head2 Load

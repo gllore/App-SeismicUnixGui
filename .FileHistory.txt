@@ -1,0 +1,2 @@
+/home/gllore/geol4062_f2022/seismics/data/justNofE122/gpr/082922/polarN-S/0/su/gllore/line00.su
+/home/gllore/geol4062_f2022/seismics/pl/justNofE122/gpr/082922/polarN-S/0/gllore/1.segy2su.pl

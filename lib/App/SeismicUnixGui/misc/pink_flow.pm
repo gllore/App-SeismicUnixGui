@@ -3013,41 +3013,41 @@ sub increase_vigil_on_delete_counter {
 	return ();
 }
 
-#=head2 sub help
-#
-# Callback sequence following MB3 click 
-# activation of a sunix (Listbox) item
-# program name is a scalar reference
-# 
-# Let help decide whether it is a superflow
-# or a user-created flow
-# 
-# Show a window with the perldoc to the user
-# 
-#
-#=cut 
-#
-#sub help {
-#	
-#	my ($self) = @_;
-#
-#	my $decisions = decisions->new();
-#	my $help      = help->new();
-#	my $pre_req_ok;
-#
-#	$decisions->set4help($color_flow_href);
-#	$pre_req_ok = $decisions->get4help();
-#
-#	if ($pre_req_ok) {
-#
-#		$help->set_name( $color_flow_href->{_prog_name_sref} );
-#		$help->tkpod();
-#
-#	} else {
-#		# print("NADA\n");
-#	}
-#	return ();
-#}
+=head2 sub get_help
+
+ Callback sequence following MB3 click 
+ activation of a sunix (Listbox) item
+ program name is a scalar reference
+ 
+ Let help decide whether it is a superflow
+ or a user-created flow
+ 
+ Show a window with the perldoc to the user
+ 
+
+=cut 
+
+sub get_help {
+	
+	my ($self) = @_;
+
+	my $decisions = decisions->new();
+	my $help      = help->new();
+	my $pre_req_ok;
+
+	$decisions->set4help($color_flow_href);
+	$pre_req_ok = $decisions->get4help();
+
+	if ($pre_req_ok) {
+
+		$help->set_name( $color_flow_href->{_prog_name_sref} );
+		$help->tkpod();
+
+	} else {
+		# print("NADA\n");
+	}
+	return ();
+}
 
 =head2 sub save_button
 

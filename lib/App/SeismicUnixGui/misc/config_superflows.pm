@@ -775,7 +775,7 @@ sub inbound {
 #	my ($self,$PATH)  = @_;
 #				print("config_superflows, set_outbound,_program_name_sref: $config_superflows->{_program_name_sref}\n");
 #	if ( $PATH ) {
-#		use App::SeismicUnixGui::configs::big_streams::Project_config;
+#		use aliased 'App::SeismicUnixGui::configs::big_streams::Project_config';
 #
 #		my $Project 		= Project_config->new();
 #

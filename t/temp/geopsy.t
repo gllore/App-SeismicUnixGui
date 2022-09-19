@@ -2,7 +2,7 @@ use Test::More;
 use Test::Compile;
 
 
-=head1 Test for specs modules
+=head1 Test for messages modules
 
 require_ok tests if a module or file loads successfully
 
@@ -11,20 +11,12 @@ require_ok tests if a module or file loads successfully
 
 =head2 Important definitions
 
-301 test for specs
+5 tests for geopsy
 
 =cut
 
-
-my $SeismicUnixGui;
-use Shell qw(echo);
-
-BEGIN {
-
-$SeismicUnixGui = ` echo \$SeismicUnixGui`;
-chomp $SeismicUnixGui;
-
-}
+my $SeismicUnixGui='./lib/App/SeismicUnixGui';
+print("configs.t,SesmicUnixGui=$SeismicUnixGui\n");
 
 =head2 import modules
 
@@ -41,7 +33,7 @@ use aliased 'App::SeismicUnixGui::misc::L_SU_global_constants';
 my $L_SU_global_constants = L_SU_global_constants->new();
 my $test = Test::Compile->new();
 
-my @dirs = ("$SeismicUnixGui/specs");
+my @dirs = ("$SeismicUnixGui/geopsy");
 #print @dirs;
 $test->all_files_ok(@dirs);
 done_testing();

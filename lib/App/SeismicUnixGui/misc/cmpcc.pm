@@ -47,17 +47,24 @@ my $VERSION = '0.0.1';
 use aliased 'App::SeismicUnixGui::misc::L_SU_global_constants';
 use aliased 'App::SeismicUnixGui::configs::big_streams::Project_config';
 use App::SeismicUnixGui::misc::SeismicUnix
-  qw($cdp $gx $in $out $on $go $to $txt $suffix_ascii $off $offset $su $sx $suffix_su $suffix_txt $tracl);
-use App::SeismicUnixGui::misc::SeismicUnix
-   qw($in $out $on $go $to $suffix_ascii $off $suffix_segd $suffix_segy $suffix_sgy $suffix_su 
-   $suffix_segd $suffix_txt $suffix_bin);
-
+  qw($in $out $on $go $to $suffix_ascii $off $append
+  $suffix_segy $suffix_sgy $suffix_segd $suffix_txt $suffix_bin $cdp $gx $txt $offset
+  $su $sx $suffix_su $suffix_txt $tracl);
 
 use aliased 'App::SeismicUnixGui::misc::manage_files_by2';
-		use aliased 'App::SeismicUnixGui::misc::message';
-		use aliased 'App::SeismicUnixGui::misc::flow';
-				use cat_su;
-		use data_out;
+use aliased 'App::SeismicUnixGui::misc::array';
+use aliased 'App::SeismicUnixGui::misc::message';
+use aliased 'App::SeismicUnixGui::misc::flow';
+use aliased 'App::SeismicUnixGui::sunix::shell::cat_su';
+use aliased 'App::SeismicUnixGui::sunix::shell::cat_txt';
+use aliased 'App::SeismicUnixGui::sunix::data::data_out';
+use aliased 'App::SeismicUnixGui::sunix::data::data_in';
+use aliased 'App::SeismicUnixGui::sunix::shapeNcut::suwind';
+use aliased 'App::SeismicUnixGui::sunix::header::sushw';
+use aliased 'App::SeismicUnixGui::sunix::header::sulhead';
+use aliased 'App::SeismicUnixGui::sunix::statsMath::suxcor';
+use App::SeismicUnixGui::misc::control '0.0.3';
+use aliased 'App::SeismicUnixGui::misc::control';
 
 =head2
 
@@ -110,8 +117,8 @@ my $cmpcc = {
 	_delete_base_file_name                    => '',
 	_ep_idx                                   => '',
 	_ep_number_of                             => '',
-	_filter_base_file_name_in                 => 'filter',
-	_filter_base_file_name_out                => 'filter',
+	_filter_base_file_name_in                 => ' filter ',
+	_filter_base_file_name_out                => ' filter ',
 	_first_geo_x_inc_m4calc                   => '',
 	_first_geo_x_m4calc                       => 7.5,
 	_first_geo_idx                            => 0,
@@ -123,7 +130,7 @@ my $cmpcc = {
 	_is_aref4cc_pt3                           => $false,
 	_is_aref4cc_pt4                           => $false,
 	_is_aref4cc_pt5                           => $false,
-	_line_geometry_base_file_name             => 'line_geometry',
+	_line_geometry_base_file_name             => ' line_geometry ',
 	_geo_spread_m4calc                        => 69,
 	_geo_x_inc_m4calc                         => 3,
 	_geo_x_m_aref                             => '',
@@ -179,12 +186,12 @@ sub clean {
 
 		if ( $suffix_type eq $txt ) {
 
-			$outbound = $DATA_SEISMIC_TXT . '/' . $file_name . $suffix_txt;
+			$outbound = $DATA_SEISMIC_TXT . ' / ' . $file_name . $suffix_txt;
 
 		}
 		elsif ( $suffix_type eq $su ) {
 
-			$outbound = $DATA_SEISMIC_SU . '/' . $file_name . $suffix_su;
+			$outbound = $DATA_SEISMIC_SU . ' / ' . $file_name . $suffix_su;
 
 		}
 		else {
@@ -244,8 +251,8 @@ sub clear {
 	$cmpcc->{_ep_number_of}                             = '';
 	$cmpcc->{_data_base_file_name_in}                   = '';
 	$cmpcc->{_data_base_file_name_out}                  = '';
-	$cmpcc->{_filter_base_file_name_in}                 = 'filter';
-	$cmpcc->{_filter_base_file_name_out}                = 'filter';
+	$cmpcc->{_filter_base_file_name_in}                 = ' filter ';
+	$cmpcc->{_filter_base_file_name_out}                = ' filter ';
 	$cmpcc->{_first_geo_x_inc_m4calc}                   = '';
 	$cmpcc->{_first_geo_x_m4calc}                       = 7.5;
 	$cmpcc->{_first_geo_idx}                            = 0;
@@ -263,7 +270,7 @@ sub clear {
 	$cmpcc->{_is_aref4cc_pt3}                           = $false;
 	$cmpcc->{_is_aref4cc_pt4}                           = $false;
 	$cmpcc->{_is_aref4cc_pt5}                           = $false;
-	$cmpcc->{_last_geo_x_m4calc}                        = '76.5';
+	$cmpcc->{_last_geo_x_m4calc}                        = ' 76.5 ';
 	$cmpcc->{_last_line}                                = 6;
 	$cmpcc->{_last_geo_x_m4calc}                        = 76.5;
 	$cmpcc->{_line_geometry_base_file_name}             = '';
@@ -683,7 +690,7 @@ sub set_sp_gather_geom_out {
 	}
 
 	return ($result);
-}
+  }
 
 =head2 sub set_appendix
 
@@ -691,7 +698,7 @@ set file for catting
 
 =cut
 
-sub set_appendix {
+  sub set_appendix {
 	my ( $self, $appendix ) = @_;
 
 	if ( length $appendix ) {
@@ -857,8 +864,6 @@ Version:
 		my $DATA_SEISMIC_SU   = $Project->DATA_SEISMIC_SU;
 		my $DATA_SEISMIC_TXT  = $Project->DATA_SEISMIC_TXT;
 
-
-
 		my $log      = message->new();
 		my $run      = flow->new();
 		my $cat_su   = cat_su->new();
@@ -980,18 +985,11 @@ Version:
 
 =cut
 
-		use App::SeismicUnixGui::misc::SeismicUnix
-		  qw($append $in $out $on $go $to $suffix_ascii $off $suffix_segd $suffix_segy \
-		  $suffix_sgy $suffix_su $suffix_segd $suffix_txt $suffix_bin);
-
 		my $Project           = Project_config->new();
 		my $DATA_SEISMIC_BIN  = $Project->DATA_SEISMIC_BIN;
 		my $DATA_SEISMIC_SEGY = $Project->DATA_SEISMIC_SEGY;
 		my $DATA_SEISMIC_SU   = $Project->DATA_SEISMIC_SU;
 		my $DATA_SEISMIC_TXT  = $Project->DATA_SEISMIC_TXT;
-
-		use cat_txt;
-		use data_out;
 
 		my $log      = message->new();
 		my $run      = flow->new();
@@ -1173,19 +1171,11 @@ Version:
 
 =cut
 
-			use App::SeismicUnixGui::configs::big_streams::Project_config;
-
 		my $Project           = Project_config->new();
 		my $DATA_SEISMIC_BIN  = $Project->DATA_SEISMIC_BIN;
 		my $DATA_SEISMIC_SEGY = $Project->DATA_SEISMIC_SEGY;
 		my $DATA_SEISMIC_SU   = $Project->DATA_SEISMIC_SU;
 		my $DATA_SEISMIC_TXT  = $Project->DATA_SEISMIC_TXT;
-
-		use aliased 'App::SeismicUnixGui::misc::message';
-		use aliased 'App::SeismicUnixGui::misc::flow';
-		use data_in;
-		use suwind;
-		use data_out;
 
 		my $log      = message->new();
 		my $run      = flow->new();
@@ -1403,22 +1393,12 @@ Version:
 
 =cut
 
-		use App
-		  : SeismicUnixGui::misc::SeismicUnix
-		  qw($in $out $on $go $to $suffix_ascii $off $suffix_segd $suffix_segy $suffix_sgy $suffix_su $suffix_segd $suffix_txt $suffix_bin);
-		use App::SeismicUnixGui::configs::big_streams::Project_config;
-
 		my $Project           = Project_config->new();
 		my $DATA_SEISMIC_BIN  = $Project->DATA_SEISMIC_BIN;
 		my $DATA_SEISMIC_SEGY = $Project->DATA_SEISMIC_SEGY;
 		my $DATA_SEISMIC_SU   = $Project->DATA_SEISMIC_SU;
 		my $DATA_SEISMIC_TXT  = $Project->DATA_SEISMIC_TXT;
 
-		use aliased 'App::SeismicUnixGui::misc::message';
-		use aliased 'App::SeismicUnixGui::misc::flow';
-		use data_in;
-		use suwind;
-		use data_out;
 
 		my $log      = message->new();
 		my $run      = flow->new();
@@ -1740,11 +1720,8 @@ Version:
 
 =cut
 
-		use Moose;
-		use App
-		  : SeismicUnixGui::misc::SeismicUnix
-		  qw($in $out $on $go $to $suffix_ascii $off $suffix_segd $suffix_segy $suffix_sgy $suffix_su $suffix_segd $suffix_txt $suffix_bin);
-		use App::SeismicUnixGui::configs::big_streams::Project_config;
+
+
 
 		my $Project           = Project_config->new();
 		my $DATA_SEISMIC_BIN  = $Project->DATA_SEISMIC_BIN;
@@ -1752,11 +1729,8 @@ Version:
 		my $DATA_SEISMIC_SU   = $Project->DATA_SEISMIC_SU;
 		my $DATA_SEISMIC_TXT  = $Project->DATA_SEISMIC_TXT;
 
-		use aliased 'App::SeismicUnixGui::misc::message';
-		use aliased 'App::SeismicUnixGui::misc::flow';
-		use data_in;
-		use sulhead;
-		use data_out;
+
+
 
 		my $log      = message->new();
 		my $run      = flow->new();
@@ -2290,23 +2264,12 @@ Version:
 
 =cut
 
-		use Moose;
-		use App
-		  : SeismicUnixGui::misc::SeismicUnix
-		  qw($in $out $on $go $to $suffix_ascii $off $suffix_segd $suffix_segy $suffix_sgy $suffix_su $suffix_segd $suffix_txt $suffix_bin);
-		use App::SeismicUnixGui::configs::big_streams::Project_config;
 
 		my $Project           = Project_config->new();
 		my $DATA_SEISMIC_BIN  = $Project->DATA_SEISMIC_BIN;
 		my $DATA_SEISMIC_SEGY = $Project->DATA_SEISMIC_SEGY;
 		my $DATA_SEISMIC_SU   = $Project->DATA_SEISMIC_SU;
 		my $DATA_SEISMIC_TXT  = $Project->DATA_SEISMIC_TXT;
-
-		use aliased 'App::SeismicUnixGui::misc::message';
-		use aliased 'App::SeismicUnixGui::misc::flow';
-		use data_in;
-		use sushw;
-		use data_out;
 
 		my $log      = message->new();
 		my $run      = flow->new();
@@ -2491,22 +2454,11 @@ Version:
 
 =cut
 
-		use App
-		  : SeismicUnixGui::misc::SeismicUnix
-		  qw($in $out $on $go $to $suffix_ascii $off $suffix_segd $suffix_segy $suffix_sgy $suffix_su $suffix_segd $suffix_txt $suffix_bin);
-		use App::SeismicUnixGui::configs::big_streams::Project_config;
-
 		my $Project           = Project_config->new();
 		my $DATA_SEISMIC_BIN  = $Project->DATA_SEISMIC_BIN;
 		my $DATA_SEISMIC_SEGY = $Project->DATA_SEISMIC_SEGY;
 		my $DATA_SEISMIC_SU   = $Project->DATA_SEISMIC_SU;
 		my $DATA_SEISMIC_TXT  = $Project->DATA_SEISMIC_TXT;
-
-		use aliased 'App::SeismicUnixGui::misc::message';
-		use aliased 'App::SeismicUnixGui::misc::flow';
-		use data_in;
-		use suxcor;
-		use data_out;
 
 		my $log      = message->new();
 		my $run      = flow->new();
@@ -2603,7 +2555,6 @@ sub set_shove_geom {
 
 	my ($self) = @_;
 
-	use array;
 	my $array                  = array->new();
 	my $elements_number_of_pt5 = 0;
 	my $elements_number_of_pt4 = 0;

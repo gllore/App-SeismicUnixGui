@@ -94,7 +94,7 @@ my $empty_string = $var->{_empty_string};
 sub _get_DIR {
 	my ($self) = @_;
 
-	use App::SeismicUnixGui::configs::big_streams::Project_config;
+	use aliased 'App::SeismicUnixGui::configs::big_streams::Project_config';
 	my $Project = Project_config->new();
 	my $DIR;
 
