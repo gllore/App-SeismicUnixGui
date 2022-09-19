@@ -2844,4 +2844,70 @@ A.1
   				param_flow_blue, param_flow_pink
   				
   A.3 By removing the 'aliased' option
+  
+  
+  
+  Q. How do I automatically locate the directory for a specific module, selected by the user, e.g. ctrlstrip?
+     Can you provide an example?
+  
+  A. Yes, when the user selects 
+     
+     ctrlstrip, the "program group name" is "data" and all the "data" modules 
+     will be found in $SeismicUnixGui/sunix/data
+      
+      e.g.,  $SeismicUnixGui/sunix/data/ctrlstrip.pm
+  
+    This is possible because for any Seismic Unix program selected, 
+  	the following sequence of instructions are enacted:
+  	
+  	   in main
+  	     _L_SU_sunix_bindings, which
+  	     
+  	        stores group name, e.g., data or transform or migration, etc.
+  	        $gui_history->set_sunix_prog_group($prog_group);
+  	        
+  	        stores which colored flow chart is being selected:
+			$gui_history->set_sunix_prog_group_color($color);
+			
+			stores which button is being selected. The "$button"
+			will have either a value of "sunix_select" if MB1 is clicked
+			or "get_help" if MB3 is clicked.
+			$gui_history->set_button($button);
+			
+			provides all the gui information to the module L_SU in a hash
+		    $L_SU->set_hash_ref($main_href);
+		    
+		    provides user-built-flows the type of method being used, e.g. is it
+		    just a selection (MB1) of a program or we looking for help (MB3) on this module
+			$L_SU->user_built_flows($method);
+  
+  e.g., 
+
+	$sunix_data_programs_listbox->bind(
+		'<3>' => [ \&_L_SU_sunix_bindings, 'get_help', 'neutral', 'data' ]    #TODO return to 'neutral'
+	);
+	
+	
+Q. How is the help accessed, i.e. reading the program commetns written in the 
+    pod markup language, within a module?
+
+A.  Following on from the previous questions, if MB3 selected,
+
+     L_SU
+       user_built_flows
+         neutral_flow->get_help
+                          help
+                            tkpod
+                            
+    Q. hHw can get-hlep find the correct path for a particular module?
+    
+       gui_history stores a lot of useful information on the user's click history,
+       and can be accessed to find out what the user has just done. This
+       method contradicts a lot of the pure object-oriented coding but speeds
+       up the process tremendously.  I am thinking of implementing this throughout
+       to speed up the gui in a lot of weak spots. 9-19-22 JML
+           
+           
+               
+
            
