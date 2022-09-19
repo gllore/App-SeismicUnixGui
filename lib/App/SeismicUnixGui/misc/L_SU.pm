@@ -83,7 +83,7 @@ use aliased 'App::SeismicUnixGui::misc::pink_flow';
 use App::SeismicUnixGui::misc::green_flow '0.0.4';
 use aliased 'App::SeismicUnixGui::misc::green_flow';
 
-use App::SeismicUnixGui::misc::neutral_flow '0.0.3';
+use App::SeismicUnixGui::misc::neutral_flow '0.0.4';
 use aliased 'App::SeismicUnixGui::misc::neutral_flow';
 
 my $color_listbox = color_listbox->new();
@@ -890,25 +890,31 @@ or a user-created flow
 sub get_help {
 
 	my ($self) = @_;
-
-	my $help      = get_help->new();
+	
 	my $decisions = decisions->new();
 	my $pre_req_ok;
-
 	$L_SU_href->{_is_pre_built_superflow} = $true;    # helps decisions
 
 	$decisions->set4help($L_SU_href);
 	$pre_req_ok = $decisions->get4help();
 
 	if ( $pre_req_ok
-		and length $L_SU_href->{_prog_name_sref} )
+		and length $L_SU_href->{_prog_name_sref} 
+	    and length $L_SU_href->{_current_program_name} 
+	    and ($L_SU_href->{_current_program_name} eq ${$L_SU_href->{_prog_name_sref}}) )		
 	{
 
-		my $prog_name = ${ $L_SU_href->{_prog_name_sref} };
-		my $alias     = $alias_superflow_names_h->{$prog_name};
+		my $help = help->new();
 
-		print("L_SU,help,alias: $alias\n");
-		$help->set_name( \$alias );
+		my $prog_name 			= ${ $L_SU_href->{_prog_name_sref} };
+		my $alias     			= $alias_superflow_names_h->{$prog_name};
+		my $SeismicUnixGui       = $get->get_path4SeismicUnixGui();
+		my $PATH 				 = $SeismicUnixGui . '/big_streams';
+
+#		print("L_SU,help,alias: $PATH/$alias $var->{_suffix_pl}\n");
+		
+		my $inbound = $PATH . '/' . $alias . $var->{_suffix_pl};
+		$help->set_name(\$inbound );
 		$help->tkpod();
 
 	}
@@ -957,7 +963,7 @@ sub help_menubutton {
 		if ( length $sys_distr_dir ) {
 
 			my $pathNmodule_pm = $sys_distr_dir . '/' . $module_name_pm;
-			print("L_SU,help,alias: $alias\n");
+			print("L_SU,help_menubutton,alias: $alias\n");
 			system("tkpod $pathNmodule_pm &\n\n");
 
 		}
@@ -1555,7 +1561,7 @@ sub set_param_widgets {
  'delete_whole_flow_button '
  add2flows
  
- unix_listbox get_help (MB3)
+ sunix_listbox get_help (MB3)
  flow-item selection ('flow_select') (MB1)
 
 if neutral-colored stored parameters exist
@@ -1609,11 +1615,11 @@ sub user_built_flows {
 			$idx = 3;
 		}
 		elsif ( $color eq 'neutral' ) {
-
-			# stuff below
+	
+#			print("stuff below\n");
 		}
 		else {
-			print("L_SU,user_built_flows,enexpected value  \n");
+			print("L_SU,user_built_flows,unexpected value  \n");
 		}
 
 #		print("L_SU,start of user_built_flows, occupied listboxes= @{$L_SU_gui->{_occupied_listbox_aref}} \n");
@@ -1662,7 +1668,7 @@ sub user_built_flows {
 
 					}
 					else {
-						print("2. L_SU,user_built_flows, bad value\n");
+						print("2. L_SU, user_built_flows, bad value\n");
 					}
 
 					$L_SU_href = $grey_flow->get_hash_ref();
@@ -1678,7 +1684,7 @@ sub user_built_flows {
 
 					$grey_flow->$method;
 
-#				print("2. L_SU, user_built_flows, NOT flow_select  grey, occupied listboxes are: @{$L_SU_gui->{_occupied_listbox_aref}}\n ");
+#				print("2. L_SU, user_built_flows, NOT flow_select grey, occupied listboxes are: @{$L_SU_gui->{_occupied_listbox_aref}}\n ");
 
 				}
 				else {
@@ -2150,7 +2156,7 @@ sub user_built_flows {
 			$neutral_flow->set_hash_ref($L_SU_href);
 			$neutral_flow->$method;
 
-# print("10. L_SU,user_built_flows, color=neutral,after MB1 occupied_listboxes: @{$L_SU_gui->{_occupied_listbox_aref}}\n");
+#print("10. L_SU,user_built_flows, color=neutral,after MB1 occupied_listboxes: @{$L_SU_gui->{_occupied_listbox_aref}}\n");
 # print("10. L_SU,user_built_flows, color=neutral,after MB1 occupied_listboxes: @{$L_SU_gui->{_vacant_listbox_aref}}\n");
 
 			# last_flow_color from L_SU does not enter the gui_history

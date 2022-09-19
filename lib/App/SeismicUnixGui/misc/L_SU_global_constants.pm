@@ -430,7 +430,7 @@ wipe clean private hash values
 		_one_character          => '1',
 		_one_pixel              => '1',
 		_one_pixel_borderwidth  => '1',
-		_program_title          => 'SeismicUnixGui V0.70.60',
+		_program_title          => 'SeismicUnixGui V0.80.00',
 		_project_selector_title => 'Project Selector',
 		_l_suplot_title         => 'L_suplot',
 		_project_selector_title => 'Project Selector',
@@ -439,6 +439,7 @@ wipe clean private hash values
 		_null_sunix_value              => '',
 		_reservation_color_default     =>
 		  'grey',    # first choice for reserving a color listbox
+		_suffix_pl              => '.pl',
 		_suffix_pm              => '.pm',
 		_superflow              => 'menubutton',
 		_small_width            => '50',

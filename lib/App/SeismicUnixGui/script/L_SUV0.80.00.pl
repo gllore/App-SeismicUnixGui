@@ -4,7 +4,7 @@
 
 =head2 SYNOPSIS 
 
- PERL PROGRAM NAME: L_SUV0.6.6.pl 
+ PERL PROGRAM NAME: L_SUV0.80.00.pl 
  AUTHOR: 	Juan Lorenzo
  DATE: 		June 22 2017 
 
@@ -52,6 +52,8 @@
  V0.5.1 delete_whole_flow_button,  April 9, 2021
  
  V0.6.6 September 4, 2021
+ 
+ V0.80.00 September 19, 2022 readay for initial uploading to the CPAN
  
 =cut
 
@@ -2148,7 +2150,7 @@ color not needed but $self is needed
 		my ( $self, $set_method ) = @_;
 
 		# print("1 main,_L_SU_bindings_shell, method:$set_method,\n");
-		if ($set_method) {
+		if (length $set_method) {
 
 			my $button = $set_method;
 			$gui_history->set_button($button);
@@ -2172,7 +2174,7 @@ color not needed but $self is needed
 =head2 sub _L_SU_sunix_bindings
 used for 
 	sunix_listbox get_help (MB3)
-	sunix_select		(MB1) 
+	sunix_select		   (MB1) 
 method='sunix_select'
 color='neutral'
 
@@ -2181,20 +2183,20 @@ color='neutral'
 	sub _L_SU_sunix_bindings {
 		my ( $self, $method, $color, $prog_group ) = @_;
 
-		# print("1 main,_L_SU_sunix_bindings, button:$method, color: $color prog_group: $prog_group \n");
+#		print("1 main,_L_SU_sunix_bindings,method,color,prog_group: $method,$color,$prog_group \n");
 		if ( $method && $color && $prog_group ) {
 
 			_set_prog_group($prog_group);
 			my $button = $method;
 
-			# print ("main,_L_SU_sunix_bindings,sunx_listbox:$main_href->{_sunix_listbox}n");
+#			print ("main,_L_SU_sunix_bindings,sunix_listbox:$main_href->{_sunix_listbox}\n");
 
 			$gui_history->set_sunix_prog_group($prog_group);
 			$gui_history->set_sunix_prog_group_color($color);
 			$gui_history->set_button($button);
 
-			# print("1. main, _L_SU_sunix_bindings: writing gui_history.txt\n");
-			# $gui_history->view();
+#			print("1. main, _L_SU_sunix_bindings: writing gui_history.txt\n");
+#			$gui_history->view();
 
 			$L_SU->set_hash_ref($main_href);
 			$L_SU->user_built_flows($method);
@@ -2236,11 +2238,11 @@ within gui_history by set_button
 
 			$gui_history->set_flow_select_color($color);
 
-			# print("1. main,_L_SU_flow_bindings,color:$color\n");
+#			print("1. main,_L_SU_flow_bindings,color:$color\n");
 
 			$L_SU->set_hash_ref($main_href);
 
-			#print("2. main,_L_SU_flow_bindings,method:$method\n");
+#			print("2. main,_L_SU_flow_bindings,method:$method\n");
 
 			$L_SU->user_built_flows($method);
 			
@@ -2309,13 +2311,14 @@ for the case of: Help for superflows
 
 		# print("1 main,_L_SU,method:$set_method,\n");
 		if ($set_method) {
+			
 			$L_SU->set_hash_ref($main_href);
 
 			# print("2 main,_L_SU, superflow_bindings,method:$set_method\n");
 			$L_SU->$set_method();
 
-			# print("1 main,_L_SU_bindings , print gui_superflow_bindings, history.txt\n");
-			# $gui_history->view();
+#			print("1 main,_L_SU_bindings , print gui_superflow_bindings, history.txt\n");
+			$gui_history->view();
 
 		} else {
 			print("main,_L_SU_superflow_bindings, no method: $set_method error 1,\n");
