@@ -1,1 +1,1 @@
-susynlv 7
+segyhdrs 4

@@ -654,7 +654,7 @@ sub get_program_params {
 
 	if ( ( @$ref_array[0] ) ) {    # refuse an empty case
 
-		#print("1. oop_text,prog_params, flow item detected \n");
+		# print("1. oop_text,prog_params, flow item detected \n");
 		foreach (@$ref_array) {
 			print $filehandle "$_\n";    # NOT FORMATTED
 		}

@@ -166,7 +166,7 @@ sub tkpod {
 
     if ( ${ $help->{_program_name_sref} } ) {
 
-#        print("help, tkpod, ${$help->{_program_name_sref}}\n");
+        print("help, tkpod, ${$help->{_program_name_sref}}\n");
         system("tkpod ${$help->{_program_name_sref}} &\n\n");
 
     }

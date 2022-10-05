@@ -11,7 +11,7 @@
 
  else
 	# run immodpg.pl -- a gui
-	# echo "perl" $SeismicUnixGui_script"/..big_streams/immodpg.pl"
+	# echo "perl $SeismicUnixGui_script/../big_streams/immodpg.pl"
      	perl $SeismicUnixGui_script/../big_streams/immodpg.pl &
     
     # Wait a second or two before starting 
