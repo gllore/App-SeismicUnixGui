@@ -36,7 +36,7 @@ to opening relevant directories.
 
 ONLY sudoc2pm_pt2.pl uses this file
 but after sudoc2pm_pt1.pl is run
-
+susynlv 7
 =item sudoc2pm_pt1.pl
 
 First stage in creating *.pm, *_spec.pm
@@ -67,6 +67,14 @@ file if needed:
 ~/developer/Stripped/group_name/program_name_changes.txt
 
 See for example ~~/developer/Stripped/migration/sukdmig3d_changes.txt
+
+Also check to see in
+~/configs/
+
+program_name.config
+
+e.g.,
+~/congifs/statsMath/suop.config
 
 =back
 

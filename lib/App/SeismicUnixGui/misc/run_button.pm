@@ -185,11 +185,8 @@ sub _Run_pre_built_superflow {
 	$message_w->delete( "1.0", 'end' );
 	$message_w->insert( 'end', $message );
 
-	# print("1.run_button, _values_aref[0]: @{$run_button->{_values_aref}}[0]\n");
-#	$conditions_gui->set_hash_ref($run_button);              
+	# print("1.run_button, _values_aref[0]: @{$run_button->{_values_aref}}[0]\n");             
 #	$conditions_gui->set_gui_widgets($run_button);           
-#	$conditions_gui->set4start_of_superflow_run_button();   
-#	$run_button = $conditions_gui->get_hash_ref();
 
 	$gui_history->set_hash_ref($run_button);              
 #	$gui_history->set_gui_widgets($run_button);           
@@ -219,8 +216,8 @@ sub _Run_pre_built_superflow {
 		# print("4. run_button,program RUN name is $run_name \n");
 
 		# Instruction runs in system
-		print("4. run_button,running as sh $global_libs->{_superflows}$run_name \n");
-		system("sh $global_libs->{_superflows}$run_name");
+#		print("4. run_button,running as sh $global_libs->{_script}$run_name \n");
+		system("sh $global_libs->{_script}$run_name");
 
 	} else {
 		# print("3. run_button,_Run_pre_built_superflow\n");

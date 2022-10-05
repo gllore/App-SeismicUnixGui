@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # see if global variable is set
 # global variable SeismicUnixGui_script locates main folder
@@ -11,7 +11,8 @@
 
  else
 
-	# run iBottomMute.pl
-	# echo "perl" $PL_LOCAL/"SeismicUnixGui/big_streams/../big_streams/iBottom_Mute.pl"
-	perl $SeismicUnixGui_script/../big_streams/iBottomMute.pl
+	# run Project.pl
+	# echo "perl $SeismicUnixGui_script../big_streams/Project.pl"
+	
+	perl $SeismicUnixGui_script/../big_streams/Project.pl
 fi

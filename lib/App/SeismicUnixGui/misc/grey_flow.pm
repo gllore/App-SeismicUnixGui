@@ -3371,9 +3371,9 @@ sub get_help {
 		my $sunix_program_group  = $color_flow_href->{_sunix_prog_group};
 
 		my $PATH = $SeismicUnixGui . '/sunix' . '/' . $data_group;
-
+		
 		my $help    = help->new();
-		my $inbound = $PATH . '/' . $module_name . $get->$var->{_suffix_pm};
+		my $inbound = $PATH . '/' . $module_name . $var->{_suffix_pm};
 
 		$help->set_name(\$inbound);
 		$help->tkpod();

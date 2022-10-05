@@ -24,6 +24,11 @@ Build new files: ~/configs/"program_group_name"/"module".config
 Modify "module".config file after running this script
 and before running sudoc2pm_pt2.pl
 
+Modify "nameNnumber.txt" witht he correct base
+file name and number
+e.g. susynlv 7
+
+
 =head4 Examples:
 
 perl sudoc2pm_pt1.pl

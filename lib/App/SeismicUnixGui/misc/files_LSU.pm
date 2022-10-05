@@ -590,7 +590,7 @@ sub outbound {
 			my $colon_pathNmodule_spec =
 			  $L_SU_global_constants->get_colon_pathNmodule_spec();
 
-	 	print("1. files_LSU,_get_suffix_aref, prog_name: $slash_pathNmodule_spec_pm\n");
+#	 	print("1. files_LSU,_get_suffix_aref, prog_name: $slash_pathNmodule_spec_pm\n");
 
 			require $slash_pathNmodule_spec_pm;
 

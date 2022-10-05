@@ -66,7 +66,7 @@ my $oop_prog_params = {
 
 =head2 sub _get_prefix_aref
 
-	get prefix values externally for the module
+	obstain prefix values externally for the module
 	MUST first use prefix_aref method to 
 	set prefixes internally 
 	
@@ -101,8 +101,6 @@ sub _get_prefix_aref {
 	  #	 	print("1. oop_prog_params , _get_suffix_aref, prog_name: $colon_pathNmodule_spec\n");
 
 		require $slash_pathNmodule_spec_pm;
-
-		#$refresher->refresh_module("$module_spec_pm");
 
 		# INSTANTIATE
 		my $package = $colon_pathNmodule_spec->new();
@@ -433,7 +431,7 @@ sub get_a_section {
 		 #			print(" 3. oop_prog_params, get_a_section, suffix=$suffix....\n ");
 
 			_set_label_for_a_prefix($label);
-			my $prefix = _get_prefix_for_a_label;
+			my $prefix = _get_prefix_for_a_label();
 
 			#			print(" 4. oop_prog_params, get_a_section suffix =$prefix \n ");
 			#            $control->set_value($value);
@@ -453,7 +451,7 @@ sub get_a_section {
 				  . $label
 				  . '(quotemeta('
 				  . $prefix
-				  . $value . ')'
+				  . $value . ')'.'.'
 				  . $suffix . ');';
 
 #				print(" 1. oop_prog_params, get_a_section CASE #1 OUTPUT TEXT: $oop_prog_params[$j] \n");

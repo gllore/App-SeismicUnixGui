@@ -12,6 +12,7 @@
  else
 
 	# run Sucat.pl
-	# echo "perl" $SeismicUnixGui_script/Sucat.pl"
-	perl $SeismicUnixGui_script/Sucat.pl
+	# echo "perl $SeismicUnixGui_script/../big_streams/Sucat.pl"
+	
+	perl $SeismicUnixGui_script/../big_streams/Sucat.pl
 fi

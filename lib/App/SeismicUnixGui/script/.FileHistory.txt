@@ -1,1 +1,12 @@
-/home/gllore/geol4062_f2022/seismics/pl/justNofE122/gpr/082922/polarN-S/0/gllore/2.view_fft.pl
+/home/gllore/mars//seismics/pl/hrk_e122/sand_tank/052222/Z/ACH01_piezo_cylinder/gllore/10B.view_segy2su.pl
+/home/gllore/mars//seismics/pl/hrk_e122/sand_tank/052222/Z/ACH01_piezo_cylinder/gllore/10.segy2su.pl
+/home/gllore/mars//seismics/pl/hrk_e122/sand_tank/052222/Z/ACH01_piezo_cylinder/gllore/9B.su2segy.pl
+/home/gllore/mars//seismics/pl/hrk_e122/sand_tank/052222/Z/ACH01_piezo_cylinder/gllore/a.pl
+/home/gllore/mars//seismics/pl/hrk_e122/sand_tank/052222/Z/ACH01_piezo_cylinder/gllore/9.su2segy.pl
+/home/gllore/mars//seismics/data/hrk_e122/sand_tank/052222/Z/ACH01_piezo_cylinder/txt/gllore/header9.txt
+/home/gllore/mars//seismics/data/hrk_e122/sand_tank/052222/Z/ACH01_piezo_cylinder/bin/gllore/binary9.bin
+/home/gllore/mars//seismics/data/hrk_e122/sand_tank/052222/Z/ACH01_piezo_cylinder/su/gllore/data4figure9B_V1.su
+/home/gllore/mars//seismics/data/hrk_e122/sand_tank/052222/Z/ACH01_piezo_cylinder/su/gllore/pseudo_walk_piezo_cylind_buried_geom1.su
+/home/gllore/mars//seismics/data/hrk_e122/sand_tank/052222/Z/ACH01_piezo_cylinder/segy/gllore/data4figure9E_V2.sgy
+/home/gllore/mars//seismics/data/hrk_e122/sand_tank/052222/Z/ACH01_piezo_cylinder/txt/gllore/header
+/home/gllore/mars//seismics/data/hrk_e122/sand_tank/052222/Z/ACH01_piezo_cylinder/bin/gllore/binary
