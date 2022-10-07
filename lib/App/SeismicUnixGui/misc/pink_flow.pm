@@ -71,19 +71,6 @@ sub sunix_select (subroutine is only active in neutral_flow.pm)
 use Moose;
 our $VERSION = '0.0.4';
 
-#my $path;
-#my $SeismicUnixGui;
-#use Shell qw(echo);
-#
-#BEGIN {
-#
-#$SeismicUnixGui = ` echo \$SeismicUnixGui`;
-#chomp $SeismicUnixGui;
-#$path = $SeismicUnixGui.'/'.'misc';
-#
-#}
-#use lib "$path";
-
 use aliased 'App::SeismicUnixGui::misc::L_SU_global_constants';
 use aliased 'App::SeismicUnixGui::configs::big_streams::Project_config';
 
@@ -104,6 +91,7 @@ use aliased 'App::SeismicUnixGui::misc::control';
 use App::SeismicUnixGui::misc::decisions '1.0.0';
 use aliased 'App::SeismicUnixGui::misc::decisions';
 
+use aliased 'App::SeismicUnixGui::misc::dirs';
 use aliased 'App::SeismicUnixGui::misc::file_dialog';
 use aliased 'App::SeismicUnixGui::misc::files_LSU';
 use aliased 'App::SeismicUnixGui::misc::flow_widgets';
@@ -113,22 +101,25 @@ use aliased 'App::SeismicUnixGui::messages::message_director';
 use aliased 'App::SeismicUnixGui::misc::perl_flow';
 use aliased 'App::SeismicUnixGui::misc::param_sunix';
 
+use Carp;
+
 =head2 Instantiation
 
 =cut
 
-my $get          = L_SU_global_constants->new();
+my $L_SU_global_constants  = L_SU_global_constants->new();
+my $dirs         = dirs->new();
 my $flow_widgets = flow_widgets->new();
 my $gui_history  = gui_history->new();
 
 my $param_flow_color_pkg = param_flow_pink->new();
 my $param_widgets        = param_widgets_pink->new();
-my $flow_type            = $get->flow_type_href();
-my $var                  = $get->var();
+my $flow_type            = $L_SU_global_constants->flow_type_href();
+my $var                  = $L_SU_global_constants->var();
 my $empty_string         = $var->{_empty_string};
 my $this_color           = 'pink';
 my $color_flow_href      = $gui_history->get_defaults();
-my $number_from_color    = $get->number_from_color_href();
+my $number_from_color    = $L_SU_global_constants->number_from_color_href();
 
 my $_is_last_parameter_index_touched_color =
   '_is_last_parameter_index_touched_' . $this_color;
@@ -1974,11 +1965,11 @@ sub FileDialog_button {
 	my ( $self, $dialog_type_sref ) = @_;
 
 	my $file_dialog = file_dialog->new();
-	my $get         = L_SU_global_constants->new();
+#	my $get         = L_SU_global_constants->new();
 	my $Project     = Project_config->new();
 	my $control     = control->new();
 
-	my $file_dialog_type = $get->file_dialog_type_href();
+	my $file_dialog_type = $L_SU_global_constants->file_dialog_type_href();
 	my $PL_SEISMIC       = $Project->PL_SEISMIC();
 	my $manage_files_by2 = manage_files_by2->new();
 
@@ -3341,6 +3332,7 @@ sub increase_vigil_on_delete_counter {
  
  Show a window with the perldoc to the user
  
+ and length $color_flow_href->{_sunix_prog_group}
 
 =cut 
 
@@ -3359,19 +3351,21 @@ sub get_help {
 	    and length $color_flow_href->{_prog_name_sref} 
 	    and length $color_flow_href->{_current_program_name} 
 	    and ($color_flow_href->{_current_program_name} eq ${$color_flow_href->{_prog_name_sref}})
-	    and length $color_flow_href->{_sunix_prog_group}) {
+	    ) {
 
 		# it is a sunix program
-		# the data group is defined
+		# the program category is defined
 
-		my $data_group           = $color_flow_href->{_sunix_prog_group};
 		my $current_program_name = $color_flow_href->{_current_program_name};
-		my $SeismicUnixGui       = $get->get_path4SeismicUnixGui();
+		my $SeismicUnixGui       = $dirs->get_path4SeismicUnixGui();
 		my $module_name          = ${ $color_flow_href->{_prog_name_sref} };
-		my $sunix_program_group  = $color_flow_href->{_sunix_prog_group};
+		my $program_category_h   = $L_SU_global_constants->get_developer_sunix_category_h();
+		my $key                  = '_'.$current_program_name;
+		my $program_category     = $program_category_h->{$key};
+		my $sunix_program_group  = $program_category;
 
-		my $PATH = $SeismicUnixGui . '/sunix' . '/' . $data_group;
-
+		my $PATH = $SeismicUnixGui . '/sunix' . '/' . $program_category;
+		
 		my $help    = help->new();
 		my $inbound = $PATH . '/' . $module_name . $var->{_suffix_pm};
 

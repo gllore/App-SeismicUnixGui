@@ -1,1 +1,1 @@
-segyhdrs 4
+suvcat 11

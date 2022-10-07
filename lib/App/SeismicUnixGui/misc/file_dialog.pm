@@ -59,18 +59,7 @@ use aliased 'App::SeismicUnixGui::misc::param_widgets4pre_built_streams';
 use aliased 'App::SeismicUnixGui::misc::dirs';
 use aliased 'App::SeismicUnixGui::configs::big_streams::Project_config';
 
-#my $path;
-#my $SeismicUnixGui;
-#use Shell qw(echo);
-#
-#BEGIN {
-#
-#$SeismicUnixGui = ` echo \$SeismicUnixGui`;
-#chomp $SeismicUnixGui;
-#$path = $SeismicUnixGui.'/'.'misc';
-#
-#}
-#use lib "$path";
+
 extends 'App::SeismicUnixGui::misc::gui_history' => { -version => 0.0.2 };
 use aliased 'App::SeismicUnixGui::misc::gui_history';
 

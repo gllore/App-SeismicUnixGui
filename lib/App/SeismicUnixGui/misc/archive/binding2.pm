@@ -177,15 +177,36 @@ sub set {
 
 	my $program_name = ${ $binding->{_prog_name_sref} };
 
-	$L_SU_path->set_program_name($program_name);
+	my $L_SU_global_constants 	= L_SU_global_constants->new();
+	my $module_spec             = $program_name . '_spec';
+	my $module_spec_pm        	= $module_spec.'.pm';
 	
-	my $pathNmodule_spec_w_slash_pm  = $L_SU_path->get_pathNmodule_spec_w_slash_pm();
-	my $pathNmodule_spec_w_colon     = $L_SU_path->get_pathNmodule_spec_w_colon();
+	$L_SU_path->set_program_name($program_name);
+	my $path4spec_w_slash 		= $L_SU_path->get_path4spec_file_w_slash();
+	my $path4spec_w_colon 		= $L_SU_path->get_path4spec_file_w_colon();
+
+    my $key = '_'.$program_name;
+#    print("1. binding, set, path: $path4spec_w_colon->{$key}\n");
+	
+#	$L_SU_global_constants->set_file_name($module_spec_pm);
+#	my $slash_path4spec 		  = $L_SU_global_constants->get_path4spec_file();
+	my $pathNmodule_spec_w_slash_pm = $path4spec_w_slash->{$key} . '/' . $module_spec_pm;
+	my $pathNmodule_spec_w_colon    = $path4spec_w_colon->{$key} . '::' .$module_spec;
+#	 	print("1. _get_suffix_aref, prog_name: $pathNmodule_spec_w_colon\n");
+#	$L_SU_global_constants->set_program_name($program_name);
+#	$pathNmodule_spec_w_colon=
+#	  $L_SU_global_constants->get_colon_pathNmodule_spec();
+
+#	 	print("1. _get_suffix_aref, prog_name: $pathNmodule_spec_w_slash_pm\n");
+#	 	print("2. _get_suffix_aref, prog_name: $pathNmodule_spec_w_colon\n");
 
 	require $pathNmodule_spec_w_slash_pm;
 
 	# INSTANTIATE
 	my $package = $pathNmodule_spec_w_colon->new();
+
+	my $file_dialog_type = $L_SU_global_constants->file_dialog_type_href();
+	my $flow_type        = $L_SU_global_constants->flow_type_href();
 
 	$package->binding_index_aref();
 	$package->flow_type_aref();
@@ -195,7 +216,7 @@ sub set {
 	my $values_w_aref = $binding->{_values_w_aref};
 	my @values_w      = @$values_w_aref;
 
-	my $sub_ref 	  = $binding->{_sub_ref};
+	my $sub_ref = $binding->{_sub_ref};
 
 	my $binding_index_aref = $package->get_binding_index_aref();
 	my @index              = @$binding_index_aref;
@@ -203,7 +224,7 @@ sub set {
 	my $file_dialog_type_aref = $package->get_file_dialog_type_aref();
 	my @file_dialog_type      = @$file_dialog_type_aref;
 
-	# from *_spec.pm file,  belonging to either a pre_built_superflow,
+	# from *_spec.pm file,  belongint to either a pre_built_superflow,
 	# or a user_built_flow
 
 	my $length = $package->get_binding_length();

@@ -76,20 +76,7 @@
 use Moose;
 our $VERSION = '0.70.60';
 
-#my $path;
-#my $SeismicUnixGui;
-#use Shell qw(echo);
-
-#BEGIN {
-#
-#$SeismicUnixGui = ` echo \$SeismicUnixGui`;
-#chomp $SeismicUnixGui;
-#$path = $SeismicUnixGui.'/'.'misc';
-#
-#}
-#use lib "$path";
-
-extends 'App::SeismicUnixGui::misc::gui_history';# => { -version => 0.0.2 };
+extends 'App::SeismicUnixGui::misc::gui_history'=> { -version => 0.0.2 };
 use aliased 'App::SeismicUnixGui::misc::gui_history';
 
 use Tk;

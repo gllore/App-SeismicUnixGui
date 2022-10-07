@@ -45,12 +45,14 @@ use Moose;
 our $VERSION = '0.0.3';
 
 use aliased 'App::SeismicUnixGui::misc::L_SU_global_constants';
+use aliased 'App::SeismicUnixGui::misc::L_SU_path';
 use aliased 'App::SeismicUnixGui::misc::developer';
 use aliased 'App::SeismicUnixGui::misc::readfiles';
 
 use Shell qw(echo);
 
 my $L_SU_global_constants = L_SU_global_constants->new();
+my $L_SU_path             = L_SU_path->new();
 my $HOME                  = ` echo \$HOME`;
 chomp $HOME;
 
@@ -355,39 +357,8 @@ sub get {
 				$L_SU_global_constants->set_program_name($program_name);
 				my $colon_pathNmodule_spec =
 				  $L_SU_global_constants->get_colon_pathNmodule_spec();
-#
-#			print(
-#"1. big_streams_param,_check4local_config, slash path: $slash_pathNmodule_spec_pm\n"
-#			);
-#
-##					require $slash_pathNmodule_spec_pm;
-#
-#			print(
-#"2. big_streams_param, _check4local_config, colon path: $colon_pathNmodule_spec\n"
-#			);
-#
-
-			  #				my $module_spec    = $$program_sref . '_spec';
-			  #				my $module_spec_pm = $module_spec . '.pm';
-			  #				$L_SU_global_constants->set_file_name($module_spec_pm);
-			  #				my $spec_path = $L_SU_global_constants->get_path4spec_file();
-			  #				my $pathNmodule_pm = $spec_path . '/' . $module_spec_pm;
 
 				$refresher->refresh_module($slash_pathNmodule_spec_pm);
-
-	 #				my $L_SU_global_constants = L_SU_global_constants->new();
-	 #				my $program_name          = $$program_sref;
-	 #							print("1. big_streams_param, get,program_name =$$program_sref \n");
-	 #				$L_SU_global_constants->set_program_name($program_name);
-	 #			print("2. big_streams_param, get,program_name =$$program_sref \n");
-	 #				my $pathNmodule_pm =
-	 #				  $L_SU_global_constants->get_pathNmodule_spec_pm();
-	 #
-	 #				my $pathNmodule_spec =
-	 #				  $L_SU_global_constants->get_pathNmodule_spec();
-	 #
-	 #				# INSTANTIATE
-	 #				my $package = $pathNmodule_spec->new();
 
 				#		INSTANTIATE
 				my $package = $colon_pathNmodule_spec->new();
@@ -521,42 +492,28 @@ sub _check4local_config {
 		&& $name_sref ne $empty_string )
 	{
 
-		my $program_name   = $$name_sref;
-		my $module_spec_pm = $program_name . '_spec.pm';
+		my $program_name = $$name_sref;
+		$L_SU_path->set_program_name($program_name);
 
-		my $L_SU_global_constants = L_SU_global_constants->new();
-		$L_SU_global_constants->set_file_name($module_spec_pm);
-		my $slash_path4spec = $L_SU_global_constants->get_path4spec_file();
-		my $slash_pathNmodule_spec_pm =
-		  $slash_path4spec . '/' . $module_spec_pm;
+		my $pathNmodule_spec_w_slash_pm =
+		  $L_SU_path->get_pathNmodule_spec_w_slash_pm();
+		my $pathNmodule_spec_w_colon =
+		  $L_SU_path->get_pathNmodule_spec_w_colon();
 
-		$L_SU_global_constants->set_program_name($program_name);
-		my $colon_pathNmodule_spec =
-		  $L_SU_global_constants->get_colon_pathNmodule_spec();
+		if (    length $pathNmodule_spec_w_slash_pm
+			and length $pathNmodule_spec_w_colon )
+		{
+			require $pathNmodule_spec_w_slash_pm;
 
-		if ( length $slash_path4spec ) {
-
-#			print(
-#"1. big_streams_param,_check4local_config, slash path: $slash_pathNmodule_spec_pm\n"
-#			);
-
-			require $slash_pathNmodule_spec_pm;
-
-#			print(
-#"2. big_streams_param, _check4local_config, colon path: $colon_pathNmodule_spec\n"
-#			);
-
-			#		INSTANTIATE
-			my $package = $colon_pathNmodule_spec->new();
+			# INSTANTIATE
+			my $package = $pathNmodule_spec_w_colon->new();
 
 			# collect specifications of output directory
 			# from a program_spec.pm module
 			my $specs_h = $package->variables();
 			my $CONFIG  = $specs_h->{_CONFIG};
 
-			#			print(
-			#				"3. big_streams_param,_check4local_config, CONFIG=$CONFIG \n");
-			my $prog_name_config = $CONFIG . '/' . $$name_sref . '.config';
+				my $prog_name_config = $CONFIG . '/' . $$name_sref . '.config';
 
 #  			print(
 #  "big_streams_param,_check4local_config,prog_name_config =$prog_name_config\n"
@@ -608,9 +565,10 @@ sub _check4user_config {
 		}
 		else {
 			$ans = $false;
-#			print(
-#"big_streams_param,_check4user_config, ACTIVE_PROJECT=$ACTIVE_PROJECT\n"
-#			);
+
+	   #			print(
+	   #"big_streams_param,_check4user_config, ACTIVE_PROJECT=$ACTIVE_PROJECT\n"
+	   #			);
 
 #			print("big_streams_param,_check4user_config, name =$$name_sref\n");
 #			print(

@@ -1,7 +1,6 @@
 package App::SeismicUnixGui::misc::L_SU_global_constants;
 
 use Moose;
-use aliased 'App::SeismicUnixGui::misc::manage_dirs_by';
 use Carp;
 
 my $path4SeismicUnixGui = $ENV{'SeismicUnixGui'};
@@ -54,63 +53,39 @@ my $path4SeismicUnixGui = $ENV{'SeismicUnixGui'};
 #	}
 #}
 
-my $L_SU                    = $path4SeismicUnixGui;
-my $path4SeismicUnixGui_lib = $L_SU;
+my $L_SU = $path4SeismicUnixGui;
+
+#my $path4SeismicUnixGui_lib = $L_SU;
 
 #   print ("L_SU_global_constants,SeismicUnixGui_lib = $path4SeismicUnixGui_lib\n");
 #	print("L_SU_global_constants,SeismicUnixGui = $path4SeismicUnixGui\n");
 
-=head2 private hash
+#=head2 private hash
+#
+#=cut
+#
+#my $L_SU_global_constants = {
+#
+#	_CHILD_DIR          => '',
+#	_CHILD_DIR_CONVERT  => '',
+#	_CHILD_DIR_GUI      => '',
+#	_CHILD_DIR_TOOLS    => '',
+#	_CHILD_DIR_SPECS    => '',
+#	_CHILD_DIR_SU       => '',
+#	_GRANDPARENT_DIR    => '',
+#	_PARENT_DIR         => '',
+#	_PARENT_DIR_CONVERT => '',
+#	_PARENT_DIR_GEN     => '',
+#	_PARENT_DIR_GUI     => '',
+#	_PARENT_DIR_TOOLS   => '',
+#	_PARENT_DIR_SPECS   => '',
+#	_PARENT_DIR_SU      => '',
+#	_file_name          => '',
+#	_program_name       => '',
+#
+#};
+#
 
-=cut
-
-my $L_SU_global_constants = {
-
-	_CHILD_DIR          => '',
-	_CHILD_DIR_CONVERT  => '',
-	_CHILD_DIR_GUI      => '',
-	_CHILD_DIR_TOOLS    => '',
-	_CHILD_DIR_SPECS    => '',
-	_CHILD_DIR_SU       => '',
-	_GRANDPARENT_DIR    => '',
-	_PARENT_DIR         => '',
-	_PARENT_DIR_CONVERT => '',
-	_PARENT_DIR_GEN     => '',
-	_PARENT_DIR_GUI     => '',
-	_PARENT_DIR_TOOLS   => '',
-	_PARENT_DIR_SPECS   => '',
-	_PARENT_DIR_SU      => '',
-	_file_name          => '',
-	_program_name       => '',
-
-};
-
-=head2 sub clear
-
-wipe clean private hash values
-
-=cut
-
-sub clear {
-	my ($self) = @_;
-	$L_SU_global_constants->{_CHILD_DIR}          = '';
-	$L_SU_global_constants->{_CHILD_DIR_CONVERT}  = '';
-	$L_SU_global_constants->{_CHILD_DIR_GUI}      = '';
-	$L_SU_global_constants->{_CHILD_DIR_TOOLS}    = '';
-	$L_SU_global_constants->{_CHILD_DIR_SPECS}    = '';
-	$L_SU_global_constants->{_CHILD_DIR_SU}       = '';
-	$L_SU_global_constants->{_GRANDPARENT_DIR}    = '';
-	$L_SU_global_constants->{_PARENT_DIR}         = '';
-	$L_SU_global_constants->{_PARENT_DIR_CONVERT} = '';
-	$L_SU_global_constants->{_PARENT_DIR_GEN}     = '';
-	$L_SU_global_constants->{_PARENT_DIR_GUI}     = '';
-	$L_SU_global_constants->{_PARENT_DIR_TOOLS}   = '';
-	$L_SU_global_constants->{_PARENT_DIR_SPECS}   = '';
-	$L_SU_global_constants->{_PARENT_DIR_SU}      = '';
-	$L_SU_global_constants->{_file_name}          = '',
-	  $L_SU_global_constants->{_program_name} = '';
-	return ();
-}
 
 =head2 Default Tk settings
 
@@ -479,67 +454,67 @@ my $param = {
 	_length          => 90,    # max number of allowable parameters in GUI
 };
 
-# Locate environment variables automatically
-my @PARENT_DIR_CONVERT = ( "sunix",   "misc", "configs" );
-my @PARENT_DIR_GUI     = ( "configs", "specs" );
-my @PARENT_DIR_TOOLS   = ("big_streams");
-my @PARENT_DIR_SPECS   = ("specs");
-my @PARENT_DIR_SU      = ("sunix");
-
-my @PARENT_DIR_GEN = (
-	"misc", "geopsy", "gmt", "messages",
-	"developer/code/sunix", "developer/code/gmt", "script", "sqlite", "t",
-);
-
-my @CHILD_DIR_CONVERT = (
-	"",          "big_streams", "data",      "datum",
-	"filter",    "header",      "inversion", "migration",
-	"model",     "NMO_Vel_Stk", "par",       "plot",
-	"shapeNcut", "shell",       "statsMath", "transform",
-	"well"
-);
-
-my @CHILD_DIR_GEN = ( "", );
-
-my @CHILD_DIR_GUI = (
-	"big_streams", "data",      "datum",     "filter",
-	"header",      "inversion", "migration", "model",
-	"NMO_Vel_Stk", "par",       "plot",      "shapeNcut",
-	"shell",       "statsMath", "transform", "well"
-);
-
-my @CHILD_DIR_TOOLS = ("");
-
-my @CHILD_DIR_SPECS = (
-	"big_streams", "data",      "datum",     "filter",
-	"header",      "inversion", "migration", "model",
-	"NMO_Vel_Stk", "par",       "plot",      "shapeNcut",
-	"shell",       "statsMath", "transform", "well"
-);
-
-#my @CHILD_DIR_SPECS = (
-#	"big_streams"
+## Locate environment variables automatically
+#my @PARENT_DIR_CONVERT = ( "sunix",   "misc", "configs" );
+#my @PARENT_DIR_GUI     = ( "configs", "specs" );
+#my @PARENT_DIR_TOOLS   = ("big_streams");
+#my @PARENT_DIR_SPECS   = ("specs");
+#my @PARENT_DIR_SU      = ("sunix");
+#
+#my @PARENT_DIR_GEN = (
+#	"misc", "geopsy", "gmt", "messages",
+#	"developer/code/sunix", "developer/code/gmt", "script", "sqlite", "t",
 #);
-
-my @CHILD_DIR_SU = (
-	"data",      "datum",     "filter",    "header",
-	"inversion", "migration", "model",     "NMO_Vel_Stk",
-	"par",       "plot",      "shapeNcut", "shell",
-	"statsMath", "transform", "well"
-);
-
-$L_SU_global_constants->{_PARENT_DIR_CONVERT} = \@PARENT_DIR_CONVERT;
-$L_SU_global_constants->{_PARENT_DIR_GUI}     = \@PARENT_DIR_GUI;
-$L_SU_global_constants->{_PARENT_DIR_TOOLS}   = \@PARENT_DIR_TOOLS;
-$L_SU_global_constants->{_PARENT_DIR_SPECS}   = \@PARENT_DIR_SPECS;
-$L_SU_global_constants->{_PARENT_DIR_SU}      = \@PARENT_DIR_SU;
-$L_SU_global_constants->{_PARENT_DIR_GEN}     = \@PARENT_DIR_GEN;
-$L_SU_global_constants->{_CHILD_DIR_CONVERT}  = \@CHILD_DIR_CONVERT;
-$L_SU_global_constants->{_CHILD_DIR_GEN}      = \@CHILD_DIR_GEN;
-$L_SU_global_constants->{_CHILD_DIR_GUI}      = \@CHILD_DIR_GUI;
-$L_SU_global_constants->{_CHILD_DIR_TOOLS}    = \@CHILD_DIR_TOOLS;
-$L_SU_global_constants->{_CHILD_DIR_SPECS}    = \@CHILD_DIR_SPECS;
-$L_SU_global_constants->{_CHILD_DIR_SU}       = \@CHILD_DIR_SU;
+#
+#my @CHILD_DIR_CONVERT = (
+#	"",          "big_streams", "data",      "datum",
+#	"filter",    "header",      "inversion", "migration",
+#	"model",     "NMO_Vel_Stk", "par",       "plot",
+#	"shapeNcut", "shell",       "statsMath", "transform",
+#	"well"
+#);
+#
+#my @CHILD_DIR_GEN = ( "", );
+#
+#my @CHILD_DIR_GUI = (
+#	"big_streams", "data",      "datum",     "filter",
+#	"header",      "inversion", "migration", "model",
+#	"NMO_Vel_Stk", "par",       "plot",      "shapeNcut",
+#	"shell",       "statsMath", "transform", "well"
+#);
+#
+#my @CHILD_DIR_TOOLS = ("");
+#
+#my @CHILD_DIR_SPECS = (
+#	"big_streams", "data",      "datum",     "filter",
+#	"header",      "inversion", "migration", "model",
+#	"NMO_Vel_Stk", "par",       "plot",      "shapeNcut",
+#	"shell",       "statsMath", "transform", "well"
+#);
+#
+##my @CHILD_DIR_SPECS = (
+##	"big_streams"
+##);
+#
+#my @CHILD_DIR_SU = (
+#	"data",      "datum",     "filter",    "header",
+#	"inversion", "migration", "model",     "NMO_Vel_Stk",
+#	"par",       "plot",      "shapeNcut", "shell",
+#	"statsMath", "transform", "well"
+#);
+#
+#$L_SU_global_constants->{_PARENT_DIR_CONVERT} = \@PARENT_DIR_CONVERT;
+#$L_SU_global_constants->{_PARENT_DIR_GUI}     = \@PARENT_DIR_GUI;
+#$L_SU_global_constants->{_PARENT_DIR_TOOLS}   = \@PARENT_DIR_TOOLS;
+#$L_SU_global_constants->{_PARENT_DIR_SPECS}   = \@PARENT_DIR_SPECS;
+#$L_SU_global_constants->{_PARENT_DIR_SU}      = \@PARENT_DIR_SU;
+#$L_SU_global_constants->{_PARENT_DIR_GEN}     = \@PARENT_DIR_GEN;
+#$L_SU_global_constants->{_CHILD_DIR_CONVERT}  = \@CHILD_DIR_CONVERT;
+#$L_SU_global_constants->{_CHILD_DIR_GEN}      = \@CHILD_DIR_GEN;
+#$L_SU_global_constants->{_CHILD_DIR_GUI}      = \@CHILD_DIR_GUI;
+#$L_SU_global_constants->{_CHILD_DIR_TOOLS}    = \@CHILD_DIR_TOOLS;
+#$L_SU_global_constants->{_CHILD_DIR_SPECS}    = \@CHILD_DIR_SPECS;
+#$L_SU_global_constants->{_CHILD_DIR_SU}       = \@CHILD_DIR_SU;
 
 my @developer_sunix_categories;
 $developer_sunix_categories[0]  = 'data';
@@ -566,322 +541,323 @@ programs
 
 =cut
 
-my $developer_sunix_category_h = {
-
-	_ctrlstrip     => $developer_sunix_categories[0],
-	_data_in       => $developer_sunix_categories[0],
-	_data_out      => $developer_sunix_categories[0],
-	_dt1tosu       => $developer_sunix_categories[0],
-	_segbread      => $developer_sunix_categories[0],
-	_segdread      => $developer_sunix_categories[0],
-	_segyread      => $developer_sunix_categories[0],
-	_segyscan      => $developer_sunix_categories[0],
-	_segywrite     => $developer_sunix_categories[0],
-	_suoldtonew    => $developer_sunix_categories[0],
-	_supack1       => $developer_sunix_categories[0],
-	_supack2       => $developer_sunix_categories[0],
-	_suswapbytes   => $developer_sunix_categories[0],
-	_suunpack1     => $developer_sunix_categories[0],
-	_suunpack2     => $developer_sunix_categories[0],
-	_wpc1uncomp2   => $developer_sunix_categories[0],
-	_wpccompress   => $developer_sunix_categories[0],
-	_wpcuncompress => $developer_sunix_categories[0],
-	_wptcomp       => $developer_sunix_categories[0],
-	_wptuncomp     => $developer_sunix_categories[0],
-	_wtcomp        => $developer_sunix_categories[0],
-	_wtuncomp      => $developer_sunix_categories[0],
-
-	_sudatumk2dr => $developer_sunix_categories[1],
-	_sudatumk2ds => $developer_sunix_categories[1],
-	_sukdmdcr    => $developer_sunix_categories[1],
-	_sukdmdcs    => $developer_sunix_categories[1],
-
-	_subfilt      => $developer_sunix_categories[3],
-	_succfilt     => $developer_sunix_categories[3],
-	_sucddecon    => $developer_sunix_categories[3],
-	_sudipfilt    => $developer_sunix_categories[3],
-	_sueipofi     => $developer_sunix_categories[3],
-	_sufilter     => $developer_sunix_categories[3],
-	_sufrac       => $developer_sunix_categories[3],
-	_sufxdecon    => $developer_sunix_categories[3],
-	_suk1k2filter => $developer_sunix_categories[3],
-	_sukfilter    => $developer_sunix_categories[3],
-	_sulfaf       => $developer_sunix_categories[3],
-	_sumedian     => $developer_sunix_categories[3],
-	_supef        => $developer_sunix_categories[3],
-	_suphase      => $developer_sunix_categories[3],
-	_suphidecon   => $developer_sunix_categories[3],
-	_supofilt     => $developer_sunix_categories[3],
-	_supolar      => $developer_sunix_categories[3],
-	_susmgauss2   => $developer_sunix_categories[3],
-	_sutvband     => $developer_sunix_categories[3],
-
-	_segyclean    => $developer_sunix_categories[4],
-	_segyhdrmod   => $developer_sunix_categories[4],
-	_segyhdrs     => $developer_sunix_categories[4],
-	_setbhed      => $developer_sunix_categories[4],
-	_su3dchart    => $developer_sunix_categories[4],
-	_suabshw      => $developer_sunix_categories[4],
-	_suaddhead    => $developer_sunix_categories[4],
-	_suaddstatics => $developer_sunix_categories[4],
-	_suahw        => $developer_sunix_categories[4],
-	_suascii      => $developer_sunix_categories[4],
-	_suazimuth    => $developer_sunix_categories[4],
-	_sucdpbin     => $developer_sunix_categories[4],
-	_suchart      => $developer_sunix_categories[4],
-	_suchw        => $developer_sunix_categories[4],
-	_sucliphead   => $developer_sunix_categories[4],
-	_sucountkey   => $developer_sunix_categories[4],
-	_sudumptrace  => $developer_sunix_categories[4],
-	_suedit       => $developer_sunix_categories[4],
-	_sugethw      => $developer_sunix_categories[4],
-	_suhtmath     => $developer_sunix_categories[4],
-	_sukeycount   => $developer_sunix_categories[4],
-	_sulcthw      => $developer_sunix_categories[4],
-	_sulhead      => $developer_sunix_categories[4],
-	_supaste      => $developer_sunix_categories[4],
-	_surandhw     => $developer_sunix_categories[4],
-	_surange      => $developer_sunix_categories[4],
-	_susehw       => $developer_sunix_categories[4],
-	_sushw        => $developer_sunix_categories[4],
-	_sustatic     => $developer_sunix_categories[4],
-	_sustaticB    => $developer_sunix_categories[4],
-	_sustaticrrs  => $developer_sunix_categories[4],
-	_sustrip      => $developer_sunix_categories[4],
-	_sutrcount    => $developer_sunix_categories[4],
-	_suutm        => $developer_sunix_categories[4],
-	_suxedit      => $developer_sunix_categories[4],
-	_swapbhed     => $developer_sunix_categories[4],
-
-	_suinvco3d  => $developer_sunix_categories[5],
-	_suinvvxzco => $developer_sunix_categories[5],
-	_suinvzco3d => $developer_sunix_categories[5],
-
-	_sudatumfd    => $developer_sunix_categories[6],
-	_sugazmig     => $developer_sunix_categories[6],
-	_sukdmig2d    => $developer_sunix_categories[6],
-	_suktmig2d    => $developer_sunix_categories[6],
-	_sukdmig3d    => $developer_sunix_categories[6],
-	_sumigfd      => $developer_sunix_categories[6],
-	_sumigffd     => $developer_sunix_categories[6],
-	_sumiggbzo    => $developer_sunix_categories[6],
-	_sumiggbzoan  => $developer_sunix_categories[6],
-	_sumigprefd   => $developer_sunix_categories[6],
-	_sumigpreffd  => $developer_sunix_categories[6],
-	_sumigprepspi => $developer_sunix_categories[6],
-	_sumigpresp   => $developer_sunix_categories[6],
-	_sumigpspi    => $developer_sunix_categories[6],
-	_sumigpsti    => $developer_sunix_categories[6],
-	_sumigsplit   => $developer_sunix_categories[6],
-	_sumigtk      => $developer_sunix_categories[6],
-	_sumigtopo2d  => $developer_sunix_categories[6],
-	_sustolt      => $developer_sunix_categories[6],
-	_sutifowler   => $developer_sunix_categories[6],
-
-	_catsu     => $developer_sunix_categories[12],
-	_evince    => $developer_sunix_categories[12],
-	_sugetgthr => $developer_sunix_categories[12],
-	_suputgthr => $developer_sunix_categories[12],
-
-	_addrvl3d       => $developer_sunix_categories[7],
-	_cellauto       => $developer_sunix_categories[7],
-	_elacheck       => $developer_sunix_categories[7],
-	_elamodel       => $developer_sunix_categories[7],
-	_elaray         => $developer_sunix_categories[7],
-	_elasyn         => $developer_sunix_categories[7],
-	_elatriuni      => $developer_sunix_categories[7],
-	_gbbeam         => $developer_sunix_categories[7],
-	_grm            => $developer_sunix_categories[7],
-	_normray        => $developer_sunix_categories[7],
-	_raydata        => $developer_sunix_categories[7],
-	_suaddevent     => $developer_sunix_categories[7],
-	_suaddnoise     => $developer_sunix_categories[7],
-	_sudgwaveform   => $developer_sunix_categories[7],
-	_suea2df        => $developer_sunix_categories[7],
-	_sufctanismod   => $developer_sunix_categories[7],
-	_sufdmod1       => $developer_sunix_categories[7],
-	_sufdmod2       => $developer_sunix_categories[7],
-	_sufdmod2_pml   => $developer_sunix_categories[7],
-	_sugoupillaud   => $developer_sunix_categories[7],
-	_sugoupillaudpo => $developer_sunix_categories[7],
-	_suimp2d        => $developer_sunix_categories[7],
-	_suimp3d        => $developer_sunix_categories[7],
-	_suimpedance    => $developer_sunix_categories[7],
-	_sujitter       => $developer_sunix_categories[7],
-	_sukdsyn2d      => $developer_sunix_categories[7],
-	_sunull         => $developer_sunix_categories[7],
-	_suplane        => $developer_sunix_categories[7],
-	_surandspike    => $developer_sunix_categories[7],
-	_surandstat     => $developer_sunix_categories[7],
-	_suremac2d      => $developer_sunix_categories[7],
-	_suremel2dan    => $developer_sunix_categories[7],
-	_suspike        => $developer_sunix_categories[7],
-	_susyncz        => $developer_sunix_categories[7],
-	_susynlv        => $developer_sunix_categories[7],
-	_susynlvcw      => $developer_sunix_categories[7],
-	_susynlvfti     => $developer_sunix_categories[7],
-	_susynvxz       => $developer_sunix_categories[7],
-	_susynvxzcs     => $developer_sunix_categories[7],
-
-	_dzdv         => $developer_sunix_categories[8],
-	_sucvs4fowler => $developer_sunix_categories[8],
-	_sudivstack   => $developer_sunix_categories[8],
-	_sudmofk      => $developer_sunix_categories[8],
-	_sudmofkcw    => $developer_sunix_categories[8],
-	_sudmotivz    => $developer_sunix_categories[8],
-	_sudmotx      => $developer_sunix_categories[8],
-	_sudmovz      => $developer_sunix_categories[8],
-	_suilog       => $developer_sunix_categories[8],
-	_suintvel     => $developer_sunix_categories[8],
-	_sulog        => $developer_sunix_categories[8],
-	_sunmo        => $developer_sunix_categories[8],
-	_sunmo_a      => $developer_sunix_categories[8],
-	_supws        => $developer_sunix_categories[8],
-	_surecip      => $developer_sunix_categories[8],
-	_sureduce     => $developer_sunix_categories[8],
-	_surelan      => $developer_sunix_categories[8],
-	_surelanan    => $developer_sunix_categories[8],
-	_suresamp     => $developer_sunix_categories[8],
-	_sushift      => $developer_sunix_categories[8],
-	_sustack      => $developer_sunix_categories[8],
-	_sustkvel     => $developer_sunix_categories[8],
-	_sutaupnmo    => $developer_sunix_categories[8],
-	_sutihaledmo  => $developer_sunix_categories[8],
-	_sutivel      => $developer_sunix_categories[8],
-	_sutsq        => $developer_sunix_categories[8],
-	_suttoz       => $developer_sunix_categories[8],
-	_suvel2df     => $developer_sunix_categories[8],
-	_suvelan      => $developer_sunix_categories[8],
-	_suvelan_nccs => $developer_sunix_categories[8],
-	_suvelan_nsel => $developer_sunix_categories[8],
-	_suztot       => $developer_sunix_categories[8],
-
-	_a2b        => $developer_sunix_categories[9],
-	_a2i        => $developer_sunix_categories[9],
-	_b2a        => $developer_sunix_categories[9],
-	_bhedtopar  => $developer_sunix_categories[9],
-	_cshotplot  => $developer_sunix_categories[9],
-	_float2ibm  => $developer_sunix_categories[9],
-	_ftnstrip   => $developer_sunix_categories[9],
-	_ftnunstrip => $developer_sunix_categories[9],
-	_makevel    => $developer_sunix_categories[9],
-	_mkparfile  => $developer_sunix_categories[9],
-	_transp     => $developer_sunix_categories[9],
-	_unif2      => $developer_sunix_categories[9],
-	_unif2aniso => $developer_sunix_categories[9],
-	_unisam     => $developer_sunix_categories[9],
-	_vel2stiff  => $developer_sunix_categories[9],
-
-	_elaps  		 => $developer_sunix_categories[2],
-	_lcmap  		 => $developer_sunix_categories[2],
-	_lprop  		 => $developer_sunix_categories[2],
-	_psbbox 		 => $developer_sunix_categories[2],
-	_pscontour       => $developer_sunix_categories[2],
-	_pscube          => $developer_sunix_categories[2],
-	_pscubecontour   => $developer_sunix_categories[2],
-	_psepsi          => $developer_sunix_categories[2],
-	_psgraph         => $developer_sunix_categories[2],
-	_psimage         => $developer_sunix_categories[2],
-	_pslabel         => $developer_sunix_categories[2],
-	_psmanager       => $developer_sunix_categories[2],
-	_psmerge         => $developer_sunix_categories[2],
-	_psmovie         => $developer_sunix_categories[2],
-	_pswigb          => $developer_sunix_categories[2],
-	_pswigp          => $developer_sunix_categories[2],
-	_scmap           => $developer_sunix_categories[2],
-	_spsplot         => $developer_sunix_categories[2],
-	_supscontour     => $developer_sunix_categories[2],
-	_supscube        => $developer_sunix_categories[2],
-	_supscubecontour => $developer_sunix_categories[2],
-	_supsgraph       => $developer_sunix_categories[2],
-	_supsimage       => $developer_sunix_categories[2],
-	_supsmax         => $developer_sunix_categories[2],
-	_supsmovie       => $developer_sunix_categories[2],
-	_supswigb        => $developer_sunix_categories[2],
-	_supswigp        => $developer_sunix_categories[2],
-	_suxcontour      => $developer_sunix_categories[2],
-	_suxgraph        => $developer_sunix_categories[2],
-	_suximage        => $developer_sunix_categories[2],
-	_suxmax          => $developer_sunix_categories[2],
-	_suxmovie        => $developer_sunix_categories[2],
-	_suxpicker       => $developer_sunix_categories[2],
-	_suxwigb         => $developer_sunix_categories[2],
-	_xgraph          => $developer_sunix_categories[2],
-	_ximage          => $developer_sunix_categories[2],
-	_xmovie          => $developer_sunix_categories[2],
-	_xwigb           => $developer_sunix_categories[2],
-
-	_suflip  => $developer_sunix_categories[11],
-	_sugain  => $developer_sunix_categories[11],
-	_sugprfb => $developer_sunix_categories[11],
-	_sukill  => $developer_sunix_categories[11],
-	_sumute  => $developer_sunix_categories[11],
-	_susort  => $developer_sunix_categories[11],
-	_susplit => $developer_sunix_categories[11],
-	_suwind  => $developer_sunix_categories[11],
-
-	_cpftrend     => $developer_sunix_categories[13],
-	_entropy      => $developer_sunix_categories[13],
-	_farith       => $developer_sunix_categories[13],
-	_suacor       => $developer_sunix_categories[13],
-	_suacorfrac   => $developer_sunix_categories[13],
-	_sualford     => $developer_sunix_categories[13],
-	_suattributes => $developer_sunix_categories[13],
-	_suconv       => $developer_sunix_categories[13],
-	_sufwmix      => $developer_sunix_categories[13],
-	_suhistogram  => $developer_sunix_categories[13],
-	_suhrot       => $developer_sunix_categories[13],
-	_suinterp     => $developer_sunix_categories[13],
-	_sumax        => $developer_sunix_categories[13],
-	_sumean       => $developer_sunix_categories[13],
-	_sumix        => $developer_sunix_categories[13],
-	_suop         => $developer_sunix_categories[13],
-	_suop2        => $developer_sunix_categories[13],
-	_suxcor       => $developer_sunix_categories[13],
-	_suxmax       => $developer_sunix_categories[13],
-
-	_dctcomp     => $developer_sunix_categories[14],
-	_suamp       => $developer_sunix_categories[14],
-	_succepstrum => $developer_sunix_categories[14],
-	_sucepstrum  => $developer_sunix_categories[14],
-	_sucwt       => $developer_sunix_categories[14],
-	_succwt      => $developer_sunix_categories[14],
-	_sufft       => $developer_sunix_categories[14],
-	_sugabor     => $developer_sunix_categories[14],
-	_suicepstrum => $developer_sunix_categories[14],
-	_suifft      => $developer_sunix_categories[14],
-	_suphasevel  => $developer_sunix_categories[14],
-	_suspecfk    => $developer_sunix_categories[14],
-	_suspecfx    => $developer_sunix_categories[14],
-	_sutaup      => $developer_sunix_categories[14],
-
-	_las2su    => $developer_sunix_categories[15],
-	_subackus  => $developer_sunix_categories[15],
-	_subackush => $developer_sunix_categories[15],
-	_sugassman => $developer_sunix_categories[15],
-	_sulprime  => $developer_sunix_categories[15],
-	_suwellrf  => $developer_sunix_categories[15],
-
-};
-
 =head2 sub get_developer_sunix_category
 =cut
 
 sub get_developer_sunix_category_h {
 
 	my ($self) = @_;
+	my $developer_sunix_category_h = {
+
+		_ctrlstrip     => $developer_sunix_categories[0],
+		_data_in       => $developer_sunix_categories[0],
+		_data_out      => $developer_sunix_categories[0],
+		_dt1tosu       => $developer_sunix_categories[0],
+		_segbread      => $developer_sunix_categories[0],
+		_segdread      => $developer_sunix_categories[0],
+		_segyread      => $developer_sunix_categories[0],
+		_segyscan      => $developer_sunix_categories[0],
+		_segywrite     => $developer_sunix_categories[0],
+		_suoldtonew    => $developer_sunix_categories[0],
+		_supack1       => $developer_sunix_categories[0],
+		_supack2       => $developer_sunix_categories[0],
+		_suswapbytes   => $developer_sunix_categories[0],
+		_suunpack1     => $developer_sunix_categories[0],
+		_suunpack2     => $developer_sunix_categories[0],
+		_wpc1uncomp2   => $developer_sunix_categories[0],
+		_wpccompress   => $developer_sunix_categories[0],
+		_wpcuncompress => $developer_sunix_categories[0],
+		_wptcomp       => $developer_sunix_categories[0],
+		_wptuncomp     => $developer_sunix_categories[0],
+		_wtcomp        => $developer_sunix_categories[0],
+		_wtuncomp      => $developer_sunix_categories[0],
+
+		_sudatumk2dr => $developer_sunix_categories[1],
+		_sudatumk2ds => $developer_sunix_categories[1],
+		_sukdmdcr    => $developer_sunix_categories[1],
+		_sukdmdcs    => $developer_sunix_categories[1],
+
+		_subfilt      => $developer_sunix_categories[3],
+		_succfilt     => $developer_sunix_categories[3],
+		_sucddecon    => $developer_sunix_categories[3],
+		_sudipfilt    => $developer_sunix_categories[3],
+		_sueipofi     => $developer_sunix_categories[3],
+		_sufilter     => $developer_sunix_categories[3],
+		_sufrac       => $developer_sunix_categories[3],
+		_sufxdecon    => $developer_sunix_categories[3],
+		_suk1k2filter => $developer_sunix_categories[3],
+		_sukfilter    => $developer_sunix_categories[3],
+		_sulfaf       => $developer_sunix_categories[3],
+		_sumedian     => $developer_sunix_categories[3],
+		_supef        => $developer_sunix_categories[3],
+		_suphase      => $developer_sunix_categories[3],
+		_suphidecon   => $developer_sunix_categories[3],
+		_supofilt     => $developer_sunix_categories[3],
+		_supolar      => $developer_sunix_categories[3],
+		_susmgauss2   => $developer_sunix_categories[3],
+		_sutvband     => $developer_sunix_categories[3],
+
+		_segyclean    => $developer_sunix_categories[4],
+		_segyhdrmod   => $developer_sunix_categories[4],
+		_segyhdrs     => $developer_sunix_categories[4],
+		_setbhed      => $developer_sunix_categories[4],
+		_su3dchart    => $developer_sunix_categories[4],
+		_suabshw      => $developer_sunix_categories[4],
+		_suaddhead    => $developer_sunix_categories[4],
+		_suaddstatics => $developer_sunix_categories[4],
+		_suahw        => $developer_sunix_categories[4],
+		_suascii      => $developer_sunix_categories[4],
+		_suazimuth    => $developer_sunix_categories[4],
+		_sucdpbin     => $developer_sunix_categories[4],
+		_suchart      => $developer_sunix_categories[4],
+		_suchw        => $developer_sunix_categories[4],
+		_sucliphead   => $developer_sunix_categories[4],
+		_sucountkey   => $developer_sunix_categories[4],
+		_sudumptrace  => $developer_sunix_categories[4],
+		_suedit       => $developer_sunix_categories[4],
+		_sugethw      => $developer_sunix_categories[4],
+		_suhtmath     => $developer_sunix_categories[4],
+		_sukeycount   => $developer_sunix_categories[4],
+		_sulcthw      => $developer_sunix_categories[4],
+		_sulhead      => $developer_sunix_categories[4],
+		_supaste      => $developer_sunix_categories[4],
+		_surandhw     => $developer_sunix_categories[4],
+		_surange      => $developer_sunix_categories[4],
+		_susehw       => $developer_sunix_categories[4],
+		_sushw        => $developer_sunix_categories[4],
+		_sustatic     => $developer_sunix_categories[4],
+		_sustaticB    => $developer_sunix_categories[4],
+		_sustaticrrs  => $developer_sunix_categories[4],
+		_sustrip      => $developer_sunix_categories[4],
+		_sutrcount    => $developer_sunix_categories[4],
+		_suutm        => $developer_sunix_categories[4],
+		_suxedit      => $developer_sunix_categories[4],
+		_swapbhed     => $developer_sunix_categories[4],
+
+		_suinvco3d  => $developer_sunix_categories[5],
+		_suinvvxzco => $developer_sunix_categories[5],
+		_suinvzco3d => $developer_sunix_categories[5],
+
+		_sudatumfd    => $developer_sunix_categories[6],
+		_sugazmig     => $developer_sunix_categories[6],
+		_sukdmig2d    => $developer_sunix_categories[6],
+		_suktmig2d    => $developer_sunix_categories[6],
+		_sukdmig3d    => $developer_sunix_categories[6],
+		_sumigfd      => $developer_sunix_categories[6],
+		_sumigffd     => $developer_sunix_categories[6],
+		_sumiggbzo    => $developer_sunix_categories[6],
+		_sumiggbzoan  => $developer_sunix_categories[6],
+		_sumigprefd   => $developer_sunix_categories[6],
+		_sumigpreffd  => $developer_sunix_categories[6],
+		_sumigprepspi => $developer_sunix_categories[6],
+		_sumigpresp   => $developer_sunix_categories[6],
+		_sumigpspi    => $developer_sunix_categories[6],
+		_sumigpsti    => $developer_sunix_categories[6],
+		_sumigsplit   => $developer_sunix_categories[6],
+		_sumigtk      => $developer_sunix_categories[6],
+		_sumigtopo2d  => $developer_sunix_categories[6],
+		_sustolt      => $developer_sunix_categories[6],
+		_sutifowler   => $developer_sunix_categories[6],
+
+		_catsu     => $developer_sunix_categories[12],
+		_evince    => $developer_sunix_categories[12],
+		_sugetgthr => $developer_sunix_categories[12],
+		_suputgthr => $developer_sunix_categories[12],
+
+		_addrvl3d       => $developer_sunix_categories[7],
+		_cellauto       => $developer_sunix_categories[7],
+		_elacheck       => $developer_sunix_categories[7],
+		_elamodel       => $developer_sunix_categories[7],
+		_elaray         => $developer_sunix_categories[7],
+		_elasyn         => $developer_sunix_categories[7],
+		_elatriuni      => $developer_sunix_categories[7],
+		_gbbeam         => $developer_sunix_categories[7],
+		_grm            => $developer_sunix_categories[7],
+		_normray        => $developer_sunix_categories[7],
+		_raydata        => $developer_sunix_categories[7],
+		_suaddevent     => $developer_sunix_categories[7],
+		_suaddnoise     => $developer_sunix_categories[7],
+		_sudgwaveform   => $developer_sunix_categories[7],
+		_suea2df        => $developer_sunix_categories[7],
+		_sufctanismod   => $developer_sunix_categories[7],
+		_sufdmod1       => $developer_sunix_categories[7],
+		_sufdmod2       => $developer_sunix_categories[7],
+		_sufdmod2_pml   => $developer_sunix_categories[7],
+		_sugoupillaud   => $developer_sunix_categories[7],
+		_sugoupillaudpo => $developer_sunix_categories[7],
+		_suimp2d        => $developer_sunix_categories[7],
+		_suimp3d        => $developer_sunix_categories[7],
+		_suimpedance    => $developer_sunix_categories[7],
+		_sujitter       => $developer_sunix_categories[7],
+		_sukdsyn2d      => $developer_sunix_categories[7],
+		_sunull         => $developer_sunix_categories[7],
+		_suplane        => $developer_sunix_categories[7],
+		_surandspike    => $developer_sunix_categories[7],
+		_surandstat     => $developer_sunix_categories[7],
+		_suremac2d      => $developer_sunix_categories[7],
+		_suremel2dan    => $developer_sunix_categories[7],
+		_suspike        => $developer_sunix_categories[7],
+		_susyncz        => $developer_sunix_categories[7],
+		_susynlv        => $developer_sunix_categories[7],
+		_susynlvcw      => $developer_sunix_categories[7],
+		_susynlvfti     => $developer_sunix_categories[7],
+		_susynvxz       => $developer_sunix_categories[7],
+		_susynvxzcs     => $developer_sunix_categories[7],
+
+		_dzdv         => $developer_sunix_categories[8],
+		_sucvs4fowler => $developer_sunix_categories[8],
+		_sudivstack   => $developer_sunix_categories[8],
+		_sudmofk      => $developer_sunix_categories[8],
+		_sudmofkcw    => $developer_sunix_categories[8],
+		_sudmotivz    => $developer_sunix_categories[8],
+		_sudmotx      => $developer_sunix_categories[8],
+		_sudmovz      => $developer_sunix_categories[8],
+		_suilog       => $developer_sunix_categories[8],
+		_suintvel     => $developer_sunix_categories[8],
+		_sulog        => $developer_sunix_categories[8],
+		_sunmo        => $developer_sunix_categories[8],
+		_sunmo_a      => $developer_sunix_categories[8],
+		_supws        => $developer_sunix_categories[8],
+		_surecip      => $developer_sunix_categories[8],
+		_sureduce     => $developer_sunix_categories[8],
+		_surelan      => $developer_sunix_categories[8],
+		_surelanan    => $developer_sunix_categories[8],
+		_suresamp     => $developer_sunix_categories[8],
+		_sushift      => $developer_sunix_categories[8],
+		_sustack      => $developer_sunix_categories[8],
+		_sustkvel     => $developer_sunix_categories[8],
+		_sutaupnmo    => $developer_sunix_categories[8],
+		_sutihaledmo  => $developer_sunix_categories[8],
+		_sutivel      => $developer_sunix_categories[8],
+		_sutsq        => $developer_sunix_categories[8],
+		_suttoz       => $developer_sunix_categories[8],
+		_suvel2df     => $developer_sunix_categories[8],
+		_suvelan      => $developer_sunix_categories[8],
+		_suvelan_nccs => $developer_sunix_categories[8],
+		_suvelan_nsel => $developer_sunix_categories[8],
+		_suztot       => $developer_sunix_categories[8],
+
+		_a2b        => $developer_sunix_categories[9],
+		_a2i        => $developer_sunix_categories[9],
+		_b2a        => $developer_sunix_categories[9],
+		_bhedtopar  => $developer_sunix_categories[9],
+		_cshotplot  => $developer_sunix_categories[9],
+		_float2ibm  => $developer_sunix_categories[9],
+		_ftnstrip   => $developer_sunix_categories[9],
+		_ftnunstrip => $developer_sunix_categories[9],
+		_makevel    => $developer_sunix_categories[9],
+		_mkparfile  => $developer_sunix_categories[9],
+		_transp     => $developer_sunix_categories[9],
+		_unif2      => $developer_sunix_categories[9],
+		_unif2aniso => $developer_sunix_categories[9],
+		_unisam     => $developer_sunix_categories[9],
+		_vel2stiff  => $developer_sunix_categories[9],
+
+		_elaps           => $developer_sunix_categories[2],
+		_lcmap           => $developer_sunix_categories[2],
+		_lprop           => $developer_sunix_categories[2],
+		_psbbox          => $developer_sunix_categories[2],
+		_pscontour       => $developer_sunix_categories[2],
+		_pscube          => $developer_sunix_categories[2],
+		_pscubecontour   => $developer_sunix_categories[2],
+		_psepsi          => $developer_sunix_categories[2],
+		_psgraph         => $developer_sunix_categories[2],
+		_psimage         => $developer_sunix_categories[2],
+		_pslabel         => $developer_sunix_categories[2],
+		_psmanager       => $developer_sunix_categories[2],
+		_psmerge         => $developer_sunix_categories[2],
+		_psmovie         => $developer_sunix_categories[2],
+		_pswigb          => $developer_sunix_categories[2],
+		_pswigp          => $developer_sunix_categories[2],
+		_scmap           => $developer_sunix_categories[2],
+		_spsplot         => $developer_sunix_categories[2],
+		_supscontour     => $developer_sunix_categories[2],
+		_supscube        => $developer_sunix_categories[2],
+		_supscubecontour => $developer_sunix_categories[2],
+		_supsgraph       => $developer_sunix_categories[2],
+		_supsimage       => $developer_sunix_categories[2],
+		_supsmax         => $developer_sunix_categories[2],
+		_supsmovie       => $developer_sunix_categories[2],
+		_supswigb        => $developer_sunix_categories[2],
+		_supswigp        => $developer_sunix_categories[2],
+		_suxcontour      => $developer_sunix_categories[2],
+		_suxgraph        => $developer_sunix_categories[2],
+		_suximage        => $developer_sunix_categories[2],
+		_suxmax          => $developer_sunix_categories[2],
+		_suxmovie        => $developer_sunix_categories[2],
+		_suxpicker       => $developer_sunix_categories[2],
+		_suxwigb         => $developer_sunix_categories[2],
+		_xgraph          => $developer_sunix_categories[2],
+		_ximage          => $developer_sunix_categories[2],
+		_xmovie          => $developer_sunix_categories[2],
+		_xwigb           => $developer_sunix_categories[2],
+
+		_suflip  => $developer_sunix_categories[11],
+		_sugain  => $developer_sunix_categories[11],
+		_sugprfb => $developer_sunix_categories[11],
+		_sukill  => $developer_sunix_categories[11],
+		_sumute  => $developer_sunix_categories[11],
+		_supad   => $developer_sunix_categories[11],		
+		_susort  => $developer_sunix_categories[11],
+		_susplit => $developer_sunix_categories[11],
+		_suvcat  => $developer_sunix_categories[11],
+		_suwind  => $developer_sunix_categories[11],
+
+		_cpftrend     => $developer_sunix_categories[13],
+		_entropy      => $developer_sunix_categories[13],
+		_farith       => $developer_sunix_categories[13],
+		_suacor       => $developer_sunix_categories[13],
+		_suacorfrac   => $developer_sunix_categories[13],
+		_sualford     => $developer_sunix_categories[13],
+		_suattributes => $developer_sunix_categories[13],
+		_suconv       => $developer_sunix_categories[13],
+		_sufwmix      => $developer_sunix_categories[13],
+		_suhistogram  => $developer_sunix_categories[13],
+		_suhrot       => $developer_sunix_categories[13],
+		_suinterp     => $developer_sunix_categories[13],
+		_sumax        => $developer_sunix_categories[13],
+		_sumean       => $developer_sunix_categories[13],
+		_sumix        => $developer_sunix_categories[13],
+		_suop         => $developer_sunix_categories[13],
+		_suop2        => $developer_sunix_categories[13],
+		_suxcor       => $developer_sunix_categories[13],
+		_suxmax       => $developer_sunix_categories[13],
+
+		_dctcomp     => $developer_sunix_categories[14],
+		_suamp       => $developer_sunix_categories[14],
+		_succepstrum => $developer_sunix_categories[14],
+		_sucepstrum  => $developer_sunix_categories[14],
+		_sucwt       => $developer_sunix_categories[14],
+		_succwt      => $developer_sunix_categories[14],
+		_sufft       => $developer_sunix_categories[14],
+		_sugabor     => $developer_sunix_categories[14],
+		_suicepstrum => $developer_sunix_categories[14],
+		_suifft      => $developer_sunix_categories[14],
+		_suphasevel  => $developer_sunix_categories[14],
+		_suspecfk    => $developer_sunix_categories[14],
+		_suspecfx    => $developer_sunix_categories[14],
+		_sutaup      => $developer_sunix_categories[14],
+
+		_las2su    => $developer_sunix_categories[15],
+		_subackus  => $developer_sunix_categories[15],
+		_subackush => $developer_sunix_categories[15],
+		_sugassman => $developer_sunix_categories[15],
+		_sulprime  => $developer_sunix_categories[15],
+		_suwellrf  => $developer_sunix_categories[15],
+
+	};
 
 	return ($developer_sunix_category_h);
 
 }
+
 my @sunix_data_programs = (
-	"ctrlstrip", "data_in", "data_out", "dt1tosu",
-	"segbread", "segdread", "segyread", "segyscan",
-	"segywrite",
-	"suoldtonew", "supack1", "supack2", "suswapbytes",
-	"suunpack1", "suunpack2", "wpc1uncomp2", "wpccompress",
-	"wpcuncompress", "wptcomp", "wptuncomp", "wtcomp",
-	"wtuncomp",
+	"ctrlstrip",   "data_in",       "data_out",  "dt1tosu",
+	"segbread",    "segdread",      "segyread",  "segyscan",
+	"segywrite",   "suoldtonew",    "supack1",   "supack2",
+	"suswapbytes", "suunpack1",     "suunpack2", "wpc1uncomp2",
+	"wpccompress", "wpcuncompress", "wptcomp",   "wptuncomp",
+	"wtcomp",      "wtuncomp",
 );
 
 my @sunix_datum_programs =
@@ -896,16 +872,16 @@ my @sunix_filter_programs = (
 );
 
 my @sunix_header_programs = (
-	"segyclean", "segyhdrmod", "segyhdrs", "setbhed",
-	"segyhdrs",
-	"su3dchart", "suabshw", "suaddhead", "suaddstatics",
-	"suahw", "suascii", "suazimuth", "sucdpbin",
-	"suchart", "suchw", "sucliphead", "sucountkey",
-	"sudumptrace", "suedit", "sugethw", "suhtmath",
-	"sukeycount", "sulcthw", "sulhead", "supaste",
-	"surandhw", "surange", "susehw", "sushw",
-	"sustatic", "sustaticB", "sustaticrrs", "sustrip",
-	"sutrcount", "suutm", "suxedit", "swapbhed",
+	"segyclean",    "segyhdrmod",  "segyhdrs",  "setbhed",
+	"su3dchart",   "suabshw",   "suaddhead",
+	"suaddstatics", "suahw",       "suascii",   "suazimuth",
+	"sucdpbin",     "suchart",     "suchw",     "sucliphead",
+	"sucountkey",   "sudumptrace", "suedit",    "sugethw",
+	"suhtmath",     "sukeycount",  "sulcthw",   "sulhead",
+	"supaste",      "surandhw",    "surange",   "susehw",
+	"sushw",        "sustatic",    "sustaticB", "sustaticrrs",
+	"sustrip",      "sutrcount",   "suutm",     "suxedit",
+	"swapbhed",
 );
 
 my @sunix_inversion_programs = ( "suinvco3d", "suinvvxzco", "suinvzco3d", );
@@ -976,6 +952,8 @@ my @sunix_plot_programs = (
 my @sunix_shapeNcut_programs = (
 	"suflip", "sugain", "sugprfb", "sukill",
 	"sumute", "susort", "susplit", "suwind",
+	"supad",
+	"suvcat",
 );
 
 my @sunix_statsMath_programs = (
@@ -1013,260 +991,292 @@ $var->{_sunix_statsMath_programs}   = \@sunix_statsMath_programs;
 $var->{_sunix_transform_programs}   = \@sunix_transform_programs;
 $var->{_sunix_well_programs}        = \@sunix_well_programs;
 
-sub _get_path4SeismicUnixGui {
-	my ($self) = @_;
-	if ( length $path4SeismicUnixGui ) {
-
-		my $result = $path4SeismicUnixGui;
-		return ($result);
-
-	}
-	else {
-		print(
-			"L_SU_global_constants, _get_path4SeismicUnixGui,missing variable\n"
-		);
-	}
-	return ();
-}
-
-=head2 sub _get_path4spec_file
-
-Find a path for
-
-a given spec file
-
-=cut
-
-sub _get_path4spec_file {
-
+sub _get_global_libs {
 	my (@self) = @_;
 
-	if ( length $L_SU_global_constants->{_file_name} ) {
+	# empty string is predefined herein
+	if ( length $L_SU ) {
 
-		my $file_name = $L_SU_global_constants->{_file_name};
-		my $result;
+		#			print("L_SU_global_constants my L_SU = $L_SU\n");
 
-=head2 Collect parameters from local hash
+		my $global_libs = {
+			_configs             => $L_SU . '/configs',
+			_configs_big_streams => $L_SU . '/configs/big_streams',
+			_developer           => $L_SU . '/developer/Stripped',
+			_misc                => $L_SU . '/misc',
+			_param               => $L_SU . '/configs/',
+			_script              => $L_SU . '/script/',
+			_specs               => $L_SU . '/specs',
+			_sunix               => $L_SU . '/sunix',
+			_big_streams         => $L_SU . '/big_streams/',
+			_images              => $L_SU . '/images/',
+			_default_path        => './',
+		};
 
-=cut
-
-		my $GRANDPARENT_DIR  = $path4SeismicUnixGui;
-		my @PARENT_DIR_SPECS = @{ $L_SU_global_constants->{_PARENT_DIR_SPECS} };
-		my @CHILD_DIR_SPECS  = @{ $L_SU_global_constants->{_CHILD_DIR_SPECS} };
-
-=head2 Collect relevant "spec"
-
- project paths and files
-
-=cut
-
-		my ( $result_aref3, $dimensions_aref ) = _get_specs_pathNfile2search();
-		my @result_aref2                     = @$result_aref3;
-		my @directory_contents_specs         = @{ $result_aref2[0] };
-		my @dimension                        = @$dimensions_aref;
-		my $parent_directory_specs_number_of = $dimension[0];
-		my $child_directory_specs_number_of  = $dimension[1];
-
-# test
-#		my $parent_specs = 1;
-#		my $child_specs  = 1;
-#		print(
-#"\nFor specs directory paths: $PARENT_DIR_SPECS[$parent_specs]::$CHILD_DIR_SPECS[$child_specs]::\n"
-#		);
-#		print("@{$directory_contents_specs[$parent_specs][$child_specs]}\n");
-
-=head2 Search all "spec"-relevant 
-
-directories start with 
-gui drectory listing
-
-=cut
-
-		for (
-			my $parent = 0 ;
-			$parent < $parent_directory_specs_number_of ;
-			$parent++
-		  )
-		{
-
-			for (
-				my $child = 0 ;
-				$child < $child_directory_specs_number_of ;
-				$child++
-			  )
-			{
-
-				my $directory_list_aref =
-				  $directory_contents_specs[$parent][$child];
-				my @directory_list = @$directory_list_aref;
-
-				my $length_directory_list = scalar @directory_list;
-
-				#				print("@{$directory_contents_specs[$parent][$child]}\n");
-				#				print("file_name=$file_name\n");
-				for ( my $i = 0 ; $i < $length_directory_list ; $i++ ) {
-
-					if ( not $file_name eq $directory_list[$i] ) {
-
-						next;
-
-					}
-					elsif ( $file_name eq $directory_list[$i] ) {
-
-		#						print(
-		#"L_SU_global_constants,_get_path4spec_file,found the file $file_name in
-		#				  			  $PARENT_DIR_SPECS[$parent]::$CHILD_DIR_SPECS[$child]\n"
-		#						);
-						$result =
-							$path4SeismicUnixGui . '/'
-						  . $PARENT_DIR_SPECS[$parent] . '/'
-						  . $CHILD_DIR_SPECS[$child];
-
-						return ($result);
-					}
-					else {
-						print("change_a_line, unexpected value\n");
-						return ();
-					}
-				}
-
-			}
-		}
+		return ($global_libs);
 
 	}
 	else {
-		print("L_SU_global_constants,__get_path4spec_file,file_name_missing\n");
+		print("L_SU_global_constants, global_libs, L_SU is missing\n");
 		return ();
 	}
+
 }
-
-=head2 sub _get_path4su_file
-
-Find a path for
-
-a given spec file
-
-=cut
-
-sub _get_path4su_file {
-
-	my (@self) = @_;
-
-	if ( length $L_SU_global_constants->{_file_name} ) {
-
-		my $file_name = $L_SU_global_constants->{_file_name};
-		my $result;
-
-=head2 Collect parameters from local hash
-
-=cut
-
-		my $GRANDPARENT_DIR  = $path4SeismicUnixGui;
-		my @PARENT_DIR_SPECS = @{ $L_SU_global_constants->{_PARENT_DIR_SPECS} };
-		my @CHILD_DIR_SPECS  = @{ $L_SU_global_constants->{_CHILD_DIR_SPECS} };
-
-=head2 Collect relevant "spec"
-
- project paths and files
-
-=cut
-
-		my ( $result_aref3, $dimensions_aref ) = _get_su_pathNfile2search();
-		my @result_aref2                  = @$result_aref3;
-		my @directory_contents_su         = @{ $result_aref2[0] };
-		my @dimension                     = @$dimensions_aref;
-		my $parent_directory_su_number_of = $dimension[0];
-		my $child_directory_su_number_of  = $dimension[1];
-
-# test
-#		my $parent_su = 1;
-#		my $child_su  = 1;
+#
+#sub _get_path4SeismicUnixGui {
+#	my ($self) = @_;
+#	if ( length $path4SeismicUnixGui ) {
+#
+#		my $result = $path4SeismicUnixGui;
+#		return ($result);
+#
+#	}
+#	else {
 #		print(
-#"\nFor su directory paths: $PARENT_DIR_SPECS[$parent_su]::$CHILD_DIR_SPECS[$child_su]::\n"
+#			"L_SU_global_constants, _get_path4SeismicUnixGui,missing variable\n"
 #		);
-#		print("@{$directory_contents_su[$parent_su][$child_su]}\n");
+#	}
+#	return ();
+#}
+#
+#=head2 sub _get_path4spec_file
+#
+#Find a path for
+#
+#a given spec file
+#
+#=cut
+#
+#sub _get_path4spec_file {
+#
+#	my (@self) = @_;
+#
+#	if ( length $L_SU_global_constants->{_file_name} ) {
+#
+#		my $file_name = $L_SU_global_constants->{_file_name};
+#		my $result;
+#
+#=head2 Collect parameters from local hash
+#
+#=cut
+#
+#		my $GRANDPARENT_DIR  = $path4SeismicUnixGui;
+#		my @PARENT_DIR_SPECS = @{ $L_SU_global_constants->{_PARENT_DIR_SPECS} };
+#		my @CHILD_DIR_SPECS  = @{ $L_SU_global_constants->{_CHILD_DIR_SPECS} };
+#
+#=head2 Collect relevant "spec"
+#
+# project paths and files
+#
+#=cut
+#
+#		my ( $result_aref3, $dimensions_aref ) = _get_specs_pathNfile2search();
+#		my @result_aref2                     = @$result_aref3;
+#		my @directory_contents_specs         = @{ $result_aref2[0] };
+#		my @dimension                        = @$dimensions_aref;
+#		my $parent_directory_specs_number_of = $dimension[0];
+#		my $child_directory_specs_number_of  = $dimension[1];
+#
+## test
+##		my $parent_specs = 1;
+##		my $child_specs  = 1;
+##		print(
+##"\nFor specs directory paths: $PARENT_DIR_SPECS[$parent_specs]::$CHILD_DIR_SPECS[$child_specs]::\n"
+##		);
+##		print("@{$directory_contents_specs[$parent_specs][$child_specs]}\n");
+#
+#=head2 Search all "spec"-relevant 
+#
+#directories start with 
+#gui drectory listing
+#
+#=cut
+#
+#		for (
+#			my $parent = 0 ;
+#			$parent < $parent_directory_specs_number_of ;
+#			$parent++
+#		  )
+#		{
+#
+#			for (
+#				my $child = 0 ;
+#				$child < $child_directory_specs_number_of ;
+#				$child++
+#			  )
+#			{
+#
+#				my $directory_list_aref =
+#				  $directory_contents_specs[$parent][$child];
+#				my @directory_list = @$directory_list_aref;
+#
+#				my $length_directory_list = scalar @directory_list;
+#
+#				#				print("@{$directory_contents_specs[$parent][$child]}\n");
+#				#				print("file_name=$file_name\n");
+#				for ( my $i = 0 ; $i < $length_directory_list ; $i++ ) {
+#
+#					if ( not $file_name eq $directory_list[$i] ) {
+#
+#						next;
+#
+#					}
+#					elsif ( $file_name eq $directory_list[$i] ) {
+#
+#		#						print(
+#		#"L_SU_global_constants,_get_path4spec_file,found the file $file_name in
+#		#				  			  $PARENT_DIR_SPECS[$parent]::$CHILD_DIR_SPECS[$child]\n"
+#		#						);
+#						$result =
+#							$path4SeismicUnixGui . '/'
+#						  . $PARENT_DIR_SPECS[$parent] . '/'
+#						  . $CHILD_DIR_SPECS[$child];
+#
+#						return ($result);
+#					}
+#					else {
+#						print("change_a_line, unexpected value\n");
+#						return ();
+#					}
+#				}
+#
+#			}
+#		}
+#
+#	}
+#	else {
+#		print("L_SU_global_constants,__get_path4spec_file,file_name_missing\n");
+#		return ();
+#	}
+#}
+#
+#=head2 sub _get_path4su_file
+#
+#Find a path for
+#
+#a given spec file
+#
+#=cut
+#
+#sub _get_path4su_file {
+#
+#	my (@self) = @_;
+#
+#	if ( length $L_SU_global_constants->{_file_name} ) {
+#
+#		my $file_name = $L_SU_global_constants->{_file_name};
+#		my $result;
+#
+#=head2 Collect parameters from local hash
+#
+#=cut
+#
+#		my $GRANDPARENT_DIR  = $path4SeismicUnixGui;
+#		my @PARENT_DIR_SPECS = @{ $L_SU_global_constants->{_PARENT_DIR_SPECS} };
+#		my @CHILD_DIR_SPECS  = @{ $L_SU_global_constants->{_CHILD_DIR_SPECS} };
+#
+#=head2 Collect relevant "spec"
+#
+# project paths and files
+#
+#=cut
+#
+#		my ( $result_aref3, $dimensions_aref ) = _get_su_pathNfile2search();
+#		my @result_aref2                  = @$result_aref3;
+#		my @directory_contents_su         = @{ $result_aref2[0] };
+#		my @dimension                     = @$dimensions_aref;
+#		my $parent_directory_su_number_of = $dimension[0];
+#		my $child_directory_su_number_of  = $dimension[1];
+#
+## test
+##		my $parent_su = 1;
+##		my $child_su  = 1;
+##		print(
+##"\nFor su directory paths: $PARENT_DIR_SPECS[$parent_su]::$CHILD_DIR_SPECS[$child_su]::\n"
+##		);
+##		print("@{$directory_contents_su[$parent_su][$child_su]}\n");
+#
+#=head2 Search all "spec"-relevant 
+#
+#directories start with 
+#gui drectory listing
+#
+#=cut
+#
+#		for (
+#			my $parent = 0 ;
+#			$parent < $parent_directory_su_number_of ;
+#			$parent++
+#		  )
+#		{
+#
+#			for (
+#				my $child = 0 ;
+#				$child < $child_directory_su_number_of ;
+#				$child++
+#			  )
+#			{
+#
+#				my $directory_list_aref =
+#				  $directory_contents_su[$parent][$child];
+#				my @directory_list = @$directory_list_aref;
+#
+#				my $length_directory_list = scalar @directory_list;
+#
+#				#				print("@{$directory_contents_su[$parent][$child]}\n");
+#				#				print("file_name=$file_name\n");
+#				for ( my $i = 0 ; $i < $length_directory_list ; $i++ ) {
+#
+#					if ( not $file_name eq $directory_list[$i] ) {
+#
+#						next;
+#
+#					}
+#					elsif ( $file_name eq $directory_list[$i] ) {
+#
+#		#						print(
+#		#"L_SU_global_constants,_get_path4spec_file,found the file $file_name in
+#		#				  			  $PARENT_DIR_SPECS[$parent]::$CHILD_DIR_SPECS[$child]\n"
+#		#						);
+#						$result =
+#							$path4SeismicUnixGui . '/'
+#						  . $PARENT_DIR_SPECS[$parent] . '/'
+#						  . $CHILD_DIR_SPECS[$child];
+#
+#						return ($result);
+#					}
+#					else {
+#						print("change_a_line, unexpected value\n");
+#						return ();
+#					}
+#				}
+#
+#			}
+#		}
+#
+#	}
+#	else {
+#		print("L_SU_global_constants,__get_path4spec_file,file_name_missing\n");
+#		return ();
+#	}
+#}
 
-=head2 Search all "spec"-relevant 
-
-directories start with 
-gui drectory listing
-
-=cut
-
-		for (
-			my $parent = 0 ;
-			$parent < $parent_directory_su_number_of ;
-			$parent++
-		  )
-		{
-
-			for (
-				my $child = 0 ;
-				$child < $child_directory_su_number_of ;
-				$child++
-			  )
-			{
-
-				my $directory_list_aref =
-				  $directory_contents_su[$parent][$child];
-				my @directory_list = @$directory_list_aref;
-
-				my $length_directory_list = scalar @directory_list;
-
-				#				print("@{$directory_contents_su[$parent][$child]}\n");
-				#				print("file_name=$file_name\n");
-				for ( my $i = 0 ; $i < $length_directory_list ; $i++ ) {
-
-					if ( not $file_name eq $directory_list[$i] ) {
-
-						next;
-
-					}
-					elsif ( $file_name eq $directory_list[$i] ) {
-
-		#						print(
-		#"L_SU_global_constants,_get_path4spec_file,found the file $file_name in
-		#				  			  $PARENT_DIR_SPECS[$parent]::$CHILD_DIR_SPECS[$child]\n"
-		#						);
-						$result =
-							$path4SeismicUnixGui . '/'
-						  . $PARENT_DIR_SPECS[$parent] . '/'
-						  . $CHILD_DIR_SPECS[$child];
-
-						return ($result);
-					}
-					else {
-						print("change_a_line, unexpected value\n");
-						return ();
-					}
-				}
-
-			}
-		}
-
-	}
-	else {
-		print("L_SU_global_constants,__get_path4spec_file,file_name_missing\n");
-		return ();
-	}
-}
-
-sub _set_file_name {
-
-	my ($self) = @_;
-
-	if ( length $self ) {
-
-		$L_SU_global_constants->{_file_name} = $self;
-
-#		print("L_SU_global_constants,set_file_name,_set_file_name = $L_SU_global_constants->{_file_name}\n");
-
-	}
-	else {
-		print("L_SU_global_constants,_set_file_name, missing variable");
-	}
-
-}
+#sub _set_file_name {
+#
+#	my ($self) = @_;
+#
+#	if ( length $self ) {
+#
+#		$L_SU_global_constants->{_file_name} = $self;
+#
+##		print("L_SU_global_constants,set_file_name,_set_file_name = $L_SU_global_constants->{_file_name}\n");
+#
+#	}
+#	else {
+#		print("L_SU_global_constants,_set_file_name, missing variable");
+#	}
+#
+#}
 
 sub alias_superflow_names_h {
 
@@ -1333,961 +1343,961 @@ sub flow_type_href {
 	return ($flow_type_h);
 }
 
-=head2 sub get_colon_pathNmodule
-
-=cut
-
-sub get_colon_pathNmodule {
-
-	my ($self) = @_;
-
-	if ( length $L_SU_global_constants->{_program_name} ) {
-
-		my $program_name = $L_SU_global_constants->{_program_name};
-
-		my $module_spec    = $program_name . '_spec';
-		my $module_spec_pm = $program_name . '_spec.pm';
-
-		_set_file_name($module_spec_pm);
-		my $path4spec = _get_path4spec_file();
-
-		my $path4SeismicUnixGui = _get_path4SeismicUnixGui;
-
-		#		my $pathNmodule_pm   = $path4spec . '/' . $module_spec_pm;
-		my $pathNmodule_spec = $path4spec . '/' . $module_spec;
-
-		# carp"pathNmodule_pm = $pathNmodule_pm";
-
-		$pathNmodule_spec =~ s/$path4SeismicUnixGui//g;
-		$pathNmodule_spec =~ s/\//::/g;
-		my $new_pathNmodule_spec = 'App::SeismicUnixGui' . $pathNmodule_spec;
-
-		my $result = $new_pathNmodule_spec;
-		return ($result);
-
-	}
-	else {
-		carp "missing program name";
-		return ();
-	}
-
-}
-
-=head2 sub get_colon_pathNmodule_spec
-
-=cut
-
-sub get_colon_pathNmodule_spec {
-
-	my ($self) = @_;
-
-	if ( length $L_SU_global_constants->{_program_name} ) {
-
-		my $program_name = $L_SU_global_constants->{_program_name};
-
-		my $module_spec    = $program_name . '_spec';
-		my $module_spec_pm = $program_name . '_spec.pm';
-
-		_set_file_name($module_spec_pm);
-		my $path4spec = _get_path4spec_file();
-
-		my $path4SeismicUnixGui = _get_path4SeismicUnixGui;
-
-		#		my $pathNmodule_pm   = $path4spec . '/' . $module_spec_pm;
-		my $pathNmodule_spec = $path4spec . '/' . $module_spec;
-
-		# carp"pathNmodule_pm = $pathNmodule_pm";
-
-		$pathNmodule_spec =~ s/$path4SeismicUnixGui//g;
-		$pathNmodule_spec =~ s/\//::/g;
-		my $new_pathNmodule_spec = 'App::SeismicUnixGui' . $pathNmodule_spec;
-
-		my $result = $new_pathNmodule_spec;
-		return ($result);
-
-	}
-	else {
-		carp "missing program name";
-		return ();
-	}
-
-}
-
-sub get_path4SeismicUnixGui {
-	my ($self) = @_;
-	if ( length $path4SeismicUnixGui ) {
-
-		my $result = $path4SeismicUnixGui;
-		return ($result);
-
-	}
-	else {
-		print(
-			"L_SU_global_constants, get_path4SeismicUnixGui,missing variable\n"
-		);
-	}
-	return ();
-}
-
-=head2 sub get_pathNmodule_spec
-
-=cut
-
-sub get_pathNmodule_spec {
-	my ($self) = @_;
-
-	if ( length $L_SU_global_constants->{_program_name} ) {
-
-		my $program_name   = $L_SU_global_constants->{_program_name};
-		my $module_spec    = $program_name . '_spec';
-		my $module_spec_pm = $module_spec . '.pm';
-		_set_file_name($module_spec_pm);
-
-		my $path4spec = _get_path4spec_file();
-
-		my $pathNmodule_spec = $path4spec . '/' . $module_spec;
-
-		# carp "pathNmodule_pm = $pathNmodule_pm";
-		my $result = $pathNmodule_spec;
-		return ($result);
-
-	}
-	else {
-		carp "missing program name";
-		return ();
-	}
-
-}
-
-=head2 sub get_pathNmodule_spec_pm
-
-=cut
-
-sub get_pathNmodule_spec_pm {
-	my ($self) = @_;
-
-	if ( length $L_SU_global_constants->{_program_name} ) {
-
-		my $program_name   = $L_SU_global_constants->{_program_name};
-		my $module_spec_pm = $program_name . '_spec.pm';
-		_set_file_name($module_spec_pm);
-
-		my $path4spec = _get_path4spec_file();
-
-		my $pathNmodule_spec_pm = $path4spec . '/' . $module_spec_pm;
-
-		# carp"pathNmodule_pm = $pathNmodule_pm";
-		my $result = $pathNmodule_spec_pm;
-		return ($result);
-
-	}
-	else {
-		carp "missing program name";
-		return ();
-	}
-
-}
+#=head2 sub get_colon_pathNmodule
+#
+#=cut
+#
+#sub get_colon_pathNmodule {
+#
+#	my ($self) = @_;
+#
+#	if ( length $L_SU_global_constants->{_program_name} ) {
+#
+#		my $program_name = $L_SU_global_constants->{_program_name};
+#
+#		my $module_spec    = $program_name . '_spec';
+#		my $module_spec_pm = $program_name . '_spec.pm';
+#
+#		_set_file_name($module_spec_pm);
+#		my $path4spec = _get_path4spec_file();
+#
+#		my $path4SeismicUnixGui = _get_path4SeismicUnixGui;
+#
+#		#		my $pathNmodule_pm   = $path4spec . '/' . $module_spec_pm;
+#		my $pathNmodule_spec = $path4spec . '/' . $module_spec;
+#
+#		# carp"pathNmodule_pm = $pathNmodule_pm";
+#
+#		$pathNmodule_spec =~ s/$path4SeismicUnixGui//g;
+#		$pathNmodule_spec =~ s/\//::/g;
+#		my $new_pathNmodule_spec = 'App::SeismicUnixGui' . $pathNmodule_spec;
+#
+#		my $result = $new_pathNmodule_spec;
+#		return ($result);
+#
+#	}
+#	else {
+#		carp "missing program name";
+#		return ();
+#	}
+#
+#}
+#
+#=head2 sub get_colon_pathNmodule_spec
+#
+#=cut
+#
+#sub get_colon_pathNmodule_spec {
+#
+#	my ($self) = @_;
+#
+#	if ( length $L_SU_global_constants->{_program_name} ) {
+#
+#		my $program_name = $L_SU_global_constants->{_program_name};
+#
+#		my $module_spec    = $program_name . '_spec';
+#		my $module_spec_pm = $program_name . '_spec.pm';
+#
+#		_set_file_name($module_spec_pm);
+#		my $path4spec = _get_path4spec_file();
+#
+#		my $path4SeismicUnixGui = _get_path4SeismicUnixGui;
+#
+#		#		my $pathNmodule_pm   = $path4spec . '/' . $module_spec_pm;
+#		my $pathNmodule_spec = $path4spec . '/' . $module_spec;
+#
+#		# carp"pathNmodule_pm = $pathNmodule_pm";
+#
+#		$pathNmodule_spec =~ s/$path4SeismicUnixGui//g;
+#		$pathNmodule_spec =~ s/\//::/g;
+#		my $new_pathNmodule_spec = 'App::SeismicUnixGui' . $pathNmodule_spec;
+#
+#		my $result = $new_pathNmodule_spec;
+#		return ($result);
+#
+#	}
+#	else {
+#		carp "missing program name";
+#		return ();
+#	}
+#
+#}
+#
+#sub get_path4SeismicUnixGui {
+#	my ($self) = @_;
+#	if ( length $path4SeismicUnixGui ) {
+#
+#		my $result = $path4SeismicUnixGui;
+#		return ($result);
+#
+#	}
+#	else {
+#		print(
+#			"L_SU_global_constants, get_path4SeismicUnixGui,missing variable\n"
+#		);
+#	}
+#	return ();
+#}
+#
+#=head2 sub get_pathNmodule_spec
+#
+#=cut
+#
+#sub get_pathNmodule_spec {
+#	my ($self) = @_;
+#
+#	if ( length $L_SU_global_constants->{_program_name} ) {
+#
+#		my $program_name   = $L_SU_global_constants->{_program_name};
+#		my $module_spec    = $program_name . '_spec';
+#		my $module_spec_pm = $module_spec . '.pm';
+#		_set_file_name($module_spec_pm);
+#
+#		my $path4spec = _get_path4spec_file();
+#
+#		my $pathNmodule_spec = $path4spec . '/' . $module_spec;
+#
+#		# carp "pathNmodule_pm = $pathNmodule_pm";
+#		my $result = $pathNmodule_spec;
+#		return ($result);
+#
+#	}
+#	else {
+#		carp "missing program name";
+#		return ();
+#	}
+#
+#}
+#
+#=head2 sub get_pathNmodule_spec_pm
+#
+#=cut
+#
+#sub get_pathNmodule_spec_pm {
+#	my ($self) = @_;
+#
+#	if ( length $L_SU_global_constants->{_program_name} ) {
+#
+#		my $program_name   = $L_SU_global_constants->{_program_name};
+#		my $module_spec_pm = $program_name . '_spec.pm';
+#		_set_file_name($module_spec_pm);
+#
+#		my $path4spec = _get_path4spec_file();
+#
+#		my $pathNmodule_spec_pm = $path4spec . '/' . $module_spec_pm;
+#
+#		# carp"pathNmodule_pm = $pathNmodule_pm";
+#		my $result = $pathNmodule_spec_pm;
+#		return ($result);
+#
+#	}
+#	else {
+#		carp "missing program name";
+#		return ();
+#	}
+#
+#}
 
 sub help_menubutton_type_href {
 
 	return ($help_menubutton_type_h);
 }
-
-=head2 sub get_pathNfile2search 
-
-Useful directories to search
-
-=cut
-
-sub get_pathNfile2search {
-
-	my ($self) = @_;
-
-	if (    length $L_SU_global_constants->{_CHILD_DIR}
-		and length $L_SU_global_constants->{_GRANDPARENT_DIR}
-		and length $L_SU_global_constants->{_PARENT_DIR} )
-	{
-
-		my $CHILD_DIR       = $L_SU_global_constants->{_CHILD_DIR};
-		my $GRANDPARENT_DIR = $L_SU_global_constants->{_GRANDPARENT_DIR};
-		my $PARENT_DIR      = $L_SU_global_constants->{_PARENT_DIR};
-
-=head2 Instantiate modules
-
-=cut
-
-		my $manage_dirs_by = manage_dirs_by->new();
-
-=head2 Define
-
- variables
- 
-=cut	
-
-		#		my @result_aref2;
-		my @directory_contents;
-		my @dimensions;
-
-=head2 Define
-
- directory search arrays
- 
-=cut
-
-		my @PARENT_DIR = @{ $L_SU_global_constants->{_PARENT_DIR} };
-		my @CHILD_DIR  = @{ $L_SU_global_constants->{_CHILD_DIR} };
-
-		my $parent_directory_number_of = scalar @PARENT_DIR;
-		my $child_directory_number_of  = scalar @CHILD_DIR;
-
-		@dimensions =
-		  ( $parent_directory_number_of, $child_directory_number_of );
-
-=head2 SU-related matters
-
-=cut
-
-		for (
-			my $parent = 0 ;
-			$parent < $parent_directory_number_of ;
-			$parent++
-		  )
-		{
-
-			for (
-				my $child = 0 ;
-				$child < $child_directory_number_of ;
-				$child++
-			  )
-			{
-
-				my $SEARCH_DIR =
-					$GRANDPARENT_DIR . '/'
-				  . $PARENT_DIR[$parent] . '/'
-				  . $CHILD_DIR[$child];
-
-   #	  	  			print(
-   #	  	  "L_SU_global_constants, get_pathNfile2search,SEARCH_DIR=$SEARCH_DIR\n"
-   #	  	  			);
-				$manage_dirs_by->set_directory($SEARCH_DIR);
-				my $directory_list_aref = $manage_dirs_by->get_file_list_aref();
-				my @directory_list      = @$directory_list_aref;
-				my $files_number_of     = scalar @directory_list;
-				my @pathNfile;
-
-				for ( my $i = 0 ; $i < $files_number_of ; $i++ ) {
-
-					$pathNfile[$i] = $SEARCH_DIR . '/' . $directory_list[$i];
-
-				}
-
-				$directory_contents[$parent][$child] = \@pathNfile;
-
-#				print("L_SU_global_constants,get_pathNfile2search,dir contents:@{$directory_contents[$parent][$child]}\n");
-
-			}
-		}
-
-		my $result_aref2 = \@directory_contents;
-
-		return ( $result_aref2, \@dimensions );
-	}
-	else {
-		print("get_pathNfile2search, missing variable(s)\n");
-		print("CHILD_DIR=$L_SU_global_constants->{_CHILD_DIR}\n");
-		print("GRANDPARENT_DIR=$L_SU_global_constants->{_GRANDPARENT_DIR}\n");
-		print("PARENT_DIR=$L_SU_global_constants->{_PARENT_DIR}\n");
-	}
-
-}
-
-=head2 sub _get_convert_pathNfile2search 
-
-Useful directories to search when
-converting old perl files to new perl
-files (> 0.7)
-
-=cut
-
-sub _get_convert_pathNfile2search {
-
-	my ($self) = @_;
-
-=head2 import modules
-
-=cut
-
-	use Carp;
-
-=head2 Instantiate modules
-
-=cut
-
-	my $manage_dirs_by = manage_dirs_by->new();
-
-=head2 Define
-
- variables
- 
-=cut	
-
-	my @result_aref2;
-	my @directory_contents_convert;
-	my @dimensions;
-
-=head2 Define
-
- directory search arrays
- 
-=cut 
-
-	my $GRANDPARENT_DIR = $path4SeismicUnixGui;
-
-#	print ("L_SU_global_constants,_get_convert_pathNfile2search,SeismicUnixGui = $path4SeismicUnixGui\n");
-
-	my @PARENT_DIR_CONVERT = @{ $L_SU_global_constants->{_PARENT_DIR_CONVERT} };
-	my @CHILD_DIR_CONVERT  = @{ $L_SU_global_constants->{_CHILD_DIR_CONVERT} };
-
-	#	print("L_SU_global_constants,PARENT_DIR_CONVERT=@PARENT_DIR_CONVERT\n");
-	#	print("L_SU_global_constants,CHILD_DIR_CONVERT=@CHILD_DIR_CONVERT\n");
-
-	my $parent_directory_convert_number_of = scalar @PARENT_DIR_CONVERT;
-	my $child_directory_convert_number_of  = scalar @CHILD_DIR_CONVERT;
-
-	@dimensions = (
-		$parent_directory_convert_number_of,
-		$child_directory_convert_number_of
-	);
-
-	#	$parent_directory_convert_number_of = 2;
-	#	$child_directory_convert_number_of  = 2;
-
-#		print("L_SU_global_constants,parent_directory_convert_number_of=$parent_directory_convert_number_of\n");
-#	    print("L_SU_global_constants,child_directory_convert_number_of=$child_directory_convert_number_of\n");
-
-=head2 CONVERT-related matters first
-
-=cut
-
-	for (
-		my $parent = 0 ;
-		$parent < $parent_directory_convert_number_of ;
-		$parent++
-	  )
-	{
-
-		for (
-			my $child = 0 ;
-			$child < $child_directory_convert_number_of ;
-			$child++
-		  )
-		{
-
-			my $SEARCH_DIR =
-				$GRANDPARENT_DIR . '/'
-			  . $PARENT_DIR_CONVERT[$parent] . '/'
-			  . $CHILD_DIR_CONVERT[$child];
-
-			$manage_dirs_by->set_directory($SEARCH_DIR);
-			my $directory_list_aref = $manage_dirs_by->get_file_list_aref();
-
-			if ( length $directory_list_aref ) {
-
-				$directory_contents_convert[$parent][$child] =
-				  $directory_list_aref;
-
-#				  print("L_SU_global_constants,print search_dir = $SEARCH_DIR\n");
-#				  print("L_SU_global_constants,directory_list_aref=@{$directory_list_aref}\n");
-
-			}
-			else {
-	 #				print(
-	 #"L_SU_global_constants, _get_convert_pathNfile2search,missing directory\n"
-	 #				);
-	 #				print("print search_dir = $SEARCH_DIR\n");
-			}
-
-		}
-
-	}
-
-#	my $parent_convert = 0;
-#	my $child_convert  = 0;
 #
-#	print(
-#"\nL_SU_global_constants, get_pathNfile2search, For convert directory paths: $PARENT_DIR_CONVERT[$parent_convert]::$CHILD_DIR_CONVERT[$child_convert]::\n"
+#=head2 sub get_pathNfile2search 
+#
+#Useful directories to search
+#
+#=cut
+#
+#sub get_pathNfile2search {
+#
+#	my ($self) = @_;
+#
+#	if (    length $L_SU_global_constants->{_CHILD_DIR}
+#		and length $L_SU_global_constants->{_GRANDPARENT_DIR}
+#		and length $L_SU_global_constants->{_PARENT_DIR} )
+#	{
+#
+#		my $CHILD_DIR       = $L_SU_global_constants->{_CHILD_DIR};
+#		my $GRANDPARENT_DIR = $L_SU_global_constants->{_GRANDPARENT_DIR};
+#		my $PARENT_DIR      = $L_SU_global_constants->{_PARENT_DIR};
+#
+#=head2 Instantiate modules
+#
+#=cut
+#
+#		my $manage_dirs_by = manage_dirs_by->new();
+#
+#=head2 Define
+#
+# variables
+# 
+#=cut	
+#
+#		#		my @result_aref2;
+#		my @directory_contents;
+#		my @dimensions;
+#
+#=head2 Define
+#
+# directory search arrays
+# 
+#=cut
+#
+#		my @PARENT_DIR = @{ $L_SU_global_constants->{_PARENT_DIR} };
+#		my @CHILD_DIR  = @{ $L_SU_global_constants->{_CHILD_DIR} };
+#
+#		my $parent_directory_number_of = scalar @PARENT_DIR;
+#		my $child_directory_number_of  = scalar @CHILD_DIR;
+#
+#		@dimensions =
+#		  ( $parent_directory_number_of, $child_directory_number_of );
+#
+#=head2 SU-related matters
+#
+#=cut
+#
+#		for (
+#			my $parent = 0 ;
+#			$parent < $parent_directory_number_of ;
+#			$parent++
+#		  )
+#		{
+#
+#			for (
+#				my $child = 0 ;
+#				$child < $child_directory_number_of ;
+#				$child++
+#			  )
+#			{
+#
+#				my $SEARCH_DIR =
+#					$GRANDPARENT_DIR . '/'
+#				  . $PARENT_DIR[$parent] . '/'
+#				  . $CHILD_DIR[$child];
+#
+#   #	  	  			print(
+#   #	  	  "L_SU_global_constants, get_pathNfile2search,SEARCH_DIR=$SEARCH_DIR\n"
+#   #	  	  			);
+#				$manage_dirs_by->set_directory($SEARCH_DIR);
+#				my $directory_list_aref = $manage_dirs_by->get_file_list_aref();
+#				my @directory_list      = @$directory_list_aref;
+#				my $files_number_of     = scalar @directory_list;
+#				my @pathNfile;
+#
+#				for ( my $i = 0 ; $i < $files_number_of ; $i++ ) {
+#
+#					$pathNfile[$i] = $SEARCH_DIR . '/' . $directory_list[$i];
+#
+#				}
+#
+#				$directory_contents[$parent][$child] = \@pathNfile;
+#
+##				print("L_SU_global_constants,get_pathNfile2search,dir contents:@{$directory_contents[$parent][$child]}\n");
+#
+#			}
+#		}
+#
+#		my $result_aref2 = \@directory_contents;
+#
+#		return ( $result_aref2, \@dimensions );
+#	}
+#	else {
+#		print("get_pathNfile2search, missing variable(s)\n");
+#		print("CHILD_DIR=$L_SU_global_constants->{_CHILD_DIR}\n");
+#		print("GRANDPARENT_DIR=$L_SU_global_constants->{_GRANDPARENT_DIR}\n");
+#		print("PARENT_DIR=$L_SU_global_constants->{_PARENT_DIR}\n");
+#	}
+#
+#}
+#
+#=head2 sub _get_convert_pathNfile2search 
+#
+#Useful directories to search when
+#converting old perl files to new perl
+#files (> 0.7)
+#
+#=cut
+#
+#sub _get_convert_pathNfile2search {
+#
+#	my ($self) = @_;
+#
+#=head2 import modules
+#
+#=cut
+#
+#	use Carp;
+#
+#=head2 Instantiate modules
+#
+#=cut
+#
+#	my $manage_dirs_by = manage_dirs_by->new();
+#
+#=head2 Define
+#
+# variables
+# 
+#=cut	
+#
+#	my @result_aref2;
+#	my @directory_contents_convert;
+#	my @dimensions;
+#
+#=head2 Define
+#
+# directory search arrays
+# 
+#=cut 
+#
+#	my $GRANDPARENT_DIR = $path4SeismicUnixGui;
+#
+##	print ("L_SU_global_constants,_get_convert_pathNfile2search,SeismicUnixGui = $path4SeismicUnixGui\n");
+#
+#	my @PARENT_DIR_CONVERT = @{ $L_SU_global_constants->{_PARENT_DIR_CONVERT} };
+#	my @CHILD_DIR_CONVERT  = @{ $L_SU_global_constants->{_CHILD_DIR_CONVERT} };
+#
+#	#	print("L_SU_global_constants,PARENT_DIR_CONVERT=@PARENT_DIR_CONVERT\n");
+#	#	print("L_SU_global_constants,CHILD_DIR_CONVERT=@CHILD_DIR_CONVERT\n");
+#
+#	my $parent_directory_convert_number_of = scalar @PARENT_DIR_CONVERT;
+#	my $child_directory_convert_number_of  = scalar @CHILD_DIR_CONVERT;
+#
+#	@dimensions = (
+#		$parent_directory_convert_number_of,
+#		$child_directory_convert_number_of
 #	);
 #
-#	print("@{$directory_contents_convert[$parent_convert][$child_convert]}\n");
-
-	$result_aref2[0] = \@directory_contents_convert;
-
-	return ( \@result_aref2, \@dimensions );
-
-}
-
-=head2 sub _get_specs_pathNfile2search 
-
-Useful directories to search
-
-=cut
-
-sub _get_specs_pathNfile2search {
-
-	my ($self) = @_;
-
-=head2 Instantiate modules
-
-=cut
-
-	my $manage_dirs_by = manage_dirs_by->new();
-
-=head2 Define
-
- variables
- 
-=cut	
-
-	my @result_aref2;
-	my @directory_contents_specs;
-	my @dimensions;
-
-=head2 Define
-
- directory search arrays
- 
-=cut 
-
-	my $GRANDPARENT_DIR = $path4SeismicUnixGui;
-
-	my @PARENT_DIR_SPECS = @{ $L_SU_global_constants->{_PARENT_DIR_SPECS} };
-	my @CHILD_DIR_SPECS  = @{ $L_SU_global_constants->{_CHILD_DIR_SPECS} };
-
-	my $parent_directory_specs_number_of = scalar @PARENT_DIR_SPECS;
-	my $child_directory_specs_number_of  = scalar @CHILD_DIR_SPECS;
-
-	@dimensions =
-	  ( $parent_directory_specs_number_of, $child_directory_specs_number_of );
-
-#	print(
-#		"L_SU_global_constants,$parent_directory_specs_number_of, $child_directory_specs_number_of\n"
-#	);
-
-=head2 SPECS-related matters
-
-=cut
-
-	for (
-		my $parent = 0 ;
-		$parent < $parent_directory_specs_number_of ;
-		$parent++
-	  )
-	{
-
-		for (
-			my $child = 0 ;
-			$child < $child_directory_specs_number_of ;
-			$child++
-		  )
-		{
-
-			my $SEARCH_DIR =
-				$GRANDPARENT_DIR . '/'
-			  . $PARENT_DIR_SPECS[$parent] . '/'
-			  . $CHILD_DIR_SPECS[$child];
-
-#  			print(
-#  "L_SU_global_constants, _get_specs_pathNfile2search,SEARCH_DIR=$SEARCH_DIR\n"
-#  			);
-			$manage_dirs_by->set_directory($SEARCH_DIR);
-			my $directory_list_aref = $manage_dirs_by->get_file_list_aref();
-			my @directory_list      = @$directory_list_aref;
-
-			$directory_contents_specs[$parent][$child] = $directory_list_aref;
-
-			#			print("@{$directory_contents_specs[$parent][$child]}\n");
-
-		}
-
-	}
-
-#	my $parent_specs = 1;
-#	my $child_specs  = 1;
-#	print(
-#"\nL_SU_global_constants, get_pathNfile2search, For specs directory paths: $PARENT_DIR_GUI[$parent_specs]::$CHILD_DIR_GUI[$child_gui]::\n"
-#	);
-#	print("@{$directory_contents_specs[$parent_specs][$child_specs]}\n");
-
-	$result_aref2[0] = \@directory_contents_specs;
-
-	return ( \@result_aref2, \@dimensions );
-
-}
-
-=head2 sub _get_tools_pathNfile2search 
-
-Useful directories to search
-
-=cut
-
-sub _get_tools_pathNfile2search {
-
-	my ($self) = @_;
-
-=head2 Instantiate modules
-
-=cut
-
-	my $manage_dirs_by = manage_dirs_by->new();
-
-=head2 Define
-
- variables
- 
-=cut	
-
-	my @result_aref2;
-	my @directory_contents_tools;
-	my @dimensions;
-
-=head2 Define
-
- directory search arrays
- 
-=cut 
-
-	my $GRANDPARENT_DIR = $path4SeismicUnixGui;
-
-	#	my @PARENT_DIR_GUI = @{ $L_SU_global_constants->{_PARENT_DIR_GUI} };
-	#	my @CHILD_DIR_GUI  = @{ $L_SU_global_constants->{_CHILD_DIR_GUI} };
-	my @PARENT_DIR_TOOLS = @{ $L_SU_global_constants->{_PARENT_DIR_TOOLS} };
-	my @CHILD_DIR_TOOLS  = @{ $L_SU_global_constants->{_CHILD_DIR_TOOLS} };
-
-	#	my @PARENT_DIR_SU  = @{ $L_SU_global_constants->{_PARENT_DIR_SU} };
-	#	my @CHILD_DIR_SU   = @{ $L_SU_global_constants->{_CHILD_DIR_SU} };
-	#	my @PARENT_DIR_GEN = @{ $L_SU_global_constants->{_PARENT_DIR_GEN} };
-
-	#	print("PARENT_DIR_GUI=@PARENT_DIR_GUI\n");
-
-	#	my $parent_directory_gui_number_of = scalar @PARENT_DIR_GUI;
-	#	my $child_directory_gui_number_of  = scalar @CHILD_DIR_GUI;
-	my $parent_directory_tools_number_of = scalar @PARENT_DIR_TOOLS;
-	my $child_directory_tools_number_of  = scalar @CHILD_DIR_TOOLS;
-
-	#	my $parent_directory_su_number_of  = scalar @PARENT_DIR_SU;
-	#	my $child_directory_su_number_of   = scalar @CHILD_DIR_SU;
-	#	my $parent_directory_gen_number_of = scalar @PARENT_DIR_GEN;
-
-	@dimensions =
-	  ( $parent_directory_tools_number_of, $child_directory_tools_number_of );
-
-	#	$parent_directory_su_number_of, $child_directory_su_number_of,
-	#	  $parent_directory_gen_number_of $parent_directory_gui_number_of,
-	#	  $child_directory_gui_number_of,
-
-=head2 TOOLS-related matters first
-
-=cut
-
-	for (
-		my $parent = 0 ;
-		$parent < $parent_directory_tools_number_of ;
-		$parent++
-	  )
-	{
-
-		for (
-			my $child = 0 ;
-			$child < $child_directory_tools_number_of ;
-			$child++
-		  )
-		{
-
-			my $SEARCH_DIR =
-				$GRANDPARENT_DIR . '/'
-			  . $PARENT_DIR_TOOLS[$parent] . '/'
-			  . $CHILD_DIR_TOOLS[$child];
-
-#  			print(
-#  "L_SU_global_constants, _get_tools_pathNfile2search,SEARCH_DIR=$SEARCH_DIR\n"
-#  			);
-			$manage_dirs_by->set_directory($SEARCH_DIR);
-			my $directory_list_aref = $manage_dirs_by->get_file_list_aref();
-			my @directory_list      = @$directory_list_aref;
-
-			$directory_contents_tools[$parent][$child] = $directory_list_aref;
-
-			#			print("@{$directory_contents_TOOLS[$parent][$child]}\n");
-
-		}
-
-	}
-
-#	my $parent_TOOLS = 1;
-#	my $child_TOOLS  = 1;
-#	print(
-#"\nL_SU_global_constants, get_tools_pathNfile2search, For TOOLS directory paths: $PARENT_DIR_TOOLS[$parent_TOOLS]::$CHILD_DIR_TOOLS[$child_tools]::\n"
-#	);
-#	print("@{$directory_contents_tools[$parent_tools][$child_tools]}\n");
-
-	$result_aref2[0] = \@directory_contents_tools;
-
-	return ( \@result_aref2, \@dimensions );
-
-}
-
-=head2 Find a path for
-
-a given perl file
-generated by the convert
-
-=cut
-
-sub get_path4convert_file {
-
-	my (@self) = @_;
-
-	if ( length $L_SU_global_constants->{_file_name} ) {
-
-		my $file_name = $L_SU_global_constants->{_file_name};
-		my $result;
-
-=head2 Collect parameters from local hash
-
-=cut
-
-		my $GRANDPARENT_DIR = $path4SeismicUnixGui;
-		my @PARENT_DIR_CONVERT =
-		  @{ $L_SU_global_constants->{_PARENT_DIR_CONVERT} };
-		my @CHILD_DIR_CONVERT =
-		  @{ $L_SU_global_constants->{_CHILD_DIR_CONVERT} };
-
-=head2 Collect relevant "convert"
-
- project paths and files
-
-=cut
-
-		my ( $result_aref3, $dimensions_aref ) =
-		  _get_convert_pathNfile2search();
-		my @result_aref2                       = @$result_aref3;
-		my @directory_contents_convert         = @{ $result_aref2[0] };
-		my @dimension                          = @$dimensions_aref;
-		my $parent_directory_convert_number_of = $dimension[0];
-		my $child_directory_convert_number_of  = $dimension[1];
-
-# test
-#		my $parent_convert = 0;
-#		my $child_convert  = 0;
+#	#	$parent_directory_convert_number_of = 2;
+#	#	$child_directory_convert_number_of  = 2;
+#
+##		print("L_SU_global_constants,parent_directory_convert_number_of=$parent_directory_convert_number_of\n");
+##	    print("L_SU_global_constants,child_directory_convert_number_of=$child_directory_convert_number_of\n");
+#
+#=head2 CONVERT-related matters first
+#
+#=cut
+#
+#	for (
+#		my $parent = 0 ;
+#		$parent < $parent_directory_convert_number_of ;
+#		$parent++
+#	  )
+#	{
+#
+#		for (
+#			my $child = 0 ;
+#			$child < $child_directory_convert_number_of ;
+#			$child++
+#		  )
+#		{
+#
+#			my $SEARCH_DIR =
+#				$GRANDPARENT_DIR . '/'
+#			  . $PARENT_DIR_CONVERT[$parent] . '/'
+#			  . $CHILD_DIR_CONVERT[$child];
+#
+#			$manage_dirs_by->set_directory($SEARCH_DIR);
+#			my $directory_list_aref = $manage_dirs_by->get_file_list_aref();
+#
+#			if ( length $directory_list_aref ) {
+#
+#				$directory_contents_convert[$parent][$child] =
+#				  $directory_list_aref;
+#
+##				  print("L_SU_global_constants,print search_dir = $SEARCH_DIR\n");
+##				  print("L_SU_global_constants,directory_list_aref=@{$directory_list_aref}\n");
+#
+#			}
+#			else {
+#	 #				print(
+#	 #"L_SU_global_constants, _get_convert_pathNfile2search,missing directory\n"
+#	 #				);
+#	 #				print("print search_dir = $SEARCH_DIR\n");
+#			}
+#
+#		}
+#
+#	}
+#
+##	my $parent_convert = 0;
+##	my $child_convert  = 0;
+##
+##	print(
+##"\nL_SU_global_constants, get_pathNfile2search, For convert directory paths: $PARENT_DIR_CONVERT[$parent_convert]::$CHILD_DIR_CONVERT[$child_convert]::\n"
+##	);
+##
+##	print("@{$directory_contents_convert[$parent_convert][$child_convert]}\n");
+#
+#	$result_aref2[0] = \@directory_contents_convert;
+#
+#	return ( \@result_aref2, \@dimensions );
+#
+#}
+#
+#=head2 sub _get_specs_pathNfile2search 
+#
+#Useful directories to search
+#
+#=cut
+#
+#sub _get_specs_pathNfile2search {
+#
+#	my ($self) = @_;
+#
+#=head2 Instantiate modules
+#
+#=cut
+#
+#	my $manage_dirs_by = manage_dirs_by->new();
+#
+#=head2 Define
+#
+# variables
+# 
+#=cut	
+#
+#	my @result_aref2;
+#	my @directory_contents_specs;
+#	my @dimensions;
+#
+#=head2 Define
+#
+# directory search arrays
+# 
+#=cut 
+#
+#	my $GRANDPARENT_DIR = $path4SeismicUnixGui;
+#
+#	my @PARENT_DIR_SPECS = @{ $L_SU_global_constants->{_PARENT_DIR_SPECS} };
+#	my @CHILD_DIR_SPECS  = @{ $L_SU_global_constants->{_CHILD_DIR_SPECS} };
+#
+#	my $parent_directory_specs_number_of = scalar @PARENT_DIR_SPECS;
+#	my $child_directory_specs_number_of  = scalar @CHILD_DIR_SPECS;
+#
+#	@dimensions =
+#	  ( $parent_directory_specs_number_of, $child_directory_specs_number_of );
+#
+##	print(
+##		"L_SU_global_constants,$parent_directory_specs_number_of, $child_directory_specs_number_of\n"
+##	);
+#
+#=head2 SPECS-related matters
+#
+#=cut
+#
+#	for (
+#		my $parent = 0 ;
+#		$parent < $parent_directory_specs_number_of ;
+#		$parent++
+#	  )
+#	{
+#
+#		for (
+#			my $child = 0 ;
+#			$child < $child_directory_specs_number_of ;
+#			$child++
+#		  )
+#		{
+#
+#			my $SEARCH_DIR =
+#				$GRANDPARENT_DIR . '/'
+#			  . $PARENT_DIR_SPECS[$parent] . '/'
+#			  . $CHILD_DIR_SPECS[$child];
+#
+##  			print(
+##  "L_SU_global_constants, _get_specs_pathNfile2search,SEARCH_DIR=$SEARCH_DIR\n"
+##  			);
+#			$manage_dirs_by->set_directory($SEARCH_DIR);
+#			my $directory_list_aref = $manage_dirs_by->get_file_list_aref();
+#			my @directory_list      = @$directory_list_aref;
+#
+#			$directory_contents_specs[$parent][$child] = $directory_list_aref;
+#
+#			#			print("@{$directory_contents_specs[$parent][$child]}\n");
+#
+#		}
+#
+#	}
+#
+##	my $parent_specs = 1;
+##	my $child_specs  = 1;
+##	print(
+##"\nL_SU_global_constants, get_pathNfile2search, For specs directory paths: $PARENT_DIR_GUI[$parent_specs]::$CHILD_DIR_GUI[$child_gui]::\n"
+##	);
+##	print("@{$directory_contents_specs[$parent_specs][$child_specs]}\n");
+#
+#	$result_aref2[0] = \@directory_contents_specs;
+#
+#	return ( \@result_aref2, \@dimensions );
+#
+#}
+#
+#=head2 sub _get_tools_pathNfile2search 
+#
+#Useful directories to search
+#
+#=cut
+#
+#sub _get_tools_pathNfile2search {
+#
+#	my ($self) = @_;
+#
+#=head2 Instantiate modules
+#
+#=cut
+#
+#	my $manage_dirs_by = manage_dirs_by->new();
+#
+#=head2 Define
+#
+# variables
+# 
+#=cut	
+#
+#	my @result_aref2;
+#	my @directory_contents_tools;
+#	my @dimensions;
+#
+#=head2 Define
+#
+# directory search arrays
+# 
+#=cut 
+#
+#	my $GRANDPARENT_DIR = $path4SeismicUnixGui;
+#
+#	#	my @PARENT_DIR_GUI = @{ $L_SU_global_constants->{_PARENT_DIR_GUI} };
+#	#	my @CHILD_DIR_GUI  = @{ $L_SU_global_constants->{_CHILD_DIR_GUI} };
+#	my @PARENT_DIR_TOOLS = @{ $L_SU_global_constants->{_PARENT_DIR_TOOLS} };
+#	my @CHILD_DIR_TOOLS  = @{ $L_SU_global_constants->{_CHILD_DIR_TOOLS} };
+#
+#	#	my @PARENT_DIR_SU  = @{ $L_SU_global_constants->{_PARENT_DIR_SU} };
+#	#	my @CHILD_DIR_SU   = @{ $L_SU_global_constants->{_CHILD_DIR_SU} };
+#	#	my @PARENT_DIR_GEN = @{ $L_SU_global_constants->{_PARENT_DIR_GEN} };
+#
+#	#	print("PARENT_DIR_GUI=@PARENT_DIR_GUI\n");
+#
+#	#	my $parent_directory_gui_number_of = scalar @PARENT_DIR_GUI;
+#	#	my $child_directory_gui_number_of  = scalar @CHILD_DIR_GUI;
+#	my $parent_directory_tools_number_of = scalar @PARENT_DIR_TOOLS;
+#	my $child_directory_tools_number_of  = scalar @CHILD_DIR_TOOLS;
+#
+#	#	my $parent_directory_su_number_of  = scalar @PARENT_DIR_SU;
+#	#	my $child_directory_su_number_of   = scalar @CHILD_DIR_SU;
+#	#	my $parent_directory_gen_number_of = scalar @PARENT_DIR_GEN;
+#
+#	@dimensions =
+#	  ( $parent_directory_tools_number_of, $child_directory_tools_number_of );
+#
+#	#	$parent_directory_su_number_of, $child_directory_su_number_of,
+#	#	  $parent_directory_gen_number_of $parent_directory_gui_number_of,
+#	#	  $child_directory_gui_number_of,
+#
+#=head2 TOOLS-related matters first
+#
+#=cut
+#
+#	for (
+#		my $parent = 0 ;
+#		$parent < $parent_directory_tools_number_of ;
+#		$parent++
+#	  )
+#	{
+#
+#		for (
+#			my $child = 0 ;
+#			$child < $child_directory_tools_number_of ;
+#			$child++
+#		  )
+#		{
+#
+#			my $SEARCH_DIR =
+#				$GRANDPARENT_DIR . '/'
+#			  . $PARENT_DIR_TOOLS[$parent] . '/'
+#			  . $CHILD_DIR_TOOLS[$child];
+#
+##  			print(
+##  "L_SU_global_constants, _get_tools_pathNfile2search,SEARCH_DIR=$SEARCH_DIR\n"
+##  			);
+#			$manage_dirs_by->set_directory($SEARCH_DIR);
+#			my $directory_list_aref = $manage_dirs_by->get_file_list_aref();
+#			my @directory_list      = @$directory_list_aref;
+#
+#			$directory_contents_tools[$parent][$child] = $directory_list_aref;
+#
+#			#			print("@{$directory_contents_TOOLS[$parent][$child]}\n");
+#
+#		}
+#
+#	}
+#
+##	my $parent_TOOLS = 1;
+##	my $child_TOOLS  = 1;
+##	print(
+##"\nL_SU_global_constants, get_tools_pathNfile2search, For TOOLS directory paths: $PARENT_DIR_TOOLS[$parent_TOOLS]::$CHILD_DIR_TOOLS[$child_tools]::\n"
+##	);
+##	print("@{$directory_contents_tools[$parent_tools][$child_tools]}\n");
+#
+#	$result_aref2[0] = \@directory_contents_tools;
+#
+#	return ( \@result_aref2, \@dimensions );
+#
+#}
+#
+#=head2 Find a path for
+#
+#a given perl file
+#generated by the convert
+#
+#=cut
+#
+#sub get_path4convert_file {
+#
+#	my (@self) = @_;
+#
+#	if ( length $L_SU_global_constants->{_file_name} ) {
+#
+#		my $file_name = $L_SU_global_constants->{_file_name};
+#		my $result;
+#
+#=head2 Collect parameters from local hash
+#
+#=cut
+#
+#		my $GRANDPARENT_DIR = $path4SeismicUnixGui;
+#		my @PARENT_DIR_CONVERT =
+#		  @{ $L_SU_global_constants->{_PARENT_DIR_CONVERT} };
+#		my @CHILD_DIR_CONVERT =
+#		  @{ $L_SU_global_constants->{_CHILD_DIR_CONVERT} };
+#
+#=head2 Collect relevant "convert"
+#
+# project paths and files
+#
+#=cut
+#
+#		my ( $result_aref3, $dimensions_aref ) =
+#		  _get_convert_pathNfile2search();
+#		my @result_aref2                       = @$result_aref3;
+#		my @directory_contents_convert         = @{ $result_aref2[0] };
+#		my @dimension                          = @$dimensions_aref;
+#		my $parent_directory_convert_number_of = $dimension[0];
+#		my $child_directory_convert_number_of  = $dimension[1];
+#
+## test
+##		my $parent_convert = 0;
+##		my $child_convert  = 0;
+##		print(
+##"\nL_SU_global_constants,get_path4convert_file, For convert directory paths: App::SeismicUnixGui::$PARENT_DIR_CONVERT[$parent_convert]::$CHILD_DIR_CONVERT[$child_convert]\n"
+##		);
+##		print(
+##			"_SU_global_constants,get_path4convert_file,@{$directory_contents_convert[$parent_convert][$child_convert]}\n"
+##		);
+#
+#=head2 Search all "convert"-relevant 
+#
+#directories start with 
+#convert derectory listing
+#
+#=cut
+#
+#		for (
+#			my $parent = 0 ;
+#			$parent < $parent_directory_convert_number_of ;
+#			$parent++
+#		  )
+#		{
+#
+#			for (
+#				my $child = 0 ;
+#				$child < $child_directory_convert_number_of ;
+#				$child++
+#			  )
+#			{
+#
+#				my $directory_list_aref =
+#				  $directory_contents_convert[$parent][$child];
+#
+#				if ( length $directory_list_aref ) {
+#
+#					my @directory_list        = @$directory_list_aref;
+#					my $length_directory_list = scalar @directory_list;
+#
+#	   #					print(
+#	   #"L_SU_global_contents,@{$directory_contents_convert[$parent][$child]}\n"
+#	   #					);
+#	   #					print("L_SU_global_contents,file_name=$file_name\n");
+#
+#					for ( my $i = 0 ; $i < $length_directory_list ; $i++ ) {
+#
+#	#						print("L_SU_global_constants, directory list=$directory_list[$i]\n");
+#						;
+#						if ( not $file_name eq $directory_list[$i] ) {
+#
+#							next;
+#
+#						}
+#						elsif ( $file_name eq $directory_list[$i] ) {
+#
+#	  #							print(
+#	  #"L_SU_global_constants,get_path4convert_file,found the file $file_name in
+#	  #	   					$PARENT_DIR_CONVERT[$parent]::$CHILD_DIR_CONVERT[$child]\n"
+#	  #							);
+#							$result =
+#								$path4SeismicUnixGui . '/'
+#							  . $PARENT_DIR_CONVERT[$parent] . '/'
+#							  . $CHILD_DIR_CONVERT[$child];
+#
+#							return ($result);
+#						}
+#						else {
+#							print("change_a_line, unexpected value\n");
+#							return ();
+#						}
+#					}
+#
+#				}
+#				else {
+##					print(
+##						"L_SU_global_constants, get_path4convert_file, missing directory; NADA\n"
+##					);
+#				}
+#
+#			}
+#		}
+#
+#	}
+#	else {
 #		print(
-#"\nL_SU_global_constants,get_path4convert_file, For convert directory paths: App::SeismicUnixGui::$PARENT_DIR_CONVERT[$parent_convert]::$CHILD_DIR_CONVERT[$child_convert]\n"
+#			"L_SU_global_constants,_get_path_4convert_file,file_name_missing\n"
 #		);
-#		print(
-#			"_SU_global_constants,get_path4convert_file,@{$directory_contents_convert[$parent_convert][$child_convert]}\n"
-#		);
-
-=head2 Search all "convert"-relevant 
-
-directories start with 
-convert derectory listing
-
-=cut
-
-		for (
-			my $parent = 0 ;
-			$parent < $parent_directory_convert_number_of ;
-			$parent++
-		  )
-		{
-
-			for (
-				my $child = 0 ;
-				$child < $child_directory_convert_number_of ;
-				$child++
-			  )
-			{
-
-				my $directory_list_aref =
-				  $directory_contents_convert[$parent][$child];
-
-				if ( length $directory_list_aref ) {
-
-					my @directory_list        = @$directory_list_aref;
-					my $length_directory_list = scalar @directory_list;
-
-	   #					print(
-	   #"L_SU_global_contents,@{$directory_contents_convert[$parent][$child]}\n"
-	   #					);
-	   #					print("L_SU_global_contents,file_name=$file_name\n");
-
-					for ( my $i = 0 ; $i < $length_directory_list ; $i++ ) {
-
-	#						print("L_SU_global_constants, directory list=$directory_list[$i]\n");
-						;
-						if ( not $file_name eq $directory_list[$i] ) {
-
-							next;
-
-						}
-						elsif ( $file_name eq $directory_list[$i] ) {
-
-	  #							print(
-	  #"L_SU_global_constants,get_path4convert_file,found the file $file_name in
-	  #	   					$PARENT_DIR_CONVERT[$parent]::$CHILD_DIR_CONVERT[$child]\n"
-	  #							);
-							$result =
-								$path4SeismicUnixGui . '/'
-							  . $PARENT_DIR_CONVERT[$parent] . '/'
-							  . $CHILD_DIR_CONVERT[$child];
-
-							return ($result);
-						}
-						else {
-							print("change_a_line, unexpected value\n");
-							return ();
-						}
-					}
-
-				}
-				else {
-#					print(
-#						"L_SU_global_constants, get_path4convert_file, missing directory; NADA\n"
-#					);
-				}
-
-			}
-		}
-
-	}
-	else {
-		print(
-			"L_SU_global_constants,_get_path_4convert_file,file_name_missing\n"
-		);
-		return ();
-	}
-}
-
-=head2 sub get_path4spec_file
-
-Find a path for
-
-a given spec file
-
-=cut
-
-sub get_path4spec_file {
-
-	my (@self) = @_;
-
-	if ( length $L_SU_global_constants->{_file_name} ) {
-
-		my $file_name = $L_SU_global_constants->{_file_name};
-		my $result;
-
-=head2 Collect parameters from local hash
-
-=cut
-
-		my $GRANDPARENT_DIR  = $path4SeismicUnixGui;
-		my @PARENT_DIR_SPECS = @{ $L_SU_global_constants->{_PARENT_DIR_SPECS} };
-		my @CHILD_DIR_SPECS  = @{ $L_SU_global_constants->{_CHILD_DIR_SPECS} };
-
-=head2 Collect relevant "spec"
-
- project paths and files
-
-=cut
-
-		my ( $result_aref3, $dimensions_aref ) = _get_specs_pathNfile2search();
-		my @result_aref2                     = @$result_aref3;
-		my @directory_contents_specs         = @{ $result_aref2[0] };
-		my @dimension                        = @$dimensions_aref;
-		my $parent_directory_specs_number_of = $dimension[0];
-		my $child_directory_specs_number_of  = $dimension[1];
-
-# test
-#		my $parent_specs = 1;
-#		my $child_specs  = 1;
-#		print(
-#"\nFor specs directory paths: $PARENT_DIR_SPECS[$parent_specs]::$CHILD_DIR_SPECS[$child_specs]::\n"
-#		);
-#		print("@{$directory_contents_specs[$parent_specs][$child_specs]}\n");
-
-=head2 Search all "spec"-relevant 
-
-directories start with 
-gui drectory listing
-
-=cut
-
-		for (
-			my $parent = 0 ;
-			$parent < $parent_directory_specs_number_of ;
-			$parent++
-		  )
-		{
-
-			for (
-				my $child = 0 ;
-				$child < $child_directory_specs_number_of ;
-				$child++
-			  )
-			{
-
-				my $directory_list_aref =
-				  $directory_contents_specs[$parent][$child];
-				my @directory_list = @$directory_list_aref;
-
-				my $length_directory_list = scalar @directory_list;
-
-				#				print("@{$directory_contents_specs[$parent][$child]}\n");
-				#				print("file_name=$file_name\n");
-				for ( my $i = 0 ; $i < $length_directory_list ; $i++ ) {
-
-					if ( not $file_name eq $directory_list[$i] ) {
-
-						next;
-
-					}
-					elsif ( $file_name eq $directory_list[$i] ) {
-
-		 #						print(
-		 #"L_SU_global_constants,get_path4spec_file,found the file $file_name in
-		 #				  			  $PARENT_DIR_SPECS[$parent]::$CHILD_DIR_SPECS[$child]\n"
-		 #						);
-						$result =
-							$path4SeismicUnixGui . '/'
-						  . $PARENT_DIR_SPECS[$parent] . '/'
-						  . $CHILD_DIR_SPECS[$child];
-
-						return ($result);
-					}
-					else {
-						print("change_a_line, unexpected value\n");
-						return ();
-					}
-				}
-
-			}
-		}
-
-	}
-	else {
-		print("L_SU_global_constants,_get_path4spec_file,file_name_missing\n");
-		return ();
-	}
-}
-
-=head2 Find a path for
-
-a given tools file
-You need to pre-determine
-you have a "Tools" file
-
-=cut
-
-sub get_path4tools_file {
-
-	my (@self) = @_;
-
-	if ( length $L_SU_global_constants->{_file_name} ) {
-
-		my $file_name = $L_SU_global_constants->{_file_name};
-		my $result;
-
-=head2 Collect parameters from local hash
-
-=cut
-
-		my $GRANDPARENT_DIR  = $path4SeismicUnixGui;
-		my @PARENT_DIR_TOOLS = @{ $L_SU_global_constants->{_PARENT_DIR_TOOLS} };
-		my @CHILD_DIR_TOOLS  = @{ $L_SU_global_constants->{_CHILD_DIR_TOOLS} };
-
-=head2 Collect relevant "tools"
-
- project paths and files
-
-=cut
-
-		my ( $result_aref3, $dimensions_aref ) = _get_tools_pathNfile2search();
-		my @result_aref2                     = @$result_aref3;
-		my @directory_contents_tools         = @{ $result_aref2[0] };
-		my @dimension                        = @$dimensions_aref;
-		my $parent_directory_tools_number_of = $dimension[0];
-		my $child_directory_tools_number_of  = $dimension[1];
-
-# test
-#		my $parent_tools = 1;
-#		my $child_tools  = 1;
-#		print(
-#"\nFor tools directory paths: $PARENT_DIR_TOOLS[$parent_tools]::$CHILD_DIR_TOOLS[$child_tools]::\n"
-#		);
-#		print("@{$directory_contents_tools[$parent_tools][$child_tools]}\n");
-
-=head2 Search all "spec"-relevant 
-
-directories start with 
-gui drectory listing
-
-=cut
-
-		for (
-			my $parent = 0 ;
-			$parent < $parent_directory_tools_number_of ;
-			$parent++
-		  )
-		{
-
-			for (
-				my $child = 0 ;
-				$child < $child_directory_tools_number_of ;
-				$child++
-			  )
-			{
-
-				my $directory_list_aref =
-				  $directory_contents_tools[$parent][$child];
-				my @directory_list = @$directory_list_aref;
-
-				my $length_directory_list = scalar @directory_list;
-
-				#				print("@{$directory_contents_tools[$parent][$child]}\n");
-				#				print("file_name=$file_name\n");
-				for ( my $i = 0 ; $i < $length_directory_list ; $i++ ) {
-
-					if ( not $file_name eq $directory_list[$i] ) {
-
-						next;
-
-					}
-					elsif ( $file_name eq $directory_list[$i] ) {
-
-		#						print(
-		#"L_SU_global_constants,get_path4tools_file,found the file $file_name in
-		#				  			  $PARENT_DIR_TOOLS[$parent]::$CHILD_DIR_TOOLS[$child]\n"
-		#						);
-						$result =
-							$path4SeismicUnixGui . '/'
-						  . $PARENT_DIR_TOOLS[$parent] . '/'
-						  . $CHILD_DIR_TOOLS[$child];
-
-						return ($result);
-					}
-					else {
-						print("change_a_line, unexpected value\n");
-						return ();
-					}
-				}
-
-			}
-		}
-
-	}
-	else {
-		print("L_SU_global_constants,_get_path4tools_file,file_name_missing\n");
-		return ();
-	}
-}
+#		return ();
+#	}
+#}
+#
+#=head2 sub get_path4spec_file
+#
+#Find a path for
+#
+#a given spec file
+#
+#=cut
+#
+#sub get_path4spec_file {
+#
+#	my (@self) = @_;
+#
+#	if ( length $L_SU_global_constants->{_file_name} ) {
+#
+#		my $file_name = $L_SU_global_constants->{_file_name};
+#		my $result;
+#
+#=head2 Collect parameters from local hash
+#
+#=cut
+#
+#		my $GRANDPARENT_DIR  = $path4SeismicUnixGui;
+#		my @PARENT_DIR_SPECS = @{ $L_SU_global_constants->{_PARENT_DIR_SPECS} };
+#		my @CHILD_DIR_SPECS  = @{ $L_SU_global_constants->{_CHILD_DIR_SPECS} };
+#
+#=head2 Collect relevant "spec"
+#
+# project paths and files
+#
+#=cut
+#
+#		my ( $result_aref3, $dimensions_aref ) = _get_specs_pathNfile2search();
+#		my @result_aref2                     = @$result_aref3;
+#		my @directory_contents_specs         = @{ $result_aref2[0] };
+#		my @dimension                        = @$dimensions_aref;
+#		my $parent_directory_specs_number_of = $dimension[0];
+#		my $child_directory_specs_number_of  = $dimension[1];
+#
+## test
+##		my $parent_specs = 1;
+##		my $child_specs  = 1;
+##		print(
+##"\nFor specs directory paths: $PARENT_DIR_SPECS[$parent_specs]::$CHILD_DIR_SPECS[$child_specs]::\n"
+##		);
+##		print("@{$directory_contents_specs[$parent_specs][$child_specs]}\n");
+#
+#=head2 Search all "spec"-relevant 
+#
+#directories start with 
+#gui drectory listing
+#
+#=cut
+#
+#		for (
+#			my $parent = 0 ;
+#			$parent < $parent_directory_specs_number_of ;
+#			$parent++
+#		  )
+#		{
+#
+#			for (
+#				my $child = 0 ;
+#				$child < $child_directory_specs_number_of ;
+#				$child++
+#			  )
+#			{
+#
+#				my $directory_list_aref =
+#				  $directory_contents_specs[$parent][$child];
+#				my @directory_list = @$directory_list_aref;
+#
+#				my $length_directory_list = scalar @directory_list;
+#
+#				#				print("@{$directory_contents_specs[$parent][$child]}\n");
+#				#				print("file_name=$file_name\n");
+#				for ( my $i = 0 ; $i < $length_directory_list ; $i++ ) {
+#
+#					if ( not $file_name eq $directory_list[$i] ) {
+#
+#						next;
+#
+#					}
+#					elsif ( $file_name eq $directory_list[$i] ) {
+#
+#		 #						print(
+#		 #"L_SU_global_constants,get_path4spec_file,found the file $file_name in
+#		 #				  			  $PARENT_DIR_SPECS[$parent]::$CHILD_DIR_SPECS[$child]\n"
+#		 #						);
+#						$result =
+#							$path4SeismicUnixGui . '/'
+#						  . $PARENT_DIR_SPECS[$parent] . '/'
+#						  . $CHILD_DIR_SPECS[$child];
+#
+#						return ($result);
+#					}
+#					else {
+#						print("change_a_line, unexpected value\n");
+#						return ();
+#					}
+#				}
+#
+#			}
+#		}
+#
+#	}
+#	else {
+#		print("L_SU_global_constants,_get_path4spec_file,file_name_missing\n");
+#		return ();
+#	}
+#}
+#
+#=head2 Find a path for
+#
+#a given tools file
+#You need to pre-determine
+#you have a "Tools" file
+#
+#=cut
+#
+#sub get_path4tools_file {
+#
+#	my (@self) = @_;
+#
+#	if ( length $L_SU_global_constants->{_file_name} ) {
+#
+#		my $file_name = $L_SU_global_constants->{_file_name};
+#		my $result;
+#
+#=head2 Collect parameters from local hash
+#
+#=cut
+#
+#		my $GRANDPARENT_DIR  = $path4SeismicUnixGui;
+#		my @PARENT_DIR_TOOLS = @{ $L_SU_global_constants->{_PARENT_DIR_TOOLS} };
+#		my @CHILD_DIR_TOOLS  = @{ $L_SU_global_constants->{_CHILD_DIR_TOOLS} };
+#
+#=head2 Collect relevant "tools"
+#
+# project paths and files
+#
+#=cut
+#
+#		my ( $result_aref3, $dimensions_aref ) = _get_tools_pathNfile2search();
+#		my @result_aref2                     = @$result_aref3;
+#		my @directory_contents_tools         = @{ $result_aref2[0] };
+#		my @dimension                        = @$dimensions_aref;
+#		my $parent_directory_tools_number_of = $dimension[0];
+#		my $child_directory_tools_number_of  = $dimension[1];
+#
+## test
+##		my $parent_tools = 1;
+##		my $child_tools  = 1;
+##		print(
+##"\nFor tools directory paths: $PARENT_DIR_TOOLS[$parent_tools]::$CHILD_DIR_TOOLS[$child_tools]::\n"
+##		);
+##		print("@{$directory_contents_tools[$parent_tools][$child_tools]}\n");
+#
+#=head2 Search all "spec"-relevant 
+#
+#directories start with 
+#gui drectory listing
+#
+#=cut
+#
+#		for (
+#			my $parent = 0 ;
+#			$parent < $parent_directory_tools_number_of ;
+#			$parent++
+#		  )
+#		{
+#
+#			for (
+#				my $child = 0 ;
+#				$child < $child_directory_tools_number_of ;
+#				$child++
+#			  )
+#			{
+#
+#				my $directory_list_aref =
+#				  $directory_contents_tools[$parent][$child];
+#				my @directory_list = @$directory_list_aref;
+#
+#				my $length_directory_list = scalar @directory_list;
+#
+#				#				print("@{$directory_contents_tools[$parent][$child]}\n");
+#				#				print("file_name=$file_name\n");
+#				for ( my $i = 0 ; $i < $length_directory_list ; $i++ ) {
+#
+#					if ( not $file_name eq $directory_list[$i] ) {
+#
+#						next;
+#
+#					}
+#					elsif ( $file_name eq $directory_list[$i] ) {
+#
+#		#						print(
+#		#"L_SU_global_constants,get_path4tools_file,found the file $file_name in
+#		#				  			  $PARENT_DIR_TOOLS[$parent]::$CHILD_DIR_TOOLS[$child]\n"
+#		#						);
+#						$result =
+#							$path4SeismicUnixGui . '/'
+#						  . $PARENT_DIR_TOOLS[$parent] . '/'
+#						  . $CHILD_DIR_TOOLS[$child];
+#
+#						return ($result);
+#					}
+#					else {
+#						print("change_a_line, unexpected value\n");
+#						return ();
+#					}
+#				}
+#
+#			}
+#		}
+#
+#	}
+#	else {
+#		print("L_SU_global_constants,_get_path4tools_file,file_name_missing\n");
+#		return ();
+#	}
+#}
 
 sub number_from_color_href {
 
@@ -2300,113 +2310,113 @@ sub alias_superflow_config_names_aref {
 	return ( \@alias_superflow_config_names );
 }
 
-sub set_file_name {
-
-	my ( $self, $file_name ) = @_;
-
-	if ( length $file_name ) {
-
-		$L_SU_global_constants->{_file_name} = $file_name;
-
-#		print("L_SU_global_constants,set_file_name,set_file_name = $L_SU_global_constants->{_file_name}\n");
-
-	}
-	else {
-		print("L_SU_global_constants,set_file_name,missing variable");
-	}
-
-}
-
-=head2 sub set_CHILD_DIR_type
-
-=cut
-
-sub set_CHILD_DIR_type {
-
-	my ( $self, $type ) = @_;
-
-	if ( length $type ) {
-
-		my $CHILD_DIR = '_CHILD_DIR_' . $type;
-		$L_SU_global_constants->{_CHILD_DIR} =
-		  $L_SU_global_constants->{$CHILD_DIR};
-
-#		print("L_SU_global_constants,set_CHILD_DIR,set_CHILD_DIR_type = $L_SU_global_constants->{_CHILD_DIR}\n");
-
-	}
-	else {
-		print(
-"L_SU_global_constants,set_CHILD_DIR_type, type=$type is missing variable"
-		);
-	}
-
-}
-
-=head2 sub set_GRANDPARENT_DIR
-
-=cut
-
-sub set_GRANDPARENT_DIR {
-
-	my ( $self, $GRANDPARENT_DIR ) = @_;
-
-	if ( length $GRANDPARENT_DIR ) {
-
-		$L_SU_global_constants->{_GRANDPARENT_DIR} = $GRANDPARENT_DIR;
-
-#		print("L_SU_global_constants,set_GRANDPARENT_DIR,set_GRANDPARENT_DIR = $L_SU_global_constants->{_GRANDPARENT_DIR}\n");
-
-	}
-	else {
-		print("L_SU_global_constants,set_GRANDPARENT_DIR,missing variable");
-	}
-
-}
-
-=head2 sub set_PARENT_DIR_type
-
-=cut
-
-sub set_PARENT_DIR_type {
-
-	my ( $self, $type ) = @_;
-
-	if ( length $type ) {
-
-		my $PARENT_DIR = '_PARENT_DIR_' . $type;
-		$L_SU_global_constants->{_PARENT_DIR} =
-		  $L_SU_global_constants->{$PARENT_DIR};
-
-#		print("L_SU_global_constants,set_PARENT_DIR,set_PARENT_DIR_type = $L_SU_global_constants->{_PARENT_DIR}\n");
-
-	}
-	else {
-		print(
-"L_SU_global_constants,set_PARENT_DIR_type, type=$type is missing variable"
-		);
-	}
-
-}
-
-=head2 sub set_program_name
-
-=cut
-
-sub set_program_name {
-
-	my ( $self, $program_name ) = @_;
-
-	if ( length $program_name ) {
-
-		$L_SU_global_constants->{_program_name} = $program_name;
-
-	}
-	else {
-		carp "missing program_name";
-		print("L_SU_global_constants,set_program_name,missing program_name\n");
-	}
-
-}
+#sub set_file_name {
+#
+#	my ( $self, $file_name ) = @_;
+#
+#	if ( length $file_name ) {
+#
+#		$L_SU_global_constants->{_file_name} = $file_name;
+#
+##		print("L_SU_global_constants,set_file_name,set_file_name = $L_SU_global_constants->{_file_name}\n");
+#
+#	}
+#	else {
+#		print("L_SU_global_constants,set_file_name,missing variable");
+#	}
+#
+#}
+#
+#=head2 sub set_CHILD_DIR_type
+#
+#=cut
+#
+#sub set_CHILD_DIR_type {
+#
+#	my ( $self, $type ) = @_;
+#
+#	if ( length $type ) {
+#
+#		my $CHILD_DIR = '_CHILD_DIR_' . $type;
+#		$L_SU_global_constants->{_CHILD_DIR} =
+#		  $L_SU_global_constants->{$CHILD_DIR};
+#
+##		print("L_SU_global_constants,set_CHILD_DIR,set_CHILD_DIR_type = $L_SU_global_constants->{_CHILD_DIR}\n");
+#
+#	}
+#	else {
+#		print(
+#"L_SU_global_constants,set_CHILD_DIR_type, type=$type is missing variable"
+#		);
+#	}
+#
+#}
+#
+#=head2 sub set_GRANDPARENT_DIR
+#
+#=cut
+#
+#sub set_GRANDPARENT_DIR {
+#
+#	my ( $self, $GRANDPARENT_DIR ) = @_;
+#
+#	if ( length $GRANDPARENT_DIR ) {
+#
+#		$L_SU_global_constants->{_GRANDPARENT_DIR} = $GRANDPARENT_DIR;
+#
+##		print("L_SU_global_constants,set_GRANDPARENT_DIR,set_GRANDPARENT_DIR = $L_SU_global_constants->{_GRANDPARENT_DIR}\n");
+#
+#	}
+#	else {
+#		print("L_SU_global_constants,set_GRANDPARENT_DIR,missing variable");
+#	}
+#
+#}
+#
+#=head2 sub set_PARENT_DIR_type
+#
+#=cut
+#
+#sub set_PARENT_DIR_type {
+#
+#	my ( $self, $type ) = @_;
+#
+#	if ( length $type ) {
+#
+#		my $PARENT_DIR = '_PARENT_DIR_' . $type;
+#		$L_SU_global_constants->{_PARENT_DIR} =
+#		  $L_SU_global_constants->{$PARENT_DIR};
+#
+##		print("L_SU_global_constants,set_PARENT_DIR,set_PARENT_DIR_type = $L_SU_global_constants->{_PARENT_DIR}\n");
+#
+#	}
+#	else {
+#		print(
+#"L_SU_global_constants,set_PARENT_DIR_type, type=$type is missing variable"
+#		);
+#	}
+#
+#}
+#
+#=head2 sub set_program_name
+#
+#=cut
+#
+#sub set_program_name {
+#
+#	my ( $self, $program_name ) = @_;
+#
+#	if ( length $program_name ) {
+#
+#		$L_SU_global_constants->{_program_name} = $program_name;
+#
+#	}
+#	else {
+#		carp "missing program_name";
+#		print("L_SU_global_constants,set_program_name,missing program_name\n");
+#	}
+#
+#}
 
 sub superflow_config_names_aref {
 	return ( \@superflow_config_names );

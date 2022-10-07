@@ -45,9 +45,11 @@ our $VERSION = '0.0.1';
 
 use aliased 'App::SeismicUnixGui::misc::manage_files_by2';
 use aliased 'App::SeismicUnixGui::misc::L_SU_global_constants';
+use aliased 'App::SeismicUnixGui::misc::dirs';
 use Carp;
 
 my $manage_files_by2 = manage_files_by2->new();
+my $dirs             = dirs->new();
 
 =head2 Define
 
@@ -166,8 +168,8 @@ for ( my $j = 0 ; $j < $length_of_slurp ; $j++ ) {
 
 				# print("module name_pm=$module_name_pm\n");
 
-				$L_SU_global_constants->set_file_name($module_name_pm);
-				my $path = $L_SU_global_constants->get_path4convert_file();
+				$dirs->set_file_name($module_name_pm);
+				my $path = $dirs->get_path4convert_file();
 
 				if ( length $path ) {
 

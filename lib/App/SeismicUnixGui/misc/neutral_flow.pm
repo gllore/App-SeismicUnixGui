@@ -64,18 +64,7 @@ package App::SeismicUnixGui::misc::neutral_flow;
 use Moose;
 our $VERSION = '0.0.4';
 
-#my $path;
-#my $SeismicUnixGui;
-#use Shell qw(echo);
-#
-#BEGIN {
-#
-#$SeismicUnixGui = ` echo \$SeismicUnixGui`;
-#chomp $SeismicUnixGui;
-#$path = $SeismicUnixGui.'/'.'misc';
-#
-#}
-#use lib "$path";
+
 use aliased 'App::SeismicUnixGui::misc::L_SU_global_constants';
 
 extends 'App::SeismicUnixGui::misc::gui_history' => { -version => 0.0.2 };
