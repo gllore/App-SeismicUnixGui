@@ -27,17 +27,28 @@ package App::SeismicUnixGui::misc::L_SU_path;
 =cut 
 
 use Moose;
-
 use Carp;
 
-my $path4SeismicUnixGui_slash = $ENV{'SeismicUnixGui'};
-my $path4SeismicUnixGui_colon = $path4SeismicUnixGui_slash;
+my $path4SeismicUnixGui_slash;
+my $path4SeismicUnixGui_colon;
+
+BEGIN {
+	use Env;
+	
+	if (length $ENV{'SeismicUnixGui'} ) {
+		
+			$path4SeismicUnixGui_slash = $ENV{'SeismicUnixGui'};
+			$path4SeismicUnixGui_colon = $path4SeismicUnixGui_slash;
+			
+	} else {
+		$path4SeismicUnixGui_slash = '/usr/local/pl/App-SeismicUnixGui/lib/App/SeismicUnixGui';
+		carp $path4SeismicUnixGui_slash;
+	}
+}
 
 my @pieces = split( /\/App\//, $path4SeismicUnixGui_slash );
-$path4SeismicUnixGui_colon = 'App/' . $pieces[1];
-$path4SeismicUnixGui_colon =~ s/\//::/g;
-
-#print $path4SeismicUnixGui_colon."\n";
+$path4SeismicUnixGui_colon    = 'App/' . $pieces[1];
+$path4SeismicUnixGui_colon    =~ s/\//::/g;
 
 =head2 private hash
 L_SU_path

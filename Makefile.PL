@@ -3,13 +3,6 @@ use warnings;
 
 use 5.26.1;
 use ExtUtils::MakeMaker;
-#use File::ShareDir ':ALL';
-#use File::ShareDir::Install;
-
-#my $my_distribution_directory =  'dist';
-#install_share $my_distribution_directory;
-#install_share dist => $my_distribution_directory;
-
 
 WriteMakefile(
 	NAME          => 'App::SeismicUnixGui',
@@ -44,8 +37,9 @@ WriteMakefile(
 
 	# required scripts
 	PL_FILES => {
-#		'./lib/App/SeismicUnixGui/script/post_install_env.pl' => 'SeismicUnixGui',
-#		'./lib/SeismicUnixGui/script/post_installation_c_compile.pl' => 'SeismicUnixGui',
+		'./lib/App/SeismicUnixGui/script/post_install_c_compile.pl' => 'SeismicUnixGui',
+		'./lib/App/SeismicUnixGui/script/post_install_fortran_compile.pl' => 'SeismicUnixGui',
+		'./lib/App/SeismicUnixGui/script/post_install_env.pl' => 'SeismicUnixGui',
 	},
 
 	# Documentation accessible within the GUI with Mouse-button-3 click

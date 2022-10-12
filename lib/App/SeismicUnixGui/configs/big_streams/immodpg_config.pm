@@ -52,13 +52,10 @@ use aliased 'App::SeismicUnixGui::misc::L_SU_global_constants';
 use aliased 'App::SeismicUnixGui::configs::big_streams::Project_config';
 use App::SeismicUnixGui::misc::SeismicUnix qw($in $out $on $go $to $suffix_ascii $off $suffix_su);
 use aliased 'App::SeismicUnixGui::misc::config_superflows';
-
 use App::SeismicUnixGui::misc::control '0.0.3';
 use aliased 'App::SeismicUnixGui::misc::control';
-
 use aliased 'App::SeismicUnixGui::big_streams::immodpg_global_constants';
 use aliased 'App::SeismicUnixGui::misc::manage_files_by2';
-
 use aliased 'App::SeismicUnixGui::misc::files_LSU';
 
 my $Project                = Project_config->new();

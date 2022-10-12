@@ -3,7 +3,20 @@ package App::SeismicUnixGui::misc::L_SU_global_constants;
 use Moose;
 use Carp;
 
-my $path4SeismicUnixGui = $ENV{'SeismicUnixGui'};
+my $L_SU;
+
+BEGIN {
+	use Env;
+	
+	if (length $ENV{'SeismicUnixGui'} ) {
+		
+			$L_SU = $ENV{'SeismicUnixGui'};
+			
+	} else {
+		$L_SU = '/usr/local/pl/App-SeismicUnixGui/lib/App/SeismicUnixGui';
+		carp $L_SU;
+	}
+}
 
 #BEGIN {
 #	# searching for directory: SeismicUnixGui
@@ -52,8 +65,6 @@ my $path4SeismicUnixGui = $ENV{'SeismicUnixGui'};
 #
 #	}
 #}
-
-my $L_SU = $path4SeismicUnixGui;
 
 #my $path4SeismicUnixGui_lib = $L_SU;
 
@@ -2438,7 +2449,7 @@ sub global_libs {
 	# empty string is predefined herein
 	if ( length $L_SU ) {
 
-		#			print("L_SU_global_constants my L_SU = $L_SU\n");
+#		print("L_SU_global_constants my L_SU = $L_SU\n");
 
 		my $global_libs = {
 			_configs             => $L_SU . '/configs',
@@ -2458,7 +2469,7 @@ sub global_libs {
 
 	}
 	else {
-		print("L_SU_global_constants, global_libs, L_SU is missing\n");
+		carp("L_SU_global_constants, global_libs, L_SU is missing\n");
 		return ();
 	}
 

@@ -338,30 +338,42 @@ sub get {
 	 #"big_streams_param, get,CASE 1A: If progam_sref = a pre-built superflow\n"
 	 # );
 
-				# e.g., tools like Sseg2su.config
+				# e.g., with tools like Sseg2su.config
 				# but not with Project.config
 
 				use Module::Refresh;    # reload updated module
 				my $refresher = Module::Refresh->new();
 
-				my $program_name   = $$program_sref;
-				my $module_spec_pm = $program_name . '_spec.pm';
+				my $program_name = $$program_sref;
+				$L_SU_path->set_program_name($program_name);
 
-				my $L_SU_global_constants = L_SU_global_constants->new();
-				$L_SU_global_constants->set_file_name($module_spec_pm);
-				my $slash_path4spec =
-				  $L_SU_global_constants->get_path4spec_file();
-				my $slash_pathNmodule_spec_pm =
-				  $slash_path4spec . '/' . $module_spec_pm;
+				my $pathNmodule_spec_w_slash_pm =
+				  $L_SU_path->get_pathNmodule_spec_w_slash_pm();
+				my $pathNmodule_spec_w_colon =
+				  $L_SU_path->get_pathNmodule_spec_w_colon();
 
-				$L_SU_global_constants->set_program_name($program_name);
-				my $colon_pathNmodule_spec =
-				  $L_SU_global_constants->get_colon_pathNmodule_spec();
+				$refresher->refresh_module($pathNmodule_spec_w_slash_pm);
 
-				$refresher->refresh_module($slash_pathNmodule_spec_pm);
+				# INSTANTIATE
+				my $package = $pathNmodule_spec_w_colon->new();
 
-				#		INSTANTIATE
-				my $package = $colon_pathNmodule_spec->new();
+				#				my $module_spec_pm = $program_name . '_spec.pm';
+				#
+				#				my $L_SU_global_constants = L_SU_global_constants->new();
+				#				$L_SU_global_constants->set_file_name($module_spec_pm);
+				#				my $slash_path4spec =
+				#				  $L_SU_global_constants->get_path4spec_file();
+				#				my $slash_pathNmodule_spec_pm =
+				#				  $slash_path4spec . '/' . $module_spec_pm;
+				#
+				#				$L_SU_global_constants->set_program_name($program_name);
+				#				my $colon_pathNmodule_spec =
+				#				  $L_SU_global_constants->get_colon_pathNmodule_spec();
+				#
+				#				$refresher->refresh_module($slash_pathNmodule_spec_pm);
+				#
+				#				#		INSTANTIATE
+				#				my $package = $colon_pathNmodule_spec->new();
 
 				# collect specifications of output directory
 				# from a program_spec.pm module
@@ -513,7 +525,7 @@ sub _check4local_config {
 			my $specs_h = $package->variables();
 			my $CONFIG  = $specs_h->{_CONFIG};
 
-				my $prog_name_config = $CONFIG . '/' . $$name_sref . '.config';
+			my $prog_name_config = $CONFIG . '/' . $$name_sref . '.config';
 
 #  			print(
 #  "big_streams_param,_check4local_config,prog_name_config =$prog_name_config\n"

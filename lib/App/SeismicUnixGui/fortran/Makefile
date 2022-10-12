@@ -8,12 +8,14 @@
 
 .PHONY: all clean
 
-# Change this line if you are using a different Fortran compiler
+# Change the next line if you are using a different Fortran compiler
 FORTRAN_COMPILER = gfortran
 F77 = -iffixed-form
 F95 = -iffree-form
 FORTRAN_95_FLAGS    = -O2 -g $(F95)
 FORTRAN_77_FLAGS    = -O2 -g $(F95)
+
+PGPLOT=$(PGPLOT_DIR)
 
 # where is your working directory
 SeismicUnixGui_FORTRAN = .
@@ -27,7 +29,7 @@ SeismicUnixGui_FORTRAN_BIN = $(SeismicUnixGui_FORTRAN)/bin
 BIN_OUT          = $(SeismicUnixGui_FORTRAN_BIN)
 # BIN_OUT          = ''
 # folder for object files
-SeismicUnixGui_FORTRAN_OBJ = $(SeismicUnixGui_FORTRAN)/obj
+SeismicUnixGui_FORTRAN_OBJ = $(SeismicUnixGui_FORTRAN/obj)
 
 # compile F95 source code
 Project_config.o:	$(SeismicUnixGui_FORTRAN_SRC)/Project_config.f
@@ -215,7 +217,7 @@ messa.o Project_config.o
 	$(SeismicUnixGui_FORTRAN_OBJ)/write_model_file_text.o \
 	$(SeismicUnixGui_FORTRAN_OBJ)/write_yes_no_file.o \
 	$(SeismicUnixGui_FORTRAN_OBJ)/Project_config.o \
-	-L/usr/local/pgplot -lpgplot  -L/usr/lib64 -lX11 -o$(BIN_OUT)/immodpg1.1
+	-L$(PGPLOT) -lpgplot  -L/usr/lib64 -lX11 -o$(BIN_OUT)/immodpg1.1
 	
 clean:
 	rm -f $(SeismicUnixGui_FORTRAN_BIN)/* 

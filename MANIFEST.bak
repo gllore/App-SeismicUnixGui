@@ -124,7 +124,9 @@ lib/App/SeismicUnixGui/big_streams/Sudipfilt.pl
 lib/App/SeismicUnixGui/big_streams/Synseis
 lib/App/SeismicUnixGui/big_streams/Synseis.pl
 lib/App/SeismicUnixGui/big_streams/Synseis.pm
+lib/App/SeismicUnixGui/c/bin/synseis
 lib/App/SeismicUnixGui/c/bin/test
+lib/App/SeismicUnixGui/c/obj/keep
 lib/App/SeismicUnixGui/c/synseis/makefile
 lib/App/SeismicUnixGui/c/synseis/run_me_only.sh
 lib/App/SeismicUnixGui/c/synseis/set_env_variables.sh
@@ -399,8 +401,10 @@ lib/App/SeismicUnixGui/configs/shapeNcut/sugain.config
 lib/App/SeismicUnixGui/configs/shapeNcut/sugprfb.config
 lib/App/SeismicUnixGui/configs/shapeNcut/sukill.config
 lib/App/SeismicUnixGui/configs/shapeNcut/sumute.config
+lib/App/SeismicUnixGui/configs/shapeNcut/supad.config
 lib/App/SeismicUnixGui/configs/shapeNcut/susort.config
 lib/App/SeismicUnixGui/configs/shapeNcut/susplit.config
+lib/App/SeismicUnixGui/configs/shapeNcut/suvcat.config
 lib/App/SeismicUnixGui/configs/shapeNcut/suwind.config
 lib/App/SeismicUnixGui/configs/shell/catsu.config
 lib/App/SeismicUnixGui/configs/shell/evince.config
@@ -544,11 +548,14 @@ lib/App/SeismicUnixGui/developer/Stripped/data/segbread.Sfio.main
 lib/App/SeismicUnixGui/developer/Stripped/data/segdread.Sfio.main
 lib/App/SeismicUnixGui/developer/Stripped/data/segyclean.su.main.data_conversion
 lib/App/SeismicUnixGui/developer/Stripped/data/segyhdrs.su.main.data_conversion
+lib/App/SeismicUnixGui/developer/Stripped/data/segyhdrs_changes.txt
 lib/App/SeismicUnixGui/developer/Stripped/data/segyread.c.hold.su.main.data_conversion
 lib/App/SeismicUnixGui/developer/Stripped/data/segyread.su.main.data_conversion
+lib/App/SeismicUnixGui/developer/Stripped/data/segyread_changes.txt
 lib/App/SeismicUnixGui/developer/Stripped/data/segyscan.su.main.data_conversion
 lib/App/SeismicUnixGui/developer/Stripped/data/segywrite.c.hold.su.main.data_conversion
 lib/App/SeismicUnixGui/developer/Stripped/data/segywrite.su.main.data_conversion
+lib/App/SeismicUnixGui/developer/Stripped/data/segywrite_changes.txt
 lib/App/SeismicUnixGui/developer/Stripped/data/suoldtonew.su.main.data_conversion
 lib/App/SeismicUnixGui/developer/Stripped/data/supack1.su.main.data_compression
 lib/App/SeismicUnixGui/developer/Stripped/data/supack2.su.main.data_compression
@@ -621,6 +628,7 @@ lib/App/SeismicUnixGui/developer/Stripped/header/sutrcount.su.main.headers
 lib/App/SeismicUnixGui/developer/Stripped/header/suutm.su.main.headers
 lib/App/SeismicUnixGui/developer/Stripped/header/suxedit.su.main.headers
 lib/App/SeismicUnixGui/developer/Stripped/header/swapbhed.su.main.data_conversion
+lib/App/SeismicUnixGui/developer/Stripped/header/zebc.cwp.lib
 lib/App/SeismicUnixGui/developer/Stripped/inversion/suinvco3d.3D.Suinvco3d
 lib/App/SeismicUnixGui/developer/Stripped/inversion/suinvvxzco.su.main.migration_inversion
 lib/App/SeismicUnixGui/developer/Stripped/inversion/suinvzco3d.su.main.migration_inversion
@@ -859,6 +867,7 @@ lib/App/SeismicUnixGui/developer/Stripped/shapeNcut/sukill.su.main.windowing_sor
 lib/App/SeismicUnixGui/developer/Stripped/shapeNcut/sumute.su.main.windowing_sorting_muting
 lib/App/SeismicUnixGui/developer/Stripped/shapeNcut/sunan.su.main.amplitudes
 lib/App/SeismicUnixGui/developer/Stripped/shapeNcut/supad.su.main.windowing_sorting_muting
+lib/App/SeismicUnixGui/developer/Stripped/shapeNcut/supad_changes.txt
 lib/App/SeismicUnixGui/developer/Stripped/shapeNcut/supermute.su.main.operations
 lib/App/SeismicUnixGui/developer/Stripped/shapeNcut/supgc.su.main.amplitudes
 lib/App/SeismicUnixGui/developer/Stripped/shapeNcut/suputgthr.su.main.windowing_sorting_muting
@@ -870,6 +879,7 @@ lib/App/SeismicUnixGui/developer/Stripped/shapeNcut/susorty.su.main.windowing_so
 lib/App/SeismicUnixGui/developer/Stripped/shapeNcut/susplit.su.main.windowing_sorting_muting
 lib/App/SeismicUnixGui/developer/Stripped/shapeNcut/sutxtaper.su.main.tapering
 lib/App/SeismicUnixGui/developer/Stripped/shapeNcut/suvcat.su.main.operations
+lib/App/SeismicUnixGui/developer/Stripped/shapeNcut/suvcat_changes.txt
 lib/App/SeismicUnixGui/developer/Stripped/shapeNcut/suvlength.su.main.operations
 lib/App/SeismicUnixGui/developer/Stripped/shapeNcut/suwind.su.main.windowing_sorting_muting
 lib/App/SeismicUnixGui/developer/Stripped/shapeNcut/suwindpoly.su.main.windowing_sorting_muting
@@ -904,6 +914,7 @@ lib/App/SeismicUnixGui/developer/Stripped/statsMath/sunormalize.su.main.amplitud
 lib/App/SeismicUnixGui/developer/Stripped/statsMath/suocext.su.main.interp_extrap
 lib/App/SeismicUnixGui/developer/Stripped/statsMath/suop.su.main.operations
 lib/App/SeismicUnixGui/developer/Stripped/statsMath/suop2.su.main.operations
+lib/App/SeismicUnixGui/developer/Stripped/statsMath/suop_changes.txt
 lib/App/SeismicUnixGui/developer/Stripped/statsMath/suquantile.su.main.attributes_parameter_estimation
 lib/App/SeismicUnixGui/developer/Stripped/statsMath/surefcon.su.main.convolution_correlation
 lib/App/SeismicUnixGui/developer/Stripped/statsMath/sutaper.su.main.tapering
@@ -1161,6 +1172,7 @@ lib/App/SeismicUnixGui/misc/iFile.pm
 lib/App/SeismicUnixGui/misc/L_SU.pm
 lib/App/SeismicUnixGui/misc/L_SU_global_constants.pm
 lib/App/SeismicUnixGui/misc/L_SU_local_user_constants.pm
+lib/App/SeismicUnixGui/misc/L_SU_path.pm
 lib/App/SeismicUnixGui/misc/label_boxes.pm
 lib/App/SeismicUnixGui/misc/manage_dirs_by.pm
 lib/App/SeismicUnixGui/misc/manage_files_by.pm
@@ -1249,8 +1261,15 @@ lib/App/SeismicUnixGui/misc/whereami2.pm
 lib/App/SeismicUnixGui/misc/wipe.pm
 lib/App/SeismicUnixGui/misc/write_LSU.pm
 lib/App/SeismicUnixGui/misc/writefiles.pm
+lib/App/SeismicUnixGui/script/binary
+lib/App/SeismicUnixGui/script/binaryII
 lib/App/SeismicUnixGui/script/convert2V07
 lib/App/SeismicUnixGui/script/convert2V07.pl
+lib/App/SeismicUnixGui/script/data4figure9B_V2.sgy
+lib/App/SeismicUnixGui/script/data4figure9E_V2.sgy
+lib/App/SeismicUnixGui/script/gui_history.txt
+lib/App/SeismicUnixGui/script/header
+lib/App/SeismicUnixGui/script/headerII
 lib/App/SeismicUnixGui/script/iBottomMute
 lib/App/SeismicUnixGui/script/iBottomMute.pl
 lib/App/SeismicUnixGui/script/immodpg
@@ -1267,10 +1286,12 @@ lib/App/SeismicUnixGui/script/iVelocityAnalysis.pl
 lib/App/SeismicUnixGui/script/L_SU_project_selector.pl
 lib/App/SeismicUnixGui/script/L_SUV0.6.6.pl
 lib/App/SeismicUnixGui/script/L_SUV0.70.60.pl
+lib/App/SeismicUnixGui/script/L_SUV0.80.00.pl
 lib/App/SeismicUnixGui/script/LICENSE
 lib/App/SeismicUnixGui/script/log.txt
 lib/App/SeismicUnixGui/script/post_install_c_compile.pl
 lib/App/SeismicUnixGui/script/post_install_env.pl
+lib/App/SeismicUnixGui/script/post_install_fortran_compile.pl
 lib/App/SeismicUnixGui/script/post_installation_c_compile.pl
 lib/App/SeismicUnixGui/script/Project
 lib/App/SeismicUnixGui/script/Project.pl
@@ -1545,7 +1566,9 @@ lib/App/SeismicUnixGui/specs/shapeNcut/sugain_spec.pm
 lib/App/SeismicUnixGui/specs/shapeNcut/sugprfb_spec.pm
 lib/App/SeismicUnixGui/specs/shapeNcut/sukill_spec.pm
 lib/App/SeismicUnixGui/specs/shapeNcut/sumute_spec.pm
+lib/App/SeismicUnixGui/specs/shapeNcut/supad_spec.pm
 lib/App/SeismicUnixGui/specs/shapeNcut/susplit_spec.pm
+lib/App/SeismicUnixGui/specs/shapeNcut/suvcat_spec.pm
 lib/App/SeismicUnixGui/specs/shapeNcut/suwind_spec.pm
 lib/App/SeismicUnixGui/specs/shell/cat_su_spec.pm
 lib/App/SeismicUnixGui/specs/shell/catsu_spec.pm
@@ -1600,6 +1623,7 @@ lib/App/SeismicUnixGui/sunix/data/dt1tosu.pm
 lib/App/SeismicUnixGui/sunix/data/segbread.pm
 lib/App/SeismicUnixGui/sunix/data/segdread.pm
 lib/App/SeismicUnixGui/sunix/data/segyread.pm
+lib/App/SeismicUnixGui/sunix/data/segyread_old.pm
 lib/App/SeismicUnixGui/sunix/data/segyscan.pm
 lib/App/SeismicUnixGui/sunix/data/segywrite.pm
 lib/App/SeismicUnixGui/sunix/data/suoldtonew.pm
@@ -1643,6 +1667,7 @@ lib/App/SeismicUnixGui/sunix/header/header_values.pm
 lib/App/SeismicUnixGui/sunix/header/segyclean.pm
 lib/App/SeismicUnixGui/sunix/header/segyhdrmod.pm
 lib/App/SeismicUnixGui/sunix/header/segyhdrs.pm
+lib/App/SeismicUnixGui/sunix/header/segyhdrs_old.pm
 lib/App/SeismicUnixGui/sunix/header/setbhed.pm
 lib/App/SeismicUnixGui/sunix/header/su3dchart.pm
 lib/App/SeismicUnixGui/sunix/header/suabshw.pm
@@ -1839,9 +1864,11 @@ lib/App/SeismicUnixGui/sunix/shapeNcut/sugain.pm
 lib/App/SeismicUnixGui/sunix/shapeNcut/sugprfb.pm
 lib/App/SeismicUnixGui/sunix/shapeNcut/sukill.pm
 lib/App/SeismicUnixGui/sunix/shapeNcut/sumute.pm
+lib/App/SeismicUnixGui/sunix/shapeNcut/supad.pm
 lib/App/SeismicUnixGui/sunix/shapeNcut/suresamp.pm
 lib/App/SeismicUnixGui/sunix/shapeNcut/susort.pm
 lib/App/SeismicUnixGui/sunix/shapeNcut/susplit.pm
+lib/App/SeismicUnixGui/sunix/shapeNcut/suvcat.pm
 lib/App/SeismicUnixGui/sunix/shapeNcut/suwind.pm
 lib/App/SeismicUnixGui/sunix/shell/cat_su.pm
 lib/App/SeismicUnixGui/sunix/shell/cat_txt.pm
@@ -1945,5 +1972,7 @@ t/temp/script.t
 t/temp/specs.t
 t/temp/sunix.t
 t/temp/test_specs.t
+t/test
 t/test_specs.t
 tbd
+test
