@@ -45,20 +45,21 @@ my $path;
 my $local_dir = getcwd;
 
 $C_PATH 	= $local_dir.'/blib/lib/App/SeismicUnixGui'.'/'.'c/synseis';
-print("C_PATH=$C_PATH\n");
-print("Do you want to compile C standalone program? (y/n)\n");
+print("\n\tINSTALLATION OF C PROGRAMS\n");
+print("\nC_PATH=$C_PATH\n");
+print("\nDo you want to compile C standalone program? (y/n)\n");
 $ans = <STDIN>;
 chomp $ans;
 
 if ( ( $ans eq 'N' ) or ( $ans eq 'n' ) ) {
 
-	print("OK, your answer is no.  Bye!");
+	print("\nOK, your answer is no.  Bye!\n");
 	exit;
 
 }
 elsif ( ( $ans eq 'Y' ) or ( $ans eq 'y' ) ) {
 	
-	print "OK, Proceeding to compile\n";
+	print "\nOK, Proceeding to compile\n";
 	system("cd $C_PATH; bash run_me_only.sh ");
 	
 }

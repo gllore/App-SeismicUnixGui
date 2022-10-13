@@ -19,8 +19,8 @@
 #     MAN3PODS => {  }
 #     NAME => q[App::SeismicUnixGui]
 #     PL_FILES => { ./lib/App/SeismicUnixGui/script/post_install_c_compile.pl=>q[SeismicUnixGui], ./lib/App/SeismicUnixGui/script/post_install_env.pl=>q[SeismicUnixGui], ./lib/App/SeismicUnixGui/script/post_install_fortran_compile.pl=>q[SeismicUnixGui] }
-#     PREREQ_PM => { Clone=>q[0.45], File::Slurp=>q[9999.32], MIME::Base64=>q[3.16], Module::Refresh=>q[0.17], Moose=>q[2.2015], PDL=>q[2.028], Shell=>q[v0.73.1], Test::Compile=>q[v3.1.0], Test::Compile::Internal=>q[v3.1.0], Test::More=>q[1.30], Time::HiRes=>q[1.9764], Tk=>q[804.036], Tk::JFileDialog=>q[2.20], aliased=>q[0.34] }
-#     TEST_REQUIRES => { Test::Compile=>q[v3.1.0], Test::Compile::Internal=>q[v3.1.0], Test::More=>q[1.30] }
+#     PREREQ_PM => { Clone=>q[0.45], File::ShareDir=>q[1.118], File::Slurp=>q[9999.32], MIME::Base64=>q[3.16], Module::Refresh=>q[0.18], Moose=>q[2.2015], PDL::Core=>q[2.028], Shell=>q[v0.73.1], Test::Compile::Internal=>q[v3.1.0], Time::HiRes=>q[1.9764], Tk=>q[804.036], Tk::JFileDialog=>q[2.20], aliased=>q[0.34], namespace::autoclean=>q[0.29] }
+#     TEST_REQUIRES => { Test::Compile::Internal=>q[v3.1.0] }
 #     VERSION_FROM => q[lib/App/SeismicUnixGui.pm]
 #     dist => { COMPRESS=>q[gzip -9f], SUFFIX=>q[gz] }
 #     test => { TESTS=>q[t/*.t] }
@@ -62,11 +62,11 @@ DIRFILESEP = /
 DFSEP = $(DIRFILESEP)
 NAME = App::SeismicUnixGui
 NAME_SYM = App_SeismicUnixGui
-VERSION = 0.70.60
+VERSION = 0.80.0
 VERSION_MACRO = VERSION
-VERSION_SYM = 0_70_60
+VERSION_SYM = 0_80_0
 DEFINE_VERSION = -D$(VERSION_MACRO)=\"$(VERSION)\"
-XS_VERSION = 0.70.60
+XS_VERSION = 0.80.0
 XS_VERSION_MACRO = XS_VERSION
 XS_DEFINE_VERSION = -D$(XS_VERSION_MACRO)=\"$(XS_VERSION)\"
 INST_ARCHLIB = blib/arch
@@ -2234,7 +2234,7 @@ RCS_LABEL = rcs -Nv$(VERSION_SYM): -q
 DIST_CP = best
 DIST_DEFAULT = tardist
 DISTNAME = App-SeismicUnixGui
-DISTVNAME = App-SeismicUnixGui-0.70.60
+DISTVNAME = App-SeismicUnixGui-0.80.0
 
 
 # --- MakeMaker macro section:
@@ -2479,9 +2479,7 @@ metafile : create_distdir
 	$(NOECHO) $(ECHO) 'author:' >> META_new.yml
 	$(NOECHO) $(ECHO) '  - '\''Juan Lorenzo <gllore@lsu.edu>'\''' >> META_new.yml
 	$(NOECHO) $(ECHO) 'build_requires:' >> META_new.yml
-	$(NOECHO) $(ECHO) '  Test::Compile: v3.1.0' >> META_new.yml
 	$(NOECHO) $(ECHO) '  Test::Compile::Internal: v3.1.0' >> META_new.yml
-	$(NOECHO) $(ECHO) '  Test::More: '\''1.30'\''' >> META_new.yml
 	$(NOECHO) $(ECHO) 'configure_requires:' >> META_new.yml
 	$(NOECHO) $(ECHO) '  ExtUtils::MakeMaker: '\''0'\''' >> META_new.yml
 	$(NOECHO) $(ECHO) 'dynamic_config: 1' >> META_new.yml
@@ -2497,17 +2495,19 @@ metafile : create_distdir
 	$(NOECHO) $(ECHO) '    - inc' >> META_new.yml
 	$(NOECHO) $(ECHO) 'requires:' >> META_new.yml
 	$(NOECHO) $(ECHO) '  Clone: '\''0.45'\''' >> META_new.yml
+	$(NOECHO) $(ECHO) '  File::ShareDir: '\''1.118'\''' >> META_new.yml
 	$(NOECHO) $(ECHO) '  File::Slurp: '\''9999.32'\''' >> META_new.yml
 	$(NOECHO) $(ECHO) '  MIME::Base64: '\''3.16'\''' >> META_new.yml
-	$(NOECHO) $(ECHO) '  Module::Refresh: '\''0.17'\''' >> META_new.yml
+	$(NOECHO) $(ECHO) '  Module::Refresh: '\''0.18'\''' >> META_new.yml
 	$(NOECHO) $(ECHO) '  Moose: '\''2.2015'\''' >> META_new.yml
-	$(NOECHO) $(ECHO) '  PDL: '\''2.028'\''' >> META_new.yml
+	$(NOECHO) $(ECHO) '  PDL::Core: '\''2.028'\''' >> META_new.yml
 	$(NOECHO) $(ECHO) '  Shell: v0.73.1' >> META_new.yml
 	$(NOECHO) $(ECHO) '  Time::HiRes: '\''1.9764'\''' >> META_new.yml
 	$(NOECHO) $(ECHO) '  Tk: '\''804.036'\''' >> META_new.yml
 	$(NOECHO) $(ECHO) '  Tk::JFileDialog: '\''2.20'\''' >> META_new.yml
 	$(NOECHO) $(ECHO) '  aliased: '\''0.34'\''' >> META_new.yml
-	$(NOECHO) $(ECHO) 'version: v0.70.60' >> META_new.yml
+	$(NOECHO) $(ECHO) '  namespace::autoclean: '\''0.29'\''' >> META_new.yml
+	$(NOECHO) $(ECHO) 'version: v0.80.0' >> META_new.yml
 	$(NOECHO) $(ECHO) 'x_serialization_backend: '\''CPAN::Meta::YAML version 0.018'\''' >> META_new.yml
 	-$(NOECHO) $(MV) META_new.yml $(DISTVNAME)/META.yml
 	$(NOECHO) $(ECHO) Generating META.json
@@ -2544,28 +2544,28 @@ metafile : create_distdir
 	$(NOECHO) $(ECHO) '      "runtime" : {' >> META_new.json
 	$(NOECHO) $(ECHO) '         "requires" : {' >> META_new.json
 	$(NOECHO) $(ECHO) '            "Clone" : "0.45",' >> META_new.json
+	$(NOECHO) $(ECHO) '            "File::ShareDir" : "1.118",' >> META_new.json
 	$(NOECHO) $(ECHO) '            "File::Slurp" : "9999.32",' >> META_new.json
 	$(NOECHO) $(ECHO) '            "MIME::Base64" : "3.16",' >> META_new.json
-	$(NOECHO) $(ECHO) '            "Module::Refresh" : "0.17",' >> META_new.json
+	$(NOECHO) $(ECHO) '            "Module::Refresh" : "0.18",' >> META_new.json
 	$(NOECHO) $(ECHO) '            "Moose" : "2.2015",' >> META_new.json
-	$(NOECHO) $(ECHO) '            "PDL" : "2.028",' >> META_new.json
+	$(NOECHO) $(ECHO) '            "PDL::Core" : "2.028",' >> META_new.json
 	$(NOECHO) $(ECHO) '            "Shell" : "v0.73.1",' >> META_new.json
 	$(NOECHO) $(ECHO) '            "Time::HiRes" : "1.9764",' >> META_new.json
 	$(NOECHO) $(ECHO) '            "Tk" : "804.036",' >> META_new.json
 	$(NOECHO) $(ECHO) '            "Tk::JFileDialog" : "2.20",' >> META_new.json
-	$(NOECHO) $(ECHO) '            "aliased" : "0.34"' >> META_new.json
+	$(NOECHO) $(ECHO) '            "aliased" : "0.34",' >> META_new.json
+	$(NOECHO) $(ECHO) '            "namespace::autoclean" : "0.29"' >> META_new.json
 	$(NOECHO) $(ECHO) '         }' >> META_new.json
 	$(NOECHO) $(ECHO) '      },' >> META_new.json
 	$(NOECHO) $(ECHO) '      "test" : {' >> META_new.json
 	$(NOECHO) $(ECHO) '         "requires" : {' >> META_new.json
-	$(NOECHO) $(ECHO) '            "Test::Compile" : "v3.1.0",' >> META_new.json
-	$(NOECHO) $(ECHO) '            "Test::Compile::Internal" : "v3.1.0",' >> META_new.json
-	$(NOECHO) $(ECHO) '            "Test::More" : "1.30"' >> META_new.json
+	$(NOECHO) $(ECHO) '            "Test::Compile::Internal" : "v3.1.0"' >> META_new.json
 	$(NOECHO) $(ECHO) '         }' >> META_new.json
 	$(NOECHO) $(ECHO) '      }' >> META_new.json
 	$(NOECHO) $(ECHO) '   },' >> META_new.json
 	$(NOECHO) $(ECHO) '   "release_status" : "stable",' >> META_new.json
-	$(NOECHO) $(ECHO) '   "version" : "v0.70.60",' >> META_new.json
+	$(NOECHO) $(ECHO) '   "version" : "v0.80.0",' >> META_new.json
 	$(NOECHO) $(ECHO) '   "x_serialization_backend" : "JSON::PP version 4.06"' >> META_new.json
 	$(NOECHO) $(ECHO) '}' >> META_new.json
 	-$(NOECHO) $(MV) META_new.json $(DISTVNAME)/META.json
@@ -2851,21 +2851,23 @@ testdb_static :: static pure_all
 # --- MakeMaker ppd section:
 # Creates a PPD (Perl Package Description) for a binary distribution.
 ppd :
-	$(NOECHO) $(ECHO) '<SOFTPKG NAME="App-SeismicUnixGui" VERSION="0.70.60">' > App-SeismicUnixGui.ppd
+	$(NOECHO) $(ECHO) '<SOFTPKG NAME="App-SeismicUnixGui" VERSION="0.80.0">' > App-SeismicUnixGui.ppd
 	$(NOECHO) $(ECHO) '    <ABSTRACT>A graphical user interface for Seismic Unix</ABSTRACT>' >> App-SeismicUnixGui.ppd
 	$(NOECHO) $(ECHO) '    <AUTHOR>Juan Lorenzo &lt;gllore@lsu.edu&gt;</AUTHOR>' >> App-SeismicUnixGui.ppd
 	$(NOECHO) $(ECHO) '    <IMPLEMENTATION>' >> App-SeismicUnixGui.ppd
 	$(NOECHO) $(ECHO) '        <REQUIRE NAME="Clone::" VERSION="0.45" />' >> App-SeismicUnixGui.ppd
+	$(NOECHO) $(ECHO) '        <REQUIRE NAME="File::ShareDir" VERSION="1.118" />' >> App-SeismicUnixGui.ppd
 	$(NOECHO) $(ECHO) '        <REQUIRE NAME="File::Slurp" VERSION="9999.32" />' >> App-SeismicUnixGui.ppd
 	$(NOECHO) $(ECHO) '        <REQUIRE NAME="MIME::Base64" VERSION="3.16" />' >> App-SeismicUnixGui.ppd
-	$(NOECHO) $(ECHO) '        <REQUIRE NAME="Module::Refresh" VERSION="0.17" />' >> App-SeismicUnixGui.ppd
+	$(NOECHO) $(ECHO) '        <REQUIRE NAME="Module::Refresh" VERSION="0.18" />' >> App-SeismicUnixGui.ppd
 	$(NOECHO) $(ECHO) '        <REQUIRE NAME="Moose::" VERSION="2.2015" />' >> App-SeismicUnixGui.ppd
-	$(NOECHO) $(ECHO) '        <REQUIRE NAME="PDL::" VERSION="2.028" />' >> App-SeismicUnixGui.ppd
+	$(NOECHO) $(ECHO) '        <REQUIRE NAME="PDL::Core" VERSION="2.028" />' >> App-SeismicUnixGui.ppd
 	$(NOECHO) $(ECHO) '        <REQUIRE NAME="Shell::" VERSION="v0.73.1" />' >> App-SeismicUnixGui.ppd
 	$(NOECHO) $(ECHO) '        <REQUIRE NAME="Time::HiRes" VERSION="1.9764" />' >> App-SeismicUnixGui.ppd
 	$(NOECHO) $(ECHO) '        <REQUIRE NAME="Tk::" VERSION="804.036" />' >> App-SeismicUnixGui.ppd
 	$(NOECHO) $(ECHO) '        <REQUIRE NAME="Tk::JFileDialog" VERSION="2.20" />' >> App-SeismicUnixGui.ppd
 	$(NOECHO) $(ECHO) '        <REQUIRE NAME="aliased::" VERSION="0.34" />' >> App-SeismicUnixGui.ppd
+	$(NOECHO) $(ECHO) '        <REQUIRE NAME="namespace::autoclean" VERSION="0.29" />' >> App-SeismicUnixGui.ppd
 	$(NOECHO) $(ECHO) '        <ARCHITECTURE NAME="x86_64-linux-gnu-thread-multi-5.34" />' >> App-SeismicUnixGui.ppd
 	$(NOECHO) $(ECHO) '        <CODEBASE HREF="" />' >> App-SeismicUnixGui.ppd
 	$(NOECHO) $(ECHO) '    </IMPLEMENTATION>' >> App-SeismicUnixGui.ppd

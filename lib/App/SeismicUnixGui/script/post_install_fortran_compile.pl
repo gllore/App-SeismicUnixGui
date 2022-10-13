@@ -45,21 +45,24 @@ my $path;
 my $local_dir = getcwd;
 
 my $FORTRAN_PATH 	= $local_dir.'/blib/lib/App/SeismicUnixGui'.'/'.'fortran';
-print("FORTRAN_PATH=$FORTRAN_PATH\n");
+print("\n\tINSTALLATION OF FORTRAN PROGRAMS\n");
+print("\nFortran path=$FORTRAN_PATH\n");
 print("Do you want to compile FORTRAN programs? \n");
-print("  You must have the \"pgplot\" libraries compiled and installed. \n");
-print("  If the \"PGPLOT_DIR\" environment variable does not exist,\n");
-print("  then respond NO to the following question. \n\n");
+print("Then, you must have the \"pgplot\" libraries compiled and installed. \n");
+print("If the \"PGPLOT_DIR\" environment variable does not exist,\n");
+print("then respond NO to the following question. \n\n");
 print("Do you want to compile FORTRAN program? (y/n) \n");
 $ans = <STDIN>;
 chomp $ans;
 
 if ( ( $ans eq 'N' ) or ( $ans eq 'n' ) ) {
-
-	print("OK, your answer is no.\n");
-	print(" Install pgplot. \n Put the following line in your \".bashrc\" file:\n");
+		#
+	print("\nOK, your answer is no.\n");
+	print("Come back again but first \n");
+	print ("Install pgplot and put the following line \n");
+	print ("in your \".bashrc\" file:\n");
 	print("      export PGPLOT=/usr/local/pgplot \n");
-	print(" Please come back when you are ready\n");
+	print("Please come back when you are ready\n");
 	exit;
 
 }

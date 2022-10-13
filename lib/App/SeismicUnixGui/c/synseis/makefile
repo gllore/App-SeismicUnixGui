@@ -29,4 +29,4 @@ synseis:
 tbd:
 	$(C_COMPILER) $(C_FLAGS) $(SeismicUnixGui_C_SRC)/tbd.c $(L_FLAGS) -o $(SeismicUnixGui_C_BIN)/tbd 
 clean:
-	rm -f $(C_OBJ)/*
+	rm -f $(C_OBJ)/synseis.o

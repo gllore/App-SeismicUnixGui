@@ -11,22 +11,24 @@ WriteMakefile(
 	ABSTRACT_FROM => 'lib/App/SeismicUnixGui.pm',
 	LICENSE       => 'perl',
 	PREREQ_PM     => {
+		
+		'Moose'           => '2.2015',
+		'Shell'           => '0.73.1',
+		'aliased'         => '0.34',
+		'namespace::autoclean' => '0.29',
+		'Module::Refresh' => '0.18',
+		'PDL::Core'       => '2.028',
+		'Tk'              => '804.036',
+		'Tk::JFileDialog' => '2.20',
+		'File::ShareDir'  => '1.118',		
 		'Clone'           => '0.45',
 		'File::Slurp'     => '9999.32',
 		'MIME::Base64'    => '3.16',
-		'Moose'           => '2.2015',
-		'PDL'       	  => '2.028',
-		'Module::Refresh' => '0.17',
-		'Shell'           => '0.73.1',
 		'Time::HiRes'     => '1.9764',
-		'Tk'              => '804.036',
-		'Tk::JFileDialog' => '2.20',
-		'aliased'         => '0.34',
+
 	},
 
 	TEST_REQUIRES => {
-		          'Test::More' => '1.30',
-		          'Test::Compile' => '3.1.0',
 		          'Test::Compile::Internal' => '3.1.0',
 	},
 
@@ -57,8 +59,3 @@ WriteMakefile(
 	},
 
 );
- 
-## Where are distribution-level shared data files kept
-#my $system_distribution_directory = dist_dir('App-SeismicUnixGui');
-#print("my system_distribution_directory= $system_distribution_directory\n");
-#system ("perl $system_distribution_directory/post_installation.pl");
