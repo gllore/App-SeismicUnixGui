@@ -17,7 +17,7 @@ WriteMakefile(
 		'aliased'         => '0.34',
 		'namespace::autoclean' => '0.29',
 		'Module::Refresh' => '0.18',
-		'PDL::Core'       => '2.028',
+		'PDL'             => '2.080',
 		'Tk'              => '804.036',
 		'Tk::JFileDialog' => '2.20',
 		'File::ShareDir'  => '1.118',		
