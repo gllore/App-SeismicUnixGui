@@ -1,8 +1,2 @@
-/home/gllore/Georgia/seismics/pl/Vineyard/wine/082922/gpr/1/gllore/1.view_raw_data_nos_scale.pl
-/home/gllore/Georgia/seismics/pl/Vineyard/wine/082922/gpr/1/gllore/4.surange.pl
-/home/gllore/Georgia/seismics/pl/Vineyard/wine/082922/gpr/1/gllore/1.view_raw_data.pl
-/home/gllore/Georgia/seismics/pl/Vineyard/wine/082922/gpr/1/gllore/9.view_data_w_statics.pl
-/home/gllore/geol4062_f2022/seismics/pl/justNofE122/gpr/082922/polarN-S/0/gllore/view_data.pl
-/home/gllore/geol4062_f2022/seismics/pl/justNofE122/gpr/082922/polarN-S/0/gllore/2.view_fft.pl
 /home/gllore/geol4062_f2022/seismics/data/justNofE122/gpr/082922/polarN-S/0/su/gllore/line00.su
 /home/gllore/geol4062_f2022/seismics/pl/justNofE122/gpr/082922/polarN-S/0/gllore/1.segy2su.pl

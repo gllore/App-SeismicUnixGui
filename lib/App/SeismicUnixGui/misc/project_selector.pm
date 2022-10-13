@@ -370,8 +370,8 @@ sub _ok {
 #print("project_selector,_ok,create new Project and its directories \n");
 #print("project_selector,_ok,copy FROM:$from TO:$to \n");
 
-#		    print("project_selector,_ok, sh $global_libs->{_script}$run_name \n");
-			system("sh $global_libs->{_script}$run_name");
+#		    print("project_selector,_ok, sh $global_libs->{_superflows}$run_name \n");
+			system("sh $global_libs->{_superflows}$run_name");
 
 #      print("project_selector,_ok,copying new active project configuration file \n FROM:$from TO:$to");
 # kill LSU_project_selector exit with 1
@@ -448,7 +448,7 @@ sub _ok {
 
 	# Instruction to create the new directories runs in system
 	#			print("project_selector,_ok,create new Project and its directories \n");
-			system("sh $global_libs->{_script}$run_name");
+			system("sh $global_libs->{_superflows}$run_name");
 
 			# kill windows but exit with 1
 			_continue();

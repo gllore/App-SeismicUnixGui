@@ -43,13 +43,13 @@ use Moose;
 our $VERSION = '0.0.3';
 
 use aliased 'App::SeismicUnixGui::misc::L_SU_global_constants';
-use aliased 'App::SeismicUnixGui::misc::L_SU_path';
+
+#use aliased 'App::SeismicUnixGui::misc::manage_files_by2';
 
 my $L_SU_global_constants   = L_SU_global_constants->new();
 my $alias_superflow_names_h = $L_SU_global_constants->alias_superflow_names_h();
 my $var                     = $L_SU_global_constants->var();
 my $empty_string            = $var->{_empty_string};
-my $L_SU_path               = L_SU_path->new();
 
 my $no  = $var->{_no};
 my $yes = $var->{_yes};
@@ -671,22 +671,34 @@ sub get_max_index {
 
 	if ( length $program_name ) {
 
-		$L_SU_path->set_program_name($program_name);
+		my $L_SU_global_constants = L_SU_global_constants->new();
+		my $module_spec_pm        = $program_name . '_spec.pm';
 
-		my $pathNmodule_spec_w_slash_pm =
-		  $L_SU_path->get_pathNmodule_spec_w_slash_pm();
-		my $pathNmodule_spec_w_colon =
-		  $L_SU_path->get_pathNmodule_spec_w_colon();
+		$L_SU_global_constants->set_file_name($module_spec_pm);
+		my $slash_path4spec = $L_SU_global_constants->get_path4spec_file();
+		my $slash_pathNmodule_spec_pm =
+		  $slash_path4spec . '/' . $module_spec_pm;
 
-		require $pathNmodule_spec_w_slash_pm;
+		$L_SU_global_constants->set_program_name($program_name);
+		my $colon_pathNmodule_spec =
+		  $L_SU_global_constants->get_colon_pathNmodule_spec();
+
+	  #	 	print("1.control, get_max_index , prog_name: $slash_pathNmodule_spec_pm\n");
+#	 	print("1. control, get_max_index, prog_name: $colon_pathNmodule_spec\n");
+
+		require $slash_pathNmodule_spec_pm;
 
 		# INSTANTIATE
-		my $package = $pathNmodule_spec_w_colon->new();
+		my $package = $colon_pathNmodule_spec->new();
+
+		#print ("control,get_max_index, instantiate $module_spec\n");
 
 		my $specs = $package->variables();
+
 		# print("control,get_max_index,first_of_2,$specs->{_is_first_of_2}\n");
 
 		$max_index = $specs->{_max_index};
+
 		# print (" control,get_max_index, max index = $max_index\n");
 	}
 	return ($max_index);

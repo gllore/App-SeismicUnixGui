@@ -41,32 +41,40 @@ my $SeismicUnixGui;
 my $ans 	= 'n';
 my $path;
 
-# important variables defined
-my $local_dir = getcwd;
+# find paths via linux
+my $SCRIPT_PATH 		= `locate script\/SeismicUnixGui\ | grep perl`;
+my @old_list 			= split('\/',$SCRIPT_PATH);
+my $length_old_list  	= scalar @old_list;
+my $length_new_list  	= $length_old_list -2;
 
-$C_PATH 	= $local_dir.'/blib/lib/App/SeismicUnixGui'.'/'.'c/synseis';
-print("\n\tINSTALLATION OF C PROGRAMS\n");
-print("\nC_PATH=$C_PATH\n");
-print("\nDo you want to compile C standalone program? (y/n)\n");
-$ans = <STDIN>;
+# slice of array
+my @new_list      		= @old_list[0..$length_new_list];
+my $SCRIPT_LIB_PATH    	= join('/',@new_list);
+
+$SeismicUnixGui = ` echo \$SeismicUnixGui`;
+chomp $SeismicUnixGui;
+$C_PATH 	 = $SeismicUnixGui.'/'.'c/synseis';
+print("C_PATH=$C_PATH\n");
+print("Do you want to compile C standalone program? (y/n)\n");
+
+$ans = <>;
 chomp $ans;
 
 if ( ( $ans eq 'N' ) or ( $ans eq 'n' ) ) {
 
-	print("\nOK, your answer is no.  Bye!\n");
+	print("OK, your answer is no.  Bye!");
 	exit;
 
 }
 elsif ( ( $ans eq 'Y' ) or ( $ans eq 'y' ) ) {
 	
-	print "\nOK, Proceeding to compile\n";
+	print "OK, Proceeding to compile\n";
+#	print("pwd=$C_PATH\n");
 	system("cd $C_PATH; bash run_me_only.sh ");
-	
+#	system("cd $C_PATH; pwd #bash run_me_only.sh");
+#	
 }
 else {
 	print("post_installation_c_compile.pl, unexpected answer\n");
 }
-
-print("Hit Enter to continue\n");
-<STDIN>
 

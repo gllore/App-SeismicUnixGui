@@ -10,6 +10,18 @@ use Moose;
 
 =cut
 
+#my $path;
+#my $SeismicUnixGui;
+#use Shell qw(echo);
+#
+#BEGIN {
+#
+#$SeismicUnixGui = ` echo \$SeismicUnixGui`;
+#chomp $SeismicUnixGui;
+#$path = $SeismicUnixGui.'/'.'misc';
+#
+#}
+#use lib "$path";;
 extends 'App::SeismicUnixGui::misc::sunix_pl';
 
 =head2 hash of encapsuated variables

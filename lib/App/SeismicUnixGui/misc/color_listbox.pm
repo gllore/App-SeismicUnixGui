@@ -26,6 +26,18 @@ our $VERSION = '0.0.1';
 
 =head2 Import modules
 =cut
+#my $path;
+#my $SeismicUnixGui;
+#use Shell qw(echo);
+#
+#BEGIN {
+#
+#$SeismicUnixGui = ` echo \$SeismicUnixGui`;
+#chomp $SeismicUnixGui;
+#$path = $SeismicUnixGui.'/'.'misc';
+#
+#}
+#use lib "$path";
 
 extends 'App::SeismicUnixGui::misc::gui_history' => { -version => 0.0.2 };
 use aliased 'App::SeismicUnixGui::misc::L_SU_global_constants';

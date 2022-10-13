@@ -1,16 +1,6 @@
 package App::SeismicUnixGui::developer::code::sunix::sunix_package_header;
 use Moose;
 
-
-=head2 Load modules
-
-=cut
-
-use aliased 'App::SeismicUnixGui::misc::L_SU_global_constants';
-
-my $L_SU_global_constants = L_SU_global_constants->new();
-
-
 =head2 private hash
 
 =cut
@@ -49,16 +39,8 @@ sub get_version_section {
 sub get_package_name_section {
 	my ($self) = @_;
 	my $name = $sunix_package_header->{_package_name};
-	
-	my $program_category = $L_SU_global_constants->get_developer_sunix_category_h();
-	
-#	make key
-	my $key = '_'.$name;
-    my $category = $program_category->{$key};
-    my $pathNname_w_colon= 'App::SeismicUnixGui::sunix::'.$category.'::'.$name;
-    print("sunix_package_header,get_package_name_section,pathNname_w_colon=$pathNname_w_colon\n");
 	my @head;
-	$head[0] = ("package $pathNname_w_colon;\n\n");
+	$head[0] = ("package $name;\n\n");
 
 	# print("sunix_package_header,get_package_name_section: $head[0]");
 	return ( \@head );

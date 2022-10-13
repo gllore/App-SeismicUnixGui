@@ -49,11 +49,6 @@ package App::SeismicUnixGui::misc::neutral_flow;
  
  V 0.0.3 Oct. 11 2019
  refactored
- 
- V0.0.4 Sept. 19, 2022
-  changes to get_help
-      error check
-      find module path
 
 =cut 
 
@@ -62,9 +57,20 @@ package App::SeismicUnixGui::misc::neutral_flow;
 =cut 
 
 use Moose;
-our $VERSION = '0.0.4';
+our $VERSION = '0.0.3';
 
-
+#my $path;
+#my $SeismicUnixGui;
+#use Shell qw(echo);
+#
+#BEGIN {
+#
+#$SeismicUnixGui = ` echo \$SeismicUnixGui`;
+#chomp $SeismicUnixGui;
+#$path = $SeismicUnixGui.'/'.'misc';
+#
+#}
+#use lib "$path";
 use aliased 'App::SeismicUnixGui::misc::L_SU_global_constants';
 
 extends 'App::SeismicUnixGui::misc::gui_history' => { -version => 0.0.2 };
@@ -139,12 +145,12 @@ sub get_flow_color {
 		$color = $color_flow_href->{_flow_color};
 		return ($color);
 
-	}
-	else {
+	} else {
 		print("neutral_flow, get_flow_color, missing flow color\n");
 	}
 
 }
+
 
 =head2 sub get_prog_name_sref 
 Exports private hash value
@@ -162,63 +168,31 @@ sub get_prog_name_sref {
 		# print("neutral_flow, get_prog_name_sref,  $$name\n");
 		return ($name);
 
-	}
-	else {
+	} else {
 		print("neutral_flow, get_prog_name_sref, missing \n");
 	}
 
 }
 
 =head2 sub get_help
-
 Callback sequence following MB3 click 
 activation of a sunix (Listbox) item
 program name is a scalar reference
  
-Let help decide whether it is a superflow
-or a user-created flow
+ Let help decide whether it is a superflow
+ or a user-created flow
  
-Show a window with the perldoc to the user
+ Show a window with the perldoc to the user
  
 =cut 
 
 sub get_help {
 	my ($self) = @_;
 
-	if ( length $color_flow_href->{_prog_name_sref} 
-	    and length $color_flow_href->{_current_program_name} 
-	    and ($color_flow_href->{_current_program_name} eq ${$color_flow_href->{_prog_name_sref}})
-	    and length $color_flow_href->{_sunix_prog_group} ) {
-
-		# it is a sunix program
-		# the data group is defined
-		
-		my $data_group           = $color_flow_href->{_sunix_prog_group};
-		my $current_program_name = $color_flow_href->{_current_program_name};
-		my $SeismicUnixGui 		 = $get->get_path4SeismicUnixGui();
-		my $module_name    		 = ${$color_flow_href->{_prog_name_sref}};
-		my $sunix_program_group  = $color_flow_href->{_sunix_prog_group};
-
-		my $PATH  				 =  $SeismicUnixGui.'/sunix'.'/'.$data_group;
-	
-		my $help    = help->new();
-		my $inbound = $PATH.'/'.$module_name.'.pm';
-#		print("PATH = $inbound\n");
-		
-		$help->set_name(\$inbound);
-		$help->tkpod();
-		return ();
-
-	}
-	else {
-		print("neutral_flow,get_help,a missing variable:\n");
-		print("neutral_flow,get_help,color_flow_href->{_prog_name_sref}=$color_flow_href->{_prog_name_sref}\n");
-		print("neutral_flow,get_help,color_flow_href->{_current_program_name}=$color_flow_href->{_current_program_name}\n");
-		print("neutral_flow,get_help,color_flow_href->{_prog_name_sref}=${$color_flow_href->{_prog_name_sref}}\n");
-		print("neutral_flow,get_help,color_flow_href->{_sunix_prog_group}=$color_flow_href->{_sunix_prog_group}\n");
-		
-		return ();
-	}
+	my $help = help->new();
+	$help->set_name( $color_flow_href->{_prog_name_sref} );
+	$help->tkpod();
+	return ();
 }
 
 =head2 sub set_hash_ref
@@ -242,12 +216,12 @@ sub set_hash_ref {
 	$flow_color            = $color_flow_href->{_flow_color};
 	$flowNsuperflow_name_w = $color_flow_href->{_flowNsuperflow_name_w};
 
-#	$last_flow_color               = $color_flow_href->{_last_flow_color};                 # used in flow_select
-#	$labels_w_aref                 = $color_flow_href->{_labels_w_aref};
+	#	$last_flow_color               = $color_flow_href->{_last_flow_color};                 # used in flow_select
+	#	$labels_w_aref                 = $color_flow_href->{_labels_w_aref};
 	$message_w     = $color_flow_href->{_message_w};
 	$sunix_listbox = $color_flow_href->{_sunix_listbox};
 
-# print("neutral_flowset_hash_ref,delete_from_flow_button: $delete_from_flow_button\n");
+	# print("neutral_flowset_hash_ref,delete_from_flow_button: $delete_from_flow_button\n");
 
 	return ();
 }
@@ -280,9 +254,8 @@ Pick Seismic Unix modules
 sub sunix_select {
 	my ($self) = @_;
 
-	$color_flow_href->{_flow_type} =
-	  $flow_type->{_user_built};    # should be at start of neutral_flow
-	 # print("neutral_flow, sunix_select,parameter_values_frame: $parameter_values_frame\n");
+	$color_flow_href->{_flow_type} = $flow_type->{_user_built};    # should be at start of neutral_flow
+		 # print("neutral_flow, sunix_select,parameter_values_frame: $parameter_values_frame\n");
 	use Clone 'clone';
 
 	my $neutral_flow_messages = message_director->new();
@@ -298,8 +271,8 @@ sub sunix_select {
 	# and update that program's stored values
 	# _update_prior_param_flow();
 
-# print("neutral_flow,1. sunix_select,flow_color: $color_flow_href->{_flow_color}\n");
-# print("neutral_flow,1. sunix_select,_is_flow_listbox_neutral_w:	$color_flow_href->{_is_flow_listbox_neutral_w} \n");
+	# print("neutral_flow,1. sunix_select,flow_color: $color_flow_href->{_flow_color}\n");
+	# print("neutral_flow,1. sunix_select,_is_flow_listbox_neutral_w:	$color_flow_href->{_is_flow_listbox_neutral_w} \n");
 
 	$gui_history->set_hash_ref($color_flow_href);
 	$gui_history->set4start_of_sunix_select();
@@ -310,39 +283,35 @@ sub sunix_select {
 	#$color_flow_href->{_flow_color} 			= $gui_history->get_flow_color();
 	my $flow_color = $color_flow_href->{_flow_color};
 
-# print("neutral_flow,2. sunix_select,flow_color: $flow_color\n");
-# print("neutral_flow,1. sunix_select,_is_flow_listbox_neutral_w:	$color_flow_href->{_is_flow_listbox_neutral_w} \n");
-# print("1. neutral_flow, sunix_select, _values_w_aref $color_flow_href->{_values_w_aref}\n");
+	# print("neutral_flow,2. sunix_select,flow_color: $flow_color\n");
+	# print("neutral_flow,1. sunix_select,_is_flow_listbox_neutral_w:	$color_flow_href->{_is_flow_listbox_neutral_w} \n");
+	# print("1. neutral_flow, sunix_select, _values_w_aref $color_flow_href->{_values_w_aref}\n");
 
 	# get program name
-	$color_flow_href->{_prog_name_sref} =
-	  $param_widgets->get_current_program( \$sunix_listbox );
+	$color_flow_href->{_prog_name_sref} = $param_widgets->get_current_program( \$sunix_listbox );
 
-	$param_sunix->set_flow_type( $color_flow_href->{_flow_type} );
+	$param_sunix->set_flow_type($color_flow_href->{_flow_type});
 	$param_sunix->set_program_name( $color_flow_href->{_prog_name_sref} );
-
-# print("3. neutral_flow sunix_select, program name is ${$color_flow_href->{_prog_name_sref}}\n");
-
-	$color_flow_href->{_names_aref}  = $param_sunix->get_names();
-	$color_flow_href->{_values_aref} = $param_sunix->get_values();
-	$color_flow_href->{_check_buttons_settings_aref} =
-	  $param_sunix->get_check_buttons_settings();
-	$color_flow_href->{_param_sunix_first_idx} = $param_sunix->first_idx();
-
+	# print("3. neutral_flow sunix_select, program name is ${$color_flow_href->{_prog_name_sref}}\n");
+	
+	$color_flow_href->{_names_aref}                  = $param_sunix->get_names();
+	$color_flow_href->{_values_aref}                 = $param_sunix->get_values();
+	$color_flow_href->{_check_buttons_settings_aref} = $param_sunix->get_check_buttons_settings();
+	$color_flow_href->{_param_sunix_first_idx}       = $param_sunix->first_idx();
+	
 	# use values not index
-	$param_sunix->set_half_length();
-	$color_flow_href->{_param_sunix_length} = $param_sunix->get_length();    #
-	 # print("4. neutral_flow sunix_select, program name is ${$color_flow_href->{_prog_name_sref}}\n");
-	 # print("2. neutral_flow, sunix_select, length $color_flow_href->{_param_sunix_length}\n");
+	$param_sunix->set_half_length();    			
+	$color_flow_href->{_param_sunix_length} 		= $param_sunix->get_length();    #
+	# print("4. neutral_flow sunix_select, program name is ${$color_flow_href->{_prog_name_sref}}\n");
+	# print("2. neutral_flow, sunix_select, length $color_flow_href->{_param_sunix_length}\n");
 
 	# widgets initialized in super class
 	$param_widgets->set_labels_w_aref( $color_flow_href->{_labels_w_aref} );
 	$param_widgets->set_values_w_aref( $color_flow_href->{_values_w_aref} );
-	$param_widgets->set_check_buttons_w_aref(
-		$color_flow_href->{_check_buttons_w_aref} );
+	$param_widgets->set_check_buttons_w_aref( $color_flow_href->{_check_buttons_w_aref} );
 
-# print("5. neutral_flow sunix_select, program name is ${$color_flow_href->{_prog_name_sref}}\n");
-# print("41. neutral_flow sunix_select, check button settings--@{$color_flow_href->{_check_buttons_settings_aref}}--\n");
+	# print("5. neutral_flow sunix_select, program name is ${$color_flow_href->{_prog_name_sref}}\n");
+	# print("41. neutral_flow sunix_select, check button settings--@{$color_flow_href->{_check_buttons_settings_aref}}--\n");
 
 	# Correct strange memory leak inside param_widgets
 	my $save = clone( $color_flow_href->{_check_buttons_settings_aref} );
@@ -351,48 +320,46 @@ sub sunix_select {
 	# print("42. neutral_flow sunix_select, check button settings--@$save-\n");
 	@{ $color_flow_href->{_check_buttons_settings_aref} } = @$save;
 
-# print("42. neutral_flow sunix_select, check button settings--@{$color_flow_href->{_check_buttons_settings_aref}}--\n");
+	# print("42. neutral_flow sunix_select, check button settings--@{$color_flow_href->{_check_buttons_settings_aref}}--\n");
 
-# $param_widgets->range($color_flow_href);
-# print("43. neutral_flow sunix_select, check button settings @{$color_flow_href->{_check_buttons_settings_aref}}\n");
+	# $param_widgets->range($color_flow_href);
+	# print("43. neutral_flow sunix_select, check button settings @{$color_flow_href->{_check_buttons_settings_aref}}\n");
 
 	# print("6 neutral_flow sunix_select\n");
-	$param_widgets->set_labels( $color_flow_href->{_names_aref} )
-	  ;    # equiv to "labels_aref"
+	$param_widgets->set_labels( $color_flow_href->{_names_aref} );    # equiv to "labels_aref"
 	$param_widgets->set_values( $color_flow_href->{_values_aref} );
 
-# print("1. neutral_flow, sunix_select, _values_aref @{$color_flow_href->{_values_aref}}\n");
-# print("1. neutral_flow, sunix_select, _names_aref @{$color_flow_href->{_names_aref}}\n");
-# print("44. neutral_flow sunix_select, check button settings @{$color_flow_href->{_check_buttons_settings_aref}}\n");
+	# print("1. neutral_flow, sunix_select, _values_aref @{$color_flow_href->{_values_aref}}\n");
+	# print("1. neutral_flow, sunix_select, _names_aref @{$color_flow_href->{_names_aref}}\n");
+	# print("44. neutral_flow sunix_select, check button settings @{$color_flow_href->{_check_buttons_settings_aref}}\n");
 
-	$param_widgets->set_check_buttons(
-		$color_flow_href->{_check_buttons_settings_aref} );
+	$param_widgets->set_check_buttons( $color_flow_href->{_check_buttons_settings_aref} );
 	$param_widgets->set_current_program( $color_flow_href->{_prog_name_sref} );
 
-# print("3. neutral_flow, sunix_select, _values_w_aref $color_flow_href->{_values_w_aref}\n");
-# print("neutral_flow sunix_select, $color_flow_href->{_is_sunix_listbox}\n");
+	# print("3. neutral_flow, sunix_select, _values_w_aref $color_flow_href->{_values_w_aref}\n");
+	# print("neutral_flow sunix_select, $color_flow_href->{_is_sunix_listbox}\n");
 	$param_widgets->redisplay_labels();
 	$param_widgets->redisplay_values();
 	$param_widgets->redisplay_check_buttons();
 
 	$gui_history->set4end_of_sunix_select();
 
-# print("neutral_flow,2. sunix_select,1 line after set4end_of_sunix_select\n");
-# $flow_color				= $color_flow_href->{_flow_color};
-# TODo are  following 1 line and past 1 line needed?
-#	print("1. neutral_flow sunix_select, program name is ${$color_flow_href->{_prog_name_sref}}\n");
-# $color_flow_href 		= $gui_history->get_hash_ref();
+	# print("neutral_flow,2. sunix_select,1 line after set4end_of_sunix_select\n");
+	# $flow_color				= $color_flow_href->{_flow_color};
+	# TODo are  following 1 line and past 1 line needed?
+	#	print("1. neutral_flow sunix_select, program name is ${$color_flow_href->{_prog_name_sref}}\n");
+	# $color_flow_href 		= $gui_history->get_hash_ref();
 
-# print("2. neutral_flow, sunix_select, _values_aref @{$color_flow_href->{_values_aref}}\n");
-# print("2. neutral_flow, sunix_select, _names_aref @{$color_flow_href->{_names_aref}}\n");
+	# print("2. neutral_flow, sunix_select, _values_aref @{$color_flow_href->{_values_aref}}\n");
+	# print("2. neutral_flow, sunix_select, _names_aref @{$color_flow_href->{_names_aref}}\n");
 
-#	$color_flow_href->{_last_flow_color} = $flow_color;
-#	print("7. neutral_flow sunix_select, program name is ${$color_flow_href->{_prog_name_sref}}\n");
-# for export to other colored flows
-#	$last_flow_color = $flow_color;
-#	print("4. neutral_flow, sunix_select, _values_w_aref $color_flow_href->{_values_w_aref}\n");
-#	print("neutral_flow,3. sunix_select,flow_color: $flow_color\n");
-#	print("8. neutral_flow sunix_select, program name is ${$color_flow_href->{_prog_name_sref}}\n");
+	#	$color_flow_href->{_last_flow_color} = $flow_color;
+	#	print("7. neutral_flow sunix_select, program name is ${$color_flow_href->{_prog_name_sref}}\n");
+	# for export to other colored flows
+	#	$last_flow_color = $flow_color;
+	#	print("4. neutral_flow, sunix_select, _values_w_aref $color_flow_href->{_values_w_aref}\n");
+	#	print("neutral_flow,3. sunix_select,flow_color: $flow_color\n");
+	#	print("8. neutral_flow sunix_select, program name is ${$color_flow_href->{_prog_name_sref}}\n");
 	return ();
 }
 

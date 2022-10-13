@@ -65,7 +65,8 @@ our $VERSION = '0.0.2';
 use Tk;
 
 use aliased 'App::SeismicUnixGui::misc::L_SU_global_constants';
-use aliased 'App::SeismicUnixGui::misc::L_SU_path';
+
+#use aliased 'App::SeismicUnixGui::misc::manage_files_by2';
 
 =head2 Instantiation
 
@@ -73,7 +74,6 @@ use aliased 'App::SeismicUnixGui::misc::L_SU_path';
 
 my $L_SU_global_constants = L_SU_global_constants->new();
 my $var                   = $L_SU_global_constants->var();
-my $L_SU_path             = L_SU_path->new();
 
 =head2 Declare local variables
 
@@ -177,15 +177,27 @@ sub set {
 
 	my $program_name = ${ $binding->{_prog_name_sref} };
 
-	$L_SU_path->set_program_name($program_name);
-	
-	my $pathNmodule_spec_w_slash_pm  = $L_SU_path->get_pathNmodule_spec_w_slash_pm();
-	my $pathNmodule_spec_w_colon     = $L_SU_path->get_pathNmodule_spec_w_colon();
+	my $L_SU_global_constants = L_SU_global_constants->new();
+	my $module_spec_pm        = $program_name . '_spec.pm';
 
-	require $pathNmodule_spec_w_slash_pm;
+	$L_SU_global_constants->set_file_name($module_spec_pm);
+	my $slash_path4spec = $L_SU_global_constants->get_path4spec_file();
+	my $slash_pathNmodule_spec_pm = $slash_path4spec . '/' . $module_spec_pm;
+
+	$L_SU_global_constants->set_program_name($program_name);
+	my $colon_pathNmodule_spec =
+	  $L_SU_global_constants->get_colon_pathNmodule_spec();
+
+#	 	print("1. _get_suffix_aref, prog_name: $slash_pathNmodule_spec_pm\n");
+#	 	print("1. _get_suffix_aref, prog_name: $colon_pathNmodule_spec\n");
+
+	require $slash_pathNmodule_spec_pm;
 
 	# INSTANTIATE
-	my $package = $pathNmodule_spec_w_colon->new();
+	my $package = $colon_pathNmodule_spec->new();
+
+	my $file_dialog_type = $L_SU_global_constants->file_dialog_type_href();
+	my $flow_type        = $L_SU_global_constants->flow_type_href();
 
 	$package->binding_index_aref();
 	$package->flow_type_aref();
@@ -195,7 +207,7 @@ sub set {
 	my $values_w_aref = $binding->{_values_w_aref};
 	my @values_w      = @$values_w_aref;
 
-	my $sub_ref 	  = $binding->{_sub_ref};
+	my $sub_ref = $binding->{_sub_ref};
 
 	my $binding_index_aref = $package->get_binding_index_aref();
 	my @index              = @$binding_index_aref;
@@ -203,7 +215,7 @@ sub set {
 	my $file_dialog_type_aref = $package->get_file_dialog_type_aref();
 	my @file_dialog_type      = @$file_dialog_type_aref;
 
-	# from *_spec.pm file,  belonging to either a pre_built_superflow,
+	# from *_spec.pm file,  belongint to either a pre_built_superflow,
 	# or a user_built_flow
 
 	my $length = $package->get_binding_length();

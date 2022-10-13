@@ -8,17 +8,15 @@
 
 .PHONY: all clean
 
-# Change the next line if you are using a different Fortran compiler
+# Change this line if you are using a different Fortran compiler
 FORTRAN_COMPILER = gfortran
 F77 = -iffixed-form
 F95 = -iffree-form
 FORTRAN_95_FLAGS    = -O2 -g $(F95)
 FORTRAN_77_FLAGS    = -O2 -g $(F95)
 
-PGPLOT=$(PGPLOT_DIR)
-
 # where is your working directory
-SeismicUnixGui_FORTRAN = $(PWD)
+SeismicUnixGui_FORTRAN = .
 
 # location of code
 SeismicUnixGui_FORTRAN_SRC = $(SeismicUnixGui_FORTRAN)/src
@@ -217,38 +215,8 @@ messa.o Project_config.o
 	$(SeismicUnixGui_FORTRAN_OBJ)/write_model_file_text.o \
 	$(SeismicUnixGui_FORTRAN_OBJ)/write_yes_no_file.o \
 	$(SeismicUnixGui_FORTRAN_OBJ)/Project_config.o \
-	-L$(PGPLOT) -lpgplot  -L/usr/lib64 -lX11 -o$(SeismicUnixGui_FORTRAN_BIN)/immodpg1.1
+	-L/usr/local/pgplot -lpgplot  -L/usr/lib64 -lX11 -o$(BIN_OUT)/immodpg1.1
 	
 clean:
-	echo $(SeismicUnixGui_FORTRAN_BIN); \
-	echo $(SeismicUnixGui_FORTRAN_OBJ)
-	# rm -f $(SeismicUnixGui_FORTRAN_BIN)/immodpg1.1
-	# rm -f $(SeismicUnixGui_FORTRAN_OBJ)/thi.o
-	# rm -f $(SeismicUnixGui_FORTRAN_OBJ)/wrimod2.o
-	# rm -f $(SeismicUnixGui_FORTRAN_OBJ)/txpr.o
-	# rm -f $(SeismicUnixGui_FORTRAN_OBJ)/txgrd.o
-	# rm -f $(SeismicUnixGui_FORTRAN_OBJ)/denfvp.o
-	# rm -f $(SeismicUnixGui_FORTRAN_OBJ)/moveNzoom.o
-	# rm -f $(SeismicUnixGui_FORTRAN_OBJ)/immodpg.o
-	# rm -f $(SeismicUnixGui_FORTRAN_OBJ)/messa.o
-	# rm -f $(SeismicUnixGui_FORTRAN_OBJ)/readpar.o
-	# rm -f $(SeismicUnixGui_FORTRAN_OBJ)/readmmod.o
-	# rm -f $(SeismicUnixGui_FORTRAN_OBJ)/readVbot_file.o
-	# rm -f $(SeismicUnixGui_FORTRAN_OBJ)/readVbot_upper_file.o
-	# rm -f $(SeismicUnixGui_FORTRAN_OBJ)/readVtop_file.o
-	# rm -f $(SeismicUnixGui_FORTRAN_OBJ)/readVtop_lower_file.o
-	# rm -f $(SeismicUnixGui_FORTRAN_OBJ)/readVincrement_file.o
-	# rm -f $(SeismicUnixGui_FORTRAN_OBJ)/readVbotNtop_factor_file.o
-	# rm -f $(SeismicUnixGui_FORTRAN_OBJ)/read_bin_data.o
-	# rm -f $(SeismicUnixGui_FORTRAN_OBJ)/read_immodpg_config.o
-	# rm -f $(SeismicUnixGui_FORTRAN_OBJ)/read_clip_file.o
-	# rm -f $(SeismicUnixGui_FORTRAN_OBJ)/read_layer_file.o
-	# rm -f $(SeismicUnixGui_FORTRAN_OBJ)/read_thickness_increment_m_file.o
-	# rm -f $(SeismicUnixGui_FORTRAN_OBJ)/read_thickness_m_file.o
-	# rm -f $(SeismicUnixGui_FORTRAN_OBJ)/read_option_file.o
-	# rm -f $(SeismicUnixGui_FORTRAN_OBJ)/read_pa# rmmod_file.o
-	# rm -f $(SeismicUnixGui_FORTRAN_OBJ)/read_yes_no_file.o
-	# rm -f $(SeismicUnixGui_FORTRAN_OBJ)/write_model_file_text.o
-	# rm -f $(SeismicUnixGui_FORTRAN_OBJ)/write_yes_no_file.o
-	# rm -f $(SeismicUnixGui_FORTRAN_OBJ)/Project_config.o
-	
+	rm -f $(SeismicUnixGui_FORTRAN_BIN)/* 
+	rm -f $(SeismicUnixGui_FORTRAN_OBJ)/*

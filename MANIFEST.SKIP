@@ -4,8 +4,6 @@
 \.FileHistory.txt
 \.Makefile.PL.swp
 \chain.sh
-\tbd.pl
-\cpan-upload.sh
 
 # Skip temporary and backup files.
 \.itemp_

@@ -9,7 +9,7 @@ introductory classes.  In a research setting, special functionality from other f
 such as SioSeis (UCSD-NSF) can be incorporated readily via an object-oriented style to programming.
 An object oriented approach is a first step toward efficient extensible programming of multi-step processes, 
 and a simple GUI simplifies parameter selection and decision making.  Currently, in L_SU, Perl 5 packages 
-wrap nearyly 300 SU modules that are used in teaching undergraduate and first-year graduate student 
+wrap over 400 SU modules that are used in teaching undergraduate and first-year graduate student 
 classes (e.g., filtering, display, velocity analysis and stacking).  Perl packages (classes) can advantageously
 add new functionality around each module and clarify parameter names for easier usage.  For example, through 
 the use of methods, packages can isolate the user from repetitive control structures, as well as replace the 

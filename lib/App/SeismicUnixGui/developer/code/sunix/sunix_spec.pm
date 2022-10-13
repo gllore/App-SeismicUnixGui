@@ -2,10 +2,8 @@
  use Moose;
  
  use aliased 'App::SeismicUnixGui::misc::L_SU_global_constants';
- use aliased 'App::SeismicUnixGui::misc::dirs';
  
  my $get 				= L_SU_global_constants->new();
- my $dirs               = dirs->new();
  my $flow_type			= $get->flow_type_href();
 
 =head2 initialize shared anonymous hash 
@@ -94,9 +92,10 @@ sub _get_package_section {
 	my @head;
 	my $name = $sunix_spec->{_package_name}; 
 	my $path_out4specs =  $sunix_spec->{_path_out4specs};
+
 	
-	my $path4SeismicUnixGui = $dirs->get_path4SeismicUnixGui();
-#	print("sunix_spec,_get_package_section,$path4SeismicUnixGui\n");
+	my $path4SeismicUnixGui = $get->get_path4SeismicUnixGui();
+#		print("sunix_spec,_get_package_section,$path4SeismicUnixGui\n");
 		
 	$path_out4specs =~ s/$path4SeismicUnixGui//g;
 	$path_out4specs =~ s/\//::/g;

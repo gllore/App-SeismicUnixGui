@@ -25,15 +25,9 @@ package App::SeismicUnixGui::misc::iFile;
 use Moose;
 
 use aliased 'App::SeismicUnixGui::misc::L_SU_global_constants';
-use aliased 'App::SeismicUnixGui::misc::L_SU_path';
 use aliased 'App::SeismicUnixGui::configs::big_streams::Project_config';
 
-=head2 Instantiation
-
-=cut
-
 my $L_SU_global_constants = L_SU_global_constants->new();
-my $L_SU_path             = L_SU_path->new();
 my $global_libs           = $L_SU_global_constants->global_libs();
 my $alias_superflow_config_names_aref =
   $L_SU_global_constants->alias_superflow_config_names_aref();
@@ -46,10 +40,7 @@ my $default_path   = $global_libs->{_default_path};
 my $var            = $L_SU_global_constants->var();
 my $base_file_name = $var->{_base_file_name};
 
-=head2 Declare local variables
-
-=cut
-
+# my $data_name			= $var->{_data_name};
 my $on                 = $var->{_on};
 my $off                = $var->{_off};
 my $nu                 = $var->{_nu};
@@ -130,36 +121,24 @@ sub _get_DATA_DIR_IN {
 		&& length( $iFile->{_parameter_value_index} ) )
 	{
 
-		$L_SU_path->set_program_name($prog_name);
+		my $L_SU_global_constants = L_SU_global_constants->new();
+		my $module_spec_pm        = $prog_name . '_spec.pm';
 
-		my $pathNmodule_spec_w_slash_pm =
-		  $L_SU_path->get_pathNmodule_spec_w_slash_pm();
-		my $pathNmodule_spec_w_colon =
-		  $L_SU_path->get_pathNmodule_spec_w_colon();
+		$L_SU_global_constants->set_file_name($module_spec_pm);
+		my $slash_path4spec = $L_SU_global_constants->get_path4spec_file();
+		my $slash_pathNmodule_spec_pm =
+		  $slash_path4spec . '/' . $module_spec_pm;
 
-		require $pathNmodule_spec_w_slash_pm;
+		$L_SU_global_constants->set_program_name($prog_name);
+		my $colon_pathNmodule_spec =
+		  $L_SU_global_constants->get_colon_pathNmodule_spec();
+
+#	 	print("1. iFile _get_suffix_aref, prog_name: $slash_pathNmodule_spec_pm\n");
+#	 	print("1.iFile, _get_suffix_aref, prog_name: $colon_pathNmodule_spec\n");
+		require $slash_pathNmodule_spec_pm;
 
 		# INSTANTIATE
-		my $package = $pathNmodule_spec_w_colon->new();
-
-		#		my $L_SU_global_constants = L_SU_global_constants->new();
-		#		my $module_spec_pm        = $prog_name . '_spec.pm';
-		#
-		#		$L_SU_global_constants->set_file_name($module_spec_pm);
-		#		my $slash_path4spec = $L_SU_global_constants->get_path4spec_file();
-		#		my $slash_pathNmodule_spec_pm =
-		#		  $slash_path4spec . '/' . $module_spec_pm;
-		#
-		#		$L_SU_global_constants->set_program_name($prog_name);
-		#		my $colon_pathNmodule_spec =
-		#		  $L_SU_global_constants->get_colon_pathNmodule_spec();
-		#
-##	 	print("1. iFile _get_suffix_aref, prog_name: $slash_pathNmodule_spec_pm\n");
-##	 	print("1.iFile, _get_suffix_aref, prog_name: $colon_pathNmodule_spec\n");
-		#		require $slash_pathNmodule_spec_pm;
-		#
-		#		# INSTANTIATE
-		#		my $package = $colon_pathNmodule_spec->new();
+		my $package = $colon_pathNmodule_spec->new();
 
 		# collect specifications of input and output directories
 		# from a "program_spec".pm module
@@ -286,35 +265,23 @@ sub _get_DATA_DIR_OUT {
 
 	if ($prog_name) {
 
-		$L_SU_path->set_program_name($prog_name);
+		#		 use Module::Refresh; # reload updated module
+		#	    my $refresher = Module::Refresh->new;
 
-		my $pathNmodule_spec_w_slash_pm =
-		  $L_SU_path->get_pathNmodule_spec_w_slash_pm();
-		my $pathNmodule_spec_w_colon =
-		  $L_SU_path->get_pathNmodule_spec_w_colon();
+		my $manage_files_by2 = manage_files_by2->new();
 
-		require $pathNmodule_spec_w_slash_pm;
+		$manage_files_by2->set_program_name($prog_name);
+		my $pathNmodule_pm   = $manage_files_by2->get_pathNmodule_pm();
+		my $pathNmodule_spec = $manage_files_by2->get_pathNmodule_spec();
+
+	 #	print("1. _get_suffix_aref, prog_name: $program_name$pathNmodule_pm \n");
+
+		require $pathNmodule_pm;
+
+		#$refresher->refresh_module("$module_spec_pm");
 
 		# INSTANTIATE
-		my $package = $pathNmodule_spec_w_colon->new();
-
-  #		 use Module::Refresh; # reload updated module
-  #	    my $refresher = Module::Refresh->new;
-  #
-  #		my $manage_files_by2 = manage_files_by2->new();
-  #
-  #		$manage_files_by2->set_program_name($prog_name);
-  #		my $pathNmodule_pm   = $manage_files_by2->get_pathNmodule_pm();
-  #		my $pathNmodule_spec = $manage_files_by2->get_pathNmodule_spec();
-  #
-  #	 #	print("1. _get_suffix_aref, prog_name: $program_name$pathNmodule_pm \n");
-  #
-  #		require $pathNmodule_pm;
-  #
-  #		#$refresher->refresh_module("$module_spec_pm");
-  #
-  #		# INSTANTIATE
-  #		my $package = $pathNmodule_spec->new();
+		my $package = $pathNmodule_spec->new();
 
 		#		my $module_spec    = $prog_name . '_spec';
 		#		my $module_spec_pm = $module_spec . '.pm';

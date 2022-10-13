@@ -705,7 +705,7 @@ sub file_dialog_type_aref {
 
  }
  
- 11. also modify segyread_.pm by adding a Data Path explicitly
+ 11. also modify segyread_.pm by adding a Data Path explictly
  involving a couple of steps:
  e.g. 	
  	include this call to a library near the start (line 174)  of the program
@@ -713,7 +713,7 @@ sub file_dialog_type_aref {
  	
  	my $Project				= Project_config->new();
  	
- 	modify a subroutine called file or tape:
+ 	modify a subroutine called file:
  		
  		use App::SeismicUnixGui::misc::SeismicUnix qw($suffix_segy);
 		use File::Basename;
@@ -786,7 +786,7 @@ Q. How does LSU_project_selector create new Project directories?
 				
 			# Instruction to create the new directories runs in system
 			# print("project_selector,_ok,create new Project and its directories \n");
-			system("sh $global_libs->{_script}$run_name");
+			system("sh $global_libs->{_superflows}$run_name");
 	
 
 	GRAPHICS
@@ -955,14 +955,14 @@ Q. How does LSU_project_selector create new Project directories?
     	For use internally to program, e.g., when 
     	par-file parameters are bound to a specific directory, such as 
     	a binary file with parameters. This file does not get directed via stdin or stdout
-   		_DATA_DIR_IN		  input data directory , e.g., $DATA_SEISMIC_BIN for sufctanismod
+   		_DATA_DIR_IN		    input data directory , e.g., $DATA_SEISMIC_BIN for sufctanismod
 	 	_DATA_DIR_OUT		  output data directory 
 	 	
 	 	In some situations the key _DATA_DIR_IN can have two or more values within the same program
 	 	e.g. sufctanismod:
 	 	DATA_SEISMIC_BIN and DATA_SEISMIC_SU
-	 	For these cases, the defaulted $prefix (in *_specs nodule) variable will override the key value 
-	 	at that particular index.
+	 	For these cases , the defaulted $prefix (in *_specs nodule) variable will override the key value 
+	 	at that particualar index.
 	 	
 	 	We accomplish this by requiring that the default prefix equal
 	 	the value assigned to the key: _DATA_DIR_IN. in the "program"_spec.pm file
@@ -972,7 +972,7 @@ Q. How does LSU_project_selector create new Project directories?
 	 	Otherwise,
 	 	_DATA_DIR_IN = $prefix value for the index
 	 	
-	 	These changes are considered twice. First, when iFile (_get_DATA_DIR_IN) selects the opening directory
+	 	These changes are considered twice. FIrst, when iFile (_get_DATA_DIR_IN) selects the opening directory
 	 	for File_Dialog,
 	 	 and  a second time, when the perl script  is being prepared to be written out: oop_prog_params
 	 	
@@ -1256,7 +1256,7 @@ What does binding do?
   iFile,_get_DATA_DIR_IN
   iFile,_get_DATA_DIR_OUT
  
- Q. What L_SU programs deal with writing the perl flows?
+ Q. What L_SU program names deal with writing the perl flows?
  
   A. Programs that start with "perl" ,
   e.g., perl_declare writes the
@@ -1296,11 +1296,11 @@ Q. Q. How does a superflow run?:
     					misc::run_button-> director
     					_Run_pre_built_superflow
     					
-    					explicitly: system("sh $global_libs->{_script}$run_name")
+    					explicitly: system("sh $global_libs->{_superflows}$run_name")
     		
  Q. Notes on Syntax 0 
   
- Deprecated in April 2018
+ Deprecated inApril 2018
  All flow parameter values should use a beginning and an ending single quote in the following cases:
  
   (a) if a string of text has gaps or symbols such as "(" or "{" or "/"etc.
@@ -1405,7 +1405,7 @@ Q. Q. How does a superflow run?:
             	  	sunix_pl;
             		sunix_pl removes the words 'quotemeta'
             		sunix_pl first removes the ticks at the start and end of strings which also have ticks
-            		sunix_pl  then makes sure strings have terminal ticks and numbers do not 
+            		sunix_pl  then makes sure strings have terminal ticks and numebrs do not 
             		For the purpose of saving the correct variables to perl-flows later that used
             		save values from the param_flows       
         
@@ -1433,24 +1433,24 @@ Q. Q. How does a superflow run?:
  			   written to the configuration file
  	
  	Q. For user-built flows, how are perl files written/saved?
-    A. For user-built flows, the sequence is:
+    B. For user-built flows, the sequence is:
     
-		
-		
+		main; 
+			L_SU,save_button; 
+				color_flow,save_button; 
+					files_LSU, save;
+						oop_text, pod_header,section
+							oop_prog_params
+								color_flow
+									param_widgets (N.B., not param_widgets_color)							
+							use_pkg, section			
 		main; 
 			L_SU,save_button; 
 				color_flow,save_button; 
 				    control (assigns single quotes around strings)
 					files_LSU, save; 
  					      	# principal documentation for the program
-							$oop_text->pod_header(); 
-							
-								 
-						      using: oop_prog_params
-								   find a section of text
-				color_flow
-					param_widgets (N.B., not param_widgets_color)							
-					use_pkg, section	
+							$oop_text->pod_header();
 							
 							# for message and flow
 							$oop_text->use_pkg();
@@ -1475,7 +1475,7 @@ Q. Q. How does a superflow run?:
     	The default configuration file remains unaltered. 
     
    Q.  differences between param_flow_grey param_flow_pink param_flow_green and param_flow_blue
-   A. None, except the words param_flow_color are replaced by the appropriate color: grey, pink, green, blue
+   A. None except the words param_flow_color are replaced by the appropriate color: grey, pink, green, blue
    or neutral
    
    Q. Are there differences between grey_flow, pink_flow, green_flow, and blue_blow?  Yes .... color names
@@ -1512,8 +1512,7 @@ Q. Q. How does a superflow run?:
   
   For the case of suop2 in the suop2_spec.pm module there are pre-defined directories for the
   program to search
-  prog_params will search for these prefixes (DIR PATh NAMES) 
-     and place them before the file names that are used.
+  prog_params will search for these prefixes (DIR PATh NAMES) are prefix them to the file names that are used.
   
   Writing out oop perl flows uses:
   
@@ -1521,15 +1520,15 @@ Q. Q. How does a superflow run?:
  
   is used to get prefix values externally (from a spec file) for the module.
   To use the prefix values, the spec file must have 
-
-  (1) sub prefix_aref method/subroutine (in the *_spec.pm file) to set prefixes internally 
-  (2) sub get_prefix
+  
+  (1) _has_prefix = $true
+  (2) sub prefix_aref method/subroutine (in the *_spec.pm file) to set prefixes internally 
+ (3) sub get_prefix
   
   when Reading, sunix_pl filters out prefixes and suffixes to parameter values
   
-  In the case of segyread, 
-  in the GUI no suffix is attached to the tape|input file name.
-  e.g. 1000
+  In the case of segyread, in the GUI a suffix should be attached to the tape|input file name.
+  e.g. 1000.sgy 
    
    Note on segy suffixes
    preference is given to convention .sgy (cf. .segy)
@@ -1539,6 +1538,7 @@ Q. Q. How does a superflow run?:
    
    Important PACKAGE FUNCTIONS
 perl_flow reads flows
+
 
 sunix_pl reading perl flows
 	get_all_sunix_names, uses regex to collect program names in a seismic flow from a listbox in the gui
@@ -1625,35 +1625,6 @@ sunix_pl reading perl flows
     
     Also remember that ticks provided by the *_spec files for
     suop2 and segyread
-    
-    
-Q. How do path path prefixes get assigned?
-
-A. (1) historically, from the _spec DATA_IN and DATA_OUT (will deprecate)
-  or
-   (2) then later, from prefix_aref definitions (Will be used in future development)
-   
-  If prefix definitions don't exist in the spec file, the module.pm file
-  is sometimes used.
-  	    	
-		  	    	
-Q. Where does segywrite assign prefixed paths into the perl flows
-	  for tape   from_spec file
-	  for hfile? from_spec file
-	  for bfile? from_spec file
-
-Q. Where does segyread assign prefixed paths into the perl flows for 
-	parameters 
-	hfile
-	bifile
-	tape 
-    from prefix definitions in _spec file
-  	    
-Q. Where does segyread assign pre-fixed paths into the perl flows for 
-the parameters: 
-
-file/tape?
-A:     from prefix definitions in _spec file
 		  	    	
     
     Q. Are ticks needed in the GUI for parameters that are strings
@@ -2796,13 +2767,12 @@ color_listbox
      Q. How are directories found?   9-4-21
      A1. For user-built flows:
      By using *_spec files
-     CASE A:. There is a "back-door" default definition that the first parameter values (index=0)  
-     always  searches for the default
+     CASE A:. There is a "back=-door" default definition that the first parameter values (index=0)  alway  searches the default
      value of _DATA_DIR_IN
      CASE B: For stdin and stdout also use only _DATA_DIR_IN and _DATA_DIR_OUT
-     CASE C: For additional directories when there are "internal" files required by the programs, 
-     override directory names using $prefix values which are found in _spec files.        
-     Note: flow_type from the *_spec files is not being used in L_SU ... TODO... ??     
+     CASE C: For additional directories when there are "internal" files required by the programs, override directory names
+     using $prefix values.        
+     Nots: flow_type from the *_spec files is not being used in L_SU ... TODO... ??     
      
      TODO: oop_declare_data_out and oop_declare_data_in have a lot of unneeded subs?      
      
@@ -2874,70 +2844,4 @@ A.1
   				param_flow_blue, param_flow_pink
   				
   A.3 By removing the 'aliased' option
-  
-  
-  
-  Q. How do I automatically locate the directory for a specific module, selected by the user, e.g. ctrlstrip?
-     Can you provide an example?
-  
-  A. Yes, when the user selects 
-     
-     ctrlstrip, the "program group name" is "data" and all the "data" modules 
-     will be found in $SeismicUnixGui/sunix/data
-      
-      e.g.,  $SeismicUnixGui/sunix/data/ctrlstrip.pm
-  
-    This is possible because for any Seismic Unix program selected, 
-  	the following sequence of instructions are enacted:
-  	
-  	   in main
-  	     _L_SU_sunix_bindings, which
-  	     
-  	        stores group name, e.g., data or transform or migration, etc.
-  	        $gui_history->set_sunix_prog_group($prog_group);
-  	        
-  	        stores which colored flow chart is being selected:
-			$gui_history->set_sunix_prog_group_color($color);
-			
-			stores which button is being selected. The "$button"
-			will have either a value of "sunix_select" if MB1 is clicked
-			or "get_help" if MB3 is clicked.
-			$gui_history->set_button($button);
-			
-			provides all the gui information to the module L_SU in a hash
-		    $L_SU->set_hash_ref($main_href);
-		    
-		    provides user-built-flows the type of method being used, e.g. is it
-		    just a selection (MB1) of a program or we looking for help (MB3) on this module
-			$L_SU->user_built_flows($method);
-  
-  e.g., 
-
-	$sunix_data_programs_listbox->bind(
-		'<3>' => [ \&_L_SU_sunix_bindings, 'get_help', 'neutral', 'data' ]    #TODO return to 'neutral'
-	);
-	
-	
-Q. How is the help accessed, i.e. reading the program commetns written in the 
-    pod markup language, within a module?
-
-A.  Following on from the previous questions, if MB3 selected,
-
-     L_SU
-       user_built_flows
-         neutral_flow->get_help
-                          help
-                            tkpod
-                            
-    Q. hHw can get-hlep find the correct path for a particular module?
-    
-       gui_history stores a lot of useful information on the user's click history,
-       and can be accessed to find out what the user has just done. This
-       method contradicts a lot of the pure object-oriented coding but speeds
-       up the process tremendously.  I am thinking of implementing this throughout
-       to speed up the gui in a lot of weak spots. 9-19-22 JML
-           
-           
-               
-
            

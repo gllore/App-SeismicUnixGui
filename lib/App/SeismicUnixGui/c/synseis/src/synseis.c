@@ -13,7 +13,7 @@
 #define FALSE 0
 #define FILE_SIZE 50 /*array length for file*/
 #define T_INCREMENT 0.001/*default resampling increment in seconds*/
-/*#define THRESHOLD 1000. threshold for RC going to 0*/
+#define THRESHOLD 1000. /*threshold for RC going to 0*/
 /* #define TINT 0.001 sampling interval in seconds*/
 #define TRUE 1
 #define XSTART 0.0 /* o/p for first x value in resampling */
@@ -39,9 +39,11 @@ int main (int argc, char **argv)
     winA_reg [SIZE], wint_reg, /* regularized i/p wavelet Amplitude*/
     Refl_coef_reg_depth[SIZE], /*regularized reflection coefficient series in depth*/
     Refl_coef_reg_time[SIZE], /* regularized reflection coefficients in time*/
-    /* RC [SIZE], regularized reflection coefficient */
+/* RC [SIZE], regularized reflection coefficient */
     depth[SIZE], depth_reg [SIZE], /* depth measurements*/
     rho [SIZE], rho_reg [SIZE], /*density in g/cc*/
+    threshold,  /* threshold value below which RC are = 0 */
+		/*   threshold is a proportion of the RC at sea floor)*/
     time[SIZE], time_reg,
     tmin, /*min time value for stout synthetic seismogram*/
     Vp [SIZE],  Vp_reg [SIZE], /*velocity in m/s*/
@@ -51,11 +53,10 @@ int main (int argc, char **argv)
     t_increment, /*xincrement for regularization*/
     xstart, /* first x value at which to start regularizing*/
 	tstart,/*first t value at which to start regularizing*/
-    /*xint, regularized x value*/
+    xint, /* regularized x value*/
     d,r,v,  /*depth, density and velocity values*/
     Ricker_time[SIZE],  /*time array for Ricker wavelet*/
     Ricker_Amplitude[SIZE], /*amplitude array for RIcker wavelet*/
-    /*threshold,   threshold value below which RC are = 0 threshold is a proportion of the RC at sea floor)*/
     z_increment, /*zincrement for regularization in depth (m)*/
     zstart; /* first zvalue at which to start regularizing*/
 
@@ -75,7 +76,7 @@ int main (int argc, char **argv)
 
   int
     i,t,error = FALSE,
-    /*num_pts, number of points in array*/
+    num_pts, /*number of points in array*/
     num_pts_conv, /*number of points in convolved array=num_src+num_refl_coef*/
     num_pts_src, /* counters*/
     num_samples_Ricker, /*number of samples in source*/
@@ -85,7 +86,8 @@ int main (int argc, char **argv)
     num_pts_Vp_reg,  /* number of points in regularized log*/
     num_pts_log_reg,  /* number of points in regularized log*/
 	num_pts_rc_reg_time,/* number of points in regularized rc time series */
-	/*num_pts_rc_reg_depth number of points in regularized rc depth series*/
+	num_pts_rc_reg_depth,/* number of points in regularized rc depth series*/
+    num_samples_Convolve,
     read_source = FALSE,
     reg_rho_out = FALSE,
     reg_Vp_out = FALSE,
@@ -107,7 +109,7 @@ int main (int argc, char **argv)
   zrhov_filename = 0;
   Ricker_filnam = 0;
   i = 0;
-  /*num_pts = 0;*/
+  num_pts = 0;
   num_pts_src = 0;
   num_samples_Ricker = 0;
   num_pts_reg = 0;
@@ -115,10 +117,10 @@ int main (int argc, char **argv)
   num_pts_log_reg = 0;
   num_pts_rho_reg = 0;
   num_pts_rc_reg_time = 0;
-  /*num_pts_rc_reg_depth = 0;*/
+  num_pts_rc_reg_depth = 0;
   num_pts_Vp_reg = 0;
 
-  /*threshold = (float)THRESHOLD; default of 1000 */
+  threshold = (float)THRESHOLD;
   t_increment = (float)T_INCREMENT; /*default of 0.001 s*/
 /*   printf ("tincrement= %f\n",t_increment);*/
 

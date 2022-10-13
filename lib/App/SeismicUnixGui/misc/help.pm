@@ -73,7 +73,7 @@ sub set_name {
     if ($name_sref) {
         $help->{_program_name_sref} = $name_sref;
 
-#        print("help, set_name, ${$help->{_program_name_sref}}\n");
+        # print("help, set_name, ${$help->{_program_name_sref}}\n");
 
     }
     else {
@@ -166,7 +166,7 @@ sub tkpod {
 
     if ( ${ $help->{_program_name_sref} } ) {
 
-#        print("help, tkpod, ${$help->{_program_name_sref}}\n");
+        print("help, tkpod, ${$help->{_program_name_sref}}\n");
         system("tkpod ${$help->{_program_name_sref}} &\n\n");
 
     }
@@ -189,7 +189,6 @@ sub _superflows {
 
     if ($hash_ref) {
         if ( $hash_ref == $true ) {
-        	
             program_name( $help->{_program_name_sref} );
 
             # print("help, superflows, ${$help->{_program_name_sref}}\n");

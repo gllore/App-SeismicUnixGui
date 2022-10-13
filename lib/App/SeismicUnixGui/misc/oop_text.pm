@@ -40,7 +40,6 @@ package App::SeismicUnixGui::misc::oop_text;
 use Moose;
 our $VERSION = '0.0.4';
 use aliased 'App::SeismicUnixGui::misc::manage_files_by2';
-use aliased 'App::SeismicUnixGui::misc::dirs';
 use aliased 'App::SeismicUnixGui::misc::oop_declare_data_in';
 use aliased 'App::SeismicUnixGui::misc::oop_declare_data_out';
 use aliased 'App::SeismicUnixGui::misc::oop_declare_pkg';
@@ -60,13 +59,11 @@ use aliased 'App::SeismicUnixGui::misc::oop_print_flows';
 use aliased 'App::SeismicUnixGui::misc::oop_prog_params';
 use aliased 'App::SeismicUnixGui::misc::oop_run_flows';
 use aliased 'App::SeismicUnixGui::misc::L_SU_global_constants';
-
 use Carp;
 
 my $file_out;
 my $file_in;
 my $get                        = L_SU_global_constants->new();
-my $dirs		               = dirs->new();
 my $declare_data_in            = oop_declare_data_in->new();
 my $declare_data_out           = oop_declare_data_out->new();
 my $oop_flows                  = oop_flows->new();
@@ -657,7 +654,7 @@ sub get_program_params {
 
 	if ( ( @$ref_array[0] ) ) {    # refuse an empty case
 
-		# print("1. oop_text,prog_params, flow item detected \n");
+		#print("1. oop_text,prog_params, flow item detected \n");
 		foreach (@$ref_array) {
 			print $filehandle "$_\n";    # NOT FORMATTED
 		}
@@ -898,18 +895,17 @@ sub get_use_pkg {
 		my $module_name_pm = $prog_name . $var->{_suffix_pm};
 		my $separation     = $var->{_App} . '/' . $var->{_SeismicUnixGui};
 
-		$dirs->set_file_name($module_name_pm);
-		my $PATH = $dirs->get_path4convert_file();
-#		carp $PATH;
+		$L_SU_global_constants->set_file_name($module_name_pm);
+		my $PATH = $L_SU_global_constants->get_path4convert_file();
 
 		if ( length $PATH ) {
 
 			my $pathNmodule_pm = $PATH . '/' . $module_name_pm;
 			my @next_string    = split( $separation, $pathNmodule_pm );
 
-#			warn 'b4:' . $next_string[0];
-#			warn 'After:' . $next_string[1];
-#			warn $next_string[2];
+			# warn 'b4:' . $next_string[0];
+			# warn 'After:' . $next_string[1];
+			# warn $next_string[2];
 
 			# substitute "/" with "::"
 			$next_string[1] =~ s/(\/)+/::/g;

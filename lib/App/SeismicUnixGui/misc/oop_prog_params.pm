@@ -47,13 +47,8 @@ our $VERSION = '0.0.1';
 use aliased 'App::SeismicUnixGui::misc::param_sunix';
 use App::SeismicUnixGui::misc::control '0.0.3';
 use aliased 'App::SeismicUnixGui::misc::control';
-use aliased 'App::SeismicUnixGui::misc::L_SU_path';
 
-=head2 Instantiation
-
-=cut
-
-my $L_SU_path = L_SU_path->new();
+use aliased 'App::SeismicUnixGui::misc::L_SU_global_constants';
 
 =head2 program parameters
 	 
@@ -71,7 +66,7 @@ my $oop_prog_params = {
 
 =head2 sub _get_prefix_aref
 
-	obstain prefix values externally for the module
+	get prefix values externally for the module
 	MUST first use prefix_aref method to 
 	set prefixes internally 
 	
@@ -89,39 +84,28 @@ sub _get_prefix_aref {
 
 	if ( $oop_prog_params->{_prog_name} ) {
 
-		#		my $L_SU_global_constants = L_SU_global_constants->new();
-		my $program_name = $oop_prog_params->{_prog_name};
+		my $L_SU_global_constants = L_SU_global_constants->new();
+		my $program_name          = $oop_prog_params->{_prog_name};
+		my $module_spec_pm        = $program_name . '_spec.pm';
 
-		$L_SU_path->set_program_name($program_name);
+		$L_SU_global_constants->set_file_name($module_spec_pm);
+		my $slash_path4spec = $L_SU_global_constants->get_path4spec_file();
+		my $slash_pathNmodule_spec_pm =
+		  $slash_path4spec . '/' . $module_spec_pm;
 
-		my $pathNmodule_spec_w_slash_pm =
-		  $L_SU_path->get_pathNmodule_spec_w_slash_pm();
-		my $pathNmodule_spec_w_colon =
-		  $L_SU_path->get_pathNmodule_spec_w_colon();
+		$L_SU_global_constants->set_program_name($program_name);
+		my $colon_pathNmodule_spec =
+		  $L_SU_global_constants->get_colon_pathNmodule_spec();
 
-		require $pathNmodule_spec_w_slash_pm;
+	  #	 	print("1. oop_prog_params _get_suffix_aref, prog_name: $slash_pathNmodule_spec_pm\n");
+	  #	 	print("1. oop_prog_params , _get_suffix_aref, prog_name: $colon_pathNmodule_spec\n");
+
+		require $slash_pathNmodule_spec_pm;
+
+		#$refresher->refresh_module("$module_spec_pm");
 
 		# INSTANTIATE
-		my $package = $pathNmodule_spec_w_colon->new();
-
-#		my $module_spec_pm        = $program_name . '_spec.pm';
-#
-#		$L_SU_global_constants->set_file_name($module_spec_pm);
-#		my $slash_path4spec = $L_SU_global_constants->get_path4spec_file();
-#		my $slash_pathNmodule_spec_pm =
-#		  $slash_path4spec . '/' . $module_spec_pm;
-#
-#		$L_SU_global_constants->set_program_name($program_name);
-#		my $colon_pathNmodule_spec =
-#		  $L_SU_global_constants->get_colon_pathNmodule_spec();
-#
-#	  #	 	print("1. oop_prog_params _get_suffix_aref, prog_name: $slash_pathNmodule_spec_pm\n");
-#	  #	 	print("1. oop_prog_params , _get_suffix_aref, prog_name: $colon_pathNmodule_spec\n");
-#
-#		require $slash_pathNmodule_spec_pm;
-#
-#		# INSTANTIATE
-#		my $package = $colon_pathNmodule_spec->new();
+		my $package = $colon_pathNmodule_spec->new();
 
 		$package->binding_index_aref();
 		$package->prefix_aref();
@@ -159,39 +143,27 @@ sub _get_suffix_aref {
 
 		my $program_name = $oop_prog_params->{_prog_name};
 
-		$L_SU_path->set_program_name($program_name);
+		my $L_SU_global_constants = L_SU_global_constants->new();
+		my $module_spec_pm        = $program_name . '_spec.pm';
 
-		my $pathNmodule_spec_w_slash_pm =
-		  $L_SU_path->get_pathNmodule_spec_w_slash_pm();
-		my $pathNmodule_spec_w_colon =
-		  $L_SU_path->get_pathNmodule_spec_w_colon();
+		$L_SU_global_constants->set_file_name($module_spec_pm);
+		my $slash_path4spec = $L_SU_global_constants->get_path4spec_file();
+		my $slash_pathNmodule_spec_pm =
+		  $slash_path4spec . '/' . $module_spec_pm;
 
-		require $pathNmodule_spec_w_slash_pm;
+		$L_SU_global_constants->set_program_name($program_name);
+		my $colon_pathNmodule_spec =
+		  $L_SU_global_constants->get_colon_pathNmodule_spec();
+
+	  #	 	print("1. oop_prog_params _get_suffix_aref, prog_name: $slash_pathNmodule_spec_pm\n");
+	  #	 	print("1. oop_prog_params , _get_suffix_aref, prog_name: $colon_pathNmodule_spec\n");
+
+		require $slash_pathNmodule_spec_pm;
+
+		#$refresher->refresh_module("$module_spec_pm");
 
 		# INSTANTIATE
-		my $package = $pathNmodule_spec_w_colon->new();
-
-		#		my $L_SU_global_constants = L_SU_global_constants->new();
-		#		my $module_spec_pm        = $program_name . '_spec.pm';
-		#
-		#		$L_SU_global_constants->set_file_name($module_spec_pm);
-		#		my $slash_path4spec = $L_SU_global_constants->get_path4spec_file();
-		#		my $slash_pathNmodule_spec_pm =
-		#		  $slash_path4spec . '/' . $module_spec_pm;
-		#
-		#		$L_SU_global_constants->set_program_name($program_name);
-		#		my $colon_pathNmodule_spec =
-		#		  $L_SU_global_constants->get_colon_pathNmodule_spec();
-		#
-##	 	print("1. oop_prog_params _get_suffix_aref, prog_name: $slash_pathNmodule_spec_pm\n");
-##	 	print("1. oop_prog_params , _get_suffix_aref, prog_name: $colon_pathNmodule_spec\n");
-		#
-		#		require $slash_pathNmodule_spec_pm;
-		#
-		#		#$refresher->refresh_module("$module_spec_pm");
-		#
-		#		# INSTANTIATE
-		#		my $package = $colon_pathNmodule_spec->new();
+		my $package = $colon_pathNmodule_spec->new();
 
 		# set internally and get suffix values externally for the module
 		$package->binding_index_aref();
@@ -461,7 +433,7 @@ sub get_a_section {
 		 #			print(" 3. oop_prog_params, get_a_section, suffix=$suffix....\n ");
 
 			_set_label_for_a_prefix($label);
-			my $prefix = _get_prefix_for_a_label();
+			my $prefix = _get_prefix_for_a_label;
 
 			#			print(" 4. oop_prog_params, get_a_section suffix =$prefix \n ");
 			#            $control->set_value($value);
@@ -481,7 +453,7 @@ sub get_a_section {
 				  . $label
 				  . '(quotemeta('
 				  . $prefix
-				  . $value . ')' . '.'
+				  . $value . ')'
 				  . $suffix . ');';
 
 #				print(" 1. oop_prog_params, get_a_section CASE #1 OUTPUT TEXT: $oop_prog_params[$j] \n");

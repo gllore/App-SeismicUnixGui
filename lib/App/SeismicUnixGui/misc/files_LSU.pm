@@ -35,7 +35,6 @@ use Moose;
 our $VERSION = '0.0.4';
 
 use aliased 'App::SeismicUnixGui::misc::L_SU_global_constants';
-use aliased 'App::SeismicUnixGui::misc::L_SU_path';
 use aliased 'App::SeismicUnixGui::configs::big_streams::Project_config';
 use aliased 'App::SeismicUnixGui::misc::oop_text';
 use App::SeismicUnixGui::misc::SeismicUnix qw($su $suffix_su $txt $suffix_txt);
@@ -48,7 +47,6 @@ use aliased 'App::SeismicUnixGui::misc::manage_dirs_by';
 
 my $Project               = Project_config->new();
 my $L_SU_global_constants = L_SU_global_constants->new();
-my $L_SU_path             = L_SU_path->new();
 my $oop_text              = oop_text->new();
 my $alias_superflow_name  = $L_SU_global_constants->alias_superflow_names_h();
 my $alias_superflow_spec_names_h =
@@ -439,7 +437,7 @@ except Project.config, which uses sub write2
 sub check2write {
 	my (@self) = @_;
 
-	#	print("files_LSU, check2write,start\n");
+#	print("files_LSU, check2write,start\n");
 
 	if ( not -e $files_LSU->{_outbound} ) {
 
@@ -453,7 +451,7 @@ sub check2write {
 
 		copy( $from, $to );
 
-		#		print("files_LSU check2write copy $from to $to \n");
+#		print("files_LSU check2write copy $from to $to \n");
 
 		# Now you can overwrite the file
 		_write();
@@ -461,11 +459,9 @@ sub check2write {
 	}
 	elsif ( -e $files_LSU->{_outbound} ) {
 
-		# CASE if file does already exist
-		#print("files_LSU, write_config OK: $files_LSU->{_outbound}\n");
-		print(
-"files_LSU, write_config, configuration file exists and will be overwritten\n"
-		);
+# CASE if file does already exist
+#print("files_LSU, write_config OK: $files_LSU->{_outbound}\n");
+print("files_LSU, write_config, configuration file exists and will be overwritten\n");
 		_write();
 
 	}
@@ -581,37 +577,25 @@ sub outbound {
 
 			my $DATA_PATH_IN;
 
-		 # CASE 2 for superflows
-		 #			my $L_SU_global_constants = L_SU_global_constants->new();
-		 #			my $module_spec_pm        = $program_name . '_spec.pm';
-		 #
-		 #			$L_SU_global_constants->set_file_name($module_spec_pm);
-		 #			my $slash_path4spec = $L_SU_global_constants->get_path4spec_file();
-		 #			my $slash_pathNmodule_spec_pm =
-		 #			  $slash_path4spec . '/' . $module_spec_pm;
-		 #
-		 #			$L_SU_global_constants->set_program_name($program_name);
-		 #			my $colon_pathNmodule_spec =
-		 #			  $L_SU_global_constants->get_colon_pathNmodule_spec();
-		 #
-##	 	print("1. files_LSU,_get_suffix_aref, prog_name: $slash_pathNmodule_spec_pm\n");
-			#
-			#			require $slash_pathNmodule_spec_pm;
+			# CASE 2 for superflows
+			my $L_SU_global_constants = L_SU_global_constants->new();
+			my $module_spec_pm        = $program_name . '_spec.pm';
 
-			$L_SU_path->set_program_name($program_name);
+			$L_SU_global_constants->set_file_name($module_spec_pm);
+			my $slash_path4spec = $L_SU_global_constants->get_path4spec_file();
+			my $slash_pathNmodule_spec_pm =
+			  $slash_path4spec . '/' . $module_spec_pm;
 
-			my $pathNmodule_spec_w_slash_pm =
-			  $L_SU_path->get_pathNmodule_spec_w_slash_pm();
-			my $pathNmodule_spec_w_colon =
-			  $L_SU_path->get_pathNmodule_spec_w_colon();
+			$L_SU_global_constants->set_program_name($program_name);
+			my $colon_pathNmodule_spec =
+			  $L_SU_global_constants->get_colon_pathNmodule_spec();
 
-			require $pathNmodule_spec_w_slash_pm;
+	 	print("1. files_LSU,_get_suffix_aref, prog_name: $slash_pathNmodule_spec_pm\n");
+
+			require $slash_pathNmodule_spec_pm;
 
 			# INSTANTIATE
-			my $package = $pathNmodule_spec_w_colon->new();
-			#
-			#			# INSTANTIATE
-			#			my $package = $colon_pathNmodule_spec->new();
+			my $package = $colon_pathNmodule_spec->new();
 
 			# collect specifications of output directory
 			# from a program_spec.pm module
@@ -1231,41 +1215,28 @@ sub set_superflow_specs {
 		my $alias_program_name =
 		  $alias_superflow_spec_names_h->{$base_program_name};
 
-		$L_SU_path->set_program_name($alias_program_name);
+		my $module_spec = $alias_program_name . '_spec';   #conveniently shorter
+		my $module_spec_pm = $module_spec . '.pm';
 
-		my $pathNmodule_spec_w_slash_pm =
-		  $L_SU_path->get_pathNmodule_spec_w_slash_pm();
-		my $pathNmodule_spec_w_colon =
-		  $L_SU_path->get_pathNmodule_spec_w_colon();
+		my $L_SU_global_constants = L_SU_global_constants->new();
+		$L_SU_global_constants->set_file_name($module_spec_pm);
+		my $slash_path4spec = $L_SU_global_constants->get_path4spec_file();
+		my $slash_pathNmodule_spec_pm =
+		  $slash_path4spec . '/' . $module_spec_pm;
 
-		require $pathNmodule_spec_w_slash_pm;
+		$L_SU_global_constants->set_program_name($alias_program_name);
+		my $colon_pathNmodule_spec =
+		  $L_SU_global_constants->get_colon_pathNmodule_spec();
+
+#	  print("1.files_LSU _get_suffix_aref, prog_name: $slash_pathNmodule_spec_pm\n");
+#	  print("1. files_LSU _get_suffix_aref, prog_name: $colon_pathNmodule_spec\n");
+
+		require $slash_pathNmodule_spec_pm;
+
+# print ("1. files_LSU,set_superflow_specs, require superflow module $module_spec_pm\n");
 
 		# INSTANTIATE
-		my $program_name_spec = $pathNmodule_spec_w_colon->new();
-
-	 #
-	 #		my $module_spec = $alias_program_name . '_spec';   #conveniently shorter
-	 #		my $module_spec_pm = $module_spec . '.pm';
-	 #
-	 #		my $L_SU_global_constants = L_SU_global_constants->new();
-	 #		$L_SU_global_constants->set_file_name($module_spec_pm);
-	 #		my $slash_path4spec = $L_SU_global_constants->get_path4spec_file();
-	 #		my $slash_pathNmodule_spec_pm =
-	 #		  $slash_path4spec . '/' . $module_spec_pm;
-	 #
-	 #		$L_SU_global_constants->set_program_name($alias_program_name);
-	 #		my $colon_pathNmodule_spec =
-	 #		  $L_SU_global_constants->get_colon_pathNmodule_spec();
-	 #
-##	  print("1.files_LSU _get_suffix_aref, prog_name: $slash_pathNmodule_spec_pm\n");
-##	  print("1. files_LSU _get_suffix_aref, prog_name: $colon_pathNmodule_spec\n");
-		#
-		#		require $slash_pathNmodule_spec_pm;
-		#
-## print ("1. files_LSU,set_superflow_specs, require superflow module $module_spec_pm\n");
-#
-		#		# INSTANTIATE
-		#		my $program_name_spec = ($colon_pathNmodule_spec)->new();
+		my $program_name_spec = ($colon_pathNmodule_spec)->new();
 
  # print ("2. files_LSU,set_superflow_specs, instantiate $program_name_spec\n");
 
@@ -1351,15 +1322,15 @@ sub _write {
 	my $config_file_format_aref = _get_superflow_config_file_format_aref();
 	my $num_formats             = scalar @$config_file_format_aref;
 
-	#	print("files_LSU, _write,num_formats=$num_formats\n");
+#	print("files_LSU, _write,num_formats=$num_formats\n");
 
 	if ( $num_formats == 1 ) {
 
 		for ( my $i = 0 ; $i < $length ; $i++ ) {
 
 			$format[$i] = @{$config_file_format_aref}[0];
-
-			#			print("files_LSU, _write,@format\n");
+			
+#			print("files_LSU, _write,@format\n");
 
 		}
 
@@ -1381,19 +1352,19 @@ sub _write {
 	  or die "Can't open parameter file:$!";
 
 	for ( my $i = 0 ; $i < $length_info ; $i++ ) {
-
+		
 		printf $fh $info[$i];
 
-		#        print("files_LSU,_write,info is $info[$i]\n");
+#        print("files_LSU,_write,info is $info[$i]\n");
 	}
 
 	for ( my $i = 0, my $j = 0 ; $i < $length ; $i++, $j = $j + 2 ) {
 
-		#		print("files_LSU,_write,$j, $CFG[$j]= $CFG[ ( $j + 1 ) ]\n");
-
+#		print("files_LSU,_write,$j, $CFG[$j]= $CFG[ ( $j + 1 ) ]\n");
+		
 		my $old_value = $CFG[ ( $j + 1 ) ];
-		my $new_value = $control->get_no_quotes($old_value);
-
+		my $new_value = $control->get_no_quotes($old_value);	
+		
 		printf $fh $format[$i] . "\n", $CFG[$j], "= ", $new_value;
 
 	}
@@ -1408,7 +1379,7 @@ sub _write {
 =cut
 
 sub write {
-
+	
 	my ($self) = @_;
 
 	my $length      = ( scalar @{ $files_LSU->{_CFG} } ) / 2;
@@ -1416,24 +1387,24 @@ sub write {
 	my @info        = @{ $files_LSU->{_info} };
 	my @CFG         = @{ $files_LSU->{_CFG} };
 
- #  print("files_LSU, write, length:$length,length_info:$length_info \n");
- #  print("files_LSU,write,files_LSU->{_outbound}: $files_LSU->{_outbound} \n");
+#  print("files_LSU, write, length:$length,length_info:$length_info \n");
+#  print("files_LSU,write,files_LSU->{_outbound}: $files_LSU->{_outbound} \n");
 
 	open( my $fh, '>', $files_LSU->{_outbound} )
 	  or die "Can't open parameter file:$!";
 
 	for ( my $i = 0 ; $i < $length_info ; $i++ ) {
-
-		#		printf $fh $info[$i];
+#		printf $fh $info[$i];
 	}
 
 	for ( my $i = 0, my $j = 0 ; $i < $length ; $i++, $j = $j + 2 ) {
-
+		
 		if ( defined $CFG[$j] && defined $CFG[ $j + 1 ] ) {
 
 			# print ("    $CFG[$j],= ,$CFG[($j+1)]\n");;
-			printf $fh "%-35s%1s%-20s\n", $CFG[$j], "= ", $CFG[ ( $j + 1 ) ];
-
+			printf $fh "%-35s%1s%-20s\n", $CFG[$j], "= ",
+				$CFG[ ( $j + 1 ) ];
+			
 		}
 		else {
 			print("files_LSU, write, undefined value or name NADA\n");
@@ -1441,9 +1412,8 @@ sub write {
 
 	}
 	close($fh);
-
-	#	print("files_LSU, write, done\n");
-	return ();
+#	print("files_LSU, write, done\n");
+	return();
 }
 
 =head2 sub write2
@@ -1475,13 +1445,13 @@ sub write2 {
 
 	my $PATH = $CONFIGURATION . '/' . $active_project_name;
 
-	#	print("files_LSU,write2, active_project_name: $active_project_name\n");
-	#	print("files_LSU,write2, CONFIGURATION: $CONFIGURATION\n");
-	#	print("files_LSU,write2, Project_config: $Project_config\n");
+#	print("files_LSU,write2, active_project_name: $active_project_name\n");
+#	print("files_LSU,write2, CONFIGURATION: $CONFIGURATION\n");
+#	print("files_LSU,write2, Project_config: $Project_config\n");
 	manage_dirs_by->make_dir($PATH);
 	copy( $FROM, $TO );
 
-	#	 print("files_LSU,write2, copy from:$FROM to:$TO \n");
+#	 print("files_LSU,write2, copy from:$FROM to:$TO \n");
 
 	if ( $files_LSU->{_outbound2} ) {
 
@@ -1513,7 +1483,8 @@ sub write2 {
 				{    # because removing quotes from an empty string does this
 
 #			    print (" files_LSU, write2, only Project.config, j:   $CFG[$j]=$cfg\n");
-					printf $fh "%-35s%1s%-20s\n", $CFG[$j], "= ", $cfg;
+				printf $fh "%-35s%1s%-20s\n", $CFG[$j], "= ", $cfg;
+
 
 				}
 				else {
