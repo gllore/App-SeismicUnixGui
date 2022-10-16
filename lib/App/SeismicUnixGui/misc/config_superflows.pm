@@ -214,6 +214,7 @@ sub _set_program_name {
 
 sub get_names {
 	my ($self)   = @_;
+	
 	my $cfg_aref = $config_superflows->{_all_aref};
 	my $length   = $config_superflows->{_length};
 	my ( $i, $j );
@@ -378,7 +379,6 @@ sub _local_or_defaults {
  and if not,
  3) then use the default one defined under global libs
 
-
  Debug with
     print ("self is $self,program is $program_name\n");
  print("params are @$ref_CFG\n");
@@ -397,8 +397,6 @@ sub get_local_or_defaults {
 
 # print("config_superflows, get_local_or_defaults,program name=$config_base_name\n");
 
-
-
 	if ( $config_superflows->{_program_name_sref} ) {		
 		
 		my $big_streams_param = big_streams_param->new();
@@ -407,11 +405,11 @@ sub get_local_or_defaults {
 		my $name_sref = $config_superflows->{_program_name_sref};
 
 # print("config_superflows, get_local_or_defaults,program name=$$name_sref\n");
-# print("config_superflows, get_local_or_defaults,SCALAR program name=$name_sref\n");
+ print("config_superflows, get_local_or_defaults,SCALAR program name=$name_sref\n");
 
 		$cfg_aref = $big_streams_param->get($name_sref);
 
-  # print("config_superflows, get_local_or_defaults,cfg_aref = @{$cfg_aref}\n");
+   print("config_superflows, get_local_or_defaults,cfg_aref = @{$cfg_aref}\n");
 		return ($cfg_aref);
 
 		#		}

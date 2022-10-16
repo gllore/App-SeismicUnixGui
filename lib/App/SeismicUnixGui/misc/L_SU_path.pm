@@ -28,21 +28,30 @@ package App::SeismicUnixGui::misc::L_SU_path;
 
 use Moose;
 use Carp;
+use Shell qw(echo);
 
 my $path4SeismicUnixGui_slash;
 my $path4SeismicUnixGui_colon;
+my $SeismicUnixGui;
+my $path;
 
 BEGIN {
-	use Env;
+
+    $SeismicUnixGui = ` echo \$SeismicUnixGui`;
+    chomp $SeismicUnixGui;
+	$path = $SeismicUnixGui;
 	
-	if (length $ENV{'SeismicUnixGui'} ) {
+#	print ("L_SU_global_constants, path=$path\n");
+	
+	if (length $SeismicUnixGui ) {
 		
-			$path4SeismicUnixGui_slash = $ENV{'SeismicUnixGui'};
+			$path4SeismicUnixGui_slash = $path;
 			$path4SeismicUnixGui_colon = $path4SeismicUnixGui_slash;
 			
 	} else {
 		$path4SeismicUnixGui_slash = '/usr/local/pl/App-SeismicUnixGui/lib/App/SeismicUnixGui';
-		carp $path4SeismicUnixGui_slash;
+		print("Using default: path4SeismicUnixGui_slash = $path4SeismicUnixGui_slash\n");
+		print("at L_SU_path, \n");
 	}
 }
 

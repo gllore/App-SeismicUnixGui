@@ -74,7 +74,7 @@
 =cut 
 
 use Moose;
-our $VERSION = '0.70.60';
+our $VERSION = '0.80.01';
 
 extends 'App::SeismicUnixGui::misc::gui_history'=> { -version => 0.0.2 };
 use aliased 'App::SeismicUnixGui::misc::gui_history';

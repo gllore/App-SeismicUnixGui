@@ -138,6 +138,7 @@ use App::SeismicUnixGui::misc::SeismicUnix
      qw($in $out $on $go $to $suffix_ascii $suffix_bin $off $suffix_su);
 use aliased 'App::SeismicUnixGui::sunix::plot::xgraph';
 use aliased 'App::SeismicUnixGui::configs::big_streams::Project_config';
+
 my $Project = Project_config->new();
 
 my ($DATA_SEISMIC_SU)           = $Project->DATA_SEISMIC_SU();

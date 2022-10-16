@@ -1,4 +1,3 @@
-
 package App::SeismicUnixGui::configs::big_streams::iSpectralAnalysis_config;
 
 =head1 DOCUMENTATION
@@ -61,9 +60,9 @@ use App::SeismicUnixGui::misc::SeismicUnix qw($in $out $on $go $to $suffix_ascii
 
 my $Project                = Project_config->new();
 my $config_superflows      = config_superflows->new();
-my $get                    = L_SU_global_constants->new();
+my $L_SU_global_constants  = L_SU_global_constants->new();
 my $DATA_SEISMIC_SU        = $Project->DATA_SEISMIC_SU();
-my $superflow_config_names = $get->superflow_config_names_aref();
+my $superflow_config_names = $L_SU_global_constants->superflow_config_names_aref();
 
 # WARNING---- watch out for missing underscore!!
 

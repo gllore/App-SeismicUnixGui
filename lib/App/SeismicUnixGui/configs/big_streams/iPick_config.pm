@@ -42,16 +42,13 @@ package App::SeismicUnixGui::configs::big_streams::iPick_config;
 =cut 
 
 use Moose;
+my $VERSION = '0.0.1';
 
 use aliased 'App::SeismicUnixGui::misc::L_SU_global_constants';
-my $VERSION = '0.0.1';
 use aliased 'App::SeismicUnixGui::configs::big_streams::Project_config';
-
 use App::SeismicUnixGui::misc::control '0.0.3';
 use aliased 'App::SeismicUnixGui::misc::control';
-
 use aliased 'App::SeismicUnixGui::misc::config_superflows';
-
 use App::SeismicUnixGui::misc::SeismicUnix qw($in $out $on $go $to $suffix_ascii $off $suffix_su);
 
 my $Project                = Project_config->new();

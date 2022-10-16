@@ -4,27 +4,26 @@ our $VERSION = '1.00';
 use Moose;
 
 use App::SeismicUnixGui::misc::SeismicUnix qw($su $suffix_su);
-use aliased 'App::SeismicUnixGui::misc::L_SU_global_constants';
-use aliased 'App::SeismicUnixGui::configs::big_streams::Project_config';
-use aliased 'App::SeismicUnixGui::configs::big_streams::Synseis_config';
+use App::SeismicUnixGui::misc::L_SU_global_constants;
+use App::SeismicUnixGui::configs::big_streams::Project_config;
 
-my $get              = L_SU_global_constants->new();
-my $var              = $get->var();
+my $L_SU_global_constants = App::SeismicUnixGui::misc::L_SU_global_constants->new();
+my $Project      	      = App::SeismicUnixGui::configs::big_streams::Project_config->new();
+
+my $var             = $L_SU_global_constants->var();
 
 my $empty_string     = $var->{_empty_string};
-my $file_dialog_type = $get->file_dialog_type_href();
-my $flow_type        = $get->flow_type_href();
+my $file_dialog_type = $L_SU_global_constants->file_dialog_type_href();
+my $flow_type        = $L_SU_global_constants->flow_type_href();
 
 my $true  = $var->{_true};
 my $false = $var->{_false};
 
-my $Project        = Project_config->new();
-my $Synseis_config = Synseis_config->new();
+my $DATA_SEISMIC_WELL_SYNSEIS =
+  $Project->DATA_SEISMIC_WELL_SYNSEIS();    #  data directories
+my $PL_SEISMIC = $Project->PL_SEISMIC();
 
-my $DATA_SEISMIC_WELL_SYNSEIS = $Project->DATA_SEISMIC_WELL_SYNSEIS();    #  data directories
-my $PL_SEISMIC		 = $Project->PL_SEISMIC();
-
-my $max_index = $Synseis_config->get_max_index();
+my $max_index = 17;
 
 =pod
 
@@ -34,7 +33,7 @@ my $max_index = $Synseis_config->get_max_index();
 =cut
 
 my $Synseis_spec = {
-	  _CONFIG	 				=> $PL_SEISMIC,
+	_CONFIG                => $PL_SEISMIC,
 	_DATA_DIR_IN           => $DATA_SEISMIC_WELL_SYNSEIS,
 	_DATA_DIR_OUT          => $DATA_SEISMIC_WELL_SYNSEIS,
 	_binding_index_aref    => '',
@@ -94,7 +93,9 @@ sub get_binding_index_aref {
 
 	}
 	else {
-		print( "Synseis_spec, get_binding_index_aref, missing binding_index_aref\n" );
+		print(
+			"Synseis_spec, get_binding_index_aref, missing binding_index_aref\n"
+		);
 		return ();
 	}
 
@@ -111,7 +112,7 @@ sub get_max_index {
 
 	if ( $Synseis_spec->{_max_index} ) {
 
-		my $max_idx = $Synseis_config->get_max_index();
+		my $max_idx = $max_index;
 		return ($max_idx);
 
 	}
@@ -157,7 +158,9 @@ sub get_file_dialog_type_aref {
 
 	}
 	else {
-		print( "Synseis_spec,get_file_dialog_type_aref, missing file_dialog_type_aref\n" );
+		print(
+"Synseis_spec,get_file_dialog_type_aref, missing file_dialog_type_aref\n"
+		);
 		return ();
 	}
 }
@@ -197,91 +200,90 @@ sub get_flow_type_aref {
 		return ();
 	}
 }
+
 =head2 sub get_prefix_aref
 
 =cut
 
- sub get_prefix_aref {
+sub get_prefix_aref {
 
-	my $self 	= @_;
+	my $self = @_;
 
 	if ( defined $Synseis_spec->{_prefix_aref} ) {
 
-		my $prefix_aref= $Synseis_spec->{_prefix_aref};
-		return($prefix_aref);
+		my $prefix_aref = $Synseis_spec->{_prefix_aref};
+		return ($prefix_aref);
 
-	} else {
+	}
+	else {
 		print("Synseis_spec, get_prefix_aref, missing prefix_aref\n");
-		return();
+		return ();
 	}
 
-	return();
- }
+	return ();
+}
 
 =head2 sub get_suffix_aref
 
 =cut
 
- sub get_suffix_aref {
+sub get_suffix_aref {
 
-	my $self 	= @_;
+	my $self = @_;
 
-	if ($Synseis_spec->{_suffix_aref} ) {
+	if ( $Synseis_spec->{_suffix_aref} ) {
 
-			my $suffix_aref= $Synseis_spec->{_suffix_aref};
-			return($suffix_aref);
+		my $suffix_aref = $Synseis_spec->{_suffix_aref};
+		return ($suffix_aref);
 
-	} else {
-			print("Synseis_spec, get_suffix_aref, missing suffix_aref\n");
-			return();
+	}
+	else {
+		print("Synseis_spec, get_suffix_aref, missing suffix_aref\n");
+		return ();
 	}
 
-	return();
- }
-
+	return ();
+}
 
 =head2  sub prefix_aref
 
 =cut
 
- sub prefix_aref {
+sub prefix_aref {
 
-	my $self 	= @_;
+	my $self = @_;
 
 	my @prefix;
 
-	for (my $i=0; $i < $max_index; $i++) {
+	for ( my $i = 0 ; $i < $max_index ; $i++ ) {
 
-		$prefix[$i]	= $empty_string;
+		$prefix[$i] = $empty_string;
 
 	}
-	$Synseis_spec ->{_prefix_aref} = \@prefix;
-	return();
+	$Synseis_spec->{_prefix_aref} = \@prefix;
+	return ();
 
- }
-
+}
 
 =head2  sub suffix_aref
 
 =cut
 
- sub suffix_aref {
+sub suffix_aref {
 
-	my $self 	= @_;
+	my $self = @_;
 
 	my @suffix;
 
-	for (my $i=0; $i < $max_index; $i++) {
+	for ( my $i = 0 ; $i < $max_index ; $i++ ) {
 
-		$suffix[$i]	= $empty_string;
+		$suffix[$i] = $empty_string;
 
 	}
-	$Synseis_spec ->{_suffix_aref} = \@suffix;
-	return();
+	$Synseis_spec->{_suffix_aref} = \@suffix;
+	return ();
 
- }
-
-
+}
 
 =head2 sub get_binding_length
 

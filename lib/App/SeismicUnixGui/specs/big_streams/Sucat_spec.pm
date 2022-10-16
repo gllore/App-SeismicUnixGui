@@ -4,11 +4,11 @@ our $VERSION = '1.00';
 
 use Moose;
 use App::SeismicUnixGui::misc::SeismicUnix qw($su $suffix_su);
-use App::SeismicUnixGui::misc::L_SU_global_constants;
-use App::SeismicUnixGui::configs::big_streams::Project_config;
+use aliased 'App::SeismicUnixGui::misc::L_SU_global_constants';
+use aliased 'App::SeismicUnixGui::configs::big_streams::Project_config';
 
-my $get             = App::SeismicUnixGui::misc::L_SU_global_constants->new();
-my $Project      	= App::SeismicUnixGui::configs::big_streams::Project_config->new();
+my $get             = L_SU_global_constants->new();
+my $Project      	= Project_config->new();
 
 my $var              = $get->var();
 
@@ -19,13 +19,13 @@ my $flow_type        = $get->flow_type_href();
 my $true  = $var->{_true};
 my $false = $var->{_false};
 
-my $DATA_SEISMIC_SU = $Project->DATA_SEISMIC_SU();    # output data directory
+my $DATA_SEISMIC_SU  = $Project->DATA_SEISMIC_SU();    # output data directory
 my $PL_SEISMIC		 = $Project->PL_SEISMIC();
 
 my $max_index = 9;
 
 my $Sucat_spec =  {
-    _CONFIG	 				=> $PL_SEISMIC,
+    _CONFIG	 			   => $PL_SEISMIC,
     _DATA_DIR_IN           => $DATA_SEISMIC_SU, # input data directory default
 	_DATA_DIR_OUT          => $DATA_SEISMIC_SU, # input data directory default
 	_binding_index_aref    => '',

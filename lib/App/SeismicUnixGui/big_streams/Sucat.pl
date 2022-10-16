@@ -38,6 +38,7 @@ That is, a list can only be used when the values of the prior
 7 parameters are blank
 
 Example:
+
     first_file_number_in               =               
     last_file_number_in                =                
     number_of_files_in                 =                  
@@ -72,13 +73,13 @@ Example:
     first_file_number_in               = 1000                
     last_file_number_in                = 1001                
     number_of_files_in                 = 2                           
-    input_suffix                       		 = su                  
+    input_suffix                       = su                  
     input_name_prefix                   = cdp                 
-    input_name_extension             = _clean              
-    list                               					=                
+    input_name_extension                = _clean              
+    list                               	=                
     output_file_name                   	= 1000_01 
-    alternative_inbound_directory      =                   
-    alternative_outbound_directory     =  
+    alternative_inbound_directory       =                   
+    alternative_outbound_directory      =  
     
     The above case will produce
     
@@ -91,7 +92,7 @@ Example:
     first_file_number_in                  = 1000                
     last_file_number_in                   = 1010                
     number_of_files_in                    = 11                               
-    input_suffix                          		= su           
+    input_suffix                          = su           
     input_name_prefix                     = cdp                 
     input_name_extension                  = _clean
     
@@ -108,17 +109,17 @@ CASE 3
 	input_suffix  					= 
 	input_name_prefix     	= 
 	input_name_extension       = 
-	list                 									= cat_list_good_sp;
+	list                 					= cat_list_good_sp;
 	output_file_name     					= 'All_good_sp';
 	alternative_inbound_directory   = 
 	alternative_outbound_directory =
 
  CASE 4:
  
-  first_file_number_in   = 1000
-  last_file_number_in    = 1010
-  number_of_files_in     = 11
-   input_suffix  					=  _clean.su
+  first_file_number_in         = 1000
+  last_file_number_in           = 1010
+  number_of_files_in            = 11
+   input_suffix  				=  _clean.su
   input_name_prefix     = 
   input_name_extension       = 
   output_file_name    = 1000_10 

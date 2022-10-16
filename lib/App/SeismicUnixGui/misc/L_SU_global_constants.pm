@@ -3,18 +3,24 @@ package App::SeismicUnixGui::misc::L_SU_global_constants;
 use Moose;
 use Carp;
 
-my $L_SU;
+my $path4SeismicUnixGui;
+$path4SeismicUnixGui = $ENV{'SeismicUnixGui'};
 
 BEGIN {
 	use Env;
 	
 	if (length $ENV{'SeismicUnixGui'} ) {
 		
-			$L_SU = $ENV{'SeismicUnixGui'};
+			$path4SeismicUnixGui = $ENV{'SeismicUnixGui'};
 			
 	} else {
-		$L_SU = '/usr/local/pl/App-SeismicUnixGui/lib/App/SeismicUnixGui';
-		carp $L_SU;
+
+		my $dir       = 'App-SeismicUnixGui/lib/App/SeismicUnixGui';
+	    my $pathNfile = 'App-SeismicUnixGui/lib/App/SeismicUnixGui/sunix/data/data_in.pm';
+	    my $look = `locate $pathNfile`;
+	    my @field= split($dir, $look);
+		$path4SeismicUnixGui    = $field[0].$dir;
+		print ("Using default L_SU_global_constants, L_SU = $path4SeismicUnixGui\n");
 	}
 }
 
@@ -1006,21 +1012,21 @@ sub _get_global_libs {
 	my (@self) = @_;
 
 	# empty string is predefined herein
-	if ( length $L_SU ) {
+	if ( length $path4SeismicUnixGui ) {
 
 		#			print("L_SU_global_constants my L_SU = $L_SU\n");
 
 		my $global_libs = {
-			_configs             => $L_SU . '/configs',
-			_configs_big_streams => $L_SU . '/configs/big_streams',
-			_developer           => $L_SU . '/developer/Stripped',
-			_misc                => $L_SU . '/misc',
-			_param               => $L_SU . '/configs/',
-			_script              => $L_SU . '/script/',
-			_specs               => $L_SU . '/specs',
-			_sunix               => $L_SU . '/sunix',
-			_big_streams         => $L_SU . '/big_streams/',
-			_images              => $L_SU . '/images/',
+			_configs             => $path4SeismicUnixGui . '/configs',
+			_configs_big_streams => $path4SeismicUnixGui . '/configs/big_streams',
+			_developer           => $path4SeismicUnixGui . '/developer/Stripped',
+			_misc                => $path4SeismicUnixGui . '/misc',
+			_param               => $path4SeismicUnixGui . '/configs/',
+			_script              => $path4SeismicUnixGui . '/script/',
+			_specs               => $path4SeismicUnixGui . '/specs',
+			_sunix               => $path4SeismicUnixGui . '/sunix',
+			_big_streams         => $path4SeismicUnixGui . '/big_streams/',
+			_images              => $path4SeismicUnixGui . '/images/',
 			_default_path        => './',
 		};
 
@@ -1434,21 +1440,21 @@ sub flow_type_href {
 #
 #}
 #
-#sub get_path4SeismicUnixGui {
-#	my ($self) = @_;
-#	if ( length $path4SeismicUnixGui ) {
-#
-#		my $result = $path4SeismicUnixGui;
-#		return ($result);
-#
-#	}
-#	else {
-#		print(
-#			"L_SU_global_constants, get_path4SeismicUnixGui,missing variable\n"
-#		);
-#	}
-#	return ();
-#}
+sub get_path4SeismicUnixGui {
+	my ($self) = @_;
+	if ( length $path4SeismicUnixGui ) {
+
+		my $result = $path4SeismicUnixGui;
+		return ($result);
+
+	}
+	else {
+		print(
+			"L_SU_global_constants, get_path4SeismicUnixGui,missing variable\n"
+		);
+	}
+	return ();
+}
 #
 #=head2 sub get_pathNmodule_spec
 #
@@ -2447,21 +2453,21 @@ sub global_libs {
 	my (@self) = @_;
 
 	# empty string is predefined herein
-	if ( length $L_SU ) {
+	if ( length $path4SeismicUnixGui ) {
 
-#		print("L_SU_global_constants my L_SU = $L_SU\n");
+#		print("L_SU_global_constants my L_SU = $path4SeismicUnixGui\n");
 
 		my $global_libs = {
-			_configs             => $L_SU . '/configs',
-			_configs_big_streams => $L_SU . '/configs/big_streams',
-			_developer           => $L_SU . '/developer/Stripped',
-			_misc                => $L_SU . '/misc',
-			_param               => $L_SU . '/configs/',
-			_script              => $L_SU . '/script/',
-			_specs               => $L_SU . '/specs',
-			_sunix               => $L_SU . '/sunix',
-			_big_streams         => $L_SU . '/big_streams/',
-			_images              => $L_SU . '/images/',
+			_configs             => $path4SeismicUnixGui . '/configs',
+			_configs_big_streams => $path4SeismicUnixGui . '/configs/big_streams',
+			_developer           => $path4SeismicUnixGui . '/developer/Stripped',
+			_misc                => $path4SeismicUnixGui . '/misc',
+			_param               => $path4SeismicUnixGui . '/configs/',
+			_script              => $path4SeismicUnixGui . '/script/',
+			_specs               => $path4SeismicUnixGui . '/specs',
+			_sunix               => $path4SeismicUnixGui . '/sunix',
+			_big_streams         => $path4SeismicUnixGui . '/big_streams/',
+			_images              => $path4SeismicUnixGui . '/images/',
 			_default_path        => './',
 		};
 
