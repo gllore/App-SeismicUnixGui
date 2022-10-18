@@ -47,7 +47,10 @@ if ( length $dir ) {
 	print "From: $dir\n";
 	print "ARGV[0] = $ARGV[0]\n";
 	# update file data base on a linux system
-	print("Running sudo updatedb, which requires sudo privileges!\n");
+	print("Running sudo updatedb, which requires:\n");
+	print ("A. sudo privileges and \n");
+	print ("B. plocate, updateb pre-installed\n");
+	print("Running sudo updatedb, which requires sudo privileges!\n");	
 	system('sudo updatedb');
 
 	# find paths via linux
@@ -71,10 +74,10 @@ if ( length $dir ) {
 	print("export SeismicUnixGui=$LIB_PATH\n");
 	print("export SeismicUnixGui_script=$SCRIPT_LIB_PATH\n");
 	print("export PATH=\$PATH::\$SeismicUnixGui_script\n");
-	print("export PERL5LIB=\$PERL5LIB:\$SeismicUnixGui\n");
+	print("export PERL5LIB=\$SeismicUnixGui\n");
 	print(
 		"\nHowever, for a quick BUT temporary fix, you have 2 options:\n");
-	print("   A. Cut-and-paste the 3 instructions above, one at a time \n");
+	print("   A. Cut-and-paste the 4 instructions above, one at a time \n");
 	print("into your command line and execute them one at a time.\n"
 	);
 	print("\nIn case you are unsure, this last instruction also means: \n");

@@ -1,0 +1,12 @@
+/home/gllore/Servilleta/seismics/data/loma_blanca//053018/H/1/su/gllore/1008_clean.su
+/home/gllore/Servilleta/seismics/data/loma_blanca//053018/H/1/su/gllore/1005_clean.su
+/home/gllore/Servilleta/seismics/data/loma_blanca//053018/H/1/su/gllore/1006_clean.su
+/home/gllore/Servilleta/seismics/data/loma_blanca//053018/H/1/su/gllore/1004_clean.su
+/home/gllore/Servilleta/seismics/data/loma_blanca//053018/H/1/su/gllore/1003_clean.su
+/home/gllore/Servilleta/seismics/data/loma_blanca//053018/H/1/su/gllore/1007_clean.su
+/home/gllore/Servilleta/seismics/data/loma_blanca//053018/H/1/su/gllore/60_clean.su
+/home/gllore/Servilleta/seismics/pl/loma_blanca//053018/H/1/gllore/1.view_sp_clean.pl
+/home/gllore/Servilleta/seismics/data/loma_blanca//053018/H/1/su/gllore/22_clean.su
+/home/gllore/Servilleta/seismics/data/loma_blanca//053018/H/1/su/gllore/120_clean.su
+/home/gllore/Servilleta/seismics/pl/loma_blanca//053018/H/1/gllore/4.surange.pl
+/home/gllore/Servilleta/seismics/pl/loma_blanca//053018/H/1/gllore/5.view_60_clean.pl

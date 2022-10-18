@@ -439,7 +439,7 @@ except Project.config, which uses sub write2
 sub check2write {
 	my (@self) = @_;
 
-	#	print("files_LSU, check2write,start\n");
+	print("files_LSU, check2write,start\n");
 
 	if ( not -e $files_LSU->{_outbound} ) {
 
@@ -453,7 +453,7 @@ sub check2write {
 
 		copy( $from, $to );
 
-		#		print("files_LSU check2write copy $from to $to \n");
+		print("files_LSU check2write copy $from to $to \n");
 
 		# Now you can overwrite the file
 		_write();
@@ -462,10 +462,10 @@ sub check2write {
 	elsif ( -e $files_LSU->{_outbound} ) {
 
 		# CASE if file does already exist
-		#print("files_LSU, write_config OK: $files_LSU->{_outbound}\n");
-		print(
-"files_LSU, write_config, configuration file exists and will be overwritten\n"
-		);
+		print("files_LSU, write_config OK: $files_LSU->{_outbound}\n");
+#		print(
+#"files_LSU, write_config, configuration file exists and will be overwritten\n"
+#		);
 		_write();
 
 	}
@@ -487,7 +487,7 @@ pre-built/superflows/Tools
 sub copy_default_config {
 	my (@self) = @_;
 
-	# print("files_LSU, copy_default_config,start\n");
+	print("files_LSU, copy_default_config,start\n");
 
 	if ( not -e $files_LSU->{_outbound} ) {    # double check
 
@@ -501,13 +501,12 @@ sub copy_default_config {
 
 		copy( $from, $to );
 
-		# print("files_LSU copy_default_config copy $from to $to \n");
+		print("files_LSU copy_default_config copy $from to $to \n");
 
 	}
 	else {
-
-		# CASE if file does already exist
-		# print("files_LSU, write_config OK: $files_LSU->{_outbound}\n");
+		# CASE if file already exists
+		print("files_LSU, write_config OK: $files_LSU->{_outbound}\n");
 		print("files_LSU, write_config, configuration file exists; NADA\n");
 	}
 	return ($empty_string);
@@ -1214,15 +1213,11 @@ sub set_superflow_specs {
 #      					print (" files_LSU,set_superflow_specs, key is $key, value is $hash_ref->{$key}\n");
 # 					}
 #
-# print ("1. files_LSU,set_superflow_specs,prog_name_sref: ${$files_LSU->{_prog_name_sref}} \n");
+print ("1. files_LSU,set_superflow_specs,prog_name_sref: ${$files_LSU->{_prog_name_sref}} \n");
 
 	if ( $hash_ref && $files_LSU->{_prog_name_sref} ) {
 
-		#	    use Module::Refresh; # reload updated module
-
 		my $name = name->new();
-
-		#		my $refresher = Module::Refresh->new;
 
 		my ( @CFG, @info );
 		my $length;
@@ -1243,38 +1238,14 @@ sub set_superflow_specs {
 		# INSTANTIATE
 		my $program_name_spec = $pathNmodule_spec_w_colon->new();
 
-	 #
-	 #		my $module_spec = $alias_program_name . '_spec';   #conveniently shorter
-	 #		my $module_spec_pm = $module_spec . '.pm';
-	 #
-	 #		my $L_SU_global_constants = L_SU_global_constants->new();
-	 #		$L_SU_global_constants->set_file_name($module_spec_pm);
-	 #		my $slash_path4spec = $L_SU_global_constants->get_path4spec_file();
-	 #		my $slash_pathNmodule_spec_pm =
-	 #		  $slash_path4spec . '/' . $module_spec_pm;
-	 #
-	 #		$L_SU_global_constants->set_program_name($alias_program_name);
-	 #		my $colon_pathNmodule_spec =
-	 #		  $L_SU_global_constants->get_colon_pathNmodule_spec();
-	 #
-##	  print("1.files_LSU _get_suffix_aref, prog_name: $slash_pathNmodule_spec_pm\n");
-##	  print("1. files_LSU _get_suffix_aref, prog_name: $colon_pathNmodule_spec\n");
-		#
-		#		require $slash_pathNmodule_spec_pm;
-		#
-## print ("1. files_LSU,set_superflow_specs, require superflow module $module_spec_pm\n");
-#
-		#		# INSTANTIATE
-		#		my $program_name_spec = ($colon_pathNmodule_spec)->new();
-
- # print ("2. files_LSU,set_superflow_specs, instantiate $program_name_spec\n");
+  	    # print ("2. files_LSU,set_superflow_specs, instantiate $program_name_spec\n");
 
 		my $max_index = $program_name_spec->get_max_index();
 		$length = $max_index + 1;
 
 		# get length from corresponding spec file
 		# length-1 : is largest occupied index
-		# print("3. files_LSU, set_superflow_specs, length=$length\n");
+		print("3. files_LSU, set_superflow_specs, length=$length\n");
 
 		for ( my $i = 0, my $j = 0 ; $i < $length ; $i++, $j = $j + 2 ) {
 
@@ -1351,7 +1322,7 @@ sub _write {
 	my $config_file_format_aref = _get_superflow_config_file_format_aref();
 	my $num_formats             = scalar @$config_file_format_aref;
 
-	#	print("files_LSU, _write,num_formats=$num_formats\n");
+	print("files_LSU, _write,num_formats=$num_formats\n");
 
 	if ( $num_formats == 1 ) {
 
@@ -1359,7 +1330,7 @@ sub _write {
 
 			$format[$i] = @{$config_file_format_aref}[0];
 
-			#			print("files_LSU, _write,@format\n");
+			print("1. files_LSU,_write,$format[$i]\n");
 
 		}
 
@@ -1368,34 +1339,30 @@ sub _write {
 
 		@format = @$config_file_format_aref;
 
-		#		print("files_LSU, _write,@format\n");
-
 	}
 	else {
-		print("files_LSU, _write, unexpected result\n");
+		print("3. files_LSU, _write, unexpected result\n");
 	}
 
-#	print("files_LSU,_write,files_LSU->{_outbound} is $files_LSU->{_outbound}\n");
-
+	
 	open( my $fh, '>', $files_LSU->{_outbound} )
 	  or die "Can't open parameter file:$!";
 
 	for ( my $i = 0 ; $i < $length_info ; $i++ ) {
+		# skipped in many cases
+		# length_info=0 form many tools, e.g. immodpg
 
 		printf $fh $info[$i];
-
-		#        print("files_LSU,_write,info is $info[$i]\n");
+#		print("5. files_LSU,_write,info is $info[$i]\n");
 	}
 
 	for ( my $i = 0, my $j = 0 ; $i < $length ; $i++, $j = $j + 2 ) {
 
-		#		print("files_LSU,_write,$j, $CFG[$j]= $CFG[ ( $j + 1 ) ]\n");
-
 		my $old_value = $CFG[ ( $j + 1 ) ];
 		my $new_value = $control->get_no_quotes($old_value);
 
-		printf $fh $format[$i] . "\n", $CFG[$j], "= ", $new_value;
-
+		printf $fh $format[$i] . "\n", $CFG[$j], "=", $new_value;
+		print("7.files_LSU,_write,$j, $CFG[$j]= $CFG[ ( $j + 1 ) ]\n");
 	}
 	close($fh);
 }

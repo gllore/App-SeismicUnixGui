@@ -1,0 +1,128 @@
+34
+
+sufilter f=10\,12\.5\,35\,50 verbose=0 < /home/gllore/Servilleta/seismics/data/loma_blanca//053018/H/1/su/gllore/60_clean.su | suximage clip=1 cmap=hsv0 d2=1 f1=0 gridcolor=blue labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 lwidth=16 lx=3 mpicks=\/dev\/tty n1tic=1 n2tic=1 perc=100 plotfile=plotfile\.ps style=seismic title=suximage titlecolor=red titlefont=Rom22 units=unit verbose=1 windowtitle=suximage xbox=500 ybox=500 wbox=550 hbox=550 & 
+
+53
+
+sufilter f=0\,3\,80\,100 verbose=0 < /home/gllore/Servilleta/seismics/data/loma_blanca//053018/H/1/su/gllore/60_clean.su | suximage clip=1 cmap=hsv0 d2=1 f1=0 gridcolor=blue labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 lwidth=16 lx=3 mpicks=\/dev\/tty n1tic=1 n2tic=1 perc=100 plotfile=plotfile\.ps style=seismic title=suximage titlecolor=red titlefont=Rom22 units=unit verbose=1 windowtitle=suximage xbox=500 ybox=500 wbox=550 hbox=550 & 
+
+5
+
+sufilter f=0\,3\,80\,100 verbose=0 < /home/gllore/Servilleta/seismics/data/loma_blanca//053018/H/1/su/gllore/60_clean.su | sufilter amps=1\,1\,0\,1\,1 f=0\,90\,100\,110\,120 verbose=0 | suximage clip=1 cmap=hsv0 d2=1 f1=0 gridcolor=blue labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 lwidth=16 lx=3 mpicks=\/dev\/tty n1tic=1 n2tic=1 perc=100 plotfile=plotfile\.ps style=seismic title=suximage titlecolor=red titlefont=Rom22 units=unit verbose=1 windowtitle=suximage xbox=500 ybox=500 wbox=550 hbox=550 & 
+
+17
+
+sufilter amps=1\,1\,0\,1\,1 f=0\,90\,100\,110\,120 verbose=0 < /home/gllore/Servilleta/seismics/data/loma_blanca//053018/H/1/su/gllore/60_clean.su | suximage clip=1 cmap=hsv0 d2=1 f1=0 gridcolor=blue labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 lwidth=16 lx=3 mpicks=\/dev\/tty n1tic=1 n2tic=1 perc=100 plotfile=plotfile\.ps style=seismic title=suximage titlecolor=red titlefont=Rom22 units=unit verbose=1 windowtitle=suximage xbox=500 ybox=500 wbox=550 hbox=550 & 
+
+49
+
+sufilter amps=1\,1\,0\,1\,1 f=0\,80\,90\,100 verbose=0 < /home/gllore/Servilleta/seismics/data/loma_blanca//053018/H/1/su/gllore/60_clean.su | suximage clip=1 cmap=hsv0 d2=1 f1=0 gridcolor=blue labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 lwidth=16 lx=3 mpicks=\/dev\/tty n1tic=1 n2tic=1 perc=100 plotfile=plotfile\.ps style=seismic title=suximage titlecolor=red titlefont=Rom22 units=unit verbose=1 windowtitle=suximage xbox=500 ybox=500 wbox=550 hbox=550 & 
+
+58
+
+sufilter amps=1\,1\,0\,1 f=0\,80\,90\,100 verbose=0 < /home/gllore/Servilleta/seismics/data/loma_blanca//053018/H/1/su/gllore/60_clean.su | suximage clip=1 cmap=hsv0 d2=1 f1=0 gridcolor=blue labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 lwidth=16 lx=3 mpicks=\/dev\/tty n1tic=1 n2tic=1 perc=100 plotfile=plotfile\.ps style=seismic title=suximage titlecolor=red titlefont=Rom22 units=unit verbose=1 windowtitle=suximage xbox=500 ybox=500 wbox=550 hbox=550 & 
+
+43
+
+sufilter amps=1\,1\,\.8\,0 f=0\,90\,100 verbose=0 < /home/gllore/Servilleta/seismics/data/loma_blanca//053018/H/1/su/gllore/60_clean.su | suximage clip=1 cmap=hsv0 d2=1 f1=0 gridcolor=blue labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 lwidth=16 lx=3 mpicks=\/dev\/tty n1tic=1 n2tic=1 perc=100 plotfile=plotfile\.ps style=seismic title=suximage titlecolor=red titlefont=Rom22 units=unit verbose=1 windowtitle=suximage xbox=500 ybox=500 wbox=550 hbox=550 & 
+
+47
+
+sufilter amps=1\,1\,\.8\,0 f=0\,90\,100 verbose=0 < /home/gllore/Servilleta/seismics/data/loma_blanca//053018/H/1/su/gllore/60_clean.su | suximage clip=1 cmap=hsv0 d2=1 f1=0 gridcolor=blue labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 lwidth=16 lx=3 mpicks=\/dev\/tty n1tic=1 n2tic=1 perc=100 plotfile=plotfile\.ps style=seismic title=suximage titlecolor=red titlefont=Rom22 units=unit verbose=1 windowtitle=suximage xbox=500 ybox=500 wbox=550 hbox=550 & 
+
+52
+
+sufilter amps=1\,1\,\.8\,0 f=0\,90\,100 verbose=0 < /home/gllore/Servilleta/seismics/data/loma_blanca//053018/H/1/su/gllore/60_clean.su | suximage clip=1 cmap=hsv0 d2=1 f1=0 gridcolor=blue labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 lwidth=16 lx=3 mpicks=\/dev\/tty n1tic=1 n2tic=1 perc=100 plotfile=plotfile\.ps style=seismic title=suximage titlecolor=red titlefont=Rom22 units=unit verbose=1 windowtitle=suximage xbox=500 ybox=500 wbox=550 hbox=550 & 
+
+13
+
+sufilter amps=1\,1\,\.8\,0 f=0\,90\,95\,100 verbose=0 < /home/gllore/Servilleta/seismics/data/loma_blanca//053018/H/1/su/gllore/60_clean.su | suximage clip=1 cmap=hsv0 d2=1 f1=0 gridcolor=blue labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 lwidth=16 lx=3 mpicks=\/dev\/tty n1tic=1 n2tic=1 perc=100 plotfile=plotfile\.ps style=seismic title=suximage titlecolor=red titlefont=Rom22 units=unit verbose=1 windowtitle=suximage xbox=500 ybox=500 wbox=550 hbox=550 & 
+
+24
+
+sufilter amps=1\,1\,\.8\,0 f=0\,80\,95\,100 verbose=0 < /home/gllore/Servilleta/seismics/data/loma_blanca//053018/H/1/su/gllore/60_clean.su | suximage clip=1 cmap=hsv0 d2=1 f1=0 gridcolor=blue labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 lwidth=16 lx=3 mpicks=\/dev\/tty n1tic=1 n2tic=1 perc=100 plotfile=plotfile\.ps style=seismic title=suximage titlecolor=red titlefont=Rom22 units=unit verbose=1 windowtitle=suximage xbox=500 ybox=500 wbox=550 hbox=550 & 
+
+33
+
+sufilter amps=1\,1\,\.8\,0 f=0\,80\,90\,100 verbose=0 < /home/gllore/Servilleta/seismics/data/loma_blanca//053018/H/1/su/gllore/60_clean.su | suximage clip=1 cmap=hsv0 d2=1 f1=0 gridcolor=blue labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 lwidth=16 lx=3 mpicks=\/dev\/tty n1tic=1 n2tic=1 perc=100 plotfile=plotfile\.ps style=seismic title=suximage titlecolor=red titlefont=Rom22 units=unit verbose=1 windowtitle=suximage xbox=500 ybox=500 wbox=550 hbox=550 & 
+
+47
+
+sufilter amps=1\,1\,\.8\,0 f=0\,70\,80\,100 verbose=0 < /home/gllore/Servilleta/seismics/data/loma_blanca//053018/H/1/su/gllore/60_clean.su | suximage clip=1 cmap=hsv0 d2=1 f1=0 gridcolor=blue labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 lwidth=16 lx=3 mpicks=\/dev\/tty n1tic=1 n2tic=1 perc=100 plotfile=plotfile\.ps style=seismic title=suximage titlecolor=red titlefont=Rom22 units=unit verbose=1 windowtitle=suximage xbox=500 ybox=500 wbox=550 hbox=550 & 
+
+3
+
+sufilter amps=1\,1\,\.8\,0 f=0\,60\,70\,100 verbose=0 < /home/gllore/Servilleta/seismics/data/loma_blanca//053018/H/1/su/gllore/60_clean.su | suximage clip=1 cmap=hsv0 d2=1 f1=0 gridcolor=blue labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 lwidth=16 lx=3 mpicks=\/dev\/tty n1tic=1 n2tic=1 perc=100 plotfile=plotfile\.ps style=seismic title=suximage titlecolor=red titlefont=Rom22 units=unit verbose=1 windowtitle=suximage xbox=500 ybox=500 wbox=550 hbox=550 & 
+
+21
+
+sufilter amps=1\,1\,\.8\,0 f=0\,40\,70\,100 verbose=0 < /home/gllore/Servilleta/seismics/data/loma_blanca//053018/H/1/su/gllore/60_clean.su | suximage clip=1 cmap=hsv0 d2=1 f1=0 gridcolor=blue labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 lwidth=16 lx=3 mpicks=\/dev\/tty n1tic=1 n2tic=1 perc=100 plotfile=plotfile\.ps style=seismic title=suximage titlecolor=red titlefont=Rom22 units=unit verbose=1 windowtitle=suximage xbox=500 ybox=500 wbox=550 hbox=550 & 
+
+28
+
+sufilter amps=1\,1\,\.8\,0 f=0\,40\,50\,100 verbose=0 < /home/gllore/Servilleta/seismics/data/loma_blanca//053018/H/1/su/gllore/60_clean.su | suximage clip=1 cmap=hsv0 d2=1 f1=0 gridcolor=blue labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 lwidth=16 lx=3 mpicks=\/dev\/tty n1tic=1 n2tic=1 perc=100 plotfile=plotfile\.ps style=seismic title=suximage titlecolor=red titlefont=Rom22 units=unit verbose=1 windowtitle=suximage xbox=500 ybox=500 wbox=550 hbox=550 & 
+
+1
+
+sufilter amps=1\,1\,\.8\,0 f=0\,40\,50\,100 verbose=0 < /home/gllore/Servilleta/seismics/data/loma_blanca//053018/H/1/su/gllore/60_clean.su | suspecfx | suximage clip=1 cmap=hsv0 d2=1 f1=0 gridcolor=blue labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 lwidth=16 lx=3 mpicks=\/dev\/tty n1tic=1 n2tic=1 perc=100 plotfile=plotfile\.ps style=seismic title=suximage titlecolor=red titlefont=Rom22 units=unit verbose=1 windowtitle=suximage xbox=500 ybox=500 wbox=550 hbox=550 & 
+
+38
+
+sufilter amps=1\,1\,\.8\,0 f=0\,40\,50\,60 verbose=0 < /home/gllore/Servilleta/seismics/data/loma_blanca//053018/H/1/su/gllore/60_clean.su | suspecfx | suximage clip=1 cmap=hsv0 d2=1 f1=0 gridcolor=blue labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 lwidth=16 lx=3 mpicks=\/dev\/tty n1tic=1 n2tic=1 perc=100 plotfile=plotfile\.ps style=seismic title=suximage titlecolor=red titlefont=Rom22 units=unit verbose=1 windowtitle=suximage xbox=500 ybox=500 wbox=550 hbox=550 & 
+
+22
+
+surange < /home/gllore/Servilleta/seismics/data/loma_blanca//053018/H/1/su/gllore/60_clean.su & 
+
+20
+
+suwind  reject=30 key=tracr < /home/gllore/Servilleta/seismics/data/loma_blanca//053018/H/1/su/gllore/60_clean.su | sufilter amps=1\,1\,\.8\,0 f=0\,40\,50\,60 verbose=0 | suspecfx | suximage clip=1 cmap=hsv0 d2=1 f1=0 gridcolor=blue labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 lwidth=16 lx=3 mpicks=\/dev\/tty n1tic=1 n2tic=1 perc=100 plotfile=plotfile\.ps style=seismic title=suximage titlecolor=red titlefont=Rom22 units=unit verbose=1 windowtitle=suximage xbox=500 ybox=500 wbox=550 hbox=550 & 
+
+32
+
+suwind  reject=29 key=tracr < /home/gllore/Servilleta/seismics/data/loma_blanca//053018/H/1/su/gllore/60_clean.su | sufilter amps=1\,1\,\.8\,0 f=0\,40\,50\,60 verbose=0 | suspecfx | suximage clip=1 cmap=hsv0 d2=1 f1=0 gridcolor=blue labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 lwidth=16 lx=3 mpicks=\/dev\/tty n1tic=1 n2tic=1 perc=100 plotfile=plotfile\.ps style=seismic title=suximage titlecolor=red titlefont=Rom22 units=unit verbose=1 windowtitle=suximage xbox=500 ybox=500 wbox=550 hbox=550 & 
+
+16
+
+sushw a=\-30 j=0 d=0 key=offset b=1 c=0 < /home/gllore/Servilleta/seismics/data/loma_blanca//053018/H/1/su/gllore/60_clean.su | suwind  abs=1 max=40 min=5 key=offset | sufilter amps=1\,1\,\.8\,0 f=0\,40\,50\,60 verbose=0 | suspecfx | suximage clip=1 cmap=hsv0 d2=1 f1=0 gridcolor=blue labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 lwidth=16 lx=3 mpicks=\/dev\/tty n1tic=1 n2tic=1 perc=100 plotfile=plotfile\.ps style=seismic title=suximage titlecolor=red titlefont=Rom22 units=unit verbose=1 windowtitle=suximage xbox=500 ybox=500 wbox=550 hbox=550 & 
+
+30
+
+sushw a=\-30 j=0 d=0 key=offset b=1 c=0 < /home/gllore/Servilleta/seismics/data/loma_blanca//053018/H/1/su/gllore/60_clean.su | suwind  abs=1 max=40 min=10 key=offset | sufilter amps=1\,1\,\.8\,0 f=0\,40\,50\,60 verbose=0 | suspecfx | suximage clip=1 cmap=hsv0 d2=1 f1=0 gridcolor=blue labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 lwidth=16 lx=3 mpicks=\/dev\/tty n1tic=1 n2tic=1 perc=100 plotfile=plotfile\.ps style=seismic title=suximage titlecolor=red titlefont=Rom22 units=unit verbose=1 windowtitle=suximage xbox=500 ybox=500 wbox=550 hbox=550 & 
+
+47
+
+sushw a=\-30 j=0 d=0 key=offset b=1 c=0 < /home/gllore/Servilleta/seismics/data/loma_blanca//053018/H/1/su/gllore/60_clean.su | suwind  abs=1 max=40 min=10 key=offset | sufilter amps=1\,1\,\.8\,0 f=0\,40\,50\,60 verbose=0 | suspecfx | suximage clip=10 cmap=hsv0 d2=1 f1=0 gridcolor=blue labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 lwidth=16 lx=3 mpicks=\/dev\/tty n1tic=1 n2tic=1 perc=100 plotfile=plotfile\.ps style=seismic title=suximage titlecolor=red titlefont=Rom22 units=unit verbose=1 windowtitle=suximage xbox=500 ybox=500 wbox=550 hbox=550 & 
+
+28
+
+sushw a=\-30 j=0 d=0 key=offset b=1 c=0 < /home/gllore/Servilleta/seismics/data/loma_blanca//053018/H/1/su/gllore/60_clean.su | suwind  abs=1 max=40 min=10 key=offset | suximage clip=10 cmap=hsv0 d2=1 f1=0 gridcolor=blue labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 lwidth=16 lx=3 mpicks=\/dev\/tty n1tic=1 n2tic=1 perc=100 plotfile=plotfile\.ps style=seismic title=suximage titlecolor=red titlefont=Rom22 units=unit verbose=1 windowtitle=suximage xbox=500 ybox=500 wbox=550 hbox=550 & 
+
+57
+
+sushw a=\-30 j=0 d=0 key=offset b=1 c=0 < /home/gllore/Servilleta/seismics/data/loma_blanca//053018/H/1/su/gllore/60_clean.su | suwind  abs=1 max=40 min=10 key=offset | sugain agc=1 wagc=0\.1 tmpdir=\/tmp | suximage clip=10 cmap=hsv0 d2=1 f1=0 gridcolor=blue labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 lwidth=16 lx=3 mpicks=\/dev\/tty n1tic=1 n2tic=1 perc=100 plotfile=plotfile\.ps style=seismic title=suximage titlecolor=red titlefont=Rom22 units=unit verbose=1 windowtitle=suximage xbox=500 ybox=500 wbox=550 hbox=550 & 
+
+9
+
+sushw a=\-30 j=0 d=0 key=offset b=1 c=0 < /home/gllore/Servilleta/seismics/data/loma_blanca//053018/H/1/su/gllore/60_clean.su | suwind  abs=1 max=40 min=10 key=offset | sugain agc=1 wagc=0\.1 tmpdir=\/tmp | suximage clip=5 cmap=hsv0 d2=1 f1=0 gridcolor=blue labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 lwidth=16 lx=3 mpicks=\/dev\/tty n1tic=1 n2tic=1 perc=100 plotfile=plotfile\.ps style=seismic title=suximage titlecolor=red titlefont=Rom22 units=unit verbose=1 windowtitle=suximage xbox=500 ybox=500 wbox=550 hbox=550 & 
+
+19
+
+sushw a=\-30 j=0 d=0 key=offset b=1 c=0 < /home/gllore/Servilleta/seismics/data/loma_blanca//053018/H/1/su/gllore/60_clean.su | suwind  abs=1 max=40 min=10 key=offset | sugain agc=1 wagc=0\.2 tmpdir=\/tmp | suximage clip=5 cmap=hsv0 d2=1 f1=0 gridcolor=blue labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 lwidth=16 lx=3 mpicks=\/dev\/tty n1tic=1 n2tic=1 perc=100 plotfile=plotfile\.ps style=seismic title=suximage titlecolor=red titlefont=Rom22 units=unit verbose=1 windowtitle=suximage xbox=500 ybox=500 wbox=550 hbox=550 & 
+
+3
+
+sushw a=\-30 j=0 d=0 key=offset b=1 c=0 < /home/gllore/Servilleta/seismics/data/loma_blanca//053018/H/1/su/gllore/60_clean.su | suwind  abs=1 max=40 min=2 key=offset | sugain agc=1 wagc=0\.2 tmpdir=\/tmp | suximage clip=5 cmap=hsv0 d2=1 f1=0 gridcolor=blue labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 lwidth=16 lx=3 mpicks=\/dev\/tty n1tic=1 n2tic=1 perc=100 plotfile=plotfile\.ps style=seismic title=suximage titlecolor=red titlefont=Rom22 units=unit verbose=1 windowtitle=suximage xbox=500 ybox=500 wbox=550 hbox=550 & 
+
+51
+
+sushw a=\-30 j=0 d=0 key=offset b=1 c=0 < /home/gllore/Servilleta/seismics/data/loma_blanca//053018/H/1/su/gllore/60_clean.su | suwind  abs=1 max=40 min=2 key=offset | suwind  max=60 min=1 key=tracr | sugain agc=1 wagc=0\.2 tmpdir=\/tmp | suximage clip=5 cmap=hsv0 d2=1 f1=0 gridcolor=blue labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 lwidth=16 lx=3 mpicks=\/dev\/tty n1tic=1 n2tic=1 perc=100 plotfile=plotfile\.ps style=seismic title=suximage titlecolor=red titlefont=Rom22 units=unit verbose=1 windowtitle=suximage xbox=500 ybox=500 wbox=550 hbox=550 & 
+
+21
+
+sushw a=\-30 j=0 d=0 key=offset b=1 c=0 < /home/gllore/Servilleta/seismics/data/loma_blanca//053018/H/1/su/gllore/60_clean.su | suwind  abs=1 max=40 min=2 key=offset | suwind  max=60 min=1 key=tracr | sufilter f=0\,3\,60\,80 verbose=0 | sugain agc=1 wagc=0\.2 tmpdir=\/tmp | suximage clip=5 cmap=hsv0 d2=1 f1=0 gridcolor=blue labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 lwidth=16 lx=3 mpicks=\/dev\/tty n1tic=1 n2tic=1 perc=100 plotfile=plotfile\.ps style=seismic title=suximage titlecolor=red titlefont=Rom22 units=unit verbose=1 windowtitle=suximage xbox=500 ybox=500 wbox=550 hbox=550 & 
+
+18
+
+suximage clip=0\.1 cmap=hsv0 d2=1 f1=0 gridcolor=blue labelcolor=blue labelfont=Erg14 legend=1 legendfont=times_roman10 lwidth=16 lx=3 mpicks=\/dev\/tty n1tic=1 n2tic=1 perc=100 plotfile=plotfile\.ps style=seismic title=suximage titlecolor=red titlefont=Rom22 tmpdir=\.\/ units=unit verbose=1 windowtitle=suximage wperc=100 xbox=500 ybox=500 wbox=550 < /home/gllore/Servilleta/seismics/data/loma_blanca//053018/H/1/su/gllore/101_clean.su & 
+

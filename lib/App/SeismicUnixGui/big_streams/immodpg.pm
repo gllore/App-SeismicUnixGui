@@ -2794,10 +2794,6 @@ sub _set_change {
 
 		# print("immodpg, _set_change, yes_or_no:$yes_or_no\n");
 
-
-
-
-
 =head2 instantiate classes
 
 =cut
@@ -2822,7 +2818,7 @@ variables
 		my $max_counts = 1000;
 		for ( my $i = 0; ( $test eq $yes ) and ( $count < $max_counts ); $i++ ) {
 
-			# print("1. immodpg,_set_change, in loop count=$count \n");
+#			print("1. immodpg,_set_change, in loop count=$count \n");
 
 			if ( not( $files->does_file_exist( \$outbound_locked ) ) ) {
 

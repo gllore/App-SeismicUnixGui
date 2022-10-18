@@ -21,7 +21,7 @@
       real               :: plot_min_t_s,plot_max_t_s,VtopNbot_factor
       real               :: results(30), Vincrement_mps, clip, m2km
       integer*2          :: layer
-      integer            :: err_message, counter, ready
+      integer            :: err_msg, counter, ready
 !       in case definition in main is slightly different
 !       pre_digitized_XT_pairs = 'no'
 !       data_traces = 'no'
@@ -60,11 +60,10 @@
 
        if (ready.eq.0) then
 
-        open(unit=1,file=trim(inbound),status='old',
-     +    iostat=err_message)
+        open(unit=1,file=trim(inbound),status='old',iostat=err_msg)
 
 !       check whether file opens data file
-        if (err_message.eq.0) then
+        if (err_msg.eq.0) then
 
          read (1,format0) name,equal,base_file
 !         print*, '0. read_immodpg_config.f, base file_name:',base_file
@@ -179,7 +178,7 @@
 !      end if
 
          else
-!         print *, 'read_immodpg_file.f, err_message=',err_message
+!         print *, 'read_immodpg_file.f, err_msg=',err_msg
 !         print *, 'read_immodpg_file.f, counter=',counter
 !         rest a little before trying again
 !         call sleep(1)
@@ -190,10 +189,10 @@
 !         go to 10
        end if
 !       remove lock file
-11      close (status='delete',unit=2,iostat=err_message)
-        if (err_message.ne.0) then
+11      close (status='delete',unit=2,iostat=err_msg)
+        if (err_msg.ne.0) then
          go to 11
-         print *, 'read_immodpg_file.f, err_messg=',err_message
+         print *, 'read_immodpg_file.f, err_messg=',err_msg
         end if
 !       print *, 'read_immodpg_file, result',result
 

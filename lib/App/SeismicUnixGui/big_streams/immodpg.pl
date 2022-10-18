@@ -72,10 +72,8 @@ use aliased 'App::SeismicUnixGui::configs::big_streams::Project_config';
 use aliased 'App::SeismicUnixGui::configs::big_streams::immodpg_config';
 use aliased 'App::SeismicUnixGui::big_streams::immodpg_global_constants';
 use aliased 'App::SeismicUnixGui::misc::premmod';
-
 use App::SeismicUnixGui::big_streams::immodpg '0.2';
 use aliased 'App::SeismicUnixGui::big_streams::immodpg';
-
 use aliased 'App::SeismicUnixGui::sunix::shell::xk';
 
 =head2 private anonymous hash 

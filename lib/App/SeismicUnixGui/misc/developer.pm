@@ -159,10 +159,10 @@ sub _program_category {
 
 				if ( $test =~ m/^$program_name$/ ) {
 
-					# print("1. developer, _program_category sucess, superflow program= $test\n");
+#					print("1. developer, _program_category sucess, superflow program= $test\n");
 					$developer->{_program_category} = @$Tools_category_aref[$j];
 
-					# print("2. developer, _program_category sucess, category= $developer->{_program_category} \n");
+#					print("2. developer, _program_category sucess, category= $developer->{_program_category} \n");
 					# print("developer, _program_category, test: $test\n");
 					# print("developer, _program_category, program_name: $program_name\n");
 					# print "developer, _program_category sucess, prog. index = $j\n";
@@ -218,7 +218,8 @@ sub set_flow_type {
 		&& $flow_type ne $empty_string ) {
 
 		$developer->{_flow_type} = $flow_type;
-
+#	    print("developer, set_flow_type,  $developer->{_flow_type}\n");
+	    
 	} else {
 		print("developer,  set_flow_type , missing value\n");
 	}

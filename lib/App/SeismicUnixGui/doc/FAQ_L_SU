@@ -88,12 +88,11 @@ decisions:
   Judges conditions for making choices automatically in
   the namespace.
   
-Superflows/tools read configuration files and write configuration files
+Big streams/Superflows/Tools read configuration files and write configuration files
    using internal libraries, i.e. no longer using 3rd-party library like Config-Simple
    configuration parameters are found in arrays and not in hashes as for
    the outside libraries of Config-Simple.  Former version of L_SU used Config-Simple
  
-
  
  Other superflows can have a local configuration file( i.e., iSpectralAnalysis.config)
  Make sure that your local configuration file also gets updated accordingly if you change
@@ -101,7 +100,7 @@ Superflows/tools read configuration files and write configuration files
  
 Main, _L_SU_superflows calls pre_built_superflow
 
-       pre_built_superflow,select calls config_superflows
+       pre_built_superflow, select calls config_superflows
  
                config_superflows, get_local_or_defaults calls big_streams_param
                
@@ -392,7 +391,7 @@ This index could be used to compare the current and past value of the parameter 
 However, historical versions of the parameters would have to be stored, 
 made possible via the param_flow package or param_widgets package.
 On the other hand it is simple if this index could be assumed to always represent a change and 
-to so to always confirm that "specs" files are not being violated.
+so to always confirm that "specs" files are not being violated.
 
 param_widgets,redisplay_values actually triggers an index change
 
@@ -414,7 +413,7 @@ TODO Idea: build program behaviors using spec files
  	so if ($bad)   provide error message 
  	
 
- For the case of Superflows, redisplay the values that exist stored in param_flow:
+ For the case of big streams, redisplay the values that exist stored in param_flow:
                 $param_widgets->set_values($TkPl_SU->{_values_aref});
 		 		$param_widgets->redisplay_values();
 		 		
@@ -431,7 +430,6 @@ TODO Idea: build program behaviors using spec files
  Also, whenever a seismic unix program is clicked within the flow_listbox (any of the four)
  (NOT the seismic unix selection listbox), the parameters are redisplayed
  
-
 
 The only place that a flow is checked for how correct its parameters are will be at the
 time the perl file is run. Programs and their paramters are checked out against the requirements of the spec

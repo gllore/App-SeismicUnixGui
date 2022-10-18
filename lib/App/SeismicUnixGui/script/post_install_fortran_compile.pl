@@ -62,7 +62,7 @@ if ( ( $ans eq 'N' ) or ( $ans eq 'n' ) ) {
 	print ("Install pgplot and put the following line \n");
 	print ("in your \".bashrc\" file:\n");
 	print("      export PGPLOT=/usr/local/pgplot \n");
-	print("Please come back when you are ready\n");
+	print("Please come back when you are ready\n\n");
 	exit;
 
 }

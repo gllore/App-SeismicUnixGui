@@ -1,4 +1,3 @@
-#!/usr/bin/perl
 package App::SeismicUnixGui::misc::su_xtract_waveform;
 
 use Moose;
@@ -153,7 +152,7 @@ sub file_out {
 =cut
 
     if ( $ref_picks_file && $inbound ) {
-        use lib '/usr/local/pl/libAll';
+
         use App::SeismicUnixGui::misc::SeismicUnix qw($suffix_su);
         use aliased 'App::SeismicUnixGui::misc::readfiles';
 
@@ -263,14 +262,12 @@ sub window_title {
 
 sub Step {
 
-    use lib '/usr/local/pl/libAll';
     use App::SeismicUnixGui::misc::SeismicUnix qw($in $out $on $go $to $suffix_ascii $off $suffix_su);
-    use App::SeismicUnixGui::configs::big_streams::Project_config;
-    my $Project = Project_config->new();
-    use App::SeismicUnixGui::misc::message;
-    use App::SeismicUnixGui::misc::flow;
-    use App::SeismicUnixGui::sunix::plot::suxwigb;
-    use App::SeismicUnixGui::sunix::shapeNcut::suwind;
+    use aliased 'App::SeismicUnixGui::configs::big_streams::Project_config';
+    use aliased 'App::SeismicUnixGui::misc::message';
+    use aliased 'App::SeismicUnixGui::misc::flow';
+    use aliased 'App::SeismicUnixGui::sunix::plot::suxwigb';
+    use aliased 'App::SeismicUnixGui::sunix::shapeNcut::suwind';
 
 =head2 Instantiate classes
 
@@ -286,6 +283,7 @@ sub Step {
 
 =cut
 
+    my $Project = Project_config->new();
     my $log     = message->new();
     my $run     = flow->new();
     my $suxwigb = suxwigb->new();

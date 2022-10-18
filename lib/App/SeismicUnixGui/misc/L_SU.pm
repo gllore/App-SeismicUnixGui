@@ -395,8 +395,8 @@ sub FileDialog_button {
 			&& !( $L_SU_href->{_is_flow_listbox_blue_w} ) )
 		{
 
-#			print("CASE 1 L_SU,FileDialog_button, _flow_type: $L_SU_href->{_flow_type}\n");
-#			print("CASE 1 L_SU, FileDialog_button, color is $color\n");
+			print("CASE 1 L_SU,FileDialog_button, _flow_type: $L_SU_href->{_flow_type}\n");
+			print("CASE 1 L_SU, FileDialog_button, color is $color\n");
 
 			#			Default selected flow box color is 'grey'for now,
 			#         but the default can be changed in L_SU_global_constants

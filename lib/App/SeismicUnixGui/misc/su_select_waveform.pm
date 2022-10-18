@@ -204,12 +204,13 @@ sub Step {
 
 =cut
 
-    use App::SeismicUnixGui::misc::message;
-    use App::SeismicUnixGui::sunix::filter::sufilter;
-    use App::SeismicUnixGui::sunix::shapeNcut::sugain;
-    use App::SeismicUnixGui::sunix::plot::suxwigb;
-    use App::SeismicUnixGui::sunix::plot::suximage;
-    use App::SeismicUnixGui::configs::big_streams::Project_config;
+    use aliased 'App::SeismicUnixGui::misc::message';
+    use aliased 'App::SeismicUnixGui::misc::flow';
+    use aliased 'App::SeismicUnixGui::sunix::filter::sufilter';
+    use aliased 'App::SeismicUnixGui::sunix::shapeNcut::sugain';
+    use aliased 'App::SeismicUnixGui::sunix::plot::suxwigb';
+    use aliased 'App::SeismicUnixGui::sunix::plot::suximage';
+    use aliased 'App::SeismicUnixGui::configs::big_streams::Project_config';
     use App::SeismicUnixGui::misc::SeismicUnix qw($in $out $on $go $to $suffix_ascii $off $suffix_su);
 
 =pod

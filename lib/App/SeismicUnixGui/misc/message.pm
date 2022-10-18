@@ -60,7 +60,7 @@ if ( not length($L_SU) ) {
     print "message.pm, L60\n";
 	print "global variable L_SU must be set\n";
 	print "e.g., in .bashrc: ";
-	print " export L_SU=/usr/local/pl/SeismicUnixGui ";
+	print "export L_SU=/usr/local/pl/SeismicUnixGui ";
 
 } else {
 	#	print("test.pl: \$L_SU = $L_SU; NADA \n");

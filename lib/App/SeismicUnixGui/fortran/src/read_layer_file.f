@@ -16,8 +16,7 @@
 10     open(status='new',unit=30,file=inbound_locked,iostat=ready)
 
        if (ready.eq.0) then
-         open(unit=29,file=trim(inbound),status='old',
-     +    iostat=err_message)
+         open(unit=29,file=trim(inbound),status='old',iostat=err_message)
  !       check whether file opens data file
          if (err_message.eq.0) then
 

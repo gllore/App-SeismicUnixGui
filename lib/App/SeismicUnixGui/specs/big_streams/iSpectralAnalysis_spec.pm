@@ -4,13 +4,12 @@ our $VERSION = '1.00';
 
 use Moose;
 use App::SeismicUnixGui::misc::SeismicUnix qw($su $suffix_su);
-use aliased 'App::SeismicUnixGui::misc::L_SU_global_constants';
-use aliased 'App::SeismicUnixGui::configs::big_streams::Project_config';
-use aliased 'App::SeismicUnixGui::configs::big_streams::iSpectralAnalysis_config';
+use App::SeismicUnixGui::misc::L_SU_global_constants;
+use App::SeismicUnixGui::configs::big_streams::Project_config;
 
-my $Project 	= Project_config->new();
-my $get              = L_SU_global_constants->new();
-my $var              = $get->var();
+my $Project 	= App::SeismicUnixGui::configs::big_streams::Project_config->new();
+my $get         = App::SeismicUnixGui::misc::L_SU_global_constants->new();
+my $var         = $get->var();
 
 my $empty_string     = $var->{_empty_string};
 my $true    = $var->{_true};
@@ -21,8 +20,7 @@ my $flow_type        = $get->flow_type_href();
 my $DATA_SEISMIC_SU = $Project->DATA_SEISMIC_SU();    # output data directory
 my $PL_SEISMIC      = $Project->PL_SEISMIC();
 
-my $iSpectralAnalysis_config = iSpectralAnalysis_config->new();
-my $max_index                = $iSpectralAnalysis_config->get_max_index();
+my $max_index                = 6;
 
 #print("iSpectralAnalysis_spec, max_index= $max_index\n");
 
@@ -84,7 +82,7 @@ sub get_max_index {
 
 	if ( $iSpectralAnalysis_spec->{_max_index} ) {
 
-		my $max_idx = $iSpectralAnalysis_config->get_max_index();
+		my $max_idx = $iSpectralAnalysis_spec->{_max_index};
 		return ($max_idx);
 
 	} else {

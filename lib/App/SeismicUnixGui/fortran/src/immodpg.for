@@ -23,7 +23,7 @@
        dimension tout(npmax,nlmax),array_ntp(npmax)
 
        dimension xdig(nxymax),tdig(nxymax)
-       character*255 message
+       character*255 message, inbound_bin
        character*255 set_DIR, get_DIR
        character*300 inboundVincrement, inboundVbotNtop_factor
        character*300 inbound_change, inbound_config, inbound_option
@@ -301,8 +301,8 @@
 ! read all the configuration parameters for immodpg
 ! i/p inbound_config
 ! o/p base_file, result,
-       call read_immodpg_config(base_file, result, inbound_config)
-!       print*, 'L 305, base_file=',base_file
+       call read_immodpg_config(base_file,result,inbound_config)
+       print*, 'L 305, base_file=',base_file
  ! Read digitized X-T pairs, 0- No',idrxy
        idrxy=int(result(1))
  !  Read data traces, 0- No',idrdtr
@@ -458,16 +458,22 @@
 !       print*, '1D. immodpg.for,made it, current_layer_number=',
 !     +  current_layer_number
 
-       do 20 i = 1, current_layer_number
+       do i = 1, current_layer_number
 
-20	if(ABS(VT(i)-VB(i)).le.A3) vb(i) = vt(i)
+	if(ABS(VT(i)-VB(i)).le.A3) vb(i) = vt(i)
+
+       end do
 
 !      Reflections at the bottom of layers decided automatically
 !      based on velocity discontinuities
-	do 34 I=1,nl-1
-         IR(i)=0
-34	if(ABS(VT(i+1)-VB(i)).GT.A3) IR(i)=1
-
+	do I=1,nl-1
+	
+         IR(i)=0 
+         
+        end do 
+        
+	if(ABS(VT(i+1)-VB(i)).GT.A3) IR(i)=1
+     
 	IR(nl) = 0  !** No reflection at the bottom of model
 
 !      COMPUTATIONS ***
@@ -1145,7 +1151,8 @@
      + Amp_min, Amp_max)
 	INTEGER*4 ntrmax,n,ntr,ns
 	REAL*4 Amp(ntrmax,nsmax), Amp_min, Amp_max
-       character*255 inbound_bin, inbound_config
+       character*255 inbound_bin
+       character*300 inbound_config
        character*40 base_file
        character*40 config_file
        character*255 set_DIR,get_DIR
@@ -1157,11 +1164,12 @@
       call Project_config(set_DIR,get_DIR)
 
 !  define needed files
-      inbound_config = trim(get_DIR)//"/"//config_file
-
-!      print*,'immodpg.for,rdata,inbound_config:',inbound_config
+!      inbound_config = trim(get_DIR)//"/"//config_file
+!
+!     print*,'immodpg.for,rdata,inbound_config:',inbound_config
 !   read all the configuration parameters for immodpg
-      call read_immodpg_config(base_file,result,inbound_config)
+!      call read_immodpg_config(base_file,result,inbound_config)
+!       print*,'immodpg.for,rdata,base_file:',base_file  
 ! define the different needed directories
       set_DIR        = "DATA_SEISMIC_BIN"
       call Project_config(set_DIR,get_DIR)
@@ -1175,6 +1183,7 @@
       Amp_min = 1e30
       Amp_max = -1e30
       do 20 i=1,ntr
+      
          do 11 j=1,ns
             Amp_min = min(Amp(i,j),Amp_min)
             Amp_max = max(Amp(i,j),Amp_max)
@@ -1246,8 +1255,9 @@
 		write(*,*) ' '
 		write(*,*) '            X(km)          T(sec)'
 		write(*,*) ' '
-		do 180 i = 1,n
-180		write(*,300) i,x(i),y(i)
+		do i = 1,n
+		  write(*,300) i,x(i),y(i)
+		end do
 		write(*,*) ' '
 	   endif
 	else
