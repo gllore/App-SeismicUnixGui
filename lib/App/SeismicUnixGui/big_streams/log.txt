@@ -1,0 +1,8 @@
+sustrip ftn=1 head=\/dev\/null outpar=\/dev\/null < /home/gllore/Servilleta/seismics/data/loma_blanca//053018/H/1/su/gllore/101_clean.su > /home/gllore/Servilleta/seismics/data/loma_blanca//053018/H/1/bin/gllore/101_clean.bin & 
+
+sustrip ftn=1 head=\/dev\/null outpar=\/dev\/null < /home/gllore/Servilleta/seismics/data/loma_blanca//053018/H/1/su/gllore/101_clean.su > /home/gllore/Servilleta/seismics/data/loma_blanca//053018/H/1/bin/gllore/101_clean.bin & 
+
+sustrip ftn=1 head=\/dev\/null outpar=\/dev\/null < /home/gllore/Servilleta/seismics/data/loma_blanca//053018/H/1/su/gllore/101_clean.su > /home/gllore/Servilleta/seismics/data/loma_blanca//053018/H/1/bin/gllore/101_clean.bin & 
+
+sustrip ftn=1 head=\/dev\/null outpar=\/dev\/null < /home/gllore/Servilleta/seismics/data/loma_blanca//053018/H/1/su/gllore/101_clean.su > /home/gllore/Servilleta/seismics/data/loma_blanca//053018/H/1/bin/gllore/101_clean.bin & 
+

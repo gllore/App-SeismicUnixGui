@@ -47,7 +47,6 @@ use aliased 'App::SeismicUnixGui::misc::config_superflows';
 
 =cut
 
-# my $conditions4big_streams = conditions4big_streams->new();
 my $get 					  = L_SU_global_constants->new();
 my $param_widgets 	          = param_widgets4pre_built_streams->new();
 my $whereami      			  = whereami->new();
@@ -68,7 +67,7 @@ my ($values_aref,$names_aref,$check_buttons_settings_aref);
 =head2 sub get_hash_ref
 
 	return ALL values of the private hash, supposedly
-	improtant external widgets have not been reset.. only conditions
+	important external widgets have not been reset ... only conditions
 	are reset
 	TODO: perhaps it is better to have a specific method
 		to return one specific widget address at a time?

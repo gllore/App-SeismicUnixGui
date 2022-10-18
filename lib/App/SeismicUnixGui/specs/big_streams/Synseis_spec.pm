@@ -25,13 +25,6 @@ my $PL_SEISMIC = $Project->PL_SEISMIC();
 
 my $max_index = 17;
 
-=pod
-
-    infile is piped in
-    max_index from *.config file
-
-=cut
-
 my $Synseis_spec = {
 	_CONFIG                => $PL_SEISMIC,
 	_DATA_DIR_IN           => $DATA_SEISMIC_WELL_SYNSEIS,
@@ -112,7 +105,7 @@ sub get_max_index {
 
 	if ( $Synseis_spec->{_max_index} ) {
 
-		my $max_idx = $max_index;
+		my $max_idx = $Synseis_spec->{_max_index};
 		return ($max_idx);
 
 	}
@@ -255,7 +248,7 @@ sub prefix_aref {
 
 	my @prefix;
 
-	for ( my $i = 0 ; $i < $max_index ; $i++ ) {
+	for ( my $i = 0 ; $i < $Synseis_spec->{_max_index} ; $i++ ) {
 
 		$prefix[$i] = $empty_string;
 
@@ -275,7 +268,7 @@ sub suffix_aref {
 
 	my @suffix;
 
-	for ( my $i = 0 ; $i < $max_index ; $i++ ) {
+	for ( my $i = 0 ; $i < $Synseis_spec->{_max_index} ; $i++ ) {
 
 		$suffix[$i] = $empty_string;
 

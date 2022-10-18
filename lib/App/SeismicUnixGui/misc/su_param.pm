@@ -417,7 +417,7 @@ sub get {
 		$su_param->{_names_aref} = $names_aref;
 		$length = scalar @$names_aref;
 
-		#		print("su_param,get:we have $length pairs\n\n");
+#		print("su_param,get:we have $length pairs\n\n");
 		for ( $i = 0, $j = 0 ; $i < $length ; $i++, $j = $j + 2 ) {
 
 			$CFG[$j] = $$names_aref[$i];

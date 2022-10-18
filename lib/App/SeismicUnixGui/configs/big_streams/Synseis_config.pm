@@ -54,7 +54,7 @@ use aliased 'App::SeismicUnixGui::misc::L_SU_global_constants';
 my $L_SU_global_constants  = L_SU_global_constants->new();
 my $control                = control->new();
 my $config_superflows      = config_superflows->new();
-my $superflow_config_names = $L_SU_global_constants>superflow_config_names_aref();
+my $superflow_config_names = $L_SU_global_constants->superflow_config_names_aref();
 
 #WARNING---- watch out for missing underscore!!
 # set the correct index manually for this superflow

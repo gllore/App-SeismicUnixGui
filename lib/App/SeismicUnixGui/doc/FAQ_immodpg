@@ -24,7 +24,9 @@
     		L_SU,save_button; 
     			save_button,director,_Save_pre_built_superflow
     				config_superflows,save;
- 			   			files_LSU,copy_default_config
+ 			   			save 
+ 			   			  files_LSU,check2write,
+ 			   			            ,_write or copy_default_config
  			   			
  	Q. How many windows are used by immodpg?
  	A. Two. One window is a PerlTk-based gui and the other is handled independently by a 

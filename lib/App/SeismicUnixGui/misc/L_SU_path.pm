@@ -49,9 +49,12 @@ BEGIN {
 			$path4SeismicUnixGui_colon = $path4SeismicUnixGui_slash;
 			
 	} else {
-		$path4SeismicUnixGui_slash = '/usr/local/pl/App-SeismicUnixGui/lib/App/SeismicUnixGui';
-		print("Using default: path4SeismicUnixGui_slash = $path4SeismicUnixGui_slash\n");
-		print("at L_SU_path, \n");
+		my $dir       = 'App-SeismicUnixGui/lib/App/SeismicUnixGui';
+	    my $pathNfile = 'App-SeismicUnixGui/lib/App/SeismicUnixGui/sunix/data/data_in.pm';
+	    my $look = `locate $pathNfile`;
+	    my @field= split($dir, $look);
+		$path4SeismicUnixGui_slash    = $field[0].$dir;
+		print("\nL_SU_path, Using default: path4SeismicUnixGui_slash = $path4SeismicUnixGui_slash\n");
 	}
 }
 

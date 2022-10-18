@@ -5,7 +5,7 @@
       character (len=255) :: inbound_bin, inbound, inbound_locked
       integer*4      :: ntrmax,nsmax,ntr,ns,k,i
       real*4         :: Amp(ntrmax,nsmax)
-      integer        :: err_message, counter, ready
+      integer        :: err_msg, counter, ready
 
 !      trim end and adjustl start of empty spaces
       inbound=trim(adjustl(inbound_bin))
@@ -17,12 +17,11 @@
 !       print *, 'read_bin_data.f,inbound_locked iostat:',ready
 !       if (ready.eq.17) print *, 'locked, try again'
        if (ready.eq.0) then
-        open(UNIT=20,FILE=inbound_bin,STATUS='OLD',IOSTAT=err_message,
-     +   FORM='UNFORMATTED')
+        open(UNIT=20,FILE=inbound_bin,STATUS='OLD',IOSTAT=err_msg,FORM='UNFORMATTED')
 !        counter = counter +1
-         err_message =0
+         err_msg =0
 !       check whether file opens data file
-        if (err_message.eq.0) then
+        if (err_msg.eq.0) then
          k=1
 !        ns=1 ! temp tbd
  120     read (unit=20) (Amp(k,i), i=1,ns)
@@ -36,7 +35,7 @@
  125     close (unit=20)
 
         else
-!         print *, 'read_bin_data.f, err_message=',err_message
+!         print *, 'read_bin_data.f, err_msg=',err_msg
 !         print *, 'read_bin_data.f, counter=',counter
 
 !         rest a little before trying again
@@ -48,11 +47,11 @@
          go to 10
        end if
 !       remove lock file
-11     close (status='delete',unit=19,iostat=err_message)
-!          print *, 'read_bin_data.f, err_messg=',err_message
-        if (err_message.ne.0) then
+11     close (status='delete',unit=19,iostat=err_msg)
+!          print *, 'read_bin_data.f, err_messg=',err_msg
+        if (err_msg.ne.0) then
          go to 11
-         print *, 'read_bin_data.f, err_messg=',err_message
+         print *, 'read_bin_data.f, err_messg=',err_msg
         end if
 !       print *, 'read_bin_data, finished'
 

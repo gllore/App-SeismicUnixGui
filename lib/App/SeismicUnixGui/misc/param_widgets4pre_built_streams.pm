@@ -15,7 +15,7 @@ package App::SeismicUnixGui::misc::param_widgets4pre_built_streams;
 =head2 DESCRIPTION
 
    manages the parameter labels, values and their
-   checkboxes in the mguis
+   checkboxes in the guis
 
 =head2 USE
 

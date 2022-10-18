@@ -167,7 +167,8 @@ sub _create_new {
 		my $length = $project_selector->{_length};
 		$param_widgets_pkg->set_first_idx;
 		$param_widgets_pkg->set_length($length);
-		$param_widgets_pkg->gui_clean;
+		$param_widgets_pkg->gui_full_clear;
+		#$param_widgets_pkg->gui_clean;
 
 		# get values names and checkbuttons from a
 		# default the Project.config file
@@ -180,16 +181,16 @@ sub _create_new {
 		# parameter values from superflow configuration file
 		$project->{_values_aref} = $config_superflows->get_values();
 
-		print(
-			"project_selector,_create_new,values=@{$project->{_values_aref}}\n"
-		);
+#		print(
+#			"project_selector,_create_new,values=@{$project->{_values_aref}}\n"
+#		);
 
 		$project->{_check_buttons_settings_aref} =
 		  $config_superflows->get_check_buttons_settings();
 
-		print(
-"project_selector,_create_new,chkb=@{$project->{_check_buttons_settings_aref}}\n"
-		);
+#		print(
+#"project_selector,_create_new,chkb=@{$project->{_check_buttons_settings_aref}}\n"
+#		);
 
 		$project->{_superflow_first_idx} = $config_superflows->first_idx();
 		$project->{_superflow_length}    = $config_superflows->length();

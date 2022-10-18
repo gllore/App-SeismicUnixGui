@@ -23,6 +23,7 @@ package App::SeismicUnixGui::misc::config_superflows;
 
 use Moose;
 my $VERSION = '1.0.0';
+use Carp;
 
 use aliased 'App::SeismicUnixGui::misc::L_SU_global_constants';
 use aliased 'App::SeismicUnixGui::big_streams::immodpg_global_constants';
@@ -222,8 +223,7 @@ sub get_names {
 
 	for ( $i = 0, $j = 0 ; $i < $length ; $i = $i + 2, $j++ ) {
 		$names[$j] = @$cfg_aref[$i];
-
-		# print(" config_superflows, get_names :index $j names:  $names[$j]\n");
+#		print(" config_superflows, get_names :index $j names:  $names[$j]\n");
 	}
 	return ( \@names );
 }
@@ -273,12 +273,12 @@ sub get_values {
 	my ( $i, $j );
 	my @values;
 
-	# print("cfg_aref is @$cfg_aref\n");
+#	print("cfg_aref is @$cfg_aref\n");
 
 	for ( $i = 1, $j = 0 ; $i < $length ; $i = $i + 2, $j++ ) {
 		$values[$j] = @$cfg_aref[$i];
 
-	# print("config_superflows, get_values :index $j values:--$values[$j]--\n");
+#	print("config_superflows, get_values :index $j values:--$values[$j]--\n");
 	}
 
 	return ( \@values );
@@ -374,10 +374,10 @@ sub _local_or_defaults {
  via big_streams_param:
  
  Read a default specification file 
- 1) If default specification file# does not exist locally (PL_SEISMIC)
+ 1) If default specification file does not exist locally (PL_SEISMIC),
  2) then check the user's configuration area: .LSU/configuration/active/Project.config
- and if not,
- 3) then use the default one defined under global libs
+ and if if still does not exist there,
+ 3) then use the default one defined under global libs.
 
  Debug with
     print ("self is $self,program is $program_name\n");
@@ -395,7 +395,7 @@ sub _local_or_defaults {
 sub get_local_or_defaults {
 	my ( $self, $config_base_name ) = @_;
 
-# print("config_superflows, get_local_or_defaults,program name=$config_base_name\n");
+    print("config_superflows, get_local_or_defaults,program name=$config_base_name\n");
 
 	if ( $config_superflows->{_program_name_sref} ) {		
 		
@@ -483,8 +483,7 @@ sub save {
 
 	  # CASE 2 all other superflow configuration files except for Project.config
 		$files_LSU->set_config();
-		$files_LSU->set_prog_name_sref( $out_hash_ref->{_prog_name_sref} )
-		  ;    # scalar ref
+		$files_LSU->set_prog_name_sref( $out_hash_ref->{_prog_name_sref} ); # scalar ref
 		$files_LSU->outbound();
 		$files_LSU->set_superflow_specs($out_hash_ref);    # scalar ref
 
@@ -494,9 +493,7 @@ sub save {
 
 			if ( $$program_name_sref eq 'immodpg' ) {
 
-		  #				print(
-		  #"config_superflows, _write,progam_name_sref= ${$program_name_sref}\n"
-		  #				);
+		  	# carp("config_superflows,save,progam_name_sref= ${$program_name_sref}\n");
 
 				@format = @{ $var_immodpg->{_format_aref} };
 
@@ -514,7 +511,6 @@ sub save {
 		
 		}
 	}
-
 
 	return ();
 

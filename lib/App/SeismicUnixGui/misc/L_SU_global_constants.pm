@@ -7,20 +7,22 @@ my $path4SeismicUnixGui;
 $path4SeismicUnixGui = $ENV{'SeismicUnixGui'};
 
 BEGIN {
-	use Env;
-	
-	if (length $ENV{'SeismicUnixGui'} ) {
-		
-			$path4SeismicUnixGui = $ENV{'SeismicUnixGui'};
-			
-	} else {
 
-		my $dir       = 'App-SeismicUnixGui/lib/App/SeismicUnixGui';
-	    my $pathNfile = 'App-SeismicUnixGui/lib/App/SeismicUnixGui/sunix/data/data_in.pm';
-	    my $look = `locate $pathNfile`;
-	    my @field= split($dir, $look);
-		$path4SeismicUnixGui    = $field[0].$dir;
-		print ("Using default L_SU_global_constants, L_SU = $path4SeismicUnixGui\n");
+	if ( length $ENV{'SeismicUnixGui'} ) {
+
+		$path4SeismicUnixGui = $ENV{'SeismicUnixGui'};
+
+	}
+	else {
+		my $dir = 'App-SeismicUnixGui/lib/App/SeismicUnixGui';
+		my $pathNfile =
+		  'App-SeismicUnixGui/lib/App/SeismicUnixGui/sunix/data/data_in.pm';
+		my $look  = `locate $pathNfile`;
+		my @field = split( $dir, $look );
+		$path4SeismicUnixGui = $field[0] . $dir;
+		print(
+"\nL22. Using default L_SU_global_constants, L_SU = $path4SeismicUnixGui\n"
+		);
 	}
 }
 
@@ -102,7 +104,6 @@ BEGIN {
 #
 #};
 #
-
 
 =head2 Default Tk settings
 
@@ -814,7 +815,7 @@ sub get_developer_sunix_category_h {
 		_sugprfb => $developer_sunix_categories[11],
 		_sukill  => $developer_sunix_categories[11],
 		_sumute  => $developer_sunix_categories[11],
-		_supad   => $developer_sunix_categories[11],		
+		_supad   => $developer_sunix_categories[11],
 		_susort  => $developer_sunix_categories[11],
 		_susplit => $developer_sunix_categories[11],
 		_suvcat  => $developer_sunix_categories[11],
@@ -889,16 +890,15 @@ my @sunix_filter_programs = (
 );
 
 my @sunix_header_programs = (
-	"segyclean",    "segyhdrmod",  "segyhdrs",  "setbhed",
-	"su3dchart",   "suabshw",   "suaddhead",
-	"suaddstatics", "suahw",       "suascii",   "suazimuth",
-	"sucdpbin",     "suchart",     "suchw",     "sucliphead",
-	"sucountkey",   "sudumptrace", "suedit",    "sugethw",
-	"suhtmath",     "sukeycount",  "sulcthw",   "sulhead",
-	"supaste",      "surandhw",    "surange",   "susehw",
-	"sushw",        "sustatic",    "sustaticB", "sustaticrrs",
-	"sustrip",      "sutrcount",   "suutm",     "suxedit",
-	"swapbhed",
+	"segyclean",   "segyhdrmod", "segyhdrs",    "setbhed",
+	"su3dchart",   "suabshw",    "suaddhead",   "suaddstatics",
+	"suahw",       "suascii",    "suazimuth",   "sucdpbin",
+	"suchart",     "suchw",      "sucliphead",  "sucountkey",
+	"sudumptrace", "suedit",     "sugethw",     "suhtmath",
+	"sukeycount",  "sulcthw",    "sulhead",     "supaste",
+	"surandhw",    "surange",    "susehw",      "sushw",
+	"sustatic",    "sustaticB",  "sustaticrrs", "sustrip",
+	"sutrcount",   "suutm",      "suxedit",     "swapbhed",
 );
 
 my @sunix_inversion_programs = ( "suinvco3d", "suinvvxzco", "suinvzco3d", );
@@ -967,10 +967,8 @@ my @sunix_plot_programs = (
 );
 
 my @sunix_shapeNcut_programs = (
-	"suflip", "sugain", "sugprfb", "sukill",
-	"sumute", "susort", "susplit", "suwind",
-	"supad",
-	"suvcat",
+	"suflip",  "sugain", "sugprfb", "sukill", "sumute", "susort",
+	"susplit", "suwind", "supad",   "suvcat",
 );
 
 my @sunix_statsMath_programs = (
@@ -1018,27 +1016,73 @@ sub _get_global_libs {
 
 		my $global_libs = {
 			_configs             => $path4SeismicUnixGui . '/configs',
-			_configs_big_streams => $path4SeismicUnixGui . '/configs/big_streams',
-			_developer           => $path4SeismicUnixGui . '/developer/Stripped',
-			_misc                => $path4SeismicUnixGui . '/misc',
-			_param               => $path4SeismicUnixGui . '/configs/',
-			_script              => $path4SeismicUnixGui . '/script/',
-			_specs               => $path4SeismicUnixGui . '/specs',
-			_sunix               => $path4SeismicUnixGui . '/sunix',
-			_big_streams         => $path4SeismicUnixGui . '/big_streams/',
-			_images              => $path4SeismicUnixGui . '/images/',
-			_default_path        => './',
+			_configs_big_streams => $path4SeismicUnixGui
+			  . '/configs/big_streams',
+			_developer    => $path4SeismicUnixGui . '/developer/Stripped',
+			_misc         => $path4SeismicUnixGui . '/misc',
+			_param        => $path4SeismicUnixGui . '/configs/',
+			_script       => $path4SeismicUnixGui . '/script/',
+			_specs        => $path4SeismicUnixGui . '/specs',
+			_sunix        => $path4SeismicUnixGui . '/sunix',
+			_big_streams  => $path4SeismicUnixGui . '/big_streams/',
+			_images       => $path4SeismicUnixGui . '/images/',
+			_default_path => './',
 		};
 
 		return ($global_libs);
 
 	}
 	else {
-		print("L_SU_global_constants, global_libs, L_SU is missing\n");
-		return ();
+		my $path4SeismicUnixGui = _default_path();
+
+		print("L1037, L_SU_global_constants, global_libs, L_SU was missing\n");
+		print(
+"\nL22. Using default L_SU_global_constants, L_SU = $path4SeismicUnixGui\n"
+		);
+
+		my $global_libs = {
+			_configs             => $path4SeismicUnixGui . '/configs',
+			_configs_big_streams => $path4SeismicUnixGui
+			  . '/configs/big_streams',
+			_developer    => $path4SeismicUnixGui . '/developer/Stripped',
+			_misc         => $path4SeismicUnixGui . '/misc',
+			_param        => $path4SeismicUnixGui . '/configs/',
+			_script       => $path4SeismicUnixGui . '/script/',
+			_specs        => $path4SeismicUnixGui . '/specs',
+			_sunix        => $path4SeismicUnixGui . '/sunix',
+			_big_streams  => $path4SeismicUnixGui . '/big_streams/',
+			_images       => $path4SeismicUnixGui . '/images/',
+			_default_path => './',
+		};
+
+		return ($global_libs);
 	}
 
 }
+
+=head2 sub default_path
+
+When Environment variables
+can not be found within Perl
+
+=cut
+
+sub _default_path {
+
+	my ($self) = @_;
+
+	my $dir = 'App-SeismicUnixGui/lib/App/SeismicUnixGui';
+	my $pathNfile =
+	  'App-SeismicUnixGui/lib/App/SeismicUnixGui/sunix/data/data_in.pm';
+	my $look  = `locate $pathNfile`;
+	my @field = split( $dir, $look );
+	$path4SeismicUnixGui = $field[0] . $dir;
+
+	my $result = $path4SeismicUnixGui;
+
+	return ($result);
+}
+
 #
 #sub _get_path4SeismicUnixGui {
 #	my ($self) = @_;
@@ -1102,9 +1146,9 @@ sub _get_global_libs {
 ##		);
 ##		print("@{$directory_contents_specs[$parent_specs][$child_specs]}\n");
 #
-#=head2 Search all "spec"-relevant 
+#=head2 Search all "spec"-relevant
 #
-#directories start with 
+#directories start with
 #gui drectory listing
 #
 #=cut
@@ -1213,9 +1257,9 @@ sub _get_global_libs {
 ##		);
 ##		print("@{$directory_contents_su[$parent_su][$child_su]}\n");
 #
-#=head2 Search all "spec"-relevant 
+#=head2 Search all "spec"-relevant
 #
-#directories start with 
+#directories start with
 #gui drectory listing
 #
 #=cut
@@ -1520,7 +1564,7 @@ sub help_menubutton_type_href {
 	return ($help_menubutton_type_h);
 }
 #
-#=head2 sub get_pathNfile2search 
+#=head2 sub get_pathNfile2search
 #
 #Useful directories to search
 #
@@ -1548,8 +1592,8 @@ sub help_menubutton_type_href {
 #=head2 Define
 #
 # variables
-# 
-#=cut	
+#
+#=cut
 #
 #		#		my @result_aref2;
 #		my @directory_contents;
@@ -1558,7 +1602,7 @@ sub help_menubutton_type_href {
 #=head2 Define
 #
 # directory search arrays
-# 
+#
 #=cut
 #
 #		my @PARENT_DIR = @{ $L_SU_global_constants->{_PARENT_DIR} };
@@ -1628,7 +1672,7 @@ sub help_menubutton_type_href {
 #
 #}
 #
-#=head2 sub _get_convert_pathNfile2search 
+#=head2 sub _get_convert_pathNfile2search
 #
 #Useful directories to search when
 #converting old perl files to new perl
@@ -1655,8 +1699,8 @@ sub help_menubutton_type_href {
 #=head2 Define
 #
 # variables
-# 
-#=cut	
+#
+#=cut
 #
 #	my @result_aref2;
 #	my @directory_contents_convert;
@@ -1665,8 +1709,8 @@ sub help_menubutton_type_href {
 #=head2 Define
 #
 # directory search arrays
-# 
-#=cut 
+#
+#=cut
 #
 #	my $GRANDPARENT_DIR = $path4SeismicUnixGui;
 #
@@ -1753,7 +1797,7 @@ sub help_menubutton_type_href {
 #
 #}
 #
-#=head2 sub _get_specs_pathNfile2search 
+#=head2 sub _get_specs_pathNfile2search
 #
 #Useful directories to search
 #
@@ -1772,8 +1816,8 @@ sub help_menubutton_type_href {
 #=head2 Define
 #
 # variables
-# 
-#=cut	
+#
+#=cut
 #
 #	my @result_aref2;
 #	my @directory_contents_specs;
@@ -1782,8 +1826,8 @@ sub help_menubutton_type_href {
 #=head2 Define
 #
 # directory search arrays
-# 
-#=cut 
+#
+#=cut
 #
 #	my $GRANDPARENT_DIR = $path4SeismicUnixGui;
 #
@@ -1851,7 +1895,7 @@ sub help_menubutton_type_href {
 #
 #}
 #
-#=head2 sub _get_tools_pathNfile2search 
+#=head2 sub _get_tools_pathNfile2search
 #
 #Useful directories to search
 #
@@ -1870,8 +1914,8 @@ sub help_menubutton_type_href {
 #=head2 Define
 #
 # variables
-# 
-#=cut	
+#
+#=cut
 #
 #	my @result_aref2;
 #	my @directory_contents_tools;
@@ -1880,8 +1924,8 @@ sub help_menubutton_type_href {
 #=head2 Define
 #
 # directory search arrays
-# 
-#=cut 
+#
+#=cut
 #
 #	my $GRANDPARENT_DIR = $path4SeismicUnixGui;
 #
@@ -2013,9 +2057,9 @@ sub help_menubutton_type_href {
 ##			"_SU_global_constants,get_path4convert_file,@{$directory_contents_convert[$parent_convert][$child_convert]}\n"
 ##		);
 #
-#=head2 Search all "convert"-relevant 
+#=head2 Search all "convert"-relevant
 #
-#directories start with 
+#directories start with
 #convert derectory listing
 #
 #=cut
@@ -2140,9 +2184,9 @@ sub help_menubutton_type_href {
 ##		);
 ##		print("@{$directory_contents_specs[$parent_specs][$child_specs]}\n");
 #
-#=head2 Search all "spec"-relevant 
+#=head2 Search all "spec"-relevant
 #
-#directories start with 
+#directories start with
 #gui drectory listing
 #
 #=cut
@@ -2251,9 +2295,9 @@ sub help_menubutton_type_href {
 ##		);
 ##		print("@{$directory_contents_tools[$parent_tools][$child_tools]}\n");
 #
-#=head2 Search all "spec"-relevant 
+#=head2 Search all "spec"-relevant
 #
-#directories start with 
+#directories start with
 #gui drectory listing
 #
 #=cut
@@ -2455,28 +2499,49 @@ sub global_libs {
 	# empty string is predefined herein
 	if ( length $path4SeismicUnixGui ) {
 
-#		print("L_SU_global_constants my L_SU = $path4SeismicUnixGui\n");
+		#		print("L_SU_global_constants my L_SU = $path4SeismicUnixGui\n");
 
 		my $global_libs = {
 			_configs             => $path4SeismicUnixGui . '/configs',
-			_configs_big_streams => $path4SeismicUnixGui . '/configs/big_streams',
-			_developer           => $path4SeismicUnixGui . '/developer/Stripped',
-			_misc                => $path4SeismicUnixGui . '/misc',
-			_param               => $path4SeismicUnixGui . '/configs/',
-			_script              => $path4SeismicUnixGui . '/script/',
-			_specs               => $path4SeismicUnixGui . '/specs',
-			_sunix               => $path4SeismicUnixGui . '/sunix',
-			_big_streams         => $path4SeismicUnixGui . '/big_streams/',
-			_images              => $path4SeismicUnixGui . '/images/',
-			_default_path        => './',
+			_configs_big_streams => $path4SeismicUnixGui
+			  . '/configs/big_streams',
+			_developer    => $path4SeismicUnixGui . '/developer/Stripped',
+			_misc         => $path4SeismicUnixGui . '/misc',
+			_param        => $path4SeismicUnixGui . '/configs/',
+			_script       => $path4SeismicUnixGui . '/script/',
+			_specs        => $path4SeismicUnixGui . '/specs',
+			_sunix        => $path4SeismicUnixGui . '/sunix',
+			_big_streams  => $path4SeismicUnixGui . '/big_streams/',
+			_images       => $path4SeismicUnixGui . '/images/',
+			_default_path => './',
 		};
 
 		return ($global_libs);
 
-	}
-	else {
-		carp("L_SU_global_constants, global_libs, L_SU is missing\n");
-		return ();
+	}else {
+		my $path4SeismicUnixGui = _default_path();
+
+		print("L2526, L_SU_global_constants, global_libs, L_SU was missing\n");
+		print(
+"\nL22. Using default L_SU_global_constants, L_SU = $path4SeismicUnixGui\n"
+		);
+
+		my $global_libs = {
+			_configs             => $path4SeismicUnixGui . '/configs',
+			_configs_big_streams => $path4SeismicUnixGui
+			  . '/configs/big_streams',
+			_developer    => $path4SeismicUnixGui . '/developer/Stripped',
+			_misc         => $path4SeismicUnixGui . '/misc',
+			_param        => $path4SeismicUnixGui . '/configs/',
+			_script       => $path4SeismicUnixGui . '/script/',
+			_specs        => $path4SeismicUnixGui . '/specs',
+			_sunix        => $path4SeismicUnixGui . '/sunix',
+			_big_streams  => $path4SeismicUnixGui . '/big_streams/',
+			_images       => $path4SeismicUnixGui . '/images/',
+			_default_path => './',
+		};
+
+		return ($global_libs);
 	}
 
 }

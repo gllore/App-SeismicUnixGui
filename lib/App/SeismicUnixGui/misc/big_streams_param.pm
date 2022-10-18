@@ -53,6 +53,8 @@ use Shell qw(echo);
 
 my $L_SU_global_constants = L_SU_global_constants->new();
 my $L_SU_path             = L_SU_path->new();
+my $read                  = readfiles->new();
+my $developer             = developer->new();
 my $HOME                  = ` echo \$HOME`;
 chomp $HOME;
 
@@ -98,6 +100,70 @@ sub set_flow_type {
 	}
 
 	return ();
+}
+
+sub _check4corruption_config {
+
+	my ($self) = @_;
+
+	my $corruption = $false;
+
+	if (    length $big_streams_param->{_path}
+		and length $big_streams_param->{_sub_category_directory} )
+	{
+
+		my $program_config = _get_program_config();
+
+  #		print(
+  #"big_streams_param, _check4corruption_config, file to read=$program_config\n"
+  #		);
+
+		my ( $names_aref, $values_aref ) = $read->configs($program_config);
+		my @names  = @$names_aref;
+		my $length = scalar @names;
+
+		#		print(
+		#"big_streams_param,_check4corruption_config, we have $length pairs\n\n"
+		#		);
+
+		for ( my $i = 0 ; $i < $length ; $i++ ) {
+
+			# test for empty names
+			if (   $names[$i] eq $empty_string
+				or $names[$i] eq '0.000' )
+			{
+
+				$corruption = $true;
+
+			 #				print(
+			 #					"big_streams_param,_check4corruption_config, $names[$i]\n");
+			 #				print(
+			 #"big_streams_param,_check4corruption_config, corruption = $true\n"
+			 #				);
+
+			}
+			else {
+				$corruption = $false;
+
+#				print(
+#					"big_streams_param,_check4corruption_config, no corruption, $names[$i]\n")
+#				  ;
+			}
+		}
+
+	}
+	else {
+		$corruption = $true;
+		print(
+			"big_streams_param,_check4corruption_config, missing variables\n");
+		print("as follows: \n");
+		print("big_streams_param->{_path}=$big_streams_param->{_path}\n");
+		print(
+"big_streams_param->{_sub_category_directory}=$big_streams_param->{_sub_category_directory}\n"
+		);
+	}
+
+	return ($corruption);
 }
 
 sub _get_global_lib {
@@ -261,10 +327,12 @@ sub _get_program_config {
   used both by superflow/pre-built flows and seismic unix configuration files
   
  Read a default specification file 
- If default specification file# does not exist locally
- then look in the user's configuration directory
- ~HOME/.L_SU/configuration/active and if that does not exist
+ If default specification file does not exist locally (PL_SEISMIC),
+ look in the user's configuration directory
+ ~HOME/.L_SU/configuration/active and if that does not exist,
  then use the default one defined under global libs
+ 
+ Check that the configuration file in the local directory is not corrupt
 
   Debug with
     print ("this is $this\n");
@@ -301,31 +369,28 @@ sub get {
 		my ( $length, $names_aref, $values_aref );
 		my ( $i, $j, $program_config, $path );
 		my $sub_category_directory;
+		my $config_corrupt;
 
-		my $read      = readfiles->new();
-		my $developer = developer->new();
-
-		#		print("A. big_streams_param, get, local_config_exists\n");
 		$developer->set_program_name($$program_sref);
-
-		#		print("A1. big_streams_param, get, local_config_exists\n");
 		$developer->set_flow_type( $big_streams_param->{_flow_type} );
 		_set_program_sref($program_sref);
 
-		#		print("A2. big_streams_param, get, local_config_exists\n");
-
 		# reset the following tests to 0 (false)
 		my $local_config_exists = _check4local_config($program_sref);
-
-		#		print("A3. big_streams_param, get, local_config_exists\n");
 		my $user_active_project_path_exists = _check4user_config($program_sref);
 
-	   #		print(
-	   #"B. big_streams_param, get, local_config_exists: $local_config_exists\n"
-	   #		);
-
 #		print(
-#"C. big_streams_param, get,user_active_project_path_exists: $user_active_project_path_exists\n"
+#"B. big_streams_param,get,local_config_exists:$local_config_exists\n"
+#		);
+#
+#		print(
+#"C. big_streams_param,get,user_active_project_path_exists:$user_active_project_path_exists\n"
+#		);
+#		print(
+#"D. big_streams_param,get,big_streams_param->{_flow_type}:$big_streams_param->{_flow_type}\n"
+#		);
+#		print(
+#"E. big_streams_param,get,flow_type_href->{_pre_built_superflow}:$flow_type_href->{_pre_built_superflow}\n"
 #		);
 
 		if ( $big_streams_param->{_flow_type} eq
@@ -334,9 +399,11 @@ sub get {
 
 			if ($local_config_exists) {
 
-	 # print(
+	 # CASE for previously run
+	 # Tools except Project
+	 #				print(
 	 #"big_streams_param, get,CASE 1A: If progam_sref = a pre-built superflow\n"
-	 # );
+	 #				);
 
 				# e.g., with tools like Sseg2su.config
 				# but not with Project.config
@@ -357,117 +424,183 @@ sub get {
 				# INSTANTIATE
 				my $package = $pathNmodule_spec_w_colon->new();
 
-				#				my $module_spec_pm = $program_name . '_spec.pm';
-				#
-				#				my $L_SU_global_constants = L_SU_global_constants->new();
-				#				$L_SU_global_constants->set_file_name($module_spec_pm);
-				#				my $slash_path4spec =
-				#				  $L_SU_global_constants->get_path4spec_file();
-				#				my $slash_pathNmodule_spec_pm =
-				#				  $slash_path4spec . '/' . $module_spec_pm;
-				#
-				#				$L_SU_global_constants->set_program_name($program_name);
-				#				my $colon_pathNmodule_spec =
-				#				  $L_SU_global_constants->get_colon_pathNmodule_spec();
-				#
-				#				$refresher->refresh_module($slash_pathNmodule_spec_pm);
-				#
-				#				#		INSTANTIATE
-				#				my $package = $colon_pathNmodule_spec->new();
-
 				# collect specifications of output directory
 				# from a program_spec.pm module
 				my $specs_h = $package->variables();
 				my $CONFIG  = $specs_h->{_CONFIG};
 
 				$big_streams_param->{_local_path} = $CONFIG;
-				$path                   = $big_streams_param->{_local_path};
-				$sub_category_directory = '.';
-				my $local_path = $big_streams_param->{_local_path};
-				my $sub_category_directory =
-				  $developer->get_program_sub_category();
+				my $local_path             = $big_streams_param->{_local_path};
+				my $sub_category_directory = '.';
 
-# print("1.1 big_streams_param,get,local configuration files exists\n");
-# print("1.2 big_streams_param,get,local_path:$CONFIG \n");
-# print("1.3 big_streams_param,get,sub_category_directory=$sub_category_directory\n");
+				_set_path($local_path);
+				_set_sub_category_directory($sub_category_directory);
+				$config_corrupt = _check4corruption_config();
 
 			}
 			elsif ($user_active_project_path_exists) {
 
-			   # big_streams_param, missing either program_sref CASE 1B:
+			   # CASE 1B:
 			   # If progam_sref= Project
 			   # and ONLY applies to  ./L_SU/configuration/active/Project.config
 				$path = $big_streams_param->{_user_active_project_path};
-				$sub_category_directory = '.';
+				$sub_category_directory =
+				  $developer->get_program_sub_category();
 
-#				print("CASE 1B big_streams_param,get,user_active_project_path_exists= $user_active_project_path_exists\n");
-#				print("1B big_streams_param,get,active path is now $big_streams_param->{_user_active_project_path} \n");
+#				print(
+#"CASE 1B big_streams_param,get,user_active_project_path_exists= $user_active_project_path_exists\n"
+#				);
+#				print(
+#"1B big_streams_param,get,active path is now $big_streams_param->{_user_active_project_path} \n"
+#				);
+
+				_set_path($path);
+				_set_sub_category_directory($sub_category_directory);
+				$config_corrupt = $false;    #_check4corruption_config();
 
 			}
 			elsif ( not $local_config_exists ) {
 
-				# CASE 1C: for  previously unused pre-built superflow
+				# CASE 1C: for a previously unused pre-built superflow
+				# except Project
 				$path = _get_global_lib();
 				$sub_category_directory =
 				  $developer->get_program_sub_category();
 
-	   #				print("1C big_streams_param,get,using global lib: path is $path\n");
+				print(
+					"1C big_streams_param,get,using global lib: path is $path\n"
+				);
+				_set_path($path);
+				_set_sub_category_directory($sub_category_directory);
+				$config_corrupt = $false;
 			}
 
 		}
 		elsif (
 			$big_streams_param->{_flow_type} eq $flow_type_href->{_user_built} )
 		{
-
 			# CASE 2A: for use of sunix programs in user_built_flows
-			$path = _get_global_lib();
+			$path           = _get_global_lib();
+			$config_corrupt = $false;
 
-			print(
-"CASE 2.A big_streams_param,get,using global lib: path for sunix programs is $path\n"
-			);
+#			print(
+#"CASE 2.A big_streams_param,get,using global lib: path for sunix programs is $path\n"
+#			);
 			$sub_category_directory = $developer->get_program_sub_category();
-			print(
-"2.A big_streams_param,get,using sub_category_directory:  for sunix programs is $sub_category_directory\n"
-			);
 
+#			print(
+#"2.A big_streams_param,get,using sub_category_directory:  for sunix programs is $sub_category_directory\n"
+#			);
+			_set_path($path);
+			_set_sub_category_directory($sub_category_directory);
+			$config_corrupt = $false;
 		}
 		else {
 			print("big_streams_param,get,unexpected\n");
 		}
 
-		# share local variables with the package namespace
-		_set_path($path);
-		_set_sub_category_directory($sub_category_directory);
+		if ( $config_corrupt eq $false ) {
 
-		$program_config = _get_program_config();
+			# CASE:3A use the local configuration file
+			#			print("CASE 3.A big_streams_param,get\n");
+			# share local variables with the package namespace
+			$program_config = _get_program_config();
 
-#		print("big_streams_param, get,configuration file to read=$program_config\n");
+		#			print("big_streams_param, get,configuration file is NOT corrupt\n");
 
-		( $names_aref, $values_aref ) = $read->configs($program_config);
-		$big_streams_param->{_names_aref} = $names_aref;
-		$length = scalar @$names_aref;
+			( $names_aref, $values_aref ) = $read->configs($program_config);
+			$big_streams_param->{_names_aref} = $names_aref;
+			$length = scalar @$names_aref;
 
-		#		print("big_streams_param,get:we have $length pairs\n\n");
-		for ( $i = 0, $j = 0 ; $i < $length ; $i++, $j = $j + 2 ) {
+			#		print("big_streams_param,get:we have $length pairs\n\n");
+			for ( $i = 0, $j = 0 ; $i < $length ; $i++, $j = $j + 2 ) {
 
-			$CFG[$j] = $$names_aref[$i];
-			$CFG[ ( $j + 1 ) ] = $$values_aref[$i];
+				$CFG[$j] = $$names_aref[$i];
+				$CFG[ ( $j + 1 ) ] = $$values_aref[$i];
 
-			#			print("big_streams_param,get,values:--$CFG[$j+1]--\n");
+				#			print("big_streams_param,get,values:--$CFG[$j+1]--\n");
+			}
+
+			return ( \@CFG );
+
 		}
 
-		return ( \@CFG );
+		elsif ( $config_corrupt eq $true ) {
+
+			# CASE: use the default file
+			# as if if were a pristine pre-built superflow
+
+			if ($user_active_project_path_exists) {
+
+				# CASE for Project ONLY
+				carp("Warning: Project_configuration file is corrupt\n");
+				$program_config = _get_program_config();
+
+				( $names_aref, $values_aref ) = $read->configs($program_config);
+				$big_streams_param->{_names_aref} = $names_aref;
+				$length = scalar @$names_aref;
+
+				# print("big_streams_param,get:we have $length pairs\n\n");
+				for ( $i = 0, $j = 0 ; $i < $length ; $i++, $j = $j + 2 ) {
+
+					$CFG[$j] = $$names_aref[$i];
+					$CFG[ ( $j + 1 ) ] = $$values_aref[$i];
+
+					# print("big_streams_param,get,values:--$CFG[$j+1]--\n");
+				}
+
+				return ( \@CFG );
+
+			}
+			elsif ( not $user_active_project_path_exists ) {
+
+				# CASE: All Tools except Project
+				# get variables from the default files
+
+				$path = _get_global_lib();
+				$sub_category_directory =
+				  $developer->get_program_sub_category();
+				_set_path($path);
+				_set_sub_category_directory($sub_category_directory);
+				$program_config = _get_program_config();
+
+		   #				print("big_streams_param, get,configuration file is corrupt\n");
+		   #				print(
+		   #					"big_streams_param, get,program_config=$program_config\n");
+				( $names_aref, $values_aref ) = $read->configs($program_config);
+				$big_streams_param->{_names_aref} = $names_aref;
+				$length = scalar @$names_aref;
+
+				# print("big_streams_param,get:we have $length pairs\n\n");
+				for ( $i = 0, $j = 0 ; $i < $length ; $i++, $j = $j + 2 ) {
+
+					$CFG[$j] = $$names_aref[$i];
+					$CFG[ ( $j + 1 ) ] = $$values_aref[$i];
+
+			  #	print("big_streams_param,get,values:--$CFG[$j+1]--\n");
+				}
+
+				return ( \@CFG );
+
+			}
+
+		}
+		else {
+			print("big_streams_param, get, unexpected variable\n");
+		}
 
 	}
 	else {
 		print(
-			"big_streams_param, get, missing either program_sref or flow type\n"
+			"big_streams_param,get, missing either program_sref or flow type\n"
 		);
-		print("big_streams_param,get, program_sref: $$program_sref\n");
+		print("big_streams_param,get,program_sref:$$program_sref\n");
 		print(
 "big_streams_param,get, big_streams_param->{_flow_type}: $big_streams_param->{_flow_type}\n"
 		);
+		return ();
 	}
+
 }
 
 =head2 sub _check4local_config
@@ -477,6 +610,7 @@ needs name_sref
 CASE for any type of flow 
 big streams/superflows or for
 or sunix programs in user-built flows
+
 Check for local versions of the configuration files in PL_SEISMIC
 and also look in specified _CONFIG folder
  _CONFIG folder is defined as PL_SEISMIC for all but 
@@ -527,9 +661,9 @@ sub _check4local_config {
 
 			my $prog_name_config = $CONFIG . '/' . $$name_sref . '.config';
 
-#  			print(
-#  "big_streams_param,_check4local_config,prog_name_config =$prog_name_config\n"
-#  			);
+  #			print(
+  #"big_streams_param,_check4local_config,prog_name_config =$prog_name_config\n"
+  #			);
 			if ( -e ($prog_name_config) ) {
 
 #				print(
@@ -541,7 +675,9 @@ sub _check4local_config {
 			else {
 				$ans = $false;
 
-#  print("big_streams_param,_check4local_config, $prog_name_config not found\n")
+		 #				print(
+		 #"big_streams_param,_check4local_config, $prog_name_config not found\n"
+		 #				);
 			}
 		}    # module is found
 	}
