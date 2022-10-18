@@ -24,12 +24,12 @@ requires:
   MIME::Base64: '3.16'
   Module::Refresh: '0.18'
   Moose: '2.2015'
-  PDL::Core: '2.028'
+  PDL: '2.080'
   Shell: v0.73.1
   Time::HiRes: '1.9764'
   Tk: '804.036'
   Tk::JFileDialog: '2.20'
   aliased: '0.34'
   namespace::autoclean: '0.29'
-version: v0.80.0
+version: v0.80.1
 x_serialization_backend: 'CPAN::Meta::YAML version 0.018'

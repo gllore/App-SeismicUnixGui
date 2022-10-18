@@ -1,3 +1,4 @@
+App-SeismicUnixGui-0.80.0.tar.gz
 App-SeismicUnixGui-0.tar.gz
 archive/big_streams_param.pm
 archive/color_listbox_tbd.pm
@@ -59,6 +60,8 @@ archive/unix_backup/cat.pm
 archive/waveform
 chain.sh
 CHANGES
+dist/chain.sh
+dist/cpan-upload.sh
 dist/manifest.pl
 dist/my_uninstall.sh
 dist/uninstall_module.pl
@@ -1288,6 +1291,8 @@ lib/App/SeismicUnixGui/script/L_SU_project_selector.pl
 lib/App/SeismicUnixGui/script/L_SUV0.6.6.pl
 lib/App/SeismicUnixGui/script/L_SUV0.70.60.pl
 lib/App/SeismicUnixGui/script/L_SUV0.80.00.pl
+lib/App/SeismicUnixGui/script/L_SUV0.80.01.pl
+lib/App/SeismicUnixGui/script/L_SUV0.80.1.pl
 lib/App/SeismicUnixGui/script/LICENSE
 lib/App/SeismicUnixGui/script/log.txt
 lib/App/SeismicUnixGui/script/post_install_c_compile.pl
@@ -1309,6 +1314,7 @@ lib/App/SeismicUnixGui/script/Sudipfilt
 lib/App/SeismicUnixGui/script/Sudipfilt.pl
 lib/App/SeismicUnixGui/script/Synseis
 lib/App/SeismicUnixGui/script/Synseis.pl
+lib/App/SeismicUnixGui/script/waveform
 lib/App/SeismicUnixGui/script/xk
 lib/App/SeismicUnixGui/specs/big_streams/iBottomMute_spec.pm
 lib/App/SeismicUnixGui/specs/big_streams/immodpg_spec.pm
@@ -1976,4 +1982,5 @@ t/temp/test_specs.t
 t/test
 t/test_specs.t
 tbd
+tbd.pl
 test
