@@ -37,8 +37,8 @@ package App::SeismicUnixGui::sunix::par::b2a;
 
  Note: 							
  Parameter:							", 
-  format=0 uses printf("0.0000000000e+00 ", x[i1])			
-  format=1 uses printf("0.000000000000000 ", x[i1])			
+  format=0 uses printf("%15.10e ", x[i1])			
+  format=1 uses printf("%15.15f ", x[i1])			
 
  Credits:
 	CWP: Jack K. Cohen

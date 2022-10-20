@@ -774,9 +774,9 @@ sub read_1col_aref {
 	my @X;
 	my $line;
 
-	print(
-"manage_files_by2,read_1col_aref,The output file name = $$ref_file_name\n"
-	);
+#	print(
+#"manage_files_by2,read_1col_aref,The output file name = $$ref_file_name\n"
+#	);
 
 	# set the counter
 
@@ -1556,7 +1556,7 @@ sub write_1col_aref {
 
 	# $variable is an unused hash
 
-	print("\n manage_files_by2,write_1col_aref,The output file name = $$ref_file_name\n");
+#	print("\n manage_files_by2,write_1col_aref,The output file name = $$ref_file_name\n");
 #	print("\n manage_files_by2,write_1col_aref,The output file contains $num_rows rows\n");
 #	print("\n manage_files_by2,write_1col_aref,The output file uses the following format: $$ref_fmt\n");
 

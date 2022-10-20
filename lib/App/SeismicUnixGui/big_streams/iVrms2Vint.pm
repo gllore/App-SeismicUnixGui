@@ -308,7 +308,7 @@ sub calcNdisplay {
 
 =cut
 
-    $format[1] = '     0.000       0.000';
+    $format[1] = '%10.3f   %10.3f';# FORMAT TODO
 
     print("num points in Vint plot are/is $num_points_Vint_plot\n\n");
     $files->write_2cols( \@Time_plot, \@Vint_plot, $num_points_Vint_plot,

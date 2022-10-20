@@ -113,7 +113,7 @@
        temp = trim(temp)//"/"//trim(component)//"/"//trim(line)
        temp = trim(temp)//"/"//trim(subUser)//"/.immodpg"
        get_DIR = temp
-!       print *, '3 Project_config.f, get_DIR:',trim(get_DIR)
+!       print *, '3 Project_config.f, get_DIR:',get_DIR
 
       end if
 

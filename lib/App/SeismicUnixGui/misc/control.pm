@@ -1626,7 +1626,7 @@ sub su_data_name {
 
 	}
 	else {
-		print("5. control,su_data_name, unexpected or missing value--\n");
+#		print("5. control,su_data_name, unexpected or missing value--\n");
 		return ($empty_string);
 	}
 

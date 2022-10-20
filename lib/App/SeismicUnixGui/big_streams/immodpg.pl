@@ -90,7 +90,7 @@ my $immodpg_Tk = {
 	_lower_layerLabel           => '',
 	_min_t_s                    => '',
 	_min_x_m                    => '',
-	_mw								=> '',
+	_mw						    => '',
 	_thickness_increment_m      => '',
 	_thickness_mEntry           => '',
 	_thickness_mLabel           => '',
@@ -295,7 +295,7 @@ my ( $CFG_h, $CFG_aref ) = $immodpg_config->get_values();
 my $base_file_name         = $CFG_h->{immodpg}{1}{base_file_name};
 my $pre_digitized_XT_pairs = $CFG_h->{immodpg}{1}{offset_type};
 my $data_traces            = $CFG_h->{immodpg}{1}{data_traces};
-$clip4plot = $CFG_h->{immodpg}{1}{clip};
+$clip4plot           = $CFG_h->{immodpg}{1}{clip};
 my $min_t_s          = $CFG_h->{immodpg}{1}{min_t_s};
 my $min_x_m          = $CFG_h->{immodpg}{1}{min_x_m};
 my $data_x_inc_m     = $CFG_h->{immodpg}{1}{data_x_inc_m};
@@ -360,8 +360,8 @@ if ( $error_switch eq $off ) {
 	my @V = @$Vp_ref;
 
 	$Vbot_upper_layer = $V[0];
-	$Vtop             			= $V[1];
-	$Vbot             			= $V[2];
+	$Vtop             = $V[1];
+	$Vbot             = $V[2];
 	$Vtop_lower_layer = $V[3];
 	
 	$thickness_m = $dz;

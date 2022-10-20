@@ -184,8 +184,8 @@ sub _set_model_file_text {
 			and ( not $manage_files_by2->does_file_exist( \$outbound_model_file_text_extra ) ) ) {
 
 			# CASE 4 copy the file in the hidden directory to the visible directory
-			print("case 4 _set_model_file_text, no cases of model.text file exist\n");
-			print("case 4 _set_model_file_text, inbound_model_file_text=$inbound_model_file_text \n");
+#			print("case 4 _set_model_file_text, no cases of model.text file exist\n");
+#			print("case 4 _set_model_file_text, inbound_model_file_text=$inbound_model_file_text \n");
 
 			$from = $inbound_model_file_text;
 			$to   = $outbound_model_file_text;
@@ -285,7 +285,7 @@ sub get_values {
 				clip                   => $clip,
 				min_t_s                => $min_t_s,
 				min_x_m                => $min_x_m,
-				data_x_inc_m		=> $data_x_inc_m,
+				data_x_inc_m		   => $data_x_inc_m,
 				source_depth_m         => $source_depth_m,
 				receiver_depth_m       => $receiver_depth_m,
 				reducing_vel_mps       => $reducing_vel_mps,
@@ -297,7 +297,7 @@ sub get_values {
 				new_model              => $new_model,
 				layer                  => $layer,
 				VbotNtop_factor        => $VbotNtop_factor,
-				Vincrement_mps             => $Vincrement_mps,
+				Vincrement_mps         => $Vincrement_mps,
 				thickness_increment_m  => $thickness_increment_m,				
 
 			}

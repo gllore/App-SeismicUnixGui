@@ -1463,7 +1463,7 @@ sub _get_initial_model {
 		# print("$model_pdl\n");
 		my $nelem = nelem($model_pdl);
 
-		# print("immodpg,_get_initial_model,nelem=$nelem,#cols=$cols,#layers=$number_of_layers\n");
+		print("immodpg,_get_initial_model,nelem=$nelem,#cols=$cols,#layers=$number_of_layers\n");
 
 		for ( my $layer_index = 0; $layer_index < $number_of_layers; $layer_index++ ) {
 
@@ -1473,19 +1473,19 @@ sub _get_initial_model {
 
 			# pdl 2 perl
 			@VP                  = ( $model_pdl->slice($full_indices) )->list;
-			$VPtop[$layer_index] = sprintf( "0.00", ( $VP[0] * $km2m ) );
-			$VPbot[$layer_index] = sprintf( "0.00", ( $VP[1] * $km2m ) );
+			$VPtop[$layer_index] = sprintf( "$var_immodpg->{_format_dot2f}", ( $VP[0] * $km2m ) );
+			$VPbot[$layer_index] = sprintf( "$var_immodpg->{_format_dot2f}", ( $VP[1] * $km2m ) );
 
 			$value_indices = '2:6';
 			$full_indices  = $value_indices . ',' . $layer_index;
 
 			# pdl 2 perl
 			@model                     = ( $model_pdl->slice($full_indices) )->list;
-			$dz[$layer_index]          = sprintf( "0.000", ( $model[0] * $km2m ) );
-			$VStop[$layer_index]       = sprintf( "0.000", ( $model[1] * $km2m ) );
-			$VSbot[$layer_index]       = sprintf( "0.000", ( $model[2] * $km2m ) );
-			$density_top[$layer_index] = sprintf( "0.000", ( $model[3] * $gcc2MKS ) );
-			$density_bot[$layer_index] = sprintf( "0.000", ( $model[4] * $gcc2MKS ) );
+			$dz[$layer_index]          = sprintf( "$var_immodpg->{_format_dot3f}", ( $model[0] * $km2m ) );
+			$VStop[$layer_index]       = sprintf( "$var_immodpg->{_format_dot3f}", ( $model[1] * $km2m ) );
+			$VSbot[$layer_index]       = sprintf( "$var_immodpg->{_format_dot3f}", ( $model[2] * $km2m ) );
+			$density_top[$layer_index] = sprintf( "$var_immodpg->{_format_dot3f}", ( $model[3] * $gcc2MKS ) );
+			$density_bot[$layer_index] = sprintf( "$var_immodpg->{_format_dot3f}", ( $model[4] * $gcc2MKS ) );
 
 			#				print(
 			#					"immodpg,_get_initial_model,V,layer_index=$layer_index\n"
@@ -1528,7 +1528,7 @@ sub _get_initial_model {
 
 	} elsif ( not( -e $inbound ) ) {
 
-		# print("immodpg,_get_initial_model,file is missing\n");
+		print("immodpg,_get_initial_model,file is missing\n");
 		use File::Copy;
 		my $from = $global_libs->{_configs_big_streams} . '/' . $immodpg_model;
 		my $to   = $IMMODPG . '/' . $immodpg_model_file_text;
@@ -1642,8 +1642,8 @@ sub _get_initial_model4gui {
 			# print("$model_pdl\n");
 			my $nelem = nelem($model_pdl);
 
-			# print("immodpg,_get_initial_model4gui,nelem=$nelem,#cols=$cols,#layers=$number_of_layers\n");
-
+#			print("immodpg,_get_initial_model4gui,nelem=$nelem,#cols=$cols,#layers=$number_of_layers\n");
+#           print("immodpg,_get_initial_model4gui,=format_dot2f=$var_immodpg->{_format_dot2f}\n");
 			for ( my $layer_index = 0; $layer_index < $number_of_layers; $layer_index++ ) {
 
 				my $magic_number_str = '0:1';
@@ -1652,19 +1652,20 @@ sub _get_initial_model4gui {
 
 				# pdl 2 perl
 				@VP                  = ( $model_pdl->slice($full_indices) )->list;
-				$VPtop[$layer_index] = sprintf( "0.00", ( $VP[0] * $km2m ) );
-				$VPbot[$layer_index] = sprintf( "0.00", ( $VP[1] * $km2m ) );
+				
+				$VPtop[$layer_index] = sprintf( "$var_immodpg->{_format_dot2f}", ( $VP[0] * $km2m ) );
+				$VPbot[$layer_index] = sprintf( "$var_immodpg->{_format_dot2f}", ( $VP[1] * $km2m ) );
 
 				$value_indices = '2:6';
 				$full_indices  = $value_indices . ',' . $layer_index;
 
 				# pdl 2 perl
 				@model                     = ( $model_pdl->slice($full_indices) )->list;
-				$dz[$layer_index]          = sprintf( "0.000", ( $model[0] * $km2m ) );
-				$VStop[$layer_index]       = sprintf( "0.000", ( $model[1] * $km2m ) );
-				$VSbot[$layer_index]       = sprintf( "0.000", ( $model[2] * $km2m ) );
-				$density_top[$layer_index] = sprintf( "0.000", ( $model[3] * $gcc2MKS ) );
-				$density_bot[$layer_index] = sprintf( "0.000", ( $model[4] * $gcc2MKS ) );
+				$dz[$layer_index]          = sprintf( "$var_immodpg->{_format_dot3f}", ( $model[0] * $km2m ) );
+				$VStop[$layer_index]       = sprintf( "$var_immodpg->{_format_dot3f}", ( $model[1] * $km2m ) );
+				$VSbot[$layer_index]       = sprintf( "$var_immodpg->{_format_dot3f}", ( $model[2] * $km2m ) );
+				$density_top[$layer_index] = sprintf( "$var_immodpg->{_format_dot3f}", ( $model[3] * $gcc2MKS ) );
+				$density_bot[$layer_index] = sprintf( "$var_immodpg->{_format_dot3f}", ( $model[4] * $gcc2MKS ) );
 
 				# print(
 				# 	"immodpg,_get_initial_model4gui,VPtop = $VPtop[$layer_index], VPbot=$VPbot[$layer_index],layer_index=$layer_index\n"
@@ -2131,6 +2132,7 @@ variables
 		for ( my $i = 0; $test eq $no; $i++ ) {
 
 			if ( not( $files->does_file_exist( \$outbound_locked ) ) ) {
+				
 				my $format = $var_immodpg->{_format_string};
 				$X[0] = $empty_string;
 				$files->write_1col_aref( \@X, \$outbound_locked, \$format );
@@ -2351,7 +2353,7 @@ variables
 				$files->write_1col_aref( \@X, \$outbound_locked, \$format );
 
 				$X[0] = $Vincrement;
-				$format = '  0.0';
+				$format = $var_immodpg->{_formatf51f};
 				$files->write_1col_aref( \@X, \$outbound, \$format );
 
 				unlink($outbound_locked);
@@ -2930,7 +2932,7 @@ variables
 				$files->write_1col_aref( \@X, \$outbound_locked, \$format );
 
 				$X[0] = $clip;
-				$format = '  0.0';
+				$format = $var_immodpg->{_format51f};
 				$files->write_1col_aref( \@X, \$outbound, \$format );
 
 				# print("immodpg, _set_clip, output clip = $clip\n");
@@ -3003,7 +3005,7 @@ variables
 				$files->write_1col_aref( \@X, \$outbound_locked, \$format );
 
 				$X[0] = $thickness_m;
-				$format = '  0.0';
+				$format = $var_immodpg->{_format51f};
 				$files->write_1col_aref( \@X, \$outbound, \$format );
 
 				unlink($outbound_locked);
@@ -3075,7 +3077,7 @@ variables
 				$files->write_1col_aref( \@X, \$outbound_locked, \$format );
 
 				$X[0] = $thickness_increment_m;
-				$format = '  0.0';
+				$format = $var_immodpg->{_format51f};
 				$files->write_1col_aref( \@X, \$outbound, \$format );
 
 				unlink($outbound_locked);
@@ -3147,7 +3149,7 @@ variables
 				$files->write_1col_aref( \@X, \$outbound_locked, \$format );
 
 				$X[0] = $layer;
-				$format = '0';
+				$format = $var_immodpg->{_format_integer};
 				$files->write_1col_aref( \@X, \$outbound, \$format );
 				unlink($outbound_locked);
 
@@ -3431,7 +3433,7 @@ variables
 				$files->write_1col_aref( \@X, \$outbound_locked, \$format );
 
 				$X[0] = $option;
-				$format = ' 0';
+				$format = $var_immodpg->{_format2i};
 
 				#				print("immodpg,_set_option,option=$option\n");
 				$files->write_1col_aref( \@X, \$outbound, \$format );
@@ -4145,7 +4147,6 @@ sub _write_config {
 	my ($self) = @_;
 
 =pod import private variables
-_config_file_format			        => '                                                        ',
 
 =cut	
 
@@ -6971,7 +6972,7 @@ variables
 				$files->write_1col_aref( \@X, \$outbound_locked, \$format );
 
 				$X[0] = $option;
-				$format = '0';
+				$format = $var_immodpg->{_format_integer};
 
 				#				print("immodpg,set_option,option=$option\n");
 				$files->write_1col_aref( \@X, \$outbound, \$format );

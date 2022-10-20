@@ -6,3 +6,85 @@ sustrip ftn=1 head=\/dev\/null outpar=\/dev\/null < /home/gllore/Servilleta/seis
 
 sustrip ftn=1 head=\/dev\/null outpar=\/dev\/null < /home/gllore/Servilleta/seismics/data/loma_blanca//053018/H/1/su/gllore/101_clean.su > /home/gllore/Servilleta/seismics/data/loma_blanca//053018/H/1/bin/gllore/101_clean.bin & 
 
+sustrip ftn=1 head=\/dev\/null outpar=\/dev\/null < /home/gllore/Servilleta/seismics/data/loma_blanca//053018/H/1/su/gllore/1006_clean.su > /home/gllore/Servilleta/seismics/data/loma_blanca//053018/H/1/bin/gllore/1006_clean.bin & 
+
+sustrip ftn=1 head=\/dev\/null outpar=\/dev\/null < /home/gllore/Servilleta/seismics/data/loma_blanca//053018/H/1/su/gllore/1006_clean.su > /home/gllore/Servilleta/seismics/data/loma_blanca//053018/H/1/bin/gllore/1006_clean.bin & 
+
+sustrip ftn=1 head=\/dev\/null outpar=\/dev\/null < /home/gllore/Servilleta/seismics/data/loma_blanca//053018/H/1/su/gllore/1006_clean.su > /home/gllore/Servilleta/seismics/data/loma_blanca//053018/H/1/bin/gllore/1006_clean.bin & 
+
+sustrip ftn=1 head=\/dev\/null outpar=\/dev\/null < /home/gllore/Servilleta/seismics/data/loma_blanca//053018/H/1/su/gllore/1006_clean.su > /home/gllore/Servilleta/seismics/data/loma_blanca//053018/H/1/bin/gllore/1006_clean.bin & 
+
+sustrip ftn=1 head=\/dev\/null outpar=\/dev\/null < /home/gllore/Servilleta/seismics/data/loma_blanca//053018/H/1/su/gllore/1006_clean.su > /home/gllore/Servilleta/seismics/data/loma_blanca//053018/H/1/bin/gllore/1006_clean.bin & 
+
+sustrip ftn=1 head=\/dev\/null outpar=\/dev\/null < /home/gllore/Servilleta/seismics/data/loma_blanca//053018/H/1/su/gllore/1006_clean.su > /home/gllore/Servilleta/seismics/data/loma_blanca//053018/H/1/bin/gllore/1006_clean.bin & 
+
+sustrip ftn=1 head=\/dev\/null outpar=\/dev\/null < /home/gllore/Servilleta/seismics/data/loma_blanca//053018/H/1/su/gllore/1006_clean.su > /home/gllore/Servilleta/seismics/data/loma_blanca//053018/H/1/bin/gllore/1006_clean.bin & 
+
+sustrip ftn=1 head=\/dev\/null outpar=\/dev\/null < /home/gllore/Servilleta/seismics/data/loma_blanca//053018/H/1/su/gllore/1006_clean.su > /home/gllore/Servilleta/seismics/data/loma_blanca//053018/H/1/bin/gllore/1006_clean.bin & 
+
+sustrip ftn=1 head=\/dev\/null outpar=\/dev\/null < /home/gllore/Servilleta/seismics/data/loma_blanca//053018/H/1/su/gllore/1006_clean.su > /home/gllore/Servilleta/seismics/data/loma_blanca//053018/H/1/bin/gllore/1006_clean.bin & 
+
+sustrip ftn=1 head=\/dev\/null outpar=\/dev\/null < /home/gllore/Servilleta/seismics/data/loma_blanca//053018/H/1/su/gllore/60_clean.su > /home/gllore/Servilleta/seismics/data/loma_blanca//053018/H/1/bin/gllore/60_clean.bin & 
+
+sustrip ftn=1 head=\/dev\/null outpar=\/dev\/null < /home/gllore/Servilleta/seismics/data/loma_blanca//053018/H/1/su/gllore/60_clean.su > /home/gllore/Servilleta/seismics/data/loma_blanca//053018/H/1/bin/gllore/60_clean.bin & 
+
+sustrip ftn=1 head=\/dev\/null outpar=\/dev\/null < /home/gllore/Servilleta/seismics/data/loma_blanca//053018/H/1/su/gllore/60_clean.su > /home/gllore/Servilleta/seismics/data/loma_blanca//053018/H/1/bin/gllore/60_clean.bin & 
+
+sustrip ftn=1 head=\/dev\/null outpar=\/dev\/null < /home/gllore/Servilleta/seismics/data/loma_blanca//053018/H/1/su/gllore/60_clean.su > /home/gllore/Servilleta/seismics/data/loma_blanca//053018/H/1/bin/gllore/60_clean.bin & 
+
+sustrip ftn=1 head=\/dev\/null outpar=\/dev\/null < /home/gllore/Servilleta/seismics/data/loma_blanca//053018/H/1/su/gllore/60_clean.su > /home/gllore/Servilleta/seismics/data/loma_blanca//053018/H/1/bin/gllore/60_clean.bin & 
+
+sustrip ftn=1 head=\/dev\/null outpar=\/dev\/null < /home/gllore/Servilleta/seismics/data/loma_blanca//053018/H/1/su/gllore/60_clean.su > /home/gllore/Servilleta/seismics/data/loma_blanca//053018/H/1/bin/gllore/60_clean.bin & 
+
+sustrip ftn=1 head=\/dev\/null outpar=\/dev\/null < /home/gllore/Servilleta/seismics/data/loma_blanca//053018/H/1/su/gllore/60_clean.su > /home/gllore/Servilleta/seismics/data/loma_blanca//053018/H/1/bin/gllore/60_clean.bin & 
+
+sustrip ftn=1 head=\/dev\/null outpar=\/home\/gllore\/Servilleta\/seismics\/data\/loma_blanca\/\/053018\/H\/1\/bin\/gllore\/60_clean\.bin < /home/gllore/Servilleta/seismics/data/loma_blanca//053018/H/1/su/gllore/60_clean.su > /home/gllore/Servilleta/seismics/data/loma_blanca//053018/H/1/bin/gllore/60_clean.bin & 
+
+sustrip ftn=1 head=\/home\/gllore\/Servilleta\/seismics\/data\/loma_blanca\/\/053018\/H\/1\/bin\/gllore\/60_clean\.bin outpar=\/dev\/null < /home/gllore/Servilleta/seismics/data/loma_blanca//053018/H/1/su/gllore/60_clean.su > /home/gllore/Servilleta/seismics/data/loma_blanca//053018/H/1/bin/gllore/60_clean.bin & 
+
+sustrip ftn=1 head=\/dev\/null outpar=\/dev\/null < /home/gllore/Servilleta/seismics/data/loma_blanca//053018/H/1/su/gllore/60_clean.su > /home/gllore/Servilleta/seismics/data/loma_blanca//053018/H/1/bin/gllore/60_clean.bin & 
+
+sustrip ftn=0 head=\/dev\/null outpar=\/dev\/null < /home/gllore/Servilleta/seismics/data/loma_blanca//053018/H/1/su/gllore/60_clean.su > /home/gllore/Servilleta/seismics/data/loma_blanca//053018/H/1/bin/gllore/60_clean.bin & 
+
+sustrip ftn=0 head=\/dev\/null outpar=\/dev\/null < /home/gllore/Servilleta/seismics/data/loma_blanca//053018/H/1/su/gllore/60_clean.su > /home/gllore/Servilleta/seismics/data/loma_blanca//053018/H/1/bin/gllore/60_clean.bin & 
+
+sustrip ftn=0 head=\/dev\/null outpar=\/dev\/null < /home/gllore/Servilleta/seismics/data/loma_blanca//053018/H/1/su/gllore/60_clean.su > /home/gllore/Servilleta/seismics/data/loma_blanca//053018/H/1/bin/gllore/60_clean.bin & 
+
+sustrip ftn=0 head=\/dev\/null outpar=\/dev\/null < /home/gllore/Servilleta/seismics/data/loma_blanca//053018/H/1/su/gllore/60_clean.su > /home/gllore/Servilleta/seismics/data/loma_blanca//053018/H/1/bin/gllore/60_clean.bin & 
+
+sustrip ftn=0 head=\/dev\/null outpar=\/dev\/null < /home/gllore/Servilleta/seismics/data/loma_blanca//053018/H/1/su/gllore/60_clean.su > /home/gllore/Servilleta/seismics/data/loma_blanca//053018/H/1/bin/gllore/60_clean.bin
+
+sustrip ftn=0 head=\/dev\/null outpar=\/dev\/null < /home/gllore/Servilleta/seismics/data/loma_blanca//053018/H/1/su/gllore/60_clean.su > /home/gllore/Servilleta/seismics/data/loma_blanca//053018/H/1/bin/gllore/60_clean.bin
+
+sustrip ftn=0 head=\/dev\/null outpar=\/dev\/null < /home/gllore/Servilleta/seismics/data/loma_blanca//053018/H/1/su/gllore/60_clean.su > /home/gllore/Servilleta/seismics/data/loma_blanca//053018/H/1/bin/gllore/60_clean.bin
+
+sustrip ftn=0 head=\/dev\/null outpar=\/dev\/null < /home/gllore/Servilleta/seismics/data/loma_blanca//053018/H/1/su/gllore/60_clean.su > /home/gllore/Servilleta/seismics/data/loma_blanca//053018/H/1/bin/gllore/60_clean.bin
+
+sustrip ftn=0 head=\/dev\/null outpar=\/dev\/null < /home/gllore/Servilleta/seismics/data/loma_blanca//053018/H/1/su/gllore/60_clean.su > /home/gllore/Servilleta/seismics/data/loma_blanca//053018/H/1/bin/gllore/60_clean.bin
+
+sustrip ftn=0 head=\/dev\/null outpar=\/dev\/null < /home/gllore/Servilleta/seismics/data/loma_blanca//053018/H/1/su/gllore/60_clean.su > /home/gllore/Servilleta/seismics/data/loma_blanca//053018/H/1/bin/gllore/60_clean.bin
+
+sustrip ftn=0 head=\/dev\/null outpar=\/dev\/null < /home/gllore/Servilleta/seismics/data/loma_blanca//053018/H/1/su/gllore/60_clean.su > /home/gllore/Servilleta/seismics/data/loma_blanca//053018/H/1/bin/gllore/60_clean.bin
+
+sustrip ftn=0 head=\/dev\/null outpar=\/dev\/null < /home/gllore/Servilleta/seismics/data/loma_blanca//053018/H/1/su/gllore/60_clean.su > /home/gllore/Servilleta/seismics/data/loma_blanca//053018/H/1/bin/gllore/60_clean.bin
+
+sustrip ftn=0 head=\/dev\/null outpar=\/dev\/null < /home/gllore/Servilleta/seismics/data/loma_blanca//053018/H/1/su/gllore/60_clean.su > /home/gllore/Servilleta/seismics/data/loma_blanca//053018/H/1/bin/gllore/60_clean.bin
+
+sustrip ftn=0 head=\/dev\/null outpar=\/dev\/null < /home/gllore/Servilleta/seismics/data/loma_blanca//053018/H/1/su/gllore/60_clean.su > /home/gllore/Servilleta/seismics/data/loma_blanca//053018/H/1/bin/gllore/60_clean.bin
+
+sustrip ftn=0 head=\/dev\/null outpar=\/dev\/null < /home/gllore/Servilleta/seismics/data/loma_blanca//053018/H/1/su/gllore/60_clean.su > /home/gllore/Servilleta/seismics/data/loma_blanca//053018/H/1/bin/gllore/60_clean.bin
+
+sustrip ftn=0 head=\/dev\/null outpar=\/dev\/null < /home/gllore/Servilleta/seismics/data/loma_blanca//053018/H/1/su/gllore/60_clean.su > /home/gllore/Servilleta/seismics/data/loma_blanca//053018/H/1/bin/gllore/60_clean.bin
+
+sustrip ftn=0 head=\/dev\/null outpar=\/dev\/null < /home/gllore/Servilleta/seismics/data/loma_blanca//053018/H/1/su/gllore/60_clean.su > /home/gllore/Servilleta/seismics/data/loma_blanca//053018/H/1/bin/gllore/60_clean.bin
+
+sustrip ftn=0 head=\/dev\/null outpar=\/dev\/null < /home/gllore/Servilleta/seismics/data/loma_blanca//053018/H/1/su/gllore/60_clean.su > /home/gllore/Servilleta/seismics/data/loma_blanca//053018/H/1/bin/gllore/60_clean.bin
+
+sustrip ftn=0 head=\/dev\/null outpar=\/dev\/null < /home/gllore/Servilleta/seismics/data/loma_blanca//053018/H/1/su/gllore/60_clean.su > /home/gllore/Servilleta/seismics/data/loma_blanca//053018/H/1/bin/gllore/60_clean.bin
+
+sustrip ftn=0 head=\/dev\/null outpar=\/dev\/null < /home/gllore/Servilleta/seismics/data/loma_blanca//053018/H/1/su/gllore/60_clean.su > /home/gllore/Servilleta/seismics/data/loma_blanca//053018/H/1/bin/gllore/60_clean.bin
+
+sustrip ftn=0 head=\/dev\/null outpar=\/dev\/null < /home/gllore/Servilleta/seismics/data/loma_blanca//053018/H/1/su/gllore/60_clean.su > /home/gllore/Servilleta/seismics/data/loma_blanca//053018/H/1/bin/gllore/60_clean.bin
+
+sustrip ftn=0 head=\/dev\/null outpar=\/dev\/null < /home/gllore/Servilleta/seismics/data/loma_blanca//053018/H/1/su/gllore/60_clean.su > /home/gllore/Servilleta/seismics/data/loma_blanca//053018/H/1/bin/gllore/60_clean.bin
+

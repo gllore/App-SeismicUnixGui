@@ -6,7 +6,7 @@
       integer*4  ntr,ns,idtusec
       integer :: err_msg, ready
 
-      print *, 'read_parmmod_file, inbound is:',trim(inbound),'--'
+!      print *, 'read_parmmod_file, inbound is:',trim(inbound),'--'
 !      in case inbound is of a different, but shorter length in main
       inbound=inbound
       inbound_locked=trim(inbound)//"_locked"

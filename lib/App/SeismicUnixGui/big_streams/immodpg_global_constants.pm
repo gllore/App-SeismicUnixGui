@@ -15,26 +15,26 @@ loop_limit:	for searching for a locked_file
 
 my @format;
 
-$format[0] = '                                                        ';
-$format[1] = '                                                        ';
-$format[2] = '                                                        ';
-$format[3] = '                                                        ';
-$format[4] = '                                                        ';
-$format[5] = '                                                        ';
-$format[6] = '                                                        ';
-$format[7] = '                                                        ';
-$format[8] = '                                                        ';
+$format[0] =  '%-35s%1s%-20s',
+$format[1] =  '%-35s%1s%-20s',
+$format[2] =  '%-35s%1s%-20s',
+$format[3] =  '%-35s%1s%-20s',
+$format[4] =  '%-35s%1s%-20s',
+$format[5] =  '%-35s%1s%-20s',
+$format[6] =  '%-35s%1s%-20s',
+$format[7] =  '%-35s%1s%-20s',
+$format[8] =  '%-35s%1s%-20s',
 $format[9] = $format[8];
-$format[10] = '                                     0.000     ';
+$format[10] = '%-35s%1s%-20s',
 $format[11] = $format[10];
 $format[12] = $format[10];
 $format[13] = $format[10];
-$format[14] = '                                                        ';
-$format[15] = '                                                        ';
-$format[16] = '                                                        ';
-$format[17] = '                                                        ';
-$format[18] = '                                                        ';
-$format[19] = '                                                        ';
+$format[14] =  '%-35s%1s%-20s',
+$format[15] =  '%-35s%1s%-20s',
+$format[16] =  '%-35s%1s%-20s',
+$format[17] =  '%-35s%1s%-20s',
+$format[18] =  '%-35s%1s%-20s',
+$format[19] =  '%-35s%1s%-20s',
 
 my $var = {
 	_Vbot_file							=> 'Vbot', 
@@ -73,6 +73,10 @@ my $var = {
     _config_file_format_real			=> '%-35s%1s%-10.3f', 
     _config_file_format_signed_integer	=> '%-35s%1s%-2d',
     _format_aref                        => \@format,
+    _format_dot2f                       => '%.2f',
+    _format_dot3f                       => '%.3f',
+    _format2i                           => '%2i',
+    _format51f                         => '%5.1f',
     _format_integer						=>'%i',
     _format_real					    =>'%7.1f',  
     _format_string						=>'%s',      
@@ -83,7 +87,8 @@ my $var = {
     _layer_number_opt				    => 0,
     _loop_limit							=> 100,
     _model_text_file_format_title       => '%s',
-    _model_text_file_format_values      => '%7.1f%1s%7.1f%1s%7.1f',     _move_down_opt						=> 83, 
+    _model_text_file_format_values      => '%7.1f%1s%7.1f%1s%7.1f',     
+    _move_down_opt						=> 83, 
 	_move_left_opt						=> 84,
 	_move_up_opt						=> 81,
 	_move_right_opt						=> 82,

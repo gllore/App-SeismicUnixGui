@@ -467,9 +467,9 @@ sub get {
 				$sub_category_directory =
 				  $developer->get_program_sub_category();
 
-				print(
-					"1C big_streams_param,get,using global lib: path is $path\n"
-				);
+#				print(
+#					"1C big_streams_param,get,using global lib: path is $path\n"
+#				);
 				_set_path($path);
 				_set_sub_category_directory($sub_category_directory);
 				$config_corrupt = $false;

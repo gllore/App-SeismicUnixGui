@@ -1,2 +1,4 @@
 sustrip ftn=1 head=\/dev\/null outpar=\/dev\/null < /home/gllore/Fairbanks/seismics/data/permafrost_tunnel/gpr/110221/standard/cmp/su/gllore/stack_line6_19_geom1_immodpg.su > /home/gllore/Fairbanks/seismics/data/permafrost_tunnel/gpr/110221/standard/cmp/bin/gllore/stack_line6_19_geom1_immodpg.bin & 
 
+sustrip ftn=1 head=\/dev\/null outpar=\/dev\/null < /home/gllore/Servilleta/seismics/data/loma_blanca//053018/H/1/su/gllore/60_clean.su > /home/gllore/Servilleta/seismics/data/loma_blanca//053018/H/1/bin/gllore/60_clean.bin & 
+

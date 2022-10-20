@@ -439,7 +439,7 @@ except Project.config, which uses sub write2
 sub check2write {
 	my (@self) = @_;
 
-	print("files_LSU, check2write,start\n");
+	# print("files_LSU, check2write,start\n");
 
 	if ( not -e $files_LSU->{_outbound} ) {
 
@@ -462,7 +462,7 @@ sub check2write {
 	elsif ( -e $files_LSU->{_outbound} ) {
 
 		# CASE if file does already exist
-		print("files_LSU, write_config OK: $files_LSU->{_outbound}\n");
+		# print("files_LSU, write_config OK: $files_LSU->{_outbound}\n");
 #		print(
 #"files_LSU, write_config, configuration file exists and will be overwritten\n"
 #		);
@@ -487,7 +487,7 @@ pre-built/superflows/Tools
 sub copy_default_config {
 	my (@self) = @_;
 
-	print("files_LSU, copy_default_config,start\n");
+#	print("files_LSU, copy_default_config,start\n");
 
 	if ( not -e $files_LSU->{_outbound} ) {    # double check
 
@@ -501,13 +501,13 @@ sub copy_default_config {
 
 		copy( $from, $to );
 
-		print("files_LSU copy_default_config copy $from to $to \n");
+		# print("files_LSU copy_default_config copy $from to $to \n");
 
 	}
 	else {
 		# CASE if file already exists
-		print("files_LSU, write_config OK: $files_LSU->{_outbound}\n");
-		print("files_LSU, write_config, configuration file exists; NADA\n");
+#		print("files_LSU, write_config OK: $files_LSU->{_outbound}\n");
+#		print("files_LSU, write_config, configuration file exists; NADA\n");
 	}
 	return ($empty_string);
 
@@ -1213,7 +1213,7 @@ sub set_superflow_specs {
 #      					print (" files_LSU,set_superflow_specs, key is $key, value is $hash_ref->{$key}\n");
 # 					}
 #
-print ("1. files_LSU,set_superflow_specs,prog_name_sref: ${$files_LSU->{_prog_name_sref}} \n");
+# print ("1. files_LSU,set_superflow_specs,prog_name_sref: ${$files_LSU->{_prog_name_sref}} \n");
 
 	if ( $hash_ref && $files_LSU->{_prog_name_sref} ) {
 
@@ -1245,7 +1245,7 @@ print ("1. files_LSU,set_superflow_specs,prog_name_sref: ${$files_LSU->{_prog_na
 
 		# get length from corresponding spec file
 		# length-1 : is largest occupied index
-		print("3. files_LSU, set_superflow_specs, length=$length\n");
+		# print("3. files_LSU, set_superflow_specs, length=$length\n");
 
 		for ( my $i = 0, my $j = 0 ; $i < $length ; $i++, $j = $j + 2 ) {
 
@@ -1322,7 +1322,7 @@ sub _write {
 	my $config_file_format_aref = _get_superflow_config_file_format_aref();
 	my $num_formats             = scalar @$config_file_format_aref;
 
-	print("files_LSU, _write,num_formats=$num_formats\n");
+	# print("files_LSU, _write,num_formats=$num_formats\n");
 
 	if ( $num_formats == 1 ) {
 
@@ -1361,8 +1361,8 @@ sub _write {
 		my $old_value = $CFG[ ( $j + 1 ) ];
 		my $new_value = $control->get_no_quotes($old_value);
 
-		printf $fh $format[$i] . "\n", $CFG[$j], "=", $new_value;
-		print("7.files_LSU,_write,$j, $CFG[$j]= $CFG[ ( $j + 1 ) ]\n");
+		printf $fh $format[$i] . "\n", $CFG[$j], "= ", $new_value;
+#		print("7.files_LSU,_write,$j, $CFG[$j]=$CFG[ ( $j + 1 ) ]\n");
 	}
 	close($fh);
 }

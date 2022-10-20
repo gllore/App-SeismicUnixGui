@@ -141,3 +141,6 @@ For example, if the Vbot value is changed:
 				_setVbot( $immodpg->{_Vbot_current} );
 				_set_option($Vbot_opt);
 				_set_change($yes);
+				
+Q. How is the binary image created?
+A. in premmod

@@ -4,7 +4,7 @@
 
 =head2 SYNOPSIS 
 
- PERL PROGRAM NAME: L_SUV0.80.00.pl 
+ PERL PROGRAM NAME: L_SUV0.80.6.pl 
  AUTHOR: 	Juan Lorenzo
  DATE: 		June 22 2017 
 
@@ -719,21 +719,6 @@ contains side menus
 		-state              => 'disabled',
 		-command            => [ \&_L_SU, 'set_save_button', \$Save_option ],
 	);
-
-#	my $Check_code_option = 'Check';
-#	$main_href->{_check_code_button} = $side_menu_frame->Button(
-#		-text               => 'Check',
-#		-font               => $arial_16,
-#		-height             => $var->{_1_character},
-#		-background         => $var->{_my_yellow},
-#		-foreground         => $var->{_my_black},
-#		-disabledforeground => $var->{_my_dark_grey},
-#		-activeforeground   => $var->{_my_white},
-#		-activebackground   => $var->{_my_dark_grey},
-#		-relief             => 'flat',
-#		-state              => 'disabled',
-#		-command            => [ \&_L_SU, 'check_code_button', \$Check_code_option ],
-#	);
 
 =head2 top_titles frame
 above the work frame

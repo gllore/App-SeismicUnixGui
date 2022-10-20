@@ -9,7 +9,7 @@
        parameter (ntrmax=1000,nsmax=32768)
        parameter (nxymax=1000)
        real*4    Amp(ntrmax,nsmax)
-       real*4    Amp_min,Amp_max,tr(6),result(20)
+       real*4    Amp_min,Amp_max,tr(6)
        dimension IR(nlmax-1),VT(nlmax),VB(nlmax),DZ(nlmax)
        dimension VST(nlmax),VSB(nlmax),RHOT(nlmax),RHOB(nlmax)
        dimension va(2*nlmax),za(2*nlmax)
@@ -23,17 +23,17 @@
        dimension tout(npmax,nlmax),array_ntp(npmax)
 
        dimension xdig(nxymax),tdig(nxymax)
-       character*255 message, inbound_bin
-       character*255 set_DIR, get_DIR
+!       character*300 message, inbound_bin
+       character*300 set_DIR, get_DIR
        character*300 inboundVincrement, inboundVbotNtop_factor
        character*300 inbound_change, inbound_config, inbound_option
        character*300 inbound_layer, inbound_par, inbound_clip
-        character*300 inbound_thickness_m
+       character*300 inbound_thickness_m
        character*300 inboundVbot,inboundVtop
        character*300 inboundVbot_upper,inboundVtop_lower
        character*300 outbound_option, outbound_model_txt
        character*300 outbound_wrkng_modl_txt
-       character*300  outbound_model_bin, outbound_model_bin_bck
+       character*300 outbound_model_bin, outbound_model_bin_bck
        character val,finxy*40
        character*40 change_file,config_file,no,option_file,layer_file
        character*40 clip_file, model_file_text, thickness_m_file
@@ -41,11 +41,12 @@
        character*40 model_file_bin, model_file_bin_bck
        character*40 Vbot_file,Vbot_upper_file,Vtop_file,Vtop_lower_file
        character*40 Vincrement_file, VbotNtop_factor_file
-       character*40 par_file, moveNzoom_file, base_file
+       character*40 par_file, moveNzoom_file
+       character*40 base_file
        logical   flag, is_change, ans
        integer   upper_layer_number,lower_layer_number
        integer   option,layer,option_default
-       integer   VtopNVot_upper_layer_opt
+       integer   VtopNVot_upper_layer_optresult
        integer   VbotNVtop_lower_layer_opt
        integer   Vtop_plus_opt, Vtop_minus_opt
        integer   Vbot_plus_opt, Vbot_minus_opt
@@ -71,18 +72,19 @@
        integer   current_moveNzoom
        integer   prior_moveNzoom
        integer   new_moveNzoom
-       real*4   datadt
-       real     new_thickness_m, current_thickness_m,prior_thickness_m
+       real*4    datadt
+       real      new_thickness_m, current_thickness_m,prior_thickness_m
        real      Vtop_mps,Vbot_mps,Vtop_lower_mps,Vbot_upper_mps
        real      Vtop_kmps,Vbot_kmps,Vtop_lower_kmps,Vbot_upper_kmps
-       real*4  thickness_increment_m, Vincrement_mps
-       real*4  thickness_increment_km
-       real*4 VbotNtop_factor, Vincrement_kmps, m2km
+       real*4    thickness_increment_m, Vincrement_mps
+       real*4    thickness_increment_km
+       real*4    VbotNtop_factor, Vincrement_kmps, m2km
+       real*4    result(30)
        real      current_clip,prior_clip,new_clip, clip_max, clip_min
        real      priorVincrement_mps, currentVincrement_mps
        real      newVincrement_mps
        real      prior_thickness_increment_msub setVtopNVbot_upper_laye
-       real   current_thickness_increment_m,new_thickness_increment_m
+       real      current_thickness_increment_m,new_thickness_increment_m
        real      priorVbotNtop_factor, currentVbotNtop_factor
        real      newVbotNtop_factor
        real      priorVtop, currentVtop, newVtop
@@ -100,42 +102,62 @@
 !       change_file     a messaging file contining either yes or no
 
         Vbot_file            = "Vbot"
+        Vbot_file            = trim(Vbot_file)
         Vbot_upper_file      = "Vbot_upper_layer"
+        Vbot_upper_file      = trim(Vbot_upper_file)
         Vincrement_file      = "Vincrement"
+        Vincrement_file      = trim(Vincrement_file)
         Vtop_file            = "Vtop"
+        Vtop_file            = trim(Vtop_file)
         Vtop_lower_file      = "Vtop_lower_layer"
+        Vtop_lower_file      = trim(Vtop_lower_file)
         VbotNtop_factor_file = "VbotNtop_factor"
-        change_file         = "change"
-        clip_file           = "clip"
-        config_file         = "immodpg.config"
-        model_file_text     = "model.txt"
-        working_model_txt = "working_model.txt"
+        VbotNtop_factor_file = trim(VbotNtop_factor_file)
+        change_file          = "change"
+        change_file          = trim(change_file)
+        clip_file            = "clip"
+        clip_file            = trim(clip_file)
+        config_file          = "immodpg.config"
+        config_file          = trim(config_file)
+        model_file_text      = "model.txt"
+        model_file_text      = trim(model_file_text)
+        working_model_txt    = "working_model.txt"
+        working_model_txt    = trim(working_model_txt)
         model_file_bin       = "immodpg.out"
-        model_file_bin_bck       = ".immodpg.out"
+        model_file_bin       = trim(model_file_bin)
+        model_file_bin_bck   = ".immodpg.out"
+        model_file_bin_bck   = trim(model_file_bin_bck)
+        
+        inbound_config      = ''
+        get_DIR             = ''
+        set_DIR             = ''
+        inbound_config      = ''
         is_change           = .FALSE.
         layer_file          = "layer"
+        layer_file          = trim(layer_file)
         no                  = "no"
         option_file         = "option"
         par_file            = "parmmod"
+        par_file            = trim(par_file)
         new_layer_number    = -1
         current_layer_number =-1
         prior_layer_number  =-2
-        thickness_m_file       = "thickness_m"
-        time_delay                 = 0.001 ! wait seconds for Perl processing
+        thickness_m_file    = "thickness_m"
+        time_delay          = 0.001 ! wait seconds for Perl processing
 
 !      Coded user options
-       changeVbot_opt                           = 20
+       changeVbot_opt                     = 20
        Vbot_minus_opt                     = 21
        Vbot_plus_opt                      = 22
-       changeVbot_upper_layer_opt        = 23
+       changeVbot_upper_layer_opt         = 23
 
        VbotNVtop_lower_layer_minus_opt    = 61
        VbotNVtop_lower_layer_plus_opt     = 62
        VbotNVtop_minus_opt                = 41
        VbotNVtop_plus_opt                 = 42
 
-       changeVtop_opt                           = 10
-       changeVtop_lower_layer_opt      = 11
+       changeVtop_opt                     = 10
+       changeVtop_lower_layer_opt         = 11
        Vtop_minus_opt                     = 12
        Vtop_plus_opt                      = 13
 
@@ -144,15 +166,15 @@
        VtopNVbot_upper_layer_minus_opt    = 51
        VtopNVbot_upper_layer_plus_opt     = 52
        change_layer_number_opt            = 0
-       change_thickness_m_opt               = 14 ! do not forget todo
+       change_thickness_m_opt             = 14 ! do not forget todo
        change_thickness_increment_opt     = 15
        changeVincrement_opt               = 7
        changeVbotNtop_factor_opt          = 68
        change_clip4plot_opt               = 9
-       thickness_m_minus_opt            = 140
+       thickness_m_minus_opt              = 140
        thickness_m_plus_opt               = 141
-       write_simple_model_text_opt   =70
-       write_model_bin_opt                 = 71
+       write_simple_model_text_opt        =70
+       write_model_bin_opt                = 71
        exit_opt                           = 99
 
        option_default                     = -1
@@ -251,13 +273,15 @@
 ! define the different needed directories
         set_DIR = "IMMODPG"
        call Project_config(set_DIR,get_DIR)
-   !     define needed files
+       
+! define needed files
+! trim blank spaces to left and right
        inbound_config = trim(get_DIR)//"/"//config_file
-!      print*, 'immodpg.for, inbound_config:',trim(inbound_config),'--'
        outbound_model_txt = trim(get_DIR)//"/"//model_file_text
        outbound_wrkng_modl_txt=trim(get_DIR)//"/"//working_model_txt
        outbound_model_bin = trim(get_DIR)//"/"//model_file_bin
        outbound_model_bin_bck = trim(get_DIR)//"/"//model_file_bin_bck
+       
 ! define the different needed directories
        set_DIR = "IMMODPG_INVISIBLE"
        call Project_config(set_DIR,get_DIR)
@@ -298,21 +322,26 @@
        inboundVbotNtop_factor  =
      +trim(get_DIR)//"/"//VbotNtop_factor_file
         inbound_thickness_m =trim(get_DIR)//"/"//thickness_m_file
+        
 ! read all the configuration parameters for immodpg
 ! i/p inbound_config
 ! o/p base_file, result,
        call read_immodpg_config(base_file,result,inbound_config)
-       print*, 'L 305, base_file=',base_file
- ! Read digitized X-T pairs, 0- No',idrxy
+!      print*, 'L 305, base_file=',base_file
+
+! Read digitized X-T pairs, 0- No',idrxy
        idrxy=int(result(1))
- !  Read data traces, 0- No',idrdtr
+       
+!  Read data traces, 0- No',idrdtr
       idrdtr=int(result(2))
       datat1    =result(4)
       datax1    =result(5)
       datadx    =result(6)
+      
 !SOURCE AND RECEIVER DEPTH DEFINITION (KM)
       SDEPTH  = result(7)
       RDEPTH  = result(8)
+      
 ! DEFINE PLOTTING AREA ENTER
 ! linear reduction velocity in mps
       rv = result(9)
@@ -320,6 +349,7 @@
       xmax = result(11)
       tmin = result(12)
       tmax = result(13)
+      
 ! result16 is the starting layer from the settings file
       starting_layer       = result(16)
       current_layer_number = int(starting_layer)
@@ -339,10 +369,11 @@
 !      print*, 'immodpg.for,MINIMUN DISTANCE (KM)xmin=',xmin
 !      print*, 'L300 immodpg.for,MAXIMUN DISTANCE (KM)=',xmax
 !      print*, 'immodpg.for,tmin (s)=',tmin
-      print*, 'immodpg.for,tmax (s)=',tmax
+!      print*, 'immodpg.for,tmax (s)=',tmax
 !      print *, "immodpg.for,starting layer:", current_layer_number
 !      print*, 'immodpg.for,VbotNtop_factor=',VbotNtop_factor
 !      print*, 'immodpg.for,Vincrement_kmps=',Vincrement_kmps
+
 ! Read digitized X-T pairs, 0- No',idrxy
       if(idrxy.eq.1) then
          finxy = '???'
@@ -365,7 +396,8 @@
        datadt = float(idtusec) * 1e-6
 !      write(*,*) 'immodpg.for,inbound_par:datadt',datadt
 	call rdata(Amp,ntrmax,nsmax,ntr,ns,Amp_min,Amp_max)
-!       print*,'immodpg.for,rdata:ns,ntr',ns,'--',ntr
+       print*,'immodpg.for,rdata:ns,ntr',ns,'--',ntr
+       
 ! Clips for gray scale (pggray)
          current_clip   = Amp_max/100
 
@@ -581,7 +613,7 @@
              xa2(ixy) = tdig(ixy) - xdig(ixy) * rvinv
          enddo
 
-	  call pgsci(3)
+	 call pgsci(3)
          call pgpoint(ndxy,xdig,xa2,9)  ! TODO perhaps
          print *, 'L 423 Draw digitized X-T data if it exists'
 
@@ -1151,31 +1183,37 @@
      + Amp_min, Amp_max)
 	INTEGER*4 ntrmax,n,ntr,ns
 	REAL*4 Amp(ntrmax,nsmax), Amp_min, Amp_max
-       character*255 inbound_bin
+       character*300 inbound_bin
        character*300 inbound_config
        character*40 base_file
        character*40 config_file
        character*255 set_DIR,get_DIR
+       real*4        result(30)
 
       config_file  = "immodpg.config"
+      config_file  = trim(config_file)
 
 ! define the different needed directories
       set_DIR = "IMMODPG"
       call Project_config(set_DIR,get_DIR)
-
+!      print*,'immodpg.for,rdata,get_DIR:',get_DIR
+      
 !  define needed files
-!      inbound_config = trim(get_DIR)//"/"//config_file
-!
-!     print*,'immodpg.for,rdata,inbound_config:',inbound_config
+      inbound_config = trim(get_DIR)//"/"//config_file 
+! config_file
+!      print*,'immodpg.for,rdata,inbound_config:',inbound_config
 !   read all the configuration parameters for immodpg
-!      call read_immodpg_config(base_file,result,inbound_config)
-!       print*,'immodpg.for,rdata,base_file:',base_file  
-! define the different needed directories
+      call read_immodpg_config(base_file,result,inbound_config)
+
+!      print*,'immodpg.for,rdata,base_file:',trim(base_file)
+      
+! define the different, needed directories
       set_DIR        = "DATA_SEISMIC_BIN"
       call Project_config(set_DIR,get_DIR)
-      inbound_bin    = trim(get_DIR)//"/"//trim(base_file)//".bin"
-!            print*,'996immodpg.for,rdata,base_file:',trim(base_file)
-!      print*,'997-immodpg.for,rdata,inbound_bin:',trim(inbound_bin)
+      inbound_bin = trim(get_DIR)//"/"//trim(base_file)//'.bin'
+!      print*,'1179immodpg.for,rdata,base_file:',inbound_bin
+!      print*,'next line'
+      print*,'1218-immodpg.for,rdata,inbound_bin:',trim(inbound_bin)
 
 ! Read data File
       call read_bin_data (inbound_bin,ntrmax,nsmax,ntr,ns,Amp)
@@ -1190,9 +1228,9 @@
  11      continue
 
  20   continue
-!	write(*,*) 'immodpg.for,rdata, Data min,max=',Amp_min,Amp_max
-!	write(*,*)
-!	print*, 'immodpg.for, L 1037, rdata, finished reading data'
+	write(*,*) 'immodpg.for,rdata, Data min,max=',Amp_min,Amp_max
+	write(*,*)
+	print*, 'immodpg.for, L 1197, rdata, finished reading data'
 
       END ! of subroutine
 !

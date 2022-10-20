@@ -673,7 +673,7 @@ sub set_sp_gather_geom_out {
 		}
 
 		my $file_name = $cmpcc->{_shove_sp_gather_geom_outbound};
-		my $format    = "0\t0.000000\t0\t0\t0.000000\n";
+		my $format    = "%d\t%f\t%d\t%d\t%f\n";
 
 		#		print("@{$cmpcc->{_vector_pt1_aref}}\n");
 

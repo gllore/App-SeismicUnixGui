@@ -12,22 +12,24 @@
       character (len=30) :: format18,format19
       character (len=5)  :: equal,previous_model,new_model
       character (len=5)  :: pre_digitized_XT_pairs,data_traces
-      character (len=50) :: base_file
+      character (len=40) :: base_file
       character (len=255):: inbound, inbound_locked
       real               :: min_t_s,max_t_s,min_x_m,max_x_m
       real               :: thickness_increment_m
-      real               ::data_x_inc_m,source_depth_m,receiver_depth_m
+      real               :: data_x_inc_m,source_depth_m,receiver_depth_m
       real               :: reducing_vel_mps,plot_min_x_m,plot_max_x_m
       real               :: plot_min_t_s,plot_max_t_s,VtopNbot_factor
-      real               :: results(30), Vincrement_mps, clip, m2km
+      real               :: Vincrement_mps, clip, m2km
+      real*4             :: results(30)
       integer*2          :: layer
       integer            :: err_msg, counter, ready
-!       in case definition in main is slightly different
-!       pre_digitized_XT_pairs = 'no'
-!       data_traces = 'no'
-!       previous_model = 'no'
-!       new_model = 'no'
-!      sum of first two character strings= 35
+      
+!     in case definition in main is slightly different
+!     pre_digitized_XT_pairs = 'no'
+!     data_traces = 'no'
+!     previous_model = 'no'
+!     new_model = 'no'
+!     sum of first two character strings= 35
       inbound_locked=trim(inbound)//"_locked"
       format0= "(A14,21X,A1,1X,A)"
       format1= "(A22,13X,A1,1X,A)"
@@ -52,8 +54,6 @@
       m2km = .001;
 
 !      print*, 'read_immodpg_config.f, inbound is:', trim(inbound)
-!      in case inbound is of a different length in main
-!      open(unit=1,file=trim(inbound),status='old')
 
 !      create a temporary, new, lock file
 10     open(status='new',unit=2,file=inbound_locked,iostat=ready)
@@ -66,7 +66,8 @@
         if (err_msg.eq.0) then
 
          read (1,format0) name,equal,base_file
-!         print*, '0. read_immodpg_config.f, base file_name:',base_file
+         base_file = trim(base_file)
+ !        print*, '0. read_immodpg_config.f, base file_name:',base_file
          read (1,format1) name,equal,pre_digitized_XT_pairs
 !        print*, '1. read_immodpg_config.f, pre_digitized_XT_pairs:',
 !     +  pre_digitized_XT_pairs
@@ -116,7 +117,7 @@
 !       print*,'19.read_immodpg_config.f,thickness_increment_m:'
 !     + ,thickness_increment_m
          if (base_file .ne. '') then
-!      print*, 'NADA,read_immodpg_config.f, base_file:',base_file
+!        print*, 'Found it,read_immodpg_config.f, base_file:',base_file
          else
           print*, 'read_immodpg_config.f, base_file missing:'
          end if
@@ -185,7 +186,7 @@
           go to 10
          end if
        else
-         print *, 'read_immodpg_config.f,locked,try again,read=',ready
+        print *, 'read_immodpg_config.f,locked,try again,ready=',ready
 !         go to 10
        end if
 !       remove lock file
