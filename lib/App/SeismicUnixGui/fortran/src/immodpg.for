@@ -4,10 +4,12 @@
 ! es que ambos esten en superficie.
 !
        integer*4  nlmax,npmax,npamax,ntrmax,nsmax,ntr,ns,idtusec
+       integer*4  nchanges
        integer*2  how_many
        parameter (nlmax=25,npmax=960000,npamax=4000000)
-       parameter (ntrmax=1000,nsmax=32768)
-       parameter (nxymax=1000)
+       parameter (ntrmax=5000,nsmax=65536)
+       parameter (nxymax=2000)
+       parameter (nchanges=100000)
        real*4    Amp(ntrmax,nsmax)
        real*4    Amp_min,Amp_max,tr(6)
        dimension IR(nlmax-1),VT(nlmax),VB(nlmax),DZ(nlmax)
@@ -23,7 +25,6 @@
        dimension tout(npmax,nlmax),array_ntp(npmax)
 
        dimension xdig(nxymax),tdig(nxymax)
-!       character*300 message, inbound_bin
        character*300 set_DIR, get_DIR
        character*300 inboundVincrement, inboundVbotNtop_factor
        character*300 inbound_change, inbound_config, inbound_option
@@ -72,6 +73,7 @@
        integer   current_moveNzoom
        integer   prior_moveNzoom
        integer   new_moveNzoom
+       integer   i_change, i_past_change
        real*4    datadt
        real      new_thickness_m, current_thickness_m,prior_thickness_m
        real      Vtop_mps,Vbot_mps,Vtop_lower_mps,Vbot_upper_mps
@@ -91,7 +93,10 @@
        real      priorVbot, currentVbot, newVbot
        real      priorVtop_lower, currentVtop_lower, newVtop_lower
        real      priorVbot_upper, currentVbot_upper, newVbot_upper
-       real      start, finish, cpu_duration
+       real      start, finish, cpu_duration, start_change
+       real,dimension(nchanges)::last_change,change_step
+       
+       
 !       Modified: Juan Lorenzo LSU
 !       Date: June 17 2004
 !       Purpose: explanation of parameters
@@ -132,7 +137,9 @@
         get_DIR             = ''
         set_DIR             = ''
         inbound_config      = ''
+        ichange             = 1
         is_change           = .FALSE.
+        last_change(1)      = 0
         layer_file          = "layer"
         layer_file          = trim(layer_file)
         no                  = "no"
@@ -187,6 +194,7 @@
 !       inbound_par     path to the parameter file
 !       dp              increment of p for each ray
 !       nlmax           maximum number of layers allowed
+!       nchanges        number of gui interactions allowed
 !       npmax           maximum number of  allowded
 !       npamax          maximum number of  allowded
 !       ns              number of samples per trace
@@ -195,6 +203,10 @@
 !       ntrmax          maximum number of traces allowed
 !       nsmax           maximum number of samples allowed
 !       par_file        contains no. traces, no. samples, SI (usec)
+!       start_change    time at which GUI induces a change
+!       last_change     array of times at which GUI is clicked
+!       change_step     array of time delays between GUI clicks
+
 !       Amp_min            minimum amplitude
 !       Amp_max            maximum amplitude
 !       multin
@@ -377,12 +389,13 @@
 ! Read digitized X-T pairs, 0- No',idrxy
       if(idrxy.eq.1) then
          finxy = '???'
-         call read_datxy(xdig,tdig,ndxy,finxy,21,1)
+         call read_dataxy(xdig,tdig,ndxy,finxy,21,1)
       endif
 
 ! READ BINARY SU FILES STRIPPED of ALL HEADERS
       if(idrdtr.eq.1) then
 !         print*, 'immodpg.for,reading data_traces=',idrdtr
+
 ! datadt is returned
 ! Read data parameters
 ! retufns ntr, ns and idtusec
@@ -395,8 +408,14 @@
 !        write(*,*) 'immodpg.for,inbound_par:idtusec',idtusec     
        datadt = float(idtusec) * 1e-6
 !      write(*,*) 'immodpg.for,inbound_par:datadt',datadt
-	call rdata(Amp,ntrmax,nsmax,ntr,ns,Amp_min,Amp_max)
-       print*,'immodpg.for,rdata:ns,ntr',ns,'--',ntr
+
+!      error checking
+!       if (ntr.GT.ntrmax) print*,'error:traces>20000'
+!       if (ns.GT.nsmax) print*,'error: samples>= 65536'
+
+       call rdata(Amp,ntrmax,nsmax,ntr,ns,Amp_min,Amp_max)
+             
+!       print*,'immodpg.for,rdata:ns,ntr',ns,'--',ntr
        
 ! Clips for gray scale (pggray)
          current_clip   = Amp_max/100
@@ -530,12 +549,13 @@
 !
 !      plot seismic image in a window
        if(idrdtr.eq.1) then
-!        print *, 'L435, clip_max=',clip_max
-!        print *, 'L436, clip_min=',clip_min
+!        print *, 'L539, clip_min,clip_max=',clip_min,clip_max
+!        print *, 'L540, ns,ntr=',ns,ntr
+!        print *, 'L541, ntrmax,nsmax=',ntrmax,nsmax  
 !        clip_min = -1.00000
 !        clip_max = 1.00000
-	  call pggray(Amp,ntrmax,nsmax,1,ntr,1,ns,clip_max,clip_min,tr)
-!	  print *, 'plot seismic image in window'
+	 call pggray(Amp,ntrmax,nsmax,1,ntr,1,ns,clip_max,clip_min,tr)
+!         print *, 'L543, plot seismic image in window' 
 
        endif
 !
@@ -699,14 +719,26 @@
 !        print '("Time = ",f6.3," seconds.")',cpu_duration
 
            icount=icount+1
-!           print *, 'L 551 do loop: immodpg,icount=',icount
+!          print *, 'L 722 do loop: immodpg,icount=',icount
 !          Detect for change:  "yes"
 !          print*, '2. immodpg.for,inbound_change:',inbound_change,'--'
 
            call read_yes_no_file(is_change,inbound_change)
-!          print*, '659.immodpg.for,is_change:',is_change,'--'
+ !         print*, '659.immodpg.for,is_change:',is_change,'--'
 
            if (is_change ) then
+!	      keep track of change frequency
+              i_past_change   = i_change
+              
+              i_change        = i_change+1
+              call cpu_time(start_change)
+              print '("Time = ",f6.3," seconds.")',start_change             
+              change_step(i_change) = start_change
+     +             - last_change(i_past_change)
+              last_change(i_change) = start_change
+              print*,'change step=',change_step(i_change)
+
+              
 !             Restore change to "no"
               call write_yes_no_file(no,inbound_change)
 !             read option number
@@ -873,7 +905,7 @@
              endif
 
 !
-! *** Options that require recompute
+! *** Options that require
 !     recomputation and replot of  X-T curves
 
              if(option.eq.changeVbot_upper_layer_opt) then
@@ -1176,131 +1208,3 @@
 504     format(' 9-  Clip for data,            10- DP = ',f9.6,
      +' (s/km)')
         end
-
-! ****************************************************
-!
-	SUBROUTINE rdata(Amp, ntrmax, nsmax, ntr, ns,
-     + Amp_min, Amp_max)
-	INTEGER*4 ntrmax,n,ntr,ns
-	REAL*4 Amp(ntrmax,nsmax), Amp_min, Amp_max
-       character*300 inbound_bin
-       character*300 inbound_config
-       character*40 base_file
-       character*40 config_file
-       character*255 set_DIR,get_DIR
-       real*4        result(30)
-
-      config_file  = "immodpg.config"
-      config_file  = trim(config_file)
-
-! define the different needed directories
-      set_DIR = "IMMODPG"
-      call Project_config(set_DIR,get_DIR)
-!      print*,'immodpg.for,rdata,get_DIR:',get_DIR
-      
-!  define needed files
-      inbound_config = trim(get_DIR)//"/"//config_file 
-! config_file
-!      print*,'immodpg.for,rdata,inbound_config:',inbound_config
-!   read all the configuration parameters for immodpg
-      call read_immodpg_config(base_file,result,inbound_config)
-
-!      print*,'immodpg.for,rdata,base_file:',trim(base_file)
-      
-! define the different, needed directories
-      set_DIR        = "DATA_SEISMIC_BIN"
-      call Project_config(set_DIR,get_DIR)
-      inbound_bin = trim(get_DIR)//"/"//trim(base_file)//'.bin'
-!      print*,'1179immodpg.for,rdata,base_file:',inbound_bin
-!      print*,'next line'
-      print*,'1218-immodpg.for,rdata,inbound_bin:',trim(inbound_bin)
-
-! Read data File
-      call read_bin_data (inbound_bin,ntrmax,nsmax,ntr,ns,Amp)
-
-      Amp_min = 1e30
-      Amp_max = -1e30
-      do 20 i=1,ntr
-      
-         do 11 j=1,ns
-            Amp_min = min(Amp(i,j),Amp_min)
-            Amp_max = max(Amp(i,j),Amp_max)
- 11      continue
-
- 20   continue
-	write(*,*) 'immodpg.for,rdata, Data min,max=',Amp_min,Amp_max
-	write(*,*)
-	print*, 'immodpg.for, L 1197, rdata, finished reading data'
-
-      END ! of subroutine
-!
-! ************************************************
-!
-	subroutine read_datxy(x,y,n,fin,iin,iwrit)
-!
-! Reads file containing (x,y) pairs and an arbitrary number of
-! comment lines
-! before these pairs. The (x,y) pairs are returned in arrays x and y.
-! The
-! comment lines are written on the terminal.
-!
-! n     = number of (x,y) pairs in the file (output).
-!
-! fin   = Default input file name (input)
-! iin   = reading input unit (input).
-! iwrit = if iwrit.eq.1, (x,y) pairs are written on screen (input).
-!
-	dimension x(*),y(*)
-	character*40 fin
-	character*40 comment
-	LOGICAL EX
-!
-!  ********* read input file *********
-!
-! Check for default file "fin".  If file does not exist, then
-! ask for a file name
-!
-!       write(*,*) fin
-	go to 117
-115     write(*,*) 'Input File Name ?? '
-	READ(*,'(A)') fin
-117	INQUIRE(FILE=fin,EXIST=EX)
-	IF(.NOT.EX) THEN
-	write(*,*) 'There is no trace defined'
-	GO TO 115
-	ENDIF
-	OPEN(UNIT=iin,FILE=fin,STATUS='OLD')
-!
-	n = 1
-	write(*,*)
-120	continue
-	READ(iin,'(a)',end=170,err = 150) comment
-	read(comment,*,err = 150) xa,ya
-	x(n) = xa
-	y(n) = ya
-	n = n + 1
-	go to 120
-150	continue
-!       write(*,'(a)') comment
-	go to 120
-170	continue
-	close(iin)
-	n = n - 1
-! ************************************************************
-	if(n.ge.1) then
-	   if(iwrit.eq.1) then
-		write(*,*) '** Digitized traveltime data ** '
-		write(*,*) ' '
-		write(*,*) '            X(km)          T(sec)'
-		write(*,*) ' '
-		do i = 1,n
-		  write(*,300) i,x(i),y(i)
-		end do
-		write(*,*) ' '
-	   endif
-	else
-	write(*,*) '** There is no line containing data in this file **'
-	endif
-300	format(i5,2f15.6)
-	return
-	end

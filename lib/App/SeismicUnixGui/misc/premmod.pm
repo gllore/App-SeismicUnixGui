@@ -125,10 +125,6 @@ if ( length $base_file_name ) {
 
 	};
 
-	# print("premmod,  hash, _inbound_su is $premmod->{_inbound_su} \n");
-	# print("premmod,  hash, _outbound_bin is $premmod->{_outbound_bin} \n");
-	# print("premmod,  hash, _outbound_par is $premmod->{_outbound_par} \n");
-
 }
 else {
 	print("premmod, missing base file name\n");
@@ -156,16 +152,10 @@ sub out_header_values {
 
 	my ($self) = @_;
 
-#	print("1 premmod,out_header_values\n\n");
-#	print("1 premmod,out_header_values inbound_su=$premmod->{_inbound_su}\n\n");
-#	print("1 premmod,out_header_values outbound_par=$premmod->{_outbound_par}\n\n");
-
 	if (   $premmod->{_inbound_su} ne $empty_string
 		&& $premmod->{_outbound_par} ne $empty_string )
 	{
 
-# print("2 premmod,out_header_values inbound_su=$premmod->{_inbound_su}\n\n");
-# print("2 premmod,out_header_values outbound_par=$premmod->{_outbound_par}\n\n");
 
 		my $size = qx(wc -c   $premmod->{_inbound_su} | awk '{print \$1}');
 		my $ns =
@@ -197,12 +187,11 @@ sub set_binary_strip {
 
 	my ($self) = @_;
 
-   # print("1. premmod,set_binary_strip _inbound_su=$premmod->{_inbound_su}\n");
+     # print("1. premmod,set_binary_strip _inbound_su=$premmod->{_inbound_su}\n");
 	if ( defined( $premmod->{_inbound_su} )
 		&& $premmod->{_inbound_su} ne $empty_string )
 	{
 
-	 #		print("premmod,set_binary_strip _inbound_su=$premmod->{_inbound_su}\n");
 
 =head2 Set up
 sustrip parameter values
@@ -239,21 +228,23 @@ and release lock file after writing
 		my $test            = $no;
 
 		for ( my $i = 0 ; $test eq $no ; $i++ ) {
-
+	        
 			if ( not( $files->does_file_exist( \$outbound_locked ) ) ) {
-
+				
+#				print("premmod,$premmod->{_base_file_name}$suffix_bin is unlocked\n");
+				
 				my $format = $var_immodpg->{_format_string};
 				$X[0] = $empty_string;
 				$files->write_1col_aref( \@X, \$outbound_locked, \$format );
-
 				$run->flow( \$flow[1] );
 
 =head2 LOG FLOW(s)
 to screen and FILE
 
 =cut
-
-				print $flow[1] . "\n";
+				my $time = localtime;
+#				print $flow[1] . "\n";
+				$log->file($time);
 				$log->file( $flow[1] );
 
 				unlink($outbound_locked);
@@ -261,14 +252,14 @@ to screen and FILE
 
 			}
 			else {
-				print("premmod,file is locked\n");
-				print("premmod,try again\n");
+				print("premmod,$premmod->{_base_file_name}$suffix_bin is locked\n");
+				print("premmod,trying again\n");
 				print("\(remove: $outbound_locked\)\n");
 				$test = $yes;    # to get out
 			}    # if
 
-			#            print("premmod,stuck in for loop\n");
-		}    # for
+			# print("premmod,stuck in for loop\n");
+		}  # for
 
 	}
 	else {

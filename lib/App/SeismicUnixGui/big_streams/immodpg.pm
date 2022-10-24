@@ -1463,7 +1463,7 @@ sub _get_initial_model {
 		# print("$model_pdl\n");
 		my $nelem = nelem($model_pdl);
 
-		print("immodpg,_get_initial_model,nelem=$nelem,#cols=$cols,#layers=$number_of_layers\n");
+		# print("immodpg,_get_initial_model,nelem=$nelem,#cols=$cols,#layers=$number_of_layers\n");
 
 		for ( my $layer_index = 0; $layer_index < $number_of_layers; $layer_index++ ) {
 

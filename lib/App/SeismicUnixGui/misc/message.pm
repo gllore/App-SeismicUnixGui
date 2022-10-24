@@ -52,6 +52,7 @@ local variables
 my $var                 = $get->var();
 my $log_file_txt        = $var->{_log_file_txt};
 my $test_dir_name 		= $var->{_test_dir_name};
+my $PL_SEISMIC          = $Project->PL_SEISMIC();
 
 my $L_SU = $ENV{'SeismicUnixGui'};
 
@@ -70,7 +71,7 @@ if ( not length($L_SU) ) {
 
 =cut
 
-my $PATH_start               = 	'./';
+my $PATH_start               = 	$PL_SEISMIC;
 my $file_name_start          = $log_file_txt;
 my $number_of_messages_start = 2;
 my $message_start            = 'hi';

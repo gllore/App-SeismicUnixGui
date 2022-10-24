@@ -137,7 +137,8 @@ write_yes_no_file.o: $(SeismicUnixGui_FORTRAN_SRC)/write_yes_no_file.f
 messa.o:$(SeismicUnixGui_FORTRAN_SRC)/messa.for
 	$(FORTRAN_COMPILER) $(FORTRAN77_FLAGS) \
 	-c $(SeismicUnixGui_FORTRAN_SRC)/messa.for \
-	-o $(SeismicUnixGui_FORTRAN_OBJ)/messa.o	
+	-o $(SeismicUnixGui_FORTRAN_OBJ)/messa.o
+		
 immodpg.o:$(SeismicUnixGui_FORTRAN_SRC)/immodpg.for
 	$(FORTRAN_COMPILER) $(FORTRAN77_FLAGS) \
 	-c $(SeismicUnixGui_FORTRAN_SRC)/immodpg.for \
@@ -147,6 +148,17 @@ readpar.o: $(SeismicUnixGui_FORTRAN_SRC)/readpar.for
 	$(FORTRAN_COMPILER) $(FORTRAN77_FLAGS) \
 	-c $(SeismicUnixGui_FORTRAN_SRC)/readpar.for \
 	-o $(SeismicUnixGui_FORTRAN_OBJ)/readpar.o
+	
+rdata.o: $(SeismicUnixGui_FORTRAN_SRC)/rdata.for
+	$(FORTRAN_COMPILER) $(FORTRAN77_FLAGS) \
+	-c $(SeismicUnixGui_FORTRAN_SRC)/rdata.for \
+	-o $(SeismicUnixGui_FORTRAN_OBJ)/rdata.o
+
+read_dataxy.o: $(SeismicUnixGui_FORTRAN_SRC)/read_dataxy.for
+	$(FORTRAN_COMPILER) $(FORTRAN77_FLAGS) \
+	-c $(SeismicUnixGui_FORTRAN_SRC)/read_dataxy.for \
+	-o $(SeismicUnixGui_FORTRAN_OBJ)/read_dataxy.o
+	
 readmmod.o: $(SeismicUnixGui_FORTRAN_SRC)/readmmod.for
 	$(FORTRAN_COMPILER) $(FORTRAN77_FLAGS) \
 	-c $(SeismicUnixGui_FORTRAN_SRC)/readmmod.for \
@@ -160,10 +172,12 @@ thi.o: $(SeismicUnixGui_FORTRAN_SRC)/thi.for
 	$(FORTRAN_COMPILER) $(FORTRAN77_FLAGS) \
 	-c $(SeismicUnixGui_FORTRAN_SRC)/thi.for \
 	-o $(SeismicUnixGui_FORTRAN_OBJ)/thi.o
+	
 wrimod2.o: $(SeismicUnixGui_FORTRAN_SRC)/wrimod2.for
 	$(FORTRAN_COMPILER) $(FORTRAN77_FLAGS) \
 	-c $(SeismicUnixGui_FORTRAN_SRC)/wrimod2.for \
 	-o $(SeismicUnixGui_FORTRAN_OBJ)/wrimod2.o
+	
 txpr.o: $(SeismicUnixGui_FORTRAN_SRC)/txpr.for
 	$(FORTRAN_COMPILER) $(FORTRAN77_FLAGS) \
 	-c $(SeismicUnixGui_FORTRAN_SRC)/txpr.for \
@@ -178,7 +192,7 @@ moveNzoom.o: $(SeismicUnixGui_FORTRAN_SRC)/moveNzoom.for
 	-o $(SeismicUnixGui_FORTRAN_OBJ)/moveNzoom.o
 
 # link and build executable with both F77 and F98 files
-immodpg1.1: immodpg.o readpar.o readmmod.o \
+immodpg1.1: immodpg.o readpar.o rdata.o read_dataxy.o readmmod.o \
 denfvp.o thi.o wrimod2.o txpr.o txgrd.o moveNzoom.o \
 readVbot_file.o readVtop_lower_file.o readVbot_upper_file.o  readVtop_file.o  \
 readVincrement_file.o readVbotNtop_factor_file.o read_bin_data.o \
@@ -198,6 +212,8 @@ messa.o Project_config.o
 	$(SeismicUnixGui_FORTRAN_OBJ)/immodpg.o \
 	$(SeismicUnixGui_FORTRAN_OBJ)/messa.o \
 	$(SeismicUnixGui_FORTRAN_OBJ)/readpar.o \
+	$(SeismicUnixGui_FORTRAN_OBJ)/rdata.o \
+	$(SeismicUnixGui_FORTRAN_OBJ)/read_dataxy.o \
 	$(SeismicUnixGui_FORTRAN_OBJ)/readmmod.o \
 	$(SeismicUnixGui_FORTRAN_OBJ)/readVbot_file.o \
 	$(SeismicUnixGui_FORTRAN_OBJ)/readVbot_upper_file.o \
@@ -232,6 +248,8 @@ clean:
 	rm -f $(SeismicUnixGui_FORTRAN_OBJ)/immodpg.o
 	rm -f $(SeismicUnixGui_FORTRAN_OBJ)/messa.o
 	rm -f $(SeismicUnixGui_FORTRAN_OBJ)/readpar.o
+	rm -f $(SeismicUnixGui_FORTRAN_OBJ)/rdata.o
+	rm -f $(SeismicUnixGui_FORTRAN_OBJ)/read_dataxy.o	
 	rm -f $(SeismicUnixGui_FORTRAN_OBJ)/readmmod.o
 	rm -f $(SeismicUnixGui_FORTRAN_OBJ)/readVbot_file.o
 	rm -f $(SeismicUnixGui_FORTRAN_OBJ)/readVbot_upper_file.o
