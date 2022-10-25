@@ -1,4 +1,4 @@
- package xpicker;
+ package App::SeismicUnixGui::specs::plot::xpicker;
 
 
 =head1 DOCUMENTATION

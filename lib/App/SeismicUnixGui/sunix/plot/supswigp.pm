@@ -1,4 +1,4 @@
- package supswigp;
+ package App::SeismicUnixGui::sunix::plot::supswigp;
 
 
 =head1 DOCUMENTATION

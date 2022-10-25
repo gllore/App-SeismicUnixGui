@@ -34,22 +34,39 @@
 
 use Moose;
 use Cwd;
+use Env;
 use Shell qw(echo);
 
 my $C_PATH;
 my $SeismicUnixGui;
-my $ans 	= 'n';
+my $ans = 'n';
 my $path;
 
 # important variables defined
-my $local_dir = getcwd;
+# from perspective of App-SeismicUnixGui
+my $local_dir    = getcwd;
+my $FORTRAN_PATH = $local_dir.'/blib/lib/App/SeismicUnixGui'.'/'.'fortran';
+my $PGPLOT_DIR  = $ENV->{'PGPLOT_DIR'};
 
-my $FORTRAN_PATH 	= $local_dir.'/blib/lib/App/SeismicUnixGui'.'/'.'fortran';
+
 print("\n\tINSTALLATION OF FORTRAN PROGRAMS\n");
-print("\nFortran path=$FORTRAN_PATH\n");
-print("Do you want to compile FORTRAN programs? \n");
-print("Then, you must have the \"pgplot\" libraries compiled and installed. \n");
-print("If the \"PGPLOT_DIR\" environment variable does not exist,\n");
+
+if (!defined($PGPLOT_DIR) or $PGPLOT_DIR eq '' ) {
+
+	print("Warning: PGPLOT_DIR variable is not found\n");
+
+} elsif ( defined($PGPLOT_DIR) ) {
+
+	print("PGPLOT_DIR variable is defined\n");
+	print("PGPLOT_DIR = $PGPLOT_DIR\n");
+
+} else {
+	print ("Unexpected result from fortran installation script\n");
+}
+print("Fortran path=$FORTRAN_PATH\n");
+print("If you want to compile FORTRAN programs, \n");
+print("you must have the \"pgplot\" libraries compiled and installed. \n");
+print("If the \"PGPLOT_DIR\" environment variable does not exist,for sudo\n");
 print("then respond NO to the following question. \n\n");
 print("Do you want to compile FORTRAN program? (y/n) \n");
 $ans = <STDIN>;
@@ -58,11 +75,10 @@ chomp $ans;
 if ( ( $ans eq 'N' ) or ( $ans eq 'n' ) ) {
 		#
 	print("\nOK, your answer is no.\n");
-	print("Come back again but first \n");
+	print("Please come back when you are ready, but first \n");
 	print ("Install pgplot and put the following line \n");
 	print ("in your \".bashrc\" file:\n");
-	print("      export PGPLOT=/usr/local/pgplot \n");
-	print("Please come back when you are ready\n\n");
+	print("      export PGPLOT=/usr/local/pgplot \n\n");
 	exit;
 
 }

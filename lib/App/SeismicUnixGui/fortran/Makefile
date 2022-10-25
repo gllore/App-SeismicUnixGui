@@ -27,9 +27,16 @@ SeismicUnixGui_FORTRAN_SRC = $(SeismicUnixGui_FORTRAN)/src
 SeismicUnixGui_FORTRAN_BIN = $(SeismicUnixGui_FORTRAN)/bin
 
 BIN_OUT          = $(SeismicUnixGui_FORTRAN_BIN)
-# BIN_OUT          = ''
+
 # folder for object files
 SeismicUnixGui_FORTRAN_OBJ = $(SeismicUnixGui_FORTRAN)/obj
+
+# Rules
+
+# objects = Project_config
+# all: $(objects)
+# $(objects): %: %.f
+
 
 # compile F98 source code
 Project_config.o:	$(SeismicUnixGui_FORTRAN_SRC)/Project_config.f

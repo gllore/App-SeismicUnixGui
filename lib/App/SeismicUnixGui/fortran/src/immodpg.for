@@ -95,6 +95,7 @@
        real      priorVbot_upper, currentVbot_upper, newVbot_upper
        real      start, finish, cpu_duration, start_change
        real,dimension(nchanges)::last_change,change_step
+       real      governor
        
        
 !       Modified: Juan Lorenzo LSU
@@ -137,6 +138,7 @@
         get_DIR             = ''
         set_DIR             = ''
         inbound_config      = ''
+        governor            = 0.1
         ichange             = 1
         is_change           = .FALSE.
         last_change(1)      = 0
@@ -190,6 +192,8 @@
 !       datadx          trace offset increment (km)
 !       datadt          sample interval (s)
 !       datat1          time value of first sample (s)
+!       governor        multiplicative value to slow down
+!                       GUI looping
 !       inbound_bin    full path to stripped su file
 !       inbound_par     path to the parameter file
 !       dp              increment of p for each ray
@@ -474,8 +478,8 @@
 
 	call pgbegin(0,' ',1,1)  ! use default device
 
-!      width_in,aspect
-	call pgpaper(10.0,0.45)
+!      width_in,aspect 11 " wide and 8/11 high
+	call pgpaper(11.0,0.75)
 ! (XLEFT, XRIGHT, YBOT, YTOP)
 !	call pgvport(-5.,1.,0.,1.)
 !       call pgsvp(0.0,0.5,0.5,1.0)
@@ -541,7 +545,9 @@
 !      PLOTTING and REPLOTTING when correct option turns
        call pgpage ! clear screen
 !       left_bottom_X, right_top_X,left_bottom_Y,right_top_Y
-       call pgvport(0.075,1.0,0.08,0.925)
+       call pgvport(0.15,0.9,0.15,0.9)
+!      real character size in proiportion to 1
+       call pgsch(1.5)
 	call pgwindow(xmin,xmax,tmax,tmin)
 	call pgbox('BCTN',0.0,0,'BCTN',0.0,0)
 	call pglabel('X(km)','Tred (sec)',
@@ -724,19 +730,20 @@
 !          print*, '2. immodpg.for,inbound_change:',inbound_change,'--'
 
            call read_yes_no_file(is_change,inbound_change)
+           
  !         print*, '659.immodpg.for,is_change:',is_change,'--'
-
            if (is_change ) then
 !	      keep track of change frequency
-              i_past_change   = i_change
-              
+              i_past_change   = i_change    
               i_change        = i_change+1
+              
               call cpu_time(start_change)
-              print '("Time = ",f6.3," seconds.")',start_change             
+!              print '("Time = ",f6.3," seconds.")',start_change             
               change_step(i_change) = start_change
      +             - last_change(i_past_change)
               last_change(i_change) = start_change
               print*,'change step=',change_step(i_change)
+              time_delay = change_step(i_change) * governor
 
               
 !             Restore change to "no"
