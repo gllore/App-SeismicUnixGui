@@ -137,11 +137,11 @@ sub get_values {
     my $last_file_number_in  = @{ $Sucat_config->{_values_aref} }[1];
     my $number_of_files_in   = @{ $Sucat_config->{_values_aref} }[2];
 
-    my $input_suffix      = @{ $Sucat_config->{_values_aref} }[3];
-    my $input_name_prefix       = @{ $Sucat_config->{_values_aref} }[4];
-    my $input_name_extension    = @{ $Sucat_config->{_values_aref} }[5];
-    my $list              = @{ $Sucat_config->{_values_aref} }[6];    
-    my $output_file_name  = @{ $Sucat_config->{_values_aref} }[7];
+    my $input_suffix         = @{ $Sucat_config->{_values_aref} }[3];
+    my $input_name_prefix    = @{ $Sucat_config->{_values_aref} }[4];
+    my $input_name_extension = @{ $Sucat_config->{_values_aref} }[5];
+    my $list                 = @{ $Sucat_config->{_values_aref} }[6];    
+    my $output_file_name     = @{ $Sucat_config->{_values_aref} }[7];
     my $alternative_inbound_directory  = @{ $Sucat_config->{_values_aref} }[8];
     my $alternative_outbound_directory  = @{ $Sucat_config->{_values_aref} }[9];
 

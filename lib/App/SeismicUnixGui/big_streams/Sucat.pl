@@ -29,11 +29,14 @@
 =head2 Example Cases
 
 CASE 1
-Use a list, for concatenating iVelan pick files ( Vrms,time pairs)
-into the correct format
 
-Use a list (file name) WITHOUT values for first 7 parameters (GUI). 
-Only include the output name. The alternative directories are optional.
+Use a list (file name) for concatenating iVelan "pick files" (Vrms,time pairs)
+into the correct format.
+
+An output name is required.
+--Exclude values for first 7 parameters in GUI. 
+--alternative directories are optional.
+
 That is, a list can only be used when the values of the prior
 7 parameters are blank
 
@@ -46,14 +49,14 @@ Example:
     input_suffix                       =               
     input_name_prefix                  =                  
     input_name_extension               =              
-    list                               =  a file name [found in $PL_SEISMIC]
+    list                               =  file name [$PL_SEISMIC]
     output_file_name				   =    
     alternative_inbound_directory      =  [$PL_SEISMIC]             
     alternative_outbound_directory     =  [$PL_SEISMIC]  
     
-    The list is expected to be found in $PL_SEISMIC
+    (The list is expected to be found in $PL_SEISMIC)
     
-    Internally, the data_type will be determined from the file names in the list
+    Data_type is determined from the file names in the list
     that will contain "velan" etc." 
     If data_type = velan then the concatenated output file
     will automatically be reformatted for input into
@@ -64,16 +67,20 @@ Example:
 CASE 2
 General concatenation of files with patterns in their names
 
-DO NOT use a list. Instead, include values for at least the first 3 
-parameters and up to and including values for all the remaining parameters,
-except the list. An output name is possible but not required.
+DO NOT use a list. 
+Instead, include values for at least the first 3 
+parameters in the GUI, 
+and up to and including values for all the remaining parameters,
+except the list name. A
+
+An output name is possible but not required.
  
 Example:
   
-    first_file_number_in               = 1000                
-    last_file_number_in                = 1001                
-    number_of_files_in                 = 2                           
-    input_suffix                       = su                  
+    first_file_number_in                = 1000                
+    last_file_number_in                 = 1001                
+    number_of_files_in                  = 2                           
+    input_suffix                        = su                  
     input_name_prefix                   = cdp                 
     input_name_extension                = _clean              
     list                               	=                
@@ -81,13 +88,13 @@ Example:
     alternative_inbound_directory       =                   
     alternative_outbound_directory      =  
     
-    The above case will produce
+    The above case will produce carries out the following isntruction
     
-    cat DIR1/cdp1000_clean.su DIR1/cdp1001_clean.su > DIR2/1000_01.su
+    cat DIR1/cdp1000_clean.su DIR1/cdp1001_clean.su > DIR2/1000_01.su 
    
     
     A list CAN NOT be in use when 
-    any value exists for any of the following:
+    values exist for any of the following parameters:
     
     first_file_number_in                  = 1000                
     last_file_number_in                   = 1010                
@@ -96,40 +103,42 @@ Example:
     input_name_prefix                     = cdp                 
     input_name_extension                  = _clean
     
+    
 CASE 3
   
-	A. If you want to use a list, the list
-	is a file that contains one-
-	or multiple nemes of files without an ex
+	If you want to use a list, the list
+	is a file that contains one
+	or more file names
 
 
-	first_file_number_in  	= 
-	last_file_number_in  		= 
-	number_of_files_in		= 
-	input_suffix  					= 
-	input_name_prefix     	= 
-	input_name_extension       = 
-	list                 					= cat_list_good_sp;
-	output_file_name     					= 'All_good_sp';
-	alternative_inbound_directory   = 
-	alternative_outbound_directory =
+	first_file_number_in  	              = 
+	last_file_number_in  		          = 
+	number_of_files_in		              = 
+	input_suffix  					      = 
+	input_name_prefix     	              = 
+	input_name_extension                  = 
+	list                 				  = cat_list_good_sp;
+	output_file_name     			      = 'All_good_sp';
+	alternative_inbound_directory         = 
+	alternative_outbound_directory        =
 
  CASE 4:
  
-  first_file_number_in         = 1000
-  last_file_number_in           = 1010
-  number_of_files_in            = 11
-   input_suffix  				=  _clean.su
-  input_name_prefix     = 
-  input_name_extension       = 
-  output_file_name    = 1000_10 
- alternative_inbound_directory   = 
- alternative_outbound_directory =
+  first_file_number_in            = 1000
+  last_file_number_in             = 1010
+  number_of_files_in              = 11
+  input_suffix  				  = _clean.su
+  input_name_prefix               = 
+  input_name_extension            = 
+  output_file_name                = 1000_10 
+  alternative_inbound_directory   = 
+  alternative_outbound_directory  =
 
 =head2 NOTES 
 
    The input and output default directories is $PL_SEISMIC
-    but these can be overridden by the alternatives
+   but these can be overridden by the values of the 
+   alternative directories
     
  
  =head2 CHANGES
@@ -138,11 +147,12 @@ CASE 3
   V 0.1.3 includes additional concatenation for:
   (1) sorted ivpicks
   V 0.1.4 update NOTES 9.9.21
+  V 0.1.5 improved USAGE 11.8.22
 
 =cut
 
 use Moose;
-our $VERSION = '0.1.4';
+our $VERSION = '0.1.5';
 use App::SeismicUnixGui::misc::control '0.0.3';
 use aliased 'App::SeismicUnixGui::misc::control';
 use aliased 'App::SeismicUnixGui::configs::big_streams::Project_config';
@@ -237,6 +247,9 @@ my $list                 = $CFG_h->{sucat}{1}{list};
 $alternative_inbound_directory  = $CFG_h->{sucat}{1}{alternative_inbound_directory};
 $alternative_outbound_directory = $CFG_h->{sucat}{1}{alternative_outbound_directory};
 
+
+print("0. Sucat.pl, selected inbound_directory=$inbound_directory  \n");
+	
 =head2 correct input format values
 
 =cut
@@ -255,32 +268,36 @@ parameter inputs
 if ( $alternative_outbound_directory ne $empty_string ) {
 	$outbound_directory = $alternative_outbound_directory;
 
-	# print("1. Sucat.pl, selected alternative_outbound_directory  $outbound_directory\n");
+	print("1. Sucat.pl, selected alternative_outbound_directory  $outbound_directory\n");
 
 } elsif ( $alternative_outbound_directory eq $empty_string ) {
 	$outbound_directory = $DATA_DIR_OUT;
 
-	# print("2. Sucat.pl, selected outbound_directory $outbound_directory  \n");
+	print("2. Sucat.pl, selected outbound_directory $outbound_directory  \n");
 } else {
 	print("Sucat.pl, unexpected alternative_outbound_directory  \n");
 }
 
 if ( $alternative_inbound_directory ne $empty_string ) {
+	
 	$inbound_directory = $alternative_inbound_directory;
 
-	# print("1. Sucat.pl, selected alternative inbound_directory=$inbound_directory  \n");
+	print("3A. Sucat.pl, selected inbound_directory=$inbound_directory  \n");
+	print("3B. Sucat.pl, selected alternative inbound_directory=$alternative_inbound_directory  \n");
+		
 } elsif ( $alternative_inbound_directory eq $empty_string ) {
+	
 	$inbound_directory = $DATA_DIR_IN;
 
-	# print("2. Sucat.pl, selected inbound_directory=$inbound_directory  \n");
+	print("4. Sucat.pl, selected inbound_directory=$inbound_directory  \n");
 } else {
 	print("Sucat.pl, unexpected alternative_inbound_directory  \n");
 }
 
-# print("Sucat.pl,inbound_directory:---$inbound_directory--\n");
-# print("Sucat.pl,outbound_directory:---$outbound_directory--\n");
+print("Sucat.pl,inbound_directory:---$inbound_directory--\n");
+#print("Sucat.pl,outbound_directory:---$outbound_directory--\n");
 
-=head2 3. Declare outout file names and their paths
+=head2 3. Declare outopt file names and their paths
 
   inbound and outbound directories
   are  defaulted but can be different

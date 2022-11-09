@@ -493,7 +493,7 @@ sub calcNdisplay {
 	  )
 	{
 
-		# print(" iSuvelan, calcNdisplay\n\n");
+		print(" iSuvelan, calcNdisplay\n\n");
 
 		my $header = header_values->new();
 		

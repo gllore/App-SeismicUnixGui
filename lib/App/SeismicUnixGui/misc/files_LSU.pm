@@ -1330,7 +1330,7 @@ sub _write {
 
 			$format[$i] = @{$config_file_format_aref}[0];
 
-			print("1. files_LSU,_write,$format[$i]\n");
+#			print("1. files_LSU,_write,$format[$i]\n");
 
 		}
 

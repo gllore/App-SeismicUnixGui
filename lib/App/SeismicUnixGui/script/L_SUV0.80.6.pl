@@ -619,7 +619,7 @@ print join("\n", $top_menu_bar->bind($class) ), "\n";
 =cut
 
 	$main_href->{_file_menubutton} = $side_menu_frame->Menubutton(
-		-text               => 'File',
+		-text               => 'Flow',
 		-font               => $arial_16,
 		-height             => $var->{_1_character},
 		-relief             => 'flat',
@@ -649,7 +649,7 @@ print join("\n", $top_menu_bar->bind($class) ), "\n";
 #	);
 
 	# Flow is the only button enabled from the start
-	# in order to open a user-built perl flow
+	# Its purpose is to open a user-built perl flow
 	( $main_href->{_file_menubutton} )->separator;
 	$main_href->{_Flow_menubutton} = ( $main_href->{_file_menubutton} )->command(
 		-label     => @$alias_FileDialog_button_label[0],
@@ -2306,6 +2306,7 @@ in L_SU
 	-run_button
 	-FileDialog_button with one of 2
 	possible values: 'Flow', 'SaveAs'
+	possible values: 'Open', 'SaveAs'	
 	
 	-help_menubutton with possible value:
 	

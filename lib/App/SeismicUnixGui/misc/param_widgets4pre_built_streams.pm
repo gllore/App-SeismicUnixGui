@@ -1008,6 +1008,7 @@ sub redisplay_labels {
 	# my $length 			= $param_widgets->{_length};
 
 	if ($labels_w_aref) {
+		
 		for ( $i = $first; $i < $length; $i++ ) {
 
 			# print("i:$i   param_widgets,redisplay_labels length:$length\n");

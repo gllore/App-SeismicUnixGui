@@ -545,12 +545,12 @@
 !      PLOTTING and REPLOTTING when correct option turns
        call pgpage ! clear screen
 !       left_bottom_X, right_top_X,left_bottom_Y,right_top_Y
-       call pgvport(0.15,0.9,0.15,0.9)
+       call pgvport(0.15,0.85,0.15,0.9)
 !      real character size in proiportion to 1
-       call pgsch(1.5)
-	call pgwindow(xmin,xmax,tmax,tmin)
-	call pgbox('BCTN',0.0,0,'BCTN',0.0,0)
-	call pglabel('X(km)','Tred (sec)',
+       call pgsch(1.25)
+       call pgwindow(xmin,xmax,tmax,tmin)
+       call pgbox('BCTN',0.0,0,'BCTN',0.0,0)
+       call pglabel('X(km)','Tred (sec)',
      + 'Primary P-wave T-X Curves, 1-D Model')
 !
 !      plot seismic image in a window

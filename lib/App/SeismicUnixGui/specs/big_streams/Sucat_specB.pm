@@ -19,7 +19,7 @@ my $flow_type        = $get->flow_type_href();
 my $true  = $var->{_true};
 my $false = $var->{_false};
 
-my $DATA_SEISMIC_SU = $Project->DATA_SEISMIC_SU();    # output data directory
+my $DATA_SEISMIC_SU  = $Project->DATA_SEISMIC_SU();    # output data directory
 my $PL_SEISMIC		 = $Project->PL_SEISMIC();
 
 my $max_index = 9;

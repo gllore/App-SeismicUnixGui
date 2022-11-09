@@ -20,9 +20,9 @@ BEGIN {
 		my $look  = `locate $pathNfile`;
 		my @field = split( $dir, $look );
 		$path4SeismicUnixGui = $field[0] . $dir;
-		print(
-"\nL22. Using default L_SU_global_constants, L_SU = $path4SeismicUnixGui\n"
-		);
+#		print(
+#"\nL22. Using default L_SU_global_constants, L_SU = $path4SeismicUnixGui\n"
+#		);
 	}
 }
 
@@ -289,7 +289,8 @@ $alias_superflow_config_names[13] = 'temp';                          # make last
 my @alias_FileDialog_button_label;
 
 #$alias_FileDialog_button_label[0] = 'Data';
-$alias_FileDialog_button_label[0] = 'Flow';
+#$alias_FileDialog_button_label[0] = 'Flow';
+$alias_FileDialog_button_label[0] = 'Open';
 $alias_FileDialog_button_label[1] = 'SaveAs';
 
 my @file_dialog_type;
@@ -300,11 +301,13 @@ $alias_help_menubutton_label[0] = 'Install',
 
   my $alias_help_menubutton_label_h = { _Install => 'Install', };
 
-# in spec files Data_PL_SEISMIC, is not necessarily informed by DATA_DIR_IN and DATA_DIR_OUT
+# in spec files for when Data_PL_SEISMIC, may
+# not necessarily informed by DATA_DIR_IN and DATA_DIR_OUT
 $file_dialog_type[0] = 'Data_PL_SEISMIC',
 
-  # in spec files, Data is informed by DATA_DIR_IN and DATA_DIR_OUT
-  $file_dialog_type[1] = 'Data';
+# in spec files, for when Data is informed 
+# by DATA_DIR_IN and DATA_DIR_OUT
+$file_dialog_type[1] = 'Data';
 $file_dialog_type[2] = 'Path';
 $file_dialog_type[3] = 'Flow';
 $file_dialog_type[4] = 'SaveAs';
@@ -316,6 +319,7 @@ my $file_dialog_type_h = {
 	_Path             => 'Path',
 	_last_dir_in_path => 'last_dir_in_path',
 	_Flow             => 'Flow',
+	_Open             => 'Open',
 	_SaveAs           => 'SaveAs',
 	_Save             => 'Save',
 };
@@ -603,6 +607,7 @@ sub get_developer_sunix_category_h {
 		_sufilter     => $developer_sunix_categories[3],
 		_sufrac       => $developer_sunix_categories[3],
 		_sufxdecon    => $developer_sunix_categories[3],
+		_sugroll      => $developer_sunix_categories[3],
 		_suk1k2filter => $developer_sunix_categories[3],
 		_sukfilter    => $developer_sunix_categories[3],
 		_sulfaf       => $developer_sunix_categories[3],
@@ -882,11 +887,12 @@ my @sunix_datum_programs =
   ( "sudatumk2dr", "sudatumk2ds", "sukdmdcr", "sukdmdcs", );
 
 my @sunix_filter_programs = (
-	"subfilt",      "succfilt",   "sucddecon",  "sudipfilt",
-	"sueipofi",     "sufilter",   "sufrac",     "sufxdecon",
-	"suk1k2filter", "sukfilter",  "sulfaf",     "sumedian",
-	"supef",        "suphase",    "suphidecon", "supofilt",
-	"supolar",      "susmgauss2", "sutvband",
+	"subfilt", "succfilt", "sucddecon", "sudipfilt",
+	"sueipofi", "sufilter", "sufrac", "sufxdecon",
+	"sugroll",
+	"suk1k2filter", "sukfilter", "sulfaf", "sumedian",
+	"supef", "suphase", "suphidecon", "supofilt",
+	"supolar", "susmgauss2", "sutvband",
 );
 
 my @sunix_header_programs = (
@@ -1035,10 +1041,10 @@ sub _get_global_libs {
 	else {
 		my $path4SeismicUnixGui = _default_path();
 
-		print("L1037, L_SU_global_constants, global_libs, L_SU was missing\n");
-		print(
-"\nL22. Using default L_SU_global_constants, L_SU = $path4SeismicUnixGui\n"
-		);
+#		print("L1042, L_SU_global_constants, global_libs, L_SU was missing\n");
+#		print(
+#"\nL1044. L_SU_global_constants, Using default  L_SU = $path4SeismicUnixGui\n"
+#		);
 
 		my $global_libs = {
 			_configs             => $path4SeismicUnixGui . '/configs',
@@ -2521,10 +2527,10 @@ sub global_libs {
 	}else {
 		my $path4SeismicUnixGui = _default_path();
 
-		print("L2526, L_SU_global_constants, global_libs, L_SU was missing\n");
-		print(
-"\nL22. Using default L_SU_global_constants, L_SU = $path4SeismicUnixGui\n"
-		);
+#		print("L2526, L_SU_global_constants, global_libs, L_SU was missing\n");
+#		print(
+#"\nL22. Using default L_SU_global_constants, L_SU = $path4SeismicUnixGui\n"
+#		);
 
 		my $global_libs = {
 			_configs             => $path4SeismicUnixGui . '/configs',

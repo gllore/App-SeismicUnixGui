@@ -54,7 +54,7 @@ BEGIN {
 	    my $look = `locate $pathNfile`;
 	    my @field= split($dir, $look);
 		$path4SeismicUnixGui_slash    = $field[0].$dir;
-		print("\nL_SU_path, Using default: path4SeismicUnixGui_slash = $path4SeismicUnixGui_slash\n");
+#		print("\nL_SU_path, Using default: path4SeismicUnixGui_slash = $path4SeismicUnixGui_slash\n");
 	}
 }
 
@@ -223,6 +223,8 @@ my $specifications_path_w_colon = {
 	  . $developer_sunix_categories[3],
 	_sufxdecon => $global_libs_w_colon->{_specs} . '::'
 	  . $developer_sunix_categories[3],
+	_sugroll => $global_libs_w_colon->{_specs} . '::'
+	  . $developer_sunix_categories[3],	  
 	_suk1k2filter => $global_libs_w_colon->{_specs} . '::'
 	  . $developer_sunix_categories[3],
 	_sukfilter => $global_libs_w_colon->{_specs} . '::'
@@ -836,6 +838,8 @@ my $specifications_path_w_slash = {
 	_sufrac => $global_libs_w_slash->{_specs} . '/'
 	  . $developer_sunix_categories[3],
 	_sufxdecon => $global_libs_w_slash->{_specs} . '/'
+	  . $developer_sunix_categories[3],
+	_sugroll => $global_libs_w_slash->{_specs} . '/'
 	  . $developer_sunix_categories[3],
 	_suk1k2filter => $global_libs_w_slash->{_specs} . '/'
 	  . $developer_sunix_categories[3],

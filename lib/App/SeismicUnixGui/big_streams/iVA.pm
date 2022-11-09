@@ -451,9 +451,6 @@ sub old_data {
 #				$message_w->delete( "1.0", 'end' );
 #				$message_w->insert( 'end', $message );
 
-
-
-
 				print("Old picks already exist.\n");
 				print("Delete \(\"rm -rf \*old\*\"\) or, \n");
 				print("Save old picks (in: $PL_SEISMIC), and then restart\n\n");
@@ -514,7 +511,7 @@ sub start {
 	cdp_num( $iVA->{_cdp_first} );
 	cdp_num_suffix( $iVA->{_cdp_first} );
 
-	print("cdp_num_suffix is $iVA->{_cdp_num_suffix}\n\n");
+	# print("cdp_num_suffix is $iVA->{_cdp_num_suffix}\n\n");
 	_message('first_velan');
 	$iVA->{_number_of_tries} = 0;
 	semblance();
@@ -527,16 +524,16 @@ sub start {
   send cdp number to subroutine 
   update cdp_num_suffix
   and update the Tvel_outbound.
-  #delete output of previous semblance
+  delete output of previous semblance
   
-
     -replot 1st semblance
     -PICK V-T pairs
-    -Increment number of tries to make
-       semblance display interacts
-       when number_of_tries >= 1)
-        also blocks flow so
-        place message before semblance
+    -Increment number of tries.
+     Semblance display becomes interactive
+     when number_of_tries >= 1
+     Because display blocks flow,
+     place message before semblance
+     
 =cut
 
 sub pick {

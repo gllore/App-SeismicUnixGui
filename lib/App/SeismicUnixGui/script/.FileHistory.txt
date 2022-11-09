@@ -1,1 +1,12 @@
-/home/gllore/Servilleta/seismics/data/loma_blanca//053018/H/1/su/gllore/60_clean.su
+/home/gllore/Servilleta/seismics/pl/loma_blanca//053018/H/1/gllore/5.view_cmp_hdr.pl
+/home/gllore/Servilleta/seismics/pl/loma_blanca//053018/H/1/gllore/5.make_cmp.pl
+/home/gllore/Servilleta/seismics/pl/loma_blanca//053018/H/1/gllore/4.geom3.pl
+/home/gllore/Servilleta/seismics/data/loma_blanca//053018/H/1/su/gllore/L28Hz_Ibeam_geom4.su
+/home/gllore/Servilleta/seismics/pl/loma_blanca//053018/H/1/gllore/4.surange.pl
+/home/gllore/Servilleta/seismics/pl/loma_blanca//053018/H/1/gllore/3.view_diff_data.pl
+/home/gllore/Servilleta/seismics/pl/loma_blanca//053018/H/1/gllore/3.suwindow_hit_fromNE.pl
+/home/gllore/Servilleta/seismics/pl/loma_blanca//053018/H/1/gllore/2A.view_muted_gather.pl
+/home/gllore/Servilleta/seismics/pl/loma_blanca//053018/H/1/gllore/4.view_header_geom.pl
+/home/gllore/Servilleta/seismics/data/loma_blanca//053018/H/1/su/gllore/L28Hz_Ibeam_geom3.su
+/home/gllore/Servilleta/seismics/pl/loma_blanca//053018/H/1/gllore/8.plot_header.pl
+/home/gllore/Servilleta/seismics/data/loma_blanca//053018/H/1/su/gllore/L28Hz_Ibeam_geom2.su
