@@ -32,7 +32,7 @@ use App::SeismicUnixGui::misc::control '0.0.3';
 use aliased 'App::SeismicUnixGui::misc::control';
 
 use aliased 'App::SeismicUnixGui::misc::message';
-use App::SeismicUnixGui::misc::manage_files_by;
+use aliased 'App::SeismicUnixGui::misc::manage_files_by';
 use aliased 'App::SeismicUnixGui::misc::flow';
 use aliased 'App::SeismicUnixGui::sunix::filter::sufilter';
 use aliased 'App::SeismicUnixGui::sunix::shapeNcut::sugain';
@@ -51,6 +51,7 @@ my $iPick_specC      = iPick_specC->new();
 
 my $get             = L_SU_global_constants->new();
 my $control         = control->new();
+my $manage_files_by = manage_files_by->new();
 my $variables       = $iPick_specC->variables();
 my $DATA_DIR_IN     = $variables->{_DATA_DIR_IN};
 my $DATA_DIR_OUT    = $variables->{_DATA_DIR_OUT};
@@ -342,7 +343,7 @@ sub calcNdisplay {
 	print("\t$iShowNselect_picks->{_inbound_curve_file}\n\n");
 
 	$suximage->curve( quotemeta( $iShowNselect_picks->{_inbound_curve_file} ) );
-	my ( $ref_T, $ref_X, $num_tx_pairs ) = manage_files_by::read_2cols(
+	my ( $ref_T, $ref_X, $num_tx_pairs ) = $manage_files_by->read_2cols(
 		\$iShowNselect_picks->{_inbound_curve_file} );
 	$suximage->npair( quotemeta($num_tx_pairs) );
 	$suximage->curvecolor( quotemeta(2) );
@@ -425,7 +426,7 @@ sub calcNdisplay {
 	# print("\t$iShowNselect_picks->{_inbound_curve_file}\n\n");
 
 	$suxwigb->curve( quotemeta( $iShowNselect_picks->{_inbound_curve_file} ) );
-	( $ref_T, $ref_X, $num_tx_pairs ) = manage_files_by::read_2cols(
+	( $ref_T, $ref_X, $num_tx_pairs ) = $manage_files_by->read_2cols(
 		\$iShowNselect_picks->{_inbound_curve_file} );
 	$suxwigb->npair( quotemeta($num_tx_pairs) );
 	$suxwigb->curvecolor( quotemeta(2) );

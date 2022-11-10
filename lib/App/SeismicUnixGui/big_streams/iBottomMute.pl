@@ -132,13 +132,6 @@ $iBM->set_message('iBottomMute');
 
 =cut
 
-#	if(($$old_data[1] eq $true) && $$old_data[2] eq $false) ) {
-#		print ("mute picks exist, but ... \n\n");
-#		print ("mute parameters should exist but can not be found\n\n");
-#		print ("resetting the existence file\n\n");
-#		manage_files_by::write_one(\$check_if_itop_mute_picks_exist);
-#
-
 $there_is_old_data = $iBM->type('BottomMute');
 
 if ($there_is_old_data) {

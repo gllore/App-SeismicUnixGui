@@ -121,19 +121,6 @@ $iTM->max_amplitude($max_amplitude);
 $iTM->gather_num($gather);
 $iTM->set_message('iTopMute');
 
-
-=head2
-
-  Check for old data
-  check to see if prior mute parameter files exist for this   project 
-	if(($$old_data[1] eq $true) && $$old_data[2] eq $false) ) {
-		print ("mute picks exist, but ... \n\n");
-		print ("mute parameters should exist but can not be found\n\n");
-		print ("resetting the existence file\n\n");
-		manage_files_by::write_one(\$check_if_itop_mute_picks_exist);
-
-=cut
-
 $there_is_old_data = $iTM->type('TopMute');
 
 if ($there_is_old_data) {

@@ -46,19 +46,19 @@ files
 use aliased 'App::SeismicUnixGui::misc::L_SU_global_constants';
 use aliased 'App::SeismicUnixGui::misc::readfiles';
 use aliased 'App::SeismicUnixGui::misc::manage_files_by';
-
 use App::SeismicUnixGui::misc::control '0.0.3';
 use aliased 'App::SeismicUnixGui::misc::control';
-
 use App::SeismicUnixGui::misc::SeismicUnix
 		  qw($itop_mute $ibot_mute $ivpicks_sorted_par_);
 
 
-=head2 instatntiate new variables
+=head2 instantiate new variables
 
 =cut
 
 my $get = L_SU_global_constants->new();
+my $manage_files_by = manage_files_by->new();
+
 
 =head2 declare local variables
 
@@ -342,7 +342,7 @@ sub data_type {
 
 				# read values for each gather, one at a time
 				( $values_aref, $ValuesPerRow_aref ) =
-				  manage_files_by::read_par( \$inbound );
+				  $manage_files_by->read_par( \$inbound );
 
 # print("sucat,data_type,reading gather_number: $gather_number[$file_number]\n");
 # print("sucat,data_type,ValuesPerRow : @$ValuesPerRow_aref\n");
@@ -390,18 +390,18 @@ sub data_type {
 
 			if ( $data_type eq 'velan' ) {
 
-				manage_files_by::write_cdp( \@sorted_gather_number, $DIR_OUT );
-				manage_files_by::write_tnmo_vnmo( \@sorted_gather_number,
+				$manage_files_by->write_cdp( \@sorted_gather_number, $DIR_OUT );
+				$manage_files_by->write_tnmo_vnmo( \@sorted_gather_number,
 					\@sorted_result_t, \@sorted_result_v, $DIR_OUT );
 
 			}
 			elsif ( $data_type eq 'mute' ) {
 
-				manage_files_by::write_gather( \@sorted_gather_number,
+				$manage_files_by->write_gather( \@sorted_gather_number,
 					$DIR_OUT );
 
 				# print("sucat,data_type. Data types are mute.\n\n");
-				manage_files_by::write_tmute_xmute( \@sorted_gather_number,
+				$manage_files_by->write_tmute_xmute( \@sorted_gather_number,
 					\@sorted_result_t, \@sorted_result_v, $DIR_OUT );
 
 			}

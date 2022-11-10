@@ -151,7 +151,6 @@ if ( !$old_data ) {
  delete output of previous semblance
  plus more callbacks following...
 
-
 =cut
 
 sub set_pick {

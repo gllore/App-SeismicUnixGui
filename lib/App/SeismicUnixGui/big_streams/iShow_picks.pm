@@ -30,6 +30,7 @@ my $VERSION = '0.0.1';
 use App::SeismicUnixGui::misc::control '0.0.3';
 use aliased 'App::SeismicUnixGui::misc::control';
 use aliased 'App::SeismicUnixGui::specs::big_streams::iPick_spec';
+use aliased 'App::SeismicUnixGui::misc::manage_files_by';
 use aliased 'App::SeismicUnixGui::misc::message';
 use aliased 'App::SeismicUnixGui::misc::flow';
 use aliased 'App::SeismicUnixGui::sunix::filter::sufilter';
@@ -49,6 +50,7 @@ my $iPick_spec = iPick_spec->new();
 
 my $get             = L_SU_global_constants->new();
 my $control         = control->new();
+my $manage_files_by = manage_files_by->new();
 my $variables       = $iPick_spec->variables();
 my $DATA_DIR_IN     = $variables->{_DATA_DIR_IN};
 my $DATA_DIR_OUT    = $variables->{_DATA_DIR_OUT};
@@ -205,8 +207,6 @@ sub gather_header {
 
 sub calcNdisplay {
 
-    use App::SeismicUnixGui::misc::manage_files_by;
-
 =head2
 
   Assume that the parameter file already exists
@@ -334,7 +334,7 @@ sub calcNdisplay {
 
     $suximage->curve( quotemeta( $iShow_picks->{_inbound_curve_file} ) );
     my ( $ref_T, $ref_X, $num_tx_pairs ) =
-      manage_files_by::read_2cols( \$iShow_picks->{_inbound_curve_file} );
+    $manage_files_by->read_2cols( \$iShow_picks->{_inbound_curve_file} );
     $suximage->npair( quotemeta($num_tx_pairs) );
     $suximage->curvecolor( quotemeta(2) );
 
@@ -413,7 +413,7 @@ sub calcNdisplay {
 
     $suxwigb->curve( quotemeta( $iShow_picks->{_inbound_curve_file} ) );
     ( $ref_T, $ref_X, $num_tx_pairs ) =
-      manage_files_by::read_2cols( \$iShow_picks->{_inbound_curve_file} );
+    $manage_files_by->read_2cols( \$iShow_picks->{_inbound_curve_file} );
     $suxwigb->npair( quotemeta($num_tx_pairs) );
     $suxwigb->curvecolor( quotemeta(2) );
 

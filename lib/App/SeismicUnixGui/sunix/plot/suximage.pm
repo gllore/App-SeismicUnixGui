@@ -801,7 +801,6 @@ sub curve {
           $suximage->{_note} . ' curve=' . $suximage->{_curve};
         $suximage->{_Step} =
           $suximage->{_Step} . ' curve=' . $suximage->{_curve};
-
     }
     else {
         print("suximage, curve, missing curve,\n");
@@ -847,7 +846,6 @@ sub curvefile {
           $suximage->{_note} . ' curve=' . $suximage->{_curvefile};
         $suximage->{_Step} =
           $suximage->{_Step} . ' curve=' . $suximage->{_curvefile};
-
     }
     else {
         print("suximage, curvefile, missing curvefile,\n");

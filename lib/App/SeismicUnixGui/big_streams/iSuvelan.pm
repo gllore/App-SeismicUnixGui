@@ -56,6 +56,7 @@ use App::SeismicUnixGui::misc::SeismicUnix qw($on $off $in $to $go);
 use aliased 'App::SeismicUnixGui::misc::L_SU_global_constants';
 
 my $log               = message->new();
+my $manage_files_by   = manage_files_by->new();
 my $run               = flow->new();
 my $sufilter          = sufilter->new();
 my $sugain            = sugain->new();
@@ -683,8 +684,7 @@ by time
 			quotemeta( $iSuvelan->{_first_velocity} ) );
 		$suximage->picks( $iSuvelan->{_Tvel_outbound} );
 
-# quotemeta does not work JL Nov 2 2018
-#print("iSuvelan, calcNdisplay: Writing picks to $iSuvelan->{_Tvel_outbound}\n\n");
+print("iSuvelan, calcNdisplay: Writing picks to $iSuvelan->{_Tvel_outbound}\n\n");
 
 =head2 conditions
  
@@ -696,12 +696,12 @@ by time
 
 		if ( $iSuvelan->{_number_of_tries} >= 2 ) {
 
-			# print("using a curve file:\n");
-			# print("\t$iSuvelan->{_Tvel_inbound}\n\n");
+			print("using a curve file:\n");
+			print("\t$iSuvelan->{_Tvel_inbound}\n\n");
 			$suximage->curvefile( quotemeta( $iSuvelan->{_Tvel_inbound} ) )
-			  ;    # does not like quotemeta
+			  ;
 			my ( $ref_T_nmo, $ref_Vnmo, $num_tvel_pairs ) =
-			  manage_files_by::read_2cols( \$iSuvelan->{_Tvel_inbound} );
+			$manage_files_by->read_2cols( \$iSuvelan->{_Tvel_inbound} );
 			$suximage->npair( quotemeta($num_tvel_pairs) );
 			$suximage->curvecolor( quotemeta(2) );
 		}

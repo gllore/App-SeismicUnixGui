@@ -18,7 +18,7 @@ package App::SeismicUnixGui::big_streams::iPick;
 =head3 NOTES 
 
  "purpose" is now exclusively 'geopsy', in which case the processing
-  is slightly different and
+ is slightly different and
  the output directories and files have a unique format
  
  ep is an appropriated gather header. 
@@ -29,7 +29,8 @@ ep max=0 a
 ep min=0  
  
 
-=head4 
+=head4
+
  Examples:
 
      base_file_name  	= 30Hz_All_geom_geom;
@@ -415,7 +416,7 @@ sub gather_type {
 	return ();
 }
 
-=head2 sub  get4data_type
+=head2 sub get4data_type
 
 look for old data
 

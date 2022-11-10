@@ -1,12 +1,11 @@
 package App::SeismicUnixGui::misc::manage_files_by;
 
+use Moose;
+
 # manage_files_by  class
 # Contains methods/subroutines/functions to operate on directories
 # V 1. March 3 2008
 # Juan M. Lorenzo
-
-# simulate scanf from C
-#use String::Scanf qw(); #import nothing
 
 sub copy_file {
 
@@ -34,7 +33,7 @@ sub copy_file {
 =cut
 
 sub count_lines {
-	my ($ref_origin) = shift @_;
+	my ($self, $ref_origin) = @_;
 
 # print ("\nmanage_files_by,count_lines The input file is called $$ref_origin\n");
 
@@ -50,7 +49,6 @@ sub count_lines {
 
 	return ($num_lines);
 }
-
 
 sub delete_file {
 
@@ -82,7 +80,7 @@ sub is_file_empty {
 
 	# -s is for size
 	#verified by JL
-	$j = ( -s $$ref_file );
+	my $j = ( -s $$ref_file );
 
 	#	print ("file: $$ref_file is $j in size\n\n");
 	if ( -s $$ref_file > 0 ) {
@@ -126,6 +124,7 @@ sub is_one {
 
 	# default situation is to have a file that is empty
 	my $answer = 0;
+	my $line;
 
 	#print ("\nFor is_one the input file is called $$ref_file\n");
 
@@ -149,9 +148,6 @@ sub is_one {
 	return ($answer);
 }
 
-
-
-
 sub is_zero {
 
 	# find out if a special file's content ==0
@@ -160,6 +156,7 @@ sub is_zero {
 
 	# default situation is not to have a file with a zero on the first line
 	my $answer = 0;
+	my $line;
 
 	#print ("\nFor is_zero the input file is called $$ref_file\n");
 
@@ -256,7 +253,7 @@ sub read_mute_par {
 
 sub read_par {
 
-	my ($ref_file_name) = shift @_;
+	my ($self, $ref_file_name) = @_;
 
 # print ("\nmanage_files_by,read_par,The input file is called $$ref_file_name\n");
 
@@ -316,7 +313,11 @@ sub read_2cols_sugethw {
 	open( FILE, $$ref_origin ) || print("Can't open file_name, $!\n");
 
 	#set the counter
-	$i = 1;
+	my $i = 1;
+	my $line;
+	my ( $t, $x );
+	my @TIME;
+	my @OFFSET;
 
 	# read contents of shotpoint geometry file
 	while ( $line = <FILE> ) {
@@ -335,7 +336,7 @@ sub read_2cols_sugethw {
 
 	close(FILE);
 
-	$num_rows = $i - 1;
+	my $num_rows = $i - 1;
 
 	# print out the number of lines of data for the user
 	# print("\nThis file contains $num_rows row(s) of data\n");
@@ -346,38 +347,6 @@ sub read_2cols_sugethw {
 
 	return ( \@TIME_OUT, \@OFFSET_OUT, $num_rows );
 }
-
-#sub read_2cols_2 {
-##use String::Scanf; # imports sscanf()
-##TODO
-## this function reads cols 1 and 2 in a text file with format
-## this functiondoes not work ebcause it needs scanf from an
-## unloaded class and scanf is still not tested
-#        my ($ref_filename,$ref_fmt)	= shift @_;
-#   	# print ("\nThe input file is called $$ref_filename\n");
-#
-## open the file of interest
-#  open(FILE,$$ref_filename) || print("Can't open file_name, $!\n");
-#
-## read contents of shotpoint geometry file
-#   for($j=1; <FILE>; $j++) {
-#
-#  	sscanf FILE "$$ref_fmt\n",$X[$j],$Y[$j];
-#  	printf OUT "$ref_fmt\n", $$ref_X[$j], $$ref_Y[$j];
-#        print("Number of rows is $j, Value is $X[$j]\n");
-#	}
-#	$num_rows = $j-1;
-#   close(FILE);
-##        print("\n @X[$i] @Y[$i]\n");
-#
-##   to prevent contaminating outside variables
-#        my @X_OUT     = @X;
-#        my @Y_OUT   = @Y;
-#	my $num_rows_out = $num_rows;
-#
-#return (\@X_OUT,\@Y_OUT,$num_rows_out);
-#
-#}
 
 sub read_3colsp {
 
@@ -392,6 +361,7 @@ sub read_3colsp {
 
 	#set the counter
 	my $i = 0;
+	my ( @X, @Y, @Z );
 
 	# read contents of file
 	while ( my $lines = <FILE> ) {
@@ -437,6 +407,7 @@ sub read_3cols {
 
 	#set the counter
 	my $i = 1;
+	my ( @X, @Y, @Z );
 
 	# read contents of file
 	while ( my $lines = <FILE> ) {
@@ -482,7 +453,9 @@ sub read_4cols {
 
 	#set the counter
 	# start counting at 1, NOT 0
-	$i = 1;
+	my $i = 1;
+	my ( @ID, @X, @Y, @Z );
+	my $lines;
 
 	# read contents of file
 	while ( $lines = <FILE> ) {
@@ -534,7 +507,9 @@ sub read_4cols_p {
 
 	# set the counter
 	# start counting at 0, NOT 1
-	$i = 0;
+	my $i = 0;
+	my $lines;
+	my ( @ID, @X, @Y, @Z );
 
 	# read contents of file
 	while ( $lines = <FILE> ) {
@@ -584,7 +559,9 @@ sub read_5cols {
 
 	#set the counter
 	# start counting at 0, NOT 1
-	$i = 0;
+	my $i = 0;
+	my ( @ID, @X, @Y, @Z, @W );
+	my $lines;
 
 	# read contents of file
 	while ( $lines = <FILE> ) {
@@ -634,7 +611,9 @@ sub read_5cols_p {
 
 	#set the counter
 	# start counting at 0
-	$i = 0;
+	my $i = 0;
+	my ( @ID, @X, @Y, @Z, @W );
+	my $lines;
 
 	# read contents of file
 	while ( $lines = <FILE> ) {
@@ -684,7 +663,9 @@ sub read_6cols {
 	open( FILE, $$ref_file_name ) || print("Can't open $$ref_file_name, $!\n");
 
 	#set the counter
-	$i = 1;
+	my $i = 0;
+	my ( @A, @B, @C, @D, @E, @F );
+	my $lines;
 
 	# read contents of file
 	while ( $lines = <FILE> ) {
@@ -733,7 +714,7 @@ sub write_1col {
 
 	open( OUT, ">$$ref_file_name" );
 
-	for ( $j = 0 ; $j < $num_rows ; $j++ ) {
+	for ( my $j = 0 ; $j < $num_rows ; $j++ ) {
 
 		printf OUT "$fmt\n", $$ref_X[$j];
 
@@ -757,14 +738,16 @@ sub mult_col2 {
 	open( FILE, $origin ) || print("Can't open file_name, $!\n");
 
 	#set the counter
-	$i = 1;
+	my $i = 1;
+	my ( @TIME, @OFFSET );
+	my $line;
 
 	# read contents of file
 	while ( $line = <FILE> ) {
 
 		#print("\n$line");
 		chomp($line);
-		( $t, $x ) = split( "  ", $line );
+		my ( $t, $x ) = split( "  ", $line );
 		$TIME[$i]   = $t;
 		$OFFSET[$i] = $x * $scale;
 
@@ -775,7 +758,7 @@ sub mult_col2 {
 
 	close(FILE);
 
-	$num_rows = $i - 1;
+	my $num_rows = $i - 1;
 
 	# print out the number of lines of data for the user
 	#   print ("This file contains $num_rows[1] rows of data\n\n\n");
@@ -814,7 +797,9 @@ sub read_1col {
 	open( FILE, $$ref_origin ) || print("Can't open file_name, $!\n");
 
 	#set the counter
-	$i = 1;
+	my $i = 1;
+	my $line;
+	my @OFFSET;
 
 	# read contents of shotpoint geometry file
 	while ( $line = <FILE> ) {
@@ -846,45 +831,53 @@ sub read_2cols {
 
 	# this function reads cols 1 and 2 in a text file
 
-	my ($ref_origin) = shift @_;
+	my ($self, $ref_origin) = @_;
 
 	# for names that have '
 	# $$ref_origin =~s/'//g;
 
-	# print ("\nThe input file is called $$ref_origin\n");
+	if ( length $ref_origin ) {
 
-	# open the file of interest
-	open( FILE, $$ref_origin ) || print("Can't open file_name, $!\n");
+		print("\nThe input file is called $$ref_origin\n");
 
-	# set the counter
-	$i = 1;
+		# open the file of interest
+		open( FILE, $$ref_origin ) || print("Can't open file_name, $!\n");
 
-	# read contents of shotpoint geometry file
-	while ( $line = <FILE> ) {
+		# set the counter
+		my $i = 1;
+		my ( @TIME, @OFFSET );
+		my $line;
 
-		#print("\n$line");
-		chomp($line);
-		( $t, $x ) = split( "  ", $line );
-		$TIME[$i]   = $t;
-		$OFFSET[$i] = $x;
+		# read contents of shotpoint geometry file
+		while ( $line = <FILE> ) {
 
-		#print("\n @TIME[$i] @OFFSET[$i]\n");
-		$i = $i + 1;
+			#print("\n$line");
+			chomp($line);
+			my ( $t, $x ) = split( "  ", $line );
+			$TIME[$i]   = $t;
+			$OFFSET[$i] = $x;
 
+			#print("\n @TIME[$i] @OFFSET[$i]\n");
+			$i = $i + 1;
+
+		}
+
+		close(FILE);
+
+		my $num_rows = $i - 1;
+
+		# print out the number of lines of data for the user
+		#print ("\nThis file contains $num_rows row(s) of data\n");
+
+		#   to prevent contaminating outside variables
+		my @TIME_OUT   = @TIME;
+		my @OFFSET_OUT = @OFFSET;
+
+		return ( \@TIME_OUT, \@OFFSET_OUT, $num_rows );
+
+	}else{
+		print("manage_files_by, read_2cols, missing file name\n");
 	}
-
-	close(FILE);
-
-	$num_rows = $i - 1;
-
-	# print out the number of lines of data for the user
-	#print ("\nThis file contains $num_rows row(s) of data\n");
-
-	#   to prevent contaminating outside variables
-	my @TIME_OUT   = @TIME;
-	my @OFFSET_OUT = @OFFSET;
-
-	return ( \@TIME_OUT, \@OFFSET_OUT, $num_rows );
 
 }
 
@@ -1010,7 +1003,7 @@ sub write_2cols {
 
 	open( OUT, ">$$ref_file_name" );
 
-	for ( $j = 1 ; $j <= $num_rows ; $j++ ) {
+	for ( my $j = 1 ; $j <= $num_rows ; $j++ ) {
 
 		#print OUT  ("$$ref_X[$j] $$ref_Y[$j]\n");
 		printf OUT "$fmt\n", $$ref_X[$j], $$ref_Y[$j];
@@ -1036,7 +1029,7 @@ sub write_2cols_p {
 
 	open( OUT, ">$$ref_file_name" );
 
-	for ( $j = 0 ; $j < $num_rows ; $j++ ) {
+	for ( my $j = 0 ; $j < $num_rows ; $j++ ) {
 
 		#print OUT  ("$$ref_X[$j] $$ref_Y[$j]\n");
 		printf OUT "$fmt\n", $$ref_X[$j], $$ref_Y[$j];
@@ -1062,7 +1055,7 @@ sub write_2cols_2 {
 
 	open( OUT, ">$$ref_file_name" );
 
-	for ( $j = 1 ; $j <= $num_rows ; $j++ ) {
+	for ( my $j = 1 ; $j <= $num_rows ; $j++ ) {
 
 		#print OUT  ("$$ref_X[$j] $$ref_Y[$j]\n");
 		printf OUT "$$ref_fmt\n", $$ref_X[$j], $$ref_Y[$j];
@@ -1084,7 +1077,7 @@ sub write_3cols {
 
 	open( OUT, ">$$ref_file_name" );
 
-	for ( $j = 1 ; $j <= $num_rows ; $j++ ) {
+	for ( my $j = 1 ; $j <= $num_rows ; $j++ ) {
 
 		printf OUT "$fmt\n", $$ref_X[$j], $$ref_Y[$j], $$ref_Z[$j];
 
@@ -1105,10 +1098,11 @@ sub write_3colsp {
 
 	open( OUT, ">$$ref_file_name" );
 
-	for ( $j = 0 ; $j < $num_rows ; $j++ ) {
+	for ( my $j = 0 ; $j < $num_rows ; $j++ ) {
 
 		printf OUT "$fmt\n", $$ref_X[$j], $$ref_Y[$j], $$ref_Z[$j];
-#		print("$$ref_X[$j] $$ref_Y[$j] $$ref_Z[$j]\n");
+
+		#		print("$$ref_X[$j] $$ref_Y[$j] $$ref_Z[$j]\n");
 	}
 
 	close(OUT);
@@ -1126,7 +1120,7 @@ sub write_4cols {
 
 	open( OUT, ">$$ref_file_name" );
 
-	for ( $j = 1 ; $j <= $num_rows ; $j++ ) {
+	for ( my $j = 1 ; $j <= $num_rows ; $j++ ) {
 
 		printf OUT "$fmt\n", $$ref_ID[$j], $$ref_X[$j], $$ref_Y[$j],
 		  $$ref_Z[$j];
@@ -1150,8 +1144,8 @@ sub write_4cols_2 {
 
 	open( OUT, ">$$ref_file_name" );
 
-	for ( $j = 1 ; $j <= $num_rows ; $j++ ) {
-		for ( $i = 1 ; $i <= $num_cols ; $i++ ) {
+	for ( my $j = 1 ; $j <= $num_rows ; $j++ ) {
+		for ( my $i = 1 ; $i <= $num_cols ; $i++ ) {
 			printf OUT "$fmt\n", $$ref_A[$j][$i], $$ref_X[$j][$i],
 			  $$ref_Y[$j][$i], $$ref_Z[$j][$i];
 		}
@@ -1171,7 +1165,7 @@ sub write_5cols {
 
 	open( OUT, ">$$ref_file_name" );
 
-	for ( $j = 1 ; $j <= $num_rows ; $j++ ) {
+	for ( my $j = 1 ; $j <= $num_rows ; $j++ ) {
 
 		printf OUT "$fmt\n", $$ref_X[$j], $$ref_Y[$j], $$ref_Z[$j],
 		  $$ref_A[$j], $$ref_B[$j];
@@ -1193,8 +1187,8 @@ sub write_5cols_2 {
 
 	open( OUT, ">$$ref_file_name" );
 
-	for ( $j = 1 ; $j <= $num_rows ; $j++ ) {
-		for ( $i = 1 ; $i <= $num_cols ; $i++ ) {
+	for ( my $j = 1 ; $j <= $num_rows ; $j++ ) {
+		for ( my $i = 1 ; $i <= $num_cols ; $i++ ) {
 			printf OUT "$fmt\n", $$ref_A[$j][$i], $$ref_X[$j][$i],
 			  $$ref_Y[$j][$i], $$ref_Z[$j][$i], $$ref_B[$j][$i];
 		}
@@ -1217,7 +1211,7 @@ sub write_6cols {
 
 	open( OUT, ">$$ref_file_name" );
 
-	for ( $j = 1 ; $j <= $num_rows ; $j++ ) {
+	for ( my $j = 1 ; $j <= $num_rows ; $j++ ) {
 
 		printf OUT "$fmt\n", $$ref_X[$j], $$ref_Y[$j], $$ref_Z[$j],
 		  $$ref_R[$j], $$ref_uncert[$j], $$ref_arrival[$j];
@@ -1282,7 +1276,7 @@ sub write_cdp {
 	# WRITE OUT FILE
 
 	# open and write to output file
-	my ( $cdp_aref, $DIR_OUT ) = @_;
+	my ($self, $cdp_aref, $DIR_OUT ) = @_;
 
 	my ( $i, $number_of_cdps, $number_of_lines );
 
@@ -1321,7 +1315,7 @@ sub write_gather {
 	# WRITE OUT FILE
 
 	# open and write to output file
-	my ( $gather_aref, $DIR_OUT ) = @_;
+	my ( $self, $gather_aref, $DIR_OUT ) = @_;
 
 	my ( $i, $number_of_gathers, $number_of_lines );
 
@@ -1362,7 +1356,7 @@ sub write_tmute_xmute {
 	# WRITE OUT FILE
 
 	# open and write to output file
-	my ( $gather_aref, $tmute_aref, $xmute_aref, $DIR_OUT ) = @_;
+	my ( $self, $gather_aref, $tmute_aref, $xmute_aref, $DIR_OUT ) = @_;
 
 	my ( $i, $number_of_gathers );
 	$number_of_gathers = scalar @$gather_aref;
@@ -1400,7 +1394,7 @@ sub write_tnmo_vnmo {
 	# WRITE OUT FILE
 
 	# open and write to output file
-	my ( $cdp_aref, $tnmo_aref, $vnmo_aref, $DIR_OUT ) = @_;
+	my ( $self, $cdp_aref, $tnmo_aref, $vnmo_aref, $DIR_OUT ) = @_;
 
 	my ( $i, $number_of_cdps );
 	$number_of_cdps = scalar @$cdp_aref;

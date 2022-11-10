@@ -31,7 +31,6 @@ file names and locations are automatically found
 =cut
 
 # define library of system subroutines
-use aliased 'App::SeismicUnixGui::misc::manage_files_by';
 use aliased 'App::SeismicUnixGui::configs::big_streams::Project_config';
 
 # import system variables
