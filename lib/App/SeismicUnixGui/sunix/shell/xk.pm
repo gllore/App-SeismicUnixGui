@@ -77,12 +77,16 @@ sub kill_this {
 		if ( $this eq 'ximage' || $this eq 'suximage' ) {
 
 			system("killall ximage -wq");
+			
 		} elsif ( $this eq 'suxwigb' || $this eq 'xwigb' ) {
 
-			# do it -wq uietly
+			# do it -wquietly
 			system("killall xwigb -wq");
 
 		} elsif ( $this eq 'suxgraph' || $this eq 'xgraph' ) {
+			
+			system("killall xgraph -wq");
+			
 		} else {
 			system("killall $xk->{_process} -wq");
 		}

@@ -50,7 +50,7 @@ Example:
     input_name_prefix                  =                  
     input_name_extension               =              
     list                               =  file name [$PL_SEISMIC]
-    output_file_name				   =    
+    output_file_name                   =    
     alternative_inbound_directory      =  [$PL_SEISMIC]             
     alternative_outbound_directory     =  [$PL_SEISMIC]  
     
@@ -84,7 +84,7 @@ Example:
     input_name_prefix                   = cdp                 
     input_name_extension                = _clean              
     list                               	=                
-    output_file_name                   	= 1000_01 
+    output_file_name                    = 1000_01 
     alternative_inbound_directory       =                   
     alternative_outbound_directory      =  
     
@@ -111,23 +111,24 @@ CASE 3
 	or more file names
 
 
-	first_file_number_in  	              = 
-	last_file_number_in  		          = 
-	number_of_files_in		              = 
-	input_suffix  					      = 
-	input_name_prefix     	              = 
+	first_file_number_in                  = 
+	last_file_number_in                   = 
+	number_of_files_in                    = 
+	input_suffix                          = 
+	input_name_prefix                     = 
 	input_name_extension                  = 
-	list                 				  = cat_list_good_sp;
-	output_file_name     			      = 'All_good_sp';
+	list                                  = cat_list_good_sp;
+	output_file_name                      = 'All_good_sp';
 	alternative_inbound_directory         = 
 	alternative_outbound_directory        =
+
 
  CASE 4:
  
   first_file_number_in            = 1000
   last_file_number_in             = 1010
   number_of_files_in              = 11
-  input_suffix  				  = _clean.su
+  input_suffix                    = _clean.su
   input_name_prefix               = 
   input_name_extension            = 
   output_file_name                = 1000_10 
@@ -198,6 +199,7 @@ my $get          = L_SU_global_constants->new->new();
 my $Sucat_config = Sucat_config->new();
 
 =head2 Get configuration information
+
 Establish default variables using a *_spec file
 and defaults defined hereinf or the location of the list file;
 in PL_SEISMIC
@@ -247,8 +249,7 @@ my $list                 = $CFG_h->{sucat}{1}{list};
 $alternative_inbound_directory  = $CFG_h->{sucat}{1}{alternative_inbound_directory};
 $alternative_outbound_directory = $CFG_h->{sucat}{1}{alternative_outbound_directory};
 
-
-print("0. Sucat.pl, selected inbound_directory=$inbound_directory  \n");
+# print("0. Sucat.pl, selected inbound_directory=$inbound_directory  \n");
 	
 =head2 correct input format values
 
@@ -260,6 +261,7 @@ $list = $control->get_no_quotes($list);
 # print("Sucat.pl, list: $data_type\n\n");
 
 =head2 3. Consider compatible
+
 parameter inputs
 
 =cut
@@ -336,6 +338,7 @@ $sucat->inbound_directory($inbound_directory);
 $sucat->outbound_directory($outbound_directory);
 
 =head2 4. create script to concatenate files
+
 files may use either a default directory
 or an alternative directory provided by the user
 Also consider incompatible as well as compatible
@@ -403,6 +406,7 @@ $flow[1] = $run->modules( \@items );
 $run->flow( \$flow[1] );
 
 =head2 C. LOG FLOW(S)TO SCREEN AND FILE
+
 =cut
 
 print "$flow[1]\n";

@@ -183,6 +183,7 @@ lib/App/SeismicUnixGui/configs/filter/sufilter.config
 lib/App/SeismicUnixGui/configs/filter/sufrac.config
 lib/App/SeismicUnixGui/configs/filter/sufwatrim.config
 lib/App/SeismicUnixGui/configs/filter/sufxdecon.config
+lib/App/SeismicUnixGui/configs/filter/sugroll.config
 lib/App/SeismicUnixGui/configs/filter/suk1k2filter.config
 lib/App/SeismicUnixGui/configs/filter/sukfilter.config
 lib/App/SeismicUnixGui/configs/filter/sulfaf.config
@@ -508,6 +509,8 @@ lib/App/SeismicUnixGui/developer/Stripped/filter/sufilter.su.main.filters
 lib/App/SeismicUnixGui/developer/Stripped/filter/sufrac.su.main.filters
 lib/App/SeismicUnixGui/developer/Stripped/filter/sufwatrim.su.main.filters
 lib/App/SeismicUnixGui/developer/Stripped/filter/sufxdecon.su.main.decon_shaping
+lib/App/SeismicUnixGui/developer/Stripped/filter/sugroll.su.main.noise
+lib/App/SeismicUnixGui/developer/Stripped/filter/sugroll_changes.txt
 lib/App/SeismicUnixGui/developer/Stripped/filter/suk1k2filter.su.main.filters
 lib/App/SeismicUnixGui/developer/Stripped/filter/sukfilter.su.main.filters
 lib/App/SeismicUnixGui/developer/Stripped/filter/sukfrac.su.main.filters
@@ -1134,7 +1137,9 @@ lib/App/SeismicUnixGui/misc/whereami2.pm
 lib/App/SeismicUnixGui/misc/wipe.pm
 lib/App/SeismicUnixGui/misc/write_LSU.pm
 lib/App/SeismicUnixGui/misc/writefiles.pm
+lib/App/SeismicUnixGui/script/cmguiTMEeyS
 lib/App/SeismicUnixGui/script/convert2V07
+lib/App/SeismicUnixGui/script/gui_history.txt
 lib/App/SeismicUnixGui/script/iBottomMute
 lib/App/SeismicUnixGui/script/immodpg
 lib/App/SeismicUnixGui/script/iPick
@@ -1207,6 +1212,7 @@ lib/App/SeismicUnixGui/specs/filter/sufilter_spec.pm
 lib/App/SeismicUnixGui/specs/filter/sufrac_spec.pm
 lib/App/SeismicUnixGui/specs/filter/sufwatrim_spec.pm
 lib/App/SeismicUnixGui/specs/filter/sufxdecon_spec.pm
+lib/App/SeismicUnixGui/specs/filter/sugroll_spec.pm
 lib/App/SeismicUnixGui/specs/filter/suk1k2filter_spec.pm
 lib/App/SeismicUnixGui/specs/filter/sukfilter_spec.pm
 lib/App/SeismicUnixGui/specs/filter/sulfaf_spec.pm
@@ -1492,6 +1498,7 @@ lib/App/SeismicUnixGui/sunix/filter/sufilter.pm
 lib/App/SeismicUnixGui/sunix/filter/sufrac.pm
 lib/App/SeismicUnixGui/sunix/filter/sufwatrim.pm
 lib/App/SeismicUnixGui/sunix/filter/sufxdecon.pm
+lib/App/SeismicUnixGui/sunix/filter/sugroll.pm
 lib/App/SeismicUnixGui/sunix/filter/suk1k2filter.pm
 lib/App/SeismicUnixGui/sunix/filter/sukfilter.pm
 lib/App/SeismicUnixGui/sunix/filter/sulfaf.pm
@@ -1761,6 +1768,7 @@ MANIFEST.bak
 MANIFEST.SKIP
 MYMETA.json
 MYMETA.yml
+pm_to_blib
 README.md
 t/big_streams.t
 t/configs.t
