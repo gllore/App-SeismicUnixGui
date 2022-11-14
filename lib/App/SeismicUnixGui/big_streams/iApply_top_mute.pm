@@ -250,6 +250,7 @@ sub max_amplitude {
 
 sub calcNdisplay {
 
+ print("iApply_top_mute, made it \n\n");
 =head2
 
   Assume that the parameter file already exists
@@ -261,7 +262,7 @@ sub calcNdisplay {
     $iApply_top_mute->{_parfile_in} =
       $itemp_top_mute_picks_sorted_par_ . $iApply_top_mute->{_file_in};
 
-# print("iApply_top_mute, mute pick file is $iApply_top_mute->{_parfile_in}\n\n");
+ print("iApply_top_mute, mute pick file is $iApply_top_mute->{_parfile_in}\n\n");
 
 =head2
 
@@ -273,7 +274,7 @@ sub calcNdisplay {
     $sumute->par_directory('PL_SEISMIC');
     $sumute->parfile( $iApply_top_mute->{_parfile_in} );
     $sumute->headerword( $iApply_top_mute->{_offset_type} );
-    #not taper applied
+    # not taper applied
     # $sumute ->ntaper($iApply_top_mute->{_ntaper});
     $sumute->type('top');
     $sumute[1] = $sumute->Step();
@@ -289,7 +290,7 @@ sub calcNdisplay {
     $suwind->min( $iApply_top_mute->{_gather_num} );
     $suwind->max( $iApply_top_mute->{_gather_num} );
 
-    #print("gather num is $iApply_top_mute->{_gather_num}\n\n");
+    print("gather num is $iApply_top_mute->{_gather_num}\n\n");
     $suwind[1] = $suwind->Step();
 
     $suwind->clear();
@@ -438,10 +439,10 @@ sub calcNdisplay {
 
     #for suximage
     # print("iApply_top_mute:$flow[1]\n");
-    #$log->file($flow[1]);
+    $log->file($flow[1]);
 
     #for suxwibg
-    # print  "$flow[2]\n";
+    print  "$flow[2]\n";
 
 }    # end calcNdisplay subroutine
 

@@ -225,6 +225,8 @@ sub _get_DATA_DIR_IN {
 
 				}
 				elsif ( $prefix[$index] eq '$PL_SEISMIC/' ) {
+					
+					print("iFile, _get_DATA_DIR_IN for PL_SEISMIC; prefix[$index] =$prefix[$index]\n");
 
 					$result = $PL_SEISMIC;
 

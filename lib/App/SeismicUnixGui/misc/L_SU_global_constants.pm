@@ -973,8 +973,9 @@ my @sunix_plot_programs = (
 );
 
 my @sunix_shapeNcut_programs = (
-	"suflip",  "sugain", "sugprfb", "sukill", "sumute", "susort",
-	"susplit", "suwind", "supad",   "suvcat",
+	"suflip", "sugain", "sugprfb", "sukill", "sumute", "susort",
+	"sumute",
+	"susplit", "suwind", "supad", "suvcat",
 );
 
 my @sunix_statsMath_programs = (

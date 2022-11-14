@@ -159,11 +159,6 @@ sub calc {
   MAKE PARAMETER FILE
   CONVERT TEXT FILE TO PAR FILE
 
-  In the old manner:
-   	$mkparfile	=  ("mkparfile			\\
-		string1=tmute 				\\
-		string2=xmute 				\\
-		");
 =cut
 
 =pod
@@ -213,15 +208,6 @@ sub calc {
 =pod
  
   DEFINE FLOW(S)
-
- In the old manner (non oops):
-
-	$flow[1] = (" 						\\
-		$mkparfile[1] 					\\
-		< $mkparfile_inbound[1]				\\
-		>$mkparfile_outbound[1]				\\
-								\\
-		"); 
 
 =cut
 

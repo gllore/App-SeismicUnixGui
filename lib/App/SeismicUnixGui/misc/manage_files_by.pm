@@ -1262,12 +1262,12 @@ sub write_mute_par {
 
 =head2 write_cdp
 
-	write out only the cdp nos.
+Write out only the cdp nos.
 	
 	cdp=g,h
 	
-	for the first part of a file that contains
-	more than one tnmo, vnmo pair 
+for the first part of a file that contains
+more than one tnmo, vnmo pair. 
 
 =cut
 

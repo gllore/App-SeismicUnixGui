@@ -101,15 +101,15 @@ my $update = {
 
 =cut
 
-		use aliased 'App::SeismicUnixGui::misc::L_SU_global_constants';
-		use App::SeismicUnixGui::misc::SeismicUnix qw($bin $dat $ps $segb $segd $segy $sgy $su $suffix_bin $suffix_ps
-		  $suffix_segy $suffix_sgy $suffix_su $suffix_txt $txt);
-		use aliased 'App::SeismicUnixGui::configs::big_streams::Project_config';
-		use aliased 'App::SeismicUnixGui::misc::manage_files_by2';
-		use aliased 'App::SeismicUnixGui::developer::code::sunix::prog_doc2pm';	
-		use aliased 'App::SeismicUnixGui::developer::code::sunix::sudoc';
-		use aliased 'App::SeismicUnixGui::developer::code::sunix::sunix_package';
-		
+use aliased 'App::SeismicUnixGui::misc::L_SU_global_constants';
+use App::SeismicUnixGui::misc::SeismicUnix
+  qw($bin $dat $pl $ps $segb $segd $segy $sgy $su $suffix_bin $suffix_ps
+  $suffix_segy $suffix_sgy $suffix_su $suffix_txt $txt $text);
+use aliased 'App::SeismicUnixGui::configs::big_streams::Project_config';
+use aliased 'App::SeismicUnixGui::misc::manage_files_by2';
+use aliased 'App::SeismicUnixGui::developer::code::sunix::prog_doc2pm';
+use aliased 'App::SeismicUnixGui::developer::code::sunix::sudoc';
+use aliased 'App::SeismicUnixGui::developer::code::sunix::sunix_package';
 
 =head2 clean memory private hash
 
@@ -209,16 +209,22 @@ variables
 				$suffix_spec[$i] = (" ''.'' . '\$suffix_dat';");
 
 			}
+			elsif ( $suffix_type[$i] eq $pl ) {
+
+				$prefix_spec[$i] = (" '\$PL_SEISMIC' . \".'/'.\";");
+				$suffix_spec[$i] = (" ''.'' . '';");
+
+			}
 			elsif ( $suffix_type[$i] eq $txt ) {
 
 				$prefix_spec[$i] = (" '\$DATA_SEISMIC_TXT' . \".'/'.\";");
 				$suffix_spec[$i] = (" ''.'' . '\$suffix_txt';");
 
 			}
-			elsif ( $suffix_type[$i] eq $segb ) {
+			elsif ( $suffix_type[$i] eq $text ) {
 
-				$prefix_spec[$i] = (" '\$DATA_SEISMIC_SEGB' . \".'/'.\";");
-				$suffix_spec[$i] = (" ''.'' . '\$suffix_segb';");
+				$prefix_spec[$i] = (" '\$DATA_SEISMIC_TXT' . \".'/'.\";");
+				$suffix_spec[$i] = (" ''.'' . '\$suffix_txt';");
 
 			}
 			elsif ( $suffix_type[$i] eq $segd ) {
@@ -349,7 +355,8 @@ search lines
 		my $start_file_dialog_type_line2find =
 		  '# bound index will look for data';
 		my $start_prefix_line2find = 'sub prefix_aref \{';
-		my $end_prefix_line2find   = '\t# label 9 in GUI is input zz_file and needs a home directory';
+		my $end_prefix_line2find =
+		  '\t# label 9 in GUI is input zz_file and needs a home directory';
 		my $end_suffix_line2find =
 		  '#	\$suffix\[ \$index\[2\] \] = \'\'.\'\' . \'\$suffix_su\';';
 		my $start_suffix_line2find = 'sub suffix_aref \{';
@@ -419,18 +426,18 @@ my $additional_suffix_change  	=
 
 				$start_binding_index_line = $i + 4;
 
-#		 		print("update,
-#		 a spec success at start_binding_index_line: $start_binding_index_line \n"
-#		 				);
+   #		 		print("update,
+   #		 a spec success at start_binding_index_line: $start_binding_index_line \n"
+   #		 				);
 			}
 
 			if ( $string =~ /$end_binding_index_line2find/ ) {
 
 				$end_binding_index_line = $i + 3;
 
-#	   		 				print("update,
-#	   		 a spec success at end_binding_index_line: $end_binding_index_line \n"
-#	   		 				);
+   #	   		 				print("update,
+   #	   		 a spec success at end_binding_index_line: $end_binding_index_line \n"
+   #	   		 				);
 			}
 
 			if ( $string =~ /$start_file_dialog_type_line2find/ ) {
@@ -481,7 +488,9 @@ my $additional_suffix_change  	=
 
 				$end_suffix_line = $i + 3;
 
-		  		   print("update, a spec success at end_suffix_line:$end_suffix_line \n");
+				print(
+"update, a spec success at end_suffix_line:$end_suffix_line \n"
+				);
 			}
 		}
 
@@ -747,7 +756,7 @@ where "max_index" line" is found
 
 				if ( $string =~ /$spec_string_to_find/ ) {
 
-#					print("a spec success\n");
+					#					print("a spec success\n");
 
 					$slurp[$i] = $spec_replacement_string;
 
@@ -973,8 +982,8 @@ where "max_index" line" is found
 							$minimum          = $differences[$i];
 							$index_of_minimum = $i;
 
-#				  					print("update, minimum = $differences[$i]\n");
-#				  					print("update, index_of_minimum = $index_of_minimum\n");
+			#				  					print("update, minimum = $differences[$i]\n");
+			#				  					print("update, index_of_minimum = $index_of_minimum\n");
 
 						}
 					}
@@ -984,12 +993,12 @@ where "max_index" line" is found
 				my $first_index_of_item = $line_global_constant_success[0];
 				my $last_index_of_item  = $first_index_of_item + $minimum;
 
-#			   		print("update,  first_index_of_item= $first_index_of_item\n");
-#			   		print("update,  last_index_of_item= $last_index_of_item\n");
+		 #			   		print("update,  first_index_of_item= $first_index_of_item\n");
+		 #			   		print("update,  last_index_of_item= $last_index_of_item\n");
 
-#		  		for (my $i=$first_index_of_item; $i <= $last_index_of_item; $i++) {
-#		  			print("update,  sought-after lines=...$slurp[$i]\n");
-#		  	}
+	  #		  		for (my $i=$first_index_of_item; $i <= $last_index_of_item; $i++) {
+	  #		  			print("update,  sought-after lines=...$slurp[$i]\n");
+	  #		  	}
 
 				# extract the lines between the starting and
 				#  ending expressions
@@ -998,8 +1007,8 @@ where "max_index" line" is found
 				@program_list =
 				  @slurp[ $index_start_extraction .. $index_end_extraction ];
 
-#			 #		print("update,  program_list= @program_list\n");
-#			 #		print( @slurp[$index_start_extraction ..$index_end_extraction]);
+		#			 #		print("update,  program_list= @program_list\n");
+		#			 #		print( @slurp[$index_start_extraction ..$index_end_extraction]);
 
 			}
 			else {
@@ -1013,64 +1022,66 @@ where "max_index" line" is found
 
 				# 1. replace: ",space with a space
 				$program_list[$i] =~ s/",\s*/\ /g;
-#	     		print("update,  item #$i in program_list=....$program_list[$i]\n");
-	     		
+
+	#	     		print("update,  item #$i in program_list=....$program_list[$i]\n");
+
 				# remove white space and first "
 				$program_list[$i] =~ s/"//g;
-				
-				#remove first white space 
+
+				#remove first white space
 				$program_list[$i] =~ s/^\s*//;
-				
+
 				#remove last white space
 				$program_list[$i] =~ s/\s*$//;
-				
+
 				# remove potential newlines
 				chomp $program_list[$i];
 
-#	     		print("update,  item #$i in program_list=....$program_list[$i]\n");
+	#	     		print("update,  item #$i in program_list=....$program_list[$i]\n");
 
 			}
 
 			# add a program name to the end of list
 			push @program_list, $program_name;
 
-#			print("2. update,  program_list= @program_list\n");
+			#			print("2. update,  program_list= @program_list\n");
 
 			# sort alphabetically
 			@program_list = sort(@program_list);
 
-#			print("3. update,  program_list= @program_list\n");
+			#			print("3. update,  program_list= @program_list\n");
 
 			# prevent duplicates
 			my @unique = ();
 			my %seen   = ();
 
 			foreach my $elem (@program_list) {
-				
+
 				next if $seen{$elem}++;
 				push @unique, $elem;
 			}
-			
+
 			my @new_program_list = @unique;
 
-			
 			$length = scalar @new_program_list;
 			for ( my $i = 0 ; $i < $length ; $i++ ) {
 
-#				print(
-#				"4. update,  item #$i in program_list=....$program_list[$i]\n"
-#				);
-				# add commas and inverted commas again
-				$new_program_list[$i]  =~ s/\ /",\ "/g;
-				
+			 #				print(
+			 #				"4. update,  item #$i in program_list=....$program_list[$i]\n"
+			 #				);
+			 # add commas and inverted commas again
+				$new_program_list[$i] =~ s/\ /",\ "/g;
+
 				# put a tab and " at the start of each line
 				$new_program_list[$i] = "\t\"" . $new_program_list[$i];
-				# put a  ", at the end of each line	
-				$new_program_list[$i] = $new_program_list[$i].'",';				
+
+				# put a  ", at the end of each line
+				$new_program_list[$i] = $new_program_list[$i] . '",';
 
 			}
-#			print("5. update, new_program_list=$new_program_list[0]\n");
-#			print("5. update, new_program_list=$new_program_list[1]\n");
+
+			#			print("5. update, new_program_list=$new_program_list[0]\n");
+			#			print("5. update, new_program_list=$new_program_list[1]\n");
 
 			# reinsurt new array back into the slurp
 			# 1. split slurp into 2 arrays
@@ -1101,11 +1112,11 @@ where "max_index" line" is found
 
 			open( OUT, ">$global_constants_outbound[0] " )
 			  or die("File  $global_constants_outbound[0] not found");
-			for ( my $i = 0 ; $i < ($length_digested_slurp-1) ; $i++ ) {
+			for ( my $i = 0 ; $i < ( $length_digested_slurp - 1 ) ; $i++ ) {
 
 				if ( $digested_slurp[$i] ne "\t" ) {
 
-#					print(" update,$digested_slurp[$i]\n");
+					#					print(" update,$digested_slurp[$i]\n");
 					print OUT $digested_slurp[$i] . "\n";
 				}
 
@@ -1223,7 +1234,6 @@ of these lines.
 
 =cut
 
-
 =head2 add to
 
 suffix_aref lines in *_spec.pm file
@@ -1231,12 +1241,12 @@ suffix_aref lines in *_spec.pm file
 
 =cut
 
-   		print(
-   "1. update, spec_changes, start_suffix_line =$update->{_start_suffix_line}\n"
-   		);
-   		print(
-   "1. update, spec_changes, end_suffix_line =$update->{_end_suffix_line}\n"
-   		);
+		print(
+"1. update, spec_changes, start_suffix_line =$update->{_start_suffix_line}\n"
+		);
+		print(
+"1. update, spec_changes, end_suffix_line =$update->{_end_suffix_line}\n"
+		);
 
 		my $start_suffix_line = $update->{_start_suffix_line} - 1;
 		my $end_suffix_line   = $update->{_end_suffix_line} - 1;
@@ -1280,12 +1290,9 @@ to suffix_aref
 			$slurp[ ( $start_suffix_line + ( ( $i + 1 ) * 3 ) + 1 ) ] =
 			  ("\t\$suffix[ \$index[$i] ] = $suffix_spec[$i]");
 
-			$slurp[ ( $start_suffix_line + ( ( $i + 1 ) * 3 ) + 2 ) ]
-			  =
-			  (
-				" ");
+			$slurp[ ( $start_suffix_line + ( ( $i + 1 ) * 3 ) + 2 ) ] = (" ");
 
-			}
+		}
 
 =head2 Add saved text lines
 
@@ -1294,33 +1301,32 @@ if we have more than 3 input/output interactions
 
 =cut			
 
-			if ( $label_number_of > 3 ) {
+		if ( $label_number_of > 3 ) {
 
-				$line_bump_suffix = ( $label_number_of - 3 ) * 3;
+			$line_bump_suffix = ( $label_number_of - 3 ) * 3;
 
-				my $new_length_of_slurp = $length_of_slurp + $line_bump_suffix;
+			my $new_length_of_slurp = $length_of_slurp + $line_bump_suffix;
 
-				my $new_end_suffix_line =
-				  $end_suffix_line + $line_bump_suffix + 1;
+			my $new_end_suffix_line = $end_suffix_line + $line_bump_suffix + 1;
 
-		   #			print(
-		   #				"update, spec_changes,new_length_of_slurp=$new_length_of_slurp\n"
-		   #			);
-		   #			print(
-		   #"update, spec_changes,new_end_suffix_line= $new_end_suffix_line\n"
-		   #			);
+		  #			print(
+		  #				"update, spec_changes,new_length_of_slurp=$new_length_of_slurp\n"
+		  #			);
+		  #			print(
+		  #"update, spec_changes,new_end_suffix_line= $new_end_suffix_line\n"
+		  #			);
 
-				@slurp[ ( $new_end_suffix_line - 1 )
-				  .. ( $new_length_of_slurp - 1 ) ] =
-				  @temp_array_suffix[ 0 .. ( $temp_array_length_suffix - 1 ) ];
-			}
-			elsif ( $label_number_of <= 3 ) {
+			@slurp[ ( $new_end_suffix_line - 1 )
+			  .. ( $new_length_of_slurp - 1 ) ] =
+			  @temp_array_suffix[ 0 .. ( $temp_array_length_suffix - 1 ) ];
+		}
+		elsif ( $label_number_of <= 3 ) {
 
-				#               NADA;
-			}
-			else {
-				print("update, spec_changes, unexpected value \n");
-			}
+			#               NADA;
+		}
+		else {
+			print("update, spec_changes, unexpected value \n");
+		}
 
 ##########################################################################
 
@@ -1331,14 +1337,14 @@ Intentionally start from the end of the *.spec file
 
 =cut
 
-	  		print(
-	  "update, spec_changes, start_prefix_line =$update->{_start_prefix_line}\n"
-	  		);
-	  		print(
-	  "1. update, spec_changes, end_prefix_line =$update->{_end_prefix_line}\n"
-	  		);
-			my $start_prefix_line = $update->{_start_prefix_line} - 1;
-			my $end_prefix_line   = $update->{_end_prefix_line} - 1;
+		print(
+"update, spec_changes, start_prefix_line =$update->{_start_prefix_line}\n"
+		);
+		print(
+"1. update, spec_changes, end_prefix_line =$update->{_end_prefix_line}\n"
+		);
+		my $start_prefix_line = $update->{_start_prefix_line} - 1;
+		my $end_prefix_line   = $update->{_end_prefix_line} - 1;
 
 =head2 save latter portion for addendum
 
@@ -1348,39 +1354,39 @@ If suffix does not have more than 3 entries the line_bump_* = 0
 
 =cut
 
-			$new_length_of_slurp = $length_of_slurp + $line_bump_suffix;
+		$new_length_of_slurp = $length_of_slurp + $line_bump_suffix;
 
-			$temp_array_length_prefix = $new_length_of_slurp - $end_prefix_line;
+		$temp_array_length_prefix = $new_length_of_slurp - $end_prefix_line;
 
 #		print("update,spec_changes, new_length_of_slurp   = $new_length_of_slurp\n");
 #		print("update,spec_changes, prefix_aref temp_array_length_prefix = $temp_array_length_prefix\n");
-			@temp_array_prefix[ 0 .. ( $temp_array_length_prefix - 1 ) ] =
-			  @slurp[ $end_prefix_line .. $new_length_of_slurp ];
+		@temp_array_prefix[ 0 .. ( $temp_array_length_prefix - 1 ) ] =
+		  @slurp[ $end_prefix_line .. $new_length_of_slurp ];
 
-	   #		print("update,spec_changes, temp_array_prefix = @temp_array_prefix\n");
+	  #		print("update,spec_changes, temp_array_prefix = @temp_array_prefix\n");
 
-			$slurp[ ($start_prefix_line) ] =
-			  ("\tmy \$index_aref = get_binding_index_aref();");
-			$slurp[ ( $start_prefix_line + 1 ) ] =
-			  ("\tmy \@index       = \@\$index_aref;");
+		$slurp[ ($start_prefix_line) ] =
+		  ("\tmy \$index_aref = get_binding_index_aref();");
+		$slurp[ ( $start_prefix_line + 1 ) ] =
+		  ("\tmy \@index       = \@\$index_aref;");
 
-			# recursively modify *_spec.pm file
-			for ( my $i = 0 ; $i < $label_number_of ; $i++ ) {
+		# recursively modify *_spec.pm file
+		for ( my $i = 0 ; $i < $label_number_of ; $i++ ) {
 
-			#			print("update, spec_changes, L 1365, label_number=$label[$i]\n");
+		   #			print("update, spec_changes, L 1365, label_number=$label[$i]\n");
 
-				$slurp[ ( $start_prefix_line + ( ( $i + 1 ) * 3 ) ) ] =
-				  (
+			$slurp[ ( $start_prefix_line + ( ( $i + 1 ) * 3 ) ) ] =
+			  (
 "\t# label $label[$i] in GUI is input/output xx_file and needs a home directory"
-				  );
+			  );
 
-				$slurp[ ( $start_prefix_line + ( ( $i + 1 ) * 3 ) + 1 ) ] =
-				  ("\t\$prefix[ \$index[$i] ] = $prefix_spec[$i]");
+			$slurp[ ( $start_prefix_line + ( ( $i + 1 ) * 3 ) + 1 ) ] =
+			  ("\t\$prefix[ \$index[$i] ] = $prefix_spec[$i]");
 
-				$slurp[ ( $start_prefix_line + ( ( $i + 1 ) * 3 ) + 2 ) ] =
-				  (" ");
+			$slurp[ ( $start_prefix_line + ( ( $i + 1 ) * 3 ) + 2 ) ] =
+			  (" ");
 
-			}
+		}
 
 =head2 Add saved text lines
 
@@ -1389,15 +1395,14 @@ if we have more than 3 input/output interactions
 
 =cut			
 
-			if ( $label_number_of > 3 ) {
+		if ( $label_number_of > 3 ) {
 
-				$line_bump_prefix = ( $label_number_of - 3 ) * 3;
+			$line_bump_prefix = ( $label_number_of - 3 ) * 3;
 
-				my $new_length_of_slurp =
-				  $length_of_slurp + $line_bump_suffix + $line_bump_prefix;
+			my $new_length_of_slurp =
+			  $length_of_slurp + $line_bump_suffix + $line_bump_prefix;
 
-				my $new_end_prefix_line =
-				  $end_prefix_line + $line_bump_prefix + 1;
+			my $new_end_prefix_line = $end_prefix_line + $line_bump_prefix + 1;
 
 #			print(
 #				"update, spec_changes,new_length_of_slurp, prefix_aref=$new_length_of_slurp\n"
@@ -1406,18 +1411,17 @@ if we have more than 3 input/output interactions
 #"update, spec_changes,new_end_prefix_line= $new_end_prefix_line\n"
 #			);
 
-				@slurp[ ( $new_end_prefix_line - 1 )
-				  .. ( $new_length_of_slurp - 1 ) ] =
-				  @temp_array_prefix[ 0 .. ( $temp_array_length_prefix - 1 ) ];
-			}
-			elsif ( $label_number_of <= 3 ) {
+			@slurp[ ( $new_end_prefix_line - 1 )
+			  .. ( $new_length_of_slurp - 1 ) ] =
+			  @temp_array_prefix[ 0 .. ( $temp_array_length_prefix - 1 ) ];
+		}
+		elsif ( $label_number_of <= 3 ) {
 
-				#               NADA;
-			}
-			else {
-				print(
-					"update, spec_changes, for prefix_aref unexpected value \n");
-			}
+			#               NADA;
+		}
+		else {
+			print("update, spec_changes, for prefix_aref unexpected value \n");
+		}
 
 ###############################################################################
 
@@ -1427,18 +1431,17 @@ sub file_dialog_type_aref lines in *_spec.pm file
 
 =cut
 
-			my $start_file_dialog_type_line =
-			  $update->{_start_file_dialog_type_line};
+		my $start_file_dialog_type_line =
+		  $update->{_start_file_dialog_type_line};
 
-			my $end_file_dialog_type_line =
-			  $update->{_end_file_dialog_type_line};
+		my $end_file_dialog_type_line = $update->{_end_file_dialog_type_line};
 
-			print(
+		print(
 "update, spec_changes, start_file_dialog_type_line =$update->{_start_file_dialog_type_line}\n"
-			);
-			print(
+		);
+		print(
 "update, spec_changes, end_file_dialog_type_line =$update->{_end_file_dialog_type_line}\n"
-			);
+		);
 
 =head2 Add lines to
 
@@ -1447,9 +1450,9 @@ Intentionally start from the end of the *.spec file
 
 =cut
 
-			$start_file_dialog_type_line =
-			  $update->{_start_file_dialog_type_line} - 1;
-			$end_file_dialog_type_line = $update->{_end_file_dialog_type_line};
+		$start_file_dialog_type_line =
+		  $update->{_start_file_dialog_type_line} - 1;
+		$end_file_dialog_type_line = $update->{_end_file_dialog_type_line};
 
 =head2 save latter portion for addendum
 
@@ -1459,31 +1462,31 @@ If file_dialog_type does not have more than 3 entries the line_bump_* = 0
 
 =cut
 
-			$new_length_of_slurp =
-			  $length_of_slurp + $line_bump_suffix + $line_bump_prefix;
+		$new_length_of_slurp =
+		  $length_of_slurp + $line_bump_suffix + $line_bump_prefix;
 
-			$temp_array_length_file_dialog_type =
-			  $new_length_of_slurp - $end_file_dialog_type_line;
-			print(
+		$temp_array_length_file_dialog_type =
+		  $new_length_of_slurp - $end_file_dialog_type_line;
+		print(
 "update,spec_changes, new_length_of_slurp   = $new_length_of_slurp\n"
-			);
-			print(
+		);
+		print(
 "update,spec_changes, file_dialog_type_aref temp_array_length_file_dialog_type = $temp_array_length_file_dialog_type\n"
-			);
-			@temp_array_file_dialog_type[ 0 .. (
-				  $temp_array_length_file_dialog_type - 1 ) ] =
-			  @slurp[ $end_file_dialog_type_line .. $new_length_of_slurp ];
+		);
+		@temp_array_file_dialog_type[ 0 .. (
+			  $temp_array_length_file_dialog_type - 1 ) ] =
+		  @slurp[ $end_file_dialog_type_line .. $new_length_of_slurp ];
 
 #		print("update,spec_changes, temp_array_file_dialog_type = @temp_array_file_dialog_type\n");
 
-			# recursively modify *_spec.pm file
-			for ( my $i = 0 ; $i < $label_number_of ; $i++ ) {
+		# recursively modify *_spec.pm file
+		for ( my $i = 0 ; $i < $label_number_of ; $i++ ) {
 
-#				print("update, spec_changes, L 1479, label_number=$label[$i]\n");
+		  #				print("update, spec_changes, L 1479, label_number=$label[$i]\n");
 
-				$slurp[ ( $start_file_dialog_type_line + $i ) ] =
-				  ("\t\$type[\$index[$i]] = \$file_dialog_type->\{_Data\};");
-			}
+			$slurp[ ( $start_file_dialog_type_line + $i ) ] =
+			  ("\t\$type[\$index[$i]] = \$file_dialog_type->\{_Data\};");
+		}
 
 =head2 Add saved text lines
 
@@ -1492,40 +1495,40 @@ if we have more than 3 input/output interactions
 
 =cut			
 
-			if ( $label_number_of > 5 ) {
+		if ( $label_number_of > 5 ) {
 
-				$line_bump_file_dialog_type = ( $label_number_of - 5 );
+			$line_bump_file_dialog_type = ( $label_number_of - 5 );
 
-				my $new_length_of_slurp =
-				  $length_of_slurp +
-				  $line_bump_suffix +
-				  $line_bump_prefix +
-				  $line_bump_file_dialog_type;
+			my $new_length_of_slurp =
+			  $length_of_slurp +
+			  $line_bump_suffix +
+			  $line_bump_prefix +
+			  $line_bump_file_dialog_type;
 
-				my $new_end_file_dialog_type_line =
-				  $end_file_dialog_type_line + $line_bump_file_dialog_type + 1;
+			my $new_end_file_dialog_type_line =
+			  $end_file_dialog_type_line + $line_bump_file_dialog_type + 1;
 
-				print(
+			print(
 "update, spec_changes,new_length_of_slurp, file_dialog_type_aref=$new_length_of_slurp\n"
-				);
-				print(
+			);
+			print(
 "update, spec_changes,new_end_file_dialog_type_line= $new_end_file_dialog_type_line\n"
-				);
+			);
 
-				@slurp[ ( $new_end_file_dialog_type_line - 1 )
-				  .. ( $new_length_of_slurp - 1 ) ] =
-				  @temp_array_file_dialog_type[ 0 .. (
-					  $temp_array_length_file_dialog_type - 1 ) ];
-			}
-			elsif ( $label_number_of <= 5 ) {
+			@slurp[ ( $new_end_file_dialog_type_line - 1 )
+			  .. ( $new_length_of_slurp - 1 ) ] =
+			  @temp_array_file_dialog_type[ 0 .. (
+				  $temp_array_length_file_dialog_type - 1 ) ];
+		}
+		elsif ( $label_number_of <= 5 ) {
 
-				#               NADA;
-			}
-			else {
-				print(
+			#               NADA;
+		}
+		else {
+			print(
 "update, spec_changes, for file_dialog_type_aref unexpected value \n"
-				);
-			}
+			);
+		}
 
 #################################################################################
 
@@ -1535,9 +1538,8 @@ sub binding_index_aref lines in *_spec.pm file
 
 =cut
 
-
 		my $start_binding_index_line = $update->{_start_binding_index_line};
-		my $end_binding_index_line = $update->{_end_binding_index_line};
+		my $end_binding_index_line   = $update->{_end_binding_index_line};
 
 		print(
 "update, spec_changes, start_binding_index_line =$update->{_start_binding_index_line}\n"
@@ -1547,7 +1549,6 @@ sub binding_index_aref lines in *_spec.pm file
 "update, spec_changes, end_binding_index_line =$update->{_end_binding_index_line}\n"
 		);
 
-
 =head2 Add lines to
 
 binding_index_aref lines in *_spec.pm file
@@ -1555,9 +1556,8 @@ Intentionally start from the end of the *.spec file
 
 =cut
 
-			$start_binding_index_line =
-			  $update->{_start_binding_index_line} - 1;
-			$end_binding_index_line = $update->{_end_binding_index_line} -1;
+		$start_binding_index_line = $update->{_start_binding_index_line} - 1;
+		$end_binding_index_line   = $update->{_end_binding_index_line} - 1;
 
 =head2 save latter portion for addendum
 
@@ -1567,31 +1567,33 @@ If file_dialog_type does not have more than 3 entries the line_bump_* = 0
 
 =cut
 
-			$new_length_of_slurp =
-			  $length_of_slurp + $line_bump_suffix + $line_bump_prefix + $line_bump_file_dialog_type;
+		$new_length_of_slurp =
+		  $length_of_slurp +
+		  $line_bump_suffix +
+		  $line_bump_prefix +
+		  $line_bump_file_dialog_type;
 
-			$temp_array_length_binding_index =
-			  $new_length_of_slurp - $end_binding_index_line;
-			print(
+		$temp_array_length_binding_index =
+		  $new_length_of_slurp - $end_binding_index_line;
+		print(
 "update,spec_changes, new_length_of_slurp   = $new_length_of_slurp\n"
-			);
-			print(
+		);
+		print(
 "update,spec_changes, binding_index_aref temp_array_length_binding_index = $temp_array_length_binding_index\n"
-			);
-			@temp_array_binding_index[ 0 .. (
-				  $temp_array_length_binding_index - 1 ) ] =
-			  @slurp[ $end_binding_index_line .. $new_length_of_slurp ];
+		);
+		@temp_array_binding_index[ 0 .. ( $temp_array_length_binding_index - 1 )
+		] = @slurp[ $end_binding_index_line .. $new_length_of_slurp ];
 
 #		print("update,spec_changes, temp_array_binding_index = @temp_array_binding_index\n");
 
-			# recursively modify *_spec.pm file
-			for ( my $i = 0 ; $i < $label_number_of ; $i++ ) {
+		# recursively modify *_spec.pm file
+		for ( my $i = 0 ; $i < $label_number_of ; $i++ ) {
 
-#				print("update, spec_changes, L 1591, label_number=$label[$i]\n");
-				my $index_out   = $label[$i] -1;
-				$slurp[ ( $start_binding_index_line + $i ) ] =
-				  ("\t\$index[$i] = $index_out; # inbound/outbound item is bound");
-			}
+		  #				print("update, spec_changes, L 1591, label_number=$label[$i]\n");
+			my $index_out = $label[$i] - 1;
+			$slurp[ ( $start_binding_index_line + $i ) ] =
+			  ("\t\$index[$i] = $index_out; # inbound/outbound item is bound");
+		}
 
 =head2 Add saved text lines
 
@@ -1600,96 +1602,95 @@ if we have more than 4 input/output interactions
 
 =cut			
 
-			if ( $label_number_of > 4 ) {
+		if ( $label_number_of > 4 ) {
 
-				$line_bump_binding_index = ( $label_number_of - 4 );
+			$line_bump_binding_index = ( $label_number_of - 4 );
 
-				my $new_length_of_slurp =
-				  $length_of_slurp +
-				  $line_bump_suffix +
-				  $line_bump_prefix +
-				  $line_bump_file_dialog_type +
-				  $line_bump_binding_index;
+			my $new_length_of_slurp =
+			  $length_of_slurp +
+			  $line_bump_suffix +
+			  $line_bump_prefix +
+			  $line_bump_file_dialog_type +
+			  $line_bump_binding_index;
 
-				my $new_end_binding_index_line =
-				  $end_binding_index_line + $line_bump_binding_index + 1;
+			my $new_end_binding_index_line =
+			  $end_binding_index_line + $line_bump_binding_index + 1;
 
-				print(
+			print(
 "update, spec_changes,new_length_of_slurp, binding_index_aref=$new_length_of_slurp\n"
-				);
-				print(
+			);
+			print(
 "update, spec_changes,new_end_binding_index_line= $new_end_binding_index_line\n"
-				);
+			);
 
-				@slurp[ ( $new_end_binding_index_line - 1 )
-				  .. ( $new_length_of_slurp - 1 ) ] =
-				  @temp_array_binding_index[ 0 .. (
-					  $temp_array_length_binding_index - 1 ) ];
-			}
-			elsif ( $label_number_of <= 4 ) {
+			@slurp[ ( $new_end_binding_index_line - 1 )
+			  .. ( $new_length_of_slurp - 1 ) ] =
+			  @temp_array_binding_index[ 0 .. (
+				  $temp_array_length_binding_index - 1 ) ];
+		}
+		elsif ( $label_number_of <= 4 ) {
 
-				#               NADA;
-			}
-			else {
-				print(
+			#               NADA;
+		}
+		else {
+			print(
 "update, spec_changes, for binding_index_aref unexpected value \n"
-				);
-			}
+			);
+		}
 
 #################################################################################
+
 =head2 write out
 
 updated spec file
 
 =cut
 
-			open( OUT, ">$spec_outbound[0]" )
-			  or die("File  $spec_outbound[0] not found");
+		open( OUT, ">$spec_outbound[0]" )
+		  or die("File  $spec_outbound[0] not found");
 
-			$length_of_slurp = scalar @slurp;
+		$length_of_slurp = scalar @slurp;
 
-			print(
+		print(
 "update,writing out file, spec_changes, length_of_slurp = $length_of_slurp\n"
-			);
+		);
 
-			for ( my $i = 0 ; $i < $length_of_slurp ; $i++ ) {
+		for ( my $i = 0 ; $i < $length_of_slurp ; $i++ ) {
 
-				#				print ("$slurp[$i]\n");
-				print OUT $slurp[$i] . "\n";
-
-			}
-			close(OUT);
+			#				print ("$slurp[$i]\n");
+			print OUT $slurp[$i] . "\n";
 
 		}
-		else {
-			print("update,spec_changes, a needed variable is missing\n");
-			print(
-				"update,spec_changes,program_name=$update->{_program_name}\n");
-			print(
-				"update,spec_changes,group_number=$update->{_group_number}\n");
-			print(
+		close(OUT);
+
+	}
+	else {
+		print("update,spec_changes, a needed variable is missing\n");
+		print("update,spec_changes,program_name=$update->{_program_name}\n");
+		print("update,spec_changes,group_number=$update->{_group_number}\n");
+		print(
 "update,spec_changes,spec_changes_base_file_name=$update->{_spec_changes_base_file_name}\n"
-			);
-			print("update,spec_changes,$changes_aref=changes_aref\n");
-			print(
+		);
+		print("update,spec_changes,$changes_aref=changes_aref\n");
+		print(
 "update,spec_changes,start_binding_index_line=$update->{_start_binding_index_line}\n"
-			);
-			print(
+		);
+		print(
 "update,spec_changes,start_prefix_line=$update->{_start_prefix_line}\n"
-			);
-			print(
+		);
+		print(
 "update,spec_changes,start_suffix_line=$update->{_start_suffix_line}\n"
-			);
-			print(
-"update,spec_changes,end_suffix_line=$update->{_end_suffix_line}\n"
-			);
-			print(			
-"update,spec_changes,end_prefix_line=$update->{_end_prefix_line}\n"
-			);
+		);
+		print(
+			"update,spec_changes,end_suffix_line=$update->{_end_suffix_line}\n"
+		);
+		print(
+			"update,spec_changes,end_prefix_line=$update->{_end_prefix_line}\n"
+		);
 
-		}
-
-		return ();
 	}
 
-	1;
+	return ();
+}
+
+1;

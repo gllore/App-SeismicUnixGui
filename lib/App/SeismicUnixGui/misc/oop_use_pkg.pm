@@ -15,9 +15,10 @@ $use[4] = "\t" . 'my $DATA_SEISMIC_BIN' . "\t". '= $Project->DATA_SEISMIC_BIN;' 
 $use[5] = "\t" . 'my $DATA_SEISMIC_SEGD' . "\t" . '= $Project->DATA_SEISMIC_SEGD;' . "\n";
 $use[6] = "\t" . 'my $DATA_SEISMIC_SEGY' . "\t" . '= $Project->DATA_SEISMIC_SEGY;' . "\n";
 $use[7] = "\t" . 'my $DATA_SEISMIC_SU' . "\t" . '= $Project->DATA_SEISMIC_SU;' . "\n";
-$use[8] = "\t" . 'my $DATA_SEISMIC_TXT' . "\t" . '= $Project->DATA_SEISMIC_TXT;' . "\n\n";
-$use[9] = "\t" . 'use aliased \'App::SeismicUnixGui::misc::message\';'."\n";
-$use[10] = "\t" . 'use aliased \'App::SeismicUnixGui::misc::flow\';' . "\n";
+$use[8] = "\t" . 'my $DATA_SEISMIC_TXT' . "\t" . '= $Project->DATA_SEISMIC_TXT;' . "\n";
+$use[9] = "\t" . 'my $PL_SEISMIC' . "\t" . '= $Project->PL_SEISMIC;' . "\n\n";
+$use[10] = "\t" . 'use aliased \'App::SeismicUnixGui::misc::message\';'."\n";
+$use[11] = "\t" . 'use aliased \'App::SeismicUnixGui::misc::flow\';' . "\n";
 
 
 sub section {

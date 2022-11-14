@@ -19,6 +19,7 @@ use aliased 'App::SeismicUnixGui::misc::manage_files_by2';
  DESCRIPTION: 
  Version: 1.1
  Package used for interactive velocity analysis
+ Convert pick files into a format suvelan can use
 
 =head2 USE
 

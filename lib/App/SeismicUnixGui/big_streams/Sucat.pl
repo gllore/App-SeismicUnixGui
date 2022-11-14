@@ -16,6 +16,8 @@
            
            April 9 2018
            removed dependency on Config::Simple (CPAN)
+           
+           V0.1.5 Now uses sucat.pm instead of bash commands
 
   DESCRIPTION: 
 
@@ -28,19 +30,76 @@
 
 =head2 Example Cases
 
-CASE 1
+CASE 1A
 
-Use a list (file name) for concatenating iVelan "pick files" (Vrms,time pairs)
+Use a list (use complete file names but exclude the directory paths) 
+for concatenating iVelan "pick files" (Vrms,time pairs)
 into the correct format.
 
-An output name is required.
+A "list", which is found in the $PL_SEISMIC directory contains, 
+e.g.:
+ivpicks_sorted_par_L28Hz_Ibeam_geom4_cdp1
+ivpicks_sorted_par_L28Hz_Ibeam_geom4_cdp11
+
+The starting input format in "par" format is as follows:
+
+(for ivpicks_sorted_par_L28Hz_Ibeam_geom4_cdp1)
+tnmo=0.0189974,0.113193,0.153562,0.231926
+vnmo=59.4778,160.806,195.689,273.761
+
+(for ivpicks_sorted_par_L28Hz_Ibeam_geom4_cdp11)
+tnmo=0.0316623,0.0759894,0.129815
+vnmo=101.006,130.906,263.794
+
+The final output format is:
+
+cdp=3,5
+tnmo=0.0189974,0.113193,0.153562,0.231926
+vnmo=59.4778,160.806,195.689,273.761
+tnmo=0.0316623,0.0759894,0.129815
+vnmo=101.006,130.906,263.794
+
+
+CASE 1B
+
+Use a list (use complete file names but exclude the directory paths) 
+for concatenating iVelan "pick files" (x-coordinate,time pairs)
+into the correct format.
+
+A "list" which is found in the $PL_SEISMIC directory contains, e.g.:
+
+itop_mute_par_L28Hz_Ibeam_cmp_ep3
+itop_mute_par_L28Hz_Ibeam_cmp_ep5
+
+
+The starting input format in each  in "par" format:
+tnmo=0.0189974,0.113193,0.153562,0.231926
+vnmo=59.4778,160.806,195.689,273.761
+
+The final output format is:
+
+
+The list is expected to be found in $PL_SEISMIC, i.e., ~/pl/"subuser"/
+    
+ Data_type is determined by parsing the file names and normally contains:
+ "itop_mute", "ibot_mute" etc." '
+    
+(See ~sunix/shell/sucat.pm
+If "data_type" = "velan" then the concatenated output file
+will automatically be reformatted for input into sunmo.       
+
+If "data_type" = "itop_mute" or "ibot_mute" then the concatenated 
+output file will automatically be reformatted for input into
+"sumute". 
+
+GUI EXAMPLE:    
+    
+Note that a list can only be used when the values of the prior
+7 parameters are blank.
+
+An output name is also required.
 --Exclude values for first 7 parameters in GUI. 
 --alternative directories are optional.
-
-That is, a list can only be used when the values of the prior
-7 parameters are blank
-
-Example:
 
     first_file_number_in               =               
     last_file_number_in                =                
@@ -53,14 +112,7 @@ Example:
     output_file_name                   =    
     alternative_inbound_directory      =  [$PL_SEISMIC]             
     alternative_outbound_directory     =  [$PL_SEISMIC]  
-    
-    (The list is expected to be found in $PL_SEISMIC)
-    
-    Data_type is determined from the file names in the list
-    that will contain "velan" etc." 
-    If data_type = velan then the concatenated output file
-    will automatically be reformatted for input into
-    sunmo.
+         
 
 ---------------------------------------------------------------------------
 
@@ -163,7 +215,7 @@ use aliased 'App::SeismicUnixGui::misc::message';
 use aliased 'App::SeismicUnixGui::sunix::shell::sucat';
 use aliased 'App::SeismicUnixGui::misc::manage_files_by';
 use App::SeismicUnixGui::misc::SeismicUnix
-	qw($_cdp $_mute $in $itop_mute_par_ $ivpicks_sorted_par_ $out $on $go $to $suffix_ascii $off $suffix_su);
+  qw($_cdp $_mute $in $itop_mute_par_ $ivpicks_sorted_par_ $out $on $go $to $suffix_ascii $off $suffix_su);
 use aliased 'App::SeismicUnixGui::misc::L_SU_global_constants';
 use aliased 'App::SeismicUnixGui::configs::big_streams::Sucat_config';
 use aliased 'App::SeismicUnixGui::specs::big_streams::Sucat_specB';
@@ -187,12 +239,12 @@ my $num_cdps;
 
 =cut
 
-my $Project    = Project_config->new();
-my $control    = control->new();
-my $log        = message->new();
-my $run        = flow->new();
-my $sucat      = sucat->new();
-my $read       = readfiles->new();
+my $Project     = Project_config->new();
+my $control     = control->new();
+my $log         = message->new();
+my $run         = flow->new();
+my $sucat       = sucat->new();
+my $read        = readfiles->new();
 my $Sucat_specB = Sucat_specB->new();
 
 my $get          = L_SU_global_constants->new->new();
@@ -213,9 +265,13 @@ my $DATA_DIR_IN  = $Sucat_spec_variables->{_DATA_DIR_IN};
 my $DATA_DIR_OUT = $Sucat_spec_variables->{_DATA_DIR_OUT};
 my $PL_SEISMIC   = $Project->PL_SEISMIC;
 
-$inbound_directory  = $DATA_DIR_IN;
-$outbound_directory = $DATA_DIR_OUT;
-my $list_directory = $PL_SEISMIC;
+my $inbound_directory_default  = $DATA_DIR_IN;
+my $outbound_directory_default = $DATA_DIR_OUT;
+my $list_directory_default     = $PL_SEISMIC;
+
+$inbound_directory  = $inbound_directory_default;
+$outbound_directory = $outbound_directory_default;
+my $list_directory = $list_directory_default;
 
 $sucat->list_directory($list_directory);
 
@@ -246,11 +302,13 @@ my $input_suffix         = $CFG_h->{sucat}{1}{input_suffix};
 my $input_name_prefix    = $CFG_h->{sucat}{1}{input_name_prefix};
 my $input_name_extension = $CFG_h->{sucat}{1}{input_name_extension};
 my $list                 = $CFG_h->{sucat}{1}{list};
-$alternative_inbound_directory  = $CFG_h->{sucat}{1}{alternative_inbound_directory};
-$alternative_outbound_directory = $CFG_h->{sucat}{1}{alternative_outbound_directory};
+$alternative_inbound_directory =
+  $CFG_h->{sucat}{1}{alternative_inbound_directory};
+$alternative_outbound_directory =
+  $CFG_h->{sucat}{1}{alternative_outbound_directory};
 
 # print("0. Sucat.pl, selected inbound_directory=$inbound_directory  \n");
-	
+
 =head2 correct input format values
 
 =cut
@@ -262,47 +320,69 @@ $list = $control->get_no_quotes($list);
 
 =head2 3. Consider compatible
 
-parameter inputs
+parameter inputs with and without
+a list
 
 =cut
 
+
 # CASE 1: new inbound and or/outbound directories replace defaults
 if ( $alternative_outbound_directory ne $empty_string ) {
+
 	$outbound_directory = $alternative_outbound_directory;
 
-	print("1. Sucat.pl, selected alternative_outbound_directory  $outbound_directory\n");
+# print("1. Sucat.pl, selected alternative_outbound_directory  $outbound_directory\n");
 
-} elsif ( $alternative_outbound_directory eq $empty_string ) {
-	$outbound_directory = $DATA_DIR_OUT;
+}
+elsif ( $alternative_outbound_directory eq $empty_string ) {
 
-	print("2. Sucat.pl, selected outbound_directory $outbound_directory  \n");
-} else {
+	if ( $list ne $empty_string ) {
+
+		$outbound_directory = $list_directory_default;
+
+	}
+	else {
+		$outbound_directory = $DATA_DIR_OUT;
+	}
+
+	# print("2. Sucat.pl, selected outbound_directory $outbound_directory  \n");
+}
+else {
 	print("Sucat.pl, unexpected alternative_outbound_directory  \n");
 }
 
 if ( $alternative_inbound_directory ne $empty_string ) {
-	
+
 	$inbound_directory = $alternative_inbound_directory;
 
-	print("3A. Sucat.pl, selected inbound_directory=$inbound_directory  \n");
-	print("3B. Sucat.pl, selected alternative inbound_directory=$alternative_inbound_directory  \n");
-		
-} elsif ( $alternative_inbound_directory eq $empty_string ) {
-	
-	$inbound_directory = $DATA_DIR_IN;
+# print("3A. Sucat.pl, selected inbound_directory=$inbound_directory  \n");
+# print("3B. Sucat.pl, selected alternative inbound_directory=$alternative_inbound_directory  \n");
 
-	print("4. Sucat.pl, selected inbound_directory=$inbound_directory  \n");
-} else {
+}
+elsif ( $alternative_inbound_directory eq $empty_string ) {
+
+	if ( $list ne $empty_string ) {
+
+		$inbound_directory = $list_directory_default;
+
+	}
+	else {
+		$inbound_directory = $DATA_DIR_IN;
+	}
+
+	# print("4. Sucat.pl, selected inbound_directory=$inbound_directory  \n");
+}
+else {
 	print("Sucat.pl, unexpected alternative_inbound_directory  \n");
 }
 
-print("Sucat.pl,inbound_directory:---$inbound_directory--\n");
+#print("Sucat.pl,inbound_directory:---$inbound_directory--\n");
 #print("Sucat.pl,outbound_directory:---$outbound_directory--\n");
 
 =head2 3. Declare outopt file names and their paths
 
   inbound and outbound directories
-  are  defaulted but can be different
+  are defaulted but can be different
 
 =cut
 
@@ -310,13 +390,16 @@ $file_out[1] = $output_file_name;
 
 if ( $input_suffix ne $empty_string ) {
 
-	$outbound[1] = $outbound_directory . '/' . $file_out[1] . '.' . $input_suffix;
+	$outbound[1] =
+	  $outbound_directory . '/' . $file_out[1] . '.' . $input_suffix;
 
-} elsif ( $input_suffix eq $empty_string ) {
+}
+elsif ( $input_suffix eq $empty_string ) {
 
 	$outbound[1] = $outbound_directory . '/' . $file_out[1];
 
-} else {
+}
+else {
 	print("Sucat.pl,unexpected empty string\n");
 }
 
@@ -354,7 +437,8 @@ if (    $list ne $empty_string
 	and $number_of_files_in eq $empty_string
 	and $input_suffix eq $empty_string
 	and $input_name_prefix eq $empty_string
-	and $input_name_extension eq $empty_string ) {
+	and $input_name_extension eq $empty_string )
+{
 
 	# print("2. Sucat.pl, list:---$list---\n");
 	# print("2. Sucat.pl, list:---0:@$ref_array[0], 1:@$ref_array[1]\n");
@@ -372,11 +456,13 @@ if (    $list ne $empty_string
 elsif ( $list eq $empty_string
 	and $first_file_number_in ne $empty_string
 	and $last_file_number_in ne $empty_string
-	and $number_of_files_in ne $empty_string ) {
+	and $number_of_files_in ne $empty_string )
+{
 
 	# print("3. Sucat.pl, OK, NADA\n");
 
-} else {
+}
+else {
 	print(
 		"Warning: Incorrect settings. Either: 
 \t 1) Use a list without values for first 6 parameters. Include the output
@@ -409,6 +495,8 @@ $run->flow( \$flow[1] );
 
 =cut
 
-print "$flow[1]\n";
+$log->screen( $flow[1] );
 
-#$log->file($flow[1]);
+#my $time = localtime;
+#$log->file(time);
+#$log->file( $flow[1] );

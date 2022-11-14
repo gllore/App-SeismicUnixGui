@@ -298,19 +298,23 @@ sub set_calc {
     $xk->kill_this('suxwigb');
 
     $iTM->iPicks2par();
-    $iTM->iSave_top_mute_picks();
-    $iTM->iApply_top_mute();
+        print("1 Calculating...\n");
+    $iTM->iTM_Save_top_mute_picks();
+        print("2 Calculating...\n");
+    $iTM->iTM_Apply_top_mute();
+        print("3 Calculating...\n");
     $number_of_tries++;
+        print("4 Calculating...\n");
     $iTM->number_of_tries($number_of_tries);
 
 =head2 Message 
 
-       to halts flow
+       to halt flow
        when number_of_tries >0
 
 =cut
 
-    $iTM->iTM_message('post_pick_mute');
+#    $iTM->iTM_message('post_pick_mute');
 }
 
 

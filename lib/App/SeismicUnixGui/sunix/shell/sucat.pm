@@ -49,16 +49,14 @@ use aliased 'App::SeismicUnixGui::misc::manage_files_by';
 use App::SeismicUnixGui::misc::control '0.0.3';
 use aliased 'App::SeismicUnixGui::misc::control';
 use App::SeismicUnixGui::misc::SeismicUnix
-		  qw($itop_mute $ibot_mute $ivpicks_sorted_par_);
-
+  qw($itop_mute $ibot_mute $ivpicks_sorted_par_);
 
 =head2 instantiate new variables
 
 =cut
 
-my $get = L_SU_global_constants->new();
+my $get             = L_SU_global_constants->new();
 my $manage_files_by = manage_files_by->new();
-
 
 =head2 declare local variables
 
@@ -298,18 +296,16 @@ sub data_type {
 
 =head2
 
- read a list of file names
+ 1.Read a list of file names
  read contents of each file in the list
- into arrays
- each line of the list contains:
+ into arrays.
  
-  gather number as well as an 
-
-  gather number as well as an 
- indicator of what file the velocity picks are in
+ Each line of the list uses a file name that indicates
+ gather number and the other file name in which to find
+ velocity picks.
  
- sort the cdp or gather number into monotonically increasing
- values and rearrange the pick pairs accordingly
+ Sort the cdp or gather number into monotonically increasing
+ values and rearrange the pick pairs accordingly.
  
 =cut
 
@@ -347,8 +343,10 @@ sub data_type {
 # print("sucat,data_type,reading gather_number: $gather_number[$file_number]\n");
 # print("sucat,data_type,ValuesPerRow : @$ValuesPerRow_aref\n");
 
-=head2 place contents of each file in the list
- into an array
+=head2 Place contents 
+
+of each file in the list
+into an array.
 
 =cut
 
@@ -588,10 +586,12 @@ sub list_directory {
 	my ( $variable, $list_directory ) = @_;
 
 	if ( $list_directory ne $empty_string ) {
+		
 		$sucat->{_list_directory} = $list_directory;
-	}
-	else {
 
+	}
+	
+	else {
 		# print("sucat,list_directory: NADA\n");
 	}
 
@@ -753,20 +753,20 @@ sub Step {
 
 				$sucat->{_Step} =
 					$sucat->{_Step}
-				  . $sucat->{_inbound_directory} . '/' . '.cdp '
-				  . $sucat->{_inbound_directory} . '/' . '.tv' . '\\'
+				  . $sucat->{_list_directory} . '/' . '.cdp '
+				  . $sucat->{_list_directory} . '/' . '.tv' . '\\'
 				  . $newline;
 
-		  # print("sucat,Step, case of velan,sucat->{_Step}=$sucat->{_Step}\n");
+		  print("sucat,Step, case of velan,sucat->{_Step}=$sucat->{_Step}\n");
 
 			}
 			elsif ( $sucat->{_data_type} eq 'mute' ) {
 
 				$sucat->{_Step} =
 					$sucat->{_Step}
-				  . $sucat->{_inbound_directory} . '/'
+				  . $sucat->{_list_directory} . '/'
 				  . '.gather '
-				  . $sucat->{_inbound_directory} . '/' . '.tx ' . '\\'
+				  . $sucat->{_list_directory} . '/' . '.tx ' . '\\'
 				  . $newline;
 
 			}
@@ -809,6 +809,7 @@ sub Step {
 
 				# CASE 2A-2 there is no input suffix specified by user
 				elsif ( $sucat->{_input_suffix} eq $empty_string ) {
+					
 					$sucat->{_Step} =
 						$sucat->{_Step} . ' '
 					  . $sucat->{_inbound_directory} . '/'
@@ -852,6 +853,7 @@ sub Step {
 
 				# CASE 2A-2 there is no input suffix specified by user
 				elsif ( $sucat->{_input_suffix} eq $empty_string ) {
+					
 					$sucat->{_Step} =
 						$sucat->{_Step} . ' '
 					  . $sucat->{_inbound_directory} . '/'

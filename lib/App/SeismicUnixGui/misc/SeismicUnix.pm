@@ -79,6 +79,7 @@ our (@EXPORT_OK, @ISA); #Global variables
   $ivpicks_sorted_par_
   $ms2s $us2s
   $offset 
+  $pl 
   $profile 
   $ps $pick $report $target $target_tilde
   $DAT $dat $seg2 $segb $segd $sgd $segy $sgy $su $par $empty
@@ -226,6 +227,8 @@ our $_cdp = '_cdp';
 our $_mute = '_mute';
 
 our $pick  = 'pick';
+
+our $pl    = 'pl';
 
 our $profile = 'profile';
 

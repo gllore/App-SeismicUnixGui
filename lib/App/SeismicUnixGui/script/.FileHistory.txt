@@ -1,3 +1,8 @@
+/home/gllore/Servilleta/seismics/pl/loma_blanca//053018/H/1/gllore/6.mute.pl
+/home/gllore/Servilleta/seismics/pl/loma_blanca//053018/H/1/gllore/test
+/home/gllore/Servilleta/seismics/data/loma_blanca//053018/H/1/su/gllore/L28Hz_Ibeam_geom4.su
+/home/gllore/Servilleta/seismics/data/loma_blanca//053018/H/1/su/gllore/L28Hz_Ibeam.su
+/home/gllore/Servilleta/seismics/pl/loma_blanca//053018/H/1/gllore/surange.pl
 /home/gllore/Georgia//seismics/pl/NWMountains//2016/Z/1/gllore/2.suspecfx.pl
 /home/gllore/Georgia//seismics/data/NWMountains//2016/Z/1/su/gllore/junk.su
 /home/gllore/Georgia//seismics/pl/NWMountains//2016/Z/1/gllore/view_all_data.pl
@@ -5,8 +10,3 @@
 /home/gllore/Servilleta//seismics/pl/loma_blanca//053018/H/1/gllore/3.view_diff_data.pl
 /home/gllore/Georgia//seismics/data/NWMountains//2016/Z/1/su/gllore/oyo_new.su
 /home/gllore/Georgia//seismics/pl/NWMountains//2016/Z/1/gllore/surange.pl
-/home/gllore/Servilleta/seismics/pl/loma_blanca//053018/H/1/gllore/5.view_cmp_hdr.pl
-/home/gllore/Servilleta/seismics/pl/loma_blanca//053018/H/1/gllore/5.make_cmp.pl
-/home/gllore/Servilleta/seismics/pl/loma_blanca//053018/H/1/gllore/4.geom3.pl
-/home/gllore/Servilleta/seismics/data/loma_blanca//053018/H/1/su/gllore/L28Hz_Ibeam_geom4.su
-/home/gllore/Servilleta/seismics/pl/loma_blanca//053018/H/1/gllore/4.surange.pl

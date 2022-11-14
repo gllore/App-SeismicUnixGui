@@ -59,9 +59,9 @@ my $L_SU = $ENV{'SeismicUnixGui'};
 if ( not length($L_SU) ) {
 	
     print "message.pm, L60\n";
-	print "global variable L_SU must be set\n";
+	print "global variable SeismicUnixGui must be set\n";
 	print "e.g., in .bashrc: ";
-	print "export L_SU=/usr/local/pl/SeismicUnixGui ";
+	print "SeismicUnixGui_script=/usr/local/pl/App-SeismicUnixGui/lib/App/SeismicUnixGui/script";
 
 } else {
 	#	print("test.pl: \$L_SU = $L_SU; NADA \n");
