@@ -254,8 +254,8 @@ sub calcNdisplay {
 
     $sumute->clear();
     $sumute->par_directory('PL_SEISMIC');
-    $sumute->parfile( $iApply_bottom_mute->{_parfile_in} );
-    $sumute->headerword( $iApply_bottom_mute->{_offset_type} );
+    $sumute->par_file( $iApply_bottom_mute->{_parfile_in} );
+    $sumute->offset_word( $iApply_bottom_mute->{_offset_type} );
     $sumute->type('bottom');
     $sumute[1] = $sumute->Step();
 

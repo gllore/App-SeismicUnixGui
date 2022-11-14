@@ -974,7 +974,6 @@ my @sunix_plot_programs = (
 
 my @sunix_shapeNcut_programs = (
 	"suflip", "sugain", "sugprfb", "sukill", "sumute", "susort",
-	"sumute",
 	"susplit", "suwind", "supad", "suvcat",
 );
 

@@ -272,8 +272,8 @@ sub calcNdisplay {
 
     $sumute->clear();
     $sumute->par_directory('PL_SEISMIC');
-    $sumute->parfile( $iApply_top_mute->{_parfile_in} );
-    $sumute->headerword( $iApply_top_mute->{_offset_type} );
+    $sumute->par_file( $iApply_top_mute->{_parfile_in} );
+    $sumute->offset_word( $iApply_top_mute->{_offset_type} );
     # not taper applied
     # $sumute ->ntaper($iApply_top_mute->{_ntaper});
     $sumute->type('top');

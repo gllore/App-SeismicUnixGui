@@ -188,7 +188,27 @@ Version:
 
 
 =head2 User's notes (Juan Lorenzo)
-untested
+
+Normally, sumute can only apply one set muting coordinates to one file
+at a time. If you want to apply many different mute designs within
+the gathers of a single file, then you will need to generate previously
+a "multi-gather" mute-type parameter file.
+
+For when there is a multi-gather parameter file involved
+(Daniel Locci, March 2020)
+
+Pick x,t values in single a gather to mute surface waves and save in a 
+parfile, then use susplit to sepate gathers into ep, and use sumute_single_ep.pl. 
+ e.g,
+susplit < test.su > test_ep.su key=ep numlength=1
+
+The parfile can be concatenated using the Tool: Sucat
+
+gather_type           = ep,cdp,segy gathers you are muting
+multi_gather_par_file =
+multi_gather_su_file  = the su file which was muted interactively
+using the Tool: iTop_Mute  
+
 
 =cut
 
@@ -211,8 +231,8 @@ use aliased 'App::SeismicUnixGui::configs::big_streams::Project_config';
 use aliased 'App::SeismicUnixGui::misc::manage_files_by2';
 use App::SeismicUnixGui::misc::control '0.0.3';
 use aliased 'App::SeismicUnixGui::misc::control';
-use App::SeismicUnixGui::sunix::shapeNcut::susplit;
-use App::SeismicUnixGui::misc::flow;
+use aliased 'App::SeismicUnixGui::sunix::shapeNcut::susplit';
+use aliased 'App::SeismicUnixGui::misc::flow';
 
 =head2 instantiation of packages
 
@@ -328,7 +348,7 @@ sub _get_par_sets {
 			# print("sumute, _get_par_sets, gather type OK\n");
 
 		} else {
-			print("sumute, _get_par_sets, gather type missing in 1-to-2 places\n");
+			print("sumute, _get_par_sets, gather type missing in 1 or 2 places\n");
 			print("sumute, _get_par_sets, gather=--$gather_type-- versus --$sumute->{_gather_type}--\n");
 		}
 
@@ -416,16 +436,6 @@ Keeps track of actions for execution in the system
 collects switches and assembles bash instructions
 by adding the program name
 
-NOTES:
-If there is a multi-gather parameter file involved
-Daniel Locci, March 2020:
-
-Pick x,t values in single a gather to mute surface waves and save in a 
-parfile, then use susplit to sepate gathers into ep, and use sumute_single_ep.pl. 
- e.g:
-susplit < test.su > test_ep.su key=ep numlength=1
-
-
 =cut
 
 sub Step {
@@ -449,11 +459,9 @@ with multi_gather_su_file
 
 =cut			
 
-		my $file_in   = $sumute->{_multi_gather_su_file};
-		my $sufile_in = $file_in . $suffix_su;
-		my $inbound   = $DATA_SEISMIC_SU . '/' . $sufile_in;
+		my $inbound   = $sumute->{_multi_gather_su_file};
 
-		# print("sumute,Step, inbound = $inbound\n");
+#		print("sumute,Step, inbound = $inbound\n");
 
 =head2 get modules
 
@@ -491,7 +499,7 @@ with multi_gather_su_file
 		$susplit->suffix($suffix_su);
 		$susplit[0] = $susplit->Step();
 
-		# print("1. sumute, Step, susplit= $susplit[0] \n");
+		print("1. sumute, Step, susplit= $susplit[0] \n");
 
 =head2 clear past temporary, past
 single-gather split from composite su file
@@ -500,7 +508,7 @@ single-gather split from composite su file
 
 		my $delete_files = '.split_' . '*';
 		system("rm -rf $delete_files");
-		#
+		
 
 =head2 DEFINE 
 Collect FLOW(s)
@@ -525,7 +533,7 @@ Run flow in system independently of sumute
 
 =cut
 
-		# print $flow[0];
+		print $flow[0];
 
 =head2 collect output split file names from the PL_SEISMIC directory
 
@@ -944,12 +952,12 @@ sub gather_type {
 }
 
 
-=head2 sub header_word
+=head2 sub header_word_mute
 
 
 =cut
 
-sub header_word {
+sub header_word_mute {
 
 	my ( $self, $key ) = @_;
 	if ( $key ne $empty_string ) {

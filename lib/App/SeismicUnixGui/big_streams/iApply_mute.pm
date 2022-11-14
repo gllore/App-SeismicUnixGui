@@ -320,8 +320,8 @@ sub calcNdisplay {
 =cut
 
     $sumute->clear();
-    $sumute->parfile( $iApply_mute->{_parfile_in} );
-    $sumute->headerword( $iApply_mute->{_offset_type} );
+    $sumute->par_file( $iApply_mute->{_parfile_in} );
+    $sumute->offset_word( $iApply_mute->{_offset_type} );
     $sumute->type( $iApply_mute->{_purpose} );
     $sumute[1] = $sumute->Step();
 

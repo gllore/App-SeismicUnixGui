@@ -46,6 +46,19 @@
  Moose already declares that you need debuggers turned on
  so you don't need a line like the following:
  use warnings;
+ 
+ Parameters
+ 
+ base_file_name su file without "su" suffix
+ 
+ gather_type    used only to determine user messages,
+ 				e.g., SP, CDP
+ 				
+ binheader_type type of gathers used for muting,
+ 				e.g., ep,cdp
+ 				
+ offset_type    horizontal component, 
+ 				e.g., tracr, offset
 
 =cut
 
