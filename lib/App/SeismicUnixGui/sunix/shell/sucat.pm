@@ -93,6 +93,7 @@ is a hash of important variables
 
 my $sucat = {
 	_first_file_number_in => '',
+	_gather_type          => '',
 	_inbound_directory    => '',
 	_input_suffix         => '',
 	_input_name_extension => '',
@@ -118,6 +119,7 @@ my $sucat = {
 sub clear {
 	my ($self) = @_;
 	$sucat->{_first_file_number_in} = '';
+	$sucat->{_gather_type}          = '';	
 	$sucat->{_inbound_directory}    = '';
 	$sucat->{_input_name_extension} = '';
 	$sucat->{_input_suffix}         = '';
@@ -174,7 +176,7 @@ sub _get_data_type {
 
 				$data_type[$i] = 'mute';
 
-				# print("sucat,_get_data_type, success, matched mute\n");
+#				print("sucat,_get_data_type, success, matched mute\n");
 
 			}
 			elsif ( $file_name =~ m/$ivpicks_sorted_par_/ ) {
@@ -223,6 +225,95 @@ sub _get_data_type {
 	}
 }
 
+=head2 _get_gather_type
+
+=cut
+
+sub _get_gather_type {
+	my ($self) = @_;
+
+	if (    $sucat->{_list_directory} ne $empty_string
+		and $sucat->{_list} ne $empty_string )
+	{
+
+=head2 instantiate packages
+
+=cut
+
+		my $read = readfiles->new();
+
+=head2 declare local variables
+
+=cut
+
+		my @gather_type;
+		my $gather_type;
+
+		my $inbound_list = $sucat->{_list_directory} . '/' . $sucat->{_list};
+
+		my ( $array_ref, $num_gathers ) = $read->cols_1p($inbound_list);
+
+		for ( my $i = 0 ; $i < $num_gathers ; $i++ ) {
+#
+#			my $file_name = @$array_ref[$i];
+#
+			if (   $file_name =~ m/$fldr/
+				or  
+				or $file_name =~ m/$cdp/)
+			{
+
+				#CASE 1 for field record gathers
+
+				$gather_type[$i] = 'fldr';
+
+				print("sucat,_get_gather_type, success, matched fldr\n");
+
+			}
+			elsif ( $file_name =~ m/$ep/ ) {
+#
+#				#CASE 2 for velan-type files
+#
+#				# print("success, matched velan\n");
+#				$gather_type[$i] = 'velan';
+#
+#			}
+			else {
+				print("sucat,_get_gather_type, mismatch\n");
+			}
+		}
+#
+#		# all data types must be the same
+#		$gather_type = $gather_type[0];
+#
+#		for ( my $i = 0 ; $i < $num_gathers ; $i++ ) {
+#
+#			if ( $gather_type[0] eq $gather_type[$i] ) {
+#
+#				# print("sucat,_get_gather_type, gather_type is consistent NADA\n");
+#
+#			}
+#			elsif ( $gather_type[0] ne $gather_type[$i] ) {
+#
+#				$gather_type = $empty_string;
+#
+#				# print("sucat,_get_gather_type,failed\ test\n");
+#
+#			}
+#			else {
+#				print("sucat,_get_gather_type_unexpected result\n");
+#				$gather_type = $empty_string;
+#			}
+#		}
+#
+#		my $result = $gather_type;
+#		return ($result);
+#
+	}
+	else {
+		print("sucat,_get_gather_type,missing list and its directory\n");
+	}
+}
+
 =head2 sub _set_data_type
 
  set_data_type can be velan,su,txt or empty
@@ -241,6 +332,29 @@ sub _set_data_type {
 	}
 	else {
 		print("sucat, _set_data_type, missing data_type\n");
+	}
+
+}
+
+=head2 sub _set_gather_type
+
+ set_gather_type can be cdp,ep,fldr
+
+=cut
+
+sub _set_gather_type {
+	
+	my ($gather_type) = @_;
+
+	if ( $gather_type ne $empty_string ) {
+
+		$sucat->{_gather_type} = $gather_type;
+
+		# print("sucat, _set_gather_type, gather_type = $sucat->{_gather_type}\n");
+
+	}
+	else {
+		print("sucat, _set_gather_type, missing data_type\n");
 	}
 
 }
@@ -279,7 +393,8 @@ sub data_type {
 		my ( $values_aref, $ValuesPerRow_aref );
 		my $rows;
 
-		my $data_type = _get_data_type();
+		my $gather_type = _get_gather_type();
+		my $data_type   = _get_data_type();
 		_set_data_type($data_type);
 
 		# print("sucat, data_type, data_type=---$data_type---\n\n");
@@ -297,14 +412,14 @@ sub data_type {
 =head2
 
  1.Read a list of file names
- read contents of each file in the list
+ 2.Read contents of each file in the list
  into arrays.
  
- Each line of the list uses a file name that indicates
+ 3. Each line of the list uses a file name that indicates
  gather number and the other file name in which to find
  velocity picks.
  
- Sort the cdp or gather number into monotonically increasing
+ 4. Sort the cdp or gather number into monotonically increasing
  values and rearrange the pick pairs accordingly.
  
 =cut
@@ -358,9 +473,6 @@ into an array.
 
 			}    # end repeat over all mute- or velan-type files
 
-			# print("writing outbound .gather\n");
-			# print("writing outbound @gather\n");
-
 =head2 sort by gather number
 
 =cut
@@ -388,7 +500,7 @@ into an array.
 
 			if ( $data_type eq 'velan' ) {
 
-				$manage_files_by->write_cdp( \@sorted_gather_number, $DIR_OUT );
+				$manage_files_by->write_cdp( \@sorted_gather_number, $DIR_OUT);
 				$manage_files_by->write_tnmo_vnmo( \@sorted_gather_number,
 					\@sorted_result_t, \@sorted_result_v, $DIR_OUT );
 
@@ -396,7 +508,7 @@ into an array.
 			elsif ( $data_type eq 'mute' ) {
 
 				$manage_files_by->write_gather( \@sorted_gather_number,
-					$DIR_OUT );
+					$DIR_OUT, $gather_type );
 
 				# print("sucat,data_type. Data types are mute.\n\n");
 				$manage_files_by->write_tmute_xmute( \@sorted_gather_number,

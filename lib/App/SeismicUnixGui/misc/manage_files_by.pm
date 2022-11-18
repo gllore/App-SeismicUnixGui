@@ -1315,7 +1315,7 @@ sub write_gather {
 	# WRITE OUT FILE
 
 	# open and write to output file
-	my ( $self, $gather_aref, $DIR_OUT ) = @_;
+	my ( $self, $gather_aref, $DIR_OUT , $gather_type) = @_;
 
 	my ( $i, $number_of_gathers, $number_of_lines );
 
@@ -1327,7 +1327,7 @@ sub write_gather {
 	open( OUT, ">$DIR_OUT/$temp" );
 
 	# print first line
-	print OUT ("gather=");
+	print OUT ("$gather_type=");
 	print OUT ("@$gather_aref[0]");
 
 	for ( $i = 1 ; $i < $number_of_gathers ; $i++ ) {

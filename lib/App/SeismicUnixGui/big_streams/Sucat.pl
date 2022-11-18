@@ -379,7 +379,7 @@ else {
 #print("Sucat.pl,inbound_directory:---$inbound_directory--\n");
 #print("Sucat.pl,outbound_directory:---$outbound_directory--\n");
 
-=head2 3. Declare outopt file names and their paths
+=head2 3. Declare output file names and their paths
 
   inbound and outbound directories
   are defaulted but can be different
@@ -440,10 +440,10 @@ if (    $list ne $empty_string
 	and $input_name_extension eq $empty_string )
 {
 
-	# print("2. Sucat.pl, list:---$list---\n");
-	# print("2. Sucat.pl, list:---0:@$ref_array[0], 1:@$ref_array[1]\n");
-	# my $ans =scalar @$ref_array;
-	# print("2. Sucat.pl, num_rows---$ans, $num_rows\n");
+#	print("2. Sucat.pl, list:---$list---\n");
+#	print("2. Sucat.pl, list:---0:@$ref_array[0], 1:@$ref_array[1]\n");
+#	my $ans =scalar @$ref_array;
+#	print("2. Sucat.pl, num_rows---$ans\n");
 	my $inbound_list = $list_directory . '/' . $list;
 	( $ref_array, $num_cdps ) = $read->cols_1p($inbound_list);
 	$sucat->set_list_aref($ref_array);

@@ -189,35 +189,85 @@ Version:
 
 =head2 User's notes (Juan Lorenzo)
 
-Normally, sumute can only apply one set muting coordinates to one file
-at a time. If you want to apply many different mute designs within
-the gathers of a single file, then you will need to generate previously
-a "multi-gather" mute-type parameter file.
+V 0.0.2
 
-For when there is a multi-gather parameter file involved
-(Daniel Locci, March 2020)
+Normally, sumute can only apply one set muting coordinates to one gather
+at a time.
+In this manner you would use a 
+"par_file" e.g.,
 
-Pick x,t values in single a gather to mute surface waves and save in a 
-parfile, then use susplit to sepate gathers into ep, and use sumute_single_ep.pl. 
- e.g,
-susplit < test.su > test_ep.su key=ep numlength=1
+tmute=0.128544,0.245747
+xmute=73.2464,95.6714
 
-The parfile can be concatenated using the Tool: Sucat
+In this particular case, the mute pick coordinates
+in the "x" direction are tracr values.
 
-gather_type           = ep,cdp,segy gathers you are muting
-multi_gather_par_file =
-multi_gather_su_file  = the su file which was muted interactively
-using the Tool: iTop_Mute  
+sumute sp_fldr4.su par=par_file key=tracr mode=0 | 
+sugain agc=1 wagc=0.1 | suxwigb clip=1.5 &
+
+
+We have added some options to allow the user to mute a file
+that contains many gathers at one time. You will need to supply 
+a "multi-gather", mute-type parameter file.
+
+That is, sumute.pm can use a concatenated 
+collection of the contents of these individual parfiles.
+The name of this file is called the "multi-par-file.
+
+Generate the "parfiles" (x,t values in SUnix "par" format) 
+using the iTopMute Tool. iTopMute saves the picked values 
+into individual "parfiles" named according to
+their corresponding gather.
+
+We now have added the following options
+to sumute:
+
+gather_type           = ep (shotpoint),cdp (cdp gathers),fldr(field data gathers)
+multi_gather_par_file = a concatenated file of the individual parfiles
+multi_gather_su_file  = the su file which was muted interactively to create each of the parfiles
+using the Tool: iTop_Mute 
+
+A multi-parameter-file looks as follows:
+cdp=1,2
+tmute=0.141777,0.251418
+xmute=73,96
+tmute=0.131777,0.241418
+xmute=85,96
+
+To create a multi-gather parameter file 
+this composite "parfile"" can be concatenated using the Tool: Sucat
+
+Internally, sumute uses "susplit" to breaks a large multi-gather file into individual
+shotpoint gathers (ep), or cdp gathers or fldr (gathers) according to Segy
+key header words. 
+
+An example:
+
+Data consists of a single CDP gather, digitized in iTopMute as a function
+of tracr (x-corrdinate)
+
+The parameter values in sumute are:
+gather_type=cdp
+header-word=tracr
+multi_gather_par_file=list
+multi_gather_su_file=sp_fldr4
+
+the file "list" is as follows:
+cdp=1
+tmute=0.141777,0.251418
+xmute=73,96
 
 
 =cut
 
 =head2 CHANGES and their DATES
 
+Nov. 2022, V 0.0.2
+
 =cut
 
 use Moose;
-our $VERSION = '0.0.1';
+our $VERSION = '0.0.2';
 
 =head2 Import packages
 
@@ -233,6 +283,7 @@ use App::SeismicUnixGui::misc::control '0.0.3';
 use aliased 'App::SeismicUnixGui::misc::control';
 use aliased 'App::SeismicUnixGui::sunix::shapeNcut::susplit';
 use aliased 'App::SeismicUnixGui::misc::flow';
+use aliased 'App::SeismicUnixGui::misc::message';
 
 =head2 instantiation of packages
 
@@ -245,6 +296,7 @@ my $DATA_SEISMIC_BIN = $Project->DATA_SEISMIC_BIN();
 my $DATA_SEISMIC_TXT = $Project->DATA_SEISMIC_TXT();
 my $PL_SEISMIC       = $Project->PL_SEISMIC();
 my $PS_SEISMIC       = $Project->PS_SEISMIC();
+my $log               = message->new();
 
 my $var          = $get->var();
 my $on           = $var->{_on};
@@ -273,7 +325,7 @@ my $sumute = {
 	_nmute                  => '',
 	_ntaper                 => '',
 	_par                    => '',
-	_par_directory          => $PL_SEISMIC,
+	_par_directory          => '',
 	_susplit_stem           => '.split_',
 	_tfile                  => '',
 	_tm0                    => '',
@@ -318,7 +370,7 @@ sub _get_par_sets {
 
 		$multi_par_file_w_path = $sumute->{_multi_gather_par_file};
 		$inbound           = $multi_par_file_w_path;
-#		print("sumute,_get_par_sets, inbound=$inbound\n");
+		print("sumute,_get_par_sets, inbound=$inbound\n");
 
 =head2 read i/p file
 
@@ -327,15 +379,20 @@ sub _get_par_sets {
 		$control->set_back_slashBgone($inbound);
 		$inbound = $control->get_back_slashBgone();
 
-		# open multi-gather_par_file
+		# open multi-gather_par_file 
+        # which contains a list of the 
+		# individual par files
 		my $ref_file_name = \$inbound;
 		my ( $items_aref2, $numberOfItems_aref ) = $files->read_par($ref_file_name);
+		
+		print("multi-gather-parameter file contains: @{$items_aref2}\n");
 
 		# 'first array member is gather name
 		# ,e.g. 'cdp' or just 'gather'
 		# and a list of par_gather numbers
 		@par_gather = @{ @{$items_aref2}[0] };
 		my $gather_type = $par_gather[0];
+		print("sumute, _get_par_sets, gather_type=--$gather_type\n");
 
 =head2 capture errors
 
@@ -499,9 +556,8 @@ with multi_gather_su_file
 		$susplit->suffix($suffix_su);
 		$susplit[0] = $susplit->Step();
 
-		print("1. sumute, Step, susplit= $susplit[0] \n");
-
 =head2 clear past temporary, past
+
 single-gather split from composite su file
 
 =cut
@@ -510,7 +566,8 @@ single-gather split from composite su file
 		system("rm -rf $delete_files");
 		
 
-=head2 DEFINE 
+=head2 DEFINE
+
 Collect FLOW(s)
 Run flow in system independently of sumute 
 
@@ -519,9 +576,9 @@ Run flow in system independently of sumute
 
 		my @items = ( $susplit[0], $in, $inbound );
 		$flow[0] = $run->modules( \@items );
+		
 
 =head2 RUN FLOW(s)
-			#
 
 =cut
 
@@ -529,11 +586,15 @@ Run flow in system independently of sumute
 
 =head2 LOG FLOW(s)
 
-        to screen
+	to screen and FILE
 
 =cut
 
-		print $flow[0];
+	$log->screen($flow[0]);
+	my $time = localtime;
+	$log->file(time);
+	$log->file($flow[0]);
+
 
 =head2 collect output split file names from the PL_SEISMIC directory
 
@@ -919,7 +980,7 @@ sub clear {
 	$sumute->{_ntaper}                 = '';
 	$sumute->{_par}                    = '',
 	$sumute->{_susplit_stem}			= '.split_',      # maintain, do not clear
-	$sumute->{_par_directory}			= $PL_SEISMIC,    # maintain,do not clear
+	$sumute->{_par_directory}			= '',
 	$sumute->{_tfile}					= '';
 	$sumute->{_tm0}     = '';
 	$sumute->{_tmute}   = '';
@@ -1209,7 +1270,7 @@ sub offset_word {
 sub par {
 
 	my ( $self, $par ) = @_;
-	if ( $par ne $empty_string && $sumute->{_par_directory} ne $empty_string ) {
+	if ( $par ne $empty_string) {
 
 		$sumute->{_par}  = $par;
 		$sumute->{_note} = $sumute->{_note} . ' par=' . $sumute->{_par_directory} . '/' . $sumute->{_par};
@@ -1257,9 +1318,9 @@ sub par_directory {
 sub par_file {
 
 	my ( $self, $par ) = @_;
-
-	if ( $par ne $empty_string && $sumute->{_par_directory} ne $empty_string ) {
-
+        
+	if ( length $par) {
+	
 		$sumute->{_par}  = $par;
 		$sumute->{_note} = $sumute->{_note} . ' par=' . $sumute->{_par_directory} . '/' . $sumute->{_par};
 		$sumute->{_Step} = $sumute->{_Step} . ' par=' . $sumute->{_par_directory} . '/' . $sumute->{_par};
