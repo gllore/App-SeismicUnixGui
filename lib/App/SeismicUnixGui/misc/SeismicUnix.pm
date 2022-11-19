@@ -76,6 +76,7 @@ our (@EXPORT_OK, @ISA); #Global variables
   $ibot_mute_check_pickfile $ibot_mute_check_pickfile_ $ibot_mute_xfile_picks $ibot_mute_tfile_picks
   $temp_single_gather_par_file_mute  
   $temp 
+  $fldr
   $ivpicks_sorted_par_
   $ms2s $us2s
   $offset 
@@ -349,6 +350,7 @@ our $cdp    = 'cdp';
 our $CDP   = 'CDP';
 our $SP     = 'SP';
 our $ep     = 'ep';
+our $fldr   = 'fldr';
 our $day    = 'day';
 our $gx     = 'gx';
 our $hour   = 'hour';

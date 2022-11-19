@@ -49,7 +49,8 @@ use aliased 'App::SeismicUnixGui::misc::manage_files_by';
 use App::SeismicUnixGui::misc::control '0.0.3';
 use aliased 'App::SeismicUnixGui::misc::control';
 use App::SeismicUnixGui::misc::SeismicUnix
-  qw($itop_mute $ibot_mute $ivpicks_sorted_par_);
+  qw($itop_mute $ibot_mute $ivpicks_sorted_par_ $ep $fldr
+  $cdp);
 
 =head2 instantiate new variables
 
@@ -63,11 +64,8 @@ my $manage_files_by = manage_files_by->new();
 =cut
 
 my $var = $get->var();
-
 my $empty_string = $var->{_empty_string};
 
-#my $false        = $var->{_false};
-#my $true         = $var->{_true};
 
 =head2 newline:
 
@@ -254,12 +252,11 @@ sub _get_gather_type {
 		my ( $array_ref, $num_gathers ) = $read->cols_1p($inbound_list);
 
 		for ( my $i = 0 ; $i < $num_gathers ; $i++ ) {
-#
-#			my $file_name = @$array_ref[$i];
-#
-			if (   $file_name =~ m/$fldr/
-				or  
-				or $file_name =~ m/$cdp/)
+
+			my $file_name = @$array_ref[$i];
+
+			if (   $file_name =~ m/$fldr/  
+				or $file_name =~ m/$cdp/ )
 			{
 
 				#CASE 1 for field record gathers
@@ -270,44 +267,44 @@ sub _get_gather_type {
 
 			}
 			elsif ( $file_name =~ m/$ep/ ) {
-#
-#				#CASE 2 for velan-type files
-#
-#				# print("success, matched velan\n");
-#				$gather_type[$i] = 'velan';
-#
-#			}
+
+				#CASE 2 for velan-type files
+
+				# print("success, matched velan\n");
+				$gather_type[$i] = 'velan';
+
+			}
 			else {
 				print("sucat,_get_gather_type, mismatch\n");
 			}
 		}
-#
-#		# all data types must be the same
-#		$gather_type = $gather_type[0];
-#
-#		for ( my $i = 0 ; $i < $num_gathers ; $i++ ) {
-#
-#			if ( $gather_type[0] eq $gather_type[$i] ) {
-#
-#				# print("sucat,_get_gather_type, gather_type is consistent NADA\n");
-#
-#			}
-#			elsif ( $gather_type[0] ne $gather_type[$i] ) {
-#
-#				$gather_type = $empty_string;
-#
-#				# print("sucat,_get_gather_type,failed\ test\n");
-#
-#			}
-#			else {
-#				print("sucat,_get_gather_type_unexpected result\n");
-#				$gather_type = $empty_string;
-#			}
-#		}
-#
-#		my $result = $gather_type;
-#		return ($result);
-#
+
+		# all data types must be the same
+		$gather_type = $gather_type[0];
+
+		for ( my $i = 0 ; $i < $num_gathers ; $i++ ) {
+
+			if ( $gather_type[0] eq $gather_type[$i] ) {
+
+				# print("sucat,_get_gather_type, gather_type is consistent NADA\n");
+
+			}
+			elsif ( $gather_type[0] ne $gather_type[$i] ) {
+
+				$gather_type = $empty_string;
+
+				# print("sucat,_get_gather_type,failed\ test\n");
+
+			}
+			else {
+				print("sucat,_get_gather_type_unexpected result\n");
+				$gather_type = $empty_string;
+			}
+		}
+
+		my $result = $gather_type;
+		return ($result);
+
 	}
 	else {
 		print("sucat,_get_gather_type,missing list and its directory\n");

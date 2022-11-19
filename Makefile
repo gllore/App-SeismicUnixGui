@@ -1032,6 +1032,7 @@ TO_INST_PM = lib/App/SeismicUnixGui.pm \
 	lib/App/SeismicUnixGui/developer/Stripped/shapeNcut/sugausstaper.su.main.tapering \
 	lib/App/SeismicUnixGui/developer/Stripped/shapeNcut/sukill.su.main.windowing_sorting_muting \
 	lib/App/SeismicUnixGui/developer/Stripped/shapeNcut/sumute.su.main.windowing_sorting_muting \
+	lib/App/SeismicUnixGui/developer/Stripped/shapeNcut/sumute_changes.txt \
 	lib/App/SeismicUnixGui/developer/Stripped/shapeNcut/sunan.su.main.amplitudes \
 	lib/App/SeismicUnixGui/developer/Stripped/shapeNcut/supad.su.main.windowing_sorting_muting \
 	lib/App/SeismicUnixGui/developer/Stripped/shapeNcut/supad_changes.txt \
@@ -1552,6 +1553,7 @@ TO_INST_PM = lib/App/SeismicUnixGui.pm \
 	lib/App/SeismicUnixGui/misc/writefiles.pm \
 	lib/App/SeismicUnixGui/script/.FileHistory.txt \
 	lib/App/SeismicUnixGui/script/.num_samples_Vrms_Vint \
+	lib/App/SeismicUnixGui/script/.split_cdp0000001.su \
 	lib/App/SeismicUnixGui/script/LICENSE \
 	lib/App/SeismicUnixGui/script/L_SUV0.80.6.pl \
 	lib/App/SeismicUnixGui/script/L_SU_project_selector.pl \
@@ -1825,6 +1827,7 @@ TO_INST_PM = lib/App/SeismicUnixGui.pm \
 	lib/App/SeismicUnixGui/specs/plot/ximage_spec.pm \
 	lib/App/SeismicUnixGui/specs/plot/xmovie_spec.pm \
 	lib/App/SeismicUnixGui/specs/plot/xwigb_spec.pm \
+	lib/App/SeismicUnixGui/specs/shapeNcut/archive/sumute_spec_old.pm \
 	lib/App/SeismicUnixGui/specs/shapeNcut/suattributes_spec.pm \
 	lib/App/SeismicUnixGui/specs/shapeNcut/suflip_spec.pm \
 	lib/App/SeismicUnixGui/specs/shapeNcut/sugain_spec.pm \
@@ -1832,6 +1835,7 @@ TO_INST_PM = lib/App/SeismicUnixGui.pm \
 	lib/App/SeismicUnixGui/specs/shapeNcut/sukill_spec.pm \
 	lib/App/SeismicUnixGui/specs/shapeNcut/sumute_spec.pm \
 	lib/App/SeismicUnixGui/specs/shapeNcut/supad_spec.pm \
+	lib/App/SeismicUnixGui/specs/shapeNcut/susort_spec.pm \
 	lib/App/SeismicUnixGui/specs/shapeNcut/susplit_spec.pm \
 	lib/App/SeismicUnixGui/specs/shapeNcut/suvcat_spec.pm \
 	lib/App/SeismicUnixGui/specs/shapeNcut/suwind_spec.pm \
@@ -2119,6 +2123,7 @@ TO_INST_PM = lib/App/SeismicUnixGui.pm \
 	lib/App/SeismicUnixGui/sunix/plot/xmovie.pm \
 	lib/App/SeismicUnixGui/sunix/plot/xpicker.pm \
 	lib/App/SeismicUnixGui/sunix/plot/xwigb.pm \
+	lib/App/SeismicUnixGui/sunix/shapeNcut/archive/sumute_old.pm \
 	lib/App/SeismicUnixGui/sunix/shapeNcut/suflip.pm \
 	lib/App/SeismicUnixGui/sunix/shapeNcut/sugain.pm \
 	lib/App/SeismicUnixGui/sunix/shapeNcut/sugprfb.pm \
@@ -3773,9 +3778,10 @@ pm_to_blib : $(FIRST_MAKEFILE) $(TO_INST_PM)
 	  'lib/App/SeismicUnixGui/developer/Stripped/shapeNcut/sugausstaper.su.main.tapering' 'blib/lib/App/SeismicUnixGui/developer/Stripped/shapeNcut/sugausstaper.su.main.tapering' \
 	  'lib/App/SeismicUnixGui/developer/Stripped/shapeNcut/sukill.su.main.windowing_sorting_muting' 'blib/lib/App/SeismicUnixGui/developer/Stripped/shapeNcut/sukill.su.main.windowing_sorting_muting' \
 	  'lib/App/SeismicUnixGui/developer/Stripped/shapeNcut/sumute.su.main.windowing_sorting_muting' 'blib/lib/App/SeismicUnixGui/developer/Stripped/shapeNcut/sumute.su.main.windowing_sorting_muting' \
-	  'lib/App/SeismicUnixGui/developer/Stripped/shapeNcut/sunan.su.main.amplitudes' 'blib/lib/App/SeismicUnixGui/developer/Stripped/shapeNcut/sunan.su.main.amplitudes' \
-	  'lib/App/SeismicUnixGui/developer/Stripped/shapeNcut/supad.su.main.windowing_sorting_muting' 'blib/lib/App/SeismicUnixGui/developer/Stripped/shapeNcut/supad.su.main.windowing_sorting_muting' 
+	  'lib/App/SeismicUnixGui/developer/Stripped/shapeNcut/sumute_changes.txt' 'blib/lib/App/SeismicUnixGui/developer/Stripped/shapeNcut/sumute_changes.txt' \
+	  'lib/App/SeismicUnixGui/developer/Stripped/shapeNcut/sunan.su.main.amplitudes' 'blib/lib/App/SeismicUnixGui/developer/Stripped/shapeNcut/sunan.su.main.amplitudes' 
 	$(NOECHO) $(ABSPERLRUN) -MExtUtils::Install -e 'pm_to_blib({@ARGV}, '\''$(INST_LIB)/auto'\'', q[$(PM_FILTER)], '\''$(PERM_DIR)'\'')' -- \
+	  'lib/App/SeismicUnixGui/developer/Stripped/shapeNcut/supad.su.main.windowing_sorting_muting' 'blib/lib/App/SeismicUnixGui/developer/Stripped/shapeNcut/supad.su.main.windowing_sorting_muting' \
 	  'lib/App/SeismicUnixGui/developer/Stripped/shapeNcut/supad_changes.txt' 'blib/lib/App/SeismicUnixGui/developer/Stripped/shapeNcut/supad_changes.txt' \
 	  'lib/App/SeismicUnixGui/developer/Stripped/shapeNcut/supermute.su.main.operations' 'blib/lib/App/SeismicUnixGui/developer/Stripped/shapeNcut/supermute.su.main.operations' \
 	  'lib/App/SeismicUnixGui/developer/Stripped/shapeNcut/supgc.su.main.amplitudes' 'blib/lib/App/SeismicUnixGui/developer/Stripped/shapeNcut/supgc.su.main.amplitudes' \
@@ -3789,9 +3795,9 @@ pm_to_blib : $(FIRST_MAKEFILE) $(TO_INST_PM)
 	  'lib/App/SeismicUnixGui/developer/Stripped/shapeNcut/sutxtaper.su.main.tapering' 'blib/lib/App/SeismicUnixGui/developer/Stripped/shapeNcut/sutxtaper.su.main.tapering' \
 	  'lib/App/SeismicUnixGui/developer/Stripped/shapeNcut/suvcat.su.main.operations' 'blib/lib/App/SeismicUnixGui/developer/Stripped/shapeNcut/suvcat.su.main.operations' \
 	  'lib/App/SeismicUnixGui/developer/Stripped/shapeNcut/suvcat_changes.txt' 'blib/lib/App/SeismicUnixGui/developer/Stripped/shapeNcut/suvcat_changes.txt' \
-	  'lib/App/SeismicUnixGui/developer/Stripped/shapeNcut/suvlength.su.main.operations' 'blib/lib/App/SeismicUnixGui/developer/Stripped/shapeNcut/suvlength.su.main.operations' \
-	  'lib/App/SeismicUnixGui/developer/Stripped/shapeNcut/suwind.su.main.windowing_sorting_muting' 'blib/lib/App/SeismicUnixGui/developer/Stripped/shapeNcut/suwind.su.main.windowing_sorting_muting' 
+	  'lib/App/SeismicUnixGui/developer/Stripped/shapeNcut/suvlength.su.main.operations' 'blib/lib/App/SeismicUnixGui/developer/Stripped/shapeNcut/suvlength.su.main.operations' 
 	$(NOECHO) $(ABSPERLRUN) -MExtUtils::Install -e 'pm_to_blib({@ARGV}, '\''$(INST_LIB)/auto'\'', q[$(PM_FILTER)], '\''$(PERM_DIR)'\'')' -- \
+	  'lib/App/SeismicUnixGui/developer/Stripped/shapeNcut/suwind.su.main.windowing_sorting_muting' 'blib/lib/App/SeismicUnixGui/developer/Stripped/shapeNcut/suwind.su.main.windowing_sorting_muting' \
 	  'lib/App/SeismicUnixGui/developer/Stripped/shapeNcut/suwindpoly.su.main.windowing_sorting_muting' 'blib/lib/App/SeismicUnixGui/developer/Stripped/shapeNcut/suwindpoly.su.main.windowing_sorting_muting' \
 	  'lib/App/SeismicUnixGui/developer/Stripped/shapeNcut/suzero.su.main.amplitudes' 'blib/lib/App/SeismicUnixGui/developer/Stripped/shapeNcut/suzero.su.main.amplitudes' \
 	  'lib/App/SeismicUnixGui/developer/Stripped/shell/catsu.par' 'blib/lib/App/SeismicUnixGui/developer/Stripped/shell/catsu.par' \
@@ -3805,9 +3811,9 @@ pm_to_blib : $(FIRST_MAKEFILE) $(TO_INST_PM)
 	  'lib/App/SeismicUnixGui/developer/Stripped/statsMath/list' 'blib/lib/App/SeismicUnixGui/developer/Stripped/statsMath/list' \
 	  'lib/App/SeismicUnixGui/developer/Stripped/statsMath/suacor.su.main.convolution_correlation' 'blib/lib/App/SeismicUnixGui/developer/Stripped/statsMath/suacor.su.main.convolution_correlation' \
 	  'lib/App/SeismicUnixGui/developer/Stripped/statsMath/suacorfrac.su.main.convolution_correlation' 'blib/lib/App/SeismicUnixGui/developer/Stripped/statsMath/suacorfrac.su.main.convolution_correlation' \
-	  'lib/App/SeismicUnixGui/developer/Stripped/statsMath/sualford.su.main.multicomponent' 'blib/lib/App/SeismicUnixGui/developer/Stripped/statsMath/sualford.su.main.multicomponent' \
-	  'lib/App/SeismicUnixGui/developer/Stripped/statsMath/suattributes.su.main.attributes_parameter_estimation' 'blib/lib/App/SeismicUnixGui/developer/Stripped/statsMath/suattributes.su.main.attributes_parameter_estimation' 
+	  'lib/App/SeismicUnixGui/developer/Stripped/statsMath/sualford.su.main.multicomponent' 'blib/lib/App/SeismicUnixGui/developer/Stripped/statsMath/sualford.su.main.multicomponent' 
 	$(NOECHO) $(ABSPERLRUN) -MExtUtils::Install -e 'pm_to_blib({@ARGV}, '\''$(INST_LIB)/auto'\'', q[$(PM_FILTER)], '\''$(PERM_DIR)'\'')' -- \
+	  'lib/App/SeismicUnixGui/developer/Stripped/statsMath/suattributes.su.main.attributes_parameter_estimation' 'blib/lib/App/SeismicUnixGui/developer/Stripped/statsMath/suattributes.su.main.attributes_parameter_estimation' \
 	  'lib/App/SeismicUnixGui/developer/Stripped/statsMath/suconv.su.main.convolution_correlation' 'blib/lib/App/SeismicUnixGui/developer/Stripped/statsMath/suconv.su.main.convolution_correlation' \
 	  'lib/App/SeismicUnixGui/developer/Stripped/statsMath/sufwmix.su.main.operations' 'blib/lib/App/SeismicUnixGui/developer/Stripped/statsMath/sufwmix.su.main.operations' \
 	  'lib/App/SeismicUnixGui/developer/Stripped/statsMath/suharlan.su.main.noise' 'blib/lib/App/SeismicUnixGui/developer/Stripped/statsMath/suharlan.su.main.noise' \
@@ -3820,9 +3826,9 @@ pm_to_blib : $(FIRST_MAKEFILE) $(TO_INST_PM)
 	  'lib/App/SeismicUnixGui/developer/Stripped/statsMath/sumax.su.main.attributes_parameter_estimation' 'blib/lib/App/SeismicUnixGui/developer/Stripped/statsMath/sumax.su.main.attributes_parameter_estimation' \
 	  'lib/App/SeismicUnixGui/developer/Stripped/statsMath/sumean.su.main.attributes_parameter_estimation' 'blib/lib/App/SeismicUnixGui/developer/Stripped/statsMath/sumean.su.main.attributes_parameter_estimation' \
 	  'lib/App/SeismicUnixGui/developer/Stripped/statsMath/sumix.su.main.operations' 'blib/lib/App/SeismicUnixGui/developer/Stripped/statsMath/sumix.su.main.operations' \
-	  'lib/App/SeismicUnixGui/developer/Stripped/statsMath/sumixgathers.su.main.windowing_sorting_muting' 'blib/lib/App/SeismicUnixGui/developer/Stripped/statsMath/sumixgathers.su.main.windowing_sorting_muting' \
-	  'lib/App/SeismicUnixGui/developer/Stripped/statsMath/sunormalize.su.main.amplitudes' 'blib/lib/App/SeismicUnixGui/developer/Stripped/statsMath/sunormalize.su.main.amplitudes' 
+	  'lib/App/SeismicUnixGui/developer/Stripped/statsMath/sumixgathers.su.main.windowing_sorting_muting' 'blib/lib/App/SeismicUnixGui/developer/Stripped/statsMath/sumixgathers.su.main.windowing_sorting_muting' 
 	$(NOECHO) $(ABSPERLRUN) -MExtUtils::Install -e 'pm_to_blib({@ARGV}, '\''$(INST_LIB)/auto'\'', q[$(PM_FILTER)], '\''$(PERM_DIR)'\'')' -- \
+	  'lib/App/SeismicUnixGui/developer/Stripped/statsMath/sunormalize.su.main.amplitudes' 'blib/lib/App/SeismicUnixGui/developer/Stripped/statsMath/sunormalize.su.main.amplitudes' \
 	  'lib/App/SeismicUnixGui/developer/Stripped/statsMath/suocext.su.main.interp_extrap' 'blib/lib/App/SeismicUnixGui/developer/Stripped/statsMath/suocext.su.main.interp_extrap' \
 	  'lib/App/SeismicUnixGui/developer/Stripped/statsMath/suop.su.main.operations' 'blib/lib/App/SeismicUnixGui/developer/Stripped/statsMath/suop.su.main.operations' \
 	  'lib/App/SeismicUnixGui/developer/Stripped/statsMath/suop2.su.main.operations' 'blib/lib/App/SeismicUnixGui/developer/Stripped/statsMath/suop2.su.main.operations' \
@@ -3836,9 +3842,9 @@ pm_to_blib : $(FIRST_MAKEFILE) $(TO_INST_PM)
 	  'lib/App/SeismicUnixGui/developer/Stripped/transform/dctuncomp.comp.dct.main' 'blib/lib/App/SeismicUnixGui/developer/Stripped/transform/dctuncomp.comp.dct.main' \
 	  'lib/App/SeismicUnixGui/developer/Stripped/transform/suamp.config' 'blib/lib/App/SeismicUnixGui/developer/Stripped/transform/suamp.config' \
 	  'lib/App/SeismicUnixGui/developer/Stripped/transform/suamp.su.main.transforms' 'blib/lib/App/SeismicUnixGui/developer/Stripped/transform/suamp.su.main.transforms' \
-	  'lib/App/SeismicUnixGui/developer/Stripped/transform/suanalytic.config' 'blib/lib/App/SeismicUnixGui/developer/Stripped/transform/suanalytic.config' \
-	  'lib/App/SeismicUnixGui/developer/Stripped/transform/suanalytic.su.main.transforms' 'blib/lib/App/SeismicUnixGui/developer/Stripped/transform/suanalytic.su.main.transforms' 
+	  'lib/App/SeismicUnixGui/developer/Stripped/transform/suanalytic.config' 'blib/lib/App/SeismicUnixGui/developer/Stripped/transform/suanalytic.config' 
 	$(NOECHO) $(ABSPERLRUN) -MExtUtils::Install -e 'pm_to_blib({@ARGV}, '\''$(INST_LIB)/auto'\'', q[$(PM_FILTER)], '\''$(PERM_DIR)'\'')' -- \
+	  'lib/App/SeismicUnixGui/developer/Stripped/transform/suanalytic.su.main.transforms' 'blib/lib/App/SeismicUnixGui/developer/Stripped/transform/suanalytic.su.main.transforms' \
 	  'lib/App/SeismicUnixGui/developer/Stripped/transform/succepstrum.su.main.transforms' 'blib/lib/App/SeismicUnixGui/developer/Stripped/transform/succepstrum.su.main.transforms' \
 	  'lib/App/SeismicUnixGui/developer/Stripped/transform/succwt.su.main.transforms' 'blib/lib/App/SeismicUnixGui/developer/Stripped/transform/succwt.su.main.transforms' \
 	  'lib/App/SeismicUnixGui/developer/Stripped/transform/sucepstrum.su.main.transforms' 'blib/lib/App/SeismicUnixGui/developer/Stripped/transform/sucepstrum.su.main.transforms' \
@@ -3853,9 +3859,9 @@ pm_to_blib : $(FIRST_MAKEFILE) $(TO_INST_PM)
 	  'lib/App/SeismicUnixGui/developer/Stripped/transform/suiclogfft.config' 'blib/lib/App/SeismicUnixGui/developer/Stripped/transform/suiclogfft.config' \
 	  'lib/App/SeismicUnixGui/developer/Stripped/transform/suiclogfft.su.main.transforms' 'blib/lib/App/SeismicUnixGui/developer/Stripped/transform/suiclogfft.su.main.transforms' \
 	  'lib/App/SeismicUnixGui/developer/Stripped/transform/suifft.su.main.transforms' 'blib/lib/App/SeismicUnixGui/developer/Stripped/transform/suifft.su.main.transforms' \
-	  'lib/App/SeismicUnixGui/developer/Stripped/transform/suminphase.config' 'blib/lib/App/SeismicUnixGui/developer/Stripped/transform/suminphase.config' \
-	  'lib/App/SeismicUnixGui/developer/Stripped/transform/suminphase.su.main.transforms' 'blib/lib/App/SeismicUnixGui/developer/Stripped/transform/suminphase.su.main.transforms' 
+	  'lib/App/SeismicUnixGui/developer/Stripped/transform/suminphase.config' 'blib/lib/App/SeismicUnixGui/developer/Stripped/transform/suminphase.config' 
 	$(NOECHO) $(ABSPERLRUN) -MExtUtils::Install -e 'pm_to_blib({@ARGV}, '\''$(INST_LIB)/auto'\'', q[$(PM_FILTER)], '\''$(PERM_DIR)'\'')' -- \
+	  'lib/App/SeismicUnixGui/developer/Stripped/transform/suminphase.su.main.transforms' 'blib/lib/App/SeismicUnixGui/developer/Stripped/transform/suminphase.su.main.transforms' \
 	  'lib/App/SeismicUnixGui/developer/Stripped/transform/suphasevel.config' 'blib/lib/App/SeismicUnixGui/developer/Stripped/transform/suphasevel.config' \
 	  'lib/App/SeismicUnixGui/developer/Stripped/transform/suphasevel.su.main.transforms' 'blib/lib/App/SeismicUnixGui/developer/Stripped/transform/suphasevel.su.main.transforms' \
 	  'lib/App/SeismicUnixGui/developer/Stripped/transform/suradon.config' 'blib/lib/App/SeismicUnixGui/developer/Stripped/transform/suradon.config' \
@@ -3870,9 +3876,9 @@ pm_to_blib : $(FIRST_MAKEFILE) $(TO_INST_PM)
 	  'lib/App/SeismicUnixGui/developer/Stripped/transform/suspecfx.su.main.transforms' 'blib/lib/App/SeismicUnixGui/developer/Stripped/transform/suspecfx.su.main.transforms' \
 	  'lib/App/SeismicUnixGui/developer/Stripped/transform/suspeck1k2.config' 'blib/lib/App/SeismicUnixGui/developer/Stripped/transform/suspeck1k2.config' \
 	  'lib/App/SeismicUnixGui/developer/Stripped/transform/suspeck1k2.su.main.transforms' 'blib/lib/App/SeismicUnixGui/developer/Stripped/transform/suspeck1k2.su.main.transforms' \
-	  'lib/App/SeismicUnixGui/developer/Stripped/transform/sutaup.su.main.transforms' 'blib/lib/App/SeismicUnixGui/developer/Stripped/transform/sutaup.su.main.transforms' \
-	  'lib/App/SeismicUnixGui/developer/Stripped/transform/suwfft.config' 'blib/lib/App/SeismicUnixGui/developer/Stripped/transform/suwfft.config' 
+	  'lib/App/SeismicUnixGui/developer/Stripped/transform/sutaup.su.main.transforms' 'blib/lib/App/SeismicUnixGui/developer/Stripped/transform/sutaup.su.main.transforms' 
 	$(NOECHO) $(ABSPERLRUN) -MExtUtils::Install -e 'pm_to_blib({@ARGV}, '\''$(INST_LIB)/auto'\'', q[$(PM_FILTER)], '\''$(PERM_DIR)'\'')' -- \
+	  'lib/App/SeismicUnixGui/developer/Stripped/transform/suwfft.config' 'blib/lib/App/SeismicUnixGui/developer/Stripped/transform/suwfft.config' \
 	  'lib/App/SeismicUnixGui/developer/Stripped/transform/suwfft.su.main.transforms' 'blib/lib/App/SeismicUnixGui/developer/Stripped/transform/suwfft.su.main.transforms' \
 	  'lib/App/SeismicUnixGui/developer/Stripped/transform/suzerophase.config' 'blib/lib/App/SeismicUnixGui/developer/Stripped/transform/suzerophase.config' \
 	  'lib/App/SeismicUnixGui/developer/Stripped/transform/suzerophase.su.main.transforms' 'blib/lib/App/SeismicUnixGui/developer/Stripped/transform/suzerophase.su.main.transforms' \
@@ -3888,9 +3894,9 @@ pm_to_blib : $(FIRST_MAKEFILE) $(TO_INST_PM)
 	  'lib/App/SeismicUnixGui/developer/archive/tidy_perl/README' 'blib/lib/App/SeismicUnixGui/developer/archive/tidy_perl/README' \
 	  'lib/App/SeismicUnixGui/developer/archive/tidy_perl/bck/perltidy.config' 'blib/lib/App/SeismicUnixGui/developer/archive/tidy_perl/bck/perltidy.config' \
 	  'lib/App/SeismicUnixGui/developer/archive/tidy_perl/perltidy_all.sh' 'blib/lib/App/SeismicUnixGui/developer/archive/tidy_perl/perltidy_all.sh' \
-	  'lib/App/SeismicUnixGui/developer/archive/tidy_perl/perltidy_big_streams.sh' 'blib/lib/App/SeismicUnixGui/developer/archive/tidy_perl/perltidy_big_streams.sh' \
-	  'lib/App/SeismicUnixGui/developer/archive/tidy_perl/perltidy_configs.sh' 'blib/lib/App/SeismicUnixGui/developer/archive/tidy_perl/perltidy_configs.sh' 
+	  'lib/App/SeismicUnixGui/developer/archive/tidy_perl/perltidy_big_streams.sh' 'blib/lib/App/SeismicUnixGui/developer/archive/tidy_perl/perltidy_big_streams.sh' 
 	$(NOECHO) $(ABSPERLRUN) -MExtUtils::Install -e 'pm_to_blib({@ARGV}, '\''$(INST_LIB)/auto'\'', q[$(PM_FILTER)], '\''$(PERM_DIR)'\'')' -- \
+	  'lib/App/SeismicUnixGui/developer/archive/tidy_perl/perltidy_configs.sh' 'blib/lib/App/SeismicUnixGui/developer/archive/tidy_perl/perltidy_configs.sh' \
 	  'lib/App/SeismicUnixGui/developer/archive/tidy_perl/perltidy_geopsy.sh' 'blib/lib/App/SeismicUnixGui/developer/archive/tidy_perl/perltidy_geopsy.sh' \
 	  'lib/App/SeismicUnixGui/developer/archive/tidy_perl/perltidy_gmt.sh' 'blib/lib/App/SeismicUnixGui/developer/archive/tidy_perl/perltidy_gmt.sh' \
 	  'lib/App/SeismicUnixGui/developer/archive/tidy_perl/perltidy_main.sh' 'blib/lib/App/SeismicUnixGui/developer/archive/tidy_perl/perltidy_main.sh' \
@@ -3907,9 +3913,9 @@ pm_to_blib : $(FIRST_MAKEFILE) $(TO_INST_PM)
 	  'lib/App/SeismicUnixGui/developer/code/archive/gmt/gmt_package_declare.pm' 'blib/lib/App/SeismicUnixGui/developer/code/archive/gmt/gmt_package_declare.pm' \
 	  'lib/App/SeismicUnixGui/developer/code/archive/gmt/gmt_package_encapsulated.pm' 'blib/lib/App/SeismicUnixGui/developer/code/archive/gmt/gmt_package_encapsulated.pm' \
 	  'lib/App/SeismicUnixGui/developer/code/archive/gmt/gmt_package_header.pm' 'blib/lib/App/SeismicUnixGui/developer/code/archive/gmt/gmt_package_header.pm' \
-	  'lib/App/SeismicUnixGui/developer/code/archive/gmt/gmt_package_instantiation.pm' 'blib/lib/App/SeismicUnixGui/developer/code/archive/gmt/gmt_package_instantiation.pm' \
-	  'lib/App/SeismicUnixGui/developer/code/archive/gmt/gmt_package_pod.pm' 'blib/lib/App/SeismicUnixGui/developer/code/archive/gmt/gmt_package_pod.pm' 
+	  'lib/App/SeismicUnixGui/developer/code/archive/gmt/gmt_package_instantiation.pm' 'blib/lib/App/SeismicUnixGui/developer/code/archive/gmt/gmt_package_instantiation.pm' 
 	$(NOECHO) $(ABSPERLRUN) -MExtUtils::Install -e 'pm_to_blib({@ARGV}, '\''$(INST_LIB)/auto'\'', q[$(PM_FILTER)], '\''$(PERM_DIR)'\'')' -- \
+	  'lib/App/SeismicUnixGui/developer/code/archive/gmt/gmt_package_pod.pm' 'blib/lib/App/SeismicUnixGui/developer/code/archive/gmt/gmt_package_pod.pm' \
 	  'lib/App/SeismicUnixGui/developer/code/archive/gmt/gmt_package_subroutine.pm' 'blib/lib/App/SeismicUnixGui/developer/code/archive/gmt/gmt_package_subroutine.pm' \
 	  'lib/App/SeismicUnixGui/developer/code/archive/gmt/gmt_package_tail.pm' 'blib/lib/App/SeismicUnixGui/developer/code/archive/gmt/gmt_package_tail.pm' \
 	  'lib/App/SeismicUnixGui/developer/code/archive/insert_line_in_file.pl' 'blib/lib/App/SeismicUnixGui/developer/code/archive/insert_line_in_file.pl' \
@@ -3925,9 +3931,9 @@ pm_to_blib : $(FIRST_MAKEFILE) $(TO_INST_PM)
 	  'lib/App/SeismicUnixGui/developer/code/archive/shell/evince.config' 'blib/lib/App/SeismicUnixGui/developer/code/archive/shell/evince.config' \
 	  'lib/App/SeismicUnixGui/developer/code/archive/shell/evince.par' 'blib/lib/App/SeismicUnixGui/developer/code/archive/shell/evince.par' \
 	  'lib/App/SeismicUnixGui/developer/code/archive/shell/evince.pm' 'blib/lib/App/SeismicUnixGui/developer/code/archive/shell/evince.pm' \
-	  'lib/App/SeismicUnixGui/developer/code/archive/shell/evince_doc.pm' 'blib/lib/App/SeismicUnixGui/developer/code/archive/shell/evince_doc.pm' \
-	  'lib/App/SeismicUnixGui/developer/code/archive/shell/evince_doc2pm.pl' 'blib/lib/App/SeismicUnixGui/developer/code/archive/shell/evince_doc2pm.pl' 
+	  'lib/App/SeismicUnixGui/developer/code/archive/shell/evince_doc.pm' 'blib/lib/App/SeismicUnixGui/developer/code/archive/shell/evince_doc.pm' 
 	$(NOECHO) $(ABSPERLRUN) -MExtUtils::Install -e 'pm_to_blib({@ARGV}, '\''$(INST_LIB)/auto'\'', q[$(PM_FILTER)], '\''$(PERM_DIR)'\'')' -- \
+	  'lib/App/SeismicUnixGui/developer/code/archive/shell/evince_doc2pm.pl' 'blib/lib/App/SeismicUnixGui/developer/code/archive/shell/evince_doc2pm.pl' \
 	  'lib/App/SeismicUnixGui/developer/code/archive/shell/evince_package.pm' 'blib/lib/App/SeismicUnixGui/developer/code/archive/shell/evince_package.pm' \
 	  'lib/App/SeismicUnixGui/developer/code/archive/shell/evince_spec.pm' 'blib/lib/App/SeismicUnixGui/developer/code/archive/shell/evince_spec.pm' \
 	  'lib/App/SeismicUnixGui/developer/code/archive/shell/log.txt' 'blib/lib/App/SeismicUnixGui/developer/code/archive/shell/log.txt' \
@@ -3944,9 +3950,9 @@ pm_to_blib : $(FIRST_MAKEFILE) $(TO_INST_PM)
 	  'lib/App/SeismicUnixGui/developer/code/archive/tests/map.pl' 'blib/lib/App/SeismicUnixGui/developer/code/archive/tests/map.pl' \
 	  'lib/App/SeismicUnixGui/developer/code/archive/tests/test_Exporter.pl' 'blib/lib/App/SeismicUnixGui/developer/code/archive/tests/test_Exporter.pl' \
 	  'lib/App/SeismicUnixGui/developer/code/archive/tests/test_INC.pl' 'blib/lib/App/SeismicUnixGui/developer/code/archive/tests/test_INC.pl' \
-	  'lib/App/SeismicUnixGui/developer/code/archive/tests/test_L_SU_project_selector.pl' 'blib/lib/App/SeismicUnixGui/developer/code/archive/tests/test_L_SU_project_selector.pl' \
-	  'lib/App/SeismicUnixGui/developer/code/archive/tests/test_SeismicUnix.pl' 'blib/lib/App/SeismicUnixGui/developer/code/archive/tests/test_SeismicUnix.pl' 
+	  'lib/App/SeismicUnixGui/developer/code/archive/tests/test_L_SU_project_selector.pl' 'blib/lib/App/SeismicUnixGui/developer/code/archive/tests/test_L_SU_project_selector.pl' 
 	$(NOECHO) $(ABSPERLRUN) -MExtUtils::Install -e 'pm_to_blib({@ARGV}, '\''$(INST_LIB)/auto'\'', q[$(PM_FILTER)], '\''$(PERM_DIR)'\'')' -- \
+	  'lib/App/SeismicUnixGui/developer/code/archive/tests/test_SeismicUnix.pl' 'blib/lib/App/SeismicUnixGui/developer/code/archive/tests/test_SeismicUnix.pl' \
 	  'lib/App/SeismicUnixGui/developer/code/archive/tests/test_config_superflows.pm' 'blib/lib/App/SeismicUnixGui/developer/code/archive/tests/test_config_superflows.pm' \
 	  'lib/App/SeismicUnixGui/developer/code/archive/tests/test_extends.pl' 'blib/lib/App/SeismicUnixGui/developer/code/archive/tests/test_extends.pl' \
 	  'lib/App/SeismicUnixGui/developer/code/archive/tests/test_extends_v2.pl' 'blib/lib/App/SeismicUnixGui/developer/code/archive/tests/test_extends_v2.pl' \
@@ -3963,9 +3969,9 @@ pm_to_blib : $(FIRST_MAKEFILE) $(TO_INST_PM)
 	  'lib/App/SeismicUnixGui/developer/code/immodpg/kill4mmodpg_development.pl' 'blib/lib/App/SeismicUnixGui/developer/code/immodpg/kill4mmodpg_development.pl' \
 	  'lib/App/SeismicUnixGui/developer/code/sunix/README.pm' 'blib/lib/App/SeismicUnixGui/developer/code/sunix/README.pm' \
 	  'lib/App/SeismicUnixGui/developer/code/sunix/change_a_line_everywhere.pl' 'blib/lib/App/SeismicUnixGui/developer/code/sunix/change_a_line_everywhere.pl' \
-	  'lib/App/SeismicUnixGui/developer/code/sunix/convert2V07.pl' 'blib/lib/App/SeismicUnixGui/developer/code/sunix/convert2V07.pl' \
-	  'lib/App/SeismicUnixGui/developer/code/sunix/nameNnumber.txt' 'blib/lib/App/SeismicUnixGui/developer/code/sunix/nameNnumber.txt' 
+	  'lib/App/SeismicUnixGui/developer/code/sunix/convert2V07.pl' 'blib/lib/App/SeismicUnixGui/developer/code/sunix/convert2V07.pl' 
 	$(NOECHO) $(ABSPERLRUN) -MExtUtils::Install -e 'pm_to_blib({@ARGV}, '\''$(INST_LIB)/auto'\'', q[$(PM_FILTER)], '\''$(PERM_DIR)'\'')' -- \
+	  'lib/App/SeismicUnixGui/developer/code/sunix/nameNnumber.txt' 'blib/lib/App/SeismicUnixGui/developer/code/sunix/nameNnumber.txt' \
 	  'lib/App/SeismicUnixGui/developer/code/sunix/prog_doc2pm.pm' 'blib/lib/App/SeismicUnixGui/developer/code/sunix/prog_doc2pm.pm' \
 	  'lib/App/SeismicUnixGui/developer/code/sunix/replacelines.pl' 'blib/lib/App/SeismicUnixGui/developer/code/sunix/replacelines.pl' \
 	  'lib/App/SeismicUnixGui/developer/code/sunix/sudoc.pm' 'blib/lib/App/SeismicUnixGui/developer/code/sunix/sudoc.pm' \
@@ -4319,6 +4325,7 @@ pm_to_blib : $(FIRST_MAKEFILE) $(TO_INST_PM)
 	  'lib/App/SeismicUnixGui/misc/writefiles.pm' 'blib/lib/App/SeismicUnixGui/misc/writefiles.pm' \
 	  'lib/App/SeismicUnixGui/script/.FileHistory.txt' 'blib/lib/App/SeismicUnixGui/script/.FileHistory.txt' \
 	  'lib/App/SeismicUnixGui/script/.num_samples_Vrms_Vint' 'blib/lib/App/SeismicUnixGui/script/.num_samples_Vrms_Vint' \
+	  'lib/App/SeismicUnixGui/script/.split_cdp0000001.su' 'blib/lib/App/SeismicUnixGui/script/.split_cdp0000001.su' \
 	  'lib/App/SeismicUnixGui/script/LICENSE' 'blib/lib/App/SeismicUnixGui/script/LICENSE' \
 	  'lib/App/SeismicUnixGui/script/L_SUV0.80.6.pl' 'blib/lib/App/SeismicUnixGui/script/L_SUV0.80.6.pl' \
 	  'lib/App/SeismicUnixGui/script/L_SU_project_selector.pl' 'blib/lib/App/SeismicUnixGui/script/L_SU_project_selector.pl' \
@@ -4326,9 +4333,9 @@ pm_to_blib : $(FIRST_MAKEFILE) $(TO_INST_PM)
 	  'lib/App/SeismicUnixGui/script/SeismicUnixGui' 'blib/lib/App/SeismicUnixGui/script/SeismicUnixGui' \
 	  'lib/App/SeismicUnixGui/script/SetProject' 'blib/lib/App/SeismicUnixGui/script/SetProject' \
 	  'lib/App/SeismicUnixGui/script/Sseg2su' 'blib/lib/App/SeismicUnixGui/script/Sseg2su' \
-	  'lib/App/SeismicUnixGui/script/Sucat' 'blib/lib/App/SeismicUnixGui/script/Sucat' \
-	  'lib/App/SeismicUnixGui/script/Sudipfilt' 'blib/lib/App/SeismicUnixGui/script/Sudipfilt' 
+	  'lib/App/SeismicUnixGui/script/Sucat' 'blib/lib/App/SeismicUnixGui/script/Sucat' 
 	$(NOECHO) $(ABSPERLRUN) -MExtUtils::Install -e 'pm_to_blib({@ARGV}, '\''$(INST_LIB)/auto'\'', q[$(PM_FILTER)], '\''$(PERM_DIR)'\'')' -- \
+	  'lib/App/SeismicUnixGui/script/Sudipfilt' 'blib/lib/App/SeismicUnixGui/script/Sudipfilt' \
 	  'lib/App/SeismicUnixGui/script/Synseis' 'blib/lib/App/SeismicUnixGui/script/Synseis' \
 	  'lib/App/SeismicUnixGui/script/cmguiTMEeyS' 'blib/lib/App/SeismicUnixGui/script/cmguiTMEeyS' \
 	  'lib/App/SeismicUnixGui/script/convert2V07' 'blib/lib/App/SeismicUnixGui/script/convert2V07' \
@@ -4352,9 +4359,9 @@ pm_to_blib : $(FIRST_MAKEFILE) $(TO_INST_PM)
 	  'lib/App/SeismicUnixGui/specs/NMO_Vel_Stk/sudmofk_spec.pm' 'blib/lib/App/SeismicUnixGui/specs/NMO_Vel_Stk/sudmofk_spec.pm' \
 	  'lib/App/SeismicUnixGui/specs/NMO_Vel_Stk/sudmofkcw_spec.pm' 'blib/lib/App/SeismicUnixGui/specs/NMO_Vel_Stk/sudmofkcw_spec.pm' \
 	  'lib/App/SeismicUnixGui/specs/NMO_Vel_Stk/sudmotivz_spec.pm' 'blib/lib/App/SeismicUnixGui/specs/NMO_Vel_Stk/sudmotivz_spec.pm' \
-	  'lib/App/SeismicUnixGui/specs/NMO_Vel_Stk/sudmotx_spec.pm' 'blib/lib/App/SeismicUnixGui/specs/NMO_Vel_Stk/sudmotx_spec.pm' \
-	  'lib/App/SeismicUnixGui/specs/NMO_Vel_Stk/sudmovz_spec.pm' 'blib/lib/App/SeismicUnixGui/specs/NMO_Vel_Stk/sudmovz_spec.pm' 
+	  'lib/App/SeismicUnixGui/specs/NMO_Vel_Stk/sudmotx_spec.pm' 'blib/lib/App/SeismicUnixGui/specs/NMO_Vel_Stk/sudmotx_spec.pm' 
 	$(NOECHO) $(ABSPERLRUN) -MExtUtils::Install -e 'pm_to_blib({@ARGV}, '\''$(INST_LIB)/auto'\'', q[$(PM_FILTER)], '\''$(PERM_DIR)'\'')' -- \
+	  'lib/App/SeismicUnixGui/specs/NMO_Vel_Stk/sudmovz_spec.pm' 'blib/lib/App/SeismicUnixGui/specs/NMO_Vel_Stk/sudmovz_spec.pm' \
 	  'lib/App/SeismicUnixGui/specs/NMO_Vel_Stk/suilog_spec.pm' 'blib/lib/App/SeismicUnixGui/specs/NMO_Vel_Stk/suilog_spec.pm' \
 	  'lib/App/SeismicUnixGui/specs/NMO_Vel_Stk/suintvel_spec.pm' 'blib/lib/App/SeismicUnixGui/specs/NMO_Vel_Stk/suintvel_spec.pm' \
 	  'lib/App/SeismicUnixGui/specs/NMO_Vel_Stk/sulog_spec.pm' 'blib/lib/App/SeismicUnixGui/specs/NMO_Vel_Stk/sulog_spec.pm' \
@@ -4374,9 +4381,9 @@ pm_to_blib : $(FIRST_MAKEFILE) $(TO_INST_PM)
 	  'lib/App/SeismicUnixGui/specs/NMO_Vel_Stk/sutivel_spec.pm' 'blib/lib/App/SeismicUnixGui/specs/NMO_Vel_Stk/sutivel_spec.pm' \
 	  'lib/App/SeismicUnixGui/specs/NMO_Vel_Stk/sutsq_spec.pm' 'blib/lib/App/SeismicUnixGui/specs/NMO_Vel_Stk/sutsq_spec.pm' \
 	  'lib/App/SeismicUnixGui/specs/NMO_Vel_Stk/suttoz_spec.pm' 'blib/lib/App/SeismicUnixGui/specs/NMO_Vel_Stk/suttoz_spec.pm' \
-	  'lib/App/SeismicUnixGui/specs/NMO_Vel_Stk/suvel2df_spec.pm' 'blib/lib/App/SeismicUnixGui/specs/NMO_Vel_Stk/suvel2df_spec.pm' \
-	  'lib/App/SeismicUnixGui/specs/NMO_Vel_Stk/suvelan_nccs_spec.pm' 'blib/lib/App/SeismicUnixGui/specs/NMO_Vel_Stk/suvelan_nccs_spec.pm' 
+	  'lib/App/SeismicUnixGui/specs/NMO_Vel_Stk/suvel2df_spec.pm' 'blib/lib/App/SeismicUnixGui/specs/NMO_Vel_Stk/suvel2df_spec.pm' 
 	$(NOECHO) $(ABSPERLRUN) -MExtUtils::Install -e 'pm_to_blib({@ARGV}, '\''$(INST_LIB)/auto'\'', q[$(PM_FILTER)], '\''$(PERM_DIR)'\'')' -- \
+	  'lib/App/SeismicUnixGui/specs/NMO_Vel_Stk/suvelan_nccs_spec.pm' 'blib/lib/App/SeismicUnixGui/specs/NMO_Vel_Stk/suvelan_nccs_spec.pm' \
 	  'lib/App/SeismicUnixGui/specs/NMO_Vel_Stk/suvelan_nsel_spec.pm' 'blib/lib/App/SeismicUnixGui/specs/NMO_Vel_Stk/suvelan_nsel_spec.pm' \
 	  'lib/App/SeismicUnixGui/specs/NMO_Vel_Stk/suvelan_spec.pm' 'blib/lib/App/SeismicUnixGui/specs/NMO_Vel_Stk/suvelan_spec.pm' \
 	  'lib/App/SeismicUnixGui/specs/NMO_Vel_Stk/suztot_spec.pm' 'blib/lib/App/SeismicUnixGui/specs/NMO_Vel_Stk/suztot_spec.pm' \
@@ -4396,9 +4403,9 @@ pm_to_blib : $(FIRST_MAKEFILE) $(TO_INST_PM)
 	  'lib/App/SeismicUnixGui/specs/big_streams/iVA_spec.pm' 'blib/lib/App/SeismicUnixGui/specs/big_streams/iVA_spec.pm' \
 	  'lib/App/SeismicUnixGui/specs/big_streams/immodpg_spec.pm' 'blib/lib/App/SeismicUnixGui/specs/big_streams/immodpg_spec.pm' \
 	  'lib/App/SeismicUnixGui/specs/data/ctrlstrip_spec.pm' 'blib/lib/App/SeismicUnixGui/specs/data/ctrlstrip_spec.pm' \
-	  'lib/App/SeismicUnixGui/specs/data/data_in_spec.pm' 'blib/lib/App/SeismicUnixGui/specs/data/data_in_spec.pm' \
-	  'lib/App/SeismicUnixGui/specs/data/data_out_spec.pm' 'blib/lib/App/SeismicUnixGui/specs/data/data_out_spec.pm' 
+	  'lib/App/SeismicUnixGui/specs/data/data_in_spec.pm' 'blib/lib/App/SeismicUnixGui/specs/data/data_in_spec.pm' 
 	$(NOECHO) $(ABSPERLRUN) -MExtUtils::Install -e 'pm_to_blib({@ARGV}, '\''$(INST_LIB)/auto'\'', q[$(PM_FILTER)], '\''$(PERM_DIR)'\'')' -- \
+	  'lib/App/SeismicUnixGui/specs/data/data_out_spec.pm' 'blib/lib/App/SeismicUnixGui/specs/data/data_out_spec.pm' \
 	  'lib/App/SeismicUnixGui/specs/data/dt1tosu_spec.pm' 'blib/lib/App/SeismicUnixGui/specs/data/dt1tosu_spec.pm' \
 	  'lib/App/SeismicUnixGui/specs/data/segbread_spec.pm' 'blib/lib/App/SeismicUnixGui/specs/data/segbread_spec.pm' \
 	  'lib/App/SeismicUnixGui/specs/data/segdread_spec.pm' 'blib/lib/App/SeismicUnixGui/specs/data/segdread_spec.pm' \
@@ -4420,9 +4427,9 @@ pm_to_blib : $(FIRST_MAKEFILE) $(TO_INST_PM)
 	  'lib/App/SeismicUnixGui/specs/data/wtuncomp_spec.pm' 'blib/lib/App/SeismicUnixGui/specs/data/wtuncomp_spec.pm' \
 	  'lib/App/SeismicUnixGui/specs/datum/sudatumk2dr_spec.pm' 'blib/lib/App/SeismicUnixGui/specs/datum/sudatumk2dr_spec.pm' \
 	  'lib/App/SeismicUnixGui/specs/datum/sudatumk2ds_spec.pm' 'blib/lib/App/SeismicUnixGui/specs/datum/sudatumk2ds_spec.pm' \
-	  'lib/App/SeismicUnixGui/specs/datum/sukdmdcr_spec.pm' 'blib/lib/App/SeismicUnixGui/specs/datum/sukdmdcr_spec.pm' \
-	  'lib/App/SeismicUnixGui/specs/datum/sukdmdcs_spec.pm' 'blib/lib/App/SeismicUnixGui/specs/datum/sukdmdcs_spec.pm' 
+	  'lib/App/SeismicUnixGui/specs/datum/sukdmdcr_spec.pm' 'blib/lib/App/SeismicUnixGui/specs/datum/sukdmdcr_spec.pm' 
 	$(NOECHO) $(ABSPERLRUN) -MExtUtils::Install -e 'pm_to_blib({@ARGV}, '\''$(INST_LIB)/auto'\'', q[$(PM_FILTER)], '\''$(PERM_DIR)'\'')' -- \
+	  'lib/App/SeismicUnixGui/specs/datum/sukdmdcs_spec.pm' 'blib/lib/App/SeismicUnixGui/specs/datum/sukdmdcs_spec.pm' \
 	  'lib/App/SeismicUnixGui/specs/filter/subfilt_spec.pm' 'blib/lib/App/SeismicUnixGui/specs/filter/subfilt_spec.pm' \
 	  'lib/App/SeismicUnixGui/specs/filter/succfilt_spec.pm' 'blib/lib/App/SeismicUnixGui/specs/filter/succfilt_spec.pm' \
 	  'lib/App/SeismicUnixGui/specs/filter/sucddecon_spec.pm' 'blib/lib/App/SeismicUnixGui/specs/filter/sucddecon_spec.pm' \
@@ -4604,6 +4611,7 @@ pm_to_blib : $(FIRST_MAKEFILE) $(TO_INST_PM)
 	  'lib/App/SeismicUnixGui/specs/plot/ximage_spec.pm' 'blib/lib/App/SeismicUnixGui/specs/plot/ximage_spec.pm' \
 	  'lib/App/SeismicUnixGui/specs/plot/xmovie_spec.pm' 'blib/lib/App/SeismicUnixGui/specs/plot/xmovie_spec.pm' \
 	  'lib/App/SeismicUnixGui/specs/plot/xwigb_spec.pm' 'blib/lib/App/SeismicUnixGui/specs/plot/xwigb_spec.pm' \
+	  'lib/App/SeismicUnixGui/specs/shapeNcut/archive/sumute_spec_old.pm' 'blib/lib/App/SeismicUnixGui/specs/shapeNcut/archive/sumute_spec_old.pm' \
 	  'lib/App/SeismicUnixGui/specs/shapeNcut/suattributes_spec.pm' 'blib/lib/App/SeismicUnixGui/specs/shapeNcut/suattributes_spec.pm' \
 	  'lib/App/SeismicUnixGui/specs/shapeNcut/suflip_spec.pm' 'blib/lib/App/SeismicUnixGui/specs/shapeNcut/suflip_spec.pm' \
 	  'lib/App/SeismicUnixGui/specs/shapeNcut/sugain_spec.pm' 'blib/lib/App/SeismicUnixGui/specs/shapeNcut/sugain_spec.pm' \
@@ -4611,9 +4619,10 @@ pm_to_blib : $(FIRST_MAKEFILE) $(TO_INST_PM)
 	  'lib/App/SeismicUnixGui/specs/shapeNcut/sukill_spec.pm' 'blib/lib/App/SeismicUnixGui/specs/shapeNcut/sukill_spec.pm' \
 	  'lib/App/SeismicUnixGui/specs/shapeNcut/sumute_spec.pm' 'blib/lib/App/SeismicUnixGui/specs/shapeNcut/sumute_spec.pm' \
 	  'lib/App/SeismicUnixGui/specs/shapeNcut/supad_spec.pm' 'blib/lib/App/SeismicUnixGui/specs/shapeNcut/supad_spec.pm' \
-	  'lib/App/SeismicUnixGui/specs/shapeNcut/susplit_spec.pm' 'blib/lib/App/SeismicUnixGui/specs/shapeNcut/susplit_spec.pm' \
-	  'lib/App/SeismicUnixGui/specs/shapeNcut/suvcat_spec.pm' 'blib/lib/App/SeismicUnixGui/specs/shapeNcut/suvcat_spec.pm' 
+	  'lib/App/SeismicUnixGui/specs/shapeNcut/susort_spec.pm' 'blib/lib/App/SeismicUnixGui/specs/shapeNcut/susort_spec.pm' 
 	$(NOECHO) $(ABSPERLRUN) -MExtUtils::Install -e 'pm_to_blib({@ARGV}, '\''$(INST_LIB)/auto'\'', q[$(PM_FILTER)], '\''$(PERM_DIR)'\'')' -- \
+	  'lib/App/SeismicUnixGui/specs/shapeNcut/susplit_spec.pm' 'blib/lib/App/SeismicUnixGui/specs/shapeNcut/susplit_spec.pm' \
+	  'lib/App/SeismicUnixGui/specs/shapeNcut/suvcat_spec.pm' 'blib/lib/App/SeismicUnixGui/specs/shapeNcut/suvcat_spec.pm' \
 	  'lib/App/SeismicUnixGui/specs/shapeNcut/suwind_spec.pm' 'blib/lib/App/SeismicUnixGui/specs/shapeNcut/suwind_spec.pm' \
 	  'lib/App/SeismicUnixGui/specs/shell/cat_su_spec.pm' 'blib/lib/App/SeismicUnixGui/specs/shell/cat_su_spec.pm' \
 	  'lib/App/SeismicUnixGui/specs/shell/evince_spec.pm' 'blib/lib/App/SeismicUnixGui/specs/shell/evince_spec.pm' \
@@ -4633,10 +4642,10 @@ pm_to_blib : $(FIRST_MAKEFILE) $(TO_INST_PM)
 	  'lib/App/SeismicUnixGui/specs/statsMath/suinterp_spec.pm' 'blib/lib/App/SeismicUnixGui/specs/statsMath/suinterp_spec.pm' \
 	  'lib/App/SeismicUnixGui/specs/statsMath/sumax_spec.pm' 'blib/lib/App/SeismicUnixGui/specs/statsMath/sumax_spec.pm' \
 	  'lib/App/SeismicUnixGui/specs/statsMath/sumean_spec.pm' 'blib/lib/App/SeismicUnixGui/specs/statsMath/sumean_spec.pm' \
-	  'lib/App/SeismicUnixGui/specs/statsMath/sumix_spec.pm' 'blib/lib/App/SeismicUnixGui/specs/statsMath/sumix_spec.pm' \
-	  'lib/App/SeismicUnixGui/specs/statsMath/suop2_spec.pm' 'blib/lib/App/SeismicUnixGui/specs/statsMath/suop2_spec.pm' \
-	  'lib/App/SeismicUnixGui/specs/statsMath/suop_spec.pm' 'blib/lib/App/SeismicUnixGui/specs/statsMath/suop_spec.pm' 
+	  'lib/App/SeismicUnixGui/specs/statsMath/sumix_spec.pm' 'blib/lib/App/SeismicUnixGui/specs/statsMath/sumix_spec.pm' 
 	$(NOECHO) $(ABSPERLRUN) -MExtUtils::Install -e 'pm_to_blib({@ARGV}, '\''$(INST_LIB)/auto'\'', q[$(PM_FILTER)], '\''$(PERM_DIR)'\'')' -- \
+	  'lib/App/SeismicUnixGui/specs/statsMath/suop2_spec.pm' 'blib/lib/App/SeismicUnixGui/specs/statsMath/suop2_spec.pm' \
+	  'lib/App/SeismicUnixGui/specs/statsMath/suop_spec.pm' 'blib/lib/App/SeismicUnixGui/specs/statsMath/suop_spec.pm' \
 	  'lib/App/SeismicUnixGui/specs/statsMath/susort_spec.pm' 'blib/lib/App/SeismicUnixGui/specs/statsMath/susort_spec.pm' \
 	  'lib/App/SeismicUnixGui/specs/statsMath/suxcor_spec.pm' 'blib/lib/App/SeismicUnixGui/specs/statsMath/suxcor_spec.pm' \
 	  'lib/App/SeismicUnixGui/specs/statsMath/suxmax_spec.pm' 'blib/lib/App/SeismicUnixGui/specs/statsMath/suxmax_spec.pm' \
@@ -4656,10 +4665,10 @@ pm_to_blib : $(FIRST_MAKEFILE) $(TO_INST_PM)
 	  'lib/App/SeismicUnixGui/specs/well/las2su_spec.pm' 'blib/lib/App/SeismicUnixGui/specs/well/las2su_spec.pm' \
 	  'lib/App/SeismicUnixGui/specs/well/subackus_spec.pm' 'blib/lib/App/SeismicUnixGui/specs/well/subackus_spec.pm' \
 	  'lib/App/SeismicUnixGui/specs/well/subackush_spec.pm' 'blib/lib/App/SeismicUnixGui/specs/well/subackush_spec.pm' \
-	  'lib/App/SeismicUnixGui/specs/well/sugassman_spec.pm' 'blib/lib/App/SeismicUnixGui/specs/well/sugassman_spec.pm' \
-	  'lib/App/SeismicUnixGui/specs/well/sulprime_spec.pm' 'blib/lib/App/SeismicUnixGui/specs/well/sulprime_spec.pm' \
-	  'lib/App/SeismicUnixGui/specs/well/suwellrf_spec.pm' 'blib/lib/App/SeismicUnixGui/specs/well/suwellrf_spec.pm' 
+	  'lib/App/SeismicUnixGui/specs/well/sugassman_spec.pm' 'blib/lib/App/SeismicUnixGui/specs/well/sugassman_spec.pm' 
 	$(NOECHO) $(ABSPERLRUN) -MExtUtils::Install -e 'pm_to_blib({@ARGV}, '\''$(INST_LIB)/auto'\'', q[$(PM_FILTER)], '\''$(PERM_DIR)'\'')' -- \
+	  'lib/App/SeismicUnixGui/specs/well/sulprime_spec.pm' 'blib/lib/App/SeismicUnixGui/specs/well/sulprime_spec.pm' \
+	  'lib/App/SeismicUnixGui/specs/well/suwellrf_spec.pm' 'blib/lib/App/SeismicUnixGui/specs/well/suwellrf_spec.pm' \
 	  'lib/App/SeismicUnixGui/sunix/NMO_Vel_Stk/dzdv.pm' 'blib/lib/App/SeismicUnixGui/sunix/NMO_Vel_Stk/dzdv.pm' \
 	  'lib/App/SeismicUnixGui/sunix/NMO_Vel_Stk/sucvs4fowler.pm' 'blib/lib/App/SeismicUnixGui/sunix/NMO_Vel_Stk/sucvs4fowler.pm' \
 	  'lib/App/SeismicUnixGui/sunix/NMO_Vel_Stk/sudivstack.pm' 'blib/lib/App/SeismicUnixGui/sunix/NMO_Vel_Stk/sudivstack.pm' \
@@ -4680,10 +4689,10 @@ pm_to_blib : $(FIRST_MAKEFILE) $(TO_INST_PM)
 	  'lib/App/SeismicUnixGui/sunix/NMO_Vel_Stk/surelanan.pm' 'blib/lib/App/SeismicUnixGui/sunix/NMO_Vel_Stk/surelanan.pm' \
 	  'lib/App/SeismicUnixGui/sunix/NMO_Vel_Stk/suresamp.pm' 'blib/lib/App/SeismicUnixGui/sunix/NMO_Vel_Stk/suresamp.pm' \
 	  'lib/App/SeismicUnixGui/sunix/NMO_Vel_Stk/sushift.pm' 'blib/lib/App/SeismicUnixGui/sunix/NMO_Vel_Stk/sushift.pm' \
-	  'lib/App/SeismicUnixGui/sunix/NMO_Vel_Stk/sustack.pm' 'blib/lib/App/SeismicUnixGui/sunix/NMO_Vel_Stk/sustack.pm' \
-	  'lib/App/SeismicUnixGui/sunix/NMO_Vel_Stk/sustkvel.pm' 'blib/lib/App/SeismicUnixGui/sunix/NMO_Vel_Stk/sustkvel.pm' \
-	  'lib/App/SeismicUnixGui/sunix/NMO_Vel_Stk/sutaupnmo.pm' 'blib/lib/App/SeismicUnixGui/sunix/NMO_Vel_Stk/sutaupnmo.pm' 
+	  'lib/App/SeismicUnixGui/sunix/NMO_Vel_Stk/sustack.pm' 'blib/lib/App/SeismicUnixGui/sunix/NMO_Vel_Stk/sustack.pm' 
 	$(NOECHO) $(ABSPERLRUN) -MExtUtils::Install -e 'pm_to_blib({@ARGV}, '\''$(INST_LIB)/auto'\'', q[$(PM_FILTER)], '\''$(PERM_DIR)'\'')' -- \
+	  'lib/App/SeismicUnixGui/sunix/NMO_Vel_Stk/sustkvel.pm' 'blib/lib/App/SeismicUnixGui/sunix/NMO_Vel_Stk/sustkvel.pm' \
+	  'lib/App/SeismicUnixGui/sunix/NMO_Vel_Stk/sutaupnmo.pm' 'blib/lib/App/SeismicUnixGui/sunix/NMO_Vel_Stk/sutaupnmo.pm' \
 	  'lib/App/SeismicUnixGui/sunix/NMO_Vel_Stk/sutihaledmo.pm' 'blib/lib/App/SeismicUnixGui/sunix/NMO_Vel_Stk/sutihaledmo.pm' \
 	  'lib/App/SeismicUnixGui/sunix/NMO_Vel_Stk/sutivel.pm' 'blib/lib/App/SeismicUnixGui/sunix/NMO_Vel_Stk/sutivel.pm' \
 	  'lib/App/SeismicUnixGui/sunix/NMO_Vel_Stk/sutsq.pm' 'blib/lib/App/SeismicUnixGui/sunix/NMO_Vel_Stk/sutsq.pm' \
@@ -4705,10 +4714,10 @@ pm_to_blib : $(FIRST_MAKEFILE) $(TO_INST_PM)
 	  'lib/App/SeismicUnixGui/sunix/data/segywrite.pm' 'blib/lib/App/SeismicUnixGui/sunix/data/segywrite.pm' \
 	  'lib/App/SeismicUnixGui/sunix/data/suoldtonew.pm' 'blib/lib/App/SeismicUnixGui/sunix/data/suoldtonew.pm' \
 	  'lib/App/SeismicUnixGui/sunix/data/supack1.pm' 'blib/lib/App/SeismicUnixGui/sunix/data/supack1.pm' \
-	  'lib/App/SeismicUnixGui/sunix/data/supack2.pm' 'blib/lib/App/SeismicUnixGui/sunix/data/supack2.pm' \
-	  'lib/App/SeismicUnixGui/sunix/data/suswapbytes.pm' 'blib/lib/App/SeismicUnixGui/sunix/data/suswapbytes.pm' \
-	  'lib/App/SeismicUnixGui/sunix/data/suunpack1.pm' 'blib/lib/App/SeismicUnixGui/sunix/data/suunpack1.pm' 
+	  'lib/App/SeismicUnixGui/sunix/data/supack2.pm' 'blib/lib/App/SeismicUnixGui/sunix/data/supack2.pm' 
 	$(NOECHO) $(ABSPERLRUN) -MExtUtils::Install -e 'pm_to_blib({@ARGV}, '\''$(INST_LIB)/auto'\'', q[$(PM_FILTER)], '\''$(PERM_DIR)'\'')' -- \
+	  'lib/App/SeismicUnixGui/sunix/data/suswapbytes.pm' 'blib/lib/App/SeismicUnixGui/sunix/data/suswapbytes.pm' \
+	  'lib/App/SeismicUnixGui/sunix/data/suunpack1.pm' 'blib/lib/App/SeismicUnixGui/sunix/data/suunpack1.pm' \
 	  'lib/App/SeismicUnixGui/sunix/data/suunpack2.pm' 'blib/lib/App/SeismicUnixGui/sunix/data/suunpack2.pm' \
 	  'lib/App/SeismicUnixGui/sunix/data/wpc1uncomp2.pm' 'blib/lib/App/SeismicUnixGui/sunix/data/wpc1uncomp2.pm' \
 	  'lib/App/SeismicUnixGui/sunix/data/wpccompress.pm' 'blib/lib/App/SeismicUnixGui/sunix/data/wpccompress.pm' \
@@ -4731,10 +4740,10 @@ pm_to_blib : $(FIRST_MAKEFILE) $(TO_INST_PM)
 	  'lib/App/SeismicUnixGui/sunix/filter/sufwatrim.pm' 'blib/lib/App/SeismicUnixGui/sunix/filter/sufwatrim.pm' \
 	  'lib/App/SeismicUnixGui/sunix/filter/sufxdecon.pm' 'blib/lib/App/SeismicUnixGui/sunix/filter/sufxdecon.pm' \
 	  'lib/App/SeismicUnixGui/sunix/filter/sugroll.pm' 'blib/lib/App/SeismicUnixGui/sunix/filter/sugroll.pm' \
-	  'lib/App/SeismicUnixGui/sunix/filter/suk1k2filter.pm' 'blib/lib/App/SeismicUnixGui/sunix/filter/suk1k2filter.pm' \
-	  'lib/App/SeismicUnixGui/sunix/filter/sukfilter.pm' 'blib/lib/App/SeismicUnixGui/sunix/filter/sukfilter.pm' \
-	  'lib/App/SeismicUnixGui/sunix/filter/sulfaf.pm' 'blib/lib/App/SeismicUnixGui/sunix/filter/sulfaf.pm' 
+	  'lib/App/SeismicUnixGui/sunix/filter/suk1k2filter.pm' 'blib/lib/App/SeismicUnixGui/sunix/filter/suk1k2filter.pm' 
 	$(NOECHO) $(ABSPERLRUN) -MExtUtils::Install -e 'pm_to_blib({@ARGV}, '\''$(INST_LIB)/auto'\'', q[$(PM_FILTER)], '\''$(PERM_DIR)'\'')' -- \
+	  'lib/App/SeismicUnixGui/sunix/filter/sukfilter.pm' 'blib/lib/App/SeismicUnixGui/sunix/filter/sukfilter.pm' \
+	  'lib/App/SeismicUnixGui/sunix/filter/sulfaf.pm' 'blib/lib/App/SeismicUnixGui/sunix/filter/sulfaf.pm' \
 	  'lib/App/SeismicUnixGui/sunix/filter/sumedian.pm' 'blib/lib/App/SeismicUnixGui/sunix/filter/sumedian.pm' \
 	  'lib/App/SeismicUnixGui/sunix/filter/supef.pm' 'blib/lib/App/SeismicUnixGui/sunix/filter/supef.pm' \
 	  'lib/App/SeismicUnixGui/sunix/filter/suphase.pm' 'blib/lib/App/SeismicUnixGui/sunix/filter/suphase.pm' \
@@ -4757,10 +4766,10 @@ pm_to_blib : $(FIRST_MAKEFILE) $(TO_INST_PM)
 	  'lib/App/SeismicUnixGui/sunix/header/suascii.pm' 'blib/lib/App/SeismicUnixGui/sunix/header/suascii.pm' \
 	  'lib/App/SeismicUnixGui/sunix/header/suazimuth.pm' 'blib/lib/App/SeismicUnixGui/sunix/header/suazimuth.pm' \
 	  'lib/App/SeismicUnixGui/sunix/header/sucdpbin.pm' 'blib/lib/App/SeismicUnixGui/sunix/header/sucdpbin.pm' \
-	  'lib/App/SeismicUnixGui/sunix/header/suchart.pm' 'blib/lib/App/SeismicUnixGui/sunix/header/suchart.pm' \
-	  'lib/App/SeismicUnixGui/sunix/header/suchw.pm' 'blib/lib/App/SeismicUnixGui/sunix/header/suchw.pm' \
-	  'lib/App/SeismicUnixGui/sunix/header/sucliphead.pm' 'blib/lib/App/SeismicUnixGui/sunix/header/sucliphead.pm' 
+	  'lib/App/SeismicUnixGui/sunix/header/suchart.pm' 'blib/lib/App/SeismicUnixGui/sunix/header/suchart.pm' 
 	$(NOECHO) $(ABSPERLRUN) -MExtUtils::Install -e 'pm_to_blib({@ARGV}, '\''$(INST_LIB)/auto'\'', q[$(PM_FILTER)], '\''$(PERM_DIR)'\'')' -- \
+	  'lib/App/SeismicUnixGui/sunix/header/suchw.pm' 'blib/lib/App/SeismicUnixGui/sunix/header/suchw.pm' \
+	  'lib/App/SeismicUnixGui/sunix/header/sucliphead.pm' 'blib/lib/App/SeismicUnixGui/sunix/header/sucliphead.pm' \
 	  'lib/App/SeismicUnixGui/sunix/header/sucountkey.pm' 'blib/lib/App/SeismicUnixGui/sunix/header/sucountkey.pm' \
 	  'lib/App/SeismicUnixGui/sunix/header/sucwt.pm' 'blib/lib/App/SeismicUnixGui/sunix/header/sucwt.pm' \
 	  'lib/App/SeismicUnixGui/sunix/header/sudumptrace.pm' 'blib/lib/App/SeismicUnixGui/sunix/header/sudumptrace.pm' \
@@ -4783,10 +4792,10 @@ pm_to_blib : $(FIRST_MAKEFILE) $(TO_INST_PM)
 	  'lib/App/SeismicUnixGui/sunix/header/sustrip.pm' 'blib/lib/App/SeismicUnixGui/sunix/header/sustrip.pm' \
 	  'lib/App/SeismicUnixGui/sunix/header/sutrcount.pm' 'blib/lib/App/SeismicUnixGui/sunix/header/sutrcount.pm' \
 	  'lib/App/SeismicUnixGui/sunix/header/suutm.pm' 'blib/lib/App/SeismicUnixGui/sunix/header/suutm.pm' \
-	  'lib/App/SeismicUnixGui/sunix/header/suxedit.pm' 'blib/lib/App/SeismicUnixGui/sunix/header/suxedit.pm' \
-	  'lib/App/SeismicUnixGui/sunix/header/swapbhed.pm' 'blib/lib/App/SeismicUnixGui/sunix/header/swapbhed.pm' \
-	  'lib/App/SeismicUnixGui/sunix/inversion/suinvco3d.pm' 'blib/lib/App/SeismicUnixGui/sunix/inversion/suinvco3d.pm' 
+	  'lib/App/SeismicUnixGui/sunix/header/suxedit.pm' 'blib/lib/App/SeismicUnixGui/sunix/header/suxedit.pm' 
 	$(NOECHO) $(ABSPERLRUN) -MExtUtils::Install -e 'pm_to_blib({@ARGV}, '\''$(INST_LIB)/auto'\'', q[$(PM_FILTER)], '\''$(PERM_DIR)'\'')' -- \
+	  'lib/App/SeismicUnixGui/sunix/header/swapbhed.pm' 'blib/lib/App/SeismicUnixGui/sunix/header/swapbhed.pm' \
+	  'lib/App/SeismicUnixGui/sunix/inversion/suinvco3d.pm' 'blib/lib/App/SeismicUnixGui/sunix/inversion/suinvco3d.pm' \
 	  'lib/App/SeismicUnixGui/sunix/inversion/suinvvxzco.pm' 'blib/lib/App/SeismicUnixGui/sunix/inversion/suinvvxzco.pm' \
 	  'lib/App/SeismicUnixGui/sunix/inversion/suinvzco3d.pm' 'blib/lib/App/SeismicUnixGui/sunix/inversion/suinvzco3d.pm' \
 	  'lib/App/SeismicUnixGui/sunix/migration/sudatumfd.pm' 'blib/lib/App/SeismicUnixGui/sunix/migration/sudatumfd.pm' \
@@ -4807,10 +4816,10 @@ pm_to_blib : $(FIRST_MAKEFILE) $(TO_INST_PM)
 	  'lib/App/SeismicUnixGui/sunix/migration/sumigpsti.pm' 'blib/lib/App/SeismicUnixGui/sunix/migration/sumigpsti.pm' \
 	  'lib/App/SeismicUnixGui/sunix/migration/sumigsplit.pm' 'blib/lib/App/SeismicUnixGui/sunix/migration/sumigsplit.pm' \
 	  'lib/App/SeismicUnixGui/sunix/migration/sumigtk.pm' 'blib/lib/App/SeismicUnixGui/sunix/migration/sumigtk.pm' \
-	  'lib/App/SeismicUnixGui/sunix/migration/sumigtopo2d.pm' 'blib/lib/App/SeismicUnixGui/sunix/migration/sumigtopo2d.pm' \
-	  'lib/App/SeismicUnixGui/sunix/migration/sustolt.pm' 'blib/lib/App/SeismicUnixGui/sunix/migration/sustolt.pm' \
-	  'lib/App/SeismicUnixGui/sunix/migration/sutifowler.pm' 'blib/lib/App/SeismicUnixGui/sunix/migration/sutifowler.pm' 
+	  'lib/App/SeismicUnixGui/sunix/migration/sumigtopo2d.pm' 'blib/lib/App/SeismicUnixGui/sunix/migration/sumigtopo2d.pm' 
 	$(NOECHO) $(ABSPERLRUN) -MExtUtils::Install -e 'pm_to_blib({@ARGV}, '\''$(INST_LIB)/auto'\'', q[$(PM_FILTER)], '\''$(PERM_DIR)'\'')' -- \
+	  'lib/App/SeismicUnixGui/sunix/migration/sustolt.pm' 'blib/lib/App/SeismicUnixGui/sunix/migration/sustolt.pm' \
+	  'lib/App/SeismicUnixGui/sunix/migration/sutifowler.pm' 'blib/lib/App/SeismicUnixGui/sunix/migration/sutifowler.pm' \
 	  'lib/App/SeismicUnixGui/sunix/model/addrvl3d.pm' 'blib/lib/App/SeismicUnixGui/sunix/model/addrvl3d.pm' \
 	  'lib/App/SeismicUnixGui/sunix/model/cellauto.pm' 'blib/lib/App/SeismicUnixGui/sunix/model/cellauto.pm' \
 	  'lib/App/SeismicUnixGui/sunix/model/elacheck.pm' 'blib/lib/App/SeismicUnixGui/sunix/model/elacheck.pm' \
@@ -4833,10 +4842,10 @@ pm_to_blib : $(FIRST_MAKEFILE) $(TO_INST_PM)
 	  'lib/App/SeismicUnixGui/sunix/model/sugoupillaud.pm' 'blib/lib/App/SeismicUnixGui/sunix/model/sugoupillaud.pm' \
 	  'lib/App/SeismicUnixGui/sunix/model/sugoupillaudpo.pm' 'blib/lib/App/SeismicUnixGui/sunix/model/sugoupillaudpo.pm' \
 	  'lib/App/SeismicUnixGui/sunix/model/suimp2d.pm' 'blib/lib/App/SeismicUnixGui/sunix/model/suimp2d.pm' \
-	  'lib/App/SeismicUnixGui/sunix/model/suimp3d.pm' 'blib/lib/App/SeismicUnixGui/sunix/model/suimp3d.pm' \
-	  'lib/App/SeismicUnixGui/sunix/model/suimpedance.pm' 'blib/lib/App/SeismicUnixGui/sunix/model/suimpedance.pm' \
-	  'lib/App/SeismicUnixGui/sunix/model/sujitter.pm' 'blib/lib/App/SeismicUnixGui/sunix/model/sujitter.pm' 
+	  'lib/App/SeismicUnixGui/sunix/model/suimp3d.pm' 'blib/lib/App/SeismicUnixGui/sunix/model/suimp3d.pm' 
 	$(NOECHO) $(ABSPERLRUN) -MExtUtils::Install -e 'pm_to_blib({@ARGV}, '\''$(INST_LIB)/auto'\'', q[$(PM_FILTER)], '\''$(PERM_DIR)'\'')' -- \
+	  'lib/App/SeismicUnixGui/sunix/model/suimpedance.pm' 'blib/lib/App/SeismicUnixGui/sunix/model/suimpedance.pm' \
+	  'lib/App/SeismicUnixGui/sunix/model/sujitter.pm' 'blib/lib/App/SeismicUnixGui/sunix/model/sujitter.pm' \
 	  'lib/App/SeismicUnixGui/sunix/model/sukdsyn2d.pm' 'blib/lib/App/SeismicUnixGui/sunix/model/sukdsyn2d.pm' \
 	  'lib/App/SeismicUnixGui/sunix/model/sunull.pm' 'blib/lib/App/SeismicUnixGui/sunix/model/sunull.pm' \
 	  'lib/App/SeismicUnixGui/sunix/model/suplane.pm' 'blib/lib/App/SeismicUnixGui/sunix/model/suplane.pm' \
@@ -4859,11 +4868,11 @@ pm_to_blib : $(FIRST_MAKEFILE) $(TO_INST_PM)
 	  'lib/App/SeismicUnixGui/sunix/par/float2ibm.pm' 'blib/lib/App/SeismicUnixGui/sunix/par/float2ibm.pm' \
 	  'lib/App/SeismicUnixGui/sunix/par/ftnstrip.pm' 'blib/lib/App/SeismicUnixGui/sunix/par/ftnstrip.pm' \
 	  'lib/App/SeismicUnixGui/sunix/par/ftnunstrip.pm' 'blib/lib/App/SeismicUnixGui/sunix/par/ftnunstrip.pm' \
-	  'lib/App/SeismicUnixGui/sunix/par/makevel.pm' 'blib/lib/App/SeismicUnixGui/sunix/par/makevel.pm' \
+	  'lib/App/SeismicUnixGui/sunix/par/makevel.pm' 'blib/lib/App/SeismicUnixGui/sunix/par/makevel.pm' 
+	$(NOECHO) $(ABSPERLRUN) -MExtUtils::Install -e 'pm_to_blib({@ARGV}, '\''$(INST_LIB)/auto'\'', q[$(PM_FILTER)], '\''$(PERM_DIR)'\'')' -- \
 	  'lib/App/SeismicUnixGui/sunix/par/mkparfile.pm' 'blib/lib/App/SeismicUnixGui/sunix/par/mkparfile.pm' \
 	  'lib/App/SeismicUnixGui/sunix/par/transp.pm' 'blib/lib/App/SeismicUnixGui/sunix/par/transp.pm' \
-	  'lib/App/SeismicUnixGui/sunix/par/unif2.pm' 'blib/lib/App/SeismicUnixGui/sunix/par/unif2.pm' 
-	$(NOECHO) $(ABSPERLRUN) -MExtUtils::Install -e 'pm_to_blib({@ARGV}, '\''$(INST_LIB)/auto'\'', q[$(PM_FILTER)], '\''$(PERM_DIR)'\'')' -- \
+	  'lib/App/SeismicUnixGui/sunix/par/unif2.pm' 'blib/lib/App/SeismicUnixGui/sunix/par/unif2.pm' \
 	  'lib/App/SeismicUnixGui/sunix/par/unif2aniso.pm' 'blib/lib/App/SeismicUnixGui/sunix/par/unif2aniso.pm' \
 	  'lib/App/SeismicUnixGui/sunix/par/unisam.pm' 'blib/lib/App/SeismicUnixGui/sunix/par/unisam.pm' \
 	  'lib/App/SeismicUnixGui/sunix/par/unisam2.pm' 'blib/lib/App/SeismicUnixGui/sunix/par/unisam2.pm' \
@@ -4886,11 +4895,11 @@ pm_to_blib : $(FIRST_MAKEFILE) $(TO_INST_PM)
 	  'lib/App/SeismicUnixGui/sunix/plot/pswigp.pm' 'blib/lib/App/SeismicUnixGui/sunix/plot/pswigp.pm' \
 	  'lib/App/SeismicUnixGui/sunix/plot/scmap.pm' 'blib/lib/App/SeismicUnixGui/sunix/plot/scmap.pm' \
 	  'lib/App/SeismicUnixGui/sunix/plot/spsplot.pm' 'blib/lib/App/SeismicUnixGui/sunix/plot/spsplot.pm' \
-	  'lib/App/SeismicUnixGui/sunix/plot/supscontour.pm' 'blib/lib/App/SeismicUnixGui/sunix/plot/supscontour.pm' \
+	  'lib/App/SeismicUnixGui/sunix/plot/supscontour.pm' 'blib/lib/App/SeismicUnixGui/sunix/plot/supscontour.pm' 
+	$(NOECHO) $(ABSPERLRUN) -MExtUtils::Install -e 'pm_to_blib({@ARGV}, '\''$(INST_LIB)/auto'\'', q[$(PM_FILTER)], '\''$(PERM_DIR)'\'')' -- \
 	  'lib/App/SeismicUnixGui/sunix/plot/supscube.pm' 'blib/lib/App/SeismicUnixGui/sunix/plot/supscube.pm' \
 	  'lib/App/SeismicUnixGui/sunix/plot/supscubecontour.pm' 'blib/lib/App/SeismicUnixGui/sunix/plot/supscubecontour.pm' \
-	  'lib/App/SeismicUnixGui/sunix/plot/supsgraph.pm' 'blib/lib/App/SeismicUnixGui/sunix/plot/supsgraph.pm' 
-	$(NOECHO) $(ABSPERLRUN) -MExtUtils::Install -e 'pm_to_blib({@ARGV}, '\''$(INST_LIB)/auto'\'', q[$(PM_FILTER)], '\''$(PERM_DIR)'\'')' -- \
+	  'lib/App/SeismicUnixGui/sunix/plot/supsgraph.pm' 'blib/lib/App/SeismicUnixGui/sunix/plot/supsgraph.pm' \
 	  'lib/App/SeismicUnixGui/sunix/plot/supsimage.pm' 'blib/lib/App/SeismicUnixGui/sunix/plot/supsimage.pm' \
 	  'lib/App/SeismicUnixGui/sunix/plot/supsmax.pm' 'blib/lib/App/SeismicUnixGui/sunix/plot/supsmax.pm' \
 	  'lib/App/SeismicUnixGui/sunix/plot/supsmovie.pm' 'blib/lib/App/SeismicUnixGui/sunix/plot/supsmovie.pm' \
@@ -4910,13 +4919,14 @@ pm_to_blib : $(FIRST_MAKEFILE) $(TO_INST_PM)
 	  'lib/App/SeismicUnixGui/sunix/plot/xmovie.pm' 'blib/lib/App/SeismicUnixGui/sunix/plot/xmovie.pm' \
 	  'lib/App/SeismicUnixGui/sunix/plot/xpicker.pm' 'blib/lib/App/SeismicUnixGui/sunix/plot/xpicker.pm' \
 	  'lib/App/SeismicUnixGui/sunix/plot/xwigb.pm' 'blib/lib/App/SeismicUnixGui/sunix/plot/xwigb.pm' \
+	  'lib/App/SeismicUnixGui/sunix/shapeNcut/archive/sumute_old.pm' 'blib/lib/App/SeismicUnixGui/sunix/shapeNcut/archive/sumute_old.pm' \
 	  'lib/App/SeismicUnixGui/sunix/shapeNcut/suflip.pm' 'blib/lib/App/SeismicUnixGui/sunix/shapeNcut/suflip.pm' \
-	  'lib/App/SeismicUnixGui/sunix/shapeNcut/sugain.pm' 'blib/lib/App/SeismicUnixGui/sunix/shapeNcut/sugain.pm' \
+	  'lib/App/SeismicUnixGui/sunix/shapeNcut/sugain.pm' 'blib/lib/App/SeismicUnixGui/sunix/shapeNcut/sugain.pm' 
+	$(NOECHO) $(ABSPERLRUN) -MExtUtils::Install -e 'pm_to_blib({@ARGV}, '\''$(INST_LIB)/auto'\'', q[$(PM_FILTER)], '\''$(PERM_DIR)'\'')' -- \
 	  'lib/App/SeismicUnixGui/sunix/shapeNcut/sugprfb.pm' 'blib/lib/App/SeismicUnixGui/sunix/shapeNcut/sugprfb.pm' \
 	  'lib/App/SeismicUnixGui/sunix/shapeNcut/sukill.pm' 'blib/lib/App/SeismicUnixGui/sunix/shapeNcut/sukill.pm' \
 	  'lib/App/SeismicUnixGui/sunix/shapeNcut/sumute.pm' 'blib/lib/App/SeismicUnixGui/sunix/shapeNcut/sumute.pm' \
-	  'lib/App/SeismicUnixGui/sunix/shapeNcut/supad.pm' 'blib/lib/App/SeismicUnixGui/sunix/shapeNcut/supad.pm' 
-	$(NOECHO) $(ABSPERLRUN) -MExtUtils::Install -e 'pm_to_blib({@ARGV}, '\''$(INST_LIB)/auto'\'', q[$(PM_FILTER)], '\''$(PERM_DIR)'\'')' -- \
+	  'lib/App/SeismicUnixGui/sunix/shapeNcut/supad.pm' 'blib/lib/App/SeismicUnixGui/sunix/shapeNcut/supad.pm' \
 	  'lib/App/SeismicUnixGui/sunix/shapeNcut/suresamp.pm' 'blib/lib/App/SeismicUnixGui/sunix/shapeNcut/suresamp.pm' \
 	  'lib/App/SeismicUnixGui/sunix/shapeNcut/susort.pm' 'blib/lib/App/SeismicUnixGui/sunix/shapeNcut/susort.pm' \
 	  'lib/App/SeismicUnixGui/sunix/shapeNcut/susplit.pm' 'blib/lib/App/SeismicUnixGui/sunix/shapeNcut/susplit.pm' \
@@ -4937,11 +4947,11 @@ pm_to_blib : $(FIRST_MAKEFILE) $(TO_INST_PM)
 	  'lib/App/SeismicUnixGui/sunix/statsMath/suacorfrac.pm' 'blib/lib/App/SeismicUnixGui/sunix/statsMath/suacorfrac.pm' \
 	  'lib/App/SeismicUnixGui/sunix/statsMath/sualford.pm' 'blib/lib/App/SeismicUnixGui/sunix/statsMath/sualford.pm' \
 	  'lib/App/SeismicUnixGui/sunix/statsMath/suattributes.pm' 'blib/lib/App/SeismicUnixGui/sunix/statsMath/suattributes.pm' \
-	  'lib/App/SeismicUnixGui/sunix/statsMath/suconv.pm' 'blib/lib/App/SeismicUnixGui/sunix/statsMath/suconv.pm' \
+	  'lib/App/SeismicUnixGui/sunix/statsMath/suconv.pm' 'blib/lib/App/SeismicUnixGui/sunix/statsMath/suconv.pm' 
+	$(NOECHO) $(ABSPERLRUN) -MExtUtils::Install -e 'pm_to_blib({@ARGV}, '\''$(INST_LIB)/auto'\'', q[$(PM_FILTER)], '\''$(PERM_DIR)'\'')' -- \
 	  'lib/App/SeismicUnixGui/sunix/statsMath/sufwmix.pm' 'blib/lib/App/SeismicUnixGui/sunix/statsMath/sufwmix.pm' \
 	  'lib/App/SeismicUnixGui/sunix/statsMath/suhistogram.pm' 'blib/lib/App/SeismicUnixGui/sunix/statsMath/suhistogram.pm' \
-	  'lib/App/SeismicUnixGui/sunix/statsMath/suhrot.pm' 'blib/lib/App/SeismicUnixGui/sunix/statsMath/suhrot.pm' 
-	$(NOECHO) $(ABSPERLRUN) -MExtUtils::Install -e 'pm_to_blib({@ARGV}, '\''$(INST_LIB)/auto'\'', q[$(PM_FILTER)], '\''$(PERM_DIR)'\'')' -- \
+	  'lib/App/SeismicUnixGui/sunix/statsMath/suhrot.pm' 'blib/lib/App/SeismicUnixGui/sunix/statsMath/suhrot.pm' \
 	  'lib/App/SeismicUnixGui/sunix/statsMath/suinterp.pm' 'blib/lib/App/SeismicUnixGui/sunix/statsMath/suinterp.pm' \
 	  'lib/App/SeismicUnixGui/sunix/statsMath/sumax.pm' 'blib/lib/App/SeismicUnixGui/sunix/statsMath/sumax.pm' \
 	  'lib/App/SeismicUnixGui/sunix/statsMath/sumean.pm' 'blib/lib/App/SeismicUnixGui/sunix/statsMath/sumean.pm' \
@@ -4962,11 +4972,11 @@ pm_to_blib : $(FIRST_MAKEFILE) $(TO_INST_PM)
 	  'lib/App/SeismicUnixGui/sunix/transform/suifft.pm' 'blib/lib/App/SeismicUnixGui/sunix/transform/suifft.pm' \
 	  'lib/App/SeismicUnixGui/sunix/transform/suphasevel.pm' 'blib/lib/App/SeismicUnixGui/sunix/transform/suphasevel.pm' \
 	  'lib/App/SeismicUnixGui/sunix/transform/suspecfk.pm' 'blib/lib/App/SeismicUnixGui/sunix/transform/suspecfk.pm' \
-	  'lib/App/SeismicUnixGui/sunix/transform/suspecfx.pm' 'blib/lib/App/SeismicUnixGui/sunix/transform/suspecfx.pm' \
+	  'lib/App/SeismicUnixGui/sunix/transform/suspecfx.pm' 'blib/lib/App/SeismicUnixGui/sunix/transform/suspecfx.pm' 
+	$(NOECHO) $(ABSPERLRUN) -MExtUtils::Install -e 'pm_to_blib({@ARGV}, '\''$(INST_LIB)/auto'\'', q[$(PM_FILTER)], '\''$(PERM_DIR)'\'')' -- \
 	  'lib/App/SeismicUnixGui/sunix/transform/sutaup.pm' 'blib/lib/App/SeismicUnixGui/sunix/transform/sutaup.pm' \
 	  'lib/App/SeismicUnixGui/sunix/well/las2su.pm' 'blib/lib/App/SeismicUnixGui/sunix/well/las2su.pm' \
-	  'lib/App/SeismicUnixGui/sunix/well/subackus.pm' 'blib/lib/App/SeismicUnixGui/sunix/well/subackus.pm' 
-	$(NOECHO) $(ABSPERLRUN) -MExtUtils::Install -e 'pm_to_blib({@ARGV}, '\''$(INST_LIB)/auto'\'', q[$(PM_FILTER)], '\''$(PERM_DIR)'\'')' -- \
+	  'lib/App/SeismicUnixGui/sunix/well/subackus.pm' 'blib/lib/App/SeismicUnixGui/sunix/well/subackus.pm' \
 	  'lib/App/SeismicUnixGui/sunix/well/subackush.pm' 'blib/lib/App/SeismicUnixGui/sunix/well/subackush.pm' \
 	  'lib/App/SeismicUnixGui/sunix/well/sugassman.pm' 'blib/lib/App/SeismicUnixGui/sunix/well/sugassman.pm' \
 	  'lib/App/SeismicUnixGui/sunix/well/sulprime.pm' 'blib/lib/App/SeismicUnixGui/sunix/well/sulprime.pm' \
