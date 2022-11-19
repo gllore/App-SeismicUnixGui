@@ -264,9 +264,9 @@ sub calcNdisplay {
 	$iApply_top_mute->{_parfile_in} =
 	  $itemp_top_mute_picks_sorted_par_ . $iApply_top_mute->{_file_in};
 
-	print(
-		"iApply_top_mute, mute pick file is $iApply_top_mute->{_parfile_in}\n\n"
-	);
+#	print(
+#		"iApply_top_mute, mute pick file is $iApply_top_mute->{_parfile_in}\n\n"
+#	);
 
 =head2
 
@@ -332,9 +332,9 @@ sub calcNdisplay {
 	# $sugain     -> setdt(1000);
 	$sugain[2] = $sugain->Step();
 
-	$sugain->clear();
-	$sugain->tpower(1.8);
-	$sugain[3] = $sugain->Step();
+#	$sugain->clear();
+#	$sugain->tpower(1.8);
+#	$sugain[3] = $sugain->Step();
 
 =head2
 
@@ -419,8 +419,12 @@ sub calcNdisplay {
 
 	#for suxwigb
 	@items = (
-		$suwind[1], $in, $iApply_top_mute->{_inbound},
-		$to, $suwind[2], $to, $sumute[1], $to, $sugain[2], $to, $suxwigb[1],
+		$suwind[1], 
+		$in, $iApply_top_mute->{_inbound},
+		$to, $suwind[2], 
+		$to, $sumute[1], 
+		$to, $sugain[2], 
+		$to, $suxwigb[1],
 		$go
 	);
 	$flow[2] = $run->modules( \@items );
@@ -450,8 +454,8 @@ sub calcNdisplay {
 	#print("iApply_top_mute:$flow[1]\n");
 	$log->file( $flow[1] );
 
-	#for suxwibg
-	print "iApply_top_mute: $flow[2]\n";
+	#for suxwigb
+#	print "iApply_top_mute: $flow[2]\n";
 
 }    # end calcNdisplay subroutine
 

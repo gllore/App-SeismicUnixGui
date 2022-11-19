@@ -10,10 +10,12 @@ package App::SeismicUnixGui::big_streams::iApply_bottom_mute;
  DESCRIPTION:
  Purpose: Linear Top Mute of Data 
          V3 Sept. 23, 2015: added oop functionality
-
+         1.0.4, Nov. 2022
 =head2 USE
 
 =head2 NOTES 
+
+1.0.4 now include suxwigb as well as suximage
 
 =head4 
  Examples
@@ -21,7 +23,7 @@ package App::SeismicUnixGui::big_streams::iApply_bottom_mute;
 =cut
 
 use Moose;
-my $VERSION = '1.0.3';
+my $VERSION = '1.0.4';
 use aliased 'App::SeismicUnixGui::misc::message';
 use aliased 'App::SeismicUnixGui::misc::flow';
 use aliased 'App::SeismicUnixGui::sunix::filter::sufilter';
@@ -62,7 +64,8 @@ my $SuMessages = SuMessages->new();
 
 =cut 
 
-use App::SeismicUnixGui::misc::SeismicUnix qw($itemp_bot_mute_picks_sorted_par_);
+use App::SeismicUnixGui::misc::SeismicUnix
+  qw($itemp_bot_mute_picks_sorted_par_);
 my ($PL_SEISMIC)      = $Project->PL_SEISMIC();
 my ($DATA_SEISMIC_SU) = $Project->DATA_SEISMIC_SU();
 
@@ -72,8 +75,8 @@ my ($DATA_SEISMIC_SU) = $Project->DATA_SEISMIC_SU();
 
 =cut
 
-my ( @items, @flow, @sugain, @sufilter, @suwind );
-my ( @suximage,    @sumute );
+my ( @items,       @flow,    @sugain, @sufilter, @suwind );
+my ( @suximage,    @suxwigb, @sumute );
 my ( $windowtitle, $base_caption );
 
 =head2
@@ -87,16 +90,16 @@ my ( $windowtitle, $base_caption );
 =cut
 
 my $iApply_bottom_mute = {
-    _gather_num      => '',
-    _gather_header   => '',
-    _offset_type     => '',
-    _file_in         => '',
-    _freq            => '',
-    _inbound         => '',
-    _message_type    => '',
-    _number_of_tries => '',
-    _textfile_in     => '',
-    _parfile_in      => ''
+	_gather_num      => '',
+	_gather_header   => '',
+	_offset_type     => '',
+	_file_in         => '',
+	_freq            => '',
+	_inbound         => '',
+	_message_type    => '',
+	_number_of_tries => '',
+	_textfile_in     => '',
+	_parfile_in      => ''
 };
 
 =head2
@@ -107,17 +110,17 @@ my $iApply_bottom_mute = {
 =cut
 
 sub clear {
-    $iApply_bottom_mute->{_gather_num}      = '';
-    $iApply_bottom_mute->{_file_in}         = '';
-    $iApply_bottom_mute->{_freq}            = '';
-    $iApply_bottom_mute->{_inbound}         = '';
-    $iApply_bottom_mute->{_message_type}    = '';
-    $iApply_bottom_mute->{_gather_header}   = '';
-    $iApply_bottom_mute->{_offset_type}     = '';
-    $iApply_bottom_mute->{_number_of_tries} = '';
-    $iApply_bottom_mute->{_file_in}         = '';
-    $iApply_bottom_mute->{_parfile_in}      = '';
-    $iApply_bottom_mute->{_textfile_in}     = '';
+	$iApply_bottom_mute->{_gather_num}      = '';
+	$iApply_bottom_mute->{_file_in}         = '';
+	$iApply_bottom_mute->{_freq}            = '';
+	$iApply_bottom_mute->{_inbound}         = '';
+	$iApply_bottom_mute->{_message_type}    = '';
+	$iApply_bottom_mute->{_gather_header}   = '';
+	$iApply_bottom_mute->{_offset_type}     = '';
+	$iApply_bottom_mute->{_number_of_tries} = '';
+	$iApply_bottom_mute->{_file_in}         = '';
+	$iApply_bottom_mute->{_parfile_in}      = '';
+	$iApply_bottom_mute->{_textfile_in}     = '';
 }
 
 =head2 subroutine gather_header
@@ -130,11 +133,11 @@ sub clear {
 =cut
 
 sub gather_header {
-    my ( $variable, $gather_header ) = @_;
-    $iApply_bottom_mute->{_gather_header} = $gather_header
-      if defined($gather_header);
+	my ( $variable, $gather_header ) = @_;
+	$iApply_bottom_mute->{_gather_header} = $gather_header
+	  if defined($gather_header);
 
-    #print(" header type is $iApply_bottom_mute->{_gather_header}\n\n");
+	#print(" header type is $iApply_bottom_mute->{_gather_header}\n\n");
 }
 
 =head2 subroutine offset_type
@@ -147,11 +150,11 @@ sub gather_header {
 =cut
 
 sub offset_type {
-    my ( $variable, $offset_type ) = @_;
-    $iApply_bottom_mute->{_offset_type} = $offset_type
-      if defined($offset_type);
+	my ( $variable, $offset_type ) = @_;
+	$iApply_bottom_mute->{_offset_type} = $offset_type
+	  if defined($offset_type);
 
-    #print(" header type is $iApply_bottom_mute->{_offset_type}\n\n");
+	#print(" header type is $iApply_bottom_mute->{_offset_type}\n\n");
 }
 
 =head2 subroutine gather
@@ -161,8 +164,8 @@ sub offset_type {
 =cut
 
 sub gather_num {
-    my ( $variable, $gather_num ) = @_;
-    $iApply_bottom_mute->{_gather_num} = $gather_num if defined($gather_num);
+	my ( $variable, $gather_num ) = @_;
+	$iApply_bottom_mute->{_gather_num} = $gather_num if defined($gather_num);
 }
 
 =head2
@@ -174,10 +177,10 @@ sub gather_num {
 =cut
 
 sub freq {
-    my ( $variable, $freq ) = @_;
-    $iApply_bottom_mute->{_freq} = $freq if defined($freq);
+	my ( $variable, $freq ) = @_;
+	$iApply_bottom_mute->{_freq} = $freq if defined($freq);
 
-    #print("freq is $iApply_bottom_mute->{_freq}\n\n");
+	#print("freq is $iApply_bottom_mute->{_freq}\n\n");
 }
 
 =head2
@@ -189,10 +192,10 @@ sub freq {
 =cut
 
 sub file_in {
-    my ( $variable, $file_in ) = @_;
-    $iApply_bottom_mute->{_file_in} = $file_in if defined($file_in);
-    $iApply_bottom_mute->{_inbound} =
-      $DATA_SEISMIC_SU . '/' . $iApply_bottom_mute->{_file_in} . $suffix_su;
+	my ( $variable, $file_in ) = @_;
+	$iApply_bottom_mute->{_file_in} = $file_in if defined($file_in);
+	$iApply_bottom_mute->{_inbound} =
+	  $DATA_SEISMIC_SU . '/' . $iApply_bottom_mute->{_file_in} . $suffix_su;
 }
 
 =head2
@@ -202,11 +205,11 @@ sub file_in {
 =cut
 
 sub min_amplitude {
-    my ( $variable, $min_amplitude ) = @_;
-    $iApply_bottom_mute->{_min_amplitude} = $min_amplitude
-      if defined($min_amplitude);
+	my ( $variable, $min_amplitude ) = @_;
+	$iApply_bottom_mute->{_min_amplitude} = $min_amplitude
+	  if defined($min_amplitude);
 
-    #print("min_amplitude is $iApply_bottom_mute->{_min_amplitude}\n\n");
+	#print("min_amplitude is $iApply_bottom_mute->{_min_amplitude}\n\n");
 }
 
 =head2
@@ -216,11 +219,11 @@ sub min_amplitude {
 =cut
 
 sub max_amplitude {
-    my ( $variable, $max_amplitude ) = @_;
-    $iApply_bottom_mute->{_max_amplitude} = $max_amplitude
-      if defined($max_amplitude);
+	my ( $variable, $max_amplitude ) = @_;
+	$iApply_bottom_mute->{_max_amplitude} = $max_amplitude
+	  if defined($max_amplitude);
 
-    #print("max_amplitude is $iApply_bottom_mute->{_max_amplitude}\n\n");
+	#print("max_amplitude is $iApply_bottom_mute->{_max_amplitude}\n\n");
 }
 
 =head2 subroutine calcNdisplay
@@ -240,8 +243,8 @@ sub calcNdisplay {
 
 =cut 
 
-    $iApply_bottom_mute->{_parfile_in} =
-      $itemp_bot_mute_picks_sorted_par_ . $iApply_bottom_mute->{_file_in};
+	$iApply_bottom_mute->{_parfile_in} =
+	  $itemp_bot_mute_picks_sorted_par_ . $iApply_bottom_mute->{_file_in};
 
 # print("iApply_bottom_mute_picks, mute pick file is $iApply_bottom_mute->{_parfile_in}\n\n");
 # print("iApplybottom_mute_picks,PL_SEISMIC: $PL_SEISMIC\n");
@@ -252,12 +255,12 @@ sub calcNdisplay {
 
 =cut
 
-    $sumute->clear();
-    $sumute->par_directory('PL_SEISMIC');
-    $sumute->par_file( $iApply_bottom_mute->{_parfile_in} );
-    $sumute->offset_word( $iApply_bottom_mute->{_offset_type} );
-    $sumute->type('bottom');
-    $sumute[1] = $sumute->Step();
+	$sumute->clear();
+	$sumute->par_directory('PL_SEISMIC');
+	$sumute->par_file( $iApply_bottom_mute->{_parfile_in} );
+	$sumute->offset_word( $iApply_bottom_mute->{_offset_type} );
+	$sumute->type('bottom');
+	$sumute[1] = $sumute->Step();
 
 =head2
 
@@ -265,20 +268,20 @@ sub calcNdisplay {
 
 =cut
 
-    $suwind->clear();
-    $suwind->setheaderword( $iApply_bottom_mute->{_gather_header} );
-    $suwind->min( $iApply_bottom_mute->{_gather_num} );
-    $suwind->max( $iApply_bottom_mute->{_gather_num} );
+	$suwind->clear();
+	$suwind->setheaderword( $iApply_bottom_mute->{_gather_header} );
+	$suwind->min( $iApply_bottom_mute->{_gather_num} );
+	$suwind->max( $iApply_bottom_mute->{_gather_num} );
 
-    #print("gather num is $iApply_bottom_mute->{_gather_num}\n\n");
-    $suwind[1] = $suwind->Step();
+	#print("gather num is $iApply_bottom_mute->{_gather_num}\n\n");
+	$suwind[1] = $suwind->Step();
 
-    $suwind->clear();
+	$suwind->clear();
 
-    #$suwind   	-> setheaderword('time');
-    $suwind->tmin(0);
-    $suwind->tmax(1);
-    $suwind[2] = $suwind->Step();
+	#$suwind   	-> setheaderword('time');
+	#    $suwind->tmin(0);
+	#    $suwind->tmax(1);
+	$suwind[2] = $suwind->Step();
 
 =head2
 
@@ -286,9 +289,9 @@ sub calcNdisplay {
 
 =cut
 
-    $sufilter->clear();
-    $sufilter->freq( $iApply_bottom_mute->{_freq} );
-    $sufilter[1] = $sufilter->Step();
+	$sufilter->clear();
+	$sufilter->freq( $iApply_bottom_mute->{_freq} );
+	$sufilter[1] = $sufilter->Step();
 
 =head2
 
@@ -296,20 +299,21 @@ sub calcNdisplay {
 
 =cut
 
-    $sugain->clear();
-    $sugain->pbal($on);
-    $sugain[1] = $sugain->Step();
+	$sugain->clear();
+	$sugain->pbal($on);
+	$sugain[1] = $sugain->Step();
 
-    $sugain->clear();
-    $sugain->agc($on);
-    $sugain->width(0.1);
+	$sugain->clear();
 
-    # $sugain     -> setdt(1000);
-    $sugain[2] = $sugain->Step();
+	#    $sugain->agc($on);
+	#    $sugain->width(0.1);
 
-    $sugain->clear();
-    $sugain->tpower(3);
-    $sugain[3] = $sugain->Step();
+	# $sugain     -> setdt(1000);
+	$sugain[2] = $sugain->Step();
+
+	#    $sugain->clear();
+	#    $sugain->tpower(3);
+	#    $sugain[3] = $sugain->Step();
 
 =head2
 
@@ -317,30 +321,58 @@ sub calcNdisplay {
 
 =cut
 
-    $base_caption =
-        $iApply_bottom_mute->{_file_in}
-      . quotemeta(' f=')
-      . $iApply_bottom_mute->{_freq};
-    $windowtitle =
-        $iApply_bottom_mute->{_gather_header}
-      . quotemeta(' = ')
-      . $iApply_bottom_mute->{_gather_num};
+	$base_caption =
+		$iApply_bottom_mute->{_file_in}
+	  . quotemeta(' f=')
+	  . $iApply_bottom_mute->{_freq};
+	$windowtitle =
+		$iApply_bottom_mute->{_gather_header}
+	  . quotemeta(' = ')
+	  . $iApply_bottom_mute->{_gather_num};
 
-    $suximage->clear();
-    $suximage->box_width(300);
-    $suximage->box_height(700);
-    $suximage->box_X0(70);
-    $suximage->box_Y0(120);
-    $suximage->title($base_caption);
-    $suximage->windowtitle($windowtitle);
-    $suximage->ylabel( quotemeta('TWTTs') );
-    $suximage->xlabel( $iApply_bottom_mute->{_offset_type} );
-    $suximage->legend($on);
-    $suximage->cmap('rgb0');
-    $suximage->loclip( $iApply_bottom_mute->{_min_amplitude} );
-    $suximage->hiclip( $iApply_bottom_mute->{_max_amplitude} );
-    $suximage->verbose($off);
-    $suximage[1] = $suximage->Step();
+	$suximage->clear();
+	$suximage->box_width(300);
+	$suximage->box_height(700);
+	$suximage->box_X0(70);
+	$suximage->box_Y0(120);
+	$suximage->title($base_caption);
+	$suximage->windowtitle($windowtitle);
+	$suximage->ylabel( quotemeta('TWTTs') );
+	$suximage->xlabel( $iApply_bottom_mute->{_offset_type} );
+	$suximage->legend($on);
+	$suximage->cmap('rgb0');
+	$suximage->loclip( $iApply_bottom_mute->{_min_amplitude} );
+	$suximage->hiclip( $iApply_bottom_mute->{_max_amplitude} );
+	$suximage->verbose($off);
+	$suximage[1] = $suximage->Step();
+
+=head2
+
+ DISPLAY DATA (SUXWIGB) 
+
+=cut
+
+	$base_caption =
+		$iApply_bottom_mute->{_file_in}
+	  . quotemeta(' f=')
+	  . $iApply_bottom_mute->{_freq};
+	$windowtitle =
+		$iApply_bottom_mute->{_gather_header}
+	  . quotemeta(' = ')
+	  . $iApply_bottom_mute->{_gather_num};
+
+	$suxwigb->clear();
+	$suxwigb->box_width(500);
+	$suxwigb->box_height(700);
+	$suxwigb->box_X0(700);
+	$suxwigb->box_Y0(200);
+	$suxwigb->title($base_caption);
+	$suxwigb->windowtitle($windowtitle);
+	$suxwigb->ylabel( quotemeta('TWTTs') );
+	$suxwigb->xlabel( $iApply_bottom_mute->{_offset_type} );
+	$suxwigb->clip('1.5');    #clip/perc set manually
+	$suxwigb->verbose($off);
+	$suxwigb[1] = $suxwigb->Step();
 
 =head2
  
@@ -348,14 +380,27 @@ sub calcNdisplay {
 
 =cut
 
-    @items = (
-        $suwind[1],   $in,        $iApply_bottom_mute->{_inbound},
-        $to,          $suwind[2], $to,
-        $sumute[1],   $to,        $sufilter[1],
-        $to,          $sugain[2], $to,
-        $suximage[1], $go
-    );
-    $flow[1] = $run->modules( \@items );
+	@items = (
+		$suwind[1],   $in,        $iApply_bottom_mute->{_inbound},
+		$to,          $suwind[2], $to,
+		$sumute[1],   $to,        $sufilter[1],
+		$to,          $sugain[2], $to,
+		$suximage[1], $go
+	);
+
+	$flow[1] = $run->modules( \@items );
+
+	#for suxwigb
+	@items = (
+		$suwind[1],
+		$in, $iApply_bottom_mute->{_inbound},
+		$to, $suwind[2],
+		$to, $sumute[1],
+		$to, $sugain[2],
+		$to, $suxwigb[1],
+		$go
+	);
+	$flow[2] = $run->modules( \@items );
 
 =head2
 
@@ -366,7 +411,11 @@ sub calcNdisplay {
 
 =cut
 
-    $run->flow( \$flow[1] );
+	#for suximage
+	$run->flow( \$flow[1] );
+
+	#for suxwigb
+	$run->flow( \$flow[2] );
 
 =head2
 
@@ -374,9 +423,14 @@ sub calcNdisplay {
 
 =cut
 
-    print "iApply_bottom_mute,$flow[1]\n";
+	#    print "iApply_bottom_mute,$flow[1]\n";
 
-    #$log->file($flow[1]);
+	#for suximage
+	#print("iApply_bottom_mute:$flow[1]\n");
+	$log->file( $flow[1] );
+
+	#for suxwigb
+	#	print "iApply_bottom_mute: $flow[2]\n";
 
 }    # end calcNdisplay subroutine
 

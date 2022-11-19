@@ -9,7 +9,7 @@ package App::SeismicUnixGui::big_streams::iSelect_tr_Sumute_top;
  DATE:   April 2 2009 V1.
          Aug 9, 2011 V1.2
          Sept. 2015, V 3
-	 August 2016, V 3.1 
+	     August 2016, V 3.1 
 
  DESCRIPTION:
  plot data to select top mute values
@@ -276,13 +276,13 @@ sub calcNdisplay {
     $sugain[1] = $sugain->Step();
 
     $sugain->clear();
-    $sugain->agc($on);
-    $sugain->width(0.08);
+#    $sugain->agc($on);
+#    $sugain->width(0.08);
     $sugain[2] = $sugain->Step();
 
-    $sugain->clear();
-    $sugain->tpower(1.8);
-    $sugain[3] = $sugain->Step();
+#    $sugain->clear();
+#    $sugain->tpower(1.8);
+#    $sugain[3] = $sugain->Step();
 
 =head2 WINDOW  DATA 
 
@@ -301,8 +301,8 @@ sub calcNdisplay {
     $suwind->clear();
 
     #$suwind   		-> setheaderword('time');
-    $suwind->tmin(0);
-    $suwind->tmax(1);
+#    $suwind->tmin(0);
+#    $suwind->tmax(1);
     $suwind[2] = $suwind->Step();
 
 =head2  Set 
@@ -364,6 +364,11 @@ sub calcNdisplay {
     }
 
     $suximage[1] = $suximage->Step();
+
+
+=head2 Set suxwigb
+
+=cut
 
     #plotting with suxwigb
     $base_caption[2] =

@@ -1,3 +1,6 @@
+/home/gllore/Servilleta//seismics/data/loma_blanca//053018/H/1/su/gllore/L28Hz_Ibeam_geom4.su
+/home/gllore/Servilleta//seismics/data/loma_blanca//053018/H/1/su/gllore/1000_clean.su
+/home/gllore/Antarctica//seismics/data/TENTI//2022/Z/1/su/gllore/data_out.su
 /home/gllore/Georgia/seismics/pl/NWMountains//2016/Z/1/gllore/7A.view_prepare4velan.pl
 /home/gllore/Georgia/seismics/pl/NWMountains//2016/Z/1/gllore/7.prepare4velan.pl
 /home/gllore/Georgia/seismics/data/NWMountains//2016/Z/1/su/gllore/sp_fldr4_top_muted_fk_prep4velan.su
@@ -7,6 +10,3 @@
 /home/gllore/Georgia/seismics/pl/NWMountains//2016/Z/1/gllore/6.output_muted_fldr4.pl
 /home/gllore/Georgia/seismics/data/NWMountains//2016/Z/1/su/gllore/sp_fldr4_top_muted.su
 /home/gllore/Georgia/seismics/pl/NWMountains//2016/Z/1/gllore/multi_par_file
-/home/gllore/Georgia/seismics/pl/NWMountains//2016/Z/1/gllore/6.view_mute.pl
-/home/gllore/Georgia/seismics/data/NWMountains//2016/Z/1/su/gllore/sp_fldr4.su
-/home/gllore/Georgia/seismics/pl/NWMountains//2016/Z/1/gllore/A.surange.pl

@@ -210,7 +210,6 @@ sub iTM_Select_tr_Sumute_top {
 =cut
 
 sub iTM_Apply_top_mute {
-    print("iTM_Apply_top_mute made it 1.\n");
     $iApply_top_mute->file_in( $iTopMute->{_file_in} );
     $iApply_top_mute->gather_header( $iTopMute->{_gather_header} );
     $iApply_top_mute->offset_type( $iTopMute->{_offset_type} );
@@ -229,7 +228,6 @@ sub iTM_Apply_top_mute {
 =cut
 
 sub iPicks2par {
-	print("iPicks2par made it 1.\n");
     $iPicks2par->file_in( $iTopMute->{_file_in} );
     $iPicks2par->calc();
 }
@@ -248,7 +246,7 @@ sub iTM_Save_top_mute_picks {
     $iSave_top_mute_picks->calc();
 }
 
-=head2 sub set_iTM_message
+=head2 sub set_message
 
   define the message family (type) to use
   also set the gather nuimber (TODO: move option elsewhere)
@@ -306,6 +304,7 @@ sub type {
     my ( $variable, $type ) = @_;
     $iTopMute->{_type} = $type if defined($type);
     $check4old_data->gather_num( $iTopMute->{_gather_num} );
+    $check4old_data->file_in( $iTopMute->{_file_in} );
     $iTopMute->{_exists} = $check4old_data->type( $iTopMute->{_type} );
 
     return $iTopMute->{_exists};

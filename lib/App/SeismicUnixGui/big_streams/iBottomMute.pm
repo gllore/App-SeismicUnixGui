@@ -36,7 +36,10 @@ package App::SeismicUnixGui::big_streams::iBottomMute;
  2. build a list or hash with all the possible variable
     names you may use and you can even change them
 
+set defaults
 
+VELAN DATA 
+ m/s
 
 =cut
 
@@ -85,10 +88,9 @@ my $iBottomMute = {
     _textfile_out      => ''
 };
 
-=head2 
+=head2 instantiate 
 
-  	Option to create a new version of the package 
- 	with a unique name
+ programs
 
 =cut
 
@@ -226,13 +228,13 @@ sub iPicks2par {
     $iPicks2par->calc();
 }
 
-=head2 subroutine iBM_iSave_bottom_mute_picks
+=head2 subroutine iBM_Save_bottom_mute_picks
 
  save pick files for later use
  
 =cut
 
-sub iBM_iSave_bottom_mute_picks {
+sub iBM_Save_bottom_mute_picks {
     $iSave_bottom_mute_picks->gather_num( $iBottomMute->{_gather_num} );
     $iSave_bottom_mute_picks->gather_header( $iBottomMute->{_gather_header} );
     $iSave_bottom_mute_picks->gather_type( $iBottomMute->{_gather_type} );
@@ -296,8 +298,10 @@ look for old data
 sub type {
 
     my ( $variable, $type ) = @_;
+    
     $iBottomMute->{_type} = $type if defined($type);
     $check4old_data->gather_num( $iBottomMute->{_gather_num} );
+    $check4old_data->file_in( $iBottomMute->{_file_in} );
     $iBottomMute->{_exists} = $check4old_data->type( $iBottomMute->{_type} );
 
     return $iBottomMute->{_exists};

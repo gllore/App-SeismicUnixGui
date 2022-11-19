@@ -48,6 +48,19 @@
  Moose already declares that you need debuggers turned on
  so you don't need a line like the following:
  use warnings;
+ 
+  Parameters
+ 
+ base_file_name su file without "su" suffix
+ 
+ gather_type    used only to determine user messages,
+ 				e.g., SP, CDP
+ 				
+ binheader_type type of gathers used for muting,
+ 				e.g., ep,cdp
+ 				
+ offset_type    horizontal component, 
+ 				e.g., tracr, offset
 
 =cut
 
@@ -96,9 +109,6 @@ my $gather_type    = $CFG_h->{sumute}{1}{gather_type};
 my $min_amplitude  = $CFG_h->{sumute}{1}{min_amplitude};
 my $max_amplitude  = $CFG_h->{sumute}{1}{max_amplitude};
 
-#print("offset type -1 $offset_type\n\n");
-#
-
 =head2 Declare variables 
 
     in local memory space
@@ -135,6 +145,7 @@ $iBM->set_message('iBottomMute');
 $there_is_old_data = $iBM->type('BottomMute');
 
 if ($there_is_old_data) {
+	
     print("Old picks already exist.\n");
     print(
         "Delete \(\"rm \*old\*\"\)or Save        old picks, and then restart\n\n"
@@ -309,7 +320,7 @@ sub set_calc {
 
     $iBM->iPicks2par();
     $iBM->iBM_Save_bottom_mute_picks();
-    $iBM->iBM_iApply_bottom_mute();
+    $iBM->iBM_Apply_bottom_mute();
     $number_of_tries++;
     $iBM->number_of_tries($number_of_tries);
 

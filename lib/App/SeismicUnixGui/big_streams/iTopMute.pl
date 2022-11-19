@@ -106,9 +106,6 @@ my $gather_type    = $CFG_h->{sumute}{1}{gather_type};
 my $min_amplitude  = $CFG_h->{sumute}{1}{min_amplitude};
 my $max_amplitude  = $CFG_h->{sumute}{1}{max_amplitude};
 
-#print("offset type -1 $offset_type\n\n");
-
-
 =head2 Declare variables 
 
     in local memory space
@@ -133,6 +130,14 @@ $iTM->min_amplitude($min_amplitude);
 $iTM->max_amplitude($max_amplitude);
 $iTM->gather_num($gather);
 $iTM->set_message('iTopMute');
+
+
+=head2
+
+  Check for old data
+  check to see if prior mute parameter files exist for this   project 
+
+=cut
 
 $there_is_old_data = $iTM->type('TopMute');
 
@@ -311,13 +316,9 @@ sub set_calc {
     $xk->kill_this('suxwigb');
 
     $iTM->iPicks2par();
-        print("1 Calculating...\n");
     $iTM->iTM_Save_top_mute_picks();
-        print("2 Calculating...\n");
     $iTM->iTM_Apply_top_mute();
-        print("3 Calculating...\n");
     $number_of_tries++;
-        print("4 Calculating...\n");
     $iTM->number_of_tries($number_of_tries);
 
 =head2 Message 
@@ -327,7 +328,7 @@ sub set_calc {
 
 =cut
 
-#    $iTM->iTM_message('post_pick_mute');
+    $iTM->iTM_message('post_pick_mute');
 }
 
 

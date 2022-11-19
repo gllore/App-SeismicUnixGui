@@ -52,16 +52,16 @@ my $var          = $get->var();
 my $empty_string = $var->{_empty_string};
 
 my $old_data = {
-    _TX_inbound    => '',
-    _TX_outbound   => '',
-    _Tvel_inbound  => '',
-    _Tvel_outbound => '',
-    _cdp_num       => '',
-    _gather_num    => '',
-    _exists        => '',
-    _textfile_in   => '',
-    _textfile_out  => '',
-    _type          => ''
+	_TX_inbound    => '',
+	_TX_outbound   => '',
+	_Tvel_inbound  => '',
+	_Tvel_outbound => '',
+	_cdp_num       => '',
+	_gather_num    => '',
+	_exists        => '',
+	_textfile_in   => '',
+	_textfile_out  => '',
+	_type          => ''
 
 };
 
@@ -109,16 +109,16 @@ my $test = manage_files_by2->new();
 
 sub clear {
 
-    $old_data->{_TX_inbound}    = '';
-    $old_data->{_TX_outbound}   = '';
-    $old_data->{_Tvel_inbound}  = '';
-    $old_data->{_Tvel_outbound} = '';
-    $old_data->{_cdp_num}       = '';
-    $old_data->{_gather_num}    = '';
-    $old_data->{_exists}        = '';
-    $old_data->{_textfile_in}   = '';
-    $old_data->{_textfile_out}  = '';
-    $old_data->{_type}          = '';
+	$old_data->{_TX_inbound}    = '';
+	$old_data->{_TX_outbound}   = '';
+	$old_data->{_Tvel_inbound}  = '';
+	$old_data->{_Tvel_outbound} = '';
+	$old_data->{_cdp_num}       = '';
+	$old_data->{_gather_num}    = '';
+	$old_data->{_exists}        = '';
+	$old_data->{_textfile_in}   = '';
+	$old_data->{_textfile_out}  = '';
+	$old_data->{_type}          = '';
 }
 
 my ( $file_existence1, $file_existence2 );
@@ -132,9 +132,9 @@ my @answers;
 =cut
 
 sub cdp_num {
-    my ( $self, $cdp_num ) = @_;
-    $old_data->{_cdp_num} = $cdp_num if defined($cdp_num);
-    $old_data->{_cdp_num_suffix} = '_cdp' . $old_data->{_cdp_num};
+	my ( $self, $cdp_num ) = @_;
+	$old_data->{_cdp_num}        = $cdp_num if defined($cdp_num);
+	$old_data->{_cdp_num_suffix} = '_cdp' . $old_data->{_cdp_num};
 }
 
 =head2 subroutine gather
@@ -144,9 +144,9 @@ sub cdp_num {
 =cut
 
 sub gather_num {
-    my ( $self, $gather_num ) = @_;
-    $old_data->{_gather_num} = $gather_num if defined($gather_num);
-    $old_data->{_gather_num_suffix} = '_gather' . $old_data->{_gather_num};
+	my ( $self, $gather_num ) = @_;
+	$old_data->{_gather_num}        = $gather_num if defined($gather_num);
+	$old_data->{_gather_num_suffix} = '_gather' . $old_data->{_gather_num};
 }
 
 =head3 subroutine file_in
@@ -157,10 +157,11 @@ sub gather_num {
 =cut
 
 sub file_in {
-    my ( $self, $file_in ) = @_;
-    $old_data->{_file_in} = $file_in if defined($file_in);
 
-    # print("olde_data,file_in,file name is $old_data->{_file_in} \n\n");
+	my ( $self, $file_in ) = @_;
+	$old_data->{_file_in} = $file_in if defined($file_in);
+
+	# print("old_data,file_in,file name is $old_data->{_file_in} \n\n");
 }
 
 =head3 sub type
@@ -184,45 +185,45 @@ sub file_in {
 
 sub type {
 
-    my ( $self, $type ) = @_;
+	my ( $self, $type ) = @_;
 
-    if ( $type && $type ne $empty_string ) {
+	if ( $type && $type ne $empty_string ) {
 
-        $old_data->{_type} = $type;
+		$old_data->{_type} = $type;
 
-        if ( $old_data->{_type} eq 'iSpectralAnalysis' ) {
+		if ( $old_data->{_type} eq 'iSpectralAnalysis' ) {
 
-            $old_data->{_textfile_in} =
-                'waveform' . '_'
-              . $old_data->{_file_in}
-              . $old_data->{_cdp_num_suffix}
-              if defined($old_data);
-            $old_data->{_Tvel_inbound} =
-              $PL_SEISMIC . '/' . $old_data->{_textfile_in}
-              if defined( ( $old_data && $PL_SEISMIC ) );
-            $ans = $test->does_file_exist( \$old_data->{_Tvel_inbound} );
-            return ($ans);
-        }
+			$old_data->{_textfile_in} =
+				'waveform' . '_'
+			  . $old_data->{_file_in}
+			  . $old_data->{_cdp_num_suffix}
+			  if defined($old_data);
+			$old_data->{_Tvel_inbound} =
+			  $PL_SEISMIC . '/' . $old_data->{_textfile_in}
+			  if defined( ( $old_data && $PL_SEISMIC ) );
+			$ans = $test->does_file_exist( \$old_data->{_Tvel_inbound} );
+			return ($ans);
+		}
 
-        if ( $old_data->{_type} eq 'velan' ) {
+		if ( $old_data->{_type} eq 'velan' ) {
 
-            $old_data->{_textfile_in} =
-                'ivpicks_old' . '_'
-              . $old_data->{_file_in}
-              . $old_data->{_cdp_num_suffix}
-              if defined($old_data);
-            $old_data->{_Tvel_inbound} =
-              $PL_SEISMIC . '/' . $old_data->{_textfile_in}
-              if defined( ( $old_data && $PL_SEISMIC ) );
-            $ans = $test->does_file_exist( \$old_data->{_Tvel_inbound} );
+			$old_data->{_textfile_in} =
+				'ivpicks_old' . '_'
+			  . $old_data->{_file_in}
+			  . $old_data->{_cdp_num_suffix}
+			  if defined($old_data);
+			$old_data->{_Tvel_inbound} =
+			  $PL_SEISMIC . '/' . $old_data->{_textfile_in}
+			  if defined( ( $old_data && $PL_SEISMIC ) );
+			$ans = $test->does_file_exist( \$old_data->{_Tvel_inbound} );
 
 # $old_data->{_textfile_out}    = 'ivpicks_'.$old_data->{_file_in}.$old_data->{_cdp_num_suffix} if defined(($old_data && ($old_data->{_file_in} && $old_data->{_cdp_num_suffix})));
 # $old_data->{_Tvel_outbound}     = $PL_SEISMIC.'/'.$old_data->{_textfile_out} if defined(($old_data && $PL_SEISMIC ));
 # print("Tvel out is $old_data->{_Tvel_outbound}\n\n");
 # print("Tvel in is $old_data->{_Tvel_inbound}\n\n");
-            return ($ans);
+			return ($ans);
 
-        }
+		}
 
 =pod
   
@@ -230,20 +231,40 @@ sub type {
 
 =cut 
 
-        if ( $old_data->{_type} eq 'TopMute' ) {
-            $old_data->{_textfile_in} =
-                $itemp_top_mute_picks_sorted_par_
-              . $old_data->{_file_in}
-              . $old_data->{_gather_num_suffix};
-            $old_data->{_TX_inbound} =
-              $PL_SEISMIC . '/' . $old_data->{_textfile_in}
-              if defined( ( $old_data && $PL_SEISMIC ) );
-            $ans = $test->does_file_exist( \$old_data->{_TX_inbound} );
+		if ( $old_data->{_type} eq 'TopMute' ) {
 
-            # print("TX in is $old_data->{_TX_inbound}\n\n");
-            return ($ans);
+			if (    length $itemp_top_mute_picks_sorted_par_
+				and length $old_data->{_file_in}
+				and length $old_data->{_gather_num_suffix} )
+			{
 
-        }    # print("TX in is $old_data->{_TX_inbound}\n\n");
+				$old_data->{_textfile_in} =
+					$itemp_top_mute_picks_sorted_par_
+				  . $old_data->{_file_in}
+				  . $old_data->{_gather_num_suffix};
+
+				$old_data->{_TX_inbound} =
+				  $PL_SEISMIC . '/' . $old_data->{_textfile_in}
+				  if defined( ( $old_data && $PL_SEISMIC ) );
+				$ans = $test->does_file_exist( \$old_data->{_TX_inbound} );
+
+				# print("TX in is $old_data->{_TX_inbound}\n\n");
+				return ($ans);
+
+			}
+			else {
+				print("old_data, missing values\n\n");
+				print(
+"itemp_top_mute_picks_sorted_par_=$itemp_top_mute_picks_sorted_par_\n"
+				);
+				print("old_data->{_file_in}=$old_data->{_file_in}\n");
+				print(
+"old_data->{_gather_num_suffix}=$old_data->{_gather_num_suffix}\n"
+				);
+				return ();
+			}
+		}
+			 # print("TX in is $old_data->{_TX_inbound}\n\n");
 
 =pod
   
@@ -251,57 +272,54 @@ sub type {
 
 =cut 
 
-        if ( $old_data->{_type} eq 'BottomMute' ) {
-            $old_data->{_textfile_in} =
-                $itemp_bot_mute_picks_sorted_par_
-              . $old_data->{_file_in}
-              . $old_data->{_gather_num_suffix};
-            $old_data->{_TX_inbound} =
-              $PL_SEISMIC . '/' . $old_data->{_textfile_in}
-              if defined( ( $old_data && $PL_SEISMIC ) );
-            $ans = $test->does_file_exist( \$old_data->{_TX_inbound} );
-            return ($ans);
+		if ( $old_data->{_type} eq 'BottomMute' ) {
 
-        }    # print("TX in is $old_data->{_TX_inbound}\n\n");
+			if (    length $itemp_bot_mute_picks_sorted_par_
+				and length $old_data->{_file_in}
+				and length $old_data->{_gather_num_suffix} )
+			{
 
-        if ( $old_data->{_type} eq 'Pick_xt' ) {
-            $old_data->{_textfile_in} =
-                $itemp_picks_sorted_par_
-              . $old_data->{_file_in}
-              . $old_data->{_gather_num_suffix};
-            $old_data->{_TX_inbound} =
-              $DATA_SEISMIC_TXT . '/' . $old_data->{_textfile_in}
-              if defined( ( $old_data && $DATA_SEISMIC_TXT ) );
-            $ans = $test->does_file_exist( \$old_data->{_TX_inbound} );
+				$old_data->{_textfile_in} =
+					$itemp_bot_mute_picks_sorted_par_
+				  . $old_data->{_file_in}
+				  . $old_data->{_gather_num_suffix};
 
-            # print("TX in is $old_data->{_TX_inbound}\n\n");
-            return ($ans);
-        }
+				$old_data->{_TX_inbound} =
+				  $PL_SEISMIC . '/' . $old_data->{_textfile_in}
+				  if defined( ( $old_data && $PL_SEISMIC ) );
+				$ans = $test->does_file_exist( \$old_data->{_TX_inbound} );
 
-=pod
+				return ($ans);
 
-  file name definitions
+			}
+			else {
+				print("old_data, missing values\n\n");
+				print(
+"itemp_bot_mute_picks_sorted_par_=$itemp_bot_mute_picks_sorted_par_\n"
+				);
+				print("old_data->{_file_in}=$old_data->{_file_in}\n");
+				print(
+"old_data->{_gather_num_suffix}=$old_data->{_gather_num_suffix}\n"
+				);
+				return ();
+			}
+		}
 
+		print("TX in is $old_data->{_TX_inbound}\n\n");
 
-  $itop_mute_picks 	= $PL_SEISMIC.'/'.$itop_mute_check_pickfile_.$old_data->{_file_in};
+		if ( $old_data->{_type} eq 'Pick_xt' ) {
+			$old_data->{_textfile_in} =
+				$itemp_picks_sorted_par_
+			  . $old_data->{_file_in}
+			  . $old_data->{_gather_num_suffix};
+			$old_data->{_TX_inbound} =
+			  $DATA_SEISMIC_TXT . '/' . $old_data->{_textfile_in}
+			  if defined( ( $old_data && $DATA_SEISMIC_TXT ) );
+			$ans = $test->does_file_exist( \$old_data->{_TX_inbound} );
 
-  $itop_mute_par         = $PL_SEISMIC.'/'.$itop_mute_par_.$old_data->{_file_in};
-
-#	 set defaults
-#         Do old mute files exist 
-#         that can be  applied? 
-	$file_existence1 = $false;
-	$file_existence2 = $false;
-
-        ($file_existence1) = $test->does_file_exist(\$itop_mute_picks);
-	
-        ($file_existence2) = $test->does_file_exist(\$itop_mute_par);
-$answers[1]                          = $file_existence1;
-$answers[2]                          = $file_existence2;
-
-return $old_data->{_find};
-
-=cut
+			# print("TX in is $old_data->{_TX_inbound}\n\n");
+			return ($ans);
+		}
 
 =pod
 
@@ -328,10 +346,35 @@ return $old_data->{_find};
 
 =cut
 
-    }
-    else {
-        print("old_data,type, old_data,type,unexpected data type\n");
-    }
+=pod
+
+  file name definitions
+
+
+  $itop_mute_picks 	= $PL_SEISMIC.'/'.$itop_mute_check_pickfile_.$old_data->{_file_in};
+
+  $itop_mute_par         = $PL_SEISMIC.'/'.$itop_mute_par_.$old_data->{_file_in};
+
+#	 set defaults
+#         Do old mute files exist 
+#         that can be  applied? 
+	$file_existence1 = $false;
+	$file_existence2 = $false;
+
+        ($file_existence1) = $test->does_file_exist(\$itop_mute_picks);
+	
+        ($file_existence2) = $test->does_file_exist(\$itop_mute_par);
+$answers[1]                          = $file_existence1;
+$answers[2]                          = $file_existence2;
+
+return $old_data->{_find};
+
+=cut
+
+	}
+	else {
+		print("old_data,type, old_data,type,unexpected data type\n");
+	}
 
 }    #end subroutine type
 
