@@ -742,10 +742,9 @@
               change_step(i_change) = start_change
      +             - last_change(i_past_change)
               last_change(i_change) = start_change
-              print*,'change step=',change_step(i_change)
+!              print*,'change step=',change_step(i_change)
               time_delay = change_step(i_change) * governor
 
-              
 !             Restore change to "no"
               call write_yes_no_file(no,inbound_change)
 !             read option number

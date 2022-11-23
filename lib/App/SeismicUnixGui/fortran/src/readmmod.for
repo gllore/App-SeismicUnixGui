@@ -157,10 +157,8 @@ c
 	ENDDO
 	CLOSE(UNIT=IOUT)
 	GO TO 135
-c
-c *** READ OLD MODEL FROM DISK ***
-c
-c
+
+! *** READ OLD MODEL FROM DISK ***
 
 110	INQUIRE(FILE=inbound_model,EXIST=EX)
 !      print *, 'readmmod.for,inbound_model=',inbound_model
@@ -206,7 +204,7 @@ c
 !	Juan's modification for immodpg.for July 25 2020
 !       write(*,*) 'readmmod.for L207'
 	CALL READ_PAR_I4('CHANGE THIS FILE? 1-YES 0-NO',ID)
-!       write(*,*) 'readmmod.for L209 ID=', ID
+        write(*,*) 'readmmod.for L209 ID=', ID
 	IF(ID.NE.1) GO TO 135
 127	write(*,*)'1-DELETE OR 2-INSERT AFTER LAYER,3- CHANGE LAYER '
 	read(5,*) IMOD
