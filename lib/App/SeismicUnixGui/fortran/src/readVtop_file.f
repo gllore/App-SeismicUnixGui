@@ -22,7 +22,7 @@
          if (err_msg.eq.0) then
 
            read (31,format1) result
-           print *, 'readVtop_file.f, result',result
+!          print *, 'readVtop_file.f, result',result
            close (unit=31)
 
          else
@@ -42,6 +42,6 @@
          go to 11
          print *, 'readVtop_file.f, err_messg=',err_msg
         end if
-!       print *, 'readVtop_file, result',result
+!       print *, 'readVtop_file.f, result',result
 
       end subroutine readVtop_file

@@ -76,7 +76,7 @@ use aliased 'App::SeismicUnixGui::misc::control';
 use aliased 'App::SeismicUnixGui::messages::message_director';
 use aliased 'App::SeismicUnixGui::specs::big_streams::immodpg_spec';
 use aliased 'App::SeismicUnixGui::sunix::shell::xk';
-
+		
 use Scalar::Util qw(looks_like_number);
 
 =pod 
@@ -183,57 +183,57 @@ my $immodpg = {
 	_lower_layerLabel                  => '',
 	_min_t_s                           => '',
 	_min_x_m                           => '',
-	_model_file_text               => $var_immodpg->{_immodpg_model_file_text},
-	_model_error                   => $off,
-	_model_layer_number            => '',
-	_message_box_w                 => '',
-	_message_upper_frame           => '',
-	_message_lower_frame           => '',
-	_message_label_w               => '',
-	_message_box_wait              => '',
-	_message_ok_button             => '',
-	_mw                            => '',
-	_new_model                     => '',
-	_option_default                => -1,
-	_option_file                   => '',
-	_outsideVbot                   => '',
-	_outsideVbot_upper_layer       => '',
-	_outsideVincrement             => '',
-	_outsideVtop                   => '',
-	_outsideVtop_lower_layer       => '',
-	_outsideVbotNtop_factor        => '',
-	_outside_clip                  => '',
-	_outside_layer                 => '',
-	_outside_thickness_increment_m => '',
-	_par                           => '',
-	_plot_max_t_s                  => '',
-	_plot_max_x_m                  => '',
-	_plot_min_t_s                  => '',
-	_plot_min_x_m                  => '',
-	_pre_digitized_XT_pairs        => '',
-	_previous_model                => '',
-	_receiver_depth_m              => '',
-	_reducing_vel_mps              => '',
-	_refVPtop                      => '',
-	_refVPbot                      => '',
-	_ref_dz                        => '',
-	_replacement4missing           => '',
-	_scaled_par                    => '',
-	_smute                         => '',
-	_source_depth_m                => '',
-	_sscale                        => '',
-	_tnmo                          => '',
-	_upper_layerLabel              => '',
-	_upward                        => '',
-	_vnmo                          => '',
-	_voutfile                      => '',
-	_thickness_increment_m         => '',
-	_thickness_increment_mEntry    => '',
-	_thickness_increment_m_current => '',
-	_thickness_increment_m_default => '',
-	_thickness_increment_m_prior   => '',
-	_Step                          => '',
-	_note                          => '',
+	_model_file_text                   => $var_immodpg->{_immodpg_model_file_text},
+	_model_error                       => $off,
+	_model_layer_number                => '',
+	_message_box_w                     => '',
+	_message_upper_frame               => '',
+	_message_lower_frame               => '',
+	_message_label_w                   => '',
+	_message_box_wait                  => '',
+	_message_ok_button                 => '',
+	_mw                                => '',
+	_new_model                         => '',
+	_option_default                    => -1,
+	_option_file                       => '',
+	_outsideVbot                       => '',
+	_outsideVbot_upper_layer           => '',
+	_outsideVincrement                 => '',
+	_outsideVtop                       => '',
+	_outsideVtop_lower_layer           => '',
+	_outsideVbotNtop_factor            => '',
+	_outside_clip                      => '',
+	_outside_layer                     => '',
+	_outside_thickness_increment_m     => '',
+	_par                               => '',
+	_plot_max_t_s                      => '',
+	_plot_max_x_m                      => '',
+	_plot_min_t_s                      => '',
+	_plot_min_x_m                      => '',
+	_pre_digitized_XT_pairs            => '',
+	_previous_model                    => '',
+	_receiver_depth_m                  => '',
+	_reducing_vel_mps                  => '',
+	_refVPtop                          => '',
+	_refVPbot                          => '',
+	_ref_dz                            => '',
+	_replacement4missing               => '',
+	_scaled_par                        => '',
+	_smute                             => '',
+	_source_depth_m                    => '',
+	_sscale                            => '',
+	_tnmo                              => '',
+	_upper_layerLabel                  => '',
+	_upward                            => '',
+	_vnmo                              => '',
+	_voutfile                          => '',
+	_thickness_increment_m             => '',
+	_thickness_increment_mEntry        => '',
+	_thickness_increment_m_current     => '',
+	_thickness_increment_m_default     => '',
+	_thickness_increment_m_prior       => '',
+	_Step                              => '',
+	_note                              => '',
 };
 
 #	print("immodpg, starting, _isVtop_lower_layer_changed_in_gui: $immodpg->{_is_isVtop_lower_layer_changed_in_gui}\n");
@@ -243,21 +243,20 @@ private variables
 
 =cut
 
-$immodpg->{_Vbot_file}              = $var_immodpg->{_Vbot_file};
-$immodpg->{_Vbot_upper_layer_file}  = $var_immodpg->{_Vbot_upper_layer_file};
-$immodpg->{_Vincrement_file}        = $var_immodpg->{_Vincrement_file};
-$immodpg->{_Vtop_file}              = $var_immodpg->{_Vtop_file};
-$immodpg->{_Vtop_lower_layer_file}  = $var_immodpg->{_Vtop_lower_layer_file};
-$immodpg->{_VbotNtop_factor_file}   = $var_immodpg->{_VbotNtop_factor_file};
-$immodpg->{_VbotNtop_multiply_file} = $var_immodpg->{_VbotNtop_multiply_file};
-$immodpg->{_option_file}            = $var_immodpg->{_option_file};
-$immodpg->{_change_file}            = $var_immodpg->{_change_file};
-$immodpg->{_clip_file}              = $var_immodpg->{_clip_file};
-$immodpg->{_layer_file}             = $var_immodpg->{_layer_file};
-$immodpg->{_immodpg_model}          = $var_immodpg->{_immodpg_model};
-$immodpg->{_thickness_m_file}       = $var_immodpg->{_thickness_m_file};
-$immodpg->{_thickness_increment_m_file} =
-  $var_immodpg->{_thickness_increment_m_file};
+$immodpg->{_Vbot_file}                  = $var_immodpg->{_Vbot_file};
+$immodpg->{_Vbot_upper_layer_file}      = $var_immodpg->{_Vbot_upper_layer_file};
+$immodpg->{_Vincrement_file}            = $var_immodpg->{_Vincrement_file};
+$immodpg->{_Vtop_file}                  = $var_immodpg->{_Vtop_file};
+$immodpg->{_Vtop_lower_layer_file}      = $var_immodpg->{_Vtop_lower_layer_file};
+$immodpg->{_VbotNtop_factor_file}       = $var_immodpg->{_VbotNtop_factor_file};
+$immodpg->{_VbotNtop_multiply_file}     = $var_immodpg->{_VbotNtop_multiply_file};
+$immodpg->{_option_file}                = $var_immodpg->{_option_file};
+$immodpg->{_change_file}                = $var_immodpg->{_change_file};
+$immodpg->{_clip_file}                  = $var_immodpg->{_clip_file};
+$immodpg->{_layer_file}                 = $var_immodpg->{_layer_file};
+$immodpg->{_immodpg_model}              = $var_immodpg->{_immodpg_model};
+$immodpg->{_thickness_m_file}           = $var_immodpg->{_thickness_m_file};
+$immodpg->{_thickness_increment_m_file} = $var_immodpg->{_thickness_increment_m_file};
 
 =head2 Coded user options
 Only used in message files
@@ -280,37 +279,32 @@ my $thickness_m_minus_opt = $var_immodpg->{_thickness_m_minus_opt};
 my $zoom_minus_opt        = $var_immodpg->{_zoom_minus_opt};
 my $zoom_plus_opt         = $var_immodpg->{_zoom_plus_opt};
 
-my $Vbot_opt             = $var_immodpg->{_Vbot_opt};
-my $Vbot_upper_layer_opt = $var_immodpg->{_Vbot_upper_layer_opt};
-my $Vbot_minus_opt       = $var_immodpg->{_Vbot_minus_opt};
-my $Vbot_plus_opt        = $var_immodpg->{_Vbot_plus_opt};
-my $Vtop_opt             = $var_immodpg->{_Vtop_opt};
-my $Vtop_lower_layer_opt = $var_immodpg->{_Vtop_lower_layer_opt};
-my $Vtop_minus_opt       = $var_immodpg->{_Vtop_minus_opt};
-my $Vtop_plus_opt        = $var_immodpg->{_Vtop_plus_opt};
-my $VbotNVtop_lower_layer_minus_opt =
-  $var_immodpg->{_VbotNVtop_lower_layer_minus_opt};
-my $VbotNVtop_lower_layer_plus_opt =
-  $var_immodpg->{_VbotNVtop_lower_layer_plus_opt};
-my $VtopNVbot_upper_layer_minus_opt =
-  $var_immodpg->{_VtopNVbot_upper_layer_minus_opt};
-my $VtopNVbot_upper_layer_plus_opt =
-  $var_immodpg->{_VtopNVbot_upper_layer_plus_opt};
-my $VbotNtop_multiply_opt = $var_immodpg->{_VbotNtop_multiply_opt};
-my $VbotNtop_plus_opt     = $var_immodpg->{_VbotNtop_plus_opt};
-my $VbotNtop_minus_opt    = $var_immodpg->{_VbotNtop_minus_opt};
-my $update_opt            = $var_immodpg->{_update_opt};
+my $Vbot_opt                        = $var_immodpg->{_Vbot_opt};
+my $Vbot_upper_layer_opt            = $var_immodpg->{_Vbot_upper_layer_opt};
+my $Vbot_minus_opt                  = $var_immodpg->{_Vbot_minus_opt};
+my $Vbot_plus_opt                   = $var_immodpg->{_Vbot_plus_opt};
+my $Vtop_opt                        = $var_immodpg->{_Vtop_opt};
+my $Vtop_lower_layer_opt            = $var_immodpg->{_Vtop_lower_layer_opt};
+my $Vtop_minus_opt                  = $var_immodpg->{_Vtop_minus_opt};
+my $Vtop_plus_opt                   = $var_immodpg->{_Vtop_plus_opt};
+my $VbotNVtop_lower_layer_minus_opt = $var_immodpg->{_VbotNVtop_lower_layer_minus_opt};
+my $VbotNVtop_lower_layer_plus_opt  = $var_immodpg->{_VbotNVtop_lower_layer_plus_opt};
+my $VtopNVbot_upper_layer_minus_opt = $var_immodpg->{_VtopNVbot_upper_layer_minus_opt};
+my $VtopNVbot_upper_layer_plus_opt  = $var_immodpg->{_VtopNVbot_upper_layer_plus_opt};
+my $VbotNtop_multiply_opt           = $var_immodpg->{_VbotNtop_multiply_opt};
+my $VbotNtop_plus_opt               = $var_immodpg->{_VbotNtop_plus_opt};
+my $VbotNtop_minus_opt              = $var_immodpg->{_VbotNtop_minus_opt};
+my $update_opt                      = $var_immodpg->{_update_opt};
 
-my $change_clip_opt         = $var_immodpg->{_clip4plot_opt};
-my $change_layer_number_opt = $var_immodpg->{_layer_number_opt};
-my $change_thickness_increment_m_opt =
-  $var_immodpg->{_thickness_increment_m_opt};
-my $change_thickness_m_opt        = $var_immodpg->{_thickness_m_opt};
-my $changeVtop_opt                = $var_immodpg->{_Vtop_opt};
-my $changeVincrement_opt          = $var_immodpg->{_Vincrement_opt};
-my $changeVbotNtop_factor_opt     = $var_immodpg->{_VbotNtop_factor_opt};
-my $change_working_model_bin_opt  = $var_immodpg->{_working_model_bin_opt};
-my $change_working_model_text_opt = $var_immodpg->{_working_model_text_opt};
+my $change_clip_opt                  = $var_immodpg->{_clip4plot_opt};
+my $change_layer_number_opt          = $var_immodpg->{_layer_number_opt};
+my $change_thickness_increment_m_opt = $var_immodpg->{_thickness_increment_m_opt};
+my $change_thickness_m_opt           = $var_immodpg->{_thickness_m_opt};
+my $changeVtop_opt                   = $var_immodpg->{_Vtop_opt};
+my $changeVincrement_opt             = $var_immodpg->{_Vincrement_opt};
+my $changeVbotNtop_factor_opt        = $var_immodpg->{_VbotNtop_factor_opt};
+my $change_working_model_bin_opt  			= $var_immodpg->{ _working_model_bin_opt};   
+my $change_working_model_text_opt  			= $var_immodpg->{ _working_model_text_opt};   
 
 =head2 sub Step
 collects switches and assembles bash instructions
@@ -352,12 +346,11 @@ sub _checkVbot {
 	# print("immodpg, _checkVbot, $immodpg->{_VbotEntry}\n");
 
 	if (   defined $immodpg->{_VbotEntry}
-		&& length $immodpg->{_VbotEntry}
-		&& length $immodpg->{_inVbot}
-		&& length $immodpg->{_outsideVbot}
-		&& length $immodpg->{_Vbot_current}
-		&& length $immodpg->{_Vbot_prior} )
-	{
+		&& length $immodpg->{_VbotEntry} 
+		&& length $immodpg->{_inVbot} 
+		&& length $immodpg->{_outsideVbot} 
+		&& length $immodpg->{_Vbot_current} 
+		&& length $immodpg->{_Vbot_prior}  ) {
 
 		# rename for convenience
 		my $inVbot       = $immodpg->{_inVbot};
@@ -368,8 +361,7 @@ sub _checkVbot {
 		# print("immodpg,_checkVbot, inVbot:$inVbot\n");
 		# print("immodpg,_checkVbot, outsideVbot: $outsideVbot\n");
 		if (   $inVbot eq $yes
-			&& $outsideVbot eq $no )
-		{
+			&& $outsideVbot eq $no ) {
 
 			# print("immodpg, _checkVbot, Leaving widget\n");
 
@@ -390,10 +382,8 @@ sub _checkVbot {
 
 			return ();
 
-		}
-		elsif ($inVbot eq $no
-			&& $outsideVbot eq $yes )
-		{
+		} elsif ( $inVbot eq $no
+			&& $outsideVbot eq $yes ) {
 
 			# CASE 2: Previously, outside Entry widget
 			# Now entering Entry widget
@@ -414,14 +404,12 @@ sub _checkVbot {
 			$immodpg->{_Vbot_prior}   = $Vbot_prior;
 			return ();
 
-		}
-		else {
+		} else {
 			print("immodpg, _checkVbot, unexpected values\n");
 			return ();
 		}
 
-	}
-	else {
+	} else {
 		print("immodpg, _checkVbot, missing widget\n");
 		return ();
 	}
@@ -439,15 +427,14 @@ sub _checkVbot_upper_layer {
 
 	my ($self) = @_;
 
-# print("immodpg, _checkVbot_upper_layer, $immodpg->{_Vbot_upper_layerEntry}\n");
+	# print("immodpg, _checkVbot_upper_layer, $immodpg->{_Vbot_upper_layerEntry}\n");
 
 	if (   length( $immodpg->{_Vbot_upper_layerEntry} )
-		&& length $immodpg->{_Vbot_upper_layerEntry}
-		&& length $immodpg->{_inVbot_upper_layer}
-		&& length $immodpg->{_outsideVbot_upper_layer}
-		&& length $immodpg->{_Vbot_upper_layer_current}
-		&& length $immodpg->{_Vbot_upper_layer_prior} )
-	{
+		&& length $immodpg->{_Vbot_upper_layerEntry} 
+		&& length $immodpg->{_inVbot_upper_layer} 
+		&& length $immodpg->{_outsideVbot_upper_layer} 
+		&& length $immodpg->{_Vbot_upper_layer_current} 
+		&& length $immodpg->{_Vbot_upper_layer_prior}  ) {
 
 		# rename for convenience
 		my $inVbot_upper_layer       = $immodpg->{_inVbot_upper_layer};
@@ -455,18 +442,16 @@ sub _checkVbot_upper_layer {
 		my $Vbot_upper_layer_current = $immodpg->{_Vbot_upper_layer_current};
 		my $Vbot_upper_layer_prior   = $immodpg->{_Vbot_upper_layer_prior};
 
-# print("immodpg,_checkVbot_upper_layer, inVbot_upper_layer:$inVbot_upper_layer\n");
-# print("immodpg,_checkVbot_upper_layer, outsideVbot_upper_layer: $outsideVbot_upper_layer\n");
+		# print("immodpg,_checkVbot_upper_layer, inVbot_upper_layer:$inVbot_upper_layer\n");
+		# print("immodpg,_checkVbot_upper_layer, outsideVbot_upper_layer: $outsideVbot_upper_layer\n");
 		if (   $inVbot_upper_layer eq $yes
-			&& $outsideVbot_upper_layer eq $no )
-		{
+			&& $outsideVbot_upper_layer eq $no ) {
 
 			#	print("immodpg, _checkVbot_upper_layer, Leaving widget\n");
 
 			# CASE 1: Previously, inside Entry widget
 			# Now leaving Entry widget
-			$Vbot_upper_layer_current =
-			  $immodpg->{_Vbot_upper_layerEntry}->get();
+			$Vbot_upper_layer_current = $immodpg->{_Vbot_upper_layerEntry}->get();
 
 			# reverse the conditions now
 			# when user leaves Entry widget
@@ -480,16 +465,13 @@ sub _checkVbot_upper_layer {
 
 			return ();
 
-		}
-		elsif ($inVbot_upper_layer eq $no
-			&& $outsideVbot_upper_layer eq $yes )
-		{
+		} elsif ( $inVbot_upper_layer eq $no
+			&& $outsideVbot_upper_layer eq $yes ) {
 
 			# CASE 2: Previously, outside Entry widget
 			# Now entering Entry widget
-			$Vbot_upper_layer_prior = $Vbot_upper_layer_current;
-			$Vbot_upper_layer_current =
-			  $immodpg->{_Vbot_upper_layerEntry}->get();
+			$Vbot_upper_layer_prior   = $Vbot_upper_layer_current;
+			$Vbot_upper_layer_current = $immodpg->{_Vbot_upper_layerEntry}->get();
 
 			#			print("immodpg, _checkVbot_upper_layer, Entering widget\n");
 
@@ -505,14 +487,12 @@ sub _checkVbot_upper_layer {
 			$immodpg->{_Vbot_upper_layer_prior}   = $Vbot_upper_layer_prior;
 			return ();
 
-		}
-		else {
+		} else {
 			print("immodpg, _checkVbot_upper_layer, unexpected values\n");
 			return ();
 		}
 
-	}
-	else {
+	} else {
 		print("immodpg, _checkVbot_upper_layer, missing widget or values\n");
 		return ();
 	}
@@ -536,8 +516,7 @@ sub _checkVincrement {
 		&& $immodpg->{_VincrementEntry} ne $empty_string
 		&& $immodpg->{_inVincrement} ne $empty_string
 		&& $immodpg->{_outsideVincrement} ne $empty_string
-		&& $immodpg->{_Vincrement} ne $empty_string )
-	{
+		&& $immodpg->{_Vincrement} ne $empty_string ) {
 
 		# rename for convenience
 		my $inVincrement       = $immodpg->{_inVincrement};
@@ -545,11 +524,10 @@ sub _checkVincrement {
 		my $Vincrement_current = $immodpg->{_Vincrement_current};
 		my $Vincrement_prior   = $immodpg->{_Vincrement_prior};
 
-   # print("immodpg,_checkVincrement, inVincrement:$inVincrement\n");
-   # print("immodpg,_checkVincrement, outsideVincrement: $outsideVincrement\n");
+		# print("immodpg,_checkVincrement, inVincrement:$inVincrement\n");
+		# print("immodpg,_checkVincrement, outsideVincrement: $outsideVincrement\n");
 		if (   $inVincrement eq $yes
-			&& $outsideVincrement eq $no )
-		{
+			&& $outsideVincrement eq $no ) {
 
 			# print("immodpg, _checkVincrement, Leaving widget\n");
 
@@ -569,10 +547,8 @@ sub _checkVincrement {
 
 			return ();
 
-		}
-		elsif ($inVincrement eq $no
-			&& $outsideVincrement eq $yes )
-		{
+		} elsif ( $inVincrement eq $no
+			&& $outsideVincrement eq $yes ) {
 
 			# CASE 2: Previously, outside Entry widget
 			# Now entering Entry widget
@@ -593,14 +569,12 @@ sub _checkVincrement {
 			$immodpg->{_Vincrement_prior}   = $Vincrement_prior;
 			return ();
 
-		}
-		else {
+		} else {
 			print("immodpg, _checkVincrement, unexpected values\n");
 			return ();
 		}
 
-	}
-	else {
+	} else {
 		print("immodpg, _checkVincrement, missing widget\n");
 		return ();
 	}
@@ -625,8 +599,7 @@ sub _checkVtop {
 		&& $immodpg->{_inVtop} ne $empty_string
 		&& $immodpg->{_outsideVtop} ne $empty_string
 		&& $immodpg->{_Vtop_current} ne $empty_string
-		&& $immodpg->{_Vtop_prior} ne $empty_string )
-	{
+		&& $immodpg->{_Vtop_prior} ne $empty_string ) {
 
 		# rename for convenience
 		my $inVtop       = $immodpg->{_inVtop};
@@ -638,8 +611,7 @@ sub _checkVtop {
 		# print("immodpg,_checkVtop, outsideVtop: $outsideVtop\n");
 		# print("immodpg,_checkVtop, Vtop_current: $Vtop_current\n");
 		if (   $inVtop eq $yes
-			&& $outsideVtop eq $no )
-		{
+			&& $outsideVtop eq $no ) {
 
 			#			print("immodpg, _checkVtop, Leaving widget\n");
 
@@ -659,17 +631,15 @@ sub _checkVtop {
 
 			return ();
 
-		}
-		elsif ($inVtop eq $no
-			&& $outsideVtop eq $yes )
-		{
+		} elsif ( $inVtop eq $no
+			&& $outsideVtop eq $yes ) {
 
 			# CASE 2: Previously, outside Entry widget
 			# Now entering Entry widget
 			$Vtop_prior   = $Vtop_current;
 			$Vtop_current = $immodpg->{_VtopEntry}->get();
 
-			# print("immodpg, _checkVtop, Entering widget\n");
+			#			print("immodpg, _checkVtop, Entering widget\n");
 
 			# reverse the conditions now
 			# when user enters Entry widget
@@ -683,14 +653,12 @@ sub _checkVtop {
 			$immodpg->{_Vtop_prior}   = $Vtop_prior;
 			return ();
 
-		}
-		else {
+		} else {
 			print("immodpg, _checkVtop, unexpected values\n");
 			return ();
 		}
 
-	}
-	else {
+	} else {
 		print("immodpg, _checkVtop, missing widget\n");
 		return ();
 	}
@@ -708,15 +676,14 @@ sub _checkVtop_lower_layer {
 
 	my ($self) = @_;
 
-#	print("immodpg, _checkVtop_lower_layer, $immodpg->{_Vtop_lower_layerEntry}\n");
+	#	print("immodpg, _checkVtop_lower_layer, $immodpg->{_Vtop_lower_layerEntry}\n");
 
 	if (   defined $immodpg->{_Vtop_lower_layerEntry}
 		&& $immodpg->{_Vtop_lower_layerEntry} ne $empty_string
 		&& $immodpg->{_inVtop_lower_layer} ne $empty_string
 		&& $immodpg->{_outsideVtop_lower_layer} ne $empty_string
 		&& $immodpg->{_Vtop_lower_layer_current} ne $empty_string
-		&& $immodpg->{_Vtop_lower_layer_prior} ne $empty_string )
-	{
+		&& $immodpg->{_Vtop_lower_layer_prior} ne $empty_string ) {
 
 		# rename for convenience
 		my $inVtop_lower_layer       = $immodpg->{_inVtop_lower_layer};
@@ -724,18 +691,16 @@ sub _checkVtop_lower_layer {
 		my $Vtop_lower_layer_current = $immodpg->{_Vtop_lower_layer_current};
 		my $Vtop_lower_layer_prior   = $immodpg->{_Vtop_lower_layer_prior};
 
-# print("immodpg,_checkVtop_lower_layer, inVtop_lower_layer:$inVtop_lower_layer\n");
-# print("immodpg,_checkVtop_lower_layer, outsideVtop_lower_layer: $outsideVtop_lower_layer\n");
+		# print("immodpg,_checkVtop_lower_layer, inVtop_lower_layer:$inVtop_lower_layer\n");
+		# print("immodpg,_checkVtop_lower_layer, outsideVtop_lower_layer: $outsideVtop_lower_layer\n");
 		if (   $inVtop_lower_layer eq $yes
-			&& $outsideVtop_lower_layer eq $no )
-		{
+			&& $outsideVtop_lower_layer eq $no ) {
 
 			#			print("immodpg, _checkVtop_lower_layer, Leaving widget\n");
 
 			# CASE 1: Previously, inside Entry widget
 			# Now leaving Entry widget
-			$Vtop_lower_layer_current =
-			  $immodpg->{_Vtop_lower_layerEntry}->get();
+			$Vtop_lower_layer_current = $immodpg->{_Vtop_lower_layerEntry}->get();
 
 			# reverse the conditions now
 			# when user leaves Entry widget
@@ -747,19 +712,16 @@ sub _checkVtop_lower_layer {
 			$immodpg->{_outsideVtop_lower_layer}  = $outsideVtop_lower_layer;
 			$immodpg->{_Vtop_lower_layer_current} = $Vtop_lower_layer_current;
 
-#			print("1 _Vtop_lower_layer_current=$immodpg->{_Vtop_lower_layer_current}\n");
+			#			print("1 _Vtop_lower_layer_current=$immodpg->{_Vtop_lower_layer_current}\n");
 			return ();
 
-		}
-		elsif ($inVtop_lower_layer eq $no
-			&& $outsideVtop_lower_layer eq $yes )
-		{
+		} elsif ( $inVtop_lower_layer eq $no
+			&& $outsideVtop_lower_layer eq $yes ) {
 
 			# CASE 2: Previously, outside Entry widget
 			# Now entering Entry widget
-			$Vtop_lower_layer_prior = $Vtop_lower_layer_current;
-			$Vtop_lower_layer_current =
-			  $immodpg->{_Vtop_lower_layerEntry}->get();
+			$Vtop_lower_layer_prior   = $Vtop_lower_layer_current;
+			$Vtop_lower_layer_current = $immodpg->{_Vtop_lower_layerEntry}->get();
 
 			#			print("immodpg, _checkVtop_lower_layer, Entering widget\n");
 
@@ -774,17 +736,15 @@ sub _checkVtop_lower_layer {
 			$immodpg->{_Vtop_lower_layer_current} = $Vtop_lower_layer_current;
 			$immodpg->{_Vtop_lower_layer_prior}   = $Vtop_lower_layer_prior;
 
-#			print("2 _Vtop_lower_layer_current=$immodpg->{_Vtop_lower_layer_current}\n");
+			#			print("2 _Vtop_lower_layer_current=$immodpg->{_Vtop_lower_layer_current}\n");
 			return ();
 
-		}
-		else {
+		} else {
 			print("immodpg, _checkVtop_lower_layer, unexpected values\n");
 			return ();
 		}
 
-	}
-	else {
+	} else {
 		print("immodpg, _checkVtop_lower_layer, missing widget\n");
 		return ();
 	}
@@ -802,15 +762,14 @@ sub _checkVbotNtop_factor {
 
 	my ($self) = @_;
 
-# print("immodpg, _checkVbotNtop_factor, $immodpg->{_VbotNtop_factor4Entry}\n");
+	# print("immodpg, _checkVbotNtop_factor, $immodpg->{_VbotNtop_factor4Entry}\n");
 
 	if (   defined $immodpg->{_VbotNtop_factorEntry}
 		&& $immodpg->{_VbotNtop_factorEntry} ne $empty_string
 		&& $immodpg->{_inVbotNtop_factor} ne $empty_string
 		&& $immodpg->{_outsideVbotNtop_factor} ne $empty_string
 		&& $immodpg->{_VbotNtop_factor_current} ne $empty_string
-		&& $immodpg->{_VbotNtop_factor_prior} ne $empty_string )
-	{
+		&& $immodpg->{_VbotNtop_factor_prior} ne $empty_string ) {
 
 		# rename for convenience
 		my $inVbotNtop_factor       = $immodpg->{_inVbotNtop_factor};
@@ -818,11 +777,10 @@ sub _checkVbotNtop_factor {
 		my $VbotNtop_factor_current = $immodpg->{_VbotNtop_factor_current};
 		my $VbotNtop_factor_prior   = $immodpg->{_VbotNtop_factor_prior};
 
-# print("immodpg,_checkVbotNtop_factor, inVbotNtop_factor:$inVbotNtop_factor\n");
-# print("immodpg,_checkVbotNtop_factor, outsideVbotNtop_factor: $outsideVbotNtop_factor\n");
+		# print("immodpg,_checkVbotNtop_factor, inVbotNtop_factor:$inVbotNtop_factor\n");
+		# print("immodpg,_checkVbotNtop_factor, outsideVbotNtop_factor: $outsideVbotNtop_factor\n");
 		if (   $inVbotNtop_factor eq $yes
-			&& $outsideVbotNtop_factor eq $no )
-		{
+			&& $outsideVbotNtop_factor eq $no ) {
 
 			# print("immodpg, _checkVbotNtop_factor, Leaving widget\n");
 
@@ -842,10 +800,8 @@ sub _checkVbotNtop_factor {
 
 			return ();
 
-		}
-		elsif ($inVbotNtop_factor eq $no
-			&& $outsideVbotNtop_factor eq $yes )
-		{
+		} elsif ( $inVbotNtop_factor eq $no
+			&& $outsideVbotNtop_factor eq $yes ) {
 
 			# CASE 2: Previously, outside Entry widget
 			# Now entering Entry widget
@@ -866,14 +822,12 @@ sub _checkVbotNtop_factor {
 			$immodpg->{_VbotNtop_factor_prior}   = $VbotNtop_factor_prior;
 			return ();
 
-		}
-		else {
+		} else {
 			print("immodpg, _checkVbotNtop_factor, unexpected values\n");
 			return ();
 		}
 
-	}
-	else {
+	} else {
 		print("immodpg, _checkVbotNtop_factor, missing widget\n");
 		return ();
 	}
@@ -898,8 +852,7 @@ sub _check_clip {
 		&& $immodpg->{_in_clip} ne $empty_string
 		&& $immodpg->{_outside_clip} ne $empty_string
 		&& $immodpg->{_clip4plot_current} ne $empty_string
-		&& $immodpg->{_clip4plot_prior} ne $empty_string )
-	{
+		&& $immodpg->{_clip4plot_prior} ne $empty_string ) {
 
 		# rename for convenience
 		my $in_clip           = $immodpg->{_in_clip};
@@ -910,8 +863,7 @@ sub _check_clip {
 		#		print("immodpg,_check_clip, in_clip:$in_clip\n");
 		#		print("immodpg,_check_clip, outside_clip: $outside_clip\n");
 		if (   $in_clip eq $yes
-			&& $outside_clip eq $no )
-		{
+			&& $outside_clip eq $no ) {
 
 			# print("immodpg, _check_clip, Leaving widget\n");
 
@@ -919,7 +871,7 @@ sub _check_clip {
 			# Now leaving Entry widget
 			$clip4plot_current = $immodpg->{_clip4plotEntry}->get();
 
-		 # rint("immodpg, _check_clip, clip4plot_current:$clip4plot_current\n");
+			# rint("immodpg, _check_clip, clip4plot_current:$clip4plot_current\n");
 
 			# reverse the conditions now
 			# when user leaves Entry widget
@@ -933,10 +885,8 @@ sub _check_clip {
 
 			return ();
 
-		}
-		elsif ($in_clip eq $no
-			&& $outside_clip eq $yes )
-		{
+		} elsif ( $in_clip eq $no
+			&& $outside_clip eq $yes ) {
 
 			# CASE 2: Previously, outside Entry widget
 			# Now entering Entry widget
@@ -957,14 +907,12 @@ sub _check_clip {
 			$immodpg->{_clip4plot_prior}   = $clip4plot_prior;
 			return ();
 
-		}
-		else {
+		} else {
 			print("immodpg, _check_clip, unexpected values\n");
 			return ();
 		}
 
-	}
-	else {
+	} else {
 		print("immodpg, _check_clip, missing widget\n");
 		return ();
 	}
@@ -995,8 +943,7 @@ sub _check_layer {
 		&& length( $immodpg->{_in_layer} )
 		&& length( $immodpg->{_outside_layer} )
 		&& length( $immodpg->{_layer_current} )
-		&& length( $immodpg->{_layer_prior} ) )
-	{
+		&& length( $immodpg->{_layer_prior} ) ) {
 
 		# rename for convenience
 		my $in_layer      = $immodpg->{_in_layer};
@@ -1007,15 +954,14 @@ sub _check_layer {
 		#		print("immodpg,_check_layer, in_layer:$in_layer\n");
 		#		print("immodpg,_check_layer, outside_layer: $outside_layer\n");
 		if (   $in_layer eq $yes
-			&& $outside_layer eq $no )
-		{
+			&& $outside_layer eq $no ) {
 
 			# CASE 1: Previously, inside Entry widget
 			# print("immodpg, _check_layer, left widget\n");
 			# possible layer number idiosyncracies
 			my $temp_layer_current = $immodpg->{_layerEntry}->get();
 
-# print("immodpg, _check_layer, CASE 1 temp layer number = $temp_layer_current\n");
+			# print("immodpg, _check_layer, CASE 1 temp layer number = $temp_layer_current\n");
 			_set_layer_control($temp_layer_current);
 			my $new_layer_current = _get_control_layer();
 
@@ -1036,17 +982,15 @@ sub _check_layer {
 
 			return ();
 
-		}
-		elsif ($in_layer eq $no
-			&& $outside_layer eq $yes )
-		{
+		} elsif ( $in_layer eq $no
+			&& $outside_layer eq $yes ) {
 
 			# CASE 2: Previously, outside layerEntry widget
 			# Now entering entering the layerEntry widget
 			#			print("immodpg, _check_layer, Entering widget\n");
 			$layer_current = $immodpg->{_layerEntry}->get();
 
-#			print("immodpg, _check_layer,prior =$immodpg->{_layer_prior} current= $layer_current\n\n");
+			#			print("immodpg, _check_layer,prior =$immodpg->{_layer_prior} current= $layer_current\n\n");
 
 			# reverse the conditions now
 			# when user enters Entry widget
@@ -1061,14 +1005,12 @@ sub _check_layer {
 			# $immodpg->{_layer_prior}   = $new_layer_prior;
 			return ();
 
-		}
-		else {
+		} else {
 			print("immodpg, _check_layer, unexpected values\n");
 			return ();
 		}
 
-	}
-	else {
+	} else {
 		print("immodpg, _check_layer, missing widget\n");
 		return ();
 	}
@@ -1092,8 +1034,7 @@ sub _check_thickness_m {
 		&& length $immodpg->{_thickness_mEntry}
 		&& length $immodpg->{_in_thickness_m}
 		&& length $immodpg->{_outside_thickness_m}
-		&& length $immodpg->{_thickness_m} )
-	{
+		&& length $immodpg->{_thickness_m} ) {
 
 		# rename for convenience
 		my $in_thickness_m       = $immodpg->{_in_thickness_m};
@@ -1101,9 +1042,14 @@ sub _check_thickness_m {
 		my $_thickness_m_current = $immodpg->{_thickness_m_current};
 		my $_thickness_m_prior   = $immodpg->{_thickness_m_prior};
 
+#		print("immodpg,_check_thickness_m, in_thickness_m:$in_thickness_m\n");
+#		print("immodpg,_check_thickness_m, outside_thickness_m: $outside_thickness_m\n");
+#		print("immodpg,_check_thickness_m, _thickness_m_current: $_thickness_m_current\n");
+		
 		if (   $in_thickness_m eq $yes
-			&& $outside_thickness_m eq $no )
-		{
+			&& $outside_thickness_m eq $no ) {
+
+			print("immodpg, _check_thickness_m, Leaving widget\n");
 
 			# CASE 1: Previously, inside Entry widget
 			# Now leaving Entry widget
@@ -1118,27 +1064,18 @@ sub _check_thickness_m {
 			$immodpg->{_in_thickness_m}      = $in_thickness_m;
 			$immodpg->{_outside_thickness_m} = $outside_thickness_m;
 			$immodpg->{_thickness_m_current} = $_thickness_m_current;
-#			print("immodpg, _check_thickness_m, Leaving widget\n");
-#			print(
-#				"immodpg,_check_thickness_m, in_thickness_m:$in_thickness_m\n");
-#			print(
-#"immodpg,_check_thickness_m, outside_thickness_m: $outside_thickness_m\n"
-#			);
-#			print(
-#"immodpg,_check_thickness_m, _thickness_m_current: $_thickness_m_current\n"
-#			);
 
 			return ();
 
-		}
-		elsif ($in_thickness_m eq $no
-			&& $outside_thickness_m eq $yes )
-		{
+		} elsif ( $in_thickness_m eq $no
+			&& $outside_thickness_m eq $yes ) {
 
 			# CASE 2: Previously, outside Entry widget
 			# Now entering Entry widget
 			$_thickness_m_prior   = $_thickness_m_current;
 			$_thickness_m_current = $immodpg->{_thickness_mEntry}->get();
+
+			# print("immodpg, _check_thickness_m, Entering widget\n");
 
 			# reverse the conditions now
 			# when user enters Entry widget
@@ -1150,27 +1087,14 @@ sub _check_thickness_m {
 			$immodpg->{_outside_thickness_m} = $outside_thickness_m;
 			$immodpg->{_thickness_m_current} = $_thickness_m_current;
 			$immodpg->{_thickness_m_prior}   = $_thickness_m_prior;
-
-#			print("immodpg, _check_thickness_m, Entering widget\n");
-#			print(
-#				"immodpg,_check_thickness_m, in_thickness_m:$in_thickness_m\n");
-#			print(
-#"immodpg,_check_thickness_m, outside_thickness_m: $outside_thickness_m\n"
-#			);
-#			print(
-#"immodpg,_check_thickness_m, _thickness_m_current: $_thickness_m_current\n"
-#			);
-
 			return ();
 
-		}
-		else {
+		} else {
 			print("immodpg, _check_thickness_m, unexpected values\n");
 			return ();
 		}
 
-	}
-	else {
+	} else {
 		print("immodpg, _check_thickness_m, missing widget\n");
 		return ();
 	}
@@ -1188,37 +1112,31 @@ sub _check_thickness_increment_m {
 
 	my ($self) = @_;
 
-# print("immodpg, _check_thickness_increment_m, $immodpg->{_thickness_increment_mEntry}\n");
+	# print("immodpg, _check_thickness_increment_m, $immodpg->{_thickness_increment_mEntry}\n");
 
 	if (   defined( $immodpg->{_thickness_increment_mEntry} )
 		&& $immodpg->{_thickness_increment_mEntry} ne $empty_string
 		&& $immodpg->{_in_thickness_increment_m} ne $empty_string
 		&& $immodpg->{_outside_thickness_increment_m} ne $empty_string
 		&& $immodpg->{_thickness_increment_m_current} ne $empty_string
-		&& $immodpg->{_thickness_increment_m_prior} ne $empty_string )
-	{
+		&& $immodpg->{_thickness_increment_m_prior} ne $empty_string ) {
 
 		# rename for convenience
-		my $in_thickness_increment_m = $immodpg->{_in_thickness_increment_m};
-		my $outside_thickness_increment_m =
-		  $immodpg->{_outside_thickness_increment_m};
-		my $thickness_increment_m_current =
-		  $immodpg->{_thickness_increment_m_current};
-		my $thickness_increment_m_prior =
-		  $immodpg->{_thickness_increment_m_prior};
+		my $in_thickness_increment_m      = $immodpg->{_in_thickness_increment_m};
+		my $outside_thickness_increment_m = $immodpg->{_outside_thickness_increment_m};
+		my $thickness_increment_m_current = $immodpg->{_thickness_increment_m_current};
+		my $thickness_increment_m_prior   = $immodpg->{_thickness_increment_m_prior};
 
-# print("immodpg,_check_thickness_increment_m, in_thickness_increment_m:$in_thickness_increment_m\n");
-# print("immodpg,_check_thickness_increment_m, outside_thickness_increment_m: $outside_thickness_increment_m\n");
+		# print("immodpg,_check_thickness_increment_m, in_thickness_increment_m:$in_thickness_increment_m\n");
+		# print("immodpg,_check_thickness_increment_m, outside_thickness_increment_m: $outside_thickness_increment_m\n");
 		if (   $in_thickness_increment_m eq $yes
-			&& $outside_thickness_increment_m eq $no )
-		{
+			&& $outside_thickness_increment_m eq $no ) {
 
 			# print("immodpg, _check_thickness_increment_m, Leaving widget\n");
 
 			# CASE 1: Previously, inside Entry widget
 			# Now leaving Entry widget
-			$thickness_increment_m_current =
-			  $immodpg->{_thickness_increment_mEntry}->get();
+			$thickness_increment_m_current = $immodpg->{_thickness_increment_mEntry}->get();
 
 			# reverse the conditions now
 			# when user leaves Entry widget
@@ -1226,24 +1144,19 @@ sub _check_thickness_increment_m {
 			$outside_thickness_increment_m = $yes;
 
 			# reset module values for convenience of renaming
-			$immodpg->{_in_thickness_increment_m} = $in_thickness_increment_m;
-			$immodpg->{_outside_thickness_increment_m} =
-			  $outside_thickness_increment_m;
-			$immodpg->{_thickness_increment_m_current} =
-			  $thickness_increment_m_current;
+			$immodpg->{_in_thickness_increment_m}      = $in_thickness_increment_m;
+			$immodpg->{_outside_thickness_increment_m} = $outside_thickness_increment_m;
+			$immodpg->{_thickness_increment_m_current} = $thickness_increment_m_current;
 
 			return ();
 
-		}
-		elsif ($in_thickness_increment_m eq $no
-			&& $outside_thickness_increment_m eq $yes )
-		{
+		} elsif ( $in_thickness_increment_m eq $no
+			&& $outside_thickness_increment_m eq $yes ) {
 
 			# CASE 2: Previously, outside Entry widget
 			# Now entering Entry widget
-			$thickness_increment_m_prior = $thickness_increment_m_current;
-			$thickness_increment_m_current =
-			  $immodpg->{_thickness_increment_mEntry}->get();
+			$thickness_increment_m_prior   = $thickness_increment_m_current;
+			$thickness_increment_m_current = $immodpg->{_thickness_increment_mEntry}->get();
 
 			# print("immodpg, _check_thickness_increment_m, Entering widget\n");
 
@@ -1253,23 +1166,18 @@ sub _check_thickness_increment_m {
 			$outside_thickness_increment_m = $no;
 
 			# reset module values for convenience of renaming
-			$immodpg->{_in_thickness_increment_m} = $in_thickness_increment_m;
-			$immodpg->{_outside_thickness_increment_m} =
-			  $outside_thickness_increment_m;
-			$immodpg->{_thickness_increment_m_current} =
-			  $thickness_increment_m_current;
-			$immodpg->{_thickness_increment_m_prior} =
-			  $thickness_increment_m_prior;
+			$immodpg->{_in_thickness_increment_m}      = $in_thickness_increment_m;
+			$immodpg->{_outside_thickness_increment_m} = $outside_thickness_increment_m;
+			$immodpg->{_thickness_increment_m_current} = $thickness_increment_m_current;
+			$immodpg->{_thickness_increment_m_prior}   = $thickness_increment_m_prior;
 			return ();
 
-		}
-		else {
+		} else {
 			return ();
 			print("immodpg, _check_thickness_increment_m, unexpected values\n");
 		}
 
-	}
-	else {
+	} else {
 		print("immodpg, _check_thickness_increment_m, missing widget\n");
 		return ();
 	}
@@ -1289,8 +1197,7 @@ sub _get_control {
 
 		$result = $immodpg->{_control_value};
 
-	}
-	else {
+	} else {
 		print("immodpg, _get_control, unexpected value\n");
 	}
 	return ($result);
@@ -1336,7 +1243,7 @@ sub _get_control_clip {
 
 	if ( length( $immodpg->{_control_clip} ) ) {
 
-#		print("1. immodpg, _get_control_clip, old control_clip= $immodpg->{_control_clip}\n");
+		#		print("1. immodpg, _get_control_clip, old control_clip= $immodpg->{_control_clip}\n");
 		my $control_clip = $immodpg->{_control_clip};
 
 		if ( $control_clip <= 0 ) {
@@ -1345,18 +1252,16 @@ sub _get_control_clip {
 			$control_clip = 1;
 			$result       = $control_clip;
 
-		}
-		else {
+		} else {
 
 			#			print("immodpg, _get_control_clip, NADA\n");
 			$result = $control_clip;
 		}
 
-   #		print("2. immodpg, _get_control_clip, new control_clip= $control_clip\n");
+		#		print("2. immodpg, _get_control_clip, new control_clip= $control_clip\n");
 		return ($result);
 
-	}
-	else {
+	} else {
 		print("immodpg, _get_control_clip,  missing clip value\n");
 	}
 	return ();
@@ -1375,57 +1280,51 @@ sub _get_control_layer {
 
 	if ( length( $immodpg->{_control_layer} ) ) {
 
-# print("1. immodpg, _get_control_layer, control_layer= $immodpg->{_control_layer}\n");
+		# print("1. immodpg, _get_control_layer, control_layer= $immodpg->{_control_layer}\n");
 		my $control_layer    = $immodpg->{_control_layer};
 		my $number_of_layers = _get_number_of_layers();
 
 		if ( $control_layer > $number_of_layers ) {
 
-		# case 1 layer number exceeds possible value
-		# print("case1: immodpg, _get_control_layer, layer number too large\n");
-		# print("immodpg, _get_control_layer, layer_number=$control_layer}\n");
+			# case 1 layer number exceeds possible value
+			# print("case1: immodpg, _get_control_layer, layer number too large\n");
+			# print("immodpg, _get_control_layer, layer_number=$control_layer}\n");
 			$control_layer = $number_of_layers - 1;
 
-	 # print("immodpg, _get_control_layer, new layer_number=$control_layer}\n");
+			# print("immodpg, _get_control_layer, new layer_number=$control_layer}\n");
 			$result = $control_layer;
 
-		}
-		elsif ( $control_layer < 1 ) {
+		} elsif ( $control_layer < 1 ) {
 
 			$control_layer = 1;
 			$result        = $control_layer;
 
-		}
-		elsif ( ( $control_layer == 1 ) ) {
+		} elsif ( ( $control_layer == 1 ) ) {
 
 			$control_layer = 1;
 			$result        = $control_layer;
 
 			# NADA
 
-		}
-		elsif ( ( $control_layer < $number_of_layers ) ) {
+		} elsif ( ( $control_layer < $number_of_layers ) ) {
 
 			#print("immodpg, get_control_layer, layer=$control_layer\n");
 			$result = $control_layer;
 
 			# NADA
 
-		}
-		elsif ( ( $control_layer == $number_of_layers ) ) {
+		} elsif ( ( $control_layer == $number_of_layers ) ) {
 
 			# print("immodpg, get_control_layer, layer=$control_layer\n");
 			$result = $control_layer - 1;
 
-		}
-		else {
+		} else {
 
 			# print("immodpg, _get_control_layer, unexpected layer number\n");
 			$result = $empty_string;
 		}
 
-	}
-	else {
+	} else {
 
 		# print("immodpg, _get_control_layer, empty string, result = 1\n");
 		$result = 1;
@@ -1447,16 +1346,13 @@ sub _get_data_scale {
 
 =cut
 
-	print(
-"immodpg, _get_data_scale, _base_file_name=$immodpg->{_base_file_name}\n"
-	);
+	print("immodpg, _get_data_scale, _base_file_name=$immodpg->{_base_file_name}\n");
 
 	# ???
 	my $header_values = header_values->new();
 
 	if ( defined $immodpg->{_base_file_name}
-		&& $immodpg->{_base_file_name} ne $empty_string )
-	{
+		&& $immodpg->{_base_file_name} ne $empty_string ) {
 
 		$header_values->set_base_file_name( $immodpg->{_base_file_name} );
 		$header_values->set_header_name('scalel');
@@ -1467,8 +1363,7 @@ sub _get_data_scale {
 		#		print("immodpg, _get_data_scale, data_scale = $data_scale\n");
 		return ($result);
 
-	}
-	else {
+	} else {
 
 		my $data_scale = 1;
 		my $result     = $data_scale;
@@ -1549,7 +1444,7 @@ sub _get_initial_model {
 
 	my $number_of_layers = _get_number_of_layers();
 
-  # print("immodpg, _get_initial_model,number_of_layers = $number_of_layers\n");
+	# print("immodpg, _get_initial_model,number_of_layers = $number_of_layers\n");
 
 	my $header = [
 		{ Type => 'f77' },
@@ -1569,61 +1464,46 @@ sub _get_initial_model {
 		# print("$model_pdl\n");
 		my $nelem = nelem($model_pdl);
 
-# print("immodpg,_get_initial_model,nelem=$nelem,#cols=$cols,#layers=$number_of_layers\n");
+		# print("immodpg,_get_initial_model,nelem=$nelem,#cols=$cols,#layers=$number_of_layers\n");
 
-		for (
-			my $layer_index = 0 ;
-			$layer_index < $number_of_layers ;
-			$layer_index++
-		  )
-		{
+		for ( my $layer_index = 0; $layer_index < $number_of_layers; $layer_index++ ) {
 
 			my $magic_number_str = '0:1';
 			my $value_indices    = $magic_number_str;
 			my $full_indices     = $value_indices . ',' . $layer_index;
 
 			# pdl 2 perl
-			@VP = ( $model_pdl->slice($full_indices) )->list;
-			$VPtop[$layer_index] =
-			  sprintf( "$var_immodpg->{_format_dot2f}", ( $VP[0] * $km2m ) );
-			$VPbot[$layer_index] =
-			  sprintf( "$var_immodpg->{_format_dot2f}", ( $VP[1] * $km2m ) );
+			@VP                  = ( $model_pdl->slice($full_indices) )->list;
+			$VPtop[$layer_index] = sprintf( "$var_immodpg->{_format_dot2f}", ( $VP[0] * $km2m ) );
+			$VPbot[$layer_index] = sprintf( "$var_immodpg->{_format_dot2f}", ( $VP[1] * $km2m ) );
 
 			$value_indices = '2:6';
 			$full_indices  = $value_indices . ',' . $layer_index;
 
 			# pdl 2 perl
-			@model = ( $model_pdl->slice($full_indices) )->list;
-			$dz[$layer_index] =
-			  sprintf( "$var_immodpg->{_format_dot3f}", ( $model[0] * $km2m ) );
-			$VStop[$layer_index] =
-			  sprintf( "$var_immodpg->{_format_dot3f}", ( $model[1] * $km2m ) );
-			$VSbot[$layer_index] =
-			  sprintf( "$var_immodpg->{_format_dot3f}", ( $model[2] * $km2m ) );
-			$density_top[$layer_index] =
-			  sprintf( "$var_immodpg->{_format_dot3f}",
-				( $model[3] * $gcc2MKS ) );
-			$density_bot[$layer_index] =
-			  sprintf( "$var_immodpg->{_format_dot3f}",
-				( $model[4] * $gcc2MKS ) );
+			@model                     = ( $model_pdl->slice($full_indices) )->list;
+			$dz[$layer_index]          = sprintf( "$var_immodpg->{_format_dot3f}", ( $model[0] * $km2m ) );
+			$VStop[$layer_index]       = sprintf( "$var_immodpg->{_format_dot3f}", ( $model[1] * $km2m ) );
+			$VSbot[$layer_index]       = sprintf( "$var_immodpg->{_format_dot3f}", ( $model[2] * $km2m ) );
+			$density_top[$layer_index] = sprintf( "$var_immodpg->{_format_dot3f}", ( $model[3] * $gcc2MKS ) );
+			$density_bot[$layer_index] = sprintf( "$var_immodpg->{_format_dot3f}", ( $model[4] * $gcc2MKS ) );
 
-#				print(
-#					"immodpg,_get_initial_model,V,layer_index=$layer_index\n"
-#				);
-#				print(
-#					"immodpg,_get_initial_model,VPtop = $VPtop[$layer_index], VPbot=$VPbot[$layer_index]\n"
-#				);
+			#				print(
+			#					"immodpg,_get_initial_model,V,layer_index=$layer_index\n"
+			#				);
+			#				print(
+			#					"immodpg,_get_initial_model,VPtop = $VPtop[$layer_index], VPbot=$VPbot[$layer_index]\n"
+			#				);
 
-#			print("VStop = $VStop[$layer_index], VSbot=$VSbot[$layer_index],layer_index=$layer_index\n");
-#			print("dz = $dz[$layer_index], rho_top=$density_top[$layer_index],rho_bot=$density_bot[$layer_index]\n");
+			#			print("VStop = $VStop[$layer_index], VSbot=$VSbot[$layer_index],layer_index=$layer_index\n");
+			#			print("dz = $dz[$layer_index], rho_top=$density_top[$layer_index],rho_bot=$density_bot[$layer_index]\n");
 
 			#				my $x_indices     = pdl(5);
 			#				my $layer_indices = pdl(2);
 		}    # end a for loop
 
 		# test for errors
-		_set_model_control( \@VPbot, \@VPtop, \@VSbot, \@VStop, \@density_bot,
-			\@density_top, \@dz );
+		_set_model_control( \@VPbot, \@VPtop, \@VSbot, \@VStop, \@density_bot, \@density_top, \@dz );
 		my $error_switch = _get_model_control();
 
 		if ( $error_switch eq $on ) {
@@ -1632,25 +1512,22 @@ sub _get_initial_model {
 			_messages( 'immodpg', 1 );
 			return ();
 
-		}
-		elsif ( $error_switch eq $off ) {
+		} elsif ( $error_switch eq $off ) {
 
 			# CASE 1B File exists and is OK
 			# print("immodpg,_get_initial_model, MODEL OK ;NADA\n");
 			return ( \@VPtop, \@VPbot, \@dz, $error_switch );
-		}
-		else {
+		} else {
 			print("immodpg,_get_initial_model, unexpected value\n");
 		}
 
- #	        print pdl(@VPtop,@VPbot,@dz,@VStop,@VSbot,@density_top,@density_bot);
- #	        print ("\n");
- #			print $model_pdl->index2d($x_indices,$layer_indices);
- #			print ("\n");
- #			print $model_pdl;
+		#	        print pdl(@VPtop,@VPbot,@dz,@VStop,@VSbot,@density_top,@density_bot);
+		#	        print ("\n");
+		#			print $model_pdl->index2d($x_indices,$layer_indices);
+		#			print ("\n");
+		#			print $model_pdl;
 
-	}
-	elsif ( not( -e $inbound ) ) {
+	} elsif ( not( -e $inbound ) ) {
 
 		print("immodpg,_get_initial_model,file is missing\n");
 		use File::Copy;
@@ -1658,15 +1535,13 @@ sub _get_initial_model {
 		my $to   = $IMMODPG . '/' . $immodpg_model_file_text;
 		copy( $from, $to );
 
-		$from =
-		  $global_libs->{_configs_big_streams} . '/' . $immodpg_model_file_text;
-		$to = $IMMODPG . '/' . $immodpg_model_file_text;
+		$from = $global_libs->{_configs_big_streams} . '/' . $immodpg_model_file_text;
+		$to   = $IMMODPG . '/' . $immodpg_model_file_text;
 		copy( $from, $to );
 
 		return ();
 
-	}
-	else {
+	} else {
 		print("immodpg,_get_initial_model,unexpected value\n");
 		return ();
 	}
@@ -1742,14 +1617,13 @@ sub _get_initial_model4gui {
 	my $km2m    = 1000;
 	my $gcc2MKS = 1000;
 
-#		print("immodpg, _get_initial_model4gui,model_layer_number =$immodpg->{_model_layer_number}\n");
+	#		print("immodpg, _get_initial_model4gui,model_layer_number =$immodpg->{_model_layer_number}\n");
 	my $number_of_layers = _get_number_of_layers();
 
-#		print("immodpg, _get_initial_model4gui,number_of_layers = $number_of_layers\n");
+	#		print("immodpg, _get_initial_model4gui,number_of_layers = $number_of_layers\n");
 
 	if (   $immodpg->{_model_layer_number} > 0
-		&& $immodpg->{_model_layer_number} <= $number_of_layers )
-	{
+		&& $immodpg->{_model_layer_number} <= $number_of_layers ) {
 
 		my $header = [
 			{ Type => 'f77' },
@@ -1771,57 +1645,42 @@ sub _get_initial_model4gui {
 
 #			print("immodpg,_get_initial_model4gui,nelem=$nelem,#cols=$cols,#layers=$number_of_layers\n");
 #           print("immodpg,_get_initial_model4gui,=format_dot2f=$var_immodpg->{_format_dot2f}\n");
-			for (
-				my $layer_index = 0 ;
-				$layer_index < $number_of_layers ;
-				$layer_index++
-			  )
-			{
+			for ( my $layer_index = 0; $layer_index < $number_of_layers; $layer_index++ ) {
 
 				my $magic_number_str = '0:1';
 				my $value_indices    = $magic_number_str;
 				my $full_indices     = $value_indices . ',' . $layer_index;
 
 				# pdl 2 perl
-				@VP = ( $model_pdl->slice($full_indices) )->list;
-
-				$VPtop[$layer_index] = sprintf( "$var_immodpg->{_format_dot2f}",
-					( $VP[0] * $km2m ) );
-				$VPbot[$layer_index] = sprintf( "$var_immodpg->{_format_dot2f}",
-					( $VP[1] * $km2m ) );
+				@VP                  = ( $model_pdl->slice($full_indices) )->list;
+				
+				$VPtop[$layer_index] = sprintf( "$var_immodpg->{_format_dot2f}", ( $VP[0] * $km2m ) );
+				$VPbot[$layer_index] = sprintf( "$var_immodpg->{_format_dot2f}", ( $VP[1] * $km2m ) );
 
 				$value_indices = '2:6';
 				$full_indices  = $value_indices . ',' . $layer_index;
 
 				# pdl 2 perl
-				@model = ( $model_pdl->slice($full_indices) )->list;
-				$dz[$layer_index] = sprintf( "$var_immodpg->{_format_dot3f}",
-					( $model[0] * $km2m ) );
-				$VStop[$layer_index] = sprintf( "$var_immodpg->{_format_dot3f}",
-					( $model[1] * $km2m ) );
-				$VSbot[$layer_index] = sprintf( "$var_immodpg->{_format_dot3f}",
-					( $model[2] * $km2m ) );
-				$density_top[$layer_index] =
-				  sprintf( "$var_immodpg->{_format_dot3f}",
-					( $model[3] * $gcc2MKS ) );
-				$density_bot[$layer_index] =
-				  sprintf( "$var_immodpg->{_format_dot3f}",
-					( $model[4] * $gcc2MKS ) );
+				@model                     = ( $model_pdl->slice($full_indices) )->list;
+				$dz[$layer_index]          = sprintf( "$var_immodpg->{_format_dot3f}", ( $model[0] * $km2m ) );
+				$VStop[$layer_index]       = sprintf( "$var_immodpg->{_format_dot3f}", ( $model[1] * $km2m ) );
+				$VSbot[$layer_index]       = sprintf( "$var_immodpg->{_format_dot3f}", ( $model[2] * $km2m ) );
+				$density_top[$layer_index] = sprintf( "$var_immodpg->{_format_dot3f}", ( $model[3] * $gcc2MKS ) );
+				$density_bot[$layer_index] = sprintf( "$var_immodpg->{_format_dot3f}", ( $model[4] * $gcc2MKS ) );
 
-# print(
-# 	"immodpg,_get_initial_model4gui,VPtop = $VPtop[$layer_index], VPbot=$VPbot[$layer_index],layer_index=$layer_index\n"
-# );
+				# print(
+				# 	"immodpg,_get_initial_model4gui,VPtop = $VPtop[$layer_index], VPbot=$VPbot[$layer_index],layer_index=$layer_index\n"
+				# );
 
-#			print("VStop = $VStop[$layer_index], VSbot=$VSbot[$layer_index],layer_index=$layer_index\n");
-#			print("dz = $dz[$layer_index], rho_top=$density_top[$layer_index],rho_bot=$density_bot[$layer_index]\n");
+				#			print("VStop = $VStop[$layer_index], VSbot=$VSbot[$layer_index],layer_index=$layer_index\n");
+				#			print("dz = $dz[$layer_index], rho_top=$density_top[$layer_index],rho_bot=$density_bot[$layer_index]\n");
 
 				#				my $x_indices     = pdl(5);
 				#				my $layer_indices = pdl(2);
 			}    # end a for loop
 
 			# test for errors
-			_set_model_control( \@VPbot, \@VPtop, \@VSbot, \@VStop,
-				\@density_bot, \@density_top, \@dz );
+			_set_model_control( \@VPbot, \@VPtop, \@VSbot, \@VStop, \@density_bot, \@density_top, \@dz );
 			my $error_switch = _get_model_control();
 
 			if ( $error_switch eq $on ) {
@@ -1830,48 +1689,41 @@ sub _get_initial_model4gui {
 				_messages( 'immodpg', 1 );
 				return ();
 
-			}
-			elsif ( $error_switch eq $off ) {
+			} elsif ( $error_switch eq $off ) {
 
 				# CASE 1B File exists and is OK
 				# print("immodpg,_get_initial_model4gui, MODEL OK ;NADA\n");
 				return ( \@VPtop, \@VPbot, \@dz, $error_switch );
 
-			}
-			else {
+			} else {
 				print("immodpg,_get_initial_model4gui, unexpected value\n");
 			}
 
- #	        print pdl(@VPtop,@VPbot,@dz,@VStop,@VSbot,@density_top,@density_bot);
- #	        print ("\n");
- #			print $model_pdl->index2d($x_indices,$layer_indices);
- #			print ("\n");
- #			print $model_pdl;
+			#	        print pdl(@VPtop,@VPbot,@dz,@VStop,@VSbot,@density_top,@density_bot);
+			#	        print ("\n");
+			#			print $model_pdl->index2d($x_indices,$layer_indices);
+			#			print ("\n");
+			#			print $model_pdl;
 
-		}
-		elsif ( not( -e $inbound ) ) {
+		} elsif ( not( -e $inbound ) ) {
 
 			print("immodpg,_get_initial_model4gui,file is missing\n");
 			use File::Copy;
-			my $from =
-			  $global_libs->{_configs_big_streams} . '/' . $immodpg_model;
-			my $to = $IMMODPG . '/' . $immodpg_model_file_text;
+			my $from = $global_libs->{_configs_big_streams} . '/' . $immodpg_model;
+			my $to   = $IMMODPG . '/' . $immodpg_model_file_text;
 			copy( $from, $to );
 
-			$from = $global_libs->{_configs_big_streams} . '/'
-			  . $immodpg_model_file_text;
-			$to = $IMMODPG . '/' . $immodpg_model_file_text;
+			$from = $global_libs->{_configs_big_streams} . '/' . $immodpg_model_file_text;
+			$to   = $IMMODPG . '/' . $immodpg_model_file_text;
 			copy( $from, $to );
 
 			return ();
-		}
-		else {
+		} else {
 			print("immodpg,_get_initial_model4gui,unexpected value\n");
 			return ();
 		}
 
-	}
-	else {
+	} else {
 		print("immodpg,_get_initial_model4gui,bad layer number\n");
 		return ();
 	}
@@ -1892,12 +1744,11 @@ sub _get_number_of_layers {
 
 	if ( length( $immodpg->{_model_file_text} ) ) {
 
-		my $count        = 0;
-		my $magic_number = 4;
-		my $inbound_model_file_text =
-		  $IMMODPG . '/' . $immodpg->{_model_file_text};
+		my $count                   = 0;
+		my $magic_number            = 4;
+		my $inbound_model_file_text = $IMMODPG . '/' . $immodpg->{_model_file_text};
 
-# print ("immodpg,_get_number_of_layers,inbound_model_file_text=$inbound_model_file_text\n");
+		# print ("immodpg,_get_number_of_layers,inbound_model_file_text=$inbound_model_file_text\n");
 
 		open( my $fh, '<', $inbound_model_file_text );
 
@@ -1910,10 +1761,9 @@ sub _get_number_of_layers {
 
 		$number_of_layers = $count - $magic_number;
 
-	  #			print("immodpg,_get_number_of_layers, layers = $number_of_layers \n");
+		#			print("immodpg,_get_number_of_layers, layers = $number_of_layers \n");
 
-	}
-	else {
+	} else {
 
 		#		print("immodpg,_get_number_of_layers, missing values\n");
 		$number_of_layers = 0;
@@ -1941,17 +1791,15 @@ sub _getVp_ref_dz_ref {
 	my $layer = $immodpg->{_model_layer_number};
 
 	#	 print("immodpg,_getVp_ref_dz_ref layer_number = $layer \n");
-
+    
 	if (    looks_like_number($layer)
 		and scalar(@VPtop)
 		and scalar(@VPbot)
-		and scalar(@dz) )
-	{
+		and scalar(@dz) ) {
 
 		return ( \@VPtop, \@VPbot, \@dz );
-
-	}
-	else {
+		
+	} else {
 		print("immodpg,_getVp_ref_dz_ref , unexpected value\n");
 		return ();
 	}
@@ -1987,11 +1835,10 @@ sub _getVp_ref_dz_scalar {
 
 		if (    scalar(@VPtop)
 			and scalar(@VPbot)
-			and scalar(@dz) )
-		{
+			and scalar(@dz) ) {
 
-# print("immodpg,_getVp_ref_dz_scalar VPtop= $VPtop[($layer-1)]\n");
-# print("immodpg,_getVp_ref_dz_scalar for layer:($layer), VPbot= $VPbot[($layer-1)]\n");
+			# print("immodpg,_getVp_ref_dz_scalar VPtop= $VPtop[($layer-1)]\n");
+			# print("immodpg,_getVp_ref_dz_scalar for layer:($layer), VPbot= $VPbot[($layer-1)]\n");
 
 			my $layer_index             = $layer - 1;
 			my $layer_index_upper_layer = $layer - 2;
@@ -2020,8 +1867,7 @@ sub _getVp_ref_dz_scalar {
 
 				#				return ( \@result, $dz, $error_switch );
 
-			}
-			elsif ( $layer >= 1 ) {
+			} elsif ( $layer >= 1 ) {
 
 				# CASE of first of one or more layers
 				my $Vbot_upper_layer = $empty_string;
@@ -2036,23 +1882,16 @@ sub _getVp_ref_dz_scalar {
 
 				#				return ( \@result, $dz, $error_switch );
 				return ( \@result, $dz );
-			}
-			else {
-				print(
-					"immodpg, _getVp_ref_dz_scalar, unexpected layer number \n"
-				);
+			} else {
+				print("immodpg, _getVp_ref_dz_scalar, unexpected layer number \n");
 				return ();
 			}
-		}
-		else {
+		} else {
 			return ();
-			print(
-"immodpg,_getVp_ref_dz_scalar, _get_initial_model gives bad values\ n"
-			);
+			print("immodpg,_getVp_ref_dz_scalar, _get_initial_model gives bad values\ n");
 		}
 
-	}
-	else {
+	} else {
 		print("immodpg,_getVp_ref_dz_scalar,missing layer\n");
 		return ();
 	}
@@ -2074,14 +1913,12 @@ sub _get_initialVp_dz4gui {
 		my ( @V,                        @result );
 
 		my $layer = $immodpg->{_model_layer_number};
-		my ( $refVPtop, $refVPbot, $ref_dz, $error_switch ) =
-		  _get_initial_model4gui();
+		my ( $refVPtop, $refVPbot, $ref_dz, $error_switch ) = _get_initial_model4gui();
 
 		if (    length($refVPtop)
 			and length($refVPbot)
 			and length($ref_dz)
-			and length($error_switch) )
-		{
+			and length($error_switch) ) {
 
 			my @VPtop = @$refVPtop;
 			my @VPbot = @$refVPbot;
@@ -2113,11 +1950,10 @@ sub _get_initialVp_dz4gui {
 
 				@result = @V;
 
-			  #			print("immodpg_get_initialVp_dz4gui: velocities are:  @V \n");
+				#			print("immodpg_get_initialVp_dz4gui: velocities are:  @V \n");
 				return ( \@result, $dz, $error_switch );
 
-			}
-			elsif ( $layer >= 1 ) {
+			} elsif ( $layer >= 1 ) {
 
 				# CASE of first of one or more layers
 				my $Vbot_upper_layer = $empty_string;
@@ -2131,23 +1967,16 @@ sub _get_initialVp_dz4gui {
 				@result = @V;
 				return ( \@result, $dz, $error_switch );
 
-			}
-			else {
-				print(
-					"immodpg, _get_initialVp_dz4gui, unexpected layer number \n"
-				);
+			} else {
+				print("immodpg, _get_initialVp_dz4gui, unexpected layer number \n");
 				return ();
 			}
-		}
-		else {
+		} else {
 			return ();
-			print(
-"immodpg,_get_initialVp_dz4gui, _get_initial_model gives bad values \n"
-			);
+			print("immodpg,_get_initialVp_dz4gui, _get_initial_model gives bad values \n");
 		}
 
-	}
-	else {
+	} else {
 		print("immodpg,_get_initialVp_dz4gui,missing layer\\n");
 		return ();
 	}
@@ -2182,7 +2011,9 @@ sub _messages {
 
 	$message_box->title($run_name);
 
-	$message_label->configure( -textvariable => \$message, );
+	$message_label->configure(
+		-textvariable => \$message,
+	);
 
 	$message_box->deiconify();
 	$message_box->raise();
@@ -2209,8 +2040,7 @@ sub _setVbot {
 	my ($Vbot) = @_;
 
 	if ( looks_like_number($Vbot)
-		&& $immodpg->{_isVbot_changed_in_gui} eq $yes )
-	{
+		&& $immodpg->{_isVbot_changed_in_gui} eq $yes ) {
 
 =head2 instantiate classes
 
@@ -2231,7 +2061,7 @@ variables
 		my $outbound        = $IMMODPG_INVISIBLE . '/' . $Vbot_file;
 		my $outbound_locked = $outbound . '_locked';
 
-		for ( my $i = 0 ; $test eq $no ; $i++ ) {
+		for ( my $i = 0; $test eq $no; $i++ ) {
 
 			if ( not( $files->does_file_exist( \$outbound_locked ) ) ) {
 				my $format = $var_immodpg->{_format_string};
@@ -2248,13 +2078,11 @@ variables
 			}    # if
 		}    # for
 
-	}
-	elsif ( $immodpg->{_isVbot_changed_in_gui} eq $no ) {
+	} elsif ( $immodpg->{_isVbot_changed_in_gui} eq $no ) {
 
 		# NADA
 
-	}
-	else {
+	} else {
 		print("immodpg, _setVbot, unexpected answer\n");
 	}
 
@@ -2281,8 +2109,7 @@ sub _setVbot_upper_layer {
 	my ($Vbot_upper_layer) = @_;
 
 	if (   $Vbot_upper_layer ne $empty_string
-		&& $immodpg->{_isVbot_upper_layer_changed_in_gui} eq $yes )
-	{
+		&& $immodpg->{_isVbot_upper_layer_changed_in_gui} eq $yes ) {
 
 =head2 instantiate classes
 
@@ -2303,10 +2130,10 @@ variables
 		my $outbound        = $IMMODPG_INVISIBLE . '/' . $Vbot_upper_layer_file;
 		my $outbound_locked = $outbound . '_locked';
 
-		for ( my $i = 0 ; $test eq $no ; $i++ ) {
+		for ( my $i = 0; $test eq $no; $i++ ) {
 
 			if ( not( $files->does_file_exist( \$outbound_locked ) ) ) {
-
+				
 				my $format = $var_immodpg->{_format_string};
 				$X[0] = $empty_string;
 				$files->write_1col_aref( \@X, \$outbound_locked, \$format );
@@ -2321,13 +2148,11 @@ variables
 			}    # if
 		}    # for
 
-	}
-	elsif ( $immodpg->{_isVbot_upper_layer_changed_in_gui} eq $no ) {
+	} elsif ( $immodpg->{_isVbot_upper_layer_changed_in_gui} eq $no ) {
 
 		# NADA
 
-	}
-	else {
+	} else {
 		print("immodpg, _setVbot_upper_layer, unexpected answer\n");
 	}
 
@@ -2354,8 +2179,8 @@ sub _setVbotNtop_factor {
 	my ($VbotNtop_factor) = @_;
 
 	if (   $VbotNtop_factor ne $empty_string
-		&& $immodpg->{_isVbotNtop_factor_changed_in_gui} eq $yes )
-	{
+		&& $immodpg->{_isVbotNtop_factor_changed_in_gui} eq $yes ) {
+
 
 =head2 instantiate classes
 
@@ -2376,7 +2201,7 @@ variables
 		my $outbound        = $IMMODPG_INVISIBLE . '/' . $VbotNtop_factor_file;
 		my $outbound_locked = $outbound . '_locked';
 
-		for ( my $i = 0 ; $test eq $no ; $i++ ) {
+		for ( my $i = 0; $test eq $no; $i++ ) {
 
 			if ( not( $files->does_file_exist( \$outbound_locked ) ) ) {
 				my $format = $var_immodpg->{_format_string};
@@ -2393,13 +2218,11 @@ variables
 			}    # if
 		}    # for
 
-	}
-	elsif ( $immodpg->{_isVbotNtop_factor_changed_in_gui} eq $no ) {
+	} elsif ( $immodpg->{_isVbotNtop_factor_changed_in_gui} eq $no ) {
 
 		# NADA
 
-	}
-	else {
+	} else {
 		print("immodpg, _setVbotNtop_factor, unexpected answer\n");
 	}
 
@@ -2426,8 +2249,8 @@ sub _setVbotNtop_multiply {
 	if (   looks_like_number( $immodpg->{_Vbot_multiplied} )
 		&& looks_like_number( $immodpg->{_Vtop_multiplied} )
 		&& looks_like_number( $immodpg->{_Vbot_current} )
-		&& looks_like_number( $immodpg->{_Vtop_current} ) )
-	{
+		&& looks_like_number( $immodpg->{_Vtop_current} ) ) {
+
 
 =head2 instantiate classes
 
@@ -2448,7 +2271,7 @@ variables
 		my $outbound        = $IMMODPG_INVISIBLE . '/' . $file;
 		my $outbound_locked = $outbound . '_locked';
 
-		for ( my $i = 0 ; $test eq $no ; $i++ ) {
+		for ( my $i = 0; $test eq $no; $i++ ) {
 
 			if ( not( $files->does_file_exist( \$outbound_locked ) ) ) {
 				my $format = $var_immodpg->{_format_string};
@@ -2466,8 +2289,7 @@ variables
 			}    # if
 		}    # for
 
-	}
-	else {
+	} else {
 		print("immodpg, _setVbotNtop_multiply, unexpected answer\n");
 	}
 
@@ -2493,8 +2315,8 @@ sub _setVincrement {
 	my ($Vincrement) = @_;
 
 	if (   $Vincrement ne $empty_string
-		&& $immodpg->{_isVincrement_changed_in_gui} eq $yes )
-	{
+		&& $immodpg->{_isVincrement_changed_in_gui} eq $yes ) {
+
 
 =head2 instantiate classes
 
@@ -2515,7 +2337,7 @@ variables
 		my $outbound        = $IMMODPG_INVISIBLE . '/' . $Vincrement_file;
 		my $outbound_locked = $outbound . '_locked';
 
-		for ( my $i = 0 ; $test eq $no ; $i++ ) {
+		for ( my $i = 0; $test eq $no; $i++ ) {
 
 			if ( not( $files->does_file_exist( \$outbound_locked ) ) ) {
 				my $format = $var_immodpg->{_format_string};
@@ -2532,13 +2354,11 @@ variables
 			}    # if
 		}    # for
 
-	}
-	elsif ( $immodpg->{_isVincrement_changed_in_gui} eq $no ) {
+	} elsif ( $immodpg->{_isVincrement_changed_in_gui} eq $no ) {
 
 		# NADA
 
-	}
-	else {
+	} else {
 		print("immodpg, _setVincrement, unexpected answer\n");
 	}
 
@@ -2555,8 +2375,7 @@ sub _set_control {
 	my ( $name, $value ) = @_;
 
 	if (   length($name)
-		&& length($value) )
-	{
+		&& length($value) ) {
 
 		# print("immodpg, _set_control, name=$name, value=$value\n");
 
@@ -2565,131 +2384,112 @@ sub _set_control {
 
 				$immodpg->{_control_value} = 10;
 
-# print("immodpg, _set_control, new corrected Vtop=$immodpg->{_control_value}\n");
+				# print("immodpg, _set_control, new corrected Vtop=$immodpg->{_control_value}\n");
 
-			}
-			else {
+			} else {
 				$immodpg->{_control_value} = $value;
 			}
 
-		}
-		elsif ( $name eq 'Vbot' ) {
+		} elsif ( $name eq 'Vbot' ) {
 			if ( $value < 0 ) {
 
 				$immodpg->{_control_value} = 10;
 
-# print("immodpg, _set_control, new corrected Vbot=$immodpg->{_control_value}\n");
+				# print("immodpg, _set_control, new corrected Vbot=$immodpg->{_control_value}\n");
 
-			}
-			else {
+			} else {
 				$immodpg->{_control_value} = $value;
 			}
 
-		}
-		elsif ( $name eq 'Vbot_upper_layer' ) {
+		} elsif ( $name eq 'Vbot_upper_layer' ) {
 			if ( $value < 0 ) {
 
 				$immodpg->{_control_value} = 10;
 
-# print("immodpg, _set_control, corrected Vbot_upper_layer=$immodpg->{_control_value}\n");
+				# print("immodpg, _set_control, corrected Vbot_upper_layer=$immodpg->{_control_value}\n");
 
-			}
-			else {
+			} else {
 				$immodpg->{_control_value} = $value;
 
-# print("immodpg, _set_control, uncorrected Vbot_upper_layer=$immodpg->{_control_value}\n");
+				# print("immodpg, _set_control, uncorrected Vbot_upper_layer=$immodpg->{_control_value}\n");
 			}
 
-		}
-		elsif ( $name eq 'VbotNtop_factor' ) {
+		} elsif ( $name eq 'VbotNtop_factor' ) {
 			if ( $value < 0 ) {
 
 				$immodpg->{_control_value} = 1;
 
-# print("immodpg, _set_control, new corrected VbotNtop_factor=$immodpg->{_control_value}\n");
+				# print("immodpg, _set_control, new corrected VbotNtop_factor=$immodpg->{_control_value}\n");
 
-			}
-			else {
+			} else {
 				$immodpg->{_control_value} = $value;
 
-# print("immodpg, _set_control, uncorrected VbotNtop_factor=$immodpg->{_control_value}\n");
+				# print("immodpg, _set_control, uncorrected VbotNtop_factor=$immodpg->{_control_value}\n");
 			}
-		}
-		elsif ( $name eq 'Vincrement' ) {
+		} elsif ( $name eq 'Vincrement' ) {
 			if ( $value < 0 ) {
 
 				# Vincrement is wild
 				$immodpg->{_control_value} = $value;
 
-# print("immodpg, _set_control, new corrected Vincrement=$immodpg->{_control_value}\n");
+				# print("immodpg, _set_control, new corrected Vincrement=$immodpg->{_control_value}\n");
 
-			}
-			else {
+			} else {
 				$immodpg->{_control_value} = $value;
 
-# print("immodpg, _set_control, uncorrected VbotNtop_factor=$immodpg->{_control_value}\n");
+				# print("immodpg, _set_control, uncorrected VbotNtop_factor=$immodpg->{_control_value}\n");
 			}
 
-		}
-		elsif ( $name eq 'Vtop_lower_layer' ) {
+		} elsif ( $name eq 'Vtop_lower_layer' ) {
 			if ( $value < 0 ) {
 
 				$immodpg->{_control_value} = 10;
 
-# print("immodpg, _set_control, new corrected Vtop_lower_layer=$immodpg->{_control_value}\n");
+				# print("immodpg, _set_control, new corrected Vtop_lower_layer=$immodpg->{_control_value}\n");
 
-			}
-			else {
+			} else {
 				$immodpg->{_control_value} = $value;
 			}
 
-		}
-		elsif ( $name eq 'clip4plot' ) {
+		} elsif ( $name eq 'clip4plot' ) {
 			if ( $value < 0 ) {
 
 				$immodpg->{_control_value} = 0.1;
 
-# print("immodpg, _set_control, new corrected clip4plot=$immodpg->{_control_value}\n");
+				# print("immodpg, _set_control, new corrected clip4plot=$immodpg->{_control_value}\n");
 
-			}
-			else {
+			} else {
 				$immodpg->{_control_value} = $value;
 
-# print("immodpg, _set_control, uncorrected clip4plot=$immodpg->{_control_value}\n");
+				# print("immodpg, _set_control, uncorrected clip4plot=$immodpg->{_control_value}\n");
 			}
 
-		}
-		elsif ( $name eq 'thickness_m' ) {
+		} elsif ( $name eq 'thickness_m' ) {
 			if ( $value < 0 ) {
 
 				$immodpg->{_control_value} = 0.1;
 
-# print("immodpg, _set_control, new corrected thickness_m=$immodpg->{_control_value}\n");
+				# print("immodpg, _set_control, new corrected thickness_m=$immodpg->{_control_value}\n");
 
-			}
-			else {
+			} else {
 				$immodpg->{_control_value} = $value;
 			}
 
-		}
-		elsif ( $name eq 'thickness_increment_m' ) {
+		} elsif ( $name eq 'thickness_increment_m' ) {
 			if ( $value < 0 ) {
 
 				$immodpg->{_control_value} = 1;
 
-# print("immodpg, _set_control, new corrected thicknessincrement_m=$immodpg->{_control_value}\n");
+				# print("immodpg, _set_control, new corrected thicknessincrement_m=$immodpg->{_control_value}\n");
 
-			}
-			else {
+			} else {
 				$immodpg->{_control_value} = $value;
 			}
-		}
-		else {
+		} else {
 			print("immodpg,_setVp_dz, unexpected name \n");
 		}
 
-	}
-	else {
+	} else {
 		print("immodpg, _setVp_dz, missing variable\n");
 		print("immodpg, _setVp_dz, name=$name\n");
 		print("immodpg, _setVp_dz, value=$value\n");
@@ -2712,28 +2512,23 @@ sub _set_initialVp_dz {
 	if (   length($refVPtop)
 		&& length($refVPbot)
 		&& length($ref_dz)
-		&& length($error_switch) )
-	{
+		&& length($error_switch) ) {
 
 		if ( $error_switch eq $on ) {
 
 			print("immodpg, _set_initialVp_dz, corrupt model\n");
 
-		}
-		elsif ( $error_switch eq $off ) {
+		} elsif ( $error_switch eq $off ) {
 
 			$immodpg->{_refVPtop}     = $refVPtop;
 			$immodpg->{_refVPbot}     = $refVPbot;
 			$immodpg->{_ref_dz}       = $ref_dz;
 			$immodpg->{_error_switch} = $error_switch;
 
+		} else {
+			print("immodpg, _set_initialVp_dz, unexpected error switch value\n");
 		}
-		else {
-			print(
-				"immodpg, _set_initialVp_dz, unexpected error switch value\n");
-		}
-	}
-	else {
+	} else {
 		print("immodpg, _set_initialVp_dz, unexpected model values \n");
 	}
 	return ();
@@ -2755,8 +2550,7 @@ sub _setVp_dz {
 		&& length($value)
 		&& length( $immodpg->{_refVPtop} )
 		&& length( $immodpg->{_refVPbot} )
-		&& length( $immodpg->{_ref_dz} ) )
-	{
+		&& length( $immodpg->{_ref_dz} ) ) {
 
 		my $layer_index = $immodpg->{_layer_current} - 1;
 
@@ -2766,57 +2560,51 @@ sub _setVp_dz {
 			my @VPtop    = @$refVPtop;
 			$VPtop[$layer_index] = $value;
 
-  # print("immodpg, _setVp_dz,Vtop,VPtop[$layer_index]=$VPtop[$layer_index]\n");
+			# print("immodpg, _setVp_dz,Vtop,VPtop[$layer_index]=$VPtop[$layer_index]\n");
 			$immodpg->{_refVPtop} = \@VPtop;
 
-		}
-		elsif ( $name eq 'Vtop_lower_layer' ) {
+		} elsif ( $name eq 'Vtop_lower_layer' ) {
 
 			my $refVPtop = $immodpg->{_refVPtop};
 			my @VPtop    = @$refVPtop;
 			$VPtop[ ( $layer_index + 1 ) ] = $value;
 
-# print("immodpg, _setVp_dz,Vtop_lower_layer, VPtop[($layer_index+1)]=$VPtop[($layer_index+1)]\n");
+			# print("immodpg, _setVp_dz,Vtop_lower_layer, VPtop[($layer_index+1)]=$VPtop[($layer_index+1)]\n");
 			$immodpg->{_refVPtop} = \@VPtop;
 
-		}
-		elsif ( $name eq 'Vbot' ) {
+		} elsif ( $name eq 'Vbot' ) {
 
-#			print("immodpg, _setVp_dz,immodpg->{_Vbot_current}= $immodpg->{_Vbot_current}\n");
-#			print("immodpg, _setVp_dz,immodpg->{_layer_current}= $immodpg->{_layer_current}\n");
+			#			print("immodpg, _setVp_dz,immodpg->{_Vbot_current}= $immodpg->{_Vbot_current}\n");
+			#			print("immodpg, _setVp_dz,immodpg->{_layer_current}= $immodpg->{_layer_current}\n");
 			my $refVPbot = $immodpg->{_refVPbot};
 			my @VPbot    = @$refVPbot;
 			$VPbot[$layer_index] = $value;
 
-  # print("immodpg, _setVp_dz,Vbot,VPbot[$layer_index]=$VPbot[$layer_index]\n");
+			# print("immodpg, _setVp_dz,Vbot,VPbot[$layer_index]=$VPbot[$layer_index]\n");
 			$immodpg->{_refVPbot} = \@VPbot;
 
-		}
-		elsif ( $name eq 'Vbot_upper_layer' ) {
+		} elsif ( $name eq 'Vbot_upper_layer' ) {
 
 			my $refVPbot = $immodpg->{_refVPbot};
 			my @VPbot    = @$refVPbot;
 			$VPbot[ ( $layer_index - 1 ) ] = $value;
 
-# print("immodpg, _setVp_dz,Vbot_upper_layer,VPbot[($layer_index-1)]=$VPbot[($layer_index-1)]\n");
+			# print("immodpg, _setVp_dz,Vbot_upper_layer,VPbot[($layer_index-1)]=$VPbot[($layer_index-1)]\n");
 			$immodpg->{_refVPbot} = \@VPbot;
 
-		}
-		elsif ( $name eq 'thickness_m' ) {
+		} elsif ( $name eq 'thickness_m' ) {
 
 			my $ref_dz = $immodpg->{_ref_dz};
 			my @dz     = @$ref_dz;
 			$dz[$layer_index] = $value;
 
-		# print("immodpg, _setVp_dz, dz: dz[$layer_index]=$dz[$layer_index]\n");
+			# print("immodpg, _setVp_dz, dz: dz[$layer_index]=$dz[$layer_index]\n");
 			$immodpg->{_ref_dz} = \@dz;
 
-		}
-		else {
+		} else {
 			print("immodpg,_setVp_dz, unexpected name \n");
 		}
-	}
-	else {
+	} else {
 		print("immodpg, _setVp_dz, missing variable\n");
 		print("immodpg, _setVp_dz, name=$name\n");
 		print("immodpg, _setVp_dz, value = $value\n");
@@ -2848,10 +2636,10 @@ sub _setVtop {
 	my ($Vtop) = @_;
 
 	if ( looks_like_number($Vtop)
-		&& $immodpg->{_isVtop_changed_in_gui} eq $yes )
-	{
+		&& $immodpg->{_isVtop_changed_in_gui} eq $yes ) {
 
 		# print("immodpg,_setVtop,write out fortran value of Vtop\n");
+
 
 =head2 instantiate classes
 
@@ -2872,7 +2660,7 @@ variables
 		my $outbound        = $IMMODPG_INVISIBLE . '/' . $Vtop_file;
 		my $outbound_locked = $outbound . '_locked';
 
-		for ( my $i = 0 ; $test eq $no ; $i++ ) {
+		for ( my $i = 0; $test eq $no; $i++ ) {
 
 			if ( not( $files->does_file_exist( \$outbound_locked ) ) ) {
 				my $format = $var_immodpg->{_format_string};
@@ -2889,14 +2677,12 @@ variables
 			}    # if
 		}    # for
 
-	}
-	elsif ( $immodpg->{_isVtop_changed_in_gui} eq $no ) {
+	} elsif ( $immodpg->{_isVtop_changed_in_gui} eq $no ) {
 
 		# NADA
 		print("immodpg, _setVtop, no change\n");
 
-	}
-	else {
+	} else {
 		print("immodpg, _setVtop, unexpected answer\n");
 	}
 
@@ -2922,8 +2708,8 @@ sub _setVtop_lower_layer {
 	my ($Vtop_lower_layer) = @_;
 
 	if ( looks_like_number($Vtop_lower_layer)
-		&& $immodpg->{_isVtop_lower_layer_changed_in_gui} eq $yes )
-	{
+		&& $immodpg->{_isVtop_lower_layer_changed_in_gui} eq $yes ) {
+
 
 =head2 instantiate classes
 
@@ -2944,7 +2730,7 @@ variables
 		my $outbound        = $IMMODPG_INVISIBLE . '/' . $Vtop_lower_layer_file;
 		my $outbound_locked = $outbound . '_locked';
 
-		for ( my $i = 0 ; $test eq $no ; $i++ ) {
+		for ( my $i = 0; $test eq $no; $i++ ) {
 
 			if ( not( $files->does_file_exist( \$outbound_locked ) ) ) {
 				my $format = $var_immodpg->{_format_string};
@@ -2961,13 +2747,11 @@ variables
 			}    # if
 		}    # for
 
-	}
-	elsif ( $immodpg->{_isVtop_lower_layer_changed_in_gui} eq $no ) {
+	} elsif ( $immodpg->{_isVtop_lower_layer_changed_in_gui} eq $no ) {
 
 		# NADA
 
-	}
-	else {
+	} else {
 		print("immodpg, _setVtop_lower_layer, unexpected answer\n");
 	}
 
@@ -2994,8 +2778,7 @@ sub _set_change {
 	my ($yes_or_no) = @_;
 
 	if (   length($yes_or_no)
-		&& length( $immodpg->{_change_file} ) )
-	{
+		&& length( $immodpg->{_change_file} ) ) {
 
 		# print("immodpg, _set_change, yes_or_no:$yes_or_no\n");
 
@@ -3021,26 +2804,21 @@ variables
 
 		my $count      = 0;
 		my $max_counts = 1000;
-		for (
-			my $i = 0 ;
-			( $test eq $yes ) and ( $count < $max_counts ) ;
-			$i++
-		  )
-		{
+		for ( my $i = 0; ( $test eq $yes ) and ( $count < $max_counts ); $i++ ) {
 
-			#			print("1. immodpg,_set_change, in loop count=$count \n");
+#			print("1. immodpg,_set_change, in loop count=$count \n");
 
 			if ( not( $files->does_file_exist( \$outbound_locked ) ) ) {
 
 				$X[0] = $empty_string;
 				$files->write_1col_aref( \@X, \$outbound_locked, \$format );
 
-		# print("immodpg, _set_change, outbound_locked=$outbound_locked\n");
-		# print("immodpg, _set_change, IMMODPG_INVISIBLE=$IMMODPG_INVISIBLE\n");
-		# print("immodpg, _set_change, created empty locked file=$X[0]\n");
+				# print("immodpg, _set_change, outbound_locked=$outbound_locked\n");
+				# print("immodpg, _set_change, IMMODPG_INVISIBLE=$IMMODPG_INVISIBLE\n");
+				# print("immodpg, _set_change, created empty locked file=$X[0]\n");
 
-		# print("immodpg, _set_change, outbound=$outbound\n");
-		# print("immodpg, _set_change, IMMODPG_INVISIBLE=$IMMODPG_INVISIBLE\n");
+				# print("immodpg, _set_change, outbound=$outbound\n");
+				# print("immodpg, _set_change, IMMODPG_INVISIBLE=$IMMODPG_INVISIBLE\n");
 
 				# do not overwrite a waiting change (= yes)
 				my $response_aref = $files->read_1col_aref( \$outbound );
@@ -3048,20 +2826,19 @@ variables
 
 				if ( $ans eq $yes ) {
 
-				 # do not overwrite a waiting change (= yes)
-				 # print("2. immodpg, _set_change, SKIP\n");
-				 # print("immodpg, _set_change,do not overwrite change_file\n");
+					# do not overwrite a waiting change (= yes)
+					# print("2. immodpg, _set_change, SKIP\n");
+					# print("immodpg, _set_change,do not overwrite change_file\n");
 
 					unlink($outbound_locked);
 
-				}
-				elsif ( $ans eq $no ) {
+				} elsif ( $ans eq $no ) {
 
 					# overwrite change_file(=no) with no or yes
 					$X[0] = $yes_or_no;
 					$files->write_1col_aref( \@X, \$outbound, \$format );
 
-			# print("immodpg, _set_change, overwrite change file with $X[0]\n");
+					# print("immodpg, _set_change, overwrite change file with $X[0]\n");
 
 					unlink($outbound_locked);
 
@@ -3070,13 +2847,11 @@ variables
 
 					$test = $no;
 
-				}
-				else {
+				} else {
 					print("immodpg, _set_change, unexpected result \n");
 				}    # test change_file's content
 
-			}
-			else {
+			} else {
 
 				# print("immodpg,_set_change, locked change file\n");
 				$count++;    # governor on finding an unlocked change_file
@@ -3085,8 +2860,7 @@ variables
 			$count++;    # governor on checking for a change_file = yes
 		}    # for
 
-	}
-	else {
+	} else {
 		print("immodpg, _set_change, missing values\n");
 	}
 	return ();
@@ -3111,8 +2885,8 @@ sub _set_clip {
 	my ($clip) = @_;
 
 	if (   $clip ne $empty_string
-		&& $immodpg->{_is_clip_changed_in_gui} eq $yes )
-	{
+		&& $immodpg->{_is_clip_changed_in_gui} eq $yes ) {
+
 
 =head2 instantiate classes
 
@@ -3133,7 +2907,7 @@ variables
 		my $outbound        = $IMMODPG_INVISIBLE . '/' . $clip_file;
 		my $outbound_locked = $outbound . '_locked';
 
-		for ( my $i = 0 ; $test eq $no ; $i++ ) {
+		for ( my $i = 0; $test eq $no; $i++ ) {
 
 			if ( not( $files->does_file_exist( \$outbound_locked ) ) ) {
 				my $format = $var_immodpg->{_format_string};
@@ -3151,13 +2925,11 @@ variables
 			}    # if
 		}    # for
 
-	}
-	elsif ( $immodpg->{_is_clip_changed_in_gui} eq $no ) {
+	} elsif ( $immodpg->{_is_clip_changed_in_gui} eq $no ) {
 
 		# NADA
 
-	}
-	else {
+	} else {
 		print("immodpg, _set_clip, unexpected answer\n");
 	}
 
@@ -3183,8 +2955,8 @@ sub _set_thickness_m {
 	my ($thickness_m) = @_;
 
 	if (   $thickness_m ne $empty_string
-		&& $immodpg->{_is_thickness_m_changed_in_gui} eq $yes )
-	{
+		&& $immodpg->{_is_thickness_m_changed_in_gui} eq $yes ) {
+
 
 =head2 instantiate classes
 
@@ -3205,7 +2977,7 @@ variables
 		my $outbound        = $IMMODPG_INVISIBLE . '/' . $thickness_m_file;
 		my $outbound_locked = $outbound . '_locked';
 
-		for ( my $i = 0 ; $test eq $no ; $i++ ) {
+		for ( my $i = 0; $test eq $no; $i++ ) {
 
 			if ( not( $files->does_file_exist( \$outbound_locked ) ) ) {
 				my $format = $var_immodpg->{_format_string};
@@ -3222,13 +2994,11 @@ variables
 			}    # if
 		}    # for
 
-	}
-	elsif ( $immodpg->{_is_thickness_m_changed_in_gui} eq $no ) {
+	} elsif ( $immodpg->{_is_thickness_m_changed_in_gui} eq $no ) {
 
 		# NADA
 
-	}
-	else {
+	} else {
 		print("immodpg, _set_thickness_m, unexpected answer\n");
 	}
 
@@ -3254,8 +3024,8 @@ sub _set_thickness_increment_m {
 	my ($thickness_increment_m) = @_;
 
 	if (   $thickness_increment_m ne $empty_string
-		&& $immodpg->{_is_layer_changed_in_gui} eq $yes )
-	{
+		&& $immodpg->{_is_layer_changed_in_gui} eq $yes ) {
+
 
 =head2 instantiate classes
 
@@ -3270,14 +3040,13 @@ variables
 =cut		
 
 		my @X;
-		my $thickness_increment_m_file =
-		  $immodpg->{_thickness_increment_m_file};
+		my $thickness_increment_m_file = $immodpg->{_thickness_increment_m_file};
 
-		my $test     = $no;
-		my $outbound = $IMMODPG_INVISIBLE . '/' . $thickness_increment_m_file;
+		my $test            = $no;
+		my $outbound        = $IMMODPG_INVISIBLE . '/' . $thickness_increment_m_file;
 		my $outbound_locked = $outbound . '_locked';
 
-		for ( my $i = 0 ; $test eq $no ; $i++ ) {
+		for ( my $i = 0; $test eq $no; $i++ ) {
 
 			if ( not( $files->does_file_exist( \$outbound_locked ) ) ) {
 				my $format = $var_immodpg->{_format_string};
@@ -3294,13 +3063,11 @@ variables
 			}    # if
 		}    # for
 
-	}
-	elsif ( $immodpg->{_is_layer_changed_in_gui} eq $no ) {
+	} elsif ( $immodpg->{_is_layer_changed_in_gui} eq $no ) {
 
 		# NADA
 
-	}
-	else {
+	} else {
 		print("immodpg, _set_thickness_increment_m, unexpected answer\n");
 	}
 
@@ -3328,8 +3095,7 @@ sub _fortran_layer {
 	my ($layer) = @_;
 
 	if (   $layer ne $empty_string
-		&& $immodpg->{_is_layer_changed_in_gui} eq $yes )
-	{
+		&& $immodpg->{_is_layer_changed_in_gui} eq $yes ) {
 
 =head2 instantiate classes
 
@@ -3350,7 +3116,7 @@ variables
 		my $outbound        = $IMMODPG_INVISIBLE . '/' . $layer_file;
 		my $outbound_locked = $outbound . '_locked';
 
-		for ( my $i = 0 ; $test eq $no ; $i++ ) {
+		for ( my $i = 0; $test eq $no; $i++ ) {
 
 			# print("in loop \n");
 
@@ -3368,13 +3134,11 @@ variables
 			}    # if
 		}    # for
 
-	}
-	elsif ( $immodpg->{_is_layer_changed_in_gui} eq $no ) {
+	} elsif ( $immodpg->{_is_layer_changed_in_gui} eq $no ) {
 
 		# NADA
 
-	}
-	else {
+	} else {
 		print("immodpg, _fortran_layer, unexpected answer\n");
 	}
 
@@ -3382,30 +3146,32 @@ variables
 
 }
 
+
 =head2 sub set_working_model_bin
 
 =cut
 
 sub _set_working_model_bin {
-	my ($self) = @_;
-
-	#		print("l3171 $immodpg->{_working_model_bin_opt} \n");
-	_set_option($change_working_model_bin_opt);
-	_set_change($yes);
-
-	return ();
+		my ($self) = @_;
+		
+#		print("l3171 $immodpg->{_working_model_bin_opt} \n");
+		_set_option($change_working_model_bin_opt);
+		_set_change($yes);
+	
+	return();
 }
+
 
 =head2 sub set_working_model_text
 
 =cut
 
 sub _set_working_model_text {
-
+	
 	_set_option($change_working_model_text_opt);
 	_set_change($yes);
-
-	return ();
+	
+	return();
 }
 
 =head2 sub _set_clip_control
@@ -3424,16 +3190,14 @@ sub _set_clip_control {
 
 		$immodpg->{_control_clip} = $control_clip;
 
- # print("immodpg,_set_clip_control, control_clip=$immodpg->{_control_clip}\n");
+		# print("immodpg,_set_clip_control, control_clip=$immodpg->{_control_clip}\n");
 
-	}
-	elsif ( not( length($control_clip) ) ) {
+	} elsif ( not( length($control_clip) ) ) {
 
 		# print("immodpg,_set_clip_control, empty string\n");
 		$immodpg->{_control_clip} = $control_clip;
 
-	}
-	else {
+	} else {
 		print("immodpg,_set_clip_control, missing value\n");
 	}
 
@@ -3456,16 +3220,14 @@ sub _set_layer_control {
 
 		$immodpg->{_control_layer} = $control_layer;
 
-#		print("immodpg,_set_layer_control, control_layer=$immodpg->{_control_layer}\n");
+		#		print("immodpg,_set_layer_control, control_layer=$immodpg->{_control_layer}\n");
 
-	}
-	elsif ( not( length($control_layer) ) ) {
+	} elsif ( not( length($control_layer) ) ) {
 
 		#		print("immodpg,_set_layer_control, empty string\n");
 		$immodpg->{_control_layer} = $control_layer;
 
-	}
-	else {
+	} else {
 		print("immodpg,_set_layer_control, missing value\n");
 	}
 
@@ -3487,10 +3249,8 @@ sub _get_model_control {
 
 		$result = $immodpg->{_model_error};
 
-	}
-	else {
-		print(
-			"immodpg,get_model_control,num_layers=unexpected missing value\n");
+	} else {
+		print("immodpg,get_model_control,num_layers=unexpected missing value\n");
 	}
 
 	return ($result);
@@ -3505,9 +3265,7 @@ fortran model
 
 sub _set_model_control {
 
-	my ( $refVPbot, $refVPtop, $ref_VSbot, $ref_VStop, $ref_density_bot,
-		$ref_density_top, $ref_dz )
-	  = @_;
+	my ( $refVPbot, $refVPtop, $ref_VSbot, $ref_VStop, $ref_density_bot, $ref_density_top, $ref_dz ) = @_;
 
 	my $result       = '';
 	my $error_switch = $off;
@@ -3518,8 +3276,7 @@ sub _set_model_control {
 		and length($ref_VStop)
 		and length($ref_density_bot)
 		and length($ref_density_top)
-		and length($ref_dz) )
-	{
+		and length($ref_dz) ) {
 
 		my @VSbot            = @$ref_VSbot;
 		my @VStop            = @$ref_VStop;
@@ -3533,12 +3290,7 @@ sub _set_model_control {
 		#		print("immodpg,set_model_control,num_layers=$number_of_layers\n");
 		if ( $number_of_layers > 1 ) {
 
-			for (
-				my $layer_index = 0 ;
-				$layer_index < $number_of_layers ;
-				$layer_index++
-			  )
-			{
+			for ( my $layer_index = 0; $layer_index < $number_of_layers; $layer_index++ ) {
 
 				if (   $VStop[$layer_index] < 0
 					or $VSbot[$layer_index] < 0
@@ -3546,13 +3298,11 @@ sub _set_model_control {
 					or $VPbot[$layer_index] < 0
 					or $density_bot[$layer_index] < 0
 					or $density_top[$layer_index] < 0
-					or $dz[$layer_index] < 0 )
-				{
+					or $dz[$layer_index] < 0 ) {
 
 					$error_switch = $on;
 
-				}
-				else {
+				} else {
 
 					# print("immodpg,_get_initial_model, TEST OK NADA\n");
 				}
@@ -3566,14 +3316,12 @@ sub _set_model_control {
 
 			return ($result);
 
-		}
-		else {
+		} else {
 			print("immodpg, _set_model_control, error with layer number\n");
 			return ($result);
 		}
 
-	}
-	else {
+	} else {
 		print("immodpg, _set_model_control, unexpected model error\n");
 		return ($result);
 	}
@@ -3591,17 +3339,15 @@ sub _set_model_layer {
 	my ($model_layer_number) = @_;
 
 	if ( $model_layer_number != 0
-		&& length($model_layer_number) )
-	{
+		&& length($model_layer_number) ) {
 
 		$immodpg->{_model_layer_number} = $model_layer_number;
 
-	}
-	else {
+	} else {
 		print("immodpg, _set_model_layer, unexpected layer# \n");
 	}
 
-#	print("immodpg, _set_model_layer,model layer# =$immodpg->{_model_layer_number}\n");
+	#	print("immodpg, _set_model_layer,model layer# =$immodpg->{_model_layer_number}\n");
 
 	return ();
 }
@@ -3629,8 +3375,8 @@ sub _set_option {
 	#		print("immodpg, set_option, option:$option\n");
 
 	if ( defined($option)
-		&& $immodpg->{_option_file} ne $empty_string )
-	{
+		&& $immodpg->{_option_file} ne $empty_string ) {
+
 
 =head2 instantiate classes
 
@@ -3651,7 +3397,7 @@ variables
 		my $outbound        = $IMMODPG_INVISIBLE . '/' . $option_file;
 		my $outbound_locked = $outbound . '_locked';
 
-		for ( my $i = 0 ; $test eq $no ; $i++ ) {
+		for ( my $i = 0; $test eq $no; $i++ ) {
 
 			# print("immodpg,_set_option, in loop \n");
 
@@ -3672,13 +3418,11 @@ variables
 			}    # if
 		}    # for
 
-	}
-	elsif ( $immodpg->{_is_option_changed} eq $no ) {
+	} elsif ( $immodpg->{_is_option_changed} eq $no ) {
 
 		# NADA
 
-	}
-	else {
+	} else {
 		print("immodpg, _set_option, unexpected answer\n");
 	}
 	return ();
@@ -3701,17 +3445,15 @@ sub _updateVbot {
 	my ($self) = @_;
 
 	if (    looks_like_number( $immodpg->{_Vbot_current} )
-		and looks_like_number( $immodpg->{_Vbot_prior} )
-		&& $immodpg->{_Vbot_current} != $immodpg->{_Vbot_prior} )
-	{
+		and looks_like_number( $immodpg->{_Vbot_prior} ) && $immodpg->{_Vbot_current} != $immodpg->{_Vbot_prior} ) {
 
 		# CASE Vbot has changed
 		$immodpg->{_isVbot_changed_in_gui} = $yes;
 		$immodpg->{_Vbot_prior}            = $immodpg->{_Vbot_current};
 
-	 # print("immodpg, _updateVbot, has changed\n");
-	 # print("1. immodpg,_updateVbot,Vbot_current=$immodpg->{_Vbot_current}\n");
-	 # print("1. immodpg,_updateVbot,Vbot_prior=$immodpg->{_Vbot_prior}\n");
+		# print("immodpg, _updateVbot, has changed\n");
+		# print("1. immodpg,_updateVbot,Vbot_current=$immodpg->{_Vbot_current}\n");
+		# print("1. immodpg,_updateVbot,Vbot_prior=$immodpg->{_Vbot_prior}\n");
 
 		_set_control( 'Vbot', $immodpg->{_Vbot_current} );
 		$immodpg->{_Vbot_current} = _get_control('Vbot');
@@ -3720,19 +3462,17 @@ sub _updateVbot {
 
 		return ();
 
-	}
-	elsif ( $immodpg->{_Vbot_current} == $immodpg->{_Vbot_prior} ) {
+	} elsif ( $immodpg->{_Vbot_current} == $immodpg->{_Vbot_prior} ) {
 
 		# CASE Vbot is unchanged
 		# print("immodpg, _updateVbot, unchanged\n");
 		$immodpg->{_isVbot_changed_in_gui} = $no;
 
-	 # print("2. immodpg,_updateVbot,Vbot_current=$immodpg->{_Vbot_current}\n");
-	 # print("2. immodpg,_updateVbot,Vbot_prior=$immodpg->{_Vbot_prior}\n");
+		# print("2. immodpg,_updateVbot,Vbot_current=$immodpg->{_Vbot_current}\n");
+		# print("2. immodpg,_updateVbot,Vbot_prior=$immodpg->{_Vbot_prior}\n");
 		return ();
 
-	}
-	else {
+	} else {
 		print("immodpg, _updateVbot, unexpected\n");
 		return ();
 	}
@@ -3751,56 +3491,45 @@ sub _updateVbot_upper_layer {
 
 	my ($self) = @_;
 
-#	print("mmodpg, _updateVbot_upper_layer, Vbot_upper_layer_current=..$immodpg->{_Vbot_upper_layer_current}..\n");
+	#	print("mmodpg, _updateVbot_upper_layer, Vbot_upper_layer_current=..$immodpg->{_Vbot_upper_layer_current}..\n");
 	if (   looks_like_number( $immodpg->{_Vbot_upper_layer_current} )
 		&& $immodpg->{_layer_current} > 0
-		&& $immodpg->{_Vbot_upper_layer_current} !=
-		$immodpg->{_Vbot_upper_layer_prior} )
-	{
+		&& $immodpg->{_Vbot_upper_layer_current} != $immodpg->{_Vbot_upper_layer_prior} ) {
 
 		# CASE Vbot_upper_layer changed
 		$immodpg->{_isVbot_upper_layer_changed_in_gui} = $yes;
-		$immodpg->{_Vbot_upper_layer_prior} =
-		  $immodpg->{_Vbot_upper_layer_current};
+		$immodpg->{_Vbot_upper_layer_prior}            = $immodpg->{_Vbot_upper_layer_current};
 
-# print("immodpg, _updateVbot_upper_layer, updated to $immodpg->{_Vbot_upper_layer_current}\n");
-# print("immodpg,_updateVbot_upper_layer,Vbot_upper_layer_current=$immodpg->{_Vbot_upper_layer_current}\n");
-# print("immodpg,_updateVbot_upper_layer,Vbot_upper_layer_prior=$immodpg->{_Vbot_upper_layer_prior}\n");
-		_set_control( 'Vbot_upper_layer',
-			$immodpg->{_Vbot_upper_layer_current} );
-		$immodpg->{_Vbot_upper_layer_current} =
-		  _get_control('Vbot_upper_layer');
+		# print("immodpg, _updateVbot_upper_layer, updated to $immodpg->{_Vbot_upper_layer_current}\n");
+		# print("immodpg,_updateVbot_upper_layer,Vbot_upper_layer_current=$immodpg->{_Vbot_upper_layer_current}\n");
+		# print("immodpg,_updateVbot_upper_layer,Vbot_upper_layer_prior=$immodpg->{_Vbot_upper_layer_prior}\n");
+		_set_control( 'Vbot_upper_layer', $immodpg->{_Vbot_upper_layer_current} );
+		$immodpg->{_Vbot_upper_layer_current} = _get_control('Vbot_upper_layer');
 
 		_setVp_dz( 'Vbot_upper_layer', $immodpg->{_Vbot_upper_layer_current} );
 		return ();
 
-	}
-	elsif ( looks_like_number( $immodpg->{_Vbot_upper_layer_current} )
-		&& $immodpg->{_Vbot_upper_layer_current} ==
-		$immodpg->{_Vbot_upper_layer_prior} )
-	{
+	} elsif ( looks_like_number( $immodpg->{_Vbot_upper_layer_current} )
+		&& $immodpg->{_Vbot_upper_layer_current} == $immodpg->{_Vbot_upper_layer_prior} ) {
 
 		# CASE Vbot_upper_layer is unchanged
 		# print("immodpg, _updateVbot_upper_layer, unchanged\n");
 		$immodpg->{_isVbot_upper_layer_changed_in_gui} = $no;
 
-# print("immodpg,_updateVbot_upper_layer,Vbot_upper_layer_prior=$immodpg->{_Vbot_upper_layer_prior}\n");
+		# print("immodpg,_updateVbot_upper_layer,Vbot_upper_layer_prior=$immodpg->{_Vbot_upper_layer_prior}\n");
 		return ();
 
-	}
-	elsif ( not( looks_like_number( $immodpg->{_Vbot_upper_layer_current} ) ) )
-	{
+	} elsif ( not( looks_like_number( $immodpg->{_Vbot_upper_layer_current} ) ) ) {
 
-# CASE Vbot_upper_layer is unchanged
-#		print("immodpg, _updateVbot_upper_layer, no value in Vbot_upper_layer NADA\n");
-# print("immodpg,_updateVbot_upper_layer,Vbot_upper_layer_prior=$immodpg->{_Vbot_upper_layer_prior}\n");
+		# CASE Vbot_upper_layer is unchanged
+		#		print("immodpg, _updateVbot_upper_layer, no value in Vbot_upper_layer NADA\n");
+		# print("immodpg,_updateVbot_upper_layer,Vbot_upper_layer_prior=$immodpg->{_Vbot_upper_layer_prior}\n");
 		return ();
 
-	}
-	else {
+	} else {
 		print("immodpg, _updateVbot_upper_layer, unexpected\n");
 
-#		print("immodpg,_updateVbot_upper_layer,Vbot_upper_layer_current=$immodpg->{_Vbot_upper_layer_current}\n");
+		#		print("immodpg,_updateVbot_upper_layer,Vbot_upper_layer_current=$immodpg->{_Vbot_upper_layer_current}\n");
 		return ();
 	}
 }
@@ -3818,32 +3547,29 @@ sub _updateVincrement {
 	my ($self) = @_;
 
 	if ( looks_like_number( $immodpg->{_Vincrement_current} )
-		&& $immodpg->{_Vincrement_current} != $immodpg->{_Vincrement_prior} )
-	{
+		&& $immodpg->{_Vincrement_current} != $immodpg->{_Vincrement_prior} ) {
 
 		# CASE Vincrement changed
-		$immodpg->{_Vincrement_current} = $immodpg->{_Vincrement_current};
+		$immodpg->{_Vincrement_current}          = $immodpg->{_Vincrement_current};
 		$immodpg->{_isVincrement_changed_in_gui} = $yes;
 
-# print("immodpg, _updateVincrement, updated to $immodpg->{_Vincrement_current}\n");
+		# print("immodpg, _updateVincrement, updated to $immodpg->{_Vincrement_current}\n");
 
-#		print("immodpg,_updateVincrement,Vincrement_current=$immodpg->{_Vincrement_current}\n");
-#		print("immodpg,_updateVincrement,Vincrement_prior=$immodpg->{_Vincrement_prior}\n");
+		#		print("immodpg,_updateVincrement,Vincrement_current=$immodpg->{_Vincrement_current}\n");
+		#		print("immodpg,_updateVincrement,Vincrement_prior=$immodpg->{_Vincrement_prior}\n");
 		return ();
 
-	}
-	elsif ( $immodpg->{_Vincrement_current} == $immodpg->{_Vincrement_prior} ) {
+	} elsif ( $immodpg->{_Vincrement_current} == $immodpg->{_Vincrement_prior} ) {
 
 		# CASE Vincrement is unchanged
 		# print("immodpg, _updateVincrement, unchanged\n");
 		$immodpg->{_isVincrement_changed_in_gui} = $no;
 
-# print("immodpg,_updateVincrement,Vincrement_current=$immodpg->{_Vincrement_current}\n");
-# print("immodpg,_updateVincrement,Vincrement_prior=$immodpg->{_Vincrement_prior}\n");
+		# print("immodpg,_updateVincrement,Vincrement_current=$immodpg->{_Vincrement_current}\n");
+		# print("immodpg,_updateVincrement,Vincrement_prior=$immodpg->{_Vincrement_prior}\n");
 		return ();
 
-	}
-	else {
+	} else {
 		print("immodpg, _updateVincrement, unexpected\n");
 		return ();
 	}
@@ -3864,16 +3590,15 @@ sub _updateVtop {
 	my ($self) = @_;
 
 	if ( looks_like_number( $immodpg->{_Vtop_current} )
-		&& $immodpg->{_Vtop_current} != $immodpg->{_Vtop_prior} )
-	{
+		&& $immodpg->{_Vtop_current} != $immodpg->{_Vtop_prior} ) {
 
 		# CASE Vtop changed
 		$immodpg->{_isVtop_changed_in_gui} = $yes;
 		$immodpg->{_Vtop_prior}            = $immodpg->{_Vtop_current};
 
-	   #		print("immodpg, _updateVtop, updated to $immodpg->{_Vtop_current}\n");
-	   #		print("immodpg,_updateVtop,Vtop_current=$immodpg->{_Vtop_current}\n");
-	   #		print("immodpg,_updateVtop,Vtop_prior=$immodpg->{_Vtop_prior}\n");
+		#		print("immodpg, _updateVtop, updated to $immodpg->{_Vtop_current}\n");
+		#		print("immodpg,_updateVtop,Vtop_current=$immodpg->{_Vtop_current}\n");
+		#		print("immodpg,_updateVtop,Vtop_prior=$immodpg->{_Vtop_prior}\n");
 
 		_set_control( 'Vtop', $immodpg->{_Vtop_current} );
 		$immodpg->{_Vtop_current} = _get_control('Vtop');
@@ -3881,19 +3606,17 @@ sub _updateVtop {
 
 		return ();
 
-	}
-	elsif ( $immodpg->{_Vtop_current} == $immodpg->{_Vtop_prior} ) {
+	} elsif ( $immodpg->{_Vtop_current} == $immodpg->{_Vtop_prior} ) {
 
 		# CASE Vtop is unchanged
 		#		print("immodpg, _updateVtop, unchanged\n");
 		$immodpg->{_isVtop_changed_in_gui} = $no;
 
-	   #		print("immodpg,_updateVtop,Vtop_current=$immodpg->{_Vtop_current}\n");
-	   #		print("immodpg,_updateVtop,Vtop_prior=$immodpg->{_Vtop_prior}\n");
+		#		print("immodpg,_updateVtop,Vtop_current=$immodpg->{_Vtop_current}\n");
+		#		print("immodpg,_updateVtop,Vtop_prior=$immodpg->{_Vtop_prior}\n");
 		return ();
 
-	}
-	else {
+	} else {
 		print("immodpg, _updateVtop, unexpected\n");
 		return ();
 	}
@@ -3914,40 +3637,31 @@ sub _updateVtop_lower_layer {
 	my ($self) = @_;
 
 	if ( looks_like_number( $immodpg->{_Vtop_lower_layer_current} )
-		&& $immodpg->{_Vtop_lower_layer_current} !=
-		$immodpg->{_Vtop_lower_layer_prior} )
-	{
+		&& $immodpg->{_Vtop_lower_layer_current} != $immodpg->{_Vtop_lower_layer_prior} ) {
 
-# CASE Vtop changed
-#		print("immodpg, _updateVtop_lower_layer, Vcurrent=$immodpg->{_Vtop_lower_layer_current}\n");
+		# CASE Vtop changed
+		#		print("immodpg, _updateVtop_lower_layer, Vcurrent=$immodpg->{_Vtop_lower_layer_current}\n");
 		$immodpg->{_isVtop_lower_layer_changed_in_gui} = $yes;
-		$immodpg->{_Vtop_lower_layer_prior} =
-		  $immodpg->{_Vtop_lower_layer_current};
+		$immodpg->{_Vtop_lower_layer_prior}            = $immodpg->{_Vtop_lower_layer_current};
 
 		#		print("immodpg, _updateVtop_lower_layer, changed\n");
-		_set_control( 'Vtop_lower_layer',
-			$immodpg->{_Vtop_lower_layer_current} );
-		$immodpg->{_Vtop_lower_layer_current} =
-		  _get_control('Vtop_lower_layer');
+		_set_control( 'Vtop_lower_layer', $immodpg->{_Vtop_lower_layer_current} );
+		$immodpg->{_Vtop_lower_layer_current} = _get_control('Vtop_lower_layer');
 
 		_setVp_dz( 'Vtop_lower_layer', $immodpg->{_Vtop_lower_layer_current} );
 
 		return ();
 
-	}
-	elsif ( $immodpg->{_Vtop_lower_layer_current} ==
-		$immodpg->{_Vtop_lower_layer_prior} )
-	{
+	} elsif ( $immodpg->{_Vtop_lower_layer_current} == $immodpg->{_Vtop_lower_layer_prior} ) {
 
-# CASE Vtop_lower_layer is unchanged
-#		print("immodpg, _updateVtop_lower_layer, unchanged\n");
-#		print("immodpg, _updateVtop_lower_layer, Vcurrent=$immodpg->{_Vtop_lower_layer_current}\n");
+		# CASE Vtop_lower_layer is unchanged
+		#		print("immodpg, _updateVtop_lower_layer, unchanged\n");
+		#		print("immodpg, _updateVtop_lower_layer, Vcurrent=$immodpg->{_Vtop_lower_layer_current}\n");
 		$immodpg->{_isVtop_lower_layer_changed_in_gui} = $no;
 
 		return ();
 
-	}
-	else {
+	} else {
 		print("immodpg, _updateVtop_lower_layer, unexpected\n");
 		return ();
 	}
@@ -3966,36 +3680,30 @@ sub _updateVbotNtop_factor {
 	my ($self) = @_;
 
 	if ( looks_like_number( $immodpg->{_VbotNtop_factor_current} )
-		&& $immodpg->{_VbotNtop_factor_current} !=
-		$immodpg->{_VbotNtop_factor_prior} )
-	{
+		&& $immodpg->{_VbotNtop_factor_current} != $immodpg->{_VbotNtop_factor_prior} ) {
 
-# CASE VbotNtop_factor changed
-#			$immodpg->{_VbotNtop_factor_current}          = $immodpg->{_VbotNtop_factor_current};
+		# CASE VbotNtop_factor changed
+		#			$immodpg->{_VbotNtop_factor_current}          = $immodpg->{_VbotNtop_factor_current};
 		_set_control( 'VbotNtop_factor', $immodpg->{_VbotNtop_factor_current} );
-		$immodpg->{_VbotNtop_factor_current} = _get_control('VbotNtop_factor');
+		$immodpg->{_VbotNtop_factor_current}          = _get_control('VbotNtop_factor');
 		$immodpg->{_isVbotNtop_factor_changed_in_gui} = $yes;
 
-#			print("immodpg, _updateVbotNtop_factor, updated to $immodpg->{_VbotNtop_factor_current}\n");
-#			print("immodpg,_updateVbotNtop_factor,VbotNtop_factor_current=$immodpg->{_VbotNtop_factor_current}\n");
-#			print("immodpg,_updateVbotNtop_factor,VbotNtop_factor_prior=$immodpg->{_VbotNtop_factor_prior}\n");
+		#			print("immodpg, _updateVbotNtop_factor, updated to $immodpg->{_VbotNtop_factor_current}\n");
+		#			print("immodpg,_updateVbotNtop_factor,VbotNtop_factor_current=$immodpg->{_VbotNtop_factor_current}\n");
+		#			print("immodpg,_updateVbotNtop_factor,VbotNtop_factor_prior=$immodpg->{_VbotNtop_factor_prior}\n");
 		return ();
 
-	}
-	elsif ( $immodpg->{_VbotNtop_factor_current} ==
-		$immodpg->{_VbotNtop_factor_prior} )
-	{
+	} elsif ( $immodpg->{_VbotNtop_factor_current} == $immodpg->{_VbotNtop_factor_prior} ) {
 
 		# CASE VbotNtop_factor is unchanged
 		# print("immodpg, _updateVbotNtop_factor, unchanged\n");
 		$immodpg->{_isVbotNtop_factor_changed_in_gui} = $no;
 
-# print("immodpg,_updateVbotNtop_factor,VbotNtop_factor_current=$immodpg->{_VbotNtop_factor_current}\n");
-# print("immodpg,_updateVbotNtop_factor,VbotNtop_factor_prior=$immodpg->{_VbotNtop_factor_prior}\n");
+		# print("immodpg,_updateVbotNtop_factor,VbotNtop_factor_current=$immodpg->{_VbotNtop_factor_current}\n");
+		# print("immodpg,_updateVbotNtop_factor,VbotNtop_factor_prior=$immodpg->{_VbotNtop_factor_prior}\n");
 		return ();
 
-	}
-	else {
+	} else {
 		print("immodpg, _updateVbotNtop_factor, unexpected\n");
 		return ();
 	}
@@ -4018,8 +3726,7 @@ sub _updateVbotNtop_multiply {
 	if (   looks_like_number( $immodpg->{_Vbot_current} )
 		&& looks_like_number( $immodpg->{_Vtop_current} )
 		&& looks_like_number( $immodpg->{_Vbot_multiplied} )
-		&& looks_like_number( $immodpg->{_Vtop_multiplied} ) )
-	{
+		&& looks_like_number( $immodpg->{_Vtop_multiplied} ) ) {
 
 		$immodpg->{_Vbot_prior}   = $immodpg->{_Vbot_current};
 		$immodpg->{_Vbot_current} = $immodpg->{_Vbot_multiplied};
@@ -4042,17 +3749,16 @@ sub _updateVbotNtop_multiply {
 		$immodpg->{_VbotEntry}->delete( 0, 'end' );
 		$immodpg->{_VbotEntry}->insert( 0, $Vbot_current );
 
-# print("immodpg, _updateVbotNtop_multiply, updated to $immodpg->{_VbotNtop_multiply_current}\n");
-# print("immodpg,_updateVbotNtop_multiply,VbotNtop_multiply_current=$immodpg->{_VbotNtop_multiply_current}\n");
-# print("immodpg,_updateVbotNtop_multiply,VbotNtop_multiply_prior=$immodpg->{_VbotNtop_multiply_prior}\n");
-#			_checkVbot(); #todo
+		# print("immodpg, _updateVbotNtop_multiply, updated to $immodpg->{_VbotNtop_multiply_current}\n");
+		# print("immodpg,_updateVbotNtop_multiply,VbotNtop_multiply_current=$immodpg->{_VbotNtop_multiply_current}\n");
+		# print("immodpg,_updateVbotNtop_multiply,VbotNtop_multiply_prior=$immodpg->{_VbotNtop_multiply_prior}\n");
+		#			_checkVbot(); #todo
 		_updateVbot();
 
 		#			_checkVtop(); #todo
 		_updateVtop();
 
-	}
-	else {
+	} else {
 		print("immodpg, _updateVbotNtop_factor, unexpected\n");
 		return ();
 	}
@@ -4071,31 +3777,28 @@ sub _update_clip {
 	my ($self) = @_;
 
 	if ( looks_like_number( $immodpg->{_clip4plot_current} )
-		&& $immodpg->{_clip4plot_current} != $immodpg->{_clip4plot_prior} )
-	{
+		&& $immodpg->{_clip4plot_current} != $immodpg->{_clip4plot_prior} ) {
 
 		# CASE clip changed
 		$immodpg->{_clip4plot_current}      = $immodpg->{_clip4plot_current};
 		$immodpg->{_is_clip_changed_in_gui} = $yes;
 
-# print("immodpg, _update_clip, updated to $immodpg->{_clip4plot_current}\n");
-# print("immodpg,_update_clip,clip4plot_current=$immodpg->{_clip4plot_current}\n");
-# print("immodpg,_update_clip,clip4plot_prior=$immodpg->{_clip4plot_prior}\n");
+		# print("immodpg, _update_clip, updated to $immodpg->{_clip4plot_current}\n");
+		# print("immodpg,_update_clip,clip4plot_current=$immodpg->{_clip4plot_current}\n");
+		# print("immodpg,_update_clip,clip4plot_prior=$immodpg->{_clip4plot_prior}\n");
 		return ();
 
-	}
-	elsif ( $immodpg->{_clip4plot_current} == $immodpg->{_clip4plot_prior} ) {
+	} elsif ( $immodpg->{_clip4plot_current} == $immodpg->{_clip4plot_prior} ) {
 
 		# CASE clip4plot  is unchanged
 		# print("immodpg, _update_clip, unchanged\n");
 		$immodpg->{_is_clip_changed_in_gui} = $no;
 
-# print("immodpg,_update_clip,clip4plot_current=$immodpg->{_clip4plot_current}\n");
-# print("immodpg,_update_clip,clip4plot_prior=$immodpg->{_clip4plot_prior}\n");
+		# print("immodpg,_update_clip,clip4plot_current=$immodpg->{_clip4plot_current}\n");
+		# print("immodpg,_update_clip,clip4plot_prior=$immodpg->{_clip4plot_prior}\n");
 		return ();
 
-	}
-	else {
+	} else {
 		print("immodpg, _update_clip, unexpected\n");
 		return ();
 	}
@@ -4116,15 +3819,14 @@ sub _update_thickness_m {
 	my ($self) = @_;
 
 	if ( looks_like_number( $immodpg->{_thickness_m_current} )
-		&& $immodpg->{_thickness_m_current} != $immodpg->{_thickness_m_prior} )
-	{
+		&& $immodpg->{_thickness_m_current} != $immodpg->{_thickness_m_prior} ) {
 
 		# CASE _thickness_m changed
 		$immodpg->{_is_thickness_m_changed_in_gui} = $yes;
 
-# print("immodpg, _update_thickness_m, updated to $immodpg->{_thickness_m_current}\n");
-#	print("immodpg,_update_thickness_m,_thickness_m_current=$immodpg->{_thickness_m_current}\n");
-# print("immodpg,_update_thickness_m,_thickness_m_prior=$immodpg->{_thickness_m_prior}\n");
+		# print("immodpg, _update_thickness_m, updated to $immodpg->{_thickness_m_current}\n");
+		#	print("immodpg,_update_thickness_m,_thickness_m_current=$immodpg->{_thickness_m_current}\n");
+		# print("immodpg,_update_thickness_m,_thickness_m_prior=$immodpg->{_thickness_m_prior}\n");
 
 		_set_control( 'thickness_m', $immodpg->{_thickness_m_current} );
 		$immodpg->{_thickness_m_current} = _get_control('thickness_m');
@@ -4132,20 +3834,17 @@ sub _update_thickness_m {
 
 		return ();
 
-	}
-	elsif ( $immodpg->{_thickness_m_current} == $immodpg->{_thickness_m_prior} )
-	{
+	} elsif ( $immodpg->{_thickness_m_current} == $immodpg->{_thickness_m_prior} ) {
 
 		# CASE _thickness_m is unchanged
 		# print("immodpg, _update_thickness_m, unchanged\n");
 		$immodpg->{_is_thickness_m_changed_in_gui} = $no;
 
-# print("immodpg,_update_thickness_m,_thickness_m_current=$immodpg->{_thickness_m_current}\n");
-# print("immodpg,_update_thickness_m,_thickness_m_prior=$immodpg->{_thickness_m_prior}\n");
+		# print("immodpg,_update_thickness_m,_thickness_m_current=$immodpg->{_thickness_m_current}\n");
+		# print("immodpg,_update_thickness_m,_thickness_m_prior=$immodpg->{_thickness_m_prior}\n");
 		return ();
 
-	}
-	else {
+	} else {
 		print("immodpg, _update_thickness_m, unexpected\n");
 		return ();
 	}
@@ -4164,35 +3863,28 @@ sub _update_thickness_increment_m_in_gui {
 	my ($self) = @_;
 
 	if ( looks_like_number( $immodpg->{_thickness_increment_m_current} )
-		&& $immodpg->{_thickness_increment_m_current} !=
-		$immodpg->{_thickness_increment_m_prior} )
-	{
+		&& $immodpg->{_thickness_increment_m_current} != $immodpg->{_thickness_increment_m_prior} ) {
 
 		# CASE thickness changed
-		$immodpg->{_thickness_increment_m_prior} =
-		  $immodpg->{_thickness_increment_m_current};
-		$immodpg->{_is_layer_changed_in_gui} = $yes;
+		$immodpg->{_thickness_increment_m_prior} = $immodpg->{_thickness_increment_m_current};
+		$immodpg->{_is_layer_changed_in_gui}     = $yes;
 
-# print("immodpg, _update_thickness_increment_m_in_gui, updated to $immodpg->{_thickness_increment_m_current}\n");
-# print("immodpg,_update_thickness_increment_m_in_gui,thickness_increment_m_current=$immodpg->{_thickness_increment_m_current}\n");
-# print("immodpg,_update_thickness_increment_m_in_gui,thickness_increment_m_prior=$immodpg->{_thickness_increment_m_prior}\n");
+		# print("immodpg, _update_thickness_increment_m_in_gui, updated to $immodpg->{_thickness_increment_m_current}\n");
+		# print("immodpg,_update_thickness_increment_m_in_gui,thickness_increment_m_current=$immodpg->{_thickness_increment_m_current}\n");
+		# print("immodpg,_update_thickness_increment_m_in_gui,thickness_increment_m_prior=$immodpg->{_thickness_increment_m_prior}\n");
 		return ();
 
-	}
-	elsif ( $immodpg->{_thickness_increment_m_current} ==
-		$immodpg->{_thickness_increment_m_prior} )
-	{
+	} elsif ( $immodpg->{_thickness_increment_m_current} == $immodpg->{_thickness_increment_m_prior} ) {
 
 		# CASE thickness_increment_m is unchanged
 		# print("immodpg, _update_thickness_increment_m_in_gui, unchanged\n");
 		$immodpg->{_is_layer_changed_in_gui} = $no;
 
-# print("immodpg,_update_thickness_increment_m_in_gui,thickness_increment_m_current=$immodpg->{_thickness_increment_m_current}\n");
-# print("immodpg,_update_thickness_increment_m_in_gui,thickness_increment_m_prior=$immodpg->{_thickness_increment_m_prior}\n");
+		# print("immodpg,_update_thickness_increment_m_in_gui,thickness_increment_m_current=$immodpg->{_thickness_increment_m_current}\n");
+		# print("immodpg,_update_thickness_increment_m_in_gui,thickness_increment_m_prior=$immodpg->{_thickness_increment_m_prior}\n");
 		return ();
 
-	}
-	else {
+	} else {
 		print("immodpg, _update_thickness_increment_m_in_gui, unexpected\n");
 		return ();
 	}
@@ -4212,14 +3904,9 @@ sub _update_layer_in_gui {
 
 	my ($self) = @_;
 
-	if (
-		looks_like_number( $immodpg->{_layer_current} )
-		and length(
-			$immodpg->{_layer_prior} and length( $immodpg->{_layerEntry} )
-		)
-		and ( $immodpg->{_layer_current} != $immodpg->{_layer_prior} )
-	  )
-	{
+	if (    looks_like_number( $immodpg->{_layer_current} )
+		and length( $immodpg->{_layer_prior} and length( $immodpg->{_layerEntry} ) )
+		and ( $immodpg->{_layer_current} != $immodpg->{_layer_prior} ) ) {
 
 		# CASE layer changed
 		$immodpg->{_is_layer_changed_in_gui} = $yes;
@@ -4231,15 +3918,13 @@ sub _update_layer_in_gui {
 
 		$immodpg->{_layer_prior} = $new_layer_prior;
 
-#		print("immodpg, _update_layer_in_gui, prior=$immodpg->{_layer_prior}current= $immodpg->{_layer_current}\n");
+		#		print("immodpg, _update_layer_in_gui, prior=$immodpg->{_layer_prior}current= $immodpg->{_layer_current}\n");
 
 		return ();
 
-	}
-	elsif ( looks_like_number( $immodpg->{_layer_current} )
+	} elsif ( looks_like_number( $immodpg->{_layer_current} )
 		and looks_like_number( $immodpg->{_layer_prior} )
-		and ( $immodpg->{_layer_current} == $immodpg->{_layer_prior} ) )
-	{
+		and ( $immodpg->{_layer_current} == $immodpg->{_layer_prior} ) ) {
 
 		# CASE layer has not changed
 		#		print("immodpg, _update_layer_in_gui, unchanged\n");
@@ -4248,11 +3933,10 @@ sub _update_layer_in_gui {
 		$immodpg->{_layerEntry}->delete( 0, 'end' );
 		$immodpg->{_layerEntry}->insert( 0, $immodpg->{_layer_current} );
 
-#		print("immodpg,_update_layer_in_gui, prior=$immodpg->{_layer_prior},current=$immodpg->{_layer_current}\n");
+		#		print("immodpg,_update_layer_in_gui, prior=$immodpg->{_layer_prior},current=$immodpg->{_layer_current}\n");
 		return ();
 
-	}
-	else {
+	} else {
 		print("immodpg, _update_layer_in_gui, unexpected\n");
 		return ();
 	}
@@ -4272,25 +3956,21 @@ sub _update_lower_layer_in_gui {
 	my ($self) = @_;
 
 	if (   $immodpg->{_is_layer_changed_in_gui} eq $yes
-		&& $immodpg->{_layer_current} >= 1 )
-	{
+		&& $immodpg->{_layer_current} >= 1 ) {
 
 		# CASE layer changed
 		my $lower_layer   = $immodpg->{_layer_current} + 1;
-		my $layer_current = ( $immodpg->{_lower_layerLabel} )
-		  ->configure( -textvariable => \$lower_layer, );
+		my $layer_current = ( $immodpg->{_lower_layerLabel} )->configure( -textvariable => \$lower_layer, );
 
 		return ();
 
-	}
-	elsif ( $immodpg->{_is_layer_changed_in_gui} eq $no ) {
+	} elsif ( $immodpg->{_is_layer_changed_in_gui} eq $no ) {
 
 		# CASE layer is unchanged
 		#		print("immodpg, _update_lower_layer_in_gui, unchanged\n");
 		return ();
 
-	}
-	else {
+	} else {
 		print("immodpg, _update_lower_layer_in_gui, unexpected\n");
 		return ();
 	}
@@ -4309,8 +3989,7 @@ sub _update_upper_layer_in_gui {
 	my ($self) = @_;
 
 	if (   $immodpg->{_is_layer_changed_in_gui} eq $yes
-		&& $immodpg->{_layer_current} >= 1 )
-	{
+		&& $immodpg->{_layer_current} >= 1 ) {
 
 		# CASE layer changed
 		my $upper_layer = $immodpg->{_layer_current} - 1;
@@ -4320,19 +3999,16 @@ sub _update_upper_layer_in_gui {
 			# control output
 			$upper_layer = $empty_string;
 		}
-		my $layer_current = ( $immodpg->{_upper_layerLabel} )
-		  ->configure( -textvariable => \$upper_layer, );
+		my $layer_current = ( $immodpg->{_upper_layerLabel} )->configure( -textvariable => \$upper_layer, );
 		return ();
 
-	}
-	elsif ( $immodpg->{_is_layer_changed_in_gui} eq $no ) {
+	} elsif ( $immodpg->{_is_layer_changed_in_gui} eq $no ) {
 
 		# CASE layer is unchanged
 		#		print("immodpg, _update_upper_layer_in_gui, unchanged\n");
 		return ();
 
-	}
-	else {
+	} else {
 		return ();
 		print("immodpg, _update_upper_layer_in_gui, unexpected\n");
 	}
@@ -4350,13 +4026,11 @@ sub _writeVincrement {
 	if ( $immodpg->{_isVincrement_changed_in_gui} eq $yes ) {
 		_write_config();
 
-	}
-	elsif ( $immodpg->{_isVincrement_changed_in_gui} eq $no ) {
+	} elsif ( $immodpg->{_isVincrement_changed_in_gui} eq $no ) {
 
 		#NADA
 
-	}
-	else {
+	} else {
 		print("immodpg, _writeVincrement, unexpected\n");
 	}
 	return ();
@@ -4374,13 +4048,11 @@ sub _writeVbotNtop_factor {
 	if ( $immodpg->{_isVbotNtop_factor_changed_in_gui} eq $yes ) {
 		_write_config();
 
-	}
-	elsif ( $immodpg->{_isVbotNtop_factor_changed_in_gui} eq $no ) {
+	} elsif ( $immodpg->{_isVbotNtop_factor_changed_in_gui} eq $no ) {
 
 		#NADA
 
-	}
-	else {
+	} else {
 		print("immodpg, _writeVbotNtop_factor, unexpected\n");
 	}
 	return ();
@@ -4398,13 +4070,11 @@ sub _write_clip {
 	if ( $immodpg->{_is_clip_changed_in_gui} eq $yes ) {
 		_write_config();
 
-	}
-	elsif ( $immodpg->{_is_clip_changed_in_gui} eq $no ) {
+	} elsif ( $immodpg->{_is_clip_changed_in_gui} eq $no ) {
 
 		#NADA
 
-	}
-	else {
+	} else {
 		print("immodpg, _write_clip, unexpected\n");
 	}
 	return ();
@@ -4422,13 +4092,11 @@ sub _write_thickness_increment_m {
 	if ( $immodpg->{_is_layer_changed_in_gui} eq $yes ) {
 		_write_config();
 
-	}
-	elsif ( $immodpg->{_is_layer_changed_in_gui} eq $no ) {
+	} elsif ( $immodpg->{_is_layer_changed_in_gui} eq $no ) {
 
 		#NADA
 
-	}
-	else {
+	} else {
 		print("immodpg, _write_thickness_increment_m, unexpected\n");
 	}
 	return ();
@@ -4456,18 +4124,17 @@ sub _write_config {
 
 =cut	
 
-	my $variables     = $immodpg_spec->variables();
-	my $format_clip   = $var_immodpg->{_config_file_format_clip};
-	my $format_string = $var_immodpg->{_config_file_format};
-	my $format_real   = $var_immodpg->{_config_file_format_real};
-	my $format_signed_integer =
-	  $var_immodpg->{_config_file_format_signed_integer};
+	my $variables             = $immodpg_spec->variables();
+	my $format_clip           = $var_immodpg->{_config_file_format_clip};
+	my $format_string         = $var_immodpg->{_config_file_format};
+	my $format_real           = $var_immodpg->{_config_file_format_real};
+	my $format_signed_integer = $var_immodpg->{_config_file_format_signed_integer};
 
 =head2 correct errors
 
 =cut
 
-  #print("immodpg, _write_config,base_file_name:$immodpg->{_base_file_name}\n");
+	#print("immodpg, _write_config,base_file_name:$immodpg->{_base_file_name}\n");
 
 =pod
 declare private variables
@@ -4479,44 +4146,26 @@ declare private variables
 
 	open( OUT, ">$outbound" );
 
-	printf OUT $format_string . "\n", "base_file_name ", "= ",
-	  $immodpg->{_base_file_name};
-	printf OUT $format_string . "\n", "pre_digitized_XT_pairs ", "= ",
-	  $immodpg->{_pre_digitized_XT_pairs};
-	printf OUT $format_string . "\n", "data_traces ", "= ",
-	  $immodpg->{_data_traces};
-	printf OUT $format_clip . "\n", "clip ", "= ",
-	  $immodpg->{_clip4plot_current};
-	printf OUT $format_real . "\n", "min_t_s ", "= ", $immodpg->{_min_t_s};
-	printf OUT $format_real . "\n", "min_x_m ", "= ", $immodpg->{_min_x_m};
-	printf OUT $format_real . "\n", "data_x_inc_m ", "= ",
-	  $immodpg->{_data_x_inc_m};
-	printf OUT $format_real . "\n", "source_depth_m ", "= ",
-	  $immodpg->{_source_depth_m};
-	printf OUT $format_real . "\n", "receiver_depth_m ", "= ",
-	  $immodpg->{_receiver_depth_m};
-	printf OUT $format_real . "\n", "reducing_vel_mps ", "= ",
-	  $immodpg->{_reducing_vel_mps};
-	printf OUT $format_real . "\n", "plot_min_x_m ", "= ",
-	  $immodpg->{_plot_min_x_m};
-	printf OUT $format_real . "\n", "plot_max_x_m ", "= ",
-	  $immodpg->{_plot_max_x_m};
-	printf OUT $format_real . "\n", "plot_min_t_s ", "= ",
-	  $immodpg->{_plot_min_t_s};
-	printf OUT $format_real . "\n", "plot_max_t_s ", "= ",
-	  $immodpg->{_plot_max_t_s};
-	printf OUT $format_string . "\n", "previous_model ", "= ",
-	  $immodpg->{_previous_model};
-	printf OUT $format_string . "\n", "new_model ", "= ",
-	  $immodpg->{_new_model};
-	printf OUT $format_signed_integer . "\n", "starting_layer ", "= ",
-	  $immodpg->{_layer_current};
-	printf OUT $format_real . "\n", "VbotNtop_factor ", "= ",
-	  $immodpg->{_VbotNtop_factor_current};
-	printf OUT $format_real . "\n", "Vincrement_mps", "= ",
-	  $immodpg->{_Vincrement_current};
-	printf OUT $format_real . "\n", "thickness_increment_m ", "= ",
-	  $immodpg->{_thickness_increment_m_current};
+	printf OUT $format_string . "\n",         "base_file_name ",         "= ", $immodpg->{_base_file_name};
+	printf OUT $format_string . "\n",         "pre_digitized_XT_pairs ", "= ", $immodpg->{_pre_digitized_XT_pairs};
+	printf OUT $format_string . "\n",         "data_traces ",            "= ", $immodpg->{_data_traces};
+	printf OUT $format_clip . "\n",           "clip ",                   "= ", $immodpg->{_clip4plot_current};
+	printf OUT $format_real . "\n",           "min_t_s ",                "= ", $immodpg->{_min_t_s};
+	printf OUT $format_real . "\n",           "min_x_m ",                "= ", $immodpg->{_min_x_m};
+	printf OUT $format_real . "\n",           "data_x_inc_m ",           "= ", $immodpg->{_data_x_inc_m};
+	printf OUT $format_real . "\n",           "source_depth_m ",         "= ", $immodpg->{_source_depth_m};
+	printf OUT $format_real . "\n",           "receiver_depth_m ",       "= ", $immodpg->{_receiver_depth_m};
+	printf OUT $format_real . "\n",           "reducing_vel_mps ",       "= ", $immodpg->{_reducing_vel_mps};
+	printf OUT $format_real . "\n",           "plot_min_x_m ",           "= ", $immodpg->{_plot_min_x_m};
+	printf OUT $format_real . "\n",           "plot_max_x_m ",           "= ", $immodpg->{_plot_max_x_m};
+	printf OUT $format_real . "\n",           "plot_min_t_s ",           "= ", $immodpg->{_plot_min_t_s};
+	printf OUT $format_real . "\n",           "plot_max_t_s ",           "= ", $immodpg->{_plot_max_t_s};
+	printf OUT $format_string . "\n",         "previous_model ",         "= ", $immodpg->{_previous_model};
+	printf OUT $format_string . "\n",         "new_model ",              "= ", $immodpg->{_new_model};
+	printf OUT $format_signed_integer . "\n", "starting_layer ",         "= ", $immodpg->{_layer_current};
+	printf OUT $format_real . "\n",           "VbotNtop_factor ",        "= ", $immodpg->{_VbotNtop_factor_current};
+	printf OUT $format_real . "\n",           "Vincrement_mps",          "= ", $immodpg->{_Vincrement_current};
+	printf OUT $format_real . "\n", "thickness_increment_m ", "= ", $immodpg->{_thickness_increment_m_current};
 
 	close(OUT);
 
@@ -4542,15 +4191,13 @@ sub _set_simple_model_text {
 	my $format_values    = $var_immodpg->{_model_text_file_format_values};
 	my $simple_model_txt = $var_immodpg->{_simple_model_txt};
 	my $number_of_layers = _get_number_of_layers();
-
-	#    print("$simple_model_txt \n");
-
+#    print("$simple_model_txt \n");
+  
 	if (   length($variables)
 		&& length($format_title)
 		&& length($format_values)
 		&& length($simple_model_txt)
-		&& length($number_of_layers) )
-	{
+		&& length($number_of_layers) ) {
 
 =pod
 declare private variables
@@ -4564,36 +4211,31 @@ declare private variables
 		my ( $Vtop_ref, $Vbot_ref, $dz_ref ) = _getVp_ref_dz_ref();
 		@Vtop = @$Vtop_ref;
 		@Vbot = @$Vbot_ref;
-		@dz   = @$dz_ref;
-
+		@dz    = @$dz_ref;
+		
 		# print("immodpg,_getVp_ref_dz_ref; VPtop,VPbot,dz= @Vtop,@Vbot,@dz\n");
 
 		open( OUT, ">$outbound" );
-		printf OUT $format_title . "\n",
-		  "    VPtop    VPbottom    thickness(m)";
-
-		for ( my $i = 0 ; $i < $number_of_layers ; $i++ ) {
+		printf OUT $format_title . "\n", "    VPtop    VPbottom    thickness(m)";
+		
+		for (my $i=0; $i <$number_of_layers; $i++) {
 			print OUT ("     $Vtop[$i] \t$Vbot[$i]\t\t$dz[$i]\n");
 		}
 
 		close(OUT);
+#		print("immodpg,_write_simple_model_txt\n");
 
-		#		print("immodpg,_write_simple_model_txt\n");
-
-	}
-	else {
+	} else {
 		print("immodpg,_write_simple_model_txt, no output\n");
 		print("variables             = $immodpg_spec->variables()\n");
-		print(
-"format_title         = $var_immodpg->{_model_text_file_format_title}\n"
-		);
-		print(
-"format_values           = $var_immodpg->{_model_text_file_format_values}\n"
-		);
+		print("format_title         = $var_immodpg->{_model_text_file_format_title}\n");
+		print("format_values           = $var_immodpg->{_model_text_file_format_values}\n");
 		print("simple_model_txt     = $var_immodpg->{_simple_model_txt}\n");
 		print("number_of_layers     = _get_number_of_layers()\n");
 	}
 }
+
+
 
 =head2 sub get_initialVp_dz4gui
 
@@ -4610,14 +4252,12 @@ sub get_initialVp_dz4gui {
 
 		my $layer = $immodpg->{_model_layer_number};
 
-		my ( $refVPtop, $refVPbot, $ref_dz, $error_switch ) =
-		  _get_initial_model();
+		my ( $refVPtop, $refVPbot, $ref_dz, $error_switch ) = _get_initial_model();
 
 		if (    length($refVPtop)
 			and length($refVPbot)
 			and length($ref_dz)
-			and length($error_switch) )
-		{
+			and length($error_switch) ) {
 
 			my @VPtop = @$refVPtop;
 			my @VPbot = @$refVPbot;
@@ -4650,11 +4290,10 @@ sub get_initialVp_dz4gui {
 
 				@result = @V;
 
-			#				print("immodpg, get_initialVp_dz4gui: velocities are:  @V \n");
+				#				print("immodpg, get_initialVp_dz4gui: velocities are:  @V \n");
 				return ( \@result, $dz, $error_switch );
 
-			}
-			elsif ( $layer >= 1 ) {
+			} elsif ( $layer >= 1 ) {
 
 				# CASE of first of one or more layers
 				my $Vbot_upper_layer = $empty_string;
@@ -4668,24 +4307,17 @@ sub get_initialVp_dz4gui {
 				@result = @V;
 				return ( \@result, $dz, $error_switch );
 
-			}
-			else {
-				print(
-					"immodpg, get_initialVp_dz4gui, unexpected layer number \n"
-				);
+			} else {
+				print("immodpg, get_initialVp_dz4gui, unexpected layer number \n");
 				return ();
 			}
 
-		}
-		else {
-			print(
-"immodpg,get_initialVp_dz4gui, _get_initial_model gives bad values \n"
-			);
+		} else {
+			print("immodpg,get_initialVp_dz4gui, _get_initial_model gives bad values \n");
 			return ();
 		}
 
-	}
-	else {
+	} else {
 		print("immodpg,get_initialVp_dz4gui,missing layer\\n");
 		return ();
 	}
@@ -4705,28 +4337,26 @@ sub set_defaults {
 
 	my ( $CFG_h, $CFG_aref ) = $immodpg_config->get_values();
 
-	$immodpg->{_base_file_name} = $CFG_h->{immodpg}{1}{base_file_name};
-	$immodpg->{_pre_digitized_XT_pairs} =
-	  $CFG_h->{immodpg}{1}{pre_digitized_XT_pairs};
-	$immodpg->{_data_traces}      = $CFG_h->{immodpg}{1}{data_traces};
-	$immodpg->{_clip}             = $CFG_h->{immodpg}{1}{clip};
-	$immodpg->{_min_t_s}          = $CFG_h->{immodpg}{1}{min_t_s};
-	$immodpg->{_min_x_m}          = $CFG_h->{immodpg}{1}{min_x_m};
-	$immodpg->{_data_x_inc_m}     = $CFG_h->{immodpg}{1}{data_x_inc_m};
-	$immodpg->{_source_depth_m}   = $CFG_h->{immodpg}{1}{source_depth_m};
-	$immodpg->{_receiver_depth_m} = $CFG_h->{immodpg}{1}{receiver_depth_m};
-	$immodpg->{_reducing_vel_mps} = $CFG_h->{immodpg}{1}{reducing_vel_mps};
-	$immodpg->{_plot_min_x_m}     = $CFG_h->{immodpg}{1}{plot_min_x_m};
-	$immodpg->{_plot_max_x_m}     = $CFG_h->{immodpg}{1}{plot_max_x_m};
-	$immodpg->{_plot_min_t_s}     = $CFG_h->{immodpg}{1}{plot_min_t_s};
-	$immodpg->{_plot_max_t_s}     = $CFG_h->{immodpg}{1}{plot_max_t_s};
-	$immodpg->{_previous_model}   = $CFG_h->{immodpg}{1}{previous_model};
-	$immodpg->{_new_model}        = $CFG_h->{immodpg}{1}{new_model};
-	$immodpg->{_layer}            = $CFG_h->{immodpg}{1}{layer};
-	$immodpg->{_VbotNtop_factor}  = $CFG_h->{immodpg}{1}{VbotNtop_factor};
-	$immodpg->{_Vincrement}       = $CFG_h->{immodpg}{1}{Vincrement_mps};
-	$immodpg->{_thickness_increment_m} =
-	  $CFG_h->{immodpg}{1}{thickness_increment_m};
+	$immodpg->{_base_file_name}         = $CFG_h->{immodpg}{1}{base_file_name};
+	$immodpg->{_pre_digitized_XT_pairs} = $CFG_h->{immodpg}{1}{pre_digitized_XT_pairs};
+	$immodpg->{_data_traces}            = $CFG_h->{immodpg}{1}{data_traces};
+	$immodpg->{_clip}                   = $CFG_h->{immodpg}{1}{clip};
+	$immodpg->{_min_t_s}                = $CFG_h->{immodpg}{1}{min_t_s};
+	$immodpg->{_min_x_m}                = $CFG_h->{immodpg}{1}{min_x_m};
+	$immodpg->{_data_x_inc_m}           = $CFG_h->{immodpg}{1}{data_x_inc_m};
+	$immodpg->{_source_depth_m}         = $CFG_h->{immodpg}{1}{source_depth_m};
+	$immodpg->{_receiver_depth_m}       = $CFG_h->{immodpg}{1}{receiver_depth_m};
+	$immodpg->{_reducing_vel_mps}       = $CFG_h->{immodpg}{1}{reducing_vel_mps};
+	$immodpg->{_plot_min_x_m}           = $CFG_h->{immodpg}{1}{plot_min_x_m};
+	$immodpg->{_plot_max_x_m}           = $CFG_h->{immodpg}{1}{plot_max_x_m};
+	$immodpg->{_plot_min_t_s}           = $CFG_h->{immodpg}{1}{plot_min_t_s};
+	$immodpg->{_plot_max_t_s}           = $CFG_h->{immodpg}{1}{plot_max_t_s};
+	$immodpg->{_previous_model}         = $CFG_h->{immodpg}{1}{previous_model};
+	$immodpg->{_new_model}              = $CFG_h->{immodpg}{1}{new_model};
+	$immodpg->{_layer}                  = $CFG_h->{immodpg}{1}{layer};
+	$immodpg->{_VbotNtop_factor}        = $CFG_h->{immodpg}{1}{VbotNtop_factor};
+	$immodpg->{_Vincrement}             = $CFG_h->{immodpg}{1}{Vincrement_mps};
+	$immodpg->{_thickness_increment_m}  = $CFG_h->{immodpg}{1}{thickness_increment_m};
 
 	#    print("immodpg,set_defaults,data_x_inc_m=$immodpg->{_data_x_inc_m}\n");
 
@@ -4769,11 +4399,10 @@ sub set_defaults {
 
 	# default values for Vbot_upper_layer-related variables
 	$immodpg->{_Vbot_upper_layer_default} = $immodpg->{_Vbot_upper_layer};
-	$immodpg->{_Vbot_upper_layer_current} =
-	  $immodpg->{_Vbot_upper_layer_default};
-	$immodpg->{_Vbot_upper_layer_prior} = $immodpg->{_Vbot_upper_layer_default};
-	$immodpg->{_inVbot_upper_layer}     = $no;
-	$immodpg->{_outsideVbot_upper_layer} = $yes;
+	$immodpg->{_Vbot_upper_layer_current} = $immodpg->{_Vbot_upper_layer_default};
+	$immodpg->{_Vbot_upper_layer_prior}   = $immodpg->{_Vbot_upper_layer_default};
+	$immodpg->{_inVbot_upper_layer}       = $no;
+	$immodpg->{_outsideVbot_upper_layer}  = $yes;
 
 	# default values for Vincrement-related variables
 	$immodpg->{_Vincrement_default} = $immodpg->{_Vincrement};
@@ -4791,11 +4420,10 @@ sub set_defaults {
 
 	# default values for Vtop_lower_layer-related variables
 	$immodpg->{_Vtop_lower_layer_default} = $immodpg->{_Vtop_lower_layer};
-	$immodpg->{_Vtop_lower_layer_current} =
-	  $immodpg->{_Vtop_lower_layer_default};
-	$immodpg->{_Vtop_lower_layer_prior} = $immodpg->{_Vtop_lower_layer_default};
-	$immodpg->{_inVtop_lower_layer}     = $no;
-	$immodpg->{_outsideVtop_lower_layer} = $yes;
+	$immodpg->{_Vtop_lower_layer_current} = $immodpg->{_Vtop_lower_layer_default};
+	$immodpg->{_Vtop_lower_layer_prior}   = $immodpg->{_Vtop_lower_layer_default};
+	$immodpg->{_inVtop_lower_layer}       = $no;
+	$immodpg->{_outsideVtop_lower_layer}  = $yes;
 
 	# default values for VbotNtop_factor-related variables
 	$immodpg->{_VbotNtop_factor_default} = $immodpg->{_VbotNtop_factor};
@@ -4827,12 +4455,9 @@ sub set_defaults {
 	$immodpg->{_outside_thickness_m} = $yes;
 
 	# default values for thickness_increment_m-related variables
-	$immodpg->{_thickness_increment_m_default} =
-	  $immodpg->{_thickness_increment_m};
-	$immodpg->{_thickness_increment_m_current} =
-	  $immodpg->{_thickness_increment_m_default};
-	$immodpg->{_thickness_increment_m_prior} =
-	  $immodpg->{_thickness_increment_m_default};
+	$immodpg->{_thickness_increment_m_default} = $immodpg->{_thickness_increment_m};
+	$immodpg->{_thickness_increment_m_current} = $immodpg->{_thickness_increment_m_default};
+	$immodpg->{_thickness_increment_m_prior}   = $immodpg->{_thickness_increment_m_default};
 	$immodpg->{_in_thickness_increment_m}      = $no;
 	$immodpg->{_outside_thickness_increment_m} = $yes;
 
@@ -4852,8 +4477,7 @@ sub setVbot_minus {
 	my ($self) = @_;
 
 	if ( length( $immodpg->{_VbotEntry} )
-		and looks_like_number( $immodpg->{_Vincrement_current} ) )
-	{
+		and looks_like_number( $immodpg->{_Vincrement_current} ) ) {
 
 		my $Vbot = ( $immodpg->{_VbotEntry} )->get();
 
@@ -4880,12 +4504,11 @@ sub setVbot_minus {
 				_set_option($Vbot_minus_opt);
 				_set_change($yes);
 
-		   #					print("immodpg, setVbot_minus, Vbot is changed: $yes \n");
-		   #					print("immodpg, setVbot_minus,option:$Vbot_minus_opt\n");
-		   #					print("immodpg, setVbot_minus, V=$immodpg->{_Vbot_current}\n");
+				#					print("immodpg, setVbot_minus, Vbot is changed: $yes \n");
+				#					print("immodpg, setVbot_minus,option:$Vbot_minus_opt\n");
+				#					print("immodpg, setVbot_minus, V=$immodpg->{_Vbot_current}\n");
 
-			}
-			else {
+			} else {
 
 				#	negative cases are reset by fortran program
 				#	and so eliminate need to read locked files
@@ -4896,17 +4519,15 @@ sub setVbot_minus {
 				# print("immodpg, setVbot_minus, same Vbot NADA\n");
 			}
 
-		}
-		else {
+		} else {
 			print("immodpg, setVbot_minus, Vbot value missing\n");
 		}
 
-	}
-	else {
+	} else {
 		print("immodpg, setVbot_minus, missing widget or Vincrement\n");
 
-#		print("immodpg, setVbot_minus, VbotEntry=$immodpg->{_VbotEntry}\n");
-#		print("immodpg, setVbot_minus, Vincrement=$immodpg->{_Vincrement_current}\n");
+		#		print("immodpg, setVbot_minus, VbotEntry=$immodpg->{_VbotEntry}\n");
+		#		print("immodpg, setVbot_minus, Vincrement=$immodpg->{_Vincrement_current}\n");
 	}
 	return ();
 }
@@ -4924,8 +4545,7 @@ sub setVbot_plus {
 	my ($self) = @_;
 
 	if ( length( $immodpg->{_VbotEntry} )
-		&& looks_like_number( $immodpg->{_Vincrement_current} ) )
-	{
+		&& looks_like_number( $immodpg->{_Vincrement_current} ) ) {
 
 		my $Vbot = ( $immodpg->{_VbotEntry} )->get();
 
@@ -4947,7 +4567,7 @@ sub setVbot_plus {
 			#				_checkVbot(); #todo
 			_updateVbot();
 
-			#			print("immodpg, setVbot_plus, new Vbot= $newVbot\n");
+#			print("immodpg, setVbot_plus, new Vbot= $newVbot\n");
 
 			# print("immodpg, setVbot_plus, Vincrement= $Vincrement\n");
 
@@ -4957,10 +4577,9 @@ sub setVbot_plus {
 				_set_option($Vbot_plus_opt);
 				_set_change($yes);
 
-		  #					print("immodpg, setVbot_plus, Vbot_plus_opt:$Vbot_plus_opt \n");
+				#					print("immodpg, setVbot_plus, Vbot_plus_opt:$Vbot_plus_opt \n");
 
-			}
-			else {
+			} else {
 
 				#	negative cases are reset by fortran program
 				#	and so eliminate need to read locked files
@@ -4971,13 +4590,11 @@ sub setVbot_plus {
 				#				print("immodpg, setVbot_plus, same Vbot NADA\n");
 			}
 
-		}
-		else {
+		} else {
 			print("immodpg, setVbot_plus, Vbot value missing\n");
 		}
 
-	}
-	else {
+	} else {
 		print("immodpg, setVbot_plus, missing widget or Vincrement\n");
 
 		#		print("immodpg, setVbot_plus, VbotEntry=$immodpg->{_VbotEntry}\n");
@@ -5000,8 +4617,7 @@ sub setVtop_minus {
 	my ($self) = @_;
 
 	if ( length( $immodpg->{_VtopEntry} )
-		&& looks_like_number( $immodpg->{_Vincrement_current} ) )
-	{
+		&& looks_like_number( $immodpg->{_Vincrement_current} ) ) {
 
 		my $Vtop = ( $immodpg->{_VtopEntry} )->get();
 
@@ -5029,11 +4645,10 @@ sub setVtop_minus {
 				_set_option($Vtop_minus_opt);
 				_set_change($yes);
 
-			#				print("immodpg, setVtop_minus,option:$Vtop_minus_opt\n");
-			#				print("immodpg, setVtop_minus, V=$immodpg->{_Vtop_current}\n");
+				#				print("immodpg, setVtop_minus,option:$Vtop_minus_opt\n");
+				#				print("immodpg, setVtop_minus, V=$immodpg->{_Vtop_current}\n");
 
-			}
-			else {
+			} else {
 
 				#	negative cases are reset by fortran program
 				#	and so eliminate need to read locked files
@@ -5044,18 +4659,14 @@ sub setVtop_minus {
 				print("immodpg, setVtop_minus, same Vtop NADA\n");
 			}
 
-		}
-		else {
+		} else {
 			print("immodpg, setVtop_minus, Vtop value missing\n");
 		}
 
-	}
-	else {
+	} else {
 		print("immodpg, setVtop_minus, missing widget or Vincrement\n");
 		print("immodpg, setVtop_minus, VtopEntry=$immodpg->{_VtopEntry}\n");
-		print(
-"immodpg, setVtop_minus, Vincrement=$immodpg->{_Vincrement_current}\n"
-		);
+		print("immodpg, setVtop_minus, Vincrement=$immodpg->{_Vincrement_current}\n");
 	}
 	return ();
 }
@@ -5075,10 +4686,9 @@ sub setVtop_plus {
 
 	#   print("0. immodpg, setVtop_plus, VtopEntry=$immodpg->{_VtopEntry}\n");
 	if (   length( $immodpg->{_VtopEntry} )
-		&& length( $immodpg->{_VincrementEntry} ) )
-	{
+		&& length( $immodpg->{_VincrementEntry} ) ) {
 
-	   #		print("1. immodpg, setVtop_plus, VtopEntry=$immodpg->{_VtopEntry}\n");
+		#		print("1. immodpg, setVtop_plus, VtopEntry=$immodpg->{_VtopEntry}\n");
 		my $Vtop = ( $immodpg->{_VtopEntry} )->get();
 
 		if ( looks_like_number($Vtop) ) {
@@ -5100,23 +4710,22 @@ sub setVtop_plus {
 			#				_checkVtop(); #todo
 			_updateVtop();
 
-#				print("immodpg, setVtop_plus, $immodpg->{_Vtop_current}= $immodpg->{_Vtop_current}\n");
-#			print("immodpg, setVtop_plus, Vincrement= $Vincrement\n");
-#			print("2. immodpg, setVtop_plus, VtopEntry=$immodpg->{_VtopEntry}\n");
+			#				print("immodpg, setVtop_plus, $immodpg->{_Vtop_current}= $immodpg->{_Vtop_current}\n");
+			#			print("immodpg, setVtop_plus, Vincrement= $Vincrement\n");
+			#			print("2. immodpg, setVtop_plus, VtopEntry=$immodpg->{_VtopEntry}\n");
 			if ( $immodpg->{_isVtop_changed_in_gui} eq $yes ) {
 
 				# for fortran program to read
 				_set_option($Vtop_plus_opt);
 				_set_change($yes);
 
-			#					print("immodpg, setVtop_plus,option:$Vtop_plus_opt\n");
-			#					print("immodpg, setVtop_plus, V=$immodpg->{_Vtop_current}\n");
+				#					print("immodpg, setVtop_plus,option:$Vtop_plus_opt\n");
+				#					print("immodpg, setVtop_plus, V=$immodpg->{_Vtop_current}\n");
 
-			}
-			else {
+			} else {
 
-#				print("immodpg, setVtop_plus, VtopEntry=$immodpg->{_VtopEntry}\n");
-#				print("immodpg, setVtop_plus, Vincrement=$immodpg->{_Vincrement_current}\n");
+				#				print("immodpg, setVtop_plus, VtopEntry=$immodpg->{_VtopEntry}\n");
+				#				print("immodpg, setVtop_plus, Vincrement=$immodpg->{_Vincrement_current}\n");
 
 				#	negative cases are reset by fortran program
 				#	and so eliminate need to read locked files
@@ -5127,21 +4736,17 @@ sub setVtop_plus {
 				#				print("immodpg, setVtop_plus, same Vtop NADA\n");
 			}
 
-		}
-		else {
+		} else {
 			print("immodpg, setVtop_plus, Vtop value missing\n");
 
-#			print("immodpg, setVtop_plus, VtopEntry=$immodpg->{_VtopEntry}\n");
-#			print("immodpg, setVtop_plus, Vincrement=$immodpg->{_Vincrement_current}\n");
+			#			print("immodpg, setVtop_plus, VtopEntry=$immodpg->{_VtopEntry}\n");
+			#			print("immodpg, setVtop_plus, Vincrement=$immodpg->{_Vincrement_current}\n");
 		}
 
-	}
-	else {
+	} else {
 		print("immodpg, setVtop_plus, missing widget or Vincrement\n");
 		print("immodpg, setVtop_plus, VtopEntry=$immodpg->{_VtopEntry}\n");
-		print(
-"immodpg, setVtop_plus, Vincrement=$immodpg->{_Vincrement_current}\n"
-		);
+		print("immodpg, setVtop_plus, Vincrement=$immodpg->{_Vincrement_current}\n");
 	}
 	return ();
 }
@@ -5160,8 +4765,7 @@ sub cdp {
 		$immodpg->{_note} = $immodpg->{_note} . ' cdp=' . $immodpg->{_cdp};
 		$immodpg->{_Step} = $immodpg->{_Step} . ' cdp=' . $immodpg->{_cdp};
 
-	}
-	else {
+	} else {
 		print("immodpg, cdp, missing cdp,\n");
 	}
 }
@@ -5207,18 +4811,15 @@ sub clean_trash {
 	# deleted lock files
 	$outbound_locked = $IMMODPG_INVISIBLE . '/' . $Vbot_file . '_locked';
 	unlink($outbound_locked);
-	$outbound_locked =
-	  $IMMODPG_INVISIBLE . '/' . $VbotNtop_factor_file . '_locked';
+	$outbound_locked = $IMMODPG_INVISIBLE . '/' . $VbotNtop_factor_file . '_locked';
 	unlink($outbound_locked);
-	$outbound_locked =
-	  $IMMODPG_INVISIBLE . '/' . $Vbot_upper_layer_file . '_locked';
+	$outbound_locked = $IMMODPG_INVISIBLE . '/' . $Vbot_upper_layer_file . '_locked';
 	unlink($outbound_locked);
 	$outbound_locked = $IMMODPG_INVISIBLE . '/' . $Vincrement_file . '_locked';
 	unlink($outbound_locked);
 	$outbound_locked = $IMMODPG_INVISIBLE . '/' . $Vtop_file . '_locked';
 	unlink($outbound_locked);
-	$outbound_locked =
-	  $IMMODPG_INVISIBLE . '/' . $Vtop_lower_layer_file . '_locked';
+	$outbound_locked = $IMMODPG_INVISIBLE . '/' . $Vtop_lower_layer_file . '_locked';
 	unlink($outbound_locked);
 	$outbound_locked = $IMMODPG_INVISIBLE . '/' . $change_file . '_locked';
 
@@ -5234,8 +4835,7 @@ sub clean_trash {
 	unlink($outbound_locked);
 	$outbound_locked = $IMMODPG_INVISIBLE . '/' . $thickness_m_file . '_locked';
 	unlink($outbound_locked);
-	$outbound_locked =
-	  $IMMODPG_INVISIBLE . '/' . $thickness_increment_m_file . '_locked';
+	$outbound_locked = $IMMODPG_INVISIBLE . '/' . $thickness_increment_m_file . '_locked';
 	unlink($outbound_locked);
 
 	# reset files to their default options
@@ -5326,7 +4926,7 @@ sub get_control_clip {
 
 	if ( length( $immodpg->{_control_clip} ) ) {
 
-#		print("1. immodpg, get_control_clip, old control_clip= $immodpg->{_control_clip}\n");
+		#		print("1. immodpg, get_control_clip, old control_clip= $immodpg->{_control_clip}\n");
 		my $control_clip = $immodpg->{_control_clip};
 
 		if ( $control_clip <= 0 ) {
@@ -5335,18 +4935,16 @@ sub get_control_clip {
 			$control_clip = 1;
 			$result       = $control_clip;
 
-		}
-		else {
+		} else {
 
 			#			print("immodpg, get_control_clip, NADA\n");
 			$result = $control_clip;
 		}
 
-	#		print("2. immodpg, get_control_clip, new control_clip= $control_clip\n");
+		#		print("2. immodpg, get_control_clip, new control_clip= $control_clip\n");
 		return ($result);
 
-	}
-	else {
+	} else {
 		print("immodpg, get_control_clip,  missing clip value\n");
 	}
 	return ();
@@ -5366,76 +4964,69 @@ sub get_control_layer {
 
 	my $result;
 
-#	print("1. immodpg, get_control_layer, control_layer_external= $immodpg->{_control_layer_external}\n");
+	#	print("1. immodpg, get_control_layer, control_layer_external= $immodpg->{_control_layer_external}\n");
 
 	if ( length( $immodpg->{_control_layer_external} ) ) {
 
-# CASE 1
-#		print("CASE 1: immodpg, get_control_layer, control_layer_external= $immodpg->{_control_layer_external}\n");
+		# CASE 1
+		#		print("CASE 1: immodpg, get_control_layer, control_layer_external= $immodpg->{_control_layer_external}\n");
 
 		my $layer_current    = $immodpg->{_control_layer_external};
 		my $number_of_layers = _get_number_of_layers();
 
-#		print("2. immodpg, get_control_layer, number_of_layers= $number_of_layers\n");
+		#		print("2. immodpg, get_control_layer, number_of_layers= $number_of_layers\n");
 
 		if ( $layer_current > $number_of_layers ) {
 
-	  # case 1A layer number exceeds possible value
-	  #			print("case1A: immodpg, get_control_layer, layer number too large\n");
-	  #			print("immodpg, get_control_layer, layer_number=$layer_current}\n");
+			# case 1A layer number exceeds possible value
+			#			print("case1A: immodpg, get_control_layer, layer number too large\n");
+			#			print("immodpg, get_control_layer, layer_number=$layer_current}\n");
 			$layer_current = $number_of_layers - 1;
 
-	  # print("immodpg, get_control_layer, new layer_number=$layer_current}\n");
+			# print("immodpg, get_control_layer, new layer_number=$layer_current}\n");
 			$result = $layer_current;
 
-		}
-		elsif ( $layer_current < 1 ) {
+		} elsif ( $layer_current < 1 ) {
 
 			$layer_current = 1;
 			$result        = $layer_current;
 
-#			print("CASE 1B immodpg, get_control_layer, layer_number=$layer_current}\n");
+			#			print("CASE 1B immodpg, get_control_layer, layer_number=$layer_current}\n");
 
-		}
-		elsif ( $layer_current == 1 ) {
+		} elsif ( $layer_current == 1 ) {
 
 			$layer_current = 1;
 			$result        = $layer_current;
 
-	   #			print("CASE 1 C immodpg, get_control_layer, layer=$layer_current\n");
+			#			print("CASE 1 C immodpg, get_control_layer, layer=$layer_current\n");
 
-		}
-		elsif ( ( $layer_current < $number_of_layers ) ) {
+		} elsif ( ( $layer_current < $number_of_layers ) ) {
 
 			$result = $layer_current;
 
-	   #			print("CASE 1 D immodpg, get_control_layer, layer=$layer_current\n");
+			#			print("CASE 1 D immodpg, get_control_layer, layer=$layer_current\n");
 
 			# NADA
 
-		}
-		elsif ( ( $layer_current == $number_of_layers ) ) {
+		} elsif ( ( $layer_current == $number_of_layers ) ) {
 
 			$result = $layer_current - 1;
 
-	   #			print("iCASE 1 E mmodpg, get_control_layer, layer=$layer_current\n");
-	   # NADA
+			#			print("iCASE 1 E mmodpg, get_control_layer, layer=$layer_current\n");
+			# NADA
 
-		}
-		else {
+		} else {
 			print("immodpg, get_control_layer, unexpected layer number\n");
 			$result = $empty_string;
 		}
 
-	}
-	elsif ( length( $immodpg->{_control_layer_external} ) == 0 ) {
+	} elsif ( length( $immodpg->{_control_layer_external} ) == 0 ) {
 
 		$result = 1;
 
-#		print("CASE 2immodpg, get_control_layer, empty string layer updated to $result\n");
+		#		print("CASE 2immodpg, get_control_layer, empty string layer updated to $result\n");
 
-	}
-	else {
+	} else {
 		print("immodpg, get_control_layer, unexpected value\n");
 	}
 
@@ -5484,8 +5075,9 @@ with widgets
 
 =cut 
 
-	$immodpg->{_message_box_w} =
-	  $immodpg->{_mw}->Toplevel( -background => $var_L_SU->{_my_yellow}, );
+	$immodpg->{_message_box_w} = $immodpg->{_mw}->Toplevel(
+		-background => $var_L_SU->{_my_yellow},
+	);
 	$immodpg->{_message_box_w}->withdraw;
 
 	$immodpg->{_message_box_w}->geometry( $var_L_SU->{_message_box_geometry} );
@@ -5525,8 +5117,12 @@ Lower frame contains ok button.
 =cut
 
 	$immodpg->{_message_upper_frame}->pack();
-	$immodpg->{_message_label_w}->pack( -side => 'top', );
-	$immodpg->{_message_lower_frame}->pack( -side => 'top', );
+	$immodpg->{_message_label_w}->pack(
+		-side => 'top',
+	);
+	$immodpg->{_message_lower_frame}->pack(
+		-side => 'top',
+	);
 
 	$immodpg->{_message_ok_button}->pack(
 		-side   => "top",
@@ -5553,13 +5149,11 @@ sub initialize_model {
 	if (   length($refVPtop)
 		&& length($refVPbot)
 		&& length($ref_dz)
-		&& length($error_switch) )
-	{
+		&& length($error_switch) ) {
 
 		_set_initialVp_dz( $refVPtop, $refVPbot, $ref_dz, $error_switch );
 
-	}
-	else {
+	} else {
 		print(" immodpg, L5046, missing or corrupt variables \n");
 	}
 
@@ -5581,12 +5175,11 @@ sub get_number_of_layers {
 
 	if ( length( $immodpg->{_model_file_text} ) ) {
 
-		my $count        = 0;
-		my $magic_number = 4;
-		my $inbound_model_file_text =
-		  $IMMODPG_INVISIBLE . '/' . $immodpg->{_model_file_text};
+		my $count                   = 0;
+		my $magic_number            = 4;
+		my $inbound_model_file_text = $IMMODPG_INVISIBLE . '/' . $immodpg->{_model_file_text};
 
-#		print ("immodpg,_get_number_of_layers,inbound_model_file_text=$inbound_model_file_text\n");
+		#		print ("immodpg,_get_number_of_layers,inbound_model_file_text=$inbound_model_file_text\n");
 
 		open( my $fh, '<', $inbound_model_file_text );
 
@@ -5599,10 +5192,9 @@ sub get_number_of_layers {
 
 		$number_of_layers = $count - $magic_number;
 
-	   #		print("immodpg,_get_number_of_layers, layers = $number_of_layers \n");
+		#		print("immodpg,_get_number_of_layers, layers = $number_of_layers \n");
 
-	}
-	else {
+	} else {
 
 		# print("immodpg,_get_number_of_layers, missing values\n");
 		$number_of_layers = 0;
@@ -5622,8 +5214,7 @@ sub get_replacement4missing {
 	my ($self) = @_;
 
 	if (    length( $immodpg->{_replacement4missing} )
-		and length( $immodpg->{_inbound_missing} ) )
-	{
+		and length( $immodpg->{_inbound_missing} ) ) {
 
 		my $inbound     = $immodpg->{_inbound_missing};
 		my $replacement = $immodpg->{_replacement4missing};
@@ -5636,18 +5227,15 @@ sub get_replacement4missing {
 			my $to   = $inbound;
 			copy( $from, $to );
 
-		}
-		elsif ( -e $inbound ) {
+		} elsif ( -e $inbound ) {
 
 			#				print("immodpg,get_replacement4missing,OK-NADA \n");
 
-		}
-		else {
+		} else {
 			print("immodpg,get_replacement4missing,unexpected value\n");
 		}
 
-	}
-	else {
+	} else {
 		print("immodpg, get_replacement4missing, missing replacement\n");
 	}
 
@@ -5684,8 +5272,7 @@ sub setVbot {
 		_updateVbot();
 
 		if ( length( $immodpg->{_isVbot_changed_in_gui} )
-			&& $immodpg->{_isVbot_changed_in_gui} eq $yes )
-		{
+			&& $immodpg->{_isVbot_changed_in_gui} eq $yes ) {
 
 			# for fortran program to read
 			#				print("immodpg, set_Vbot, Vbot is changed: $yes \n");
@@ -5696,8 +5283,7 @@ sub setVbot {
 			_set_option($Vbot_opt);
 			_set_change($yes);
 
-		}
-		else {
+		} else {
 
 			#			negative cases are reset by fortran program
 			#			and so eliminate need to read locked files
@@ -5708,8 +5294,7 @@ sub setVbot {
 			#  print("immodpg, setVbot, same Vbot NADA\n");
 		}
 
-	}
-	else {
+	} else {
 
 	}
 }
@@ -5735,29 +5320,24 @@ sub setVbot_upper_layer {
 
 	if ( length( $immodpg->{_Vbot_upper_layerEntry} ) ) {
 
-		$immodpg->{_Vbot_upper_layer_current} =
-		  ( $immodpg->{_Vbot_upper_layerEntry} )->get();
+		$immodpg->{_Vbot_upper_layer_current} = ( $immodpg->{_Vbot_upper_layerEntry} )->get();
 		my $Vbot_upper_layer_current = $immodpg->{_Vbot_upper_layer_current};
 
-# print("1. immodpg, setVbot_upper_layer, immodpg->{_Vbot_upper_layer_current}=$Vbot_upper_layer_current\n");
-		if (    length $Vbot_upper_layer_current
+		# print("1. immodpg, setVbot_upper_layer, immodpg->{_Vbot_upper_layer_current}=$Vbot_upper_layer_current\n");
+		if (    length $Vbot_upper_layer_current 
 			and looks_like_number($Vbot_upper_layer_current)
-			and $layer_current > 0 )
-		{
+			and $layer_current > 0 ) {
 
-# print("immodpg, setVbot_upper_layer, immodpg->{_Vbot_upper_layer_current}=$immodpg->{_Vbot_upper_layer_current}\n");
+			# print("immodpg, setVbot_upper_layer, immodpg->{_Vbot_upper_layer_current}=$immodpg->{_Vbot_upper_layer_current}\n");
 
-			_set_control( 'Vbot_upper_layer',
-				$immodpg->{_Vbot_upper_layer_current} );
-			$immodpg->{_Vbot_upper_layer_current} =
-			  _get_control('Vbot_upper_layer');
+			_set_control( 'Vbot_upper_layer', $immodpg->{_Vbot_upper_layer_current} );
+			$immodpg->{_Vbot_upper_layer_current} = _get_control('Vbot_upper_layer');
 			$newVbot_upper_layer = $immodpg->{_Vbot_upper_layer_current};
 
-# print("2. immodpg, setVbot_upper_layer, newVbot_upper_layer=$newVbot_upper_layer\n");
+			# print("2. immodpg, setVbot_upper_layer, newVbot_upper_layer=$newVbot_upper_layer\n");
 
 			$immodpg->{_Vbot_upper_layerEntry}->delete( 0, 'end' );
-			$immodpg->{_Vbot_upper_layerEntry}
-			  ->insert( 0, $newVbot_upper_layer );
+			$immodpg->{_Vbot_upper_layerEntry}->insert( 0, $newVbot_upper_layer );
 
 			_checkVbot_upper_layer();
 			_updateVbot_upper_layer();
@@ -5770,11 +5350,10 @@ sub setVbot_upper_layer {
 				_set_option($Vbot_upper_layer_opt);
 				_set_change($yes);
 
-#				print("immodpg, setVbot_upper_layer,option:$Vbot_upper_layer_opt\n");
-#				print("immodpg, setVbot_upper_layer,V= $immodpg->{_Vbot_upper_layer_current}\n");
+				#				print("immodpg, setVbot_upper_layer,option:$Vbot_upper_layer_opt\n");
+				#				print("immodpg, setVbot_upper_layer,V= $immodpg->{_Vbot_upper_layer_current}\n");
 
-			}
-			else {
+			} else {
 
 				#			negative cases are reset by fortran program
 				#			and so eliminate need to read locked files
@@ -5785,14 +5364,12 @@ sub setVbot_upper_layer {
 				# print("immodpg, setVbot_upper_layer, same Vbot NADA\n");
 			}
 
-		}
-		else {
+		} else {
 
- # print("immodpg, setVbot_upper_layer, Velocity is empty in non-layer NADA\n");
+			# print("immodpg, setVbot_upper_layer, Velocity is empty in non-layer NADA\n");
 		}
 
-	}
-	else {
+	} else {
 
 	}
 }
@@ -5812,16 +5389,14 @@ sub setVbotNVtop_lower_layer_minus {
 
 	if (   looks_like_number( $immodpg->{_Vincrement_current} )
 		&& length( $immodpg->{_Vtop_lower_layerEntry} )
-		&& length( $immodpg->{_VbotEntry} ) )
-	{
+		&& length( $immodpg->{_VbotEntry} ) ) {
 
 		my $Vbot             = ( $immodpg->{_VbotEntry} )->get();
 		my $Vtop_lower_layer = ( $immodpg->{_Vtop_lower_layerEntry} )->get();
 		my $Vincrement       = ( $immodpg->{_VincrementEntry} )->get();
 
 		if (   looks_like_number($Vtop_lower_layer)
-			&& looks_like_number($Vbot) )
-		{
+			&& looks_like_number($Vbot) ) {
 
 			my $newVtop_lower_layer = $Vtop_lower_layer - $Vincrement;
 			my $newVbot             = $Vbot - $Vincrement;
@@ -5831,16 +5406,14 @@ sub setVbotNVtop_lower_layer_minus {
 			_set_control( 'Vbot', $newVbot );
 			$newVbot = _get_control('Vbot');
 
-			$immodpg->{_Vtop_lower_layer_prior} =
-			  $immodpg->{_Vtop_lower_layer_current};
+			$immodpg->{_Vtop_lower_layer_prior}   = $immodpg->{_Vtop_lower_layer_current};
 			$immodpg->{_Vtop_lower_layer_current} = $newVtop_lower_layer;
 
 			$immodpg->{_Vbot_prior}   = $immodpg->{_Vbot_current};
 			$immodpg->{_Vbot_current} = $newVbot;
 
 			$immodpg->{_Vtop_lower_layerEntry}->delete( 0, 'end' );
-			$immodpg->{_Vtop_lower_layerEntry}
-			  ->insert( 0, $newVtop_lower_layer );
+			$immodpg->{_Vtop_lower_layerEntry}->insert( 0, $newVtop_lower_layer );
 
 			$immodpg->{_VbotEntry}->delete( 0, 'end' );
 			$immodpg->{_VbotEntry}->insert( 0, $newVbot );
@@ -5854,45 +5427,37 @@ sub setVbotNVtop_lower_layer_minus {
 			_updateVtop_lower_layer();
 
 			if (   $immodpg->{_isVtop_lower_layer_changed_in_gui} eq $yes
-				&& $immodpg->{_isVbot_changed_in_gui} eq $yes )
-			{
+				&& $immodpg->{_isVbot_changed_in_gui} eq $yes ) {
 
-# for fortran program to read
-#				print("immodpg, setVbotNVtop_lower_layer_minus, Vbot is changed: $yes \n");
+				# for fortran program to read
+				#				print("immodpg, setVbotNVtop_lower_layer_minus, Vbot is changed: $yes \n");
 
 				_set_option($VbotNVtop_lower_layer_minus_opt);
 				_set_change($yes);
 
-#				print("immodpg, setVbotNVtop_lower_layer_minus,option:$VbotNVtop_lower_layer_minus_opt\n");
-#				print("immodpg, setVbotNVtop_lower_layer_minus, V=$immodpg->{_Vtop_lower_layer_current}\n");
+				#				print("immodpg, setVbotNVtop_lower_layer_minus,option:$VbotNVtop_lower_layer_minus_opt\n");
+				#				print("immodpg, setVbotNVtop_lower_layer_minus, V=$immodpg->{_Vtop_lower_layer_current}\n");
 
+			} else {
+
+				#	negative cases are reset by fortran program
+				#	and so eliminate need to read locked files
+				#	while use of locked files helps most of the time
+				#	creation and deletion of locked files in perl are not
+				#	failsafe
+				#
+				#				print("immodpg, setVbotNVtop_lower_layer_minus, same Vbot and Vtop_lower_layer; NADA\n");
 			}
-			else {
 
-#	negative cases are reset by fortran program
-#	and so eliminate need to read locked files
-#	while use of locked files helps most of the time
-#	creation and deletion of locked files in perl are not
-#	failsafe
-#
-#				print("immodpg, setVbotNVtop_lower_layer_minus, same Vbot and Vtop_lower_layer; NADA\n");
-			}
-
-		}
-		else {
-			print(
-"immodpg, setVbotNVtop_lower_layer_minus, Vbot or Vtop_lower_layer value missing\n"
-			);
+		} else {
+			print("immodpg, setVbotNVtop_lower_layer_minus, Vbot or Vtop_lower_layer value missing\n");
 		}
 
-	}
-	else {
-		print(
-"immodpg, setVbotNVtop_lower_layer_minus, missing widget or Vincrement\n"
-		);
+	} else {
+		print("immodpg, setVbotNVtop_lower_layer_minus, missing widget or Vincrement\n");
 
-#		print("immodpg, setVtopNVtop_lower_layer_minus, Vtop_lower_layerEntry=$immodpg->{_Vtop_lower_layerEntry}\n");
-#		print("immodpg, setVtopNVtop_lower_layer_minus, Vincrement=$immodpg->{_Vincrement_current}\n");
+		#		print("immodpg, setVtopNVtop_lower_layer_minus, Vtop_lower_layerEntry=$immodpg->{_Vtop_lower_layerEntry}\n");
+		#		print("immodpg, setVtopNVtop_lower_layer_minus, Vincrement=$immodpg->{_Vincrement_current}\n");
 	}
 	return ();
 }
@@ -5912,16 +5477,14 @@ sub setVbotNVtop_lower_layer_plus {
 
 	if (   looks_like_number( $immodpg->{_Vincrement_current} )
 		&& length( $immodpg->{_Vtop_lower_layerEntry} )
-		&& length( $immodpg->{_VbotEntry} ) )
-	{
+		&& length( $immodpg->{_VbotEntry} ) ) {
 
 		my $Vbot             = ( $immodpg->{_VbotEntry} )->get();
 		my $Vtop_lower_layer = ( $immodpg->{_Vtop_lower_layerEntry} )->get();
 		my $Vincrement       = ( $immodpg->{_VincrementEntry} )->get();
 
 		if (   looks_like_number($Vtop_lower_layer)
-			&& looks_like_number($Vbot) )
-		{
+			&& looks_like_number($Vbot) ) {
 
 			my $newVtop_lower_layer = $Vtop_lower_layer + $Vincrement;
 			my $newVbot             = $Vbot + $Vincrement;
@@ -5931,16 +5494,14 @@ sub setVbotNVtop_lower_layer_plus {
 			_set_control( 'Vtop', $newVtop_lower_layer );
 			$newVtop_lower_layer = _get_control('Vtop');
 
-			$immodpg->{_Vtop_lower_layer_prior} =
-			  $immodpg->{_Vtop_lower_layer_current};
+			$immodpg->{_Vtop_lower_layer_prior}   = $immodpg->{_Vtop_lower_layer_current};
 			$immodpg->{_Vtop_lower_layer_current} = $newVtop_lower_layer;
 
 			$immodpg->{_Vbot_prior}   = $immodpg->{_Vbot_current};
 			$immodpg->{_Vbot_current} = $newVbot;
 
 			$immodpg->{_Vtop_lower_layerEntry}->delete( 0, 'end' );
-			$immodpg->{_Vtop_lower_layerEntry}
-			  ->insert( 0, $newVtop_lower_layer );
+			$immodpg->{_Vtop_lower_layerEntry}->insert( 0, $newVtop_lower_layer );
 
 			$immodpg->{_VbotEntry}->delete( 0, 'end' );
 			$immodpg->{_VbotEntry}->insert( 0, $newVbot );
@@ -5953,51 +5514,41 @@ sub setVbotNVtop_lower_layer_plus {
 			_checkVtop_lower_layer();    # todo
 			_updateVtop_lower_layer();
 
-#			print("immodpg, setVbotNVtop_lower_layer_plus, new Vtop_lower_layer= $newVtop_lower_layer\n");
-#			print("immodpg, setVbotNVtop_lower_layer_plus, Vincrement= $Vincrement\n");
+			#			print("immodpg, setVbotNVtop_lower_layer_plus, new Vtop_lower_layer= $newVtop_lower_layer\n");
+			#			print("immodpg, setVbotNVtop_lower_layer_plus, Vincrement= $Vincrement\n");
 
 			if (   $immodpg->{_isVtop_lower_layer_changed_in_gui} eq $yes
-				&& $immodpg->{_isVbot_changed_in_gui} eq $yes )
-			{
+				&& $immodpg->{_isVbot_changed_in_gui} eq $yes ) {
 
- # for fortran program to read
- #				print("immodpg, setVbotNVtop_lower_layer_plus, Vbot is changed: $yes \n");
+				# for fortran program to read
+				#				print("immodpg, setVbotNVtop_lower_layer_plus, Vbot is changed: $yes \n");
 
 				_set_option($VbotNVtop_lower_layer_plus_opt);
 				_set_change($yes);
 
-#				print("immodpg, setVbotNVtop_lower_layer_plus,option:$VbotNVtop_lower_layer_plus_opt\n");
-#				print("immodpg, setVbotNVtop_lower_layer_plus, V=$immodpg->{_Vtop_lower_layer_current}\n");
+				#				print("immodpg, setVbotNVtop_lower_layer_plus,option:$VbotNVtop_lower_layer_plus_opt\n");
+				#				print("immodpg, setVbotNVtop_lower_layer_plus, V=$immodpg->{_Vtop_lower_layer_current}\n");
 
+			} else {
+
+				#	negative cases are reset by fortran program
+				#	and so eliminate need to read locked files
+				#	while use of locked files helps most of the time
+				#	creation and deletion of locked files in perl are not
+				#	failsafe
+				#
+				#				print("immodpg, setVbotNVtop_lower_layer_plus, same Vbot and Vtop_lower_layer; NADA\n");
 			}
-			else {
 
-#	negative cases are reset by fortran program
-#	and so eliminate need to read locked files
-#	while use of locked files helps most of the time
-#	creation and deletion of locked files in perl are not
-#	failsafe
-#
-#				print("immodpg, setVbotNVtop_lower_layer_plus, same Vbot and Vtop_lower_layer; NADA\n");
-			}
-
-		}
-		else {
-			print(
-"immodpg, setVbotNVtop_lower_layer_plus, Vbot or Vtop_lower_layer value missing\n"
-			);
+		} else {
+			print("immodpg, setVbotNVtop_lower_layer_plus, Vbot or Vtop_lower_layer value missing\n");
 		}
 
-	}
-	else {
-		print(
-"immodpg, setVbotNVtop_lower_layer_plus, missing widget or Vincrement\n"
-		);
+	} else {
+		print("immodpg, setVbotNVtop_lower_layer_plus, missing widget or Vincrement\n");
 
-#		print("immodpg, setVtopNVtop_lower_layer_plus, Vtop_lower_layerEntry=$immodpg->{_Vtop_lower_layerEntry}\n");
-		print(
-"immodpg, setVtopNVtop_lower_layer_plus, Vincrement=$immodpg->{_Vincrement_current}\n"
-		);
+		#		print("immodpg, setVtopNVtop_lower_layer_plus, Vtop_lower_layerEntry=$immodpg->{_Vtop_lower_layerEntry}\n");
+		print("immodpg, setVtopNVtop_lower_layer_plus, Vincrement=$immodpg->{_Vincrement_current}\n");
 	}
 	return ();
 }
@@ -6021,8 +5572,7 @@ sub setVtopNVbot_upper_layer_minus {
 		&& length( $immodpg->{_Vbot_upper_layerEntry} )
 		&& length( $immodpg->{_VtopEntry} )
 
-	  )
-	{
+	) {
 
 		my $Vtop             = ( $immodpg->{_VtopEntry} )->get();
 		my $Vbot_upper_layer = ( $immodpg->{_Vbot_upper_layerEntry} )->get();
@@ -6030,8 +5580,7 @@ sub setVtopNVbot_upper_layer_minus {
 		my $layer_current    = $immodpg->{_layer_current};
 
 		if ( looks_like_number($Vbot_upper_layer) && looks_like_number($Vtop)
-			and $layer_current > 1 )
-		{
+			and $layer_current > 1 ) {
 
 			my $newVbot_upper_layer = $Vbot_upper_layer - $Vincrement;
 			my $newVtop             = $Vtop - $Vincrement;
@@ -6042,16 +5591,14 @@ sub setVtopNVbot_upper_layer_minus {
 			_set_control( 'Vtop', $newVtop );
 			$newVtop = _get_control('Vtop');
 
-			$immodpg->{_Vbot_upper_layer_prior} =
-			  $immodpg->{_Vbot_upper_layer_current};
+			$immodpg->{_Vbot_upper_layer_prior}   = $immodpg->{_Vbot_upper_layer_current};
 			$immodpg->{_Vbot_upper_layer_current} = $newVbot_upper_layer;
 
 			$immodpg->{_Vtop_prior}   = $immodpg->{_Vtop_current};
 			$immodpg->{_Vtop_current} = $newVtop;
 
 			$immodpg->{_Vbot_upper_layerEntry}->delete( 0, 'end' );
-			$immodpg->{_Vbot_upper_layerEntry}
-			  ->insert( 0, $newVbot_upper_layer );
+			$immodpg->{_Vbot_upper_layerEntry}->insert( 0, $newVbot_upper_layer );
 
 			$immodpg->{_VtopEntry}->delete( 0, 'end' );
 			$immodpg->{_VtopEntry}->insert( 0, $newVtop );
@@ -6059,8 +5606,8 @@ sub setVtopNVbot_upper_layer_minus {
 			#				$immodpg->{_isVbot_upper_layer_changed_in_gui} = $yes;
 			#				$immodpg->{_isVtop_changed_in_gui}             = $yes;
 
-#			print("immodpg, setVtopNVbot_upper_layer_minus, new Vbot_upper_layer= $newVbot_upper_layer\n");
-# print("immodpg, setVtopNVbot_upper_layer_minus, Vincrement= $Vincrement\n");
+			#			print("immodpg, setVtopNVbot_upper_layer_minus, new Vbot_upper_layer= $newVbot_upper_layer\n");
+			# print("immodpg, setVtopNVbot_upper_layer_minus, Vincrement= $Vincrement\n");
 
 			#				_checkVtop(); #todo
 			_updateVtop();
@@ -6069,44 +5616,38 @@ sub setVtopNVbot_upper_layer_minus {
 			_updateVbot_upper_layer();
 
 			if (   $immodpg->{_isVbot_upper_layer_changed_in_gui} eq $yes
-				&& $immodpg->{_isVtop_changed_in_gui} eq $yes )
-			{
+				&& $immodpg->{_isVtop_changed_in_gui} eq $yes ) {
 
-# for fortran program to read
-#					print("immodpg, setVtopNVbot_upper_layer_minus, Vbot is changed: $yes \n");
+				# for fortran program to read
+				#					print("immodpg, setVtopNVbot_upper_layer_minus, Vbot is changed: $yes \n");
 
 				_set_option($VtopNVbot_upper_layer_minus_opt);
 				_set_change($yes);
 
-#				print("immodpg, setVtopNVbot_upper_layer_minus,option:$VtopNVbot_upper_layer_minus_opt\n");
-#				print("immodpg, setVtopNVbot_upper_layer_minus, V=$immodpg->{_Vbot_upper_layer_current}\n");
+				#				print("immodpg, setVtopNVbot_upper_layer_minus,option:$VtopNVbot_upper_layer_minus_opt\n");
+				#				print("immodpg, setVtopNVbot_upper_layer_minus, V=$immodpg->{_Vbot_upper_layer_current}\n");
 
+			} else {
+
+				#	negative cases are reset by fortran program
+				#	and so eliminate need to read locked files
+				#	while use of locked files helps most of the time
+				#	creation and deletion of locked files in perl are not
+				#	failsafe
+				#
+				# print("immodpg, setVtopNVbot_upper_layer_minus, same Vtop and Vbot_upper_layer; NADA\n");
 			}
-			else {
 
-#	negative cases are reset by fortran program
-#	and so eliminate need to read locked files
-#	while use of locked files helps most of the time
-#	creation and deletion of locked files in perl are not
-#	failsafe
-#
-# print("immodpg, setVtopNVbot_upper_layer_minus, same Vtop and Vbot_upper_layer; NADA\n");
-			}
+		} else {
 
-		}
-		else {
-
-# print("immodpg, setVtopNVbot_upper_layer_minus, Vtop or Vbot_upper_layer value missing-NADA\n");
+			# print("immodpg, setVtopNVbot_upper_layer_minus, Vtop or Vbot_upper_layer value missing-NADA\n");
 		}
 
-	}
-	else {
-		print(
-"immodpg, setVtopNVbot_upper_layer_minus, missing widget or Vincrement\n"
-		);
+	} else {
+		print("immodpg, setVtopNVbot_upper_layer_minus, missing widget or Vincrement\n");
 
-#		print("immodpg, setVtopNVbot_upper_layer_minus, Vbot_upper_layerEntry=$immodpg->{_Vbot_upper_layerEntry}\n");
-#		print("immodpg, setVtopNVbot_upper_layer_minus, Vincrement=$immodpg->{_Vincrement_current}\n");
+		#		print("immodpg, setVtopNVbot_upper_layer_minus, Vbot_upper_layerEntry=$immodpg->{_Vbot_upper_layerEntry}\n");
+		#		print("immodpg, setVtopNVbot_upper_layer_minus, Vincrement=$immodpg->{_Vincrement_current}\n");
 	}
 	return ();
 }
@@ -6130,8 +5671,7 @@ sub setVtopNVbot_upper_layer_plus {
 		&& length( $immodpg->{_Vbot_upper_layerEntry} )
 		&& length( $immodpg->{_VtopEntry} )
 
-	  )
-	{
+	) {
 
 		my $Vtop             = ( $immodpg->{_VtopEntry} )->get();
 		my $Vbot_upper_layer = ( $immodpg->{_Vbot_upper_layerEntry} )->get();
@@ -6139,8 +5679,7 @@ sub setVtopNVbot_upper_layer_plus {
 		my $layer_current    = $immodpg->{_layer_current};
 
 		if ( looks_like_number($Vbot_upper_layer) && looks_like_number($Vtop)
-			and $layer_current > 1 )
-		{
+			and $layer_current > 1 ) {
 
 			my $newVbot_upper_layer = $Vbot_upper_layer + $Vincrement;
 			my $newVtop             = $Vtop + $Vincrement;
@@ -6151,16 +5690,14 @@ sub setVtopNVbot_upper_layer_plus {
 			_set_control( 'Vtop', $newVtop );
 			$newVtop = _get_control('Vtop');
 
-			$immodpg->{_Vbot_upper_layer_prior} =
-			  $immodpg->{_Vbot_upper_layer_current};
+			$immodpg->{_Vbot_upper_layer_prior}   = $immodpg->{_Vbot_upper_layer_current};
 			$immodpg->{_Vbot_upper_layer_current} = $newVbot_upper_layer;
 
 			$immodpg->{_Vtop_prior}   = $immodpg->{_Vtop_current};
 			$immodpg->{_Vtop_current} = $newVtop;
 
 			$immodpg->{_Vbot_upper_layerEntry}->delete( 0, 'end' );
-			$immodpg->{_Vbot_upper_layerEntry}
-			  ->insert( 0, $newVbot_upper_layer );
+			$immodpg->{_Vbot_upper_layerEntry}->insert( 0, $newVbot_upper_layer );
 
 			$immodpg->{_VtopEntry}->delete( 0, 'end' );
 			$immodpg->{_VtopEntry}->insert( 0, $newVtop );
@@ -6173,48 +5710,42 @@ sub setVtopNVbot_upper_layer_plus {
 			#				_checkVbot_upper_layer(); # todo
 			_updateVbot_upper_layer();
 
-#			print("immodpg, setVtopNVbot_upper_layer_plus, new Vbot_upper_layer= $newVbot_upper_layer\n");
-#			print("immodpg, setVtopNVbot_upper_layer_plus, Vincrement= $Vincrement\n");
+			#			print("immodpg, setVtopNVbot_upper_layer_plus, new Vbot_upper_layer= $newVbot_upper_layer\n");
+			#			print("immodpg, setVtopNVbot_upper_layer_plus, Vincrement= $Vincrement\n");
 
 			if (   $immodpg->{_isVbot_upper_layer_changed_in_gui} eq $yes
-				&& $immodpg->{_isVtop_changed_in_gui} eq $yes )
-			{
+				&& $immodpg->{_isVtop_changed_in_gui} eq $yes ) {
 
-	# for fortran program to read
-	#	print("immodpg, setVtopNVbot_upper_layer_plus, Vbot is changed: $yes \n");
+				# for fortran program to read
+				#	print("immodpg, setVtopNVbot_upper_layer_plus, Vbot is changed: $yes \n");
 
 				_set_option($VtopNVbot_upper_layer_plus_opt);
 				_set_change($yes);
 
-#				print("immodpg, setVtopNVbot_upper_layer_plus,option:$VtopNVbot_upper_layer_plus_opt\n");
-#				print("immodpg, setVtopNVbot_upper_layer_plus, V=$immodpg->{_Vbot_upper_layer_current}\n");
+				#				print("immodpg, setVtopNVbot_upper_layer_plus,option:$VtopNVbot_upper_layer_plus_opt\n");
+				#				print("immodpg, setVtopNVbot_upper_layer_plus, V=$immodpg->{_Vbot_upper_layer_current}\n");
 
+			} else {
+
+				#	negative cases are reset by fortran program
+				#	and so eliminate need to read locked files
+				#	while use of locked files helps most of the time
+				#	creation and deletion of locked files in perl are not
+				#	failsafe
+				#
+				#				print("immodpg, setVtopNVbot_upper_layer_plus, same Vtop and Vbot_upper_layer; NADA\n");
 			}
-			else {
 
-#	negative cases are reset by fortran program
-#	and so eliminate need to read locked files
-#	while use of locked files helps most of the time
-#	creation and deletion of locked files in perl are not
-#	failsafe
-#
-#				print("immodpg, setVtopNVbot_upper_layer_plus, same Vtop and Vbot_upper_layer; NADA\n");
-			}
+		} else {
 
-		}
-		else {
-
-# print("immodpg, setVtopNVbot_upper_layer_plus, Vtop or Vbot_upper_layer value missing NADA\n");
+			# print("immodpg, setVtopNVbot_upper_layer_plus, Vtop or Vbot_upper_layer value missing NADA\n");
 		}
 
-	}
-	else {
-		print(
-"immodpg, setVtopNVbot_upper_layer_plus, missing widget or Vincrement\n"
-		);
+	} else {
+		print("immodpg, setVtopNVbot_upper_layer_plus, missing widget or Vincrement\n");
 
-#		print("immodpg, setVtopNVbot_upper_layer_plus, Vbot_upper_layerEntry=$immodpg->{_Vbot_upper_layerEntry}\n");
-#		print("immodpg, setVtopNVbot_upper_layer_plus, Vincrement=$immodpg->{_Vincrement}\n");
+		#		print("immodpg, setVtopNVbot_upper_layer_plus, Vbot_upper_layerEntry=$immodpg->{_Vbot_upper_layerEntry}\n");
+		#		print("immodpg, setVtopNVbot_upper_layer_plus, Vincrement=$immodpg->{_Vincrement}\n");
 	}
 	return ();
 }
@@ -6235,13 +5766,13 @@ sub setVincrement {
 
 		$immodpg->{_Vincrement_current} = $immodpg->{_VincrementEntry}->get();
 
-# print("1. immodpg, set_clip,immodpg->{_Vincrement_current}:$immodpg->{_Vincrement_current}\n");
+		# print("1. immodpg, set_clip,immodpg->{_Vincrement_current}:$immodpg->{_Vincrement_current}\n");
 
 		_set_control( 'Vincrement', $immodpg->{_Vincrement_current} );
 		$immodpg->{_Vincrement_current} = _get_control('Vincrement');
 		my $newVincrement = $immodpg->{_Vincrement_current};
 
-# print("2. immodpg, set_clip,immodpg->{_Vincrement_current}:$immodpg->{_Vincrement_current}\n");
+		# print("2. immodpg, set_clip,immodpg->{_Vincrement_current}:$immodpg->{_Vincrement_current}\n");
 
 		$immodpg->{_VincrementEntry}->delete( 0, 'end' );
 		$immodpg->{_VincrementEntry}->insert( 0, $newVincrement );
@@ -6259,11 +5790,10 @@ sub setVincrement {
 			_set_option($changeVincrement_opt);
 			_set_change($yes);
 
-		   # print("immodpg, setVincrement,option:$changeVincrement_opt\n");
-		   # print("immodpg, setVincrement, $immodpg->{_Vincrement_current}\n");
+			# print("immodpg, setVincrement,option:$changeVincrement_opt\n");
+			# print("immodpg, setVincrement, $immodpg->{_Vincrement_current}\n");
 
-		}
-		else {
+		} else {
 
 			#			negative cases are reset by fortran program
 			#			and so eliminate need to read locked files
@@ -6274,8 +5804,7 @@ sub setVincrement {
 			# print("immodpg, setVincrement, same Vincrement NADA\n");
 		}
 
-	}
-	else {
+	} else {
 
 	}
 
@@ -6326,8 +5855,7 @@ sub setVtop {
 			#			print("immodpg, setVtop,option:$changeVtop_opt\n");
 			#			print("immodpg, setVtop, V=$immodpg->{_Vtop_current}\n");
 
-		}
-		else {
+		} else {
 
 			#			negative cases are reset by fortran program
 			#			and so eliminate need to read locked files
@@ -6338,8 +5866,7 @@ sub setVtop {
 			#					print("immodpg, setVtop, same Vtop NADA\n");
 		}
 
-	}
-	else {
+	} else {
 		print("immodpg, setVtop, _Vtop value missing\n");
 		print("immodpg, setVtop, Vtop=$immodpg->{_Vtop}\n");
 	}
@@ -6362,12 +5889,11 @@ sub setVtop_lower_layer {
 
 	my $newVtop_lower_layer;
 
-# my $isVtop_lower_layer_changed = $immodpg->{_isVtop_lower_layer_changed_in_gui};
+	# my $isVtop_lower_layer_changed = $immodpg->{_isVtop_lower_layer_changed_in_gui};
 
 	if ( length( $immodpg->{_Vtop_lower_layerEntry} ) ) {
 
-		$immodpg->{_Vtop_lower_layer} =
-		  ( $immodpg->{_Vtop_lower_layerEntry} )->get();
+		$immodpg->{_Vtop_lower_layer} = ( $immodpg->{_Vtop_lower_layerEntry} )->get();
 
 		_set_control( 'Vtop_lower_layer', $immodpg->{_Vtop_lower_layer} );
 		$immodpg->{_Vtop_lower_layer} = _get_control('Vtop_lower_layer');
@@ -6381,20 +5907,19 @@ sub setVtop_lower_layer {
 
 		if ( $immodpg->{_isVtop_lower_layer_changed_in_gui} eq $yes ) {
 
-# for fortran program to read
-#            print(" immodpg, set_Vtop_lower_layer, newVtop_lower_layer = $newVtop_lower_layer\n");
+			# for fortran program to read
+			#            print(" immodpg, set_Vtop_lower_layer, newVtop_lower_layer = $newVtop_lower_layer\n");
 
-	  #				$immodpg->{_Vtop_lower_layerEntry}->delete( 0, 'end' );
-	  #				$immodpg->{_Vtop_lower_layerEntry}->insert( 0, $newVtop_lower_layer);
+			#				$immodpg->{_Vtop_lower_layerEntry}->delete( 0, 'end' );
+			#				$immodpg->{_Vtop_lower_layerEntry}->insert( 0, $newVtop_lower_layer);
 
 			_setVtop_lower_layer( $immodpg->{_Vtop_lower_layer_current} );
 			_set_option($Vtop_lower_layer_opt);
 			_set_change($yes);
 
-		 #	print("immodpg, setVtop_lower_layer,option:$Vtop_lower_layer_opt\n");
+			#	print("immodpg, setVtop_lower_layer,option:$Vtop_lower_layer_opt\n");
 
-		}
-		else {
+		} else {
 
 			#			negative cases are reset by fortran program
 			#			and so eliminate need to read locked files
@@ -6402,11 +5927,10 @@ sub setVtop_lower_layer {
 			#			creation and deletion of locked files in perl are not
 			#			failsafe
 
-		#			print("immodpg, setVtop_lower_layer, same Vtop_lower_layer NADA\n");
+			#			print("immodpg, setVtop_lower_layer, same Vtop_lower_layer NADA\n");
 		}
 
-	}
-	else {
+	} else {
 		("immodpg, setVtop_lower_layer, missing widget\n");
 	}
 }
@@ -6425,15 +5949,14 @@ sub setVbotNtop_factor {
 
 	if ( length( $immodpg->{_VbotNtop_factorEntry} ) ) {
 
-		$immodpg->{_VbotNtop_factor_current} =
-		  $immodpg->{_VbotNtop_factorEntry}->get();
+		$immodpg->{_VbotNtop_factor_current} = $immodpg->{_VbotNtop_factorEntry}->get();
 
-# print("1, immodpg, setVbotNtop_factor,immodpg->{_VbotNtop_factor_current}: $immodpg->{_VbotNtop_factor_current} \n");
+		# print("1, immodpg, setVbotNtop_factor,immodpg->{_VbotNtop_factor_current}: $immodpg->{_VbotNtop_factor_current} \n");
 		_set_control( 'VbotNtop_factor', $immodpg->{_VbotNtop_factor_current} );
 		$immodpg->{_VbotNtop_factor_current} = _get_control('VbotNtop_factor');
 		my $newVbotNtop_factor = $immodpg->{_VbotNtop_factor_current};
 
-# print("2. immodpg, setVbotNtop_factor,newVbotNtop_factor:$newVbotNtop_factor\n");
+		# print("2. immodpg, setVbotNtop_factor,newVbotNtop_factor:$newVbotNtop_factor\n");
 
 		$immodpg->{_VbotNtop_factorEntry}->delete( 0, 'end' );
 		$immodpg->{_VbotNtop_factorEntry}->insert( 0, $newVbotNtop_factor );
@@ -6448,17 +5971,15 @@ sub setVbotNtop_factor {
 			_set_option($changeVbotNtop_factor_opt);
 			_set_change($yes);
 
-	 # print("immodpg, setVbotNtop_factor,option:$changeVbotNtop_factor_opt\n");
+			# print("immodpg, setVbotNtop_factor,option:$changeVbotNtop_factor_opt\n");
 
-		}
-		else {
+		} else {
 			_set_change($no);
 
-		# print("immodpg, setVbotNtop_factor, same VbotNtop_factor_opt NADA\n");
+			# print("immodpg, setVbotNtop_factor, same VbotNtop_factor_opt NADA\n");
 		}
 
-	}
-	else {
+	} else {
 		print("immodpg, setVbotNtop_factor, bad factor or widget\n");
 
 		# correct for bad typing
@@ -6487,8 +6008,7 @@ sub setVbotNtop_multiply {
 
 	if (   looks_like_number( $immodpg->{_VbotNtop_factor_current} )
 		&& length( $immodpg->{_VbotEntry}->get() )
-		&& length( $immodpg->{_VtopEntry}->get() ) )
-	{
+		&& length( $immodpg->{_VtopEntry}->get() ) ) {
 
 		my $factor          = $immodpg->{_VbotNtop_factorEntry}->get();
 		my $Vbot            = ( $immodpg->{_VbotEntry} )->get();
@@ -6498,14 +6018,13 @@ sub setVbotNtop_multiply {
 		$immodpg->{_Vbot_multiplied} = $Vbot_multiplied;
 		$immodpg->{_Vtop_multiplied} = $Vtop_multiplied;
 
-# print("immodpg, setVbotNtop_multiply, Vbot=$Vbot_multiplied=, Vtop= $Vtop_multiplied\n");
+		# print("immodpg, setVbotNtop_multiply, Vbot=$Vbot_multiplied=, Vtop= $Vtop_multiplied\n");
 
 		_updateVbotNtop_multiply();
 		_set_option($VbotNtop_multiply_opt);
 		_set_change($yes);
 
-	}
-	else {
+	} else {
 		print("immodpg, setVbotNtop_multiply, missing value\n");
 	}
 
@@ -6526,8 +6045,7 @@ sub setVbotNtop_minus {
 	my ($self) = @_;
 
 	if (   length( $immodpg->{_VbotEntry} )
-		&& length( $immodpg->{_VtopEntry} ) )
-	{
+		&& length( $immodpg->{_VtopEntry} ) ) {
 
 		my $Vbot       = ( $immodpg->{_VbotEntry} )->get();
 		my $Vtop       = ( $immodpg->{_VtopEntry} )->get();
@@ -6535,8 +6053,7 @@ sub setVbotNtop_minus {
 
 		if (   looks_like_number($Vbot)
 			&& looks_like_number($Vtop)
-			&& looks_like_number($Vincrement) )
-		{
+			&& looks_like_number($Vincrement) ) {
 
 			my $newVbot = $Vbot - $Vincrement;
 
@@ -6568,17 +6085,15 @@ sub setVbotNtop_minus {
 			# print("immodpg, setVbotNtop_minus, Vincrement= $Vincrement\n");
 
 			if (   $immodpg->{_isVbot_changed_in_gui} eq $yes
-				&& $immodpg->{_isVtop_changed_in_gui} eq $yes )
-			{
+				&& $immodpg->{_isVtop_changed_in_gui} eq $yes ) {
 
 				# for fortran program to read
 				_set_option($VbotNtop_minus_opt);
 				_set_change($yes);
 
-#					print("immodpg, setVbotNtop_minus, VbotNtop_minus_opt:$VbotNtop_minus_opt \n");
+				#					print("immodpg, setVbotNtop_minus, VbotNtop_minus_opt:$VbotNtop_minus_opt \n");
 
-			}
-			else {
+			} else {
 
 				#	negative cases are reset by fortran program
 				#	and so eliminate need to read locked files
@@ -6589,16 +6104,14 @@ sub setVbotNtop_minus {
 				#				print("immodpg, setVbotNtop_minus, same VbotNtop NADA\n");
 			}
 
-		}
-		else {
+		} else {
 			print("immodpg, setVbotNtop_minus, VbotNtop value missing\n");
 		}
 
-	}
-	else {
+	} else {
 		print("immodpg, setVbotNtop_minus, missing widget or Vincrement\n");
 
-   #		print("immodpg, setVbotNtop_minus, Vincrement=$immodpg->{_Vincrement}\n");
+		#		print("immodpg, setVbotNtop_minus, Vincrement=$immodpg->{_Vincrement}\n");
 	}
 	return ();
 }
@@ -6616,8 +6129,7 @@ sub setVbotNtop_plus {
 	my ($self) = @_;
 
 	if (   length( $immodpg->{_VbotEntry} )
-		&& length( $immodpg->{_VtopEntry} ) )
-	{
+		&& length( $immodpg->{_VtopEntry} ) ) {
 
 		my $Vbot       = ( $immodpg->{_VbotEntry} )->get();
 		my $Vtop       = ( $immodpg->{_VtopEntry} )->get();
@@ -6625,8 +6137,7 @@ sub setVbotNtop_plus {
 
 		if (   looks_like_number($Vbot)
 			&& looks_like_number($Vtop)
-			&& looks_like_number($Vincrement) )
-		{
+			&& looks_like_number($Vincrement) ) {
 
 			my $newVbot = $Vbot + $Vincrement;
 
@@ -6658,17 +6169,15 @@ sub setVbotNtop_plus {
 			# print("immodpg, setVbotNtop_plus, Vincrement= $Vincrement\n");
 
 			if (   $immodpg->{_isVbot_changed_in_gui} eq $yes
-				&& $immodpg->{_isVtop_changed_in_gui} eq $yes )
-			{
+				&& $immodpg->{_isVtop_changed_in_gui} eq $yes ) {
 
 				# for fortran program to read
 				_set_option($VbotNtop_plus_opt);
 				_set_change($yes);
 
-#					print("immodpg, setVbotNtop_plus, VbotNtop_plus_opt:$VbotNtop_plus_opt \n");
+				#					print("immodpg, setVbotNtop_plus, VbotNtop_plus_opt:$VbotNtop_plus_opt \n");
 
-			}
-			else {
+			} else {
 
 				#	negative cases are reset by fortran program
 				#	and so eliminate need to read locked files
@@ -6679,16 +6188,14 @@ sub setVbotNtop_plus {
 				#				print("immodpg, setVbotNtop_plus, same VbotNtop NADA\n");
 			}
 
-		}
-		else {
+		} else {
 			print("immodpg, setVbotNtop_plus, VbotNtop value missing\n");
 		}
 
-	}
-	else {
+	} else {
 		print("immodpg, setVbotNtop_plus, missing widget or Vincrement\n");
 
-	#		print("immodpg, setVbotNtop_plus, Vincrement=$immodpg->{_Vincrement}\n");
+		#		print("immodpg, setVbotNtop_plus, Vincrement=$immodpg->{_Vincrement}\n");
 	}
 	return ();
 }
@@ -6704,13 +6211,10 @@ sub invert {
 	if ( $invert ne $empty_string ) {
 
 		$immodpg->{_invert} = $invert;
-		$immodpg->{_note} =
-		  $immodpg->{_note} . ' invert=' . $immodpg->{_invert};
-		$immodpg->{_Step} =
-		  $immodpg->{_Step} . ' invert=' . $immodpg->{_invert};
+		$immodpg->{_note}   = $immodpg->{_note} . ' invert=' . $immodpg->{_invert};
+		$immodpg->{_Step}   = $immodpg->{_Step} . ' invert=' . $immodpg->{_invert};
 
-	}
-	else {
+	} else {
 		print("immodpg, invert, missing invert,\n");
 	}
 }
@@ -6729,8 +6233,7 @@ sub lmute {
 		$immodpg->{_note}  = $immodpg->{_note} . ' lmute=' . $immodpg->{_lmute};
 		$immodpg->{_Step}  = $immodpg->{_Step} . ' lmute=' . $immodpg->{_lmute};
 
-	}
-	else {
+	} else {
 		print("immodpg, lmute, missing lmute,\n");
 	}
 }
@@ -6758,8 +6261,7 @@ sub premmod {
 
 	if ( $inbound ne $empty_string ) {
 
-	}
-	else {
+	} else {
 		print("immodpg,premmod, unexpected result\n");
 	}
 
@@ -6781,13 +6283,13 @@ sub set_clip {
 
 		$immodpg->{_clip4plot_current} = $immodpg->{_clip4plotEntry}->get();
 
-# print("1. immodpg, set_clip,immodpg->{_clip4plot_current}:$immodpg->{_clip4plot_current}\n");
+		# print("1. immodpg, set_clip,immodpg->{_clip4plot_current}:$immodpg->{_clip4plot_current}\n");
 
 		_set_control( 'clip4plot', $immodpg->{_clip4plot_current} );
 		$immodpg->{_clip4plot_current} = _get_control('clip4plot');
 		my $new_clip4plot = $immodpg->{_clip4plot_current};
 
-# print("2. immodpg, set_clip,immodpg->{_clip4plot_current}:$immodpg->{_clip4plot_current}\n");
+		# print("2. immodpg, set_clip,immodpg->{_clip4plot_current}:$immodpg->{_clip4plot_current}\n");
 
 		$immodpg->{_clip4plotEntry}->delete( 0, 'end' );
 		$immodpg->{_clip4plotEntry}->insert( 0, $new_clip4plot );
@@ -6802,17 +6304,15 @@ sub set_clip {
 			_set_option($change_clip_opt);
 			_set_change($yes);
 
-#			print("immodpg, set_clip,immodpg->{_clip4plot_current}=$immodpg->{_clip4plot_current}\n");
+			#			print("immodpg, set_clip,immodpg->{_clip4plot_current}=$immodpg->{_clip4plot_current}\n");
 
-		}
-		else {
+		} else {
 			_set_change($no);
 
 			# print("immodpg, set_clip, same clip NADA\n");
 		}
 
-	}
-	else {
+	} else {
 
 	}
 }
@@ -6831,13 +6331,12 @@ sub set_layer {
 
 	if (   length( $immodpg->{_layerEntry} )
 		&& looks_like_number( $immodpg->{_layer_current} )
-		&& length $immodpg->{_VbotEntry}
-		&& length $immodpg->{_VtopEntry}
-		&& length $immodpg->{_Vbot_upper_layerEntry}
-		&& length $immodpg->{_Vtop_lower_layerEntry}
+		&& length $immodpg->{_VbotEntry} 
+		&& length  $immodpg->{_VtopEntry} 
+		&& length $immodpg->{_Vbot_upper_layerEntry} 
+		&& length $immodpg->{_Vtop_lower_layerEntry} 
 		&& length( $immodpg->{_thickness_mEntry} )
-		&& looks_like_number( $immodpg->{_thickness_m_current} ) )
-	{
+		&& looks_like_number( $immodpg->{_thickness_m_current} ) ) {
 
 		_check_layer();
 		_update_layer_in_gui();
@@ -6856,7 +6355,7 @@ velocity values and thickness values of the new layer
 
 =cut
 
-# print("immodpg, set_layer, layer is changed to: $immodpg->{_layer_current}\n");
+			# print("immodpg, set_layer, layer is changed to: $immodpg->{_layer_current}\n");
 			_set_model_layer( $immodpg->{_layer_current} );
 
 			my ( $Vp_ref, $dz ) = _getVp_ref_dz_scalar();
@@ -6870,7 +6369,7 @@ velocity values and thickness values of the new layer
 			my $Vbot             = $V[2];
 			my $Vtop_lower_layer = $V[3];
 
-# print("immodpg, set_layer, Vbot=$Vbot for layer=$immodpg->{_layer_current} \n");
+			# print("immodpg, set_layer, Vbot=$Vbot for layer=$immodpg->{_layer_current} \n");
 			$immodpg->{_thickness_mEntry}->delete( 0, 'end' );
 			$immodpg->{_thickness_mEntry}->insert( 0, $thickness_m );
 
@@ -6891,18 +6390,16 @@ velocity values and thickness values of the new layer
 			$immodpg->{_Vtop_lower_layerEntry}->insert( 0, $Vtop_lower_layer );
 
 			# update stored values
-			$immodpg->{_Vtop_prior}   = $immodpg->{_Vtop_current};
-			$immodpg->{_Vtop_current} = $Vtop;
-			$immodpg->{_Vbot_prior}   = $immodpg->{_Vbot_current};
-			$immodpg->{_Vbot_current} = $Vbot;
-			$immodpg->{_Vbot_upper_layer_prior} =
-			  $immodpg->{_Vbot_upper_layer_current};
+			$immodpg->{_Vtop_prior}               = $immodpg->{_Vtop_current};
+			$immodpg->{_Vtop_current}             = $Vtop;
+			$immodpg->{_Vbot_prior}               = $immodpg->{_Vbot_current};
+			$immodpg->{_Vbot_current}             = $Vbot;
+			$immodpg->{_Vbot_upper_layer_prior}   = $immodpg->{_Vbot_upper_layer_current};
 			$immodpg->{_Vbot_upper_layer_current} = $Vbot_upper_layer;
-			$immodpg->{_Vtop_lower_layer_prior} =
-			  $immodpg->{_Vtop_lower_layer_current};
+			$immodpg->{_Vtop_lower_layer_prior}   = $immodpg->{_Vtop_lower_layer_current};
 			$immodpg->{_Vtop_lower_layer_current} = $Vtop_lower_layer;
-			$immodpg->{_thickness_m_prior}   = $immodpg->{_thickness_m_current};
-			$immodpg->{_thickness_m_current} = $thickness_m;
+			$immodpg->{_thickness_m_prior}        = $immodpg->{_thickness_m_current};
+			$immodpg->{_thickness_m_current}      = $thickness_m;
 
 			# affects immodpg.for
 			# print("3. immodpg, set_layer, layer is changed: $yes \n");
@@ -6912,15 +6409,13 @@ velocity values and thickness values of the new layer
 
 			# print("immodpg, set_layer,option:$change_layer_number_opt\n");
 
-		}
-		else {
+		} else {
 			_set_change($no);
 
 			#	print("immodpg, layer, same layer NADA\n");
 		}
 
-	}
-	else {
+	} else {
 
 	}
 }
@@ -6941,16 +6436,14 @@ sub set_layer_control {
 
 		$immodpg->{_control_layer_external} = $control_layer_external;
 
-#		print("immodpg,set_layer_control,control_layer_external = $control_layer_external \n");
+		#		print("immodpg,set_layer_control,control_layer_external = $control_layer_external \n");
 
-	}
-	elsif ( not( length($control_layer_external) ) ) {
+	} elsif ( not( length($control_layer_external) ) ) {
 
 		#		print("immodpg,set_layer_control, empty string\n");
 		$immodpg->{_control_layer_external} = $control_layer_external;
 
-	}
-	else {
+	} else {
 		print("immodpg,set_layer_control, missing value\n");
 	}
 
@@ -6970,8 +6463,7 @@ sub set_missing {
 
 		$immodpg->{_inbound_missing} = $inbound_missing;
 
-	}
-	else {
+	} else {
 		print("immodpg, missing, missing file,\n");
 	}
 	return ();
@@ -6988,17 +6480,15 @@ sub set_model_layer {
 	my ( $self, $model_layer_number ) = @_;
 
 	if ( $model_layer_number != 0
-		&& length($model_layer_number) )
-	{
+		&& length($model_layer_number) ) {
 
 		$immodpg->{_model_layer_number} = $model_layer_number;
 
-	}
-	else {
+	} else {
 		print("immodpg, set_model_layer, unexpected layer# \n");
 	}
 
-#	print("immodpg, set_model_layer,modellayer# =$immodpg->{_model_layer_number}\n");
+	#	print("immodpg, set_model_layer,modellayer# =$immodpg->{_model_layer_number}\n");
 
 	return ();
 }
@@ -7016,8 +6506,7 @@ sub set_replacement4missing {
 
 		$immodpg->{_replacement4missing} = $replacement4missing;
 
-	}
-	else {
+	} else {
 		print("immodpg, set_replacement4missing, missing replacement\n");
 	}
 	return ();
@@ -7037,16 +6526,14 @@ sub set_thickness_m_minus {
 	my ($self) = @_;
 
 	if ( length( $immodpg->{_thickness_mEntry} )
-		&& looks_like_number( $immodpg->{_thickness_increment_m} ) )
-	{
+		&& looks_like_number( $immodpg->{_thickness_increment_m} ) ) {
 
 		my $thickness_m = ( $immodpg->{_thickness_mEntry} )->get();
 
 		if ( looks_like_number($thickness_m) ) {
 
-			my $thickness_increment_m =
-			  ( $immodpg->{_thickness_increment_mEntry} )->get();
-			my $new_thickness_m = $thickness_m - $thickness_increment_m;
+			my $thickness_increment_m = ( $immodpg->{_thickness_increment_mEntry} )->get();
+			my $new_thickness_m       = $thickness_m - $thickness_increment_m;
 			_set_control( 'thickness_m', $new_thickness_m );
 			$new_thickness_m = _get_control('thickness_m');
 
@@ -7056,8 +6543,8 @@ sub set_thickness_m_minus {
 			$immodpg->{_thickness_mEntry}->delete( 0, 'end' );
 			$immodpg->{_thickness_mEntry}->insert( 0, $new_thickness_m );
 
-#			print("immodpg, set new _thickness_m= $new_thickness_m\n");
-#			print("immodpg, set_thickness_m_minus, thickness_increment_m= $thickness_increment_m\n");
+			#			print("immodpg, set new _thickness_m= $new_thickness_m\n");
+			#			print("immodpg, set_thickness_m_minus, thickness_increment_m= $thickness_increment_m\n");
 
 			#				_check_thickness_m(); #todo
 			_update_thickness_m();
@@ -7066,42 +6553,36 @@ sub set_thickness_m_minus {
 
 			if ( $immodpg->{_is_thickness_m_changed_in_gui} eq $yes ) {
 
-	# for fortran program to read
-	# print("immodpg, set_thickness_m_minus, _thickness_m is changed: $yes \n");
+				# for fortran program to read
+				# print("immodpg, set_thickness_m_minus, _thickness_m is changed: $yes \n");
 
 				#				   _set_thickness_m( $immodpg->{_thickness_m_current} );
 				_set_option($thickness_m_minus_opt);
 				_set_change($yes);
 
-#								print("immodpg, set_thickness_m_minus,option:$thickness_m_minus_opt\n");
-#								print("immodpg, set_thickness_m_minus, V=$immodpg->{_thickness_m_current}\n");
+				#								print("immodpg, set_thickness_m_minus,option:$thickness_m_minus_opt\n");
+				#								print("immodpg, set_thickness_m_minus, V=$immodpg->{_thickness_m_current}\n");
 
+			} else {
+
+				#	negative cases are reset by fortran program
+				#	and so eliminate need to read locked files
+				#	while use of locked files helps most of the time
+				#	creation and deletion of locked files in perl are not
+				#	failsafe
+				#
+				#	print("immodpg, set_thickness_m_minus, same _thickness_m NADA\n");
 			}
-			else {
 
-			#	negative cases are reset by fortran program
-			#	and so eliminate need to read locked files
-			#	while use of locked files helps most of the time
-			#	creation and deletion of locked files in perl are not
-			#	failsafe
-			#
-			#	print("immodpg, set_thickness_m_minus, same _thickness_m NADA\n");
-			}
+		} else {
+			print("immodpg, set_thickness_m_minus, _thickness_m value missing\n");
 
-		}
-		else {
-			print(
-				"immodpg, set_thickness_m_minus, _thickness_m value missing\n");
-
-#			print("immodpg, set_thickness_m_minus, _thickness_mEntry=$immodpg->{_thickness_mEntry}\n");
-#			print("immodpg, set_thickness_m_minus, thickness_increment_m=$immodpg->{_thickness_increment_m}\n");
+			#			print("immodpg, set_thickness_m_minus, _thickness_mEntry=$immodpg->{_thickness_mEntry}\n");
+			#			print("immodpg, set_thickness_m_minus, thickness_increment_m=$immodpg->{_thickness_increment_m}\n");
 		}
 
-	}
-	else {
-		print(
-"immodpg, set_thickness_m_minus, missing widget or thickness_increment_m\n"
-		);
+	} else {
+		print("immodpg, set_thickness_m_minus, missing widget or thickness_increment_m\n");
 	}
 	return ();
 }
@@ -7120,16 +6601,14 @@ sub set_thickness_m_plus {
 	my ($self) = @_;
 
 	if ( length( $immodpg->{_thickness_mEntry} )
-		&& looks_like_number( $immodpg->{_thickness_increment_m} ) )
-	{
+		&& looks_like_number( $immodpg->{_thickness_increment_m} ) ) {
 
 		my $thickness_m = ( $immodpg->{_thickness_mEntry} )->get();
 
 		if ( looks_like_number($thickness_m) ) {
 
-			my $thickness_increment_m =
-			  ( $immodpg->{_thickness_increment_mEntry} )->get();
-			my $new_thickness_m = $thickness_m + $thickness_increment_m;
+			my $thickness_increment_m = ( $immodpg->{_thickness_increment_mEntry} )->get();
+			my $new_thickness_m       = $thickness_m + $thickness_increment_m;
 			_set_control( 'thickness_m', $new_thickness_m );
 			$new_thickness_m = _get_control('thickness_m');
 
@@ -7139,7 +6618,7 @@ sub set_thickness_m_plus {
 			$immodpg->{_thickness_mEntry}->delete( 0, 'end' );
 			$immodpg->{_thickness_mEntry}->insert( 0, $new_thickness_m );
 
-#				print("immodpg, set_thickness_m_plus, set new _thickness_m= $new_thickness_m\n");
+			#				print("immodpg, set_thickness_m_plus, set new _thickness_m= $new_thickness_m\n");
 			_check_thickness_m();    #todo
 			_update_thickness_m();
 
@@ -7147,45 +6626,39 @@ sub set_thickness_m_plus {
 
 			if ( $immodpg->{_is_thickness_m_changed_in_gui} eq $yes ) {
 
-	 # for fortran program to read
-	 # print("immodpg, set_thickness_m_plus, _thickness_m is changed: $yes \n");
+				# for fortran program to read
+				# print("immodpg, set_thickness_m_plus, _thickness_m is changed: $yes \n");
 
 				#				    _set_thickness_m( $immodpg->{_thickness_m_current} );
 				_set_option($thickness_m_plus_opt);
 				_set_change($yes);
 
-#	print("immodpg, set_thickness_m_plus,option:$_thickness_m_plus_opt\n");
-# print("immodpg, set_thickness_m_plus, dz=$immodpg->{_thickness_m_current}\n");
+				#	print("immodpg, set_thickness_m_plus,option:$_thickness_m_plus_opt\n");
+				# print("immodpg, set_thickness_m_plus, dz=$immodpg->{_thickness_m_current}\n");
 
+			} else {
+
+				#				print("immodpg, set_thickness_m_plus, _thickness_mEntry=$immodpg->{_thickness_mEntry}\n");
+				#				print("immodpg, set_thickness_m_plus, thickness_increment_m=$immodpg->{_thickness_increment_m}\n");
+
+				#	negative cases are reset by fortran program
+				#	and so eliminate need to read locked files
+				#	while use of locked files helps most of the time
+				#	creation and deletion of locked files in perl are not
+				#	failsafe
+				#
+				#	print("immodpg, set_thickness_m_plus, same _thickness_m NADA\n");
 			}
-			else {
 
-#				print("immodpg, set_thickness_m_plus, _thickness_mEntry=$immodpg->{_thickness_mEntry}\n");
-#				print("immodpg, set_thickness_m_plus, thickness_increment_m=$immodpg->{_thickness_increment_m}\n");
+		} else {
+			print("immodpg, set_thickness_m_plus, _thickness_m value missing\n");
 
-			 #	negative cases are reset by fortran program
-			 #	and so eliminate need to read locked files
-			 #	while use of locked files helps most of the time
-			 #	creation and deletion of locked files in perl are not
-			 #	failsafe
-			 #
-			 #	print("immodpg, set_thickness_m_plus, same _thickness_m NADA\n");
-			}
-
-		}
-		else {
-			print(
-				"immodpg, set_thickness_m_plus, _thickness_m value missing\n");
-
-#			print("immodpg, set_thickness_m_plus, _thickness_mEntry=$immodpg->{_thickness_mEntry}\n");
-#			print("immodpg, set_thickness_m_plus, thickness_increment_m=$immodpg->{_thickness_increment_m}\n");
+			#			print("immodpg, set_thickness_m_plus, _thickness_mEntry=$immodpg->{_thickness_mEntry}\n");
+			#			print("immodpg, set_thickness_m_plus, thickness_increment_m=$immodpg->{_thickness_increment_m}\n");
 		}
 
-	}
-	else {
-		print(
-"immodpg, set_thickness_m_plus, missing widget or thickness_increment_m\n"
-		);
+	} else {
+		print("immodpg, set_thickness_m_plus, missing widget or thickness_increment_m\n");
 	}
 	return ();
 }
@@ -7225,37 +6698,32 @@ sub set_widgets {
 	if ($widget_h) {
 
 		# print("immodpg, set_widgets, widget_ ->{_mw}: $widget_h ->{_mw}\n");
-		$immodpg->{_VbotEntry} = $widget_h->{_VbotEntry};
-		$immodpg->{_Vbot_upper_layerEntry} =
-		  $widget_h->{_Vbot_upper_layerEntry};
-		$immodpg->{_VincrementEntry} = $widget_h->{_VincrementEntry};
-		$immodpg->{_VtopEntry}       = $widget_h->{_VtopEntry};
-		$immodpg->{_Vtop_lower_layerEntry} =
-		  $widget_h->{_Vtop_lower_layerEntry};
-		$immodpg->{_VbotNtop_factorEntry} = $widget_h->{_VbotNtop_factorEntry};
-		$immodpg->{_clip4plotEntry}       = $widget_h->{_clip4plotEntry};
-		$immodpg->{_layerEntry}           = $widget_h->{_layerEntry};
-		$immodpg->{_thickness_mEntry}     = $widget_h->{_thickness_mEntry};
-		$immodpg->{_thickness_increment_mEntry} =
-		  $widget_h->{_thickness_increment_mEntry};
-		$immodpg->{_upper_layerLabel} = $widget_h->{_upper_layerLabel};
-		$immodpg->{_lower_layerLabel} = $widget_h->{_lower_layerLabel};
-		$immodpg->{_mw}               = $widget_h->{_mw};
+		$immodpg->{_VbotEntry}                  = $widget_h->{_VbotEntry};
+		$immodpg->{_Vbot_upper_layerEntry}      = $widget_h->{_Vbot_upper_layerEntry};
+		$immodpg->{_VincrementEntry}            = $widget_h->{_VincrementEntry};
+		$immodpg->{_VtopEntry}                  = $widget_h->{_VtopEntry};
+		$immodpg->{_Vtop_lower_layerEntry}      = $widget_h->{_Vtop_lower_layerEntry};
+		$immodpg->{_VbotNtop_factorEntry}       = $widget_h->{_VbotNtop_factorEntry};
+		$immodpg->{_clip4plotEntry}             = $widget_h->{_clip4plotEntry};
+		$immodpg->{_layerEntry}                 = $widget_h->{_layerEntry};
+		$immodpg->{_thickness_mEntry}           = $widget_h->{_thickness_mEntry};
+		$immodpg->{_thickness_increment_mEntry} = $widget_h->{_thickness_increment_mEntry};
+		$immodpg->{_upper_layerLabel}           = $widget_h->{_upper_layerLabel};
+		$immodpg->{_lower_layerLabel}           = $widget_h->{_lower_layerLabel};
+		$immodpg->{_mw}                         = $widget_h->{_mw};
+#		$immodpg->{_message_box_w}              = $widget_h->{_message_box_w};
+#		$immodpg->{_message_upper_frame}        = $widget_h->{_message_upper_frame};
+#		$immodpg->{_message_lower_frame}        = $widget_h->{_message_lower_frame};
+#		$immodpg->{_message_label_w}            = $widget_h->{_message_label_w};
+#		$immodpg->{_message_box_wait}           = $widget_h->{_message_box_wait};
+#		$immodpg->{_message_ok_button}          = $widget_h->{_message_ok_button};
 
- #		$immodpg->{_message_box_w}              = $widget_h->{_message_box_w};
- #		$immodpg->{_message_upper_frame}        = $widget_h->{_message_upper_frame};
- #		$immodpg->{_message_lower_frame}        = $widget_h->{_message_lower_frame};
- #		$immodpg->{_message_label_w}            = $widget_h->{_message_label_w};
- #		$immodpg->{_message_box_wait}           = $widget_h->{_message_box_wait};
- #		$immodpg->{_message_ok_button}          = $widget_h->{_message_ok_button};
-
-# print("immodpg, set_widgets, immodpg->{_message_box_w}: $immodpg->{_message_box_w}\n");
-# print("immodpg, set_widgets, OK\n");
+		# print("immodpg, set_widgets, immodpg->{_message_box_w}: $immodpg->{_message_box_w}\n");
+		# print("immodpg, set_widgets, OK\n");
 
 		return ();
 
-	}
-	else {
+	} else {
 		print("immodpg, set_widgets, unexpected\n");
 	}
 
@@ -7275,8 +6743,7 @@ sub set_base_file_name {
 
 		print("header_values,set_base_file_name,$immodpg->{_base_file_name}\n");
 
-	}
-	else {
+	} else {
 		print("header_values,set_base_file_name, missing base file name\n");
 	}
 
@@ -7305,8 +6772,8 @@ sub set_change {
 	#	print("immodpg, set_change, yes_or_no:$yes_or_no\n");
 
 	if ( defined($yes_or_no)
-		&& $immodpg->{_change_file} ne $empty_string )
-	{
+		&& $immodpg->{_change_file} ne $empty_string ) {
+
 
 =head2 instantiate classes
 
@@ -7330,12 +6797,7 @@ variables
 
 		my $count      = 0;
 		my $max_counts = $var_immodpg->{_loop_limit};
-		for (
-			my $i = 0 ;
-			( $test eq $yes ) and ( $count < $max_counts ) ;
-			$i++
-		  )
-		{
+		for ( my $i = 0; ( $test eq $yes ) and ( $count < $max_counts ); $i++ ) {
 
 			#			print("1. immodpg,set_change, in loop count=$count \n");
 
@@ -7344,12 +6806,12 @@ variables
 				$X[0] = $empty_string;
 				$files->write_1col_aref( \@X, \$outbound_locked, \$format );
 
-		 # print("immodpg, set_change, outbound_locked=$outbound_locked\n");
-		 # print("immodpg, set_change, IMMODPG_INVISIBLE=$IMMODPG_INVISIBLE\n");
-		 # print("immodpg, set_change, created empty locked file=$X[0]\n");
+				# print("immodpg, set_change, outbound_locked=$outbound_locked\n");
+				# print("immodpg, set_change, IMMODPG_INVISIBLE=$IMMODPG_INVISIBLE\n");
+				# print("immodpg, set_change, created empty locked file=$X[0]\n");
 
-		 # print("immodpg, set_change, outbound=$outbound\n");
-		 # print("immodpg, set_change, IMMODPG_INVISIBLE=$IMMODPG_INVISIBLE\n");
+				# print("immodpg, set_change, outbound=$outbound\n");
+				# print("immodpg, set_change, IMMODPG_INVISIBLE=$IMMODPG_INVISIBLE\n");
 
 				# do not overwrite a waiting change (= yes)
 				my $response_aref = $files->read_1col_aref( \$outbound );
@@ -7357,20 +6819,19 @@ variables
 
 				if ( $ans eq $yes ) {
 
-				  # do not overwrite a waiting change (= yes)
-				  # print("2. immodpg, set_change, SKIP\n");
-				  # print("immodpg, set_change,do not overwrite change_file\n");
+					# do not overwrite a waiting change (= yes)
+					# print("2. immodpg, set_change, SKIP\n");
+					# print("immodpg, set_change,do not overwrite change_file\n");
 
 					unlink($outbound_locked);
 
-				}
-				elsif ( $ans eq $no ) {
+				} elsif ( $ans eq $no ) {
 
 					# overwrite change_file(=no) with no or yes
 					$X[0] = $yes_or_no;
 					$files->write_1col_aref( \@X, \$outbound, \$format );
 
-		 #					print("immodpg, set_change, overwrite change file with $X[0]\n");
+					#					print("immodpg, set_change, overwrite change file with $X[0]\n");
 
 					unlink($outbound_locked);
 
@@ -7379,13 +6840,11 @@ variables
 
 					$test = $no;
 
-				}
-				else {
+				} else {
 					print("immodpg, set_change, unexpected result \n");
 				}    # test change_file's content
 
-			}
-			else {
+			} else {
 
 				# print("immodpg,_set_change, locked change file\n");
 				$count++;    # governor on finding an unlocked change_file
@@ -7394,8 +6853,7 @@ variables
 			$count++;    # governor on checking for a change_file = yes
 		}    # for
 
-	}
-	else {
+	} else {
 		print("immodpg, set_change, missing values\n");
 	}
 	return ();
@@ -7415,21 +6873,18 @@ sub set_clip_control {
 	my $result;
 
 	if ( length($control_clip)
-		&& $control_clip > 0 )
-	{
+		&& $control_clip > 0 ) {
 
 		$immodpg->{_control_clip} = $control_clip;
 
- #		print("immodpg,set_clip_control, control_clip=$immodpg->{_control_clip}\n");
+		#		print("immodpg,set_clip_control, control_clip=$immodpg->{_control_clip}\n");
 
-	}
-	elsif ( not( length($control_clip) ) ) {
+	} elsif ( not( length($control_clip) ) ) {
 
 		# print("immodpg,_set_clip_control, empty string\n");
 		$immodpg->{_control_clip} = $control_clip;
 
-	}
-	else {
+	} else {
 		print("immodpg,set_clip_control, missing value\n");
 	}
 
@@ -7455,8 +6910,8 @@ sub set_option {
 	my ( $self, $option ) = @_;
 
 	if ( looks_like_number($option)
-		&& $immodpg->{_option_file} ne $empty_string )
-	{
+		&& $immodpg->{_option_file} ne $empty_string ) {
+
 
 =head2 instantiate classes
 
@@ -7477,7 +6932,7 @@ variables
 		my $outbound        = $IMMODPG_INVISIBLE . '/' . $option_file;
 		my $outbound_locked = $outbound . '_locked';
 
-		for ( my $i = 0 ; $test eq $no ; $i++ ) {
+		for ( my $i = 0; $test eq $no; $i++ ) {
 
 			if ( not( $files->does_file_exist( \$outbound_locked ) ) ) {
 				my $format = $var_immodpg->{_format_string};
@@ -7496,12 +6951,10 @@ variables
 			}    # if
 		}    # for
 
-	}
-	elsif ( $immodpg->{_is_option_changed} eq $no ) {
+	} elsif ( $immodpg->{_is_option_changed} eq $no ) {
 
 		# NADA
-	}
-	else {
+	} else {
 		print("immodpg, set_option, unexpected answer\n");
 	}
 
@@ -7522,8 +6975,7 @@ sub smute {
 		$immodpg->{_note}  = $immodpg->{_note} . ' smute=' . $immodpg->{_smute};
 		$immodpg->{_Step}  = $immodpg->{_Step} . ' smute=' . $immodpg->{_smute};
 
-	}
-	else {
+	} else {
 		print("immodpg, smute, missing smute,\n");
 	}
 }
@@ -7539,13 +6991,10 @@ sub sscale {
 	if ($sscale) {
 
 		$immodpg->{_sscale} = $sscale;
-		$immodpg->{_note} =
-		  $immodpg->{_note} . ' sscale=' . $immodpg->{_sscale};
-		$immodpg->{_Step} =
-		  $immodpg->{_Step} . ' sscale=' . $immodpg->{_sscale};
+		$immodpg->{_note}   = $immodpg->{_note} . ' sscale=' . $immodpg->{_sscale};
+		$immodpg->{_Step}   = $immodpg->{_Step} . ' sscale=' . $immodpg->{_sscale};
 
-	}
-	else {
+	} else {
 		print("immodpg, sscale, missing sscale,\n");
 	}
 }
@@ -7557,8 +7006,7 @@ check what the current thickness_m value is
 compared to former thickness_m values
 
 thickness_m value is updated in immodpg.for 
-through a message in file="thickness_m"
-($_set_thickness_m)
+through a message in file= "thickness_m"
 
 =cut
 
@@ -7575,18 +7023,16 @@ sub set_thickness_m {
 		_update_thickness_m();
 
 		if ( length( $immodpg->{_is_thickness_m_changed_in_gui} )
-			&& $immodpg->{_is_thickness_m_changed_in_gui} eq $yes )
-		{
+			&& $immodpg->{_is_thickness_m_changed_in_gui} eq $yes ) {
 
-		   # for fortran program to read
-		   # print("immodpg, set_thickness_m, thickness_m is changed: $yes \n");
+			# for fortran program to read
+			# print("immodpg, set_thickness_m, thickness_m is changed: $yes \n");
 
 			_set_thickness_m( $immodpg->{_thickness_m_current} );
 			_set_option($change_thickness_m_opt);
 			_set_change($yes);
 
-		}
-		else {
+		} else {
 
 			#			negative cases are reset by fortran program
 			#			and so eliminate need to read locked files
@@ -7597,11 +7043,9 @@ sub set_thickness_m {
 			# print("immodpg, set_thickness_m, same thickness_m NADA\n");
 		}
 
-	}
-	else {
+	} else {
 		print("immodpg, set_thickness_m, _thickness_m value missing\n");
-		print(
-			"immodpg, set_thickness_m, thickness_m=$immodpg->{_thickness_m}\n");
+		print("immodpg, set_thickness_m, thickness_m=$immodpg->{_thickness_m}\n");
 	}
 }
 
@@ -7624,49 +7068,39 @@ sub set_thickness_increment_m {
 
 	if ( length( $immodpg->{_thickness_increment_mEntry} ) ) {
 
-		$immodpg->{_thickness_increment_m_current} =
-		  ( $immodpg->{_thickness_increment_mEntry} )->get();
-		_set_control( 'thickness_increment_m',
-			$immodpg->{_thickness_increment_m_current} );
-		$immodpg->{_thickness_increment_m_current} =
-		  _get_control('thickness_increment_m');
-		my $new_thickness_increment_m =
-		  $immodpg->{_thickness_increment_m_current};
+		$immodpg->{_thickness_increment_m_current} = ( $immodpg->{_thickness_increment_mEntry} )->get();
+		_set_control( 'thickness_increment_m', $immodpg->{_thickness_increment_m_current} );
+		$immodpg->{_thickness_increment_m_current} = _get_control('thickness_increment_m');
+		my $new_thickness_increment_m = $immodpg->{_thickness_increment_m_current};
 
 		$immodpg->{_thickness_increment_mEntry}->delete( 0, 'end' );
-		$immodpg->{_thickness_increment_mEntry}
-		  ->insert( 0, $new_thickness_increment_m );
+		$immodpg->{_thickness_increment_mEntry}->insert( 0, $new_thickness_increment_m );
 
-# print("immodpg, set_thickness_increment_m, $immodpg->{_thickness_increment_mEntry}\n");
+		# print("immodpg, set_thickness_increment_m, $immodpg->{_thickness_increment_mEntry}\n");
 		_check_thickness_increment_m();
 		_update_thickness_increment_m_in_gui();
 		_write_config();
 
 		if ( $immodpg->{_is_layer_changed_in_gui} eq $yes ) {
 
-			print(
-"immodpg, set_thickness_increment_m, thickness_increment_m is changed: $yes \n"
-			);
+			print("immodpg, set_thickness_increment_m, thickness_increment_m is changed: $yes \n");
 
-			_set_thickness_increment_m(
-				$immodpg->{_thickness_increment_m_current} );
+			_set_thickness_increment_m( $immodpg->{_thickness_increment_m_current} );
 			_set_option($change_thickness_increment_m_opt);
 			_set_change($yes);
 
-#				print("immodpg, set_thickness_increment_m,option:$change_thickness_increment_m_opt\n");
-#				print(
-#					"immodpg, set_thickness_increment_m,immodpg->{_thickness_increment_m_current}=$immodpg->{_thickness_increment_m_current}\n"
-#				);
+			#				print("immodpg, set_thickness_increment_m,option:$change_thickness_increment_m_opt\n");
+			#				print(
+			#					"immodpg, set_thickness_increment_m,immodpg->{_thickness_increment_m_current}=$immodpg->{_thickness_increment_m_current}\n"
+			#				);
 
-		}
-		else {
+		} else {
 			_set_change($no);
 
-# print("immodpg, set_thickness_increment_m, same thickness_increment_m NADA\n");
+			# print("immodpg, set_thickness_increment_m, same thickness_increment_m NADA\n");
 		}
 
-	}
-	else {
+	} else {
 
 	}
 }
@@ -7685,8 +7119,7 @@ sub tnmo {
 		$immodpg->{_note} = $immodpg->{_note} . ' tnmo=' . $immodpg->{_tnmo};
 		$immodpg->{_Step} = $immodpg->{_Step} . ' tnmo=' . $immodpg->{_tnmo};
 
-	}
-	else {
+	} else {
 		print("immodpg, tnmo, missing tnmo,\n");
 	}
 }
@@ -7702,13 +7135,10 @@ sub upward {
 	if ( $upward ne $empty_string ) {
 
 		$immodpg->{_upward} = $upward;
-		$immodpg->{_note} =
-		  $immodpg->{_note} . ' upward=' . $immodpg->{_upward};
-		$immodpg->{_Step} =
-		  $immodpg->{_Step} . ' upward=' . $immodpg->{_upward};
+		$immodpg->{_note}   = $immodpg->{_note} . ' upward=' . $immodpg->{_upward};
+		$immodpg->{_Step}   = $immodpg->{_Step} . ' upward=' . $immodpg->{_upward};
 
-	}
-	else {
+	} else {
 		print("immodpg, upward, missing upward,\n");
 	}
 }
@@ -7727,8 +7157,7 @@ sub vnmo {
 		$immodpg->{_note} = $immodpg->{_note} . ' vnmo=' . $immodpg->{_vnmo};
 		$immodpg->{_Step} = $immodpg->{_Step} . ' vnmo=' . $immodpg->{_vnmo};
 
-	}
-	else {
+	} else {
 		print("immodpg, vnmo, missing vnmo,\n");
 	}
 }
@@ -7747,8 +7176,7 @@ sub vnmo_mps {
 		$immodpg->{_note} = $immodpg->{_note} . ' vnmo=' . $immodpg->{_vnmo};
 		$immodpg->{_Step} = $immodpg->{_Step} . ' vnmo=' . $immodpg->{_vnmo};
 
-	}
-	else {
+	} else {
 		print("immodpg, vnmo, missing vnmo,\n");
 	}
 }
@@ -7764,13 +7192,10 @@ sub voutfile {
 	if ($voutfile) {
 
 		$immodpg->{_voutfile} = $voutfile;
-		$immodpg->{_note} =
-		  $immodpg->{_note} . ' voutfile=' . $immodpg->{_voutfile};
-		$immodpg->{_Step} =
-		  $immodpg->{_Step} . ' voutfile=' . $immodpg->{_voutfile};
+		$immodpg->{_note}     = $immodpg->{_note} . ' voutfile=' . $immodpg->{_voutfile};
+		$immodpg->{_Step}     = $immodpg->{_Step} . ' voutfile=' . $immodpg->{_voutfile};
 
-	}
-	else {
+	} else {
 		print("immodpg, voutfile, missing voutfile,\n");
 	}
 }

@@ -1549,22 +1549,21 @@ sub write_1col_aref {
 	# open and write to output file
 	my ( $variable, $ref_X, $ref_file_name, $ref_fmt ) = @_;
 
-	#declare locally scoped variables
-	my $j;
-
 	my $num_rows = scalar @$ref_X;
 
 	# $variable is an unused hash
 
 #	print("\n manage_files_by2,write_1col_aref,The output file name = $$ref_file_name\n");
-#	print("\n manage_files_by2,write_1col_aref,The output file contains $num_rows rows\n");
+##	print("\n manage_files_by2,write_1col_aref,The output file contains $num_rows rows\n");
 #	print("\n manage_files_by2,write_1col_aref,The output file uses the following format: $$ref_fmt\n");
-
+#	print("\n manage_files_by2,write_1col_aref,VALUE: @$ref_X\n");
+	
 	open( OUT, ">$$ref_file_name" );
 
-	for ( $j = 0 ; $j < $num_rows ; $j++ ) {
+	for ( my $j = 0 ; $j < $num_rows ; $j++ ) {
 
 		printf OUT "$$ref_fmt\n", @$ref_X[$j];
+		#print @$ref_X[$j]."\n";
 
 	}
 

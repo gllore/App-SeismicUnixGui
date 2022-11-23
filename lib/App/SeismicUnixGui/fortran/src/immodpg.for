@@ -75,18 +75,19 @@
        integer   new_moveNzoom
        integer   i_change, i_past_change
        real*4    datadt
-       real      new_thickness_m, current_thickness_m,prior_thickness_m
-       real      Vtop_mps,Vbot_mps,Vtop_lower_mps,Vbot_upper_mps
-       real      Vtop_kmps,Vbot_kmps,Vtop_lower_kmps,Vbot_upper_kmps
+       real*4    new_thickness_m, current_thickness_m,prior_thickness_m
+       real*4    current_thickness_km
+       real*4    Vtop_mps,Vbot_mps,Vtop_lower_mps,Vbot_upper_mps
+       real*4    Vtop_kmps,Vbot_kmps,Vtop_lower_kmps,Vbot_upper_kmps
        real*4    thickness_increment_m, Vincrement_mps
        real*4    thickness_increment_km
-       real*4    VbotNtop_factor, Vincrement_kmps, m2km
+       real*4    VbotNtop_factor, Vincrement_kmps, m2km, km2m
        real*4    result(30)
        real      current_clip,prior_clip,new_clip, clip_max, clip_min
        real      priorVincrement_mps, currentVincrement_mps
        real      newVincrement_mps
-       real      prior_thickness_increment_msub setVtopNVbot_upper_laye
-       real      current_thickness_increment_m,new_thickness_increment_m
+       real      prior_thickness_increment_m
+       real      current_thickness_increment_m, new_thickness_increment_m
        real      priorVbotNtop_factor, currentVbotNtop_factor
        real      newVbotNtop_factor
        real      priorVtop, currentVtop, newVtop
@@ -175,7 +176,7 @@
        VtopNVbot_upper_layer_minus_opt    = 51
        VtopNVbot_upper_layer_plus_opt     = 52
        change_layer_number_opt            = 0
-       change_thickness_m_opt             = 14 ! do not forget todo
+       change_thickness_m_opt             = 142 ! do not forget todo
        change_thickness_increment_opt     = 15
        changeVincrement_opt               = 7
        changeVbotNtop_factor_opt          = 68
@@ -241,6 +242,7 @@
 !       xinc    increment for km/s in modeling or thickness in modelign
 
 ! DEFAULT PARAMETERS
+       km2m = 1000.
        m2km =.001
 	sdepth = 0.0
 	rdepth = 0.0
@@ -343,7 +345,7 @@
 ! i/p inbound_config
 ! o/p base_file, result,
        call read_immodpg_config(base_file,result,inbound_config)
-!      print*, 'L 305, base_file=',base_file
+!      print*, 'L 346, base_file=',base_file
 
 ! Read digitized X-T pairs, 0- No',idrxy
        idrxy=int(result(1))
@@ -465,8 +467,9 @@
 !       call execute_command_line ("fg",exitstat=i, cmdmsg=message)
 !       print *, "Exit status of fg was ", i
 !       print *, "Message from fg was ", message
+!       show model to user for the first time
 	call READMMOD(VT,VB,DZ,VST,VSB,RHOT,RHOB,nl)
-!       print*, 'L 407  immodpg.for,readmod'
+!       print*, 'L 470  immodpg.for,readmod'
 
 ! error check the working layer number
 	if(current_layer_number.lt.1)   current_layer_number = 1
@@ -505,7 +508,7 @@
 
 ************************************
 ! START OF ALL INTERACTIONS WITH THE USER
-!       print *,' L317 start of interaction with the user'
+!       print *,' L509 start of interaction with the user'
 
 ! Check for Vtop-Vbottom too small.
 !	A3 = 0.001
@@ -731,7 +734,7 @@
 
            call read_yes_no_file(is_change,inbound_change)
            
- !         print*, '659.immodpg.for,is_change:',is_change,'--'
+!          print*, '737.immodpg.for,is_change:',is_change,'--'
            if (is_change ) then
 !	      keep track of change frequency
               i_past_change   = i_change    
@@ -750,7 +753,7 @@
 !             read option number
               call read_option_file(option,inbound_option)
 !              print *, 'L666 immodpg.for,is_change=',is_change
-!              print *, '667 immodpg.for,option#=',option
+              print *, '667 immodpg.for,option#=',option
 !              print *,'L 41 immodpg.for,clnopt=',
 !     +        change_layer_number_opt
 
@@ -779,7 +782,7 @@
 !                   changing layer
 !
                    write(*,*) ' '
-                    write(*,*) 'modified model prior to layer change:'
+                   write(*,*) 'modified model prior to layer change:'
                    call WRIMOD2(nl,VT,VB,DZ,VST,VSB,RHOT,RHOB)
 !
 ! write modified model to file immodpg.out
@@ -798,7 +801,7 @@
 
 ! write modified text file out
 !                     write(*,*) ' '
-!                    write(*,*) 'Text file: model.txt'
+!                     write(*,*) 'Text file: model.txt'
              call write_model_file_text(nl,VT,VB,DZ,VST,VSB,RHOT,RHOB,
      +         outbound_model_txt);
 !
@@ -868,9 +871,10 @@
 
              endif
 
-!            set velocity increment
+
 !            set thickness increment
              if(option.eq.change_thickness_increment_opt) then
+             
 !              read new thickness increment value
 !              call read_thickness_increment
 !              print*,'L 644 new thickness_increment_m is',
@@ -878,11 +882,13 @@
               prior_thickness_increment_= current_thickness_increment_m
               current_thickness_increment_m= new_thickness_increment_m
               thickness_increment_m    = current_thickness_increment_m
-              thickness_increment_km  = thickness_increment_m * m2km
+              thickness_increment_km   = thickness_increment_m * m2km
               go to 150  ! start of this do loop
               option = option_default
+              
              endif
 
+!            set velocity increment
              if(option.eq.changeVincrement_opt) then
 !             read new velocity increment value
                call readVincrement_file(newVincrement_mps,
@@ -890,8 +896,8 @@
 !               print*,'L 655 new VIncrement is',newVincrement_mps
                priorVincrement_mps         = currentVincrement_mps
                currentVincrement_mps       = newVincrement_mps
-               Vincrement_mps          = currentVincrement_mps
-               VIncrement_kmps        = Vincrement_mps * m2km
+               Vincrement_mps              = currentVincrement_mps
+               Vincrement_kmps             = Vincrement_mps * m2km
                go to 150 ! start of this do loop
                option = option_default
 
@@ -925,6 +931,10 @@
                VB(current_layer_number-1) = Vbot_upper_kmps
 !               print*,'L786 new Vbot_upper', VB(current_layer_number-1)
 !               go to 150 ! start of this do loop
+
+!              write modified model to terminal after
+!              changing bottom velocity of upper layer
+               call WRIMOD2(nl,VT,VB,DZ,VST,VSB,RHOT,RHOB)
                option = option_default
 
              endif
@@ -941,63 +951,103 @@
                VT(current_layer_number+1) = Vtop_lower_kmps
 !                print*,'L803 new Vtop_lower',VT(current_layer_number+1)
 !               go to 150 ! start of this do loop
+
+!              write modified model to terminal after
+!              changing top velocity of lower layer
+               call WRIMOD2(nl,VT,VB,DZ,VST,VSB,RHOT,RHOB)
                option = option_default
 
              endif
 
              if(option.eq.changeVbot_opt) then
-             !             read new bottom velocity  value
+             
+             ! read new bottom velocity  value
                call readVbot_file(newVbot,inboundVbot)
-!               print*,'L 655 new Vbot is',newVbot
+               print*,'L 964 new Vbot is',newVbot
                priorVbot         = currentVbot
                currentVbot       = newVbot
                Vbot_mps          = currentVbot
-               Vbot_kmps          = currentVbot  * km2m
+               Vbot_kmps          = currentVbot  * m2km
                VB(current_layer_number) = Vbot_kmps
 !               go to 150 ! start of this do loop
+
+!              write modified model to terminal after
+!              changing bottom velocity
+               call WRIMOD2(nl,VT,VB,DZ,VST,VSB,RHOT,RHOB)
                option = option_default
 
              endif
 
              if(option.eq.changeVtop_opt) then
+             
+!             print*,'L 979 changeVtop_opt=',changeVtop_opt
 !             read new bottom velocity  value
                call readVtop_file(newVtop,inboundVtop)
-!               print*,'L 655 new Vtop is',newVtop
+               print*,'L 982  new Vtop is',newVtop
                priorVtop         = currentVtop
                currentVtop       = newVtop
                Vtop_mps          = currentVtop
-               Vtop_kmps          = currentVtop * km2m
+               Vtop_kmps         = currentVtop * m2km
                VT(current_layer_number) = Vtop_kmps
 !               go to 150 ! start of this do loop
+
+!              write modified model to terminal after
+!              changing top velocity in layer
+               call WRIMOD2(nl,VT,VB,DZ,VST,VSB,RHOT,RHOB)
                option = option_default
 
              endif
+             
              if(option.eq.Vbot_minus_opt) then
                 VB(current_layer_number) =
      +          VB(current_layer_number) - Vincrement_kmps
-!                print*,'mmodpg.for,Vbot_minus_option=',Vbot_minus_opt
-!                print*,'mmodpg.for,Vbot_minus=',VB(current_layer_number)
+!                print*,'immodpg.for,Vbot_minus_option=',Vbot_minus_opt
+!                print*,'immodpg.for,Vbot_minus=',VB(current_layer_number)
+
+!              write modified model to terminal after
+!              changing bottom velocity
+               call WRIMOD2(nl,VT,VB,DZ,VST,VSB,RHOT,RHOB)
+               option = option_default
+               
              endif
 
              if(option.eq.Vbot_plus_opt) then
                 VB(current_layer_number) =
      +          VB(current_layer_number) + Vincrement_kmps
-!                print*,'mmodpg.for,Vbot_plus_option=',Vbot_plus_opt
-!                print*,'mmodpg.for,Vbot_plus=',VB(current_layer_number)
+!                print*,'immodpg.for,Vbot_plus_option=',Vbot_plus_opt
+!                print*,'immodpg.for,Vbot_plus=',VB(current_layer_number)
+
+!              write modified model to terminal after
+!              changing bottom velocity
+               call WRIMOD2(nl,VT,VB,DZ,VST,VSB,RHOT,RHOB)
+               option = option_default
+               
              endif
 
              if(option.eq.Vtop_minus_opt) then
                 VT(current_layer_number) =
      +          VT(current_layer_number) - Vincrement_kmps
-!                 print*,'mmodpg.for,option=',Vtop_minus_opt
-!                print*,'mmodpg.for,Vtop_minus=',VT(current_layer_number)
+!                 print*,'immodpg.for,option=',Vtop_minus_opt
+!                print*,'immodpg.for,Vtop_minus=',VT(current_layer_number)
+
+!              write modified model to terminal after
+!              changing top velocity
+               call WRIMOD2(nl,VT,VB,DZ,VST,VSB,RHOT,RHOB)
+               option = option_default
+               
              endif
 
              if(option.eq.Vtop_plus_opt) then
                  VT(current_layer_number) =
      +           VT(current_layer_number) + Vincrement_kmps
-!                 print*,'mmodpg.for,option=',Vtop_plus_opt
-!                 print*,'mmodpg.for,Vtop_plus=',VT(current_layer_number)
+!                 print*,'immodpg.for,option=',Vtop_plus_opt
+!                 print*,'immodpg.for,Vtop_plus=',VT(current_layer_number)
+
+!              write modified model to terminal after
+!              changing bottom velocity -- had no option_default before
+               call WRIMOD2(nl,VT,VB,DZ,VST,VSB,RHOT,RHOB)
+               option = option_default
+               
              endif
 !             if(option.eq.3) DZ(current_layer_number) =
 !     + DZ(current_layer_number) + a1
@@ -1008,7 +1058,14 @@
                      VB(current_layer_number) =
      +         VB(current_layer_number) - Vincrement_kmps
 
-!               print*,'mmodpg.for,option=',VbotNVtop_minus_opt
+!               print*,'immodpg.for,option=',VbotNVtop_minus_opt
+
+!              write modified model to terminal after
+!              changing both bottom and top velocities in a layer
+!              had no option_default before
+               call WRIMOD2(nl,VT,VB,DZ,VST,VSB,RHOT,RHOB)
+               option = option_default
+               
              endif
 
              if(option.eq.VbotNVtop_plus_opt) then
@@ -1016,9 +1073,16 @@
      +         VT(current_layer_number) + Vincrement_kmps
                      VB(current_layer_number) =
      +         VB(current_layer_number) + Vincrement_kmps
-!               print*,'mmodpg.for,option=',VbotNVtop_plus_opt
-!               print*,'mmodpg.for,option=VT',VT(current_layer_number)
-!               print*,'mmodpg.for,option=VB',VB(current_layer_number)
+!               print*,'immodpg.for,option=',VbotNVtop_plus_opt
+!               print*,'immodpg.for,option=VT',VT(current_layer_number)
+!               print*,'immodpg.for,option=VB',VB(current_layer_number)
+
+!              write modified model to terminal after
+!              changing both bottom and top velocities in a layer
+!              had no option_default before
+               call WRIMOD2(nl,VT,VB,DZ,VST,VSB,RHOT,RHOB)
+               option = option_default
+
              endif
 
              if(option.eq.VtopNVbot_upper_layer_minus_opt
@@ -1032,10 +1096,18 @@
                VB(upper_layer_number) =
      +         VB(upper_layer_number) - Vincrement_kmps
 
-!              print*,'mmodpg.for,option=',VtopNVbot_upper_layer_minus_opt
-!              print*,'mmodpg.for,VT=',VT(current_layer_number)
-!              print*,'mmodpg.for,VB_upper=',VB(upper_layer_number)
-!              print*,'mmodpg.for,Vincrement_kmps=',Vincrement_kmps
+!              print*,'immodpg.for,option=',VtopNVbot_upper_layer_minus_opt
+!              print*,'immodpg.for,VT=',VT(current_layer_number)
+!              print*,'immodpg.for,VB_upper=',VB(upper_layer_number)
+!              print*,'immodpg.for,Vincrement_kmps=',Vincrement_kmps
+
+!              write modified model to terminal after
+!              changing both top velocity in the current layer
+!              and bottom velocity in the layer above
+!              had no option_default before
+               call WRIMOD2(nl,VT,VB,DZ,VST,VSB,RHOT,RHOB)
+               option = option_default
+               
              endif
 
              if(option.eq.VtopNVbot_upper_layer_plus_opt
@@ -1046,10 +1118,18 @@
 
               VB(current_layer_number-1) =
      +        VB(current_layer_number-1) + Vincrement_kmps
-!              print*,'mmodpg.for,option=',VtopNVbot_upper_layer_plus_opt
-!              print*,'mmodpg.for,VT=',VT(current_layer_number)
-!              print*,'mmodpg.for,VB_upper=',VB(current_layer_number-1)
-!              print*,'mmodpg.for,Vincrement_kmps=',Vincrement_kmps
+!              print*,'immodpg.for,option=',VtopNVbot_upper_layer_plus_opt
+!              print*,'immodpg.for,VT=',VT(current_layer_number)
+!              print*,'immodpg.for,VB_upper=',VB(current_layer_number-1)
+!              print*,'immodpg.for,Vincrement_kmps=',Vincrement_kmps
+
+!              write modified model to terminal after
+!              changing both top velocity in the current layer
+!              and bottom velocity in the layer above
+!              had no option_default before
+               call WRIMOD2(nl,VT,VB,DZ,VST,VSB,RHOT,RHOB)
+               option = option_default
+               
              endif
 
              if(option.eq.VbotNVtop_lower_layer_minus_opt
@@ -1060,7 +1140,15 @@
 
               VB(current_layer_number+1) =
      +        VB(current_layer_number+1) - Vincrement_kmps
-!             print*,'mmodpg.for,option=',VbotNVtop_lower_layer_minus_opt
+!             print*,'immodpg.for,option=',VbotNVtop_lower_layer_minus_opt
+
+!              write modified model to terminal after
+!              changing both top velocity in the current layer
+!              and bottom velocity in the layer above
+!              had no option_default before
+               call WRIMOD2(nl,VT,VB,DZ,VST,VSB,RHOT,RHOB)
+               option = option_default
+               
              endif
 
              if(option.eq.VbotNVtop_lower_layer_plus_opt
@@ -1071,7 +1159,15 @@
 
               VB(current_layer_number+1) =
      +        VB(current_layer_number+1) + Vincrement_kmps
-!              print*,'mmodpg.for,option=',VbotNVtop_lower_layer_plus_opt
+!              print*,'immodpg.for,option=',VbotNVtop_lower_layer_plus_opt
+
+!              write modified model to terminal after
+!              changing both bottom velocity in the current layer
+!              and top velocity in the layer below
+!              had no option_default before
+               call WRIMOD2(nl,VT,VB,DZ,VST,VSB,RHOT,RHOB)
+               option = option_default
+
              endif
 
              if(option.eq.VbotNtop_multiply_opt) then
@@ -1079,32 +1175,68 @@
      +             VbotNtop_factor * VT(current_layer_number)
                VB(current_layer_number) =
      +             VbotNtop_factor * VB(current_layer_number)
-!                print*,'mmodpg.for,option=',VbotNtop_multiply_opt
+!                print*,'immodpg.for,option=',VbotNtop_multiply_opt
 
+!              write modified model to terminal after
+!              scaling both bottom and top velocities 
+!              in the current layer
+!              by multiplication
+!              had no option_default before
+               call WRIMOD2(nl,VT,VB,DZ,VST,VSB,RHOT,RHOB)
+               option = option_default
+               
              endif
 
              if(option.eq.change_thickness_m_opt) then
-!                 print*,'mmodpg.for,option=', change_thickness_m_opt
+             
+               print*,'immodpg.for,option=', change_thickness_m_opt
                 call read_thickness_m_file(
      +                    new_thickness_m,inbound_thickness_m)
                 prior_thickness_m   = current_thickness_m
                 current_thickness_m = new_thickness_m
-                DZ(current_layer_number) = new_thickness_m
-                go to 150 ! start of this do loop
-                option = option_default
+                current_thickness_km = new_thickness_m * m2km
+                DZ(current_layer_number) = current_thickness_km
+!                go to 150 ! start of this do loop
+                
+!              write modified model to terminal after
+!              changing the current layer thickness
+!              had no option_default before
+               call WRIMOD2(nl,VT,VB,DZ,VST,VSB,RHOT,RHOB)
+               option = option_default               
+                
              endif
 
              if(option.eq.thickness_m_plus_opt) then
-!                print*,'mmodpg.for,option=', thickness_m_plus_opt
+             
+!             print*,'immodpg.for,option=', thickness_m_plus_opt
+               
                DZ(current_layer_number) =
      +         DZ(current_layer_number) + thickness_increment_km
+  
+!               print*,'immodpg.for L1208,new_thickness='
+!               print*,DZ(current_layer_number)
+     
+!              write modified model to terminal after
+!              changing the current layer thickness
+!              had no option_default before
+               call WRIMOD2(nl,VT,VB,DZ,VST,VSB,RHOT,RHOB)
+               option = option_default
+               
              endif
 
                if(option.eq.thickness_m_minus_opt) then
-!                print*,'mmodpg.for,option=', thickness_m_minus_opt
-!                print*,'mmodpg.for,th_inc_km=', thickness_increment_km
+               
+!                print*,'immodpg.for,option=', thickness_m_minus_opt
+!                print*,'immodpg.for,th_inc_km=', thickness_increment_km
+
                DZ(current_layer_number) =
      +         DZ(current_layer_number) - thickness_increment_km
+       
+!              write modified model to terminal after
+!              changing the current layer thickness
+!              had no option_default before
+               call WRIMOD2(nl,VT,VB,DZ,VST,VSB,RHOT,RHOB)
+               option = option_default      
 
              endif
 
@@ -1115,13 +1247,14 @@
              if(option.eq.exit_opt) then
 !               print*,'exiting from immodpg.for'
 !              return option file to default (= -1)
-!              print*,'mmodpg.for,option=', exit_opt
+!              print*,'immodpg.for,option=', exit_opt
               go to 255
            endif
+           
       go to 10 ! start of all interactions with user
 !          stay in do loop
            else
-!              print *, 'L 528 read_yes_no_file.f,is_change=',is_change
+!              print *, 'L 1249 read_yes_no_file.f,is_change=',is_change
            endif
 
        end do ! end of loop that detects changes in GUI
