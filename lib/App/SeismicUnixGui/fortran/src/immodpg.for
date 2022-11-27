@@ -2,7 +2,10 @@
 ! combinacion de capas planas homogeneas o con gradiente de
 ! velocidad constante. Fuente y receptor en 1ra capa; default
 ! es que ambos esten en superficie.
-!
+!      for sleeping
+       use :: posix
+       integer*4  count_sleep, record_sleep, sleep_time_ms
+       integer*4  sleep_time_usec,ms2us
        integer*4  nlmax,npmax,npamax,ntrmax,nsmax,ntr,ns,idtusec
        integer*4  nchanges
        integer*2  how_many
@@ -19,7 +22,8 @@
        dimension multin(nlmax)
        dimension ILA(npmax),P(npmax),X(npmax),T(npmax)
        dimension xa1(npamax),xa2(npamax),xa3(npamax),xa4(npamax)
-       real   a1,a2,a1_prior,a2_prior, time_delay
+       real      a1,a2,a1_prior,a2_prior,time_delay,VPlotScale
+       real      VPlotMax,ZPlotMax,VPlotMax_prior,ZPlotMax_prior
 !      next line added on Aug 20 2013
        dimension xout(npmax,nlmax)
        dimension tout(npmax,nlmax),array_ntp(npmax)
@@ -57,10 +61,10 @@
        integer   VbotNVtop_lower_layer_plus_opt
        integer   VbotNVtop_lower_layer_minus_opt
        integer   change_VbotNtop_factor_opt,zoom_plus_opt
-       integer    zoom_minus_opt
+       integer   zoom_minus_opt
        integer   VbotNtop_multiply_opt
-       integer    changeVtop_lower_layer_opt,  changeVbot_upper_layer_opt
-       integer    changeVbot_opt, changeVtop_opt
+       integer   changeVtop_lower_layer_opt,  changeVbot_upper_layer_opt
+       integer   changeVbot_opt, changeVtop_opt
        integer   move_image_down_opt, move_image_left_opt
        integer   move_image_up_opt,move_image_right_opt
        integer   change_velocity_opt
@@ -81,11 +85,11 @@
        real*4    Vtop_kmps,Vbot_kmps,Vtop_lower_kmps,Vbot_upper_kmps
        real*4    thickness_increment_m, Vincrement_mps
        real*4    thickness_increment_km
-       real*4    VbotNtop_factor, Vincrement_kmps, m2km, km2m
+       real*4    VbotNtop_factor, Vincrement_kmps, m2km, km2m, us2ms
        real*4    result(30)
        real      current_clip,prior_clip,new_clip, clip_max, clip_min
        real      priorVincrement_mps, currentVincrement_mps
-       real      newVincrement_mps
+       real*4    newVincrement_mps
        real      prior_thickness_increment_m
        real      current_thickness_increment_m, new_thickness_increment_m
        real      priorVbotNtop_factor, currentVbotNtop_factor
@@ -97,7 +101,7 @@
        real      start, finish, cpu_duration, start_change
        real,dimension(nchanges)::last_change,change_step
        real      governor
-       
+
        
 !       Modified: Juan Lorenzo LSU
 !       Date: June 17 2004
@@ -135,6 +139,8 @@
         model_file_bin_bck   = ".immodpg.out"
         model_file_bin_bck   = trim(model_file_bin_bck)
         
+        VPlotScale         = 1.25
+        ichange             = 0
         inbound_config      = ''
         get_DIR             = ''
         set_DIR             = ''
@@ -153,7 +159,8 @@
         current_layer_number =-1
         prior_layer_number  =-2
         thickness_m_file    = "thickness_m"
-        time_delay          = 0.001 ! wait seconds for Perl processing
+        time_delay          = 0.01 ! wait seconds for Perl processing
+        sleep_time_ms       = 250 ! default in milliseconds
 
 !      Coded user options
        changeVbot_opt                     = 20
@@ -165,18 +172,15 @@
        VbotNVtop_lower_layer_plus_opt     = 62
        VbotNVtop_minus_opt                = 41
        VbotNVtop_plus_opt                 = 42
-
        changeVtop_opt                     = 10
        changeVtop_lower_layer_opt         = 11
        Vtop_minus_opt                     = 12
        Vtop_plus_opt                      = 13
-
        VbotNtop_multiply_opt              = 16
-
        VtopNVbot_upper_layer_minus_opt    = 51
        VtopNVbot_upper_layer_plus_opt     = 52
        change_layer_number_opt            = 0
-       change_thickness_m_opt             = 142 ! do not forget todo
+       change_thickness_m_opt             = 142
        change_thickness_increment_opt     = 15
        changeVincrement_opt               = 7
        changeVbotNtop_factor_opt          = 68
@@ -186,9 +190,16 @@
        write_simple_model_text_opt        =70
        write_model_bin_opt                = 71
        exit_opt                           = 99
-
        option_default                     = -1
        option                             = option_default
+!      default velocity model km per sec
+!      a2 is X coord-top_right (Vel-km/s); Vmax
+!      a1 is Y coord (depth-km), Zmax
+!      bottom left model - ymax can be negative
+!       a1 =  0.0
+!       a2 = -1.0
+!       a1_prior =  0.0
+!      a2_prior = -1.0
 !       datax1          nearest offset (km)
 !       datadx          trace offset increment (km)
 !       datadt          sample interval (s)
@@ -220,7 +231,8 @@
 !       how often user calls immodpg via a click in the  gui
        thickness increment_m = 10.
        Vincrement_mps       = 10.
-!       tout            cal! time output, Aug 2013 by Juan
+!       tout             time output, 
+!       Aug 2013 by Juan
 !       va and va_prior, za and za_prior are velocity  and depth
 !       vectors for plotting the velocity-versus-depth model om
 !       far right side
@@ -230,7 +242,6 @@
 !       xa4
 !       xout
 !      output distance of distance,time calculated pairs
-!       Aug 2013 by Juan
 !       va
 !       za
 !      xmax            maximum plotting distance
@@ -242,25 +253,29 @@
 !       xinc    increment for km/s in modeling or thickness in modelign
 
 ! DEFAULT PARAMETERS
-       km2m = 1000.
-       m2km =.001
-	sdepth = 0.0
-	rdepth = 0.0
+! OLD for big-scale marine work
 ! 	pmin   = 0.0
 ! 	pmax   = 3.0
 ! 	pmax   = .6
-!
-! pmax = 20 s/km   V= 50 m/s
+       km2m  = 1000.
+       m2km  = .001
+       us2ms = .001
+       ms2us = 1000
+       sdepth = 0.0
+       rdepth = 0.0
+
+! pmax = 40 s/km   V= 25 m/s
 ! pmin = 5   s/km  V= 200 m/s
 !
-	 pmin   = 0
-        pmax   = 20
+	pmin   = 0
+        pmax   = 40
 ! 	dp     = 0.0005
 ! 	dp     = 0.001
-	 dp     = 0.0001
+	dp     = 0.0001
         vmf    = 1./sqrt(3.)
 ! 	rv     = 1.0
 	rv     = .0
+!       km
 	xmin   = 0.0
 	xmax   = 0.120
 ! 	xmax   = 20.
@@ -482,15 +497,14 @@
 	call pgbegin(0,' ',1,1)  ! use default device
 
 !      width_in,aspect 11 " wide and 8/11 high
-	call pgpaper(11.0,0.75)
+	call pgpaper(10.75,0.75)
 ! (XLEFT, XRIGHT, YBOT, YTOP)
 !	call pgvport(-5.,1.,0.,1.)
 !       call pgsvp(0.0,0.5,0.5,1.0)
        call pgask(flag)
-
-!      default velocity model
-       a1_prior =  0.0
+       
        a2_prior = -1.0
+       a1_prior =  0.
        do 8  i = 1,current_layer_number
               k = 2*i - 1
               va_prior(k) = vt(i)
@@ -508,9 +522,9 @@
 
 ************************************
 ! START OF ALL INTERACTIONS WITH THE USER
-!       print *,' L509 start of interaction with the user'
+!       print *,' L511 start of interaction with the user'
 
-! Check for Vtop-Vbottom too small.
+! Check for Vtop-Vbottom too small.-km/s
 !	A3 = 0.001
 	A3 = 0.00001
 !       print*, '1D. immodpg.for,made it, current_layer_number=',
@@ -524,15 +538,15 @@
 
 !      Reflections at the bottom of layers decided automatically
 !      based on velocity discontinuities
-	do I=1,nl-1
-	
+	do i=1,nl-1
          IR(i)=0 
-         
+    	 if(ABS(VT(i+1)-VB(i)).GT.A3) IR(i)=1     
         end do 
         
-	if(ABS(VT(i+1)-VB(i)).GT.A3) IR(i)=1
-     
-	IR(nl) = 0  !** No reflection at the bottom of model
+ !** No reflection at the bottom of model
+	IR(nl) = 0  
+	
+	print*,'reflection at layer i,=',i,IR(i)
 
 !      COMPUTATIONS ***
 	DZ1TEM=DZ(1)
@@ -548,8 +562,9 @@
 !      PLOTTING and REPLOTTING when correct option turns
        call pgpage ! clear screen
 !       left_bottom_X, right_top_X,left_bottom_Y,right_top_Y
-       call pgvport(0.15,0.85,0.15,0.9)
-!      real character size in proiportion to 1
+!      0.7= Xfraction of black screen occupied by seismic data
+       call pgvport(0.15,0.75,0.15,0.9)
+!      real character size in proportion to 1
        call pgsch(1.25)
        call pgwindow(xmin,xmax,tmax,tmin)
        call pgbox('BCTN',0.0,0,'BCTN',0.0,0)
@@ -558,9 +573,9 @@
 !
 !      plot seismic image in a window
        if(idrdtr.eq.1) then
-!        print *, 'L539, clip_min,clip_max=',clip_min,clip_max
-!        print *, 'L540, ns,ntr=',ns,ntr
-!        print *, 'L541, ntrmax,nsmax=',ntrmax,nsmax  
+!        print *, 'L561, clip_min,clip_max=',clip_min,clip_max
+!        print *, 'L562, ns,ntr=',ns,ntr
+!        print *, 'L563, ntrmax,nsmax=',ntrmax,nsmax  
 !        clip_min = -1.00000
 !        clip_max = 1.00000
 	 call pggray(Amp,ntrmax,nsmax,1,ntr,1,ns,clip_max,clip_min,tr)
@@ -611,12 +626,12 @@
 !      print*, 'immodpg.for,datax1 (KM)=',datax1
 !      print*, 'immodpg.for,datadx (X)=',datadx
 !      print*, 'immodpg.for,SDEPTH (KM)=',SDEPTH
-!       print*, 'l 393 immodpg.for,RDEPTH (KM)=',RDEPTH
+!       print*, 'L614 immodpg.for,RDEPTH (KM)=',RDEPTH
 !
 !      print*, 'immodpg.for,PLOTTING LAYOUT'
 !      print*, 'immodpg.for,rv (KM/S)=',rv
 !      print*, 'immodpg.for,MINIMUN DISTANCE (KM)xmin=',xmin
-!      print*, 'L 491 immodpg.for,MAXIMUN DISTANCE (KM)=',xmax
+!      print*, 'L619 immodpg.for,MAXIMUN DISTANCE (KM)=',xmax
 !      print*, 'immodpg.for,tmin (s)=',tmin
 !      print*, 'immodpg.for,tmax (s)=',tmax
 !      print *, "immodpg.for,starting layer:", current_layer_number
@@ -626,7 +641,7 @@
 ! X - T Plot of first arrival points for a fixed layer
 !
        call pgline(nplj,xa1, xa2)
-!       print *, 'L424,plot first arrival points for a fixed layer'
+!       print *, 'L629,plot first arrival points for a fixed layer'
 
 ! TAU - P Plot **
 !
@@ -644,29 +659,30 @@
 
 	 call pgsci(3)
          call pgpoint(ndxy,xdig,xa2,9)  ! TODO perhaps
-         print *, 'L 423 Draw digitized X-T data if it exists'
+         print *, 'L647 Draw digitized X-T data if it exists'
 
       endif
 !
 !      Draw velocity vs. depth plot at far right
 !      STEP 1: Erase previous model
 !       0 = black (erase)
-
+       VPlotMax_prior=a2_prior*VPlotScale
+       ZPlotMax_prior=a1_prior*1.0
        call pgsci(0)
        call pgvport(0.88,0.98,0.2,0.8)
-       call pgwindow(0.0,a2_prior,a1_prior,0.0)
+       call pgwindow(0.0,VPlotMax_prior,ZPlotMax_prior,0.0)
        call pgbox('BCTN',0.0,0,'BCNST',0.0,0)
        call pglabel('V(km/s)','Z(km)','')
        call pgline(2*current_layer_number,va_prior,za_prior)
 !       print *, 'L 555 current layer number is ', current_layer_number
 !       print *, 'L 556 end of draw velocity model'
 
-!      STEP 2: Calcualte the current model
+!      STEP 2: Calculate the current model
 ! ****** descomentar para trabajo con OBS  ***
 !       dz(1) = 2.0 * dz(1)
 ! ***********************
-      a1 =  0.0
-      a2 = -1.0
+      a1=0.
+      a2=-1.0
       do 145 i = 1,current_layer_number
               k = 2*i - 1
               va(k) = vt(i)
@@ -691,8 +707,11 @@
 !      set color index: 3 = green
 !       white on black background =1
        call pgsci(3)
+       VPlotMax=a2*VPlotScale
+       ZPlotMax=a1*1.0
+ !      print*,'L711,a1,a2',a1,a2
        call pgvport(0.88,0.98,0.2,0.8)
-	call pgwindow(0.0,a2,a1,0.0)
+	call pgwindow(0.0,VPlotMax,ZPlotMax,0.0)
 	call pgbox('BCTN',0.0,0,'BCNST',0.0,0)
 	call pglabel('V(km/s)','Z(km)','')
 !	call pgslw(5)
@@ -718,13 +737,20 @@
        do while (ans)
 
 !       slow fortran for Perl i/o to .001 s
-        call cpu_time(start)
+!        call cpu_time(start)
 !        print '("Time = ",f6.3," seconds.")',start
- 151    call cpu_time(finish)
+! 151    call cpu_time(finish)
 !        print*,'slowing'
-        cpu_duration = finish-start
+!        cpu_duration = finish-start
 !        print '("Time = ",f6.3," seconds.")',cpu_duration
-        if (cpu_duration .lt. time_delay) go to 151
+
+!        if (cpu_duration .lt. time_delay) then
+         sleep_time_usec = sleep_time_ms * ms2us
+         record_sleep = c_usleep(sleep_time_usec)
+!         print '("sleeping",i20,"milliseconds.")',sleep_time_ms
+!         go to 151
+!        endif
+        
 !        print '("Time = ",f6.3," seconds.")',cpu_duration
 
            icount=icount+1
@@ -752,9 +778,9 @@
               call write_yes_no_file(no,inbound_change)
 !             read option number
               call read_option_file(option,inbound_option)
-!              print *, 'L666 immodpg.for,is_change=',is_change
-              print *, '667 immodpg.for,option#=',option
-!              print *,'L 41 immodpg.for,clnopt=',
+!              print *, 'L755 immodpg.for,is_change=',is_change
+!              print *, '756 immodpg.for,option#=',option
+!              print *,'L 757 immodpg.for,clnopt=',
 !     +        change_layer_number_opt
 
               if(option.eq.change_layer_number_opt) then
@@ -893,7 +919,7 @@
 !             read new velocity increment value
                call readVincrement_file(newVincrement_mps,
      +              inboundVincrement)
-!               print*,'L 655 new VIncrement is',newVincrement_mps
+!               print*,'L918 new Vincrement is',newVincrement_mps
                priorVincrement_mps         = currentVincrement_mps
                currentVincrement_mps       = newVincrement_mps
                Vincrement_mps              = currentVincrement_mps
@@ -1059,7 +1085,9 @@
      +         VB(current_layer_number) - Vincrement_kmps
 
 !               print*,'immodpg.for,option=',VbotNVtop_minus_opt
-
+!               print*,'immodpg.for,option=VT',VT(current_layer_number)
+!               print*,'immodpg.for,option=VB',VB(current_layer_number)
+               
 !              write modified model to terminal after
 !              changing both bottom and top velocities in a layer
 !              had no option_default before
@@ -1189,7 +1217,7 @@
 
              if(option.eq.change_thickness_m_opt) then
              
-               print*,'immodpg.for,option=', change_thickness_m_opt
+!              print*,'L1197 immodpg.for,option=',change_thickness_m_opt
                 call read_thickness_m_file(
      +                    new_thickness_m,inbound_thickness_m)
                 prior_thickness_m   = current_thickness_m
@@ -1347,3 +1375,20 @@
 504     format(' 9-  Clip for data,            10- DP = ',f9.6,
      +' (s/km)')
         end
+        
+      ! usleep.f90
+      module posix
+       use, intrinsic :: iso_c_binding, only: c_int, c_int32_t
+       implicit none
+
+       interface
+        ! int usleep(useconds_t useconds)
+        function c_usleep(useconds) bind(c, name='usleep')
+         import :: c_int, c_int32_t
+         integer(kind=c_int32_t), value :: useconds
+          integer(kind=c_int)            :: c_usleep
+        end function c_usleep
+       end interface
+      end module posix
+        
+

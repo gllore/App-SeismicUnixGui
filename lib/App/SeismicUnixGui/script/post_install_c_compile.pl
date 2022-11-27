@@ -33,6 +33,8 @@
 =cut 
 
 use Moose;
+our $VERSION = '0.0.1';
+
 use Cwd;
 use Shell qw(echo);
 

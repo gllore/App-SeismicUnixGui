@@ -5,12 +5,14 @@ PACKAGE NAME: change_a_line_everywhere
 
 AUTHOR:  
 
-DATE: Jun 15 2022
+DATE: V 0.1 Jun 15 2022
 
 DESCRIPTION: replace Perl directory
 structure within all files
 
 Version: 0.1
+         0.2 use search_directories.pm instead 
+         of L_SU_global_variables.pm
 
 =head2 USE
 
@@ -30,12 +32,12 @@ Based on change_a_line V0.1
 
 Look at every file with a .pm and .pl extension
 Requires looking at all files within the 
-following categories (See L_SU_global_constants) 
+following categories (See search_directories) 
 SU, GEN, SPECS, GUI, TOOLS
 
 1. for each of 4 categories get
 CATEGORY[ABS_PATHs][FILmy $line2find_use = '\s*use\s';E_NAMEs] = 'full path and file name'
-(from L_SU_global_constants)
+(from search_directories)
 
 2. Search every file for the lines of interest (loi)
 CATEGORY_lines_of_interest[ABS_PATHs][FILE_NAMES] = array_ref 
@@ -59,15 +61,15 @@ e.g.: lines 1 and 2
 =cut
 
 use Moose;
-our $VERSION = '0.0.2';
+our $VERSION = '0.2.0';
 
 use aliased 'App::SeismicUnixGui::misc::manage_dirs_by';
 use aliased 'App::SeismicUnixGui::misc::manage_files_by2';
-use aliased 'App::SeismicUnixGui::misc::L_SU_global_constants';
+use aliased 'App::SeismicUnixGui::developer::code::sunix::search_directories';
 
 my $manage_dirs_by        = manage_dirs_by->new();
 my $manage_files_by2      = manage_files_by2->new();
-my $L_SU_global_constants = L_SU_global_constants->new();
+my $search_directories    = search_directories->new();
 
 =head2 Important definitions
 
@@ -87,7 +89,8 @@ my $line2find = 'use\saliased\s\'App';
 
 =head2 Important definitions 
 
-of directory structure
+of directory structure.
+Local development!
 
 =cut 
 
@@ -113,21 +116,21 @@ from the SU category
 
 =cut
 
-$L_SU_global_constants->set_CHILD_DIR_type('SU');
-$L_SU_global_constants->set_PARENT_DIR_type('SU');
-$L_SU_global_constants->set_GRANDPARENT_DIR($GRANDPARENT_DIR);
+$search_directories->set_CHILD_DIR_type('SU');
+$search_directories->set_PARENT_DIR_type('SU');
+$search_directories->set_GRANDPARENT_DIR($GRANDPARENT_DIR);
 my ( $su_pathNfile_aref, $su_dimension_aref ) =
-  $L_SU_global_constants->get_pathNfile2search();
+  $search_directories->get_pathNfile2search();
 
 =head2 search for lines of interest
 
 in SU-type files and replace them
 
 =cut 
-
-my @dimension_su                  = @$su_dimension_aref;
-my $parent_directory_su_number_of = $dimension_su[0];
-my $child_directory_su_number_of  = $dimension_su[1];
+#
+#my @dimension_su                  = @$su_dimension_aref;
+#my $parent_directory_su_number_of = $dimension_su[0];
+#my $child_directory_su_number_of  = $dimension_su[1];
 
 #print("parent_directory_su_number_of=$parent_directory_su_number_of\n");
 #print("child_directory_su_number_of=$child_directory_su_number_of\n");
@@ -150,11 +153,11 @@ from the GEN category and replace them(
 
 =cut
 
-$L_SU_global_constants->set_CHILD_DIR_type('GEN');
-$L_SU_global_constants->set_PARENT_DIR_type('GEN');
-$L_SU_global_constants->set_GRANDPARENT_DIR($GRANDPARENT_DIR);
+$search_directories->set_CHILD_DIR_type('GEN');
+$search_directories->set_PARENT_DIR_type('GEN');
+$search_directories->set_GRANDPARENT_DIR($GRANDPARENT_DIR);
 my ( $gen_pathNfile_aref, $gen_dimension_aref ) =
-  $L_SU_global_constants->get_pathNfile2search();
+  $search_directories->get_pathNfile2search();
 
 =head2 search for lines of interest
 
@@ -166,8 +169,8 @@ my @dimension_gen                  = @$gen_dimension_aref;
 my $parent_directory_gen_number_of = $dimension_gen[0];
 my $child_directory_gen_number_of  = $dimension_gen[1];
 
-#print("parent_directory_gen_number_of=$parent_directory_gen_number_of\n");
-#print("child_directory_gen_number_of=$child_directory_gen_number_of\n");
+print("parent_directory_gen_number_of=$parent_directory_gen_number_of\n");
+print("child_directory_gen_number_of=$child_directory_gen_number_of\n");
 
 #my @gen_pathNfile = @$gen_pathNfile_aref;
 #$parent_directory_gen_number_of=1;
@@ -187,11 +190,11 @@ from the SPECS category
 
 =cut
 
-$L_SU_global_constants->set_CHILD_DIR_type('SPECS');
-$L_SU_global_constants->set_PARENT_DIR_type('SPECS');
-$L_SU_global_constants->set_GRANDPARENT_DIR($GRANDPARENT_DIR);
+$search_directories->set_CHILD_DIR_type('SPECS');
+$search_directories->set_PARENT_DIR_type('SPECS');
+$search_directories->set_GRANDPARENT_DIR($GRANDPARENT_DIR);
 my ( $specs_pathNfile_aref, $specs_dimension_aref ) =
-  $L_SU_global_constants->get_pathNfile2search();
+  $search_directories->get_pathNfile2search();
 
 =head2 search for lines of interest
 
@@ -203,21 +206,21 @@ my @dimension_specs                  = @$specs_dimension_aref;
 my $parent_directory_specs_number_of = $dimension_specs[0];
 my $child_directory_specs_number_of  = $dimension_specs[1];
 
-print("parent_directory_specs_number_of=$parent_directory_specs_number_of\n");
-print("child_directory_specs_number_of=$child_directory_specs_number_of\n");
-
-my @gspecs_pathNfile = @$specs_pathNfile_aref;
-
-_set_parent_directory_number_of($parent_directory_specs_number_of);
-_set_child_directory_number_of($child_directory_specs_number_of);
-_set_pathNfile_aref($specs_pathNfile_aref);
-my $specs_aref                  = _get_line_of_interest_aref();
-my @line_of_interest_specs_aref = @$specs_aref;
-_set_line_of_interest_aref($specs_aref);
+#print("parent_directory_specs_number_of=$parent_directory_specs_number_of\n");
+#print("child_directory_specs_number_of=$child_directory_specs_number_of\n");
+#
+#my @gspecs_pathNfile = @$specs_pathNfile_aref;
+#
+#_set_parent_directory_number_of($parent_directory_specs_number_of);
+#_set_child_directory_number_of($child_directory_specs_number_of);
+#_set_pathNfile_aref($specs_pathNfile_aref);
+#my $specs_aref                  = _get_line_of_interest_aref();
+#my @line_of_interest_specs_aref = @$specs_aref;
+#_set_line_of_interest_aref($specs_aref);
 
 #_set_replacement_type1();
 #_set_replacement_type3();
-_set_replacement_type4();
+#_set_replacement_type4();
 
 =head2 Get all the files and their full paths
 
@@ -225,11 +228,11 @@ from the GUI category
 
 =cut
 
-$L_SU_global_constants->set_CHILD_DIR_type('GUI');
-$L_SU_global_constants->set_PARENT_DIR_type('GUI');
-$L_SU_global_constants->set_GRANDPARENT_DIR($GRANDPARENT_DIR);
+$search_directories->set_CHILD_DIR_type('GUI');
+$search_directories->set_PARENT_DIR_type('GUI');
+$search_directories->set_GRANDPARENT_DIR($GRANDPARENT_DIR);
 my ( $gui_pathNfile_aref, $gui_dimension_aref ) =
-  $L_SU_global_constants->get_pathNfile2search();
+  $search_directories->get_pathNfile2search();
 
 =head2 search for lines of interest
 
@@ -237,9 +240,9 @@ in GUI-type files and replace them
 
 =cut 
 
-my @dimension_gui                  = @$gui_dimension_aref;
-my $parent_directory_gui_number_of = $dimension_gui[0];
-my $child_directory_gui_number_of  = $dimension_gui[1];
+#my @dimension_gui                  = @$gui_dimension_aref;
+#my $parent_directory_gui_number_of = $dimension_gui[0];
+#my $child_directory_gui_number_of  = $dimension_gui[1];
 
 #print("parent_directory_gui_number_of=$parent_directory_gui_number_of\n");
 #print("child_directory_gui_number_of=$child_directory_gui_number_of\n");
@@ -259,21 +262,21 @@ from the TOOLS category
 
 =cut
 
-$L_SU_global_constants->set_CHILD_DIR_type('TOOLS');
-$L_SU_global_constants->set_PARENT_DIR_type('TOOLS');
-$L_SU_global_constants->set_GRANDPARENT_DIR($GRANDPARENT_DIR);
-my ( $tools_pathNfile_aref, $tools_dimension_aref ) =
-  $L_SU_global_constants->get_pathNfile2search();
+#$search_directories->set_CHILD_DIR_type('TOOLS');
+#$search_directories->set_PARENT_DIR_type('TOOLS');
+#$search_directories->set_GRANDPARENT_DIR($GRANDPARENT_DIR);
+#my ( $tools_pathNfile_aref, $tools_dimension_aref ) =
+#  $search_directories->get_pathNfile2search();
 
 =head2 search for lines of interest
 
 in TOOLS-type files and replace them
 
 =cut 
-
-my @dimension_tools                  = @$tools_dimension_aref;
-my $parent_directory_tools_number_of = $dimension_tools[0];
-my $child_directory_tools_number_of  = $dimension_tools[1];
+#
+#my @dimension_tools                  = @$tools_dimension_aref;
+#my $parent_directory_tools_number_of = $dimension_tools[0];
+#my $child_directory_tools_number_of  = $dimension_tools[1];
 
 #print("parent_directory_tools_number_of=$parent_directory_tools_number_of\n");
 #print("child_directory_tools_number_of=$child_directory_tools_number_of\n");

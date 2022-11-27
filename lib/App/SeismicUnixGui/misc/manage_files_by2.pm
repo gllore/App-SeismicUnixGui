@@ -1554,7 +1554,7 @@ sub write_1col_aref {
 	# $variable is an unused hash
 
 #	print("\n manage_files_by2,write_1col_aref,The output file name = $$ref_file_name\n");
-##	print("\n manage_files_by2,write_1col_aref,The output file contains $num_rows rows\n");
+#   print("\n manage_files_by2,write_1col_aref,The output file contains $num_rows rows\n");
 #	print("\n manage_files_by2,write_1col_aref,The output file uses the following format: $$ref_fmt\n");
 #	print("\n manage_files_by2,write_1col_aref,VALUE: @$ref_X\n");
 	
@@ -1563,7 +1563,7 @@ sub write_1col_aref {
 	for ( my $j = 0 ; $j < $num_rows ; $j++ ) {
 
 		printf OUT "$$ref_fmt\n", @$ref_X[$j];
-		#print @$ref_X[$j]."\n";
+#		print @$ref_X[$j]."\n";
 
 	}
 

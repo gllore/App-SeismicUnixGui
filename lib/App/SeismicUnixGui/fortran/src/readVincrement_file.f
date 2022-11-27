@@ -19,7 +19,7 @@
          if (err_msg.eq.0) then
 
            read (31,format1) result
-!          print *, 'readVincrement_file.f, result',result
+          print *, 'readVincrement_file.f, result',result
           close (unit=31)
 
          else

@@ -1,3 +1,5 @@
+/home/gllore/Servilleta/seismics/pl/loma_blanca//053018/H/1/gllore/10.preparre_immodpg.pl
+/home/gllore/Servilleta/seismics/pl/loma_blanca//053018/H/1/gllore/10B.out_preparre_immodpg.pl
 /home/gllore/Servilleta//seismics/data/loma_blanca//053018/H/1/su/gllore/L28Hz_Ibeam_geom4.su
 /home/gllore/Servilleta//seismics/data/loma_blanca//053018/H/1/su/gllore/1000_clean.su
 /home/gllore/Antarctica//seismics/data/TENTI//2022/Z/1/su/gllore/data_out.su
@@ -8,5 +10,3 @@
 /home/gllore/Georgia/seismics/pl/NWMountains//2016/Z/1/gllore/multi_par_mute_file
 /home/gllore/Georgia/seismics/pl/NWMountains//2016/Z/1/gllore/mute_multi_gather_file.pl
 /home/gllore/Georgia/seismics/pl/NWMountains//2016/Z/1/gllore/6.output_muted_fldr4.pl
-/home/gllore/Georgia/seismics/data/NWMountains//2016/Z/1/su/gllore/sp_fldr4_top_muted.su
-/home/gllore/Georgia/seismics/pl/NWMountains//2016/Z/1/gllore/multi_par_file

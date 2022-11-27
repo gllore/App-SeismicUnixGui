@@ -2492,6 +2492,7 @@ writing (Perl) of files
 sub _setVincrement {
 	my ($Vincrement) = @_;
 
+		
 	if (   $Vincrement ne $empty_string
 		&& $immodpg->{_isVincrement_changed_in_gui} eq $yes )
 	{
@@ -2518,12 +2519,14 @@ variables
 		for ( my $i = 0 ; $test eq $no ; $i++ ) {
 
 			if ( not( $files->does_file_exist( \$outbound_locked ) ) ) {
+				
 				my $format = $var_immodpg->{_format_string};
 				$X[0] = $empty_string;
 				$files->write_1col_aref( \@X, \$outbound_locked, \$format );
 
 				$X[0] = $Vincrement;
-				$format = $var_immodpg->{_formatf51f};
+		        
+				$format = $var_immodpg->{_format51f};				    
 				$files->write_1col_aref( \@X, \$outbound, \$format );
 
 				unlink($outbound_locked);
@@ -3285,6 +3288,7 @@ variables
 				$files->write_1col_aref( \@X, \$outbound_locked, \$format );
 
 				$X[0] = $thickness_increment_m;
+				print("thickness_increment_m=$thickness_increment_m\n");
 				$format = $var_immodpg->{_format51f};
 				$files->write_1col_aref( \@X, \$outbound, \$format );
 
@@ -3626,7 +3630,7 @@ sub _set_option {
 
 	my ($option) = @_;
 
-	#		print("immodpg, set_option, option:$option\n");
+#	print("1.immodpg,_set_option,option:$option\n");
 
 	if ( defined($option)
 		&& $immodpg->{_option_file} ne $empty_string )
@@ -3663,7 +3667,7 @@ variables
 				$X[0] = $option;
 				$format = $var_immodpg->{_format2i};
 
-				#				print("immodpg,_set_option,option=$option\n");
+#				print("2.immodpg,_set_option,option:$option\n");
 				$files->write_1col_aref( \@X, \$outbound, \$format );
 
 				unlink($outbound_locked);
@@ -3674,9 +3678,7 @@ variables
 
 	}
 	elsif ( $immodpg->{_is_option_changed} eq $no ) {
-
 		# NADA
-
 	}
 	else {
 		print("immodpg, _set_option, unexpected answer\n");
@@ -6235,13 +6237,13 @@ sub setVincrement {
 
 		$immodpg->{_Vincrement_current} = $immodpg->{_VincrementEntry}->get();
 
-# print("1. immodpg, set_clip,immodpg->{_Vincrement_current}:$immodpg->{_Vincrement_current}\n");
+# print("1. immodpg, setVincrement ,immodpg->{_Vincrement_current}:$immodpg->{_Vincrement_current}\n");
 
 		_set_control( 'Vincrement', $immodpg->{_Vincrement_current} );
 		$immodpg->{_Vincrement_current} = _get_control('Vincrement');
 		my $newVincrement = $immodpg->{_Vincrement_current};
 
-# print("2. immodpg, set_clip,immodpg->{_Vincrement_current}:$immodpg->{_Vincrement_current}\n");
+# print("2. immodpg, setVincrement,immodpg->{_Vincrement_current}:$immodpg->{_Vincrement_current}\n");
 
 		$immodpg->{_VincrementEntry}->delete( 0, 'end' );
 		$immodpg->{_VincrementEntry}->insert( 0, $newVincrement );
@@ -6253,14 +6255,13 @@ sub setVincrement {
 		if ( $immodpg->{_isVincrement_changed_in_gui} eq $yes ) {
 
 			# for fortran program to read
-			# print("immodpg, set_Vincrement, Vincrement is changed: $yes \n");
+#			print("immodpg, setVincrement, Vincrement is changed: $yes \n");
+#			print("immodpg, setVincrement,option:$changeVincrement_opt\n");
+#		    print("immodpg, setVincrement, $immodpg->{_Vincrement_current}\n");
 
 			_setVincrement( $immodpg->{_Vincrement_current} );
 			_set_option($changeVincrement_opt);
 			_set_change($yes);
-
-		   # print("immodpg, setVincrement,option:$changeVincrement_opt\n");
-		   # print("immodpg, setVincrement, $immodpg->{_Vincrement_current}\n");
 
 		}
 		else {
@@ -6563,9 +6564,9 @@ sub setVbotNtop_minus {
 
 			_updateVtop();
 
-			#				print("immodpg, setVbotNtop_minus, new Vbot= $newVbot\n");
-			#				print("immodpg, setVbotNtop_minus, new Vtop= $newVtop\n");
-			# print("immodpg, setVbotNtop_minus, Vincrement= $Vincrement\n");
+#			print("immodpg, setVbotNtop_minus, new Vbot= $newVbot\n");
+#			print("immodpg, setVbotNtop_minus, new Vtop= $newVtop\n");
+#			print("immodpg, setVbotNtop_minus, Vincrement= $Vincrement\n");
 
 			if (   $immodpg->{_isVbot_changed_in_gui} eq $yes
 				&& $immodpg->{_isVtop_changed_in_gui} eq $yes )
@@ -6575,7 +6576,7 @@ sub setVbotNtop_minus {
 				_set_option($VbotNtop_minus_opt);
 				_set_change($yes);
 
-#					print("immodpg, setVbotNtop_minus, VbotNtop_minus_opt:$VbotNtop_minus_opt \n");
+#				print("immodpg, setVbotNtop_minus, VbotNtop_minus_opt:$VbotNtop_minus_opt \n");
 
 			}
 			else {
@@ -6597,7 +6598,6 @@ sub setVbotNtop_minus {
 	}
 	else {
 		print("immodpg, setVbotNtop_minus, missing widget or Vincrement\n");
-
    #		print("immodpg, setVbotNtop_minus, Vincrement=$immodpg->{_Vincrement}\n");
 	}
 	return ();
@@ -6653,9 +6653,9 @@ sub setVbotNtop_plus {
 
 			_updateVtop();
 
-			#				print("immodpg, setVbotNtop_plus, new Vbot= $newVbot\n");
-			#				print("immodpg, setVbotNtop_plus, new Vtop= $newVtop\n");
-			# print("immodpg, setVbotNtop_plus, Vincrement= $Vincrement\n");
+#			print("immodpg, setVbotNtop_plus, new Vbot= $newVbot\n");
+#			print("immodpg, setVbotNtop_plus, new Vtop= $newVtop\n");
+#			print("immodpg, setVbotNtop_plus, Vincrement= $Vincrement\n");
 
 			if (   $immodpg->{_isVbot_changed_in_gui} eq $yes
 				&& $immodpg->{_isVtop_changed_in_gui} eq $yes )
@@ -6687,8 +6687,7 @@ sub setVbotNtop_plus {
 	}
 	else {
 		print("immodpg, setVbotNtop_plus, missing widget or Vincrement\n");
-
-	#		print("immodpg, setVbotNtop_plus, Vincrement=$immodpg->{_Vincrement}\n");
+		print("immodpg, setVbotNtop_plus, Vincrement=$immodpg->{_Vincrement}\n");
 	}
 	return ();
 }
@@ -7199,7 +7198,7 @@ gui to immodpg.config
 sub set_update {
 	my ($self) = @_;
 
-	#	print("immodpg, set_update\n");
+    print("immodpg, set_update\n");
 
 	setVincrement();
 	set_thickness_increment_m();
@@ -7480,6 +7479,7 @@ variables
 		for ( my $i = 0 ; $test eq $no ; $i++ ) {
 
 			if ( not( $files->does_file_exist( \$outbound_locked ) ) ) {
+				
 				my $format = $var_immodpg->{_format_string};
 				$X[0] = $empty_string;
 				$files->write_1col_aref( \@X, \$outbound_locked, \$format );
@@ -7487,7 +7487,7 @@ variables
 				$X[0] = $option;
 				$format = $var_immodpg->{_format_integer};
 
-				#				print("immodpg,set_option,option=$option\n");
+#				print("immodpg,set_option,option=$option\n");
 				$files->write_1col_aref( \@X, \$outbound, \$format );
 
 				unlink($outbound_locked);

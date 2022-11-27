@@ -2467,9 +2467,8 @@ sub _setVbotNtop_minus {
 	my ($self) = @_;
     
 	$immodpg->set_widgets($immodpg_Tk);
-	$immodpg->setVbot_minus();
-	_delay();
-	$immodpg->setVtop_minus();
+	$immodpg->setVbotNtop_minus();
+	
 }
 
 =head2 sub _setVbotNtop_plus
@@ -2485,8 +2484,6 @@ sub _setVbotNtop_plus {
 	# print("write VbotNVtop_plus +\n");
 	$immodpg->set_widgets($immodpg_Tk);
 	$immodpg->setVbotNtop_plus();
-#	_delay();
-#    $immodpg->setVtop_plus();
 
 }
 

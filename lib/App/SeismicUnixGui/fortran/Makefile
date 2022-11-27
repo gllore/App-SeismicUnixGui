@@ -37,7 +37,6 @@ SeismicUnixGui_FORTRAN_OBJ = $(SeismicUnixGui_FORTRAN)/obj
 # all: $(objects)
 # $(objects): %: %.f
 
-
 # compile F98 source code
 Project_config.o:	$(SeismicUnixGui_FORTRAN_SRC)/Project_config.f
 	$(FORTRAN_COMPILER) $(FORTRAN98_FLAGS) \
@@ -130,6 +129,11 @@ read_yes_no_file.o: $(SeismicUnixGui_FORTRAN_SRC)/read_yes_no_file.f
 	-c $(SeismicUnixGui_FORTRAN_SRC)/read_yes_no_file.f \
 	-o $(SeismicUnixGui_FORTRAN_OBJ)/read_yes_no_file.o
 	
+#stdsleep.o: $(SeismicUnixGui_FORTRAN_SRC)/stdsleep.f
+#	$(FORTRAN_COMPILER) $(FORTRAN98_FLAGS) \
+#	-c $(SeismicUnixGui_FORTRAN_SRC)/stdsleep.f \
+#	-o $(SeismicUnixGui_FORTRAN_OBJ)/stdsleep.o
+
 write_model_file_text.o: $(SeismicUnixGui_FORTRAN_SRC)/write_model_file_text.f
 	$(FORTRAN_COMPILER) $(FORTRAN98_FLAGS) \
 	-c $(SeismicUnixGui_FORTRAN_SRC)/write_model_file_text.f \
@@ -199,6 +203,12 @@ moveNzoom.o: $(SeismicUnixGui_FORTRAN_SRC)/moveNzoom.for
 	-o $(SeismicUnixGui_FORTRAN_OBJ)/moveNzoom.o
 
 # link and build executable with both F77 and F98 files
+
+#stdsleep: stdsleep.o
+#	$(FORTRAN_COMPILER) \
+#	$(SeismicUnixGui_FORTRAN_OBJ)/stdsleep.o \
+#	-o$(SeismicUnixGui_FORTRAN_BIN)/stdsleep
+	
 immodpg1.1: immodpg.o readpar.o rdata.o read_dataxy.o readmmod.o \
 denfvp.o thi.o wrimod2.o txpr.o txgrd.o moveNzoom.o \
 readVbot_file.o readVtop_lower_file.o readVbot_upper_file.o  readVtop_file.o  \
@@ -241,7 +251,7 @@ messa.o Project_config.o
 	$(SeismicUnixGui_FORTRAN_OBJ)/write_yes_no_file.o \
 	$(SeismicUnixGui_FORTRAN_OBJ)/Project_config.o \
 	-L$(PGPLOT) -lpgplot  -L/usr/lib64 -lX11 -o$(SeismicUnixGui_FORTRAN_BIN)/immodpg1.1
-	
+#	$(SeismicUnixGui_FORTRAN_OBJ)/stdsleep.o \	
 clean:
 	echo $(SeismicUnixGui_FORTRAN_BIN); \
 	echo $(SeismicUnixGui_FORTRAN_OBJ)

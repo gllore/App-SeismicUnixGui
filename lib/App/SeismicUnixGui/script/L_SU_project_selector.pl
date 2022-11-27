@@ -28,7 +28,6 @@ DESCRIPTION
 
 =cut 
 
-# for all
 use Moose;
 our $VERSION = '1.0.1';
 
