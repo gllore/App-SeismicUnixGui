@@ -1,6 +1,7 @@
 package App::SeismicUnixGui::messages::color_listbox_messages;
 
 use Moose;
+our $VERSION = '0.0.1';
 
 sub get {
     my ( $self) = @_;

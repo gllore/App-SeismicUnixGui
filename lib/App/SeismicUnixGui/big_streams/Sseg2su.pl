@@ -45,6 +45,7 @@ For example, total number of files =74  first file is "1000.su"
 =cut
 
 use Moose;
+our $VERSION = '0.0.1';
 use aliased 'App::SeismicUnixGui::configs::big_streams::Project_config';
 use aliased 'App::SeismicUnixGui::misc::readfiles';
 use aliased 'App::SeismicUnixGui::configs::big_streams::Sseg2su_config';
@@ -96,7 +97,7 @@ for (
 	$i += 1, $j += 1
   )
 {
-	$j_char = sprintf( "%d", $i );
+	$j_char = sprintf( "0", $i );
 	$file_name[$i] = $j_char;
 
 	#	print $j_char . "\n";

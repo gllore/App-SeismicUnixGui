@@ -115,6 +115,7 @@ Synseis \
 =cut 
 
 use Moose;
+our $VERSION = '0.0.1';
 
 my $Synseis = {
     _input_source_filename   => '',

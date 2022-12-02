@@ -50,7 +50,7 @@ package App::SeismicUnixGui::misc::run_button;
 =cut 
 
 use Moose;
-our $VERSION = '0.0.1';
+our $VERSION = '1.0.0';
 
 use Tk;
 # TODO Do I need decisions???

@@ -35,8 +35,9 @@ uses CONFIG
  
 =cut 
 
-our $VERSION = '1.1';
 use Moose;
+our $VERSION = '1.1,0';
+
 use App::SeismicUnixGui::misc::L_SU_global_constants;
 use App::SeismicUnixGui::configs::big_streams::Project_config;
 use App::SeismicUnixGui::misc::SeismicUnix qw($su $suffix_su);

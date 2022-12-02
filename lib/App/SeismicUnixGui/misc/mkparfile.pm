@@ -1,6 +1,7 @@
 package App::SeismicUnixGui::misc::mkparfile;
 
 use Moose;
+our $VERSION = '0.0.1';
 
 =head1 DOCUMENTATION
 

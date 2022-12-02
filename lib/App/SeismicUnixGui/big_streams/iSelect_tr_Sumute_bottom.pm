@@ -27,7 +27,7 @@ package App::SeismicUnixGui::big_streams::iSelect_tr_Sumute_bottom;
 =cut
 
 use Moose;
-my $VERSION = '1.0.3';
+our $VERSION = '1.0.3';
 
 use aliased 'App::SeismicUnixGui::configs::big_streams::Project_config';
 use App::SeismicUnixGui::misc::SeismicUnix

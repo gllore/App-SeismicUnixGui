@@ -1,5 +1,6 @@
 package App::SeismicUnixGui::sunix::header::suresstat;
 use Moose;
+our $VERSION = '0.0.1';
 
 =head1 DOCUMENTATION
 

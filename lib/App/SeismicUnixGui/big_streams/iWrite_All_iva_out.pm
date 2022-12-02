@@ -1,7 +1,7 @@
 package App::SeismicUnixGui::big_streams::iWrite_All_iva_out;
 
-# CLASSES
 use Moose;
+our $VERSION = '0.0.1';
 
 =pod
 

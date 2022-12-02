@@ -29,7 +29,6 @@ package App::SeismicUnixGui::misc::dirs;
 =cut 
 
 use Moose;
-
 our $VERSION = '0.0.1';
 
 use aliased 'App::SeismicUnixGui::misc::L_SU_global_constants';

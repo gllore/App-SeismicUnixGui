@@ -1,6 +1,7 @@
 package App::SeismicUnixGui::specs::plot::suximage_spec;
-our $VERSION = '1.00';
 use Moose;
+our $VERSION = '1.0.0';
+
 use aliased 'App::SeismicUnixGui::misc::L_SU_global_constants';
 
 use aliased 'App::SeismicUnixGui::configs::big_streams::Project_config';

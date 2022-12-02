@@ -1,7 +1,6 @@
-#!/bin/perl
-
 package App::SeismicUnixGui::geopsy::gpdcreport;
 use Moose;
+our $VERSION = '0.0.1';
 
 =pod
 

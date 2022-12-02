@@ -1,7 +1,7 @@
 package App::SeismicUnixGui::specs::big_streams::Synseis_spec;
 
-our $VERSION = '1.00';
 use Moose;
+our $VERSION = '1.0.0';
 
 use App::SeismicUnixGui::misc::SeismicUnix qw($su $suffix_su);
 use App::SeismicUnixGui::misc::L_SU_global_constants;

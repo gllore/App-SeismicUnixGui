@@ -10,7 +10,7 @@
  DATES:    Feb 7 2020
  				April 4 2021
  
- Version  0.1 , 0.2
+ Version  0.0.1 , 0.0.2
 
 =head2 DESCRIPTION
 
@@ -65,6 +65,7 @@ April 2021, removed commented lines
 =cut
 
 use Moose;
+our $VERSION = '0.0.1';
 use Time::HiRes qw(gettimeofday tv_interval);
 use Tk;
 use aliased 'App::SeismicUnixGui::misc::L_SU_global_constants';
@@ -72,7 +73,7 @@ use aliased 'App::SeismicUnixGui::configs::big_streams::Project_config';
 use aliased 'App::SeismicUnixGui::configs::big_streams::immodpg_config';
 use aliased 'App::SeismicUnixGui::big_streams::immodpg_global_constants';
 use aliased 'App::SeismicUnixGui::misc::premmod';
-use App::SeismicUnixGui::big_streams::immodpg '0.2';
+use App::SeismicUnixGui::big_streams::immodpg '0.0.2';
 use aliased 'App::SeismicUnixGui::big_streams::immodpg';
 use aliased 'App::SeismicUnixGui::sunix::shell::xk';
 

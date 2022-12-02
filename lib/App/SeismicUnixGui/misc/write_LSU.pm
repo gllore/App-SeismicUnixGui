@@ -1,6 +1,7 @@
 package App::SeismicUnixGui::misc::write_LSU;
 
 use Moose;
+our $VERSION = '0.0.1';
 
 my $on  = 'on';
 my $off = 'off';

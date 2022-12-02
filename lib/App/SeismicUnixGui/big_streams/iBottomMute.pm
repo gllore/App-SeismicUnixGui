@@ -51,7 +51,7 @@ VELAN DATA
 =cut 
 
 use Moose;
-my $VERSION = '1.0.3';
+our $VERSION = '1.0.3';
 use aliased 'App::SeismicUnixGui::sunix::shell::cp';
 use aliased 'App::SeismicUnixGui::misc::flow';
 use aliased 'App::SeismicUnixGui::big_streams::iApply_bottom_mute';

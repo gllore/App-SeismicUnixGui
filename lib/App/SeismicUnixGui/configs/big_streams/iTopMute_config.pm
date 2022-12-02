@@ -53,7 +53,7 @@ package App::SeismicUnixGui::configs::big_streams::iTopMute_config;
 =cut 
 
 use Moose;
-my $VERSION = '1.0.3';
+our $VERSION = '1.0.3';
 use aliased 'App::SeismicUnixGui::configs::big_streams::Project_config';
 use App::SeismicUnixGui::misc::control '0.0.3';
 use aliased 'App::SeismicUnixGui::misc::control';

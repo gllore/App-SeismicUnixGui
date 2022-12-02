@@ -22,7 +22,7 @@ package App::SeismicUnixGui::misc::config_superflows;
 =cut
 
 use Moose;
-my $VERSION = '1.0.0';
+our $VERSION = '1.0.0';
 use Carp;
 
 use aliased 'App::SeismicUnixGui::misc::L_SU_global_constants';

@@ -51,7 +51,7 @@ package App::SeismicUnixGui::big_streams::iBottomMute_config;
 =cut 
 
 use Moose;
-my $VERSION = '1.0.3';
+our $VERSION = '1.0.3';
 use aliased 'App::SeismicUnixGui::configs::big_streams::Project_config';
 use aliased 'App::SeismicUnixGui::misc::config_superflows';
 use aliased 'App::SeismicUnixGui::misc::L_SU_global_constants';

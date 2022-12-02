@@ -1,8 +1,8 @@
 package App::SeismicUnixGui::specs::big_streams::immodpg_spec;
 
+use Moose;
 our $VERSION = '0.0.1';
 
-use Moose;
 use App::SeismicUnixGui::misc::SeismicUnix qw($su $suffix_su);
 require App::SeismicUnixGui::misc::L_SU_global_constants;
 require App::SeismicUnixGui::configs::big_streams::Project_config;

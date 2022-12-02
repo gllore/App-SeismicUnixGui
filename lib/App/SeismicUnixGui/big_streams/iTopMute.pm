@@ -52,7 +52,7 @@ VELAN DATA
 =cut 
 
 use Moose;
-my $VERSION = '1.0.3';
+our $VERSION = '1.0.3';
 use aliased 'App::SeismicUnixGui::configs::big_streams::Project_config';
 use aliased 'App::SeismicUnixGui::misc::message';
 use aliased 'App::SeismicUnixGui::sunix::shell::cp';

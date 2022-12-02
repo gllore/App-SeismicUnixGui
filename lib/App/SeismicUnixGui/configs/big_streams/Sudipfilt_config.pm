@@ -79,7 +79,7 @@ BOTTOM_RIGHT_suximage_absclip = 5
 =cut  
 
 use Moose;
-my $VERSION = '1.0.0';
+our $VERSION = '1.0.0';
 use App::SeismicUnixGui::misc::control '0.0.3';
 use aliased 'App::SeismicUnixGui::misc::control';
 use aliased 'App::SeismicUnixGui::misc::config_superflows';

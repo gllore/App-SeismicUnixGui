@@ -1,5 +1,6 @@
 package App::SeismicUnixGui::misc::perl_inbound;
 use Moose;
+our $VERSION = '0.0.1';
 
 =head2 Default perl lines for the inbound files
 

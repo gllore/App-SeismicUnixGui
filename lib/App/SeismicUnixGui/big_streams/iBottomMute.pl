@@ -65,7 +65,7 @@
 =cut
 
 use Moose;
-my $VERSION = '1.0.4';
+our $VERSION = '1.0.4';
 use aliased 'App::SeismicUnixGui::misc::L_SU_global_constants';
 use aliased 'App::SeismicUnixGui::big_streams::iBottomMute';
 use aliased 'App::SeismicUnixGui::big_streams::iBottomMute_config';

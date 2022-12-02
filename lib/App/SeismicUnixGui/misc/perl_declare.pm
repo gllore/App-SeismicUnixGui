@@ -1,5 +1,6 @@
 package App::SeismicUnixGui::misc::perl_declare;
 use Moose;
+our $VERSION = '0.0.1';
 
 =head2 Default perl lines for
      declaring required packages

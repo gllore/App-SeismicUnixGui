@@ -41,7 +41,6 @@ package App::SeismicUnixGui::misc::big_streams_param;
 =cut
 
 use Moose;
-
 our $VERSION = '0.0.3';
 
 use aliased 'App::SeismicUnixGui::misc::L_SU_global_constants';

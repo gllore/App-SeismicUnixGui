@@ -67,9 +67,9 @@ use aliased 'App::SeismicUnixGui::misc::manage_dirs_by';
 use aliased 'App::SeismicUnixGui::misc::manage_files_by2';
 use aliased 'App::SeismicUnixGui::developer::code::sunix::search_directories';
 
-my $manage_dirs_by        = manage_dirs_by->new();
-my $manage_files_by2      = manage_files_by2->new();
-my $search_directories    = search_directories->new();
+my $manage_dirs_by     = manage_dirs_by->new();
+my $manage_files_by2   = manage_files_by2->new();
+my $search_directories = search_directories->new();
 
 =head2 Important definitions
 
@@ -85,7 +85,13 @@ my $search_directories    = search_directories->new();
 #my $line2find       = '=\snew\s\w+';
 
 #type 4
-my $line2find = 'use\saliased\s\'App';
+#my $line2find = 'use\saliased\s\'App';
+
+#type 5
+my $line2find = 'our\s\$VERSION';
+
+#type 6
+#my $line2find = 'use\ Moose;';
 
 =head2 Important definitions 
 
@@ -127,14 +133,13 @@ my ( $su_pathNfile_aref, $su_dimension_aref ) =
 in SU-type files and replace them
 
 =cut 
-#
+
 #my @dimension_su                  = @$su_dimension_aref;
 #my $parent_directory_su_number_of = $dimension_su[0];
 #my $child_directory_su_number_of  = $dimension_su[1];
-
+#
 #print("parent_directory_su_number_of=$parent_directory_su_number_of\n");
 #print("child_directory_su_number_of=$child_directory_su_number_of\n");
-#
 #
 #my @su_pathNfile = @$su_pathNfile_aref;
 #
@@ -144,8 +149,9 @@ in SU-type files and replace them
 #my $su_aref = _get_line_of_interest_aref();
 #my @line_of_interest_su_aref =@$su_aref;
 #_set_line_of_interest_aref($su_aref);
-#_set_replacement_type1();
-#_set_replacement_type2();
+#
+#_set_replacement_type5();
+#_set_replacement_type6();
 
 =head2 Get all the files and their full paths
 
@@ -166,23 +172,25 @@ in GEN-type files and replace them
 =cut 
 
 my @dimension_gen                  = @$gen_dimension_aref;
-my $parent_directory_gen_number_of = $dimension_gen[0];
-my $child_directory_gen_number_of  = $dimension_gen[1];
-
-print("parent_directory_gen_number_of=$parent_directory_gen_number_of\n");
-print("child_directory_gen_number_of=$child_directory_gen_number_of\n");
-
+#my $parent_directory_gen_number_of = $dimension_gen[0];
+#my $child_directory_gen_number_of  = $dimension_gen[1];
+#
+#print("parent_directory_gen_number_of=$parent_directory_gen_number_of\n");
+#print("child_directory_gen_number_of=$child_directory_gen_number_of\n");
+#
 #my @gen_pathNfile = @$gen_pathNfile_aref;
-#$parent_directory_gen_number_of=1;
-#$child_directory_gen_number_of=1;
+#
+##$parent_directory_gen_number_of = 1;
+##$child_directory_gen_number_of  = 1;
 #_set_parent_directory_number_of($parent_directory_gen_number_of);
 #_set_child_directory_number_of($child_directory_gen_number_of);
 #_set_pathNfile_aref($gen_pathNfile_aref);
-#my $gen_aref = _get_line_of_interest_aref();
-#my @line_of_interest_gen_aref =@$gen_aref;
+#my $gen_aref                  = _get_line_of_interest_aref();
+#my @line_of_interest_gen_aref = @$gen_aref;
 #_set_line_of_interest_aref($gen_aref);
-#_set_replacement_type2();
-#_set_replacement_type3();
+#
+#_set_replacement_type5();
+#_set_replacement_type6();
 
 =head2 Get all the files and their full paths
 
@@ -202,25 +210,24 @@ in SPECS-type files and replace them
 
 =cut 
 
-my @dimension_specs                  = @$specs_dimension_aref;
-my $parent_directory_specs_number_of = $dimension_specs[0];
-my $child_directory_specs_number_of  = $dimension_specs[1];
-
+#my @dimension_specs                  = @$specs_dimension_aref;
+#my $parent_directory_specs_number_of = $dimension_specs[0];
+#my $child_directory_specs_number_of  = $dimension_specs[1];
+#
 #print("parent_directory_specs_number_of=$parent_directory_specs_number_of\n");
 #print("child_directory_specs_number_of=$child_directory_specs_number_of\n");
 #
-#my @gspecs_pathNfile = @$specs_pathNfile_aref;
-#
+#my @specs_pathNfile = @$specs_pathNfile_aref;
 #_set_parent_directory_number_of($parent_directory_specs_number_of);
 #_set_child_directory_number_of($child_directory_specs_number_of);
 #_set_pathNfile_aref($specs_pathNfile_aref);
 #my $specs_aref                  = _get_line_of_interest_aref();
 #my @line_of_interest_specs_aref = @$specs_aref;
 #_set_line_of_interest_aref($specs_aref);
-
-#_set_replacement_type1();
-#_set_replacement_type3();
-#_set_replacement_type4();
+#
+#
+#_set_replacement_type5();
+#_set_replacement_type6();
 
 =head2 Get all the files and their full paths
 
@@ -243,7 +250,7 @@ in GUI-type files and replace them
 #my @dimension_gui                  = @$gui_dimension_aref;
 #my $parent_directory_gui_number_of = $dimension_gui[0];
 #my $child_directory_gui_number_of  = $dimension_gui[1];
-
+#
 #print("parent_directory_gui_number_of=$parent_directory_gui_number_of\n");
 #print("child_directory_gui_number_of=$child_directory_gui_number_of\n");
 #
@@ -253,8 +260,8 @@ in GUI-type files and replace them
 #my $gui_aref = _get_line_of_interest_aref();
 #my @line_of_interest_gui_aref =@$gui_aref;
 #_set_line_of_interest_aref($gui_aref);
-##_set_replacement_type1();
-#_set_replacement_type2();
+#_set_replacement_type5();
+#_set_replacement_type6();
 
 =head2 Get all the files and their full paths
 
@@ -262,22 +269,23 @@ from the TOOLS category
 
 =cut
 
-#$search_directories->set_CHILD_DIR_type('TOOLS');
-#$search_directories->set_PARENT_DIR_type('TOOLS');
-#$search_directories->set_GRANDPARENT_DIR($GRANDPARENT_DIR);
-#my ( $tools_pathNfile_aref, $tools_dimension_aref ) =
-#  $search_directories->get_pathNfile2search();
+$search_directories->set_CHILD_DIR_type('TOOLS');
+$search_directories->set_PARENT_DIR_type('TOOLS');
+$search_directories->set_GRANDPARENT_DIR($GRANDPARENT_DIR);
+my ( $tools_pathNfile_aref, $tools_dimension_aref ) =
+  $search_directories->get_pathNfile2search();
 
 =head2 search for lines of interest
 
 in TOOLS-type files and replace them
 
 =cut 
-#
+
+
 #my @dimension_tools                  = @$tools_dimension_aref;
 #my $parent_directory_tools_number_of = $dimension_tools[0];
 #my $child_directory_tools_number_of  = $dimension_tools[1];
-
+#
 #print("parent_directory_tools_number_of=$parent_directory_tools_number_of\n");
 #print("child_directory_tools_number_of=$child_directory_tools_number_of\n");
 #
@@ -287,8 +295,8 @@ in TOOLS-type files and replace them
 #my $tools_aref = _get_line_of_interest_aref();
 #my @line_of_interest_tools_aref =@$tools_aref;
 #_set_line_of_interest_aref($tools_aref);
-#_set_replacement_type2();
-#_set_replacement_type3();
+#_set_replacement_type5();
+#_set_replacement_type6();
 
 =head2 _get_line_of_interest_aref
 
@@ -348,6 +356,10 @@ sub _get_line_of_interest_aref {
 
 						push @line_of_interest4file, $j;
 
+						my $prior2loi = $j - 1;
+						print(
+"string prior2loi=($prior2loi) is: $slurp[$prior2loi]\n"
+						);
 						print("string=$string loi=$j at $pathNfile_list[$i]\n");
 
 					}
@@ -765,3 +777,281 @@ sub _set_replacement_type4 {
 		}    # for each child direcroty
 	}    # for each parent directory
 }    # sub replace line of interest
+
+=head2 set_replacement_type5
+
+replace line of interest
+
+=cut
+
+sub _set_replacement_type5 {
+
+	my ($self) = @_;
+
+	my $child_directory_number_of =
+	  $change_a_line->{_child_directory_number_of};
+	my $parent_directory_number_of =
+	  $change_a_line->{_parent_directory_number_of};
+	my @pathNfile             = @{ $change_a_line->{_pathNfile_aref} };
+	my @line_of_interest_aref = @{ $change_a_line->{_line_of_interest_aref} };
+
+	for ( my $parent = 0 ; $parent < $parent_directory_number_of ; $parent++ ) {
+
+		for ( my $child = 0 ; $child < $child_directory_number_of ; $child++ ) {
+
+			my @pathNfile_list        = @{ $pathNfile[$parent][$child] };
+			my $pathNfile_list_length = scalar @pathNfile_list;
+
+			for ( my $i = 0 ; $i < $pathNfile_list_length ; $i++ ) {
+
+				# slurp every file
+				$manage_files_by2->set_pathNfile( $pathNfile_list[$i] );
+				my $slurp_ref =
+				  manage_files_by2->get_whole( $pathNfile_list[$i] );
+				my @slurp = @$slurp_ref;
+
+				my @line_number =
+				  @{ $line_of_interest_aref[$parent][$child][$i] };
+				my $line_number_of = scalar @line_number;
+
+				if ( $line_number_of > 0 ) {
+
+					for ( my $line = 0 ; $line < $line_number_of ; $line++ ) {
+
+						my @temp_string;
+						chomp $slurp[ $line_number[$line] ];
+
+						# double check
+						@temp_string =
+						  split( /=\s/, $slurp[ $line_number[$line] ] );
+
+						if ( $temp_string[1] eq "'1.00';" ) {
+
+							print("\n4.$temp_string[0] = $temp_string[1]\n");
+							print("4. current file is $pathNfile_list[$i]\n");
+							print(
+"4.found line $slurp[$line] on line=$line_number[$line]\n"
+							);
+
+							print("Hit Enter to continue");
+							<STDIN>;
+							$slurp[ $line_number[$line] ] =~
+							  s/\'1.00\'/\'1.0.0\'/g;
+							print("\t4.Change:$slurp[$line_number[$line]]\n");
+
+							open( OUT, ">$pathNfile_list[$i]" )
+							  or die("File $pathNfile_list[$i] not found");
+
+							foreach my $text (@slurp) {
+
+								printf OUT $text . "\n";    # add \n!!!!
+
+								#								print $text."\n";
+
+							}
+
+							close(OUT);
+
+						}
+						else {
+							print(
+								"exception to type5 search are: @temp_string\n"
+							);
+						}
+
+					}    # for each line in the file
+				}
+				else {
+					# NADA conditional if search cases exist
+				}
+
+			}    # for each file in a list
+		}    # for each child directory
+	}    # for each parent directory
+}    # sub replace line of interest
+
+=head2 _set_replacement_type6
+
+include a new line of interest
+
+=cut
+
+sub _set_replacement_type6 {
+
+	my ($self) = @_;
+
+	my $child_directory_number_of =
+	  $change_a_line->{_child_directory_number_of};
+	my $parent_directory_number_of =
+	  $change_a_line->{_parent_directory_number_of};
+	my @pathNfile             = @{ $change_a_line->{_pathNfile_aref} };
+	my @line_of_interest_aref = @{ $change_a_line->{_line_of_interest_aref} };
+
+	for ( my $parent = 0 ; $parent < $parent_directory_number_of ; $parent++ ) {
+
+		for ( my $child = 0 ; $child < $child_directory_number_of ; $child++ ) {
+
+			my @pathNfile_list        = @{ $pathNfile[$parent][$child] };
+			my $pathNfile_list_length = scalar @pathNfile_list;
+
+			for ( my $i = 0 ; $i < $pathNfile_list_length ; $i++ ) {
+
+				# slurp every file
+				$manage_files_by2->set_pathNfile( $pathNfile_list[$i] );
+				my $slurp_ref =
+				  manage_files_by2->get_whole( $pathNfile_list[$i] );
+				my @slurp = @$slurp_ref;
+
+				my @line_number =
+				  @{ $line_of_interest_aref[$parent][$child][$i] };
+				my $line_number_of = scalar @line_number;
+
+				if ( $line_number_of > 0 ) {
+
+					for ( my $line = 0 ; $line < $line_number_of ; $line++ ) {
+
+						my @temp_string;
+						chomp $slurp[ $line_number[$line] ];
+
+						# double check
+						@temp_string =
+						  split( /=\s/, $slurp[ $line_number[$line] ] );
+
+						if ( $temp_string[1] eq "'1.00';" ) {
+
+							print("\n4.$temp_string[0] = $temp_string[1]\n");
+							print("4. current file is $pathNfile_list[$i]\n");
+							print(
+"4.found line $slurp[$line] on line=$line_number[$line]\n"
+							);
+
+							my $answer = 'y';
+							print(" Change-- Enter n (no) or y (yes)-");
+							my $user_ans = <STDIN>;
+
+							if ( $user_ans eq 'n'
+								or not( $user_ans eq 'y' ) )
+							{
+
+								$answer = 'n';
+								print(" Answer was no\n");
+							}
+
+							if ( $answer == 'y' ) {
+								$slurp[ $line_number[$line] ] =~
+								  s/\'1.00\'/\'1.0.0\'/g;
+								print("\tChange:$slurp[$line_number[$line]]\n");
+
+								open( OUT, ">$pathNfile_list[$i]" )
+								  or die("File $pathNfile_list[$i] not found");
+
+								foreach my $text (@slurp) {
+
+									printf OUT $text . "\n"; # add \n!!!!
+															 # print $text."\n";
+
+								}
+
+								close(OUT);
+
+							}
+
+						}
+						else {
+							print(
+								"exception to type6 search are: @temp_string\n"
+							);
+						}
+
+					}    # for each line in the file
+				}
+				else {
+					print("\nfile has no VERSION No.\n");
+					print(" file is: $pathNfile_list[$i]");
+
+					# Search for Moose and put a VERSION number after
+					# the Moose line
+
+					my $slurp_length = scalar @slurp;
+					for ( my $line = 0 ; $line < $slurp_length ; $line++ ) {
+
+						chomp $slurp[$line];
+
+						# double check
+						my $string = $slurp[$line];
+
+						if ( $string =~ m/use\sMoose;/ ) {
+
+							print("\n5.string matches Moose at line \n");
+							print("5. current file is $pathNfile_list[$i]\n");
+							print("5.found $slurp[$line] on line_idx=$line\n");
+							print("5.found:$string\n");
+
+							my $answer = 'y';
+							print(" Change-- Enter n (no) or y (yes)-");
+							my $user_ans = <STDIN>;
+
+							if ( $user_ans =~ m/y/ ) {
+
+								$answer = 'y';
+								print(" Answer was yes\n");
+
+							}
+							elsif ( $user_ans =~ m/n/ ) {
+
+								$answer = 'n';
+								print(" Answer was no\n");
+
+							}
+							else {
+								print("Unexpected answer \n");
+							}
+
+							if ( $answer eq 'y' ) {
+
+								open( OUT, ">$pathNfile_list[$i]" )
+								  or die("File $pathNfile_list[$i] not found");
+
+								for (
+									my $count_line = 0 ;
+									$count_line <= $line ;
+									$count_line++
+								  )
+								{
+
+									printf OUT $slurp[$count_line]
+									  . "\n";    # add \n!!!!
+
+								}
+
+								my $insert_line =
+								  "our \$VERSION = '0.0.1';" . "\n";    # add \n
+								printf OUT $insert_line;
+
+								for (
+									my $count_line = ( $line + 1 ) ;
+									$count_line < $slurp_length ;
+									$count_line++
+								  )
+								{
+
+									printf OUT $slurp[$count_line]
+									  . "\n";    # add \n!!!!
+
+								}
+
+								close(OUT);
+
+							}
+
+						}
+
+					}    # for each line in the file
+
+				}
+
+			}    # for each file in a list
+		}    # for each child directory
+	}    # for each parent directory
+}    # sub replace line of interest
+

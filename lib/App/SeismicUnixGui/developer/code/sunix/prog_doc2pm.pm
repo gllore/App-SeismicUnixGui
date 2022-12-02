@@ -27,7 +27,6 @@ my $selected_program_name = 'sugetgthr';
 =cut
 
 use Moose;
-
 our $VERSION = '0.0.1';
 use aliased 'App::SeismicUnixGui::misc::L_SU_global_constants';
 

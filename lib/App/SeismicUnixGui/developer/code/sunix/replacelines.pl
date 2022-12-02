@@ -1,4 +1,5 @@
 use Moose;
+our $VERSION = '0.0.1';
 
 my $MAIN_DIR = '/usr/local/pl/L_SU/specs';
 my ( @INBOUND, @SUBDIR );

@@ -1,5 +1,3 @@
-#! /usr/local/bin/perl -w
-
 =head1 DOCUMENTATION
 
 =head2 SYNOPSIS To convert su data to segy data
@@ -29,6 +27,9 @@
 file names and locations are automatically found
 
 =cut
+
+use Moose;
+our $VERSION = '0.0.1';
 
 # define library of system subroutines
 use aliased 'App::SeismicUnixGui::configs::big_streams::Project_config';

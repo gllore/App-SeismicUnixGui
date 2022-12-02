@@ -368,6 +368,7 @@ sub cols_2 {
 #	my $ref_CFG;
 #	my $cfg;
 #	use Moose;
+our $VERSION = '0.0.1';
 #	# use Config::Simple;
 #	use name;
 #use App::SeismicUnixGui::misc::control '0.0.3';

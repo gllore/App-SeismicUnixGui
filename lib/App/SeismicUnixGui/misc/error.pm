@@ -1,5 +1,6 @@
 package App::SeismicUnixGui::misc::error;
 use Moose;
+our $VERSION = '0.0.1';
 
 =head2 sub run_flow 
 

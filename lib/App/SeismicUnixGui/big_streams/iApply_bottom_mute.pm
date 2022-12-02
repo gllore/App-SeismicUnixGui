@@ -23,7 +23,7 @@ package App::SeismicUnixGui::big_streams::iApply_bottom_mute;
 =cut
 
 use Moose;
-my $VERSION = '1.0.4';
+our $VERSION = '1.0.4';
 use aliased 'App::SeismicUnixGui::misc::message';
 use aliased 'App::SeismicUnixGui::misc::flow';
 use aliased 'App::SeismicUnixGui::sunix::filter::sufilter';

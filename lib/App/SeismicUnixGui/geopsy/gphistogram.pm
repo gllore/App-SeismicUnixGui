@@ -1,7 +1,6 @@
-#!/usr/bin/perl
-
 package App::SeismicUnixGui::geopsy::gphistogram;
 use Moose;
+our $VERSION = '0.0.1';
 
 =pod
 

@@ -1,6 +1,7 @@
 package App::SeismicUnixGui::big_streams::iSave_picks;
 
 use Moose;
+our $VERSION = '0.0.1';
 
 =head1 DOCUMENTATION
 

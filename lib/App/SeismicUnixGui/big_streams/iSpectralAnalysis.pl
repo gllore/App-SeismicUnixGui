@@ -46,7 +46,7 @@
 =cut
 
 use Moose;
-our $VERSION = '1.1';
+our $VERSION = '1.1.0';
 use Tk;
 use Tk::Pretty;
 use aliased 'App::SeismicUnixGui::big_streams::iSpectralAnalysis';

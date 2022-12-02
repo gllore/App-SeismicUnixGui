@@ -31,7 +31,7 @@ package App::SeismicUnixGui::misc::pod_flows;
 =cut 
 
 use Moose;
-our $VEFRSION = '0.0.1';
+our $VERSION = '0.0.1';
 
 =head2 Default pod lines for   
 

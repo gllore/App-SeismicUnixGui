@@ -1,5 +1,6 @@
 package App::SeismicUnixGui::developer::code::sunix::sunix_package_declaration;
 use Moose;
+our $VERSION = '0.0.1';
 
 my @lines;
 

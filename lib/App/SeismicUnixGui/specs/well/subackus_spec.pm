@@ -1,5 +1,5 @@
 package App::SeismicUnixGui::specs::well::subackus_spec;
-	use Moose;
+use Moose;
 our $VERSION = '0.0.1';
 
 use aliased 'App::SeismicUnixGui::configs::big_streams::Project_config';

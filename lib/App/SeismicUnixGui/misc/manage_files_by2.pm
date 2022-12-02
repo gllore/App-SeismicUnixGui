@@ -30,7 +30,7 @@ package App::SeismicUnixGui::misc::manage_files_by2;
 =cut
 
 use Moose;
-my $VERSION = '0.0.1';
+our $VERSION = '0.0.1';
 
 use aliased 'App::SeismicUnixGui::misc::L_SU_global_constants';
 use aliased 'App::SeismicUnixGui::sunix::shell::cat_su';

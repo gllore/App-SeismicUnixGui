@@ -1,5 +1,6 @@
 package App::SeismicUnixGui::misc::oop_declare_data_out;
 use Moose;
+our $VERSION = '0.0.1';
 
 =pod
 

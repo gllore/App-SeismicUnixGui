@@ -1,6 +1,7 @@
 package App::SeismicUnixGui::messages::message_director;
 
 use Moose;
+our $VERSION = '0.0.1';
 use aliased 'App::SeismicUnixGui::messages::FileDialog_button_messages';
 use aliased 'App::SeismicUnixGui::messages::FileDialog_close_messages';
 use aliased 'App::SeismicUnixGui::messages::color_listbox_messages';

@@ -1,8 +1,8 @@
 package App::SeismicUnixGui::specs::big_streams::Sseg2su_spec;
 
-our $VERSION = '1.00';
-
 use Moose;
+our $VERSION = '1.0.0';
+
 use App::SeismicUnixGui::misc::SeismicUnix qw($seg2 $suffix_DAT $su $suffix_su);
 use App::SeismicUnixGui::misc::L_SU_global_constants;
 use App::SeismicUnixGui::configs::big_streams::Project_config;

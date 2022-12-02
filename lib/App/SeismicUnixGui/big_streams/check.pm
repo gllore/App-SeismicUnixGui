@@ -34,7 +34,7 @@ V0.1 Nov 23, 2022
 
 use Moose;
 
-our $VERSION = '0.2';
+our $VERSION = '0.0.2';
 
 
 

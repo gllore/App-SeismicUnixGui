@@ -1,5 +1,6 @@
 package App::SeismicUnixGui::developer::code::sunix::sunix_package_header;
 use Moose;
+our $VERSION = '0.0.1';
 
 
 =head2 Load modules

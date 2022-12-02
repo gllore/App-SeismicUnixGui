@@ -1,5 +1,6 @@
 package App::SeismicUnixGui::misc::pod_prog_param_setup;
 use Moose;
+our $VERSION = '0.0.1';
 
 =head2 Default pod lines for   
 

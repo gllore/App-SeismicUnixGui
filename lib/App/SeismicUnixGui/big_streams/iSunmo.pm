@@ -4,7 +4,7 @@ package App::SeismicUnixGui::big_streams::iSunmo;
 
 =head2 SYNOPSIS
 
-  PCKAGE NAME: iSunmo
+  PACKAGE NAME: iSunmo
 
   Purpose:  interactive sunmo
   AUTHOR:  Juan M. Lorenzo
@@ -23,6 +23,7 @@ package App::SeismicUnixGui::big_streams::iSunmo;
 =cut
 
 use Moose;
+our $VERSION = '0.0.1';
 use aliased 'App::SeismicUnixGui::misc::L_SU_global_constants';
 use aliased 'App::SeismicUnixGui::configs::big_streams::Project_config';
 use App::SeismicUnixGui::misc::SeismicUnix qw($on $off $in $to $go);

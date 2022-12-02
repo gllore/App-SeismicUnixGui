@@ -34,8 +34,9 @@ package App::SeismicUnixGui::misc::sunix_pl;
  
 =cut
 
-our $VERSION = '0.0.2';
 use Moose;
+our $VERSION = '0.0.2';
+
 use Text::ParseWords;
 use aliased 'App::SeismicUnixGui::misc::perl_header';
 use aliased 'App::SeismicUnixGui::misc::perl_use_pkg';

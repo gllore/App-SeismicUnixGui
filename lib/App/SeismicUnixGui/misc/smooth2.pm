@@ -2,6 +2,7 @@
 
 package App::SeismicUnixGui::misc::smooth2;
 use Moose;
+our $VERSION = '0.0.1';
 
 =head1 DOCUMENTATION
 

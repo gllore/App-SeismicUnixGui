@@ -1,5 +1,6 @@
 package App::SeismicUnixGui::developer::code::sunix::sunix_package_tail;
 use Moose;
+our $VERSION = '0.0.1';
 
 =head2 Default perl lines for the end of a package 
 

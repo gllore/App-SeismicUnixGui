@@ -21,6 +21,7 @@ package App::SeismicUnixGui::big_streams::iApply_mute;
 =cut
 
 use Moose;
+our $VERSION = '0.0.1';
 use aliased 'App::SeismicUnixGui::misc::flow';
 use aliased 'App::SeismicUnixGui::misc::manage_files_by';
 use aliased 'App::SeismicUnixGui::misc::message';

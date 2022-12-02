@@ -128,6 +128,7 @@ Synseis \
 =cut 
 
 use Moose;
+our $VERSION = '0.0.1';
 use aliased 'App::SeismicUnixGui::sunix::par::a2b';
 use aliased 'App::SeismicUnixGui::misc::flow';
 use aliased 'App::SeismicUnixGui::misc::manage_files_by';

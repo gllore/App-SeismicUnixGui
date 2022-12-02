@@ -1,6 +1,7 @@
 package App::SeismicUnixGui::misc::sudata_in;
 
 use Moose;
+our $VERSION = '0.0.1';
 
 my $sudata_in = {
     _file_name  => '',

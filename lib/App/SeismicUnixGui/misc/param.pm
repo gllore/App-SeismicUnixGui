@@ -1,5 +1,6 @@
 package App::SeismicUnixGui::misc::param;
 use Moose;
+our $VERSION = '0.0.1';
 
 =head2 initialize shared anonymous hash 
 

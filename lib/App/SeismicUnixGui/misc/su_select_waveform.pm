@@ -50,6 +50,7 @@ package App::SeismicUnixGui::misc::su_select_waveform;
 =cut
 
 use Moose;
+our $VERSION = '0.0.1';
 
 use App::SeismicUnixGui::misc::SeismicUnix qw($on $off);
 

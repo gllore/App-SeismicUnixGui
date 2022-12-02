@@ -1,6 +1,7 @@
 package App::SeismicUnixGui::misc::L_SU_global_constants;
 
 use Moose;
+our $VERSION = '0.0.1';
 use Carp;
 
 my $path4SeismicUnixGui;
@@ -366,7 +367,7 @@ my $var = {
 	_base_file_name         => 'base_file_name',
 	_clear_text             => '',
 	_color_default          => 'grey',           # first color listbox to select
-	_config_file_format     => '%-35s%1s%-20s',
+	_config_file_format     => '                                                        ',
 	_eight_characters       => '8',
 	_empty_string           => '',
 	_failure                => -1,
@@ -425,7 +426,7 @@ my $var = {
 	_one_character                 => '1',
 	_one_pixel                     => '1',
 	_one_pixel_borderwidth         => '1',
-	_program_title                 => 'SeismicUnixGui V0.80.6',
+	_program_title                 => 'SeismicUnixGui V0.80.7',
 	_project_selector_title        => 'Project Selector',
 	_l_suplot_title                => 'L_suplot',
 	_project_selector_title        => 'Project Selector',

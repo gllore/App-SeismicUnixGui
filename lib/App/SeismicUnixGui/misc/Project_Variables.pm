@@ -10,6 +10,7 @@ package App::SeismicUnixGui::misc::Project_Variables;
 # $PROJECT_HOME/$date/$line
 # Warning: Do not modify $HOME
 use Moose;
+our $VERSION = '0.0.1';
 
 my $home_directory;
 my $HOME;

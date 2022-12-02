@@ -1,5 +1,6 @@
 package App::SeismicUnixGui::misc::oop_pod_header;
 use Moose;
+our $VERSION = '0.0.1';
 
 =head2 Default perl lines for the pod_headers of the file
 

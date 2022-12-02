@@ -34,8 +34,9 @@ package App::SeismicUnixGui::specs::data::data_in_spec;
 
 =cut 
 
-our $VERSION = '0.0.2';
 use Moose;
+our $VERSION = '0.0.2';
+
 use aliased 'App::SeismicUnixGui::misc::L_SU_global_constants';
 use aliased 'App::SeismicUnixGui::configs::big_streams::Project_config';
 use aliased 'App::SeismicUnixGui::sunix::data::data_in';

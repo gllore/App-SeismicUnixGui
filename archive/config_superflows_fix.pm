@@ -28,7 +28,7 @@ package config_superflows_fix;
 
 use Moose;
 
-my $VERSION = '0.0.3';
+our $VERSION = '0.0.3';
 
 use lib '/usr/local/pl/SeismicUnixGui/misc';
 extends 'param_sunix' => { -version => 0.2 };

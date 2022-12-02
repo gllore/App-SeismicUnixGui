@@ -38,7 +38,7 @@ Tools to manage arrays
 =cut
 
 use Moose;
-my $VERSION = '0.0.1';
+our $VERSION = '0.0.1';
 
 =head2 define private hash
 to share

@@ -1,5 +1,5 @@
 package App::SeismicUnixGui::specs::data::data_out_spec;
-our $VERSION = '1.00';
+our $VERSION = '1.0.0';
 use Moose;
 
 

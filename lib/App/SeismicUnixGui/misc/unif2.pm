@@ -1,5 +1,6 @@
 package App::SeismicUnixGui::misc::unif2;
 use Moose;
+our $VERSION = '0.0.1';
 
 =head1 DOCUMENTATION
 

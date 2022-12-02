@@ -1,6 +1,7 @@
 package App::SeismicUnixGui::big_streams::iSave_bottom_mute_picks;
 
 use Moose;
+our $VERSION = '0.0.1';
 use aliased 'App::SeismicUnixGui::misc::message';
 use aliased 'App::SeismicUnixGui::misc::flow';
 use aliased 'App::SeismicUnixGui::sunix::shell::cp';

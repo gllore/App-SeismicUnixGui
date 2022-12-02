@@ -1,7 +1,9 @@
 package App::SeismicUnixGui::misc::use_pkg;
-use Moose;
 
-=use2 Default perl lines for start of instantiation
+use Moose;
+our $VERSION = '0.0.1';
+
+=head2 Default perl lines for start of instantiation
        of imported packages 
 
 =cut

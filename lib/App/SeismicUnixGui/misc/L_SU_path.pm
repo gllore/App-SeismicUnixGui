@@ -27,6 +27,7 @@ package App::SeismicUnixGui::misc::L_SU_path;
 =cut 
 
 use Moose;
+our $VERSION = '0.0.1';
 use Carp;
 use Shell qw(echo);
 

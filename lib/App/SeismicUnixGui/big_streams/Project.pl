@@ -23,6 +23,7 @@
 =cut
 
 use Moose;
+our $VERSION = '0.0.1';
 
 use aliased 'App::SeismicUnixGui::configs::big_streams::Project_config';
 my $Project = Project_config->new();

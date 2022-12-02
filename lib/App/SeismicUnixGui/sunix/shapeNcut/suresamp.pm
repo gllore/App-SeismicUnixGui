@@ -1,5 +1,6 @@
 package App::SeismicUnixGui::sunix::shapeNcut::suresamp;
 use Moose;
+our $VERSION = '0.0.1';
 
 =pod
 

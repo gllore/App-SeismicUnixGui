@@ -1,5 +1,6 @@
 package App::SeismicUnixGui::misc::superflows_config;
 use Moose;
+our $VERSION = '0.0.1';
 
 my $path;
 my $SeismicUnixGui;

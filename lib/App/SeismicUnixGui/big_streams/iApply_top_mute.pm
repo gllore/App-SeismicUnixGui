@@ -36,7 +36,7 @@ package App::SeismicUnixGui::big_streams::iApply_top_mute;
 =cut
 
 use Moose;
-my $VERSION = '1.0.3';
+our $VERSION = '1.0.3';
 use aliased 'App::SeismicUnixGui::misc::message';
 use aliased 'App::SeismicUnixGui::misc::flow';
 use aliased 'App::SeismicUnixGui::sunix::filter::sufilter';

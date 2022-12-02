@@ -32,6 +32,7 @@ package App::SeismicUnixGui::misc::whereami;
 =cut
 
 use Moose;
+our $VERSION = '0.0.1';
 use Tk;
 
 my $true  = 1;

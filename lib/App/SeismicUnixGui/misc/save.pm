@@ -1,5 +1,6 @@
 package App::SeismicUnixGui::misc::save;
 use Moose;
+our $VERSION = '0.0.1';
 
 =head2 sub superflow 
 

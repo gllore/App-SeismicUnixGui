@@ -47,6 +47,7 @@
 =cut 
 
 use Moose;
+our $VERSION = '0.0.1';
 use Tk;
 use aliased 'App::SeismicUnixGui::big_streams::iVA';
 use App::SeismicUnixGui::misc::SeismicUnix qw($true $false );

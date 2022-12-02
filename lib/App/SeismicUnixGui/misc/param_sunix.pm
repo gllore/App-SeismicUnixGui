@@ -22,7 +22,7 @@ package App::SeismicUnixGui::misc::param_sunix;
 =cut
 
 use Moose;
-my $VERSION = '0.0.2';
+our $VERSION = '0.0.2';
 
 =pod
 

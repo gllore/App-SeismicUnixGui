@@ -1,6 +1,7 @@
 package App::SeismicUnixGui::misc::label_boxes;
 
 use Moose;
+our $VERSION = '0.0.1';
 use Tk;
 use aliased 'App::SeismicUnixGui::misc::L_SU_global_constants';
 

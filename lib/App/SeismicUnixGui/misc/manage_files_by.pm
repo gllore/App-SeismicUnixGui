@@ -1,6 +1,7 @@
 package App::SeismicUnixGui::misc::manage_files_by;
 
 use Moose;
+our $VERSION = '0.0.1';
 
 # manage_files_by  class
 # Contains methods/subroutines/functions to operate on directories

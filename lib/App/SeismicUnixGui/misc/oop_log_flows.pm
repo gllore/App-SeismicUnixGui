@@ -1,5 +1,6 @@
 package App::SeismicUnixGui::misc::oop_log_flows;
 use Moose;
+our $VERSION = '0.0.1';
 
 =head2 Default  lines for   
 

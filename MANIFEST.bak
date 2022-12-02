@@ -66,6 +66,7 @@ dist/manifest.pl
 dist/my_uninstall.sh
 dist/uninstall_module.pl
 lib/App/SeismicUnixGui.pm
+lib/App/SeismicUnixGui/big_streams/check.pm
 lib/App/SeismicUnixGui/big_streams/iApply_bottom_mute.pm
 lib/App/SeismicUnixGui/big_streams/iApply_mute.pm
 lib/App/SeismicUnixGui/big_streams/iApply_top_mute.pm
@@ -451,6 +452,7 @@ lib/App/SeismicUnixGui/developer/code/sunix/nameNnumber.txt
 lib/App/SeismicUnixGui/developer/code/sunix/prog_doc2pm.pm
 lib/App/SeismicUnixGui/developer/code/sunix/README.pm
 lib/App/SeismicUnixGui/developer/code/sunix/replacelines.pl
+lib/App/SeismicUnixGui/developer/code/sunix/search_directories.pm
 lib/App/SeismicUnixGui/developer/code/sunix/sudoc.pm
 lib/App/SeismicUnixGui/developer/code/sunix/sudoc2pm_nameNnumber.pm
 lib/App/SeismicUnixGui/developer/code/sunix/sudoc2pm_pt1.pl
@@ -903,6 +905,7 @@ lib/App/SeismicUnixGui/doc/FAQ_immodpg
 lib/App/SeismicUnixGui/doc/FAQ_L_SU
 lib/App/SeismicUnixGui/doc/README_to_INSTALL
 lib/App/SeismicUnixGui/fortran/bin/immodpg1.1
+lib/App/SeismicUnixGui/fortran/bin/stdsleep
 lib/App/SeismicUnixGui/fortran/Makefile
 lib/App/SeismicUnixGui/fortran/obj/denfvp.o
 lib/App/SeismicUnixGui/fortran/obj/immodpg.o
@@ -928,6 +931,7 @@ lib/App/SeismicUnixGui/fortran/obj/readVbotNtop_factor_file.o
 lib/App/SeismicUnixGui/fortran/obj/readVincrement_file.o
 lib/App/SeismicUnixGui/fortran/obj/readVtop_file.o
 lib/App/SeismicUnixGui/fortran/obj/readVtop_lower_file.o
+lib/App/SeismicUnixGui/fortran/obj/stdsleep.o
 lib/App/SeismicUnixGui/fortran/obj/thi.o
 lib/App/SeismicUnixGui/fortran/obj/txgrd.o
 lib/App/SeismicUnixGui/fortran/obj/txpr.o
@@ -940,6 +944,7 @@ lib/App/SeismicUnixGui/fortran/pl/mmodpg.config
 lib/App/SeismicUnixGui/fortran/pl/mmodpg.out
 lib/App/SeismicUnixGui/fortran/pl/model1
 lib/App/SeismicUnixGui/fortran/pl/parmmod
+lib/App/SeismicUnixGui/fortran/posix.mod
 lib/App/SeismicUnixGui/fortran/run_me_only.sh
 lib/App/SeismicUnixGui/fortran/src/denfvp.for
 lib/App/SeismicUnixGui/fortran/src/immodpg.for
@@ -974,6 +979,7 @@ lib/App/SeismicUnixGui/fortran/src/readVbotNtop_factor_file.f
 lib/App/SeismicUnixGui/fortran/src/readVincrement_file.f
 lib/App/SeismicUnixGui/fortran/src/readVtop_file.f
 lib/App/SeismicUnixGui/fortran/src/readVtop_lower_file.f
+lib/App/SeismicUnixGui/fortran/src/stdsleep.f
 lib/App/SeismicUnixGui/fortran/src/thi.for
 lib/App/SeismicUnixGui/fortran/src/txgrd.for
 lib/App/SeismicUnixGui/fortran/src/txpr.for
@@ -1214,6 +1220,7 @@ lib/App/SeismicUnixGui/script/iTopMute
 lib/App/SeismicUnixGui/script/iVA
 lib/App/SeismicUnixGui/script/L_SU_project_selector.pl
 lib/App/SeismicUnixGui/script/L_SUV0.80.6.pl
+lib/App/SeismicUnixGui/script/L_SUV0.80.7.pl
 lib/App/SeismicUnixGui/script/LICENSE
 lib/App/SeismicUnixGui/script/post_install_c_compile.pl
 lib/App/SeismicUnixGui/script/post_install_env.pl

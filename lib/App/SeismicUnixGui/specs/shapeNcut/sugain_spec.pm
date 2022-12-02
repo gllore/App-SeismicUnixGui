@@ -1,6 +1,7 @@
 package App::SeismicUnixGui::specs::shapeNcut::sugain_spec;
-our $VERSION = '0.0.1';
 use Moose;
+our $VERSION = '0.0.1';
+
 use aliased 'App::SeismicUnixGui::misc::L_SU_global_constants';
 use aliased 'App::SeismicUnixGui::configs::big_streams::Project_config';
 use aliased 'App::SeismicUnixGui::sunix::shapeNcut::sugain';

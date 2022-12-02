@@ -35,6 +35,7 @@ package App::SeismicUnixGui::big_streams::iSelect_tr_Sumute_top;
 =cut
 
 use Moose;
+our $VERSION = '0.0.1';
 
 use App::SeismicUnixGui::misc::SeismicUnix
   qw($on $off $go $in $true $false $itemp_top_mute_picks_ 

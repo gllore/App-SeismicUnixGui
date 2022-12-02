@@ -63,8 +63,8 @@ Added model values to namespace of immodpg.pm
 =cut
 
 use Moose;
+our $VERSION = '0.0.2';
 
-our $VERSION = '0.2';
 use aliased 'App::SeismicUnixGui::misc::L_SU_global_constants';
 use aliased 'App::SeismicUnixGui::configs::big_streams::Project_config';
 use aliased 'App::SeismicUnixGui::configs::big_streams::immodpg_config';

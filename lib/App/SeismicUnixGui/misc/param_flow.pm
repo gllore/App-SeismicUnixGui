@@ -19,6 +19,7 @@ package App::SeismicUnixGui::misc::param_flow;
 =cut
 
 use Moose;
+our $VERSION = '0.0.1';
 use Clone 'clone';
 
 =pod

@@ -194,6 +194,15 @@ Version:
 =head2 User's notes (Juan Lorenzo)
 untested
 
+ Example:
+ $segdread->clear();
+ $segdread->tape($segdread_inbound[1]);
+ $segdread->verbose(1);
+ $segdread->ptmax(1);
+ $segdread->aux(0);
+ $segdread->use_stdio(1);
+ $segdread[1] = $segdread->Step();
+
 =cut
 
 

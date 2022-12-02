@@ -1,6 +1,8 @@
 package App::SeismicUnixGui::misc::redisplay;
 
 use Moose;
+our $VERSION = '0.0.1';
+
 my ( $first, $last, $all );
 my $true  = 1;
 my $false = 0;

@@ -2,7 +2,7 @@ package App::SeismicUnixGui::big_streams::iPicks2par;
 
 use Moose;
 use aliased 'App::SeismicUnixGui::misc::L_SU_global_constants';
-my $VERSION = '0.0.1';
+our $VERSION = '0.0.1';
 use App::SeismicUnixGui::misc::control '0.0.3';
 use aliased 'App::SeismicUnixGui::misc::control';
 use aliased 'App::SeismicUnixGui::misc::message';

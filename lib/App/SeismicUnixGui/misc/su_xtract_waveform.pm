@@ -1,6 +1,7 @@
 package App::SeismicUnixGui::misc::su_xtract_waveform;
 
 use Moose;
+our $VERSION = '0.0.1';
 
 =head1 DOCUMENTATION
 

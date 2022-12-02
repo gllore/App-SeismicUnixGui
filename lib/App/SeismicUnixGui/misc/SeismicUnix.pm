@@ -35,11 +35,10 @@ also commented @EXPORT=();
     
 =cut 
 
-use strict;
-use warnings;
+use Moose;
+our $VERSION = '1.0.0';
 use Exporter;  # Gain export capability
 #use vars qw(@ISA @EXPORT @EXPORT_OK );    # pacify strict
-our $VERSION = '1.0.0';
 
 =head2 declare
 
