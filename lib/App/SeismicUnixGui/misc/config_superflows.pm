@@ -298,6 +298,7 @@ sub length {
 	_get_all();
 
 	if ( $config_superflows->{_length} ) {
+		
 		$config_superflows->{_length} = $config_superflows->{_length} / 2;
 		return ( $config_superflows->{_length} );
 	}

@@ -40,9 +40,20 @@ use Moose;
 our $VERSION = '0.0.1';
 
 use aliased 'App::SeismicUnixGui::misc::manage_files_by2';
+use aliased 'App::SeismicUnixGui::misc::L_SU_global_constants';
+use aliased 'App::SeismicUnixGui::misc::dirs';
+
 use Carp;
 
-my $manage_files_by2 = manage_files_by2->new();
+=head2 Instantiate
+
+modules
+
+=cut
+
+my $L_SU_global_constants = L_SU_global_constants->new();
+my $dirs                  = dirs->new();
+my $manage_files_by2      = manage_files_by2->new();
 
 =head2 Define
 
@@ -61,12 +72,13 @@ my @path4gen;
 my @file4gen;
 my $file_name;
 
-my $line2find_use = '\s*use\s';
+my $line2find_use         = '\s*use\s';
+my $line2find_SeismicUnix = 'SeismicUnix qw\s';
 
 my $ans = 'n';
 
 if ( not( length $ARGV[0] ) ) {
-	
+
 	print("Enter file name to convert\n");
 	$file_name = <>;
 	chomp $file_name;
@@ -88,26 +100,26 @@ if ( not( length $ARGV[0] ) ) {
 	}
 
 	print "OK, correct file name is $file_name\n";
-	
-} else {
+
+}
+else {
 	$file_name = $ARGV[0];
 	print "ARGV[0] file name is $file_name\n";
-} 
+}
 
-
-  #my $file_name = 'test_file.pl';
-  #print("parent_directory_gui_number_of=$parent_directory_gui_number_of\n");
-  #print("child_directory_gui_number_of=$child_directory_gui_number_of\n");
+#my $file_name = 'test_file.pl';
+#print("parent_directory_gui_number_of=$parent_directory_gui_number_of\n");
+#print("child_directory_gui_number_of=$child_directory_gui_number_of\n");
 
 =head2 private shared hash
 
 =cut
 
-  my $convert2V07 = {
+my $convert2V07 = {
 
 	_file_name => '',
 
-  };
+};
 
 =head2 
 
@@ -126,97 +138,108 @@ for ( my $j = 0 ; $j < $length_of_slurp ; $j++ ) {
 	chomp $raw_string;    # remove all newlines
 	my @temp_string;
 
-	if ( $raw_string =~ m/$line2find_use/ ) {
+	# AVOID THE FOLLOWING CASES
+	
+	if ( not( $raw_string =~ m/SeismicUnix\ qw/ ) ) {
 
-		my $module_name;
-		my $string = $raw_string;
+		if ( $raw_string =~ m/$line2find_use/ ) {
 
-		$string =~ s/;//;
-		$string =~ s/\(\)//;
-		@temp_string = split( /\s+/, $string );
-		my $line = $j + 1;
+			my $module_name;
+			my $string = $raw_string;
 
-		if ( $temp_string[1] eq 'use' ) {
+			$string =~ s/;//;
+			$string =~ s/\(\)//;
+			@temp_string = split( /\s+/, $string );
+			my $line = $j + 1;
 
-			$module_name = $temp_string[2];
+			if ( $temp_string[1] eq 'use' ) {
+
+				$module_name = $temp_string[2];
 
 	   #			print("convert2V07,module name within $file_name=$module_name...\n");
 
-			if (    $module_name ne 'Moose'
-				and length $module_name
-				and $module_name ne ''
-				and $module_name ne 'null' )
-			{
+				if (    $module_name ne 'Moose'
+					and length $module_name
+					and $module_name ne ''
+					and $module_name ne 'null' )
+				{
 
-				# When bad module names are avoided
-				#				print("line to substitute=$slurp[$j]\n");
-				use App::SeismicUnixGui::misc::L_SU_global_constants;
+					# When bad module names are avoided
+					#	print("line to substitute=$slurp[$j]\n");
 
-				my $L_SU_global_constants = L_SU_global_constants->new();
-				my $var                   = $L_SU_global_constants->var();
-				my $separation            = $var->{_SeismicUnixGui};
+					my $var        = $L_SU_global_constants->var();
+					my $separation = $var->{_SeismicUnixGui};
 
-				my $module_name_pm = $module_name . '.pm';
+					my $module_name_pm = $module_name . '.pm';
 
-				# print("module name_pm=$module_name_pm\n");
+					# print("module name_pm=$module_name_pm\n");
 
-				$L_SU_global_constants->set_file_name($module_name_pm);
-				my $path = $L_SU_global_constants->get_path4convert_file();
+					$dirs->set_file_name($module_name_pm);
+					my $path = $dirs->get_path4convert_file();
 
-				if ( length $path ) {
+					if ( length $path ) {
 
-					my $pathNmodule_pm = $path . '/' . $module_name_pm;
-					my @next_string    = split( $separation, $pathNmodule_pm );
+						my $pathNmodule_pm = $path . '/' . $module_name_pm;
+						my @next_string =
+						  split( $separation, $pathNmodule_pm );
 
-					#				warn 'b4:' . $next_string[0];
-					#				warn 'After:' . $next_string[1];
-					#				warn $next_string[2];
+						#				warn 'b4:' . $next_string[0];
+						#				warn 'After:' . $next_string[1];
+						#				warn $next_string[2];
 
-					# substitute "/" with "::"
-					$next_string[1] =~ s/(\/)+/::/g;
-					$next_string[1] =~ s/.pm//g;
-					$next_string[1] = $var->{_SeismicUnixGui} . $next_string[1];
+						# substitute "/" with "::"
+						$next_string[1] =~ s/(\/)+/::/g;
+						$next_string[1] =~ s/.pm//g;
+						$next_string[1] =
+						  $var->{_SeismicUnixGui} . $next_string[1];
 
-					#	warn 'After...' . $next_string[1];
-					$raw_string =~ s/$module_name/$next_string[1]/;
-					$slurp[$j] = $raw_string;
+						#	warn 'After...' . $next_string[1];
+						$raw_string =~ s/$module_name/$next_string[1]/;
+						$slurp[$j] = $raw_string;
 
-					#					print("substituted line=$slurp[$j]\n");
+						#					print("substituted line=$slurp[$j]\n");
+					}
+					else {
+						warn 'Warning: variable missing';
+					}
+
 				}
 				else {
-					warn 'Warning: variable missing';
+					print("convert2V07, bad module: $module_name avoided\n");
 				}
+
+			}
+			elsif ( $temp_string[0] eq 'use' ) {
+
+				# Catches cases of strange modules
+
+				# $module_name = $temp_string[1];
+				# print("module name within $file_name=$module_name...\n");
+				print("use is in unexpected location WARNING...\n");
 
 			}
 			else {
-				print("convert2V07, bad module: $module_name avoided\n");
+				# CATCH the UNUSUAL
+				my $string_number_of = scalar @temp_string;
+				print("convert2V07, unexpected module name\n");
+				print("\nconvert2V07, string=$string \n");
+				print("convert2V07, string_number_of=$string_number_of\n");
+				print("convert2V07, temp_string=@temp_string \n");
+				print("convert2V07, temp_string[0]=$temp_string[0] \n");
+				print("convert2V07, temp_string[1]=$temp_string[1] \n");
+				$module_name = 'null';
 			}
 
 		}
-		elsif ( $temp_string[0] eq 'use' ) {
-
-			# Catches cases of strange modules
-
-			#		$module_name = $temp_string[1];
-			#		print("module name within $file_name=$module_name...\n");
-			print("use is in unexpected location WARNING...\n");
-
-		}
-		else {
-			# CATCH the UNUSUAL
-			my $string_number_of = scalar @temp_string;
-			print("convert2V07, unexpected module name\n");
-			print("\nconvert2V07, string=$string \n");
-			print("convert2V07, string_number_of=$string_number_of\n");
-			print("convert2V07, temp_string=@temp_string \n");
-			print("convert2V07, temp_string[0]=$temp_string[0] \n");
-			print("convert2V07, temp_string[1]=$temp_string[1] \n");
-			$module_name = 'null';
+		else {    # for each line containing "use"
+				  # print("convert2V07, skip line\n");
 		}
 
-	}
-	else {    # for each line containing "use"
-			  # print("convert2V07, skip line\n");
+	} else {
+				print(
+			"convert2V07, skipping SeismicUnix line
+			\n"
+		);
 	}
 
 }    # for each line in a slurped file

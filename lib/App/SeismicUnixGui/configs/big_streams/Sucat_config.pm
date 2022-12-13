@@ -88,7 +88,7 @@ package App::SeismicUnixGui::configs::big_streams::Sucat_config;
 =cut
 
 use Moose;
-our $VERSION = '2.2';
+our $VERSION = '2.0.2';
 use App::SeismicUnixGui::misc::control '0.0.3';
 use aliased 'App::SeismicUnixGui::misc::control';
 use aliased 'App::SeismicUnixGui::misc::config_superflows';

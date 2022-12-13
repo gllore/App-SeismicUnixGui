@@ -80,11 +80,11 @@ BEGIN {
 #   print ("L_SU_global_constants,SeismicUnixGui_lib = $path4SeismicUnixGui_lib\n");
 #	print("L_SU_global_constants,SeismicUnixGui = $path4SeismicUnixGui\n");
 
-#=head2 private hash
-#
-#=cut
-#
-#my $L_SU_global_constants = {
+=head2 private hash
+
+=cut
+
+my $L_SU_global_constants = {
 #
 #	_CHILD_DIR          => '',
 #	_CHILD_DIR_CONVERT  => '',
@@ -100,11 +100,11 @@ BEGIN {
 #	_PARENT_DIR_TOOLS   => '',
 #	_PARENT_DIR_SPECS   => '',
 #	_PARENT_DIR_SU      => '',
-#	_file_name          => '',
-#	_program_name       => '',
-#
-#};
-#
+	_file_name          => '',
+	_program_name       => '',
+
+};
+
 
 =head2 Default Tk settings
 
@@ -367,7 +367,7 @@ my $var = {
 	_base_file_name         => 'base_file_name',
 	_clear_text             => '',
 	_color_default          => 'grey',           # first color listbox to select
-	_config_file_format     => '                                                        ',
+	_config_file_format     => '%-35s%1s%-20s',
 	_eight_characters       => '8',
 	_empty_string           => '',
 	_failure                => -1,
@@ -2378,22 +2378,22 @@ sub alias_superflow_config_names_aref {
 	return ( \@alias_superflow_config_names );
 }
 
-#sub set_file_name {
-#
-#	my ( $self, $file_name ) = @_;
-#
-#	if ( length $file_name ) {
-#
-#		$L_SU_global_constants->{_file_name} = $file_name;
-#
-##		print("L_SU_global_constants,set_file_name,set_file_name = $L_SU_global_constants->{_file_name}\n");
-#
-#	}
-#	else {
-#		print("L_SU_global_constants,set_file_name,missing variable");
-#	}
-#
-#}
+sub set_file_name {
+
+	my ( $self, $file_name ) = @_;
+
+	if ( length $file_name ) {
+
+		$L_SU_global_constants->{_file_name} = $file_name;
+
+#		print("L_SU_global_constants,set_file_name,set_file_name = $L_SU_global_constants->{_file_name}\n");
+
+	}
+	else {
+		print("L_SU_global_constants,set_file_name,missing variable");
+	}
+
+}
 #
 #=head2 sub set_CHILD_DIR_type
 #

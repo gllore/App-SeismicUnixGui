@@ -1,4 +1,6 @@
 package App::SeismicUnixGui::sunix::statsMath::surms;
+use Moose;
+our $VERSION = '0.0.1';
 
 =pod 
 

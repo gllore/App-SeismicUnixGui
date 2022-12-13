@@ -4,7 +4,7 @@
 
 =head2 SYNOPSIS 
 
- PERL PROGRAM NAME: L_SUV0.80.6.pl 
+ PERL PROGRAM NAME: L_SUV0.80.7.pl 
  AUTHOR: 	Juan Lorenzo
  DATE: 		June 22 2017 
 
@@ -74,7 +74,7 @@
 =cut 
 
 use Moose;
-our $VERSION = '0.80.6';
+our $VERSION = '0.80.7';
 
 extends 'App::SeismicUnixGui::misc::gui_history'=> { -version => 0.0.2 };
 use aliased 'App::SeismicUnixGui::misc::gui_history';

@@ -1,6 +1,7 @@
 .bashrc
 App-SeismicUnixGui-0.80.1.tar.gz
 App-SeismicUnixGui-0.80.6.tar.gz
+App-SeismicUnixGui-0.80.7.tar.gz
 archive/big_streams_param.pm
 archive/color_listbox_tbd.pm
 archive/config_superflows_fix.pm

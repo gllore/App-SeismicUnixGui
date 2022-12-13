@@ -25,8 +25,8 @@ package App::SeismicUnixGui::big_streams::iSelect_xt;
 =cut
 
 use Moose;
-use aliased 'App::SeismicUnixGui::misc::L_SU_global_constants';
 our $VERSION = '0.0.1';
+use aliased 'App::SeismicUnixGui::misc::L_SU_global_constants';
 use App::SeismicUnixGui::misc::control '0.0.3';
 use aliased 'App::SeismicUnixGui::misc::control';
 use aliased 'App::SeismicUnixGui::misc::message';

@@ -49,9 +49,9 @@ BEGIN {
 		my @field = split( $dir, $look );
 		$path4SeismicUnixGui = $field[0] . $dir;
 
-	#		print(
-	#"\nL22. Using default search_directories, L_SU = $path4SeismicUnixGui\n"
-	#		);
+	   #		print(
+	   #"\nL22. Using default search_directories, L_SU = $path4SeismicUnixGui\n"
+	   #		);
 	}
 }
 
@@ -104,10 +104,9 @@ my @PARENT_DIR_TOOLS   = ("big_streams");
 my @PARENT_DIR_SPECS   = ("specs");
 my @PARENT_DIR_SU      = ("sunix");
 
-my @PARENT_DIR_GEN = (
-	"misc", "geopsy", "messages",
-	"developer/code/sunix", "script"
-);
+my @PARENT_DIR_GEN =
+  ( "misc", "geopsy", "messages", 
+  "developer/code/sunix", "script" );
 
 my @CHILD_DIR_CONVERT = (
 	"",          "big_streams", "data",      "datum",
@@ -622,9 +621,9 @@ sub get_pathNfile2search {
 				  . $PARENT_DIR[$parent] . '/'
 				  . $CHILD_DIR[$child];
 
-#   	  	  			print(
-#   	  	  "search_directories, get_pathNfile2search,SEARCH_DIR=$SEARCH_DIR\n"
-#   	  	  			);
+   #   	  	  			print(
+   #   	  	  "search_directories, get_pathNfile2search,SEARCH_DIR=$SEARCH_DIR\n"
+   #   	  	  			);
 				$manage_dirs_by->set_directory($SEARCH_DIR);
 				my $directory_list_aref = $manage_dirs_by->get_file_list_aref();
 				my @directory_list      = @$directory_list_aref;
@@ -1374,7 +1373,7 @@ sub set_CHILD_DIR_type {
 	if ( length $type ) {
 
 		my $CHILD_DIR = '_CHILD_DIR_' . $type;
-			
+
 		$search_directories->{_CHILD_DIR} = $search_directories->{$CHILD_DIR};
 
 #		print(

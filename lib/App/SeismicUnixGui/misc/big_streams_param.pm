@@ -781,7 +781,7 @@ sub my_length {
 	}
 	else {
 
-		# print ("big_streams_param,my_length, empty names array reference\n");
+		print ("big_streams_param,my_length, empty names array reference\n");
 	}
 
 }

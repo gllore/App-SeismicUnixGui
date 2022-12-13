@@ -1,1 +1,12 @@
-/home/gllore/Georgia//seismics/pl/NWMountains//2016/Z/1/gllore/7A.view_prepare4velan.pl
+/home/gllore/LRTF/seismics/data/Huntsville//120822/Z/1/segy/gllore/17.segy
+/home/gllore/LRTF/seismics/data/Huntsville//120822/Z/1/su/gllore/3.su
+/home/gllore/LRTF/seismics/data/Huntsville//120822/Z/1/su/gllore/9.su
+/home/gllore/LRTF/seismics/pl/Huntsville//120822/Z/1/gllore/1B.view_segy2su.pl
+/home/gllore/LRTF/seismics/data/Huntsville//120822/Z/1/segy/gllore/15.sgy
+/home/gllore/LRTF/seismics/pl/Huntsville//120822/Z/1/gllore/1.segy2su.pl
+/home/gllore/LRTF/seismics/data/Huntsville//120822/Z/1/su/gllore/1000_clean.su
+/home/gllore/LRTF/seismics/pl/Huntsville//120822/Z/1/gllore/1.segy2su_loop.pl
+/home/gllore/LRTF/seismics/data/Huntsville//120822/Z/1/segy/gllore/3.segy
+/home/gllore/LRTF/seismics/data/Huntsville//120822/Z/1/segy/gllore/3.sgy
+/home/gllore/LRTF/seismics/data/Huntsville//120822/Z/1/su/gllore/3_ibm32.su
+/home/gllore/LRTF/seismics/data/Huntsville//120822/Z/1/segy/gllore/3_ibm32.sgy

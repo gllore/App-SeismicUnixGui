@@ -97,7 +97,7 @@ for (
 	$i += 1, $j += 1
   )
 {
-	$j_char = sprintf( "0", $i );
+	$j_char = sprintf( "%u", $j );
 	$file_name[$i] = $j_char;
 
 	#	print $j_char . "\n";

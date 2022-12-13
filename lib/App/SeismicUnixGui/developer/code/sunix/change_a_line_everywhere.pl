@@ -13,6 +13,7 @@ structure within all files
 Version: 0.1
          0.2 use search_directories.pm instead 
          of L_SU_global_variables.pm
+         0.3 use dirs.pm instead of search_directories.pm
 
 =head2 USE
 
@@ -61,15 +62,15 @@ e.g.: lines 1 and 2
 =cut
 
 use Moose;
-our $VERSION = '0.2.0';
+our $VERSION = '0.3.0';
 
 use aliased 'App::SeismicUnixGui::misc::manage_dirs_by';
 use aliased 'App::SeismicUnixGui::misc::manage_files_by2';
-use aliased 'App::SeismicUnixGui::developer::code::sunix::search_directories';
+use aliased 'App::SeismicUnixGui::misc::dirs';
 
-my $manage_dirs_by     = manage_dirs_by->new();
-my $manage_files_by2   = manage_files_by2->new();
-my $search_directories = search_directories->new();
+my $manage_dirs_by   = manage_dirs_by->new();
+my $manage_files_by2 = manage_files_by2->new();
+my $dirs             = dirs->new();
 
 =head2 Important definitions
 
@@ -122,11 +123,11 @@ from the SU category
 
 =cut
 
-$search_directories->set_CHILD_DIR_type('SU');
-$search_directories->set_PARENT_DIR_type('SU');
-$search_directories->set_GRANDPARENT_DIR($GRANDPARENT_DIR);
+$dirs->set_CHILD_DIR_type('SU');
+$dirs->set_PARENT_DIR_type('SU');
+$dirs->set_GRANDPARENT_DIR($GRANDPARENT_DIR);
 my ( $su_pathNfile_aref, $su_dimension_aref ) =
-  $search_directories->get_pathNfile2search();
+  $dirs->get_pathNfile2search();
 
 =head2 search for lines of interest
 
@@ -159,11 +160,11 @@ from the GEN category and replace them(
 
 =cut
 
-$search_directories->set_CHILD_DIR_type('GEN');
-$search_directories->set_PARENT_DIR_type('GEN');
-$search_directories->set_GRANDPARENT_DIR($GRANDPARENT_DIR);
+$dirs->set_CHILD_DIR_type('GEN');
+$dirs->set_PARENT_DIR_type('GEN');
+$dirs->set_GRANDPARENT_DIR($GRANDPARENT_DIR);
 my ( $gen_pathNfile_aref, $gen_dimension_aref ) =
-  $search_directories->get_pathNfile2search();
+  $dirs->get_pathNfile2search();
 
 =head2 search for lines of interest
 
@@ -171,7 +172,7 @@ in GEN-type files and replace them
 
 =cut 
 
-my @dimension_gen                  = @$gen_dimension_aref;
+#my @dimension_gen                  = @$gen_dimension_aref;
 #my $parent_directory_gen_number_of = $dimension_gen[0];
 #my $child_directory_gen_number_of  = $dimension_gen[1];
 #
@@ -198,11 +199,11 @@ from the SPECS category
 
 =cut
 
-$search_directories->set_CHILD_DIR_type('SPECS');
-$search_directories->set_PARENT_DIR_type('SPECS');
-$search_directories->set_GRANDPARENT_DIR($GRANDPARENT_DIR);
+$dirs->set_CHILD_DIR_type('SPECS');
+$dirs->set_PARENT_DIR_type('SPECS');
+$dirs->set_GRANDPARENT_DIR($GRANDPARENT_DIR);
 my ( $specs_pathNfile_aref, $specs_dimension_aref ) =
-  $search_directories->get_pathNfile2search();
+  $dirs->get_pathNfile2search();
 
 =head2 search for lines of interest
 
@@ -225,7 +226,6 @@ in SPECS-type files and replace them
 #my @line_of_interest_specs_aref = @$specs_aref;
 #_set_line_of_interest_aref($specs_aref);
 #
-#
 #_set_replacement_type5();
 #_set_replacement_type6();
 
@@ -235,11 +235,11 @@ from the GUI category
 
 =cut
 
-$search_directories->set_CHILD_DIR_type('GUI');
-$search_directories->set_PARENT_DIR_type('GUI');
-$search_directories->set_GRANDPARENT_DIR($GRANDPARENT_DIR);
+$dirs->set_CHILD_DIR_type('GUI');
+$dirs->set_PARENT_DIR_type('GUI');
+$dirs->set_GRANDPARENT_DIR($GRANDPARENT_DIR);
 my ( $gui_pathNfile_aref, $gui_dimension_aref ) =
-  $search_directories->get_pathNfile2search();
+  $dirs->get_pathNfile2search();
 
 =head2 search for lines of interest
 
@@ -269,18 +269,17 @@ from the TOOLS category
 
 =cut
 
-$search_directories->set_CHILD_DIR_type('TOOLS');
-$search_directories->set_PARENT_DIR_type('TOOLS');
-$search_directories->set_GRANDPARENT_DIR($GRANDPARENT_DIR);
+$dirs->set_CHILD_DIR_type('TOOLS');
+$dirs->set_PARENT_DIR_type('TOOLS');
+$dirs->set_GRANDPARENT_DIR($GRANDPARENT_DIR);
 my ( $tools_pathNfile_aref, $tools_dimension_aref ) =
-  $search_directories->get_pathNfile2search();
+  $dirs->get_pathNfile2search();
 
 =head2 search for lines of interest
 
 in TOOLS-type files and replace them
 
 =cut 
-
 
 #my @dimension_tools                  = @$tools_dimension_aref;
 #my $parent_directory_tools_number_of = $dimension_tools[0];
