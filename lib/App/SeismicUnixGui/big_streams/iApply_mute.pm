@@ -36,7 +36,9 @@ use aliased 'App::SeismicUnixGui::configs::big_streams::Project_config';
 use aliased 'App::SeismicUnixGui::messages::SuMessages';
 
 use App::SeismicUnixGui::misc::SeismicUnix
-  qw($go $in $out $on $off $itop_mute $itemp_top_mute_picks_ $itemp_top_mute_num_points $itemp_top_mute_picks_sorted_par_ $itop_mute_par_ $suffix_su $suffix_hyphen $to);
+  qw($go $in $out $on $off $itop_mute $itemp_top_mute_picks_ 
+  $itemp_top_mute_num_points $itemp_top_mute_picks_sorted_par_ 
+  $itop_mute_par_ $suffix_su $suffix_hyphen $to);
 
 =head2
 
@@ -69,17 +71,6 @@ my $Project    = Project_config->new();
 use App::SeismicUnixGui::misc::SeismicUnix qw($itemp_top_mute_picks_sorted_par_);
 my ($PL_SEISMIC)      = $Project->PL_SEISMIC();
 my ($DATA_SEISMIC_SU) = $Project->DATA_SEISMIC_SU();
-
-#=head2 Get configuration information
-#
-#  print("file name is $CFG->{data_name}\n\n");
-#  print(" inc is  $CFG->{suwind}{1}{inc}\n\n");;
-#
-#=cut
-#
-#  my  ($err,$CFG) 	     = $read ->cfg("/usr/local/pl/iApply_mute_config.pl");
-#  $iApply_mute->{_file_in}   = $CFG->{data_name};
-#
 
 =head2
  
@@ -143,7 +134,7 @@ sub clear {
   define the header for the xmute values
   binheader type value helps define the xmute values
   e.g. if gather_header = 'gather'
-             the the xmute values are 'offset'
+  the the xmute values are 'offset'
 
 =cut
 
@@ -160,7 +151,7 @@ sub gather_header {
   define the header for the xmute values
   offset type value helps define the xmute values
   e.g. if offset_type = 'gather'
-             the the xmute values are 'offset'
+  the the xmute values are 'offset'
 
 =cut
 
@@ -185,8 +176,8 @@ sub gather_num {
 =head2
 
  subroutine freq
-  creates the bandpass frequencies to filter data
-   e.g., "3,6,40,50"
+ creates the bandpass frequencies to filter data
+ e.g., "3,6,40,50"
  
 =cut
 

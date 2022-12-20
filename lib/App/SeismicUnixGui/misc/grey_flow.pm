@@ -320,6 +320,7 @@ sub _clear_color_flow {
 }
 
 =head2 sub _FileDialog_button
+
 Only cases with MB binding use this private ('_') subroutine
 e.g., sunix programs displayed in the parameter boxes during
 flow construction.

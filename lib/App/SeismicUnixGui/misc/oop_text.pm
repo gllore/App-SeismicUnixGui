@@ -573,14 +573,14 @@ sub get_pod_log_flows {
 	return ();
 }
 
-=head2 sub pod_prog_param_setup
+=head2 sub set_pod_prog_param_setup
 
 	write pod on
 	Setup
 
 =cut
 
-sub get_pod_prog_param_setup {
+sub set_pod_prog_param_setup {
 	my ($self) = @_;
 	my $program_name = $oop_text->{_prog_name};
 

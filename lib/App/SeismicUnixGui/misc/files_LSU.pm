@@ -1640,7 +1640,7 @@ sub save {
 		$oop_text->set_prog_version($version);
 
 		# pod setup of parameter values
-		$oop_text->pod_prog_param_setup();
+		$oop_text->set_pod_prog_param_setup();
 
 		my @values = @{ @{ $files_LSU->{_prog_param_values_aref2} }[$j] };
 		my @labels = @{ @{ $files_LSU->{_prog_param_labels_aref2} }[$j] };

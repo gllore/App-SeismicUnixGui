@@ -1590,7 +1590,7 @@ sub set_file_name {
 
 		$dirs->{_file_name} = $file_name;
 
-		print("dirs,set_file_name,set_file_name = $dirs->{_file_name}\n");
+#		print("dirs,set_file_name,set_file_name = $dirs->{_file_name}\n");
 
 	}
 	else {

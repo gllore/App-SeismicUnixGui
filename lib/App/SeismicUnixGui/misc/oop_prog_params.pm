@@ -469,7 +469,8 @@ sub get_a_section {
 			#            $control->set_suffix4oop($suffix);
 			#            $value = $control->get_value4oop();
 
-	  #            print(" 4. oop_prog_params, get_a_section value =$value\n ");
+	    # print(" 4. oop_prog_params, get_a_section value =$value\n ");
+	    
 			if ( length $prefix && length $suffix ) {
 
 #			print(" 1. oop_prog_params, get_a_section CASE #1 Both suffix and prefix are present\n ");
@@ -629,8 +630,16 @@ sub get_a_section {
 			elsif ( !($suffix) && !($prefix) ) {
 
  # CASE 5
- #				print(" oop_prog_params, get_a_section = CASE 5; no suffix or prefix\n ");
+ #				print(" oop_prog_params, get_a_section = CASE 5; neither suffix nor prefix\n ");
  # OUTPUT TEXT is set here
+#				$oop_prog_params[$j] =
+#					" \t " . '$'
+#				  . $prog_name
+#				  . " \t \t \t \t " . '->'
+#				  . $label
+#				  . '("'
+#				  . $value . '");';
+				  
 				$oop_prog_params[$j] =
 					" \t " . '$'
 				  . $prog_name
@@ -638,7 +647,6 @@ sub get_a_section {
 				  . $label
 				  . '(quotemeta('
 				  . $value . '));';
-
 #			    print(" oop_prog_params, get_a_section = CASE 5:  $oop_prog_params[$j]  \n ");
 			}
 			else {

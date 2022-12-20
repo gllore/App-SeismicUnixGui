@@ -13,7 +13,7 @@
 
  BASED ON:
  Version 0.1 April 18 2017 SeismicUnixPlTk.pl  
-     Added a simple configuration file readable 
+    Added a simple configuration file readable 
 	flow
     and writable using Config::Simple (CPAN)
 
@@ -53,7 +53,7 @@
  
  V0.6.6 September 4, 2021
  
- V0.80.00 September 19, 2022 readay for initial uploading to the CPAN
+ V0.80.00 September 19, 2022 ready for initial uploading to the CPAN
  
 =cut
 
@@ -112,7 +112,6 @@ my $global_libs                   = $get->global_libs();
 my $help_menubutton_type		  = $get->help_menubutton_type_href();
 
 my @sunix_data_programs        = @{ $var->{_sunix_data_programs} };
-
 my @sunix_datum_programs       = @{ $var->{_sunix_datum_programs} };
 my @sunix_plot_programs        = @{ $var->{_sunix_plot_programs} };
 my @sunix_filter_programs      = @{ $var->{_sunix_filter_programs} };
@@ -685,6 +684,7 @@ print join("\n", $top_menu_bar->bind($class) ), "\n";
 	);
 
 =head2  side menu frame
+
 contains side menus
  2. for action 
 
@@ -721,6 +721,7 @@ contains side menus
 	);
 
 =head2 top_titles frame
+
 above the work frame
 contains Titles only 
 
@@ -828,10 +829,10 @@ contains Titles only
 		-state              => 'disabled',
 	);
 
-=pod
+=pod button that moves items
 
-button that moves items (program names) UP in a flow (color grey, pink, green or blue);
- up within a listbox
+(program names) UP in a flow (color grey, pink, green or blue);
+up within a listbox
 
 =cut
 
@@ -850,9 +851,9 @@ button that moves items (program names) UP in a flow (color grey, pink, green or
 		-state              => 'disabled',
 	);
 
-=pod
-
- button that moves items (program names) DOWN in a flow (color grey, pink, green or blue);
+=pod button that moves items (program names)
+ 
+ DOWN in a flow (color grey, pink, green or blue);
  down within a listbox
 
 =cut
@@ -873,6 +874,7 @@ button that moves items (program names) UP in a flow (color grey, pink, green or
 	);
 
 =head2 Listbox widgets
+
 tied to button action
 for easier management
 
@@ -899,6 +901,7 @@ for easier management
 	);
 
 =head2 work frame
+
 has menu items to its left
 contains a sunix_frame at its top, 
 a parameters_pane (with names value buttons and values) in the middle left
@@ -908,6 +911,7 @@ and a message text area across the whole bottom
 =cut
 
 =head2 sunix_frame
+
 The sunix_frame itself contains five stories
 sub-frames called sunix_frame_I through and sunix_frame_V
 (levels 1 through 5)
@@ -967,7 +971,8 @@ sub-frames called sunix_frame_I through and sunix_frame_V
 		-background  => $var->{_my_purple},
 	);
 
-=head2 Notebooks 
+=head2 Notebooks
+
 within sunix_frame_V (top row)
 
 =cut  
@@ -1027,6 +1032,7 @@ within sunix_frame_V (top row)
 	$sunix_filter_programs_listbox->insert( "end", sort @sunix_filter_programs, );
 
 =head2 Notebooks
+
 within sunix_frame_IV (top row)
 
 =cut  
@@ -1076,10 +1082,10 @@ within sunix_frame_IV (top row)
 
 	$sunix_migration_programs_listbox->insert( "end", sort @sunix_migration_programs, );
 
-=head2 Notebooks within 
+=head2 Notebooks within
+
 sunix_frame_III (top row)
 
- 
 =cut  
 
 	my $sunix_programs_III_book = $sunix_frame_III->NoteBook(
@@ -1142,8 +1148,8 @@ sunix_frame_III (top row)
 	$sunix_picks_programs_listbox->insert( "end", sort @sunix_picks_programs, );
 
 =head2 Notebooks within
-sunix_frame_II (top row )
 
+sunix_frame_II (top row)
  
 =cut 
 
@@ -1193,8 +1199,8 @@ sunix_frame_II (top row )
 	$sunix_statsMath_programs_listbox->insert( "end", sort @sunix_statsMath_programs, );
 
 =head2 Notebooks within 
-sunix_frame_I (bottom row )
 
+sunix_frame_I (bottom row)
  
 =cut 
 
@@ -1230,10 +1236,10 @@ sunix_frame_I (bottom row )
 
 	$sunix_well_programs_listbox->insert( "end", sort @sunix_well_programs, );
 
-=head2 Notebooks within 
+=head2 Notebooks within
+
 sunix_frame_I (bottom row )
 
- 
 =cut	             			             			             											
 
 =head2 tied listbox widgets
@@ -1406,7 +1412,8 @@ sunix_frame_I (bottom row )
 	);
 
 
-=head2 message area 
+=head2 message area
+
 to notify user of important events 
 
 =cut
@@ -1633,6 +1640,7 @@ to notify user of important events
 	( $main_href->{_flow_listbox_blue_w} )->bind( '<3>' => [ \&_L_SU_flow_bindings, 'get_help',        'blue' ] );
 
 =head2 Pack my dialog box
+
 Upper frame contains my message.
 Lower frame contains an  'ok' and a 'cancel' button.
 
@@ -1685,6 +1693,7 @@ $main_href->{_blank_button_spacer_left}->pack(
 );
 
 =head2 Pack message box
+
 Upper frame contains message.
 Lower frame contains ok button.
 
@@ -1708,7 +1717,8 @@ Lower frame contains ok button.
 
 	$main_href->{_message_ok_button}->pack;
 
-=head2 Packing Frame widget 
+=head2 Packing Frame widget
+
  contained within L_SU menu frame
 
 =cut     
@@ -1801,10 +1811,11 @@ Lower frame contains ok button.
 	# within top_titles_frame
 
 =pod
-	work frame contains, left-to-right
+	work frame contains,left-to-right
 	a parameters_pane,
 	a flow frame (yellow)
-	and four listboxes contained in a module-sequences frame on the far right
+	and four listboxes contained in a module-sequences 
+	frame on the far right
 	The side menu frame is to its far left.
 	
 =cut	          
@@ -2083,6 +2094,7 @@ Lower frame contains ok button.
 	MainLoop;
 
 =head2 sub _L_SU_bindings
+
 For help in pre-built superflows and 
 for get_help in user-built listbox flows
 
@@ -2144,6 +2156,7 @@ color not needed but $self is needed
 	}
 
 =head2 sub _L_SU_sunix_bindings
+
 used for 
 	sunix_listbox get_help (MB3)
 	sunix_select		   (MB1) 
@@ -2181,6 +2194,7 @@ color='neutral'
 	}
 
 =head2 sub _L_SU_flow_bindings
+
 used for:
 	sunix_listbox get_help (MB3)
 	flow-item selection ('flow_select') (MB1)
@@ -2300,6 +2314,7 @@ for the case of: Help for superflows
 	}
 
 =head2 sub _L_SU
+
 Invoke a method in L_SU from a button click
 in L_SU
 	-save_button

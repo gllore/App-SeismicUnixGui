@@ -677,9 +677,8 @@ What max_index value do you want to insert?
 1. Read number of lines in the 
 program_config.pm file
 
-=head2 slurp config file to get the lin enumber
+slurp config file to get the line number
 where "max_index" line" is found
-
 
 =cut
 
@@ -689,7 +688,7 @@ where "max_index" line" is found
 		close(FILE);
 
 		# $count now holds the number of lines read
-		#		print("number of lines read from config_file = $length_of_slurp \n");
+		print("number of lines read from config_file = $length_of_slurp \n");
 		$max_index = $length_of_slurp - 1;
 
 =cut
@@ -756,15 +755,14 @@ where "max_index" line" is found
 
 				if ( $string =~ /$spec_string_to_find/ ) {
 
-					#					print("a spec success\n");
+#					print("a spec success\n");
 
 					$slurp[$i] = $spec_replacement_string;
 
-					# print("update, \n $slurp[$i]\n");
+					print("update, \n $slurp[$i]\n");
 
 					$spec_replacement_success = $true;
 
-					#					$slurp[$i] = $spec_replacement_string;
 				}
 
 			}
@@ -772,14 +770,14 @@ where "max_index" line" is found
 			if ($spec_replacement_success) {
 
 				#	Write out the corrected file
-				#	print("writing out to  $spec_outbound[0]\n");
+				print("writing out to  $spec_outbound[0]\n");
 
 				open( OUT, ">$spec_outbound[0]" )
 				  or die("File  $spec_outbound[0] not found");
 
 				for ( my $i = 0 ; $i < $length_of_slurp ; $i++ ) {
 
-					#				print ("$slurp[$i]\n");
+					print ("$slurp[$i]\n");
 					print OUT $slurp[$i] . "\n";
 
 				}

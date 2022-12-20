@@ -42,6 +42,7 @@ package App::SeismicUnixGui::misc::control;
 use Moose;
 our $VERSION = '0.0.3';
 
+use Carp;
 use aliased 'App::SeismicUnixGui::misc::L_SU_global_constants';
 use aliased 'App::SeismicUnixGui::misc::L_SU_path';
 
@@ -684,12 +685,41 @@ sub get_max_index {
 		my $package = $pathNmodule_spec_w_colon->new();
 
 		my $specs = $package->variables();
+
 		# print("control,get_max_index,first_of_2,$specs->{_is_first_of_2}\n");
 
 		$max_index = $specs->{_max_index};
+
 		# print (" control,get_max_index, max index = $max_index\n");
 	}
 	return ($max_index);
+}
+
+=head2 sub get_no_leading_zeros
+
+ remove starting and ending single and double quotes
+
+=cut
+
+sub get_no_leading_zeros {
+
+	my ($self) = @_;
+
+	my $result;
+
+	if ( length $control->{_infected_string} ) {
+
+		my $file_name_out = $control->{_infected_string};
+		$file_name_out =~ s/^0+(?=[0-9])//;
+		$result = $file_name_out;
+		print("control, get_no_leading_zeros,file_name_out=$result\n");
+
+	}
+	else {
+		print("control,get_no_leading_zeros, undefined entry_value NADA\n");
+	}
+
+	return ($result);
 }
 
 =head2 sub get_no_quotes
@@ -1626,7 +1656,7 @@ sub su_data_name {
 
 	}
 	else {
-#		print("5. control,su_data_name, unexpected or missing value--\n");
+		#		print("5. control,su_data_name, unexpected or missing value--\n");
 		return ($empty_string);
 	}
 

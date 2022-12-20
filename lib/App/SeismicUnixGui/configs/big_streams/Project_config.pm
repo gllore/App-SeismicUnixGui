@@ -1338,11 +1338,18 @@ sub system_dirs {
 	  . $subUser;
 
 	# JPEG IMAGE STORAGE DIRECTORY
-	my $JPEG =
+	my $JPEG_SEISMIC =
 		$IMAGES_SEISMIC
 	  . '/jpeg/'
 	  . $DATE_LINE_COMPONENT_STAGE_PROCESS . '/'
 	  . $subUser;
+	  
+	# LIBRE IMPRESS SEISMIC STORAGE DIRECTORY
+	my $LIBRE_IMPRESS_SEISMIC =
+		$IMAGES_SEISMIC
+	  . '/libre_impress/'
+	  . $DATE_LINE_COMPONENT_STAGE_PROCESS . '/'
+	  . $subUser;	  
 
 #	my $JPEG_GPR =
 #		$IMAGES_GPR
@@ -1350,7 +1357,6 @@ sub system_dirs {
 #	  . $DATE_LINE_COMPONENT_STAGE_PROCESS . '/'
 #	  . $subUser;
 
-	my $JPEG_SEISMIC = $JPEG;
 
 	# PNG IMAGE STORAGE DIRECTORY
 	my $PNG =
@@ -1836,9 +1842,9 @@ sub system_dirs {
 	$Project->{_GIF_SEISMIC}               = $GIF_SEISMIC;
 #	$Project->{_GPR}                       = $GPR;
 	$Project->{_ISOLA}                     = $ISOLA;
-	$Project->{_JPEG}                      = $JPEG;
 #	$Project->{_JPEG_GPR}                  = $JPEG_GPR;
 	$Project->{_JPEG_SEISMIC}              = $JPEG_SEISMIC;
+	$Project->{_LIBRE_IMPRESS_SEISMIC}     = $LIBRE_IMPRESS_SEISMIC;	
 	$Project->{_C_SEISMIC}                 = $C_SEISMIC;
 	$Project->{_CPP_SEISMIC}               = $CPP_SEISMIC;
 	$Project->{_MATLAB_GEOMAPS}            = $MATLAB_GEOMAPS;
@@ -2415,12 +2421,12 @@ sub ISOLA {
 	return ($ISOLA);
 }
 
-sub JPEG {
-	_basic_dirs();
-	_system_dirs();
-	my $JPEG = $Project->{_JPEG};
-	return ($JPEG);
-}
+#sub JPEG {
+#	_basic_dirs();
+#	_system_dirs();
+#	my $JPEG = $Project->{_JPEG};
+#	return ($JPEG);
+#}
 
 #sub JPEG_GPR {
 #	_basic_dirs();
@@ -2434,6 +2440,13 @@ sub JPEG_SEISMIC {
 	_system_dirs();
 	my $JPEG_SEISMIC = $Project->{_JPEG_SEISMIC};
 	return ($JPEG_SEISMIC);
+}
+
+sub LIBRE_IMPRESS_SEISMIC {
+	_basic_dirs();
+	_system_dirs();
+	my $LIBRE_IMPRESS_SEISMIC = $Project->{_LIBRE_IMPRESS_SEISMIC};
+	return ($LIBRE_IMPRESS_SEISMIC);
 }
 
 sub C_SEISMIC {
@@ -2870,6 +2883,7 @@ sub make_local_dirs {
 	my $PS_SEISMIC   = $Project->{_PS_SEISMIC};
 	my $GIF_SEISMIC  = $Project->{_GIF_SEISMIC};
 	my $JPEG_SEISMIC = $Project->{_JPEG_SEISMIC};
+	my $LIBRE_IMPRESS_SEISMIC = $Project->{_LIBRE_IMPRESS_SEISMIC};	
 	my $PNG_SEISMIC  = $Project->{_PNG_SEISMIC};
 	my $PL_SEISMIC   = $Project->{_PL_SEISMIC};
 
@@ -2877,6 +2891,7 @@ sub make_local_dirs {
 
 	# Always create imag efiles
 	$manage_dirs_by->make_dir($JPEG_SEISMIC);
+	$manage_dirs_by->make_dir($LIBRE_IMPRESS_SEISMIC);	
 	$manage_dirs_by->make_dir($PNG_SEISMIC);
 	$manage_dirs_by->make_dir($PS_SEISMIC);
 

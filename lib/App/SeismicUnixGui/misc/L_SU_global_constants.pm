@@ -85,21 +85,6 @@ BEGIN {
 =cut
 
 my $L_SU_global_constants = {
-#
-#	_CHILD_DIR          => '',
-#	_CHILD_DIR_CONVERT  => '',
-#	_CHILD_DIR_GUI      => '',
-#	_CHILD_DIR_TOOLS    => '',
-#	_CHILD_DIR_SPECS    => '',
-#	_CHILD_DIR_SU       => '',
-#	_GRANDPARENT_DIR    => '',
-#	_PARENT_DIR         => '',
-#	_PARENT_DIR_CONVERT => '',
-#	_PARENT_DIR_GEN     => '',
-#	_PARENT_DIR_GUI     => '',
-#	_PARENT_DIR_TOOLS   => '',
-#	_PARENT_DIR_SPECS   => '',
-#	_PARENT_DIR_SU      => '',
 	_file_name          => '',
 	_program_name       => '',
 
@@ -476,68 +461,6 @@ my $param = {
 	_default_index   => 0,
 	_length          => 90,    # max number of allowable parameters in GUI
 };
-
-## Locate environment variables automatically
-#my @PARENT_DIR_CONVERT = ( "sunix",   "misc", "configs" );
-#my @PARENT_DIR_GUI     = ( "configs", "specs" );
-#my @PARENT_DIR_TOOLS   = ("big_streams");
-#my @PARENT_DIR_SPECS   = ("specs");
-#my @PARENT_DIR_SU      = ("sunix");
-#
-#my @PARENT_DIR_GEN = (
-#	"misc", "geopsy", "gmt", "messages",
-#	"developer/code/sunix", "developer/code/gmt", "script", "sqlite", "t",
-#);
-#
-#my @CHILD_DIR_CONVERT = (
-#	"",          "big_streams", "data",      "datum",
-#	"filter",    "header",      "inversion", "migration",
-#	"model",     "NMO_Vel_Stk", "par",       "plot",
-#	"shapeNcut", "shell",       "statsMath", "transform",
-#	"well"
-#);
-#
-#my @CHILD_DIR_GEN = ( "", );
-#
-#my @CHILD_DIR_GUI = (
-#	"big_streams", "data",      "datum",     "filter",
-#	"header",      "inversion", "migration", "model",
-#	"NMO_Vel_Stk", "par",       "plot",      "shapeNcut",
-#	"shell",       "statsMath", "transform", "well"
-#);
-#
-#my @CHILD_DIR_TOOLS = ("");
-#
-#my @CHILD_DIR_SPECS = (
-#	"big_streams", "data",      "datum",     "filter",
-#	"header",      "inversion", "migration", "model",
-#	"NMO_Vel_Stk", "par",       "plot",      "shapeNcut",
-#	"shell",       "statsMath", "transform", "well"
-#);
-#
-##my @CHILD_DIR_SPECS = (
-##	"big_streams"
-##);
-#
-#my @CHILD_DIR_SU = (
-#	"data",      "datum",     "filter",    "header",
-#	"inversion", "migration", "model",     "NMO_Vel_Stk",
-#	"par",       "plot",      "shapeNcut", "shell",
-#	"statsMath", "transform", "well"
-#);
-#
-#$L_SU_global_constants->{_PARENT_DIR_CONVERT} = \@PARENT_DIR_CONVERT;
-#$L_SU_global_constants->{_PARENT_DIR_GUI}     = \@PARENT_DIR_GUI;
-#$L_SU_global_constants->{_PARENT_DIR_TOOLS}   = \@PARENT_DIR_TOOLS;
-#$L_SU_global_constants->{_PARENT_DIR_SPECS}   = \@PARENT_DIR_SPECS;
-#$L_SU_global_constants->{_PARENT_DIR_SU}      = \@PARENT_DIR_SU;
-#$L_SU_global_constants->{_PARENT_DIR_GEN}     = \@PARENT_DIR_GEN;
-#$L_SU_global_constants->{_CHILD_DIR_CONVERT}  = \@CHILD_DIR_CONVERT;
-#$L_SU_global_constants->{_CHILD_DIR_GEN}      = \@CHILD_DIR_GEN;
-#$L_SU_global_constants->{_CHILD_DIR_GUI}      = \@CHILD_DIR_GUI;
-#$L_SU_global_constants->{_CHILD_DIR_TOOLS}    = \@CHILD_DIR_TOOLS;
-#$L_SU_global_constants->{_CHILD_DIR_SPECS}    = \@CHILD_DIR_SPECS;
-#$L_SU_global_constants->{_CHILD_DIR_SU}       = \@CHILD_DIR_SU;
 
 my @developer_sunix_categories;
 $developer_sunix_categories[0]  = 'data';
@@ -975,15 +898,17 @@ my @sunix_plot_programs = (
 
 my @sunix_shapeNcut_programs = (
 	"suflip", "sugain", "sugprfb", "sukill", "sumute", "susort",
+	"susort",
 	"susplit", "suwind", "supad", "suvcat",
 );
 
 my @sunix_statsMath_programs = (
-	"cpftrend",   "entropy",     "farith",       "suacor",
-	"suacorfrac", "sualford",    "suattributes", "suconv",
-	"sufwmix",    "suhistogram", "suhrot",       "suinterp",
-	"sumax",      "sumean",      "sumix",        "suop",
-	"suop2",      "suxcor",      "suxmax",
+	"cpftrend", "entropy", "farith", "suacor",
+	"suacorfrac", "sualford", "suattributes", 
+	"suconv",
+	"sufwmix", "suhistogram", "suhrot", "suinterp",
+	"sumax", "sumean", "sumix", "suop",
+	"suop2", "suxcor", "suxmax",
 );
 
 my @sunix_transform_programs = (
@@ -1107,244 +1032,6 @@ sub _default_path {
 #	return ();
 #}
 #
-#=head2 sub _get_path4spec_file
-#
-#Find a path for
-#
-#a given spec file
-#
-#=cut
-#
-#sub _get_path4spec_file {
-#
-#	my (@self) = @_;
-#
-#	if ( length $L_SU_global_constants->{_file_name} ) {
-#
-#		my $file_name = $L_SU_global_constants->{_file_name};
-#		my $result;
-#
-#=head2 Collect parameters from local hash
-#
-#=cut
-#
-#		my $GRANDPARENT_DIR  = $path4SeismicUnixGui;
-#		my @PARENT_DIR_SPECS = @{ $L_SU_global_constants->{_PARENT_DIR_SPECS} };
-#		my @CHILD_DIR_SPECS  = @{ $L_SU_global_constants->{_CHILD_DIR_SPECS} };
-#
-#=head2 Collect relevant "spec"
-#
-# project paths and files
-#
-#=cut
-#
-#		my ( $result_aref3, $dimensions_aref ) = _get_specs_pathNfile2search();
-#		my @result_aref2                     = @$result_aref3;
-#		my @directory_contents_specs         = @{ $result_aref2[0] };
-#		my @dimension                        = @$dimensions_aref;
-#		my $parent_directory_specs_number_of = $dimension[0];
-#		my $child_directory_specs_number_of  = $dimension[1];
-#
-## test
-##		my $parent_specs = 1;
-##		my $child_specs  = 1;
-##		print(
-##"\nFor specs directory paths: $PARENT_DIR_SPECS[$parent_specs]::$CHILD_DIR_SPECS[$child_specs]::\n"
-##		);
-##		print("@{$directory_contents_specs[$parent_specs][$child_specs]}\n");
-#
-#=head2 Search all "spec"-relevant
-#
-#directories start with
-#gui drectory listing
-#
-#=cut
-#
-#		for (
-#			my $parent = 0 ;
-#			$parent < $parent_directory_specs_number_of ;
-#			$parent++
-#		  )
-#		{
-#
-#			for (
-#				my $child = 0 ;
-#				$child < $child_directory_specs_number_of ;
-#				$child++
-#			  )
-#			{
-#
-#				my $directory_list_aref =
-#				  $directory_contents_specs[$parent][$child];
-#				my @directory_list = @$directory_list_aref;
-#
-#				my $length_directory_list = scalar @directory_list;
-#
-#				#				print("@{$directory_contents_specs[$parent][$child]}\n");
-#				#				print("file_name=$file_name\n");
-#				for ( my $i = 0 ; $i < $length_directory_list ; $i++ ) {
-#
-#					if ( not $file_name eq $directory_list[$i] ) {
-#
-#						next;
-#
-#					}
-#					elsif ( $file_name eq $directory_list[$i] ) {
-#
-#		#						print(
-#		#"L_SU_global_constants,_get_path4spec_file,found the file $file_name in
-#		#				  			  $PARENT_DIR_SPECS[$parent]::$CHILD_DIR_SPECS[$child]\n"
-#		#						);
-#						$result =
-#							$path4SeismicUnixGui . '/'
-#						  . $PARENT_DIR_SPECS[$parent] . '/'
-#						  . $CHILD_DIR_SPECS[$child];
-#
-#						return ($result);
-#					}
-#					else {
-#						print("change_a_line, unexpected value\n");
-#						return ();
-#					}
-#				}
-#
-#			}
-#		}
-#
-#	}
-#	else {
-#		print("L_SU_global_constants,__get_path4spec_file,file_name_missing\n");
-#		return ();
-#	}
-#}
-#
-#=head2 sub _get_path4su_file
-#
-#Find a path for
-#
-#a given spec file
-#
-#=cut
-#
-#sub _get_path4su_file {
-#
-#	my (@self) = @_;
-#
-#	if ( length $L_SU_global_constants->{_file_name} ) {
-#
-#		my $file_name = $L_SU_global_constants->{_file_name};
-#		my $result;
-#
-#=head2 Collect parameters from local hash
-#
-#=cut
-#
-#		my $GRANDPARENT_DIR  = $path4SeismicUnixGui;
-#		my @PARENT_DIR_SPECS = @{ $L_SU_global_constants->{_PARENT_DIR_SPECS} };
-#		my @CHILD_DIR_SPECS  = @{ $L_SU_global_constants->{_CHILD_DIR_SPECS} };
-#
-#=head2 Collect relevant "spec"
-#
-# project paths and files
-#
-#=cut
-#
-#		my ( $result_aref3, $dimensions_aref ) = _get_su_pathNfile2search();
-#		my @result_aref2                  = @$result_aref3;
-#		my @directory_contents_su         = @{ $result_aref2[0] };
-#		my @dimension                     = @$dimensions_aref;
-#		my $parent_directory_su_number_of = $dimension[0];
-#		my $child_directory_su_number_of  = $dimension[1];
-#
-## test
-##		my $parent_su = 1;
-##		my $child_su  = 1;
-##		print(
-##"\nFor su directory paths: $PARENT_DIR_SPECS[$parent_su]::$CHILD_DIR_SPECS[$child_su]::\n"
-##		);
-##		print("@{$directory_contents_su[$parent_su][$child_su]}\n");
-#
-#=head2 Search all "spec"-relevant
-#
-#directories start with
-#gui drectory listing
-#
-#=cut
-#
-#		for (
-#			my $parent = 0 ;
-#			$parent < $parent_directory_su_number_of ;
-#			$parent++
-#		  )
-#		{
-#
-#			for (
-#				my $child = 0 ;
-#				$child < $child_directory_su_number_of ;
-#				$child++
-#			  )
-#			{
-#
-#				my $directory_list_aref =
-#				  $directory_contents_su[$parent][$child];
-#				my @directory_list = @$directory_list_aref;
-#
-#				my $length_directory_list = scalar @directory_list;
-#
-#				#				print("@{$directory_contents_su[$parent][$child]}\n");
-#				#				print("file_name=$file_name\n");
-#				for ( my $i = 0 ; $i < $length_directory_list ; $i++ ) {
-#
-#					if ( not $file_name eq $directory_list[$i] ) {
-#
-#						next;
-#
-#					}
-#					elsif ( $file_name eq $directory_list[$i] ) {
-#
-#		#						print(
-#		#"L_SU_global_constants,_get_path4spec_file,found the file $file_name in
-#		#				  			  $PARENT_DIR_SPECS[$parent]::$CHILD_DIR_SPECS[$child]\n"
-#		#						);
-#						$result =
-#							$path4SeismicUnixGui . '/'
-#						  . $PARENT_DIR_SPECS[$parent] . '/'
-#						  . $CHILD_DIR_SPECS[$child];
-#
-#						return ($result);
-#					}
-#					else {
-#						print("change_a_line, unexpected value\n");
-#						return ();
-#					}
-#				}
-#
-#			}
-#		}
-#
-#	}
-#	else {
-#		print("L_SU_global_constants,__get_path4spec_file,file_name_missing\n");
-#		return ();
-#	}
-#}
-
-#sub _set_file_name {
-#
-#	my ($self) = @_;
-#
-#	if ( length $self ) {
-#
-#		$L_SU_global_constants->{_file_name} = $self;
-#
-##		print("L_SU_global_constants,set_file_name,_set_file_name = $L_SU_global_constants->{_file_name}\n");
-#
-#	}
-#	else {
-#		print("L_SU_global_constants,_set_file_name, missing variable");
-#	}
-#
-#}
 
 sub alias_superflow_names_h {
 
