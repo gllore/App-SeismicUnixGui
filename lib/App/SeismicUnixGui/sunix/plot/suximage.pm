@@ -280,69 +280,69 @@ my $var          = $get->var();
 my $empty_string = $var->{_empty_string};
 
 my $suximage = {
-    _balance     => '',
-    _bclip       => '',
-    _blank       => '',
-    _blockinterp => '',
-    _bperc       => '',
-    _clip        => '',
-    _cmap        => '',
-    _curve       => '',
-    _curvecolor  => '',
-    _curvefile   => '',
-    _curvewidth	 => '',
-    _d1          => '',
-    _d1num       => '',
-    _d2          => '',
-    _d2num       => '',
-    _dtr         => '',
-    _f1          => '',
-    _f1num       => '',
-    _f2          => '',
-    _f2num       => '',
-    _grid1       => '',
-    _grid2       => '',
-    _gridcolor   => '',
-    _hbox        => '',
-    _infile      => '',
-    _key         => '',
-    _label1      => '',
-    _label2      => '',
-    _labelcolor  => '',
-    _labelfont   => '',
-    _legend      => '',
-    _legendfont  => '',
-    _lheight     => '',
-    _lwidth      => '',
-    _lx          => '',
-    _ly          => '',
-    _mpicks      => '',
-    _n1          => '',
-    _n1tic       => '',
-    _n2          => '',
-    _n2tic       => '',
-    _npair       => '',
-    _perc        => '',
-    _plotfile    => '',
-    _style       => '',
-    _title       => '',
-    _titlecolor  => '',
-    _titlefont   => '',
-    _tmpdir      => '',
-    _units       => '',
-    _verbose     => '',
-    _wbox        => '',
-    _wclip       => '',
-    _windowtitle => '',
-    _wperc       => '',
-    _x1beg       => '',
-    _x1end       => '',
-    _x2beg       => '',
-    _x2end       => '',
-    _xbox        => '',
-    _ybox        => '',
-    _Step        => '',
-    _note        => '',
+	_balance     => '',
+	_bclip       => '',
+	_blank       => '',
+	_blockinterp => '',
+	_bperc       => '',
+	_clip        => '',
+	_cmap        => '',
+	_curve       => '',
+	_curvecolor  => '',
+	_curvefile   => '',
+	_curvewidth  => '',
+	_d1          => '',
+	_d1num       => '',
+	_d2          => '',
+	_d2num       => '',
+	_dtr         => '',
+	_f1          => '',
+	_f1num       => '',
+	_f2          => '',
+	_f2num       => '',
+	_grid1       => '',
+	_grid2       => '',
+	_gridcolor   => '',
+	_hbox        => '',
+	_infile      => '',
+	_key         => '',
+	_label1      => '',
+	_label2      => '',
+	_labelcolor  => '',
+	_labelfont   => '',
+	_legend      => '',
+	_legendfont  => '',
+	_lheight     => '',
+	_lwidth      => '',
+	_lx          => '',
+	_ly          => '',
+	_mpicks      => '',
+	_n1          => '',
+	_n1tic       => '',
+	_n2          => '',
+	_n2tic       => '',
+	_npair       => '',
+	_perc        => '',
+	_plotfile    => '',
+	_style       => '',
+	_title       => '',
+	_titlecolor  => '',
+	_titlefont   => '',
+	_tmpdir      => '',
+	_units       => '',
+	_verbose     => '',
+	_wbox        => '',
+	_wclip       => '',
+	_windowtitle => '',
+	_wperc       => '',
+	_x1beg       => '',
+	_x1end       => '',
+	_x2beg       => '',
+	_x2end       => '',
+	_xbox        => '',
+	_ybox        => '',
+	_Step        => '',
+	_note        => '',
 };
 
 =head2 sub Step
@@ -354,8 +354,8 @@ by adding the program name
 
 sub Step {
 
-    $suximage->{_Step} = 'suximage' . $suximage->{_Step};
-    return ( $suximage->{_Step} );
+	$suximage->{_Step} = 'suximage' . $suximage->{_Step};
+	return ( $suximage->{_Step} );
 
 }
 
@@ -368,8 +368,8 @@ by adding the program name
 
 sub note {
 
-    $suximage->{_note} = 'suximage' . $suximage->{_note};
-    return ( $suximage->{_note} );
+	$suximage->{_note} = 'suximage' . $suximage->{_note};
+	return ( $suximage->{_note} );
 
 }
 
@@ -381,70 +381,70 @@ sub note {
 
 sub clear {
 
-    $suximage->{_balance}     = '';
-    $suximage->{_bclip}       = '';
-    $suximage->{_blank}       = '';
-    $suximage->{_blockinterp} = '';
-    $suximage->{_bperc}       = '';
-    $suximage->{_clip}        = '';
-    $suximage->{_cmap}        = '';
-    $suximage->{_curve}       = '';
-    $suximage->{_curvecolor}  = '';
-    $suximage->{_curvefile}   = '';
-    $suximage->{_curvewidth}  = '';    
-    $suximage->{_d1}          = '';
-    $suximage->{_d1num}       = '';
-    $suximage->{_d2}          = '';
-    $suximage->{_d2num}       = '';
-    $suximage->{_dtr}         = '';
-    $suximage->{_f1}          = '';
-    $suximage->{_f1num}       = '';
-    $suximage->{_f2}          = '';
-    $suximage->{_f2num}       = '';
-    $suximage->{_ftr}         = '';
-    $suximage->{_grid1}       = '';
-    $suximage->{_grid2}       = '';
-    $suximage->{_gridcolor}   = '';
-    $suximage->{_hbox}        = '';
-    $suximage->{_infile}      = '';
-    $suximage->{_key}         = '';
-    $suximage->{_label1}      = '';
-    $suximage->{_label2}      = '';
-    $suximage->{_labelcolor}  = '';
-    $suximage->{_labelfont}   = '';
-    $suximage->{_legend}      = '';
-    $suximage->{_legendfont}  = '';
-    $suximage->{_lheight}     = '';
-    $suximage->{_lwidth}      = '';
-    $suximage->{_lx}          = '';
-    $suximage->{_ly}          = '';
-    $suximage->{_mpicks}      = '';
-    $suximage->{_n1}          = '';
-    $suximage->{_n1tic}       = '';
-    $suximage->{_n2}          = '';
-    $suximage->{_n2tic}       = '';
-    $suximage->{_npair}       = '';
-    $suximage->{_perc}        = '';
-    $suximage->{_plotfile}    = '';
-    $suximage->{_style}       = '';
-    $suximage->{_title}       = '';
-    $suximage->{_titlecolor}  = '';
-    $suximage->{_titlefont}   = '';
-    $suximage->{_tmpdir}      = '';
-    $suximage->{_units}       = '';
-    $suximage->{_verbose}     = '';
-    $suximage->{_wbox}        = '';
-    $suximage->{_wclip}       = '';
-    $suximage->{_windowtitle} = '';
-    $suximage->{_wperc}       = '';
-    $suximage->{_x1beg}       = '';
-    $suximage->{_x1end}       = '';
-    $suximage->{_x2beg}       = '';
-    $suximage->{_x2end}       = '';
-    $suximage->{_xbox}        = '';
-    $suximage->{_ybox}        = '';
-    $suximage->{_Step}        = '';
-    $suximage->{_note}        = '';
+	$suximage->{_balance}     = '';
+	$suximage->{_bclip}       = '';
+	$suximage->{_blank}       = '';
+	$suximage->{_blockinterp} = '';
+	$suximage->{_bperc}       = '';
+	$suximage->{_clip}        = '';
+	$suximage->{_cmap}        = '';
+	$suximage->{_curve}       = '';
+	$suximage->{_curvecolor}  = '';
+	$suximage->{_curvefile}   = '';
+	$suximage->{_curvewidth}  = '';
+	$suximage->{_d1}          = '';
+	$suximage->{_d1num}       = '';
+	$suximage->{_d2}          = '';
+	$suximage->{_d2num}       = '';
+	$suximage->{_dtr}         = '';
+	$suximage->{_f1}          = '';
+	$suximage->{_f1num}       = '';
+	$suximage->{_f2}          = '';
+	$suximage->{_f2num}       = '';
+	$suximage->{_ftr}         = '';
+	$suximage->{_grid1}       = '';
+	$suximage->{_grid2}       = '';
+	$suximage->{_gridcolor}   = '';
+	$suximage->{_hbox}        = '';
+	$suximage->{_infile}      = '';
+	$suximage->{_key}         = '';
+	$suximage->{_label1}      = '';
+	$suximage->{_label2}      = '';
+	$suximage->{_labelcolor}  = '';
+	$suximage->{_labelfont}   = '';
+	$suximage->{_legend}      = '';
+	$suximage->{_legendfont}  = '';
+	$suximage->{_lheight}     = '';
+	$suximage->{_lwidth}      = '';
+	$suximage->{_lx}          = '';
+	$suximage->{_ly}          = '';
+	$suximage->{_mpicks}      = '';
+	$suximage->{_n1}          = '';
+	$suximage->{_n1tic}       = '';
+	$suximage->{_n2}          = '';
+	$suximage->{_n2tic}       = '';
+	$suximage->{_npair}       = '';
+	$suximage->{_perc}        = '';
+	$suximage->{_plotfile}    = '';
+	$suximage->{_style}       = '';
+	$suximage->{_title}       = '';
+	$suximage->{_titlecolor}  = '';
+	$suximage->{_titlefont}   = '';
+	$suximage->{_tmpdir}      = '';
+	$suximage->{_units}       = '';
+	$suximage->{_verbose}     = '';
+	$suximage->{_wbox}        = '';
+	$suximage->{_wclip}       = '';
+	$suximage->{_windowtitle} = '';
+	$suximage->{_wperc}       = '';
+	$suximage->{_x1beg}       = '';
+	$suximage->{_x1end}       = '';
+	$suximage->{_x2beg}       = '';
+	$suximage->{_x2end}       = '';
+	$suximage->{_xbox}        = '';
+	$suximage->{_ybox}        = '';
+	$suximage->{_Step}        = '';
+	$suximage->{_note}        = '';
 }
 
 =head2 sub dtr 
@@ -454,17 +454,17 @@ sub clear {
 
 sub dtr {
 
-    my ( $self, $dtr ) = @_;
-    if ( $dtr ne $empty_string ) {
+	my ( $self, $dtr ) = @_;
+	if ( $dtr ne $empty_string ) {
 
-        $suximage->{_dtr}  = $dtr;
-        $suximage->{_note} = $suximage->{_note} . ' dtr=' . $suximage->{_dtr};
-        $suximage->{_Step} = $suximage->{_Step} . ' dtr=' . $suximage->{_dtr};
+		$suximage->{_dtr}  = $dtr;
+		$suximage->{_note} = $suximage->{_note} . ' dtr=' . $suximage->{_dtr};
+		$suximage->{_Step} = $suximage->{_Step} . ' dtr=' . $suximage->{_dtr};
 
-    }
-    else {
-        print("suximage, dtr, missing dtr,\n");
-    }
+	}
+	else {
+		print("suximage, dtr, missing dtr,\n");
+	}
 }
 
 =head2 sub ftr 
@@ -474,17 +474,17 @@ sub dtr {
 
 sub ftr {
 
-    my ( $self, $ftr ) = @_;
-    if ( $ftr ne $empty_string ) {
+	my ( $self, $ftr ) = @_;
+	if ( $ftr ne $empty_string ) {
 
-        $suximage->{_ftr}  = $ftr;
-        $suximage->{_note} = $suximage->{_note} . ' ftr=' . $suximage->{_ftr};
-        $suximage->{_Step} = $suximage->{_Step} . ' ftr=' . $suximage->{_ftr};
+		$suximage->{_ftr}  = $ftr;
+		$suximage->{_note} = $suximage->{_note} . ' ftr=' . $suximage->{_ftr};
+		$suximage->{_Step} = $suximage->{_Step} . ' ftr=' . $suximage->{_ftr};
 
-    }
-    else {
-        print("suximage, ftr, missing ftr,\n");
-    }
+	}
+	else {
+		print("suximage, ftr, missing ftr,\n");
+	}
 }
 
 =head2 sub infile 
@@ -494,19 +494,19 @@ sub ftr {
 
 sub infile {
 
-    my ( $self, $infile ) = @_;
-    if ( $infile ne $empty_string ) {
+	my ( $self, $infile ) = @_;
+	if ( $infile ne $empty_string ) {
 
-        $suximage->{_infile} = $infile;
-        $suximage->{_note} =
-          $suximage->{_note} . ' infile=' . $suximage->{_infile};
-        $suximage->{_Step} =
-          $suximage->{_Step} . ' infile=' . $suximage->{_infile};
+		$suximage->{_infile} = $infile;
+		$suximage->{_note} =
+		  $suximage->{_note} . ' infile=' . $suximage->{_infile};
+		$suximage->{_Step} =
+		  $suximage->{_Step} . ' infile=' . $suximage->{_infile};
 
-    }
-    else {
-        print("suximage, infile, missing infile,\n");
-    }
+	}
+	else {
+		print("suximage, infile, missing infile,\n");
+	}
 }
 
 =head2 sub key 
@@ -516,17 +516,17 @@ sub infile {
 
 sub key {
 
-    my ( $self, $key ) = @_;
-    if ( $key ne $empty_string ) {
+	my ( $self, $key ) = @_;
+	if ( $key ne $empty_string ) {
 
-        $suximage->{_key}  = $key;
-        $suximage->{_note} = $suximage->{_note} . ' key=' . $suximage->{_key};
-        $suximage->{_Step} = $suximage->{_Step} . ' key=' . $suximage->{_key};
+		$suximage->{_key}  = $key;
+		$suximage->{_note} = $suximage->{_note} . ' key=' . $suximage->{_key};
+		$suximage->{_Step} = $suximage->{_Step} . ' key=' . $suximage->{_key};
 
-    }
-    else {
-        print("suximage, key, missing key,\n");
-    }
+	}
+	else {
+		print("suximage, key, missing key,\n");
+	}
 }
 
 =head2 sub absclip
@@ -536,10 +536,10 @@ determine the absolute clip for data
 =cut
 
 sub absclip {
-    my ( $variable, $clip ) = @_;
-    $suximage->{_clip} = $clip if defined($clip);
-    $suximage->{_Step} = $suximage->{_Step} . ' clip=' . $suximage->{_clip};
-    $suximage->{_note} = $suximage->{_note};
+	my ( $variable, $clip ) = @_;
+	$suximage->{_clip} = $clip if defined($clip);
+	$suximage->{_Step} = $suximage->{_Step} . ' clip=' . $suximage->{_clip};
+	$suximage->{_note} = $suximage->{_note};
 }
 
 =head2 sub balance 
@@ -549,19 +549,19 @@ sub absclip {
 
 sub balance {
 
-    my ( $self, $balance ) = @_;
-    if ( $balance ne $empty_string ) {
+	my ( $self, $balance ) = @_;
+	if ( $balance ne $empty_string ) {
 
-        $suximage->{_balance} = $balance;
-        $suximage->{_note} =
-          $suximage->{_note} . ' balance=' . $suximage->{_balance};
-        $suximage->{_Step} =
-          $suximage->{_Step} . ' balance=' . $suximage->{_balance};
+		$suximage->{_balance} = $balance;
+		$suximage->{_note} =
+		  $suximage->{_note} . ' balance=' . $suximage->{_balance};
+		$suximage->{_Step} =
+		  $suximage->{_Step} . ' balance=' . $suximage->{_balance};
 
-    }
-    else {
-        print("suximage, balance, missing balance,\n");
-    }
+	}
+	else {
+		print("suximage, balance, missing balance,\n");
+	}
 }
 
 =head2 sub bclip 
@@ -572,19 +572,19 @@ sub balance {
 
 sub bclip {
 
-    my ( $self, $bclip ) = @_;
-    if ( $bclip ne $empty_string ) {
+	my ( $self, $bclip ) = @_;
+	if ( $bclip ne $empty_string ) {
 
-        $suximage->{_bclip} = $bclip;
-        $suximage->{_note} =
-          $suximage->{_note} . ' bclip=' . $suximage->{_bclip};
-        $suximage->{_Step} =
-          $suximage->{_Step} . ' bclip=' . $suximage->{_bclip};
+		$suximage->{_bclip} = $bclip;
+		$suximage->{_note} =
+		  $suximage->{_note} . ' bclip=' . $suximage->{_bclip};
+		$suximage->{_Step} =
+		  $suximage->{_Step} . ' bclip=' . $suximage->{_bclip};
 
-    }
-    else {
-        print("suximage, bclip, missing bclip,\n");
-    }
+	}
+	else {
+		print("suximage, bclip, missing bclip,\n");
+	}
 }
 
 =head2 sub blank 
@@ -594,19 +594,19 @@ sub bclip {
 
 sub blank {
 
-    my ( $self, $blank ) = @_;
-    if ( $blank ne $empty_string ) {
+	my ( $self, $blank ) = @_;
+	if ( $blank ne $empty_string ) {
 
-        $suximage->{_blank} = $blank;
-        $suximage->{_note} =
-          $suximage->{_note} . ' blank=' . $suximage->{_blank};
-        $suximage->{_Step} =
-          $suximage->{_Step} . ' blank=' . $suximage->{_blank};
+		$suximage->{_blank} = $blank;
+		$suximage->{_note} =
+		  $suximage->{_note} . ' blank=' . $suximage->{_blank};
+		$suximage->{_Step} =
+		  $suximage->{_Step} . ' blank=' . $suximage->{_blank};
 
-    }
-    else {
-        print("suximage, blank, missing blank,\n");
-    }
+	}
+	else {
+		print("suximage, blank, missing blank,\n");
+	}
 }
 
 =head2 sub blockinterp 
@@ -616,19 +616,19 @@ sub blank {
 
 sub blockinterp {
 
-    my ( $self, $blockinterp ) = @_;
-    if ( $blockinterp ne $empty_string ) {
+	my ( $self, $blockinterp ) = @_;
+	if ( $blockinterp ne $empty_string ) {
 
-        $suximage->{_blockinterp} = $blockinterp;
-        $suximage->{_note} =
-          $suximage->{_note} . ' blockinterp=' . $suximage->{_blockinterp};
-        $suximage->{_Step} =
-          $suximage->{_Step} . ' blockinterp=' . $suximage->{_blockinterp};
+		$suximage->{_blockinterp} = $blockinterp;
+		$suximage->{_note} =
+		  $suximage->{_note} . ' blockinterp=' . $suximage->{_blockinterp};
+		$suximage->{_Step} =
+		  $suximage->{_Step} . ' blockinterp=' . $suximage->{_blockinterp};
 
-    }
-    else {
-        print("suximage, blockinterp, missing blockinterp,\n");
-    }
+	}
+	else {
+		print("suximage, blockinterp, missing blockinterp,\n");
+	}
 }
 
 =head2 sub box_X0
@@ -638,19 +638,19 @@ sub blockinterp {
 
 sub box_X0 {
 
-    my ( $self, $xbox ) = @_;
-    if ( $xbox ne $empty_string ) {
+	my ( $self, $xbox ) = @_;
+	if ( $xbox ne $empty_string ) {
 
-        $suximage->{_xbox} = $xbox;
-        $suximage->{_note} =
-          $suximage->{_note} . ' xbox=' . $suximage->{_xbox};
-        $suximage->{_Step} =
-          $suximage->{_Step} . ' xbox=' . $suximage->{_xbox};
+		$suximage->{_xbox} = $xbox;
+		$suximage->{_note} =
+		  $suximage->{_note} . ' xbox=' . $suximage->{_xbox};
+		$suximage->{_Step} =
+		  $suximage->{_Step} . ' xbox=' . $suximage->{_xbox};
 
-    }
-    else {
-        print("suximage, wbox, missing box_X0,\n");
-    }
+	}
+	else {
+		print("suximage, wbox, missing box_X0,\n");
+	}
 }
 
 =head2 sub box_Y0
@@ -660,19 +660,19 @@ sub box_X0 {
 
 sub box_Y0 {
 
-    my ( $self, $ybox ) = @_;
-    if ( $ybox ne $empty_string ) {
+	my ( $self, $ybox ) = @_;
+	if ( $ybox ne $empty_string ) {
 
-        $suximage->{_ybox} = $ybox;
-        $suximage->{_note} =
-          $suximage->{_note} . ' ybox=' . $suximage->{_ybox};
-        $suximage->{_Step} =
-          $suximage->{_Step} . ' ybox=' . $suximage->{_ybox};
+		$suximage->{_ybox} = $ybox;
+		$suximage->{_note} =
+		  $suximage->{_note} . ' ybox=' . $suximage->{_ybox};
+		$suximage->{_Step} =
+		  $suximage->{_Step} . ' ybox=' . $suximage->{_ybox};
 
-    }
-    else {
-        print("suximage, box_Y0, missing box_Y0,\n");
-    }
+	}
+	else {
+		print("suximage, box_Y0, missing box_Y0,\n");
+	}
 }
 
 =head2 sub box_height 
@@ -682,19 +682,19 @@ sub box_Y0 {
 
 sub box_height {
 
-    my ( $self, $hbox ) = @_;
-    if ( $hbox ne $empty_string ) {
+	my ( $self, $hbox ) = @_;
+	if ( $hbox ne $empty_string ) {
 
-        $suximage->{_hbox} = $hbox;
-        $suximage->{_note} =
-          $suximage->{_note} . ' hbox=' . $suximage->{_hbox};
-        $suximage->{_Step} =
-          $suximage->{_Step} . ' hbox=' . $suximage->{_hbox};
+		$suximage->{_hbox} = $hbox;
+		$suximage->{_note} =
+		  $suximage->{_note} . ' hbox=' . $suximage->{_hbox};
+		$suximage->{_Step} =
+		  $suximage->{_Step} . ' hbox=' . $suximage->{_hbox};
 
-    }
-    else {
-        print("suximage, hbox, missing box_height,\n");
-    }
+	}
+	else {
+		print("suximage, hbox, missing box_height,\n");
+	}
 }
 
 =head2 sub box_width 
@@ -704,19 +704,19 @@ sub box_height {
 
 sub box_width {
 
-    my ( $self, $wbox ) = @_;
-    if ( $wbox ne $empty_string ) {
+	my ( $self, $wbox ) = @_;
+	if ( $wbox ne $empty_string ) {
 
-        $suximage->{_wbox} = $wbox;
-        $suximage->{_note} =
-          $suximage->{_note} . ' wbox=' . $suximage->{_wbox};
-        $suximage->{_Step} =
-          $suximage->{_Step} . ' wbox=' . $suximage->{_wbox};
+		$suximage->{_wbox} = $wbox;
+		$suximage->{_note} =
+		  $suximage->{_note} . ' wbox=' . $suximage->{_wbox};
+		$suximage->{_Step} =
+		  $suximage->{_Step} . ' wbox=' . $suximage->{_wbox};
 
-    }
-    else {
-        print("suximage, wbox, missing box_width,\n");
-    }
+	}
+	else {
+		print("suximage, wbox, missing box_width,\n");
+	}
 }
 
 =head2 sub bperc 
@@ -726,19 +726,19 @@ sub box_width {
 
 sub bperc {
 
-    my ( $self, $bperc ) = @_;
-    if ( $bperc ne $empty_string ) {
+	my ( $self, $bperc ) = @_;
+	if ( $bperc ne $empty_string ) {
 
-        $suximage->{_bperc} = $bperc;
-        $suximage->{_note} =
-          $suximage->{_note} . ' bperc=' . $suximage->{_bperc};
-        $suximage->{_Step} =
-          $suximage->{_Step} . ' bperc=' . $suximage->{_bperc};
+		$suximage->{_bperc} = $bperc;
+		$suximage->{_note} =
+		  $suximage->{_note} . ' bperc=' . $suximage->{_bperc};
+		$suximage->{_Step} =
+		  $suximage->{_Step} . ' bperc=' . $suximage->{_bperc};
 
-    }
-    else {
-        print("suximage, bperc, missing bperc,\n");
-    }
+	}
+	else {
+		print("suximage, bperc, missing bperc,\n");
+	}
 }
 
 =head2 sub clip 
@@ -749,19 +749,19 @@ determine the absolute clip for data
 
 sub clip {
 
-    my ( $self, $clip ) = @_;
-    if ( $clip ne $empty_string ) {
+	my ( $self, $clip ) = @_;
+	if ( $clip ne $empty_string ) {
 
-        $suximage->{_clip} = $clip;
-        $suximage->{_note} =
-          $suximage->{_note} . ' clip=' . $suximage->{_clip};
-        $suximage->{_Step} =
-          $suximage->{_Step} . ' clip=' . $suximage->{_clip};
+		$suximage->{_clip} = $clip;
+		$suximage->{_note} =
+		  $suximage->{_note} . ' clip=' . $suximage->{_clip};
+		$suximage->{_Step} =
+		  $suximage->{_Step} . ' clip=' . $suximage->{_clip};
 
-    }
-    else {
-        print("suximage, clip, missing clip,\n");
-    }
+	}
+	else {
+		print("suximage, clip, missing clip,\n");
+	}
 }
 
 =head2 sub cmap 
@@ -771,19 +771,19 @@ sub clip {
 
 sub cmap {
 
-    my ( $self, $cmap ) = @_;
-    if ( $cmap ne $empty_string ) {
+	my ( $self, $cmap ) = @_;
+	if ( $cmap ne $empty_string ) {
 
-        $suximage->{_cmap} = $cmap;
-        $suximage->{_note} =
-          $suximage->{_note} . ' cmap=' . $suximage->{_cmap};
-        $suximage->{_Step} =
-          $suximage->{_Step} . ' cmap=' . $suximage->{_cmap};
+		$suximage->{_cmap} = $cmap;
+		$suximage->{_note} =
+		  $suximage->{_note} . ' cmap=' . $suximage->{_cmap};
+		$suximage->{_Step} =
+		  $suximage->{_Step} . ' cmap=' . $suximage->{_cmap};
 
-    }
-    else {
-        print("suximage, cmap, missing cmap,\n");
-    }
+	}
+	else {
+		print("suximage, cmap, missing cmap,\n");
+	}
 }
 
 =head2 sub curve 
@@ -793,18 +793,18 @@ sub cmap {
 
 sub curve {
 
-    my ( $self, $curve ) = @_;
-    if ( $curve ne $empty_string ) {
+	my ( $self, $curve ) = @_;
+	if ( $curve ne $empty_string ) {
 
-        $suximage->{_curve} = $curve;
-        $suximage->{_note} =
-          $suximage->{_note} . ' curve=' . $suximage->{_curve};
-        $suximage->{_Step} =
-          $suximage->{_Step} . ' curve=' . $suximage->{_curve};
-    }
-    else {
-        print("suximage, curve, missing curve,\n");
-    }
+		$suximage->{_curve} = $curve;
+		$suximage->{_note} =
+		  $suximage->{_note} . ' curve=' . $suximage->{_curve};
+		$suximage->{_Step} =
+		  $suximage->{_Step} . ' curve=' . $suximage->{_curve};
+	}
+	else {
+		print("suximage, curve, missing curve,\n");
+	}
 }
 
 =head2 sub curvecolor 
@@ -815,19 +815,19 @@ sub curve {
 
 sub curvecolor {
 
-    my ( $self, $curvecolor ) = @_;
-    if ( $curvecolor ne $empty_string ) {
+	my ( $self, $curvecolor ) = @_;
+	if ( $curvecolor ne $empty_string ) {
 
-        $suximage->{_curvecolor} = $curvecolor;
-        $suximage->{_note} =
-          $suximage->{_note} . ' curvecolor=' . $suximage->{_curvecolor};
-        $suximage->{_Step} =
-          $suximage->{_Step} . ' curvecolor=' . $suximage->{_curvecolor};
+		$suximage->{_curvecolor} = $curvecolor;
+		$suximage->{_note} =
+		  $suximage->{_note} . ' curvecolor=' . $suximage->{_curvecolor};
+		$suximage->{_Step} =
+		  $suximage->{_Step} . ' curvecolor=' . $suximage->{_curvecolor};
 
-    }
-    else {
-        print("suximage, curvecolor, missing curvecolor,\n");
-    }
+	}
+	else {
+		print("suximage, curvecolor, missing curvecolor,\n");
+	}
 }
 
 =head2 sub curvefile 
@@ -838,18 +838,18 @@ sub curvecolor {
 
 sub curvefile {
 
-    my ( $self, $curvefile ) = @_;
-    if ( $curvefile ne $empty_string ) {
+	my ( $self, $curvefile ) = @_;
+	if ( $curvefile ne $empty_string ) {
 
-        $suximage->{_curvefile} = $curvefile;
-        $suximage->{_note} =
-          $suximage->{_note} . ' curve=' . $suximage->{_curvefile};
-        $suximage->{_Step} =
-          $suximage->{_Step} . ' curve=' . $suximage->{_curvefile};
-    }
-    else {
-        print("suximage, curvefile, missing curvefile,\n");
-    }
+		$suximage->{_curvefile} = $curvefile;
+		$suximage->{_note} =
+		  $suximage->{_note} . ' curve=' . $suximage->{_curvefile};
+		$suximage->{_Step} =
+		  $suximage->{_Step} . ' curve=' . $suximage->{_curvefile};
+	}
+	else {
+		print("suximage, curvefile, missing curvefile,\n");
+	}
 }
 
 =head2 sub curvewidth 
@@ -860,19 +860,19 @@ sub curvefile {
 
 sub curvewidth {
 
-    my ( $self, $curvewidth ) = @_;
-    if ( $curvewidth ne $empty_string ) {
+	my ( $self, $curvewidth ) = @_;
+	if ( $curvewidth ne $empty_string ) {
 
-        $suximage->{_curvewidth} = $curvewidth;
-        $suximage->{_note} =
-          $suximage->{_note} . ' curvewidth=' . $suximage->{_curvewidth};
-        $suximage->{_Step} =
-          $suximage->{_Step} . ' curvewidth=' . $suximage->{_curvewidth};
+		$suximage->{_curvewidth} = $curvewidth;
+		$suximage->{_note} =
+		  $suximage->{_note} . ' curvewidth=' . $suximage->{_curvewidth};
+		$suximage->{_Step} =
+		  $suximage->{_Step} . ' curvewidth=' . $suximage->{_curvewidth};
 
-    }
-    else {
-        print("suximage, curvewidth, missing curvewidth,\n");
-    }
+	}
+	else {
+		print("suximage, curvewidth, missing curvewidth,\n");
+	}
 }
 
 =head2 sub d1 
@@ -886,17 +886,17 @@ sub curvewidth {
 
 sub d1 {
 
-    my ( $self, $d1 ) = @_;
-    if ( $d1 ne $empty_string ) {
+	my ( $self, $d1 ) = @_;
+	if ( $d1 ne $empty_string ) {
 
-        $suximage->{_d1}   = $d1;
-        $suximage->{_note} = $suximage->{_note} . ' d1=' . $suximage->{_d1};
-        $suximage->{_Step} = $suximage->{_Step} . ' d1=' . $suximage->{_d1};
+		$suximage->{_d1}   = $d1;
+		$suximage->{_note} = $suximage->{_note} . ' d1=' . $suximage->{_d1};
+		$suximage->{_Step} = $suximage->{_Step} . ' d1=' . $suximage->{_d1};
 
-    }
-    else {
-        print("suximage, d1, missing d1,\n");
-    }
+	}
+	else {
+		print("suximage, d1, missing d1,\n");
+	}
 }
 
 =head2 sub d1num 
@@ -909,19 +909,19 @@ sub d1 {
 
 sub d1num {
 
-    my ( $self, $d1num ) = @_;
-    if ( $d1num ne $empty_string ) {
+	my ( $self, $d1num ) = @_;
+	if ( $d1num ne $empty_string ) {
 
-        $suximage->{_d1num} = $d1num;
-        $suximage->{_note} =
-          $suximage->{_note} . ' d1num=' . $suximage->{_d1num};
-        $suximage->{_Step} =
-          $suximage->{_Step} . ' d1num=' . $suximage->{_d1num};
+		$suximage->{_d1num} = $d1num;
+		$suximage->{_note} =
+		  $suximage->{_note} . ' d1num=' . $suximage->{_d1num};
+		$suximage->{_Step} =
+		  $suximage->{_Step} . ' d1num=' . $suximage->{_d1num};
 
-    }
-    else {
-        print("suximage, d1num, missing d1num,\n");
-    }
+	}
+	else {
+		print("suximage, d1num, missing d1num,\n");
+	}
 }
 
 =head2 sub d2 
@@ -936,17 +936,17 @@ sub d1num {
 
 sub d2 {
 
-    my ( $self, $d2 ) = @_;
-    if ( $d2 ne $empty_string ) {
+	my ( $self, $d2 ) = @_;
+	if ( $d2 ne $empty_string ) {
 
-        $suximage->{_d2}   = $d2;
-        $suximage->{_note} = $suximage->{_note} . ' d2=' . $suximage->{_d2};
-        $suximage->{_Step} = $suximage->{_Step} . ' d2=' . $suximage->{_d2};
+		$suximage->{_d2}   = $d2;
+		$suximage->{_note} = $suximage->{_note} . ' d2=' . $suximage->{_d2};
+		$suximage->{_Step} = $suximage->{_Step} . ' d2=' . $suximage->{_d2};
 
-    }
-    else {
-        print("suximage, d2, missing d2,\n");
-    }
+	}
+	else {
+		print("suximage, d2, missing d2,\n");
+	}
 }
 
 =head2 sub  dt_major_divisions
@@ -959,19 +959,19 @@ sub d2 {
 
 sub dt_major_divisions {
 
-    my ( $self, $d1num ) = @_;
-    if ( $d1num ne $empty_string ) {
+	my ( $self, $d1num ) = @_;
+	if ( $d1num ne $empty_string ) {
 
-        $suximage->{_d1num} = $d1num;
-        $suximage->{_note} =
-          $suximage->{_note} . ' d1num=' . $suximage->{_d1num};
-        $suximage->{_Step} =
-          $suximage->{_Step} . ' d1num=' . $suximage->{_d1num};
+		$suximage->{_d1num} = $d1num;
+		$suximage->{_note} =
+		  $suximage->{_note} . ' d1num=' . $suximage->{_d1num};
+		$suximage->{_Step} =
+		  $suximage->{_Step} . ' d1num=' . $suximage->{_d1num};
 
-    }
-    else {
-        print("suximage, dt_major_divisions, missing dt_major_divisions,\n");
-    }
+	}
+	else {
+		print("suximage, dt_major_divisions, missing dt_major_divisions,\n");
+	}
 }
 
 =head2 sub dx 
@@ -984,17 +984,17 @@ sub dt_major_divisions {
 
 sub dx {
 
-    my ( $self, $d2 ) = @_;
-    if ( $d2 ne $empty_string ) {
+	my ( $self, $d2 ) = @_;
+	if ( $d2 ne $empty_string ) {
 
-        $suximage->{_d2}   = $d2;
-        $suximage->{_note} = $suximage->{_note} . ' d2=' . $suximage->{_d2};
-        $suximage->{_Step} = $suximage->{_Step} . ' d2=' . $suximage->{_d2};
+		$suximage->{_d2}   = $d2;
+		$suximage->{_note} = $suximage->{_note} . ' d2=' . $suximage->{_d2};
+		$suximage->{_Step} = $suximage->{_Step} . ' d2=' . $suximage->{_d2};
 
-    }
-    else {
-        print("suximage, dx, missing dx,\n");
-    }
+	}
+	else {
+		print("suximage, dx, missing dx,\n");
+	}
 }
 
 =head2 sub  dy_major_divisions
@@ -1007,19 +1007,19 @@ sub dx {
 
 sub dy_major_divisions {
 
-    my ( $self, $d1num ) = @_;
-    if ( $d1num ne $empty_string ) {
+	my ( $self, $d1num ) = @_;
+	if ( $d1num ne $empty_string ) {
 
-        $suximage->{_d1num} = $d1num;
-        $suximage->{_note} =
-          $suximage->{_note} . ' d1num=' . $suximage->{_d1num};
-        $suximage->{_Step} =
-          $suximage->{_Step} . ' d1num=' . $suximage->{_d1num};
+		$suximage->{_d1num} = $d1num;
+		$suximage->{_note} =
+		  $suximage->{_note} . ' d1num=' . $suximage->{_d1num};
+		$suximage->{_Step} =
+		  $suximage->{_Step} . ' d1num=' . $suximage->{_d1num};
 
-    }
-    else {
-        print("suximage, dy_major_divisions, missing dy_major_divisions,\n");
-    }
+	}
+	else {
+		print("suximage, dy_major_divisions, missing dy_major_divisions,\n");
+	}
 }
 
 =head2  sub d2num
@@ -1031,19 +1031,19 @@ sub dy_major_divisions {
 
 sub d2num {
 
-    my ( $self, $d2num ) = @_;
-    if ( $d2num ne $empty_string ) {
+	my ( $self, $d2num ) = @_;
+	if ( $d2num ne $empty_string ) {
 
-        $suximage->{_d2num} = $d2num;
-        $suximage->{_note} =
-          $suximage->{_note} . ' d2num=' . $suximage->{_d2num};
-        $suximage->{_Step} =
-          $suximage->{_Step} . ' d2num=' . $suximage->{_d2num};
+		$suximage->{_d2num} = $d2num;
+		$suximage->{_note} =
+		  $suximage->{_note} . ' d2num=' . $suximage->{_d2num};
+		$suximage->{_Step} =
+		  $suximage->{_Step} . ' d2num=' . $suximage->{_d2num};
 
-    }
-    else {
-        print("suximage, d2num, missing d2num,\n");
-    }
+	}
+	else {
+		print("suximage, d2num, missing d2num,\n");
+	}
 }
 
 =head2 sub dt 
@@ -1057,17 +1057,17 @@ sub d2num {
 
 sub dt {
 
-    my ( $self, $d1 ) = @_;
-    if ( $d1 ne $empty_string ) {
+	my ( $self, $d1 ) = @_;
+	if ( $d1 ne $empty_string ) {
 
-        $suximage->{_d1}   = $d1;
-        $suximage->{_note} = $suximage->{_note} . ' d1=' . $suximage->{_d1};
-        $suximage->{_Step} = $suximage->{_Step} . ' d1=' . $suximage->{_d1};
+		$suximage->{_d1}   = $d1;
+		$suximage->{_note} = $suximage->{_note} . ' d1=' . $suximage->{_d1};
+		$suximage->{_Step} = $suximage->{_Step} . ' d1=' . $suximage->{_d1};
 
-    }
-    else {
-        print("suximage, dt, missing dt,\n");
-    }
+	}
+	else {
+		print("suximage, dt, missing dt,\n");
+	}
 }
 
 =head2 sub dt_s 
@@ -1081,17 +1081,17 @@ sub dt {
 
 sub dt_s {
 
-    my ( $self, $d1 ) = @_;
-    if ( $d1 ne $empty_string ) {
+	my ( $self, $d1 ) = @_;
+	if ( $d1 ne $empty_string ) {
 
-        $suximage->{_d1}   = $d1;
-        $suximage->{_note} = $suximage->{_note} . ' d1=' . $suximage->{_d1};
-        $suximage->{_Step} = $suximage->{_Step} . ' d1=' . $suximage->{_d1};
+		$suximage->{_d1}   = $d1;
+		$suximage->{_note} = $suximage->{_note} . ' d1=' . $suximage->{_d1};
+		$suximage->{_Step} = $suximage->{_Step} . ' d1=' . $suximage->{_d1};
 
-    }
-    else {
-        print("suximage, dt_s, missing dt_s,\n");
-    }
+	}
+	else {
+		print("suximage, dt_s, missing dt_s,\n");
+	}
 }
 
 =head2 sub dx_major_divisions
@@ -1103,19 +1103,19 @@ sub dt_s {
 
 sub dx_major_divisions {
 
-    my ( $self, $d2num ) = @_;
-    if ( $d2num ne $empty_string ) {
+	my ( $self, $d2num ) = @_;
+	if ( $d2num ne $empty_string ) {
 
-        $suximage->{_d2num} = $d2num;
-        $suximage->{_note} =
-          $suximage->{_note} . ' d2num=' . $suximage->{_d2num};
-        $suximage->{_Step} =
-          $suximage->{_Step} . ' d2num=' . $suximage->{_d2num};
+		$suximage->{_d2num} = $d2num;
+		$suximage->{_note} =
+		  $suximage->{_note} . ' d2num=' . $suximage->{_d2num};
+		$suximage->{_Step} =
+		  $suximage->{_Step} . ' d2num=' . $suximage->{_d2num};
 
-    }
-    else {
-        print("suximage, dx_major_divisions, missing dx_major_divisions,\n");
-    }
+	}
+	else {
+		print("suximage, dx_major_divisions, missing dx_major_divisions,\n");
+	}
 }
 
 =head2 sub dy_minor_divisions 
@@ -1130,19 +1130,19 @@ sub dx_major_divisions {
 
 sub dy_minor_divisions {
 
-    my ( $self, $n1tic ) = @_;
-    if ( $n1tic ne $empty_string ) {
+	my ( $self, $n1tic ) = @_;
+	if ( $n1tic ne $empty_string ) {
 
-        $suximage->{_n1tic} = $n1tic;
-        $suximage->{_note} =
-          $suximage->{_note} . ' n1tic=' . $suximage->{_n1tic};
-        $suximage->{_Step} =
-          $suximage->{_Step} . ' n1tic=' . $suximage->{_n1tic};
+		$suximage->{_n1tic} = $n1tic;
+		$suximage->{_note} =
+		  $suximage->{_note} . ' n1tic=' . $suximage->{_n1tic};
+		$suximage->{_Step} =
+		  $suximage->{_Step} . ' n1tic=' . $suximage->{_n1tic};
 
-    }
-    else {
-        print("suximage, dy_minor_divisions, missing dy_minor_divisions,\n");
-    }
+	}
+	else {
+		print("suximage, dy_minor_divisions, missing dy_minor_divisions,\n");
+	}
 }
 
 =head2 sub dz 
@@ -1156,17 +1156,17 @@ sub dy_minor_divisions {
 
 sub dz {
 
-    my ( $self, $d1 ) = @_;
-    if ( $d1 ne $empty_string ) {
+	my ( $self, $d1 ) = @_;
+	if ( $d1 ne $empty_string ) {
 
-        $suximage->{_d1}   = $d1;
-        $suximage->{_note} = $suximage->{_note} . ' d1=' . $suximage->{_d1};
-        $suximage->{_Step} = $suximage->{_Step} . ' d1=' . $suximage->{_d1};
+		$suximage->{_d1}   = $d1;
+		$suximage->{_note} = $suximage->{_note} . ' d1=' . $suximage->{_d1};
+		$suximage->{_Step} = $suximage->{_Step} . ' d1=' . $suximage->{_d1};
 
-    }
-    else {
-        print("suximage, dz, missing dz,\n");
-    }
+	}
+	else {
+		print("suximage, dz, missing dz,\n");
+	}
 }
 
 =head2 sub f1 
@@ -1179,17 +1179,17 @@ subs f1, first_time_sample_value and first_y
 
 sub f1 {
 
-    my ( $self, $f1 ) = @_;
-    if ( $f1 ne $empty_string ) {
+	my ( $self, $f1 ) = @_;
+	if ( $f1 ne $empty_string ) {
 
-        $suximage->{_f1}   = $f1;
-        $suximage->{_note} = $suximage->{_note} . ' f1=' . $suximage->{_f1};
-        $suximage->{_Step} = $suximage->{_Step} . ' f1=' . $suximage->{_f1};
+		$suximage->{_f1}   = $f1;
+		$suximage->{_note} = $suximage->{_note} . ' f1=' . $suximage->{_f1};
+		$suximage->{_Step} = $suximage->{_Step} . ' f1=' . $suximage->{_f1};
 
-    }
-    else {
-        print("suximage, f1, missing f1,\n");
-    }
+	}
+	else {
+		print("suximage, f1, missing f1,\n");
+	}
 }
 
 =head2 sub f1num 
@@ -1204,19 +1204,19 @@ $f1num >=  0 &&
 
 sub f1num {
 
-    my ( $self, $f1num ) = @_;
-    if ( $f1num ne $empty_string ) {
+	my ( $self, $f1num ) = @_;
+	if ( $f1num ne $empty_string ) {
 
-        $suximage->{_f1num} = $f1num;
-        $suximage->{_note} =
-          $suximage->{_note} . ' f1num=' . $suximage->{_f1num};
-        $suximage->{_Step} =
-          $suximage->{_Step} . ' f1num=' . $suximage->{_f1num};
+		$suximage->{_f1num} = $f1num;
+		$suximage->{_note} =
+		  $suximage->{_note} . ' f1num=' . $suximage->{_f1num};
+		$suximage->{_Step} =
+		  $suximage->{_Step} . ' f1num=' . $suximage->{_f1num};
 
-    }
-    else {
-        print("suximage, f1num, missing f1num,\n");
-    }
+	}
+	else {
+		print("suximage, f1num, missing f1num,\n");
+	}
 }
 
 =head2 sub f2 
@@ -1231,17 +1231,17 @@ sub f1num {
 
 sub f2 {
 
-    my ( $self, $f2 ) = @_;
-    if ( $f2 || $f2 == 0 || $f2 == 0.0 && $f2 ne $empty_string ) {
+	my ( $self, $f2 ) = @_;
+	if ( $f2 || $f2 == 0 || $f2 == 0.0 && $f2 ne $empty_string ) {
 
-        $suximage->{_f2}   = $f2;
-        $suximage->{_note} = $suximage->{_note} . ' f2=' . $suximage->{_f2};
-        $suximage->{_Step} = $suximage->{_Step} . ' f2=' . $suximage->{_f2};
+		$suximage->{_f2}   = $f2;
+		$suximage->{_note} = $suximage->{_note} . ' f2=' . $suximage->{_f2};
+		$suximage->{_Step} = $suximage->{_Step} . ' f2=' . $suximage->{_f2};
 
-    }
-    else {
-        print("suximage, f2, missing f2,\n");
-    }
+	}
+	else {
+		print("suximage, f2, missing f2,\n");
+	}
 }
 
 =head2 sub f2num 
@@ -1255,19 +1255,19 @@ subs f2num first_tick_number_x
 
 sub f2num {
 
-    my ( $self, $f2num ) = @_;
-    if ( $f2num ne $empty_string ) {
+	my ( $self, $f2num ) = @_;
+	if ( $f2num ne $empty_string ) {
 
-        $suximage->{_f2num} = $f2num;
-        $suximage->{_note} =
-          $suximage->{_note} . ' f2num=' . $suximage->{_f2num};
-        $suximage->{_Step} =
-          $suximage->{_Step} . ' f2num=' . $suximage->{_f2num};
+		$suximage->{_f2num} = $f2num;
+		$suximage->{_note} =
+		  $suximage->{_note} . ' f2num=' . $suximage->{_f2num};
+		$suximage->{_Step} =
+		  $suximage->{_Step} . ' f2num=' . $suximage->{_f2num};
 
-    }
-    else {
-        print("suximage, f2num, missing f2num,\n");
-    }
+	}
+	else {
+		print("suximage, f2num, missing f2num,\n");
+	}
 }
 
 =head2 sub first_distance_sample_value  
@@ -1283,19 +1283,19 @@ $f2 >=0  &&
 
 sub first_distance_sample_value {
 
-    my ( $self, $f2 ) = @_;
-    if ( $f2 ne $empty_string ) {
+	my ( $self, $f2 ) = @_;
+	if ( $f2 ne $empty_string ) {
 
-        $suximage->{_f2}   = $f2;
-        $suximage->{_note} = $suximage->{_note} . ' f2=' . $suximage->{_f2};
-        $suximage->{_Step} = $suximage->{_Step} . ' f2=' . $suximage->{_f2};
+		$suximage->{_f2}   = $f2;
+		$suximage->{_note} = $suximage->{_note} . ' f2=' . $suximage->{_f2};
+		$suximage->{_Step} = $suximage->{_Step} . ' f2=' . $suximage->{_f2};
 
-    }
-    else {
-        print(
+	}
+	else {
+		print(
 "suximage, first_distance_sample_value , missing first_distance_sample_value ,\n"
-        );
-    }
+		);
+	}
 }
 
 =head2 sub first_x  
@@ -1312,17 +1312,17 @@ sub first_distance_sample_value {
 
 sub first_x {
 
-    my ( $self, $f2 ) = @_;
-    if ( $f2 ne $empty_string ) {
+	my ( $self, $f2 ) = @_;
+	if ( $f2 ne $empty_string ) {
 
-        $suximage->{_f2}   = $f2;
-        $suximage->{_note} = $suximage->{_note} . ' f2=' . $suximage->{_f2};
-        $suximage->{_Step} = $suximage->{_Step} . ' f2=' . $suximage->{_f2};
+		$suximage->{_f2}   = $f2;
+		$suximage->{_note} = $suximage->{_note} . ' f2=' . $suximage->{_f2};
+		$suximage->{_Step} = $suximage->{_Step} . ' f2=' . $suximage->{_f2};
 
-    }
-    else {
-        print("suximage, first_x , missing first_x ,\n");
-    }
+	}
+	else {
+		print("suximage, first_x , missing first_x ,\n");
+	}
 }
 
 =head2 sub first_distance_tick_num
@@ -1337,14 +1337,14 @@ sub first_x {
 =cut
 
 sub first_distance_tick_num {
-    my ( $variable, $f2num ) = @_;
-    if ( $f2num ne $empty_string ) {
-        $suximage->{_f2num} = $f2num;
-        $suximage->{_Step} =
-          $suximage->{_Step} . ' f2num=' . $suximage->{_f2num};
-        $suximage->{_note} =
-          $suximage->{_note} . ' f2num=' . $suximage->{_f2num};
-    }
+	my ( $variable, $f2num ) = @_;
+	if ( $f2num ne $empty_string ) {
+		$suximage->{_f2num} = $f2num;
+		$suximage->{_Step} =
+		  $suximage->{_Step} . ' f2num=' . $suximage->{_f2num};
+		$suximage->{_note} =
+		  $suximage->{_note} . ' f2num=' . $suximage->{_f2num};
+	}
 }
 
 =head2 sub first_tick_number_x 
@@ -1359,19 +1359,19 @@ subs f2num first_tick_number_x
 
 sub first_tick_number_x {
 
-    my ( $self, $f2num ) = @_;
-    if ( $f2num ne $empty_string ) {
+	my ( $self, $f2num ) = @_;
+	if ( $f2num ne $empty_string ) {
 
-        $suximage->{_f2num} = $f2num;
-        $suximage->{_note} =
-          $suximage->{_note} . ' f2num=' . $suximage->{_f2num};
-        $suximage->{_Step} =
-          $suximage->{_Step} . ' f2num=' . $suximage->{_f2num};
+		$suximage->{_f2num} = $f2num;
+		$suximage->{_note} =
+		  $suximage->{_note} . ' f2num=' . $suximage->{_f2num};
+		$suximage->{_Step} =
+		  $suximage->{_Step} . ' f2num=' . $suximage->{_f2num};
 
-    }
-    else {
-        print("suximage, first_tick_number_x, missing first_tick_number_x,\n");
-    }
+	}
+	else {
+		print("suximage, first_tick_number_x, missing first_tick_number_x,\n");
+	}
 }
 
 =head2 sub first_time_sample_value 
@@ -1385,19 +1385,19 @@ subs f1, first_time_sample_value and first_y
 
 sub first_time_sample_value {
 
-    my ( $self, $f1 ) = @_;
-    if ( $f1 ne $empty_string ) {
+	my ( $self, $f1 ) = @_;
+	if ( $f1 ne $empty_string ) {
 
-        $suximage->{_f1}   = $f1;
-        $suximage->{_note} = $suximage->{_note} . ' f1=' . $suximage->{_f1};
-        $suximage->{_Step} = $suximage->{_Step} . ' f1=' . $suximage->{_f1};
+		$suximage->{_f1}   = $f1;
+		$suximage->{_note} = $suximage->{_note} . ' f1=' . $suximage->{_f1};
+		$suximage->{_Step} = $suximage->{_Step} . ' f1=' . $suximage->{_f1};
 
-    }
-    else {
-        print(
+	}
+	else {
+		print(
 "suximage, first_time_sample_value, missing first_time_sample_value,\n"
-        );
-    }
+		);
+	}
 }
 
 =head2 sub first_time_tick_num 
@@ -1413,19 +1413,19 @@ subs f1num first_time_tick_num
 
 sub first_time_tick_num {
 
-    my ( $self, $f1num ) = @_;
-    if ( $f1num ne $empty_string ) {
+	my ( $self, $f1num ) = @_;
+	if ( $f1num ne $empty_string ) {
 
-        $suximage->{_f1num} = $f1num;
-        $suximage->{_note} =
-          $suximage->{_note} . ' f1num=' . $suximage->{_f1num};
-        $suximage->{_Step} =
-          $suximage->{_Step} . ' f1num=' . $suximage->{_f1num};
+		$suximage->{_f1num} = $f1num;
+		$suximage->{_note} =
+		  $suximage->{_note} . ' f1num=' . $suximage->{_f1num};
+		$suximage->{_Step} =
+		  $suximage->{_Step} . ' f1num=' . $suximage->{_f1num};
 
-    }
-    else {
-        print("suximage, first_time_tick_num, missing first_time_tick_num,\n");
-    }
+	}
+	else {
+		print("suximage, first_time_tick_num, missing first_time_tick_num,\n");
+	}
 }
 
 =head2 sub first_y 
@@ -1439,17 +1439,17 @@ subs f1, first_time_sample_value and first_y
 
 sub first_y {
 
-    my ( $self, $f1 ) = @_;
-    if ( $f1 ne $empty_string ) {
+	my ( $self, $f1 ) = @_;
+	if ( $f1 ne $empty_string ) {
 
-        $suximage->{_f1}   = $f1;
-        $suximage->{_note} = $suximage->{_note} . ' f1=' . $suximage->{_f1};
-        $suximage->{_Step} = $suximage->{_Step} . ' f1=' . $suximage->{_f1};
+		$suximage->{_f1}   = $f1;
+		$suximage->{_note} = $suximage->{_note} . ' f1=' . $suximage->{_f1};
+		$suximage->{_Step} = $suximage->{_Step} . ' f1=' . $suximage->{_f1};
 
-    }
-    else {
-        print("suximage, first_y, missing first_y,\n");
-    }
+	}
+	else {
+		print("suximage, first_y, missing first_y,\n");
+	}
 }
 
 =head2 sub grid1 
@@ -1459,19 +1459,19 @@ sub first_y {
 
 sub grid1 {
 
-    my ( $self, $grid1 ) = @_;
-    if ( $grid1 ne $empty_string ) {
+	my ( $self, $grid1 ) = @_;
+	if ( $grid1 ne $empty_string ) {
 
-        $suximage->{_grid1} = $grid1;
-        $suximage->{_note} =
-          $suximage->{_note} . ' grid1=' . $suximage->{_grid1};
-        $suximage->{_Step} =
-          $suximage->{_Step} . ' grid1=' . $suximage->{_grid1};
+		$suximage->{_grid1} = $grid1;
+		$suximage->{_note} =
+		  $suximage->{_note} . ' grid1=' . $suximage->{_grid1};
+		$suximage->{_Step} =
+		  $suximage->{_Step} . ' grid1=' . $suximage->{_grid1};
 
-    }
-    else {
-        print("suximage, grid1, missing grid1,\n");
-    }
+	}
+	else {
+		print("suximage, grid1, missing grid1,\n");
+	}
 }
 
 =head2 sub grid2 
@@ -1481,19 +1481,19 @@ sub grid1 {
 
 sub grid2 {
 
-    my ( $self, $grid2 ) = @_;
-    if ( $grid2 ne $empty_string ) {
+	my ( $self, $grid2 ) = @_;
+	if ( $grid2 ne $empty_string ) {
 
-        $suximage->{_grid2} = $grid2;
-        $suximage->{_note} =
-          $suximage->{_note} . ' grid2=' . $suximage->{_grid2};
-        $suximage->{_Step} =
-          $suximage->{_Step} . ' grid2=' . $suximage->{_grid2};
+		$suximage->{_grid2} = $grid2;
+		$suximage->{_note} =
+		  $suximage->{_note} . ' grid2=' . $suximage->{_grid2};
+		$suximage->{_Step} =
+		  $suximage->{_Step} . ' grid2=' . $suximage->{_grid2};
 
-    }
-    else {
-        print("suximage, grid2, missing grid2,\n");
-    }
+	}
+	else {
+		print("suximage, grid2, missing grid2,\n");
+	}
 }
 
 =head2 sub gridcolor 
@@ -1503,19 +1503,19 @@ sub grid2 {
 
 sub gridcolor {
 
-    my ( $self, $gridcolor ) = @_;
-    if ( $gridcolor ne $empty_string ) {
+	my ( $self, $gridcolor ) = @_;
+	if ( $gridcolor ne $empty_string ) {
 
-        $suximage->{_gridcolor} = $gridcolor;
-        $suximage->{_note} =
-          $suximage->{_note} . ' gridcolor=' . $suximage->{_gridcolor};
-        $suximage->{_Step} =
-          $suximage->{_Step} . ' gridcolor=' . $suximage->{_gridcolor};
+		$suximage->{_gridcolor} = $gridcolor;
+		$suximage->{_note} =
+		  $suximage->{_note} . ' gridcolor=' . $suximage->{_gridcolor};
+		$suximage->{_Step} =
+		  $suximage->{_Step} . ' gridcolor=' . $suximage->{_gridcolor};
 
-    }
-    else {
-        print("suximage, gridcolor, missing gridcolor,\n");
-    }
+	}
+	else {
+		print("suximage, gridcolor, missing gridcolor,\n");
+	}
 }
 
 =head2 sub hbox 
@@ -1525,19 +1525,19 @@ sub gridcolor {
 
 sub hbox {
 
-    my ( $self, $hbox ) = @_;
-    if ( $hbox ne $empty_string ) {
+	my ( $self, $hbox ) = @_;
+	if ( $hbox ne $empty_string ) {
 
-        $suximage->{_hbox} = $hbox;
-        $suximage->{_note} =
-          $suximage->{_note} . ' hbox=' . $suximage->{_hbox};
-        $suximage->{_Step} =
-          $suximage->{_Step} . ' hbox=' . $suximage->{_hbox};
+		$suximage->{_hbox} = $hbox;
+		$suximage->{_note} =
+		  $suximage->{_note} . ' hbox=' . $suximage->{_hbox};
+		$suximage->{_Step} =
+		  $suximage->{_Step} . ' hbox=' . $suximage->{_hbox};
 
-    }
-    else {
-        print("suximage, hbox, missing hbox,\n");
-    }
+	}
+	else {
+		print("suximage, hbox, missing hbox,\n");
+	}
 }
 
 =head2 sub hiclip
@@ -1548,22 +1548,22 @@ sub hbox {
 
 sub hiclip {
 
-    my ( $self, $wclip ) = @_;
+	my ( $self, $wclip ) = @_;
 
-    # print("1. suximage, hiclip,$wclip,\n");
-    if ( $wclip ne $empty_string ) {
+	# print("1. suximage, hiclip,$wclip,\n");
+	if ( $wclip ne $empty_string ) {
 
-        # print("2. suximage, loclip,$wclip,\n");
-        $suximage->{_wclip} = $wclip;
-        $suximage->{_note} =
-          $suximage->{_note} . ' wclip=' . $suximage->{_wclip};
-        $suximage->{_Step} =
-          $suximage->{_Step} . ' wclip=' . $suximage->{_wclip};
+		# print("2. suximage, loclip,$wclip,\n");
+		$suximage->{_wclip} = $wclip;
+		$suximage->{_note} =
+		  $suximage->{_note} . ' wclip=' . $suximage->{_wclip};
+		$suximage->{_Step} =
+		  $suximage->{_Step} . ' wclip=' . $suximage->{_wclip};
 
-    }
-    else {
-        print("suximage, hiclip, missing hiclip,\n");
-    }
+	}
+	else {
+		print("suximage, hiclip, missing hiclip,\n");
+	}
 }
 
 =head2 sub label1 
@@ -1574,19 +1574,19 @@ subs xlabel or label2  ylabel or labe1
 
 sub label1 {
 
-    my ( $self, $label1 ) = @_;
-    if ( $label1 ne $empty_string ) {
+	my ( $self, $label1 ) = @_;
+	if ( $label1 ne $empty_string ) {
 
-        $suximage->{_label1} = $label1;
-        $suximage->{_note} =
-          $suximage->{_note} . ' label1=' . $suximage->{_label1};
-        $suximage->{_Step} =
-          $suximage->{_Step} . ' label1=' . $suximage->{_label1};
+		$suximage->{_label1} = $label1;
+		$suximage->{_note} =
+		  $suximage->{_note} . ' label1=' . '"' . $suximage->{_label1} . '"';
+		$suximage->{_Step} =
+		  $suximage->{_Step} . ' label1=' . '"' . $suximage->{_label1} . '"';
 
-    }
-    else {
-        print("suximage, label1, missing label1,\n");
-    }
+	}
+	else {
+		print("suximage, label1, missing label1,\n");
+	}
 }
 
 =head2 sub label2 
@@ -1597,19 +1597,19 @@ subs xlabel or label2  ylabel or labe1
 
 sub label2 {
 
-    my ( $self, $label2 ) = @_;
-    if ( $label2 ne $empty_string ) {
+	my ( $self, $label2 ) = @_;
+	if ( $label2 ne $empty_string ) {
 
-        $suximage->{_label2} = $label2;
-        $suximage->{_note} =
-          $suximage->{_note} . ' label2=' . $suximage->{_label2};
-        $suximage->{_Step} =
-          $suximage->{_Step} . ' label2=' . $suximage->{_label2};
+		$suximage->{_label2} = $label2;
+		$suximage->{_note} =
+		  $suximage->{_note} . ' label2=' . $suximage->{_label2};
+		$suximage->{_Step} =
+		  $suximage->{_Step} . ' label2=' . $suximage->{_label2};
 
-    }
-    else {
-        print("suximage, label2, missing label2,\n");
-    }
+	}
+	else {
+		print("suximage, label2, missing label2,\n");
+	}
 }
 
 =head2 sub labelcolor 
@@ -1619,19 +1619,19 @@ sub label2 {
 
 sub labelcolor {
 
-    my ( $self, $labelcolor ) = @_;
-    if ( $labelcolor ne $empty_string ) {
+	my ( $self, $labelcolor ) = @_;
+	if ( $labelcolor ne $empty_string ) {
 
-        $suximage->{_labelcolor} = $labelcolor;
-        $suximage->{_note} =
-          $suximage->{_note} . ' labelcolor=' . $suximage->{_labelcolor};
-        $suximage->{_Step} =
-          $suximage->{_Step} . ' labelcolor=' . $suximage->{_labelcolor};
+		$suximage->{_labelcolor} = $labelcolor;
+		$suximage->{_note} =
+		  $suximage->{_note} . ' labelcolor=' . $suximage->{_labelcolor};
+		$suximage->{_Step} =
+		  $suximage->{_Step} . ' labelcolor=' . $suximage->{_labelcolor};
 
-    }
-    else {
-        print("suximage, labelcolor, missing labelcolor,\n");
-    }
+	}
+	else {
+		print("suximage, labelcolor, missing labelcolor,\n");
+	}
 }
 
 =head2 sub labelfont 
@@ -1641,19 +1641,19 @@ sub labelcolor {
 
 sub labelfont {
 
-    my ( $self, $labelfont ) = @_;
-    if ( $labelfont ne $empty_string ) {
+	my ( $self, $labelfont ) = @_;
+	if ( $labelfont ne $empty_string ) {
 
-        $suximage->{_labelfont} = $labelfont;
-        $suximage->{_note} =
-          $suximage->{_note} . ' labelfont=' . $suximage->{_labelfont};
-        $suximage->{_Step} =
-          $suximage->{_Step} . ' labelfont=' . $suximage->{_labelfont};
+		$suximage->{_labelfont} = $labelfont;
+		$suximage->{_note} =
+		  $suximage->{_note} . ' labelfont=' . $suximage->{_labelfont};
+		$suximage->{_Step} =
+		  $suximage->{_Step} . ' labelfont=' . $suximage->{_labelfont};
 
-    }
-    else {
-        print("suximage, labelfont, missing labelfont,\n");
-    }
+	}
+	else {
+		print("suximage, labelfont, missing labelfont,\n");
+	}
 }
 
 =head2 sub legend 
@@ -1663,19 +1663,19 @@ sub labelfont {
 
 sub legend {
 
-    my ( $self, $legend ) = @_;
-    if ( $legend ne $empty_string ) {
+	my ( $self, $legend ) = @_;
+	if ( $legend ne $empty_string ) {
 
-        $suximage->{_legend} = $legend;
-        $suximage->{_note} =
-          $suximage->{_note} . ' legend=' . $suximage->{_legend};
-        $suximage->{_Step} =
-          $suximage->{_Step} . ' legend=' . $suximage->{_legend};
+		$suximage->{_legend} = $legend;
+		$suximage->{_note} =
+		  $suximage->{_note} . ' legend=' . $suximage->{_legend};
+		$suximage->{_Step} =
+		  $suximage->{_Step} . ' legend=' . $suximage->{_legend};
 
-    }
-    else {
-        print("suximage, legend, missing legend,\n");
-    }
+	}
+	else {
+		print("suximage, legend, missing legend,\n");
+	}
 }
 
 =head2 sub legendfont 
@@ -1685,19 +1685,19 @@ sub legend {
 
 sub legendfont {
 
-    my ( $self, $legendfont ) = @_;
-    if ( $legendfont ne $empty_string ) {
+	my ( $self, $legendfont ) = @_;
+	if ( $legendfont ne $empty_string ) {
 
-        $suximage->{_legendfont} = $legendfont;
-        $suximage->{_note} =
-          $suximage->{_note} . ' legendfont=' . $suximage->{_legendfont};
-        $suximage->{_Step} =
-          $suximage->{_Step} . ' legendfont=' . $suximage->{_legendfont};
+		$suximage->{_legendfont} = $legendfont;
+		$suximage->{_note} =
+		  $suximage->{_note} . ' legendfont=' . $suximage->{_legendfont};
+		$suximage->{_Step} =
+		  $suximage->{_Step} . ' legendfont=' . $suximage->{_legendfont};
 
-    }
-    else {
-        print("suximage, legendfont, missing legendfont,\n");
-    }
+	}
+	else {
+		print("suximage, legendfont, missing legendfont,\n");
+	}
 }
 
 =head2 sub lheight 
@@ -1707,19 +1707,19 @@ sub legendfont {
 
 sub lheight {
 
-    my ( $self, $lheight ) = @_;
-    if ( $lheight ne $empty_string ) {
+	my ( $self, $lheight ) = @_;
+	if ( $lheight ne $empty_string ) {
 
-        $suximage->{_lheight} = $lheight;
-        $suximage->{_note} =
-          $suximage->{_note} . ' lheight=' . $suximage->{_lheight};
-        $suximage->{_Step} =
-          $suximage->{_Step} . ' lheight=' . $suximage->{_lheight};
+		$suximage->{_lheight} = $lheight;
+		$suximage->{_note} =
+		  $suximage->{_note} . ' lheight=' . $suximage->{_lheight};
+		$suximage->{_Step} =
+		  $suximage->{_Step} . ' lheight=' . $suximage->{_lheight};
 
-    }
-    else {
-        print("suximage, lheight, missing lheight,\n");
-    }
+	}
+	else {
+		print("suximage, lheight, missing lheight,\n");
+	}
 }
 
 =head2 sub loclip 
@@ -1730,22 +1730,22 @@ sub lheight {
 
 sub loclip {
 
-    my ( $self, $bclip ) = @_;
+	my ( $self, $bclip ) = @_;
 
-    # print("suximage, loclip, $bclip,\n");
+	# print("suximage, loclip, $bclip,\n");
 
-    # $wclip >= 0  &&
-    if ( $bclip ne $empty_string ) {
+	# $wclip >= 0  &&
+	if ( $bclip ne $empty_string ) {
 
-        $suximage->{_bclip} = $bclip;
-        $suximage->{_note} =
-          $suximage->{_note} . ' bclip=' . $suximage->{_bclip};
-        $suximage->{_Step} =
-          $suximage->{_Step} . ' bclip=' . $suximage->{_bclip};
-    }
-    else {
-        print("suximage, loclip, missing loclip,\n");
-    }
+		$suximage->{_bclip} = $bclip;
+		$suximage->{_note} =
+		  $suximage->{_note} . ' bclip=' . $suximage->{_bclip};
+		$suximage->{_Step} =
+		  $suximage->{_Step} . ' bclip=' . $suximage->{_bclip};
+	}
+	else {
+		print("suximage, loclip, missing loclip,\n");
+	}
 }
 
 =head2 sub lwidth 
@@ -1755,19 +1755,19 @@ sub loclip {
 
 sub lwidth {
 
-    my ( $self, $lwidth ) = @_;
-    if ( $lwidth ne $empty_string ) {
+	my ( $self, $lwidth ) = @_;
+	if ( $lwidth ne $empty_string ) {
 
-        $suximage->{_lwidth} = $lwidth;
-        $suximage->{_note} =
-          $suximage->{_note} . ' lwidth=' . $suximage->{_lwidth};
-        $suximage->{_Step} =
-          $suximage->{_Step} . ' lwidth=' . $suximage->{_lwidth};
+		$suximage->{_lwidth} = $lwidth;
+		$suximage->{_note} =
+		  $suximage->{_note} . ' lwidth=' . $suximage->{_lwidth};
+		$suximage->{_Step} =
+		  $suximage->{_Step} . ' lwidth=' . $suximage->{_lwidth};
 
-    }
-    else {
-        print("suximage, lwidth, missing lwidth,\n");
-    }
+	}
+	else {
+		print("suximage, lwidth, missing lwidth,\n");
+	}
 }
 
 =head2 sub lx 
@@ -1777,17 +1777,17 @@ sub lwidth {
 
 sub lx {
 
-    my ( $self, $lx ) = @_;
-    if ( $lx ne $empty_string ) {
+	my ( $self, $lx ) = @_;
+	if ( $lx ne $empty_string ) {
 
-        $suximage->{_lx}   = $lx;
-        $suximage->{_note} = $suximage->{_note} . ' lx=' . $suximage->{_lx};
-        $suximage->{_Step} = $suximage->{_Step} . ' lx=' . $suximage->{_lx};
+		$suximage->{_lx}   = $lx;
+		$suximage->{_note} = $suximage->{_note} . ' lx=' . $suximage->{_lx};
+		$suximage->{_Step} = $suximage->{_Step} . ' lx=' . $suximage->{_lx};
 
-    }
-    else {
-        print("suximage, lx, missing lx,\n");
-    }
+	}
+	else {
+		print("suximage, lx, missing lx,\n");
+	}
 }
 
 =head2 sub ly 
@@ -1797,17 +1797,17 @@ sub lx {
 
 sub ly {
 
-    my ( $self, $ly ) = @_;
-    if ( $ly ne $empty_string ) {
+	my ( $self, $ly ) = @_;
+	if ( $ly ne $empty_string ) {
 
-        $suximage->{_ly}   = $ly;
-        $suximage->{_note} = $suximage->{_note} . ' ly=' . $suximage->{_ly};
-        $suximage->{_Step} = $suximage->{_Step} . ' ly=' . $suximage->{_ly};
+		$suximage->{_ly}   = $ly;
+		$suximage->{_note} = $suximage->{_note} . ' ly=' . $suximage->{_ly};
+		$suximage->{_Step} = $suximage->{_Step} . ' ly=' . $suximage->{_ly};
 
-    }
-    else {
-        print("suximage, ly, missing ly,\n");
-    }
+	}
+	else {
+		print("suximage, ly, missing ly,\n");
+	}
 }
 
 =head2 sub mpicks 
@@ -1819,19 +1819,19 @@ sub ly {
 
 sub mpicks {
 
-    my ( $self, $mpicks ) = @_;
-    if ( $mpicks ne $empty_string ) {
+	my ( $self, $mpicks ) = @_;
+	if ( $mpicks ne $empty_string ) {
 
-        $suximage->{_mpicks} = $mpicks;
-        $suximage->{_note} =
-          $suximage->{_note} . ' mpicks=' . $suximage->{_mpicks};
-        $suximage->{_Step} =
-          $suximage->{_Step} . ' mpicks=' . $suximage->{_mpicks};
+		$suximage->{_mpicks} = $mpicks;
+		$suximage->{_note} =
+		  $suximage->{_note} . ' mpicks=' . $suximage->{_mpicks};
+		$suximage->{_Step} =
+		  $suximage->{_Step} . ' mpicks=' . $suximage->{_mpicks};
 
-    }
-    else {
-        print("suximage, mpicks, missing mpicks,\n");
-    }
+	}
+	else {
+		print("suximage, mpicks, missing mpicks,\n");
+	}
 }
 
 =head2 sub n1 
@@ -1843,17 +1843,17 @@ n1			 number of samples in 1st (fast) dimension
 
 sub n1 {
 
-    my ( $self, $n1 ) = @_;
-    if ( $n1 ne $empty_string ) {
+	my ( $self, $n1 ) = @_;
+	if ( $n1 ne $empty_string ) {
 
-        $suximage->{_n1}   = $n1;
-        $suximage->{_note} = $suximage->{_note} . ' n1=' . $suximage->{_n1};
-        $suximage->{_Step} = $suximage->{_Step} . ' n1=' . $suximage->{_n1};
+		$suximage->{_n1}   = $n1;
+		$suximage->{_note} = $suximage->{_note} . ' n1=' . $suximage->{_n1};
+		$suximage->{_Step} = $suximage->{_Step} . ' n1=' . $suximage->{_n1};
 
-    }
-    else {
-        print("suximage, n1, missing n1,\n");
-    }
+	}
+	else {
+		print("suximage, n1, missing n1,\n");
+	}
 }
 
 =head2 sub n1tic 
@@ -1868,19 +1868,19 @@ sub n1 {
 
 sub n1tic {
 
-    my ( $self, $n1tic ) = @_;
-    if ( $n1tic ne $empty_string ) {
+	my ( $self, $n1tic ) = @_;
+	if ( $n1tic ne $empty_string ) {
 
-        $suximage->{_n1tic} = $n1tic;
-        $suximage->{_note} =
-          $suximage->{_note} . ' n1tic=' . $suximage->{_n1tic};
-        $suximage->{_Step} =
-          $suximage->{_Step} . ' n1tic=' . $suximage->{_n1tic};
+		$suximage->{_n1tic} = $n1tic;
+		$suximage->{_note} =
+		  $suximage->{_note} . ' n1tic=' . $suximage->{_n1tic};
+		$suximage->{_Step} =
+		  $suximage->{_Step} . ' n1tic=' . $suximage->{_n1tic};
 
-    }
-    else {
-        print("suximage, n1tic, missing n1tic,\n");
-    }
+	}
+	else {
+		print("suximage, n1tic, missing n1tic,\n");
+	}
 }
 
 =head2 sub n2 
@@ -1890,17 +1890,17 @@ sub n1tic {
 
 sub n2 {
 
-    my ( $self, $n2 ) = @_;
-    if ( $n2 ne $empty_string ) {
+	my ( $self, $n2 ) = @_;
+	if ( $n2 ne $empty_string ) {
 
-        $suximage->{_n2}   = $n2;
-        $suximage->{_note} = $suximage->{_note} . ' n2=' . $suximage->{_n2};
-        $suximage->{_Step} = $suximage->{_Step} . ' n2=' . $suximage->{_n2};
+		$suximage->{_n2}   = $n2;
+		$suximage->{_note} = $suximage->{_note} . ' n2=' . $suximage->{_n2};
+		$suximage->{_Step} = $suximage->{_Step} . ' n2=' . $suximage->{_n2};
 
-    }
-    else {
-        print("suximage, n2, missing n2,\n");
-    }
+	}
+	else {
+		print("suximage, n2, missing n2,\n");
+	}
 }
 
 =head2 sub n2tic 
@@ -1915,19 +1915,19 @@ subs n2tic and num_minor_ticks_betw_distance_ticks
 
 sub n2tic {
 
-    my ( $self, $n2tic ) = @_;
-    if ( $n2tic ne $empty_string ) {
+	my ( $self, $n2tic ) = @_;
+	if ( $n2tic ne $empty_string ) {
 
-        $suximage->{_n2tic} = $n2tic;
-        $suximage->{_note} =
-          $suximage->{_note} . ' n2tic=' . $suximage->{_n2tic};
-        $suximage->{_Step} =
-          $suximage->{_Step} . ' n2tic=' . $suximage->{_n2tic};
+		$suximage->{_n2tic} = $n2tic;
+		$suximage->{_note} =
+		  $suximage->{_note} . ' n2tic=' . $suximage->{_n2tic};
+		$suximage->{_Step} =
+		  $suximage->{_Step} . ' n2tic=' . $suximage->{_n2tic};
 
-    }
-    else {
-        print("suximage, n2tic, missing n2tic,\n");
-    }
+	}
+	else {
+		print("suximage, n2tic, missing n2tic,\n");
+	}
 }
 
 =head2 sub npair 
@@ -1938,19 +1938,19 @@ sub n2tic {
 
 sub npair {
 
-    my ( $self, $npair ) = @_;
-    if ( $npair ne $empty_string ) {
+	my ( $self, $npair ) = @_;
+	if ( $npair ne $empty_string ) {
 
-        $suximage->{_npair} = $npair;
-        $suximage->{_note} =
-          $suximage->{_note} . ' npair=' . $suximage->{_npair};
-        $suximage->{_Step} =
-          $suximage->{_Step} . ' npair=' . $suximage->{_npair};
+		$suximage->{_npair} = $npair;
+		$suximage->{_note} =
+		  $suximage->{_note} . ' npair=' . $suximage->{_npair};
+		$suximage->{_Step} =
+		  $suximage->{_Step} . ' npair=' . $suximage->{_npair};
 
-    }
-    else {
-        print("suximage, npair, missing npair,\n");
-    }
+	}
+	else {
+		print("suximage, npair, missing npair,\n");
+	}
 }
 
 =head2 sub num_minor_ticks_betw_distance_ticks 
@@ -1965,21 +1965,21 @@ subs n2tic and num_minor_ticks_betw_distance_ticks
 
 sub num_minor_ticks_betw_distance_ticks {
 
-    my ( $self, $n2tic ) = @_;
-    if ( $n2tic ne $empty_string ) {
+	my ( $self, $n2tic ) = @_;
+	if ( $n2tic ne $empty_string ) {
 
-        $suximage->{_n2tic} = $n2tic;
-        $suximage->{_note} =
-          $suximage->{_note} . ' n2tic=' . $suximage->{_n2tic};
-        $suximage->{_Step} =
-          $suximage->{_Step} . ' n2tic=' . $suximage->{_n2tic};
+		$suximage->{_n2tic} = $n2tic;
+		$suximage->{_note} =
+		  $suximage->{_note} . ' n2tic=' . $suximage->{_n2tic};
+		$suximage->{_Step} =
+		  $suximage->{_Step} . ' n2tic=' . $suximage->{_n2tic};
 
-    }
-    else {
-        print(
+	}
+	else {
+		print(
 "suximage, num_minor_ticks_betw_distance_ticks, missing num_minor_ticks_betw_distance_ticks,\n"
-        );
-    }
+		);
+	}
 }
 
 =head2 sub num_minor_ticks_betw_time_ticks 
@@ -1994,21 +1994,21 @@ sub num_minor_ticks_betw_distance_ticks {
 
 sub num_minor_ticks_betw_time_ticks {
 
-    my ( $self, $n1tic ) = @_;
-    if ( $n1tic ne $empty_string ) {
+	my ( $self, $n1tic ) = @_;
+	if ( $n1tic ne $empty_string ) {
 
-        $suximage->{_n1tic} = $n1tic;
-        $suximage->{_note} =
-          $suximage->{_note} . ' n1tic=' . $suximage->{_n1tic};
-        $suximage->{_Step} =
-          $suximage->{_Step} . ' n1tic=' . $suximage->{_n1tic};
+		$suximage->{_n1tic} = $n1tic;
+		$suximage->{_note} =
+		  $suximage->{_note} . ' n1tic=' . $suximage->{_n1tic};
+		$suximage->{_Step} =
+		  $suximage->{_Step} . ' n1tic=' . $suximage->{_n1tic};
 
-    }
-    else {
-        print(
+	}
+	else {
+		print(
 "suximage, num_minor_ticks_betw_time_ticks, missing num_minor_ticks_betw_time_ticks,\n"
-        );
-    }
+		);
+	}
 }
 
 =head2 sub orientation
@@ -2022,19 +2022,19 @@ sub num_minor_ticks_betw_time_ticks {
 
 sub orientation {
 
-    my ( $self, $style ) = @_;
-    if ( $style ne $empty_string ) {
+	my ( $self, $style ) = @_;
+	if ( $style ne $empty_string ) {
 
-        $suximage->{_style} = $style;
-        $suximage->{_note} =
-          $suximage->{_note} . ' style=' . $suximage->{_style};
-        $suximage->{_Step} =
-          $suximage->{_Step} . ' style=' . $suximage->{_style};
+		$suximage->{_style} = $style;
+		$suximage->{_note} =
+		  $suximage->{_note} . ' style=' . $suximage->{_style};
+		$suximage->{_Step} =
+		  $suximage->{_Step} . ' style=' . $suximage->{_style};
 
-    }
-    else {
-        print("suximage, orientation, missing orientation,\n");
-    }
+	}
+	else {
+		print("suximage, orientation, missing orientation,\n");
+	}
 }
 
 =head2 sub perc 
@@ -2045,19 +2045,19 @@ sub orientation {
 
 sub perc {
 
-    my ( $self, $perc ) = @_;
-    if ( $perc ne $empty_string ) {
+	my ( $self, $perc ) = @_;
+	if ( $perc ne $empty_string ) {
 
-        $suximage->{_perc} = $perc;
-        $suximage->{_note} =
-          $suximage->{_note} . ' perc=' . $suximage->{_perc};
-        $suximage->{_Step} =
-          $suximage->{_Step} . ' perc=' . $suximage->{_perc};
+		$suximage->{_perc} = $perc;
+		$suximage->{_note} =
+		  $suximage->{_note} . ' perc=' . $suximage->{_perc};
+		$suximage->{_Step} =
+		  $suximage->{_Step} . ' perc=' . $suximage->{_perc};
 
-    }
-    else {
-        print("suximage, perc, missing perc,\n");
-    }
+	}
+	else {
+		print("suximage, perc, missing perc,\n");
+	}
 }
 
 =head2 sub percent4clip
@@ -2068,19 +2068,19 @@ sub perc {
 
 sub percent4clip {
 
-    my ( $self, $perc ) = @_;
-    if ( $perc ne $empty_string ) {
+	my ( $self, $perc ) = @_;
+	if ( $perc ne $empty_string ) {
 
-        $suximage->{_perc} = $perc;
-        $suximage->{_note} =
-          $suximage->{_note} . ' perc=' . $suximage->{_perc};
-        $suximage->{_Step} =
-          $suximage->{_Step} . ' perc=' . $suximage->{_perc};
+		$suximage->{_perc} = $perc;
+		$suximage->{_note} =
+		  $suximage->{_note} . ' perc=' . $suximage->{_perc};
+		$suximage->{_Step} =
+		  $suximage->{_Step} . ' perc=' . $suximage->{_perc};
 
-    }
-    else {
-        print("suximage, percent4clip, missing percent4clip,\n");
-    }
+	}
+	else {
+		print("suximage, percent4clip, missing percent4clip,\n");
+	}
 }
 
 =head2 sub picks 
@@ -2092,19 +2092,19 @@ sub percent4clip {
 
 sub picks {
 
-    my ( $self, $mpicks ) = @_;
-    if ( $mpicks ne $empty_string ) {
+	my ( $self, $mpicks ) = @_;
+	if ( $mpicks ne $empty_string ) {
 
-        $suximage->{_mpicks} = $mpicks;
-        $suximage->{_note} =
-          $suximage->{_note} . ' mpicks=' . $suximage->{_mpicks};
-        $suximage->{_Step} =
-          $suximage->{_Step} . ' mpicks=' . $suximage->{_mpicks};
+		$suximage->{_mpicks} = $mpicks;
+		$suximage->{_note} =
+		  $suximage->{_note} . ' mpicks=' . $suximage->{_mpicks};
+		$suximage->{_Step} =
+		  $suximage->{_Step} . ' mpicks=' . $suximage->{_mpicks};
 
-    }
-    else {
-        print("suximage, picks, missing picks,\n");
-    }
+	}
+	else {
+		print("suximage, picks, missing picks,\n");
+	}
 }
 
 =head2 sub plotfile 
@@ -2114,19 +2114,19 @@ sub picks {
 
 sub plotfile {
 
-    my ( $self, $plotfile ) = @_;
-    if ( $plotfile ne $empty_string ) {
+	my ( $self, $plotfile ) = @_;
+	if ( $plotfile ne $empty_string ) {
 
-        $suximage->{_plotfile} = $plotfile;
-        $suximage->{_note} =
-          $suximage->{_note} . ' plotfile=' . $suximage->{_plotfile};
-        $suximage->{_Step} =
-          $suximage->{_Step} . ' plotfile=' . $suximage->{_plotfile};
+		$suximage->{_plotfile} = $plotfile;
+		$suximage->{_note} =
+		  $suximage->{_note} . ' plotfile=' . $suximage->{_plotfile};
+		$suximage->{_Step} =
+		  $suximage->{_Step} . ' plotfile=' . $suximage->{_plotfile};
 
-    }
-    else {
-        print("suximage, plotfile, missing plotfile,\n");
-    }
+	}
+	else {
+		print("suximage, plotfile, missing plotfile,\n");
+	}
 }
 
 =head2 sub style 
@@ -2140,19 +2140,19 @@ sub plotfile {
 
 sub style {
 
-    my ( $self, $style ) = @_;
-    if ( $style ne $empty_string ) {
+	my ( $self, $style ) = @_;
+	if ( $style ne $empty_string ) {
 
-        $suximage->{_style} = $style;
-        $suximage->{_note} =
-          $suximage->{_note} . ' style=' . $suximage->{_style};
-        $suximage->{_Step} =
-          $suximage->{_Step} . ' style=' . $suximage->{_style};
+		$suximage->{_style} = $style;
+		$suximage->{_note} =
+		  $suximage->{_note} . ' style=' . $suximage->{_style};
+		$suximage->{_Step} =
+		  $suximage->{_Step} . ' style=' . $suximage->{_style};
 
-    }
-    else {
-        print("suximage, style, missing style,\n");
-    }
+	}
+	else {
+		print("suximage, style, missing style,\n");
+	}
 }
 
 =head2 sub tend_s 
@@ -2165,19 +2165,19 @@ subs x1end and tend_s
 
 sub tend_s {
 
-    my ( $self, $x1end ) = @_;
-    if ( $x1end ne $empty_string ) {
+	my ( $self, $x1end ) = @_;
+	if ( $x1end ne $empty_string ) {
 
-        $suximage->{_x1end} = $x1end;
-        $suximage->{_note} =
-          $suximage->{_note} . ' x1end=' . $suximage->{_x1end};
-        $suximage->{_Step} =
-          $suximage->{_Step} . ' x1end=' . $suximage->{_x1end};
+		$suximage->{_x1end} = $x1end;
+		$suximage->{_note} =
+		  $suximage->{_note} . ' x1end=' . $suximage->{_x1end};
+		$suximage->{_Step} =
+		  $suximage->{_Step} . ' x1end=' . $suximage->{_x1end};
 
-    }
-    else {
-        print("suximage, tend_s, missing tend_s,\n");
-    }
+	}
+	else {
+		print("suximage, tend_s, missing tend_s,\n");
+	}
 }
 
 =head2 sub title 
@@ -2189,19 +2189,19 @@ sub tend_s {
 
 sub title {
 
-    my ( $self, $title ) = @_;
-    if ( $title ne $empty_string ) {
+	my ( $self, $title ) = @_;
+	if ( $title ne $empty_string ) {
 
-        $suximage->{_title} = $title;
-        $suximage->{_note} =
-          $suximage->{_note} . ' title=' . $suximage->{_title};
-        $suximage->{_Step} =
-          $suximage->{_Step} . ' title=' . $suximage->{_title};
+		$suximage->{_title} = $title;
+		$suximage->{_note} =
+		  $suximage->{_note} . ' title=' . $suximage->{_title};
+		$suximage->{_Step} =
+		  $suximage->{_Step} . ' title=' . $suximage->{_title};
 
-    }
-    else {
-        print("suximage, title, missing title,\n");
-    }
+	}
+	else {
+		print("suximage, title, missing title,\n");
+	}
 }
 
 =head2 sub titlecolor 
@@ -2211,19 +2211,19 @@ sub title {
 
 sub titlecolor {
 
-    my ( $self, $titlecolor ) = @_;
-    if ( $titlecolor ne $empty_string ) {
+	my ( $self, $titlecolor ) = @_;
+	if ( $titlecolor ne $empty_string ) {
 
-        $suximage->{_titlecolor} = $titlecolor;
-        $suximage->{_note} =
-          $suximage->{_note} . ' titlecolor=' . $suximage->{_titlecolor};
-        $suximage->{_Step} =
-          $suximage->{_Step} . ' titlecolor=' . $suximage->{_titlecolor};
+		$suximage->{_titlecolor} = $titlecolor;
+		$suximage->{_note} =
+		  $suximage->{_note} . ' titlecolor=' . $suximage->{_titlecolor};
+		$suximage->{_Step} =
+		  $suximage->{_Step} . ' titlecolor=' . $suximage->{_titlecolor};
 
-    }
-    else {
-        print("suximage, titlecolor, missing titlecolor,\n");
-    }
+	}
+	else {
+		print("suximage, titlecolor, missing titlecolor,\n");
+	}
 }
 
 =head2 sub titlefont 
@@ -2233,19 +2233,19 @@ sub titlecolor {
 
 sub titlefont {
 
-    my ( $self, $titlefont ) = @_;
-    if ( $titlefont ne $empty_string ) {
+	my ( $self, $titlefont ) = @_;
+	if ( $titlefont ne $empty_string ) {
 
-        $suximage->{_titlefont} = $titlefont;
-        $suximage->{_note} =
-          $suximage->{_note} . ' titlefont=' . $suximage->{_titlefont};
-        $suximage->{_Step} =
-          $suximage->{_Step} . ' titlefont=' . $suximage->{_titlefont};
+		$suximage->{_titlefont} = $titlefont;
+		$suximage->{_note} =
+		  $suximage->{_note} . ' titlefont=' . $suximage->{_titlefont};
+		$suximage->{_Step} =
+		  $suximage->{_Step} . ' titlefont=' . $suximage->{_titlefont};
 
-    }
-    else {
-        print("suximage, titlefont, missing titlefont,\n");
-    }
+	}
+	else {
+		print("suximage, titlefont, missing titlefont,\n");
+	}
 }
 
 =head2 sub tmpdir 
@@ -2255,19 +2255,19 @@ sub titlefont {
 
 sub tmpdir {
 
-    my ( $self, $tmpdir ) = @_;
-    if ( $tmpdir ne $empty_string ) {
+	my ( $self, $tmpdir ) = @_;
+	if ( $tmpdir ne $empty_string ) {
 
-        $suximage->{_tmpdir} = $tmpdir;
-        $suximage->{_note} =
-          $suximage->{_note} . ' tmpdir=' . $suximage->{_tmpdir};
-        $suximage->{_Step} =
-          $suximage->{_Step} . ' tmpdir=' . $suximage->{_tmpdir};
+		$suximage->{_tmpdir} = $tmpdir;
+		$suximage->{_note} =
+		  $suximage->{_note} . ' tmpdir=' . $suximage->{_tmpdir};
+		$suximage->{_Step} =
+		  $suximage->{_Step} . ' tmpdir=' . $suximage->{_tmpdir};
 
-    }
-    else {
-        print("suximage, tmpdir, missing tmpdir,\n");
-    }
+	}
+	else {
+		print("suximage, tmpdir, missing tmpdir,\n");
+	}
 }
 
 =head2 sub trace_inc 
@@ -2282,17 +2282,17 @@ sub tmpdir {
 
 sub trace_inc {
 
-    my ( $self, $d2 ) = @_;
-    if ( $d2 ne $empty_string ) {
+	my ( $self, $d2 ) = @_;
+	if ( $d2 ne $empty_string ) {
 
-        $suximage->{_d2}   = $d2;
-        $suximage->{_note} = $suximage->{_note} . ' d2=' . $suximage->{_d2};
-        $suximage->{_Step} = $suximage->{_Step} . ' d2=' . $suximage->{_d2};
+		$suximage->{_d2}   = $d2;
+		$suximage->{_note} = $suximage->{_note} . ' d2=' . $suximage->{_d2};
+		$suximage->{_Step} = $suximage->{_Step} . ' d2=' . $suximage->{_d2};
 
-    }
-    else {
-        print("suximage, trace_inc, missing trace_inc,\n");
-    }
+	}
+	else {
+		print("suximage, trace_inc, missing trace_inc,\n");
+	}
 }
 
 =head2 sub tstart_s 
@@ -2307,19 +2307,19 @@ subs x1beg and tstart_s
 
 sub tstart_s {
 
-    my ( $self, $x1beg ) = @_;
-    if ( $x1beg ne $empty_string ) {
+	my ( $self, $x1beg ) = @_;
+	if ( $x1beg ne $empty_string ) {
 
-        $suximage->{_x1beg} = $x1beg;
-        $suximage->{_note} =
-          $suximage->{_note} . ' x1beg=' . $suximage->{_x1beg};
-        $suximage->{_Step} =
-          $suximage->{_Step} . ' x1beg=' . $suximage->{_x1beg};
+		$suximage->{_x1beg} = $x1beg;
+		$suximage->{_note} =
+		  $suximage->{_note} . ' x1beg=' . $suximage->{_x1beg};
+		$suximage->{_Step} =
+		  $suximage->{_Step} . ' x1beg=' . $suximage->{_x1beg};
 
-    }
-    else {
-        print("suximage, tstart_s, missing tstart_s,\n");
-    }
+	}
+	else {
+		print("suximage, tstart_s, missing tstart_s,\n");
+	}
 }
 
 =head2 sub units 
@@ -2329,19 +2329,19 @@ sub tstart_s {
 
 sub units {
 
-    my ( $self, $units ) = @_;
-    if ( $units ne $empty_string ) {
+	my ( $self, $units ) = @_;
+	if ( $units ne $empty_string ) {
 
-        $suximage->{_units} = $units;
-        $suximage->{_note} =
-          $suximage->{_note} . ' units=' . $suximage->{_units};
-        $suximage->{_Step} =
-          $suximage->{_Step} . ' units=' . $suximage->{_units};
+		$suximage->{_units} = $units;
+		$suximage->{_note} =
+		  $suximage->{_note} . ' units=' . $suximage->{_units};
+		$suximage->{_Step} =
+		  $suximage->{_Step} . ' units=' . $suximage->{_units};
 
-    }
-    else {
-        print("suximage, units, missing units,\n");
-    }
+	}
+	else {
+		print("suximage, units, missing units,\n");
+	}
 }
 
 =head2 sub verbose 
@@ -2351,19 +2351,19 @@ sub units {
 
 sub verbose {
 
-    my ( $self, $verbose ) = @_;
-    if ( $verbose ne $empty_string ) {
+	my ( $self, $verbose ) = @_;
+	if ( $verbose ne $empty_string ) {
 
-        $suximage->{_verbose} = $verbose;
-        $suximage->{_note} =
-          $suximage->{_note} . ' verbose=' . $suximage->{_verbose};
-        $suximage->{_Step} =
-          $suximage->{_Step} . ' verbose=' . $suximage->{_verbose};
+		$suximage->{_verbose} = $verbose;
+		$suximage->{_note} =
+		  $suximage->{_note} . ' verbose=' . $suximage->{_verbose};
+		$suximage->{_Step} =
+		  $suximage->{_Step} . ' verbose=' . $suximage->{_verbose};
 
-    }
-    else {
-        print("suximage, verbose, missing verbose,\n");
-    }
+	}
+	else {
+		print("suximage, verbose, missing verbose,\n");
+	}
 }
 
 =head2 sub wbox 
@@ -2373,19 +2373,19 @@ sub verbose {
 
 sub wbox {
 
-    my ( $self, $wbox ) = @_;
-    if ( $wbox ne $empty_string ) {
+	my ( $self, $wbox ) = @_;
+	if ( $wbox ne $empty_string ) {
 
-        $suximage->{_wbox} = $wbox;
-        $suximage->{_note} =
-          $suximage->{_note} . ' wbox=' . $suximage->{_wbox};
-        $suximage->{_Step} =
-          $suximage->{_Step} . ' wbox=' . $suximage->{_wbox};
+		$suximage->{_wbox} = $wbox;
+		$suximage->{_note} =
+		  $suximage->{_note} . ' wbox=' . $suximage->{_wbox};
+		$suximage->{_Step} =
+		  $suximage->{_Step} . ' wbox=' . $suximage->{_wbox};
 
-    }
-    else {
-        print("suximage, wbox, missing wbox,\n");
-    }
+	}
+	else {
+		print("suximage, wbox, missing wbox,\n");
+	}
 }
 
 =head2 sub wclip 
@@ -2396,21 +2396,21 @@ sub wbox {
 
 sub wclip {
 
-    my ( $self, $wclip ) = @_;
+	my ( $self, $wclip ) = @_;
 
-    # print("1. suximage, wclip,$wclip,\n");
-    if ( $wclip ne $empty_string ) {
-        print("2. suximage, wclip,$wclip,\n");
-        $suximage->{_wclip} = $wclip;
-        $suximage->{_note} =
-          $suximage->{_note} . ' wclip=' . $suximage->{_wclip};
-        $suximage->{_Step} =
-          $suximage->{_Step} . ' wclip=' . $suximage->{_wclip};
+	# print("1. suximage, wclip,$wclip,\n");
+	if ( $wclip ne $empty_string ) {
+		print("2. suximage, wclip,$wclip,\n");
+		$suximage->{_wclip} = $wclip;
+		$suximage->{_note} =
+		  $suximage->{_note} . ' wclip=' . $suximage->{_wclip};
+		$suximage->{_Step} =
+		  $suximage->{_Step} . ' wclip=' . $suximage->{_wclip};
 
-    }
-    else {
-        print("suximage, wclip, missing wclip,\n");
-    }
+	}
+	else {
+		print("suximage, wclip, missing wclip,\n");
+	}
 }
 
 =head2 sub windowtitle 
@@ -2420,19 +2420,24 @@ sub wclip {
 
 sub windowtitle {
 
-    my ( $self, $windowtitle ) = @_;
-    if ( $windowtitle ne $empty_string ) {
+	my ( $self, $windowtitle ) = @_;
+	if ( $windowtitle ne $empty_string ) {
 
-        $suximage->{_windowtitle} = $windowtitle;
-        $suximage->{_note} =
-          $suximage->{_note} . ' windowtitle=' . $suximage->{_windowtitle};
-        $suximage->{_Step} =
-          $suximage->{_Step} . ' windowtitle=' . $suximage->{_windowtitle};
+		$suximage->{_windowtitle} = $windowtitle;
+		$suximage->{_note} =
+			$suximage->{_note}
+		  . ' windowtitle=' . '"'
+		  . $suximage->{_windowtitle} . '"';
+		$suximage->{_Step} =
+			$suximage->{_Step}
+		  . ' windowtitle=' . '"'
+		  . $suximage->{_windowtitle}
+		  . '"';
 
-    }
-    else {
-        print("suximage, windowtitle, missing windowtitle,\n");
-    }
+	}
+	else {
+		print("suximage, windowtitle, missing windowtitle,\n");
+	}
 }
 
 =head2 sub wperc 
@@ -2442,19 +2447,19 @@ sub windowtitle {
 
 sub wperc {
 
-    my ( $self, $wperc ) = @_;
-    if ( $wperc ne $empty_string ) {
+	my ( $self, $wperc ) = @_;
+	if ( $wperc ne $empty_string ) {
 
-        $suximage->{_wperc} = $wperc;
-        $suximage->{_note} =
-          $suximage->{_note} . ' wperc=' . $suximage->{_wperc};
-        $suximage->{_Step} =
-          $suximage->{_Step} . ' wperc=' . $suximage->{_wperc};
+		$suximage->{_wperc} = $wperc;
+		$suximage->{_note} =
+		  $suximage->{_note} . ' wperc=' . $suximage->{_wperc};
+		$suximage->{_Step} =
+		  $suximage->{_Step} . ' wperc=' . $suximage->{_wperc};
 
-    }
-    else {
-        print("suximage, wperc, missing wperc,\n");
-    }
+	}
+	else {
+		print("suximage, wperc, missing wperc,\n");
+	}
 }
 
 =head2 sub x1beg 
@@ -2469,19 +2474,19 @@ subs x1beg and tstart_s
 
 sub x1beg {
 
-    my ( $self, $x1beg ) = @_;
-    if ( $x1beg ne $empty_string ) {
+	my ( $self, $x1beg ) = @_;
+	if ( $x1beg ne $empty_string ) {
 
-        $suximage->{_x1beg} = $x1beg;
-        $suximage->{_note} =
-          $suximage->{_note} . ' x1beg=' . $suximage->{_x1beg};
-        $suximage->{_Step} =
-          $suximage->{_Step} . ' x1beg=' . $suximage->{_x1beg};
+		$suximage->{_x1beg} = $x1beg;
+		$suximage->{_note} =
+		  $suximage->{_note} . ' x1beg=' . $suximage->{_x1beg};
+		$suximage->{_Step} =
+		  $suximage->{_Step} . ' x1beg=' . $suximage->{_x1beg};
 
-    }
-    else {
-        print("suximage, x1beg, missing x1beg,\n");
-    }
+	}
+	else {
+		print("suximage, x1beg, missing x1beg,\n");
+	}
 }
 
 =head2 sub x1end 
@@ -2494,19 +2499,19 @@ subs x1end and tend_s
 
 sub x1end {
 
-    my ( $self, $x1end ) = @_;
-    if ( $x1end ne $empty_string ) {
+	my ( $self, $x1end ) = @_;
+	if ( $x1end ne $empty_string ) {
 
-        $suximage->{_x1end} = $x1end;
-        $suximage->{_note} =
-          $suximage->{_note} . ' x1end=' . $suximage->{_x1end};
-        $suximage->{_Step} =
-          $suximage->{_Step} . ' x1end=' . $suximage->{_x1end};
+		$suximage->{_x1end} = $x1end;
+		$suximage->{_note} =
+		  $suximage->{_note} . ' x1end=' . $suximage->{_x1end};
+		$suximage->{_Step} =
+		  $suximage->{_Step} . ' x1end=' . $suximage->{_x1end};
 
-    }
-    else {
-        print("suximage, x1end, missing x1end,\n");
-    }
+	}
+	else {
+		print("suximage, x1end, missing x1end,\n");
+	}
 }
 
 =head2 sub x2end 
@@ -2519,19 +2524,19 @@ sub x1end {
 
 sub x2end {
 
-    my ( $self, $x2end ) = @_;
-    if ( $x2end ne $empty_string ) {
+	my ( $self, $x2end ) = @_;
+	if ( $x2end ne $empty_string ) {
 
-        $suximage->{_x2end} = $x2end;
-        $suximage->{_note} =
-          $suximage->{_note} . ' x2end=' . $suximage->{_x2end};
-        $suximage->{_Step} =
-          $suximage->{_Step} . ' x2end=' . $suximage->{_x2end};
+		$suximage->{_x2end} = $x2end;
+		$suximage->{_note} =
+		  $suximage->{_note} . ' x2end=' . $suximage->{_x2end};
+		$suximage->{_Step} =
+		  $suximage->{_Step} . ' x2end=' . $suximage->{_x2end};
 
-    }
-    else {
-        print("suximage, x2end, missing x2end,\n");
-    }
+	}
+	else {
+		print("suximage, x2end, missing x2end,\n");
+	}
 }
 
 =head2 sub xbox 
@@ -2541,19 +2546,19 @@ sub x2end {
 
 sub xbox {
 
-    my ( $self, $xbox ) = @_;
-    if ( $xbox ne $empty_string ) {
+	my ( $self, $xbox ) = @_;
+	if ( $xbox ne $empty_string ) {
 
-        $suximage->{_xbox} = $xbox;
-        $suximage->{_note} =
-          $suximage->{_note} . ' xbox=' . $suximage->{_xbox};
-        $suximage->{_Step} =
-          $suximage->{_Step} . ' xbox=' . $suximage->{_xbox};
+		$suximage->{_xbox} = $xbox;
+		$suximage->{_note} =
+		  $suximage->{_note} . ' xbox=' . $suximage->{_xbox};
+		$suximage->{_Step} =
+		  $suximage->{_Step} . ' xbox=' . $suximage->{_xbox};
 
-    }
-    else {
-        print("suximage, xbox, missing xbox,\n");
-    }
+	}
+	else {
+		print("suximage, xbox, missing xbox,\n");
+	}
 }
 
 =head2 sub x2beg 
@@ -2568,19 +2573,19 @@ sub xbox {
 
 sub x2beg {
 
-    my ( $self, $x2beg ) = @_;
-    if ( $x2beg ne $empty_string ) {
+	my ( $self, $x2beg ) = @_;
+	if ( $x2beg ne $empty_string ) {
 
-        $suximage->{_x2beg} = $x2beg;
-        $suximage->{_note} =
-          $suximage->{_note} . ' x2beg=' . $suximage->{_x2beg};
-        $suximage->{_Step} =
-          $suximage->{_Step} . ' x2beg=' . $suximage->{_x2beg};
+		$suximage->{_x2beg} = $x2beg;
+		$suximage->{_note} =
+		  $suximage->{_note} . ' x2beg=' . $suximage->{_x2beg};
+		$suximage->{_Step} =
+		  $suximage->{_Step} . ' x2beg=' . $suximage->{_x2beg};
 
-    }
-    else {
-        print("suximage, x2beg, missing x2beg,\n");
-    }
+	}
+	else {
+		print("suximage, x2beg, missing x2beg,\n");
+	}
 }
 
 =head2 sub xend_m 
@@ -2593,19 +2598,19 @@ sub x2beg {
 
 sub xend_m {
 
-    my ( $self, $x2end ) = @_;
-    if ( $x2end ne $empty_string ) {
+	my ( $self, $x2end ) = @_;
+	if ( $x2end ne $empty_string ) {
 
-        $suximage->{_x2end} = $x2end;
-        $suximage->{_note} =
-          $suximage->{_note} . ' x2end=' . $suximage->{_x2end};
-        $suximage->{_Step} =
-          $suximage->{_Step} . ' x2end=' . $suximage->{_x2end};
+		$suximage->{_x2end} = $x2end;
+		$suximage->{_note} =
+		  $suximage->{_note} . ' x2end=' . $suximage->{_x2end};
+		$suximage->{_Step} =
+		  $suximage->{_Step} . ' x2end=' . $suximage->{_x2end};
 
-    }
-    else {
-        print("suximage, xend_m, missing xend_m,\n");
-    }
+	}
+	else {
+		print("suximage, xend_m, missing xend_m,\n");
+	}
 }
 
 =head2 sub xlabel 
@@ -2616,19 +2621,19 @@ subs xlabel or label2  ylabel or labe1
 
 sub xlabel {
 
-    my ( $self, $label2 ) = @_;
-    if ( $label2 ne $empty_string ) {
+	my ( $self, $label2 ) = @_;
+	if ( $label2 ne $empty_string ) {
 
-        $suximage->{_label2} = $label2;
-        $suximage->{_note} =
-          $suximage->{_note} . ' label2=' . $suximage->{_label2};
-        $suximage->{_Step} =
-          $suximage->{_Step} . ' label2=' . $suximage->{_label2};
+		$suximage->{_label2} = $label2;
+		$suximage->{_note} =
+		  $suximage->{_note} . ' label2=' . $suximage->{_label2};
+		$suximage->{_Step} =
+		  $suximage->{_Step} . ' label2=' . $suximage->{_label2};
 
-    }
-    else {
-        print("suximage, xlabel, missing xlabel,\n");
-    }
+	}
+	else {
+		print("suximage, xlabel, missing xlabel,\n");
+	}
 }
 
 =head2 sub xstart_m 
@@ -2643,19 +2648,19 @@ sub xlabel {
 
 sub xstart_m {
 
-    my ( $self, $x2beg ) = @_;
-    if ( $x2beg ne $empty_string ) {
+	my ( $self, $x2beg ) = @_;
+	if ( $x2beg ne $empty_string ) {
 
-        $suximage->{_x2beg} = $x2beg;
-        $suximage->{_note} =
-          $suximage->{_note} . ' x2beg=' . $suximage->{_x2beg};
-        $suximage->{_Step} =
-          $suximage->{_Step} . ' x2beg=' . $suximage->{_x2beg};
+		$suximage->{_x2beg} = $x2beg;
+		$suximage->{_note} =
+		  $suximage->{_note} . ' x2beg=' . $suximage->{_x2beg};
+		$suximage->{_Step} =
+		  $suximage->{_Step} . ' x2beg=' . $suximage->{_x2beg};
 
-    }
-    else {
-        print("suximage, xstart_m, missing xstart_m,\n");
-    }
+	}
+	else {
+		print("suximage, xstart_m, missing xstart_m,\n");
+	}
 }
 
 =head2 sub x_tick_increment
@@ -2667,19 +2672,19 @@ sub xstart_m {
 
 sub x_tick_increment {
 
-    my ( $self, $d2num ) = @_;
-    if ( $d2num ne $empty_string ) {
+	my ( $self, $d2num ) = @_;
+	if ( $d2num ne $empty_string ) {
 
-        $suximage->{_d2num} = $d2num;
-        $suximage->{_note} =
-          $suximage->{_note} . ' d2num=' . $suximage->{_d2num};
-        $suximage->{_Step} =
-          $suximage->{_Step} . ' d2num=' . $suximage->{_d2num};
+		$suximage->{_d2num} = $d2num;
+		$suximage->{_note} =
+		  $suximage->{_note} . ' d2num=' . $suximage->{_d2num};
+		$suximage->{_Step} =
+		  $suximage->{_Step} . ' d2num=' . $suximage->{_d2num};
 
-    }
-    else {
-        print("suximage, x_tick_increment, missing x_tick_increment\n");
-    }
+	}
+	else {
+		print("suximage, x_tick_increment, missing x_tick_increment\n");
+	}
 }
 
 =head2 sub ybox 
@@ -2689,19 +2694,19 @@ sub x_tick_increment {
 
 sub ybox {
 
-    my ( $self, $ybox ) = @_;
-    if ( $ybox ne $empty_string ) {
+	my ( $self, $ybox ) = @_;
+	if ( $ybox ne $empty_string ) {
 
-        $suximage->{_ybox} = $ybox;
-        $suximage->{_note} =
-          $suximage->{_note} . ' ybox=' . $suximage->{_ybox};
-        $suximage->{_Step} =
-          $suximage->{_Step} . ' ybox=' . $suximage->{_ybox};
+		$suximage->{_ybox} = $ybox;
+		$suximage->{_note} =
+		  $suximage->{_note} . ' ybox=' . $suximage->{_ybox};
+		$suximage->{_Step} =
+		  $suximage->{_Step} . ' ybox=' . $suximage->{_ybox};
 
-    }
-    else {
-        print("suximage, ybox, missing ybox,\n");
-    }
+	}
+	else {
+		print("suximage, ybox, missing ybox,\n");
+	}
 }
 
 =head2 sub ylabel 
@@ -2712,19 +2717,19 @@ subs xlabel or label2  ylabel or labe1
 
 sub ylabel {
 
-    my ( $self, $label1 ) = @_;
-    if ( $label1 ne $empty_string ) {
+	my ( $self, $label1 ) = @_;
+	if ( $label1 ne $empty_string ) {
 
-        $suximage->{_label1} = $label1;
-        $suximage->{_note} =
-          $suximage->{_note} . ' label1=' . $suximage->{_label1};
-        $suximage->{_Step} =
-          $suximage->{_Step} . ' label1=' . $suximage->{_label1};
+		$suximage->{_label1} = $label1;
+		$suximage->{_note} =
+		  $suximage->{_note} . ' label1=' . $suximage->{_label1};
+		$suximage->{_Step} =
+		  $suximage->{_Step} . ' label1=' . $suximage->{_label1};
 
-    }
-    else {
-        print("suximage, ylabel, missing ylabel,\n");
-    }
+	}
+	else {
+		print("suximage, ylabel, missing ylabel,\n");
+	}
 }
 
 =head2 sub y_tick_increment 
@@ -2737,19 +2742,19 @@ sub ylabel {
 
 sub y_tick_increment {
 
-    my ( $self, $d1num ) = @_;
-    if ( $d1num ne $empty_string ) {
+	my ( $self, $d1num ) = @_;
+	if ( $d1num ne $empty_string ) {
 
-        $suximage->{_d1num} = $d1num;
-        $suximage->{_note} =
-          $suximage->{_note} . ' d1num=' . $suximage->{_d1num};
-        $suximage->{_Step} =
-          $suximage->{_Step} . ' d1num=' . $suximage->{_d1num};
+		$suximage->{_d1num} = $d1num;
+		$suximage->{_note} =
+		  $suximage->{_note} . ' d1num=' . $suximage->{_d1num};
+		$suximage->{_Step} =
+		  $suximage->{_Step} . ' d1num=' . $suximage->{_d1num};
 
-    }
-    else {
-        print("suximage, y_tick_increment, missing y_tick_increment,\n");
-    }
+	}
+	else {
+		print("suximage, y_tick_increment, missing y_tick_increment,\n");
+	}
 }
 
 =head2 sub get_max_index
@@ -2759,12 +2764,12 @@ max index = number of input variables -1
 =cut
 
 sub get_max_index {
-    my ($self) = @_;
+	my ($self) = @_;
 
-    # index=60
-    my $max_index = 59;
+	# index=60
+	my $max_index = 59;
 
-    return ($max_index);
+	return ($max_index);
 }
 
 1;

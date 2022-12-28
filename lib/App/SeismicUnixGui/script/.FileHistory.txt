@@ -1,6 +1,6 @@
+/home/gllore/LRTF/seismics/pl/Huntsville//120922/H/1/gllore/2.view_segy2su.pl
 /home/gllore/LRTF/seismics/pl/Huntsville//120922/H/1/gllore/1.segy2su.pl
 /home/gllore/LRTF/seismics/pl/Huntsville//120922/H/1/gllore/a.pl
-/home/gllore/LRTF/seismics/pl/Huntsville//120922/H/1/gllore/2.view_segy2su.pl
 /a.pl
 /home/gllore/LRTF/seismics/data/Huntsville//120922/H/1/segy/gllore/23.segy
 /home/gllore/LRTF/seismics/pl/Huntsville//120922/H/1/gllore/3.surange.pl

@@ -273,16 +273,16 @@ sub calcNdisplay {
 =cut
 
     $sugain->clear();
-    $sugain->pbal($on);
+    $sugain->pbal("$on");
     $sugain[1] = $sugain->Step();
 
     $sugain->clear();
-#    $sugain->agc($on);
-#    $sugain->width(0.08);
+#    $sugain->agc("$on");
+#    $sugain->width("0.08");
     $sugain[2] = $sugain->Step();
 
 #    $sugain->clear();
-#    $sugain->tpower(1.8);
+#    $sugain->tpower("1.8");
 #    $sugain[3] = $sugain->Step();
 
 =head2 WINDOW  DATA 
@@ -292,18 +292,18 @@ sub calcNdisplay {
 =cut
 
     $suwind->clear();
-    $suwind->setheaderword( $iSelect_tr_Sumute_top->{_gather_header} );
-    $suwind->min( $iSelect_tr_Sumute_top->{_gather_num} );
-    $suwind->max( $iSelect_tr_Sumute_top->{_gather_num} );
+    $suwind->setheaderword("$iSelect_tr_Sumute_top->{_gather_header}");
+    $suwind->min("$iSelect_tr_Sumute_top->{_gather_num}");
+    $suwind->max("$iSelect_tr_Sumute_top->{_gather_num}");
 
     #print("gather num is $iSelect_tr_Sumute_top->{_gather_num}\n\n");
     $suwind[1] = $suwind->Step();
 
     $suwind->clear();
 
-    #$suwind   		-> setheaderword('time');
-#    $suwind->tmin(0);
-#    $suwind->tmax(1);
+    #$suwind   		-> setheaderword("time");
+#    $suwind->tmin("0");
+#    $suwind->tmax("1");
     $suwind[2] = $suwind->Step();
 
 =head2  Set 
@@ -318,7 +318,7 @@ sub calcNdisplay {
 
     #print("sufilter is $href_sufilter->{freq}\n\n");
     $sufilter->clear();
-    $sufilter->freq( $iSelect_tr_Sumute_top->{_freq} );
+    $sufilter->freq("$iSelect_tr_Sumute_top->{_freq}");
     $sufilter[1] = $sufilter->Step();
 
 =head2 DISPLAY (For Both Suximage and Suxwigb)
@@ -330,34 +330,34 @@ sub calcNdisplay {
     #plotting with suximage
     $base_caption[1] =
         $iSelect_tr_Sumute_top->{_file_in}
-      . quotemeta('  ')
-      . quotemeta('f=')
+      . ("  ")
+      . ("f=")
       . $iSelect_tr_Sumute_top->{_freq};
 
     $windowtitle[1] =
-      quotemeta('GATHER = ') . $iSelect_tr_Sumute_top->{_gather_num};
+      ("GATHER = ") . $iSelect_tr_Sumute_top->{_gather_num};
 
     $suximage->clear();
-    $suximage->box_width(400);
-    $suximage->box_height(600);
-    $suximage->box_X0(200);
-    $suximage->box_Y0(150);
-    $suximage->title( $base_caption[1] );
-    $suximage->windowtitle( $windowtitle[1] );
-    $suximage->ylabel( quotemeta('TWTT s') );
-    $suximage->xlabel( $iSelect_tr_Sumute_top->{_offset_type} );
-    $suximage->legend($on);
-    $suximage->cmap('rgb0');
-    $suximage->loclip( $iSelect_tr_Sumute_top->{_min_amplitude} );
-    $suximage->hiclip( $iSelect_tr_Sumute_top->{_max_amplitude} );
-    $suximage->verbose($off);
+    $suximage->box_width("400");
+    $suximage->box_height("600");
+    $suximage->box_X0("200");
+    $suximage->box_Y0("150");
+    $suximage->title("$base_caption[1]");
+    $suximage->windowtitle("$windowtitle[1]");
+    $suximage->ylabel("TWTT s");
+    $suximage->xlabel("$iSelect_tr_Sumute_top->{_offset_type}");
+    $suximage->legend("$on");
+    $suximage->cmap("rgb0");
+    $suximage->loclip("$iSelect_tr_Sumute_top->{_min_amplitude}");
+    $suximage->hiclip("$iSelect_tr_Sumute_top->{_max_amplitude}");
+    $suximage->verbose("$off");
 
     if ( $iSelect_tr_Sumute_top->{_number_of_tries} > 0 ) {
 
         $iSelect_tr_Sumute_top->{_TX_outbound} =
           $itemp_top_mute_picks_ . $iSelect_tr_Sumute_top->{_file_in};
-        $suximage->picks(
-            $PL_SEISMIC . '/' . $iSelect_tr_Sumute_top->{_TX_outbound} );
+        $suximage->picks("
+            $PL_SEISMIC . '/' . $iSelect_tr_Sumute_top->{_TX_outbound}");
 
 # print("iSelect_tr_Sumute_top,suximage,Writing picks to $itemp_top_mute_picks_$iSelect_tr_Sumute_top->{_file_in}  \n\n");
 # print("number of tries is $iSelect_tr_Sumute_top->{_number_of_tries}\n\n");
@@ -374,32 +374,32 @@ sub calcNdisplay {
     #plotting with suxwigb
     $base_caption[2] =
         $iSelect_tr_Sumute_top->{_file_in}
-      . quotemeta('  ')
-      . quotemeta('f=')
+      . ("  ")
+      . ("f=")
       . $iSelect_tr_Sumute_top->{_freq};
 
     $windowtitle[2] =
-      quotemeta('GATHER = ') . $iSelect_tr_Sumute_top->{_gather_num};
+      ("GATHER = ") . $iSelect_tr_Sumute_top->{_gather_num};
 
     $suxwigb->clear();
-    $suxwigb->box_width( quotemeta(400) );
-    $suxwigb->box_height( quotemeta(600) );
-    $suxwigb->box_X0( quotemeta(750) );
-    $suxwigb->box_Y0( quotemeta(150) );
-    #$suxwigb->f2(quotemeta(60));
-    $suxwigb->title( quotemeta( $base_caption[2] ) );
-    $suxwigb->windowtitle( $windowtitle[2] );
-    $suxwigb->ylabel( quotemeta('TWTT s') );
-    $suxwigb->xlabel( $iSelect_tr_Sumute_top->{_offset_type} );
-    $suxwigb->clip('1.5');    # clip/perc set manually
-    $suxwigb->verbose($off);
+    $suxwigb->box_width("400");
+    $suxwigb->box_height("600");
+    $suxwigb->box_X0("750");
+    $suxwigb->box_Y0("150");
+    #$suxwigb->f2(("60");
+    $suxwigb->title("$base_caption[2]");
+    $suxwigb->windowtitle("$windowtitle[2]");
+    $suxwigb->ylabel("TWTT s");
+    $suxwigb->xlabel("$iSelect_tr_Sumute_top->{_offset_type}");
+    $suxwigb->clip("1.5");    # clip/perc set manually
+    $suxwigb->verbose("$off");
 
     if ( $iSelect_tr_Sumute_top->{_number_of_tries} > 0 ) {
 
         $iSelect_tr_Sumute_top->{_TX_outbound} =
           $itemp_top_mute_picks_ . $iSelect_tr_Sumute_top->{_file_in};
-        $suxwigb->picks(
-            $PL_SEISMIC . '/' . $iSelect_tr_Sumute_top->{_TX_outbound} );
+        $suxwigb->picks("
+            $PL_SEISMIC . '/' . $iSelect_tr_Sumute_top->{_TX_outbound}");
 
 # print("iSelect_tr_Sumute_top, suxwigb, writing picks to $itemp_top_mute_picks_$iSelect_tr_Sumute_top->{_file_in} \n\n");
 # print("number of tries is $iSelect_tr_Sumute_top->{_number_of_tries} \n\n");
@@ -453,7 +453,7 @@ sub calcNdisplay {
 
 =cut
 
-    # print "iSelect_tr-Sumute_top $flow[1]\n";
+    print "iSelect_tr-Sumute_top $flow[1]\n";
 
     #$log->file($flow[1]);
 
