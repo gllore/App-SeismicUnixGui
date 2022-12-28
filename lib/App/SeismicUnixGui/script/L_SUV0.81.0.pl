@@ -4,7 +4,7 @@
 
 =head2 SYNOPSIS 
 
- PERL PROGRAM NAME: L_SUV0.80.7.pl 
+ PERL PROGRAM NAME: L_SUV0.81.0.pl 
  AUTHOR: 	Juan Lorenzo
  DATE: 		June 22 2017 
 
@@ -54,6 +54,10 @@
  V0.6.6 September 4, 2021
  
  V0.80.00 September 19, 2022 ready for initial uploading to the CPAN
+ 
+ V0.80.9 Dec. 2022 leaky memory in GUI parameter widgest fixed within color_flow""
+ 
+ V0.81.0 Dec. 2022 quotemeta deprecated and replaced by " "
  
 =cut
 
