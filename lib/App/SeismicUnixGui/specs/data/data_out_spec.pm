@@ -5,7 +5,6 @@ use Moose;
 
 use aliased 'App::SeismicUnixGui::misc::L_SU_global_constants';
 use aliased 'App::SeismicUnixGui::configs::big_streams::Project_config';
-use aliased 'App::SeismicUnixGui::sunix::data::data_out';
 use App::SeismicUnixGui::misc::SeismicUnix qw($su $suffix_su);
 
 my $get              = L_SU_global_constants->new();
@@ -21,8 +20,7 @@ my $Project      = Project_config->new();
 my $DATA_SEISMIC_SU = $Project->DATA_SEISMIC_SU();    # output data directory
 my $PL_SEISMIC        = $Project->PL_SEISMIC();
 
-my $data_out  = data_out->new();
-my $max_index = $data_out->get_max_index();
+my $max_index = 1;
 
 my $data_out_spec =  {
     _CONFIG	 				=> $PL_SEISMIC,
@@ -155,7 +153,7 @@ sub get_max_index {
 
     if ( $data_out_spec->{_max_index} ) {
 
-        my $max_idx = $data_out->get_max_index();
+        my $max_idx = $max_index;
         return ($max_idx);
 
     }

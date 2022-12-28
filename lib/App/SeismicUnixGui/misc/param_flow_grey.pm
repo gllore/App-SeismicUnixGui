@@ -740,7 +740,7 @@ sub get_num_items {
 sub get_values_aref {
 	my ($self) = @_;
 
-	# print("param_flow_grey, get_values :_selection_index $param_flow_grey->{_selection_index}\n");
+#    print("param_flow_grey, get_values_aref :program index, _selection_index $param_flow_grey->{_selection_index}\n");
 
 	if ( ( $param_flow_grey->{_selection_index} >= 0 )
 		&& $param_flow_grey->{_values_aref2} )
@@ -748,23 +748,25 @@ sub get_values_aref {
 
 		my $index = $param_flow_grey->{_selection_index};
 
-		# print("param_flow_grey, get_values :_values_aref2:@{@{$param_flow_grey->{_values_aref2}}[$index]}\n");
+		# print("param_flow_grey, get_values_aref :_values_aref2:@{@{$param_flow_grey->{_values_aref2}}[$index]}\n");
 		my ( $i, $j, $length );
 		my ( @values_aref, @values );
 
-		# print("param_flow_grey, get_values :index $index\n");
+#		print("param_flow_grey, get_values_aref, prog. index: index $index\n");
 
 		@values_aref = @{ @{ $param_flow_grey->{_values_aref2} }[$index] };
 		$length      = scalar @values_aref;
 
-		# print("param_flow_grey,get_values :values_aref is @values_aref\n");
+#		print("param_flow_grey,get_values_aref :values_aref: @values_aref\n");
 
-		for ( $i = 1, $j = 0; $i < $length; $i = $i + 2, $j++ ) {
-			$values[$j] = $values_aref[$i];
-
-			# print("param_flow_grey, get_values :index $j values: $values[$j]\n");
+		for ( $i = 0; $i < $length; $i++ ) {
+			$values[$i] = $values_aref[$i];
+#			print("param_flow_grey, get_values_aref :param index $i values: $values[$i]\n");
 		}
-		return ( \@values_aref );
+		
+		my $result = \@values_aref;
+		
+		return ( $result);
 
 	}
 	else {

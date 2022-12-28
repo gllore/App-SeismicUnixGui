@@ -481,8 +481,8 @@ sub _set_length_in_gui {
 
 =head2 sub gui_full_clear
 
-clear the gui completely of 61 parameter values
-61 = current defaulted maximum number of variables in a list box
+clear the gui completely of 114 parameter values
+114 = current defaulted maximum number of variables in a list box
 
 =cut
 
@@ -497,7 +497,6 @@ sub gui_full_clear {
 	_max_length_in_gui();
 
 	# print("param_widgets_color, gui_full_clear, length used for cleaning $param_widgets_color_href->{_length} \n");
-
 	# print("param_widgets_color, gui_full_clear, _values_w_aref, $param_widgets_color_href->{_values_w_aref} \n");
 	# print("param_widgets_color, gui_full_clear, _labels_w_aref, $param_widgets_color_href->{_labels_w_aref} \n");
 	$wipe->range($param_widgets_color_href);

@@ -2265,8 +2265,20 @@ Sub Q : what does delete_from_flow_button do?
  A. within color_flow
  
  
-Q.  What happens when flow_select is picked manually:
+     Q. Can you describe the (VERY) general sequence of events when we read a user-built file:
+    
+    perl_* modules
+    color_flow
+      _perl_flow populates GUI and stores the parameter values from several programs via param_flow
+      _add2flow
+(N.B. sometmes strange memory leaks occur and several remedies are set
+up that need the Clone module)      
+
+ 
+Q.  What happens when we pick a flow item, manually:
+     Then flow_select is picked manually:
  	 sub called: 	flow_select       (main, flow_select)
+ 	 
  
   flow_select is MANUALLY activated through 
   	main 
@@ -2936,6 +2948,5 @@ A.  Following on from the previous questions, if MB3 selected,
        to speed up the gui in a lot of weak spots. 9-19-22 JML
            
            
-               
 
            

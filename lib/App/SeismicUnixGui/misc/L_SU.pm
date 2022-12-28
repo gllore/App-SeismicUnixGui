@@ -1658,7 +1658,9 @@ sub user_built_flows {
 					if ( $prior_flow_color eq $most_recent_flow_color ) {
 
 						# CASE 1 if selecting the same flow color more than once
+#						print("L_SU,case1\n");
 						$grey_flow->$method;
+
 
 					}
 					elsif ( $prior_flow_color ne $most_recent_flow_color ) {
