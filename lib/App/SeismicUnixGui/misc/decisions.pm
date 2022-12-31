@@ -94,8 +94,9 @@ my $decisions = {
 	_has_used_Save_button                  => $false,
 	_has_used_Save_superflow               => $false,
 	_has_used_open_perl_file_button        => $false,
+	_is_Delete_file_button                 => $false,
 	_is_delete_from_flow_button            => $false,
-	_is_delete_whole_flow_button            => $false,	
+	_is_delete_whole_flow_button           => $false,	
 	_is_flow_listbox_grey_w                => $false,
 	_is_flow_listbox_pink_w                => $false,
 	_is_flow_listbox_green_w               => $false,
@@ -111,7 +112,7 @@ my $decisions = {
 	_is_last_parameter_index_touched_blue  => $false,
 	_is_last_parameter_index_touched_color => $false,
 	_is_last_path_touched                  => $false,
-	_is_open_file_button                   => $false,
+	_is_Open_file_button                   => $false,
 	_is_SaveAs_file_button                 => $false,
 	_is_select_file_button                 => $false,
 	_is_pre_built_superflow                => $false,
@@ -136,8 +137,9 @@ sub reset {
 		_has_used_Save_button                  => $false,
 		_has_used_Save_superflow               => $false,
 		_has_used_open_perl_file_button        => $false,
+		_is_Delete_file_button                 => $false,		
 		_is_delete_from_flow_button            => $false,
-		_is_delete_whole_flow_button            => $false,		
+		_is_delete_whole_flow_button           => $false,		
 		_is_flow_listbox_grey_w                => $false,
 		_is_flow_listbox_pink_w                => $false,
 		_is_flow_listbox_green_w               => $false,
@@ -153,7 +155,7 @@ sub reset {
 		_is_last_flow_index_touched            => $false,
 		_is_last_parameter_index_touched_color => $false,
 		_is_last_path_touched                  => $false,
-		_is_open_file_button                   => $false,
+		_is_Open_file_button                   => $false,
 		_is_SaveAs_file_button                 => $false,
 		_is_select_file_button                 => $false,
 		_is_pre_built_superflow                => $false,
@@ -179,8 +181,9 @@ sub _reset {
 		_has_used_Save_button                  => $false,
 		_has_used_Save_superflow               => $false,
 		_has_used_open_perl_file_button        => $false,
+		_is_Delete_file_button                 => $false,
 		_is_delete_from_flow_button            => $false,
-		_is_delete_whole_flow_button            => $false,	
+		_is_delete_whole_flow_button           => $false,	
 		_is_flow_listbox_grey_w                => $false,
 		_is_flow_listbox_pink_w                => $false,
 		_is_flow_listbox_green_w               => $false,
@@ -196,7 +199,7 @@ sub _reset {
 		_is_last_parameter_index_touched_blue  => $false,
 		_is_last_parameter_index_touched_color => $false,
 		_is_last_path_touched                  => $false,
-		_is_open_file_button                   => $false,
+		_is_Open_file_button                   => $false,
 		_is_SaveAs_file_button                 => $false,
 		_is_select_file_button                 => $false,
 		_is_pre_built_superflow                => $false,
@@ -242,14 +245,35 @@ sub get4FileDialog_select {
 	}
 }
 
-=head2 sub get4FileDialog_open_perl
+=head2 sub get4FileDialog_Delete_perl
 
 =cut
 
-sub get4FileDialog_open_perl {
+sub get4FileDialog_Delete_perl {
 	my ($self) = @_;
 
-	if (   $decisions->{_is_open_file_button}
+	if (   $decisions->{_is_Delete_file_button}
+		|| $decisions->{_is_selected_file_name} 
+		|| !(
+			$decisions->{_is_selected_path} ) # for data file name, not pl file name
+		)
+	{
+		return ($true);
+	}
+	else {
+			return ($false);
+	}
+}
+
+
+=head2 sub get4FileDialog_Open_perl
+
+=cut
+
+sub get4FileDialog_Open_perl {
+	my ($self) = @_;
+
+	if (   $decisions->{_is_Open_file_button}
 		|| $decisions->{_is_selected_file_name} 
 		|| !(
 			$decisions->{_is_selected_path} ) # for data file name, not pl file name
@@ -274,7 +298,7 @@ sub get4FileDialog_open_perl {
 #		return ($true);
 #	}
 #	else {
-#		if ( $decisions->{_is_open_file_button} ) {
+#		if ( $decisions->{_is_Open_file_button} ) {
 #			return ($true);
 #		}
 #	}
@@ -615,6 +639,35 @@ sub set4FileDialog_select {
 
 }
 
+=head2 sub set4FileDialog_Delete_perl
+
+=cut
+
+sub set4FileDialog_Delete_perl {
+	my ( $self, $hash_ref ) = @_;
+
+	_reset();
+	$decisions->{_is_Delete_file_button} = $hash_ref->{_is_Delete_file_button};
+	$decisions->{_is_flow_listbox_grey_w} =
+		$hash_ref->{_is_flow_listbox_grey_w};
+	$decisions->{_is_flow_listbox_pink_w} =
+		$hash_ref->{_is_flow_listbox_pink_w};
+	$decisions->{_is_flow_listbox_green_w} =
+		$hash_ref->{_is_flow_listbox_green_w};
+	$decisions->{_is_flow_listbox_blue_w} =
+		$hash_ref->{_is_flow_listbox_blue_w};
+	$decisions->{_is_selected_file_name} = $hash_ref->{_is_selected_file_name};
+	$decisions->{_is_selected_path}      = $hash_ref->{_is_selected_path};
+	
+#	print("decisions, set4FileDialog_Delete_perl\n");
+#	foreach my $key (sort keys %$decisions) {
+#   		print (" decisions key is $key, value is $decisions->{$key}\n");
+#   }
+
+	return($empty_string);
+
+}
+
 =head2 sub set4FileDialog_open_perl
 
 =cut
@@ -623,7 +676,7 @@ sub set4FileDialog_open_perl {
 	my ( $self, $hash_ref ) = @_;
 
 	_reset();
-	$decisions->{_is_open_file_button} = $hash_ref->{_is_open_file_button};
+	$decisions->{_is_Open_file_button} = $hash_ref->{_is_Open_file_button};
 	$decisions->{_is_flow_listbox_grey_w} =
 		$hash_ref->{_is_flow_listbox_grey_w};
 	$decisions->{_is_flow_listbox_pink_w} =

@@ -35,6 +35,8 @@ use aliased 'App::SeismicUnixGui::configs::big_streams::Project_config';
 
 my $L_SU_global_constants = L_SU_global_constants->new();
 my $L_SU_path             = L_SU_path->new();
+my $Project               = Project_config->new();
+
 my $global_libs           = $L_SU_global_constants->global_libs();
 my $alias_superflow_config_names_aref =
   $L_SU_global_constants->alias_superflow_config_names_aref();
@@ -46,6 +48,7 @@ my $superflow_config_names_aref =
 my $default_path   = $global_libs->{_default_path};
 my $var            = $L_SU_global_constants->var();
 my $base_file_name = $var->{_base_file_name};
+my $PL_SEISMIC     = $Project->PL_SEISMIC();
 
 =head2 Declare local variables
 
@@ -96,14 +99,11 @@ Allows mutiple file  formats (bin,su,txt) within a single program: 6.4.21
 sub _get_DATA_DIR_IN {
 	my ($self) = @_;
 
-	my $Project = Project_config->new();
-
 	my $DATA_SEISMIC_BIN  = $Project->DATA_SEISMIC_BIN();
 	my $DATA_SEISMIC_SEGB = $Project->DATA_SEISMIC_SEGB();
 	my $DATA_SEISMIC_SEGD = $Project->DATA_SEISMIC_SEGD();
 	my $DATA_SEISMIC_SEGY = $Project->DATA_SEISMIC_SEGY();
 	my $DATA_SEISMIC_SU   = $Project->DATA_SEISMIC_SU();
-	my $PL_SEISMIC        = $Project->PL_SEISMIC();
 	my $DATA_SEISMIC_TXT  = $Project->DATA_SEISMIC_TXT();
 	my $prog_name;
 	my $result;
@@ -346,6 +346,21 @@ sub _get_DATA_DIR_OUT {
 	}
 }
 
+=head2 sub get_Delete_perl_flow_path 
+
+=cut
+
+sub get_Delete_perl_flow_path {
+
+	my ($self) = @_;
+
+	$iFile->{_path} = $PL_SEISMIC;
+
+	my $path = $iFile->{_path};
+
+	return ($path);
+}
+
 =head2 sub get_Open_perl_flow_path 
 
 =cut
@@ -353,9 +368,6 @@ sub _get_DATA_DIR_OUT {
 sub get_Open_perl_flow_path {
 
 	my ($self) = @_;
-
-	my $Project    = Project_config->new();
-	my $PL_SEISMIC = $Project->PL_SEISMIC();
 
 	$iFile->{_path} = $PL_SEISMIC;
 
@@ -370,10 +382,7 @@ sub get_Open_perl_flow_path {
 
 sub get_Open_path {
 
-	my ($self) = @_;
-
-	my $Project    = Project_config->new();
-	my $PL_SEISMIC = $Project->PL_SEISMIC();
+	my ($self) = @);
 
 	$iFile->{_path} = $PL_SEISMIC;
 
@@ -388,9 +397,6 @@ sub get_Open_path {
 sub get_SaveAs_path {
 
 	my ($self) = @_;
-
-	my $Project    = Project_config->new();
-	my $PL_SEISMIC = $Project->PL_SEISMIC();
 
 	$iFile->{_path} = $PL_SEISMIC;
 
@@ -425,10 +431,8 @@ sub get_Data_path {
  #	print("iFile, Data_File,get_Data_path, base_file_name  = $base_file_name\n");
  #	print("iFile,get_Data_path,flow_type =$iFile->{_flow_type}\n");
 
-	my $Project                   = Project_config->new();
 	my $DATA_SEISMIC_BIN          = $Project->DATA_SEISMIC_BIN();
 	my $DATA_SEISMIC_SU           = $Project->DATA_SEISMIC_SU();
-	my $PL_SEISMIC                = $Project->PL_SEISMIC();
 	my $DATA_SEISMIC_SEGB         = $Project->DATA_SEISMIC_SEGB();
 	my $DATA_SEISMIC_SEGD         = $Project->DATA_SEISMIC_SEGD();
 	my $DATA_SEISMIC_SEGY         = $Project->DATA_SEISMIC_SEGY();
@@ -730,7 +734,6 @@ sub get_Path {
 
 	if ( $iFile->{_flow_type} ne $empty_string ) {
 
-		my $Project      = Project_config->new();
 		my $program_name = _get_prog_name();
 
 		# print("iFile,get_Path,flow_type: $iFile->{_flow_type}\n");
