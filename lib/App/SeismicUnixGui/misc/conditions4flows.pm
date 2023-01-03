@@ -129,10 +129,9 @@ my $has_used_Save_superflow;
 my $is_add2flow;
 my $is_add2flow_button;
 #my $is_check_code_button;
-my $is_delete_file_button;
 my $is_delete_from_flow_button;
 my $is_delete_whole_flow_button;
-#my $is_dragNdrop;
+my $is_dragNdrop;
 my $is_flow_item_down_arrow_button;
 my $is_flow_item_up_arrow_button;
 my $is_flow_listbox_grey_w;
@@ -703,10 +702,9 @@ sub get_hash_ref {
 		$conditions4flows->{_has_used_run_button}                   = $has_used_run_button;
 #		$conditions4flows->{_is_add2flow_button}                    = $is_add2flow_button;
 #		$conditions4flows->{_is_check_code_button}                  = $is_check_code_button;
-		$conditions4flows->{_is_delete_file_button}                 = $is_delete_file_button;
 		$conditions4flows->{_is_delete_from_flow_button}            = $is_delete_from_flow_button;
 		$conditions4flows->{_is_delete_whole_flow_button}           = $is_delete_whole_flow_button;
-#		$conditions4flows->{_is_dragNdrop}                          = $is_dragNdrop;
+		$conditions4flows->{_is_dragNdrop}                          = $is_dragNdrop;
 		$conditions4flows->{_is_flow_item_up_arrow_button}          = $is_flow_item_up_arrow_button;
 		$conditions4flows->{_is_flow_item_down_arrow_button}        = $is_flow_item_down_arrow_button;
 		$conditions4flows->{_is_flow_listbox_grey_w}                = $is_flow_listbox_grey_w;
@@ -909,7 +907,7 @@ sub set_hash_ref {
 		$has_used_Save_superflow               = $hash_ref->{_has_used_Save_superflow};
 		$is_add2flow_button                    = $hash_ref->{_is_add2flow_button};
 #		$is_check_code_button                  = $hash_ref->{_is_check_code_button};
-#		$is_dragNdrop                          = $hash_ref->{_is_dragNdrop};
+		$is_dragNdrop                          = $hash_ref->{_is_dragNdrop};
 		$is_delete_from_flow_button            = $hash_ref->{_is_delete_from_flow_button};
 		$is_delete_whole_flow_button           = $hash_ref->{_is_delete_whole_flow_button};
 		$is_flow_item_down_arrow_button        = $hash_ref->{_is_flow_item_down_arrow_button};
@@ -1016,26 +1014,6 @@ sub set4FileDialog_SaveAs_end {
 	return ();
 }
 
-=head2 sub  set4FileDialog_delete_perl_file_start
-
-
-=cut
-
-sub set4FileDialog_delete_perl_file_start {
-
-	my ($self) = @_;
-
-	$conditions4flows->{_is_delete_file_button} = $true;
-
-	# for potential export via get_hash_ref
-	$is_delete_file_button = $true;
-
-	# print("conditions4flows,set4FileDialog_delete_perl_file_start _is_open_file_button}:  $conditions4flows->{_is_open_file_button}\n");
-
-	return ();
-}
-
-
 =head2 sub  set4FileDialog_open_end
 
 
@@ -1112,7 +1090,6 @@ sub set4FileDialog_open_start {
 
 	return ();
 }
-
 
 =head2 sub  set4FileDialog_open_perl_file_start
 

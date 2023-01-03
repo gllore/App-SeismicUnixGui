@@ -30,14 +30,12 @@ our $VERSION = '0.0.1';
 extends 'App::SeismicUnixGui::misc::gui_history' => { -version => 0.0.2 };
 use aliased 'App::SeismicUnixGui::misc::L_SU_global_constants';
 use aliased 'App::SeismicUnixGui::misc::gui_history';
-use aliased 'App::SeismicUnixGui::messages::message_director';
 
 =head2 Instantiation
 =cut
 
-my $get              = L_SU_global_constants->new();
-my $gui_history      = gui_history->new();
-my $run_name_message = message_director->new();
+my $get         = L_SU_global_constants->new();
+my $gui_history = gui_history->new();
 
 =head2 Declare Special Variables
 =cut
@@ -1489,8 +1487,8 @@ sub messages {
 
 	my ( $self, $run_name, $number ) = @_;
 
-#	use App::SeismicUnixGui::messages::message_director;
-#	my $run_name_message = message_director->new();
+	use App::SeismicUnixGui::messages::message_director;
+	my $run_name_message = message_director->new();
 	my $message          = $run_name_message->color_listbox($number);
 
 	my $message_box   = $color_listbox_href->{_message_box_w};
@@ -1522,8 +1520,8 @@ sub my_dialogs {
 
 	my ( $self, $run_name, $number ) = @_;
 
-#	use App::SeismicUnixGui::messages::message_director;
-#	my $run_name_message = message_director->new();
+	use App::SeismicUnixGui::messages::message_director;
+	my $run_name_message = message_director->new();
 	my $message          = $run_name_message->color_listbox($number);
 
 	my $my_dialog_box   = $color_listbox_href->{_my_dialog_box_w};

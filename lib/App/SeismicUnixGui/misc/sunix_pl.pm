@@ -211,8 +211,7 @@ sub _good_sunix_params {
 			# In order to get the useful value
 			# Step 1
 
-			# remove ONLY the prefix from inside the quotemeta parentheses 
-			# e.g.,  $DATA_SEISMIC_SU.'/'.
+			# remove ONLY the prefix and the suffix inside the quotemeta parentheses i.e. $DATA_SEISMIC_SU.'/'. and .$suffix_su
 			#  substitute  $                  \$
 			#  substitute  one or more words \w+
 			#  substitute  .'/'.              \.'\/'\.
@@ -225,7 +224,7 @@ sub _good_sunix_params {
 			# substitute
 			$line =~ s/quotemeta//;
 
-#			print("2. sunix_pl,_good_sunix_params, line=$line \n");
+			# print("2. sunix_pl,_good_sunix_params, line=$line \n");
 
 			# Step 3
 			# substitute double parentheses with single parentheses
@@ -810,7 +809,7 @@ sub get_good_sunix_names {
 	extract labels and parameter values 
 	for each program
 	
-10-1-2018 sunix text sequences now have allowable text gaps via quotemeta
+	10-1-2018 sunix text sequences are now allowable gaps via quotemeta
 	10-5-2018 sunix text sequences can have suffixes and prefixes to the value as well
 	11-25-2018 account for programs with NULL parameters, e.g. suspecfx
 
@@ -919,8 +918,7 @@ sub get_good_sunix_params {
 			# In order to get the useful value
 			# Step 1
 
-			# remove ONLY the prefix and the suffix inside the quotemeta parentheses 
-			# e.g., remove $DATA_SEISMIC_SU.'/'.
+			# remove ONLY the prefix and the suffix inside the quotemeta parentheses i.e. $DATA_SEISMIC_SU.'/'. and .$suffix_su
 			#  substitute  $                  \$
 			#  substitute  one or more words \w+
 			#  substitute  .'/'.              \.'\/'\.
@@ -934,7 +932,7 @@ sub get_good_sunix_params {
 			# substitute
 			$line =~ s/quotemeta//;
 
-#			print("2. sunix_pl,get_good_sunix_params, line=$line \n");
+			#print("2. sunix_pl,get_good_sunix_params, line=$line \n");
 
 			# Step 3
 			# substitute double parentheses with single parentheses
@@ -950,7 +948,7 @@ sub get_good_sunix_params {
 #			print("Step 4 sunix_pl,get_good_sunix_params, line=$line \n");
 			#Step 5
 			# substitute regular extensions )
-			# e.g.,.bin .txt .SGY .sgy .SEGY .segy)
+			# e.g. .bin .txt .SGY .sgy .SEGY .segy)
 			$line =~ s/\.[a-z]+\);/\)/;
 			$line =~ s/\.[A-Z]+\);/\)/;
 
@@ -978,7 +976,6 @@ sub get_good_sunix_params {
 
 				# print ("sunix_pl,get_good_sunix_params, values[0]
 				# is empty: =-----\n\n");
-				
 			} else {
 				print("sunix_pl,get_good_sunix_params, unexpected value[0] =---$values[0]--\n\n");
 			}
@@ -993,7 +990,7 @@ sub get_good_sunix_params {
 
 				# if($values[0]) { print("1. sunix_pl,get_good_sunix_params,values[0]:--$values[0]--\n")};
 				#
-#				print("1. sunix_pl,get_good_sunix_params,values_holder:--@values_holder\n");
+				# print("1. sunix_pl,get_good_sunix_params,values_holder:--@values_holder\n");
 				# print("1. sunix_pl,get_good_sunix_params,values_holder:--@values_holder----prog_count:$prog_count\n");
 			} else {
 				print("sunix_pl,get_good_sunix_params_values, either no value or label exists\n");

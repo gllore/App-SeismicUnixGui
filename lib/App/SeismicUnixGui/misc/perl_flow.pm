@@ -446,7 +446,7 @@ sub parse {
 					$check_buttons_settings[$k] = $on;
 
 					# print("2. perl_flow,parse, MATCH of good label and a_label\n");
-#					print("perl_flow,parse,good value: $all_values[$k] k=$k, j=$j\n");
+					# print("perl_flow,parse,good value: $all_values[$k] k=$k, j=$j\n");
 					# print("perl_flow,parse, good label: $all_labels[$k], k=$k, j=$j\n");
 
 				}

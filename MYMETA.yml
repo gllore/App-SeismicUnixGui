@@ -31,5 +31,5 @@ requires:
   Tk::JFileDialog: '2.20'
   aliased: '0.34'
   namespace::autoclean: '0.29'
-version: v0.80.7
+version: v0.80.8
 x_serialization_backend: 'CPAN::Meta::YAML version 0.018'

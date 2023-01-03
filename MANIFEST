@@ -49,6 +49,7 @@ archive/rayinvr.pm
 archive/Segdread
 archive/Segdread.pl
 archive/Sseg2su_config.pl
+archive/Su2segy.pl
 archive/su_param_fix.pm
 archive/Sudipfilt2_config.pl
 archive/suhistogram_bck.pm
@@ -89,6 +90,7 @@ lib/App/SeismicUnixGui/big_streams/iSave_top_mute_picks.pm
 lib/App/SeismicUnixGui/big_streams/iSelect_tr_Sumute.pm
 lib/App/SeismicUnixGui/big_streams/iSelect_tr_Sumute_bottom.pm
 lib/App/SeismicUnixGui/big_streams/iSelect_tr_Sumute_top.pm
+lib/App/SeismicUnixGui/big_streams/iSelect_tr_Sumute_top4quotemetaBranchV0.80.9.pm
 lib/App/SeismicUnixGui/big_streams/iSelect_xt.pm
 lib/App/SeismicUnixGui/big_streams/iShow_picks.pm
 lib/App/SeismicUnixGui/big_streams/iShowNselect_picks.pm
@@ -449,6 +451,7 @@ lib/App/SeismicUnixGui/configs/well/suwellrf.config
 lib/App/SeismicUnixGui/developer/code/immodpg/kill4mmodpg_development.pl
 lib/App/SeismicUnixGui/developer/code/sunix/change_a_line_everywhere.pl
 lib/App/SeismicUnixGui/developer/code/sunix/convert2V07.pl
+lib/App/SeismicUnixGui/developer/code/sunix/convert2V08.pl
 lib/App/SeismicUnixGui/developer/code/sunix/nameNnumber.txt
 lib/App/SeismicUnixGui/developer/code/sunix/prog_doc2pm.pm
 lib/App/SeismicUnixGui/developer/code/sunix/README.pm
@@ -832,6 +835,7 @@ lib/App/SeismicUnixGui/developer/Stripped/statsMath/suacor.su.main.convolution_c
 lib/App/SeismicUnixGui/developer/Stripped/statsMath/suacorfrac.su.main.convolution_correlation
 lib/App/SeismicUnixGui/developer/Stripped/statsMath/sualford.su.main.multicomponent
 lib/App/SeismicUnixGui/developer/Stripped/statsMath/suattributes.su.main.attributes_parameter_estimation
+lib/App/SeismicUnixGui/developer/Stripped/statsMath/suattributes_changes.txt
 lib/App/SeismicUnixGui/developer/Stripped/statsMath/suconv.su.main.convolution_correlation
 lib/App/SeismicUnixGui/developer/Stripped/statsMath/sufwmix.su.main.operations
 lib/App/SeismicUnixGui/developer/Stripped/statsMath/suharlan.su.main.noise
@@ -1020,6 +1024,7 @@ lib/App/SeismicUnixGui/messages/color_listbox_messages.pm
 lib/App/SeismicUnixGui/messages/FileDialog_button_messages.pm
 lib/App/SeismicUnixGui/messages/FileDialog_close_messages.pm
 lib/App/SeismicUnixGui/messages/flows_messages.pm
+lib/App/SeismicUnixGui/messages/help_button_messages.pm
 lib/App/SeismicUnixGui/messages/immodpg_messages.pm
 lib/App/SeismicUnixGui/messages/iPick_messages.pm
 lib/App/SeismicUnixGui/messages/message_director.pm
@@ -1028,6 +1033,7 @@ lib/App/SeismicUnixGui/messages/null_messages.pm
 lib/App/SeismicUnixGui/messages/project_selector_messages.pm
 lib/App/SeismicUnixGui/messages/run_button_messages.pm
 lib/App/SeismicUnixGui/messages/save_button_messages.pm
+lib/App/SeismicUnixGui/messages/SeismicUnixGui.pm
 lib/App/SeismicUnixGui/messages/SuMessages.pm
 lib/App/SeismicUnixGui/messages/superflow_messages.pm
 lib/App/SeismicUnixGui/misc/algebra_by.pm
@@ -1211,6 +1217,7 @@ lib/App/SeismicUnixGui/script/.split_cdp0000060.su
 lib/App/SeismicUnixGui/script/.split_cdp0000061.su
 lib/App/SeismicUnixGui/script/cmguiTMEeyS
 lib/App/SeismicUnixGui/script/convert2V07
+lib/App/SeismicUnixGui/script/convert2V08
 lib/App/SeismicUnixGui/script/gui_history.txt
 lib/App/SeismicUnixGui/script/iBottomMute
 lib/App/SeismicUnixGui/script/immodpg
@@ -1222,6 +1229,7 @@ lib/App/SeismicUnixGui/script/iVA
 lib/App/SeismicUnixGui/script/L_SU_project_selector.pl
 lib/App/SeismicUnixGui/script/L_SUV0.80.6.pl
 lib/App/SeismicUnixGui/script/L_SUV0.80.7.pl
+lib/App/SeismicUnixGui/script/L_SUV0.80.8.pl
 lib/App/SeismicUnixGui/script/LICENSE
 lib/App/SeismicUnixGui/script/post_install_c_compile.pl
 lib/App/SeismicUnixGui/script/post_install_env.pl
@@ -1504,6 +1512,7 @@ lib/App/SeismicUnixGui/specs/statsMath/farith_spec.pm
 lib/App/SeismicUnixGui/specs/statsMath/suacor_spec.pm
 lib/App/SeismicUnixGui/specs/statsMath/suacorfrac_spec.pm
 lib/App/SeismicUnixGui/specs/statsMath/sualford_spec.pm
+lib/App/SeismicUnixGui/specs/statsMath/suattributes_spec.pm
 lib/App/SeismicUnixGui/specs/statsMath/suconv_spec.pm
 lib/App/SeismicUnixGui/specs/statsMath/sufwmix_spec.pm
 lib/App/SeismicUnixGui/specs/statsMath/suhistogram_spec.pm

@@ -40,7 +40,6 @@ use Moose;
 our $VERSION = '0.0.4';
 
 use Tk;
-use Tk::JFileDialog;
 
 use aliased 'App::SeismicUnixGui::misc::L_SU_global_constants';
 use aliased 'App::SeismicUnixGui::misc::iFile';
@@ -65,10 +64,8 @@ extends 'App::SeismicUnixGui::misc::gui_history' => { -version => 0.0.2 };
 use aliased 'App::SeismicUnixGui::misc::gui_history';
 
 my $decisions   			= decisions->new();
-my $iFile                   = iFile->new();
 my $L_SU_global_constants   = L_SU_global_constants->new();
 my $gui_history 			= gui_history->new();
-my $message_director        = message_director->new();
 
 my $file_dialog_type = $L_SU_global_constants->file_dialog_type_href();
 my $flow_type_h      = $L_SU_global_constants->flow_type_href();
@@ -134,18 +131,13 @@ my $user_built_flow_open_data_parameter_value_index;
 
 =cut
 
-sub _test {
-	my ($self) = @_;
-	
-	print("file_dialog,_test,self=$self\n");
-	
-}
-
 sub _FileDialog {
 
 	my ($self) = @_;
 
-	my $my_title        = _get_dialog_type();    # e.g., 'SaveAs' or 'Save' or 'Open', or 'Delete'
+	use Tk::JFileDialog;
+
+	my $my_title        = _get_dialog_type();    # e.g., 'SaveAs' or 'Save' or 'Flow'
 	my $FileDialog_path = _get_path();           # e.g., $PL or $DATA_SEISMIC_SU
 
 	my $fileDialog_w;
@@ -185,54 +177,6 @@ sub _FileDialog {
 	return ($empty_string);
 }
 
-#=head2 sub _FileDialog2delete
-#
-#To remove individual files interactively
-#
-#=cut
-#
-#sub _FileDialog2delete {
-#
-#	my ($self) = @_;
-#
-#	my $my_title        = _get_dialog_type();    # e.g., 'Open', 'SaveAs' or Delete
-#	my $FileDialog_path = _get_path();           # e.g., $PL or $DATA_SEISMIC_SU
-#
-#	my $fileDialog_w;
-#
-#	$fileDialog_w = $file_dialog->{_mw}->JFileDialog(
-#		-Title        => $my_title,
-#		-Path         => $FileDialog_path,
-#		-History      => 12,
-#		-HistDeleteOk => 1,
-#		-HistUsePath  => 1,
-#		-HistFile     => "",
-#		-PathFile     => "",
-#		-SelHook      => \&_test,
-#		-Create       => 1,
-#		-width        => 52,
-#		-maxwidth     => 59,
-#	);
-#
-#	# results from interactive file selection
-#	# If cancel is selected, an undefined value for the file name is returned
-#	$file_dialog->{_selected_file_name} = $fileDialog_w->Show();
-#	$file_dialog->{_last_path_touched}  = $fileDialog_w->cget('-Path');
-#	
-#	$file_dialog->{_selected_file_name} = $fileDialog_w->Show();
-#
-#	#	print(
-#	#		"file_dialog,_FileDialog,last path is
-#	#	$file_dialog->{_last_path_touched} \n"
-#	#	);
-#	#	print(
-#	#			"file_dialog,_FileDialog,selected_file_name
-#	#	  is $file_dialog->{_selected_file_name} \n"
-#	#	);
-#
-#	return ($empty_string);
-#}
-
 =head2  _big_stream_last_dir_in_path
 
 =cut 
@@ -243,6 +187,7 @@ sub _big_stream_last_dir_in_path {
 
 	my $param_widgets = param_widgets4pre_built_streams->new();
 	my $whereami      = whereami->new();
+	my $iFile         = iFile->new();
 
 	my $default_param_specs = $L_SU_global_constants->param();
 	my $first_idx           = $default_param_specs->{_first_entry_idx};
@@ -345,6 +290,7 @@ sub _big_stream_last_dir_in_path {
 sub _big_stream_last_dir_in_path_close {
 	my ($self) = @_;
 
+	my $iFile         = iFile->new();
 	my $control       = control->new();
 	my $param_widgets = param_widgets4pre_built_streams->new();
 
@@ -416,10 +362,15 @@ sub _big_stream_last_dir_in_path_close {
 }
 
 =head2 sub _get_dialog_type 
+
+	Open/see as Data in GUI (data for user-built and pre-built superflows)
 	
-	Open/seen as Open in GUI (user-built flows)
-	SaveAs/seen as SaveAs in GUI(user-built flows)
-	Delete/seen as Delete in GUI (user-built flows)
+	Open/seen as Flow ( in GUI (perl programs of user-built flows)
+	
+	Save/seen as Save  in GUI ((perl program of user-built flow and pre-built superflows)
+	
+	SaveAs/seen as SaveAs   in GUI ((perl program of pre-built superflows)
+	
 	
 =cut
 
@@ -441,10 +392,12 @@ sub _get_dialog_type {
 
 =head2 sub _get_path 
 
-   _dialog_type can be seen in GUI as 
+   _dialog_type can be seen in GUI as
+   	 'Data'/open, 
    	 'SaveAs' or 
    	 'Save'
-   	 'Open' flow   	 
+   	 'Flow'/open
+   	 
    	 within program we also have 'Path' or directory
    
 =cut 	
@@ -467,9 +420,10 @@ sub _get_path {
 =head2 sub _set_file_path 
 
    _dialog_type, which can be seen in GUI as
+   	 'Data'/open, 
    	 'SaveAs' or 
    	 'Save'
-   	 'Open'
+   	 'Flow'/open
    	 Only used by _user_built_flow_SaveAs_perl_file
    
 =cut 	
@@ -492,7 +446,7 @@ sub _set_file_path {
 			# print("file_dialog, _set_file_path ,dialog type:$topic\n");
 			# print("file_dialog, _set_file_path ,path:$file_dialog->{_path}\n");
 
-		} elsif ( $topic eq $file_dialog_type->{_Open} ) {    # Open pre-exiting user-built flow
+		} elsif ( $topic eq $file_dialog_type->{_Flow} ) {    # Open pre-exiting user-built flow
 			$file_dialog->{_path} = $PL_SEISMIC;
 
 			# print("file_dialog, _set_file_path ,dialog type:$topic\n");
@@ -566,6 +520,7 @@ sub _get_flow_type {
 sub _pre_built_superflow_close_data_file {
 	my ($self) = @_;
 
+	my $iFile         = iFile;
 	my $control       = control->new;
 	my $param_widgets = param_widgets4pre_built_streams->new();
 
@@ -672,6 +627,7 @@ sub _pre_built_superflow_close_data_file {
 sub _pre_built_superflow_close_path {
 	my ($self) = @_;
 
+	my $iFile         = iFile;
 	my $control       = control->new();
 	my $param_widgets = param_widgets4pre_built_streams->new();
 
@@ -755,12 +711,13 @@ sub _pre_built_superflow_open_data_file {
 
 	my $param_widgets = param_widgets4pre_built_streams->new();
 	my $whereami      = whereami->new();
+	my $iFile         = iFile->new();
 
 	my $default_param_specs = $L_SU_global_constants->param();
 	my $first_idx           = $default_param_specs->{_first_entry_idx};
 	my $length              = $default_param_specs->{_length};
 
-	# e.g. Data_Pl_SEISMIC, Open, SaveAs, Delete flow etc.
+	# e.g. Data_Pl_SEISMIC, Data, Path, Flow etc.
 	my $topic = _get_dialog_type();
 
 	$gui_history->set_hash_ref($file_dialog);
@@ -802,7 +759,7 @@ sub _pre_built_superflow_open_data_file {
 
 		if ( $file_dialog->{_parameter_value_index} >= 0 ) {    # for additional certainty; but is it needed?
 
-			# e.g. Data_Pl_SEISMIC, Open, SaveAs, Delete etc.
+			# e.g. Data_Pl_SEISMIC, Data, Path, Flow etc.
 			my $topic = _get_dialog_type();
 
 			print(
@@ -870,6 +827,7 @@ sub _pre_built_superflow_open_path {
 
 	my $param_widgets = param_widgets4pre_built_streams->new();
 	my $whereami      = whereami->new();
+	my $iFile         = iFile->new();
 	my $control       = control->new();
 
 	my $default_param_specs = $L_SU_global_constants->param();
@@ -965,8 +923,8 @@ sub _pre_built_superflow_open_path {
 
 =head2  sub  _set_FileDialog2user_built_flow
 
-   {_Delete}  	...	delete pre-existing user-built flow
-   {_Open} 		...	open pre-existing user-built flow
+   {_Data}  	...	open pre-existing data file
+   {_Flow} 		...	open pre-existing user-built flow
    {_SaveAs} 	...	save a new user-built flow
    {_Save} 	    ...	re-save a user-built flow 
    
@@ -977,7 +935,7 @@ sub _set_FileDialog2user_built_flow {
 
 	my $topic = _get_dialog_type();
 
-#	print("file_dialog, _set_FileDialog2user_built_flow ,dialog type:$topic\n");
+	# print("file_dialog, _set_FileDialog2user_built_flow ,dialog type:$topic\n");
 
 	# for Data
 	if ( $topic eq $file_dialog_type->{_Data} ) {
@@ -992,7 +950,7 @@ sub _set_FileDialog2user_built_flow {
 		_user_built_flow_open_data_file();
 
 		# Open pre-exiting user-built flow
-	} elsif ( $topic eq $file_dialog_type->{_Open} ) {
+	} elsif ( $topic eq $file_dialog_type->{_Flow} ) {
 
 		# print("file_dialog, _set_FileDialog2user_built_flow ,dialog type:$topic\n");
 		# print("file_dialog, _set_FileDialog2user_built_flow, flowNsuperflow_name_w:$file_dialog->{_flowNsuperflow_name_w} \n");
@@ -1010,9 +968,8 @@ sub _set_FileDialog2user_built_flow {
 		#		print("file_dialog, _set_FileDialog2user_built_flow ,dialog type:$topic\n");
 		_user_built_flow_SaveAs_perl_file();
 
-	} elsif ($topic eq 'Delete') {
-		
-		_user_built_flow_Delete_perl_file();
+		#	} elsif ($topic eq 'Save') {
+		#		_user_built_flow_save_perl_file();
 
 	} else {
 
@@ -1048,7 +1005,7 @@ sub _set_FileDialog2pre_built_superflow {
 		# print("2. file_dialog,set_FileDialog2pre_built_superflow, topic= $topic\n");
 		_big_stream_last_dir_in_path();
 
-	} elsif ( $topic eq $file_dialog_type->{_Open} ) {
+	} elsif ( $topic eq $file_dialog_type->{_Flow} ) {
 
 		# print("file_dialog,set_FileDialog2pre_built_superflow, not allowed \n");
 
@@ -1113,6 +1070,7 @@ sub _user_built_flow_SaveAs_perl_file {
 		# print("3. file_dialog, _user_built_flow_SaveAs_perl_file ,SaveAs, pre_r_set_file_patheq_ok= $pre_req_ok \n");
 		# print("2. file_dialog, _user_built_flow_SaveAs_perl_file _is_user_built_flow: $file_dialog->{_is_user_built_flow}\n");
 
+		my $iFile   = iFile->new();
 		my $control = control->new();
 
 		my $whereami            = whereami->new();
@@ -1123,7 +1081,7 @@ sub _user_built_flow_SaveAs_perl_file {
 
 		# print ("file_dialog _user_built_flow_SaveAs_perl_file_user_built_flow_SaveAs_perl_file, _last_parameter_index_touched_color: $file_dialog->{_last_parameter_index_touched_color} \n");
 
-		# make the file paths for the current file_dialog type ( Save, SaveAs, Delete, Open etc.)}
+		# make the file paths for the current file_dialog type ( Save, SaveAs, Flow, Data etc.)}
 		_set_file_path();
 
 		# collects the name of the data file to be opened
@@ -1198,6 +1156,7 @@ sub _user_built_flow_close_data_file {
 
 	my $control       = control->new();
 	my $param_widgets = param_widgets->new();
+	my $iFile         = iFile->new();
 
 	my @fields;
 	my $full_path_name;
@@ -1408,10 +1367,13 @@ sub _user_built_flow_close_path {
 sub _user_built_flow_close_perl_file {
 	my ($self) = @_;
 
+	my $file_dialog_messages = message_director->new();
+	my $iFile                = iFile;
+
 	my @fields;
 	my $full_path_name;
 
-	# Should be Open, SaveAs, Delete
+	# Should be Flow: Possibles are Data, Flow (open), SaveAs
 	my $topic = $file_dialog->{_dialog_type};
 
 	$full_path_name = $file_dialog->{_selected_file_name};
@@ -1422,7 +1384,7 @@ sub _user_built_flow_close_perl_file {
 		my $last_path_touched = $file_dialog->{_last_path_touched};
 #		print("file_dialog,_user_built_flow_close_perl_file, last_path_touched: $last_path_touched\n");
 
-		@fields   = split( /\//, $full_path_name );
+		@fields                                						= split( /\//, $full_path_name );
 		$file_dialog->{_is_selected_file_name} = $true;
 		$file_dialog->{_flow_name_in}          	= $fields[-1];
 
@@ -1463,68 +1425,6 @@ sub _user_built_flow_close_perl_file {
 	}
 }
 
-=head2 sub _user_built_flow_close_Delete_perl_file 
-
-=cut
-
-sub _user_built_flow_close_Delete_perl_file {
-	my ($self) = @_;
-
-	my @fields;
-	my $full_path_name;
-
-	# Should be Open, SaveAs, Delete
-	my $topic = $file_dialog->{_dialog_type};
-
-	$full_path_name = $file_dialog->{_selected_file_name};
-#	print("file_dialog,_user_built_flow_close_Delete_perl_file, full_path_name: $full_path_name\n");
-
-	if ( length $full_path_name ) {
-
-		my $last_path_touched = $file_dialog->{_last_path_touched};
-#		print("file_dialog,_user_built_flow_close_Delete_perl_file, last_path_touched: $last_path_touched\n");
-
-		@fields   = split( /\//, $full_path_name );
-		$file_dialog->{_is_selected_file_name} = $true;
-		$file_dialog->{_flow_name_in}          	= $fields[-1];
-
-		if ( length $last_path_touched ) {
-
-			# = false for perl flow paths
-			$file_dialog->{_is_selected_path} = $false;
-
-		} else {
-			#	=true for data paths
-			$file_dialog->{_is_selected_path} = $true;
-			print("file_dialog,  No last path touched\n");
-		}
-
-#		print("file_dialog,_user_built_flow_close_Delete_perl_file,fields= $fields[-1]\n");
-#		print("file_dialog,_user_built_flow_close_Delete_perl_file, flow_name_in: $file_dialog->{_flow_name_in}\n");
-
-		$decisions->set4FileDialog_Delete_perl($file_dialog);
-		my $pre_req_ok = $decisions->get4FileDialog_Delete_perl();
-
-		if ($pre_req_ok) {
-
-#			print("2. file_dialog,_user_built_flow_close_Delete_perl_file,Delete,pre_req_ok= $pre_req_ok \n");
-			$file_dialog->{_path} = $iFile->get_Delete_perl_flow_path();
-			return ($true);
-
-		} else {
-#			print(
-#				"file_dialog,_user_built_flow_close_Delete_perl_file, User selected Cancel
-#			No output flow name selected NADA\n"
-#			);
-			return ($false);
-		}
-
-	} else {
-		print("file_dialog,_user_built_flow_close_Delete_perl_file, flow_name_in: full path name missing\n");
-		return ($empty_string);
-	}
-}
-
 =head2 sub _user_built_flow_open_data_file 
 
 	seen in the GUI as "File/Data"
@@ -1550,6 +1450,7 @@ sub _user_built_flow_open_data_file {
 
 	my $param_widgets = param_widgets->new();
 	my $whereami      = whereami->new();
+	my $iFile         = iFile->new();
 
 	my $default_param_specs = $L_SU_global_constants->param();
 	my $first_idx           = $default_param_specs->{_first_entry_idx};
@@ -1595,7 +1496,7 @@ sub _user_built_flow_open_data_file {
 
 		if ( $index >= 0 ) {    # also for additional certainty
 
-			# e.g. Data_Pl_SEISMIC, Open, SaveAs, Delete flow etc.
+			# e.g. Data_Pl_SEISMIC, Data, Path, Flow etc.
 			my $topic = _get_dialog_type();
 
 			#			print(
@@ -1652,6 +1553,7 @@ sub _user_built_flow_open_path {
 
 	my $param_widgets = param_widgets->new();
 	my $whereami      = whereami->new();
+	my $iFile         = iFile->new();
 
 	my $default_param_specs = $L_SU_global_constants->param();
 	my $first_idx           = $default_param_specs->{_first_entry_idx};
@@ -1700,7 +1602,7 @@ sub _user_built_flow_open_path {
 
 		if ( $file_dialog->{_parameter_value_index} >= 0 ) {    # for additional certainty; but is it needed?
 
-			# e.g. Data_Pl_SEISMIC, Open, SaveAs, Delete, flow etc.
+			# e.g. Data_Pl_SEISMIC, Data, Path, Flow etc.
 			my $topic = _get_dialog_type();
 
 			#			print(
@@ -1744,85 +1646,6 @@ sub _user_built_flow_open_path {
 
 }
 
-
-
-=head2 sub _user_built_flow_Delete_perl_file 
-
-Delete a flow written in Perl
-				
-=cut
-
-sub _user_built_flow_Delete_perl_file {
-	my ($self) = @_;
-
-#	print("file_dialog,_user_built_flow_Delete_perl_file\n ");
-
-	my $param_widgets           = param_widgets->new();
-	my $whereami                = whereami->new();
-
-#	my $default_param_specs = $L_SU_global_constants->param();
-#	my $first_idx           = $default_param_specs->{_first_entry_idx};
-#	my $length              = $default_param_specs->{_length};
-#
-	$gui_history->set_hash_ref($file_dialog);
-	$gui_history->set4FileDialog_delete_perl_file_start();
-	$file_dialog = $gui_history->get_hash_ref();
-
-	# print("1. file_dialog,_user_built_flow_Delete_perl_file,_flowNsuperflow_name_w:$file_dialog->{_flowNsuperflow_name_w} \n");
-	# if an appropriate entry widget is first selected, ie. Entry
-	# get index of entry button pressed
-	# find out which entry button has been chosen
-	# confirm that it IS the file button
-	# TODO determine the required file type and file path
-	# TODO from the *_spec.pm file for the particular program in the flow.
-	# print("file_dialog,FileDialog_button pressed\n");
-
-	# a blank message
-	my $message = $message_director->null_button(0);
-	$file_dialog->{_message_w}->delete( "1.0", 'end' );
-	$file_dialog->{_message_w}->insert( 'end', $message );
-
-	# set path to flows
-	$file_dialog->{_path} = $iFile->get_Delete_perl_flow_path();
-#	print("file_dialog,_user_built_flow_Delete_perl_file, path = $file_dialog->{_path}\n");
-
-	# collects the name of the perl file to be opened
-	_FileDialog();    # directory mega-widget
-
-	my $successful = _user_built_flow_close_Delete_perl_file(); #NEW, TODO
-#
-#    print("file_dialog,_user_built_flow_Delete_perl_file,  success= $successful \n");
-#
-#	if ( $successful eq $true ) {
-#
-#		print("file_dialog,_user_built_flow_Delete_perl_file, success\n");
-#		$gui_history->set_hash_ref($file_dialog);
-#		$gui_history->set4FileDialog_delete_perl_file_end();  #  New, TODO
-#
-#	} elsif ( $successful eq $false ) {
-#
-#		print("file_dialog,_user_built_flow_Delete_perl_file, unsuccessful\n");
-#		$gui_history->set_hash_ref($file_dialog);
-#		$gui_history->set4FileDialog_delete_perl_file_fail(); # NEW, TODO
-#
-#	} elsif ( $successful eq $empty_string ) {
-#
-#		print("file_dialog,_user_built_flow_Delete_perl_file, no file name is available\n");
-#		$gui_history->set_hash_ref($file_dialog);
-#		$gui_history->set4FileDialog_delete_perl_file_fail(); # NEW TODO
-#
-#	} else {
-#		print("file_dialog,_user_built_flow_Delete_perl_file, unexpected\n");
-#	}
-#
-#	$file_dialog = $gui_history->get_hash_ref();
-
-	# print (" file_dialog,_user_built_flow_Delete_perl_file, print gui_history.txt\n");
-	# $gui_history->view();
-	#	print("1. file_dialog,_user_built_flow_Delete_perl_file,_flowNsuperflow_name_w:$file_dialog->{_flowNsuperflow_name_w} \n");
-
-}
-
 =head2 sub _user_built_flow_open_perl_file 
 Open flows written in Perl
 			
@@ -1839,6 +1662,8 @@ sub _user_built_flow_open_perl_file {
 
 	my $param_widgets           = param_widgets->new();
 	my $whereami                = whereami->new();
+	my $iFile                   = iFile->new();
+	my $open_perl_file_messages = message_director->new();
 
 	my $default_param_specs = $L_SU_global_constants->param();
 	my $first_idx           = $default_param_specs->{_first_entry_idx};
@@ -1858,7 +1683,7 @@ sub _user_built_flow_open_perl_file {
 	# print("file_dialog,FileDialog_button pressed\n");
 
 	# a blank message
-	my $message = $message_director->null_button(0);
+	my $message = $open_perl_file_messages->null_button(0);
 	$file_dialog->{_message_w}->delete( "1.0", 'end' );
 	$file_dialog->{_message_w}->insert( 'end', $message );
 
@@ -2244,11 +2069,11 @@ sub FileDialog_director {
 	# print("1. file_dialog, FileDialog_director, flowNsuperflow_name_w:$file_dialog->{_flowNsuperflow_name_w} \n");
 	my $file_dialog_flow_type = _get_flow_type();
 
-#	print("file_dialog, FileDialog_director, flow_type:$file_dialog_flow_type\n");
+	# print("file_dialog, FileDialog_director, flow_type:$file_dialog_flow_type\n");
 
 	if ( $file_dialog_flow_type eq $flow_type_h->{_user_built} ) {
 
-#		print("file_dialog, FileDialog_director, should be user_built_flow_type:$file_dialog_flow_type\n");
+		# print("file_dialog, FileDialog_director, should be user_built_flow_type:$file_dialog_flow_type\n");
 
 		_set_FileDialog2user_built_flow();
 

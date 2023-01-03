@@ -1565,7 +1565,7 @@ sunix_pl reading perl flows
        TODO: where does control adjust ticks.
        There is one step that alternatively removes or adds ticks from segyread and suopt2
        
-       It is not because of the spec file (sufficiently similar for both) (END)
+       It is not because ofthe spec file (sufficiently similar for both) (END)
        It is not because of the oop_prog_params->get_a_section (identical process for both)  (END)
        It is not when the Perl file is being read in (sunix_pl)
        But somewhere in between it sometimes changes the ticks and other times does not.
@@ -1587,12 +1587,11 @@ sunix_pl reading perl flows
       		_stack_flow
       		FileDialog_button (twice: once for _Data and once for 'SaveAs' options
       		save_button
-      		are however kept
-     
-     Q When I output Perl files, which program assembles the parameter Setup	
+      		
+      		Q When I output Perl files, which program assembles the parameter Setup	
 	 
 	 Following, ticks may also added
-	  Now (12.21): all segy,suop2,data_in,data_out files are written
+	  Now (12.21) all segy,suop2,data_in,data_out files are written
 	  as follows, e.g.,:
 	  
 	 N.B. suop2, segyread show prefixes and suffixes in the perl file
@@ -1661,8 +1660,6 @@ A:     from prefix definitions in _spec file
     But, internally L_SU removes them for display.
     However, all outputs to scripts and configuration files  will write stringless 
     parameter values.
-    
-    As of Dec. 2022--deprecated
     All parameter values pass through a 2-layer filter upon reading.
     First they are made quoteless and then terminal quotes are applied when a parameter
     value does not look like a number (probably a string then)
@@ -1673,8 +1670,9 @@ A:     from prefix definitions in _spec file
     For this situation
     control.pm must be given a lsit of the program names. If no program names
     are given then control will revert to internal default values.
- 
-     Ticks for strings are kept internally for when user-built perl scripts are generated
+    In the GUI all displays are however kept quoteless in the GUI.
+    
+    Ticks for strings are kept internally for when user-built perl scripts are generated
     User-build scripts need ticked strings in the quotemeta module in order to maintain
     proper Seismic Unix syntax. Otherwise we would not need to write out strings with ticks, e.g. 
     in sufilter f=1,2,30,60  is written out as a string through use of quotemeta('1,2,30,60') 
@@ -1682,11 +1680,6 @@ A:     from prefix definitions in _spec file
     Just as param_widgets->redisplay_values removes ticks,
     recall that the ticks must be restored every time after we use param_widgets->get_values_aref (from the GUI)
     
-    From Jan 2023 onward
-    quotemeta is no longer used and all program parameters are placed within" "
-    These newly minted bash scripts will interpolated between " "  
-    In the GUI all displays remain quoteless.
-        
     Q. How do we clear a whole flow sequence from the GUI (for user)
      	and clear all evidence of its existence from all memory locations.
      	
@@ -2272,20 +2265,8 @@ Sub Q : what does delete_from_flow_button do?
  A. within color_flow
  
  
-     Q. Can you describe the (VERY) general sequence of events when we read a user-built file:
-    
-    perl_* modules
-    color_flow
-      _perl_flow populates GUI and stores the parameter values from several programs via param_flow
-      _add2flow
-(N.B. sometmes strange memory leaks occur and several remedies are set
-up that need the Clone module)      
-
- 
-Q.  What happens when we pick a flow item, manually:
-     Then flow_select is picked manually:
+Q.  What happens when flow_select is picked manually:
  	 sub called: 	flow_select       (main, flow_select)
- 	 
  
   flow_select is MANUALLY activated through 
   	main 
@@ -2955,5 +2936,6 @@ A.  Following on from the previous questions, if MB3 selected,
        to speed up the gui in a lot of weak spots. 9-19-22 JML
            
            
+               
 
            

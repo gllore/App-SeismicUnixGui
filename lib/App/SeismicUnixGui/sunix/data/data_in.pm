@@ -97,7 +97,6 @@ my $data_in = {
 	
   send PATH for suffix_type
   suffix_type can be su txt sgy or su
-  but not segy
   
 
 =cut
@@ -375,7 +374,7 @@ sub Step {
 	my ($self) = @_;
 	my $note;
 
-	$data_in->{_note} = '"'._get_inbound().'"';
+	$data_in->{_note} = _get_inbound();
 	$note = $data_in->{_note};
 
 	return $note;

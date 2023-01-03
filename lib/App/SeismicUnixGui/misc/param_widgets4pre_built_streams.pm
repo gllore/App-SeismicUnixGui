@@ -1003,12 +1003,13 @@ sub redisplay_labels {
 	my $labels_aref   = $param_widgets->{_labels_aref};
 	my $first         = $param_widgets->{_first_idx};
 	my $length        = scalar @{ $param_widgets->{_labels_aref} };
+	my $i;
 
 	# my $length 			= $param_widgets->{_length};
 
 	if ($labels_w_aref) {
 		
-		for ( my $i = $first; $i < $length; $i++ ) {
+		for ( $i = $first; $i < $length; $i++ ) {
 
 			# print("i:$i   param_widgets,redisplay_labels length:$length\n");
 			# print(" text is @{$labels_aref}\n");

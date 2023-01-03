@@ -278,21 +278,14 @@ my @alias_FileDialog_button_label;
 #$alias_FileDialog_button_label[0] = 'Flow';
 $alias_FileDialog_button_label[0] = 'Open';
 $alias_FileDialog_button_label[1] = 'SaveAs';
-$alias_FileDialog_button_label[2] = 'Delete';
 
 my @file_dialog_type;
 
 # for the visible Help button in the GUI
 my @alias_help_menubutton_label;
-$alias_help_menubutton_label[0] = 'Installation',
-$alias_help_menubutton_label[1] = 'About',
+$alias_help_menubutton_label[0] = 'Install',
 
- my $alias_help_menubutton_label_h = {
- 	
- 	_Installation => 'Installation', 
- 	_About => 'About', 
- 	
- };
+  my $alias_help_menubutton_label_h = { _Install => 'Install', };
 
 # in spec files for when Data_PL_SEISMIC, may
 # not necessarily informed by DATA_DIR_IN and DATA_DIR_OUT
@@ -305,12 +298,10 @@ $file_dialog_type[2] = 'Path';
 $file_dialog_type[3] = 'Flow';
 $file_dialog_type[4] = 'SaveAs';
 $file_dialog_type[5] = 'last_dir_in_path';
-$file_dialog_type[6] = 'Delete';
 
 my $file_dialog_type_h = {
 	_Data_PL_SEISMIC  => 'Data_PL_SEISMIC',
 	_Data             => 'Data',
-	_Delete           => 'Delete',
 	_Path             => 'Path',
 	_last_dir_in_path => 'last_dir_in_path',
 	_Flow             => 'Flow',
@@ -327,12 +318,7 @@ my $flow_type_h = {
 	_pre_built_superflow => 'pre_built_superflow',
 };
 
-my $help_menubutton_type_h = { 
-	
-	_About        => 'About',
-	_Installation => 'Installation',
-	 
-};
+my $help_menubutton_type_h = { _Install => 'Install', };
 
 my $purpose = { _geopsy => 'geopsy', };
 
@@ -425,7 +411,7 @@ my $var = {
 	_one_character                 => '1',
 	_one_pixel                     => '1',
 	_one_pixel_borderwidth         => '1',
-	_program_title                 => 'SeismicUnixGui V0.80.8',
+	_program_title                 => 'SeismicUnixGui V0.80.7',
 	_project_selector_title        => 'Project Selector',
 	_l_suplot_title                => 'L_suplot',
 	_project_selector_title        => 'Project Selector',
