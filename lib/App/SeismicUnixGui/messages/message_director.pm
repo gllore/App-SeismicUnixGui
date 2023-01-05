@@ -18,7 +18,7 @@ use aliased 'App::SeismicUnixGui::messages::superflow_messages';
 my $flows             = flows_messages->new();
 my $FileDialog_button = FileDialog_button_messages->new();
 my $FileDialog_close  = FileDialog_button_messages->new();
-my $help_button        = help_button_messages->new();
+my $help_button       = help_button_messages->new();
 my $run_button        = run_button_messages->new();
 my $save_button       = save_button_messages->new();
 my $superflow         = superflow_messages->new();
@@ -118,6 +118,17 @@ sub color_listbox {
 #    print("message_director,color_listbox,message =$message\n");
     
     return ($message);
+}
+
+sub help_button {
+    my ($self, $number ) = @_;
+
+    my $message_number  = $number;
+    $help_button->set($message_number);
+    $help_button->get($message_number);  
+    print("message_director,help_button,message =$message_number\n");
+    
+    return ();
 }
 
 sub immodpg {
