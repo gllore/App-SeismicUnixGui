@@ -4,7 +4,7 @@
 
 =head2 SYNOPSIS 
 
- PERL PROGRAM NAME: L_SUV0.80.7.pl 
+ PERL PROGRAM NAME: L_SUV0.81.3.pl 
  AUTHOR: 	Juan Lorenzo
  DATE: 		June 22 2017 
 
@@ -82,7 +82,7 @@ use aliased 'App::SeismicUnixGui::misc::gui_history';
 use Tk;
 use Tk::Pane;
 use Tk::NoteBook;
-use App::SeismicUnixGui::misc::L_SU '0.1.7';
+use App::SeismicUnixGui::misc::L_SU '0.1.8';
 use aliased 'App::SeismicUnixGui::misc::L_SU';
 use aliased 'App::SeismicUnixGui::misc::L_SU_global_constants';
 
@@ -555,7 +555,7 @@ Advice for installation of software
 	( $main_href->{_help_menubutton} )->configure( -menu => $side_menu_bar_right);
 
 	my @Help_option;
-	$Help_option[0] = $help_menubutton_type->{_Install};
+	$Help_option[0] = $help_menubutton_type->{_About};
 
 	# Help is always enabled and from the start
 	$main_href->{_install_menubutton} = ( $main_href->{_help_menubutton} )->command(
@@ -2325,7 +2325,7 @@ in L_SU
 	
 	-help_menubutton with possible value:
 	
-	Install
+	About
 
 =cut
 

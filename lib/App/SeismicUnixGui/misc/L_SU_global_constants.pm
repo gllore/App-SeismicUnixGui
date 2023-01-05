@@ -283,9 +283,9 @@ my @file_dialog_type;
 
 # for the visible Help button in the GUI
 my @alias_help_menubutton_label;
-$alias_help_menubutton_label[0] = 'Install',
+$alias_help_menubutton_label[0] = 'About',
 
-  my $alias_help_menubutton_label_h = { _Install => 'Install', };
+  my $alias_help_menubutton_label_h = { _About => 'About', };
 
 # in spec files for when Data_PL_SEISMIC, may
 # not necessarily informed by DATA_DIR_IN and DATA_DIR_OUT
@@ -318,7 +318,7 @@ my $flow_type_h = {
 	_pre_built_superflow => 'pre_built_superflow',
 };
 
-my $help_menubutton_type_h = { _Install => 'Install', };
+my $help_menubutton_type_h = { _About => 'About', };
 
 my $purpose = { _geopsy => 'geopsy', };
 
@@ -411,7 +411,7 @@ my $var = {
 	_one_character                 => '1',
 	_one_pixel                     => '1',
 	_one_pixel_borderwidth         => '1',
-	_program_title                 => 'SeismicUnixGui V0.80.7',
+	_program_title                 => 'SeismicUnixGui V0.81.3',
 	_project_selector_title        => 'Project Selector',
 	_l_suplot_title                => 'L_suplot',
 	_project_selector_title        => 'Project Selector',

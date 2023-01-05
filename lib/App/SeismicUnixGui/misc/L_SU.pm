@@ -47,7 +47,7 @@ package App::SeismicUnixGui::misc::L_SU;
 =cut 
 
 use Moose;
-our $VERSION = '0.1.7';
+our $VERSION = '0.1.8';
 
 my $path;
 my $SeismicUnixGui;
