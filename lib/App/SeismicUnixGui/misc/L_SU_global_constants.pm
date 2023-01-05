@@ -274,10 +274,9 @@ $alias_superflow_config_names[13] = 'temp';                          # make last
 # but Flow and SaveAs are.
 my @alias_FileDialog_button_label;
 
-#$alias_FileDialog_button_label[0] = 'Data';
-#$alias_FileDialog_button_label[0] = 'Flow';
 $alias_FileDialog_button_label[0] = 'Open';
 $alias_FileDialog_button_label[1] = 'SaveAs';
+$alias_FileDialog_button_label[2] = 'Delete';
 
 my @file_dialog_type;
 
@@ -298,10 +297,12 @@ $file_dialog_type[2] = 'Path';
 $file_dialog_type[3] = 'Flow';
 $file_dialog_type[4] = 'SaveAs';
 $file_dialog_type[5] = 'last_dir_in_path';
+$file_dialog_type[5] = 'Delete';
 
 my $file_dialog_type_h = {
 	_Data_PL_SEISMIC  => 'Data_PL_SEISMIC',
 	_Data             => 'Data',
+	_Delete           => 'Delete',
 	_Path             => 'Path',
 	_last_dir_in_path => 'last_dir_in_path',
 	_Flow             => 'Flow',

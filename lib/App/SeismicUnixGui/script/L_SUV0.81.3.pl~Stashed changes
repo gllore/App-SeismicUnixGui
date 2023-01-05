@@ -635,12 +635,19 @@ print join("\n", $top_menu_bar->bind($class) ), "\n";
 
 #	( $main_href->{_file_menubutton} )->separator;
 	my @File_option;
-
-	$File_option[0] = $file_dialog_type->{_Open};
+#	$File_option[0] = $file_dialog_type->{_Data};
+	$File_option[0] = $file_dialog_type->{_Flow};
 	$File_option[1] = $file_dialog_type->{_SaveAs};
-	$File_option[2] = $file_dialog_type->{_Delete};
 
-	# Open is the only button enabled from the start
+#	$main_href->{_Data_menubutton} = ( $main_href->{_file_menubutton} )->command(
+#		-label     => @$alias_FileDialog_button_label[0],
+#		-underline => 0,
+#		-state     => 'disabled',
+#		-command   => [ \&_L_SU, 'FileDialog_button', \$File_option[0] ],
+#		-font      => $arial_16
+#	);
+
+	# Flow is the only button enabled from the start
 	# Its purpose is to open a user-built perl flow
 	( $main_href->{_file_menubutton} )->separator;
 	$main_href->{_Flow_menubutton} = ( $main_href->{_file_menubutton} )->command(
@@ -656,14 +663,6 @@ print join("\n", $top_menu_bar->bind($class) ), "\n";
 		-underline => 0,
 		-state     => 'disabled',
 		-command   => [ \&_L_SU, 'FileDialog_button', \$File_option[1] ],
-		-font      => $arial_16
-	);
-
-	( $main_href->{_file_menubutton} )->separator;
-	$main_href->{_SaveAs_menubutton} = ( $main_href->{_file_menubutton} )->command(
-		-label     => @$alias_FileDialog_button_label[2],
-		-underline => 0,
-		-command   => [ \&_L_SU, 'FileDialog_button', \$File_option[2] ],
 		-font      => $arial_16
 	);
 
@@ -2321,8 +2320,8 @@ in L_SU
 	-save_button
 	-run_button
 	-FileDialog_button with one of 2
-	possible values: 'Open', 'SaveAs'
-	possible values: 'Delete'	
+	possible values: 'Flow', 'SaveAs'
+	possible values: 'Open', 'SaveAs'	
 	
 	-help_menubutton with possible value:
 	
@@ -2332,6 +2331,8 @@ in L_SU
 
 	sub _L_SU {
 		my ( $set_method, $value ) = @_;
+
+#	 
 
 		if ( $set_method && $value ) {
 

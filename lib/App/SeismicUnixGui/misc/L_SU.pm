@@ -974,7 +974,7 @@ sub help_menubutton {
 	}
 	else {
 		carp("L_SU, can not provide help\n");
-		print("install option = $$install_option_ref\n");
+		print("Help button option = $$install_option_ref\n");
 	}
 
 	return ();
