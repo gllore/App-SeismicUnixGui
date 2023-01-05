@@ -412,10 +412,8 @@ sub FileDialog_button {
 
 		}
 		elsif ( $$dialog_type_sref eq 'Open' ) {
-            
-             print("CASE2  L_SU, FileDialog_button\n");
 
-			# CASE 2 in prep for CASE 4
+			# print("CASE 2 in prep for CASE 4\n");
 			# After selecting a sunix program and before
 			# flow selection:
 			# select the color of the flow to fill automatically
@@ -447,7 +445,7 @@ sub FileDialog_button {
 				_set_user_built_flow_type();
 				$color = $next_available_color;
 
-				print("CASE 2 I.L_SU,FileDialog_button, $next_available_color will be occupied\n");
+#				print("CASE 2 I.L_SU,FileDialog_button, $next_available_color will be occupied\n");
 
 			}
 			elsif ( $vacancy eq $false ) {
@@ -546,7 +544,7 @@ sub FileDialog_button {
 
 		}
 		else {
-	  print("L_SU, FileDialog_button, Good, color already chosen: $color \n");
+#	  print("L_SU, FileDialog_button, Good, color already chosen: $color \n");
 		}
 
 		if (
@@ -586,7 +584,7 @@ sub FileDialog_button {
 				my $which_color =
 				  $color_listbox->get_next_available_flow_listbox_color();
 
-				print("CASE 3A L_SU, FileDialog_button, the next available listbox color is set as: $color\n");
+#				print("CASE 3A L_SU, FileDialog_button, the next available listbox color is set as: $color\n");
 #	print("1.  L_SU,FileDialog_button, color is $L_SU_href->{_flow_color}\n");
 #				print("CASE 3A 1.L_SU, FileDialog_button, $which_color will be occupied\n");
 

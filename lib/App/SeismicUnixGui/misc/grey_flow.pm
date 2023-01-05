@@ -2079,8 +2079,6 @@ sub FileDialog_button {
 # 3. populate GUI
 # 4. populate hashes (color_flow)and memory spaces (param_flow)
 # 5. Make sure to clean prior information from the FileDialog Button such as file names.
-
-		print("grey flow $topic\n");
 		
 			$file_dialog->set_flow_color( $color_flow_href->{_flow_color} );
 			$file_dialog->set_hash_ref($color_flow_href);    # uses values_aref
