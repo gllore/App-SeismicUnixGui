@@ -2348,6 +2348,7 @@ in L_SU
 
 				$gui_history->set_help_menubutton_type($name);
 #				print("1. main,_L_SU,method:$set_method, ref scalar value:$$value\n");
+
 			} else {
 				# print("2 main,_L_SU,method:$set_method, deref scalar value:$$value NADA\n");
 			}

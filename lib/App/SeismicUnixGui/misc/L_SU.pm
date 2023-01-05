@@ -95,14 +95,15 @@ my $get           = L_SU_global_constants->new();
 my $pre_built_big_stream = pre_built_big_stream->new();
 my $L_SU_href            = $gui_history->get_defaults();
 
-my $flow_type    = $get->flow_type_href();
-my $save_button  = save_button->new();
-my $run_button   = run_button->new();
-my $grey_flow    = grey_flow->new();
-my $pink_flow    = pink_flow->new();
-my $green_flow   = green_flow->new();
-my $blue_flow    = blue_flow->new();
-my $neutral_flow = neutral_flow->new();
+my $flow_type        = $get->flow_type_href();
+my $save_button      = save_button->new();
+my $run_button       = run_button->new();
+my $grey_flow        = grey_flow->new();
+my $pink_flow        = pink_flow->new();
+my $green_flow       = green_flow->new();
+my $blue_flow        = blue_flow->new();
+my $neutral_flow     = neutral_flow->new();
+my $message_director = message_director->new();
 
 =head2
 share the following parameters in same name 
@@ -395,8 +396,8 @@ sub FileDialog_button {
 			&& !( $L_SU_href->{_is_flow_listbox_blue_w} ) )
 		{
 
-			# print("CASE 1 L_SU,FileDialog_button, _flow_type: $L_SU_href->{_flow_type}\n");
-			# print("CASE 1 L_SU, FileDialog_button, color is $color\n");
+# print("CASE 1 L_SU,FileDialog_button, _flow_type: $L_SU_href->{_flow_type}\n");
+# print("CASE 1 L_SU, FileDialog_button, color is $color\n");
 
 			#			Default selected flow box color is 'grey'for now,
 			#         but the default can be changed in L_SU_global_constants
@@ -890,7 +891,7 @@ or a user-created flow
 sub get_help {
 
 	my ($self) = @_;
-	
+
 	my $decisions = decisions->new();
 	my $pre_req_ok;
 	$L_SU_href->{_is_pre_built_superflow} = $true;    # helps decisions
@@ -898,23 +899,26 @@ sub get_help {
 	$decisions->set4help($L_SU_href);
 	$pre_req_ok = $decisions->get4help();
 
-	if ( $pre_req_ok
-		and length $L_SU_href->{_prog_name_sref} 
-	    and length $L_SU_href->{_current_program_name} 
-	    and ($L_SU_href->{_current_program_name} eq ${$L_SU_href->{_prog_name_sref}}) )		
+	if (
+			$pre_req_ok
+		and length $L_SU_href->{_prog_name_sref}
+		and length $L_SU_href->{_current_program_name}
+		and ( $L_SU_href->{_current_program_name} eq
+			${ $L_SU_href->{_prog_name_sref} } )
+	  )
 	{
 
 		my $help = help->new();
 
-		my $prog_name 			= ${ $L_SU_href->{_prog_name_sref} };
-		my $alias     			= $alias_superflow_names_h->{$prog_name};
-		my $SeismicUnixGui       = $get->get_path4SeismicUnixGui();
-		my $PATH 				 = $SeismicUnixGui . '/big_streams';
+		my $prog_name      = ${ $L_SU_href->{_prog_name_sref} };
+		my $alias          = $alias_superflow_names_h->{$prog_name};
+		my $SeismicUnixGui = $get->get_path4SeismicUnixGui();
+		my $PATH           = $SeismicUnixGui . '/big_streams';
 
-#		print("L_SU,help,alias: $PATH/$alias $var->{_suffix_pl}\n");
-		
+		#		print("L_SU,help,alias: $PATH/$alias $var->{_suffix_pl}\n");
+
 		my $inbound = $PATH . '/' . $alias . $var->{_suffix_pl};
-		$help->set_name(\$inbound );
+		$help->set_name( \$inbound );
 		$help->tkpod();
 
 	}
@@ -936,40 +940,20 @@ Allow this subroutine help_menubutton
 to select action e.g., open
 a perldoc file for information
  
-=cut 
+=cut
 
 sub help_menubutton {
 
 	my ( $self, $install_option_ref ) = @_;
 
 	my $help_menubutton_type = $get->help_menubutton_type_href();
-	print("L_SU, help_menubutton\n");
 
 	if ( length $install_option_ref
-		and $$install_option_ref eq $help_menubutton_type->{_Install} )
+		and $$install_option_ref eq $help_menubutton_type->{_About} )
 	{
 
-		use File::ShareDir ':ALL';
-
-		print("L_SU, install_button\n");
-
-		# Where are distribution-level shared data files kept
-		my $sys_distr_dir = dist_dir('App-SeismicUnixGui');
-
-		my $alias = $alias_help_menubutton_label_h->{_Install};
-
-		my $module_name_pm = 'SeismicUnixGui' . $var->{_suffix_pm};
-
-		if ( length $sys_distr_dir ) {
-
-			my $pathNmodule_pm = $sys_distr_dir . '/' . $module_name_pm;
-			print("L_SU,help_menubutton,alias: $alias\n");
-			system("tkpod $pathNmodule_pm &\n\n");
-
-		}
-		else {
-			warn 'Warning : variable missing';
-		}
+		my $item    = $alias_help_menubutton_label_h->{_About};
+		my $message = $message_director->help_button($item);
 
 	}
 	else {
@@ -1221,9 +1205,7 @@ sub set_run_button {
 					}
 					else {
 						print("L_SU,set_run_button, missing conditions\n");
-
-						my $run_button_messages = message_director->new();
-						my $message = $run_button_messages->run_button(1);
+						my $message = $message_director->run_button(1);
 
 						# a blank message
 						$message_w->delete( "1.0", 'end' );
@@ -1306,10 +1288,9 @@ sub set_save_button {
 
 	my ( $self, $topic_sref ) = @_;
 
-#	print("L_SU,set_save_button, topic: $$topic_sref\n");
+	#	print("L_SU,set_save_button, topic: $$topic_sref\n");
 
-	my $save_button_messages = message_director->new();
-	my $message              = $save_button_messages->null_button(0);
+	my $message = $message_director->null_button(0);
 
 	# a blank message
 	$message_w->delete( "1.0", 'end' );
@@ -1422,7 +1403,7 @@ sub set_save_button {
 
 					}
 					else {
-						my $message = $save_button_messages->save_button(1);
+						my $message = $message_director->save_button(1);
 						$message_w->insert( 'end', $message );
 
 				# print("L_SU,set_save_button, can not save user-built file\n");
@@ -1449,7 +1430,7 @@ sub set_save_button {
 			#				$gui_history->view();
 				$save_button->set_flow_type( $L_SU_href->{_flow_type} );
 				$save_button->set_prog_name_sref(
-					$L_SU_href->{_prog_name_sref} ); 
+					$L_SU_href->{_prog_name_sref} );
 
 #print("1. L_SU, set_save_button,last left listbox flow program touched had index = $L_SU_href->{_last_flow_index_touched}\n");
 #print("1. L_SU, set_save_button, flow_item_up_arrow_button= $L_SU_href->{_flow_item_up_arrow_button}\n");
@@ -1461,11 +1442,12 @@ sub set_save_button {
 				$save_button->director();
 
 				$L_SU_href = $save_button->get_all_hash_ref();
-				 # print("2. L_SU, set_save_button, flow_item_up_arrow_button= $L_SU_href->{_flow_item_up_arrow_button}\n");
-				 # print("L_SU, set_save_button,pre_built_flow,has_used_SaveAs_button $L_SU_href->{_has_used_SaveAs_button}\n");
-				 # print("L_SU, set_save_button,pre_built_flow,has_used_Save_superflow $L_SU_href->{_has_used_Save_superflow}\n");
-				 # print("L_SU, set_save_button,pre_built_flow,has_used_Save_button $L_SU_href->{_has_used_Save_button}\n");
-				 # print("L_SU, set_save_button,pre_built_flow,is_Save_button $L_SU_href->{_is_Save_button}\n");
+
+# print("2. L_SU, set_save_button, flow_item_up_arrow_button= $L_SU_href->{_flow_item_up_arrow_button}\n");
+# print("L_SU, set_save_button,pre_built_flow,has_used_SaveAs_button $L_SU_href->{_has_used_SaveAs_button}\n");
+# print("L_SU, set_save_button,pre_built_flow,has_used_Save_superflow $L_SU_href->{_has_used_Save_superflow}\n");
+# print("L_SU, set_save_button,pre_built_flow,has_used_Save_button $L_SU_href->{_has_used_Save_button}\n");
+# print("L_SU, set_save_button,pre_built_flow,is_Save_button $L_SU_href->{_is_Save_button}\n");
 
 			}
 			else {
@@ -1615,8 +1597,8 @@ sub user_built_flows {
 			$idx = 3;
 		}
 		elsif ( $color eq 'neutral' ) {
-	
-#			print("stuff below\n");
+
+			#			print("stuff below\n");
 		}
 		else {
 			print("L_SU,user_built_flows,unexpected value  \n");

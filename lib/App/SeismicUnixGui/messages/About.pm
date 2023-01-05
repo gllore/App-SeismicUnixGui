@@ -4,11 +4,11 @@ $VERSION = '0.81.4';
 use strict;
 use warnings;
 
-=head1 NAME
+=head2 NAME
 
 App::SeismicUnixGui - A graphical user interface for Seismic Unix
 
-=head1 DESCRIPTION
+=head2 DESCRIPTION
 
 SeismicUnixGui (alpha) is a graphical user interface (GUI) 
 to select parameters for Seismic Unix (SU) modules. 

@@ -121,12 +121,12 @@ sub color_listbox {
 }
 
 sub help_button {
-    my ($self, $number ) = @_;
+    my ($self, $item ) = @_;
 
-    my $message_number  = $number;
-    $help_button->set($message_number);
-    $help_button->get($message_number);  
-    print("message_director,help_button,message =$message_number\n");
+    my $message_item  = $item;
+    $help_button->set($message_item);
+    $help_button->get();  
+#    print("message_director,help_button,message =$message_item\n");
     
     return ();
 }

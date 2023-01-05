@@ -284,7 +284,7 @@ my @file_dialog_type;
 my @alias_help_menubutton_label;
 $alias_help_menubutton_label[0] = 'About',
 
-  my $alias_help_menubutton_label_h = { _About => 'About', };
+my $alias_help_menubutton_label_h = { _About => 'About', };
 
 # in spec files for when Data_PL_SEISMIC, may
 # not necessarily informed by DATA_DIR_IN and DATA_DIR_OUT
