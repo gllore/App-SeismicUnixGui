@@ -137,7 +137,7 @@ sub _FileDialog {
 
 	use Tk::JFileDialog;
 
-	my $my_title        = _get_dialog_type();    # e.g., 'SaveAs' or 'Save' or 'Flow'
+	my $my_title        = _get_dialog_type();    # e.g., 'SaveAs' or 'Save', 'Open' or 'Delete'
 	my $FileDialog_path = _get_path();           # e.g., $PL or $DATA_SEISMIC_SU
 
 	my $fileDialog_w;
@@ -363,13 +363,14 @@ sub _big_stream_last_dir_in_path_close {
 
 =head2 sub _get_dialog_type 
 
-	Open/see as Data in GUI (data for user-built and pre-built superflows)
 	
-	Open/seen as Flow ( in GUI (perl programs of user-built flows)
+	Open as Open ( in GUI (perl programs of user-built flows)
 	
 	Save/seen as Save  in GUI ((perl program of user-built flow and pre-built superflows)
 	
 	SaveAs/seen as SaveAs   in GUI ((perl program of pre-built superflows)
+	
+	Delete/see as Delete in GUI (user-built flows or any file in $PL_SEISMIC)
 	
 	
 =cut
@@ -396,7 +397,7 @@ sub _get_dialog_type {
    	 'Data'/open, 
    	 'SaveAs' or 
    	 'Save'
-   	 'Flow'/open
+   	 'Open'/open
    	 
    	 within program we also have 'Path' or directory
    
@@ -423,7 +424,7 @@ sub _get_path {
    	 'Data'/open, 
    	 'SaveAs' or 
    	 'Save'
-   	 'Flow'/open
+   	 'Open'/open
    	 Only used by _user_built_flow_SaveAs_perl_file
    
 =cut 	
@@ -446,7 +447,7 @@ sub _set_file_path {
 			# print("file_dialog, _set_file_path ,dialog type:$topic\n");
 			# print("file_dialog, _set_file_path ,path:$file_dialog->{_path}\n");
 
-		} elsif ( $topic eq $file_dialog_type->{_Flow} ) {    # Open pre-exiting user-built flow
+		} elsif ( $topic eq $file_dialog_type->{_Open} ) {    # Open pre-exiting user-built flow
 			$file_dialog->{_path} = $PL_SEISMIC;
 
 			# print("file_dialog, _set_file_path ,dialog type:$topic\n");
@@ -717,7 +718,7 @@ sub _pre_built_superflow_open_data_file {
 	my $first_idx           = $default_param_specs->{_first_entry_idx};
 	my $length              = $default_param_specs->{_length};
 
-	# e.g. Data_Pl_SEISMIC, Data, Path, Flow etc.
+	# e.g. Data_Pl_SEISMIC, Data, Path, Open, Delete etc.
 	my $topic = _get_dialog_type();
 
 	$gui_history->set_hash_ref($file_dialog);
@@ -759,7 +760,7 @@ sub _pre_built_superflow_open_data_file {
 
 		if ( $file_dialog->{_parameter_value_index} >= 0 ) {    # for additional certainty; but is it needed?
 
-			# e.g. Data_Pl_SEISMIC, Data, Path, Flow etc.
+			# e.g. Data_Pl_SEISMIC, Data, Path, Open, Delete etc.
 			my $topic = _get_dialog_type();
 
 			print(
@@ -924,9 +925,10 @@ sub _pre_built_superflow_open_path {
 =head2  sub  _set_FileDialog2user_built_flow
 
    {_Data}  	...	open pre-existing data file
-   {_Flow} 		...	open pre-existing user-built flow
+   {_Open} 		...	open pre-existing user-built flow
    {_SaveAs} 	...	save a new user-built flow
    {_Save} 	    ...	re-save a user-built flow 
+   {_Delete} 	...	delete a user-built flow, but any file can be removed
    
 =cut 
 
@@ -950,7 +952,7 @@ sub _set_FileDialog2user_built_flow {
 		_user_built_flow_open_data_file();
 
 		# Open pre-exiting user-built flow
-	} elsif ( $topic eq $file_dialog_type->{_Flow} ) {
+	} elsif ( $topic eq $file_dialog_type->{_Open} ) {
 
 		# print("file_dialog, _set_FileDialog2user_built_flow ,dialog type:$topic\n");
 		# print("file_dialog, _set_FileDialog2user_built_flow, flowNsuperflow_name_w:$file_dialog->{_flowNsuperflow_name_w} \n");
@@ -1005,7 +1007,7 @@ sub _set_FileDialog2pre_built_superflow {
 		# print("2. file_dialog,set_FileDialog2pre_built_superflow, topic= $topic\n");
 		_big_stream_last_dir_in_path();
 
-	} elsif ( $topic eq $file_dialog_type->{_Flow} ) {
+	} elsif ( $topic eq $file_dialog_type->{_Open} ) {
 
 		# print("file_dialog,set_FileDialog2pre_built_superflow, not allowed \n");
 
@@ -1081,7 +1083,7 @@ sub _user_built_flow_SaveAs_perl_file {
 
 		# print ("file_dialog _user_built_flow_SaveAs_perl_file_user_built_flow_SaveAs_perl_file, _last_parameter_index_touched_color: $file_dialog->{_last_parameter_index_touched_color} \n");
 
-		# make the file paths for the current file_dialog type ( Save, SaveAs, Flow, Data etc.)}
+		# make the file paths for the current file_dialog type ( Save, SaveAs, Open, Data etc.)}
 		_set_file_path();
 
 		# collects the name of the data file to be opened
@@ -1373,7 +1375,7 @@ sub _user_built_flow_close_perl_file {
 	my @fields;
 	my $full_path_name;
 
-	# Should be Flow: Possibles are Data, Flow (open), SaveAs
+	# Should be Flow: Possibles are Data, Open (a flow), SaveAs, Delete
 	my $topic = $file_dialog->{_dialog_type};
 
 	$full_path_name = $file_dialog->{_selected_file_name};
@@ -1496,7 +1498,7 @@ sub _user_built_flow_open_data_file {
 
 		if ( $index >= 0 ) {    # also for additional certainty
 
-			# e.g. Data_Pl_SEISMIC, Data, Path, Flow etc.
+			# e.g. Data_Pl_SEISMIC, Data, Path, Open, Delete, etc.
 			my $topic = _get_dialog_type();
 
 			#			print(
@@ -1602,7 +1604,7 @@ sub _user_built_flow_open_path {
 
 		if ( $file_dialog->{_parameter_value_index} >= 0 ) {    # for additional certainty; but is it needed?
 
-			# e.g. Data_Pl_SEISMIC, Data, Path, Flow etc.
+			# e.g. Data_Pl_SEISMIC, Data, Path, Open, Delete, etc.
 			my $topic = _get_dialog_type();
 
 			#			print(

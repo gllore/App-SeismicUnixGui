@@ -49,6 +49,8 @@ over the first parameter input (base_file_name)
    Version 0.03  All file without a suffix
   in which case the default PATH is the
   path of PL_SEISMI	C
+  
+  V 0.0.4 allows seros at start of file name
 
 =cut 
 
@@ -57,7 +59,7 @@ over the first parameter input (base_file_name)
 =cut 
 
 use Moose;
-our $VERSION = '0.0.3';
+our $VERSION = '0.0.4';
 
 =head2 Instantiation
 
@@ -340,7 +342,7 @@ sub _get_inbound {
 
 		$DIR     = _get_DIR();
 		$suffix  = _get_suffix();
-		$inbound = $DIR . '/' . $file . $suffix;
+		$inbound = '"'.$DIR . '/' . $file . $suffix.'"';
 
 		# print ("data_in,get_inbound inbound: $inbound\n");
 		return ($inbound);
@@ -353,7 +355,7 @@ sub _get_inbound {
 		$file = $data_in->{_base_file_name};
 
 		$DIR     = _get_DIR();
-		$inbound = $DIR . '/' . $file;
+		$inbound = '"'.$DIR . '/' . $file.'"';
 
 		# print ("2. data_in,_get_outbound outbound: $outbound\n");
 		return ($inbound);
@@ -375,6 +377,7 @@ sub Step {
 	my $note;
 
 	$data_in->{_note} = _get_inbound();
+	
 	$note = $data_in->{_note};
 
 	return $note;

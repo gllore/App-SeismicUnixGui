@@ -140,13 +140,13 @@ my (
 	$add2flow_button_grey,  $add2flow_button_pink,
 	$add2flow_button_green, $add2flow_button_blue
 );
-my ($check_code_button);
-my ($file_menubutton);
-my ( $flow_item_down_arrow_button, $flow_item_up_arrow_button );
-my $wipe_plots_button;
-my $Data_menubutton;
-my $Flow_menubutton;
-my $SaveAs_menubutton;
+#my ($check_code_button);
+#my ($file_menubutton);
+#my ( $flow_item_down_arrow_button, $flow_item_up_arrow_button );
+#my $wipe_plots_button;
+#my $Data_menubutton;
+#my $Flow_menubutton;
+#my $SaveAs_menubutton;
 
 my $var                           = $get->var();
 my $on                            = $var->{_on};
@@ -204,7 +204,7 @@ my $L_SU_gui = {
 sub _FileDialog_button {
 	my ( $self, $dialog_type_sref ) = @_;
 
-	#print("42 L_SU,_FileDialog_button= $self, $$dialog_type_sref\n")
+	print("42 L_SU,_FileDialog_button= $self, $$dialog_type_sref\n");
 
 	if ($dialog_type_sref) {
 
@@ -254,6 +254,7 @@ set the flow color even if it is blank (=no color))
 =cut 
 
 sub _set_flow_color {
+	
 	my ($color) = @_;
 
 	if ( $color or $color eq '' ) {
@@ -349,7 +350,8 @@ print("L_SU,FileDialog_button	parameter_values_frame: $L_SU_href->{_parameter_va
 print("L_SU,FileDialog_button	parameter_values_frame: $parameter_values_frame\n");
  	
  (4) dialog_type is one of 3 topics: 'Data ', (open a) 
- Flow (open a user-built perl flow) or'SaveAs 'a user-built perl flow)
+ Open (open a user-built perl flow) or'SaveAs 'a user-built perl flow)
+ or 'Delete' any file
  	
  (5) The Save (main) option goes straight to the L_SU,save_button for both'
   user_built'and 'pre_built_superflow'
@@ -388,7 +390,7 @@ sub FileDialog_button {
 		# after just working with a pre-built superflow
 		# but before opening a user-built flow
 
-		if (   $$dialog_type_sref eq 'Flow'
+		if (   $$dialog_type_sref eq 'Open'
 			&& $L_SU_href->{_flow_type} eq 'pre_built_superflow'
 			&& !( $L_SU_href->{_is_flow_listbox_grey_w} )
 			&& !( $L_SU_href->{_is_flow_listbox_pink_w} )
@@ -409,7 +411,9 @@ sub FileDialog_button {
 			$color = $which_color;
 
 		}
-		elsif ( $$dialog_type_sref eq 'Flow' ) {
+		elsif ( $$dialog_type_sref eq 'Open' ) {
+            
+             print("CASE2  L_SU, FileDialog_button\n");
 
 			# CASE 2 in prep for CASE 4
 			# After selecting a sunix program and before
@@ -443,7 +447,7 @@ sub FileDialog_button {
 				_set_user_built_flow_type();
 				$color = $next_available_color;
 
-#				print("CASE 2 I.L_SU,FileDialog_button, $next_available_color will be occupied\n");
+				print("CASE 2 I.L_SU,FileDialog_button, $next_available_color will be occupied\n");
 
 			}
 			elsif ( $vacancy eq $false ) {
@@ -454,17 +458,17 @@ sub FileDialog_button {
 				my $which_color =
 				  $color_listbox->get_flow_listbox_vacancy_color();
 
-	#				print("CASE 2 II.L_SU,FileDialog_button, $which_color is available\n");
+					print("CASE 2 II.L_SU,FileDialog_button, $which_color is available\n");
 				$color_listbox->set_flow_listbox_color2check(
 					$next_available_color);
 				my $ans = $color_listbox->is_flow_listbox_color_available();
 
-				#				print("CASE 2 III.L_SU,FileDialog_button, ans=$ans\n");
+				print("CASE 2 III.L_SU,FileDialog_button, ans=$ans\n");
 
 				if ( $ans == $true ) {
 
 					#	CASE of an unoccupied color listbox
-					#					print("CASE 2A L_SU,FileDialog_button, ans=$ans\n");
+					print("CASE 2A L_SU,FileDialog_button, ans=$ans\n");
 					_set_flow_color($which_color);
 					_set_flow_listbox_color_w($which_color);
 					_unset_pre_built_superflow_type();
@@ -511,7 +515,7 @@ sub FileDialog_button {
 
 		   # CASE 2B.2
 		   # User has another go
-		   #							print("L_SU, FileDialog,CASE 2B.2, Cancel selected NADA \n");
+		   # print("L_SU, FileDialog,CASE 2B.2, Cancel selected NADA \n");
 
 						}
 						else {
@@ -533,7 +537,7 @@ sub FileDialog_button {
 
 		}
 		else {
-# print("5 L_SU, FileDialog_button, unknown dialog type (e.g., Data, Save (a Flow),  SaveAs) \n");
+# print("5 L_SU, FileDialog_button, unknown dialog type (e.g., Open, Save (a Flow),SaveAs, Delete) \n");
 		}
 
 		if ( not $color ) {
@@ -542,8 +546,7 @@ sub FileDialog_button {
 
 		}
 		else {
-
-	  # print("L_SU, FileDialog_button, Good, color already chosen: $color \n");
+	  print("L_SU, FileDialog_button, Good, color already chosen: $color \n");
 		}
 
 		if (
@@ -583,7 +586,7 @@ sub FileDialog_button {
 				my $which_color =
 				  $color_listbox->get_next_available_flow_listbox_color();
 
-#				print("CASE 3A L_SU, FileDialog_button, the next available listbox color is set as: $color\n");
+				print("CASE 3A L_SU, FileDialog_button, the next available listbox color is set as: $color\n");
 #	print("1.  L_SU,FileDialog_button, color is $L_SU_href->{_flow_color}\n");
 #				print("CASE 3A 1.L_SU, FileDialog_button, $which_color will be occupied\n");
 
@@ -1272,7 +1275,7 @@ sub set_run_button {
     In:  set_save_button, uses topics
     	
     Topics originate as a dialog_type topic which can be  'Data', 'Flow
- 'or 'SaveAs'
+ 'SaveAs', or 'Delete'
     
     Topic for set_save_button can also be 'Save'
     

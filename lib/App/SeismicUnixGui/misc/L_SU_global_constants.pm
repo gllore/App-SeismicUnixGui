@@ -294,7 +294,7 @@ $file_dialog_type[0] = 'Data_PL_SEISMIC',
 # by DATA_DIR_IN and DATA_DIR_OUT
 $file_dialog_type[1] = 'Data';
 $file_dialog_type[2] = 'Path';
-$file_dialog_type[3] = 'Flow';
+$file_dialog_type[3] = 'Open';
 $file_dialog_type[4] = 'SaveAs';
 $file_dialog_type[5] = 'last_dir_in_path';
 $file_dialog_type[5] = 'Delete';

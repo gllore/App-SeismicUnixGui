@@ -345,7 +345,7 @@ sub _FileDialog_button {
 	if ($flow_dialog_type_sref) {
 
 		# flow dialog type can be 'Data'
-		# or 'Flow' or Data_PL_SEISMIC
+		# or 'Open' or Data_PL_SEISMIC
 
 		# provide values in the current widget
 		$color_flow_href->{_values_aref} = $param_widgets->get_values_aref();
@@ -1943,16 +1943,19 @@ sub _save_most_recent_param_flow {
 }
 
 =head2 sub FileDialog_button
-Handles Data, SaveAs and (perl) Flow (in) 
+
+Handles Data, SaveAs and (perl) Open (in) or Delete
 May provide values from the current widget if it is used.
 Can also be (1) a previous pre-built superflow that is already in the GUI
 2) empty if program is just starting
 
  dialog type (option_sref)  can be:
   	Data, 
-  	Flow (open an exisiting user-built flow, but not a pre-built
+  	Open (open an exisiting user-built flow, but not a pre-built
   				superflow), or
   	SaveAs
+  	
+  	Delete ( a file or any type, default $PL_SEISMIC)
   			
   	my $uBF      	= $file_dialog->get_hash_ref(); 
 		foreach my $key (sort keys %$uBF) {
@@ -1966,7 +1969,6 @@ sub FileDialog_button {
 	my ( $self, $dialog_type_sref ) = @_;
 
 	my $file_dialog = file_dialog->new();
-#	my $get         = L_SU_global_constants->new();
 	my $Project     = Project_config->new();
 	my $control     = control->new();
 
@@ -2070,7 +2072,7 @@ sub FileDialog_button {
 			}    # Ends SaveAs option
 
 		}
-		elsif ( $topic eq $file_dialog_type->{_Flow} ) {
+		elsif ( $topic eq $file_dialog_type->{_Open} ) {
 
 # 1. Read perl flow file
 # 2. Write name to the file name in the appropriate flow
@@ -2078,6 +2080,8 @@ sub FileDialog_button {
 # 4. populate hashes (color_flow)and memory spaces (param_flow)
 # 5. Make sure to clean prior information from the FileDialog Button such as file names.
 
+		print("grey flow $topic\n");
+		
 			$file_dialog->set_flow_color( $color_flow_href->{_flow_color} );
 			$file_dialog->set_hash_ref($color_flow_href);    # uses values_aref
 			$file_dialog->set_flow_type('user_built');

@@ -373,7 +373,7 @@ my $segyread			= {
 	_trmax					=> '',
 	_trmin					=> '',
 	_vblock					=> '',
-	_verbose					=> '',
+	_verbose				=> '',
 	_xfile					=> '',
 	_Step					=> '',
 	_note					=> '',
@@ -590,9 +590,11 @@ by adding the program name
 	my ( $self,$tape )		= @_;
 	if ( $tape ne $empty_string ) {
 
+        $tape =~ s/\\//g; 
+        
 		$segyread->{_tape}		= $tape;
-		$segyread->{_note}		= $segyread->{_note}.' tape='.$segyread->{_tape};
-		$segyread->{_Step}		= $segyread->{_Step}.' tape='.$segyread->{_tape};
+		$segyread->{_note}		= $segyread->{_note}.' tape='.'"'.$segyread->{_tape}.'"';
+		$segyread->{_Step}		= $segyread->{_Step}.' tape='.'"'.$segyread->{_tape}.'"';
 
 	} else { 
 		print("segyread, file, missing tape,\n");
@@ -712,8 +714,8 @@ by adding the program name
 	if ( $tape ne $empty_string ) {
 
 		$segyread->{_tape}		= $tape;
-		$segyread->{_note}		= $segyread->{_note}.' tape='.$segyread->{_tape};
-		$segyread->{_Step}		= $segyread->{_Step}.' tape='.$segyread->{_tape};
+		$segyread->{_note}		= $segyread->{_note}.' tape='.'"'.$segyread->{_tape}.'"';
+		$segyread->{_Step}		= $segyread->{_Step}.' tape='.'"'.$segyread->{_tape}.'"';
 
 	} else { 
 		print("segyread, tape, missing tape,\n");
