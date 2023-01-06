@@ -107,10 +107,16 @@ use Carp;
 
 =cut
 
-my $L_SU_global_constants          = L_SU_global_constants->new();
-my $dirs         = dirs->new();
-my $flow_widgets = flow_widgets->new();
-my $gui_history  = gui_history->new();
+my $Project           = Project_config->new();
+my $L_SU_global_constants  = L_SU_global_constants->new();
+my $control           = control->new();
+my $decisions         = decisions->new();
+my $dirs              = dirs->new();
+my $file_dialog       = file_dialog->new();
+my $flow_widgets      = flow_widgets->new();
+my $gui_history       = gui_history->new();
+my $manage_files_by2  = manage_files_by2->new();
+my $message_director  = message_director->new();
 
 my $param_flow_color_pkg = param_flow_pink->new();
 my $param_widgets        = param_widgets_pink->new();
@@ -183,8 +189,7 @@ sub _add2flow {
 
 	use Clone 'clone';
 
-	my $color_flow_messages = message_director->new();
-	my $message             = $color_flow_messages->null_button(0);
+	my $message             = $message_director->null_button(0);
 
 	my $here;
 	my $flow_color = _get_flow_color();
@@ -339,13 +344,10 @@ sub _FileDialog_button {
 
 	my ( $self, $flow_dialog_type_sref ) = @_;
 
-	my $file_dialog = file_dialog->new();
-	my $control     = control->new();
-
 	if ($flow_dialog_type_sref) {
 
-		# flow dialog type can be 'Data'
-		# or 'Open' or Data_PL_SEISMIC
+		# flow dialog type can be
+		# 'Open' or Data_PL_SEISMIC
 
 		# provide values in the current widget
 		$color_flow_href->{_values_aref} = $param_widgets->get_values_aref();
@@ -539,10 +541,7 @@ sub flow_select2save_most_recent_param_flow {
 
 	_local_set_flow_listbox_color_w($flow_color);
 
-	my $color_flow_messages = message_director->new();
-	my $decisions           = decisions->new();
-
-	my $message = $color_flow_messages->null_button(0);
+	my $message = $message_director->null_button(0);
 	$message_w->delete( "1.0", 'end' );
 	$message_w->insert( 'end', $message );
 
@@ -725,10 +724,7 @@ sub _flow_select2save_most_recent_param_flow {
 # print("1. color_flow, _flow_select2save_most_recent_param_flow, show stored flow parameters\n");
 # $param_flow_color_pkg->view_data();
 
-	my $color_flow_messages = message_director->new();
-	my $decisions           = decisions->new();
-
-	my $message = $color_flow_messages->null_button(0);
+	my $message = $message_director->null_button(0);
 	$message_w->delete( "1.0", 'end' );
 	$message_w->insert( 'end', $message );
 
@@ -980,7 +976,6 @@ sub _SaveAs_button {
 	if ( $topic eq 'SaveAs' ) {
 
 		my $files_LSU = files_LSU->new();
-		my $control   = control->new();
 
 		# Start refocus index in flow, in case focus has been removed
 		# e.g., by double-clicking in parameter values window
@@ -1080,11 +1075,9 @@ sub _perl_flow_errors {
 	# instantiate modules
 	my $perl_flow           = perl_flow->new();
 	my $param_sunix         = param_sunix->new();
-	my $color_flow_messages = message_director->new();
-	my $control             = control->new();
 
 	# messages
-	my $message = $color_flow_messages->null_button(0);
+	my $message = $message_director->null_button(0);
 	$message_w->delete( "1.0", 'end' );
 	$message_w->insert( 'end', $message );
 
@@ -1127,11 +1120,9 @@ sub _perl_flow {
 	# instantiate modules
 	my $perl_flow           = perl_flow->new();
 	my $param_sunix         = param_sunix->new();
-	my $color_flow_messages = message_director->new();
-	my $control             = control->new();
 
 	# messages
-	my $message = $color_flow_messages->null_button(0);
+	my $message = $message_director->null_button(0);
 	$message_w->delete( "1.0", 'end' );
 	$message_w->insert( 'end', $message );
 
@@ -1363,8 +1354,6 @@ sub _set_user_built_flow_name_w {
 sub _stack_flow {
 	my ($self) = @_;
 
-	my $control = control->new();
-
 	# my $num_items = $param_flow_color_pkg->get_num_items();
 	# print("color_flow,_stack_flow, data before stack num_items=$num_items\n");
 	# $param_flow_color_pkg->view_data();
@@ -1446,7 +1435,6 @@ program in the flow
 sub _updateNsave_most_recent_param_flow {
 
 	my ($self) = @_;
-	my $control = control->new();
 
 	my $last_parameter_index_on_entry;
 	my $last_parameter_index_touched_color;
@@ -1681,7 +1669,6 @@ sub _update_prior_param_flow {
 
 	my ($self) = @_;
 
-	my $control           = control->new();
 	my $prior_item_exists = $false;
 	my $_flow_listbox_color_w =
 	  _get_flow_listbox_color_w();    # user-built_flow in current use
@@ -1833,8 +1820,6 @@ sub _save_most_recent_param_flow {
 
 	my ($self) = @_;
 
-	my $control = control->new();
-
 	my $prior_flow_index_touched =
 	  ( $color_flow_href->{_flow_select_index_href} )->{_prior};
 	my $most_recent_flow_index_touched =
@@ -1968,13 +1953,8 @@ sub FileDialog_button {
 
 	my ( $self, $dialog_type_sref ) = @_;
 
-	my $file_dialog = file_dialog->new();
-	my $Project     = Project_config->new();
-	my $control     = control->new();
-
 	my $file_dialog_type = $L_SU_global_constants->file_dialog_type_href();
 	my $PL_SEISMIC       = $Project->PL_SEISMIC();
-	my $manage_files_by2 = manage_files_by2->new();
 
 	if ($dialog_type_sref) {
 
@@ -1987,8 +1967,6 @@ sub FileDialog_button {
 			# ONLY for SaveAs
 			# i.e., in this module, dialog_type_sref can only be SaveAs
 			# Save for 'user-built flows' is accessible via L_SU.pm
-
-			my $color_flow_messages = message_director->new();
 
 			my $most_recent_flow_index_touched =
 			  ( $color_flow_href->{_flow_select_index_href} )->{_most_recent};
@@ -2043,7 +2021,7 @@ sub FileDialog_button {
 				|| $color_flow_href->{_path} eq '' )
 			{
 
-				my $message = $color_flow_messages->save_button(1);
+				my $message = $message_director->save_button(1);
 				$message_w->delete( "1.0", 'end' );
 				$message_w->insert( 'end', $message );
 
@@ -2065,7 +2043,7 @@ sub FileDialog_button {
 
 		# restore message at the bottom of the string to blank if not already so
 		# messages
-				my $message = $color_flow_messages->null_button(0);
+				my $message = $message_director->null_button(0);
 				$message_w->delete( "1.0", 'end' );
 				$message_w->insert( 'end', $message );
 
@@ -2260,8 +2238,7 @@ sub add2flow_button {
 	$color_flow_href->{_flow_type} = $flow_type->{_user_built};
 
 	my $param_sunix         = param_sunix->new();
-	my $color_flow_messages = message_director->new();
-	my $message             = $color_flow_messages->null_button(0);
+	my $message             = $message_director->null_button(0);
 
 	$gui_history->set_hash_ref($color_flow_href);
 	$gui_history->set4start_of_add2flow_button($flow_color);
@@ -2397,10 +2374,7 @@ sub delete_from_flow_button {
 
 		_set_flow_color($flow_color);
 
-		my $color_flow_messages = message_director->new();
-		my $decisions           = decisions->new();
-
-		my $message = $color_flow_messages->null_button(0);
+		my $message = $message_director->null_button(0);
 		$message_w->delete( "1.0", 'end' );
 		$message_w->insert( 'end', $message );
 
@@ -2652,10 +2626,7 @@ sub delete_whole_flow_button {
 
 		_set_flow_color($flow_color);
 
-		my $color_flow_messages = message_director->new();
-		my $decisions           = decisions->new();
-
-		my $message = $color_flow_messages->null_button(0);
+		my $message = $message_director->null_button(0);
 		$message_w->delete( "1.0", 'end' );
 		$message_w->insert( 'end', $message );
 
@@ -2750,10 +2721,7 @@ sub flow_item_down_arrow_button {
 
   # $conditions_gui->set4start_of_flow_item_down_arrow_button($color_flow_href);
 
-		my $color_flow_messages = message_director->new();
-		my $decisions           = decisions->new();
-
-		my $message = $color_flow_messages->null_button(0);
+		my $message = $message_director->null_button(0);
 		$message_w->delete( "1.0", 'end' );
 		$message_w->insert( 'end', $message );
 
@@ -2858,10 +2826,7 @@ sub flow_item_up_arrow_button {
 
 	# $conditions_gui->set4start_of_flow_item_up_arrow_button($color_flow_href);
 
-		my $color_flow_messages = message_director->new();
-		my $decisions           = decisions->new();
-
-		my $message = $color_flow_messages->null_button(0);
+		my $message = $message_director->null_button(0);
 		$message_w->delete( "1.0", 'end' );
 		$message_w->insert( 'end', $message );
 
@@ -2990,10 +2955,7 @@ sub flow_select {
 	#	print("color_flow,flow_select, print gui_history\n");
 	#	$gui_history->view();
 
-	my $color_flow_messages = message_director->new();
-	my $decisions           = decisions->new();
-
-	my $message = $color_flow_messages->null_button(0);
+	my $message = $message_director->null_button(0);
 	$message_w->delete( "1.0", 'end' );
 	$message_w->insert( 'end', $message );
 
@@ -3343,7 +3305,6 @@ sub get_help {
 
 	my ($self) = @_;
 
-	my $decisions = decisions->new();
 	my $help      = help->new();
 	my $pre_req_ok;
 
@@ -3410,7 +3371,6 @@ sub save_button {
 		#	    $gui_history->view();
 
 		my $files_LSU = files_LSU->new();
-		my $control   = control->new();
 
 		# user-built_flow in current use
 		my $flow_listbox_color_w = _get_flow_listbox_color_w();

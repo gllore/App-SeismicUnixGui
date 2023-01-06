@@ -937,7 +937,7 @@ sub _set_FileDialog2user_built_flow {
 
 	my $topic = _get_dialog_type();
 
-	# print("file_dialog, _set_FileDialog2user_built_flow ,dialog type:$topic\n");
+#	print("file_dialog, _set_FileDialog2user_built_flow, dialog type:$topic\n");
 
 	# for Data
 	if ( $topic eq $file_dialog_type->{_Data} ) {
@@ -961,21 +961,22 @@ sub _set_FileDialog2user_built_flow {
 
 	} elsif ( $topic eq $file_dialog_type->{_Path} ) {
 
-		#		print("file_dialog,set_FileDialog2user_built_flow, topic= $topic\n");
+		# print("file_dialog,_set_FileDialog2user_built_flow, topic= $topic\n");
 		_user_built_flow_open_path();
+		
+	} elsif ( $topic eq $file_dialog_type->{_Delete} ) {
 
-		# Save a new user-built flow
+		print("file_dialog,set_FileDialog2user_built_flow, topic= $topic\n");
+#		_user_built_flow_delete_perl_file();		
+
 	} elsif ( $topic eq $file_dialog_type->{_SaveAs} ) {
+		# Save a new user-built flow
 
 		#		print("file_dialog, _set_FileDialog2user_built_flow ,dialog type:$topic\n");
 		_user_built_flow_SaveAs_perl_file();
 
-		#	} elsif ($topic eq 'Save') {
-		#		_user_built_flow_save_perl_file();
-
 	} else {
-
-		#print("No bindings exist\n");
+		print("No bindings exist\n");
 	}
 
 	# print("file_dialog, End of _set_FileDialog2user_built_flow \n");
@@ -2071,11 +2072,11 @@ sub FileDialog_director {
 	# print("1. file_dialog, FileDialog_director, flowNsuperflow_name_w:$file_dialog->{_flowNsuperflow_name_w} \n");
 	my $file_dialog_flow_type = _get_flow_type();
 
-	# print("file_dialog, FileDialog_director, flow_type:$file_dialog_flow_type\n");
+#	print("file_dialog, FileDialog_director, flow_type:$file_dialog_flow_type\n");
 
 	if ( $file_dialog_flow_type eq $flow_type_h->{_user_built} ) {
 
-		# print("file_dialog, FileDialog_director, should be user_built_flow_type:$file_dialog_flow_type\n");
+#		print("file_dialog, FileDialog_director, should be user_built_flow_type:$file_dialog_flow_type\n");
 
 		_set_FileDialog2user_built_flow();
 
