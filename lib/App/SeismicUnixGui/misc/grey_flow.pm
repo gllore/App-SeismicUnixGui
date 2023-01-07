@@ -1964,7 +1964,7 @@ sub FileDialog_button {
 
 		if ( $topic eq $file_dialog_type->{_SaveAs} ) {
 
-			# ONLY for SaveAs
+			# print("color_flow, L_SU,FileDialog_button, ONLY for SaveAs\n");
 			# i.e., in this module, dialog_type_sref can only be SaveAs
 			# Save for 'user-built flows' is accessible via L_SU.pm
 
@@ -2186,7 +2186,7 @@ sub FileDialog_button {
 		}
 	}
 	else {
-		print("color_flow,FileDialog_button ,option type missing\ n");
+		print("color_flow,FileDialog_button ,option type missing\n");
 	}
 
 	return ();

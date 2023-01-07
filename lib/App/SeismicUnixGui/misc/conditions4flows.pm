@@ -83,7 +83,7 @@ my $empty_string = $var->{_empty_string};
 my $Data_menubutton;
 my $FileDialog_sub_ref;
 my $FileDialog_option;
-my $Flow_menubutton;
+my $Open_menubutton;
 my $SaveAs_menubutton;
 my $add2flow_button_grey;
 my $add2flow_button_pink;
@@ -209,7 +209,7 @@ my $wipe_plots_button;
 my $conditions4flows = {
 
 	_Data_menubutton                       => '',
-	_Flow_menubutton                       => '',
+	_Open_menubutton                       => '',
 	_SaveAs_menubutton                     => '',
 	_add2flow_button_grey                  => '',
 	_add2flow_button_pink                  => '',
@@ -648,7 +648,7 @@ sub get_hash_ref {
 	if ($conditions4flows) {
 
 		$conditions4flows->{_Data_menubutton}                       = $Data_menubutton;
-		$conditions4flows->{_Flow_menubutton}                       = $Flow_menubutton;
+		$conditions4flows->{_Open_menubutton}                       = $Open_menubutton;
 		$conditions4flows->{_SaveAs_menubutton}                     = $SaveAs_menubutton;
 		$conditions4flows->{_add2flow_button_grey}                  = $add2flow_button_grey;
 		$conditions4flows->{_add2flow_button_pink}                  = $add2flow_button_pink;
@@ -849,7 +849,7 @@ sub set_hash_ref {
 		$conditions4flows = $hash_ref;
 
 		$Data_menubutton             = $hash_ref->{_Data_menubutton};
-		$Flow_menubutton             = $hash_ref->{_Flow_menubutton};
+		$Open_menubutton             = $hash_ref->{_Open_menubutton};
 		$SaveAs_menubutton           = $hash_ref->{_SaveAs_menubutton};
 		$add2flow_button_grey        = $hash_ref->{_add2flow_button_grey};
 		$add2flow_button_pink        = $hash_ref->{_add2flow_button_pink};
@@ -1630,7 +1630,7 @@ sub set4user_built_flow_close_path_end {
 	$has_used_Save_button = $false;
 
 	# Allows user to open a user-built perl flow
-	$Flow_menubutton->configure( -state => 'normal', );
+	$Open_menubutton->configure( -state => 'normal', );
 
 	return ();
 }
@@ -1817,7 +1817,7 @@ sub set_defaults4end_of_delete_whole_flow_button {
 	#		$Data_menubutton->configure( -state => 'disabled' );
 
 	#		# turn on Flow menu button
-	$Flow_menubutton->configure( -state => 'normal' );
+	$Open_menubutton->configure( -state => 'normal' );
 
 	# turn off save button
 	#		$save_button->configure( -state => 'disabled' );
@@ -1982,7 +1982,7 @@ sub set_defaults4last_delete_from_flow_button {
 #		$Data_menubutton->configure( -state => 'disabled' );
 
 		# turn off Flow menu button
-		$Flow_menubutton->configure( -state => 'normal' );
+		$Open_menubutton->configure( -state => 'normal' );
 
 		# turn off save button
 		$save_button->configure( -state => 'disabled' );
@@ -2913,7 +2913,7 @@ sub set4start_of_superflow_select {
 	$save_button->configure( -state => 'normal' );
 
 #	$Data_menubutton->configure( -state => 'normal' );
-	$Flow_menubutton->configure( -state => 'normal' );
+	$Open_menubutton->configure( -state => 'normal' );
 	$SaveAs_menubutton->configure( -state => 'disable' );
 
 #	$check_code_button->configure( -state => 'disable' );
@@ -2934,7 +2934,7 @@ sub set4superflow_close_data_file_end {
 	$has_used_Save_button = $false;
 
 	# Allows user to open a user-built perl flow
-	$Flow_menubutton->configure( -state => 'normal', );
+	$Open_menubutton->configure( -state => 'normal', );
 
 	return ();
 }
@@ -2954,7 +2954,7 @@ sub set4superflow_close_path_end {
 	$has_used_Save_superflow = $false;
 
 	# Allows user to open a user-built perl flow
-	$Flow_menubutton->configure( -state => 'normal', );
+	$Open_menubutton->configure( -state => 'normal', );
 
 	return ();
 }
@@ -3028,7 +3028,7 @@ sub set4superflow_open_data_file_start {
 	$save_button->configure( -state => 'normal' );
 
 #	$Data_menubutton->configure( -state => 'normal' );
-	$Flow_menubutton->configure( -state => 'disable', );
+	$Open_menubutton->configure( -state => 'disable', );
 	$SaveAs_menubutton->configure( -state => 'disable' );
 
 #	$check_code_button->configure( -state => 'disable' );
@@ -3097,7 +3097,7 @@ sub set4superflow_open_path_start {
 	$save_button->configure( -state => 'normal' );
 
 #	$Data_menubutton->configure( -state => 'normal' );
-	$Flow_menubutton->configure( -state => 'disable', );
+	$Open_menubutton->configure( -state => 'disable', );
 	$SaveAs_menubutton->configure( -state => 'disable' );
 
 #	$check_code_button->configure( -state => 'disable' );

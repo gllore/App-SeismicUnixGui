@@ -654,7 +654,6 @@ print join("\n", $top_menu_bar->bind($class) ), "\n";
 	$main_href->{_SaveAs_menubutton} = ( $main_href->{_file_menubutton} )->command(
 		-label     => @$alias_FileDialog_button_label[1],
 		-underline => 0,
-		-state     => 'disabled',
 		-command   => [ \&_L_SU, 'FileDialog_button', \$File_option[1] ],
 		-font      => $arial_16
 	);
