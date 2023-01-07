@@ -15,8 +15,8 @@ If it is not, on command line
 (2) run SeismicUnixGui again, but without '&' \n
 	(immodpg_message=0)\n");
 	
-$message[1] =("Warning:  Corrupt layer in model
-Solutions: \n
+$message[1] =("Warning:  Corrupt layer in model.
+Possible solutions: \n
 (1) Copy backup file .immodpg.out to
     'immodpg.out'
 or    

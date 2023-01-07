@@ -763,9 +763,9 @@ sub _pre_built_superflow_open_data_file {
 			# e.g. Data_Pl_SEISMIC, Data, Path, Open, Delete etc.
 			my $topic = _get_dialog_type();
 
-			print(
-				"4. file_dialog,_pre_built_flow_open_data_file, parameter_value_index= $file_dialog->{_parameter_value_index}\n"
-			);
+#			print(
+#				"4. file_dialog,_pre_built_flow_open_data_file, parameter_value_index= $file_dialog->{_parameter_value_index}\n"
+#			);
 			$file_dialog->{_entry_button_label} = $param_widgets->get_label4entry_button_chosen();
 
 			#			print(

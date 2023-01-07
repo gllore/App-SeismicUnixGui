@@ -1,7 +1,6 @@
 package App::SeismicUnixGui::big_streams::immodpg_global_constants;
 
 use Moose;
-our $VERSION = '0.0.1';
 
 =head private hash
 similar names as the variables in immodpg.for
@@ -14,26 +13,26 @@ loop_limit:	for searching for a locked_file
 
 my @format;
 
-$format[0] =  '%-35s%1s%-20s';
-$format[1] =  '%-35s%1s%-20s';
-$format[2] =  '%-35s%1s%-20s';
-$format[3] =  '%-35s%1s%-20s';
-$format[4] =  '%-35s%1s%-20s';
-$format[5] =  '%-35s%1s%-20s';
-$format[6] =  '%-35s%1s%-20s';
-$format[7] =  '%-35s%1s%-20s';
-$format[8] =  '%-35s%1s%-20s';
+$format[0] =  '%-35s%1s%-20s',
+$format[1] =  '%-35s%1s%-20s',
+$format[2] =  '%-35s%1s%-20s',
+$format[3] =  '%-35s%1s%-20s',
+$format[4] =  '%-35s%1s%-20s',
+$format[5] =  '%-35s%1s%-20s',
+$format[6] =  '%-35s%1s%-20s',
+$format[7] =  '%-35s%1s%-20s',
+$format[8] =  '%-35s%1s%-20s',
 $format[9] = $format[8];
-$format[10] = '%-35s%1s%-20s';
+$format[10] = '%-35s%1s%-20s',
 $format[11] = $format[10];
 $format[12] = $format[10];
 $format[13] = $format[10];
-$format[14] =  '%-35s%1s%-20s';
-$format[15] =  '%-35s%1s%-20s';
-$format[16] =  '%-35s%1s%-20s';
-$format[17] =  '%-35s%1s%-20s';
-$format[18] =  '%-35s%1s%-20s';
-$format[19] =  '%-35s%1s%-20s';                    
+$format[14] =  '%-35s%1s%-20s',
+$format[15] =  '%-35s%1s%-20s',
+$format[16] =  '%-35s%1s%-20s',
+$format[17] =  '%-35s%1s%-20s',
+$format[18] =  '%-35s%1s%-20s',
+$format[19] =  '%-35s%1s%-20s',
 
 my $var = {
 	_Vbot_file							=> 'Vbot', 
@@ -70,7 +69,7 @@ my $var = {
     _config_file_format			        => '%-35s%1s%-20s',
     _config_file_format_clip			=> '%-35s%1s%-5.1f',
     _config_file_format_real			=> '%-35s%1s%-10.3f', 
-    _config_file_format_signed_integer	=> '%-35s%1s%-2d', 
+    _config_file_format_signed_integer	=> '%-35s%1s%-2d',
     _format_aref                        => \@format,
     _format_dot2f                       => '%.2f',
     _format_dot3f                       => '%.3f',
@@ -78,7 +77,7 @@ my $var = {
     _format51f                          => '%5.1f',
     _format_integer						=> '%i',
     _format_real					    => '%7.1f',  
-    _format_string						=> '%s',    
+    _format_string						=> '%s',      
     _exit_opt							=> 99,
     _immodpg_model	                    => 'immodpg.out',
     _immodpg_model_file_text		    => 'model.txt',

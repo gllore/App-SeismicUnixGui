@@ -144,11 +144,11 @@ sub _get_superflow_config_file_format_aref {
 
 		my $ref_format = $files_LSU->{_format_aref};
 
-		#		print("files_LSU, _get_config_format,formats=@$ref_format\n");
+#		print("files_LSU, _get_config_format,formats=@$ref_format\n");
 		return ($ref_format);
 	}
 	else {
-		#		print("files_LSU, _get_config_format, missing formats\n");
+		print("files_LSU, _get_config_format, missing formats\n");
 		return ($empty_string);
 	}
 
@@ -1322,7 +1322,7 @@ sub _write {
 	my $config_file_format_aref = _get_superflow_config_file_format_aref();
 	my $num_formats             = scalar @$config_file_format_aref;
 
-	# print("files_LSU, _write,num_formats=$num_formats\n");
+#	 print("files_LSU, _write,num_formats=$num_formats\n");
 
 	if ( $num_formats == 1 ) {
 
@@ -1349,11 +1349,12 @@ sub _write {
 	  or die "Can't open parameter file:$!";
 
 	for ( my $i = 0 ; $i < $length_info ; $i++ ) {
+		
 		# skipped in many cases
-		# length_info=0 form many tools, e.g. immodpg
+		# length_info=0 formmany tools, e.g. immodpg
 
 		printf $fh $info[$i];
-#		print("5. files_LSU,_write,info is $info[$i]\n");
+		print("5. files_LSU,_write,info is $info[$i]\n");
 	}
 
 	for ( my $i = 0, my $j = 0 ; $i < $length ; $i++, $j = $j + 2 ) {

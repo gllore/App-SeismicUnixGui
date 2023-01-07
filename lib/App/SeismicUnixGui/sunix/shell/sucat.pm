@@ -957,7 +957,7 @@ sub Step {
 					  . $sucat->{_input_name_prefix}
 					  . $file
 					  . $sucat->{_input_name_extension}
-					  . $sucat->{_input_suffix};
+					  . '.'.$sucat->{_input_suffix};
 					print("2A-1 sucat,Step,file=$file\n");
 				}
 

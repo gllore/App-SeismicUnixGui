@@ -295,6 +295,7 @@ sub get_values {
 sub length {
 
 	my ($self) = @_;
+	
 	_get_all();
 
 	if ( $config_superflows->{_length} ) {
@@ -351,8 +352,7 @@ sub _local_or_defaults {
 	my ($self) = @_;
 	my $name_sref = $config_superflows->{_program_name_sref};
 
-# print("config_superflows, _local_or_defaults, program name=$$name_sref\n");
-# print("config_superflows, _local_or_defaults,SCALAR program name=$$name_sref\n");
+#print("config_superflows, _local_or_defaults,SCALAR program name=$$name_sref\n");
 
 	my $big_streams_param   = big_streams_param->new();
 	my $flow_type           = $get->flow_type_href();
@@ -362,7 +362,6 @@ sub _local_or_defaults {
 	$big_streams_param->set_flow_type($pre_built_superflow);
 #	print("1. config_superflows, _local_or_defaults,pre_built_superflow=$pre_built_superflow\n");
 	my $cfg_aref 					= $big_streams_param->get($name_sref);
-#	print("2. config_superflows, _local_or_defaults,pre_built_superflow=$pre_built_superflow\n");
 	$config_superflows->{_all_aref} = $cfg_aref;
 	$config_superflows->{_length}   = $big_streams_param->my_length();
 
@@ -498,7 +497,7 @@ sub save {
 
 				@format = @{ $var_immodpg->{_format_aref} };
 
-		   #				print("config_superflows, _write,formats=@format  \n");
+#		        print("config_superflows, _write,formats =@format  \n");
 				$files_LSU->set_superflow_config_file_format( \@format );
 
 			}

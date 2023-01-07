@@ -205,7 +205,7 @@ my $L_SU_gui = {
 sub _FileDialog_button {
 	my ( $self, $dialog_type_sref ) = @_;
 
-	print("42 L_SU,_FileDialog_button= $self, $$dialog_type_sref\n");
+#	print("42 L_SU,_FileDialog_button= $self, $$dialog_type_sref\n");
 
 	if ( length $dialog_type_sref ) {
 
@@ -1497,7 +1497,7 @@ sub set_save_button {
 				$L_SU_href->{_dialog_type} = 'Save';
 
 #print("2. L_SU, set_save_button, _names_aref: @{$L_SU_href->{_names_aref}}\n");  # equi to labels_aref
-				$save_button->set_hash_ref($L_SU_href);    #  uses 41  / 115 in
+				$save_button->set_hash_ref($L_SU_href);
 				 # $save_button->set_gui_widgets($L_SU_href);                            #  uses 27 / 115 in
 
 			#				print("2. L_SU, set_save_button, print out gui_history.txt\n");
