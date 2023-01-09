@@ -121,11 +121,16 @@ my $flow_type;
 my $flow_widget_index;
 my $gui_history_ref;
 #my $has_used_check_code_button;
-my $has_used_open_perl_file_button;
-my $has_used_run_button;
+my $has_used_Delete_button;
 my $has_used_SaveAs_button;
 my $has_used_Save_button;
 my $has_used_Save_superflow;
+my $has_used_open_perl_file_button;
+my $has_used_run_button;
+my $is_Delete_file_button;
+my $is_Save_button;
+my $is_SaveAs_button;
+my $is_SaveAs_file_button;
 my $is_add2flow;
 my $is_add2flow_button;
 #my $is_check_code_button;
@@ -161,9 +166,6 @@ my $is_run_button;
 my $is_select_file_button;
 my $is_selected_file_name;
 my $is_selected_path;
-my $is_Save_button;
-my $is_SaveAs_button;
-my $is_SaveAs_file_button;
 my $is_sunix_listbox;
 my $is_superflow_select_button;
 my $is_superflow;    # for deprecation
@@ -247,11 +249,16 @@ my $conditions4flows = {
 	_flow_widget_index                     => '',
 	_gui_history_aref                      => '',
 #	_has_used_check_code_button            => '',
-	_has_used_open_perl_file_button        => '',
-	_has_used_run_button                   => '',
+	_has_used_Delete_button                => '',
 	_has_used_Save_button                  => '',
 	_has_used_Save_superflow               => '',
 	_has_used_SaveAs_button                => '',
+	_has_used_open_perl_file_button        => '',
+	_has_used_run_button                   => '',
+	_is_Delete_file_button                 => '',
+	_is_SaveAs_file_button                 => '',
+	_is_SaveAs_button                      => '',
+	_is_Save_button                        => '',	
 	_is_add2flow                           => '',
 	_is_add2flow_button                    => '',
 #	_is_check_code_button                  => '',
@@ -275,9 +282,6 @@ my $conditions4flows = {
 	_is_last_parameter_index_touched_green => '',
 	_is_last_parameter_index_touched_blue  => '',
 	_is_last_parameter_index_touched_color => '',
-	_is_SaveAs_file_button                 => '',
-	_is_SaveAs_button                      => '',
-	_is_Save_button                        => '',
 	_is_moveNdrop_in_flow                  => '',
 	_is_new_listbox_selection              => '',
 	_is_open_file_button                   => '',
@@ -439,6 +443,7 @@ sub _get_flow_listbox_color_w {
 sub _reset {
 	my ($self) = @_;
 
+	$conditions4flows->{_is_Delete_file_button}          = $false;
 	$conditions4flows->{_is_Save_button}                 = $false;
 	$conditions4flows->{_is_SaveAs_file_button}          = $false;
 	$conditions4flows->{_is_SaveAs_button}               = $false;
@@ -694,12 +699,17 @@ sub get_hash_ref {
 		$conditions4flows->{_flow_type}                             = $flow_type;
 		$conditions4flows->{_flow_widget_index}                     = $flow_widget_index;
 		$conditions4flows->{_gui_history_ref}                       = $gui_history_ref;
+		$conditions4flows->{_has_used_Delete_button}                = $has_used_Delete_button;		
 		$conditions4flows->{_has_used_SaveAs_button}                = $has_used_SaveAs_button;
 		$conditions4flows->{_has_used_Save_button}                  = $has_used_Save_button;
 		$conditions4flows->{_has_used_Save_superflow}               = $has_used_Save_superflow;
 #		$conditions4flows->{_has_used_check_code_button}            = $has_used_check_code_button;
 		$conditions4flows->{_has_used_open_perl_file_button}        = $has_used_open_perl_file_button;
 		$conditions4flows->{_has_used_run_button}                   = $has_used_run_button;
+		$conditions4flows->{_is_Delete_file_button}                 = $is_Delete_file_button;		
+		$conditions4flows->{_is_Save_button}                        = $is_Save_button;
+		$conditions4flows->{_is_SaveAs_button}                      = $is_SaveAs_button;
+		$conditions4flows->{_is_SaveAs_file_button}                 = $is_SaveAs_file_button;
 #		$conditions4flows->{_is_add2flow_button}                    = $is_add2flow_button;
 #		$conditions4flows->{_is_check_code_button}                  = $is_check_code_button;
 		$conditions4flows->{_is_delete_from_flow_button}            = $is_delete_from_flow_button;
@@ -733,9 +743,6 @@ sub get_hash_ref {
 		$conditions4flows->{_is_select_file_button}                 = $is_select_file_button;
 		$conditions4flows->{_is_selected_file_name}                 = $is_selected_file_name;
 		$conditions4flows->{_is_selected_path}                      = $is_selected_path;
-		$conditions4flows->{_is_Save_button}                        = $is_Save_button;
-		$conditions4flows->{_is_SaveAs_button}                      = $is_SaveAs_button;
-		$conditions4flows->{_is_SaveAs_file_button}                 = $is_SaveAs_file_button;
 		$conditions4flows->{_is_sunix_listbox}                      = $is_sunix_listbox;
 		$conditions4flows->{_is_new_listbox_selection}              = $is_new_listbox_selection;
 		$conditions4flows->{_is_pre_built_superflow}                = $is_pre_built_superflow;
@@ -785,7 +792,10 @@ sub reset {
 	# location within GUI
 #	$conditions4flows->{_has_used_check_code_button}     = $false;
 	$conditions4flows->{_has_used_run_button}            = $false;
+    $conditions4flows->{_is_Delete_file_button}          = $false;
 	$conditions4flows->{_is_Save_button}                 = $false;
+	$conditions4flows->{_is_SaveAs_file_button}          = $false;
+	$conditions4flows->{_is_SaveAs_button}              = $false;	
 	$conditions4flows->{_is_add2flow_button}             = $false;
 #	$conditions4flows->{_is_check_code_button}           = $false;
 	$conditions4flows->{_is_delete_from_flow_button}     = $false;
@@ -800,7 +810,6 @@ sub reset {
 	$conditions4flows->{_is_flow_listbox_color_w}        = $false;
 	$conditions4flows->{_is_open_file_button}            = $false;
 	$conditions4flows->{_is_select_file_button}          = $false;
-	$conditions4flows->{_is_SaveAs_file_button}          = $false;
 	$conditions4flows->{_is_sunix_listbox}               = $false;
 	$conditions4flows->{_is_new_listbox_selection}       = $false;
 	$conditions4flows->{_is_superflow_select_button}     = $false;
@@ -900,12 +909,17 @@ sub set_hash_ref {
 		$flow_widget_index                     = $hash_ref->{_flow_widget_index};
 		$gui_history_ref                       = $hash_ref->{_gui_history_ref};
 #		$has_used_check_code_button            = $hash_ref->{_has_used_check_code_button};
-		$has_used_open_perl_file_button        = $hash_ref->{_has_used_open_perl_file_button};
-		$has_used_run_button                   = $hash_ref->{_has_used_run_button};
+		$has_used_Delete_button                = $hash_ref->{_has_used_Delete_button};
 		$has_used_SaveAs_button                = $hash_ref->{_has_used_SaveAs_button};
 		$has_used_Save_button                  = $hash_ref->{_has_used_Save_button};
 		$has_used_Save_superflow               = $hash_ref->{_has_used_Save_superflow};
+		$has_used_open_perl_file_button        = $hash_ref->{_has_used_open_perl_file_button};
+		$has_used_run_button                   = $hash_ref->{_has_used_run_button};
 		$is_add2flow_button                    = $hash_ref->{_is_add2flow_button};
+		$is_Delete_file_button                 = $hash_ref->{_is_Delete_file_button};
+		$is_Save_button                        = $hash_ref->{_is_Save_button};
+		$is_SaveAs_button                      = $hash_ref->{_is_SaveAs_button};
+		$is_SaveAs_file_button                 = $hash_ref->{_is_SaveAs_file_button};
 #		$is_check_code_button                  = $hash_ref->{_is_check_code_button};
 		$is_dragNdrop                          = $hash_ref->{_is_dragNdrop};
 		$is_delete_from_flow_button            = $hash_ref->{_is_delete_from_flow_button};
@@ -937,9 +951,6 @@ sub set_hash_ref {
 		$is_select_file_button                 = $hash_ref->{_is_select_file_button};
 		$is_selected_file_name                 = $hash_ref->{_is_selected_file_name};
 		$is_selected_path                      = $hash_ref->{_is_selected_path};
-		$is_Save_button                        = $hash_ref->{_is_Save_button};
-		$is_SaveAs_button                      = $hash_ref->{_is_SaveAs_button};
-		$is_SaveAs_file_button                 = $hash_ref->{_is_SaveAs_file_button};
 		$is_sunix_listbox                      = $hash_ref->{_is_sunix_listbox};
 		$is_new_listbox_selection              = $hash_ref->{_is_new_listbox_selection};
 		$is_pre_built_superflow                = $hash_ref->{_is_pre_built_superflow};
@@ -991,6 +1002,30 @@ sub set_hash_ref {
 #
 #	return ();
 #}
+
+=head2 sub  set4FileDialog_Delete_end 
+
+
+=cut
+
+sub set4FileDialog_Delete_end {
+	my ($self) = @_;
+
+	$conditions4flows->{_is_Delete_file_button}  = $false;
+	$conditions4flows->{_has_used_Delete_button} = $true;
+
+	# for potential export via get_hash_ref
+	$is_Delete_file_button  = $false;
+	$has_used_Delete_button = $true;
+
+	# clean path
+	$conditions4flows->{_path}						= '';
+	 print("conditions4flows,set4FileDialog_Delete_end
+	$conditions4flows->{_is_Delete_file_button}\n");
+	return ();
+}
+
+
 
 =head2 sub  set4FileDialog_SaveAs_end 
 

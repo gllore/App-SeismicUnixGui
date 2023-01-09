@@ -153,7 +153,6 @@ my $supef = {
     _method     => '',
     _perc       => '',
     _ntout      => '',
-    _MAXLAG_PEF => '',
     _showweiner => '',
 };
 
@@ -378,22 +377,6 @@ sub ntout {
     }
 }
 
-=head2 sub MAXLAG_PEF 
-
-
-=cut
-
-sub MAXLAG_PEF {
-    my ( $self, $MAXLAG_PEF ) = @_;
-    if ($MAXLAG_PEF) {
-        $supef->{_MAXLAG_PEF} = $MAXLAG_PEF;
-        $supef->{_note} =
-          $supef->{_note} . ' MAXLAG_PEF=' . $supef->{_MAXLAG_PEF};
-        $supef->{_Step} =
-          $supef->{_Step} . ' MAXLAG_PEF=' . $supef->{_MAXLAG_PEF};
-    }
-}
-
 =head2 sub showweiner 
 
 
@@ -418,7 +401,7 @@ max index = number of input variables -1
 
 sub get_max_index {
     my ($self) = @_;
-    my $max_index = 13;
+    my $max_index = 12;
 
     return ($max_index);
 }

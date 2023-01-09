@@ -966,8 +966,8 @@ sub _set_FileDialog2user_built_flow {
 		
 	} elsif ( $topic eq $file_dialog_type->{_Delete} ) {
 
-		print("file_dialog,set_FileDialog2user_built_flow, topic= $topic\n");
-#		_user_built_flow_delete_perl_file();		
+#		print("file_dialog,set_FileDialog2user_built_flow, topic= $topic\n");
+		_user_built_flow_Delete_perl_file();		
 
 	} elsif ( $topic eq $file_dialog_type->{_SaveAs} ) {
 		# Save a new user-built flow
@@ -1042,6 +1042,100 @@ sub _set_selected_file_name {
 		print("file_dialog, _set_selected_file_name, empty string NADA\n");
 	}
 
+	return ($empty_string);
+}
+
+
+=head2 sub _user_built_flow_Delete_perl_file
+ 	
+ 	foreach my $key (sort keys %$file_dialog) {
+ 		print (" file_dialog,key is $key, value is $file_dialog->{$key}\n");
+    }
+=cut
+
+sub _user_built_flow_Delete_perl_file {
+
+	my ($self) = @_;
+
+	# local location within GUI
+	# and for file dialog
+	print("0. file_dialog, user_built_flow_Delete_perl_file _is_user_built_flow: $file_dialog->{_is_user_built_flow}\n");
+
+	$gui_history->set_hash_ref($file_dialog);
+#	$gui_history->set4FileDialog_Delete_start();
+	$file_dialog = $gui_history->get_hash_ref();
+
+	# print("1. file_dialog, user_built_flow_Delete_perl_file _is_user_built_flow: $file_dialog->{_is_user_built_flow}\n");
+#	$decisions->set4FileDialog_Delete($file_dialog);
+#	my $pre_req_ok = $decisions->get4FileDialog_Delete();
+
+#	if ($pre_req_ok) {
+#
+#		# print("3. file_dialog, _user_built_flow_Delete_perl_file ,Delete, pre_r_set_file_patheq_ok= $pre_req_ok \n");
+#		# print("2. file_dialog, _user_built_flow_Delete_perl_file _is_user_built_flow: $file_dialog->{_is_user_built_flow}\n");
+#
+#		my $iFile   = iFile->new();
+#		my $control = control->new();
+#
+#		my $whereami            = whereami->new();
+#		my $default_param_specs = $L_SU_global_constants->param();
+#
+#		my @fields;
+#		my $full_path_name;
+#
+#		# print ("file_dialog _user_built_flow_Delete_perl_file_user_built_flow_Delete_perl_file, _last_parameter_index_touched_color: $file_dialog->{_last_parameter_index_touched_color} \n");
+#
+#		# make the file paths for the current file_dialog type ( Save, Delete, Open, Data etc.)}
+#		_set_file_path();
+#
+#		# collects the name of the data file to be opened
+#		_FileDialog();    # file dialog mega-widget
+#
+#		my $topic = $file_dialog->{_dialog_type};
+#
+#		# print("file-dialog _user_built_flow_Delete_perl_file, file_dialog->{_dialog_type}: $topic\n");
+#		$full_path_name = $file_dialog->{_selected_file_name};
+#
+#		# print("file-dialog _user_built_flow_Delete_perl_file, If not cancelled, full_path_name: $full_path_name\n");
+#
+#		if ( length $full_path_name ) {
+#
+#			@fields = split( /\//, $full_path_name );
+#			$file_dialog->{_is_selected_file_name} = $true;
+#
+#			# print("file-dialog _user_built_flow_Delete_perl_file,file_dialog->{_is_selected_file_name}=$file_dialog->{_is_selected_file_name} \n");
+#
+#		} else {
+#
+#			# print("file_dialog, _user_built_flow_Delete_perl_file,Cancelled. No output flow name selected NADA\n");
+#		}
+#
+#		my $first_idx = $default_param_specs->{_first_entry_idx};
+#		my $length    = $default_param_specs->{_length};
+#
+#		# remove suffix (pl, su, txt ) from selected file name
+#		if ( defined $fields[-1]
+#			&& $fields[-1] ne $empty_string ) {
+#
+#			$control->set_file_name( \$fields[-1] );
+#			$control->set_suffix();
+#			$control->set_first_name();
+#			my $suffix     = $control->get_suffix();
+#			my $first_name = $control->get_first_name();
+#			$file_dialog->{_flow_name_out} = $fields[-1];
+#
+#			# print("file_dialog,_user_built_flow_Delete_perl_file, Delete,suffix: $suffix\n");
+#			# print("file_dialog,,_user_built_flow_Delete_perl_file, Delete,first_name: $first_name\n");
+#			# print("1. file_dialog,_user_built_flow_Delete_perl_file, flow_name_out: $file_dialog->{_flow_name_out}\n");
+#			# print ("file-dialog _user_built_flow_Delete_perl_file, _last_parameter_index_touched_color: $file_dialog->{_last_parameter_index_touched_color} \n");
+#
+#		} else {
+#
+#			# print("file_dialog,_user_built_flow_Delete_perl_file, No file name selected NADA\n");
+#		}
+#
+#		$gui_history->set4FileDialog_Delete_end();    # ?? purpose? needed?
+#	}
 	return ($empty_string);
 }
 
