@@ -482,7 +482,7 @@ sub get_a_section {
 				  . $label
 				  . '(quotemeta('
 				  . $prefix
-				  . $value . ')'
+				  . $value . ').'
 				  . $suffix . ');';
 
 #				print(" 1. oop_prog_params, get_a_section CASE #1 OUTPUT TEXT: $oop_prog_params[$j] \n");

@@ -63,6 +63,7 @@ my $param_flow_grey = {
 	_indices                 => -1,
 	_label_boxes_w           => '',
 	_length                  => '',
+	_max_index               => -1,
 	_names_aref              => '',    # equiv. to 'labels'
 	_names_aref2             => '',
 	_num_good_values_aref    => 0,
@@ -115,8 +116,7 @@ sub _get_names_aref {
 		my ( @names_aref, @names );
 		@names_aref = @{ @{ $param_flow_grey->{_names_aref2} }[$item_index] };
 
-		# print("param_flow_grey, _get_names_aref,
-		#@names_aref, index=$item_index\n");
+		print("param_flow_grey, _get_names_aref, @names_aref, index=$item_index\n");
 		return ( \@names_aref );
 	}
 }
@@ -305,6 +305,7 @@ sub clear {
 	$param_flow_grey->{_indices}                 = -1;
 	$param_flow_grey->{_label_boxes_w}           = '';
 	$param_flow_grey->{_length}                  = '';
+	$param_flow_grey->{_max_index}               = -1;	
 	$param_flow_grey->{_names_aref}              = '';
 	$param_flow_grey->{_names_aref2}             = '';
 	$param_flow_grey->{_num_good_values_aref}    = 0;
@@ -661,6 +662,7 @@ sub get_good_values_aref2 {
 
 sub get_names_aref {
 	my ($self) = @_;
+	
 	my $index = $param_flow_grey->{_selection_index};
 	
 	if ( $index >= 0 ) {
@@ -670,7 +672,7 @@ sub get_names_aref {
 		@names_aref = @{ @{ $param_flow_grey->{_names_aref2} }[$index] };
 		$length     = scalar @names_aref;
 
-		# print(" param_flow_grey, get_names_aref:  @names_aref, index is $index\n");
+#		print(" param_flow_grey, get_names_aref:  @names_aref, index is $index\n");
 		return ( \@names_aref );
 	}
 	else {
@@ -705,6 +707,34 @@ sub get_num_good_values_aref {
 	}
 	return ();
 }
+
+=head2 sub get_max_index
+
+  Number of programs in the flow +1
+  Should increment every time that add2flow is run
+  in a superflowstack_names_aref2
+
+=cut
+
+sub get_max_index{
+	my ($self) = @_;
+
+	if ( $param_flow_grey->{_num_items} >= 0 ) {
+		
+		my $max_index = $param_flow_grey->{_num_items} + 1;
+
+		my $result = $max_index;
+		print("param_flow_grey,get_max_index, max_index = $param_flow_grey->{_max_index} \n");
+		return ($result);
+
+	}
+	else {
+		print("param_flow_grey,get_max_index; num items <0\n");
+		return ();
+	}
+
+}
+
 
 =head2 sub get_num_items
 
@@ -782,6 +812,7 @@ sub get_values_aref {
 
 sub insert_selection {
 	my ($self)    = @_;
+	
 	my $first     = 0;
 	my $idx2mv    = $param_flow_grey->{_index2move};
 	my $destn_idx = $param_flow_grey->{_destination_index};

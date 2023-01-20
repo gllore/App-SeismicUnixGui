@@ -368,7 +368,7 @@ sub _FileDialog_button {
 
 		# restore string quotes to values that need them
 		# e.g., character strings as well as fnumeric file names
-		$color_flow_href->{_values_aref} = $control->get_string_or_number4array(
+		$color_flow_href->{_values_aref} = $control->get_string_or_number4aref(
 			$color_flow_href->{_values_aref} );
 
 		# dereference scalar
@@ -1168,7 +1168,7 @@ sub _perl_flow {
 
 			# add single quotes upon input only to strings
 			$color_flow_href->{_values_aref} =
-			  $control->get_string_or_number4array(
+			  $control->get_string_or_number4aref(
 				$color_flow_href->{_values_aref} );
 
 			# my $names = scalar @{$color_flow_href->{_names_aref}};
@@ -1384,7 +1384,7 @@ sub _stack_flow {
 
 	# in case parameter values have been displayed stringless
 	$color_flow_href->{_values_aref} =
-	  $control->get_string_or_number4array( $color_flow_href->{_values_aref} );
+	  $control->get_string_or_number4aref( $color_flow_href->{_values_aref} );
 
 # print("color_flow,_stack_flow, color_flow_href->{_names_aref} =@{$color_flow_href->{_values_aref}} \n");
 
@@ -1563,7 +1563,7 @@ hash remains partially undefined in gui_history.pm
 
 			# in case parameter values have been displayed stringless
 			$color_flow_href->{_values_aref} =
-			  $control->get_string_or_number4array(
+			  $control->get_string_or_number4aref(
 				$color_flow_href->{_values_aref} );
 			$color_flow_href->{_names_aref} = $param_widgets->get_labels_aref();
 			$color_flow_href->{_check_buttons_settings_aref} =
@@ -1746,7 +1746,7 @@ sub _update_prior_param_flow {
 
 			# correct parameter values that have been displayed stringless
 			$color_flow_href->{_values_aref} =
-			  $control->get_string_or_number4array(
+			  $control->get_string_or_number4aref(
 				$color_flow_href->{_values_aref} );
 
 			#			print("2. color flow,_update_prior_param_flow \n");
@@ -1863,7 +1863,7 @@ sub _save_most_recent_param_flow {
 #			"color_flow, _save_most_recent_param_flow, param_widgets->get_values_aref():@{$color_flow_href->{_values_aref}}\n"
 #		);
 # in case parameter values have been displayed stringless
-		$color_flow_href->{_values_aref} = $control->get_string_or_number4array(
+		$color_flow_href->{_values_aref} = $control->get_string_or_number4aref(
 			$color_flow_href->{_values_aref} );
 
 #		print(
@@ -1988,7 +1988,7 @@ sub FileDialog_button {
 
 			# in case parameter values have been displayed stringless
 			$color_flow_href->{_values_aref} =
-			  $control->get_string_or_number4array(
+			  $control->get_string_or_number4aref(
 				$color_flow_href->{_values_aref} );
 
 			$color_flow_href->{_dialog_type} =
@@ -2144,7 +2144,7 @@ sub FileDialog_button {
 
 			# in case parameter values have been displayed stringless
 			$color_flow_href->{_values_aref} =
-			  $control->get_string_or_number4array(
+			  $control->get_string_or_number4aref(
 				$color_flow_href->{_values_aref} );
 
 #			print(
@@ -3446,7 +3446,7 @@ for first time but no listboxes have been occupied previously
 
 		# restore so that only strings have quotes
 		# for the last program name that was used
-		$color_flow_href->{_values_aref} = $control->get_string_or_number4array(
+		$color_flow_href->{_values_aref} = $control->get_string_or_number4aref(
 			$color_flow_href->{_values_aref} );
 
 		$color_flow_href->{_last_parameter_index_touched_color} = 0;

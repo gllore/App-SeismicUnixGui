@@ -60,6 +60,12 @@ For a sunix program with a binding how does the FileDialog get activated?
  A. Superflows use L_SU->save_button
  A. user-built flows use color_flow.pm->save_button
  
+ Q. What is the sequence of programs during a 'Save'?
+ 
+   main
+    L_SU
+     color_flow.pm->save_button
+ 
  Q. What are MB1 bindings for colored listboxes?
  Q. How are colored flow listboxes selected?
  Q. how do I select a colored flow listbox?
@@ -517,10 +523,27 @@ main,
 		L_SU
 		FileDialog_button (with value 'Flow')
 		
+Q. What sequence of programs are used when deleting (Delete) a pre-existing perl file flow, 
 
+main, 
+	_L_SU
+		L_SU
+		
+		FileDialog_button (with value 'Delete')
+		_FileDialog_button_Delete
+		
+		  neutral_flow
+		  
+		    file_dialog
+		     FileDialog_director
+		     _set_FileDialog2user_built_flow
+		     _user_built_flow_Delete_perl_file
+		     _FileDialog, 
+		   
+		
 Q. What sequence is used to open a Data-type perl file ('Data') or a user-built 'Flow'
 
-A. Opening a Data-type perl file or a user-built 'Flow' involves the following sequence:
+A. Opening a perl file or a user-built 'Flow' involves the following sequence:
 
 main, 
 	FileDialog_button, _L_SU,
@@ -528,8 +551,15 @@ main,
 		L_SU,set_hash_ref
 		L_SU,FileDialog_button
 		
-		color_flow, FileDialog_button, .... 
-			_add2flow and flow_select (both, VIA _perl_flow)
+		color_flow
+		   FileDialog_button, .... 
+		    _perl_flow
+			_add2flow 
+			  _flow_select2save_most_recent_param_flow
+			    updateNsave_most_recent_param_flow (for 'flow_select')
+			_flow_select_director
+			   (widget from any color_flow_href values are all present and 
+			   displayed on the GUI)
 			
 		file_dialog, 
 		   FileDialog_director
@@ -563,7 +593,7 @@ Some dialog widgets are used exclusively for superflows ( superflow selection)
 
 Other widgets are used exclusively for user-built flows (sunix selection,add2flow ), Flows and SaveAs
 
-Color distinguihses regular user-built flows where sunix-selection is marked with a neutral color.
+Color distinguishes regular user-built flows where sunix-selection is marked with a neutral color.
 
 Some options have no color (Flow) but do have a flow-type assigned within LSU.
 
@@ -1505,6 +1535,8 @@ Q. Q. How does a superflow run?:
   
   _LSU
   
+  Q. Where is color set?
+  
   Q. What happens when the processed files are called inside a specific module and there
   is no need for a redirected ('>') file. e.g., suop2 or segyread ?
   
@@ -2342,6 +2374,8 @@ FileDialog_button: handles Data, SaveAs and (perl) Flow (in) is
 							gui_history,set_button (inc index)					
 						flow_select_director('_perl_flow')				
 						  _flow_select2save_most_recent_param_flow()
+						    _updateNsave_most_recent_param_flow()
+						  
 						 _save_most_recent_param_flow
 												
 recorded sequences of indices during an add2flow (3 times), followed by 
@@ -2392,7 +2426,7 @@ not accessible via the PERL5LIB global variable or @INC array.
 Q. What are the different "flow types" used to bind MB3 clicks 
 when using the spec files:
 
-   {_Data}  	   ...	open pre-existing data file
+   {_Data}  	...	open pre-existing data file
    {_Flow} 		...	open pre-existing user-built flow
    {_SaveAs} 	...	save a new user-built flow
    {_Save} 	    ...	re-save a user-built flow 
@@ -2916,7 +2950,7 @@ A.1
 	);
 	
 	
-Q. How is the help accessed, i.e. reading the program commetns written in the 
+Q. How is the help accessed, i.e. reading the program comments written in the 
     pod markup language, within a module?
 
 A.  Following on from the previous questions, if MB3 selected,
@@ -2935,7 +2969,38 @@ A.  Following on from the previous questions, if MB3 selected,
        up the process tremendously.  I am thinking of implementing this throughout
        to speed up the gui in a lot of weak spots. 9-19-22 JML
            
-           
+  Q. What happens when you 'Save' after having Opened a file
+  To 'Open'
+       main
+         L_SU
+           color_flow
+           FileDialog_button
+		    file_dialog
+		      FileDialog_director
+		      
+		   _perl_flow
+		   _add2flow 
+		   _flow_select_director
+			   (widget any color_flow_href values are all present and 
+			   displayed on the GUI)
+			   _flow_select2save_most_recent_param_flow(
+			   
+   To 'Save'
+      main
+       L_SU
+        color_flow
+         save_button
+          param_widgets_color->redisplay        
                
-
+ Q. Where are dynamic variables kept in memory for each flow?
+ 
+ For example, the program parameter values are kept in 3 places
+  color_href
+  param_widget
+  param_widgets only keep a copy of what was last seen on the screen
+  
+  When we open a new sunix program, the param_widgets are updated
+  But if we reselect an open color flow the param_widgets
+  are reoccupied by what was stored in color_href. In this manner we
+  can minimize memory usage for param_widgets
            

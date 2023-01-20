@@ -49,6 +49,7 @@ use aliased 'App::SeismicUnixGui::misc::gui_history';
 
 my $check_buttons = check_buttons->new();
 my $gui_history   = gui_history->new();
+my $control       = control->new();
 
 my $get                 = L_SU_global_constants->new();
 my $default_param_specs = $get->param();
@@ -150,7 +151,7 @@ param_widgets_pink, changes,
 sub _changes {
 	my ( $self, $index ) = @_;
 
-	my $control = control->new();
+#	my $control = control->new();
 	
 #	print("param_widgets_color, changes, index=$index\n");
 
@@ -470,6 +471,7 @@ sub _set_length_in_gui {
 	my ($new_length_in_gui) = @_;
 
 	if ( $new_length_in_gui >= 0 ) {
+		
 		$param_widgets_color_href->{_length} = $new_length_in_gui;
 
 	} else {
@@ -903,8 +905,8 @@ sub get_values_aref {
 
 	if ( $param_widgets_color_href->{_values_aref} ne $empty_string ) {
 
-		my $values_aref = \@{ $param_widgets_color_href->{_values_aref} };
-
+#		my $values_aref = \@{ $param_widgets_color_href->{_values_aref} };
+        my $values_aref = $param_widgets_color_href->{_values_aref};
 #		print("param_widgets_color,get_values_aref,values=--@{$values_aref}--\n");
 #		print("param_widgets_color,get_values_aref,values=--@{$param_widgets_color_href->{_values_aref}}[18]--\n");
 		return ($values_aref);
@@ -993,7 +995,7 @@ sub initialize_labels {
 	$length = $param_widgets_color_href->{_length};
 
 	# print("param_widgets_color,initialize_labels,first:$first\n");
-	# print("param_widgets_color,initialize_labels,length:$length\n");
+	print("param_widgets_color,initialize_labels,length:$length\n");
 
 	for ( my $i = $first; $i < $length; $i++ ) {
 		$blank_labels[$i] = '';
@@ -1045,10 +1047,9 @@ sub initialize_values {
 
 sub range {
 	my ( $self, $ref_hash ) = @_;
-	my $key = '_param_sunix_length';
-
-	my $value = $ref_hash->{$key};
-
+	
+	 # my $key = '_param_sunix_length'; # actually max_index for prog, length is wrong 
+	# my $value = $ref_hash->{$key};
 	# print(" 0. param_widgets_grey2,range, key is $key, value is $value\n");
 	# print(" 0. param_widgets_grey2,range, write out gui_history.txt\n");
 	# $gui_history->view();
@@ -1092,7 +1093,7 @@ sub range {
 		$param_widgets_color_href->{_first_idx} = $ref_hash->{_param_flow_first_idx};
 		$param_widgets_color_href->{_length}    = $ref_hash->{_param_flow_length};
 
-		#print("3. param_widgets_color,range, (user-built-flow)  first idx:$param_widgets_color_href->{_first_idx}, and length:$param_widgets_color_href->{_length}\n");
+		# print("3. param_widgets_color,range, (user-built-flow)  first idx:$param_widgets_color_href->{_first_idx}, and length:$param_widgets_color_href->{_length}\n");
 	}
 
 	# button for L_SU and no button for project selector
@@ -1236,18 +1237,17 @@ sub redisplay_values {
 	my $first         = $param_widgets_color_href->{_first_idx};
 	my $length        = scalar @{ $param_widgets_color_href->{_values_aref} };
 
-	# print("param_widgets_color, redisplay_values, length is $length\n");
-
+	#	print("param_widgets_color, redisplay_values, length is $length\n");
+	#   print("param_widgets_color, redisplay_values, first is $first =0 \n");
+    
 	if (   length($values_w_aref)
 		&& length($values_aref) ) {
 
 		for ( my $i = $first; $i < $length; $i++ ) {
 
-			my $control = control->new();
-
 			# print("1. param_widgets_color,redisplay_values,chkbtn @{$param_widgets_color_href->{_check_buttons_settings_aref}}[$i]\n");
 			# print("param_widgets_color, redisplay_values, i is $i\n");
-			# print("1. param_widgets_color, redisplay_values, value is @{$values_aref}[$i]\n");
+#			print("1. param_widgets_color, redisplay_values, value is @{$values_aref}[$i]\n");
 
 			@{$values_aref}[$i] = $control->get_no_quotes( @{$values_aref}[$i] );
 

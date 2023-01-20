@@ -1,11 +1,11 @@
-package App::SeismicUnixGui::misc::blue_flow;
+package App::SeismicUnixGui::misc::grey_flow;
 
 =head1 DOCUMENTATION
 
 
 =head2 SYNOPSIS 
 
- PERL PACKAGE NAME: blue_flow.pm
+ PERL PACKAGE NAME: grey_flow.pm
  AUTHOR: 	Juan Lorenzo
  DATE: 		June 8 2018 
 
@@ -77,11 +77,11 @@ use aliased 'App::SeismicUnixGui::configs::big_streams::Project_config';
 extends 'App::SeismicUnixGui::misc::gui_history' => { -version => 0.0.2 };
 use aliased 'App::SeismicUnixGui::misc::gui_history';
 
-use App::SeismicUnixGui::misc::param_widgets_blue '0.0.2';
-use aliased 'App::SeismicUnixGui::misc::param_widgets_blue';
+use App::SeismicUnixGui::misc::param_widgets_grey '0.0.2';
+use aliased 'App::SeismicUnixGui::misc::param_widgets_grey';
 
-use App::SeismicUnixGui::misc::param_flow_blue '0.0.5';
-use aliased 'App::SeismicUnixGui::misc::param_flow_blue';
+use App::SeismicUnixGui::misc::param_flow_grey '0.0.5';
+use aliased 'App::SeismicUnixGui::misc::param_flow_grey';
 
 use aliased 'App::SeismicUnixGui::misc::binding';
 
@@ -107,23 +107,23 @@ use Carp;
 
 =cut
 
-my $Project           = Project_config->new();
-my $L_SU_global_constants  = L_SU_global_constants->new();
-my $control           = control->new();
-my $decisions         = decisions->new();
-my $dirs              = dirs->new();
-my $file_dialog       = file_dialog->new();
-my $flow_widgets      = flow_widgets->new();
-my $gui_history       = gui_history->new();
-my $manage_files_by2  = manage_files_by2->new();
-my $message_director  = message_director->new();
+my $Project               = Project_config->new();
+my $L_SU_global_constants = L_SU_global_constants->new();
+my $control               = control->new();
+my $decisions             = decisions->new();
+my $dirs                  = dirs->new();
+my $file_dialog           = file_dialog->new();
+my $flow_widgets          = flow_widgets->new();
+my $gui_history           = gui_history->new();
+my $manage_files_by2      = manage_files_by2->new();
+my $message_director      = message_director->new();
 
-my $param_flow_color_pkg = param_flow_blue->new();
-my $param_widgets        = param_widgets_blue->new();
+my $param_flow_color_pkg = param_flow_grey->new();
+my $param_widgets        = param_widgets_grey->new();
 my $flow_type            = $L_SU_global_constants->flow_type_href();
 my $var                  = $L_SU_global_constants->var();
 my $empty_string         = $var->{_empty_string};
-my $this_color           = 'blue';
+my $this_color           = 'grey';
 my $color_flow_href      = $gui_history->get_defaults();
 my $number_from_color    = $L_SU_global_constants->number_from_color_href();
 
@@ -134,6 +134,13 @@ my $_flow_name_color_w    = '_flow_name_' . $this_color . '_w';
 my $_number_from_color    = $number_from_color->{ ( '_' . $this_color ) };
 my $_flow_name_in_color   = '_flow_name_in_' . $this_color;
 my $_flow_name_out_color  = '_flow_name_out_' . $this_color;
+
+=head2 memory leak saviors
+
+=cut
+
+my @save_last_param_widget_values;
+my @save_last_param_flow_values;
 
 =head2
 
@@ -189,7 +196,7 @@ sub _add2flow {
 
 	use Clone 'clone';
 
-	my $message             = $message_director->null_button(0);
+	my $message = $message_director->null_button(0);
 
 	my $here;
 	my $flow_color = _get_flow_color();
@@ -475,6 +482,7 @@ sub _clear_stack_versions {
 }
 
 =head2 sub _flow_select_director
+
 Private alias for flow_select
 both color and button are set as
 per the flow_select called by an active click
@@ -501,8 +509,12 @@ sub _flow_select_director {
 			# update most recent flow
 			_flow_select2save_most_recent_param_flow();
 
-#			print(" 3. _flow_select_directorcolor_flow, , color_flow_href->{_values_aref}=@{$color_flow_href->{_values_aref}}\n");
-#	        print(" 3. _flow_select_directorcolor_flow,  widget values =@{$param_widgets->get_values_aref()} \n");
+			# print(" 3. color_flow,_flow_select_director,END OF LOADING INTO GUI\n");
+			# print(" 3. color_flow,_flow_select_director,color_flow_href->{_values_aref}=@{$color_flow_href->{_values_aref}}\n");
+			# print(" 3. color_flow,_flow_select_director, widget values=@{$param_widgets->get_values_aref()} \n");
+            @save_last_param_widget_values  = @{$param_widgets->get_values_aref()};
+            @save_last_param_flow_values    = @{$param_flow_color_pkg->get_values_aref()};        
+            # print("color_flow,flow_select_director,save_last_param_widget_values=@save_last_param_widget_values\n");
 
 		}
 		elsif ( $type eq 'add2flow_button' ) {
@@ -634,13 +646,20 @@ sub flow_select2save_most_recent_param_flow {
 			$param_widgets->range($color_flow_href);
 
 			# strange memory leak inside param_widgets
-			my $save =
+			my $save1 =
 			  clone( $color_flow_href->{_check_buttons_settings_aref} );
 			$param_widgets->gui_full_clear();
-			@{ $color_flow_href->{_check_buttons_settings_aref} } = @$save;
+			@{ $color_flow_href->{_check_buttons_settings_aref} } = @$save1;
 
 			$param_widgets->set_labels( $color_flow_href->{_names_aref} );
-			$param_widgets->set_values( $color_flow_href->{_values_aref} );
+
+			# test next 4 lines
+#						my $save2 =
+#						  clone( $color_flow_href->{_values_aref} );
+#						$param_widgets->gui_full_clear();
+#						@{ $color_flow_href->{_values_aref} } = @$save2;
+#			$param_widgets->set_values( $color_flow_href->{_values_aref} );
+
 			$param_widgets->set_check_buttons(
 				$color_flow_href->{_check_buttons_settings_aref} );
 
@@ -710,6 +729,8 @@ sub flow_select2save_most_recent_param_flow {
 
 sub _flow_select2save_most_recent_param_flow {
 	my ($self) = @_;
+
+	use Clone 'clone';
 
 	$color_flow_href->{_flow_type} = $flow_type->{_user_built};
 
@@ -866,8 +887,15 @@ sub _flow_select2save_most_recent_param_flow {
 # will not reflect the Entry focus change
 #		print("color_flow_href _flow_select2save_most_recent_param_flow, log view is on\n");
 # $gui_history->view();
-#		print("11, color_flow, END of _flow_select2save_most_recent_param_flow, \n");
+#		print("11, color_flow, END of _flow_select2save_most_recent_param_flow \n");
 #		$param_flow_color_pkg->view_data();
+#		print("12 color_flow, _flow_select2save_most_recent_param_flow,color_flow_href->{_values_aref} =@{$color_flow_href->{_values_aref}}\n");
+#	    print("14.color_flow,_flow_select2save_most_recent_param_flow,widget values =@{$param_widgets->get_values_aref()} \n");
+
+# to correct strange memory leak that destroys the last aprameter value on the last flow item
+#		my $save_values_aref  = clone $color_flow_href->get_values_aref();
+#        @save_values_aref     = @$save_values_aref;
+#	    @save_widgets_aref = @{$param_widgets->get_values_aref()};
 
 	}    # end pre_ok
 
@@ -1073,8 +1101,8 @@ sub _perl_flow_errors {
 	my $result;
 
 	# instantiate modules
-	my $perl_flow           = perl_flow->new();
-	my $param_sunix         = param_sunix->new();
+	my $perl_flow   = perl_flow->new();
+	my $param_sunix = param_sunix->new();
 
 	# messages
 	my $message = $message_director->null_button(0);
@@ -1115,11 +1143,9 @@ sub _perl_flow_errors {
 sub _perl_flow {
 	my ($self) = @_;
 
-	# import modules
-
 	# instantiate modules
-	my $perl_flow           = perl_flow->new();
-	my $param_sunix         = param_sunix->new();
+	my $perl_flow   = perl_flow->new();
+	my $param_sunix = param_sunix->new();
 
 	# messages
 	my $message = $message_director->null_button(0);
@@ -1616,7 +1642,7 @@ hash remains partially undefined in gui_history.pm
 	Updates the values for parameters stored via param_flow
 	param-flow takes uses parameters from param_widgets
 	BUT param_widgets needs to have been updated by _update_most_recent_flow? or 
-	user changes on the screen will not chave been updated
+	user changes on the screen will not have been updated
 
 	Apply every time that a flow item is selected 
 	1. Assume that selection of a flow item implies pre-existing parameter values were changed/added
@@ -1692,12 +1718,8 @@ sub _update_prior_param_flow {
 	  ( $color_flow_href->{_flow_select_color_href} )->{_most_recent};
 	my $storage_flow_index = $prior_flow_index_touched;
 
-#	print(
-#		"1. color_flow, _update_prior_param_flow, prior_flow and storage index=$storage_flow_index,
-#	most_recent=$most_recent_flow_index_touched\n"
-#	);
-#	print("1. color_flow, _update_prior_param_flow, param_flow_color_pkg->view_data:\n");
-#	$param_flow_color_pkg->view_data();
+#	print("1. color_flow,_update_prior_param_flow, prior_flow and storage index=$storage_flow_index\n");
+#	print("color_flow,_update_prior_param_flow,most_recent_flow_index=$most_recent_flow_index_touched\n");
 
 	# get number of items in the flow listbox
 	# prior program must exist
@@ -1730,7 +1752,7 @@ sub _update_prior_param_flow {
 			# the checkbuttons, values and names of ONLY the last program used
 			# are stored in param_widgets at any ONE time
 			$color_flow_href->{_values_aref} =
-			  $param_widgets->get_values_aref();
+			  $param_widgets->get_values_aref();  
 
 			# establish which program is active in the flow-- for control
 			$color_flow_href->{_prog_names_aref} =
@@ -1755,14 +1777,14 @@ sub _update_prior_param_flow {
 			# print("color flow,_update_prior_param_flow, write gui_history\n");
 			# $gui_history->view();
 
-			# collect values and names from what is currently in the gui
+			# collect checkbuttons, names from what is currently in the gui
 			$color_flow_href->{_names_aref} = $param_widgets->get_labels_aref();
 			$color_flow_href->{_check_buttons_settings_aref} =
 			  $param_widgets->get_check_buttons_settings_aref();
 
-#			print("color_flow,_update_prior_param_flow,values, @{$color_flow_href->{_values_aref}}\n");
-#			print("color_flow,_update_prior_param_flow,values, @{$color_flow_href->{_names_aref}}\n");
-
+			# print("4. color_flow,_update_prior_param_flow,names, @{$color_flow_href->{_names_aref}}\n");
+			# print("5.color_flow,_update_prior_param_flow,values, @{$color_flow_href->{_values_aref}}\n");
+			
   # The following 3 lines save old changed values and names but not the versions
 			$param_flow_color_pkg->set_values_aref(
 				$color_flow_href->{_values_aref} );
@@ -1785,13 +1807,13 @@ sub _update_prior_param_flow {
 
 		}
 		else {
-
 			#NADA
 		}
 	}
 	else {
 	}
-
+	print("1. color_flow, _update_prior_param_flow, param_flow_color_pkg->view_data:\n");
+	$param_flow_color_pkg->view_data();
 	return ();
 }
 
@@ -1964,7 +1986,7 @@ sub FileDialog_button {
 
 		if ( $topic eq $file_dialog_type->{_SaveAs} ) {
 
-			# ONLY for SaveAs
+			# print("color_flow, L_SU,FileDialog_button, ONLY for SaveAs\n");
 			# i.e., in this module, dialog_type_sref can only be SaveAs
 			# Save for 'user-built flows' is accessible via L_SU.pm
 
@@ -2057,7 +2079,7 @@ sub FileDialog_button {
 # 3. populate GUI
 # 4. populate hashes (color_flow)and memory spaces (param_flow)
 # 5. Make sure to clean prior information from the FileDialog Button such as file names.
-		
+
 			$file_dialog->set_flow_color( $color_flow_href->{_flow_color} );
 			$file_dialog->set_hash_ref($color_flow_href);    # uses values_aref
 			$file_dialog->set_flow_type('user_built');
@@ -2186,7 +2208,7 @@ sub FileDialog_button {
 		}
 	}
 	else {
-		print("color_flow,FileDialog_button ,option type missing\ n");
+		print("color_flow,FileDialog_button ,option type missing\n");
 	}
 
 	return ();
@@ -2237,8 +2259,8 @@ sub add2flow_button {
 
 	$color_flow_href->{_flow_type} = $flow_type->{_user_built};
 
-	my $param_sunix         = param_sunix->new();
-	my $message             = $message_director->null_button(0);
+	my $param_sunix = param_sunix->new();
+	my $message     = $message_director->null_button(0);
 
 	$gui_history->set_hash_ref($color_flow_href);
 	$gui_history->set4start_of_add2flow_button($flow_color);
@@ -2606,7 +2628,8 @@ sub delete_from_flow_button {
 }
 
 =head2 sub delete_whole_flow_button
-if flow_select was last clicked then 
+
+If flow_select was last clicked then 
 $gui_history has already recorded the chosen flow color
  	 	
 =cut
@@ -2789,8 +2812,7 @@ sub flow_item_down_arrow_button {
 			_local_set_flow_listbox_color_w($flow_color)
 			  ;    # in "color"_flow namespace
 			$_flow_listbox_color_w->selectionSet(
-				$color_flow_href->{_destination_index},
-			);
+				$color_flow_href->{_destination_index}, );
 
 			# carry out all gui updates needed
 			# keep track of flow_selection clicks
@@ -2822,6 +2844,7 @@ sub flow_item_up_arrow_button {
 	my $prog_name;
 
 	if ($flow_color) {
+
 		_set_flow_color($flow_color);
 
 	# $conditions_gui->set4start_of_flow_item_up_arrow_button($color_flow_href);
@@ -2893,8 +2916,7 @@ sub flow_item_up_arrow_button {
 
 			# highlight new index
 			$_flow_listbox_color_w->selectionSet(
-				$color_flow_href->{_destination_index},
-			);
+				$color_flow_href->{_destination_index}, );
 
 			# carry out all gui updates needed
 			# keep track of flow_selection clicks
@@ -2928,32 +2950,34 @@ my $ans = @{$color_flow_href->{_values_w_aref}}[0]->get;
 
 sub flow_select {
 	my ($self) = @_;
-	my $ans;
-	$color_flow_href->{_flow_type} = $flow_type->{_user_built};
 
-#	print("color_flow,flow_select, START\n");
-#	print(
-#		"1. color_flow,flow_select, last_flow_index_touched:$color_flow_href->{_last_flow_index_touched}\n"
-#	);
-#	print(
-#		"color_flow,flow_select, last_flow_color:$color_flow_href->{_last_flow_color}\n"
-#	);
+	my $ans;
+
+	$color_flow_href->{_flow_type} = $flow_type->{_user_built};
+	
+	#	print("color_flow,flow_select, START\n");
+	# 	print("1. color_flow,flow_select, last_flow_index_touched:$color_flow_href->{_last_flow_index_touched}\n");
+	#	print(
+	#		"1. color_flow,flow_select, last_flow_index_touched:$color_flow_href->{_last_flow_index_touched}\n"
+	#	);
+	#	print(
+	#		"color_flow,flow_select, last_flow_color:$color_flow_href->{_last_flow_color}\n"
+	#	);
 
 	# reset residual flow_listbox_color_w of another color
 	# flow_color exists in current (color_flow) namespace
 	_local_set_flow_listbox_color_w($flow_color);
 	$gui_history->set_flow_select_color($flow_color);
 
-	#
-	#	$ans = ( ( $gui_history->get_defaults )->{_flow_select_color_href} )
+	# $ans = ( ( $gui_history->get_defaults )->{_flow_select_color_href} )
 	#		->{_most_recent};
-	#	print("1. color_flow,flow_select,most recent color: $ans\n");
-	#	$ans =
+	# print("1. color_flow,flow_select,most recent color: $ans\n");
+	# $ans =
 	#		( ( $gui_history->get_defaults )->{_flow_select_color_href} )->{_prior};
-	#	print("2. color_flow,flow_select,prior color: $ans\n");
+	# print("2. color_flow,flow_select,prior color: $ans\n");
 
-	#	print("color_flow,flow_select, print gui_history\n");
-	#	$gui_history->view();
+	# print("color_flow,flow_select, print gui_history\n");
+	# $gui_history->view();
 
 	my $message = $message_director->null_button(0);
 	$message_w->delete( "1.0", 'end' );
@@ -2962,10 +2986,6 @@ sub flow_select {
 	$gui_history->set_hash_ref($color_flow_href);
 	$gui_history->set_defaults_4start_of_flow_select($flow_color);
 	$color_flow_href = $gui_history->get_hash_ref();
-
-# 	print("2. color_flow,flow_select, last_flow_index_touched:$color_flow_href->{_last_flow_index_touched}\n");
-#	print("2. color_flow,flow_select, view stored param values:\n");
-#	$param_flow_color_pkg->view_data();
 
 	# update the flow color as per add2flow_select
 	my $_flow_listbox_color_w = _get_flow_listbox_color_w();
@@ -2983,12 +3003,8 @@ sub flow_select {
 		use Clone 'clone';
 
 		$gui_history->set_button('flow_select');
-
-#		print("3. color_flow,flow_select, view stored param values before update:\n");
-#		$param_flow_color_pkg->view_data();
-
-		#		print("3. color_flow, flow_select: writing gui_history.txt\n");
-		#		$gui_history->view();
+		# print("3. color_flow, flow_select: writing gui_history.txt\n");
+		# $gui_history->view();
 
 		my $prior_flow_type =
 		  ( ( $gui_history->get_defaults )->{_flow_type_href} )->{_prior};
@@ -2998,24 +3014,52 @@ sub flow_select {
 		my $most_recent_flow_select_color =
 		  ( ( $gui_history->get_defaults )->{_flow_select_color_href} )
 		  ->{_most_recent};
-
+		 my $prior_flow_index =
+		  ( $color_flow_href->{_flow_select_index_href} )->{_prior};
+		my $most_recent_flow_index =
+		  ( $color_flow_href->{_flow_select_index_href} )->{_most_recent};
+		my $max_saved_widget_index = scalar @save_last_param_widget_values;
+		  
+		# print("color_flow,flow_select,max_saved_flow_index=$max_saved_flow_index\n");
+        print("color_flow,flow_select,prior_flow_index=$prior_flow_index\n");
+          
 		if (    $prior_flow_type eq $flow_type->{_user_built}
 			and $most_recent_flow_select_color eq $prior_flow_select_color )
 		{
 
- # CASE 1 last click was inside this same colored flow
- #	print(
- #		"11 color_flow, flow_select, last click was inside this same colored flow\n"
- #	);
-
+			# CASE 1 last click was inside this same colored flow			 			
 			# consider prior flow-color changes
 			# that have been made to param_widgets but not updated
 			# unticked strings from GUI are corrected here
 			_update_prior_param_flow();
+			
 
-#			print("1. color_flow,flow_select, post _update_prior_param_flow: \n");
-#			print("1. color_flow,flow_select, view param flow values after update: \n");
-#			$param_flow_color_pkg->view_data();
+			if($max_saved_widget_index eq $most_recent_flow_index ) {
+				
+				# CASE 1A when last selected index was last in program
+				# list and last color flow is the same as this color flow
+				# e.g. just loaded a new flow and user clicks on last program
+				# in flow
+			
+				$param_widgets->set_values(\@save_last_param_widget_values);
+				# print("color_flow,flow_select,param_widgets->get_values_aref=@{$param_widgets->get_values_aref()}\n");
+		        $param_flow_color_pkg->set_flow_index($most_recent_flow_index);
+		        $param_flow_color_pkg->set_values_aref(\@save_last_param_widget_values);
+		        
+			} elsif ($max_saved_widget_index eq $prior_flow_index){
+				
+				# CASE 1A when last selected index was last in program
+				# list, last color flow is the same as this color flow
+				# but current index is different to the currently selected index
+
+				# print("color_flow,flow_select,last_param_widget_values=@save_last_param_widget_values\n");			
+		        $param_flow_color_pkg->set_flow_index($max_saved_widget_index);	
+		        my $last_param_flow_values_w_strings_aref = 
+		           $control->get_string_or_number4aref(\@save_last_param_widget_values)	;		           		
+		        # print("color_flow,flow_select,last_param_widget_values=@{$last_param_flow_values_w_strings_aref}\n");
+		        $param_flow_color_pkg->set_values_aref($last_param_flow_values_w_strings_aref);				
+					
+			}
 
 		}
 
@@ -3030,7 +3074,6 @@ sub flow_select {
 
 		}
 		else {
-
 			#			# CASE 3 undeteremined
 			#			print("13 color_flow, flow_select, unexpected NADA\n");
 		}
@@ -3046,16 +3089,16 @@ sub flow_select {
 
 		# current selection in the flow
 		my $index = $flow_widgets->get_flow_selection($_flow_listbox_color_w);
-
-# print("9 flow_select, stored values and labels for currently selected flow_index = $index\n");
-
+        # print("9 flow_select, stored values and labels for currently selected flow_index = $index\n");
+		# print("11 color_flow, flow_select, extract saved values\n");
+		# $param_flow_color_pkg->view_data();
+		
 		# extract saved values and labels for the current selection
-		$param_flow_color_pkg->set_flow_index($index);
+		$param_flow_color_pkg->set_flow_index($most_recent_flow_index);
 		$color_flow_href->{_names_aref} =
 		  $param_flow_color_pkg->get_names_aref();
 		$color_flow_href->{_values_aref} =
 		  $param_flow_color_pkg->get_values_aref();
-
 		$color_flow_href->{_check_buttons_settings_aref} =
 		  $param_flow_color_pkg->get_check_buttons_settings();
 
@@ -3067,6 +3110,14 @@ sub flow_select {
 
 		$param_widgets->set_current_program(
 			$color_flow_href->{_prog_name_sref} );
+
+			# print(
+			#  "10.color_flow,flow_select, values:@{$color_flow_href->{_values_aref}}\n"
+			#);
+			# print(
+			# "11.color_flow,flow_select, names:@{$color_flow_href->{_names_aref}}\n"
+			# );
+
 
 		# print("4. color_flow, flow_select: writing gui_history.txt\n");
 		# $gui_history->view();
@@ -3305,17 +3356,20 @@ sub get_help {
 
 	my ($self) = @_;
 
-	my $help      = help->new();
+	my $help = help->new();
 	my $pre_req_ok;
 
 	$decisions->set4help($color_flow_href);
 	$pre_req_ok = $decisions->get4help();
 
-	if ($pre_req_ok 
-	    and length $color_flow_href->{_prog_name_sref} 
-	    and length $color_flow_href->{_current_program_name} 
-	    and ($color_flow_href->{_current_program_name} eq ${$color_flow_href->{_prog_name_sref}})
-	    ) {
+	if (
+			$pre_req_ok
+		and length $color_flow_href->{_prog_name_sref}
+		and length $color_flow_href->{_current_program_name}
+		and ( $color_flow_href->{_current_program_name} eq
+			${ $color_flow_href->{_prog_name_sref} } )
+	  )
+	{
 
 		# it is a sunix program
 		# the program category is defined
@@ -3323,17 +3377,18 @@ sub get_help {
 		my $current_program_name = $color_flow_href->{_current_program_name};
 		my $SeismicUnixGui       = $dirs->get_path4SeismicUnixGui();
 		my $module_name          = ${ $color_flow_href->{_prog_name_sref} };
-		my $program_category_h   = $L_SU_global_constants->get_developer_sunix_category_h();
-		my $key                  = '_'.$current_program_name;
-		my $program_category     = $program_category_h->{$key};
-		my $sunix_program_group  = $program_category;
+		my $program_category_h =
+		  $L_SU_global_constants->get_developer_sunix_category_h();
+		my $key                 = '_' . $current_program_name;
+		my $program_category    = $program_category_h->{$key};
+		my $sunix_program_group = $program_category;
 
 		my $PATH = $SeismicUnixGui . '/sunix' . '/' . $program_category;
-		
+
 		my $help    = help->new();
 		my $inbound = $PATH . '/' . $module_name . $var->{_suffix_pm};
 
-		$help->set_name(\$inbound);
+		$help->set_name( \$inbound );
 		$help->tkpod();
 
 	}
@@ -3353,20 +3408,30 @@ sub get_help {
   	for changes occurred
   	immediately before the current saving 
   	
-   print("4 color_flow, save_button, START ,color_flow_href->{_values_aref} =@{$color_flow_href->{_values_aref}}\n");
-	print(" 2. color_flow,  save_button, START, widget values =@{$param_widgets->get_values_aref()} \n");
 
 =cut
 
 sub save_button {
 	my ( $self, $topic ) = @_;
 
+#	print("4 color_flow, save_button, START ,color_flow_href->{_values_aref} =@{$color_flow_href->{_values_aref}}\n");
+#	print(" 2. color_flow,  save_button, START, widget values =@{$param_widgets->get_values_aref()} \n");
+
+	print("In color flow, save_button \n");
+
+	#    if (scalar @save_values_aref) {
+	#
+	#    	print ("color_flow, save_button,saved values=@save_values_aref\n");
+	#
+	#    }
+	print("1. color_flow, save_button view stored data\n");
+	$param_flow_color_pkg->view_data();
+
 	$param_widgets->redisplay_values();
 
 	# Double-check we are in the correct place:
 	if ( $topic eq 'Save' ) {
 
-		#		print("In color flow, save_button \n");
 		#		print("color_flow, save_button writing gui_history.txt\n");
 		#	    $gui_history->view();
 
@@ -3397,9 +3462,8 @@ sub save_button {
 			&& $flow_listbox_color_w )
 		{
 
-#			print("CASE 1A color_flow, save_button, last_flow_index=$last_flow_index\n");
-
-			# One parameter index (=0) has been previously selected
+			print("CASE 1A color_flow, save_button, last_flow_index=$last_flow_index\n");
+			# One parameter index was previously selected
 			# Assume that recent selection is valid for this current save
 
 			# keep track of flow_selection clicks
@@ -3423,8 +3487,8 @@ for first time but no listboxes have been occupied previously
 
 		_save_most_recent_param_flow();
 
-# print("4. color_flow, save_button , after update to recent and prior flow param values\n");
-#	$param_flow_color_pkg->view_data();
+ print("4. color_flow, save_button , after update to recent and prior flow param values\n");
+	$param_flow_color_pkg->view_data();
 
 		$param_flow_color_pkg->set_flow_index($last_flow_index);
 
@@ -3483,9 +3547,9 @@ for first time but no listboxes have been occupied previously
 			$color_flow_href->{_prog_names_aref} );
 
 		#TODO TODO TODO
-		#$color_flow_href->{_good_values_aref2} =
-		$control->get_string_or_number_aref2(
-			$color_flow_href->{_good_values_aref2} );
+		#		$color_flow_href->{_good_values_aref2} =
+		#		$control->get_string_or_number_aref2(
+		#			$color_flow_href->{_good_values_aref2} );
 
 		$files_LSU->set_prog_param_labels_aref2($color_flow_href);
 		$files_LSU->set_prog_param_values_aref2($color_flow_href);
