@@ -2168,7 +2168,7 @@ color='neutral'
 	sub _L_SU_sunix_bindings {
 		my ( $self, $method, $color, $prog_group ) = @_;
 
-#		print("1 main,_L_SU_sunix_bindings,method,color,prog_group: $method,$color,$prog_group \n");
+		# print("1 main,_L_SU_sunix_bindings,method,color,prog_group: $method,$color,$prog_group \n");
 		if ( $method && $color && $prog_group ) {
 
 			_set_prog_group($prog_group);
@@ -2319,13 +2319,12 @@ Invoke a method in L_SU from a button click
 in L_SU
 	-save_button
 	-run_button
-	-FileDialog_button with one of 2
+	-FileDialog_button with one of 3
 	possible values: 'Open', 'SaveAs'
 	possible values: 'Delete'	
 	
 	-help_menubutton with possible value:
-	
-	About
+	 About
 
 =cut
 
@@ -2430,6 +2429,7 @@ Select pre-built streams or Tools
 
 			# print(" main,_L_SU _superflows, button=$button, print gui_history.txt\n");
 			# $gui_history->view();
+			
 		} else {
 			print("main,_L_SU_superflows,no method: $set_method error 1,\n");
 		}

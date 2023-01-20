@@ -678,7 +678,7 @@ sub cfg {
 
   TODO: since sub configs= sub params
         ONLY NEED TO USE ONE OF THEM 
-        THROUGHOUT ALL PROGRAMS
+        AMONG ANY PROGRAM
 
 =cut
 
@@ -745,7 +745,7 @@ sub configs {
 #			print("1. readfiles,configs:raw line $i is $line\n");
 			chomp($line);
 
-   # skip lines starting where first non-white character is  #
+   # skip lines starting where first non-white character is
    # modify 'm' starts ^ and ends $ as pertaining to each line and not each file
 #   print("2. readfiles,configs:chomped line $i is $line\n");
 			next if $line =~ /^\s*#/m;

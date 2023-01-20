@@ -136,7 +136,7 @@ my $is_add2flow_button;
 #my $is_check_code_button;
 my $is_delete_from_flow_button;
 my $is_delete_whole_flow_button;
-my $is_dragNdrop;
+#my $is_dragNdrop;
 my $is_flow_item_down_arrow_button;
 my $is_flow_item_up_arrow_button;
 my $is_flow_listbox_grey_w;
@@ -158,6 +158,7 @@ my $is_last_parameter_index_touched_pink;
 my $is_last_parameter_index_touched_green;
 my $is_last_parameter_index_touched_blue;
 my $is_last_parameter_index_touched_color;
+my $is_neutral_flow;
 my $is_moveNdrop_in_flow;
 my $is_new_listbox_selection;
 my $is_open_file_button;
@@ -264,7 +265,7 @@ my $conditions4flows = {
 #	_is_check_code_button                  => '',
 	_is_delete_from_flow_button            => '',
 	_is_delete_whole_flow_button           => '',
-	_is_dragNdrop                          => '',
+#	_is_dragNdrop                          => '',
 	_is_flow_item_down_arrow_button        => '',
 	_is_flow_item_up_arrow_button          => '',
 	_is_flow_listbox_grey_w                => '',
@@ -282,6 +283,7 @@ my $conditions4flows = {
 	_is_last_parameter_index_touched_green => '',
 	_is_last_parameter_index_touched_blue  => '',
 	_is_last_parameter_index_touched_color => '',
+	_is_neutral_flow                       => '',
 	_is_moveNdrop_in_flow                  => '',
 	_is_new_listbox_selection              => '',
 	_is_open_file_button                   => '',
@@ -714,7 +716,7 @@ sub get_hash_ref {
 #		$conditions4flows->{_is_check_code_button}                  = $is_check_code_button;
 		$conditions4flows->{_is_delete_from_flow_button}            = $is_delete_from_flow_button;
 		$conditions4flows->{_is_delete_whole_flow_button}           = $is_delete_whole_flow_button;
-		$conditions4flows->{_is_dragNdrop}                          = $is_dragNdrop;
+#		$conditions4flows->{_is_dragNdrop}                          = $is_dragNdrop;
 		$conditions4flows->{_is_flow_item_up_arrow_button}          = $is_flow_item_up_arrow_button;
 		$conditions4flows->{_is_flow_item_down_arrow_button}        = $is_flow_item_down_arrow_button;
 		$conditions4flows->{_is_flow_listbox_grey_w}                = $is_flow_listbox_grey_w;
@@ -921,7 +923,7 @@ sub set_hash_ref {
 		$is_SaveAs_button                      = $hash_ref->{_is_SaveAs_button};
 		$is_SaveAs_file_button                 = $hash_ref->{_is_SaveAs_file_button};
 #		$is_check_code_button                  = $hash_ref->{_is_check_code_button};
-		$is_dragNdrop                          = $hash_ref->{_is_dragNdrop};
+#		$is_dragNdrop                          = $hash_ref->{_is_dragNdrop};
 		$is_delete_from_flow_button            = $hash_ref->{_is_delete_from_flow_button};
 		$is_delete_whole_flow_button           = $hash_ref->{_is_delete_whole_flow_button};
 		$is_flow_item_down_arrow_button        = $hash_ref->{_is_flow_item_down_arrow_button};
@@ -1012,21 +1014,45 @@ sub set4FileDialog_Delete_end {
 	my ($self) = @_;
 
 	$conditions4flows->{_is_Delete_file_button}  = $false;
+	$conditions4flows->{_is_neutral_flow}        = $false;
 	$conditions4flows->{_has_used_Delete_button} = $true;
 
 	# for potential export via get_hash_ref
 	$is_Delete_file_button  = $false;
+	$is_neutral_flow        = $false;
 	$has_used_Delete_button = $true;
 
 	# clean path
 	$conditions4flows->{_path}						= '';
-	 print("conditions4flows,set4FileDialog_Delete_end
-	$conditions4flows->{_is_Delete_file_button}\n");
+#	 print("conditions4flows,set4FileDialog_Delete_end
+#	$conditions4flows->{_is_Delete_file_button}\n");
 	return ();
 }
 
 
+=head2 sub  set4FileDialog_Delete_start 
 
+
+=cut
+
+sub set4FileDialog_Delete_start {
+	my ($self) = @_;
+
+	$conditions4flows->{_is_Delete_file_button}  = $true;
+	$conditions4flows->{_is_neutral_flow}        = $true;	
+	$conditions4flows->{_has_used_Delete_button} = $false;
+
+	# for potential export via get_hash_ref
+	$is_Delete_file_button  = $true;
+	$is_neutral_flow        = $true;
+	$has_used_Delete_button = $false;
+
+	# clean path
+	$conditions4flows->{_path}						= '';
+#	 print("conditions4flows,set4FileDialog_Delete_start
+#	$conditions4flows->{_is_Delete_file_button}\n");
+	return ();
+}
 =head2 sub  set4FileDialog_SaveAs_end 
 
 

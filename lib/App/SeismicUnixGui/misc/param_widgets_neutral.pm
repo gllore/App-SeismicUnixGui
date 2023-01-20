@@ -71,7 +71,6 @@ local variables
 =cut
 
 my $param_widgets_color_href = $gui_history->get_defaults();
-
 # print("param_widgets_neutral, default_param_specs,first entry num=$default_param_specs->{_first_entry_num}\n");
 
 =head2 sub get_hash_ref

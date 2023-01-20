@@ -126,6 +126,7 @@ sub _get_no_quotes {
 }
 
 =head2 sub _get_string_or_number
+
 Put quotes on strings
 Generally, file names are strings but 
 numeric names will be interpreted as numbers,
@@ -341,12 +342,13 @@ sub _get_string_or_number {
 
 }    # end sub
 
-=head2 sub _get_string_or_number4array
+=head2 sub _get_string_or_number4aref
+
 Put quotes on strings
 
 =cut
 
-sub _get_string_or_number4array {
+sub _get_string_or_number4aref {
 
 	my ($array_ref) = @_;
 
@@ -366,11 +368,12 @@ sub _get_string_or_number4array {
 
 		$exit_array_ref = \@array;
 
+		# print("control, _get_string_or_number4aref, result=@array\n");
 		return ($exit_array_ref);
 
 	}
 	else {
-		print("control, _get_string_or_number4array, bad array reference\n");
+ # print("control, _get_string_or_number4aref, bad array reference\n");
 		return ();
 	}
 }
@@ -830,6 +833,7 @@ sub get_path_wo_last_slash {
 }
 
 =head2 sub get_string_or_number
+
 Put quotes on strings
 
 =cut
@@ -897,21 +901,20 @@ sub get_string_or_number_aref2 {
 		my @array_of_arrays = @{$array_aref2};
 		my $num_progs4flow  = scalar @array_of_arrays;
 
-#	my $num_progs4flow = scalar @{$files_LSU->{_prog_param_labels_aref2}};
-#		print("\ncontrol, set_string_or_number_aref2, num_progs4flow=$num_progs4flow\n");
+# print("\ncontrol, get_string_or_number_aref2, num_progs4flow=$num_progs4flow\n");
 
 		for ( my $prog_idx = 0 ; $prog_idx < $num_progs4flow ; $prog_idx++ ) {
 
 			my @array = @{ $array_of_arrays[$prog_idx] };
 
-		  #			print("1. control, get_string_or_number_aref2, array = @array\n");
+			# print("1. control, get_string_or_number_aref2, array = @array\n");
 
-			@array = @{ _get_string_or_number4array( \@array ) };
+			@array = @{ _get_string_or_number4aref( \@array ) };
 
-	  #			print("control, get_string_or_number_aref2, prog_idx = $prog_idx \n");
+			# print("control, get_string_or_number_aref2, out= @array\n");
 			$array_of_arrays[$prog_idx] = \@array;
 
-		  #			print("2. control, get_string_or_number_aref2, array = @array\n");
+			# print("2. control, get_string_or_number_aref2, array = @array\n");
 
 		}
 
@@ -926,12 +929,13 @@ sub get_string_or_number_aref2 {
 
 }    #end sub
 
-=head2 sub get_string_or_number4array
+=head2 sub get_string_or_number4aref
+
 Put quotes on strings
 
 =cut
 
-sub get_string_or_number4array {
+sub get_string_or_number4aref {
 
 	my ( $self, $array_ref ) = @_;
 
@@ -945,19 +949,19 @@ sub get_string_or_number4array {
 
 			_set_parameter_index4array($i);
 
-#            print("\n1. control, get_string_or_number4array, entering _get_string_or_number=$array[$i], idx=$i\n");
+           # print("\n1. control, get_string_or_number4aref, entering _get_string_or_number=$array[$i], idx=$i\n");
 			$array[$i] = _get_string_or_number( $array[$i] );
 
-#            print("1. control, get_string_or_number4array, leaving _get_string_or_number: $array[$i], idx=$i\n");
+            # print("1. control, get_string_or_number4aref, leaving _get_string_or_number: $array[$i], idx=$i\n");
 		}
 
-	   #        print("2. control, get_string_or_number4array, array=@array\n");
+		# print("2. control, get_string_or_number4aref, array=@array\n");
 		$exit_array_ref = \@array;
 		return ($exit_array_ref);
 
 	}
 	else {
-		print("control, get_string_or_number4array, bad array reference\n");
+		print("control, get_string_or_number4aref, bad array reference\n");
 		return ();
 	}
 }

@@ -71,30 +71,27 @@ use aliased 'App::SeismicUnixGui::misc::file_dialog';
 
 extends 'App::SeismicUnixGui::misc::gui_history' => { -version => 0.0.2 };
 use aliased 'App::SeismicUnixGui::misc::gui_history';
-
 use App::SeismicUnixGui::misc::param_widgets_neutral '0.0.2';
 use aliased 'App::SeismicUnixGui::misc::param_widgets_neutral';
-
 use App::SeismicUnixGui::misc::param_flow_neutral '0.0.3';
 use aliased 'App::SeismicUnixGui::misc::param_flow_neutral';
-
 use aliased 'App::SeismicUnixGui::misc::flow_widgets';
-
 use aliased 'App::SeismicUnixGui::misc::help';
-
+use aliased 'App::SeismicUnixGui::misc::manage_files_by2';
 use aliased 'App::SeismicUnixGui::messages::message_director';
 use aliased 'App::SeismicUnixGui::misc::param_sunix';
 
-my $Project      = Project_config->new();
-my $get          = L_SU_global_constants->new();
-my $file_dialog  = file_dialog->new();
-my $flow_widgets = flow_widgets->new();
-my $gui_history  = gui_history->new();
-my $param_flow   = param_flow_neutral->new();
+my $L_SU_global_constants = L_SU_global_constants->new();
+my $Project               = Project_config->new();
+my $file_dialog           = file_dialog->new();
+my $flow_widgets          = flow_widgets->new();
+my $manage_files_by2      = manage_files_by2->new();
+my $gui_history           = gui_history->new();
+my $param_flow            = param_flow_neutral->new();
 
 # print("user_built flow, make param_flow instance in user_built flow\n");
 my $param_widgets   = param_widgets_neutral->new();
-my $flow_type       = $get->flow_type_href();
+my $flow_type       = $L_SU_global_constants->flow_type_href();
 my $color_flow_href = $gui_history->get_defaults();
 
 =head2
@@ -104,17 +101,30 @@ my $color_flow_href = $gui_history->get_defaults();
 
 =cut
 
-my ($flow_color);
+my $flow_color;
 my ($flowNsuperflow_name_w);
 
-# my $last_flow_color;
 my $message_w;
 my $sunix_listbox;
-my $var = $get->var();
+my $var = $L_SU_global_constants->var();
+$color_flow_href->{_flow_color} = $var->{_neutral};
+my $true                = $var->{_true};
+my $false               = $var->{_false};
+my $empty_string        = $var->{_empty_string};
+my $user_built          = $flow_type->{_user_built};
+my $_flow_name_in_color = '_flow_name_in_' . $var->{_neutral};
 
-#	my $on         						= $var->{_on};
-my $true  = $var->{_true};
-my $false = $var->{_false};
+=head2 private anonymous hash
+
+to share variable values easily
+
+=cut
+
+my $color_flow = {
+
+	_Flow_file_exists => $true,
+
+};
 
 =head2 sub FileDialog_button
 
@@ -145,152 +155,58 @@ sub _FileDialog_button_Delete {
 
 	my ( $self, $dialog_type_sref ) = @_;
 
+	# higher-level and a more permanent
+	# setting than file_dialog->set_flow_type()
+	$gui_history->set_flow_type($user_built);
+
+	#	print("neutral_flow, _FileDialog_button_Delete, gui_history.txt\n");
+	#	$gui_history->view();
+
+	#	print(
+	#"neutral_flow,_FileDialog_button_Delete,dialog_type=$$dialog_type_sref\n"
+	#	);
+
+	while ( $color_flow->{_Flow_file_exists} ) {
+		
+		my $file_dialog_type = $L_SU_global_constants->file_dialog_type_href();
+		my $PL_SEISMIC       = $Project->PL_SEISMIC();
+
+		$color_flow_href->{_dialog_type} = $$dialog_type_sref;
+		my $topic = $color_flow_href->{_dialog_type};
+
+		#	print(
+		#"neutral_flow,_FileDialog_button_Delete,flow_color = $color_flow_href->{_flow_color}\n"
+		#	);
+
+		$file_dialog->set_flow_color( $color_flow_href->{_flow_color} );
+		$file_dialog->set_hash_ref($color_flow_href);
+		$file_dialog->FileDialog_director();
+		$color_flow_href->{$_flow_name_in_color} =
+		  $file_dialog->get_perl_flow_name_in();
+
 #	print(
-#"neutral_flow,_FileDialog_button_Delete,dialog_type=$$dialog_type_sref\n"
+#"color_flow,color_flow_href->{_has_used_Delete_button}=$color_flow_href->{_has_used_Delete_button}\n"
 #	);
-	#
-	#	my $file_dialog_type = $L_SU_global_constants->file_dialog_type_href();
-	my $PL_SEISMIC = $Project->PL_SEISMIC();
-	#
-	#	if ($dialog_type_sref) {
-	#
-	$color_flow_href->{_dialog_type} = $$dialog_type_sref;
 
-	#		my $topic = $color_flow_href->{_dialog_type};
-	#
-	#		elsif ( $topic eq $file_dialog_type->{_Open} ) {
+		# Is $flow_name_in empty?
+		my $file2query =
+		  $PL_SEISMIC . '/' . $color_flow_href->{$_flow_name_in_color};
+		$color_flow->{_Flow_file_exists} =
+		  $manage_files_by2->does_file_exist_sref( \$file2query );
 
-	#			$file_dialog->set_flow_color( $color_flow_href->{_flow_color} );
-	$file_dialog->set_hash_ref($color_flow_href);    # uses values_aref
-	$file_dialog->set_flow_type('user_built');
+		if ( $color_flow->{_Flow_file_exists} ) {
 
-	$file_dialog->FileDialog_director();
-	#
-	#			$color_flow_href->{$_flow_name_in_color} =
-	#			  $file_dialog->get_perl_flow_name_in();
-	#
-##			print("color_flow, flow_name_in = $color_flow_href->{$_flow_name_in_color}\n");
-	#			$color_flow_href->{$_flow_name_out_color} =
-	#			  $color_flow_href->{$_flow_name_in_color};
-	#
-##			print("color_flow,color_flow_href->{_has_used_open_perl_file_button}=$color_flow_href->{_has_used_open_perl_file_button}\n");
-	#
-	# Is $flow_name_in empty?
-	#			my $file2query =
-	#			  $PL_SEISMIC . '/' . $color_flow_href->{$_flow_name_in_color};
-	#			$color_flow->{_Flow_file_exists} =
-	#			  $manage_files_by2->does_file_exist_sref( \$file2query );
-	#
-	#			# Are there any errors when reading the perl flow file
-	#			$color_flow->{_perl_flow_errors} = _perl_flow_errors();
-	#
-	#			if (   $color_flow->{_Flow_file_exists}
-	#				&& $color_flow->{_perl_flow_errors} eq $false )
-	#			{
-	#
-	#				_set_flow_name_color_w($flow_color);
-	#
-	#				# Place names of the programs at the top of the color listbox
-	#				$flow_name_color_w->configure(
-	#					-text => $color_flow_href->{$_flow_name_in_color} );
-	#
-	#				# Place names of the programs at the head of the GUI
-	#				$color_flow_href->{_flowNsuperflow_name_w}->configure(
-	#					-text => $color_flow_href->{_big_stream_name_in} );
-	#
-	#				# populate gui, and bot param_flow and param_widgets namespaces
-	#				_perl_flow();
-	#
-	#			}
-	#			else {
-##				print("  color_flow,FileDialog_button, perl flow parse errors\n");
-##	 print("3 color_flow,FileDialog_button, Warning: missing file. \"Cancel\" clicked by user? NADA\n");
-	#			}
-	#
-	#		}
-	#		elsif ( $topic eq $file_dialog_type->{_Data} ) {
-	#
-	#		 #	print("color_flow, FileDialog_button,option_sref $topic\n");
-	#		 # assume that after selection to open of a data file in file-dialog the
-	#		 # GUI has been updated
-	#		 # See if the last parameter index has been touched (>= 0)
-	#		 # Assume we are still dealing with the current flow item selected
-	#			$color_flow_href->{_last_parameter_index_touched_color} =
-	#			  $file_dialog->get_last_parameter_index_touched_color();
-	#			$color_flow_href->{$_is_last_parameter_index_touched_color} = $true;
-	#
-	#			# set the current listbox as the last color listbox
-	#			$color_flow_href->{_last_flow_listbox_color_w} =
-	#			  $color_flow_href->{_flow_listbox_color_w};
-	#
-	#			# provide values in the current widget
-	#			$color_flow_href->{_values_aref} =
-	#			  $param_widgets->get_values_aref();
-	#
-	#			my $most_recent_flow_index_touched =
-	#			  ( $color_flow_href->{_flow_select_index_href} )->{_most_recent};
-	#
-	#			# restore terminal ticks to strings
-	#
-	#			# establish which program is active in the flow
-	#			$color_flow_href->{_prog_names_aref} =
-	#			  $param_flow_color_pkg->get_flow_prog_names_aref();
-	#			$control->set_flow_prog_names_aref(
-	#				$color_flow_href->{_prog_names_aref} );
-	#			$control->set_flow_prog_name_index($most_recent_flow_index_touched);
-	#
-	#			# restore strings to have terminal strings
-	#			# remove quotes upon input
-	#			$color_flow_href->{_values_aref} =
-	#			  $control->get_no_quotes4array( $color_flow_href->{_values_aref} );
-	#
-	#			# in case parameter values have been displayed stringless
-	#			$color_flow_href->{_values_aref} =
-	#			  $control->get_string_or_number4array(
-	#				$color_flow_href->{_values_aref} );
-	#
-##			print(
-##				"color_flow,FileDialog_button(binding), flow_listbox_color_w: $color_flow_href->{_flow_listbox_color_w} \n"
-##			);
-	#			$file_dialog->set_flow_color( $color_flow_href->{_flow_color} );
-	#			$file_dialog->set_hash_ref($color_flow_href);
-	#			$file_dialog->FileDialog_director();
-	#
-##			print(
-##				"color_flow,FileDialog_button(binding), last_parameter_index_touched_color: $color_flow_href->{_last_parameter_index_touched_color} \n"
-##			);
-	#
-	#			# update to parameter values occurs in file_dialog
-	#			$color_flow_href->{_values_aref} = $file_dialog->get_values_aref();
-	#
-	#			# set up this flow listbox item as the last item touched
-	#			my $_flow_listbox_color_w =
-	#			  _get_flow_listbox_color_w();    # user-built_flow in current use
-	#			my $current_flow_listbox_index =
-	#			  $flow_widgets->get_flow_selection($_flow_listbox_color_w);
-	#
-	#			#			$color_flow_href->{_last_flow_index_touched} =
-	#			#				$current_flow_listbox_index;    # for next time
-	#			#			$color_flow_href->{$_is_last_flow_index_touched_color} = $true;
-	#
-## print("color_flow,FileDialog_button(binding), last_flow_index_touched:$color_flow_href->{_last_flow_index_touched} \n");
-	#
-## Changes made with another instance of param_widgets (in file_dialog) will require
-## that we also update the namespace of the current param_flow
-## We make this change inside _save_most_recent_param_flow
-	#			_save_most_recent_param_flow();
-	#
-	#		}
-	#		else {
-	#			print("1. color_flow, FileDialog_button, missing topic \n");
-	#
-	#			# Ends opt_ref
-	#		}
-	#	}
-	#	else {
-	#		print("color_flow,FileDialog_button ,option type missing\ n");
-	#	}
-	#
+			# delete the file
+			unlink($file2query);
+
+		}
+		else {
+
+			print(
+"3 color_flow,FileDialog_button, Warning: missing file. \"Cancel\" clicked by user? NADA\n"
+			);
+		}
+	}
 
 	return ();
 
@@ -310,7 +226,8 @@ sub get_hash_ref {
 
 }
 
-=head2 sub get_flow_color 
+=head2 sub get_flow_color
+
 Exports private hash value
  
 =cut
@@ -318,12 +235,21 @@ Exports private hash value
 sub get_flow_color {
 	my ($self) = @_;
 
-	if ( $color_flow_href->{_flow_color} ) {
+	if ( length $color_flow_href->{_flow_color} ) {
+
 		my $color;
 
 		$color = $color_flow_href->{_flow_color};
+
+		#		print("neutral_flow,get_flow_color,color=$color\n");
+
 		return ($color);
 
+	}
+	elsif ( $color_flow_href->{_flow_color} eq $empty_string ) {
+
+		print("neutral_flow,get_flow_color,no color\n");
+		return ();
 	}
 	else {
 		print("neutral_flow, get_flow_color, missing flow color\n");
@@ -384,9 +310,9 @@ sub get_help {
 
 		my $data_group           = $color_flow_href->{_sunix_prog_group};
 		my $current_program_name = $color_flow_href->{_current_program_name};
-		my $SeismicUnixGui       = $get->get_path4SeismicUnixGui();
-		my $module_name          = ${ $color_flow_href->{_prog_name_sref} };
-		my $sunix_program_group  = $color_flow_href->{_sunix_prog_group};
+		my $SeismicUnixGui = $L_SU_global_constants->get_path4SeismicUnixGui();
+		my $module_name    = ${ $color_flow_href->{_prog_name_sref} };
+		my $sunix_program_group = $color_flow_href->{_sunix_prog_group};
 
 		my $PATH = $SeismicUnixGui . '/sunix' . '/' . $data_group;
 
@@ -490,11 +416,6 @@ sub sunix_select {
 	$message_w->delete( "1.0", 'end' );
 	$message_w->insert( 'end', $message );
 
-	# find out which program was previously touched
-	# assume all prior programs touched have
-	# modified parameters
-	# and update that program's stored values
-	# _update_prior_param_flow();
 
 # print("neutral_flow,1. sunix_select,flow_color: $color_flow_href->{_flow_color}\n");
 # print("neutral_flow,1. sunix_select,_is_flow_listbox_neutral_w:	$color_flow_href->{_is_flow_listbox_neutral_w} \n");
@@ -559,9 +480,9 @@ sub sunix_select {
 	  ;    # equiv to "labels_aref"
 	$param_widgets->set_values( $color_flow_href->{_values_aref} );
 
-# print("1. neutral_flow, sunix_select, _values_aref @{$color_flow_href->{_values_aref}}\n");
-# print("1. neutral_flow, sunix_select, _names_aref @{$color_flow_href->{_names_aref}}\n");
-# print("44. neutral_flow sunix_select, check button settings @{$color_flow_href->{_check_buttons_settings_aref}}\n");
+  # print("1. neutral_flow, sunix_select, _values_aref @{$color_flow_href->{_values_aref}}\n");
+  # print("1. neutral_flow, sunix_select, _names_aref @{$color_flow_href->{_names_aref}}\n");
+  # print("44. neutral_flow sunix_select, check button settings @{$color_flow_href->{_check_buttons_settings_aref}}\n");
 
 	$param_widgets->set_check_buttons(
 		$color_flow_href->{_check_buttons_settings_aref} );

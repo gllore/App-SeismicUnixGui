@@ -53,7 +53,6 @@ our $VERSION = '1.0.0';
 
 =cut
 
-
 extends 'App::SeismicUnixGui::misc::gui_history' => { -version => 0.0.2 };
 use aliased 'App::SeismicUnixGui::misc::gui_history';
 
@@ -67,20 +66,21 @@ use aliased 'App::SeismicUnixGui::misc::L_SU_global_constants';
 
 =cut
 
-my $get            = L_SU_global_constants->new();
-my $gui_history    = gui_history->new();
+my $get         = L_SU_global_constants->new();
+my $gui_history = gui_history->new();
 
 =head Local variables
 
 =cut
 
 my $flow_type = $get->flow_type_href();
+
 # holds gui_history
 my $decisions_href;
-my $var                  = $get->var();
-my $empty_string         = $var->{_empty_string};
-my $true            = $var->{_true};
-my $false           = $var->{_false};
+my $var          = $get->var();
+my $empty_string = $var->{_empty_string};
+my $true         = $var->{_true};
+my $false        = $var->{_false};
 
 =head2 private hash
 
@@ -94,8 +94,9 @@ my $decisions = {
 	_has_used_Save_button                  => $false,
 	_has_used_Save_superflow               => $false,
 	_has_used_open_perl_file_button        => $false,
+	_is_Delete_file_button                 => $false,
 	_is_delete_from_flow_button            => $false,
-	_is_delete_whole_flow_button            => $false,	
+	_is_delete_whole_flow_button           => $false,
 	_is_flow_listbox_grey_w                => $false,
 	_is_flow_listbox_pink_w                => $false,
 	_is_flow_listbox_green_w               => $false,
@@ -111,6 +112,7 @@ my $decisions = {
 	_is_last_parameter_index_touched_blue  => $false,
 	_is_last_parameter_index_touched_color => $false,
 	_is_last_path_touched                  => $false,
+	_is_neutral_flow                       => $false,
 	_is_open_file_button                   => $false,
 	_is_SaveAs_file_button                 => $false,
 	_is_select_file_button                 => $false,
@@ -123,7 +125,6 @@ my $decisions = {
 
 =head2 sub reset
 
- 23
  
 =cut
 
@@ -136,8 +137,9 @@ sub reset {
 		_has_used_Save_button                  => $false,
 		_has_used_Save_superflow               => $false,
 		_has_used_open_perl_file_button        => $false,
+		_is_Delete_file_button                 => $false,
 		_is_delete_from_flow_button            => $false,
-		_is_delete_whole_flow_button            => $false,		
+		_is_delete_whole_flow_button           => $false,
 		_is_flow_listbox_grey_w                => $false,
 		_is_flow_listbox_pink_w                => $false,
 		_is_flow_listbox_green_w               => $false,
@@ -153,6 +155,7 @@ sub reset {
 		_is_last_flow_index_touched            => $false,
 		_is_last_parameter_index_touched_color => $false,
 		_is_last_path_touched                  => $false,
+		_is_neutral_flow                       => $false,
 		_is_open_file_button                   => $false,
 		_is_SaveAs_file_button                 => $false,
 		_is_select_file_button                 => $false,
@@ -166,7 +169,6 @@ sub reset {
 
 =head2 sub _reset
 
-27
 
 =cut
 
@@ -179,8 +181,9 @@ sub _reset {
 		_has_used_Save_button                  => $false,
 		_has_used_Save_superflow               => $false,
 		_has_used_open_perl_file_button        => $false,
+		_is_Delete_file_button                 => $false,
 		_is_delete_from_flow_button            => $false,
-		_is_delete_whole_flow_button            => $false,	
+		_is_delete_whole_flow_button           => $false,
 		_is_flow_listbox_grey_w                => $false,
 		_is_flow_listbox_pink_w                => $false,
 		_is_flow_listbox_green_w               => $false,
@@ -208,6 +211,41 @@ sub _reset {
 
 }
 
+=head2 sub get4_FileDialog_Delete
+
+
+=cut
+
+sub get4FileDialog_Delete {
+	my ( $self, $hash_ref ) = @_;
+
+	if (
+		(
+			   $decisions->{_is_flow_listbox_grey_w}
+			|| $decisions->{_is_flow_listbox_pink_w}
+			|| $decisions->{_is_flow_listbox_green_w}
+			|| $decisions->{_is_flow_listbox_blue_w}
+			&& $decisions->{_is_Delete_file_button}
+		)
+	  or ( $decisions->{_is_neutral_flow}
+		&& $decisions->{_is_Delete_file_button} )
+		)
+	{
+		return ($true);
+	}
+	else {
+		print(
+"decisions,get4FileDialog_Delete,grey: $decisions->{_is_flow_listbox_grey_w}, and pink  listbox: $decisions->{_is_flow_listbox_pink_w}\n"
+		);
+		print(
+"decisions,get4FileDialog_Delete,green: $decisions->{_is_flow_listbox_green_w}, and blue listbox: $decisions->{_is_flow_listbox_blue_w}\n"
+		);
+		print(
+"decisions,get4FileDialog_Delete: decisions->{_is_Delete_file_button}: $decisions->{_is_Delete_file_button}\n"
+		);
+		return ($false);
+	}
+}
 
 =head2 sub get4_FileDialog_select
 
@@ -223,7 +261,9 @@ sub get4FileDialog_select {
 # print ("decisions,get4FileDialog_select,left: decisions->{_is_pre_built_superflow}: $decisions->{_is_selected_file_name}\n");
 # print ("decisions,get4FileDialog_select,left: decisions->{_is_pre_built_superflow}: $decisions->{_is_selected_path}\n");
 
-	if ((      $decisions->{_is_flow_listbox_grey_w}
+	if (
+		(
+			   $decisions->{_is_flow_listbox_grey_w}
 			|| $decisions->{_is_flow_listbox_pink_w}
 			|| $decisions->{_is_flow_listbox_green_w}
 			|| $decisions->{_is_flow_listbox_blue_w}
@@ -231,9 +271,10 @@ sub get4FileDialog_select {
 			|| $decisions->{_is_last_path_touched}
 		)
 		&& (   $decisions->{_is_selected_file_name}
-			|| $decisions->{_is_selected_path} ) # for data file name, not pl file name
+			|| $decisions->{_is_selected_path}
+		)    # for data file name, not pl file name
 
-		)
+	  )
 	{
 		return ($true);
 	}
@@ -249,35 +290,36 @@ sub get4FileDialog_select {
 sub get4FileDialog_open_perl {
 	my ($self) = @_;
 
-	if (   $decisions->{_is_open_file_button}
-		|| $decisions->{_is_selected_file_name} 
-		|| !(
-			$decisions->{_is_selected_path} ) # for data file name, not pl file name
-		)
+	if (
+		   $decisions->{_is_open_file_button}
+		|| $decisions->{_is_selected_file_name}
+		|| !( $decisions->{_is_selected_path}
+		)    # for data file name, not pl file name
+	  )
 	{
 		return ($true);
 	}
 	else {
-			return ($false);
+		return ($false);
 	}
 
-#	if (   $decisions->{_is_flow_listbox_grey_w}
-#		|| $decisions->{_is_flow_listbox_pink_w}
-#		|| $decisions->{_is_flow_listbox_green_w}
-#		|| $decisions->{_is_flow_listbox_blue_w}
-#		|| $decisions->{_is_pre_built_superflow}
-#		|| $decisions->{_is_selected_file_name} 
-#		|| !(
-#			$decisions->{_is_selected_path} ) # for data file name, not pl file name
-#		)
-#	{
-#		return ($true);
-#	}
-#	else {
-#		if ( $decisions->{_is_open_file_button} ) {
-#			return ($true);
-#		}
-#	}
+	#	if (   $decisions->{_is_flow_listbox_grey_w}
+	#		|| $decisions->{_is_flow_listbox_pink_w}
+	#		|| $decisions->{_is_flow_listbox_green_w}
+	#		|| $decisions->{_is_flow_listbox_blue_w}
+	#		|| $decisions->{_is_pre_built_superflow}
+	#		|| $decisions->{_is_selected_file_name}
+	#		|| !(
+	#			$decisions->{_is_selected_path} ) # for data file name, not pl file name
+	#		)
+	#	{
+	#		return ($true);
+	#	}
+	#	else {
+	#		if ( $decisions->{_is_open_file_button} ) {
+	#			return ($true);
+	#		}
+	#	}
 }
 
 =head2 sub get4_FileDialog_SaveAs
@@ -294,14 +336,15 @@ sub get4FileDialog_SaveAs {
 
 	}
 	elsif (
-		(      $decisions->{_is_flow_listbox_grey_w}
+		(
+			   $decisions->{_is_flow_listbox_grey_w}
 			|| $decisions->{_is_flow_listbox_pink_w}
 			|| $decisions->{_is_flow_listbox_green_w}
 			|| $decisions->{_is_flow_listbox_blue_w}
 			|| $decisions->{_is_flow_listbox_color_w}
 		)
 		&& $decisions->{_is_SaveAs_file_button}
-		)
+	  )
 	{
 		# print("decisions,get4FileDialog_SaveAs: $true\n");
 
@@ -330,30 +373,31 @@ OK if we are selecting a user-built flow box
 
 sub get4flow_select {
 	my ($self) = @_;
-	
+
 	my $result;
 
 	# print("decisions, get4flow_select, write gui_history.txt\n");
 	# $gui_history->view();
 
 	my $most_recent_flow_type =
-		( ( $gui_history->get_defaults() )->{_flow_type_href} )->{_most_recent};
+	  ( ( $gui_history->get_defaults() )->{_flow_type_href} )->{_most_recent};
 
 	if ( $most_recent_flow_type eq $flow_type->{_user_built} ) {
-		
-#		print(
-#			"decisions get4flow_select, prior_flow_type = $most_recent_flow_type \n"
-#		);
+
+	#		print(
+	#			"decisions get4flow_select, prior_flow_type = $most_recent_flow_type \n"
+	#		);
 
 		$result = $true;
 
 	}
 	elsif ( $most_recent_flow_type eq $flow_type->{_pre_built_superflow} ) {
-		
+
 		$result = $false;
 	}
 	else {
-		print("decisions, get4flow_select, most_recent_flow_type is unknown \n");
+		print(
+			"decisions, get4flow_select, most_recent_flow_type is unknown \n");
 	}
 
 	return ($result);
@@ -469,13 +513,14 @@ sub get4delete_whole_flow_button {
 	}
 	else {
 		print(" decisions,get4delete_whole_flow_button, state is $false\n");
-		print(" decisions,get4delete_whole_flow_button, \n
+		print(
+			" decisions,get4delete_whole_flow_button, \n
 		state[1]=$state[1],state[2]=$state[2],state[3]=$state[3]],state[4]=$state[4]\n
-		],state[5]=$state[5],state[6]=$state[6]\n");
+		],state[5]=$state[5],state[6]=$state[6]\n"
+		);
 		return ($false);
 	}
 }
-
 
 =head2 sub get4help
 
@@ -572,6 +617,39 @@ sub get4run_select {
 	}
 }
 
+=head2 sub set4_FileDialog_Delete
+
+
+=cut
+
+sub set4FileDialog_Delete {
+	my ( $self, $hash_ref ) = @_;
+	_reset();
+
+	$decisions->{_is_Delete_file_button} = $hash_ref->{_is_Delete_file_button};
+	$decisions->{_is_neutral_flow}       = $hash_ref->{_is_neutral_flow};
+	$decisions->{_is_flow_listbox_grey_w} =
+	  $hash_ref->{_is_flow_listbox_grey_w};
+	$decisions->{_is_flow_listbox_pink_w} =
+	  $hash_ref->{_is_flow_listbox_pink_w};
+	$decisions->{_is_flow_listbox_green_w} =
+	  $hash_ref->{_is_flow_listbox_green_w};
+	$decisions->{_is_flow_listbox_blue_w} =
+	  $hash_ref->{_is_flow_listbox_blue_w};
+	$decisions->{_is_pre_built_superflow} =
+	  $hash_ref->{_is_pre_built_superflow};
+	$decisions->{_is_user_built_superflow} =
+	  $hash_ref->{_is_user_built_superflow};
+
+# print("decisions, set4FileDialog_Delete, decisions->{_is_Delete_file_button}: $decisions->{_is_Delete_file_button}\n");
+# print("decisions, set4FileDialog_Delete, decisions->{_is_flow_listbox_grey_w}: $decisions->{_is_flow_listbox_grey_w}\n");
+# print("decisions, set4FileDialog_Delete, decisions->{_is_flow_listbox_green_w}: $decisions->{_is_flow_listbox_green_w} \n");
+# print("decisions, set4FileDialog_Delete, decisions->{_is_pre_built_superflow}: $decisions->{_is_pre_built_superflow}\n");
+# print("decisions, set4FileDialog_Delete, decisions->{_is_user_built_flow}: $decisions->{_is_user_built_flow}\n");
+
+	return ($empty_string);
+
+}
 
 =head2 sub set4_FileDialog_select
 
@@ -589,17 +667,17 @@ sub set4FileDialog_select {
 	_reset();
 
 	$decisions->{_is_flow_listbox_grey_w} =
-		$hash_ref->{_is_flow_listbox_grey_w};
+	  $hash_ref->{_is_flow_listbox_grey_w};
 	$decisions->{_is_flow_listbox_pink_w} =
-		$hash_ref->{_is_flow_listbox_pink_w};
+	  $hash_ref->{_is_flow_listbox_pink_w};
 	$decisions->{_is_flow_listbox_green_w} =
-		$hash_ref->{_is_flow_listbox_green_w};
+	  $hash_ref->{_is_flow_listbox_green_w};
 	$decisions->{_is_flow_listbox_blue_w} =
-		$hash_ref->{_is_flow_listbox_blue_w};
+	  $hash_ref->{_is_flow_listbox_blue_w};
 	$decisions->{_is_flow_listbox_color_w} =
-		$hash_ref->{_is_flow_listbox_color_w};
+	  $hash_ref->{_is_flow_listbox_color_w};
 	$decisions->{_is_pre_built_superflow} =
-		$hash_ref->{_is_pre_built_superflow};
+	  $hash_ref->{_is_pre_built_superflow};
 	$decisions->{_is_selected_file_name} = $hash_ref->{_is_selected_file_name};
 	$decisions->{_is_selected_path}      = $hash_ref->{_is_selected_path};
 
@@ -611,7 +689,7 @@ sub set4FileDialog_select {
 
 # print ("decisions, set4FileDialog_select,left and right listbox:$decisions->{_is_flow_listbox_grey_w} , $decisions->{_is_flow_listbox_green_w} superflow is $decisions->{_is_pre_built_superflow}	selected_file_name= $decisions->{_is_selected_file_name}\n");
 
-	return($empty_string);
+	return ($empty_string);
 
 }
 
@@ -625,24 +703,25 @@ sub set4FileDialog_open_perl {
 	_reset();
 	$decisions->{_is_open_file_button} = $hash_ref->{_is_open_file_button};
 	$decisions->{_is_flow_listbox_grey_w} =
-		$hash_ref->{_is_flow_listbox_grey_w};
+	  $hash_ref->{_is_flow_listbox_grey_w};
 	$decisions->{_is_flow_listbox_pink_w} =
-		$hash_ref->{_is_flow_listbox_pink_w};
+	  $hash_ref->{_is_flow_listbox_pink_w};
 	$decisions->{_is_flow_listbox_green_w} =
-		$hash_ref->{_is_flow_listbox_green_w};
+	  $hash_ref->{_is_flow_listbox_green_w};
 	$decisions->{_is_flow_listbox_blue_w} =
-		$hash_ref->{_is_flow_listbox_blue_w};
-#	$decisions->{_is_pre_built_superflow} =
-#		$hash_ref->{_is_pre_built_superflow};
+	  $hash_ref->{_is_flow_listbox_blue_w};
+
+	#	$decisions->{_is_pre_built_superflow} =
+	#		$hash_ref->{_is_pre_built_superflow};
 	$decisions->{_is_selected_file_name} = $hash_ref->{_is_selected_file_name};
 	$decisions->{_is_selected_path}      = $hash_ref->{_is_selected_path};
-	
-#	print("decisions, set4FileDialog_open_perl\n");
-#	foreach my $key (sort keys %$decisions) {
-#   		print (" decisions key is $key, value is $decisions->{$key}\n");
-#   }
 
-	return($empty_string);
+	#	print("decisions, set4FileDialog_open_perl\n");
+	#	foreach my $key (sort keys %$decisions) {
+	#   		print (" decisions key is $key, value is $decisions->{$key}\n");
+	#   }
+
+	return ($empty_string);
 
 }
 
@@ -657,17 +736,17 @@ sub set4FileDialog_SaveAs {
 
 	$decisions->{_is_SaveAs_file_button} = $hash_ref->{_is_SaveAs_file_button};
 	$decisions->{_is_flow_listbox_grey_w} =
-		$hash_ref->{_is_flow_listbox_grey_w};
+	  $hash_ref->{_is_flow_listbox_grey_w};
 	$decisions->{_is_flow_listbox_pink_w} =
-		$hash_ref->{_is_flow_listbox_pink_w};
+	  $hash_ref->{_is_flow_listbox_pink_w};
 	$decisions->{_is_flow_listbox_green_w} =
-		$hash_ref->{_is_flow_listbox_green_w};
+	  $hash_ref->{_is_flow_listbox_green_w};
 	$decisions->{_is_flow_listbox_blue_w} =
-		$hash_ref->{_is_flow_listbox_blue_w};
+	  $hash_ref->{_is_flow_listbox_blue_w};
 	$decisions->{_is_pre_built_superflow} =
-		$hash_ref->{_is_pre_built_superflow};
+	  $hash_ref->{_is_pre_built_superflow};
 	$decisions->{_is_user_built_superflow} =
-		$hash_ref->{_is_user_built_superflow};
+	  $hash_ref->{_is_user_built_superflow};
 
 # print("decisions, set4FileDialog_SaveAs, decisions->{_is_SaveAs_file_button}: $decisions->{_is_SaveAs_file_button}\n");
 # print("decisions, set4FileDialog_SaveAs, decisions->{_is_flow_listbox_grey_w}: $decisions->{_is_flow_listbox_grey_w}\n");
@@ -675,7 +754,7 @@ sub set4FileDialog_SaveAs {
 # print("decisions, set4FileDialog_SaveAs, decisions->{_is_pre_built_superflow}: $decisions->{_is_pre_built_superflow}\n");
 # print("decisions, set4FileDialog_SaveAs, decisions->{_is_user_built_flow}: $decisions->{_is_user_built_flow}\n");
 
-	return($empty_string);
+	return ($empty_string);
 
 }
 
@@ -689,19 +768,19 @@ sub set4delete_from_flow_button {
 	_reset();
 
 	$decisions->{_is_flow_listbox_grey_w} =
-		$hash_ref->{_is_flow_listbox_grey_w};
+	  $hash_ref->{_is_flow_listbox_grey_w};
 	$decisions->{_is_flow_listbox_pink_w} =
-		$hash_ref->{_is_flow_listbox_pink_w};
+	  $hash_ref->{_is_flow_listbox_pink_w};
 	$decisions->{_is_flow_listbox_green_w} =
-		$hash_ref->{_is_flow_listbox_green_w};
+	  $hash_ref->{_is_flow_listbox_green_w};
 	$decisions->{_is_flow_listbox_blue_w} =
-		$hash_ref->{_is_flow_listbox_blue_w};
+	  $hash_ref->{_is_flow_listbox_blue_w};
 	$decisions->{_is_flow_listbox_color_w} =
-		$hash_ref->{_is_flow_listbox_color_w};
+	  $hash_ref->{_is_flow_listbox_color_w};
 	$decisions->{_is_delete_from_flow_button} =
-		$hash_ref->{_is_delete_from_flow_button};
+	  $hash_ref->{_is_delete_from_flow_button};
 
-	return($empty_string);
+	return ($empty_string);
 }
 
 =head2 sub set4delete_whole_flow_button
@@ -713,19 +792,19 @@ sub set4delete_whole_flow_button {
 	_reset();
 
 	$decisions->{_is_flow_listbox_grey_w} =
-		$hash_ref->{_is_flow_listbox_grey_w};
+	  $hash_ref->{_is_flow_listbox_grey_w};
 	$decisions->{_is_flow_listbox_pink_w} =
-		$hash_ref->{_is_flow_listbox_pink_w};
+	  $hash_ref->{_is_flow_listbox_pink_w};
 	$decisions->{_is_flow_listbox_green_w} =
-		$hash_ref->{_is_flow_listbox_green_w};
+	  $hash_ref->{_is_flow_listbox_green_w};
 	$decisions->{_is_flow_listbox_blue_w} =
-		$hash_ref->{_is_flow_listbox_blue_w};
+	  $hash_ref->{_is_flow_listbox_blue_w};
 	$decisions->{_is_flow_listbox_color_w} =
-		$hash_ref->{_is_flow_listbox_color_w};
+	  $hash_ref->{_is_flow_listbox_color_w};
 	$decisions->{_is_delete_whole_flow_button} =
-		$hash_ref->{_is_delete_whole_flow_button};
+	  $hash_ref->{_is_delete_whole_flow_button};
 
-	return($empty_string);
+	return ($empty_string);
 }
 
 =head2 sub set4flow_select
@@ -739,33 +818,33 @@ sub set4flow_select {
 	if ($hash_ref) {
 
 		$decisions->{_is_flow_listbox_grey_w} =
-			$hash_ref->{_is_flow_listbox_grey_w};
+		  $hash_ref->{_is_flow_listbox_grey_w};
 		$decisions->{_is_flow_listbox_pink_w} =
-			$hash_ref->{_is_flow_listbox_pink_w};
+		  $hash_ref->{_is_flow_listbox_pink_w};
 		$decisions->{_is_flow_listbox_green_w} =
-			$hash_ref->{_is_flow_listbox_green_w};
+		  $hash_ref->{_is_flow_listbox_green_w};
 		$decisions->{_is_flow_listbox_blue_w} =
-			$hash_ref->{_is_flow_listbox_blue_w};
+		  $hash_ref->{_is_flow_listbox_blue_w};
 		$decisions->{_is_last_flow_index_touched} =
-			$hash_ref->{_is_last_flow_index_touched};
+		  $hash_ref->{_is_last_flow_index_touched};
 		$decisions->{_is_last_flow_index_touched_grey} =
-			$hash_ref->{_is_last_flow_index_touched_grey};
+		  $hash_ref->{_is_last_flow_index_touched_grey};
 		$decisions->{_is_last_flow_index_touched_pink} =
-			$hash_ref->{_is_last_flow_index_touched_pink};
+		  $hash_ref->{_is_last_flow_index_touched_pink};
 		$decisions->{_is_last_flow_index_touched_green} =
-			$hash_ref->{_is_last_flow_index_touched_green};
+		  $hash_ref->{_is_last_flow_index_touched_green};
 		$decisions->{_is_last_flow_index_touched_blue} =
-			$hash_ref->{_is_last_flow_index_touched_blue};
+		  $hash_ref->{_is_last_flow_index_touched_blue};
 		$decisions->{_is_last_parameter_index_touched_grey} =
-			$hash_ref->{_is_last_parameter_index_touched_grey};
+		  $hash_ref->{_is_last_parameter_index_touched_grey};
 		$decisions->{_is_last_parameter_index_touched_pink} =
-			$hash_ref->{_is_last_parameter_index_touched_pink};
+		  $hash_ref->{_is_last_parameter_index_touched_pink};
 		$decisions->{_is_last_parameter_index_touched_green} =
-			$hash_ref->{_is_last_parameter_index_touched_green};
+		  $hash_ref->{_is_last_parameter_index_touched_green};
 		$decisions->{_is_last_parameter_index_touched_blue} =
-			$hash_ref->{_is_last_parameter_index_touched_blue};
+		  $hash_ref->{_is_last_parameter_index_touched_blue};
 		$decisions->{_is_last_parameter_index_touched_color} =
-			$hash_ref->{_is_last_parameter_index_touched_color};
+		  $hash_ref->{_is_last_parameter_index_touched_color};
 
 		if ( defined $hash_ref->{_prog_name_sref} )
 		{    # does it have *_spec.pm and regular *.pm
@@ -773,7 +852,7 @@ sub set4flow_select {
 		}
 		else {
 			print(
-				"\n1. decisions, set4flow_select, program does not have spec.pm:---$decisions->{_is_prog_name}---\n"
+"\n1. decisions, set4flow_select, program does not have spec.pm:---$decisions->{_is_prog_name}---\n"
 			);
 			$decisions->{_is_prog_name} = $false;
 		}
@@ -782,7 +861,7 @@ sub set4flow_select {
 # print(" decisions,set4flow_select, left and right listbox are $decisions->{_is_flow_listbox_grey_w}$decisions->{_is_flow_listbox_green_w}\n");
 	}
 
-	return($empty_string);
+	return ($empty_string);
 }
 
 sub set_hash_ref {
@@ -791,7 +870,7 @@ sub set_hash_ref {
 	$gui_history->set_defaults($hash_ref);
 	$decisions_href = $gui_history->get_defaults();
 
-	return($empty_string);
+	return ($empty_string);
 }
 
 =head2 sub set4help
@@ -805,35 +884,35 @@ sub set4help {
 	if ($hash_ref) {
 
 		$decisions->{_is_flow_listbox_grey_w} =
-			$hash_ref->{_is_flow_listbox_grey_w};
+		  $hash_ref->{_is_flow_listbox_grey_w};
 		$decisions->{_is_flow_listbox_pink_w} =
-			$hash_ref->{_is_flow_listbox_pink_w};
+		  $hash_ref->{_is_flow_listbox_pink_w};
 		$decisions->{_is_flow_listbox_green_w} =
-			$hash_ref->{_is_flow_listbox_green_w};
+		  $hash_ref->{_is_flow_listbox_green_w};
 		$decisions->{_is_flow_listbox_blue_w} =
-			$hash_ref->{_is_flow_listbox_blue_w};
+		  $hash_ref->{_is_flow_listbox_blue_w};
 		$decisions->{_is_last_flow_index_touched_grey} =
-			$hash_ref->{_is_last_flow_index_touched_grey};
+		  $hash_ref->{_is_last_flow_index_touched_grey};
 		$decisions->{_is_last_flow_index_touched_pink} =
-			$hash_ref->{_is_last_flow_index_touched_pink};
+		  $hash_ref->{_is_last_flow_index_touched_pink};
 		$decisions->{_is_last_flow_index_touched_green} =
-			$hash_ref->{_is_last_flow_index_touched_green};
+		  $hash_ref->{_is_last_flow_index_touched_green};
 		$decisions->{_is_last_flow_index_touched_blue} =
-			$hash_ref->{_is_last_flow_index_touched_blue};
+		  $hash_ref->{_is_last_flow_index_touched_blue};
 		$decisions->{_is_last_parameter_index_touched_grey} =
-			$hash_ref->{_is_last_parameter_index_touched_grey};
+		  $hash_ref->{_is_last_parameter_index_touched_grey};
 		$decisions->{_is_last_parameter_index_touched_pink} =
-			$hash_ref->{_is_last_parameter_index_touched_pink};
+		  $hash_ref->{_is_last_parameter_index_touched_pink};
 		$decisions->{_is_last_parameter_index_touched_green} =
-			$hash_ref->{_is_last_parameter_index_touched_green};
+		  $hash_ref->{_is_last_parameter_index_touched_green};
 
 		$decisions->{_is_last_flow_index_touched} =
-			$hash_ref->{_is_last_flow_index_touched};
+		  $hash_ref->{_is_last_flow_index_touched};
 		$decisions->{_is_last_parameter_index_touched_color} =
-			$hash_ref->{_is_last_parameter_index_touched_color};
+		  $hash_ref->{_is_last_parameter_index_touched_color};
 		$decisions->{_is_sunix_listbox} = $hash_ref->{_is_sunix_listbox};
 		$decisions->{_is_pre_built_superflow} =
-			$hash_ref->{_is_pre_built_superflow};
+		  $hash_ref->{_is_pre_built_superflow};
 
 		if ( $hash_ref->{_prog_name_sref} ) {
 			$decisions->{_is_prog_name} = $true;
@@ -847,7 +926,7 @@ sub set4help {
 # print(" decisions,set4help, left and right listbox are $decisions->{_is_flow_listbox_grey_w}$decisions->{_is_flow_listbox_green_w}\n");
 	}
 
-	return($empty_string);
+	return ($empty_string);
 }
 
 =head2 sub set4run_select
@@ -861,18 +940,18 @@ sub set4run_select {
 	_reset();    #OK JML
 
 	$decisions->{_has_used_SaveAs_button} =
-		$hash_ref->{_has_used_SaveAs_button};
+	  $hash_ref->{_has_used_SaveAs_button};
 	$decisions->{_has_used_Save_button} = $hash_ref->{_has_used_Save_button};
 	$decisions->{_has_used_Save_superflow} =
-		$hash_ref->{_has_used_Save_superflow};
+	  $hash_ref->{_has_used_Save_superflow};
 	$decisions->{_has_used_open_perl_file_button} =
-		$hash_ref->{_has_used_open_perl_file_button};
+	  $hash_ref->{_has_used_open_perl_file_button};
 	$decisions->{_is_Save_button} = $hash_ref->{_is_Save_button};
 
 # print("decisions,set4run_select, _has_used_SaveAs_button= $decisions->{_has_used_SaveAs_button} \n");
 # print("decisions,set4run_select, _has_used_Save_button= $decisions->{_has_used_Save_button} \n");
 # print("decisions,set4run_select, _is_Save_button= $decisions->{_is_Save_button} \n");
-	return($empty_string);
+	return ($empty_string);
 
 }
 

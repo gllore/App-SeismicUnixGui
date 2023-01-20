@@ -43,6 +43,9 @@ package App::SeismicUnixGui::misc::L_SU;
   
   V0.1.7 May 2021
   permit my_dialogs to interact with user and change flow
+  
+  V0.1.8 January 2023 Includes Delete a file through the
+  FileDialog
  
 =cut 
 
@@ -150,14 +153,15 @@ my (
 #my $SaveAs_menubutton;
 
 my $var                           = $get->var();
-my $on                            = $var->{_on};
-my $true                          = $var->{_true};
-my $false                         = $var->{_false};
-my $yes                           = $var->{_yes};
-my $no                            = $var->{_no};
-my $superflow_names               = $get->superflow_names_h();
 my $alias_superflow_names_h       = $get->alias_superflow_names_h();
 my $alias_help_menubutton_label_h = $get->alias_help_menubutton_label_h();
+my $false                         = $var->{_false};
+my $neutral                       = $var->{_neutral};
+my $no                            = $var->{_no};
+my $on                            = $var->{_on};
+my $superflow_names               = $get->superflow_names_h();
+my $true                          = $var->{_true};
+my $yes                           = $var->{_yes};
 
 =head2 defaults
 
@@ -242,8 +246,7 @@ sub _get_flow_color {
 	}
 	else {
 		$color = '';
-
-		# print("L_SU, _get_flow_color, missing color\n");
+		print("L_SU, _get_flow_color, missing color\n");
 		return ($color);
 	}
 }
@@ -335,6 +338,8 @@ sub _set_user_built_flow_type {
 }
 
 =head2 sub _FileDialog_button_Delete
+
+is color-listbox-neutral
    
 =cut
 
@@ -342,8 +347,10 @@ sub _FileDialog_button_Delete {
 
 	my ( $self, $dialog_type_sref ) = @_;
 
-	#				# opens file and populates GUI
-	#				$L_SU_href->{_flow_color} = $grey_flow->get_flow_color();
+	# opens file and populates GUI
+	$L_SU_href->{_flow_color} = $neutral_flow->get_flow_color();
+	$neutral_flow->set_hash_ref($L_SU_href);
+	
 	#				my $Flow_file_exists = $grey_flow->get_Flow_file_exists();
 	#
 	#				if (   $Flow_file_exists
@@ -576,7 +583,7 @@ sub _FileDialog_button_Open {
 	 # CASES 3A-3D
 	 # General case of user-built flows in grey, pink, green or blue.
 	 #
-	 # = 'neutral', when flow listbox is not a color as sunix_select is selected
+	 # = 'neutral', when flow listbox is not a color and sunix_select is selected
 	 # but add2flow_button has not been activated
 	 #
 	 # = nothing,  if chosen before a colored flow exists,
@@ -826,7 +833,8 @@ sub _FileDialog_button_Open {
 
 	# CASE 4
 	# when GUI opens Data for a superflow
-	#  print("CASE 4, L_SU,FileDialog_button,dialog type=  $$dialog_type_sref");
+	# deprecated 1.19.23
+	print("CASE 4, L_SU,FileDialog_button,dialog type=  $$dialog_type_sref");
 
 		$L_SU_href->{_dialog_type} = $$dialog_type_sref;
 		$file_dialog->set_hash_ref($L_SU_href);
@@ -943,6 +951,7 @@ sub FileDialog_button {
 
 	}
 	else {
+		# such as case for 'Delete'
 		$self->$private_module($dialog_type_sref);
 	}
 
@@ -1566,6 +1575,7 @@ sub set_hash_ref {
 }
 
 =head2  set_param_widgets
+
   Initially, checkbutton widgets and values 
   are green ("on") or red ("off"), and
   Labels and Entry Widgets are made blank.
@@ -1621,7 +1631,7 @@ sub set_param_widgets {
  flow-item selection ('flow_select') (MB1)
 
 if neutral-colored stored parameters exist
-they have to be transferred over from 
+they have to be transferred from 
 neutral_flow to either grey, pink, green, or blue, _flow
  		 			
 displays superflow name at top of gui
@@ -1672,7 +1682,7 @@ sub user_built_flows {
 		}
 		elsif ( $color eq 'neutral' ) {
 
-			#			print("stuff below\n");
+			# print("color should = neutral\n");
 		}
 		else {
 			print("L_SU,user_built_flows,unexpected value  \n");
@@ -2216,7 +2226,8 @@ sub user_built_flows {
 # print("10. L_SU,user_built_flows, color=neutral,after MB1 occupied_listboxes: @{$L_SU_gui->{_vacant_listbox_aref}}\n");
 
 			# last_flow_color from L_SU does not enter the gui_history
-			# only colors in each color_flow enter the flow history
+			# only color_flows: blue,green,pink,grey 
+			# enter the flow history
 
 			# bring back selected sunix program name
 			$L_SU_href->{_prog_name_sref} = $neutral_flow->get_prog_name_sref();

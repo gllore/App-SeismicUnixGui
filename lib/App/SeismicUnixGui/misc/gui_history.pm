@@ -44,16 +44,7 @@ potentially, all packages contain L_SU_global_constants
 
 my $path;
 my $SeismicUnixGui;
-#use Shell qw(echo);
 
-#BEGIN {
-#
-#$SeismicUnixGui = ` echo \$SeismicUnixGui`;
-#chomp $SeismicUnixGui;
-#$path = $SeismicUnixGui.'/'.'misc';
-#
-#}
-#use lib "$path";
 extends 'App::SeismicUnixGui::misc::conditions4flows' => { -version => 0.0.2 };
 use aliased 'App::SeismicUnixGui::misc::conditions4flows';
 
@@ -145,7 +136,7 @@ has 'flow_select_color' => (
 	isa       => 'Str',
 	reader    => 'get_flow_select_color',
 	writer    => 'set_flow_select_color',
-	predicate => 'has_flow_select_ccolor',
+	predicate => 'has_flow_select_color',
 	trigger   => \&_update_flow_select_color,
 
 );
@@ -993,7 +984,7 @@ sub _reset {
 
 For general case, new count will not be sequential with previous 
 index value in  the same $property_href
-Count changes whenever the user clicks
+Count changes whenever the user clicks on any tool
 
 indices for property_href should increase only if the most_recent
 is different to the prior. i.e., only if there is a real change
@@ -1057,6 +1048,7 @@ sub _set_flow_listbox_color_w {
 
 		( $gui_history->get_defaults() )->{_flow_listbox_color_w} = ( $gui_history->get_defaults() )->{$key1};
 		( $gui_history->get_defaults() )->{$key2} = $true;
+		
 	} else {
 		print("gui_history,_set_flow_listbox_color_w, missing color\n");
 	}
@@ -1067,7 +1059,7 @@ sub _set_flow_listbox_color_w {
 =head2 sub _update_FileDialog_type
 Assign new FileDialog_type to private key: _FileDialog_type
 Can be 'Data'
-or     ' '
+or     'Delete'
 or     ' '
 
 $gui_history = current package
@@ -1250,13 +1242,12 @@ sub _update_button {
 
 		} elsif ( $new_most_recent_button eq 'flow_select' ) {
 
-			my $ans = ( $gui_history->get_defaults() )->{_count};
-
-			# print("1. gui_history, _update_button, for flow_select count=$ans\n");
+#			my $ans = ( $gui_history->get_defaults() )->{_count};
+#			print("1. gui_history, _update_button, for flow_select count=$ans\n");
 
 			my $_flow_listbox_color_w = _get_flow_listbox_color_w($gui_history);
 			my $most_recent_index     = $flow_widgets->get_flow_selection($_flow_listbox_color_w);
-
+			
 			# CASE 1: flow listbox is cleared with no highlights
 			if ( not defined $most_recent_index ) {
 
@@ -1288,7 +1279,7 @@ sub _update_button {
 				# 	"2. gui_history, _update_button, for flow_select new most_recent_index=$most_recent_index \n");
 				# print(
 				# 	"2. gui_history, _update_button, for flow_select new prior_index=$flow_select_index_href->{_prior} \n"
-				# );
+				#  );
 
 				# print("gui_history, _update_button, flow_select_click_seq_href= ($gui_history->get_defaults )->{_flow_select_click_seq_href}\n");
 				# print("3. gui_history, _update_button, flow_select most_recent_index=$most_recent_index \n");
@@ -1300,7 +1291,7 @@ sub _update_button {
 				and $most_recent_index eq $flow_select_index_href->{_most_recent} ) {
 
 				# record sequence as total number of mouse clicks, when user reclicks the same location
-				# However in _set_click_dequence the property indices will not be updated
+				# However in _set_click_sequence the property indices will not be updated
 				# only the general gui count JML 2-2020
 				_set_click_sequence(
 					$gui_history,
@@ -1424,10 +1415,11 @@ sub _update_button {
 }
 
 =head2 sub _update_add2flow_color
+
 Assign new color to private key: _flow_color
 
-flow color can be grey,pink,green or blue
-but not neutral or 'nada' or 'no_color'
+In this sub, flow color can be grey,pink,green or blue
+but not 'neutral' or 'nada' or 'no_color'
 
 $gui_history = current package
 

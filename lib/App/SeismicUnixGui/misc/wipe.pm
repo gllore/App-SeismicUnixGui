@@ -10,7 +10,7 @@ package App::SeismicUnixGui::misc::wipe;
 
  DESCRIPTION: 
  Version:0.1 
- Package used scrubbin gui
+ Package used for scrubbing gui
 =head2 USE
 
 =head3 NOTES 
@@ -32,9 +32,13 @@ my $get   = L_SU_global_constants->new();
 my $var   = $get->var();
 my $param = $get->param();
 
+
 # TODO mystery memory leak between check_buttons_settings_aref and values_w[$i]
 
 =head2 anonymous reference to common variable
+
+In $param->{_length},
+length = max_index + 1 (see L_SU_global constants)
 
 =cut
 
@@ -120,6 +124,7 @@ sub labels {
 }
 
 =head2 sub
+
    print("self is $self values are $ref_values_w\n\n");
    print("wipe  final: $entries->{_final_entry_num}\n");
    print("  prev final: $entries->{_prev_final_entry_num}\n");
@@ -147,13 +152,16 @@ sub values {
     $first_idx = $entries->{_first_idx};
     $length    = $entries->{_length};
 
-    my $clear_text = '';
-	# print("wipe,values,check_buttons-settings_aref=--@{$entries->{_check_buttons_settings_aref}}--\n");	
+#    my $clear_text = '';
+
     if ( $entries->{_values_w_aref} ) {
 
         @values_w = @{ $entries->{_values_w_aref} };
+        
         for ( $i = $first_idx ; $i < $length ; $i++ ) {
+        	
             $values_w[$i]->delete(0,'end');
+  	        # print("wipe,values,length=$length}--\n");	          
         }
     }
     else {
