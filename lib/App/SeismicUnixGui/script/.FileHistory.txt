@@ -1,12 +1,5 @@
-/home/gllore/LRTF/seismics/pl/Huntsville//120822/H/1/gllore/a.pl
-/home/gllore/LRTF/seismics/data/Huntsville//120822/H/1/su/gllore/immodpg_model1.su
+/home/gllore/LRTF/seismics/pl/Huntsville//120822/H/1/gllore/aa
 /home/gllore/LRTF/seismics/pl/Huntsville//120822/H/1/gllore/1.segy2su.pl
-/home/gllore/LRTF/seismics/data/Huntsville//120822/H/1/su/gllore/8.su
-/home/gllore/LRTF/seismics/pl/Huntsville//120822/H/1/gllore/6B.suphasevel.pl
-/home/gllore/LRTF/seismics/pl/Huntsville//120822/H/1/gllore/Sucat.config
-/home/gllore/LRTF/seismics/data/Huntsville//120822/H/1/segy/gllore/00000005.segy
-/home/gllore/LRTF/seismics/pl/Huntsville//120822/H/1/gllore/a
-/home/gllore/LRTF/seismics/pl/Huntsville//120822/H/1/gllore/log.txt
-/home/gllore/LRTF/seismics/pl/Huntsville//120822/H/1/gllore/a3.pl
-/home/gllore/LRTF/seismics/pl/Huntsville//120822/H/1/gllore/a2.pl
-/home/gllore/LRTF/seismics/pl/Huntsville//120822/H/1/gllore/a4.pl
+/home/gllore/LRTF/seismics/pl/Huntsville//120822/H/1/gllore/3.sumax.pl
+/home/gllore/LRTF/seismics/pl/Huntsville//120822/H/1/gllore/2.view_segy2su.pl
+/home/gllore/LRTF/seismics/pl/Huntsville//120822/H/1/gllore/aaaa

@@ -431,6 +431,7 @@ my $var = {
 	_string2startFlowSetUp  => '->clear\(\);',    # for regex in perl_flow
 	_string2endFlowSetUp    => '->Step\(\);',     # for regex in perl_flow
 	_standard_width         => '20',
+	_sunix_select           => 'sunix_select',
 	_ten_characters         => '10',
 	_test_dir_name          => 't',
 	_eleven_characters      => '11',

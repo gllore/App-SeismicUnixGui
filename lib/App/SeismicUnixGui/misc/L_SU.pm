@@ -245,6 +245,7 @@ sub _get_flow_color {
 
 	}
 	else {
+		print("L_SU, _get_flow_color, color:--$L_SU_href->{_flow_color}--\n");
 		$color = '';
 		print("L_SU, _get_flow_color, missing color\n");
 		return ($color);
@@ -350,38 +351,9 @@ sub _FileDialog_button_Delete {
 	# opens file and populates GUI
 	$L_SU_href->{_flow_color} = $neutral_flow->get_flow_color();
 	$neutral_flow->set_hash_ref($L_SU_href);
-	
-	#				my $Flow_file_exists = $grey_flow->get_Flow_file_exists();
-	#
-	#				if (   $Flow_file_exists
-	#					)
-	#				{
-	#
-	#					$color_listbox->set_flow_listbox_color($color);
-	#
-	#				}
-
-	# Flow when program opens a (pre-existing) user-built perl flow
-	# user flows can be already in progress
-	# user flows may not be already in progress
-	# but no color or colored listbox is active,
-
-	#			$color_listbox->set_flow_listbox_color( _get_flow_color() );
-	#			$L_SU_gui->{_occupied_listbox_aref} =
-	#			  $color_listbox->get_flow_listbox_occupancy_aref();
-	#			$L_SU_gui->{_vacant_listbox_aref} =
-	#			  $color_listbox->get_flow_listbox_vacancy_aref();
-	#			my $which_color = $color_listbox->get_flow_listbox_vacancy_color();
-	#
-	#			_set_flow_color($which_color);
-	#			_set_flow_listbox_color_w($which_color);
-	#	_unset_pre_built_superflow_type();
-	#	_set_user_built_flow_type();
-
-	#	$neutral_flow->set_hash_ref($L_SU_href);
 	$neutral_flow->FileDialog_button($dialog_type_sref);
 
-	#			$L_SU_href->{_flow_color} = $grey_flow->get_flow_color();
+	# $L_SU_href->{_flow_color} = $grey_flow->get_flow_color();
 
 	return ();
 

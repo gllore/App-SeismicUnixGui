@@ -20,6 +20,7 @@ WriteMakefile(
 		'PDL'             => '2.080',
 		'Tk'              => '804.036',
 		'Tk::JFileDialog' => '2.20',
+		'Tk::JBrowseEntry'=> '5.25',
 		'File::ShareDir'  => '1.118',		
 		'Clone'           => '0.45',
 		'File::Slurp'     => '9999.32',

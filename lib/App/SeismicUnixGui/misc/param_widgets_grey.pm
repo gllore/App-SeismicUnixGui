@@ -338,7 +338,7 @@ sub get_current_program {
 	my @selection_index = $$widget_ref->curselection();
 	my $prog_name       = $$widget_ref->get( $selection_index[0] );
 
-	# print("param_widgets_grey get_current_program: $prog_name,index:$selection_index[0] \n");
+	# print("param_widgets_color get_current_program: $prog_name,index:$selection_index[0] \n");
 	return ( \$prog_name );
 }
 
@@ -649,8 +649,8 @@ sub _update_check_button_setting {
 	# update a single change in private hash
 	@{ $param_widgets_color_href->{_check_buttons_settings_aref} }[$idx] = $on_off[$idx];
 
-	# print("param_widgets_grey: _update_check_button_setting :index $idx setting is: $on_off[$idx]\n");
-	# print("param_widgets_grey: update_check_buttons_settings_aref @{$param_widgets_color_href->{_check_buttons_settings_aref}}\n");
+	# print("param_widgets_color: _update_check_button_setting :index $idx setting is: $on_off[$idx]\n");
+	# print("param_widgets_color: update_check_buttons_settings_aref @{$param_widgets_color_href->{_check_buttons_settings_aref}}\n");
 
 	return ();
 }
@@ -845,7 +845,7 @@ sub get_label4entry_button_chosen {
 
 			# print("param_widgets_color,get_entry_button_chosen,label,=$label\n");
 			# print("param_widgets_color,get_entry_button_chosen,value,=$value\n");
-			# print("param_widget_grey,get_entry_button_chosen,index,=$choice\n");
+			# print("param_widget_color,get_entry_button_chosen,index,=$choice\n");
 		}
 	}
 	return ($label);
@@ -1050,8 +1050,8 @@ sub range {
 	
 	 # my $key = '_param_sunix_length'; # actually max_index for prog, length is wrong 
 	# my $value = $ref_hash->{$key};
-	# print(" 0. param_widgets_grey2,range, key is $key, value is $value\n");
-	# print(" 0. param_widgets_grey2,range, write out gui_history.txt\n");
+	# print(" 0. param_widgets_color,range, key is $key, value is $value\n");
+	# print(" 0. param_widgets_color,range, write out gui_history.txt\n");
 	# $gui_history->view();
 
 	# for adding to flows as a user-built flow
@@ -1062,8 +1062,8 @@ sub range {
 		$param_widgets_color_href->{_first_idx}             = $ref_hash->{_first_idx};
 		$param_widgets_color_href->{_length}                = $ref_hash->{_param_sunix_length};
 
-		# print("1.param_widgets_grey2,range,  (add2flow_button and add2flow)  first idx:$param_widgets_color_href->{_first_idx}, and length:$param_widgets_color_href->{_length}\n");
-		# print("1.param_widgets_grey2,range,  (add2flow_button and add2flow)  if length is empty that is Ok the first time through \n");
+		# print("1.param_widgets_color,range,  (add2flow_button and add2flow)  first idx:$param_widgets_color_href->{_first_idx}, and length:$param_widgets_color_href->{_length}\n");
+		# print("1.param_widgets_color,range,  (add2flow_button and add2flow)  if length is empty that is Ok the first time through \n");
 	}
 
 	# for sunix selections
@@ -1181,7 +1181,7 @@ sub redisplay_labels {
 	if ($labels_w_aref) {
 		for ( my $i = $first; $i < $length; $i++ ) {
 
-			# print("i:$i   param_widgets_grey2,redisplay_labels length:$length\n");
+			# print("i:$i   param_widgets_color,redisplay_labels length:$length\n");
 			# print(" text is @{$labels_aref}[$i]\n");
 
 			@$labels_w_aref[$i]->configure( -text => @$labels_aref[$i], );

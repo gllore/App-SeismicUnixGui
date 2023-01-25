@@ -33,6 +33,10 @@ package App::SeismicUnixGui::misc::file_dialog;
  
  August 2021
  initialize default values
+ 
+ V 0.0.5 
+ flow-selection is detectable with a subroutine
+ hool _SelHook
 
 =cut 
 
@@ -94,6 +98,7 @@ $file_dialog = {
 
 	_check_buttons_settings_aref => '',
 	_flow_name_in                => '',
+	_is_file_selected            => '',
 	_selected_file_name          => '',
 	_last_path_touched           => '',
 
@@ -143,24 +148,24 @@ sub _FileDialog {
 	  _get_dialog_type();    # e.g., 'SaveAs' or 'Save', 'Open' or 'Delete'
 	my $FileDialog_path = _get_path();    # e.g., $PL or $DATA_SEISMIC_SU
 
-	my $fileDialog_w;
-
 	# Can be for a data or pl directory or for only a directory
 	#	print("file_dialog,_FileDialog, path: $file_dialog->{_path}\n");
 	#	print("file_dialog,_FileDialog, path: $FileDialog_path\n");
 	#	print("file_dialog,_FileDialog, mytitle: $my_title\n");
 
-	$fileDialog_w = $file_dialog->{_mw}->JFileDialog(
+	my $fileDialog_w = $file_dialog->{_mw}->JFileDialog(
 		-Title        => $my_title,
 		-Path         => $FileDialog_path,
 		-History      => 12,
 		-HistDeleteOk => 1,
 		-HistUsePath  => 1,
+		-SelHook      => \&_SelHook,
 		-HistFile     => "./.FileHistory.txt",
 		-PathFile     => "./.Bookmarks.txt",
 		-Create       => 1,
-		-width        => 52,
-		-maxwidth     => 59,
+		-width        => 54,
+		-maxwidth     => 52,
+
 	);
 
 	# results from interactive file selection
@@ -168,14 +173,42 @@ sub _FileDialog {
 	$file_dialog->{_selected_file_name} = $fileDialog_w->Show();
 	$file_dialog->{_last_path_touched}  = $fileDialog_w->cget('-Path');
 
-	#	print(
-	#	"file_dialog,_FileDialog,last path is
-	#	$file_dialog->{_last_path_touched} \n"
-	#	);
-	#	print(
-	#		"file_dialog,_FileDialog,selected_file_name
-	#		  is $file_dialog->{_selected_file_name} \n"
-	#	);
+=head2 sub _SelHook
+
+confirm that a file was selected
+			print(
+			"file_dialog,_FileDialog,last path is
+			$file_dialog->{_last_path_touched} \n"
+			);
+
+=cut
+
+	sub _SelHook {
+
+		my ($pathNfile) = @_;
+		my $result;
+
+		if ( defined $pathNfile ) {
+
+			$result = $true;
+			$file_dialog->{_is_file_selected} = $true;
+
+		}
+		else {
+			$file_dialog->{_is_file_selected} = $false;
+			$result = $false;
+		}
+
+		return ($result);
+	}
+
+	if (
+		not( defined( $file_dialog->{_selected_file_name} ) ) )
+		{
+			# Case that the Dialog is cancelled by user
+			$file_dialog->{_is_file_selected} = $false;
+		}
+
 
 	return ($empty_string);
 }
@@ -1219,9 +1252,9 @@ sub _user_built_flow_Delete_perl_file {
 #
 		}
 		else {
-			print(
-"file_dialog, _user_built_flow_Delete_perl_file,Cancelled. No output flow name selected NADA\n"
-			);
+#			print(
+#"file_dialog, _user_built_flow_Delete_perl_file,Cancelled. No output flow name selected.NADA\n"
+#			);
 		}
 
 		my $first_idx = $default_param_specs->{_first_entry_idx};
@@ -2098,9 +2131,35 @@ sub get_hash_ref {
 	# print("file_dialog,_update_hash_ref: $gui_history->get_defaults()\n");
 }
 
+=head2 sub get_is_file_selected
+
+	return whether a file was selected
+	by FileDialog
+	
+=cut 
+
+sub get_is_file_selected {
+
+	my ($self) = @_;
+
+	if ( length $file_dialog->{_is_file_selected} ) {
+
+		my $result = $file_dialog->{_is_file_selected};
+
+# print("file_dialog,get_is_file_selected, values_aref: @{$file_dialog->{_is_file_selected}}\n");
+		return ($result);
+
+	}
+	else {
+		# print("file_dialog, get_is_file_selected missing\n");
+		my $result = $false;
+		return ($result);
+	}
+}
+
 =head2 sub _clear_perl_flow_name_in
 
-=cut 
+=cut
 
 sub _clear_perl_flow_name_in {
 	my ($self) = @_;
@@ -2120,9 +2179,9 @@ sub get_perl_flow_name_in {
 
 		my $perl_flow_name_in = $file_dialog->{_flow_name_in};
 
-		#		print(
-		#"file_dialog,get_flow_name_in, _flow_name_in: $file_dialog->{_flow_name_in}\n"
-		#		);
+ #		print(
+ #"file_dialog,get_flow_name_in, _flow_name_in: $file_dialog->{_flow_name_in}\n"
+ #		);
 		return ($perl_flow_name_in);
 
 	}

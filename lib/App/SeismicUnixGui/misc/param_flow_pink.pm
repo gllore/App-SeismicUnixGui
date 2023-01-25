@@ -63,6 +63,7 @@ my $param_flow_pink = {
 	_indices                 => -1,
 	_label_boxes_w           => '',
 	_length                  => '',
+	_max_index               => -1,
 	_names_aref              => '',    # equiv. to 'labels'
 	_names_aref2             => '',
 	_num_good_values_aref    => 0,
@@ -115,8 +116,7 @@ sub _get_names_aref {
 		my ( @names_aref, @names );
 		@names_aref = @{ @{ $param_flow_pink->{_names_aref2} }[$item_index] };
 
-		# print("param_flow_pink, _get_names_aref,
-		#@names_aref, index=$item_index\n");
+		print("param_flow_pink, _get_names_aref, @names_aref, index=$item_index\n");
 		return ( \@names_aref );
 	}
 }
@@ -135,7 +135,7 @@ sub _get_values_aref {
 		my ( @values_aref, @values );
 		@values_aref = @{ @{ $param_flow_pink->{_values_aref2} }[$item_index] };
 
-		#		print("param_flow_pink, _get_values_aref, @values_aref, index=$item_index\n");
+#		print("param_flow_pink, _get_values_aref, @values_aref, index=$item_index\n");
 		return ( \@values_aref );
 	}
 }
@@ -172,7 +172,8 @@ sub _set_good_labels4item {
 		# don't use the following values: 'nu' , empty
 
 		if ( defined( @{$values_aref}[$i] )
-			&& ( @{$values_aref}[$i] ne $empty_string ) ) {
+			&& ( @{$values_aref}[$i] ne $empty_string ) )
+		{
 
 			if ( @$values_aref[$i] ne "'nu'" ) {    #
 
@@ -183,12 +184,13 @@ sub _set_good_labels4item {
 				$good[$j] = $name;
 				$j++;
 
-			} else {
+			}
+			else {
 				print("param_flow_pink, _set_good_labels_4item: unexpected ending\n");
 			}
 
-		} else {
-
+		}
+		else {
 			# NADA print("param_flow_pink, _set_good_labels_4item: no values are present, can not be saved\n");
 		}
 	}
@@ -220,48 +222,51 @@ sub _set_good_labels4item {
 sub _set_good_values4item {
 	my ($index4flow) = @_;
 
-	#	print("param_flow_pink,set_good_indices4item,index4flow: $index4flow \n");
+#	print("param_flow_pink,set_good_indices4item,index4flow: $index4flow \n");
 
 	my $idx = $index4flow;    # program sequence in flow
 	my (@good);
 	my ($j);
 
-	#	print("1. param_flow_pink,_set_good_values4item, flow index:$idx,
-	#	prog name:@{$param_flow_pink->{_prog_names_aref}}[$idx] \n");
+#	print("1. param_flow_pink,_set_good_values4item, flow index:$idx, 
+#	prog name:@{$param_flow_pink->{_prog_names_aref}}[$idx] \n");
 
 	my $values_aref = _get_values_aref($idx);
 	my $length      = scalar @$values_aref;
 
-	#	print("2. param_flow_pink,_set_good_values4item, length: $length\n");
+#	print("2. param_flow_pink,_set_good_values4item, length: $length\n");
 
 	for ( my $i = 0, $j = 0; $i < $length; $i++ ) {
 
-		#		print("param_flow_pink, _set_good_values_4item: index=$i, values_aref= @$values_aref[$i]\n");
+#		print("param_flow_pink, _set_good_values_4item: index=$i, values_aref= @$values_aref[$i]\n");
 		if ( defined( @{$values_aref}[$i] )
-			&& ( @{$values_aref}[$i] ne $empty_string ) ) {
+			&& ( @{$values_aref}[$i] ne $empty_string ) )
+		{
 
 			if ( @$values_aref[$i] ne "'nu'" ) {
 
-				my $value = ${ @{ $param_flow_pink->{_values_aref2} }[$idx] }[$i];
+				my $value =
+					${ @{ $param_flow_pink->{_values_aref2} }[$idx] }[$i];
 
-				#				print("2. param_flow_pink,_set_good_values4item,good index #$i\n");
-				#				print("2. param_flow_pink,_set_good_values4item,value:$value \n");
+#				print("2. param_flow_pink,_set_good_values4item,good index #$i\n");
+#				print("2. param_flow_pink,_set_good_values4item,value:$value \n");
 				$good[$j] = $value;
 				$j++;
 
-			} else {
+			}
+			else {
 				print("param_flow_pink, _set_good_values_4item: unexpected ending\n");
 			}
 
-		} else {
-
-			#			print("NADA,param_flow_pink, _set_good_values_4item: no values are present, can not be saved\n");
+		}
+		else {
+#			print("NADA,param_flow_pink, _set_good_values_4item: no values are present, can not be saved\n");
 		}
 	}
 
 	$num_good_values[$idx] = $j;
 
-	#	print("param_flow_pink,_set_good_values4item,good_values=@good \n");
+#	print("param_flow_pink,_set_good_values4item,good_values=@good \n");
 
 	$param_flow_pink->{_num_good_values_aref} = \@num_good_values;
 
@@ -300,6 +305,7 @@ sub clear {
 	$param_flow_pink->{_indices}                 = -1;
 	$param_flow_pink->{_label_boxes_w}           = '';
 	$param_flow_pink->{_length}                  = '';
+	$param_flow_pink->{_max_index}               = -1;	
 	$param_flow_pink->{_names_aref}              = '';
 	$param_flow_pink->{_names_aref2}             = '';
 	$param_flow_pink->{_num_good_values_aref}    = 0;
@@ -348,7 +354,8 @@ sub clear_flow_items_version_aref {
 		# 	print("param_flow_pink, clear_flow_items_version_aref, param_flow_pink->{_prog_version_aref} = '' \n");
 		# }
 
-	} else {
+	}
+	else {
 		print("param_flow_pink, clear_flow_items_version_aref, missing program_version_aref\n");
 	}
 
@@ -372,58 +379,58 @@ sub delete_selection {
 
 	# print("\nparam_flow_pink,delete_selection B4 deletion,idx2delete=$index2delete\n");
 	# view_data($index2delete);
-
-	if (    $index2delete eq 'all'
-		and $num_items > 0 ) {
-
+	
+	if ( $index2delete eq 'all' 
+	and $num_items > 0 ) {
+		
 		# print("param_flow_pink, all deleted using double quotes \n");
-
+		
 		@{ $param_flow_pink->{_checkbuttons_aref2} } = '';
-		@{ $param_flow_pink->{_names_aref2} }        = '';
-		@{ $param_flow_pink->{_values_aref2} }       = '';
-		@{ $param_flow_pink->{_prog_names_aref} }    = '';
-
-		$param_flow_pink->{_num_items}              = 0;
-		$param_flow_pink->{_num_items4flow}         = 0;
-		$param_flow_pink->{_num_items4values}       = 0;
-		$param_flow_pink->{_num_items4names}        = 0;
+		@{ $param_flow_pink->{_names_aref2} } = '';
+		@{ $param_flow_pink->{_values_aref2} } = '';
+		@{ $param_flow_pink->{_prog_names_aref} } = '';
+		
+		$param_flow_pink->{_num_items} = 0;
+		$param_flow_pink->{_num_items4flow} = 0;
+		$param_flow_pink->{_num_items4values} = 0;
+		$param_flow_pink->{_num_items4names} = 0;
 		$param_flow_pink->{_num_items4checkbuttons} = 0;
-
-		$param_flow_pink->{_indices}            = -1;
-		$param_flow_pink->{_index4values}       = -1;
-		$param_flow_pink->{_index4names}        = -1;
+	
+		$param_flow_pink->{_indices} = -1;
+		$param_flow_pink->{_index4values} = -1;
+		$param_flow_pink->{_index4names} = -1;
 		$param_flow_pink->{_index4checkbuttons} = -1;
-		$param_flow_pink->{_index4flow}         = -1;
-
-	} elsif ( $index2delete == $end && $num_items > 1 ) {
-
-		# CASE 1: delete end item but not the last one
-		# final item but more than one item
-		# print("index2delete = end, idx $index2delete\n");
-		# empty end index of array
-
+		$param_flow_pink->{_index4flow} = -1;
+		
+	}
+	elsif ( $index2delete == $end && $num_items > 1 ) {    
+			# CASE 1: delete end item but not the last one
+			# final item but more than one item
+		    # print("index2delete = end, idx $index2delete\n");
+		    # empty end index of array
+		    
 		pop @{ $param_flow_pink->{_checkbuttons_aref2} };
 		pop @{ $param_flow_pink->{_names_aref2} };
 		pop @{ $param_flow_pink->{_values_aref2} };
 		pop @{ $param_flow_pink->{_prog_names_aref} };
-
+	
 		$param_flow_pink->{_num_items}--;
 		$param_flow_pink->{_num_items4flow}--;
 		$param_flow_pink->{_num_items4values}--;
 		$param_flow_pink->{_num_items4names}--;
 		$param_flow_pink->{_num_items4checkbuttons}--;
-
+			
 		$param_flow_pink->{_indices}--;
 		$param_flow_pink->{_index4values}--;
 		$param_flow_pink->{_index4names}--;
 		$param_flow_pink->{_index4checkbuttons}--;
-
+			
 		$param_flow_pink->{_index4flow}--;
 
 		# no $index_after;
-
-	} elsif ( $index2delete >= 0 && $index2delete < $end ) {
-
+	
+	}
+	elsif ( $index2delete >= 0 && $index2delete < $end ) {
 		# CASE 2: GENERAL CASE
 		#  listbox has 3 items or more
 		#  I can delete any but final
@@ -436,11 +443,14 @@ sub delete_selection {
 
 			# print("Prog names B4 delete  @{$param_flow_pink->{_prog_names_aref}}	\n");
 
-			@{ @{ $param_flow_pink->{_checkbuttons_aref2} }[$j] }
-				= @{ @{ $param_flow_pink->{_checkbuttons_aref2} }[$i] };
-			@{ @{ $param_flow_pink->{_names_aref2} }[$j] }  = @{ @{ $param_flow_pink->{_names_aref2} }[$i] };
-			@{ @{ $param_flow_pink->{_values_aref2} }[$j] } = @{ @{ $param_flow_pink->{_values_aref2} }[$i] };
-			@{ $param_flow_pink->{_prog_names_aref} }[$j]   = @{ $param_flow_pink->{_prog_names_aref} }[$i];
+			@{ @{ $param_flow_pink->{_checkbuttons_aref2} }[$j] } =
+				@{ @{ $param_flow_pink->{_checkbuttons_aref2} }[$i] };
+			@{ @{ $param_flow_pink->{_names_aref2} }[$j] } =
+				@{ @{ $param_flow_pink->{_names_aref2} }[$i] };
+			@{ @{ $param_flow_pink->{_values_aref2} }[$j] } =
+				@{ @{ $param_flow_pink->{_values_aref2} }[$i] };
+			@{ $param_flow_pink->{_prog_names_aref} }[$j] =
+				@{ $param_flow_pink->{_prog_names_aref} }[$i];
 		}
 
 		# empty end index of array
@@ -451,49 +461,48 @@ sub delete_selection {
 		pop @{ $param_flow_pink->{_prog_names_aref} };
 
 		# print("Prog names After delete @{$param_flow_pink->{_prog_names_aref}}	\n");
-
-		$param_flow_pink->{_num_items}--;
+						
+	 	$param_flow_pink->{_num_items}--;
 		$param_flow_pink->{_num_items4flow}--;
 		$param_flow_pink->{_num_items4values}--;
 		$param_flow_pink->{_num_items4names}--;
 		$param_flow_pink->{_num_items4checkbuttons}--;
-
+			
 		$param_flow_pink->{_indices}--;
 		$param_flow_pink->{_index4values}--;
 		$param_flow_pink->{_index4names}--;
 		$param_flow_pink->{_index4checkbuttons}--;
-
+			
 		$param_flow_pink->{_index4flow}--;
-
-	} elsif ( $index2delete == 0 && $num_items == 1 ) {
-
-		# CASE 3: listbox has only 1 and final item left
+		
+	}
+	elsif ( $index2delete == 0 && $num_items == 1 ) {
+		# CASE 3: listbox has only 1 and final item left	
 		# print("index2delete = 0 and num_items=1, idx $index2delete\n");
 		# empty end index of array
 		pop @{ $param_flow_pink->{_checkbuttons_aref2} };
 		pop @{ $param_flow_pink->{_names_aref2} };
 		pop @{ $param_flow_pink->{_values_aref2} };
 		pop @{ $param_flow_pink->{_prog_names_aref} };
-
-		$param_flow_pink->{_num_items}              = 0;
-		$param_flow_pink->{_num_items4flow}         = 0;
-		$param_flow_pink->{_num_items4values}       = 0;
-		$param_flow_pink->{_num_items4names}        = 0;
+		
+		$param_flow_pink->{_num_items} = 0;
+		$param_flow_pink->{_num_items4flow} = 0;
+		$param_flow_pink->{_num_items4values} = 0;
+		$param_flow_pink->{_num_items4names} = 0;
 		$param_flow_pink->{_num_items4checkbuttons} = 0;
-
-		$param_flow_pink->{_indices}            = -1;
-		$param_flow_pink->{_index4values}       = -1;
-		$param_flow_pink->{_index4names}        = -1;
+	
+		$param_flow_pink->{_indices} = -1;
+		$param_flow_pink->{_index4values} = -1;
+		$param_flow_pink->{_index4names} = -1;
 		$param_flow_pink->{_index4checkbuttons} = -1;
-
+	
 		$param_flow_pink->{_index4flow} = -1;
 
 		# no $index_after;
-
+		
 	} else {
 		print("delete_selection, param_flow_pink, unexcpeted result\n");
 	}
-
 	# print("\nAfter delete_selection, index2delete was $index2delete\n");
 	# view_data($index2delete);
 
@@ -589,8 +598,8 @@ sub get_flow_prog_names_aref {
 		my $hash->{_prog_names_aref} = $param_flow_pink->{_prog_names_aref};
 		return ( $hash->{_prog_names_aref} );
 
-	} else {
-
+	}
+	else {
 		# print("param_flow_pink, no program names exist \n");
 	}
 }
@@ -639,8 +648,8 @@ sub get_good_values_aref2 {
 	if ( $param_flow_pink->{_good_values_aref2} ) {
 		my $good_values_aref2 = $param_flow_pink->{_good_values_aref2};
 
-		#		my $ans = @{@{$param_flow_pink->{_good_values_aref2}}[0]};
-		#		print("param_flow_pink,get_good_values_aref2,good_values for index=0:$ans\n");
+#		my $ans = @{@{$param_flow_pink->{_good_values_aref2}}[0]};
+#		print("param_flow_pink,get_good_values_aref2,good_values for index=0:$ans\n");
 		return ($good_values_aref2);
 	}
 	return ();
@@ -653,22 +662,22 @@ sub get_good_values_aref2 {
 
 sub get_names_aref {
 	my ($self) = @_;
+	
 	my $index = $param_flow_pink->{_selection_index};
-
-	if ( length $index ) {
+	
+	if ( $index >= 0 ) {
 		my @names_aref;
 		my ($length);
 
 		@names_aref = @{ @{ $param_flow_pink->{_names_aref2} }[$index] };
 		$length     = scalar @names_aref;
 
-		# print(" param_flow_pink, get_names_aref:  @names_aref, index is $index\n");
+#		print(" param_flow_pink, get_names_aref:  @names_aref, index is $index\n");
 		return ( \@names_aref );
-
-	} else {
+	}
+	else {
 		print(" param_flow_pink, get_names names:index <0 \n");
 	}
-
 }
 
 =head2 sub get_num_good_labels_aref 
@@ -699,6 +708,34 @@ sub get_num_good_values_aref {
 	return ();
 }
 
+=head2 sub get_max_index
+
+  Number of programs in the flow +1
+  Should increment every time that add2flow is run
+  in a superflowstack_names_aref2
+
+=cut
+
+sub get_max_index{
+	my ($self) = @_;
+
+	if ( $param_flow_pink->{_num_items} >= 0 ) {
+		
+		my $max_index = $param_flow_pink->{_num_items} + 1;
+
+		my $result = $max_index;
+		print("param_flow_pink,get_max_index, max_index = $param_flow_pink->{_max_index} \n");
+		return ($result);
+
+	}
+	else {
+		print("param_flow_pink,get_max_index; num items <0\n");
+		return ();
+	}
+
+}
+
+
 =head2 sub get_num_items
 
   Number of programs in the flow
@@ -714,11 +751,11 @@ sub get_num_items {
 		my $num_items = $param_flow_pink->{_num_items};
 
 		my $result = $num_items;
-
-		#		print("param_flow_pink,get_num_items, num_items = $param_flow_pink->{_num_items} \n");
+#		print("param_flow_pink,get_num_items, num_items = $param_flow_pink->{_num_items} \n");
 		return ($result);
 
-	} else {
+	}
+	else {
 		print("param_flow_pink,get_num_items,- no number of items \n");
 		return ();
 	}
@@ -736,7 +773,8 @@ sub get_values_aref {
 	# print("param_flow_pink, get_values :_selection_index $param_flow_pink->{_selection_index}\n");
 
 	if ( ( $param_flow_pink->{_selection_index} >= 0 )
-		&& $param_flow_pink->{_values_aref2} ) {
+		&& $param_flow_pink->{_values_aref2} )
+	{
 
 		my $index = $param_flow_pink->{_selection_index};
 
@@ -758,7 +796,8 @@ sub get_values_aref {
 		}
 		return ( \@values_aref );
 
-	} else {
+	}
+	else {
 		print("param_flow_pink,get_values_aref :selection_index <=0  or values_aref2\n");
 		return ();
 	}
@@ -773,6 +812,7 @@ sub get_values_aref {
 
 sub insert_selection {
 	my ($self)    = @_;
+	
 	my $first     = 0;
 	my $idx2mv    = $param_flow_pink->{_index2move};
 	my $destn_idx = $param_flow_pink->{_destination_index};
@@ -791,10 +831,11 @@ sub insert_selection {
 	my ( @swap_names_aref, @swap_values_aref, @swap_checkbuttons_aref );
 	my (@swap_prog_names);
 
-	$tmp_prog_name         = @{ $param_flow_pink->{_prog_names_aref} }[$idx2mv];
-	@tmp_names_aref        = @{ @{ $param_flow_pink->{_names_aref2} }[$idx2mv] };
-	@tmp_values_aref       = @{ @{ $param_flow_pink->{_values_aref2} }[$idx2mv] };
-	@tmp_checkbuttons_aref = @{ @{ $param_flow_pink->{_checkbuttons_aref2} }[$idx2mv] };
+	$tmp_prog_name   = @{ $param_flow_pink->{_prog_names_aref} }[$idx2mv];
+	@tmp_names_aref  = @{ @{ $param_flow_pink->{_names_aref2} }[$idx2mv] };
+	@tmp_values_aref = @{ @{ $param_flow_pink->{_values_aref2} }[$idx2mv] };
+	@tmp_checkbuttons_aref =
+		@{ @{ $param_flow_pink->{_checkbuttons_aref2} }[$idx2mv] };
 
 	# print(" param_flow_pink,insert_selection,mobile prog name: $tmp_prog_name	 \n");
 	# print(" mobile names originally at index $idx2mv is @tmp_names_aref\n");
@@ -806,30 +847,43 @@ sub insert_selection {
 	if ( $idx2mv > $first ) {
 
 		for ( my $i = $first, my $j = $first; $j < $idx2mv; $i++, $j++ ) {
-			$swap_prog_names[$i]        = @{ $param_flow_pink->{_prog_names_aref} }[$j];
-			$swap_names_aref[$i]        = clone( \@{ @{ $param_flow_pink->{_names_aref2} }[$j] } );
-			$swap_values_aref[$i]       = clone( \@{ @{ $param_flow_pink->{_values_aref2} }[$j] } );
-			$swap_checkbuttons_aref[$i] = clone( \@{ @{ $param_flow_pink->{_checkbuttons_aref2} }[$j] } );
+			$swap_prog_names[$i] =
+				@{ $param_flow_pink->{_prog_names_aref} }[$j];
+			$swap_names_aref[$i] =
+				clone( \@{ @{ $param_flow_pink->{_names_aref2} }[$j] } );
+			$swap_values_aref[$i] =
+				clone( \@{ @{ $param_flow_pink->{_values_aref2} }[$j] } );
+			$swap_checkbuttons_aref[$i] =
+				clone( \@{ @{ $param_flow_pink->{_checkbuttons_aref2} }[$j] } );
 
 			# print(" 1. filling  swap vector at index $i with @{$swap_names_aref[$i]}\n");
 			# print(" 1. filling  swap vector values t index $i with @{$swap_values_aref[$i]}\n");
 			#print(" 1. filling  swap vector values t index $i with $swap_prog_names[$i]\n");
 		}
 		for ( my $i = $idx2mv, my $j = ( $idx2mv + 1 ); $j <= $end; $i++, $j++ ) {
-			$swap_prog_names[$i]        = @{ $param_flow_pink->{_prog_names_aref} }[$j];
-			$swap_names_aref[$i]        = clone( \@{ @{ $param_flow_pink->{_names_aref2} }[$j] } );
-			$swap_values_aref[$i]       = clone( \@{ @{ $param_flow_pink->{_values_aref2} }[$j] } );
-			$swap_checkbuttons_aref[$i] = clone( \@{ @{ $param_flow_pink->{_checkbuttons_aref2} }[$j] } );
+			$swap_prog_names[$i] =
+				@{ $param_flow_pink->{_prog_names_aref} }[$j];
+			$swap_names_aref[$i] =
+				clone( \@{ @{ $param_flow_pink->{_names_aref2} }[$j] } );
+			$swap_values_aref[$i] =
+				clone( \@{ @{ $param_flow_pink->{_values_aref2} }[$j] } );
+			$swap_checkbuttons_aref[$i] =
+				clone( \@{ @{ $param_flow_pink->{_checkbuttons_aref2} }[$j] } );
 
 			# print(" 2. filling  swap vector at index $i with @{$swap_names_aref[$i]}\n");
 		}
-	} else {    # assume $idx2mv=0
+	}
+	else {    # assume $idx2mv=0
 		for ( my $i = $first, my $j = ( $first + 1 ); $j <= $end; $i++, $j++ ) {    # idx2mv=0
 
-			$swap_prog_names[$i]        = @{ $param_flow_pink->{_prog_names_aref} }[$j];
-			$swap_names_aref[$i]        = clone( \@{ @{ $param_flow_pink->{_names_aref2} }[$j] } );
-			$swap_values_aref[$i]       = clone( \@{ @{ $param_flow_pink->{_values_aref2} }[$j] } );
-			$swap_checkbuttons_aref[$i] = clone( \@{ @{ $param_flow_pink->{_checkbuttons_aref2} }[$j] } );
+			$swap_prog_names[$i] =
+				@{ $param_flow_pink->{_prog_names_aref} }[$j];
+			$swap_names_aref[$i] =
+				clone( \@{ @{ $param_flow_pink->{_names_aref2} }[$j] } );
+			$swap_values_aref[$i] =
+				clone( \@{ @{ $param_flow_pink->{_values_aref2} }[$j] } );
+			$swap_checkbuttons_aref[$i] =
+				clone( \@{ @{ $param_flow_pink->{_checkbuttons_aref2} }[$j] } );
 
 			# print(" 3. filling intermediate vector at int. index $i with @{$swap_names_aref[$i]}\n");
 		}
@@ -840,39 +894,51 @@ sub insert_selection {
 	if ( $destn_idx > $first ) {    # assume $destn_idx > 0
 
 		for ( my $i = $first, my $j = $first; $i < $destn_idx; $i++, $j++ ) {
-			@{ $param_flow_pink->{_prog_names_aref} }[$i]         = $swap_prog_names[$j];
-			@{ @{ $param_flow_pink->{_names_aref2} }[$i] }        = @{ $swap_names_aref[$j] };
-			@{ @{ $param_flow_pink->{_values_aref2} }[$i] }       = @{ $swap_values_aref[$j] };
-			@{ @{ $param_flow_pink->{_checkbuttons_aref2} }[$i] } = @{ $swap_checkbuttons_aref[$j] };
+			@{ $param_flow_pink->{_prog_names_aref} }[$i] =
+				$swap_prog_names[$j];
+			@{ @{ $param_flow_pink->{_names_aref2} }[$i] } =
+				@{ $swap_names_aref[$j] };
+			@{ @{ $param_flow_pink->{_values_aref2} }[$i] } =
+				@{ $swap_values_aref[$j] };
+			@{ @{ $param_flow_pink->{_checkbuttons_aref2} }[$i] } =
+				@{ $swap_checkbuttons_aref[$j] };
 
 			# print(" 1. final vector at new index $i uses swap @{$swap_names_aref[$j]}\n");
 			# print(" 1. final vector at new index $i is @{@{$param_flow_pink->{_names_aref2}}[$i]}\n");
 		}
 
 		for ( my $i = ( $destn_idx + 1 ), my $j = $destn_idx; $i <= $end; $i++, $j++ ) {
-			@{ $param_flow_pink->{_prog_names_aref} }[$i]         = $swap_prog_names[$j];
-			@{ @{ $param_flow_pink->{_names_aref2} }[$i] }        = @{ $swap_names_aref[$j] };
-			@{ @{ $param_flow_pink->{_values_aref2} }[$i] }       = @{ $swap_values_aref[$j] };
-			@{ @{ $param_flow_pink->{_checkbuttons_aref2} }[$i] } = @{ $swap_checkbuttons_aref[$j] };
+			@{ $param_flow_pink->{_prog_names_aref} }[$i] =
+				$swap_prog_names[$j];
+			@{ @{ $param_flow_pink->{_names_aref2} }[$i] } =
+				@{ $swap_names_aref[$j] };
+			@{ @{ $param_flow_pink->{_values_aref2} }[$i] } =
+				@{ $swap_values_aref[$j] };
+			@{ @{ $param_flow_pink->{_checkbuttons_aref2} }[$i] } =
+				@{ $swap_checkbuttons_aref[$j] };
 
 			# print(" 2. final vector at new index $i with swap @{$swap_names_aref[$j]}\n");
 
 		}
-	} else {    # assume $destn_idx = 0
-				#  swap files have one less item than the original array
-				#   print(" 2A. destn_idx = $destn_idx\n");
-				# print(" 4. swap vector index=0 with @{$swap_names_aref[0]}\n");
-				# print(" 4. swap vector index=1 with @{$swap_names_aref[1]}\n");
-				# print(" 4. swap vector index=2 with @{$swap_names_aref[2]}\n\n");
+	}
+	else {    # assume $destn_idx = 0
+		      #  swap files have one less item than the original array
+		      #   print(" 2A. destn_idx = $destn_idx\n");
+		      # print(" 4. swap vector index=0 with @{$swap_names_aref[0]}\n");
+		      # print(" 4. swap vector index=1 with @{$swap_names_aref[1]}\n");
+		      # print(" 4. swap vector index=2 with @{$swap_names_aref[2]}\n\n");
 
 		for ( my $i = ( $first + 1 ), my $j = $first; $j < $end; $i++, $j++ ) {
 			my @swp_nam_tr = @{ $swap_names_aref[$j] };
 
 			# print(" 4. swap vector at swap index j=$j has value of @swp_nam_tr \n");
-			@{ $param_flow_pink->{_prog_names_aref} }[$i]         = $swap_prog_names[$j];
-			@{ @{ $param_flow_pink->{_names_aref2} }[$i] }        = @swp_nam_tr;
-			@{ @{ $param_flow_pink->{_values_aref2} }[$i] }       = @{ $swap_values_aref[$j] };
-			@{ @{ $param_flow_pink->{_checkbuttons_aref2} }[$i] } = @{ $swap_checkbuttons_aref[$j] };
+			@{ $param_flow_pink->{_prog_names_aref} }[$i] =
+				$swap_prog_names[$j];
+			@{ @{ $param_flow_pink->{_names_aref2} }[$i] } = @swp_nam_tr;
+			@{ @{ $param_flow_pink->{_values_aref2} }[$i] } =
+				@{ $swap_values_aref[$j] };
+			@{ @{ $param_flow_pink->{_checkbuttons_aref2} }[$i] } =
+				@{ $swap_checkbuttons_aref[$j] };
 
 			#print(" 3. swap vector at index $j, @{$swap_names_aref[$j]}  names final vector at new index $i \n");
 			#print(" 3. swap vector at index $j, @{$swap_values_aref[$j]}  values final vector at new index $i \n");
@@ -881,10 +947,11 @@ sub insert_selection {
 	}
 
 	#STEP 4 insert the mobile item
-	@{ $param_flow_pink->{_prog_names_aref} }[$destn_idx]         = $tmp_prog_name;
-	@{ @{ $param_flow_pink->{_names_aref2} }[$destn_idx] }        = @tmp_names_aref;
-	@{ @{ $param_flow_pink->{_values_aref2} }[$destn_idx] }       = @tmp_values_aref;
-	@{ @{ $param_flow_pink->{_checkbuttons_aref2} }[$destn_idx] } = @tmp_checkbuttons_aref;
+	@{ $param_flow_pink->{_prog_names_aref} }[$destn_idx]   = $tmp_prog_name;
+	@{ @{ $param_flow_pink->{_names_aref2} }[$destn_idx] }  = @tmp_names_aref;
+	@{ @{ $param_flow_pink->{_values_aref2} }[$destn_idx] } = @tmp_values_aref;
+	@{ @{ $param_flow_pink->{_checkbuttons_aref2} }[$destn_idx] } =
+		@tmp_checkbuttons_aref;
 
 	# print(" 4. final vector at new index $destn_idx with temp vector @tmp_names_aref\n");
 
@@ -920,7 +987,8 @@ sub length {
 		# print("param_flow_pink, length, num values: $length\n");
 		#  						print("param_flow_pink, index: $index\n");
 		return ($length);
-	} else {
+	}
+	else {
 		print("param_flow_pink,length,  index=$index does not exist\n");
 		print("param_flow_pink, length, length can not be calculated\n");
 		return ();
@@ -1027,36 +1095,32 @@ sub set_insert_end {
 sub set_flow_index {
 	my ( $self, $index ) = @_;
 
-	if ( defined $index  ) {
+	# print("param_flow_pink, set_flow_index,index, $index\n");
+	if (  CORE::length($index)  ) {
 
-		# print("param_flow_pink, set_flow_index,index, $index\n");
-		if ( CORE::length($index) ) {
+		if ( $index ne $empty_string && $index >= 0 ) {
 
-			if ( $index >= 0 ) {
-
-				$param_flow_pink->{_selection_index} = $index;
-
-			} else {
-				# print(
-				# "param_flow_pink, set_flow_index,unexpected index, index:$index NADA\n"
-				# );
-			}
-			
-		} elsif ( $index < 0 ) {
-
-			# assume flow index selected = 0 . Should not be a problem because we assume that any and
-			# all parameters values are changed when ANY flow item is selected
-			$index = 0;
 			$param_flow_pink->{_selection_index} = $index;
 
-			print("param_flow_pink, set_flow_index,index does not exist, index:$index\n");
-
-		} else {
-			print("param_flow_pink, set_flow_index,unexpected index value\n");
 		}
-		
-	} else {
-		print("param_flow_pink, set_flow_index, missing index= $index\n");
+		else {
+			# print(
+			# "param_flow_pink, set_flow_index,unexpected index, index:$index NADA\n"
+			# );
+		}
+	}
+	elsif ( $index ne $empty_string && $index < 0 ) {
+
+		# assume flow index selected = 0 . Should not be a problem because we assume that any and
+		# all parameters values are changed when ANY flow item is selected
+		$index = 0;
+		$param_flow_pink->{_selection_index} = $index;
+
+		print("param_flow_pink, set_flow_index,index does not exist, index:$index\n");
+
+	}
+	else {
+		print("param_flow_pink, set_flow_index,unexpected index value\n");
 	}
 
 	return ();
@@ -1217,7 +1281,8 @@ sub set_good_values4item {
 
 			$good[$j] = $value;
 			$j++;
-		} else {
+		}
+		else {
 			print("param_flow_pink,set_good_values4item, a bad value detected\n");
 
 		}
@@ -1265,8 +1330,8 @@ sub set_values_aref {
 				print("param_flow_pink, set_values :index $j values: $values[$j]\n");
 			}
 		}
-	} else {
-
+	}
+	else {
 		# print("param_flow_pink, set_values_aref: selection index < 0 NADA\n");
 	}
 
@@ -1378,7 +1443,8 @@ sub stack_names_aref2 {
 		#  	print("param_flow_pink,stack_names_aref2, an accumulating array of arrays: @{@{$param_flow_pink->{_names_aref2}}[$i]} item $i\n");
 		# }
 
-	} else {
+	}
+	else {
 		print("param_flow_pink,stack_names_aref2 missing names_aref \n");
 	}
 	return ();
@@ -1420,7 +1486,8 @@ sub stack_values_aref2 {
 		#     		print("param_flow_pink,stack_values_aref2, an accumulating array of arrays: @{$param_flow_pink->{_values_aref2}} item $i\n");
 		#  		}
 
-	} else {
+	}
+	else {
 		print("param_flow_pink,stack_values_aref2 missing values_aref \n");
 	}
 	return ();
@@ -1455,7 +1522,7 @@ sub view_data {
 	$num_progs[2] = scalar( @{ $param_flow_pink->{_prog_names_aref} } );
 
 	# print("\n param_flow_pink,view_data, _prog_names @{$param_flow_pink->{_prog_names_aref}}\n");
-	# print("\nparam_flow_pink,view_data:number of items in list in 4-5 different ways  @num_progs \n");
+   # print("\nparam_flow_pink,view_data:number of items in list in 4-5 different ways  @num_progs \n");
 
 	# print("param_flow_pink,view_data:max index = $indices  \n\n");
 
@@ -1469,7 +1536,7 @@ sub view_data {
 		#     print("param_flow_pink,view_data: checkbuttons: @{@{$param_flow_pink->{_checkbuttons_aref2}}[$i]}\n\n");
 	}
 	print("\n");
-
+	
 }
 
 1;
