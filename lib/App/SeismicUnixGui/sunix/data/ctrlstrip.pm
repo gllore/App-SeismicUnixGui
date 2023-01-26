@@ -138,8 +138,8 @@ by adding the program name
 #	if ( $opt ne $empty_string ) {
 #
 #		$ctrlstrip->{_opt}		= $opt;
-#		$ctrlstrip->{_note}		= $ctrlstrip->{_note}.' opt='.$ctrlstrip->{_opt};
-#		$ctrlstrip->{_Step}		= $ctrlstrip->{_Step}.' opt='.$ctrlstrip->{_opt};
+#		$ctrlstrip->{_note}		= $ctrlstrip->{_note}.' '.$ctrlstrip->{_opt};
+#		$ctrlstrip->{_Step}		= $ctrlstrip->{_Step}.' '.$ctrlstrip->{_opt};
 #
 #	} else { 
 #		print("ctrlstrip, opt, missing opt,\n");

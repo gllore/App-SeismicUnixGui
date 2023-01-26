@@ -155,15 +155,15 @@ by adding the program name
  sub opt {
 
 	my ( $self,$opt )		= @_;
-	if ( $opt ne $empty_string ) {
-
-		$wtuncomp->{_opt}		= $opt;
-		$wtuncomp->{_note}		= $wtuncomp->{_note}.' opt='.$wtuncomp->{_opt};
-		$wtuncomp->{_Step}		= $wtuncomp->{_Step}.' opt='.$wtuncomp->{_opt};
-
-	} else { 
-		print("wtuncomp, opt, missing opt,\n");
-	 }
+#	if ( $opt ne $empty_string ) {
+#
+#		$wtuncomp->{_opt}		= $opt;
+#		$wtuncomp->{_note}		= $wtuncomp->{_note}.' opt='.$wtuncomp->{_opt};
+#		$wtuncomp->{_Step}		= $wtuncomp->{_Step}.' opt='.$wtuncomp->{_opt};
+#
+#	} else { 
+#		print("wtuncomp, opt, missing opt,\n");
+#	 }
  }
 
 

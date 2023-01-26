@@ -1,5 +1,12 @@
-/home/gllore/LRTF/seismics/pl/Huntsville//120822/H/1/gllore/aa
-/home/gllore/LRTF/seismics/pl/Huntsville//120822/H/1/gllore/1.segy2su.pl
-/home/gllore/LRTF/seismics/pl/Huntsville//120822/H/1/gllore/3.sumax.pl
-/home/gllore/LRTF/seismics/pl/Huntsville//120822/H/1/gllore/2.view_segy2su.pl
-/home/gllore/LRTF/seismics/pl/Huntsville//120822/H/1/gllore/aaaa
+/home/gllore/granular_studies//seismics/pl/specfem2d/salt_model/012623/HZ/1/gllore/2B.view_data.pl
+/home/gllore/granular_studies//seismics/data/specfem2d/salt_model/012623/HZ/1/su/gllore/Ux_file_single.su
+/home/gllore/granular_studies//seismics/pl/specfem2d/salt_model/012623/HZ/1/gllore/1.suoldtonew.pl
+/home/gllore/granular_studies//seismics/data/specfem2d/salt_model/012623/HZ/1/su/gllore/Ux_file_single_new_model2.su
+/home/gllore/granular_studies//seismics/data/specfem2d/salt_model/012623/HZ/1/su/gllore/Ux_file_single_new.su
+/home/gllore/LRTF/seismics/pl/Huntsville//120822/H/1/gllore/5B.viewAll_diff_flip_out4mmodpg.pl
+/home/gllore/LRTF/seismics/data/Huntsville//120822/H/1/su/gllore/immodpg_model2.su
+/home/gllore/LRTF/seismics/pl/Huntsville//120822/H/1/gllore/5A.All_diff_flip_out4mmodpg.pl
+/home/gllore/LRTF/seismics/pl/Huntsville//120822/H/1/gllore/5A.view_All_diff_flip4mmodpg.pl
+/home/gllore/LRTF/seismics/data/Huntsville//120822/H/1/su/gllore/All_diff_flip_geom.su
+/home/gllore/LRTF/seismics/pl/Huntsville//120822/H/1/gllore/5A.view_All_diff_flip_4mmodpg.pl
+/home/gllore/LRTF/seismics/pl/Huntsville//120822/H/1/gllore/7.view_All_diff_flip_geom_supef.pl

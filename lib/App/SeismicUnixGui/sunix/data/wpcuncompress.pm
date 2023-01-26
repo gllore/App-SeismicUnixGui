@@ -163,15 +163,15 @@ by adding the program name
  sub opt {
 
 	my ( $self,$opt )		= @_;
-	if ( $opt ne $empty_string ) {
-
-		$wpcuncompress->{_opt}		= $opt;
-		$wpcuncompress->{_note}		= $wpcuncompress->{_note}.' opt='.$wpcuncompress->{_opt};
-		$wpcuncompress->{_Step}		= $wpcuncompress->{_Step}.' opt='.$wpcuncompress->{_opt};
-
-	} else { 
-		print("wpcuncompress, opt, missing opt,\n");
-	 }
+#	if ( $opt ne $empty_string ) {
+#
+#		$wpcuncompress->{_opt}		= $opt;
+#		$wpcuncompress->{_note}		= $wpcuncompress->{_note}.' opt='.$wpcuncompress->{_opt};
+#		$wpcuncompress->{_Step}		= $wpcuncompress->{_Step}.' opt='.$wpcuncompress->{_opt};
+#
+#	} else { 
+#		print("wpcuncompress, opt, missing opt,\n");
+#	 }
  }
 
 

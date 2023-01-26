@@ -3563,9 +3563,9 @@ for first time but no listboxes have been occupied previously
 				&& ( $click_count < $min_clicks4save_button ) )
 			{
 
-				print(
-"5. color_flow, save_button, memory fix, count=$click_count\n"
-				);
+#				print(
+#"5. color_flow, save_button, memory fix, count=$click_count\n"
+#				);
 
 				# CASE 1
 				# of last color=pink also

@@ -43,7 +43,7 @@ package App::SeismicUnixGui::misc::file_dialog;
 use Moose;
 our $VERSION = '0.0.4';
 
-use Tk;
+use Tk::JFileDialog;
 
 use aliased 'App::SeismicUnixGui::misc::L_SU_global_constants';
 use aliased 'App::SeismicUnixGui::misc::iFile';
@@ -141,9 +141,6 @@ my $user_built_flow_open_data_parameter_value_index;
 sub _FileDialog {
 
 	my ($self) = @_;
-
-	use Tk::JFileDialog;
-
 	my $my_title =
 	  _get_dialog_type();    # e.g., 'SaveAs' or 'Save', 'Open' or 'Delete'
 	my $FileDialog_path = _get_path();    # e.g., $PL or $DATA_SEISMIC_SU

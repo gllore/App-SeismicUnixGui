@@ -128,16 +128,16 @@ sub clear {
 sub opt {
 
 	my ( $self, $opt ) = @_;
-	if ( $opt ne $empty_string ) {
-
-		$lprop->{_opt}  = $opt;
-		$lprop->{_note} = $lprop->{_note} . ' opt=' . $lprop->{_opt};
-		$lprop->{_Step} = $lprop->{_Step} . ' opt=' . $lprop->{_opt};
-
-	}
-	else {
-		print("lprop, opt, missing opt,\n");
-	}
+#	if ( $opt ne $empty_string ) {
+#
+#		$lprop->{_opt}  = $opt;
+#		$lprop->{_note} = $lprop->{_note} . ' opt=' . $lprop->{_opt};
+#		$lprop->{_Step} = $lprop->{_Step} . ' opt=' . $lprop->{_opt};
+#
+#	}
+#	else {
+#		print("lprop, opt, missing opt,\n");
+#	}
 }
 
 =head2 sub get_max_index
