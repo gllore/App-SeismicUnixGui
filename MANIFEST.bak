@@ -58,6 +58,7 @@ archive/suhistogram_spec_bck.pm
 archive/SuLoadHeaders_config.pl
 archive/sunmo_old.pl
 archive/sunmo_temp.pm
+archive/surms.pm
 archive/System_Variables_config.pl
 archive/System_VariablesTk_config.pl
 archive/unix_backup/cat.pm
@@ -1229,6 +1230,7 @@ lib/App/SeismicUnixGui/script/iSA
 lib/App/SeismicUnixGui/script/iSpectralAnalysis
 lib/App/SeismicUnixGui/script/iTopMute
 lib/App/SeismicUnixGui/script/iVA
+lib/App/SeismicUnixGui/script/junk
 lib/App/SeismicUnixGui/script/L_SU_project_selector.pl
 lib/App/SeismicUnixGui/script/L_SUV0.80.6.pl
 lib/App/SeismicUnixGui/script/L_SUV0.80.7.pl
@@ -1240,7 +1242,10 @@ lib/App/SeismicUnixGui/script/LICENSE
 lib/App/SeismicUnixGui/script/post_install_c_compile.pl
 lib/App/SeismicUnixGui/script/post_install_env.pl
 lib/App/SeismicUnixGui/script/post_install_fortran_compile.pl
+lib/App/SeismicUnixGui/script/post_install_scripts.sh
+lib/App/SeismicUnixGui/script/post_installation_scripts.sh
 lib/App/SeismicUnixGui/script/Project
+lib/App/SeismicUnixGui/script/run_post_installation_scripts.sh
 lib/App/SeismicUnixGui/script/SeismicUnixGui
 lib/App/SeismicUnixGui/script/set_env_variables.sh
 lib/App/SeismicUnixGui/script/SetProject
@@ -1248,6 +1253,9 @@ lib/App/SeismicUnixGui/script/Sseg2su
 lib/App/SeismicUnixGui/script/Sucat
 lib/App/SeismicUnixGui/script/Sudipfilt
 lib/App/SeismicUnixGui/script/Synseis
+lib/App/SeismicUnixGui/script/test.pl
+lib/App/SeismicUnixGui/script/test_ppm.pl
+lib/App/SeismicUnixGui/script/waveform
 lib/App/SeismicUnixGui/script/xk
 lib/App/SeismicUnixGui/specs/big_streams/iBottomMute_spec.pm
 lib/App/SeismicUnixGui/specs/big_streams/immodpg_spec.pm
@@ -1796,6 +1804,7 @@ lib/App/SeismicUnixGui/sunix/shapeNcut/suflip.pm
 lib/App/SeismicUnixGui/sunix/shapeNcut/sugain.pm
 lib/App/SeismicUnixGui/sunix/shapeNcut/sugprfb.pm
 lib/App/SeismicUnixGui/sunix/shapeNcut/sukill.pm
+lib/App/SeismicUnixGui/sunix/shapeNcut/sukill_old.pm
 lib/App/SeismicUnixGui/sunix/shapeNcut/sumute.pm
 lib/App/SeismicUnixGui/sunix/shapeNcut/supad.pm
 lib/App/SeismicUnixGui/sunix/shapeNcut/suresamp.pm

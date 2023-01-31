@@ -10,6 +10,10 @@ WriteMakefile(
 	VERSION_FROM  => 'lib/App/SeismicUnixGui.pm',
 	ABSTRACT_FROM => 'lib/App/SeismicUnixGui.pm',
 	LICENSE       => 'perl',
+        EXE_FILES     => [qw( 
+		./lib/App/SeismicUnixGui/script/post_install_scripts.sh
+		./lib/App/SeismicUnixGui/script/post_install_c_compile.pl
+		./lib/App/SeismicUnixGui/script/post_install_fortran_compile.pl)],
 	PREREQ_PM     => {
 		
 		'Moose'           => '2.2015',
@@ -37,11 +41,12 @@ WriteMakefile(
 	},
 
 	# required scripts
-	PL_FILES => {
-		'./lib/App/SeismicUnixGui/script/post_install_c_compile.pl' => 'SeismicUnixGui',
-		'./lib/App/SeismicUnixGui/script/post_install_fortran_compile.pl' => 'SeismicUnixGui',
-		'./lib/App/SeismicUnixGui/script/post_install_env.pl' => 'SeismicUnixGui',
-	},
+#	PL_FILES => {
+#	},
+
+#    PPM_INSTALL_EXEC => 'perl',
+  
+#	PPM_INSTALL_SCRIPT => './lib/App/SeismicUnixGui/script/ppm_test.pl',
 
 	# Documentation accessible within the GUI with Mouse-button-3 click
 	# So man files are not used currently

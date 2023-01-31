@@ -244,7 +244,7 @@ key header words.
 An example:
 
 Data consists of a single CDP gather, digitized in iTopMute as a function
-of tracr (x-corrdinate)
+of tracr (x-co-ordinate)
 
 The parameter values in sumute are:
 gather_type=cdp
@@ -545,7 +545,7 @@ with multi_gather_su_file
 		my ( $time_picks_aref2, $x_picks_aref2, $first_name, $second_name );
 
 =head2 Set up
-			#
+			
 	susplit parameter values
 
 =cut

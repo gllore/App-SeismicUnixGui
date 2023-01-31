@@ -367,10 +367,10 @@ sub suffix_aref {
 	my @index      = @$index_aref;
 
 	# first label 1 in GUI is input file1 and needs a home directory
-	$suffix[ $index[0] ] = "." . '$suffix_su';
+	$suffix[ $index[0] ] = "" . '$suffix_su';
 
 	# label 2 in GUI is input file2 and needs a home directory
-	$suffix[ $index[1] ] = "." . '$suffix_su';
+	$suffix[ $index[1] ] = "" . '$suffix_su';
 
 	$suop2_spec->{_suffix_aref} = \@suffix;
 	return ();
