@@ -1393,18 +1393,18 @@ sub x1end {
 
 =head2 sub x_label 
 
-  label on axis 1
+  label on axis 2
 
 =cut
 
 sub x_label {
 
-	my ( $self, $label1 ) = @_;
-	if ( $label1 ne $empty_string ) {
+	my ( $self, $label2 ) = @_;
+	if ( $label2 ne $empty_string ) {
 
-		$xgraph->{_label1} = $label1;
-		$xgraph->{_note}   = $xgraph->{_note} . ' label1=' . $xgraph->{_label1};
-		$xgraph->{_Step}   = $xgraph->{_Step} . ' label1=' . $xgraph->{_label1};
+		$xgraph->{_label1} = $label2;
+		$xgraph->{_note}   = $xgraph->{_note} . ' label2=' . $xgraph->{_label2};
+		$xgraph->{_Step}   = $xgraph->{_Step} . ' label2=' . $xgraph->{_label2};
 
 	}
 	else {
@@ -1498,18 +1498,18 @@ sub x2end {
 
 =head2 sub y_label 
 
- label on axis 2
+ label on axis 1
 
 =cut
 
 sub y_label {
 
-	my ( $self, $label2 ) = @_;
-	if ( $label2 ne $empty_string ) {
+	my ( $self, $label1 ) = @_;
+	if ( $label1 ne $empty_string ) {
 
-		$xgraph->{_label2} = $label2;
-		$xgraph->{_note}   = $xgraph->{_note} . ' label2=' . $xgraph->{_label2};
-		$xgraph->{_Step}   = $xgraph->{_Step} . ' label2=' . $xgraph->{_label2};
+		$xgraph->{_label1} = $label1;
+		$xgraph->{_note}   = $xgraph->{_note} . ' label1=' . $xgraph->{_label1};
+		$xgraph->{_Step}   = $xgraph->{_Step} . ' label1=' . $xgraph->{_label1};
 
 	}
 	else {

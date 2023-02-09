@@ -588,6 +588,7 @@ sub velocity_file_bin {
 	if ( $vfile ne $empty_string ) {
 
 		my $data_suffix_in = $specs->{_data_suffix_in};
+		print("velocity_file_bin, mad it sufdmod1\n");
 
 		if ( $vfile =~ /$data_suffix_in/ ) {    # check extension '.bin'
 

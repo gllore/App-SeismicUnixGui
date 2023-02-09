@@ -4,7 +4,7 @@
 
 =head2 SYNOPSIS 
 
- PERL PROGRAM NAME: L_SUV0.81.3.pl 
+ PERL PROGRAM NAME: L_SUV0.82.0.pl 
  AUTHOR: 	Juan Lorenzo
  DATE: 		June 22 2017 
 
@@ -74,7 +74,7 @@
 =cut 
 
 use Moose;
-our $VERSION = '0.80.7';
+our $VERSION = '0.81.4';
 
 extends 'App::SeismicUnixGui::misc::gui_history'=> { -version => 0.0.2 };
 use aliased 'App::SeismicUnixGui::misc::gui_history';
@@ -635,22 +635,15 @@ print join("\n", $top_menu_bar->bind($class) ), "\n";
 
 #	( $main_href->{_file_menubutton} )->separator;
 	my @File_option;
-#	$File_option[0] = $file_dialog_type->{_Data};
-	$File_option[0] = $file_dialog_type->{_Flow};
+
+	$File_option[0] = $file_dialog_type->{_Open};
 	$File_option[1] = $file_dialog_type->{_SaveAs};
+	$File_option[2] = $file_dialog_type->{_Delete};
 
-#	$main_href->{_Data_menubutton} = ( $main_href->{_file_menubutton} )->command(
-#		-label     => @$alias_FileDialog_button_label[0],
-#		-underline => 0,
-#		-state     => 'disabled',
-#		-command   => [ \&_L_SU, 'FileDialog_button', \$File_option[0] ],
-#		-font      => $arial_16
-#	);
-
-	# Flow is the only button enabled from the start
+	# Open is the only button enabled from the start
 	# Its purpose is to open a user-built perl flow
 	( $main_href->{_file_menubutton} )->separator;
-	$main_href->{_Flow_menubutton} = ( $main_href->{_file_menubutton} )->command(
+	$main_href->{_Open_menubutton} = ( $main_href->{_file_menubutton} )->command(
 		-label     => @$alias_FileDialog_button_label[0],
 		-underline => 0,
 		-command   => [ \&_L_SU, 'FileDialog_button', \$File_option[0] ],
@@ -661,8 +654,15 @@ print join("\n", $top_menu_bar->bind($class) ), "\n";
 	$main_href->{_SaveAs_menubutton} = ( $main_href->{_file_menubutton} )->command(
 		-label     => @$alias_FileDialog_button_label[1],
 		-underline => 0,
-		-state     => 'disabled',
 		-command   => [ \&_L_SU, 'FileDialog_button', \$File_option[1] ],
+		-font      => $arial_16
+	);
+
+	( $main_href->{_file_menubutton} )->separator;
+	$main_href->{_Delete_menubutton} = ( $main_href->{_file_menubutton} )->command(
+		-label     => @$alias_FileDialog_button_label[2],
+		-underline => 0,
+		-command   => [ \&_L_SU, 'FileDialog_button', \$File_option[2] ],
 		-font      => $arial_16
 	);
 
@@ -2168,7 +2168,7 @@ color='neutral'
 	sub _L_SU_sunix_bindings {
 		my ( $self, $method, $color, $prog_group ) = @_;
 
-#		print("1 main,_L_SU_sunix_bindings,method,color,prog_group: $method,$color,$prog_group \n");
+		# print("1 main,_L_SU_sunix_bindings,method,color,prog_group: $method,$color,$prog_group \n");
 		if ( $method && $color && $prog_group ) {
 
 			_set_prog_group($prog_group);
@@ -2319,20 +2319,17 @@ Invoke a method in L_SU from a button click
 in L_SU
 	-save_button
 	-run_button
-	-FileDialog_button with one of 2
-	possible values: 'Flow', 'SaveAs'
-	possible values: 'Open', 'SaveAs'	
+	-FileDialog_button with one of 3
+	possible values: 'Open', 'SaveAs'
+	possible values: 'Delete'	
 	
 	-help_menubutton with possible value:
-	
-	About
+	 About
 
 =cut
 
 	sub _L_SU {
 		my ( $set_method, $value ) = @_;
-
-#	 
 
 		if ( $set_method && $value ) {
 
@@ -2349,6 +2346,7 @@ in L_SU
 
 				$gui_history->set_help_menubutton_type($name);
 #				print("1. main,_L_SU,method:$set_method, ref scalar value:$$value\n");
+
 			} else {
 				# print("2 main,_L_SU,method:$set_method, deref scalar value:$$value NADA\n");
 			}
@@ -2431,6 +2429,7 @@ Select pre-built streams or Tools
 
 			# print(" main,_L_SU _superflows, button=$button, print gui_history.txt\n");
 			# $gui_history->view();
+			
 		} else {
 			print("main,_L_SU_superflows,no method: $set_method error 1,\n");
 		}

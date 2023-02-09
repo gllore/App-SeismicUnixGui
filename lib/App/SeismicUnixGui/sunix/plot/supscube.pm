@@ -25,7 +25,7 @@ Version:
 
 
 
- supscube <stdin [optional parameters] | ...				
+ supscube <stdin [optional parameters] > 				
 
 
 
@@ -136,7 +136,9 @@ Version:
 
 
 =head2 User's notes (Juan Lorenzo)
+
 untested
+VERSION = '0.0.2';  2.9.23 only redirect out is allowed
 
 =cut
 
@@ -146,7 +148,7 @@ untested
 =cut
 
 use Moose;
-our $VERSION = '0.0.1';
+our $VERSION = '0.0.2';
 
 
 =head2 Import packages

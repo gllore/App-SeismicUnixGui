@@ -299,9 +299,9 @@ sub showwiener {
     if ($showwiener) {
         $supef->{_showwiener} = $showwiener;
         $supef->{_note} =
-          $supef->{_note} . ' wienerout=' . $supef->{_showwiener};
+          $supef->{_note} . ' showwiener=' . $supef->{_showwiener};
         $supef->{_Step} =
-          $supef->{_Step} . ' wienerout=' . $supef->{_showwiener};
+          $supef->{_Step} . ' showwiener=' . $supef->{_showwiener};
     }
 }
 
@@ -361,21 +361,6 @@ sub ntout {
     }
 }
 
-=head2 sub showwiener 
-
-
-=cut
-
-sub showwiener {
-    my ( $self, $showwiener ) = @_;
-    if ($showwiener) {
-        $supef->{_showwiener} = $showwiener;
-        $supef->{_note} =
-          $supef->{_note} . ' showwiener=' . $supef->{_showwiener};
-        $supef->{_Step} =
-          $supef->{_Step} . ' showwiener=' . $supef->{_showwiener};
-    }
-}
 
 =head2 sub get_max_index
  

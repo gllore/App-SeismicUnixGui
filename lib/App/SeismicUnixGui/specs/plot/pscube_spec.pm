@@ -3,7 +3,7 @@ use Moose;
 our $VERSION = '0.0.1';
 
 use aliased 'App::SeismicUnixGui::configs::big_streams::Project_config';
-use App::SeismicUnixGui::misc::SeismicUnix qw($bin $su $suffix_bin $suffix_su $suffix_txt $txt);
+use App::SeismicUnixGui::misc::SeismicUnix qw($bin $ps $su $suffix_bin $suffix_ps $suffix_su $suffix_txt $txt);
 use aliased 'App::SeismicUnixGui::misc::L_SU_global_constants';
 use aliased 'App::SeismicUnixGui::sunix::plot::pscube';
 my $get     = L_SU_global_constants->new();
@@ -19,6 +19,7 @@ my $file_dialog_type = $get->file_dialog_type_href();
 my $flow_type        = $get->flow_type_href();
 
 my $DATA_SEISMIC_BIN = $Project->DATA_SEISMIC_BIN();
+my $PS_SEISMIC       = $Project->PS_SEISMIC();
 my $DATA_SEISMIC_SU  = $Project->DATA_SEISMIC_SU();     # output data directory
 my $DATA_SEISMIC_TXT = $Project->DATA_SEISMIC_TXT();    # output data directory
 my $PL_SEISMIC       = $Project->PL_SEISMIC();
@@ -27,18 +28,18 @@ my $max_index        = 74;
 my $pscube_spec = {
 	_CONFIG                => $PL_SEISMIC,
 	_DATA_DIR_IN           => $DATA_SEISMIC_BIN,
-	_DATA_DIR_OUT          => $DATA_SEISMIC_SU,
+	_DATA_DIR_OUT          => $PS_SEISMIC,
 	_binding_index_aref    => '',
-	_suffix_type_in        => $su,
-	_data_suffix_in        => $suffix_su,
-	_suffix_type_out       => $su,
-	_data_suffix_out       => $suffix_su,
+	_suffix_type_in        => $bin,
+	_data_suffix_in        => $suffix_bin,
+	_suffix_type_out       => $ps,
+	_data_suffix_out       => $suffix_ps,
 	_file_dialog_type_aref => '',
 	_flow_type_aref        => '',
 	_has_infile            => $true,
 	_has_outpar            => $false,
 	_has_pipe_in           => $true,
-	_has_pipe_out          => $true,
+	_has_pipe_out          => $false,
 	_has_redirect_in       => $true,
 	_has_redirect_out      => $true,
 	_has_subin_in          => $false,
@@ -46,7 +47,7 @@ my $pscube_spec = {
 	_is_data               => $false,
 	_is_first_of_2         => $true,
 	_is_first_of_3or_more  => $true,
-	_is_first_of_4or_more  => $true,
+	_is_first_of_4or_more  => $false,
 	_is_last_of_2          => $false,
 	_is_last_of_3or_more   => $false,
 	_is_last_of_4or_more   => $false,

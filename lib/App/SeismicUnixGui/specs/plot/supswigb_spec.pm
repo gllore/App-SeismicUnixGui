@@ -3,13 +3,11 @@ use Moose;
 our $VERSION = '0.0.1';
 
 use aliased 'App::SeismicUnixGui::configs::big_streams::Project_config';
-use App::SeismicUnixGui::misc::SeismicUnix qw($su $suffix_su);
+use App::SeismicUnixGui::misc::SeismicUnix qw($su $suffix_su $ps $suffix_ps);
 use aliased 'App::SeismicUnixGui::misc::L_SU_global_constants';
-use aliased 'App::SeismicUnixGui::sunix::plot::supswigb';
 
 my $get      = L_SU_global_constants->new();
 my $Project  = Project_config->new();
-my $supswigb = supswigb->new();
 
 my $var = $get->var();
 
@@ -19,39 +17,43 @@ my $false            = $var->{_false};
 my $file_dialog_type = $get->file_dialog_type_href();
 my $flow_type        = $get->flow_type_href();
 
-my $DATA_SEISMIC_SU = $Project->DATA_SEISMIC_SU();    # output data directory
+my $PS_SEISMIC        = $Project->PS_SEISMIC();    # output data directory
+my $DATA_SEISMIC_SU   = $Project->DATA_SEISMIC_SU();    # output data directory
 my $PL_SEISMIC        = $Project->PL_SEISMIC();
-my $max_index       = $supswigb->get_max_index();
+my $max_index         = 61;
 
 my $supswigb_spec = {
-    _CONFIG	 				=> $PL_SEISMIC,
+    _CONFIG	 			   => $PL_SEISMIC,
     _DATA_DIR_IN           => $DATA_SEISMIC_SU,
-	_DATA_DIR_OUT          => $DATA_SEISMIC_SU,
+	_DATA_DIR_OUT          => $PS_SEISMIC,
 	_binding_index_aref    => '',
 	_suffix_type_in        => $su,
 	_data_suffix_in        => $suffix_su,
-	_suffix_type_out       => $su,
-	_data_suffix_out       => $suffix_su,
+	_suffix_type_out       => $ps,
+	_data_suffix_out       => $suffix_ps,
+	_good_labels_aref      => '',            # new
 	_file_dialog_type_aref => '',
 	_flow_type_aref        => '',
 	_has_infile            => $true,
-    _has_outpar          => $false,
+    _has_outpar            => $false,
 	_has_pipe_in           => $true,
-	_has_pipe_out          => $true,
+	_has_pipe_out          => $false,
 	_has_redirect_in       => $true,
 	_has_redirect_out      => $true,
 	_has_subin_in          => $false,
 	_has_subin_out         => $false,
 	_is_data               => $false,
-	_is_first_of_2         => $false,
-	_is_first_of_3or_more  => $false,
+	_is_first_of_2         => $true,
+	_is_first_of_3or_more  => $true,
 	_is_first_of_4or_more  => $false,
-	_is_last_of_2          => $true,
-	_is_last_of_3or_more   => $true,
-	_is_last_of_4or_more   => $true,
+	_is_last_of_2          => $false,
+	_is_last_of_3or_more   => $false,
+	_is_last_of_4or_more   => $false,
 	_is_suprog             => $true,
 	_is_superflow          => $false,
 	_max_index             => $max_index,
+	_prefix_aref           => '',
+	_suffix_aref           => '',
 };
 
 =head2  sub binding_index_aref

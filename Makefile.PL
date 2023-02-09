@@ -44,7 +44,7 @@ WriteMakefile(
 #	PL_FILES => {
 #	},
 
-#    PPM_INSTALL_EXEC => 'perl',
+#   PPM_INSTALL_EXEC => 'perl',
   
 #	PPM_INSTALL_SCRIPT => './lib/App/SeismicUnixGui/script/ppm_test.pl',
 

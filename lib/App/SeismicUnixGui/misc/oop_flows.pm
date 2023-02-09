@@ -59,11 +59,11 @@ sub get_section {
 		  )
 		{
 
-			# print(" oop_flows,get_section,symbols are @symbol \n");
-			# print("oop_flows,get_section,prog_name=$prog_name[$prog_idx]\n");
-			# print("oop_flows,get_section,num_progs4flow=$num_progs4flow\n");
-			# print("oop_flows,get_section,version=$version[$prog_idx]\n");
-			# print("oop_flows,get_section,symbol=$symbol[$prog_idx]\n");
+		   #			print(" oop_flows,get_section,symbols are @symbol \n");
+		   #			print("oop_flows,get_section,prog_name=$prog_name[$prog_idx]\n");
+		   #			print("oop_flows,get_section,num_progs4flow=$num_progs4flow\n");
+		   #			print("oop_flows,get_section,version=$version[$prog_idx]\n");
+		   #			print("oop_flows,get_section,symbol=$symbol[$prog_idx]\n");
 
 			$lines[$j] =
 				"\t\t  " . '$'
@@ -198,34 +198,41 @@ sub set_prog_version_aref {
 sub set_specs {
 	my ($self) = @_;
 
-	#    use Module::Refresh; # reload updated module
+	#   use Module::Refresh; # reload updated module
 	#	my $refresher = Module::Refresh->new;
 
 	my ( @specs, @prog, @symbols );
 	my (@module_spec);
-	my ( $message_w, $message, $second_last_idx );
+	my ( $message_w, $message, $second2last_idx );
 	my @corrected_prog_names;
 	my @corrected_prog_versions;
 	my $reverse                 = 0;
 	my $prog_names_aref         = $oop_flows->{_prog_names_aref};
 	my $prog_names_version_aref = $oop_flows->{_prog_version_aref};
-
-# print("1. oop_flows,set_specs, prog_names_aref=@{$prog_names_aref}\n");
-# print("1. oop_flows,set_specs, prog_version_aref=@{$prog_names_version_aref}\n");
-	my @prog_names    = @$prog_names_aref;
-	my @prog_versions = @$prog_names_version_aref;
-	my $length        = $oop_flows->{_num_progs4flow};
-	my $last_idx      = $length - 1;
+	my @prog_names              = @$prog_names_aref;
+	my @prog_versions           = @$prog_names_version_aref;
+	my $num_progs4flow          = $oop_flows->{_num_progs4flow};
+	my $last_idx                = $num_progs4flow - 1;
 	$message_w = $oop_flows->{_message_w};
 
-	# STEP 1
-	# REVERSE first two items in the flow
-	# if data_in is first
-	if ( $length > 1 ) {
-		$second_last_idx = $length - 2;
+	print("1. oop_flows,set_specs, prog_names_aref=@{$prog_names_aref}\n");
+	print(
+"1. oop_flows,set_specs, prog_version_aref=@{$prog_names_version_aref}\n"
+	);
+	print("1. oop_flows,set_specs, num_progs4flow=$num_progs4flow\n");
 
-		# for the case that data_in is the first item in the flow
-		# switch the order of the program and data_in
+=head2 STEP 1
+
+	If data_in is first program in flow
+	REVERSE first two items in the flow
+	i.e., switch the order of the program and data_in
+	
+=cut
+
+	if ( $num_progs4flow > 1 ) {
+
+		$second2last_idx = $num_progs4flow - 2;
+
 		if ( $prog_names[0] eq 'data_in' ) { $reverse = 1; }
 
 		if ($reverse) {
@@ -238,14 +245,14 @@ sub set_specs {
 			$prog_names[0]    = $temp_prog_name;
 			$prog_versions[0] = $temp_prog_version;
 
-			for ( my $i = 2 ; $i < $length ; $i++ ) {
+			for ( my $i = 2 ; $i < $num_progs4flow ; $i++ ) {
 
 				$prog_names[$i]    = @{$prog_names_aref}[$i];
 				$prog_versions[$i] = @{$prog_names_version_aref}[$i];
 			}
 		}
 	}
-	elsif ( $length == 1 ) {
+	elsif ( $num_progs4flow == 1 ) {
 
 		# Not enough items in a flow sequence
 		# NULL CASE
@@ -271,16 +278,18 @@ sub set_specs {
 		my $message_w = $oop_flows->{_message_w};
 		my $message   = $L_SU_messages->flows(5);
 
-		# my	$m          = "oop_flows,set_specs,$message_w\n";
 		$message_w->delete( "1.0", 'end' );
 		$message_w->insert( 'end', $message );
 	}
 
-	# END of STEP 1
+	# results of STEP 1 - reversal of first two modules in flow
 
-	# results of step 1
 	$oop_flows->{_corrected_prog_names_aref}    = \@prog_names;
 	$oop_flows->{_corrected_prog_versions_aref} = \@prog_versions;
+	@corrected_prog_names    = @{ $oop_flows->{_corrected_prog_names_aref} };
+	@corrected_prog_versions = @{ $oop_flows->{_corrected_prog_versions_aref} };
+
+	# END of STEP 1
 
 # if(@prog_names) {
 # print("2. oop_flows,set_specs, new prog_names=     @{$oop_flows->{_corrected_prog_names_aref}}\n");
@@ -289,15 +298,16 @@ sub set_specs {
 # print("3. oop_flows,set_specs, old prog versions = @{$oop_flows->{_prog_version_aref}}\n");
 #}
 
-	@corrected_prog_names    = @{ $oop_flows->{_corrected_prog_names_aref} };
-	@corrected_prog_versions = @{ $oop_flows->{_corrected_prog_versions_aref} };
+=head2 	
+	  
+Using corrected names and versions (from STEP 1), 
+arrange symbols within a flow sequence.
+Estimate first the redirect and pipe sequences
+arrange programs and symbols (>,<,|) in order.
+	
+=cut
 
-	# STEP 2
-	# USING corrected names and versions, arrange symbols
-	# within a flow sequence
-	# Estimate first the redirect and pipe sequences
-	# arrange programs and symbols (>,<,|) in order
-	for ( my $i = 0 ; $i < $length ; $i++ ) {
+	for ( my $i = 0 ; $i < $num_progs4flow ; $i++ ) {
 
 		my $program_name = $corrected_prog_names[$i];
 
@@ -310,50 +320,29 @@ sub set_specs {
 
 		require $pathNmodule_spec_w_slash_pm;
 
-#		# INSTANTIATE
-#		my $package = $pathNmodule_spec_w_colon->new();
+		$module_spec[$i] = $pathNmodule_spec_w_colon;
 
-#		my $module_spec_pm     = $program_name . '_spec.pm';
-#
-#		$L_SU_global_constants->set_file_name($module_spec_pm);
-#		my $slash_path4spec = $L_SU_global_constants->get_path4spec_file();
-#		my $slash_pathNmodule_spec_pm =
-#		  $slash_path4spec . '/' . $module_spec_pm;
-#
-#		$L_SU_global_constants->set_program_name($program_name);
-#		my $colon_pathNmodule_spec =
-#		  $L_SU_global_constants->get_colon_pathNmodule_spec();
-#
-#	  #	 	print("1. oop_flows, _get_suffix_aref, prog_name: $slash_pathNmodule_spec_pm\n");
-##	 	print("1. oop_flows, _get_suffix_aref, prog_name: $colon_pathNmodule_spec\n");
-		#
-				$module_spec[$i]       = $pathNmodule_spec_w_colon;
-		#
-		#		# dynamically used modules need require
-		#		require $slash_pathNmodule_spec_pm;
-		#
-		#		# print ("oop_flows,set_specs, require $module_spec_pm\n");
-		#
 		# INSTANTIATE
 		$prog[$i] = ( $module_spec[$i] )->new;
 
-		# print ("oop_flows,set_specs, instantiate $module_spec[$i]\n");
+	   # print ("oop_flows,set_specs, instantiate $module_spec[$i]\n");
 
 		$specs[$i] = $prog[$i]->variables();
 
-	   # print("oop_flows,set_specs,first_of_2,$[specs$i]->{_is_first_of_2}\n");
 	}
 
-	# CASE 1 where 2 items in flow
-	# i.e., length or num_progs4flow = 2
-	# first item has index 0 and has already been reordered
-	# previously, e.g.,
-	# data_in, evince would now be evince, data_in
-	# for symbol index = 0, 1
-	if ( $length == 2 ) {
+	if ( $num_progs4flow == 2 ) {
+
+		# CASE 1 with 2 programs in flow
+		# i.e., num_progs4flow = 2
+		# first item has index 0 and has already been reordered
+		# previously, e.g.,
+		# data_in, evince would now be evince, data_in
+		# for symbol index = 0, 1
+
 		if ( $specs[0]->{_is_first_of_2} ) {
 
-			# print(" 1. flows,first item is $module_spec[0]\n");
+			print(" 1. flows,first item is $module_spec[0]\n");
 
 			if ( $specs[1]->{_is_last_of_2} ) {
 
@@ -434,22 +423,24 @@ sub set_specs {
 		}    # first of two
 
 	}    # length =2
+	
+	if ( $num_progs4flow == 3 ) {
 
-	# CASE = 3; items in flow; length,num_progs4flow=3
-
-	if ( $length == 3 ) {
-
-		# CASE 3.1 first and second items
+		# CASE 2.1 first and second items
 		# for symbol whose index=0
-		# e.g., sugain < data_in
+		# e.g., sugain < data_in |
+			
+		print("CASE = 2.1; items in flow; length,num_progs4flow=3\n");
+		
 		if (   $specs[0]->{_is_first_of_3or_more}
 			&& $corrected_prog_names[1] eq 'data_in' )
 		{
 
 			$symbols[0] = '$in';
 
-		  # print(" oop_flows,set_specs,case 3.1\n");
-		  # print(" Between items 1 and 2 symbol=$symbols[0], with index=0 \n");
+			print(" oop_flows,set_specs,case 2.1\n");
+
+			print(" Between items 1 and 2 symbol=$symbols[0], with index=0 \n");
 
 			# for Third item
 			if ( $specs[2]->{_is_last_of_3or_more} ) {
@@ -558,9 +549,9 @@ sub set_specs {
 
 	# CASE 4
 	# when there are >=4 items in flow
-	if ( $length >= 4 ) {
+	if ( $num_progs4flow >= 4 ) {
 
-		#		print("oop_flows,set_specs,num_progs=$length\n");
+		#		print("oop_flows,set_specs,num_progs=$num_progs4flow\n");
 
 		# CASE 4.1
 		# first and second items, of 4 or more
@@ -602,7 +593,12 @@ sub set_specs {
 			# for third item and second symbol and up to symbol between the
 			# second- ($j) and third-to-last ($i) of 4 or more items
 			# for symbols[2 and above]
-			for ( my $i = 2, my $j = 3 ; $i < ( $length - 2 ) ; $i++, $j++ ) {
+			for (
+				my $i = 2, my $j = 3 ;
+				$i < ( $num_progs4flow - 2 ) ;
+				$i++, $j++
+			  )
+			{
 
 				if (   $specs[$i]->{_is_suprog}
 					&& $specs[$i]->{_has_pipe_out}
@@ -645,7 +641,7 @@ sub set_specs {
 				# CASE 4.1.3.1
 				if ( $corrected_prog_names[$last_idx] eq 'data_out' ) {
 
-					$symbols[$second_last_idx] = '$out';
+					$symbols[$second2last_idx] = '$out';
 
 					# print(" oop_flows,set_specs,case 4.1.3.1\n");
 
@@ -657,7 +653,7 @@ sub set_specs {
 
 		  #					print(" oop_flows,set_specs,case 4.1.3.2\n");
 		  #					print("oop_flows,set_specs,second_last_idx=$second_last_idx\n");
-					$symbols[$second_last_idx] = '$to';
+					$symbols[$second2last_idx] = '$to';
 
 				}
 				else {
@@ -729,7 +725,12 @@ sub set_specs {
 			# for third item and up to symbol between the
 			# second- ($j) and third-to-last ($i) of 4 or more items
 			# for symbols [2 and beyond]
-			for ( my $i = 2, my $j = 3 ; $i < ( $length - 2 ) ; $i++, $j++ ) {
+			for (
+				my $i = 2, my $j = 3 ;
+				$i < ( $num_progs4flow - 2 ) ;
+				$i++, $j++
+			  )
+			{
 
 				if (   $specs[$i]->{_is_suprog}
 					&& $specs[$i]->{_has_pipe_out}
@@ -757,7 +758,7 @@ sub set_specs {
 				# Last item and its previous symbol ( last symbol)
 				if ( $corrected_prog_names[$last_idx] eq 'data_out' ) {
 
-					$symbols[$second_last_idx] = '$out';
+					$symbols[$second2last_idx] = '$out';
 
 					# print(" oop_flows,set_specs,case 4.2.3.1\n");
 
@@ -769,7 +770,7 @@ sub set_specs {
 				{
 
 					# print(" oop_flows,set_specs,case 4.2.3.2\n");
-					$symbols[$second_last_idx] = '$to';
+					$symbols[$second2last_idx] = '$to';
 
 				}
 				else {
@@ -810,7 +811,9 @@ sub set_specs {
 
 	$oop_flows->{_symbols_aref} = \@symbols;
 
-# print(" oop_flows,set_specs,symbols are ***@{$oop_flows->{_symbols_aref}}*** \n");
+	print(
+" oop_flows,set_specs,symbols are ***@{$oop_flows->{_symbols_aref}}*** \n"
+	);
 	return ();
 }
 

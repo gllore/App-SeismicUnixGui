@@ -159,10 +159,13 @@ untested
 
 =head2 CHANGES and their DATES
 
+untested
+VERSION = '0.0.2'; Only redirection is allowed. 2.9.23
+
 =cut
 
 use Moose;
-our $VERSION = '0.0.1';
+our $VERSION = '0.0.e';
 
 
 =head2 Import packages

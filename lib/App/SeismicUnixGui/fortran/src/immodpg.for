@@ -458,7 +458,7 @@
 	rvinv=0.
 
 	if (rv.eq.0.) go to 40
-	  rvinv=1./rv
+	  rvinv=1./rv/m2km  ! used to be 1./rv
 	  idred=1 ! 1-yes 0-No JML 3-30-2020
 40	continue
 
