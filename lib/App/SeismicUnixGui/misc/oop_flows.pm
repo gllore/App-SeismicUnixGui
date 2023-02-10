@@ -215,11 +215,11 @@ sub set_specs {
 	my $last_idx                = $num_progs4flow - 1;
 	$message_w = $oop_flows->{_message_w};
 
-	print("1. oop_flows,set_specs, prog_names_aref=@{$prog_names_aref}\n");
-	print(
-"1. oop_flows,set_specs, prog_version_aref=@{$prog_names_version_aref}\n"
-	);
-	print("1. oop_flows,set_specs, num_progs4flow=$num_progs4flow\n");
+#	print("1. oop_flows,set_specs, prog_names_aref=@{$prog_names_aref}\n");
+#	print(
+#"1. oop_flows,set_specs, prog_version_aref=@{$prog_names_version_aref}\n"
+#	);
+#	print("1. oop_flows,set_specs, num_progs4flow=$num_progs4flow\n");
 
 =head2 STEP 1
 
@@ -430,7 +430,7 @@ arrange programs and symbols (>,<,|) in order.
 		# for symbol whose index=0
 		# e.g., sugain < data_in |
 			
-		print("CASE = 2.1; items in flow; length,num_progs4flow=3\n");
+#		print("CASE = 2.1; items in flow; length,num_progs4flow=3\n");
 		
 		if (   $specs[0]->{_is_first_of_3or_more}
 			&& $corrected_prog_names[1] eq 'data_in' )
@@ -438,9 +438,9 @@ arrange programs and symbols (>,<,|) in order.
 
 			$symbols[0] = '$in';
 
-			print(" oop_flows,set_specs,case 2.1\n");
+#			print(" oop_flows,set_specs,case 2.1\n");
 
-			print(" Between items 1 and 2 symbol=$symbols[0], with index=0 \n");
+#			print(" Between items 1 and 2 symbol=$symbols[0], with index=0 \n");
 
 			# for Third item
 			if ( $specs[2]->{_is_last_of_3or_more} ) {
@@ -811,9 +811,9 @@ arrange programs and symbols (>,<,|) in order.
 
 	$oop_flows->{_symbols_aref} = \@symbols;
 
-	print(
-" oop_flows,set_specs,symbols are ***@{$oop_flows->{_symbols_aref}}*** \n"
-	);
+#	print(
+#" oop_flows,set_specs,symbols are ***@{$oop_flows->{_symbols_aref}}*** \n"
+#	);
 	return ();
 }
 

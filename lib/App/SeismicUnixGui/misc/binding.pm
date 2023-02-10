@@ -199,6 +199,7 @@ sub set {
 
 	my $binding_index_aref = $package->get_binding_index_aref();
 	my @index              = @$binding_index_aref;
+#	print("binding,set,file_dialog_type,indices : @index\n");
 
 	my $file_dialog_type_aref = $package->get_file_dialog_type_aref();
 	my @file_dialog_type      = @$file_dialog_type_aref;
@@ -208,14 +209,14 @@ sub set {
 
 	my $length = $package->get_binding_length();
 
-	#     print("binding,set,file_dialog_type,length : $length\n");
+#	print("binding,set,file_dialog_type,length : $length\n");
 	for ( my $i = 0 ; $i < $length ; $i++ ) {
 
 		my $dial_type = $file_dialog_type[ $index[$i] ];
 
-		#		print("3A. binding,set,prog_name: ${$binding->{_prog_name_sref}}\n");
-		#	    print("3B. binding,set,file_dialog_type: $dial_type\n");
-		#	    print("3B. binding,set,file_dialog_type: i=$i\n");
+				# print("3A. binding,set,prog_name: ${$binding->{_prog_name_sref}}\n");
+			    # print("3B. binding,set,file_dialog_type: $dial_type\n");
+			    # print("3B. binding,set,file_dialog_type: i=$i\n");
 
 		# ACTUAL binding takes place here...
 		# TODO dynamic binding as a function of input from user in flow

@@ -5,10 +5,9 @@ our $VERSION = '0.0.1';
 use aliased 'App::SeismicUnixGui::configs::big_streams::Project_config';
 use App::SeismicUnixGui::misc::SeismicUnix qw($su $suffix_su);
 use aliased 'App::SeismicUnixGui::misc::L_SU_global_constants';
-use aliased 'App::SeismicUnixGui::sunix::statsMath::suop2';
+
 my $get     = L_SU_global_constants->new();
 my $Project = Project_config->new();
-my $suop2   = suop2->new();
 
 my $var = $get->var();
 
@@ -27,7 +26,6 @@ my $suop2_spec =  {
 	_CONFIG	 				=> $PL_SEISMIC,
 	_DATA_DIR_IN           => $DATA_SEISMIC_SU,
 	_DATA_DIR_OUT          => $DATA_SEISMIC_SU,
-#	_DATA_DIR_OUT          => $PL_SEISMIC,
 	_binding_index_aref    => '',
 	_suffix_type_in        => $su,
 	_data_suffix_in        => $suffix_su,
