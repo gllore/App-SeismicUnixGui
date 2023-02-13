@@ -342,7 +342,7 @@ arrange programs and symbols (>,<,|) in order.
 
 		if ( $specs[0]->{_is_first_of_2} ) {
 
-			print(" 1. flows,first item is $module_spec[0]\n");
+#			print(" 1. oop_flows,first item is $module_spec[0]\n");
 
 			if ( $specs[1]->{_is_last_of_2} ) {
 
