@@ -32,7 +32,7 @@
 
 =head2 CHANGES and their DATES
 
-V0.0.2 Feb., 2023 uses find instead of locate
+V0.0.2 Feb. 2023,  uses find instead of locate.
 
 =cut 
 
@@ -50,11 +50,11 @@ my $default_answer          = 'y';
 
 my $dir = getcwd;
 print("\n\tHOW TO SET UP YOUR WORKING ENVIRONMENT\n");
-my @script_list   = `(find $starting_point -path $pathNfile2find -print 2>/dev/null)`;
-my $length        = scalar @script_list;
 
 # Searching
-print(" Examining the system ... for the script directory\n");
+print(" Examining the system ... for the script directory. Hint: use the one with \"perl\" \n");
+my @script_list   = `(find $starting_point -path $pathNfile2find -print 2>/dev/null)`;
+my $length        = scalar @script_list;
 
 print("\n Found $length locations for the script directory:\n");
 
@@ -95,10 +95,23 @@ while ($ans eq 'n') {
 }
 my $SCRIPT_PATH= $script_path;
 
-#
-#if ( length $dir ) {
-#	print "From: $dir\n";
 
+if ( length $SCRIPT_PATH ) {
+	print "From: $SCRIPT_PATH\n";
+		
+	my $outbound = ".temp";
+#	print ("Writing to: $outbound;\n\n");
+	open( OUT, ">", $outbound )
+	  or die("File $outbound error");
+
+	printf OUT ("#!/bin/bash\n");
+	printf OUT ("export SeismicUnixGui=$SCRIPT_PATH/SeismicUnixGui\n");
+	printf OUT ("export SeismicUnixGui_script=$SCRIPT_PATH\n");
+	printf OUT ("export PATH=\$PATH::\$SCRIPT_PATH/SeismicUnixGui\n\n");
+
+	close(OUT);
+	system("chmod 755 $outbound");
+	
 
 	print(
 "\n\nThe system path to \"SeismicUnixGui\" appears to be:\n \"$SCRIPT_PATH\"\n"
@@ -107,8 +120,8 @@ my $SCRIPT_PATH= $script_path;
 	print("following 4 lines to the end of your \".bashrc\" file\n\n");
 	print("export SeismicUnixGui=$SCRIPT_PATH/SeismicUnixGui\n");
 	print("export SeismicUnixGui_script=$SCRIPT_PATH\n");
-	print("export PATH=\$PATH::\$SeismicUnixGui_script\n");
-	print("export PERL5LIB=\$SeismicUnixGui\n");
+	print("export PATH=\$PATH::\$SCRIPT_PATH\n");
+	print("export PERL5LIB=\$SCRIPT_PATH/SeismicUnixGui\n");
 	print(
 		"\nHowever, for a quick BUT temporary fix, you have 2 options:\n");
 	print("   A. Cut-and-paste the 4 instructions above, one at a time \n");
@@ -121,30 +134,18 @@ my $SCRIPT_PATH= $script_path;
 	print("\twith each line followed by \"Enter\"\n");
 	print("\n   B. Run the following bash instruction:\n");
 	print("\nNext, run a second instruction:\n");
-#	print("\tsource set_env_variables.sh\n");
-#	print("\nNow you can just enter the following instruction on the command line:\n");
-#	print("\nSeismicUnixGui\n");	
-#	print("\n**But remember, that when you open a new command window,\n");
-#	print("the effect of these instructions will cease to exist.\n");
-#	print("Make the changes permanent in your \".bashrc\" file.\n");
-#	print("If you do not know how to do this, consult someone who does.\n\n");
-#	print("Hit Enter, to continue\n");
-#	<STDIN>;
-#
-#	my $outbound = "$dir/blib/lib/App/SeismicUnixGui/script/.temp";
-#	print ("\n(\Useful for later compilation of c programs:\)\n");
-#	print ("Writing to: $outbound;\n\n");
-#	open( OUT, ">", $outbound )
-#	  or die("File $outbound error");
-#	printf OUT ("#!/bin/bash\n");
-#	printf OUT ("export SeismicUnixGui=$LIB_PATH \n");
-#	printf OUT ("export SeismicUnixGui_script=$SCRIPT_LIB_PATH\n");
-#	printf OUT ("export PATH=\$PATH::\$SeismicUnixGui_script\n\n");
-#
-#	close(OUT);
-#	system("chmod 755 $outbound");
-#
-#}
-#else {
-#	carp "missing directory";
-#}
+	print("\tsource $SCRIPT_PATH/set_env_variables.sh\n");
+	print("\nNow you can should be able run the following instruction on the command line:\n");
+	print("\nSeismicUnixGui\n");	
+	print("\n**But remember, that when you open a new command window,\n");
+	print("the effect of these instructions will cease to exist.\n");
+	print("Make the changes permanent in your \".bashrc\" file.\n");
+	print("If you do not know how to do this, consult someone who does.\n\n");
+	print("Hit Enter, to finish\n");
+	<STDIN>;
+
+
+}
+else {
+	carp "missing directory";
+}

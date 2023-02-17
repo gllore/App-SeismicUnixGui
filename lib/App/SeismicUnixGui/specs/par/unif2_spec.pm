@@ -350,7 +350,7 @@ sub suffix_aref {
 	my @index      				   = @$index_aref;
 	
 	
-	$suffix[ $index[0] ]           = "." . '$suffix_bin';
+	$suffix[ $index[0] ]           = "" . '$suffix_bin';
 	
 	
 	$unif2_spec->{_suffix_aref} = \@suffix;

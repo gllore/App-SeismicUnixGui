@@ -1262,18 +1262,18 @@ sub hbox {
 
 =head2 sub hilip 
 
- subs hiclip bclip
+ subs hiclip wclip
 
 =cut
 
 sub hiclip {
 
-    my ( $self, $bclip ) = @_;
-    if ($bclip) {
+    my ( $self, $wclip ) = @_;
+    if ($wclip) {
 
-        $ximage->{_bclip} = $bclip;
-        $ximage->{_note}  = $ximage->{_note} . ' bclip=' . $ximage->{_bclip};
-        $ximage->{_Step}  = $ximage->{_Step} . ' bclip=' . $ximage->{_bclip};
+        $ximage->{_wclip} = $wclip;
+        $ximage->{_note}  = $ximage->{_note} . ' wclip=' . $ximage->{_wclip};
+        $ximage->{_Step}  = $ximage->{_Step} . ' wclip=' . $ximage->{_wclip};
 
     }
     else {
@@ -1453,18 +1453,18 @@ sub lwidth {
 
 =head2 sub loclip 
 
-	subs loclip wclip
+	subs loclip bclip
 
 =cut
 
 sub loclip {
 
-    my ( $self, $wclip ) = @_;
-    if ($wclip) {
+    my ( $self, $bclip ) = @_;
+    if ($bclip) {
 
-        $ximage->{_wclip} = $wclip;
-        $ximage->{_note}  = $ximage->{_note} . ' wclip=' . $ximage->{_wclip};
-        $ximage->{_Step}  = $ximage->{_Step} . ' wclip=' . $ximage->{_wclip};
+        $ximage->{_bclip} = $bclip;
+        $ximage->{_note}  = $ximage->{_note} . ' bclip=' . $ximage->{_bclip};
+        $ximage->{_Step}  = $ximage->{_Step} . ' bclip=' . $ximage->{_bclip};
 
     }
     else {

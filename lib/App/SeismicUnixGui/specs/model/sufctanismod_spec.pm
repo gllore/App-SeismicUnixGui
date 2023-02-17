@@ -407,43 +407,43 @@ sub suffix_aref {
 	my @index      = @$index_aref;
 
 	# label 2 in GUI is input c11_file and needs a home directory
-	$suffix[ $index[0] ] = "." . '$suffix_bin';
+	$suffix[ $index[0] ] = "" . '$suffix_bin';
 
 	# label 4 in GUI is input c33_file and needs a home directory
-	$suffix[ $index[1] ] = "." . '$suffix_bin';
+	$suffix[ $index[1] ] = "" . '$suffix_bin';
 
 	# label 15 in GUI is input rho_file and needs a home directory
-	$suffix[ $index[2] ] = "." . '$suffix_bin';
+	$suffix[ $index[2] ] = "" . '$suffix_bin';
 
 	# label 33 in GUI is input c13_file and needs a home directory
-	$suffix[ $index[3] ] = "." . '$suffix_bin';
+	$suffix[ $index[3] ] = "" . '$suffix_bin';
 
 	# label 41 in GUI is input c44_file and needs a home directory
-	$suffix[ $index[4] ] = "." . '$suffix_bin';
+	$suffix[ $index[4] ] = "" . '$suffix_bin';
 
 	# label 49 in GUI is input c66_file and needs a home directory
-	$suffix[ $index[5] ] = "." . '$suffix_bin';
+	$suffix[ $index[5] ] = "" . '$suffix_bin';
 
 	# label 56 in GUI is input reflxfile and needs a home directory
-	$suffix[ $index[6] ] = "." . '$suffix_su';
+	$suffix[ $index[6] ] = "" . '$suffix_su';
 
 	# label 57  in GUI is input reflyfile and needs a home directory
-	$suffix[ $index[7] ] = "." . '$suffix_su';
+	$suffix[ $index[7] ] = "" . '$suffix_su';
 
 	# label 58 in GUI is input reflz_file and needs a home directory
-	$suffix[ $index[8] ] = "." . '$suffix_su';
+	$suffix[ $index[8] ] = "" . '$suffix_su';
 
 	# label 61 in GUI is input source_file and needs a home directory
-	$suffix[ $index[9] ] = "." . '$suffix_bin';
+	$suffix[ $index[9] ] = "" . '$suffix_bin';
 
 	# label 68 in GUI is input vspx_file and needs a home directory
-	$suffix[ $index[10] ] = "." . '$suffix_bin';
+	$suffix[ $index[10] ] = "" . '$suffix_bin';
 
 	# label 69 in GUI is input vspy_file and needs a home directory
-	$suffix[ $index[12] ] = "." . '$suffix_bin';
+	$suffix[ $index[12] ] = "" . '$suffix_bin';
 
 	# label 70 in GUI is input vspz_file and needs a home directory
-	$suffix[ $index[12] ] = "." . '$suffix_bin';
+	$suffix[ $index[12] ] = "" . '$suffix_bin';
 
 	$sufctanismod_spec->{_suffix_aref} = \@suffix;
 	

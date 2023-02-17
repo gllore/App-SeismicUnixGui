@@ -1,0 +1,7 @@
+#!/bin/bash
+export SeismicUnixGui=/usr/local/share/perl/5.34.0/App/SeismicUnixGui/script/
+/SeismicUnixGui
+export SeismicUnixGui_script=/usr/local/share/perl/5.34.0/App/SeismicUnixGui/script/
+
+export PATH=$PATH::$SCRIPT_PATH/SeismicUnixGui
+

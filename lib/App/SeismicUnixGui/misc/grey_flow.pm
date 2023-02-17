@@ -3564,12 +3564,12 @@ for first time but no listboxes have been occupied previously
 			my $click_count =
 			  ( ( $gui_history->get_defaults() )->{_count} );
 			  
-			  				print(
-"5. color_flow, save_button, memory fix, click count=$click_count\n"
-				);
-							  				print(
-"5. color_flow, save_button, most_recent_flow_index_touched=$last_flow_index\n"
-				);
+#			  				print(
+#"5. color_flow, save_button, memory fix, click count=$click_count\n"
+#				);
+#							  				print(
+#"5. color_flow, save_button, most_recent_flow_index_touched=$last_flow_index\n"
+#				);
 
 			if (   ( $this_color eq $last_flow_color )
 				&& ( $last_flow_index == $max_saved_widget_index 
@@ -3586,8 +3586,8 @@ for first time but no listboxes have been occupied previously
 				# fixing param_widget memory leak that deletes the
 				# last element in the last flow
 
-				print("6 color_flow,save_last_param_widget_values=@save_last_param_widget_values\n");
-				print("6 color_flow,max_saved_widget_index=$max_saved_widget_index\n");
+#				print("6 color_flow,save_last_param_widget_values=@save_last_param_widget_values\n");
+#				print("6 color_flow,max_saved_widget_index=$max_saved_widget_index\n");
 				$param_flow_color_pkg->set_flow_index($max_saved_widget_index);
 				$param_widgets->set_values( \@save_last_param_widget_values );
 				$param_flow_color_pkg->set_values_aref(
@@ -3597,22 +3597,22 @@ for first time but no listboxes have been occupied previously
 
 			}
 			else {
-				print("5. color_flow, save_button, Can not fix memory leak\n");
-				print(
-"5. color_flow, save_button, this_color,last_flow_color are:$this_color,$last_flow_color\n"
-				);
-				print(
-"5. color_flow, save_button, most recent flow index is $most_recent_flow_index_touched\n"
-				);
-				print(
-"5. color_flow, save_button, last flow index: $last_flow_index\n"
-				);
-				print(
-"5. color_flow, save_button, max_saved_widget_index was $max_saved_widget_index\n"
-				);
-				print(
-"5. color_flow, save_button, click_count:$click_count min_clicks4save_button:$min_clicks4save_button\n"
-				);
+#				print("5. color_flow, save_button, Can not fix memory leak\n");
+#				print(
+#"5. color_flow, save_button, this_color,last_flow_color are:$this_color,$last_flow_color\n"
+#				);
+#				print(
+#"5. color_flow, save_button, most recent flow index is $most_recent_flow_index_touched\n"
+#				);
+#				print(
+#"5. color_flow, save_button, last flow index: $last_flow_index\n"
+#				);
+#				print(
+#"5. color_flow, save_button, max_saved_widget_index was $max_saved_widget_index\n"
+#				);
+#				print(
+#"5. color_flow, save_button, click_count:$click_count min_clicks4save_button:$min_clicks4save_button\n"
+#				);
 			}
 			# needs to be fixed each time Save is used on unchanged perl flow
 			$memory_leak4save_button_fixed = $false; 
