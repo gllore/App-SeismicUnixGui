@@ -14,8 +14,6 @@
  Help installer set important environment variables
  needed later to run SeismicUnixGui
  
-
-
 =cut
 
 =head2 USE
@@ -42,18 +40,27 @@ use Cwd;
 use Carp;
 
 # important variables defined
+my $null = 'null';
 my $starting_point          = '/';
 my $script_file             = 'post_install_env.pl';
 my $script_path;
-my $pathNfile2find          = "*/App/SeismicUnixGui/script/$script_file";
+my $path2find               = "*/App/SeismicUnixGui/script";
 my $default_answer          = 'y'; 
 
-my $dir = getcwd;
+$ARGV[0] = $null;
+# not needed yet
+# print ("argv[0]=$ARGV[0]\n");
+
+#my $dir = getcwd;
 print("\n\tHOW TO SET UP YOUR WORKING ENVIRONMENT\n");
 
 # Searching
-print(" Examining the system ... for the script directory. Hint: use the one with \"perl\" \n");
-my @script_list   = `(find $starting_point -path $pathNfile2find -print 2>/dev/null)`;
+print(" Examining the system ... for the script directory.\n");
+print(" Examining the system ... for $path2find\n");
+print(" Hint: use the one with \"perl\". \n");
+
+my @script_list   = `(find $starting_point -path \'$path2find\' -print 2>/dev/null)`;
+#system (" echo \"find $starting_point -path \'$pathNfile2find\' -print 2>/dev/null\" ");
 my $length        = scalar @script_list;
 
 print("\n Found $length locations for the script directory:\n");
@@ -100,31 +107,28 @@ if ( length $SCRIPT_PATH ) {
 	print "From: $SCRIPT_PATH\n";
 		
 	my $outbound = ".temp";
-#	print ("Writing to: $outbound;\n\n");
+	my $bash_file2run = 'set_env_variables.sh';
+	print ("Writing to: $outbound;\n\n");
 	open( OUT, ">", $outbound )
 	  or die("File $outbound error");
 
 	printf OUT ("#!/bin/bash\n");
-	printf OUT ("export SeismicUnixGui=$SCRIPT_PATH/SeismicUnixGui\n");
 	printf OUT ("export SeismicUnixGui_script=$SCRIPT_PATH\n");
-	printf OUT ("export PATH=\$PATH::\$SCRIPT_PATH/SeismicUnixGui\n\n");
-
+	printf OUT ("export PATH=\$PATH::\$SeismicUnixGui_script\n\n");
+	printf OUT ("export PERL5LIB=\$SeismicUnixGui_script/../lib\n");
 	close(OUT);
 	system("chmod 755 $outbound");
-	
 
 	print(
-"\n\nThe system path to \"SeismicUnixGui\" appears to be:\n \"$SCRIPT_PATH\"\n"
-	);
+"\n\nThe system path to \"SeismicUnixGui\" appears to be:\n $SCRIPT_PATH\n");
 	print("Before running SeismicUnixGui, be sure to add the\n");
-	print("following 4 lines to the end of your \".bashrc\" file\n\n");
-	print("export SeismicUnixGui=$SCRIPT_PATH/SeismicUnixGui\n");
+	print("following 3 lines to the end of your \".bashrc\" file\n\n");
 	print("export SeismicUnixGui_script=$SCRIPT_PATH\n");
-	print("export PATH=\$PATH::\$SCRIPT_PATH\n");
-	print("export PERL5LIB=\$SCRIPT_PATH/SeismicUnixGui\n");
+	print("export PATH=\$PATH::\$SeismicUnixGui_script\n");
+	print("export PERL5LIB=\$SeismicUnixGui_script/SeismicUnixGui\n");
 	print(
 		"\nHowever, for a quick BUT temporary fix, you have 2 options:\n");
-	print("   A. Cut-and-paste the 4 instructions above, one at a time \n");
+	print("   A. Cut-and-paste the 3 instructions above, one at a time \n");
 	print("into your command line and execute them one at a time.\n"
 	);
 	print("\nIn case you are unsure, this last instruction also means: \n");
@@ -132,18 +136,19 @@ if ( length $SCRIPT_PATH ) {
 	print("\tone at a time,\n");
 	print("\tinto the command line,\n");
 	print("\twith each line followed by \"Enter\"\n");
-	print("\n   B. Run the following bash instruction:\n");
-	print("\nNext, run a second instruction:\n");
-	print("\tsource $SCRIPT_PATH/set_env_variables.sh\n");
-	print("\nNow you can should be able run the following instruction on the command line:\n");
-	print("\nSeismicUnixGui\n");	
+	print("\n or, B. Run the following bash instruction on a single line (!):\n");
+	chomp $SCRIPT_PATH;
+	print("bash $SCRIPT_PATH/$bash_file2run\t\n");
+	print("N.B.: The instruction must be written single line\n");
+	print("\n... after which you can should be able run the following instruction\n");
+	print(" on the command line:\n");
+	print("\n\tSeismicUnixGui\n");	
 	print("\n**But remember, that when you open a new command window,\n");
 	print("the effect of these instructions will cease to exist.\n");
 	print("Make the changes permanent in your \".bashrc\" file.\n");
 	print("If you do not know how to do this, consult someone who does.\n\n");
 	print("Hit Enter, to finish\n");
 	<STDIN>;
-
 
 }
 else {

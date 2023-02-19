@@ -55,6 +55,7 @@ archive/su_param_fix.pm
 archive/Sudipfilt2_config.pl
 archive/suhistogram_bck.pm
 archive/suhistogram_spec_bck.pm
+archive/sukill_old.pm
 archive/SuLoadHeaders_config.pl
 archive/sunmo_old.pl
 archive/sunmo_temp.pm
@@ -910,6 +911,7 @@ lib/App/SeismicUnixGui/developer/Stripped/well/sulprime.su.main.well_logs
 lib/App/SeismicUnixGui/developer/Stripped/well/suwellrf.su.main.well_logs
 lib/App/SeismicUnixGui/doc/FAQ_immodpg
 lib/App/SeismicUnixGui/doc/FAQ_L_SU
+lib/App/SeismicUnixGui/doc/FAQ_SeismicUnixGui
 lib/App/SeismicUnixGui/doc/README_to_INSTALL
 lib/App/SeismicUnixGui/fortran/bin/immodpg1.1
 lib/App/SeismicUnixGui/fortran/bin/stdsleep
@@ -1219,6 +1221,11 @@ lib/App/SeismicUnixGui/script/.split_cdp0000058.su
 lib/App/SeismicUnixGui/script/.split_cdp0000059.su
 lib/App/SeismicUnixGui/script/.split_cdp0000060.su
 lib/App/SeismicUnixGui/script/.split_cdp0000061.su
+lib/App/SeismicUnixGui/script/.temp
+lib/App/SeismicUnixGui/script/100
+lib/App/SeismicUnixGui/script/c15_file
+lib/App/SeismicUnixGui/script/c35_file
+lib/App/SeismicUnixGui/script/c55_file
 lib/App/SeismicUnixGui/script/cmguiTMEeyS
 lib/App/SeismicUnixGui/script/convert2V07
 lib/App/SeismicUnixGui/script/convert2V08
@@ -1238,6 +1245,7 @@ lib/App/SeismicUnixGui/script/L_SUV0.80.8.pl
 'lib/App/SeismicUnixGui/script/L_SUV0.81.3.pl~Stashed changes'
 'lib/App/SeismicUnixGui/script/L_SUV0.81.3.pl~Updated upstream'
 lib/App/SeismicUnixGui/script/L_SUV0.81.4.pl
+lib/App/SeismicUnixGui/script/L_SUV0.82.0.pl
 lib/App/SeismicUnixGui/script/LICENSE
 lib/App/SeismicUnixGui/script/post_install_c_compile.pl
 lib/App/SeismicUnixGui/script/post_install_env.pl
@@ -1249,6 +1257,9 @@ lib/App/SeismicUnixGui/script/run_post_installation_scripts.sh
 lib/App/SeismicUnixGui/script/SeismicUnixGui
 lib/App/SeismicUnixGui/script/set_env_variables.sh
 lib/App/SeismicUnixGui/script/SetProject
+lib/App/SeismicUnixGui/script/snapshotx.data
+lib/App/SeismicUnixGui/script/snapshoty.data
+lib/App/SeismicUnixGui/script/snapshotz.data
 lib/App/SeismicUnixGui/script/Sseg2su
 lib/App/SeismicUnixGui/script/Sucat
 lib/App/SeismicUnixGui/script/Sudipfilt

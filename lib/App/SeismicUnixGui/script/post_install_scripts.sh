@@ -29,7 +29,6 @@ echo -e "\n\tGLOBAL VARIABLES"
 # find -print0 option produces null delimited strings so spaces, 
 # tabs and carriage return in file names are preserved safely.
 
-
 # restart a search
 choice=1
 ans=0
@@ -90,15 +89,15 @@ while [ $choice == $repeat ]; do
 
  done
 echo -e "\n sudo perl $script_name\n"
-# sudo perl $script_name
+sudo perl $script_name
 
 # read the list of files and their paths
 c_script_name=$(echo $script_name | sed -e 's/fortran/c/')
 
 echo -e "\nNext script name=$c_script_name"
 echo "Looking for $c_script_name to compile  C code  ..."
-# sudo perl $c_script_name
+sudo perl $c_script_name
 
-env_script_name=$(echo $script_name | sed -e 's/fortran_compile/env/')
-echo -e "environment script=$env_script_name"
-sudo perl $env_script_name
+# env_script_name=$(echo $script_name | sed -e 's/fortran_compile/env/')
+# echo -e "environment script=$env_script_name"
+# sudo perl $env_script_name
