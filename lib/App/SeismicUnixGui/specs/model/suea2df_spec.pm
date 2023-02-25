@@ -74,12 +74,11 @@ sub binding_index_aref {
 	$index[3]  = 8;    # item is  bound to 
 	$index[4]  = 9;    # item is  bound to 
 	$index[5]  = 10;    # item is  bound to 
-	$index[6]  = 18;	
-	$index[7]  = 24;   
-	$index[8]  = 27;
-	$index[9]  = 30;
-	$index[10]  = 31;
-	$index[11]  = 38;		
+#	$index[6]  = 18;	
+	$index[6]  = 24;   
+	$index[7]  = 27;
+	$index[8]  = 30;
+	$index[9]  = 31;	
 	
     $suea2df_spec->{_binding_index_aref} = \@index;
     return ();
@@ -101,7 +100,7 @@ sub file_dialog_type_aref {
 	my @index      = @$index_aref;
 	
     my @type;
-    $type[0] = '';
+#    $type[0] = '';
     
 	$type[$index[0]]   = $file_dialog_type->{_Data};
 	$type[$index[1]]   =$file_dialog_type->{_Data};
@@ -112,9 +111,7 @@ sub file_dialog_type_aref {
 	$type[$index[6]]  = $file_dialog_type->{_Data};
 	$type[$index[7]]  = $file_dialog_type->{_Data};
 	$type[$index[8]]  = $file_dialog_type->{_Data};
-	$type[$index[9]]  = $file_dialog_type->{_Data};
-	$type[$index[10]]  = $file_dialog_type->{_Data};		
-	$type[$index[11]]  = $file_dialog_type->{_Data};
+	$type[$index[9]]  = $file_dialog_type->{_Data};		
 	
     $suea2df_spec->{_file_dialog_type_aref} = \@type;
     return ();
@@ -346,7 +343,7 @@ sub prefix_aref {
     }
     
    my $index_aref = get_binding_index_aref();
-	my @index      = @$index_aref;
+   my @index      = @$index_aref;
 
 	# label 6 in GUI is input c11_file and needs a home directory
 	$prefix[ $index[0] ] = '$DATA_SEISMIC_BIN' . ".'/'.";
@@ -367,22 +364,22 @@ sub prefix_aref {
 	$prefix[ $index[5] ] = '$DATA_SEISMIC_BIN' . ".'/'.";
 	
 	# label 19 in GUI is output hs_file and needs a home directory
-	$prefix[ $index[6] ] = '$DATA_SEISMIC_SU' . ".'/'.";
+	#$prefix[ $index[6] ] = '$PL_SEISMIC' . ".'/'.";
 
 	# label 25 in GUI is input q_file and needs a home directory
-	$prefix[ $index[7] ] = '$DATA_SEISMIC_SU' . ".'/'.";
+	$prefix[ $index[6] ] = '$DATA_SEISMIC_SU' . ".'/'.";
 	
 	# label 28 in GUI is input rho_file and needs a home directory
-	$prefix[ $index[8] ] = '$DATA_SEISMIC_SU' . ".'/'.";
+	$prefix[ $index[7] ] = '$DATA_SEISMIC_BIN' . ".'/'.";
 	
 	# label 31 in GUI is output snap_file and needs a home directory
-	$prefix[ $index[9] ] = '$DATA_SEISMIC_SU' . ".'/'.";
+	$prefix[ $index[8] ] = '$DATA_SEISMIC_SU' . ".'/'.";
 	
 	# label 32 in GUI is input source_file and needs a home directory
-	$prefix[ $index[10] ] = '$DATA_SEISMIC_SU' . ".'/'.";
+	$prefix[ $index[9] ] = '$DATA_SEISMIC_SU' . ".'/'.";
 
 	# label 39 in GUI is output vrs_file and needs a home directory
-	$prefix[ $index[11] ] = '$DATA_SEISMIC_SU' . ".'/'.";
+#	$prefix[ $index[10] ] = '$DATA_SEISMIC_SU' . ".'/'.";
     
     $suea2df_spec->{_prefix_aref} = \@prefix;
     return ();
@@ -431,22 +428,22 @@ sub suffix_aref {
 	$suffix[ $index[5] ] = "" . '$suffix_bin';
   
 	# label 19 in GUI is output hs_file and needs a home directory
-	$suffix[ $index[6] ] = "" . '$suffix_su';  
+	# $suffix[ $index[6] ] = "" . '';  
 
 	# label 25 in GUI is output q_file and needs a home directory
-	$suffix[ $index[7] ] = "" . '$suffix_su';  
+	$suffix[ $index[6] ] = "" . '$suffix_su';  
  
  	# label 28 in GUI is input rho_file and needs a home directory
-	$suffix[ $index[8] ] = "" . '$suffix_su'; 
+	$suffix[ $index[7] ] = "" . '$suffix_bin'; 
 	
 	# label 31 in GUI is output snap_file and needs a home directory
-	$suffix[ $index[9] ] = "" . '$suffix_su'; 	
+	$suffix[ $index[8] ] = "" . '$suffix_su'; 	
     
 	# label 32 in GUI is output source_file and needs a home directory
-	$suffix[ $index[10] ] = "" . '$suffix_su'; 
+	$suffix[ $index[9] ] = "" . '$suffix_su'; 
 	
 	# label 39 in GUI is output vrs_file and needs a home directory
-	$suffix[ $index[11] ] = "" . '$suffix_su'; 
+#	$suffix[ $index[10] ] = "" . '$suffix_su'; 
 	    
     $suea2df_spec->{_suffix_aref} = \@suffix;
     return ();

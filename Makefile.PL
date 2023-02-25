@@ -35,12 +35,12 @@ WriteMakefile(
 	},
 
 	TEST_REQUIRES => {
-		          'Test::Compile::Internal' => '3.1.0',
+		          'Test::Compile::Internal' => '1.3',
 	},
 
 	# only needed during build but not later
 	BUILD_REQUIRES => {
-		#		'Other::Module' => '0'
+				'File::Tail' => '0'
 	},
 
 	# required scripts

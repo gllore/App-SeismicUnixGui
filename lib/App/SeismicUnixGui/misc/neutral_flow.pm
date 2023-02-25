@@ -89,7 +89,6 @@ my $manage_files_by2      = manage_files_by2->new();
 my $gui_history           = gui_history->new();
 my $param_flow            = param_flow_neutral->new();
 
-# print("user_built flow, make param_flow instance in user_built flow\n");
 my $param_widgets   = param_widgets_neutral->new();
 my $flow_type       = $L_SU_global_constants->flow_type_href();
 my $color_flow_href = $gui_history->get_defaults();

@@ -4,8 +4,8 @@ use ExtUtils::Manifest qw(mkmanifest skipcheck manicheck maniread);
  
 my $manifest = maniread();
 
-foreach my $key (keys %$manifest) {
-	
-   print (" key is $key\n");
-   
-}
+#foreach my $key (keys %$manifest) {
+#	
+#   print (" key is $key\n");
+#   
+#}

@@ -41,11 +41,12 @@ use Carp;
 
 # important variables defined
 my $null = 'null';
+my $fifo ='tbd';
 my $starting_point          = '/';
 my $script_file             = 'post_install_env.pl';
 my $script_path;
 my $path2find               = "*/App/SeismicUnixGui/script";
-my $default_answer          = 'y'; 
+my $default_answer          = 'y';
 
 $ARGV[0] = $null;
 # not needed yet
@@ -55,14 +56,31 @@ $ARGV[0] = $null;
 print("\n\tHOW TO SET UP YOUR WORKING ENVIRONMENT\n");
 
 # Searching
-print(" Examining the system ... for the script directory.\n");
+print(" Please be patient.\n");
 print(" Examining the system ... for $path2find\n");
 print(" Hint: use the one with \"perl\". \n");
 
-my @script_list   = `(find $starting_point -path \'$path2find\' -print 2>/dev/null)`;
-#system (" echo \"find $starting_point -path \'$pathNfile2find\' -print 2>/dev/null\" ");
-my $length        = scalar @script_list;
+# remove pre-exisiting files
+unlink($fifo);
 
+# system (" echo \"find $starting_point -path \'$path2find\' -print 2>/dev/null > $fifo \" ");
+system("find $starting_point -path \'$path2find\' -print > $fifo 2>/dev/null & ");
+
+# wait around until the file is populated with something inside
+while (!(-e $fifo) 
+		or (-e $fifo and -z $fifo)) {
+	
+#    print "waiting...\n";
+    
+}
+# read file contents
+open my $fh, "<", $fifo or die "Can not open '$fifo': $!";
+
+   chomp(my @script_list = <$fh>);
+
+close $fh;
+
+my $length        = scalar @script_list;
 print("\n Found $length locations for the script directory:\n");
 
 for ( my $i = 0 ; $i < $length ; $i++ ) {

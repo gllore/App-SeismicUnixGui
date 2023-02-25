@@ -1,3 +1,6 @@
+/home/gllore/granular_studies/seismics/pl/Finite_Difference/Suea2df/XDemo1/HZ/1/gllore/3.calculate_seismogram.pl
+/home/gllore/granular_studies/seismics/pl/Finite_Difference/Suea2df/XDemo1/HZ/1/gllore/3.view_movie_seismogram.pl
+/home/gllore/granular_studies/seismics/pl/Finite_Difference/Suea2df/XDemo1/HZ/1/gllore/4.view_seismogram_H_model2.pl
 /home/gllore/Georgia/seismics/pl/Vineyard/wine/082922/gpr/1/gllore/1.view_raw_data_nos_scale.pl
 /home/gllore/Georgia/seismics/pl/Vineyard/wine/082922/gpr/1/gllore/4.surange.pl
 /home/gllore/Georgia/seismics/pl/Vineyard/wine/082922/gpr/1/gllore/1.view_raw_data.pl

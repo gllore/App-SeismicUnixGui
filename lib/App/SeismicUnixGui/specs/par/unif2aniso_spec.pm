@@ -6,10 +6,9 @@ use aliased 'App::SeismicUnixGui::configs::big_streams::Project_config';
 use App::SeismicUnixGui::misc::SeismicUnix
   qw($bin $su $suffix_bin $suffix_su  $suffix_txt $txt );
 use aliased 'App::SeismicUnixGui::misc::L_SU_global_constants';
-use aliased 'App::SeismicUnixGui::sunix::par::unif2aniso';
+;
 my $get        = L_SU_global_constants->new();
 my $Project    = Project_config->new();
-my $unif2aniso = unif2aniso->new();
 
 my $var = $get->var();
 
@@ -23,7 +22,7 @@ my $DATA_SEISMIC_SU  = $Project->DATA_SEISMIC_SU();     # output data directory
 my $DATA_SEISMIC_BIN = $Project->DATA_SEISMIC_BIN();    # output data directory
 my $DATA_SEISMIC_TXT = $Project->DATA_SEISMIC_TXT();    # output data directory
 my $PL_SEISMIC       = $Project->PL_SEISMIC();
-my $max_index        = 35;
+my $max_index        = 42;
 
 my $unif2aniso_spec = {
 	_CONFIG                => $PL_SEISMIC,
@@ -70,8 +69,16 @@ sub binding_index_aref {
 
 	# index 0 contains the index number
 	# of the gui parameter that is bound to
-	# index 21
-	$index[0] = 31;    # outbound item is  bound to _DATA_DIR_IN
+	# index 21 in the config file
+	$index[0]  = 0;   # item is  bound to 
+	$index[1]  = 1;    # item is  bound to 
+	$index[2]  = 2;    # item is  bound to 
+	$index[3]  = 3;    # item is  bound to 
+	$index[4]  = 4;    # item is  bound to 
+	$index[5]  = 5;    # item is  bound to
+	$index[6]  = 35; 
+	$index[7]  = 37;    
+	$index[8]  = 39;   
 
 	$unif2aniso_spec->{_binding_index_aref} = \@index;
 	return ();
@@ -88,9 +95,21 @@ sub file_dialog_type_aref {
 
 	my $self = @_;
 
-	my @type;
+	my $index_aref = get_binding_index_aref();
+	my @index      = @$index_aref;
+	
+    my @type;
+#    $type[0] = '';
 
-	$type[0] = $file_dialog_type->{_Data};
+	$type[$index[0]]   = $file_dialog_type->{_Data};
+	$type[$index[1]]   =$file_dialog_type->{_Data};
+	$type[$index[2]]  = $file_dialog_type->{_Data};
+	$type[$index[3]]  = $file_dialog_type->{_Data};
+	$type[$index[4]]  = $file_dialog_type->{_Data};
+	$type[$index[5]]  = $file_dialog_type->{_Data};
+	$type[$index[6]]  = $file_dialog_type->{_Data};
+	$type[$index[7]]  = $file_dialog_type->{_Data};
+	$type[$index[8]]  = $file_dialog_type->{_Data};
 
 	$unif2aniso_spec->{_file_dialog_type_aref} = \@type;
 	return ();
@@ -325,8 +344,32 @@ sub prefix_aref {
 	my $index_aref = get_binding_index_aref();
 	my @index      = @$index_aref;
 
-	# label 32 in GUI is input c11_file and needs a home directory
+	# label 1 in GUI is output c11_file and needs a home directory
 	$prefix[ $index[0] ] = '$DATA_SEISMIC_BIN' . ".'/'.";
+
+	# label 2 in GUI is output c13_file and needs a home directory
+	$prefix[ $index[1] ] = '$DATA_SEISMIC_BIN' . ".'/'.";
+
+	# label 3 in GUI is output c15_file and needs a home directory
+	$prefix[ $index[2] ] = '$DATA_SEISMIC_BIN' . ".'/'.";
+
+	# label 4 in GUI is output c33_file and needs a home directory
+	$prefix[ $index[3] ] = '$DATA_SEISMIC_BIN' . ".'/'.";
+
+	# label 5 in GUI is output c35_file and needs a home directory
+	$prefix[ $index[4] ] = '$DATA_SEISMIC_BIN' . ".'/'.";
+
+	# label 6 in GUI is output c55_file and needs a home directory
+	$prefix[ $index[5] ] = '$DATA_SEISMIC_BIN' . ".'/'.";
+
+	# label 36 in GUI is output q_file and needs a home directory
+	$prefix[ $index[6] ] = '$DATA_SEISMIC_BIN' . ".'/'.";
+
+	# label 38 in GUI is output rho_file and needs a home directory
+	$prefix[ $index[7] ] = '$DATA_SEISMIC_BIN' . ".'/'.";
+	
+	# label 40 in GUI is output testfilename and needs a home directory
+	$prefix[ $index[8] ] = '$DATA_SEISMIC_SU' . ".'/'.";
 
 	$unif2aniso_spec->{_prefix_aref} = \@prefix;
 	return ();
@@ -355,8 +398,32 @@ sub suffix_aref {
 	my $index_aref = get_binding_index_aref();
 	my @index      = @$index_aref;
 
-	# label 32 in GUI is input c11_file and needs a home directory
-	$suffix[ $index[0] ] = "." . '$suffix_bin';
+	# label 1 in GUI is input c11_file and needs a home directory
+	$suffix[ $index[0] ] = "" . '$suffix_bin';
+
+	# label 2 in GUI is input c13_file and needs a home directory
+	$suffix[ $index[1] ] = "" . '$suffix_bin';
+
+	# label 3 in GUI is input c15_file and needs a home directory
+	$suffix[ $index[2] ] = "" . '$suffix_bin';
+
+	# label 4 in GUI is input c33_file and needs a home directory
+	$suffix[ $index[3] ] = "" . '$suffix_bin';
+
+	# label 5 in GUI is input c35_file and needs a home directory
+	$suffix[ $index[4] ] = "" . '$suffix_bin';
+
+	# label 6 in GUI is input c55_file and needs a home directory
+	$suffix[ $index[5] ] = "" . '$suffix_bin';
+
+	# label 36 in GUI is input q_file and needs a home directory
+	$suffix[ $index[6] ] = "" . '$suffix_bin';
+
+	# label 38 in GUI is input rho_file and needs a home directory
+	$suffix[ $index[7] ] = "" . '$suffix_bin';	
+  
+	# label 40 in GUI is output testfilename and needs a home directory
+	$suffix[ $index[8] ] = "" . '$suffix_su';  
 
 	$unif2aniso_spec->{_suffix_aref} = \@suffix;
 	return ();

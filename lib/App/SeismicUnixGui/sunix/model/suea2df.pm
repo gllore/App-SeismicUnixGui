@@ -21,7 +21,7 @@ package App::SeismicUnixGui::sunix::model::suea2df;
  SUEA2DF - SU version of (an)elastic anisotropic 2D finite difference 	
 		forward modeling, 4th order in space			
 
- suea2df > outfile c11file= c55file  [optional parameters]		
+ suea2df > outfile c11file= c55file=  [optional parameters]		
 
  Required Parameters:							
  c11file=c11_file	c11 voigt elasticity parameter filename		
