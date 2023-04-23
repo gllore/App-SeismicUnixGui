@@ -39,9 +39,9 @@ WriteMakefile(
 	},
 
 	# only needed during build but not later
-	BUILD_REQUIRES => {
-				'File::Tail' => '0'
-	},
+#	BUILD_REQUIRES => {
+#				'File::Tail' => '0'
+#	},
 
 	# required scripts
 	PL_FILES => {'./lib/App/SeismicUnixGui/script/post_install_env.pl' => 'null'},
