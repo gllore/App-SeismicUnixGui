@@ -363,7 +363,7 @@ my $var = {
 	_one_character                 => '1',
 	_one_pixel                     => '1',
 	_one_pixel_borderwidth         => '1',
-	_program_title                 => 'SeismicUnixGui V0.82.1',
+	_program_title                 => 'SeismicUnixGui V0.82.2',
 	_project_selector_title        => 'Project Selector',
 	_l_suplot_title                => 'L_suplot',
 	_project_selector_title        => 'Project Selector',
@@ -2157,9 +2157,9 @@ sub global_libs {
 	# empty string is predefined herein
 	if ( length $path4SeismicUnixGui ) {
 
-		print(
-"1. L_SU_global_constants, global_libs,my L_SU = $path4SeismicUnixGui\n"
-		);
+#		print(
+#"1. L_SU_global_constants, global_libs,my L_SU = $path4SeismicUnixGui\n"
+#		);
 
 		my $global_libs = {
 			_configs             => $path4SeismicUnixGui . '/configs',
