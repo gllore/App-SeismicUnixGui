@@ -4,7 +4,7 @@
 
 =head2 SYNOPSIS 
 
- PERL PROGRAM NAME: L_SUV0.82.0.pl 
+ PERL PROGRAM NAME: L_SUV0.82.1.pl 
  AUTHOR: 	Juan Lorenzo
  DATE: 		June 22 2017 
 
@@ -54,6 +54,8 @@
  V0.6.6 September 4, 2021
  
  V0.80.00 September 19, 2022 ready for initial uploading to the CPAN
+ 
+ V0.82.1 April 2023, ready for automatic installation and Earthscope summer program 
  
 =cut
 
