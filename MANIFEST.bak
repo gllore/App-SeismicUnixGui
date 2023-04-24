@@ -2704,6 +2704,7 @@ dist/cpan-upload.sh
 dist/manifest.pl
 dist/my_uninstall.sh
 dist/uninstall_module.pl
+lib/App/.SeismicUnixGui.pm.swp
 lib/App/SeismicUnixGui.pm
 lib/App/SeismicUnixGui/big_streams/check.pm
 lib/App/SeismicUnixGui/big_streams/iApply_bottom_mute.pm
@@ -3880,6 +3881,7 @@ lib/App/SeismicUnixGui/script/L_SUV0.80.8.pl
 'lib/App/SeismicUnixGui/script/L_SUV0.81.3.pl~Updated upstream'
 lib/App/SeismicUnixGui/script/L_SUV0.81.4.pl
 lib/App/SeismicUnixGui/script/L_SUV0.82.0.pl
+lib/App/SeismicUnixGui/script/L_SUV0.82.1.pl
 lib/App/SeismicUnixGui/script/LICENSE
 lib/App/SeismicUnixGui/script/post_install_c_compile.pl
 lib/App/SeismicUnixGui/script/post_install_env.pl

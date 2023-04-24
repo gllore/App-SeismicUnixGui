@@ -60,7 +60,7 @@ print("\n\tHOW TO SET UP YOUR WORKING ENVIRONMENT\n");
 # Searching
 print(" Please be patient.\n");
 print(" Examining the system ... for $path2find\n");
-print(" Hint: use the one with \"perl\". \n");
+print(" Hint: use the one with \"perl\". in its path.\n");
 
 # remove pre-exisiting files
 unlink($fifo);

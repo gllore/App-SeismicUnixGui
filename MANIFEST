@@ -3882,6 +3882,7 @@ lib/App/SeismicUnixGui/script/L_SUV0.80.8.pl
 lib/App/SeismicUnixGui/script/L_SUV0.81.4.pl
 lib/App/SeismicUnixGui/script/L_SUV0.82.0.pl
 lib/App/SeismicUnixGui/script/L_SUV0.82.1.pl
+lib/App/SeismicUnixGui/script/L_SUV0.82.2.pl
 lib/App/SeismicUnixGui/script/LICENSE
 lib/App/SeismicUnixGui/script/post_install_c_compile.pl
 lib/App/SeismicUnixGui/script/post_install_env.pl

@@ -18,12 +18,24 @@ and signal processing.
 Perl/Tk is a mature, well-documented and free, 
 object-oriented graphical user interface for Perl. 
 
+=head2 Environmental Variables
+
+It is advisable to already have you environment variables
+properly defined. That is you should already have active the
+following definitions in your ".bashrc" file. For example:
+
+# for using a SeismicUnixGui installed via cpan
+export SeismicUnixGui=/usr/local/share/perl/5.34.0/App/SeismicUnixGui
+export SeismicUnixGui_script=$SeismicUnixGui/script
+export PATH=$PATH::$SeismicUnixGui_script
+export PERL5LIB=$PERL5LIB:$SeismicUnixGui
+
 =head2 EXTRA PACKAGES
 
 If you want to additional fortran and c packages
 run the following instruction post-installation:
 
-sudo bash post_install_scripts.sh
+bash post_install_scripts.sh
 
 If you can not find this file, then look for it with any of the
 these instructions:
@@ -33,3 +45,5 @@ A.
 
 B.
   locate post_install_scripts.sh
+
+=head2 SeismicUnixGui Project Examples
