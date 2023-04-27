@@ -21,6 +21,11 @@ package App::SeismicUnixGui::developer::code::sunix::search_directories;
 
 =head3 NOTES
 
+It is assumed that developer programs are used
+ONLY after full installation of App::SeismicUnixGui
+and that the appropriate environment variables
+are also working.
+
 =head4 Examples
 
 =head2 CHANGES and their DATES

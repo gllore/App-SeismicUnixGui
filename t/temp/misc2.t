@@ -18,11 +18,11 @@ ok tests if modules compile well
 
 =cut
 
-use Test::Compile::Internal tests => 112;
+use Test::Compile::Internal tests => 3;
 
 my $test=Test::Compile::Internal->new();
 my $root='lib/App/SeismicUnixGui/misc/';
-my $inbound = 't/misc_files.txt';
+my $inbound = 't/misc_files2.txt';
 open (IN,'<',$inbound) or die $!;
 
 	my $line;

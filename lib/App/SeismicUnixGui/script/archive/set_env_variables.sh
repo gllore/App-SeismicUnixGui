@@ -1,11 +1,13 @@
 #!/bin/bash
+set -x
 
-source ./.temp
-echo 'source .temp'
-
+local_dir=`pwd`
+. $local_dir/.temp
+echo "source $local_dir/.temp"
 # see if global variable is set
 # global variable SeismicUnixGuilocates main folder
-
+a=`env | grep Gui`
+echo "env Gui is $a"
  if [ -z "${SeismicUnixGui}" ]; then
 
  	echo "global variable SeismicUnixGui must first be set"
