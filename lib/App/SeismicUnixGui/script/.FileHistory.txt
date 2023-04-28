@@ -1,5 +1,5 @@
-/home/gllore/Fairbanks/seismics/pl/permafrost_tunnel/M356A71A_Endevco_PCB_3axis/110321/XYZ/1/gllore/aa
 /home/gllore/Fairbanks/seismics/pl/permafrost_tunnel/M356A71A_Endevco_PCB_3axis/110321/XYZ/1/gllore/view_raw_data.pl
+/home/gllore/Fairbanks/seismics/pl/permafrost_tunnel/M356A71A_Endevco_PCB_3axis/110321/XYZ/1/gllore/aa
 /home/gllore/Fairbanks/seismics/pl/permafrost_tunnel/M356A71A_Endevco_PCB_3axis/110321/XYZ/1/gllore/segy2su.pl
 /home/gllore/Fairbanks/seismics/data/permafrost_tunnel/M356A71A_Endevco_PCB_3axis/110321/XYZ/1/su/gllore/junk.su
 /home/gllore/Fairbanks/seismics/data/permafrost_tunnel/M356A71A_Endevco_PCB_3axis/110321/XYZ/1/su/gllore/sp13.su
