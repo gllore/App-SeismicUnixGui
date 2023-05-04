@@ -4419,6 +4419,7 @@ lib/App/SeismicUnixGui/developer/code/sunix/sunix_package_use.pm
 lib/App/SeismicUnixGui/developer/code/sunix/sunix_spec.pm
 lib/App/SeismicUnixGui/developer/code/sunix/sustkvel_changes.pm
 lib/App/SeismicUnixGui/developer/code/sunix/update.pm
+lib/App/SeismicUnixGui/developer/code/sunix/update_main_version_number.pl
 lib/App/SeismicUnixGui/developer/Stripped/data/ctrlstrip.cwp.main
 lib/App/SeismicUnixGui/developer/Stripped/data/dt1tosu.su.main.data_conversion
 lib/App/SeismicUnixGui/developer/Stripped/data/segbread.Sfio.main

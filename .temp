@@ -1,0 +1,5 @@
+#!/bin/bash
+export SeismicUnixGui=/usr/local/pl/App-SeismicUnixGui/lib/App/SeismicUnixGui
+export SeismicUnixGui_script=/usr/local/pl/App-SeismicUnixGui/lib/App/SeismicUnixGui/script
+export PATH=$PATH::$SeismicUnixGui_script
+export PERL5LIB=$PERL5LIB::$SeismicUnixGui
