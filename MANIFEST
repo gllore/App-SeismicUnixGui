@@ -3940,6 +3940,7 @@ App-SeismicUnixGui-0.82.4/t/misc_files.txt
 App-SeismicUnixGui-0.82.4/t/script.t
 App-SeismicUnixGui-0.82.4/t/specs.t
 App-SeismicUnixGui-0.82.5.tar.gz
+App-SeismicUnixGui-0.82.8.tar.gz
 archive/big_streams_param.pm
 archive/color_listbox_tbd.pm
 archive/config_superflows_fix.pm
@@ -4059,6 +4060,7 @@ lib/App/SeismicUnixGui/big_streams/Synseis.pl
 lib/App/SeismicUnixGui/big_streams/Synseis.pm
 lib/App/SeismicUnixGui/c/bin/synseis
 lib/App/SeismicUnixGui/c/bin/test
+lib/App/SeismicUnixGui/c/bin/zrhov
 lib/App/SeismicUnixGui/c/obj/keep
 lib/App/SeismicUnixGui/c/synseis/makefile
 lib/App/SeismicUnixGui/c/synseis/run_me_only.sh

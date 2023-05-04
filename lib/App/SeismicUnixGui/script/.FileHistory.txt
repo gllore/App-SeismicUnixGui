@@ -1,0 +1,2 @@
+/home/gllore/FalseRiver/well/seismics/data/Woody//041914/H/1/synseis/gllore/zrhov_W8
+/home/gllore/FalseRiver/seismics/pl/Woody//041914/H/1/gllore/Synseis.config

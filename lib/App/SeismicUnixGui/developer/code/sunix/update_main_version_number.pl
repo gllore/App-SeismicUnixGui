@@ -50,8 +50,8 @@ and file
 =cut
 
 my $local       = getcwd();
-my $old_version = '0.82.7';
-my $new_version = '0.82.8';
+my $old_version = '0.82.8';
+my $new_version = '0.82.9';
 
 my $i = 0;
 $line2find[$i]   = ("L_SUV$old_version.pl");
