@@ -156,7 +156,7 @@ sub set_pdf {
 		if ( $item eq 'InstallationGuide' ) {
 
 			$help_button_messages->{_item} =
-			  'SeismicUnixGuiInstallationGuide0.83.0.pdf';
+			  'SeismicUnixGuiInstallationGuide0.82.9.pdf';
 
 		}
 

@@ -1,2 +1,12 @@
+/home/gllore/LRTF//seismics/pl/Huntsville//120922/H/1/gllore/1.segy2su.pl
+/home/gllore/LRTF//seismics/pl/Huntsville//120922/H/1/gllore/11.viewAll_SH_ch6.pl
+/home/gllore/LRTF/seismics/pl/HRKE122//052323/H/1/gllore/1.segy2su.pl
+/home/gllore/Servilleta/seismics/data/loma_blanca//053018/H/1/txt/gllore/fromNE_ep.txt
+/home/gllore/Servilleta/seismics/pl/loma_blanca//053018/H/1/gllore/suwindow_traces.pl
+/home/gllore/Servilleta/seismics/data/loma_blanca//053018/H/1/txt/gllore/A.txt
+/home/gllore/Servilleta/seismics/data/loma_blanca//053018/H/1/su/gllore/L28HzHit_fromNE.su
+/home/gllore/Servilleta/well/seismics/data/loma_blanca//053018/H/1/synseis/gllore/zrhov_W8
+/home/gllore/Servilleta/seismics/pl/loma_blanca//053018/H/1/gllore/3.diff_data.pl
+/home/gllore/Servilleta/seismics/pl/loma_blanca//053018/H/1/gllore/2A.view_muted_gather.pl
+/home/gllore/Servilleta/seismics/pl/loma_blanca//053018/H/1/gllore/1.view_sp_clean.pl
 /home/gllore/FalseRiver/well/seismics/data/Woody//041914/H/1/synseis/gllore/zrhov_W8
-/home/gllore/FalseRiver/seismics/pl/Woody//041914/H/1/gllore/Synseis.config

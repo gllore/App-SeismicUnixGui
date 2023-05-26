@@ -60,11 +60,11 @@ For a sunix program with a binding how does the FileDialog get activated?
  A. Superflows use L_SU->save_button
  A. user-built flows use color_flow.pm->save_button
  
- Q. What is the sequence of programs during a 'Save'?
+     The sequence of programs during a 'Save' is as follows:
  
-   main
-    L_SU
-     color_flow.pm->save_button
+      main
+       L_SU
+       color_flow.pm->save_button
  
  Q. What are MB1 bindings for colored listboxes?
  Q. How are colored flow listboxes selected?
@@ -496,10 +496,11 @@ after:
 Q. What programs are used to generate a perl script which uses
   the parameters from the GUI:
   
-A. Saving a perl-based file, involves:
-How do I save a perl-based flow built by user (user-built)?
 
-N.B. files_LSU,save,  handles ultimate writing of .pl
+Q. How do I save a perl-based flow built by user (user-built)?
+A. Saving a perl-based file, involves:
+
+N.B. files_LSU,save, handles ultimate writing of *.pl file
 
 main
 L_SU 
@@ -846,7 +847,7 @@ Q. How does LSU_project_selector create new Project directories?
 	
 	Q. How are input parameters from GUI selected before writing to an output perl flow file?
 	 
-	A.  NOT directly from the GUI, but actually from the namespace kept by param_flow_grey (example for grey listbox flows) 
+	A. NOT directly from the GUI, but actually from the namespace kept by param_flow_grey (example for grey listbox flows) 
 
 	 By using get_good_labels_aref2 method as follows: $param_flow_color_i->get_good_labels_aref2
 

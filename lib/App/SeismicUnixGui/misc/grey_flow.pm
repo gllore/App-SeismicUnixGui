@@ -3105,7 +3105,7 @@ sub flow_select {
 					# but index of current program is less than the last index
 					# of the last program in the flow
 
-# print("color_flow,flow_select,last_param_widget_values=@save_last_param_widget_values\n");
+print("color_flow,flow_select,last_param_widget_values=@save_last_param_widget_values\n");
 					$param_flow_color_pkg->set_flow_index(
 						$max_saved_widget_index);
 					my $last_param_flow_values_w_strings_aref =
@@ -3542,8 +3542,8 @@ for first time but no listboxes have been occupied previously
 
 		_save_most_recent_param_flow();
 
-		# print("color_flow, save_button writing gui_history.txt\n");
-		# $gui_history->view();		
+		print("color_flow, save_button writing gui_history.txt\n");
+		$gui_history->view();		
 		
 #		print("3. color_flow, save_button, param_flow view data\n"
 #				);
@@ -3564,29 +3564,32 @@ for first time but no listboxes have been occupied previously
 			my $click_count =
 			  ( ( $gui_history->get_defaults() )->{_count} );
 			  
-#			  				print(
-#"5. color_flow, save_button, memory fix, click count=$click_count\n"
-#				);
-#							  				print(
-#"5. color_flow, save_button, most_recent_flow_index_touched=$last_flow_index\n"
-#				);
+			  				print(
+"5. color_flow, save_button, memory fix, click count=$click_count\n"
+				); # =7 < 19 default  OK
+							  				print(
+"5. color_flow, save_button, most_recent_flow_index_touched=$last_flow_index\n"
+				); #=2 OK
+							  				print(
+"5. color_flow, save_button, max_saved_widget_index=$max_saved_widget_index\n"
+				);				# =1 TODO
+print("5 color_flow,save_last_param_widget_values=@save_last_param_widget_values\n");
 
 			if (   ( $this_color eq $last_flow_color )
 				&& ( $last_flow_index == $max_saved_widget_index 
-				or   $last_flow_index == 0)  # generally means file is just openend
+				or   $last_flow_index == 0)  # generally means file is just opened
 				&& ( $click_count < $min_clicks4save_button ) )
 			{
 
 				# CASE 1
-				# of last color=this_color also
-				# and we are still at the last index
-				# e.g., a recently opened file that the user
-				# decides to Save without any changes
-				# a strange but possible case
-				# fixing param_widget memory leak that deletes the
+				# When last color=this_color 
+				#  and we are still over the last index in GUI
+				# e.g., when a recently opened file is
+				# saved without any changes
+				# (a strange but possible case)
+				# Fix param_widget memory leak that deletes the
 				# last element in the last flow
 
-#				print("6 color_flow,save_last_param_widget_values=@save_last_param_widget_values\n");
 #				print("6 color_flow,max_saved_widget_index=$max_saved_widget_index\n");
 				$param_flow_color_pkg->set_flow_index($max_saved_widget_index);
 				$param_widgets->set_values( \@save_last_param_widget_values );
