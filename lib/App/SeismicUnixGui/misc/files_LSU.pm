@@ -781,6 +781,7 @@ sub set_superflow_config_file_format {
 
 sub set_data {
 	my ($self)         = @_;
+	
 	my $num_progs4flow = scalar @{ $files_LSU->{_prog_names_aref} };
 	my @prog_names     = @{ $files_LSU->{_prog_names_aref} };
 
@@ -1114,22 +1115,21 @@ sub set_prog_param_values_aref2 {
 }
 
 =head2 sub set_prog_param_labels_aref2
-		#	my $num_progs4flow = scalar @{$files_LSU->{_prog_param_labels_aref2}};
-        # 	print("\nfiles_LSU,set_prog_param_labels_aref2, num_progs4flow: $num_progs4flow\n");
-		#		for (my $i=0; $i < $num_progs4flow; $i++ ) {
-		#		print("files_LSU,set_prog_param_labels_aref2,
-		#		@{@{$files_LSU->{_prog_param_labels_aref2}}[$i]}\n");
-		#			}
 
-# 	for (my $j=0; $j < $num_progs4flow; $j++ ) {
-# 
-# 		my $num_params4prog = scalar @{@{$files_LSU->{_prog_param_labels_aref2}}[$j]};
-# 		print("files_LSU,set_prog_param_labels_aref2,num_params4prog in index=$j: $num_params4prog \n");
-# 		print("\nfiles_LSU,_prog_param_labels_aref2, labels:\n");
-# 		my @labels = @{@{$files_LSU->{_prog_param_labels_aref2}}[$j]};
-# 		print("@labels\n");
-# 	}
+	my $num_progs4flow = scalar @{$files_LSU->{_prog_param_labels_aref2}};
+         	print("\nfiles_LSU,set_prog_param_labels_aref2, num_progs4flow: $num_progs4flow\n");
+				for (my $i=0; $i < $num_progs4flow; $i++ ) {
+				print("files_LSU,set_prog_param_labels_aref2,
+				@{@{$files_LSU->{_prog_param_labels_aref2}}[$i]}\n");
+					}
 
+	my $num_progs4flow = scalar @{$files_LSU->{_prog_param_values_aref2}};
+         	print("\nfiles_LSU,set_prog_param_values_aref2, num_progs4flow: $num_progs4flow\n");
+				for (my $i=0; $i < $num_progs4flow; $i++ ) {
+				print("files_LSU,set_prog_param_values_aref2,
+				@{@{$files_LSU->{_prog_param_values_aref2}}[$i]}\n");
+}
+					
 
 =cut
 

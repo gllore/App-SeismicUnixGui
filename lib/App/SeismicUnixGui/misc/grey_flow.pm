@@ -3105,7 +3105,7 @@ sub flow_select {
 					# but index of current program is less than the last index
 					# of the last program in the flow
 
-print("color_flow,flow_select,last_param_widget_values=@save_last_param_widget_values\n");
+#print("color_flow,flow_select,last_param_widget_values=@save_last_param_widget_values\n");
 					$param_flow_color_pkg->set_flow_index(
 						$max_saved_widget_index);
 					my $last_param_flow_values_w_strings_aref =
@@ -3481,9 +3481,11 @@ sub save_button {
 	#    	print ("color_flow, save_button,saved values=@save_values_aref\n");
 	#
 	#    }
-	# print("1. color_flow, save_button view stored data\n");
-	# $param_flow_color_pkg->view_data();
-
+#	print("1. color_flow, save_button view stored data\n");
+#	$param_flow_color_pkg->view_data();
+    my $num_items_in_flow = $param_flow_color_pkg->get_num_items();
+    my $max_index_in_flow = $num_items_in_flow-1;
+    print("1. color_flow, save_button, max_index_in_flow=$max_index_in_flow\n");
 	$param_widgets->redisplay_values();
 
 	# Double-check we are in the correct place:
@@ -3542,8 +3544,8 @@ for first time but no listboxes have been occupied previously
 
 		_save_most_recent_param_flow();
 
-		print("color_flow, save_button writing gui_history.txt\n");
-		$gui_history->view();		
+#		print("color_flow, save_button writing gui_history.txt\n");
+#		$gui_history->view();		
 		
 #		print("3. color_flow, save_button, param_flow view data\n"
 #				);
@@ -3552,11 +3554,11 @@ for first time but no listboxes have been occupied previously
 		if ( not $memory_leak4save_button_fixed ) {
 
 			# Strange memory leak when a file is just opened.
-			# Last element of last program disappears
-			# if user clicks on an element different from
-			# the last, or the Save button
-			# Conditions are for just having opened a file
-			# nO changes have yet been made to the flow
+			# Last element of last program disappears--
+			# if either user clicks on an element different from
+			# the last, or the Save button.
+			# Conditions are for just having opened a file,
+			# no changes have yet been made to the flow
 			# and $total_click_value < $very_low_click_value
 			# if file has just been opened and is immediately saved
 			# the set flow index is assumed = 0
@@ -3564,21 +3566,22 @@ for first time but no listboxes have been occupied previously
 			my $click_count =
 			  ( ( $gui_history->get_defaults() )->{_count} );
 			  
-			  				print(
-"5. color_flow, save_button, memory fix, click count=$click_count\n"
-				); # =7 < 19 default  OK
-							  				print(
-"5. color_flow, save_button, most_recent_flow_index_touched=$last_flow_index\n"
-				); #=2 OK
-							  				print(
-"5. color_flow, save_button, max_saved_widget_index=$max_saved_widget_index\n"
-				);				# =1 TODO
-print("5 color_flow,save_last_param_widget_values=@save_last_param_widget_values\n");
+#			  				print(
+#"5. color_flow, save_button, memory fix, click count=$click_count\n"
+#				); # =7 < 19 default  OK
+#							  				print(
+#"5. color_flow, save_button, most_recent_flow_index_touched=$last_flow_index\n"
+#				); #=2 OK
+#							  				print(
+#"5. color_flow, save_button, max_saved_widget_index=$max_saved_widget_index\n"
+#				);				# =1 TODO
+#print("5 color_flow,save_last_param_widget_values=@save_last_param_widget_values\n");
 
 			if (   ( $this_color eq $last_flow_color )
-				&& ( $last_flow_index == $max_saved_widget_index 
-				or   $last_flow_index == 0)  # generally means file is just opened
-				&& ( $click_count < $min_clicks4save_button ) )
+#				&& ( $last_flow_index <= $max_index_in_flow
+#				) 
+				&& ( $click_count < $min_clicks4save_button ) # which generally means file is just opened
+				 )
 			{
 
 				# CASE 1
@@ -3591,10 +3594,18 @@ print("5 color_flow,save_last_param_widget_values=@save_last_param_widget_values
 				# last element in the last flow
 
 #				print("6 color_flow,max_saved_widget_index=$max_saved_widget_index\n");
-				$param_flow_color_pkg->set_flow_index($max_saved_widget_index);
-				$param_widgets->set_values( \@save_last_param_widget_values );
-				$param_flow_color_pkg->set_values_aref(
-					\@save_last_param_widget_values );
+#				print("6 color_flow,max_index_in_flow=$max_index_in_flow\n");
+				$param_flow_color_pkg->set_flow_index($max_index_in_flow);
+				$param_flow_color_pkg->set_values_aref
+					(\@save_last_param_widget_values );
+			
+				if ($last_flow_index == $max_index_in_flow) { 
+					
+					# if file is saved at default open (last) program
+					
+					$param_widgets->set_values( \@save_last_param_widget_values );
+				}
+
 
 				$param_widgets->redisplay_values();
 
@@ -3670,18 +3681,18 @@ print("5 color_flow,save_last_param_widget_values=@save_last_param_widget_values
 		$color_flow_href->{_prog_names_aref} =
 		  $param_flow_color_pkg->get_flow_prog_names_aref();
 
-		# One last check on quotes for strings
-		# Program names help discern strings from numbers
-		# and for case where file name are numeric e.g., '1000.txt'
 		$color_flow_href->{_prog_names_aref} =
 		  $param_flow_color_pkg->get_flow_prog_names_aref();
 		$control->set_flow_prog_names_aref(
 			$color_flow_href->{_prog_names_aref} );
 
+		# One last check on quotes for strings
+		# Program names help discern strings from numbers
+		# and for case where file name are numeric e.g., '1000.txt'
 		#TODO TODO TODO
-		#		$color_flow_href->{_good_values_aref2} =
-		#		$control->get_string_or_number_aref2(
-		#			$color_flow_href->{_good_values_aref2} );
+				$color_flow_href->{_good_values_aref2} =
+				$control->get_string_or_number_aref2(
+					$color_flow_href->{_good_values_aref2} );
 
 		$files_LSU->set_prog_param_labels_aref2($color_flow_href);
 		$files_LSU->set_prog_param_values_aref2($color_flow_href);
