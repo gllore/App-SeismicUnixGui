@@ -237,7 +237,7 @@ xmute=85,96
 To create a multi-gather parameter file 
 this composite "parfile"" can be concatenated using the Tool: Sucat
 
-Internally, sumute uses "susplit" to breaks a large multi-gather file into individual
+Internally, sumute uses "susplit" to break a large multi-gather file into individual
 shotpoint gathers (ep), or cdp gathers or fldr (gathers) according to Segy
 key header words. 
 
@@ -263,6 +263,7 @@ xmute=73,96
 =head2 CHANGES and their DATES
 
 Nov. 2022, V 0.0.2
+June 2023, split files are read from DATA_SEISMIC_SU directory
 
 =cut
 
@@ -596,11 +597,11 @@ Run flow in system independently of sumute
 	$log->file($flow[0]);
 
 
-=head2 collect output split file names from the PL_SEISMIC directory
+=head2 collect output split file names from the DATA_SU_SEISMIC directory
 
 =cut
 
-		opendir( my $dh, $PL_SEISMIC, );
+		opendir( my $dh, $DATA_SEISMIC_SU, );
 		my @split_file_names = grep( /.split_/, readdir($dh) );
 		closedir($dh);
 

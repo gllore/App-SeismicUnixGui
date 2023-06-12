@@ -116,6 +116,7 @@ my $susplit = {
 
 collects switches and assembles bash instructions
 by adding the program name
+move output data into the DATA_SEISMIC_UNIX directory
 
 =cut
 

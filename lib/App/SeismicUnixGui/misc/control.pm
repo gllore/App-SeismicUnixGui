@@ -93,7 +93,7 @@ sub _get_no_quotes {
 
 			my $exit_value;
 
-			#			print("control,_get_no_quotes, entry_value = $entry_value\n");
+#			print("control,_get_no_quotes, entry_value = $entry_value\n");
 
 			# 1. remove double quotes if they exist
 			#  anywhere in the line
@@ -106,7 +106,7 @@ sub _get_no_quotes {
 			$entry_value =~ s/'$//;
 			$exit_value = $entry_value;
 
-			#			print("control,_get_no_quotes, result: $exit_value\n");
+#			print("control,_get_no_quotes, result: $exit_value\n");
 			return ($exit_value);
 
 		}
@@ -141,11 +141,13 @@ sub _get_string_or_number {
 
 	if ( length $entry_value ) {
 
-   #		print(
-   #"1. control, _get_string_or_number, entering value to test = $entry_value\n"
-   #		);
+#   		print(
+#   "1. control, _get_string_or_number, entering value to test = $entry_value\n"
+#   		);
 
 		use Scalar::Util qw(looks_like_number);
+		# remove any exisitng quotes
+		my $clean_value = _get_no_quotes($entry_value);
 
 		if ( length( $control->{_prog_names_aref} )
 			&& ( length $control->{_flow_index} ) )
@@ -180,32 +182,33 @@ sub _get_string_or_number {
 
 						# expected for index=0 in both data_in and data_out
 						# CASE 1A.1 always returns string
-						my $exit_value_as_string = '\'' . $entry_value . '\'';
+						
+						my $exit_value_as_string = '\'' . $clean_value . '\'';
 
-#	                    print("CASE 1A.1 control, _get_string_or_number, value into a string: $exit_value_as_string\n");
+	                    print("CASE 1A.1 control, _get_string_or_number, value into a string: $exit_value_as_string\n");
 						return ($exit_value_as_string);
 
 					}
 					else {    # remaining parameters for data_in and data_out
 							  # determine whether we have a string or a number
 						my $fmt = 0;
-						$fmt = looks_like_number($entry_value);
+						$fmt = looks_like_number($clean_value);
 
-	 #	print("2. control, _get_string_or_number, entry_value = $entry_value\n");
+	 #	print("2. control, _get_string_or_number, entry_value = $clean_value\n");
 						if ($fmt) {
 
 # 							keep numbers as they are
 #							print(
-#								"CASE 1A.2, numbers, control, _get_string_or_number,$entry_value looks like a number\n"
+#								"CASE 1A.2, numbers, control, _get_string_or_number,$clean_value looks like a number\n"
 #							);
-							my $exit_value_as_number = $entry_value;
+							my $exit_value_as_number = $clean_value;
 							return ($exit_value_as_number);
 
 						}
 						else {
 #							print("CASE 1A.3 control, strings, _get_string_or_number, exit_value looks like string\n");
 							my $exit_value_as_string =
-							  '\'' . $entry_value . '\'';
+							  '\'' . $clean_value . '\'';
 
 # 							print("control, get_string_or_number,  value into a string: $exit_value_as_string\n");
 							return ($exit_value_as_string);
@@ -221,7 +224,7 @@ sub _get_string_or_number {
 				and $program eq 'segyread' )
 			{
 				# CASE 1B ALWAYS exists as a string within quotes
-				my $exit_value_as_string = '\'' . $entry_value . '\'';
+				my $exit_value_as_string = '\'' . $clean_value . '\'';
 
 #   			print("CASE 1B control, _get_string_or_number,value = $exit_value_as_string\n");
 
@@ -230,7 +233,7 @@ sub _get_string_or_number {
 				and $program eq 'suop2' )
 			{
 				# CASE 1C ALWAYS exists as a string within quotes
-				my $exit_value_as_string = '\'' . $entry_value . '\'';
+				my $exit_value_as_string = '\'' . $clean_value . '\'';
 
 #   			print("CASE 1C control, _get_string_or_number,value = $exit_value_as_string\n");
 			}
@@ -248,8 +251,12 @@ sub _get_string_or_number {
 #				     (e.g., in param_flow_color_pkg') -- for most programs\n"
 #				);
 
+# first remove any exisitng quotes
+
+                my $clean_value = _get_no_quotes($entry_value);
+
 				my $fmt = 0;
-				$fmt = looks_like_number($entry_value);
+				$fmt = looks_like_number($clean_value);
 
 #		print("control, _get_string_or_number, CASE 1C entry_value = $entry_value\n");
 				if ($fmt) {
@@ -258,7 +265,7 @@ sub _get_string_or_number {
 #"CASE 1D.1, number, control, _get_string_or_number,$entry_value looks like a number\n"
 #					);
 
-					my $exit_value_as_number = $entry_value;
+					my $exit_value_as_number = $clean_value;
 					return ($exit_value_as_number);
 
 				}
@@ -266,7 +273,7 @@ sub _get_string_or_number {
 	#					print(
 	#"control, _get_string_or_number, exit_value does not look like a number \n"
 	#					);
-					my $exit_value_as_string = '\'' . $entry_value . '\'';
+					my $exit_value_as_string = '\'' . $clean_value . '\'';
 
 #					print(
 #"CASE 1D.2, string, control, get_string_or_number,  value into a string: $exit_value_as_string\n"
@@ -277,7 +284,7 @@ sub _get_string_or_number {
 			}
 			else {
 
- #				print("55. control, _get_string_or_number, entry_value = $entry_value\n");
+ #				print("55. control, _get_string_or_number, entry_value = $clean_value\n");
 
 # General, CASE 2 when flow is not yet saved
 # to disk or RAM, (e.g., either via  "param_flows")
@@ -288,21 +295,21 @@ sub _get_string_or_number {
 
 				# determine whether we have a string or a number
 				my $fmt = 0;
-				$fmt = looks_like_number($entry_value);
+				$fmt = looks_like_number($clean_value);
 
 				if ($fmt) {
 
-#					print("CASE 2.1 control, _get_string_or_number,$entry_value looks like a number\n");
-					my $exit_value_as_number = $entry_value;
+#					print("CASE 2.1 control, _get_string_or_number,$clean_value looks like a number\n");
+					my $exit_value_as_number = $clean_value;
 
- #			print("561. control, _get_string_or_number, entry_value = $entry_value\n");
+ #			print("561. control, _get_string_or_number, entry_value = $clean_value\n");
 					return ($exit_value_as_number);
 
 				}
 				else {
 
 	  #					print("control, _get_string_or_number, exit_value like a string\n");
-					my $exit_value_as_string = '\'' . $entry_value . '\'';
+					my $exit_value_as_string = '\'' . $clean_value . '\'';
 
 #					print("CASE 2.2, control, get_string_or_number,  value into a string: $exit_value_as_string\n");
 					return ($exit_value_as_string);
@@ -324,7 +331,7 @@ sub _get_string_or_number {
 
 #			print("control,_get_string_or_number, missing program names and/or flow index\n");
 
-#print("57. control, _get_string_or_number, entry_value = $entry_value\n");
+#print("57. control, _get_string_or_number, entry_value = $clean_value\n");
 #			print(
 #				"control, _get_string_or_number, control->{_prog_names_aref}=$control->{_prog_names_aref},
 #		control->{_flow_index}=$control->{_flow_index}\n"
@@ -336,7 +343,7 @@ sub _get_string_or_number {
 	}
 	else {
 
-#		print("59. control,_get_string_or_number, missing entry_value=$entry_value, NADA\n");
+#		print("59. control,_get_string_or_number, missing entry_value=$clean_value, NADA\n");
 		return ($empty_string);
 	}
 
@@ -748,10 +755,10 @@ sub get_no_quotes {
 			$entry_value =~ tr/"//d;
 
 		# 2. remove extra single quotes if they exist at the start of the string
-			$entry_value =~ s/^'//;
+			$entry_value =~ s/^'//g;
 
 		  # 3. remove extra single quotes if they exist at the end of the string
-			$entry_value =~ s/'$//;
+			$entry_value =~ s/'$//g;
 
 			#			print("after removing only a last single quote: $x\n ");
 
@@ -949,10 +956,9 @@ sub get_string_or_number4aref {
 
 			_set_parameter_index4array($i);
 
-           # print("\n1. control, get_string_or_number4aref, entering _get_string_or_number=$array[$i], idx=$i\n");
+#           print("\n1. control, get_string_or_number4aref, entering _get_string_or_number=$array[$i], idx=$i\n");
 			$array[$i] = _get_string_or_number( $array[$i] );
-
-            # print("1. control, get_string_or_number4aref, leaving _get_string_or_number: $array[$i], idx=$i\n");
+#           print("1. control, get_string_or_number4aref, leaving _get_string_or_number: $array[$i], idx=$i\n");
 		}
 
 		# print("2. control, get_string_or_number4aref, array=@array\n");
