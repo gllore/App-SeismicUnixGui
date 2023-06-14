@@ -171,7 +171,7 @@ sub _get_string_or_number {
 			  )
 			{
 
-#				print("CASE 1A control, _get_string_or_number, working with data_in, or data_out -- special cases\n");
+      # print("CASE 1A control, _get_string_or_number, working with data_in, or data_out -- special cases\n");
 
 	   # specific requirements for data_in and data_out in first item (index =0)
 				my $index = $control->{_parameter_index4array};
@@ -185,7 +185,7 @@ sub _get_string_or_number {
 						
 						my $exit_value_as_string = '\'' . $clean_value . '\'';
 
-	                    print("CASE 1A.1 control, _get_string_or_number, value into a string: $exit_value_as_string\n");
+	                    # print("CASE 1A.1 control, _get_string_or_number, value into a string: $exit_value_as_string\n");
 						return ($exit_value_as_string);
 
 					}

@@ -386,9 +386,9 @@ sub delete_selection {
 		# print("param_flow_grey, all deleted using double quotes \n");
 		
 		@{ $param_flow_grey->{_checkbuttons_aref2} } = '';
-		@{ $param_flow_grey->{_names_aref2} } = '';
-		@{ $param_flow_grey->{_values_aref2} } = '';
-		@{ $param_flow_grey->{_prog_names_aref} } = '';
+		@{ $param_flow_grey->{_names_aref2} }        = '';
+		@{ $param_flow_grey->{_values_aref2} }       = '';
+		@{ $param_flow_grey->{_prog_names_aref} }    = '';
 		
 		$param_flow_grey->{_num_items} = 0;
 		$param_flow_grey->{_num_items4flow} = 0;
@@ -790,9 +790,10 @@ sub get_values_aref {
 		# print("param_flow_grey,get_values :values_aref is @values_aref\n");
 
 		for ( $i = 1, $j = 0; $i < $length; $i = $i + 2, $j++ ) {
+			
 			$values[$j] = $values_aref[$i];
 
-			# print("param_flow_grey, get_values :index $j values: $values[$j]\n");
+			print("param_flow_grey, get_values :index $j values: $values[$j]\n");
 		}
 		return ( \@values_aref );
 
@@ -1516,19 +1517,17 @@ sub view_data {
 	my ($self) = @_;
 	my @num_progs;
 
-	my $indices = $param_flow_grey->{_indices};
+	my $indices   = $param_flow_grey->{_indices};
 	$num_progs[0] = $param_flow_grey->{_num_items};
-
-	$num_progs[1] = scalar( @{ $param_flow_grey->{_names_aref2} } );
-
-	#    $num_progs[3] = scalar  ( @{$param_flow_grey->{_values_aref2}} );
-	#    $num_progs[4] = scalar  ( @{$param_flow_grey->{_checkbuttons_aref2}});
-	$num_progs[2] = scalar( @{ $param_flow_grey->{_prog_names_aref} } );
+	$num_progs[1] = scalar ( @{ $param_flow_grey->{_names_aref2} } );
+	$num_progs[2] = scalar ( @{ $param_flow_grey->{_prog_names_aref} } );	
+	$num_progs[3] = scalar ( @{$param_flow_grey->{_values_aref2}} );
+	$num_progs[4] = scalar ( @{$param_flow_grey->{_checkbuttons_aref2}});
 
 	# print("\n param_flow_grey,view_data, _prog_names @{$param_flow_grey->{_prog_names_aref}}\n");
-   # print("\nparam_flow_grey,view_data:number of items in list in 4-5 different ways  @num_progs \n");
+    print("\nparam_flow_grey,view_data:number of items in list in 4-5 different ways  @num_progs \n");
 
-	# print("param_flow_grey,view_data:max index = $indices  \n\n");
+	print("param_flow_grey,view_data:max index = $indices  \n\n");
 
 	# print("param_flow_grey,view_data, param_flow_grey_ has hash=$param_flow_grey\n ");
 

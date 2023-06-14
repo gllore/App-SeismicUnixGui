@@ -2336,7 +2336,7 @@ sub _L_SU_flow_bindings {
 
 		$gui_history->set_flow_select_color($color);
 
-		#			print("1. main,_L_SU_flow_bindings,color:$color\n");
+#					print("1. main,_L_SU_flow_bindings,color:$color\n");
 
 		$L_SU->set_hash_ref($main_href);
 
