@@ -535,7 +535,6 @@ sub _FileDialog_button_Open {
 	}
 	else {
 		# print("L_SU, FileDialog_button, Good, color already chosen: $color \n");
-
 		#			NADA
 	}
 
@@ -920,6 +919,9 @@ sub FileDialog_button {
 	{
 
 		_FileDialog_button_Open($dialog_type_sref);
+		# a file has just been opened	
+		# print("1. L_SU,FileDialog_button_Open, print out gui_history\n");
+	  	# $gui_history->view();
 
 	}
 	else {

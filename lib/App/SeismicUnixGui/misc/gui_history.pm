@@ -1010,12 +1010,12 @@ sub _reset {
 =head2 sub _set_click_sequence
 
 For general case, new count will not be sequential with previous 
-index value in  the same $property_href
+index value in the same $property_href
 Count changes whenever the user clicks on any tool
 
 indices for property_href should increase only if the most_recent
 is different to the prior. i.e., only if there is a real change
-indices only changes if there is a real change
+indices only change if there is a real change
 
 =cut
 
@@ -2147,25 +2147,26 @@ sub get_file_status {
 
 	if ( length $num_items_in_flow ) {
 
-
-		my $min_click_count = $num_items_in_flow * 3;
-#			print("gui_history,get_file_status, click count =$click_count \n");
+		my $min_click_count = ($num_items_in_flow + 1) * 3;
+			# print("gui_history,get_file_status, click count =$click_count \n");
 		if ( $click_count <= $min_click_count ) {
 
 			my $result = "just_opened";
-			print(
-"gui_history,get_file_status, click count: $click_count<= $min_click_count \n"
-			);
+			 #print(
+ #"gui_history,get_file_status, click count: $click_count<= $min_click_count \n"
+ #			);
 			return ($result);
 		}
 		else {
-			print("gui_history,get_file_status, exceeded click count \n");
-			print("click count =$click_count > $min_click_count \n");
+			# print("gui_history,get_file_status, exceeded click count \n");
+			# print("click count =$click_count > $min_click_count \n");
+			my $result = "opened4a_while";
+			return($result);
 		}
 
 	}
 	else {
-		print("guit_history,sgt_file_status, missing iputs\n");
+		print("guit_history,get_file_status, missing iputs\n");
 		return ();
 	}
 

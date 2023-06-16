@@ -185,7 +185,7 @@ sub _get_string_or_number {
 						
 						my $exit_value_as_string = '\'' . $clean_value . '\'';
 
-	                    print("CASE 1A.1 control, _get_string_or_number, value into a string: $exit_value_as_string\n");
+	                    # print("CASE 1A.1 control, _get_string_or_number, value into a string: $exit_value_as_string\n");
 						return ($exit_value_as_string);
 
 					}
