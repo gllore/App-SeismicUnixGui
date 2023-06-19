@@ -107,8 +107,6 @@ our $sgy  = 'sgy';
 our $bin  = 'bin';
 our	$empty = '';
 our $par  = 'par';
-
-#	our $txt							= 'txt';   ALSO in SEGY HEADERS- below
 our $text = 'text';
 
 # SURFACE WAVE ANALYSIS

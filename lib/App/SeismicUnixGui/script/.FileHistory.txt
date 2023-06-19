@@ -1,1 +1,12 @@
+/home/gllore/MagdalenaNM_all//seismics/data/TrujilloWell//053123/H/1/txt/gllore/split_list.txt
+/home/gllore/MagdalenaNM_all//seismics/pl/TrujilloWell//053123/H/1/gllore/2.susplit.pl
+/home/gllore/six_wheel_test_article//seismics/data/HK122//061523/H/1/txt/gllore/list.txt
+/home/gllore/six_wheel_test_article//seismics/pl/HK122//061523/H/1/gllore/1F.split.pl
+/home/gllore/six_wheel_test_article//seismics/data/HK122//061523/H/1/su/gllore/stackOf11_raw.su
+/home/gllore/LRTF//seismics/pl/Huntsville//120822/H/3/gllore/4B.sukill.pl
+/home/gllore/six_wheel_test_article/seismics/data/HK122//061523/H/1/su/gllore/stackOf11_raw.su
+/home/gllore/six_wheel_test_article/seismics/data/HK122//061523/H/1/txt/gllore/list
+/home/gllore/six_wheel_test_article/seismics/pl/HK122//061523/H/1/gllore/1F.split.pl
+/home/gllore/MagdalenaNM_all/seismics/pl/TrujilloWell//053123/H/1/gllore/2.susplit.pl
+/home/gllore/six_wheel_test_article/seismics/pl/HK122//061523/H/1/gllore/1E.view_stackOf11.pl
 /home/gllore/six_wheel_test_article/seismics/pl/HK122//061523/H/1/gllore/1B.view_su.pl
