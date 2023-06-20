@@ -183,8 +183,8 @@ sub Step {
 		my $penultimate_idx = $num_files - 2;
 		my $last_idx        = $num_files - 1;
 
-		print("susplit, Step, num_files=$num_files\n");
-		print("susplit, Step, names=@file\n");
+		# print("susplit, Step, num_files=$num_files\n");
+		# print("susplit, Step, names=@file\n");
 
 		my $close     = $susplit->{_close};
 		my $key       = $susplit->{_key};
@@ -198,7 +198,7 @@ sub Step {
 		if ( $num_files >= 1 ) {
 
 			$inbound[0] = $DATA_SEISMIC_SU . '/' . $file[0]. $suffix_su;
-#			print("susplit,Step,first_file=$inbound[0]\n");
+			print("susplit,Step,first_file=$inbound[0]\n");
 
 			$first_step =
 				" susplit close=$close "
@@ -209,7 +209,7 @@ sub Step {
 	    if ($num_files == 2) {
 	    	
 	    	$inbound[1] = $DATA_SEISMIC_SU . '/' . $file[1].$suffix_su;
-			print(" last name = $inbound[1]\n");
+			# print(" last name = $inbound[1]\n");
 			
 			$last_step =
 				" susplit close=$close "
@@ -225,7 +225,7 @@ sub Step {
 			my $temp_step;
 					
 			$inbound[$last_idx] = $DATA_SEISMIC_SU . '/' . $file[$last_idx].$suffix_su;
-			print(" last name = $inbound[$last_idx]\n");
+			# print(" last name = $inbound[$last_idx]\n");
 				
 			$last_step =
 				" susplit close=$close "
@@ -235,7 +235,7 @@ sub Step {
 			for ( my $i = 1, ; $i <= $penultimate_idx ; $i++ ) {
 				$inbound[$i] =
 				  $DATA_SEISMIC_SU . '/' . $file[$i]. $suffix_su;
-		          print("Step, num_files>1;$inbound[$i]\n");
+		          # print("Step, num_files>1;$inbound[$i]\n");
 		          
 				# for the remaining files
 				$temp_step =
@@ -248,7 +248,13 @@ sub Step {
 			$step = $first_step . $temp_step . ";" . $last_step;
 		}
 
-		$step = $step . ";" . "mv *$stem$middle* $DATA_SEISMIC_SU ";
+		if ($num_files == 1) {
+			
+			$step = $first_step . ";" . "mv *$stem$middle* $DATA_SEISMIC_SU ";
+			
+		} else{
+			$step = $step . ";" . "mv *$stem$middle* $DATA_SEISMIC_SU ";
+		}
 
 		$susplit->{_Step} = $step;
 

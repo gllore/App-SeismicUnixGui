@@ -74,6 +74,7 @@ our (@EXPORT_OK, @ISA); #Global variables
   $itemp_bot_mute_picks_sorted_ $itemp_bot_mute_picks_sorted_par $itemp_bot_mute_picks_sorted_par_
   $ibot_mute_check_pickfile $ibot_mute_check_pickfile_ $ibot_mute_xfile_picks $ibot_mute_tfile_picks
   $temp_single_gather_par_file_mute  
+  $mute
   $temp 
   $fldr
   $ivpicks_sorted_par_
@@ -92,7 +93,8 @@ our (@EXPORT_OK, @ISA); #Global variables
   $suffix_target  $suffix_target_tilde $suffix_param $suffix_pick $suffix_profile $suffix_env $suffix_report $sx 
   $to_outpar_file
   $to $txt $text $tracf $tracl $tracr $trid $year
-  $tmute $xmute );
+  $tmute $xmute 
+  $velan );
 
 # suffix_types
 our $DAT  = 'DAT;';
@@ -152,6 +154,7 @@ our $ibot_mute_check_pickfile_        = '.ibotmute_pickfile_exists_';
 our $ibot_mute_check_pickfile         = '.ibotmute_pickfile_exists_';
 our $ibot_mute_xfile_picks            = 'bot_mute_xfile_picks';
 our $ibot_mute_tfile_picks            = 'bot_mute_tfile_picks';
+our $mute                             = 'mute';
 our $temp_single_gather_par_file_mute = '.temp_single_gather_par_file_mute';
 our $temp                             = 'temp';
 our $tmute							  = 'tmute';
@@ -165,6 +168,7 @@ our $gather_numo_suffix = '_gather';
 =cut
 
 our $ivpicks_sorted_par_ = 'ivpicks_sorted_par_';
+our $velan               = 'velan';
 
 # FFT
 our $ifft                        = 'ifft';

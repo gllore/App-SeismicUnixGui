@@ -364,7 +364,8 @@ sub _FileDialog_button {
 	if ($flow_dialog_type_sref) {
 
 		# flow dialog type can be
-		# 'Open' or Data_PL_SEISMIC
+		# 'Open' or 
+		# Data_PL_SEISMIC or Data_SEISMIC_TXT (superflow Sucat)
 
 		# provide values in the current widget
 		$color_flow_href->{_values_aref} = $param_widgets->get_values_aref();

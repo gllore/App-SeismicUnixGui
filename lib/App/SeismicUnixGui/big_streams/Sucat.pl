@@ -36,7 +36,7 @@ Use a list (use complete file names but exclude the directory paths)
 for concatenating iVelan "pick files" (Vrms,time pairs)
 into the correct format.
 
-A "list", which is found in the $PL_SEISMIC directory contains, 
+A "list", which is found in the $DATA_SEISMIC_TXT directory contains, 
 e.g.:
 ivpicks_sorted_par_L28Hz_Ibeam_geom4_cdp1
 ivpicks_sorted_par_L28Hz_Ibeam_geom4_cdp11
@@ -66,7 +66,7 @@ Use a list (use complete file names but exclude the directory paths)
 for concatenating iVelan "pick files" (x-coordinate,time pairs)
 into the correct format.
 
-A "list" which is found in the $PL_SEISMIC directory contains, e.g.:
+A "list" which is found in the $DATA_SEISMIC_TXT directory contains, e.g.:
 
 itop_mute_par_L28Hz_Ibeam_cmp_ep3
 itop_mute_par_L28Hz_Ibeam_cmp_ep5
@@ -79,7 +79,7 @@ vnmo=59.4778,160.806,195.689,273.761
 The final output format is:
 
 
-The list is expected to be found in $PL_SEISMIC, i.e., ~/pl/"subuser"/
+The list is expected to be found in $DATA_SEISMIC_TXT, i.e., ~/txt/"subuser"/
     
  Data_type is determined by parsing the file names and normally contains:
  "itop_mute", "ibot_mute" etc." '
@@ -107,7 +107,7 @@ An output name is also required.
     input_suffix                       =               
     input_name_prefix                  =                  
     input_name_extension               =              
-    list                               =  file name [$PL_SEISMIC]
+    list                               =  file name [$DATA_SEISMIC_TXT]
     output_file_name                   =    
     alternative_inbound_directory      =  [$PL_SEISMIC]             
     alternative_outbound_directory     =  [$PL_SEISMIC]  
@@ -220,7 +220,7 @@ use aliased 'App::SeismicUnixGui::misc::message';
 use aliased 'App::SeismicUnixGui::sunix::shell::sucat';
 use aliased 'App::SeismicUnixGui::misc::manage_files_by';
 use App::SeismicUnixGui::misc::SeismicUnix
-  qw($_cdp $_mute $in $itop_mute_par_ $ivpicks_sorted_par_ $out $on $go $to $suffix_ascii $off $suffix_su);
+  qw($_cdp $_mute $in $itop_mute_par_ $ivpicks_sorted_par_ $out $on $go $to $suffix_ascii $off $suffix_su $suffix_txt);
 use aliased 'App::SeismicUnixGui::misc::L_SU_global_constants';
 use aliased 'App::SeismicUnixGui::configs::big_streams::Sucat_config';
 use aliased 'App::SeismicUnixGui::specs::big_streams::Sucat_specB';
@@ -231,12 +231,13 @@ use aliased 'App::SeismicUnixGui::specs::big_streams::Sucat_specB';
 
 =cut
 
-my ( @file_out, @flow, @items, @cat, @sufile_out, @outbound );
+my ( @file_out, @flow, @items, @cat, @sufile_out);
 my $outbound_directory;
 my $inbound_directory;
 my ( @ref_array, @sucat );
 my $ref_array;
 my $num_cdps;
+my $outbound;
 
 =head2 2. Instantiate classes:
 
@@ -259,24 +260,24 @@ my $Sucat_config = Sucat_config->new();
 
 Establish default variables using a *_spec file
 and defaults defined hereinf or the location of the list file;
-in PL_SEISMIC
+in DATA_SEISMIC_TXT
 
 =cut
 
 my ( $CFG_h, $CFG_aref ) = $Sucat_config->get_values();
 my $Sucat_spec_variables = $Sucat_specB->variables();
 
-my $DATA_DIR_IN  = $Sucat_spec_variables->{_DATA_DIR_IN};
-my $DATA_DIR_OUT = $Sucat_spec_variables->{_DATA_DIR_OUT};
-my $PL_SEISMIC   = $Project->PL_SEISMIC;
+my $DATA_DIR_IN        = $Sucat_spec_variables->{_DATA_DIR_IN};
+my $DATA_DIR_OUT       = $Sucat_spec_variables->{_DATA_DIR_OUT};
+my $DATA_SEISMIC_TXT   = $Project->DATA_SEISMIC_TXT;
 
 my $inbound_directory_default  = $DATA_DIR_IN;
 my $outbound_directory_default = $DATA_DIR_OUT;
-my $list_directory_default     = $PL_SEISMIC;
+my $list_directory_default     = $DATA_SEISMIC_TXT;
 
 $inbound_directory  = $inbound_directory_default;
 $outbound_directory = $outbound_directory_default;
-my $list_directory = $list_directory_default;
+my $list_directory  = $list_directory_default;
 
 $sucat->list_directory($list_directory);
 
@@ -322,6 +323,7 @@ $list = $control->get_no_quotes($list);
 
 # print("Sucat.pl, list: $list\n\n");
 # print("Sucat.pl, list: $data_type\n\n");
+# print("Sucat.pl, outbound_directory: $outbound_directory\n\n");
 
 =head2 3. Consider compatible
 
@@ -343,14 +345,14 @@ elsif ( $alternative_outbound_directory eq $empty_string ) {
 
 	if ( $list ne $empty_string ) {
 
-		$outbound_directory = $list_directory_default;
+		$outbound_directory = $DATA_DIR_OUT;
 
 	}
 	else {
 		$outbound_directory = $DATA_DIR_OUT;
 	}
 
-	# print("2. Sucat.pl, selected outbound_directory $outbound_directory  \n");
+#	 print("2. Sucat.pl, selected outbound_directory $outbound_directory  \n");
 }
 else {
 	print("Sucat.pl, unexpected alternative_outbound_directory  \n");
@@ -395,13 +397,13 @@ $file_out[1] = $output_file_name;
 
 if ( $input_suffix ne $empty_string ) {
 
-	$outbound[1] =
+	$outbound =
 	  $outbound_directory . '/' . $file_out[1] . '.' . $input_suffix;
 
 }
 elsif ( $input_suffix eq $empty_string ) {
 
-	$outbound[1] = $outbound_directory . '/' . $file_out[1];
+	$outbound = $outbound_directory . '/' . $file_out[1];
 
 }
 else {
@@ -425,6 +427,7 @@ $sucat->list_directory($list_directory);
 $sucat->inbound_directory($inbound_directory);
 $sucat->outbound_directory($outbound_directory);
 
+
 =head2 4. create script to concatenate files
 
 files may use either a default directory
@@ -446,10 +449,12 @@ if (    $list ne $empty_string
 {
 
 #	print("2. Sucat.pl, list:---$list---\n");
+#	print("2. Sucat.pl, list_directory:---$list_directory---\n");
 #	print("2. Sucat.pl, list:---0:@$ref_array[0], 1:@$ref_array[1]\n");
 #	my $ans =scalar @$ref_array;
 #	print("2. Sucat.pl, num_rows---$ans\n");
-	my $inbound_list = $list_directory . '/' . $list;
+	my $inbound_list = $list_directory . '/' . $list.$suffix_txt;
+#	print("1. Sucat.pl, inbound_list:---$inbound_list---\n");
 	( $ref_array, $num_cdps ) = $read->cols_1p($inbound_list);
 	$sucat->set_list_aref($ref_array);
 	$sucat->data_type();
@@ -482,11 +487,16 @@ else {
 
 $sucat[1] = $sucat->Step();
 
+#modify outbound to include a suffix if su data is detected
+
+$sucat->set_outbound($outbound);
+my $new_outbound = $sucat->get_outbound();
+
 =head2 A. DEFINE FLOW(S)
 
-=cut
+=cut 
 
-@items = ( $sucat[1], $out, $outbound[1], $go );
+@items = ( $sucat[1], $out, $new_outbound, $go );
 
 $flow[1] = $run->modules( \@items );
 

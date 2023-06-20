@@ -803,7 +803,7 @@ sub _pre_built_superflow_open_data_file {
 
 	my ($self) = @_;
 
-	# print("file_dialog, _pre_built_superflow_open_data_file\n ");
+	print("file_dialog, _pre_built_superflow_open_data_file\n ");
 
 	my $param_widgets = param_widgets4pre_built_streams->new();
 	my $whereami      = whereami->new();
@@ -814,7 +814,7 @@ sub _pre_built_superflow_open_data_file {
 	my $first_idx           = $default_param_specs->{_first_entry_idx};
 	my $length              = $default_param_specs->{_length};
 
-	# e.g. Data_Pl_SEISMIC, Data, Path, Open, Delete etc.
+	# e.g. Data_Pl_SEISMIC, Data_SEISMIC_TXT, Data, Path, Open, Delete etc.
 	my $topic = _get_dialog_type();
 
 	$gui_history->set_hash_ref($file_dialog);
@@ -860,7 +860,7 @@ sub _pre_built_superflow_open_data_file {
 		if ( $file_dialog->{_parameter_value_index} >= 0 )
 		{    # for additional certainty; but is it needed?
 
-			# e.g. Data_Pl_SEISMIC, Data, Path, Open, Delete etc.
+			# e.g. Data_Pl_SEISMIC, Data_SEISMIC_TXT, Data, Path, Open, Delete etc.
 			my $topic = _get_dialog_type();
 
 #			print(
@@ -886,7 +886,7 @@ sub _pre_built_superflow_open_data_file {
 
 			$file_dialog->{_path} = $iFile->get_Data_path();
 
-# print("1.file_dialog,_pre-built_superflow_open_data_file, PATH:  $file_dialog->{_path} \n");
+ print("1.file_dialog,_pre-built_superflow_open_data_file, PATH:  $file_dialog->{_path} \n");
 # print(
 # 	"1.file_dialog,_pre-built_superflow_open_data_file, _values_aref: @{$file_dialog->{_values_aref}}[0]\n"
 # );
@@ -1115,6 +1115,12 @@ sub _set_FileDialog2pre_built_superflow {
 	if ( $topic eq $file_dialog_type->{_Data_PL_SEISMIC} ) {
 
 	# print("file_dialog,_set_FileDialog2pre_built_superflow, topic= $topic\n");
+		_pre_built_superflow_open_data_file();
+
+	} 	
+	elsif ( $topic eq $file_dialog_type->{_Data_SEISMIC_TXT} ) {
+
+	 print("file_dialog,_set_FileDialog2pre_built_superflow, topic= $topic\n");
 		_pre_built_superflow_open_data_file();
 
 	}
