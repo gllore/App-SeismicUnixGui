@@ -199,7 +199,7 @@ sub set {
 
 	my $binding_index_aref = $package->get_binding_index_aref();
 	my @index              = @$binding_index_aref;
-#	print("binding,set,file_dialog_type,indices : @index\n");
+	# print("binding,set,file_dialog_type,indices for user-flows and big streams: @index\n");
 
 	my $file_dialog_type_aref = $package->get_file_dialog_type_aref();
 	my @file_dialog_type      = @$file_dialog_type_aref;
@@ -214,8 +214,8 @@ sub set {
 
 		my $dial_type = $file_dialog_type[ $index[$i] ];
 
-				# print("3A. binding,set,prog_name: ${$binding->{_prog_name_sref}}\n");
-			    # print("3B. binding,set,file_dialog_type: $dial_type\n");
+#				 print("3A. binding,set,prog_name: ${$binding->{_prog_name_sref}}\n");
+#			    print("3B. binding,set,file_dialog_type: $dial_type\n");
 			    # print("3B. binding,set,file_dialog_type: i=$i\n");
 
 		# ACTUAL binding takes place here...

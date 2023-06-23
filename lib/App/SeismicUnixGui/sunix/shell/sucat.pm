@@ -44,6 +44,7 @@ files
 
 =cut
 
+use aliased 'App::SeismicUnixGui::configs::big_streams::Project_config';
 use aliased 'App::SeismicUnixGui::misc::L_SU_global_constants';
 use aliased 'App::SeismicUnixGui::misc::readfiles';
 use aliased 'App::SeismicUnixGui::misc::manage_files_by';
@@ -52,7 +53,6 @@ use aliased 'App::SeismicUnixGui::misc::control';
 use App::SeismicUnixGui::misc::SeismicUnix
   qw($itop_mute $ibot_mute $ivpicks_sorted_par_ $ep $fldr
   $cdp $mute $su $suffix_su $suffix_txt $velan);
-use aliased 'App::SeismicUnixGui::configs::big_streams::Project_config';
 
 =head2 instantiate new variables
 
@@ -62,7 +62,8 @@ my $get             = L_SU_global_constants->new();
 my $Project         = Project_config->new();
 my $manage_files_by = manage_files_by->new();
 
-my $DATA_SEISMIC_SU = $Project->DATA_SEISMIC_SU();    # output data directory
+my $DATA_SEISMIC_SU  = $Project->DATA_SEISMIC_SU();    # output seismic data directory
+my $DATA_SEISMIC_TXT = $Project->DATA_SEISMIC_TXT();   # output list directory
 
 =head2 declare local variables
 
@@ -248,7 +249,7 @@ sub _get_gather_type {
 			length $sucat->{_list_directory}
 		and length $sucat->{_list}
 		and ( ( $sucat->{_data_type} eq $velan )
-			or $sucat->{_data_type} eq $mute )
+			 or $sucat->{_data_type} eq $mute )
 	  )
 	{
 
@@ -290,7 +291,7 @@ sub _get_gather_type {
 				#CASE 2 for velan-type files
 
 				# print("success, matched velan\n");
-				$gather_type[$i] = $velan;
+				$gather_type[$i] = $ep;
 
 			}
 			else {
@@ -298,7 +299,7 @@ sub _get_gather_type {
 			}
 		}
 
-		# all data types must be the same
+		# all gather types must be the same
 		$gather_type = $gather_type[0];
 
 		for ( my $i = 0 ; $i < $num_gathers ; $i++ ) {
@@ -326,7 +327,7 @@ sub _get_gather_type {
 
 	}
 	else {
-#		print("sucat,_get_gather_type,missing list and its directory NADA\n");
+#		print("sucat,_get_gather_type, missing list and its directory NADA\n");
 	}
 }
 
@@ -377,7 +378,7 @@ sub _set_gather_type {
 
 =head2 sub data_type
 
- data_type can be velan,su,txt
+ data_type can be velan,su,txt,mute
 
 =cut
 
@@ -423,12 +424,12 @@ sub data_type {
 		{
 
 			my $inbound_list =
-			  $sucat->{_list_directory} . '/' . $sucat->{_list};
+			  $sucat->{_list_directory} . '/' . $sucat->{_list}. $suffix_txt;
 			my ( $ref_array, $num_gathers ) = $read->cols_1p($inbound_list);
 
 			my $DIR_OUT = $sucat->{_list_directory};
 
-			#print("sucat,data_type,num_gathers: $num_gathers\n");
+#			print("sucat,data_type,num_gathers: $num_gathers\n");
 
 =head2
 
@@ -458,12 +459,12 @@ sub data_type {
 
 				my $gather_name = @$ref_array[$file_number];
 
-				# print("reading gather: $gather_name\n");
+				print("sucat,reading gather: $gather_name\n");
 
 				# read number only after last underscore
 				my @splits = split( /_/, $gather_name );
 
-				# print("sucat, splits are:: @splits\n");
+				print("sucat, splits are:: @splits\n");
 				my $last_split_index = $#splits;
 
 				my $last_split = $splits[$last_split_index];
@@ -489,8 +490,8 @@ into an array.
 				$result_t[$line] = @$values_aref[0];
 				$result_v[$line] = @$values_aref[1];
 
-				# print("sucat,data_type,t: $result_t[$line]\n");
-				# print("sucat,data_type,v: $result_v[$line]\n");
+#				print("sucat,data_type,t: $result_t[$line]\n");
+#				print("sucat,data_type,v/x: $result_v[$line]\n");
 
 			}    # end repeat over all mute- or velan-type files
 
@@ -527,11 +528,10 @@ into an array.
 
 			}
 			elsif ( $data_type eq $mute ) {
-
+				
+				# print("sucat,data_type. Data types are mute.\n\n");
 				$manage_files_by->write_gather( \@sorted_gather_number,
 					$DIR_OUT, $gather_type );
-
-				# print("sucat,data_type. Data types are mute.\n\n");
 				$manage_files_by->write_tmute_xmute( \@sorted_gather_number,
 					\@sorted_result_t, \@sorted_result_v, $DIR_OUT );
 
@@ -560,11 +560,18 @@ sub get_outbound {
 	my ($variable) = @_;
 
 	if (    length $sucat->{_outbound}
-		and length $sucat->{_data_type} )
+		and length $sucat->{_data_type} 
+		and length $sucat->{_output_file_name})
+		
 	{
 		if ( $sucat->{_data_type} eq $su ) {
 
 			my $result = $sucat->{_outbound} . $suffix_su;
+			return ($result);
+			
+		}elsif( $sucat->{_data_type} eq $mute ) {
+			
+			my $result = $DATA_SEISMIC_TXT . '/'. $sucat->{_output_file_name}. $suffix_txt;
 			return ($result);
 		}
 		else {
@@ -713,7 +720,7 @@ sub list {
 	if ( $list ne $empty_string ) {
 		$sucat->{_list} = $list;
 
-		#		print("sucat,list is $sucat->{_list}\n");
+		# print("sucat,list is $sucat->{_list}\n");
 	}
 	else {
 

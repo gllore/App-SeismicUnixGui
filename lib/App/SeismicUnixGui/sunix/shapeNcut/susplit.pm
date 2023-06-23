@@ -270,6 +270,7 @@ sub Step {
 
 		# CASE of a single data file without a list, and without
 		# use of data_in module
+		# print("CASE without data_in module\n");
 		$susplit->{_Step} = 'susplit' . $susplit->{_Step} . " < $name";
 
 		$susplit->{_Step} = $susplit->{_Step} . ";"
@@ -329,8 +330,8 @@ sub clear {
 	$susplit->{_close}        = '';
 	$susplit->{_key}          = '';
 	$susplit->{_inbound_list} = '',
-	  $susplit->{_inbound_su_base_file_name} = '',
-	  $susplit->{_middle} = '';
+	$susplit->{_inbound_su_base_file_name} = '',
+	$susplit->{_middle} = '';
 	$susplit->{_numlength} = '';
 	$susplit->{_stem}      = '';
 	$susplit->{_suffix}    = '';
@@ -571,17 +572,13 @@ sub su_base_file_name {
 			$susplit->{_note}
 		  . ' su_base_file_name='
 		  . $susplit->{_su_base_file_name};
-		$susplit->{_Step} =
-			$susplit->{_Step}
-		  . ' su_base_file_name='
-		  . $susplit->{_su_base_file_name};
 
 		$susplit->{_inbound_su_base_file_name} = $su_base_file_name;
 
 		#		_check4inbound_listNkey();
 		#		_set_inbound();
 
-		print("susplit,su_base_file_name is $susplit->{_Step}\n\n");
+		# print("susplit,su_base_file_name is $susplit->{_su_base_file_name}\n\n");
 
 	}
 	else {

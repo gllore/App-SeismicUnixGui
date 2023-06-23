@@ -242,9 +242,9 @@ my $alias_help_menubutton_label_h = {
 # not necessarily informed by DATA_DIR_IN and DATA_DIR_OUT
 $file_dialog_type[0] = 'Data_PL_SEISMIC',
 
-  # in spec files, for when Data is informed
-  # by DATA_DIR_IN and DATA_DIR_OUT
-  $file_dialog_type[1] = 'Data';
+# in spec files, for when Data is informed
+# by DATA_DIR_IN and DATA_DIR_OUT
+$file_dialog_type[1] = 'Data';
 $file_dialog_type[2] = 'Path';
 $file_dialog_type[3] = 'Open';
 $file_dialog_type[4] = 'SaveAs';
@@ -373,7 +373,7 @@ my $var = {
 	_one_character                 => '1',
 	_one_pixel                     => '1',
 	_one_pixel_borderwidth         => '1',
-	_program_title                 => 'SeismicUnixGui V0.83.0',
+	_program_title                 => 'SeismicUnixGui V0.84.0',
 	_project_selector_title        => 'Project Selector',
 	_l_suplot_title                => 'L_suplot',
 	_project_selector_title        => 'Project Selector',

@@ -62,6 +62,7 @@ our (@EXPORT_OK, @ISA); #Global variables
   $ipicks $itemp_picks_
   $itemp_picks_sorted_
   $itemp_num_points $itemp_picks_sorted_par_
+  $ibottom_mute_file_list $itop_mute_file_list
   $ipicks_par_ $ipick_check_pickfile_
   $itop_mute $_itop_mute
   $itop_mute_par_ $itemp_top_mute_picks_ $itemp_top_mute_picks_ttr_ $itemp_top_mute_num_points_
@@ -191,6 +192,8 @@ our $itemp_num_points        = '.itemp_num_points';
 our $itemp_picks_par_        = '.itemp_picks_par_';
 our $itemp_picks_sorted_     = '.itemp_picks_sorted_';
 our $itemp_picks_sorted_par_ = '.itemp_picks_sorted_par_';
+our $ibottom_mute_file_list  = 'ibottom_mute_file_list';
+our $itop_mute_file_list     = 'itop_mute_file_list';
 
 #iSpectralAnalysis
 

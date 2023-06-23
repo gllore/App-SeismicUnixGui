@@ -170,7 +170,7 @@ my $memory_leak4save_button_fixed = $false;
 my $memory_leak4flow_select_fixed = $false;
 my $min_clicks4save_button        = $var->{_min_clicks4save_button};
 my $min_clicks4flow_select        = $var->{_min_clicks4flow_select};
-my $first_opening                 = $true;
+my $first_opening                 = $true;  # don't touch, but commented out below
 
 =head2 private anonymous hash
 to share variable values easily
@@ -3148,7 +3148,8 @@ sub flow_select {
 				}
 				elsif (( $this_color eq $last_flow_color )
 					&& $most_recent_flow_index_touched < $max_index_in_flow
-					&& $first_opening == $true  )
+#					&& $first_opening == $true  
+					)
 					
 				{
 					# CASE 1B FIX MEMORY LOSS
@@ -3158,7 +3159,8 @@ sub flow_select {
 					# of the last program in the flow
 
 					$param_flow_color_pkg->set_flow_index(
-						$max_saved_widget_index);
+					    $max_index_in_flow);
+#						$max_saved_widget_index);
 					my $last_param_flow_values_w_strings_aref =
 					  $control->get_string_or_number4aref(
 						\@save_last_param_widget_values );
@@ -3177,7 +3179,7 @@ sub flow_select {
 				}    # end of memory leak solution for flow_select
 
 				$memory_leak4flow_select_fixed = $false;
-				$first_opening                 = $false;
+#				$first_opening                 = $false;
 			}
 		}
 
@@ -3658,7 +3660,7 @@ for first time but no listboxes have been occupied previously
 				$this_color eq $last_flow_color
 				&& (   $most_recent_flow_index_touched == $max_index_in_flow
 					or $most_recent_flow_index_touched == 0 )
-				&& $first_opening == $true
+#				&& $first_opening == $true
 			  )
 			{
 
@@ -3671,8 +3673,8 @@ for first time but no listboxes have been occupied previously
 				# Fix param_widget memory leak that deletes the
 				# last element in the last flow
 
-	   # print("6 color_flow,max_saved_widget_index=$max_saved_widget_index\n");
-				$param_flow_color_pkg->set_flow_index($max_saved_widget_index);
+#	            print("6 color_flow,max_saved_widget_index=$max_saved_widget_index\n");
+				$param_flow_color_pkg->set_flow_index($max_index_in_flow);
 				$param_widgets->set_values( \@save_last_param_widget_values );
 				$param_flow_color_pkg->set_values_aref(
 					\@save_last_param_widget_values );
@@ -3690,7 +3692,7 @@ for first time but no listboxes have been occupied previously
 		   # leak is now fixed going forward for the flow_select button as well.
 			$memory_leak4flow_select_fixed = $true;
 			
-			$first_opening = $false; # rest
+#			$first_opening = $false; # rest
 
 		}    # end of memory leak solution
 
@@ -3748,12 +3750,12 @@ for first time but no listboxes have been occupied previously
 			$color_flow_href->{_prog_names_aref} );
 
 		# One last check on quotes for strings
-		# Program names help discern strings from numbers
+		# Program names help discern strings from numbers:
+		# after memory leak correction -- one time only
 		# and for case where file name are numeric e.g., '1000.txt'
-		#TODO TODO TODO
-		#		$color_flow_href->{_good_values_aref2} =
-		#		$control->get_string_or_number_aref2(
-		#			$color_flow_href->{_good_values_aref2} );
+		$color_flow_href->{_good_values_aref2} =
+		$control->get_string_or_number_aref2(
+		$color_flow_href->{_good_values_aref2} );
 
 		$files_LSU->set_prog_param_labels_aref2($color_flow_href);
 		$files_LSU->set_prog_param_values_aref2($color_flow_href);

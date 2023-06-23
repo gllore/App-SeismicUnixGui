@@ -64,7 +64,6 @@ my $SuMessages = SuMessages->new();
 my $Project    = Project_config->new();
 
 my ($DATA_SEISMIC_SU) = $Project->DATA_SEISMIC_SU();
-my ($PL_SEISMIC)      = $Project->PL_SEISMIC();
 
 =head2 Establish
  

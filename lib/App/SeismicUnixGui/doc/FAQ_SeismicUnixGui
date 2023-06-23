@@ -585,7 +585,7 @@ Route 1:  Directly from the GUI menu selection of "File/Data"
 Route 2: Indirectly, via bindings defined in spec files:
 	L_SU, _FileDialog_button (for MB3 bindings)
 	
-Superflow bindings use this subroutine exclusively
+Superflow bindings use this subroutine exclusively:
 
 binding, set calls this subroutine when the dialog type = Data and we are dealing with a superflow
 
@@ -1084,8 +1084,9 @@ Q. How does Project Tool update the gui parameter values?
      FileDialog_button is mainly used for user-built flows but directs superflows
 	 to _FileDialog_button
 	 
-[	 binding to the dialog types for each MB3 click takes place within
-L_SU	 
+[	 binding to the dialog types for each MB3 click takes place within L_SU
+
+  L_SU.pm	 
 	 pre_built_superflows
    		# for binding to file dialog options
 		my $sub_ref = \&_FileDialog_button;

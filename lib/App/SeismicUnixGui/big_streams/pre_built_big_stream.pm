@@ -4,7 +4,7 @@ package App::SeismicUnixGui::big_streams::pre_built_big_stream;
 
 =head2 SYNOPSIS 
 
- PERL PACKAGE NAME: pre_built_superflow
+ PERL PACKAGE NAME: pre_built_big_stream
  AUTHOR: 	Juan Lorenzo
  DATE: 		May 19 2018 
 
@@ -128,7 +128,7 @@ sub set_flowNsuperflow_name_w {
 =head2 sub select
 
  Chosen big stream
- isplays the parameter names and their values
+ displays the parameter names and their values
  but does not write them to a file
    	
  foreach my $key (sort keys %$pre_built_big_stream_href) {

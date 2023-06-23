@@ -76,8 +76,10 @@ The starting input format in each  in "par" format:
 tnmo=0.0189974,0.113193,0.153562,0.231926
 vnmo=59.4778,160.806,195.689,273.761
 
-The final output format is:
+tmute=0.0189974,0.113193,0.153562,0.231926
+xmute=5.4778,16.806,19.68,100.761
 
+The final output format is:
 
 The list is expected to be found in $DATA_SEISMIC_TXT, i.e., ~/txt/"subuser"/
     
@@ -231,7 +233,7 @@ use aliased 'App::SeismicUnixGui::specs::big_streams::Sucat_specB';
 
 =cut
 
-my ( @file_out, @flow, @items, @cat, @sufile_out);
+my ( @file_out, @flow, @items, @cat, @sufile_out );
 my $outbound_directory;
 my $inbound_directory;
 my ( @ref_array, @sucat );
@@ -267,17 +269,18 @@ in DATA_SEISMIC_TXT
 my ( $CFG_h, $CFG_aref ) = $Sucat_config->get_values();
 my $Sucat_spec_variables = $Sucat_specB->variables();
 
-my $DATA_DIR_IN        = $Sucat_spec_variables->{_DATA_DIR_IN};
-my $DATA_DIR_OUT       = $Sucat_spec_variables->{_DATA_DIR_OUT};
-my $DATA_SEISMIC_TXT   = $Project->DATA_SEISMIC_TXT;
+# defaults are for su-type data
+my $DATA_DIR_IN_default  = $Sucat_spec_variables->{_DATA_DIR_IN};
+my $DATA_DIR_OUT_default = $Sucat_spec_variables->{_DATA_DIR_OUT};
+my $DATA_SEISMIC_TXT     = $Project->DATA_SEISMIC_TXT;
 
-my $inbound_directory_default  = $DATA_DIR_IN;
-my $outbound_directory_default = $DATA_DIR_OUT;
+my $inbound_directory_default  = $DATA_DIR_IN_default;
+my $outbound_directory_default = $DATA_DIR_OUT_default;
 my $list_directory_default     = $DATA_SEISMIC_TXT;
 
 $inbound_directory  = $inbound_directory_default;
 $outbound_directory = $outbound_directory_default;
-my $list_directory  = $list_directory_default;
+my $list_directory = $list_directory_default;
 
 $sucat->list_directory($list_directory);
 
@@ -332,7 +335,6 @@ a list
 
 =cut
 
-
 # CASE 1: new inbound and or/outbound directories replace defaults
 if ( $alternative_outbound_directory ne $empty_string ) {
 
@@ -345,14 +347,14 @@ elsif ( $alternative_outbound_directory eq $empty_string ) {
 
 	if ( $list ne $empty_string ) {
 
-		$outbound_directory = $DATA_DIR_OUT;
+		$outbound_directory = $DATA_DIR_OUT_default;
 
 	}
 	else {
-		$outbound_directory = $DATA_DIR_OUT;
+		$outbound_directory = $DATA_DIR_OUT_default;
 	}
 
-#	 print("2. Sucat.pl, selected outbound_directory $outbound_directory  \n");
+   #	 print("2. Sucat.pl, selected outbound_directory $outbound_directory  \n");
 }
 else {
 	print("Sucat.pl, unexpected alternative_outbound_directory  \n");
@@ -374,7 +376,7 @@ elsif ( $alternative_inbound_directory eq $empty_string ) {
 
 	}
 	else {
-		$inbound_directory = $DATA_DIR_IN;
+		#NADA $inbound_directory = $DATA_DIR_IN_default;
 	}
 
 	# print("4. Sucat.pl, selected inbound_directory=$inbound_directory  \n");
@@ -383,8 +385,8 @@ else {
 	print("Sucat.pl, unexpected alternative_inbound_directory  \n");
 }
 
-#print("Sucat.pl,inbound_directory:---$inbound_directory--\n");
-#print("Sucat.pl,outbound_directory:---$outbound_directory--\n");
+# print("Sucat.pl,inbound_directory:---$inbound_directory--\n");
+# print("Sucat.pl,outbound_directory:---$outbound_directory--\n");
 
 =head2 3. Declare output file names and their paths
 
@@ -393,21 +395,27 @@ else {
 
 =cut
 
-$file_out[1] = $output_file_name;
+$file_out[1] = $output_file_name;    # always needed
 
-if ( $input_suffix ne $empty_string ) {
+if ( length $output_file_name ) {
+	
+	if ( $input_suffix ne $empty_string ) {
 
-	$outbound =
-	  $outbound_directory . '/' . $file_out[1] . '.' . $input_suffix;
+		$outbound =
+		  $outbound_directory . '/' . $file_out[1] . '.' . $input_suffix;
 
-}
-elsif ( $input_suffix eq $empty_string ) {
+	}
+	elsif ( $input_suffix eq $empty_string ) {
 
-	$outbound = $outbound_directory . '/' . $file_out[1];
+		$outbound = $outbound_directory . '/' . $file_out[1];
 
+	}
+	else {
+		print("Sucat.pl,unexpected empty string\n");
+	}
 }
 else {
-	print("Sucat.pl,unexpected empty string\n");
+	print("Sucat.pl, missing output  filename\n");
 }
 
 =header set up sucat
@@ -426,7 +434,6 @@ $sucat->list($list);
 $sucat->list_directory($list_directory);
 $sucat->inbound_directory($inbound_directory);
 $sucat->outbound_directory($outbound_directory);
-
 
 =head2 4. create script to concatenate files
 
@@ -448,13 +455,14 @@ if (    $list ne $empty_string
 	and $input_name_extension eq $empty_string )
 {
 
-#	print("2. Sucat.pl, list:---$list---\n");
-#	print("2. Sucat.pl, list_directory:---$list_directory---\n");
-#	print("2. Sucat.pl, list:---0:@$ref_array[0], 1:@$ref_array[1]\n");
-#	my $ans =scalar @$ref_array;
-#	print("2. Sucat.pl, num_rows---$ans\n");
-	my $inbound_list = $list_directory . '/' . $list.$suffix_txt;
-#	print("1. Sucat.pl, inbound_list:---$inbound_list---\n");
+	#	print("2. Sucat.pl, list:---$list---\n");
+	#	print("2. Sucat.pl, list_directory:---$list_directory---\n");
+	#	print("2. Sucat.pl, list:---0:@$ref_array[0], 1:@$ref_array[1]\n");
+	#	my $ans =scalar @$ref_array;
+	#	print("2. Sucat.pl, num_rows---$ans\n");
+	my $inbound_list = $list_directory . '/' . $list . $suffix_txt;
+
+	#	print("1. Sucat.pl, inbound_list:---$inbound_list---\n");
 	( $ref_array, $num_cdps ) = $read->cols_1p($inbound_list);
 	$sucat->set_list_aref($ref_array);
 	$sucat->data_type();
@@ -487,7 +495,9 @@ else {
 
 $sucat[1] = $sucat->Step();
 
-#modify outbound to include a suffix if su data is detected
+# outbound includes a suffix if su data is detected
+# outbound also chooses DATA_SEISMIC_TXT path if
+# data_type = $txt
 
 $sucat->set_outbound($outbound);
 my $new_outbound = $sucat->get_outbound();
@@ -496,7 +506,7 @@ my $new_outbound = $sucat->get_outbound();
 
 =cut 
 
-@items = ( $sucat[1], $out, $new_outbound, $go );
+@items   = ( $sucat[1], $out, $new_outbound, $go );
 
 $flow[1] = $run->modules( \@items );
 
@@ -513,5 +523,5 @@ $run->flow( \$flow[1] );
 $log->screen( $flow[1] );
 
 #my $time = localtime;
-#$log->file(time);
+#$log->time;
 #$log->file( $flow[1] );

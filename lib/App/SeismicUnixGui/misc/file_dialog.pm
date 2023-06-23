@@ -803,7 +803,7 @@ sub _pre_built_superflow_open_data_file {
 
 	my ($self) = @_;
 
-	print("file_dialog, _pre_built_superflow_open_data_file\n ");
+#	print("file_dialog, _pre_built_superflow_open_data_file\n ");
 
 	my $param_widgets = param_widgets4pre_built_streams->new();
 	my $whereami      = whereami->new();
@@ -886,7 +886,7 @@ sub _pre_built_superflow_open_data_file {
 
 			$file_dialog->{_path} = $iFile->get_Data_path();
 
- print("1.file_dialog,_pre-built_superflow_open_data_file, PATH:  $file_dialog->{_path} \n");
+# print("1.file_dialog,_pre-built_superflow_open_data_file, PATH:  $file_dialog->{_path} \n");
 # print(
 # 	"1.file_dialog,_pre-built_superflow_open_data_file, _values_aref: @{$file_dialog->{_values_aref}}[0]\n"
 # );
@@ -1071,6 +1071,13 @@ sub _set_FileDialog2user_built_flow {
 
 		# Open pre-exiting user-built flow
 	}
+	elsif ( $topic eq $file_dialog_type->{_Data_SEISMIC_TXT} ) {
+
+	# print("file_dialog,_set_FileDialog2pre_built_superflow, topic= $topic\n");
+		_user_built_flow_open_data_file();
+
+		# Open pre-exiting user-built flow
+	}
 	elsif ( $topic eq $file_dialog_type->{_Open} ) {
 
 # print("file_dialog, _set_FileDialog2user_built_flow ,dialog type:$topic\n");
@@ -1120,7 +1127,7 @@ sub _set_FileDialog2pre_built_superflow {
 	} 	
 	elsif ( $topic eq $file_dialog_type->{_Data_SEISMIC_TXT} ) {
 
-	 print("file_dialog,_set_FileDialog2pre_built_superflow, topic= $topic\n");
+#	 print("file_dialog,_set_FileDialog2pre_built_superflow, topic= $topic\n");
 		_pre_built_superflow_open_data_file();
 
 	}
