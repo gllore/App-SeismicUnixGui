@@ -3165,28 +3165,31 @@ sub flow_select {
 					# of the last program in the flow
 
 					$param_flow_color_pkg->set_flow_index($max_index_in_flow);
-
-					#						$max_saved_widget_index);
+					# TODO: leak4 save may need this in future
 					my $last_param_flow_values_w_strings_aref =
 					  $control->get_string_or_number4aref(
 						\@save_last_param_widget_values );
+					my @last_param_flow_values_w_strings = @$last_param_flow_values_w_strings_aref;
+					my $saved_value = $last_param_flow_values_w_strings[$save_last_param_widget_index];
 
 #						    							print(
 #	  "\n10B.OK color_flow,flow_select, values:@$last_param_flow_values_w_strings_aref\n"
 #	);
 
-					$param_flow_color_pkg->set_values_aref(
-						$last_param_flow_values_w_strings_aref);
+				$param_flow_color_pkg->set_param_index($save_last_param_widget_index);
+				$param_flow_color_pkg->set_param_value($saved_value);
 
-				   # LOST- always enigma
-				   #					print("1. flow_select, view stored param flow data\n");
-				   #					$param_flow_color_pkg->view_data();
+# needed?			 
+#                $param_widgets->set_index( $save_last_param_widget_index );
+#                $param_widgets->set_value( $save_last_param_widget_value );
+
+#					$param_flow_color_pkg->set_values_aref(
+#						$last_param_flow_values_w_strings_aref);
 
 				}    # end of memory leak solution for flow_select
 
 				$memory_leak4flow_select_fixed = $false;
 
-				#				$first_opening                 = $false;
 			}
 		}
 
@@ -3203,21 +3206,6 @@ sub flow_select {
 			# print("13 color_flow, flow_select, unexpected NADA\n");
 		}
 
-		# LOST
-		#		print("\nLOST flow_select, view stored param flow data");
-		#		$param_flow_color_pkg->view_data();
-
-		# FOUND
-		#		my $aref = $param_flow_color_pkg->get_values_aref();
-		#		print("FOUND color_flow,flow_select, values:@{$aref}\n");
-
-		# LOST
-		#		print("color_flow,flow_select, view stored param flow data\n");
-		#		$param_flow_color_pkg->view_data();
-
-		# FOUND
-		#		$aref = $param_flow_color_pkg->get_values_aref();
-		#		print("FOUND color_flow,flow_select, values:@{$aref}\n");
 
 		# current selection in the flow
 		my $index = $flow_widgets->get_flow_selection($_flow_listbox_color_w);
@@ -3228,9 +3216,6 @@ sub flow_select {
 		  $param_flow_color_pkg->get_names_aref();
 		$color_flow_href->{_values_aref} =
 		  $param_flow_color_pkg->get_values_aref();
-
-		#		$aref = $param_flow_color_pkg->get_values_aref();
-		#		print("11a.color_flow,flow_select, values:@{$aref}\n");
 
 		$color_flow_href->{_check_buttons_settings_aref} =
 		  $param_flow_color_pkg->get_check_buttons_settings();
