@@ -30,78 +30,78 @@
 
 =head2 Example Cases
 
-CASE 1A
+ CASE 1A
 
-Use a list (use complete file names but exclude the directory paths) 
-for concatenating iVelan "pick files" (Vrms,time pairs)
-into the correct format.
+ Use a list (use complete file names but exclude the directory paths) 
+ for concatenating iVelan "pick files" (Vrms,time pairs)
+ into the correct format.
 
-A "list", which is found in the $DATA_SEISMIC_TXT directory contains, 
-e.g.:
-ivpicks_sorted_par_L28Hz_Ibeam_geom4_cdp1
-ivpicks_sorted_par_L28Hz_Ibeam_geom4_cdp11
+ A "list", which is found in the $DATA_SEISMIC_TXT directory contains, 
+ e.g.:
+ ivpicks_sorted_par_L28Hz_Ibeam_geom4_cdp1
+ ivpicks_sorted_par_L28Hz_Ibeam_geom4_cdp11
 
-The starting input format in "par" format is as follows:
+ The starting input format in "par" format is as follows:
 
-(for ivpicks_sorted_par_L28Hz_Ibeam_geom4_cdp1)
-tnmo=0.0189974,0.113193,0.153562,0.231926
-vnmo=59.4778,160.806,195.689,273.761
+ (for ivpicks_sorted_par_L28Hz_Ibeam_geom4_cdp1)
+ tnmo=0.0189974,0.113193,0.153562,0.231926
+ vnmo=59.4778,160.806,195.689,273.761
 
-(for ivpicks_sorted_par_L28Hz_Ibeam_geom4_cdp11)
-tnmo=0.0316623,0.0759894,0.129815
-vnmo=101.006,130.906,263.794
+ (for ivpicks_sorted_par_L28Hz_Ibeam_geom4_cdp11)
+ tnmo=0.0316623,0.0759894,0.129815
+ vnmo=101.006,130.906,263.794
 
-The final output format is:
+ The final output format is:
 
-cdp=3,5
-tnmo=0.0189974,0.113193,0.153562,0.231926
-vnmo=59.4778,160.806,195.689,273.761
-tnmo=0.0316623,0.0759894,0.129815
-vnmo=101.006,130.906,263.794
+ cdp=3,5
+ tnmo=0.0189974,0.113193,0.153562,0.231926
+ vnmo=59.4778,160.806,195.689,273.761
+ tnmo=0.0316623,0.0759894,0.129815
+ vnmo=101.006,130.906,263.794
 
 
 CASE 1B
 
-Use a list (use complete file names but exclude the directory paths) 
-for concatenating iVelan "pick files" (x-coordinate,time pairs)
-into the correct format.
+ Use a list (use complete file names but exclude the directory paths) 
+ for concatenating iVelan "pick files" (x-coordinate,time pairs)
+ into the correct format.
 
-A "list" which is found in the $DATA_SEISMIC_TXT directory contains, e.g.:
+ A "list" which is found in the $DATA_SEISMIC_TXT directory contains, e.g.:
 
-itop_mute_par_L28Hz_Ibeam_cmp_ep3
-itop_mute_par_L28Hz_Ibeam_cmp_ep5
+ itop_mute_par_L28Hz_Ibeam_cmp_ep3
+ itop_mute_par_L28Hz_Ibeam_cmp_ep5
 
 
-The starting input format in each  in "par" format:
-tnmo=0.0189974,0.113193,0.153562,0.231926
-vnmo=59.4778,160.806,195.689,273.761
+ The starting input format in each  in "par" format:
+ tnmo=0.0189974,0.113193,0.153562,0.231926
+ vnmo=59.4778,160.806,195.689,273.761
 
-tmute=0.0189974,0.113193,0.153562,0.231926
-xmute=5.4778,16.806,19.68,100.761
+ tmute=0.0189974,0.113193,0.153562,0.231926
+ xmute=5.4778,16.806,19.68,100.761
 
-The final output format is:
+ The final output format is:
 
-The list is expected to be found in $DATA_SEISMIC_TXT, i.e., ~/txt/"subuser"/
+ The list is expected to be found in $DATA_SEISMIC_TXT, i.e., ~/txt/"subuser"/
     
  Data_type is determined by parsing the file names and normally contains:
  "itop_mute", "ibot_mute" etc." '
     
-(See ~sunix/shell/sucat.pm
-If "data_type" = "velan" then the concatenated output file
-will automatically be reformatted for input into sunmo.       
+ (See ~sunix/shell/sucat.pm
+ If "data_type" = "velan" then the concatenated output file
+ will automatically be reformatted for input into sunmo.       
 
-If "data_type" = "itop_mute" or "ibot_mute" then the concatenated 
-output file will automatically be reformatted for input into
-"sumute". 
+ If "data_type" = "itop_mute" or "ibot_mute" then the concatenated 
+ output file will automatically be reformatted for input into
+ "sumute". 
 
 GUI EXAMPLE:    
     
-Note that a list can only be used when the values of the prior
-6 parameters are blank.
+ Note that a list can only be used when the values of the prior
+ 6 parameters are blank.
 
-An output name is also required.
---Exclude values for first 7 parameters in GUI. 
---alternative directories are optional.
+ An output name is also required.
+ --Exclude values for first 7 parameters in GUI. 
+ --alternative directories are optional.
 
     first_file_number_in               =               
     last_file_number_in                =                
@@ -115,7 +115,7 @@ An output name is also required.
     alternative_outbound_directory     =  [$PL_SEISMIC]  
   
   
-  and exmample list
+  an example list:
   
   25.su
   26.su
@@ -124,17 +124,21 @@ An output name is also required.
 ---------------------------------------------------------------------------
 
 CASE 2
-General concatenation of files with patterns in their names
+ General concatenation of files with patterns in their names
 
-DO NOT use a list. 
-Instead, include values for at least the first 3 
-parameters in the GUI, 
-and up to and including values for all the remaining parameters,
-except the list name. A
+ DO NOT use a list. 
+ Instead, include values for at least the first 3 
+ parameters in the GUI, 
+ and up to and including values for all the remaining parameters,
+ except the list name. A
 
-An output name is possible but not required.
+ An output name is possible but not required. Note that it is assumed
+ that the suffix and therefore directory of the output file has the
+ same origin directory as the input files.  The input suffix is used
+ to determine the origin directory. For example an su input suffix will
+ point to a $DATA_SEISMIC_SU directory.
  
-Example:
+ Example:
   
     first_file_number_in                = 1000                
     last_file_number_in                 = 1001                
@@ -147,7 +151,7 @@ Example:
     alternative_inbound_directory       =                   
     alternative_outbound_directory      =  
     
-    The above case will produce carries out the following isntruction
+    The above case will produce carries out the following instruction:
     
     cat DIR1/cdp1000_clean.su DIR1/cdp1001_clean.su > DIR2/1000_01.su 
    
@@ -165,21 +169,21 @@ Example:
     
 CASE 3
   
-	If you want to use a list, the list
-	is a file that contains one
-	or more file names
+ If you want to use a list, the list
+ is a file that contains one
+ or more file names
 
 
-	first_file_number_in                  = 
-	last_file_number_in                   = 
-	number_of_files_in                    = 
-	input_suffix                          = 
-	input_name_prefix                     = 
-	input_name_extension                  = 
-	list                                  = cat_list_good_sp;
-	output_file_name                      = 'All_good_sp';
-	alternative_inbound_directory         = 
-	alternative_outbound_directory        =
+ first_file_number_in                  = 
+ last_file_number_in                   = 
+ number_of_files_in                    = 
+ input_suffix                          = 
+ input_name_prefix                     = 
+ input_name_extension                  = 
+ list                                  = cat_list_good_sp;
+ output_file_name                      = 'All_good_sp';
+ alternative_inbound_directory         = 
+ alternative_outbound_directory        =
 
 
  CASE 4:
@@ -196,12 +200,12 @@ CASE 3
 
 =head2 NOTES 
 
-   The input and output default directories are $PL_SEISMIC
-   but these can be overridden by the values of the 
-   alternative directories
+  The input and output default directories are $PL_SEISMIC
+  but these can be overridden by the values of the 
+  alternative directories
     
  
- =head2 CHANGES
+=head2 CHANGES
  
   V 0.1.2 considers empty file_names May 30, 2019; NM
   V 0.1.3 includes additional concatenation for:
@@ -325,7 +329,7 @@ $alternative_outbound_directory =
 $list = $control->get_no_quotes($list);
 
 # print("Sucat.pl, list: $list\n\n");
-# print("Sucat.pl, list: $data_type\n\n");
+# print("Sucat.pl, output_file_name: $output_file_name\n\n");
 # print("Sucat.pl, outbound_directory: $outbound_directory\n\n");
 
 =head2 3. Consider compatible
@@ -354,10 +358,10 @@ elsif ( $alternative_outbound_directory eq $empty_string ) {
 		$outbound_directory = $DATA_DIR_OUT_default;
 	}
 
-   #	 print("2. Sucat.pl, selected outbound_directory $outbound_directory  \n");
+   # print("2. Sucat.pl, selected outbound_directory $outbound_directory  \n");
 }
 else {
-	print("Sucat.pl, unexpected alternative_outbound_directory  \n");
+	# print("Sucat.pl, unexpected alternative_outbound_directory  \n");
 }
 
 if ( $alternative_inbound_directory ne $empty_string ) {
@@ -413,6 +417,8 @@ if ( length $output_file_name ) {
 	else {
 		print("Sucat.pl,unexpected empty string\n");
 	}
+	
+	print("Sucat.pl,outbound=$outbound\n");
 }
 else {
 	print("Sucat.pl, missing output  filename\n");

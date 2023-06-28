@@ -101,6 +101,8 @@ $path2file[$i]    = $local . $up3dirs . '/messages';
 
 for ( my $count = 0 ; $count < $max_num_files; $count++ ) {
 
+#for ( my $count = 2 ; $count < 3; $count++ ) {
+	
 	$file_bck[$count] = $file[$count] . '_bck';
 	
 	$inbound[$count]      = $path2file[$count] . '/' . $file[$count];
@@ -124,9 +126,11 @@ for ( my $count = 0 ; $count < $max_num_files; $count++ ) {
 
 		#  chomp $string;    # remove all newlines
 		if ( $string =~ m/$line2find[$count]/) {
+			
 			$string =~ s/$line2find[$count]/$replacement[$count]/;
 			print(" substitution successful: $string\n");
 			print(" in file: $file[$count]\n");
+			
 		}
 
 #		print(" string: $string\n");
@@ -134,14 +138,17 @@ for ( my $count = 0 ; $count < $max_num_files; $count++ ) {
 
 	}
 
-	open( OUT, ">$outbound[$count]" )
+	open( OUT, ">","$outbound[$count]" )
 	  or die("File $outbound[$count] not found");
+
+#     open( OUT, ">","junk" )
+#	  or die("File junk not found");
 
 	foreach my $text (@slurp) {
 
-		printf OUT $text . "\n";
+		print OUT $text . "\n";
 
-		#	print("$text \n");
+#		print("$text \n");
 	}
 	close(OUT);
 

@@ -166,11 +166,13 @@ my $false      = $var->{_false};
 =cut
 
 my @save_last_param_widget_values;
+my $save_last_param_widget_value;
+my $save_last_param_widget_index;
 my $memory_leak4save_button_fixed = $false;
 my $memory_leak4flow_select_fixed = $false;
 my $min_clicks4save_button        = $var->{_min_clicks4save_button};
 my $min_clicks4flow_select        = $var->{_min_clicks4flow_select};
-my $first_opening                 = $true;  # don't touch, but commented out below
+my $first_opening = $true;    # don't touch, but commented out below
 
 =head2 private anonymous hash
 to share variable values easily
@@ -534,13 +536,15 @@ sub _flow_select_director {
 				# the last set of param_widgets opened
 				@save_last_param_widget_values =
 				  @{ $param_widgets->get_values_aref() };
+				$save_last_param_widget_value  = $save_last_param_widget_values[-1];
+				$save_last_param_widget_index  = $#save_last_param_widget_values;
 
 			}
-			
-		# flow loading and display is complete	
-		# print("1. color_flow, _flow_select_director, print out gui_history\n");
-	  	# $gui_history->view();
-	  	
+
+	   # flow loading and display is complete
+	   # print("1. color_flow, _flow_select_director, print out gui_history\n");
+	   # $gui_history->view();
+
 		}
 		elsif ( $type eq 'add2flow_button' ) {
 
@@ -1262,11 +1266,11 @@ sub _perl_flow {
 		}
 
 		_flow_select_director('_perl_flow');
-		
-		# flow loading and display is complete	
+
+		# flow loading and display is complete
 		# print("1. color_flow, _perl_flow, print out gui_history\n");
-	  	# $gui_history->view();
-	  	
+		# $gui_history->view();
+
 		return ();
 
 	}
@@ -1929,9 +1933,9 @@ sub _save_most_recent_param_flow {
 	my $last_parameter_index_touched_color =
 	  ( $color_flow_href->{_parameter_index_on_exit_href} )->{_most_recent};
 
-# print("color_flow _save_most_recent_param_flow ,last changed entry index was $last_parameter_index_touched_color \n");
+#    print("color_flow _save_most_recent_param_flow ,last changed entry index was $last_parameter_index_touched_color \n");
 #	print("2. color_flow, _save_most_recent_param_flow , print gui_history.txt\n");
-#	$gui_history->view();
+	$gui_history->view();
 
 #	my $prior_flow_color       = ( $color_flow_href->{_flow_select_color_href} )->{_prior};
 #	my $most_recent_flow_color = ( $color_flow_href->{_flow_select_color_href} )->{_most_recent};
@@ -3057,10 +3061,10 @@ sub flow_select {
 	my ($self) = @_;
 
 	my $ans;
- 
-#	print("1. color_flow, flow_select, print out gui_history\n");
-#	 $gui_history->view();
-	
+
+	#	print("1. color_flow, flow_select, print out gui_history\n");
+	#	 $gui_history->view();
+
 	$color_flow_href->{_flow_type} = $flow_type->{_user_built};
 
 	# reset residual flow_listbox_color_w of another color
@@ -3120,8 +3124,8 @@ sub flow_select {
 			my $max_index_in_flow = $num_items_in_flow - 1;
 			$last_flow_color = $color_flow_href->{_last_flow_color};
 
-#			$gui_history->set_file_status($num_items_in_flow);
-#			my $file_status = $gui_history->get_file_status();
+			#			$gui_history->set_file_status($num_items_in_flow);
+			#			my $file_status = $gui_history->get_file_status();
 
 #								  	print(
 #	  "3 start.color_flow,flow_select, file_status,num_items_in_flow: $file_status,$num_items_in_flow\n"
@@ -3146,11 +3150,13 @@ sub flow_select {
 						\@save_last_param_widget_values );
 
 				}
-				elsif (( $this_color eq $last_flow_color )
+				elsif (
+					( $this_color eq $last_flow_color )
 					&& $most_recent_flow_index_touched < $max_index_in_flow
-#					&& $first_opening == $true  
-					)
-					
+
+					#					&& $first_opening == $true
+				  )
+
 				{
 					# CASE 1B FIX MEMORY LOSS
 					# when last selected index was last in program
@@ -3158,9 +3164,9 @@ sub flow_select {
 					# but index of current program is less than the last index
 					# of the last program in the flow
 
-					$param_flow_color_pkg->set_flow_index(
-					    $max_index_in_flow);
-#						$max_saved_widget_index);
+					$param_flow_color_pkg->set_flow_index($max_index_in_flow);
+
+					#						$max_saved_widget_index);
 					my $last_param_flow_values_w_strings_aref =
 					  $control->get_string_or_number4aref(
 						\@save_last_param_widget_values );
@@ -3179,7 +3185,8 @@ sub flow_select {
 				}    # end of memory leak solution for flow_select
 
 				$memory_leak4flow_select_fixed = $false;
-#				$first_opening                 = $false;
+
+				#				$first_opening                 = $false;
 			}
 		}
 
@@ -3549,11 +3556,16 @@ print("5 color_flow,save_last_param_widget_values=@save_last_param_widget_values
 
 #				print("5. color_flow, save_button, Can not fix memory leak\n");
 #				print(
-#"5. color_flow, save_button, this_color,last_flow_color are:$this_color,$last_flow_color\n"
-#				);
-#				print(
-#"5. color_flow, save_button, most recent flow index is $most_recent_flow_index_touched\n"
-#				);
+				print(
+"5. color_flow, save_button, this_color,last_flow_color are:$this_color,$last_flow_color\n"
+				);
+				print(
+"5. color_flow, save_button, most recent flow index touched is $most_recent_flow_index_touched\n"
+				);
+				print(
+"5. color_flow, save_button, max index in flow: $max_index_in_flow\n"
+				);
+
 #				print(
 #"5. color_flow, save_button, last flow index: $last_flow_index\n"
 #				);
@@ -3572,6 +3584,10 @@ sub save_button {
 
 	my $num_items_in_flow = $param_flow_color_pkg->get_num_items();
 	my $max_index_in_flow = $num_items_in_flow - 1;
+	
+	$gui_history->set_file_status($num_items_in_flow);
+	my $file_prob_just_opened = $gui_history->get_file_status();
+#	print("file_prob_just_opened=$true\n");
 
 	$param_widgets->redisplay_values();
 
@@ -3637,9 +3653,9 @@ for first time but no listboxes have been occupied previously
 		my $max_index_in_flow = $num_items_in_flow - 1;
 		$last_flow_color = $color_flow_href->{_last_flow_color};
 
-#		$gui_history->set_file_status($num_items_in_flow);
-#		my $file_status = $gui_history->get_file_status();
-		
+		#		$gui_history->set_file_status($num_items_in_flow);
+		#		my $file_status = $gui_history->get_file_status();
+
 #		print("color_flow, save_button: writing gui_history.txt\n");
 #		$gui_history->view();
 
@@ -3650,17 +3666,23 @@ for first time but no listboxes have been occupied previously
 			# Last element of last program disappears--
 			# if either user clicks on an element different from
 			# the last, or the Save button.
-			# Conditions are for just having opened a file,
-			# no changes have yet been made to the flow
-			# and $total_click_value < $very_low_click_value
+			# Conditions to detect the circumstance are:
+			#--just having opened a file,
+			# -- no changes have yet been made to the flow
+			# -- $total_click_value < $very_low_click_value
 			# if file has just been opened and is immediately saved
 			# the set flow index is assumed = 0
+			# just in total_click_value is still slow
+			# and there was a change to the last parameter
+			# in the last item of the flow, we detect this
+			# by assuming that when the updated_parameter_index_on_exit
+			# indicates the last parameter box was engaged then
+			# we will not
 
 			if (
 				$this_color eq $last_flow_color
-				&& (   $most_recent_flow_index_touched == $max_index_in_flow
-					or $most_recent_flow_index_touched == 0 )
-#				&& $first_opening == $true
+				&& ( $most_recent_flow_index_touched == $max_index_in_flow 
+				&& $file_prob_just_opened == $true)
 			  )
 			{
 
@@ -3673,11 +3695,22 @@ for first time but no listboxes have been occupied previously
 				# Fix param_widget memory leak that deletes the
 				# last element in the last flow
 
-#	            print("6 color_flow,max_saved_widget_index=$max_saved_widget_index\n");
+				print(
+"6 color_flow,most_recent_flow_index_touched=$most_recent_flow_index_touched\n"
+				);
+
+#               # print("6. color_flow,@save_last_param_widget_values=$@save_last_param_widget_values\n");
 				$param_flow_color_pkg->set_flow_index($max_index_in_flow);
-				$param_widgets->set_values( \@save_last_param_widget_values );
-				$param_flow_color_pkg->set_values_aref(
-					\@save_last_param_widget_values );
+				$param_flow_color_pkg->set_param_index($save_last_param_widget_index);
+				$param_flow_color_pkg->set_param_value($save_last_param_widget_value);
+
+# needed?			 
+#                $param_widgets->set_index( $save_last_param_widget_index );
+#                $param_widgets->set_value( $save_last_param_widget_value );
+
+# deprecated
+#				$param_flow_color_pkg->set_values_aref(
+#					\@save_last_param_widget_values );
 
 				$param_widgets->redisplay_values();
 
@@ -3691,8 +3724,8 @@ for first time but no listboxes have been occupied previously
 
 		   # leak is now fixed going forward for the flow_select button as well.
 			$memory_leak4flow_select_fixed = $true;
-			
-#			$first_opening = $false; # rest
+
+			#			$first_opening = $false; # rest
 
 		}    # end of memory leak solution
 
@@ -3754,8 +3787,8 @@ for first time but no listboxes have been occupied previously
 		# after memory leak correction -- one time only
 		# and for case where file name are numeric e.g., '1000.txt'
 		$color_flow_href->{_good_values_aref2} =
-		$control->get_string_or_number_aref2(
-		$color_flow_href->{_good_values_aref2} );
+		  $control->get_string_or_number_aref2(
+			$color_flow_href->{_good_values_aref2} );
 
 		$files_LSU->set_prog_param_labels_aref2($color_flow_href);
 		$files_LSU->set_prog_param_values_aref2($color_flow_href);

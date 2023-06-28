@@ -242,17 +242,19 @@ my $alias_help_menubutton_label_h = {
 # not necessarily informed by DATA_DIR_IN and DATA_DIR_OUT
 $file_dialog_type[0] = 'Data_PL_SEISMIC',
 
-  # in spec files, for when Data is informed
-  # by DATA_DIR_IN and DATA_DIR_OUT
-  $file_dialog_type[1] = 'Data';
+# in spec files, for when Data is informed
+# by DATA_DIR_IN and DATA_DIR_OUT
+$file_dialog_type[1] = 'Data';
 $file_dialog_type[2] = 'Path';
 $file_dialog_type[3] = 'Open';
 $file_dialog_type[4] = 'SaveAs';
 $file_dialog_type[5] = 'last_dir_in_path';
 $file_dialog_type[5] = 'Delete';
+$file_dialog_type[6] = 'Data_SEISMIC_TXT';
 
 my $file_dialog_type_h = {
 	_Data_PL_SEISMIC  => 'Data_PL_SEISMIC',
+	_Data_SEISMIC_TXT => 'Data_SEISMIC_TXT',
 	_Data             => 'Data',
 	_Delete           => 'Delete',
 	_Path             => 'Path',
@@ -307,7 +309,7 @@ my $var = {
 	_base_file_name         => 'base_file_name',
 	_clear_text             => '',
 	_color_default          => 'grey',           # first color listbox to select
-	_config_file_format     => '                                                        ',
+	_config_file_format     => '%-35s%1s%-20s',
 	_eight_characters       => '8',
 	_empty_string           => '',
 	_failure                => -1,
@@ -371,7 +373,7 @@ my $var = {
 	_one_character                 => '1',
 	_one_pixel                     => '1',
 	_one_pixel_borderwidth         => '1',
-	_program_title                 => 'SeismicUnixGui V0.84.0',
+	_program_title                 => 'SeismicUnixGui V0.83.0',
 	_project_selector_title        => 'Project Selector',
 	_l_suplot_title                => 'L_suplot',
 	_project_selector_title        => 'Project Selector',

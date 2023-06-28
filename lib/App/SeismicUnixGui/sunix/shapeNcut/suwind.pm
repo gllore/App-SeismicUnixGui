@@ -16,6 +16,20 @@ package App::SeismicUnixGui::sunix::shapeNcut::suwind;
 
 =head3 NOTES
 
+Example:
+If skip is used, s is ignored e.g. s=2 skip=1 key=tracl j=2
+
+Example:
+
+accept=4,9,11 max=0    (max=0 is needed)
+
+Example: where in data, tracl=1,2,3, etc.
+
+j=3 key=tracl,s=0, tracl's are 3, 6, 9 etc.,
+j=2 key=tracl s=0, tracl's are 2, 4, 6 etc.
+j=2 key=tracl s=1, tracl's are 1, 3, 5,7
+j=2 key=tracl s=2, tracl's are 2, 4, 6,8 etc.,
+
 =head4 Examples
 
 =head3 SEISMIC UNIX NOTES

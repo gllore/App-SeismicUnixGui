@@ -148,6 +148,7 @@ sub _get_data_type {
 
 	if (    $sucat->{_list_directory} ne $empty_string
 		and $sucat->{_list} ne $empty_string )
+		
 	{
 
 		# my $velan = $ivpicks_sorted_par_;
@@ -344,7 +345,7 @@ sub _set_data_type {
 
 		$sucat->{_data_type} = $data_type;
 
-		# print("sucat, _set_data_type, data_type = $sucat->{_data_type}\n");
+		print("sucat, _set_data_type, data_type = $sucat->{_data_type}\n");
 
 	}
 	else {
@@ -564,6 +565,7 @@ sub get_outbound {
 		and length $sucat->{_output_file_name})
 		
 	{
+		# CASE of list
 		if ( $sucat->{_data_type} eq $su ) {
 
 			my $result = $sucat->{_outbound} . $suffix_su;
@@ -579,9 +581,19 @@ sub get_outbound {
 			return ($result);
 		}
 
+	}elsif (  length $sucat->{_outbound}
+		and not length $sucat->{_data_type} 
+		and length $sucat->{_output_file_name}){
+			
+			# CASE of no list
+			my $result = $sucat->{_outbound};    # no change
+			return ($result);
 	}
 	else {
 		print("sucat,get_outbound: missing parameter\n");
+		print("outbound=$sucat->{_outbound}\n");
+		print("data_type=$sucat->{_data_type}\n");		
+		print("output_file_name=$sucat->{_output_file_name}\n");		
 	}
 
 }
@@ -620,7 +632,6 @@ sub inbound_directory {
 		$sucat->{_inbound_directory} = $inbound_directory;
 	}
 	else {
-
 		# print("sucat,inbound_directory: NADA\n");
 	}
 
@@ -638,13 +649,14 @@ sub input_name_extension {
 	my ( $variable, $input_name_extension ) = @_;
 
 	if ( $input_name_extension ne $empty_string ) {
+		
 		$sucat->{_input_name_extension} = $input_name_extension;
+		
 	}
 	else {
 
 		# print("sucat,input_name_extension: NADA\n");
 	}
-
 }
 
 =head2 sub input_name_prefix 
@@ -785,10 +797,11 @@ sub outbound_directory {
 	my ( $variable, $outbound_directory ) = @_;
 
 	if ( $outbound_directory ne $empty_string ) {
+		
 		$sucat->{_outbound_directory} = $outbound_directory;
+		
 	}
 	else {
-
 		# print("sucat,outbound_directory: NADA\n");
 	}
 
@@ -804,10 +817,11 @@ sub output_file_name {
 	my ( $variable, $output_file_name ) = @_;
 
 	if ( $output_file_name ne $empty_string ) {
+		
 		$sucat->{_output_file_name} = $output_file_name;
+		
 	}
 	else {
-
 		# print("sucat,output_file_name: NADA\n");
 	}
 
@@ -823,10 +837,11 @@ sub set_list_aref {
 	my ( $variable, $list_aref ) = @_;
 
 	if ( $list_aref ne $empty_string ) {
+		
 		$sucat->{_list_aref} = $list_aref;
+		
 	}
 	else {
-
 		# print("sucat,set_list_aref: NADA\n");
 	}
 
@@ -878,11 +893,11 @@ sub Step {
 		# CASE 1A- without data type
 		if ( $sucat->{_data_type} eq $empty_string ) {
 
-			# print(" list is $sucat->{_Step}\n\n");
+			print(" sucat, Step, no list with data_type: $sucat->{_Step}\n\n");
 
 			for ( my $i = 0 ; $i < $sucat->{_number_of_files_in} ; $i++ ) {
 
-				# CASE 1A-1 : there is an input sufffix specified by user
+				# CASE 1A-1 : there is an input suffix specified by user
 				if ( $sucat->{_input_suffix} ne $empty_string ) {
 					print(
 						"Warning: Incorrect settings. Either \n

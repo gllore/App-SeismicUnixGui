@@ -1859,7 +1859,7 @@ sub _update_parameter_index_on_entry {
 		  $parameter_index_on_entry_href->{_most_recent};
 		$parameter_index_on_entry_href->{_most_recent} =
 		  $new_most_recent_parameter_index_on_entry;
-
+		print("gui_history,updated parameter_index_on_entry :$parameter_index_on_entry_href->{_most_recent}\n");
 		( $gui_history->get_defaults )->{_parameter_index_on_entry_href} =
 		  $parameter_index_on_entry_href;
 
@@ -1894,7 +1894,7 @@ sub _update_parameter_index_on_exit {
 		( $gui_history->get_defaults() )->{_parameter_index_on_exit} =
 		  $new_most_recent_parameter_index_on_exit;
 
-#		print("gui_history,updated parameter_index_on_exit :$new_most_recent_parameter_index_on_exit\n");
+		print("gui_history,updated parameter_index_on_exit :$new_most_recent_parameter_index_on_exit\n");
 
 		if ( defined $parameter_index_on_exit_click_seq_href ) {
 
@@ -1920,6 +1920,7 @@ sub _update_parameter_index_on_exit {
 			  $parameter_index_on_exit_href->{_most_recent};
 			$parameter_index_on_exit_href->{_most_recent} =
 			  $new_most_recent_parameter_index_on_exit;
+#		print("gui_history,updated parameter_index_on_exit :$parameter_index_on_exit_href->{_most_recent}\n");
 
 			( $gui_history->get_defaults )->{_parameter_index_on_exit_href} =
 			  $parameter_index_on_exit_href;
@@ -2151,7 +2152,7 @@ sub get_file_status {
 			# print("gui_history,get_file_status, click count =$click_count \n");
 		if ( $click_count <= $min_click_count ) {
 
-			my $result = "just_opened";
+			my $result = $true;
 			 #print(
  #"gui_history,get_file_status, click count: $click_count<= $min_click_count \n"
  #			);
@@ -2160,13 +2161,13 @@ sub get_file_status {
 		else {
 			# print("gui_history,get_file_status, exceeded click count \n");
 			# print("click count =$click_count > $min_click_count \n");
-			my $result = "opened4a_while";
+			my $result = $false;
 			return($result);
 		}
 
 	}
 	else {
-		print("guit_history,get_file_status, missing iputs\n");
+		print("gui_history,get_file_status, missing inputs\n");
 		return ();
 	}
 

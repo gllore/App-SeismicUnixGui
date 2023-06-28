@@ -72,15 +72,17 @@ my $param_flow_blue = {
 	_num_items4checkbuttons  => 0,
 	_num_items4names         => 0,
 	_num_items4values        => 0,
+	_param_index             => '',
 	_prog_names_aref         => '',
 	_prog_version_aref       => '',
 	_selection_index         => 0,
 	_start                   => 0,
+	_value                   => '',
 	_values_aref             => '',
 	_values_aref2            => '',
 };
 
- my @cloned_values_aref2;
+my @cloned_values_aref2;
 use aliased 'App::SeismicUnixGui::misc::L_SU_global_constants';
 
 my $get = L_SU_global_constants->new();
@@ -98,10 +100,11 @@ my $empty_string = $var->{_empty_string};
 
 sub _get_good_length4item {
 	my ( $self, $index4flow ) = @_;
-	
+
 	my $idx    = $index4flow;
 	my $length = scalar @{ $param_flow_blue->{_good_values_aref2}[$idx] };
-#	print 'a\n';
+
+	#	print 'a\n';
 	return ($length);
 }
 
@@ -118,11 +121,11 @@ sub _get_names_aref {
 		my ( @names_aref, @names );
 		@names_aref = @{ @{ $param_flow_blue->{_names_aref2} }[$item_index] };
 
-#		print(
-#			"param_flow_blue, _get_names_aref, @names_aref, index=$item_index\n"
-#		);
-#		
-#			print 'b\n';
+		#		print(
+		#			"param_flow_blue, _get_names_aref, @names_aref, index=$item_index\n"
+		#		);
+		#
+		#			print 'b\n';
 		return ( \@names_aref );
 	}
 }
@@ -155,8 +158,8 @@ sub _get_values_aref {
 sub _set_good_labels4item {
 	my ($index4flow) = @_;
 
-#	print("param_flow_blue,set_good_indices4item,
-#	 index4flow: $index4flow\n");
+	#	print("param_flow_blue,set_good_indices4item,
+	#	 index4flow: $index4flow\n");
 	my $idx = $index4flow;
 	my (@good);
 	my ($j);
@@ -230,7 +233,7 @@ sub _set_good_labels4item {
 sub _set_good_values4item {
 	my ($index4flow) = @_;
 
-#    print("param_flow_blue,set_good_indices4item,index4flow: $index4flow \n");
+ #    print("param_flow_blue,set_good_indices4item,index4flow: $index4flow \n");
 
 	my $idx = $index4flow;    # program sequence in flow
 	my (@good);
@@ -325,10 +328,12 @@ sub clear {
 	$param_flow_blue->{_num_items4checkbuttons}  = 0;
 	$param_flow_blue->{_num_items4names}         = 0;
 	$param_flow_blue->{_num_items4values}        = 0;
+	$param_flow_blue->{_param_index}             = '';
 	$param_flow_blue->{_prog_names_aref}         = '';
 	$param_flow_blue->{_prog_version_aref}       = '';
 	$param_flow_blue->{_selection_index}         = -1;
 	$param_flow_blue->{_start}                   = '';
+	$param_flow_blue->{_value}                   = '';
 	$param_flow_blue->{_values_aref}             = '';
 	$param_flow_blue->{_values_aref2}            = '';
 	@program_names                               = ();
@@ -340,7 +345,7 @@ sub clear {
 	@values                                      = ();
 	@checkbuttons                                = ();
 
-#	print("param_flow_blue, clear finished\n");
+	#	print("param_flow_blue, clear finished\n");
 	return ();
 
 }
@@ -370,8 +375,8 @@ sub clear_flow_items_version_aref {
 "param_flow_blue, clear_flow_items_version_aref, missing program_version_aref\n"
 		);
 	}
-	
-#	print("d\n");
+
+	#	print("d\n");
 
 }
 
@@ -584,7 +589,7 @@ sub get_check_buttons_settings {
 	if ( $index >= 0 ) {
 		my @on_off = @{ @{ $param_flow_blue->{_checkbuttons_aref2} }[$index] };
 
-#		print("param_flow_blue,get_check_buttons_settings: is @on_off\n");
+		#		print("param_flow_blue,get_check_buttons_settings: is @on_off\n");
 
 		return ( \@on_off );
 	}
@@ -601,8 +606,8 @@ sub get_flow_index {
 	my ($self) = @_;
 	my $current_idx = $param_flow_blue->{_index4flow};
 
-#	print("param_flow_blue, get flow_index,
-#	current_idx is $param_flow_blue->{_index4flow}\n");
+	#	print("param_flow_blue, get flow_index,
+	#	current_idx is $param_flow_blue->{_index4flow}\n");
 	return ($current_idx);
 }
 
@@ -617,8 +622,8 @@ sub get_flow_prog_names_aref {
 
 	if ( $param_flow_blue->{_prog_names_aref} ne $empty_string ) {
 
-#		print("param_flow_blue, get_flow_prog_names_aref,
-#		@{$param_flow_blue->{_prog_names_aref}}\n");
+		#		print("param_flow_blue, get_flow_prog_names_aref,
+		#		@{$param_flow_blue->{_prog_names_aref}}\n");
 
 		my $hash->{_prog_names_aref} = $param_flow_blue->{_prog_names_aref};
 		return ( $hash->{_prog_names_aref} );
@@ -639,8 +644,8 @@ sub get_flow_items_version_aref {
 	my ($self) = @_;
 	my $program_version_aref = $param_flow_blue->{_prog_version_aref};
 
-#	print("param_flow_blue, get_flow_items_version_aref
-#	@{$param_flow_blue->{_prog_version_aref}}\n");
+	#	print("param_flow_blue, get_flow_items_version_aref
+	#	@{$param_flow_blue->{_prog_version_aref}}\n");
 
 	return ($program_version_aref);
 }
@@ -655,9 +660,9 @@ sub get_good_labels_aref2 {
 	if ( $param_flow_blue->{_good_labels_aref2} ) {
 		my $good_labels_aref2 = $param_flow_blue->{_good_labels_aref2};
 
-#		print(" param_flow_blue,get_good_labels_aref2,
-#		good_labels for index 0=
-#		@{@{$param_flow_blue->{_good_labels_aref2}}[0]}\n");
+		#		print(" param_flow_blue,get_good_labels_aref2,
+		#		good_labels for index 0=
+		#		@{@{$param_flow_blue->{_good_labels_aref2}}[0]}\n");
 		return ($good_labels_aref2);
 	}
 	return ();
@@ -728,7 +733,8 @@ sub get_num_good_values_aref {
 
 	if ( $param_flow_blue->{_num_good_values_aref} ) {
 		my $num_good_values_aref = $param_flow_blue->{_num_good_values_aref};
-#			print("e\n");
+
+		#			print("e\n");
 		return ($num_good_values_aref);
 	}
 	return ();
@@ -808,17 +814,18 @@ sub get_values_aref {
 
 		my $index = $param_flow_blue->{_selection_index};
 		my ( $i, $j, $length );
-		my ( @values);
+		my (@values);
 
-#		print("param_flow_blue, get_values :flow index= $index\n");
+		#		print("param_flow_blue, get_values :flow index= $index\n");
 		@values = @{ @{ $param_flow_blue->{_values_aref2} }[$index] };
-#		$length      = scalar @values;
-#		print("param_flow_blue, get_values :length=$length\n");
 
-#		for my $in (@values) {
-#			print("param_flow_blue,get_values :value is--$in--\n");
-#		}
-#		print("\n");
+		#		$length      = scalar @values;
+		#		print("param_flow_blue, get_values :length=$length\n");
+
+		#		for my $in (@values) {
+		#			print("param_flow_blue,get_values :value is--$in--\n");
+		#		}
+		#		print("\n");
 
 #    print("param_flow_blue,view_data: checkbuttons: @{@{$param_flow_blue->{_checkbuttons_aref2}}[$i]}\n\n");
 		return ( \@values );
@@ -848,7 +855,7 @@ sub insert_selection {
 	my $end       = $param_flow_blue->{_indices};
 	my $num_items = $param_flow_blue->{_num_items};
 
-#	 print("param_flow_blue,insert_selection start is $idx2mv\n");
+	#	 print("param_flow_blue,insert_selection start is $idx2mv\n");
 	# print("param_flow_blue,insert_selection,destn_id is $destn_idx\n");
 	# print("param_flow_blue,insert_selection, last index  is $end\n");
 
@@ -1029,7 +1036,7 @@ sub length {
 		@values_aref = @{ @{ $param_flow_blue->{_values_aref2} }[$index] };
 		$length      = scalar @values_aref;
 
-#		print("param_flow_blue, length, num values: $length\n");
+		#		print("param_flow_blue, length, num values: $length\n");
 		#  						print("param_flow_blue, index: $index\n");
 		return ($length);
 	}
@@ -1050,7 +1057,8 @@ sub set_check_buttons_settings_aref {
 	my ( $self, $check_buttons_settings_aref ) = @_;
 	my $index       = $param_flow_blue->{_selection_index};
 	my $chkbut_aref = $check_buttons_settings_aref;
-#		print("e\n");
+
+	#		print("e\n");
 
 	if ( $index >= 0 ) {
 		my ( $i, $j, $length );
@@ -1109,7 +1117,7 @@ sub set_insert_start {
 	my ( $self, $start ) = @_;
 	$param_flow_blue->{_index2move} = $start;
 
-#	print("param_flow_blue,set_insert_start is $start\n");
+	#	print("param_flow_blue,set_insert_start is $start\n");
 	return ();
 }
 
@@ -1125,7 +1133,7 @@ sub set_insert_end {
 	my ( $self, $end ) = @_;
 	$param_flow_blue->{_destination_index} = $end;
 
-#	print("param_flow_blue,set_insert_end  $end \n");
+	#	print("param_flow_blue,set_insert_end  $end \n");
 
 	return ();
 }
@@ -1141,8 +1149,8 @@ sub set_insert_end {
 sub set_flow_index {
 	my ( $self, $index ) = @_;
 
-#	print("param_flow_blue, set_flow_index,index, $index\n");
-	if ( CORE::length($index) ) {
+	#	print("param_flow_blue, set_flow_index,index, $index\n");
+	if ( CORE::length $index ) {
 
 		if ( $index ne $empty_string && $index >= 0 ) {
 
@@ -1184,7 +1192,7 @@ sub set_names_aref {
 	my ( $self, $names_aref ) = @_;
 	my $index = $param_flow_blue->{_selection_index};
 
-#	print(" param_flow_blue, set_names:  @{$names_aref}, index is $index\n");
+	#	print(" param_flow_blue, set_names:  @{$names_aref}, index is $index\n");
 
 	if ( $index >= 0 ) {
 		my @names_aref;
@@ -1198,6 +1206,29 @@ sub set_names_aref {
 	}
 }
 
+=head2 sub set_param_index
+
+ set single index
+
+=cut 
+
+sub set_param_index {
+	my ( $self, $index ) = @_;
+
+	if ( CORE::length($index) ) {
+
+		$param_flow_blue->{_param_index} = $index;
+		print(
+"param_flow_color, set_param_index, $param_flow_blue->{_param_index}\n"
+		);
+	}
+	else {
+		print("param_flow_color, set_param_index, missing value\n");
+	}
+
+	return ();
+}
+
 =head2 sub set_good_labels 
 
 	select names with values
@@ -1209,8 +1240,8 @@ sub set_good_labels {
 	my ($self) = @_;
 	my $length = $param_flow_blue->{_num_items4flow};
 
-#	print("param_flow_blue,set_good_labels
-#	num_items4flow:	$param_flow_blue->{_num_items4flow}\n");
+	#	print("param_flow_blue,set_good_labels
+	#	num_items4flow:	$param_flow_blue->{_num_items4flow}\n");
 
 	for ( my $i = 0 ; $i < $length ; $i++ ) {
 		_set_good_labels4item($i);
@@ -1248,8 +1279,8 @@ sub set_good_values {
 sub set_good_labels4item {
 	my ( $self, $index4flow ) = @_;
 
-#	 print("param_flow_blue,set_good_labels4item,
-#	 self,index4flow: $self,$index4flow\n");
+	#	 print("param_flow_blue,set_good_labels4item,
+	#	 self,index4flow: $self,$index4flow\n");
 
 	my $idx = $index4flow;
 	my ( @good,            @good_labels );
@@ -1302,8 +1333,8 @@ sub set_good_labels4item {
 sub set_good_values4item {
 	my ( $self, $index4flow ) = @_;
 
-#	 print("param_flow_blue,set_good_values4item,
-#	 self,index4flow: $self,$index4flow\n");
+	#	 print("param_flow_blue,set_good_values4item,
+	#	 self,index4flow: $self,$index4flow\n");
 
 	my $idx = $index4flow;
 	my ( @good,            @good_values );
@@ -1351,6 +1382,52 @@ sub set_good_values4item {
 	return ();
 }
 
+=head2 sub set_param_value
+
+Store single value
+
+=cut
+
+sub set_param_value {
+	my ( $self, $value ) = @_;
+
+# print("param_flow_blue,set_param_value param_flow_blue->{_selection_index}= $param_flow_blue->{_selection_index}\n");
+
+	if (   CORE::length($value)
+		&& CORE::length( $param_flow_blue->{_param_index} )
+		&& CORE::length( $param_flow_blue->{_selection_index} ) )
+	{
+		my $param_index  = $param_flow_blue->{_param_index};
+		my $flow_index   = $param_flow_blue->{_selection_index};
+#		print("param_flow_blue,set_param_value, flow index: $flow_index\n");
+#        print("param_flow_blue,set_param_value, param index: $param_index\n");
+#		print("param_flow_blue,set_param_value, values =$value\n");
+
+		$cloned_values_aref2[$flow_index] =
+		  clone( \@{ @{ $param_flow_blue->{_values_aref2} }[$flow_index] } );
+
+#		my $length = scalar @{ $cloned_values_aref2[$flow_index] };
+#		print(" OK 1. param_flow_blue, set_param_value:length=$length\n");
+		
+		my @transfer_array = @{ $cloned_values_aref2[$flow_index] };
+		$transfer_array[$param_index] = $value;
+		$cloned_values_aref2[$flow_index] = \@transfer_array;
+
+		@{ @{ $param_flow_blue->{_values_aref2} }[$flow_index] } =
+		  @{ $cloned_values_aref2[$flow_index] };
+
+#        print("1. param_flow_blue, set_param_value:@{@{ $param_flow_blue->{_values_aref2} }[$flow_index]}\n");
+#         print("1. param_flow_blue, set_param_value:@{$cloned_values_aref2[$flow_index]}\n");
+
+	}
+	else {
+		# print("param_flow_blue, set_param_value: selection index < 0 NADA\n");
+	}
+
+	# print("param_flow_blue,set_param_value :values_aref[0] are @$value[0]\n");
+	return ();
+}
+
 =head2 sub set_values_aref
 
 Store values
@@ -1370,19 +1447,21 @@ sub set_values_aref {
 		# print("param_flow_blue,set_values_aref, values_aref=@$values_aref\n");
 
 		if ( $index >= 0 ) {
-			my ( $i,           $j,      $length );
-			my ( @values,);
-            
-            @{ $param_flow_blue->{_values_aref2} }[$index]= $values_aref;
-            
+			my ( $i, $j, $length );
+			my ( @values, );
+
+			@{ $param_flow_blue->{_values_aref2} }[$index] = $values_aref;
+
 			$cloned_values_aref2[$index] =
 			  clone( \@{ @{ $param_flow_blue->{_values_aref2} }[$index] } );
-			
-			$length                  = scalar @{$cloned_values_aref2[$index]};
-            # print(" OK 1. param_flow_blue, set_values_aref:length=$length\n");          
-			
-			@{ @{ $param_flow_blue->{_values_aref2} }[$index]} = @{$cloned_values_aref2[$index]};
-			
+
+			$length = scalar @{ $cloned_values_aref2[$index] };
+
+			# print(" OK 1. param_flow_blue, set_values_aref:length=$length\n");
+
+			@{ @{ $param_flow_blue->{_values_aref2} }[$index] } =
+			  @{ $cloned_values_aref2[$index] };
+
 #        print("1. param_flow_blue, set_values_aref:@{@{ $param_flow_blue->{_values_aref2} }[$index]}\n");
 #         print("1. param_flow_blue, set_values_aref:@{$cloned_values_aref2[$index]}\n");
 
@@ -1412,7 +1491,8 @@ sub stack_checkbuttons_aref2 {
 
 	my ( $self, $checkbuttons_aref ) = @_;
 	my $index = $param_flow_blue->{_index4checkbuttons} + 1;
-#		print("f\n");
+
+	#		print("f\n");
 
 	$checkbuttons[$index] = $checkbuttons_aref;
 	$param_flow_blue->{_checkbuttons_aref2} = \@checkbuttons;
@@ -1445,7 +1525,8 @@ sub stack_checkbuttons_aref2 {
 
 sub stack_flow_item {
 	my ( $self, $program_name_sref ) = @_;
-#	print("g\n");
+
+	#	print("g\n");
 
 	if ($program_name_sref) {
 		my $index = $param_flow_blue->{_index4flow} + 1;
@@ -1486,7 +1567,8 @@ sub stack_flow_item {
 sub stack_names_aref2 {
 
 	my ( $self, $names_aref ) = @_;
-#	print("h\n");
+
+	#	print("h\n");
 
 	if ($names_aref) {
 		my $index = $param_flow_blue->{_index4names} + 1;
@@ -1529,7 +1611,8 @@ sub stack_values_aref2 {
 	my ( $self, $values_aref ) = @_;
 
 	if ($values_aref) {
-#		print("i\n");
+
+		#		print("i\n");
 
 		my $index = $param_flow_blue->{_index4values} + 1;
 
@@ -1574,12 +1657,12 @@ sub view_data {
 	my ($self) = @_;
 	my @num_progs;
 
-	my $indices   = $param_flow_blue->{_indices};
+	my $indices = $param_flow_blue->{_indices};
 	$num_progs[0] = $param_flow_blue->{_num_items};
 	$num_progs[1] = scalar( @{ $param_flow_blue->{_names_aref2} } );
 	$num_progs[2] = scalar( @{ $param_flow_blue->{_prog_names_aref} } );
 	$num_progs[3] = scalar( @{ $param_flow_blue->{_values_aref2} } );
-    $num_progs[4] = scalar( @cloned_values_aref2 ); # same as above
+	$num_progs[4] = scalar(@cloned_values_aref2);    # same as above
 	$num_progs[5] = scalar( @{ $param_flow_blue->{_checkbuttons_aref2} } );
 
 	print(
@@ -1598,8 +1681,8 @@ sub view_data {
 		}
 
 #     print("param_flow_blue,view_data: checkbuttons: @{@{$param_flow_blue->{_checkbuttons_aref2}}[$i]}\n\n");
-		# for my $value ( @{ @{ $param_flow_blue->{_values_aref2} }[$i] } ) {
-		for my $value ( @{$cloned_values_aref2[$i]} ) {
+# for my $value ( @{ @{ $param_flow_blue->{_values_aref2} }[$i] } ) {
+		for my $value ( @{ $cloned_values_aref2[$i] } ) {
 			print("param_flow_blue,view_data: value:     $value\n");
 		}
 
