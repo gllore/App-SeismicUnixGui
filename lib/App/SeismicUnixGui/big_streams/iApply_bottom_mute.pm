@@ -4,7 +4,7 @@ package App::SeismicUnixGui::big_streams::iApply_bottom_mute;
 
 =head2 SYNOPSIS 
 
- PACKAGE NAME: iApply_bottom_mute
+ PERL PROGRAM NAME: iApply_bottom_mute
  AUTHOR: Juan Lorenzo
 
  DESCRIPTION:

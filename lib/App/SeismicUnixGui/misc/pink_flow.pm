@@ -5,7 +5,7 @@ package App::SeismicUnixGui::misc::pink_flow;
 
 =head2 SYNOPSIS 
 
- PERL PACKAGE NAME: pink_flow.pm
+ PERL PERL PROGRAM NAME: pink_flow.pm
  AUTHOR: 	Juan Lorenzo
  DATE: 		June 8 2018 
 

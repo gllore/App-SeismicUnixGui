@@ -257,6 +257,7 @@ my $file_dialog_type_h = {
 	_Data_SEISMIC_TXT => 'Data_SEISMIC_TXT',
 	_Data             => 'Data',
 	_Delete           => 'Delete',
+	_Home             => 'Home',
 	_Path             => 'Path',
 	_last_dir_in_path => 'last_dir_in_path',
 	_Flow             => 'Flow',
@@ -743,6 +744,7 @@ sub get_developer_sunix_category_h {
 		_sugabor     => $developer_sunix_categories[14],
 		_suicepstrum => $developer_sunix_categories[14],
 		_suifft      => $developer_sunix_categories[14],
+		_suminphase  => $developer_sunix_categories[14],		
 		_suphasevel  => $developer_sunix_categories[14],
 		_suspecfk    => $developer_sunix_categories[14],
 		_suspecfx    => $developer_sunix_categories[14],
@@ -872,10 +874,11 @@ my @sunix_statsMath_programs = (
 );
 
 my @sunix_transform_programs = (
-	"dctcomp",     "suamp",  "succepstrum", "sucepstrum",
-	"sucwt",       "succwt", "sufft",       "sugabor",
-	"suicepstrum", "suifft", "suphasevel",  "suspecfk",
-	"suspecfx",    "sutaup",
+	"dctcomp", "suamp", "succepstrum", "sucepstrum",
+	"sucwt", "succwt", "sufft", "sugabor",
+	"suicepstrum", "suifft", "suphasevel", "suspecfk",
+	"suminphase",
+	"suspecfx", "sutaup",
 );
 
 my @sunix_well_programs =
@@ -1020,7 +1023,6 @@ sub alias_FileDialog_button_label_aref {    # array ref
 }
 
 sub alias_help_menubutton_label_aref {
-	
 #	my ($self,$variable) = @_; # array ref
 	my $result = \@alias_help_menubutton_label;
 	return ( $result );
@@ -2159,7 +2161,6 @@ sub superflow_names_aref {
 }
 
 sub superflow_names_gui_aref {
-	
 	my (@self) = @_;
 	return ( \@superflow_names_gui );
 

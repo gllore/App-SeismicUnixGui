@@ -6,7 +6,7 @@ use Moose;
 
 =head2 SYNOPSIS 
 
- PACKAGE NAME: readfiles 
+ PERL PROGRAM NAME: readfiles 
  AUTHOR: Juan Lorenzo
  DATE: Oct 29 2012
  DESCRIPTION read file operations

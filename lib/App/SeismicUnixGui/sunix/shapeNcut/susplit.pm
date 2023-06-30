@@ -2,7 +2,7 @@ package App::SeismicUnixGui::sunix::shapeNcut::susplit;
 
 =head2 SYNOPSIS
 
-PACKAGE NAME: susplit.pm
+PERL PROGRAM NAME: susplit.pm
 
 AUTHOR:  
 

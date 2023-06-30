@@ -4,7 +4,7 @@ package App::SeismicUnixGui::sunix::shapeNcut::suwind;
 
 =head2 SYNOPSIS
 
- PACKAGE NAME:  SUWIND - window traces by key word					
+ PERL PROGRAM NAME:  SUWIND - window traces by key word					
  AUTHOR: Juan Lorenzo
  DATE:  Nov 1 2012  
  DESCRIPTION: suwind a lists of header words

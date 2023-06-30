@@ -1218,9 +1218,9 @@ sub set_param_index {
 	if ( CORE::length($index) ) {
 
 		$param_flow_grey->{_param_index} = $index;
-		print(
-"param_flow_color, set_param_index, $param_flow_grey->{_param_index}\n"
-		);
+#		print(
+#"param_flow_color, set_param_index, $param_flow_grey->{_param_index}\n"
+#		);
 	}
 	else {
 		print("param_flow_color, set_param_index, missing value\n");

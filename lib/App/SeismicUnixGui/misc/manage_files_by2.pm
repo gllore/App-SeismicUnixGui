@@ -1214,7 +1214,7 @@ sub set_cat_su {
 
 =head2 SYNOPSIS
 
-PACKAGE NAME: 
+PERL PROGRAM NAME: 
 
 AUTHOR:  
 
@@ -1352,7 +1352,7 @@ sub set_cat_txt {
 
 =head2 SYNOPSIS
 
-PACKAGE NAME: 
+PERL PROGRAM NAME: 
 
 AUTHOR:  
 

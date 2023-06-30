@@ -5,7 +5,7 @@ package App::SeismicUnixGui::misc::files_LSU;
 
 =head2 SYNOPSIS 
 
- PERL PACKAGE NAME: files_LSU
+ PERL PERL PROGRAM NAME: files_LSU
  AUTHOR: 	Juan Lorenzo
  DATE: 		May 6 2018
 

@@ -13,7 +13,7 @@ use aliased 'App::SeismicUnixGui::configs::big_streams::Project_config';
 
 =head2 SYNOPSIS System_Variables::
 
- PACKAGE NAME:iPicks2sort.pm
+ PERL PROGRAM NAME:iPicks2sort.pm
  AUTHOR: Juan Lorenzo
  DATE: June 14 2019
 

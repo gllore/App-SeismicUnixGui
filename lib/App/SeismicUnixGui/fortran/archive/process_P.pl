@@ -1,6 +1,6 @@
 =head2 SYNOPSIS
 
- PACKAGE NAME: process_P.pl
+ PERL PROGRAM NAME: process_P.pl
 
  AUTHOR:  Juan Lorenzo
 

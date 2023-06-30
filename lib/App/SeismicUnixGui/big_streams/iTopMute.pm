@@ -4,7 +4,7 @@ package App::SeismicUnixGui::big_streams::iTopMute;
 
 =head2 SYNOPSIS 
 
- PACKAGE NAME: iTopMute.pm 
+ PERL PROGRAM NAME: iTopMute.pm 
  AUTHOR: Juan Lorenzo
  DATE:  Sept. 14 2015 
          

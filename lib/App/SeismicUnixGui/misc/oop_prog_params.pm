@@ -5,7 +5,7 @@ package App::SeismicUnixGui::misc::oop_prog_params;
 
 =head2 SYNOPSIS 
 
- PERL PACKAGE NAME: oop_prog_params
+ PERL PERL PROGRAM NAME: oop_prog_params
  AUTHOR: 	Juan Lorenzo
  DATE: 		2018
 

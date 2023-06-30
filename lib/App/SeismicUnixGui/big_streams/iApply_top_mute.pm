@@ -4,7 +4,7 @@ package App::SeismicUnixGui::big_streams::iApply_top_mute;
 
 =head2 SYNOPSIS 
 
- PACKAGE NAME: iApply_top_mute
+ PERL PROGRAM NAME: iApply_top_mute
  AUTHOR: Juan Lorenzo
 
  DESCRIPTION:

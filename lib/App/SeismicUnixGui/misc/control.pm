@@ -5,7 +5,7 @@ package App::SeismicUnixGui::misc::control;
 
 =head2 SYNOPSIS 
 
- PERL PACKAGE NAME: control.pm 
+ PERL PERL PROGRAM NAME: control.pm 
  AUTHOR: 	Juan Lorenzo
  DATE: 		V 0.0.2 Oct 3 2018 
 

@@ -10,7 +10,7 @@ use aliased 'App::SeismicUnixGui::misc::mkparfile';
 
 =head2 SYNOPSIS 
 
- PACKAGE NAME:iTopMutePicks2par.pm
+ PERL PROGRAM NAME:iTopMutePicks2par.pm
  AUTHOR: Juan Lorenzo
  DATE: May 5 2009
 

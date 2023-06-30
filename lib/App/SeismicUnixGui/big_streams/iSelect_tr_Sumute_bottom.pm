@@ -4,7 +4,7 @@ package App::SeismicUnixGui::big_streams::iSelect_tr_Sumute_bottom;
 
 =head2 SYNOPSIS 
 
- PACKAGE NAME: iSelect_tr_Sumute_bottom.pm
+ PERL PROGRAM NAME: iSelect_tr_Sumute_bottom.pm
  AUTHOR: Juan Lorenzo
  DATE:   April 2 2009 V1.
          Aug 9, 2011 V1.2

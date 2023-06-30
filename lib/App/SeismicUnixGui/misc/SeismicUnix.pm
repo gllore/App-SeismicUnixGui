@@ -4,7 +4,7 @@ package App::SeismicUnixGui::misc::SeismicUnix;
 
 =head2 SYNOPSIS 
 
- PERL PACKAGE NAME: SeismicUnix.pm 
+ PERL PERL PROGRAM NAME: SeismicUnix.pm 
  AUTHOR: 	Juan Lorenzo
  DATE: 		earlier than 2018 
 

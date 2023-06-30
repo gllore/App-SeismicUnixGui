@@ -11,7 +11,7 @@ use aliased 'App::SeismicUnixGui::misc::L_SU_global_constants';
 =head2 SYNOPSIS 
 
 
- PACKAGE NAME: old_data 
+ PERL PROGRAM NAME: old_data 
  AUTHOR: Juan Lorenzo
  DATE:  Sept. 18 2015 
 

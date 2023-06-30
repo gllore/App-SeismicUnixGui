@@ -5,7 +5,7 @@ package App::SeismicUnixGui::misc::green_flow;
 
 =head2 SYNOPSIS 
 
- PERL PACKAGE NAME: green_flow.pm
+ PERL PERL PROGRAM NAME: green_flow.pm
  AUTHOR: 	Juan Lorenzo
  DATE: 		June 8 2018 
 

@@ -4,7 +4,7 @@ package App::SeismicUnixGui::misc::param_widgets_pink;
 
 =head2 SYNOPSIS 
 
- PACKAGE NAME: param_widgets_pink
+ PERL PROGRAM NAME: param_widgets_pink
  AUTHOR:  Juan Lorenzo
 
 =head2 CHANGES and their DATES

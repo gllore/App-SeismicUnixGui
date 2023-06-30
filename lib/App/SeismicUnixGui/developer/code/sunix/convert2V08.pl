@@ -1,7 +1,7 @@
 
 =head2 SYNOPSIS
 
-PACKAGE NAME: convert2V07
+PERL PROGRAM NAME: convert2V07
 
 AUTHOR:  
 

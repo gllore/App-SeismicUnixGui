@@ -4,7 +4,7 @@ package App::SeismicUnixGui::sunix::shapeNcut::sumute;
 
 =head2 SYNOPSIS
 
- PACKAGE NAME:  SUMUTE - MUTE above (or below) a user-defined polygonal curve with	", 
+ PERL PROGRAM NAME:  SUMUTE - MUTE above (or below) a user-defined polygonal curve with	", 
  AUTHOR: Juan Lorenzo
  DATE:   
  DESCRIPTION:

@@ -4,7 +4,7 @@ package App::SeismicUnixGui::big_streams::iPick;
 
 =head2 SYNOPSIS 
 
- PACKAGE NAME: iPick.pm 
+ PERL PROGRAM NAME: iPick.pm 
  AUTHOR: Juan Lorenzo
  DATE:  Sept. 14 2015 
          

@@ -1,7 +1,7 @@
 
 =head2 SYNOPSIS
 
-PACKAGE NAME: change_a_line_everywhere
+PERL PROGRAM NAME: change_a_line_everywhere
 
 AUTHOR:  
 

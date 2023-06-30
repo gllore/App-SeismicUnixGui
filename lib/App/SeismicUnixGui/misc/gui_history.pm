@@ -1859,7 +1859,7 @@ sub _update_parameter_index_on_entry {
 		  $parameter_index_on_entry_href->{_most_recent};
 		$parameter_index_on_entry_href->{_most_recent} =
 		  $new_most_recent_parameter_index_on_entry;
-		print("gui_history,updated parameter_index_on_entry :$parameter_index_on_entry_href->{_most_recent}\n");
+#		print("gui_history,updated parameter_index_on_entry :$parameter_index_on_entry_href->{_most_recent}\n");
 		( $gui_history->get_defaults )->{_parameter_index_on_entry_href} =
 		  $parameter_index_on_entry_href;
 
@@ -1894,7 +1894,7 @@ sub _update_parameter_index_on_exit {
 		( $gui_history->get_defaults() )->{_parameter_index_on_exit} =
 		  $new_most_recent_parameter_index_on_exit;
 
-		print("gui_history,updated parameter_index_on_exit :$new_most_recent_parameter_index_on_exit\n");
+#		print("gui_history,updated parameter_index_on_exit :$new_most_recent_parameter_index_on_exit\n");
 
 		if ( defined $parameter_index_on_exit_click_seq_href ) {
 

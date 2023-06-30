@@ -2,7 +2,7 @@ package App::SeismicUnixGui::sunix::statsMath::suop;
 
 =head2 SYNOPSIS
 
-PACKAGE NAME: 
+PERL PROGRAM NAME: 
 
 AUTHOR:  
 
@@ -351,7 +351,7 @@ max index = number of input variables -1
  
 sub get_max_index {
  	  my ($self) = @_;
-	my $max_index = 2;
+	my $max_index = 1;
 
     return($max_index);
 }

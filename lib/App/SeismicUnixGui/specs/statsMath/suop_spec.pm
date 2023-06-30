@@ -23,7 +23,7 @@ my $DATA_SEISMIC_SU  	= $Project->DATA_SEISMIC_SU();   # output data directory
 my $DATA_SEISMIC_TXT  	= $Project->DATA_SEISMIC_TXT();   # output data directory
 my $PL_SEISMIC		    = $Project->PL_SEISMIC();
 my $PS_SEISMIC  		= $Project->PS_SEISMIC();
-my $max_index           = 2;
+my $max_index           = 1;
 
 
 	my $suop_spec = {

@@ -5,7 +5,7 @@ package App::SeismicUnixGui::misc::grey_flow;
 
 =head2 SYNOPSIS 
 
- PERL PACKAGE NAME: grey_flow.pm
+ PERL PERL PROGRAM NAME: grey_flow.pm
  AUTHOR: 	Juan Lorenzo
  DATE: 		June 8 2018 
 
@@ -3124,12 +3124,8 @@ sub flow_select {
 			my $max_index_in_flow = $num_items_in_flow - 1;
 			$last_flow_color = $color_flow_href->{_last_flow_color};
 
-			#			$gui_history->set_file_status($num_items_in_flow);
-			#			my $file_status = $gui_history->get_file_status();
-
-#								  	print(
-#	  "3 start.color_flow,flow_select, file_status,num_items_in_flow: $file_status,$num_items_in_flow\n"
-#	);
+#	        $gui_history->set_file_status($num_items_in_flow);
+#	        my $file_prob_just_opened = $gui_history->get_file_status();
 
 			if ( not $memory_leak4flow_select_fixed ) {
 
@@ -3153,8 +3149,6 @@ sub flow_select {
 				elsif (
 					( $this_color eq $last_flow_color )
 					&& $most_recent_flow_index_touched < $max_index_in_flow
-
-					#					&& $first_opening == $true
 				  )
 
 				{
@@ -3165,24 +3159,16 @@ sub flow_select {
 					# of the last program in the flow
 
 					$param_flow_color_pkg->set_flow_index($max_index_in_flow);
-					# TODO: leak4 save may need this in future
 					my $last_param_flow_values_w_strings_aref =
 					  $control->get_string_or_number4aref(
 						\@save_last_param_widget_values );
 					my @last_param_flow_values_w_strings = @$last_param_flow_values_w_strings_aref;
 					my $saved_value = $last_param_flow_values_w_strings[$save_last_param_widget_index];
 
-#						    							print(
-#	  "\n10B.OK color_flow,flow_select, values:@$last_param_flow_values_w_strings_aref\n"
-#	);
-
 				$param_flow_color_pkg->set_param_index($save_last_param_widget_index);
 				$param_flow_color_pkg->set_param_value($saved_value);
-
-# needed?			 
-#                $param_widgets->set_index( $save_last_param_widget_index );
-#                $param_widgets->set_value( $save_last_param_widget_value );
-
+				
+# deprecated
 #					$param_flow_color_pkg->set_values_aref(
 #						$last_param_flow_values_w_strings_aref);
 
@@ -3569,10 +3555,6 @@ sub save_button {
 
 	my $num_items_in_flow = $param_flow_color_pkg->get_num_items();
 	my $max_index_in_flow = $num_items_in_flow - 1;
-	
-	$gui_history->set_file_status($num_items_in_flow);
-	my $file_prob_just_opened = $gui_history->get_file_status();
-#	print("file_prob_just_opened=$true\n");
 
 	$param_widgets->redisplay_values();
 
@@ -3638,8 +3620,9 @@ for first time but no listboxes have been occupied previously
 		my $max_index_in_flow = $num_items_in_flow - 1;
 		$last_flow_color = $color_flow_href->{_last_flow_color};
 
-		#		$gui_history->set_file_status($num_items_in_flow);
-		#		my $file_status = $gui_history->get_file_status();
+	    $gui_history->set_file_status($num_items_in_flow);
+	    my $file_prob_just_opened = $gui_history->get_file_status();
+#	print("file_prob_just_opened=$true\n");
 
 #		print("color_flow, save_button: writing gui_history.txt\n");
 #		$gui_history->view();

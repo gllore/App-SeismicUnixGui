@@ -4,7 +4,7 @@ package App::SeismicUnixGui::sunix::statsMath::suop2;
 
 =head2 SYNOPSIS
 
- PACKAGE NAME:  SUOP2 - do a binary operation on two data sets			
+ PERL PROGRAM NAME:  SUOP2 - do a binary operation on two data sets			
  AUTHOR: Juan Lorenzo
  DATE:   Feb. 19 2015,
  DESCRIPTION:

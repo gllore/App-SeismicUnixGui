@@ -4,7 +4,7 @@ package App::SeismicUnixGui::misc::param_widgets_grey;
 
 =head2 SYNOPSIS 
 
- PACKAGE NAME: param_widgets_grey
+ PERL PROGRAM NAME: param_widgets_grey
  AUTHOR:  Juan Lorenzo
 
 =head2 CHANGES and their DATES

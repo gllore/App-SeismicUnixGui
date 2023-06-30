@@ -2,7 +2,7 @@ use Moose;
 
 =head2 SYNOPSIS
 
-PACKAGE NAME: update_main_version_number.pl
+PERL PROGRAM NAME: update_main_version_number.pl
 
 AUTHOR:  
 

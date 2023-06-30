@@ -3,7 +3,7 @@ package App::SeismicUnixGui::big_streams::iBottomMute;
 =head1 DOCUMENTATION
 =head2 SYNOPSIS 
 
- PACKAGE NAME: iBottomMute.pm 
+ PERL PROGRAM NAME: iBottomMute.pm 
  AUTHOR: Juan Lorenzo
  DATE:  Sept. 14 2015 
  DATE:  June 12, 2017 adapted from iTop_Mute3.pm 

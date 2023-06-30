@@ -11,7 +11,7 @@ use aliased 'App::SeismicUnixGui::configs::big_streams::Project_config';
 
 =head2 SYNOPSIS 
 
- PACKAGE NAME:iBottomMutePicks2par.pm
+ PERL PROGRAM NAME:iBottomMutePicks2par.pm
  AUTHOR: Juan Lorenzo
  DATE: June 12 2017 
 

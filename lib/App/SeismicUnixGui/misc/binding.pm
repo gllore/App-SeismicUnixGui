@@ -191,7 +191,7 @@ sub set {
 	$package->flow_type_aref();
 	$package->file_dialog_type_aref();
 
-	#  Bind each entry: empty text for only the case of data_in (label) to MB3
+	# Bind each entry: empty text for only the case of data_in (label) to MB3
 	my $values_w_aref = $binding->{_values_w_aref};
 	my @values_w      = @$values_w_aref;
 
@@ -214,7 +214,7 @@ sub set {
 
 		my $dial_type = $file_dialog_type[ $index[$i] ];
 
-#				 print("3A. binding,set,prog_name: ${$binding->{_prog_name_sref}}\n");
+#				print("3A. binding,set,prog_name: ${$binding->{_prog_name_sref}}\n");
 #			    print("3B. binding,set,file_dialog_type: $dial_type\n");
 			    # print("3B. binding,set,file_dialog_type: i=$i\n");
 
@@ -234,7 +234,7 @@ sub set {
 
 		}
 		else {
-			# print("4. binding,set, no bindings\n");
+			# print("4. binding,set, no bindings NADA\n");
 		}
 	}
 }

@@ -30,7 +30,7 @@ $head[0] =
 
 '=head2 SYNOPSIS
 
-PACKAGE NAME: 
+PERL PROGRAM NAME: 
 
 AUTHOR:
 
