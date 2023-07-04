@@ -199,7 +199,7 @@ sub set {
 
 	my $binding_index_aref = $package->get_binding_index_aref();
 	my @index              = @$binding_index_aref;
-	# print("binding,set,file_dialog_type,indices for user-flows and big streams: @index\n");
+#	print("binding,set,file_dialog_type,indices for user-flows and big streams: @index\n");
 
 	my $file_dialog_type_aref = $package->get_file_dialog_type_aref();
 	my @file_dialog_type      = @$file_dialog_type_aref;

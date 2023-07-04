@@ -184,7 +184,6 @@ sub Step {
 	{
 
 		my $trace_num;
-		my $temp_outbound = '.temp';
 		my @Step;
 
 		my ( $array_ref, $num_gathers ) = _get_trace_numbers();
@@ -197,7 +196,6 @@ sub Step {
 		$trace_num = @$array_ref[0];
 		my $step =
 		  "sukill key=$sukill->{_key} count=1 min=$trace_num < $inbound ";
-		my $temp_inbound = $temp_outbound;
 
 		my $penultimate_idx = $num_gathers - 2;
 		my $last_idx        = $num_gathers - 1;
@@ -320,6 +318,10 @@ sub _check4inbound_listNkey {
 	return ();
 }
 
+=head2 sub _get_inbound
+
+=cut
+
 sub _get_inbound {
 	my ($self) = @_;
 
@@ -358,6 +360,10 @@ sub _get_inbound_list {
 	}
 
 }
+
+=head2 sub _get_trace_numbers
+
+=cut
 
 sub _get_trace_numbers {
 	my ($self) = @_;
@@ -403,6 +409,10 @@ sub _set_inbound {
 	}
 
 }
+
+=head2 sub _set_inbound_list
+
+=cut
 
 sub _set_inbound_list {
 	my ($self) = @_;

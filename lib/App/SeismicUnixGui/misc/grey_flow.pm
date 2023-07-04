@@ -3663,9 +3663,9 @@ for first time but no listboxes have been occupied previously
 				# Fix param_widget memory leak that deletes the
 				# last element in the last flow
 
-				print(
-"6 color_flow,most_recent_flow_index_touched=$most_recent_flow_index_touched\n"
-				);
+#				print(
+#"6 color_flow,most_recent_flow_index_touched=$most_recent_flow_index_touched\n"
+#				);
 
 #               # print("6. color_flow,@save_last_param_widget_values=$@save_last_param_widget_values\n");
 				$param_flow_color_pkg->set_flow_index($max_index_in_flow);
@@ -3859,7 +3859,7 @@ sub set_vacant_listbox_aref {
 
 	my ( $self, $vacant_listbox_aref ) = @_;
 
-	if ($vacant_listbox_aref) {
+	if (length $vacant_listbox_aref) {
 
 		$color_flow_href->{_vacant_listbox_aref} = $vacant_listbox_aref;
 

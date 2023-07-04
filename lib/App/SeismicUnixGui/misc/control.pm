@@ -50,6 +50,7 @@ my $L_SU_global_constants   = L_SU_global_constants->new();
 my $alias_superflow_names_h = $L_SU_global_constants->alias_superflow_names_h();
 my $var                     = $L_SU_global_constants->var();
 my $empty_string            = $var->{_empty_string};
+my $forward_slash           = $var->{_forward_slash};
 my $L_SU_path               = L_SU_path->new();
 
 my $no  = $var->{_no};
@@ -93,7 +94,7 @@ sub _get_no_quotes {
 
 			my $exit_value;
 
-#			print("control,_get_no_quotes, entry_value = $entry_value\n");
+			#			print("control,_get_no_quotes, entry_value = $entry_value\n");
 
 			# 1. remove double quotes if they exist
 			#  anywhere in the line
@@ -106,7 +107,7 @@ sub _get_no_quotes {
 			$entry_value =~ s/'$//;
 			$exit_value = $entry_value;
 
-#			print("control,_get_no_quotes, result: $exit_value\n");
+			#			print("control,_get_no_quotes, result: $exit_value\n");
 			return ($exit_value);
 
 		}
@@ -146,6 +147,7 @@ sub _get_string_or_number {
 #   		);
 
 		use Scalar::Util qw(looks_like_number);
+
 		# remove any exisitng quotes
 		my $clean_value = _get_no_quotes($entry_value);
 
@@ -171,7 +173,7 @@ sub _get_string_or_number {
 			  )
 			{
 
-      # print("CASE 1A control, _get_string_or_number, working with data_in, or data_out -- special cases\n");
+# print("CASE 1A control, _get_string_or_number, working with data_in, or data_out -- special cases\n");
 
 	   # specific requirements for data_in and data_out in first item (index =0)
 				my $index = $control->{_parameter_index4array};
@@ -182,10 +184,10 @@ sub _get_string_or_number {
 
 						# expected for index=0 in both data_in and data_out
 						# CASE 1A.1 always returns string
-						
+
 						my $exit_value_as_string = '\'' . $clean_value . '\'';
 
-	                    # print("CASE 1A.1 control, _get_string_or_number, value into a string: $exit_value_as_string\n");
+# print("CASE 1A.1 control, _get_string_or_number, value into a string: $exit_value_as_string\n");
 						return ($exit_value_as_string);
 
 					}
@@ -251,9 +253,9 @@ sub _get_string_or_number {
 #				     (e.g., in param_flow_color_pkg') -- for most programs\n"
 #				);
 
-# first remove any exisitng quotes
+				# first remove any exisitng quotes
 
-                my $clean_value = _get_no_quotes($entry_value);
+				my $clean_value = _get_no_quotes($entry_value);
 
 				my $fmt = 0;
 				$fmt = looks_like_number($clean_value);
@@ -380,7 +382,7 @@ sub _get_string_or_number4aref {
 
 	}
 	else {
- # print("control, _get_string_or_number4aref, bad array reference\n");
+		# print("control, _get_string_or_number4aref, bad array reference\n");
 		return ();
 	}
 }
@@ -819,17 +821,29 @@ sub get_no_quotes4array {
 
 =head2 sub get_path_wo_last_slash
 
+first check to see if a final slash
+exists
+
 =cut
 
 sub get_path_wo_last_slash {
 	my ($self) = @_;
 
 	if ( length $control->{_path} ) {
-		my $thing = $control->{_path};
-		chop $thing;
-		my $result = $thing;
 
-		# print("control,get_path_wo_last_slash, : $result\n");
+		my $path          = $control->{_path};
+		my $last_character = substr( $path, -1 );
+
+		if ( $last_character eq $forward_slash ) {
+			
+			$path =~ s/\/$//;
+		}
+		else {
+			# NADA print ("path unchanged $path\n\n");
+		}
+
+		my $result = $path;
+#		print("control,get_path_wo_last_slash, : $result\n");
 		return ($result);
 
 	}
@@ -958,6 +972,7 @@ sub get_string_or_number4aref {
 
 #           print("\n1. control, get_string_or_number4aref, entering _get_string_or_number=$array[$i], idx=$i\n");
 			$array[$i] = _get_string_or_number( $array[$i] );
+
 #           print("1. control, get_string_or_number4aref, leaving _get_string_or_number: $array[$i], idx=$i\n");
 		}
 
@@ -1205,7 +1220,7 @@ sub remove_su_suffix4sref {
 sub set_back_slashBgone {
 	my ( $self, $stringWback_slash ) = @_;
 
-    # print("control,set_back_slashBgone, stringWback_slash: $stringWback_slash\n");
+# print("control,set_back_slashBgone, stringWback_slash: $stringWback_slash\n");
 
 	if ( $stringWback_slash ne $empty_string ) {
 

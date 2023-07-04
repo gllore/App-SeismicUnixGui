@@ -17,17 +17,18 @@ Version:
 
 =head3 NOTES
 
-There are now four cases that susplit can handle:
-1. In the traditional case, the split files are written to 
-the directory erl thinks the code is running 
+ There are now four cases that susplit can handle:
+ 
+ 1. As in the traditional case, the split files are written to 
+ the directory perl thinks the code is running .
 
-2. If a list of su_base_file_names is given (in $DATA_SEISMIC_TXT)
-split files are written to $DATA_SEISMIC_SU.
+ 2. If a list of su_base_file_names is given (in $DATA_SEISMIC_TXT)
+ split files are written to $DATA_SEISMIC_SU.
 
-3. If a data set (su file) is given, split files are written
-to $DATA_SEISMIC_SU.
+ 3. If an su_base_file_name is given then thesplit files are written
+ to $DATA_SEISMIC_SU.
 
-4. Cases 2 and 3 are exclusive and a warning message is given. 
+ 4. Cases 2 and 3 are exclusive and a warning message is given. 
 
 =head4 Examples
 

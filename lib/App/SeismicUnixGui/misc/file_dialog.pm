@@ -142,12 +142,12 @@ sub _FileDialog {
 
 	my ($self) = @_;
 	my $my_title =
-	_get_dialog_type();    # e.g., 'SaveAs' or 'Save', 'Open' or 'Delete'
+	  _get_dialog_type();    # e.g., 'SaveAs' or 'Save', 'Open' or 'Delete'
 	my $FileDialog_path = _get_path();    # e.g., $PL or $DATA_SEISMIC_SU
 
 	# Can be for a data or pl directory or for only a directory
 	# print("file_dialog,_FileDialog, path: $file_dialog->{_path}\n");
-	#   print("file_dialog,_FileDialog, path: $FileDialog_path\n");
+	#	print("file_dialog,_FileDialog, path: $FileDialog_path\n");
 	#	print("file_dialog,_FileDialog, mytitle: $my_title\n");
 
 	my $fileDialog_w = $file_dialog->{_mw}->JFileDialog(
@@ -161,7 +161,7 @@ sub _FileDialog {
 		-PathFile     => "./.Bookmarks.txt",
 		-Create       => 1,
 		-width        => 60,
-		-maxwidth     => 60, # characters
+		-maxwidth     => 60,                     # characters
 
 	);
 
@@ -302,7 +302,7 @@ sub _big_stream_Home {
 	}
 	elsif ( $widget_type eq 'MainWindow' ) {    # opening a random file
 
-#		print("file_dialog,_big_stream_Home widget type is 'MainWindow' \n");
+		#		print("file_dialog,_big_stream_Home widget type is 'MainWindow' \n");
 		my $message = $file_dialog->{_message_w}->FileDialog_button(0);
 		$file_dialog->{_message_w}->delete( "1.0", 'end' );
 		$file_dialog->{_message_w}->insert( 'end', $message );
@@ -442,17 +442,14 @@ sub _big_stream_Home_close {
 	my $topic             = $file_dialog->{_dialog_type};
 	my $last_path_touched = $file_dialog->{_last_path_touched};
 
-	if ( length $last_path_touched)
-	{
+	if ( length $last_path_touched ) {
 
 		$file_dialog->{_is_selected_path} = $true;
 
 	}
 	else {
 		$file_dialog->{_is_selected_path} = $false;
-		print(
-"file_dialog, _big_stream_Home_close, Cancelled. No path\n"
-		);
+		print("file_dialog, _big_stream_Home_close, Cancelled. No path\n");
 	}
 
 	$decisions->set4FileDialog_select($file_dialog);
@@ -462,7 +459,7 @@ sub _big_stream_Home_close {
 
 		my $result = 0;
 
-	if (    defined( $file_dialog->{_last_path_touched} )
+		if (    defined( $file_dialog->{_last_path_touched} )
 			and $file_dialog->{_last_path_touched} ne $empty_string
 			and ${ $file_dialog->{_prog_name_sref} } ne $empty_string )
 		{
@@ -471,13 +468,11 @@ sub _big_stream_Home_close {
 			$result =
 			  dirs->get_last_dirInpath();    # only keep the last directory name
 
-#	          print("file_dialog,_big_stream_Home_close, is $result  \n");
+		#	          print("file_dialog,_big_stream_Home_close, is $result  \n");
 
 		}
 		else {
-			print(
-"file_dialog,_big_stream_Home_close No path was selected\n"
-			);
+			print("file_dialog,_big_stream_Home_close No path was selected\n");
 		}
 
 		my $current_index = $file_dialog->{_parameter_value_index};
@@ -513,8 +508,6 @@ sub _big_stream_Home_close {
 sub _big_stream_last_dir_in_path_close {
 	my ($self) = @_;
 
-	#	my $iFile         = iFile->new();
-	#	my $control       = control->new();
 	my $param_widgets = param_widgets4pre_built_streams->new();
 
 	my $topic             = $file_dialog->{_dialog_type};
@@ -639,9 +632,7 @@ sub _get_dialog_type {
 sub _get_path {
 	my ($self) = @_;
 
-	if ( defined $file_dialog->{_path}
-		&& $file_dialog->{_path} ne $empty_string )
-	{
+	if ( length $file_dialog->{_path} ) {
 
 		my $path = $file_dialog->{_path};
 		return ($path);
@@ -669,61 +660,77 @@ sub _set_file_path {
 
 	my $topic = _get_dialog_type();
 
-	if ($topic) {
+	if ( length $topic ) {
 
 		my $Project = Project_config->new();
 
 		my $DATA_SEISMIC_SU = $Project->DATA_SEISMIC_SU();
 		my $PL_SEISMIC      = $Project->PL_SEISMIC();
 
-		if ( $topic eq $file_dialog_type->{_Data} ) {    # for Data
+		my $dispatch = {
 
-			$file_dialog->{_path} = $DATA_SEISMIC_SU;
+			$file_dialog_type->{_Data} => $DATA_SEISMIC_SU,
 
-		   # print("file_dialog, _set_file_path ,dialog type:$topic\n");
-		   # print("file_dialog, _set_file_path ,path:$file_dialog->{_path}\n");
+			# Delete pre-existing user-built flow
+			$file_dialog_type->{_Delete} => $PL_SEISMIC,
+			$file_dialog_type->{_Open}   => $PL_SEISMIC,
 
-		}
-		elsif ( $topic eq $file_dialog_type->{_Delete} )
-		{    # Delete pre-existing user-built flow
+			# save a new user-built flow
+			$file_dialog_type->{_SaveAs} => $PL_SEISMIC,
+			$file_dialog_type->{_Save}   => $PL_SEISMIC,
 
+		};
+
+		$file_dialog->{_path} = $dispatch->{$topic};
+
+	 #		if ( $topic eq $file_dialog_type->{_Data} ) {    # for Data
+	 #
+	 #			$file_dialog->{_path} = $DATA_SEISMIC_SU;
+	 #
+	 #		   # print("file_dialog, _set_file_path ,dialog type:$topic\n");
+	 #		   # print("file_dialog, _set_file_path ,path:$file_dialog->{_path}\n");
+	 #
+	 #		}
+	 #		els
+		if ( $topic eq $file_dialog_type->{_Delete} ) {
+			#
 			$file_dialog->{_path} = $PL_SEISMIC;
-
-		 #			print("file_dialog, _set_file_path ,dialog type:$topic\n");
+		 #
+		 #		 #			print("file_dialog, _set_file_path ,dialog type:$topic\n");
 		 #			print("file_dialog, _set_file_path ,path:$file_dialog->{_path}\n");
-
+		 #
 		}
-		elsif ( $topic eq $file_dialog_type->{_Open} )
-		{    # Open pre-exiting user-built flow
 
-			$file_dialog->{_path} = $PL_SEISMIC;
+	 #		elsif ( $topic eq $file_dialog_type->{_Open} )
+	 #		{    # Open pre-exiting user-built flow
+	 #
+	 #			$file_dialog->{_path} = $PL_SEISMIC;
+	 #
+	 #		   # print("file_dialog, _set_file_path ,dialog type:$topic\n");
+	 #		   # print("file_dialog, _set_file_path ,path:$file_dialog->{_path}\n");
+	 #
+	 #		}
+	 #		elsif ( $topic eq $file_dialog_type->{_SaveAs} )
+	 #		{
+	 #
+	 #			$file_dialog->{_path} = $PL_SEISMIC;
+	 #
+	 #		   # print("file_dialog, _set_file_path ,dialog type:$topic\n");
+	 #		   # print("file_dialog, _set_file_path ,path:$file_dialog->{_path}\n");
+	 #
+	 #		}
+	 #		elsif ( $topic eq $file_dialog_type->{_Save} ) {
+	 #
+	 #			$file_dialog->{_path} = $PL_SEISMIC;
+	 #
+	 #		   # print("file_dialog, _set_file_path ,dialog type:$topic\n");
+	 #		   # print("file_dialog, _set_file_path ,path:$file_dialog->{_path}\n");
 
-		   # print("file_dialog, _set_file_path ,dialog type:$topic\n");
-		   # print("file_dialog, _set_file_path ,path:$file_dialog->{_path}\n");
-
-		}
-		elsif ( $topic eq $file_dialog_type->{_SaveAs} )
-		{    # save a new user-built flow
-
-			$file_dialog->{_path} = $PL_SEISMIC;
-
-		   # print("file_dialog, _set_file_path ,dialog type:$topic\n");
-		   # print("file_dialog, _set_file_path ,path:$file_dialog->{_path}\n");
-
-		}
-		elsif ( $topic eq $file_dialog_type->{_Save} ) {
-
-			$file_dialog->{_path} = $PL_SEISMIC;
-
-		   # print("file_dialog, _set_file_path ,dialog type:$topic\n");
-		   # print("file_dialog, _set_file_path ,path:$file_dialog->{_path}\n");
-
-		}
-		else {
-			print(" file_dialog,_set_file_path, missing dialog type\n");
-			return ($empty_string);
-		}
 	}
+	else {
+		print(" file_dialog,_set_file_path, missing dialog type\n");
+	}
+	return ($empty_string);
 
 }
 
@@ -1186,8 +1193,7 @@ sub _pre_built_superflow_open_path {
 			$control->set_path( $file_dialog->{_path} );
 			$file_dialog->{_path} = $control->get_path_wo_last_slash();
 
-# print("1.file_dialog,_pre-built_superflow_path, PATH:  $file_dialog->{_path} \n");
-
+# print("2.file_dialog,_pre-built_superflow_path, PATH:  $file_dialog->{_path} \n");
 # print("1.file_dialog,_pre-built_superflow_path, _values_aref: @{$file_dialog->{_values_aref}}[0]\n");
 
 			_FileDialog();    # open file dialog mega-widget
@@ -1238,58 +1244,25 @@ sub _set_FileDialog2user_built_flow {
 
   #	print("file_dialog, _set_FileDialog2user_built_flow, dialog type:$topic\n");
 
-	# for Data
-	if ( $topic eq $file_dialog_type->{_Data} ) {
+	if ( length $topic ) {
 
-  # print("file_dialog, _set_FileDialog2user_built_flow ,dialog type:$topic\n");
+		my $dispatch = {
+			$file_dialog_type->{_Data} => \&_user_built_flow_open_data_file,
+			$file_dialog_type->{_Data_PL_SEISMIC} =>
+			  \&_user_built_flow_open_data_file,
+			$file_dialog_type->{_Data_SEISMIC_TXT} =>
+			  \&_user_built_flow_open_data_file,
+			$file_dialog_type->{_Open}   => \&_user_built_flow_open_perl_file,
+			$file_dialog_type->{_Path}   => \&_user_built_flow_open_path,
+			$file_dialog_type->{_Delete} => \&_user_built_flow_Delete_perl_file,
+			$file_dialog_type->{_SaveAs} => \&_user_built_flow_SaveAs_perl_file,
+		};
 
-		_user_built_flow_open_data_file();
-
-	}
-	elsif ( $topic eq $file_dialog_type->{_Data_PL_SEISMIC} ) {
-
-	# print("file_dialog,_set_FileDialog2pre_built_superflow, topic= $topic\n");
-		_user_built_flow_open_data_file();
-
-		# Open pre-exiting user-built flow
-	}
-	elsif ( $topic eq $file_dialog_type->{_Data_SEISMIC_TXT} ) {
-
-	# print("file_dialog,_set_FileDialog2pre_built_superflow, topic= $topic\n");
-		_user_built_flow_open_data_file();
-
-		# Open pre-exiting user-built flow
-	}
-	elsif ( $topic eq $file_dialog_type->{_Open} ) {
-
-# print("file_dialog, _set_FileDialog2user_built_flow ,dialog type:$topic\n");
-# print("file_dialog, _set_FileDialog2user_built_flow, flowNsuperflow_name_w:$file_dialog->{_flowNsuperflow_name_w} \n");
-
-		_user_built_flow_open_perl_file();
-
-	}
-	elsif ( $topic eq $file_dialog_type->{_Path} ) {
-
-		# print("file_dialog,_set_FileDialog2user_built_flow, topic= $topic\n");
-		_user_built_flow_open_path();
-
-	}
-	elsif ( $topic eq $file_dialog_type->{_Delete} ) {
-
-		#		print("file_dialog,set_FileDialog2user_built_flow, topic= $topic\n");
-		_user_built_flow_Delete_perl_file();
-
-	}
-	elsif ( $topic eq $file_dialog_type->{_SaveAs} ) {
-
-		# Save a new user-built flow
-
- #		print("file_dialog, _set_FileDialog2user_built_flow ,dialog type:$topic\n");
-		_user_built_flow_SaveAs_perl_file();
-
+		$dispatch->{$topic}->();
 	}
 	else {
-		print("No bindings exist\n");
+		print(
+			"file_dialog,_set_FileDialog2user_built_flow, missing bindings\n");
 	}
 
 	# print("file_dialog, End of _set_FileDialog2user_built_flow \n");
@@ -1301,59 +1274,82 @@ sub _set_FileDialog2pre_built_superflow {
 
 	my $topic = _get_dialog_type();
 
-	if ( $topic eq $file_dialog_type->{_Data_PL_SEISMIC} ) {
+	if ( length $topic ) {
 
-	# print("file_dialog,_set_FileDialog2pre_built_superflow, topic= $topic\n");
-		_pre_built_superflow_open_data_file();
+		my $dispatch = {
+			$file_dialog_type->{_Data_PL_SEISMIC} =>
+			  \&_pre_built_superflow_open_data_file,
+			$file_dialog_type->{_Data_SEISMIC_TXT} =>
+			  \&_pre_built_superflow_open_data_file,
+			$file_dialog_type->{_Data} => \&_pre_built_superflow_open_data_file,
+			$file_dialog_type->{_Path} => \&_pre_built_superflow_open_path,
+			$file_dialog_type->{_last_dir_in_path} =>
+			  \&_big_stream_last_dir_in_path,
+		};
 
-	}
-	elsif ( $topic eq $file_dialog_type->{_Data_SEISMIC_TXT} ) {
-
-   #	 print("file_dialog,_set_FileDialog2pre_built_superflow, topic= $topic\n");
-		_pre_built_superflow_open_data_file();
-
-	}
-	elsif ( $topic eq $file_dialog_type->{_Data} ) {
-
-	# print("file_dialog,_set_FileDialog2pre_built_superflow, topic= $topic\n");
-		_pre_built_superflow_open_data_file();
-
-	}
-	elsif ( $topic eq $file_dialog_type->{_Home} ) {
-
-  # print("2. file_dialog,set_FileDialog2pre_built_superflow, topic= $topic\n");
-#		_big_stream_last_dir_in_path();
-#        _big_stream_Home();
-	}
-	elsif ( $topic eq $file_dialog_type->{_Path} ) {
-
-  # print("1. file_dialog,set_FileDialog2pre_built_superflow, topic= $topic\n");
-		_pre_built_superflow_open_path();
-
-	}
-	elsif ( $topic eq $file_dialog_type->{_last_dir_in_path} ) {
-
-  # print("2. file_dialog,set_FileDialog2pre_built_superflow, topic= $topic\n");
-		_big_stream_last_dir_in_path();
-
-	}
-	elsif ( $topic eq $file_dialog_type->{_Open} ) {
-
-	  # print("file_dialog,set_FileDialog2pre_built_superflow, not allowed \n");
-
-		# NADA
-
-	}
-	elsif ( $topic eq $file_dialog_type->{_SaveAs} ) {
-
-	# print("file_dialog,set_FileDialog2pre_built_superflow, not allowed \n");
-	# _save_button('SaveAs');  superflow saves flow automatically and should not
-	# require this option!  #NADA
+		$dispatch->{$topic}->();
 
 	}
 	else {
-		print("file_dialog,set_FileDialog2pre_built_superflow, problem! \n");
+		print(
+"file_dialog,_set_FileDialog2pre_built_superflow, missing bindings\n"
+		);
 	}
+#
+#		if ( $topic eq $file_dialog_type->{_Data_PL_SEISMIC} ) {
+#
+#	# print("file_dialog,_set_FileDialog2pre_built_superflow, topic= $topic\n");
+#			_pre_built_superflow_open_data_file();
+#
+#		}
+#		elsif ( $topic eq $file_dialog_type->{_Data_SEISMIC_TXT} ) {
+#
+#   #	 print("file_dialog,_set_FileDialog2pre_built_superflow, topic= $topic\n");
+#			_pre_built_superflow_open_data_file();
+#
+#		}
+#		elsif ( $topic eq $file_dialog_type->{_Data} ) {
+#
+#	# print("file_dialog,_set_FileDialog2pre_built_superflow, topic= $topic\n");
+#			_pre_built_superflow_open_data_file();
+#
+#		}
+#		elsif ( $topic eq $file_dialog_type->{_Home} ) {
+#
+#  # print("2. file_dialog,set_FileDialog2pre_built_superflow, topic= $topic\n");
+#  #		_big_stream_last_dir_in_path();
+#  #        _big_stream_Home();
+#		}
+#		elsif ( $topic eq $file_dialog_type->{_Path} ) {
+#
+#  # print("1. file_dialog,set_FileDialog2pre_built_superflow, topic= $topic\n");
+#			_pre_built_superflow_open_path();
+#
+#		}
+#		elsif ( $topic eq $file_dialog_type->{_last_dir_in_path} ) {
+#
+#  # print("2. file_dialog,set_FileDialog2pre_built_superflow, topic= $topic\n");
+#			_big_stream_last_dir_in_path();
+#
+#		}
+#		elsif ( $topic eq $file_dialog_type->{_Open} ) {
+#
+#	  # print("file_dialog,set_FileDialog2pre_built_superflow, not allowed \n");
+#
+#			# NADA
+#
+#		}
+#		elsif ( $topic eq $file_dialog_type->{_SaveAs} ) {
+#
+# print("file_dialog,set_FileDialog2pre_built_superflow, not allowed \n");
+# _save_button('SaveAs');  superflow saves flow automatically and should not
+# require this option!  #NADA
+#
+#		}
+#		else {
+#			print(
+#				"file_dialog,set_FileDialog2pre_built_superflow, problem! \n");
+#		}
 	return ($empty_string);
 }
 
@@ -1516,9 +1512,6 @@ sub _user_built_flow_SaveAs_perl_file {
 # print("3. file_dialog, _user_built_flow_SaveAs_perl_file ,SaveAs, pre_r_set_file_patheq_ok= $pre_req_ok \n");
 # print("2. file_dialog, _user_built_flow_SaveAs_perl_file _is_user_built_flow: $file_dialog->{_is_user_built_flow}\n");
 
-		#		my $iFile   = iFile->new();
-		#		my $control = control->new();
-
 		my $whereami            = whereami->new();
 		my $default_param_specs = $L_SU_global_constants->param();
 
@@ -1603,10 +1596,7 @@ sub _user_built_flow_SaveAs_perl_file {
 sub _user_built_flow_close_data_file {
 	my ($self) = @_;
 
-	#	my $control       = control->new();
 	my $param_widgets = param_widgets->new();
-
-	#	my $iFile         = iFile->new();
 
 	my @fields;
 	my $full_path_name;
@@ -1840,8 +1830,6 @@ sub _user_built_flow_close_perl_file {
 
 	my $file_dialog_messages = message_director->new();
 
-	#	my $iFile                = iFile;
-
 	my @fields;
 	my $full_path_name;
 
@@ -1924,12 +1912,8 @@ sub _user_built_flow_close_perl_file {
 sub _user_built_flow_open_data_file {
 	my ($self) = @_;
 
-	#	print("1. file_dialog,_user_built_flow_open_data_file\n ");
-
 	my $param_widgets = param_widgets->new();
 	my $whereami      = whereami->new();
-
-	#	my $iFile         = iFile->new();
 
 	my $default_param_specs = $L_SU_global_constants->param();
 	my $first_idx           = $default_param_specs->{_first_entry_idx};
@@ -1965,7 +1949,7 @@ sub _user_built_flow_open_data_file {
 		$param_widgets->set_entry_button_chosen_widget(
 			$user_built_flow_open_data_selected_Entry_widget);
 
-# Need to set the length and first_idx or, $param-widgets->set_length($file_dialog_length);
+		# Need to set the length and first_idx
 		$param_widgets->set_first_idx($first_idx);
 		$param_widgets->set_length($length);
 
@@ -2041,12 +2025,8 @@ sub _user_built_flow_open_path {
 
 	my ($self) = @_;
 
-	#	print("file_dialog, _user_built_flow_open_path\n ");
-
 	my $param_widgets = param_widgets->new();
 	my $whereami      = whereami->new();
-
-	#	my $iFile         = iFile->new();
 
 	my $default_param_specs = $L_SU_global_constants->param();
 	my $first_idx           = $default_param_specs->{_first_entry_idx};
@@ -2177,7 +2157,7 @@ sub _user_built_flow_open_perl_file {
 	$file_dialog = $gui_history->get_hash_ref();
 
 # print("1. file_dialog,_user_built_flow_open_perl_file,_flowNsuperflow_name_w:$file_dialog->{_flowNsuperflow_name_w} \n");
-# if an appropriate entry widget is first selected, ie. Entry
+# if an appropriate entry widget is first selected, ie., Entry
 # get index of entry button pressed
 # find out which entry button has been chosen
 # confirm that it IS the file button
@@ -2297,19 +2277,16 @@ sub get_file_path {
 	}
 	else {
 		print("file_dialog,get_file_path, path is missing \n");
-
-		# my $perl_path 					= $file_dialog->{_path};
 		return ($empty_string);
 	}
 }
 
 =head2 sub get_hash_ref
 
-
  bring gui history parameters in to share
  and update
- # initialize default parameter values from gui_history
-# needed herein
+ initialize default parameter values from gui_history
+ needed herein
 
 	 
 =cut
@@ -2525,6 +2502,7 @@ sub set_prog_name_sref {
 	my ( $self, $name_sref ) = @_;
 
 	if ($name_sref) {
+
 		$file_dialog->{_prog_name_sref} = $name_sref;
 
  # print("file_dialog, set_prog_name_sref , $file_dialog->{_prog_name_sref}\n");
@@ -2577,6 +2555,7 @@ sub set_flow_type {
 	my ( $self, $how_built ) = @_;
 
 	if ($how_built) {
+
 		$file_dialog->{_flow_type} = $how_built;
 
 	}
@@ -2599,9 +2578,7 @@ sub set_hash_ref {
 		$gui_history->set_defaults($hash_ref);
 		$file_dialog = $gui_history->get_defaults();
 
-# print("1. file_dialog, set_hash_ref,output gui history\n");
-# $gui_history->view();
-# print("param_widgets_color,_update_hash_ref: $gui_history->get_defaults()\n");
+		# print("1. file_dialog, set_hash_ref,output gui history\n");
 	}
 
 	return ($empty_string);
@@ -2622,27 +2599,20 @@ sub FileDialog_director {
 	# clear prior stored file names
 	_clear_perl_flow_name_in();
 
-# print("1. file_dialog, FileDialog_director, flowNsuperflow_name_w:$file_dialog->{_flowNsuperflow_name_w} \n");
 	my $file_dialog_flow_type = _get_flow_type();
 
-#	print("file_dialog, FileDialog_director, flow_type:$file_dialog_flow_type\n");
+	if ( length $file_dialog_flow_type ) {
 
-	if ( $file_dialog_flow_type eq $flow_type_h->{_user_built} ) {
-
-#		print("file_dialog, FileDialog_director, should be user_built_flow_type:$file_dialog_flow_type\n");
-
-		_set_FileDialog2user_built_flow();
-
-	}
-	elsif ( $file_dialog_flow_type eq $flow_type_h->{_pre_built_superflow} ) {
-
-# print("file_dialog, FileDialog_director, should be superflow_type:$file_dialog_flow_type\n");
-
-		_set_FileDialog2pre_built_superflow();
+		my $dispatch = {
+			$flow_type_h->{_user_built} => \&_set_FileDialog2user_built_flow,
+			$flow_type_h->{_pre_built_superflow} =>
+			  \&_set_FileDialog2pre_built_superflow,
+		};
+		$dispatch->{$file_dialog_flow_type}->();
 
 	}
 	else {
-		print("file_dialog, FileDialog_director has a problem\n");
+		print("file_dialog, FileDialog_director i smissing flow type\n");
 	}
 	return ($empty_string);
 }

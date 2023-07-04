@@ -320,6 +320,7 @@ my $var = {
 	_five_pixels            => '5',
 	_five_pixel_borderwidth => 5,
 	_five_lines             => '5',
+	_forward_slash          => "/",
 	_1_line                 => '1',
 	_2_lines                => '2',
 	_3_lines                => '3',
