@@ -265,31 +265,63 @@ sub Step {
 		my $file_num;
 		my @Step;
 
-		my ($file_name_aref, $num_files ) = _get_file_names();
+		my ( $file_name_aref, $num_files ) = _get_file_names();
 		my ($inbound_aref) = _get_inbound();
 		my @inbound        = @$inbound_aref;
 		my @file_name      = @$file_name_aref;
 		my $num_of_files   = scalar @file_name;
-		#		print("_get_inbound: @inbound\n");
+
+		# print("_get_inbound: @inbound\n");
 		my $outbound;
 		my $step;
 
-		my $penultimate_idx = $num_of_files - 2;
 		my $last_idx        = $num_of_files - 1;
-		
-		# for first file
-		$outbound = $file_name[0].'_'.$suop->{_op}.$suffix_su;		
-		$step = " suop $suop->{_Step} < $inbound[0] > $outbound\n";
-			
-		for ( my $i = 1 ; $i < $last_idx ; $i++ ) {
 
-			$outbound = $DATA_SEISMIC_SU.'/'.$file_name[$i].'_'.$suop->{_op}.$suffix_su;
-			$step = $step." suop $suop->{_Step} < $inbound[$i] > $outbound\n";
+		# All cases when num_traces >=0
+		# for first file
+		$outbound = $DATA_SEISMIC_SU.'/'.$file_name[0] . '_' . $suop->{_op} . $suffix_su;
+		$step     = " suop $suop->{_Step} < $inbound[0] > $outbound ";
+
+		if ( $last_idx >= 2 ) {
+
+			# CASE: >= 3 operations
+			for ( my $i = 1 ; $i < $last_idx ; $i++ ) {
+
+				$outbound =
+					$DATA_SEISMIC_SU . '/'
+				  . $file_name[$i] . '_'
+				  . $suop->{_op}
+				  . $suffix_su;
+				$step =
+				  $step . "&  suop $suop->{_Step} < $inbound[$i] > $outbound ";
+
+			}
+
+			# for last file
+			$outbound = $DATA_SEISMIC_SU.'/'.$file_name[$last_idx] . '_' . $suop->{_op} . $suffix_su;
+			$suop->{_Step} =
+			  $step . "&  suop $suop->{_Step} < $inbound[$last_idx] > $outbound ";
 
 		}
-		
-		return($step);
+		elsif ( $last_idx == 1 ) {
 
+			# for last file
+			$outbound = $DATA_SEISMIC_SU.'/'.$file_name[$last_idx] . '_' . $suop->{_op} . $suffix_su;
+			$suop->{_Step} =
+			  $step . "&  suop $suop->{_Step} < $inbound[$last_idx] > $outbound ";
+
+		}
+		elsif ( $last_idx == 0 ) {
+
+			$suop->{_Step} = $step;
+
+		}
+		else {
+			print("suop,Step,unexpected case\n");
+			return();
+		}
+
+		return ($suop->{_Step});
 	}
 	elsif ( not length $suop->{_inbound_list} ) {
 

@@ -193,11 +193,11 @@ sub Step {
 		# print("sukill, values=@$array_ref\n");
 
 		# All cases when num_traces >=0
+		# for first file
 		$trace_num = @$array_ref[0];
 		my $step =
 		  "sukill key=$sukill->{_key} count=1 min=$trace_num < $inbound ";
 
-		my $penultimate_idx = $num_gathers - 2;
 		my $last_idx        = $num_gathers - 1;
 
 		if ( $last_idx >= 2 ) {
