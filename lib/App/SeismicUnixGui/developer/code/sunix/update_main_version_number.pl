@@ -50,8 +50,8 @@ and file
 =cut
 
 my $local       = getcwd();
-my $old_version = '0.84.0';
-my $new_version = '0.85.0';
+my $old_version = '0.85.0';
+my $new_version = '0.85.5';
 
 my $i = 0;
 $line2find[$i]   = ("L_SUV$old_version.pl");
@@ -88,7 +88,7 @@ $file[$i]      = 'SeismicUnixGui.pm';
 $path2file[$i] = $local . $up4dirs;
 
 $i = 4;
-$line2find[$i]     = "'SeismicUnixGuiInstallationGuide0.83.0.pdf';";
+$line2find[$i]     = "'SeismicUnixGuiInstallationGuide$old_version.pdf';";
 print("line2find   = $line2find[$i]\n");
 $replacement[$i] = "'SeismicUnixGuiInstallationGuide$new_version.pdf';";
 print("replacement = $replacement[$i]\n");
