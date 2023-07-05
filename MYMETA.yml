@@ -33,5 +33,5 @@ requires:
   Tk::Pod: '0.9943'
   aliased: '0.34'
   namespace::autoclean: '0.29'
-version: v0.84.0
+version: v0.85.0
 x_serialization_backend: 'CPAN::Meta::YAML version 0.018'
