@@ -5620,6 +5620,7 @@ lib/App/SeismicUnixGui/sunix/header/swapbhed.pm
 lib/App/SeismicUnixGui/sunix/inversion/suinvco3d.pm
 lib/App/SeismicUnixGui/sunix/inversion/suinvvxzco.pm
 lib/App/SeismicUnixGui/sunix/inversion/suinvzco3d.pm
+lib/App/SeismicUnixGui/sunix/junk
 lib/App/SeismicUnixGui/sunix/migration/sudatumfd.pm
 lib/App/SeismicUnixGui/sunix/migration/sugazmig.pm
 lib/App/SeismicUnixGui/sunix/migration/sukdmig2d.pm

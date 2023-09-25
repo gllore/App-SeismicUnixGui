@@ -1,0 +1,2 @@
+/home/gllore/granular_studies/seismics/pl/specfem2d/poroelastic_acoustic/070623/HZ/1/gllore/2.view_data.pl
+/home/gllore/granular_studies/seismics/pl/specfem2d/poroelastic_acoustic/070623/HZ/1/gllore/1.suoldtonew.pl

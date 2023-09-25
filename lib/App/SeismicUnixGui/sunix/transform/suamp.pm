@@ -189,25 +189,6 @@ sub mode {
     }
 }
 
-=head2 sub op 
-
-
-=cut
-
-sub op {
-
-    my ( $self, $op ) = @_;
-    if ($op) {
-
-        $suamp->{_op}   = $op;
-        $suamp->{_note} = $suamp->{_note} . ' op=' . $suamp->{_op};
-        $suamp->{_Step} = $suamp->{_Step} . ' op=' . $suamp->{_op};
-
-    }
-    else {
-        print("suamp, op, missing op,\n");
-    }
-}
 
 =head2 sub r 
 
@@ -320,8 +301,7 @@ max index = number of input variables -1
 sub get_max_index {
     my ($self) = @_;
 
-    # max index=7
-    my $max_index = 7;
+    my $max_index = 6;
 
     return ($max_index);
 }
