@@ -1207,14 +1207,6 @@ sub _system_dirs {
 	$Project->{_WELL}                   = $WELL;
 
 
-	# XL SEISMIC DIRECTORY
-	my $DATA_SEISMIC_XL =
-		$DATA_SEISMIC . '/'
-	  . $DATE_LINE_COMPONENT_STAGE_PROCESS
-	  . '/xl' . '/'
-	  . $subUser;
-
-
 	return ();
 }
 
