@@ -4,7 +4,7 @@ package App::SeismicUnixGui::sunix::datum::sukdmdcs;
 
 PERL PROGRAM NAME: 
 
-AUTHOR:  
+AUTHOR: Juan Lorenzo
 
 DATE:
 
