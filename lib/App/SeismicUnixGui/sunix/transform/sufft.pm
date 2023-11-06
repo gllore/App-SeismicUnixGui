@@ -5,7 +5,7 @@ package App::SeismicUnixGui::sunix::transform::sufft;
 =head2 SYNOPSIS
 
  PERL PROGRAM NAME:  SUFFT - fft real time traces to complex frequency traces		
- AUTHOR: Juan Lorenzo
+AUTHOR: Juan Lorenzo (Perl module only)
  DATE:   
  DESCRIPTION:
  Version: 

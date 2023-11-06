@@ -54,8 +54,8 @@ my @PARENT_DIR_SPECS   = ("specs");
 my @PARENT_DIR_SU      = ("sunix");
 
 my @PARENT_DIR_GEN = (
-	"misc", "geopsy", "gmt", "messages",
-	"developer/code/sunix", "developer/code/gmt", "script", "sqlite", "t",
+	"misc", "geopsy", "messages",
+	"developer/code/sunix", "script"
 );
 
 my @CHILD_DIR_CONVERT = (

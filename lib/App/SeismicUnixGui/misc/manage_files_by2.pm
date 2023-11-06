@@ -56,7 +56,7 @@ my $manage_files_by2 = {
 	_cat_base_file_name_out => '',
 	_delete_base_file_name  => '',
 	_directory              => '',
-	_file_in                => '',
+	_file_in                => '',	
 	_pathNfile              => '',
 	_program_name           => '',
 	_suffix_type            => '',
@@ -258,6 +258,30 @@ sub _delete {
 
 }
 
+=head2 sub count_lines
+
+ this function counts the numbers of lines in a text file
+ 
+=cut
+
+sub count_lines {
+	my ( $self, $ref_origin ) = @_;
+
+# print ("\nmanage_files_by,count_lines The input file is called $$ref_origin\n");
+
+	# open the file of interest
+	open( my $IN, '<', $$ref_origin ) or die "Can't open $$ref_origin, $!\n";
+	my $cnt;
+	$cnt++ while <$IN>;
+	close($IN);
+
+	my $num_lines = $cnt;
+
+	# print ("line number = $num_lines\n");
+
+	return ($num_lines);
+}
+
 =pod sub get_whole 
 
  open and read
@@ -272,9 +296,13 @@ sub get_whole {
 	my ($self) = @_;
 	my @all_lines;
 
-	if (  ( length $manage_files_by2->{_directory}
-		&& length $manage_files_by2->{_file_in})
-		or length $manage_files_by2->{_pathNfile} )
+	if (
+		(
+			   length $manage_files_by2->{_directory}
+			&& length $manage_files_by2->{_file_in}
+		)
+		or length $manage_files_by2->{_pathNfile}
+	  )
 	{
 		my $inbound;
 		my $i = 0;
@@ -287,14 +315,14 @@ sub get_whole {
 				$manage_files_by2->{_directory} . '/'
 			  . $manage_files_by2->{_file_in};
 
-#			print("manage_files_by2, get_whole, $inbound\n");
+			#			print("manage_files_by2, get_whole, $inbound\n");
 
 		}
 		elsif ( length $manage_files_by2->{_pathNfile} ) {
 
 			$inbound = $manage_files_by2->{_pathNfile};
 
-#			print("manage_files_by2, get_whole, $inbound\n");
+			#			print("manage_files_by2, get_whole, $inbound\n");
 
 		}
 		else {
@@ -380,6 +408,7 @@ sub set_file_in {
 	return ();
 
 }
+
 
 =head2 sub clear_empty_files
 
@@ -597,10 +626,10 @@ sub exists {
 #
 #		my $program_name = $manage_files_by2->{_program_name};
 #		my $module_spec_pm = $program_name . '_spec.pm';
-#		
+#
 #		$L_SU_global_constants->set_file_name($module_spec_pm);
 #		my $path4spec = $L_SU_global_constants->get_path4spec_file();
-#		
+#
 #		my $pathNmodule_pm   = $path4spec . '/' . $module_spec_pm;
 #		# carp"pathNmodule_pm = $pathNmodule_pm";
 #		my $result = $pathNmodule_pm;
@@ -633,7 +662,7 @@ sub exists {
 #
 #		$L_SU_global_constants->set_file_name($module_spec_pm);
 #		my $path4spec = $L_SU_global_constants->get_path4spec_file();
-#		
+#
 #		my $path4SeismicUnixGui =
 #		  $L_SU_global_constants->get_path4SeismicUnixGui;
 #
@@ -774,9 +803,9 @@ sub read_1col_aref {
 	my @X;
 	my $line;
 
-#	print(
-#"manage_files_by2,read_1col_aref,The output file name = $$ref_file_name\n"
-#	);
+	#	print(
+	#"manage_files_by2,read_1col_aref,The output file name = $$ref_file_name\n"
+	#	);
 
 	# set the counter
 
@@ -879,44 +908,101 @@ sub read_2cols {
 
 	my ( $variable, $ref_origin ) = @_;
 
-	#declare locally scoped variables
-	my ( $i, $line, $t, $x, $num_rows );
-	my ( @TIME, @TIME_OUT, @OFFSET, @OFFSET_OUT );
+	if ( length $ref_origin ) {
+		
+		# CASE 1
+		# declare locally scoped variables
+		my ( $i, $line, $t, $x, $num_rows );
+		my ( @TIME, @TIME_OUT, @OFFSET, @OFFSET_OUT );
 
-	# print("In this subroutine $$ref_origin\n");
+		print("In this subroutine $$ref_origin\n");
 
-	# open the file of interest
-	open( FILE, $$ref_origin ) || print("Can't open $$ref_origin \n");
+		# open the file of interest
+		open( FILE, $$ref_origin ) || print("Can't open $$ref_origin \n");
 
-	#set the counter
-	$i = 1;
+		#set the counter
+		$i = 1;
 
-	# read contents of shotpoint geometry file
-	while ( $line = <FILE> ) {
+		# read contents of shotpoint geometry file
+		while ( $line = <FILE> ) {
 
-		#print("\n$line");
-		chomp($line);
-		( $t, $x ) = split( "  ", $line );
-		$TIME[$i]   = $t;
-		$OFFSET[$i] = $x;
+			#print("\n$line");
+			chomp($line);
+			( $t, $x ) = split( "  ", $line );
+			$TIME[$i]   = $t;
+			$OFFSET[$i] = $x;
 
-		#print("\n $TIME[$i] $OFFSET[$i]\n");
-		$i = $i + 1;
+			#print("\n $TIME[$i] $OFFSET[$i]\n");
+			$i = $i + 1;
+
+		}
+
+		close(FILE);
+
+		$num_rows = $i - 1;
+
+		# print out the number of lines of data for the user
+		#print ("\nThis file contains $num_rows row(s) of data\n");
+
+		#   to prevent contaminating outside variables
+		@TIME_OUT   = @TIME;
+		@OFFSET_OUT = @OFFSET;
+
+		return ( \@TIME_OUT, \@OFFSET_OUT, $num_rows );
+	}
+	elsif ( not length $ref_origin
+		and length $manage_files_by2->{_pathNfile} )
+	{
+		
+		# CASE 2
+		# declare locally scoped variables
+		my ( $i, $line, $t, $x, $num_rows );
+		my ( @TIME, @TIME_OUT, @OFFSET, @OFFSET_OUT );
+		my $pathNfile = $manage_files_by2->{_pathNfile};
+
+#		print("manage_files_by2,read_2cols,In this subroutine $pathNfile\n");
+
+		# open the file of interest
+		open( FILE, $pathNfile ) || 
+			print("Can't open $pathNfile \n");
+
+		#set the counter
+		$i = 0;
+
+		# read contents of shotpoint geometry file
+		while ( $line = <FILE> ) {
+
+#			print("\n$line");
+			chomp($line);
+#			split line on tab
+			( $t, $x ) = split( /\t/, $line );
+			$TIME[$i]   = $t;
+			$OFFSET[$i] = $x;
+
+			$i = $i + 1;
+
+		}
+#			print("\n--$TIME[0]--$OFFSET[0]\n");
+#		    print("\n--$TIME[1]--$OFFSET[1]\n");
+		close(FILE);
+
+		$num_rows = $i;
+
+		# print out the number of lines of data for the user
+#		print ("\nmanage_files_by2,read_2cols,num_rows=$num_rows\n");
+
+		#   to prevent contaminating outside variables
+		@TIME_OUT   = @TIME;
+		@OFFSET_OUT = @OFFSET;
+
+		return ( \@TIME_OUT, \@OFFSET_OUT, $num_rows );
 
 	}
+	else {
+		print("manage_files_by2,read_2cols, missing reference to pathNfile\n");
+	}
 
-	close(FILE);
-
-	$num_rows = $i - 1;
-
-	# print out the number of lines of data for the user
-	#print ("\nThis file contains $num_rows row(s) of data\n");
-
-	#   to prevent contaminating outside variables
-	@TIME_OUT   = @TIME;
-	@OFFSET_OUT = @OFFSET;
-
-	return ( \@TIME_OUT, \@OFFSET_OUT, $num_rows );
+	return ();
 }
 
 =head2 sub get_5cols_aref
@@ -1043,7 +1129,8 @@ sub read_1col {
 	my ( $self, $file_name ) = @_;
 	my @OFFSET;
 
-	print ("\nmanage_files_by2, read_1col, The input file is called $file_name\n");
+	print(
+		"\nmanage_files_by2, read_1col, The input file is called $file_name\n");
 
 	# open the file of interest
 	open( FILE, $file_name ) || print("Can't open $file_name, $!\n");
@@ -1059,7 +1146,8 @@ sub read_1col {
 		my ($x) = $line;
 		$OFFSET[$i] = $x;
 
-		print("\n manage_files_by2, read_1col, Reading 1 col file:$OFFSET[$i]\n");
+		print(
+			"\n manage_files_by2, read_1col, Reading 1 col file:$OFFSET[$i]\n");
 		$i = $i + 1;
 
 	}
@@ -1069,7 +1157,10 @@ sub read_1col {
 	my $num_rows = scalar @OFFSET;
 
 	# print out the number of lines of data for the user
-	print ("manage_files_by2, read_1col, This file contains $num_rows rows of data\n\n\n");
+	print(
+"manage_files_by2, read_1col, This file contains $num_rows rows of data\n\n\n"
+	);
+
 	# make sure arrays do not contaminate outside
 	my $result = \@OFFSET;
 
@@ -1548,22 +1639,22 @@ sub write_1col_aref {
 
 	# open and write to output file
 	my ( $variable, $ref_X, $ref_file_name, $ref_fmt ) = @_;
-
+#	print("\n manage_files_by2,write_1col_aref,The output file name = $$ref_file_name\n");	
+#	print("\n manage_files_by2,write_1col_aref,VALUE: @$ref_X\n");
+#	print("\n manage_files_by2,write_1col_aref,The output file uses the following format: $$ref_fmt\n");
 	my $num_rows = scalar @$ref_X;
 
 	# $variable is an unused hash
 
-#	print("\n manage_files_by2,write_1col_aref,The output file name = $$ref_file_name\n");
 #   print("\n manage_files_by2,write_1col_aref,The output file contains $num_rows rows\n");
-#	print("\n manage_files_by2,write_1col_aref,The output file uses the following format: $$ref_fmt\n");
-#	print("\n manage_files_by2,write_1col_aref,VALUE: @$ref_X\n");
-	
+
 	open( OUT, ">$$ref_file_name" );
 
 	for ( my $j = 0 ; $j < $num_rows ; $j++ ) {
 
 		printf OUT "$$ref_fmt\n", @$ref_X[$j];
-#		print @$ref_X[$j]."\n";
+
+		#		print @$ref_X[$j]."\n";
 
 	}
 
@@ -1796,7 +1887,6 @@ sub write_multipar {
 	print $fh ("\n");
 
 	print $fh ("second_name=$vnmo_array[1]");
-
 
 	for ( my $i = 2 ; $i < $number_of_values_per_row ; $i++ ) {
 

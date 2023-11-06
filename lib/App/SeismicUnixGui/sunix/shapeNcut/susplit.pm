@@ -4,7 +4,7 @@ package App::SeismicUnixGui::sunix::shapeNcut::susplit;
 
 PERL PROGRAM NAME: susplit.pm
 
-AUTHOR:  
+AUTHOR: Juan Lorenzo (Perl module only)
 
 DATE:
 V0.2  6.19.23

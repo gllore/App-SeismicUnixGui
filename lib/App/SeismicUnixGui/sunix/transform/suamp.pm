@@ -5,7 +5,7 @@ package App::SeismicUnixGui::sunix::transform::suamp;
 =head2 SYNOPSIS
 
  PERL PROGRAM NAME:  SUAMP - output amp, phase, real or imag trace from			
- AUTHOR: Juan Lorenzo
+AUTHOR: Juan Lorenzo (Perl module only)
  DATE:   
  DESCRIPTION:
  Version: 

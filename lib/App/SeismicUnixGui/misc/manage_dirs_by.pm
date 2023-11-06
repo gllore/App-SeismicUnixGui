@@ -52,14 +52,14 @@ sub _get_contents_aref {
 
 		my $SEARCH_DIR = $manage_dirs_by->{_directory};
 
-#		print("manage_dirs_by, _get_contents_aref, SEARCH_DIR=$SEARCH_DIR\n");
+		print("manage_dirs_by, _get_contents_aref, SEARCH_DIR=$SEARCH_DIR\n");
 
 		if ( opendir( DIR, $SEARCH_DIR ) ) {
 
 			my @directory_list = readdir(DIR);
 
 			$result_aref = \@directory_list;
-#			print("manage_dirs_by, _get_contents_aref, directory_list=@directory_list\n");
+			print("manage_dirs_by, _get_contents_aref, directory_list=@directory_list\n");
 			close(DIR);
 
 		}
@@ -95,9 +95,9 @@ sub get_file_list_aref {
 					or $thing eq '..'
 					or $thing eq $var->{_skip_directory} )
 				{
-#					print(
-#						"manage_dirs_by, get_file_list_aref,skip directory\n");
-#					print("manage_dirs_by, get_file_list_aref,thing:$thing\n");
+					print(
+						"manage_dirs_by, get_file_list_aref,skip directory\n");
+					print("manage_dirs_by, get_file_list_aref,thing:$thing\n");
 					next;
 
 				}

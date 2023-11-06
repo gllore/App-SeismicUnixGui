@@ -69,6 +69,10 @@ my $false               = $var->{_false};
 my $empty_string        = $var->{_empty_string};
 my $param_widgets       = $gui_history->get_defaults();
 
+# default is good
+# my $first                  = $param_widgets->{_first_idx};
+
+
 
 =head2 _changes
 
@@ -1122,6 +1126,8 @@ sub set_current_program {
 =head2 sub set_first_idx
 
 =0
+
+TODO... for retirement
 
 =cut
 

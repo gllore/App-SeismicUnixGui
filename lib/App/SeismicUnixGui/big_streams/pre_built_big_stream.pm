@@ -238,7 +238,7 @@ sub select {
 
     $param_widgets->redisplay_labels();
     $param_widgets->redisplay_values();
-    print("6. pre_built_big_stream,_is_superflow_select_button,$pre_built_big_stream_href->{_is_superflow_select_button}\n");
+#    print("6. pre_built_big_stream,_is_superflow_select_button,$pre_built_big_stream_href->{_is_superflow_select_button}\n");
     $param_widgets->redisplay_check_buttons();
 
     # print("2 pre_built_big_stream,superflow_select,chkb=@{$pre_built_big_stream_href->{_check_buttons_settings_aref}}\n");

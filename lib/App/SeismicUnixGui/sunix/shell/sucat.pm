@@ -8,7 +8,7 @@ our $VERSION = '0.0.1';
 =head2 SYNOPSIS
 
  PROGRAM NAME: sucat
- AUTHOR: Juan Lorenzo
+AUTHOR: Juan Lorenzo (Perl module only)
  DATE: May 25 2016
  DESCRIPTION concatenate a list of files
  Version 1
