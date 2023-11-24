@@ -56,7 +56,7 @@ my $manage_files_by2 = {
 	_cat_base_file_name_out => '',
 	_delete_base_file_name  => '',
 	_directory              => '',
-	_file_in                => '',	
+	_file_in                => '',
 	_pathNfile              => '',
 	_program_name           => '',
 	_suffix_type            => '',
@@ -116,6 +116,117 @@ sub _exists {
 		print("\n");
 	}
 
+}
+
+=head2 sub _read_2cols
+
+ read in a 2-columned file
+ reads cols 1 and 2 in a text file
+
+
+=cut
+
+sub _read_2cols {
+
+	my ($ref_origin) = @_;
+
+	if ( length $ref_origin ) {
+
+		# CASE 1
+		# declare locally scoped variables
+		my ( $i, $line, $t, $x, $num_rows );
+		my ( @TIME, @TIME_OUT, @OFFSET, @OFFSET_OUT );
+
+		#		print("manage_files_by2,_read_2_cols, $$ref_origin\n");
+
+		# open the file of interest
+		open( FILE, $$ref_origin ) || print("Can't open $$ref_origin \n");
+
+		#set the counter
+		$i = 1;
+
+		# read contents of shotpoint geometry file
+		while ( $line = <FILE> ) {
+
+			#print("\n$line");
+			chomp($line);
+			( $t, $x ) = split( "  ", $line );
+			$TIME[$i]   = $t;
+			$OFFSET[$i] = $x;
+
+			#print("\n $TIME[$i] $OFFSET[$i]\n");
+			$i = $i + 1;
+
+		}
+
+		close(FILE);
+
+		$num_rows = $i - 1;
+
+		# print out the number of lines of data for the user
+		#print ("\nThis file contains $num_rows row(s) of data\n");
+
+		#   to prevent contaminating outside variables
+		@TIME_OUT   = @TIME;
+		@OFFSET_OUT = @OFFSET;
+
+		return ( \@TIME_OUT, \@OFFSET_OUT, $num_rows );
+	}
+	elsif ( not length $ref_origin
+		and length $manage_files_by2->{_pathNfile} )
+	{
+
+		# CASE 2
+		# declare locally scoped variables
+		my ( $i, $line, $t, $x, $num_rows );
+		my ( @TIME, @TIME_OUT, @OFFSET, @OFFSET_OUT );
+		my $pathNfile = $manage_files_by2->{_pathNfile};
+
+		#		print("manage_files_by2,read_2cols,$pathNfile\n");
+
+		# open the file of interest
+		open( FILE, $pathNfile )
+		  || print("Can't open $pathNfile \n");
+
+		#set the counter
+		$i = 0;
+
+		# read contents of shotpoint geometry file
+		while ( $line = <FILE> ) {
+
+			#			print("\n$line");
+			chomp($line);
+
+			#			split line on tab
+			( $t, $x ) = split( /\t/, $line );
+			$TIME[$i]   = $t;
+			$OFFSET[$i] = $x;
+
+			$i = $i + 1;
+
+		}
+
+		#			print("\n--$TIME[0]--$OFFSET[0]\n");
+		#		    print("\n--$TIME[1]--$OFFSET[1]\n");
+		close(FILE);
+
+		$num_rows = $i;
+
+		# print out the number of lines of data for the user
+		#		print ("\nmanage_files_by2,read_2cols,num_rows=$num_rows\n");
+
+		#   to prevent contaminating outside variables
+		@TIME_OUT   = @TIME;
+		@OFFSET_OUT = @OFFSET;
+
+		return ( \@TIME_OUT, \@OFFSET_OUT, $num_rows );
+
+	}
+	else {
+		print("manage_files_by2,read_2cols, missing reference to pathNfile\n");
+	}
+
+	return ();
 }
 
 =head2 sub clean
@@ -258,6 +369,89 @@ sub _delete {
 
 }
 
+=head2 sub clear_empty_files
+
+=cut
+
+sub clear_empty_files {
+
+	my ($self) = @_;
+
+	if ( length( $manage_files_by2->{_directory} ) ) {
+
+		my $dir = $manage_files_by2->{_directory};
+
+		my ( @size,      @file_name, @inode );
+		my ( $i,         $junk,      $cmd_file_name, $num_file_names );
+		my ( $cmd_inode, $cmd_size,  $index_node_number );
+
+#		print("manage_files_by2, clear_empty_files, dir=$manage_files_by2->{_directory} \n");
+
+		#		print("\n manage_files_by2, clear_empty_files in dir=$dir\n");
+		chomp $dir;
+
+		$cmd_file_name  = "ls -1 $dir";
+		$cmd_size       = "ls -s1 $dir";
+		$cmd_inode      = "ls -i1 $dir";
+		@file_name      = `$cmd_file_name`;
+		@size           = `$cmd_size`;
+		@inode          = `$cmd_inode`;
+		$num_file_names = scalar @file_name;
+
+		for ( my $i = 0 ; $i < $num_file_names ; $i++ ) {
+			chomp $file_name[$i];
+			chomp $inode[$i];
+
+			$inode[$i] =~ s/^\s+//g;    # trim spaces at start
+			( $inode[$i], $junk ) = split( / /, $inode[$i] );
+
+			$file_name[$i] =~ s/^\s+//g;    # trim spaces at start
+			( $file_name[$i], $junk ) = split( / /, $file_name[$i] );
+		}
+
+		for ( my $i = 1 ; $i <= $num_file_names ; $i++ ) {
+
+			chomp $size[$i];
+			$size[$i] =~ s/^\s+//g;         # trim spaces at start
+			( $size[$i], $junk ) = split( / /, $size[$i] );
+
+		}
+
+		for ( my $i = 0, my $j = 1 ; $i < $num_file_names ; $i++, $j++ ) {
+
+			my $test = ( -d $dir . '/' . $file_name[$i] );
+			if ( $size[$j] == 0
+				&& not($test) )
+			{
+				my $ans = ($test);
+
+	 #				print("CASE of not a directory and file =0\n");
+	 #				print("CASE name inode size = $file_name[$i] $inode[$i] $size[$j]\n");
+
+				$index_node_number = $inode[$i];
+				my $flow = (
+					"cd $dir
+								find . -inum $index_node_number -exec rm {} \\;"
+				);
+
+				#		    print $flow;
+				system $flow;
+
+			}
+			else {
+
+				#			print("immodpg,clean_trash,size>0,line=$i, NADA\n");
+			}
+		}
+
+	}
+	else {
+
+	}
+
+	return ();
+}
+
 =head2 sub count_lines
 
  this function counts the numbers of lines in a text file
@@ -280,6 +474,243 @@ sub count_lines {
 	# print ("line number = $num_lines\n");
 
 	return ($num_lines);
+}
+
+=head2 sub delete
+
+This function/method deletes files
+
+=cut 
+
+sub delete {
+
+	my ( $self, $outbound ) = @_;
+
+	#   get directory names
+	#	print("\n manage_files_by2, delete, Deleting $outbound \n");
+
+	system(
+		"                       	\\
+                rm  $outbound      	\\
+        "
+	);
+
+}
+
+=head2 sub does_file_exist
+
+=cut
+
+sub does_file_exist {
+
+	my ( $does_file_exist, $ref_file ) = @_;
+
+	$does_file_exist->{ref_file} = $$ref_file if defined($ref_file);
+
+	#	print("manage_files_by2,does_file_exist,file name is, $$ref_file\n");
+
+	# default situation is to have a file non-existent
+	my $answer = 0;
+
+	# -e returns 1 or ''
+	# verified by JL
+	# print("plain file for test is $$ref_file\n\n");
+	if ( -f $does_file_exist->{ref_file} ) {
+
+	 # print  ("manage_files_by2,does_file_exist,file existence verified\n\n") ;
+		$answer = 1;
+	}
+
+	#	answer=1 if existent and =0 if non-existent
+	# verified by JL
+	return ($answer);
+}
+
+sub does_file_exist_sref {
+
+	my ( $self, $ref_file ) = @_;
+
+	if ($ref_file) {
+
+		my $file = $$ref_file;
+
+	# print("manage_files_by2,does_file_exist_sref,file name is, $$ref_file\n");
+
+		# default situation is to have a file non-existent
+		my $answer = 0;
+
+		# -e returns 1 or ''
+		# verified by JL
+		# print("file for exist test is $$ref_file\n\n");
+		# actually dies it exist and is it a plain file!!
+		if ( -f $file ) {
+
+			# print  ("file existence verified\n\n") ;
+			$answer = 1;
+		}
+
+		#	answer=1 if existent and =0 if non-existent
+		#verified by JL
+		return ($answer);
+	}
+	else {
+		print("does_file_exist_sref, ref_file is missing\n");
+	}
+
+}
+
+=head2 sub exists
+
+Another way to see if a file exists
+input is a scalar
+
+
+=cut
+
+sub exists {
+
+	my ( $self, $file ) = @_;
+
+	if ($file) {
+
+		# default situation is to have a file non-existent
+		my $answer = 0;
+
+		# -e returns 1 or ''
+		# verified by JL
+		#		print("existence test for $file\n\n");
+		if ( -e $file ) {
+
+			#			print("file existence verified; answer=$answer\n\n");
+			$answer = 1;
+		}
+
+		#	answer=1 if existent and =0 if non-existent
+		#		print  ("file non-existence verified; answer=$answer\n\n") ;
+		#verified by JL
+		return ($answer);
+	}
+	else {
+		print("\n");
+	}
+
+}
+
+=head2 sub get_5cols_aref
+
+this function reads 5 cols in a text file
+
+=cut
+
+sub get_5cols_aref {
+
+	my ( $self, $file_name ) = @_;
+
+	if ( length $file_name ) {
+
+		my @ID;
+		my @X;
+		my @Y;
+		my @Z;
+		my @W;
+		my ($lines);
+		my $i = 0;
+
+#		print(
+#"\n manage_files_by2, get_5cols_aref, The input file with 5 cols is called $file_name\n"
+#		);
+
+		# open the file of interest
+		open( FILE, $file_name ) || print("Can't open $!\n");
+
+		# read contents of file
+		while ( $lines = <FILE> ) {
+
+			#print("$lines");
+			chomp($lines);
+			my ( $ident, $x, $y, $z, $w ) = split( " ", $lines );
+
+			#print("\n $ident \n");
+			$ID[$i] = $ident;
+			$X[$i]  = $x;
+			$Y[$i]  = $y;
+			$Z[$i]  = $z;
+			$W[$i]  = $w;
+
+			$i++;
+
+		}
+		$i = $i - 1;
+
+		#	 		print ("This file contains number of indices: $i\n\n\n");
+		# close the file of interest
+		close(FILE);
+
+		my @output_array = ( \@ID, \@X, \@Y, \@Z, \@W );
+		return ( \@output_array );
+
+	}
+	else {
+		print("\n, manage_files_by2, get_5cols_aref, missing a value\n");
+	}
+
+	print("\nThe input file with 5 cols is called $file_name\n");
+
+}
+
+=head2 sub get_3cols_aref
+  
+  This function reads 3 cols in a text file
+  
+=cut
+
+sub get_3cols_aref {
+
+	my ( $reference, $file_name, $skip_lines ) = @_;
+	my ( @X, @Y, @Z );
+	my $lines;
+
+	print("\nThe input file is called $file_name\n");
+
+	# open the file of interest
+	open( FILE, "$file_name" ) || print("Can't open $file_name, $!\n");
+
+	# skip lines
+	for ( my $i = 0 ; $i < $skip_lines ; $i++ ) {
+		$lines = <FILE>;
+		print("line $i = $lines\n");
+	}
+
+	#set the counter
+	my $i = 0;
+
+	# read contents of file
+	while ( my $lines = <FILE> ) {
+
+		#     print("$lines");
+		chomp($lines);
+		my ( $x, $y, $z ) = split( " ", $lines );
+
+		print("\n$x \n");
+		$X[$i] = $x;
+		$Y[$i] = $y;
+		$Z[$i] = $z;
+
+		#print("\n @X[$i] @Y[$i] @Z[$i] \n");
+		$i++;
+	}
+
+	# number of geophones stations in file
+	my $num_rows = $i - 1;
+
+	#print ("This file contains $num_rows rows\n\n\n");
+	# close the file of interest
+	close(FILE);
+
+	# make sure arrays do not contaminate outside
+
+	return ( \@X, \@Y, \@Z );
+
 }
 
 =pod sub get_whole 
@@ -409,210 +840,6 @@ sub set_file_in {
 
 }
 
-
-=head2 sub clear_empty_files
-
-=cut
-
-sub clear_empty_files {
-
-	my ($self) = @_;
-
-	if ( length( $manage_files_by2->{_directory} ) ) {
-
-		my $dir = $manage_files_by2->{_directory};
-
-		my ( @size,      @file_name, @inode );
-		my ( $i,         $junk,      $cmd_file_name, $num_file_names );
-		my ( $cmd_inode, $cmd_size,  $index_node_number );
-
-#		print("manage_files_by2, clear_empty_files, dir=$manage_files_by2->{_directory} \n");
-
-		#		print("\n manage_files_by2, clear_empty_files in dir=$dir\n");
-		chomp $dir;
-
-		$cmd_file_name  = "ls -1 $dir";
-		$cmd_size       = "ls -s1 $dir";
-		$cmd_inode      = "ls -i1 $dir";
-		@file_name      = `$cmd_file_name`;
-		@size           = `$cmd_size`;
-		@inode          = `$cmd_inode`;
-		$num_file_names = scalar @file_name;
-
-		for ( my $i = 0 ; $i < $num_file_names ; $i++ ) {
-			chomp $file_name[$i];
-			chomp $inode[$i];
-
-			$inode[$i] =~ s/^\s+//g;    # trim spaces at start
-			( $inode[$i], $junk ) = split( / /, $inode[$i] );
-
-			$file_name[$i] =~ s/^\s+//g;    # trim spaces at start
-			( $file_name[$i], $junk ) = split( / /, $file_name[$i] );
-		}
-
-		for ( my $i = 1 ; $i <= $num_file_names ; $i++ ) {
-
-			chomp $size[$i];
-			$size[$i] =~ s/^\s+//g;         # trim spaces at start
-			( $size[$i], $junk ) = split( / /, $size[$i] );
-
-		}
-
-		for ( my $i = 0, my $j = 1 ; $i < $num_file_names ; $i++, $j++ ) {
-
-			my $test = ( -d $dir . '/' . $file_name[$i] );
-			if ( $size[$j] == 0
-				&& not($test) )
-			{
-				my $ans = ($test);
-
-	 #				print("CASE of not a directory and file =0\n");
-	 #				print("CASE name inode size = $file_name[$i] $inode[$i] $size[$j]\n");
-
-				$index_node_number = $inode[$i];
-				my $flow = (
-					"cd $dir
-								find . -inum $index_node_number -exec rm {} \\;"
-				);
-
-				#		    print $flow;
-				system $flow;
-
-			}
-			else {
-
-				#			print("immodpg,clean_trash,size>0,line=$i, NADA\n");
-			}
-		}
-
-	}
-	else {
-
-	}
-
-	return ();
-}
-
-=head2 sub delete
-
-This function/method deletes files
-
-=cut 
-
-sub delete {
-
-	my ( $self, $outbound ) = @_;
-
-	#   get directory names
-	#	print("\n manage_files_by2, delete, Deleting $outbound \n");
-
-	system(
-		"                       	\\
-                rm  $outbound      	\\
-        "
-	);
-
-}
-
-=head2 sub does_file_exist
-
-=cut
-
-sub does_file_exist {
-
-	my ( $does_file_exist, $ref_file ) = @_;
-
-	$does_file_exist->{ref_file} = $$ref_file if defined($ref_file);
-
-	#	print("manage_files_by2,does_file_exist,file name is, $$ref_file\n");
-
-	# default situation is to have a file non-existent
-	my $answer = 0;
-
-	# -e returns 1 or ''
-	# verified by JL
-	# print("plain file for test is $$ref_file\n\n");
-	if ( -f $does_file_exist->{ref_file} ) {
-
-	 # print  ("manage_files_by2,does_file_exist,file existence verified\n\n") ;
-		$answer = 1;
-	}
-
-	#	answer=1 if existent and =0 if non-existent
-	# verified by JL
-	return ($answer);
-}
-
-sub does_file_exist_sref {
-
-	my ( $self, $ref_file ) = @_;
-
-	if ($ref_file) {
-
-		my $file = $$ref_file;
-
-	# print("manage_files_by2,does_file_exist_sref,file name is, $$ref_file\n");
-
-		# default situation is to have a file non-existent
-		my $answer = 0;
-
-		# -e returns 1 or ''
-		# verified by JL
-		# print("file for exist test is $$ref_file\n\n");
-		# actually dies it exist and is it a plain file!!
-		if ( -f $file ) {
-
-			# print  ("file existence verified\n\n") ;
-			$answer = 1;
-		}
-
-		#	answer=1 if existent and =0 if non-existent
-		#verified by JL
-		return ($answer);
-	}
-	else {
-		print("does_file_exist_sref, ref_file is missing\n");
-	}
-
-}
-
-=head2 sub exists
-
-Another way to see if a file exists
-input is a scalar
-
-
-=cut
-
-sub exists {
-
-	my ( $self, $file ) = @_;
-
-	if ($file) {
-
-		# default situation is to have a file non-existent
-		my $answer = 0;
-
-		# -e returns 1 or ''
-		# verified by JL
-		#		print("existence test for $file\n\n");
-		if ( -e $file ) {
-
-			#			print("file existence verified; answer=$answer\n\n");
-			$answer = 1;
-		}
-
-		#	answer=1 if existent and =0 if non-existent
-		#		print  ("file non-existence verified; answer=$answer\n\n") ;
-		#verified by JL
-		return ($answer);
-	}
-	else {
-		print("\n");
-	}
-
-}
-
 #=head2 sub get_pathNmodule_pm
 #
 #=cut
@@ -686,107 +913,7 @@ sub exists {
 #
 #}
 
-=head2 sub set_pathNfile
-
-=cut
-
-sub set_pathNfile {
-
-	my ( $self, $pathNfile ) = @_;
-
-	if ( length($pathNfile) ) {
-
-		$manage_files_by2->{_pathNfile} = $pathNfile;
-
-#		print("manage_files_by2, set_pathNfile, pathNfile=$manage_files_by2->{_pathNfile} \n");
-
-	}
-	else {
-		print("manage_files_by2, set_pathNfile, missing value\n");
-	}
-
-	return ();
-}
-
-=pod sub unique_elements
-
-	filter out only unique elements from an array
-
-=cut 
-
-sub unique_elements {
-	my ( $self, $array_ref ) = @_;
-
-	my $results_ref;
-
-	if ($array_ref) {
-
-		my @unique_progs;
-		my $total_num_progs4flow = scalar @{$array_ref};
-		my $false                = 0;
-		my $true                 = 1;
-		my $num_unique_progs     = 1;
-
-		my $repeated = $false;
-
-		# the first program is always unique
-		$unique_progs[0] = @{$array_ref}[0];
-
-	 #		print("1. manage_files_by2, first program in flow: @{$array_ref}[0]\n");
-	 #		print("2. manage_files_by2, num_unique_progs=$num_unique_progs\n\n");
-
-		for ( my $i = 1 ; $i < $total_num_progs4flow ; $i++ ) {
-
-			for ( my $j = 0 ; $j < $num_unique_progs ; $j++ ) {
-
-				if ( $unique_progs[$j] eq @{$array_ref}[$i] ) {
-
-#					print("3. manage_files_by2, program index #$i in flow: @{$array_ref}[$i]\n");
-#					print("4. manage_files_by2, repeated program detected \n");
-#					print("5. manage_files_by2, prog repeated: @{$array_ref}[$i]\n\n");
-					$repeated = $true;
-
-					# exit if-loop and increment $j
-				}
-				else {
-#					print("6. manage_files_by2, program index #$i in flow: @{$array_ref}[$i]\n");
-#	print("7. manage_files_by2, prog @{array_ref}[$i] is unique\n\n");
-#					print("8. manage_files_by2,unique_prog detected=@{$array_ref}[$i] \n");
-				}
-
-			}
-
-			if ($repeated) {
-
-				$repeated = $false;    #reset for next check
-
-			}
-			else {
-				push @unique_progs, @{$array_ref}[$i];
-
-	   #				print("9. manage_files_by2,unique new program found for output \n");
-				$num_unique_progs++;
-
-	 #				print("10. manage_files_by2, num_unique_progs=$num_unique_progs\n\n");
-			}
-
-		}    # end all programs
-
-		# print("3. manage_files_by2, unique_progs are: @unique_progs\n");
-		# print ("3. manage_files_by2, num_unique_progs=$num_unique_progs\n\n");
-
-		$results_ref = \@unique_progs;
-		return ($results_ref);
-
-	}
-	else {
-		print("manage_files_by2,unique_elements, missing array\n");
-		return ();
-
-	}    # end if
-}
-
-=pod
+=head2
 
   read a 1-column file
 
@@ -909,13 +1036,13 @@ sub read_2cols {
 	my ( $variable, $ref_origin ) = @_;
 
 	if ( length $ref_origin ) {
-		
+
 		# CASE 1
 		# declare locally scoped variables
 		my ( $i, $line, $t, $x, $num_rows );
 		my ( @TIME, @TIME_OUT, @OFFSET, @OFFSET_OUT );
 
-		print("In this subroutine $$ref_origin\n");
+		#		print("manage_files_by2,read_2cols $$ref_origin\n");
 
 		# open the file of interest
 		open( FILE, $$ref_origin ) || print("Can't open $$ref_origin \n");
@@ -953,18 +1080,18 @@ sub read_2cols {
 	elsif ( not length $ref_origin
 		and length $manage_files_by2->{_pathNfile} )
 	{
-		
+
 		# CASE 2
 		# declare locally scoped variables
 		my ( $i, $line, $t, $x, $num_rows );
 		my ( @TIME, @TIME_OUT, @OFFSET, @OFFSET_OUT );
 		my $pathNfile = $manage_files_by2->{_pathNfile};
 
-#		print("manage_files_by2,read_2cols,In this subroutine $pathNfile\n");
+		#		print("manage_files_by2,read_2cols,$pathNfile\n");
 
 		# open the file of interest
-		open( FILE, $pathNfile ) || 
-			print("Can't open $pathNfile \n");
+		open( FILE, $pathNfile )
+		  || print("Can't open $pathNfile \n");
 
 		#set the counter
 		$i = 0;
@@ -972,9 +1099,10 @@ sub read_2cols {
 		# read contents of shotpoint geometry file
 		while ( $line = <FILE> ) {
 
-#			print("\n$line");
+			#			print("\n$line");
 			chomp($line);
-#			split line on tab
+
+			#			split line on tab
 			( $t, $x ) = split( /\t/, $line );
 			$TIME[$i]   = $t;
 			$OFFSET[$i] = $x;
@@ -982,14 +1110,15 @@ sub read_2cols {
 			$i = $i + 1;
 
 		}
-#			print("\n--$TIME[0]--$OFFSET[0]\n");
-#		    print("\n--$TIME[1]--$OFFSET[1]\n");
+
+		#			print("\n--$TIME[0]--$OFFSET[0]\n");
+		#		    print("\n--$TIME[1]--$OFFSET[1]\n");
 		close(FILE);
 
 		$num_rows = $i;
 
 		# print out the number of lines of data for the user
-#		print ("\nmanage_files_by2,read_2cols,num_rows=$num_rows\n");
+		#		print ("\nmanage_files_by2,read_2cols,num_rows=$num_rows\n");
 
 		#   to prevent contaminating outside variables
 		@TIME_OUT   = @TIME;
@@ -1003,123 +1132,6 @@ sub read_2cols {
 	}
 
 	return ();
-}
-
-=head2 sub get_5cols_aref
-
-this function reads 5 cols in a text file
-
-=cut
-
-sub get_5cols_aref {
-
-	my ( $self, $file_name ) = @_;
-
-	if ( length $file_name ) {
-
-		my @ID;
-		my @X;
-		my @Y;
-		my @Z;
-		my @W;
-		my ($lines);
-		my $i = 0;
-
-#		print(
-#"\n manage_files_by2, get_5cols_aref, The input file with 5 cols is called $file_name\n"
-#		);
-
-		# open the file of interest
-		open( FILE, $file_name ) || print("Can't open $!\n");
-
-		# read contents of file
-		while ( $lines = <FILE> ) {
-
-			#print("$lines");
-			chomp($lines);
-			my ( $ident, $x, $y, $z, $w ) = split( " ", $lines );
-
-			#print("\n $ident \n");
-			$ID[$i] = $ident;
-			$X[$i]  = $x;
-			$Y[$i]  = $y;
-			$Z[$i]  = $z;
-			$W[$i]  = $w;
-
-			$i++;
-
-		}
-		$i = $i - 1;
-
-		#	 		print ("This file contains number of indices: $i\n\n\n");
-		# close the file of interest
-		close(FILE);
-
-		my @output_array = ( \@ID, \@X, \@Y, \@Z, \@W );
-		return ( \@output_array );
-
-	}
-	else {
-		print("\n, manage_files_by2, get_5cols_aref, missing a value\n");
-	}
-
-	print("\nThe input file with 5 cols is called $file_name\n");
-
-}
-
-=head2 sub get_3cols_aref
-  
-  This function reads 3 cols in a text file
-  
-=cut
-
-sub get_3cols_aref {
-
-	my ( $reference, $file_name, $skip_lines ) = @_;
-	my ( @X, @Y, @Z );
-	my $lines;
-
-	print("\nThe input file is called $file_name\n");
-
-	# open the file of interest
-	open( FILE, "$file_name" ) || print("Can't open $file_name, $!\n");
-
-	# skip lines
-	for ( my $i = 0 ; $i < $skip_lines ; $i++ ) {
-		$lines = <FILE>;
-		print("line $i = $lines\n");
-	}
-
-	#set the counter
-	my $i = 0;
-
-	# read contents of file
-	while ( my $lines = <FILE> ) {
-
-		#     print("$lines");
-		chomp($lines);
-		my ( $x, $y, $z ) = split( " ", $lines );
-
-		print("\n$x \n");
-		$X[$i] = $x;
-		$Y[$i] = $y;
-		$Z[$i] = $z;
-
-		#print("\n @X[$i] @Y[$i] @Z[$i] \n");
-		$i++;
-	}
-
-	# number of geophones stations in file
-	my $num_rows = $i - 1;
-
-	#print ("This file contains $num_rows rows\n\n\n");
-	# close the file of interest
-	close(FILE);
-
-	# make sure arrays do not contaminate outside
-
-	return ( \@X, \@Y, \@Z );
-
 }
 
 sub read_1col {
@@ -1166,6 +1178,146 @@ sub read_1col {
 
 	return ( $result, $num_rows );
 
+}
+
+=head2 sub read_tx_curves2plot
+
+
+=cut
+
+sub read_tx_curves2plot {
+
+	my ( $self, $curve_aref ) = @_;
+
+	if ( length $curve_aref ) {
+
+		my @curve     = @$curve_aref;
+		my $num_files = scalar @curve;
+		my $first     = 0;
+		my $last      = $num_files - 1;
+		my @color;
+		my ( $ref_T, $ref_X );
+		my @num_tx_pairs;
+
+=head2 Define
+
+private hash
+
+=cut		
+
+		my $read_tx_curves2plot = {
+			_curves       => '',
+			_curve_color  => '',
+			_num_tx_pairs => '',
+		};
+
+=head2 Define
+
+curve color
+
+=cut
+
+		$color[0] = 'red';
+		$color[1] = 'blue';
+		$color[2] = 'green';
+		$color[3] = 'yellow';
+		$color[4] = 'white';
+		$color[5] = 'black';
+		$color[6] = 'purple';
+		$color[7] = 'orange';
+		$color[8] = 'magenta';
+		$color[9] = 'brown';
+
+=head2 Collect
+
+     curve data
+     
+=cut
+
+		if ( $num_files == 1 ) {
+
+			# first case = 0
+			$read_tx_curves2plot->{_curves} =
+			  $read_tx_curves2plot->{_curves} . $curve[$first];
+
+			( $ref_T, $ref_X, $num_tx_pairs[$first] ) =
+			  _read_2cols( \$curve[$first] );
+
+			$read_tx_curves2plot->{_num_tx_pairs} =
+				$read_tx_curves2plot->{_num_tx_pairs}
+			  . $num_tx_pairs[$first];
+			$read_tx_curves2plot->{_curve_color} =
+			  $read_tx_curves2plot->{_curve_color} . $color[$first];
+		}
+		else {
+			# print(" # files ==1 2\n");
+		}
+
+		if ( $num_files > 1 ) {
+
+			# first case = 0
+			$read_tx_curves2plot->{_curves} =
+			  $read_tx_curves2plot->{_curves} . $curve[$first] . ',';
+
+			( $ref_T, $ref_X, $num_tx_pairs[$first] ) =
+			  _read_2cols( \$curve[$first] );
+
+			$read_tx_curves2plot->{_num_tx_pairs} =
+				$read_tx_curves2plot->{_num_tx_pairs}
+			  . $num_tx_pairs[$first] . ',';
+			$read_tx_curves2plot->{_curve_color} =
+			  $read_tx_curves2plot->{_curve_color} . $color[$first] . ',';
+
+			if ( $num_files >= 2 ) {
+
+				for ( my $i = 1 ; $i < ($last) ; $i++ ) {
+
+					# middle cases
+					( $ref_T, $ref_X, $num_tx_pairs[$i] ) =
+					  _read_2cols( \$curve[$i] );
+
+					$read_tx_curves2plot->{_curves} =
+					  $read_tx_curves2plot->{_curves} . $curve[$i] . ',';
+					$read_tx_curves2plot->{_num_tx_pairs} =
+						$read_tx_curves2plot->{_num_tx_pairs}
+					  . $num_tx_pairs[$i] . ',';
+					$read_tx_curves2plot->{_curve_color} =
+					  $read_tx_curves2plot->{_curve_color} . $color[$i] . ',';
+				}
+
+				# last case
+				$read_tx_curves2plot->{_curves} =
+				  $read_tx_curves2plot->{_curves} . $curve[$last];
+
+				( $ref_T, $ref_X, $num_tx_pairs[ ( $num_files - 1 ) ] ) =
+				  _read_2cols( \$curve[$last] );
+
+				$read_tx_curves2plot->{_num_tx_pairs} =
+				  $read_tx_curves2plot->{_num_tx_pairs} . $num_tx_pairs[$last];
+				$read_tx_curves2plot->{_curve_color} =
+				  $read_tx_curves2plot->{_curve_color} . $color[$last];
+
+			 #print("\tcurve colors=$read_tx_curves2plot->{_curve_color}\n");
+			 #print("\tnum_tx_pairs = $read_tx_curves2plot->{_num_tx_pairs}\n");
+			}
+			else {
+				# print(" # files > 2\n");
+			}
+		}
+		else {
+			# print(" # files > 0 \n");
+		}
+
+		my $result = $read_tx_curves2plot;
+
+		return ($result);
+	}
+	else {
+		print(
+"manage_files_by2, read_tx_curves2plot, missing curve aref=@{$curve_aref}\n"
+		);
+		return ();
+	}
 }
 
 =head2 sub read_par
@@ -1260,6 +1412,28 @@ sub set_appendix {
 
 	return ($result);
 
+}
+
+=head2 sub set_pathNfile
+
+=cut
+
+sub set_pathNfile {
+
+	my ( $self, $pathNfile ) = @_;
+
+	if ( length($pathNfile) ) {
+
+		$manage_files_by2->{_pathNfile} = $pathNfile;
+
+#		print("manage_files_by2, set_pathNfile, pathNfile=$manage_files_by2->{_pathNfile} \n");
+
+	}
+	else {
+		print("manage_files_by2, set_pathNfile, missing value\n");
+	}
+
+	return ();
 }
 
 =head2 sub set_cat_base_file_name_out
@@ -1629,6 +1803,84 @@ sub set_suffix_type {
 	return ($result);
 }
 
+=pod sub unique_elements
+
+	filter out only unique elements from an array
+
+=cut 
+
+sub unique_elements {
+	my ( $self, $array_ref ) = @_;
+
+	my $results_ref;
+
+	if ($array_ref) {
+
+		my @unique_progs;
+		my $total_num_progs4flow = scalar @{$array_ref};
+		my $false                = 0;
+		my $true                 = 1;
+		my $num_unique_progs     = 1;
+
+		my $repeated = $false;
+
+		# the first program is always unique
+		$unique_progs[0] = @{$array_ref}[0];
+
+	 #		print("1. manage_files_by2, first program in flow: @{$array_ref}[0]\n");
+	 #		print("2. manage_files_by2, num_unique_progs=$num_unique_progs\n\n");
+
+		for ( my $i = 1 ; $i < $total_num_progs4flow ; $i++ ) {
+
+			for ( my $j = 0 ; $j < $num_unique_progs ; $j++ ) {
+
+				if ( $unique_progs[$j] eq @{$array_ref}[$i] ) {
+
+#					print("3. manage_files_by2, program index #$i in flow: @{$array_ref}[$i]\n");
+#					print("4. manage_files_by2, repeated program detected \n");
+#					print("5. manage_files_by2, prog repeated: @{$array_ref}[$i]\n\n");
+					$repeated = $true;
+
+					# exit if-loop and increment $j
+				}
+				else {
+#					print("6. manage_files_by2, program index #$i in flow: @{$array_ref}[$i]\n");
+#	print("7. manage_files_by2, prog @{array_ref}[$i] is unique\n\n");
+#					print("8. manage_files_by2,unique_prog detected=@{$array_ref}[$i] \n");
+				}
+
+			}
+
+			if ($repeated) {
+
+				$repeated = $false;    #reset for next check
+
+			}
+			else {
+				push @unique_progs, @{$array_ref}[$i];
+
+	   #				print("9. manage_files_by2,unique new program found for output \n");
+				$num_unique_progs++;
+
+	 #				print("10. manage_files_by2, num_unique_progs=$num_unique_progs\n\n");
+			}
+
+		}    # end all programs
+
+		# print("3. manage_files_by2, unique_progs are: @unique_progs\n");
+		# print ("3. manage_files_by2, num_unique_progs=$num_unique_progs\n\n");
+
+		$results_ref = \@unique_progs;
+		return ($results_ref);
+
+	}
+	else {
+		print("manage_files_by2,unique_elements, missing array\n");
+		return ();
+
+	}    # end if
+}
+
 =pod
 
   write out a 1-column file
@@ -1639,7 +1891,8 @@ sub write_1col_aref {
 
 	# open and write to output file
 	my ( $variable, $ref_X, $ref_file_name, $ref_fmt ) = @_;
-#	print("\n manage_files_by2,write_1col_aref,The output file name = $$ref_file_name\n");	
+
+#	print("\n manage_files_by2,write_1col_aref,The output file name = $$ref_file_name\n");
 #	print("\n manage_files_by2,write_1col_aref,VALUE: @$ref_X\n");
 #	print("\n manage_files_by2,write_1col_aref,The output file uses the following format: $$ref_fmt\n");
 	my $num_rows = scalar @$ref_X;
@@ -1708,17 +1961,17 @@ sub write_1col1 {
 sub write_2cols {
 
 	# open and write to output file
-	my ( $variable, $ref_X, $ref_Y, $num_rows, $ref_file_name, $ref_fmt ) = @_;
+	my ( $self, $ref_X, $ref_Y, $num_rows, $ref_file_name, $ref_fmt ) = @_;
 
 	#declare locally scoped variables
 	my $j;
 
 	# $variable is an unused hash
 
-	#	print("\nThe subroutine has is called $variable\n");
-	#	print("\nThe output file contains $num_rows rows\n");
-	#	print("\nThe output file uses the following format: $$ref_fmt\n");
-	#	print("\nThe output file name is $$ref_file_name\n");
+	#		print("\nThe subroutine has is called %$self\n");
+	#		print("\nThe output file contains $num_rows rows\n");
+	#		print("\nThe output file uses the following format:--$$ref_fmt--\n");
+	#		print("\nThe output file name is $$ref_file_name\n");
 
 	open( OUT, ">$$ref_file_name" );
 
@@ -1727,7 +1980,7 @@ sub write_2cols {
 		#		print OUT  ("$$ref_X[$j] $$ref_Y[$j]\n");
 		printf OUT "$$ref_fmt\n", $$ref_X[$j], $$ref_Y[$j];
 
-		#		print("index=$j;$$ref_X[$j] $$ref_Y[$j]\n");
+#		print("index=$j;$$ref_X[$j] $$ref_Y[$j]\n");
 	}
 
 	close(OUT);
