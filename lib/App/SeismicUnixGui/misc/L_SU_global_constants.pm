@@ -709,6 +709,7 @@ sub get_developer_sunix_category_h {
 		_sugprfb => $developer_sunix_categories[11],
 		_sukill  => $developer_sunix_categories[11],
 		_sumute  => $developer_sunix_categories[11],
+		_suramp  => $developer_sunix_categories[11],
 		_supad   => $developer_sunix_categories[11],
 		_susort  => $developer_sunix_categories[11],
 		_susplit => $developer_sunix_categories[11],
@@ -862,8 +863,9 @@ my @sunix_plot_programs = (
 );
 
 my @sunix_shapeNcut_programs = (
-	"suflip",  "sugain", "sugprfb", "sukill", "sumute", "susort",
-	"susplit", "suwind", "supad",   "suvcat",
+	"suflip", "sugain", "sugprfb", "sukill", "sumute", "susort",
+	"suramp",
+	"susplit", "suwind", "supad", "suvcat",
 );
 
 my @sunix_statsMath_programs = (

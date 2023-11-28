@@ -507,7 +507,7 @@ sub does_file_exist {
 
 	$does_file_exist->{ref_file} = $$ref_file if defined($ref_file);
 
-	#	print("manage_files_by2,does_file_exist,file name is, $$ref_file\n");
+#    print("manage_files_by2,does_file_exist,file name is, $$ref_file\n");
 
 	# default situation is to have a file non-existent
 	my $answer = 0;
@@ -517,8 +517,10 @@ sub does_file_exist {
 	# print("plain file for test is $$ref_file\n\n");
 	if ( -f $does_file_exist->{ref_file} ) {
 
-	 # print  ("manage_files_by2,does_file_exist,file existence verified\n\n") ;
+#	 print  ("manage_files_by2,does_file_exist,$$ref_file file exists\n\n") ;
 		$answer = 1;
+	} else{
+#		 print("manage_files_by2,does_file_exist,$$ref_file is missing\n\n") ;
 	}
 
 	#	answer=1 if existent and =0 if non-existent

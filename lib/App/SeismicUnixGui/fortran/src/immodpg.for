@@ -436,7 +436,7 @@
 
        call rdata(Amp,ntrmax,nsmax,ntr,ns,Amp_min,Amp_max)
              
-       print*,'immodpg.for,rdata:ns,ntr',ns,'--',ntr
+!      print*,'immodpg.for,rdata:ns,ntr',ns,'--',ntr
        
 ! Clips for gray scale (pggray)
          current_clip   = Amp_max/100
@@ -470,7 +470,7 @@
         rvinvd = 0.0
 ! if no velocity reduction (idred=0)
         if(idred.eq.0) rvinvd = rvinv
-        print*, '473 immodpg.for,rvinvd=',rvinvd
+!        print*, '473 immodpg.for,rvinvd=',rvinvd
         
 ! *******************
 	tr(1)  =  datax1 - datadx
@@ -545,10 +545,10 @@
     	 if(ABS(VT(i+1)-VB(i)).GT.A3) IR(i)=1     
         end do 
         
- !** No reflection at the bottom of model
+!** No reflection at the bottom of model
 	IR(nl) = 0  
 	
-	print*,'reflection at layer i,=',i,IR(i)
+!	print*,'reflection at layer i,=',i,IR(i)
 
 !      COMPUTATIONS ***
 	DZ1TEM=DZ(1)
