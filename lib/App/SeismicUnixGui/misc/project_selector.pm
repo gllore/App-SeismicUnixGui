@@ -115,7 +115,7 @@ sub cancel {
 =head2 sub _create_new
 
 	derives from L_SU.pl
-	The following widget references MUST exist already in
+	The following widget references MUST exist already
 	These references are set in the main that calls this package:
 
 	$project_selector	->set_check_buttons_w_aref($L_SU_project_selector->{_check_buttons_w_aref});

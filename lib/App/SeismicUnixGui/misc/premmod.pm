@@ -244,7 +244,7 @@ to screen and FILE
 
 =cut
 				my $time = localtime;
-				print $flow[1] . "\n";
+#				print $flow[1] . "\n";
 				$log->file($time);
 				$log->file( $flow[1] );
 

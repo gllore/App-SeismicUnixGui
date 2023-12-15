@@ -161,7 +161,7 @@ Example 1: parameter "geopsy" in "Project"
  						sub get_max_index {
  							my ($self) = @_;
  
- 							my $max_index = 12;
+ 							my $max_index = 14;
  	
  							return($max_index);
  						}	
