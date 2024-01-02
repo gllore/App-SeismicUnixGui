@@ -6,7 +6,7 @@
 	NAME:     SetProject 
 	Author:   Juan M. Lorenzo 
 	Date:     December 15, 2011 
-	Purpose:  Create Project Directores  
+	Purpose:  Create Project Directories  
  		      makes system-wide and local directories
         Details:  "sub-packages" use~/Servilleta_demos/seismics/
                   Project_Variables package 

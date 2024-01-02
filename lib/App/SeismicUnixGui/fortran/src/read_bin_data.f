@@ -21,7 +21,7 @@
        if (ready.eq.0) then
        
  20      open(UNIT=21,FILE=inbound_bin,STATUS='OLD',IOSTAT=err_msg, &
-         FORM='UNFORMATTED',access='stream')
+         FORM='UNFORMATTED')
          counter = counter +1
 !        =0 normal completion, not an error
 !        print *, 'L26.read_bin_data.f, err_msg=',err_msg
@@ -29,23 +29,20 @@
 !        check whether file opens data file
          if (err_msg.eq.0) then
 !          print *, 'L30.read_bin_data.f,unlocked, err_msg=',err_msg
-           
-          k=1
-          do      
+! read by columns: k          
+          k=1     
 120        read (unit=21) (Amp(k,i), i=1,ns)
 
-!          i=1
-!          do 
-!120         read (unit=21) Amp(k,i)
-!             print*,'k, i,ntr, ns,Amp(k,i-1)',k,i,ntr,ns,Amp(k,i)
+!           i=1
+!           do 
+!             print*,'k,i,ntr,ns,Amp(k,i)',k,i,ntr,ns,Amp(k,i)
 !             i = i+1
-!             if(i.GE.ns) goto 50
-!          enddo
-          
-50         k=k+1	  
-           if(k.GE.ntr) go to 125
-          enddo
-          
+!             if(i.GE.ns) go to 50
+!           enddo
+           
+50         if(k.GE.ntr) go to 125
+           k=k+1
+           go to 120 
 125       close (unit=21)
 
          else
