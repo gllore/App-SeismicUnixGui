@@ -181,9 +181,9 @@ sub _create_new {
 		# parameter values from superflow configuration file
 		$project->{_values_aref} = $config_superflows->get_values();
 
-		print(
-			"project_selector,_create_new,values=@{$project->{_values_aref}}\n"
-		);
+#		print(
+#			"project_selector,_create_new,values=@{$project->{_values_aref}}\n"
+#		);
 
 		$project->{_check_buttons_settings_aref} =
 		  $config_superflows->get_check_buttons_settings();

@@ -296,7 +296,7 @@ sub _basic_dirs {
 	 # print(" Project_config, _basic_dirs, ACTIVE_PROJECT: $ACTIVE_PROJECT\n");
 		my $PATH_N_file = $ACTIVE_PROJECT . '/Project.config';
 
-		print("Project_config,PATH_N_file 	: $PATH_N_file\n");
+#		print("Project_config,PATH_N_file 	: $PATH_N_file\n");
 		my $default_Project_config = $GLOBAL_CONFIG_LIB . '/Project.config';
 
 		# make the default configuration directory for the user
