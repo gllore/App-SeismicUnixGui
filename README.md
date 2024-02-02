@@ -19,7 +19,7 @@ markup language.
 
 =head1 COPYRIGHT
 
-    Copyright 2023 Juan M. Lorenzo. You can distribute and/or modify any of 
+    Copyright 2024 Juan M. Lorenzo. You can distribute and/or modify any of 
     the documents found in the current directory or any subdirectories within,with the
     exception of documents written in the FOrtran language,
     under the same terms as the current Perl license.
