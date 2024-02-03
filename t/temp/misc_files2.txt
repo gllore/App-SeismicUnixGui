@@ -1,3 +1,0 @@
-L_SU_path.pm
-L_SU_global_constants.pm
-dirs.pm

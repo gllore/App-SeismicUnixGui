@@ -62,11 +62,11 @@ DIRFILESEP = /
 DFSEP = $(DIRFILESEP)
 NAME = App::SeismicUnixGui
 NAME_SYM = App_SeismicUnixGui
-VERSION = 0.87.0
+VERSION = 0.87.1
 VERSION_MACRO = VERSION
-VERSION_SYM = 0_87_0
+VERSION_SYM = 0_87_1
 DEFINE_VERSION = -D$(VERSION_MACRO)=\"$(VERSION)\"
-XS_VERSION = 0.87.0
+XS_VERSION = 0.87.1
 XS_VERSION_MACRO = XS_VERSION
 XS_DEFINE_VERSION = -D$(XS_VERSION_MACRO)=\"$(XS_VERSION)\"
 INST_ARCHLIB = blib/arch
@@ -1248,7 +1248,7 @@ TO_INST_PM = lib/App/SeismicUnixGui.pm \
 	lib/App/SeismicUnixGui/doc/FAQ_immodpg \
 	lib/App/SeismicUnixGui/doc/README_to_INSTALL \
 	lib/App/SeismicUnixGui/doc/SeismicUnixGuiInstallationGuide0.84.0.pdf \
-	lib/App/SeismicUnixGui/doc/SeismicUnixGuiInstallationGuide0.87.0.pdf \
+	lib/App/SeismicUnixGui/doc/SeismicUnixGuiInstallationGuide0.87.1.pdf \
 	lib/App/SeismicUnixGui/doc/archive/L_SU\ Tutorial_0.3.6-1.pdf \
 	lib/App/SeismicUnixGui/doc/archive/L_SU\ Tutorial_0.3.9.1.docx \
 	lib/App/SeismicUnixGui/doc/archive/L_SU\ Tutorial_0.3.9.1.pdf \
@@ -1463,13 +1463,13 @@ TO_INST_PM = lib/App/SeismicUnixGui.pm \
 	lib/App/SeismicUnixGui/misc/L_SU_path.pm \
 	lib/App/SeismicUnixGui/misc/Math.pm \
 	lib/App/SeismicUnixGui/misc/PID.pm \
+	lib/App/SeismicUnixGui/misc/Project_Variables.pm \
 	lib/App/SeismicUnixGui/misc/SeismicUnix.pm \
 	lib/App/SeismicUnixGui/misc/a2su.pm \
 	lib/App/SeismicUnixGui/misc/algebra_by.pm \
 	lib/App/SeismicUnixGui/misc/archive/L_SU_global_constants.pm \
 	lib/App/SeismicUnixGui/misc/archive/L_SU_global_constants.pm_bck \
 	lib/App/SeismicUnixGui/misc/archive/Point.pm \
-	lib/App/SeismicUnixGui/misc/archive/Project_Variables.pm \
 	lib/App/SeismicUnixGui/misc/archive/binding2.pm \
 	lib/App/SeismicUnixGui/misc/archive/canvas_data.pm \
 	lib/App/SeismicUnixGui/misc/archive/canvas_graph.pm \
@@ -2293,7 +2293,7 @@ RCS_LABEL = rcs -Nv$(VERSION_SYM): -q
 DIST_CP = best
 DIST_DEFAULT = tardist
 DISTNAME = App-SeismicUnixGui
-DISTVNAME = App-SeismicUnixGui-0.87.0
+DISTVNAME = App-SeismicUnixGui-0.87.1
 
 
 # --- MakeMaker macro section:
@@ -2591,7 +2591,7 @@ metafile : create_distdir
 	$(NOECHO) $(ECHO) '  Tk::Pod: '\''0.9943'\''' >> META_new.yml
 	$(NOECHO) $(ECHO) '  aliased: '\''0.34'\''' >> META_new.yml
 	$(NOECHO) $(ECHO) '  namespace::autoclean: '\''0.29'\''' >> META_new.yml
-	$(NOECHO) $(ECHO) 'version: v0.87.0' >> META_new.yml
+	$(NOECHO) $(ECHO) 'version: v0.87.1' >> META_new.yml
 	$(NOECHO) $(ECHO) 'x_serialization_backend: '\''CPAN::Meta::YAML version 0.018'\''' >> META_new.yml
 	-$(NOECHO) $(MV) META_new.yml $(DISTVNAME)/META.yml
 	$(NOECHO) $(ECHO) Generating META.json
@@ -2652,7 +2652,7 @@ metafile : create_distdir
 	$(NOECHO) $(ECHO) '      }' >> META_new.json
 	$(NOECHO) $(ECHO) '   },' >> META_new.json
 	$(NOECHO) $(ECHO) '   "release_status" : "stable",' >> META_new.json
-	$(NOECHO) $(ECHO) '   "version" : "v0.87.0",' >> META_new.json
+	$(NOECHO) $(ECHO) '   "version" : "v0.87.1",' >> META_new.json
 	$(NOECHO) $(ECHO) '   "x_serialization_backend" : "JSON::PP version 4.06"' >> META_new.json
 	$(NOECHO) $(ECHO) '}' >> META_new.json
 	-$(NOECHO) $(MV) META_new.json $(DISTVNAME)/META.json
@@ -2938,7 +2938,7 @@ testdb_static :: static pure_all
 # --- MakeMaker ppd section:
 # Creates a PPD (Perl Package Description) for a binary distribution.
 ppd :
-	$(NOECHO) $(ECHO) '<SOFTPKG NAME="App-SeismicUnixGui" VERSION="0.87.0">' > App-SeismicUnixGui.ppd
+	$(NOECHO) $(ECHO) '<SOFTPKG NAME="App-SeismicUnixGui" VERSION="0.87.1">' > App-SeismicUnixGui.ppd
 	$(NOECHO) $(ECHO) '    <ABSTRACT>A graphical user interface for Seismic Unix</ABSTRACT>' >> App-SeismicUnixGui.ppd
 	$(NOECHO) $(ECHO) '    <AUTHOR>Juan Lorenzo &lt;gllore@lsu.edu&gt;</AUTHOR>' >> App-SeismicUnixGui.ppd
 	$(NOECHO) $(ECHO) '    <IMPLEMENTATION>' >> App-SeismicUnixGui.ppd
@@ -4076,7 +4076,7 @@ pm_to_blib : $(FIRST_MAKEFILE) $(TO_INST_PM)
 	  'lib/App/SeismicUnixGui/doc/FAQ_immodpg' 'blib/lib/App/SeismicUnixGui/doc/FAQ_immodpg' \
 	  'lib/App/SeismicUnixGui/doc/README_to_INSTALL' 'blib/lib/App/SeismicUnixGui/doc/README_to_INSTALL' \
 	  'lib/App/SeismicUnixGui/doc/SeismicUnixGuiInstallationGuide0.84.0.pdf' 'blib/lib/App/SeismicUnixGui/doc/SeismicUnixGuiInstallationGuide0.84.0.pdf' \
-	  'lib/App/SeismicUnixGui/doc/SeismicUnixGuiInstallationGuide0.87.0.pdf' 'blib/lib/App/SeismicUnixGui/doc/SeismicUnixGuiInstallationGuide0.87.0.pdf' \
+	  'lib/App/SeismicUnixGui/doc/SeismicUnixGuiInstallationGuide0.87.1.pdf' 'blib/lib/App/SeismicUnixGui/doc/SeismicUnixGuiInstallationGuide0.87.1.pdf' \
 	  'lib/App/SeismicUnixGui/doc/archive/L_SU Tutorial_0.3.6-1.pdf' 'blib/lib/App/SeismicUnixGui/doc/archive/L_SU Tutorial_0.3.6-1.pdf' \
 	  'lib/App/SeismicUnixGui/doc/archive/L_SU Tutorial_0.3.9.1.docx' 'blib/lib/App/SeismicUnixGui/doc/archive/L_SU Tutorial_0.3.9.1.docx' \
 	  'lib/App/SeismicUnixGui/doc/archive/L_SU Tutorial_0.3.9.1.pdf' 'blib/lib/App/SeismicUnixGui/doc/archive/L_SU Tutorial_0.3.9.1.pdf' \
@@ -4301,13 +4301,13 @@ pm_to_blib : $(FIRST_MAKEFILE) $(TO_INST_PM)
 	  'lib/App/SeismicUnixGui/misc/L_SU_path.pm' 'blib/lib/App/SeismicUnixGui/misc/L_SU_path.pm' \
 	  'lib/App/SeismicUnixGui/misc/Math.pm' 'blib/lib/App/SeismicUnixGui/misc/Math.pm' \
 	  'lib/App/SeismicUnixGui/misc/PID.pm' 'blib/lib/App/SeismicUnixGui/misc/PID.pm' \
+	  'lib/App/SeismicUnixGui/misc/Project_Variables.pm' 'blib/lib/App/SeismicUnixGui/misc/Project_Variables.pm' \
 	  'lib/App/SeismicUnixGui/misc/SeismicUnix.pm' 'blib/lib/App/SeismicUnixGui/misc/SeismicUnix.pm' \
 	  'lib/App/SeismicUnixGui/misc/a2su.pm' 'blib/lib/App/SeismicUnixGui/misc/a2su.pm' \
 	  'lib/App/SeismicUnixGui/misc/algebra_by.pm' 'blib/lib/App/SeismicUnixGui/misc/algebra_by.pm' \
 	  'lib/App/SeismicUnixGui/misc/archive/L_SU_global_constants.pm' 'blib/lib/App/SeismicUnixGui/misc/archive/L_SU_global_constants.pm' \
 	  'lib/App/SeismicUnixGui/misc/archive/L_SU_global_constants.pm_bck' 'blib/lib/App/SeismicUnixGui/misc/archive/L_SU_global_constants.pm_bck' \
 	  'lib/App/SeismicUnixGui/misc/archive/Point.pm' 'blib/lib/App/SeismicUnixGui/misc/archive/Point.pm' \
-	  'lib/App/SeismicUnixGui/misc/archive/Project_Variables.pm' 'blib/lib/App/SeismicUnixGui/misc/archive/Project_Variables.pm' \
 	  'lib/App/SeismicUnixGui/misc/archive/binding2.pm' 'blib/lib/App/SeismicUnixGui/misc/archive/binding2.pm' \
 	  'lib/App/SeismicUnixGui/misc/archive/canvas_data.pm' 'blib/lib/App/SeismicUnixGui/misc/archive/canvas_data.pm' \
 	  'lib/App/SeismicUnixGui/misc/archive/canvas_graph.pm' 'blib/lib/App/SeismicUnixGui/misc/archive/canvas_graph.pm' \
