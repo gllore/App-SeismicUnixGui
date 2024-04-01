@@ -1158,7 +1158,7 @@ sub ors {
 
 =head2 sub remove_su_suffix
 
-  For a  scalar reference  remove the .su extension
+  For a  scalar reference remove the .su extension
   For a scalar also remove the .su extension
   For an  array reference do nothig 
 	returns a non-empty string if EXPR is a reference, the empty string otherwise. 

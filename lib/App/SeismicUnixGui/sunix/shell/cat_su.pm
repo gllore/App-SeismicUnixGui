@@ -30,9 +30,7 @@ cat derives from unix command of the same name
 Added: by Juan Lorenzo Jan. 2022
 
   
-
  Usage: cat base_file_name1='sufile1' base_file_name2='sufile2' > output_file
-
 
 
   base_file_name1=first (su file)
@@ -42,6 +40,7 @@ Added: by Juan Lorenzo Jan. 2022
   output file is handled by module data_out.pm
 
 =head2 User's notes (Juan Lorenzo)
+
 untested
 
 =cut

@@ -489,6 +489,26 @@ sub list {
 	return ();
 }
 
+#=head2 sub neg 
+#
+#
+#=cut
+#
+#sub neg {
+#
+#	my ( $self, $neg ) = @_;
+#	if ( $neg ne $empty_string ) {
+#
+#		$suop->{_neg}   = $neg;
+#		$suop->{_note} = $suop->{_note} . ' neg=' . $suop->{_neg};
+#		$suop->{_Step} = $suop->{_Step} . ' neg=' . $suop->{_neg};
+#
+#	}
+#	else {
+#		print("suop, neg, missing neg,\n");
+#	}
+#}
+
 =head2 sub nw 
 
 
