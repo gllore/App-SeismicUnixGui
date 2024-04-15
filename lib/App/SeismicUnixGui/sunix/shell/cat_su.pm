@@ -105,7 +105,7 @@ by adding the program name
 
  sub  Step {
 
-	$cat_su->{_Step}     = 'cat'.$cat_su->{_Step};
+	$cat_su->{_Step}     = 'cat '.$cat_su->{_Step};
 	return ( $cat_su->{_Step} );
 
  }

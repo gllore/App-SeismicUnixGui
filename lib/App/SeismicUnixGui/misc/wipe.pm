@@ -11,6 +11,7 @@ package App::SeismicUnixGui::misc::wipe;
  DESCRIPTION: 
  Version:0.1 
  Package used for scrubbing gui
+ 
 =head2 USE
 
 =head3 NOTES 
@@ -127,13 +128,50 @@ sub neutral_range {
 sub range {
     my ( $self, $ref_hash ) = @_;
     
+    
     $entries->{_first_idx}            = $ref_hash->{_first_idx};
     $entries->{_length}               = $ref_hash->{_length};
     $entries->{_labels_w_aref}        = $ref_hash->{_labels_w_aref};
     $entries->{_values_w_aref}        = $ref_hash->{_values_w_aref};
     $entries->{_check_buttons_w_aref} = $ref_hash->{_check_buttons_w_aref};
 
-	# print("wipe,range,length of previous selected sueprflow = $entries->{_length}\n");
+#	print("wipe,range,length to wipe = $entries->{_length}\n");
+}
+
+=head2 sub set_range 
+
+
+=cut 
+
+sub set_range {
+    my ( $self, $range) = @_;
+    
+  if (length $range) {
+  	
+  	 $entries->{_length}  = $range;;
+  	 
+  }else {
+		print("wipe,range,length to wipe is missing\n");
+  }
+
+}
+
+=head2 sub set_all 
+
+
+=cut 
+
+sub set_all {
+    my ( $self, $ref_hash ) = @_;
+    
+    
+    $entries->{_first_idx}            = $ref_hash->{_first_idx};
+    $entries->{_length}               = $ref_hash->{_length};
+    $entries->{_labels_w_aref}        = $ref_hash->{_labels_w_aref};
+    $entries->{_values_w_aref}        = $ref_hash->{_values_w_aref};
+    $entries->{_check_buttons_w_aref} = $ref_hash->{_check_buttons_w_aref};
+
+	print("wipe,range,length to wipe = $entries->{_length}\n");
 }
 
 =head2 sub labels 

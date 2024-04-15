@@ -53,12 +53,12 @@ my $L_SU_global_constants = L_SU_global_constants->new();
 
 local variables
 
-# print("param_widgets, default_param_specs,first entry num=$default_param_specs->{_first_entry_num}\n");
-# print("param_widgets_grey, default_param_specs,first entry num=$default_param_specs->{_first_entry_num}\n");
+# print("param_widgets, default_param_specs,first entry num=$default_param->{_first_entry_num}\n");
+# print("param_widgets_grey, default_param_specs,first entry num=$default_param->{_first_entry_num}\n");
 
 =cut
 
-my $default_param_specs = $L_SU_global_constants->param();
+my $default_param       = $L_SU_global_constants->param();
 my $var                 = $L_SU_global_constants->var();
 my $on                  = $var->{_on};
 my $off                 = $var->{_off};
@@ -344,13 +344,13 @@ sub gui_full_clear {
 	my ($self) = @_;
 	
 	my $wipe = wipe->new();
-	
-	$wipe->range($param_widgets);
+    my $max_length = $default_param->{_max_entry_num};
+	$wipe->set_range($max_length);
 	$wipe->values();
 	$wipe->labels();
 	$wipe->all_check_buttons();
 #    print("param_widgets4pre_built_streams,gui_full_clear\n");
-;	return ();
+    return ();
 }
 
 
@@ -807,7 +807,7 @@ sub initialize_check_buttons {
 		$off[$i] = 'off';
 	}
 
-	$check_buttons->specs($default_param_specs);
+	$check_buttons->specs($default_param);
 	$check_buttons->frame( $param_widgets->{_check_buttons_frame_href} );
 	$check_buttons->make( \@off );
 
@@ -839,7 +839,7 @@ sub initialize_labels {
 		$blank_labels[$i] = '';
 	}
 
-	$labels->specs($default_param_specs);
+	$labels->specs($default_param);
 	$labels->frame( $param_widgets->{_labels_frame_href} );
 	$labels->texts( \@blank_labels );
 
@@ -865,12 +865,37 @@ sub initialize_values {
 		$blank_values[$i] = '';
 	}
 
-	$values->specs($default_param_specs);
+	$values->specs($default_param);
 	$values->frame( $param_widgets->{_values_frame_href} );
 	$values->texts( \@blank_values );
 
 	$param_widgets->{_values_w_aref} = $values->get_w_aref();
 
+}
+
+
+=head2 sub set_range 
+
+=cut 
+
+sub set_range {
+	my ( $self, $ref_hash ) = @_;
+
+    if ($ref_hash->{_is_superflow_select_button}
+		|| $ref_hash->{_is_superflow} )
+	{
+
+		$param_widgets->{_first_idx} = $ref_hash->{_superflow_first_idx};
+		$param_widgets->{_length}    = $ref_hash->{_superflow_length};
+
+#		print("4. param_widgets4pre_built_streams,set_range, (superflows) first idx:$param_widgets->{_first_idx}, and length:$param_widgets->{_length}\n");
+
+	}else {
+		print ("param_widgets4pre_built_streams,set_range, _missing ref_hash\n");
+	}
+
+	# print ("6. param_widgets,range, _values_w_aref:  $param_widgets->{_values_w_aref}\n");
+	return ();
 }
 
 =head2 sub range 
@@ -929,11 +954,11 @@ sub range {
 		$param_widgets->{_first_idx} = $ref_hash->{_superflow_first_idx};
 		$param_widgets->{_length}    = $ref_hash->{_superflow_length};
 
-		# print("4. param_widgets,range, (superflows) first idx:$param_widgets->{_first_idx}, and length:$param_widgets->{_length}\n");
+#		print("4. param_widgets4pre_built_,range, (superflows) first idx:$param_widgets->{_first_idx}, and length:$param_widgets->{_length}\n");
 
-		#		# case of now pre-existing color (not even neutral) and the perl flow is selected
+		# case of now pre-existing color (not even neutral) and the perl flow is selected
 		# this case actually does not need range because the following subroutines estimate
-		# the length fromt he scalar of the array and all correctly assume that the first index=0
+		# the length from the scalar of the array and all correctly assume that the first index=0
 		#		elsif ($ref_hash->{_is_user_built_flow} && $ref_hash->{_is_new_listbox_selection} )   {
 		#
 		#	 		$param_widgets->{_first_idx}		= $ref_hash->{_param_flow_first_idx};

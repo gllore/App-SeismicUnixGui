@@ -35,11 +35,30 @@ use aliased 'App::SeismicUnixGui::misc::L_SU_global_constants';
 use aliased 'App::SeismicUnixGui::sunix::shell::cat_su';
 use aliased 'App::SeismicUnixGui::sunix::shell::cat_txt';
 use aliased 'App::SeismicUnixGui::configs::big_streams::Project_config';
+use aliased 'App::SeismicUnixGui::misc::control';
 use aliased 'App::SeismicUnixGui::misc::message';
 use aliased 'App::SeismicUnixGui::sunix::data::data_out';
 use aliased 'App::SeismicUnixGui::misc::flow';
+use aliased 'App::SeismicUnixGui::misc::readfiles';
 
 use Carp;
+
+
+=head2 Instantiate
+
+modules
+
+=cut
+		my $control = control->new();
+		my $readfiles = readfiles->new();
+
+=head2 clear memory
+
+
+=cut
+		
+		$control->clear();
+		$readfiles->clear();	
 
 =head2 define private hash
 to share
@@ -56,6 +75,7 @@ my $manage_files_by2 = {
 	_delete_base_file_name  => '',
 	_directory              => '',
 	_file_in                => '',
+	_inbound_list           => '',
 	_pathNfile              => '',
 	_program_name           => '',
 	_suffix_type            => '',
@@ -73,6 +93,7 @@ sub clear {
 	$manage_files_by2->{_appendix}               = '';
 	$manage_files_by2->{_cat_base_file_name_out} = '';
 	$manage_files_by2->{_delete_base_file_name}  = '';
+	$manage_files_by2->{_inbound_list}  		 = '';	
 	$manage_files_by2->{_directory}              = '';
 	$manage_files_by2->{_file_in}                = '';
 	$manage_files_by2->{_pathNfile}              = '';
@@ -794,6 +815,43 @@ sub get_1col {
 
 }
 
+
+=head2 sub get_base_file_names_aref
+
+read a list of file names
+remove the su suffix
+return array reference of the
+list of names without su suffixes
+
+=cut
+
+sub get_base_file_name_aref {
+	my ($self) = @_;
+
+	# simple check
+	if ( length $manage_files_by2->{_inbound_list} ) {
+
+		my $inbound_list = $manage_files_by2->{_inbound_list};
+
+		my ( $file_names_aref, $num_files ) = $readfiles->cols_1p($inbound_list);
+		$control->set_aref($file_names_aref);
+		# TODO to general suffix
+		$control->remove_su_suffix4aref();
+		my $base_file_name_aref = $control->get_base_file_name_aref();
+
+		print("manage_files_by2, get_base_file_names, values=@$base_file_name_aref\n");
+		
+		my $result_a = $base_file_name_aref;
+		my $result_b = $num_files;
+		return ( $result_a, $result_b);
+
+	}
+	else {
+		print("_get_base_file_name_aref, missing inbound lsit\n");
+		return ();
+	}
+}
+
 =pod sub get_whole 
 
  open and read
@@ -880,7 +938,7 @@ sub get_whole {
 
 =cut
 
-sub set_directory {
+ sub set_directory {
 
 	  my ( $self, $dir ) = @_;
 
@@ -921,78 +979,28 @@ sub set_file_in {
 
 }
 
-#=head2 sub get_pathNmodule_pm
-#
-#=cut
-#
-#sub get_pathNmodule_pm {
-#	my ($self) = @_;
-#
-#	if ( length $manage_files_by2->{_program_name} ) {
-#
-#		my $L_SU_global_constants = L_SU_global_constants->new();
-#
-#		my $program_name = $manage_files_by2->{_program_name};
-#		my $module_spec_pm = $program_name . '_spec.pm';
-#
-#		$L_SU_global_constants->set_file_name($module_spec_pm);
-#		my $path4spec = $L_SU_global_constants->get_path4spec_file();
-#
-#		my $pathNmodule_pm   = $path4spec . '/' . $module_spec_pm;
-#		# carp"pathNmodule_pm = $pathNmodule_pm";
-#		my $result = $pathNmodule_pm;
-#		return ($result);
-#
-#	}
-#	else {
-#		carp "missing prgram name";
-#		return ();
-#	}
-#
-#}
-#
-#=head2 sub get_pathNmodule_spec
-#
-#=cut
-#
-#sub get_pathNmodule_spec {
-#
-#	my ($self) = @_;
-#
-#	if ( length $manage_files_by2->{_program_name} ) {
-#
-#		my $L_SU_global_constants = L_SU_global_constants->new();
-#
-#		my $program_name = $manage_files_by2->{_program_name};
-#
-#		my $module_spec    = $program_name . '_spec';
-#		my $module_spec_pm = $program_name . '_spec.pm';
-#
-#		$L_SU_global_constants->set_file_name($module_spec_pm);
-#		my $path4spec = $L_SU_global_constants->get_path4spec_file();
-#
-#		my $path4SeismicUnixGui =
-#		  $L_SU_global_constants->get_path4SeismicUnixGui;
-#
-#		my $pathNmodule_pm   = $path4spec . '/' . $module_spec_pm;
-#		my $pathNmodule_spec = $path4spec . '/' . $module_spec;
-#
-#		# carp"pathNmodule_pm = $pathNmodule_pm";
-#
-#		$pathNmodule_spec =~ s/$path4SeismicUnixGui//g;
-#		$pathNmodule_spec =~ s/\//::/g;
-#		my $new_pathNmodule_spec = 'App::SeismicUnixGui' . $pathNmodule_spec;
-#
-#		my $result = $new_pathNmodule_spec;
-#		return ($result);
-#
-#	}
-#	else {
-#		carp "missing program name";
-#		return ();
-#	}
-#
-#}
+
+=head2 sub set_inbound_list
+
+=cut
+
+sub set_inbound_list {
+	my ($self,$inbound_list) = @_;
+
+	if ( length $inbound_list ) {
+		
+		$control->set_back_slashBgone($inbound_list);
+		$inbound_list  = $control->get_back_slashBgone();
+		$manage_files_by2->{_inbound_list} = $inbound_list;
+
+	}
+	else {
+		print("manage_files_by2, set_inbound_list, missing list\n");
+		return ();
+	}
+
+}
+
 
 =head2
 

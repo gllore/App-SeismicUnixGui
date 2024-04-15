@@ -74,8 +74,15 @@ my $readfiles = {
 sub clear {
 	$readfiles->{_note}         = '';
 	$readfiles->{_ref_file}     = '';
-	$readfiles->{_program_name} = '';
-	$readfiles->{_Step}         = '';
+	$readfiles->{_file_name}    = '';           
+	$readfiles->{_parameter}    = '';           
+	$readfiles->{_path}         = '';                
+	$readfiles->{_program_name} = '';       
+	$readfiles->{_program_name_config}  = ''; 
+	$readfiles->{_skip_lines}           = '';                                 	
+	$readfiles->{_program_name}         = '';
+	$readfiles->{_value}                = '';  
+	$readfiles->{_Step}                 = '';
 }
 
 =head2 sub cols_1 
