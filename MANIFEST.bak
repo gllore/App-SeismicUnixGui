@@ -4397,6 +4397,7 @@ lib/App/SeismicUnixGui/developer/code/immodpg/kill4mmodpg_development.pl
 lib/App/SeismicUnixGui/developer/code/sunix/change_a_line_everywhere.pl
 lib/App/SeismicUnixGui/developer/code/sunix/convert2V07.pl
 lib/App/SeismicUnixGui/developer/code/sunix/convert2V08.pl
+lib/App/SeismicUnixGui/developer/code/sunix/copyNclean_sgy_up.pl
 lib/App/SeismicUnixGui/developer/code/sunix/data_tbd.pl
 lib/App/SeismicUnixGui/developer/code/sunix/data_test.pl
 lib/App/SeismicUnixGui/developer/code/sunix/nameNnumber.txt
@@ -4428,6 +4429,7 @@ lib/App/SeismicUnixGui/developer/code/sunix/update.pm
 lib/App/SeismicUnixGui/developer/code/sunix/update_main_version_number.pl
 lib/App/SeismicUnixGui/developer/Stripped/data/ctrlstrip.cwp.main
 lib/App/SeismicUnixGui/developer/Stripped/data/dt1tosu.su.main.data_conversion
+lib/App/SeismicUnixGui/developer/Stripped/data/seg2segy.ThirdParty
 lib/App/SeismicUnixGui/developer/Stripped/data/segbread.Sfio.main
 lib/App/SeismicUnixGui/developer/Stripped/data/segdread.Sfio.main
 lib/App/SeismicUnixGui/developer/Stripped/data/segyclean.su.main.data_conversion
@@ -6158,6 +6160,7 @@ sunix/well/subackush.pm
 sunix/well/sugassman.pm
 sunix/well/sulprime.pm
 sunix/well/suwellrf.pm
+t/.sunix.t.swp
 t/big_streams.t
 t/configs.t
 t/developer.t

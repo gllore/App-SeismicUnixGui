@@ -1,0 +1,12 @@
+/home/gllore/DuncanPoint/seismics/data/FarrPark//032424/H/1/su/gllore/All_SH_kill_cdp4mute.su
+/home/gllore/DuncanPoint/seismics/data/FarrPark//032424/H/1/su/gllore/All_SH_kill_cdp.su
+/home/gllore/DuncanPoint/seismics/pl/FarrPark//032424/H/1/gllore/6B.prep4top_mute.pl
+/home/gllore/DuncanPoint/seismics/data/FarrPark//032424/H/1/su/gllore/All_SH_kill.su
+/home/gllore/DuncanPoint/seismics/pl/FarrPark//032424/H/1/gllore/surange.pl
+/home/gllore/DuncanPoint/seismics/pl/FarrPark//032424/H/1/gllore/7D.brute_stack.pl
+/home/gllore/DuncanPoint/seismics/pl/FarrPark//032424/H/1/gllore/view_tbd3.pl
+/home/gllore/DuncanPoint/seismics/pl/FarrPark//032424/H/1/gllore/sufilter_test.pl
+/home/gllore/DuncanPoint/seismics/pl/FarrPark//032424/H/1/gllore/5C.geom_offset.pl
+/home/gllore/DuncanPoint/seismics/pl/FarrPark//032424/H/1/gllore/4C.view_sukill_out.pl
+/home/gllore/DuncanPoint/seismics/pl/FarrPark//032424/H/1/gllore/3B.view_All_SH.pl
+/home/gllore/DuncanPoint/seismics/pl/FarrPark//032424/H/1/gllore/7A.susort_cdp.pl
