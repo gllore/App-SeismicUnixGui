@@ -232,10 +232,12 @@ my @file_dialog_type;
 my @alias_help_menubutton_label;
 $alias_help_menubutton_label[0] = 'About';
 $alias_help_menubutton_label[1] = 'InstallationGuide';
+$alias_help_menubutton_label[2] = 'Tutorial';
 
 my $alias_help_menubutton_label_h = { 
-		_About => 'About', 
-        _InstallationGuide => 'InstallationGuide', 
+		_About             => 'About', 
+        _InstallationGuide => 'InstallationGuide',
+        _Tutorial          => 'Tutorial',
 };
 
 # in spec files for when Data_PL_SEISMIC, may
@@ -274,8 +276,9 @@ my $flow_type_h = {
 	_pre_built_superflow => 'pre_built_superflow',
 };
 
-my $help_menubutton_type_h = { _About => 'About', 
+my $help_menubutton_type_h = { _About             => 'About', 
 							   _InstallationGuide => 'InstallationGuide',
+							   _Tutorial          => 'Tutorial',
 };
 
 my $purpose = { _geopsy => 'geopsy', };
