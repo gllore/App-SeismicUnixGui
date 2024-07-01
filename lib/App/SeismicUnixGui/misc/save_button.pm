@@ -187,20 +187,22 @@ sub _Save_pre_built_superflow {
 # print("2. save_button,_Save_pre_built_superflow,has_used_Save_superflow: $save_button->{_has_used_Save_superflow}\n");
 # print("2. save_button,_Save_pre_built_superflow,has_used_SaveAs_button: $save_button->{_has_used_SaveAs_button}\n");
 # print("2. save_button,_Save_pre_built_superflow, has_used_Save_button(only for user-built): $save_button->{_has_used_Save_button}\n");
-#  print("2. save_button,_Save_pre_built_superflow,_is_Save_button: $save_button->{_is_Save_button}\n");
+# print("2. save_button,_Save_pre_built_superflow,_is_Save_button: $save_button->{_is_Save_button}\n");
 
 	if ( $save_button->{_flow_type} eq 'pre_built_superflow' )
 	{    # from gui_history
 
 #print("2. save_button, Save_pre_built_superflow,_values_aref: @{$save_button->{_values_aref}}\n");
 #print("2. save_button, Save_pre_built_superflow,_labels_aref: @{$save_button->{_labels_aref}}\n");
-my $ans = ${$save_button->{_prog_name_sref}};
+
 #print("3. save_button, _Save_pre_built_superflow, gui prog_name=: $ans\n");
-# internal name
-   ${$save_button->{_prog_name_sref}} = $alias_superflow_names_h->{$ans};
+
 #print("3. save_button, _Save_pre_built_superflow, internal prog_name=: ${$save_button->{_prog_name_sref}} \n");
 
 # consider aliases
+	my $ans = ${$save_button->{_prog_name_sref}};
+# internal name
+   ${$save_button->{_prog_name_sref}} = $alias_superflow_names_h->{$ans};
      		$config_superflows->save($save_button);
 		$gui_history->set4superflow_Save();
 		$save_button = $gui_history->get_hash_ref();
@@ -513,7 +515,7 @@ sub set_prog_name_sref {
 	if ($name_sref) {
 		$save_button->{_prog_name_sref} = $name_sref;
 
-# print("save_button, set_prog_name_sref , ${$save_button->{_prog_name_sref}}\n");
+ print("save_button, set_prog_name_sref , ${$save_button->{_prog_name_sref}}\n");
 
 	}
 	else {

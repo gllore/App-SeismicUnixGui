@@ -106,7 +106,7 @@ sub _get_program_name {
 sub _set_program_name {
 	my ($program_name_sref) = @_;
 
-# print("config_superflows, _set_program_name, program_name=$$program_name_sref\n");
+  print("config_superflows, _set_program_name, program_name=$$program_name_sref\n");
 # print("config_superflows, _set_program_name, program_name=$superflow_names->{_fk}\n");
 	if ($program_name_sref) {
 		my $name_sref;
@@ -465,15 +465,15 @@ sub get_local_or_defaults {
 sub save {
 
 	my ( $self, $in_hash_ref ) = @_;
-#		print(
-#"config_superflows,save,in_hash_ref:...${$in_hash_ref->{_prog_name_sref}}...)\n"
-#		);
+		print(
+"config_superflows,save,in_hash_ref:...${$in_hash_ref->{_prog_name_sref}}...)\n"
+		);
 	if ( defined $in_hash_ref
       &&  ${$config_superflows->{_program_name_sref}}  ne $empty_string )
 	{
-#		print(
-#"config_superflows,save,internal prog_name_sref:...${$config_superflows->{_program_name_sref}}...)\n"
-#		);
+		print(
+"config_superflows,save,internal prog_name_sref:...${$config_superflows->{_program_name_sref}}...)\n"
+		);
 
 		my $out_hash_ref = {
 			_ref_labels     => '',

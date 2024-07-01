@@ -453,7 +453,7 @@ sub check2write {
 
 		copy( $from, $to );
 
-		print("files_LSU check2write copy $from to $to \n");
+		print("files_LSU check2write copying $from to $to \n");
 
 		# Now you can overwrite the file
 		_write();
