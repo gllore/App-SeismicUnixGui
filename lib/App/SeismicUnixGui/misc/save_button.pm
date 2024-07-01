@@ -14,7 +14,7 @@ package App::SeismicUnixGui::misc::save_button;
  
  previous version (V 0.2) of the main L_SU.pl (V 0.3)
  0.02 Nov. 2019  refactoring with gui_history to keep track
- of suer clicks
+ of user clicks
   
 =cut
 
@@ -60,6 +60,7 @@ my $on              = $var->{_on};
 my $true            = $var->{_true};
 my $false           = $var->{_false};
 my $superflow_names = $get->superflow_names_h();
+my $alias_superflow_names_h = $get->alias_superflow_names_h();
 my $save_button     = $gui_history->get_defaults();
 
 #print("1. save_button: writing gui_history.txt\n");
@@ -192,19 +193,23 @@ sub _Save_pre_built_superflow {
 	{    # from gui_history
 
 #print("2. save_button, Save_pre_built_superflow,_values_aref: @{$save_button->{_values_aref}}\n");
-# print("2. save_button, Save_pre_built_superflow,_labels_aref: @{$save_button->{_labels_aref}}\n");
- my $ans = ${$save_button->{_prog_name_sref}};
-# print("3. save_button, _Save_pre_built_superflow, prog_name=: $ans\n");
+#print("2. save_button, Save_pre_built_superflow,_labels_aref: @{$save_button->{_labels_aref}}\n");
+my $ans = ${$save_button->{_prog_name_sref}};
+#print("3. save_button, _Save_pre_built_superflow, gui prog_name=: $ans\n");
+# internal name
+   ${$save_button->{_prog_name_sref}} = $alias_superflow_names_h->{$ans};
+#print("3. save_button, _Save_pre_built_superflow, internal prog_name=: ${$save_button->{_prog_name_sref}} \n");
+
 # consider aliases
-		$config_superflows->save($save_button);
+     		$config_superflows->save($save_button);
 		$gui_history->set4superflow_Save();
 		$save_button = $gui_history->get_hash_ref();
 
 	}
 	else {    # if flow first needs a change to activate
-		print(
-"save_button,_Save_pre_built_superflow, _is_superflow_select_button = $save_button->{_is_superflow_select_button}\n"
-		);
+#		print(
+#"save_button,_Save_pre_built_superflow, _is_superflow_select_button = $save_button->{_is_superflow_select_button}\n"
+#		);
 		#
 		#		$message          	= $save_button_messages->save_button(0);
 		# 	  	$message_w			->delete("1.0",'end');

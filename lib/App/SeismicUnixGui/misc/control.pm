@@ -882,19 +882,22 @@ sub get_path_wo_last_slash {
 	if ( length $control->{_path} ) {
 
 		my $path           = $control->{_path};
+		
 		my $last_character = substr( $path, -1 );
-
+#        print ("old path=$path\n\n");
+       
 		if ( $last_character eq $forward_slash ) {
 
 			$path =~ s/\/$//;
+#			print ("path new $path\n\n");
 		}
 		else {
-			# NADA print ("path unchanged $path\n\n");
+#			print ("path unchanged $path\n\n");
 		}
 
 		my $result = $path;
 
-		#		print("control,get_path_wo_last_slash, : $result\n");
+#		print("control,get_path_wo_last_slash, : $result\n");
 		return ($result);
 
 	}

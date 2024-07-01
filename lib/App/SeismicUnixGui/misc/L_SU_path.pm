@@ -138,6 +138,8 @@ $developer_tools_categories[99] = 'big_streams';
 
 my $specifications_path_w_colon = {
 
+	_BackupProject => $global_libs_w_colon->{_specs_big_streams} . '::'
+	  . $developer_tools_categories[99],
 	_Sudipfilt => $global_libs_w_colon->{_specs_big_streams} . '::'
 	  . $developer_tools_categories[99],
 	_ProjectVariables => $global_libs_w_colon->{_specs_big_streams} . '::'
@@ -381,7 +383,7 @@ my $specifications_path_w_colon = {
 	_sutifowler => $global_libs_w_colon->{_specs} . '::'
 	  . $developer_sunix_categories[6],
 
-	_catsu => $global_libs_w_colon->{_specs} . '::'
+	_cat_su => $global_libs_w_colon->{_specs} . '::'
 	  . $developer_sunix_categories[12],
 	_evince => $global_libs_w_colon->{_specs} . '::'
 	  . $developer_sunix_categories[12],
@@ -758,6 +760,8 @@ in standard linux format
 
 my $specifications_path_w_slash = {
 
+	_BackupProject => $global_libs_w_slash->{_specs_big_streams} . '/'
+	  . $developer_tools_categories[99],
 	_Sudipfilt => $global_libs_w_slash->{_specs_big_streams} . '/'
 	  . $developer_tools_categories[99],
 	_ProjectVariables => $global_libs_w_slash->{_specs_big_streams} . '/'
@@ -1001,7 +1005,7 @@ my $specifications_path_w_slash = {
 	_sutifowler => $global_libs_w_slash->{_specs} . '/'
 	  . $developer_sunix_categories[6],
 
-	_catsu => $global_libs_w_slash->{_specs} . '/'
+	_cat_su => $global_libs_w_slash->{_specs} . '/'
 	  . $developer_sunix_categories[12],
 	_evince => $global_libs_w_slash->{_specs} . '/'
 	  . $developer_sunix_categories[12],
@@ -1404,11 +1408,14 @@ sub get_pathNmodule_spec_w_slash_pm {
 	my ($self) = @_;
 
 	if ( length $L_SU_path->{_program_name} ) {
+		
 
 		my $key            = '_' . $L_SU_path->{_program_name};
 		my $module_spec_pm = $L_SU_path->{_program_name} . '_spec' . '.pm';
 		my $pathNmodule_spec_w_slash_pm =
 		  $specifications_path_w_slash->{$key} . '/' . $module_spec_pm;
+#		print ("L_SU_path,get_pathNmodule_spec_w_slash_pm, $pathNmodule_spec_w_slash_pm\n");
+		  
 		return ($pathNmodule_spec_w_slash_pm);
 
 	}
