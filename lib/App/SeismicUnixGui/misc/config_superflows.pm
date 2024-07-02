@@ -94,140 +94,140 @@ sub _get_program_name {
 
 }
 
-=head2 sub  _set_program_name
-
- i/p is scalar ref
- o/p is scalar ref
- print("config_superflows, program_name,:$alias->{ProjectVariables}\n"); 
- print("config_superflows, program_name,is ${$config_superflows->{_program_name_sref}}\n");
-
-=cut 
-
-sub _set_program_name {
-	my ($program_name_sref) = @_;
-
-  print("config_superflows, _set_program_name, program_name=$$program_name_sref\n");
-# print("config_superflows, _set_program_name, program_name=$superflow_names->{_fk}\n");
-	if ($program_name_sref) {
-		my $name_sref;
-
-		if ( $$program_name_sref eq $superflow_names->{_fk} ) {
-
-			# print("config_superflows, fk name = $superflow_names->{_fk}\n");
-			$name_sref = \$alias->{fk};
-
-		   # print("config_superflows, alias of program name is $$name_sref\n");
-		}
-
-		if ( $$program_name_sref eq $superflow_names->{_iBottomMute} ) {
-			$name_sref = \$alias->{iBottomMute};
-		}
-
-		if ( $$program_name_sref eq $superflow_names->{_iSpectralAnalysis} ) {
-			$name_sref = \$alias->{iSpectralAnalysis};
-		}
-
-		if ( $$program_name_sref eq $superflow_names->{_iTopMute} ) {
-			$name_sref = \$alias->{iTopMute};
-		}
-
-		if ( $$program_name_sref eq $superflow_names->{_iVelAnalysis} ) {
-
-   # print("config_superflows, iVA name = $superflow_names->{_iVelAnalysis}\n");
-			$name_sref = \$alias->{iVelAnalysis};
-
-		   # print("config_superflows, alias of program name is $$name_sref\n");
-		}
-
-		if ( $$program_name_sref eq $superflow_names->{_Project} ) {
-
-# warning: must omit underscore
-#print("config_superflows, _set_program_name,superflow_names=$superflow_names->{_ProjectVariables}\n");
-#print("config_superflows, _set_program_name alias, superflow_names=$superflow_names->{_ProjectVariables}\n");
-			$name_sref = \$alias->{Project};
-		}
-
-		if ( $$program_name_sref eq $superflow_names->{_ProjectVariables} ) {
-
-# warning: must omit underscore
-#print("config_superflows, _set_program_name,superflow_names=$superflow_names->{_ProjectVariables}\n");
-#print("config_superflows, _set_program_name alias, superflow_names=$superflow_names->{_ProjectVariables}\n");
-			$name_sref = \$alias->{ProjectVariables};
-		}
-
-		if ( $$program_name_sref eq $superflow_names->{_Synseis} ) {
-
-# warning: must omit underscore
-#print("config_superflows, _set_program_name,superflow_names=$superflow_names->{_ProjectVariables}\n");
-#print("config_superflows, _set_program_name alias, superflow_names=$superflow_names->{_ProjectVariables}\n");
-			$name_sref = \$alias->{Synseis};
-		}
-
-		if ( $$program_name_sref eq $superflow_names->{_Sseg2su} ) {
-
-# warning: must omit underscore
-#print("config_superflows, _set_program_name,superflow_names=$superflow_names->{_ProjectVariables}\n");
-#print("config_superflows, _set_program_name alias, superflow_names=$superflow_names->{_ProjectVariables}\n");
-			$name_sref = \$alias->{Sseg2su};
-		}
-
-		if ( $$program_name_sref eq $superflow_names->{_Sucat} ) {
-
-# warning: must omit underscore
-#print("config_superflows, _set_program_name,superflow_names=$superflow_names->{_Sucat}\n");
-#print("config_superflows, _set_program_name alias, superflow_names=$superflow_names->{_Sucat}\n");
-			$name_sref = \$alias->{Sucat};
-		}
-
-		if ( $$program_name_sref eq $superflow_names->{_iPick} ) {
-
-# warning: must omit underscore
-#print("config_superflows, _set_program_name,superflow_names=$superflow_names->{_ProjectVariables}\n");
-#print("config_superflows, _set_program_name alias, superflow_names=$superflow_names->{_ProjectVariables}\n");
-			$name_sref = \$alias->{iPick};
-		}
-
-		if ( $$program_name_sref eq $superflow_names->{_immodpg} ) {
-
-# warning: must omit underscore
-# print("config_superflows, _set_program_name,superflow_names=$superflow_names->{_immodpg}\n");
-# print("config_superflows, _set_program_name alias, superflow_names=$superflow_names->{_immodpg}\n");
-
-			$name_sref = \$alias->{immodpg};
-
-		   # print("config_superflows, alias of program name is $$name_sref\n");
-		}
-
-		if ( $$program_name_sref eq $superflow_names->{_BackupProject} ) {
-
-# warning: must omit underscore
-#print("1. config_superflows, _set_program_name,superflow_names=$superflow_names->{_BackupProject}\n");
-# print("config_superflows, _set_program_name alias, superflow_names=$superflow_names->{BackupProject}\n");
-
-			$name_sref = \$alias->{ProjectBackup};
-
-#	   		 print("config_superflows, _set_program_name, alias of program name is $$name_sref\n");
-		}
-
-		if ( $$program_name_sref eq $superflow_names->{_temp} ) {
-
-# warning: must omit underscore
-#print("config_superflows, _set_program_name,superflow_names=$superflow_names->{_ProjectVariables}\n");
-#print("config_superflows, _set_program_name alias, superflow_names=$superflow_names->{_ProjectVariables}\n");
-			$name_sref = \$alias->{temp};
-		}
-
-		$config_superflows->{_program_name_sref} = $name_sref;
-
-#  print("config_superflows,_set_program_name alias = ${$config_superflows->{_program_name_sref}}\n");
-
-	}
-	else {
-
-		print("config_superflows,_set_program_name , missing value\n");
-	}
-	return ();
-}
+#=head2 sub  _set_program_name
+#
+# i/p is scalar ref
+# o/p is scalar ref
+# print("config_superflows, program_name,:$alias->{ProjectVariables}\n"); 
+# print("config_superflows, program_name,is ${$config_superflows->{_program_name_sref}}\n");
+#
+#=cut 
+#
+#sub _set_program_name {
+#	my ($program_name_sref) = @_;
+#
+##  print("config_superflows, _set_program_name, program_name=$$program_name_sref\n");
+## print("config_superflows, _set_program_name, program_name=$superflow_names->{_fk}\n");
+#	if ($program_name_sref) {
+#		my $name_sref;
+#
+#		if ( $$program_name_sref eq $superflow_names->{_fk} ) {
+#
+#			# print("config_superflows, fk name = $superflow_names->{_fk}\n");
+#			$name_sref = \$alias->{fk};
+#
+#		   # print("config_superflows, alias of program name is $$name_sref\n");
+#		}
+#
+#		if ( $$program_name_sref eq $superflow_names->{_iBottomMute} ) {
+#			$name_sref = \$alias->{iBottomMute};
+#		}
+#
+#		if ( $$program_name_sref eq $superflow_names->{_iSpectralAnalysis} ) {
+#			$name_sref = \$alias->{iSpectralAnalysis};
+#		}
+#
+#		if ( $$program_name_sref eq $superflow_names->{_iTopMute} ) {
+#			$name_sref = \$alias->{iTopMute};
+#		}
+#
+#		if ( $$program_name_sref eq $superflow_names->{_iVelAnalysis} ) {
+#
+#   # print("config_superflows, iVA name = $superflow_names->{_iVelAnalysis}\n");
+#			$name_sref = \$alias->{iVelAnalysis};
+#
+#		   # print("config_superflows, alias of program name is $$name_sref\n");
+#		}
+#
+#		if ( $$program_name_sref eq $superflow_names->{_Project} ) {
+#
+## warning: must omit underscore
+##print("config_superflows, _set_program_name,superflow_names=$superflow_names->{_ProjectVariables}\n");
+##print("config_superflows, _set_program_name alias, superflow_names=$superflow_names->{_ProjectVariables}\n");
+#			$name_sref = \$alias->{Project};
+#		}
+#
+#		if ( $$program_name_sref eq $superflow_names->{_ProjectVariables} ) {
+#
+## warning: must omit underscore
+##print("config_superflows, _set_program_name,superflow_names=$superflow_names->{_ProjectVariables}\n");
+##print("config_superflows, _set_program_name alias, superflow_names=$superflow_names->{_ProjectVariables}\n");
+#			$name_sref = \$alias->{ProjectVariables};
+#		}
+#
+#		if ( $$program_name_sref eq $superflow_names->{_Synseis} ) {
+#
+## warning: must omit underscore
+##print("config_superflows, _set_program_name,superflow_names=$superflow_names->{_ProjectVariables}\n");
+##print("config_superflows, _set_program_name alias, superflow_names=$superflow_names->{_ProjectVariables}\n");
+#			$name_sref = \$alias->{Synseis};
+#		}
+#
+#		if ( $$program_name_sref eq $superflow_names->{_Sseg2su} ) {
+#
+## warning: must omit underscore
+##print("config_superflows, _set_program_name,superflow_names=$superflow_names->{_ProjectVariables}\n");
+##print("config_superflows, _set_program_name alias, superflow_names=$superflow_names->{_ProjectVariables}\n");
+#			$name_sref = \$alias->{Sseg2su};
+#		}
+#
+#		if ( $$program_name_sref eq $superflow_names->{_Sucat} ) {
+#
+## warning: must omit underscore
+##print("config_superflows, _set_program_name,superflow_names=$superflow_names->{_Sucat}\n");
+##print("config_superflows, _set_program_name alias, superflow_names=$superflow_names->{_Sucat}\n");
+#			$name_sref = \$alias->{Sucat};
+#		}
+#
+#		if ( $$program_name_sref eq $superflow_names->{_iPick} ) {
+#
+## warning: must omit underscore
+##print("config_superflows, _set_program_name,superflow_names=$superflow_names->{_ProjectVariables}\n");
+##print("config_superflows, _set_program_name alias, superflow_names=$superflow_names->{_ProjectVariables}\n");
+#			$name_sref = \$alias->{iPick};
+#		}
+#
+#		if ( $$program_name_sref eq $superflow_names->{_immodpg} ) {
+#
+## warning: must omit underscore
+## print("config_superflows, _set_program_name,superflow_names=$superflow_names->{_immodpg}\n");
+## print("config_superflows, _set_program_name alias, superflow_names=$superflow_names->{_immodpg}\n");
+#
+#			$name_sref = \$alias->{immodpg};
+#
+#		   # print("config_superflows, alias of program name is $$name_sref\n");
+#		}
+#
+#		if ( $$program_name_sref eq $superflow_names->{_ProjectBackup} ) {
+#
+## warning: must omit underscore
+##print("1. config_superflows, _set_program_name,superflow_names=$superflow_names->{_BackupProject}\n");
+## print("config_superflows, _set_program_name alias, superflow_names=$superflow_names->{BackupProject}\n");
+#
+#			$name_sref = \$alias->{ProjectBackup};
+#
+##	   		 print("config_superflows, _set_program_name, alias of program name is $$name_sref\n");
+#		}
+#
+#		if ( $$program_name_sref eq $superflow_names->{_temp} ) {
+#
+## warning: must omit underscore
+##print("config_superflows, _set_program_name,superflow_names=$superflow_names->{_ProjectVariables}\n");
+##print("config_superflows, _set_program_name alias, superflow_names=$superflow_names->{_ProjectVariables}\n");
+#			$name_sref = \$alias->{temp};
+#		}
+#
+#		$config_superflows->{_program_name_sref} = $name_sref;
+#
+##  print("config_superflows,_set_program_name alias = ${$config_superflows->{_program_name_sref}}\n");
+#
+#	}
+#	else {
+#
+#		print("config_superflows,_set_program_name , missing value\n");
+#	}
+#	return ();
+#}
 
 sub get_names {
 	my ($self) = @_;
@@ -465,15 +465,13 @@ sub get_local_or_defaults {
 sub save {
 
 	my ( $self, $in_hash_ref ) = @_;
-		print(
-"config_superflows,save,in_hash_ref:...${$in_hash_ref->{_prog_name_sref}}...)\n"
-		);
+#		print(
+#"config_superflows,save,in_hash_ref:...${$in_hash_ref->{_prog_name_sref}}...)\n"
+#		);
 	if ( defined $in_hash_ref
       &&  ${$config_superflows->{_program_name_sref}}  ne $empty_string )
 	{
-		print(
-"config_superflows,save,internal prog_name_sref:...${$config_superflows->{_program_name_sref}}...)\n"
-		);
+
 
 		my $out_hash_ref = {
 			_ref_labels     => '',
@@ -485,7 +483,7 @@ sub save {
 
 		$out_hash_ref->{_ref_labels} = $in_hash_ref->{_names_aref};
 		$out_hash_ref->{_ref_values} = $in_hash_ref->{_values_aref};
-		_set_program_name( $in_hash_ref->{_prog_name_sref} );
+
 		$out_hash_ref->{_prog_name_sref} =
 		  $config_superflows->{_program_name_sref};
 
@@ -544,7 +542,7 @@ sub save {
 				else {
 					# All other superflows/big_streams
 					$format[0] = $var->{_config_file_format};
-					print("2. config_superflows, _write,formats =@format  \n");
+#					print("2. config_superflows, _write,formats =@format  \n");
 					$files_LSU->set_superflow_config_file_format( \@format );
 				}
 
@@ -828,39 +826,6 @@ sub inbound {
 
 }
 
-#=head2 sub set outbound
-#
-#		print("config_superflows, set_outbound, prog_name: $prog_name\n");
-#		print("config_superflows, set_outbound, outbound: $config_superflows->{_program_name_config}\n");
-#		print("config_superflows, set_outbound, outbound: $config_superflows->{_outbound}\n");
-#
-#=cut
-
-# sub set_outbound_PATH {
-#	my ($self,$PATH)  = @_;
-#				print("config_superflows, set_outbound,_program_name_sref: $config_superflows->{_program_name_sref}\n");
-#	if ( $PATH ) {
-#		use aliased 'App::SeismicUnixGui::configs::big_streams::Project_config';
-#
-#		my $Project 		= Project_config->new();
-#
-#		my $PL_SEISMIC 		= $PATH $Project->PL_SEISMIC();
-#
-#		my $prog_name 		= ${$config_superflows->{_program_name_sref}};
-#
-#		$config_superflows->{_program_name_config} = $prog_name.'.config';
-#
-#		$config_superflows->{_outbound} = $PL_SEISMIC.'/'.$config_superflows->{_program_name_config};
-#
-#		return();
-#
-#	} else {
-#
-#		print("config_superflows, set_outbound, missing program_name_sref\n");
-#
-#	}
-#
-# }
 
 =head2 sub set_names_values
 

@@ -132,7 +132,7 @@ sub _get_DATA_DIR_IN {
 	{
 
 		$L_SU_path->set_program_name($prog_name);
-
+          print("135 iFile \n");
 		my $pathNmodule_spec_w_slash_pm =
 		  $L_SU_path->get_pathNmodule_spec_w_slash_pm();
 		my $pathNmodule_spec_w_colon =
@@ -273,7 +273,7 @@ sub _get_DATA_DIR_OUT {
 	if ($prog_name) {
 
 		$L_SU_path->set_program_name($prog_name);
-
+		print("276 iFile\n");
 		my $pathNmodule_spec_w_slash_pm =
 		  $L_SU_path->get_pathNmodule_spec_w_slash_pm();
 		my $pathNmodule_spec_w_colon =
@@ -284,35 +284,35 @@ sub _get_DATA_DIR_OUT {
 		# INSTANTIATE
 		my $package = $pathNmodule_spec_w_colon->new();
 
-  #		 use Module::Refresh; # reload updated module
-  #	    my $refresher = Module::Refresh->new;
-  #
-  #		my $manage_files_by2 = manage_files_by2->new();
-  #
-  #		$manage_files_by2->set_program_name($prog_name);
-  #		my $pathNmodule_pm   = $manage_files_by2->get_pathNmodule_pm();
-  #		my $pathNmodule_spec = $manage_files_by2->get_pathNmodule_spec();
-  #
-  #	 #	print("1. _get_suffix_aref, prog_name: $program_name$pathNmodule_pm \n");
-  #
-  #		require $pathNmodule_pm;
-  #
-  #		#$refresher->refresh_module("$module_spec_pm");
-  #
-  #		# INSTANTIATE
-  #		my $package = $pathNmodule_spec->new();
-
-		#		my $module_spec    = $prog_name . '_spec';
-		#		my $module_spec_pm = $module_spec . '.pm';
-		#
-		#		$L_SU_global_constants->set_file_name($module_spec_pm);
-		#		my $path           = $L_SU_global_constants->get_path4spec_file();
-		#		my $pathNmodule_pm = $path . '/' . $module_spec_pm;
-		#
-		#		require $pathNmodule_pm;
-		#
-		#		#		$refresher->refresh_module("$module_spec_pm");
-		#		my $package = $module_spec->new;
+#  #		 use Module::Refresh; # reload updated module
+#  #	    my $refresher = Module::Refresh->new;
+#  #
+#  #		my $manage_files_by2 = manage_files_by2->new();
+#  #
+#  #		$manage_files_by2->set_program_name($prog_name);
+#  #		my $pathNmodule_pm   = $manage_files_by2->get_pathNmodule_pm();
+#  #		my $pathNmodule_spec = $manage_files_by2->get_pathNmodule_spec();
+#  #
+#  #	 #	print("1. _get_suffix_aref, prog_name: $program_name$pathNmodule_pm \n");
+#  #
+#  #		require $pathNmodule_pm;
+#  #
+#  #		#$refresher->refresh_module("$module_spec_pm");
+#  #
+#  #		# INSTANTIATE
+#  #		my $package = $pathNmodule_spec->new();
+#
+#		#		my $module_spec    = $prog_name . '_spec';
+#		#		my $module_spec_pm = $module_spec . '.pm';
+#		#
+#		#		$L_SU_global_constants->set_file_name($module_spec_pm);
+#		#		my $path           = $L_SU_global_constants->get_path4spec_file();
+#		#		my $pathNmodule_pm = $path . '/' . $module_spec_pm;
+#		#
+#		#		require $pathNmodule_pm;
+#		#
+#		#		#		$refresher->refresh_module("$module_spec_pm");
+#		#		my $package = $module_spec->new;
 
 		# collect specifications of input and output directories
 		# fromt a program_spec.pm module

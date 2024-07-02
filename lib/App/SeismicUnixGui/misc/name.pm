@@ -1,5 +1,9 @@
 package App::SeismicUnixGui::misc::name;
 
+
+# NOTE TODO will be deprecated in favor of program_name which self-defines 
+# global constants and uses hregex and ashes for quick searbch
+
 use Moose;
 our $VERSION = '0.0.1';
 use aliased 'App::SeismicUnixGui::misc::L_SU_global_constants';

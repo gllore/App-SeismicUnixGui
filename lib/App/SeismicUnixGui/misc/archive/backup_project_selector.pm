@@ -914,7 +914,7 @@ sub set_current_program_name {
 		( $backup_project_selector->{_param_widgets_pkg} )
 		  ->set_current_program_name($current_program_name);
 
-#		 print("backup_project_selector, set_current_program_name: $current_program_name\n");
+		 print("backup_project_selector, set_current_program_name: $current_program_name\n");
 
 	}
 	else {

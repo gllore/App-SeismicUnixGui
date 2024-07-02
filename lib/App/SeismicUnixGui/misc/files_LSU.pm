@@ -439,7 +439,7 @@ except Project.config, which uses sub write2
 sub check2write {
 	my (@self) = @_;
 
-	print("files_LSU, check2write,start\n");
+#	print("files_LSU, check2write,start\n");
 
 	if ( not -e $files_LSU->{_outbound} ) {
 		
@@ -462,10 +462,10 @@ sub check2write {
 	elsif ( -e $files_LSU->{_outbound} ) {
 
 		# CASE if file doesalready exist
-		print("files_LSU, write_config OK: $files_LSU->{_outbound}\n");
-		print(
-"files_LSU, write_config, configuration file exists and will be overwritten\n"
-		);
+#		print("files_LSU, write_config OK: $files_LSU->{_outbound}\n");
+#		print(
+#"files_LSU, write_config, configuration file exists and will be overwritten\n"
+#		);
 		_write();
 
 	}
@@ -602,7 +602,7 @@ sub outbound {
 			$files_LSU->{_outbound} =
 			  $CONFIG . '/' . $files_LSU->{_program_name_config};
 
-	print("Case 2 files_LSU, outbound, outbound: $files_LSU->{_outbound} \n");
+#	print("Case 2 files_LSU, outbound, outbound: $files_LSU->{_outbound} \n");
 
 		}
 		elsif ($files_LSU->{_is_pl}
@@ -674,9 +674,9 @@ sub outbound2 {
 				  $name->change_config($program_name);
 				$files_LSU->{_outbound2} =
 				  $PL_SEISMIC . '/' . $files_LSU->{_program_name_config};
-				print(
-"files_LSU, outbound2, outbound2 _is_config: $files_LSU->{_outbound2} \n"
-				);
+#				print(
+#"files_LSU, outbound2, outbound2 _is_config: $files_LSU->{_outbound2} \n"
+#				);
 			}
 			else {
 				print(
@@ -1310,7 +1310,7 @@ sub _write {
 
 			$format[$i] = @{$config_file_format_aref}[0];
 
-			print("1. files_LSU,_write,$format[$i]\n");
+#			print("1. files_LSU,_write,$format[$i]\n");
 
 		}
 

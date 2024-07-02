@@ -1409,6 +1409,7 @@ sub get_pathNmodule_spec_w_slash_pm {
 
 	if ( length $L_SU_path->{_program_name} ) {
 		
+#		print ("L_SU_path,get_pathNmodule_spec_w_slash_pm, program name: \$L_SU_path->{_program_name}n");
 
 		my $key            = '_' . $L_SU_path->{_program_name};
 		my $module_spec_pm = $L_SU_path->{_program_name} . '_spec' . '.pm';

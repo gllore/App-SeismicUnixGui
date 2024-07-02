@@ -112,8 +112,6 @@ my $number_from_color = {
 	_blue  => 3,
 };
 
-#print("my constants, alias for fk: $alias_h->{fk}\n");
-
 my $superflow_names_h = {
 	_fk                => 'fk',
 	_Sudipfilt         => 'Sudipfilt',
@@ -131,7 +129,7 @@ my $superflow_names_h = {
 	_Sucat             => 'Sucat',
 	_immodpg           => 'immodpg',
 	_BackupProject     => 'BackupProject',
-	_ProjectBackup     => 'ProjectBackup',
+	_ProjectBackup     => 'Project Backup',
 	_temp              => 'temp',                # make last
 };
 
@@ -153,7 +151,7 @@ $superflow_names_gui[7]  = 'fk';
 $superflow_names_gui[8]  = 'Synseis';
 $superflow_names_gui[9]  = 'iPick';
 $superflow_names_gui[10] = 'immodpg';
-$superflow_names_gui[11] = 'ProjectBackup';
+$superflow_names_gui[11] = 'Project Backup';
 $superflow_names_gui[12] = 'temp';                # make last
 
 
@@ -178,7 +176,7 @@ my $superflow_names_gui_h ={
 	_Synseis            => 'Synseis',
 	_iPick              => 'iPick',
 	_immodpg            => 'immodpg',
-	_ProjectBackup      => 'ProjectBackup',
+	_ProjectBackup      => 'Project Backup',
 	_temp               => 'temp',                # make last
 
 };
@@ -203,7 +201,7 @@ $superflow_names[9]  = 'Sseg2su';
 $superflow_names[10] = 'Sucat';
 $superflow_names[11] = 'iPick';
 $superflow_names[12] = 'immodpg';
-$superflow_names[13] = 'ProjectBackup';
+$superflow_names[13] = 'Project Backup';
 $superflow_names[14] = 'temp';                # make last
 
 =head2

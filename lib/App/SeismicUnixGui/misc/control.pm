@@ -735,7 +735,6 @@ sub get_max_index {
 	if ( length $program_name ) {
 
 		$L_SU_path->set_program_name($program_name);
-
 		my $pathNmodule_spec_w_slash_pm =
 		  $L_SU_path->get_pathNmodule_spec_w_slash_pm();
 		my $pathNmodule_spec_w_colon =

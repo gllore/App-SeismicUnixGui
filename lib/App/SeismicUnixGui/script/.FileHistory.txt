@@ -1,12 +1,12 @@
-/home/gllore/DuncanPoint/
+/home/gllore/Dropbox/
+/home/gllore/Documents/329.sgy
+/home/gllore/Documents/MATLAB/
+/home/gllore/Desktop/
 /home/gllore/Documents/
 /home/gllore/Downloads/
+/home/gllore/DuncanPoint/
 /home/gllore/Fairbanks/
-/home/gllore/Desktop/
-/home/gllore/Dropbox/
 /home/gllore/FalseRiver/
 /home/gllore/Anaconda3-2023.09-0-Linux-x86_64.sh
 /home/gllore/DuncanPoint/seismics/pl/VetSchool/E/100619/H/1/gllore/a
 /home/gllore/DuncanPoint/seismics/pl/VetSchool/E/100619/H/1/gllore/aaa
-/home/gllore/DuncanPoint/seismics/pl/VetSchool/E/100619/H/1/gllore/aa
-/usr/local/pl/App-SeismicUnixGui/lib/App/SeismicUnixGui/script/a/
