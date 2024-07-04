@@ -148,10 +148,11 @@ sub select {
     my $Project            				= 'Project';
 
     my $prog_name_sref = $pre_built_big_stream_href->{_prog_name_sref};
-    # for internal purposes, convert external names from the gui into internal name
-    # TODO needs its own function
     
+    # for internal purposes, convert external names from the gui into internal name
+    # TODO needs its own function  
     my $external_name = $$prog_name_sref;
+#    print("1. pre_built_big_stream,select,external prog_name=$external_name\n");
     $program_name->set($external_name);
     my $internal_name = $program_name->get();
 #    print("1. pre_built_big_stream,select,internal prog_name=$internal_name\n");
@@ -236,8 +237,8 @@ sub select {
     my $here = $whereami->get4superflow_select_button();
     
     # widgets were initialized in a super class
-    # print("5. pre_built_big_stream,_is_superflow_select,$pre_built_big_stream_href->{_is_superflow_select_button}\n");
-
+#    print("5. pre_built_big_stream,select,$pre_built_big_stream_href->{_is_superflow_select_button}\n");
+#    print("5. pre_built_big_stream,select,prog_name=${$prog_name_sref}\n");
     $param_widgets->gui_full_clear();
     $param_widgets->range( $pre_built_big_stream_href);
     $param_widgets->set_labels( $pre_built_big_stream_href->{_names_aref} );
@@ -264,7 +265,6 @@ sub select {
     # that links their GUI name to their program name
     # e.g., iVelAnalysis (GUI) is actually IVA.pm (shortened)
 
-#    $program_name->set($external_name);
      my $run_name = $internal_name;;
     
 #    print("pre_built_big_stream,select,run_name: $run_name\n");

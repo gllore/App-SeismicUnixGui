@@ -212,7 +212,7 @@ $superflow_names[14] = 'temp';                # make last
 =cut
 
 my @alias_superflow_names;
-$alias_superflow_names[0]  = 'c';
+$alias_superflow_names[0]  = 'Sudipfilt';
 $alias_superflow_names[1]  = 'SetProject';
 $alias_superflow_names[2]  = 'SetProject';
 $alias_superflow_names[3]  = 'iSpectralAnalysis';
@@ -246,6 +246,8 @@ $developer_Tools_categories[11] = 'big_streams';
 $developer_Tools_categories[12] = 'big_streams';
 $developer_Tools_categories[13] = 'big_streams';
 $developer_Tools_categories[14] = 'big_streams';
+
+
 
 
 =head2
@@ -1142,6 +1144,12 @@ sub developer_Tools_categories_aref {
 
 }
 
+#sub developer_Tools_categories_h {
+#
+#	return ( $developer_Tools_categories_h );
+#
+#}
+
 sub file_dialog_type_aref {
 
 	return ( \@file_dialog_type );
@@ -1162,86 +1170,6 @@ sub flow_type_href {
 	return ($flow_type_h);
 }
 
-#=head2 sub get_colon_pathNmodule
-#
-#=cut
-#
-#sub get_colon_pathNmodule {
-#
-#	my ($self) = @_;
-#
-#	if ( length $L_SU_global_constants->{_program_name} ) {
-#
-#		my $program_name = $L_SU_global_constants->{_program_name};
-#
-#		my $module_spec    = $program_name . '_spec';
-#		my $module_spec_pm = $program_name . '_spec.pm';
-#
-#		_set_file_name($module_spec_pm);
-#		my $path4spec = _get_path4spec_file();
-#
-#		my $path4SeismicUnixGui = _get_path4SeismicUnixGui;
-#
-#		#		my $pathNmodule_pm   = $path4spec . '/' . $module_spec_pm;
-#		my $pathNmodule_spec = $path4spec . '/' . $module_spec;
-#
-#		# carp"pathNmodule_pm = $pathNmodule_pm";
-#
-#		$pathNmodule_spec =~ s/$path4SeismicUnixGui//g;
-#		$pathNmodule_spec =~ s/\//::/g;
-#		my $new_pathNmodule_spec = 'App::SeismicUnixGui' . $pathNmodule_spec;
-#
-#		my $result = $new_pathNmodule_spec;
-#		return ($result);
-#
-#	}
-#	else {
-#		carp "missing program name";
-#		return ();
-#	}
-#
-#}
-#
-#=head2 sub get_colon_pathNmodule_spec
-#
-#=cut
-#
-#sub get_colon_pathNmodule_spec {
-#
-#	my ($self) = @_;
-#
-#	if ( length $L_SU_global_constants->{_program_name} ) {
-#
-#		my $program_name = $L_SU_global_constants->{_program_name};
-#
-#		my $module_spec    = $program_name . '_spec';
-#		my $module_spec_pm = $program_name . '_spec.pm';
-#
-#		_set_file_name($module_spec_pm);
-#		my $path4spec = _get_path4spec_file();
-#
-#		my $path4SeismicUnixGui = _get_path4SeismicUnixGui;
-#
-#		#		my $pathNmodule_pm   = $path4spec . '/' . $module_spec_pm;
-#		my $pathNmodule_spec = $path4spec . '/' . $module_spec;
-#
-#		# carp"pathNmodule_pm = $pathNmodule_pm";
-#
-#		$pathNmodule_spec =~ s/$path4SeismicUnixGui//g;
-#		$pathNmodule_spec =~ s/\//::/g;
-#		my $new_pathNmodule_spec = 'App::SeismicUnixGui' . $pathNmodule_spec;
-#
-#		my $result = $new_pathNmodule_spec;
-#		return ($result);
-#
-#	}
-#	else {
-#		carp "missing program name";
-#		return ();
-#	}
-#
-#}
-#
 sub get_path4SeismicUnixGui {
 	my ($self) = @_;
 	if ( length $path4SeismicUnixGui ) {

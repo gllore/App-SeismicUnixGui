@@ -5,7 +5,7 @@ use Moose;
 
 count
 
- PERL PROGRAM NAME: copyNclean_seg_up.pl
+ PERL PROGRAM NAME: copyNclean_segy_up.pl
  AUTHOR: 	Juan Lorenzo
  DATE: 		Nov. 23 2023
 

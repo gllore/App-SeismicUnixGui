@@ -30,7 +30,6 @@ package App::SeismicUnixGui::misc::run_button;
   gets from
   	$decisions
   	$run_button
-  	$name->get_alias_superflow_names
   sets
   	$pre_req_ok
   	
@@ -65,14 +64,14 @@ use aliased 'App::SeismicUnixGui::misc::gui_history';
 
 # potentially used in all packages
 use aliased 'App::SeismicUnixGui::misc::L_SU_global_constants';
-use aliased 'App::SeismicUnixGui::misc::name';;
+#use aliased 'App::SeismicUnixGui::misc::name';;
 use aliased 'App::SeismicUnixGui::misc::whereami';
 use aliased 'App::SeismicUnixGui::messages::message_director';
 
 my $gui_history 		= gui_history->new();
 my $decisions           = decisions->new();
 my $get                 = L_SU_global_constants->new();
-my $name                = name->new();
+#my $name                = name->new();
 my $run_button_messages = message_director->new();
 my $whereami            = whereami->new();
 
@@ -194,7 +193,8 @@ sub _Run_pre_built_superflow {
 #		if ( $run_button->{_is_superflow_select_button} ) {
 #			print("3. run_button,program name is ${$run_button->{_prog_name_sref}}\n");
 #		}
-		my $run_name = $name->get_alias_superflow_names( $run_button->{_prog_name_sref} );
+		my $run_name = ${$run_button->{_prog_name_sref}}; 
+		# tbd $name->get_alias_superflow_names( $run_button->{_prog_name_sref} );
 
 		if ($run_name eq 'immodpg') {
 		 
@@ -205,7 +205,7 @@ sub _Run_pre_built_superflow {
 		# print("4. run_button,program RUN name is $run_name \n");
 
 		# Instruction runs in system
-#		print("4. run_button,running as sh $global_libs->{_script}$run_name \n");
+		# print("4. run_button,running as sh $global_libs->{_script}$run_name \n");
 		system("sh $global_libs->{_script}$run_name");
 
 	} else {

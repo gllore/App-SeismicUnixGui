@@ -485,8 +485,8 @@ sub save {
 		$out_hash_ref->{_ref_values} = $in_hash_ref->{_values_aref};
 
 		$out_hash_ref->{_prog_name_sref} =
-		  $config_superflows->{_program_name_sref};
-
+#		  $in_hash_ref->{_prog_name_sref};
+		  $config_superflows->{_program_name_sref}; # backup
 
 # print("config_superflows,save,out_hash_ref, ${$out_hash_ref->{_prog_name_sref}}\n");
 # print("config_superflows,save,out_hash_ref,@{$out_hash_ref->{_ref_values}}[0]\n");
@@ -496,7 +496,7 @@ sub save {
 		if ( ${ $out_hash_ref->{_prog_name_sref} } eq 'Project' ) {
 
 			# Single special case
-			#		print("config_superflows,save, Project case\n");
+#			print("config_superflows,save, Project case\n");
 			$files_LSU->set_Project_config();
 			$files_LSU->set_prog_name_sref( $out_hash_ref->{_prog_name_sref} )
 			  ;    # scalar ref
@@ -542,7 +542,7 @@ sub save {
 				else {
 					# All other superflows/big_streams
 					$format[0] = $var->{_config_file_format};
-#					print("2. config_superflows, _write,formats =@format  \n");
+					print("2. config_superflows, _write,formats =@format  \n");
 					$files_LSU->set_superflow_config_file_format( \@format );
 				}
 

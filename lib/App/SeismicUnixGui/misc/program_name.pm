@@ -68,7 +68,7 @@ my $superflow_internal_names_h = {
 	_iPick             => 'iPick',
 	_SetProject        => 'SetProject',
 	_iSpectralAnalysis => 'iSpectralAnalysis',
-	_iVelAnalysis      => 'iVelAnalysis',
+	_iVelAnalysis      => 'iVA',
 	_iVA               => 'iVA',
 	_iTopMute          => 'iTopMute',
 	_iBottomMute       => 'iBottomMute',
@@ -106,6 +106,27 @@ $superflow_names_gui[12] = 'temp';                # make last
 
 my $num_superflow_names_gui = scalar @superflow_names_gui;
 
+my $developer_Tools_categories_h ={
+	_Project            => '.',
+	_Sseg2su   			=> 'big_streams',
+	_SetProject         => '.',
+	_Sucat     			=> 'big_streams',
+	_iSpectralAnalysis  => 'big_streams',
+	_iVelAnalysis       => 'big_streams',
+	_iVA                => 'big_streams',
+	_iTopMute        	=> 'big_streams',
+	_iBottomMute  	    => 'big_streams',
+	_Sudipfilt          => 'big_streams',
+	_fk                 => 'big_streams',
+	_Synseis            => 'big_streams',
+	_iPick              => 'big_streams',
+	_immodpg            => 'big_streams',
+	_ProjectBackup      => 'big_streams',
+	_BackupProject      => 'big_streams',
+	_temp               => 'temp',                # make last
+	
+};
+
 =head2 sub _internal
 
 =cut
@@ -117,10 +138,10 @@ sub _internal {
 
 	if ( length $external_name ) {
 
-		# remove underscores
+		# remove any underscores
 		$external_name =~ s/_/\ /;
 		
-		# remove spaces
+		# remove any spaces
         $external_name =~ s/\ //;
         
 #        print("corrected external name = $external_name\n");
@@ -172,6 +193,39 @@ sub get {
 
 		$program_name->{_out} = $out;
 		$result = $out;
+
+	}
+	else {
+		print("program_name, get,missing value\n");
+		$result = ();
+
+	}
+}
+	
+=head2 sub category
+
+=cut
+
+sub category{
+	my ($self) = @_;
+
+	my $result;
+
+	if ( length $program_name->{_in} ) {
+		
+		my $external_name = $program_name->{_in};
+		
+		# remove any underscores
+		$external_name =~ s/_/\ /;
+		
+		# remove any spaces
+        $external_name =~ s/\ //;
+        
+        # look for corresponding internal version of this shorter name
+        my $key               = '_' . $external_name;
+        my $category          = $developer_Tools_categories_h->{$key};
+        $result               = $category;
+#	    print("1. program_name, program_category $external_name(corrected) is $result\n");
 
 	}
 	else {

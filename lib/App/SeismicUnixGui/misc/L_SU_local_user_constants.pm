@@ -114,8 +114,7 @@ sub set_PROJECT_name {
 
     my $HOME = _get_home;
 
-    $PROJECT = $HOME . '/.L_SU/' . $PROJECT_name;
-
+    $PROJECT = $HOME . '/.L_SU/' .'configuration' .'/'.$PROJECT_name;
     $L_SU->{_PROJECT} = $PROJECT;
     return ();
 
@@ -132,6 +131,7 @@ sub get_PROJECT_HOMES_aref {
     
 
     for ( my $i = 0 ; $i < $length ; $i++ ) {
+    	
         $PROJECT_HOMES[$i] = $HOME . '/' . $project_names[$i];
     }
     return ( \@PROJECT_HOMES );
@@ -186,7 +186,7 @@ sub get_user_configuration_Project_config {
     my $user_configuration_Project_config =
       $L_SU->{_user_configuration_Project_config};
 
-# print("L_SU_local_user_constants,_get_user_configuration_Project_config, user_configuration_Project_config: $user_configuration_Project_config\n");
+ print("L_SU_local_user_constants,_get_user_configuration_Project_config, user_configuration_Project_config: $user_configuration_Project_config\n");
 
     return ($user_configuration_Project_config);
 }
@@ -266,7 +266,7 @@ sub _get_ACTIVE_PROJECT {
 =head2 sub get_ACTIVE_PROJECT{
 
 upper case ACTIVE_PROJECT 
-PATH to the defatul Project.config
+PATH to the default Project.config
 
 =cut
 
@@ -457,16 +457,20 @@ sub get_PROJECT_exists {
     my $true  = 1;
 
     my $PROJECT = _get_PROJECT();
-
+   
+#    print("L_SU_local_user_constants,get_PROJECT_exists,PROJECT =$PROJECT \n");
     # includes path
     if ( -d $PROJECT ) {
+    	
         $ans = $true;
+#        print("L_SU_local_user_constants,get_PROJECT_exists,TRUE :$ans\n");
 
-        # print("L_SU_local_user_constants,get_PROJECT_exists,TRUE :$ans\n");
     }
     else {
         $ans = $false;
-    }    # print("L_SU_local_user_constants,get_PROJECT_exists,FALSE :$ans\n");
+#        print("L_SU_local_user_constants,get_PROJECT_exists,FALSE :$ans\n");
+#         print("$PROJECT does not exist\n");
+    }    
     return ($ans);
 }
 
@@ -492,7 +496,7 @@ sub _get_project_names {
 
     foreach my $file (@$ls_ref) {
 
-  # exclude any files whose full name contains the string 'active' i.e. only one
+  # exclude any files whose full name contains the string 'active' i.e., only one.
         next if $file =~ /active/;
 
         # print all other files

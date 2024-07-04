@@ -1112,7 +1112,7 @@ Q. How does Project Tool update the gui parameter values?
 			# collects the file name or folder and displays it				
 			_pre_built_superflow_close_path
 				
-				param_widgets
+				param_widgets4pre_built_streams
 					redisplay_values();
 
 	$L_SU_href = $file_dialog->get_hash_ref();
@@ -3065,5 +3065,19 @@ A.  Following on from the previous questions, if MB3 selected,
          because both fk and Sudipfilt are included her 
          
     Try to keep the use of only internal names within the program, and not the aliased version
+    
+    
+    #####################################################
+    TODO
+    Deprecation TODO: July 2024
+    replace $name with $program_name
+    and consoidate program name definitions into L_SU_global_constants or equivalent
+    Currently progam_name has definitions that are repeated in L_SU_global_constants
+    
+    Not working??
+    project_selector->_get_labels_from_gui
+    
+    But, this is working!
+    project_selector->_get_labels_from_gui
      
            

@@ -400,11 +400,11 @@ sub get {
 
 	 # CASE for previously run
 	 # Tools except Project
-	 #				print(
-	 #"big_streams_param, get,CASE 1A: If progam_sref = a pre-built superflow\n"
-	 #				);
+#	 				print(
+#	 "big_streams_param, get,CASE 1A: If progam_sref = a pre-built superflow\n"
+#	 				);
 
-				# e.g., with tools like Sseg2su.config
+				# i.e., with tools like Sseg2su.config
 				# but not with Project.config
 
 				use Module::Refresh;    # reload updated module
@@ -468,6 +468,9 @@ sub get {
 
 #				print(
 #					"1C big_streams_param,get,using global lib: path is $path\n"
+#				);
+#								print(
+#					"1C big_streams_param,get,using global lib: sub_category=$sub_category_directory\n"
 #				);
 				_set_path($path);
 				_set_sub_category_directory($sub_category_directory);

@@ -72,6 +72,8 @@ my ( @labels_w, @entries_w );
 my ($sunix);
 my ( @param, @values, @args, @check_buttons, @labels );
 my (@on_off_param);
+my $false         = 0;
+my $true          = 1;
 
 =head2 Default Tk settings{
 
@@ -85,6 +87,7 @@ my $L_SU_project_selector = {
 	_labels_w_aref        => '',
 	_check_buttons_w_aref => '',
 	_mw                   => '',
+	_active_project       => $true,
 	_create_new_button    => '',
 	_prog_name            => 'Project',
 };
@@ -356,14 +359,12 @@ $L_SU_project_selector->{_values_w_aref}        = $param_widgets->get_values_w_a
 $L_SU_project_selector->{_labels_w_aref}        = $param_widgets->get_labels_w_aref();
 $L_SU_project_selector->{_check_buttons_w_aref} = $param_widgets->get_check_buttons_w_aref();
 
-# $project_selector	->set_hash_ref($L_SU_project_selector);
-$project_selector->set_check_buttons_w_aref( $L_SU_project_selector->{_check_buttons_w_aref} );
-$project_selector->set_labels_w_aref( $L_SU_project_selector->{_labels_w_aref} );
-$project_selector->set_values_w_aref( $L_SU_project_selector->{_values_w_aref} );
-$project_selector->set_mw( $L_SU_project_selector->{_mw} );
+$project_selector->set_hash_ref($L_SU_project_selector);
 
 # pass the package reference to another package
 # MUST be called before the first gui is started (i.e., set_gui)
+# TODO See if the following lines are included already in the hash transger
+# a few lines above
 $project_selector->set_param_widgets_pkg( $L_SU_project_selector->{_param_widgets_pkg} );
 $project_selector->set_current_program_name( $L_SU_project_selector->{_prog_name} );
 $project_selector->set_message_box_w( $L_SU_project_selector->{_message_box_w} );
@@ -390,10 +391,11 @@ sub _project_selector {
 
 	if ( length $set_method && length $value ) {
 		
-#		print("main,_project_selector,method:$set_method, value:$value\n");
+#		print("L_SU_project_selector,method:$set_method, value:$value\n");
 		
 		$project_selector->$set_method($value);
-
+#		$project_selector->set_hash_ref($L_SU_project_selector);
+        
 	} else {
 		print("_project_selector,no method: $set_method error 1,\n");
 	}

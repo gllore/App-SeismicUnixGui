@@ -53,9 +53,6 @@ my $L_SU_global_constants = L_SU_global_constants->new();
 
 local variables
 
-# print("param_widgets4pre_built_streams, default_param_specs,first entry num=$default_param->{_first_entry_num}\n");
-# print("param_widgets_grey, default_param_specs,first entry num=$default_param->{_first_entry_num}\n");
-
 =cut
 
 my $default_param       = $L_SU_global_constants->param();
@@ -87,12 +84,6 @@ my $param_widgets       = $gui_history->get_defaults();
  all parameters and so we 
  forcibly check for changes always
  
- changes are only allowed for those sunix programs whose spec files
- have a max_index defined
- 
- currently changes in param_widgets package only works with regular flows 
- and not with pre-built superflows
-
 =cut
 
 sub _changes {
@@ -330,7 +321,6 @@ clear the gui completely of 61 parameter values
 61 = current defaulted maximum number of variables in a list box
 
 #	my $safe = $param_widgets->{_length};
-	# print("param_widgets_neutral, gui_full_clear, temp save length $param_widgets_color_href->{_length} \n");
 	# _max_length_in_gui();
 	# print("param_widgets_neutral, gui_full_clear, length used for cleaning $param_widgets_color_href->{_length} \n");
 
@@ -349,7 +339,10 @@ sub gui_full_clear {
 	
 	my $wipe = wipe->new();
     my $max_length = $default_param->{_max_entry_num};
+#    print("param_widgets4pre_built_streams, gui_full_clear, max_length $max_length\n");
+    
 	$wipe->set_range($max_length);
+	$wipe->set_all($param_widgets);
 	$wipe->values();
 	$wipe->labels();
 	$wipe->all_check_buttons();
@@ -1092,13 +1085,6 @@ sub redisplay_values {
 
 			my $control = control->new();
 			
-			#TODO: fully clear the gui first
-
-			# print("1. param_widgets4pre_built_streams,redisplay_values,chkbtn @{$param_widgets->{_check_buttons_settings_aref}}[$i]\n");
-
-			# print("param_widgets4pre_built_streams, redisplay_values, i is $i\n");
-			# print("1. param_widgets4pre_built_streams, redisplay_values, value is @{$values_aref}[$i]\n");
-
 			#  &_changes is invoked if
 			#  there is a new selection after an entry change
 			#  or even just if redisplay is selected

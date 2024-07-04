@@ -273,7 +273,6 @@ sub _get_DATA_DIR_OUT {
 	if ($prog_name) {
 
 		$L_SU_path->set_program_name($prog_name);
-		print("276 iFile\n");
 		my $pathNmodule_spec_w_slash_pm =
 		  $L_SU_path->get_pathNmodule_spec_w_slash_pm();
 		my $pathNmodule_spec_w_colon =
