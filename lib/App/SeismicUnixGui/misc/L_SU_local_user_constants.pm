@@ -186,7 +186,7 @@ sub get_user_configuration_Project_config {
     my $user_configuration_Project_config =
       $L_SU->{_user_configuration_Project_config};
 
- print("L_SU_local_user_constants,_get_user_configuration_Project_config, user_configuration_Project_config: $user_configuration_Project_config\n");
+# print("L_SU_local_user_constants,get_user_configuration_Project_config, user_configuration_Project_config: $user_configuration_Project_config\n");
 
     return ($user_configuration_Project_config);
 }
@@ -645,15 +645,15 @@ sub makconfig {
 
     $ACTIVE_PROJECT = _get_ACTIVE_PROJECT();
     my $PATH_N_file = $ACTIVE_PROJECT . '/Project.config';
-    print("L_SU_local_user_constants,makconfig,PATH_N_file 	: $PATH_N_file\n");
+#    print("L_SU_local_user_constants,makconfig,PATH_N_file 	: $PATH_N_file\n");
     _set_default_Project_config();
     my $default_Project_config = _get_default_Project_config();
-    print(
-"L_SU_local_user_constants,makconfig, default_Project_config: $default_Project_config\n"
-    );
+#    print(
+#"L_SU_local_user_constants,makconfig, default_Project_config: $default_Project_config\n"
+#    );
     manage_dirs_by->make_dir($ACTIVE_PROJECT);
     copy( $default_Project_config, $PATH_N_file );
-    print("L_SU_local_user_constants,makconfig, created $PATH_N_file\n");
+#    print("L_SU_local_user_constants,makconfig, created $PATH_N_file\n");
 
     my $config_name_new = _get_config_name_new();
     my $PATH_N_config_name =
@@ -667,7 +667,7 @@ sub makconfig {
     # reads internals of file Project.config
     my $active_project_name = _get_active_project_name();
     my $PATH                = $CONFIGURATION . '/' . $active_project_name;
-    print("L_SU_local_user_constants,makconfig, created $PATH\n");
+#    print("L_SU_local_user_constants, created $PATH\n");
     manage_dirs_by->make_dir($PATH);
     copy( $default_Project_config, $PATH );
 }
@@ -694,7 +694,7 @@ sub user_configuration_Project_config_exists {
     if ( -e $Project_config ) {
         $ans = $true;
 
-# print("L_SU_local_user_constants,user_configuration_Project_config_exists,Project_config: $Project_config\n");
+# print("L_SU_local_user_constants,user_configuration_Project_config_exists,i.e., $Project_config exists\n");
     }
     else {
         $ans = $false;

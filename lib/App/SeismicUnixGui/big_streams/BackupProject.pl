@@ -53,6 +53,7 @@ our $VERSION = '0.1.0';
 use aliased 'App::SeismicUnixGui::misc::L_SU_local_user_constants';
 use aliased 'App::SeismicUnixGui::configs::big_streams::BackupProject_config';
 use File::Copy;
+use Cwd;
 
 =head2 Instantiate classes:
 
@@ -60,7 +61,7 @@ use File::Copy;
 
 =cut
 
-my $BackupProject_config = BackupProject_config->new();
+my $BackupProject_config      = BackupProject_config->new();
 my $L_SU_local_user_constants = L_SU_local_user_constants->new();
 
 =head2
@@ -70,15 +71,16 @@ my $L_SU_local_user_constants = L_SU_local_user_constants->new();
 =cut
 
 my $success_counter = 0;
+my $CWD             = getcwd();
 
 =head2 Get configuration information
 
 =cut
 
 my ( $CFG_h, $CFG_aref ) = $BackupProject_config->get_values();
-my $project_directory = $CFG_h->{BackupProject}{1}{directory_name};
+my $project_directory    = $CFG_h->{BackupProject}{1}{directory_name};
 
-#print("BackupProject.pl, project_directory = $project_directory \n");
+print("BackupProject.pl, project_directory = $project_directory \n");
 
 $project_directory = 'LiClipse';
 my $HOME           = $L_SU_local_user_constants->get_home();
@@ -101,31 +103,20 @@ my @project_name      = @{ $project_name_aref[0] };
 my $length             = scalar @project_pathNname;
 
 #print("BackupProject.pl,project_pathNnames are=@project_pathNname\n");
-print("BackupProject.pl,project names=@project_name\n");
-print("BackupProject.pl,There are $length existant projects in /.L_SU/configuration\n");
+#print("BackupProject.pl,CONFIGURATION= $CONFIGURATION\n");
+#print("BackupProject.pl,project names=@project_name\n");
+#print("BackupProject.pl,There are $length existant projects in /.L_SU/configuration\n");
 
 =pod
  
- check to see that the project directory exists
+ check to see that the project directory 
+ that is to be backed up exists.
  
 =cut
 
  $L_SU_local_user_constants->set_PROJECT_name($project_directory);
  my $project_exists = $L_SU_local_user_constants->get_PROJECT_exists();
-# print("BackupProject.pl,projects exists? ans=$ans\n");
- 
-#for ( my $i = 0 ; $i < $length ; $i++ ) {
-#	my $x = $project_name[$i];
-#
-#	if ( $x =~ m/$project_directory/ ) {
-#		$success_counter++;
-#
-#	}
-#	else {
-#		#		print ("no\n");
-#	}
-#
-#}
+# print("BackupProject.pl,Does project $project_directory exist? ans=$project_exists\n");
 
 =pod
  
@@ -138,32 +129,41 @@ print("BackupProject.pl,There are $length existant projects in /.L_SU/configurat
 if ( $project_exists ) {
 
 	my $Project_configuration_exists = $L_SU_local_user_constants->user_configuration_Project_config_exists();
+#    print("BackupProject.pl, Project_configuration_exists=$Project_configuration_exists \n");
 
 	if ($Project_configuration_exists) {
 
 #		print("Found a real SeismicUnixGui project!\n");
-		my $from = $L_SU_local_user_constants->get_user_configuration_Project_config();
+		my $from = $CONFIGURATION.'/'.$project_directory.'/'.'Project.config';
 		my $to   = $tar_input;
 		
 		copy( $from, $to );
 		
-        print("BackupProject.pl, copying $from to $to \n");
+#        print("BackupProject.pl, copying $from to $to \n");
 	}
 	else {
 		print("BackupProject.pl,unsuccessful\n");
 		print("Not a real SeismicUnixGui project!\n");
 	}
 
+} else {
+	print("BackupProject.pl,Project for backing up does not exist \n");
 }
 
 =head2 Tarring a project
 
+remove the local path
+
 =cut
 
-my $tar_options      = '-czvf';
+my $ORIGDIR          = '.';
 
-my $perl_instruction = ("tar $tar_options $tar_input.tz $tar_input");
+my $tar_options      = "-czvf ";
 
-print("$perl_instruction\n");
+my $project2tar      = './'.$project_directory;
+
+my $perl_instruction = ("cd /home/gllore; tar $tar_options $project_directory.tz $project2tar");
+
+#print("$perl_instruction\n");
 
 system($perl_instruction);

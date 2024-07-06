@@ -2082,7 +2082,7 @@ Also update:
  				       
      ( I have left a "temp" example you can replace);
  
-Modify the main program, i.e. immodpg.config.pm
+Modify the main program, i.e., immodpg.config.pm
  							    
  	so that it can import values from the configuration file
     by adding the following lines, as an example for immodpg:
@@ -2096,6 +2096,9 @@ Modify the main program, i.e. immodpg.config.pm
  
  Also update config_superflows
      -> save
+     
+     
+ Also update program_name definitions
  
  #########################################################################  
    Q. Inside each spec file, What does binding_index_aref ?
@@ -3036,6 +3039,7 @@ A.  Following on from the previous questions, if MB3 selected,
 		   $pre_built_big_stream->set_sub_ref($sub_ref);
 		   $pre_built_big_stream->select();
 		   
+		   
    Q. What do the different names in superflows/Tools/pre-built flows/big streams mean?
    
    While using L_SU_global_constants.pm:
@@ -3052,7 +3056,7 @@ A.  Following on from the previous questions, if MB3 selected,
     CASE of @superflow_names_gui,    (used by superflow_names_gui_aref),
             @superflow_names         (used by sub superflow_names_aref),
     
-      Are as seen in the GUI 
+      Are as seen differently in the GUI 
       	e.g., fk
     
     CASE of @superflow_config_names   (used by sub superflow_config_names_aref),
@@ -3079,5 +3083,10 @@ A.  Following on from the previous questions, if MB3 selected,
     
     But, this is working!
     project_selector->_get_labels_from_gui
+    
+    
+    When creating the first project using SUG, two configuration
+    files appear in .L_SU/configuration/"Projectname", i.e. Project.config and "Projectname.config"
+    Can not understand ??
      
            

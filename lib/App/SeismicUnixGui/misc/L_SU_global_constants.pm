@@ -67,6 +67,7 @@ my $alias_superflow_names_h = {
 	Sucat             => 'Sucat',
 	immodpg           => 'immodpg',
 	ProjectBackup     => 'BackupProject',
+	ProjectRestore    => 'RestoreProject',	
 	temp              => 'temp',                # make last
 };
 
@@ -96,6 +97,8 @@ my $alias_superflow_spec_names_h = {
 	immodpg           => 'immodpg',
 	ProjectBackup     => 'BackupProject',
 	BackupProject     => 'BackupProject',
+	ProjectRestore    => 'RestoreProject',
+	RestoreProject    => 'RestoreProject',	
 	temp              => 'temp',                # make last
 };
 
@@ -130,6 +133,8 @@ my $superflow_names_h = {
 	_immodpg           => 'immodpg',
 	_BackupProject     => 'BackupProject',
 	_ProjectBackup     => 'Project Backup',
+	_ProjectRestore    => 'Project Restore',
+	_RestoreProject    => 'RestoreProject',	
 	_temp              => 'temp',                # make last
 };
 
@@ -152,7 +157,8 @@ $superflow_names_gui[8]  = 'Synseis';
 $superflow_names_gui[9]  = 'iPick';
 $superflow_names_gui[10] = 'immodpg';
 $superflow_names_gui[11] = 'Project Backup';
-$superflow_names_gui[12] = 'temp';                # make last
+$superflow_names_gui[12] = 'Project Restore';
+$superflow_names_gui[13] = 'temp';                # make last
 
 
 =head2
@@ -177,6 +183,7 @@ my $superflow_names_gui_h ={
 	_iPick              => 'iPick',
 	_immodpg            => 'immodpg',
 	_ProjectBackup      => 'Project Backup',
+	_ProjectRestore     => 'Project Restore',	
 	_temp               => 'temp',                # make last
 
 };
@@ -202,7 +209,8 @@ $superflow_names[10] = 'Sucat';
 $superflow_names[11] = 'iPick';
 $superflow_names[12] = 'immodpg';
 $superflow_names[13] = 'Project Backup';
-$superflow_names[14] = 'temp';                # make last
+$superflow_names[14] = 'Project Restore';
+$superflow_names[15] = 'temp';                # make last
 
 =head2
 
@@ -226,7 +234,8 @@ $alias_superflow_names[10] = 'Sucat';
 $alias_superflow_names[11] = 'iPick';
 $alias_superflow_names[12] = 'immodpg';
 $alias_superflow_names[13] = 'BackupProject';
-$alias_superflow_names[14] = 'temp';                # make last
+$alias_superflow_names[14] = 'RestoreProject';
+$alias_superflow_names[15] = 'temp';                # make last
 
 # to match each alias_superflow_names (above)
 # Tools subdirectories
@@ -271,7 +280,8 @@ $superflow_config_names[10] = 'Sucat';
 $superflow_config_names[11] = 'iPick';
 $superflow_config_names[12] = 'immodpg';
 $superflow_config_names[13] = 'BackupProject';
-$superflow_config_names[14] = 'temp';                # make last
+$superflow_config_names[14] = 'RestoreProject';
+$superflow_config_names[15] = 'temp';                # make last
 
 
 =head2
@@ -295,7 +305,8 @@ $alias_superflow_config_names[10] = 'Sucat';
 $alias_superflow_config_names[11] = 'iPick';
 $alias_superflow_config_names[12] = 'immodpg';
 $alias_superflow_config_names[13] = 'BackupProject';
-$alias_superflow_config_names[14] = 'temp';                          # make last
+$alias_superflow_config_names[14] = 'RestoreProject';
+$alias_superflow_config_names[15] = 'temp';                          # make last
 
 # for the visible buttons in the GUI only
 # e.g., Path and PL_SEISMIC are not visible to the user

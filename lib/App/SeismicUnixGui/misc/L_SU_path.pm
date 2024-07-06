@@ -140,6 +140,8 @@ my $specifications_path_w_colon = {
 
 	_BackupProject => $global_libs_w_colon->{_specs_big_streams} . '::'
 	  . $developer_tools_categories[99],
+	_RestoreProject => $global_libs_w_colon->{_specs_big_streams} . '::'
+	  . $developer_tools_categories[99],
 	_Sudipfilt => $global_libs_w_colon->{_specs_big_streams} . '::'
 	  . $developer_tools_categories[99],
 	_ProjectVariables => $global_libs_w_colon->{_specs_big_streams} . '::'
@@ -761,6 +763,8 @@ in standard linux format
 my $specifications_path_w_slash = {
 
 	_BackupProject => $global_libs_w_slash->{_specs_big_streams} . '/'
+	  . $developer_tools_categories[99],
+	_RestoreProject => $global_libs_w_slash->{_specs_big_streams} . '/'
 	  . $developer_tools_categories[99],
 	_Sudipfilt => $global_libs_w_slash->{_specs_big_streams} . '/'
 	  . $developer_tools_categories[99],

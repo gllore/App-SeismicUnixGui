@@ -1156,7 +1156,7 @@ sub get_w_single_quotes {
 
 	my $first_name_string = $control->{_first_name_string};
 
-	# print("-1.control,w_single_quotes, value is: $first_name_string\n");
+#	print("-1.control,w_single_quotes, value is: $first_name_string\n");
 
 	if ($first_name_string) {
 
@@ -1431,7 +1431,25 @@ sub set_first_name {
 	return ();
 }
 
+=head sub set_first_name_string
+
+=cut
+
+sub set_first_name_string {
+	my ( $self, $infected_string2B ) = @_;
+
+	# print("control,set_first_name_string, infected_string2B: $infected_string2B\n");
+
+	if ($infected_string2B) {
+		$control->{_first_name_string} = $infected_string2B;
+
+#		print("control,set_first_name_string, infected_string2B: $infected_string2B\n");
+	}
+	return ();
+}
+
 =head2 sub set_flow_program_name_sref
+
 Which program in the flow is active
 
 =cut
@@ -1514,6 +1532,7 @@ sub set_infection {
 	}
 	return ();
 }
+
 
 =head2 sub set_flow_prog_names_aref 
 

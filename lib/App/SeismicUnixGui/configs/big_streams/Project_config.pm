@@ -40,7 +40,7 @@ use aliased 'App::SeismicUnixGui::misc::L_SU_global_constants';
 use aliased 'App::SeismicUnixGui::misc::dirs';
 use aliased 'App::SeismicUnixGui::misc::Project_Variables';
 
-my $read              = readfiles->new();
+my $readfiles              = readfiles->new();
 my $control           = control->new;
 my $dirs              = dirs->new();
 my $get               = L_SU_global_constants->new();
@@ -62,8 +62,7 @@ my $Project = {
 	_date                => '',
 	_geomaps_is_selected => '',
 	_geopsy_is_selected  => '',
-	_gmt_is_selected     => '',
-
+#	_gmt_is_selected     => '',
 	#	_gpr_is_selected              => '',
 	_grass__is_selected  => '',
 	_matlab_is_selected  => '',
@@ -234,7 +233,7 @@ sub _basic_dirs {
 #		print("1a. Project_config,_basic_dirs,using local $prog_name_old.config \n");
 		$prog_name_config = $prog_name_old . '.config';
 		my ( $ref_DIR_FUNCTION, $ref_DIR ) =
-		  $read->configs( ( $prog_name . '.config' ) );
+		  $readfiles->configs( ( $prog_name . '.config' ) );
 		$Project->{_ref_DIR} = $ref_DIR;
 
 	#		print(" 1. Project_config,basic_dirs,ref_DIR:@{$Project->{_ref_DIR}}\n");
@@ -264,7 +263,7 @@ sub _basic_dirs {
 		  . $prog_name_new
 		  . '.config'
 		  ;    # i.e. /home/gom/.L_SU/configuration/active/Project.config
-		my ( $ref_DIR_FUNCTION, $ref_DIR ) = $read->configs(
+		my ( $ref_DIR_FUNCTION, $ref_DIR ) = $readfiles->configs(
 			( $ACTIVE_PROJECT . '/' . $prog_name_new . '.config' ) );
 
 		# parameter widget values
@@ -314,7 +313,7 @@ sub _basic_dirs {
 	if ( $prog_name ne '' ) {    # safe condition
 			# print("Project_config,_basic_dirs,reading $prog_name_config\n");
 		my ( $ref_DIR_FUNCTION, $ref_DIR ) =
-		  $read->configs( ($prog_name_config) );
+		  $readfiles->configs( ($prog_name_config) );
 		$Project->{_ref_DIR} = $ref_DIR;
 
 	# print("4. Project_config,_basic_dirs,ref_DIR: @{$Project->{_ref_DIR}}\n");
@@ -381,19 +380,19 @@ sub basic_dirs {
 	my $prog_name_old    = 'Project_Variables';
 	my $prog_name_config = '';
 
-	# 1. check local directory first LEGACY Project_Variables file
+	# 1. check local directory first,  LEGACY Project_Variables file
 	if ( -e $prog_name_old . '.config' ) {
 
 		$prog_name = $prog_name_old;
 
-		#		print("Project_config,basic_dirs,using local $prog_name.config\n");
+#		print("L388 Project_config,basic_dirs,using local $prog_name.config\n");
 		$prog_name_config = $prog_name_old . '.config';
 
 		my ( $ref_DIR_FUNCTION, $ref_DIR ) =
-		  $read->configs( ( $prog_name . '.config' ) );
+		  $readfiles->configs( ( $prog_name . '.config' ) );
 		$Project->{_ref_DIR} = $ref_DIR;
 
-	#	 print(" 1. Project_config,basic_dirs,ref_DIR:@{$Project->{_ref_DIR}}\n");
+#	print(" 1. L 395 Project_config,basic_dirs,ref_DIR:@{$Project->{_ref_DIR}}\n");
 		$Project->{_ref_DIR_FUNCTION} = $ref_DIR_FUNCTION;
 		_change_basic_dirs();
 
@@ -403,10 +402,10 @@ sub basic_dirs {
 
 		$prog_name = $prog_name_new;
 		my ( $ref_DIR_FUNCTION, $ref_DIR ) =
-		  $read->configs( ( $prog_name . '.config' ) );
+		  $readfiles->configs( ( $prog_name . '.config' ) );
 		$Project->{_ref_DIR} = $ref_DIR;
 #		print(
-#			" 3. Project_config,basic_dirs,ref_DIR:@{$Project->{_ref_DIR}}\n");
+#			" 3. L 408 Project_config,basic_dirs,ref_DIR:@{$Project->{_ref_DIR}}\n");
 		$Project->{_ref_DIR_FUNCTION} = $ref_DIR_FUNCTION;
 		_change_basic_dirs();
 
@@ -416,12 +415,12 @@ sub basic_dirs {
 
 		$prog_name = $prog_name_new;
 
-#        print("Project_config,basic_dirs,using $ACTIVE_PROJECT/$prog_name.config\n");
-		my ( $ref_DIR_FUNCTION, $ref_DIR ) = $read->configs(
+#        print("L 418 Project_config,basic_dirs,using $ACTIVE_PROJECT/$prog_name.config\n");
+		my ( $ref_DIR_FUNCTION, $ref_DIR ) = $readfiles->configs(
 			( $ACTIVE_PROJECT . '/' . $prog_name_new . '.config' ) );
 		$Project->{_ref_DIR} = $ref_DIR;
 
-#	 print(" L406 2.Project_config,basic_dirs,ref_DIR:@{$Project->{_ref_DIR}}\n");
+	 print(" L424 2.Project_config,basic_dirs,ref_DIR:@{$Project->{_ref_DIR}}\n");
 		$Project->{_ref_DIR_FUNCTION} = $ref_DIR_FUNCTION;
 		_change_basic_dirs();
 
@@ -2961,7 +2960,7 @@ sub update_configuration_files {
 		_check_buttons_aref => '',
 	};
 
-	my ( $names_aref, $values_aref ) = $read->configs($inbound);
+	my ( $names_aref, $values_aref ) = $readfiles->configs($inbound);
 
 	$project->{_names_aref}  = $names_aref;
 	$project->{_values_aref} = $values_aref;

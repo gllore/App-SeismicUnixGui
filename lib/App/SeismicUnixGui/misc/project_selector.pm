@@ -55,8 +55,8 @@ my $Project        = Project_config->new();
 my $user_constants = L_SU_local_user_constants->new();
 my $get            = L_SU_global_constants->new();
 
-my $false         = 0;
-my $true          = 1;
+my $false = 0;
+my $true  = 1;
 
 =head2  private hash
 
@@ -96,7 +96,7 @@ lcoal variables
 sub _continue {
 	my ($self) = @_;
 
-	#	print("project_selector, _continue\n");
+#	print("project_selector, _continue\n");
 	my $mw = $project_selector->{_mw};
 	$mw->destroy() if Tk::Exists($mw);
 	exit(1);
@@ -347,7 +347,7 @@ sub _get_values_from_gui {
 			$values[$i] = $values_w[$i]->get();
 		}
 
-#		print("project_selector, _get_values_from_gui, @values\n");
+		#		print("project_selector, _get_values_from_gui, @values\n");
 
 		if ( scalar @values ) {    # not 0!
 
@@ -408,7 +408,6 @@ sub _ok {
 
 	# 1. CASES when an existing project is selected
 	# active_project default is true
-#	$project_selector->{_active_project}\n");
 	if ( $project_selector->{_active_project} ) {
 
 		# extra security
@@ -455,7 +454,7 @@ sub _ok {
 
 				$message_box_w->delete( "1.0", 'end' );
 				my $message = $message_director->project_selector(2);
-				  ;    # Create New or select old project
+				;    # Create New or select old project
 				$message_box_w->insert( 'end', $message );
 
 			}
@@ -498,10 +497,10 @@ sub _ok {
 
 	  # Instruction to create the new directories runs in system
 	  # print("project_selector,_ok,create new Project and its directories \n");
-#	  print("project_selector,_ok,copy FROM:$from TO:$to \n");
+	  #	  print("project_selector,_ok,copy FROM:$from TO:$to \n");
 
    #		    print("project_selector,_ok, sh $global_libs->{_script}$run_name \n");
-#			system("sh $global_libs->{_script}$run_name");
+   #			system("sh $global_libs->{_script}$run_name");
 
 #      print("project_selector,_ok,copying new active project configuration file \n FROM:$from TO:$to");
 # kill LSU_project_selector exit with 1
@@ -516,12 +515,11 @@ sub _ok {
 	}
 
 	# CASES 2 and 3 for NEWLY created Project Configuration File and New Project
-
 	elsif ( $project_selector->{_create_new} ) {
 
 		use File::Copy;
 
-#		print("CASES 2 A,B,C project_select,_ok, project newly created \n");
+#		print("CASES 2 A,B,C project_select,_ok, New project creation \n");
 
 		# save the new .Project configure to
 		# /home/username/configuration/active
@@ -547,28 +545,29 @@ sub _ok {
 		# TODO, next line not working
 		#  my $labels_aref = _get_labels_from_gui();
 
-		my $values_aref = _get_values_from_gui();
+		my $values_aref          = _get_values_from_gui();
 		$project->{_values_aref} = $values_aref;
-		
-		# get the new project name to create from the GUI
+
+		# get the new project name to create, from the GUI
 		my @values           = @$values_aref;
 		my $pathNProject     = $values[1];
 		my @parts            = split( '/', $pathNProject );
 		my $new_project_name = $parts[3];
 
-	   # print("project_selector,_ok, pathNProject=$pathNProject\n");
-	   # print("project_selector,_ok, labels @{$project->{_labels_aref}}\n");
-	   # print("project_selector,_ok, values @{$project->{_values_aref}}\n");
+#		print("project_selector,_ok, pathNProject=$pathNProject\n");
+		# print("project_selector,_ok, labels @{$project->{_labels_aref}}\n");
+		# print("project_selector,_ok, values @{$project->{_values_aref}}\n");
 
-       # saves the configuration file ONLY to ./L_SU/configuration/active/Project.config
+        # saves the configuration file ONLY to 
+        # ./L_SU/configuration/active/Project.config
 		$config_superflows->save($project);
 
 		# only after previous save
 		my $active_project_name = $user_constants->get_active_project_name();
 
-#		print(
-#			"project_selector,_ok, active_project_name $active_project_name \n"
-#		);
+		#		print(
+		#			"project_selector,_ok, active_project_name $active_project_name \n"
+		#		);
 		my $CONFIGURATION   = $user_constants->get_CONFIGURATION();
 		my $DEFAULT_PROJECT = $CONFIGURATION . '/' . $active_project_name;
 		my $ACTIVE_PROJECT  = $user_constants->get_ACTIVE_PROJECT();
@@ -589,7 +588,7 @@ sub _ok {
 
 			manage_dirs_by->make_dir($DEFAULT_PROJECT);
 
-          # update active project to lates changed Entry widget values in the project_selector GUI
+# update active project to lates changed Entry widget values in the project_selector GUI
 			my $FROM_project_config =
 			  $ACTIVE_PROJECT . '/' . $default_name . '.config';
 			$user_constants->set_user_configuration_Project_config();
@@ -597,9 +596,9 @@ sub _ok {
 			my $TO_project_config =
 			  $DEFAULT_PROJECT . '/' . $default_name . '.config';
 
-			print(
-"project_selector,_ok, CASE 2A of new project copying from $FROM_project_config to $TO_project_config\n"
-			);
+#			print(
+#"project_selector,_ok, CASE 2A of new project copying from $FROM_project_config to $TO_project_config\n"
+#			);
 			copy( $FROM_project_config, $TO_project_config );
 
 	# Instruction to create the new directories runs in system
@@ -609,8 +608,6 @@ sub _ok {
 			# kill windows but exit with 1
 			_continue();
 
-			# print("project_selector,_ok, kill windows but exit with 1 \n");
-
 		}
 		elsif ( $DEFAULT_PROJECT_exists
 			and $project->{_prog_name_sref} ne $new_project_name )
@@ -619,11 +616,11 @@ sub _ok {
 			# But old default project.config exists
 			manage_dirs_by->make_dir($DEFAULT_PROJECT);
 
-            # Also update active project to latest 
-            # changed Entry widget values in the project_selector GUI
+			# Also update active project to latest
+			# changed Entry widget values in the project_selector GUI
 
 			my $FROM_project_config =
-			  $ACTIVE_PROJECT . '/' . $default_name  . '.config';
+			  $ACTIVE_PROJECT . '/' . $default_name . '.config';
 			$user_constants->set_user_configuration_Project_config();
 
 			# Note the new project name
@@ -659,14 +656,15 @@ sub _ok {
 		}
 	}
 	else {
-					print(
+		print(
 "project_selector,_ok, CASE 3  project with that name exists already. NADA \n"
-			);
-#			 kill windows but exit with 1
-#			_continue();
-#
-#			print("project_selector,_ok, kill windows but exit with 1 \n");
-		
+		);
+
+		#			 kill windows but exit with 1
+		#			_continue();
+		#
+		#			print("project_selector,_ok, kill windows but exit with 1 \n");
+
 	}
 
 	return ();

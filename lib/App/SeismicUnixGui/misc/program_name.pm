@@ -79,6 +79,8 @@ my $superflow_internal_names_h = {
 	_immodpg           => 'immodpg',
 	_BackupProject     => 'BackupProject',
 	_ProjectBackup     => 'BackupProject',
+	_ProjectRestore    => 'RestoreProject',
+	_RestoreProject    => 'RestoreProject',
 	_temp              => 'temp',                # make last
 };
 
@@ -102,7 +104,8 @@ $superflow_names_gui[8]  = 'Synseis';
 $superflow_names_gui[9]  = 'iPick';
 $superflow_names_gui[10] = 'immodpg';
 $superflow_names_gui[11] = 'Project_Backup';
-$superflow_names_gui[12] = 'temp';                # make last
+$superflow_names_gui[12] = 'Project_Restore';
+$superflow_names_gui[13] = 'temp';                # make last
 
 my $num_superflow_names_gui = scalar @superflow_names_gui;
 
@@ -123,6 +126,8 @@ my $developer_Tools_categories_h ={
 	_immodpg            => 'big_streams',
 	_ProjectBackup      => 'big_streams',
 	_BackupProject      => 'big_streams',
+	_ProjectRestore     => 'big_streams',
+	_RestoreProject     => 'big_streams',	
 	_temp               => 'temp',                # make last
 	
 };

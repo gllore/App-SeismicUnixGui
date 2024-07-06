@@ -478,6 +478,7 @@ sub check2write {
 }
 
 =head2 sub copy_default_config
+
 files_LSU,copy_default_config for 
 pre-built/superflows/Tools
 (except Project.config, uses sub write2)
@@ -1364,8 +1365,8 @@ sub write {
 	my @info        = @{ $files_LSU->{_info} };
 	my @CFG         = @{ $files_LSU->{_CFG} };
 
- #  print("files_LSU, write, length:$length,length_info:$length_info \n");
- #  print("files_LSU,write,files_LSU->{_outbound}: $files_LSU->{_outbound} \n");
+#	print("files_LSU, write, length:$length,length_info:$length_info \n");
+#	print("files_LSU,write,files_LSU->{_outbound}: $files_LSU->{_outbound} \n");
 
 	open( my $fh, '>', $files_LSU->{_outbound} )
 	  or die "Can't open parameter file:$!";

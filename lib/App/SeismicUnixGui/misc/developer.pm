@@ -72,10 +72,8 @@ TODO simplify ifs using hashes
 sub _program_category {
 	my ($self) = @_;
 
-	if (   ( defined $developer->{_program_name} )
-		&& ( defined $developer->{_flow_type} )
-		&& $developer->{_program_name} ne $empty_string
-		&& $developer->{_flow_type} ne $empty_string )
+	if (   ( length $developer->{_program_name} )
+		&& ( length $developer->{_flow_type} ) )
 	{
 
 		my $flow_type = $get->flow_type_href();
@@ -152,7 +150,8 @@ sub _program_category {
 				}
 			}
 		}
-		elsif ( $developer->{_flow_type} eq $flow_type->{_pre_built_superflow} )
+		elsif ( $developer->{_flow_type} 
+				eq $flow_type->{_pre_built_superflow} )
 		{
 
 			$program_name->set($prog_name);
@@ -177,14 +176,12 @@ sub _program_category {
 
 =head2 subroutine get_program_categeory
 	
- $developer->{_program_name}
 =cut
 
 sub get_program_sub_category {
 	my ($self) = @_;
 
-	if ( defined $developer->{_program_name}
-		&& $developer->{_program_name} ne $empty_string )
+	if ( length $developer->{_program_name} )
 	{
 
 #		print(

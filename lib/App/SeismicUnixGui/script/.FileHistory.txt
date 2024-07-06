@@ -1,5 +1,6 @@
-/home/gllore/LiClipse/seismics/pl/VetSchool/E/100619/H/1/gllore/a
 /home/gllore/LiClipse/
+/home/gllore/LiClipse.tz
+/home/gllore/LiClipse/seismics/pl/VetSchool/E/100619/H/1/gllore/a
 /home/gllore/Documents/LiClipse Workspace/
 /home/gllore/Documents/
 /home/gllore/DuncanPoint/seismics/pl/VetSchool/E/100619/H/1/gllore/3.su2segy.pl
@@ -9,4 +10,3 @@
 /home/gllore/Desktop/
 /home/gllore/Downloads/
 /home/gllore/DuncanPoint/
-/home/gllore/Fairbanks/
