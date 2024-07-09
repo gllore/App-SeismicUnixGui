@@ -420,7 +420,7 @@ sub basic_dirs {
 			( $ACTIVE_PROJECT . '/' . $prog_name_new . '.config' ) );
 		$Project->{_ref_DIR} = $ref_DIR;
 
-	 print(" L424 2.Project_config,basic_dirs,ref_DIR:@{$Project->{_ref_DIR}}\n");
+#	 print(" L424 2.Project_config,basic_dirs,ref_DIR:@{$Project->{_ref_DIR}}\n");
 		$Project->{_ref_DIR_FUNCTION} = $ref_DIR_FUNCTION;
 		_change_basic_dirs();
 

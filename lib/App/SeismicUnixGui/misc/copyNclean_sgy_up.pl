@@ -10,12 +10,12 @@ count
  DATE: 		Nov. 23 2023
 
  DESCRIPTION 
-     count occurrences of strings in a list
-     output a new file and filename in one
+     Count occurrences of strings in a list
+     Output a new file and filename in one
      directory above current one, which is usually 
      called "raw"
      
-     Removes beginning zeros and renames
+     Remove beginning zeros and renames
      "sgy" extension to "segy" extension
      
      executable shell script exists:
