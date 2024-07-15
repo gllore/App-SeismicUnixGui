@@ -1,3 +1,4 @@
+/home/gllore/Servilleta/seismics/pl/loma_blanca//053018/H/1/gllore/1A.view_sp_clean.pl
 /home/gllore/LiClipse/
 /home/gllore/LiClipse.tz
 /home/gllore/LiClipse/seismics/pl/VetSchool/E/100619/H/1/gllore/a
@@ -9,4 +10,3 @@
 /home/gllore/Documents/MATLAB/
 /home/gllore/Desktop/
 /home/gllore/Downloads/
-/home/gllore/DuncanPoint/
