@@ -161,12 +161,13 @@ remove the local path
 
 my $ORIGDIR          = '.';
 
-my $tar_options      = "-czvf ";
+my $tar_options      = "-hczvf ";
 
 my $project2tar      = './'.$project_directory;
 
 my $perl_instruction = ("cd /home/gllore; tar $tar_options $project_directory.tz $project2tar");
 
 print("$perl_instruction\n");
+print("Will follow symbolic links\n");
 
 system($perl_instruction);
