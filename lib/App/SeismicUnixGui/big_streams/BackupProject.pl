@@ -52,6 +52,7 @@ our $VERSION = '0.1.0';
 
 use aliased 'App::SeismicUnixGui::misc::L_SU_local_user_constants';
 use aliased 'App::SeismicUnixGui::configs::big_streams::BackupProject_config';
+use aliased 'App::SeismicUnixGui::misc::control';
 use File::Copy;
 use Cwd;
 
@@ -63,6 +64,7 @@ use Cwd;
 
 my $BackupProject_config      = BackupProject_config->new();
 my $L_SU_local_user_constants = L_SU_local_user_constants->new();
+my $control                   = control->new();
 
 =head2
 
@@ -79,10 +81,11 @@ my $CWD             = getcwd();
 
 my ( $CFG_h, $CFG_aref ) = $BackupProject_config->get_values();
 my $project_directory    = $CFG_h->{BackupProject}{1}{directory_name};
+$control->set_infection( $project_directory );
+$project_directory       = $control->get_ticksBgone();
 
-print("BackupProject.pl, project_directory = $project_directory \n");
+#print("BackupProject.pl, project_directory = $project_directory \n");
 
-$project_directory = 'LiClipse';
 my $HOME           = $L_SU_local_user_constants->get_home();
 my $tar_input      = $HOME . '/'. $project_directory;
 
@@ -116,13 +119,13 @@ my $length             = scalar @project_pathNname;
 
  $L_SU_local_user_constants->set_PROJECT_name($project_directory);
  my $project_exists = $L_SU_local_user_constants->get_PROJECT_exists();
-# print("BackupProject.pl,Does project $project_directory exist? ans=$project_exists\n");
+#print("BackupProject.pl,Does project $project_directory exist? ans=$project_exists\n");
 
 =pod
  
  check to see that the project directory contains Project.config
  If Project.config exists then
- copy configuration directory as well to the Project for backup
+ copy this file with the Project during the backup
  
 =cut
 
@@ -133,13 +136,13 @@ if ( $project_exists ) {
 
 	if ($Project_configuration_exists) {
 
-#		print("Found a real SeismicUnixGui project!\n");
+		print("Found a real SeismicUnixGui project!\n");
 		my $from = $CONFIGURATION.'/'.$project_directory.'/'.'Project.config';
 		my $to   = $tar_input;
 		
 		copy( $from, $to );
 		
-#        print("BackupProject.pl, copying $from to $to \n");
+        print("BackupProject.pl, copying $from to $to \n");
 	}
 	else {
 		print("BackupProject.pl,unsuccessful\n");
@@ -164,6 +167,6 @@ my $project2tar      = './'.$project_directory;
 
 my $perl_instruction = ("cd /home/gllore; tar $tar_options $project_directory.tz $project2tar");
 
-#print("$perl_instruction\n");
+print("$perl_instruction\n");
 
 system($perl_instruction);
