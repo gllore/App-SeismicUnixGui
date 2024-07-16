@@ -166,10 +166,7 @@ if ( $length_projects == 0 ) {
 	system($instruction2);
 	print("$instruction1\n");
 	print("$instruction2\n");
-
-	#	print("First time a SUG Project is created\n");
-#	print("$instruction1\n");
-#	print("$instruction2\n");
+	#print("First time a SUG Project is created\n");
 
 	$length_projects = 1;
 }
@@ -240,20 +237,18 @@ subfolder
 	$config_superflows->set_program_name( \$prog_name );    # needed
 
 	$control->set_infection( $value[0] );
-	my $home_value = $control->get_ticksBgone();
+	my $home_value          = $control->get_ticksBgone();
 
 	$control->set_infection( $value[1] );
-	my $project_value = $control->get_ticksBgone();
+	my $project_value       = $control->get_ticksBgone();
 
 	$control->set_infection( $value[7] );
-	my $subuser_value = $control->get_ticksBgone();
+	my $subuser_value       = $control->get_ticksBgone();
 
 	$control->set_infection($old_username_from_backup);
 	$old_username_from_backup = $control->get_ticksBgone();
 
-#	print("current_username= $current_username\n");
-#	print("old_username_from_backup=$old_username_from_backup\n");
-	my $dir2find                 = $old_username_from_backup;
+	my $dir2find             = $old_username_from_backup;
 
 	$home_value    =~ s/$old_username_from_backup/$current_username/;
 	$project_value =~ s/$old_username_from_backup/$current_username/;
@@ -287,23 +282,44 @@ subfolder
 
 	# Replace old folder names with current username
 	my $starting_point = $HOME . '/' . $new_project_name;
-#	print(" RestoreProject.pl,project_directory=$new_project_name\n");
+	print(" RestoreProject.pl,project_directory=$new_project_name\n");
 
 #	print(" Looking for directories within the project to be restored...\n");
+	print("old_username_from_backup=$old_username_from_backup\n");
 
-	my @list =
-	  `(find $starting_point -name $dir2find -type d -print 2>/dev/null)`;
-	my $list_length = scalar @list;
 
-	#  print("list is @list\n");
+	my @original_list = `(find $starting_point -name $dir2find -type d -print 2>/dev/null)`;
+	my $original_list_length = scalar @original_list;
+	my @new_list             = @original_list;
 
+	print("list is $original_list_length\n");
+    my $instruction3;
+    
+    
 	# perform replacement here
-	for ( my $i = 0 ; $i < $list_length ; $i++ ) {
+	
+#	print("current_username = $current_username\n");
+#	print("dir2find= $dir2find\n");
+	
+	for ( my $i = 0 ; $i < $original_list_length ; $i++ ) {
+		
+        my $old_directory = $original_list[$i];
+        my $new_directory = $original_list[$i];
+        print("old_directory= $old_directory\n");
 
-		$list[$i] =~ s/$dir2find/$current_username/g;
+	    # remove ambiguous substitutions by makign sure
+	    # the directory name found has no extra letters
+	    # at the start or the end
+		$new_directory =~ s/(?<=\b)(?=$dir2find\b)$dir2find/$current_username/g;
+		chomp $old_directory;
+	    $instruction3 = ("mv $old_directory $new_directory ");
+	    system($instruction3);
+	     print(" new_directory=$new_directory\n");
+		print("$instruction3\n");
+		
 	}
 
-#	print("replaced list is @list\n");
+#	print("replaced list is @new_list\n");
 
 
 

@@ -6,17 +6,19 @@
 \chain.sh
 \tbd.pl
 \cpan-upload.sh
+\tbd
 
 # Skip temporary, backup files,
 # and directories
 \.itemp_
+\.temp
 \.tbd
 \.num_samples
 \/archive
 \/tbd
 \/bck
 \/temp
-\.temp
+\/documentation_conversion
 
 # Skip git-related files
 \.git

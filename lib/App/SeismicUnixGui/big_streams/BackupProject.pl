@@ -77,6 +77,9 @@ my $CWD             = getcwd();
 
 =head2 Get configuration information
 
+Assume Project is at least soft-linked
+from the home dirctory
+
 =cut
 
 my ( $CFG_h, $CFG_aref ) = $BackupProject_config->get_values();
@@ -160,14 +163,13 @@ remove the local path
 =cut
 
 my $ORIGDIR          = '.';
-
 my $tar_options      = "-hczvf ";
-
 my $project2tar      = './'.$project_directory;
 
-my $perl_instruction = ("cd /home/gllore; tar $tar_options $project_directory.tz $project2tar");
+my $perl_instruction = ("cd $HOME; tar $tar_options $project_directory.tz $project2tar");
 
 print("$perl_instruction\n");
-print("Will follow symbolic links\n");
+print("Generic Project.tz file should be in home directory.\n");
+print("Will follow any symbolic links\.n");
 
 system($perl_instruction);
