@@ -190,7 +190,7 @@ sub _get_home {
 
 }
 
-=head2 sub get_ACTIVE_PROJECT{
+=head2 sub _get_ACTIVE_PROJECT{
 
 upper case ACTIVE_PROJECT 
 PATH to the defatul Project.config
@@ -2913,6 +2913,7 @@ sub make_local_dirs {
 
 	return ();
 }
+
 
 =head2 sub get_max_index
 

@@ -56,7 +56,7 @@
  V0.80.00 September 19, 2022 ready for initial uploading to the CPAN
  
  V0.82.3 April 2023, ready for automatic installation and Earthscope summer program 
- V0.82.4,5 27 April 2023, Improved: "How to install environment variables"" 
+ V0.82.4,5 27 April 2023, Improved: "How to install environment variables"
 
  
 =cut

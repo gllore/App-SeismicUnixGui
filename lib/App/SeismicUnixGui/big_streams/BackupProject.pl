@@ -111,7 +111,7 @@ my $length             = scalar @project_pathNname;
 #print("BackupProject.pl,project_pathNnames are=@project_pathNname\n");
 #print("BackupProject.pl,CONFIGURATION= $CONFIGURATION\n");
 #print("BackupProject.pl,project names=@project_name\n");
-#print("BackupProject.pl,There are $length existant projects in /.L_SU/configuration\n");
+#print("Backup_PROJECT_PROJECTProject.pl,There are $length existant projects in /.L_SU/configuration\n");
 
 =pod
  
@@ -122,7 +122,7 @@ my $length             = scalar @project_pathNname;
 
  $L_SU_local_user_constants->set_PROJECT_name($project_directory);
  my $project_exists = $L_SU_local_user_constants->get_PROJECT_exists();
-#print("BackupProject.pl,Does project $project_directory exist? ans=$project_exists\n");
+# print("BackupProject.pl,Does project $project_directory exist? ans=$project_exists\n");
 
 =pod
  
@@ -153,7 +153,7 @@ if ( $project_exists ) {
 	}
 
 } else {
-	print("BackupProject.pl,Project for backing up does not exist \n");
+	print("BackupProject.pl, Project for backing up does not exist \n");
 }
 
 =head2 Tarring a project
@@ -169,7 +169,7 @@ my $project2tar      = './'.$project_directory;
 my $perl_instruction = ("cd $HOME; tar $tar_options $project_directory.tz $project2tar");
 
 print("$perl_instruction\n");
-print("Generic Project.tz file should be in home directory.\n");
-print("Will follow any symbolic links\.n");
+print("Generic \"Project.tz\" file is assumed to live in user\'s home directory\n");
+print("Tarring will follow any symbolic links to their origin\n");
 
 system($perl_instruction);

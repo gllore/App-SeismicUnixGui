@@ -63,8 +63,8 @@ use File::Copy;
 
 =cut
 
-my $RestoreProject_config     = RestoreProject_config->new();
 my $L_SU_local_user_constants = L_SU_local_user_constants->new();
+my $RestoreProject_config     = RestoreProject_config->new();
 my $readfiles                 = readfiles->new();
 my $config_superflows         = config_superflows->new();
 my $control                   = control->new();
@@ -78,98 +78,156 @@ my $control                   = control->new();
 my $success_counter  = 0;
 my $current_username = getpwuid($<);
 my $prog_name        = 'Project';
+my $home_directory;
+my $untar_options         = '-xzvf';
+my $default_tutorial_name = 'Servilleta';
+my $tutorial_name         = '';
 
-=head2 Get configuration information
+my $false                 = 0;
+my $true                  = 1;
+my $ACTIVE_PROJECT_exists = $false;
 
-=cut
+my $HOME          = $L_SU_local_user_constants->get_home();
+my $CONFIGURATION = $L_SU_local_user_constants->get_CONFIGURATION();
 
-my ( $CFG_h, $CFG_aref ) = $RestoreProject_config->get_values();
-my $new_project_name = $CFG_h->{RestoreProject}{1}{directory_name};
-
-$control->set_infection($new_project_name);
-$new_project_name = $control->get_ticksBgone();
-
-print("RestoreProject.pl,  new_project_name = $new_project_name \n");
-
-my $HOME            = $L_SU_local_user_constants->get_home();
-my $tar_input       = $HOME . '/' . $new_project_name;
-my $ACTIVE_PROJECT  = $L_SU_local_user_constants->get_ACTIVE_PROJECT();
-my $CONFIGURATION   = $L_SU_local_user_constants->get_CONFIGURATION();
-my $old_active_file = $tar_input . '/Project.config';
-my $new_active_file =
-  $CONFIGURATION . '/' . $new_project_name . '/Project.config';
-
-#print(" RestoreProject.pl,ACTIVE_PROJECT=$ACTIVE_PROJECT\n");
-
-=head2 head1
-
-Untar a project
+=head2 user input
 
 =cut
 
-my $tar_options      = '-xzvf';
-my $perl_instruction = ("cd $HOME; tar $tar_options $tar_input.tz");
-system($perl_instruction);
+$tutorial_name = $ARGV[0];
+$tutorial_name = $default_tutorial_name;
+
+=head2 STEP 1.
+
+Does configuration information exist?
+
+=cut
+
+$ACTIVE_PROJECT_exists = $L_SU_local_user_constants->get_PROJECT_exists();
+
+=head2 Create an ACTIVE_PROJECT
+
+This is the first time user runs SUG
+and no .LSU directory exists
+
+=cut 
+
+if ( not $ACTIVE_PROJECT_exists
+	and $tutorial_name eq $default_tutorial_name )
+{
+
+	my $tar_input = $HOME . '/' . $tutorial_name;
+
+	print("ACTIVE_PROJECT is missing\n");
+	print("tutorial_name=$tutorial_name\n");
+
+	$L_SU_local_user_constants->makconfig();
+
+=head2 Untar a project
+	
+=cut
+
+	my $perl_instruction = ("cd $HOME; tar $untar_options $tar_input.tz");
+	print("$perl_instruction\n");
+
+	#	system($perl_instruction);
+
+}
+
+elsif ($ACTIVE_PROJECT_exists) {
+
+=head2 STEP 2
+
+Get configuration information
+
+=cut
+
+	# collect new project name from local RestoreProject.config
+	my ( $CFG_h, $CFG_aref ) = $RestoreProject_config->get_values();
+	my $new_project_dir_name = $CFG_h->{RestoreProject}{1}{directory_name};
+
+	$control->set_infection($new_project_dir_name);
+	$new_project_dir_name = $control->get_ticksBgone();
+
+  #	print("RestoreProject.pl, new_project_dir_name = $new_project_dir_name \n");
+
+	my $ACTIVE_PROJECT  = $L_SU_local_user_constants->get_ACTIVE_PROJECT();
+	my $tar_input       = $HOME . '/' . $new_project_dir_name;
+	my $old_active_file = $tar_input . '/Project.config';
+	my $new_active_file =
+	  $CONFIGURATION . '/' . $new_project_dir_name . '/Project.config';
+
+	#	print("RestoreProject.pl, ACTIVE_PROJECT = $ACTIVE_PROJECT\n");
+
+=head2 Untar a project
+	
+=cut
+
+	my $perl_instruction = ("cd $HOME; tar $untar_options $tar_input.tz");
+	system($perl_instruction);
 
 =head2 Verify project is a true SUG project
-
-  1. Collect existant project names
-  2. Confirm that SUG configuration system exists
-  If SUG configuration folders do not exist then
-  this the first time that the user is running
-  SeismicUnixGui. And folders need to be generated
-
+	
+	  1. Collect existant project names
+	  2. Confirm that SUG configuration system exists
+	  If SUG configuration folders do not exist then
+	  this the first time that the user is running
+	  SeismicUnixGui,and folders need to be generated.
+	
 =cut
 
-my @PROJECT_HOME_aref = $L_SU_local_user_constants->get_PROJECT_HOMES_aref();
-my @project_pathNname = @{ $PROJECT_HOME_aref[0] };
-my $length_projects   = scalar @project_pathNname;
+	my @PROJECT_HOME_aref =
+	  $L_SU_local_user_constants->get_PROJECT_HOMES_aref();
+	my @project_pathNname = @{ $PROJECT_HOME_aref[0] };
+	my $length_projects   = scalar @project_pathNname;
 
 #print(
 #"RestoreProject.pl,There are $length_projects existant projects in /.L_SU/configuration\n"
 #);
 
 =pod
- 
+   
  check to see that an old project directory does not exist
- to prevent overwriing an older project.
- 
+ to prevent overwriting an older project.
+   
 =cut
 
-$L_SU_local_user_constants->set_PROJECT_name($new_project_name);
-my $same_project_exists = $L_SU_local_user_constants->get_PROJECT_exists();
+	$L_SU_local_user_constants->set_PROJECT_name($new_project_dir_name);
+	my $same_project_exists = $L_SU_local_user_constants->get_PROJECT_exists();
 
 #print(
-#"RestoreProject.pl,Does a new Project.config file exist for project $new_project_name? ans=$same_project_exists\n"
+#"RestoreProject.pl,Does a new Project.config file exist for project $new_project_dir_name? ans=$same_project_exists\n"
 #);
 
 =head2 prepare useful instructions
 
 =cut
 
-my $instruction1 = 'mkdir -p '.$ACTIVE_PROJECT;
-my $instruction2 = 'mkdir -p '.$CONFIGURATION.'/' . $new_project_name;
+	my $instruction1 = 'mkdir -p ' . $ACTIVE_PROJECT;
+	my $instruction2 =
+	  'mkdir -p ' . $CONFIGURATION . '/' . $new_project_dir_name;
 
 =head2
- 
+
  CASE 1: First time that any Project is built for this user
  in their Home directory
 
  If there are no prior SeismicUnixGui configurations, then create
  the directories
- 
+
 =cut
 
-if ( $length_projects == 0 ) {
+	if ( $length_projects == 0 ) {
 
-	system($instruction1);
-	system($instruction2);
-	print("$instruction1\n");
-	print("$instruction2\n");
-	#print("First time a SUG Project is created\n");
+		system($instruction1);
+		system($instruction2);
+		print("$instruction1\n");
+		print("$instruction2\n");
 
-	$length_projects = 1;
-}
+		print("First time a SUG Project is created\n");
+
+		$length_projects = 1;
+	}
 
 =head2
 
@@ -177,14 +235,14 @@ if ( $length_projects == 0 ) {
  N.B. At least one previous project directory
  (just created or not) must exist
 A Project.config file does not exist
- 
+
 =cut
 
-if ( $length_projects >= 1
-	and not $same_project_exists )
-{
+	if ( $length_projects >= 1
+		and not $same_project_exists )
+	{
 
-	print("This seems like a real SeismicUnixGui project!\n");
+		print("This seems like a real SeismicUnixGui project!\n");
 
 =head2
 
@@ -198,10 +256,10 @@ STEPS
 4. Replace any restored folder names to the current user's name
 5. Create folder in the configuration directory
 6. Copy new Project.config file to the configuration directory
- 
 
 
-=pod 
+
+=pod
 Make configuration directory
 Copy the backed-up copy of
 Project.config into the configuration
@@ -209,124 +267,129 @@ subfolder
 
 =cut
 
-	system($instruction2);
-    print("$instruction2\n");
-	my $from = $old_active_file;
-	my $to   = $new_active_file;
-	copy($from,$to);
-	
-#    print("RestoreProject.pl, Copying from $from to $to\n");
+		system($instruction2);
+		print("$instruction2\n");
+		my $from = $old_active_file;
+		my $to   = $new_active_file;
+		copy( $from, $to );
 
-	my ( $ref_parameter, $ref_value ) = $readfiles->configs($old_active_file);
-	my @value                    = @$ref_value;
-	my $old_username_from_backup = $value[7];
+		#    print("RestoreProject.pl, Copying from $from to $to\n");
+
+		my ( $ref_parameter, $ref_value ) =
+		  $readfiles->configs($old_active_file);
+		my @value                    = @$ref_value;
+		my $old_username_from_backup = $value[7];
 
 #	print(" RestoreProject.pl,old username=$value[7]\n");
 #	print(" RestoreProject.pl,old old_username_from_backup=$old_username_from_backup\n");
 
 =head2
-	
-	Replace old username from backup-up Project.config file
-	with the name of the current username
-	
-	config_superflows has a special configuration file 
-	for program with a name=Project
-	
+  
+  Replace old username from backup-up Project.config file
+  with the name of the current username
+  
+  config_superflows has a special configuration file
+  for program with a name=Project
+  
 =cut
 
-	$config_superflows->set_program_name( \$prog_name );    # needed
+		$config_superflows->set_program_name( \$prog_name );    # needed
 
-	$control->set_infection( $value[0] );
-	my $home_value          = $control->get_ticksBgone();
+		$control->set_infection( $value[0] );
+		my $home_value = $control->get_ticksBgone();
 
-	$control->set_infection( $value[1] );
-	my $project_value       = $control->get_ticksBgone();
+		$control->set_infection( $value[1] );
+		my $project_value = $control->get_ticksBgone();
 
-	$control->set_infection( $value[7] );
-	my $subuser_value       = $control->get_ticksBgone();
+		$control->set_infection( $value[7] );
+		my $subuser_value = $control->get_ticksBgone();
 
-	$control->set_infection($old_username_from_backup);
-	$old_username_from_backup = $control->get_ticksBgone();
+		$control->set_infection($old_username_from_backup);
+		$old_username_from_backup = $control->get_ticksBgone();
 
-	my $dir2find             = $old_username_from_backup;
+		my $dir2find = $old_username_from_backup;
 
-	$home_value    =~ s/$old_username_from_backup/$current_username/;
-	$project_value =~ s/$old_username_from_backup/$current_username/;
-	$subuser_value =~ s/$old_username_from_backup/$current_username/;
+		$home_value    =~ s/$old_username_from_backup/$current_username/;
+		$project_value =~ s/$old_username_from_backup/$current_username/;
+		$subuser_value =~ s/$old_username_from_backup/$current_username/;
 
-	#	print(" home_value   = $home_value\n");
-	#	print(" project_value= $project_value\n");
-	#	print(" subuser_value = $subuser_value\n");
+		#	print(" home_value   = $home_value\n");
+		#	print(" project_value= $project_value\n");
+		#	print(" subuser_value = $subuser_value\n");
 
-	# restore ticks to the strings
-	$control->set_first_name_string($home_value);
-	$home_value = $control->get_w_single_quotes();
+		# restore ticks to the strings
+		$control->set_first_name_string($home_value);
+		$home_value = $control->get_w_single_quotes();
 
-	$control->set_first_name_string($project_value);
-	$project_value = $control->get_w_single_quotes();
+		$control->set_first_name_string($project_value);
+		$project_value = $control->get_w_single_quotes();
 
-	$control->set_first_name_string($subuser_value);
-	$subuser_value = $subuser_value;
+		$control->set_first_name_string($subuser_value);
+		$subuser_value = $subuser_value;
 
-	$value[0] = $home_value;
-	$value[1] = $project_value;
-	$value[7] = $subuser_value;
+		$value[0] = $home_value;
+		$value[1] = $project_value;
+		$value[7] = $subuser_value;
 
-	my $hash_ref = {
-		_names_aref     => $ref_parameter,
-		_values_aref    => \@value,
-		_prog_name_sref => \$prog_name,
-	};
+		my $hash_ref = {
+			_names_aref     => $ref_parameter,
+			_values_aref    => \@value,
+			_prog_name_sref => \$prog_name,
+		};
 
-	$config_superflows->save($hash_ref);
+		$config_superflows->save($hash_ref);
 
-	# Replace old folder names with current username
-	my $starting_point = $HOME . '/' . $new_project_name;
-	print(" RestoreProject.pl,project_directory=$new_project_name\n");
+		# Replace old folder names with current username
+		my $starting_point = $HOME . '/' . $new_project_dir_name;
+		print(" RestoreProject.pl,project_directory=$new_project_dir_name\n");
 
-#	print(" Looking for directories within the project to be restored...\n");
-	print("old_username_from_backup=$old_username_from_backup\n");
+	 #	print(" Looking for directories within the project to be restored...\n");
+		print("old_username_from_backup=$old_username_from_backup\n");
 
+		my @original_list =
+		  `(find $starting_point -name $dir2find -type d -print 2>/dev/null)`;
+		my $original_list_length = scalar @original_list;
+		my @new_list             = @original_list;
 
-	my @original_list = `(find $starting_point -name $dir2find -type d -print 2>/dev/null)`;
-	my $original_list_length = scalar @original_list;
-	my @new_list             = @original_list;
+		print("list is $original_list_length\n");
+		my $instruction3;
 
-	print("list is $original_list_length\n");
-    my $instruction3;
-    
-    
-	# perform replacement here
-	
-#	print("current_username = $current_username\n");
-#	print("dir2find= $dir2find\n");
-	
-	for ( my $i = 0 ; $i < $original_list_length ; $i++ ) {
-		
-        my $old_directory = $original_list[$i];
-        my $new_directory = $original_list[$i];
-        print("old_directory= $old_directory\n");
+		# perform replacement here
 
-	    # remove ambiguous substitutions by makign sure
-	    # the directory name found has no extra letters
-	    # at the start or the end
-		$new_directory =~ s/(?<=\b)(?=$dir2find\b)$dir2find/$current_username/g;
-		chomp $old_directory;
-	    $instruction3 = ("mv $old_directory $new_directory ");
-	    system($instruction3);
-	     print(" new_directory=$new_directory\n");
-		print("$instruction3\n");
-		
+		#	print("current_username = $current_username\n");
+		#	print("dir2find= $dir2find\n");
+
+		for ( my $i = 0 ; $i < $original_list_length ; $i++ ) {
+
+			my $old_directory = $original_list[$i];
+			my $new_directory = $original_list[$i];
+			print("old_directory= $old_directory\n");
+
+			# remove ambiguous substitutions by makign sure
+			# the directory name found has no extra letters
+			# at the start or the end
+			$new_directory =~
+			  s/(?<=\b)(?=$dir2find\b)$dir2find/$current_username/g;
+			chomp $old_directory;
+			$instruction3 = ("mv $old_directory $new_directory ");
+			system($instruction3);
+			print(" new_directory=$new_directory\n");
+			print("$instruction3\n");
+
+		}
+
+		#	print("replaced list is @new_list\n");
+
 	}
-
-#	print("replaced list is @new_list\n");
-
-
+	else {
+		print("RestoreProject.pl,unsuccessful\n");
+		print("You either have never run SUG before or\n");
+		print(
+			"you are trying to overwrite another project with the same name\n");
+	}
 
 }
 else {
-	print("RestoreProject.pl,unsuccessful\n");
-	print("You either have never run SUG before or\n");
-	print("you are trying to overwrite another project with the same name\n");
+	print("RestoreProject.pl, unexpected variable\n");
 }
 
