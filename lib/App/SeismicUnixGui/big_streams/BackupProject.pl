@@ -87,7 +87,7 @@ my $project_directory    = $CFG_h->{BackupProject}{1}{directory_name};
 $control->set_infection( $project_directory );
 $project_directory       = $control->get_ticksBgone();
 
-#print("BackupProject.pl, project_directory = $project_directory \n");
+print("BackupProject.pl, project_directory = $project_directory \n");
 
 my $HOME           = $L_SU_local_user_constants->get_home();
 my $tar_input      = $HOME . '/'. $project_directory;
@@ -108,7 +108,7 @@ my @project_name      = @{ $project_name_aref[0] };
 
 my $length             = scalar @project_pathNname;
 
-#print("BackupProject.pl,project_pathNnames are=@project_pathNname\n");
+print("BackupProject.pl,project_pathNnames are=@project_pathNname\n");
 #print("BackupProject.pl,CONFIGURATION= $CONFIGURATION\n");
 #print("BackupProject.pl,project names=@project_name\n");
 #print("Backup_PROJECT_PROJECTProject.pl,There are $length existant projects in /.L_SU/configuration\n");
@@ -122,7 +122,7 @@ my $length             = scalar @project_pathNname;
 
  $L_SU_local_user_constants->set_PROJECT_name($project_directory);
  my $project_exists = $L_SU_local_user_constants->get_PROJECT_exists();
-# print("BackupProject.pl,Does project $project_directory exist? ans=$project_exists\n");
+ print("BackupProject.pl,Does project $project_directory exist? ans=$project_exists\n");
 
 =pod
  
@@ -135,7 +135,7 @@ my $length             = scalar @project_pathNname;
 if ( $project_exists ) {
 
 	my $Project_configuration_exists = $L_SU_local_user_constants->user_configuration_Project_config_exists();
-#    print("BackupProject.pl, Project_configuration_exists=$Project_configuration_exists \n");
+    print("BackupProject.pl, Project_configuration_exists=$Project_configuration_exists \n");
 
 	if ($Project_configuration_exists) {
 

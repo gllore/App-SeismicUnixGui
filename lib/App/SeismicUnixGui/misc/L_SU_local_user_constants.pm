@@ -66,7 +66,7 @@ sub _get_PROJECT {
 		return ($PROJECT);
 	}
 	else {
-		print("L_SU_local_user_constants,_get_PROJECT, no PROJECT defined\n");
+#		print("L_SU_local_user_constants,_get_PROJECT, no PROJECT defined\n");
 		return ();
 	}
 }
@@ -384,7 +384,7 @@ sub _get_local_or_defaults {
 =head2 sub _get_active_project_name 
 
 lower case active project is the project name
-but must had a _name as suffix get_ACTIVE_PROJECT
+but must have a _name as suffix get_ACTIVE_PROJECT
 because Perl does not distinguish between upper and lower
 case cases.
 Get the project name from the Project.config file
@@ -442,6 +442,50 @@ sub _set_default_Project_config {
 	return ();
 }
 
+=head2 sub get_ACTIVE PROJECT_exists
+
+	does ACTIVE_PROJECT (path)
+	exist
+	
+=cut
+
+sub get_ACTIVE_PROJECT_exists {
+	my ($self) = @_;
+
+	my $false = 0;
+	my $ans   = $false;
+	my $true  = 1;
+
+	my $ACTIVE_PROJECT = _get_ACTIVE_PROJECT();
+
+   print("L_SU_local_user_constants,get_ACTIVE_PROJECT_exists,ACTIVE_PROJECT =$ACTIVE_PROJECT \n");
+   # includes path
+   
+	if ( length $ACTIVE_PROJECT ) {
+
+		if ( -d $ACTIVE_PROJECT ) {
+
+			$ans = $true;
+	        print("L_SU_local_user_constants,get_ACTIVE_PROJECT_exists,TRUE :$ans\n");
+
+		}
+		else {
+			$ans = $false;
+		  print("L_SU_local_user_constants,get_ACTIVE_PROJECT_exists,FALSE :$ans\n");
+		  print("$ACTIVE_PROJECT does not exist\n");
+		}
+		return ($ans);
+
+	}
+	else {
+		
+      $ans = $false;
+#	  print("L_SU_local_user_constants,get_PROJECT_exists,is an empty variable \n");
+      return ($ans);
+	}
+
+}
+
 =head2 sub get_PROJECT_exists
 
 	tests  if a PROJECT (path)
@@ -458,20 +502,20 @@ sub get_PROJECT_exists {
 
 	my $PROJECT = _get_PROJECT();
 
-   # print("L_SU_local_user_constants,get_PROJECT_exists,PROJECT =$PROJECT \n");
+#   print("L_SU_local_user_constants,get_PROJECT_exists,PROJECT =$PROJECT \n");
    # includes path
 	if ( length $PROJECT ) {
 
 		if ( -d $PROJECT ) {
 
 			$ans = $true;
-	#        print("L_SU_local_user_constants,get_PROJECT_exists,TRUE :$ans\n");
+#	        print("L_SU_local_user_constants,get_PROJECT_exists,TRUE :$ans\n");
 
 		}
 		else {
 			$ans = $false;
-		  # print("L_SU_local_user_constants,get_PROJECT_exists,FALSE :$ans\n");
-		  # print("$PROJECT does not exist\n");
+#		  print("L_SU_local_user_constants,get_PROJECT_exists,FALSE :$ans\n");
+#		  print("$PROJECT does not exist\n");
 		}
 		return ($ans);
 
@@ -558,9 +602,6 @@ sub get_project_names {
 sub set_user_configuration_Project_config {
 	  my $self = @_;
 
-#	  my $global_lib        = $L_SU_global_constants->global_libs();
-#	  my $GLOBAL_CONFIG_LIB = $global_lib->{_param};
-
 	  my $HOME           = _get_home;
 	  my $ACTIVE_PROJECT = _get_ACTIVE_PROJECT;
 
@@ -578,9 +619,6 @@ sub set_user_configuration_Project_config {
 
 sub set_user_configuration_Project_config2 {
 	  my $self = @_;
-
-#	  my $global_lib        = $L_SU_global_constants->global_libs();
-#	  my $GLOBAL_CONFIG_LIB = $global_lib->{_param};
 
 	  my $HOME          = _get_home;
 	  my $CONFIGURATION = _get_CONFIGURATION;
@@ -601,9 +639,6 @@ sub set_user_configuration_Project_config2 {
 sub _set_user_configuration_Project_config {
 	  my $self = @_;
 
-#	  my $global_lib        = $L_SU_global_constants->global_libs();
-#	  my $GLOBAL_CONFIG_LIB = $global_lib->{_param};
-
 	  my $HOME           = _get_home;
 	  my $ACTIVE_PROJECT = _get_ACTIVE_PROJECT;
 
@@ -622,8 +657,6 @@ sub _set_user_configuration_Project_config {
 sub _set_user_configuration_Project_config2 {
 	  my $self = @_;
 
-#	  my $global_lib        = $L_SU_global_constants->global_libs();
-#	  my $GLOBAL_CONFIG_LIB = $global_lib->{_param};
 
 	  my $HOME           = _get_home;
 	  my $ACTIVE_PROJECT = _get_ACTIVE_PROJECT;

@@ -1,5 +1,5 @@
-/home/gllore/Servilleta.tz
 /home/gllore/Servilleta/
+/home/gllore/Servilleta.tz
 /home/gllore/Servilleta/seismics/pl/loma_blanca//053018/H/1/gllore/1A.view_sp_clean.pl
 /home/gllore/LiClipse/
 /home/gllore/LiClipse.tz
