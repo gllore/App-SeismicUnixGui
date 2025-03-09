@@ -122,7 +122,7 @@ sub get_pdf {
 		my $inbound_pdf =
 		  $path4SeismicUnixGui . '/doc/' . $help_button_messages->{_item};
 
-		print $inbound_pdf;
+#		print("help_button_messages,get_pdf, $inbound_pdf\n");
 		system("evince $inbound_pdf &");
 
 	}
@@ -167,6 +167,7 @@ sub set_pdf {
 			
 		} else{
 			print("help_button_messages, set_pdf, unexpectedly here\n");
+			print("help_button_messages, set_pdf, not ready for $item\n");
 		}
 
 	}
