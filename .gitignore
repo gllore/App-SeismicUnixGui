@@ -1,5 +1,6 @@
 .metadata
 .project
+.vscode
 chain.sh
 tbd
 Makefile.old

@@ -1,4 +1,4 @@
-
+#!/bin/perl
 =head1 DOCUMENTATION
 
 
