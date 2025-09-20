@@ -1,8 +1,8 @@
-# local pass for V0.87.1
-# All tested july 6. 2024
-# L_SU_path.pm
-# L_SU_global_constants.pm
-# dirs.pm
+# local pass for V0.87.4
+# All tested  9.15.25
+L_SU_path.pm
+L_SU_global_constants.pm
+dirs.pm
 # tbd.pl
 a2su.pm
 algebra_by.pm

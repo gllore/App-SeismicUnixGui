@@ -3,6 +3,8 @@
 \B.FileHistory.txt
 \B.Makefile.PL.swp
 \bchain.sh
+\bjunk
+\bjunk.pl
 \bCHANGES
 \bMYMETA\.
 \btbd.pl
@@ -11,11 +13,13 @@
 # Skip temporary, backup files,
 # and directories
 \barchive/
+\bblib_bck/
 \B.bashrc
 \B.itemp_
 \B.temp
 \B.tbd
 \B.num_samples
+/\.vscode/
 \btbd/
 \bbck/
 \btemp/
