@@ -1,4 +1,3 @@
-.MANIFEST.SKIP.swp
 dist/manifest.pl
 dist/my_uninstall.sh
 dist/uninstall_module.pl
@@ -1737,7 +1736,6 @@ lib/App/SeismicUnixGui/sunix/well/sugassman.pm
 lib/App/SeismicUnixGui/sunix/well/sulprime.pm
 lib/App/SeismicUnixGui/sunix/well/suwellrf.pm
 Makefile
-Makefile.old
 Makefile.PL
 MANIFEST			This list of files
 MANIFEST.bak
@@ -1752,7 +1750,6 @@ t/developer.t
 t/geopsy.t
 t/messages.t
 t/misc.t
-t/misc_files.txt
 t/script.t
 t/specs.t
 t/sunix.t
