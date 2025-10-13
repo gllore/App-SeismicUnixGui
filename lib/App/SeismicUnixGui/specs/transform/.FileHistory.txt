@@ -1,0 +1,8 @@
+/home/gllore/Servilleta/seismics/pl/loma_blanca//053018/H/1/gllore/model_fft.pl
+/home/gllore/Servilleta/seismics/pl/loma_blanca//053018/H/1/gllore/model_fft_phase.pl
+/home/gllore/Servilleta/seismics/pl/loma_blanca//053018/H/1/gllore/model_view.pl
+/home/gllore/Servilleta/seismics/pl/loma_blanca//053018/H/1/gllore/model_phase_shit.pl
+/home/gllore/Servilleta/seismics/pl/loma_blanca//053018/H/1/gllore/view.pl
+/home/gllore/Servilleta/seismics/pl/loma_blanca//053018/H/1/gllore/phase_shit.pl
+/home/gllore/Servilleta/seismics/data/loma_blanca//053018/H/1/su/gllore/60_clean.su
+/home/gllore/Servilleta/seismics/pl/loma_blanca//053018/H/1/gllore/fft.pl

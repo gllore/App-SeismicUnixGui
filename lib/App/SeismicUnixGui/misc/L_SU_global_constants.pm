@@ -859,6 +859,7 @@ sub get_developer_sunix_category_h {
 		_sufft       => $developer_sunix_categories[14],
 		_sugabor     => $developer_sunix_categories[14],
 		_suicepstrum => $developer_sunix_categories[14],
+		_suhilb      => $developer_sunix_categories[14],
 		_suifft      => $developer_sunix_categories[14],
 		_suminphase  => $developer_sunix_categories[14],		
 		_suphasevel  => $developer_sunix_categories[14],
@@ -997,6 +998,7 @@ my @sunix_statsMath_programs = (
 my @sunix_transform_programs = (
 	"dctcomp", "suamp", "succepstrum", "sucepstrum",
 	"sucwt", "succwt", "sufft", "sugabor",
+	"suhilb",
 	"suicepstrum", "suifft", "suphasevel", "suspecfk",
 	"suminphase",
 	"suspecfx", "sutaup",

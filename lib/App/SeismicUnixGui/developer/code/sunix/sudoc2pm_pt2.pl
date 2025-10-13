@@ -53,9 +53,16 @@ $sunix_category_number = 15
 
 =head2 CHANGES and their DATES
 
+automatically modify *_spec to include bindings to directories by
+in including a file within the correct category directory
+e.g., :
+~/Stripped/migration/sumigps_changes.txt
+
+Bindings are used to link a right-click to a directory
+where the output files are stored.
+
 selected changes are taken from files:
 program_name_changes.txt
-
 
 After running this script do the following:
 

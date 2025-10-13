@@ -775,6 +775,8 @@ my $specifications_path_w_colon = {
 	  . $developer_sunix_categories[14],
 	_sugabor => $global_libs_w_colon->{_specs} . '::'
 	  . $developer_sunix_categories[14],
+	_suhilb => $global_libs_w_colon->{_specs} . '::'
+	  . $developer_sunix_categories[14],
 	_suicepstrum => $global_libs_w_colon->{_specs} . '::'
 	  . $developer_sunix_categories[14],
 	_suifft => $global_libs_w_colon->{_specs} . '::'
@@ -1411,6 +1413,8 @@ my $specifications_path_w_slash = {
 	  . $developer_sunix_categories[14],
 	_sugabor => $global_libs_w_slash->{_specs} . '/'
 	  . $developer_sunix_categories[14],
+	_suhilb => $global_libs_w_slash->{_specs} . '/'
+	  . $developer_sunix_categories[14],	  
 	_suicepstrum => $global_libs_w_slash->{_specs} . '/'
 	  . $developer_sunix_categories[14],
 	_suifft => $global_libs_w_slash->{_specs} . '/'

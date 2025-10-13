@@ -25,23 +25,24 @@ ramp
 0. make sure that the documentation
 exists for the program in the 
 "Stripped"  directory
+Even if you do make sure that at least
+one parameter exists e.g. "opt=null"
 
 Modify "nameNnumber.txt" with the correct base
 file name and number
 e.g. susynlv 7
 
 define program ONLY within a
-developer category in L_SU_global_constants.pm 
-L 234
+developer category in ~misc/L_SU_global_constants.pm 
+e.g., _suhilb     => $developer_sunix_categories[14]
 
-define program in two locations within
-L_SU_path for hash and the colon definitions
 
-After running this script
+also, define program in two locations within
+~misc/L_SU_path for hash and the colon definitions
+
+After running this script (sudoc2pm_pt1.pl)
 and before running sudoc2pm_pt2.pl:
 modify "module".config file , as needed
-
-modify *_spec to include bindings to directories
 
 
 =head4 Examples:
@@ -191,10 +192,10 @@ for ( my $i = 0 ; $i < $list_length ; $i++ ) {
 
 		my $ans = scalar @$whole_aref;
 
-#		 print("sudoc2pm_pt1.pl,num_lines= $ans\n");
-#		 for (my $i=0; $i <$ans; $i++) {
-#		 	print("sudoc2pm_pt1.pl,All sunix documentation @{$whole_aref}[$i]\n");
-#		 }
+		 print("sudoc2pm_pt1.pl,num_lines= $ans\n");
+		 for (my $i=0; $i <$ans; $i++) {
+		 	print("sudoc2pm_pt1.pl,All sunix documentation @{$whole_aref}[$i]\n");
+		 }
 
 		$sudoc2pm->{_line_contents} = $sudoc->lines_with('=');
 		my $sudoc_namVal = $sudoc->parameters( $sudoc2pm->{_line_contents} );
