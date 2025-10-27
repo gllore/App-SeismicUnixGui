@@ -2310,10 +2310,7 @@ sub view {
 	 contains main hash which contains all the gui history and \n "
 	);
 
-	#attribute values as well\n\n"
-
-# print(" gui_history, view;contains main hash which contains all the gui history and
-# attribute values as well\n\n");
+   print(" gui_history, view;contains main hash which contains all the gui history and attribute values as well\n\n");
 
 	foreach my $key ( sort keys %$gui_history ) {
 

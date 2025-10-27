@@ -1,25 +1,50 @@
 
 
-Abbreviations in this file:
+Abbreviations
 
-',' are methods/subroutines within a module/package
-';' separates entire modules/packages
-.pm is left out in reference to module names in what follows
+| Symbol                    | Meaning                                                  |
+| :------------------------ | :------------------------------------------------------- |
+| `,`                       | separates methods/subroutines within a module or package |
+| `;`                       | separates entire modules or packages                     |
+| `.pm`                     | omitted when referencing module names                    |
+| `sgy`, `txt`, `bin`, `su` | file extensions for data_in                              |
 
-use sgy txt bin su as extensions to data in
 
 
-INDEX to this file
+Overview
 
-Two types of flow types exist-- those built by the user and those that are pre-built 'superflows'.
+Two primary flow types exist within the system:
 
-User-built flows ( 4 colors) diverge from 'grey_flow.pm', pink_flow.pm, etc.
+    User-built flows
 
-sunix_select.pm uses exclusively 'neutral_flow.pm' 
+    Pre-built “superflows”
 
-Superflows diverge from user-build flows in L_SU via pre_built_superflow.pm
 
-User-built flows can be of 4 colors.
+User-Built Flows
+
+    Represented by four colors, each corresponding to its own module (e.g., grey_flow, pink_flow, etc.).
+
+    Diverge from their respective base modules:
+
+        grey_flow.pm
+
+        pink_flow.pm
+
+        green_flow.pm
+
+        blue_flow.pm
+
+    The module sunix_select.pm uses only neutral_flow.pm.
+
+    Each color flow has an independent namespace, mostly isolated from other components (future refactoring planned).
+
+
+ 
+Superflows
+
+Diverge from user-built flows via pre_built_superflow.pm in the L_SU namespace.
+
+Use distinct logic for execution and file management.
 
 The namespaces for each color flow and superflows are independent,
 for the most part (TODO), of other parts of the program. 
@@ -45,8 +70,22 @@ If there are superflow bindings for opening data files, then these use
 In file_dialog,
        iFile->get_Path gets directory path binding uses.
 
+Developer Notes: Bindings
+Bindings in User-Built Programs
+
+User-built programs that include bindings (e.g., MB3) often use sunix programs.
+These programs locate files via _FileDialog_button.
+
+Each color flow module (e.g., grey_flow.pm, pink_flow.pm, etc.) contains its own _FileDialog_button.
+File Types Supported
+Category	Description
+_Flow	User-built flow files
+_Data, _Data_PL_SEISMIC	Seismic (.su), binary, parameter (.par), and text files
+_Path	Directories or superflow definitions
+
 BINDINGS-for DEVELOPERS
-User-built programs containing bindings (e.g., MB3) (e.g.,those that use sunix programs) 
+User-built programs containing bindings (e.g., MB3) when using sunix programs) 
+
 sunix programs use _FileDialog_button to find files. 
  	'color'_flow
 		_FileDialog_button module lies within each of the 'colored' flows: e.g. grey_flow.pm, pink_flow.pm, etc.
@@ -54,12 +93,15 @@ sunix programs use _FileDialog_button to find files.
 		2) data files e.g. su, binary, par, and plain text files {_Data} [_Data_PL_SEISMIC}
 		and (3) pre_built superflows and directories {_Path}
 		
-Q. For a sunix program with a binding how does the FileDialog get activated?
+
+Common Questions
+Q1. How is the FileDialog activated for a sunix program with a binding?
+Some programs, such as segyread, have bindings that automatically open directories containing SEG-Y files.
+
+For directory definitions, see Project_config.pm.
  
- Individual programs can have bindings, e.g. segyread has the file|tape option
- bound to automatically open the directories that contain segy files 
- (See Project_config.pm for a 
- full description of the many pre-defined directory locations)
+Individual programs can also have bindings, e.g., segyread has the file|tape option
+bound to automatically open the directories that contain segy files 
  
  Q. What are the differences between the Save methods between user-built flows and superflows
  A. Superflows use L_SU->save_button
@@ -71,14 +113,33 @@ Q. For a sunix program with a binding how does the FileDialog get activated?
        L_SU
        color_flow.pm->save_button
  
- Q. What are MB1 bindings for colored listboxes?
- Q. How are colored flow listboxes selected?
- Q. how do I select a colored flow listbox?
- 
- When MB1 is clicked over a colored listbox flow (grey, pink, green or blue)
-  then that colored flow is selected;
- e.g. 	L_SUV0.X.C,_L_SU_flow_bindings(color,flow_select); 
- 		            L_SU->user_built_flows(flow_select), grey_flow->flow_select
+
+  What are MB1 bindings for colored listboxes?
+          L_SU.pl
+		 _L_SU_flow_bindings(color,flow_select);
+
+
+  What happens when I select a colored flow listbox?
+  That depends on whether it is empty or contains an existing flow.
+
+Case of an existing flow
+  When MB1 (left mouse button) is clicked on a colored listbox (grey, pink, green, or blue), 
+that contains an existing flow.
+
+ Example call sequence:
+        L_SU.pl
+		 _L_SU_flow_bindings(color,flow_select); 
+ 		 L_SU->user_built_flows(flow_select)
+		 grey_flow->flow_select
+
+ Call sequence for the Case of an empty flow
+When MB1 (left mouse button) is clicked on a colored listbox (grey, pink, green, or blue), 
+Code will skip the listbox if it is empty
+
+ Example call sequence:
+        L_SU.pl
+		 _L_SU_flow_bindings(color,flow_select); 
+        $L_SU->user_built_flows($method=flow_select)
 
 
 Differences between the following packages:
@@ -109,6 +170,7 @@ Big streams/Superflows/Tools read configuration files and write configuration fi
  For example, make sure that your local configuration file also gets updated accordingly if you change
  the master iSpectralAnalysis.config
  
+Superflow Call Hierarchy
 Main, _L_SU_superflows calls pre_built_superflow
 
        pre_built_superflow, select calls config_superflows
@@ -424,7 +486,7 @@ TODO Idea: build program behaviors using spec files
  	so if ($bad)   provide error message 
  	
 
- For the case of big streams, redisplay the values that exist stored in param_flow:
+ For the case of big streams, redisplay the values that exist--stored in param_flow:
                 $param_widgets->set_values($TkPl_SU->{_values_aref});
 		 		$param_widgets->redisplay_values();
 		 		
@@ -446,7 +508,7 @@ The only place that a flow is checked for how correct its parameters are will be
 time the perl file is run. Programs and their paramters are checked out against the requirements of the spec
 files for the individual programs e.g., suximage.spec
 
-How do I modify a "sunix-type" file? July 24 2018
+Q. How do I modify a "sunix-type" file? July 24 2018
 
 e.g., data_in.pm
 
@@ -3075,7 +3137,7 @@ A.  Following on from the previous questions, if MB3 selected,
     TODO
     Deprecation TODO: July 2024
     replace $name with $program_name
-    and consoidate program name definitions into L_SU_global_constants or equivalent
+    and consolidate program name definitions into L_SU_global_constants or equivalent
     Currently progam_name has definitions that are repeated in L_SU_global_constants
     
     Not working??
@@ -3090,3 +3152,7 @@ A.  Following on from the previous questions, if MB3 selected,
     Can not understand ??
      
            
+PROBLEM" TODO
+		   param_flow variable values for the color_flows are sometimes populated with param_flow variable values from t
+		   the pre_built_superflows.
+Q. How and where do pre_built_superflows store their param_flow values?

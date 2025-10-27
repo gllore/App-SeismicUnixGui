@@ -1,0 +1,249 @@
+
+=pod
+
+=head1 NAME
+
+Flow and Superflow Architecture
+
+=head1 DESCRIPTION
+
+This document provides an overview of the flow and superflow architecture, module relationships,
+and developer conventions. It is written in Perl POD format for inclusion in module documentation.
+
+=head1 ABBREVIATIONS
+
+=over 4
+
+=item * ',' - separates methods or subroutines within a module or package
+
+=item * ';' - separates entire modules or packages
+
+=item * '.pm' - omitted when referencing module names
+
+=item * sgy, txt, bin, su - data file extensions
+
+=back
+
+=head1 OVERVIEW
+
+There are two main flow types in the system:
+
+=over 4
+
+=item 1. User-built flows
+
+=item 2. Pre-built “superflows”
+
+=back
+
+=head2 USER-BUILT FLOWS
+
+=over 4
+
+=item * Represented by four colors, each corresponding to its own module (grey_flow, pink_flow, etc.).
+
+=item * Diverge from their respective base modules such as grey_flow.pm, pink_flow.pm, etc.
+
+=item * sunix_select.pm exclusively uses neutral_flow.pm.
+
+=item * Each color flow has an independent namespace, mostly isolated from other components.
+
+=back
+
+=head2 SUPERFLOWS
+
+=over 4
+
+=item * Diverge from user-built flows through pre_built_superflow.pm in the L_SU namespace.
+
+=item * Use distinct logic for execution and file management.
+
+=item * Share certain dialog and parameter structures with user-built flows, but have separate initialization and save behaviors.
+
+=back
+
+=head1 DIALOG AND FILE INTERACTION
+
+=head2 Run and Save Buttons
+
+Run and Save have independent logic paths:
+
+=over 4
+
+=item * Superflows: C<L_SU, run_button> and C<L_SU, save_button>
+
+=item * User-built: Within color flow modules such as grey_flow.pm
+
+=back
+
+=head2 SaveAs, Data, and Flow Buttons
+
+These use the path:
+
+    L_SU, FileDialog_button
+
+=head2 Superflow File Bindings
+
+Superflows with file-opening capabilities use:
+
+    L_SU, pre_built_superflows
+    pre_built_big_stream->select()
+    _FileDialog_button
+    pre_built_big_stream,select,binding->set()   # binding occurs here
+
+In file_dialog:
+
+    iFile->get_Path
+
+retrieves the directory path that bindings depend on.
+
+=head1 DEVELOPER NOTES — BINDINGS
+
+=head2 Bindings in User-Built Programs
+
+User-built programs that include bindings (e.g., MB3) often use sunix programs,
+which locate files via _FileDialog_button.
+
+Each color flow module (grey_flow.pm, pink_flow.pm) contains its own _FileDialog_button.
+
+=head2 Supported File Types
+
+=over 4
+
+=item * _Flow - User-built flow files
+
+=item * _Data, _Data_PL_SEISMIC - Seismic (.su), binary, parameter, and text files
+
+=item * _Path - Directories or superflow definitions
+
+=back
+
+=head1 COMMON QUESTIONS
+
+=head2 Q1. How is the FileDialog activated for a sunix program with a binding?
+
+Some programs, such as segyread, have bindings that automatically open directories containing SEG-Y files.
+For directory definitions, refer to Project_config.pm.
+
+=head2 Q2. Differences Between “Save” Methods
+
+=over 4
+
+=item * Superflows use C<L_SU->save_button>
+
+=item * User-built flows use C<color_flow.pm->save_button>
+
+=back
+
+Save execution sequence:
+
+    main
+       L_SU
+          color_flow.pm->save_button
+
+=head2 Q3. How are colored listboxes selected (MB1 bindings)?
+
+When MB1 (left mouse button) is clicked on a colored listbox (grey, pink, green, or blue),
+that flow becomes active:
+
+    L_SUV0.X.C, _L_SU_flow_bindings(color, flow_select)
+    L_SU->user_built_flows(flow_select)
+    grey_flow->flow_select
+
+=head1 PACKAGE BEHAVIOR SUMMARY
+
+=head2 whereami
+
+=over 4
+
+=item * Identifies the current widget and its condition.
+
+=item * Operates outside the main program namespace.
+
+=item * Inherited by gui_history.
+
+=back
+
+=head2 conditions_gui
+
+=over 4
+
+=item * Creates a private hash within the main program namespace.
+
+=item * Enables or disables widgets.
+
+=item * Tracks flow index.
+
+=item * Allows modifications to incoming values.
+
+=back
+
+=head2 decisions
+
+=over 4
+
+=item * Evaluates conditions to automate logic within the namespace.
+
+=back
+
+=head1 CONFIGURATION MANAGEMENT
+
+Superflows, big streams, and tools manage configuration files through internal libraries.
+
+=over 4
+
+=item * Parameters are stored in arrays.
+
+=item * External libraries (e.g., Config::Simple) are deprecated.
+
+=item * Some superflows maintain local configuration files such as iSpectralAnalysis.config.
+
+=back
+
+If modifying local configs, ensure that master configs are updated accordingly.
+
+=head1 SUPERFLOW CALL HIERARCHY
+
+    Main
+     └── _L_SU_superflows
+          └── pre_built_superflow
+               └── select
+                    └── config_superflows
+                         └── get_local_or_defaults
+                              └── big_streams_param
+                                   └── su_param
+                                        └── readfiles.pm
+                                             └── configs
+                                                  └── param_widgets
+
+=over 4
+
+=item * big_streams_param extends su_param.
+
+=item * su_param reads variables using readfiles.pm.
+
+=item * readfiles.pm loads configuration data and passes it to param_widgets.
+
+=back
+
+=head1 ADDING CUSTOM PARAMETERS TO SUPERFLOW GUI
+
+Example: Adding the C<geopsy> parameter to the C<Project> superflow.
+
+=head2 Steps
+
+=over 4
+
+=item 1. Locate the target configuration handler (config_superflows or get_local_or_defaults).
+
+=item 2. Add the parameter to the configuration array.
+
+=item 3. Update the corresponding .config file.
+
+=item 4. Ensure param_widgets recognizes the new parameter.
+
+=item 5. Rebuild or reload the GUI to verify changes.
+
+=back
+
+=cut
