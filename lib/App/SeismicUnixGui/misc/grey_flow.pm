@@ -159,8 +159,6 @@ my $user_built = $flow_type->{_user_built};
 my $true       = $var->{_true};
 my $false      = $var->{_false};
 
-#my @empty_array      = (0);                         # length=1
-
 =head2 memory leak saviors
 
 =cut
@@ -190,8 +188,8 @@ my $color_flow = {
 =head2 sub _add2flow
 
 When automatically reading a user-built perl flow and not directed 
-to do so by a user's click of the mouse.
-As when a file is opened
+to do so by a user's click of the mouse,
+as when a file is opened
 Incorporate new program parameter values and labels into the gui
 and save the values, labels and checkbuttons setting in the param_flow
 namespace
@@ -1762,9 +1760,7 @@ hash remains partially undefined in gui_history.pm
 		print(
 "3. color_flow,_update_prior_param_flow,names, color_flow: @{$color_flow_href->{_names_aref}}\n"
 		);
-		print(
-"3.color_flow,_update_prior_param_flow,values, color_flow: @{$color_flow_href->{_values_aref}}\n"
-		);
+
 		print(
 "3.color_flow,_update_prior_param_flow,n, param_widgets:@{$param_widgets->get_labels_aref()}\n"
 		);
@@ -1843,7 +1839,11 @@ sub _update_prior_param_flow {
 		elsif ( $prior_flow_color eq $most_recent_flow_color ) {
 
 			# CASE 2 prior flow must have the same color as the current one
-			# but sunix_select was not previously selected
+			# but neither was sunix_select 
+			# nor pre-built flow program previously immediately selected
+# 					print(
+# "3.color_flow,_update_prior_param_flow,values, color_flow: @{$color_flow_href->{_values_aref}}\n"
+# 		);
 
 			# the checkbuttons, values and names of ONLY the last program used
 			# are stored in param_widgets at any ONE time
@@ -1881,8 +1881,7 @@ sub _update_prior_param_flow {
 				$color_flow_href->{_check_buttons_settings_aref} );
 			$param_flow_color_pkg->set_flow_index($storage_flow_index);
 
-			$param_widgets->set_entry_change_status($false)
-			  ;    # changes are now complete, needwd??
+			$param_widgets->set_entry_change_status($false); # changes are now complete, needed??
 			$color_flow_href->{_last_flow_color} =
 			  $color_flow_href->{_flow_color};
 
@@ -3063,7 +3062,7 @@ sub flow_select {
 
 	my $ans;
 
-	#	print("1. color_flow, flow_select, print out gui_history\n");
+	# print("1. color_flow, flow_select, print out gui_history\n");
 	#	 $gui_history->view();
 
 	$color_flow_href->{_flow_type} = $flow_type->{_user_built};
@@ -3116,7 +3115,7 @@ sub flow_select {
 			# CASE 1 last click was inside this same colored flow
 			# consider prior flow-color changes
 			# that have been made to param_widgets but not updated
-			# unticked strings from GUI are corrected here
+			# correct unticked strings from GUI
 
 			_update_prior_param_flow();
 
@@ -3155,7 +3154,7 @@ sub flow_select {
 				{
 					# CASE 1B FIX MEMORY LOSS
 					# when last selected index was last in program
-					# list, last color flow is the same as this color flow
+					# list, and last color flow was the same as current color flow
 					# but index of current program is less than the last index
 					# of the last program in the flow
 
@@ -3169,9 +3168,6 @@ sub flow_select {
 				$param_flow_color_pkg->set_param_index($save_last_param_widget_index);
 				$param_flow_color_pkg->set_param_value($saved_value);
 				
-# deprecated
-#					$param_flow_color_pkg->set_values_aref(
-#						$last_param_flow_values_w_strings_aref);
 
 				}    # end of memory leak solution for flow_select
 
@@ -3189,10 +3185,9 @@ sub flow_select {
 		}
 		else {
 			# CASE 3  NADA
-			# undeteremined
+			# undetermined
 			# print("13 color_flow, flow_select, unexpected NADA\n");
 		}
-
 
 		# current selection in the flow
 		my $index = $flow_widgets->get_flow_selection($_flow_listbox_color_w);
