@@ -1994,6 +1994,7 @@ sub user_built_flows {
 						# print("1993 L_SU,user_built_flows, pink,print out gui_history\n");
 						# $gui_history->view();
 
+<<<<<<< HEAD
 						# if ($most_recent_button eq 'superflow_select_button') {
 
 							# print("1997 L_SU,user_built_flows, pink, last selection was not a superflow\n");
@@ -2005,6 +2006,18 @@ sub user_built_flows {
 						# 	print("2002 L_SU,user_built_flows, pink, last selection was a pre-built superflow\n");
 						# 	#NADA
 						# }
+=======
+						if ($most_recent_button eq 'superflow_select_button') {
+
+							# print("1997 L_SU,user_built_flows, pink, last selection was not a superflow\n");
+							# print("1997 L_SU,user_built_flows, pink, last selection was a user-built flow item\n");											
+							$pink_flow->flow_select2save_most_recent_param_flow();
+
+						} else {
+							print("2002 L_SU,user_built_flows, pink, last selection was a pre-built superflow\n");
+							#NADA
+						}
+>>>>>>> origin/V0.87.5
 
 					}
 					else {
