@@ -3201,7 +3201,7 @@ sub flow_select {
 		else {
 			# CASE 3  NADA
 			# undeteremined
-			# print("13 color_flow, flow_select, unexpected NADA\n");
+			print("13 color_flow, flow_select, unexpected NADA\n");
 		}
 
 		# LOST
