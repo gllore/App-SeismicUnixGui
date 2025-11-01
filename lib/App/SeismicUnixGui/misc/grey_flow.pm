@@ -3586,9 +3586,9 @@ sub save_button {
 			&& $flow_listbox_color_w )
 		{
 
- # print("CASE 1A color_flow, save_button, last_flow_index=$last_flow_index\n");
- # One parameter index was previously selected
- # Assume that recent selection is valid for this current save
+			# print("CASE 1A color_flow, save_button, last_flow_index=$last_flow_index\n");
+			# One parameter index was previously selected
+			# Assume that recent selection is valid for this current save
 
 			# keep track of flow_selection clicks
 			$flow_listbox_color_w->selectionSet($last_flow_index);
@@ -3618,10 +3618,10 @@ for first time but no listboxes have been occupied previously
 
 	    $gui_history->set_file_status($num_items_in_flow);
 	    my $file_prob_just_opened = $gui_history->get_file_status();
-#	print("file_prob_just_opened=$true\n");
+		#	print("file_prob_just_opened=$true\n");
 
-#		print("color_flow, save_button: writing gui_history.txt\n");
-#		$gui_history->view();
+		#		print("color_flow, save_button: writing gui_history.txt\n");
+		#		$gui_history->view();
 
 		if ( not $memory_leak4save_button_fixed ) {
 
@@ -3667,14 +3667,6 @@ for first time but no listboxes have been occupied previously
 				$param_flow_color_pkg->set_flow_index($max_index_in_flow);
 				$param_flow_color_pkg->set_param_index($save_last_param_widget_index);
 				$param_flow_color_pkg->set_param_value($save_last_param_widget_value);
-
-# needed?			 
-#                $param_widgets->set_index( $save_last_param_widget_index );
-#                $param_widgets->set_value( $save_last_param_widget_value );
-
-# deprecated
-#				$param_flow_color_pkg->set_values_aref(
-#					\@save_last_param_widget_values );
 
 				$param_widgets->redisplay_values();
 

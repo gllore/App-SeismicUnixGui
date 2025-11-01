@@ -93,27 +93,25 @@ my $L_SU_href            = $gui_history->get_defaults();
 my $flow_type        = $get->flow_type_href();
 my $save_button      = save_button->new();
 my $run_button       = run_button->new();
-my $grey_flow        = grey_flow->new();
-my $pink_flow        = pink_flow->new();
-my $green_flow       = green_flow->new();
-my $blue_flow        = blue_flow->new();
-my $neutral_flow     = neutral_flow->new();
 my $message_director = message_director->new();
 
 =head2
-share the following parameters in same name 
-space
-
-flow_listbox_grey_w  -left listbox, input by user selection
-flow_listbox_green_w  -right listbox,input by user selection
-sunix_listbox   -choice of listed sunix modules in a listbox
- 
-36 off
-
+------------------------------------------------------------
+Instantiate flow objects for each color and store them in a hash
+Keys are color names; values are object instances of their modules
+------------------------------------------------------------
 =cut
 
-my ($mw);
-my ($parameter_values_button_frame);
+my $color_flow_h = {
+	'grey'    => grey_flow->new(),     # user-built "pink" flow
+    'pink'    => pink_flow->new(),     # user-built "pink" flow
+    'green'   => green_flow->new(),    # user-built "green" flow
+    'blue'    => blue_flow->new(),     # user-built "blue" flow
+    'neutral' => neutral_flow->new(),  # "neutral" flow, used for system tasks
+};
+
+my ( $mw);
+my ( $parameter_values_button_frame);
 my ( $parameter_names_frame, $parameter_values_frame );
 my (
     $flow_listbox_grey_w,  $flow_listbox_pink_w,
@@ -305,26 +303,27 @@ sub _set_user_built_flow_type {
 	return ();
 }
 
-=head2 sub _FileDialog_button_Delete
+# =head2 sub _FileDialog_button_Delete
 
-is color-listbox-neutral
+# is color-listbox-neutral
    
-=cut
+# =cut
 
-sub _FileDialog_button_Delete {
+# sub _FileDialog_button_Delete {
 
-	my ( $self, $dialog_type_sref ) = @_;
+# 	my ( $self, $dialog_type_sref ) = @_;
 
-	# opens file and populates GUI
-	$L_SU_href->{_flow_color} = $neutral_flow->get_flow_color();
-	$neutral_flow->set_hash_ref($L_SU_href);
-	$neutral_flow->FileDialog_button($dialog_type_sref);
+# 	# opens file and populates GUI
+# 	my $color                 = 'neutral'
+# 	$L_SU_href->{_flow_color} = $color_flow_h->{$color}->get_flow_color();
+# 	$color_flow_h->{$color}->set_hash_ref($L_SU_href);
+# 	$color_flow_h->{$color}->FileDialog_button($dialog_type_sref);
 
-	# $L_SU_href->{_flow_color} = $grey_flow->get_flow_color();
+# 	# $L_SU_href->{_flow_color} = $grey_flow->get_flow_color();
 
-	return ();
+# 	return ();
 
-}
+# }
 
 =head2 sub _FileDialog_button_Open
    
@@ -546,14 +545,14 @@ sub _FileDialog_button_Open {
 #				);
 
 #	            print("1.  L_SU,FileDialog_button, color is $L_SU_href->{_flow_color}\n");
-#				print("CASE 3A 1.L_SU, FileDialog_button, $which_color will be occupied\n");
+#				print("CASE 3A 1.L_SU, FileDialogS_button, $which_color will be occupied\n");
 
 			# opens file and populates GUI
-			$grey_flow->set_hash_ref($L_SU_href);
-			$grey_flow->FileDialog_button($dialog_type_sref);
-			$L_SU_href->{_flow_color} = $grey_flow->get_flow_color();
-			my $Flow_file_exists = $grey_flow->get_Flow_file_exists();
-			my $perl_flow_errors = $grey_flow->get_perl_flow_errors();
+			$color_flow_h->{$color}->set_hash_ref($L_SU_href);
+			$color_flow_h->{$color}->FileDialog_button($dialog_type_sref);
+			$L_SU_href->{_flow_color} = $color_flow_h->{$color}->get_flow_color();
+			my $Flow_file_exists = $color_flow_h->{$color}->get_Flow_file_exists();
+			my $perl_flow_errors = $color_flow_h->{$color}->get_perl_flow_errors();
 
 			if (   $Flow_file_exists
 				&& $perl_flow_errors eq $false )
@@ -605,11 +604,11 @@ sub _FileDialog_button_Open {
 #				print("CASE 3B 1.L_SU,FileDialog_button, $which_color will be occupied\n");
 
 			# opens file and populates GUI
-			$pink_flow->set_hash_ref($L_SU_href);
-			$pink_flow->FileDialog_button($dialog_type_sref);
-			$L_SU_href->{_flow_color} = $pink_flow->get_flow_color();
-			my $Flow_file_exists = $pink_flow->get_Flow_file_exists();
-			my $perl_flow_errors = $pink_flow->get_perl_flow_errors();
+			$color_flow_h->{$color}->set_hash_ref($L_SU_href);
+			$color_flow_h->{$color}->FileDialog_button($dialog_type_sref);
+			$L_SU_href->{_flow_color} = $color_flow_h->{$color}->get_flow_color();
+			my $Flow_file_exists = $color_flow_h->{$color}->get_Flow_file_exists();
+			my $perl_flow_errors = $color_flow_h->{$color}->get_perl_flow_errors();
 
 			if (   $Flow_file_exists
 				&& $perl_flow_errors eq $false )
@@ -663,11 +662,11 @@ sub _FileDialog_button_Open {
 #				print("CASE 3C 1.L_SU,FileDialog_button, $which_color will be occupied\n");
 #
 # opens file and populates GUI
-			$green_flow->set_hash_ref($L_SU_href);
-			$green_flow->FileDialog_button($dialog_type_sref);
-			$L_SU_href->{_flow_color} = $green_flow->get_flow_color();
-			my $Flow_file_exists = $green_flow->get_Flow_file_exists();
-			my $perl_flow_errors = $green_flow->get_perl_flow_errors();
+			$color_flow_h->{$color}->set_hash_ref($L_SU_href);
+			$color_flow_h->{$color}->FileDialog_button($dialog_type_sref);
+			$L_SU_href->{_flow_color} = $color_flow_h->{$color}->get_flow_color();
+			my $Flow_file_exists = $color_flow_h->{$color}->get_Flow_file_exists();
+			my $perl_flow_errors = $color_flow_h->{$color}->get_perl_flow_errors();
 
 			if (   $Flow_file_exists
 				&& $perl_flow_errors eq $false )
@@ -720,11 +719,11 @@ sub _FileDialog_button_Open {
 #   print("CASE 3D 1.L_SU,FileDialog_button, $which_color will be occupied\n");
 
 			# opens file and populates GUI
-			$blue_flow->set_hash_ref($L_SU_href);
-			$blue_flow->FileDialog_button($dialog_type_sref);
-			$L_SU_href->{_flow_color} = $blue_flow->get_flow_color();
-			my $Flow_file_exists = $blue_flow->get_Flow_file_exists();
-			my $perl_flow_errors = $blue_flow->get_perl_flow_errors();
+			$color_flow_h->{$color}->set_hash_ref($L_SU_href);
+			$color_flow_h->{$color}->FileDialog_button($dialog_type_sref);
+			$L_SU_href->{_flow_color} = $color_flow_h->{$color}->get_flow_color();
+			my $Flow_file_exists = $color_flow_h->{$color}->get_Flow_file_exists();
+			my $perl_flow_errors = $color_flow_h->{$color}->get_perl_flow_errors();
 
 			if (   $Flow_file_exists
 				&& $perl_flow_errors eq $false )
@@ -816,9 +815,9 @@ sub _FileDialog_button_Open {
 
 		_set_user_built_flow_type();
 
-		$grey_flow->set_hash_ref($L_SU_href);
-		$grey_flow->FileDialog_button($dialog_type_sref);
-		$L_SU_href->{_flow_color} = $grey_flow->get_flow_color();
+		$color_flow_h->{$color}->set_hash_ref($L_SU_href);
+		$color_flow_h->{$color}->FileDialog_button($dialog_type_sref);
+		$L_SU_href->{_flow_color} = $color_flow_h->{$color}->get_flow_color();
 
 	}
 	else {
@@ -1010,53 +1009,6 @@ sub help_menubutton {
 	return ();
 }
 
-#ChatGPT
-#sub help_menubutton {
-#    my ($self, $install_option_ref) = @_;
-#
-#    # Fetch the help menubutton type map
-#    my $help_menubutton_type = $get->help_menubutton_type_href();
-#
-#    # Ensure the install option is provided
-#    unless ($install_option_ref && length $$install_option_ref) {
-#        carp("L_SU, help_menubutton: missing value");
-#        return;
-#    }
-#
-#    # Define the action for the different help options
-#    my %help_actions = (
-#        $help_menubutton_type->{_About}             => \&help_button_action("_About"),
-##        $help_menubutton_type->{_InstallationGuide} => \&help_button_pdf_action('_InstallationGuide'),
-##        $help_menubutton_type->{_Tutorial}          => \&help_button_pdf_action('_Tutorial'),
-#    );
-#
-#    my $option = $$install_option_ref;
-#    print("L_SU,help_menubutton, option=$option\n");
-#    if (exists $help_actions{$option}) {
-#        # Call the appropriate function for the help option
-#        $help_actions{$option}->($option);
-#    }
-#    else {
-#        carp("L_SU, cannot provide help for option: $option");
-#    }
-#
-#    return;
-#}
-#
-## Helper subroutines for the different help options
-#sub help_button_action {
-#    my ($option) = @_;
-#    print("L_SU,help_button_action,option=$option\n");
-#    my $item = $alias_help_menubutton_label_h->{$option};
-#    $message_director->help_button($item);
-#}
-#
-#sub help_button_pdf_action {
-#    my ($option) = @_;
-#    my $item = $alias_help_menubutton_label_h->{$option};
-#    $message_director->help_button_pdf($item);
-#}
-
 
 =head2 sub initialize my dialogs
 
@@ -1222,30 +1174,30 @@ sub set_run_button {
 					my $this_color           = $flow_color;
 					my $_flow_name_out_color = '_flow_name_out_' . $this_color;
 
-					my $temp_hash;
-					if ( $flow_color eq 'grey' ) {
+					# my $temp_hash;
+					# if ( $flow_color eq 'grey' ) {
 
-						$temp_hash = $grey_flow->get_hash_ref();
+					my $temp_hash = $color_flow_h->{$flow_color}->get_hash_ref();
 
-					}
-					elsif ( $flow_color eq 'pink' ) {
+					# }
+					# elsif ( $flow_color eq 'pink' ) {
 
-						$temp_hash = $pink_flow->get_hash_ref();
+					# 	$temp_hash = $pink_flow->get_hash_ref();
 
-					}
-					elsif ( $flow_color eq 'green' ) {
+					# }
+					# elsif ( $flow_color eq 'green' ) {
 
-						$temp_hash = $green_flow->get_hash_ref();
+					# 	$temp_hash = $green_flow->get_hash_ref();
 
-					}
-					elsif ( $flow_color eq 'blue' ) {
+					# }
+					# elsif ( $flow_color eq 'blue' ) {
 
-						$temp_hash = $blue_flow->get_hash_ref();
+					# 	$temp_hash = $blue_flow->get_hash_ref();
 
-					}
-					else {
-						print("L_SU, unexpected flow color\n");
-					}
+					# }
+					# else {
+					# 	print("L_SU, unexpected flow color\n");
+					# }
 
 # TODO do we need a temp_hash or is this legacy code from before gui_history existed? 7.14.21
 					$L_SU_href->{_has_used_SaveAs_button} =
@@ -1611,14 +1563,14 @@ sub handle_user_built_flow {
     }
 
     # Map flow colors to corresponding flow objects
-    my %flow_map = (
-        grey  => $grey_flow,
-        pink  => $pink_flow,
-        green => $green_flow,
-        blue  => $blue_flow,
-    );
+    # my %flow_map = (
+    #     grey  => $grey_flow,
+    #     pink  => $pink_flow,
+    #     green => $green_flow,
+    #     blue  => $blue_flow,
+    # );
 
-    my $flow_object = $flow_map{$flow_color};
+    my $flow_object = $color_flow_h->{$flow_color};
 
     unless ($flow_object) {
         carp("L_SU, set_save_button: unexpected flow color");
@@ -1729,18 +1681,7 @@ sub set_param_widgets {
 	return ();
 }
 
-=head2 sub user_built_flows
-
- USE:
-
-  for any colored flow
- to delete an item from a flow
- 'delete_from_flow_button'
- to move up and down a list of flow items
- 'flow_item_up_arrow_button'
- 'flow_item_down_arrow_button '
- 'delete_whole_flow_button '
- add2flows
+=head2 sub user_built_flows/$color
  
  sunix_listbox get_help (MB3)
  flow-item selection ('flow_select') (MB1)
@@ -1763,637 +1704,202 @@ return changes to $L_SU_href without altering other original values
  			
  listbox color is selected, e.g., with a MB1 click in Main
 
+print("10. L_SU,user_built_flows, color=neutral,after MB1 occupied_listboxes: @{$L_SU_gui->{_vacant_listbox_aref}}\n");
+
+print("L_SU,start of user_built_flows, occupied listboxes= @{$L_SU_gui->{_occupied_listbox_aref}} \n");
+print("L_SU,user_built_flows, occupied listboxes= @{$L_SU_gui->{_vacant_listbox_aref}} \n");
+
+Determine:
+ARe we dealing with a color flow ?
+Is color flow listbox occupied ?
+Skip the listbox if it is empty but
+don't skip the listbox if it contains a flow
+
+Is particular colore flow listbox occupied ?
+A prior flow should exist in the list box
+
+This module is used by any colored flow
+delete_from_flow_button,
+delete_whole_flow_button, which
+deletes the whole flow completely, such as
+when deleting the last item in a flow
+This option is also used for moving item up or down a flow
+ add2flows
+
 =cut
+
 
 sub user_built_flows {
 	my ( $self, $method ) = @_;
 
-	my $color = _get_flow_color;
-	my $idx;
+	my $color     = _get_flow_color;
+	my $color_idx;
+
+	#---------------------------------
+	# Validate and map color to index
+	#---------------------------------
+	if ( $color =~ /^(grey|pink|green|blue|neutral)$/ ) {
+
+		# Assign a number based on the color name
+		$color_idx =
+			  $color eq 'grey'  ? 0
+			: $color eq 'pink'  ? 1
+			: $color eq 'green' ? 2
+			: $color eq 'blue'  ? 3
+			: undef;    # 'neutral' or anything else
+
+		print("color = $color, color_idx = $color_idx\n");
+
+		# Optional: handle neutral case separately
+		print("color should = neutral\n") if $color eq 'neutral';
 
-	# Dealing with a color flow ?
-	# Is color flow listbox occupied ?
-	# Skip the listbox if it is empty
-	# Don't skip the listbox if it contains a flow
-
-	if (   $color eq 'grey'
-		|| $color eq 'pink'
-		|| $color eq 'green'
-		|| $color eq 'blue'
-		|| $color eq 'neutral' )
-	{
-
-		if ( $color eq 'grey' ) {
-			$idx = 0;
-		}
-		elsif ( $color eq 'pink' ) {
-			$idx = 1;
-		}
-		elsif ( $color eq 'green' ) {
-			$idx = 2;
-		}
-		elsif ( $color eq 'blue' ) {
-			$idx = 3;
-		}
-		elsif ( $color eq 'neutral' ) {
-
-			# print("color should = neutral\n");
-		}
-		else {
-			print("L_SU,user_built_flows,unexpected value  \n");
-		}
-
-#		print("L_SU,start of user_built_flows, occupied listboxes= @{$L_SU_gui->{_occupied_listbox_aref}} \n");
-#		print("L_SU,user_built_flows, occupied listboxes= @{$L_SU_gui->{_vacant_listbox_aref}} \n");
-
-		if ( $color eq 'grey' ) {
-
-			# Dealing with the grey flow ?
-			# Is grey flow listbox occupied ?
-			# A prior flow should exist in the list box
-			# Skip the listbox if there is no flow already in it
-			# This module is used by delete_from_flow_button,
-			# and delete_whole_flow_button, which
-			# deletes the whole flow completely
-			# e.g., when deleting the last item in a flow
-			# or deleting the whole flow at once
-			# This option is also used for moving item up or down a flow
-
-			if ( @{ $L_SU_gui->{_occupied_listbox_aref} }[0] == $true ) {
-
-				# flow already exists
-				# bind flow parameters to the opening files
-				$grey_flow->set_hash_ref($L_SU_href);
-				$grey_flow->set_occupied_listbox_aref(
-					$L_SU_gui->{_occupied_listbox_aref} );
-				$grey_flow->set_vacant_listbox_aref(
-					$L_SU_gui->{_vacant_listbox_aref} );
-
-				if ( $method eq 'flow_select' ) {
-
-					my $prior_flow_color =
-					  ( $L_SU_href->{_flow_select_color_href} )->{_prior};
-					my $most_recent_flow_color =
-					  ( $L_SU_href->{_flow_select_color_href} )->{_most_recent};
-
-					if ( $prior_flow_color eq $most_recent_flow_color ) {
-
-						# CASE 1 if selecting the same flow color more than once
-						$grey_flow->$method;
-
-					}
-					elsif ( $prior_flow_color ne $most_recent_flow_color ) {
-
-					# CASE 2 if selecting  a different color flow than last time
-						$grey_flow->flow_select2save_most_recent_param_flow();
-
-					}
-					else {
-						print("2. L_SU, user_built_flows, bad value\n");
-					}
-
-					$L_SU_href = $grey_flow->get_hash_ref();
-					$L_SU_gui->{_occupied_listbox_aref} =
-					  $color_listbox->get_flow_listbox_occupancy_aref();
-					$L_SU_gui->{_vacant_listbox_aref} =
-					  $color_listbox->get_flow_listbox_vacancy_aref();
-
-#					print("1. L_SU, user_built_flows, flow_select  grey, L_SU_gui->{_occupied_listbox_aref}: @{$L_SU_gui->{_occupied_listbox_aref}}\n ");
-
-				}
-				elsif ( $method ne 'flow_select' ) {
-
-					$grey_flow->$method;
-
-#				print("2. L_SU, user_built_flows, NOT flow_select grey, occupied listboxes are: @{$L_SU_gui->{_occupied_listbox_aref}}\n ");
-
-				}
-				else {
-					print("NADA L_SU,user_built_flows, skip this method\n");
-				}
-
-				$L_SU_href = $grey_flow->get_hash_ref();
-
-				# transfer any updates from color_flows to the private hash on
-				# the state of occupancy of vacancy of color flow listboxes
-				$color_listbox
-				  ->set_flow_listbox_next_available_occupancyNvacancy_aref(
-					$L_SU_href->{_occupied_listbox_aref} );
-				$L_SU_gui->{_occupied_listbox_aref} =
-				  $color_listbox->get_flow_listbox_occupancy_aref();
-				$L_SU_gui->{_vacant_listbox_aref} =
-				  $color_listbox->get_flow_listbox_vacancy_aref();
-
-#				print("3. L_SU, user_built_flows, grey,L_SU_href: @{$L_SU_href->{_occupied_listbox_aref}} , \n");
-#				print("3. L_SU, user_built_flows, grey,L_SU_gui: @{$L_SU_gui->{_occupied_listbox_aref}}, \n");
-
-			}
-			elsif ( @{ $L_SU_gui->{_occupied_listbox_aref} }[0] == $false ) {
-
-			# CASE: A flow does not YET exist in ths colored flow box
-			# This flow listbox color is available
-			# indicate preferred next_available occupation of this listbox color
-
-				if ( $method eq 'add2flow_button' ) {
-
-					$grey_flow->set_hash_ref($L_SU_href);
-					$grey_flow->set_occupied_listbox_aref(
-						$L_SU_gui->{_occupied_listbox_aref} );
-					$grey_flow->set_vacant_listbox_aref(
-						$L_SU_gui->{_vacant_listbox_aref} );
-
-					# must precede add2flow	method
-					$gui_history->set_flow_select_color($color);
-
-	#					print("first time add2flow : L_SU,user_built_flows,method=$method\n");
-					$grey_flow->$method;
-					$grey_flow->flow_select2save_most_recent_param_flow();
-
-					#  updates flow_select color
-					$L_SU_href = $grey_flow->get_hash_ref();
-					$color_listbox->set_flow_listbox_color( _get_flow_color() );
-					$L_SU_gui->{_occupied_listbox_aref} =
-					  $color_listbox->get_flow_listbox_occupancy_aref();
-					$L_SU_gui->{_vacant_listbox_aref} =
-					  $color_listbox->get_flow_listbox_vacancy_aref();
-
-#					print("2. L_SU, user_built_flows, occupied listboxes are: @{$L_SU_gui->{_occupied_listbox_aref}}\n ");
-
-				}
-				elsif ( $method eq 'flow_select' ) {
-
-			# indicate preferred next_available occupation of this listbox color
-					$color_listbox->set_next_available_flow_listbox_color(
-						'grey');
-
-				}
-				else {
-					print(
-						" L_SU,user_built_flows, grey, unexpected:--$method--\n"
-					);
-				}
-			}
-			else {
-				print(
-" L_SU,user_built_flows, grey, unexpected occupation status\n"
-				);
-			}
-
-		}
-		elsif ( $color eq 'pink' ) {
-
-			# A flow has been started
-			# Used by delete_from_flow_button,
-			# and delete_whole_flow_button
-			# Used to delete the flow completely
-			# e.g., when deleting the last item in a flow
-			# or deleting the whole flow at once
-			# Also used for moving item up or down a flow
-			# Dealing with the pink flow
-			# Is pink flow listbox occupied ?
-			# Skip the listbox if there is a flow already in it
-
-			if ( @{ $L_SU_gui->{_occupied_listbox_aref} }[1] == $true ) {
-
-				# flow already exists
-				#  bind flow parameters to the opening files
-				# This flow listbox color is available
-
-				$pink_flow->set_hash_ref($L_SU_href);
-				$pink_flow->set_occupied_listbox_aref(
-					$L_SU_gui->{_occupied_listbox_aref} );
-				$pink_flow->set_vacant_listbox_aref(
-					$L_SU_gui->{_vacant_listbox_aref} );
-
-				# print("1968 L_SU, user_built_flows, pink, occupied listboxes are: @{$L_SU_gui->{_occupied_listbox_aref}}\n ");
-
-				if ( $method eq 'flow_select' ) {
-
-					my $prior_flow_color =
-					  ( $L_SU_href->{_flow_select_color_href} )->{_prior};
-					my $most_recent_flow_color =
-					  ( $L_SU_href->{_flow_select_color_href} )->{_most_recent};
-
-					if ( $prior_flow_color eq $most_recent_flow_color ) {
-
-						#CASE 1 if selecting the same flow color more than once
-						# in a row
-						$pink_flow->$method;
-						# print("1981 case 1 L_SU, user_built_flows, pink, case 1\n ");
-                        # print("selecting the same flow color more than once\n ");
-					}
-					elsif ( $prior_flow_color ne $most_recent_flow_color ) {
-					# CASE 2 current flow is of different color than last time
-					 # and last selecteion was not a pre-built superflow
-					 # --or you will save the wrong parameter widget values into a user flow
-
-						# print("1995 case 2 L_SU, user_built_flows, pink, selecting  a different color flow than last time\n ");
-
-					    # my $prior_button       = (( $gui_history->get_defaults() )->{_button_href})->{_prior};
-						my $most_recent_button = (( $gui_history->get_defaults() )->{_button_href})->{_most_recent};
-						# print("1993 L_SU,user_built_flows, pink,print out gui_history\n");
-						# $gui_history->view();
-
-						# if ($most_recent_button eq 'superflow_select_button') {
-
-							# print("1997 L_SU,user_built_flows, pink, last selection was not a superflow\n");
-							# print("1997 L_SU,user_built_flows, pink, last selection was a user-built flow item\n");											
-							$pink_flow->$method;
-							$pink_flow->flow_select2save_most_recent_param_flow();
-
-						# } else {
-						# 	print("2002 L_SU,user_built_flows, pink, last selection was a pre-built superflow\n");
-						# 	#NADA
-						# }
-#=======
-#						if ($most_recent_button eq 'superflow_select_button') {
-#
-#							# print("1997 L_SU,user_built_flows, pink, last selection was not a superflow\n");
-#							# print("1997 L_SU,user_built_flows, pink, last selection was a user-built flow item\n");											
-#							$pink_flow->flow_select2save_most_recent_param_flow();
-#
-#						} else {
-#							print("2002 L_SU,user_built_flows, pink, last selection was a pre-built superflow\n");
-#							#NADA
-#						}
-#>>>>>>> origin/V0.87.5
-
-					}
-					else {
-						print("2. L_SU,user_built_flows, bad value\n");
-					}
-
-					$L_SU_href = $pink_flow->get_hash_ref();
-					$color_listbox->set_flow_listbox_color( _get_flow_color() );
-					$L_SU_gui->{_occupied_listbox_aref} =
-					  $color_listbox->get_flow_listbox_occupancy_aref();
-					$L_SU_gui->{_vacant_listbox_aref} =
-					  $color_listbox->get_flow_listbox_vacancy_aref();
-
-					# print("2002 L_SU, user_built_flows, flow_select  pink, L_SU_gui->{_occupied_listbox_aref}: @{$L_SU_gui->{_occupied_listbox_aref}}\n ");
-
-				}
-				elsif ( $method ne 'flow_select' ) {
-					# e.g., delete_whole_flow_button
-					$pink_flow->$method;
-					# print("2008 L_SU, user_built_flows, pink method=$method\n ");
-
-				}
-				else {
-					print("NADA L_SU,user_built_flows, skip thismethod\n");
-				}
-
-				$L_SU_href = $pink_flow->get_hash_ref();
-
-				# transfer any updates from color_flows to the private hash on
-				# the state of occupancy of vacancy of color flow listboxes
-				$color_listbox
-				  ->set_flow_listbox_next_available_occupancyNvacancy_aref(
-					$L_SU_href->{_occupied_listbox_aref} );
-				$L_SU_gui->{_occupied_listbox_aref} =
-				  $color_listbox->get_flow_listbox_occupancy_aref();
-				$L_SU_gui->{_vacant_listbox_aref} =
-				  $color_listbox->get_flow_listbox_vacancy_aref();
-
-				# print("2027. L_SU, user_built_flows, pink,L_SU_href: @{$L_SU_href->{_occupied_listbox_aref}} , \n");
-
-			}
-			elsif ( @{ $L_SU_gui->{_occupied_listbox_aref} }[1] == $false ) {
-
-			# CASE: A flow does not YET exist in ths colored flow box
-			# This flow listbox color is available
-			# indicate preferred next_available occupation of this listbox color
-
-				if ( $method eq 'add2flow_button' ) {
-
-					$pink_flow->set_hash_ref($L_SU_href);
-					$pink_flow->set_occupied_listbox_aref(
-						$L_SU_gui->{_occupied_listbox_aref} );
-					$pink_flow->set_vacant_listbox_aref(
-						$L_SU_gui->{_vacant_listbox_aref} );
-
-					# must precede add2flow	method
-					$gui_history->set_flow_select_color($color);
-
-					$pink_flow->$method;
-					$pink_flow->flow_select2save_most_recent_param_flow();
-
-					#  updates flow_select color
-					$L_SU_href = $pink_flow->get_hash_ref();
-					$color_listbox->set_flow_listbox_color( _get_flow_color() );
-					$L_SU_gui->{_occupied_listbox_aref} =
-					  $color_listbox->get_flow_listbox_occupancy_aref();
-					$L_SU_gui->{_vacant_listbox_aref} =
-					  $color_listbox->get_flow_listbox_vacancy_aref();
-
-				}
-				elsif ( $method eq 'flow_select' ) {
-
-			# indicate preferred next_available occupation of this listbox color
-					$color_listbox->set_next_available_flow_listbox_color(
-						'pink');
-					print("2062  L_SU,user_built_flows, pink, preferred next_available occupation of this listbox color\n");
-					print("Currently empty listbox\n");
-				}
-				else {
-					print(" L_SU,user_built_flows, pink, unexpected \n");
-				}
-			}
-			else {
-				print(
-" L_SU,user_built_flows, pink, unexpected occupation status\n"
-				);
-			}
-
-		}
-		elsif ( $color eq 'green' ) {
-
-			# A flow has been started
-			# Used by delete_from_flow_button,
-			# and delete_whole_flow_button
-			# Used to delete the flow completely
-			# e.g., when deleting the last item in a flow
-			# or deleting the whole flow at once
-			# Also used for moving item up or down a flow
-			# Dealing with the green flow ?
-			# Is green flow listbox occupied ?
-			# Skip the listbox if there is no flow already in it
-
-			if ( @{ $L_SU_gui->{_occupied_listbox_aref} }[2] == $true ) {
-
-			# CASE: A flow does not YET exist in ths colored flow box
-			# This flow listbox color is available
-			# indicate preferred next_available occupation of this listbox color
-				$green_flow->set_hash_ref($L_SU_href);
-				$green_flow->set_occupied_listbox_aref(
-					$L_SU_gui->{_occupied_listbox_aref} );
-				$green_flow->set_vacant_listbox_aref(
-					$L_SU_gui->{_vacant_listbox_aref} );
-				if ( $method eq 'flow_select' ) {
-
-					my $prior_flow_color =
-					  ( $L_SU_href->{_flow_select_color_href} )->{_prior};
-					my $most_recent_flow_color =
-					  ( $L_SU_href->{_flow_select_color_href} )->{_most_recent};
-
-					if ( $prior_flow_color eq $most_recent_flow_color ) {
-
-						#CASE 1 if selecting the same flow color more than once
-						$green_flow->$method;
-
-					}
-					elsif ( $prior_flow_color ne $most_recent_flow_color ) {
-
-					 #CASE 2 if selecting  a different color flow than last time
-						$green_flow->flow_select2save_most_recent_param_flow();
-
-					}
-					else {
-						print("2. L_SU,user_built_flows, bad value\n");
-					}
-
-					$L_SU_href = $blue_flow->get_hash_ref();
-					$color_listbox->set_flow_listbox_color( _get_flow_color() );
-					$L_SU_gui->{_occupied_listbox_aref} =
-					  $color_listbox->get_flow_listbox_occupancy_aref();
-					$L_SU_gui->{_vacant_listbox_aref} =
-					  $color_listbox->get_flow_listbox_vacancy_aref();
-
-#					print("1. L_SU, user_built_flows, flow_select  green, L_SU_gui->{_occupied_listbox_aref}: @{$L_SU_gui->{_occupied_listbox_aref}}\n ");
-
-				}
-				elsif ( $method ne 'flow_select' ) {
-
-					$green_flow->$method;
-
-				}
-				else {
-					print("NADA L_SU,user_built_flows, skip thismethod\n");
-				}
-
-				$L_SU_href = $green_flow->get_hash_ref();
-
-				# transfer any updates from color_flows to the private hash on
-				# the state of occupancy of vacancy of color flow listboxes
-				$color_listbox
-				  ->set_flow_listbox_next_available_occupancyNvacancy_aref(
-					$L_SU_href->{_occupied_listbox_aref} );
-				$L_SU_gui->{_occupied_listbox_aref} =
-				  $color_listbox->get_flow_listbox_occupancy_aref();
-				$L_SU_gui->{_vacant_listbox_aref} =
-				  $color_listbox->get_flow_listbox_vacancy_aref();
-
-#				print("3. L_SU, user_built_flows, green,L_SU_href: @{$L_SU_href->{_occupied_listbox_aref}} , \n");
-#				print("3. L_SU, user_built_flows, green,L_SU_gui: @{$L_SU_gui->{_occupied_listbox_aref}}, \n");
-
-			}
-			elsif ( @{ $L_SU_gui->{_occupied_listbox_aref} }[2] == $false ) {
-
-				#			@{ $L_SU_gui->{_vacant_listbox_aref} }[2] == $true
-
-			# CASE: A flow does not YET exist in ths colored flow box
-			# This flow listbox color is available
-			# indicate preferred next_available occupation of this listbox color
-				if ( $method eq 'add2flow_button' ) {
-
-					$green_flow->set_hash_ref($L_SU_href);
-					$green_flow->set_occupied_listbox_aref(
-						$L_SU_gui->{_occupied_listbox_aref} );
-					$green_flow->set_vacant_listbox_aref(
-						$L_SU_gui->{_vacant_listbox_aref} );
-
-					# must precede add2flow	method
-					$gui_history->set_flow_select_color($color);
-
-					$green_flow->$method;
-					$green_flow->flow_select2save_most_recent_param_flow();
-
-					#  updates flow_select color
-					$L_SU_href = $green_flow->get_hash_ref();
-					$color_listbox->set_flow_listbox_color( _get_flow_color() );
-					$L_SU_gui->{_occupied_listbox_aref} =
-					  $color_listbox->get_flow_listbox_occupancy_aref();
-					$L_SU_gui->{_vacant_listbox_aref} =
-					  $color_listbox->get_flow_listbox_vacancy_aref();
-
-				}
-				elsif ( $method eq 'flow_select' ) {
-
-			# indicate preferred next_available occupation of this listbox color
-					$color_listbox->set_next_available_flow_listbox_color(
-						'green');
-
-				}
-				else {
-					print(" L_SU,user_built_flows, green,unexpected \n");
-				}
-			}
-			else {
-				print(
-" L_SU,user_built_flows, green, unexpected occupation status\n"
-				);
-			}
-
-		}
-		elsif ( $color eq 'blue' ) {
-
-			# A flow has been started
-			# Used by delete_from_flow_button,
-			# and delete_whole_flow_button
-			# Used to delete the flow completely
-			# e.g., when deleting the last item in a flow
-			# or deleting the whole flow at once
-			# Also used for moving item up or down a flow
-			# Dealing with the blue flow ?
-			# Is blue flow listbox occupied ?
-			# Skip the listbox if there is no flow already in it
-
-			if ( @{ $L_SU_gui->{_occupied_listbox_aref} }[3] == $true ) {
-
-			# CASE: A flow does not YET exist in ths colored flow box
-			# This flow listbox color is available
-			# indicate preferred next_available occupation of this listbox color
-				$blue_flow->set_hash_ref($L_SU_href);
-				$blue_flow->set_occupied_listbox_aref(
-					$L_SU_gui->{_occupied_listbox_aref} );
-				$blue_flow->set_vacant_listbox_aref(
-					$L_SU_gui->{_vacant_listbox_aref} );
-
-				if ( $method eq 'flow_select' ) {
-
-					my $prior_flow_color =
-					  ( $L_SU_href->{_flow_select_color_href} )->{_prior};
-					my $most_recent_flow_color =
-					  ( $L_SU_href->{_flow_select_color_href} )->{_most_recent};
-
-					if ( $prior_flow_color eq $most_recent_flow_color ) {
-
-						#CASE 1 if selecting the same flow color more than once
-						$blue_flow->$method;
-
-					}
-					elsif ( $prior_flow_color ne $most_recent_flow_color ) {
-
-					 #CASE 2 if selecting  a different color flow than last time
-						$blue_flow->flow_select2save_most_recent_param_flow();
-
-					}
-					else {
-						print("2. L_SU,user_built_flows, bad value\n");
-					}
-
-					$L_SU_href = $blue_flow->get_hash_ref();
-					$color_listbox->set_flow_listbox_color( _get_flow_color() );
-					$L_SU_gui->{_occupied_listbox_aref} =
-					  $color_listbox->get_flow_listbox_occupancy_aref();
-					$L_SU_gui->{_vacant_listbox_aref} =
-					  $color_listbox->get_flow_listbox_vacancy_aref();
-
-#					print("1. L_SU, user_built_flows, flow_select  blue, L_SU_gui->{_occupied_listbox_aref}: @{$L_SU_gui->{_occupied_listbox_aref}}\n ");
-
-				}
-				elsif ( $method ne 'flow_select' ) {
-
-					$blue_flow->$method;
-
-				}
-				else {
-					print("NADA L_SU,user_built_flows, skip thismethod\n");
-				}
-
-				$L_SU_href = $blue_flow->get_hash_ref();
-
-				# transfer any updates from color_flows to the private hash on
-				# the state of occupancy of vacancy of color flow listboxes
-				$color_listbox
-				  ->set_flow_listbox_next_available_occupancyNvacancy_aref(
-					$L_SU_href->{_occupied_listbox_aref} );
-				$L_SU_gui->{_occupied_listbox_aref} =
-				  $color_listbox->get_flow_listbox_occupancy_aref();
-				$L_SU_gui->{_vacant_listbox_aref} =
-				  $color_listbox->get_flow_listbox_vacancy_aref();
-
-			}
-			elsif ( @{ $L_SU_gui->{_occupied_listbox_aref} }[3] == $false ) {
-
-#				print("3. L_SU, user_built_flows, blue,L_SU_href: @{$L_SU_href->{_occupied_listbox_aref}} , \n");
-#				print("3. L_SU, user_built_flows, blue,L_SU_gui: @{$L_SU_gui->{_occupied_listbox_aref}}, \n");
-
-			# CASE: A flow does not YET exist in ths colored flow box
-			# This flow listbox color is available
-			# indicate preferred next_available occupation of this listbox color
-
-				if ( $method eq 'add2flow_button' ) {
-
-					$blue_flow->set_hash_ref($L_SU_href);
-					$blue_flow->set_occupied_listbox_aref(
-						$L_SU_gui->{_occupied_listbox_aref} );
-					$blue_flow->set_vacant_listbox_aref(
-						$L_SU_gui->{_vacant_listbox_aref} );
-
-					# must precede add2flow	method
-					$gui_history->set_flow_select_color($color);
-
-					$blue_flow->$method;
-					$blue_flow->flow_select2save_most_recent_param_flow();
-
-					#  updates flow_select color
-					$L_SU_href = $blue_flow->get_hash_ref();
-					$color_listbox->set_flow_listbox_color( _get_flow_color() );
-					$L_SU_gui->{_occupied_listbox_aref} =
-					  $color_listbox->get_flow_listbox_occupancy_aref();
-					$L_SU_gui->{_vacant_listbox_aref} =
-					  $color_listbox->get_flow_listbox_vacancy_aref();
-
-				}
-				elsif ( $method eq 'flow_select' ) {
-
-			# indicate preferred next_available occupation of this listbox color
-					$color_listbox->set_next_available_flow_listbox_color(
-						'blue');
-
-				}
-				else {
-					print(" L_SU,user_built_flows, blue, unexpected \n");
-				}
-			}
-			else {
-				print(
-" L_SU,user_built_flows, blue, unexpected occupation status\n"
-				);
-			}
-
-		}
-
-		# sunix_select is chosen
-		elsif ( $color eq 'neutral' ) {
-
-			$neutral_flow->set_hash_ref($L_SU_href);
-			$neutral_flow->$method;
-
-#print("10. L_SU,user_built_flows, color=neutral,after MB1 occupied_listboxes: @{$L_SU_gui->{_occupied_listbox_aref}}\n");
-# print("10. L_SU,user_built_flows, color=neutral,after MB1 occupied_listboxes: @{$L_SU_gui->{_vacant_listbox_aref}}\n");
-
-			# last_flow_color from L_SU does not enter the gui_history
-			# only color_flows: blue,green,pink,grey
-			# enter the flow history
-
-			# bring back selected sunix program name
-			$L_SU_href->{_prog_name_sref} = $neutral_flow->get_prog_name_sref();
-
-			_set_user_built_flow_type();
-
-		}
-		else {
-			print("L_SU,user_built_flows, method is $method, unknown color\n");
-		}
 	}
 	else {
-		print("L_SU, user_built_flows, undeclared color \n");
+		# If the color name doesn’t match any known option
+		print("L_SU,user_built_flows, unexpected value: $color\n");
+	}
+
+	#---------------------------------
+	# Handle neutral flow separately
+	#---------------------------------
+	if ( $color eq 'neutral' ) {
+
+		# sunix_select is chosen
+		$color_flow_h->{$color}->set_hash_ref($L_SU_href);
+		$color_flow_h->{$color}->$method;
+
+		# last_flow_color from L_SU does not enter the gui_history
+		# only color_flows: blue, green, pink, grey enter the flow history
+
+		# bring back selected sunix program name
+		$L_SU_href->{_prog_name_sref} = $color_flow_h->{$color}->get_prog_name_sref();
+
+		_set_user_built_flow_type();
+
+	}
+	else {
+
+		#---------------------------------
+		# CASE: color is grey, pink, green, or blue
+		#---------------------------------
+		if ( @{ $L_SU_gui->{_occupied_listbox_aref} }[$color_idx] == $true ) {
+
+			# Flow already exists — bind flow parameters to the opening files
+			$color_flow_h->{$color}->set_hash_ref($L_SU_href);
+			$color_flow_h->{$color}->set_occupied_listbox_aref(
+				$L_SU_gui->{_occupied_listbox_aref} );
+			$color_flow_h->{$color}->set_vacant_listbox_aref(
+				$L_SU_gui->{_vacant_listbox_aref} );
+
+			if ( $method eq 'flow_select' ) {
+
+				my $prior_flow_color =
+					( $L_SU_href->{_flow_select_color_href} )->{_prior};
+				my $most_recent_flow_color =
+					( $L_SU_href->{_flow_select_color_href} )->{_most_recent};
+
+				if ( $prior_flow_color eq $most_recent_flow_color ) {
+
+					# CASE 1: Selecting the same flow color more than once
+					$color_flow_h->{$color}->$method;
+
+				}
+				elsif ( $prior_flow_color ne $most_recent_flow_color ) {
+
+					# CASE 2: Selecting a different color flow than last time
+					$color_flow_h->{$color}->$method;
+					$color_flow_h->{$color}->flow_select2save_most_recent_param_flow();
+
+				}
+				else {
+					print("2. L_SU, user_built_flows, bad value\n");
+				}
+
+				# Update L_SU hash and GUI state
+				$L_SU_href = $color_flow_h->{$color}->get_hash_ref();
+				$L_SU_gui->{_occupied_listbox_aref} =
+					$color_listbox->get_flow_listbox_occupancy_aref();
+				$L_SU_gui->{_vacant_listbox_aref} =
+					$color_listbox->get_flow_listbox_vacancy_aref();
+
+				# print("1. L_SU, user_built_flows, flow_select grey: @{$L_SU_gui->{_occupied_listbox_aref}}\n");
+
+			}
+			elsif ( $method ne 'flow_select' ) {
+
+				$color_flow_h->{$color}->$method;
+
+				# print("2. L_SU, user_built_flows, NOT flow_select grey: @{$L_SU_gui->{_occupied_listbox_aref}}\n");
+
+			}
+			else {
+				print("NADA L_SU,user_built_flows, skip this method\n");
+			}
+
+			# Sync L_SU state and GUI
+			$L_SU_href = $color_flow_h->{$color}->get_hash_ref();
+
+			# Transfer updates from color_flows to GUI listboxes
+			$color_listbox->set_flow_listbox_next_available_occupancyNvacancy_aref(
+				$L_SU_href->{_occupied_listbox_aref} );
+
+			$L_SU_gui->{_occupied_listbox_aref} =
+				$color_listbox->get_flow_listbox_occupancy_aref();
+			$L_SU_gui->{_vacant_listbox_aref} =
+				$color_listbox->get_flow_listbox_vacancy_aref();
+
+			# print("3. L_SU, user_built_flows, grey: @{$L_SU_gui->{_occupied_listbox_aref}}\n");
+
+		}
+		elsif ( @{ $L_SU_gui->{_occupied_listbox_aref} }[$color_idx] == $false ) {
+
+			#---------------------------------
+			# CASE: Flow does not yet exist in this colored listbox
+			#---------------------------------
+			if ( $method eq 'add2flow_button' ) {
+
+				$color_flow_h->{$color}->set_hash_ref($L_SU_href);
+				$color_flow_h->{$color}->set_occupied_listbox_aref(
+					$L_SU_gui->{_occupied_listbox_aref} );
+				$color_flow_h->{$color}->set_vacant_listbox_aref(
+					$L_SU_gui->{_vacant_listbox_aref} );
+
+				# Must precede add2flow method
+				$gui_history->set_flow_select_color($color);
+
+				# print("first time add2flow : L_SU,user_built_flows,method=$method\n");
+				$color_flow_h->{$color}->$method;
+				$color_flow_h->{$color}->flow_select2save_most_recent_param_flow();
+
+				# Update flow_select color
+				$L_SU_href = $color_flow_h->{$color}->get_hash_ref();
+				$color_listbox->set_flow_listbox_color( _get_flow_color() );
+				$L_SU_gui->{_occupied_listbox_aref} =
+					$color_listbox->get_flow_listbox_occupancy_aref();
+				$L_SU_gui->{_vacant_listbox_aref} =
+					$color_listbox->get_flow_listbox_vacancy_aref();
+
+				# print("2. L_SU, user_built_flows, occupied listboxes: @{$L_SU_gui->{_occupied_listbox_aref}}\n");
+
+			}
+			elsif ( $method eq 'flow_select' ) {
+
+				# Indicate preferred next_available occupation of this listbox color
+				$color_listbox->set_next_available_flow_listbox_color($color);
+
+			}
+			else {
+				print("L_SU,user_built_flows, $color, unexpected:--$method--\n");
+			}
+		}
+		else {
+			print("L_SU,user_built_flows, $color, unexpected occupation status\n");
+		}
 	}
 
 	return ();
 }
+
 
 sub wipe_plots_button {
 

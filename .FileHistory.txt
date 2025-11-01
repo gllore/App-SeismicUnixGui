@@ -1,2 +1,3 @@
-/home/gllore/granular_studies/seismics/pl/specfem3d/elastic/101425/HZ/1/gllore/1.view_image_Vy.pl
 /home/gllore/granular_studies/seismics/pl/specfem3d/elastic/101425/HZ/1/gllore/1.suspecfx_Vz.pl
+/home/gllore/granular_studies/seismics/pl/specfem3d/elastic/101425/HZ/1/gllore/1.suspecfx_Vy.pl
+/home/gllore/granular_studies/seismics/pl/specfem3d/elastic/101425/HZ/1/gllore/1.view_image_Vy.pl
