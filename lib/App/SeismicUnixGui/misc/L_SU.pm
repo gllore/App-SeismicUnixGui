@@ -244,35 +244,52 @@ sub _set_flow_color {
 sub _set_flow_listbox_color_w {
 	my ($color) = @_;
 
-	if ( $color eq 'grey' ) {
+	my %color_key_map = (
+    grey  => '_is_flow_listbox_grey_w',
+    pink  => '_is_flow_listbox_pink_w',
+    green => '_is_flow_listbox_green_w',
+    blue  => '_is_flow_listbox_blue_w',
+);
 
-		$L_SU_href->{_is_flow_listbox_grey_w} = $true;
+if ( exists $color_key_map{$color} ) {
+    my $key = $color_key_map{$color};
+    $L_SU_href->{$key} = $true;
+    # print("L_SU,_set_flow_listbox, color:$color\n");
+}
+else {
+    print("L_SU,_set_flow_listbox, missing or invalid color: $color\n");
+}
 
-		# print("1. L_SU,_set_flow_listbox, color:$color \n");
+# TBD
+	# if ( $color eq 'grey' ) {
 
-	}
-	elsif ( $color eq 'pink' ) {
+	# 	$L_SU_href->{_is_flow_listbox_grey_w} = $true;
 
-		$L_SU_href->{_is_flow_listbox_pink_w} = $true;
+	# 	# print("1. L_SU,_set_flow_listbox, color:$color \n");
 
-		# print("L_SU,_set_flow_listbox, color:$color\n");
+	# }
+	# elsif ( $color eq 'pink' ) {
 
-	}
-	elsif ( $color eq 'green' ) {
+	# 	$L_SU_href->{_is_flow_listbox_pink_w} = $true;
 
-		# print("L_SU,_set_flow_listbox, color:$color\n");
-		$L_SU_href->{_is_flow_listbox_green_w} = $true;
+	# 	# print("L_SU,_set_flow_listbox, color:$color\n");
 
-	}
-	elsif ( $color eq 'blue' ) {
+	# }
+	# elsif ( $color eq 'green' ) {
 
-		# print("L_SU,_set_flow_listbox, color:$color\n");
-		$L_SU_href->{_is_flow_listbox_blue_w} = $true;
+	# 	# print("L_SU,_set_flow_listbox, color:$color\n");
+	# 	$L_SU_href->{_is_flow_listbox_green_w} = $true;
 
-	}
-	else {
-		print("L_SU,_set_flow_listbox, missing color \n");
-	}
+	# }
+	# elsif ( $color eq 'blue' ) {
+
+	# 	# print("L_SU,_set_flow_listbox, color:$color\n");
+	# 	$L_SU_href->{_is_flow_listbox_blue_w} = $true;
+
+	# }
+	# else {
+	# 	print("L_SU,_set_flow_listbox, missing color \n");
+	# }
 	return ();
 }
 
@@ -303,27 +320,27 @@ sub _set_user_built_flow_type {
 	return ();
 }
 
-# =head2 sub _FileDialog_button_Delete
+=head2 sub _FileDialog_button_Delete
 
-# is color-listbox-neutral
+is color-listbox-neutral
    
-# =cut
+=cut
 
-# sub _FileDialog_button_Delete {
+sub _FileDialog_button_Delete {
 
-# 	my ( $self, $dialog_type_sref ) = @_;
+	my ( $self, $dialog_type_sref ) = @_;
 
-# 	# opens file and populates GUI
-# 	my $color                 = 'neutral'
-# 	$L_SU_href->{_flow_color} = $color_flow_h->{$color}->get_flow_color();
-# 	$color_flow_h->{$color}->set_hash_ref($L_SU_href);
-# 	$color_flow_h->{$color}->FileDialog_button($dialog_type_sref);
+	# opens file and populates GUI
+	my $color                 = 'neutral';
+	$L_SU_href->{_flow_color} = $color_flow_h->{$color}->get_flow_color();
+	$color_flow_h->{$color}->set_hash_ref($L_SU_href);
+	$color_flow_h->{$color}->FileDialog_button($dialog_type_sref);
 
-# 	# $L_SU_href->{_flow_color} = $grey_flow->get_flow_color();
+	# $L_SU_href->{_flow_color} = $grey_flow->get_flow_color();
 
-# 	return ();
+	return ();
 
-# }
+}
 
 =head2 sub _FileDialog_button_Open
    
