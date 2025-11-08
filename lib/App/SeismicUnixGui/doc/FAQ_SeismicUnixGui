@@ -149,7 +149,7 @@ whereami: temporarily establish the widget you are in
   outside that of the main program
  
 (inherited by gui_history)
-conditions_gui: temporarily establishes the widget in a private hash 
+conditions4flow  or conditions4big_streams: temporarily establishes the widget in a private hash 
   within the namespace of the main program and hence accessible to all 
   local methods
   disables or enables certain widgets
@@ -2222,7 +2222,7 @@ Modify the main program, i.e., immodpg.config.pm
 	  				
 	  Q. If I add a new button, which programs must I update?
 	  
-	  Main, L_SU,neutral_flow,conditions_gui,'color'_flow
+	  Main, L_SU,neutral_flow,conditions4flow ,'color'_flow
 	  
 	  Q. where is gui history stored:
 	  
@@ -2273,29 +2273,43 @@ Modify the main program, i.e., immodpg.config.pm
    		 	set_specs
    		 	
  Oct. 12:  From now on during refactoring:
- conditions_gui will try to establish as many of the dynamic defaults
+ conditions4flow  or conditions4big_streams will try to establish as many of the dynamic defaults
    gui_history will try to incorporate user gui responses
    
    Where are flow selection indices highlighted?
-   In add2flow_button and_add2flow, highlighting occurs
-    inside gui_history, conditions_gui: 
+
+     (1) when we select add2flow, 
+     The highlighting occurs inside conditions4flows, which is inherited by gui_history
+	      conditions4flows calls set4end_of_add2flow_button as follows:
    
-           gui_history->set4end_of_add2flow
-           
+           gui_history->set4end_of_add2flow_button
+
+      (2) When we open a new user-flow:
+	      gui_history->set4end_of_add2flow
+   
+      (3) When we manually select a flow item from the listbox:
+	   (Is that automatically done? Possibly somewhere inside color_flow->flow_select)
+	   
+	   		gui_history->set_button('flow_select')
    The index is selected from the previously highlighted part of the flow
+
+   How many times does highlighting occur?
+   When a new flow is opened, apparently 6 times
+   But not when a user-built flow item is selected from the listbox
      
    Where are the highlight selections recorded?
-   in delete_from_flow_button and
-   in flow_select, where the index is recorded before updating prior parameters: 
+
+   (1) in delete_from_flow_button and
+   (2) in flow_select, where the index is recorded before updating prior parameters: 
    		flow_select, gui_history->set_button('flow_select')
    		
 Q. In color_flows, how are stored flows updated?
  
- The following use _update_prior_param_flow :
+    Via _update_prior_param_flow, as in:
  		
-  	flow_select
+  	     flow_select
  
- The following use _updateNsave_most_recent_param_flow:
+    Via _updateNsave_most_recent_param_flow, in the following:
  
 		_add2flow (used only when reading a perl file)
 		_perl_flow (used only when reading a perl file)
@@ -2305,18 +2319,18 @@ Q. In color_flows, how are stored flows updated?
 		flow_item_up_arrow_button
 
 		
- In color_flow, the following use: _save_most_recent_param_flow :
+    In color_flow, _save_most_recent_param_flow  is used in:
  
- 	FileDialog_button
- 	_FileDialog_button
+ 		FileDialog_button
+ 		_FileDialog_button
  	
- The following use both  _save_most_recent_param_flow and 
- _update_prior_param_flow:
+    As well, _save_most_recent_param_flow and 
+              _update_prior_param_flow are used in the following:
  
- 	save_button
+ 	    save_button
  	
  	
- 1. Where and how many times is set_flow_select_color?
+ 1. Where and how many times is set_flow_select_color used?
  
  1 time in:
  	add2flow_button
@@ -2335,7 +2349,7 @@ Q. In color_flows, how are stored flows updated?
 				sub flow_select2save_most_recent_param_flow();
 							( color->	_save_most_recent_param_flow)
   		
- In all the following subs set_flow_select($color) is run: 		
+ In all the following subroutines, set_flow_select($color) is run: 		
  		pkg color_flow
  			sub _flow_select_director 
  			sub flow_select2save_most_recent_param_flow
@@ -2374,7 +2388,7 @@ What does MANUALLY selecting add2flow do?
 						_updateNsave_most_recent_param_flow		
 				
 						
-Sub Q : what does delete_from_flow_button do?
+Sub Q : What does delete_from_flow_button do?
 		THEN
 			# 
 			_flow_select2save_most_recent_param_flow();

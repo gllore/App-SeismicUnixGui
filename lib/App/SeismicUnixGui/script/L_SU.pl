@@ -2341,18 +2341,12 @@ sub _L_SU_flow_bindings {
 		my $button = $method;
 
 		$gui_history->set_flow_type($user_built);
-
+		#  print "2345. main, Listbox sometimes auto-highlighted\n";
 		# print("2345. main, _L_SU_flow_bindings: writing gui_history.txt\n");
 		# $gui_history->view();
 
 		$gui_history->set_flow_select_color($color);
-
-    #    print("2350. main,_L_SU_flow_bindings,color:$color\n");
-
 		$L_SU->set_hash_ref($main_href);
-
-		# print("2354. main,_L_SU_flow_bindings,method:$method\n");
-
 		$L_SU->user_built_flows($method);
 
 	}

@@ -71,7 +71,6 @@ sub get_hash_ref {
     }
 }
 
-#---------------------------------------------------------
 
 =head2 sub set_flowNsuperflow_name_w
 
@@ -100,7 +99,6 @@ sub set_flowNsuperflow_name_w {
     return ();
 }
 
-#---------------------------------------------------------
 
 =head2 sub select
 
@@ -180,7 +178,7 @@ sub select {
     $param_widgets->redisplay_values();
     $param_widgets->redisplay_check_buttons();
 
-    # Focus first entry field
+    # Focus on first entry field (no highlighting)
     my @Entry_widget = @{ $param_widgets->get_values_w_aref() };
     $Entry_widget[0]->focus;
 
@@ -204,7 +202,6 @@ sub select {
     return ();
 }
 
-#---------------------------------------------------------
 
 =head2 sub set_hash_ref
 
@@ -224,7 +221,6 @@ sub set_hash_ref {
     return ();
 }
 
-#---------------------------------------------------------
 
 =head2 sub set_name_sref
 
@@ -245,7 +241,6 @@ sub set_name_sref {
     return ();
 }
 
-#---------------------------------------------------------
 
 =head2 sub set_sub_ref
 

@@ -204,6 +204,7 @@ $hbox = 600;
 $ybox = 500;
 
 my $water_velocity_mps = 1500.;
+my $s2us               = 1000000;
 
 =head2 Get configuration information
 input hash and an array reference
@@ -361,7 +362,6 @@ $a2b[5] = $a2b->Step();
 
 =cut
 
-my $s2us = 1000000;
 my $time_sampling_interval_us = $time_sampling_interval_s * $s2us;
 
 $Synseis->clear();

@@ -1110,7 +1110,7 @@ sub initialize_messages {
 sub pre_built_superflows {
 	my ( $self, $superflow_name_sref ) = @_;
 
-#print("2. L_SU,pre_built_superflows ,superflow_name_sref=$$superflow_name_sref\n");
+    # print("1113. L_SU,pre_built_superflows ,superflow_name_sref=$$superflow_name_sref\n");
 
 	if ($superflow_name_sref) {
 
@@ -1546,18 +1546,18 @@ sub set_save_button {
 
     my $topic = $$topic_sref;
 
-    # Handle user-built or pre-built superflow based on flow type
+    # _Handle user-built or pre-built superflow based on flow type
     if ($L_SU_href->{_flow_type}) {
     	
         my $flow_type = $L_SU_href->{_flow_type};
         
         if ($flow_type eq 'user_built') {
         	
-            handle_user_built_flow($topic);
+            _handle_user_built_flow($topic);
             
         } elsif ($flow_type eq 'pre_built_superflow') {
         	
-            handle_pre_built_superflow($topic);
+            _handle_pre_built_superflow($topic);
             
         } else {
             carp("L_SU, set_save_button: unexpected flow type");
@@ -1570,7 +1570,7 @@ sub set_save_button {
 }
 
 # Helper function for user-built flow
-sub handle_user_built_flow {
+sub _handle_user_built_flow {
     my ($topic) = @_;
     my $flow_color = $L_SU_href->{_flow_color};
 
@@ -1613,7 +1613,7 @@ sub handle_user_built_flow {
 }
 
 # Helper function for pre-built superflow
-sub handle_pre_built_superflow {
+sub _handle_pre_built_superflow {
     my ($topic) = @_;
 
     $L_SU_href->{_dialog_type} = 'Save';
@@ -1765,7 +1765,7 @@ sub user_built_flows {
 			: $color eq 'blue'  ? 3
 			: undef;    # 'neutral' or anything else
 
-		print("color = $color, color_idx = $color_idx\n");
+		# print("L_SU,user_built_flows, color = $color, color_idx = $color_idx\n");
 
 		# Optional: handle neutral case separately
 		print("color should = neutral\n") if $color eq 'neutral';
@@ -1814,6 +1814,7 @@ sub user_built_flows {
 					( $L_SU_href->{_flow_select_color_href} )->{_prior};
 				my $most_recent_flow_color =
 					( $L_SU_href->{_flow_select_color_href} )->{_most_recent};
+				my $prior_flow_type =	($L_SU_href->{_flow_type_href})->{_prior};
 
 				if ( $prior_flow_color eq $most_recent_flow_color ) {
 
@@ -1824,12 +1825,17 @@ sub user_built_flows {
 				elsif ( $prior_flow_color ne $most_recent_flow_color ) {
 
 					# CASE 2: Selecting a different color flow than last time
-					$color_flow_h->{$color}->$method;
-					$color_flow_h->{$color}->flow_select2save_most_recent_param_flow();
-
-				}
-				else {
-					print("2. L_SU, user_built_flows, bad value\n");
+					# must not have just selected superflow previously
+					if ($prior_flow_type eq 'pre_built_superflow' ) {
+						$color_flow_h->{$color}->$method;
+					}
+					else { 						
+						$color_flow_h->{$color}->flow_select2save_most_recent_param_flow();
+					    $color_flow_h->{$color}->$method; # TODO??? why doesn't current color become highlighted?
+					
+					}
+				}else {
+					print("1839. L_SU, user_built_flows, bad value\n");
 				}
 
 				# Update L_SU hash and GUI state
@@ -1839,14 +1845,12 @@ sub user_built_flows {
 				$L_SU_gui->{_vacant_listbox_aref} =
 					$color_listbox->get_flow_listbox_vacancy_aref();
 
-				# print("1. L_SU, user_built_flows, flow_select grey: @{$L_SU_gui->{_occupied_listbox_aref}}\n");
+				# print("1849. L_SU, user_built_flows, flow_select: @{$L_SU_gui->{_occupied_listbox_aref}}\n");
 
 			}
 			elsif ( $method ne 'flow_select' ) {
 
 				$color_flow_h->{$color}->$method;
-
-				# print("2. L_SU, user_built_flows, NOT flow_select grey: @{$L_SU_gui->{_occupied_listbox_aref}}\n");
 
 			}
 			else {

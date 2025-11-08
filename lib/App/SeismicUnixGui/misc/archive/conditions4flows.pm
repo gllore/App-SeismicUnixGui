@@ -2355,8 +2355,45 @@ sub set_defaults_4start_of_flow_select {
 		# print("conditions4flows, set_defaults_4start_of_flow_select , color:$color; flow_listbox_color_w =$conditions4flows->{$flow_listbox_color_w_key}\n");
 		_set_flow_listbox_last_touched_txt($flow_listbox_color_w_txt);
 		_set_flow_listbox_last_touched_w($flow_listbox_color_w);
-		
-		# clear any and all previous highlighted indices
+
+		# print("conditions4flows, set_defaults_4start_of_flow_select , _set_flow_listbox_last_touched_w\n");
+
+		#		# location within GUI
+		#		if ( $color eq 'grey' ) {
+		#
+		#			$conditions4flows->{_is_flow_listbox_grey_w} = $true;
+		#
+		#			# for export to calling module via get_hash_ref
+		#			$is_flow_listbox_grey_w = $true;
+		#
+		#		}
+		#		elsif ( $color eq 'pink' ) {
+		#			$conditions4flows->{_is_flow_listbox_pink_w} = $true;
+		#
+		#			# for export to calling module via get_hash_ref
+		#			$is_flow_listbox_pink_w = $true;
+		#
+		#		}
+		#		elsif ( $color eq 'green' ) {
+		#
+		#			$conditions4flows->{_is_flow_listbox_green_w} = $true;
+		#
+		#			# for export to calling module via get_hash_ref
+		#			$is_flow_listbox_green_w = $true;
+		#
+		#		}
+		#		elsif ( $color eq 'blue' ) {
+		#
+		#			$conditions4flows->{_is_flow_listbox_blue_w} = $true;
+		#
+		#			# for export to calling module via get_hash_ref
+		#			$is_flow_listbox_blue_w = $true;
+		#
+		#		}
+		#		else {
+		#			print("conditions4flows, set_defaults_4start_of_flow_select , missing color\n");
+		#		}
+
 		$conditions4flows->{_is_flow_listbox_color_w}    = $true;
 		$conditions4flows->{_is_pre_built_superflow}     = $false;
 		$conditions4flows->{_is_superflow}               = $false;
@@ -2367,7 +2404,6 @@ sub set_defaults_4start_of_flow_select {
 		$delete_whole_flow_button->configure( -state => 'active', );
 		$flow_item_down_arrow_button->configure( -state => 'active', );
 		$flow_item_up_arrow_button->configure( -state => 'active', );
-		# print("2370 conditions4flows, set_defaults_4start_of_flow_select , normalizing list box\n");
 		$flow_listbox_grey_w->configure( -state => 'normal', );
 		$flow_listbox_pink_w->configure( -state => 'normal', );
 		$flow_listbox_green_w->configure( -state => 'normal', );
@@ -2381,7 +2417,7 @@ sub set_defaults_4start_of_flow_select {
 		$is_superflow_select_button = $false;
 		$is_user_built_flow         = $true;
 
-		# same menu buttons that pre-built superflows turn off
+		# spme menu buttons that pre-built superflows turn off
 		$SaveAs_menubutton->configure( -state => 'normal' );
 
 		# keep add2flow buttons turned off
@@ -2435,7 +2471,6 @@ sub set4run_button_start {
 			my $color 						= _get_flow_color();
 =cut
 
-
 sub set4end_of_add2flow {
 	my ( $self, $color ) = @_;
 
@@ -2450,7 +2485,7 @@ sub set4end_of_add2flow {
 		my $is_flow_listbox_color_w_key = '_is_flow_listbox_' . $color . '_w';
 
 		# print("2488 conditions4flows,set4end_of_add2flow  flow_listbox_color_w: $flow_listbox_color_w\n");
-		# print("2489 conditions4flows,set4end_of_add2flow  color: $color\n");
+		print("2489 conditions4flows,set4end_of_add2flow  color: $color\n");
 
 		my $flow_listbox_color_w = $conditions4flows->{$flow_listbox_color_w_key};
 
@@ -2461,7 +2496,6 @@ sub set4end_of_add2flow {
 		$flow_listbox_color_w->selectionClear( 0, "end" );
 
 		# highlight new index !!!!!!!!!
-		# print("2464 conditions4flows,set4end_of_add2flow highlight new index TBD\n");
 		$flow_listbox_color_w->selectionSet("end");
 
 		# note the last program that was touched
@@ -2549,7 +2583,6 @@ sub set4end_of_add2flow_button {
 		_set_flow_listbox_last_touched_txt($flow_listbox_color_w_txt);
 
 		# highlight new index
-		print("2552 conditions4flows,set4end_of_add2flow_button highlight new index TBD\n");
 		$flow_listbox_color_w->selectionSet("end");
 
 		# note the last program that was touched
@@ -2784,6 +2817,8 @@ sub set4start_of_add2flow {
 sub set4start_of_add2flow_button {
 	my ( $self, $color ) = @_;
 
+	# _reset();
+	# _set_gui_widgets();
 	_set_flow_listbox_color_w($color);
 
 	my $flow_listbox_color_w = _get_flow_listbox_color_w();
@@ -3145,22 +3180,6 @@ sub set4superflow_Save {
 	$has_used_Save_button    = $false;
 
 	return ();
-
-}
-
-=head2 sub set4superflow2user_flow_transition
-
-Used when transitioning from a pre-built superflow to a user-built flow
-
-=cut 
-
-sub set4superflow2user_flow_transition {
-
-	my ( $self) = @_;
-
-	my $flow_listbox_color_w = _get_flow_listbox_color_w();
-	$flow_listbox_color_w->selectionClear( 0, "end" );
-	$flow_listbox_color_w->selectionSet("end");
 
 }
 
