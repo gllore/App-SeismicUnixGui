@@ -77,8 +77,11 @@ use aliased 'App::SeismicUnixGui::configs::big_streams::Project_config';
 extends 'App::SeismicUnixGui::misc::gui_history' => { -version => 0.0.2 };
 use aliased 'App::SeismicUnixGui::misc::gui_history';
 
-use App::SeismicUnixGui::misc::param_widgets_pink '0.0.2';
-use aliased 'App::SeismicUnixGui::misc::param_widgets_pink';
+# use App::SeismicUnixGui::misc::param_widgets_pink '0.0.2';
+# use aliased 'App::SeismicUnixGui::misc::param_widgets_pink';
+
+use App::SeismicUnixGui::misc::param_widgets_color '0.0.3';
+use aliased 'App::SeismicUnixGui::misc::param_widgets_color';
 
 use App::SeismicUnixGui::misc::param_flow_pink '0.0.5';
 use aliased 'App::SeismicUnixGui::misc::param_flow_pink';
@@ -120,15 +123,22 @@ my $manage_files_by2      = manage_files_by2->new();
 my $message_director      = message_director->new();
 
 my $param_flow_color_pkg = param_flow_pink->new();
-my $param_widgets        = param_widgets_pink->new();
+my $param_widgets        = param_widgets_color->new();
+
+
 my $flow_type            = $L_SU_global_constants->flow_type_href();
 my $var                  = $L_SU_global_constants->var();
 my $empty_string         = $var->{_empty_string};
 my $this_color           = 'pink';
+
+
 my $color_flow_href      = $gui_history->get_defaults();
 my $neutral              = $var->{_neutral};
 my $sunix_select         = $var->{_sunix_select};
 my $number_from_color    = $L_SU_global_constants->number_from_color_href();
+
+# set the flow color being used for the instance
+$param_widgets->set_color_flow($this_color);
 
 my $_is_last_parameter_index_touched_color =
   '_is_last_parameter_index_touched_' . $this_color;
