@@ -27,10 +27,10 @@ package App::SeismicUnixGui::misc::param_widgets_color;
 =head2 STEPS
 
 
-=head2 NOTES
-	V 0.0.2 Sept. 24 2019 uses gui_history 
+=head2 NOTES 
     V 0.0.3 Nov 6 2025 is a general param_widgets_color package
           used by all colored flows.
+	V 0.0.2 Sept. 24 2019 uses gui_history
 
 =cut
 
@@ -64,32 +64,6 @@ my $nu                  = $var->{_nu};
 my $no                  = $var->{_no};
 my $empty_string        = $var->{_empty_string};
 my $this_color;
-
-        #  = 'green';
-
-
-=head2 set_color_flow
-
-Set the active flow color.
-
-=cut
-
-sub set_color_flow {
-    my ($self, $color) = @_;
-
-    # Guard clause: ensure color is defined and not empty
-    unless (defined $color && length $color) {
-        warn "param_widgets_color::set_color_flow — missing color\n";
-        return;
-    }
-
-    # Store color globally within the package
-    $this_color= $color;
-
-    # print "param_widgets_color::set_color_flow — color is $this_color\n";
-      return();
-    # return $self;  # allow method chaining
-}
 
 
 =head2 Declare 
@@ -1421,6 +1395,29 @@ sub set_check_buttons_w_aref {
 
 	}
 	return ();
+}
+
+=head2 set_color_flow
+
+Set the active flow color.
+
+=cut
+
+sub set_color_flow {
+    my ($self, $color) = @_;
+
+    # Guard clause: ensure color is defined and not empty
+    unless (defined $color && length $color) {
+        warn "param_widgets_color::set_color_flow — missing color\n";
+        return;
+    }
+
+    # Store color globally within the package
+    $this_color = $color;
+
+    # print "param_widgets_color::set_color_flow — color is $this_color\n";
+    #   return();
+    return $self;  # allow method chaining
 }
 
 =head2 sub set_current_program
