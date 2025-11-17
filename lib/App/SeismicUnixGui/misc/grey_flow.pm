@@ -2494,12 +2494,14 @@ sub delete_from_flow_button {
 			my $index =
 			  $flow_widgets->get_flow_selection($_flow_listbox_color_w);
 
+			# ------------------------------------------------------------
+			# CASE: Last item in listbox is to be deleted
+			# Performe extra checking
+			# and verify number of items
+			# -----------------------------------------------------------
 			if (    $index == 0
 				and $param_flow_color_pkg->get_num_items() == 1 )
 			{
-
-				# CASE: LAST ITEM in listbox is deleted
-				# extra checking includes verifying number of items
 
 				# For Run and Save button
 				$flow_widgets->delete_selection($_flow_listbox_color_w);
@@ -2524,11 +2526,12 @@ sub delete_from_flow_button {
 				$gui_history->set_defaults4last_delete_from_flow_button();
 				$color_flow_href = $gui_history->get_hash_ref();
 
-		 # Blank out all the stored parameter values and names within param_flow
+		        # Blank out all stored parameter values and names 
+				# stored within param_flow
 				$param_flow_color_pkg->clear();
 
-				# clear the parameter values and labels from the gui
-				# strange memory leak inside param_widgets
+				# Clear the parameter values and labels from the gui
+				# Strange memory leak exists inside param_widgets
 				my $save =
 				  clone( $color_flow_href->{_check_buttons_settings_aref} );
 				$param_widgets->gui_full_clear();
@@ -2550,17 +2553,19 @@ sub delete_from_flow_button {
 #				print("1. last item deleted Shut down delete button\n");
 
 			}
+			#---------------------------------------------------------------
+			# CASE when more than one item remains in a listbox (implied)
+			# but selected index is not the first
+			#---------------------------------------------------------------
 			elsif ( $index > 0 ) {
 
-				# CASE more more than one item remains in a listbox (implied)
-				# but selected index is not the first
 				$flow_widgets->delete_selection($_flow_listbox_color_w);
 
 				# delete stored programs and their parameters
 				# delete_from_stored_flows();
 				my $index2delete = $flow_widgets->get_index2delete();
 
- # print("2. color_flow deletefrom a stored flow,index2delete:$index2delete\n");
+                # print("2. color_flow deletefrom a stored flow,index2delete:$index2delete\n");
 				$param_flow_color_pkg->delete_selection($index2delete);
 
 				# keep track of flow selection clicks and colors
@@ -2568,8 +2573,8 @@ sub delete_from_flow_button {
 				$gui_history->set_flow_select_color($this_color);
 				$gui_history->set_button('flow_select');
 
-				# Update the widget parameter names and values
-				# to those of new selection after deletion
+				# After deletion, update the widget parameter names and values
+				# to those of new selection
 				# Only the chkbuttons, values and names of the last program used
 				# are stored in param_widgets at any one time
 				# Get parameters from storage
@@ -2590,7 +2595,7 @@ sub delete_from_flow_button {
 				$color_flow_href->{_check_buttons_settings_aref} =
 				  $param_flow_color_pkg->get_check_buttons_settings();
 
-				# get stored first index and num of items
+				# Get stored first index and num of items
 				$color_flow_href->{_param_flow_first_idx} =
 				  $param_flow_color_pkg->first_idx();
 				$color_flow_href->{_param_flow_length} =
@@ -2616,11 +2621,13 @@ sub delete_from_flow_button {
 				_stack_versions();
 
 			}
+			#---------------------------------------------------------------
+			# CASE wheremore than 1 item exists and selected index is first
+			# --------------------------------------------------------------
 			elsif ( $index == 0
 				and $param_flow_color_pkg->get_num_items() > 1 )
 			{
 
-				# CASE more than 1 item exists and selected index is first
 				$flow_widgets->delete_selection($_flow_listbox_color_w);
 
 				# delete stored programs and their parameters
