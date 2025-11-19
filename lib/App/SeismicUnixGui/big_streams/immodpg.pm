@@ -1,6 +1,6 @@
 package App::SeismicUnixGui::big_streams::immodpg;
 
-=head1 DOCUMENTATION
+=head1 DOCUMENTATION 7985
 
 =head2 SYNOPSIS 
 
@@ -3849,8 +3849,7 @@ sub _set_option {
 		my $files   = manage_files_by2->new();
 		my $control = control->new();
 
-=head2 Define local
-variables
+=head2 Define local variables
 
 =cut		
 
@@ -5664,6 +5663,7 @@ sub get_max_index {
 }
 
 =head2 sub initialize_messages
+
 Create widgets that show messages
 Show warnings or errors in a message box
 Message box is defined in main where it is
@@ -5687,7 +5687,8 @@ sub initialize_messages {
 	);
 
 =head2 message box
-withdraw temporarily while filling
+
+Withdraw temporarily while filling
 with widgets
 
 =cut 
@@ -5724,6 +5725,7 @@ with widgets
 	);
 
 =head2 Pack message box
+
 This Toplevel window has 
 geometry that is independent
 of the main window widget.
@@ -5777,7 +5779,7 @@ sub initialize_model {
 
 =head2 sub get_number_of_layers
 
-determine number of layers
+Determine number of layers
 from model.text file
 
 =cut

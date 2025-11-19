@@ -1,0 +1,12 @@
+/home/gllore/LRTF/seismics/pl/Huntsville//120822/H/2/gllore/6B.suphasevel.pl
+/home/gllore/LRTF/seismics/pl/Huntsville/120822/
+/home/gllore/LRTF/seismics/pl/Huntsville//071723/H/1/gllore/7D.suphasevel_paper.pl
+/home/gllore/LRTF/seismics/data/Huntsville//071723/H/1/su/gllore/All_V2_geom3.su
+/home/gllore/LRTF/seismics/pl/Huntsville//071723/H/1/gllore/7F.suphasevel_few_traces.pl
+/home/gllore/LRTF/seismics/data/Huntsville//071723/H/1/su/gllore/xcor_tracl21_w_20.su
+/home/gllore/LRTF/seismics/pl/Huntsville//071723/H/1/gllore/9G.bin2ascii_xcor_tracl21_20_4_xdcp.pl
+/home/gllore/LRTF/seismics/pl/Huntsville//071723/H/1/gllore/9F.su2bin_xcor_tracl21_20_4_xdcp.pl
+/home/gllore/LRTF/seismics/pl/Huntsville//071723/H/1/gllore/9E_xtract_xcor_tracl21_20.pl
+/home/gllore/LRTF/seismics/pl/Huntsville//071723/H/1/gllore/9D_xcor_tracl21_20.pl
+/home/gllore/LRTF/seismics/pl/Huntsville//071723/H/1/gllore/8B.su2bin_tracl20_4Xdcp.pl
+/home/gllore/LRTF/seismics/data/Huntsville//071723/H/1/su/gllore/tracl_20.su

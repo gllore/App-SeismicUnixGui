@@ -1768,7 +1768,7 @@ sub user_built_flows {
 		# print("L_SU,user_built_flows, color = $color, color_idx = $color_idx\n");
 
 		# Optional: handle neutral case separately
-		print("color should = neutral\n") if $color eq 'neutral';
+		# print("color should = neutral\n") if $color eq 'neutral';
 
 	}
 	else {

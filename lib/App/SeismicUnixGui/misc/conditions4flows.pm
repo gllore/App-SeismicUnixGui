@@ -2727,13 +2727,13 @@ sub set4end_of_add2flow_button {
 
 		my $flow_listbox_color_w = $conditions4flows->{$flow_listbox_color_w_key};
 
-	     print("2581 conditions4flows,set4end_of_add2flow_button  flow_listbox_color_w: $flow_listbox_color_w\n");
+	     # print("2581 conditions4flows,set4end_of_add2flow_button  flow_listbox_color_w: $flow_listbox_color_w\n");
 
 		_set_flow_listbox_last_touched_w($flow_listbox_color_w);
 		_set_flow_listbox_last_touched_txt($flow_listbox_color_w_txt);
 
 		# highlight new index
-		print("2552 conditions4flows,set4end_of_add2flow_button highlight new index TBD\n");
+		# print("2552 conditions4flows,set4end_of_add2flow_button highlight new index TBD\n");
 		$flow_listbox_color_w->selectionSet("end");
 
 		# note the last program that was touched
