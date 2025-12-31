@@ -845,6 +845,7 @@ sub get_developer_sunix_category_h {
 		_sumax        => $developer_sunix_categories[13],
 		_sumean       => $developer_sunix_categories[13],
 		_sumix        => $developer_sunix_categories[13],
+		_sunormalize  => $developer_sunix_categories[13],
 		_suop         => $developer_sunix_categories[13],
 		_suop2        => $developer_sunix_categories[13],
 		_suxcor       => $developer_sunix_categories[13],
@@ -988,11 +989,12 @@ my @sunix_shapeNcut_programs = (
 );
 
 my @sunix_statsMath_programs = (
-	"cpftrend",   "entropy",     "farith",       "suacor",
-	"suacorfrac", "sualford",    "suattributes", "suconv",
-	"sufwmix",    "suhistogram", "suhrot",       "suinterp",
-	"sumax",      "sumean",      "sumix",        "suop",
-	"suop2",      "suxcor",      "suxmax",
+	"cpftrend", "entropy", "farith", "suacor",
+	"suacorfrac", "sualford", "suattributes", "suconv",
+	"sufwmix", "suhistogram", "suhrot", "suinterp",
+	"sumax", "sumean", "sumix", "suop",
+	"sunormalize",
+	"suop2", "suxcor", "suxmax",
 );
 
 my @sunix_transform_programs = (

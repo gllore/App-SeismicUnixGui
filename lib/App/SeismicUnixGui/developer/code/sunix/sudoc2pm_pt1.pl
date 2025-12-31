@@ -28,21 +28,38 @@ exists for the program in the
 Even if you do make sure that at least
 one parameter exists e.g. "opt=null"
 
-Modify "nameNnumber.txt" with the correct base
+1. Modify "nameNnumber.txt" (in current folder) 
+with the correct base
 file name and number
 e.g. susynlv 7
 
-define program ONLY within a
+Example file contents for nameNnumber.txt:
+Which group number do you want to use to create
+for *.pm, *.config, and *_spec.pm files ?
+
+e.g., for transforms use:
+$sunix_category_number = 14
+
+3. define program (ONLY in one location) within a
 developer category in ~misc/L_SU_global_constants.pm 
 e.g., _suhilb     => $developer_sunix_categories[14]
 
-
-also, define program in two locations within
+4. Also, define program in two locations within
 ~misc/L_SU_path for hash and the colon definitions
 
-After running this script (sudoc2pm_pt1.pl)
+5. Run the current script: sudoc2pm_pt1.pl
+N.B., You may have to run this program from within
+its directory e.g.,
+
+6. After running this script (sudoc2pm_pt1.pl)
 and before running sudoc2pm_pt2.pl:
 modify "module".config file , as needed
+
+7. Go to (view) and run sudoc2pm_pt2.pl
+A "program_name"_changes.txt file may be needed.
+THis file will prepare the *_spec.pm file
+with the correct bindings for the screen
+parameters.	
 
 
 =head4 Examples:
@@ -71,15 +88,7 @@ $developer_sunix_categories[14] = 'transform';
 $developer_sunix_categories[15] = 'well';
 $developer_sunix_categories[16] = 'unix';
 $developer_sunix_categories[17] = '';
-  	
- 	QUESTION 1:
-Which group number do you want to use to create
-for *.pm, *.config, and *_spec.pm files ?
-
-e.g., for transforms use:
-$sunix_category_number = 15
 	
-
 =head2 CHANGES and their DATES
 
 =cut
@@ -114,19 +123,7 @@ my $sudoc2pm = {
 	_line_contents => '',
 };
 
-=head2 QUESTIONS 1 & 2:
-
-QUESTION 1:
-Which group number do you want ?
-
-QUESTION 2:
-Which program do you want to work on?
-
-For example: 
-'sugetgthr';
-'sugain'; 'suputgthr'; 'suifft';
-'sufctanismod' 'vel2stiff
-'unif2aniso' 'transp' 'suflip'
+=head2 TBD
 
 psgraph thru psmovie
 

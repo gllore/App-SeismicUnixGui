@@ -1,0 +1,5 @@
+/home/gllore/mars_yard/seismics/data/JPL/reference_P100Hz/072524/Z/1/segy/gllore/6sps_geom3.segy
+/home/gllore/mars_yard/seismics/pl/JPL/reference_P100Hz/072524/Z/1/gllore/5a.geom4suphasevel_6sps.pl
+/home/gllore/mars_yard/seismics/data/JPL/reference_P100Hz/072524/Z/1/su/gllore/6sps_geom3.su
+/home/gllore/mars_yard/seismics/pl/JPL/reference_P100Hz/072524/Z/1/gllore/6.su2segy.pl
+/home/gllore/mars_yard/seismics/pl/JPL/reference_P100Hz/072524/Z/1/gllore/3e.view_stackByOffset.pl

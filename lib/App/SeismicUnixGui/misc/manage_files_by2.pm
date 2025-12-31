@@ -1068,7 +1068,9 @@ sub read_2cols_aref {
 		  and $spacer )
 	  {
 
-		  #declare locally scoped variables
+		# print("manage_files_by2, read_2cols_ref, inbound=$inbound\n");
+
+		  # declare locally scoped variables
 		  my ( $i, $line, $t, $x, $num_rows );
 		  my ( @TIME, @OFFSET );
 
@@ -2117,30 +2119,29 @@ sub write_1col1 {
 =pod
 
   write out a 2-columned file
+  with formatting
+
+	print("\nThe subroutine has is called %$self\n");
+	print("\nThe output file contains $num_rows rows\n");
+	print("\nThe output file uses the following format:--$$ref_fmt--\n");
+	print("\nThe output file name is $$ref_file_name\n");
 
 =cut
 
 sub write_2cols {
+	my ( $self, $ref_X, $ref_Y, $num_rows, $ref_file_name, $ref_fmt ) = @_;
 
-	  # open and write to output file
-	  my ( $self, $ref_X, $ref_Y, $num_rows, $ref_file_name, $ref_fmt ) = @_;
+    # print("format=$$ref_fmt\n");
 
-	  #declare locally scoped variables
-	  my $j;
+     # Open output file for writing (overwrite if it exists)
+     open( OUT, ">$$ref_file_name" )
+        or die "Cannot open file $$ref_file_name for writing: $!";
 
-	  # $variable is an unused hash
+	  for ( my $j = 0 ; $j < $num_rows ; $j++ ) {
 
-	  #		print("\nThe subroutine has is called %$self\n");
-	  #		print("\nThe output file contains $num_rows rows\n");
-	  #		print("\nThe output file uses the following format:--$$ref_fmt--\n");
-	  #		print("\nThe output file name is $$ref_file_name\n");
-
-	  open( OUT, ">$$ref_file_name" );
-
-	  for ( $j = 0 ; $j < $num_rows ; $j++ ) {
-
-		  #		print OUT  ("$$ref_X[$j] $$ref_Y[$j]\n");
-		  printf OUT "$$ref_fmt\n", $$ref_X[$j], $$ref_Y[$j];
+        # Write formatted X and Y values to file
+        # $$ref_fmt might be something like "%10.4f %10.4f"
+		printf OUT "$$ref_fmt\n", $$ref_X[$j], $$ref_Y[$j];
 
 		  #		print("index=$j;$$ref_X[$j] $$ref_Y[$j]\n");
 	  }
