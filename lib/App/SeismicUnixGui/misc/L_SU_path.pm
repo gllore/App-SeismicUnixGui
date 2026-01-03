@@ -756,6 +756,8 @@ my $specifications_path_w_colon = {
 	  . $developer_sunix_categories[13],
 	_suop2 => $global_libs_w_colon->{_specs} . '::'
 	  . $developer_sunix_categories[13],
+	_suweight => $global_libs_w_colon->{_specs} . '::'
+	  . $developer_sunix_categories[13], 
 	_suxcor => $global_libs_w_colon->{_specs} . '::'
 	  . $developer_sunix_categories[13],
 	_suxmax => $global_libs_w_colon->{_specs} . '::'
@@ -1395,6 +1397,8 @@ my $specifications_path_w_slash = {
 	_suop => $global_libs_w_slash->{_specs} . '/'
 	  . $developer_sunix_categories[13],
 	_suop2 => $global_libs_w_slash->{_specs} . '/'
+	  . $developer_sunix_categories[13],
+	_suweight => $global_libs_w_slash->{_specs} . '/'
 	  . $developer_sunix_categories[13],
 	_suxcor => $global_libs_w_slash->{_specs} . '/'
 	  . $developer_sunix_categories[13],

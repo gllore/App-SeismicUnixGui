@@ -1,4 +1,4 @@
-package App::SeismicUnixGui::specs::model::suaddevent_spec;
+package App::SeismicUnixGui::specs::statsMath::suweight_spec;
 use Moose;
 our $VERSION = '0.0.1';
 
@@ -8,6 +8,7 @@ use aliased 'App::SeismicUnixGui::misc::L_SU_global_constants';
 
 my $get                 = L_SU_global_constants->new();
 my $Project             = Project_config->new();
+
 
 my $var                 = $get->var();
 
@@ -23,9 +24,10 @@ my $DATA_SEISMIC_SU  	= $Project->DATA_SEISMIC_SU();   # output data directory
 my $DATA_SEISMIC_TXT  	= $Project->DATA_SEISMIC_TXT();   # output data directory
 my $PL_SEISMIC		    = $Project->PL_SEISMIC();
 my $PS_SEISMIC  		= $Project->PS_SEISMIC();
-my $max_index           = 4; # Insert a number here
+my $max_index           = 5;
 
-	my $suaddevent_spec = {
+
+	my $suweight_spec = {
 		_CONFIG		            => $PL_SEISMIC,
 		_DATA_DIR_IN		    => $DATA_SEISMIC_BIN,
 	 	_DATA_DIR_OUT		    => $DATA_SEISMIC_SU,
@@ -76,7 +78,7 @@ my $max_index           = 4; # Insert a number here
 #	$index[1]	= 2; # inbound item is  bound
 #	$index[2]	= 8; # outbound item is  bound
 
-	$suaddevent_spec ->{_binding_index_aref} = \@index;
+	$suweight_spec ->{_binding_index_aref} = \@index;
 	return();
 
  }
@@ -103,7 +105,7 @@ one type of dialog for each index
 #	$type[$index[1]]	=  $file_dialog_type->{_Data};
 #	$type[$index[2]]	=  $file_dialog_type->{_Data};
 
-	$suaddevent_spec ->{_file_dialog_type_aref} = \@type;
+	$suweight_spec ->{_file_dialog_type_aref} = \@type;
 	return();
 
  }
@@ -121,7 +123,7 @@ one type of dialog for each index
 
 	$type[0]	= $flow_type->{_user_built};
 
-	$suaddevent_spec ->{_flow_type_aref} = \@type;
+	$suweight_spec ->{_flow_type_aref} = \@type;
 	return();
 
  }
@@ -136,17 +138,17 @@ one type of dialog for each index
 	my $self 	= @_;
 	my @index;
 
-	if ($suaddevent_spec->{_binding_index_aref} ) {
+	if ($suweight_spec->{_binding_index_aref} ) {
 
-		my $index_aref = $suaddevent_spec->{_binding_index_aref};
+		my $index_aref = $suweight_spec->{_binding_index_aref};
 		return($index_aref);
 
 	} else {
-		print("suaddevent_spec, get_binding_index_aref, missing binding_index_aref\n");
+		print("suweight_spec, get_binding_index_aref, missing binding_index_aref\n");
 		return();
 	}
 
-	my $index_aref = $suaddevent_spec->{_binding_index_aref};
+	my $index_aref = $suweight_spec->{_binding_index_aref};
  }
 
 
@@ -158,13 +160,13 @@ one type of dialog for each index
 
 	my $self 	= @_;
 
-	if ($suaddevent_spec->{_binding_index_aref} ) {
+	if ($suweight_spec->{_binding_index_aref} ) {
 
-		my $binding_length= scalar @{$suaddevent_spec->{_binding_index_aref}};
+		my $binding_length= scalar @{$suweight_spec->{_binding_index_aref}};
 		return($binding_length);
 
 	} else {
-		print("suaddevent_spec, get_binding_length, missing binding_length\n");
+		print("suweight_spec, get_binding_length, missing binding_length\n");
 		return();
 	}
 
@@ -179,13 +181,13 @@ one type of dialog for each index
  sub get_file_dialog_type_aref{
 
 	my $self 	= @_;
-	if ($suaddevent_spec->{_file_dialog_type_aref} ) {
+	if ($suweight_spec->{_file_dialog_type_aref} ) {
 
-		my $index_aref = $suaddevent_spec->{_file_dialog_type_aref};
+		my $index_aref = $suweight_spec->{_file_dialog_type_aref};
 		return($index_aref);
 
 	} else {
-		print("suaddevent_spec, get_file_dialog_type_aref, missing get_file_dialog_type_aref\n");
+		print("suweight_spec, get_file_dialog_type_aref, missing get_file_dialog_type_aref\n");
 		return();
 	}
 
@@ -201,13 +203,13 @@ one type of dialog for each index
 
 	my $self 	= @_;
 
-	if ($suaddevent_spec->{_flow_type_aref} ) {
+	if ($suweight_spec->{_flow_type_aref} ) {
 
-			my $index_aref = $suaddevent_spec->{_flow_type_aref};
+			my $index_aref = $suweight_spec->{_flow_type_aref};
 			return($index_aref);
 
 	} else {
-		print("suaddevent_spec, get_flow_type_aref, missing flow_type_aref\n");
+		print("suweight_spec, get_flow_type_aref, missing flow_type_aref\n");
 		return();
 	}
 
@@ -249,7 +251,7 @@ one type of dialog for each index
 
 		for (my $i=0; $i < $len_1_needed; $i++) {
 
-			print("suaddevent, get_incompatibles,need_only_1:  @{@{$params->{_need_only_1}}[$i]}\n");
+			print("suweight, get_incompatibles,need_only_1:  @{@{$params->{_need_only_1}}[$i]}\n");
 
 		}
 
@@ -270,13 +272,13 @@ one type of dialog for each index
 
 	my $self 	= @_;
 
-	if ($suaddevent_spec->{_prefix_aref} ) {
+	if ($suweight_spec->{_prefix_aref} ) {
 
-		my $prefix_aref= $suaddevent_spec->{_prefix_aref};
+		my $prefix_aref= $suweight_spec->{_prefix_aref};
 		return($prefix_aref);
 
 	} else {
-		print("suaddevent_spec, get_prefix_aref, missing prefix_aref\n");
+		print("suweight_spec, get_prefix_aref, missing prefix_aref\n");
 		return();
 	}
 
@@ -292,13 +294,13 @@ one type of dialog for each index
 
 	my $self 	= @_;
 
-	if ($suaddevent_spec->{_suffix_aref} ) {
+	if ($suweight_spec->{_suffix_aref} ) {
 
-			my $suffix_aref= $suaddevent_spec->{_suffix_aref};
+			my $suffix_aref= $suweight_spec->{_suffix_aref};
 			return($suffix_aref);
 
 	} else {
-			print("$suaddevent_spec, get_suffix_aref, missing suffix_aref\n");
+			print("$suweight_spec, get_suffix_aref, missing suffix_aref\n");
 			return();
 	}
 
@@ -328,8 +330,8 @@ are filtered by sunix_pl
 
 	}
 
-#	my $index_aref = get_binding_index_aref();
-#	my @index       = @$index_aref;
+	my $index_aref = get_binding_index_aref();
+	my @index       = @$index_aref;
 
 	# label 2 in GUI is input xx_file and needs a home directory
 #	$prefix[ $index[0] ] = '$DATA_SEISMIC_BIN' . ".'/'.";
@@ -340,7 +342,7 @@ are filtered by sunix_pl
 	# label 9 in GUI is input zz_file and needs a home directory
 #	$prefix[ $index[2] ] = '$DATA_SEISMIC_SU' . ".'/'.";
 
-	$suaddevent_spec ->{_prefix_aref} = \@prefix;
+	$suweight_spec ->{_prefix_aref} = \@prefix;
 	return();
 
  }
@@ -365,8 +367,8 @@ values
 
 	}
 
-#	my $index_aref = get_binding_index_aref();
-#	my @index       = @$index_aref;
+	my $index_aref = get_binding_index_aref();
+	my @index       = @$index_aref;
 
 	# label 2 in GUI is input xx_file and needs a home directory
 #	$suffix[ $index[0] ] = ''.'' . '$suffix_bin';
@@ -377,7 +379,7 @@ values
 	# label 9 in GUI is output zz_file and needs a home directory
 #	$suffix[ $index[2] ] = ''.'' . '$suffix_su';
 
-	$suaddevent_spec ->{_suffix_aref} = \@suffix;
+	$suweight_spec ->{_suffix_aref} = \@suffix;
 	return();
 
  }
@@ -394,7 +396,7 @@ with definitions
 sub variables {
 
 	my ($self) = @_;
-	my $hash_ref = $suaddevent_spec;
+	my $hash_ref = $suweight_spec;
 	return ($hash_ref);
 }
 

@@ -848,6 +848,7 @@ sub get_developer_sunix_category_h {
 		_sunormalize  => $developer_sunix_categories[13],
 		_suop         => $developer_sunix_categories[13],
 		_suop2        => $developer_sunix_categories[13],
+		_suweight     => $developer_sunix_categories[13],
 		_suxcor       => $developer_sunix_categories[13],
 		_suxmax       => $developer_sunix_categories[13],
 
@@ -994,7 +995,7 @@ my @sunix_statsMath_programs = (
 	"sufwmix", "suhistogram", "suhrot", "suinterp",
 	"sumax", "sumean", "sumix", "suop",
 	"sunormalize",
-	"suop2", "suxcor", "suxmax",
+	"suop2", "suweight", "suxcor", "suxmax",
 );
 
 my @sunix_transform_programs = (

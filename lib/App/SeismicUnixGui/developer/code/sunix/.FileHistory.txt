@@ -1,4 +1,10 @@
+/home/gllore/learning_phase_reduction/seismics/pl/NA/NA/010226/HZ/1/gllore/2.make_synthetic_data
+/home/gllore/mars_yard/seismics/data/JPL/reference_P100Hz/072524/Z/1/su/gllore/junk.su
+/home/gllore/mars_yard/seismics/pl/JPL/reference_P100Hz/072524/Z/1/gllore/view_segy2su.pl
+/home/gllore/mars_yard/seismics/pl/JPL/reference_P100Hz/072524/Z/1/gllore/4.view_prep4mmodpg.pl
+/home/gllore/mars_yard/seismics/pl/JPL/reference_P100Hz/072524/Z/1/gllore/1.segy2su_loop.pl
 /home/gllore/mars_yard/seismics/data/JPL/reference_P100Hz/072524/Z/1/segy/gllore/6sps_geom3.segy
+/home/gllore/mars_yard/seismics/pl/JPL/reference_P100Hz/072524/Z/1/gllore/2b.view_6_sps.pl
 /home/gllore/mars_yard/seismics/pl/JPL/reference_P100Hz/072524/Z/1/gllore/5a.geom4suphasevel_6sps.pl
 /home/gllore/mars_yard/seismics/data/JPL/reference_P100Hz/072524/Z/1/su/gllore/6sps_geom3.su
 /home/gllore/mars_yard/seismics/pl/JPL/reference_P100Hz/072524/Z/1/gllore/6.su2segy.pl
