@@ -334,7 +334,7 @@ sub GEOPSY_REPORTS {
  
  
  Question: How do I add individual parameters to the GUI for a single specific pre-built stream, 
-Example 2: parameter "purpose" in "iPick".  One parameter value can be "geopsy"
+Example 2: One parameter "purpose" in "iPick".  Anopther parameter value can be "geopsy"
 
  (1) add new variable in
  				   master file:			 ~/configs/iPick.config

@@ -24,6 +24,9 @@ package App::SeismicUnixGui::configs::big_streams::Project_config;
  
  Feb 11, 2019 removed automatic creation of ~segy/raw directory
 
+ TODO Load all the defined directories into the environment on the
+ first use of this program  
+
 =head2 Declare variables in namespace
 
  
@@ -38,7 +41,6 @@ use aliased 'App::SeismicUnixGui::misc::control';
 use aliased 'App::SeismicUnixGui::misc::readfiles';
 use aliased 'App::SeismicUnixGui::misc::L_SU_global_constants';
 use aliased 'App::SeismicUnixGui::misc::dirs';
-use aliased 'App::SeismicUnixGui::misc::Project_Variables';
 
 my $readfiles         = readfiles->new();
 my $control           = control->new;
@@ -212,7 +214,7 @@ sub _get_ACTIVE_PROJECT {
 =head2 sub _basic_dirs
 
     	e.g., $GLOBAL_CONFIG_LIB:  as /usr/local/pl/L_SU/configs/big_streams
-    	first 2 cases should be deprecated
+    	first 2 cases are deprecated 1.17.26
 =cut
 
 sub _basic_dirs {
@@ -222,27 +224,27 @@ sub _basic_dirs {
 
 	my $prog_name        = '';
 	my $prog_name_new    = 'Project';
-	my $prog_name_old    = 'Project_Variables';
+	# my $prog_name_old    = 'Project_Variables';
 	my $prog_name_config = '';
 
-	if ( -e $prog_name_old . '.config' ) {
+# 	if ( -e $prog_name_old . '.config' ) {
 
-   # CASE 1 check local directory first LEGACY Project_Variables file
-#   print("1. CASE 1 Project_config,_basic_dirs,using local $prog_name_old.config\n");
+#    # CASE 1 check local directory first LEGACY Project_Variables file
+# #   print("1. CASE 1 Project_config,_basic_dirs,using local $prog_name_old.config\n");
 
-		$prog_name = $prog_name_old;
+# 		$prog_name = $prog_name_old;
 
-#		print("L 233 Project_config,_basic_dirs,using local $prog_name_old.config \n");
-		$prog_name_config = $prog_name_old . '.config';
-		my ( $ref_DIR_FUNCTION, $ref_DIR ) =
-		  $readfiles->configs( ( $prog_name . '.config' ) );
-		$Project->{_ref_DIR} = $ref_DIR;
+# #		print("L 233 Project_config,_basic_dirs,using local $prog_name_old.config \n");
+# 		$prog_name_config = $prog_name_old . '.config';
+# 		my ( $ref_DIR_FUNCTION, $ref_DIR ) =
+# 		  $readfiles->configs( ( $prog_name . '.config' ) );
+# 		$Project->{_ref_DIR} = $ref_DIR;
 
-	#		print(" 1. Project_config,basic_dirs,ref_DIR:@{$Project->{_ref_DIR}}\n");
-		$Project->{_ref_DIR_FUNCTION} = $ref_DIR_FUNCTION;
-		_change_basic_dirs();
+# 	#		print(" 1. Project_config,basic_dirs,ref_DIR:@{$Project->{_ref_DIR}}\n");
+# 		$Project->{_ref_DIR_FUNCTION} = $ref_DIR_FUNCTION;
+# 		_change_basic_dirs();
 
-	}
+# 	}
 #	elsif ( -e $prog_name_new . '.config' ) {
 #
 #		# CASE2 check local directory for Project.config
@@ -254,7 +256,7 @@ sub _basic_dirs {
 #		$prog_name_config = $prog_name_new . '.config';    # i.e. Project.config
 #
 #	}
-	elsif ( -e $ACTIVE_PROJECT . '/' . $prog_name_new . '.config' ) {
+    if ( -e $ACTIVE_PROJECT . '/' . $prog_name_new . '.config' ) {
 
 		# CASE 3 check user configuration directory for Project.config
 
@@ -275,7 +277,7 @@ sub _basic_dirs {
 		# parameter widget values
 		$Project->{_ref_DIR} = $ref_DIR;
 
-	# print(" 2. Project_config,_basic_dirs,ref_DIR:@{$Project->{_ref_DIR}}\n");
+	    # print(" 2. Project_config,_basic_dirs,ref_DIR:@{$Project->{_ref_DIR}}\n");
 
 		# parameter widget labels/names
 		$Project->{_ref_DIR_FUNCTION} = $ref_DIR_FUNCTION;
@@ -383,43 +385,45 @@ sub basic_dirs {
 
 	my $prog_name        = '';
 	my $prog_name_new    = 'Project';
-	my $prog_name_old    = 'Project_Variables';
+	# my $prog_name_old    = 'Project_Variables';
 	my $prog_name_config = '';
 
-	# 1. check local directory first,  LEGACY Project_Variables file
-	if ( -e $prog_name_old . '.config' ) {
+# 	# 1. check local directory first,  LEGACY Project_Variables file
+# refactored 1.17.26 deprecated no local Project_Variables file will be read
+# 	if ( -e $prog_name_old . '.config' ) {
 
-		$prog_name = $prog_name_old;
+# 		$prog_name = $prog_name_old;
 
-#		print("L390 Project_config,basic_dirs,using local $prog_name.config\n");
-		$prog_name_config = $prog_name_old . '.config';
+# #		print("L390 Project_config,basic_dirs,using local $prog_name.config\n");
+# 		$prog_name_config = $prog_name_old . '.config';
 
-		my ( $ref_DIR_FUNCTION, $ref_DIR ) =
-		  $readfiles->configs( ( $prog_name . '.config' ) );
-		$Project->{_ref_DIR} = $ref_DIR;
+# 		my ( $ref_DIR_FUNCTION, $ref_DIR ) =
+# 		  $readfiles->configs( ( $prog_name . '.config' ) );
+# 		$Project->{_ref_DIR} = $ref_DIR;
 
-#	print(" 1. L 397 Project_config,basic_dirs,ref_DIR:@{$Project->{_ref_DIR}}\n");
-		$Project->{_ref_DIR_FUNCTION} = $ref_DIR_FUNCTION;
-		_change_basic_dirs();
+# #	print(" 1. L 397 Project_config,basic_dirs,ref_DIR:@{$Project->{_ref_DIR}}\n");
+# 		$Project->{_ref_DIR_FUNCTION} = $ref_DIR_FUNCTION;
+# 		_change_basic_dirs();
 
-		# 2. then, check local directory for Project.config
-	}
-# deprecated 10.27.24 no local Project.config file will be read
-#	elsif ( -e $prog_name_new . '.config' ) {
-#
-#		$prog_name = $prog_name_new;
-#		my ( $ref_DIR_FUNCTION, $ref_DIR ) =
-##				print(
-##		" L 408 Project_config,basic_dirs,ref_DIR:@{$Project->{_ref_DIR}}\n");
-#		  $readfiles->configs( ( $prog_name . '.config' ) );
-#		$Project->{_ref_DIR} = $ref_DIR;
-#
-#		$Project->{_ref_DIR_FUNCTION} = $ref_DIR_FUNCTION;
-#		_change_basic_dirs();
-#
-#		# in local user configuration directory
-#	}
-	elsif ( -e ( $ACTIVE_PROJECT . '/' . $prog_name_new . '.config' ) ) {
+# 		# 2. then, check local directory for Project.config
+# 	}
+# # deprecated 10.27.24 no local Project.config file will be read
+# #	elsif ( -e $prog_name_new . '.config' ) {
+# #
+# #		$prog_name = $prog_name_new;
+# #		my ( $ref_DIR_FUNCTION, $ref_DIR ) =
+# ##				print(
+# ##		" L 408 Project_config,basic_dirs,ref_DIR:@{$Project->{_ref_DIR}}\n");
+# #		  $readfiles->configs( ( $prog_name . '.config' ) );
+# #		$Project->{_ref_DIR} = $ref_DIR;
+# #
+# #		$Project->{_ref_DIR_FUNCTION} = $ref_DIR_FUNCTION;
+# #		_change_basic_dirs();
+# #
+# #		# in local user configuration directory
+# #	}
+# 	els
+	if ( -e ( $ACTIVE_PROJECT . '/' . $prog_name_new . '.config' ) ) {
 
 		$prog_name = $prog_name_new;
 
@@ -523,29 +527,31 @@ sub _change_basic_dirs {
 	$process   = $line_bck;
 	$line      = $spare_dir_bck;
 
-=head3 for old-stype Project_Variable files 
+# =head3 for old-stype Project_Variable files 
+# eprecated 1.17.26
 
- defaults in the local directory
+#  defaults in the local directory
 
-=cut
+# =cut
+# 
+# 	my $old_configuration_file = './Project_Variables.pm';
 
-	my $old_configuration_file = './Project_Variables.pm';
+# 	if ( -e $old_configuration_file ) {
 
-	if ( -e $old_configuration_file ) {
+# 		# print ("Looking for old-style configuration file\n\n");
+# 		# print("Using old-style configuration file\n\n");
 
-		# print ("Looking for old-style configuration file\n\n");
-		# print("Using old-style configuration file\n\n");
+# 		use aliased 'App::SeismicUnixGui::misc::Project_Variables';
 
-		my $Project_Variables = Project_Variables->new();
-		($date)         = $Project_Variables->date();
-		($line)         = $Project_Variables->line();
-		($component)    = $Project_Variables->component();
-		($stage)        = $Project_Variables->stage();
-		($process)      = $Project_Variables->process();
-		($PROJECT_HOME) = $Project_Variables->PROJECT_HOME();
-		$subUser = '';    #only in  new configuration files;
-
-	}
+# 		my $Project_Variables = Project_Variables->new();
+# 		($date)         = $Project_Variables->date();
+# 		($line)         = $Project_Variables->line();
+# 		($component)    = $Project_Variables->component();
+# 		($stage)        = $Project_Variables->stage();
+# 		($process)      = $Project_Variables->process();
+# 		($PROJECT_HOME) = $Project_Variables->PROJECT_HOME();
+# 		$subUser = '';    #only in  new configuration files;
+# 	}
 
 	$Project->{_HOME}                = $HOME;
 	$Project->{_date}                = $date;
@@ -829,7 +835,9 @@ sub _system_dirs {
 	  . $subUser;
 	my $PL_SEISMIC =
 	  $SEISMIC . '/pl/' . $DATE_LINE_COMPONENT_STAGE_PROCESS . '/' . $subUser;
-	my $PL_GEOMAPS =
+	my $PY_SEISMIC =
+	  $SEISMIC . '/SUG_py/' . $DATE_LINE_COMPONENT_STAGE_PROCESS . '/' . $subUser;
+	my $PL_GEOMAPS =	
 	  $GEOMAPS . '/pl/' . $DATE_LINE_COMPONENT_STAGE_PROCESS . '/' . $subUser;
 	my $PL_WELL =
 	  $WELL . '/pl/' . $DATE_LINE_COMPONENT_STAGE_PROCESS . '/' . $subUser;
@@ -1220,6 +1228,7 @@ sub _system_dirs {
 	#	$Project->{_PS_GPR}                 = $PS_GPR;
 	$Project->{_PL_RESISTIVITY_SURFACE} = $PL_RESISTIVITY_SURFACE;
 	$Project->{_PL_SEISMIC}             = $PL_SEISMIC;
+	$Project->{_PY_SEISMIC}             = $PY_SEISMIC;
 	$Project->{_RESISTIVITY_SURFACE}    = $RESISTIVITY_SURFACE;
 	$Project->{_R_GAMMA_WELL}           = $R_GAMMA_WELL;
 	$Project->{_R_RESISTIVITY_SURFACE}  = $R_RESISTIVITY_SURFACE;
@@ -1523,6 +1532,9 @@ sub system_dirs {
 	  . $subUser;
 	my $PL_SEISMIC =
 	  $SEISMIC . '/pl/' . $DATE_LINE_COMPONENT_STAGE_PROCESS . '/' . $subUser;
+	my $PY_SEISMIC =
+	  $SEISMIC . '/SUG_py/' . $DATE_LINE_COMPONENT_STAGE_PROCESS . '/' . $subUser;
+	#	 print("Project_config,system_dirs, PL_SEISMIC =
 	my $PL_GEOMAPS =
 	  $GEOMAPS . '/pl/' . $DATE_LINE_COMPONENT_STAGE_PROCESS . '/' . $subUser;
 	my $PL_WELL =
@@ -1898,6 +1910,7 @@ sub system_dirs {
 	#	$Project->{_PL_GPR}                	   = $PL_GPR;
 	$Project->{_PL_RESISTIVITY_SURFACE} = $PL_RESISTIVITY_SURFACE;
 	$Project->{_PL_SEISMIC}             = $PL_SEISMIC;
+	$Project->{_PY_SEISMIC}             = $PY_SEISMIC;
 	$Project->{_PL_GEOMAPS}             = $PL_GEOMAPS;
 	$Project->{_PL_WELL}                = $PL_WELL;
 	$Project->{_PNG}                    = $PNG;
@@ -2551,6 +2564,17 @@ sub PL_SEISMIC {
 	return ($PL_SEISMIC);
 }
 
+sub PY_SEISMIC {
+	_set_dirs();
+	my $PY_SEISMIC_h = $Project->{_PY_SEISMIC};
+	control->set_infection($PY_SEISMIC_h);
+	my $PY_SEISMIC = $control->get_ticksBgone;
+
+	# This subroutine returns the value of PY_SEISMIC
+	# print ("\nProject_config, PY_SEISMIC,PY_SEISMIC: $PY_SEISMIC\n");
+	return ($PY_SEISMIC);
+}
+
 sub PL_WELL {
 	_set_dirs();
 	my $PL_WELL = $Project->{_PL_WELL};
@@ -2824,6 +2848,7 @@ sub make_local_dirs {
 	my $LIBRE_IMPRESS_SEISMIC = $Project->{_LIBRE_IMPRESS_SEISMIC};
 	my $PNG_SEISMIC           = $Project->{_PNG_SEISMIC};
 	my $PL_SEISMIC            = $Project->{_PL_SEISMIC};
+	my $PY_SEISMIC            = $Project->{_PY_SEISMIC};
 
 	# $manage_dirs_by->make_dir($GIF_SEISMIC);
 
@@ -2916,6 +2941,10 @@ sub make_local_dirs {
 	# pl programs and seismic data
 	# Always create
 	$manage_dirs_by->make_dir($PL_SEISMIC);
+
+    # SUG_py programs and seismic data
+	# Always create
+	$manage_dirs_by->make_dir($PY_SEISMIC);
 
 	# Format segy and seismic data
 	my $DATA_SEISMIC_SEGY     = $Project->{_DATA_SEISMIC_SEGY};
