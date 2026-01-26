@@ -131,6 +131,7 @@ my $Project = {
 	_DATABASE_SEISMIC_SQLITE   => '',
 	_FAST_TOMO                 => '',
 	_GEOPSY                    => '',
+	_GEOPSY_FORWARD_MODEL      => '',
 	_GEOPSY_PARAMS             => '',
 	_GEOPSY_PICKS              => '',
 	_GEOPSY_PICKS_RAW          => '',
@@ -667,6 +668,15 @@ sub _system_dirs {
 	  . $DATE_LINE_COMPONENT_STAGE_PROCESS . '/'
 	  . $subUser;
 
+	# GEOPSY DIRECTORY FORWARD MODELING DISPERSION CURVES
+	my $GEOPSY_FORWARD_MODEL =
+		$SEISMIC
+	  . '/geopsy/'
+	  . $DATE_LINE_COMPONENT_STAGE_PROCESS . '/'
+	  . $subUser. '/'
+	  . 'dispersion_model' .'/'
+	  . 'modes' ;
+
 	my $GEOPSY_PARAMS =
 		$SEISMIC
 	  . '/geopsy/'
@@ -1193,6 +1203,8 @@ sub _system_dirs {
 	$Project->{_FAST_TOMO}                 = $FAST_TOMO;
 	
 	$Project->{_GEOPSY}                    = $GEOPSY;
+	# GEOPSY DIRECTORY FORWARD MODELING DISPERSION CURVES
+	$Project->{_GEOPSY_FORWARD_MODEL}      = $GEOPSY_FORWARD_MODEL;
 	$Project->{_GEOPSY_PARAMS}             = $GEOPSY_PARAMS;
 	$Project->{_GEOPSY_PICKS}              = $GEOPSY_PICKS;
 	$Project->{_GEOPSY_PICKS_RAW}          = $GEOPSY_PICKS_RAW;
@@ -1347,6 +1359,16 @@ sub system_dirs {
 	  . '/geopsy/'
 	  . $DATE_LINE_COMPONENT_STAGE_PROCESS . '/'
 	  . $subUser;
+	
+	# GEOPSY DIRECTORY FORWARD MODELING DISPERSION CURVES
+	my $GEOPSY_FORWARD_MODEL =
+		$SEISMIC
+	  . '/geopsy/'
+	  . $DATE_LINE_COMPONENT_STAGE_PROCESS . '/'
+	  . $subUser . '/'
+	  . 'dispersion_model'
+	  . 'mode';	
+	# GEOPSY PARAMETERS DIRECTORY
 	my $GEOPSY_PARAMS =
 		$SEISMIC
 	  . '/geopsy/'
@@ -1882,6 +1904,7 @@ sub system_dirs {
 #	$Project->{_DATA_WELL}                 = $DATA_WELL;
 	$Project->{_FAST_TOMO}                 = $FAST_TOMO;
 	$Project->{_GEOPSY}                    = $GEOPSY;
+	$Project->{_GEOPSY_FORWARD_MODEL}      = $GEOPSY_FORWARD_MODEL;
 	$Project->{_GEOPSY_PARAMS}             = $GEOPSY_PARAMS;
 	$Project->{_GEOPSY_PICKS}              = $GEOPSY_PICKS;
 	$Project->{_GEOPSY_PICKS_RAW}          = $GEOPSY_PICKS_RAW;
@@ -2391,6 +2414,12 @@ sub GEOPSY {
 	return ($GEOPSY);
 }
 
+sub GEOPSY_FORWARD_MODEL {
+	_set_dirs();
+	my $GEOPSY_FORWARD_MODEL = $Project->{_GEOPSY_FORWARD_MODEL};
+	return ($GEOPSY_FORWARD_MODEL);
+}
+
 sub GEOPSY_PARAMS {
 	_set_dirs();
 	my $GEOPSY_PARAMS = $Project->{_GEOPSY_PARAMS};
@@ -2739,6 +2768,7 @@ sub make_local_dirs {
 	my $GEOMAPS_IMAGES_TIF  = $Project->{_GEOMAPS_IMAGES_TIF};
 	my $GEOMAPS_IMAGES_PS   = $Project->{_GEOMAPS_IMAGES_PS};
 	my $GEOPSY              = $Project->{_GEOPSY};
+	my $GEOPSY_FORWARD_MODEL = $Project->{_GEOPSY_FORWARD_MODEL};
 	my $GEOPSY_PARAMS       = $Project->{_GEOPSY_PARAMS};
 	my $GEOPSY_PICKS        = $Project->{_GEOPSY_PICKS};
 	my $GEOPSY_PICKS_RAW    = $Project->{_GEOPSY_PICKS_RAW};

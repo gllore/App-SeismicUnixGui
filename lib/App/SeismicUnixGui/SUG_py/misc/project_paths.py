@@ -86,21 +86,29 @@ class ProjectPaths:
         date         = _as_str(Project_config["date"], "date")
         component    = _as_str(Project_config["component"], "component")
         line         = _as_str(Project_config["line"], "line")
+        subUser      = _as_str(Project_config["subUser"], "subUser")
 
         # Derived paths
         Project_config["WELL"]    = project_home / "well"
         Project_config["SEISMIC"] = project_home / "seismics"
         Project_config["SITE_DATE_COMPONENT_LINE"] = Path(site) / date / component / line
 
-        Project_config["DATA_SEISMIC"]     = Project_config["SEISMIC"] / "data"
-        Project_config["DATA_SEISMIC_BIN"] = Project_config["DATA_SEISMIC"] / "bin"
+        Project_config["DATA_SEISMIC"]      = Project_config["SEISMIC"] / "data"
+        Project_config["DATA_SEISMIC_BIN"]  = Project_config["DATA_SEISMIC"] / Project_config["SITE_DATE_COMPONENT_LINE"] / "bin" / subUser
+        Project_config["DATA_SEISMIC_SEGY"] = Project_config["DATA_SEISMIC"] / Project_config["SITE_DATE_COMPONENT_LINE"] / "segy" / subUser
+        Project_config["DATA_SEISMIC_SU"]   = Project_config["DATA_SEISMIC"] / Project_config["SITE_DATE_COMPONENT_LINE"] / "su" / subUser
+        Project_config["DATA_SEISMIC_TXT"]  = Project_config["DATA_SEISMIC"] / Project_config["SITE_DATE_COMPONENT_LINE"] / "txt" / subUser
+        
+        Project_config["GEOPSY"]  = Project_config["SEISMIC"] / "geopsy" / Project_config["SITE_DATE_COMPONENT_LINE"] / subUser 
+        Project_config["GEOPSY_FORWARD_MODEL"]  = Project_config["GEOPSY"] / "dispersion_model" / "modes"
 
         self.paths = Project_config
         
         # Export only the derived ones you want as attributes
         self.export_as_attributes([
-             "WELL", "SEISMIC", "SITE_DATE_COMPONENT_LINE",
-             "DATA_SEISMIC", "DATA_SEISMIC_BIN",
+             "DATA_SEISMIC_BIN", "DATA_SEISMIC_SEGY",
+             "DATA_SEISMIC_SU","DATA_SEISMIC_TXT",
+             "GEOPSY_FORWARD_MODEL",
         ])
         return self.paths
     
