@@ -677,6 +677,13 @@ sub _system_dirs {
 	  . 'dispersion_model' .'/'
 	  . 'modes' ;
 
+	my $GEOPSY_MAKEUP =
+		$SEISMIC
+	  . '/geopsy/'
+	  . $DATE_LINE_COMPONENT_STAGE_PROCESS . '/'
+	  . $subUser . '/'
+	  . 'makeup';
+
 	my $GEOPSY_PARAMS =
 		$SEISMIC
 	  . '/geopsy/'
@@ -1205,6 +1212,7 @@ sub _system_dirs {
 	$Project->{_GEOPSY}                    = $GEOPSY;
 	# GEOPSY DIRECTORY FORWARD MODELING DISPERSION CURVES
 	$Project->{_GEOPSY_FORWARD_MODEL}      = $GEOPSY_FORWARD_MODEL;
+	$Project->{_GEOPSY_MAKEUP}             = $GEOPSY_MAKEUP;
 	$Project->{_GEOPSY_PARAMS}             = $GEOPSY_PARAMS;
 	$Project->{_GEOPSY_PICKS}              = $GEOPSY_PICKS;
 	$Project->{_GEOPSY_PICKS_RAW}          = $GEOPSY_PICKS_RAW;
@@ -1368,6 +1376,15 @@ sub system_dirs {
 	  . $subUser . '/'
 	  . 'dispersion_model'
 	  . 'mode';	
+
+	# GEOPSY DIRECTORY FORWARD MODELING DISPERSION CURVES
+	my $GEOPSY_MAKEUP =
+		$SEISMIC
+	  . '/geopsy/'
+	  . $DATE_LINE_COMPONENT_STAGE_PROCESS . '/'
+	  . $subUser . '/'
+	  . 'makeup';	
+
 	# GEOPSY PARAMETERS DIRECTORY
 	my $GEOPSY_PARAMS =
 		$SEISMIC
@@ -1905,6 +1922,7 @@ sub system_dirs {
 	$Project->{_FAST_TOMO}                 = $FAST_TOMO;
 	$Project->{_GEOPSY}                    = $GEOPSY;
 	$Project->{_GEOPSY_FORWARD_MODEL}      = $GEOPSY_FORWARD_MODEL;
+	$Project->{_GEOPSY_MAKEUP}             = $GEOPSY_MAKEUP;
 	$Project->{_GEOPSY_PARAMS}             = $GEOPSY_PARAMS;
 	$Project->{_GEOPSY_PICKS}              = $GEOPSY_PICKS;
 	$Project->{_GEOPSY_PICKS_RAW}          = $GEOPSY_PICKS_RAW;
@@ -2420,6 +2438,12 @@ sub GEOPSY_FORWARD_MODEL {
 	return ($GEOPSY_FORWARD_MODEL);
 }
 
+sub GEOPSY_MAKEUP {
+	_set_dirs();
+	my $GEOPSY_MAKEUP = $Project->{_GEOPSY_MAKEUP};
+	return ($GEOPSY_MAKEUP);
+}
+
 sub GEOPSY_PARAMS {
 	_set_dirs();
 	my $GEOPSY_PARAMS = $Project->{_GEOPSY_PARAMS};
@@ -2769,6 +2793,7 @@ sub make_local_dirs {
 	my $GEOMAPS_IMAGES_PS   = $Project->{_GEOMAPS_IMAGES_PS};
 	my $GEOPSY              = $Project->{_GEOPSY};
 	my $GEOPSY_FORWARD_MODEL = $Project->{_GEOPSY_FORWARD_MODEL};
+	my $GEOPSY_MAKEUP       = $Project->{_GEOPSY_MAKEUP};
 	my $GEOPSY_PARAMS       = $Project->{_GEOPSY_PARAMS};
 	my $GEOPSY_PICKS        = $Project->{_GEOPSY_PICKS};
 	my $GEOPSY_PICKS_RAW    = $Project->{_GEOPSY_PICKS_RAW};
@@ -2817,6 +2842,7 @@ sub make_local_dirs {
 
 	if ( $Project->{_geopsy_is_selected} ) {
 		$manage_dirs_by->make_dir($GEOPSY);
+		$manage_dirs_by->make_dir($GEOPSY_MAKEUP);
 		$manage_dirs_by->make_dir($GEOPSY_PARAMS);
 		$manage_dirs_by->make_dir($GEOPSY_PICKS);
 		$manage_dirs_by->make_dir($GEOPSY_PICKS_RAW);
