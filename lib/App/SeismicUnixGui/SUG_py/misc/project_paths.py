@@ -137,7 +137,7 @@ def main() -> None:
     if str(seismic_unix_gui) not in sys.path:
         sys.path.insert(0, str(seismic_unix_gui))
 
-    from SUG_py.misc.local_user_constants import myProject_config
+    # from SUG_py.misc.local_user_constants import myProject_config
 
 # permits bootstrapping
 # See first method, which could be just above here
