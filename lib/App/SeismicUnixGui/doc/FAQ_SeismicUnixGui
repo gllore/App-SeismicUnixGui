@@ -214,7 +214,6 @@ Example 1: parameter "geopsy" in "Project"
 							manage_dirs_by::make_dir($GEOPSY_PARAMS);
  							manage_dirs_by::make_dir($GEOPSY_PICKS); 
  							manage_dirs_by::make_dir($GEOPSY_PROFILES);
- 							manage_dirs_by::make_dir($GEOPSY_REPORTS);
 							manage_dirs_by::make_dir($GEOPSY_TARGETS);
  						}		
  		 
@@ -234,7 +233,6 @@ Example 1: parameter "geopsy" in "Project"
 					_GEOPSY_PARAMS					=> '',
 					_GEOPSY_PICKS					=> '',	
 					_GEOPSY_PROFILES				=> '',
-					_GEOPSY_REPORTS					=> '',
 					_GEOPSY_TARGETS					=> '',
  	
  	Add ~ line 927: 
@@ -242,8 +240,7 @@ Example 1: parameter "geopsy" in "Project"
    my $GEOPSY              	= $SEISMIC.'/geopsy/'.$DATE_LINE_COMPONENT_STAGE_PROCESS.'/'.$subUser;
    my $GEOPSY_PARAMS        = $SEISMIC.'/geopsy/'.$DATE_LINE_COMPONENT_STAGE_PROCESS.'/'.$subUser.'/'.'params';
    my $GEOPSY_PICKS         = $SEISMIC.'/geopsy/'.$DATE_LINE_COMPONENT_STAGE_PROCESS.'/'.$subUser.'/'.'picks';
-   my $GEOPSY_PROFILES      = $SEISMIC.'/geopsy/'.$DATE_LINE_COMPONENT_STAGE_PROCESS.'/'.$subUser.'/'.'profiles';
-   my $GEOPSY_REPORTS       = $SEISMIC.'/geopsy/'.$DATE_LINE_COMPONENT_STAGE_PROCESS.'/'.$subUser.'/'.'reports';       
+   my $GEOPSY_PROFILES      = $SEISMIC.'/geopsy/'.$DATE_LINE_COMPONENT_STAGE_PROCESS.'/'.$subUser.'/'.'profiles';  
    my $GEOPSY_TARGETS       = $SEISMIC.'/geopsy/'.$DATE_LINE_COMPONENT_STAGE_PROCESS.'/'.$subUser.'/'.'targets';
  	
  	Add the following ~ line 815: (first time)
@@ -251,7 +248,6 @@ Example 1: parameter "geopsy" in "Project"
  	$Project->{_GEOPSY_PARAMS}				= $GEOPSY_PARAMS;
  	$Project->{_GEOPSY_PICKS}				= $GEOPSY_PICKS;
  	$Project->{_GEOPSY_PROFILES}			= $GEOPSY_PROFILES;
- 	$Project->{_GEOPSY_REPORTS}				= $GEOPSY_REPORTS;
   	$Project->{_GEOPSY_TARGETS}				= $GEOPSY_TARGETS;
  						 
     Add the following ~ line 929:
@@ -261,7 +257,6 @@ Example 1: parameter "geopsy" in "Project"
    my $GEOPSY_PARAMS          = $SEISMIC.'/geopsy/'.$DATE_LINE_COMPONENT_STAGE_PROCESS.'/'.$subUser.'/'.'params';
    my $GEOPSY_PICKS          = $SEISMIC.'/geopsy/'.$DATE_LINE_COMPONENT_STAGE_PROCESS.'/'.$subUser.'/'.'picks';
    my $GEOPSY_PROFILES      = $SEISMIC.'/geopsy/'.$DATE_LINE_COMPONENT_STAGE_PROCESS.'/'.$subUser.'/'.'profiles';
-   my $GEOPSY_REPORTS       = $SEISMIC.'/geopsy/'.$DATE_LINE_COMPONENT_STAGE_PROCESS.'/'.$subUser.'/'.'reports';       
    my $GEOPSY_TARGETS       = $SEISMIC.'/geopsy/'.$DATE_LINE_COMPONENT_STAGE_PROCESS.'/'.$subUser.'/'.'targets';
     
     
@@ -269,8 +264,7 @@ Example 1: parameter "geopsy" in "Project"
     $Project->{_GEOPSY}						= $GEOPSY;
     $Project->{_GEOPSY_PARAMS}				= $GEOPSY_PARAMS;
  	$Project->{_GEOPSY_PICKS}				= $GEOPSY_PICKS;	
- 	$Project->{_GEOPSY_PROFILES}			= $GEOPSY_PROFILES;
- 	$Project->{_GEOPSY_REPORTS}				= $GEOPSY_REPORTS;	
+ 	$Project->{_GEOPSY_PROFILES}			= $GEOPSY_PROFILES;	
  	$Project->{_GEOPSY_TARGETS}				= $GEOPSY_TARGETS;						
           
     
@@ -304,19 +298,11 @@ sub GEOPSY_PROFILES {
         return ($GEOPSY_PROFILES);
 }
 
-sub GEOPSY_REPORTS {
-	_basic_dirs();
-	_system_dirs();
-		my $GEOPSY_REPORTS= $Project->{_GEOPSY_REPORTS};		
-        return ($GEOPSY_REPORTS);
-}
-	
  	Add the following ~ line: 1873 (third time)
  	my $GEOPSY				= $Project->{_GEOPSY};
 	my $GEOPSY_PARAMS		= $Project->{_GEOPSY_PARAMS};
 	my $GEOPSY_PICKS		= $Project->{_GEOPSY_PICKS};
 	my $GEOPSY_PROFILES		= $Project->{_GEOPSY_PROFILES};	
-	my $GEOPSY_REPORTS		= $Project->{_GEOPSY_REPORTS};
 	my $GEOPSY_TARGETS		= $Project->{_GEOPSY_TARGETS};		    	 
  
 
@@ -327,7 +313,6 @@ sub GEOPSY_REPORTS {
 		manage_dirs_by::make_dir($GEOPSY_PARAMS);
  		manage_dirs_by::make_dir($GEOPSY_PICKS); 
  		manage_dirs_by::make_dir($GEOPSY_PROFILES);
- 		manage_dirs_by::make_dir($GEOPSY_REPORTS);
 		manage_dirs_by::make_dir($GEOPSY_TARGETS);
 	}
   

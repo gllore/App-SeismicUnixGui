@@ -289,9 +289,9 @@ sub clean {
 
 		use App::SeismicUnixGui::misc::SeismicUnix
 		  qw($gx $in $out $on $go $to $txt
-		  $suffix_ascii $off $offset $pick $profile $report
+		  $suffix_ascii $off $offset $pick $profile 
 		  $su $suffix_profile $sx $suffix_su $suffix_target
-		  $suffix_pick $suffix_report $suffix_target_tilde
+		  $suffix_pick $suffix_target_tilde
 		  $suffix_txt $target $target_tilde $tracl);
 
 		my $Project = Project_config->new();
@@ -303,7 +303,6 @@ sub clean {
 		my $DATA_SEISMIC_TXT  = $Project->DATA_SEISMIC_TXT;
 		my $GEOPSY_PICKS      = $Project->GEOPSY_PICKS;
 		my $GEOPSY_PROFILES   = $Project->GEOPSY_PROFILES;
-		my $GEOPSY_REPORTS    = $Project->GEOPSY_REPORTS;
 		my $GEOPSY_TARGETS    = $Project->GEOPSY_TARGETS;
 		my $file_name         = $manage_files_by2->{_delete_base_file_name};
 		my $suffix_type       = $manage_files_by2->{_suffix_type};
@@ -331,14 +330,6 @@ sub clean {
 		elsif ( $suffix_type eq $profile ) {
 
 			$outbound = $GEOPSY_PROFILES . '/' . $file_name . $suffix_profile;
-
-			print("manage_files_by2, clean, outbound=$outbound\n");
-
-		}
-
-		elsif ( $suffix_type eq $report ) {
-
-			$outbound = $GEOPSY_REPORTS . '/' . $file_name . $suffix_report;
 
 			print("manage_files_by2, clean, outbound=$outbound\n");
 
@@ -688,7 +679,7 @@ sub get_3cols_aref {
 	# number of geophones stations in file
 	my $num_rows = $i - 1;
 
-	#print ("This file contains $num_rows rows\n\n\n");
+	print ("This file contains $num_rows rows\n\n\n");
 	# close the file of interest
 	close(FILE);
 
@@ -868,7 +859,7 @@ sub get_whole {
 
 	  if (
 		  (
-				 length $manage_files_by2->{_directory}
+			  length $manage_files_by2->{_directory}
 			  && length $manage_files_by2->{_file_in}
 		  )
 		  or length $manage_files_by2->{_pathNfile}
@@ -906,7 +897,7 @@ sub get_whole {
 			  chomp $row;
 			  $all_lines[$i] = $row;
 
-		#			print "I read: " . $all_lines[$i] . "from the file, i=" . $i . "\n";
+					# print "I read: " . $all_lines[$i] . "   <--from the file, i=" . $i . "\n";
 			  $i++;
 		  }
 
@@ -916,13 +907,6 @@ sub get_whole {
 		  $manage_files_by2->{_num_lines} =
 			scalar @{ $manage_files_by2->{_all_lines_aref} };
 
-		  # $manage_files_by2->{_num_lines} = 16;
-
-# print("manage_files_by2, get_whole, num_lines: $manage_files_by2->{_num_lines}\n");
-#for (my $i=14; $i < $manage_files_by2->{_num_lines}; $i++ ) {
-# 	print("manage_files_by2, get_whole, all_lines_aref: @{$manage_files_by2->{_all_lines_aref}}[$i] \n");
-#}
-# print("manage_files_by2, get_whole, all_lines_aref: @{$manage_files_by2->{_all_lines_aref}} \n");
 	  }
 	  else {
 		  print(

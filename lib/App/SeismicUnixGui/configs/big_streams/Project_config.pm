@@ -131,12 +131,12 @@ my $Project = {
 	_DATABASE_SEISMIC_SQLITE   => '',
 	_FAST_TOMO                 => '',
 	_GEOPSY                    => '',
+	_GEOPSY_EARTH_MODEL        => '',
 	_GEOPSY_FORWARD_MODEL      => '',
 	_GEOPSY_PARAMS             => '',
 	_GEOPSY_PICKS              => '',
 	_GEOPSY_PICKS_RAW          => '',
 	_GEOPSY_PROFILES           => '',
-	_GEOPSY_REPORTS            => '',
 	_GEOPSY_TARGETS            => '',
 	_GIF_SEISMIC               => '',
 	_ISOLA                     => '',
@@ -151,6 +151,7 @@ my $Project = {
 	_MMODPG                    => '',
 	_MOD2D_TOMO                => '',
 	_PL_SEISMIC                => '',
+	_PL_SEISMIC_SPECFEM2D      => '',
 	_PL_GEOMAPS                => '',
 	#	_PL_GPR                       => '',
 	_PL_RESISTIVITY_SURFACE       => '',
@@ -669,6 +670,15 @@ sub _system_dirs {
 	  . $subUser;
 
 	# GEOPSY DIRECTORY FORWARD MODELING DISPERSION CURVES
+	my $GEOPSY_EARTH_MODEL =
+		$SEISMIC
+	  . '/geopsy/'
+	  . $DATE_LINE_COMPONENT_STAGE_PROCESS . '/'
+	  . $subUser. '/'
+	  . 'dispersion_model' .'/'
+	  . 'earth_model' ; 
+
+	# GEOPSY DIRECTORY FORWARD MODELING DISPERSION CURVES
 	my $GEOPSY_FORWARD_MODEL =
 		$SEISMIC
 	  . '/geopsy/'
@@ -705,13 +715,6 @@ sub _system_dirs {
 	  . $DATE_LINE_COMPONENT_STAGE_PROCESS . '/'
 	  . $subUser . '/'
 	  . 'profiles';
-
-	my $GEOPSY_REPORTS =
-		$SEISMIC
-	  . '/geopsy/'
-	  . $DATE_LINE_COMPONENT_STAGE_PROCESS . '/'
-	  . $subUser . '/'
-	  . 'reports';
 
 	my $GEOPSY_TARGETS =
 		$SEISMIC
@@ -842,7 +845,7 @@ sub _system_dirs {
 	# FAST DIRECTORY for 2D RAYTRACING
 	my $MOD2D_TOMO = $SEISMIC . '/fast_tomo/All/mod2d';
 
-	#	# PERL DIRECTOIES
+	#	# PERL DIRECTORIES
 	#	my $PL_GPR =
 	#	  $GPR . '/pl/' . $DATE_LINE_COMPONENT_STAGE_PROCESS . '/' . $subUser;
 
@@ -850,8 +853,11 @@ sub _system_dirs {
 		$RESISTIVITY_SURFACE . '/pl/'
 	  . $DATE_LINE_COMPONENT_STAGE_PROCESS . '/'
 	  . $subUser;
+
 	my $PL_SEISMIC =
 	  $SEISMIC . '/pl/' . $DATE_LINE_COMPONENT_STAGE_PROCESS . '/' . $subUser;
+	my $PL_SEISMIC_SPECFEM2D = 
+      $PL_SEISMIC . '/specfem2d';
 	my $PY_SEISMIC =
 	  $SEISMIC . '/SUG_py/' . $DATE_LINE_COMPONENT_STAGE_PROCESS . '/' . $subUser;
 	my $PL_GEOMAPS =	
@@ -1212,12 +1218,12 @@ sub _system_dirs {
 	$Project->{_GEOPSY}                    = $GEOPSY;
 	# GEOPSY DIRECTORY FORWARD MODELING DISPERSION CURVES
 	$Project->{_GEOPSY_FORWARD_MODEL}      = $GEOPSY_FORWARD_MODEL;
+	$Project->{_GEOPSY_EARTH_MODEL}        = $GEOPSY_EARTH_MODEL;
 	$Project->{_GEOPSY_MAKEUP}             = $GEOPSY_MAKEUP;
 	$Project->{_GEOPSY_PARAMS}             = $GEOPSY_PARAMS;
 	$Project->{_GEOPSY_PICKS}              = $GEOPSY_PICKS;
 	$Project->{_GEOPSY_PICKS_RAW}          = $GEOPSY_PICKS_RAW;
 	$Project->{_GEOPSY_PROFILES}           = $GEOPSY_PROFILES;
-	$Project->{_GEOPSY_REPORTS}            = $GEOPSY_REPORTS;
 	$Project->{_GEOPSY_TARGETS}            = $GEOPSY_TARGETS;
 
 	$Project->{_GIF_SEISMIC}               = $GIF_SEISMIC;
@@ -1248,6 +1254,7 @@ sub _system_dirs {
 	#	$Project->{_PS_GPR}                 = $PS_GPR;
 	$Project->{_PL_RESISTIVITY_SURFACE} = $PL_RESISTIVITY_SURFACE;
 	$Project->{_PL_SEISMIC}             = $PL_SEISMIC;
+	$Project->{_PL_SEISMIC_SPECFEM2D}   = $PL_SEISMIC_SPECFEM2D;
 	$Project->{_PY_SEISMIC}             = $PY_SEISMIC;
 	$Project->{_RESISTIVITY_SURFACE}    = $RESISTIVITY_SURFACE;
 	$Project->{_R_GAMMA_WELL}           = $R_GAMMA_WELL;
@@ -1367,14 +1374,23 @@ sub system_dirs {
 	  . '/geopsy/'
 	  . $DATE_LINE_COMPONENT_STAGE_PROCESS . '/'
 	  . $subUser;
-	
+
+	# GEOPSY DIRECTORY EARTH MODEL
+	my $GEOPSY_EARTH_MODEL =
+		$SEISMIC
+	  . '/geopsy/'
+	  . $DATE_LINE_COMPONENT_STAGE_PROCESS . '/'
+	  . $subUser . '/'
+	  . 'dispersion_model' .'/'
+	  . 'earth_model';
+
 	# GEOPSY DIRECTORY FORWARD MODELING DISPERSION CURVES
 	my $GEOPSY_FORWARD_MODEL =
 		$SEISMIC
 	  . '/geopsy/'
 	  . $DATE_LINE_COMPONENT_STAGE_PROCESS . '/'
 	  . $subUser . '/'
-	  . 'dispersion_model'
+	  . 'dispersion_model' . '/'
 	  . 'mode';	
 
 	# GEOPSY DIRECTORY FORWARD MODELING DISPERSION CURVES
@@ -1407,13 +1423,6 @@ sub system_dirs {
 	  . $DATE_LINE_COMPONENT_STAGE_PROCESS . '/'
 	  . $subUser . '/'
 	  . 'profiles';
-
-	my $GEOPSY_REPORTS =
-		$SEISMIC
-	  . '/geopsy/'
-	  . $DATE_LINE_COMPONENT_STAGE_PROCESS . '/'
-	  . $subUser . '/'
-	  . 'reports';
 
 	my $GEOPSY_TARGETS =
 		$SEISMIC
@@ -1569,6 +1578,7 @@ sub system_dirs {
 		$RESISTIVITY_SURFACE . '/pl/'
 	  . $DATE_LINE_COMPONENT_STAGE_PROCESS . '/'
 	  . $subUser;
+
 	my $PL_SEISMIC =
 	  $SEISMIC . '/pl/' . $DATE_LINE_COMPONENT_STAGE_PROCESS . '/' . $subUser;
 	my $PY_SEISMIC =
@@ -1578,6 +1588,8 @@ sub system_dirs {
 	  $GEOMAPS . '/pl/' . $DATE_LINE_COMPONENT_STAGE_PROCESS . '/' . $subUser;
 	my $PL_WELL =
 	  $WELL . '/pl/' . $DATE_LINE_COMPONENT_STAGE_PROCESS . '/' . $subUser;
+	
+	my $PL_SEISMIC_SPECFEM2D = $PL_SEISMIC . '/specfem2d';
 
 	# R DIRECTORIES
 	my $R_RESISTIVITY_WELL =
@@ -1921,13 +1933,13 @@ sub system_dirs {
 #	$Project->{_DATA_WELL}                 = $DATA_WELL;
 	$Project->{_FAST_TOMO}                 = $FAST_TOMO;
 	$Project->{_GEOPSY}                    = $GEOPSY;
+	$Project->{_GEOPSY_EARTH_MODEL}        = $GEOPSY_EARTH_MODEL;
 	$Project->{_GEOPSY_FORWARD_MODEL}      = $GEOPSY_FORWARD_MODEL;
 	$Project->{_GEOPSY_MAKEUP}             = $GEOPSY_MAKEUP;
 	$Project->{_GEOPSY_PARAMS}             = $GEOPSY_PARAMS;
 	$Project->{_GEOPSY_PICKS}              = $GEOPSY_PICKS;
 	$Project->{_GEOPSY_PICKS_RAW}          = $GEOPSY_PICKS_RAW;
 	$Project->{_GEOPSY_PROFILES}           = $GEOPSY_PROFILES;
-	$Project->{_GEOPSY_REPORTS}            = $GEOPSY_REPORTS;
 	$Project->{_GEOPSY_TARGETS}            = $GEOPSY_TARGETS;
 
 	#	$Project->{_GIF_GPR}                   = $GIF_GPR;
@@ -1951,6 +1963,7 @@ sub system_dirs {
 	#	$Project->{_PL_GPR}                	   = $PL_GPR;
 	$Project->{_PL_RESISTIVITY_SURFACE} = $PL_RESISTIVITY_SURFACE;
 	$Project->{_PL_SEISMIC}             = $PL_SEISMIC;
+	$Project->{_PL_SEISMIC_SPECFEM2D}   = $PL_SEISMIC_SPECFEM2D;
 	$Project->{_PY_SEISMIC}             = $PY_SEISMIC;
 	$Project->{_PL_GEOMAPS}             = $PL_GEOMAPS;
 	$Project->{_PL_WELL}                = $PL_WELL;
@@ -2432,6 +2445,12 @@ sub GEOPSY {
 	return ($GEOPSY);
 }
 
+sub GEOPSY_EARTH_MODEL {
+	_set_dirs();
+	my $GEOPSY_EARTH_MODEL = $Project->{_GEOPSY_EARTH_MODEL};
+	return ($GEOPSY_EARTH_MODEL);
+}
+
 sub GEOPSY_FORWARD_MODEL {
 	_set_dirs();
 	my $GEOPSY_FORWARD_MODEL = $Project->{_GEOPSY_FORWARD_MODEL};
@@ -2466,12 +2485,6 @@ sub GEOPSY_PROFILES {
 	_set_dirs();
 	my $GEOPSY_PROFILES = $Project->{_GEOPSY_PROFILES};
 	return ($GEOPSY_PROFILES);
-}
-
-sub GEOPSY_REPORTS {
-	_set_dirs();
-	my $GEOPSY_REPORTS = $Project->{_GEOPSY_REPORTS};
-	return ($GEOPSY_REPORTS);
 }
 
 sub GEOPSY_TARGETS {
@@ -2615,6 +2628,15 @@ sub PL_SEISMIC {
 	# This subroutine returns the value of PL_SEISMIC
 	# print ("\nProject_config, PL_SEISMIC,PL_SEISMIC: $PL_SEISMIC\n");
 	return ($PL_SEISMIC);
+}
+
+sub PL_SEISMIC_SPECFEM2D {
+	_set_dirs();
+	my $PL_SEISMIC_SPECFEM2D = $Project->{_PL_SEISMIC_SPECFEM2D};
+
+	# This subroutine returns the value of PL_SEISMIC_SPECFEM2D
+	# print ("\nProject_config, PL_SEISMIC_SPECFEM2D,PL_SEISMIC_SPECFEM2D: $PL_SEISMIC_SPECFEM2D\n");
+	return ($PL_SEISMIC_SPECFEM2D);
 }
 
 sub PY_SEISMIC {
@@ -2792,13 +2814,13 @@ sub make_local_dirs {
 	my $GEOMAPS_IMAGES_TIF  = $Project->{_GEOMAPS_IMAGES_TIF};
 	my $GEOMAPS_IMAGES_PS   = $Project->{_GEOMAPS_IMAGES_PS};
 	my $GEOPSY              = $Project->{_GEOPSY};
+	my $GEOPSY_EARTH_MODEL  = $Project->{_GEOPSY_EARTH_MODEL};
 	my $GEOPSY_FORWARD_MODEL = $Project->{_GEOPSY_FORWARD_MODEL};
 	my $GEOPSY_MAKEUP       = $Project->{_GEOPSY_MAKEUP};
 	my $GEOPSY_PARAMS       = $Project->{_GEOPSY_PARAMS};
 	my $GEOPSY_PICKS        = $Project->{_GEOPSY_PICKS};
 	my $GEOPSY_PICKS_RAW    = $Project->{_GEOPSY_PICKS_RAW};
 	my $GEOPSY_PROFILES     = $Project->{_GEOPSY_PROFILES};
-	my $GEOPSY_REPORTS      = $Project->{_GEOPSY_REPORTS};
 	my $GEOPSY_TARGETS      = $Project->{_GEOPSY_TARGETS};
 
 	my $GMT_GEOMAPS    = $Project->{_GMT_GEOMAPS};
@@ -2847,7 +2869,6 @@ sub make_local_dirs {
 		$manage_dirs_by->make_dir($GEOPSY_PICKS);
 		$manage_dirs_by->make_dir($GEOPSY_PICKS_RAW);
 		$manage_dirs_by->make_dir($GEOPSY_PROFILES);
-		$manage_dirs_by->make_dir($GEOPSY_REPORTS);
 		$manage_dirs_by->make_dir($GEOPSY_TARGETS);
 	}
 
@@ -2904,6 +2925,7 @@ sub make_local_dirs {
 	my $LIBRE_IMPRESS_SEISMIC = $Project->{_LIBRE_IMPRESS_SEISMIC};
 	my $PNG_SEISMIC           = $Project->{_PNG_SEISMIC};
 	my $PL_SEISMIC            = $Project->{_PL_SEISMIC};
+	my $PL_SEISMIC_SPECFEM2D  = $Project->{_PL_SEISMIC_SPECFEM2D};
 	my $PY_SEISMIC            = $Project->{_PY_SEISMIC};
 
 	# $manage_dirs_by->make_dir($GIF_SEISMIC);
@@ -2997,6 +3019,7 @@ sub make_local_dirs {
 	# pl programs and seismic data
 	# Always create
 	$manage_dirs_by->make_dir($PL_SEISMIC);
+	$manage_dirs_by->make_dir($PL_SEISMIC_SPECFEM2D);
 
     # SUG_py programs and seismic data
 	# Always create
