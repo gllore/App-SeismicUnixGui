@@ -317,63 +317,40 @@ sub get_gpdc_model {
 
     confess "No input file provided\n" unless length $inbound;
 
-    my $number_of_gpdc_layers;
+    open(my $fh, "<", $inbound) or die "Cannot open $inbound: $!\n";
+
+    # Read first line
+    my $number_of_gpdc_layers = <$fh>;
+
+    # gpdc layers are larger that specfem2d layers
+    # because the gpdc model includes a half-space layer that is not included in the specfem2d model
+    chomp($number_of_gpdc_layers);
+    my $number_of_specfem2d_layers = $number_of_gpdc_layers - 1;
+    # print "number of layers = $number_of_specfem2d_layers\n";
+    _set_number_of_specfem2d_layers($number_of_specfem2d_layers);
+
     my @thickness_m;
     my @Vp_mps;
     my @Vs_mps;
     my @rho_kgm3;
-    my @results;
-
-    # read in good values from a file (no comments
-    open(my $fh, "<", $inbound) or die "Cannot open $inbound: $!\n";
 
     while (my $line = <$fh>) {
 
-       chomp($line);
+        chomp($line);
+        next if $line =~ /^\s*$/;
 
-       # skip comment lines
-       next if $line =~ /^\s*#/;
+        $line =~ s/^\s+//;
+        $line =~ s/\s+$//;
 
-       # skip blank lines (optional)
-       next if $line =~ /^\s*$/;
+        my ($thickness, $vp, $vs, $rho) = split(/\s+/, $line);
 
-       # save only non-comment lines
-       push @results, $line;
-
-    }
-
-    # work out the number of layers
-    my $length_of_results  = scalar @results;
-    $number_of_gpdc_layers = $results[0];
-
-    # consider case of no comments lines, for a geopsy
-    # earth model as well as
-    # direct output from the gpdc model
-    my $useful_lines          = $length_of_results - $number_of_gpdc_layers;
-
-    # for a gpdc model
-    if ($useful_lines > 1 ) {
-        $number_of_gpdc_layers++;
-    }
-    # print "number of gpdc layers = $number_of_gpdc_layers\n";
-
-    # collect important values
-    for (my $i=1; $i<=$number_of_gpdc_layers; $i++) {
-
-        print("line: $results[$i]\n");
-        my ($thickness, $vp, $vs, $rho) = split(/\s+/, $results[$i]);
         push @thickness_m, $thickness;
         push @Vp_mps,      $vp;
         push @Vs_mps,      $vs;
         push @rho_kgm3,    $rho;
-
     }
 
-    # for gpdc and geopsy earth models
-    # last layer is usually a half-space and wil be ignored
-    my $number_of_specfem2d_layers = $number_of_gpdc_layers - 1;
-    print "final number of layers = $number_of_specfem2d_layers\n";
-    _set_number_of_specfem2d_layers($number_of_specfem2d_layers);
+    close($fh);
 
     # Store the arrays in the object for later use
     $gpdc2specfem2d->{_thickness_m_aref} = \@thickness_m;
@@ -437,7 +414,7 @@ sub set_specfem2d_model_path {
 
 }
 
-=head2 sub set_specfem2d_Par_file
+=head2 sub
 
   set_specfem2d_Par_file
   replace the lines in the Par_file with the values from the gpdc model
@@ -497,7 +474,7 @@ sub set_specfem2d_Par_file{
 
     # magic adjustments
     $first_velden_line2find_index += 3; # to account for the 3 lines of comments after the line with the search term
-    $mid_velden_line2find_index    = $mid_velden_line2find_index + 4;
+    $mid_velden_line2find_index = $mid_velden_line2find_index + 4;
     $last_velden_line2find_index  -= 2; # to account for the line of comments before the line with the search term
     $nbmodels_line2find_index     -= 1; # to account for the line
 
@@ -523,16 +500,17 @@ sub set_specfem2d_Par_file{
         } else {
             confess "Index $index is out of bounds for the Par_file lines to replace\n";
         }
+
     }
 
     ### CASE 1B. Build a text block of line to insert for the velocity and density models
     my $material_type =  _get_material_type();
     my @layer_number =  @{_get_specfem2d_layer_numbers_aref()};
 
-    my @text2insert_1;
+    my @text_to_insert_1;
     for (my $layers = 0; $layers < $number_of_specfem2d_layers; $layers++) {
 
-        push @text2insert_1,
+        push @text_to_insert_1,
         join(' ',
             $layer_number[$layers],
             $material_type,
@@ -548,18 +526,17 @@ sub set_specfem2d_Par_file{
     }
 
     # add a newline to the end of text_to_insert_1
-    push @text2insert_1,' ';
+    push @text_to_insert_1,' ';
 
     ### CASE 1C. Introduce a new block of lines that overwrite existing lines
     # Remove lines between mid_velden_line2find_index and last_velden_line2find_index
-    # cut out
-    my @expel_top = @slurp[0..$mid_velden_line2find_index];
-    my @expel_bot = @slurp[$last_velden_line2find_index ... $#slurp];
-    my @expel_1;
 
+    my @expel_top = @slurp[0..$mid_velden_line2find_index];  
+    my @expel_bot = @slurp[($mid_velden_line2find_index+1)..$last_velden_line2find_index];
+
+    my @expel_1;
     push @expel_1, @expel_top;
-    push @expel_1, @text2insert_1;
-    push @expel_1, @expel_bot;    
+    push @expel_1, @expel_bot;
 
     ### CASE 2A.SEARCH FOR SINGLE LINES IN THE Par_file TO REPLACE with the values from the gpdc model
     my $first_nbregions_line2find          = "# format of each line: nxmin nxmax nzmin nzmax material_number";
@@ -568,11 +545,18 @@ sub set_specfem2d_Par_file{
     my ($first_nbregions_line2find_index)  =$text->find_index_for_lines2replace(\@expel_1, $first_nbregions_line2find);
     my ($last_nbregions_line2find_index)   =$text->find_index_for_lines2replace(\@expel_1, $last_nbregions_line2find);
     my ($num_x_spectral_elements_line2find_index)   =$text->find_index_for_lines2replace(\@expel_1, $num_x_spectral_elements_line2find);
-    # print("first_nbregions_line2find_index:$slurp[$first_nbregions_line2find_index]\n");
-    
+          
     # magic adjustments
     $first_nbregions_line2find_index -= 1; # to account for an extra line above line of search term
     $last_nbregions_line2find_index  -= 3; # to account for the 3 lines of comments before the line with the search term
+
+    # print("first_nbregions_line2find_index:$first_nbregions_line2find_index\n");
+    # print("$expel_1[$first_nbregions_line2find_index]\n");
+
+    # print("num_x_spectral_elements_line2find_index:$num_x_spectral_elements_line2find_index\n");
+    # print("$expel_1[$num_x_spectral_elements_line2find_index]\n");
+    # print("last_nbregions_line2find_index:$last_nbregions_line2find_index\n");
+    # print("$expel_1[$last_nbregions_line2find_index]\n");
 
     my $line_temp = $expel_1[$num_x_spectral_elements_line2find_index];
     my ($nx) = $line_temp =~ /nx\s*=\s*(\d+)/;
