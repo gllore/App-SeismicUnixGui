@@ -79,7 +79,7 @@ use App::SeismicUnixGui::misc::SeismicUnix qw($on $off $in $to $go
   $ibot_mute_check_pickfile_
   $itemp_picks_ $ipicks_par_ $itemp_picks_sorted_par_
   $ipick_check_pickfile_
-  $false $true $suffix_su $suffix_su);
+  $false $true $suffix_su);
 
 =head2 
 
@@ -133,9 +133,16 @@ my @answers;
 =cut
 
 sub cdp_num {
-	my ( $self, $cdp_num ) = @_;
-	$old_data->{_cdp_num}        = $cdp_num if defined($cdp_num);
+
+	my $self = shift;
+	die "Expected 1 argument, got " . scalar(@_) . "\n"
+    unless @_ == 1;
+
+	my ( $cdp_num ) = @_;
+
+	$old_data->{_cdp_num}        = $cdp_num;
 	$old_data->{_cdp_num_suffix} = '_cdp' . $old_data->{_cdp_num};
+	
 }
 
 =head2 subroutine gather
@@ -203,25 +210,29 @@ sub type {
 			  $PL_SEISMIC . '/' . $old_data->{_textfile_in}
 			  if defined( ( $old_data && $PL_SEISMIC ) );
 			$ans = $test->does_file_exist( \$old_data->{_Tvel_inbound} );
+
 			return ($ans);
 		}
 
 		if ( $old_data->{_type} eq 'velan' ) {
 
-			$old_data->{_textfile_in} =
-				'ivpicks_old' . '_'
-			  . $old_data->{_file_in}
-			  . $old_data->{_cdp_num_suffix}
-			  if defined($old_data);
-			$old_data->{_Tvel_inbound} =
-			  $PL_SEISMIC . '/' . $old_data->{_textfile_in}
-			  if defined( ( $old_data && $PL_SEISMIC ) );
-			$ans = $test->does_file_exist( \$old_data->{_Tvel_inbound} );
+			if (   $old_data->{_file_in}
+					&& $old_data->{_cdp_num_suffix} )
+			{
 
-# $old_data->{_textfile_out}    = 'ivpicks_'.$old_data->{_file_in}.$old_data->{_cdp_num_suffix} if defined(($old_data && ($old_data->{_file_in} && $old_data->{_cdp_num_suffix})));
-# $old_data->{_Tvel_outbound}     = $PL_SEISMIC.'/'.$old_data->{_textfile_out} if defined(($old_data && $PL_SEISMIC ));
-# print("Tvel out is $old_data->{_Tvel_outbound}\n\n");
-# print("Tvel in is $old_data->{_Tvel_inbound}\n\n");
+				$old_data->{_textfile_in} =
+			    'ivpicks'.'_'
+			  	. $old_data->{_file_in}
+			  	. $old_data->{_cdp_num_suffix};
+
+				# print("old_data, textfile_in is $old_data->{_textfile_in}\n\n");
+
+				$old_data->{_Tvel_inbound} =
+				$DATA_SEISMIC_TXT . '/' . $old_data->{_textfile_in};
+				$ans = $test->does_file_exist( \$old_data->{_Tvel_inbound} );
+
+			}
+
 			return ($ans);
 
 		}

@@ -93,7 +93,7 @@ PROGRAM NAME:  insert_two_lines_in_file.pl
     $program_name[32]       = 'Sudipfilt';
     $program_name[33]       = 'Sseg2su';
     $program_name[34]       = 'Synseis';
-    $program_name[35]       = 'iVA';
+    $program_name[35]       = 'iVelocityAnalysis';
     $program_name[36]       = 'immodpg';   
     
     	# which programs to choose 

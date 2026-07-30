@@ -332,7 +332,7 @@ sub multi_gather_parfile {
 
 =cut
 
-		$parfile_out[1]       = '.temp_scaled_multi_gather_parfile_iVA';
+		$parfile_out[1]       = '.temp_scaled_multi_gather_parfile_iVelocityAnalysis';
 		$inbound              = $PL_SEISMIC . '/' . $parfile_in[1];
 		$sunmo->{_scaled_par} = $PL_SEISMIC . '/' . $parfile_out[1];
 		$outbound             = $sunmo->{_scaled_par};
@@ -469,7 +469,7 @@ sub multi_gather_parfile {
 
 		# print("cat_max_file_num $maxfile_num \n");
 
-		my $file_name_out = '.temp_scaled_multi_gather_parfile_iVA';
+		my $file_name_out = '.temp_scaled_multi_gather_parfile_iVelocityAnalysis';
 		my $outboundcat   = $PL_SEISMIC . '/' . $file_name_out;
 
 		for ( my $i = $first_file_num ; $i < $maxfile_num ; $i = $i += 2 ) {
@@ -560,7 +560,7 @@ sub par {
 
 =cut
 
-		$parfile_out[1]       = '.temp_scaled_par_iVA';
+		$parfile_out[1]       = '.temp_scaled_par_iVelocityAnalysis';
 		$inbound              = $PL_SEISMIC . '/' . $parfile_in[1];
 		$sunmo->{_scaled_par} = $PL_SEISMIC . '/' . $parfile_out[1];
 		$outbound             = $sunmo->{_scaled_par};

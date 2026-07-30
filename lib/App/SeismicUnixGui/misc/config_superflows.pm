@@ -469,12 +469,12 @@ sub set_program_name {
 			$name_sref = \$alias->{iTopMute};
 		}
 
-		if (   $$program_name_sref eq $superflow_names->{_iVelAnalysis}
-			or $$program_name_sref eq $superflow_names->{_iVA} )
+		if (   $$program_name_sref eq $superflow_names->{_iVelocityAnalysis})
+			# or $$program_name_sref eq $superflow_names->{_iVA} )
 		{
 
-   # print("config_superflows, iVA name = $superflow_names->{_iVelAnalysis}\n");
-			$name_sref = \$alias->{iVelAnalysis};
+   # print("config_superflows, iVA name = $superflow_names->{_iVelocityAnalysis}\n");
+			$name_sref = \$alias->{iVelocityAnalysis};
 
 		   # print("config_superflows, alias of program name is $$name_sref\n");
 		}

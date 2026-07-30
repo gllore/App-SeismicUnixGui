@@ -189,7 +189,7 @@ my $specifications_path_w_colon = {
 	  . $developer_tools_categories[99],
 	_iSpectralAnalysis => $global_libs_w_colon->{_specs_big_streams} . '::'
 	  . $developer_tools_categories[99],
-	_iVA => $global_libs_w_colon->{_specs_big_streams} . '::'
+	_iVelocityAnalysis => $global_libs_w_colon->{_specs_big_streams} . '::'
 	  . $developer_tools_categories[99],
 	_iTopMute => $global_libs_w_colon->{_specs_big_streams} . '::'
 	  . $developer_tools_categories[99],
@@ -831,7 +831,7 @@ my $specifications_path_w_slash = {
 	  . $developer_tools_categories[99],
 	_iSpectralAnalysis => $global_libs_w_slash->{_specs_big_streams} . '/'
 	  . $developer_tools_categories[99],
-	_iVA => $global_libs_w_slash->{_specs_big_streams} . '/'
+	_iVelocityAnalysis => $global_libs_w_slash->{_specs_big_streams} . '/'
 	  . $developer_tools_categories[99],
 	_iTopMute => $global_libs_w_slash->{_specs_big_streams} . '/'
 	  . $developer_tools_categories[99],

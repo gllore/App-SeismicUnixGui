@@ -71,6 +71,7 @@ use aliased 'App::SeismicUnixGui::big_streams::iTopMute';
 use aliased 'App::SeismicUnixGui::configs::big_streams::iTopMute_config';
 use App::SeismicUnixGui::misc::SeismicUnix qw($true $false );
 use aliased 'App::SeismicUnixGui::sunix::shell::xk';
+use aliased 'App::SeismicUnixGui::messages::message_director';
 
 my $iTM_Tk = {_prompt => ''};
 
@@ -84,7 +85,7 @@ my $iTM_Tk = {_prompt => ''};
 
 my $iTM             = iTopMute->new();
 my $iTopMute_config = iTopMute_config->new();
-# my $read            = readfiles->new();
+my $iTopMute_message = message_director->new();
 my $get             = L_SU_global_constants->new();
 my $var             = $get->var();
 my $xk      		= xk->new();
@@ -142,11 +143,10 @@ $iTM->set_message('iTopMute');
 $there_is_old_data = $iTM->type('TopMute');
 
 if ($there_is_old_data) {
-    print("Old picks already exist.\n");
-    print(
-        "Delete \(\"rm \*old\*\"\)or Save        old picks, and then restart\n\n"
-    );
-    exit;
+   my $message     = $iTopMute_message->iTopMute(0);
+   print("$message\n");
+   exit;
+
 }
 
 =head2 Create Main Window 

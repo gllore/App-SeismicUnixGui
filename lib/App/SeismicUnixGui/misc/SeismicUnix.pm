@@ -91,7 +91,7 @@ our (@EXPORT_OK, @ISA); # Global variables
   $suffix_DAT $suffix_dat $suffix_ascii $suffix_empty $suffix_par $suffix_text $suffix_bin $suffix_bot_mute $suffix_top_mute $suffix_fft $suffix_fp
   $suffix_geom $suffix_hyphen $suffix_isurf $suffix_lsu $suffix_mute $suffix_null 
   $suffix_ps $suffix_rev
-  $suffix_segb $suffix_segd $suffix_sgd $suffix_segy $suffix_sgy $suffix_su $suffix_seg2 $suffix_taup $suffix_top_mute $suffix_usp $suffix_itop_mute
+  $suffix_segb $suffix_segd $suffix_sgd $suffix_segy $suffix_sgy $suffix_sorted $suffix_su $suffix_seg2 $suffix_taup $suffix_top_mute $suffix_usp $suffix_itop_mute
   $suffix_sac $suffix_txt $prefix_taup_picks_ $prefix_taup_picks $out 
   $suffix_target  $suffix_target_tilde $suffix_param $suffix_pick $suffix_profile $suffix_env $suffix_report $sx 
   $to_outpar_file
@@ -316,6 +316,8 @@ our $suffix_target_tilde = '.target~';
 our $suffix_segy = '.segy';
 
 our $suffix_sgy = '.sgy';
+
+our $suffix_sorted = '_sorted';
 
 our $suffix_su = '.su';
 

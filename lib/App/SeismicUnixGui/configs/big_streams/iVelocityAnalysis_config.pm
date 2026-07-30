@@ -1,10 +1,10 @@
-package App::SeismicUnixGui::configs::big_streams::iVA_config;
+package App::SeismicUnixGui::configs::big_streams::iVelocityAnalysis_config;
 
 =head1 DOCUMENTATION
 
 =head2 SYNOPSIS 
 
- PERL PROGRAM NAME: iVA_config.pm 
+ PERL PROGRAM NAME: iVelocityAnalysis_config.pm 
  AUTHOR: Juan Lorenzo
  DATE: Aug 18 2016 
        July 19 2017
@@ -14,9 +14,9 @@ package App::SeismicUnixGui::configs::big_streams::iVA_config;
      both from a simple text file and from
      from additional packages.
 
- USED FOR IVA (interactive velocity analysis)
+ USED FOR iVelocityAnalysis (interactive velocity analysis)
 
- Derives from iVA_config.pl
+ Derives from iVelocityAnalysis_config.pl
  
  Version 2 based on Sucat.pm June 29 2016
     Added a simple configuration file readable 
@@ -36,7 +36,7 @@ package App::SeismicUnixGui::configs::big_streams::iVA_config;
 =head2 LOCAL VARIABLES FOR THIS PROJECT 
 
  Values taken from the simple,local
- file: iVA.config called
+ file: iVelocityAnalysis.config called
  LOCAL VARIABLES FOR THIS PROJECT
      base_file_name  				= 'All_cmp'
      cdp_first   				= 15
@@ -69,7 +69,7 @@ my $superflow_config_names = $get->superflow_config_names_aref();
 
 #WARNING---- watch out for missing underscore!!
 # set the correct index manually for this superflow
-# print("1. iVA_config, alias_superflow_config_name : $$alias_superflow_config_name[4].config\n");
+# print("1. iVelocityAnalysis_config, alias_superflow_config_name : $$alias_superflow_config_name[4].config\n");
 
 =head2 private hash
 

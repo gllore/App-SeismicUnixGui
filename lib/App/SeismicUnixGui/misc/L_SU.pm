@@ -939,12 +939,11 @@ sub get_help {
 	$decisions->set4help($L_SU_href);
 	$pre_req_ok = $decisions->get4help();
 
+	# gui_history->view();
+
 	if (
-			$pre_req_ok
+		$pre_req_ok
 		and length $L_SU_href->{_prog_name_sref}
-		and length $L_SU_href->{_current_program_name}
-		and ( $L_SU_href->{_current_program_name} eq
-			${ $L_SU_href->{_prog_name_sref} } )
 	  )
 	{
 
@@ -955,7 +954,7 @@ sub get_help {
 		my $SeismicUnixGui = $get->get_path4SeismicUnixGui();
 		my $PATH           = $SeismicUnixGui . '/big_streams';
 
-		#		print("L_SU,help,alias: $PATH/$alias $var->{_suffix_pl}\n");
+		print("L_SU,help,alias: $PATH/$alias$var->{_suffix_pl}\n");
 
 		my $inbound = $PATH . '/' . $alias . $var->{_suffix_pl};
 		$help->set_name( \$inbound );
@@ -963,8 +962,9 @@ sub get_help {
 
 	}
 	else {
-		print("L_SU, can not provide help\n");
-		print("L_SU, prog_name=$L_SU_href->{_prog_name_sref}\n");
+		print("\nL_SU, can not provide help\n");
+		print("L_SU, prog_name=${$L_SU_href->{_prog_name_sref}}\n");
+		print("L_SU, current_program_name=$L_SU_href->{_current_program_name}\n");
 	}
 
 	return ();

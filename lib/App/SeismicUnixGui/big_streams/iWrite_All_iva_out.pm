@@ -73,7 +73,7 @@ my $iWrite_All_iva_out = {
 use App::SeismicUnixGui::misc::SeismicUnix qw($on $off $in $to $go);
 use aliased 'App::SeismicUnixGui::configs::big_streams::Project_config';
 my $Project = Project_config->new();
-my ($PL_SEISMIC) = $Project->PL_SEISMIC();
+my ($DATA_SEISMIC_TXT) = $Project->DATA_SEISMIC_TXT();
 
 =head2 subroutine clear
 
@@ -151,9 +151,9 @@ sub flows {
 
     # cat file names
     $catfile_inbound[1] =
-      $PL_SEISMIC . '/' . $cpfile_in[1] . '_' . $sufile_in[1] . $suffix[1];
+      $DATA_SEISMIC_TXT . '/' . $cpfile_in[1] . '_' . $sufile_in[1] . $suffix[1];
     $storefile_outbound[1] =
-      $PL_SEISMIC . '/' . $cpfile_out[1] . '_' . $sufile_in[1] . $suffix[1];
+      $DATA_SEISMIC_TXT . '/' . $cpfile_out[1] . '_' . $sufile_in[1] . $suffix[1];
 
     $textfile_in[1] =
       'ivpicks_old' . '_' . $iWrite_All_iva_out->{_file_in} . $suffix[1];
@@ -161,12 +161,12 @@ sub flows {
     $duplicatefile_in[1] =
       'ivpicks_' . $iWrite_All_iva_out->{_file_in} . $suffix[1];
 
-    $Tvel_duplicate_inbound[1] = $PL_SEISMIC . '/' . $duplicatefile_in[1];
+    $Tvel_duplicate_inbound[1] = $DATA_SEISMIC_TXT . '/' . $duplicatefile_in[1];
 
     $duplicatefile_out[1] =
       'ivpicks_old' . '_' . $iWrite_All_iva_out->{_file_in} . $suffix[1];
 
-    $Tvel_duplicate_outbound[1] = $PL_SEISMIC . '/' . $duplicatefile_out[1];
+    $Tvel_duplicate_outbound[1] = $DATA_SEISMIC_TXT . '/' . $duplicatefile_out[1];
 
     # DEFINE FLOW(S)
 

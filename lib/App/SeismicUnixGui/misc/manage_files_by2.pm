@@ -646,7 +646,7 @@ sub get_3cols_aref {
 	my ( @X, @Y, @Z );
 	my $lines;
 
-	print("\nThe input file is called $file_name\n");
+	# print("\nmanage_files_by2,get_3cols_aref, The input file is called $file_name\n");
 
 	# open the file of interest
 	open( FILE, "$file_name" ) || print("Can't open $file_name, $!\n");

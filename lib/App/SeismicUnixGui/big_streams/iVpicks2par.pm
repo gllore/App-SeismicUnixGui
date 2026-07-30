@@ -75,7 +75,7 @@ my $iVpicks2par = {
 use App::SeismicUnixGui::misc::SeismicUnix qw($on $off $in $to $go);
 use aliased 'App::SeismicUnixGui::configs::big_streams::Project_config';
 my $Project = Project_config->new();
-my ($PL_SEISMIC) = $Project->PL_SEISMIC();
+my ($DATA_SEISMIC_TXT) = $Project->DATA_SEISMIC_TXT();
 
 
 my $get = L_SU_global_constants->new();
@@ -153,11 +153,11 @@ sub flows {
     $sortfile_in[1] = 'ivpicks_old' . '_' . $file_in[1] . $suffix[1];
 
     #  $sortfile_out[1] = 'ivpicks_sorted_'.$file_in[1];
-    $inbound[1] = $PL_SEISMIC . '/' . $sortfile_in[1];
+    $inbound[1] = $DATA_SEISMIC_TXT . '/' . $sortfile_in[1];
 
     # par file names
     $parfile_out[1] = 'ivpicks_sorted_par_' . $file_in[1] . $suffix[1];
-    $outbound[1]    = $PL_SEISMIC . '/' . $parfile_out[1];
+    $outbound[1]    = $DATA_SEISMIC_TXT . '/' . $parfile_out[1];
 
 	# my $data_scale = _get_data_scale();
 	# print("2. iVpicks2par, data_scale = $data_scale\n");

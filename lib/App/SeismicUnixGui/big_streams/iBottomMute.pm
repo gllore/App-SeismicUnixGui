@@ -23,6 +23,10 @@ package App::SeismicUnixGui::big_streams::iBottomMute;
 
 =head4 CHANGES and their DATES
 
+July 2026
+Version 1.0.4 saves working files to $DATA_SEISMIC_TXT
+Messages come from another package
+
 
 =cut
 
@@ -37,10 +41,6 @@ package App::SeismicUnixGui::big_streams::iBottomMute;
     names you may use and you can even change them
 
 set defaults
-
-VELAN DATA 
- m/s
-
 =cut
 
 =head2 Import 
@@ -51,7 +51,7 @@ VELAN DATA
 =cut 
 
 use Moose;
-our $VERSION = '1.0.3';
+our $VERSION = '1.0.4';
 use aliased 'App::SeismicUnixGui::sunix::shell::cp';
 use aliased 'App::SeismicUnixGui::misc::flow';
 use aliased 'App::SeismicUnixGui::big_streams::iApply_bottom_mute';

@@ -135,7 +135,7 @@ sub calcNdisplay {
     my ( @mkparfile, @parfile_out );
     my (@outbound);
 
-    my ($PL_SEISMIC) = $Project->PL_SEISMIC();
+    my ($DATA_SEISMIC_TXT) = $Project->DATA_SEISMIC_TXT();
     my ($date)       = $Project->date();
     use App::SeismicUnixGui::misc::SeismicUnix qw($on $off $in $out $to $go);
 
@@ -172,9 +172,9 @@ sub calcNdisplay {
     $sortfile_in[1]  = 'ivpicks_old';
     $sortfile_out[1] = 'ivpicks_old' . '_' . 'sorted';
     $inbound[1] =
-      $PL_SEISMIC . '/' . 'ivpicks_old' . '_' . $sufile_in[1] . $suffix[3];
+      $DATA_SEISMIC_TXT . '/' . 'ivpicks_old' . '_' . $sufile_in[1] . $suffix[3];
     $outbound[1] =
-        $PL_SEISMIC . '/'
+        $DATA_SEISMIC_TXT . '/'
       . 'ivpicks_old' . '_'
       . 'sorted' . '_'
       . $sufile_in[1]
@@ -183,7 +183,7 @@ sub calcNdisplay {
     # RMS Velocity file names
     $Vrmsfile_in[1] = 'ivpicks_old' . '_' . 'sorted';
     $Vrms_read_file[1] =
-      $PL_SEISMIC . '/' . $Vrmsfile_in[1] . '_' . $sufile_in[1] . $suffix[3];
+      $DATA_SEISMIC_TXT . '/' . $Vrmsfile_in[1] . '_' . $sufile_in[1] . $suffix[3];
 
     # a2b file names
     $num_samples_file[1] = '.num_samples_Vrms_Vint';
@@ -191,11 +191,11 @@ sub calcNdisplay {
 
     # Interval Velocity write file names
     $Vint_outbound[1] =
-      $PL_SEISMIC . '/' . 'ivint_old' . '_' . $sufile_in[1] . $suffix[3];
+      $DATA_SEISMIC_TXT . '/' . 'ivint_old' . '_' . $sufile_in[1] . $suffix[3];
 
     # plot file names
     $Vint_plot_outbound[1] =
-        $PL_SEISMIC . '/' . 'plot' . '_'
+        $DATA_SEISMIC_TXT . '/' . 'plot' . '_'
       . 'ivint_old' . '_'
       . $sufile_in[1]
       . $suffix[3];

@@ -9,8 +9,11 @@ use aliased 'App::SeismicUnixGui::messages::color_listbox_messages';
 use aliased 'App::SeismicUnixGui::messages::help_button_messages';
 use aliased 'App::SeismicUnixGui::misc::save_button_messages';
 use aliased 'App::SeismicUnixGui::messages::flows_messages';
+use aliased 'App::SeismicUnixGui::messages::iBottomMute_messages';
 use aliased 'App::SeismicUnixGui::messages::immodpg_messages';
 use aliased 'App::SeismicUnixGui::messages::iPick_messages';
+use aliased 'App::SeismicUnixGui::messages::iTopMute_messages';
+use aliased 'App::SeismicUnixGui::messages::iVelocityAnalysis_messages';
 use aliased 'App::SeismicUnixGui::messages::run_button_messages';
 use aliased 'App::SeismicUnixGui::messages::null_messages';
 use aliased 'App::SeismicUnixGui::messages::project_selector_messages';
@@ -19,14 +22,17 @@ use aliased 'App::SeismicUnixGui::messages::superflow_messages';
 my $flows             = flows_messages->new();
 my $FileDialog_button = FileDialog_button_messages->new();
 my $FileDialog_close  = FileDialog_button_messages->new();
-# my $backup_project_selector  = backup_project_selector_messages->new();
+
 my $help_button       = help_button_messages->new();
 my $run_button        = run_button_messages->new();
 my $save_button       = save_button_messages->new();
 my $superflow         = superflow_messages->new();
 my $null              = null_messages->new();
 my $project_selector  = project_selector_messages->new();
+my $iBottomMute       = iBottomMute_messages->new();
 my $iPick             = iPick_messages->new();
+my $iTopMute          = iTopMute_messages->new();
+my $iVA               = iVelocityAnalysis_messages->new();
 my $immodpg			  = immodpg_messages->new();
 my $color_listbox	  = color_listbox_messages->new();
 
@@ -144,6 +150,14 @@ sub help_button_pdf {
     return ();
 }
 
+sub iBottomMute {
+    my ( $self, $number ) = @_;
+    my $message_ref = $iBottomMute->get();
+    my $message     = @$message_ref[$number];
+    print("message_director,iBottomMute,message =$message\n");
+    return ($message);
+}
+
 sub immodpg {
     my ( $self, $number ) = @_;
 
@@ -159,6 +173,22 @@ sub iPick {
     my $message_ref = $iPick->get();
     my $message     = @$message_ref[$number];
     print("message_director,iPick,message =$message\n");
+    return ($message);
+}
+
+sub iTopMute {
+    my ( $self, $number ) = @_;
+    my $message_ref = $iTopMute->get();
+    my $message     = @$message_ref[$number];
+    print("message_director,iTopMute,message =$message\n");
+    return ($message);
+}
+
+sub iVA {
+    my ( $self, $number ) = @_;
+    my $message_ref = $iVA->get();
+    my $message     = @$message_ref[$number];
+    # print("message_director,iVA,message =$message\n");
     return ($message);
 }
 

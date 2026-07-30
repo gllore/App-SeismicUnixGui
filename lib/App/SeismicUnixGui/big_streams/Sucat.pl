@@ -362,6 +362,7 @@ elsif ( $alternative_outbound_directory eq $empty_string ) {
 	if ( $list ne $empty_string ) {
 
 		$outbound_directory = $DATA_DIR_OUT_default;
+    print("365. Sucat.pl, selected alternative_outbound_directory  $outbound_directory\n");
 
 	}
 	else {

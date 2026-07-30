@@ -3,7 +3,7 @@
 
 =head2 SYNOPSIS 
 
- PROGRAM NAME: iVA 
+ PROGRAM NAME: iVelocityAnalysis 
  AUTHOR: Juan Lorenzo
  DATE:  April 2 2009 
         October 2014
@@ -49,14 +49,16 @@
 use Moose;
 our $VERSION = '0.0.1';
 use Tk;
-use aliased 'App::SeismicUnixGui::big_streams::iVA';
+use aliased 'App::SeismicUnixGui::big_streams::iVelocityAnalysis';
 use App::SeismicUnixGui::misc::SeismicUnix qw($true $false );
+use aliased 'App::SeismicUnixGui::messages::message_director';
 
 =head2 instantiate methods
 
 =cut
 
-my $iVA = iVA->new();
+my $iVA                     = iVelocityAnalysis->new();
+my $iVA_message             = message_director->new();
 
 =head2 Declare variables 
 
@@ -71,15 +73,27 @@ my $rb_value = "red";
 my $old_data;
 my $next_step       = 'stop';
 my $number_of_tries = 0;
+my $there_is_old_data;
 our $mw;
 
 =head2 Check 
 
-  for old data
+  Check for old data
+  check to see if prior velan parameter files exist for this   project
 
 =cut
 
-$old_data = $iVA->old_data('velan');
+
+$there_is_old_data = $iVA->type('velan');
+
+if ($there_is_old_data) {
+
+   my $message     = $iVA_message->iVA(0);
+   print("$message\n");
+   exit;
+}
+
+
 
 =head2 Create Main Window 
 
@@ -103,13 +117,13 @@ $old_data = $iVA->old_data('velan');
 
 if ( !$old_data ) {
 
-	print("iVelocityAnalysis, no old data\n");
+	# print("iVelocityAnalysis, no old data\n");
     $iVA->start();
 
     $mw = MainWindow->new;
     $mw->title("Options");
     $mw->geometry("300x50+40+0");
-    $mw->title("iVA");
+    $mw->title("iVelocityAnalysis ");
 
     $calc_rb = $mw->Radiobutton(
         -text     => 'CALC',
@@ -148,7 +162,7 @@ if ( !$old_data ) {
 =pod sub set_pick
 
  A callback to:
- send cdp number to $iVA
+ send cdp number to $iVA 
  delete output of previous semblance
  plus more callbacks following...
 
@@ -173,7 +187,7 @@ sub set_pick {
          (number_of_tries >1)
 		-radio_buttons stop flow
            Must be AFTR semblance
-           B4  iWrite_All_iva_out
+           B4  iWrite_All_iVA_out
 
 =cut
 

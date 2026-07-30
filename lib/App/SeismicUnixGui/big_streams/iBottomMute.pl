@@ -69,7 +69,7 @@ our $VERSION = '1.0.4';
 use aliased 'App::SeismicUnixGui::misc::L_SU_global_constants';
 use aliased 'App::SeismicUnixGui::big_streams::iBottomMute';
 use aliased 'App::SeismicUnixGui::configs::big_streams::iBottomMute_config';
-#use aliased 'App::SeismicUnixGui::misc::readfiles';
+use aliased 'App::SeismicUnixGui::messages::message_director';
 use Tk;
 use App::SeismicUnixGui::misc::SeismicUnix qw($true $false );
 use aliased 'App::SeismicUnixGui::sunix::shell::xk';
@@ -86,7 +86,7 @@ my $iBM_Tk = {_prompt => ''};
 
 my $iBM                	= iBottomMute->new();
 my $iBottomMute_config 	= iBottomMute_config->new();
-#my $read               	= readfiles->new();
+my $iBottomMute_message = message_director->new();
 my $get                	= L_SU_global_constants->new();
 my $var                	= $get->var();
 my $xk				 	= xk->new();
@@ -144,12 +144,11 @@ $iBM->set_message('iBottomMute');
 $there_is_old_data = $iBM->type('BottomMute');
 
 if ($there_is_old_data) {
-	
-    print("Old picks already exist.\n");
-    print(
-        "Delete \(\"rm \*old\*\"\)or Save        old picks, and then restart\n\n"
-    );
-    exit;
+
+   my $message     = $iBottomMute_message->iBottomMute(0);
+   print("$message\n");
+   exit;
+
 }
 
 =head2 Create Main Window 

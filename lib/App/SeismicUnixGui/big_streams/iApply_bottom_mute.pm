@@ -66,7 +66,7 @@ my $SuMessages = SuMessages->new();
 
 use App::SeismicUnixGui::misc::SeismicUnix
   qw($itemp_bot_mute_picks_sorted_par_);
-my ($DATA_SEISMIC_TXT)      = $Project->DATA_SEISMIC_TXT();
+my ($DATA_SEISMIC_TXT)= $Project->DATA_SEISMIC_TXT();
 my ($DATA_SEISMIC_SU) = $Project->DATA_SEISMIC_SU();
 
 =head2

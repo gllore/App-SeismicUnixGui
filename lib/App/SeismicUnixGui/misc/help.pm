@@ -116,8 +116,8 @@ sub _program_name {
             $name_sref = \$alias->{iTopMute};
         }
 
-        if ( $$program_name_sref eq $superflow_names->{_iVelAnalysis} ) {
-            $name_sref = \$alias->{iVelAnalysis};
+        if ( $$program_name_sref eq $superflow_names->{_iVelocityAnalysis} ) {
+            $name_sref = \$alias->{iVelocityAnalysis};
         }
 
         if ( $$program_name_sref eq $superflow_names->{_ProjectVariables} ) {

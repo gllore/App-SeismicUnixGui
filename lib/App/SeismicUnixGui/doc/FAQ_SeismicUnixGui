@@ -1144,7 +1144,7 @@ Q. How does Project Tool update the gui parameter values?
 [	 binding to the dialog types for each MB3 click takes place within L_SU
 
   L_SU.pm	 
-	 pre_built_superflows
+	 pre_built_superflows 
    		# for binding to file dialog options
 		my $sub_ref = \&_FileDialog_button;
 		   $pre_built_big_stream->set_sub_ref($sub_ref);
@@ -1427,7 +1427,7 @@ Q. Q. How does a superflow run?:
  3. generate a data file for plotting
           o/p 'plot'.'_'.'ivint_old'.'_'.$sufile_in[1].$suffix[3];
           
-    iVA,icp_sorted2oldpicks
+    iVelocityAnalysis,icp_sorted2oldpicks
     iVpicks2par
     
     for user-built flows:
@@ -2582,7 +2582,7 @@ when using the spec files:
 	
 	Q. Where are aliases set?
 	
- 1) For big streams (pre-built super flows):
+ 1) For big streams (pre-built super flows or pre_buil_big_stream):
  
 	config_superflows
 			set_program_name
@@ -3047,8 +3047,23 @@ A.  Following on from the previous questions, if MB3 selected,
          neutral_flow->get_help
                           help
                             tkpod
+
+A.  Following on from the previous questions, if MB3 selected,
+and the user selects a pre-built big stream, or "Tool", then
+
+	main
+	 _L_SU_bindings sets the method in LSU.pm to get help
+
+	 Then in LSU.pm:
+     L_SU 
+	  sub get_help
+	        decisions->get4help determines it is a pre-built big stream
+Q. Where is the current program name taken from and where is the prog_name_sref taken from
+
+     in config_superflows_fix
+
                             
-    Q. hHw can get-hlep find the correct path for a particular module?
+    Q. How can get-help find the correct path for a particular module?
     
        gui_history stores a lot of useful information on the user's click history,
        and can be accessed to find out what the user has just done. This
@@ -3155,3 +3170,8 @@ PROBLEM" TODO
 		   param_flow variable values for the color_flows are sometimes populated with param_flow variable values from t
 		   the pre_built_superflows.
 Q. How and where do pre_built_superflows store their param_flow values?
+
+
+Q. How can we see what is inside the gui_history hash?
+
+  gui_history->view();

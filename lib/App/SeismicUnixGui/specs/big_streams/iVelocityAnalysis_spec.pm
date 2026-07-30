@@ -1,10 +1,10 @@
-package App::SeismicUnixGui::specs::big_streams::iVA_spec;
+package App::SeismicUnixGui::specs::big_streams::iVelocityAnalysis_spec;
 
 =head1 DOCUMENTATION
 
 =head2 SYNOPSIS 
 
- PERL PROGRAM NAME: iVA_spec
+ PERL PROGRAM NAME: iVelocityAnalysis_spec
  AUTHOR: 	Juan Lorenzo
  DATE: 		2017
 
@@ -58,7 +58,7 @@ my $PL_SEISMIC		 = $Project->PL_SEISMIC();
 my $max_index  = 17;
 
 my $iVA_spec =  {
-    _CONFIG	 				=> $PL_SEISMIC,
+    _CONFIG	 			=> $PL_SEISMIC,
     _DATA_DIR_IN           => $DATA_SEISMIC_SU,
 	_DATA_DIR_OUT          => $DATA_SEISMIC_SU,
 	_binding_index_aref    => '',

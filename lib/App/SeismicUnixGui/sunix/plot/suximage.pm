@@ -2126,7 +2126,7 @@ sub picks {
 
     }
     else {
-        print("suximage, picks, missing picks,\n");
+        print("suximage, no picks to plot,\n");
     }
 }
 

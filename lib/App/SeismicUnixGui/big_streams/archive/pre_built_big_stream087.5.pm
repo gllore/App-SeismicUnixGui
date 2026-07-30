@@ -264,7 +264,7 @@ sub select {
     # program name that is selected (i.e. through *_spec.pm)
     # send superflow names through an alias filter
     # that links their GUI name to their program name
-    # e.g., iVelAnalysis (GUI) is actually IVA.pm (shortened)
+    # e.g., iVelAnalysis (GUI) is no longer IVA.pm, which was previously shortened)
 
      my $run_name = $internal_name;;
     

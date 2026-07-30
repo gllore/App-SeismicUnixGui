@@ -151,8 +151,6 @@ sub _get_data_type {
 		
 	{
 
-		# my $velan = $ivpicks_sorted_par_;
-
 =head2 instantiate packages
 
 =cut
@@ -188,7 +186,7 @@ sub _get_data_type {
 			}
 			elsif ( $file_name =~ m/$ivpicks_sorted_par_/ ) {
 
-				#CASE 2 for velan-type files
+				# CASE 2 for velan-type files
 
 				# print("success, matched velan\n");
 				$data_type[$i] = $velan;
@@ -572,6 +570,11 @@ sub get_outbound {
 			return ($result);
 			
 		}elsif( $sucat->{_data_type} eq $mute ) {
+			
+			my $result = $DATA_SEISMIC_TXT . '/'. $sucat->{_output_base_file_name}. $suffix_txt;
+			return ($result);
+
+		}elsif( $sucat->{_data_type} eq $velan ) {
 			
 			my $result = $DATA_SEISMIC_TXT . '/'. $sucat->{_output_base_file_name}. $suffix_txt;
 			return ($result);

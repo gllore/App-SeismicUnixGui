@@ -24,6 +24,10 @@ package App::SeismicUnixGui::big_streams::iTopMute;
 
 =head4 CHANGES and their DATES
 
+July 2026
+Version 1.0.4 saves working files to $DATA_SEISMIC_TXT
+Messages come from another package
+
 
 =cut
 
@@ -37,10 +41,6 @@ package App::SeismicUnixGui::big_streams::iTopMute;
  2. build a list or hash with all the possible variable
     names you may use and you can even change them
 
-set defaults
-
-VELAN DATA 
- m/s
 
 =cut
 
@@ -52,7 +52,7 @@ VELAN DATA
 =cut 
 
 use Moose;
-our $VERSION = '1.0.3';
+our $VERSION = '1.0.4';
 use aliased 'App::SeismicUnixGui::configs::big_streams::Project_config';
 use aliased 'App::SeismicUnixGui::misc::message';
 use aliased 'App::SeismicUnixGui::sunix::shell::cp';
@@ -302,7 +302,14 @@ look for old data
 sub type {
 
     my ( $variable, $type ) = @_;
-    $iTopMute->{_type} = $type if defined($type);
+
+    my $self = shift;
+	die "Expected 1 argument, got " . scalar(@_) . "\n"
+    unless @_ == 1 
+		&& length $iTopMute->{_gather_num} 
+		&& length $iTopMute->{_file_in};
+
+    $iTopMute->{_type} = $type;
     $check4old_data->gather_num( $iTopMute->{_gather_num} );
     $check4old_data->file_in( $iTopMute->{_file_in} );
     $iTopMute->{_exists} = $check4old_data->type( $iTopMute->{_type} );

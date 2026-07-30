@@ -839,7 +839,7 @@ sub read_2cols {
 
 	if ( length $ref_origin ) {
 
-		print("\nThe input file is called $$ref_origin\n");
+		print("\nmanage_files_by,read_2cols,The input file is called $$ref_origin\n");
 
 		# open the file of interest
 		open( FILE, $$ref_origin ) || print("Can't open file_name, $!\n");

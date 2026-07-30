@@ -1,10 +1,10 @@
-package App::SeismicUnixGui::big_streams::iVA;
+package App::SeismicUnixGui::big_streams::iVelocityAnalysis;
 
 =head1 DOCUMENTATION
 
 =head2 SYNOPSIS 
 
- PERL PROGRAM NAME: iVA.pm 
+ PERL PROGRAM NAME: iVelocityAnalysis.pm 
  AUTHOR: Juan Lorenzo
  DATE:   Nov 1 2012,
          sept. 13 2013
@@ -12,6 +12,7 @@ package App::SeismicUnixGui::big_streams::iVA;
          July 15 2015
          Aug 18 2016
          Jan 7 2017
+		 July 2026
 
  DESCRIPTION: 
  Version: 1.0
@@ -19,6 +20,7 @@ package App::SeismicUnixGui::big_streams::iVA;
  Version 1.0.1 separates graphics from calculations
  Version 1.0.2 removes dependency on Config-Simple
  Version 1.0.3 considers scaleco or scalel in header
+ Version 1.0.4 saves working files to $DATA_SEISMIC_TXT
 
 =head2 USE
 
@@ -34,6 +36,10 @@ package App::SeismicUnixGui::big_streams::iVA;
 Jan 13 2020 Version 1.0.3
 _get_data_scale is now calculated internally
 data_scale parameter removed from gui
+
+July 2026
+Version 1.0.4 saves working files to $DATA_SEISMIC_TXT
+Messages come from another package
 
 
 =cut
@@ -53,30 +59,31 @@ VELAN DATA
 
 =head2 import and then
 
- instantiate iclasses
+ instantiate classes
 
 =cut
 
 use Moose;
-our $VERSION = '1.0.3';
+our $VERSION = '1.0.4';
 
 use App::SeismicUnixGui::misc::control '0.0.3';
 use aliased 'App::SeismicUnixGui::misc::control';
-
 use aliased 'App::SeismicUnixGui::misc::L_SU_global_constants';
 use aliased 'App::SeismicUnixGui::big_streams::iSunmo';
-use aliased 'App::SeismicUnixGui::configs::big_streams::iVA_config';
+use aliased 'App::SeismicUnixGui::configs::big_streams::iVelocityAnalysis_config';
 use aliased 'App::SeismicUnixGui::sunix::plot::suxwigb';
 use aliased 'App::SeismicUnixGui::big_streams::iSuvelan';
 use aliased 'App::SeismicUnixGui::big_streams::iWrite_All_iva_out';
 use aliased 'App::SeismicUnixGui::big_streams::iVpicks2par';
 use aliased 'App::SeismicUnixGui::big_streams::iVrms2Vint';
 use aliased 'App::SeismicUnixGui::misc::manage_files_by2';
+use aliased 'App::SeismicUnixGui::misc::old_data';
 use aliased 'App::SeismicUnixGui::misc::readfiles';
 use aliased 'App::SeismicUnixGui::configs::big_streams::Project_config';
 use aliased 'App::SeismicUnixGui::messages::SuMessages';
 use aliased 'App::SeismicUnixGui::sunix::shell::xk';
 use aliased 'App::SeismicUnixGui::sunix::header::header_values';
+
 
 =head2 establish hash of shared variables
 
@@ -124,9 +131,9 @@ my $iVA = {
 
 =cut
 
-my $read    = readfiles->new();
-my $control = control->new();
-
+my $read               = readfiles->new();
+my $control            = control->new();
+my $check4old_data     = old_data->new();
 my $suxwigb            = suxwigb->new();
 my $semblance          = iSuvelan->new();
 my $iWrite_All_iva_out = iWrite_All_iva_out->new();
@@ -136,17 +143,26 @@ my $test               = manage_files_by2->new();
 my $SuMessages         = SuMessages->new();
 my $iSunmo             = iSunmo->new();
 my $get                = L_SU_global_constants->new();
-#my $global_libs        = $get->global_libs();
 my $Project            = Project_config->new();
-my $iVA_config         = iVA_config->new();
+my $iVA_config         = iVelocityAnalysis_config->new();
 my $xk                 = xk->new();
 
 =head2 Import Special Variables
 
 =cut
 
-my $var          = $get->var();
-my $empty_string = $var->{_empty_string};
+my $var               = $get->var();
+my $empty_string      = $var->{_empty_string};
+
+=head2
+
+ Import directory definitions
+
+=cut 
+
+my ($DATA_SEISMIC_TXT)= $Project->DATA_SEISMIC_TXT();
+my ($DATA_SEISMIC_SU) = $Project->DATA_SEISMIC_SU();
+my ($date)            = $Project->date();
 
 
 =head2 Get configuration information
@@ -200,14 +216,6 @@ $iVA->{_data_scale} = _get_data_scale();
  so keep it after setting cdp numbers
 
 =cut
-
-=head2
-
- Import directory definitions
-
-=cut 
-
-my ($PL_SEISMIC) = $Project->PL_SEISMIC();
 
 =head2 subroutine clear
 
@@ -301,6 +309,9 @@ sub set_message {
 
 }
 
+
+
+
 =head2 subroutine  message
 
   instructions 
@@ -328,7 +339,7 @@ sub _message {
 sub refresh_Tvel_outbound {
 	$iVA->{_textfile_out} =
 	  'ivpicks_' . $iVA->{_base_file_name} . $iVA->{_cdp_num_suffix};
-	$iVA->{_Tvel_outbound} = $PL_SEISMIC . '/' . $iVA->{_textfile_out};
+	$iVA->{_Tvel_outbound} = $DATA_SEISMIC_TXT . '/' . $iVA->{_textfile_out};
 
 	#print("output file is $iVA->{_Tvel_outbound} \n\n");
 }
@@ -342,125 +353,9 @@ sub refresh_Tvel_outbound {
 sub refresh_Tvel_inbound {
 	$iVA->{_textfile_in} =
 	  'ivpicks_old' . '_' . $iVA->{_base_file_name} . $iVA->{_cdp_num_suffix};
-	$iVA->{_Tvel_inbound} = $PL_SEISMIC . '/' . $iVA->{_textfile_in};
+	$iVA->{_Tvel_inbound} = $DATA_SEISMIC_TXT . '/' . $iVA->{_textfile_in};
 }
 
-=head2 look for old data
-
-  There is an old pick file to read
-  textfile_in: ivpicks_old
-  Requires knowing current cdp number
-  becaus we are at the start of the process
-  we will provide the lowest cdp as an indicator
-  TODO: check all old cdp data files before going on
-     to subsequent analyses
-
-=cut
-
-sub old_data {
-	my ( $variable, $old_data ) = @_;
-	my $ans;
-
-	# print("variable and old_data $variable, $old_data\n\n");
-	#switches old data of velan type
-	if ($old_data) {
-		$iVA->{_type} = $old_data;
-		if ( $iVA->{_type} eq 'velan' ) {
-
-			cdp_num( $iVA->{_cdp_first} );
-			cdp_num_suffix( $iVA->{_cdp_num} );
-
-			$iVA->{_textfile_in} =
-			    'ivpicks_old' . '_'
-			  . $iVA->{_base_file_name}
-			  . $iVA->{_cdp_num_suffix};
-
-			if ($PL_SEISMIC) {
-				$iVA->{_Tvel_inbound} =
-				  $PL_SEISMIC . '/' . $iVA->{_textfile_in};
-				$ans = $test->does_file_exist( \$iVA->{_Tvel_inbound} );
-
-				if (   $iVA->{_base_file_name}
-					&& $iVA->{_cdp_num_suffix} )
-				{
-					$iVA->{_textfile_out} =
-					    'ivpicks_'
-					  . $iVA->{_base_file_name}
-					  . $iVA->{_cdp_num_suffix};
-					$iVA->{_Tvel_outbound} =
-					  $PL_SEISMIC . '/' . $iVA->{_textfile_out};
-				}
-			}
-
-			# print("TV in is $iVA->{_Tvel_inbound}\n\n");
-			#print("TV out is $iVA->{_Tvel_outbound}\n\n");
-
-			if ($ans) {
-				
-# TODO put a message into the gui
-#				use App::SeismicUnixGui::messages::message_director;
-#				
-#=head2 sub set_hash_ref
-#
-#	copies with simplified names are also kept (40) so later
-#	the hash can be returned to a calling module
-#	
-#	imports external hash into private settings via gui_history 
-#	accessory
-#
-#print("color_flow,set_hash_ref,hash_ref->{_log_view}: $ans\n");
-#my $ans = $gui_history->get_log_view();
-#print("2. color_flow,set_hash_ref: gui_history->get_log_view:$ans \n");
-# 	
-#=cut
-#
-#sub set_hash_ref {
-#	my ( $self, $hash_ref ) = @_;
-#
-#	$gui_history->set_defaults($hash_ref);
-#	$color_flow_href = $gui_history->get_defaults();
-#
-#	# REALLY?
-#	# set up param_widgets for later use
-#	# give param_widgets the needed values
-#	$param_widgets->set_hash_ref($color_flow_href);
-#
-#	$flow_color = $color_flow_href->{_flow_color};
-#
-#	# $gui_history_aref = $color_flow_href->{_gui_history_aref};
-#
-#	# for local use
-#	$last_flow_color               = $color_flow_href->{_last_flow_color};                 # used in flow_select
-#	$message_w                     = $color_flow_href->{_message_w};
-#	$parameter_values_frame        = $color_flow_href->{_parameter_values_frame};
-#	$parameter_values_button_frame = $color_flow_href->{_parameter_values_button_frame};
-#
-#	# $sunix_listbox                 = $color_flow_href->{_sunix_listbox};
-#
-#	# print("color_flow, set_hash_ref _check_buttons_settings_aref: @{$color_flow_href->{_check_buttons_settings_aref}}\n");
-#
-#	# print("color_flow,set_hash_ref: print gui_history->view\n");
-#	# $gui_history->view();
-#
-#	return ();
-#}		
-#				my $message_w;
-#					$message_w                     = $color_flow_href->{_message_w};
-#				my $iva_messages = message_director->new();
-#				my $message = $color_flow_messages->null_button(0);
-#				$message_w->delete( "1.0", 'end' );
-#				$message_w->insert( 'end', $message );
-
-				print("Old picks already exist.\n");
-				print("Delete \(\"rm -rf \*old\*\"\) or, \n");
-				print("Save old picks (in: $PL_SEISMIC), and then restart\n\n");
-				exit;
-			}
-			return ($ans);
-		}
-
-	}
-}
 
 =head2 subroutine cdp
 
@@ -469,21 +364,21 @@ sub old_data {
 
 =cut
 
-sub cdp_num {
+sub _cdp_num {
 	my ($cdp_num) = @_;
 	$iVA->{_cdp_num} = $cdp_num if defined($cdp_num);
 
 	#print("cdp_num is $cdp_num\n\n");
 }
 
-=head2 subroutine cdp_num_suffix
+=head2 subroutine _cdp_num_suffix
 
   sets cdp number suffix to consider 
   used by subs start and next
 
 =cut
 
-sub cdp_num_suffix {
+sub _cdp_num_suffix {
 	my ($cdp_num) = @_;
 	if ($cdp_num) {
 		$iVA->{_cdp_num_suffix} = '_cdp' . $cdp_num;
@@ -504,12 +399,12 @@ sub cdp_num_suffix {
 
 sub start {
 
-	print("NEW PICKS\n");
+	# print("NEW PICKS\n");
 	set_message( $iVA->{_message_type} );
 	$SuMessages->cdp_num( $iVA->{_cdp_first} );
 
-	cdp_num( $iVA->{_cdp_first} );
-	cdp_num_suffix( $iVA->{_cdp_first} );
+	_cdp_num( $iVA->{_cdp_first} );
+	_cdp_num_suffix( $iVA->{_cdp_first} );
 
 	# print("cdp_num_suffix is $iVA->{_cdp_num_suffix}\n\n");
 	_message('first_velan');
@@ -540,7 +435,7 @@ sub pick {
 
 	print("Picking...cdp $iVA->{_cdp_num}\n");
 	print("NOW, PICK\n\n");
-	cdp_num_suffix( $iVA->{_cdp_num} );
+	_cdp_num_suffix( $iVA->{_cdp_num} );
 	refresh_Tvel_inbound();
 	refresh_Tvel_outbound();
 
@@ -550,6 +445,34 @@ sub pick {
 	$iVA->{_number_of_tries}++;
 	semblance();
 
+}
+
+=head2 sub type
+
+look for old data
+
+  Are there old picks to read?
+  These old picks are of a type velan
+  
+
+=cut
+
+sub type {
+
+    my ( $variable, $type ) = @_;
+
+	my $self = shift;
+	die "Expected 1 argument, got " . scalar(@_) . "\n"
+    unless @_ == 1 
+		&& length $iVA->{_cdp_first} 
+		&& length $iVA->{_base_file_name};
+
+    $iVA->{_type} = $type;
+    $check4old_data->cdp_num( $iVA->{_cdp_first} );
+    $check4old_data->file_in( $iVA->{_base_file_name} );
+    $iVA->{_exists} = $check4old_data->type( $iVA->{_type} );
+
+    return $iVA->{_exists};
 }
 
 =head2 sub next
@@ -574,7 +497,7 @@ sub pick {
 sub next {
 
 	$iVA->{_cdp_num} = $iVA->{_cdp_num} + $iVA->{_cdp_inc};
-	cdp_num_suffix( $iVA->{_cdp_num} );
+	_cdp_num_suffix( $iVA->{_cdp_num} );
 	refresh_Tvel_inbound();
 	refresh_Tvel_outbound();
 	$iVA->{_number_of_tries} = 0;
@@ -667,7 +590,7 @@ sub _icp_sorted2oldpicks {
 	$suffix[3]        = '_cdp' . $iVA->{_cdp_num};
 
 	# su file names
-	$sufile_in[1] = $iVA->{_base_file_name};    # any itnernal ticks removed
+	$sufile_in[1] = $iVA->{_base_file_name};    # any internal ticks removed
 
 	#V file names
 	$vpicks_in[1]  = 'ivpicks_old' . $sorted_suffix[1];
@@ -676,12 +599,15 @@ sub _icp_sorted2oldpicks {
 	# sort file names
 	$sortfile_in[1] = $vpicks_in[1];
 	$inbound[1] =
-	  $PL_SEISMIC . '/' . $sortfile_in[1] . '_' . $sufile_in[1] . $suffix[3];
+	  $DATA_SEISMIC_TXT . '/' 
+	  . $sortfile_in[1] 
+	  . '_' . $sufile_in[1] 
+	  . $suffix[3];
 
 	# Velocity write file names
 	$writefile_out[1] = $vpicks_out[1];
 	$outbound[1] =
-	  $PL_SEISMIC . '/' . $writefile_out[1] . '_' . $sufile_in[1] . $suffix[3];
+	  $DATA_SEISMIC_TXT . '/' . $writefile_out[1] . '_' . $sufile_in[1] . $suffix[3];
 
 	#  DEFINE FLOW(S)
 	$flow[1] = (

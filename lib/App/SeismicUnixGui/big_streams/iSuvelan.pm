@@ -68,7 +68,6 @@ my $suximage          = suximage->new();
 my $suxwigb           = suxwigb->new();
 my $Project           = Project_config->new();
 my ($DATA_SEISMIC_SU) = $Project->DATA_SEISMIC_SU();
-my ($PL_SEISMIC)      = $Project->PL_SEISMIC();
 my $get               = L_SU_global_constants->new();
 
 =head2 Import Special Variables
@@ -495,7 +494,7 @@ sub calcNdisplay {
 	  )
 	{
 
-		print(" iSuvelan, calcNdisplay\n\n");
+		# print(" iSuvelan, calcNdisplay\n\n");
 
 		my $header = header_values->new();
 		
@@ -685,7 +684,7 @@ by time
 			quotemeta( $iSuvelan->{_first_velocity} ) );
 		$suximage->picks( $iSuvelan->{_Tvel_outbound} );
 
-print("iSuvelan, calcNdisplay: Writing picks to $iSuvelan->{_Tvel_outbound}\n\n");
+# print("iSuvelan, calcNdisplay: Writing picks to $iSuvelan->{_Tvel_outbound}\n\n");
 
 =head2 conditions
  
@@ -697,8 +696,8 @@ print("iSuvelan, calcNdisplay: Writing picks to $iSuvelan->{_Tvel_outbound}\n\n"
 
 		if ( $iSuvelan->{_number_of_tries} >= 2 ) {
 
-			print("using a curve file:\n");
-			print("\t$iSuvelan->{_Tvel_inbound}\n\n");
+			# print("iSuvelan, using a curve file:\n");
+			# print("\t$iSuvelan->{_Tvel_inbound}\n\n");
 			$suximage->curvefile( quotemeta( $iSuvelan->{_Tvel_inbound} ) )
 			  ;
 			my ( $ref_T_nmo, $ref_Vnmo, $num_tvel_pairs ) =

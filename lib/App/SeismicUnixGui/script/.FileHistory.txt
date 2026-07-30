@@ -1,2 +1,3 @@
+/home/gllore/Servilleta_new_sunmo/seismics/data/loma_blanca//053018/H/1/su/gllore/All_SH_cdp_offset_sorted.su
 /home/gllore/Servilleta/seismics/pl/loma_blanca//053018/H/1/gllore/3B.view_All_SH.pl
 /home/gllore/Servilleta/seismics/pl/loma_blanca//053018/H/1/gllore/1B.view_pswigp.pl
