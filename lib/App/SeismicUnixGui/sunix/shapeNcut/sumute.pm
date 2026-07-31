@@ -1212,7 +1212,7 @@ $sumute->{_par_gather_number_aref}
 		my ( $time_picks_aref2, $x_picks_aref2, $first_name, $second_name ) =
 		  _get_par_sets();
 
-		# collect single-gather mute paramters (tmut and xmute3)
+		# collect single-gather mute paramters (tmute and xmute3)
 		# write tmute and xmute in successive lines
 
 		# run _get_par_sets previously

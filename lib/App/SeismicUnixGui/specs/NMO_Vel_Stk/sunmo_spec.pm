@@ -7,10 +7,10 @@ use App::SeismicUnixGui::misc::SeismicUnix
   qw($bin $ps $segy $su $suffix_bin $suffix_ps $suffix_segy $suffix_su $suffix_txt $txt);
 use aliased 'App::SeismicUnixGui::misc::L_SU_global_constants';
 
-my $get     = L_SU_global_constants->new();
-my $Project = Project_config->new();
+my $get              = L_SU_global_constants->new();
+my $Project          = Project_config->new();
 
-my $var = $get->var();
+my $var              = $get->var();
 
 my $empty_string     = $var->{_empty_string};
 my $true             = $var->{_true};
@@ -24,7 +24,7 @@ my $DATA_SEISMIC_SU   = $Project->DATA_SEISMIC_SU();     # output data directory
 my $DATA_SEISMIC_TXT  = $Project->DATA_SEISMIC_TXT();    # output data directory
 my $PL_SEISMIC        = $Project->PL_SEISMIC();
 my $PS_SEISMIC        = $Project->PS_SEISMIC();
-my $max_index         = 10;
+my $max_index         = 9;
 
 my $sunmo_spec = {
 	_CONFIG                => $PL_SEISMIC,
@@ -72,7 +72,8 @@ sub binding_index_aref {
 	# first binding index (index=0)
 	# connects to second item (its index=1)
 	# in the parameter list
-	$index[0] = 8;    # inbound item is  bound
+	$index[0] = 3;    # inbound item is  bound
+	$index[1] = 9;    # inbound /outbounditem is  bound
 
 	#	$index[1]	= 2; # inbound item is  bound
 	#	$index[2]	= 8; # outbound item is  bound
@@ -99,7 +100,8 @@ sub file_dialog_type_aref {
 
 	# bound index will look for data
 	$type[0] = '';
-	$type[ $index[0] ] = $file_dialog_type->{_Data};
+	$type[ $index[0] ] = $file_dialog_type->{_Data_SEISMIC_TXT};
+	$type[ $index[1] ] = $file_dialog_type->{_Data};
 
 	#	$type[$index[1]]	=  $file_dialog_type->{_Data};
 	#	$type[$index[2]]	=  $file_dialog_type->{_Data};
@@ -335,11 +337,11 @@ sub prefix_aref {
 	my $index_aref = get_binding_index_aref();
 	my @index      = @$index_aref;
 
-	# label 9 in GUI is input xx_file and needs a home directory
-	$prefix[ $index[0] ] = '$DATA_SEISMIC_BIN' . ".'/'.";
+	# label 4 in GUI is input/output xx_file and needs a home directory
+	$prefix[ $index[0] ] = '$DATA_SEISMIC_TXT' . ".'/'.";
 
-	# label 3 in GUI is input yy_file and needs a home directory
-	#	$prefix[ $index[1] ] = '$DATA_SEISMIC_TXT' . ".'/'.";
+	# label 10 in GUI is input/output yy_file and needs a home directory
+	$prefix[ $index[1] ] = '$DATA_SEISMIC_BIN' . ".'/'.";
 
 	# label 9 in GUI is input zz_file and needs a home directory
 	#	$prefix[ $index[2] ] = '$DATA_SEISMIC_SU' . ".'/'.";
@@ -371,13 +373,13 @@ sub suffix_aref {
 	my $index_aref = get_binding_index_aref();
 	my @index      = @$index_aref;
 
-	# label 29in GUI is output xx_file and needs a home directory
-	$suffix[ $index[0] ] = '' . '' . '$suffix_bin';
+	# label 4 in GUI is input/output xx_file and needs a home directory
+	$suffix[ $index[0] ] = '' . '' . '$suffix_txt';
 
-	# label 3 in GUI is input yy_file and needs a home directory
-	#	$suffix[ $index[1] ] = ''.'' . '$suffix_bin';
+	# label 10 in GUI is input/output yy_file and needs a home directory
+	$suffix[ $index[1] ] = ''.'' . '$suffix_bin';
 
-	# label 9 in GUI is output zz_file and needs a home directory
+	# label 10 in GUI is input/output zz_file and needs a home directory
 	#	$suffix[ $index[2] ] = ''.'' . '$suffix_su';
 
 	$sunmo_spec->{_suffix_aref} = \@suffix;

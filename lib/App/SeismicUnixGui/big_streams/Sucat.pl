@@ -362,7 +362,7 @@ elsif ( $alternative_outbound_directory eq $empty_string ) {
 	if ( $list ne $empty_string ) {
 
 		$outbound_directory = $DATA_DIR_OUT_default;
-    print("365. Sucat.pl, selected alternative_outbound_directory  $outbound_directory\n");
+    # print("365. Sucat.pl, selected alternative_outbound_directory  $outbound_directory\n");
 
 	}
 	else {
@@ -534,11 +534,12 @@ $flow[1] = $run->modules( \@items );
 $run->flow( \$flow[1] );
 
 =head2 C. LOG FLOW(S)TO SCREEN AND FILE
+message,screnn:
 
 =cut
 
 $log->screen( $flow[1] );
 
-#my $time = localtime;
-#$log->time;
-#$log->file( $flow[1] );
+my $time = localtime;
+$log->time;
+$log->file( $flow[1] );

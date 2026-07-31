@@ -45,7 +45,11 @@ my @inbound;
 my @outbound_bck;
 my @outbound;
 my ( @line2find, @replacement );
-my $max_num_files = 6;   # max_index+1!
+my $max_num_files = 4;   # max_index+1!
+# Last two files are done manually
+
+my $starting_directory = '/usr/local/pl/App-SeismicUnixGui/lib/App/SeismicUnixGui/developer/code/sunix';
+chdir($dir) or die "Cannot change to '$dir': $!";
 
 my $up3dirs = '/../../..';
 my $up4dirs = '/../../../..';
@@ -174,6 +178,7 @@ for ( my $count = 0 ; $count < $max_num_files; $count++ ) {
 
 }
 
-print("Do not forget to update the internal name of the SeismicUnixGuiInstallationGuide \n
+print("Do not forget to update the internal headers and comments as well \n
+       as the external name of the SeismicUnixGuiInstallationGuide \n
        and SeismicUnixTutorial too.\n
-	   As well, update other contents of the file as necessary\n");
+	   Update the internal headers and comments in the file as necessary\n");

@@ -3175,3 +3175,14 @@ Q. How and where do pre_built_superflows store their param_flow values?
 Q. How can we see what is inside the gui_history hash?
 
   gui_history->view();
+
+Q. key word: directory
+Which directory paths DO NOT appear in the output flows(*.pl files) that the user generates.
+A. Those associated with the module data_in and data_out  
+
+Where do auxiliary files such as the par files  get their directory paths?
+Auxiliary files, such as par files
+display their complete path in the output flows
+
+A. From definitions of ther suffixes and prefixes in the *_spec file
+For example, sunmo_spec.pm and sumute_spec.pm

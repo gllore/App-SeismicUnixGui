@@ -55,8 +55,8 @@ my $max_index           = 16;
 		_is_suprog				=> $true,
 	 	_is_superflow			=> $false,
 	 	_max_index              => $max_index,
-	 	_prefix_aref               => '',
-	 	_suffix_aref               => '',
+	 	_prefix_aref            => '',
+	 	_suffix_aref            => '',
 	};
 
 
@@ -276,7 +276,7 @@ one type of dialog for each index
 
 
 =head2 sub get_prefix_aref
-
+	$index[0] = 3;    # inbound item is  bound
 =cut
 
  sub get_prefix_aref {

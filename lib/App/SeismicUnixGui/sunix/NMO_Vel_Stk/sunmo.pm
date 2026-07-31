@@ -95,17 +95,57 @@ AUTHOR: Juan Lorenzo (Perl module only)
  Trace header fields accessed: ns, dt, delrt, offset, cdp, scalel
 
 
+=head2 User's notes (Juan Lorenzo)
+V 0.0.4
+
+--------------------------------------------------------------------
+Interactive ivpicks are made using the Tool: iVelocityAnalysis
+
+The iVelocity Tool generates the "parfiles" (x,t values) in SUnix "par" format
+iVelocityAnalysis saves the picked values 
+into individual "parfiles" named according to
+their corresponding gather (e.g. ep or cdp etc.)--------------------------------------------------------------------
+Interactive top mute picks are made using the Tool: iTopMute
+
+The iTopMute Tool generates the "parfiles" (x,t values) in SUnix "par" format
+iTopMute saves the picked values in "ivpicks*" files (tno, vnmo pairs),
+one for each cdp, into the $DATA_SEISMIC_TEXT directory
+
+Use the Tool Sucat to combine the individual "ivpicks*" files into one"parfile"
+that can be directly used by sunmo
+The generated parfile will look like
+
+cdp=1,2
+tmute=0.141777,0.251418
+xmute=73,96
+tmute=0.131777,0.241418
+xmute=85,96
+
+This file is found in the DATA_SEISMIC_TXT directory
+
+WARNING:
+Do not provide a "parfile" as well as tnmo and vnmo values in the GUI.
+Use either one or the other but not both.
+
+=cut
+
 =head4 CHANGES and their DATES
 
  Juan Lorenzo July 15 2015
  introduced "par" subroutine
  
  V0.0.3 Jan 14 2020 automatic use of scalel
+     introduce unconventional sub to use scalel header
+	 subroutine are: sscale, set_base_file_name, par_s,
+	 multi_gather_parfile, _get_data_scale
+
+ V0.0.4 July 31, 2026 change sub par to par_s
+        reintroduce regular sub par | sub par_file
 
 =cut
 
 use Moose;
-our $VERSION = '0.0.3';
+our $VERSION = '0.0.4';
 
 use aliased 'App::SeismicUnixGui::misc::L_SU_global_constants';
 use aliased 'App::SeismicUnixGui::sunix::header::header_values';
@@ -128,6 +168,7 @@ my $sunmo = {
 	_lmute                => '',
 	_multi_gather_parfile => '',
 	_par                  => '',
+	_par_file             => '',
 	_smute                => '',
 	_sscale               => '',
 	_scaled_par           => '',
@@ -179,6 +220,8 @@ sub clear {
 	$sunmo->{_smute}                = '';
 	$sunmo->{_sscale}               = '';
 	$sunmo->{_multi_gather_parfile} = '';
+	$sunmo->{_par_file}             = '';
+	$sunmo->{_par}                  = '';	
 	$sunmo->{_scaled_par}           = '';
 	$sunmo->{_tnmo}                 = '';
 	$sunmo->{_upward}               = '';
@@ -230,7 +273,6 @@ sub _get_data_scale {
 }
 
 =head2 sub cdp 
-
 
 =cut
 
@@ -290,15 +332,50 @@ sub lmute {
 }
 
 =head2 sub par 
+
+=cut
+
+sub par {
+
+	my ( $self, $par ) = @_;
+	if ($par) {
+
+		$sunmo->{_par}  = $par;
+		$sunmo->{_note} = $sunmo->{_note} . ' par=' . $sunmo->{_par};
+		$sunmo->{_Step} = $sunmo->{_Step} . ' par=' . $sunmo->{_par};
+
+	}
+	else {
+		print("sunmo, par, missing par,\n");
+	}
+}
+
+=head2 sub par_file 
+
+=cut
+
+sub par_file {
+
+	my ( $self, $par_file ) = @_;
+	if ($par_file) {
+
+		$sunmo->{_par_file}  = $par_file;
+		$sunmo->{_note} = $sunmo->{_note} . ' par=' . $sunmo->{_par_file};
+		$sunmo->{_Step} = $sunmo->{_Step} . ' par=' . $sunmo->{_par_file};
+
+	}
+	else {
+		print("sunmo, par, missing par,\n");
+	}
+}
+
+=head2 sub multi_gather_parfile 
 V0.0.3 1-14-2020 DLL
 automatic use of data_scale
 
 read par file (assume in m/s or ft/s)
 scale a new output par file * data-scale
 assign new output par file
-
-A typical parfile does only handles one gather
-at a time
 
 =cut
 
@@ -515,7 +592,7 @@ sub multi_gather_parfile {
 	}
 }
 
-=head2 sub par 
+=head2 sub par_s
 V0.0.3 1-14-2020 DLL
 automatic use of data_scale
 
@@ -528,7 +605,7 @@ at a time
 
 =cut
 
-sub par {
+sub par_s {
 
 	my ( $self, $par ) = @_;
 	if ( $par ne $empty_string ) {
@@ -808,7 +885,7 @@ max index = number of input variables -1
 
 sub get_max_index {
 	my ($self) = @_;
-	my $max_index = 10;
+	my $max_index = 9;
 
 	return ($max_index);
 }
