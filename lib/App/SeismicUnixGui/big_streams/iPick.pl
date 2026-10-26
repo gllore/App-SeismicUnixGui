@@ -16,6 +16,9 @@
 
 =head2 USE
 
+ Normally when purpose is empty, two plots are displayed
+ One plot is an interpolated image and the other a wiggle plot
+
  When "purpose" is 'geopsy', the processing
  is slightly different and
  the output directories and files have a unique format
@@ -27,7 +30,6 @@
  ep max=0
  ep min=0  
  
- ??JML TODO
 
 
  Examples:
@@ -54,8 +56,8 @@
        If you want to digitize as a function of offset,
        modify the d2 and f2 values prior to picking.
       
-     ** Used only to define family of interactive user messages to use
-        and can be either = SP or CDP
+     ** Gather type is used only to define family of interactive user messages to use
+        and can be either = SP or CDP. It does not affect the data.
 
 =head2 Examples
 
@@ -71,7 +73,7 @@
  use warnings;
  
  For the iPick tool and in  order to prevent redefining subroutines
- we implement new modulesB,C,D ...
+ we implement new modules B,C,D ...
  
  Both of the following instantiate iPick_spec.pm
  --iPick_config 
@@ -81,11 +83,11 @@
  		big_streams_param 
  			which requires and instantiates iPick_spec
  --iPick.pm
- 		uses and instantiates iPick_specB.pm
+ 		uses and instantiates iPick_specB.pm ( a specification file)
  		uses iShowNselect_picks
- 		      which instantiates iPick_specC
+ 		      which instantiates iPick_specC ( a specification file)
  		uses iSelect_xt
- 			  which instantiates iPick_specD		
+ 			  which instantiates iPick_spec ( a specification file)		
 
 =cut
 
@@ -118,6 +120,8 @@ my $message      = SuMessages->new();
 my $var          = $get->var();
 my $xk			 = xk->new();
 
+my $empty_string    = $var->{_empty_string};
+
 =head2 Get configuration information
 
 =cut
@@ -138,6 +142,10 @@ my $min_x1         = $CFG_h->{suximage}{1}{min_x1};
 my $max_x1         = $CFG_h->{suximage}{1}{max_x1};
 my $purpose        = $CFG_h->{suximage}{1}{purpose};
 
+if ( $purpose eq $empty_string ) {
+	$purpose = $empty_string;
+    # print("L 143 iPick.pl,purpose: is generic\n");
+}
 
 =head2 Declare variables 
 
@@ -495,8 +503,8 @@ sub set_exit {
     print("Good bye.\n");
     print("Not continuing to next gather\n");
 
-    # $xk->kill_this('suximage');
-    # $xk->kill_this('suxwigb');
+    $xk->kill_this('suximage');
+    $xk->kill_this('suxwigb');
     # $xk->kill_this('xgraph');
 
     $mw->destroy() if Tk::Exists($mw);

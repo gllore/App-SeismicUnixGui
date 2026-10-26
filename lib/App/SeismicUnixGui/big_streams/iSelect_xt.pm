@@ -13,6 +13,9 @@ package App::SeismicUnixGui::big_streams::iSelect_xt;
  
  Based on iSelect_xt_top3.pm
  from  August 2016, V 3.1 
+ 
+ Include suxwigb display when not picking geopsy data
+ Oct. 2026 
 
 =head2 USE
 
@@ -79,6 +82,8 @@ my $var               = $get->var();
 my $empty_string      = $var->{_empty_string};
 my $purpose           = $get->purpose();
 
+# print("L 85 iSelect_xt,purpose: $purpose\n");
+
 =head2 Establish
  
  just the locally scoped variables
@@ -87,7 +92,7 @@ my $purpose           = $get->purpose();
 
 my ( @parfile_in,  @file_in, @suffix, @inbound );
 my ( @suwind_min,  @suwind_max );
-my ( @items,       @flow, @sugain, @sufilter, @suwind );
+my ( @items,       @items_base, @flow, @sugain, @sufilter, @suwind );
 my ( @suximage,    @suxwigb );
 my ( @windowtitle, @base_caption );
 
@@ -107,6 +112,7 @@ my $iSelect_xt = {
 	_file_in         => '',
 	_freq            => '',
 	_inbound         => '',
+	_is_geopsy	     => $false,
 	_max_amplitude   => '',
 	_max_x1          => '',
 	_min_amplitude   => '',
@@ -135,6 +141,7 @@ sub clear {
 	$iSelect_xt->{_freq}            = '';
 	$iSelect_xt->{_gather_num}      = '';
 	$iSelect_xt->{_inbound}         = '';
+	$iSelect_xt->{_is_geopsy}       = $false;
 	$iSelect_xt->{_max_amplitude}   = '';
 	$iSelect_xt->{_max_x1}          = '';
 	$iSelect_xt->{_min_amplitude}   = '';
@@ -147,10 +154,16 @@ sub clear {
 
 }
 
+=head2 find special purposes
+
+
+=cut
+
+
 =head2 subroutine calcNdisplay 
 
  main processing flow
-  calculate mute and display results 
+ calculate mute and display results 
 
 =cut
 
@@ -171,15 +184,6 @@ sub calcNdisplay {
  DATA
 
 =cut
-
-#	$sugain->clear();
-#	$sugain->pbal($on);
-#	$sugain[1] = $sugain->Step();
-#
-#	$sugain->clear();
-#	$sugain->agc($on);
-#	$sugain->width(0.1);
-#	$sugain[2] = $sugain->Step();
 
 	$sugain->clear();
 	$sugain->tpower(3);
@@ -204,11 +208,11 @@ sub calcNdisplay {
 	{
 
 		$iSelect_xt->{_error_freq} = $true;
-#		print("iSelect_xt, missing frequencies -- warning\n");
+		# print("iSelect_xt, missing frequencies -- warning\n");
 
 	}
 	else {
-		print("iSelect_xt, missing frequencies -- warning \n");
+		# print("iSelect_xt, missing frequencies -- warning \n");
 	}
 
 =head2 WINDOW  DATA 
@@ -230,7 +234,9 @@ sub calcNdisplay {
 	$suwind->tmax( $iSelect_xt->{_max_x1} );
 	$suwind[2] = $suwind->Step();
 
-=head2 DISPLAY Suximage
+=head2 DISPLAY using suximage
+
+ Uses suximage
 
  DATA
 
@@ -250,42 +256,41 @@ sub calcNdisplay {
 	$suximage->box_Y0(150);
 	$suximage->title( $base_caption[1] );
 	$suximage->windowtitle( $windowtitle[1] );
-	$suximage->ylabel( quotemeta('TWTT s') );
-	$suximage->xlabel( $iSelect_xt->{_offset_type} );
+	$suximage->ylabel( quotemeta('TWTT ss') );
 	$suximage->legend($on);
 	$suximage->cmap('rgb0');
 	$suximage->loclip( $iSelect_xt->{_min_amplitude} );
 	$suximage->hiclip( $iSelect_xt->{_max_amplitude} );
 
-	# purposes can refine the style of plots
-	# geopsy plot preference for JML
-	if (    length $iSelect_xt->{_purpose}
-		and $iSelect_xt->{_purpose} eq $purpose->{_geopsy}
-		and $iSelect_xt->{_max_x1} > $iSelect_xt->{_min_x1} )
-	{
 
-		# $suximage->x1beg( $iSelect_xt->{_max_x1} );
-		# $suximage->x1end( $iSelect_xt->{_min_x1} );
-	    # frequency is hzntl and velocity is vertical in geopsy, 
+	if ( $iSelect_xt->{_is_geopsy} )
+	{
+	    # frequency is hzntl and velocity is vertical for geopsy, 
         # so the x axis is reversed compared to a normal seismic plot.
         $suximage->orientation('normal');
-		$suximage->ylabel( quotemeta('frequency Hz') );
 		$suximage->box_width(800);
 	    $suximage->box_height(400);
+		$suximage->ylabel( quotemeta('frequency Hz') );
+		$suximage->xlabel( quotemeta('phase velocity m/s') );
 		$suximage->cmap('hsv2');
-		#  print("iSelect_xt, \n");
-
 	}
-	else {
+	elsif ( $iSelect_xt->{_is_generic} ) 
+	{
+		# conventional/default orientaion is seismic 
+		$suximage->orientation('seismic');
 		$suximage->x1beg( $iSelect_xt->{_min_x1} );
 		$suximage->x1end( $iSelect_xt->{_max_x1} );
+
+	} else {
+		print("L 285 iSelect_xt, unexpected iSelect_xt->{_is_geopsy}\n");
 	}
 
 	$suximage->verbose($off);
 
 =item
  
-	choose to save picks
+	choose to save picks in both
+	suximage and suxwigb cases
  
 =cut
 
@@ -293,14 +298,17 @@ sub calcNdisplay {
 
 		$iSelect_xt->{_TX_outbound} = $itemp_picks_ . $iSelect_xt->{_file_in};
 		$suximage->picks( $DATA_DIR_OUT . '/' . $iSelect_xt->{_TX_outbound} );
+		$suxwigb->picks( $DATA_DIR_OUT . '/' . $iSelect_xt->{_TX_outbound} );
 
-# print("iSelect_xt, suximage, writing picks to $itemp_picks_$iSelect_xt->{_file_in} \n");
-# print("iSelect_xt, suximage, PATH: $DATA_DIR_OUT \n\n");
-# print("number of tries is $iSelect_xt->{_number_of_tries} \n\n");
+	# print("iSelect_xt, suximage, writing picks to $itemp_picks_$iSelect_xt->{_file_in} \n");
+	# print("iSelect_xt, suximage, PATH: $DATA_DIR_OUT \n\n");
+	# print("number of tries is $iSelect_xt->{_number_of_tries} \n\n");
+
 	}
 	$suximage[1] = $suximage->Step();
+	$suxwigb[1]  = $suxwigb->Step();
 
-=head2 DISPLAY suxwigb
+=head2 DISPLAY using suxwigb
 
  DATA
 
@@ -321,31 +329,10 @@ sub calcNdisplay {
 	$suxwigb->title( $base_caption[2] );
 	$suxwigb->windowtitle( $windowtitle[2] );
 	$suxwigb->ylabel( quotemeta('TWTT s') );
-	$suxwigb->xlabel( $iSelect_xt->{_offset_type} );
 	$suxwigb->loclip( $iSelect_xt->{_min_amplitude} );
 	$suxwigb->hiclip( $iSelect_xt->{_max_amplitude} );
-
-	# purposes can refine the style of plots
-	# geopsy plot preference for JML
-	if ( length $iSelect_xt->{_purpose}
-		and $iSelect_xt->{_purpose} eq $purpose->{_geopsy}
-		and $iSelect_xt->{_max_x1} > $iSelect_xt->{_min_x1} )
-	{
-
-		# $suxwigb->x1beg( $iSelect_xt->{_max_x1} );
-		# $suxwigb->x1end( $iSelect_xt->{_min_x1} );
-
-		# frequency is hzntl and velocity is vertical in geopsy, 
-        # so the x axis is reversed compared to a normal seismic plot.
-		# $suximage->orientation('normal');
-		# $suximage->ylabel( quotemeta('frequency Hz') );
-        print("iSelect_xt, suxwigb with \'geopsy\' purpose\n");
-
-	}
-	else {
-		$suxwigb->x1beg( $iSelect_xt->{_min_x1} );
-		$suxwigb->x1end( $iSelect_xt->{_max_x1} );
-	}
+	$suxwigb->x1beg( $iSelect_xt->{_min_x1} );
+	$suxwigb->x1end( $iSelect_xt->{_max_x1} );
 	$suxwigb->verbose($off);
 
 =item choose to save picks
@@ -374,104 +361,51 @@ The pick file can be saved.
 =cut
 
 	if ( defined $iSelect_xt->{_purpose}
-		and $iSelect_xt->{_purpose} ne $empty_string )
-	{
-		# CASE 1: With GEOPSY purpose
-
-		if (   $iSelect_xt->{_purpose} eq $purpose->{_geopsy}
-			&& $iSelect_xt->{_error_freq} eq $true )
-		{
-
-			# CASE 1A: With geopsy and no filter
-#			$sugain[1],              $to,
-			# @items = (
-			# 	$suwind[1],  $in, $iSelect_xt->{_inbound}, $to,
-			# 	$suwind[2],  $to, 
-			# 	$suxwigb[1], $go
-			# );
-			# $flow[1] = $run->modules( \@items );
-
-#			print("iSelect_xt,  CASE1: \n $flow[1]\n");
-#							$sugain[1],              $to,
-			@items = (
-				$suwind[1],              $in,
-				$iSelect_xt->{_inbound}, $to,
-				$suwind[2],              $to,
-				$suximage[1],
-				$go
-			);
-			$flow[2] = $run->modules( \@items );
-
-		}
-		elsif ($iSelect_xt->{_purpose} eq $purpose->{_geopsy}
-			&& $iSelect_xt->{_error_freq} eq $false )
-		{
-
-			# CASE 2: With geopsy and  filter
-			# @items = (
-			# 	$suwind[1],  $in,
-			# 	$iSelect_xt->{_inbound}, $to,
-			# 	$suwind[2],  $to, $sufilter[1],$to,
-			# 	$suxwigb[1], $go
-			# );
-			# $flow[1] = $run->modules( \@items );
-#			print("iSelect_xt, CASE2: \n $flow[1]\n");
-
-# 				$sugain[1], $to, 
-			@items = (
-				$suwind[1], $in, 
-				$iSelect_xt->{_inbound},$to,
-				$suwind[2], $to, 
-				$sufilter[1],$to,
-				$suximage[1],
-				$go
-			);
-			$flow[2] = $run->modules( \@items );
-
-		}
-		else {
-			# CASE 1 Error catch
-			#			print("CASE 1 iSelect_xt, purpose:$iSelect_xt->{_purpose}\n");
-			my $ans = $iSelect_xt->{_error_freq};
-
-			#	print("CASE 1 iSelect_xt, _error: $ans\n");
-			#	print("CASE 1 iSelect_xt, missing purpose and/or error_freq\n");
-		}
-
-	}
-
-	# CASE 2A: No purpose, with filter
-	elsif (
-		(
-			not( defined $iSelect_xt->{_purpose} )
-			|| $iSelect_xt->{_purpose} eq $empty_string
-		)
-		&& $iSelect_xt->{_error_freq} eq $false
-	  )
+		and $iSelect_xt->{_purpose} ne $empty_string)
 	{
 
-		@items = (
-			$suwind[1], $in, $iSelect_xt->{_inbound}, $to,
-			$suwind[2], $to, $sufilter[1],            $to,
-			$sugain[1], $to, $suxwigb[1],             $go
-		);
-		$flow[1] = $run->modules( \@items );
-
-		# print("iSelect_xt,  CASE 2: $flow[1]\n");
-#$sugain[1], $to, 
-		@items = (
-			$suwind[1], $in, $iSelect_xt->{_inbound}, $to,
-			$suwind[2], $to, $sufilter[1],            $to,
-			$suximage[1],            $go
+		@items_base = (
+			$suwind[1],              $in,
+			$iSelect_xt->{_inbound}, $to,
+			$suwind[2]
 		);
 
-		$flow[2] = $run->modules( \@items );
+		# CASE 1: With geopsy
+		if ($iSelect_xt->{_is_geopsy}) 
+		{
+			if ($iSelect_xt->{_error_freq} eq $false )
+			{
+			# CASE 1A: With geopsy and filter 
+           	@items_base =(@items_base, $to,
+			            $sufilter[1]);
+			}
 
-	}
-	else {
-#  print("2. iSelect_xt, purpose:---$iSelect_xt->{_purpose}---\n");
-  # print("2. iSelect_xt, error_freq:---$iSelect_xt->{_error_freq}---\n");
-  #		print("2. iSelect_xt, missing purpose and/or error in filter frequencies");
+			@items =( @items_base, $to,
+			         $suximage[1], $go);
+			$flow[1] = $run->modules( \@items );
+		}
+
+		# CASE 2: General purpose
+		if ( $iSelect_xt->{_is_generic} )
+		{
+			# CASE 2A: suxwigb and filter
+			if ($iSelect_xt->{_error_freq} eq $false)
+			{
+				@items_base = (@items_base, 
+				               $sufilter[1] );
+			}
+
+			@items = (@items_base, $to, 
+			           $suxwigb[1], $go );
+
+			$flow[2] = $run->modules( \@items );
+
+			# CASE 2B: General purpose, suximage;
+			@items = (@items_base, $to, 
+			          $suximage[1], $go );
+
+			$flow[3] = $run->modules( \@items );
+		}
 	}
 
 =head2 RUN FLOW(S)
@@ -482,17 +416,20 @@ The pick file can be saved.
 
 =cut
 
-	if($iSelect_xt->{_purpose} eq $purpose->{_geopsy})
+	if ( $iSelect_xt->{_is_geopsy} )
 	{	
 		# for suximage
-		$run->flow( \$flow[2] );
-
-	} else {
-		# for suxwigb
 		$run->flow( \$flow[1] );
 
-		# for suximage
+	} 
+	
+	if ( $iSelect_xt->{_is_generic} ) 
+	{
+		# for suxwigb
 		$run->flow( \$flow[2] );
+
+		# for suximage
+		$run->flow( \$flow[3] );
 	}
 
 =head2 LOG FLOW(S)
@@ -501,13 +438,16 @@ The pick file can be saved.
 
 =cut
 
-#	print "$flow[1]\n";
+	print "$flow[1]\n";
 	# $log->file($flow[1]);
 
-#	print  "$flow[2]\n";
+	#  print  "$flow[2]\n";
 	# $log->file($flow[2]);
 
-}    # end calcNdisplay subroutine
+	# print  "$flow[3]\n";
+	# $log->file($flow[2]);
+
+} # end calcNdisplay
 
 =head2  sub gather_header
 
@@ -721,6 +661,7 @@ sub offset_type {
 	}
 }
 
+
 =head2  sub set_purpose 
 
   define where the data will need to go
@@ -740,25 +681,25 @@ sub set_purpose {
 		$control->set_infection($type);
 		$type = control->get_ticksBgone();
 
-		# print("iSelect_xt,set_purpose: $type\n");
-		# print("iSelect_xt,set_purpose: $purpose->{_geopsy}\n");
+		if ( $type eq $purpose->{_geopsy} 
+		   && $iSelect_xt->{_max_x1} > $iSelect_xt->{_min_x1}
+		) {
 
-		if ( $type eq $purpose->{_geopsy} ) {
-
-			$iSelect_xt->{_purpose} = $type;
-
-			# print("iSelect_xt,set_purpose: $iSelect_xt->{_purpose}\n");
+			$iSelect_xt->{_purpose}   = $type;
+			$iSelect_xt->{_is_geopsy} = $true;
+			# purposes can refine the style of plots
+	        # geopsy plot preference for JML
 
 		}
 		else {
-
-			# print("iSelect_xt,set_purpose is unavailable, NADA\n");
+			$iSelect_xt->{_purpose} = $purpose->{_generic};
+            $iSelect_xt->{_is_generic} = $true;
 		}
 
 	}
 	else {
-
-		# print("iSelect_xt,set_purpose value is empty NADA\n");
+		$iSelect_xt->{_purpose} = $purpose->{_generic};
+		$iSelect_xt->{_is_generic} = $true;
 	}
 }
 

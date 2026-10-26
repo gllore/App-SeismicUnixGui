@@ -150,7 +150,7 @@ sub _get_data_type {
 		and $sucat->{_list} ne $empty_string )
 		
 	{
-
+    # print("sucat,list directory=$sucat->{_list_directory} and list=$sucat->{_list} ");
 =head2 instantiate packages
 
 =cut
@@ -177,11 +177,11 @@ sub _get_data_type {
 				or $file_name =~ m/$ibot_mute/ )
 			{
 
-				#CASE 1 for mute-type files
+				# CASE 1 for mute-type files
 
 				$data_type[$i] = $mute;
 
-				#				print("sucat,_get_data_type, success, matched mute\n");
+				print("sucat,_get_data_type, success, matched mute\n");
 
 			}
 			elsif ( $file_name =~ m/$ivpicks_sorted_par_/ ) {
@@ -194,7 +194,7 @@ sub _get_data_type {
 			}
 			elsif ( $file_name =~ m/$suffix_su/ ) {
 
-				# print("success, matched $su\n");
+				print("success, matched $su\n");
 				$data_type[$i] = $su;
 
 			}
@@ -212,14 +212,14 @@ sub _get_data_type {
 
 			if ( $data_type[0] eq $data_type[$i] ) {
 
-				# print("sucat,_get_data_type, data_type is consistent NADA\n");
+				print("sucat,_get_data_type, data_type is consistent NADA\n");
 
 			}
 			elsif ( $data_type[0] ne $data_type[$i] ) {
 
 				$data_type = $empty_string;
 
-				# print("sucat,_get_data_type,failed\ test\n");
+				print("sucat,_get_data_type,failed\ test\n");
 
 			}
 			else {
@@ -332,7 +332,7 @@ sub _get_gather_type {
 
 =head2 sub _set_data_type
 
- set_data_type can be velan,su,txt, cat
+ set_data_type can be velan,su,txt,cat
 
 =cut
 
@@ -409,11 +409,13 @@ sub data_type {
 		my ( $values_aref, $ValuesPerRow_aref );
 		my $rows;
 
+
 		my $data_type = _get_data_type();
+		# print("sucat, data_type, data_type=---$data_type---\n\n");
 		_set_data_type($data_type);
 		my $gather_type = _get_gather_type();
 
-#		print("sucat, data_type, data_type=---$data_type---\n\n");
+		
 
 		if (
 			$data_type ne $empty_string

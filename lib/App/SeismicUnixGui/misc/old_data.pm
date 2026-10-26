@@ -317,7 +317,7 @@ sub type {
 			}
 		}
 
-		print("TX in is $old_data->{_TX_inbound}\n\n");
+		print("old data, TX is in $old_data->{_TX_inbound}\n\n");
 
 		if ( $old_data->{_type} eq 'Pick_xt' ) {
 			$old_data->{_textfile_in} =

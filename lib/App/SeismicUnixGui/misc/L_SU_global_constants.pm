@@ -384,7 +384,11 @@ my $help_menubutton_type_h = { _About             => 'About',
 							   _Tutorial          => 'Tutorial',
 };
 
-my $purpose = { _geopsy => 'geopsy', };
+my $purpose = { 
+	_geopsy => 'geopsy', 
+	_generic=> 'generic',
+};
+
 
 my $var = {
 	_1_character            => '1',

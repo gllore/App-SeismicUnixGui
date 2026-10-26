@@ -78,7 +78,7 @@ my $suxwigb    = suxwigb->new();
 my $suximage   = suximage->new();
 my $Project    = Project_config->new();
 my $SuMessages = SuMessages->new();
-my $purpose    = $get->purpose();
+# my $purpose    = $get->purpose();
 
 =head2
 
@@ -648,7 +648,7 @@ sub offset_type {
     
     $iShow_picks->{_offset_type} = $offset_type if defined($offset_type);
 
-    print(" header type is $iShow_picks->{_offset_type}\n\n");
+    # print(" header type is $iShow_picks->{_offset_type}\n\n");
 }
 
 1;

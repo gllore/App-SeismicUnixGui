@@ -15,6 +15,9 @@ package App::SeismicUnixGui::big_streams::iPick;
 
 =head2 USE
 
+ Normally when purpose is empty, two plots are displayed
+ One plot is an interpolated image and the other a wiggle plot
+
  When "purpose" is 'geopsy', the processing
  is slightly different and
  the output directories and files have a unique format
@@ -26,7 +29,6 @@ package App::SeismicUnixGui::big_streams::iPick;
  ep max=0
  ep min=0  
 
- ??JML TODO
  
  Examples:
 
@@ -74,11 +76,14 @@ package App::SeismicUnixGui::big_streams::iPick;
  		big_streams_param 
  			which requires and instantiates iPick_spec
  --iPick.pm
- 		uses and instantiates iPick_specB.pm
+ 		uses and instantiates iPick_specB.pm ( a specification file)
  		uses iShowNselect_picks
- 		      which instantiates iPick_specC
+ 		      which instantiates iPick_specC ( a specification file)
  		uses iSelect_xt
- 			  which instantiates iPick_specD		
+ 			  which instantiates iPick_spec ( a specification file)	
+
+ Include suxwigb display when not picking geopsy data
+ Oct. 2026
 
 =cut
 
@@ -155,6 +160,7 @@ my $data_suffix_in  = $variables->{_data_suffix_in};
 my $data_suffix_out = $variables->{_data_suffix_out};
 my $var             = $get->var();
 my $empty_string    = $var->{_empty_string};
+my $purpose         = $get->purpose();
 
 =head2 private hash
  
@@ -172,9 +178,9 @@ my $iPick = {
 	_inbound           => '',
 	_inbound_curve     => '',
 	_max_amplitude     => '',
-	_max_x1        => '',
+	_max_x1            => '',
 	_min_amplitude     => '',
-	_min_x1        => '',
+	_min_x1            => '',
 	_next_step         => '',
 	_number_of_tries   => '',
 	_purpose           => '',
@@ -209,9 +215,9 @@ sub clear {
 	$iPick->{_inbound}           = '';
 	$iPick->{_inbound_curve}     = '';
 	$iPick->{_max_amplitude}     = '';
-	$iPick->{_max_x1}        = '';
+	$iPick->{_max_x1}            = '';
 	$iPick->{_min_amplitude}     = '';
-	$iPick->{_min_x1}        = '';
+	$iPick->{_min_x1}            = '';
 	$iPick->{_next_step}         = '';
 	$iPick->{_number_of_tries}   = '';
 	$iPick->{_purpose}           = '';
@@ -219,6 +225,8 @@ sub clear {
 	$iPick->{_textfile_out}      = '';
 
 }
+
+
 
 =head2 sub icp_sorted_2_old_picks
 
@@ -583,6 +591,7 @@ sub iPicks_select_xt {
 		my $ans = $test->does_file_exist( \$iPick->{_inbound} );
 
 		# print("iPick,iPicks_select_xt, file: $iPick->{_file_in} exists?:$ans\n");
+		# print("L589 iPick,iPicks_select_xt, purpose: $iPick->{_purpose} \n");
 
 		if ($ans) {
 
@@ -644,6 +653,7 @@ sub iPicks_shownNselect {
 	$iShowNselect_picks->max_x1( $iPick->{_max_x1} );
 	$iShowNselect_picks->min_amplitude( $iPick->{_min_amplitude} );
 	$iShowNselect_picks->number_of_tries( $iPick->{_number_of_tries} );
+	# print("L657 iPick,iPicks_shownNselect_xt, purpose: $iPick->{_purpose} \n");
 	$iShowNselect_picks->set_purpose( $iPick->{_purpose} );
 	$iShowNselect_picks->calcNdisplay();
 	return ();
@@ -855,15 +865,29 @@ sub set_purpose {
 	my ( $self, $type ) = @_;
 
 	if ( defined $type
-		&& $type ne $empty_string ) {
+		&& $type ne $empty_string )
+	{
 
-		$iPick->{_purpose} = $type;
+		my $control = control->new();
+		$control->set_infection($type);
+		$type = control->get_ticksBgone();
 
-		# print("iPick,set_purpose: $iPick->{_purpose}\n");
+		# print("iPick, set_purpose: $type\n");
+		# print("iPick,set_purpose: $purpose->{_geopsy}\n");
 
-	} else {
+		if ( $type eq $purpose->{_geopsy} ) {
 
-		# print("iPick,set_purpose is unavailable, NADA\n");
+			$iPick->{_purpose} = $type;
+
+		}
+		else {
+			$iPick->{_purpose} = $purpose->{_generic};
+			print("L884 iPick,set_purpose is unexpected, and made generic\n");
+		}
+	}
+	else {
+		# all other cases
+		$iPick->{_purpose} = $purpose->{_generic};
 	}
 }
 

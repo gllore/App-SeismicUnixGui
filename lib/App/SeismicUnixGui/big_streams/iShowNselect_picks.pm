@@ -14,10 +14,11 @@ package App::SeismicUnixGui::big_streams::iShowNselect_picks;
 
 =head2 NOTES
 
+ Include suxwigb display when not picking geopsy data
+ Oct. 2026
+
 
 =cut
-
-#		$iPick->{_min_amplitude} = $min_amplitude;
 
 =head2 
 
@@ -99,7 +100,7 @@ my ($DATA_SEISMIC_TXT) = $Project->DATA_SEISMIC_TXT();
 
 =cut
 
-my ( @items, @flow, @sugain, @sufilter, @suwind );
+my ( @items, @items_base, @flow, @sugain, @sufilter, @suwind );
 my ( @suximage, @suxwigb );
 my @windowtitle;
 my @base_caption;
@@ -123,6 +124,7 @@ my $iShowNselect_picks = {
 	_gather_num         => '',
 	_inbound            => '',
 	_inbound_curve_file => '',
+	_is_geopsy          => $false,
 	_message_type       => '',
 	_max_amplitude      => '',
 	_max_x1             => '',
@@ -151,7 +153,8 @@ sub clear {
 	$iShowNselect_picks->{_gather_num}         = '';
 	$iShowNselect_picks->{_inbound}            = '';
 	$iShowNselect_picks->{_inbound_curve_file} = '',
-	  $iShowNselect_picks->{_message_type} = '';
+	$iShowNselect_picks->{_is_geopsy}          = $false,
+	$iShowNselect_picks->{_message_type}    = '';
 	$iShowNselect_picks->{_max_amplitude}   = '';
 	$iShowNselect_picks->{_max_x1}          = '';
 	$iShowNselect_picks->{_min_amplitude}   = '';
@@ -162,6 +165,12 @@ sub clear {
 	$iShowNselect_picks->{_purpose}         = '';
 	$iShowNselect_picks->{_textfile_in}     = '';
 }
+
+=head2 find special purposes
+
+
+=cut
+
 
 =head2  sub _inbound_curve_file
 
@@ -202,7 +211,7 @@ sub gather_header {
 	$iShowNselect_picks->{_gather_header} = $gather_header
 	  if defined($gather_header);
 
-	print(" header type is $iShowNselect_picks->{_gather_header}\n\n");
+	# print(" header type is $iShowNselect_picks->{_gather_header}\n\n");
 }
 
 =head2 subroutine calcNdisplay
@@ -242,11 +251,6 @@ sub calcNdisplay {
 	if ( defined $iShowNselect_picks->{_freq}
 		&& $iShowNselect_picks->{_freq} ne $empty_string )
 	{
-
-# 		print(
-# 			"iShowNselect_picks, sufilter frequencies:  $iShowNselect_picks->{_freq}\n"
-# 		);
-        print("L249 iShowNselect_picks, error_freq: $iShowNselect_picks->{_error_freq}\n");
         
 		$sufilter->clear();
 		$sufilter->freq( $iShowNselect_picks->{_freq} );
@@ -294,7 +298,7 @@ sub calcNdisplay {
 
 =head2
 
- DISPLAY DATA (SUXIMAGE)
+ DISPLAY DATA using SUXIMAGE
 
 =cut
 
@@ -316,38 +320,40 @@ sub calcNdisplay {
 	$suximage->title( $base_caption[1] );
 	$suximage->windowtitle( $windowtitle[1] );
 	$suximage->ylabel( quotemeta('TWTTs') );
-	$suximage->xlabel( $iShowNselect_picks->{_offset_type} );
 	$suximage->legend($on);
 	$suximage->cmap('rgb0');
 	$suximage->loclip( $iShowNselect_picks->{_min_amplitude} );
 	$suximage->hiclip( $iShowNselect_picks->{_max_amplitude} );
 
 	# geopsy plot preference for JML
-	if (    length $iShowNselect_picks->{_purpose}
-		and $iShowNselect_picks->{_purpose} eq $purpose->{_geopsy}
-		and $iShowNselect_picks->{_max_x1} > $iShowNselect_picks->{_min_x1} )
+	if ( $iShowNselect_picks->{_is_geopsy} )
 	{
-
 		# frequency is hzntl and velocity is vertical in geopsy, 
         # so the x axis is reversed compared to a normal seismic plot.
 		$suximage->orientation('normal');
 		$suximage->cmap('hsv2');
 		$suximage->box_width(800);
 	    $suximage->box_height(400);
+		$suximage->xlabel( quotemeta('phase velocity m/s') );
+		$suximage->ylabel( quotemeta('frequency Hz') );
 		# print("iShowNselect_picks, suximage with \'geopsy\' purpose\n");
 
 	}
-	else {
+	elsif  ( $iShowNselect_picks->{_is_generic} )
+	{
 		$suximage->x1beg( $iShowNselect_picks->{_min_x1} );
 		$suximage->x1end( $iShowNselect_picks->{_max_x1} );
+
+	}else {
+		print("unexpected-NADA");
 	}
 
 	$suximage->verbose($off);
 
 	&_inbound_curve_file();
 
-#	print("iShowNselect_picks,calc, using a curve file:\n");
-	print("\t$iShowNselect_picks->{_inbound_curve_file}\n\n");
+    #print("iShowNselect_picks,calc, using a curve file:\n");
+	#print("L356$iShowNselect_picks:$iShowNselect_picks->{_inbound_curve_file}\n\n");
 
 	$suximage->curve( quotemeta( $iShowNselect_picks->{_inbound_curve_file} ) );
 	my ( $ref_T, $ref_X, $num_tx_pairs ) = $manage_files_by->read_2cols(
@@ -396,25 +402,27 @@ sub calcNdisplay {
 	$suxwigb->title( $base_caption[2] );
 	$suxwigb->windowtitle( $windowtitle[2] );
 	$suxwigb->ylabel( quotemeta('TWTTs') );
-	$suxwigb->xlabel( $iShowNselect_picks->{_offset_type} );
 	$suxwigb->loclip( $iShowNselect_picks->{_min_amplitude} );
 	$suxwigb->hiclip( $iShowNselect_picks->{_max_amplitude} );
 
 	# geopsy plot preference for JML
-	if (    length $iShowNselect_picks->{_purpose}
-		and $iShowNselect_picks->{_purpose} eq $purpose->{_geopsy}
-		and $iShowNselect_picks->{_max_x1} > $iShowNselect_picks->{_min_x1} )
+	if ( $iShowNselect_picks->{_is_geopsy} )
 	{
 
 		# frequency is hzntl and velocity is vertical in geopsy, 
         # so the x axis is reversed compared to a normal seismic plot.
 		$suxwigb->orientation('normal');
+		$suxwigb->xlabel( quotemeta('phase velocity m/s') );
         # print("iShowNselect_picks, suxwigb with \'geopsy\' purpose\n");
 
 	}
-	else {
-		$suxwigb->x1beg( $iShowNselect_picks->{_min_x1} );
-		$suxwigb->x1end( $iShowNselect_picks->{_max_x1} );
+	elsif  ( $iShowNselect_picks->{_is_generic} )
+	{
+		$suximage->x1beg( $iShowNselect_picks->{_min_x1} );
+		$suximage->x1end( $iShowNselect_picks->{_max_x1} );
+
+	}else {
+		print("unexpected-NADA");
 	}
 
 	$suxwigb->verbose($off);
@@ -459,75 +467,57 @@ sub calcNdisplay {
 =head2
  
   DEFINE FLOW(S) - for both suximage AND suxwigb 
-  remove gain		$to,        $sugain[1],
+
 =cut
 
-	# CASES 1 and 2 With GEOPSY as the purpose
 	if ( defined $iShowNselect_picks->{_purpose}
 		and $iShowNselect_picks->{_purpose} ne $empty_string )
 	{
 
-		if (   $iShowNselect_picks->{_purpose} eq $purpose->{_geopsy})
-		{
-			# CASE 1: frequencies may or may not be input by the user
-			@items = (
-				$suwind[1], $in, $iShowNselect_picks->{_inbound},
-				$to,        $suwind[2],
-				$to,        $suxwigb[1],
-				$go
-			);
-			$flow[1] = $run->modules( \@items );
+		@items_base = (
+			$suwind[1],              $in,
+			$iShowNselect_picks->{_inbound}, $to,
+			$suwind[2]
+		);
 
-			print  ("iShowNselect_picks,  CASE1: $flow[1]\n");
-			@items = (
-				$suwind[1], $in, $iShowNselect_picks->{_inbound},
-				$to, $suwind[2], $to, $suximage[1], $go
-			);
+		# CASE 1: With geopsy
+		if ($iShowNselect_picks->{_is_geopsy})
+		{
+			if ($iShowNselect_picks->{_error_freq} eq $false )
+			{
+			# CASE 1A: With geopsy and filter 
+           	@items_base =(@items_base, $to,
+			            $sufilter[1]);
+			}
+
+			@items =( @items_base, $to.
+			         $suximage[1], $go);
+			$flow[1] = $run->modules( \@items );
+			# print("L496 iShowNselect_picks, pflow[1]:$flow[1]\n");
+		}
+
+		# CASE 2: General purpose
+		if ( $iShowNselect_picks->{_is_generic} )
+		{
+			# CASE 2A: suxwigb and filter
+			if ($iShowNselect_picks->{_error_freq} eq $false)
+			{
+				@items_base = (@items_base, 
+				               $sufilter[1] );
+			}
+
+			@items = (@items_base, $to, 
+			           $suxwigb[1], $go );
+
 			$flow[2] = $run->modules( \@items );
 
+			# CASE 2B: General purpose, suximage;
+			@items = (@items_base, $to, 
+			          $suximage[1], $go );
+
+			$flow[3] = $run->modules( \@items );
 		}
-#		else {
-#
-#print("1. iShowNselect_picks, purpose:$iShowNselect_picks->{_purpose}\n");
-#print("1. iShowNselect_picks, error_freq: $iShowNselect_picks->{_error_freq}\n");
-#print("1. iShowNselect_picks, unconstrained purpose\n");
-#		print ( "L490 $flow[1]\n");
-#		}
 
-		# CASE 2 No purpose  
-		# BUT frequencies ARE present
-		# TODO No purpose BUT frequencies are absent
-	}
-	elsif (
-		(
-			not( defined $iShowNselect_picks->{_purpose} )
-			|| $iShowNselect_picks->{_purpose} eq $empty_string
-		)
-		&& $iShowNselect_picks->{_error_freq} eq $false
-	  )
-	{
-
-		@items = (
-			$suwind[1], $in, $iShowNselect_picks->{_inbound},
-			$to, $suwind[2], $to, $sufilter[1], $to, $suxwigb[1], $go
-		);
-		$flow[1] = $run->modules( \@items );
-
-		print  ("iShowNselect_picks,  CASE2: $flow[1]\n");
-
-		@items = (
-			$suwind[1], $in, $iShowNselect_picks->{_inbound},
-			$to, $suwind[2], $to, $sufilter[1], $to, $suximage[1], $go
-		);
-		$flow[2] = $run->modules( \@items );
-
-	}
-	else {
-		
-
-# print("2. iShowNselect_picks, purpose:---$iShowNselect_picks->{_purpose}---\n");
- print("2. iShowNselect_picks, error_freq:---$iShowNselect_picks->{_error_freq}---\n");
-# print("2. iShowNselect_picks, unexpected purpose\n");
 	}
 
 =head2
@@ -540,19 +530,21 @@ sub calcNdisplay {
 
 =cut
 
-	if ( defined $iShowNselect_picks->{_purpose}
-		and $iShowNselect_picks->{_purpose} eq $purpose->{_geopsy} )
+	if ( $iShowNselect_picks->{_is_geopsy} )
 	{
 		# for suximage
-		$run->flow( \$flow[2] );
+		$run->flow( \$flow[1] );
 
-	} else {
+	} 
+	if( $iShowNselect_picks->{_is_generic} ) 
+	{
 	   # for suxwigb
-	   $run->flow( \$flow[1] );
+	   $run->flow( \$flow[2] );
 
 	   # for suximage
-	   $run->flow( \$flow[2] );
-	}
+	   $run->flow( \$flow[3] );
+
+	} 
 
 =head2
 
@@ -564,9 +556,9 @@ sub calcNdisplay {
 	#$log->file($flow[1]);
 
 	#for suximage
-	#	print  "$flow[2]\n";
+	#print  "$flow[2]\n";
 
-}    # end calcNdisplay subroutine
+}   # end calcNdisplay subroutine
 
 =head2  sub file_in
 
@@ -653,7 +645,9 @@ sub min_amplitude {
 
 =head2  sub max_x1
 
- maximum time/Hz  to plot 
+ maximum time/Hz  to plot 		# CASE 2 No purpose  
+		# BUT frequencies ARE present
+		# TODO No purpose BUT frequencies are absent
 
 =cut
 
@@ -712,7 +706,9 @@ sub number_of_tries {
 =head2 subroutine offset_type
 
   define the header for the x values
-  offset type value helps define the x values
+  offset type value helps define the x values		# CASE 2 No purpose  
+		# BUT frequencies ARE present
+		# TODO No purpose BUT frequencies are absent
   e.g. if offset_type = 'gather'
   the x values are 'offset'
 
@@ -724,7 +720,7 @@ sub offset_type {
 	$iShowNselect_picks->{_offset_type} = $offset_type
 	  if defined($offset_type);
 
-	print(" offset type is $iShowNselect_picks->{_offset_type}\n\n");
+	# print(" offset type is $iShowNselect_picks->{_offset_type}\n\n");
 }
 
 =head2  sub set_purpose 
@@ -747,24 +743,29 @@ sub set_purpose {
 		$type = control->get_ticksBgone();
 
 		# print("iShowNselect_picks,set_purpose: $type\n");
-		print("iShowNselect_picks,set_purpose: $purpose->{_geopsy}\n");
+		# print("iShowNselect_picks,set_purpose: $purpose->{_geopsy}\n");
 
 		if ( $type eq $purpose->{_geopsy} ) {
 
 			$iShowNselect_picks->{_purpose} = $type;
+				# purposes can refine the style of plots
+	        # geopsy plot preference for JML
+	        $iShowNselect_picks->{_is_geopsy} = $true;
 
-		 # print("iShowNselect,set_purpose: $iShowNselect_picks->{_purpose}\n");
+		    # print("iShowNselect,set_purpose: $iShowNselect_picks->{_purpose}\n");
 
 		}
 		else {
-
-			# print("iShowNselect_picks,set_purpose is unavailable, NADA\n");
+			$iShowNselect_picks->{_purpose}    = $purpose->{_generic};
+			$iShowNselect_picks->{_is_generic} = $true;
+			print("iShowNselect_picks,set_purpose is generic\n");
 		}
 
 	}
 	else {
-
-		# print("iShowNselect_picks,set_purpose value is empty NADA\n");
+		$iShowNselect_picks->{_purpose} = $purpose->{_generic};
+		$iShowNselect_picks->{_is_generic} = $true;
+		print("iShowNselect_picks,set_purpose value is empty and made generic\n");
 	}
 }
 

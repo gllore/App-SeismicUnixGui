@@ -70,7 +70,9 @@ my $empty_string = $var->{_empty_string};
 
 =cut 
 
-use App::SeismicUnixGui::misc::SeismicUnix qw($itemp_picks_sorted_par_ $ipicks_par_);
+
+use App::SeismicUnixGui::misc::SeismicUnix qw($itemp_picks_sorted_par_ $ipicks_par_
+    $false $true);
 my ($DATA_SEISMIC_TXT) = $Project->DATA_SEISMIC_TXT();
 
 =head2
@@ -94,6 +96,8 @@ my $iSave_picks = {
     _gather_header => '',
     _file_in       => '',
     _inbound       => '',
+    _is_geopsy     => $false,
+    _is_generic    => $false,
     _outbound      => '',
     _purpose       => '',
 };
@@ -109,6 +113,8 @@ sub clear {
     $iSave_picks->{_gather_type}   = '';
     $iSave_picks->{_gather_header} = '';
     $iSave_picks->{_inbound}       = '';
+    $iSave_picks->{_is_geopsy}     = $false;
+    $iSave_picks->{_is_generic}    = $false;
     $iSave_picks->{_outbound}      = '';
     $iSave_picks->{_purpose}       = '';
 }
@@ -135,16 +141,14 @@ sub calc {
 
     my ($self) = @_;
 
-    #  my $suffix = '_'.$iSave_picks->{_gather_header}.
-    #		$iSave_picks->{_gather_num};
-
     # CASE 1 - geopsy
     if ( defined $iSave_picks->{_purpose}
-        && $iSave_picks->{_purpose} eq $purpose->{_geopsy} )
+        && $iSave_picks->{_is_geopsy} )
     {
 
         my ($GEOPSY_PICKS_RAW) = $Project->GEOPSY_PICKS_RAW();
 
+        # check for directory
         if ( -d $GEOPSY_PICKS_RAW ) {
 
             $iSave_picks->{_inbound} =
@@ -201,8 +205,8 @@ sub calc {
 
     }
     # CASE 2 - normal case
-    elsif ( not defined $iSave_picks->{_purpose}
-        || $iSave_picks->{_purpose} eq $empty_string )
+    elsif ( $iSave_picks->{_purpose}
+        and $iSave_picks->{_is_generic} )
     {
 
         $iSave_picks->{_inbound} =
@@ -224,7 +228,7 @@ sub calc {
 
     }
     else {
-        print("1. iSave_picks, purpose:---$iSave_picks->{_purpose}---\n");
+        print("1. iSave_picks, no urpose:---$iSave_picks->{_purpose}---\n");
     }
 
 =head2
@@ -250,7 +254,7 @@ sub calc {
 
 =cut
 
-    # print  "$flow[1]\n";
+    print  "$flow[1]\n";
     # $log->file($flow[1]);
 
 }    # end calc subroutine
@@ -320,59 +324,6 @@ sub gather_type {
     return ();
 }
 
-#sub icp {
-#
-# 	my ($self) = @_;
-#
-#	use Shell qw(echo);
-#
-#    my  $home_directory = ` echo \$HOME`;
-#    chomp $home_directory;
-#
-#	my $HOME 			= $home_directory;
-#
-#	use File::Copy;
-#	use App::SeismicUnixGui::misc::control '0.0.3';
-#use aliased 'App::SeismicUnixGui::misc::control';
-#	use dirs;
-#	use App::SeismicUnixGui::misc::readfiles;
-#
-#	my $ACTIVE_CONFIGURATION 		= $HOME.'/.L_SU/configuration/active';
-#	my $inbound						= $ACTIVE_CONFIGURATION.'/Project.config';
-#
-#	my $readfiles					= readfiles	->new();
-#	my $dirs						= dirs		->new();
-#	my $control						= control	->new();
-#
-#	my $project = {
-#		_names_aref   				=>	'',
-#		_values_aref   				=> 	'',
-#		_check_buttons_aref  		=>	'',
-#	};
-#
-#	my ($names_aref,$values_aref)  	= $readfiles->configs($inbound);
-#
-#	$project->{_names_aref} 		= $names_aref;
-#	$project->{_values_aref} 		= $values_aref;
-#	my $PROJECT_NAME				= @{$project->{_values_aref}}[2];
-#	# my $PROJECT_PATH				= @{$project->{_values_aref}}[1];
-#	$dirs							-> set_path($PROJECT_NAME);
-#	my $Project_name 				= $dirs-> get_last_dirInpath();
-#	$control						-> set_infection($Project_name );
-#	$Project_name 					= $control->get_ticksBgone();
-#
-#	# print("Project_config,update_configuration_file, PROJECT_PATH: $PROJECT_PATH\n");
-#
-#	# print("Project_config,update_configuration_file, Project_name: $Project_name \n");
-#
-#	my $FROM_project_config		= $inbound;
-#	my $TO_project_config		= $HOME.'/.L_SU/configuration/'.$Project_name.'/Project.config';
-#	# print("Project_config,update_configuration_files copying from $FROM_project_config to $TO_project_config\n");
-#	copy($FROM_project_config,$TO_project_config);
-#
-#
-# }
-
 =head2  sub set_purpose 
 
   define where the data will need to go
@@ -395,21 +346,23 @@ sub set_purpose {
         # print("iSave_picks,set_purpose: $type\n");
         # print("iSave_picks,set_purpose: $purpose->{_geopsy}\n");
 
-        if ( $type eq $purpose->{_geopsy} ) {
+		if ( $type eq $purpose->{_geopsy} ) {
 
-            $iSave_picks->{_purpose} = $type;
+			$iSave_picks->{_purpose}   = $type;
+			$iSave_picks->{_is_geopsy} = $true;
+            print("iSave_picks,set_purpose: $purpose->{_geopsy}\n");
+			# purposes can refine the style of plots
+	        # geopsy plot preference for JML
 
-            # print("iSave_picks,set_purpose: $iSave_picks->{_purpose}\n");
+		}
+		else {
+			$iSave_picks->{_purpose} = $purpose->{_generic};
+            $iSave_picks->{_is_generic} = $true;
+            print("iSave_picks,set_purpose: $purpose->{_generic}\n");
+		}
 
-        }
-        else {
-            # print("iSave_picks,set_purpose is unavailable, NADA\n");
-        }
+	}
 
-    }
-    else {
-        # print("iSave_picks,set_purpose value is empty NADA\n");
-    }
 }
 
 1;
